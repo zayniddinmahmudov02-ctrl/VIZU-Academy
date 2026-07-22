@@ -71,9 +71,10 @@ Desktop.ini
 # Uploads
 # ==========================
 uploads/
-storage/
 media/
 
+/storage/
+!backend/app/core/storage/
 # ==========================
 # Database
 # ==========================
