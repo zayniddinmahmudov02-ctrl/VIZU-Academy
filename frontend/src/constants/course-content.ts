@@ -1,0 +1,155 @@
+import type { LevelCode } from "./levels";
+
+export interface LessonInfo {
+  number: number;
+  title: string;
+}
+
+export interface CourseContent {
+  level: LevelCode;
+  title: string;
+  description: string;
+  lessons: LessonInfo[];
+}
+
+export const COURSE_CONTENT: Record<LevelCode, CourseContent> = {
+  A1: {
+    level: "A1",
+    title: "German Beginner",
+    description: "Deutsch von Anfang an lernen.",
+    lessons: [
+      { number: 1, title: "Begrüßung" },
+      { number: 2, title: "Familie" },
+      { number: 3, title: "Freizeit" },
+      { number: 4, title: "Essen und Trinken" },
+      { number: 5, title: "Wohnen" },
+      { number: 6, title: "Berufe" },
+      { number: 7, title: "Tagesablauf" },
+      { number: 8, title: "Einkaufen" },
+      { number: 9, title: "Verkehr" },
+      { number: 10, title: "Gesundheit" },
+      { number: 11, title: "Reisen" },
+      { number: 12, title: "Feiertage" },
+      { number: 13, title: "Natur" },
+      { number: 14, title: "Prüfungsvorbereitung" },
+    ],
+  },
+
+  A2: {
+    level: "A2",
+    title: "German Elementary",
+    description: "Deutsch sicher im Alltag verwenden.",
+    lessons: [
+      { number: 1, title: "Wiederholung A1" },
+      { number: 2, title: "Freunde" },
+      { number: 3, title: "Wohnung" },
+      { number: 4, title: "Arbeit" },
+      { number: 5, title: "Medien" },
+      { number: 6, title: "Umwelt" },
+      { number: 7, title: "Kleidung" },
+      { number: 8, title: "Gesund leben" },
+      { number: 9, title: "Urlaub" },
+      { number: 10, title: "Technik" },
+      { number: 11, title: "Service" },
+      { number: 12, title: "Kultur" },
+      { number: 13, title: "Kommunikation" },
+      { number: 14, title: "Prüfungsvorbereitung" },
+    ],
+  },
+
+  B1: {
+    level: "B1",
+    title: "German Intermediate",
+    description: "Selbstständig kommunizieren.",
+    lessons: [
+      { number: 1, title: "Wiederholung A2" },
+      { number: 2, title: "Bildung" },
+      { number: 3, title: "Beruf" },
+      { number: 4, title: "Studium" },
+      { number: 5, title: "Bewerbung" },
+      { number: 6, title: "Gesellschaft" },
+      { number: 7, title: "Politik" },
+      { number: 8, title: "Wirtschaft" },
+      { number: 9, title: "Technologie" },
+      { number: 10, title: "Umwelt" },
+      { number: 11, title: "Gesundheit" },
+      { number: 12, title: "Reisen" },
+      { number: 13, title: "Kultur" },
+      { number: 14, title: "Literatur" },
+      { number: 15, title: "Medien" },
+      { number: 16, title: "Diskussion" },
+      { number: 17, title: "Präsentation" },
+      { number: 18, title: "Argumentation" },
+      { number: 19, title: "Schriftliche Kommunikation" },
+      { number: 20, title: "Prüfungsvorbereitung" },
+    ],
+  },
+
+  B2: {
+    level: "B2",
+    title: "German Upper Intermediate",
+    description: "Komplexe Themen sicher beherrschen.",
+    lessons: [
+      { number: 1, title: "Wiederholung B1" },
+      { number: 2, title: "Wissenschaft" },
+      { number: 3, title: "Forschung" },
+      { number: 4, title: "Digitalisierung" },
+      { number: 5, title: "Globalisierung" },
+      { number: 6, title: "Arbeitswelt" },
+      { number: 7, title: "Migration" },
+      { number: 8, title: "Integration" },
+      { number: 9, title: "Recht" },
+      { number: 10, title: "Medizin" },
+      { number: 11, title: "Psychologie" },
+      { number: 12, title: "Klimawandel" },
+      { number: 13, title: "Nachhaltigkeit" },
+      { number: 14, title: "Innovation" },
+      { number: 15, title: "Literatur" },
+      { number: 16, title: "Philosophie" },
+      { number: 17, title: "Kunst" },
+      { number: 18, title: "Debatte" },
+      { number: 19, title: "Analyse" },
+      { number: 20, title: "Bericht" },
+      { number: 21, title: "Zusammenfassung" },
+      { number: 22, title: "Erörterung" },
+      { number: 23, title: "Statistik" },
+      { number: 24, title: "Grafikbeschreibung" },
+      { number: 25, title: "Interview" },
+      { number: 26, title: "Projektarbeit" },
+      { number: 27, title: "Präsentation" },
+      { number: 28, title: "Diskussion" },
+      { number: 29, title: "Argumentation" },
+      { number: 30, title: "Prüfungsvorbereitung" },
+    ],
+  },
+
+  C1: {
+    level: "C1",
+    title: "German Advanced",
+    description: "Akademisches und professionelles Deutsch.",
+    lessons: [
+      { number: 1, title: "Akademisches Schreiben" },
+      { number: 2, title: "Wissenschaftliche Sprache" },
+      { number: 3, title: "Fachtexte" },
+      { number: 4, title: "Diskussion" },
+      { number: 5, title: "Debatte" },
+      { number: 6, title: "Analyse" },
+      { number: 7, title: "Interpretation" },
+      { number: 8, title: "Literatur" },
+      { number: 9, title: "Politik" },
+      { number: 10, title: "Wirtschaft" },
+      { number: 11, title: "Recht" },
+      { number: 12, title: "Philosophie" },
+      { number: 13, title: "Ethik" },
+      { number: 14, title: "Kultur" },
+      { number: 15, title: "Medien" },
+      { number: 16, title: "Rhetorik" },
+      { number: 17, title: "Vortrag" },
+      { number: 18, title: "Forschung" },
+      { number: 19, title: "Projekt" },
+      { number: 20, title: "Zusammenfassung" },
+      { number: 21, title: "Argumentation" },
+      { number: 22, title: "Prüfungsvorbereitung" },
+    ],
+  },
+};

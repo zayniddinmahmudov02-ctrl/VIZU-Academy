@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <defs>
+    <clipPath id="tile"><rect width="120" height="120"/></clipPath>
+  </defs>
+  <g clip-path="url(#tile)" fill="none" stroke-linejoin="round" stroke-linecap="round">
+    <!-- Eight-point stars (two overlapping squares) at centre and corners -->
+    <g stroke="#1e3a8a" stroke-width="1.4">
+      <rect x="36" y="36" width="48" height="48"/>
+      <rect x="36" y="36" width="48" height="48" transform="rotate(45 60 60)"/>
+      <rect x="-24" y="-24" width="48" height="48"/>
+      <rect x="-24" y="-24" width="48" height="48" transform="rotate(45 0 0)"/>
+      <rect x="96" y="-24" width="48" height="48"/>
+      <rect x="96" y="-24" width="48" height="48" transform="rotate(45 120 0)"/>
+      <rect x="-24" y="96" width="48" height="48"/>
+      <rect x="-24" y="96" width="48" height="48" transform="rotate(45 0 120)"/>
+      <rect x="96" y="96" width="48" height="48"/>
+      <rect x="96" y="96" width="48" height="48" transform="rotate(45 120 120)"/>
+    </g>
+    <!-- Connecting lattice -->
+    <g stroke="#3b82f6" stroke-width="1">
+      <path d="M60 12 L108 60 L60 108 L12 60 Z"/>
+    </g>
+    <!-- Gold accents -->
+    <g fill="#d4af37">
+      <circle cx="60" cy="60" r="2.6"/>
+      <circle cx="0" cy="0" r="2.6"/>
+      <circle cx="120" cy="0" r="2.6"/>
+      <circle cx="0" cy="120" r="2.6"/>
+      <circle cx="120" cy="120" r="2.6"/>
+    </g>
+  </g>
+</svg>

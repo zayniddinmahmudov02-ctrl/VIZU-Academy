@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="24" viewBox="0 0 320 24" fill="none">
+  <line x1="8" y1="12" x2="132" y2="12" stroke="#d4af37" stroke-width="1.4" opacity="0.55"/>
+  <line x1="188" y1="12" x2="312" y2="12" stroke="#d4af37" stroke-width="1.4" opacity="0.55"/>
+  <circle cx="120" cy="12" r="2.4" fill="#d4af37"/>
+  <circle cx="200" cy="12" r="2.4" fill="#d4af37"/>
+  <!-- Central eight-point star -->
+  <g transform="translate(160 12)">
+    <path d="M0 -10 L2.6 -2.6 L10 0 L2.6 2.6 L0 10 L-2.6 2.6 L-10 0 L-2.6 -2.6 Z" fill="#1e3a8a"/>
+    <path d="M0 -10 L2.6 -2.6 L10 0 L2.6 2.6 L0 10 L-2.6 2.6 L-10 0 L-2.6 -2.6 Z" fill="#d4af37" transform="rotate(45)" opacity="0.85"/>
+    <circle r="2.4" fill="#f2e6b3"/>
+  </g>
+</svg>

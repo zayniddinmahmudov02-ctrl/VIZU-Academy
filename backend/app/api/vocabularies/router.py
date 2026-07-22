@@ -1,0 +1,138 @@
+from uuid import UUID
+
+from fastapi import APIRouter, Depends, Response, status
+from sqlalchemy.orm import Session
+
+from app.db.session import get_db
+
+from app.schemas.vocabulary import (
+    VocabularyCreate,
+    VocabularyResponse,
+    VocabularyUpdate,
+)
+
+from app.services.vocabulary import VocabularyService
+
+
+router = APIRouter(
+    prefix="/vocabularies",
+    tags=["Vocabularies"],
+)
+
+
+@router.get(
+    "/",
+    response_model=list[VocabularyResponse],
+)
+def get_vocabularies(
+    db: Session = Depends(get_db),
+):
+    service = VocabularyService(db)
+    return service.get_all()
+
+
+@router.get(
+    "/{vocabulary_id}",
+    response_model=VocabularyResponse,
+)
+def get_vocabulary(
+    vocabulary_id: UUID,
+    db: Session = Depends(get_db),
+):
+    service = VocabularyService(db)
+    return service.get(vocabulary_id)
+
+
+@router.get(
+    "/lesson/{lesson_id}",
+    response_model=list[VocabularyResponse],
+)
+def get_lesson_vocabularies(
+    lesson_id: UUID,
+    db: Session = Depends(get_db),
+):
+    service = VocabularyService(db)
+    return service.get_by_lesson(
+        lesson_id,
+    )
+
+
+@router.post(
+    "/",
+    response_model=VocabularyResponse,
+    status_code=status.HTTP_201_CREATED,
+)
+def create_vocabulary(
+    payload: VocabularyCreate,
+    db: Session = Depends(get_db),
+):
+    service = VocabularyService(db)
+    return service.create(payload)
+
+
+@router.put(
+    "/{vocabulary_id}",
+    response_model=VocabularyResponse,
+)
+def update_vocabulary(
+    vocabulary_id: UUID,
+    payload: VocabularyUpdate,
+    db: Session = Depends(get_db),
+):
+    service = VocabularyService(db)
+
+    vocabulary = service.get(vocabulary_id)
+
+    return service.update(
+        vocabulary,
+        payload,
+    )
+
+
+@router.patch(
+    "/{vocabulary_id}/publish",
+    response_model=VocabularyResponse,
+)
+def publish_vocabulary(
+    vocabulary_id: UUID,
+    db: Session = Depends(get_db),
+):
+    service = VocabularyService(db)
+
+    vocabulary = service.get(vocabulary_id)
+
+    return service.publish(vocabulary)
+
+
+@router.patch(
+    "/{vocabulary_id}/unpublish",
+    response_model=VocabularyResponse,
+)
+def unpublish_vocabulary(
+    vocabulary_id: UUID,
+    db: Session = Depends(get_db),
+):
+    service = VocabularyService(db)
+
+    vocabulary = service.get(vocabulary_id)
+
+    return service.unpublish(vocabulary)
+
+
+@router.delete(
+    "/{vocabulary_id}",
+    status_code=status.HTTP_204_NO_CONTENT,
+)
+def delete_vocabulary(
+    vocabulary_id: UUID,
+    db: Session = Depends(get_db),
+):
+    service = VocabularyService(db)
+
+    vocabulary = service.get(vocabulary_id)
+
+    service.delete(vocabulary)
+
+    return Response(
+        status_code=status.HTTP_204_NO_CONTENT,
+    )

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" viewBox="0 0 90 90">
+  <defs>
+    <clipPath id="t2"><rect width="90" height="90"/></clipPath>
+  </defs>
+  <g clip-path="url(#t2)" fill="none" stroke-linejoin="round" stroke-linecap="round">
+    <!-- Interlacing girih net -->
+    <g stroke="#1e3a8a" stroke-width="1.1" opacity="0.45">
+      <rect x="27" y="27" width="36" height="36" transform="rotate(45 45 45)"/>
+      <rect x="30" y="30" width="30" height="30"/>
+      <rect x="-18" y="-18" width="36" height="36" transform="rotate(45 0 0)"/>
+      <rect x="72" y="-18" width="36" height="36" transform="rotate(45 90 0)"/>
+      <rect x="-18" y="72" width="36" height="36" transform="rotate(45 0 90)"/>
+      <rect x="72" y="72" width="36" height="36" transform="rotate(45 90 90)"/>
+    </g>
+    <!-- Floral quatrefoils at edge midpoints -->
+    <g stroke="#3b82f6" stroke-width="1" opacity="0.4">
+      <path d="M45 0 C51 6 51 12 45 18 C39 12 39 6 45 0 Z"/>
+      <path d="M45 90 C51 84 51 78 45 72 C39 78 39 84 45 90 Z"/>
+      <path d="M0 45 C6 51 12 51 18 45 C12 39 6 39 0 45 Z"/>
+      <path d="M90 45 C84 51 78 51 72 45 C78 39 84 39 90 45 Z"/>
+    </g>
+    <!-- Gold seed dots -->
+    <g fill="#d4af37" opacity="0.8">
+      <circle cx="45" cy="45" r="2"/>
+      <circle cx="0" cy="0" r="2"/>
+      <circle cx="90" cy="0" r="2"/>
+      <circle cx="0" cy="90" r="2"/>
+      <circle cx="90" cy="90" r="2"/>
+    </g>
+  </g>
+</svg>

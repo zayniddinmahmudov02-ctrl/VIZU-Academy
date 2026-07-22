@@ -1,0 +1,346 @@
+@import "tailwindcss";
+
+/* Drive Tailwind's `dark:` variant from next-themes' `class` strategy
+   instead of the default `prefers-color-scheme` media query. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ------------------------------------------------------------------
+   VIZU Academy — Design Tokens
+   Premium minimal SaaS system (Linear / Stripe / Notion / Apple)
+------------------------------------------------------------------- */
+@theme {
+  --font-sans: var(--font-inter), Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Global density scale — overrides Tailwind's default 0.25rem spacing
+     unit so every padding, margin, gap, width and height utility across
+     the app shrinks together (~12%). This is the single lever for the
+     "premium/compact" SaaS density pass; prefer this over per-component
+     spacing edits. */
+  --spacing: 0.22rem;
+
+  /* Type scale — anchored to the reference sizes (body 16 / caption 14 /
+     card title 20 / section title 30 / large title 42); only the
+     in-between and largest steps were tightened. */
+  --text-lg: 1.0625rem;
+  --text-lg--line-height: calc(1.625 / 1.0625);
+  --text-2xl: 1.375rem;
+  --text-2xl--line-height: calc(1.875 / 1.375);
+  --text-4xl: 2.125rem;
+  --text-4xl--line-height: calc(2.375 / 2.125);
+  --text-5xl: 2.625rem;
+  --text-5xl--line-height: 1.05;
+
+  /* Brand blue ramp — used for buttons, links, active states */
+  --color-brand-50: #eff6ff;
+  --color-brand-100: #dbeafe;
+  --color-brand-200: #bfdbfe;
+  --color-brand-300: #93c5fd;
+  --color-brand-400: #60a5fa;
+  --color-brand-500: #3b82f6;
+  --color-brand-600: #2563eb;
+  --color-brand-700: #1d4ed8;
+  --color-brand-800: #1e3a8a;
+  --color-brand-900: #172554;
+
+  /* Purple accent */
+  --color-purple-400: #a78bfa;
+  --color-purple-500: #8b6cf9;
+  --color-purple-600: #6d5ef8;
+  --color-purple-700: #5b3ff0;
+
+  /* Navy — the sidebar's fixed brand shade (does not flip with theme) */
+  --color-navy-950: #080f24;
+  --color-navy-900: #0e1834;
+  --color-navy-800: #142248;
+  --color-navy-700: #1c2e5e;
+  --color-navy-600: #263b74;
+
+  /* Gold — oriental accent ramp */
+  --color-gold-300: #f0dfa0;
+  --color-gold-400: #e4c877;
+  --color-gold-500: #d4af37;
+  --color-gold-600: #b8912b;
+  --color-gold-700: #93701f;
+
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+
+  /* Warm gold-tinted gray — inactive sidebar icon/text on the navy shell */
+  --color-sidebar-muted: #E7C96B;
+
+  --radius-card: 18px;
+  --radius-button: 12px;
+  --radius-input: 12px;
+  --radius-dialog: 20px;
+}
+
+/* ------------------------------------------------------------------
+   Semantic surface/text tokens — flip between light and dark via the
+   `.dark` class (set by next-themes on <html>). Re-exposed below as
+   real Tailwind color utilities (bg-surface, text-primary, ...).
+------------------------------------------------------------------- */
+:root {
+  --surface-bg: #faf6ec;
+  --surface-card: #ffffff;
+  --surface-hover: #f2ecdc;
+  --surface-border: rgba(20, 34, 72, 0.08);
+
+  --text-primary: #17203d;
+  --text-secondary: #6b7280;
+  --text-muted: #9aa1b5;
+
+  --accent-blue: #2563eb;
+  --accent-blue-hover: #3b82f6;
+  --accent-purple: #6d5ef8;
+
+  --shadow-color: 220 40% 30%;
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 4px 16px -4px rgba(15, 23, 42, 0.08), 0 2px 6px -2px rgba(15, 23, 42, 0.05);
+  --shadow-lg: 0 16px 40px -12px rgba(15, 23, 42, 0.14), 0 4px 12px -4px rgba(15, 23, 42, 0.06);
+  --glow-blue: 0 0 0 rgba(37, 99, 235, 0);
+}
+
+.dark {
+  --surface-bg: #09090b;
+  --surface-card: #111827;
+  --surface-hover: rgba(255, 255, 255, 0.06);
+  --surface-border: rgba(248, 250, 252, 0.08);
+
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+
+  --accent-blue: #4f7cff;
+  --accent-blue-hover: #6690ff;
+  --accent-purple: #7c5cff;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 20px -4px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 20px 48px -12px rgba(0, 0, 0, 0.55);
+  --glow-blue: 0 0 32px rgba(79, 124, 255, 0.18);
+}
+
+/* Sidebar + topbar-glass surfaces are a fixed brand shade — they do not
+   flip between light/dark, matching the reference: the navy/gold shell
+   stays constant while only the page content underneath re-themes. */
+:root,
+.dark {
+  --surface-sidebar: #0b1122;
+  --surface-navbar: rgba(250, 246, 236, 0.78);
+  --accent-gold: #d4af37;
+  --accent-gold-soft: rgba(212, 175, 55, 0.16);
+
+  /* Layered "premium" card shadows — ambient + contact + long throw,
+     stacked instead of a single blur, for real depth (not a flat blur). */
+  --shadow-card: 0 1px 1px rgba(23, 32, 61, 0.03), 0 4px 8px -2px rgba(23, 32, 61, 0.05),
+    0 16px 32px -12px rgba(23, 32, 61, 0.12), 0 32px 56px -24px rgba(23, 32, 61, 0.12);
+  --shadow-card-hover: 0 2px 2px rgba(23, 32, 61, 0.04), 0 8px 16px -4px rgba(23, 32, 61, 0.08),
+    0 24px 48px -16px rgba(23, 32, 61, 0.16), 0 40px 72px -24px rgba(23, 32, 61, 0.16);
+
+  /* 3D button depth — inner top highlight + inner bottom shade + outer drop */
+  --shadow-3d-gold: inset 0 1px 0 rgba(255, 255, 255, 0.3), inset 0 -3px 5px rgba(0, 0, 0, 0.28),
+    0 12px 24px -8px rgba(212, 175, 55, 0.5), 0 4px 10px -2px rgba(8, 15, 36, 0.4);
+  --shadow-3d-gold-hover: inset 0 1px 0 rgba(255, 255, 255, 0.35), inset 0 -3px 5px rgba(0, 0, 0, 0.3),
+    0 16px 32px -8px rgba(212, 175, 55, 0.6), 0 6px 14px -2px rgba(8, 15, 36, 0.45);
+  --shadow-3d-soft: inset 0 1px 0 rgba(255, 255, 255, 0.5), inset 0 -2px 3px rgba(15, 23, 42, 0.06),
+    0 8px 16px -6px rgba(15, 23, 42, 0.2), 0 2px 6px -2px rgba(15, 23, 42, 0.12);
+}
+
+.dark {
+  --surface-navbar: rgba(17, 24, 39, 0.78);
+}
+
+@theme inline {
+  --color-surface-bg: var(--surface-bg);
+  --color-surface-card: var(--surface-card);
+  --color-surface-sidebar: var(--surface-sidebar);
+  --color-surface-navbar: var(--surface-navbar);
+  --color-surface-hover: var(--surface-hover);
+  --color-surface-border: var(--surface-border);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+
+  --color-accent-blue: var(--accent-blue);
+  --color-accent-blue-hover: var(--accent-blue-hover);
+  --color-accent-purple: var(--accent-purple);
+  --color-accent-gold: var(--accent-gold);
+  --color-accent-gold-soft: var(--accent-gold-soft);
+  --color-sidebar-text: #E7C96B;
+}
+
+/* Wrapped in Tailwind's `base` cascade layer — otherwise this unlayered
+   reset would out-rank every layered Tailwind utility (p-*, m-*, mx-*,
+   space-y-*, ...) regardless of specificity, silently zeroing all
+   padding/margin utilities app-wide. */
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  background: var(--surface-bg);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-feature-settings: "cv11", "ss01";
+}
+
+/* Smooth, scoped theme-switch transition — never on `transform`, so it
+   never fights Framer Motion's transform-based animations. */
+body,
+main,
+aside,
+header,
+section,
+div,
+button,
+input,
+textarea,
+svg {
+  transition:
+    background-color 250ms ease,
+    border-color 250ms ease,
+    color 250ms ease,
+    box-shadow 250ms ease;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-muted);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Glass / floating-surface helper — used by the topbar and sidebar shell */
+.glass {
+  background: var(--surface-navbar);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Oriental geometric-pattern decorations — corner accents only, never a
+   full tile. Two small rosette medallions (top-left / bottom-right),
+   low-opacity, purely decorative. Combine with .pattern-accent-tr / -bl
+   to pick a different pair of corners where the default doesn't fit. */
+.pattern-accent {
+  position: relative;
+  isolation: isolate;
+}
+
+.pattern-accent::before,
+.pattern-accent::after {
+  content: "";
+  position: absolute;
+  width: 84px;
+  height: 84px;
+  background-image: url("/patterns/hero-pattern.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.07;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.pattern-accent::before {
+  top: -18px;
+  left: -18px;
+}
+
+.pattern-accent::after {
+  bottom: -18px;
+  right: -18px;
+  transform: rotate(180deg);
+}
+
+.pattern-accent-corner {
+  position: relative;
+  isolation: isolate;
+}
+
+.pattern-accent-corner::after {
+  content: "";
+  position: absolute;
+  top: -22px;
+  right: -22px;
+  width: 96px;
+  height: 96px;
+  background-image: url("/patterns/hero-pattern.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ------------------------------------------------------------------
+   SUPER ADMIN PANEL — isolated design tokens.
+   Deliberately NOT part of the `@theme` block above and does not read
+   or flip with `.dark` — this is the admin panel's own fixed "Dark
+   Premium" theme, scoped entirely under `.admin-shell` so it can never
+   leak into or be affected by the student interface's light/dark
+   system. Admin components reference these via `var(--admin-*)`.
+------------------------------------------------------------------- */
+.admin-shell {
+  --admin-bg: #0b1220;
+  --admin-card: #111827;
+  --admin-card-hover: #151f30;
+  --admin-border: rgba(255, 255, 255, 0.06);
+  --admin-border-strong: rgba(255, 255, 255, 0.12);
+
+  --admin-primary: #5b5bf8;
+  --admin-primary-hover: #7373fa;
+  --admin-secondary: #7c3aed;
+  --admin-accent: #22c55e;
+  --admin-warning: #f59e0b;
+  --admin-danger: #ef4444;
+
+  --admin-text-primary: #f8fafc;
+  --admin-text-secondary: #94a3b8;
+  --admin-text-muted: #64748b;
+
+  --admin-shadow-card: 0 1px 1px rgba(0, 0, 0, 0.15), 0 8px 24px -8px rgba(0, 0, 0, 0.5),
+    0 24px 48px -16px rgba(91, 91, 248, 0.08);
+
+  background: var(--admin-bg);
+  color: var(--admin-text-primary);
+  color-scheme: dark;
+}
+
+.admin-glass {
+  background: rgba(17, 24, 39, 0.72);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--admin-border);
+}
