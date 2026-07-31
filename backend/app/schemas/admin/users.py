@@ -1,7 +1,8 @@
 from datetime import datetime
 
-from pydantic import ConfigDict
+from pydantic import ConfigDict, field_validator
 
+from app.core.security.roles import UserRole
 from app.schemas.base import BaseSchema
 
 
@@ -140,6 +141,20 @@ class GrantPremiumRequest(BaseSchema):
 
 class ExtendSubscriptionRequest(BaseSchema):
     days: int
+
+
+class RoleUpdateRequest(BaseSchema):
+    role: str
+
+    @field_validator("role")
+    @classmethod
+    def role_must_be_known(cls, value: str) -> str:
+        if value not in UserRole.ALL_ROLES:
+            raise ValueError(
+                f"Unknown role '{value}'. Must be one of: "
+                f"{', '.join(sorted(UserRole.ALL_ROLES))}"
+            )
+        return value
 
 
 class BanRequest(BaseSchema):

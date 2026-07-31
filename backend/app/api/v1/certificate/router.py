@@ -1,11 +1,23 @@
 from fastapi import APIRouter
 from fastapi import Depends
 from fastapi import HTTPException
+from fastapi import Response
+from fastapi import status
 from fastapi.responses import FileResponse
 
 from sqlalchemy.orm import Session
 
+from app.api.dependencies.auth import require_super_admin
+
 from app.db.session import get_db
+
+from app.models.user import User
+
+from app.schemas.certificate import (
+    CertificateCreate,
+    CertificateResponse,
+    CertificateUpdate,
+)
 
 from app.services.certificate import (
     CertificatePDFService,
@@ -27,6 +39,7 @@ router = APIRouter(
 @router.get("")
 def get_certificates(
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_super_admin),
 ):
     service = CertificateService(db)
 
@@ -41,6 +54,7 @@ def get_certificates(
 def get_certificate(
     certificate_id: str,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_super_admin),
 ):
     service = CertificateService(db)
 
@@ -55,6 +69,83 @@ def get_certificate(
         )
 
     return certificate
+
+
+# ==================================================
+# CREATE CERTIFICATE (manual issuance / correction)
+# ==================================================
+
+@router.post(
+    "",
+    response_model=CertificateResponse,
+    status_code=status.HTTP_201_CREATED,
+)
+def create_certificate(
+    data: CertificateCreate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_super_admin),
+):
+    service = CertificateService(db)
+
+    return service.create(data)
+
+
+# ==================================================
+# UPDATE CERTIFICATE (correct metadata)
+# ==================================================
+
+@router.put(
+    "/{certificate_id}",
+    response_model=CertificateResponse,
+)
+def update_certificate(
+    certificate_id: str,
+    data: CertificateUpdate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_super_admin),
+):
+    service = CertificateService(db)
+
+    certificate = service.update(
+        certificate_id,
+        data,
+    )
+
+    if not certificate:
+        raise HTTPException(
+            status_code=404,
+            detail="Certificate not found",
+        )
+
+    return certificate
+
+
+# ==================================================
+# DELETE CERTIFICATE (revoke)
+# ==================================================
+
+@router.delete(
+    "/{certificate_id}",
+    status_code=status.HTTP_204_NO_CONTENT,
+)
+def delete_certificate(
+    certificate_id: str,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_super_admin),
+):
+    service = CertificateService(db)
+
+    deleted = service.delete(
+        certificate_id,
+    )
+
+    if not deleted:
+        raise HTTPException(
+            status_code=404,
+            detail="Certificate not found",
+        )
+
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
 # ==================================================
@@ -91,6 +182,7 @@ def verify_certificate(
 def generate_pdf(
     certificate_id: str,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_super_admin),
 ):
     service = CertificateService(db)
 
@@ -132,6 +224,7 @@ def generate_pdf(
 def generate_qr(
     certificate_id: str,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_super_admin),
 ):
     service = CertificateService(db)
 
@@ -173,6 +266,7 @@ def generate_qr(
 def download_certificate(
     certificate_id: str,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_super_admin),
 ):
     service = CertificateService(db)
 

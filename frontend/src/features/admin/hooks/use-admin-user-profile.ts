@@ -74,6 +74,7 @@ export function useAdminUserProfile(userId: string) {
     extendSubscription: (days: number) => runAction(() => usersService.extendSubscription(userId, days)),
     ban: (reason: string) => runAction(() => usersService.banUser(userId, reason)),
     unban: () => runAction(() => usersService.unbanUser(userId)),
+    updateRole: (role: string) => runAction(() => usersService.updateUserRole(userId, role)),
     suspend: (days: number, reason: string) => runAction(() => usersService.suspendUser(userId, days, reason)),
     unsuspend: () => runAction(() => usersService.unsuspendUser(userId)),
     resetPassword: () => runAction(() => usersService.resetPassword(userId)),

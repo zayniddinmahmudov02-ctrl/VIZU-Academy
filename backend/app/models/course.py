@@ -8,7 +8,7 @@ class Course(BaseModel):
     __tablename__ = "courses"
 
     language_id: Mapped[str] = mapped_column(
-        ForeignKey("languages.id"),
+        ForeignKey("languages.id", ondelete="CASCADE"),
         nullable=False,
         index=True,
     )

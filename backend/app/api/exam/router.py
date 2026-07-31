@@ -6,7 +6,11 @@ from fastapi import (
 
 from sqlalchemy.orm import Session
 
+from app.api.dependencies.auth import get_current_user
+
 from app.db.session import get_db
+
+from app.models.user import User
 
 from app.schemas.exam import (
     ExamCreate,
@@ -30,6 +34,7 @@ router = APIRouter(
 )
 def get_all(
     db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
     return ExamService(db).get_all()
 
@@ -41,6 +46,7 @@ def get_all(
 def get_one(
     exam_id: str,
     db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
 
     exam = ExamService(db).get(exam_id)
@@ -61,6 +67,7 @@ def get_one(
 def create(
     data: ExamCreate,
     db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
     return ExamService(db).create(data)
 
@@ -73,6 +80,7 @@ def update(
     exam_id: str,
     data: ExamUpdate,
     db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
 
     exam = ExamService(db).update(
@@ -93,6 +101,7 @@ def update(
 def delete(
     exam_id: str,
     db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
 
     deleted = ExamService(db).delete(

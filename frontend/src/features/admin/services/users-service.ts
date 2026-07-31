@@ -60,6 +60,7 @@ function buildParams(query: Partial<UserListQuery>) {
   if (query.tag) params.tag = query.tag;
   if (query.sortBy) params.sort_by = query.sortBy;
   if (query.sortDir) params.sort_dir = query.sortDir;
+  if (query.staffOnly) params.staff_only = "true";
   return params;
 }
 
@@ -187,6 +188,11 @@ export async function banUser(userId: string, reason: string): Promise<AdminUser
 
 export async function unbanUser(userId: string): Promise<AdminUserDetail> {
   const response = await api.post(`/admin/users/${userId}/unban`);
+  return mapDetail(response.data);
+}
+
+export async function updateUserRole(userId: string, role: string): Promise<AdminUserDetail> {
+  const response = await api.patch(`/admin/users/${userId}/role`, { role });
   return mapDetail(response.data);
 }
 

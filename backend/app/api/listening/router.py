@@ -1,7 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
+from app.api.dependencies.auth import require_admin_panel_access
 from app.db.session import get_db
+from app.models.user import User
 from app.schemas.listening import (
     ListeningCreate,
     ListeningResponse,
@@ -42,6 +44,7 @@ def get_listening(
 def create_listening(
     data: ListeningCreate,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     return ListeningService(db).create(data)
 
@@ -51,6 +54,7 @@ def update_listening(
     listening_id: str,
     data: ListeningUpdate,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     listening = ListeningService(db).update(
         listening_id,
@@ -70,6 +74,7 @@ def update_listening(
 def delete_listening(
     listening_id: str,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     deleted = ListeningService(db).delete(listening_id)
 

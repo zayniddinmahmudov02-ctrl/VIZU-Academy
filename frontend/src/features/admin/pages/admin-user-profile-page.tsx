@@ -127,6 +127,7 @@ export default function AdminUserProfilePage({ userId }: { userId: string }) {
         onExtendSubscription={() => setModal("extend-subscription")}
         onResetPassword={handleResetPassword}
         onImpersonate={() => setModal("impersonate-confirm")}
+        onRoleChange={(role) => profile.updateRole(role)}
       />
 
       {profile.actionError && (

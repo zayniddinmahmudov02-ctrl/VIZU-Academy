@@ -1,7 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
+from app.api.dependencies.auth import require_admin_panel_access
 from app.db.session import get_db
+
+from app.models.user import User
 
 from app.schemas.quiz_option import (
     QuizOptionCreate,
@@ -26,6 +29,7 @@ def get_all(db: Session = Depends(get_db)):
 def create(
     data: QuizOptionCreate,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     return QuizOptionService(db).create(data)
 
@@ -35,6 +39,7 @@ def update(
     option_id: str,
     data: QuizOptionUpdate,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     item = QuizOptionService(db).update(
         option_id,
@@ -54,6 +59,7 @@ def update(
 def delete(
     option_id: str,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     deleted = QuizOptionService(db).delete(option_id)
 

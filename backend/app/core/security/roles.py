@@ -22,3 +22,7 @@ class UserRole:
         SUPPORT,
         TEACHER,
     }
+
+    # Every valid value for User.role — used to validate role-assignment
+    # input so a typo/garbage string can't be written to the column.
+    ALL_ROLES = ADMIN_PANEL_ROLES | {STUDENT}

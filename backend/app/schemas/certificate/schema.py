@@ -11,10 +11,6 @@ class CertificateBase(BaseSchema):
 
     course_id: str
 
-    certificate_number: str
-
-    verification_code: str
-
     provider: str = "VIZU"
 
     level: str
@@ -37,10 +33,33 @@ class CertificateBase(BaseSchema):
 
 
 class CertificateCreate(CertificateBase):
-    pass
+    """Manual/admin issuance payload.
+
+    certificate_number and verification_code are intentionally optional —
+    when omitted, CertificateService.create() auto-generates them via the
+    same generate_number()/generate_verification_code() logic used by the
+    automatic issuance path (CertificateService.issue()), so both routes
+    share a single source of truth for these unique, non-null fields.
+    """
+
+    certificate_number: str | None = None
+
+    verification_code: str | None = None
 
 
 class CertificateUpdate(BaseSchema):
+
+    user_id: str | None = None
+
+    course_id: str | None = None
+
+    certificate_number: str | None = None
+
+    verification_code: str | None = None
+
+    provider: str | None = None
+
+    level: str | None = None
 
     score: int | None = None
 
@@ -62,6 +81,10 @@ class CertificateUpdate(BaseSchema):
 class CertificateResponse(CertificateBase):
 
     id: str
+
+    certificate_number: str
+
+    verification_code: str
 
     issued_at: datetime
 

@@ -31,6 +31,9 @@ interface Props {
   onExportCsv: () => void;
   onExportXlsx: () => void;
   exporting: boolean;
+  /** Restricts the role dropdown's choices — e.g. the "Admins" panel only
+   *  offers staff roles, since it never shows students in the first place. */
+  roleOptions?: string[];
 }
 
 export default function UsersFiltersBar({
@@ -43,6 +46,7 @@ export default function UsersFiltersBar({
   onExportCsv,
   onExportXlsx,
   exporting,
+  roleOptions = ROLE_OPTIONS,
 }: Props) {
   return (
     <div className="admin-glass flex flex-wrap items-center gap-3 rounded-2xl p-4">
@@ -62,7 +66,7 @@ export default function UsersFiltersBar({
         className="rounded-xl border border-[var(--admin-border)] bg-white/[0.03] px-3 py-2.5 text-sm text-white outline-none focus:border-[var(--admin-primary)]/50"
       >
         <option value="" className="bg-[#111827]">All roles</option>
-        {ROLE_OPTIONS.map((r) => (
+        {roleOptions.map((r) => (
           <option key={r} value={r} className="bg-[#111827]">
             {r.replace(/_/g, " ")}
           </option>

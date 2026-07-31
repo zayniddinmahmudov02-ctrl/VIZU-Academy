@@ -7,7 +7,7 @@ class ReadingOptionBase(BaseSchema):
 
     question_id: str
 
-    text: str
+    option_text: str
 
     is_correct: bool = False
 
@@ -20,7 +20,7 @@ class ReadingOptionCreate(ReadingOptionBase):
 
 class ReadingOptionUpdate(BaseSchema):
 
-    text: str | None = None
+    option_text: str | None = None
 
     is_correct: bool | None = None
 

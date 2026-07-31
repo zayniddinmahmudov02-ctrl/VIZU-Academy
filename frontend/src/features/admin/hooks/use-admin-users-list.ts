@@ -12,8 +12,17 @@ const DEFAULT_QUERY: UserListQuery = {
   sortDir: "desc",
 };
 
-export function useAdminUsersList() {
-  const [query, setQuery] = useState<UserListQuery>(DEFAULT_QUERY);
+interface Options {
+  /** When true, the list is restricted server-side to every non-STUDENT
+   *  role at once — powers the "Admins" panel. */
+  staffOnly?: boolean;
+}
+
+export function useAdminUsersList(options: Options = {}) {
+  const [query, setQuery] = useState<UserListQuery>({
+    ...DEFAULT_QUERY,
+    staffOnly: options.staffOnly,
+  });
   const [data, setData] = useState<AdminUserListResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);

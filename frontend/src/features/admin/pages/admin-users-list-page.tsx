@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Users as UsersIcon } from "lucide-react";
+import { ShieldCheck, Users as UsersIcon } from "lucide-react";
 
 import { useAdminUsersList } from "../hooks/use-admin-users-list";
 import { exportUsersCsv, exportUsersXlsx } from "../services/users-service";
@@ -9,8 +9,19 @@ import UsersFiltersBar from "../components/users-filters-bar";
 import UsersTable from "../components/users-table";
 import PaginationBar from "../components/pagination-bar";
 
-export default function AdminUsersListPage() {
-  const { query, data, loading, error, setSearch, setRole, setStatus, setPage, setSort } = useAdminUsersList();
+const STAFF_ROLE_OPTIONS = ["SUPER_ADMIN", "ADMIN", "CONTENT_MANAGER", "PAYMENT_MANAGER", "SUPPORT", "TEACHER"];
+
+interface Props {
+  /** Restricts the list to staff roles only and swaps the header/icon —
+   *  powers the "Admins" panel at /admin/admins, reusing everything else
+   *  (search/filter/sort/pagination/export) as-is. */
+  staffOnly?: boolean;
+}
+
+export default function AdminUsersListPage({ staffOnly = false }: Props) {
+  const { query, data, loading, error, setSearch, setRole, setStatus, setPage, setSort } = useAdminUsersList({
+    staffOnly,
+  });
 
   const [searchInput, setSearchInput] = useState("");
   const [exporting, setExporting] = useState(false);
@@ -41,12 +52,12 @@ export default function AdminUsersListPage() {
       <div className="admin-glass flex flex-wrap items-center justify-between gap-4 rounded-2xl p-6">
         <div className="flex items-center gap-3">
           <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-[var(--admin-primary)] to-[var(--admin-secondary)] text-white">
-            <UsersIcon size={20} />
+            {staffOnly ? <ShieldCheck size={20} /> : <UsersIcon size={20} />}
           </div>
           <div>
-            <h1 className="text-lg font-bold text-white">Users</h1>
+            <h1 className="text-lg font-bold text-white">{staffOnly ? "Admins" : "Users"}</h1>
             <p className="text-xs text-[var(--admin-text-muted)]">
-              {data ? `${data.total} registered users` : "Loading…"}
+              {data ? `${data.total} ${staffOnly ? "staff accounts" : "registered users"}` : "Loading…"}
             </p>
           </div>
         </div>
@@ -62,6 +73,7 @@ export default function AdminUsersListPage() {
         onExportCsv={() => handleExport("csv")}
         onExportXlsx={() => handleExport("xlsx")}
         exporting={exporting}
+        roleOptions={staffOnly ? STAFF_ROLE_OPTIONS : undefined}
       />
 
       {error ? (

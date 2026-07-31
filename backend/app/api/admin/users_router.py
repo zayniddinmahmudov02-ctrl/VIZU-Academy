@@ -18,6 +18,7 @@ from app.schemas.admin import (
     LoginHistoryResponse,
     PaymentHistoryItem,
     ResetPasswordResponse,
+    RoleUpdateRequest,
     SubscriptionInfo,
     SuspendRequest,
     TagRequest,
@@ -74,6 +75,7 @@ def list_users(
     tag: str | None = None,
     sort_by: str = "created_at",
     sort_dir: str = "desc",
+    staff_only: bool = False,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_super_admin),
 ):
@@ -86,6 +88,7 @@ def list_users(
         tag=tag,
         sort_by=sort_by,
         sort_dir=sort_dir,
+        staff_only=staff_only,
     )
 
 
@@ -255,6 +258,19 @@ def unban_user(
     current_user: User = Depends(require_super_admin),
 ):
     return AdminUsersService(db).unban(user_id, current_user, _client_ip(request))
+
+
+@router.patch("/{user_id}/role", response_model=UserDetail)
+def update_user_role(
+    user_id: str,
+    data: RoleUpdateRequest,
+    request: Request,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_super_admin),
+):
+    return AdminUsersService(db).update_role(
+        user_id, data.role, current_user, _client_ip(request)
+    )
 
 
 @router.post("/{user_id}/suspend", response_model=UserDetail)

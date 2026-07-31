@@ -19,9 +19,12 @@ from app.api.videos.router import router as videos_router
 from app.api.video_progress.router import router as video_progress_router
 from app.api.vocabularies.router import router as vocabularies_router
 from app.api.readings.router import router as readings_router
+from app.api.reading_question import router as reading_question_router
+from app.api.reading_option import router as reading_option_router
 from app.api.grammar import router as grammar_router
 from app.api.listening import router as listening_router
 from app.api.writing import router as writing_router
+from app.api.speaking import router as speaking_router
 
 # Student
 from app.api.student_progress import (
@@ -145,9 +148,12 @@ app.include_router(videos_router)
 app.include_router(video_progress_router)
 app.include_router(vocabularies_router)
 app.include_router(readings_router)
+app.include_router(reading_question_router)
+app.include_router(reading_option_router)
 app.include_router(grammar_router)
 app.include_router(listening_router)
 app.include_router(writing_router)
+app.include_router(speaking_router)
 
 app.include_router(student_progress_router)
 app.include_router(student_writing_router)

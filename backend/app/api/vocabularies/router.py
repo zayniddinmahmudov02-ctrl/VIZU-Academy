@@ -3,8 +3,10 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, Response, status
 from sqlalchemy.orm import Session
 
+from app.api.dependencies.auth import require_admin_panel_access
 from app.api.dependencies.progress import require_video_completed
 from app.db.session import get_db
+from app.models.user import User
 
 from app.schemas.vocabulary import (
     VocabularyCreate,
@@ -70,9 +72,10 @@ def get_lesson_vocabularies(
 def create_vocabulary(
     payload: VocabularyCreate,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     service = VocabularyService(db)
-    return service.create(payload)
+    return service.create(payload.model_dump())
 
 
 @router.put(
@@ -83,6 +86,7 @@ def update_vocabulary(
     vocabulary_id: UUID,
     payload: VocabularyUpdate,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     service = VocabularyService(db)
 
@@ -90,7 +94,7 @@ def update_vocabulary(
 
     return service.update(
         vocabulary,
-        payload,
+        payload.model_dump(exclude_unset=True),
     )
 
 
@@ -101,6 +105,7 @@ def update_vocabulary(
 def publish_vocabulary(
     vocabulary_id: UUID,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     service = VocabularyService(db)
 
@@ -116,6 +121,7 @@ def publish_vocabulary(
 def unpublish_vocabulary(
     vocabulary_id: UUID,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     service = VocabularyService(db)
 
@@ -131,6 +137,7 @@ def unpublish_vocabulary(
 def delete_vocabulary(
     vocabulary_id: UUID,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     service = VocabularyService(db)
 

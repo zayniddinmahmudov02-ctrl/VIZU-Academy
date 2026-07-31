@@ -18,7 +18,7 @@ class Module(BaseModel):
     __tablename__ = "modules"
 
     course_id: Mapped[str] = mapped_column(
-        ForeignKey("courses.id"),
+        ForeignKey("courses.id", ondelete="CASCADE"),
         nullable=False,
         index=True,
     )

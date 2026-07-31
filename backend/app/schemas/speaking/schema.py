@@ -10,11 +10,17 @@ class SpeakingBase(BaseSchema):
 
     title: str
 
+    topic: str
+
     instruction: str
 
     sample_answer: str | None = None
 
-    max_score: int = 100
+    keywords: str | None = None
+
+    preparation_time: int = 15
+
+    speaking_time: int = 90
 
     order_index: int = 1
 
@@ -28,11 +34,17 @@ class SpeakingCreate(SpeakingBase):
 class SpeakingUpdate(BaseSchema):
     title: str | None = None
 
+    topic: str | None = None
+
     instruction: str | None = None
 
     sample_answer: str | None = None
 
-    max_score: int | None = None
+    keywords: str | None = None
+
+    preparation_time: int | None = None
+
+    speaking_time: int | None = None
 
     order_index: int | None = None
 

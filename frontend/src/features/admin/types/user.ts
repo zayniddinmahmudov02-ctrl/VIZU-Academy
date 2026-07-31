@@ -141,6 +141,10 @@ export interface UserListQuery {
   tag?: string;
   sortBy?: string;
   sortDir?: "asc" | "desc";
+  /** Restricts the list to every non-STUDENT (i.e. admin-panel-capable)
+   *  role at once — powers the "Admins" panel. Ignored server-side if
+   *  `role` is also set (a specific role always wins). */
+  staffOnly?: boolean;
 }
 
 export interface ImpersonateResult {

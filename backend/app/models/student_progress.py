@@ -2,6 +2,7 @@ from sqlalchemy import (
     Boolean,
     ForeignKey,
     Integer,
+    UniqueConstraint,
 )
 
 from sqlalchemy.orm import (
@@ -16,6 +17,13 @@ from app.models.base import BaseModel
 class StudentProgress(BaseModel):
 
     __tablename__ = "student_progress"
+    __table_args__ = (
+        UniqueConstraint(
+            "user_id",
+            "lesson_id",
+            name="uq_student_progress_user_lesson",
+        ),
+    )
 
     user_id: Mapped[str] = mapped_column(
         ForeignKey("users.id", ondelete="CASCADE"),

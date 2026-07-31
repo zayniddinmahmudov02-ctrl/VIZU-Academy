@@ -1,7 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
+from app.api.dependencies.auth import require_admin_panel_access
 from app.db.session import get_db
+from app.models.user import User
 from app.schemas.module import (
     ModuleCreate,
     ModuleResponse,
@@ -34,6 +36,7 @@ def get_module(module_id: str, db: Session = Depends(get_db)):
 def create_module(
     data: ModuleCreate,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     return ModuleService(db).create(data)
 
@@ -43,6 +46,7 @@ def update_module(
     module_id: str,
     data: ModuleUpdate,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     module = ModuleService(db).update(module_id, data)
 
@@ -56,6 +60,7 @@ def update_module(
 def delete_module(
     module_id: str,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     deleted = ModuleService(db).delete(module_id)
 

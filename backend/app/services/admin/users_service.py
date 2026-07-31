@@ -10,6 +10,7 @@ from app.core.audit import write_audit
 from app.core.exceptions import DomainError, NotFoundError
 from app.core.pagination import clamp_page_params, paginated_response
 from app.core.security import create_user_token, hash_password
+from app.core.security.roles import UserRole
 from app.models.audit_log import AuditLog
 from app.models.certificate import Certificate
 from app.models.course import Course
@@ -102,6 +103,7 @@ class AdminUsersService:
         tag: str | None = None,
         sort_by: str = "created_at",
         sort_dir: str = "desc",
+        staff_only: bool = False,
     ) -> dict:
         query = self.db.query(User)
 
@@ -113,6 +115,10 @@ class AdminUsersService:
 
         if role:
             query = query.filter(User.role == role)
+        elif staff_only:
+            # Powers the "Admins" panel — every staff role (i.e. anyone
+            # with admin-panel access), not one specific role.
+            query = query.filter(User.role.in_(UserRole.ADMIN_PANEL_ROLES))
 
         if tag:
             query = query.join(UserTag, UserTag.user_id == User.id).filter(
@@ -515,6 +521,20 @@ class AdminUsersService:
         self.db.commit()
 
         self._audit(actor, "unsuspend_user", user, None, ip)
+
+        return self.get_detail(user_id)
+
+    def update_role(self, user_id: str, role: str, actor: User, ip: str | None) -> dict:
+        user = self._get_user(user_id)
+        if user is None:
+            raise NotFoundError("User not found")
+
+        previous_role = user.role
+        user.role = role
+
+        self.db.commit()
+
+        self._audit(actor, "update_role", user, f"{previous_role} -> {role}", ip)
 
         return self.get_detail(user_id)
 

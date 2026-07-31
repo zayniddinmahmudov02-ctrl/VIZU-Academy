@@ -2,7 +2,10 @@ from fastapi import APIRouter, Depends, HTTPException
 
 from sqlalchemy.orm import Session
 
+from app.api.dependencies.auth import require_admin_panel_access
 from app.db.session import get_db
+
+from app.models.user import User
 
 from app.schemas.homework import (
     HomeworkCreate,
@@ -54,6 +57,7 @@ def get_one(
 def create(
     data: HomeworkCreate,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     return HomeworkService(db).create(data)
 
@@ -66,6 +70,7 @@ def update(
     item_id: str,
     data: HomeworkUpdate,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     item = HomeworkService(db).update(
         item_id,
@@ -85,6 +90,7 @@ def update(
 def delete(
     item_id: str,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     deleted = HomeworkService(db).delete(item_id)
 

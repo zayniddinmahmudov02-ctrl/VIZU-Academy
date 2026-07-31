@@ -1,7 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
+from app.api.dependencies.auth import require_admin_panel_access
 from app.db.session import get_db
+from app.models.user import User
 
 from app.schemas.grammar import (
     GrammarCreate,
@@ -44,6 +46,7 @@ def get_grammar(
 def create_grammar(
     data: GrammarCreate,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     return GrammarService(db).create(data)
 
@@ -53,6 +56,7 @@ def update_grammar(
     grammar_id: str,
     data: GrammarUpdate,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     grammar = GrammarService(db).update(
         grammar_id,
@@ -72,6 +76,7 @@ def update_grammar(
 def delete_grammar(
     grammar_id: str,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     deleted = GrammarService(db).delete(grammar_id)
 

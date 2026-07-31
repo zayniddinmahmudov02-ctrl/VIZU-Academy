@@ -3,8 +3,10 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, Response, status
 from sqlalchemy.orm import Session
 
+from app.api.dependencies.auth import require_admin_panel_access
 from app.api.dependencies.progress import require_video_completed
 from app.db.session import get_db
+from app.models.user import User
 
 from app.schemas.reading import (
     ReadingCreate,
@@ -72,10 +74,11 @@ def get_lesson_readings(
 def create_reading(
     payload: ReadingCreate,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     service = ReadingService(db)
 
-    return service.create(payload)
+    return service.create(payload.model_dump())
 
 
 @router.put(
@@ -86,6 +89,7 @@ def update_reading(
     reading_id: UUID,
     payload: ReadingUpdate,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     service = ReadingService(db)
 
@@ -93,7 +97,7 @@ def update_reading(
 
     return service.update(
         reading,
-        payload,
+        payload.model_dump(exclude_unset=True),
     )
 
 
@@ -104,6 +108,7 @@ def update_reading(
 def publish_reading(
     reading_id: UUID,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     service = ReadingService(db)
 
@@ -119,6 +124,7 @@ def publish_reading(
 def unpublish_reading(
     reading_id: UUID,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     service = ReadingService(db)
 
@@ -134,6 +140,7 @@ def unpublish_reading(
 def delete_reading(
     reading_id: UUID,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     service = ReadingService(db)
 

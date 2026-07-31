@@ -41,6 +41,36 @@ class CertificateService:
         self,
         data: CertificateCreate,
     ):
+        # Manual/admin issuance: reuse the same certificate_number /
+        # verification_code generators as the automatic issue() path so
+        # there is a single source of truth for these unique, non-null
+        # fields — never invented ad hoc here or on the client.
+        if not data.certificate_number:
+            data = data.model_copy(
+                update={
+                    "certificate_number": self.generate_number(),
+                },
+            )
+
+        if not data.verification_code:
+            data = data.model_copy(
+                update={
+                    "verification_code": self.generate_verification_code(),
+                },
+            )
+
+        if not data.score:
+            data = data.model_copy(
+                update={
+                    "score": (
+                        data.lesen_score
+                        + data.hoeren_score
+                        + data.schreiben_score
+                        + data.sprechen_score
+                    ),
+                },
+            )
+
         return self.repository.create(data)
 
     def update(

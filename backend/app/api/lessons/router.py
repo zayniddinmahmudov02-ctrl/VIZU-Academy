@@ -1,13 +1,24 @@
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Response, status
 from sqlalchemy.orm import Session
 
-from app.api.dependencies.auth import get_current_user
+from app.api.dependencies.auth import get_current_user, require_admin_panel_access
 from app.db.session import get_db
 from app.models.user import User
-from app.schemas.lesson import LessonDetail, LessonListItem, LessonResponse
-from app.services.lesson import get_all_lessons, get_lesson_detail, get_lessons_for_module
+from app.schemas.lesson import (
+    LessonCreate,
+    LessonDetail,
+    LessonListItem,
+    LessonResponse,
+    LessonUpdate,
+)
+from app.services.lesson import (
+    LessonService,
+    get_all_lessons,
+    get_lesson_detail,
+    get_lessons_for_module,
+)
 
 router = APIRouter(
     prefix="/lessons",
@@ -55,3 +66,57 @@ def get_lesson(
         )
 
     return lesson
+
+
+@router.post(
+    "",
+    response_model=LessonResponse,
+    status_code=status.HTTP_201_CREATED,
+)
+def create_lesson(
+    data: LessonCreate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    return LessonService(db).create(data)
+
+
+@router.put(
+    "/{lesson_id}",
+    response_model=LessonResponse,
+)
+def update_lesson(
+    lesson_id: UUID,
+    data: LessonUpdate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    lesson = LessonService(db).update(str(lesson_id), data)
+
+    if not lesson:
+        raise HTTPException(
+            status_code=404,
+            detail="Lesson not found",
+        )
+
+    return lesson
+
+
+@router.delete(
+    "/{lesson_id}",
+    status_code=status.HTTP_204_NO_CONTENT,
+)
+def delete_lesson(
+    lesson_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    deleted = LessonService(db).delete(str(lesson_id))
+
+    if not deleted:
+        raise HTTPException(
+            status_code=404,
+            detail="Lesson not found",
+        )
+
+    return Response(status_code=status.HTTP_204_NO_CONTENT)

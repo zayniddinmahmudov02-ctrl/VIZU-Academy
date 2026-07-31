@@ -1,7 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
+from app.api.dependencies.auth import require_admin_panel_access
 from app.db.session import get_db
+
+from app.models.user import User
 
 from app.schemas.writing import (
     WritingCreate,
@@ -44,6 +47,7 @@ def get_writing(
 def create_writing(
     data: WritingCreate,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     return WritingService(db).create(data)
 
@@ -53,6 +57,7 @@ def update_writing(
     writing_id: str,
     data: WritingUpdate,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     writing = WritingService(db).update(
         writing_id,
@@ -72,6 +77,7 @@ def update_writing(
 def delete_writing(
     writing_id: str,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     deleted = WritingService(db).delete(writing_id)
 
