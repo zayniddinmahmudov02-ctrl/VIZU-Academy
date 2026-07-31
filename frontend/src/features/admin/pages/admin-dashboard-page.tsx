@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import {
   Award,
   BarChart3,
@@ -19,10 +20,33 @@ import {
 import { useCurrentUser } from "@/features/auth/hooks/use-current-user";
 import { useAdminDashboard } from "../hooks/use-admin-dashboard";
 import StatCard from "../components/stat-card";
-import RevenueChart from "../components/revenue-chart";
-import UserGrowthChart from "../components/user-growth-chart";
 import ListCard from "../components/list-card";
 import AdminLoading from "../components/admin-loading";
+
+// recharts touches browser-only APIs (ResizeObserver / window) as soon as
+// its module graph is evaluated, not just when it renders — a static
+// import would pull that into the server bundle and crash SSR the moment
+// this page's module is loaded, regardless of any loading-state gating
+// in the JSX below. These charts never render anything meaningful during
+// SSR anyway (there's no data yet), so disabling SSR for them costs
+// nothing and removes recharts from the server bundle entirely.
+function ChartSkeleton() {
+  return (
+    <div className="admin-glass flex h-[21.5rem] items-center justify-center rounded-2xl p-5 shadow-[var(--admin-shadow-card)] sm:p-6">
+      <div className="h-6 w-6 animate-spin rounded-full border-[3px] border-white/10 border-t-[var(--admin-primary)]" />
+    </div>
+  );
+}
+
+const RevenueChart = dynamic(() => import("../components/revenue-chart"), {
+  ssr: false,
+  loading: ChartSkeleton,
+});
+
+const UserGrowthChart = dynamic(() => import("../components/user-growth-chart"), {
+  ssr: false,
+  loading: ChartSkeleton,
+});
 
 function formatCurrency(value: number): string {
   return `${new Intl.NumberFormat("de-DE").format(value)} UZS`;

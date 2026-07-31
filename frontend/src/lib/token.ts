@@ -3,6 +3,7 @@ const IMPERSONATOR_TOKEN_KEY = "vizu_impersonator_token";
 const IMPERSONATING_LABEL_KEY = "vizu_impersonating_label";
 
 export function saveToken(token: string) {
+  if (typeof window === "undefined") return;
   localStorage.setItem(TOKEN_KEY, token);
 }
 
@@ -15,12 +16,15 @@ export function getToken(): string | null {
 }
 
 export function removeToken() {
+  if (typeof window === "undefined") return;
   localStorage.removeItem(TOKEN_KEY);
 }
 
 /** Swaps the active session token for an impersonated user's token, stashing
  * the admin's original token so it can be restored via stopImpersonation(). */
 export function startImpersonation(impersonationToken: string, targetLabel: string) {
+  if (typeof window === "undefined") return;
+
   const currentToken = getToken();
   if (currentToken) {
     localStorage.setItem(IMPERSONATOR_TOKEN_KEY, currentToken);
@@ -30,6 +34,8 @@ export function startImpersonation(impersonationToken: string, targetLabel: stri
 }
 
 export function stopImpersonation() {
+  if (typeof window === "undefined") return;
+
   const originalToken = localStorage.getItem(IMPERSONATOR_TOKEN_KEY);
   if (originalToken) {
     saveToken(originalToken);
