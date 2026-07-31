@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 from app.core.config import settings
 from app.core.exceptions import NotFoundError
 from app.core.logging.logger import logger
-from app.core.storage.r2 import get_r2_client
+from app.core.storage.factory import StorageFactory
 
 from app.models.user import User
 from app.models.video import Video
@@ -28,7 +28,7 @@ class VideoService:
         self.repository = VideoRepository(db)
         self.lessons = LessonRepository(db)
         self.enrollments = EnrollmentRepository(db)
-        self.r2 = get_r2_client()
+        self.storage = StorageFactory.create(settings.STORAGE_PROVIDER)
 
     # ==========================
     # CRUD
@@ -79,25 +79,29 @@ class VideoService:
     ) -> Video:
         return self.repository.unpublish(video)
 
-    def delete(
+    async def delete(
         self,
         video: Video,
     ) -> None:
-        """Deletes the video row and, if it has one, its backing R2
-        object. R2 deletion happens first — if it fails we'd rather keep
-        the (now possibly orphaned-file) DB row than lose the metadata
-        needed to retry, than delete the row and leak storage forever."""
+        """Deletes the video row and, if it has one, its backing storage
+        object. Storage deletion happens first — if it fails we'd rather
+        keep the (now possibly orphaned-file) DB row than lose the
+        metadata needed to retry, than delete the row and leak storage
+        forever."""
 
         if video.storage_key:
-            self.r2.delete_file(video.storage_key)
+            await self.storage.delete(video.storage_key)
+
+        if video.thumbnail_key:
+            await self.storage.delete(video.thumbnail_key)
 
         self.repository.delete(video)
 
     # ==========================
-    # R2 Upload
+    # Upload
     # ==========================
 
-    def upload_video(
+    async def upload_video(
         self,
         lesson_id: UUID,
         file: UploadFile,
@@ -107,10 +111,13 @@ class VideoService:
         is_preview: bool,
         is_published: bool,
         thumbnail_url: str | None = None,
+        thumbnail_file: UploadFile | None = None,
+        duration_seconds: int = 0,
     ) -> Video:
-        """Validates the lesson and the file, streams it to R2, and
-        persists the resulting storage_key. Raises NotFoundError if the
-        lesson doesn't exist, HTTPException(400) for an invalid file."""
+        """Validates the lesson and the file, saves it via the configured
+        storage backend, and persists the resulting storage_key. Raises
+        NotFoundError if the lesson doesn't exist, HTTPException(400) for
+        an invalid file."""
 
         lesson = self.lessons.get(str(lesson_id))
 
@@ -119,28 +126,31 @@ class VideoService:
 
         self._validate_upload(file)
 
-        extension = Path(file.filename or "").suffix.lower() or ".mp4"
-        storage_key = f"videos/{lesson_id}/{uuid4().hex}{extension}"
+        storage_key = await self._store_video_file(lesson_id, file)
 
-        logger.info(
-            "Uploading video to R2: lesson_id=%s key=%s content_type=%s",
-            lesson_id,
-            storage_key,
-            file.content_type,
-        )
+        resolved_thumbnail_url = thumbnail_url
+        thumbnail_key = None
 
-        self.r2.upload_file(
-            file.file,
-            storage_key,
-            content_type=file.content_type,
-        )
+        if thumbnail_file is not None:
+            thumbnail_key = await self._store_thumbnail_file(
+                lesson_id,
+                thumbnail_file,
+            )
+            resolved_thumbnail_url = self.storage.url(thumbnail_key)
 
         video = Video(
             lesson_id=lesson_id,
             title=title,
             description=description,
             storage_key=storage_key,
-            thumbnail_url=thumbnail_url,
+            # Cached for the admin "Preview" action only — actual student
+            # playback always recomputes this from storage_key via
+            # get_playable_video(), so it stays correct even if
+            # STORAGE_PROVIDER changes later.
+            video_url=self.storage.url(storage_key),
+            thumbnail_url=resolved_thumbnail_url,
+            thumbnail_key=thumbnail_key,
+            duration_seconds=duration_seconds,
             order_index=order_index,
             is_preview=is_preview,
             is_published=is_published,
@@ -151,6 +161,69 @@ class VideoService:
         self.db.refresh(video)
 
         return video
+
+    async def replace_video(
+        self,
+        video: Video,
+        file: UploadFile,
+        duration_seconds: int | None = None,
+    ) -> Video:
+        """Swaps the backing file for an existing video row, keeping the
+        same id/metadata. The old file is deleted after the new one is
+        stored, so a failed upload never leaves the video without a
+        playable file."""
+
+        self._validate_upload(file)
+
+        old_storage_key = video.storage_key
+
+        video.storage_key = await self._store_video_file(
+            video.lesson_id,
+            file,
+        )
+        video.video_url = self.storage.url(video.storage_key)
+
+        if duration_seconds is not None:
+            video.duration_seconds = duration_seconds
+
+        self.db.commit()
+        self.db.refresh(video)
+
+        if old_storage_key:
+            await self.storage.delete(old_storage_key)
+
+        return video
+
+    async def _store_video_file(
+        self,
+        lesson_id: UUID,
+        file: UploadFile,
+    ) -> str:
+        extension = Path(file.filename or "").suffix.lower() or ".mp4"
+        storage_key = f"videos/{lesson_id}/{uuid4().hex}{extension}"
+
+        logger.info(
+            "Storing video: lesson_id=%s key=%s content_type=%s",
+            lesson_id,
+            storage_key,
+            file.content_type,
+        )
+
+        await self.storage.upload(file, storage_key)
+
+        return storage_key
+
+    async def _store_thumbnail_file(
+        self,
+        lesson_id: UUID,
+        file: UploadFile,
+    ) -> str:
+        extension = Path(file.filename or "").suffix.lower() or ".jpg"
+        thumbnail_key = f"videos/thumbnails/{lesson_id}/{uuid4().hex}{extension}"
+
+        await self.storage.upload(file, thumbnail_key)
+
+        return thumbnail_key
 
     def _validate_upload(
         self,
@@ -190,18 +263,47 @@ class VideoService:
     # Secure Streaming
     # ==========================
 
+    def get_lesson_playback(
+        self,
+        lesson_id: UUID,
+        user: User,
+    ) -> tuple[Video, str]:
+        """The lesson's primary (first, published) video plus a playable
+        URL — what the student-facing "video for this lesson" endpoint
+        returns."""
+
+        video = self.repository.get_primary_for_lesson(lesson_id)
+
+        if video is None:
+            raise NotFoundError("Video not found")
+
+        playable = self.get_playable_video(video.id, user)
+
+        return playable, self.storage.url(playable.storage_key)
+
     def generate_streaming_url(
         self,
         video_id: UUID,
         user: User,
-    ) -> str:
+    ) -> tuple[Video, str]:
         """The single gate a student's playback request has to pass:
         video must exist, be published, have a stored file, and the
         requesting user must either be watching a free preview, hold an
         active premium subscription, or be enrolled in the video's
-        course. Returns a presigned R2 URL, valid for
-        settings.R2_SIGNED_URL_EXPIRE_SECONDS."""
+        course. Returns the video plus a URL served by the configured
+        storage backend (a local /uploads/... path today; swapping
+        STORAGE_PROVIDER to a remote backend later changes nothing
+        here)."""
 
+        video = self.get_playable_video(video_id, user)
+
+        return video, self.storage.url(video.storage_key)
+
+    def get_playable_video(
+        self,
+        video_id: UUID,
+        user: User,
+    ) -> Video:
         video = self.repository.get(video_id)
 
         if video is None or not video.is_published:
@@ -213,15 +315,15 @@ class VideoService:
         if not video.is_preview:
             self._require_access(video, user)
 
-        if not self.r2.object_exists(video.storage_key):
+        if not (Path("uploads") / video.storage_key).exists():
             logger.error(
-                "R2 object missing for published video: video_id=%s key=%s",
+                "Stored file missing for published video: video_id=%s key=%s",
                 video_id,
                 video.storage_key,
             )
             raise NotFoundError("Video not found")
 
-        return self.r2.generate_signed_url(video.storage_key)
+        return video
 
     def _require_access(
         self,

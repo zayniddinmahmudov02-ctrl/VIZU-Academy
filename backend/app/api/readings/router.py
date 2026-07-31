@@ -3,6 +3,7 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, Response, status
 from sqlalchemy.orm import Session
 
+from app.api.dependencies.progress import require_video_completed
 from app.db.session import get_db
 
 from app.schemas.reading import (
@@ -52,7 +53,10 @@ def get_reading(
 def get_lesson_readings(
     lesson_id: UUID,
     db: Session = Depends(get_db),
+    _: object = Depends(require_video_completed),
 ):
+    """Requires the caller to have completed this lesson's video first."""
+
     service = ReadingService(db)
 
     return service.get_by_lesson(

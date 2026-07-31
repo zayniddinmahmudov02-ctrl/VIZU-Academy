@@ -39,6 +39,27 @@ class VideoRepository(BaseRepository[Video]):
             result.scalars().all()
         )
 
+    def get_primary_for_lesson(
+        self,
+        lesson_id: UUID,
+    ) -> Video | None:
+        """The video a student sees first for this lesson — lowest
+        order_index among published videos."""
+
+        result = self.db.execute(
+            select(Video)
+            .where(
+                Video.lesson_id == lesson_id,
+                Video.is_published.is_(True),
+            )
+            .order_by(
+                Video.order_index,
+            )
+            .limit(1)
+        )
+
+        return result.scalars().first()
+
     def publish(
         self,
         video: Video,

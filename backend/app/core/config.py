@@ -31,7 +31,7 @@ class Settings(BaseSettings):
     R2_SIGNED_URL_EXPIRE_SECONDS: int = 300
 
     # Video upload constraints, enforced in VideoService before any bytes
-    # are sent to R2.
+    # are written to storage.
     VIDEO_MAX_UPLOAD_SIZE_MB: int = 2048
     VIDEO_ALLOWED_CONTENT_TYPES: str = "video/mp4,video/webm,video/quicktime"
 

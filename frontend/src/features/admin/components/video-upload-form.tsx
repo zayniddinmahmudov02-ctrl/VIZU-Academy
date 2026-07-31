@@ -1,10 +1,11 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { DragEvent } from "react";
 import { UploadCloud, Video as VideoIcon } from "lucide-react";
 
 import { useLessons } from "@/features/lessons/hooks/use-lessons";
+import { detectVideoDuration } from "../utils/detect-video-duration";
 import type { UploadVideoInput } from "../types/video";
 
 const ACCEPTED_TYPES = ["video/mp4", "video/webm", "video/quicktime"];
@@ -19,19 +20,29 @@ interface Props {
 export default function VideoUploadForm({ uploading, uploadProgress, uploadError, onUpload }: Props) {
   const { lessons, loading: lessonsLoading } = useLessons();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const thumbnailInputRef = useRef<HTMLInputElement>(null);
 
   const [file, setFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [durationSeconds, setDurationSeconds] = useState(0);
   const [dragActive, setDragActive] = useState(false);
   const [lessonId, setLessonId] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [thumbnailUrl, setThumbnailUrl] = useState("");
+  const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
   const [orderIndex, setOrderIndex] = useState("1");
   const [isPreview, setIsPreview] = useState(false);
   const [isPublished, setIsPublished] = useState(false);
   const [fileError, setFileError] = useState<string | null>(null);
 
-  function pickFile(candidate: File | null) {
+  useEffect(() => {
+    return () => {
+      if (previewUrl) URL.revokeObjectURL(previewUrl);
+    };
+  }, [previewUrl]);
+
+  async function pickFile(candidate: File | null) {
     if (!candidate) return;
     if (!ACCEPTED_TYPES.includes(candidate.type)) {
       setFileError("Unsupported file type. Allowed: MP4, WebM, MOV.");
@@ -39,6 +50,11 @@ export default function VideoUploadForm({ uploading, uploadProgress, uploadError
     }
     setFileError(null);
     setFile(candidate);
+    setPreviewUrl((current) => {
+      if (current) URL.revokeObjectURL(current);
+      return URL.createObjectURL(candidate);
+    });
+    setDurationSeconds(await detectVideoDuration(candidate));
   }
 
   function handleDrop(event: DragEvent<HTMLDivElement>) {
@@ -48,16 +64,21 @@ export default function VideoUploadForm({ uploading, uploadProgress, uploadError
   }
 
   function resetForm() {
+    if (previewUrl) URL.revokeObjectURL(previewUrl);
     setFile(null);
+    setPreviewUrl(null);
+    setDurationSeconds(0);
     setLessonId("");
     setTitle("");
     setDescription("");
     setThumbnailUrl("");
+    setThumbnailFile(null);
     setOrderIndex("1");
     setIsPreview(false);
     setIsPublished(false);
     setFileError(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
+    if (thumbnailInputRef.current) thumbnailInputRef.current.value = "";
   }
 
   async function handleSubmit() {
@@ -68,6 +89,8 @@ export default function VideoUploadForm({ uploading, uploadProgress, uploadError
       title: title.trim(),
       description: description.trim() || undefined,
       thumbnailUrl: thumbnailUrl.trim() || undefined,
+      thumbnailFile: thumbnailFile ?? undefined,
+      durationSeconds,
       orderIndex: Number(orderIndex) || 1,
       isPreview,
       isPublished,
@@ -87,7 +110,7 @@ export default function VideoUploadForm({ uploading, uploadProgress, uploadError
         </div>
         <div>
           <h2 className="text-sm font-bold text-white">Upload Video</h2>
-          <p className="text-xs text-[var(--admin-text-muted)]">Streamed directly to Cloudflare R2</p>
+          <p className="text-xs text-[var(--admin-text-muted)]">Saved to /uploads/videos</p>
         </div>
       </div>
 
@@ -110,7 +133,11 @@ export default function VideoUploadForm({ uploading, uploadProgress, uploadError
         <p className="text-sm font-medium text-white">
           {file ? file.name : "Drag & drop a video file, or click to browse"}
         </p>
-        <p className="text-xs text-[var(--admin-text-muted)]">MP4, WebM or MOV</p>
+        <p className="text-xs text-[var(--admin-text-muted)]">
+          {file && durationSeconds > 0
+            ? `Detected duration: ${Math.floor(durationSeconds / 60)}:${String(durationSeconds % 60).padStart(2, "0")}`
+            : "MP4, WebM or MOV"}
+        </p>
         <input
           ref={fileInputRef}
           type="file"
@@ -120,6 +147,15 @@ export default function VideoUploadForm({ uploading, uploadProgress, uploadError
         />
       </div>
       {fileError && <p className="text-xs text-[var(--admin-danger)]">{fileError}</p>}
+
+      {previewUrl && (
+        <video
+          key={previewUrl}
+          src={previewUrl}
+          controls
+          className="aspect-video w-full rounded-xl bg-black"
+        />
+      )}
 
       {/* Metadata */}
       <div className="grid gap-3 sm:grid-cols-2">
@@ -167,8 +203,20 @@ export default function VideoUploadForm({ uploading, uploadProgress, uploadError
           value={thumbnailUrl}
           onChange={(event) => setThumbnailUrl(event.target.value)}
           placeholder="Thumbnail URL (optional)"
-          className="rounded-xl border border-[var(--admin-border)] bg-white/[0.03] p-3 text-sm text-white outline-none focus:border-[var(--admin-primary)]/50 sm:col-span-2"
+          disabled={Boolean(thumbnailFile)}
+          className="rounded-xl border border-[var(--admin-border)] bg-white/[0.03] p-3 text-sm text-white outline-none focus:border-[var(--admin-primary)]/50 disabled:opacity-40 sm:col-span-2"
         />
+
+        <label className="flex cursor-pointer items-center justify-between gap-2 rounded-xl border border-[var(--admin-border)] bg-white/[0.03] p-3 text-sm text-[var(--admin-text-secondary)] sm:col-span-2">
+          <span>{thumbnailFile ? thumbnailFile.name : "Upload thumbnail image (optional)"}</span>
+          <input
+            ref={thumbnailInputRef}
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={(event) => setThumbnailFile(event.target.files?.[0] ?? null)}
+          />
+        </label>
       </div>
 
       <div className="flex flex-wrap items-center gap-5">

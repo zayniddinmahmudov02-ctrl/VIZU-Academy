@@ -57,29 +57,66 @@ async def upload_video(
     title: str = Form(...),
     description: str | None = Form(None),
     thumbnail_url: str | None = Form(None),
+    duration_seconds: int = Form(0),
     order_index: int = Form(1),
     is_preview: bool = Form(False),
     is_published: bool = Form(False),
     file: UploadFile = File(...),
+    thumbnail_file: UploadFile | None = File(None),
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin_panel_access),
 ):
-    """Uploads a video file directly to Cloudflare R2 and creates its
-    metadata row in a single request. This is the only way a video's
-    `storage_key` can be set — there is no endpoint that accepts a
-    client-supplied storage key."""
+    """Uploads a video file via the configured storage backend and
+    creates its metadata row in a single request. This is the only way a
+    video's `storage_key` can be set — there is no endpoint that accepts
+    a client-supplied storage key. `duration_seconds` is detected
+    client-side (the browser reads it off the file before submitting)
+    since there's no server-side media-inspection dependency installed."""
 
     service = VideoService(db)
 
-    return service.upload_video(
+    return await service.upload_video(
         lesson_id=lesson_id,
         file=file,
         title=title,
         description=description,
         thumbnail_url=thumbnail_url,
+        thumbnail_file=thumbnail_file,
+        duration_seconds=duration_seconds,
         order_index=order_index,
         is_preview=is_preview,
         is_published=is_published,
+    )
+
+
+@router.put(
+    "/{video_id}/replace",
+    response_model=VideoResponse,
+)
+async def replace_video(
+    video_id: UUID,
+    file: UploadFile = File(...),
+    duration_seconds: int | None = Form(None),
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    """Swaps the backing file for an existing video, keeping its id and
+    metadata (title, order, publish state, progress rows, ...) intact."""
+
+    service = VideoService(db)
+
+    video = service.get(video_id)
+
+    if video is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Video not found",
+        )
+
+    return await service.replace_video(
+        video,
+        file,
+        duration_seconds=duration_seconds,
     )
 
 
@@ -113,7 +150,7 @@ def update_video(
     "/{video_id}",
     status_code=status.HTTP_204_NO_CONTENT,
 )
-def delete_video(
+async def delete_video(
     video_id: UUID,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin_panel_access),
@@ -128,4 +165,4 @@ def delete_video(
             detail="Video not found",
         )
 
-    service.delete(video)
+    await service.delete(video)

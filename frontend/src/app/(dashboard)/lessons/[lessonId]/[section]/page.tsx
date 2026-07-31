@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import GrammarSection from "@/components/lesson-player/grammar/grammar-section";
 import HomeworkSection from "@/components/lesson-player/homework/homework-section";
+import LessonActivityGate from "@/components/lesson-player/video/lesson-activity-gate";
 import ListeningSection from "@/components/lesson-player/listening/listening-section";
 import QuizSection from "@/components/lesson-player/quiz/quiz-section";
 import ReadingSection from "@/components/lesson-player/reading/reading-section";
@@ -46,5 +47,13 @@ export default async function LessonSectionPage({ params }: Props) {
 
   const SectionComponent = SECTION_COMPONENTS[meta.type];
 
-  return <SectionComponent lessonId={lessonId} />;
+  if (meta.type === "video") {
+    return <SectionComponent lessonId={lessonId} />;
+  }
+
+  return (
+    <LessonActivityGate lessonId={lessonId}>
+      <SectionComponent lessonId={lessonId} />
+    </LessonActivityGate>
+  );
 }

@@ -213,6 +213,19 @@ export const translations: Record<string, Namespace> = {
     mediaMute: { de: "Stummschalten", uz: "Ovozni o'chirish" },
     mediaUnmute: { de: "Stummschaltung aufheben", uz: "Ovozni yoqish" },
     mediaFullscreen: { de: "Vollbild", uz: "To'liq ekran" },
+    mediaReplay: { de: "Erneut abspielen", uz: "Qayta ijro etish" },
+
+    videoResumeFrom: { de: "Fortsetzen ab {time}", uz: "{time} dan davom eting" },
+    videoCompleted: { de: "Video abgeschlossen", uz: "Video tugallandi" },
+
+    sectionLocked: {
+      de: "🔒 Schließe zuerst das Video ab.",
+      uz: "🔒 Avval videoni tugating.",
+    },
+    sectionLockedHint: {
+      de: "Diese Aktivität wird freigeschaltet, sobald du das Video abgeschlossen hast.",
+      uz: "Bu mashg'ulot videoni tugatgach ochiladi.",
+    },
 
     grammarDescription: {
       de: "Lerne die heutigen Grammatikregeln und Beispiele.",

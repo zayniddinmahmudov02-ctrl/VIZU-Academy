@@ -23,8 +23,12 @@ export default function AdminVideosPage() {
   }
 
   async function handleDelete(videoId: string) {
-    if (!window.confirm("Delete this video? This also removes the file from R2.")) return;
+    if (!window.confirm("Delete this video? This also removes its uploaded file.")) return;
     await videos.remove(videoId);
+  }
+
+  async function handleReplace(videoId: string, file: File, durationSeconds: number) {
+    await videos.replace(videoId, { file, durationSeconds });
   }
 
   return (
@@ -52,8 +56,10 @@ export default function AdminVideosPage() {
         videos={videos.data ?? []}
         loading={videos.loading}
         lessonTitleById={lessonTitleById}
+        replacing={videos.replacing}
         onTogglePublished={handleTogglePublished}
         onDelete={handleDelete}
+        onReplace={handleReplace}
       />
     </div>
   );

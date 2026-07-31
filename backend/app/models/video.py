@@ -59,6 +59,14 @@ class Video(BaseModel):
         nullable=True,
     )
 
+    # Storage key for an admin-uploaded thumbnail file, mirroring
+    # storage_key. None when thumbnail_url was set manually instead of
+    # uploaded — nothing to delete from storage in that case.
+    thumbnail_key: Mapped[str | None] = mapped_column(
+        String(1024),
+        nullable=True,
+    )
+
     duration_seconds: Mapped[int] = mapped_column(
         Integer,
         default=0,

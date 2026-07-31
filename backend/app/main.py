@@ -16,6 +16,7 @@ from app.api.courses.router import router as courses_router
 from app.api.modules.router import router as modules_router
 from app.api.lessons.router import router as lessons_router
 from app.api.videos.router import router as videos_router
+from app.api.video_progress.router import router as video_progress_router
 from app.api.vocabularies.router import router as vocabularies_router
 from app.api.readings.router import router as readings_router
 from app.api.grammar import router as grammar_router
@@ -141,6 +142,7 @@ app.include_router(courses_router)
 app.include_router(modules_router)
 app.include_router(lessons_router)
 app.include_router(videos_router)
+app.include_router(video_progress_router)
 app.include_router(vocabularies_router)
 app.include_router(readings_router)
 app.include_router(grammar_router)

@@ -3,6 +3,7 @@ export interface AdminVideoItem {
   lessonId: string;
   title: string;
   description: string | null;
+  videoUrl: string | null;
   thumbnailUrl: string | null;
   durationSeconds: number;
   orderIndex: number;
@@ -16,6 +17,8 @@ export interface UploadVideoInput {
   title: string;
   description?: string;
   thumbnailUrl?: string;
+  thumbnailFile?: File;
+  durationSeconds?: number;
   orderIndex?: number;
   isPreview?: boolean;
   isPublished?: boolean;
@@ -29,4 +32,9 @@ export interface UpdateVideoInput {
   orderIndex?: number;
   isPreview?: boolean;
   isPublished?: boolean;
+}
+
+export interface ReplaceVideoInput {
+  file: File;
+  durationSeconds?: number;
 }

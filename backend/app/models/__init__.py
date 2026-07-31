@@ -11,6 +11,7 @@ from .lesson import Lesson
 
 # Learning Content
 from .video import Video
+from .video_progress import VideoProgress
 from .vocabulary import Vocabulary
 from .grammar import Grammar
 from .reading import Reading
@@ -68,6 +69,7 @@ __all__ = [
 
     # Learning Content
     "Video",
+    "VideoProgress",
     "Vocabulary",
     "Grammar",
     "Reading",

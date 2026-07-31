@@ -35,18 +35,24 @@ class VideoResponse(VideoBase):
     id: UUID
     lesson_id: UUID
 
-    # R2 object key — fine to surface here since VideoResponse is only
+    # Storage keys — fine to surface here since VideoResponse is only
     # ever returned from admin-authenticated endpoints. The student
-    # streaming endpoint (GET /videos/{id}) returns VideoStreamResponse
-    # instead, which never includes this field.
+    # streaming endpoints (GET /videos/{id}, GET /videos/by-lesson/{id})
+    # return VideoStreamResponse instead, which never includes these.
     storage_key: str | None = None
+    thumbnail_key: str | None = None
 
     model_config = ConfigDict(from_attributes=True)
 
 
 class VideoStreamResponse(BaseSchema):
-    """The only shape ever returned to a student for playback. A
-    short-lived (5 minute) presigned R2 URL — never the storage_key, a
-    permanent URL, or any other video metadata."""
+    """The shape returned to a student for playback — access-gated
+    metadata plus a playable URL. Never the storage_key or any other
+    internal field."""
 
+    id: UUID
+    title: str
+    description: str | None = None
+    thumbnail_url: str | None = None
+    duration_seconds: int = 0
     video_url: str

@@ -3,6 +3,7 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, Response, status
 from sqlalchemy.orm import Session
 
+from app.api.dependencies.progress import require_video_completed
 from app.db.session import get_db
 
 from app.schemas.vocabulary import (
@@ -50,7 +51,11 @@ def get_vocabulary(
 def get_lesson_vocabularies(
     lesson_id: UUID,
     db: Session = Depends(get_db),
+    _: object = Depends(require_video_completed),
 ):
+    """Requires the caller to have completed this lesson's video first —
+    Vocabulary is the activity right after Video in the lesson flow."""
+
     service = VocabularyService(db)
     return service.get_by_lesson(
         lesson_id,
