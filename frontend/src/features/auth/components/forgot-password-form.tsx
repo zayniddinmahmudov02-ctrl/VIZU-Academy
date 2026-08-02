@@ -4,10 +4,13 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { MailCheck } from "lucide-react";
+import { AlertCircle, MailCheck } from "lucide-react";
 
 import Button from "@/components/ui/button";
 import Input from "@/components/ui/input";
+
+import { forgotPasswordService } from "../services/auth.service";
+import { getErrorMessage } from "../utils/get-error-message";
 
 const forgotPasswordSchema = z.object({
   email: z.email("Please enter a valid email."),
@@ -17,6 +20,7 @@ type ForgotPasswordData = z.infer<typeof forgotPasswordSchema>;
 
 export default function ForgotPasswordForm() {
   const [sent, setSent] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
 
   const {
     register,
@@ -26,11 +30,15 @@ export default function ForgotPasswordForm() {
     resolver: zodResolver(forgotPasswordSchema),
   });
 
-  async function onSubmit() {
-    // No backend endpoint exists yet — show the standard, security-conscious
-    // confirmation message without sending any request.
-    await new Promise((resolve) => setTimeout(resolve, 500));
-    setSent(true);
+  async function onSubmit(data: ForgotPasswordData) {
+    setFormError(null);
+
+    try {
+      await forgotPasswordService(data);
+      setSent(true);
+    } catch (error) {
+      setFormError(getErrorMessage(error, "Etwas ist schiefgelaufen. Bitte versuche es erneut."));
+    }
   }
 
   if (sent) {
@@ -47,6 +55,13 @@ export default function ForgotPasswordForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+      {formError && (
+        <div className="flex items-start gap-2 rounded-xl bg-danger/10 px-4 py-3 text-sm text-danger">
+          <AlertCircle size={16} className="mt-0.5 shrink-0" />
+          <span>{formError}</span>
+        </div>
+      )}
+
       <div>
         <label className="mb-2 block text-sm font-medium text-text-primary">Email</label>
         <Input type="email" placeholder="Email" error={!!errors.email} {...register("email")} />

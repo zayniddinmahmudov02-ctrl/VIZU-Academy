@@ -7,9 +7,10 @@ import Avatar from "@/components/ui/avatar";
 import DropdownMenu from "@/components/ui/dropdown-menu";
 import ThemeToggle from "@/components/ui/theme-toggle";
 import CalendarDropdown from "@/features/calendar/components/calendar-dropdown";
+import { logoutService } from "@/features/auth/services/auth.service";
 import NotificationDropdown from "@/features/notifications/components/notification-dropdown";
 import { useTranslation } from "@/lib/i18n/use-translation";
-import { removeToken } from "@/lib/token";
+import { getRefreshToken, removeRefreshToken, removeToken } from "@/lib/token";
 
 type Props = {
   onMenuClick?: () => void;
@@ -19,9 +20,21 @@ export default function Header({ onMenuClick }: Props) {
   const router = useRouter();
   const { t } = useTranslation();
 
-  function handleLogout() {
+  async function handleLogout() {
+    const refreshToken = getRefreshToken();
+
     removeToken();
+    removeRefreshToken();
     router.push("/login");
+
+    if (refreshToken) {
+      try {
+        await logoutService(refreshToken);
+      } catch {
+        // Local session is already cleared either way — this best-effort
+        // call just also invalidates the refresh token server-side.
+      }
+    }
   }
 
   return (

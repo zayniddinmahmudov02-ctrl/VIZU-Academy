@@ -1,7 +1,15 @@
-import axios from "axios";
+import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
 
 import { API_URL } from "@/src/constants/api";
-import { getToken, removeToken } from "@/src/lib/token";
+import {
+  getRefreshToken,
+  getToken,
+  isRemembered,
+  removeRefreshToken,
+  removeToken,
+  saveRefreshToken,
+  saveToken,
+} from "@/src/lib/token";
 
 export const api = axios.create({
   baseURL: API_URL,
@@ -11,9 +19,6 @@ export const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-  console.log("API URL:", config.baseURL);
-  console.log("REQUEST:", `${config.baseURL}${config.url}`);
-
   const token = getToken();
 
   const language =
@@ -30,17 +35,83 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+// Endpoints where a 401 means "these credentials/tokens were wrong," not
+// "the session expired" — attempting a refresh or redirecting would be
+// wrong here; the caller's own error handling takes over instead.
+const AUTH_ENDPOINTS = ["/auth/login", "/auth/register", "/auth/refresh"];
+
+function isAuthEndpoint(url?: string): boolean {
+  if (!url) return false;
+  return AUTH_ENDPOINTS.some((endpoint) => url.includes(endpoint));
+}
+
+function redirectToLogin() {
+  removeToken();
+  removeRefreshToken();
+  if (typeof window !== "undefined") {
+    window.location.href = "/login";
+  }
+}
+
+// Multiple requests can 401 at nearly the same moment (e.g. a page firing
+// several queries at once) — this makes sure they all wait on one shared
+// refresh call instead of each racing to redeem the same refresh token.
+let refreshPromise: Promise<string | null> | null = null;
+
+async function refreshAccessToken(): Promise<string | null> {
+  const refreshToken = getRefreshToken();
+
+  if (!refreshToken) {
+    return null;
+  }
+
+  if (!refreshPromise) {
+    refreshPromise = axios
+      .post<{ access_token: string; refresh_token: string }>(
+        `${API_URL}/auth/refresh`,
+        { refresh_token: refreshToken },
+      )
+      .then((response) => {
+        const remember = isRemembered();
+        saveToken(response.data.access_token, remember);
+        saveRefreshToken(response.data.refresh_token, remember);
+        return response.data.access_token;
+      })
+      .catch(() => null)
+      .finally(() => {
+        refreshPromise = null;
+      });
+  }
+
+  return refreshPromise;
+}
+
 api.interceptors.response.use(
   (response) => response,
-  (error) => {
-    // A 401 means the token we sent is missing/invalid/expired server-side
-    // — clear it so we don't keep resending a dead token on every
-    // subsequent request. Each caller still handles its own error/loading
-    // state; this only prevents the stale-token loop, it doesn't redirect.
-    if (error.response?.status === 401) {
-      removeToken();
+  async (error: AxiosError) => {
+    const originalRequest = error.config as
+      | (InternalAxiosRequestConfig & { _retried?: boolean })
+      | undefined;
+
+    if (
+      error.response?.status !== 401 ||
+      !originalRequest ||
+      originalRequest._retried ||
+      isAuthEndpoint(originalRequest.url)
+    ) {
+      return Promise.reject(error);
     }
 
-    return Promise.reject(error);
+    originalRequest._retried = true;
+
+    const newAccessToken = await refreshAccessToken();
+
+    if (!newAccessToken) {
+      redirectToLogin();
+      return Promise.reject(error);
+    }
+
+    originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+    return api(originalRequest);
   },
 );

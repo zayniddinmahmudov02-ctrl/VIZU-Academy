@@ -73,6 +73,19 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
     REFRESH_TOKEN_EXPIRE_DAYS: int = 30
 
+    # Stateless password-reset JWTs (see core/security/jwt.py) live this
+    # long before they're rejected regardless of use.
+    PASSWORD_RESET_TOKEN_EXPIRE_MINUTES: int = 30
+
+    # Used to build the reset link logged by /auth/forgot-password (no
+    # email-sending infrastructure exists yet — see that endpoint).
+    FRONTEND_URL: str = "http://localhost:3000"
+
+    # Shared passphrase for the Super Admin's second verification screen.
+    # Never sent to or embedded in the frontend — compared server-side
+    # only, in POST /auth/verify-admin-password.
+    SUPER_ADMIN_VERIFICATION_PASSWORD: str = "Zz_20020614"
+
     # ==================================================
     # DATABASE
     # ==================================================

@@ -1,3 +1,4 @@
+import hashlib
 from datetime import (
     UTC,
     datetime,
@@ -7,6 +8,8 @@ from datetime import (
 from jose import jwt
 
 from app.core.config import settings
+
+PASSWORD_RESET_PURPOSE = "password_reset"
 
 
 def create_access_token(
@@ -77,3 +80,47 @@ def decode_access_token(token: str) -> dict:
             settings.ALGORITHM,
         ],
     )
+
+
+def password_hash_fingerprint(password_hash: str) -> str:
+    """A short, non-reversible fingerprint of a user's current password
+    hash. Embedded in password-reset tokens so that redeeming one is
+    inherently single-use: once the password actually changes (via this
+    token, a different reset, or an admin action), the fingerprint no
+    longer matches and every previously-issued token for that user stops
+    validating — without needing a database column to track "used"."""
+
+    return hashlib.sha256(password_hash.encode("utf-8")).hexdigest()[:16]
+
+
+def create_password_reset_token(user) -> str:
+    """Stateless password-reset JWT: short-lived, scoped to this one
+    purpose via the `purpose` claim so it can never be accepted by
+    get_current_user() or any other endpoint, and self-invalidating via
+    `pwd_fp` (see password_hash_fingerprint)."""
+
+    payload = {
+        "sub": str(user.id),
+        "purpose": PASSWORD_RESET_PURPOSE,
+        "pwd_fp": password_hash_fingerprint(user.password_hash),
+    }
+
+    return create_access_token(
+        payload,
+        expires_minutes=settings.PASSWORD_RESET_TOKEN_EXPIRE_MINUTES,
+    )
+
+
+def decode_password_reset_token(token: str) -> dict:
+    """Decodes a password-reset token. Raises jose.JWTError/
+    ExpiredSignatureError same as decode_access_token — callers must
+    handle those — and additionally raises ValueError if the token is
+    well-formed but wasn't issued for this purpose (e.g. someone passing
+    a normal login access token here instead)."""
+
+    payload = decode_access_token(token)
+
+    if payload.get("purpose") != PASSWORD_RESET_PURPOSE:
+        raise ValueError("Not a password-reset token")
+
+    return payload

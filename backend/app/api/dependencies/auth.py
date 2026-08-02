@@ -1,3 +1,5 @@
+from datetime import datetime, timezone
+
 from fastapi import (
     Depends,
     HTTPException,
@@ -79,6 +81,27 @@ async def get_current_user(
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="User not found",
+        )
+
+    # Re-check standing on every request, not just at login — a ban or
+    # suspension applied mid-session must take effect immediately instead
+    # of waiting for the access token to naturally expire.
+    if user.is_banned:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="This account has been banned.",
+        )
+
+    if not user.is_active:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="This account is inactive.",
+        )
+
+    if user.suspended_until and user.suspended_until > datetime.now(timezone.utc).replace(tzinfo=None):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="This account is suspended.",
         )
 
     return user
