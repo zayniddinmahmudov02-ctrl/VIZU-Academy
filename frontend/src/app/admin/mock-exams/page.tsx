@@ -1,7 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { Plus } from "lucide-react";
+import { useState } from "react";
+import Link from "next/link";
+import { Award, BarChart3, ClipboardList, Layers3, Plus } from "lucide-react";
 
 import {
   AdminButton,
@@ -10,53 +11,68 @@ import {
   AdminInput,
   AdminLabel,
   AdminPageHeader,
-  AdminSelect,
 } from "@/components/admin/admin-ui";
 import ConfirmDialog from "@/components/admin/confirm-dialog";
 import DataTable, { DataTableColumn } from "@/components/admin/data-table";
 import FormDialog from "@/components/admin/form-dialog";
 import { useCrudList, useCrudMutations } from "@/features/admin/hooks/use-crud";
-import { examProvidersApi, examsApi } from "@/features/admin/services/exam-service";
-import type { Exam } from "@/features/admin/types/content.types";
+import { useQuery } from "@tanstack/react-query";
+import { getDashboardSummary } from "@/features/admin/services/mock-exam-service";
+import { mockExamProvidersApi } from "@/features/admin/services/mock-exam-service";
+import type { CertificationProvider } from "@/features/admin/types/mock-exam.types";
 
-const EMPTY_FORM = { provider_id: "", level: "", title: "", duration: 180, is_active: true };
+const EMPTY_FORM = {
+  name: "",
+  code: "",
+  description: "",
+  color: "#5b5bf8",
+  is_active: true,
+  sort_order: 1,
+  logo_url: null as string | null,
+};
 
-export default function MockExamsPage() {
-  const { data: providers } = useCrudList("exam-providers", examProvidersApi);
-  const providerMutations = useCrudMutations("exam-providers", examProvidersApi);
-
-  const { data, isLoading } = useCrudList("exams", examsApi);
-  const { create, update, remove } = useCrudMutations("exams", examsApi);
-
-  const providerMap = useMemo(
-    () => new Map((providers ?? []).map((p) => [p.id, p.name])),
-    [providers],
+function SummaryCard({ label, value, icon: Icon }: { label: string; value: number; icon: typeof Award }) {
+  return (
+    <AdminCard className="flex items-center gap-4">
+      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[var(--admin-primary)]/15 text-[var(--admin-primary)]">
+        <Icon size={20} />
+      </div>
+      <div>
+        <p className="text-2xl font-bold text-[var(--admin-text-primary)]">{value}</p>
+        <p className="text-xs text-[var(--admin-text-muted)]">{label}</p>
+      </div>
+    </AdminCard>
   );
+}
+
+export default function MockExamCertificatesPage() {
+  const { data: providers, isLoading } = useCrudList("mock-exam-providers", mockExamProvidersApi);
+  const { create, update, remove } = useCrudMutations("mock-exam-providers", mockExamProvidersApi);
+  const { data: summary } = useQuery({ queryKey: ["mock-exam-dashboard-summary"], queryFn: getDashboardSummary });
 
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [editing, setEditing] = useState<Exam | null>(null);
-  const [deleting, setDeleting] = useState<Exam | null>(null);
+  const [editing, setEditing] = useState<CertificationProvider | null>(null);
+  const [deleting, setDeleting] = useState<CertificationProvider | null>(null);
   const [form, setForm] = useState(EMPTY_FORM);
   const [error, setError] = useState<string | null>(null);
 
-  const [newProviderName, setNewProviderName] = useState("");
-  const [newProviderCode, setNewProviderCode] = useState("");
-
   function openCreate() {
     setEditing(null);
-    setForm({ ...EMPTY_FORM, provider_id: providers?.[0]?.id ?? "" });
+    setForm(EMPTY_FORM);
     setError(null);
     setDialogOpen(true);
   }
 
-  function openEdit(item: Exam) {
+  function openEdit(item: CertificationProvider) {
     setEditing(item);
     setForm({
-      provider_id: item.provider_id,
-      level: item.level,
-      title: item.title,
-      duration: item.duration,
+      name: item.name,
+      code: item.code,
+      description: item.description ?? "",
+      color: item.color ?? "#5b5bf8",
       is_active: item.is_active,
+      sort_order: item.sort_order,
+      logo_url: item.logo_url,
     });
     setError(null);
     setDialogOpen(true);
@@ -66,33 +82,34 @@ export default function MockExamsPage() {
     setError(null);
     try {
       if (editing) {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { provider_id: _providerId, level: _level, ...updateData } = form;
-        await update.mutateAsync({ id: editing.id, data: updateData });
+        await update.mutateAsync({ id: editing.id, data: form });
       } else {
         await create.mutateAsync(form);
       }
       setDialogOpen(false);
     } catch {
-      setError("Speichern fehlgeschlagen.");
+      setError("Speichern fehlgeschlagen. Prüfe, ob der Code bereits vergeben ist.");
     }
   }
 
-  async function handleAddProvider() {
-    if (!newProviderName.trim() || !newProviderCode.trim()) return;
-    await providerMutations.create.mutateAsync({
-      name: newProviderName.trim(),
-      code: newProviderCode.trim(),
-    });
-    setNewProviderName("");
-    setNewProviderCode("");
-  }
-
-  const columns: DataTableColumn<Exam>[] = [
-    { key: "title", header: "Titel", render: (item) => item.title },
-    { key: "level", header: "Level", render: (item) => item.level },
-    { key: "provider", header: "Anbieter", render: (item) => providerMap.get(item.provider_id) ?? "—" },
-    { key: "duration", header: "Dauer (Min.)", render: (item) => item.duration },
+  const columns: DataTableColumn<CertificationProvider>[] = [
+    {
+      key: "name",
+      header: "Zertifikat",
+      render: (item) => (
+        <Link
+          href={`/admin/mock-exams/${item.id}`}
+          className="flex items-center gap-2.5 font-medium text-[var(--admin-text-primary)] hover:text-[var(--admin-primary)]"
+        >
+          <span
+            className="h-2.5 w-2.5 shrink-0 rounded-full"
+            style={{ backgroundColor: item.color ?? "#5b5bf8" }}
+          />
+          {item.name}
+        </Link>
+      ),
+    },
+    { key: "code", header: "Code", render: (item) => item.code },
     {
       key: "is_active",
       header: "Status",
@@ -108,73 +125,76 @@ export default function MockExamsPage() {
         </span>
       ),
     },
+    {
+      key: "open",
+      header: "",
+      render: (item) => (
+        <Link
+          href={`/admin/mock-exams/${item.id}`}
+          className="text-xs font-medium text-[var(--admin-primary)] hover:underline"
+        >
+          Levels öffnen →
+        </Link>
+      ),
+    },
   ];
 
   return (
     <div>
       <AdminPageHeader
-        title="Mock Exams"
-        description="Prüfungssimulationen je Anbieter und Level."
+        title="Mock Test Management"
+        description="Zertifikate → Levels → Modelltests → Kompetenzen → Teile → Fragen."
         action={
-          <AdminButton onClick={openCreate} disabled={!providers || providers.length === 0}>
-            <Plus size={16} />
-            Neue Prüfung
-          </AdminButton>
+          <div className="flex items-center gap-2">
+            <Link href="/admin/mock-exams/question-bank">
+              <AdminButton variant="secondary">
+                <Layers3 size={16} />
+                Question Bank
+              </AdminButton>
+            </Link>
+            <Link href="/admin/mock-exams/results">
+              <AdminButton variant="secondary">
+                <ClipboardList size={16} />
+                Ergebnisse
+              </AdminButton>
+            </Link>
+            <Link href="/admin/mock-exams/analytics">
+              <AdminButton variant="secondary">
+                <BarChart3 size={16} />
+                Analytics
+              </AdminButton>
+            </Link>
+            <AdminButton onClick={openCreate}>
+              <Plus size={16} />
+              Neues Zertifikat
+            </AdminButton>
+          </div>
         }
       />
 
-      <AdminCard className="mb-6">
-        <h3 className="mb-3 text-sm font-semibold text-[var(--admin-text-primary)]">Prüfungsanbieter</h3>
-        <div className="mb-3 flex flex-wrap gap-2">
-          {(providers ?? []).map((p) => (
-            <span
-              key={p.id}
-              className="rounded-full bg-white/5 px-3 py-1.5 text-xs font-medium text-[var(--admin-text-secondary)]"
-            >
-              {p.name} <span className="text-[var(--admin-text-muted)]">({p.code})</span>
-            </span>
-          ))}
-          {(!providers || providers.length === 0) && (
-            <p className="text-xs text-[var(--admin-text-muted)]">Noch keine Anbieter angelegt.</p>
-          )}
+      {summary && (
+        <div className="mb-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
+          <SummaryCard label="Zertifikate" value={summary.certificates} icon={Award} />
+          <SummaryCard label="Levels" value={summary.levels} icon={Layers3} />
+          <SummaryCard label="Modelltests" value={summary.model_tests} icon={ClipboardList} />
+          <SummaryCard label="Fragen" value={summary.questions} icon={BarChart3} />
         </div>
-        <div className="flex items-center gap-2">
-          <AdminInput
-            value={newProviderName}
-            onChange={(e) => setNewProviderName(e.target.value)}
-            placeholder="Name (z. B. Goethe-Institut)"
-            className="h-9 flex-1 text-sm"
-          />
-          <AdminInput
-            value={newProviderCode}
-            onChange={(e) => setNewProviderCode(e.target.value)}
-            placeholder="Code (z. B. GOETHE)"
-            className="h-9 w-40 text-sm"
-          />
-          <AdminButton type="button" variant="secondary" size="sm" onClick={handleAddProvider}>
-            <Plus size={14} />
-          </AdminButton>
-        </div>
-      </AdminCard>
+      )}
 
       <DataTable
         columns={columns}
-        data={data}
+        data={providers}
         isLoading={isLoading}
         getRowId={(item) => item.id}
         onEdit={openEdit}
         onDelete={setDeleting}
-        emptyMessage={
-          providers && providers.length === 0
-            ? "Lege zuerst einen Prüfungsanbieter an."
-            : "Noch keine Prüfungen angelegt."
-        }
+        emptyMessage="Noch keine Zertifikate angelegt (z. B. Goethe-Institut, TELC, ÖSD)."
       />
 
       <FormDialog
         open={dialogOpen}
         onOpenChange={setDialogOpen}
-        title={editing ? "Prüfung bearbeiten" : "Neue Prüfung"}
+        title={editing ? "Zertifikat bearbeiten" : "Neues Zertifikat"}
         footer={
           <>
             <AdminButton variant="ghost" onClick={() => setDialogOpen(false)}>
@@ -182,7 +202,7 @@ export default function MockExamsPage() {
             </AdminButton>
             <AdminButton
               onClick={handleSubmit}
-              disabled={create.isPending || update.isPending || !form.title || !form.level}
+              disabled={create.isPending || update.isPending || !form.name || !form.code}
             >
               {create.isPending || update.isPending ? "Wird gespeichert..." : "Speichern"}
             </AdminButton>
@@ -192,48 +212,51 @@ export default function MockExamsPage() {
         <div className="space-y-4">
           {error && <p className="text-sm text-[var(--admin-danger)]">{error}</p>}
 
-          {!editing && (
-            <div>
-              <AdminLabel>Anbieter</AdminLabel>
-              <AdminSelect
-                value={form.provider_id}
-                onChange={(e) => setForm({ ...form, provider_id: e.target.value })}
-              >
-                {(providers ?? []).map((p) => (
-                  <option key={p.id} value={p.id}>
-                    {p.name}
-                  </option>
-                ))}
-              </AdminSelect>
+          <div>
+            <AdminLabel>Name</AdminLabel>
+            <AdminInput
+              value={form.name}
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
+              placeholder="Goethe-Institut"
+            />
+          </div>
+
+          <div>
+            <AdminLabel>Code</AdminLabel>
+            <AdminInput
+              value={form.code}
+              onChange={(e) => setForm({ ...form, code: e.target.value.toUpperCase() })}
+              placeholder="GOETHE"
+            />
+          </div>
+
+          <div>
+            <AdminLabel>Beschreibung</AdminLabel>
+            <AdminInput
+              value={form.description}
+              onChange={(e) => setForm({ ...form, description: e.target.value })}
+              placeholder="Offizielle deutsche Sprachprüfung"
+            />
+          </div>
+
+          <div className="flex items-center gap-3">
+            <div className="flex-1">
+              <AdminLabel>Farbe</AdminLabel>
+              <input
+                type="color"
+                value={form.color}
+                onChange={(e) => setForm({ ...form, color: e.target.value })}
+                className="h-10 w-full rounded-lg bg-[var(--admin-card)] ring-1 ring-[var(--admin-border-strong)]"
+              />
             </div>
-          )}
-
-          <div>
-            <AdminLabel>Titel</AdminLabel>
-            <AdminInput
-              value={form.title}
-              onChange={(e) => setForm({ ...form, title: e.target.value })}
-              placeholder="B1 Modellprüfung 1"
-            />
-          </div>
-
-          <div>
-            <AdminLabel>Level</AdminLabel>
-            <AdminInput
-              value={form.level}
-              onChange={(e) => setForm({ ...form, level: e.target.value })}
-              placeholder="B1"
-              disabled={!!editing}
-            />
-          </div>
-
-          <div>
-            <AdminLabel>Dauer (Minuten)</AdminLabel>
-            <AdminInput
-              type="number"
-              value={form.duration}
-              onChange={(e) => setForm({ ...form, duration: Number(e.target.value) })}
-            />
+            <div className="flex-1">
+              <AdminLabel>Reihenfolge</AdminLabel>
+              <AdminInput
+                type="number"
+                value={form.sort_order}
+                onChange={(e) => setForm({ ...form, sort_order: Number(e.target.value) })}
+              />
+            </div>
           </div>
 
           <label className="flex cursor-pointer items-center gap-2.5">
@@ -249,8 +272,8 @@ export default function MockExamsPage() {
       <ConfirmDialog
         open={!!deleting}
         onOpenChange={(open) => !open && setDeleting(null)}
-        title="Prüfung löschen"
-        description={`"${deleting?.title}" wird dauerhaft gelöscht.`}
+        title="Zertifikat löschen"
+        description={`"${deleting?.name}" wird dauerhaft gelöscht, inklusive aller Levels, Modelltests, Kompetenzen, Teile und Fragen.`}
         isPending={remove.isPending}
         onConfirm={async () => {
           if (!deleting) return;

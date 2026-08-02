@@ -64,6 +64,12 @@ class Settings(BaseSettings):
     OPENAI_API_KEY: str = ""
     OPENAI_MODEL: str = "gpt-5.5"
 
+    # Mock Exam writing/speaking evaluation (Phase 4). Empty by default —
+    # AIEvaluationService raises a clear, caught error rather than silently
+    # no-opping when a key isn't configured; see app/services/mock_exam/ai_service.py.
+    GEMINI_API_KEY: str = ""
+    GEMINI_MODEL: str = "gemini-2.0-flash"
+
     # ==================================================
     # SECURITY
     # ==================================================

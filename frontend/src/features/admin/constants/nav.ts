@@ -58,7 +58,7 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
   },
   {
     items: [
-      { label: "Mock Exams", href: "/admin/mock-exams", icon: FileCheck },
+      { label: "Mock Test Management", href: "/admin/mock-exams", icon: FileCheck },
       { label: "Students", href: "/admin/students", icon: Users },
       { label: "Certificates", href: "/admin/certificates", icon: Award },
       { label: "Payments", href: "/admin/payments", icon: CreditCard },

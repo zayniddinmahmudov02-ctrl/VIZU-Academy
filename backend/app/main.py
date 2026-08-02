@@ -84,6 +84,12 @@ from app.api.exam.provider_router import router as exam_provider_router
 # Media Library
 from app.api.media_library.router import router as media_library_router
 
+# Mock Exam System
+from app.api.mock_exam.hierarchy_router import router as mock_exam_hierarchy_router
+from app.api.mock_exam.content_router import router as mock_exam_content_router
+from app.api.mock_exam.attempt_router import router as mock_exam_attempt_router
+from app.api.mock_exam.analytics_router import router as mock_exam_analytics_router
+
 # Upload
 from app.api.upload import (
     router as upload_router,
@@ -192,6 +198,11 @@ app.include_router(dashboard_router)
 app.include_router(exam_router)
 app.include_router(exam_provider_router)
 app.include_router(media_library_router)
+
+app.include_router(mock_exam_hierarchy_router)
+app.include_router(mock_exam_content_router)
+app.include_router(mock_exam_attempt_router)
+app.include_router(mock_exam_analytics_router)
 
 app.include_router(upload_router)
 

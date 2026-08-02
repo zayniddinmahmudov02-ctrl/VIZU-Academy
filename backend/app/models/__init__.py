@@ -57,6 +57,23 @@ from .subscription_order import SubscriptionOrder
 # Media Library
 from .media_asset import MediaAsset
 
+# Mock Exam System
+from .certification_provider import CertificationProvider
+from .mock_exam_level import MockExamLevel
+from .model_test import ModelTest
+from .kompetenz import Kompetenz
+from .teil import Teil
+from .reading_content import ReadingContent
+from .listening_content import ListeningContent
+from .writing_task import WritingTask
+from .speaking_task import SpeakingTask
+from .mock_question import MockQuestion
+from .mock_question_option import MockQuestionOption
+from .mock_test_attempt import MockTestAttempt
+from .mock_question_answer import MockQuestionAnswer
+from .mock_writing_submission import MockWritingSubmission
+from .mock_speaking_submission import MockSpeakingSubmission
+
 
 __all__ = [
     "Base",
@@ -117,4 +134,21 @@ __all__ = [
 
     # Media Library
     "MediaAsset",
+
+    # Mock Exam System
+    "CertificationProvider",
+    "MockExamLevel",
+    "ModelTest",
+    "Kompetenz",
+    "Teil",
+    "ReadingContent",
+    "ListeningContent",
+    "WritingTask",
+    "SpeakingTask",
+    "MockQuestion",
+    "MockQuestionOption",
+    "MockTestAttempt",
+    "MockQuestionAnswer",
+    "MockWritingSubmission",
+    "MockSpeakingSubmission",
 ]
