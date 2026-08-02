@@ -14,6 +14,11 @@ class VocabularyService:
     ):
         self.repository = VocabularyRepository(db)
 
+    def get_all(
+        self,
+    ) -> list[Vocabulary]:
+        return self.repository.get_all()
+
     def get(
         self,
         vocabulary_id: UUID,

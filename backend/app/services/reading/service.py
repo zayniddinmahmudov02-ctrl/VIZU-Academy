@@ -14,6 +14,11 @@ class ReadingService:
     ):
         self.repository = ReadingRepository(db)
 
+    def get_all(
+        self,
+    ) -> list[Reading]:
+        return self.repository.get_all()
+
     def get(
         self,
         reading_id: UUID,

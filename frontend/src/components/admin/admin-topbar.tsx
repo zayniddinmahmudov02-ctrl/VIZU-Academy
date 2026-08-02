@@ -7,7 +7,7 @@ import { LogOut, Search, X } from "lucide-react";
 
 import { adminNavItems } from "@/constants/admin-nav";
 import { useLanguageStore } from "@/store/language-store";
-import { removeToken } from "@/lib/storage";
+import { removeToken } from "@/lib/token";
 import type { CurrentUser } from "@/features/auth/types/user";
 
 interface Props {

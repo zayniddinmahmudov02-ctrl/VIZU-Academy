@@ -9,7 +9,7 @@ import ThemeToggle from "@/components/ui/theme-toggle";
 import CalendarDropdown from "@/features/calendar/components/calendar-dropdown";
 import NotificationDropdown from "@/features/notifications/components/notification-dropdown";
 import { useTranslation } from "@/lib/i18n/use-translation";
-import { removeToken } from "@/lib/storage";
+import { removeToken } from "@/lib/token";
 
 type Props = {
   onMenuClick?: () => void;

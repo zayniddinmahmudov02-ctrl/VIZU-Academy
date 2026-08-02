@@ -9,7 +9,7 @@ import Button from "@/components/ui/button";
 import Input from "@/components/ui/input";
 
 import { useLogin } from "../hooks/use-login";
-import { saveToken } from "@/lib/storage";
+import { saveToken } from "@/lib/token";
 
 import {
   loginSchema,
@@ -38,6 +38,7 @@ export default function LoginForm() {
       router.push("/dashboard");
 
     } catch (error) {
+      console.warn("Login failed:", error);
       alert("Email yoki parol noto'g'ri.");
     }
   }
