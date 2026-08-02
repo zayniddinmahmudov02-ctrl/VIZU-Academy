@@ -77,7 +77,7 @@ export default function LoginForm() {
       await verifyAdminPasswordService({ password: adminPassword });
       router.push("/admin");
     } catch (error) {
-      setAdminError(getErrorMessage(error, "Falsches Admin-Passwort."));
+      setAdminError(getErrorMessage(error, "Incorrect administrator password."));
     } finally {
       setAdminVerifying(false);
     }

@@ -19,16 +19,21 @@ export default function AuthGuard({ children, requiredRole }: Props) {
 
   const unauthenticated = !loading && (error || !user);
   const forbidden = !loading && !!user && !!requiredRole && user.role !== requiredRole;
+  // The Super Admin account must always land on /admin, never /dashboard —
+  // even if they navigate here directly instead of via the login flow.
+  const isSuperAdminOnStudentSurface = !loading && !!user && user.role === "SUPER_ADMIN";
 
   useEffect(() => {
     if (unauthenticated) {
       router.replace("/login");
+    } else if (isSuperAdminOnStudentSurface) {
+      router.replace("/admin");
     } else if (forbidden) {
       router.replace("/dashboard");
     }
-  }, [unauthenticated, forbidden, router]);
+  }, [unauthenticated, isSuperAdminOnStudentSurface, forbidden, router]);
 
-  if (loading || unauthenticated || forbidden) {
+  if (loading || unauthenticated || isSuperAdminOnStudentSurface || forbidden) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-surface-bg">
         <Loading />

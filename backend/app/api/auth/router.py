@@ -214,7 +214,7 @@ def verify_admin_password(
     ):
         raise HTTPException(
             status_code=403,
-            detail="Incorrect admin verification password",
+            detail="Incorrect administrator password.",
         )
 
     return {"message": "Admin verification successful."}
