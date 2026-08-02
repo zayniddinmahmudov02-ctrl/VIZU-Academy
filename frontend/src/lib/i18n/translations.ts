@@ -16,7 +16,6 @@ export const translations: Record<string, Namespace> = {
     vizuPay: { de: "VIZU Pay", uz: "VIZU Pay" },
     profile: { de: "Profil", uz: "Profil" },
     settings: { de: "Einstellungen", uz: "Sozlamalar" },
-    adminPanel: { de: "🛠 Admin Panel", uz: "🛠 Admin Panel" },
     expand: { de: "Sidebar erweitern", uz: "Yon panelni kengaytirish" },
     collapse: { de: "Sidebar einklappen", uz: "Yon panelni yig'ish" },
     closeMenu: { de: "Menü schließen", uz: "Menyuni yopish" },
@@ -80,11 +79,6 @@ export const translations: Record<string, Namespace> = {
     mockExams: { de: "Mock Exams", uz: "Mock Exams" },
     mockExamsSubtitle: { de: "Teste dein Wissen", uz: "Bilimingizni sinang" },
     woerterbuchSubtitle: { de: "Vokabeln nachschlagen", uz: "So'zlarni qidirish" },
-    superAdminPanel: { de: "🛠 Super Admin Panel", uz: "🛠 Super Admin Panel" },
-    superAdminPanelSubtitle: {
-      de: "Benutzer, Kurse, Zahlungen und Systemeinstellungen verwalten",
-      uz: "Foydalanuvchilar, kurslar, to'lovlar va tizim sozlamalarini boshqarish",
-    },
   },
 
   courses: {

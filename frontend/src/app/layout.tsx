@@ -5,7 +5,6 @@ import "./globals.css";
 
 import QueryProvider from "@/providers/query-provider";
 import LanguageProvider from "@/providers/language-provider";
-import ImpersonationBanner from "@/components/admin/impersonation-banner";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -30,7 +29,6 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <QueryProvider>
             <LanguageProvider>
-              <ImpersonationBanner />
               {children}
             </LanguageProvider>
           </QueryProvider>

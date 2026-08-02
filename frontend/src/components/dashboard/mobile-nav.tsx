@@ -4,7 +4,7 @@ import { X } from "lucide-react";
 
 import Drawer from "@/components/ui/drawer";
 import Logo from "@/components/common/logo";
-import { useSidebarItems } from "@/hooks/use-sidebar-items";
+import { sidebarItems } from "@/constants/sidebar";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import NavItem from "../navigation/nav-item";
 
@@ -15,7 +15,6 @@ type Props = {
 
 export default function MobileNav({ open, onOpenChange }: Props) {
   const { t } = useTranslation();
-  const sidebarItems = useSidebarItems();
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange} side="left">
