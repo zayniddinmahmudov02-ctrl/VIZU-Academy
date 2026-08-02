@@ -41,6 +41,23 @@ class Settings(BaseSettings):
     API_V1_PREFIX: str = "/api/v1"
 
     # ==================================================
+    # CORS
+    # ==================================================
+    # Comma-separated list of extra allowed origins, e.g. the deployed
+    # frontend's real domain(s) — "https://app.vizu.academy,https://vizu.academy".
+    # localhost/127.0.0.1 (any port) are always allowed for local dev via
+    # allow_origin_regex in main.py, so they don't need to be listed here.
+    CORS_ALLOWED_ORIGINS: str = ""
+
+    @property
+    def cors_origins(self) -> list[str]:
+        return [
+            origin.strip()
+            for origin in self.CORS_ALLOWED_ORIGINS.split(",")
+            if origin.strip()
+        ]
+
+    # ==================================================
     # AI
     # ==================================================
     AI_PROVIDER: str = "openai"

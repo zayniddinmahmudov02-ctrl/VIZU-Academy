@@ -122,9 +122,15 @@ register_exception_handlers(app)
 
 app.add_middleware(
     CORSMiddleware,
+    # Local dev origins are always allowed (any port) via the regex below.
+    # Production frontend domain(s) come from CORS_ALLOWED_ORIGINS in the
+    # environment — never hardcoded, since a frontend served from a real
+    # domain would otherwise be silently rejected by the browser's CORS
+    # check on every API call.
     allow_origins=[
         "http://localhost:3000",
         "http://127.0.0.1:3000",
+        *settings.cors_origins,
     ],
     allow_origin_regex=r"https?://(localhost|127\.0\.0\.1)(:\d+)?",
     allow_credentials=True,
