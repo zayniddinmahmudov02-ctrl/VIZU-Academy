@@ -12,7 +12,7 @@ import {
 function redirectToLogin() {
   removeToken();
   removeRefreshToken();
-  if (typeof window !== "undefined") {
+  if (typeof window !== "undefined" && window.location.pathname !== "/login") {
     window.location.href = "/login";
   }
 }
@@ -57,6 +57,16 @@ function isAuthEndpoint(endpoint: string): boolean {
   return AUTH_ENDPOINTS.some((path) => endpoint.includes(path));
 }
 
+// See the matching guard in services/api.ts — /users/me 401s are a normal
+// "nobody's logged in" outcome, not a session-expired event, so a failed
+// refresh here must not force a hard redirect (the caller already handles
+// it via a clean client-side navigation).
+const SILENT_REDIRECT_ENDPOINTS = ["/users/me"];
+
+function isSilentRedirectEndpoint(endpoint: string): boolean {
+  return SILENT_REDIRECT_ENDPOINTS.some((path) => endpoint.includes(path));
+}
+
 export async function api<T>(
   endpoint: string,
   options?: RequestInit,
@@ -84,7 +94,9 @@ export async function api<T>(
       return api<T>(endpoint, options, true);
     }
 
-    redirectToLogin();
+    if (!isSilentRedirectEndpoint(endpoint)) {
+      redirectToLogin();
+    }
   }
 
   if (!response.ok) {

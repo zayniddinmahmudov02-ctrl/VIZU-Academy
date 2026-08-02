@@ -45,10 +45,28 @@ function isAuthEndpoint(url?: string): boolean {
   return AUTH_ENDPOINTS.some((endpoint) => url.includes(endpoint));
 }
 
+// /users/me is how AuthGuard/AdminGuard/SessionRedirect ask "is anyone
+// logged in?" — a 401 here is a normal, expected outcome for any visitor
+// who isn't authenticated yet, not a "your session just died" event. Those
+// callers already handle it gracefully via useCurrentUser()'s `error`
+// state + a clean client-side router.replace("/login"). If this endpoint
+// also triggered the hard `window.location.href` redirect below, every
+// unauthenticated visit to /login itself would: fetch /users/me -> 401 ->
+// hard-reload to /login -> fetch /users/me again -> 401 -> reload again,
+// forever. That was the exact cause of the reported infinite reload loop.
+// Refresh is still attempted (so a merely-expired-but-refreshable session
+// recovers transparently) — only the hard redirect-on-failure is skipped.
+const SILENT_REDIRECT_ENDPOINTS = ["/users/me"];
+
+function isSilentRedirectEndpoint(url?: string): boolean {
+  if (!url) return false;
+  return SILENT_REDIRECT_ENDPOINTS.some((endpoint) => url.includes(endpoint));
+}
+
 function redirectToLogin() {
   removeToken();
   removeRefreshToken();
-  if (typeof window !== "undefined") {
+  if (typeof window !== "undefined" && window.location.pathname !== "/login") {
     window.location.href = "/login";
   }
 }
@@ -107,7 +125,9 @@ api.interceptors.response.use(
     const newAccessToken = await refreshAccessToken();
 
     if (!newAccessToken) {
-      redirectToLogin();
+      if (!isSilentRedirectEndpoint(originalRequest.url)) {
+        redirectToLogin();
+      }
       return Promise.reject(error);
     }
 
