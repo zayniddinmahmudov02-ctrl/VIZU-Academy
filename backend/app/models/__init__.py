@@ -54,6 +54,9 @@ from .promo_code import PromoCode
 from .promo_code_redemption import PromoCodeRedemption
 from .subscription_order import SubscriptionOrder
 
+# Media Library
+from .media_asset import MediaAsset
+
 
 __all__ = [
     "Base",
@@ -111,4 +114,7 @@ __all__ = [
     "PromoCode",
     "PromoCodeRedemption",
     "SubscriptionOrder",
+
+    # Media Library
+    "MediaAsset",
 ]

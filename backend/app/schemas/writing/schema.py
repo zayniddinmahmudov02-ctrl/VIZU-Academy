@@ -1,10 +1,12 @@
+from uuid import UUID
+
 from pydantic import ConfigDict
 
 from app.schemas.base import BaseSchema
 
 
 class WritingBase(BaseSchema):
-    lesson_id: str
+    lesson_id: UUID
     title: str
     instruction: str
     min_words: int = 30
@@ -27,6 +29,6 @@ class WritingUpdate(BaseSchema):
 
 
 class WritingResponse(WritingBase):
-    id: str
+    id: UUID
 
     model_config = ConfigDict(from_attributes=True)

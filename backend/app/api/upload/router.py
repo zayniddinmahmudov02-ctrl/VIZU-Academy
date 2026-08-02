@@ -22,6 +22,10 @@ ALLOWED_FOLDERS = {
     "videos",
     "thumbnails",
     "payment-proofs",
+    "audio",
+    "images",
+    "documents",
+    "media-library",
 }
 
 router = APIRouter(

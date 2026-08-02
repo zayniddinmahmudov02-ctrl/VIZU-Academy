@@ -1,4 +1,5 @@
 from datetime import datetime
+from uuid import UUID
 
 from app.schemas.base import BaseSchema
 
@@ -21,7 +22,7 @@ class MySubscriptionStatus(BaseSchema):
 
 
 class OrderItem(BaseSchema):
-    id: str
+    id: UUID
     plan: str
     plan_label: str
     duration_days: int
@@ -53,7 +54,7 @@ class TrialActivateResponse(BaseSchema):
 
 
 class AdminOrderItem(OrderItem):
-    user_id: str
+    user_id: UUID
     user_email: str
     user_username: str
     reviewed_by_email: str | None
@@ -76,7 +77,7 @@ class RefundOrderRequest(BaseSchema):
 
 
 class PromoCodeItem(BaseSchema):
-    id: str
+    id: UUID
     code: str
     campaign: str | None
     discount_type: str

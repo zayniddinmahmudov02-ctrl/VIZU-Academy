@@ -6,7 +6,7 @@ from fastapi import (
 
 from sqlalchemy.orm import Session
 
-from app.api.dependencies.auth import get_current_user
+from app.api.dependencies.auth import get_current_user, require_admin_panel_access
 
 from app.db.session import get_db
 
@@ -67,7 +67,7 @@ def get_one(
 def create(
     data: ExamCreate,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     return ExamService(db).create(data)
 
@@ -80,7 +80,7 @@ def update(
     exam_id: str,
     data: ExamUpdate,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(require_admin_panel_access),
 ):
 
     exam = ExamService(db).update(
@@ -101,7 +101,7 @@ def update(
 def delete(
     exam_id: str,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(require_admin_panel_access),
 ):
 
     deleted = ExamService(db).delete(

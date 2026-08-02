@@ -1,5 +1,6 @@
 from .schema import (
     ExamProviderCreate,
+    ExamProviderUpdate,
     ExamProviderResponse,
 
     ExamCreate,

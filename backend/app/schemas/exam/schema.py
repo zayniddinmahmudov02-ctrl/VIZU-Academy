@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from pydantic import ConfigDict
 
 from app.schemas.base import BaseSchema
@@ -12,8 +14,13 @@ class ExamProviderCreate(ExamProviderBase):
     pass
 
 
+class ExamProviderUpdate(BaseSchema):
+    name: str | None = None
+    code: str | None = None
+
+
 class ExamProviderResponse(ExamProviderBase):
-    id: str
+    id: UUID
 
     model_config = ConfigDict(
         from_attributes=True,
@@ -21,7 +28,7 @@ class ExamProviderResponse(ExamProviderBase):
 
 
 class ExamBase(BaseSchema):
-    provider_id: str
+    provider_id: UUID
     level: str
     title: str
     duration: int = 180
@@ -39,7 +46,7 @@ class ExamUpdate(BaseSchema):
 
 
 class ExamResponse(ExamBase):
-    id: str
+    id: UUID
 
     model_config = ConfigDict(
         from_attributes=True,
@@ -47,7 +54,7 @@ class ExamResponse(ExamBase):
 
 
 class ExamPartBase(BaseSchema):
-    exam_id: str
+    exam_id: UUID
     name: str
     duration: int = 0
     max_score: int = 100
@@ -63,7 +70,7 @@ class ExamPartUpdate(BaseSchema):
 
 
 class ExamPartResponse(ExamPartBase):
-    id: str
+    id: UUID
 
     model_config = ConfigDict(
         from_attributes=True,
@@ -71,8 +78,8 @@ class ExamPartResponse(ExamPartBase):
 
 
 class ExamSessionBase(BaseSchema):
-    user_id: str
-    exam_id: str
+    user_id: UUID
+    exam_id: UUID
     status: str = "started"
     score: int = 0
 
@@ -87,7 +94,7 @@ class ExamSessionUpdate(BaseSchema):
 
 
 class ExamSessionResponse(ExamSessionBase):
-    id: str
+    id: UUID
 
     model_config = ConfigDict(
         from_attributes=True,

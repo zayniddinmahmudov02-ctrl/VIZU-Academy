@@ -1,10 +1,12 @@
+from uuid import UUID
+
 from pydantic import ConfigDict
 
 from app.schemas.base import BaseSchema
 
 
 class ListeningBase(BaseSchema):
-    lesson_id: str
+    lesson_id: UUID
     title: str
     audio_url: str
     transcript: str | None = None
@@ -25,6 +27,6 @@ class ListeningUpdate(BaseSchema):
 
 
 class ListeningResponse(ListeningBase):
-    id: str
+    id: UUID
 
     model_config = ConfigDict(from_attributes=True)

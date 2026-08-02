@@ -1,10 +1,12 @@
+from uuid import UUID
+
 from pydantic import ConfigDict
 
 from app.schemas.base import BaseSchema
 
 
 class HomeworkBase(BaseSchema):
-    lesson_id: str
+    lesson_id: UUID
     title: str
     description: str
     max_score: int = 100
@@ -23,7 +25,7 @@ class HomeworkUpdate(BaseSchema):
 
 
 class HomeworkResponse(HomeworkBase):
-    id: str
+    id: UUID
 
     model_config = ConfigDict(
         from_attributes=True,

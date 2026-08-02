@@ -1,4 +1,5 @@
 from datetime import datetime
+from uuid import UUID
 
 from pydantic import ConfigDict
 
@@ -7,9 +8,9 @@ from app.schemas.base import BaseSchema
 
 class CertificateBase(BaseSchema):
 
-    user_id: str
+    user_id: UUID
 
-    course_id: str
+    course_id: UUID
 
     provider: str = "VIZU"
 
@@ -49,9 +50,9 @@ class CertificateCreate(CertificateBase):
 
 class CertificateUpdate(BaseSchema):
 
-    user_id: str | None = None
+    user_id: UUID | None = None
 
-    course_id: str | None = None
+    course_id: UUID | None = None
 
     certificate_number: str | None = None
 
@@ -80,7 +81,7 @@ class CertificateUpdate(BaseSchema):
 
 class CertificateResponse(CertificateBase):
 
-    id: str
+    id: UUID
 
     certificate_number: str
 

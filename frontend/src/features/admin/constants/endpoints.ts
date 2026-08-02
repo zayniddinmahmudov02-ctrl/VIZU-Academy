@@ -1,0 +1,32 @@
+// Exact backend paths — verified against each router's route decorators
+// (trailing-slash usage is inconsistent across the backend, so every value
+// here was checked against source, not assumed).
+export const ADMIN_ENDPOINTS = {
+  languages: "/languages/",
+  levels: "/courses/",
+  modules: "/modules",
+  lessons: "/lessons",
+  lessonsByModule: (moduleId: string) => `/lessons/module/${moduleId}`,
+  videos: "/admin/videos",
+  videosByLesson: (lessonId: string) => `/admin/videos?lesson_id=${lessonId}`,
+  vocabularies: "/vocabularies/",
+  grammar: "/grammars",
+  readings: "/readings/",
+  readingQuestions: "/reading-questions",
+  readingOptions: "/reading-options",
+  listenings: "/listenings",
+  writings: "/writings",
+  speakings: "/speakings",
+  quizzes: "/quizzes",
+  quizQuestions: "/quiz-questions",
+  quizOptions: "/quiz-options",
+  homeworks: "/homeworks",
+  examProviders: "/exam-providers",
+  exams: "/exams",
+  mediaLibrary: "/media-library/",
+  mediaLibraryUpload: "/media-library/upload",
+  adminUsers: "/admin/users",
+  adminVizuPay: "/admin/vizu-pay",
+  certificates: "/api/v1/certificates",
+  adminDashboard: "/admin/dashboard/overview",
+} as const;

@@ -1,10 +1,12 @@
+from uuid import UUID
+
 from pydantic import ConfigDict
 
 from app.schemas.base import BaseSchema
 
 
 class QuizQuestionBase(BaseSchema):
-    quiz_id: str
+    quiz_id: UUID
     question: str
     explanation: str | None = None
     points: int = 1
@@ -25,7 +27,7 @@ class QuizQuestionUpdate(BaseSchema):
 
 
 class QuizQuestionResponse(QuizQuestionBase):
-    id: str
+    id: UUID
 
     model_config = ConfigDict(
         from_attributes=True,

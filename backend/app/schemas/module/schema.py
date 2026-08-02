@@ -1,10 +1,12 @@
+from uuid import UUID
+
 from pydantic import ConfigDict
 
 from app.schemas.base import BaseSchema
 
 
 class ModuleBase(BaseSchema):
-    course_id: str
+    course_id: UUID
     number: int
     title: str
     description: str | None = None
@@ -25,6 +27,6 @@ class ModuleUpdate(BaseSchema):
 
 
 class ModuleResponse(ModuleBase):
-    id: str
+    id: UUID
 
     model_config = ConfigDict(from_attributes=True)

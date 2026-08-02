@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from pydantic import ConfigDict
 
 from app.schemas.base import BaseSchema
@@ -5,7 +7,7 @@ from app.schemas.base import BaseSchema
 
 class ReadingQuestionBase(BaseSchema):
 
-    reading_id: str
+    reading_id: UUID
 
     question: str
 
@@ -33,7 +35,7 @@ class ReadingQuestionUpdate(BaseSchema):
 
 class ReadingQuestionResponse(ReadingQuestionBase):
 
-    id: str
+    id: UUID
 
     model_config = ConfigDict(
         from_attributes=True,

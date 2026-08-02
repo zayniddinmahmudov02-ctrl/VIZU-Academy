@@ -12,6 +12,7 @@ from app.api.auth.router import router as auth_router
 from app.api.users.router import router as users_router
 
 # Learning
+from app.api.languages.router import router as languages_router
 from app.api.courses.router import router as courses_router
 from app.api.modules.router import router as modules_router
 from app.api.lessons.router import router as lessons_router
@@ -78,6 +79,10 @@ from app.api.dashboard import (
 from app.api.exam import (
     router as exam_router,
 )
+from app.api.exam.provider_router import router as exam_provider_router
+
+# Media Library
+from app.api.media_library.router import router as media_library_router
 
 # Upload
 from app.api.upload import (
@@ -147,6 +152,7 @@ app.include_router(auth_router)
 
 app.include_router(users_router)
 
+app.include_router(languages_router)
 app.include_router(courses_router)
 app.include_router(modules_router)
 app.include_router(lessons_router)
@@ -184,6 +190,8 @@ app.include_router(payment_router)
 app.include_router(dashboard_router)
 
 app.include_router(exam_router)
+app.include_router(exam_provider_router)
+app.include_router(media_library_router)
 
 app.include_router(upload_router)
 

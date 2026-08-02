@@ -1,10 +1,12 @@
+from uuid import UUID
+
 from pydantic import ConfigDict
 
 from app.schemas.base import BaseSchema
 
 
 class GrammarBase(BaseSchema):
-    lesson_id: str
+    lesson_id: UUID
     title: str
     content: str
     video_url: str | None = None
@@ -25,6 +27,6 @@ class GrammarUpdate(BaseSchema):
 
 
 class GrammarResponse(GrammarBase):
-    id: str
+    id: UUID
 
     model_config = ConfigDict(from_attributes=True)

@@ -1,10 +1,12 @@
+from uuid import UUID
+
 from pydantic import ConfigDict
 
 from app.schemas.base import BaseSchema
 
 
 class QuizOptionBase(BaseSchema):
-    question_id: str
+    question_id: UUID
     option_text: str
     is_correct: bool = False
     order_index: int = 1
@@ -21,7 +23,7 @@ class QuizOptionUpdate(BaseSchema):
 
 
 class QuizOptionResponse(QuizOptionBase):
-    id: str
+    id: UUID
 
     model_config = ConfigDict(
         from_attributes=True,
