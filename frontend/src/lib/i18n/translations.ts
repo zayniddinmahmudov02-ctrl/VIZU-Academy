@@ -16,6 +16,7 @@ export const translations: Record<string, Namespace> = {
     vizuPay: { de: "VIZU Pay", uz: "VIZU Pay" },
     profile: { de: "Profil", uz: "Profil" },
     settings: { de: "Einstellungen", uz: "Sozlamalar" },
+    adminPanel: { de: "🛠 Admin Panel", uz: "🛠 Admin Panel" },
     expand: { de: "Sidebar erweitern", uz: "Yon panelni kengaytirish" },
     collapse: { de: "Sidebar einklappen", uz: "Yon panelni yig'ish" },
     closeMenu: { de: "Menü schließen", uz: "Menyuni yopish" },

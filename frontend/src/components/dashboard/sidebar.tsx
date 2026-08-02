@@ -6,8 +6,8 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import Logo from "@/components/common/logo";
 import LanguageSwitcher from "./languages/language-switcher";
-import { sidebarItems } from "@/constants/sidebar";
 import { useHasMounted, useStoredBoolean } from "@/hooks/use-mounted";
+import { useSidebarItems } from "@/hooks/use-sidebar-items";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import NavItem from "../navigation/nav-item";
 
@@ -19,6 +19,7 @@ export default function Sidebar() {
   const [override, setOverride] = useState<boolean | null>(null);
   const collapsed = override ?? storedCollapsed;
   const { t } = useTranslation();
+  const sidebarItems = useSidebarItems();
 
   function toggle() {
     const next = !collapsed;
