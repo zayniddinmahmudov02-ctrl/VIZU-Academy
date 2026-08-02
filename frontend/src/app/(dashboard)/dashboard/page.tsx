@@ -2,6 +2,7 @@ import AiTools from "@/components/dashboard/home/ai-tools";
 import ContinueLearning from "@/components/dashboard/home/continue-learning";
 import DashboardHero from "@/components/dashboard/home/dashboard-hero";
 import StatsRow from "@/components/dashboard/home/stats-row";
+import SuperAdminPanelButton from "@/components/dashboard/home/super-admin-panel-button";
 
 export default function DashboardPage() {
   return (
@@ -15,6 +16,9 @@ export default function DashboardPage() {
       <div className="space-y-8 lg:space-y-10">
         {/* Welcome */}
         <DashboardHero />
+
+        {/* Super Admin only */}
+        <SuperAdminPanelButton />
 
         {/* Statistics */}
         <StatsRow />
