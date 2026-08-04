@@ -1,3 +1,4 @@
+from datetime import datetime, timezone
 from uuid import UUID
 
 from sqlalchemy import func, select
@@ -61,8 +62,6 @@ def finalize_attempt(db: Session, attempt_id: UUID, time_spent_seconds: int) -> 
     """Sums points_earned across question answers plus AI/teacher scores
     from writing and speaking submissions to produce total_score, and the
     configured Teil points for the whole Model Test as max_score."""
-    from datetime import datetime, timezone
-
     attempt = db.get(MockTestAttempt, attempt_id)
     if attempt is None:
         return None
@@ -203,6 +202,7 @@ async def run_writing_ai_evaluation(db: Session, submission_id: UUID) -> MockWri
     submission.ai_coherence_score = result["coherence_score"]
     submission.ai_score = result["overall_score"]
     submission.ai_feedback = result["feedback"]
+    submission.ai_evaluated_at = datetime.now(timezone.utc)
 
     db.commit()
     db.refresh(submission)
@@ -260,6 +260,7 @@ async def run_speaking_ai_evaluation(db: Session, submission_id: UUID) -> MockSp
     submission.transcript = result["transcript"]
     submission.ai_score = result["score"]
     submission.ai_feedback = result["feedback"]
+    submission.ai_evaluated_at = datetime.now(timezone.utc)
 
     db.commit()
     db.refresh(submission)

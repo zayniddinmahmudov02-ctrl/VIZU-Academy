@@ -37,6 +37,11 @@ class MockWritingSubmission(BaseModel):
     ai_task_achievement_score: Mapped[int | None] = mapped_column(Integer, nullable=True)
     ai_coherence_score: Mapped[int | None] = mapped_column(Integer, nullable=True)
     ai_feedback: Mapped[str | None] = mapped_column(Text, nullable=True)
+    # Set when the AI evaluation actually runs — distinct from `submitted_at`
+    # (when the student answered). Needed for "checked today" dashboard
+    # stats (Phase 5), which would otherwise have no accurate signal for
+    # when the AI review happened.
+    ai_evaluated_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
     teacher_score: Mapped[int | None] = mapped_column(Integer, nullable=True)
     teacher_feedback: Mapped[str | None] = mapped_column(Text, nullable=True)

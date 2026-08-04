@@ -11,6 +11,22 @@ from .schema import (
     RecentRegistration,
 )
 
+from .enterprise_dashboard import (
+    AIStats,
+    CertificateMockAnalytics,
+    ContentCounts,
+    DashboardActivityItem,
+    DashboardCharts,
+    DashboardChartPoint,
+    DashboardKPIs,
+    EnterpriseDashboardResponse,
+    LearningAnalytics,
+    MockTestSkillAnalytics,
+    NamedCount,
+    PaymentsSummary,
+    ServerHealth,
+)
+
 from .users import (
     ActivityTimelineItem,
     AuditLogItem,
@@ -47,6 +63,20 @@ __all__ = [
     "RecentCertificate",
     "RecentPayment",
     "RecentRegistration",
+
+    "AIStats",
+    "CertificateMockAnalytics",
+    "ContentCounts",
+    "DashboardActivityItem",
+    "DashboardCharts",
+    "DashboardChartPoint",
+    "DashboardKPIs",
+    "EnterpriseDashboardResponse",
+    "LearningAnalytics",
+    "MockTestSkillAnalytics",
+    "NamedCount",
+    "PaymentsSummary",
+    "ServerHealth",
 
     "ActivityTimelineItem",
     "AuditLogItem",

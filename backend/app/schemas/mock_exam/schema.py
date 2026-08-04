@@ -438,6 +438,7 @@ class MockWritingSubmissionResponse(BaseSchema):
     ai_task_achievement_score: int | None
     ai_coherence_score: int | None
     ai_feedback: str | None
+    ai_evaluated_at: datetime | None
     teacher_score: int | None
     teacher_feedback: str | None
     submitted_at: datetime
@@ -463,6 +464,7 @@ class MockSpeakingSubmissionResponse(BaseSchema):
     transcript: str | None
     ai_score: int | None
     ai_feedback: str | None
+    ai_evaluated_at: datetime | None
     teacher_score: int | None
     teacher_feedback: str | None
     submitted_at: datetime

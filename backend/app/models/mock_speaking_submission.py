@@ -31,6 +31,9 @@ class MockSpeakingSubmission(BaseModel):
 
     ai_score: Mapped[int | None] = mapped_column(Integer, nullable=True)
     ai_feedback: Mapped[str | None] = mapped_column(Text, nullable=True)
+    # See MockWritingSubmission.ai_evaluated_at for why this is separate
+    # from submitted_at.
+    ai_evaluated_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
     teacher_score: Mapped[int | None] = mapped_column(Integer, nullable=True)
     teacher_feedback: Mapped[str | None] = mapped_column(Text, nullable=True)
