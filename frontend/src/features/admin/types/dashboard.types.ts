@@ -22,6 +22,13 @@ export interface PopularCourse {
   enrollments: number;
 }
 
+export interface ActiveUser {
+  id: string;
+  username: string;
+  email: string;
+  last_login: string | null;
+}
+
 export interface RecentRegistration {
   id: string;
   username: string;
@@ -60,6 +67,7 @@ export interface AdminDashboardOverview {
   revenue_chart: ChartPoint[];
   user_growth_chart: ChartPoint[];
   popular_courses: PopularCourse[];
+  active_users: ActiveUser[];
   recent_registrations: RecentRegistration[];
   recent_payments: RecentPayment[];
   recent_certificates: RecentCertificate[];

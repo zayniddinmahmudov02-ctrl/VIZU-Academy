@@ -1,4 +1,5 @@
 import { api } from "@/src/services/api";
+import { ensureArray } from "@/lib/ensure-array";
 
 export interface CrudApi<TResponse, TCreate, TUpdate> {
   list: (params?: Record<string, string>) => Promise<TResponse[]>;
@@ -6,6 +7,11 @@ export interface CrudApi<TResponse, TCreate, TUpdate> {
   update: (id: string, data: TUpdate) => Promise<TResponse>;
   remove: (id: string) => Promise<void>;
 }
+
+export type WriteOnlyCrudApi<TResponse, TCreate, TUpdate> = Omit<
+  CrudApi<TResponse, TCreate, TUpdate>,
+  "list"
+>;
 
 /** Builds a plain-JSON CRUD client for one of the ~15 flat content-type
  * endpoints (grammar, vocabulary, quiz, ...) — every one of them follows
@@ -22,7 +28,7 @@ export function createCrudApi<TResponse, TCreate, TUpdate>(
   return {
     async list(params) {
       const response = await api.get<TResponse[]>(basePath, { params });
-      return response.data;
+      return ensureArray<TResponse>(response.data);
     },
     async create(data) {
       const response = await api.post<TResponse>(basePath, data);
@@ -36,4 +42,19 @@ export function createCrudApi<TResponse, TCreate, TUpdate>(
       await api.delete(`${itemBase}/${id}`);
     },
   };
+}
+
+/** Same create/update/remove shape as `createCrudApi`, but deliberately
+ * omits `.list` — for resources with no bare "list all" backend route
+ * (e.g. content blocks that are 1:1 with a parent and only fetchable via
+ * a scoped `GET .../{parentId}/...` endpoint). Calling `.list()` on a
+ * plain `createCrudApi` for one of these would 404; leaving it off the
+ * returned object entirely means that mistake fails at compile time
+ * instead of at request time. */
+export function createWriteOnlyCrudApi<TResponse, TCreate, TUpdate>(
+  basePath: string,
+): WriteOnlyCrudApi<TResponse, TCreate, TUpdate> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { list: _list, ...writeOnly } = createCrudApi<TResponse, TCreate, TUpdate>(basePath);
+  return writeOnly;
 }

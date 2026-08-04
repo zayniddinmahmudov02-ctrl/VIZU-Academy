@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { LayoutGrid, LogOut, Menu, User } from "lucide-react";
 
 import { logoutService } from "@/features/auth/services/auth.service";
-import { useCurrentUser } from "@/features/auth/hooks/use-current-user";
+import { CURRENT_USER_QUERY_KEY, useCurrentUser } from "@/features/auth/hooks/use-current-user";
 import { getRefreshToken, removeRefreshToken, removeToken } from "@/lib/token";
 
 interface Props {
@@ -16,12 +17,14 @@ export default function AdminHeader({ onMenuClick }: Props) {
   const router = useRouter();
   const { user } = useCurrentUser();
   const [menuOpen, setMenuOpen] = useState(false);
+  const queryClient = useQueryClient();
 
   async function handleLogout() {
     const refreshToken = getRefreshToken();
 
     removeToken();
     removeRefreshToken();
+    queryClient.removeQueries({ queryKey: CURRENT_USER_QUERY_KEY });
     router.push("/login");
 
     if (refreshToken) {

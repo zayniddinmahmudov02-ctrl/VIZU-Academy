@@ -1,6 +1,7 @@
 import { api } from "@/src/services/api";
+import { ensureArray } from "@/lib/ensure-array";
 import { ADMIN_ENDPOINTS } from "../constants/endpoints";
-import type { UserDetail, UserListResponse } from "../types/user.types";
+import type { UserDetail, UserListItem, UserListResponse } from "../types/user.types";
 
 export async function listUsers(params: {
   page?: number;
@@ -9,7 +10,7 @@ export async function listUsers(params: {
   role?: string;
 }): Promise<UserListResponse> {
   const response = await api.get<UserListResponse>(ADMIN_ENDPOINTS.adminUsers, { params });
-  return response.data;
+  return { ...response.data, items: ensureArray<UserListItem>(response.data?.items) };
 }
 
 export async function getUserDetail(id: string): Promise<UserDetail> {

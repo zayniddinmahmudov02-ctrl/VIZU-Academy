@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { Crown, LogOut, Menu, Search, Settings, User } from "lucide-react";
 
 import Avatar from "@/components/ui/avatar";
@@ -8,6 +9,7 @@ import DropdownMenu from "@/components/ui/dropdown-menu";
 import ThemeToggle from "@/components/ui/theme-toggle";
 import CalendarDropdown from "@/features/calendar/components/calendar-dropdown";
 import { logoutService } from "@/features/auth/services/auth.service";
+import { CURRENT_USER_QUERY_KEY } from "@/features/auth/hooks/use-current-user";
 import NotificationDropdown from "@/features/notifications/components/notification-dropdown";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { getRefreshToken, removeRefreshToken, removeToken } from "@/lib/token";
@@ -19,12 +21,14 @@ type Props = {
 export default function Header({ onMenuClick }: Props) {
   const router = useRouter();
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
 
   async function handleLogout() {
     const refreshToken = getRefreshToken();
 
     removeToken();
     removeRefreshToken();
+    queryClient.removeQueries({ queryKey: CURRENT_USER_QUERY_KEY });
     router.push("/login");
 
     if (refreshToken) {

@@ -19,7 +19,7 @@ export function useCrudList<TResponse>(
 
 export function useCrudMutations<TResponse, TCreate, TUpdate>(
   key: string,
-  api: CrudApi<TResponse, TCreate, TUpdate>,
+  api: Omit<CrudApi<TResponse, TCreate, TUpdate>, "list">,
 ) {
   const queryClient = useQueryClient();
 

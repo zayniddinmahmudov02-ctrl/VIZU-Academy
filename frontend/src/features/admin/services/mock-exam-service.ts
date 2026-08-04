@@ -1,5 +1,6 @@
 import { api } from "@/src/services/api";
-import { createCrudApi } from "../lib/crud-api";
+import { ensureArray } from "@/lib/ensure-array";
+import { createCrudApi, createWriteOnlyCrudApi } from "../lib/crud-api";
 import { ADMIN_ENDPOINTS } from "../constants/endpoints";
 import type {
   CertificationProvider,
@@ -80,23 +81,23 @@ export async function getModelTestScore(modelTestId: string): Promise<ModelTestS
 // Content (Reading / Listening / Writing / Speaking) — 1:1 with a Teil
 // ============================================================
 
-export const mockExamReadingContentApi = createCrudApi<
+export const mockExamReadingContentApi = createWriteOnlyCrudApi<
   ReadingContent,
   ReadingContentCreate,
   ReadingContentUpdate
 >(ADMIN_ENDPOINTS.mockExamReadingContent);
 
-export const mockExamListeningContentApi = createCrudApi<
+export const mockExamListeningContentApi = createWriteOnlyCrudApi<
   ListeningContent,
   ListeningContentCreate,
   ListeningContentUpdate
 >(ADMIN_ENDPOINTS.mockExamListeningContent);
 
-export const mockExamWritingTasksApi = createCrudApi<WritingTask, WritingTaskCreate, WritingTaskUpdate>(
+export const mockExamWritingTasksApi = createWriteOnlyCrudApi<WritingTask, WritingTaskCreate, WritingTaskUpdate>(
   ADMIN_ENDPOINTS.mockExamWritingTasks,
 );
 
-export const mockExamSpeakingTasksApi = createCrudApi<SpeakingTask, SpeakingTaskCreate, SpeakingTaskUpdate>(
+export const mockExamSpeakingTasksApi = createWriteOnlyCrudApi<SpeakingTask, SpeakingTaskCreate, SpeakingTaskUpdate>(
   ADMIN_ENDPOINTS.mockExamSpeakingTasks,
 );
 
@@ -122,7 +123,7 @@ export const mockExamQuestionsApi = createCrudApi<MockQuestion, MockQuestionCrea
   ADMIN_ENDPOINTS.mockExamQuestions,
 );
 
-export const mockExamQuestionOptionsApi = createCrudApi<
+export const mockExamQuestionOptionsApi = createWriteOnlyCrudApi<
   MockQuestionOption,
   MockQuestionOptionCreate,
   MockQuestionOptionUpdate
@@ -133,7 +134,7 @@ export async function listQuestions(params: {
   listening_content_id?: string;
 }): Promise<MockQuestion[]> {
   const response = await api.get<MockQuestion[]>(ADMIN_ENDPOINTS.mockExamQuestions, { params });
-  return response.data;
+  return ensureArray<MockQuestion>(response.data);
 }
 
 export async function duplicateQuestion(questionId: string): Promise<MockQuestion> {
@@ -158,14 +159,14 @@ export async function listAttempts(params?: {
   user_id?: string;
 }): Promise<MockTestAttempt[]> {
   const response = await api.get<MockTestAttempt[]>(ADMIN_ENDPOINTS.mockExamAttempts, { params });
-  return response.data;
+  return ensureArray<MockTestAttempt>(response.data);
 }
 
 export async function listWritingSubmissions(attemptId?: string): Promise<MockWritingSubmission[]> {
   const response = await api.get<MockWritingSubmission[]>(ADMIN_ENDPOINTS.mockExamWritingSubmissions, {
     params: attemptId ? { attempt_id: attemptId } : undefined,
   });
-  return response.data;
+  return ensureArray<MockWritingSubmission>(response.data);
 }
 
 export async function evaluateWritingSubmission(id: string): Promise<MockWritingSubmission> {
@@ -185,7 +186,7 @@ export async function listSpeakingSubmissions(attemptId?: string): Promise<MockS
   const response = await api.get<MockSpeakingSubmission[]>(ADMIN_ENDPOINTS.mockExamSpeakingSubmissions, {
     params: attemptId ? { attempt_id: attemptId } : undefined,
   });
-  return response.data;
+  return ensureArray<MockSpeakingSubmission>(response.data);
 }
 
 export async function evaluateSpeakingSubmission(id: string): Promise<MockSpeakingSubmission> {

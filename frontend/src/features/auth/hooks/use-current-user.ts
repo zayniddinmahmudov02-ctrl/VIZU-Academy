@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+
+import { getToken } from "@/lib/token";
 
 import { getCurrentUser } from "../services/user-service";
 import type { CurrentUser } from "../types/user";
@@ -11,32 +13,30 @@ interface UseCurrentUserResult {
   error: boolean;
 }
 
+/** The one shared cache key for "who is logged in" — every caller below
+ * reads this same React Query cache entry instead of firing its own
+ * `/users/me` request, so an admin session with AdminGuard + AdminHeader +
+ * a settings page mounted together still issues exactly one request, not
+ * three. Exported so the login/logout flows can invalidate it on session
+ * change (see use-login.ts, admin-header.tsx, dashboard/header.tsx). */
+export const CURRENT_USER_QUERY_KEY = ["current-user"] as const;
+
 export function useCurrentUser(): UseCurrentUserResult {
-  const [user, setUser] = useState<CurrentUser | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<boolean>(false);
+  const hasToken = typeof window !== "undefined" && !!getToken();
 
-  useEffect(() => {
-    let isMounted = true;
+  const { data, isLoading, isError } = useQuery({
+    queryKey: CURRENT_USER_QUERY_KEY,
+    queryFn: getCurrentUser,
+    // No token at all -> definitely unauthenticated, skip the guaranteed
+    // 401 instead of firing it just to find that out.
+    enabled: hasToken,
+    staleTime: 5 * 60 * 1000,
+    retry: false,
+  });
 
-    async function load() {
-      try {
-        const data = await getCurrentUser();
-        if (isMounted) setUser(data);
-      } catch (err) {
-        console.warn("Failed to load current user:", err);
-        if (isMounted) setError(true);
-      } finally {
-        if (isMounted) setLoading(false);
-      }
-    }
-
-    load();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  return { user, loading, error };
+  return {
+    user: data ?? null,
+    loading: hasToken && isLoading,
+    error: hasToken && isError,
+  };
 }

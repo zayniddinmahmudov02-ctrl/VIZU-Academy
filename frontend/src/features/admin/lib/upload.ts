@@ -1,4 +1,5 @@
 import { api } from "@/src/services/api";
+import { ensureArray } from "@/lib/ensure-array";
 import type { MediaAsset } from "../types/content.types";
 import { ADMIN_ENDPOINTS } from "../constants/endpoints";
 
@@ -25,7 +26,7 @@ export async function listMediaAssets(
   const response = await api.get<MediaAsset[]>(ADMIN_ENDPOINTS.mediaLibrary, {
     params: { folder, media_type: mediaType },
   });
-  return response.data;
+  return ensureArray<MediaAsset>(response.data);
 }
 
 export async function deleteMediaAsset(id: string): Promise<void> {
