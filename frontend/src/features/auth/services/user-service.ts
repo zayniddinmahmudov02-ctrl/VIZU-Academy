@@ -12,7 +12,7 @@ interface CurrentUserPayload {
 }
 
 export async function getCurrentUser(): Promise<CurrentUser> {
-  const response = await api.get<CurrentUserPayload>("/users/me");
+  const response = await api.get<CurrentUserPayload>("/api/v1/users/me");
   const data = response.data;
 
   return {

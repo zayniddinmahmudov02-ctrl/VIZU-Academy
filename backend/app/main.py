@@ -153,79 +153,78 @@ app.add_middleware(
 # ==================================================
 # ROUTERS
 # ==================================================
+#
+# Phase 5.4 — Enterprise API Standardization. Every router below is
+# mounted TWICE:
+#
+#   1. At its original bare prefix (e.g. /auth) — preserved, unchanged,
+#      for backward compatibility. Nothing that already depends on these
+#      paths (direct-to-backend callers bypassing the public gateway,
+#      external integrations, etc.) breaks.
+#   2. Under /api/v1 (e.g. /api/v1/auth) — the new, official, standardized
+#      API surface. This is what nginx's API Gateway proxies and what all
+#      frontend code now calls. /api/v1/certificates already used this
+#      pattern from the start; every router now follows the same rule,
+#      with no exceptions.
+#
+# Both mounts point at the exact same router object — no endpoint, path
+# operation, or business logic is duplicated or diverges between them.
 
-app.include_router(auth_router)
+_ALL_ROUTERS = [
+    auth_router,
+    users_router,
+    languages_router,
+    courses_router,
+    modules_router,
+    lessons_router,
+    videos_router,
+    video_progress_router,
+    vocabularies_router,
+    readings_router,
+    reading_question_router,
+    reading_option_router,
+    grammar_router,
+    listening_router,
+    writing_router,
+    speaking_router,
+    student_progress_router,
+    student_writing_router,
+    student_speaking_router,
+    student_quiz_router,
+    quiz_router,
+    quiz_question_router,
+    quiz_option_router,
+    homework_router,
+    enrollment_router,
+    payment_router,
+    dashboard_router,
+    exam_router,
+    exam_provider_router,
+    media_library_router,
+    mock_exam_hierarchy_router,
+    mock_exam_content_router,
+    mock_exam_attempt_router,
+    mock_exam_analytics_router,
+    upload_router,
+    admin_router,
+    admin_users_router,
+    admin_vizu_pay_router,
+    admin_videos_router,
+    vizu_pay_router,
+    health_router,
+]
 
-app.include_router(users_router)
+# 1. Legacy bare mounts — preserved exactly as before.
+for _router in _ALL_ROUTERS:
+    app.include_router(_router)
 
-app.include_router(languages_router)
-app.include_router(courses_router)
-app.include_router(modules_router)
-app.include_router(lessons_router)
+# certificate_router has never had a bare mount — /api/v1/certificates was
+# always its only address, already compliant with the standard below.
+app.include_router(certificate_router, prefix=settings.API_V1_PREFIX)
 
-# Also mounted under /api/v1 (same pattern already used by certificate_router
-# below) — the bare /courses and /lessons prefixes are claimed by Next.js
-# page routes of the same name (/courses, /courses/[level], /lessons/...),
-# so nginx routes those bare paths to the frontend. The routers/endpoints
-# themselves are unchanged; this just gives the frontend's own data-fetch
-# calls (course.service.ts, lesson-service.ts) an unambiguous path that
-# nginx can route straight to the backend. The bare mounts above are left
-# in place, unchanged, for any caller reaching the backend directly
-# (bypassing the public gateway) — see nginx config notes.
-app.include_router(courses_router, prefix=settings.API_V1_PREFIX)
-app.include_router(lessons_router, prefix=settings.API_V1_PREFIX)
-
-app.include_router(videos_router)
-app.include_router(video_progress_router)
-app.include_router(vocabularies_router)
-app.include_router(readings_router)
-app.include_router(reading_question_router)
-app.include_router(reading_option_router)
-app.include_router(grammar_router)
-app.include_router(listening_router)
-app.include_router(writing_router)
-app.include_router(speaking_router)
-
-app.include_router(student_progress_router)
-app.include_router(student_writing_router)
-app.include_router(student_speaking_router)
-app.include_router(student_quiz_router)
-
-app.include_router(quiz_router)
-app.include_router(quiz_question_router)
-app.include_router(quiz_option_router)
-
-app.include_router(homework_router)
-
-app.include_router(enrollment_router)
-
-app.include_router(
-    certificate_router,
-    prefix=settings.API_V1_PREFIX,
-)
-
-app.include_router(payment_router)
-
-app.include_router(dashboard_router)
-
-app.include_router(exam_router)
-app.include_router(exam_provider_router)
-app.include_router(media_library_router)
-
-app.include_router(mock_exam_hierarchy_router)
-app.include_router(mock_exam_content_router)
-app.include_router(mock_exam_attempt_router)
-app.include_router(mock_exam_analytics_router)
-
-app.include_router(upload_router)
-
-app.include_router(admin_router)
-app.include_router(admin_users_router)
-app.include_router(admin_vizu_pay_router)
-app.include_router(admin_videos_router)
-app.include_router(vizu_pay_router)
-
-app.include_router(health_router)
+# 2. Standardized /api/v1 mounts — the official API surface going forward.
+for _router in _ALL_ROUTERS:
+    app.include_router(_router, prefix=settings.API_V1_PREFIX)
 
 # ==================================================
 # STATIC FILES

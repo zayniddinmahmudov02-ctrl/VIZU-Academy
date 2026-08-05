@@ -25,12 +25,12 @@ function mapOrder(raw: any): OrderItem {
 }
 
 export async function getPlans(): Promise<PlanOption[]> {
-  const response = await api.get("/vizu-pay/plans");
+  const response = await api.get("/api/v1/vizu-pay/plans");
   return response.data;
 }
 
 export async function getStatus(): Promise<SubscriptionStatus> {
-  const response = await api.get("/vizu-pay/status");
+  const response = await api.get("/api/v1/vizu-pay/status");
   const data = response.data;
   return {
     isPremium: data.is_premium,
@@ -43,12 +43,12 @@ export async function getStatus(): Promise<SubscriptionStatus> {
 }
 
 export async function activateTrial(): Promise<{ premiumUntil: string }> {
-  const response = await api.post("/vizu-pay/trial");
+  const response = await api.post("/api/v1/vizu-pay/trial");
   return { premiumUntil: response.data.premium_until };
 }
 
 export async function validatePromo(code: string): Promise<PromoValidation> {
-  const response = await api.get("/vizu-pay/promo/validate", { params: { code } });
+  const response = await api.get("/api/v1/vizu-pay/promo/validate", { params: { code } });
   const data = response.data;
   return {
     valid: data.valid,
@@ -72,14 +72,14 @@ export async function createOrder(input: CreateOrderInput): Promise<OrderItem> {
   if (input.promoCode) formData.append("promo_code", input.promoCode);
   formData.append("proof", input.proofFile);
 
-  const response = await api.post("/vizu-pay/orders", formData, {
+  const response = await api.post("/api/v1/vizu-pay/orders", formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });
   return mapOrder(response.data);
 }
 
 export async function getMyOrders(page = 1, pageSize = 20): Promise<OrderListResponse> {
-  const response = await api.get("/vizu-pay/orders", { params: { page, page_size: pageSize } });
+  const response = await api.get("/api/v1/vizu-pay/orders", { params: { page, page_size: pageSize } });
   const data = response.data;
   return {
     items: data.items.map(mapOrder),

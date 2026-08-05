@@ -12,7 +12,7 @@ import type {
  * Enterprise Dashboard reads from this single response, never its own
  * request. See backend/app/api/admin/router.py's `GET /admin/dashboard`. */
 export async function getEnterpriseDashboard(range: DashboardRange): Promise<EnterpriseDashboardResponse> {
-  const response = await api.get<EnterpriseDashboardResponse>("/admin/dashboard", { params: { range } });
+  const response = await api.get<EnterpriseDashboardResponse>("/api/v1/admin/dashboard", { params: { range } });
   const data = response.data;
 
   return {

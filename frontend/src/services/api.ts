@@ -86,7 +86,7 @@ async function refreshAccessToken(): Promise<string | null> {
   if (!refreshPromise) {
     refreshPromise = axios
       .post<{ access_token: string; refresh_token: string }>(
-        `${API_URL}/auth/refresh`,
+        `${API_URL}/api/v1/auth/refresh`,
         { refresh_token: refreshToken },
       )
       .then((response) => {

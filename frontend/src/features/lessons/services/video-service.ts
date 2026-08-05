@@ -41,12 +41,12 @@ function mapProgress(payload: VideoProgressPayload): VideoProgress {
 }
 
 export async function getLessonVideo(lessonId: string): Promise<LessonVideo> {
-  const payload = await api<VideoStreamPayload>(`/videos/by-lesson/${lessonId}`);
+  const payload = await api<VideoStreamPayload>(`/api/v1/videos/by-lesson/${lessonId}`);
   return mapVideo(payload);
 }
 
 export async function getVideoProgress(lessonId: string): Promise<VideoProgress> {
-  const payload = await api<VideoProgressPayload>(`/videos/progress/${lessonId}`);
+  const payload = await api<VideoProgressPayload>(`/api/v1/videos/progress/${lessonId}`);
   return mapProgress(payload);
 }
 
@@ -55,7 +55,7 @@ export async function updateVideoProgress(
   position: number,
   ended = false,
 ): Promise<VideoProgress> {
-  const payload = await api<VideoProgressPayload>("/videos/progress", {
+  const payload = await api<VideoProgressPayload>("/api/v1/videos/progress", {
     method: "POST",
     body: JSON.stringify({ video_id: videoId, position, ended }),
   });
@@ -63,7 +63,7 @@ export async function updateVideoProgress(
 }
 
 export async function completeVideo(videoId: string, ended = false): Promise<VideoProgress> {
-  const payload = await api<VideoProgressPayload>("/videos/complete", {
+  const payload = await api<VideoProgressPayload>("/api/v1/videos/complete", {
     method: "POST",
     body: JSON.stringify({ video_id: videoId, ended }),
   });

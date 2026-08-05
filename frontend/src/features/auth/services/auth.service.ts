@@ -14,7 +14,7 @@ export async function loginService(
 ): Promise<TokenResponse> {
 
   const response = await api.post<TokenResponse>(
-    "/auth/login",
+    "/api/v1/auth/login",
     data,
   );
 
@@ -26,7 +26,7 @@ export async function registerService(
 ): Promise<UserResponse> {
 
   const response = await api.post<UserResponse>(
-    "/auth/register",
+    "/api/v1/auth/register",
     data,
   );
 
@@ -38,7 +38,7 @@ export async function forgotPasswordService(
 ): Promise<{ message: string }> {
 
   const response = await api.post<{ message: string }>(
-    "/auth/forgot-password",
+    "/api/v1/auth/forgot-password",
     data,
   );
 
@@ -50,7 +50,7 @@ export async function resetPasswordService(
 ): Promise<{ message: string }> {
 
   const response = await api.post<{ message: string }>(
-    "/auth/reset-password",
+    "/api/v1/auth/reset-password",
     data,
   );
 
@@ -62,7 +62,7 @@ export async function verifyAdminPasswordService(
 ): Promise<{ message: string }> {
 
   const response = await api.post<{ message: string }>(
-    "/auth/verify-admin-password",
+    "/api/v1/auth/verify-admin-password",
     data,
   );
 
@@ -70,5 +70,5 @@ export async function verifyAdminPasswordService(
 }
 
 export async function logoutService(refreshToken: string): Promise<void> {
-  await api.post("/auth/logout", { refresh_token: refreshToken });
+  await api.post("/api/v1/auth/logout", { refresh_token: refreshToken });
 }
