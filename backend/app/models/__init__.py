@@ -41,6 +41,8 @@ from .exam import Exam
 from .exam_part import ExamPart
 from .exam_session import ExamSession
 from .language import Language
+from .language_settings import LanguageSettings
+from .user_language import UserLanguage
 # Payment
 from .payment.payment import Payment
 
@@ -119,6 +121,8 @@ __all__ = [
     "ExamPart",
     "ExamSession",
     "Language",
+    "LanguageSettings",
+    "UserLanguage",
     # Payment
     "Payment",
 

@@ -1,62 +1,62 @@
 "use client";
 
 import { useState } from "react";
-import { Plus } from "lucide-react";
-
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import {
-  AdminButton,
-  AdminCheckbox,
-  AdminInput,
-  AdminLabel,
-  AdminPageHeader,
-} from "@/components/admin/admin-ui";
+  BarChart3,
+  Globe,
+  Pencil,
+  Plus,
+  Settings,
+  ShieldCheck,
+  ShieldOff,
+  Trash2,
+  Users,
+} from "lucide-react";
+
+import { AdminCard, AdminPageHeader } from "@/components/admin/admin-ui";
 import ConfirmDialog from "@/components/admin/confirm-dialog";
 import DataTable, { DataTableColumn } from "@/components/admin/data-table";
-import FormDialog from "@/components/admin/form-dialog";
-import { useCrudList, useCrudMutations } from "@/features/admin/hooks/use-crud";
-import { languagesApi } from "@/features/admin/services/languages-service";
-import type { Language } from "@/features/admin/types/content.types";
-
-const EMPTY_FORM = { code: "", name: "", flag: "", is_active: true };
+import {
+  languageManagementApi,
+} from "@/features/admin/services/language-management-service";
+import type { Language } from "@/features/admin/types/language.types";
 
 export default function LanguagesPage() {
-  const { data, isLoading } = useCrudList("languages", languagesApi);
-  const { create, update, remove } = useCrudMutations("languages", languagesApi);
+  const router = useRouter();
+  const queryClient = useQueryClient();
 
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [editing, setEditing] = useState<Language | null>(null);
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["languages"],
+    queryFn: () => languageManagementApi.list(),
+  });
+
   const [deleting, setDeleting] = useState<Language | null>(null);
-  const [form, setForm] = useState(EMPTY_FORM);
-  const [error, setError] = useState<string | null>(null);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
+  const [deletePending, setDeletePending] = useState(false);
 
-  function openCreate() {
-    setEditing(null);
-    setForm(EMPTY_FORM);
-    setError(null);
-    setDialogOpen(true);
+  async function toggleActive(language: Language) {
+    await languageManagementApi.update(language.id, { is_active: !language.is_active });
+    queryClient.invalidateQueries({ queryKey: ["languages"] });
   }
 
-  function openEdit(item: Language) {
-    setEditing(item);
-    setForm({ code: item.code, name: item.name, flag: item.flag ?? "", is_active: item.is_active });
-    setError(null);
-    setDialogOpen(true);
-  }
-
-  async function handleSubmit() {
-    setError(null);
+  async function handleDelete() {
+    if (!deleting) return;
+    setDeletePending(true);
+    setDeleteError(null);
     try {
-      if (editing) {
-        await update.mutateAsync({ id: editing.id, data: form });
-      } else {
-        await create.mutateAsync(form);
-      }
-      setDialogOpen(false);
+      await languageManagementApi.remove(deleting.id);
+      queryClient.invalidateQueries({ queryKey: ["languages"] });
+      setDeleting(null);
     } catch (err) {
       const message =
         (err as { response?: { data?: { message?: string } } })?.response?.data?.message ??
-        "Speichern fehlgeschlagen.";
-      setError(message);
+        "Löschen fehlgeschlagen.";
+      setDeleteError(message);
+    } finally {
+      setDeletePending(false);
     }
   }
 
@@ -64,13 +64,39 @@ export default function LanguagesPage() {
     {
       key: "flag",
       header: "",
-      className: "w-10",
-      render: (item) => <span className="text-lg">{item.flag || "🌐"}</span>,
+      className: "w-12",
+      render: (item) =>
+        item.flag_file ? (
+          <img src={`/flags/${item.flag_file}`} alt={item.code} className="h-5 w-8 rounded object-cover" />
+        ) : (
+          <Globe size={18} className="text-[var(--admin-text-muted)]" />
+        ),
     },
-    { key: "name", header: "Name", render: (item) => item.name },
-    { key: "code", header: "Code", render: (item) => item.code },
     {
-      key: "is_active",
+      key: "name",
+      header: "Name",
+      render: (item) => (
+        <Link
+          href={`/admin/languages/${item.id}/dashboard`}
+          className="font-medium text-[var(--admin-text-primary)] hover:text-[var(--admin-primary)]"
+        >
+          {item.name}
+          {item.is_default && (
+            <span className="ml-2 rounded-full bg-[var(--admin-primary)]/15 px-2 py-0.5 text-[10px] font-semibold text-[var(--admin-primary)]">
+              Standard
+            </span>
+          )}
+        </Link>
+      ),
+    },
+    { key: "code", header: "Code", render: (item) => item.code },
+    { key: "locale", header: "Locale", render: (item) => item.locale },
+    { key: "learners", header: "Learners", render: (item) => item.learners_count },
+    { key: "levels", header: "Levels", render: (item) => item.levels_count },
+    { key: "modules", header: "Modules", render: (item) => item.modules_count },
+    { key: "lessons", header: "Lessons", render: (item) => item.lessons_count },
+    {
+      key: "status",
       header: "Status",
       render: (item) => (
         <span
@@ -84,6 +110,59 @@ export default function LanguagesPage() {
         </span>
       ),
     },
+    {
+      key: "actions",
+      header: "",
+      render: (item) => (
+        <div className="flex items-center justify-end gap-1">
+          <button
+            onClick={() => router.push(`/admin/languages/${item.id}/edit`)}
+            title="Edit"
+            className="flex h-8 w-8 items-center justify-center rounded-lg text-[var(--admin-text-secondary)] hover:bg-[var(--admin-primary)]/10 hover:text-[var(--admin-primary)]"
+          >
+            <Pencil size={15} />
+          </button>
+          <button
+            onClick={() => router.push(`/admin/languages/${item.id}/dashboard`)}
+            title="Statistics"
+            className="flex h-8 w-8 items-center justify-center rounded-lg text-[var(--admin-text-secondary)] hover:bg-[var(--admin-primary)]/10 hover:text-[var(--admin-primary)]"
+          >
+            <BarChart3 size={15} />
+          </button>
+          <button
+            onClick={() => router.push(`/admin/languages/${item.id}/learners`)}
+            title="Learners"
+            className="flex h-8 w-8 items-center justify-center rounded-lg text-[var(--admin-text-secondary)] hover:bg-[var(--admin-primary)]/10 hover:text-[var(--admin-primary)]"
+          >
+            <Users size={15} />
+          </button>
+          <button
+            onClick={() => router.push(`/admin/languages/${item.id}/settings`)}
+            title="Settings"
+            className="flex h-8 w-8 items-center justify-center rounded-lg text-[var(--admin-text-secondary)] hover:bg-[var(--admin-primary)]/10 hover:text-[var(--admin-primary)]"
+          >
+            <Settings size={15} />
+          </button>
+          <button
+            onClick={() => toggleActive(item)}
+            title={item.is_active ? "Deactivate" : "Activate"}
+            className="flex h-8 w-8 items-center justify-center rounded-lg text-[var(--admin-text-secondary)] hover:bg-[var(--admin-primary)]/10 hover:text-[var(--admin-primary)]"
+          >
+            {item.is_active ? <ShieldOff size={15} /> : <ShieldCheck size={15} />}
+          </button>
+          <button
+            onClick={() => {
+              setDeleteError(null);
+              setDeleting(item);
+            }}
+            title="Delete"
+            className="flex h-8 w-8 items-center justify-center rounded-lg text-[var(--admin-text-secondary)] hover:bg-[var(--admin-danger)]/10 hover:text-[var(--admin-danger)]"
+          >
+            <Trash2 size={15} />
+          </button>
+        </div>
+      ),
+    },
   ];
 
   return (
@@ -92,92 +171,39 @@ export default function LanguagesPage() {
         title="Languages"
         description="Sprachen, die auf der Plattform unterrichtet werden."
         action={
-          <AdminButton onClick={openCreate}>
-            <Plus size={16} />
-            Neue Sprache
-          </AdminButton>
+          <Link href="/admin/languages/new">
+            <button className="inline-flex h-10 items-center gap-2 rounded-lg bg-[var(--admin-primary)] px-4 text-sm font-semibold text-white shadow-[0_1px_1px_rgba(0,0,0,0.15),0_8px_16px_-8px_rgba(91,91,248,0.5)] transition-all hover:bg-[var(--admin-primary-hover)]">
+              <Plus size={16} />
+              Neue Sprache
+            </button>
+          </Link>
         }
       />
+
+      {isError && (
+        <AdminCard className="mb-6">
+          <p className="text-sm text-[var(--admin-danger)]">Sprachen konnten nicht geladen werden.</p>
+        </AdminCard>
+      )}
 
       <DataTable
         columns={columns}
         data={data}
         isLoading={isLoading}
         getRowId={(item) => item.id}
-        onEdit={openEdit}
-        onDelete={setDeleting}
         emptyMessage="Noch keine Sprachen angelegt."
       />
-
-      <FormDialog
-        open={dialogOpen}
-        onOpenChange={setDialogOpen}
-        title={editing ? "Sprache bearbeiten" : "Neue Sprache"}
-        footer={
-          <>
-            <AdminButton variant="ghost" onClick={() => setDialogOpen(false)}>
-              Abbrechen
-            </AdminButton>
-            <AdminButton
-              onClick={handleSubmit}
-              disabled={create.isPending || update.isPending || !form.code || !form.name}
-            >
-              {create.isPending || update.isPending ? "Wird gespeichert..." : "Speichern"}
-            </AdminButton>
-          </>
-        }
-      >
-        <div className="space-y-4">
-          {error && <p className="text-sm text-[var(--admin-danger)]">{error}</p>}
-
-          <div>
-            <AdminLabel>Name</AdminLabel>
-            <AdminInput
-              value={form.name}
-              onChange={(e) => setForm({ ...form, name: e.target.value })}
-              placeholder="Deutsch"
-            />
-          </div>
-
-          <div>
-            <AdminLabel>Code</AdminLabel>
-            <AdminInput
-              value={form.code}
-              onChange={(e) => setForm({ ...form, code: e.target.value })}
-              placeholder="de"
-            />
-          </div>
-
-          <div>
-            <AdminLabel>Flagge (Emoji)</AdminLabel>
-            <AdminInput
-              value={form.flag}
-              onChange={(e) => setForm({ ...form, flag: e.target.value })}
-              placeholder="🇩🇪"
-            />
-          </div>
-
-          <label className="flex cursor-pointer items-center gap-2.5">
-            <AdminCheckbox
-              checked={form.is_active}
-              onCheckedChange={(checked) => setForm({ ...form, is_active: checked })}
-            />
-            <span className="text-sm text-[var(--admin-text-secondary)]">Aktiv</span>
-          </label>
-        </div>
-      </FormDialog>
 
       <ConfirmDialog
         open={!!deleting}
         onOpenChange={(open) => !open && setDeleting(null)}
         title="Sprache löschen"
-        description={`"${deleting?.name}" wird dauerhaft gelöscht. Alle zugehörigen Levels, Module und Lektionen werden ebenfalls entfernt.`}
-        isPending={remove.isPending}
-        onConfirm={async () => {
-          if (!deleting) return;
-          await remove.mutateAsync(deleting.id);
-          setDeleting(null);
-        }}
+        description={
+          deleteError ??
+          `"${deleting?.name}" wird deaktiviert und aus der Liste entfernt. Nur möglich, wenn keine Lerner, Levels oder Module existieren.`
+        }
+        isPending={deletePending}
+        onConfirm={handleDelete}
       />
     </div>
   );
