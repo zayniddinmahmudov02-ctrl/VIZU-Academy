@@ -3,10 +3,14 @@
 // here was checked against source, not assumed).
 export const ADMIN_ENDPOINTS = {
   languages: "/languages/",
-  levels: "/courses/",
+  // Mounted under /api/v1 (not bare /courses, /lessons) — those bare paths
+  // are also Next.js page routes of the same name, so the production nginx
+  // gateway reserves them for the frontend. See main.py's courses_router /
+  // lessons_router mounts.
+  levels: "/api/v1/courses/",
   modules: "/modules",
-  lessons: "/lessons",
-  lessonsByModule: (moduleId: string) => `/lessons/module/${moduleId}`,
+  lessons: "/api/v1/lessons",
+  lessonsByModule: (moduleId: string) => `/api/v1/lessons/module/${moduleId}`,
   videos: "/admin/videos",
   videosByLesson: (lessonId: string) => `/admin/videos?lesson_id=${lessonId}`,
   vocabularies: "/vocabularies/",

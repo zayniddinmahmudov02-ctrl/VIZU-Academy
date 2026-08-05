@@ -162,6 +162,19 @@ app.include_router(languages_router)
 app.include_router(courses_router)
 app.include_router(modules_router)
 app.include_router(lessons_router)
+
+# Also mounted under /api/v1 (same pattern already used by certificate_router
+# below) — the bare /courses and /lessons prefixes are claimed by Next.js
+# page routes of the same name (/courses, /courses/[level], /lessons/...),
+# so nginx routes those bare paths to the frontend. The routers/endpoints
+# themselves are unchanged; this just gives the frontend's own data-fetch
+# calls (course.service.ts, lesson-service.ts) an unambiguous path that
+# nginx can route straight to the backend. The bare mounts above are left
+# in place, unchanged, for any caller reaching the backend directly
+# (bypassing the public gateway) — see nginx config notes.
+app.include_router(courses_router, prefix=settings.API_V1_PREFIX)
+app.include_router(lessons_router, prefix=settings.API_V1_PREFIX)
+
 app.include_router(videos_router)
 app.include_router(video_progress_router)
 app.include_router(vocabularies_router)

@@ -37,11 +37,16 @@ function mapLessonDetail(payload: LessonDetailPayload): Lesson {
   };
 }
 
+// /api/v1/lessons, not bare /lessons — that path is also the Next.js lesson
+// player route (/lessons/[lessonId]/[section]), and the production nginx
+// gateway reserves it for the frontend. See backend/app/main.py's
+// lessons_router mount.
+
 export async function getLesson(
   lessonId: string,
 ): Promise<Lesson> {
   const payload = await api<LessonDetailPayload>(
-    `/lessons/${lessonId}`,
+    `/api/v1/lessons/${lessonId}`,
   );
 
   return mapLessonDetail(payload);
@@ -49,7 +54,7 @@ export async function getLesson(
 
 export async function getLessons() {
   const payload = await api<LessonListItemPayload[]>(
-    "/lessons",
+    "/api/v1/lessons",
   );
 
   return payload.map(mapLessonListItem);
