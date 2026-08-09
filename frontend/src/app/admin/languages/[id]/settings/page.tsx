@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
@@ -60,16 +60,39 @@ export default function LanguageSettingsPage() {
     queryFn: () => getLanguageSettings(id),
   });
 
-  const [form, setForm] = useState<LanguageSettings | null>(null);
+  return (
+    <div>
+      <Link
+        href="/admin/languages"
+        className="mb-4 inline-flex items-center gap-1.5 text-sm text-[var(--admin-text-muted)] hover:text-[var(--admin-text-primary)]"
+      >
+        <ArrowLeft size={14} />
+        Languages
+      </Link>
+
+      <AdminPageHeader
+        title={`Einstellungen — ${language?.name ?? ""}`}
+        description="Feature-Toggles für diese Sprache."
+      />
+
+      {isLoading || !settings ? (
+        <p className="text-sm text-[var(--admin-text-muted)]">Wird geladen...</p>
+      ) : (
+        <LanguageSettingsForm id={id} settings={settings} />
+      )}
+    </div>
+  );
+}
+
+// Only mounted once `settings` has loaded, so its editable copy can be
+// derived once at mount time (lazy useState initializer) instead of
+// synced in afterward via an effect.
+function LanguageSettingsForm({ id, settings }: { id: string; settings: LanguageSettings }) {
+  const [form, setForm] = useState<LanguageSettings>(settings);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
 
-  useEffect(() => {
-    if (settings) setForm(settings);
-  }, [settings]);
-
   async function handleSave() {
-    if (!form) return;
     setSaving(true);
     setSaved(false);
     try {
@@ -84,49 +107,33 @@ export default function LanguageSettingsPage() {
 
   return (
     <div>
-      <Link
-        href="/admin/languages"
-        className="mb-4 inline-flex items-center gap-1.5 text-sm text-[var(--admin-text-muted)] hover:text-[var(--admin-text-primary)]"
-      >
-        <ArrowLeft size={14} />
-        Languages
-      </Link>
+      <div className="mb-6 flex justify-end">
+        <AdminButton onClick={handleSave} disabled={saving}>
+          {saving ? "Wird gespeichert..." : saved ? "Gespeichert ✓" : "Speichern"}
+        </AdminButton>
+      </div>
 
-      <AdminPageHeader
-        title={`Einstellungen — ${language?.name ?? ""}`}
-        description="Feature-Toggles für diese Sprache."
-        action={
-          <AdminButton onClick={handleSave} disabled={saving || !form}>
-            {saving ? "Wird gespeichert..." : saved ? "Gespeichert ✓" : "Speichern"}
-          </AdminButton>
-        }
-      />
-
-      {isLoading || !form ? (
-        <p className="text-sm text-[var(--admin-text-muted)]">Wird geladen...</p>
-      ) : (
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          {TOGGLE_GROUPS.map((group) => (
-            <AdminCard key={group.title}>
-              <h3 className="mb-4 text-sm font-semibold text-[var(--admin-text-primary)]">{group.title}</h3>
-              <div className="space-y-3">
-                {group.keys.map((key) => (
-                  <label key={key} className="flex cursor-pointer items-center justify-between">
-                    <span className="text-sm text-[var(--admin-text-secondary)]">{LABELS[key]}</span>
-                    <AdminCheckbox
-                      checked={form[key]}
-                      onCheckedChange={(checked) => {
-                        setSaved(false);
-                        setForm({ ...form, [key]: checked });
-                      }}
-                    />
-                  </label>
-                ))}
-              </div>
-            </AdminCard>
-          ))}
-        </div>
-      )}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        {TOGGLE_GROUPS.map((group) => (
+          <AdminCard key={group.title}>
+            <h3 className="mb-4 text-sm font-semibold text-[var(--admin-text-primary)]">{group.title}</h3>
+            <div className="space-y-3">
+              {group.keys.map((key) => (
+                <label key={key} className="flex cursor-pointer items-center justify-between">
+                  <span className="text-sm text-[var(--admin-text-secondary)]">{LABELS[key]}</span>
+                  <AdminCheckbox
+                    checked={form[key]}
+                    onCheckedChange={(checked) => {
+                      setSaved(false);
+                      setForm({ ...form, [key]: checked });
+                    }}
+                  />
+                </label>
+              ))}
+            </div>
+          </AdminCard>
+        ))}
+      </div>
     </div>
   );
 }
