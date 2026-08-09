@@ -96,6 +96,7 @@ function LanguageSettingsForm({ id, settings }: { id: string; settings: Language
     setSaving(true);
     setSaved(false);
     try {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { language_id: _languageId, ...updates } = form;
       const updated = await updateLanguageSettings(id, updates);
       setForm(updated);
