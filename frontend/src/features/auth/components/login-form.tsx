@@ -189,6 +189,7 @@ export default function LoginForm() {
           <Input
             type={showPassword ? "text" : "password"}
             placeholder="Passwort"
+            autoComplete="current-password"
             error={!!errors.password}
             className="pr-11"
             {...register("password")}
