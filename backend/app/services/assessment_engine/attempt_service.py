@@ -13,8 +13,9 @@ from app.models.assessment_attempt import (
     AssessmentAttempt,
 )
 from app.models.assessment_result import AssessmentResult
-from app.models.assessment_task import TYPE_WRITING, AssessmentTask
+from app.models.assessment_task import TYPE_SPEAKING, TYPE_WRITING, AssessmentTask
 from app.models.section_result import SectionResult
+from app.models.speaking_submission import SpeakingSubmission
 from app.models.task_attempt import TaskAttempt
 from app.models.task_question import TaskQuestion
 from app.models.user import User
@@ -203,6 +204,16 @@ def _score_and_finalize(db: Session, attempt: AssessmentAttempt, assessment: Ass
                 select(WritingSubmission).where(
                     WritingSubmission.attempt_id == attempt.id,
                     WritingSubmission.task_id == ta.task_id,
+                )
+            ).first()
+            ta.score = submission.final_score if submission and submission.final_score is not None else 0
+        elif task.task_type == TYPE_SPEAKING:
+            # Same deferred-scoring shape as WRITING — the teacher review
+            # may finish well after submit_attempt() first ran.
+            submission = db.scalars(
+                select(SpeakingSubmission).where(
+                    SpeakingSubmission.attempt_id == attempt.id,
+                    SpeakingSubmission.task_id == ta.task_id,
                 )
             ).first()
             ta.score = submission.final_score if submission and submission.final_score is not None else 0

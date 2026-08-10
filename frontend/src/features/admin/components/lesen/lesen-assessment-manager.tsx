@@ -30,6 +30,7 @@ import {
   type AssessmentTask,
   type AudioPolicy,
   type SectionSkill,
+  type SpeakingConfig,
   type TaskType,
   type WritingConfig,
 } from "@/features/admin/types/assessment.types";
@@ -38,6 +39,7 @@ import AudioPanel from "./audio-panel";
 import ClozeTextEditor from "./cloze-text-editor";
 import GapList from "./gap-list";
 import LesenRichTextEditor from "./lesen-rich-text-editor";
+import SpeakingPanel from "./speaking-panel";
 import TaskQuestionsEditor from "./task-questions-editor";
 import WritingPanel from "./writing-panel";
 
@@ -124,6 +126,9 @@ export default function LesenAssessmentManager({ lessonId, skill }: Props) {
       task_type: taskType,
       title: TASK_TYPE_LABELS[taskType],
       sort_order: (tasks?.length ?? 0) + 1,
+      // Sprechen has no AI audio evaluation in this phase — every
+      // SPEAKING task is teacher-only, unlike WRITING's AI_ONLY default.
+      ...(taskType === "SPEAKING" ? { evaluation_mode: "TEACHER_ONLY" as const } : {}),
     });
     invalidateAll();
     setPickerOpen(false);
@@ -334,6 +339,11 @@ function TaskDetailEditor({
     onChanged();
   }
 
+  async function saveSpeakingConfig(config: Partial<SpeakingConfig> & { image_url?: string | null }) {
+    await updateTask(task.id, config);
+    onChanged();
+  }
+
   async function saveContent(content: string) {
     await updateTask(task.id, { content });
     onChanged();
@@ -414,6 +424,16 @@ function TaskDetailEditor({
           <LesenRichTextEditor content={task.content ?? ""} onChange={saveContent} />
           <div className="mt-3">
             <WritingPanel task={task} onConfigChange={saveWritingConfig} onChanged={onChanged} />
+          </div>
+        </div>
+      ) : task.task_type === "SPEAKING" ? (
+        <div>
+          <label className="mb-1 block text-xs font-medium text-[var(--admin-text-secondary)]">
+            Aufgabenstellung (Text und/oder Bild)
+          </label>
+          <LesenRichTextEditor content={task.content ?? ""} onChange={saveContent} />
+          <div className="mt-3">
+            <SpeakingPanel task={task} onConfigChange={saveSpeakingConfig} onChanged={onChanged} />
           </div>
         </div>
       ) : (

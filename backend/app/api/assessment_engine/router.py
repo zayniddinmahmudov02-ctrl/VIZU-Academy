@@ -23,8 +23,13 @@ from app.schemas.assessment_engine import (
     AssessmentTaskUpdate,
     AssessmentUpdate,
     AudioPlayStatusResponse,
+    PendingSpeakingReviewItem,
     PendingWritingReviewItem,
     PublicAssessment,
+    SpeakingEvaluationResponse,
+    SpeakingResultResponse,
+    SpeakingReviewInput,
+    SpeakingSubmissionResponse,
     TaskAudioResponse,
     TaskOptionCreate,
     TaskOptionResponse,
@@ -48,6 +53,7 @@ from app.services.assessment_engine import (
     audio_service,
     crud_service,
     public_service,
+    speaking_service,
     writing_service,
 )
 
@@ -576,4 +582,83 @@ def review_writing_submission(
     numbers are never trusted as-is."""
     return writing_service.submit_teacher_review(
         db, submission_id, current_user, data.rubric_scores, data.feedback
+    )
+
+
+# ============================================================
+# Speaking (SPRECHEN) submissions — Aufnahme upload/re-record, results
+# ============================================================
+
+@router.get("/attempts/{attempt_id}/speaking/{task_id}", response_model=SpeakingSubmissionResponse | None)
+def get_speaking_submission(
+    attempt_id: str,
+    task_id: str,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    return speaking_service.get_submission(db, attempt_id, task_id, current_user)
+
+
+@router.post("/attempts/{attempt_id}/speaking/{task_id}", response_model=SpeakingSubmissionResponse, status_code=201)
+async def upload_speaking_submission(
+    attempt_id: str,
+    task_id: str,
+    file: UploadFile = File(...),
+    duration_seconds: int | None = Form(None),
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Abgeben (or a re-record, per assessment policy) — always the
+    complete recording in one call, never a partial/draft upload."""
+    return await speaking_service.upload_submission(db, attempt_id, task_id, current_user, file, duration_seconds)
+
+
+@router.get("/speaking-submissions/{submission_id}/audio")
+def get_speaking_submission_audio(
+    submission_id: str,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """The only way to fetch a submission's audio bytes — never a public
+    URL. Re-checks on every request: the submitting student, or any
+    admin-panel/teacher role. See speaking_service.authorize_submission_access."""
+    submission = speaking_service.authorize_submission_access(db, submission_id, current_user)
+    path = speaking_service.resolve_submission_audio_path(submission)
+    if not path.exists():
+        raise HTTPException(status_code=404, detail="Audio file missing on disk.")
+    return FileResponse(path=path, media_type=submission.content_type, filename=submission.filename)
+
+
+@router.get("/attempts/{attempt_id}/speaking/{task_id}/result", response_model=SpeakingResultResponse)
+def get_speaking_result(
+    attempt_id: str,
+    task_id: str,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    return speaking_service.get_speaking_result(db, attempt_id, task_id, current_user)
+
+
+# ============================================================
+# Teacher review — Sprechen (teacher-only in this phase)
+# ============================================================
+
+@router.get("/speaking/pending-review", response_model=list[PendingSpeakingReviewItem])
+def list_pending_speaking_reviews(
+    assessment_id: str | None = None,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    return speaking_service.list_pending_reviews(db, assessment_id)
+
+
+@router.post("/speaking/{submission_id}/review", response_model=SpeakingEvaluationResponse)
+def review_speaking_submission(
+    submission_id: str,
+    data: SpeakingReviewInput,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    return speaking_service.submit_teacher_review(
+        db, submission_id, current_user, data.rubric_scores, data.feedback, data.finalize
     )

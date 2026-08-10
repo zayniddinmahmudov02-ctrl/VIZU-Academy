@@ -91,6 +91,8 @@ from .task_audio import TaskAudio
 from .writing_rubric_criterion import WritingRubricCriterion
 from .writing_submission import WritingSubmission
 from .writing_evaluation import WritingEvaluation
+from .speaking_submission import SpeakingSubmission
+from .speaking_evaluation import SpeakingEvaluation
 
 
 __all__ = [
@@ -187,4 +189,6 @@ __all__ = [
     "WritingRubricCriterion",
     "WritingSubmission",
     "WritingEvaluation",
+    "SpeakingSubmission",
+    "SpeakingEvaluation",
 ]

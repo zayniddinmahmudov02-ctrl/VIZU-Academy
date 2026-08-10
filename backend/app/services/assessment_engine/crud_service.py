@@ -5,7 +5,8 @@ from sqlalchemy.orm import Session, selectinload
 
 from app.models.assessment import Assessment
 from app.models.assessment_section import AssessmentSection
-from app.models.assessment_task import TYPE_WRITING, AssessmentTask
+from app.models.assessment_task import TYPE_SPEAKING, TYPE_WRITING, AssessmentTask
+from app.models.speaking_submission import SpeakingSubmission
 from app.models.task_audio import TaskAudio
 from app.models.task_option import TaskOption
 from app.models.task_question import TaskQuestion
@@ -34,12 +35,16 @@ from .scoring import get_handler
 async def _delete_audio_files_for_tasks(db: Session, task_ids: list[UUID]) -> None:
     """Best-effort cleanup of on-disk audio files before their DB rows are
     cascade-deleted along with the parent task/section/assessment — the DB
-    FK cascade removes the TaskAudio *rows* for free, but never touches
-    the actual file on disk, so this has to happen explicitly first."""
+    FK cascade removes the TaskAudio/SpeakingSubmission *rows* for free,
+    but never touches the actual file on disk, so this has to happen
+    explicitly first. Covers both admin-uploaded task audio (Hören) and
+    student-submitted recordings (Sprechen) — same storage, same risk of
+    an orphaned file otherwise."""
     if not task_ids:
         return
     audios = db.scalars(select(TaskAudio).where(TaskAudio.task_id.in_(task_ids))).all()
-    for audio in audios:
+    submissions = db.scalars(select(SpeakingSubmission).where(SpeakingSubmission.task_id.in_(task_ids))).all()
+    for audio in [*audios, *submissions]:
         try:
             await audio_storage.delete(audio.storage_path)
         except OSError:
@@ -245,7 +250,7 @@ def validate_task(db: Session, task_id: str) -> list[str]:
     if task is None:
         return ["Task not found."]
 
-    if task.task_type == TYPE_WRITING:
+    if task.task_type in (TYPE_WRITING, TYPE_SPEAKING):
         return [] if task.rubric_criteria else ["Task has no rubric criteria yet."]
 
     try:

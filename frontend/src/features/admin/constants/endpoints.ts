@@ -46,6 +46,8 @@ export const ADMIN_ENDPOINTS = {
   rubricCriteria: "/api/v1/rubric-criteria",
   writing: "/api/v1/writing",
   upload: "/api/v1/upload",
+  speaking: "/api/v1/speaking",
+  speakingSubmissions: "/api/v1/speaking-submissions",
   certificates: "/api/v1/certificates",
   adminDashboard: "/api/v1/admin/dashboard/overview",
 

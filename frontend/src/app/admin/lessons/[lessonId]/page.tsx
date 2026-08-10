@@ -70,7 +70,12 @@ export default function LessonEditorPage() {
             label: "Schreiben",
             content: <LesenAssessmentManager lessonId={lessonId} skill="SCHREIBEN" />,
           },
-          { value: "speaking", label: "Sprechen", content: <SpeakingManager lessonId={lessonId} /> },
+          { value: "speaking", label: "Sprechen (Legacy)", content: <SpeakingManager lessonId={lessonId} /> },
+          {
+            value: "sprechen-assessment",
+            label: "Sprechen",
+            content: <LesenAssessmentManager lessonId={lessonId} skill="SPRECHEN" />,
+          },
           { value: "homework", label: "Hausaufgaben", content: <HomeworkManager lessonId={lessonId} /> },
           { value: "quiz", label: "Quiz", content: <QuizManager lessonId={lessonId} /> },
         ]}

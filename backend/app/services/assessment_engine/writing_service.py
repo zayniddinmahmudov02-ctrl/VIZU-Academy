@@ -44,6 +44,7 @@ from app.schemas.assessment_engine import (
 from app.services.mock_exam import ai_service
 
 from . import attempt_service
+from .rubric_scoring import clamp_rubric_scores
 
 
 def _now() -> datetime:
@@ -188,20 +189,9 @@ async def _run_ai_evaluation(db: Session, submission: WritingSubmission, task: A
         image_url=task.image_url,
     )
 
-    returned_scores = result.get("criterion_scores") or {}
-    clamped_scores: dict[str, int] = {}
-    total = 0
-    for criterion in criteria:
-        try:
-            score = int(returned_scores.get(criterion.name, 0))
-        except (TypeError, ValueError):
-            score = 0
-        # Never trust the AI's own arithmetic or range — clamp to
-        # [0, criterion.max_score] regardless of what it returned.
-        score = max(0, min(score, criterion.max_score))
-        clamped_scores[str(criterion.id)] = score
-        total += score
-    total = min(total, task.max_points)
+    # Never trust the AI's own arithmetic or range — clamp_rubric_scores
+    # re-derives both per-criterion and total from scratch.
+    clamped_scores, total = clamp_rubric_scores(result.get("criterion_scores") or {}, criteria, task.max_points)
 
     feedback_parts = []
     if result.get("vocabulary_feedback"):
@@ -246,19 +236,7 @@ def submit_teacher_review(
         raise HTTPException(status_code=404, detail="Submission not found.")
 
     task = db.get(AssessmentTask, submission.task_id)
-    criteria = {str(c.id): c for c in task.rubric_criteria}
-
-    clamped: dict[str, int] = {}
-    total = 0
-    for criterion_id, criterion in criteria.items():
-        try:
-            score = int(rubric_scores.get(criterion_id, 0))
-        except (TypeError, ValueError):
-            score = 0
-        score = max(0, min(score, criterion.max_score))
-        clamped[criterion_id] = score
-        total += score
-    total = min(total, task.max_points)
+    clamped, total = clamp_rubric_scores(rubric_scores, list(task.rubric_criteria), task.max_points)
 
     evaluation = WritingEvaluation(
         submission_id=submission.id,

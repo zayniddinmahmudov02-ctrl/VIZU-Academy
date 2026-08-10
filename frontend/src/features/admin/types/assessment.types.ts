@@ -31,6 +31,7 @@ export const TASK_TYPES = [
   "CATEGORY_SORTING",
   "IMAGE_SELECTION",
   "WRITING",
+  "SPEAKING",
 ] as const;
 export type TaskType = (typeof TASK_TYPES)[number];
 
@@ -49,6 +50,7 @@ export const TASK_TYPE_LABELS: Record<TaskType, string> = {
   CATEGORY_SORTING: "Kategorien sortieren",
   IMAGE_SELECTION: "Bildauswahl",
   WRITING: "Schreibaufgabe",
+  SPEAKING: "Sprechaufgabe",
 };
 
 export const EVALUATION_MODES = ["AI_ONLY", "TEACHER_ONLY", "AI_AND_TEACHER"] as const;
@@ -64,6 +66,9 @@ export const WRITING_SUBMISSION_STATUSES = ["DRAFT", "SUBMITTED", "PENDING_REVIE
 export type WritingSubmissionStatus = (typeof WRITING_SUBMISSION_STATUSES)[number];
 
 export type EvaluatorType = "AI" | "TEACHER";
+
+export const SPEAKING_SUBMISSION_STATUSES = ["PENDING_REVIEW", "REVIEWED", "FINAL"] as const;
+export type SpeakingSubmissionStatus = (typeof SPEAKING_SUBMISSION_STATUSES)[number];
 
 export const ATTEMPT_STATUSES = ["IN_PROGRESS", "SUBMITTED", "GRADED"] as const;
 export type AttemptStatus = (typeof ATTEMPT_STATUSES)[number];
@@ -169,7 +174,12 @@ export interface WritingConfig {
   evaluation_mode: EvaluationMode;
 }
 
-export interface AssessmentTask extends AudioPolicy, WritingConfig {
+export interface SpeakingConfig {
+  prep_seconds: number | null;
+  speak_seconds: number | null;
+}
+
+export interface AssessmentTask extends AudioPolicy, WritingConfig, SpeakingConfig {
   id: string;
   section_id: string;
   task_type: TaskType;
@@ -184,7 +194,7 @@ export interface AssessmentTask extends AudioPolicy, WritingConfig {
   rubric_criteria: WritingRubricCriterion[];
 }
 
-export interface AssessmentTaskCreate extends Partial<AudioPolicy>, Partial<WritingConfig> {
+export interface AssessmentTaskCreate extends Partial<AudioPolicy>, Partial<WritingConfig>, Partial<SpeakingConfig> {
   section_id: string;
   task_type: TaskType;
   title: string;
@@ -293,6 +303,8 @@ export interface PublicTask extends AudioPolicy {
   min_words: number | null;
   max_words: number | null;
   time_limit_minutes: number | null;
+  prep_seconds: number | null;
+  speak_seconds: number | null;
   rubric_criteria: PublicWritingRubricCriterion[];
   questions: PublicTaskQuestion[];
 }
@@ -398,4 +410,53 @@ export interface PendingWritingReviewItem {
   student_name: string;
   rubric_criteria: WritingRubricCriterion[];
   ai_evaluation: WritingEvaluation | null;
+}
+
+// ============================================================
+// Speaking (SPRECHEN) submissions / evaluations
+// ============================================================
+
+export interface SpeakingSubmission {
+  id: string;
+  user_id: string;
+  assessment_id: string;
+  section_id: string;
+  task_id: string;
+  attempt_id: string;
+  filename: string;
+  format: string;
+  duration_seconds: number | null;
+  file_size_bytes: number;
+  status: SpeakingSubmissionStatus;
+  submitted_at: string;
+  final_score: number | null;
+}
+
+export interface SpeakingEvaluation {
+  id: string;
+  submission_id: string;
+  reviewed_by_id: string | null;
+  rubric_scores: Record<string, number>;
+  total_score: number;
+  feedback: string | null;
+  created_at: string;
+}
+
+export interface SpeakingResult {
+  submission: SpeakingSubmission;
+  evaluations: SpeakingEvaluation[];
+  show_feedback: boolean;
+}
+
+export interface SpeakingReviewInput {
+  rubric_scores: Record<string, number>;
+  feedback?: string | null;
+  finalize: boolean;
+}
+
+export interface PendingSpeakingReviewItem {
+  submission: SpeakingSubmission;
+  task_title: string;
+  student_name: string;
+  rubric_criteria: WritingRubricCriterion[];
 }

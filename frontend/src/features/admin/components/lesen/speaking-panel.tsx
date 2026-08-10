@@ -3,33 +3,26 @@
 import { useRef, useState } from "react";
 import { Image as ImageIcon, Upload, X } from "lucide-react";
 
-import { AdminButton, AdminInput, AdminSelect } from "@/components/admin/admin-ui";
+import { AdminButton, AdminInput } from "@/components/admin/admin-ui";
 import { resolveMediaUrl } from "@/lib/media";
 import { uploadImage } from "@/features/admin/services/assessment-service";
-import {
-  EVALUATION_MODE_LABELS,
-  EVALUATION_MODES,
-  type AssessmentTask,
-  type WritingConfig,
-} from "@/features/admin/types/assessment.types";
+import type { AssessmentTask, SpeakingConfig } from "@/features/admin/types/assessment.types";
 
 import RubricCriteriaEditor from "./rubric-criteria-editor";
 
 interface Props {
   task: AssessmentTask;
-  onConfigChange: (config: Partial<WritingConfig>) => void;
+  onConfigChange: (config: Partial<SpeakingConfig> & { image_url?: string | null }) => void;
   onChanged: () => void;
 }
 
-/** The Schreiben task builder panel: image attachment, word/time limits,
- * evaluation mode, and the admin-defined scoring rubric — everything a
- * WRITING task needs beyond its rich-text prompt (rendered by the caller
- * via the same LesenRichTextEditor every other task type already uses for
- * `content`, so "Sie haben einen Freund..." is just a normal rich-text
- * field, not a special case). Never hardcodes a rubric — whatever
- * criteria the admin adds here is exactly what the AI/teacher scores
- * against. */
-export default function WritingPanel({ task, onConfigChange, onChanged }: Props) {
+/** The Sprechen task builder panel: image attachment, Vorbereitungszeit /
+ * Sprechzeit, and the same universal rubric builder Schreiben uses
+ * (RubricCriteriaEditor doesn't care which skill's task it's attached
+ * to). Speaking tasks are always created with evaluation_mode=TEACHER_ONLY
+ * server-side — there's no AI audio evaluation in this phase, so no mode
+ * selector is shown here (unlike WritingPanel). */
+export default function SpeakingPanel({ task, onConfigChange, onChanged }: Props) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -52,7 +45,6 @@ export default function WritingPanel({ task, onConfigChange, onChanged }: Props)
 
   return (
     <div className="space-y-4 rounded-xl bg-white/[0.02] p-4 ring-1 ring-[var(--admin-border)]">
-      {/* Image (Text / Image / Text+Image content) */}
       <div>
         <label className="mb-1 block text-xs font-medium text-[var(--admin-text-secondary)]">
           Bild (optional)
@@ -79,56 +71,28 @@ export default function WritingPanel({ task, onConfigChange, onChanged }: Props)
         {error && <p className="mt-1 text-xs text-[var(--admin-danger)]">{error}</p>}
       </div>
 
-      {/* Word / time limits + evaluation mode */}
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3">
         <div>
           <label className="mb-1 block text-[10px] font-medium uppercase text-[var(--admin-text-muted)]">
-            Min. Wörter
+            Vorbereitungszeit (Sek.)
           </label>
           <AdminInput
             type="number"
-            defaultValue={task.min_words ?? ""}
-            onBlur={(e) => onConfigChange({ min_words: e.target.value ? Number(e.target.value) : null })}
+            defaultValue={task.prep_seconds ?? ""}
+            onBlur={(e) => onConfigChange({ prep_seconds: e.target.value ? Number(e.target.value) : null })}
             className="h-8 text-xs"
           />
         </div>
         <div>
           <label className="mb-1 block text-[10px] font-medium uppercase text-[var(--admin-text-muted)]">
-            Max. Wörter
+            Sprechzeit (Sek.)
           </label>
           <AdminInput
             type="number"
-            defaultValue={task.max_words ?? ""}
-            onBlur={(e) => onConfigChange({ max_words: e.target.value ? Number(e.target.value) : null })}
+            defaultValue={task.speak_seconds ?? ""}
+            onBlur={(e) => onConfigChange({ speak_seconds: e.target.value ? Number(e.target.value) : null })}
             className="h-8 text-xs"
           />
-        </div>
-        <div>
-          <label className="mb-1 block text-[10px] font-medium uppercase text-[var(--admin-text-muted)]">
-            Zeitlimit (Min.)
-          </label>
-          <AdminInput
-            type="number"
-            defaultValue={task.time_limit_minutes ?? ""}
-            onBlur={(e) => onConfigChange({ time_limit_minutes: e.target.value ? Number(e.target.value) : null })}
-            className="h-8 text-xs"
-          />
-        </div>
-        <div>
-          <label className="mb-1 block text-[10px] font-medium uppercase text-[var(--admin-text-muted)]">
-            Bewertung
-          </label>
-          <AdminSelect
-            value={task.evaluation_mode}
-            onChange={(e) => onConfigChange({ evaluation_mode: e.target.value as WritingConfig["evaluation_mode"] })}
-            className="h-8 text-xs"
-          >
-            {EVALUATION_MODES.map((mode) => (
-              <option key={mode} value={mode}>
-                {EVALUATION_MODE_LABELS[mode]}
-              </option>
-            ))}
-          </AdminSelect>
         </div>
       </div>
 

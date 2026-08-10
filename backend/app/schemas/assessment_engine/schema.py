@@ -24,11 +24,13 @@ TaskType = Literal[
     "CATEGORY_SORTING",
     "IMAGE_SELECTION",
     "WRITING",
+    "SPEAKING",
 ]
 AttemptStatus = Literal["IN_PROGRESS", "SUBMITTED", "GRADED"]
 EvaluationMode = Literal["AI_ONLY", "TEACHER_ONLY", "AI_AND_TEACHER"]
 WritingSubmissionStatus = Literal["DRAFT", "SUBMITTED", "PENDING_REVIEW", "GRADED"]
 EvaluatorType = Literal["AI", "TEACHER"]
+SpeakingSubmissionStatus = Literal["PENDING_REVIEW", "REVIEWED", "FINAL"]
 
 
 # ============================================================
@@ -245,6 +247,9 @@ class AssessmentTaskCreate(BaseSchema):
     max_words: int | None = None
     time_limit_minutes: int | None = None
     evaluation_mode: EvaluationMode = "AI_ONLY"
+    # Speaking config — only meaningful for SPEAKING tasks.
+    prep_seconds: int | None = None
+    speak_seconds: int | None = None
 
 
 class AssessmentTaskUpdate(BaseSchema):
@@ -264,6 +269,8 @@ class AssessmentTaskUpdate(BaseSchema):
     max_words: int | None = None
     time_limit_minutes: int | None = None
     evaluation_mode: EvaluationMode | None = None
+    prep_seconds: int | None = None
+    speak_seconds: int | None = None
 
 
 class TaskAudioResponse(BaseSchema):
@@ -297,6 +304,8 @@ class AssessmentTaskResponse(BaseSchema):
     max_words: int | None
     time_limit_minutes: int | None
     evaluation_mode: str
+    prep_seconds: int | None
+    speak_seconds: int | None
     audio: TaskAudioResponse | None = None
     questions: list[TaskQuestionResponse] = Field(default_factory=list)
     rubric_criteria: list[WritingRubricCriterionResponse] = Field(default_factory=list)
@@ -378,6 +387,8 @@ class PublicAssessmentTask(BaseSchema):
     min_words: int | None = None
     max_words: int | None = None
     time_limit_minutes: int | None = None
+    prep_seconds: int | None = None
+    speak_seconds: int | None = None
     rubric_criteria: list[PublicWritingRubricCriterion] = Field(default_factory=list)
     questions: list[PublicTaskQuestion] = Field(default_factory=list)
 
@@ -539,3 +550,58 @@ class PendingWritingReviewItem(BaseSchema):
     student_name: str
     rubric_criteria: list[WritingRubricCriterionResponse] = Field(default_factory=list)
     ai_evaluation: WritingEvaluationResponse | None = None
+
+
+# ============================================================
+# Speaking (SPRECHEN) submissions / evaluations
+# ============================================================
+
+class SpeakingSubmissionResponse(BaseSchema):
+    id: UUID
+    user_id: UUID
+    assessment_id: UUID
+    section_id: UUID
+    task_id: UUID
+    attempt_id: UUID
+    filename: str
+    format: str
+    duration_seconds: int | None
+    file_size_bytes: int
+    status: SpeakingSubmissionStatus
+    submitted_at: datetime
+    final_score: int | None
+
+    model_config = ConfigDict(from_attributes=True, extra="ignore")
+
+
+class SpeakingEvaluationResponse(BaseSchema):
+    id: UUID
+    submission_id: UUID
+    reviewed_by_id: UUID | None
+    rubric_scores: dict[str, int] = Field(default_factory=dict)
+    total_score: int
+    feedback: str | None
+    created_at: datetime
+
+    model_config = ConfigDict(from_attributes=True, extra="ignore")
+
+
+class SpeakingResultResponse(BaseSchema):
+    submission: SpeakingSubmissionResponse
+    evaluations: list[SpeakingEvaluationResponse] = Field(default_factory=list)
+    show_feedback: bool
+
+
+class SpeakingReviewInput(BaseSchema):
+    rubric_scores: dict[str, int]
+    feedback: str | None = None
+    # False -> saves as REVIEWED (teacher can come back and adjust later);
+    # True -> FINAL, locks it in and folds the score into the attempt result.
+    finalize: bool = True
+
+
+class PendingSpeakingReviewItem(BaseSchema):
+    submission: SpeakingSubmissionResponse
+    task_title: str
+    student_name: str
+    rubric_criteria: list[WritingRubricCriterionResponse] = Field(default_factory=list)

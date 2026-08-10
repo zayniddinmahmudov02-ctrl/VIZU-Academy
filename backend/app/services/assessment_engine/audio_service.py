@@ -27,9 +27,19 @@ EXTENSION_BY_CONTENT_TYPE = {
     "audio/mp4": "m4a",
     "audio/x-m4a": "m4a",
     "audio/m4a": "m4a",
+    "audio/webm": "webm",
+    "audio/ogg": "ogg",
 }
 
 storage = ProtectedLocalStorage()
+
+
+def resolve_audio_format(content_type: str | None) -> str | None:
+    """Browser MediaRecorder blobs carry a codecs parameter (e.g.
+    "audio/webm;codecs=opus"), not a bare MIME type — strip it before
+    the lookup, since dict.get() would otherwise always miss."""
+    base = (content_type or "").split(";")[0].strip()
+    return EXTENSION_BY_CONTENT_TYPE.get(base)
 
 
 def _get_task(db: Session, task_id: str) -> AssessmentTask:
@@ -51,7 +61,7 @@ async def upload_audio(
 ) -> TaskAudio:
     task = _get_task(db, task_id)
 
-    audio_format = EXTENSION_BY_CONTENT_TYPE.get(file.content_type or "")
+    audio_format = resolve_audio_format(file.content_type)
     if audio_format not in ALL_AUDIO_FORMATS:
         raise HTTPException(
             status_code=400,

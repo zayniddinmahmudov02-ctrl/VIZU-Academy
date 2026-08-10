@@ -97,6 +97,8 @@ def to_public_schema(assessment: Assessment) -> PublicAssessment:
                         min_words=task.min_words,
                         max_words=task.max_words,
                         time_limit_minutes=task.time_limit_minutes,
+                        prep_seconds=task.prep_seconds,
+                        speak_seconds=task.speak_seconds,
                         rubric_criteria=[
                             PublicWritingRubricCriterion(
                                 id=str(c.id), name=c.name, max_score=c.max_score, sort_order=c.sort_order

@@ -88,6 +88,14 @@ class AssessmentTask(BaseModel):
         String(20), default=EVAL_MODE_AI_ONLY, server_default=EVAL_MODE_AI_ONLY, nullable=False
     )
 
+    # Speaking (SPRECHEN) config — only meaningful for task_type=SPEAKING.
+    # `image_url`, `evaluation_mode`, and `rubric_criteria` above are
+    # already generic enough to be reused as-is (Sprechen tasks are simply
+    # created with evaluation_mode="TEACHER_ONLY" and rubric criteria of
+    # their own); only the prep/speak timers are genuinely new.
+    prep_seconds: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    speak_seconds: Mapped[int | None] = mapped_column(Integer, nullable=True)
+
     section = relationship("AssessmentSection", back_populates="tasks")
     questions = relationship(
         "TaskQuestion",

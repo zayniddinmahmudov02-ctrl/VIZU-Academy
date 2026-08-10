@@ -14,8 +14,12 @@ import type {
   AssessmentTaskUpdate,
   AssessmentUpdate,
   AudioPlayStatus,
+  PendingSpeakingReviewItem,
   PendingWritingReviewItem,
   PublicAssessment,
+  SpeakingResult,
+  SpeakingReviewInput,
+  SpeakingSubmission,
   SubmitAnswerInput,
   TaskAudio,
   TaskOption,
@@ -329,5 +333,64 @@ export async function listPendingWritingReviews(assessmentId?: string): Promise<
 
 export async function reviewWritingSubmission(submissionId: string, data: TeacherReviewInput) {
   const response = await api.post(`${ADMIN_ENDPOINTS.writing}/${submissionId}/review`, data);
+  return response.data;
+}
+
+// ============================================================
+// Speaking submissions — Aufnahme upload/re-record, results (student-facing)
+// ============================================================
+
+export async function getSpeakingSubmission(attemptId: string, taskId: string): Promise<SpeakingSubmission | null> {
+  const response = await api.get<SpeakingSubmission | null>(
+    `${ADMIN_ENDPOINTS.attempts}/${attemptId}/speaking/${taskId}`,
+  );
+  return response.data;
+}
+
+export async function uploadSpeakingSubmission(
+  attemptId: string,
+  taskId: string,
+  file: Blob,
+  durationSeconds: number,
+  extension: string,
+): Promise<SpeakingSubmission> {
+  const formData = new FormData();
+  formData.append("file", file, `recording.${extension}`);
+  formData.append("duration_seconds", String(Math.round(durationSeconds)));
+  const response = await api.post<SpeakingSubmission>(
+    `${ADMIN_ENDPOINTS.attempts}/${attemptId}/speaking/${taskId}`,
+    formData,
+    { headers: { "Content-Type": "multipart/form-data" } },
+  );
+  return response.data;
+}
+
+// Same never-a-public-URL pattern as getAudioBlobUrl — permission is
+// re-checked on every request server-side.
+export async function getSpeakingAudioBlobUrl(submissionId: string): Promise<string> {
+  const response = await api.get(`${ADMIN_ENDPOINTS.speakingSubmissions}/${submissionId}/audio`, {
+    responseType: "blob",
+  });
+  return URL.createObjectURL(response.data as Blob);
+}
+
+export async function getSpeakingResult(attemptId: string, taskId: string): Promise<SpeakingResult> {
+  const response = await api.get<SpeakingResult>(`${ADMIN_ENDPOINTS.attempts}/${attemptId}/speaking/${taskId}/result`);
+  return response.data;
+}
+
+// ============================================================
+// Teacher review — Sprechen
+// ============================================================
+
+export async function listPendingSpeakingReviews(assessmentId?: string): Promise<PendingSpeakingReviewItem[]> {
+  const response = await api.get<PendingSpeakingReviewItem[]>(`${ADMIN_ENDPOINTS.speaking}/pending-review`, {
+    params: assessmentId ? { assessment_id: assessmentId } : undefined,
+  });
+  return ensureArray<PendingSpeakingReviewItem>(response.data);
+}
+
+export async function reviewSpeakingSubmission(submissionId: string, data: SpeakingReviewInput) {
+  const response = await api.post(`${ADMIN_ENDPOINTS.speaking}/${submissionId}/review`, data);
   return response.data;
 }
