@@ -65,6 +65,11 @@ from app.api.v1.certificate.router import (
     router as certificate_router,
 )
 
+# Assessment Engine (universal — Course + Preparation + Mock Test)
+from app.api.assessment_engine.router import (
+    router as assessment_engine_router,
+)
+
 # Payment
 from app.api.payment import (
     router as payment_router,
@@ -211,6 +216,7 @@ _ALL_ROUTERS = [
     admin_vizu_pay_router,
     admin_videos_router,
     vizu_pay_router,
+    assessment_engine_router,
     health_router,
 ]
 

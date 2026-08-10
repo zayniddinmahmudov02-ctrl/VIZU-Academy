@@ -68,7 +68,6 @@ export default function LesenRichTextEditor({ content, onChange, className, extr
     if (!editor) return;
     if (editor.getHTML() === content) return;
     editor.commands.setContent(content, { emitUpdate: false });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editor, content]);
 
   if (!editor) return null;

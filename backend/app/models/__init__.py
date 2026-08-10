@@ -76,6 +76,18 @@ from .mock_question_answer import MockQuestionAnswer
 from .mock_writing_submission import MockWritingSubmission
 from .mock_speaking_submission import MockSpeakingSubmission
 
+# Assessment Engine (universal — Course + Preparation + Mock Test)
+from .assessment import Assessment
+from .assessment_section import AssessmentSection
+from .assessment_task import AssessmentTask
+from .task_question import TaskQuestion
+from .task_option import TaskOption
+from .assessment_attempt import AssessmentAttempt
+from .task_attempt import TaskAttempt
+from .answer import Answer
+from .section_result import SectionResult
+from .assessment_result import AssessmentResult
+
 
 __all__ = [
     "Base",
@@ -155,4 +167,16 @@ __all__ = [
     "MockQuestionAnswer",
     "MockWritingSubmission",
     "MockSpeakingSubmission",
+
+    # Assessment Engine
+    "Assessment",
+    "AssessmentSection",
+    "AssessmentTask",
+    "TaskQuestion",
+    "TaskOption",
+    "AssessmentAttempt",
+    "TaskAttempt",
+    "Answer",
+    "SectionResult",
+    "AssessmentResult",
 ]

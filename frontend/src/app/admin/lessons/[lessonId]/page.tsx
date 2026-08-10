@@ -7,6 +7,7 @@ import { ArrowLeft } from "lucide-react";
 import AdminTabs from "@/components/admin/admin-tabs";
 import GrammarManager from "@/features/admin/components/managers/grammar-manager";
 import HomeworkManager from "@/features/admin/components/managers/homework-manager";
+import LesenAssessmentManager from "@/features/admin/components/lesen/lesen-assessment-manager";
 import ListeningManager from "@/features/admin/components/managers/listening-manager";
 import QuizManager from "@/features/admin/components/managers/quiz-manager";
 import ReadingManager from "@/features/admin/components/managers/reading-manager";
@@ -51,7 +52,12 @@ export default function LessonEditorPage() {
           { value: "video", label: "Video", content: <VideoManager lessonId={lessonId} /> },
           { value: "vocabulary", label: "Vokabeln", content: <VocabularyManager lessonId={lessonId} /> },
           { value: "grammar", label: "Grammatik", content: <GrammarManager lessonId={lessonId} /> },
-          { value: "reading", label: "Lesen", content: <ReadingManager lessonId={lessonId} /> },
+          { value: "reading", label: "Lesen (Legacy)", content: <ReadingManager lessonId={lessonId} /> },
+          {
+            value: "lesen-assessment",
+            label: "Lesen",
+            content: <LesenAssessmentManager lessonId={lessonId} />,
+          },
           { value: "listening", label: "Hören", content: <ListeningManager lessonId={lessonId} /> },
           { value: "writing", label: "Schreiben", content: <WritingManager lessonId={lessonId} /> },
           { value: "speaking", label: "Sprechen", content: <SpeakingManager lessonId={lessonId} /> },

@@ -31,6 +31,17 @@ export const ADMIN_ENDPOINTS = {
   adminUsers: "/api/v1/admin/users",
   adminVizuPay: "/api/v1/admin/vizu-pay",
   paymentsPaginated: "/api/v1/payments/paginated",
+
+  // Assessment Engine (universal — Course + Preparation + Mock Test)
+  assessments: "/api/v1/assessments",
+  assessmentSections: "/api/v1/assessments",
+  sections: "/api/v1/sections",
+  tasks: "/api/v1/tasks",
+  questions: "/api/v1/questions",
+  options: "/api/v1/options",
+  publicAssessment: "/api/v1/public/assessments",
+  publicLessonAssessment: "/api/v1/public/lessons",
+  attempts: "/api/v1/attempts",
   certificates: "/api/v1/certificates",
   adminDashboard: "/api/v1/admin/dashboard/overview",
 
