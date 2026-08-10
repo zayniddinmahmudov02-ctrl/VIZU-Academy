@@ -1,11 +1,12 @@
 from datetime import datetime
 from uuid import uuid4
 
+from fastapi import HTTPException
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 from app.core.pagination import clamp_page_params, paginated_response
-from app.models.certificate import Certificate
+from app.models.certificate import ALL_CERTIFICATE_SOURCES, SOURCE_COURSE, Certificate
 from app.models.user import User
 
 from app.repositories.certificate import (
@@ -44,6 +45,13 @@ class CertificateService:
         self,
         data: CertificateCreate,
     ):
+        source = data.source or SOURCE_COURSE
+        if source not in ALL_CERTIFICATE_SOURCES:
+            raise HTTPException(status_code=400, detail=f"Unknown certificate source: {source!r}")
+        if source == SOURCE_COURSE and not data.course_id:
+            raise HTTPException(status_code=400, detail="course_id is required for COURSE-sourced certificates.")
+        data = data.model_copy(update={"source": source})
+
         # Manual/admin issuance: reuse the same certificate_number /
         # verification_code generators as the automatic issue() path so
         # there is a single source of truth for these unique, non-null

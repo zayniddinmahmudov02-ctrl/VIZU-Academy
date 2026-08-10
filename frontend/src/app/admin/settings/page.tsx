@@ -4,7 +4,19 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AlertCircle, Camera, CheckCircle2, Eye, EyeOff, Moon, ShieldCheck, Sun, Trash2, Upload } from "lucide-react";
+import {
+  AlertCircle,
+  Camera,
+  CheckCircle2,
+  Eye,
+  EyeOff,
+  IdCard,
+  Moon,
+  ShieldCheck,
+  Sun,
+  Trash2,
+  Upload,
+} from "lucide-react";
 import { useTheme } from "next-themes";
 
 import { AdminButton, AdminCard, AdminInput, AdminLabel, AdminPageHeader } from "@/components/admin/admin-ui";
@@ -13,11 +25,14 @@ import { useCurrentUser } from "@/features/auth/hooks/use-current-user";
 import { getErrorMessage } from "@/features/auth/utils/get-error-message";
 import { useChangePassword } from "@/features/profile/hooks/use-change-password";
 import { useRemoveProfilePhoto, useUploadProfilePhoto } from "@/features/profile/hooks/use-profile-photo";
+import { useUpdateProfile } from "@/features/profile/hooks/use-update-profile";
 import {
   ALLOWED_PHOTO_TYPES,
   MAX_PHOTO_SIZE_BYTES,
   changePasswordSchema,
+  profileSchema,
   type ChangePasswordFormData,
+  type ProfileFormData,
 } from "@/features/profile/validation/profile.schema";
 import { useHasMounted } from "@/hooks/use-mounted";
 import { removeRefreshToken, removeToken } from "@/lib/token";
@@ -31,6 +46,7 @@ export default function AdminSettingsPage() {
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <AvatarCard user={user} />
+        <ProfileInfoCard user={user} />
         <ThemeCard />
         <PasswordCard />
       </div>
@@ -159,6 +175,94 @@ function AvatarCard({ user }: { user: ReturnType<typeof useCurrentUser>["user"] 
           <p className="text-xs text-[var(--admin-text-muted)]">JPG, PNG oder WEBP, maximal 5 MB.</p>
         </div>
       </div>
+    </AdminCard>
+  );
+}
+
+function ProfileInfoCard({ user }: { user: ReturnType<typeof useCurrentUser>["user"] }) {
+  const updateProfile = useUpdateProfile();
+  const [success, setSuccess] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isDirty },
+  } = useForm<ProfileFormData>({
+    resolver: zodResolver(profileSchema),
+    values: {
+      firstName: user?.firstName ?? "",
+      lastName: user?.lastName ?? "",
+      phoneNumber: user?.phoneNumber ?? "",
+      country: user?.country ?? "",
+    },
+  });
+
+  function onSubmit(data: ProfileFormData) {
+    updateProfile.mutate(data, {
+      onSuccess: (updated) => {
+        setSuccess(true);
+        reset({
+          firstName: updated.firstName ?? "",
+          lastName: updated.lastName ?? "",
+          phoneNumber: updated.phoneNumber ?? "",
+          country: updated.country ?? "",
+        });
+        setTimeout(() => setSuccess(false), 2500);
+      },
+    });
+  }
+
+  return (
+    <AdminCard>
+      <h3 className="mb-4 flex items-center gap-2 text-sm font-semibold text-[var(--admin-text-primary)]">
+        <IdCard size={15} />
+        Profilinformationen
+      </h3>
+
+      <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4 sm:grid-cols-2">
+        {updateProfile.isError && (
+          <div className="flex items-center gap-2 rounded-lg bg-[var(--admin-danger)]/10 px-4 py-2.5 text-sm text-[var(--admin-danger)] sm:col-span-2">
+            <AlertCircle size={15} />
+            {getErrorMessage(updateProfile.error, "Speichern fehlgeschlagen.")}
+          </div>
+        )}
+        {success && (
+          <div className="flex items-center gap-2 rounded-lg bg-[var(--admin-accent)]/10 px-4 py-2.5 text-sm text-[var(--admin-accent)] sm:col-span-2">
+            <CheckCircle2 size={15} />
+            Profil aktualisiert.
+          </div>
+        )}
+
+        <div>
+          <AdminLabel>Vorname</AdminLabel>
+          <AdminInput {...register("firstName")} />
+          {errors.firstName && <p className="mt-1 text-xs text-[var(--admin-danger)]">{errors.firstName.message}</p>}
+        </div>
+        <div>
+          <AdminLabel>Nachname</AdminLabel>
+          <AdminInput {...register("lastName")} />
+          {errors.lastName && <p className="mt-1 text-xs text-[var(--admin-danger)]">{errors.lastName.message}</p>}
+        </div>
+        <div>
+          <AdminLabel>Telefonnummer</AdminLabel>
+          <AdminInput {...register("phoneNumber")} />
+          {errors.phoneNumber && (
+            <p className="mt-1 text-xs text-[var(--admin-danger)]">{errors.phoneNumber.message}</p>
+          )}
+        </div>
+        <div>
+          <AdminLabel>Land</AdminLabel>
+          <AdminInput {...register("country")} />
+          {errors.country && <p className="mt-1 text-xs text-[var(--admin-danger)]">{errors.country.message}</p>}
+        </div>
+
+        <div className="sm:col-span-2">
+          <AdminButton type="submit" size="sm" disabled={updateProfile.isPending || !isDirty}>
+            {updateProfile.isPending ? "Wird gespeichert..." : "Speichern"}
+          </AdminButton>
+        </div>
+      </form>
     </AdminCard>
   );
 }

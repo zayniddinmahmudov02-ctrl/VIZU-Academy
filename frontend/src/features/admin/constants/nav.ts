@@ -35,13 +35,13 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
   {
     items: [
       { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
-      { label: "Language", href: "/admin/languages", icon: Globe },
+      { label: "Languages", href: "/admin/languages", icon: Globe },
       { label: "Courses", href: "/admin/courses", icon: GraduationCap },
       { label: "Vorbereitung", href: "/admin/mock-exams", icon: ShieldCheck },
       { label: "VIZU-MOCK", href: "/admin/vizu-mock", icon: FlaskConical },
       { label: "Users", href: "/admin/users", icon: Users },
-      { label: "Premium-Users", href: "/admin/premium-users", icon: Crown },
-      { label: "Certificate", href: "/admin/certificates", icon: Award },
+      { label: "Premium Users", href: "/admin/premium-users", icon: Crown },
+      { label: "Certificates", href: "/admin/certificates", icon: Award },
       { label: "Payments", href: "/admin/payments", icon: CreditCard },
       { label: "Analytics", href: "/admin/analytics", icon: TrendingUp },
       { label: "Homeworks", href: "/admin/homeworks", icon: ClipboardList },

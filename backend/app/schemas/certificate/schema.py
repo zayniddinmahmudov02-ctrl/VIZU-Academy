@@ -10,7 +10,11 @@ class CertificateBase(BaseSchema):
 
     user_id: UUID
 
-    course_id: UUID
+    # Required only for source="COURSE" — validated in CertificateService.create(),
+    # not here, since the requirement depends on another field's value.
+    course_id: UUID | None = None
+
+    source: str = "COURSE"
 
     provider: str = "VIZU"
 
@@ -53,6 +57,8 @@ class CertificateUpdate(BaseSchema):
     user_id: UUID | None = None
 
     course_id: UUID | None = None
+
+    source: str | None = None
 
     certificate_number: str | None = None
 

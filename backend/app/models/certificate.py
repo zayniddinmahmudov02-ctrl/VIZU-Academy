@@ -17,6 +17,12 @@ from sqlalchemy.orm import (
 from app.models.base import BaseModel
 
 
+SOURCE_COURSE = "COURSE"
+SOURCE_VORBEREITUNG = "VORBEREITUNG"
+SOURCE_VIZU_MOCK = "VIZU_MOCK"
+ALL_CERTIFICATE_SOURCES = {SOURCE_COURSE, SOURCE_VORBEREITUNG, SOURCE_VIZU_MOCK}
+
+
 class Certificate(BaseModel):
 
     __tablename__ = "certificates"
@@ -30,11 +36,25 @@ class Certificate(BaseModel):
         index=True,
     )
 
-    course_id: Mapped[str] = mapped_column(
+    # Nullable — only COURSE-sourced certificates are tied to a Course row;
+    # VORBEREITUNG/VIZU_MOCK certificates come from the Mock Exam hierarchy
+    # instead, which has no course_id to reference.
+    course_id: Mapped[str | None] = mapped_column(
         ForeignKey(
             "courses.id",
             ondelete="CASCADE",
         ),
+        nullable=True,
+        index=True,
+    )
+
+    # Which system actually produced this certificate — never hardcoded;
+    # every row's real value is stored here instead of the router assuming
+    # "COURSE" for everything.
+    source: Mapped[str] = mapped_column(
+        String(20),
+        default=SOURCE_COURSE,
+        server_default=SOURCE_COURSE,
         nullable=False,
         index=True,
     )
