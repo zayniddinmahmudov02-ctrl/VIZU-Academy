@@ -172,6 +172,81 @@ async def evaluate_writing(
     return result
 
 
+RUBRIC_WRITING_EVAL_PROMPT = """You are a certified German language examiner evaluating a Schreiben (writing) submission.
+
+TASK GIVEN TO THE STUDENT:
+{task_text}
+
+STUDENT'S ANSWER:
+{answer_text}
+
+Score the answer against EXACTLY these admin-defined criteria (use the exact names given, one integer score per criterion between 0 and that criterion's max):
+{criteria_list}
+
+Respond with ONLY a JSON object (no markdown, no prose) in exactly this shape:
+{{
+  "criterion_scores": {{ "<criterion name>": <integer score, 0 to that criterion's max> , ... one entry per criterion above ... }},
+  "strengths": "<1-3 sentences, in German, on what the student did well>",
+  "grammar_errors": ["<short description of a grammar mistake found>", "..."],
+  "vocabulary_feedback": "<1-2 sentences, in German, on vocabulary range/accuracy>",
+  "structure_feedback": "<1-2 sentences, in German, on paragraph structure/coherence>",
+  "task_completion_feedback": "<1-2 sentences, in German, on how well the task prompt was fulfilled>",
+  "improvement_suggestions": ["<concrete, actionable suggestion>", "..."]
+}}"""
+
+
+async def evaluate_writing_rubric(
+    task_text: str,
+    answer_text: str,
+    criteria: list[dict],
+    image_url: str | None = None,
+) -> dict:
+    """Configurable-rubric evaluation for the universal Assessment engine's
+    WRITING task type — unlike evaluate_writing() above (fixed 5-criterion
+    mock-exam shape), `criteria` is whatever the admin actually defined for
+    this task (e.g. Inhalt=5/Aufbau=5/Wortschatz=5/Grammatik=5, or a
+    completely different set), so the prompt and expected response shape
+    are built from it at call time. Returns raw model output; the caller
+    (writing_service) is responsible for clamping every score to its
+    criterion's max and recomputing the total server-side — never trust an
+    AI's own arithmetic as the final number."""
+    import asyncio
+
+    criteria_list = "\n".join(f"- {c['name']} (0-{c['max_score']})" for c in criteria)
+    prompt = RUBRIC_WRITING_EVAL_PROMPT.format(
+        task_text=task_text,
+        answer_text=answer_text,
+        criteria_list=criteria_list,
+    )
+
+    parts: list[dict] = [{"text": prompt}]
+    if image_url:
+        try:
+            image_bytes = await asyncio.to_thread(_read_local_or_remote_bytes, image_url)
+            mime_type = "image/png" if image_url.lower().endswith(".png") else "image/jpeg"
+            parts.append({"inline_data": {"mime_type": mime_type, "data": base64.b64encode(image_bytes).decode("ascii")}})
+        except AIServiceError:
+            pass  # Evaluate on text alone rather than failing the whole request over a missing image.
+
+    text = await asyncio.to_thread(_call_gemini, parts)
+    result = _extract_json(text)
+
+    required = {
+        "criterion_scores",
+        "strengths",
+        "grammar_errors",
+        "vocabulary_feedback",
+        "structure_feedback",
+        "task_completion_feedback",
+        "improvement_suggestions",
+    }
+    missing = required - result.keys()
+    if missing:
+        raise AIServiceError(f"Gemini response missing fields: {missing}")
+
+    return result
+
+
 async def evaluate_speaking(task_text: str, audio_url: str) -> dict:
     import asyncio
 

@@ -14,6 +14,7 @@ from app.schemas.assessment_engine import (
     PublicAssessmentTask,
     PublicTaskOption,
     PublicTaskQuestion,
+    PublicWritingRubricCriterion,
 )
 
 
@@ -22,7 +23,11 @@ def _with_full_load(query):
         selectinload(Assessment.sections)
         .selectinload(AssessmentSection.tasks)
         .selectinload(AssessmentTask.questions)
-        .selectinload(TaskQuestion.options)
+        .selectinload(TaskQuestion.options),
+        selectinload(Assessment.sections).selectinload(AssessmentSection.tasks).selectinload(AssessmentTask.audio),
+        selectinload(Assessment.sections)
+        .selectinload(AssessmentSection.tasks)
+        .selectinload(AssessmentTask.rubric_criteria),
     )
 
 
@@ -62,6 +67,8 @@ def to_public_schema(assessment: Assessment) -> PublicAssessment:
         id=str(assessment.id),
         title=assessment.title,
         description=assessment.description,
+        allow_edit=assessment.allow_edit,
+        allow_resubmit=assessment.allow_resubmit,
         sections=[
             PublicAssessmentSection(
                 id=str(section.id),
@@ -79,6 +86,23 @@ def to_public_schema(assessment: Assessment) -> PublicAssessment:
                         config=task.config,
                         max_points=task.max_points,
                         sort_order=task.sort_order,
+                        has_audio=task.audio is not None,
+                        audio_duration_seconds=task.audio.duration_seconds if task.audio else None,
+                        audio_play_limit=task.audio_play_limit,
+                        allow_pause=task.allow_pause,
+                        allow_seek=task.allow_seek,
+                        allow_replay=task.allow_replay,
+                        allow_speed_change=task.allow_speed_change,
+                        image_url=task.image_url,
+                        min_words=task.min_words,
+                        max_words=task.max_words,
+                        time_limit_minutes=task.time_limit_minutes,
+                        rubric_criteria=[
+                            PublicWritingRubricCriterion(
+                                id=str(c.id), name=c.name, max_score=c.max_score, sort_order=c.sort_order
+                            )
+                            for c in sorted(task.rubric_criteria, key=lambda c: c.sort_order)
+                        ],
                         questions=[
                             PublicTaskQuestion(
                                 id=str(question.id),

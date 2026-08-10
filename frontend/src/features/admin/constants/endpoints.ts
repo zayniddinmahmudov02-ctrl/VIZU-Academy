@@ -42,6 +42,10 @@ export const ADMIN_ENDPOINTS = {
   publicAssessment: "/api/v1/public/assessments",
   publicLessonAssessment: "/api/v1/public/lessons",
   attempts: "/api/v1/attempts",
+  audio: "/api/v1/audio",
+  rubricCriteria: "/api/v1/rubric-criteria",
+  writing: "/api/v1/writing",
+  upload: "/api/v1/upload",
   certificates: "/api/v1/certificates",
   adminDashboard: "/api/v1/admin/dashboard/overview",
 

@@ -1,4 +1,4 @@
-from sqlalchemy import ForeignKey, Integer, String, Text
+from sqlalchemy import Boolean, ForeignKey, Integer, String, Text
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -17,6 +17,8 @@ TYPE_GAP_MATCHING = "GAP_MATCHING"
 TYPE_DRAG_DROP = "DRAG_DROP"
 TYPE_CATEGORY_SORTING = "CATEGORY_SORTING"
 TYPE_IMAGE_SELECTION = "IMAGE_SELECTION"
+TYPE_WRITING = "WRITING"
+TYPE_SPEAKING = "SPEAKING"
 
 ALL_TASK_TYPES = {
     TYPE_TRUE_FALSE,
@@ -32,7 +34,14 @@ ALL_TASK_TYPES = {
     TYPE_DRAG_DROP,
     TYPE_CATEGORY_SORTING,
     TYPE_IMAGE_SELECTION,
+    TYPE_WRITING,
+    TYPE_SPEAKING,
 }
+
+EVAL_MODE_AI_ONLY = "AI_ONLY"
+EVAL_MODE_TEACHER_ONLY = "TEACHER_ONLY"
+EVAL_MODE_AI_AND_TEACHER = "AI_AND_TEACHER"
+ALL_EVALUATION_MODES = {EVAL_MODE_AI_ONLY, EVAL_MODE_TEACHER_ONLY, EVAL_MODE_AI_AND_TEACHER}
 
 
 class AssessmentTask(BaseModel):
@@ -56,10 +65,45 @@ class AssessmentTask(BaseModel):
     max_points: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     sort_order: Mapped[int] = mapped_column(Integer, default=1, nullable=False)
 
+    # Audio play policy — only meaningful for HOEREN-skill tasks (i.e. ones
+    # with an attached TaskAudio), but kept on the generic table rather
+    # than a HOEREN-only side table since it's just 5 small columns and
+    # every other task type simply ignores them, same as e.g. `content`
+    # being unused by option-only task types.
+    audio_play_limit: Mapped[int | None] = mapped_column(Integer, nullable=True)  # 1, 2, or NULL = unlimited
+    allow_pause: Mapped[bool] = mapped_column(Boolean, default=True, server_default="true", nullable=False)
+    allow_seek: Mapped[bool] = mapped_column(Boolean, default=True, server_default="true", nullable=False)
+    allow_replay: Mapped[bool] = mapped_column(Boolean, default=True, server_default="true", nullable=False)
+    allow_speed_change: Mapped[bool] = mapped_column(Boolean, default=True, server_default="true", nullable=False)
+
+    # Writing (SCHREIBEN) config — only meaningful for task_type=WRITING,
+    # kept on the generic table for the same reason as the audio-policy
+    # columns above: a handful of nullable/defaulted columns every other
+    # task type simply ignores, instead of a WRITING-only side table.
+    image_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    min_words: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    max_words: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    time_limit_minutes: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    evaluation_mode: Mapped[str] = mapped_column(
+        String(20), default=EVAL_MODE_AI_ONLY, server_default=EVAL_MODE_AI_ONLY, nullable=False
+    )
+
     section = relationship("AssessmentSection", back_populates="tasks")
     questions = relationship(
         "TaskQuestion",
         back_populates="task",
         cascade="all, delete-orphan",
         order_by="TaskQuestion.sort_order",
+    )
+    audio = relationship(
+        "TaskAudio",
+        back_populates="task",
+        uselist=False,
+        cascade="all, delete-orphan",
+    )
+    rubric_criteria = relationship(
+        "WritingRubricCriterion",
+        back_populates="task",
+        cascade="all, delete-orphan",
+        order_by="WritingRubricCriterion.sort_order",
     )

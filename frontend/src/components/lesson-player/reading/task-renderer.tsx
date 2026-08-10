@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import type { PublicTask, PublicTaskQuestion, TaskType } from "@/features/admin/types/assessment.types";
+import TaskAudioPlayer from "../common/task-audio-player";
 
 interface Props {
   task: PublicTask;
@@ -27,6 +28,21 @@ export default function TaskRenderer({ task, answers, onAnswerChange }: Props) {
     <div className="rounded-2xl bg-surface-hover/60 p-6 ring-1 ring-surface-border sm:p-8">
       <h3 className="text-lg font-bold text-text-primary">{task.title}</h3>
       {task.instructions && <p className="mt-1 text-sm text-text-secondary">{task.instructions}</p>}
+
+      {task.has_audio && (
+        <div className="mt-4">
+          <TaskAudioPlayer
+            taskId={task.id}
+            policy={{
+              audio_play_limit: task.audio_play_limit,
+              allow_pause: task.allow_pause,
+              allow_seek: task.allow_seek,
+              allow_replay: task.allow_replay,
+              allow_speed_change: task.allow_speed_change,
+            }}
+          />
+        </div>
+      )}
 
       {task.task_type === "CLOZE_TEXT" ? (
         <ClozeRenderer task={task} onAnswerChange={onAnswerChange} />

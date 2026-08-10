@@ -30,6 +30,7 @@ export const TASK_TYPES = [
   "DRAG_DROP",
   "CATEGORY_SORTING",
   "IMAGE_SELECTION",
+  "WRITING",
 ] as const;
 export type TaskType = (typeof TASK_TYPES)[number];
 
@@ -47,7 +48,22 @@ export const TASK_TYPE_LABELS: Record<TaskType, string> = {
   DRAG_DROP: "Drag & Drop",
   CATEGORY_SORTING: "Kategorien sortieren",
   IMAGE_SELECTION: "Bildauswahl",
+  WRITING: "Schreibaufgabe",
 };
+
+export const EVALUATION_MODES = ["AI_ONLY", "TEACHER_ONLY", "AI_AND_TEACHER"] as const;
+export type EvaluationMode = (typeof EVALUATION_MODES)[number];
+
+export const EVALUATION_MODE_LABELS: Record<EvaluationMode, string> = {
+  AI_ONLY: "Nur KI",
+  TEACHER_ONLY: "Nur Lehrer",
+  AI_AND_TEACHER: "KI + Lehrer",
+};
+
+export const WRITING_SUBMISSION_STATUSES = ["DRAFT", "SUBMITTED", "PENDING_REVIEW", "GRADED"] as const;
+export type WritingSubmissionStatus = (typeof WRITING_SUBMISSION_STATUSES)[number];
+
+export type EvaluatorType = "AI" | "TEACHER";
 
 export const ATTEMPT_STATUSES = ["IN_PROGRESS", "SUBMITTED", "GRADED"] as const;
 export type AttemptStatus = (typeof ATTEMPT_STATUSES)[number];
@@ -108,7 +124,52 @@ export interface AssessmentSectionCreate {
 
 export type AssessmentSectionUpdate = Partial<Omit<AssessmentSectionCreate, "assessment_id">>;
 
-export interface AssessmentTask {
+export interface TaskAudio {
+  id: string;
+  task_id: string;
+  filename: string;
+  format: "mp3" | "wav" | "m4a";
+  duration_seconds: number | null;
+  file_size_bytes: number;
+}
+
+// Audio play policy — only meaningful for HOEREN tasks; every other task
+// type simply carries harmless defaults (audio_play_limit unset/allow_*
+// all true) since it never has audio attached.
+export interface AudioPolicy {
+  audio_play_limit: number | null; // 1, 2, or null = unlimited
+  allow_pause: boolean;
+  allow_seek: boolean;
+  allow_replay: boolean;
+  allow_speed_change: boolean;
+}
+
+// Writing (SCHREIBEN) rubric criterion — admin-defined, never hardcoded.
+export interface WritingRubricCriterion {
+  id: string;
+  task_id: string;
+  name: string;
+  max_score: number;
+  sort_order: number;
+}
+
+export interface WritingRubricCriterionCreate {
+  name: string;
+  max_score?: number;
+  sort_order?: number;
+}
+
+export type WritingRubricCriterionUpdate = Partial<WritingRubricCriterionCreate>;
+
+export interface WritingConfig {
+  image_url: string | null;
+  min_words: number | null;
+  max_words: number | null;
+  time_limit_minutes: number | null;
+  evaluation_mode: EvaluationMode;
+}
+
+export interface AssessmentTask extends AudioPolicy, WritingConfig {
   id: string;
   section_id: string;
   task_type: TaskType;
@@ -118,10 +179,12 @@ export interface AssessmentTask {
   config: string | null;
   max_points: number;
   sort_order: number;
+  audio: TaskAudio | null;
   questions: TaskQuestion[];
+  rubric_criteria: WritingRubricCriterion[];
 }
 
-export interface AssessmentTaskCreate {
+export interface AssessmentTaskCreate extends Partial<AudioPolicy>, Partial<WritingConfig> {
   section_id: string;
   task_type: TaskType;
   title: string;
@@ -133,6 +196,18 @@ export interface AssessmentTaskCreate {
 }
 
 export type AssessmentTaskUpdate = Partial<Omit<AssessmentTaskCreate, "section_id" | "task_type">>;
+
+export interface AudioPlayStatus {
+  task_id: string;
+  play_limit: number | null;
+  plays_used: number;
+  plays_remaining: number | null;
+  can_play: boolean;
+  allow_pause: boolean;
+  allow_seek: boolean;
+  allow_replay: boolean;
+  allow_speed_change: boolean;
+}
 
 export interface TaskQuestion {
   id: string;
@@ -196,7 +271,14 @@ export interface PublicTaskQuestion {
   options: PublicTaskOption[];
 }
 
-export interface PublicTask {
+export interface PublicWritingRubricCriterion {
+  id: string;
+  name: string;
+  max_score: number;
+  sort_order: number;
+}
+
+export interface PublicTask extends AudioPolicy {
   id: string;
   task_type: TaskType;
   title: string;
@@ -205,6 +287,13 @@ export interface PublicTask {
   config: string | null;
   max_points: number;
   sort_order: number;
+  has_audio: boolean;
+  audio_duration_seconds: number | null;
+  image_url: string | null;
+  min_words: number | null;
+  max_words: number | null;
+  time_limit_minutes: number | null;
+  rubric_criteria: PublicWritingRubricCriterion[];
   questions: PublicTaskQuestion[];
 }
 
@@ -221,6 +310,8 @@ export interface PublicAssessment {
   id: string;
   title: string;
   description: string | null;
+  allow_edit: boolean;
+  allow_resubmit: boolean;
   sections: PublicSection[];
 }
 
@@ -255,4 +346,56 @@ export interface AssessmentResult {
   section_results: SectionResult[];
   show_correct_answers: boolean;
   show_feedback: boolean;
+}
+
+// ============================================================
+// Writing (SCHREIBEN) submissions / evaluations
+// ============================================================
+
+export interface WritingSubmission {
+  id: string;
+  user_id: string;
+  assessment_id: string;
+  section_id: string;
+  task_id: string;
+  attempt_id: string;
+  content: string;
+  word_count: number;
+  character_count: number;
+  status: WritingSubmissionStatus;
+  submitted_at: string | null;
+  final_score: number | null;
+}
+
+export interface WritingEvaluation {
+  id: string;
+  submission_id: string;
+  evaluator_type: EvaluatorType;
+  reviewed_by_id: string | null;
+  rubric_scores: Record<string, number>;
+  total_score: number;
+  feedback: string | null;
+  strengths: string | null;
+  errors: string[];
+  suggestions: string[];
+  created_at: string;
+}
+
+export interface WritingResult {
+  submission: WritingSubmission;
+  evaluations: WritingEvaluation[];
+  show_feedback: boolean;
+}
+
+export interface TeacherReviewInput {
+  rubric_scores: Record<string, number>;
+  feedback?: string | null;
+}
+
+export interface PendingWritingReviewItem {
+  submission: WritingSubmission;
+  task_title: string;
+  student_name: string;
+  rubric_criteria: WritingRubricCriterion[];
+  ai_evaluation: WritingEvaluation | null;
 }

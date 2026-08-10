@@ -24,58 +24,83 @@ import {
   updateTask,
   validateTask,
 } from "@/features/admin/services/assessment-service";
-import { TASK_TYPES, TASK_TYPE_LABELS, type AssessmentTask, type TaskType } from "@/features/admin/types/assessment.types";
+import {
+  TASK_TYPES,
+  TASK_TYPE_LABELS,
+  type AssessmentTask,
+  type AudioPolicy,
+  type SectionSkill,
+  type TaskType,
+  type WritingConfig,
+} from "@/features/admin/types/assessment.types";
 
+import AudioPanel from "./audio-panel";
 import ClozeTextEditor from "./cloze-text-editor";
 import GapList from "./gap-list";
 import LesenRichTextEditor from "./lesen-rich-text-editor";
 import TaskQuestionsEditor from "./task-questions-editor";
+import WritingPanel from "./writing-panel";
+
+const SKILL_LABELS: Record<SectionSkill, string> = {
+  LESEN: "Lesen",
+  HOEREN: "Hören",
+  SCHREIBEN: "Schreiben",
+  SPRECHEN: "Sprechen",
+};
 
 interface Props {
   lessonId: string;
+  skill: SectionSkill;
 }
 
 /** The Course integration point: "+ Aufgabe hinzufügen" builder for a
- * Lesson's Lesen section, on top of the universal Assessment engine
- * (Assessment[type=COURSE, lesson_id] -> one LESEN Section -> Tasks). The
- * Assessment + Section are lazily get-or-created the first time an admin
- * adds a task — nothing is ever auto-created with content in it. */
-export default function LesenAssessmentManager({ lessonId }: Props) {
+ * Lesson's skill section, on top of the universal Assessment engine
+ * (Assessment[type=COURSE, lesson_id] -> one Section per skill -> Tasks).
+ * Shared by Lesen and Hören (and ready for Schreiben/Sprechen later) —
+ * the engine itself doesn't know or care which skill it's serving; only
+ * this component's `skill` prop and the AudioPanel (rendered for HOEREN
+ * only) differ. The Assessment + Section are lazily get-or-created the
+ * first time an admin adds a task — nothing is ever auto-created with
+ * content in it. */
+export default function LesenAssessmentManager({ lessonId, skill }: Props) {
   const queryClient = useQueryClient();
   const [expandedTaskId, setExpandedTaskId] = useState<string | null>(null);
   const [pickerOpen, setPickerOpen] = useState(false);
   const [deleting, setDeleting] = useState<AssessmentTask | null>(null);
 
   const { data: assessments, isLoading: loadingAssessments } = useQuery({
-    queryKey: ["lesen-assessment", lessonId],
+    queryKey: ["skill-assessment", lessonId, skill],
     queryFn: () => listAssessments({ assessment_type: "COURSE", lesson_id: lessonId }),
   });
+  // One COURSE assessment can in principle exist per lesson today (the
+  // builder always creates just one) — scope by section skill once
+  // sections are loaded so Lesen and Hören never collide if that changes.
   const assessment = assessments?.[0];
 
   const { data: sections } = useQuery({
-    queryKey: ["lesen-sections", assessment?.id],
+    queryKey: ["skill-sections", assessment?.id],
     queryFn: () => listSections(assessment!.id),
     enabled: !!assessment,
   });
-  const section = sections?.[0];
+  const section = sections?.find((s) => s.skill === skill);
 
   const { data: tasks, isLoading: loadingTasks } = useQuery({
-    queryKey: ["lesen-tasks", section?.id],
+    queryKey: ["skill-tasks", section?.id],
     queryFn: () => listTasks(section!.id),
     enabled: !!section,
   });
 
   function invalidateAll() {
-    queryClient.invalidateQueries({ queryKey: ["lesen-assessment", lessonId] });
-    queryClient.invalidateQueries({ queryKey: ["lesen-sections"] });
-    queryClient.invalidateQueries({ queryKey: ["lesen-tasks"] });
+    queryClient.invalidateQueries({ queryKey: ["skill-assessment", lessonId, skill] });
+    queryClient.invalidateQueries({ queryKey: ["skill-sections"] });
+    queryClient.invalidateQueries({ queryKey: ["skill-tasks"] });
   }
 
   async function ensureAssessmentAndSection(): Promise<string> {
     let currentAssessment = assessment;
     if (!currentAssessment) {
       currentAssessment = await createAssessment({
-        title: "Lesen",
+        title: SKILL_LABELS[skill],
         assessment_type: "COURSE",
         lesson_id: lessonId,
       });
@@ -84,8 +109,8 @@ export default function LesenAssessmentManager({ lessonId }: Props) {
     let currentSection = section;
     if (!currentSection) {
       currentSection = await createSection(currentAssessment.id, {
-        skill: "LESEN",
-        title: "Lesen",
+        skill,
+        title: SKILL_LABELS[skill],
         sort_order: 1,
       });
     }
@@ -120,7 +145,7 @@ export default function LesenAssessmentManager({ lessonId }: Props) {
     <div>
       <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h3 className="text-sm font-semibold text-[var(--admin-text-primary)]">Lesen — Aufgaben</h3>
+          <h3 className="text-sm font-semibold text-[var(--admin-text-primary)]">{SKILL_LABELS[skill]} — Aufgaben</h3>
           <p className="mt-0.5 text-xs text-[var(--admin-text-muted)]">
             {assessment?.status === "PUBLISHED"
               ? "Veröffentlicht — für Lernende sichtbar."
@@ -185,6 +210,7 @@ export default function LesenAssessmentManager({ lessonId }: Props) {
           <TaskCard
             key={task.id}
             task={task}
+            skill={skill}
             expanded={expandedTaskId === task.id}
             onToggle={() => setExpandedTaskId(expandedTaskId === task.id ? null : task.id)}
             onDelete={() => setDeleting(task)}
@@ -211,12 +237,14 @@ export default function LesenAssessmentManager({ lessonId }: Props) {
 
 function TaskCard({
   task,
+  skill,
   expanded,
   onToggle,
   onDelete,
   onChanged,
 }: {
   task: AssessmentTask;
+  skill: SectionSkill;
   expanded: boolean;
   onToggle: () => void;
   onDelete: () => void;
@@ -261,7 +289,7 @@ function TaskCard({
 
       {expanded && (
         <div className="space-y-4 border-t border-[var(--admin-border)] p-4">
-          <TaskDetailEditor task={task} onChanged={onChanged} />
+          <TaskDetailEditor task={task} skill={skill} onChanged={onChanged} />
 
           <div className="flex items-center justify-between border-t border-[var(--admin-border)] pt-3">
             <AdminButton size="sm" variant="ghost" onClick={checkValidation}>
@@ -279,12 +307,30 @@ function TaskCard({
   );
 }
 
-function TaskDetailEditor({ task, onChanged }: { task: AssessmentTask; onChanged: () => void }) {
+function TaskDetailEditor({
+  task,
+  skill,
+  onChanged,
+}: {
+  task: AssessmentTask;
+  skill: SectionSkill;
+  onChanged: () => void;
+}) {
   const queryClient = useQueryClient();
 
   async function saveTitle(title: string) {
     if (title === task.title) return;
     await updateTask(task.id, { title });
+    onChanged();
+  }
+
+  async function savePolicy(policy: Partial<AudioPolicy>) {
+    await updateTask(task.id, policy);
+    onChanged();
+  }
+
+  async function saveWritingConfig(config: Partial<WritingConfig>) {
+    await updateTask(task.id, config);
     onChanged();
   }
 
@@ -322,7 +368,7 @@ function TaskDetailEditor({ task, onChanged }: { task: AssessmentTask; onChanged
     const nextIndex = (task.questions?.length ?? 0) + 1;
     await createQuestion(task.id, { prompt: `Lücke ${nextIndex}`, points: 1, sort_order: nextIndex });
     onChanged();
-    queryClient.invalidateQueries({ queryKey: ["lesen-tasks"] });
+    queryClient.invalidateQueries({ queryKey: ["skill-tasks"] });
     return nextIndex;
   }
 
@@ -344,6 +390,8 @@ function TaskDetailEditor({ task, onChanged }: { task: AssessmentTask; onChanged
         />
       </div>
 
+      {skill === "HOEREN" && <AudioPanel task={task} onPolicyChange={savePolicy} onChanged={onChanged} />}
+
       {task.task_type === "CLOZE_TEXT" ? (
         <div>
           <label className="mb-1 block text-xs font-medium text-[var(--admin-text-secondary)]">Text</label>
@@ -358,6 +406,16 @@ function TaskDetailEditor({ task, onChanged }: { task: AssessmentTask; onChanged
         </div>
       ) : task.task_type === "SHORT_ANSWER" ? (
         <ShortAnswerEditor task={task} onChanged={onChanged} />
+      ) : task.task_type === "WRITING" ? (
+        <div>
+          <label className="mb-1 block text-xs font-medium text-[var(--admin-text-secondary)]">
+            Aufgabenstellung (z. B. &quot;Sie haben einen Freund eingeladen...&quot;)
+          </label>
+          <LesenRichTextEditor content={task.content ?? ""} onChange={saveContent} />
+          <div className="mt-3">
+            <WritingPanel task={task} onConfigChange={saveWritingConfig} onChanged={onChanged} />
+          </div>
+        </div>
       ) : (
         <>
           {(task.task_type === "HEADING_MATCHING" ||

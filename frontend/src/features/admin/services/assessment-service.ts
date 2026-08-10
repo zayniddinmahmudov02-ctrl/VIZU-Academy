@@ -13,14 +13,23 @@ import type {
   AssessmentTaskCreate,
   AssessmentTaskUpdate,
   AssessmentUpdate,
+  AudioPlayStatus,
+  PendingWritingReviewItem,
   PublicAssessment,
   SubmitAnswerInput,
+  TaskAudio,
   TaskOption,
   TaskOptionCreate,
   TaskOptionUpdate,
   TaskQuestion,
   TaskQuestionCreate,
   TaskQuestionUpdate,
+  TeacherReviewInput,
+  WritingResult,
+  WritingRubricCriterion,
+  WritingRubricCriterionCreate,
+  WritingRubricCriterionUpdate,
+  WritingSubmission,
 } from "../types/assessment.types";
 
 interface TaskValidation {
@@ -198,5 +207,127 @@ export async function submitAttempt(attemptId: string): Promise<AssessmentAttemp
 
 export async function getAttemptResult(attemptId: string): Promise<AssessmentResult> {
   const response = await api.get<AssessmentResult>(`${ADMIN_ENDPOINTS.attempts}/${attemptId}/result`);
+  return response.data;
+}
+
+// ============================================================
+// Audio (HOEREN)
+// ============================================================
+
+export async function uploadTaskAudio(
+  taskId: string,
+  file: File,
+  durationSeconds?: number,
+): Promise<TaskAudio> {
+  const formData = new FormData();
+  formData.append("file", file);
+  if (durationSeconds != null) formData.append("duration_seconds", String(Math.round(durationSeconds)));
+
+  const response = await api.post<TaskAudio>(`${ADMIN_ENDPOINTS.tasks}/${taskId}/audio`, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return response.data;
+}
+
+export async function deleteTaskAudio(taskId: string): Promise<void> {
+  await api.delete(`${ADMIN_ENDPOINTS.tasks}/${taskId}/audio`);
+}
+
+// Audio is never a static URL — GET /audio/{task_id} re-checks permission
+// on every request, so the frontend fetches it through the authenticated
+// client and turns the response into a local blob URL for the <audio>
+// element (same pattern as certificate downloads).
+export async function getAudioBlobUrl(taskId: string): Promise<string> {
+  const response = await api.get(`${ADMIN_ENDPOINTS.audio}/${taskId}`, { responseType: "blob" });
+  return URL.createObjectURL(response.data as Blob);
+}
+
+export async function getAudioStatus(taskId: string): Promise<AudioPlayStatus> {
+  const response = await api.get<AudioPlayStatus>(`${ADMIN_ENDPOINTS.tasks}/${taskId}/audio-status`);
+  return response.data;
+}
+
+export async function registerAudioPlay(taskId: string): Promise<AudioPlayStatus> {
+  const response = await api.post<AudioPlayStatus>(`${ADMIN_ENDPOINTS.tasks}/${taskId}/audio-play`);
+  return response.data;
+}
+
+// Generic backend file upload (POST /upload/{folder}) — reused as-is for
+// the writing task's prompt image rather than building a dedicated
+// endpoint; the same route already serves videos/thumbnails/audio/etc.
+export async function uploadImage(file: File): Promise<string> {
+  const formData = new FormData();
+  formData.append("file", file);
+  const response = await api.post<{ url: string }>(`${ADMIN_ENDPOINTS.upload}/images`, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return response.data.url;
+}
+
+// ============================================================
+// Writing rubric criteria (SCHREIBEN) — admin builder
+// ============================================================
+
+export async function createRubricCriterion(
+  taskId: string,
+  data: WritingRubricCriterionCreate,
+): Promise<WritingRubricCriterion> {
+  const response = await api.post<WritingRubricCriterion>(`${ADMIN_ENDPOINTS.tasks}/${taskId}/rubric-criteria`, data);
+  return response.data;
+}
+
+export async function updateRubricCriterion(
+  id: string,
+  data: WritingRubricCriterionUpdate,
+): Promise<WritingRubricCriterion> {
+  const response = await api.put<WritingRubricCriterion>(`${ADMIN_ENDPOINTS.rubricCriteria}/${id}`, data);
+  return response.data;
+}
+
+export async function deleteRubricCriterion(id: string): Promise<void> {
+  await api.delete(`${ADMIN_ENDPOINTS.rubricCriteria}/${id}`);
+}
+
+// ============================================================
+// Writing submissions — Speichern / Abgeben / results (student-facing)
+// ============================================================
+
+export async function getWritingSubmission(attemptId: string, taskId: string): Promise<WritingSubmission | null> {
+  const response = await api.get<WritingSubmission | null>(`${ADMIN_ENDPOINTS.attempts}/${attemptId}/writing/${taskId}`);
+  return response.data;
+}
+
+export async function saveWritingDraft(attemptId: string, taskId: string, content: string): Promise<WritingSubmission> {
+  const response = await api.put<WritingSubmission>(`${ADMIN_ENDPOINTS.attempts}/${attemptId}/writing/${taskId}`, {
+    content,
+  });
+  return response.data;
+}
+
+export async function submitWriting(attemptId: string, taskId: string): Promise<WritingSubmission> {
+  const response = await api.post<WritingSubmission>(
+    `${ADMIN_ENDPOINTS.attempts}/${attemptId}/writing/${taskId}/submit`,
+  );
+  return response.data;
+}
+
+export async function getWritingResult(attemptId: string, taskId: string): Promise<WritingResult> {
+  const response = await api.get<WritingResult>(`${ADMIN_ENDPOINTS.attempts}/${attemptId}/writing/${taskId}/result`);
+  return response.data;
+}
+
+// ============================================================
+// Teacher review — AI_AND_TEACHER / TEACHER_ONLY
+// ============================================================
+
+export async function listPendingWritingReviews(assessmentId?: string): Promise<PendingWritingReviewItem[]> {
+  const response = await api.get<PendingWritingReviewItem[]>(`${ADMIN_ENDPOINTS.writing}/pending-review`, {
+    params: assessmentId ? { assessment_id: assessmentId } : undefined,
+  });
+  return ensureArray<PendingWritingReviewItem>(response.data);
+}
+
+export async function reviewWritingSubmission(submissionId: string, data: TeacherReviewInput) {
+  const response = await api.post(`${ADMIN_ENDPOINTS.writing}/${submissionId}/review`, data);
   return response.data;
 }

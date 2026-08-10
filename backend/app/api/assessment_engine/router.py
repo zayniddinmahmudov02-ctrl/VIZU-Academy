@@ -1,7 +1,8 @@
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, UploadFile
+from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 
-from app.api.dependencies.auth import get_current_user, require_super_admin
+from app.api.dependencies.auth import get_current_user, require_admin_panel_access, require_super_admin
 from app.db.session import get_db
 from app.models.user import User
 
@@ -21,7 +22,10 @@ from app.schemas.assessment_engine import (
     AssessmentTaskResponse,
     AssessmentTaskUpdate,
     AssessmentUpdate,
+    AudioPlayStatusResponse,
+    PendingWritingReviewItem,
     PublicAssessment,
+    TaskAudioResponse,
     TaskOptionCreate,
     TaskOptionResponse,
     TaskOptionUpdate,
@@ -29,9 +33,23 @@ from app.schemas.assessment_engine import (
     TaskQuestionResponse,
     TaskQuestionUpdate,
     TaskValidationResponse,
+    TeacherReviewInput,
+    WritingEvaluationResponse,
+    WritingResultResponse,
+    WritingRubricCriterionCreate,
+    WritingRubricCriterionResponse,
+    WritingRubricCriterionUpdate,
+    WritingSubmissionResponse,
+    WritingSubmissionSave,
 )
 
-from app.services.assessment_engine import attempt_service, crud_service, public_service
+from app.services.assessment_engine import (
+    attempt_service,
+    audio_service,
+    crud_service,
+    public_service,
+    writing_service,
+)
 
 router = APIRouter(tags=["Assessment Engine"])
 
@@ -100,12 +118,12 @@ def update_assessment(
 
 
 @router.delete("/assessments/{assessment_id}", status_code=204)
-def delete_assessment(
+async def delete_assessment(
     assessment_id: str,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_super_admin),
 ):
-    if not crud_service.delete_assessment(db, assessment_id):
+    if not await crud_service.delete_assessment(db, assessment_id):
         raise HTTPException(status_code=404, detail="Assessment not found.")
 
 
@@ -147,12 +165,12 @@ def update_section(
 
 
 @router.delete("/sections/{section_id}", status_code=204)
-def delete_section(
+async def delete_section(
     section_id: str,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_super_admin),
 ):
-    if not crud_service.delete_section(db, section_id):
+    if not await crud_service.delete_section(db, section_id):
         raise HTTPException(status_code=404, detail="Section not found.")
 
 
@@ -206,12 +224,12 @@ def update_task(
 
 
 @router.delete("/tasks/{task_id}", status_code=204)
-def delete_task(
+async def delete_task(
     task_id: str,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_super_admin),
 ):
-    if not crud_service.delete_task(db, task_id):
+    if not await crud_service.delete_task(db, task_id):
         raise HTTPException(status_code=404, detail="Task not found.")
 
 
@@ -226,6 +244,73 @@ def validate_task(
     gap with no correct answer set."""
     errors = crud_service.validate_task(db, task_id)
     return {"task_id": task_id, "is_publishable": len(errors) == 0, "errors": errors}
+
+
+# ============================================================
+# Audio (HOEREN) — admin upload/replace/delete, secure serving,
+# server-enforced play count
+# ============================================================
+
+@router.post("/tasks/{task_id}/audio", response_model=TaskAudioResponse, status_code=201)
+async def upload_task_audio(
+    task_id: str,
+    file: UploadFile = File(...),
+    duration_seconds: int | None = Form(None),
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_super_admin),
+):
+    """Upload or replace this task's audio in one call — a second upload
+    always removes the previous file first (see audio_service.upload_audio)."""
+    return await audio_service.upload_audio(db, task_id, file, duration_seconds)
+
+
+@router.delete("/tasks/{task_id}/audio", status_code=204)
+async def delete_task_audio(
+    task_id: str,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_super_admin),
+):
+    if not await audio_service.delete_audio(db, task_id):
+        raise HTTPException(status_code=404, detail="No audio for this task.")
+
+
+@router.get("/audio/{task_id}")
+def get_task_audio(
+    task_id: str,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """The only real way to fetch audio bytes — not a public URL, not the
+    /uploads static mount. Re-checks permission on every single request:
+    super admin, or a PUBLISHED assessment (and, for MOCK_TEST, an
+    existing attempt on it) — see audio_service.authorize_audio_access."""
+    audio = audio_service.authorize_audio_access(db, task_id, current_user)
+    path = audio_service.resolve_audio_path(audio)
+    if not path.exists():
+        raise HTTPException(status_code=404, detail="Audio file missing on disk.")
+    return FileResponse(path=path, media_type=audio.content_type, filename=audio.filename)
+
+
+@router.get("/tasks/{task_id}/audio-status", response_model=AudioPlayStatusResponse)
+def get_audio_status(
+    task_id: str,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    return audio_service.get_play_status(db, task_id, current_user)
+
+
+@router.post("/tasks/{task_id}/audio-play", response_model=AudioPlayStatusResponse)
+def register_audio_play(
+    task_id: str,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Called once per actual playback start (not per frontend render) —
+    increments the server-side play count and re-validates the limit.
+    The frontend disabling its own button is a UX nicety, not the
+    security boundary; this endpoint is."""
+    return audio_service.register_play(db, task_id, current_user)
 
 
 # ============================================================
@@ -305,6 +390,44 @@ def delete_option(
 
 
 # ============================================================
+# Writing rubric criteria (SCHREIBEN) — admin builder
+# ============================================================
+
+@router.post("/tasks/{task_id}/rubric-criteria", response_model=WritingRubricCriterionResponse, status_code=201)
+def create_rubric_criterion(
+    task_id: str,
+    data: WritingRubricCriterionCreate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_super_admin),
+):
+    payload = data.model_copy(update={"task_id": task_id})
+    return crud_service.create_rubric_criterion(db, payload)
+
+
+@router.put("/rubric-criteria/{criterion_id}", response_model=WritingRubricCriterionResponse)
+def update_rubric_criterion(
+    criterion_id: str,
+    data: WritingRubricCriterionUpdate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_super_admin),
+):
+    criterion = crud_service.update_rubric_criterion(db, criterion_id, data)
+    if criterion is None:
+        raise HTTPException(status_code=404, detail="Rubric criterion not found.")
+    return criterion
+
+
+@router.delete("/rubric-criteria/{criterion_id}", status_code=204)
+def delete_rubric_criterion(
+    criterion_id: str,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_super_admin),
+):
+    if not crud_service.delete_rubric_criterion(db, criterion_id):
+        raise HTTPException(status_code=404, detail="Rubric criterion not found.")
+
+
+# ============================================================
 # Public (published-only — any authenticated user)
 # ============================================================
 
@@ -375,3 +498,82 @@ def get_attempt_result(
     current_user: User = Depends(get_current_user),
 ):
     return attempt_service.get_result(db, attempt_id, current_user)
+
+
+# ============================================================
+# Writing (SCHREIBEN) submissions — Speichern / Abgeben / results
+# ============================================================
+
+@router.get("/attempts/{attempt_id}/writing/{task_id}", response_model=WritingSubmissionResponse | None)
+def get_writing_submission(
+    attempt_id: str,
+    task_id: str,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    return writing_service.get_submission(db, attempt_id, task_id, current_user)
+
+
+@router.put("/attempts/{attempt_id}/writing/{task_id}", response_model=WritingSubmissionResponse)
+def save_writing_draft(
+    attempt_id: str,
+    task_id: str,
+    data: WritingSubmissionSave,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Speichern — creates or updates the DRAFT in place."""
+    return writing_service.save_draft(db, attempt_id, task_id, current_user, data.content)
+
+
+@router.post("/attempts/{attempt_id}/writing/{task_id}/submit", response_model=WritingSubmissionResponse)
+async def submit_writing(
+    attempt_id: str,
+    task_id: str,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Abgeben — locks in the current draft content, validates
+    min/max words, and (per the task's evaluation_mode) synchronously
+    triggers AI evaluation before returning."""
+    return await writing_service.submit_submission(db, attempt_id, task_id, current_user)
+
+
+@router.get("/attempts/{attempt_id}/writing/{task_id}/result", response_model=WritingResultResponse)
+def get_writing_result(
+    attempt_id: str,
+    task_id: str,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    return writing_service.get_writing_result(db, attempt_id, task_id, current_user)
+
+
+# ============================================================
+# Teacher review — AI_AND_TEACHER / TEACHER_ONLY evaluation modes
+# ============================================================
+
+@router.get("/writing/pending-review", response_model=list[PendingWritingReviewItem])
+def list_pending_writing_reviews(
+    assessment_id: str | None = None,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    return writing_service.list_pending_reviews(db, assessment_id)
+
+
+@router.post("/writing/{submission_id}/review", response_model=WritingEvaluationResponse)
+def review_writing_submission(
+    submission_id: str,
+    data: TeacherReviewInput,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    """Teacher sees the AI's preliminary score/feedback (via
+    pending-review) plus the student's text, and can override the score —
+    this is what actually finalizes it. Every criterion score is
+    re-validated against its own max_score server-side; the frontend's
+    numbers are never trusted as-is."""
+    return writing_service.submit_teacher_review(
+        db, submission_id, current_user, data.rubric_scores, data.feedback
+    )

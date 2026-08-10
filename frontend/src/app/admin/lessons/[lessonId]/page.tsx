@@ -56,10 +56,20 @@ export default function LessonEditorPage() {
           {
             value: "lesen-assessment",
             label: "Lesen",
-            content: <LesenAssessmentManager lessonId={lessonId} />,
+            content: <LesenAssessmentManager lessonId={lessonId} skill="LESEN" />,
           },
-          { value: "listening", label: "Hören", content: <ListeningManager lessonId={lessonId} /> },
-          { value: "writing", label: "Schreiben", content: <WritingManager lessonId={lessonId} /> },
+          { value: "listening", label: "Hören (Legacy)", content: <ListeningManager lessonId={lessonId} /> },
+          {
+            value: "hoeren-assessment",
+            label: "Hören",
+            content: <LesenAssessmentManager lessonId={lessonId} skill="HOEREN" />,
+          },
+          { value: "writing", label: "Schreiben (Legacy)", content: <WritingManager lessonId={lessonId} /> },
+          {
+            value: "schreiben-assessment",
+            label: "Schreiben",
+            content: <LesenAssessmentManager lessonId={lessonId} skill="SCHREIBEN" />,
+          },
           { value: "speaking", label: "Sprechen", content: <SpeakingManager lessonId={lessonId} /> },
           { value: "homework", label: "Hausaufgaben", content: <HomeworkManager lessonId={lessonId} /> },
           { value: "quiz", label: "Quiz", content: <QuizManager lessonId={lessonId} /> },

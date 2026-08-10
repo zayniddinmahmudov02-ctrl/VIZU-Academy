@@ -5,10 +5,12 @@ from sqlalchemy.orm import Session, selectinload
 
 from app.models.assessment import Assessment
 from app.models.assessment_section import AssessmentSection
-from app.models.assessment_task import AssessmentTask
+from app.models.assessment_task import TYPE_WRITING, AssessmentTask
+from app.models.task_audio import TaskAudio
 from app.models.task_option import TaskOption
 from app.models.task_question import TaskQuestion
 from app.models.user import User
+from app.models.writing_rubric_criterion import WritingRubricCriterion
 
 from app.schemas.assessment_engine import (
     AssessmentCreate,
@@ -21,9 +23,27 @@ from app.schemas.assessment_engine import (
     TaskOptionUpdate,
     TaskQuestionCreate,
     TaskQuestionUpdate,
+    WritingRubricCriterionCreate,
+    WritingRubricCriterionUpdate,
 )
 
+from .audio_service import storage as audio_storage
 from .scoring import get_handler
+
+
+async def _delete_audio_files_for_tasks(db: Session, task_ids: list[UUID]) -> None:
+    """Best-effort cleanup of on-disk audio files before their DB rows are
+    cascade-deleted along with the parent task/section/assessment — the DB
+    FK cascade removes the TaskAudio *rows* for free, but never touches
+    the actual file on disk, so this has to happen explicitly first."""
+    if not task_ids:
+        return
+    audios = db.scalars(select(TaskAudio).where(TaskAudio.task_id.in_(task_ids))).all()
+    for audio in audios:
+        try:
+            await audio_storage.delete(audio.storage_path)
+        except OSError:
+            pass
 
 
 # ============================================================
@@ -58,7 +78,11 @@ def get_assessment_with_sections(db: Session, assessment_id: str) -> Assessment 
             selectinload(Assessment.sections)
             .selectinload(AssessmentSection.tasks)
             .selectinload(AssessmentTask.questions)
-            .selectinload(TaskQuestion.options)
+            .selectinload(TaskQuestion.options),
+            selectinload(Assessment.sections).selectinload(AssessmentSection.tasks).selectinload(AssessmentTask.audio),
+            selectinload(Assessment.sections)
+            .selectinload(AssessmentSection.tasks)
+            .selectinload(AssessmentTask.rubric_criteria),
         )
     )
     return db.scalars(query).first()
@@ -86,10 +110,18 @@ def update_assessment(db: Session, assessment_id: str, data: AssessmentUpdate) -
     return assessment
 
 
-def delete_assessment(db: Session, assessment_id: str) -> bool:
+async def delete_assessment(db: Session, assessment_id: str) -> bool:
     assessment = get_assessment(db, assessment_id)
     if assessment is None:
         return False
+
+    task_ids = db.scalars(
+        select(AssessmentTask.id)
+        .join(AssessmentSection, AssessmentTask.section_id == AssessmentSection.id)
+        .where(AssessmentSection.assessment_id == assessment.id)
+    ).all()
+    await _delete_audio_files_for_tasks(db, list(task_ids))
+
     db.delete(assessment)
     db.commit()
     return True
@@ -127,10 +159,14 @@ def update_section(db: Session, section_id: str, data: AssessmentSectionUpdate) 
     return section
 
 
-def delete_section(db: Session, section_id: str) -> bool:
+async def delete_section(db: Session, section_id: str) -> bool:
     section = db.get(AssessmentSection, UUID(section_id))
     if section is None:
         return False
+
+    task_ids = db.scalars(select(AssessmentTask.id).where(AssessmentTask.section_id == section.id)).all()
+    await _delete_audio_files_for_tasks(db, list(task_ids))
+
     db.delete(section)
     db.commit()
     return True
@@ -144,7 +180,11 @@ def list_tasks(db: Session, section_id: str) -> list[AssessmentTask]:
     query = (
         select(AssessmentTask)
         .where(AssessmentTask.section_id == UUID(section_id))
-        .options(selectinload(AssessmentTask.questions).selectinload(TaskQuestion.options))
+        .options(
+            selectinload(AssessmentTask.questions).selectinload(TaskQuestion.options),
+            selectinload(AssessmentTask.audio),
+            selectinload(AssessmentTask.rubric_criteria),
+        )
         .order_by(AssessmentTask.sort_order)
     )
     return list(db.scalars(query).all())
@@ -154,7 +194,11 @@ def get_task(db: Session, task_id: str) -> AssessmentTask | None:
     query = (
         select(AssessmentTask)
         .where(AssessmentTask.id == UUID(task_id))
-        .options(selectinload(AssessmentTask.questions).selectinload(TaskQuestion.options))
+        .options(
+            selectinload(AssessmentTask.questions).selectinload(TaskQuestion.options),
+            selectinload(AssessmentTask.audio),
+            selectinload(AssessmentTask.rubric_criteria),
+        )
     )
     return db.scalars(query).first()
 
@@ -178,10 +222,13 @@ def update_task(db: Session, task_id: str, data: AssessmentTaskUpdate) -> Assess
     return get_task(db, task_id)
 
 
-def delete_task(db: Session, task_id: str) -> bool:
+async def delete_task(db: Session, task_id: str) -> bool:
     task = db.get(AssessmentTask, UUID(task_id))
     if task is None:
         return False
+
+    await _delete_audio_files_for_tasks(db, [task.id])
+
     db.delete(task)
     db.commit()
     return True
@@ -191,10 +238,16 @@ def validate_task(db: Session, task_id: str) -> list[str]:
     """Runs the task_type's handler.validate_task() against this task's
     current questions — the admin builder calls this before allowing a
     Publish. Unknown/unregistered task_type is itself an error rather than
-    a crash."""
+    a crash. WRITING is scored by AI/teacher evaluation, not the objective
+    TaskQuestion registry, so it's validated separately: publishable once
+    it has at least one rubric criterion."""
     task = get_task(db, task_id)
     if task is None:
         return ["Task not found."]
+
+    if task.task_type == TYPE_WRITING:
+        return [] if task.rubric_criteria else ["Task has no rubric criteria yet."]
+
     try:
         handler = get_handler(task.task_type)
     except ValueError as exc:
@@ -286,4 +339,60 @@ def delete_option(db: Session, option_id: str) -> bool:
         return False
     db.delete(option)
     db.commit()
+    return True
+
+
+# ============================================================
+# Writing rubric criteria (SCHREIBEN) — never hardcoded, admin-defined
+# per task; AssessmentTask.max_points is kept in sync as their sum, same
+# pattern as _resync_task_max_points() above for the objective task types.
+# ============================================================
+
+def _resync_writing_task_max_points(db: Session, task_id: UUID) -> None:
+    task = db.get(AssessmentTask, task_id)
+    if task is None:
+        return
+    total = db.scalar(
+        select(func.coalesce(func.sum(WritingRubricCriterion.max_score), 0)).where(
+            WritingRubricCriterion.task_id == task_id
+        )
+    )
+    task.max_points = int(total)
+    db.commit()
+
+
+def create_rubric_criterion(db: Session, data: WritingRubricCriterionCreate) -> WritingRubricCriterion:
+    criterion = WritingRubricCriterion(**data.model_dump())
+    db.add(criterion)
+    db.commit()
+    db.refresh(criterion)
+    _resync_writing_task_max_points(db, criterion.task_id)
+    db.refresh(criterion)
+    return criterion
+
+
+def update_rubric_criterion(
+    db: Session, criterion_id: str, data: WritingRubricCriterionUpdate
+) -> WritingRubricCriterion | None:
+    criterion = db.get(WritingRubricCriterion, UUID(criterion_id))
+    if criterion is None:
+        return None
+    changed = data.model_dump(exclude_unset=True)
+    for key, value in changed.items():
+        setattr(criterion, key, value)
+    db.commit()
+    if "max_score" in changed:
+        _resync_writing_task_max_points(db, criterion.task_id)
+    db.refresh(criterion)
+    return criterion
+
+
+def delete_rubric_criterion(db: Session, criterion_id: str) -> bool:
+    criterion = db.get(WritingRubricCriterion, UUID(criterion_id))
+    if criterion is None:
+        return False
+    task_id = criterion.task_id
+    db.delete(criterion)
+    db.commit()
+    _resync_writing_task_max_points(db, task_id)
     return True

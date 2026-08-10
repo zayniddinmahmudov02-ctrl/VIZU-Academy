@@ -28,6 +28,10 @@ class TaskAttempt(BaseModel):
     )
     score: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     max_score: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
+    # How many times this user has played this task's audio within this
+    # attempt — checked server-side against AssessmentTask.audio_play_limit
+    # on every play request. Never trust the frontend's disabled button.
+    audio_play_count: Mapped[int] = mapped_column(Integer, default=0, server_default="0", nullable=False)
 
     assessment_attempt = relationship("AssessmentAttempt", back_populates="task_attempts")
     task = relationship("AssessmentTask")

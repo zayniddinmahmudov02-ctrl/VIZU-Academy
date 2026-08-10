@@ -23,8 +23,12 @@ TaskType = Literal[
     "DRAG_DROP",
     "CATEGORY_SORTING",
     "IMAGE_SELECTION",
+    "WRITING",
 ]
 AttemptStatus = Literal["IN_PROGRESS", "SUBMITTED", "GRADED"]
+EvaluationMode = Literal["AI_ONLY", "TEACHER_ONLY", "AI_AND_TEACHER"]
+WritingSubmissionStatus = Literal["DRAFT", "SUBMITTED", "PENDING_REVIEW", "GRADED"]
+EvaluatorType = Literal["AI", "TEACHER"]
 
 
 # ============================================================
@@ -187,6 +191,34 @@ class TaskQuestionResponse(BaseSchema):
 
 
 # ============================================================
+# Writing rubric criterion (SCHREIBEN) — configurable, never hardcoded
+# ============================================================
+
+class WritingRubricCriterionCreate(BaseSchema):
+    # Optional — injected from the URL path (POST /tasks/{task_id}/rubric-criteria).
+    task_id: str | None = None
+    name: str
+    max_score: int = 5
+    sort_order: int = 1
+
+
+class WritingRubricCriterionUpdate(BaseSchema):
+    name: str | None = None
+    max_score: int | None = None
+    sort_order: int | None = None
+
+
+class WritingRubricCriterionResponse(BaseSchema):
+    id: UUID
+    task_id: UUID
+    name: str
+    max_score: int
+    sort_order: int
+
+    model_config = ConfigDict(from_attributes=True, extra="ignore")
+
+
+# ============================================================
 # Task
 # ============================================================
 
@@ -200,6 +232,19 @@ class AssessmentTaskCreate(BaseSchema):
     config: str | None = None
     max_points: int = 0
     sort_order: int = 1
+    # Audio play policy — only meaningful for HOEREN tasks; harmless
+    # defaults for every other type, which simply never has audio attached.
+    audio_play_limit: int | None = None
+    allow_pause: bool = True
+    allow_seek: bool = True
+    allow_replay: bool = True
+    allow_speed_change: bool = True
+    # Writing config — only meaningful for WRITING tasks.
+    image_url: str | None = None
+    min_words: int | None = None
+    max_words: int | None = None
+    time_limit_minutes: int | None = None
+    evaluation_mode: EvaluationMode = "AI_ONLY"
 
 
 class AssessmentTaskUpdate(BaseSchema):
@@ -209,6 +254,27 @@ class AssessmentTaskUpdate(BaseSchema):
     config: str | None = None
     max_points: int | None = None
     sort_order: int | None = None
+    audio_play_limit: int | None = None
+    allow_pause: bool | None = None
+    allow_seek: bool | None = None
+    allow_replay: bool | None = None
+    allow_speed_change: bool | None = None
+    image_url: str | None = None
+    min_words: int | None = None
+    max_words: int | None = None
+    time_limit_minutes: int | None = None
+    evaluation_mode: EvaluationMode | None = None
+
+
+class TaskAudioResponse(BaseSchema):
+    id: UUID
+    task_id: UUID
+    filename: str
+    format: str
+    duration_seconds: int | None
+    file_size_bytes: int
+
+    model_config = ConfigDict(from_attributes=True, extra="ignore")
 
 
 class AssessmentTaskResponse(BaseSchema):
@@ -221,7 +287,19 @@ class AssessmentTaskResponse(BaseSchema):
     config: str | None
     max_points: int
     sort_order: int
+    audio_play_limit: int | None
+    allow_pause: bool
+    allow_seek: bool
+    allow_replay: bool
+    allow_speed_change: bool
+    image_url: str | None
+    min_words: int | None
+    max_words: int | None
+    time_limit_minutes: int | None
+    evaluation_mode: str
+    audio: TaskAudioResponse | None = None
     questions: list[TaskQuestionResponse] = Field(default_factory=list)
+    rubric_criteria: list[WritingRubricCriterionResponse] = Field(default_factory=list)
 
     model_config = ConfigDict(from_attributes=True, extra="ignore")
 
@@ -266,6 +344,13 @@ class PublicTaskQuestion(BaseSchema):
     options: list[PublicTaskOption] = Field(default_factory=list)
 
 
+class PublicWritingRubricCriterion(BaseSchema):
+    id: UUID
+    name: str
+    max_score: int
+    sort_order: int
+
+
 class PublicAssessmentTask(BaseSchema):
     id: UUID
     task_type: str
@@ -275,6 +360,25 @@ class PublicAssessmentTask(BaseSchema):
     config: str | None
     max_points: int
     sort_order: int
+    # Audio is never a direct URL here — only enough for the player to
+    # decide whether to render itself and how to behave. The actual
+    # bytes are fetched from GET /audio/{task_id}, which re-checks
+    # permission on every request; nothing here is a capability by itself.
+    has_audio: bool = False
+    audio_duration_seconds: int | None = None
+    audio_play_limit: int | None = None
+    allow_pause: bool = True
+    allow_seek: bool = True
+    allow_replay: bool = True
+    allow_speed_change: bool = True
+    # Writing (SCHREIBEN) — the rubric's criteria/max-scores are
+    # descriptive, not a "correct answer", so they're safe to expose here
+    # (a student seeing "Grammatik: /5" doesn't leak anything gradeable).
+    image_url: str | None = None
+    min_words: int | None = None
+    max_words: int | None = None
+    time_limit_minutes: int | None = None
+    rubric_criteria: list[PublicWritingRubricCriterion] = Field(default_factory=list)
     questions: list[PublicTaskQuestion] = Field(default_factory=list)
 
 
@@ -291,6 +395,12 @@ class PublicAssessment(BaseSchema):
     id: UUID
     title: str
     description: str | None
+    # Exposed so the client can correctly gray out editing controls (e.g.
+    # the Schreiben two-pane editor) — the backend is still the real
+    # enforcement point on every write endpoint regardless of what the UI
+    # shows.
+    allow_edit: bool = True
+    allow_resubmit: bool = False
     sections: list[PublicAssessmentSection] = Field(default_factory=list)
 
 
@@ -347,3 +457,85 @@ class AssessmentResultResponse(BaseSchema):
     section_results: list[SectionResultResponse]
     show_correct_answers: bool
     show_feedback: bool
+
+
+class AudioPlayStatusResponse(BaseSchema):
+    task_id: str
+    play_limit: int | None
+    plays_used: int
+    plays_remaining: int | None
+    can_play: bool
+    allow_pause: bool
+    allow_seek: bool
+    allow_replay: bool
+    allow_speed_change: bool
+
+
+# ============================================================
+# Writing (SCHREIBEN) submissions / evaluations
+# ============================================================
+
+class WritingSubmissionSave(BaseSchema):
+    """Body for both Speichern (draft) and Abgeben (submit) — the router
+    endpoint (not this schema) decides which status transition happens."""
+    content: str
+
+
+class WritingSubmissionResponse(BaseSchema):
+    id: UUID
+    user_id: UUID
+    assessment_id: UUID
+    section_id: UUID
+    task_id: UUID
+    attempt_id: UUID
+    content: str
+    word_count: int
+    character_count: int
+    status: WritingSubmissionStatus
+    submitted_at: datetime | None
+    final_score: int | None
+
+    model_config = ConfigDict(from_attributes=True, extra="ignore")
+
+
+class WritingEvaluationResponse(BaseSchema):
+    id: UUID
+    submission_id: UUID
+    evaluator_type: EvaluatorType
+    reviewed_by_id: UUID | None
+    rubric_scores: dict[str, int] = Field(default_factory=dict)
+    total_score: int
+    feedback: str | None
+    strengths: str | None
+    errors: list[str] = Field(default_factory=list)
+    suggestions: list[str] = Field(default_factory=list)
+    created_at: datetime
+
+    model_config = ConfigDict(from_attributes=True, extra="ignore")
+
+
+class WritingResultResponse(BaseSchema):
+    """The student-facing 'Ergebnisse -> Schreiben' payload — submission
+    plus whichever evaluations exist. feedback/rubric are omitted
+    server-side (not just hidden client-side) when the assessment's
+    show_feedback policy is off."""
+    submission: WritingSubmissionResponse
+    evaluations: list[WritingEvaluationResponse] = Field(default_factory=list)
+    show_feedback: bool
+
+
+class TeacherReviewInput(BaseSchema):
+    """Rubric scores keyed by WritingRubricCriterion id (as a string) —
+    validated server-side against each criterion's max_score and the
+    task's max_points; never trusted as-is."""
+    rubric_scores: dict[str, int]
+    feedback: str | None = None
+
+
+class PendingWritingReviewItem(BaseSchema):
+    """One row in the teacher's review queue."""
+    submission: WritingSubmissionResponse
+    task_title: str
+    student_name: str
+    rubric_criteria: list[WritingRubricCriterionResponse] = Field(default_factory=list)
+    ai_evaluation: WritingEvaluationResponse | None = None

@@ -87,6 +87,10 @@ from .task_attempt import TaskAttempt
 from .answer import Answer
 from .section_result import SectionResult
 from .assessment_result import AssessmentResult
+from .task_audio import TaskAudio
+from .writing_rubric_criterion import WritingRubricCriterion
+from .writing_submission import WritingSubmission
+from .writing_evaluation import WritingEvaluation
 
 
 __all__ = [
@@ -179,4 +183,8 @@ __all__ = [
     "Answer",
     "SectionResult",
     "AssessmentResult",
+    "TaskAudio",
+    "WritingRubricCriterion",
+    "WritingSubmission",
+    "WritingEvaluation",
 ]

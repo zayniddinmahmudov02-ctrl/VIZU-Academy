@@ -13,11 +13,12 @@ from app.models.assessment_attempt import (
     AssessmentAttempt,
 )
 from app.models.assessment_result import AssessmentResult
-from app.models.assessment_task import AssessmentTask
+from app.models.assessment_task import TYPE_WRITING, AssessmentTask
 from app.models.section_result import SectionResult
 from app.models.task_attempt import TaskAttempt
 from app.models.task_question import TaskQuestion
 from app.models.user import User
+from app.models.writing_submission import WritingSubmission
 
 from app.schemas.assessment_engine import AnswerSubmit
 
@@ -77,7 +78,7 @@ def start_attempt(db: Session, assessment_id: str, user: User) -> AssessmentAtte
     return attempt
 
 
-def _get_owned_attempt(db: Session, attempt_id: str, user: User) -> AssessmentAttempt:
+def get_owned_attempt(db: Session, attempt_id: str, user: User) -> AssessmentAttempt:
     attempt = db.get(AssessmentAttempt, UUID(attempt_id))
     if attempt is None:
         raise HTTPException(status_code=404, detail="Attempt not found.")
@@ -86,24 +87,11 @@ def _get_owned_attempt(db: Session, attempt_id: str, user: User) -> AssessmentAt
     return attempt
 
 
-# ============================================================
-# Answer
-# ============================================================
-
-def submit_answer(db: Session, attempt_id: str, user: User, data: AnswerSubmit) -> Answer:
-    attempt = _get_owned_attempt(db, attempt_id, user)
-    assessment = db.get(Assessment, attempt.assessment_id)
-
-    if attempt.locked:
-        raise HTTPException(status_code=403, detail="This attempt is locked and can no longer be edited.")
-    if attempt.status != STATUS_IN_PROGRESS and not assessment.allow_edit:
-        raise HTTPException(status_code=403, detail="Editing answers is not allowed for this assessment.")
-
-    question = db.get(TaskQuestion, UUID(data.question_id))
-    if question is None:
-        raise HTTPException(status_code=404, detail="Question not found.")
-    task = db.get(AssessmentTask, question.task_id)
-
+def get_or_create_task_attempt(db: Session, attempt: AssessmentAttempt, task: AssessmentTask) -> TaskAttempt:
+    """Shared by every task-type-specific submission path (objective
+    answers here, audio plays in audio_service, writing submissions in
+    writing_service) — a TaskAttempt is the one per-task score snapshot
+    row, lazily created the first time a user interacts with that task."""
     task_attempt = db.scalars(
         select(TaskAttempt).where(
             TaskAttempt.assessment_attempt_id == attempt.id,
@@ -118,6 +106,27 @@ def submit_answer(db: Session, attempt_id: str, user: User, data: AnswerSubmit) 
         )
         db.add(task_attempt)
         db.flush()
+    return task_attempt
+
+
+# ============================================================
+# Answer
+# ============================================================
+
+def submit_answer(db: Session, attempt_id: str, user: User, data: AnswerSubmit) -> Answer:
+    attempt = get_owned_attempt(db, attempt_id, user)
+    assessment = db.get(Assessment, attempt.assessment_id)
+
+    if attempt.locked:
+        raise HTTPException(status_code=403, detail="This attempt is locked and can no longer be edited.")
+    if attempt.status != STATUS_IN_PROGRESS and not assessment.allow_edit:
+        raise HTTPException(status_code=403, detail="Editing answers is not allowed for this assessment.")
+
+    question = db.get(TaskQuestion, UUID(data.question_id))
+    if question is None:
+        raise HTTPException(status_code=404, detail="Question not found.")
+    task = db.get(AssessmentTask, question.task_id)
+    task_attempt = get_or_create_task_attempt(db, attempt, task)
 
     handler = get_handler(task.task_type)
     is_correct, points_earned = handler.score(question, data.answer_data)
@@ -147,7 +156,7 @@ def submit_answer(db: Session, attempt_id: str, user: User, data: AnswerSubmit) 
 # ============================================================
 
 def submit_attempt(db: Session, attempt_id: str, user: User) -> AssessmentAttempt:
-    attempt = _get_owned_attempt(db, attempt_id, user)
+    attempt = get_owned_attempt(db, attempt_id, user)
     assessment = db.get(Assessment, attempt.assessment_id)
 
     if attempt.locked:
@@ -183,10 +192,25 @@ def _score_and_finalize(db: Session, attempt: AssessmentAttempt, assessment: Ass
     ).all()
 
     for ta in task_attempts:
-        earned = db.scalar(
-            select(func.coalesce(func.sum(Answer.points_earned), 0)).where(Answer.task_attempt_id == ta.id)
-        )
-        ta.score = int(earned)
+        task = db.get(AssessmentTask, ta.task_id)
+        if task.task_type == TYPE_WRITING:
+            # Writing scores don't come from Answer rows — they come from
+            # whichever evaluation (AI or teacher) is currently
+            # authoritative on the WritingSubmission. If evaluation hasn't
+            # finished yet (e.g. still PENDING_REVIEW), this is 0 for now;
+            # recompute_attempt_result() re-runs this once it lands.
+            submission = db.scalars(
+                select(WritingSubmission).where(
+                    WritingSubmission.attempt_id == attempt.id,
+                    WritingSubmission.task_id == ta.task_id,
+                )
+            ).first()
+            ta.score = submission.final_score if submission and submission.final_score is not None else 0
+        else:
+            earned = db.scalar(
+                select(func.coalesce(func.sum(Answer.points_earned), 0)).where(Answer.task_attempt_id == ta.id)
+            )
+            ta.score = int(earned)
         ta.status = STATUS_GRADED
 
     db.flush()
@@ -225,8 +249,22 @@ def _score_and_finalize(db: Session, attempt: AssessmentAttempt, assessment: Ass
     )
 
 
+def recompute_attempt_result(db: Session, attempt_id) -> None:
+    """Called by writing_service after an AI or teacher evaluation finishes
+    — writing evaluation can complete well after submit_attempt() already
+    ran (a teacher might review days later), so the attempt's
+    SectionResult/AssessmentResult need to be recomputed in place rather
+    than only ever being set once at submit time."""
+    attempt = db.get(AssessmentAttempt, attempt_id)
+    if attempt is None:
+        return
+    assessment = db.get(Assessment, attempt.assessment_id)
+    _score_and_finalize(db, attempt, assessment)
+    db.commit()
+
+
 def get_result(db: Session, attempt_id: str, user: User) -> dict:
-    attempt = _get_owned_attempt(db, attempt_id, user)
+    attempt = get_owned_attempt(db, attempt_id, user)
     assessment = db.get(Assessment, attempt.assessment_id)
 
     result = db.scalars(
