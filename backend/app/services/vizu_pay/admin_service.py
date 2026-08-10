@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta, timezone
 from uuid import UUID
 
-from sqlalchemy import func, or_
+from sqlalchemy import extract, func, or_
 from sqlalchemy.orm import Session
 
 from app.core.audit import write_audit
@@ -57,6 +57,9 @@ class AdminVizuPayService:
         status: str | None = None,
         plan: str | None = None,
         search: str | None = None,
+        year: int | None = None,
+        month: int | None = None,
+        day: int | None = None,
     ) -> dict:
         query = self.db.query(SubscriptionOrder).join(User, SubscriptionOrder.user_id == User.id)
 
@@ -67,6 +70,12 @@ class AdminVizuPayService:
         if search:
             like = f"%{search.strip()}%"
             query = query.filter(or_(User.email.ilike(like), User.username.ilike(like)))
+        if year is not None:
+            query = query.filter(extract("year", SubscriptionOrder.created_at) == year)
+        if month is not None:
+            query = query.filter(extract("month", SubscriptionOrder.created_at) == month)
+        if day is not None:
+            query = query.filter(extract("day", SubscriptionOrder.created_at) == day)
 
         total = query.count()
         page, page_size = clamp_page_params(page, page_size)

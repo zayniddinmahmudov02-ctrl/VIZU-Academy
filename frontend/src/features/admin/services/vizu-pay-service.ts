@@ -19,6 +19,9 @@ export async function listOrders(params: {
   status?: string;
   plan?: string;
   search?: string;
+  year?: number;
+  month?: number;
+  day?: number;
 }): Promise<AdminOrderListResponse> {
   const response = await api.get<AdminOrderListResponse>(`${ADMIN_ENDPOINTS.adminVizuPay}/orders`, {
     params,

@@ -1,9 +1,12 @@
 from datetime import datetime
 from uuid import uuid4
 
+from sqlalchemy import func
 from sqlalchemy.orm import Session
 
+from app.core.pagination import clamp_page_params, paginated_response
 from app.models.certificate import Certificate
+from app.models.user import User
 
 from app.repositories.certificate import (
     CertificateRepository,
@@ -208,6 +211,83 @@ class CertificateService:
             )
             .all()
         )
+
+    # ==========================
+    # User-centric view (admin Certificate page)
+    # ==========================
+    #
+    # Every certificate currently in this table is course-issued — the
+    # unified COURSE/VORBEREITUNG/VIZU_MOCK "source" concept the admin CMS
+    # spec asks for needs a new `source` column (a migration), which is
+    # blocked in this environment (backend/ has no new-file write
+    # permission right now — see final report). `_serialize_grouped`
+    # hardcodes source="COURSE" below as an honest reflection of what
+    # every existing row actually is, not a real per-row field yet.
+
+    def count_by_user(
+        self,
+        page: int = 1,
+        page_size: int = 50,
+    ) -> dict:
+        """Users who have at least one certificate, ordered by certificate
+        count descending. One GROUP BY aggregate query — never loads every
+        certificate row just to count them."""
+
+        base = (
+            self.db.query(
+                Certificate.user_id,
+                func.count(Certificate.id).label("cert_count"),
+                func.max(Certificate.issued_at).label("last_issued_at"),
+            )
+            .group_by(Certificate.user_id)
+        )
+
+        total = base.count()
+
+        page, page_size = clamp_page_params(page, page_size)
+
+        rows = (
+            base.order_by(func.count(Certificate.id).desc())
+            .offset((page - 1) * page_size)
+            .limit(page_size)
+            .all()
+        )
+
+        user_ids = [row.user_id for row in rows]
+        users = {u.id: u for u in self.db.query(User).filter(User.id.in_(user_ids)).all()}
+
+        items = [
+            {
+                "user_id": str(row.user_id),
+                "email": users[row.user_id].email if row.user_id in users else None,
+                "username": users[row.user_id].username if row.user_id in users else None,
+                "first_name": users[row.user_id].first_name if row.user_id in users else None,
+                "last_name": users[row.user_id].last_name if row.user_id in users else None,
+                "profile_image": users[row.user_id].profile_image if row.user_id in users else None,
+                "certificate_count": row.cert_count,
+                "last_certificate_at": row.last_issued_at,
+            }
+            for row in rows
+        ]
+
+        return paginated_response(items, total, page, page_size)
+
+    def history_with_source(self, user_id: str) -> list[dict]:
+        certs = self.history(user_id)
+
+        return [
+            {
+                "id": str(c.id),
+                "certificate_number": c.certificate_number,
+                "level": c.level,
+                "source": "COURSE",
+                "score": c.score,
+                "is_valid": c.is_valid,
+                "issued_at": c.issued_at,
+                "pdf_url": c.pdf_url,
+            }
+            for c in certs
+        ]
 
     def invalidate(
         self,

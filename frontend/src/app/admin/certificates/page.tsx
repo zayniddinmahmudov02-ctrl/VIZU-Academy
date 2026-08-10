@@ -1,15 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { Plus } from "lucide-react";
+import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
+import { ChevronLeft, ChevronRight, Plus } from "lucide-react";
 
 import { AdminButton, AdminCheckbox, AdminInput, AdminLabel, AdminPageHeader } from "@/components/admin/admin-ui";
-import ConfirmDialog from "@/components/admin/confirm-dialog";
 import DataTable, { DataTableColumn } from "@/components/admin/data-table";
 import FormDialog from "@/components/admin/form-dialog";
-import { useCrudList, useCrudMutations } from "@/features/admin/hooks/use-crud";
-import { certificatesApi } from "@/features/admin/services/certificates-service";
-import type { Certificate } from "@/features/admin/types/certificate.types";
+import Avatar from "@/components/ui/avatar";
+import { useCrudMutations } from "@/features/admin/hooks/use-crud";
+import { certificatesApi, listCertificateHolders } from "@/features/admin/services/certificates-service";
+import type { CertificateHolder } from "@/features/admin/types/certificate.types";
+
+const PAGE_SIZE = 50;
 
 const EMPTY_FORM = {
   user_id: "",
@@ -23,64 +27,81 @@ const EMPTY_FORM = {
   is_valid: true,
 };
 
-export default function CertificatesPage() {
-  const { data, isLoading } = useCrudList("certificates", certificatesApi);
-  const { create, remove } = useCrudMutations("certificates", certificatesApi);
+function displayName(holder: CertificateHolder): string {
+  return [holder.first_name, holder.last_name].filter(Boolean).join(" ") || holder.username || holder.email || "—";
+}
 
+export default function CertificatesPage() {
+  const [page, setPage] = useState(1);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [deleting, setDeleting] = useState<Certificate | null>(null);
   const [form, setForm] = useState(EMPTY_FORM);
   const [error, setError] = useState<string | null>(null);
 
-  function openCreate() {
-    setForm(EMPTY_FORM);
-    setError(null);
-    setDialogOpen(true);
-  }
+  const { data, isLoading } = useQuery({
+    queryKey: ["admin-certificate-holders", page],
+    queryFn: () => listCertificateHolders({ page, page_size: PAGE_SIZE }),
+  });
+
+  const { create } = useCrudMutations("certificates", certificatesApi);
 
   async function handleSubmit() {
     setError(null);
     try {
       await create.mutateAsync(form);
       setDialogOpen(false);
+      setForm(EMPTY_FORM);
     } catch {
       setError("Zertifikat konnte nicht ausgestellt werden. Prüfe, ob Nutzer- und Kurs-ID korrekt sind.");
     }
   }
 
-  const columns: DataTableColumn<Certificate>[] = [
-    { key: "number", header: "Nummer", render: (item) => item.certificate_number },
-    { key: "level", header: "Level", render: (item) => item.level },
-    { key: "score", header: "Punktzahl", render: (item) => `${item.score}%` },
+  const columns: DataTableColumn<CertificateHolder>[] = [
     {
-      key: "is_valid",
-      header: "Status",
-      render: (item) => (
-        <span
-          className={`rounded-full px-2.5 py-1 text-xs font-semibold ${
-            item.is_valid
-              ? "bg-[var(--admin-accent)]/15 text-[var(--admin-accent)]"
-              : "bg-[var(--admin-danger)]/15 text-[var(--admin-danger)]"
-          }`}
-        >
-          {item.is_valid ? "Gültig" : "Widerrufen"}
-        </span>
-      ),
+      key: "avatar",
+      header: "",
+      className: "w-12",
+      render: (holder) => <Avatar src={holder.profile_image ?? undefined} name={displayName(holder)} size={32} />,
     },
     {
-      key: "issued_at",
-      header: "Ausgestellt",
-      render: (item) => new Date(item.issued_at).toLocaleDateString("de-DE"),
+      key: "user",
+      header: "Nutzer",
+      render: (holder) => (
+        <Link
+          href={`/admin/certificates/${holder.user_id}`}
+          className="font-medium text-[var(--admin-text-primary)] hover:text-[var(--admin-primary)]"
+        >
+          {displayName(holder)}
+        </Link>
+      ),
+    },
+    { key: "count", header: "Zertifikate gesamt", render: (holder) => holder.certificate_count },
+    {
+      key: "last",
+      header: "Letztes Zertifikat",
+      render: (holder) =>
+        holder.last_certificate_at ? new Date(holder.last_certificate_at).toLocaleDateString("de-DE") : "—",
+    },
+    {
+      key: "open",
+      header: "",
+      render: (holder) => (
+        <Link
+          href={`/admin/certificates/${holder.user_id}`}
+          className="text-xs font-medium text-[var(--admin-primary)] hover:underline"
+        >
+          Profil öffnen →
+        </Link>
+      ),
     },
   ];
 
   return (
     <div>
       <AdminPageHeader
-        title="Certificates"
-        description="Ausgestellte Zertifikate verwalten und widerrufen."
+        title="Certificate"
+        description="Nutzer mit Zertifikaten, sortiert nach Anzahl."
         action={
-          <AdminButton onClick={openCreate}>
+          <AdminButton onClick={() => setDialogOpen(true)}>
             <Plus size={16} />
             Zertifikat ausstellen
           </AdminButton>
@@ -89,12 +110,35 @@ export default function CertificatesPage() {
 
       <DataTable
         columns={columns}
-        data={data}
+        data={data?.items}
         isLoading={isLoading}
-        getRowId={(item) => item.id}
-        onDelete={setDeleting}
+        getRowId={(holder) => holder.user_id}
         emptyMessage="Noch keine Zertifikate ausgestellt."
       />
+
+      {data && data.total_pages > 1 && (
+        <div className="mt-4 flex items-center justify-between text-sm text-[var(--admin-text-secondary)]">
+          <span>
+            Seite {data.page} von {data.total_pages} ({data.total} Nutzer mit Zertifikaten)
+          </span>
+          <div className="flex gap-2">
+            <button
+              disabled={page <= 1}
+              onClick={() => setPage((p) => p - 1)}
+              className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--admin-card)] ring-1 ring-[var(--admin-border-strong)] disabled:opacity-40"
+            >
+              <ChevronLeft size={14} />
+            </button>
+            <button
+              disabled={page >= data.total_pages}
+              onClick={() => setPage((p) => p + 1)}
+              className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--admin-card)] ring-1 ring-[var(--admin-border-strong)] disabled:opacity-40"
+            >
+              <ChevronRight size={14} />
+            </button>
+          </div>
+        </div>
+      )}
 
       <FormDialog
         open={dialogOpen}
@@ -191,19 +235,6 @@ export default function CertificatesPage() {
           </label>
         </div>
       </FormDialog>
-
-      <ConfirmDialog
-        open={!!deleting}
-        onOpenChange={(open) => !open && setDeleting(null)}
-        title="Zertifikat widerrufen"
-        description={`Zertifikat "${deleting?.certificate_number}" wird dauerhaft gelöscht.`}
-        isPending={remove.isPending}
-        onConfirm={async () => {
-          if (!deleting) return;
-          await remove.mutateAsync(deleting.id);
-          setDeleting(null);
-        }}
-      />
     </div>
   );
 }

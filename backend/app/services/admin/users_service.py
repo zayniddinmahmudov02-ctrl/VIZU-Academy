@@ -7,6 +7,7 @@ from sqlalchemy import func, or_
 from sqlalchemy.orm import Session
 
 from app.core.audit import write_audit
+from app.core.config import settings
 from app.core.exceptions import DomainError, NotFoundError
 from app.core.pagination import clamp_page_params, paginated_response
 from app.core.security import create_user_token, hash_password
@@ -31,7 +32,13 @@ SORT_COLUMNS = {
     "username": User.username,
     "email": User.email,
     "role": User.role,
+    "premium_until": User.premium_until,
 }
+
+# Sorting "alphabetically" (Nachname/Vorname) needs two columns in order,
+# not one — handled as a special case in list_users() rather than through
+# SORT_COLUMNS, which only supports a single column.
+NAME_SORT_COLUMNS = (User.last_name, User.first_name, User.username)
 
 
 def _now() -> datetime:
@@ -65,15 +72,35 @@ class AdminUsersService:
 
         return grouped
 
-    def _serialize_list_item(self, user: User, tags: list[dict]) -> dict:
+    def _serialize_list_item(
+        self,
+        user: User,
+        tags: list[dict],
+        usage_minutes: int = 0,
+    ) -> dict:
         now = _now()
         is_premium = bool(user.premium_until and user.premium_until > now)
         is_suspended = bool(user.suspended_until and user.suspended_until > now)
+
+        # No real-time presence/heartbeat system exists in this codebase —
+        # "online" is approximated from the last successful login staying
+        # within one access-token lifetime, i.e. "their most recent session
+        # token hasn't necessarily expired yet". A real presence system
+        # (websocket heartbeat, last-seen-at pings) would be a separate,
+        # larger addition; this is the honest signal derivable from data
+        # that already exists (LoginHistory / User.last_login).
+        is_online = bool(
+            user.last_login
+            and user.last_login > now - timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+        )
 
         return {
             "id": str(user.id),
             "email": user.email,
             "username": user.username,
+            "first_name": user.first_name,
+            "last_name": user.last_name,
+            "profile_image": user.profile_image,
             "role": user.role,
             "is_active": user.is_active,
             "is_verified": user.is_verified,
@@ -82,6 +109,9 @@ class AdminUsersService:
             "is_premium": is_premium,
             "premium_until": user.premium_until,
             "last_login": user.last_login,
+            "is_online": is_online,
+            "usage_minutes": usage_minutes,
+            "has_password": bool(user.password_hash),
             "created_at": user.created_at,
             "tags": tags,
         }
@@ -110,7 +140,12 @@ class AdminUsersService:
         if search:
             like = f"%{search.strip()}%"
             query = query.filter(
-                or_(User.email.ilike(like), User.username.ilike(like))
+                or_(
+                    User.email.ilike(like),
+                    User.username.ilike(like),
+                    User.first_name.ilike(like),
+                    User.last_name.ilike(like),
+                )
             )
 
         if role:
@@ -150,26 +185,57 @@ class AdminUsersService:
 
         total = query.distinct().count()
 
-        column = SORT_COLUMNS.get(sort_by, User.created_at)
-        order = column.desc() if sort_dir == "desc" else column.asc()
+        if sort_by == "name":
+            # "Nachname / Vorname" alphabetical ordering — NULLS LAST so
+            # users who haven't filled in a name yet don't dominate the
+            # front of an ascending sort. Postgres's default collation
+            # already handles Latin (incl. German umlaut) ordering
+            # correctly; no custom collation needed.
+            direction = (lambda c: c.desc()) if sort_dir == "desc" else (lambda c: c.asc())
+            order = [direction(col).nullslast() for col in NAME_SORT_COLUMNS]
+        else:
+            column = SORT_COLUMNS.get(sort_by, User.created_at)
+            order = [column.desc() if sort_dir == "desc" else column.asc()]
 
         page, page_size = clamp_page_params(page, page_size)
 
         users = (
             query.distinct()
-            .order_by(order)
+            .order_by(*order)
             .offset((page - 1) * page_size)
             .limit(page_size)
             .all()
         )
 
-        tags_map = self._tags_by_user([u.id for u in users])
+        user_ids = [u.id for u in users]
+        tags_map = self._tags_by_user(user_ids)
+        usage_map = self._usage_minutes_by_user(user_ids)
 
         items = [
-            self._serialize_list_item(u, tags_map.get(u.id, [])) for u in users
+            self._serialize_list_item(u, tags_map.get(u.id, []), usage_map.get(u.id, 0))
+            for u in users
         ]
 
         return paginated_response(items, total, page, page_size)
+
+    def _usage_minutes_by_user(self, user_ids: list[UUID]) -> dict[UUID, int]:
+        """One aggregate query for the current page's users — never loads
+        every StudentProgress row into Python just to sum them."""
+
+        if not user_ids:
+            return {}
+
+        rows = (
+            self.db.query(
+                StudentProgress.user_id,
+                func.coalesce(func.sum(StudentProgress.study_minutes), 0),
+            )
+            .filter(StudentProgress.user_id.in_(user_ids))
+            .group_by(StudentProgress.user_id)
+            .all()
+        )
+
+        return {user_id: int(total) for user_id, total in rows}
 
     def list_all_for_export(
         self,

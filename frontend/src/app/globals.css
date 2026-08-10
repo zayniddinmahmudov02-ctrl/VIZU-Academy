@@ -372,3 +372,37 @@ img {
   border-radius: 0.5rem;
   margin: 0.5rem 0;
 }
+
+.prose-editor h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 1rem 0 0.5rem;
+}
+
+.prose-editor a {
+  color: var(--admin-primary, var(--accent-blue));
+  text-decoration: underline;
+}
+
+.prose-editor u {
+  text-decoration: underline;
+}
+
+/* A "Lücke" gap marker embedded inline in a CLOZE_TEXT task's rich-text
+   content (see features/admin/lib/gap-extension.ts). Atom node, not
+   editable text — styled as a small pill so it reads clearly as a distinct
+   element rather than plain words. */
+.vizu-gap {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.0625rem 0.5rem;
+  margin: 0 0.125rem;
+  border-radius: 999px;
+  background: var(--admin-primary, var(--accent-blue));
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  user-select: none;
+}

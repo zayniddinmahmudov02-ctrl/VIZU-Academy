@@ -8,6 +8,9 @@ export async function listUsers(params: {
   page_size?: number;
   search?: string;
   role?: string;
+  status?: string;
+  sort_by?: string;
+  sort_dir?: "asc" | "desc";
 }): Promise<UserListResponse> {
   const response = await api.get<UserListResponse>(ADMIN_ENDPOINTS.adminUsers, { params });
   return { ...response.data, items: ensureArray<UserListItem>(response.data?.items) };

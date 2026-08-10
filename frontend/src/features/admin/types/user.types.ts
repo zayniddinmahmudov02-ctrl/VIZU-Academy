@@ -7,6 +7,9 @@ export interface UserListItem {
   id: string;
   email: string;
   username: string;
+  first_name: string | null;
+  last_name: string | null;
+  profile_image: string | null;
   role: string;
   is_active: boolean;
   is_verified: boolean;
@@ -15,6 +18,9 @@ export interface UserListItem {
   is_premium: boolean;
   premium_until: string | null;
   last_login: string | null;
+  is_online: boolean;
+  usage_minutes: number;
+  has_password: boolean;
   created_at: string;
   tags: UserTagItem[];
 }

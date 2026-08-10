@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from pydantic import ConfigDict
 
 from app.schemas.base import BaseSchema
@@ -35,6 +37,27 @@ class PaymentResponse(PaymentBase):
 
     id: str
 
+    created_at: datetime
+
+    user_email: str | None = None
+
+    user_username: str | None = None
+
+    course_title: str | None = None
+
     model_config = ConfigDict(
         from_attributes=True,
     )
+
+
+class PaymentListResponse(BaseSchema):
+
+    items: list[PaymentResponse]
+
+    total: int
+
+    page: int
+
+    page_size: int
+
+    total_pages: int

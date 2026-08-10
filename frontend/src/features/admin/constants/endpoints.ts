@@ -30,6 +30,7 @@ export const ADMIN_ENDPOINTS = {
   mediaLibraryUpload: "/api/v1/media-library/upload",
   adminUsers: "/api/v1/admin/users",
   adminVizuPay: "/api/v1/admin/vizu-pay",
+  paymentsPaginated: "/api/v1/payments/paginated",
   certificates: "/api/v1/certificates",
   adminDashboard: "/api/v1/admin/dashboard/overview",
 

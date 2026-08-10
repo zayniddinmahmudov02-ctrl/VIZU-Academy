@@ -34,10 +34,22 @@ def list_orders(
     status: str | None = None,
     plan: str | None = None,
     search: str | None = None,
+    year: int | None = None,
+    month: int | None = None,
+    day: int | None = None,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_super_admin),
 ):
-    return AdminVizuPayService(db).list_orders(page=page, page_size=page_size, status=status, plan=plan, search=search)
+    return AdminVizuPayService(db).list_orders(
+        page=page,
+        page_size=page_size,
+        status=status,
+        plan=plan,
+        search=search,
+        year=year,
+        month=month,
+        day=day,
+    )
 
 
 @router.post("/orders/{order_id}/approve", response_model=AdminOrderItem)

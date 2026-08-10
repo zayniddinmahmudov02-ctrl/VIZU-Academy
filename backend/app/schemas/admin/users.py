@@ -15,6 +15,9 @@ class UserListItem(BaseSchema):
     id: str
     email: str
     username: str
+    first_name: str | None = None
+    last_name: str | None = None
+    profile_image: str | None = None
     role: str
     is_active: bool
     is_verified: bool
@@ -23,6 +26,9 @@ class UserListItem(BaseSchema):
     is_premium: bool
     premium_until: datetime | None
     last_login: datetime | None
+    is_online: bool = False
+    usage_minutes: int = 0
+    has_password: bool = True
     created_at: datetime
     tags: list[UserTagItem]
 

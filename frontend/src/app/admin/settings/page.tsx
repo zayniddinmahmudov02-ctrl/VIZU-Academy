@@ -1,45 +1,324 @@
 "use client";
 
-import { Info, Mail, Shield, User } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { AlertCircle, Camera, CheckCircle2, Eye, EyeOff, Moon, ShieldCheck, Sun, Trash2, Upload } from "lucide-react";
+import { useTheme } from "next-themes";
 
-import { AdminCard, AdminPageHeader } from "@/components/admin/admin-ui";
+import { AdminButton, AdminCard, AdminInput, AdminLabel, AdminPageHeader } from "@/components/admin/admin-ui";
+import Avatar from "@/components/ui/avatar";
 import { useCurrentUser } from "@/features/auth/hooks/use-current-user";
+import { getErrorMessage } from "@/features/auth/utils/get-error-message";
+import { useChangePassword } from "@/features/profile/hooks/use-change-password";
+import { useRemoveProfilePhoto, useUploadProfilePhoto } from "@/features/profile/hooks/use-profile-photo";
+import {
+  ALLOWED_PHOTO_TYPES,
+  MAX_PHOTO_SIZE_BYTES,
+  changePasswordSchema,
+  type ChangePasswordFormData,
+} from "@/features/profile/validation/profile.schema";
+import { useHasMounted } from "@/hooks/use-mounted";
+import { removeRefreshToken, removeToken } from "@/lib/token";
 
-export default function SettingsPage() {
+export default function AdminSettingsPage() {
   const { user } = useCurrentUser();
 
   return (
     <div>
-      <AdminPageHeader title="Settings" description="Kontoinformationen und Systemeinstellungen." />
+      <AdminPageHeader title="Settings" description="Admin-Profil, Passwort und Erscheinungsbild." />
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <AdminCard>
-          <h3 className="mb-4 text-sm font-semibold text-[var(--admin-text-primary)]">Mein Konto</h3>
-          <div className="space-y-3 text-sm">
-            <div className="flex items-center gap-2.5 text-[var(--admin-text-secondary)]">
-              <User size={14} />
-              {user?.username ?? "—"}
-            </div>
-            <div className="flex items-center gap-2.5 text-[var(--admin-text-secondary)]">
-              <Mail size={14} />
-              {user?.email ?? "—"}
-            </div>
-            <div className="flex items-center gap-2.5 text-[var(--admin-text-secondary)]">
-              <Shield size={14} />
-              {user?.role ?? "—"}
-            </div>
-          </div>
-        </AdminCard>
-
-        <AdminCard className="flex items-start gap-3">
-          <Info size={18} className="mt-0.5 shrink-0 text-[var(--admin-primary)]" />
-          <p className="text-sm text-[var(--admin-text-secondary)]">
-            Plattformweite Einstellungen (E-Mail-Versand, Zahlungsanbieter, Feature-Flags, ...) sind noch
-            nicht an ein Backend angebunden. Dieser Bereich zeigt bewusst nur echte, vorhandene Daten an,
-            statt Einstellungen zu simulieren, die nirgendwo gespeichert werden.
-          </p>
-        </AdminCard>
+        <AvatarCard user={user} />
+        <ThemeCard />
+        <PasswordCard />
       </div>
+    </div>
+  );
+}
+
+function AvatarCard({ user }: { user: ReturnType<typeof useCurrentUser>["user"] }) {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [preview, setPreview] = useState<{ file: File; url: string } | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const uploadPhoto = useUploadProfilePhoto();
+  const removePhoto = useRemoveProfilePhoto();
+
+  useEffect(() => {
+    return () => {
+      if (preview) URL.revokeObjectURL(preview.url);
+    };
+  }, [preview]);
+
+  function onFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (!file) return;
+
+    if (!ALLOWED_PHOTO_TYPES.includes(file.type)) {
+      setError("Bitte wähle ein JPG-, PNG- oder WEBP-Bild.");
+      return;
+    }
+    if (file.size > MAX_PHOTO_SIZE_BYTES) {
+      setError("Das Bild darf maximal 5 MB groß sein.");
+      return;
+    }
+
+    setError(null);
+    setPreview({ file, url: URL.createObjectURL(file) });
+  }
+
+  function confirmUpload() {
+    if (!preview) return;
+    uploadPhoto.mutate(preview.file, {
+      onSuccess: () => {
+        URL.revokeObjectURL(preview.url);
+        setPreview(null);
+      },
+      onError: () => setError("Hochladen fehlgeschlagen."),
+    });
+  }
+
+  function cancelPreview() {
+    if (preview) URL.revokeObjectURL(preview.url);
+    setPreview(null);
+    setError(null);
+  }
+
+  const name = user ? [user.firstName, user.lastName].filter(Boolean).join(" ") || user.username : "";
+
+  return (
+    <AdminCard>
+      <h3 className="mb-4 text-sm font-semibold text-[var(--admin-text-primary)]">Admin-Avatar</h3>
+
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept={ALLOWED_PHOTO_TYPES.join(",")}
+        className="hidden"
+        onChange={onFileChange}
+      />
+
+      <div className="flex items-center gap-4">
+        <button
+          type="button"
+          onClick={() => fileInputRef.current?.click()}
+          className="group relative rounded-full outline-none"
+          aria-label="Profilbild ändern"
+        >
+          {preview ? (
+            <img src={preview.url} alt={name} className="h-16 w-16 rounded-full object-cover" />
+          ) : (
+            <Avatar src={user?.profileImage ?? undefined} name={name || "Admin"} size={64} />
+          )}
+          <span className="absolute inset-0 flex items-center justify-center rounded-full bg-black/0 text-white opacity-0 transition group-hover:bg-black/40 group-hover:opacity-100">
+            <Camera size={18} />
+          </span>
+        </button>
+
+        <div className="flex-1 space-y-2">
+          {error && (
+            <p className="flex items-center gap-1.5 text-xs text-[var(--admin-danger)]">
+              <AlertCircle size={13} />
+              {error}
+            </p>
+          )}
+
+          {preview ? (
+            <div className="flex gap-2">
+              <AdminButton size="sm" onClick={confirmUpload} disabled={uploadPhoto.isPending}>
+                <Upload size={13} />
+                {uploadPhoto.isPending ? "Wird gespeichert..." : "Speichern"}
+              </AdminButton>
+              <AdminButton size="sm" variant="ghost" onClick={cancelPreview} disabled={uploadPhoto.isPending}>
+                Abbrechen
+              </AdminButton>
+            </div>
+          ) : (
+            <div className="flex gap-2">
+              <AdminButton size="sm" variant="secondary" onClick={() => fileInputRef.current?.click()}>
+                <Upload size={13} />
+                {user?.profileImage ? "Ersetzen" : "Hochladen"}
+              </AdminButton>
+              {user?.profileImage && (
+                <AdminButton
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => removePhoto.mutate()}
+                  disabled={removePhoto.isPending}
+                >
+                  <Trash2 size={13} />
+                  Entfernen
+                </AdminButton>
+              )}
+            </div>
+          )}
+
+          <p className="text-xs text-[var(--admin-text-muted)]">JPG, PNG oder WEBP, maximal 5 MB.</p>
+        </div>
+      </div>
+    </AdminCard>
+  );
+}
+
+function ThemeCard() {
+  const { resolvedTheme, setTheme } = useTheme();
+  const mounted = useHasMounted();
+  const isDark = mounted && resolvedTheme === "dark";
+
+  return (
+    <AdminCard>
+      <h3 className="mb-4 text-sm font-semibold text-[var(--admin-text-primary)]">Erscheinungsbild</h3>
+      <div className="flex items-center justify-between rounded-lg bg-white/5 px-4 py-3">
+        <span className="flex items-center gap-2.5 text-sm text-[var(--admin-text-secondary)]">
+          {isDark ? <Moon size={15} /> : <Sun size={15} />}
+          {isDark ? "Dunkel" : "Hell"}
+        </span>
+        <button
+          type="button"
+          role="switch"
+          aria-checked={isDark}
+          onClick={() => setTheme(isDark ? "light" : "dark")}
+          className={`relative h-6 w-11 rounded-full transition-colors ${
+            isDark ? "bg-[var(--admin-primary)]" : "bg-white/10"
+          }`}
+        >
+          <span
+            className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-all ${
+              isDark ? "left-[22px]" : "left-0.5"
+            }`}
+          />
+        </button>
+      </div>
+      <p className="mt-2.5 text-xs text-[var(--admin-text-muted)]">
+        Die Einstellung wird gespeichert und angewendet, sobald diese Ansicht ein helles Farbschema
+        unterstützt.
+      </p>
+    </AdminCard>
+  );
+}
+
+function PasswordCard() {
+  const router = useRouter();
+  const changePassword = useChangePassword();
+  const [success, setSuccess] = useState(false);
+  const [showCurrent, setShowCurrent] = useState(false);
+  const [showNew, setShowNew] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<ChangePasswordFormData>({ resolver: zodResolver(changePasswordSchema) });
+
+  function onSubmit(data: ChangePasswordFormData) {
+    changePassword.mutate(
+      { currentPassword: data.currentPassword, newPassword: data.newPassword },
+      {
+        onSuccess: () => {
+          reset();
+          setSuccess(true);
+          setTimeout(() => {
+            removeToken();
+            removeRefreshToken();
+            router.push("/login");
+          }, 2500);
+        },
+      },
+    );
+  }
+
+  return (
+    <AdminCard className="lg:col-span-2">
+      <h3 className="mb-1 flex items-center gap-2 text-sm font-semibold text-[var(--admin-text-primary)]">
+        <ShieldCheck size={15} />
+        Passwort ändern
+      </h3>
+
+      {success ? (
+        <div className="mt-4 flex items-center gap-2 rounded-lg bg-[var(--admin-accent)]/10 px-4 py-3 text-sm text-[var(--admin-accent)]">
+          <CheckCircle2 size={16} />
+          Passwort geändert. Andere angemeldete Geräte wurden abgemeldet.
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit(onSubmit)} className="mt-4 grid gap-4 sm:grid-cols-3">
+          {changePassword.isError && (
+            <div className="flex items-center gap-2 rounded-lg bg-[var(--admin-danger)]/10 px-4 py-2.5 text-sm text-[var(--admin-danger)] sm:col-span-3">
+              <AlertCircle size={15} />
+              {getErrorMessage(changePassword.error, "Das aktuelle Passwort ist falsch.")}
+            </div>
+          )}
+
+          <PasswordField
+            label="Aktuelles Passwort"
+            show={showCurrent}
+            onToggle={() => setShowCurrent((v) => !v)}
+            error={errors.currentPassword?.message}
+            autoComplete="current-password"
+            inputProps={register("currentPassword")}
+          />
+          <PasswordField
+            label="Neues Passwort"
+            show={showNew}
+            onToggle={() => setShowNew((v) => !v)}
+            error={errors.newPassword?.message}
+            autoComplete="new-password"
+            inputProps={register("newPassword")}
+          />
+          <PasswordField
+            label="Bestätigen"
+            show={showConfirm}
+            onToggle={() => setShowConfirm((v) => !v)}
+            error={errors.confirmPassword?.message}
+            autoComplete="new-password"
+            inputProps={register("confirmPassword")}
+          />
+
+          <div className="sm:col-span-3">
+            <AdminButton type="submit" size="sm" disabled={changePassword.isPending}>
+              {changePassword.isPending ? "Wird gespeichert..." : "Passwort ändern"}
+            </AdminButton>
+          </div>
+        </form>
+      )}
+    </AdminCard>
+  );
+}
+
+function PasswordField({
+  label,
+  show,
+  onToggle,
+  error,
+  autoComplete,
+  inputProps,
+}: {
+  label: string;
+  show: boolean;
+  onToggle: () => void;
+  error?: string;
+  autoComplete: string;
+  inputProps: ReturnType<ReturnType<typeof useForm<ChangePasswordFormData>>["register"]>;
+}) {
+  return (
+    <div>
+      <AdminLabel>{label}</AdminLabel>
+      <div className="relative">
+        <AdminInput type={show ? "text" : "password"} autoComplete={autoComplete} className="pr-10" {...inputProps} />
+        <button
+          type="button"
+          tabIndex={-1}
+          onClick={onToggle}
+          className="absolute inset-y-0 right-0 flex w-10 items-center justify-center text-[var(--admin-text-muted)] hover:text-[var(--admin-text-secondary)]"
+        >
+          {show ? <EyeOff size={15} /> : <Eye size={15} />}
+        </button>
+      </div>
+      {error && <p className="mt-1 text-xs text-[var(--admin-danger)]">{error}</p>}
     </div>
   );
 }

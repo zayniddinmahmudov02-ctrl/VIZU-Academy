@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 from fastapi import Depends
 from fastapi import HTTPException
+from fastapi import Query
 from fastapi import Response
 from fastapi import status
 from fastapi.responses import FileResponse
@@ -44,6 +45,29 @@ def get_certificates(
     service = CertificateService(db)
 
     return service.get_all()
+
+
+# ==================================================
+# USER-CENTRIC VIEW — users with certificates, ordered by count desc
+# ==================================================
+
+@router.get("/by-user")
+def get_certificates_by_user(
+    page: int = Query(1, ge=1),
+    page_size: int = Query(50, ge=1, le=100),
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_super_admin),
+):
+    return CertificateService(db).count_by_user(page=page, page_size=page_size)
+
+
+@router.get("/by-user/{user_id}")
+def get_user_certificate_profile(
+    user_id: str,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_super_admin),
+):
+    return CertificateService(db).history_with_source(user_id)
 
 
 # ==================================================

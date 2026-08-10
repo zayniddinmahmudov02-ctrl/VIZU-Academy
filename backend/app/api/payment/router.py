@@ -12,8 +12,11 @@ from app.db.session import get_db
 
 from app.models.user import User
 
+from fastapi import Query
+
 from app.schemas.payment import (
     PaymentCreate,
+    PaymentListResponse,
     PaymentUpdate,
     PaymentResponse,
 )
@@ -37,6 +40,30 @@ def get_all(
     current_user: User = Depends(require_super_admin),
 ):
     return PaymentService(db).get_all()
+
+
+@router.get(
+    "/paginated",
+    response_model=PaymentListResponse,
+)
+def list_paginated(
+    page: int = Query(1, ge=1),
+    page_size: int = Query(50, ge=1, le=100),
+    status: str | None = None,
+    year: int | None = None,
+    month: int | None = None,
+    day: int | None = None,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_super_admin),
+):
+    return PaymentService(db).list_paginated(
+        page=page,
+        page_size=page_size,
+        status=status,
+        year=year,
+        month=month,
+        day=day,
+    )
 
 
 @router.get(

@@ -2,7 +2,19 @@
 
 import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Ban, ChevronLeft, ChevronRight, Crown, Key, ShieldOff, Search } from "lucide-react";
+import {
+  ArrowDownAZ,
+  ArrowUpAZ,
+  Ban,
+  ChevronLeft,
+  ChevronRight,
+  Circle,
+  Crown,
+  Key,
+  Lock,
+  ShieldOff,
+  Search,
+} from "lucide-react";
 
 import {
   AdminButton,
@@ -14,6 +26,7 @@ import {
 } from "@/components/admin/admin-ui";
 import DataTable, { DataTableColumn } from "@/components/admin/data-table";
 import FormDialog from "@/components/admin/form-dialog";
+import Avatar from "@/components/ui/avatar";
 import { ALL_ROLES, UserListItem } from "@/features/admin/types/user.types";
 import {
   banUser,
@@ -27,16 +40,38 @@ import {
   unsuspendUser,
 } from "@/features/admin/services/users-service";
 
-export default function StudentsPage() {
+const PAGE_SIZE = 50;
+
+function displayName(item: UserListItem): string {
+  return [item.first_name, item.last_name].filter(Boolean).join(" ") || item.username;
+}
+
+function formatUsage(minutes: number): string {
+  if (minutes <= 0) return "—";
+  const hours = Math.floor(minutes / 60);
+  const rest = minutes % 60;
+  return hours > 0 ? `${hours} Std. ${rest} Min.` : `${rest} Min.`;
+}
+
+export default function UsersPage() {
   const queryClient = useQueryClient();
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [role, setRole] = useState("");
+  const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
   const [selected, setSelected] = useState<UserListItem | null>(null);
 
   const { data, isLoading } = useQuery({
-    queryKey: ["admin-users", page, search, role],
-    queryFn: () => listUsers({ page, page_size: 20, search: search || undefined, role: role || undefined }),
+    queryKey: ["admin-users", page, search, role, sortDir],
+    queryFn: () =>
+      listUsers({
+        page,
+        page_size: PAGE_SIZE,
+        search: search || undefined,
+        role: role || undefined,
+        sort_by: "name",
+        sort_dir: sortDir,
+      }),
   });
 
   const { data: detail } = useQuery({
@@ -89,8 +124,16 @@ export default function StudentsPage() {
 
   const columns: DataTableColumn<UserListItem>[] = [
     {
+      key: "avatar",
+      header: "",
+      className: "w-12",
+      render: (item) => <Avatar src={item.profile_image ?? undefined} name={displayName(item)} size={32} />,
+    },
+    { key: "first_name", header: "Vorname", render: (item) => item.first_name || "—" },
+    { key: "last_name", header: "Nachname", render: (item) => item.last_name || "—" },
+    {
       key: "user",
-      header: "Nutzer",
+      header: "Login",
       render: (item) => (
         <div>
           <p className="font-medium">{item.username}</p>
@@ -98,10 +141,48 @@ export default function StudentsPage() {
         </div>
       ),
     },
-    { key: "role", header: "Rolle", render: (item) => item.role },
     {
-      key: "status",
+      key: "password",
+      header: "Passwort",
+      render: (item) => (
+        <span className="inline-flex items-center gap-1 text-xs text-[var(--admin-text-muted)]">
+          <Lock size={11} />
+          {item.has_password ? "gesetzt" : "—"}
+        </span>
+      ),
+    },
+    {
+      key: "online",
       header: "Status",
+      render: (item) => (
+        <span
+          className={`inline-flex items-center gap-1.5 text-xs font-medium ${
+            item.is_online ? "text-[var(--admin-accent)]" : "text-[var(--admin-text-muted)]"
+          }`}
+        >
+          <Circle size={7} fill="currentColor" strokeWidth={0} />
+          {item.is_online ? "Online" : "Offline"}
+        </span>
+      ),
+    },
+    {
+      key: "last_login",
+      header: "Letzter Login",
+      render: (item) => (item.last_login ? new Date(item.last_login).toLocaleString("de-DE") : "—"),
+    },
+    {
+      key: "usage",
+      header: "Nutzungszeit",
+      render: (item) => formatUsage(item.usage_minutes),
+    },
+    {
+      key: "created_at",
+      header: "Registriert",
+      render: (item) => new Date(item.created_at).toLocaleDateString("de-DE"),
+    },
+    {
+      key: "badges",
+      header: "",
       render: (item) => (
         <div className="flex flex-wrap gap-1">
           {item.is_banned && (
@@ -119,22 +200,14 @@ export default function StudentsPage() {
               Premium
             </span>
           )}
-          {!item.is_banned && !item.is_suspended && !item.is_premium && (
-            <span className="text-xs text-[var(--admin-text-muted)]">—</span>
-          )}
         </div>
       ),
-    },
-    {
-      key: "last_login",
-      header: "Letzter Login",
-      render: (item) => (item.last_login ? new Date(item.last_login).toLocaleDateString("de-DE") : "—"),
     },
   ];
 
   return (
     <div>
-      <AdminPageHeader title="Students" description="Nutzerverwaltung: Rollen, Sperrungen, Premium-Status." />
+      <AdminPageHeader title="Users" description="Nutzerverwaltung: Rollen, Sperrungen, Premium-Status." />
 
       <div className="mb-4 flex flex-wrap gap-3">
         <div className="relative flex-1 min-w-[220px]">
@@ -145,7 +218,7 @@ export default function StudentsPage() {
               setSearch(e.target.value);
               setPage(1);
             }}
-            placeholder="Suche nach Name oder Email..."
+            placeholder="Suche nach Vorname, Nachname oder Login..."
             className="pl-9"
           />
         </div>
@@ -164,6 +237,14 @@ export default function StudentsPage() {
             </option>
           ))}
         </AdminSelect>
+        <AdminButton
+          variant="secondary"
+          onClick={() => setSortDir((d) => (d === "asc" ? "desc" : "asc"))}
+          aria-label="Sortierreihenfolge umschalten"
+        >
+          {sortDir === "asc" ? <ArrowDownAZ size={15} /> : <ArrowUpAZ size={15} />}
+          Nachname, Vorname
+        </AdminButton>
       </div>
 
       <DataTable

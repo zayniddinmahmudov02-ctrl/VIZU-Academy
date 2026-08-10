@@ -68,7 +68,7 @@ def _export_rows(rows: list[dict]) -> list[list]:
 @router.get("", response_model=UserListResponse)
 def list_users(
     page: int = Query(1, ge=1),
-    page_size: int = Query(20, ge=1, le=100),
+    page_size: int = Query(50, ge=1, le=100),
     search: str | None = None,
     role: str | None = None,
     status: str | None = None,

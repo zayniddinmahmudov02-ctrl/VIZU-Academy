@@ -16,7 +16,7 @@ const QUICK_ACTIONS: QuickAction[] = [
   { label: "New Lesson", href: "/admin/lessons", icon: Video },
   { label: "New Module", href: "/admin/modules", icon: Layers3 },
   { label: "New Mock Test", href: "/admin/mock-exams", icon: ClipboardCheck },
-  { label: "New User", href: "/admin/students", icon: UserPlus },
+  { label: "New User", href: "/admin/users", icon: UserPlus },
   { label: "New Certificate", href: "/admin/certificates", icon: Award },
   { label: "Broadcast Message", icon: Megaphone },
 ];
