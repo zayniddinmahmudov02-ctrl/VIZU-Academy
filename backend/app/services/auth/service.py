@@ -24,6 +24,7 @@ from app.models.user import User
 from app.repositories.refresh_token import RefreshTokenRepository
 
 from app.schemas.auth.user import (
+    ProfileUpdateRequest,
     Token,
     UserRegister,
 )
@@ -273,3 +274,85 @@ def reset_password(
     db.commit()
 
     return True
+
+
+# ==========================
+# Profile
+# ==========================
+
+def update_profile(
+    db: Session,
+    user: User,
+    data: ProfileUpdateRequest,
+) -> User:
+
+    for field, value in data.model_dump(exclude_unset=True).items():
+        setattr(user, field, value)
+
+    db.commit()
+    db.refresh(user)
+
+    return user
+
+
+def change_password(
+    db: Session,
+    user: User,
+    current_password: str,
+    new_password: str,
+) -> bool:
+    """Returns False if the current password is wrong. On success, revokes
+    every outstanding refresh token for this user — other sessions can no
+    longer silently refresh with the old credential's trust; the access
+    token they're still holding expires naturally within
+    ACCESS_TOKEN_EXPIRE_MINUTES, same as every other standing-change in
+    this codebase (ban/suspend re-checked per-request, not via a JWT
+    blacklist)."""
+
+    if not verify_password(current_password, user.password_hash):
+        return False
+
+    user.password_hash = hash_password(new_password)
+    db.commit()
+
+    RefreshTokenRepository(db).delete_all_for_user(str(user.id))
+
+    return True
+
+
+def update_preferred_language(
+    db: Session,
+    user: User,
+    language: str,
+) -> User:
+
+    user.preferred_language = language
+    db.commit()
+    db.refresh(user)
+
+    return user
+
+
+def set_profile_image(
+    db: Session,
+    user: User,
+    url: str,
+) -> User:
+
+    user.profile_image = url
+    db.commit()
+    db.refresh(user)
+
+    return user
+
+
+def remove_profile_image(
+    db: Session,
+    user: User,
+) -> User:
+
+    user.profile_image = None
+    db.commit()
+    db.refresh(user)
+
+    return user

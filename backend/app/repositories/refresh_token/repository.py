@@ -49,3 +49,17 @@ class RefreshTokenRepository(BaseRepository[RefreshToken]):
         self.db.refresh(refresh_token)
 
         return refresh_token
+
+    def delete_all_for_user(
+        self,
+        user_id: str,
+    ) -> None:
+        """Revokes every outstanding refresh token for this user — used
+        after a password change so other sessions can't silently keep
+        refreshing with the old credential's trust."""
+
+        self.db.query(RefreshToken).filter(
+            RefreshToken.user_id == user_id,
+        ).delete()
+
+        self.db.commit()

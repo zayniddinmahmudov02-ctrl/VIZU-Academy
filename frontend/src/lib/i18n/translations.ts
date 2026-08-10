@@ -146,7 +146,7 @@ export const translations: Record<string, Namespace> = {
       de: "Verwalte deine persönlichen Angaben",
       uz: "Shaxsiy ma'lumotlaringizni boshqaring",
     },
-    personalInfo: { de: "Persönliche Angaben", uz: "Shaxsiy ma'lumotlar" },
+    personalInfo: { de: "Persönliche Informationen", uz: "Shaxsiy ma'lumotlar" },
     name: { de: "Name", uz: "Ism" },
     email: { de: "E-Mail", uz: "Email" },
     country: { de: "Land", uz: "Mamlakat" },
@@ -155,6 +155,77 @@ export const translations: Record<string, Namespace> = {
       de: "Deine Interessen und dein Ziel-Zertifikat helfen uns, dir passende Aufgaben zu empfehlen. Diese Angaben werden bei der Registrierung erfasst.",
       uz: "Qiziqishlaringiz va maqsad sertifikatingiz sizga mos topshiriqlarni tavsiya etishimizga yordam beradi. Bu ma'lumotlar ro'yxatdan o'tishda kiritiladi.",
     },
+
+    firstName: { de: "Vorname", uz: "Ism" },
+    lastName: { de: "Nachname", uz: "Familiya" },
+    fullName: { de: "Vollständiger Name", uz: "To'liq ism" },
+    phoneNumber: { de: "Telefonnummer", uz: "Telefon raqami" },
+    notProvided: { de: "Nicht angegeben", uz: "Kiritilmagan" },
+    emailReadOnlyNote: {
+      de: "Dies ist deine Anmelde-E-Mail-Adresse und kann nicht geändert werden.",
+      uz: "Bu sizning tizimga kirish uchun email manzilingiz va uni o'zgartirib bo'lmaydi.",
+    },
+
+    edit: { de: "Bearbeiten", uz: "Tahrirlash" },
+    save: { de: "Speichern", uz: "Saqlash" },
+    saving: { de: "Wird gespeichert...", uz: "Saqlanmoqda..." },
+    cancel: { de: "Abbrechen", uz: "Bekor qilish" },
+    saveSuccess: { de: "Änderungen gespeichert.", uz: "O'zgarishlar saqlandi." },
+    saveError: {
+      de: "Änderungen konnten nicht gespeichert werden.",
+      uz: "O'zgarishlarni saqlab bo'lmadi.",
+    },
+
+    photo: { de: "Profilbild", uz: "Profil rasmi" },
+    uploadPhoto: { de: "Hochladen", uz: "Yuklash" },
+    replacePhoto: { de: "Ersetzen", uz: "Almashtirish" },
+    removePhoto: { de: "Entfernen", uz: "O'chirish" },
+    photoHint: {
+      de: "JPG, PNG oder WEBP, maximal 5 MB.",
+      uz: "JPG, PNG yoki WEBP, maksimal 5 MB.",
+    },
+    photoInvalidType: {
+      de: "Bitte wähle ein JPG-, PNG- oder WEBP-Bild.",
+      uz: "Iltimos, JPG, PNG yoki WEBP formatidagi rasmni tanlang.",
+    },
+    photoTooLarge: {
+      de: "Das Bild darf maximal 5 MB groß sein.",
+      uz: "Rasm hajmi 5 MB dan oshmasligi kerak.",
+    },
+    photoUpdated: { de: "Profilbild aktualisiert.", uz: "Profil rasmi yangilandi." },
+    photoRemoved: { de: "Profilbild entfernt.", uz: "Profil rasmi o'chirildi." },
+
+    security: { de: "Sicherheit", uz: "Xavfsizlik" },
+    changePassword: { de: "Passwort ändern", uz: "Parolni o'zgartirish" },
+    currentPassword: { de: "Aktuelles Passwort", uz: "Joriy parol" },
+    newPassword: { de: "Neues Passwort", uz: "Yangi parol" },
+    confirmPassword: { de: "Neues Passwort bestätigen", uz: "Yangi parolni tasdiqlang" },
+    passwordHint: {
+      de: "Mindestens 6 Zeichen.",
+      uz: "Kamida 6 ta belgi.",
+    },
+    passwordChanged: {
+      de: "Passwort geändert. Andere angemeldete Geräte wurden abgemeldet.",
+      uz: "Parol o'zgartirildi. Boshqa kirilgan qurilmalar tizimdan chiqarildi.",
+    },
+    wrongCurrentPassword: {
+      de: "Das aktuelle Passwort ist falsch.",
+      uz: "Joriy parol noto'g'ri.",
+    },
+    showPassword: { de: "Passwort anzeigen", uz: "Parolni ko'rsatish" },
+    hidePassword: { de: "Passwort verbergen", uz: "Parolni yashirish" },
+
+    languageSettings: { de: "Sprache & Einstellungen", uz: "Til va sozlamalar" },
+    interfaceLanguage: { de: "Sprache der Oberfläche", uz: "Interfeys tili" },
+    languageUpdated: { de: "Sprache aktualisiert.", uz: "Til yangilandi." },
+
+    accountInfo: { de: "Kontoinformationen", uz: "Hisob ma'lumotlari" },
+    memberSince: { de: "Registriert seit", uz: "Ro'yxatdan o'tgan sana" },
+    accountStatus: { de: "Kontostatus", uz: "Hisob holati" },
+    statusActive: { de: "Aktiv", uz: "Faol" },
+    statusBanned: { de: "Gesperrt", uz: "Bloklangan" },
+    statusSuspended: { de: "Vorübergehend gesperrt", uz: "Vaqtincha bloklangan" },
+    statusInactive: { de: "Inaktiv", uz: "Faol emas" },
   },
 
   settings: {
