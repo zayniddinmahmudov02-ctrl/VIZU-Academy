@@ -1,7 +1,8 @@
 export interface Certificate {
   id: string;
   user_id: string;
-  course_id: string;
+  course_id: string | null;
+  source: CertificateSource;
   provider: string;
   level: string;
   score: number;
@@ -19,7 +20,9 @@ export interface Certificate {
 
 export interface CertificateCreate {
   user_id: string;
-  course_id: string;
+  // Required only when source is "COURSE" — enforced by the backend.
+  course_id?: string | null;
+  source?: CertificateSource;
   provider?: string;
   level: string;
   score?: number;
@@ -51,9 +54,9 @@ export interface CertificateHolderListResponse {
   total_pages: number;
 }
 
-// "COURSE" is the only real value today — VORBEREITUNG/VIZU_MOCK don't
-// issue certificates yet. Kept as a union so the UI already renders any
-// future value correctly once the backend `source` column lands.
+// Automatic issuance (course completion) only ever produces "COURSE" today.
+// VORBEREITUNG/VIZU_MOCK are issuable manually via the admin dialog — no
+// automatic issuer exists yet for the Mock Exam hierarchy.
 export type CertificateSource = "COURSE" | "VORBEREITUNG" | "VIZU_MOCK";
 
 export interface UserCertificateEntry {

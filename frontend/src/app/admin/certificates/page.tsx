@@ -5,19 +5,33 @@ import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { ChevronLeft, ChevronRight, Plus } from "lucide-react";
 
-import { AdminButton, AdminCheckbox, AdminInput, AdminLabel, AdminPageHeader } from "@/components/admin/admin-ui";
+import {
+  AdminButton,
+  AdminCheckbox,
+  AdminInput,
+  AdminLabel,
+  AdminPageHeader,
+  AdminSelect,
+} from "@/components/admin/admin-ui";
 import DataTable, { DataTableColumn } from "@/components/admin/data-table";
 import FormDialog from "@/components/admin/form-dialog";
 import Avatar from "@/components/ui/avatar";
 import { useCrudMutations } from "@/features/admin/hooks/use-crud";
 import { certificatesApi, listCertificateHolders } from "@/features/admin/services/certificates-service";
-import type { CertificateHolder } from "@/features/admin/types/certificate.types";
+import type { CertificateHolder, CertificateSource } from "@/features/admin/types/certificate.types";
 
 const PAGE_SIZE = 50;
+
+const SOURCE_OPTIONS: { value: CertificateSource; label: string }[] = [
+  { value: "COURSE", label: "Kursabschluss" },
+  { value: "VORBEREITUNG", label: "Vorbereitung" },
+  { value: "VIZU_MOCK", label: "VIZU-MOCK" },
+];
 
 const EMPTY_FORM = {
   user_id: "",
   course_id: "",
+  source: "COURSE" as CertificateSource,
   level: "",
   score: 0,
   lesen_score: 0,
@@ -47,7 +61,10 @@ export default function CertificatesPage() {
   async function handleSubmit() {
     setError(null);
     try {
-      await create.mutateAsync(form);
+      await create.mutateAsync({
+        ...form,
+        course_id: form.source === "COURSE" ? form.course_id : null,
+      });
       setDialogOpen(false);
       setForm(EMPTY_FORM);
     } catch {
@@ -153,7 +170,12 @@ export default function CertificatesPage() {
             </AdminButton>
             <AdminButton
               onClick={handleSubmit}
-              disabled={create.isPending || !form.user_id || !form.course_id || !form.level}
+              disabled={
+                create.isPending ||
+                !form.user_id ||
+                !form.level ||
+                (form.source === "COURSE" && !form.course_id)
+              }
             >
               {create.isPending ? "Wird ausgestellt..." : "Ausstellen"}
             </AdminButton>
@@ -173,6 +195,22 @@ export default function CertificatesPage() {
               />
             </div>
             <div>
+              <AdminLabel>Quelle</AdminLabel>
+              <AdminSelect
+                value={form.source}
+                onChange={(e) => setForm({ ...form, source: e.target.value as CertificateSource })}
+              >
+                {SOURCE_OPTIONS.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </AdminSelect>
+            </div>
+          </div>
+
+          {form.source === "COURSE" && (
+            <div>
               <AdminLabel>Kurs-ID</AdminLabel>
               <AdminInput
                 value={form.course_id}
@@ -180,7 +218,7 @@ export default function CertificatesPage() {
                 placeholder="UUID des Kurses"
               />
             </div>
-          </div>
+          )}
 
           <div>
             <AdminLabel>Level</AdminLabel>
