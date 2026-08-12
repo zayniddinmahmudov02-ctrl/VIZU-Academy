@@ -25,7 +25,7 @@ interface Props<T> {
 function AdminSpinner() {
   return (
     <div className="flex items-center justify-center py-10">
-      <div className="h-8 w-8 animate-spin rounded-full border-[3px] border-white/10 border-t-[var(--admin-primary)]" />
+      <div className="h-8 w-8 animate-spin rounded-full border-[3px] border-[var(--admin-border-strong)] border-t-[var(--admin-primary)]" />
     </div>
   );
 }

@@ -305,19 +305,49 @@ img {
 }
 
 /* ------------------------------------------------------------------
-   SUPER ADMIN PANEL — isolated design tokens.
-   Deliberately NOT part of the `@theme` block above and does not read
-   or flip with `.dark` — this is the admin panel's own fixed "Dark
-   Premium" theme, scoped entirely under `.admin-shell` so it can never
-   leak into or be affected by the student interface's light/dark
-   system. Admin components reference these via `var(--admin-*)`.
+   SUPER ADMIN PANEL — isolated design tokens, scoped entirely under
+   `.admin-shell` so they can never leak into or be affected by the
+   student interface's light/dark system. Admin components reference
+   these via `var(--admin-*)`. Flips between light (default) and the
+   original fixed "Dark Premium" look via the same `.dark` class
+   next-themes sets on <html> that drives the rest of the app — the
+   admin panel is no longer a fixed-dark exception to that mechanism,
+   it just has its own token values on either side of it.
 ------------------------------------------------------------------- */
 .admin-shell {
+  --admin-bg: #f3f4f9;
+  --admin-card: #ffffff;
+  --admin-card-hover: #f8f9fc;
+  --admin-border: rgba(15, 23, 42, 0.08);
+  --admin-border-strong: rgba(15, 23, 42, 0.14);
+  --admin-hover: rgba(15, 23, 42, 0.045);
+
+  --admin-primary: #5b5bf8;
+  --admin-primary-hover: #4747e0;
+  --admin-secondary: #7c3aed;
+  --admin-accent: #16a34a;
+  --admin-warning: #d97706;
+  --admin-danger: #dc2626;
+
+  --admin-text-primary: #0f172a;
+  --admin-text-secondary: #475569;
+  --admin-text-muted: #94a3b8;
+
+  --admin-shadow-card: 0 1px 1px rgba(15, 23, 42, 0.03), 0 8px 24px -8px rgba(15, 23, 42, 0.08),
+    0 24px 48px -16px rgba(91, 91, 248, 0.06);
+
+  background: var(--admin-bg);
+  color: var(--admin-text-primary);
+  color-scheme: light;
+}
+
+.dark .admin-shell {
   --admin-bg: #0b1220;
   --admin-card: #111827;
   --admin-card-hover: #151f30;
   --admin-border: rgba(255, 255, 255, 0.06);
   --admin-border-strong: rgba(255, 255, 255, 0.12);
+  --admin-hover: rgba(255, 255, 255, 0.05);
 
   --admin-primary: #5b5bf8;
   --admin-primary-hover: #7373fa;

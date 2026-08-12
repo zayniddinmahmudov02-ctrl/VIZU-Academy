@@ -72,7 +72,7 @@ export default function RichTextEditor({ value, onChange, placeholder, className
             title={label}
             onMouseDown={(e) => e.preventDefault()}
             onClick={() => exec(command, cmdValue)}
-            className="flex h-8 w-8 items-center justify-center rounded-md text-[var(--admin-text-secondary)] transition hover:bg-white/5 hover:text-[var(--admin-primary)]"
+            className="flex h-8 w-8 items-center justify-center rounded-md text-[var(--admin-text-secondary)] transition hover:bg-[var(--admin-hover)] hover:text-[var(--admin-primary)]"
           >
             <Icon size={15} />
           </button>
@@ -82,7 +82,7 @@ export default function RichTextEditor({ value, onChange, placeholder, className
           title="Bild einfügen"
           onMouseDown={(e) => e.preventDefault()}
           onClick={handleInsertImage}
-          className="flex h-8 w-8 items-center justify-center rounded-md text-[var(--admin-text-secondary)] transition hover:bg-white/5 hover:text-[var(--admin-primary)]"
+          className="flex h-8 w-8 items-center justify-center rounded-md text-[var(--admin-text-secondary)] transition hover:bg-[var(--admin-hover)] hover:text-[var(--admin-primary)]"
         >
           <ImageIcon size={15} />
         </button>

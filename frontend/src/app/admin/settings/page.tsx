@@ -275,7 +275,7 @@ function ThemeCard() {
   return (
     <AdminCard>
       <h3 className="mb-4 text-sm font-semibold text-[var(--admin-text-primary)]">Erscheinungsbild</h3>
-      <div className="flex items-center justify-between rounded-lg bg-white/5 px-4 py-3">
+      <div className="flex items-center justify-between rounded-lg bg-[var(--admin-hover)] px-4 py-3">
         <span className="flex items-center gap-2.5 text-sm text-[var(--admin-text-secondary)]">
           {isDark ? <Moon size={15} /> : <Sun size={15} />}
           {isDark ? "Dunkel" : "Hell"}
@@ -286,7 +286,7 @@ function ThemeCard() {
           aria-checked={isDark}
           onClick={() => setTheme(isDark ? "light" : "dark")}
           className={`relative h-6 w-11 rounded-full transition-colors ${
-            isDark ? "bg-[var(--admin-primary)]" : "bg-white/10"
+            isDark ? "bg-[var(--admin-primary)]" : "bg-[var(--admin-border-strong)]"
           }`}
         >
           <span
@@ -297,8 +297,8 @@ function ThemeCard() {
         </button>
       </div>
       <p className="mt-2.5 text-xs text-[var(--admin-text-muted)]">
-        Die Einstellung wird gespeichert und angewendet, sobald diese Ansicht ein helles Farbschema
-        unterstützt.
+        Die Einstellung wird sofort angewendet und im Browser gespeichert — auch nach Neuladen,
+        Ab- und Anmelden.
       </p>
     </AdminCard>
   );
