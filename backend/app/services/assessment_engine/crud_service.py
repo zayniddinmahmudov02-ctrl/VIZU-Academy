@@ -7,6 +7,8 @@ from sqlalchemy.orm import Session, selectinload
 from app.models.assessment import TYPE_MOCK_TEST, Assessment
 from app.models.assessment_section import AssessmentSection
 from app.models.assessment_task import TYPE_SPEAKING, TYPE_WRITING, AssessmentTask
+from app.models.lesson import Lesson
+from app.models.model_test import ModelTest
 from app.models.speaking_submission import SpeakingSubmission
 from app.models.task_audio import TaskAudio
 from app.models.task_option import TaskOption
@@ -130,6 +132,9 @@ def get_or_create_model_test_kompetenz_section(
     whichever Assessment already exists for this ModelTest rather than
     creating a second one — one Assessment per ModelTest, one Section per
     skill within it."""
+    if db.get(ModelTest, UUID(model_test_id)) is None:
+        raise HTTPException(status_code=404, detail="Model test not found.")
+
     assessment = db.scalar(
         select(Assessment).where(
             Assessment.model_test_id == UUID(model_test_id),
@@ -173,6 +178,9 @@ def get_or_create_lesson_kompetenz_section(
     — same lazy-creation pattern, keyed on lesson_id (TYPE_COURSE) instead
     of model_test_id (TYPE_MOCK_TEST). One Assessment per Lesson, one
     Section per skill within it."""
+    if db.get(Lesson, UUID(lesson_id)) is None:
+        raise HTTPException(status_code=404, detail="Lesson not found.")
+
     assessment = db.scalar(
         select(Assessment).where(
             Assessment.lesson_id == UUID(lesson_id),
