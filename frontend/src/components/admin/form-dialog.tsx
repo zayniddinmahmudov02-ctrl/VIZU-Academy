@@ -49,7 +49,7 @@ export default function FormDialog({
             </div>
             <Dialog.Close
               aria-label="Schließen"
-              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-[var(--admin-text-muted)] transition hover:bg-white/5 hover:text-[var(--admin-text-primary)]"
+              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-[var(--admin-text-muted)] transition hover:bg-[var(--admin-hover)] hover:text-[var(--admin-text-primary)]"
             >
               <X size={17} />
             </Dialog.Close>

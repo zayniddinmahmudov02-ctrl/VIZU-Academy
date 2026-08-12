@@ -50,6 +50,11 @@ from .schema import (
     QuestionFailureItem,
     CertificationProviderAnalytics,
     DashboardSummary,
+    PublicModelTestResponse,
+    PublicKompetenzSummary,
+    PublicModelTestDetailResponse,
+    PublicTeilContent,
+    PublicKompetenzDetailResponse,
 )
 
 __all__ = [
@@ -104,4 +109,9 @@ __all__ = [
     'QuestionFailureItem',
     'CertificationProviderAnalytics',
     'DashboardSummary',
+    'PublicModelTestResponse',
+    'PublicKompetenzSummary',
+    'PublicModelTestDetailResponse',
+    'PublicTeilContent',
+    'PublicKompetenzDetailResponse',
 ]

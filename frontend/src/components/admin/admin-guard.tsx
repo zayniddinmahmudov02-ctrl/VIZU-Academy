@@ -32,7 +32,7 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
   if (loading || unauthenticated || notSuperAdmin) {
     return (
       <div className="admin-shell flex min-h-screen items-center justify-center">
-        <div className="h-10 w-10 animate-spin rounded-full border-[3px] border-white/10 border-t-[var(--admin-primary)]" />
+        <div className="h-10 w-10 animate-spin rounded-full border-[3px] border-[var(--admin-border-strong)] border-t-[var(--admin-primary)]" />
       </div>
     );
   }

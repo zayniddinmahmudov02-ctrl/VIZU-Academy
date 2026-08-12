@@ -59,7 +59,7 @@ export default function FileUploadField({ value, onChange, folder, accept, label
             type="button"
             onClick={() => onChange("")}
             aria-label="Entfernen"
-            className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md text-[var(--admin-text-muted)] hover:bg-white/5 hover:text-[var(--admin-danger)]"
+            className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md text-[var(--admin-text-muted)] hover:bg-[var(--admin-hover)] hover:text-[var(--admin-danger)]"
           >
             <X size={14} />
           </button>

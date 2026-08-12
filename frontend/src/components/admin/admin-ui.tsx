@@ -28,7 +28,7 @@ const BUTTON_VARIANTS: Record<ButtonVariant, string> = {
   secondary:
     "bg-[var(--admin-card)] text-[var(--admin-text-primary)] ring-1 ring-[var(--admin-border-strong)] hover:bg-[var(--admin-card-hover)]",
   ghost:
-    "bg-transparent text-[var(--admin-text-secondary)] hover:bg-white/5 hover:text-[var(--admin-text-primary)]",
+    "bg-transparent text-[var(--admin-text-secondary)] hover:bg-[var(--admin-hover)] hover:text-[var(--admin-text-primary)]",
   danger:
     "bg-[var(--admin-danger)] text-white hover:brightness-110",
 };

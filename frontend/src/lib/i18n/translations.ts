@@ -96,6 +96,10 @@ export const translations: Record<string, Namespace> = {
       de: "Wähle dein Niveau und dein Zertifikat. Danach findest du {count} Mock-Tests mit KI-Auswertung für Schreiben und Sprechen.",
       uz: "Darajangizni va sertifikatingizni tanlang. Shundan so'ng yozish va gapirish uchun sun'iy intellekt bahosi bilan {count} ta sinov testini topasiz.",
     },
+    heroSubtitleGeneric: {
+      de: "Wähle dein Niveau und dein Zertifikat. Danach findest du passende Mock-Tests mit KI-Auswertung für Schreiben und Sprechen.",
+      uz: "Darajangizni va sertifikatingizni tanlang. Shundan so'ng yozish va gapirish uchun sun'iy intellekt bahosi bilan mos sinov testlarini topasiz.",
+    },
     stepNiveau: { de: "Niveau", uz: "Daraja" },
     stepZertifikat: { de: "Zertifikat", uz: "Sertifikat" },
     stepMockTests: { de: "Mock-Tests", uz: "Sinov testlari" },

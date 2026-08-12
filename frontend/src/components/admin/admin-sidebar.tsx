@@ -45,7 +45,7 @@ export default function AdminSidebar({ className }: { className?: string }) {
                       "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
                       active
                         ? "bg-[var(--admin-primary)]/15 text-[var(--admin-primary)]"
-                        : "text-[var(--admin-text-secondary)] hover:bg-white/5 hover:text-[var(--admin-text-primary)]",
+                        : "text-[var(--admin-text-secondary)] hover:bg-[var(--admin-hover)] hover:text-[var(--admin-text-primary)]",
                     )}
                   >
                     <item.icon size={17} className="shrink-0" />
