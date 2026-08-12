@@ -94,6 +94,7 @@ from app.api.mock_exam.hierarchy_router import router as mock_exam_hierarchy_rou
 from app.api.mock_exam.content_router import router as mock_exam_content_router
 from app.api.mock_exam.attempt_router import router as mock_exam_attempt_router
 from app.api.mock_exam.analytics_router import router as mock_exam_analytics_router
+from app.api.mock_exam.public_router import router as mock_exam_public_router
 
 # Upload
 from app.api.upload import (
@@ -210,6 +211,7 @@ _ALL_ROUTERS = [
     mock_exam_content_router,
     mock_exam_attempt_router,
     mock_exam_analytics_router,
+    mock_exam_public_router,
     upload_router,
     admin_router,
     admin_users_router,

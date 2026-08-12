@@ -527,3 +527,60 @@ class DashboardSummary(BaseSchema):
     students_attempted: int
     total_attempts: int
     ai_evaluations_used: int
+
+
+# ============================================================
+# Public / Vorbereitung — published-only, no answer keys. See
+# app/services/mock_exam/public_service.py for the visibility rules.
+# ============================================================
+
+
+class PublicModelTestResponse(BaseSchema):
+    id: UUID
+    level_id: UUID
+    title: str
+    description: str | None
+    sort_order: int
+    model_config = ConfigDict(from_attributes=True)
+
+
+class PublicKompetenzSummary(BaseSchema):
+    """One of the four skill cards on a Modelltest's public page —
+    `has_content` is what drives the "Verfügbar" / "Noch nicht verfügbar"
+    badge, computed from whether any Teil has been added, not a separate
+    status field (Kompetenz/Teil don't carry their own publish state;
+    visibility is gated entirely by the parent ModelTest's status)."""
+
+    id: UUID
+    type: str
+    title: str
+    has_content: bool
+
+
+class PublicModelTestDetailResponse(BaseSchema):
+    id: UUID
+    level_id: UUID
+    title: str
+    description: str | None
+    kompetenzen: list[PublicKompetenzSummary]
+
+
+class PublicTeilContent(BaseSchema):
+    id: UUID
+    title: str
+    description: str | None
+    instructions: str | None
+    reading_content: ReadingContentResponse | None = None
+    listening_content: ListeningContentResponse | None = None
+    writing_task: WritingTaskResponse | None = None
+    speaking_task: SpeakingTaskResponse | None = None
+
+
+class PublicKompetenzDetailResponse(BaseSchema):
+    id: UUID
+    model_test_id: UUID
+    type: str
+    title: str
+    description: str | None
+    duration_minutes: int
+    teile: list[PublicTeilContent]
