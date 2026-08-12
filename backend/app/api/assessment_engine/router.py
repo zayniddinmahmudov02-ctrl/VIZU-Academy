@@ -26,6 +26,7 @@ from app.schemas.assessment_engine import (
     PendingSpeakingReviewItem,
     PendingWritingReviewItem,
     PublicAssessment,
+    SectionSkill,
     SpeakingEvaluationResponse,
     SpeakingResultResponse,
     SpeakingReviewInput,
@@ -37,6 +38,7 @@ from app.schemas.assessment_engine import (
     TaskQuestionCreate,
     TaskQuestionResponse,
     TaskQuestionUpdate,
+    TaskReorderRequest,
     TaskValidationResponse,
     TeacherReviewInput,
     WritingEvaluationResponse,
@@ -237,6 +239,44 @@ async def delete_task(
 ):
     if not await crud_service.delete_task(db, task_id):
         raise HTTPException(status_code=404, detail="Task not found.")
+
+
+@router.put("/sections/{section_id}/tasks/reorder", response_model=list[AssessmentTaskResponse])
+def reorder_tasks(
+    section_id: str,
+    data: TaskReorderRequest,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_super_admin),
+):
+    return crud_service.reorder_tasks(db, section_id, data.task_ids)
+
+
+# ============================================================
+# Kompetenz integration points — Course Lesson admin and ModelTest admin
+# both call these to get the AssessmentSection for a given skill,
+# creating it (and its wrapping Assessment) on first use. This is the
+# reusable attachment point the Task Manager component builds on for
+# either source without the admin ever managing an Assessment directly.
+# ============================================================
+
+@router.post("/model-tests/{model_test_id}/kompetenzen/{skill}", response_model=AssessmentSectionResponse)
+def get_or_create_model_test_kompetenz(
+    model_test_id: str,
+    skill: SectionSkill,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_super_admin),
+):
+    return crud_service.get_or_create_model_test_kompetenz_section(db, model_test_id, skill, current_user)
+
+
+@router.post("/lessons/{lesson_id}/kompetenzen/{skill}", response_model=AssessmentSectionResponse)
+def get_or_create_lesson_kompetenz(
+    lesson_id: str,
+    skill: SectionSkill,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_super_admin),
+):
+    return crud_service.get_or_create_lesson_kompetenz_section(db, lesson_id, skill, current_user)
 
 
 @router.get("/tasks/{task_id}/validate", response_model=TaskValidationResponse)
@@ -460,6 +500,21 @@ def get_public_lesson_assessment(
     ("Für diese Lektion sind noch keine Aufgaben verfügbar.") rather than
     treating it as an error."""
     assessment = public_service.get_published_assessment_for_lesson(db, lesson_id)
+    if assessment is None:
+        return None
+    return public_service.to_public_schema(assessment)
+
+
+@router.get("/public/model-tests/{model_test_id}/assessment", response_model=PublicAssessment | None)
+def get_public_model_test_assessment(
+    model_test_id: str,
+    db: Session = Depends(get_db),
+):
+    """Vorbereitung's counterpart to get_public_lesson_assessment — no
+    login required (matches the Vorbereitung public API's own auth
+    posture, mock-exam/public_router.py), returns null rather than 404
+    when nothing's published yet for this ModelTest."""
+    assessment = public_service.get_published_assessment_for_model_test(db, model_test_id)
     if assessment is None:
         return None
     return public_service.to_public_schema(assessment)

@@ -21,12 +21,16 @@ ALL_STATUSES = {STATUS_DRAFT, STATUS_PUBLISHED, STATUS_ARCHIVED}
 
 class Assessment(BaseModel):
     """Root of the universal assessment engine. A COURSE assessment
-    belongs to exactly one Lesson (its Lesen/Hören/... panel); a
-    PREPARATION or MOCK_TEST assessment is standalone, optionally scoped to
-    a language/level. Deliberately separate from the existing Mock Exam
-    System (CertificationProvider/MockExamLevel/ModelTest) — that system
-    stays exactly as-is; this is the new, generic engine future work can
-    build on without touching it."""
+    belongs to exactly one Lesson (its Lesen/Hören/... panel); a MOCK_TEST
+    assessment belongs to exactly one Vorbereitung ModelTest (its
+    Lesen/Hören/... panel) via model_test_id; a standalone PREPARATION
+    assessment sets neither, optionally scoped to a language/level. The
+    existing Mock Exam System (CertificationProvider/MockExamLevel/
+    ModelTest) is untouched — ModelTest itself, its own admin CRUD, and its
+    legacy Kompetenz/Teil/*Content tables all keep working exactly as
+    before; this FK is the opt-in bridge new work can use to attach a
+    ModelTest's competency content to this shared engine instead of the
+    legacy one."""
 
     __tablename__ = "assessments"
 
@@ -39,6 +43,13 @@ class Assessment(BaseModel):
 
     lesson_id: Mapped[UUID | None] = mapped_column(
         UUID(as_uuid=True), ForeignKey("lessons.id", ondelete="CASCADE"), nullable=True, index=True
+    )
+    # The connection this module's own docstring anticipated: a MOCK_TEST
+    # assessment anchors to a Vorbereitung ModelTest instead of a Lesson.
+    # Exactly one of lesson_id/model_test_id is set — enforced in
+    # crud_service, same pattern as Teil's one-of-four content relationships.
+    model_test_id: Mapped[UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("model_tests.id", ondelete="CASCADE"), nullable=True, index=True
     )
     language_id: Mapped[UUID | None] = mapped_column(
         UUID(as_uuid=True), ForeignKey("languages.id", ondelete="SET NULL"), nullable=True, index=True
@@ -59,6 +70,7 @@ class Assessment(BaseModel):
     show_feedback: Mapped[bool] = mapped_column(Boolean, default=True, server_default="true", nullable=False)
 
     lesson = relationship("Lesson")
+    model_test = relationship("ModelTest")
     language = relationship("Language")
     created_by = relationship("User")
 

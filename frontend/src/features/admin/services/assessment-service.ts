@@ -17,6 +17,7 @@ import type {
   PendingSpeakingReviewItem,
   PendingWritingReviewItem,
   PublicAssessment,
+  SectionSkill,
   SpeakingResult,
   SpeakingReviewInput,
   SpeakingSubmission,
@@ -136,6 +137,36 @@ export async function validateTask(id: string): Promise<TaskValidation> {
   return response.data;
 }
 
+export async function reorderTasks(sectionId: string, taskIds: string[]): Promise<AssessmentTask[]> {
+  const response = await api.put<AssessmentTask[]>(`${ADMIN_ENDPOINTS.sections}/${sectionId}/tasks/reorder`, {
+    task_ids: taskIds,
+  });
+  return ensureArray<AssessmentTask>(response.data);
+}
+
+// ============================================================
+// Kompetenz integration points — resolves (creating on first use) the
+// AssessmentSection for a given skill under a ModelTest or a Lesson, the
+// reusable attachment point the Task Manager builds on for either source.
+// ============================================================
+
+export async function getOrCreateModelTestKompetenz(
+  modelTestId: string,
+  skill: SectionSkill,
+): Promise<AssessmentSection> {
+  const response = await api.post<AssessmentSection>(
+    `${ADMIN_ENDPOINTS.modelTestKompetenzen}/${modelTestId}/kompetenzen/${skill}`,
+  );
+  return response.data;
+}
+
+export async function getOrCreateLessonKompetenz(lessonId: string, skill: SectionSkill): Promise<AssessmentSection> {
+  const response = await api.post<AssessmentSection>(
+    `${ADMIN_ENDPOINTS.lessonKompetenzen}/${lessonId}/kompetenzen/${skill}`,
+  );
+  return response.data;
+}
+
 // ============================================================
 // Admin — Questions
 // ============================================================
@@ -185,6 +216,13 @@ export async function deleteOption(id: string): Promise<void> {
 export async function getPublicLessonAssessment(lessonId: string): Promise<PublicAssessment | null> {
   const response = await api.get<PublicAssessment | null>(
     `${ADMIN_ENDPOINTS.publicLessonAssessment}/${lessonId}/assessment`,
+  );
+  return response.data;
+}
+
+export async function getPublicModelTestAssessment(modelTestId: string): Promise<PublicAssessment | null> {
+  const response = await api.get<PublicAssessment | null>(
+    `${ADMIN_ENDPOINTS.publicModelTestAssessment}/${modelTestId}/assessment`,
   );
   return response.data;
 }

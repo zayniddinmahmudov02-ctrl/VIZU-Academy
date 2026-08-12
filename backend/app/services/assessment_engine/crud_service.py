@@ -1,9 +1,10 @@
 from uuid import UUID
 
+from fastapi import HTTPException
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session, selectinload
 
-from app.models.assessment import Assessment
+from app.models.assessment import TYPE_MOCK_TEST, Assessment
 from app.models.assessment_section import AssessmentSection
 from app.models.assessment_task import TYPE_SPEAKING, TYPE_WRITING, AssessmentTask
 from app.models.speaking_submission import SpeakingSubmission
@@ -27,6 +28,13 @@ from app.schemas.assessment_engine import (
     WritingRubricCriterionCreate,
     WritingRubricCriterionUpdate,
 )
+
+KOMPETENZ_TITLES = {
+    "LESEN": "Lesen",
+    "HOEREN": "Hören",
+    "SCHREIBEN": "Schreiben",
+    "SPRECHEN": "Sprechen",
+}
 
 from .audio_service import storage as audio_storage
 from .scoring import get_handler
@@ -94,6 +102,12 @@ def get_assessment_with_sections(db: Session, assessment_id: str) -> Assessment 
 
 
 def create_assessment(db: Session, data: AssessmentCreate, actor: User) -> Assessment:
+    if data.lesson_id and data.model_test_id:
+        raise HTTPException(
+            status_code=422,
+            detail="An assessment belongs to at most one of lesson_id or model_test_id, not both.",
+        )
+
     assessment = Assessment(
         **data.model_dump(),
         created_by_id=actor.id,
@@ -102,6 +116,97 @@ def create_assessment(db: Session, data: AssessmentCreate, actor: User) -> Asses
     db.commit()
     db.refresh(assessment)
     return assessment
+
+
+def get_or_create_model_test_kompetenz_section(
+    db: Session, model_test_id: str, skill: str, actor: User
+) -> AssessmentSection:
+    """The ModelTest-side integration point: given a ModelTest and one of
+    the four skill codes, returns the AssessmentSection that represents
+    that Kompetenz — creating the wrapping MOCK_TEST Assessment and the
+    Section itself on first use (mirrors the lazy-creation pattern already
+    used for LanguageSettings), so the admin Task Manager never has to
+    walk the admin through manually creating an Assessment first. Reuses
+    whichever Assessment already exists for this ModelTest rather than
+    creating a second one — one Assessment per ModelTest, one Section per
+    skill within it."""
+    assessment = db.scalar(
+        select(Assessment).where(
+            Assessment.model_test_id == UUID(model_test_id),
+            Assessment.assessment_type == TYPE_MOCK_TEST,
+        )
+    )
+    if assessment is None:
+        assessment = Assessment(
+            title="Modelltest Aufgaben",
+            assessment_type=TYPE_MOCK_TEST,
+            model_test_id=UUID(model_test_id),
+            created_by_id=actor.id,
+        )
+        db.add(assessment)
+        db.flush()
+
+    section = db.scalar(
+        select(AssessmentSection).where(
+            AssessmentSection.assessment_id == assessment.id,
+            AssessmentSection.skill == skill,
+        )
+    )
+    if section is None:
+        section = AssessmentSection(
+            assessment_id=assessment.id,
+            skill=skill,
+            title=KOMPETENZ_TITLES.get(skill, skill),
+            sort_order=1,
+        )
+        db.add(section)
+
+    db.commit()
+    db.refresh(section)
+    return section
+
+
+def get_or_create_lesson_kompetenz_section(
+    db: Session, lesson_id: str, skill: str, actor: User
+) -> AssessmentSection:
+    """Course-side equivalent of get_or_create_model_test_kompetenz_section
+    — same lazy-creation pattern, keyed on lesson_id (TYPE_COURSE) instead
+    of model_test_id (TYPE_MOCK_TEST). One Assessment per Lesson, one
+    Section per skill within it."""
+    assessment = db.scalar(
+        select(Assessment).where(
+            Assessment.lesson_id == UUID(lesson_id),
+            Assessment.assessment_type == "COURSE",
+        )
+    )
+    if assessment is None:
+        assessment = Assessment(
+            title="Lektion Aufgaben",
+            assessment_type="COURSE",
+            lesson_id=UUID(lesson_id),
+            created_by_id=actor.id,
+        )
+        db.add(assessment)
+        db.flush()
+
+    section = db.scalar(
+        select(AssessmentSection).where(
+            AssessmentSection.assessment_id == assessment.id,
+            AssessmentSection.skill == skill,
+        )
+    )
+    if section is None:
+        section = AssessmentSection(
+            assessment_id=assessment.id,
+            skill=skill,
+            title=KOMPETENZ_TITLES.get(skill, skill),
+            sort_order=1,
+        )
+        db.add(section)
+
+    db.commit()
+    db.refresh(section)
+    return section
 
 
 def update_assessment(db: Session, assessment_id: str, data: AssessmentUpdate) -> Assessment | None:
@@ -237,6 +342,24 @@ async def delete_task(db: Session, task_id: str) -> bool:
     db.delete(task)
     db.commit()
     return True
+
+
+def reorder_tasks(db: Session, section_id: str, ordered_task_ids: list[str]) -> list[AssessmentTask]:
+    """Explicit reorder — sort_order is set from the given list's position,
+    never inferred from insertion/created_at order. Only touches tasks that
+    both belong to this section AND appear in the list; anything not
+    included keeps its current sort_order rather than being silently
+    reset."""
+    tasks_by_id = {
+        str(t.id): t
+        for t in db.scalars(select(AssessmentTask).where(AssessmentTask.section_id == UUID(section_id))).all()
+    }
+    for index, task_id in enumerate(ordered_task_ids, start=1):
+        task = tasks_by_id.get(task_id)
+        if task is not None:
+            task.sort_order = index
+    db.commit()
+    return list_tasks(db, section_id)
 
 
 def validate_task(db: Session, task_id: str) -> list[str]:

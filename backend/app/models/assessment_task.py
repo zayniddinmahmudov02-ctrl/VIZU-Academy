@@ -3,6 +3,12 @@ from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models.base import BaseModel
+from app.models.assessment import STATUS_ARCHIVED, STATUS_DRAFT, STATUS_PUBLISHED
+
+# Re-exported for callers that only need task-level statuses — same three
+# values as Assessment.status (app/models/assessment.py), reused rather
+# than redefined so the two never drift apart.
+ALL_TASK_STATUSES = {STATUS_DRAFT, STATUS_PUBLISHED, STATUS_ARCHIVED}
 
 TYPE_TRUE_FALSE = "TRUE_FALSE"
 TYPE_MULTIPLE_CHOICE = "MULTIPLE_CHOICE"
@@ -64,6 +70,12 @@ class AssessmentTask(BaseModel):
     config: Mapped[str | None] = mapped_column(Text, nullable=True)
     max_points: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     sort_order: Mapped[int] = mapped_column(Integer, default=1, nullable=False)
+    # Per-task publish state — finer-grained than Assessment.status (which
+    # gates the whole assessment). A task only reaches the public API when
+    # BOTH its own status AND its parent Assessment's status are PUBLISHED.
+    status: Mapped[str] = mapped_column(
+        String(20), default=STATUS_DRAFT, server_default=STATUS_DRAFT, nullable=False, index=True
+    )
 
     # Audio play policy — only meaningful for HOEREN-skill tasks (i.e. ones
     # with an attached TaskAudio), but kept on the generic table rather
