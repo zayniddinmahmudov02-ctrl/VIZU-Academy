@@ -1,12 +1,13 @@
 import json
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, Response, status
+from fastapi import APIRouter, Depends, File, HTTPException, Response, UploadFile, status
 from fastapi.responses import StreamingResponse
 from sqlalchemy.orm import Session
 
 from app.api.dependencies.auth import get_current_user, require_admin_panel_access
 from app.api.dependencies.progress import require_lesson_access, require_video_completed
+from app.core.config import settings
 from app.db.session import get_db
 from app.models.lesson import Lesson
 from app.models.user import User
@@ -18,15 +19,14 @@ from app.schemas.vocabulary import (
     BulkSaveRequest,
     BulkSaveResponse,
     MissingAudioWord,
-    RegenerateAudioResponse,
-    TtsQuotaStatus,
+    SaveRecordedAudioResponse,
     VocabularyCreate,
     VocabularyResponse,
     VocabularyUpdate,
 )
 
 from app.services.vocabulary import VocabularyBulkService, VocabularyService, normalize_word_list
-from app.services.vocabulary.ai_enrichment import AIServiceError
+from app.services.vocabulary import audio_processing
 
 
 router = APIRouter(
@@ -195,12 +195,12 @@ async def bulk_analyze_vocabulary(
     current_user: User = Depends(require_admin_panel_access),
 ):
     """Streams newline-delimited JSON — progress updates while Gemini
-    enrichment and (optionally) TTS audio generation run, then one line
-    per preview row, then a final {"type": "done"}. Nothing is written to
-    the database here; see POST /bulk/save for that. A native fetch()
-    reader on the frontend, not axios, consumes this (see
-    bulk-vocabulary-dialog.tsx) — StreamingResponse's body never
-    completes until every word has been processed."""
+    TEXT enrichment runs (article/plural/translation/example — never
+    audio), then one line per preview row, then a final {"type": "done"}.
+    Nothing is written to the database here; see POST /bulk/save for
+    that. A native fetch() reader on the frontend, not axios, consumes
+    this (see bulk-vocabulary-dialog.tsx) — StreamingResponse's body
+    never completes until every word has been processed."""
 
     words = normalize_word_list("\n".join(payload.words))
     service = VocabularyBulkService(db)
@@ -210,7 +210,6 @@ async def bulk_analyze_vocabulary(
             payload.lesson_id,
             words,
             payload.auto_complete,
-            payload.generate_audio,
         ):
             yield json.dumps(event) + "\n"
 
@@ -231,32 +230,87 @@ async def bulk_save_vocabulary(
     return BulkSaveResponse(**result)
 
 
+# ==========================
+# Personal voice recording — no AI-generated audio anywhere below.
+# The admin records the word once; process() cleans + repeats it 3x
+# (see audio_processing.py); save() persists the already-processed
+# result against one existing Vocabulary row.
+# ==========================
+
+
+_MAX_UPLOAD_BYTES = settings.VOCAB_AUDIO_MAX_UPLOAD_MB * 1024 * 1024
+
+
+def _validate_audio_upload(content_type: str | None, raw: bytes) -> None:
+    if content_type and not (content_type.startswith("audio/") or content_type == "application/octet-stream"):
+        raise HTTPException(status_code=400, detail=f"Invalid content type: {content_type}")
+    if not raw:
+        raise HTTPException(status_code=400, detail="Empty audio upload")
+    if len(raw) > _MAX_UPLOAD_BYTES:
+        raise HTTPException(
+            status_code=413,
+            detail=f"Audio upload exceeds {settings.VOCAB_AUDIO_MAX_UPLOAD_MB}MB limit",
+        )
+
+
+@router.post("/audio/process")
+async def process_vocabulary_audio(
+    file: UploadFile = File(...),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    """Takes one raw microphone recording (whatever MediaRecorder
+    produced — typically audio/webm;codecs=opus) and returns the final
+    cleaned + 3x-repeated WAV directly as the response body. Nothing is
+    written to disk or the database here — this is the "preview" step;
+    the admin's own voice never touches permanent storage until they
+    press Speichern (see POST /{vocabulary_id}/audio/save)."""
+
+    raw = await file.read()
+    _validate_audio_upload(file.content_type, raw)
+
+    try:
+        wav_bytes = await audio_processing.process_recording(raw)
+    except audio_processing.AudioProcessingError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+
+    return Response(content=wav_bytes, media_type="audio/wav")
+
+
 @router.post(
-    "/{vocabulary_id}/audio/regenerate",
-    response_model=RegenerateAudioResponse,
+    "/{vocabulary_id}/audio/save",
+    response_model=SaveRecordedAudioResponse,
 )
-async def regenerate_vocabulary_audio(
+async def save_vocabulary_audio(
     vocabulary_id: UUID,
+    file: UploadFile = File(...),
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin_panel_access),
 ):
+    """Persists the already-processed WAV from POST /audio/process
+    against one existing Vocabulary row — never creates a new row, never
+    touches word/article/plural/translation/example/order_index. New
+    file stored and committed before the old one (if any) is deleted."""
+
     vocab_service = VocabularyService(db)
     vocabulary = vocab_service.get(vocabulary_id)
 
     if vocabulary is None:
         raise HTTPException(status_code=404, detail="Vocabulary not found")
 
+    wav_bytes = await file.read()
+    _validate_audio_upload(file.content_type, wav_bytes)
+
     bulk_service = VocabularyBulkService(db)
     try:
-        new_url = await bulk_service.regenerate_audio(vocabulary)
-    except AIServiceError as exc:
-        raise HTTPException(status_code=502, detail=str(exc)) from exc
+        new_url = await bulk_service.save_recorded_audio(vocabulary, wav_bytes)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
 
-    return RegenerateAudioResponse(audio_url=new_url)
+    return SaveRecordedAudioResponse(audio_url=new_url)
 
 
 # ==========================
-# Missing-audio queue ("Fehlende Audios generieren")
+# Missing-audio queue ("Audio nacheinander aufnehmen")
 # ==========================
 
 
@@ -269,42 +323,15 @@ def get_audio_queue_status(
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin_panel_access),
 ):
-    """Read-only — lists words in this lesson still missing audio
-    (audio_status != GENERATED) plus today's TTS quota usage, so the
-    admin panel can show "Audio quota heute: X / Y verwendet" and an
-    accurate word count before the admin decides to run the queue."""
+    """Read-only — lists words in this lesson still missing a recording
+    (audio_status != GENERATED), for the "Audio: ❌ Fehlt" column and the
+    "Audio nacheinander aufnehmen" sequential recording workflow."""
 
     service = VocabularyBulkService(db)
     missing = service.get_missing_audio(lesson_id)
-    quota = service.get_quota_status()
 
     return AudioQueueStatusResponse(
         lesson_id=lesson_id,
         missing=[MissingAudioWord.model_validate(v) for v in missing],
         total_missing=len(missing),
-        quota=TtsQuotaStatus(**quota),
     )
-
-
-@router.post("/lesson/{lesson_id}/audio-queue/generate")
-async def generate_missing_audio(
-    lesson_id: UUID,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_admin_panel_access),
-):
-    """Streams newline-delimited JSON, same pattern as POST /bulk/analyze:
-    a "queue_start" event with the total + current quota, one
-    "word_result" per word processed (never regenerating a word that
-    already has audio_status == GENERATED), and a final "done" event
-    with counts and whether the run stopped early due to the daily
-    quota being exhausted. Every DB update happens per-word inside the
-    service, not just at the end, so a stopped/failed run never loses
-    partial progress."""
-
-    service = VocabularyBulkService(db)
-
-    async def ndjson():
-        async for event in service.generate_missing_audio_stream(lesson_id):
-            yield json.dumps(event) + "\n"
-
-    return StreamingResponse(ndjson(), media_type="application/x-ndjson")

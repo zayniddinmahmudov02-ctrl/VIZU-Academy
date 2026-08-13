@@ -19,17 +19,8 @@ import BulkVocabularyPreviewTable, { type EditableRow } from "./bulk-vocabulary-
 type Phase = "input" | "analyzing" | "preview" | "saving" | "result";
 
 interface Progress {
-  phase: "text" | "audio";
   processed: number;
   total: number;
-  generated: number;
-  failed: number;
-}
-
-interface AudioResult {
-  word: string;
-  ok: boolean;
-  reason?: string;
 }
 
 interface Props {
@@ -48,12 +39,10 @@ function nextRowId(): string {
 export default function BulkVocabularyDialog({ lessonId, open, onOpenChange, onSaved }: Props) {
   const [rawText, setRawText] = useState("");
   const [autoComplete, setAutoComplete] = useState(true);
-  const [generateAudio, setGenerateAudio] = useState(true);
   const [publishImmediately, setPublishImmediately] = useState(false);
 
   const [phase, setPhase] = useState<Phase>("input");
   const [progress, setProgress] = useState<Progress | null>(null);
-  const [audioResults, setAudioResults] = useState<AudioResult[]>([]);
   const [rows, setRows] = useState<EditableRow[]>([]);
   const [analyzeError, setAnalyzeError] = useState<string | null>(null);
   const [saveResult, setSaveResult] = useState<BulkVocabularySaveResult | null>(null);
@@ -62,11 +51,9 @@ export default function BulkVocabularyDialog({ lessonId, open, onOpenChange, onS
   function reset() {
     setRawText("");
     setAutoComplete(true);
-    setGenerateAudio(true);
     setPublishImmediately(false);
     setPhase("input");
     setProgress(null);
-    setAudioResults([]);
     setRows([]);
     setAnalyzeError(null);
     setSaveResult(null);
@@ -85,7 +72,6 @@ export default function BulkVocabularyDialog({ lessonId, open, onOpenChange, onS
     setAnalyzeError(null);
     setRows([]);
     setProgress(null);
-    setAudioResults([]);
     setPhase("analyzing");
 
     const abort = new AbortController();
@@ -93,22 +79,11 @@ export default function BulkVocabularyDialog({ lessonId, open, onOpenChange, onS
 
     try {
       for await (const event of analyzeVocabularyBulk(
-        { lesson_id: lessonId, words, auto_complete: autoComplete, generate_audio: generateAudio },
+        { lesson_id: lessonId, words, auto_complete: autoComplete },
         abort.signal,
       )) {
         if (event.type === "progress") {
-          setProgress({
-            phase: event.phase,
-            processed: event.processed,
-            total: event.total,
-            generated: event.generated ?? 0,
-            failed: event.failed ?? 0,
-          });
-        } else if (event.type === "audio_result") {
-          setAudioResults((prev) => [
-            ...prev,
-            event.ok ? { word: event.word, ok: true } : { word: event.word, ok: false, reason: event.reason },
-          ]);
+          setProgress({ processed: event.processed, total: event.total });
         } else if (event.type === "item") {
           setRows((prev) => [
             ...prev,
@@ -123,9 +98,7 @@ export default function BulkVocabularyDialog({ lessonId, open, onOpenChange, onS
               translation: event.translation,
               example_sentence: event.example_sentence,
               example_translation: event.example_translation,
-              audio_url: event.audio_url,
               is_duplicate: event.is_duplicate,
-              error: event.error,
             },
           ]);
         } else if (event.type === "error") {
@@ -152,32 +125,6 @@ export default function BulkVocabularyDialog({ lessonId, open, onOpenChange, onS
     setRows((prev) => prev.map((r) => (r.rowId === rowId ? { ...r, ...patch } : r)));
   }
 
-  async function handleRetryAudio(rowId: string) {
-    const row = rows.find((r) => r.rowId === rowId);
-    if (!row) return;
-
-    updateRow(rowId, { error: null });
-
-    try {
-      // auto_complete=false — the word/article/plural/translation are
-      // already good from the first pass; only a fresh audio attempt is
-      // wanted, so text re-generation (and its own Gemini call) is
-      // skipped entirely.
-      for await (const event of analyzeVocabularyBulk({
-        lesson_id: lessonId,
-        words: [row.german_word],
-        auto_complete: false,
-        generate_audio: true,
-      })) {
-        if (event.type === "item") {
-          updateRow(rowId, { audio_url: event.audio_url, error: event.error });
-        }
-      }
-    } catch (err) {
-      updateRow(rowId, { error: err instanceof Error ? err.message : "Audio konnte nicht erstellt werden." });
-    }
-  }
-
   function removeRow(rowId: string) {
     setRows((prev) => prev.filter((r) => r.rowId !== rowId));
   }
@@ -192,7 +139,6 @@ export default function BulkVocabularyDialog({ lessonId, open, onOpenChange, onS
         translation: r.translation,
         example_sentence: r.example_sentence,
         example_translation: r.example_translation,
-        audio_url: r.audio_url,
         is_published: publishImmediately,
         force_duplicate: r.forceDuplicate,
       }));
@@ -268,14 +214,15 @@ export default function BulkVocabularyDialog({ lessonId, open, onOpenChange, onS
                 <span className="text-sm text-[var(--admin-text-secondary)]">Automatisch vervollständigen</span>
               </label>
               <label className="flex cursor-pointer items-center gap-2.5">
-                <AdminCheckbox checked={generateAudio} onCheckedChange={setGenerateAudio} />
-                <span className="text-sm text-[var(--admin-text-secondary)]">Deutsche Audio automatisch erstellen</span>
-              </label>
-              <label className="flex cursor-pointer items-center gap-2.5">
                 <AdminCheckbox checked={publishImmediately} onCheckedChange={setPublishImmediately} />
                 <span className="text-sm text-[var(--admin-text-secondary)]">Sofort veröffentlichen</span>
               </label>
             </div>
+
+            <p className="text-xs text-[var(--admin-text-muted)]">
+              🎙️ Audio wird nicht automatisch erstellt — nach dem Speichern kann es pro Wort oder
+              nacheinander für die ganze Lektion mit dem Mikrofon aufgenommen werden.
+            </p>
 
             {analyzeError && <p className="text-sm text-[var(--admin-danger)]">{analyzeError}</p>}
           </>
@@ -285,9 +232,7 @@ export default function BulkVocabularyDialog({ lessonId, open, onOpenChange, onS
           <div className="space-y-4 py-6">
             <div>
               <div className="mb-1.5 flex items-center justify-between text-sm">
-                <span className="text-[var(--admin-text-secondary)]">
-                  {progress?.phase === "audio" ? "Audio" : "Wörter werden analysiert..."}
-                </span>
+                <span className="text-[var(--admin-text-secondary)]">Wörter werden analysiert...</span>
                 {progress && (
                   <span className="font-semibold text-[var(--admin-text-primary)]">
                     {progress.processed} / {progress.total}
@@ -300,29 +245,7 @@ export default function BulkVocabularyDialog({ lessonId, open, onOpenChange, onS
                   style={{ width: `${progressPercent}%` }}
                 />
               </div>
-              {progress?.phase === "audio" && (
-                <p className="mt-1.5 text-xs text-[var(--admin-text-muted)]">
-                  Generiert: {progress.generated} · Fehlgeschlagen: {progress.failed}
-                </p>
-              )}
             </div>
-
-            {audioResults.length > 0 && (
-              <div className="max-h-56 space-y-1 overflow-y-auto rounded-xl bg-white/[0.02] p-3 ring-1 ring-[var(--admin-border)]">
-                {audioResults.map((r, i) => (
-                  <p key={i} className="text-xs">
-                    {r.ok ? (
-                      <span className="text-[var(--admin-accent)]">✓ {r.word}</span>
-                    ) : (
-                      <span className="text-[var(--admin-danger)]">
-                        ❌ {r.word}
-                        <span className="ml-1.5 text-[var(--admin-text-muted)]">— {r.reason}</span>
-                      </span>
-                    )}
-                  </p>
-                ))}
-              </div>
-            )}
           </div>
         )}
 
@@ -333,12 +256,7 @@ export default function BulkVocabularyDialog({ lessonId, open, onOpenChange, onS
               <AdminCheckbox checked={publishImmediately} onCheckedChange={setPublishImmediately} />
               <span className="text-sm text-[var(--admin-text-secondary)]">Sofort veröffentlichen</span>
             </label>
-            <BulkVocabularyPreviewTable
-              rows={rows}
-              onChange={updateRow}
-              onRemove={removeRow}
-              onRetryAudio={handleRetryAudio}
-            />
+            <BulkVocabularyPreviewTable rows={rows} onChange={updateRow} onRemove={removeRow} />
             {phase === "saving" && (
               <p className="text-sm text-[var(--admin-text-secondary)]">Wird gespeichert...</p>
             )}
@@ -364,6 +282,10 @@ export default function BulkVocabularyDialog({ lessonId, open, onOpenChange, onS
                 </ul>
               </div>
             )}
+            <p className="text-xs text-[var(--admin-text-muted)]">
+              🎙️ Nutze „Audio nacheinander aufnehmen“ in der Vokabelliste, um jetzt Aufnahmen für die
+              neuen Wörter zu machen.
+            </p>
           </div>
         )}
       </div>

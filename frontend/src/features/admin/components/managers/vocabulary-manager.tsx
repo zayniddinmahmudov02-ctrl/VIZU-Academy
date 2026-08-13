@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { Plus, Sparkles, Volume2 } from "lucide-react";
+import { Mic, Plus, Sparkles } from "lucide-react";
 
 import {
   AdminButton,
@@ -15,11 +15,12 @@ import DataTable, { DataTableColumn } from "@/components/admin/data-table";
 import FileUploadField from "@/components/admin/file-upload-field";
 import FormDialog from "@/components/admin/form-dialog";
 import { useCrudList, useCrudMutations } from "@/features/admin/hooks/use-crud";
-import { regenerateVocabularyAudio, vocabularyApi } from "@/features/admin/services/vocabulary-service";
+import { vocabularyApi } from "@/features/admin/services/vocabulary-service";
 import type { Vocabulary } from "@/features/admin/types/content.types";
 
-import AudioQueueDialog from "../vocabulary/audio-queue-dialog";
 import BulkVocabularyDialog from "../vocabulary/bulk-vocabulary-dialog";
+import MicRecordingDialog from "../vocabulary/mic-recording-dialog";
+import SequentialRecordingDialog from "../vocabulary/sequential-recording-dialog";
 import LessonPicker from "./lesson-picker";
 
 const EMPTY_FORM = {
@@ -47,12 +48,12 @@ export default function VocabularyManager({ lessonId }: { lessonId?: string }) {
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [bulkOpen, setBulkOpen] = useState(false);
-  const [audioQueueOpen, setAudioQueueOpen] = useState(false);
+  const [sequentialRecordingOpen, setSequentialRecordingOpen] = useState(false);
+  const [micOpen, setMicOpen] = useState(false);
   const [editing, setEditing] = useState<Vocabulary | null>(null);
   const [deleting, setDeleting] = useState<Vocabulary | null>(null);
   const [form, setForm] = useState(EMPTY_FORM);
   const [error, setError] = useState<string | null>(null);
-  const [regenerating, setRegenerating] = useState(false);
 
   function openCreate() {
     setEditing(null);
@@ -95,18 +96,10 @@ export default function VocabularyManager({ lessonId }: { lessonId?: string }) {
     }
   }
 
-  async function handleRegenerateAudio() {
-    if (!editing) return;
-    setRegenerating(true);
-    setError(null);
-    try {
-      const { audio_url } = await regenerateVocabularyAudio(editing.id);
-      setForm((prev) => ({ ...prev, audio_url }));
-    } catch {
-      setError("Audio konnte nicht erstellt werden.");
-    } finally {
-      setRegenerating(false);
-    }
+  function handleRecordingSaved(audioUrl: string) {
+    setForm((prev) => ({ ...prev, audio_url: audioUrl }));
+    setMicOpen(false);
+    queryClient.invalidateQueries({ queryKey: ["vocabularies"] });
   }
 
   const columns: DataTableColumn<Vocabulary>[] = [
@@ -131,9 +124,7 @@ export default function VocabularyManager({ lessonId }: { lessonId?: string }) {
             ? "✓ Vorhanden"
             : item.audio_status === "FAILED"
               ? "❌ Fehlgeschlagen"
-              : item.audio_status === "RATE_LIMITED"
-                ? "⏳ Kontingentiert"
-                : "— Ausstehend";
+              : "❌ Fehlt";
         return <span className="text-xs text-[var(--admin-text-muted)]">{label}</span>;
       },
     },
@@ -163,9 +154,9 @@ export default function VocabularyManager({ lessonId }: { lessonId?: string }) {
         </AdminButton>
         {lessonId && (
           <>
-            <AdminButton variant="secondary" onClick={() => setAudioQueueOpen(true)}>
-              <Volume2 size={16} />
-              Fehlende Audios generieren
+            <AdminButton variant="secondary" onClick={() => setSequentialRecordingOpen(true)}>
+              <Mic size={16} />
+              Audio nacheinander aufnehmen
             </AdminButton>
             <AdminButton variant="secondary" onClick={() => setBulkOpen(true)}>
               <Sparkles size={16} />
@@ -288,10 +279,11 @@ export default function VocabularyManager({ lessonId }: { lessonId?: string }) {
                 variant="ghost"
                 size="sm"
                 className="mt-2"
-                onClick={handleRegenerateAudio}
-                disabled={regenerating || !form.german_word}
+                onClick={() => setMicOpen(true)}
+                disabled={!form.german_word}
               >
-                🔊 {regenerating ? "Wird erstellt..." : "Audio neu generieren"}
+                <Mic size={14} />
+                Audio aufnehmen
               </AdminButton>
             )}
           </div>
@@ -319,6 +311,16 @@ export default function VocabularyManager({ lessonId }: { lessonId?: string }) {
         }}
       />
 
+      {editing && (
+        <MicRecordingDialog
+          vocabularyId={editing.id}
+          germanWord={form.german_word || editing.german_word}
+          open={micOpen}
+          onOpenChange={setMicOpen}
+          onSaved={handleRecordingSaved}
+        />
+      )}
+
       {lessonId && (
         <>
           <BulkVocabularyDialog
@@ -327,10 +329,10 @@ export default function VocabularyManager({ lessonId }: { lessonId?: string }) {
             onOpenChange={setBulkOpen}
             onSaved={() => queryClient.invalidateQueries({ queryKey: ["vocabularies"] })}
           />
-          <AudioQueueDialog
+          <SequentialRecordingDialog
             lessonId={lessonId}
-            open={audioQueueOpen}
-            onOpenChange={setAudioQueueOpen}
+            open={sequentialRecordingOpen}
+            onOpenChange={setSequentialRecordingOpen}
           />
         </>
       )}

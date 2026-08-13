@@ -95,41 +95,22 @@ class Settings(BaseSettings):
     # against the API this key can actually reach.
     GEMINI_MODEL: str = "gemini-flash-latest"
 
-    # Bulk vocabulary generator (see app/services/vocabulary/ai_enrichment.py
-    # and bulk_service.py) — reuses GEMINI_API_KEY for text enrichment.
-    # Audio uses Gemini's own native TTS-capable model (generateContent
-    # with responseModalities=["AUDIO"]) rather than the separate Google
-    # Cloud Text-to-Speech product — that product requires OAuth2/
-    # service-account credentials and rejects plain API keys outright
-    # (confirmed live: "API keys are not supported by this API"), so it
-    # could never work with GEMINI_API_KEY no matter how it's configured.
-    GEMINI_TTS_MODEL: str = "gemini-2.5-flash-preview-tts"
-    GEMINI_TTS_VOICE: str = "Kore"
+    # Bulk vocabulary generator text enrichment (see
+    # app/services/vocabulary/ai_enrichment.py) — word-type/article/
+    # plural/translation/example sentence, reusing GEMINI_API_KEY. Audio
+    # is never AI-generated (see audio_processing.py) — it's always the
+    # admin's own microphone recording, cleaned and repeated 3x.
 
-    # This caps how many TTS requests run at once so a 100-word import
-    # doesn't fire 100 concurrent calls. Live-tested with 6 (the feature
-    # spec's "5-10 concurrent") against the real account: every request
-    # past the 1st failed with 429 RESOURCE_EXHAUSTED. Lowered to 2 —
-    # concurrency beyond what VOCAB_BULK_TTS_MAX_PER_MINUTE allows through
-    # anyway only adds coroutines waiting on the rate limiter below, not
-    # real throughput.
-    VOCAB_BULK_TTS_CONCURRENCY: int = 2
+    # Every vocabulary audio file is: admin's cleaned word, this many ms
+    # of silence, word again, silence again, word a third time. 700ms is
+    # long enough to read as a deliberate pause, short enough that the
+    # whole file still feels like one clip rather than three separate ones.
+    VOCAB_AUDIO_REPEAT_PAUSE_MS: int = 700
 
-    # Confirmed live via Google's own 429 response: gemini-2.5-flash-tts's
-    # free tier allows exactly 3 requests/minute (and separately, only 10
-    # /day — a hard ceiling no amount of pacing can raise; that needs a
-    # paid plan on this Google Cloud project). synthesize_word_audio()
-    # enforces this as a real sliding-window rate limiter, not just a
-    # concurrency cap, since fast calls can exceed a per-minute quota even
-    # at low concurrency. Raise this once billing is enabled.
-    VOCAB_BULK_TTS_MAX_PER_MINUTE: int = 3
-
-    # This app's own self-imposed daily budget (VocabularyTtsUsage),
-    # checked and reserved before ever attempting a TTS call — matches
-    # Google's confirmed free-tier daily cap for gemini-2.5-flash-tts.
-    # Raise this once billing is enabled on the Google Cloud project;
-    # application code has no way to raise Google's actual limit itself.
-    VOCAB_BULK_TTS_MAX_PER_DAY: int = 10
+    # A raw browser recording of one spoken word is a few hundred KB at
+    # most even uncompressed; this is a generous ceiling against a
+    # misbehaving client, not a realistic expected size.
+    VOCAB_AUDIO_MAX_UPLOAD_MB: int = 15
 
     # ==================================================
     # SECURITY

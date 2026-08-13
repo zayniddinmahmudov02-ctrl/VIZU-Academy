@@ -130,7 +130,7 @@ export interface VideoUpdate {
   is_published?: boolean;
 }
 
-export type VocabularyAudioStatus = "PENDING" | "GENERATED" | "FAILED" | "RATE_LIMITED";
+export type VocabularyAudioStatus = "PENDING" | "GENERATED" | "FAILED";
 
 export interface Vocabulary {
   id: string;
@@ -183,15 +183,11 @@ export interface BulkVocabularyPreviewItem {
   translation: string;
   example_sentence: string;
   example_translation: string;
-  audio_url: string | null;
   is_duplicate: boolean;
-  error: string | null;
 }
 
 export type BulkVocabularyStreamEvent =
-  | { type: "progress"; phase: "text" | "audio"; processed: number; total: number; generated?: number; failed?: number }
-  | { type: "audio_result"; word: string; ok: true; size_kb: number }
-  | { type: "audio_result"; word: string; ok: false; reason: string }
+  | { type: "progress"; phase: "text"; processed: number; total: number }
   | ({ type: "item" } & BulkVocabularyPreviewItem)
   | { type: "error"; message: string }
   | { type: "done" };
@@ -203,7 +199,6 @@ export interface BulkVocabularySaveItem {
   translation: string;
   example_sentence?: string | null;
   example_translation?: string | null;
-  audio_url?: string | null;
   is_published?: boolean;
   skip?: boolean;
   force_duplicate?: boolean;
@@ -215,15 +210,8 @@ export interface BulkVocabularySaveResult {
 }
 
 // ==========================
-// Missing-audio queue ("Fehlende Audios generieren")
+// Missing-audio queue ("Audio nacheinander aufnehmen")
 // ==========================
-
-export interface TtsQuotaStatus {
-  used_today: number;
-  max_per_day: number;
-  max_per_minute: number;
-  exhausted: boolean;
-}
 
 export interface MissingAudioWord {
   id: string;
@@ -236,30 +224,7 @@ export interface AudioQueueStatus {
   lesson_id: string;
   missing: MissingAudioWord[];
   total_missing: number;
-  quota: TtsQuotaStatus;
 }
-
-export type AudioQueueStreamEvent =
-  | { type: "queue_start"; total: number; quota: TtsQuotaStatus }
-  | {
-      type: "word_result";
-      word: string;
-      ok: boolean;
-      reason: string | null;
-      size_kb: number | null;
-      processed: number;
-      total: number;
-      generated: number;
-      failed: number;
-    }
-  | {
-      type: "done";
-      generated: number;
-      failed: number;
-      remaining: number;
-      stopped_for_quota: boolean;
-      quota: TtsQuotaStatus;
-    };
 
 export interface Grammar {
   id: string;

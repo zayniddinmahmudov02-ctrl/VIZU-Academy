@@ -61,7 +61,6 @@ class BulkAnalyzeRequest(BaseSchema):
     lesson_id: UUID
     words: list[str]
     auto_complete: bool = True
-    generate_audio: bool = True
 
 
 class BulkSaveItem(BaseSchema):
@@ -71,7 +70,6 @@ class BulkSaveItem(BaseSchema):
     translation: str
     example_sentence: str | None = None
     example_translation: str | None = None
-    audio_url: str | None = None
     is_published: bool = False
     # Admin's explicit choice for a row flagged is_duplicate during
     # preview — "Überspringen" (skip=True) or "Als neues Wort erstellen"
@@ -95,20 +93,13 @@ class BulkSaveResponse(BaseSchema):
     needs_review: list[BulkSaveNeedsReview]
 
 
-class RegenerateAudioResponse(BaseSchema):
+class SaveRecordedAudioResponse(BaseSchema):
     audio_url: str
 
 
 # ==========================
-# Missing-audio queue ("Fehlende Audios generieren")
+# Missing-audio queue ("Audio nacheinander aufnehmen")
 # ==========================
-
-
-class TtsQuotaStatus(BaseSchema):
-    used_today: int
-    max_per_day: int
-    max_per_minute: int
-    exhausted: bool
 
 
 class MissingAudioWord(BaseSchema):
@@ -122,4 +113,3 @@ class AudioQueueStatusResponse(BaseSchema):
     lesson_id: UUID
     missing: list[MissingAudioWord]
     total_missing: int
-    quota: TtsQuotaStatus

@@ -6,13 +6,13 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models.base import BaseModel
 
-# Values for Vocabulary.audio_status — see
-# app/services/vocabulary/bulk_service.py's "Fehlende Audios generieren"
-# queue for how a row moves between them.
+# Values for Vocabulary.audio_status. Audio is always the admin's own
+# microphone recording (see app/services/vocabulary/audio_processing.py)
+# — never AI-generated. PENDING until recorded, GENERATED once a
+# recording is saved, FAILED if saving one somehow didn't work out.
 AUDIO_STATUS_PENDING = "PENDING"
 AUDIO_STATUS_GENERATED = "GENERATED"
 AUDIO_STATUS_FAILED = "FAILED"
-AUDIO_STATUS_RATE_LIMITED = "RATE_LIMITED"
 
 
 class Vocabulary(BaseModel):
@@ -66,13 +66,10 @@ class Vocabulary(BaseModel):
         nullable=True,
     )
 
-    # Additive columns (migration 8006706ca9db -> next) backing the
-    # "Fehlende Audios generieren" queue. audio_url alone can only say
-    # "has audio" vs "doesn't" — this distinguishes never-attempted from
-    # a real failure from a rate-limit, which the queue needs to decide
-    # what's safe to retry. Existing rows are backfilled: GENERATED where
-    # audio_url was already set, PENDING otherwise — nothing pre-existing
-    # is ever marked FAILED or RATE_LIMITED by the migration itself.
+    # audio_url alone can only say "has audio" vs "doesn't" — this
+    # distinguishes never-recorded from a real save failure, which the
+    # "Audio nacheinander aufnehmen" queue (get_missing_audio) needs to
+    # show which words still need the admin's voice.
     audio_status: Mapped[str] = mapped_column(
         String(20),
         nullable=False,

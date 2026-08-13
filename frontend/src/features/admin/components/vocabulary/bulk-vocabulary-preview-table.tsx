@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { AlertTriangle, Loader2, Play, RotateCcw, Trash2 } from "lucide-react";
+import { AlertTriangle, Trash2 } from "lucide-react";
 
 import { AdminInput, AdminSelect } from "@/components/admin/admin-ui";
 import type { BulkVocabularyPreviewItem, VocabularyWordType } from "@/features/admin/types/content.types";
@@ -15,7 +14,6 @@ interface Props {
   rows: EditableRow[];
   onChange: (rowId: string, patch: Partial<EditableRow>) => void;
   onRemove: (rowId: string) => void;
-  onRetryAudio: (rowId: string) => Promise<void>;
 }
 
 const WORD_TYPE_LABEL: Record<VocabularyWordType, string> = {
@@ -30,27 +28,8 @@ const WORD_TYPE_LABEL: Record<VocabularyWordType, string> = {
   OTHER: "Sonstige",
 };
 
-function playAudio(url: string) {
-  new Audio(url).play().catch(() => {});
-}
-
-export default function BulkVocabularyPreviewTable({ rows, onChange, onRemove, onRetryAudio }: Props) {
-  const [retrying, setRetrying] = useState<Set<string>>(new Set());
-
+export default function BulkVocabularyPreviewTable({ rows, onChange, onRemove }: Props) {
   if (rows.length === 0) return null;
-
-  async function handleRetry(rowId: string) {
-    setRetrying((prev) => new Set(prev).add(rowId));
-    try {
-      await onRetryAudio(rowId);
-    } finally {
-      setRetrying((prev) => {
-        const next = new Set(prev);
-        next.delete(rowId);
-        return next;
-      });
-    }
-  }
 
   return (
     <div className="overflow-x-auto rounded-xl ring-1 ring-[var(--admin-border)]">
@@ -149,35 +128,9 @@ export default function BulkVocabularyPreviewTable({ rows, onChange, onRemove, o
                 />
               </td>
               <td className="px-3 py-2.5">
-                {row.audio_url ? (
-                  <button
-                    type="button"
-                    onClick={() => playAudio(row.audio_url!)}
-                    className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--admin-primary)]/15 text-[var(--admin-primary)] hover:bg-[var(--admin-primary)]/25"
-                    aria-label="Audio abspielen"
-                  >
-                    <Play size={13} />
-                  </button>
-                ) : row.error ? (
-                  <div className="max-w-[150px]">
-                    <p className="text-[11px] text-[var(--admin-danger)]">Audio konnte nicht erstellt werden.</p>
-                    <button
-                      type="button"
-                      onClick={() => handleRetry(row.rowId)}
-                      disabled={retrying.has(row.rowId)}
-                      className="mt-1 flex items-center gap-1 rounded-md bg-white/5 px-2 py-1 text-[11px] font-semibold text-[var(--admin-text-secondary)] hover:bg-white/10 disabled:opacity-50"
-                    >
-                      {retrying.has(row.rowId) ? (
-                        <Loader2 size={11} className="animate-spin" />
-                      ) : (
-                        <RotateCcw size={11} />
-                      )}
-                      Erneut versuchen
-                    </button>
-                  </div>
-                ) : (
-                  <span className="text-xs text-[var(--admin-text-muted)]">—</span>
-                )}
+                <span className="text-[11px] text-[var(--admin-text-muted)]">
+                  🎙️ nach dem Speichern aufnehmen
+                </span>
               </td>
               <td className="px-3 py-2.5">
                 <button

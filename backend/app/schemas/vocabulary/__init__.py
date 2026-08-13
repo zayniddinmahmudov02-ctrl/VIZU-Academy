@@ -8,8 +8,7 @@ from .schema import (
     BulkSaveRequest,
     BulkSaveNeedsReview,
     BulkSaveResponse,
-    RegenerateAudioResponse,
-    TtsQuotaStatus,
+    SaveRecordedAudioResponse,
     MissingAudioWord,
     AudioQueueStatusResponse,
 )
@@ -24,8 +23,7 @@ __all__ = [
     "BulkSaveRequest",
     "BulkSaveNeedsReview",
     "BulkSaveResponse",
-    "RegenerateAudioResponse",
-    "TtsQuotaStatus",
+    "SaveRecordedAudioResponse",
     "MissingAudioWord",
     "AudioQueueStatusResponse",
 ]
