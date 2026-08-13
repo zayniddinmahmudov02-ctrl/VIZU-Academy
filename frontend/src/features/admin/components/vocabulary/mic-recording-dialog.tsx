@@ -23,6 +23,32 @@ interface Props {
   progressLabel?: string;
 }
 
+// Preferred order — the first the browser actually supports wins. Never
+// force a format the browser doesn't support: MediaRecorder throws
+// synchronously on an unsupported mimeType, which would break recording
+// entirely on any browser not on this exact list (e.g. Safari, which
+// supports none of these and needs the unset-mimeType fallback below).
+const PREFERRED_MIME_TYPES = [
+  "audio/webm;codecs=opus",
+  "audio/webm",
+  "audio/mp4",
+  "audio/ogg;codecs=opus",
+];
+
+function pickSupportedMimeType(): string | undefined {
+  if (typeof MediaRecorder === "undefined" || !MediaRecorder.isTypeSupported) return undefined;
+  return PREFERRED_MIME_TYPES.find((type) => MediaRecorder.isTypeSupported(type));
+}
+
+// Diagnostics only — never logs audio content, tokens, or PII. Kept in
+// place (not stripped after the mic-recording bug hunt) since it's the
+// only visibility into what a specific admin's specific browser actually
+// did, which is exactly what was missing when this broke silently.
+function logDiag(label: string, value: unknown) {
+  // eslint-disable-next-line no-console
+  console.log(`[MicRecording] ${label}:`, value);
+}
+
 function formatTime(totalSeconds: number): string {
   const m = Math.floor(totalSeconds / 60);
   const s = totalSeconds % 60;
@@ -47,6 +73,7 @@ export default function MicRecordingDialog({
   const [elapsed, setElapsed] = useState(0);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [previewDuration, setPreviewDuration] = useState<number | null>(null);
+  const [previewPlayable, setPreviewPlayable] = useState<boolean | null>(null);
   const [previewSize, setPreviewSize] = useState<number | null>(null);
 
   const streamRef = useRef<MediaStream | null>(null);
@@ -55,11 +82,15 @@ export default function MicRecordingDialog({
   const processedBlobRef = useRef<Blob | null>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
+  function stopStreamTracks() {
+    streamRef.current?.getTracks().forEach((t) => t.stop());
+    streamRef.current = null;
+  }
+
   function resetAll() {
     if (timerRef.current) clearInterval(timerRef.current);
-    streamRef.current?.getTracks().forEach((t) => t.stop());
+    stopStreamTracks();
     if (previewUrl) URL.revokeObjectURL(previewUrl);
-    streamRef.current = null;
     recorderRef.current = null;
     chunksRef.current = [];
     processedBlobRef.current = null;
@@ -68,6 +99,7 @@ export default function MicRecordingDialog({
     setElapsed(0);
     setPreviewUrl(null);
     setPreviewDuration(null);
+    setPreviewPlayable(null);
     setPreviewSize(null);
   }
 
@@ -79,7 +111,7 @@ export default function MicRecordingDialog({
   useEffect(() => {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
-      streamRef.current?.getTracks().forEach((t) => t.stop());
+      stopStreamTracks();
       if (previewUrl) URL.revokeObjectURL(previewUrl);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -88,46 +120,105 @@ export default function MicRecordingDialog({
   async function startRecording() {
     setError(null);
     setPhase("requesting");
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      streamRef.current = stream;
 
-      const recorder = new MediaRecorder(stream);
-      recorderRef.current = recorder;
-      chunksRef.current = [];
-
-      recorder.ondataavailable = (e) => {
-        if (e.data.size > 0) chunksRef.current.push(e.data);
-      };
-      recorder.onstop = () => void handleStopped();
-
-      recorder.start();
-      setPhase("recording");
-      setElapsed(0);
-      timerRef.current = setInterval(() => setElapsed((s) => s + 1), 1000);
-    } catch {
-      setError("Mikrofon-Zugriff nicht möglich. Bitte Berechtigung erteilen.");
+    const recorderSupported = typeof MediaRecorder !== "undefined";
+    logDiag("MediaRecorder supported", recorderSupported ? "YES" : "NO");
+    if (!recorderSupported) {
+      setError("Dieser Browser unterstützt keine Audioaufnahme. Bitte Chrome oder Edge verwenden.");
       setPhase("error");
+      return;
     }
+
+    let stream: MediaStream;
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      logDiag("getUserMedia", "SUCCESS");
+      logDiag("Permission", "granted");
+    } catch (err) {
+      logDiag("getUserMedia", "FAIL");
+      const name = err instanceof DOMException ? err.name : "";
+      logDiag("Permission", name === "NotAllowedError" ? "denied" : "unknown-error");
+      setError(
+        name === "NotAllowedError"
+          ? "Bitte Mikrofonzugriff für diese Website erlauben."
+          : "Mikrofon-Zugriff nicht möglich. Bitte Berechtigung erteilen.",
+      );
+      setPhase("error");
+      return;
+    }
+
+    streamRef.current = stream;
+
+    const mimeType = pickSupportedMimeType();
+    logDiag("mimeType", mimeType ?? "(browser default)");
+
+    // No mimeType at all if nothing on the preferred list is supported —
+    // forcing an unsupported one throws synchronously and would abort
+    // the whole recording before it starts.
+    const recorder = mimeType ? new MediaRecorder(stream, { mimeType }) : new MediaRecorder(stream);
+    recorderRef.current = recorder;
+    chunksRef.current = [];
+
+    recorder.ondataavailable = (e) => {
+      if (e.data.size > 0) chunksRef.current.push(e.data);
+    };
+    recorder.onstop = () => {
+      logDiag("chunks received", chunksRef.current.length);
+      // The recorder has now fully flushed everything it's going to —
+      // only now is it safe to release the microphone. Stopping the
+      // stream's tracks any earlier (e.g. right after calling
+      // recorder.stop()) can cut the recorder off mid-finalization and
+      // produce an empty or truncated blob, browser-dependent.
+      stopStreamTracks();
+      void handleStopped();
+    };
+    recorder.onerror = () => {
+      logDiag("recording started", "NO (recorder error)");
+      stopStreamTracks();
+      setError("Aufnahmefehler. Bitte erneut versuchen.");
+      setPhase("error");
+    };
+
+    recorder.start();
+    logDiag("recording started", "YES");
+    setPhase("recording");
+    setElapsed(0);
+    timerRef.current = setInterval(() => setElapsed((s) => s + 1), 1000);
   }
 
   function stopRecording() {
     if (timerRef.current) clearInterval(timerRef.current);
+    // Just ask the recorder to stop — the actual stream cleanup happens
+    // in onstop, once the final chunk has genuinely arrived.
     recorderRef.current?.stop();
-    streamRef.current?.getTracks().forEach((t) => t.stop());
     setPhase("processing");
   }
 
   async function handleStopped() {
-    const rawBlob = new Blob(chunksRef.current, { type: recorderRef.current?.mimeType || "audio/webm" });
+    const mimeType = recorderRef.current?.mimeType || "audio/webm";
+    const rawBlob = new Blob(chunksRef.current, { type: mimeType });
+    logDiag("blob size", rawBlob.size);
+    logDiag("blob type", rawBlob.type);
+
+    if (rawBlob.size === 0) {
+      setError("Keine Audioaufnahme erkannt.");
+      setPhase("error");
+      return;
+    }
+
     try {
+      logDiag("upload request", "SENT");
       const processed = await processVocabularyRecording(rawBlob);
+      logDiag("backend response status", "OK");
       processedBlobRef.current = processed;
       const url = URL.createObjectURL(processed);
       setPreviewUrl(url);
       setPreviewSize(processed.size);
+      logDiag("preview created", "YES");
       setPhase("preview");
     } catch (err) {
+      logDiag("upload request", "FAILED");
+      logDiag("backend response status", err instanceof Error ? err.message : "unknown");
       setError(err instanceof Error ? err.message : "Verarbeitung fehlgeschlagen.");
       setPhase("error");
     }
@@ -156,6 +247,7 @@ export default function MicRecordingDialog({
     processedBlobRef.current = null;
     setPreviewUrl(null);
     setPreviewDuration(null);
+    setPreviewPlayable(null);
     setPreviewSize(null);
     setError(null);
     setPhase("idle");
@@ -235,12 +327,25 @@ export default function MicRecordingDialog({
               src={previewUrl}
               className="w-full"
               onLoadedMetadata={(e) => setPreviewDuration(e.currentTarget.duration)}
+              onCanPlay={() => {
+                setPreviewPlayable(true);
+                logDiag("preview playable", "YES");
+              }}
+              onError={() => {
+                setPreviewPlayable(false);
+                logDiag("preview playable", "NO");
+              }}
             />
             <div className="flex gap-4 text-xs text-[var(--admin-text-muted)]">
               <span>Dauer: {previewDuration ? `${previewDuration.toFixed(1)}s` : "—"}</span>
               <span>Größe: {previewSize !== null ? formatBytes(previewSize) : "—"}</span>
               <span>Format: WAV</span>
             </div>
+            {previewPlayable === false && (
+              <p className="text-xs text-[var(--admin-danger)]">
+                Vorschau konnte nicht abgespielt werden — bitte erneut aufnehmen.
+              </p>
+            )}
           </div>
         )}
 
