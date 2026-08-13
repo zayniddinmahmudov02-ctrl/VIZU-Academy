@@ -44,6 +44,8 @@ class VocabularyUpdate(BaseSchema):
 class VocabularyResponse(VocabularyBase):
     id: UUID
     lesson_id: UUID
+    audio_status: str = "PENDING"
+    audio_error: str | None = None
 
     model_config = ConfigDict(
         from_attributes=True,
@@ -95,3 +97,29 @@ class BulkSaveResponse(BaseSchema):
 
 class RegenerateAudioResponse(BaseSchema):
     audio_url: str
+
+
+# ==========================
+# Missing-audio queue ("Fehlende Audios generieren")
+# ==========================
+
+
+class TtsQuotaStatus(BaseSchema):
+    used_today: int
+    max_per_day: int
+    max_per_minute: int
+    exhausted: bool
+
+
+class MissingAudioWord(BaseSchema):
+    id: UUID
+    german_word: str
+    audio_status: str
+    audio_error: str | None = None
+
+
+class AudioQueueStatusResponse(BaseSchema):
+    lesson_id: UUID
+    missing: list[MissingAudioWord]
+    total_missing: int
+    quota: TtsQuotaStatus

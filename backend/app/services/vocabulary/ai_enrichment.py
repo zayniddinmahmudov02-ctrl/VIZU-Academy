@@ -196,21 +196,37 @@ _TTS_MAX_RETRY_WAIT_SECONDS = 45  # cap so one rate-limited word can't stall a w
 _RETRY_DELAY_RE = re.compile(r'"retryDelay"\s*:\s*"(\d+(?:\.\d+)?)s"')
 
 
+_QUOTA_ID_RE = re.compile(r'"quotaId"\s*:\s*"([^"]+)"')
+
+
 class RateLimitError(AIServiceError):
     """HTTP 429 specifically — Google's free tier for the TTS model is
     genuinely this tight (confirmed live: 3 requests/minute AND 10
     requests/day, RESOURCE_EXHAUSTED). retry_delay, when Google supplies
     one, is what it explicitly asked callers to wait — ignoring it and
-    retrying immediately just gets rejected again."""
+    retrying immediately just gets rejected again.
 
-    def __init__(self, message: str, retry_delay: float | None):
+    is_daily distinguishes the two quota violations Google actually
+    returns (parsed from the response's own quotaId): a per-MINUTE hit
+    is worth retrying within this call (see synthesize_word_audio), a
+    per-DAY hit is a hard wall for the rest of today — no amount of
+    waiting within one request resolves it, so callers should stop
+    attempting further words entirely rather than retry each one."""
+
+    def __init__(self, message: str, retry_delay: float | None, is_daily: bool):
         super().__init__(message)
         self.retry_delay = retry_delay
+        self.is_daily = is_daily
 
 
 def _parse_retry_delay(detail: str) -> float | None:
     match = _RETRY_DELAY_RE.search(detail)
     return float(match.group(1)) if match else None
+
+
+def _parse_is_daily_quota(detail: str) -> bool:
+    match = _QUOTA_ID_RE.search(detail)
+    return bool(match and "PerDay" in match.group(1))
 
 
 def _call_tts_once(text: str) -> bytes:
@@ -243,7 +259,11 @@ def _call_tts_once(text: str) -> bytes:
     except urllib.error.HTTPError as exc:
         detail = exc.read().decode("utf-8", errors="ignore")
         if exc.code == 429:
-            raise RateLimitError(f"Gemini TTS error (429): {detail}", _parse_retry_delay(detail)) from exc
+            raise RateLimitError(
+                f"Gemini TTS error (429): {detail}",
+                _parse_retry_delay(detail),
+                _parse_is_daily_quota(detail),
+            ) from exc
         raise AIServiceError(f"Gemini TTS error ({exc.code}): {detail}") from exc
     except urllib.error.URLError as exc:
         raise AIServiceError(f"Could not reach Gemini API: {exc.reason}") from exc
@@ -291,13 +311,17 @@ async def synthesize_word_audio(word: str) -> bytes:
     .wav file's bytes.
 
     Retries up to _TTS_MAX_ATTEMPTS times for transient failures only:
-    - HTTP 429 (rate limit) — waits Google's own stated retryDelay when
-      given, since retrying sooner is guaranteed to fail again.
+    - HTTP 429, per-minute quota — waits Google's own stated retryDelay
+      when given, since retrying sooner is guaranteed to fail again.
     - An empty-content response with no error (finishReason="OTHER",
       confirmed live as a genuine intermittent quirk of this preview
       model, not tied to rate limiting) — fixed exponential backoff.
-    Every other AIServiceError (bad/missing key, malformed request,
-    non-429 4xx) fails immediately; retrying those cannot succeed."""
+    Never retried:
+    - HTTP 429, per-DAY quota — a hard wall for the rest of today; no
+      wait within a single request resolves it, so this fails on the
+      first attempt rather than burning the remaining attempt budget.
+    - Every other AIServiceError (bad/missing key, malformed request,
+      non-429 4xx) — retrying those cannot succeed either."""
 
     last_error: AIServiceError | None = None
 
@@ -308,6 +332,9 @@ async def synthesize_word_audio(word: str) -> bytes:
             audio = await asyncio.to_thread(_call_tts_once, word)
         except RateLimitError as exc:
             last_error = exc
+            if exc.is_daily:
+                logger.warning("Vocabulary TTS: '%s' hit the DAILY quota, not retrying", word)
+                raise
             if attempt == _TTS_MAX_ATTEMPTS:
                 logger.warning("Vocabulary TTS: '%s' rate-limited, out of retries", word)
                 raise

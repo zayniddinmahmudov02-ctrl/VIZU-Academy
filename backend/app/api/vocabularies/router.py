@@ -13,10 +13,13 @@ from app.models.user import User
 from app.services.vizu_pay.access import can_access_lesson
 
 from app.schemas.vocabulary import (
+    AudioQueueStatusResponse,
     BulkAnalyzeRequest,
     BulkSaveRequest,
     BulkSaveResponse,
+    MissingAudioWord,
     RegenerateAudioResponse,
+    TtsQuotaStatus,
     VocabularyCreate,
     VocabularyResponse,
     VocabularyUpdate,
@@ -250,3 +253,58 @@ async def regenerate_vocabulary_audio(
         raise HTTPException(status_code=502, detail=str(exc)) from exc
 
     return RegenerateAudioResponse(audio_url=new_url)
+
+
+# ==========================
+# Missing-audio queue ("Fehlende Audios generieren")
+# ==========================
+
+
+@router.get(
+    "/lesson/{lesson_id}/audio-queue",
+    response_model=AudioQueueStatusResponse,
+)
+def get_audio_queue_status(
+    lesson_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    """Read-only — lists words in this lesson still missing audio
+    (audio_status != GENERATED) plus today's TTS quota usage, so the
+    admin panel can show "Audio quota heute: X / Y verwendet" and an
+    accurate word count before the admin decides to run the queue."""
+
+    service = VocabularyBulkService(db)
+    missing = service.get_missing_audio(lesson_id)
+    quota = service.get_quota_status()
+
+    return AudioQueueStatusResponse(
+        lesson_id=lesson_id,
+        missing=[MissingAudioWord.model_validate(v) for v in missing],
+        total_missing=len(missing),
+        quota=TtsQuotaStatus(**quota),
+    )
+
+
+@router.post("/lesson/{lesson_id}/audio-queue/generate")
+async def generate_missing_audio(
+    lesson_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    """Streams newline-delimited JSON, same pattern as POST /bulk/analyze:
+    a "queue_start" event with the total + current quota, one
+    "word_result" per word processed (never regenerating a word that
+    already has audio_status == GENERATED), and a final "done" event
+    with counts and whether the run stopped early due to the daily
+    quota being exhausted. Every DB update happens per-word inside the
+    service, not just at the end, so a stopped/failed run never loses
+    partial progress."""
+
+    service = VocabularyBulkService(db)
+
+    async def ndjson():
+        async for event in service.generate_missing_audio_stream(lesson_id):
+            yield json.dumps(event) + "\n"
+
+    return StreamingResponse(ndjson(), media_type="application/x-ndjson")

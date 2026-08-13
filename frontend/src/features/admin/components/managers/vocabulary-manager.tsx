@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { Plus, Sparkles } from "lucide-react";
+import { Plus, Sparkles, Volume2 } from "lucide-react";
 
 import {
   AdminButton,
@@ -18,6 +18,7 @@ import { useCrudList, useCrudMutations } from "@/features/admin/hooks/use-crud";
 import { regenerateVocabularyAudio, vocabularyApi } from "@/features/admin/services/vocabulary-service";
 import type { Vocabulary } from "@/features/admin/types/content.types";
 
+import AudioQueueDialog from "../vocabulary/audio-queue-dialog";
 import BulkVocabularyDialog from "../vocabulary/bulk-vocabulary-dialog";
 import LessonPicker from "./lesson-picker";
 
@@ -46,6 +47,7 @@ export default function VocabularyManager({ lessonId }: { lessonId?: string }) {
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [bulkOpen, setBulkOpen] = useState(false);
+  const [audioQueueOpen, setAudioQueueOpen] = useState(false);
   const [editing, setEditing] = useState<Vocabulary | null>(null);
   const [deleting, setDeleting] = useState<Vocabulary | null>(null);
   const [form, setForm] = useState(EMPTY_FORM);
@@ -121,6 +123,21 @@ export default function VocabularyManager({ lessonId }: { lessonId?: string }) {
     { key: "translation", header: "Übersetzung", render: (item) => item.translation },
     { key: "plural", header: "Plural", render: (item) => item.plural || "—" },
     {
+      key: "audio_status",
+      header: "Audio",
+      render: (item) => {
+        const label =
+          item.audio_status === "GENERATED"
+            ? "✓ Vorhanden"
+            : item.audio_status === "FAILED"
+              ? "❌ Fehlgeschlagen"
+              : item.audio_status === "RATE_LIMITED"
+                ? "⏳ Kontingentiert"
+                : "— Ausstehend";
+        return <span className="text-xs text-[var(--admin-text-muted)]">{label}</span>;
+      },
+    },
+    {
       key: "is_published",
       header: "Status",
       render: (item) => (
@@ -145,10 +162,16 @@ export default function VocabularyManager({ lessonId }: { lessonId?: string }) {
           Neues Wort
         </AdminButton>
         {lessonId && (
-          <AdminButton variant="secondary" onClick={() => setBulkOpen(true)}>
-            <Sparkles size={16} />
-            Wörter importieren
-          </AdminButton>
+          <>
+            <AdminButton variant="secondary" onClick={() => setAudioQueueOpen(true)}>
+              <Volume2 size={16} />
+              Fehlende Audios generieren
+            </AdminButton>
+            <AdminButton variant="secondary" onClick={() => setBulkOpen(true)}>
+              <Sparkles size={16} />
+              Wörter importieren
+            </AdminButton>
+          </>
         )}
       </div>
 
@@ -297,12 +320,19 @@ export default function VocabularyManager({ lessonId }: { lessonId?: string }) {
       />
 
       {lessonId && (
-        <BulkVocabularyDialog
-          lessonId={lessonId}
-          open={bulkOpen}
-          onOpenChange={setBulkOpen}
-          onSaved={() => queryClient.invalidateQueries({ queryKey: ["vocabularies"] })}
-        />
+        <>
+          <BulkVocabularyDialog
+            lessonId={lessonId}
+            open={bulkOpen}
+            onOpenChange={setBulkOpen}
+            onSaved={() => queryClient.invalidateQueries({ queryKey: ["vocabularies"] })}
+          />
+          <AudioQueueDialog
+            lessonId={lessonId}
+            open={audioQueueOpen}
+            onOpenChange={setAudioQueueOpen}
+          />
+        </>
       )}
     </div>
   );

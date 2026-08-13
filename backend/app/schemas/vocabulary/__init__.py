@@ -9,6 +9,9 @@ from .schema import (
     BulkSaveNeedsReview,
     BulkSaveResponse,
     RegenerateAudioResponse,
+    TtsQuotaStatus,
+    MissingAudioWord,
+    AudioQueueStatusResponse,
 )
 
 __all__ = [
@@ -22,4 +25,7 @@ __all__ = [
     "BulkSaveNeedsReview",
     "BulkSaveResponse",
     "RegenerateAudioResponse",
+    "TtsQuotaStatus",
+    "MissingAudioWord",
+    "AudioQueueStatusResponse",
 ]

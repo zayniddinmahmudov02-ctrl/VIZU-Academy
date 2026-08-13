@@ -5,6 +5,8 @@ import { api } from "@/src/services/api";
 import { createCrudApi } from "../lib/crud-api";
 import { ADMIN_ENDPOINTS } from "../constants/endpoints";
 import type {
+  AudioQueueStatus,
+  AudioQueueStreamEvent,
   BulkVocabularySaveItem,
   BulkVocabularySaveResult,
   BulkVocabularyStreamEvent,
@@ -88,4 +90,59 @@ export async function regenerateVocabularyAudio(vocabularyId: string): Promise<{
     `${ADMIN_ENDPOINTS.vocabularies}${vocabularyId}/audio/regenerate`,
   );
   return response.data;
+}
+
+// ==========================
+// Missing-audio queue ("Fehlende Audios generieren")
+// ==========================
+
+export async function getAudioQueueStatus(lessonId: string): Promise<AudioQueueStatus> {
+  const response = await api.get<AudioQueueStatus>(
+    `${ADMIN_ENDPOINTS.vocabularies}lesson/${lessonId}/audio-queue`,
+  );
+  return response.data;
+}
+
+/** POST /vocabularies/lesson/{id}/audio-queue/generate streams NDJSON,
+ * same shape/reasoning as analyzeVocabularyBulk above — reused pattern,
+ * not shared code, since the event types genuinely differ. */
+export async function* generateMissingAudio(
+  lessonId: string,
+  signal?: AbortSignal,
+): AsyncGenerator<AudioQueueStreamEvent> {
+  const token = getToken();
+
+  const response = await fetch(`${API_URL}/api/v1/vocabularies/lesson/${lessonId}/audio-queue/generate`, {
+    method: "POST",
+    headers: {
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
+    signal,
+  });
+
+  if (!response.ok || !response.body) {
+    const text = await response.text().catch(() => "");
+    throw new Error(text || `Audio queue failed (${response.status})`);
+  }
+
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  let buffer = "";
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    buffer += decoder.decode(value, { stream: true });
+
+    let newlineIndex = buffer.indexOf("\n");
+    while (newlineIndex >= 0) {
+      const line = buffer.slice(0, newlineIndex).trim();
+      buffer = buffer.slice(newlineIndex + 1);
+      if (line) yield JSON.parse(line) as AudioQueueStreamEvent;
+      newlineIndex = buffer.indexOf("\n");
+    }
+  }
+
+  const remainder = buffer.trim();
+  if (remainder) yield JSON.parse(remainder) as AudioQueueStreamEvent;
 }

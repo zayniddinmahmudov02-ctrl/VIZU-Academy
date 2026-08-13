@@ -124,6 +124,13 @@ class Settings(BaseSettings):
     # at low concurrency. Raise this once billing is enabled.
     VOCAB_BULK_TTS_MAX_PER_MINUTE: int = 3
 
+    # This app's own self-imposed daily budget (VocabularyTtsUsage),
+    # checked and reserved before ever attempting a TTS call — matches
+    # Google's confirmed free-tier daily cap for gemini-2.5-flash-tts.
+    # Raise this once billing is enabled on the Google Cloud project;
+    # application code has no way to raise Google's actual limit itself.
+    VOCAB_BULK_TTS_MAX_PER_DAY: int = 10
+
     # ==================================================
     # SECURITY
     # ==================================================

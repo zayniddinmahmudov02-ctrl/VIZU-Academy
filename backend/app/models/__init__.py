@@ -14,6 +14,7 @@ from .video import Video
 from .video_progress import VideoProgress
 from .video_upload_session import VideoUploadSession
 from .vocabulary import Vocabulary
+from .vocabulary_tts_usage import VocabularyTtsUsage
 from .grammar import Grammar
 from .reading import Reading
 from .reading_question import ReadingQuestion
@@ -113,6 +114,7 @@ __all__ = [
     "VideoProgress",
     "VideoUploadSession",
     "Vocabulary",
+    "VocabularyTtsUsage",
     "Grammar",
     "Reading",
     "ReadingQuestion",

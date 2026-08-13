@@ -1,5 +1,6 @@
 import asyncio
 import re
+from datetime import UTC, datetime
 from typing import AsyncIterator
 from uuid import UUID, uuid4
 
@@ -12,11 +13,25 @@ from app.core.storage.factory import StorageFactory
 from app.models.course import Course
 from app.models.lesson import Lesson
 from app.models.module import Module
-from app.models.vocabulary import Vocabulary
+from app.models.vocabulary import (
+    AUDIO_STATUS_FAILED,
+    AUDIO_STATUS_GENERATED,
+    AUDIO_STATUS_PENDING,
+    AUDIO_STATUS_RATE_LIMITED,
+    Vocabulary,
+)
+from app.models.vocabulary_tts_usage import VocabularyTtsUsage
 from app.repositories.vocabulary import VocabularyRepository
 from app.services.vocabulary import ai_enrichment
 
 _LIST_MARKER_RE = re.compile(r"^\s*(\d+[.)]|[-*•])\s*")
+
+
+class DailyQuotaExceededError(ai_enrichment.AIServiceError):
+    """Raised by _store_audio() before a real network call is even
+    attempted, once this app's own local daily counter says
+    VOCAB_BULK_TTS_MAX_PER_DAY is already spent — distinct from
+    ai_enrichment.RateLimitError, which is Google itself saying so."""
 
 
 def normalize_word_list(raw_text: str) -> list[str]:
@@ -80,11 +95,76 @@ class VocabularyBulkService:
         return (max_order or 0) + 1
 
     # ==========================
+    # Daily TTS budget (self-imposed, mirrors Google's real quota)
+    # ==========================
+
+    def _get_or_create_today_usage(self) -> VocabularyTtsUsage:
+        today = datetime.now(UTC).date()
+        usage = (
+            self.db.query(VocabularyTtsUsage)
+            .filter(VocabularyTtsUsage.usage_date == today)
+            .first()
+        )
+        if usage is None:
+            usage = VocabularyTtsUsage(usage_date=today, request_count=0)
+            self.db.add(usage)
+            self.db.commit()
+            self.db.refresh(usage)
+        return usage
+
+    def get_quota_status(self) -> dict:
+        """Feeds the admin UI's "Audio quota heute: X / Y verwendet"
+        display — read-only, never reserves anything."""
+        usage = self._get_or_create_today_usage()
+        max_per_day = settings.VOCAB_BULK_TTS_MAX_PER_DAY
+        return {
+            "used_today": usage.request_count,
+            "max_per_day": max_per_day,
+            "max_per_minute": settings.VOCAB_BULK_TTS_MAX_PER_MINUTE,
+            "exhausted": usage.request_count >= max_per_day,
+        }
+
+    def _reserve_daily_budget(self) -> bool:
+        """Atomically checks-and-increments today's usage row before a
+        real TTS call is attempted. Returns False (without incrementing)
+        once the local daily cap is already reached."""
+        usage = self._get_or_create_today_usage()
+        if usage.request_count >= settings.VOCAB_BULK_TTS_MAX_PER_DAY:
+            return False
+        usage.request_count += 1
+        self.db.commit()
+        return True
+
+    def _mark_daily_budget_exhausted(self) -> None:
+        """Google itself just returned a real 429 with a PerDay quotaId —
+        clamp the local counter up to the configured max so it stops
+        disagreeing with reality for the rest of today, even though this
+        counter can't know exactly what earlier usage caused it."""
+        usage = self._get_or_create_today_usage()
+        if usage.request_count < settings.VOCAB_BULK_TTS_MAX_PER_DAY:
+            usage.request_count = settings.VOCAB_BULK_TTS_MAX_PER_DAY
+            self.db.commit()
+
+    # ==========================
     # Audio (public "audio" folder — same one manual uploads use)
     # ==========================
 
     async def _store_audio(self, word: str) -> tuple[str, int]:
-        audio_bytes = await ai_enrichment.synthesize_word_audio(word)
+        if not self._reserve_daily_budget():
+            raise DailyQuotaExceededError(
+                f"Tägliches Audio-Kontingent aufgebraucht "
+                f"({settings.VOCAB_BULK_TTS_MAX_PER_DAY}/{settings.VOCAB_BULK_TTS_MAX_PER_DAY} heute verwendet)."
+            )
+
+        try:
+            audio_bytes = await ai_enrichment.synthesize_word_audio(word)
+        except ai_enrichment.RateLimitError as exc:
+            if exc.is_daily:
+                # The real provider confirms what our local counter
+                # guessed at — resync it so nothing else attempts a call
+                # today, then propagate the original error unchanged.
+                self._mark_daily_budget_exhausted()
+            raise
 
         safe_stub = re.sub(r"[^a-zA-Z0-9]+", "_", word.lower()).strip("_") or "wort"
         # .wav, not .mp3 — synthesize_word_audio() returns a WAV file
@@ -113,15 +193,122 @@ class VocabularyBulkService:
         a playable audio_url."""
 
         old_url = vocabulary.audio_url
-        new_url, _ = await self._store_audio(vocabulary.german_word)
+        try:
+            new_url, _ = await self._store_audio(vocabulary.german_word)
+        except ai_enrichment.AIServiceError as exc:
+            vocabulary.audio_status = (
+                AUDIO_STATUS_RATE_LIMITED
+                if isinstance(exc, (DailyQuotaExceededError, ai_enrichment.RateLimitError))
+                else AUDIO_STATUS_FAILED
+            )
+            vocabulary.audio_error = str(exc)
+            self.db.commit()
+            raise
 
         vocabulary.audio_url = new_url
+        vocabulary.audio_status = AUDIO_STATUS_GENERATED
+        vocabulary.audio_error = None
         self.db.commit()
         self.db.refresh(vocabulary)
 
         await self._delete_audio(old_url)
 
         return new_url
+
+    def get_missing_audio(self, lesson_id: UUID) -> list[Vocabulary]:
+        """Words eligible for "Fehlende Audios generieren" — anything
+        not already GENERATED, regardless of how it got that way (never
+        attempted, a prior real failure, or a prior rate-limit)."""
+        return (
+            self.db.query(Vocabulary)
+            .filter(
+                Vocabulary.lesson_id == lesson_id,
+                Vocabulary.audio_status != AUDIO_STATUS_GENERATED,
+            )
+            .order_by(Vocabulary.order_index)
+            .all()
+        )
+
+    async def generate_missing_audio_stream(self, lesson_id: UUID) -> AsyncIterator[dict]:
+        """Backs "Fehlende Audios generieren": (re)attempts audio only
+        for rows that don't already have it, never touching a word that
+        already has audio_status == GENERATED. Processes sequentially —
+        given the daily budget is a handful of requests, concurrency
+        buys nothing here and would only complicate "stop the whole
+        queue" once the daily quota is confirmed spent. Continues past
+        an ordinary per-word failure but stops the entire remaining
+        queue the moment either the local daily budget or a real
+        Google daily-quota 429 says today's allowance is gone, rather
+        than letting every remaining word burn its own retry cycle."""
+
+        words = self.get_missing_audio(lesson_id)
+        total = len(words)
+
+        yield {"type": "queue_start", "total": total, "quota": self.get_quota_status()}
+
+        if total == 0:
+            yield {"type": "done", "generated": 0, "failed": 0, "remaining": 0, "stopped_for_quota": False, "quota": self.get_quota_status()}
+            return
+
+        generated = 0
+        failed = 0
+        stopped_for_quota = False
+
+        for index, vocab in enumerate(words, start=1):
+            size_bytes = None
+            try:
+                url, size_bytes = await self._store_audio(vocab.german_word)
+            except DailyQuotaExceededError as exc:
+                vocab.audio_status = AUDIO_STATUS_RATE_LIMITED
+                vocab.audio_error = str(exc)
+                failed += 1
+                stopped_for_quota = True
+            except ai_enrichment.RateLimitError as exc:
+                vocab.audio_status = AUDIO_STATUS_RATE_LIMITED
+                vocab.audio_error = str(exc)
+                failed += 1
+                stopped_for_quota = exc.is_daily
+            except ai_enrichment.AIServiceError as exc:
+                vocab.audio_status = AUDIO_STATUS_FAILED
+                vocab.audio_error = str(exc)
+                failed += 1
+            else:
+                vocab.audio_url = url
+                vocab.audio_status = AUDIO_STATUS_GENERATED
+                vocab.audio_error = None
+                generated += 1
+
+            self.db.commit()
+
+            ok = vocab.audio_status == AUDIO_STATUS_GENERATED
+            logger.info(
+                "Vocabulary missing-audio queue %d/%d (%s): %s",
+                index, total, vocab.german_word, "PASS" if ok else f"FAIL — {vocab.audio_error}",
+            )
+
+            yield {
+                "type": "word_result",
+                "word": vocab.german_word,
+                "ok": ok,
+                "reason": None if ok else vocab.audio_error,
+                "size_kb": max(size_bytes // 1024, 1) if ok and size_bytes else None,
+                "processed": index,
+                "total": total,
+                "generated": generated,
+                "failed": failed,
+            }
+
+            if stopped_for_quota:
+                break
+
+        yield {
+            "type": "done",
+            "generated": generated,
+            "failed": failed,
+            "remaining": total - generated - failed,
+            "stopped_for_quota": stopped_for_quota,
+            "quota": self.get_quota_status(),
+        }
 
     # ==========================
     # Analyze (streamed progress)
@@ -267,6 +454,8 @@ class VocabularyBulkService:
                 example_sentence=item.get("example_sentence") or None,
                 example_translation=item.get("example_translation") or None,
                 audio_url=item.get("audio_url") or None,
+                audio_status=AUDIO_STATUS_GENERATED if item.get("audio_url") else AUDIO_STATUS_PENDING,
+                audio_error=item.get("error") if not item.get("audio_url") else None,
                 order_index=next_order,
                 is_published=bool(item.get("is_published")),
             )

@@ -130,6 +130,8 @@ export interface VideoUpdate {
   is_published?: boolean;
 }
 
+export type VocabularyAudioStatus = "PENDING" | "GENERATED" | "FAILED" | "RATE_LIMITED";
+
 export interface Vocabulary {
   id: string;
   lesson_id: string;
@@ -143,6 +145,8 @@ export interface Vocabulary {
   image_url: string | null;
   order_index: number;
   is_published: boolean;
+  audio_status: VocabularyAudioStatus;
+  audio_error: string | null;
 }
 export interface VocabularyCreate {
   lesson_id: string;
@@ -209,6 +213,53 @@ export interface BulkVocabularySaveResult {
   saved_count: number;
   needs_review: { word: string; reason: string }[];
 }
+
+// ==========================
+// Missing-audio queue ("Fehlende Audios generieren")
+// ==========================
+
+export interface TtsQuotaStatus {
+  used_today: number;
+  max_per_day: number;
+  max_per_minute: number;
+  exhausted: boolean;
+}
+
+export interface MissingAudioWord {
+  id: string;
+  german_word: string;
+  audio_status: VocabularyAudioStatus;
+  audio_error: string | null;
+}
+
+export interface AudioQueueStatus {
+  lesson_id: string;
+  missing: MissingAudioWord[];
+  total_missing: number;
+  quota: TtsQuotaStatus;
+}
+
+export type AudioQueueStreamEvent =
+  | { type: "queue_start"; total: number; quota: TtsQuotaStatus }
+  | {
+      type: "word_result";
+      word: string;
+      ok: boolean;
+      reason: string | null;
+      size_kb: number | null;
+      processed: number;
+      total: number;
+      generated: number;
+      failed: number;
+    }
+  | {
+      type: "done";
+      generated: number;
+      failed: number;
+      remaining: number;
+      stopped_for_quota: boolean;
+      quota: TtsQuotaStatus;
+    };
 
 export interface Grammar {
   id: string;
