@@ -8,6 +8,8 @@ import { AdminButton, AdminCheckbox, AdminInput } from "@/components/admin/admin
 import ConfirmDialog from "@/components/admin/confirm-dialog";
 import FileUploadField from "@/components/admin/file-upload-field";
 import FormDialog from "@/components/admin/form-dialog";
+import UploadProgressPanel from "@/components/admin/upload-progress-panel";
+import { useUploadProgress } from "@/features/admin/hooks/use-upload-progress";
 import {
   deleteVideo,
   listVideosByLesson,
@@ -44,17 +46,21 @@ export default function VideoManager({ lessonId: fixedLessonId }: { lessonId?: s
   });
 
   const [uploadOpen, setUploadOpen] = useState(false);
-  const [uploading, setUploading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [form, setForm] = useState({ title: "", description: "", is_preview: false, is_published: false });
   const [file, setFile] = useState<File | null>(null);
   const [thumbnailUrl, setThumbnailUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const uploadProgress = useUploadProgress();
 
   const [replacing, setReplacing] = useState<Video | null>(null);
   const [replaceFile, setReplaceFile] = useState<File | null>(null);
+  const replaceProgress = useUploadProgress();
   const [deleting, setDeleting] = useState<Video | null>(null);
   const [deletePending, setDeletePending] = useState(false);
+
+  const uploading = uploadProgress.progress.state === "UPLOAD_STARTED" || uploadProgress.progress.state === "UPLOADING";
+  const replacingUpload =
+    replaceProgress.progress.state === "UPLOAD_STARTED" || replaceProgress.progress.state === "UPLOADING";
 
   function invalidate() {
     queryClient.invalidateQueries({ queryKey: ["videos-by-lesson", lessonId] });
@@ -64,47 +70,47 @@ export default function VideoManager({ lessonId: fixedLessonId }: { lessonId?: s
     setForm({ title: "", description: "", is_preview: false, is_published: false });
     setFile(null);
     setThumbnailUrl(null);
-    setError(null);
+    uploadProgress.reset();
     setUploadOpen(true);
   }
 
   async function handleUpload() {
     if (!file || !lessonId) return;
-    setError(null);
-    setUploading(true);
     try {
       const durationSeconds = await readVideoDuration(file);
-      await uploadVideo({
-        lessonId,
-        title: form.title,
-        description: form.description || undefined,
-        durationSeconds,
-        isPreview: form.is_preview,
-        isPublished: form.is_published,
-        file,
-      });
+      await uploadProgress.upload(({ onUploadProgress, signal }) =>
+        uploadVideo(
+          {
+            lessonId,
+            title: form.title,
+            description: form.description || undefined,
+            durationSeconds,
+            isPreview: form.is_preview,
+            isPublished: form.is_published,
+            file,
+          },
+          { onUploadProgress, signal },
+        ),
+      );
       invalidate();
       setUploadOpen(false);
     } catch {
-      setError("Upload fehlgeschlagen.");
-    } finally {
-      setUploading(false);
+      // Progress panel already shows ERROR/CANCELLED with a Retry action.
     }
   }
 
   async function handleReplace() {
     if (!replacing || !replaceFile) return;
-    setUploading(true);
     try {
       const durationSeconds = await readVideoDuration(replaceFile);
-      await replaceVideoFile(replacing.id, replaceFile, durationSeconds);
+      await replaceProgress.upload(({ onUploadProgress, signal }) =>
+        replaceVideoFile(replacing.id, replaceFile, durationSeconds, { onUploadProgress, signal }),
+      );
       invalidate();
       setReplacing(null);
       setReplaceFile(null);
     } catch {
-      setError("Ersetzen fehlgeschlagen.");
-    } finally {
-      setUploading(false);
+      // Progress panel already shows ERROR/CANCELLED with a Retry action.
     }
   }
 
@@ -188,7 +194,11 @@ export default function VideoManager({ lessonId: fixedLessonId }: { lessonId?: s
 
               <div className="flex items-center gap-1.5">
                 <button
-                  onClick={() => setReplacing(video)}
+                  onClick={() => {
+                    setReplaceFile(null);
+                    replaceProgress.reset();
+                    setReplacing(video);
+                  }}
                   aria-label="Video ersetzen"
                   className="flex h-8 w-8 items-center justify-center rounded-lg text-[var(--admin-text-secondary)] hover:bg-white/5 hover:text-[var(--admin-primary)]"
                 >
@@ -209,29 +219,30 @@ export default function VideoManager({ lessonId: fixedLessonId }: { lessonId?: s
 
       <FormDialog
         open={uploadOpen}
-        onOpenChange={setUploadOpen}
+        onOpenChange={(open) => !uploading && setUploadOpen(open)}
         title="Video hochladen"
         size="lg"
         footer={
-          <>
-            <AdminButton variant="ghost" onClick={() => setUploadOpen(false)}>
-              Abbrechen
-            </AdminButton>
-            <AdminButton onClick={handleUpload} disabled={uploading || !file || !form.title}>
-              {uploading ? "Wird hochgeladen..." : "Hochladen"}
-            </AdminButton>
-          </>
+          !uploading && (
+            <>
+              <AdminButton variant="ghost" onClick={() => setUploadOpen(false)}>
+                Abbrechen
+              </AdminButton>
+              <AdminButton onClick={handleUpload} disabled={!file || !form.title}>
+                Hochladen
+              </AdminButton>
+            </>
+          )
         }
       >
         <div className="space-y-4">
-          {error && <p className="text-sm text-[var(--admin-danger)]">{error}</p>}
-
           <div>
             <label className="mb-1.5 block text-sm font-medium text-[var(--admin-text-primary)]">
               Titel
             </label>
             <AdminInput
               value={form.title}
+              disabled={uploading}
               onChange={(e) => setForm({ ...form, title: e.target.value })}
             />
           </div>
@@ -242,6 +253,7 @@ export default function VideoManager({ lessonId: fixedLessonId }: { lessonId?: s
             </label>
             <AdminInput
               value={form.description}
+              disabled={uploading}
               onChange={(e) => setForm({ ...form, description: e.target.value })}
             />
           </div>
@@ -254,18 +266,30 @@ export default function VideoManager({ lessonId: fixedLessonId }: { lessonId?: s
               ref={fileInputRef}
               type="file"
               accept="video/*"
+              disabled={uploading}
               onChange={(e) => setFile(e.target.files?.[0] ?? null)}
               className="block w-full text-sm text-[var(--admin-text-secondary)] file:mr-3 file:rounded-lg file:border-0 file:bg-[var(--admin-primary)] file:px-3.5 file:py-2 file:text-sm file:font-semibold file:text-white"
             />
           </div>
 
-          <FileUploadField
-            label="Thumbnail"
-            folder="thumbnails"
-            accept="image/*"
-            value={thumbnailUrl}
-            onChange={setThumbnailUrl}
-          />
+          {uploadProgress.progress.state !== "IDLE" && (
+            <UploadProgressPanel
+              progress={uploadProgress.progress}
+              label="Video wird hochgeladen..."
+              onCancel={uploading ? uploadProgress.cancel : undefined}
+              onRetry={uploadProgress.progress.state === "ERROR" ? handleUpload : undefined}
+            />
+          )}
+
+          {!uploading && (
+            <FileUploadField
+              label="Thumbnail"
+              folder="thumbnails"
+              accept="image/*"
+              value={thumbnailUrl}
+              onChange={setThumbnailUrl}
+            />
+          )}
 
           <div className="flex items-center gap-6">
             <label className="flex cursor-pointer items-center gap-2.5">
@@ -288,26 +312,40 @@ export default function VideoManager({ lessonId: fixedLessonId }: { lessonId?: s
 
       <FormDialog
         open={!!replacing}
-        onOpenChange={(open) => !open && setReplacing(null)}
+        onOpenChange={(open) => !replacingUpload && !open && setReplacing(null)}
         title="Video ersetzen"
         description="Behält Titel, Statistiken und Fortschritt der Lernenden bei."
         footer={
-          <>
-            <AdminButton variant="ghost" onClick={() => setReplacing(null)}>
-              Abbrechen
-            </AdminButton>
-            <AdminButton onClick={handleReplace} disabled={uploading || !replaceFile}>
-              {uploading ? "Wird ersetzt..." : "Ersetzen"}
-            </AdminButton>
-          </>
+          !replacingUpload && (
+            <>
+              <AdminButton variant="ghost" onClick={() => setReplacing(null)}>
+                Abbrechen
+              </AdminButton>
+              <AdminButton onClick={handleReplace} disabled={!replaceFile}>
+                Ersetzen
+              </AdminButton>
+            </>
+          )
         }
       >
-        <input
-          type="file"
-          accept="video/*"
-          onChange={(e) => setReplaceFile(e.target.files?.[0] ?? null)}
-          className="block w-full text-sm text-[var(--admin-text-secondary)] file:mr-3 file:rounded-lg file:border-0 file:bg-[var(--admin-primary)] file:px-3.5 file:py-2 file:text-sm file:font-semibold file:text-white"
-        />
+        <div className="space-y-4">
+          <input
+            type="file"
+            accept="video/*"
+            disabled={replacingUpload}
+            onChange={(e) => setReplaceFile(e.target.files?.[0] ?? null)}
+            className="block w-full text-sm text-[var(--admin-text-secondary)] file:mr-3 file:rounded-lg file:border-0 file:bg-[var(--admin-primary)] file:px-3.5 file:py-2 file:text-sm file:font-semibold file:text-white"
+          />
+
+          {replaceProgress.progress.state !== "IDLE" && (
+            <UploadProgressPanel
+              progress={replaceProgress.progress}
+              label="Video wird hochgeladen..."
+              onCancel={replacingUpload ? replaceProgress.cancel : undefined}
+              onRetry={replaceProgress.progress.state === "ERROR" ? handleReplace : undefined}
+            />
+          )}
+        </div>
       </FormDialog>
 
       <ConfirmDialog

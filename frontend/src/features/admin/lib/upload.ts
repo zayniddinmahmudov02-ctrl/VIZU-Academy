@@ -1,11 +1,19 @@
+import type { AxiosProgressEvent } from "axios";
+
 import { api } from "@/src/services/api";
 import { ensureArray } from "@/lib/ensure-array";
 import type { MediaAsset } from "../types/content.types";
 import { ADMIN_ENDPOINTS } from "../constants/endpoints";
 
+export interface UploadRequestOptions {
+  onUploadProgress?: (event: AxiosProgressEvent) => void;
+  signal?: AbortSignal;
+}
+
 export async function uploadMediaAsset(
   file: File,
   folder: "videos" | "audio" | "images" | "documents" | "thumbnails",
+  options?: UploadRequestOptions,
 ): Promise<MediaAsset> {
   const formData = new FormData();
   formData.append("file", file);
@@ -13,7 +21,11 @@ export async function uploadMediaAsset(
   const response = await api.post<MediaAsset>(
     `${ADMIN_ENDPOINTS.mediaLibraryUpload}?folder=${folder}`,
     formData,
-    { headers: { "Content-Type": "multipart/form-data" } },
+    {
+      headers: { "Content-Type": "multipart/form-data" },
+      onUploadProgress: options?.onUploadProgress,
+      signal: options?.signal,
+    },
   );
 
   return response.data;

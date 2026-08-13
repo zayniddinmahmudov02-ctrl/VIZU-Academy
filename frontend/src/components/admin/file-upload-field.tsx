@@ -5,10 +5,12 @@ import { useQuery } from "@tanstack/react-query";
 import { FolderOpen, Loader2, Upload, X } from "lucide-react";
 
 import { listMediaAssets, uploadMediaAsset } from "@/features/admin/lib/upload";
+import { useUploadProgress } from "@/features/admin/hooks/use-upload-progress";
 import type { MediaAsset } from "@/features/admin/types/content.types";
 
 import { AdminButton } from "./admin-ui";
 import FormDialog from "./form-dialog";
+import UploadProgressPanel from "./upload-progress-panel";
 
 interface Props {
   value: string | null;
@@ -20,26 +22,33 @@ interface Props {
 
 export default function FileUploadField({ value, onChange, folder, accept, label }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [uploading, setUploading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const { progress, upload, cancel, reset } = useUploadProgress();
+  const [pendingFile, setPendingFile] = useState<File | null>(null);
   const [browseOpen, setBrowseOpen] = useState(false);
+  const uploading = progress.state === "UPLOAD_STARTED" || progress.state === "UPLOADING";
+
+  async function runUpload(file: File) {
+    setPendingFile(file);
+    try {
+      const asset = await upload(({ onUploadProgress, signal }) =>
+        uploadMediaAsset(file, folder, { onUploadProgress, signal }),
+      );
+      onChange(asset.url);
+      if (inputRef.current) inputRef.current.value = "";
+    } catch {
+      // Progress panel already reflects ERROR/CANCELLED — nothing else to do.
+    }
+  }
 
   async function handleFileSelect(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
+    reset();
+    await runUpload(file);
+  }
 
-    setError(null);
-    setUploading(true);
-
-    try {
-      const asset = await uploadMediaAsset(file, folder);
-      onChange(asset.url);
-    } catch {
-      setError("Upload fehlgeschlagen. Bitte erneut versuchen.");
-    } finally {
-      setUploading(false);
-      if (inputRef.current) inputRef.current.value = "";
-    }
+  function handleRetry() {
+    if (pendingFile) runUpload(pendingFile);
   }
 
   return (
@@ -95,7 +104,16 @@ export default function FileUploadField({ value, onChange, folder, accept, label
         </div>
       )}
 
-      {error && <p className="mt-1.5 text-xs text-[var(--admin-danger)]">{error}</p>}
+      {!value && progress.state !== "IDLE" && (
+        <div className="mt-2">
+          <UploadProgressPanel
+            progress={progress}
+            label={folder === "audio" ? "Audio wird hochgeladen..." : "Wird hochgeladen..."}
+            onCancel={uploading ? cancel : undefined}
+            onRetry={progress.state === "ERROR" ? handleRetry : undefined}
+          />
+        </div>
+      )}
 
       <MediaBrowseDialog
         open={browseOpen}

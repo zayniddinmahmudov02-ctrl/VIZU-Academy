@@ -1,6 +1,7 @@
 import { api } from "@/src/services/api";
 import { ADMIN_ENDPOINTS } from "../constants/endpoints";
 import type { Video, VideoUpdate } from "../types/content.types";
+import type { UploadRequestOptions } from "../lib/upload";
 
 export async function listVideosByLesson(lessonId: string): Promise<Video[]> {
   const response = await api.get<Video[]>(ADMIN_ENDPOINTS.videos, {
@@ -21,7 +22,7 @@ interface UploadVideoParams {
   thumbnailFile?: File | null;
 }
 
-export async function uploadVideo(params: UploadVideoParams): Promise<Video> {
+export async function uploadVideo(params: UploadVideoParams, options?: UploadRequestOptions): Promise<Video> {
   const formData = new FormData();
   formData.append("lesson_id", params.lessonId);
   formData.append("title", params.title);
@@ -35,6 +36,8 @@ export async function uploadVideo(params: UploadVideoParams): Promise<Video> {
 
   const response = await api.post<Video>(`${ADMIN_ENDPOINTS.videos}/upload`, formData, {
     headers: { "Content-Type": "multipart/form-data" },
+    onUploadProgress: options?.onUploadProgress,
+    signal: options?.signal,
   });
   return response.data;
 }
@@ -43,6 +46,7 @@ export async function replaceVideoFile(
   videoId: string,
   file: File,
   durationSeconds?: number,
+  options?: UploadRequestOptions,
 ): Promise<Video> {
   const formData = new FormData();
   formData.append("file", file);
@@ -53,7 +57,11 @@ export async function replaceVideoFile(
   const response = await api.put<Video>(
     `${ADMIN_ENDPOINTS.videos}/${videoId}/replace`,
     formData,
-    { headers: { "Content-Type": "multipart/form-data" } },
+    {
+      headers: { "Content-Type": "multipart/form-data" },
+      onUploadProgress: options?.onUploadProgress,
+      signal: options?.signal,
+    },
   );
   return response.data;
 }
