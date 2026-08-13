@@ -3,7 +3,7 @@ from uuid import UUID
 from sqlalchemy import select
 from sqlalchemy.orm import Session, selectinload
 
-from app.models.assessment import Assessment, STATUS_PUBLISHED, TYPE_COURSE
+from app.models.assessment import Assessment, STATUS_PUBLISHED, TYPE_COURSE, TYPE_MOCK_TEST
 from app.models.assessment_section import AssessmentSection
 from app.models.assessment_task import AssessmentTask
 from app.models.task_question import TaskQuestion
@@ -58,11 +58,28 @@ def get_published_assessment_for_lesson(db: Session, lesson_id: str) -> Assessme
     return db.scalars(query).first()
 
 
+def get_published_assessment_for_model_test(db: Session, model_test_id: str) -> Assessment | None:
+    """The public Vorbereitung ModelTest page's entry point — same
+    contract as get_published_assessment_for_lesson, keyed on
+    model_test_id/MOCK_TEST instead of lesson_id/COURSE. Returns None
+    (empty state) rather than 404 when nothing's been published yet."""
+    query = _with_full_load(
+        select(Assessment).where(
+            Assessment.model_test_id == UUID(model_test_id),
+            Assessment.assessment_type == TYPE_MOCK_TEST,
+            Assessment.status == STATUS_PUBLISHED,
+        )
+    )
+    return db.scalars(query).first()
+
+
 def to_public_schema(assessment: Assessment) -> PublicAssessment:
     """Strips every correct-answer field (TaskOption.is_correct/
     match_value, TaskQuestion.correct_text_answer/alternative_answers/
     case_sensitive) — the public/student-facing shape can never carry
-    them, regardless of what the admin API returns."""
+    them, regardless of what the admin API returns. Also drops any task
+    whose own status isn't PUBLISHED, even inside a PUBLISHED assessment —
+    per-task granularity on top of the assessment-level gate above."""
     return PublicAssessment(
         id=str(assessment.id),
         title=assessment.title,
@@ -124,6 +141,7 @@ def to_public_schema(assessment: Assessment) -> PublicAssessment:
                         ],
                     )
                     for task in sorted(section.tasks, key=lambda t: t.sort_order)
+                    if task.status == STATUS_PUBLISHED
                 ],
             )
             for section in sorted(assessment.sections, key=lambda s: s.sort_order)

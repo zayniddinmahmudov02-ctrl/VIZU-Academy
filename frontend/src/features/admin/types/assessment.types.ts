@@ -80,6 +80,7 @@ export interface Assessment {
   assessment_type: AssessmentType;
   status: AssessmentStatus;
   lesson_id: string | null;
+  model_test_id: string | null;
   language_id: string | null;
   level: string | null;
   attempt_limit: number | null;
@@ -97,6 +98,7 @@ export interface AssessmentCreate {
   description?: string | null;
   assessment_type: AssessmentType;
   lesson_id?: string | null;
+  model_test_id?: string | null;
   language_id?: string | null;
   level?: string | null;
   attempt_limit?: number | null;
@@ -189,6 +191,7 @@ export interface AssessmentTask extends AudioPolicy, WritingConfig, SpeakingConf
   config: string | null;
   max_points: number;
   sort_order: number;
+  status: AssessmentStatus;
   audio: TaskAudio | null;
   questions: TaskQuestion[];
   rubric_criteria: WritingRubricCriterion[];
@@ -203,6 +206,7 @@ export interface AssessmentTaskCreate extends Partial<AudioPolicy>, Partial<Writ
   config?: string | null;
   max_points?: number;
   sort_order?: number;
+  status?: AssessmentStatus;
 }
 
 export type AssessmentTaskUpdate = Partial<Omit<AssessmentTaskCreate, "section_id" | "task_type">>;

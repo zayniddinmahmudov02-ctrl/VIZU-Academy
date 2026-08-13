@@ -42,6 +42,7 @@ class AssessmentCreate(BaseSchema):
     description: str | None = None
     assessment_type: AssessmentType
     lesson_id: str | None = None
+    model_test_id: str | None = None
     language_id: str | None = None
     level: str | None = None
     attempt_limit: int | None = None
@@ -58,6 +59,7 @@ class AssessmentUpdate(BaseSchema):
     description: str | None = None
     status: AssessmentStatus | None = None
     lesson_id: str | None = None
+    model_test_id: str | None = None
     language_id: str | None = None
     level: str | None = None
     attempt_limit: int | None = None
@@ -76,6 +78,7 @@ class AssessmentResponse(BaseSchema):
     assessment_type: str
     status: str
     lesson_id: UUID | None
+    model_test_id: UUID | None
     language_id: UUID | None
     level: str | None
     attempt_limit: int | None
@@ -234,6 +237,7 @@ class AssessmentTaskCreate(BaseSchema):
     config: str | None = None
     max_points: int = 0
     sort_order: int = 1
+    status: AssessmentStatus = "DRAFT"
     # Audio play policy — only meaningful for HOEREN tasks; harmless
     # defaults for every other type, which simply never has audio attached.
     audio_play_limit: int | None = None
@@ -259,6 +263,7 @@ class AssessmentTaskUpdate(BaseSchema):
     config: str | None = None
     max_points: int | None = None
     sort_order: int | None = None
+    status: AssessmentStatus | None = None
     audio_play_limit: int | None = None
     allow_pause: bool | None = None
     allow_seek: bool | None = None
@@ -271,6 +276,12 @@ class AssessmentTaskUpdate(BaseSchema):
     evaluation_mode: EvaluationMode | None = None
     prep_seconds: int | None = None
     speak_seconds: int | None = None
+
+
+class TaskReorderRequest(BaseSchema):
+    # Full ordered list of task ids for the section — position in this
+    # list becomes the new sort_order, explicit rather than inferred.
+    task_ids: list[str]
 
 
 class TaskAudioResponse(BaseSchema):
@@ -294,6 +305,7 @@ class AssessmentTaskResponse(BaseSchema):
     config: str | None
     max_points: int
     sort_order: int
+    status: str
     audio_play_limit: int | None
     allow_pause: bool
     allow_seek: bool
