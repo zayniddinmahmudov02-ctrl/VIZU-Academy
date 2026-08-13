@@ -1,12 +1,14 @@
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, Response, status
+from fastapi import APIRouter, Depends, HTTPException, Response, status
 from sqlalchemy.orm import Session
 
-from app.api.dependencies.auth import require_admin_panel_access
+from app.api.dependencies.auth import get_current_user, require_admin_panel_access
 from app.api.dependencies.progress import require_lesson_access, require_video_completed
 from app.db.session import get_db
+from app.models.lesson import Lesson
 from app.models.user import User
+from app.services.vizu_pay.access import can_access_lesson
 
 from app.schemas.vocabulary import (
     VocabularyCreate,
@@ -29,7 +31,10 @@ router = APIRouter(
 )
 def get_vocabularies(
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
 ):
+    # Unscoped across every lesson — admin CMS content table only; students
+    # always go through GET /vocabularies/lesson/{id}.
     service = VocabularyService(db)
     return service.get_all()
 
@@ -41,9 +46,21 @@ def get_vocabularies(
 def get_vocabulary(
     vocabulary_id: UUID,
     db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
     service = VocabularyService(db)
-    return service.get(vocabulary_id)
+    vocabulary = service.get(vocabulary_id)
+
+    if not vocabulary:
+        raise HTTPException(status_code=404, detail="Vocabulary not found")
+
+    # Same gate as GET /vocabularies/lesson/{lesson_id} — direct-by-ID must
+    # not bypass the free-3-lessons/Premium rule.
+    lesson = db.get(Lesson, vocabulary.lesson_id)
+    if lesson is None or not can_access_lesson(current_user, lesson):
+        raise HTTPException(status_code=403, detail="PREMIUM_REQUIRED")
+
+    return vocabulary
 
 
 @router.get(
