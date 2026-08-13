@@ -39,6 +39,16 @@ class GrammarRepository:
             .first()
         )
 
+    def get_by_lesson(
+        self,
+        lesson_id: str,
+        published_only: bool = False,
+    ):
+        query = self.db.query(Grammar).filter(Grammar.lesson_id == lesson_id)
+        if published_only:
+            query = query.filter(Grammar.is_published.is_(True))
+        return query.order_by(Grammar.order_index).all()
+
     def create(
         self,
         data: GrammarCreate,

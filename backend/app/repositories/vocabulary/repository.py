@@ -21,13 +21,16 @@ class VocabularyRepository(BaseRepository[Vocabulary]):
     def get_by_lesson(
         self,
         lesson_id: UUID,
+        published_only: bool = False,
     ) -> list[Vocabulary]:
+
+        conditions = [Vocabulary.lesson_id == lesson_id]
+        if published_only:
+            conditions.append(Vocabulary.is_published.is_(True))
 
         result = self.db.execute(
             select(Vocabulary)
-            .where(
-                Vocabulary.lesson_id == lesson_id,
-            )
+            .where(*conditions)
             .order_by(
                 Vocabulary.order_index,
             )

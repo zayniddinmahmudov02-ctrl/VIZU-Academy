@@ -3,9 +3,15 @@ from uuid import UUID
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from app.models.assessment import Assessment
+from app.models.assessment_section import AssessmentSection
+from app.models.assessment_task import AssessmentTask
+from app.models.grammar import Grammar
 from app.models.lesson import Lesson
 from app.models.listening import Listening
 from app.models.student_progress import StudentProgress
+from app.models.video import Video
+from app.models.vocabulary import Vocabulary
 
 from app.repositories.lesson import LessonRepository
 from app.schemas.lesson import LessonCreate, LessonUpdate
@@ -53,6 +59,64 @@ class LessonService:
 
 def _progress_percent(progress: StudentProgress | None) -> int:
     return 100 if (progress is not None and progress.lesson_completed) else 0
+
+
+def get_content_status_for_module(db: Session, module_id: str) -> list[dict]:
+    """Admin-facing — real per-panel content status (Video/Grammatik/Lesen/
+    Hören/Schreiben/Sprechen/Wortschatz) for every lesson in a module, in a
+    fixed small number of batched queries rather than one round-trip per
+    lesson per panel (avoids N+1 on a level with e.g. 30 lessons). "Has
+    content" here means any row exists, draft included — this is the
+    admin's own "did I add something yet" view, not the public
+    published-only gate."""
+    lesson_ids = [
+        row[0] for row in db.execute(select(Lesson.id).where(Lesson.module_id == module_id)).all()
+    ]
+    if not lesson_ids:
+        return []
+
+    def _lesson_ids_with(model) -> set:
+        return {
+            row[0]
+            for row in db.execute(
+                select(model.lesson_id).where(model.lesson_id.in_(lesson_ids)).distinct()
+            ).all()
+        }
+
+    video_lessons = _lesson_ids_with(Video)
+    grammar_lessons = _lesson_ids_with(Grammar)
+    vocabulary_lessons = _lesson_ids_with(Vocabulary)
+
+    skill_rows = db.execute(
+        select(Assessment.lesson_id, AssessmentSection.skill)
+        .join(AssessmentSection, AssessmentSection.assessment_id == Assessment.id)
+        .join(AssessmentTask, AssessmentTask.section_id == AssessmentSection.id)
+        .where(Assessment.lesson_id.in_(lesson_ids))
+        .distinct()
+    ).all()
+    skills_by_lesson: dict = {}
+    for lesson_id, skill in skill_rows:
+        skills_by_lesson.setdefault(lesson_id, set()).add(skill)
+
+    lessons = db.scalars(
+        select(Lesson).where(Lesson.module_id == module_id).order_by(Lesson.number)
+    ).all()
+
+    return [
+        {
+            "lesson_id": str(lesson.id),
+            "number": lesson.number,
+            "title": lesson.title,
+            "has_video": lesson.id in video_lessons,
+            "has_grammar": lesson.id in grammar_lessons,
+            "has_vocabulary": lesson.id in vocabulary_lessons,
+            "has_lesen": "LESEN" in skills_by_lesson.get(lesson.id, set()),
+            "has_hoeren": "HOEREN" in skills_by_lesson.get(lesson.id, set()),
+            "has_schreiben": "SCHREIBEN" in skills_by_lesson.get(lesson.id, set()),
+            "has_sprechen": "SPRECHEN" in skills_by_lesson.get(lesson.id, set()),
+        }
+        for lesson in lessons
+    ]
 
 
 def get_lessons_for_module(db: Session, module_id: str):

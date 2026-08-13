@@ -28,8 +28,9 @@ class VocabularyService:
     def get_by_lesson(
         self,
         lesson_id: UUID,
+        published_only: bool = False,
     ) -> list[Vocabulary]:
-        return self.repository.get_by_lesson(lesson_id)
+        return self.repository.get_by_lesson(lesson_id, published_only=published_only)
 
     def create(
         self,

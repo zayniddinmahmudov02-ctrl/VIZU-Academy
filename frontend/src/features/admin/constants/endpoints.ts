@@ -10,6 +10,7 @@ export const ADMIN_ENDPOINTS = {
   modules: "/api/v1/modules",
   lessons: "/api/v1/lessons",
   lessonsByModule: (moduleId: string) => `/api/v1/lessons/module/${moduleId}`,
+  lessonsContentStatus: (moduleId: string) => `/api/v1/lessons/module/${moduleId}/content-status`,
   videos: "/api/v1/admin/videos",
   videosByLesson: (lessonId: string) => `/api/v1/admin/videos?lesson_id=${lessonId}`,
   vocabularies: "/api/v1/vocabularies/",

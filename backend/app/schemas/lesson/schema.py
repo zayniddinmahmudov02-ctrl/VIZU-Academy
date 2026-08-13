@@ -43,3 +43,16 @@ class LessonListItem(BaseModel):
 
 class LessonDetail(LessonListItem):
     audio_url: str | None
+
+
+class LessonContentStatus(BaseModel):
+    lesson_id: str
+    number: int
+    title: str
+    has_video: bool
+    has_grammar: bool
+    has_vocabulary: bool
+    has_lesen: bool
+    has_hoeren: bool
+    has_schreiben: bool
+    has_sprechen: bool

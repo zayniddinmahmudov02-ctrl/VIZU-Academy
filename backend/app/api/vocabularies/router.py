@@ -56,11 +56,14 @@ def get_lesson_vocabularies(
     _: object = Depends(require_video_completed),
 ):
     """Requires the caller to have completed this lesson's video first —
-    Vocabulary is the activity right after Video in the lesson flow."""
+    Vocabulary is the activity right after Video in the lesson flow.
+    Published-only — a DRAFT vocabulary item must never reach a student,
+    regardless of what the admin-only list/detail endpoints return."""
 
     service = VocabularyService(db)
     return service.get_by_lesson(
         lesson_id,
+        published_only=True,
     )
 
 

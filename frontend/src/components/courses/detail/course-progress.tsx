@@ -1,6 +1,8 @@
+"use client";
+
 import { CheckCircle2, Clock3, Trophy } from "lucide-react";
 
-import { COURSE_CONTENT } from "@/constants/course-content";
+import { useLevelCourse } from "@/features/courses/hooks/use-level-course";
 import type { LevelCode } from "@/constants/levels";
 
 import ProgressBar from "@/components/ui/progress-bar";
@@ -18,7 +20,7 @@ export default function CourseProgress({
   learningHours = 0,
   progress = 0,
 }: Props) {
-  const course = COURSE_CONTENT[level];
+  const { lessons } = useLevelCourse(level);
 
   return (
     <section className="grid gap-5 md:grid-cols-3">
@@ -48,7 +50,7 @@ export default function CourseProgress({
         </div>
 
         <h2 className="mt-4 text-3xl font-bold text-text-primary">
-          {completedLessons} / {course.lessons.length}
+          {completedLessons} / {lessons.length}
         </h2>
 
         <p className="mt-1.5 text-sm text-text-secondary">

@@ -2,8 +2,8 @@
 
 import { motion } from "framer-motion";
 
-import { COURSE_CONTENT } from "@/constants/course-content";
 import type { LevelCode } from "@/constants/levels";
+import { useLevelCourse } from "@/features/courses/hooks/use-level-course";
 import { cardEntrance, staggerContainer } from "@/lib/motion";
 
 import ModuleCard from "./module-card";
@@ -13,7 +13,8 @@ interface Props {
 }
 
 export default function ModuleList({ level }: Props) {
-  const lessons = COURSE_CONTENT[level].lessons;
+  const { lessons, isLoading } = useLevelCourse(level);
+  const sorted = [...lessons].sort((a, b) => a.number - b.number);
 
   return (
     <section className="space-y-5">
@@ -27,15 +28,23 @@ export default function ModuleList({ level }: Props) {
         </p>
       </div>
 
+      {isLoading && <p className="text-sm text-text-secondary">Wird geladen...</p>}
+
+      {!isLoading && sorted.length === 0 && (
+        <p className="rounded-card bg-surface-card p-6 text-center text-sm text-text-secondary shadow-[var(--shadow-sm)] ring-1 ring-surface-border">
+          Für dieses Niveau sind noch keine Lektionen verfügbar.
+        </p>
+      )}
+
       <motion.div
         variants={staggerContainer}
         initial="hidden"
         animate="show"
         className="space-y-4"
       >
-        {lessons.map((lesson, index) => (
+        {sorted.map((lesson, index) => (
           <motion.div
-            key={lesson.number}
+            key={lesson.id}
             variants={cardEntrance}
           >
             <ModuleCard
@@ -43,6 +52,7 @@ export default function ModuleList({ level }: Props) {
               title={lesson.title}
               lessons={0}
               locked={index !== 0}
+              href={`/lessons/${lesson.id}`}
             />
           </motion.div>
         ))}

@@ -1,5 +1,6 @@
 from .schema import (
     LessonBase,
+    LessonContentStatus,
     LessonCreate,
     LessonDetail,
     LessonListItem,
@@ -9,6 +10,7 @@ from .schema import (
 
 __all__ = [
     "LessonBase",
+    "LessonContentStatus",
     "LessonCreate",
     "LessonDetail",
     "LessonListItem",

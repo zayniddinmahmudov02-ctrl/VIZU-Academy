@@ -1,12 +1,27 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
 import { Languages } from "lucide-react";
 
+import { getLessonGrammars } from "@/features/lessons/services/grammar-service";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import LessonSection from "../common/lesson-section";
 
-export default function GrammarSection() {
+interface Props {
+  lessonId: string;
+}
+
+/** Real Grammatik panel — published Grammar rows for this lesson (see
+ * app/models/grammar.py, admin/components/managers/grammar-manager.tsx).
+ * No assessment engine here; Grammar is its own existing, simpler
+ * publish-gated content type, reused as-is. */
+export default function GrammarSection({ lessonId }: Props) {
   const { t } = useTranslation();
+
+  const { data: items, isLoading } = useQuery({
+    queryKey: ["lesson-grammars", lessonId],
+    queryFn: () => getLessonGrammars(lessonId),
+  });
 
   return (
     <LessonSection
@@ -14,22 +29,29 @@ export default function GrammarSection() {
       description={t("lessons.grammarDescription")}
       icon={Languages}
     >
-      <div className="space-y-5">
-        <div className="rounded-2xl bg-surface-hover p-6">
-          <h3 className="text-lg font-bold text-text-primary">{t("lessons.grammarTopicTitle")}</h3>
-          <p className="mt-2.5 text-sm text-text-secondary sm:text-base">
-            ich • du • er • sie • es • wir • ihr • Sie
-          </p>
-        </div>
+      {isLoading && <p className="text-sm text-text-secondary">{t("common.loading")}</p>}
 
-        <div className="rounded-2xl bg-surface-hover/60 p-6 ring-1 ring-surface-border">
-          <h3 className="font-bold text-text-primary">{t("lessons.grammarExampleLabel")}</h3>
-          <div className="mt-3 space-y-2 text-sm text-text-secondary sm:text-base">
-            <p>Ich bin Student.</p>
-            <p>Du bist Lehrer.</p>
-            <p>Er ist Arzt.</p>
+      {!isLoading && (items?.length ?? 0) === 0 && (
+        <p className="rounded-2xl bg-surface-hover p-6 text-center text-sm text-text-secondary">
+          Für diese Lektion sind noch keine Inhalte verfügbar.
+        </p>
+      )}
+
+      <div className="space-y-5">
+        {items?.map((item) => (
+          <div key={item.id} className="rounded-2xl bg-surface-hover p-6">
+            <h3 className="text-lg font-bold text-text-primary">{item.title}</h3>
+            <div
+              className="prose-editor mt-2.5 text-sm text-text-secondary sm:text-base"
+              dangerouslySetInnerHTML={{ __html: item.content }}
+            />
+            {item.video_url && (
+              <video controls src={item.video_url} className="mt-4 w-full rounded-xl">
+                <track kind="captions" />
+              </video>
+            )}
           </div>
-        </div>
+        ))}
       </div>
     </LessonSection>
   );

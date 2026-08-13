@@ -4,15 +4,23 @@ import { useMemo } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, BookOpen, Settings2 } from "lucide-react";
+import { ArrowLeft, Check, Minus, Settings2 } from "lucide-react";
 
 import { AdminPageHeader } from "@/components/admin/admin-ui";
 import { useCrudList } from "@/features/admin/hooks/use-crud";
-import { getLessonsByModule } from "@/features/admin/services/lessons-service";
+import { getLessonsContentStatus, type LessonContentStatus } from "@/features/admin/services/lessons-service";
 import { levelsApi } from "@/features/admin/services/levels-service";
 import { modulesApi } from "@/features/admin/services/modules-service";
 
-const CONTENT_PANELS = ["Grammatik", "Lesen", "Hören", "Schreiben", "Sprechen", "Wortschatz"];
+const PANELS: { key: keyof LessonContentStatus; label: string }[] = [
+  { key: "has_video", label: "Video" },
+  { key: "has_grammar", label: "Grammatik" },
+  { key: "has_lesen", label: "Lesen" },
+  { key: "has_hoeren", label: "Hören" },
+  { key: "has_schreiben", label: "Schreiben" },
+  { key: "has_sprechen", label: "Sprechen" },
+  { key: "has_vocabulary", label: "Wortschatz" },
+];
 
 export default function CourseLessonsPage() {
   const { courseId } = useParams<{ courseId: string }>();
@@ -24,8 +32,8 @@ export default function CourseLessonsPage() {
   const module_ = modules?.find((m) => m.course_id === courseId);
 
   const { data: lessons, isLoading } = useQuery({
-    queryKey: ["course-lessons", module_?.id],
-    queryFn: () => getLessonsByModule(module_!.id),
+    queryKey: ["course-lessons-content-status", module_?.id],
+    queryFn: () => getLessonsContentStatus(module_!.id),
     enabled: !!module_,
   });
 
@@ -46,7 +54,7 @@ export default function CourseLessonsPage() {
 
       <AdminPageHeader
         title={course ? `${course.level} — ${course.title}` : "Kurs"}
-        description={`${sortedLessons.length} Lektionen · jede mit ${CONTENT_PANELS.join(", ")}`}
+        description={`${sortedLessons.length} Lektionen`}
       />
 
       {isLoading && (
@@ -62,23 +70,34 @@ export default function CourseLessonsPage() {
       <div className="space-y-2.5">
         {sortedLessons.map((lesson) => (
           <Link
-            key={lesson.id}
-            href={`/admin/lessons/${lesson.id}`}
-            className="flex items-center justify-between gap-4 rounded-2xl bg-[var(--admin-card)] p-4 shadow-[var(--admin-shadow-card)] ring-1 ring-[var(--admin-border)] transition hover:ring-[var(--admin-primary)]/40"
+            key={lesson.lesson_id}
+            href={`/admin/lessons/${lesson.lesson_id}`}
+            className="flex flex-wrap items-center justify-between gap-4 rounded-2xl bg-[var(--admin-card)] p-4 shadow-[var(--admin-shadow-card)] ring-1 ring-[var(--admin-border)] transition hover:ring-[var(--admin-primary)]/40"
           >
             <div className="flex items-center gap-3.5">
               <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[var(--admin-primary)]/15 text-xs font-bold text-[var(--admin-primary)]">
                 {lesson.number}
               </div>
-              <div>
-                <p className="font-medium text-[var(--admin-text-primary)]">{lesson.title}</p>
-                <p className="flex items-center gap-1 text-xs text-[var(--admin-text-muted)]">
-                  <BookOpen size={11} />
-                  {CONTENT_PANELS.join(" · ")}
-                </p>
-              </div>
+              <p className="font-medium text-[var(--admin-text-primary)]">{lesson.title}</p>
             </div>
-            <Settings2 size={15} className="shrink-0 text-[var(--admin-text-muted)]" />
+
+            <div className="flex flex-wrap items-center gap-3">
+              {PANELS.map((panel) => {
+                const done = Boolean(lesson[panel.key]);
+                return (
+                  <span
+                    key={panel.key}
+                    className={`flex items-center gap-1 text-xs font-medium ${
+                      done ? "text-[var(--admin-accent)]" : "text-[var(--admin-text-muted)]"
+                    }`}
+                  >
+                    {done ? <Check size={12} /> : <Minus size={12} />}
+                    {panel.label}
+                  </span>
+                );
+              })}
+              <Settings2 size={15} className="shrink-0 text-[var(--admin-text-muted)]" />
+            </div>
           </Link>
         ))}
       </div>
