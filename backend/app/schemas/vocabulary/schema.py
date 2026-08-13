@@ -48,3 +48,50 @@ class VocabularyResponse(VocabularyBase):
     model_config = ConfigDict(
         from_attributes=True,
     )
+
+
+# ==========================
+# Bulk generator
+# ==========================
+
+
+class BulkAnalyzeRequest(BaseSchema):
+    lesson_id: UUID
+    words: list[str]
+    auto_complete: bool = True
+    generate_audio: bool = True
+
+
+class BulkSaveItem(BaseSchema):
+    german_word: str
+    article: str | None = None
+    plural: str | None = None
+    translation: str
+    example_sentence: str | None = None
+    example_translation: str | None = None
+    audio_url: str | None = None
+    is_published: bool = False
+    # Admin's explicit choice for a row flagged is_duplicate during
+    # preview — "Überspringen" (skip=True) or "Als neues Wort erstellen"
+    # (force_duplicate=True). Neither set = server re-checks and refuses.
+    skip: bool = False
+    force_duplicate: bool = False
+
+
+class BulkSaveRequest(BaseSchema):
+    lesson_id: UUID
+    items: list[BulkSaveItem]
+
+
+class BulkSaveNeedsReview(BaseSchema):
+    word: str
+    reason: str
+
+
+class BulkSaveResponse(BaseSchema):
+    saved_count: int
+    needs_review: list[BulkSaveNeedsReview]
+
+
+class RegenerateAudioResponse(BaseSchema):
+    audio_url: str

@@ -65,9 +65,15 @@ export default function VocabularySection({ lessonId }: Props) {
                     {word.article && <span className="text-text-secondary">{word.article} </span>}
                     {word.german_word}
                   </p>
+                  {word.plural && (
+                    <p className="mt-0.5 text-xs text-text-muted">Plural: {word.plural}</p>
+                  )}
                   <p className="mt-1 text-sm text-text-secondary">{word.translation}</p>
                   {word.example_sentence && (
-                    <p className="mt-2 text-sm italic text-text-muted">{word.example_sentence}</p>
+                    <p className="mt-2 text-sm italic text-text-muted">&quot;{word.example_sentence}&quot;</p>
+                  )}
+                  {word.example_translation && (
+                    <p className="mt-1 text-sm italic text-text-muted/80">&quot;{word.example_translation}&quot;</p>
                   )}
                 </div>
                 <div className="flex shrink-0 items-center gap-2">

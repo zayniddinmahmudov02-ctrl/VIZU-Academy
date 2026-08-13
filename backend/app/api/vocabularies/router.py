@@ -1,6 +1,8 @@
+import json
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Response, status
+from fastapi.responses import StreamingResponse
 from sqlalchemy.orm import Session
 
 from app.api.dependencies.auth import get_current_user, require_admin_panel_access
@@ -11,12 +13,17 @@ from app.models.user import User
 from app.services.vizu_pay.access import can_access_lesson
 
 from app.schemas.vocabulary import (
+    BulkAnalyzeRequest,
+    BulkSaveRequest,
+    BulkSaveResponse,
+    RegenerateAudioResponse,
     VocabularyCreate,
     VocabularyResponse,
     VocabularyUpdate,
 )
 
-from app.services.vocabulary import VocabularyService
+from app.services.vocabulary import VocabularyBulkService, VocabularyService, normalize_word_list
+from app.services.vocabulary.ai_enrichment import AIServiceError
 
 
 router = APIRouter(
@@ -171,3 +178,75 @@ def delete_vocabulary(
     return Response(
         status_code=status.HTTP_204_NO_CONTENT,
     )
+
+
+# ==========================
+# Bulk generator
+# ==========================
+
+
+@router.post("/bulk/analyze")
+async def bulk_analyze_vocabulary(
+    payload: BulkAnalyzeRequest,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    """Streams newline-delimited JSON — progress updates while Gemini
+    enrichment and (optionally) TTS audio generation run, then one line
+    per preview row, then a final {"type": "done"}. Nothing is written to
+    the database here; see POST /bulk/save for that. A native fetch()
+    reader on the frontend, not axios, consumes this (see
+    bulk-vocabulary-dialog.tsx) — StreamingResponse's body never
+    completes until every word has been processed."""
+
+    words = normalize_word_list("\n".join(payload.words))
+    service = VocabularyBulkService(db)
+
+    async def ndjson():
+        async for event in service.analyze_stream(
+            payload.lesson_id,
+            words,
+            payload.auto_complete,
+            payload.generate_audio,
+        ):
+            yield json.dumps(event) + "\n"
+
+    return StreamingResponse(ndjson(), media_type="application/x-ndjson")
+
+
+@router.post("/bulk/save", response_model=BulkSaveResponse)
+async def bulk_save_vocabulary(
+    payload: BulkSaveRequest,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    service = VocabularyBulkService(db)
+    result = await service.bulk_save(
+        payload.lesson_id,
+        [item.model_dump() for item in payload.items],
+    )
+    return BulkSaveResponse(**result)
+
+
+@router.post(
+    "/{vocabulary_id}/audio/regenerate",
+    response_model=RegenerateAudioResponse,
+)
+async def regenerate_vocabulary_audio(
+    vocabulary_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    vocab_service = VocabularyService(db)
+    vocabulary = vocab_service.get(vocabulary_id)
+
+    if vocabulary is None:
+        raise HTTPException(status_code=404, detail="Vocabulary not found")
+
+    bulk_service = VocabularyBulkService(db)
+    try:
+        new_url = await bulk_service.regenerate_audio(vocabulary)
+    except AIServiceError as exc:
+        raise HTTPException(status_code=502, detail=str(exc)) from exc
+
+    return RegenerateAudioResponse(audio_url=new_url)

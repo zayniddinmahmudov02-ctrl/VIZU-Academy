@@ -3,6 +3,12 @@ from .schema import (
     VocabularyCreate,
     VocabularyUpdate,
     VocabularyResponse,
+    BulkAnalyzeRequest,
+    BulkSaveItem,
+    BulkSaveRequest,
+    BulkSaveNeedsReview,
+    BulkSaveResponse,
+    RegenerateAudioResponse,
 )
 
 __all__ = [
@@ -10,4 +16,10 @@ __all__ = [
     "VocabularyCreate",
     "VocabularyUpdate",
     "VocabularyResponse",
+    "BulkAnalyzeRequest",
+    "BulkSaveItem",
+    "BulkSaveRequest",
+    "BulkSaveNeedsReview",
+    "BulkSaveResponse",
+    "RegenerateAudioResponse",
 ]

@@ -1,7 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Plus } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
+import { Plus, Sparkles } from "lucide-react";
 
 import {
   AdminButton,
@@ -14,9 +15,10 @@ import DataTable, { DataTableColumn } from "@/components/admin/data-table";
 import FileUploadField from "@/components/admin/file-upload-field";
 import FormDialog from "@/components/admin/form-dialog";
 import { useCrudList, useCrudMutations } from "@/features/admin/hooks/use-crud";
-import { vocabularyApi } from "@/features/admin/services/vocabulary-service";
+import { regenerateVocabularyAudio, vocabularyApi } from "@/features/admin/services/vocabulary-service";
 import type { Vocabulary } from "@/features/admin/types/content.types";
 
+import BulkVocabularyDialog from "../vocabulary/bulk-vocabulary-dialog";
 import LessonPicker from "./lesson-picker";
 
 const EMPTY_FORM = {
@@ -33,6 +35,7 @@ const EMPTY_FORM = {
 };
 
 export default function VocabularyManager({ lessonId }: { lessonId?: string }) {
+  const queryClient = useQueryClient();
   const { data: all, isLoading } = useCrudList("vocabularies", vocabularyApi);
   const { create, update, remove } = useCrudMutations("vocabularies", vocabularyApi);
 
@@ -42,10 +45,12 @@ export default function VocabularyManager({ lessonId }: { lessonId?: string }) {
   );
 
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [bulkOpen, setBulkOpen] = useState(false);
   const [editing, setEditing] = useState<Vocabulary | null>(null);
   const [deleting, setDeleting] = useState<Vocabulary | null>(null);
   const [form, setForm] = useState(EMPTY_FORM);
   const [error, setError] = useState<string | null>(null);
+  const [regenerating, setRegenerating] = useState(false);
 
   function openCreate() {
     setEditing(null);
@@ -88,6 +93,20 @@ export default function VocabularyManager({ lessonId }: { lessonId?: string }) {
     }
   }
 
+  async function handleRegenerateAudio() {
+    if (!editing) return;
+    setRegenerating(true);
+    setError(null);
+    try {
+      const { audio_url } = await regenerateVocabularyAudio(editing.id);
+      setForm((prev) => ({ ...prev, audio_url }));
+    } catch {
+      setError("Audio konnte nicht erstellt werden.");
+    } finally {
+      setRegenerating(false);
+    }
+  }
+
   const columns: DataTableColumn<Vocabulary>[] = [
     {
       key: "word",
@@ -120,11 +139,17 @@ export default function VocabularyManager({ lessonId }: { lessonId?: string }) {
 
   return (
     <div>
-      <div className="mb-4 flex justify-end">
+      <div className="mb-4 flex justify-end gap-2.5">
         <AdminButton onClick={openCreate}>
           <Plus size={16} />
           Neues Wort
         </AdminButton>
+        {lessonId && (
+          <AdminButton variant="secondary" onClick={() => setBulkOpen(true)}>
+            <Sparkles size={16} />
+            Wörter importieren
+          </AdminButton>
+        )}
       </div>
 
       <DataTable
@@ -226,13 +251,27 @@ export default function VocabularyManager({ lessonId }: { lessonId?: string }) {
             />
           </div>
 
-          <FileUploadField
-            label="Audio"
-            folder="audio"
-            accept="audio/*"
-            value={form.audio_url || null}
-            onChange={(url) => setForm({ ...form, audio_url: url })}
-          />
+          <div>
+            <FileUploadField
+              label="Audio"
+              folder="audio"
+              accept="audio/*"
+              value={form.audio_url || null}
+              onChange={(url) => setForm({ ...form, audio_url: url })}
+            />
+            {editing && (
+              <AdminButton
+                type="button"
+                variant="ghost"
+                size="sm"
+                className="mt-2"
+                onClick={handleRegenerateAudio}
+                disabled={regenerating || !form.german_word}
+              >
+                🔊 {regenerating ? "Wird erstellt..." : "Audio neu generieren"}
+              </AdminButton>
+            )}
+          </div>
 
           <label className="flex cursor-pointer items-center gap-2.5">
             <AdminCheckbox
@@ -256,6 +295,15 @@ export default function VocabularyManager({ lessonId }: { lessonId?: string }) {
           setDeleting(null);
         }}
       />
+
+      {lessonId && (
+        <BulkVocabularyDialog
+          lessonId={lessonId}
+          open={bulkOpen}
+          onOpenChange={setBulkOpen}
+          onSaved={() => queryClient.invalidateQueries({ queryKey: ["vocabularies"] })}
+        />
+      )}
     </div>
   );
 }

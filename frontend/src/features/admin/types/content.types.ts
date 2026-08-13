@@ -159,6 +159,55 @@ export interface VocabularyCreate {
 }
 export type VocabularyUpdate = Partial<Omit<VocabularyCreate, "lesson_id">>;
 
+export type VocabularyWordType =
+  | "NOMEN"
+  | "VERB"
+  | "ADJEKTIV"
+  | "ADVERB"
+  | "PRONOMEN"
+  | "PRAEPOSITION"
+  | "KONJUNKTION"
+  | "REDEWENDUNG"
+  | "OTHER";
+
+export interface BulkVocabularyPreviewItem {
+  input_word: string;
+  word_type: VocabularyWordType;
+  article: string | null;
+  german_word: string;
+  plural: string | null;
+  translation: string;
+  example_sentence: string;
+  example_translation: string;
+  audio_url: string | null;
+  is_duplicate: boolean;
+  error: string | null;
+}
+
+export type BulkVocabularyStreamEvent =
+  | { type: "progress"; phase: "text" | "audio"; processed: number; total: number; generated?: number; failed?: number }
+  | ({ type: "item" } & BulkVocabularyPreviewItem)
+  | { type: "error"; message: string }
+  | { type: "done" };
+
+export interface BulkVocabularySaveItem {
+  german_word: string;
+  article?: string | null;
+  plural?: string | null;
+  translation: string;
+  example_sentence?: string | null;
+  example_translation?: string | null;
+  audio_url?: string | null;
+  is_published?: boolean;
+  skip?: boolean;
+  force_duplicate?: boolean;
+}
+
+export interface BulkVocabularySaveResult {
+  saved_count: number;
+  needs_review: { word: string; reason: string }[];
+}
+
 export interface Grammar {
   id: string;
   lesson_id: string;

@@ -90,6 +90,14 @@ class Settings(BaseSettings):
     GEMINI_API_KEY: str = ""
     GEMINI_MODEL: str = "gemini-2.0-flash"
 
+    # Bulk vocabulary generator (see app/services/vocabulary/ai_enrichment.py
+    # and bulk_service.py) — reuses GEMINI_API_KEY for both text enrichment
+    # and TTS audio (the latter also requires the Cloud Text-to-Speech API
+    # enabled on that key's Google Cloud project). This caps how many TTS
+    # requests run at once so a 100-word import doesn't fire 100 concurrent
+    # calls; 5-10 concurrent per the feature spec.
+    VOCAB_BULK_TTS_CONCURRENCY: int = 6
+
     # ==================================================
     # SECURITY
     # ==================================================
