@@ -7,6 +7,8 @@ class LocalStorage(BaseStorage):
 
     ROOT = Path("uploads")
 
+    CHUNK_SIZE = 1024 * 1024  # 1 MB - bounds peak RAM regardless of file size
+
     async def upload(
         self,
         file,
@@ -25,9 +27,8 @@ class LocalStorage(BaseStorage):
             "wb",
         ) as buffer:
 
-            buffer.write(
-                await file.read()
-            )
+            while chunk := await file.read(self.CHUNK_SIZE):
+                buffer.write(chunk)
 
         return str(destination)
 
