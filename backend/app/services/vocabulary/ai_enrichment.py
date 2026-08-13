@@ -29,10 +29,13 @@ import base64
 import json
 import re
 import struct
+import time
 import urllib.error
 import urllib.request
+from collections import deque
 
 from app.core.config import settings
+from app.core.logging.logger import logger
 
 GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
 
@@ -187,6 +190,27 @@ def _pcm_to_wav(pcm_data: bytes, sample_rate: int, channels: int = 1, bits_per_s
 
 
 _TTS_MAX_ATTEMPTS = 3
+_TTS_BACKOFF_SECONDS = [1, 2, 4]
+_TTS_MAX_RETRY_WAIT_SECONDS = 45  # cap so one rate-limited word can't stall a whole batch too long
+
+_RETRY_DELAY_RE = re.compile(r'"retryDelay"\s*:\s*"(\d+(?:\.\d+)?)s"')
+
+
+class RateLimitError(AIServiceError):
+    """HTTP 429 specifically — Google's free tier for the TTS model is
+    genuinely this tight (confirmed live: 3 requests/minute AND 10
+    requests/day, RESOURCE_EXHAUSTED). retry_delay, when Google supplies
+    one, is what it explicitly asked callers to wait — ignoring it and
+    retrying immediately just gets rejected again."""
+
+    def __init__(self, message: str, retry_delay: float | None):
+        super().__init__(message)
+        self.retry_delay = retry_delay
+
+
+def _parse_retry_delay(detail: str) -> float | None:
+    match = _RETRY_DELAY_RE.search(detail)
+    return float(match.group(1)) if match else None
 
 
 def _call_tts_once(text: str) -> bytes:
@@ -218,6 +242,8 @@ def _call_tts_once(text: str) -> bytes:
             body = json.loads(response.read().decode("utf-8"))
     except urllib.error.HTTPError as exc:
         detail = exc.read().decode("utf-8", errors="ignore")
+        if exc.code == 429:
+            raise RateLimitError(f"Gemini TTS error (429): {detail}", _parse_retry_delay(detail)) from exc
         raise AIServiceError(f"Gemini TTS error ({exc.code}): {detail}") from exc
     except urllib.error.URLError as exc:
         raise AIServiceError(f"Could not reach Gemini API: {exc.reason}") from exc
@@ -236,34 +262,74 @@ def _call_tts_once(text: str) -> bytes:
     return _pcm_to_wav(pcm_data, sample_rate=int(rate_match.group(1)))
 
 
-def _call_tts(text: str) -> bytes:
-    """Synchronous — always call via asyncio.to_thread. Returns a
-    complete, playable .wav file's bytes.
+# Process-wide sliding-window limiter for TTS call *starts* — a
+# concurrency semaphore alone doesn't stop this, since fast calls can
+# still start more than the quota allows within one 60s window even at
+# concurrency 1-2. Confirmed live: gemini-2.5-flash-tts free tier allows
+# only 3 requests/minute; VOCAB_BULK_TTS_MAX_PER_MINUTE defaults to that
+# exact number and should be raised once the project is on a paid plan.
+_tts_call_times: deque[float] = deque()
+_tts_rate_lock = asyncio.Lock()
 
-    gemini-2.5-flash-preview-tts (a preview model) occasionally returns
-    finishReason="OTHER" with no audio content for no identifiable
-    reason — confirmed live: the exact same word failed once, then
-    succeeded 3/3 times immediately after with an identical request.
-    Retried here rather than surfaced as a failure on the first blip,
-    since it isn't actually a bad request or a missing/invalid key
-    (those fail identically every time and retrying won't help — this
-    only re-attempts the "came back with no content" case)."""
 
-    last_error: AIServiceError | None = None
-
-    for attempt in range(1, _TTS_MAX_ATTEMPTS + 1):
-        try:
-            return _call_tts_once(text)
-        except AIServiceError as exc:
-            last_error = exc
-            if "Unexpected Gemini TTS response shape" not in str(exc) or attempt == _TTS_MAX_ATTEMPTS:
-                raise
-
-    raise last_error  # unreachable, keeps type-checkers happy
+async def _wait_for_tts_rate_slot() -> None:
+    limit = settings.VOCAB_BULK_TTS_MAX_PER_MINUTE
+    async with _tts_rate_lock:
+        while True:
+            now = time.monotonic()
+            while _tts_call_times and now - _tts_call_times[0] >= 60:
+                _tts_call_times.popleft()
+            if len(_tts_call_times) < limit:
+                _tts_call_times.append(now)
+                return
+            await asyncio.sleep(60 - (now - _tts_call_times[0]) + 0.25)
 
 
 async def synthesize_word_audio(word: str) -> bytes:
     """de-DE pronunciation of exactly `word` (the bare Wort, no article —
     see the bulk-import spec's "Audio target: Wort"). Returns a complete
-    .wav file's bytes."""
-    return await asyncio.to_thread(_call_tts, word)
+    .wav file's bytes.
+
+    Retries up to _TTS_MAX_ATTEMPTS times for transient failures only:
+    - HTTP 429 (rate limit) — waits Google's own stated retryDelay when
+      given, since retrying sooner is guaranteed to fail again.
+    - An empty-content response with no error (finishReason="OTHER",
+      confirmed live as a genuine intermittent quirk of this preview
+      model, not tied to rate limiting) — fixed exponential backoff.
+    Every other AIServiceError (bad/missing key, malformed request,
+    non-429 4xx) fails immediately; retrying those cannot succeed."""
+
+    last_error: AIServiceError | None = None
+
+    for attempt in range(1, _TTS_MAX_ATTEMPTS + 1):
+        await _wait_for_tts_rate_slot()
+
+        try:
+            audio = await asyncio.to_thread(_call_tts_once, word)
+        except RateLimitError as exc:
+            last_error = exc
+            if attempt == _TTS_MAX_ATTEMPTS:
+                logger.warning("Vocabulary TTS: '%s' rate-limited, out of retries", word)
+                raise
+            delay = min(exc.retry_delay or _TTS_BACKOFF_SECONDS[attempt - 1], _TTS_MAX_RETRY_WAIT_SECONDS)
+            logger.warning(
+                "Vocabulary TTS: '%s' rate-limited (attempt %d/%d), retrying in %.1fs",
+                word, attempt, _TTS_MAX_ATTEMPTS, delay,
+            )
+            await asyncio.sleep(delay)
+        except AIServiceError as exc:
+            last_error = exc
+            transient = "Unexpected Gemini TTS response shape" in str(exc)
+            if not transient or attempt == _TTS_MAX_ATTEMPTS:
+                logger.warning("Vocabulary TTS: '%s' failed permanently: %s", word, exc)
+                raise
+            logger.warning(
+                "Vocabulary TTS: '%s' empty response (attempt %d/%d), retrying in %ds",
+                word, attempt, _TTS_MAX_ATTEMPTS, _TTS_BACKOFF_SECONDS[attempt - 1],
+            )
+            await asyncio.sleep(_TTS_BACKOFF_SECONDS[attempt - 1])
+        else:
+            logger.info("Vocabulary TTS: '%s' PASS (%d bytes, attempt %d)", word, len(audio), attempt)
+            return audio
+
+    raise last_error  # unreachable, keeps type-checkers happy

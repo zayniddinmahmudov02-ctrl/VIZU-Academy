@@ -26,6 +26,12 @@ interface Progress {
   failed: number;
 }
 
+interface AudioResult {
+  word: string;
+  ok: boolean;
+  reason?: string;
+}
+
 interface Props {
   lessonId: string;
   open: boolean;
@@ -47,6 +53,7 @@ export default function BulkVocabularyDialog({ lessonId, open, onOpenChange, onS
 
   const [phase, setPhase] = useState<Phase>("input");
   const [progress, setProgress] = useState<Progress | null>(null);
+  const [audioResults, setAudioResults] = useState<AudioResult[]>([]);
   const [rows, setRows] = useState<EditableRow[]>([]);
   const [analyzeError, setAnalyzeError] = useState<string | null>(null);
   const [saveResult, setSaveResult] = useState<BulkVocabularySaveResult | null>(null);
@@ -59,6 +66,7 @@ export default function BulkVocabularyDialog({ lessonId, open, onOpenChange, onS
     setPublishImmediately(false);
     setPhase("input");
     setProgress(null);
+    setAudioResults([]);
     setRows([]);
     setAnalyzeError(null);
     setSaveResult(null);
@@ -77,6 +85,7 @@ export default function BulkVocabularyDialog({ lessonId, open, onOpenChange, onS
     setAnalyzeError(null);
     setRows([]);
     setProgress(null);
+    setAudioResults([]);
     setPhase("analyzing");
 
     const abort = new AbortController();
@@ -95,6 +104,11 @@ export default function BulkVocabularyDialog({ lessonId, open, onOpenChange, onS
             generated: event.generated ?? 0,
             failed: event.failed ?? 0,
           });
+        } else if (event.type === "audio_result") {
+          setAudioResults((prev) => [
+            ...prev,
+            event.ok ? { word: event.word, ok: true } : { word: event.word, ok: false, reason: event.reason },
+          ]);
         } else if (event.type === "item") {
           setRows((prev) => [
             ...prev,
@@ -136,6 +150,32 @@ export default function BulkVocabularyDialog({ lessonId, open, onOpenChange, onS
 
   function updateRow(rowId: string, patch: Partial<EditableRow>) {
     setRows((prev) => prev.map((r) => (r.rowId === rowId ? { ...r, ...patch } : r)));
+  }
+
+  async function handleRetryAudio(rowId: string) {
+    const row = rows.find((r) => r.rowId === rowId);
+    if (!row) return;
+
+    updateRow(rowId, { error: null });
+
+    try {
+      // auto_complete=false — the word/article/plural/translation are
+      // already good from the first pass; only a fresh audio attempt is
+      // wanted, so text re-generation (and its own Gemini call) is
+      // skipped entirely.
+      for await (const event of analyzeVocabularyBulk({
+        lesson_id: lessonId,
+        words: [row.german_word],
+        auto_complete: false,
+        generate_audio: true,
+      })) {
+        if (event.type === "item") {
+          updateRow(rowId, { audio_url: event.audio_url, error: event.error });
+        }
+      }
+    } catch (err) {
+      updateRow(rowId, { error: err instanceof Error ? err.message : "Audio konnte nicht erstellt werden." });
+    }
   }
 
   function removeRow(rowId: string) {
@@ -266,6 +306,23 @@ export default function BulkVocabularyDialog({ lessonId, open, onOpenChange, onS
                 </p>
               )}
             </div>
+
+            {audioResults.length > 0 && (
+              <div className="max-h-56 space-y-1 overflow-y-auto rounded-xl bg-white/[0.02] p-3 ring-1 ring-[var(--admin-border)]">
+                {audioResults.map((r, i) => (
+                  <p key={i} className="text-xs">
+                    {r.ok ? (
+                      <span className="text-[var(--admin-accent)]">✓ {r.word}</span>
+                    ) : (
+                      <span className="text-[var(--admin-danger)]">
+                        ❌ {r.word}
+                        <span className="ml-1.5 text-[var(--admin-text-muted)]">— {r.reason}</span>
+                      </span>
+                    )}
+                  </p>
+                ))}
+              </div>
+            )}
           </div>
         )}
 
@@ -276,7 +333,12 @@ export default function BulkVocabularyDialog({ lessonId, open, onOpenChange, onS
               <AdminCheckbox checked={publishImmediately} onCheckedChange={setPublishImmediately} />
               <span className="text-sm text-[var(--admin-text-secondary)]">Sofort veröffentlichen</span>
             </label>
-            <BulkVocabularyPreviewTable rows={rows} onChange={updateRow} onRemove={removeRow} />
+            <BulkVocabularyPreviewTable
+              rows={rows}
+              onChange={updateRow}
+              onRemove={removeRow}
+              onRetryAudio={handleRetryAudio}
+            />
             {phase === "saving" && (
               <p className="text-sm text-[var(--admin-text-secondary)]">Wird gespeichert...</p>
             )}

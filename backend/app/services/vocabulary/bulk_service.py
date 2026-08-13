@@ -7,6 +7,7 @@ from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 from app.core.config import settings
+from app.core.logging.logger import logger
 from app.core.storage.factory import StorageFactory
 from app.models.course import Course
 from app.models.lesson import Lesson
@@ -82,7 +83,7 @@ class VocabularyBulkService:
     # Audio (public "audio" folder — same one manual uploads use)
     # ==========================
 
-    async def _store_audio(self, word: str) -> str:
+    async def _store_audio(self, word: str) -> tuple[str, int]:
         audio_bytes = await ai_enrichment.synthesize_word_audio(word)
 
         safe_stub = re.sub(r"[^a-zA-Z0-9]+", "_", word.lower()).strip("_") or "wort"
@@ -96,7 +97,7 @@ class VocabularyBulkService:
         destination.parent.mkdir(parents=True, exist_ok=True)
         await asyncio.to_thread(destination.write_bytes, audio_bytes)
 
-        return self.storage.url(path)
+        return self.storage.url(path), len(audio_bytes)
 
     async def _delete_audio(self, audio_url: str | None) -> None:
         if not audio_url:
@@ -112,7 +113,7 @@ class VocabularyBulkService:
         a playable audio_url."""
 
         old_url = vocabulary.audio_url
-        new_url = await self._store_audio(vocabulary.german_word)
+        new_url, _ = await self._store_audio(vocabulary.german_word)
 
         vocabulary.audio_url = new_url
         self.db.commit()
@@ -188,26 +189,36 @@ class VocabularyBulkService:
             generated = 0
             failed = 0
 
-            async def gen_one(item: dict) -> bool:
+            async def gen_one(item: dict):
+                word = item["german_word"]
                 async with semaphore:
                     try:
-                        item["audio_url"] = await self._store_audio(item["german_word"])
-                        return True
+                        item["audio_url"], size_bytes = await self._store_audio(word)
+                        return word, True, size_bytes
                     except ai_enrichment.AIServiceError as exc:
                         item["error"] = str(exc)
-                        return False
+                        return word, False, str(exc)
 
             tasks = [asyncio.ensure_future(gen_one(item)) for item in items]
 
             yield {"type": "progress", "phase": "audio", "processed": 0, "total": total, "generated": 0, "failed": 0}
             for finished in asyncio.as_completed(tasks):
-                ok = await finished
+                word, ok, detail = await finished
                 generated += 1 if ok else 0
                 failed += 0 if ok else 1
+                position = generated + failed
+
+                if ok:
+                    logger.info("Vocabulary bulk audio %d/%d: PASS (%dKB)", position, total, max(detail // 1024, 1))
+                    yield {"type": "audio_result", "word": word, "ok": True, "size_kb": max(detail // 1024, 1)}
+                else:
+                    logger.warning("Vocabulary bulk audio %d/%d: FAIL — %s", position, total, detail)
+                    yield {"type": "audio_result", "word": word, "ok": False, "reason": detail}
+
                 yield {
                     "type": "progress",
                     "phase": "audio",
-                    "processed": generated + failed,
+                    "processed": position,
                     "total": total,
                     "generated": generated,
                     "failed": failed,

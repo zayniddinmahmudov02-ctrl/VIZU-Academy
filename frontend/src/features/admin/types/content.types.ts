@@ -186,6 +186,8 @@ export interface BulkVocabularyPreviewItem {
 
 export type BulkVocabularyStreamEvent =
   | { type: "progress"; phase: "text" | "audio"; processed: number; total: number; generated?: number; failed?: number }
+  | { type: "audio_result"; word: string; ok: true; size_kb: number }
+  | { type: "audio_result"; word: string; ok: false; reason: string }
   | ({ type: "item" } & BulkVocabularyPreviewItem)
   | { type: "error"; message: string }
   | { type: "done" };

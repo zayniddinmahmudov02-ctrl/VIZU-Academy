@@ -107,9 +107,22 @@ class Settings(BaseSettings):
     GEMINI_TTS_VOICE: str = "Kore"
 
     # This caps how many TTS requests run at once so a 100-word import
-    # doesn't fire 100 concurrent calls; 5-10 concurrent per the feature
-    # spec.
-    VOCAB_BULK_TTS_CONCURRENCY: int = 6
+    # doesn't fire 100 concurrent calls. Live-tested with 6 (the feature
+    # spec's "5-10 concurrent") against the real account: every request
+    # past the 1st failed with 429 RESOURCE_EXHAUSTED. Lowered to 2 —
+    # concurrency beyond what VOCAB_BULK_TTS_MAX_PER_MINUTE allows through
+    # anyway only adds coroutines waiting on the rate limiter below, not
+    # real throughput.
+    VOCAB_BULK_TTS_CONCURRENCY: int = 2
+
+    # Confirmed live via Google's own 429 response: gemini-2.5-flash-tts's
+    # free tier allows exactly 3 requests/minute (and separately, only 10
+    # /day — a hard ceiling no amount of pacing can raise; that needs a
+    # paid plan on this Google Cloud project). synthesize_word_audio()
+    # enforces this as a real sliding-window rate limiter, not just a
+    # concurrency cap, since fast calls can exceed a per-minute quota even
+    # at low concurrency. Raise this once billing is enabled.
+    VOCAB_BULK_TTS_MAX_PER_MINUTE: int = 3
 
     # ==================================================
     # SECURITY
