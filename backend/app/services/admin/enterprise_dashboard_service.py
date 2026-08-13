@@ -65,6 +65,22 @@ RANGE_DAYS = {"7d": 7, "30d": 30, "90d": 90, "1y": 365}
 _PROCESS_START = time.time()
 
 
+def _aware_utc(dt: datetime) -> datetime:
+    """_recent_activity() sorts timestamps from six different columns.
+    Most (User/StudentProgress/ModelTest/AuditLog — everything inherited
+    from BaseModel) are `DateTime(timezone=True)` and come back aware.
+    Two aren't: Certificate.issued_at (`default=datetime.utcnow`) and
+    SubscriptionOrder.reviewed_at (set via vizu_pay's `_now()`, which is
+    `datetime.now(timezone.utc).replace(tzinfo=None)` — deliberately
+    naive-but-UTC to match its plain `DateTime` column). Both naive
+    sources are UTC by construction, so tagging them UTC here isn't a
+    guess — it's restoring the tzinfo their own default already implied
+    before the DB round-trip dropped it. `sort()` can't compare aware and
+    naive datetimes at all, hence the crash this fixes."""
+
+    return dt if dt.tzinfo is not None else dt.replace(tzinfo=timezone.utc)
+
+
 def _pct(numerator: float, denominator: float) -> float:
     if not denominator:
         return 0.0
@@ -527,7 +543,7 @@ class EnterpriseDashboardService:
                 {
                     "type": "premium_purchase",
                     "title": f"{email} purchased {plan_config.plan_label(order.plan)}",
-                    "timestamp": order.reviewed_at,
+                    "timestamp": _aware_utc(order.reviewed_at),
                 }
             )
 
@@ -574,7 +590,7 @@ class EnterpriseDashboardService:
                 {
                     "type": "certificate_issued",
                     "title": f"{email} earned a {certificate.level} certificate",
-                    "timestamp": certificate.issued_at,
+                    "timestamp": _aware_utc(certificate.issued_at),
                 }
             )
 
