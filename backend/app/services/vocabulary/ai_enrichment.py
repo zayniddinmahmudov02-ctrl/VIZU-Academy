@@ -186,9 +186,10 @@ def _pcm_to_wav(pcm_data: bytes, sample_rate: int, channels: int = 1, bits_per_s
     return header + pcm_data
 
 
-def _call_tts(text: str) -> bytes:
-    """Synchronous — always call via asyncio.to_thread. Returns a
-    complete, playable .wav file's bytes."""
+_TTS_MAX_ATTEMPTS = 3
+
+
+def _call_tts_once(text: str) -> bytes:
     api_key = _require_api_key()
 
     url = GEMINI_ENDPOINT.format(model=settings.GEMINI_TTS_MODEL) + f"?key={api_key}"
@@ -233,6 +234,32 @@ def _call_tts(text: str) -> bytes:
         raise AIServiceError(f"Unrecognized TTS audio format: {mime_type}")
 
     return _pcm_to_wav(pcm_data, sample_rate=int(rate_match.group(1)))
+
+
+def _call_tts(text: str) -> bytes:
+    """Synchronous — always call via asyncio.to_thread. Returns a
+    complete, playable .wav file's bytes.
+
+    gemini-2.5-flash-preview-tts (a preview model) occasionally returns
+    finishReason="OTHER" with no audio content for no identifiable
+    reason — confirmed live: the exact same word failed once, then
+    succeeded 3/3 times immediately after with an identical request.
+    Retried here rather than surfaced as a failure on the first blip,
+    since it isn't actually a bad request or a missing/invalid key
+    (those fail identically every time and retrying won't help — this
+    only re-attempts the "came back with no content" case)."""
+
+    last_error: AIServiceError | None = None
+
+    for attempt in range(1, _TTS_MAX_ATTEMPTS + 1):
+        try:
+            return _call_tts_once(text)
+        except AIServiceError as exc:
+            last_error = exc
+            if "Unexpected Gemini TTS response shape" not in str(exc) or attempt == _TTS_MAX_ATTEMPTS:
+                raise
+
+    raise last_error  # unreachable, keeps type-checkers happy
 
 
 async def synthesize_word_audio(word: str) -> bytes:
