@@ -78,8 +78,11 @@ def _probe_duration_seconds(path: Path) -> float:
         )
     try:
         return float(json.loads(result.stdout)["format"]["duration"])
-    except (KeyError, ValueError, json.JSONDecodeError) as exc:
-        raise AudioProcessingError(f"Could not read audio duration: {exc}") from exc
+    except (KeyError, ValueError, json.JSONDecodeError):
+        # silenceremove trimmed the recording down to (near) nothing —
+        # ffprobe reports no usable duration for what's essentially an
+        # empty stream. Same root cause as "too short", same message.
+        return 0.0
 
 
 # Below this, the cleaned recording is almost certainly silence/noise
