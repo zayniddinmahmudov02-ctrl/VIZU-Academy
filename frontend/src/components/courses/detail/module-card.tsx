@@ -9,12 +9,14 @@ interface Props {
   title: string;
   lessons: number;
   locked: boolean;
+  href: string;
 }
 
 export default function ModuleCard({
   number,
   title,
   locked,
+  href,
 }: Props) {
   return (
     <motion.div
@@ -22,7 +24,7 @@ export default function ModuleCard({
       transition={{ duration: 0.2 }}
     >
       <Link
-        href={locked ? "#" : `/lessons/module-${number}`}
+        href={locked ? "#" : href}
         aria-disabled={locked}
         className={`group flex items-center justify-between rounded-2xl border p-5 transition-all duration-300 ${
           locked

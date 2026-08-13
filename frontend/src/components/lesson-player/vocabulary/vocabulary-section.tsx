@@ -1,97 +1,96 @@
 "use client";
 
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Check, Library, Volume2 } from "lucide-react";
 import { motion } from "framer-motion";
 
+import { getLessonVocabularies } from "@/features/lessons/services/vocabulary-service";
 import { cardEntrance, staggerContainer } from "@/lib/motion";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import LessonSection from "../common/lesson-section";
 
-const WORDS = [
-  { article: "der", word: "Student", translation: "Talaba", example: "Der Student lernt Deutsch." },
-  { article: "die", word: "Schule", translation: "Maktab", example: "Die Schule ist groß." },
-  { article: "das", word: "Buch", translation: "Kitob", example: "Das Buch ist interessant." },
-];
+interface Props {
+  lessonId: string;
+}
 
-export default function VocabularySection() {
+/** Real Wortschatz panel — published Vocabulary rows for this lesson (see
+ * app/models/vocabulary.py). Requires the lesson's video to be completed
+ * first, enforced server-side (GET /vocabularies/lesson/{id}). */
+export default function VocabularySection({ lessonId }: Props) {
   const { t } = useTranslation();
   const [learned, setLearned] = useState<Set<string>>(new Set());
 
-  function toggleLearned(word: string) {
+  const { data: words, isLoading } = useQuery({
+    queryKey: ["lesson-vocabularies", lessonId],
+    queryFn: () => getLessonVocabularies(lessonId),
+  });
+
+  function toggleLearned(id: string) {
     setLearned((prev) => {
       const next = new Set(prev);
-      if (next.has(word)) {
-        next.delete(word);
-      } else {
-        next.add(word);
-      }
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
       return next;
     });
   }
 
-  function playPronunciation(article: string, word: string) {
-    if (typeof window === "undefined" || !window.speechSynthesis) return;
-    const utterance = new SpeechSynthesisUtterance(`${article} ${word}`);
-    utterance.lang = "de-DE";
-    window.speechSynthesis.speak(utterance);
-  }
-
   return (
-    <LessonSection
-      title={t("lessons.sectionVocabulary")}
-      description={t("lessons.vocabularyDescription")}
-      icon={Library}
-    >
-      <motion.div variants={staggerContainer} initial="hidden" animate="show" className="grid gap-4">
-        {WORDS.map((item) => {
-          const isLearned = learned.has(item.word);
+    <LessonSection title={t("lessons.sectionVocabulary")} description={t("lessons.vocabularyDescription")} icon={Library}>
+      {isLoading && <p className="text-sm text-text-secondary">{t("common.loading")}</p>}
 
+      {!isLoading && (words?.length ?? 0) === 0 && (
+        <p className="rounded-2xl bg-surface-hover p-6 text-center text-sm text-text-secondary">
+          Für diese Lektion sind noch keine Inhalte verfügbar.
+        </p>
+      )}
+
+      <motion.div variants={staggerContainer} initial="hidden" animate="show" className="space-y-3">
+        {words?.map((word) => {
+          const isLearned = learned.has(word.id);
           return (
             <motion.div
-              key={item.word}
+              key={word.id}
               variants={cardEntrance}
-              className={`rounded-2xl p-6 shadow-sm ring-1 transition-shadow hover:shadow-[var(--shadow-md)] ${
-                isLearned ? "bg-success/5 ring-success/30" : "bg-surface-hover/60 ring-surface-border"
+              onClick={() => toggleLearned(word.id)}
+              className={`cursor-pointer rounded-2xl border p-5 transition-all duration-200 ${
+                isLearned
+                  ? "border-success/40 bg-success/5"
+                  : "border-surface-border bg-surface-hover hover:border-accent-blue/30"
               }`}
             >
-              <div className="flex items-center justify-between">
+              <div className="flex items-start justify-between gap-3">
                 <div>
-                  <span className="rounded-lg bg-accent-blue px-3 py-1 text-sm font-semibold text-white">
-                    {item.article}
-                  </span>
-                  <h3 className="mt-4 text-2xl font-bold text-text-primary sm:text-3xl">
-                    {item.word}
-                  </h3>
+                  <p className="text-lg font-bold text-text-primary">
+                    {word.article && <span className="text-text-secondary">{word.article} </span>}
+                    {word.german_word}
+                  </p>
+                  <p className="mt-1 text-sm text-text-secondary">{word.translation}</p>
+                  {word.example_sentence && (
+                    <p className="mt-2 text-sm italic text-text-muted">{word.example_sentence}</p>
+                  )}
                 </div>
-
-                <div className="flex gap-2.5">
-                  <button
-                    type="button"
-                    onClick={() => playPronunciation(item.article, item.word)}
-                    aria-label={t("lessons.vocabularyPlayAudio")}
-                    className="flex h-9 w-9 items-center justify-center rounded-lg bg-surface-hover text-text-secondary transition-colors hover:bg-accent-blue/10 hover:text-accent-blue"
-                  >
-                    <Volume2 size={16} />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => toggleLearned(item.word)}
-                    aria-pressed={isLearned}
-                    aria-label={isLearned ? t("lessons.vocabularyLearned") : t("lessons.vocabularyMarkLearned")}
-                    className={`flex h-9 w-9 items-center justify-center rounded-lg transition-colors ${
-                      isLearned
-                        ? "bg-success/15 text-success"
-                        : "bg-surface-hover text-text-secondary hover:bg-success/10 hover:text-success"
-                    }`}
-                  >
-                    <Check size={16} />
-                  </button>
+                <div className="flex shrink-0 items-center gap-2">
+                  {word.audio_url && (
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        new Audio(word.audio_url!).play();
+                      }}
+                      className="flex h-8 w-8 items-center justify-center rounded-full bg-surface-card text-accent-blue ring-1 ring-surface-border"
+                      aria-label="Aussprache abspielen"
+                    >
+                      <Volume2 size={15} />
+                    </button>
+                  )}
+                  {isLearned && (
+                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-success/15 text-success">
+                      <Check size={15} />
+                    </span>
+                  )}
                 </div>
               </div>
-
-              <p className="mt-4 text-lg font-semibold text-accent-blue">{item.translation}</p>
-              <p className="mt-2 text-text-secondary">{item.example}</p>
             </motion.div>
           );
         })}

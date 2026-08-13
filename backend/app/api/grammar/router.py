@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from app.api.dependencies.auth import require_admin_panel_access
+from app.api.dependencies.auth import get_current_user, require_admin_panel_access
 from app.db.session import get_db
 from app.models.user import User
 
@@ -24,6 +24,18 @@ def get_grammars(
     db: Session = Depends(get_db),
 ):
     return GrammarService(db).get_all()
+
+
+@router.get("/lesson/{lesson_id}", response_model=list[GrammarResponse])
+def get_lesson_grammars(
+    lesson_id: str,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Student-facing — published-only, matching the same pattern used by
+    GET /vocabularies/lesson/{lesson_id} and GET /videos/by-lesson/{lesson_id}.
+    A DRAFT grammar item must never reach a student."""
+    return GrammarService(db).get_by_lesson(lesson_id, published_only=True)
 
 
 @router.get("/{grammar_id}", response_model=GrammarResponse)

@@ -18,6 +18,9 @@ class GrammarService:
     def get(self, grammar_id: str):
         return self.repository.get(grammar_id)
 
+    def get_by_lesson(self, lesson_id: str, published_only: bool = False):
+        return self.repository.get_by_lesson(lesson_id, published_only=published_only)
+
     def create(self, data: GrammarCreate):
         return self.repository.create(data)
 

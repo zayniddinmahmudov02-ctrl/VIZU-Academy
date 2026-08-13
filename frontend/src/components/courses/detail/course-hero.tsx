@@ -1,6 +1,8 @@
+"use client";
+
 import { BookOpen, GraduationCap, Layers3, Trophy } from "lucide-react";
 
-import { COURSE_CONTENT } from "@/constants/course-content";
+import { useLevelCourse } from "@/features/courses/hooks/use-level-course";
 import type { LevelCode } from "@/constants/levels";
 
 interface Props {
@@ -14,7 +16,9 @@ export default function CourseHero({
   progress = 0,
   unlockedLessons = 1,
 }: Props) {
-  const course = COURSE_CONTENT[level];
+  const { course, lessons } = useLevelCourse(level);
+
+  if (!course) return null;
 
   return (
     <section className="relative overflow-hidden rounded-card bg-gradient-to-br from-brand-700 via-accent-blue to-purple-600 p-8 text-white shadow-[var(--shadow-lg)] sm:p-10">
@@ -43,7 +47,7 @@ export default function CourseHero({
           <div className="rounded-2xl bg-white/10 p-5 backdrop-blur-md transition hover:bg-white/15">
             <Layers3 size={18} />
             <h3 className="mt-3 text-3xl font-bold">
-              {course.lessons.length}
+              {lessons.length}
             </h3>
             <p className="mt-1 text-sm text-white/70">
               Unterricht

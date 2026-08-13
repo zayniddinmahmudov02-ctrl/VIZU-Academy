@@ -7,6 +7,7 @@ from app.api.dependencies.auth import get_current_user, require_admin_panel_acce
 from app.db.session import get_db
 from app.models.user import User
 from app.schemas.lesson import (
+    LessonContentStatus,
     LessonCreate,
     LessonDetail,
     LessonListItem,
@@ -16,6 +17,7 @@ from app.schemas.lesson import (
 from app.services.lesson import (
     LessonService,
     get_all_lessons,
+    get_content_status_for_module,
     get_lesson_detail,
     get_lessons_for_module,
 )
@@ -46,6 +48,20 @@ def list_lessons_by_module(
     db: Session = Depends(get_db),
 ):
     return get_lessons_for_module(db, str(module_id))
+
+
+@router.get(
+    "/module/{module_id}/content-status",
+    response_model=list[LessonContentStatus],
+)
+def list_module_content_status(
+    module_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    """Admin-only — real per-panel content status for every lesson in a
+    module, batched to avoid N+1 (see get_content_status_for_module)."""
+    return get_content_status_for_module(db, str(module_id))
 
 
 @router.get(
