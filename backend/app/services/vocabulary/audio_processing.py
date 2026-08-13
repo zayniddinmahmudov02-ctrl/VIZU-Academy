@@ -117,14 +117,22 @@ def _process_sync(raw_bytes: bytes, pause_ms: int) -> bytes:
             )
 
         pause_seconds = max(pause_ms, 0) / 1000
+        # concat can't consume the same labeled stream ([0:a]/a trimmed
+        # silence label) more than once in one filtergraph — ffmpeg
+        # rejects it ("Invalid stream specifier", confirmed live on
+        # 6.1.1) despite looking like valid syntax. asplit explicitly
+        # duplicates each source into as many copies as it's used
+        # (3x the word, 2x the pause) before concat runs.
         _run_ffmpeg(
             [
                 "-i", str(cleaned_path),
                 "-f", "lavfi", "-i", f"anullsrc=r={SAMPLE_RATE}:cl=mono",
                 "-filter_complex",
                 (
-                    f"[1:a]atrim=duration={pause_seconds}[sil];"
-                    "[0:a][sil][0:a][sil][0:a]concat=n=5:v=0:a=1[out]"
+                    "[0:a]asplit=3[w1][w2][w3];"
+                    f"[1:a]atrim=duration={pause_seconds}[p0];"
+                    "[p0]asplit=2[p1][p2];"
+                    "[w1][p1][w2][p2][w3]concat=n=5:v=0:a=1[out]"
                 ),
                 "-map", "[out]",
                 "-ar", str(SAMPLE_RATE),
