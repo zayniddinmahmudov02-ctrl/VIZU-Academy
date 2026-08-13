@@ -13,6 +13,7 @@ from fastapi import (
 from sqlalchemy.orm import Session
 
 from app.api.dependencies.auth import require_admin_panel_access
+from app.core.config import settings
 from app.db.session import get_db
 
 from app.models.user import User
@@ -20,6 +21,10 @@ from app.models.user import User
 from app.schemas.video import (
     VideoResponse,
     VideoUpdate,
+    VideoUploadChunkResponse,
+    VideoUploadInitRequest,
+    VideoUploadInitResponse,
+    VideoUploadStatusResponse,
 )
 
 from app.services.video import VideoService
@@ -87,6 +92,115 @@ async def upload_video(
         is_preview=is_preview,
         is_published=is_published,
     )
+
+
+# ==========================
+# Chunked upload — for videos too large for a single request to survive
+# the edge proxy (Cloudflare rejects anything above ~50-99MB with a 413
+# before it reaches this server at all; a typical lesson video averages
+# ~1.5GB). Same lesson/access rules and the same VideoResponse shape as
+# POST /upload above; only how the bytes arrive differs.
+# ==========================
+
+
+@router.post(
+    "/upload/init",
+    response_model=VideoUploadInitResponse,
+    status_code=status.HTTP_201_CREATED,
+)
+def init_video_upload(
+    payload: VideoUploadInitRequest,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    service = VideoService(db)
+
+    session = service.init_upload_session(
+        admin=current_user,
+        lesson_id=payload.lesson_id,
+        title=payload.title,
+        description=payload.description,
+        duration_seconds=payload.duration_seconds,
+        order_index=payload.order_index,
+        is_preview=payload.is_preview,
+        is_published=payload.is_published,
+        filename=payload.filename,
+        content_type=payload.content_type,
+        total_size_bytes=payload.total_size_bytes,
+        replace_video_id=payload.replace_video_id,
+    )
+
+    return VideoUploadInitResponse(
+        upload_id=session.id,
+        chunk_size_bytes=settings.VIDEO_UPLOAD_CHUNK_SIZE_MB * 1024 * 1024,
+        total_chunks=session.total_chunks,
+    )
+
+
+@router.post(
+    "/upload/{upload_id}/chunk",
+    response_model=VideoUploadChunkResponse,
+)
+async def upload_video_chunk(
+    upload_id: UUID,
+    chunk_number: int = Form(...),
+    total_chunks: int = Form(...),
+    file: UploadFile = File(...),
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    """One chunk, one request — each request stays well under the edge
+    proxy's per-request size limit no matter how large the finished
+    video is. Safe to retry: re-uploading the same chunk_number just
+    overwrites that chunk file."""
+
+    service = VideoService(db)
+
+    session = service.get_owned_upload_session(upload_id, current_user)
+    uploaded_count = await service.save_chunk(session, chunk_number, total_chunks, file)
+
+    return VideoUploadChunkResponse(
+        upload_id=upload_id,
+        chunk_number=chunk_number,
+        uploaded_chunks=uploaded_count,
+        total_chunks=session.total_chunks,
+    )
+
+
+@router.get(
+    "/upload/{upload_id}/status",
+    response_model=VideoUploadStatusResponse,
+)
+def get_video_upload_status(
+    upload_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    """What a resumed upload (after a refresh or a dropped connection)
+    calls first, to find out which chunks it can skip re-sending."""
+
+    service = VideoService(db)
+
+    session = service.get_owned_upload_session(upload_id, current_user)
+
+    return service.get_upload_status(session)
+
+
+@router.post(
+    "/upload/{upload_id}/complete",
+    response_model=VideoResponse,
+    status_code=status.HTTP_201_CREATED,
+)
+async def complete_video_upload(
+    upload_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    service = VideoService(db)
+
+    session = service.get_owned_upload_session(upload_id, current_user)
+
+    return await service.complete_upload(session)
 
 
 @router.put(

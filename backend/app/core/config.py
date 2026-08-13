@@ -35,6 +35,18 @@ class Settings(BaseSettings):
     VIDEO_MAX_UPLOAD_SIZE_MB: int = 2048
     VIDEO_ALLOWED_CONTENT_TYPES: str = "video/mp4,video/webm,video/quicktime"
 
+    # Chunked upload: each chunk is one HTTP request, so this must stay
+    # well under whatever the edge (Cloudflare) allows through in a single
+    # request — live-tested at 50MB OK / 100MB+ rejected with a 413 before
+    # ever reaching this server, hence 25MB, not just "large but safe."
+    VIDEO_UPLOAD_CHUNK_SIZE_MB: int = 25
+
+    # An upload session (and its temp chunk files) older than this with no
+    # successful /complete is treated as abandoned — browser closed,
+    # network died, admin gave up — and swept by
+    # VideoService.cleanup_stale_upload_sessions().
+    VIDEO_UPLOAD_SESSION_MAX_AGE_HOURS: int = 24
+
     # Lifetime of the signed token embedded in a video's playback URL (see
     # create_video_stream_token) while local storage is active. Long enough
     # to cover one lesson-watching session including replays/seeking, short

@@ -86,6 +86,40 @@ export interface Video {
   is_preview: boolean;
   is_published: boolean;
 }
+
+export interface VideoUploadInitPayload {
+  lesson_id: string;
+  title: string;
+  description?: string | null;
+  duration_seconds?: number;
+  order_index?: number;
+  is_preview?: boolean;
+  is_published?: boolean;
+  filename: string;
+  content_type: string;
+  total_size_bytes: number;
+  replace_video_id?: string | null;
+}
+
+export interface VideoUploadInitResult {
+  upload_id: string;
+  chunk_size_bytes: number;
+  total_chunks: number;
+}
+
+export interface VideoUploadChunkResult {
+  upload_id: string;
+  chunk_number: number;
+  uploaded_chunks: number;
+  total_chunks: number;
+}
+
+export interface VideoUploadStatusResult {
+  upload_id: string;
+  total_chunks: number;
+  uploaded_chunks: number[];
+  is_ready_to_complete: boolean;
+}
 export interface VideoUpdate {
   title?: string;
   description?: string | null;

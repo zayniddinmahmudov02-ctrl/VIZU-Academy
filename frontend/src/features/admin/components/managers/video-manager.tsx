@@ -9,13 +9,11 @@ import ConfirmDialog from "@/components/admin/confirm-dialog";
 import FileUploadField from "@/components/admin/file-upload-field";
 import FormDialog from "@/components/admin/form-dialog";
 import UploadProgressPanel from "@/components/admin/upload-progress-panel";
-import { useUploadProgress } from "@/features/admin/hooks/use-upload-progress";
+import { useChunkedVideoUpload } from "@/features/admin/hooks/use-chunked-video-upload";
 import {
   deleteVideo,
   listVideosByLesson,
-  replaceVideoFile,
   updateVideo,
-  uploadVideo,
 } from "@/features/admin/services/video-service";
 import type { Video } from "@/features/admin/types/content.types";
 
@@ -50,11 +48,11 @@ export default function VideoManager({ lessonId: fixedLessonId }: { lessonId?: s
   const [file, setFile] = useState<File | null>(null);
   const [thumbnailUrl, setThumbnailUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const uploadProgress = useUploadProgress();
+  const uploadProgress = useChunkedVideoUpload();
 
   const [replacing, setReplacing] = useState<Video | null>(null);
   const [replaceFile, setReplaceFile] = useState<File | null>(null);
-  const replaceProgress = useUploadProgress();
+  const replaceProgress = useChunkedVideoUpload();
   const [deleting, setDeleting] = useState<Video | null>(null);
   const [deletePending, setDeletePending] = useState(false);
 
@@ -78,24 +76,20 @@ export default function VideoManager({ lessonId: fixedLessonId }: { lessonId?: s
     if (!file || !lessonId) return;
     try {
       const durationSeconds = await readVideoDuration(file);
-      await uploadProgress.upload(({ onUploadProgress, signal }) =>
-        uploadVideo(
-          {
-            lessonId,
-            title: form.title,
-            description: form.description || undefined,
-            durationSeconds,
-            isPreview: form.is_preview,
-            isPublished: form.is_published,
-            file,
-          },
-          { onUploadProgress, signal },
-        ),
-      );
+      await uploadProgress.upload(file, {
+        lessonId,
+        title: form.title,
+        description: form.description || undefined,
+        durationSeconds,
+        isPreview: form.is_preview,
+        isPublished: form.is_published,
+      });
       invalidate();
       setUploadOpen(false);
     } catch {
-      // Progress panel already shows ERROR/CANCELLED with a Retry action.
+      // Progress panel already shows ERROR/CANCELLED with a Retry action —
+      // retrying resumes from the last chunk that made it, it doesn't
+      // restart the whole file.
     }
   }
 
@@ -103,14 +97,19 @@ export default function VideoManager({ lessonId: fixedLessonId }: { lessonId?: s
     if (!replacing || !replaceFile) return;
     try {
       const durationSeconds = await readVideoDuration(replaceFile);
-      await replaceProgress.upload(({ onUploadProgress, signal }) =>
-        replaceVideoFile(replacing.id, replaceFile, durationSeconds, { onUploadProgress, signal }),
-      );
+      await replaceProgress.upload(replaceFile, {
+        lessonId: replacing.lesson_id,
+        title: replacing.title,
+        durationSeconds,
+        replaceVideoId: replacing.id,
+      });
       invalidate();
       setReplacing(null);
       setReplaceFile(null);
     } catch {
-      // Progress panel already shows ERROR/CANCELLED with a Retry action.
+      // Progress panel already shows ERROR/CANCELLED with a Retry action —
+      // retrying resumes from the last chunk that made it, it doesn't
+      // restart the whole file.
     }
   }
 

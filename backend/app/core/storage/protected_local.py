@@ -48,3 +48,15 @@ class ProtectedVideoStorage(LocalStorage):
     VideoService.get_playable_video / create_video_stream_token)."""
 
     ROOT = Path("app/protected_storage")
+
+
+class ProtectedVideoUploadTempStorage(LocalStorage):
+    """Where in-progress chunked video uploads live while incomplete —
+    never public, and separate from ProtectedVideoStorage's finished-video
+    tree so a half-uploaded file can never be mistaken for (or served as)
+    a real video. VideoService writes chunks here as
+    "{upload_id}/chunk_{n:06d}", assembles the finished file into
+    ProtectedVideoStorage on /complete, then deletes the whole
+    "{upload_id}/" directory."""
+
+    ROOT = Path("app/protected_storage/video-uploads")

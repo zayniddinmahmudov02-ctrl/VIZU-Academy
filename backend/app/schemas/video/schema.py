@@ -56,3 +56,47 @@ class VideoStreamResponse(BaseSchema):
     thumbnail_url: str | None = None
     duration_seconds: int = 0
     video_url: str
+
+
+# ==========================
+# Chunked upload
+# ==========================
+
+
+class VideoUploadInitRequest(BaseSchema):
+    lesson_id: UUID
+    title: str
+    description: str | None = None
+    duration_seconds: int = 0
+    order_index: int = 1
+    is_preview: bool = False
+    is_published: bool = False
+    filename: str
+    content_type: str
+    total_size_bytes: int
+    # Set to swap an existing video's file instead of creating a new one —
+    # the chunked equivalent of PUT /admin/videos/{id}/replace.
+    replace_video_id: UUID | None = None
+
+
+class VideoUploadInitResponse(BaseSchema):
+    upload_id: UUID
+    # Server-computed, not client-chosen — the frontend must slice the
+    # file using exactly this size so total_chunks stays correct and no
+    # single chunk request risks exceeding the edge's per-request limit.
+    chunk_size_bytes: int
+    total_chunks: int
+
+
+class VideoUploadChunkResponse(BaseSchema):
+    upload_id: UUID
+    chunk_number: int
+    uploaded_chunks: int
+    total_chunks: int
+
+
+class VideoUploadStatusResponse(BaseSchema):
+    upload_id: UUID
+    total_chunks: int
+    uploaded_chunks: list[int]
+    is_ready_to_complete: bool

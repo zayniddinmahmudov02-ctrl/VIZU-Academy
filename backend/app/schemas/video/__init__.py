@@ -4,6 +4,10 @@ from .schema import (
     VideoUpdate,
     VideoResponse,
     VideoStreamResponse,
+    VideoUploadInitRequest,
+    VideoUploadInitResponse,
+    VideoUploadChunkResponse,
+    VideoUploadStatusResponse,
 )
 
 __all__ = [
@@ -12,4 +16,8 @@ __all__ = [
     "VideoUpdate",
     "VideoResponse",
     "VideoStreamResponse",
+    "VideoUploadInitRequest",
+    "VideoUploadInitResponse",
+    "VideoUploadChunkResponse",
+    "VideoUploadStatusResponse",
 ]

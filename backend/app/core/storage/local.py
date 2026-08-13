@@ -14,6 +14,7 @@ class LocalStorage(BaseStorage):
         self,
         file,
         path: str,
+        max_bytes: int | None = None,
     ):
 
         destination = self.ROOT / path
@@ -29,13 +30,26 @@ class LocalStorage(BaseStorage):
         # server's event loop for the write's duration — freezing every
         # other request (API calls, other students' pages) until the
         # upload finishes, since nothing else can run in between.
-        with open(
-            destination,
-            "wb",
-        ) as buffer:
+        written = 0
 
-            while chunk := await file.read(self.CHUNK_SIZE):
-                await asyncio.to_thread(buffer.write, chunk)
+        try:
+            with open(
+                destination,
+                "wb",
+            ) as buffer:
+
+                while chunk := await file.read(self.CHUNK_SIZE):
+                    written += len(chunk)
+
+                    if max_bytes is not None and written > max_bytes:
+                        raise ValueError(
+                            f"Upload exceeds the {max_bytes}-byte limit"
+                        )
+
+                    await asyncio.to_thread(buffer.write, chunk)
+        except ValueError:
+            destination.unlink(missing_ok=True)
+            raise
 
         return str(destination)
 
