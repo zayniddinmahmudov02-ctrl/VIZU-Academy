@@ -32,3 +32,19 @@ class ProtectedPaymentProofStorage(LocalStorage):
     GET /vizu-pay/orders/{id}/proof endpoint (order owner or staff)."""
 
     ROOT = Path("app/protected_storage/payment-proofs")
+
+
+class ProtectedVideoStorage(LocalStorage):
+    """Lesson video files, isolated from the public `/uploads` StaticFiles
+    mount the same way audio/payment-proofs already are. Video.storage_key
+    already carries its own "videos/{lesson_id}/..." prefix (unchanged, so
+    no DB migration is needed for this), so ROOT stops one level short of
+    ProtectedLocalStorage/ProtectedPaymentProofStorage to avoid a redundant
+    videos/videos/ nesting on disk.
+
+    Never used to build a public URL — GET /videos/{id}/stream is the only
+    way to fetch bytes, gated by a short-lived signed token issued only
+    after VideoService's premium/access check passes (see
+    VideoService.get_playable_video / create_video_stream_token)."""
+
+    ROOT = Path("app/protected_storage")

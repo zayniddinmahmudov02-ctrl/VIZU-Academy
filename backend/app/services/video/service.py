@@ -7,7 +7,9 @@ from sqlalchemy.orm import Session
 from app.core.config import settings
 from app.core.exceptions import NotFoundError
 from app.core.logging.logger import logger
+from app.core.security.jwt import create_video_stream_token
 from app.core.storage.factory import StorageFactory
+from app.core.storage.protected_local import ProtectedVideoStorage
 
 from app.models.user import User
 from app.models.video import Video
@@ -28,7 +30,10 @@ class VideoService:
         self.repository = VideoRepository(db)
         self.lessons = LessonRepository(db)
         self.enrollments = EnrollmentRepository(db)
+        # Thumbnails stay on the public storage backend (self.storage) —
+        # only the video file itself needs to be unreachable by a bare URL.
         self.storage = StorageFactory.create(settings.STORAGE_PROVIDER)
+        self.video_storage = ProtectedVideoStorage()
 
     # ==========================
     # CRUD
@@ -90,7 +95,7 @@ class VideoService:
         forever."""
 
         if video.storage_key:
-            await self.storage.delete(video.storage_key)
+            await self.video_storage.delete(video.storage_key)
 
         if video.thumbnail_key:
             await self.storage.delete(video.thumbnail_key)
@@ -138,7 +143,13 @@ class VideoService:
             )
             resolved_thumbnail_url = self.storage.url(thumbnail_key)
 
+        # Generated up front (instead of left to the id column's default=)
+        # so it's available immediately below — video_url needs it to
+        # build a signed streaming URL before the row is ever inserted.
+        video_id = uuid4()
+
         video = Video(
+            id=video_id,
             lesson_id=lesson_id,
             title=title,
             description=description,
@@ -146,8 +157,9 @@ class VideoService:
             # Cached for the admin "Preview" action only — actual student
             # playback always recomputes this from storage_key via
             # get_playable_video(), so it stays correct even if
-            # STORAGE_PROVIDER changes later.
-            video_url=self.storage.url(storage_key),
+            # STORAGE_PROVIDER changes later. A fresh signed URL, not a
+            # bare storage path — the file lives in protected storage now.
+            video_url=self._stream_url(video_id),
             thumbnail_url=resolved_thumbnail_url,
             thumbnail_key=thumbnail_key,
             duration_seconds=duration_seconds,
@@ -181,7 +193,7 @@ class VideoService:
             video.lesson_id,
             file,
         )
-        video.video_url = self.storage.url(video.storage_key)
+        video.video_url = self._stream_url(video.id)
 
         if duration_seconds is not None:
             video.duration_seconds = duration_seconds
@@ -190,7 +202,7 @@ class VideoService:
         self.db.refresh(video)
 
         if old_storage_key:
-            await self.storage.delete(old_storage_key)
+            await self.video_storage.delete(old_storage_key)
 
         return video
 
@@ -209,7 +221,7 @@ class VideoService:
             file.content_type,
         )
 
-        await self.storage.upload(file, storage_key)
+        await self.video_storage.upload(file, storage_key)
 
         return storage_key
 
@@ -279,7 +291,7 @@ class VideoService:
 
         playable = self.get_playable_video(video.id, user)
 
-        return playable, self.storage.url(playable.storage_key)
+        return playable, self._stream_url(playable.id)
 
     def generate_streaming_url(
         self,
@@ -290,14 +302,18 @@ class VideoService:
         video must exist, be published, have a stored file, and the
         requesting user must either be watching a free preview, hold an
         active premium subscription, or be enrolled in the video's
-        course. Returns the video plus a URL served by the configured
-        storage backend (a local /uploads/... path today; swapping
-        STORAGE_PROVIDER to a remote backend later changes nothing
-        here)."""
+        course. Returns the video plus a short-lived signed URL pointing
+        at GET /videos/{id}/stream — never a bare storage path, since the
+        file lives in protected storage and isn't reachable any other
+        way."""
 
         video = self.get_playable_video(video_id, user)
 
-        return video, self.storage.url(video.storage_key)
+        return video, self._stream_url(video.id)
+
+    def _stream_url(self, video_id: "UUID | str") -> str:
+        token = create_video_stream_token(str(video_id))
+        return f"/api/v1/videos/{video_id}/stream?token={token}"
 
     def get_playable_video(
         self,
@@ -315,7 +331,7 @@ class VideoService:
         if not video.is_preview:
             self._require_access(video, user)
 
-        if not (Path("uploads") / video.storage_key).exists():
+        if not (self.video_storage.ROOT / video.storage_key).exists():
             logger.error(
                 "Stored file missing for published video: video_id=%s key=%s",
                 video_id,
@@ -353,3 +369,9 @@ class VideoService:
             status_code=status.HTTP_403_FORBIDDEN,
             detail="PREMIUM_REQUIRED",
         )
+
+    def resolve_video_path(self, video: Video) -> Path:
+        """Where GET /videos/{id}/stream reads bytes from, once the
+        caller's token has already proven authorization."""
+
+        return self.video_storage.ROOT / video.storage_key

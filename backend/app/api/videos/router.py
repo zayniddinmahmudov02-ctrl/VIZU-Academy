@@ -1,12 +1,15 @@
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, Response, status
+from fastapi import APIRouter, Depends, HTTPException, Response, status
+from fastapi.responses import FileResponse
+from jose import JWTError
 from sqlalchemy.orm import Session
 
 from app.api.dependencies.auth import (
     get_current_user,
     require_admin_panel_access,
 )
+from app.core.security.jwt import decode_video_stream_token
 from app.db.session import get_db
 
 from app.models.user import User
@@ -73,6 +76,42 @@ def get_video(
         duration_seconds=video.duration_seconds,
         video_url=video_url,
     )
+
+
+@router.get("/{video_id}/stream")
+def stream_video(
+    video_id: UUID,
+    token: str,
+    db: Session = Depends(get_db),
+):
+    """The only place video bytes are ever served from — not a public
+    URL, not the /uploads static mount. A native <video> element can't
+    send an Authorization header, so this is gated by the short-lived
+    signed token GET /videos/{id} (or /by-lesson/{lesson_id}) embeds in
+    the URL it returns, instead of the usual Bearer-token dependency —
+    same trust model as an S3/CloudFront presigned URL. FileResponse
+    handles Range/206 requests natively, so seeking keeps working."""
+
+    try:
+        token_video_id = decode_video_stream_token(token)
+    except (JWTError, ValueError):
+        raise HTTPException(status_code=401, detail="Invalid or expired stream token")
+
+    if token_video_id != str(video_id):
+        raise HTTPException(status_code=403, detail="Token does not authorize this video")
+
+    service = VideoService(db)
+    video = service.get(video_id)
+
+    if video is None or not video.is_published or not video.storage_key:
+        raise HTTPException(status_code=404, detail="Video not found")
+
+    path = service.resolve_video_path(video)
+
+    if not path.exists():
+        raise HTTPException(status_code=404, detail="Video file missing on disk")
+
+    return FileResponse(path=path, media_type="video/mp4")
 
 
 @router.get(

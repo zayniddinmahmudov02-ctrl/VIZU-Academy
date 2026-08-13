@@ -35,6 +35,14 @@ class Settings(BaseSettings):
     VIDEO_MAX_UPLOAD_SIZE_MB: int = 2048
     VIDEO_ALLOWED_CONTENT_TYPES: str = "video/mp4,video/webm,video/quicktime"
 
+    # Lifetime of the signed token embedded in a video's playback URL (see
+    # create_video_stream_token) while local storage is active. Long enough
+    # to cover one lesson-watching session including replays/seeking, short
+    # enough that a leaked URL goes stale the same day. Distinct from
+    # R2_SIGNED_URL_EXPIRE_SECONDS above, which is for the not-yet-active R2
+    # backend and assumes a URL-refresh mechanism this player doesn't have.
+    VIDEO_STREAM_TOKEN_EXPIRE_MINUTES: int = 240
+
     # ==================================================
     # API
     # ==================================================

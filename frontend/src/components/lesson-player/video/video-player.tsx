@@ -35,9 +35,17 @@ interface Props {
   /** Called (throttled) with the current playback position as the user
    *  watches, and once more with `ended: true` when playback finishes. */
   onProgress?: (position: number, ended: boolean) => void;
+  /** Shown as a semi-transparent overlay burned into the player chrome
+   *  (not the video itself) — e.g. "VIZU Academy · Jane D. · a1b2c3d4".
+   *  Doesn't stop screen recording (nothing client-side can), but ties
+   *  any recording that does get made back to the account it came from,
+   *  which is the practical deterrent available without real DRM. Only
+   *  rendered when provided, so a logged-out/loading state just omits it
+   *  rather than showing a broken watermark. */
+  watermarkText?: string;
 }
 
-export default function VideoPlayer({ src, poster, lessonId, initialPosition = 0, onProgress }: Props) {
+export default function VideoPlayer({ src, poster, lessonId, initialPosition = 0, onProgress, watermarkText }: Props) {
   const { t } = useTranslation();
   const videoRef = useRef<HTMLVideoElement>(null);
   const playerRef = useRef<Plyr | null>(null);
@@ -227,6 +235,17 @@ export default function VideoPlayer({ src, poster, lessonId, initialPosition = 0
         >
           <source src={src} type="video/mp4" />
         </video>
+
+        {watermarkText && !loading && !error && (
+          <div className="pointer-events-none absolute inset-0 z-[5] select-none">
+            <span className="absolute right-3 top-3 rounded bg-black/35 px-2 py-1 text-[11px] font-medium tracking-wide text-white/80">
+              {watermarkText}
+            </span>
+            <span className="absolute bottom-14 left-3 rounded bg-black/35 px-2 py-1 text-[11px] font-medium tracking-wide text-white/60">
+              {watermarkText}
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

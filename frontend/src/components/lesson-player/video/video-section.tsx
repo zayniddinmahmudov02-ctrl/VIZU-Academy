@@ -3,6 +3,7 @@
 import { CheckCircle2, PlayCircle } from "lucide-react";
 
 import Loading from "@/components/common/loading";
+import { useCurrentUser } from "@/features/auth/hooks/use-current-user";
 import { useVideoProgress } from "@/features/lessons/hooks/use-video-progress";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import LessonSection from "../common/lesson-section";
@@ -10,6 +11,15 @@ import VideoPlayer from "./video-player";
 
 interface Props {
   lessonId: string;
+}
+
+function buildWatermarkText(user: { id: string; firstName: string | null; lastName: string | null } | null): string | undefined {
+  if (!user) return undefined;
+
+  const name = [user.firstName, user.lastName].filter(Boolean).join(" ").trim();
+  const maskedId = user.id.slice(0, 8);
+
+  return name ? `VIZU Academy · ${name} · ${maskedId}` : `VIZU Academy · ${maskedId}`;
 }
 
 function formatTime(totalSeconds: number): string {
@@ -21,6 +31,8 @@ function formatTime(totalSeconds: number): string {
 export default function VideoSection({ lessonId }: Props) {
   const { t } = useTranslation();
   const { video, progress, loading, error, reportProgress, markComplete } = useVideoProgress(lessonId);
+  const { user } = useCurrentUser();
+  const watermarkText = buildWatermarkText(user);
 
   const showResume = Boolean(progress && progress.lastPosition > 0 && !progress.completed);
 
@@ -63,6 +75,7 @@ export default function VideoSection({ lessonId }: Props) {
             lessonId={lessonId}
             initialPosition={progress?.lastPosition ?? 0}
             onProgress={handleProgress}
+            watermarkText={watermarkText}
           />
         </div>
       )}

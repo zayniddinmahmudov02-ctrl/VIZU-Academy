@@ -10,6 +10,7 @@ from jose import jwt
 from app.core.config import settings
 
 PASSWORD_RESET_PURPOSE = "password_reset"
+VIDEO_STREAM_PURPOSE = "video_stream"
 
 
 def create_access_token(
@@ -124,3 +125,37 @@ def decode_password_reset_token(token: str) -> dict:
         raise ValueError("Not a password-reset token")
 
     return payload
+
+
+def create_video_stream_token(video_id: str) -> str:
+    """A short-lived, single-video-scoped credential embedded in the
+    playback URL itself. Native <video> elements can't send an
+    Authorization header, so the usual Bearer-token check can't gate
+    GET /videos/{id}/stream — this token is issued once, at the moment
+    VideoService.get_playable_video() already confirmed the requesting
+    user has real access (free preview, Premium, or enrollment), and the
+    stream endpoint trusts it exactly like an S3/CloudFront presigned URL:
+    the signature is the authorization, valid until it expires."""
+
+    payload = {
+        "sub": str(video_id),
+        "purpose": VIDEO_STREAM_PURPOSE,
+    }
+
+    return create_access_token(
+        payload,
+        expires_minutes=settings.VIDEO_STREAM_TOKEN_EXPIRE_MINUTES,
+    )
+
+
+def decode_video_stream_token(token: str) -> str:
+    """Returns the authorized video_id, or raises jose.JWTError /
+    ExpiredSignatureError (invalid/expired) or ValueError (well-formed
+    token, wrong purpose — e.g. a login access token reused here)."""
+
+    payload = decode_access_token(token)
+
+    if payload.get("purpose") != VIDEO_STREAM_PURPOSE:
+        raise ValueError("Not a video-stream token")
+
+    return payload["sub"]
