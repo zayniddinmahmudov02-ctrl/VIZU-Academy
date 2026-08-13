@@ -36,8 +36,12 @@ const MIN_SAMPLE_INTERVAL_MS = 200;
 
 function extractErrorMessage(err: unknown): string {
   if (axios.isAxiosError(err)) {
-    const detail = err.response?.data?.detail;
-    if (typeof detail === "string" && detail.trim()) return detail;
+    // The app's global exception handler responds with {success, message}
+    // (see backend/app/core/exceptions/handlers.py) — not FastAPI's default
+    // {detail}. Check both so this keeps working if that ever changes.
+    const data = err.response?.data;
+    const text = data?.message ?? data?.detail;
+    if (typeof text === "string" && text.trim()) return text;
   }
   return "Upload failed. Please try again.";
 }
