@@ -1,14 +1,19 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, Check, Minus, Settings2 } from "lucide-react";
+import { ArrowLeft, Check, Minus, Pencil, Settings2 } from "lucide-react";
 
-import { AdminPageHeader } from "@/components/admin/admin-ui";
-import { useCrudList } from "@/features/admin/hooks/use-crud";
-import { getLessonsContentStatus, type LessonContentStatus } from "@/features/admin/services/lessons-service";
+import { AdminButton, AdminInput, AdminLabel, AdminPageHeader } from "@/components/admin/admin-ui";
+import FormDialog from "@/components/admin/form-dialog";
+import { useCrudList, useCrudMutations } from "@/features/admin/hooks/use-crud";
+import {
+  getLessonsContentStatus,
+  lessonsApi,
+  type LessonContentStatus,
+} from "@/features/admin/services/lessons-service";
 import { levelsApi } from "@/features/admin/services/levels-service";
 import { modulesApi } from "@/features/admin/services/modules-service";
 
@@ -24,6 +29,7 @@ const PANELS: { key: keyof LessonContentStatus; label: string }[] = [
 
 export default function CourseLessonsPage() {
   const { courseId } = useParams<{ courseId: string }>();
+  const router = useRouter();
 
   const { data: courses } = useCrudList("levels", levelsApi);
   const course = courses?.find((c) => c.id === courseId);
@@ -41,6 +47,24 @@ export default function CourseLessonsPage() {
     () => [...(lessons ?? [])].sort((a, b) => a.number - b.number),
     [lessons],
   );
+
+  // Title-only editing — the lesson's topic/title is the one field this
+  // view lets an admin change; content (video, grammar, ...) is still
+  // managed on the lesson's own /admin/lessons/{id} page.
+  const { update } = useCrudMutations("course-lessons-content-status", lessonsApi);
+  const [editing, setEditing] = useState<LessonContentStatus | null>(null);
+  const [title, setTitle] = useState("");
+
+  function openEdit(lesson: LessonContentStatus) {
+    setEditing(lesson);
+    setTitle(lesson.title);
+  }
+
+  async function handleSave() {
+    if (!editing) return;
+    await update.mutateAsync({ id: editing.lesson_id, data: { title } });
+    setEditing(null);
+  }
 
   return (
     <div>
@@ -69,16 +93,32 @@ export default function CourseLessonsPage() {
 
       <div className="space-y-2.5">
         {sortedLessons.map((lesson) => (
-          <Link
+          <div
             key={lesson.lesson_id}
-            href={`/admin/lessons/${lesson.lesson_id}`}
-            className="flex flex-wrap items-center justify-between gap-4 rounded-2xl bg-[var(--admin-card)] p-4 shadow-[var(--admin-shadow-card)] ring-1 ring-[var(--admin-border)] transition hover:ring-[var(--admin-primary)]/40"
+            role="button"
+            tabIndex={0}
+            onClick={() => router.push(`/admin/lessons/${lesson.lesson_id}`)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") router.push(`/admin/lessons/${lesson.lesson_id}`);
+            }}
+            className="flex flex-wrap cursor-pointer items-center justify-between gap-4 rounded-2xl bg-[var(--admin-card)] p-4 shadow-[var(--admin-shadow-card)] ring-1 ring-[var(--admin-border)] transition hover:ring-[var(--admin-primary)]/40"
           >
             <div className="flex items-center gap-3.5">
               <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[var(--admin-primary)]/15 text-xs font-bold text-[var(--admin-primary)]">
                 {lesson.number}
               </div>
               <p className="font-medium text-[var(--admin-text-primary)]">{lesson.title}</p>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  openEdit(lesson);
+                }}
+                aria-label="Titel bearbeiten"
+                className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-[var(--admin-text-muted)] transition hover:bg-[var(--admin-hover)] hover:text-[var(--admin-primary)]"
+              >
+                <Pencil size={13} />
+              </button>
             </div>
 
             <div className="flex flex-wrap items-center gap-3">
@@ -98,9 +138,37 @@ export default function CourseLessonsPage() {
               })}
               <Settings2 size={15} className="shrink-0 text-[var(--admin-text-muted)]" />
             </div>
-          </Link>
+          </div>
         ))}
       </div>
+
+      <FormDialog
+        open={!!editing}
+        onOpenChange={(open) => !open && setEditing(null)}
+        title="Lektion bearbeiten"
+        footer={
+          <>
+            <AdminButton variant="ghost" onClick={() => setEditing(null)}>
+              Abbrechen
+            </AdminButton>
+            <AdminButton onClick={handleSave} disabled={update.isPending || !title.trim()}>
+              {update.isPending ? "Wird gespeichert..." : "Speichern"}
+            </AdminButton>
+          </>
+        }
+      >
+        <div className="space-y-4">
+          <div>
+            <AdminLabel>Lesson-Nr.</AdminLabel>
+            <AdminInput value={editing?.number ?? ""} disabled readOnly />
+          </div>
+
+          <div>
+            <AdminLabel>Titel</AdminLabel>
+            <AdminInput value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Lektionstitel" />
+          </div>
+        </div>
+      </FormDialog>
     </div>
   );
 }

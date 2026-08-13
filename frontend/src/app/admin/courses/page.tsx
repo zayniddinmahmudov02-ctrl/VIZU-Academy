@@ -6,9 +6,8 @@ import { ChevronRight } from "lucide-react";
 
 import { AdminPageHeader } from "@/components/admin/admin-ui";
 import { useCrudList } from "@/features/admin/hooks/use-crud";
+import { useLevelsWithLessonCounts, type LevelWithLessonCount } from "@/features/admin/hooks/use-levels-with-lesson-counts";
 import { languagesApi } from "@/features/admin/services/languages-service";
-import { levelsApi } from "@/features/admin/services/levels-service";
-import type { Level } from "@/features/admin/types/content.types";
 
 /** "Courses" — the admin-facing entry point into the existing
  * Language -> Course("Level") -> Module -> Lesson hierarchy (the underlying
@@ -17,7 +16,7 @@ import type { Level } from "@/features/admin/types/content.types";
  * /admin/levels, /admin/modules and /admin/lessons CRUD pages). */
 export default function CoursesPage() {
   const { data: languages } = useCrudList("languages", languagesApi);
-  const { data: courses, isLoading } = useCrudList("levels", levelsApi);
+  const { data: courses, isLoading } = useLevelsWithLessonCounts();
 
   const languageMap = useMemo(
     () => new Map((languages ?? []).map((l) => [l.id, l.name])),
@@ -57,7 +56,7 @@ export default function CoursesPage() {
   );
 }
 
-function CourseCard({ course, languageName }: { course: Level; languageName?: string }) {
+function CourseCard({ course, languageName }: { course: LevelWithLessonCount; languageName?: string }) {
   return (
     <Link
       href={`/admin/courses/${course.id}`}
@@ -70,7 +69,7 @@ function CourseCard({ course, languageName }: { course: Level; languageName?: st
         <div>
           <p className="font-semibold text-[var(--admin-text-primary)]">{course.title}</p>
           <p className="text-xs text-[var(--admin-text-muted)]">
-            {languageName ?? "—"}
+            {course.lessonCount} Lessons · {languageName ?? "—"}
             {!course.is_active && " · Inaktiv"}
           </p>
         </div>
