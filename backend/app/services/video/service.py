@@ -1,4 +1,3 @@
-from datetime import UTC, datetime
 from pathlib import Path
 from uuid import UUID, uuid4
 
@@ -16,6 +15,7 @@ from app.models.video import Video
 from app.repositories.enrollment import EnrollmentRepository
 from app.repositories.lesson import LessonRepository
 from app.repositories.video import VideoRepository
+from app.services.vizu_pay.access import has_premium_bypass, is_free_lesson, is_user_premium
 
 
 class VideoService:
@@ -330,13 +330,15 @@ class VideoService:
         video: Video,
         user: User,
     ) -> None:
-        now = datetime.now(UTC)
+        if has_premium_bypass(user) or is_user_premium(user):
+            return
 
-        is_premium = bool(
-            user.premium_until and user.premium_until > now
-        )
+        # The level's first 3 lessons are free regardless of premium
+        # status — same rule as every other lesson-content endpoint (see
+        # app.services.vizu_pay.access.can_access_lesson).
+        lesson = self.lessons.get(str(video.lesson_id))
 
-        if is_premium:
+        if lesson is not None and is_free_lesson(lesson):
             return
 
         course_id = self.repository.get_course_id(video.id)
@@ -349,5 +351,5 @@ class VideoService:
 
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail="An active enrollment or premium subscription is required to watch this video",
+            detail="PREMIUM_REQUIRED",
         )

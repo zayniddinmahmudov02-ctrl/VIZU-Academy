@@ -20,7 +20,6 @@ export default async function CourseDetailPage({ params }: Props) {
       <CourseHero
         level={courseLevel}
         progress={0}
-        unlockedLessons={1}
       />
 
       <CourseProgress level={courseLevel} />

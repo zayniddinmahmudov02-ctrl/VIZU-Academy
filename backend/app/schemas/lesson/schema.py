@@ -28,6 +28,12 @@ class LessonResponse(LessonBase):
     model_config = ConfigDict(from_attributes=True)
 
     id: UUID
+    # Computed relative to the requesting user — see
+    # app.services.vizu_pay.access.can_access_lesson. Never persisted;
+    # always recomputed per-request so a premium purchase/expiry is
+    # reflected immediately.
+    is_locked: bool = False
+    requires_premium: bool = False
 
 
 class LessonListItem(BaseModel):
@@ -39,6 +45,8 @@ class LessonListItem(BaseModel):
     video_url: str | None
     is_free: bool
     progress: int
+    is_locked: bool = False
+    requires_premium: bool = False
 
 
 class LessonDetail(LessonListItem):
@@ -56,3 +64,7 @@ class LessonContentStatus(BaseModel):
     has_hoeren: bool
     has_schreiben: bool
     has_sprechen: bool
+    # Position-based only (not the viewing admin's own access) — "would a
+    # free student be locked out of this lesson", independent of has_*
+    # (content can exist and still be locked for free users).
+    is_locked: bool = False

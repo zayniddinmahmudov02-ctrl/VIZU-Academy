@@ -3,6 +3,7 @@ from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 
 from app.api.dependencies.auth import get_current_user, require_admin_panel_access, require_super_admin
+from app.api.dependencies.progress import require_lesson_access
 from app.db.session import get_db
 from app.models.user import User
 
@@ -493,12 +494,14 @@ def get_public_assessment(
 def get_public_lesson_assessment(
     lesson_id: str,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(require_lesson_access),
 ):
     """Returns null (not 404) when no PUBLISHED assessment exists for this
     lesson yet — the frontend renders the empty state
     ("Für diese Lektion sind noch keine Aufgaben verfügbar.") rather than
-    treating it as an error."""
+    treating it as an error. require_lesson_access gates Lesen/Hören/
+    Schreiben/Sprechen (all bundled into this one assessment) behind the
+    free-3-lessons / Premium rule."""
     assessment = public_service.get_published_assessment_for_lesson(db, lesson_id)
     if assessment is None:
         return None

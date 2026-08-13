@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, Check, Minus, Pencil, Settings2 } from "lucide-react";
+import { ArrowLeft, Check, Lock, Minus, Pencil, Settings2 } from "lucide-react";
 
 import { AdminButton, AdminInput, AdminLabel, AdminPageHeader } from "@/components/admin/admin-ui";
 import FormDialog from "@/components/admin/form-dialog";
@@ -108,6 +108,21 @@ export default function CourseLessonsPage() {
                 {lesson.number}
               </div>
               <p className="font-medium text-[var(--admin-text-primary)]">{lesson.title}</p>
+              <span
+                className={`flex shrink-0 items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${
+                  lesson.is_locked
+                    ? "bg-[var(--admin-warning)]/15 text-[var(--admin-warning)]"
+                    : "bg-[var(--admin-accent)]/15 text-[var(--admin-accent)]"
+                }`}
+              >
+                {lesson.is_locked ? (
+                  <>
+                    <Lock size={10} /> Premium
+                  </>
+                ) : (
+                  "Free"
+                )}
+              </span>
               <button
                 type="button"
                 onClick={(e) => {

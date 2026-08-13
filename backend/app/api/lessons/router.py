@@ -3,7 +3,8 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException, Response, status
 from sqlalchemy.orm import Session
 
-from app.api.dependencies.auth import get_current_user, require_admin_panel_access
+from app.api.dependencies.auth import get_current_user, get_current_user_optional, require_admin_panel_access
+from app.api.dependencies.progress import require_lesson_access
 from app.db.session import get_db
 from app.models.user import User
 from app.schemas.lesson import (
@@ -36,7 +37,7 @@ def list_all_lessons(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-    return get_all_lessons(db, str(current_user.id))
+    return get_all_lessons(db, current_user)
 
 
 @router.get(
@@ -46,8 +47,13 @@ def list_all_lessons(
 def list_lessons_by_module(
     module_id: UUID,
     db: Session = Depends(get_db),
+    current_user: User | None = Depends(get_current_user_optional),
 ):
-    return get_lessons_for_module(db, str(module_id))
+    """Public — every lesson in the module stays listed regardless of
+    lock state; only LessonResponse.is_locked/requires_premium change
+    per viewer. The real gate is on GET /{lesson_id} and each content
+    endpoint below, not here."""
+    return get_lessons_for_module(db, str(module_id), current_user)
 
 
 @router.get(
@@ -71,7 +77,7 @@ def list_module_content_status(
 def get_lesson(
     lesson_id: UUID,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(require_lesson_access),
 ):
     lesson = get_lesson_detail(db, str(lesson_id), str(current_user.id))
 

@@ -28,3 +28,21 @@ def is_free_model_test(model_test) -> bool:
 
 def can_access_model_test(model_test, user: User | None) -> bool:
     return is_free_model_test(model_test) or is_user_premium(user) or has_premium_bypass(user)
+
+
+# Every level (A1-C1) gives its first 3 lessons free; Lesson.number is the
+# existing canonical per-module ordering field (already used to sort
+# lessons everywhere else) — no new position field needed.
+LESSON_FREE_NUMBER_THRESHOLD = 3
+
+
+def is_free_lesson(lesson) -> bool:
+    """Position-based rule: Lesson.number <= 3 is free. Combined with the
+    pre-existing per-lesson Lesson.is_free override (currently used to
+    mark each level's very first lesson) via OR, so nothing free before
+    this rule existed becomes locked."""
+    return lesson.number <= LESSON_FREE_NUMBER_THRESHOLD or bool(lesson.is_free)
+
+
+def can_access_lesson(user: User | None, lesson) -> bool:
+    return is_free_lesson(lesson) or is_user_premium(user) or has_premium_bypass(user)

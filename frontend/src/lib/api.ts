@@ -51,6 +51,22 @@ async function refreshAccessToken(): Promise<string | null> {
   return refreshPromise;
 }
 
+// Preserves the HTTP status and parsed body (e.g. {message: "PREMIUM_REQUIRED"})
+// instead of collapsing every failure into a generic "API Error: 403" —
+// callers that care (e.g. the lesson player showing a Premium-required
+// state) can check err.status/err.data; everything else still just sees
+// a normal Error via the message.
+export class ApiError extends Error {
+  status: number;
+  data: unknown;
+
+  constructor(status: number, data: unknown) {
+    super(`API Error: ${status}`);
+    this.status = status;
+    this.data = data;
+  }
+}
+
 const AUTH_ENDPOINTS = ["/auth/login", "/auth/register", "/auth/refresh"];
 
 function isAuthEndpoint(endpoint: string): boolean {
@@ -100,9 +116,13 @@ export async function api<T>(
   }
 
   if (!response.ok) {
-    throw new Error(
-      `API Error: ${response.status}`,
-    );
+    let data: unknown = null;
+    try {
+      data = await response.json();
+    } catch {
+      // No JSON body (e.g. a plain 404) — data stays null.
+    }
+    throw new ApiError(response.status, data);
   }
 
   return response.json();

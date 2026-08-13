@@ -19,4 +19,10 @@ export interface Lesson {
   /** 0 or 100 — derived from StudentProgress.lesson_completed, not a
    *  fractional in-lesson progress tracker. */
   progress: number;
+
+  /** Computed relative to the requesting user (see backend
+   *  can_access_lesson) — first 3 lessons per level are always false,
+   *  everything else is true unless the viewer is Premium/staff. */
+  isLocked: boolean;
+  requiresPremium: boolean;
 }

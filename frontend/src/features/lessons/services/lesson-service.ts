@@ -11,6 +11,8 @@ interface LessonListItemPayload {
   video_url: string | null;
   is_free: boolean;
   progress: number;
+  is_locked?: boolean;
+  requires_premium?: boolean;
 }
 
 interface LessonDetailPayload extends LessonListItemPayload {
@@ -27,6 +29,8 @@ function mapLessonListItem(payload: LessonListItemPayload): Lesson {
     videoUrl: payload.video_url,
     isFree: payload.is_free,
     progress: payload.progress,
+    isLocked: payload.is_locked ?? false,
+    requiresPremium: payload.requires_premium ?? false,
   };
 }
 
@@ -48,6 +52,8 @@ interface LessonByModulePayload {
   duration: number;
   video_url: string | null;
   is_free: boolean;
+  is_locked?: boolean;
+  requires_premium?: boolean;
 }
 
 function mapLessonByModule(payload: LessonByModulePayload): Lesson {
@@ -60,6 +66,8 @@ function mapLessonByModule(payload: LessonByModulePayload): Lesson {
     videoUrl: payload.video_url,
     isFree: payload.is_free,
     progress: 0,
+    isLocked: payload.is_locked ?? false,
+    requiresPremium: payload.requires_premium ?? false,
   };
 }
 

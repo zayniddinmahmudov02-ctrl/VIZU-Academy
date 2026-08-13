@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 
 import type { LevelCode } from "@/constants/levels";
 import { useLevelCourse } from "@/features/courses/hooks/use-level-course";
+import { useTranslation } from "@/lib/i18n/use-translation";
 import { cardEntrance, staggerContainer } from "@/lib/motion";
 
 import ModuleCard from "./module-card";
@@ -13,6 +14,7 @@ interface Props {
 }
 
 export default function ModuleList({ level }: Props) {
+  const { t } = useTranslation();
   const { lessons, isLoading } = useLevelCourse(level);
   const sorted = [...lessons].sort((a, b) => a.number - b.number);
 
@@ -24,7 +26,7 @@ export default function ModuleList({ level }: Props) {
         </h2>
 
         <p className="mt-1.5 text-text-secondary">
-          Schließe einen Unterricht ab, um den nächsten freizuschalten.
+          {t("courses.lessonsSubtitle")}
         </p>
       </div>
 
@@ -42,7 +44,7 @@ export default function ModuleList({ level }: Props) {
         animate="show"
         className="space-y-4"
       >
-        {sorted.map((lesson, index) => (
+        {sorted.map((lesson) => (
           <motion.div
             key={lesson.id}
             variants={cardEntrance}
@@ -51,7 +53,7 @@ export default function ModuleList({ level }: Props) {
               number={lesson.number}
               title={lesson.title}
               lessons={0}
-              locked={index !== 0}
+              locked={lesson.isLocked}
               href={`/lessons/${lesson.id}`}
             />
           </motion.div>

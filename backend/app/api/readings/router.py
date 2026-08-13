@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, Response, status
 from sqlalchemy.orm import Session
 
 from app.api.dependencies.auth import require_admin_panel_access
-from app.api.dependencies.progress import require_video_completed
+from app.api.dependencies.progress import require_lesson_access, require_video_completed
 from app.db.session import get_db
 from app.models.user import User
 
@@ -56,8 +56,11 @@ def get_lesson_readings(
     lesson_id: UUID,
     db: Session = Depends(get_db),
     _: object = Depends(require_video_completed),
+    __: object = Depends(require_lesson_access),
 ):
-    """Requires the caller to have completed this lesson's video first."""
+    """Requires the caller to have completed this lesson's video first,
+    and (require_lesson_access) that they have access to this lesson at
+    all under the free-3-lessons / Premium rule."""
 
     service = ReadingService(db)
 

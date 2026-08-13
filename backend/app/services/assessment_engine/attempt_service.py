@@ -14,6 +14,7 @@ from app.models.assessment_attempt import (
 )
 from app.models.assessment_result import AssessmentResult
 from app.models.assessment_task import TYPE_SPEAKING, TYPE_WRITING, AssessmentTask
+from app.models.lesson import Lesson
 from app.models.section_result import SectionResult
 from app.models.speaking_submission import SpeakingSubmission
 from app.models.task_attempt import TaskAttempt
@@ -22,6 +23,7 @@ from app.models.user import User
 from app.models.writing_submission import WritingSubmission
 
 from app.schemas.assessment_engine import AnswerSubmit
+from app.services.vizu_pay.access import can_access_lesson
 
 from .scoring import get_handler
 
@@ -38,6 +40,16 @@ def start_attempt(db: Session, assessment_id: str, user: User) -> AssessmentAtte
     assessment = db.get(Assessment, UUID(assessment_id))
     if assessment is None or assessment.status != STATUS_PUBLISHED:
         raise HTTPException(status_code=404, detail="Assessment not found or not published.")
+
+    # Lesson-scoped (TYPE_COURSE) assessments respect the free-3-lessons /
+    # Premium rule — the real gate, since get_public_lesson_assessment can
+    # be bypassed by calling this directly with a known assessment_id.
+    # Mock-test-scoped assessments (lesson_id is None) are untouched here;
+    # their own gating lives in mock_exam/attempt_service.py.
+    if assessment.lesson_id is not None:
+        lesson = db.get(Lesson, assessment.lesson_id)
+        if lesson is not None and not can_access_lesson(user, lesson):
+            raise HTTPException(status_code=403, detail="PREMIUM_REQUIRED")
 
     existing = db.scalars(
         select(AssessmentAttempt)

@@ -87,6 +87,14 @@ export const translations: Record<string, Namespace> = {
     filterAll: { de: "Alle", uz: "Barchasi" },
     newBadge: { de: "Neu", uz: "Yangi" },
     percentDone: { de: "{count}% abgeschlossen", uz: "{count}% tugallandi" },
+    lessonFree: { de: "Kostenlos", uz: "Bepul" },
+    lessonUnlocked: { de: "Freigeschaltet", uz: "Ochilgan" },
+    lessonPremium: { de: "Premium", uz: "Premium" },
+    lessonOpen: { de: "Öffnen", uz: "Ochish" },
+    lessonsSubtitle: {
+      de: "Die ersten 3 Lektionen sind kostenlos. Danach benötigst du Premium.",
+      uz: "Dastlabki 3 ta dars bepul. Keyingilari uchun Premium kerak.",
+    },
   },
 
   vorbereitung: {
@@ -302,6 +310,11 @@ export const translations: Record<string, Namespace> = {
     sectionLockedHint: {
       de: "Diese Aktivität wird freigeschaltet, sobald du das Video abgeschlossen hast.",
       uz: "Bu mashg'ulot videoni tugatgach ochiladi.",
+    },
+    premiumRequiredTitle: { de: "🔒 Premium erforderlich", uz: "🔒 Premium talab qilinadi" },
+    premiumRequiredHint: {
+      de: "Die ersten 3 Lektionen jeder Stufe sind kostenlos. Schalte Premium frei, um auf diese Lektion zuzugreifen.",
+      uz: "Har bir darajaning dastlabki 3 ta darsi bepul. Ushbu darsga kirish uchun Premiumni faollashtiring.",
     },
 
     grammarDescription: {

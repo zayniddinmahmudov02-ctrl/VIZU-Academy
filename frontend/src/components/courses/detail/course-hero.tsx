@@ -8,17 +8,19 @@ import type { LevelCode } from "@/constants/levels";
 interface Props {
   level: LevelCode;
   progress?: number;
-  unlockedLessons?: number;
 }
 
 export default function CourseHero({
   level,
   progress = 0,
-  unlockedLessons = 1,
 }: Props) {
   const { course, lessons } = useLevelCourse(level);
 
   if (!course) return null;
+
+  // Real count from the API's per-lesson is_locked (first 3 per level
+  // free, or all of them once Premium) — not the old static placeholder.
+  const unlockedLessons = lessons.filter((lesson) => !lesson.isLocked).length;
 
   return (
     <section className="relative overflow-hidden rounded-card bg-gradient-to-br from-brand-700 via-accent-blue to-purple-600 p-8 text-white shadow-[var(--shadow-lg)] sm:p-10">

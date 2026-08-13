@@ -10,11 +10,13 @@ from app.models.grammar import Grammar
 from app.models.lesson import Lesson
 from app.models.listening import Listening
 from app.models.student_progress import StudentProgress
+from app.models.user import User
 from app.models.video import Video
 from app.models.vocabulary import Vocabulary
 
 from app.repositories.lesson import LessonRepository
 from app.schemas.lesson import LessonCreate, LessonUpdate
+from app.services.vizu_pay.access import can_access_lesson, is_free_lesson
 
 
 class LessonService:
@@ -114,20 +116,45 @@ def get_content_status_for_module(db: Session, module_id: str) -> list[dict]:
             "has_hoeren": "HOEREN" in skills_by_lesson.get(lesson.id, set()),
             "has_schreiben": "SCHREIBEN" in skills_by_lesson.get(lesson.id, set()),
             "has_sprechen": "SPRECHEN" in skills_by_lesson.get(lesson.id, set()),
+            # Position-based only — "would a free student be locked out",
+            # not "is this admin locked out" (admins always bypass).
+            "is_locked": not is_free_lesson(lesson),
         }
         for lesson in lessons
     ]
 
 
-def get_lessons_for_module(db: Session, module_id: str):
-    return db.scalars(
+def get_lessons_for_module(db: Session, module_id: str, user: User | None = None) -> list[dict]:
+    """Public listing — every lesson stays visible regardless of lock
+    state (per-lesson `is_locked`/`requires_premium` only), so the
+    course structure is always browsable. Premium status for `user` is
+    resolved once by the caller, not per lesson — avoids an N+1 query
+    across e.g. 30 lessons in a level."""
+    lessons = db.scalars(
         select(Lesson)
         .where(Lesson.module_id == module_id)
         .order_by(Lesson.number)
     ).all()
 
+    return [_serialize_lesson_response(lesson, user) for lesson in lessons]
 
-def get_all_lessons(db: Session, user_id: str) -> list[dict]:
+
+def _serialize_lesson_response(lesson: Lesson, user: User | None) -> dict:
+    locked = not can_access_lesson(user, lesson)
+    return {
+        "id": lesson.id,
+        "module_id": lesson.module_id,
+        "number": lesson.number,
+        "title": lesson.title,
+        "duration": lesson.duration,
+        "video_url": lesson.video_url,
+        "is_free": lesson.is_free,
+        "is_locked": locked,
+        "requires_premium": locked,
+    }
+
+
+def get_all_lessons(db: Session, user: User) -> list[dict]:
     lessons = db.scalars(
         select(Lesson).order_by(Lesson.number)
     ).all()
@@ -135,7 +162,7 @@ def get_all_lessons(db: Session, user_id: str) -> list[dict]:
     progress_by_lesson = {
         row.lesson_id: row
         for row in db.scalars(
-            select(StudentProgress).where(StudentProgress.user_id == user_id)
+            select(StudentProgress).where(StudentProgress.user_id == user.id)
         ).all()
     }
 
@@ -149,12 +176,18 @@ def get_all_lessons(db: Session, user_id: str) -> list[dict]:
             "video_url": lesson.video_url,
             "is_free": lesson.is_free,
             "progress": _progress_percent(progress_by_lesson.get(lesson.id)),
+            "is_locked": not can_access_lesson(user, lesson),
+            "requires_premium": not can_access_lesson(user, lesson),
         }
         for lesson in lessons
     ]
 
 
 def get_lesson_detail(db: Session, lesson_id: str, user_id: str) -> dict | None:
+    """Access is already enforced upstream by the require_lesson_access
+    dependency on the router — by the time this runs, the caller is
+    known to have access, so is_locked/requires_premium are always False
+    here (still included for schema consistency)."""
     lesson = db.get(Lesson, UUID(lesson_id))
 
     if lesson is None:
@@ -187,4 +220,6 @@ def get_lesson_detail(db: Session, lesson_id: str, user_id: str) -> dict | None:
         "audio_url": listening.audio_url if listening else None,
         "is_free": lesson.is_free,
         "progress": _progress_percent(progress),
+        "is_locked": False,
+        "requires_premium": not is_free_lesson(lesson),
     }

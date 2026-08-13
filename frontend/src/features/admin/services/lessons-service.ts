@@ -28,6 +28,9 @@ export interface LessonContentStatus {
   has_hoeren: boolean;
   has_schreiben: boolean;
   has_sprechen: boolean;
+  /** Position-based (first 3 per level free) — independent of has_* above.
+   *  Content can exist and still be locked for a free student. */
+  is_locked: boolean;
 }
 
 export async function getLessonsContentStatus(moduleId: string): Promise<LessonContentStatus[]> {
