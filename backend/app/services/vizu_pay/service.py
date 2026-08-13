@@ -276,9 +276,12 @@ class VizuPayService:
 
         proof_type = "pdf" if extension == ".pdf" else "image"
         filename = f"{order_id}_{uuid4().hex[:8]}{extension}"
-        path = f"payment-proofs/{filename}"
 
-        return path, proof_type
+        # No "payment-proofs/" prefix here — self.proof_storage's ROOT
+        # (ProtectedPaymentProofStorage) already isolates this tree, so
+        # the stored path is just the filename to avoid a redundant
+        # payment-proofs/payment-proofs/ nesting on disk.
+        return filename, proof_type
 
     def _has_open_order(self, user: User) -> bool:
         return (
