@@ -10,6 +10,9 @@ export interface SubscriptionStatus {
   isPremium: boolean;
   premiumUntil: string | null;
   hasPendingOrder: boolean;
+  rejectionCount: number;
+  isBlocked: boolean;
+  latestRejectionReason: string | null;
 }
 
 export interface PaymentCard {

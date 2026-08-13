@@ -16,6 +16,9 @@ class MySubscriptionStatus(BaseSchema):
     is_premium: bool
     premium_until: datetime | None
     has_pending_order: bool
+    rejection_count: int
+    is_blocked: bool
+    latest_rejection_reason: str | None
 
 
 class OrderItem(BaseSchema):
@@ -68,6 +71,10 @@ class AdminOrderItem(OrderItem):
     user_last_name: str | None
     user_phone_number: str | None
     reviewed_by_email: str | None
+    # Total REJECTED orders for this user across all time (not just this
+    # order) — lets the admin see "this is their 2nd/3rd attempt" at a
+    # glance without opening the user's full history.
+    rejection_count: int
 
 
 class AdminOrderListResponse(BaseSchema):
@@ -76,6 +83,17 @@ class AdminOrderListResponse(BaseSchema):
     page: int
     page_size: int
     total_pages: int
+
+
+class BlockedUserItem(BaseSchema):
+    user_id: UUID
+    user_email: str
+    user_username: str
+    user_first_name: str | None
+    user_last_name: str | None
+    user_phone_number: str | None
+    rejection_count: int
+    last_rejected_at: datetime | None
 
 
 class RejectOrderRequest(BaseSchema):

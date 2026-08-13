@@ -117,7 +117,14 @@ export default function CheckoutModal({ plan, paymentCards, onClose, onSubmit }:
       await onSubmit(paymentMethod, promoResult?.valid ? promoCode.trim() : undefined, file);
       onClose();
     } catch (err: any) {
-      setError(err?.response?.data?.message ?? t("vizuPay.checkoutSubmitError"));
+      const code = err?.response?.data?.message;
+      if (code === "PAYMENT_REQUEST_BLOCKED") {
+        setError(t("vizuPay.checkoutBlockedError"));
+      } else if (code === "PAYMENT_REQUEST_ALREADY_PENDING") {
+        setError(t("vizuPay.checkoutPendingError"));
+      } else {
+        setError(code ?? t("vizuPay.checkoutSubmitError"));
+      }
     } finally {
       setSubmitting(false);
     }

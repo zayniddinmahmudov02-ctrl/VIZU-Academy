@@ -42,20 +42,22 @@ export default function VizuPayPage() {
         <div className="mx-auto max-w-5xl space-y-8">
           <SubscriptionStatusCard status={status} onRedeemPromo={redeemPromo} />
 
-          {status.hasPendingOrder && (
+          {status.hasPendingOrder && !status.isBlocked && (
             <div className="rounded-card bg-warning/10 p-4 text-center text-sm font-medium text-warning ring-1 ring-warning/20">
               {t("vizuPay.pendingNotice")}
             </div>
           )}
 
-          <div>
-            <h2 className="mb-4 text-lg font-bold text-text-primary">{t("vizuPay.plansTitle")}</h2>
-            <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
-              {plans.map((plan, index) => (
-                <PlanCard key={plan.plan} plan={plan} highlighted={index === 1} onSelect={() => setSelectedPlan(plan)} />
-              ))}
+          {!status.isBlocked && (
+            <div>
+              <h2 className="mb-4 text-lg font-bold text-text-primary">{t("vizuPay.plansTitle")}</h2>
+              <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+                {plans.map((plan, index) => (
+                  <PlanCard key={plan.plan} plan={plan} highlighted={index === 1} onSelect={() => setSelectedPlan(plan)} />
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
           <div>
             <h2 className="mb-4 text-lg font-bold text-text-primary">{t("vizuPay.historyTitle")}</h2>

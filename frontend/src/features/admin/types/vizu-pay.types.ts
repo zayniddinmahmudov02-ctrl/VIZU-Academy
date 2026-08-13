@@ -23,6 +23,7 @@ export interface AdminOrderItem {
   user_last_name: string | null;
   user_phone_number: string | null;
   reviewed_by_email: string | null;
+  rejection_count: number;
 }
 
 export interface AdminOrderListResponse {
@@ -31,6 +32,17 @@ export interface AdminOrderListResponse {
   page: number;
   page_size: number;
   total_pages: number;
+}
+
+export interface BlockedUserItem {
+  user_id: string;
+  user_email: string;
+  user_username: string;
+  user_first_name: string | null;
+  user_last_name: string | null;
+  user_phone_number: string | null;
+  rejection_count: number;
+  last_rejected_at: string | null;
 }
 
 export interface PromoCodeItem {

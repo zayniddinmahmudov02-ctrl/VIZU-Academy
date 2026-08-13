@@ -50,6 +50,7 @@ class AdminVizuPayService:
                 "user_last_name": order.user.last_name if order.user else None,
                 "user_phone_number": order.user.phone_number if order.user else None,
                 "reviewed_by_email": order.reviewed_by.email if order.reviewed_by else None,
+                "rejection_count": self.pay.get_rejection_count(order.user_id),
             }
         )
         return base
@@ -61,6 +62,7 @@ class AdminVizuPayService:
         status: str | None = None,
         plan: str | None = None,
         search: str | None = None,
+        user_id: str | None = None,
         year: int | None = None,
         month: int | None = None,
         day: int | None = None,
@@ -71,6 +73,8 @@ class AdminVizuPayService:
             query = query.filter(SubscriptionOrder.status == status)
         if plan:
             query = query.filter(SubscriptionOrder.plan == plan)
+        if user_id:
+            query = query.filter(SubscriptionOrder.user_id == UUID(user_id))
         if search:
             like = f"%{search.strip()}%"
             query = query.filter(or_(User.email.ilike(like), User.username.ilike(like)))
@@ -93,6 +97,57 @@ class AdminVizuPayService:
 
         return paginated_response([self._serialize_admin_order(o) for o in rows], total, page, page_size)
 
+    def list_blocked_users(self) -> list[dict]:
+        """Users with >= MAX_REJECTIONS rejected orders — blocked from
+        submitting new payment requests (see VizuPayService.create_order).
+        Grouped by user, not a per-order listing like the other tabs."""
+        rows = (
+            self.db.query(
+                SubscriptionOrder.user_id,
+                func.count(SubscriptionOrder.id),
+                func.max(SubscriptionOrder.reviewed_at),
+            )
+            .filter(SubscriptionOrder.status == plan_config.STATUS_REJECTED)
+            .group_by(SubscriptionOrder.user_id)
+            .having(func.count(SubscriptionOrder.id) >= plan_config.MAX_REJECTIONS)
+            .all()
+        )
+
+        items = []
+        for user_id, count, last_rejected_at in rows:
+            user = self.db.get(User, user_id)
+            items.append(
+                {
+                    "user_id": str(user_id),
+                    "user_email": user.email if user else "",
+                    "user_username": user.username if user else "",
+                    "user_first_name": user.first_name if user else None,
+                    "user_last_name": user.last_name if user else None,
+                    "user_phone_number": user.phone_number if user else None,
+                    "rejection_count": int(count),
+                    "last_rejected_at": last_rejected_at,
+                }
+            )
+        items.sort(key=lambda i: i["last_rejected_at"] or "", reverse=True)
+        return items
+
+    def _get_order_for_review(self, order_id: str) -> SubscriptionOrder:
+        """Row-locked fetch — the single point every review action (approve/
+        reject) goes through, so two admins acting on the same order at the
+        same instant can't both succeed (see approve_order/reject_order:
+        the second request's status check runs only after the first's
+        transaction has committed and released the lock, so it always sees
+        the already-finalized status and is rejected with a 400)."""
+        order = (
+            self.db.query(SubscriptionOrder)
+            .filter(SubscriptionOrder.id == UUID(order_id))
+            .with_for_update()
+            .first()
+        )
+        if order is None:
+            raise NotFoundError("Order not found")
+        return order
+
     def _get_order(self, order_id: str) -> SubscriptionOrder:
         order = self.db.get(SubscriptionOrder, UUID(order_id))
         if order is None:
@@ -100,9 +155,9 @@ class AdminVizuPayService:
         return order
 
     def approve_order(self, order_id: str, actor: User, ip: str | None) -> dict:
-        order = self._get_order(order_id)
+        order = self._get_order_for_review(order_id)
         if order.status != plan_config.STATUS_PENDING:
-            raise VizuPayError(f"Order is not pending (current status: {order.status}).")
+            raise VizuPayError(f"This request was already reviewed (current status: {order.status}).")
 
         now = _now()
         user = order.user
@@ -129,9 +184,9 @@ class AdminVizuPayService:
         return self._serialize_admin_order(order)
 
     def reject_order(self, order_id: str, reason: str, actor: User, ip: str | None) -> dict:
-        order = self._get_order(order_id)
+        order = self._get_order_for_review(order_id)
         if order.status != plan_config.STATUS_PENDING:
-            raise VizuPayError(f"Order is not pending (current status: {order.status}).")
+            raise VizuPayError(f"This request was already reviewed (current status: {order.status}).")
 
         order.status = plan_config.STATUS_REJECTED
         order.rejection_reason = reason

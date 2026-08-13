@@ -538,6 +538,23 @@ export const translations: Record<string, Namespace> = {
       uz: "Promokodni faollashtirib bo'lmadi.",
     },
 
+    statusRejectedTitle: { de: "🔴 Abgelehnt", uz: "🔴 Rad etildi" },
+    rejectionReasonLabel: { de: "Ablehnungsgrund", uz: "Rad etish sababi" },
+    rejectionAttemptsLabel: { de: "Versuche", uz: "Urinishlar" },
+    statusBlockedTitle: { de: "🔒 Zahlungseinreichung gesperrt", uz: "🔒 Bloklangan" },
+    statusBlockedBody: {
+      de: "Deine Zahlungsanfrage wurde 3 Mal abgelehnt. Bitte kontaktiere den Support.",
+      uz: "3 marta rad etilgan. Yangi to'lov so'rovi yuborish mumkin emas. Iltimos, qo'llab-quvvatlash xizmatiga murojaat qiling.",
+    },
+    checkoutBlockedError: {
+      de: "Zahlungseinreichung ist nach drei Ablehnungen gesperrt. Bitte kontaktiere den Support.",
+      uz: "Uch marta rad etilgandan so'ng to'lov yuborish bloklangan. Iltimos, qo'llab-quvvatlash xizmatiga murojaat qiling.",
+    },
+    checkoutPendingError: {
+      de: "Deine Zahlungsanfrage wird bereits geprüft.",
+      uz: "Sizning to'lov so'rovingiz allaqachon ko'rib chiqilmoqda.",
+    },
+
     paymentCardsTitle: { de: "Zahlungskarten", uz: "To'lov kartalari" },
     paymentCardCopy: { de: "Kopieren", uz: "Nusxalash" },
     paymentCardCopied: { de: "Kopiert!", uz: "Nusxalandi!" },

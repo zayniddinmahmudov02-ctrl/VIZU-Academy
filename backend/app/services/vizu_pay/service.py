@@ -115,6 +115,16 @@ class VizuPayService:
         if expired:
             self.db.commit()
 
+    def get_rejection_count(self, user_id) -> int:
+        return (
+            self.db.query(SubscriptionOrder)
+            .filter(SubscriptionOrder.user_id == user_id, SubscriptionOrder.status == plan_config.STATUS_REJECTED)
+            .count()
+        )
+
+    def is_user_blocked(self, user_id) -> bool:
+        return self.get_rejection_count(user_id) >= plan_config.MAX_REJECTIONS
+
     def get_my_status(self, user: User) -> dict:
         self._sweep_expired(user.id)
 
@@ -128,10 +138,24 @@ class VizuPayService:
             is not None
         )
 
+        rejection_count = self.get_rejection_count(user.id)
+
+        latest_rejected = (
+            self.db.query(SubscriptionOrder)
+            .filter(SubscriptionOrder.user_id == user.id, SubscriptionOrder.status == plan_config.STATUS_REJECTED)
+            .order_by(SubscriptionOrder.reviewed_at.desc())
+            .first()
+        )
+
         return {
             "is_premium": is_premium,
             "premium_until": user.premium_until,
             "has_pending_order": has_pending_order,
+            "rejection_count": rejection_count,
+            "is_blocked": rejection_count >= plan_config.MAX_REJECTIONS,
+            "latest_rejection_reason": (
+                latest_rejected.rejection_reason if latest_rejected and not has_pending_order else None
+            ),
         }
 
     # ------------------------------------------------------------------
@@ -306,8 +330,18 @@ class VizuPayService:
             raise VizuPayError("Invalid payment method.")
 
         self._sweep_expired(user.id)
+
+        if self.is_user_blocked(user.id):
+            raise HTTPException(
+                status_code=403,
+                detail="PAYMENT_REQUEST_BLOCKED",
+            )
+
         if self._has_open_order(user):
-            raise VizuPayError("You already have an open payment request pending review.")
+            raise HTTPException(
+                status_code=409,
+                detail="PAYMENT_REQUEST_ALREADY_PENDING",
+            )
 
         contents = await proof_file.read()
         if len(contents) == 0:

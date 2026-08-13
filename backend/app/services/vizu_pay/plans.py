@@ -59,6 +59,15 @@ STATUS_REFUNDED = "REFUNDED"
 
 ORDER_REVIEW_WINDOW_DAYS = 3
 
+# A user is blocked from submitting new payment requests once this many of
+# their orders have been rejected by an admin (never for cancellations,
+# uploads failures, or system-level duplicate rejections — see
+# VizuPayService.create_order/AdminVizuPayService.reject_order, the only
+# place this counter is ever incremented). Not a stored field — computed
+# from COUNT(status=REJECTED), so no migration and no risk of the counter
+# drifting from the actual order history.
+MAX_REJECTIONS = 3
+
 
 def plan_label(plan: str) -> str:
     return PLAN_CONFIG.get(plan, {}).get("label", plan)

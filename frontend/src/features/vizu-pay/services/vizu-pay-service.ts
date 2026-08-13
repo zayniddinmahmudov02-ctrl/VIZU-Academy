@@ -49,6 +49,9 @@ export async function getStatus(): Promise<SubscriptionStatus> {
     isPremium: data.is_premium,
     premiumUntil: data.premium_until,
     hasPendingOrder: data.has_pending_order,
+    rejectionCount: data.rejection_count,
+    isBlocked: data.is_blocked,
+    latestRejectionReason: data.latest_rejection_reason,
   };
 }
 

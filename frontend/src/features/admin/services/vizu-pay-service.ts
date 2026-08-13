@@ -4,6 +4,7 @@ import { ADMIN_ENDPOINTS } from "../constants/endpoints";
 import type {
   AdminOrderItem,
   AdminOrderListResponse,
+  BlockedUserItem,
   MethodBreakdown,
   PlanBreakdown,
   PromoCodeCreateRequest,
@@ -19,6 +20,7 @@ export async function listOrders(params: {
   status?: string;
   plan?: string;
   search?: string;
+  user_id?: string;
   year?: number;
   month?: number;
   day?: number;
@@ -27,6 +29,11 @@ export async function listOrders(params: {
     params,
   });
   return { ...response.data, items: ensureArray<AdminOrderItem>(response.data?.items) };
+}
+
+export async function listBlockedUsers(): Promise<BlockedUserItem[]> {
+  const response = await api.get<BlockedUserItem[]>(`${ADMIN_ENDPOINTS.adminVizuPay}/blocked-users`);
+  return ensureArray<BlockedUserItem>(response.data);
 }
 
 /** Receipts are served from an authenticated endpoint, not a public URL

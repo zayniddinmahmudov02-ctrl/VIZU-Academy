@@ -8,6 +8,7 @@ from app.schemas.admin import AuditLogResponse
 from app.schemas.vizu_pay import (
     AdminOrderItem,
     AdminOrderListResponse,
+    BlockedUserItem,
     PromoCodeCreateRequest,
     PromoCodeItem,
     PromoCodeUpdateRequest,
@@ -34,6 +35,7 @@ def list_orders(
     status: str | None = None,
     plan: str | None = None,
     search: str | None = None,
+    user_id: str | None = None,
     year: int | None = None,
     month: int | None = None,
     day: int | None = None,
@@ -46,10 +48,23 @@ def list_orders(
         status=status,
         plan=plan,
         search=search,
+        user_id=user_id,
         year=year,
         month=month,
         day=day,
     )
+
+
+@router.get("/blocked-users", response_model=list[BlockedUserItem])
+def list_blocked_users(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_super_admin),
+):
+    """Users with >= MAX_REJECTIONS rejected payment requests — see
+    AdminVizuPayService.list_blocked_users. A separate endpoint rather
+    than a status filter on /orders because this is grouped by user, not
+    a flat list of orders."""
+    return AdminVizuPayService(db).list_blocked_users()
 
 
 @router.post("/orders/{order_id}/approve", response_model=AdminOrderItem)

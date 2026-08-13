@@ -2,24 +2,28 @@
 
 import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Calendar, Check, Plus, Trash2, X } from "lucide-react";
+import { Calendar, Loader2, Plus, Trash2 } from "lucide-react";
 
 import { AdminButton, AdminInput, AdminLabel, AdminPageHeader, AdminSelect } from "@/components/admin/admin-ui";
 import AdminTabs from "@/components/admin/admin-tabs";
 import DataTable, { DataTableColumn } from "@/components/admin/data-table";
 import FormDialog from "@/components/admin/form-dialog";
+import BuyerCard from "@/features/admin/components/payments/buyer-card";
+import HistoryDialog from "@/features/admin/components/payments/history-dialog";
+import ReceiptViewer from "@/features/admin/components/payments/receipt-viewer";
+import RejectDialog from "@/features/admin/components/payments/reject-dialog";
 import { listPayments, type PaymentItem } from "@/features/admin/services/payment-service";
 import {
   approveOrder,
   createPromoCode,
   deletePromoCode,
+  listBlockedUsers,
   listOrders,
   listPromoCodes,
-  openOrderProof,
   rejectOrder,
   togglePromoCode,
 } from "@/features/admin/services/vizu-pay-service";
-import type { AdminOrderItem, PromoCodeItem } from "@/features/admin/types/vizu-pay.types";
+import type { AdminOrderItem, BlockedUserItem, PromoCodeItem } from "@/features/admin/types/vizu-pay.types";
 
 const STATUS_STYLE: Record<string, string> = {
   pending: "bg-[var(--admin-warning)]/15 text-[var(--admin-warning)]",
@@ -88,138 +92,201 @@ function DateFilterBar({ filter, onChange }: { filter: DateFilter; onChange: (f:
   );
 }
 
-function OrdersTab({ dateFilter }: { dateFilter: DateFilter }) {
-  const queryClient = useQueryClient();
-  const [status, setStatus] = useState("");
+const BUYER_SUB_TABS = [
+  { value: "PENDING", label: "New Buyers" },
+  { value: "APPROVED", label: "Approved" },
+  { value: "REJECTED", label: "Rejected" },
+  { value: "BLOCKED", label: "Blocked" },
+] as const;
 
-  const { data, isLoading } = useQuery({
-    queryKey: ["admin-orders", status, dateFilter],
-    queryFn: () => listOrders({ status: status || undefined, page_size: 50, ...dateFilter }),
+type BuyerSubTab = (typeof BUYER_SUB_TABS)[number]["value"];
+
+function BlockedUserCard({ user, onViewHistory }: { user: BlockedUserItem; onViewHistory: () => void }) {
+  const name = [user.user_first_name, user.user_last_name].filter(Boolean).join(" ") || user.user_username;
+
+  return (
+    <div className="flex flex-col gap-3 rounded-2xl bg-[var(--admin-card)] p-4 shadow-[var(--admin-shadow-card)] ring-1 ring-[var(--admin-danger)]/30">
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <p className="truncate font-semibold text-[var(--admin-text-primary)]">{name}</p>
+          <p className="text-xs text-[var(--admin-text-muted)]">{user.user_email}</p>
+          {user.user_phone_number && (
+            <p className="mt-1 text-xs text-[var(--admin-text-secondary)]">{user.user_phone_number}</p>
+          )}
+        </div>
+        <span className="shrink-0 rounded-full bg-[var(--admin-danger)]/15 px-2.5 py-1 text-xs font-semibold text-[var(--admin-danger)]">
+          BLOCKED
+        </span>
+      </div>
+
+      <p className="text-xs font-medium text-[var(--admin-danger)]">
+        {user.rejection_count}/3 Ablehnungen
+        {user.last_rejected_at && ` · Zuletzt: ${new Date(user.last_rejected_at).toLocaleDateString("de-DE")}`}
+      </p>
+
+      <button
+        onClick={onViewHistory}
+        className="w-fit rounded-lg ring-1 ring-[var(--admin-border-strong)] px-3 py-1.5 text-xs font-semibold text-[var(--admin-text-secondary)] transition hover:bg-[var(--admin-hover)]"
+      >
+        Verlauf ansehen
+      </button>
+    </div>
+  );
+}
+
+function NewBuyersSection({ dateFilter }: { dateFilter: DateFilter }) {
+  const queryClient = useQueryClient();
+  const [subTab, setSubTab] = useState<BuyerSubTab>("PENDING");
+  const [receiptOrder, setReceiptOrder] = useState<AdminOrderItem | null>(null);
+  const [rejectingOrder, setRejectingOrder] = useState<AdminOrderItem | null>(null);
+  const [historyTarget, setHistoryTarget] = useState<{ userId: string; userName: string } | null>(null);
+  const [actionError, setActionError] = useState<string | null>(null);
+
+  const ordersQuery = useQuery({
+    queryKey: ["admin-orders", subTab, dateFilter],
+    queryFn: () => listOrders({ status: subTab, page_size: 50, ...dateFilter }),
+    enabled: subTab !== "BLOCKED",
+  });
+
+  const blockedQuery = useQuery({
+    queryKey: ["admin-blocked-users"],
+    queryFn: listBlockedUsers,
+    enabled: subTab === "BLOCKED",
   });
 
   function invalidate() {
     queryClient.invalidateQueries({ queryKey: ["admin-orders"] });
+    queryClient.invalidateQueries({ queryKey: ["admin-blocked-users"] });
+    queryClient.invalidateQueries({ queryKey: ["admin-orders-by-user"] });
   }
 
-  const approveMutation = useMutation({ mutationFn: approveOrder, onSuccess: invalidate });
-  const rejectMutation = useMutation({
-    mutationFn: (id: string) => rejectOrder(id, window.prompt("Ablehnungsgrund:") ?? ""),
+  const approveMutation = useMutation({
+    mutationFn: approveOrder,
     onSuccess: invalidate,
+    onError: (err: any) => setActionError(err?.response?.data?.message ?? "Genehmigung fehlgeschlagen."),
   });
 
-  const columns: DataTableColumn<AdminOrderItem>[] = [
-    {
-      key: "user",
-      header: "Käufer",
-      render: (item) => (
-        <div>
-          <p className="font-medium">
-            {[item.user_first_name, item.user_last_name].filter(Boolean).join(" ") || item.user_username}
-          </p>
-          <p className="text-xs text-[var(--admin-text-muted)]">
-            {item.user_email}
-            {item.user_phone_number && ` · ${item.user_phone_number}`}
-          </p>
-        </div>
-      ),
+  const rejectMutation = useMutation({
+    mutationFn: ({ id, reason }: { id: string; reason: string }) => rejectOrder(id, reason),
+    onSuccess: () => {
+      invalidate();
+      setRejectingOrder(null);
     },
-    { key: "plan", header: "Plan", render: (item) => item.plan_label },
-    {
-      key: "amount",
-      header: "Betrag",
-      render: (item) => `${item.final_amount.toLocaleString()} ${item.currency}`,
-    },
-    { key: "method", header: "Methode", render: (item) => item.payment_method },
-    { key: "date", header: "Eingereicht", render: (item) => new Date(item.created_at).toLocaleDateString("de-DE") },
-    {
-      key: "status",
-      header: "Status",
-      render: (item) => (
-        <div>
-          <span
-            className={`rounded-full px-2.5 py-1 text-xs font-semibold ${
-              STATUS_STYLE[item.status] ?? "bg-white/5 text-[var(--admin-text-muted)]"
-            }`}
-          >
-            {item.status}
-          </span>
-          {item.status === "rejected" && item.rejection_reason && (
-            <p className="mt-1 max-w-[16rem] text-xs text-[var(--admin-danger)]">{item.rejection_reason}</p>
-          )}
-        </div>
-      ),
-    },
-    {
-      key: "proof",
-      header: "Beleg",
-      render: (item) =>
-        item.has_proof ? (
-          <button
-            onClick={() => openOrderProof(item)}
-            className="text-xs text-[var(--admin-primary)] hover:underline"
-          >
-            Öffnen
-          </button>
-        ) : (
-          <span className="text-xs text-[var(--admin-text-muted)]">—</span>
-        ),
-    },
-    {
-      key: "actions",
-      header: "",
-      render: (item) =>
-        item.status === "pending" ? (
-          <div className="flex gap-1.5">
-            <button
-              onClick={() => approveMutation.mutate(item.id)}
-              className="flex h-7 w-7 items-center justify-center rounded-md bg-[var(--admin-accent)]/15 text-[var(--admin-accent)] hover:brightness-110"
-              aria-label="Genehmigen"
-            >
-              <Check size={13} />
-            </button>
-            <button
-              onClick={() => rejectMutation.mutate(item.id)}
-              className="flex h-7 w-7 items-center justify-center rounded-md bg-[var(--admin-danger)]/15 text-[var(--admin-danger)] hover:brightness-110"
-              aria-label="Ablehnen"
-            >
-              <X size={13} />
-            </button>
-          </div>
-        ) : null,
-    },
-  ];
+    onError: (err: any) => setActionError(err?.response?.data?.message ?? "Ablehnung fehlgeschlagen."),
+  });
+
+  function buyerNameFor(order: AdminOrderItem) {
+    return [order.user_first_name, order.user_last_name].filter(Boolean).join(" ") || order.user_username;
+  }
 
   return (
     <div>
       <div className="mb-4 flex flex-wrap gap-2">
-        {["", "pending", "approved", "rejected", "refunded"].map((s) => (
+        {BUYER_SUB_TABS.map((t) => (
           <button
-            key={s}
-            onClick={() => setStatus(s)}
+            key={t.value}
+            onClick={() => setSubTab(t.value)}
             className={`rounded-full px-3.5 py-1.5 text-xs font-semibold transition ${
-              status === s
+              subTab === t.value
                 ? "bg-[var(--admin-primary)] text-white"
                 : "bg-[var(--admin-card)] text-[var(--admin-text-secondary)] ring-1 ring-[var(--admin-border)]"
             }`}
           >
-            {s || "Alle"}
+            {t.label}
           </button>
         ))}
       </div>
 
-      <DataTable
-        columns={columns}
-        data={data?.items}
-        isLoading={isLoading}
-        getRowId={(item) => item.id}
-        emptyMessage="Keine Bestellungen gefunden."
+      {actionError && (
+        <div className="mb-4 rounded-xl bg-[var(--admin-danger)]/10 px-4 py-2.5 text-sm text-[var(--admin-danger)]">
+          {actionError}
+        </div>
+      )}
+
+      {subTab !== "BLOCKED" && (
+        <>
+          {ordersQuery.isLoading && (
+            <div className="flex justify-center py-10">
+              <Loader2 size={22} className="animate-spin text-[var(--admin-primary)]" />
+            </div>
+          )}
+
+          {!ordersQuery.isLoading && (ordersQuery.data?.items.length ?? 0) === 0 && (
+            <div className="rounded-2xl bg-[var(--admin-card)] px-6 py-16 text-center shadow-[var(--admin-shadow-card)] ring-1 ring-[var(--admin-border)]">
+              <p className="text-sm text-[var(--admin-text-muted)]">Keine Einträge in dieser Ansicht.</p>
+            </div>
+          )}
+
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+            {ordersQuery.data?.items.map((order) => (
+              <BuyerCard
+                key={order.id}
+                order={order}
+                onOpenReceipt={setReceiptOrder}
+                onApprove={(o) => {
+                  setActionError(null);
+                  approveMutation.mutate(o.id);
+                }}
+                onReject={(o) => {
+                  setActionError(null);
+                  setRejectingOrder(o);
+                }}
+                onViewHistory={(o) => setHistoryTarget({ userId: o.user_id, userName: buyerNameFor(o) })}
+                approvePending={approveMutation.isPending}
+              />
+            ))}
+          </div>
+        </>
+      )}
+
+      {subTab === "BLOCKED" && (
+        <>
+          {blockedQuery.isLoading && (
+            <div className="flex justify-center py-10">
+              <Loader2 size={22} className="animate-spin text-[var(--admin-primary)]" />
+            </div>
+          )}
+
+          {!blockedQuery.isLoading && (blockedQuery.data?.length ?? 0) === 0 && (
+            <div className="rounded-2xl bg-[var(--admin-card)] px-6 py-16 text-center shadow-[var(--admin-shadow-card)] ring-1 ring-[var(--admin-border)]">
+              <p className="text-sm text-[var(--admin-text-muted)]">Keine blockierten Nutzer.</p>
+            </div>
+          )}
+
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+            {blockedQuery.data?.map((user) => (
+              <BlockedUserCard
+                key={user.user_id}
+                user={user}
+                onViewHistory={() =>
+                  setHistoryTarget({
+                    userId: user.user_id,
+                    userName: [user.user_first_name, user.user_last_name].filter(Boolean).join(" ") || user.user_username,
+                  })
+                }
+              />
+            ))}
+          </div>
+        </>
+      )}
+
+      <ReceiptViewer order={receiptOrder} onClose={() => setReceiptOrder(null)} />
+
+      <RejectDialog
+        order={rejectingOrder}
+        onClose={() => setRejectingOrder(null)}
+        isPending={rejectMutation.isPending}
+        onConfirm={(reason) => {
+          if (!rejectingOrder) return;
+          rejectMutation.mutate({ id: rejectingOrder.id, reason });
+        }}
       />
 
-      {data && data.total_pages > 1 && (
-        <p className="mt-3 text-xs text-[var(--admin-text-muted)]">
-          Seite {data.page} von {data.total_pages} ({data.total} Bestellungen)
-        </p>
-      )}
+      <HistoryDialog
+        userId={historyTarget?.userId ?? null}
+        userName={historyTarget?.userName ?? ""}
+        onClose={() => setHistoryTarget(null)}
+      />
     </div>
   );
 }
@@ -523,9 +590,9 @@ export default function PaymentsPage() {
       <AdminPageHeader title="Payments" description="Zahlungen prüfen, genehmigen und Promo-Codes verwalten." />
       <DateFilterBar filter={dateFilter} onChange={setDateFilter} />
       <AdminTabs
-        defaultValue="website"
+        defaultValue="new-buyers"
         tabs={[
-          { value: "website", label: "Neue Käufer", content: <OrdersTab dateFilter={dateFilter} /> },
+          { value: "new-buyers", label: "New Buyers", content: <NewBuyersSection dateFilter={dateFilter} /> },
           { value: "telegram", label: "Telegram", content: <TelegramTab dateFilter={dateFilter} /> },
           { value: "promos", label: "Promo-Codes", content: <PromoCodesTab /> },
         ]}
