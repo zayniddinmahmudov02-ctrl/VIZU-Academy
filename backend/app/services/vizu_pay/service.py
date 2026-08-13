@@ -1,22 +1,34 @@
-import math
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from uuid import UUID, uuid4
 
-from fastapi import UploadFile
+from fastapi import HTTPException, UploadFile
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.core.audit import write_audit
-from app.core.config import settings
 from app.core.exceptions import DomainError
 from app.core.pagination import clamp_page_params, paginated_response
-from app.core.storage.factory import StorageFactory
+from app.core.security.roles import UserRole
+from app.core.storage.protected_local import ProtectedPaymentProofStorage
 from app.models.promo_code import PromoCode
 from app.models.promo_code_redemption import PromoCodeRedemption
 from app.models.subscription_order import SubscriptionOrder
 from app.models.user import User
 
 from . import plans as plan_config
+
+DISCOUNT_TYPES_AT_CHECKOUT = {"PERCENT", "FIXED"}
+DISCOUNT_TYPE_FREE_DAYS = "FREE_DAYS"
+ALL_DISCOUNT_TYPES = DISCOUNT_TYPES_AT_CHECKOUT | {DISCOUNT_TYPE_FREE_DAYS}
+
+_PROOF_CONTENT_TYPE = {
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".png": "image/png",
+    ".webp": "image/webp",
+    ".pdf": "application/pdf",
+}
 
 ALLOWED_PROOF_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp", ".pdf"}
 MAX_PROOF_SIZE_BYTES = 10 * 1024 * 1024
@@ -56,7 +68,11 @@ def _now() -> datetime:
 class VizuPayService:
     def __init__(self, db: Session):
         self.db = db
-        self.storage = StorageFactory.create(settings.STORAGE_PROVIDER)
+        # Receipts are never publicly reachable — a dedicated, isolated
+        # storage root served only via the authenticated
+        # GET /vizu-pay/orders/{id}/proof endpoint, same pattern as
+        # protected Hören audio.
+        self.proof_storage = ProtectedPaymentProofStorage()
 
     # ------------------------------------------------------------------
     # Plans
@@ -74,6 +90,9 @@ class VizuPayService:
             for plan, cfg in plan_config.PLAN_CONFIG.items()
             if plan in plan_config.PAID_PLANS
         ]
+
+    def list_payment_cards(self) -> list[dict]:
+        return plan_config.PAYMENT_CARDS
 
     # ------------------------------------------------------------------
     # Status
@@ -102,23 +121,6 @@ class VizuPayService:
         now = _now()
         is_premium = bool(user.premium_until and user.premium_until > now)
 
-        has_paid_approval = (
-            self.db.query(SubscriptionOrder)
-            .filter(
-                SubscriptionOrder.user_id == user.id,
-                SubscriptionOrder.status == plan_config.STATUS_APPROVED,
-                SubscriptionOrder.plan.in_(list(plan_config.PAID_PLANS)),
-            )
-            .first()
-            is not None
-        )
-
-        is_trial = is_premium and user.trial_used_at is not None and not has_paid_approval
-
-        trial_days_remaining = None
-        if is_trial and user.premium_until:
-            trial_days_remaining = max(math.ceil((user.premium_until - now).total_seconds() / 86400), 0)
-
         has_pending_order = (
             self.db.query(SubscriptionOrder)
             .filter(SubscriptionOrder.user_id == user.id, SubscriptionOrder.status == plan_config.STATUS_PENDING)
@@ -129,45 +131,8 @@ class VizuPayService:
         return {
             "is_premium": is_premium,
             "premium_until": user.premium_until,
-            "is_trial": is_trial,
-            "trial_available": user.trial_used_at is None,
-            "trial_days_remaining": trial_days_remaining,
             "has_pending_order": has_pending_order,
         }
-
-    # ------------------------------------------------------------------
-    # Trial
-    # ------------------------------------------------------------------
-
-    def activate_trial(self, user: User, ip: str | None) -> dict:
-        if user.trial_used_at is not None:
-            raise VizuPayError("Trial already used for this account.")
-
-        now = _now()
-        base = user.premium_until if (user.premium_until and user.premium_until > now) else now
-
-        user.trial_used_at = now
-        user.premium_until = base + timedelta(days=plan_config.plan_days(plan_config.PLAN_TRIAL))
-
-        order = SubscriptionOrder(
-            user_id=user.id,
-            plan=plan_config.PLAN_TRIAL,
-            duration_days=plan_config.plan_days(plan_config.PLAN_TRIAL),
-            base_amount=0,
-            discount_amount=0,
-            final_amount=0,
-            currency="UZS",
-            payment_method=plan_config.PAYMENT_METHOD_TRIAL,
-            status=plan_config.STATUS_APPROVED,
-            reviewed_at=now,
-            gateway="manual",
-        )
-        self.db.add(order)
-        self.db.commit()
-
-        write_audit(self.db, actor_id=user.id, action="trial_started", target_user_id=user.id, ip_address=ip)
-
-        return {"premium_until": user.premium_until}
 
     # ------------------------------------------------------------------
     # Promo validation
@@ -181,7 +146,10 @@ class VizuPayService:
         )
 
     def _check_promo(self, promo: PromoCode | None, user: User) -> str | None:
-        """Returns an error message if the promo can't be applied, else None."""
+        """Returns an error message if the promo can't be applied, else None.
+        Shared by checkout-discount validation and direct FREE_DAYS
+        redemption — every rule here (active, expiry, usage limit,
+        one-per-user) applies identically to both."""
         if promo is None:
             return "Promo code not found."
         if not promo.is_active:
@@ -200,16 +168,94 @@ class VizuPayService:
         return None
 
     def validate_promo(self, code: str, user: User) -> dict:
+        """Checkout-time preview only — for FREE_DAYS codes (which grant
+        Premium directly and never apply to a paid order) this always
+        reports invalid with a message pointing at the redeem flow."""
         promo = self._find_promo(code)
         error = self._check_promo(promo, user)
         if error:
             return {"valid": False, "discount_type": None, "discount_value": None, "message": error}
+        if promo.discount_type == DISCOUNT_TYPE_FREE_DAYS:
+            return {
+                "valid": False,
+                "discount_type": promo.discount_type,
+                "discount_value": promo.discount_value,
+                "message": "This code grants Premium directly — use 'Enter promo code', not checkout.",
+            }
         return {"valid": True, "discount_type": promo.discount_type, "discount_value": promo.discount_value, "message": None}
 
     def _apply_discount(self, base_amount: int, promo: PromoCode) -> int:
         if promo.discount_type == "PERCENT":
             return min(base_amount * promo.discount_value // 100, base_amount)
         return min(promo.discount_value, base_amount)
+
+    # ------------------------------------------------------------------
+    # Promo — direct redemption (grants Premium, no payment)
+    # ------------------------------------------------------------------
+
+    def redeem_promo(self, code: str, user: User, ip: str | None) -> dict:
+        """FREE_DAYS codes only. Row-locks the PromoCode for the duration
+        of the check-then-increment so two simultaneous redemptions of a
+        near-exhausted code can't both succeed (the DB-level unique
+        constraint on (promo_code_id, user_id) is the backstop for the
+        one-user-one-use rule, in case app logic is ever bypassed)."""
+        promo = (
+            self.db.query(PromoCode)
+            .filter(PromoCode.code == code.strip().upper())
+            .with_for_update()
+            .first()
+        )
+
+        error = self._check_promo(promo, user)
+        if error:
+            raise VizuPayError(error)
+
+        if promo.discount_type != DISCOUNT_TYPE_FREE_DAYS:
+            raise VizuPayError("This code is a checkout discount — apply it at checkout instead.")
+
+        days = promo.discount_value
+        now = _now()
+        base = user.premium_until if (user.premium_until and user.premium_until > now) else now
+        user.premium_until = base + timedelta(days=days)
+
+        order_id = uuid4()
+        order = SubscriptionOrder(
+            id=order_id,
+            user_id=user.id,
+            plan=plan_config.PLAN_PROMO,
+            duration_days=days,
+            base_amount=0,
+            discount_amount=0,
+            final_amount=0,
+            currency="UZS",
+            payment_method=plan_config.PAYMENT_METHOD_PROMO,
+            status=plan_config.STATUS_APPROVED,
+            promo_code_id=promo.id,
+            gateway="promo",
+            reviewed_at=now,
+        )
+        self.db.add(order)
+        self.db.flush()
+
+        promo.used_count += 1
+        self.db.add(PromoCodeRedemption(promo_code_id=promo.id, user_id=user.id, order_id=order_id))
+
+        try:
+            self.db.commit()
+        except IntegrityError:
+            self.db.rollback()
+            raise VizuPayError("You have already used this promo code.")
+
+        write_audit(
+            self.db,
+            actor_id=user.id,
+            action="promo_redeemed",
+            target_user_id=user.id,
+            details=f"{promo.code} (+{days}d)",
+            ip_address=ip,
+        )
+
+        return {"premium_until": user.premium_until, "days_granted": days}
 
     # ------------------------------------------------------------------
     # Orders
@@ -234,6 +280,14 @@ class VizuPayService:
 
         return path, proof_type
 
+    def _has_open_order(self, user: User) -> bool:
+        return (
+            self.db.query(SubscriptionOrder)
+            .filter(SubscriptionOrder.user_id == user.id, SubscriptionOrder.status == plan_config.STATUS_PENDING)
+            .first()
+            is not None
+        )
+
     async def create_order(
         self,
         user: User,
@@ -247,6 +301,10 @@ class VizuPayService:
             raise VizuPayError("Invalid plan.")
         if payment_method not in plan_config.PAYMENT_METHODS:
             raise VizuPayError("Invalid payment method.")
+
+        self._sweep_expired(user.id)
+        if self._has_open_order(user):
+            raise VizuPayError("You already have an open payment request pending review.")
 
         contents = await proof_file.read()
         if len(contents) == 0:
@@ -264,6 +322,8 @@ class VizuPayService:
             error = self._check_promo(promo, user)
             if error:
                 raise VizuPayError(error)
+            if promo.discount_type == DISCOUNT_TYPE_FREE_DAYS:
+                raise VizuPayError("This code grants Premium directly — use 'Enter promo code', not checkout.")
             discount_amount = self._apply_discount(base_amount, promo)
 
         final_amount = max(base_amount - discount_amount, 0)
@@ -271,8 +331,7 @@ class VizuPayService:
         order_id = uuid4()
         proof_path, proof_type = self._build_proof_path(order_id, proof_file, contents)
 
-        await self.storage.upload(proof_file, proof_path)
-        proof_url = self.storage.url(proof_path)
+        await self.proof_storage.upload(proof_file, proof_path)
 
         order = SubscriptionOrder(
             id=order_id,
@@ -285,7 +344,7 @@ class VizuPayService:
             currency="UZS",
             payment_method=payment_method,
             status=plan_config.STATUS_PENDING,
-            proof_url=proof_url,
+            proof_url=proof_path,
             proof_type=proof_type,
             promo_code_id=promo.id if promo else None,
             gateway="manual",
@@ -324,14 +383,34 @@ class VizuPayService:
             "currency": order.currency,
             "payment_method": order.payment_method,
             "status": order.status,
-            "proof_url": order.proof_url,
-            "proof_type": order.proof_type,
+            "has_proof": order.proof_url is not None,
+            "proof_download_url": f"/api/v1/vizu-pay/orders/{order.id}/proof" if order.proof_url else None,
             "promo_code": order.promo_code.code if order.promo_code else None,
             "rejection_reason": order.rejection_reason,
             "expires_at": order.expires_at,
             "reviewed_at": order.reviewed_at,
             "created_at": order.created_at,
         }
+
+    def get_order_proof(self, order_id: str, user: User) -> tuple[Path, str, str]:
+        """Authorization: the order's own user, or staff. Returns
+        (absolute file path, content type, download filename) for
+        FileResponse — never a public URL."""
+        order = self.db.get(SubscriptionOrder, UUID(order_id))
+        if order is None or not order.proof_url:
+            raise VizuPayError("No receipt for this order.")
+
+        is_owner = order.user_id == user.id
+        is_staff = user.role in UserRole.ADMIN_PANEL_ROLES
+        if not is_owner and not is_staff:
+            raise HTTPException(status_code=403, detail="Not authorized to view this receipt.")
+
+        path = self.proof_storage.ROOT / order.proof_url
+        extension = Path(order.proof_url).suffix.lower()
+        content_type = _PROOF_CONTENT_TYPE.get(extension, "application/octet-stream")
+        filename = f"receipt-{order.id}{extension}"
+
+        return path, content_type, filename
 
     def get_my_orders(self, user: User, page: int = 1, page_size: int = 20) -> dict:
         self._sweep_expired(user.id)

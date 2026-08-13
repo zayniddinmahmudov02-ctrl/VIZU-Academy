@@ -9,10 +9,17 @@ export interface PlanOption {
 export interface SubscriptionStatus {
   isPremium: boolean;
   premiumUntil: string | null;
-  isTrial: boolean;
-  trialAvailable: boolean;
-  trialDaysRemaining: number | null;
   hasPendingOrder: boolean;
+}
+
+export interface PaymentCard {
+  label: string;
+  number: string;
+}
+
+export interface PromoRedeemResult {
+  premiumUntil: string;
+  daysGranted: number;
 }
 
 export interface OrderItem {
@@ -26,8 +33,8 @@ export interface OrderItem {
   currency: string;
   paymentMethod: string;
   status: string;
-  proofUrl: string | null;
-  proofType: string | null;
+  hasProof: boolean;
+  proofDownloadUrl: string | null;
   promoCode: string | null;
   rejectionReason: string | null;
   expiresAt: string | null;

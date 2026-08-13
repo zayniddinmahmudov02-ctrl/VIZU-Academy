@@ -15,6 +15,7 @@ import {
   deletePromoCode,
   listOrders,
   listPromoCodes,
+  openOrderProof,
   rejectOrder,
   togglePromoCode,
 } from "@/features/admin/services/vizu-pay-service";
@@ -109,11 +110,16 @@ function OrdersTab({ dateFilter }: { dateFilter: DateFilter }) {
   const columns: DataTableColumn<AdminOrderItem>[] = [
     {
       key: "user",
-      header: "Nutzer",
+      header: "Käufer",
       render: (item) => (
         <div>
-          <p className="font-medium">{item.user_username}</p>
-          <p className="text-xs text-[var(--admin-text-muted)]">{item.user_email}</p>
+          <p className="font-medium">
+            {[item.user_first_name, item.user_last_name].filter(Boolean).join(" ") || item.user_username}
+          </p>
+          <p className="text-xs text-[var(--admin-text-muted)]">
+            {item.user_email}
+            {item.user_phone_number && ` · ${item.user_phone_number}`}
+          </p>
         </div>
       ),
     },
@@ -124,18 +130,39 @@ function OrdersTab({ dateFilter }: { dateFilter: DateFilter }) {
       render: (item) => `${item.final_amount.toLocaleString()} ${item.currency}`,
     },
     { key: "method", header: "Methode", render: (item) => item.payment_method },
+    { key: "date", header: "Eingereicht", render: (item) => new Date(item.created_at).toLocaleDateString("de-DE") },
     {
       key: "status",
       header: "Status",
       render: (item) => (
-        <span
-          className={`rounded-full px-2.5 py-1 text-xs font-semibold ${
-            STATUS_STYLE[item.status] ?? "bg-white/5 text-[var(--admin-text-muted)]"
-          }`}
-        >
-          {item.status}
-        </span>
+        <div>
+          <span
+            className={`rounded-full px-2.5 py-1 text-xs font-semibold ${
+              STATUS_STYLE[item.status] ?? "bg-white/5 text-[var(--admin-text-muted)]"
+            }`}
+          >
+            {item.status}
+          </span>
+          {item.status === "rejected" && item.rejection_reason && (
+            <p className="mt-1 max-w-[16rem] text-xs text-[var(--admin-danger)]">{item.rejection_reason}</p>
+          )}
+        </div>
       ),
+    },
+    {
+      key: "proof",
+      header: "Beleg",
+      render: (item) =>
+        item.has_proof ? (
+          <button
+            onClick={() => openOrderProof(item)}
+            className="text-xs text-[var(--admin-primary)] hover:underline"
+          >
+            Öffnen
+          </button>
+        ) : (
+          <span className="text-xs text-[var(--admin-text-muted)]">—</span>
+        ),
     },
     {
       key: "actions",
@@ -158,18 +185,7 @@ function OrdersTab({ dateFilter }: { dateFilter: DateFilter }) {
               <X size={13} />
             </button>
           </div>
-        ) : (
-          item.proof_url && (
-            <a
-              href={item.proof_url}
-              target="_blank"
-              rel="noreferrer"
-              className="text-xs text-[var(--admin-primary)] hover:underline"
-            >
-              Beleg ansehen
-            </a>
-          )
-        ),
+        ) : null,
     },
   ];
 
@@ -300,18 +316,31 @@ function PromoCodesTab() {
   const { data, isLoading } = useQuery({ queryKey: ["promo-codes"], queryFn: listPromoCodes });
 
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [form, setForm] = useState({ code: "", campaign: "", discount_type: "PERCENT", discount_value: 10 });
+  const EMPTY_FORM = {
+    code: "",
+    campaign: "",
+    discount_type: "FREE_DAYS",
+    discount_value: 7,
+    max_uses: 100,
+    expires_at: "",
+  };
+  const [form, setForm] = useState(EMPTY_FORM);
 
   function invalidate() {
     queryClient.invalidateQueries({ queryKey: ["promo-codes"] });
   }
 
   const createMutation = useMutation({
-    mutationFn: () => createPromoCode(form),
+    mutationFn: () =>
+      createPromoCode({
+        ...form,
+        max_uses: form.max_uses || null,
+        expires_at: form.expires_at ? new Date(form.expires_at).toISOString() : null,
+      }),
     onSuccess: () => {
       invalidate();
       setDialogOpen(false);
-      setForm({ code: "", campaign: "", discount_type: "PERCENT", discount_value: 10 });
+      setForm(EMPTY_FORM);
     },
   });
   const toggleMutation = useMutation({
@@ -325,11 +354,20 @@ function PromoCodesTab() {
     { key: "campaign", header: "Kampagne", render: (item) => item.campaign ?? "—" },
     {
       key: "discount",
-      header: "Rabatt",
+      header: "Wirkung",
       render: (item) =>
-        item.discount_type === "PERCENT" ? `${item.discount_value}%` : `${item.discount_value}`,
+        item.discount_type === "PERCENT"
+          ? `${item.discount_value}% Rabatt`
+          : item.discount_type === "FIXED"
+            ? `${item.discount_value} Rabatt`
+            : `+${item.discount_value} Tage Premium`,
     },
     { key: "used", header: "Genutzt", render: (item) => `${item.used_count}${item.max_uses ? `/${item.max_uses}` : ""}` },
+    {
+      key: "expires",
+      header: "Läuft ab",
+      render: (item) => (item.expires_at ? new Date(item.expires_at).toLocaleDateString("de-DE") : "—"),
+    },
     {
       key: "is_active",
       header: "Status",
@@ -413,21 +451,61 @@ function PromoCodesTab() {
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <AdminLabel>Rabatt-Typ</AdminLabel>
+              <AdminLabel>Typ</AdminLabel>
               <AdminSelect
                 value={form.discount_type}
                 onChange={(e) => setForm({ ...form, discount_type: e.target.value })}
               >
-                <option value="PERCENT">Prozent</option>
-                <option value="FIXED">Fixbetrag</option>
+                <option value="FREE_DAYS">Premium freischalten (Tage)</option>
+                <option value="PERCENT">Rabatt — Prozent</option>
+                <option value="FIXED">Rabatt — Fixbetrag</option>
               </AdminSelect>
             </div>
             <div>
-              <AdminLabel>Wert</AdminLabel>
+              <AdminLabel>{form.discount_type === "FREE_DAYS" ? "Dauer (Tage)" : "Wert"}</AdminLabel>
               <AdminInput
                 type="number"
                 value={form.discount_value}
                 onChange={(e) => setForm({ ...form, discount_value: Number(e.target.value) })}
+              />
+            </div>
+          </div>
+
+          {form.discount_type === "FREE_DAYS" && (
+            <div className="flex gap-2">
+              {[1, 3, 7, 30].map((days) => (
+                <button
+                  key={days}
+                  type="button"
+                  onClick={() => setForm({ ...form, discount_value: days })}
+                  className={`rounded-full px-3 py-1 text-xs font-semibold transition ${
+                    form.discount_value === days
+                      ? "bg-[var(--admin-primary)] text-white"
+                      : "bg-[var(--admin-card)] text-[var(--admin-text-secondary)] ring-1 ring-[var(--admin-border)]"
+                  }`}
+                >
+                  {days} Tage
+                </button>
+              ))}
+            </div>
+          )}
+
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <AdminLabel>Maximale Nutzer</AdminLabel>
+              <AdminInput
+                type="number"
+                value={form.max_uses}
+                onChange={(e) => setForm({ ...form, max_uses: Number(e.target.value) })}
+                placeholder="100"
+              />
+            </div>
+            <div>
+              <AdminLabel>Gültig bis (optional)</AdminLabel>
+              <AdminInput
+                type="date"
+                value={form.expires_at}
+                onChange={(e) => setForm({ ...form, expires_at: e.target.value })}
               />
             </div>
           </div>
@@ -447,7 +525,7 @@ export default function PaymentsPage() {
       <AdminTabs
         defaultValue="website"
         tabs={[
-          { value: "website", label: "Website", content: <OrdersTab dateFilter={dateFilter} /> },
+          { value: "website", label: "Neue Käufer", content: <OrdersTab dateFilter={dateFilter} /> },
           { value: "telegram", label: "Telegram", content: <TelegramTab dateFilter={dateFilter} /> },
           { value: "promos", label: "Promo-Codes", content: <PromoCodesTab /> },
         ]}

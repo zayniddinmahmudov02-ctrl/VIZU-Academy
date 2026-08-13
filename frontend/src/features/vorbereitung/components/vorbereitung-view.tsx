@@ -12,6 +12,7 @@ import {
   Clock3,
   FileText,
   GraduationCap,
+  Lock,
   Play,
   ShieldCheck,
 } from "lucide-react";
@@ -205,30 +206,56 @@ export default function VorbereitungView() {
               {modelTests?.map((mt, i) => (
                 <div
                   key={mt.id}
-                  className="flex flex-wrap items-center justify-between gap-4 rounded-2xl bg-surface-card p-5 shadow-[var(--shadow-sm)] ring-1 ring-surface-border"
+                  className={`flex flex-wrap items-center justify-between gap-4 rounded-2xl bg-surface-card p-5 shadow-[var(--shadow-sm)] ring-1 ring-surface-border ${
+                    mt.is_locked ? "opacity-90" : ""
+                  }`}
                 >
                   <div className="flex items-center gap-4">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent-blue/10 text-accent-blue">
-                      <FileText size={20} />
+                    <div
+                      className={`flex h-11 w-11 items-center justify-center rounded-xl ${
+                        mt.is_locked ? "bg-warning/10 text-warning" : "bg-accent-blue/10 text-accent-blue"
+                      }`}
+                    >
+                      {mt.is_locked ? <Lock size={20} /> : <FileText size={20} />}
                     </div>
                     <div>
-                      <p className="font-semibold text-text-primary">{mt.title || t("vorbereitung.mockTestLabel", { count: i + 1 })}</p>
+                      <p className="flex items-center gap-1.5 font-semibold text-text-primary">
+                        {mt.is_locked && <Lock size={13} className="text-warning" />}
+                        {mt.title || t("vorbereitung.mockTestLabel", { count: i + 1 })}
+                      </p>
                       <p className="flex items-center gap-1.5 text-sm text-text-secondary">
-                        <Clock3 size={14} /> {t("vorbereitung.skillsRow")}
+                        {mt.is_locked ? (
+                          t("vorbereitung.premiumRequired")
+                        ) : (
+                          <>
+                            <Clock3 size={14} /> {t("vorbereitung.skillsRow")}
+                          </>
+                        )}
                       </p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <span className="hidden items-center gap-1 rounded-lg bg-surface-hover px-2.5 py-1 text-xs font-medium text-text-muted sm:inline-flex">
-                      {t("vorbereitung.notStarted")}
-                    </span>
-                    <Link href={`/vorbereitung/modelltest/${mt.id}`}>
-                      <Button size="sm">
-                        <Play size={16} />
-                        {t("common.starten")}
-                      </Button>
-                    </Link>
+                    {!mt.is_locked && (
+                      <span className="hidden items-center gap-1 rounded-lg bg-surface-hover px-2.5 py-1 text-xs font-medium text-text-muted sm:inline-flex">
+                        {t("vorbereitung.notStarted")}
+                      </span>
+                    )}
+                    {mt.is_locked ? (
+                      <Link href="/vizu-pay">
+                        <Button size="sm" variant="secondary">
+                          <Lock size={15} />
+                          {t("vorbereitung.unlockPremium")}
+                        </Button>
+                      </Link>
+                    ) : (
+                      <Link href={`/vorbereitung/modelltest/${mt.id}`}>
+                        <Button size="sm">
+                          <Play size={16} />
+                          {t("common.starten")}
+                        </Button>
+                      </Link>
+                    )}
                   </div>
                 </div>
               ))}

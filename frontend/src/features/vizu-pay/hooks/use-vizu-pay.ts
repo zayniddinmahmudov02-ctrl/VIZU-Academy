@@ -3,10 +3,11 @@
 import { useCallback, useEffect, useState } from "react";
 
 import * as vizuPayService from "../services/vizu-pay-service";
-import type { OrderListResponse, PlanOption, SubscriptionStatus } from "../types";
+import type { OrderListResponse, PaymentCard, PlanOption, SubscriptionStatus } from "../types";
 
 export function useVizuPay() {
   const [plans, setPlans] = useState<PlanOption[]>([]);
+  const [paymentCards, setPaymentCards] = useState<PaymentCard[]>([]);
   const [status, setStatus] = useState<SubscriptionStatus | null>(null);
   const [orders, setOrders] = useState<OrderListResponse | null>(null);
   const [loading, setLoading] = useState(true);
@@ -16,12 +17,14 @@ export function useVizuPay() {
     setLoading(true);
     setError(false);
     try {
-      const [plansRes, statusRes, ordersRes] = await Promise.all([
+      const [plansRes, cardsRes, statusRes, ordersRes] = await Promise.all([
         vizuPayService.getPlans(),
+        vizuPayService.getPaymentCards(),
         vizuPayService.getStatus(),
         vizuPayService.getMyOrders(),
       ]);
       setPlans(plansRes);
+      setPaymentCards(cardsRes);
       setStatus(statusRes);
       setOrders(ordersRes);
     } catch (err) {
@@ -36,9 +39,10 @@ export function useVizuPay() {
     load();
   }, [load]);
 
-  async function activateTrial() {
-    await vizuPayService.activateTrial();
+  async function redeemPromo(code: string) {
+    const result = await vizuPayService.redeemPromo(code);
     await load();
+    return result;
   }
 
   async function submitOrder(input: vizuPayService.CreateOrderInput) {
@@ -46,5 +50,5 @@ export function useVizuPay() {
     await load();
   }
 
-  return { plans, status, orders, loading, error, refetch: load, activateTrial, submitOrder };
+  return { plans, paymentCards, status, orders, loading, error, refetch: load, redeemPromo, submitOrder };
 }

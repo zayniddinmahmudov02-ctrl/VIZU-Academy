@@ -29,6 +29,19 @@ export async function listOrders(params: {
   return { ...response.data, items: ensureArray<AdminOrderItem>(response.data?.items) };
 }
 
+/** Receipts are served from an authenticated endpoint, not a public URL
+ * (see backend VizuPayService.get_order_proof) — a plain <a href> would
+ * hit it with no Authorization header and get a 401. Fetch it through the
+ * shared axios instance (which does attach the bearer token) and hand
+ * back a blob URL the caller can window.open(). */
+export async function openOrderProof(order: AdminOrderItem): Promise<void> {
+  if (!order.proof_download_url) return;
+  const response = await api.get(order.proof_download_url, { responseType: "blob" });
+  const blobUrl = URL.createObjectURL(response.data);
+  window.open(blobUrl, "_blank", "noopener,noreferrer");
+  setTimeout(() => URL.revokeObjectURL(blobUrl), 60_000);
+}
+
 export async function approveOrder(id: string): Promise<AdminOrderItem> {
   const response = await api.post<AdminOrderItem>(`${ADMIN_ENDPOINTS.adminVizuPay}/orders/${id}/approve`);
   return response.data;

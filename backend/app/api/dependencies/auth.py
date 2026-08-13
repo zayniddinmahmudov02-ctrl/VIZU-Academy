@@ -29,6 +29,15 @@ oauth2_scheme = OAuth2PasswordBearer(
     tokenUrl="/auth/login",
 )
 
+# auto_error=False — a missing/invalid token resolves to None instead of a
+# 401, for endpoints that are browsable anonymously but behave differently
+# for a logged-in (and possibly Premium) user, e.g. the public mock-exam
+# routes.
+oauth2_scheme_optional = OAuth2PasswordBearer(
+    tokenUrl="/auth/login",
+    auto_error=False,
+)
+
 
 async def get_current_user(
     token: str = Depends(oauth2_scheme),
@@ -105,6 +114,23 @@ async def get_current_user(
         )
 
     return user
+
+
+async def get_current_user_optional(
+    token: str | None = Depends(oauth2_scheme_optional),
+    db: Session = Depends(get_db),
+) -> User | None:
+    """Same resolution as get_current_user, but resolves to None instead
+    of raising for "no token" or "invalid/expired/banned/etc" — for
+    endpoints that are browsable anonymously but must still recognize a
+    logged-in (and possibly Premium) caller, e.g. the public mock-exam
+    routes gating content behind Premium."""
+    if not token:
+        return None
+    try:
+        return await get_current_user(token=token, db=db)
+    except HTTPException:
+        return None
 
 
 async def require_super_admin(

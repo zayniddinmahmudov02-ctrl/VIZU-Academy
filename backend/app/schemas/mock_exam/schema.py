@@ -541,6 +541,7 @@ class PublicModelTestResponse(BaseSchema):
     title: str
     description: str | None
     sort_order: int
+    is_locked: bool = False
     model_config = ConfigDict(from_attributes=True)
 
 

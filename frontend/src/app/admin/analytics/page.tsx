@@ -45,12 +45,6 @@ export default function AnalyticsPage() {
             <StatBlock label="Umsatz (Heute)" value={data.revenue_today.toLocaleString()} />
             <StatBlock label="Offene Bestellungen" value={data.pending_orders} />
             <StatBlock label="Bestellungen gesamt" value={data.total_orders} />
-            <StatBlock label="Testphasen gestartet" value={data.trials_started} />
-            <StatBlock label="Testphasen konvertiert" value={data.trials_converted} />
-            <StatBlock
-              label="Conversion-Rate"
-              value={`${(data.trial_conversion_rate * 100).toFixed(1)}%`}
-            />
           </div>
 
           <AdminCard>

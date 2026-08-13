@@ -1,6 +1,7 @@
 from datetime import datetime, timezone
 from uuid import UUID
 
+from fastapi import HTTPException
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
@@ -10,8 +11,10 @@ from app.models.mock_question_answer import MockQuestionAnswer
 from app.models.mock_speaking_submission import MockSpeakingSubmission
 from app.models.mock_test_attempt import STATUS_GRADED, STATUS_IN_PROGRESS, MockTestAttempt
 from app.models.mock_writing_submission import MockWritingSubmission
+from app.models.model_test import ModelTest
 from app.models.speaking_task import SpeakingTask
 from app.models.teil import Teil
+from app.models.user import User
 from app.models.writing_task import WritingTask
 from app.schemas.mock_exam import (
     MockQuestionAnswerCreate,
@@ -22,6 +25,7 @@ from app.schemas.mock_exam import (
     MockWritingSubmissionTeacherUpdate,
 )
 from app.services.mock_exam.ai_service import AIServiceError, evaluate_speaking, evaluate_writing
+from app.services.vizu_pay.access import can_access_model_test
 
 
 # ============================================================
@@ -46,10 +50,20 @@ def get_attempt(db: Session, attempt_id: UUID):
     return db.get(MockTestAttempt, attempt_id)
 
 
-def create_attempt(db: Session, user_id: UUID, data: MockTestAttemptCreate) -> MockTestAttempt:
+def create_attempt(db: Session, user: User, data: MockTestAttemptCreate) -> MockTestAttempt:
+    """The actual gate that matters: listing/detail endpoints can be
+    bypassed by calling this directly, so access is re-checked here
+    regardless of what the client already showed the user."""
+    model_test = db.get(ModelTest, data.model_test_id)
+    if model_test is None:
+        raise HTTPException(status_code=404, detail="Model test not found.")
+
+    if not can_access_model_test(model_test, user):
+        raise HTTPException(status_code=403, detail="PREMIUM_REQUIRED")
+
     attempt = MockTestAttempt(
         model_test_id=data.model_test_id,
-        user_id=user_id,
+        user_id=user.id,
         status=STATUS_IN_PROGRESS,
     )
     db.add(attempt)

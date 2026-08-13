@@ -56,7 +56,7 @@ def create_attempt(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-    return attempt_service.create_attempt(db, current_user.id, data)
+    return attempt_service.create_attempt(db, current_user, data)
 
 
 @router.get("/attempts/{attempt_id}", response_model=MockTestAttemptResponse)

@@ -14,19 +14,9 @@ import type { PlanOption } from "../types";
 
 export default function VizuPayPage() {
   const { t } = useTranslation();
-  const { plans, status, orders, loading, error, activateTrial, submitOrder } = useVizuPay();
+  const { plans, paymentCards, status, orders, loading, error, redeemPromo, submitOrder } = useVizuPay();
 
   const [selectedPlan, setSelectedPlan] = useState<PlanOption | null>(null);
-  const [trialPending, setTrialPending] = useState(false);
-
-  async function handleStartTrial() {
-    setTrialPending(true);
-    try {
-      await activateTrial();
-    } finally {
-      setTrialPending(false);
-    }
-  }
 
   async function handleCheckoutSubmit(paymentMethod: string, promoCode: string | undefined, proofFile: File) {
     await submitOrder({ plan: selectedPlan!.plan, paymentMethod, promoCode, proofFile });
@@ -50,7 +40,7 @@ export default function VizuPayPage() {
 
       {!loading && !error && status && (
         <div className="mx-auto max-w-5xl space-y-8">
-          <SubscriptionStatusCard status={status} onStartTrial={handleStartTrial} trialPending={trialPending} />
+          <SubscriptionStatusCard status={status} onRedeemPromo={redeemPromo} />
 
           {status.hasPendingOrder && (
             <div className="rounded-card bg-warning/10 p-4 text-center text-sm font-medium text-warning ring-1 ring-warning/20">
@@ -74,7 +64,12 @@ export default function VizuPayPage() {
         </div>
       )}
 
-      <CheckoutModal plan={selectedPlan} onClose={() => setSelectedPlan(null)} onSubmit={handleCheckoutSubmit} />
+      <CheckoutModal
+        plan={selectedPlan}
+        paymentCards={paymentCards}
+        onClose={() => setSelectedPlan(null)}
+        onSubmit={handleCheckoutSubmit}
+      />
     </div>
   );
 }

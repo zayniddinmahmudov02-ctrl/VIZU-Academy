@@ -1,22 +1,58 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Dialog } from "@base-ui/react/dialog";
-import { Loader2, UploadCloud, X } from "lucide-react";
+import { Check, Copy, Loader2, UploadCloud, X } from "lucide-react";
 
+import { useCurrentUser } from "@/features/auth/hooks/use-current-user";
+import { updateProfile } from "@/features/profile/services/profile-service";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { validatePromo } from "../services/vizu-pay-service";
 import { PAYMENT_METHODS } from "../types";
-import type { PlanOption } from "../types";
+import type { PaymentCard, PlanOption } from "../types";
 
 interface Props {
   plan: PlanOption | null;
+  paymentCards: PaymentCard[];
   onClose: () => void;
   onSubmit: (paymentMethod: string, promoCode: string | undefined, proofFile: File) => Promise<void>;
 }
 
-export default function CheckoutModal({ plan, onClose, onSubmit }: Props) {
+// Mirrors the backend's MAX_PROOF_SIZE_BYTES (vizu_pay/service.py) — checked
+// client-side too so a too-large file never even starts uploading.
+const MAX_PROOF_SIZE_BYTES = 10 * 1024 * 1024;
+
+function CardRow({ card }: { card: PaymentCard }) {
   const { t } = useTranslation();
+  const [copied, setCopied] = useState(false);
+
+  async function handleCopy() {
+    await navigator.clipboard.writeText(card.number);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  }
+
+  return (
+    <div className="flex items-center justify-between gap-2 rounded-xl bg-surface-hover px-3.5 py-2.5">
+      <div>
+        <p className="text-[11px] font-semibold uppercase tracking-wide text-text-muted">{card.label}</p>
+        <p className="font-mono text-sm font-semibold text-text-primary">{card.number}</p>
+      </div>
+      <button
+        type="button"
+        onClick={handleCopy}
+        className="flex shrink-0 items-center gap-1.5 rounded-lg border border-surface-border px-3 py-1.5 text-xs font-semibold text-text-secondary transition-colors hover:bg-surface-card"
+      >
+        {copied ? <Check size={13} className="text-success" /> : <Copy size={13} />}
+        {copied ? t("vizuPay.paymentCardCopied") : t("vizuPay.paymentCardCopy")}
+      </button>
+    </div>
+  );
+}
+
+export default function CheckoutModal({ plan, paymentCards, onClose, onSubmit }: Props) {
+  const { t } = useTranslation();
+  const { user } = useCurrentUser();
 
   const [paymentMethod, setPaymentMethod] = useState<string>(PAYMENT_METHODS[0]);
   const [promoCode, setPromoCode] = useState("");
@@ -25,6 +61,22 @@ export default function CheckoutModal({ plan, onClose, onSubmit }: Props) {
   const [file, setFile] = useState<File | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+
+  // Prefill from the existing profile whenever a plan is selected (modal
+  // opens) — the admin's "New Buyers" list reads these same profile
+  // fields live off the user, so keeping them current here is what makes
+  // that list accurate.
+  useEffect(() => {
+    if (plan && user) {
+      setFirstName(user.firstName ?? "");
+      setLastName(user.lastName ?? "");
+      setPhoneNumber(user.phoneNumber ?? "");
+    }
+  }, [plan, user]);
 
   if (!plan) return null;
 
@@ -54,6 +106,14 @@ export default function CheckoutModal({ plan, onClose, onSubmit }: Props) {
     setError(null);
     setSubmitting(true);
     try {
+      const changed =
+        user &&
+        (firstName !== (user.firstName ?? "") ||
+          lastName !== (user.lastName ?? "") ||
+          phoneNumber !== (user.phoneNumber ?? ""));
+      if (changed) {
+        await updateProfile({ firstName, lastName, phoneNumber });
+      }
       await onSubmit(paymentMethod, promoResult?.valid ? promoCode.trim() : undefined, file);
       onClose();
     } catch (err: any) {
@@ -76,6 +136,47 @@ export default function CheckoutModal({ plan, onClose, onSubmit }: Props) {
           </div>
 
           <div className="space-y-4">
+            <div>
+              <p className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-text-muted">
+                {t("vizuPay.paymentCardsTitle")}
+              </p>
+              <div className="space-y-2">
+                {paymentCards.map((card) => (
+                  <CardRow key={card.number} card={card} />
+                ))}
+              </div>
+              <p className="mt-2 text-xs text-text-secondary">{t("vizuPay.paymentInstructions")}</p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="mb-1.5 block text-xs font-semibold text-text-secondary">{t("vizuPay.checkoutFirstName")}</label>
+                <input
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  className="w-full rounded-xl border border-surface-border bg-surface-hover p-3 text-sm text-text-primary outline-none focus:border-accent-blue/60"
+                />
+              </div>
+              <div>
+                <label className="mb-1.5 block text-xs font-semibold text-text-secondary">{t("vizuPay.checkoutLastName")}</label>
+                <input
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  className="w-full rounded-xl border border-surface-border bg-surface-hover p-3 text-sm text-text-primary outline-none focus:border-accent-blue/60"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="mb-1.5 block text-xs font-semibold text-text-secondary">{t("vizuPay.checkoutPhone")}</label>
+              <input
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                placeholder="+998 90 123 45 67"
+                className="w-full rounded-xl border border-surface-border bg-surface-hover p-3 text-sm text-text-primary outline-none focus:border-accent-blue/60"
+              />
+            </div>
+
             <div>
               <label className="mb-1.5 block text-xs font-semibold text-text-secondary">{t("vizuPay.checkoutPaymentMethod")}</label>
               <select
@@ -126,9 +227,20 @@ export default function CheckoutModal({ plan, onClose, onSubmit }: Props) {
                   type="file"
                   accept=".jpg,.jpeg,.png,.webp,.pdf"
                   className="hidden"
-                  onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+                  onChange={(e) => {
+                    const selected = e.target.files?.[0] ?? null;
+                    if (selected && selected.size > MAX_PROOF_SIZE_BYTES) {
+                      setError(t("vizuPay.checkoutProofTooLarge"));
+                      setFile(null);
+                      e.target.value = "";
+                      return;
+                    }
+                    setError(null);
+                    setFile(selected);
+                  }}
                 />
               </label>
+              <p className="mt-1 text-[11px] text-text-muted">{t("vizuPay.checkoutProofHint")}</p>
             </div>
 
             <div className="rounded-xl bg-surface-hover p-4">

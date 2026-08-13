@@ -9,8 +9,8 @@ export interface AdminOrderItem {
   currency: string;
   payment_method: string;
   status: string;
-  proof_url: string | null;
-  proof_type: string | null;
+  has_proof: boolean;
+  proof_download_url: string | null;
   promo_code: string | null;
   rejection_reason: string | null;
   expires_at: string | null;
@@ -19,6 +19,9 @@ export interface AdminOrderItem {
   user_id: string;
   user_email: string;
   user_username: string;
+  user_first_name: string | null;
+  user_last_name: string | null;
+  user_phone_number: string | null;
   reviewed_by_email: string | null;
 }
 
@@ -49,6 +52,7 @@ export interface PromoCodeCreateRequest {
   discount_type: string;
   discount_value: number;
   max_uses?: number | null;
+  expires_at?: string | null;
 }
 
 export interface RevenueChartPoint {
@@ -80,9 +84,6 @@ export interface RevenueOverview {
   revenue_today: number;
   total_orders: number;
   pending_orders: number;
-  trials_started: number;
-  trials_converted: number;
-  trial_conversion_rate: number;
   monthly_revenue_chart: RevenueChartPoint[];
   plan_breakdown: PlanBreakdown[];
   method_breakdown: MethodBreakdown[];

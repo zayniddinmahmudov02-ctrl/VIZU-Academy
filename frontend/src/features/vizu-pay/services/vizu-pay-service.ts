@@ -1,6 +1,14 @@
 import { api } from "@/services/api";
 
-import type { OrderItem, OrderListResponse, PlanOption, PromoValidation, SubscriptionStatus } from "../types";
+import type {
+  OrderItem,
+  OrderListResponse,
+  PaymentCard,
+  PlanOption,
+  PromoRedeemResult,
+  PromoValidation,
+  SubscriptionStatus,
+} from "../types";
 
 function mapOrder(raw: any): OrderItem {
   return {
@@ -14,8 +22,8 @@ function mapOrder(raw: any): OrderItem {
     currency: raw.currency,
     paymentMethod: raw.payment_method,
     status: raw.status,
-    proofUrl: raw.proof_url,
-    proofType: raw.proof_type,
+    hasProof: raw.has_proof,
+    proofDownloadUrl: raw.proof_download_url,
     promoCode: raw.promo_code,
     rejectionReason: raw.rejection_reason,
     expiresAt: raw.expires_at,
@@ -29,22 +37,19 @@ export async function getPlans(): Promise<PlanOption[]> {
   return response.data;
 }
 
+export async function getPaymentCards(): Promise<PaymentCard[]> {
+  const response = await api.get<PaymentCard[]>("/api/v1/vizu-pay/payment-cards");
+  return response.data.map((c) => ({ label: c.label, number: c.number }));
+}
+
 export async function getStatus(): Promise<SubscriptionStatus> {
   const response = await api.get("/api/v1/vizu-pay/status");
   const data = response.data;
   return {
     isPremium: data.is_premium,
     premiumUntil: data.premium_until,
-    isTrial: data.is_trial,
-    trialAvailable: data.trial_available,
-    trialDaysRemaining: data.trial_days_remaining,
     hasPendingOrder: data.has_pending_order,
   };
-}
-
-export async function activateTrial(): Promise<{ premiumUntil: string }> {
-  const response = await api.post("/api/v1/vizu-pay/trial");
-  return { premiumUntil: response.data.premium_until };
 }
 
 export async function validatePromo(code: string): Promise<PromoValidation> {
@@ -56,6 +61,11 @@ export async function validatePromo(code: string): Promise<PromoValidation> {
     discountValue: data.discount_value,
     message: data.message,
   };
+}
+
+export async function redeemPromo(code: string): Promise<PromoRedeemResult> {
+  const response = await api.post("/api/v1/vizu-pay/promo/redeem", { code });
+  return { premiumUntil: response.data.premium_until, daysGranted: response.data.days_granted };
 }
 
 export interface CreateOrderInput {

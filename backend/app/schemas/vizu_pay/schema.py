@@ -15,9 +15,6 @@ class PlanOption(BaseSchema):
 class MySubscriptionStatus(BaseSchema):
     is_premium: bool
     premium_until: datetime | None
-    is_trial: bool
-    trial_available: bool
-    trial_days_remaining: int | None
     has_pending_order: bool
 
 
@@ -32,8 +29,8 @@ class OrderItem(BaseSchema):
     currency: str
     payment_method: str
     status: str
-    proof_url: str | None
-    proof_type: str | None
+    has_proof: bool
+    proof_download_url: str | None
     promo_code: str | None
     rejection_reason: str | None
     expires_at: datetime | None
@@ -49,14 +46,27 @@ class OrderListResponse(BaseSchema):
     total_pages: int
 
 
-class TrialActivateResponse(BaseSchema):
+class PaymentCardItem(BaseSchema):
+    label: str
+    number: str
+
+
+class PromoRedeemRequest(BaseSchema):
+    code: str
+
+
+class PromoRedeemResponse(BaseSchema):
     premium_until: datetime
+    days_granted: int
 
 
 class AdminOrderItem(OrderItem):
     user_id: UUID
     user_email: str
     user_username: str
+    user_first_name: str | None
+    user_last_name: str | None
+    user_phone_number: str | None
     reviewed_by_email: str | None
 
 
@@ -144,9 +154,6 @@ class RevenueOverview(BaseSchema):
     revenue_today: int
     total_orders: int
     pending_orders: int
-    trials_started: int
-    trials_converted: int
-    trial_conversion_rate: float
     monthly_revenue_chart: list[RevenueChartPoint]
     plan_breakdown: list[PlanBreakdown]
     method_breakdown: list[MethodBreakdown]

@@ -1,7 +1,10 @@
-import { AlertTriangle, Crown, Sparkles } from "lucide-react";
+"use client";
+
+import { useState } from "react";
+import { Crown, Loader2, Ticket } from "lucide-react";
 
 import { useTranslation } from "@/lib/i18n/use-translation";
-import type { SubscriptionStatus } from "../types";
+import type { PromoRedeemResult, SubscriptionStatus } from "../types";
 
 function formatDate(value: string | null): string {
   if (!value) return "—";
@@ -10,54 +13,40 @@ function formatDate(value: string | null): string {
 
 interface Props {
   status: SubscriptionStatus;
-  onStartTrial: () => void;
-  trialPending: boolean;
+  onRedeemPromo: (code: string) => Promise<PromoRedeemResult>;
 }
 
-export default function SubscriptionStatusCard({ status, onStartTrial, trialPending }: Props) {
+export default function SubscriptionStatusCard({ status, onRedeemPromo }: Props) {
   const { t } = useTranslation();
+  const [code, setCode] = useState("");
+  const [pending, setPending] = useState(false);
+  const [result, setResult] = useState<{ ok: boolean; message: string } | null>(null);
+
+  async function handleRedeem() {
+    if (!code.trim()) return;
+    setPending(true);
+    setResult(null);
+    try {
+      await onRedeemPromo(code.trim());
+      setResult({ ok: true, message: t("vizuPay.promoRedeemSuccess") });
+      setCode("");
+    } catch (err: any) {
+      setResult({ ok: false, message: err?.response?.data?.message ?? t("vizuPay.promoRedeemError") });
+    } finally {
+      setPending(false);
+    }
+  }
 
   if (status.isPremium) {
-    const showReminder = status.isTrial && status.trialDaysRemaining !== null && status.trialDaysRemaining <= 2;
-
     return (
       <div className="rounded-card bg-gradient-to-br from-accent-blue to-purple-600 p-6 text-white shadow-[var(--shadow-md)]">
         <div className="flex items-center gap-2">
           <Crown size={20} />
-          <span className="text-sm font-bold uppercase tracking-wide">
-            {status.isTrial ? t("vizuPay.statusOnTrial") : t("vizuPay.statusPremium")}
-          </span>
+          <span className="text-sm font-bold uppercase tracking-wide">{t("vizuPay.statusPremium")}</span>
         </div>
         <p className="mt-2 text-sm text-white/85">
           {t("vizuPay.statusValidUntil", { date: formatDate(status.premiumUntil) })}
         </p>
-
-        {showReminder && (
-          <div className="mt-4 flex items-center gap-2 rounded-xl bg-white/15 px-3 py-2 text-xs font-medium">
-            <AlertTriangle size={14} />
-            {t("vizuPay.statusTrialReminder", { days: String(status.trialDaysRemaining) })}
-          </div>
-        )}
-      </div>
-    );
-  }
-
-  if (status.trialAvailable) {
-    return (
-      <div className="rounded-card bg-surface-card p-6 shadow-[var(--shadow-md)] ring-1 ring-surface-border">
-        <div className="flex items-center gap-2 text-accent-blue">
-          <Sparkles size={20} />
-          <span className="text-sm font-bold uppercase tracking-wide">{t("vizuPay.statusTrialTitle")}</span>
-        </div>
-        <p className="mt-2 text-sm text-text-secondary">{t("vizuPay.statusTrialBody")}</p>
-        <button
-          type="button"
-          onClick={onStartTrial}
-          disabled={trialPending}
-          className="mt-4 rounded-xl bg-accent-blue px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-50"
-        >
-          {t("vizuPay.statusStartTrial")}
-        </button>
       </div>
     );
   }
@@ -65,6 +54,38 @@ export default function SubscriptionStatusCard({ status, onStartTrial, trialPend
   return (
     <div className="rounded-card bg-surface-card p-6 shadow-[var(--shadow-md)] ring-1 ring-surface-border">
       <p className="text-sm text-text-secondary">{t("vizuPay.statusNoPremium")}</p>
+
+      <div className="mt-4 border-t border-surface-border pt-4">
+        <div className="flex items-center gap-2 text-accent-blue">
+          <Ticket size={18} />
+          <span className="text-sm font-bold">{t("vizuPay.promoRedeemTitle")}</span>
+        </div>
+
+        <div className="mt-2.5 flex gap-2">
+          <input
+            value={code}
+            onChange={(e) => {
+              setCode(e.target.value.toUpperCase());
+              setResult(null);
+            }}
+            placeholder={t("vizuPay.promoRedeemPlaceholder")}
+            className="w-full rounded-xl border border-surface-border bg-surface-hover p-3 text-sm text-text-primary outline-none focus:border-accent-blue/60"
+          />
+          <button
+            type="button"
+            onClick={handleRedeem}
+            disabled={!code.trim() || pending}
+            className="flex shrink-0 items-center gap-1.5 rounded-xl bg-accent-blue px-4 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-50"
+          >
+            {pending && <Loader2 size={14} className="animate-spin" />}
+            {t("vizuPay.promoRedeemButton")}
+          </button>
+        </div>
+
+        {result && (
+          <p className={`mt-2 text-xs ${result.ok ? "text-success" : "text-danger"}`}>{result.message}</p>
+        )}
+      </div>
     </div>
   );
 }

@@ -23,3 +23,12 @@ class ProtectedLocalStorage(LocalStorage):
     # mount (main.py only serves `uploads/`), just a location this
     # environment actually permits creating new directories in.
     ROOT = Path("app/protected_storage/audio")
+
+
+class ProtectedPaymentProofStorage(LocalStorage):
+    """Same isolation as ProtectedLocalStorage, separate root — payment
+    receipts (screenshots/PDFs of bank transfers) must never be reachable
+    by a guessable public URL. Served exclusively via the authenticated
+    GET /vizu-pay/orders/{id}/proof endpoint (order owner or staff)."""
+
+    ROOT = Path("app/protected_storage/payment-proofs")

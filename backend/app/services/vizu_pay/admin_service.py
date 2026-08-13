@@ -21,7 +21,8 @@ PAYMENT_LOG_ACTIONS = [
     "order_approved",
     "order_rejected",
     "order_refunded",
-    "trial_started",
+    "promo_redeemed",
+    "trial_started",  # historical only — the trial feature itself is removed
 ]
 
 
@@ -45,6 +46,9 @@ class AdminVizuPayService:
                 "user_id": str(order.user_id),
                 "user_email": order.user.email if order.user else "",
                 "user_username": order.user.username if order.user else "",
+                "user_first_name": order.user.first_name if order.user else None,
+                "user_last_name": order.user.last_name if order.user else None,
+                "user_phone_number": order.user.phone_number if order.user else None,
                 "reviewed_by_email": order.reviewed_by.email if order.reviewed_by else None,
             }
         )
@@ -223,12 +227,14 @@ class AdminVizuPayService:
         code = code.strip().upper()
         if not code:
             raise VizuPayError("Code cannot be empty.")
-        if discount_type not in {"PERCENT", "FIXED"}:
-            raise VizuPayError("discount_type must be PERCENT or FIXED.")
+        if discount_type not in {"PERCENT", "FIXED", "FREE_DAYS"}:
+            raise VizuPayError("discount_type must be PERCENT, FIXED, or FREE_DAYS.")
         if discount_value <= 0:
             raise VizuPayError("discount_value must be positive.")
         if discount_type == "PERCENT" and discount_value > 100:
             raise VizuPayError("Percent discount cannot exceed 100.")
+        if discount_type == "FREE_DAYS" and discount_value > 365:
+            raise VizuPayError("A promo code can't grant more than 365 days at once.")
 
         existing = self.db.query(PromoCode).filter(PromoCode.code == code).first()
         if existing:
@@ -331,19 +337,6 @@ class AdminVizuPayService:
         total_orders = self.db.query(SubscriptionOrder).count()
         pending_orders = self.db.query(SubscriptionOrder).filter(SubscriptionOrder.status == plan_config.STATUS_PENDING).count()
 
-        trials_started = self.db.query(User).filter(User.trial_used_at.isnot(None)).count()
-
-        converted_user_ids = (
-            self.db.query(SubscriptionOrder.user_id)
-            .filter(SubscriptionOrder.status == plan_config.STATUS_APPROVED, SubscriptionOrder.plan.in_(list(plan_config.PAID_PLANS)))
-            .join(User, User.id == SubscriptionOrder.user_id)
-            .filter(User.trial_used_at.isnot(None))
-            .distinct()
-        )
-        trials_converted = converted_user_ids.count()
-
-        trial_conversion_rate = round((trials_converted / trials_started * 100), 1) if trials_started > 0 else 0.0
-
         bucket = func.to_char(SubscriptionOrder.reviewed_at, "YYYY-MM")
         monthly_rows = (
             self.db.query(bucket.label("label"), func.coalesce(func.sum(SubscriptionOrder.final_amount), 0))
@@ -388,9 +381,6 @@ class AdminVizuPayService:
             "revenue_today": revenue_today,
             "total_orders": total_orders,
             "pending_orders": pending_orders,
-            "trials_started": trials_started,
-            "trials_converted": trials_converted,
-            "trial_conversion_rate": trial_conversion_rate,
             "monthly_revenue_chart": monthly_revenue_chart,
             "plan_breakdown": plan_breakdown,
             "method_breakdown": method_breakdown,

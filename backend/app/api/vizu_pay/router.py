@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, File, Form, Request, UploadFile
+from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 
 from app.api.dependencies.auth import get_current_user
@@ -8,9 +9,11 @@ from app.schemas.vizu_pay import (
     MySubscriptionStatus,
     OrderItem,
     OrderListResponse,
+    PaymentCardItem,
     PlanOption,
+    PromoRedeemRequest,
+    PromoRedeemResponse,
     PromoValidateResponse,
-    TrialActivateResponse,
 )
 from app.services.vizu_pay import VizuPayService
 
@@ -29,21 +32,17 @@ def list_plans(db: Session = Depends(get_db)):
     return VizuPayService(db).list_plans()
 
 
+@router.get("/payment-cards", response_model=list[PaymentCardItem])
+def list_payment_cards(db: Session = Depends(get_db)):
+    return VizuPayService(db).list_payment_cards()
+
+
 @router.get("/status", response_model=MySubscriptionStatus)
 def get_status(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
     return VizuPayService(db).get_my_status(current_user)
-
-
-@router.post("/trial", response_model=TrialActivateResponse)
-def activate_trial(
-    request: Request,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
-):
-    return VizuPayService(db).activate_trial(current_user, _client_ip(request))
 
 
 @router.get("/promo/validate", response_model=PromoValidateResponse)
@@ -53,6 +52,16 @@ def validate_promo(
     current_user: User = Depends(get_current_user),
 ):
     return VizuPayService(db).validate_promo(code, current_user)
+
+
+@router.post("/promo/redeem", response_model=PromoRedeemResponse)
+def redeem_promo(
+    data: PromoRedeemRequest,
+    request: Request,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    return VizuPayService(db).redeem_promo(data.code, current_user, _client_ip(request))
 
 
 @router.post("/orders", response_model=OrderItem)
@@ -83,3 +92,15 @@ def get_my_orders(
     current_user: User = Depends(get_current_user),
 ):
     return VizuPayService(db).get_my_orders(current_user, page=page, page_size=page_size)
+
+
+@router.get("/orders/{order_id}/proof")
+def get_order_proof(
+    order_id: str,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Receipt image/PDF — never a public URL. Order owner or staff only
+    (VizuPayService.get_order_proof enforces this)."""
+    path, content_type, filename = VizuPayService(db).get_order_proof(order_id, current_user)
+    return FileResponse(path=path, media_type=content_type, filename=filename)

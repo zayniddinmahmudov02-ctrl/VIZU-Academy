@@ -115,6 +115,8 @@ export const translations: Record<string, Namespace> = {
       uz: "O'qish · Tinglash · Yozish · Gapirish",
     },
     notStarted: { de: "Noch nicht begonnen", uz: "Hali boshlanmagan" },
+    premiumRequired: { de: "Premium erforderlich", uz: "Premium talab qilinadi" },
+    unlockPremium: { de: "Premium freischalten", uz: "Premium sotib olish" },
   },
 
   certificates: {
@@ -504,32 +506,49 @@ export const translations: Record<string, Namespace> = {
     plansFeatureSupport: { de: "Vorrangiger Support", uz: "Ustuvor yordam" },
     plansSelect: { de: "Auswählen", uz: "Tanlash" },
 
-    statusOnTrial: { de: "Im Probezeitraum", uz: "Sinov muddatida" },
     statusPremium: { de: "Premium aktiv", uz: "Premium faol" },
     statusValidUntil: { de: "Gültig bis {date}", uz: "{date} gacha amal qiladi" },
-    statusTrialReminder: {
-      de: "Dein Probezeitraum endet in {days} Tag(en). Wähle jetzt einen Plan, um Premium zu behalten.",
-      uz: "Sinov muddatingiz {days} kundan so'ng tugaydi. Premiumni saqlab qolish uchun hozir tarif tanlang.",
-    },
-    statusTrialTitle: { de: "7 Tage kostenlos testen", uz: "7 kun bepul sinab ko'ring" },
-    statusTrialBody: {
-      de: "Aktiviere deinen kostenlosen Probezeitraum und erhalte vollen Zugriff auf alle Premium-Funktionen.",
-      uz: "Bepul sinov muddatini faollashtiring va barcha premium funksiyalardan to'liq foydalaning.",
-    },
-    statusStartTrial: { de: "Kostenlosen Test starten", uz: "Bepul sinovni boshlash" },
     statusNoPremium: {
       de: "Du hast derzeit kein aktives Abonnement.",
       uz: "Sizda hozircha faol obuna yo'q.",
     },
 
+    promoRedeemTitle: { de: "Promocode verwenden", uz: "Promokod ishlatish" },
+    promoRedeemPlaceholder: { de: "Code eingeben", uz: "Kodni kiriting" },
+    promoRedeemButton: { de: "Einlösen", uz: "Faollashtirish" },
+    promoRedeemSuccess: {
+      de: "Promo-Code eingelöst — Premium ist jetzt aktiv.",
+      uz: "Promokod faollashtirildi — Premium endi yoqilgan.",
+    },
+    promoRedeemError: {
+      de: "Promo-Code konnte nicht eingelöst werden.",
+      uz: "Promokodni faollashtirib bo'lmadi.",
+    },
+
+    paymentCardsTitle: { de: "Zahlungskarten", uz: "To'lov kartalari" },
+    paymentCardCopy: { de: "Kopieren", uz: "Nusxalash" },
+    paymentCardCopied: { de: "Kopiert!", uz: "Nusxalandi!" },
+    paymentInstructions: {
+      de: "Führe die Zahlung über deine Banking-App oder am Geldautomaten durch und lade danach den Zahlungsbeleg hoch.",
+      uz: "To'lovni ilovalardan yoki bankomatlardan amalga oshiring va chekni yuboring.",
+    },
+
+    checkoutFirstName: { de: "Vorname", uz: "Ism" },
+    checkoutLastName: { de: "Nachname", uz: "Familiya" },
+    checkoutPhone: { de: "Telefonnummer", uz: "Telefon raqami" },
     checkoutPaymentMethod: { de: "Zahlungsmethode", uz: "To'lov usuli" },
-    checkoutPromoCode: { de: "Promo-Code", uz: "Promo kod" },
+    checkoutPromoCode: { de: "Rabatt-Code (optional)", uz: "Chegirma kodi (ixtiyoriy)" },
     checkoutPromoPlaceholder: { de: "Code eingeben", uz: "Kodni kiriting" },
     checkoutApply: { de: "Anwenden", uz: "Qo'llash" },
     checkoutPromoApplied: { de: "Promo-Code angewendet.", uz: "Promo kod qo'llandi." },
     checkoutProof: { de: "Zahlungsnachweis", uz: "To'lov isboti" },
     checkoutProofUpload: { de: "Screenshot oder PDF hochladen", uz: "Skrinshot yoki PDF yuklang" },
     checkoutProofRequired: { de: "Bitte lade einen Zahlungsnachweis hoch.", uz: "Iltimos, to'lov isbotini yuklang." },
+    checkoutProofHint: { de: "JPG, PNG, WEBP oder PDF, max. 10 MB.", uz: "JPG, PNG, WEBP yoki PDF, maks. 10 MB." },
+    checkoutProofTooLarge: {
+      de: "Die Datei ist zu groß (max. 10 MB).",
+      uz: "Fayl hajmi juda katta (maks. 10 MB).",
+    },
     checkoutSubtotal: { de: "Zwischensumme", uz: "Oraliq summa" },
     checkoutDiscount: { de: "Rabatt", uz: "Chegirma" },
     checkoutTotal: { de: "Gesamt", uz: "Jami" },

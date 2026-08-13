@@ -32,6 +32,7 @@ export interface PublicModelTest {
   title: string;
   description: string | null;
   sort_order: number;
+  is_locked: boolean;
 }
 
 export interface PublicKompetenzSummary {
