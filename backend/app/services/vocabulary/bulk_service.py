@@ -86,7 +86,11 @@ class VocabularyBulkService:
         audio_bytes = await ai_enrichment.synthesize_word_audio(word)
 
         safe_stub = re.sub(r"[^a-zA-Z0-9]+", "_", word.lower()).strip("_") or "wort"
-        path = f"audio/{uuid4().hex}_{safe_stub}.mp3"
+        # .wav, not .mp3 — synthesize_word_audio() returns a WAV file
+        # (Gemini's native TTS output is raw PCM, wrapped in a WAV
+        # header); nginx picks the Content-Type it serves from this
+        # extension, so it has to match the actual bytes.
+        path = f"audio/{uuid4().hex}_{safe_stub}.wav"
 
         destination = self.storage.ROOT / path
         destination.parent.mkdir(parents=True, exist_ok=True)

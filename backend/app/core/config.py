@@ -88,14 +88,27 @@ class Settings(BaseSettings):
     # AIEvaluationService raises a clear, caught error rather than silently
     # no-opping when a key isn't configured; see app/services/mock_exam/ai_service.py.
     GEMINI_API_KEY: str = ""
-    GEMINI_MODEL: str = "gemini-2.0-flash"
+    # "-latest" alias rather than a pinned version — a pinned model
+    # (previously "gemini-2.0-flash") silently starts 404ing once Google
+    # retires that specific version, which is exactly what broke this
+    # setting before it was ever exercised end-to-end; confirmed live
+    # against the API this key can actually reach.
+    GEMINI_MODEL: str = "gemini-flash-latest"
 
     # Bulk vocabulary generator (see app/services/vocabulary/ai_enrichment.py
-    # and bulk_service.py) — reuses GEMINI_API_KEY for both text enrichment
-    # and TTS audio (the latter also requires the Cloud Text-to-Speech API
-    # enabled on that key's Google Cloud project). This caps how many TTS
-    # requests run at once so a 100-word import doesn't fire 100 concurrent
-    # calls; 5-10 concurrent per the feature spec.
+    # and bulk_service.py) — reuses GEMINI_API_KEY for text enrichment.
+    # Audio uses Gemini's own native TTS-capable model (generateContent
+    # with responseModalities=["AUDIO"]) rather than the separate Google
+    # Cloud Text-to-Speech product — that product requires OAuth2/
+    # service-account credentials and rejects plain API keys outright
+    # (confirmed live: "API keys are not supported by this API"), so it
+    # could never work with GEMINI_API_KEY no matter how it's configured.
+    GEMINI_TTS_MODEL: str = "gemini-2.5-flash-preview-tts"
+    GEMINI_TTS_VOICE: str = "Kore"
+
+    # This caps how many TTS requests run at once so a 100-word import
+    # doesn't fire 100 concurrent calls; 5-10 concurrent per the feature
+    # spec.
     VOCAB_BULK_TTS_CONCURRENCY: int = 6
 
     # ==================================================

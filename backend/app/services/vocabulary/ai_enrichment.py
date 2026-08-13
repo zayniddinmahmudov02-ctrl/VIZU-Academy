@@ -1,8 +1,16 @@
 """Gemini-backed content generation for the bulk vocabulary generator:
 word-type/article/plural detection, German -> Uzbek translation, a
 level-appropriate example sentence, and its translation — for a whole
-batch of words in one call — plus German pronunciation audio via Google
-Cloud Text-to-Speech.
+batch of words in one call — plus German pronunciation audio.
+
+Audio uses Gemini's own native audio-output models (generateContent with
+responseModalities=["AUDIO"]), not the separate Google Cloud
+Text-to-Speech product — that product requires OAuth2/service-account
+credentials and rejects plain API keys outright ("API keys are not
+supported by this API", confirmed live), which GEMINI_API_KEY can never
+satisfy. Gemini's native TTS uses the exact same API key and endpoint as
+the text side above, just a TTS-capable model — genuinely reachable with
+what this project already has.
 
 Same urllib + asyncio.to_thread approach as this project's other real,
 Gemini-backed AI feature (app/services/mock_exam/ai_service.py, used for
@@ -11,26 +19,22 @@ duplicated rather than imported from there, so the bulk vocabulary
 generator has zero coupling to mock-exam internals and touches nothing
 in that already-working system.
 
-Requires GEMINI_API_KEY (see app/core/config.py) for the text side.
-Audio additionally requires the Cloud Text-to-Speech API to be enabled
-on that same key's Google Cloud project — a separate one-time activation
-in Cloud Console, distinct from just having a Generative Language (AI
-Studio) key. Every function raises AIServiceError (never a bare
-exception) with the real cause, so callers can surface it instead of a
-bare 500.
+Requires GEMINI_API_KEY (see app/core/config.py) for both text and
+audio. Every function raises AIServiceError (never a bare exception)
+with the real cause, so callers can surface it instead of a bare 500.
 """
 
 import asyncio
 import base64
 import json
 import re
+import struct
 import urllib.error
 import urllib.request
 
 from app.core.config import settings
 
 GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
-TTS_ENDPOINT = "https://texttospeech.googleapis.com/v1/text:synthesize"
 
 VALID_WORD_TYPES = {
     "NOMEN",
@@ -160,16 +164,44 @@ async def enrich_words(words: list[str], level: str) -> list[dict]:
     return normalized
 
 
+_PCM_RATE_RE = re.compile(r"rate=(\d+)")
+
+
+def _pcm_to_wav(pcm_data: bytes, sample_rate: int, channels: int = 1, bits_per_sample: int = 16) -> bytes:
+    """Gemini's native TTS returns headerless raw PCM (mimeType
+    "audio/L16;codec=pcm;rate=<n>") — not a playable file on its own.
+    Wraps it in a standard 44-byte WAV header so it's a normal .wav file
+    any <audio> element (or storage-backed URL) can just play."""
+
+    byte_rate = sample_rate * channels * bits_per_sample // 8
+    block_align = channels * bits_per_sample // 8
+    data_size = len(pcm_data)
+
+    header = struct.pack(
+        "<4sI4s4sIHHIIHH4sI",
+        b"RIFF", 36 + data_size, b"WAVE",
+        b"fmt ", 16, 1, channels, sample_rate, byte_rate, block_align, bits_per_sample,
+        b"data", data_size,
+    )
+    return header + pcm_data
+
+
 def _call_tts(text: str) -> bytes:
-    """Synchronous — always call via asyncio.to_thread."""
+    """Synchronous — always call via asyncio.to_thread. Returns a
+    complete, playable .wav file's bytes."""
     api_key = _require_api_key()
 
-    url = f"{TTS_ENDPOINT}?key={api_key}"
+    url = GEMINI_ENDPOINT.format(model=settings.GEMINI_TTS_MODEL) + f"?key={api_key}"
     payload = json.dumps(
         {
-            "input": {"text": text},
-            "voice": {"languageCode": "de-DE", "ssmlGender": "NEUTRAL"},
-            "audioConfig": {"audioEncoding": "MP3"},
+            "contents": [{"parts": [{"text": text}]}],
+            "generationConfig": {
+                "responseModalities": ["AUDIO"],
+                "speechConfig": {
+                    "languageCode": "de-DE",
+                    "voiceConfig": {"prebuiltVoiceConfig": {"voiceName": settings.GEMINI_TTS_VOICE}},
+                },
+            },
         }
     ).encode("utf-8")
 
@@ -181,22 +213,30 @@ def _call_tts(text: str) -> bytes:
     )
 
     try:
-        with urllib.request.urlopen(request, timeout=30) as response:
+        with urllib.request.urlopen(request, timeout=60) as response:
             body = json.loads(response.read().decode("utf-8"))
     except urllib.error.HTTPError as exc:
         detail = exc.read().decode("utf-8", errors="ignore")
-        raise AIServiceError(f"Text-to-Speech API error ({exc.code}): {detail}") from exc
+        raise AIServiceError(f"Gemini TTS error ({exc.code}): {detail}") from exc
     except urllib.error.URLError as exc:
-        raise AIServiceError(f"Could not reach Text-to-Speech API: {exc.reason}") from exc
+        raise AIServiceError(f"Could not reach Gemini API: {exc.reason}") from exc
 
-    audio_b64 = body.get("audioContent")
-    if not audio_b64:
-        raise AIServiceError(f"Unexpected Text-to-Speech response shape: {body}")
+    try:
+        inline = body["candidates"][0]["content"]["parts"][0]["inlineData"]
+        mime_type = inline["mimeType"]
+        pcm_data = base64.b64decode(inline["data"])
+    except (KeyError, IndexError) as exc:
+        raise AIServiceError(f"Unexpected Gemini TTS response shape: {body}") from exc
 
-    return base64.b64decode(audio_b64)
+    rate_match = _PCM_RATE_RE.search(mime_type)
+    if not rate_match:
+        raise AIServiceError(f"Unrecognized TTS audio format: {mime_type}")
+
+    return _pcm_to_wav(pcm_data, sample_rate=int(rate_match.group(1)))
 
 
 async def synthesize_word_audio(word: str) -> bytes:
     """de-DE pronunciation of exactly `word` (the bare Wort, no article —
-    see the bulk-import spec's "Audio target: Wort")."""
+    see the bulk-import spec's "Audio target: Wort"). Returns a complete
+    .wav file's bytes."""
     return await asyncio.to_thread(_call_tts, word)
