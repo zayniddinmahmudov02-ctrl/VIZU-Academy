@@ -16,6 +16,7 @@ on disk after a request finishes, whether it succeeds or fails.
 
 import asyncio
 import json
+import shutil
 import subprocess
 import tempfile
 from pathlib import Path
@@ -24,6 +25,26 @@ from app.core.config import settings
 
 SAMPLE_RATE = 48000
 CHANNELS = 1
+
+# Resolved once at import time, not a bare "ffmpeg"/"ffprobe" passed to
+# subprocess — the production systemd unit runs this service with
+# PATH=<venv>/bin only (no /usr/bin), so relying on $PATH here fails
+# with FileNotFoundError even though ffmpeg is genuinely installed and
+# reachable from an interactive shell. shutil.which() checks $PATH
+# first, then the common system install locations as a fallback so this
+# keeps working regardless of how a given host's PATH is configured.
+def _resolve_binary(name: str) -> str:
+    found = shutil.which(name)
+    if found:
+        return found
+    for candidate in (f"/usr/bin/{name}", f"/usr/local/bin/{name}"):
+        if Path(candidate).exists():
+            return candidate
+    return name  # let subprocess raise its own clear FileNotFoundError
+
+
+FFMPEG_BIN = _resolve_binary("ffmpeg")
+FFPROBE_BIN = _resolve_binary("ffprobe")
 
 # Conservative — trims silence and normalizes loudness without touching
 # pitch/timbre, so the pronunciation itself is never altered:
@@ -52,11 +73,14 @@ class AudioProcessingError(Exception):
 
 def _run_ffmpeg(args: list[str]) -> None:
     """Synchronous — always call via asyncio.to_thread."""
-    result = subprocess.run(
-        ["ffmpeg", "-y", "-hide_banner", "-loglevel", "error", *args],
-        capture_output=True,
-        timeout=60,
-    )
+    try:
+        result = subprocess.run(
+            [FFMPEG_BIN, "-y", "-hide_banner", "-loglevel", "error", *args],
+            capture_output=True,
+            timeout=60,
+        )
+    except FileNotFoundError as exc:
+        raise AudioProcessingError(f"ffmpeg not found ({FFMPEG_BIN}): {exc}") from exc
     if result.returncode != 0:
         raise AudioProcessingError(
             f"ffmpeg failed: {result.stderr.decode('utf-8', errors='ignore')[:500]}"
@@ -64,14 +88,17 @@ def _run_ffmpeg(args: list[str]) -> None:
 
 
 def _probe_duration_seconds(path: Path) -> float:
-    result = subprocess.run(
-        [
-            "ffprobe", "-v", "error", "-show_entries", "format=duration",
-            "-of", "json", str(path),
-        ],
-        capture_output=True,
-        timeout=20,
-    )
+    try:
+        result = subprocess.run(
+            [
+                FFPROBE_BIN, "-v", "error", "-show_entries", "format=duration",
+                "-of", "json", str(path),
+            ],
+            capture_output=True,
+            timeout=20,
+        )
+    except FileNotFoundError as exc:
+        raise AudioProcessingError(f"ffprobe not found ({FFPROBE_BIN}): {exc}") from exc
     if result.returncode != 0:
         raise AudioProcessingError(
             f"ffprobe failed: {result.stderr.decode('utf-8', errors='ignore')[:500]}"
