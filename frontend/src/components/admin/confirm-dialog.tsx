@@ -12,6 +12,7 @@ interface Props {
   description: string;
   onConfirm: () => void;
   isPending?: boolean;
+  error?: string | null;
 }
 
 export default function ConfirmDialog({
@@ -21,6 +22,7 @@ export default function ConfirmDialog({
   description,
   onConfirm,
   isPending,
+  error,
 }: Props) {
   return (
     <FormDialog
@@ -43,7 +45,10 @@ export default function ConfirmDialog({
         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--admin-danger)]/10">
           <AlertTriangle size={18} className="text-[var(--admin-danger)]" />
         </div>
-        <p className="text-sm text-[var(--admin-text-secondary)]">{description}</p>
+        <div>
+          <p className="text-sm text-[var(--admin-text-secondary)]">{description}</p>
+          {error && <p className="mt-2 text-sm text-[var(--admin-danger)]">{error}</p>}
+        </div>
       </div>
     </FormDialog>
   );

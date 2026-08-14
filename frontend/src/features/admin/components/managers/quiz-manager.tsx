@@ -13,23 +13,32 @@ import type { Quiz } from "@/features/admin/types/content.types";
 
 import LessonPicker from "./lesson-picker";
 import QuizQuestionsEditor from "./quiz-questions-editor";
+import type { QuizType } from "@/features/admin/types/content.types";
 
-const EMPTY_FORM = {
-  lesson_id: "",
-  title: "",
-  description: "",
-  passing_score: 70,
-  order_index: 1,
-  is_published: false,
-};
+interface Props {
+  lessonId?: string;
+  /** GRAMMAR = mid-lesson check (10 of the 100 lesson points). LESSON =
+   * end-of-lesson diagnostic, scored separately, never added to the 100. */
+  quizType?: QuizType;
+}
 
-export default function QuizManager({ lessonId }: { lessonId?: string }) {
+export default function QuizManager({ lessonId, quizType = "GRAMMAR" }: Props) {
+  const EMPTY_FORM = {
+    lesson_id: "",
+    quiz_type: quizType,
+    title: "",
+    description: "",
+    passing_score: 70,
+    order_index: 1,
+    is_published: false,
+  };
+
   const { data: all, isLoading } = useCrudList("quizzes", quizzesApi);
   const { create, update, remove } = useCrudMutations("quizzes", quizzesApi);
 
   const data = useMemo(
-    () => (lessonId ? (all ?? []).filter((q) => q.lesson_id === lessonId) : all),
-    [all, lessonId],
+    () => (all ?? []).filter((q) => (lessonId ? q.lesson_id === lessonId : true) && q.quiz_type === quizType),
+    [all, lessonId, quizType],
   );
 
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -50,6 +59,7 @@ export default function QuizManager({ lessonId }: { lessonId?: string }) {
     setEditing(item);
     setForm({
       lesson_id: item.lesson_id,
+      quiz_type: item.quiz_type,
       title: item.title,
       description: item.description ?? "",
       passing_score: item.passing_score,
@@ -114,7 +124,7 @@ export default function QuizManager({ lessonId }: { lessonId?: string }) {
       <div className="mb-4 flex justify-end">
         <AdminButton onClick={openCreate}>
           <Plus size={16} />
-          Neues Quiz
+          {quizType === "LESSON" ? "Neues Lesson Quiz" : "Neues Grammatik Quiz"}
         </AdminButton>
       </div>
 
@@ -125,13 +135,13 @@ export default function QuizManager({ lessonId }: { lessonId?: string }) {
         getRowId={(item) => item.id}
         onEdit={openEdit}
         onDelete={setDeleting}
-        emptyMessage="Noch keine Quizze angelegt."
+        emptyMessage="— Keine Inhalte"
       />
 
       <FormDialog
         open={dialogOpen}
         onOpenChange={setDialogOpen}
-        title={editing ? "Quiz bearbeiten" : "Neues Quiz"}
+        title={editing ? "Quiz bearbeiten" : quizType === "LESSON" ? "Neues Lesson Quiz" : "Neues Grammatik Quiz"}
         footer={
           <>
             <AdminButton variant="ghost" onClick={() => setDialogOpen(false)}>

@@ -44,8 +44,6 @@ class VocabularyUpdate(BaseSchema):
 class VocabularyResponse(VocabularyBase):
     id: UUID
     lesson_id: UUID
-    audio_status: str = "PENDING"
-    audio_error: str | None = None
 
     model_config = ConfigDict(
         from_attributes=True,
@@ -93,23 +91,15 @@ class BulkSaveResponse(BaseSchema):
     needs_review: list[BulkSaveNeedsReview]
 
 
-class SaveRecordedAudioResponse(BaseSchema):
-    audio_url: str
-
-
 # ==========================
-# Missing-audio queue ("Audio nacheinander aufnehmen")
+# Bulk delete
 # ==========================
 
 
-class MissingAudioWord(BaseSchema):
-    id: UUID
-    german_word: str
-    audio_status: str
-    audio_error: str | None = None
-
-
-class AudioQueueStatusResponse(BaseSchema):
+class BulkDeleteRequest(BaseSchema):
     lesson_id: UUID
-    missing: list[MissingAudioWord]
-    total_missing: int
+    vocabulary_ids: list[UUID]
+
+
+class BulkDeleteResponse(BaseSchema):
+    deleted_count: int

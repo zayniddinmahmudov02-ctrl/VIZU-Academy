@@ -13,6 +13,15 @@ from sqlalchemy.orm import (
 
 from app.models.base import BaseModel
 
+# Which of the lesson's two quizzes this is. GRAMMAR is the mid-lesson
+# check tied to the Grammatik section — its score counts for 10 of the
+# lesson's 100 points. LESSON is the end-of-lesson diagnostic — shown to
+# the student separately and never added to the 100-point score (see
+# app/services/lesson_scoring/service.py).
+QUIZ_TYPE_GRAMMAR = "GRAMMAR"
+QUIZ_TYPE_LESSON = "LESSON"
+ALL_QUIZ_TYPES = {QUIZ_TYPE_GRAMMAR, QUIZ_TYPE_LESSON}
+
 
 class Quiz(BaseModel):
 
@@ -24,6 +33,14 @@ class Quiz(BaseModel):
             ondelete="CASCADE",
         ),
         nullable=False,
+        index=True,
+    )
+
+    quiz_type: Mapped[str] = mapped_column(
+        String(20),
+        nullable=False,
+        default=QUIZ_TYPE_GRAMMAR,
+        server_default=QUIZ_TYPE_GRAMMAR,
         index=True,
     )
 

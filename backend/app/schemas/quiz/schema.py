@@ -7,6 +7,7 @@ from app.schemas.base import BaseSchema
 
 class QuizBase(BaseSchema):
     lesson_id: UUID
+    quiz_type: str = "GRAMMAR"
     title: str
     description: str | None = None
     passing_score: int = 70
@@ -19,6 +20,7 @@ class QuizCreate(QuizBase):
 
 
 class QuizUpdate(BaseSchema):
+    quiz_type: str | None = None
     title: str | None = None
     description: str | None = None
     passing_score: int | None = None

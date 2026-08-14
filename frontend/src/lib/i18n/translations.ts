@@ -268,6 +268,7 @@ export const translations: Record<string, Namespace> = {
 
     sectionVideo: { de: "Video", uz: "Video" },
     sectionGrammar: { de: "Grammatik", uz: "Grammatika" },
+    sectionGrammarQuiz: { de: "Grammatik Quiz", uz: "Grammatika testi" },
     sectionVocabulary: { de: "Wortschatz", uz: "Lug'at" },
     sectionReading: { de: "Lesen", uz: "O'qish" },
     sectionListening: { de: "Hören", uz: "Tinglash" },
@@ -275,6 +276,8 @@ export const translations: Record<string, Namespace> = {
     sectionSpeaking: { de: "Sprechen", uz: "Gapirish" },
     sectionHomework: { de: "Hausaufgabe", uz: "Uy vazifasi" },
     sectionQuiz: { de: "Quiz", uz: "Test" },
+    sectionLessonQuiz: { de: "Lesson Quiz", uz: "Dars testi" },
+    sectionResults: { de: "Ergebnis", uz: "Natija" },
 
     navPrevious: { de: "Zurück", uz: "Orqaga" },
     navNext: { de: "Weiter", uz: "Keyingi" },

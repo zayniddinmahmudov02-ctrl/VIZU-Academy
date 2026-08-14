@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Check, Library, Volume2 } from "lucide-react";
 import { motion } from "framer-motion";
 
-import { getLessonVocabularies } from "@/features/lessons/services/vocabulary-service";
+import { completeLessonVocabulary, getLessonVocabularies } from "@/features/lessons/services/vocabulary-service";
 import { cardEntrance, staggerContainer } from "@/lib/motion";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import LessonSection from "../common/lesson-section";
@@ -16,14 +16,23 @@ interface Props {
 
 /** Real Wortschatz panel — published Vocabulary rows for this lesson (see
  * app/models/vocabulary.py). Requires the lesson's video to be completed
- * first, enforced server-side (GET /vocabularies/lesson/{id}). */
+ * first, enforced server-side (GET /vocabularies/lesson/{id}). Marking
+ * every word learned, then confirming, persists Wortschatz completion
+ * server-side (StudentProgress.vocabulary_completed) — the 10-point
+ * Wortschatz component of the lesson score. */
 export default function VocabularySection({ lessonId }: Props) {
   const { t } = useTranslation();
   const [learned, setLearned] = useState<Set<string>>(new Set());
+  const [completed, setCompleted] = useState(false);
 
   const { data: words, isLoading } = useQuery({
     queryKey: ["lesson-vocabularies", lessonId],
     queryFn: () => getLessonVocabularies(lessonId),
+  });
+
+  const completeMutation = useMutation({
+    mutationFn: () => completeLessonVocabulary(lessonId),
+    onSuccess: () => setCompleted(true),
   });
 
   function toggleLearned(id: string) {
@@ -34,6 +43,8 @@ export default function VocabularySection({ lessonId }: Props) {
       return next;
     });
   }
+
+  const allLearned = (words?.length ?? 0) > 0 && learned.size === words?.length;
 
   return (
     <LessonSection title={t("lessons.sectionVocabulary")} description={t("lessons.vocabularyDescription")} icon={Library}>
@@ -101,6 +112,26 @@ export default function VocabularySection({ lessonId }: Props) {
           );
         })}
       </motion.div>
+
+      {(words?.length ?? 0) > 0 && (
+        <div className="mt-5 flex items-center gap-3">
+          <button
+            type="button"
+            disabled={!allLearned || completed || completeMutation.isPending}
+            onClick={() => completeMutation.mutate()}
+            className="inline-flex items-center gap-1.5 rounded-button bg-gradient-to-r from-accent-blue-hover to-accent-blue px-4 py-2.5 text-sm font-semibold text-white shadow-md shadow-accent-blue/25 transition enabled:hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {completed
+              ? "Wortschatz abgeschlossen ✓"
+              : completeMutation.isPending
+                ? "Wird gespeichert..."
+                : "Wortschatz als gelernt markieren"}
+          </button>
+          {!allLearned && !completed && (
+            <span className="text-xs text-text-muted">Markiere zuerst alle Wörter als gelernt.</span>
+          )}
+        </div>
+      )}
     </LessonSection>
   );
 }

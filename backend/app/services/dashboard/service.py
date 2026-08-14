@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 
@@ -7,6 +9,7 @@ from app.models.enrollment import Enrollment
 from app.models.lesson import Lesson
 from app.models.module import Module
 from app.models.student_progress import StudentProgress
+from app.services.lesson_scoring import LessonScoringService
 
 
 class DashboardService:
@@ -177,12 +180,20 @@ class DashboardService:
         current_course = None
         current_module = None
         current_lesson = None
+        current_lesson_id = None
+        current_lesson_score = None
+        current_lesson_max_score = None
 
         if current:
 
             current_course = current.lesson.module.course.title
             current_module = current.lesson.module.title
             current_lesson = current.lesson.title
+            current_lesson_id = str(current.lesson.id)
+
+            lesson_score = LessonScoringService(self.db).compute(UUID(str(user_id)), current.lesson.id)
+            current_lesson_score = lesson_score["total_score"]
+            current_lesson_max_score = lesson_score["max_score"]
 
         # ----------------------------------------------
         # Vorbereitung
@@ -206,6 +217,9 @@ class DashboardService:
             "current_course": current_course,
             "current_module": current_module,
             "current_lesson": current_lesson,
+            "current_lesson_id": current_lesson_id,
+            "current_lesson_score": current_lesson_score,
+            "current_lesson_max_score": current_lesson_max_score,
             "vorbereitung": vorbereitung,
             "ai_teacher": True,
             "translator": True,

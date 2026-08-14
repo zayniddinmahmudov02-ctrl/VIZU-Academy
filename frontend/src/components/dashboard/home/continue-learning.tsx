@@ -8,6 +8,7 @@ import ProgressBar from "@/components/ui/progress-bar";
 import MosqueIllustration from "./mosque-illustration";
 import { germanLevels } from "@/constants/levels";
 import { useCoursesWithLessonCounts } from "@/features/courses/hooks/use-courses-with-lesson-counts";
+import { useDashboard } from "@/features/dashboard/hooks/use-dashboard";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import {
   cardEntrance,
@@ -26,8 +27,19 @@ const LEVEL_STYLE = new Map<string, (typeof germanLevels)[number]>(
 export default function ContinueLearning() {
   const { t } = useTranslation();
   const { data: courses } = useCoursesWithLessonCounts();
+  const { data: dashboard } = useDashboard();
   const current = courses?.[0];
-  const progress = 0;
+
+  // Real progress + a direct link to wherever the student actually left
+  // off, when we have it — falls back to the old "just pick the first
+  // course" behavior (0% progress) for a student with no progress yet,
+  // so this never regresses the previous always-visible card.
+  const progress = dashboard?.progress ?? 0;
+  const continueHref = dashboard?.current_lesson_id
+    ? `/lessons/${dashboard.current_lesson_id}`
+    : current
+      ? `/courses/${current.level.toLowerCase()}`
+      : undefined;
 
   if (!current) return null;
 
@@ -51,7 +63,7 @@ export default function ContinueLearning() {
 
       <motion.div {...scaleOnHover}>
         <Link
-          href={`/courses/${current.level.toLowerCase()}`}
+          href={continueHref ?? `/courses/${current.level.toLowerCase()}`}
           className={`group relative flex flex-col gap-8 overflow-hidden rounded-card bg-gradient-to-br ${currentStyle?.gradient ?? "from-brand-600 to-accent-blue"} p-7 text-white shadow-[var(--shadow-card)] transition-all duration-300 hover:shadow-[var(--shadow-card-hover)] sm:flex-row sm:items-center sm:justify-between sm:p-8`}
         >
           <div className="pointer-events-none absolute -bottom-4 right-5 opacity-20">
@@ -69,7 +81,7 @@ export default function ContinueLearning() {
               </p>
 
               <h3 className="mt-1 text-2xl font-bold">
-                {t("dashboard.lessonTitle")}
+                {dashboard?.current_lesson ?? t("dashboard.lessonTitle")}
               </h3>
 
               <p className="mt-2 text-sm text-white/75">

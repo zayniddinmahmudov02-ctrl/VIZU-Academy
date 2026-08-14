@@ -6,14 +6,6 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models.base import BaseModel
 
-# Values for Vocabulary.audio_status. Audio is always the admin's own
-# microphone recording (see app/services/vocabulary/audio_processing.py)
-# — never AI-generated. PENDING until recorded, GENERATED once a
-# recording is saved, FAILED if saving one somehow didn't work out.
-AUDIO_STATUS_PENDING = "PENDING"
-AUDIO_STATUS_GENERATED = "GENERATED"
-AUDIO_STATUS_FAILED = "FAILED"
-
 
 class Vocabulary(BaseModel):
     __tablename__ = "vocabularies"
@@ -61,23 +53,9 @@ class Vocabulary(BaseModel):
         nullable=True,
     )
 
+    # Manual URL only (e.g. pasted or uploaded via the generic file
+    # uploader) — no pronunciation-audio generation feature exists.
     audio_url: Mapped[str | None] = mapped_column(
-        Text,
-        nullable=True,
-    )
-
-    # audio_url alone can only say "has audio" vs "doesn't" — this
-    # distinguishes never-recorded from a real save failure, which the
-    # "Audio nacheinander aufnehmen" queue (get_missing_audio) needs to
-    # show which words still need the admin's voice.
-    audio_status: Mapped[str] = mapped_column(
-        String(20),
-        nullable=False,
-        default=AUDIO_STATUS_PENDING,
-        server_default=AUDIO_STATUS_PENDING,
-    )
-
-    audio_error: Mapped[str | None] = mapped_column(
         Text,
         nullable=True,
     )

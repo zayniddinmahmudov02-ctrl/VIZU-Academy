@@ -8,6 +8,7 @@ import PremiumLessonGate from "@/components/lesson-player/video/premium-lesson-g
 import ListeningSection from "@/components/lesson-player/listening/listening-section";
 import QuizSection from "@/components/lesson-player/quiz/quiz-section";
 import ReadingSection from "@/components/lesson-player/reading/reading-section";
+import ResultSection from "@/components/lesson-player/results/result-section";
 import SpeakingSection from "@/components/lesson-player/speaking/speaking-section";
 import VideoSection from "@/components/lesson-player/video/video-section";
 import VocabularySection from "@/components/lesson-player/vocabulary/vocabulary-section";
@@ -20,14 +21,16 @@ interface SectionComponentProps {
 
 const SECTION_COMPONENTS: Record<LessonSectionMeta["type"], ComponentType<SectionComponentProps>> = {
   video: VideoSection,
-  grammar: GrammarSection,
   vocabulary: VocabularySection,
+  grammar: GrammarSection,
+  "grammar-quiz": (props) => <QuizSection {...props} quizType="GRAMMAR" />,
   reading: ReadingSection,
   listening: ListeningSection,
   writing: WritingSection,
   speaking: SpeakingSection,
+  "lesson-quiz": (props) => <QuizSection {...props} quizType="LESSON" />,
   homework: HomeworkSection,
-  quiz: QuizSection,
+  results: ResultSection,
 };
 
 interface Props {

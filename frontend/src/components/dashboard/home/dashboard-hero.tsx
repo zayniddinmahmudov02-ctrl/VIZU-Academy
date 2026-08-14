@@ -4,13 +4,17 @@ import { motion } from "framer-motion";
 
 import Logo from "@/components/common/logo";
 import ProgressCircle from "@/components/ui/progress-circle";
+import { useDashboard } from "@/features/dashboard/hooks/use-dashboard";
 import { fadeInUp } from "@/lib/motion";
 import { useTranslation } from "@/lib/i18n/use-translation";
 
 export default function DashboardHero() {
   const { t } = useTranslation();
-  // Overall progress = 0 until real cross-course analytics exist.
-  const overallProgress = 0;
+  const { data: dashboard } = useDashboard();
+  // Real completed-lessons / total-lessons ratio (see
+  // DashboardService.get_dashboard) — 0 for a student with no progress
+  // yet, same as before this was wired up.
+  const overallProgress = Math.round(dashboard?.progress ?? 0);
 
   return (
     <motion.section

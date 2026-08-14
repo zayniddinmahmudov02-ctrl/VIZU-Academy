@@ -19,3 +19,11 @@ export interface LessonVocabularyItem {
 export async function getLessonVocabularies(lessonId: string): Promise<LessonVocabularyItem[]> {
   return api<LessonVocabularyItem[]>(`/api/v1/vocabularies/lesson/${lessonId}`);
 }
+
+// Marks Wortschatz reviewed — feeds the Wortschatz component of the
+// 100-point lesson score (see LessonScoringService).
+export async function completeLessonVocabulary(lessonId: string): Promise<{ vocabulary_completed: boolean }> {
+  return api<{ vocabulary_completed: boolean }>(`/api/v1/vocabularies/lesson/${lessonId}/complete`, {
+    method: "POST",
+  });
+}

@@ -4,7 +4,10 @@ from .schema import (
     LessonCreate,
     LessonDetail,
     LessonListItem,
+    LessonQuizResult,
     LessonResponse,
+    LessonScore,
+    LessonScoreComponent,
     LessonUpdate,
 )
 
@@ -14,6 +17,9 @@ __all__ = [
     "LessonCreate",
     "LessonDetail",
     "LessonListItem",
+    "LessonQuizResult",
     "LessonResponse",
+    "LessonScore",
+    "LessonScoreComponent",
     "LessonUpdate",
 ]

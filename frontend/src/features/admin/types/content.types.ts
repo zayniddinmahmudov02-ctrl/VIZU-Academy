@@ -130,8 +130,6 @@ export interface VideoUpdate {
   is_published?: boolean;
 }
 
-export type VocabularyAudioStatus = "PENDING" | "GENERATED" | "FAILED";
-
 export interface Vocabulary {
   id: string;
   lesson_id: string;
@@ -145,8 +143,6 @@ export interface Vocabulary {
   image_url: string | null;
   order_index: number;
   is_published: boolean;
-  audio_status: VocabularyAudioStatus;
-  audio_error: string | null;
 }
 export interface VocabularyCreate {
   lesson_id: string;
@@ -210,20 +206,11 @@ export interface BulkVocabularySaveResult {
 }
 
 // ==========================
-// Missing-audio queue ("Audio nacheinander aufnehmen")
+// Bulk delete
 // ==========================
 
-export interface MissingAudioWord {
-  id: string;
-  german_word: string;
-  audio_status: VocabularyAudioStatus;
-  audio_error: string | null;
-}
-
-export interface AudioQueueStatus {
-  lesson_id: string;
-  missing: MissingAudioWord[];
-  total_missing: number;
+export interface BulkDeleteVocabularyResult {
+  deleted_count: number;
 }
 
 export interface Grammar {
@@ -361,9 +348,12 @@ export interface SpeakingCreate {
 }
 export type SpeakingUpdate = Partial<Omit<SpeakingCreate, "lesson_id">>;
 
+export type QuizType = "GRAMMAR" | "LESSON";
+
 export interface Quiz {
   id: string;
   lesson_id: string;
+  quiz_type: QuizType;
   title: string;
   description: string | null;
   passing_score: number;
@@ -372,6 +362,7 @@ export interface Quiz {
 }
 export interface QuizCreate {
   lesson_id: string;
+  quiz_type?: QuizType;
   title: string;
   description?: string | null;
   passing_score?: number;

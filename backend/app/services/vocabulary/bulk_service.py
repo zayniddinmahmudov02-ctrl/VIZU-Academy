@@ -1,7 +1,6 @@
-import asyncio
 import re
 from typing import AsyncIterator
-from uuid import UUID, uuid4
+from uuid import UUID
 
 from sqlalchemy import func
 from sqlalchemy.orm import Session
@@ -11,11 +10,7 @@ from app.core.storage.factory import StorageFactory
 from app.models.course import Course
 from app.models.lesson import Lesson
 from app.models.module import Module
-from app.models.vocabulary import (
-    AUDIO_STATUS_GENERATED,
-    AUDIO_STATUS_PENDING,
-    Vocabulary,
-)
+from app.models.vocabulary import Vocabulary
 from app.repositories.vocabulary import VocabularyRepository
 from app.services.vocabulary import ai_enrichment
 
@@ -46,14 +41,11 @@ def normalize_word_list(raw_text: str) -> list[str]:
 
 
 class VocabularyBulkService:
-    """Backs the "Wörter importieren" bulk generator (Gemini text
-    enrichment only — article/plural/word-type/translation/example
-    sentence, see ai_enrichment.py) and the admin's own microphone
-    recording flow for vocabulary audio (see audio_processing.py). No
-    audio is ever AI-generated — recordings are the admin's real voice,
-    cleaned and repeated 3x. Reuses Vocabulary/VocabularyRepository and
-    the same public "audio" storage folder manual uploads already use,
-    so audio_url stays a plain public URL either way."""
+    """Backs the "Wörter importieren" bulk generator: paste a word list,
+    enrich it via Gemini text-only (article/plural/word-type/translation/
+    example sentence — see ai_enrichment.py), preview, edit, then save.
+    No audio involved anywhere in this flow — pronunciation audio isn't
+    part of the vocabulary feature currently."""
 
     def __init__(self, db: Session):
         self.db = db
@@ -82,68 +74,21 @@ class VocabularyBulkService:
         )
         return (max_order or 0) + 1
 
-    # ==========================
-    # Audio (public "audio" folder — same one manual uploads use)
-    # ==========================
-
-    async def _write_audio_file(self, word: str, wav_bytes: bytes) -> str:
-        safe_stub = re.sub(r"[^a-zA-Z0-9]+", "_", word.lower()).strip("_") or "wort"
-        path = f"audio/{uuid4().hex}_{safe_stub}.wav"
-
-        destination = self.storage.ROOT / path
-        destination.parent.mkdir(parents=True, exist_ok=True)
-        await asyncio.to_thread(destination.write_bytes, wav_bytes)
-
-        return self.storage.url(path)
-
     async def _delete_audio(self, audio_url: str | None) -> None:
+        """Manual audio uploads (FileUploadField, folder="audio") still
+        exist as a plain optional field — this cleans up the stored file
+        for our own storage-backed URLs when a word's audio is replaced
+        or the word itself is deleted. Never touches externally-hosted
+        URLs an admin may have pasted in by hand."""
         if not audio_url:
             return
         prefix = self.storage.url("")  # e.g. "/uploads/"
         if not audio_url.startswith(prefix):
-            return  # not one of ours (e.g. a manually pasted external URL) — leave it alone
+            return
         await self.storage.delete(audio_url[len(prefix):])
 
-    async def save_recorded_audio(self, vocabulary: Vocabulary, wav_bytes: bytes) -> str:
-        """wav_bytes is the already-processed (cleaned + repeated 3x)
-        WAV produced by POST /vocabularies/audio/process — this just
-        persists it. New file stored and the DB row committed before the
-        old file is deleted, so a mid-save failure never leaves the word
-        without a playable audio_url."""
-
-        if not wav_bytes.startswith(b"RIFF"):
-            raise ValueError("Erwartete WAV-Audiodaten (verarbeitete Aufnahme).")
-
-        old_url = vocabulary.audio_url
-        new_url = await self._write_audio_file(vocabulary.german_word, wav_bytes)
-
-        vocabulary.audio_url = new_url
-        vocabulary.audio_status = AUDIO_STATUS_GENERATED
-        vocabulary.audio_error = None
-        self.db.commit()
-        self.db.refresh(vocabulary)
-
-        await self._delete_audio(old_url)
-
-        return new_url
-
-    def get_missing_audio(self, lesson_id: UUID) -> list[Vocabulary]:
-        """Words still needing a recording — backs both "Audio: ❌ Fehlt"
-        in the table and the "Audio nacheinander aufnehmen" sequential
-        recording workflow. Anything not already GENERATED, regardless
-        of how it got that way (never recorded, or a prior failure)."""
-        return (
-            self.db.query(Vocabulary)
-            .filter(
-                Vocabulary.lesson_id == lesson_id,
-                Vocabulary.audio_status != AUDIO_STATUS_GENERATED,
-            )
-            .order_by(Vocabulary.order_index)
-            .all()
-        )
-
     # ==========================
-    # Analyze (streamed progress) — TEXT enrichment only, never audio
+    # Analyze (streamed progress) — TEXT enrichment only
     # ==========================
 
     async def analyze_stream(
@@ -238,12 +183,6 @@ class VocabularyBulkService:
                 translation=translation,
                 example_sentence=item.get("example_sentence") or None,
                 example_translation=item.get("example_translation") or None,
-                # Bulk import never produces audio (see spec: TTS is gone
-                # from this flow) — every new word starts PENDING and
-                # waits for the admin to record it, same as the 53
-                # pre-existing words this feature was built to unblock.
-                audio_url=None,
-                audio_status=AUDIO_STATUS_PENDING,
                 order_index=next_order,
                 is_published=bool(item.get("is_published")),
             )
@@ -256,3 +195,27 @@ class VocabularyBulkService:
         self.db.commit()
 
         return {"saved_count": saved, "needs_review": needs_review}
+
+    # ==========================
+    # Bulk delete
+    # ==========================
+
+    async def bulk_delete(self, lesson_id: UUID, vocabulary_ids: list[UUID]) -> int:
+        """Deletes only the given IDs, scoped to lesson_id so a stray ID
+        from another lesson (or a stale client-side selection) can never
+        delete outside the lesson the admin is looking at. Cleans up any
+        of our own stored audio files before removing the rows. Returns
+        the number actually deleted."""
+
+        rows = (
+            self.db.query(Vocabulary)
+            .filter(Vocabulary.lesson_id == lesson_id, Vocabulary.id.in_(vocabulary_ids))
+            .all()
+        )
+
+        for row in rows:
+            await self._delete_audio(row.audio_url)
+            self.db.delete(row)
+
+        self.db.commit()
+        return len(rows)

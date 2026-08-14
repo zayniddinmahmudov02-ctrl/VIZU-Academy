@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 from app.api.dependencies.auth import require_admin_panel_access
 from app.db.session import get_db
 
+from app.models.quiz import Quiz
 from app.models.user import User
 
 from app.schemas.quiz import (
@@ -29,6 +30,27 @@ def get_all(
     db: Session = Depends(get_db),
 ):
     return QuizService(db).get_all()
+
+
+@router.get(
+    "/lesson/{lesson_id}",
+    response_model=list[QuizResponse],
+)
+def get_lesson_quizzes(
+    lesson_id: str,
+    quiz_type: str | None = None,
+    published_only: bool = False,
+    db: Session = Depends(get_db),
+):
+    """Optionally filtered by quiz_type (GRAMMAR/LESSON) — the lesson
+    player uses this to fetch the mid-lesson Grammatik Quiz and the
+    end-of-lesson Lesson Quiz as two distinct requests."""
+    query = db.query(Quiz).filter(Quiz.lesson_id == lesson_id)
+    if quiz_type:
+        query = query.filter(Quiz.quiz_type == quiz_type)
+    if published_only:
+        query = query.filter(Quiz.is_published.is_(True))
+    return query.order_by(Quiz.order_index).all()
 
 
 @router.get(

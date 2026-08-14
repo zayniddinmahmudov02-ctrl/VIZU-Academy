@@ -23,11 +23,15 @@ export interface LessonContentStatus {
   title: string;
   has_video: boolean;
   has_grammar: boolean;
+  has_grammar_quiz: boolean;
   has_vocabulary: boolean;
   has_lesen: boolean;
+  has_lesen_quiz: boolean;
   has_hoeren: boolean;
+  has_hoeren_quiz: boolean;
   has_schreiben: boolean;
   has_sprechen: boolean;
+  has_lesson_quiz: boolean;
   /** Position-based (first 3 per level free) — independent of has_* above.
    *  Content can exist and still be locked for a free student. */
   is_locked: boolean;

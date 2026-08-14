@@ -7,6 +7,7 @@ import { ArrowLeft } from "lucide-react";
 import AdminTabs from "@/components/admin/admin-tabs";
 import GrammarManager from "@/features/admin/components/managers/grammar-manager";
 import HomeworkManager from "@/features/admin/components/managers/homework-manager";
+import LessonResultsManager from "@/features/admin/components/lesson-results/lesson-results-manager";
 import LesenAssessmentManager from "@/features/admin/components/lesen/lesen-assessment-manager";
 import ListeningManager from "@/features/admin/components/managers/listening-manager";
 import QuizManager from "@/features/admin/components/managers/quiz-manager";
@@ -46,38 +47,55 @@ export default function LessonEditorPage() {
         </p>
       </div>
 
+      {/* Fixed content order (Video -> Wortschatz -> Grammatik -> Grammatik
+          Quiz -> Lesen -> Hören -> Schreiben -> Sprechen -> Lesson Quiz),
+          identical to the student lesson page — never reordered based on
+          which sections happen to have content yet. Homework and the
+          legacy per-skill managers (pre-Assessment-Engine) are kept for
+          existing content but placed after the required order rather than
+          interleaved with it. */}
       <AdminTabs
         defaultValue="video"
         tabs={[
           { value: "video", label: "Video", content: <VideoManager lessonId={lessonId} /> },
-          { value: "vocabulary", label: "Vokabeln", content: <VocabularyManager lessonId={lessonId} /> },
+          { value: "vocabulary", label: "Wortschatz", content: <VocabularyManager lessonId={lessonId} /> },
           { value: "grammar", label: "Grammatik", content: <GrammarManager lessonId={lessonId} /> },
-          { value: "reading", label: "Lesen (Legacy)", content: <ReadingManager lessonId={lessonId} /> },
+          {
+            value: "grammar-quiz",
+            label: "Grammatik Quiz",
+            content: <QuizManager lessonId={lessonId} quizType="GRAMMAR" />,
+          },
           {
             value: "lesen-assessment",
             label: "Lesen",
             content: <LesenAssessmentManager lessonId={lessonId} skill="LESEN" />,
           },
-          { value: "listening", label: "Hören (Legacy)", content: <ListeningManager lessonId={lessonId} /> },
           {
             value: "hoeren-assessment",
             label: "Hören",
             content: <LesenAssessmentManager lessonId={lessonId} skill="HOEREN" />,
           },
-          { value: "writing", label: "Schreiben (Legacy)", content: <WritingManager lessonId={lessonId} /> },
           {
             value: "schreiben-assessment",
             label: "Schreiben",
             content: <LesenAssessmentManager lessonId={lessonId} skill="SCHREIBEN" />,
           },
-          { value: "speaking", label: "Sprechen (Legacy)", content: <SpeakingManager lessonId={lessonId} /> },
           {
             value: "sprechen-assessment",
             label: "Sprechen",
             content: <LesenAssessmentManager lessonId={lessonId} skill="SPRECHEN" />,
           },
+          {
+            value: "lesson-quiz",
+            label: "Lesson Quiz",
+            content: <QuizManager lessonId={lessonId} quizType="LESSON" />,
+          },
           { value: "homework", label: "Hausaufgaben", content: <HomeworkManager lessonId={lessonId} /> },
-          { value: "quiz", label: "Quiz", content: <QuizManager lessonId={lessonId} /> },
+          { value: "reading", label: "Lesen (Legacy)", content: <ReadingManager lessonId={lessonId} /> },
+          { value: "listening", label: "Hören (Legacy)", content: <ListeningManager lessonId={lessonId} /> },
+          { value: "writing", label: "Schreiben (Legacy)", content: <WritingManager lessonId={lessonId} /> },
+          { value: "speaking", label: "Sprechen (Legacy)", content: <SpeakingManager lessonId={lessonId} /> },
+          { value: "results", label: "Ergebnisse", content: <LessonResultsManager lessonId={lessonId} /> },
         ]}
       />
     </div>

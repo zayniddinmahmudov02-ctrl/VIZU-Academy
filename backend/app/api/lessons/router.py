@@ -13,6 +13,7 @@ from app.schemas.lesson import (
     LessonDetail,
     LessonListItem,
     LessonResponse,
+    LessonScore,
     LessonUpdate,
 )
 from app.services.lesson import (
@@ -22,6 +23,7 @@ from app.services.lesson import (
     get_lesson_detail,
     get_lessons_for_module,
 )
+from app.services.lesson_scoring import LessonScoringService
 
 router = APIRouter(
     prefix="/lessons",
@@ -88,6 +90,38 @@ def get_lesson(
         )
 
     return lesson
+
+
+@router.get(
+    "/{lesson_id}/score",
+    response_model=LessonScore,
+)
+def get_my_lesson_score(
+    lesson_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_lesson_access),
+):
+    """This student's own 100-point breakdown for this lesson — same
+    gate as the lesson content itself (require_lesson_access), since a
+    score is just another view of content the student must already be
+    allowed to see."""
+    return LessonScoringService(db).compute(current_user.id, lesson_id)
+
+
+@router.get(
+    "/{lesson_id}/students/{user_id}/score",
+    response_model=LessonScore,
+)
+def get_student_lesson_score(
+    lesson_id: UUID,
+    user_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    """Admin view of one student's breakdown for one lesson — same
+    computation as the student's own GET /{lesson_id}/score, just for an
+    arbitrary user_id instead of the caller."""
+    return LessonScoringService(db).compute(user_id, lesson_id)
 
 
 @router.post(

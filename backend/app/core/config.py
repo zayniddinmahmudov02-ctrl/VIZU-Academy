@@ -97,20 +97,8 @@ class Settings(BaseSettings):
 
     # Bulk vocabulary generator text enrichment (see
     # app/services/vocabulary/ai_enrichment.py) — word-type/article/
-    # plural/translation/example sentence, reusing GEMINI_API_KEY. Audio
-    # is never AI-generated (see audio_processing.py) — it's always the
-    # admin's own microphone recording, cleaned and repeated 3x.
-
-    # Every vocabulary audio file is: admin's cleaned word, this many ms
-    # of silence, word again, silence again, word a third time. 700ms is
-    # long enough to read as a deliberate pause, short enough that the
-    # whole file still feels like one clip rather than three separate ones.
-    VOCAB_AUDIO_REPEAT_PAUSE_MS: int = 700
-
-    # A raw browser recording of one spoken word is a few hundred KB at
-    # most even uncompressed; this is a generous ceiling against a
-    # misbehaving client, not a realistic expected size.
-    VOCAB_AUDIO_MAX_UPLOAD_MB: int = 15
+    # plural/translation/example sentence, reusing GEMINI_API_KEY.
+    # No vocabulary pronunciation-audio feature exists currently.
 
     # ==================================================
     # SECURITY

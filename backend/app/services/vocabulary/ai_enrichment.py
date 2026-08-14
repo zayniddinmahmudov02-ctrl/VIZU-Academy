@@ -3,10 +3,9 @@ word-type/article/plural detection, German -> Uzbek translation, a
 level-appropriate example sentence, and its translation — for a whole
 batch of words in one call.
 
-Audio is never AI-generated here or anywhere else in this project — see
-app/services/vocabulary/audio_processing.py, which turns the admin's own
-microphone recording into the final playback file. This module is
-text-only by design.
+No vocabulary pronunciation-audio feature exists in this project — this
+module is text-only by design, and audio_url (when set at all) is a
+plain manually-provided URL.
 
 Same urllib + asyncio.to_thread approach as this project's other real,
 Gemini-backed AI feature (app/services/mock_exam/ai_service.py, used for

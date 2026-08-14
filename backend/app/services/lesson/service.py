@@ -9,6 +9,7 @@ from app.models.assessment_task import AssessmentTask
 from app.models.grammar import Grammar
 from app.models.lesson import Lesson
 from app.models.listening import Listening
+from app.models.quiz import QUIZ_TYPE_GRAMMAR, QUIZ_TYPE_LESSON, Quiz
 from app.models.student_progress import StudentProgress
 from app.models.user import User
 from app.models.video import Video
@@ -100,6 +101,15 @@ def get_content_status_for_module(db: Session, module_id: str) -> list[dict]:
     for lesson_id, skill in skill_rows:
         skills_by_lesson.setdefault(lesson_id, set()).add(skill)
 
+    quiz_type_rows = db.execute(
+        select(Quiz.lesson_id, Quiz.quiz_type)
+        .where(Quiz.lesson_id.in_(lesson_ids), Quiz.is_published.is_(True))
+        .distinct()
+    ).all()
+    quiz_types_by_lesson: dict = {}
+    for lesson_id, quiz_type in quiz_type_rows:
+        quiz_types_by_lesson.setdefault(lesson_id, set()).add(quiz_type)
+
     lessons = db.scalars(
         select(Lesson).where(Lesson.module_id == module_id).order_by(Lesson.number)
     ).all()
@@ -111,11 +121,18 @@ def get_content_status_for_module(db: Session, module_id: str) -> list[dict]:
             "title": lesson.title,
             "has_video": lesson.id in video_lessons,
             "has_grammar": lesson.id in grammar_lessons,
+            "has_grammar_quiz": QUIZ_TYPE_GRAMMAR in quiz_types_by_lesson.get(str(lesson.id), set()),
             "has_vocabulary": lesson.id in vocabulary_lessons,
+            # Lesen/Hören each unify passage + comprehension questions
+            # into one Assessment-engine section — "Lesen" and "Lesen
+            # Quiz" are the same underlying content, shown as two rows.
             "has_lesen": "LESEN" in skills_by_lesson.get(lesson.id, set()),
+            "has_lesen_quiz": "LESEN" in skills_by_lesson.get(lesson.id, set()),
             "has_hoeren": "HOEREN" in skills_by_lesson.get(lesson.id, set()),
+            "has_hoeren_quiz": "HOEREN" in skills_by_lesson.get(lesson.id, set()),
             "has_schreiben": "SCHREIBEN" in skills_by_lesson.get(lesson.id, set()),
             "has_sprechen": "SPRECHEN" in skills_by_lesson.get(lesson.id, set()),
+            "has_lesson_quiz": QUIZ_TYPE_LESSON in quiz_types_by_lesson.get(str(lesson.id), set()),
             # Position-based only — "would a free student be locked out",
             # not "is this admin locked out" (admins always bypass).
             "is_locked": not is_free_lesson(lesson),

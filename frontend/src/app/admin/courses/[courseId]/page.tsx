@@ -17,14 +17,22 @@ import {
 import { levelsApi } from "@/features/admin/services/levels-service";
 import { modulesApi } from "@/features/admin/services/modules-service";
 
+// Fixed order matching the required lesson-content order exactly (see
+// frontend/src/constants/lesson-sections.ts and the Admin lesson editor's
+// tab order) — Video, Wortschatz, Grammatik, Grammatik Quiz, Lesen, Lesen
+// Quiz, Hören, Hören Quiz, Schreiben, Sprechen, Lesson Quiz.
 const PANELS: { key: keyof LessonContentStatus; label: string }[] = [
   { key: "has_video", label: "Video" },
+  { key: "has_vocabulary", label: "Wortschatz" },
   { key: "has_grammar", label: "Grammatik" },
+  { key: "has_grammar_quiz", label: "Grammatik Quiz" },
   { key: "has_lesen", label: "Lesen" },
+  { key: "has_lesen_quiz", label: "Lesen Quiz" },
   { key: "has_hoeren", label: "Hören" },
+  { key: "has_hoeren_quiz", label: "Hören Quiz" },
   { key: "has_schreiben", label: "Schreiben" },
   { key: "has_sprechen", label: "Sprechen" },
-  { key: "has_vocabulary", label: "Wortschatz" },
+  { key: "has_lesson_quiz", label: "Lesson Quiz" },
 ];
 
 export default function CourseLessonsPage() {
