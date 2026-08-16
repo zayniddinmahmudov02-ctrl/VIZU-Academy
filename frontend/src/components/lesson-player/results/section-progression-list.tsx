@@ -1,4 +1,4 @@
-import { Check, Lock, Unlock } from "lucide-react";
+import { Check, Circle } from "lucide-react";
 
 import type { SectionGateState } from "@/features/lessons/services/section-gate-service";
 
@@ -26,9 +26,10 @@ const ORDER: (keyof SectionGateState)[] = [
   "lesson_quiz",
 ];
 
-/** Shared "sequential learning path" checklist — used by both the
- * student's own view (implicitly, via the lock icons in
- * LessonSectionNav) and the admin's per-student progression view. */
+/** Shared per-section completion checklist — every section is
+ * independently accessible, so this only shows done/not-done, not a
+ * lock state. Used by both the student's own results view and the
+ * admin's per-student progression view. */
 export default function SectionProgressionList({ gate }: { gate: SectionGateState }) {
   return (
     <div className="space-y-1.5">
@@ -36,12 +37,10 @@ export default function SectionProgressionList({ gate }: { gate: SectionGateStat
         const entry = gate[key];
         const icon = entry.completed ? (
           <Check size={14} className="text-success" />
-        ) : entry.unlocked ? (
-          <Unlock size={14} className="text-warning" />
         ) : (
-          <Lock size={14} className="text-text-muted" />
+          <Circle size={14} className="text-text-muted" />
         );
-        const label = entry.completed ? "Abgeschlossen" : entry.unlocked ? "Offen" : "Gesperrt";
+        const label = entry.completed ? "Abgeschlossen" : "Offen";
 
         return (
           <div key={key} className="flex items-center justify-between rounded-lg bg-surface-hover/40 px-3 py-2 text-sm">

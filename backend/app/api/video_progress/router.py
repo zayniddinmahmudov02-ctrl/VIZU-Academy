@@ -52,9 +52,9 @@ def update_progress(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-    """Reports playback position. The server clamps forward jumps to real
-    elapsed time — the response reflects what was actually accepted, not
-    necessarily what was sent, so the player can snap back if clamped."""
+    """Reports playback position — free seeking, forward and backward are
+    both trusted directly (bounded only to the video's real duration).
+    Requires the caller to already have playback access to this video."""
 
     service = VideoProgressService(db)
 

@@ -1,36 +1,27 @@
-"""Server-side sequential-section gates — direct-URL/direct-API access to
-a locked section must fail the same as the frontend hiding its button
-(see section 18 of the spec this backs). Admin/staff always bypass, same
-`ADMIN_PANEL_ROLES` check used by every other bypass in this codebase
-(app.services.vizu_pay.access.has_premium_bypass)."""
+"""Formerly enforced sequential-section access; sections are now
+independently accessible in any order, so these dependencies are
+permanent no-ops — kept (rather than stripped from every router) so call
+sites don't need to change and Premium/lesson-access checks elsewhere are
+unaffected. Deliberately doesn't call SectionGateService at all anymore
+(unlike a version that just made `is_unlocked` return True): that would
+still pay for a full DB round-trip every request only to get a constant
+back."""
 
 from uuid import UUID
 
-from fastapi import Depends, HTTPException, status
-from sqlalchemy.orm import Session
+from fastapi import Depends
 
 from app.api.dependencies.auth import get_current_user
-from app.core.security.roles import UserRole
-from app.db.session import get_db
 from app.models.user import User
-from app.services.lesson_progress import SectionGateService
 
 
 def _require_section_unlocked(section: str):
     async def _dependency(
+        # Kept as a path param so a malformed lesson_id still 400s here,
+        # same as before this dependency stopped enforcing anything else.
         lesson_id: UUID,
         current_user: User = Depends(get_current_user),
-        db: Session = Depends(get_db),
     ) -> User:
-        if current_user.role in UserRole.ADMIN_PANEL_ROLES:
-            return current_user
-
-        if not SectionGateService(db).is_unlocked(current_user.id, lesson_id, section):
-            raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN,
-                detail="LESSON_SECTION_LOCKED",
-            )
-
         return current_user
 
     return _dependency

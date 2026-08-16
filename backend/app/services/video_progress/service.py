@@ -1,4 +1,3 @@
-from datetime import UTC, datetime
 from uuid import UUID
 
 from fastapi import HTTPException, status
@@ -14,12 +13,6 @@ from app.repositories.video import VideoRepository
 from app.repositories.video_progress import VideoProgressRepository
 
 from app.services.video.service import VideoService
-
-# A forward jump is only ever accepted up to this many seconds beyond
-# what real elapsed wall-clock time since the last update would allow —
-# the margin that absorbs normal player/network jitter without opening a
-# meaningful skip window.
-GRACE_SECONDS = 5
 
 # Matches the spec: watching >=95% of the video (or reaching its end)
 # is what "completed" means.
@@ -103,13 +96,12 @@ class VideoProgressService:
         )
 
         if progress is None:
-            # First-ever report for this user/video: nothing to compare
-            # against yet, so a huge initial position is still clamped
-            # to a small grace window rather than trusted outright.
-            allowed_position = min(position, GRACE_SECONDS)
-
+            # First-ever report for this user/video: free seeking means
+            # the student may have already scrubbed before this fires, so
+            # the reported position is trusted directly (still bounded to
+            # the video's real duration — a sanity clamp, not anti-skip).
             allowed_position = self._clamp_to_duration(
-                allowed_position,
+                position,
                 video.duration_seconds,
             )
 
@@ -127,13 +119,11 @@ class VideoProgressService:
 
             return progress
 
-        allowed_position = self._clamp_forward_jump(
-            progress,
-            position,
-        )
-
+        # Free seeking: the reported position is trusted directly (both
+        # forward and backward), bounded only to the video's real
+        # duration — a sanity clamp, not anti-skip.
         allowed_position = self._clamp_to_duration(
-            allowed_position,
+            position,
             video.duration_seconds,
         )
 
@@ -147,31 +137,6 @@ class VideoProgressService:
             last_position=allowed_position,
             watch_percent=max(progress.watch_percent, watch_percent),
         )
-
-    def _clamp_forward_jump(
-        self,
-        progress: VideoProgress,
-        requested_position: int,
-    ) -> int:
-        """The anti-skip guarantee, enforced server-side so it can't be
-        bypassed by manipulating the client: rewinding is always free,
-        but advancing past `last_position` is capped at how much real
-        wall-clock time has actually elapsed since the last report (plus
-        a small grace window) — never at whatever the client claims."""
-
-        if requested_position <= progress.last_position:
-            return requested_position
-
-        now = datetime.now(UTC)
-        last_update = progress.updated_at
-
-        if last_update.tzinfo is None:
-            last_update = last_update.replace(tzinfo=UTC)
-
-        elapsed = max((now - last_update).total_seconds(), 0)
-        max_allowed = progress.last_position + elapsed + GRACE_SECONDS
-
-        return int(min(requested_position, max_allowed))
 
     @staticmethod
     def _clamp_to_duration(

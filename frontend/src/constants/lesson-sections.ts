@@ -69,10 +69,10 @@ export function getSectionIndex(slug: string): number {
 }
 
 // Maps a lesson-section type to its backend section-gate key — null for
-// sections outside the required 9-step order (Hausaufgabe, Ergebnis),
-// which stay open once the video is done rather than being sequentially
-// gated themselves. Shared by LessonActivityGate (server-backed content
-// block) and LessonSectionNav (lock-icon display) so both always agree.
+// sections with no completion concept (Hausaufgabe, Ergebnis). Sections
+// are no longer sequentially locked; this is only used to look up each
+// section's completed/not-completed state for progress display (lesson
+// nav checkmarks, results, admin per-student view).
 export const SECTION_GATE_KEYS: Record<LessonSectionType, SectionGateKey | null> = {
   video: null,
   vocabulary: "wortschatz",

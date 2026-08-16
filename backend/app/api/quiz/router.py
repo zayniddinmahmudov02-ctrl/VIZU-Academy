@@ -1,15 +1,12 @@
-from uuid import UUID
-
 from fastapi import APIRouter, Depends, HTTPException
 
 from sqlalchemy.orm import Session
 
-from app.api.dependencies.auth import require_admin_panel_access, get_current_user
+from app.api.dependencies.auth import require_admin_panel_access
 from app.api.dependencies.progress import require_lesson_access
-from app.core.security.roles import UserRole
 from app.db.session import get_db
 
-from app.models.quiz import QUIZ_TYPE_GRAMMAR, QUIZ_TYPE_LESSON, Quiz
+from app.models.quiz import Quiz
 from app.models.user import User
 
 from app.schemas.quiz import (
@@ -18,7 +15,6 @@ from app.schemas.quiz import (
     QuizResponse,
 )
 
-from app.services.lesson_progress import SectionGateService
 from app.services.quiz import QuizService
 
 router = APIRouter(
@@ -46,20 +42,13 @@ def get_lesson_quizzes(
     quiz_type: str | None = None,
     published_only: bool = False,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
     __: User = Depends(require_lesson_access),
 ):
     """Optionally filtered by quiz_type (GRAMMAR/LESSON) — the lesson
     player uses this to fetch the mid-lesson Grammatik Quiz and the
-    end-of-lesson Lesson Quiz as two distinct requests. Each is gated by
-    the sequential lesson progression (Grammatik must be viewed before
-    Grammatik Quiz; Sprechen must be submitted before Lesson Quiz) —
-    admin/staff bypass, same as every other section gate."""
-    if quiz_type in (QUIZ_TYPE_GRAMMAR, QUIZ_TYPE_LESSON) and current_user.role not in UserRole.ADMIN_PANEL_ROLES:
-        section = "grammatik_quiz" if quiz_type == QUIZ_TYPE_GRAMMAR else "lesson_quiz"
-        if not SectionGateService(db).is_unlocked(current_user.id, UUID(lesson_id), section):
-            raise HTTPException(status_code=403, detail="LESSON_SECTION_LOCKED")
-
+    end-of-lesson Lesson Quiz as two distinct requests. Sections are no
+    longer sequentially gated; require_lesson_access still applies the
+    free-3-lessons-per-level / Premium rule."""
     query = db.query(Quiz).filter(Quiz.lesson_id == lesson_id)
     if quiz_type:
         query = query.filter(Quiz.quiz_type == quiz_type)

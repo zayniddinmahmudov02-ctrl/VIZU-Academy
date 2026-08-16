@@ -306,14 +306,6 @@ export const translations: Record<string, Namespace> = {
     videoResumeFrom: { de: "Fortsetzen ab {time}", uz: "{time} dan davom eting" },
     videoCompleted: { de: "Video abgeschlossen", uz: "Video tugallandi" },
 
-    sectionLocked: {
-      de: "🔒 Schließe zuerst das Video ab.",
-      uz: "🔒 Avval videoni tugating.",
-    },
-    sectionLockedHint: {
-      de: "Diese Aktivität wird freigeschaltet, sobald du das Video abgeschlossen hast.",
-      uz: "Bu mashg'ulot videoni tugatgach ochiladi.",
-    },
     premiumRequiredTitle: { de: "🔒 Premium erforderlich", uz: "🔒 Premium talab qilinadi" },
     premiumRequiredHint: {
       de: "Die ersten 3 Lektionen jeder Stufe sind kostenlos. Schalte Premium frei, um auf diese Lektion zuzugreifen.",

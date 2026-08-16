@@ -17,7 +17,8 @@ interface Props {
  *  can_access_lesson rule — first 3 lessons per level are free, the rest
  *  need Premium/staff. Backed by the real GET /lessons/{id} 403, not a
  *  client-side lesson-number guess, so it can't be bypassed by editing
- *  local state. Mirrors LessonActivityGate's visual treatment. */
+ *  local state. This is the only lesson-level gate left — sections
+ *  within a lesson are no longer sequentially locked. */
 export default function PremiumLessonGate({ lessonId, children }: Props) {
   const { t } = useTranslation();
   const state = useLessonAccess(lessonId);

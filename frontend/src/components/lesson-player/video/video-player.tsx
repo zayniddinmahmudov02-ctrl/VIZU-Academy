@@ -9,13 +9,10 @@ import { useLessonProgressStore } from "@/store/lesson-progress-store";
 import { useTranslation } from "@/lib/i18n/use-translation";
 
 /** How often (ms) we report the current position to the server while
- *  playing. The server re-validates every report against real elapsed
- *  time regardless of how often this fires — see
- *  VideoProgressService._clamp_forward_jump, which caps a forward jump
- *  at how much real wall-clock time has actually elapsed since the last
- *  report, not at whatever the client claims. That's the actual
- *  anti-skip enforcement; nothing client-side needs to (or should)
- *  duplicate it by blocking the seek bar. */
+ *  playing. Free seeking is intentional: the player has no seek
+ *  restrictions of any kind, and the server accepts whatever position is
+ *  reported (bounded only to the video's real duration) — see
+ *  VideoProgressService.update_progress. */
 const PROGRESS_REPORT_INTERVAL_MS = 5000;
 
 interface Props {

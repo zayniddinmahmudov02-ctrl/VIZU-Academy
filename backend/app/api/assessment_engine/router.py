@@ -503,13 +503,9 @@ def get_public_lesson_assessment(
     ("Für diese Lektion sind noch keine Aufgaben verfügbar.") rather than
     treating it as an error. require_lesson_access gates Lesen/Hören/
     Schreiben/Sprechen (all bundled into this one assessment) behind the
-    free-3-lessons / Premium rule; require_lesen_unlocked additionally
-    requires the Grammatik Quiz to be submitted first (sequential lesson
-    progression) before ANY of the 4 bundled skills can be fetched — see
-    project memory for why Hören/Schreiben/Sprechen can't be gated
-    separately from Lesen without restructuring the shared Assessment
-    Engine (also used by Vorbereitung/MockTest), which was deliberately
-    avoided here."""
+    free-3-lessons / Premium rule; require_lesen_unlocked is a permanent
+    no-op now (sections are no longer sequentially gated) kept only to
+    avoid touching this call site."""
     assessment = public_service.get_published_assessment_for_lesson(db, lesson_id)
     if assessment is None:
         return None

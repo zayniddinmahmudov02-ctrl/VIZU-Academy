@@ -46,8 +46,8 @@ def get_lesson_grammars(
     GET /vocabularies/lesson/{lesson_id} and GET /videos/by-lesson/{lesson_id}.
     A DRAFT grammar item must never reach a student. require_lesson_access
     gates the free-3-lessons-per-level / Premium rule; require_grammar_unlocked
-    additionally requires Wortschatz to be completed first (sequential
-    lesson progression) — admin/staff bypass both."""
+    is a permanent no-op now (sections are no longer sequentially gated)
+    kept only to avoid touching this call site."""
     return GrammarService(db).get_by_lesson(lesson_id, published_only=True)
 
 

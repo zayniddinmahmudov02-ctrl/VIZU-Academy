@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 
 import GrammarSection from "@/components/lesson-player/grammar/grammar-section";
 import HomeworkSection from "@/components/lesson-player/homework/homework-section";
-import LessonActivityGate from "@/components/lesson-player/video/lesson-activity-gate";
 import PremiumLessonGate from "@/components/lesson-player/video/premium-lesson-gate";
 import ListeningSection from "@/components/lesson-player/listening/listening-section";
 import QuizSection from "@/components/lesson-player/quiz/quiz-section";
@@ -13,7 +12,7 @@ import SpeakingSection from "@/components/lesson-player/speaking/speaking-sectio
 import VideoSection from "@/components/lesson-player/video/video-section";
 import VocabularySection from "@/components/lesson-player/vocabulary/vocabulary-section";
 import WritingSection from "@/components/lesson-player/writing/writing-section";
-import { getSectionBySlug, SECTION_GATE_KEYS, type LessonSectionMeta } from "@/constants/lesson-sections";
+import { getSectionBySlug, type LessonSectionMeta } from "@/constants/lesson-sections";
 
 interface SectionComponentProps {
   lessonId: string;
@@ -50,17 +49,13 @@ export default async function LessonSectionPage({ params }: Props) {
   }
 
   const SectionComponent = SECTION_COMPONENTS[meta.type];
-  const gateKey = SECTION_GATE_KEYS[meta.type];
 
+  // Every section is independently accessible in any order — only the
+  // lesson-level Premium/free-lesson rule (PremiumLessonGate) still
+  // applies. No sequential section gate.
   return (
     <PremiumLessonGate lessonId={lessonId}>
-      {meta.type === "video" ? (
-        <SectionComponent lessonId={lessonId} />
-      ) : (
-        <LessonActivityGate lessonId={lessonId} section={gateKey}>
-          <SectionComponent lessonId={lessonId} />
-        </LessonActivityGate>
-      )}
+      <SectionComponent lessonId={lessonId} />
     </PremiumLessonGate>
   );
 }

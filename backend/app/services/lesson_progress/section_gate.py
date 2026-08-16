@@ -1,14 +1,16 @@
-"""Computes which of a lesson's 9 sequential content sections a given
-student may currently access — the single source of truth used by both
-the backend gating dependencies (app/api/dependencies/section_gate.py)
-and the one status endpoint the frontend polls to render lock icons.
+"""Computes each of a lesson's 9 content sections' completion state for a
+given student — used to render progress/checkmarks (lesson results, admin
+per-student view). Sections are no longer sequentially locked (students
+may complete them in any order); `unlocked` is kept in the returned shape
+only for API/frontend compatibility and is always `True`. The gating
+dependencies in app/api/dependencies/section_gate.py consume this too,
+so `is_unlocked` always passing means those endpoints no longer enforce
+an access order either.
 
-Sequence: Video -> Wortschatz -> Grammatik -> Grammatik Quiz -> Lesen ->
-Hören -> Schreiben -> Sprechen -> Lesson Quiz. Lesen/Hören are each one
-half of the same bundled Universal-Assessment-Engine Assessment (no
-separate "Lesen Quiz" content exists — see project memory) so "Lesen
-done" means every LESEN TaskQuestion has a recorded Answer, not a
-separate submission step.
+Lesen/Hören are each one half of the same bundled Universal-Assessment-
+Engine Assessment (no separate "Lesen Quiz" content exists — see project
+memory) so "Lesen done" means every LESEN TaskQuestion has a recorded
+Answer, not a separate submission step.
 
 Deliberately does not touch the Assessment Engine's own attempt/scoring
 logic (shared with Vorbereitung/MockTest) — this only *reads* Answer/
@@ -173,18 +175,13 @@ class SectionGateService:
             "lesson_quiz": lesson_quiz_done,
         }
 
-        # Each section unlocks once the one immediately before it (in
-        # SECTION_ORDER) is completed — video is always open.
-        unlocked = {}
-        prior_done = True
-        for key in SECTION_ORDER:
-            unlocked[key] = prior_done
-            prior_done = completed[key]
-
+        # Sections are independently accessible — no sequential lock.
+        # `unlocked` is always True; kept in the shape for API/frontend
+        # compatibility (see module docstring).
         return {
-            key: {"unlocked": unlocked[key], "completed": completed[key]}
+            key: {"unlocked": True, "completed": completed[key]}
             for key in SECTION_ORDER
         }
 
     def is_unlocked(self, user_id: UUID, lesson_id: UUID, section: str) -> bool:
-        return self.get_state(user_id, lesson_id)[section]["unlocked"]
+        return True

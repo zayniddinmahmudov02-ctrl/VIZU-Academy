@@ -16,10 +16,10 @@ interface UseVideoProgressResult {
   loading: boolean;
   /** A translation key (resolve with `t()`), not display text. */
   error: string | null;
-  /** Reports the current playback position to the server. The server is
-   *  the source of truth for anti-skip clamping — `progress` is updated
-   *  with whatever it actually accepted, which the player should honor
-   *  if it differs from what was sent. */
+  /** Reports the current playback position to the server (free seeking —
+   *  forward and backward jumps are both trusted directly, bounded only
+   *  to the video's real duration). `progress` is updated with whatever
+   *  the server persisted. */
   reportProgress: (position: number, ended?: boolean) => void;
   markComplete: (ended?: boolean) => Promise<VideoProgress | null>;
 }
