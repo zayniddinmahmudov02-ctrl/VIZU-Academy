@@ -23,6 +23,9 @@ interface Props {
   locked: boolean;
   allowEdit: boolean;
   allowResubmit: boolean;
+  /** Called once the submission is genuinely locked in (not on a
+   * Speichern draft) — lets the parent unlock Sprechen next. */
+  onSubmitted?: () => void;
 }
 
 function countWords(text: string): number {
@@ -34,7 +37,7 @@ function countWords(text: string): number {
  * DRAFT, Abgeben locks the content in and (per the task's evaluation_mode)
  * triggers AI evaluation server-side. Word-limit/lock enforcement here is
  * client-side UX only — the backend re-validates and is the real gate. */
-export default function SchreibenTask({ task, attemptId, locked, allowEdit, allowResubmit }: Props) {
+export default function SchreibenTask({ task, attemptId, locked, allowEdit, allowResubmit, onSubmitted }: Props) {
   const [submission, setSubmission] = useState<WritingSubmission | null | undefined>(undefined);
   const [result, setResult] = useState<WritingResult | null>(null);
   const [editing, setEditing] = useState(false);
@@ -83,6 +86,7 @@ export default function SchreibenTask({ task, attemptId, locked, allowEdit, allo
       const s = await submitWriting(attemptId, task.id);
       setSubmission(s);
       setEditing(false);
+      onSubmitted?.();
     } catch {
       setError("Abgeben fehlgeschlagen. Prüfe die Wortanzahl.");
     } finally {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { CircleHelp } from "lucide-react";
 
 import { useCurrentUser } from "@/features/auth/hooks/use-current-user";
@@ -36,6 +36,7 @@ interface QuestionWithOptions extends LessonQuizQuestion {
 export default function QuizSection({ lessonId, quizType = "GRAMMAR" }: Props) {
   const { t } = useTranslation();
   const { user } = useCurrentUser();
+  const queryClient = useQueryClient();
 
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
@@ -105,6 +106,7 @@ export default function QuizSection({ lessonId, quizType = "GRAMMAR" }: Props) {
       });
       setResult({ correct, wrong, skipped, score });
       setSubmitted(true);
+      queryClient.invalidateQueries({ queryKey: ["section-gate", lessonId] });
     } finally {
       setSubmitting(false);
     }

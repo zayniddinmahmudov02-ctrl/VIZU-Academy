@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 
 from app.api.dependencies.auth import get_current_user, require_admin_panel_access, require_super_admin
 from app.api.dependencies.progress import require_lesson_access
+from app.api.dependencies.section_gate import require_lesen_unlocked
 from app.db.session import get_db
 from app.models.user import User
 
@@ -495,13 +496,20 @@ def get_public_lesson_assessment(
     lesson_id: str,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_lesson_access),
+    __: User = Depends(require_lesen_unlocked),
 ):
     """Returns null (not 404) when no PUBLISHED assessment exists for this
     lesson yet — the frontend renders the empty state
     ("Für diese Lektion sind noch keine Aufgaben verfügbar.") rather than
     treating it as an error. require_lesson_access gates Lesen/Hören/
     Schreiben/Sprechen (all bundled into this one assessment) behind the
-    free-3-lessons / Premium rule."""
+    free-3-lessons / Premium rule; require_lesen_unlocked additionally
+    requires the Grammatik Quiz to be submitted first (sequential lesson
+    progression) before ANY of the 4 bundled skills can be fetched — see
+    project memory for why Hören/Schreiben/Sprechen can't be gated
+    separately from Lesen without restructuring the shared Assessment
+    Engine (also used by Vorbereitung/MockTest), which was deliberately
+    avoided here."""
     assessment = public_service.get_published_assessment_for_lesson(db, lesson_id)
     if assessment is None:
         return None

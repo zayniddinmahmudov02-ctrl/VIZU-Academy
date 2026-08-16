@@ -113,3 +113,14 @@ class StudentProgressRepository:
         self.db.refresh(progress)
 
         return progress
+
+    def mark_grammar_completed(
+        self,
+        progress: StudentProgress,
+    ) -> StudentProgress:
+        progress.grammar_completed = True
+
+        self.db.commit()
+        self.db.refresh(progress)
+
+        return progress

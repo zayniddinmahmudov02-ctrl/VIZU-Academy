@@ -23,6 +23,7 @@ from app.services.lesson import (
     get_lesson_detail,
     get_lessons_for_module,
 )
+from app.services.lesson_progress import SectionGateService
 from app.services.lesson_scoring import LessonScoringService
 
 router = APIRouter(
@@ -122,6 +123,32 @@ def get_student_lesson_score(
     computation as the student's own GET /{lesson_id}/score, just for an
     arbitrary user_id instead of the caller."""
     return LessonScoringService(db).compute(user_id, lesson_id)
+
+
+@router.get("/{lesson_id}/section-gate")
+def get_my_section_gate(
+    lesson_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_lesson_access),
+):
+    """Which of this lesson's 9 sequential sections this student may
+    currently open — the single source of truth the frontend renders
+    lock icons from. Real backend gates on the content endpoints
+    themselves (see app.api.dependencies.section_gate) are what actually
+    enforce this; this endpoint exists so the UI doesn't have to guess."""
+    return SectionGateService(db).get_state(current_user.id, lesson_id)
+
+
+@router.get("/{lesson_id}/students/{user_id}/section-gate")
+def get_student_section_gate(
+    lesson_id: UUID,
+    user_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    """Admin view of one student's section-by-section progress for one
+    lesson — same computation as the student's own view."""
+    return SectionGateService(db).get_state(user_id, lesson_id)
 
 
 @router.post(

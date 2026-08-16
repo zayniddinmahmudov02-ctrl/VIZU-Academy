@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Mic } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { getPublicLessonAssessment, startAttempt } from "@/features/admin/services/assessment-service";
 import type { PublicSection, PublicTask } from "@/features/admin/types/assessment.types";
@@ -26,6 +26,7 @@ interface Props {
  * state — never a demo task. */
 export default function SpeakingSection({ lessonId }: Props) {
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
 
   const { data: assessment, isLoading } = useQuery({
     queryKey: ["public-lesson-assessment", lessonId],
@@ -70,6 +71,7 @@ export default function SpeakingSection({ lessonId }: Props) {
               attemptId={attemptId}
               locked={attemptLocked}
               allowResubmit={assessment!.allow_resubmit}
+              onSubmitted={() => queryClient.invalidateQueries({ queryKey: ["section-gate", lessonId] })}
             />
           ))}
         </div>

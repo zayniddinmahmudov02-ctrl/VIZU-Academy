@@ -6,8 +6,9 @@ import { Search } from "lucide-react";
 
 import { AdminInput } from "@/components/admin/admin-ui";
 import LessonScoreBreakdown from "@/components/lesson-player/results/lesson-score-breakdown";
+import SectionProgressionList from "@/components/lesson-player/results/section-progression-list";
 import { listUsers } from "@/features/admin/services/users-service";
-import { getStudentLessonScore } from "@/features/admin/services/lesson-score-service";
+import { getStudentLessonScore, getStudentSectionGate } from "@/features/admin/services/lesson-score-service";
 
 interface Props {
   lessonId: string;
@@ -30,6 +31,12 @@ export default function LessonResultsManager({ lessonId }: Props) {
   const { data: score, isLoading: scoreLoading } = useQuery({
     queryKey: ["admin-lesson-score", lessonId, selectedUserId],
     queryFn: () => getStudentLessonScore(lessonId, selectedUserId as string),
+    enabled: !!selectedUserId,
+  });
+
+  const { data: gate, isLoading: gateLoading } = useQuery({
+    queryKey: ["admin-section-gate", lessonId, selectedUserId],
+    queryFn: () => getStudentSectionGate(lessonId, selectedUserId as string),
     enabled: !!selectedUserId,
   });
 
@@ -83,8 +90,15 @@ export default function LessonResultsManager({ lessonId }: Props) {
         </div>
       )}
 
-      {selectedUserId && scoreLoading && (
+      {selectedUserId && (scoreLoading || gateLoading) && (
         <p className="text-sm text-[var(--admin-text-secondary)]">Wird geladen...</p>
+      )}
+
+      {selectedUserId && gate && (
+        <div className="rounded-2xl bg-[var(--admin-card)] p-5 ring-1 ring-[var(--admin-border)]">
+          <p className="mb-3 text-sm font-semibold text-[var(--admin-text-primary)]">Fortschritt</p>
+          <SectionProgressionList gate={gate} />
+        </div>
       )}
 
       {selectedUserId && score && (

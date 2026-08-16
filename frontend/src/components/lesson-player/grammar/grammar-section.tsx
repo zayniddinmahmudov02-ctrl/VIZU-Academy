@@ -1,9 +1,9 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Languages } from "lucide-react";
 
-import { getLessonGrammars } from "@/features/lessons/services/grammar-service";
+import { completeLessonGrammar, getLessonGrammars } from "@/features/lessons/services/grammar-service";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import LessonSection from "../common/lesson-section";
 
@@ -14,13 +14,23 @@ interface Props {
 /** Real Grammatik panel — published Grammar rows for this lesson (see
  * app/models/grammar.py, admin/components/managers/grammar-manager.tsx).
  * No assessment engine here; Grammar is its own existing, simpler
- * publish-gated content type, reused as-is. */
+ * publish-gated content type, reused as-is. "Als gelesen markieren"
+ * persists StudentProgress.grammar_completed server-side, which unlocks
+ * Grammatik Quiz next in the sequence (see section-gate-service). */
 export default function GrammarSection({ lessonId }: Props) {
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
 
   const { data: items, isLoading } = useQuery({
     queryKey: ["lesson-grammars", lessonId],
     queryFn: () => getLessonGrammars(lessonId),
+  });
+
+  const completeMutation = useMutation({
+    mutationFn: () => completeLessonGrammar(lessonId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["section-gate", lessonId] });
+    },
   });
 
   return (
@@ -53,6 +63,23 @@ export default function GrammarSection({ lessonId }: Props) {
           </div>
         ))}
       </div>
+
+      {(items?.length ?? 0) > 0 && (
+        <div className="mt-5">
+          <button
+            type="button"
+            disabled={completeMutation.isPending || completeMutation.isSuccess}
+            onClick={() => completeMutation.mutate()}
+            className="inline-flex items-center gap-1.5 rounded-button bg-gradient-to-r from-accent-blue-hover to-accent-blue px-4 py-2.5 text-sm font-semibold text-white shadow-md shadow-accent-blue/25 transition enabled:hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {completeMutation.isSuccess
+              ? "Grammatik abgeschlossen ✓"
+              : completeMutation.isPending
+                ? "Wird gespeichert..."
+                : "Als gelesen markieren"}
+          </button>
+        </div>
+      )}
     </LessonSection>
   );
 }

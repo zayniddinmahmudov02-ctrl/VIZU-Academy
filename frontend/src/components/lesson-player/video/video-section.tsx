@@ -1,5 +1,6 @@
 "use client";
 
+import { useQueryClient } from "@tanstack/react-query";
 import { CheckCircle2, PlayCircle } from "lucide-react";
 
 import Loading from "@/components/common/loading";
@@ -32,6 +33,7 @@ export default function VideoSection({ lessonId }: Props) {
   const { t } = useTranslation();
   const { video, progress, loading, error, reportProgress, markComplete } = useVideoProgress(lessonId);
   const { user } = useCurrentUser();
+  const queryClient = useQueryClient();
   const watermarkText = buildWatermarkText(user);
 
   const showResume = Boolean(progress && progress.lastPosition > 0 && !progress.completed);
@@ -40,7 +42,11 @@ export default function VideoSection({ lessonId }: Props) {
     reportProgress(position, ended);
 
     if (ended || (video && video.durationSeconds > 0 && position / video.durationSeconds >= 0.95)) {
-      markComplete(ended);
+      markComplete(ended).then((updated) => {
+        if (updated?.completed) {
+          queryClient.invalidateQueries({ queryKey: ["section-gate", lessonId] });
+        }
+      });
     }
   }
 

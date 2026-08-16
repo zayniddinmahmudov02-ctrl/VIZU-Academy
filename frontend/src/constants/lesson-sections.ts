@@ -12,6 +12,8 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
+import type { SectionGateKey } from "@/features/lessons/services/section-gate-service";
+
 export type LessonSectionType =
   | "video"
   | "vocabulary"
@@ -65,3 +67,22 @@ export function getSectionBySlug(slug: string): LessonSectionMeta | undefined {
 export function getSectionIndex(slug: string): number {
   return lessonSections.findIndex((section) => section.slug === slug);
 }
+
+// Maps a lesson-section type to its backend section-gate key — null for
+// sections outside the required 9-step order (Hausaufgabe, Ergebnis),
+// which stay open once the video is done rather than being sequentially
+// gated themselves. Shared by LessonActivityGate (server-backed content
+// block) and LessonSectionNav (lock-icon display) so both always agree.
+export const SECTION_GATE_KEYS: Record<LessonSectionType, SectionGateKey | null> = {
+  video: null,
+  vocabulary: "wortschatz",
+  grammar: "grammatik",
+  "grammar-quiz": "grammatik_quiz",
+  reading: "lesen",
+  listening: "hoeren",
+  writing: "schreiben",
+  speaking: "sprechen",
+  "lesson-quiz": "lesson_quiz",
+  homework: null,
+  results: null,
+};

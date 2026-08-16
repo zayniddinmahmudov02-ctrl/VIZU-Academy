@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Check, Library, Volume2 } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -22,6 +22,7 @@ interface Props {
  * Wortschatz component of the lesson score. */
 export default function VocabularySection({ lessonId }: Props) {
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
   const [learned, setLearned] = useState<Set<string>>(new Set());
   const [completed, setCompleted] = useState(false);
 
@@ -32,7 +33,10 @@ export default function VocabularySection({ lessonId }: Props) {
 
   const completeMutation = useMutation({
     mutationFn: () => completeLessonVocabulary(lessonId),
-    onSuccess: () => setCompleted(true),
+    onSuccess: () => {
+      setCompleted(true);
+      queryClient.invalidateQueries({ queryKey: ["section-gate", lessonId] });
+    },
   });
 
   function toggleLearned(id: string) {

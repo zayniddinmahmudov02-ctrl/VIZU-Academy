@@ -22,6 +22,9 @@ interface Props {
   attemptId: string;
   locked: boolean;
   allowResubmit: boolean;
+  /** Called once a recording is genuinely uploaded/submitted — lets the
+   * parent unlock Lesson Quiz next. */
+  onSubmitted?: () => void;
 }
 
 type Stage = "idle" | "preparing" | "recording" | "paused" | "recorded" | "submitting" | "submitted";
@@ -55,7 +58,7 @@ function formatTime(seconds: number): string {
  * existing MediaRecorder usage in this codebase (the old, backend-less
  * speaking-section.tsx) for the raw recording mechanics, but uploads to
  * the real engine instead of a nonexistent /speakings/evaluate endpoint. */
-export default function SprechenTask({ task, attemptId, locked, allowResubmit }: Props) {
+export default function SprechenTask({ task, attemptId, locked, allowResubmit, onSubmitted }: Props) {
   const [existing, setExisting] = useState<SpeakingSubmission | null | undefined>(undefined);
   const [result, setResult] = useState<SpeakingResult | null>(null);
   const [stage, setStage] = useState<Stage>("idle");
@@ -220,6 +223,7 @@ export default function SprechenTask({ task, attemptId, locked, allowResubmit }:
       );
       setExisting(submitted);
       setStage("submitted");
+      onSubmitted?.();
     } catch {
       setError("Abgeben fehlgeschlagen.");
       setStage("recorded");

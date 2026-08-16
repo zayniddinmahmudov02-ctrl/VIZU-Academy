@@ -64,7 +64,15 @@ export default function SkillAssessmentSection({ lessonId, skill, title, descrip
   function handleAnswerChange(questionId: string, answerData: string) {
     setAnswers((prev) => ({ ...prev, [questionId]: answerData }));
     if (attemptId) {
-      submitAnswer(attemptId, { question_id: questionId, answer_data: answerData }).catch(() => {});
+      submitAnswer(attemptId, { question_id: questionId, answer_data: answerData })
+        .then(() => {
+          // Answering the last question of a skill (e.g. all of Lesen)
+          // is what unlocks the next section in the sequence — see
+          // SectionGateService._skill_all_answered. Cheap query, safe to
+          // invalidate on every answer rather than only the last one.
+          queryClient.invalidateQueries({ queryKey: ["section-gate", lessonId] });
+        })
+        .catch(() => {});
     }
   }
 

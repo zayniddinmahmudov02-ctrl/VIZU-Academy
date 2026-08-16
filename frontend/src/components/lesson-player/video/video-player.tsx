@@ -8,14 +8,14 @@ import { AlertTriangle, Loader2, RotateCcw } from "lucide-react";
 import { useLessonProgressStore } from "@/store/lesson-progress-store";
 import { useTranslation } from "@/lib/i18n/use-translation";
 
-/** Forward seeks beyond lastAllowed + this many seconds are snapped
- *  back — matches the backend's own grace window so a legitimate
- *  1x-speed playback tick is never mistaken for a skip attempt. */
-const SEEK_TOLERANCE_SECONDS = 2;
-
 /** How often (ms) we report the current position to the server while
  *  playing. The server re-validates every report against real elapsed
- *  time regardless of how often this fires. */
+ *  time regardless of how often this fires — see
+ *  VideoProgressService._clamp_forward_jump, which caps a forward jump
+ *  at how much real wall-clock time has actually elapsed since the last
+ *  report, not at whatever the client claims. That's the actual
+ *  anti-skip enforcement; nothing client-side needs to (or should)
+ *  duplicate it by blocking the seek bar. */
 const PROGRESS_REPORT_INTERVAL_MS = 5000;
 
 interface Props {
@@ -86,14 +86,6 @@ export default function VideoPlayer({ src, poster, lessonId, initialPosition = 0
 
     playerRef.current = player;
 
-    // The single source of truth for how far the user has "legitimately"
-    // reached — only ever advances via normal forward playback (or an
-    // explicit rewind, which always moves it back). Anything past this
-    // + SEEK_TOLERANCE_SECONDS is treated as a skip attempt and reverted.
-    // This is a UX guard only: the server independently re-validates
-    // every reported position, since a manipulated client could skip
-    // this guard entirely.
-    let lastAllowedPosition = initialPosition;
     let reportTimer: ReturnType<typeof setInterval> | null = null;
 
     function handleReady() {
@@ -117,32 +109,12 @@ export default function VideoPlayer({ src, poster, lessonId, initialPosition = 0
       setError(true);
     }
 
-    function guardSeek() {
-      const current = player.currentTime;
-
-      if (current > lastAllowedPosition + SEEK_TOLERANCE_SECONDS) {
-        player.currentTime = lastAllowedPosition;
-        return;
-      }
-
-      lastAllowedPosition = current;
-    }
-
-    function handleTimeUpdate() {
-      guardSeek();
-    }
-
-    function handleSeeking() {
-      guardSeek();
-    }
-
     function reportProgress(isEnded: boolean) {
       onProgress?.(Math.floor(player.currentTime), isEnded);
     }
 
     function handleEnded() {
       setEnded(true);
-      lastAllowedPosition = player.duration || lastAllowedPosition;
       reportProgress(true);
 
       if (lessonId) {
@@ -154,8 +126,6 @@ export default function VideoPlayer({ src, poster, lessonId, initialPosition = 0
     player.on("waiting", handleWaiting);
     player.on("playing", handlePlaying);
     player.on("error", handleError);
-    player.on("timeupdate", handleTimeUpdate);
-    player.on("seeking", handleSeeking);
     player.on("ended", handleEnded);
 
     if (onProgress) {
@@ -172,8 +142,6 @@ export default function VideoPlayer({ src, poster, lessonId, initialPosition = 0
       player.off("waiting", handleWaiting);
       player.off("playing", handlePlaying);
       player.off("error", handleError);
-      player.off("timeupdate", handleTimeUpdate);
-      player.off("seeking", handleSeeking);
       player.off("ended", handleEnded);
       player.destroy();
       playerRef.current = null;

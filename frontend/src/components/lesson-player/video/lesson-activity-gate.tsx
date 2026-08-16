@@ -4,28 +4,41 @@ import type { ReactNode } from "react";
 import { Lock } from "lucide-react";
 
 import Loading from "@/components/common/loading";
-import { useVideoCompletion } from "@/features/lessons/hooks/use-video-completion";
+import { useSectionGate } from "@/features/lessons/hooks/use-section-gate";
+import type { SectionGateKey } from "@/features/lessons/services/section-gate-service";
 import { useTranslation } from "@/lib/i18n/use-translation";
 
 interface Props {
   lessonId: string;
+  /** Which of the 9 sequential sections this gate protects. `null` for
+   * sections outside the required order (Hausaufgabe, Ergebnis) — those
+   * stay open once the video is done, same as before this feature. */
+  section: SectionGateKey | null;
   children: ReactNode;
 }
 
-/** Blocks a lesson activity behind "complete the video first" — backed by
- *  the server's StudentProgress.video_completed, not local/localStorage
- *  state, so it can't be bypassed by clearing storage. The locked visual
- *  treatment mirrors the existing module-lock pattern in
- *  components/courses/detail/module-card.tsx. */
-export default function LessonActivityGate({ lessonId, children }: Props) {
+/** Blocks a lesson section behind its specific prerequisite in the
+ *  sequence (Video -> Wortschatz -> Grammatik -> Grammatik Quiz -> Lesen
+ *  -> Hören -> Schreiben -> Sprechen -> Lesson Quiz) — backed by
+ *  GET /lessons/{id}/section-gate, itself backed by real StudentProgress/
+ *  StudentQuiz/Assessment data server-side, not local/localStorage state.
+ *  This is a UX convenience only: the actual content endpoints
+ *  independently enforce the same gate (see
+ *  app/api/dependencies/section_gate.py), so this can't be bypassed by
+ *  skipping straight to a content URL either. */
+export default function LessonActivityGate({ lessonId, section, children }: Props) {
   const { t } = useTranslation();
-  const completed = useVideoCompletion(lessonId);
+  const { data: gate, isLoading } = useSectionGate(lessonId);
 
-  if (completed === null) {
+  if (section === null) {
+    return <>{children}</>;
+  }
+
+  if (isLoading || !gate) {
     return <Loading />;
   }
 
-  if (completed) {
+  if (gate[section].unlocked) {
     return <>{children}</>;
   }
 

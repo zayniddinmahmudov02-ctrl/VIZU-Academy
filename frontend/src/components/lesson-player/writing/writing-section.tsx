@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { PenSquare } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { getPublicLessonAssessment, startAttempt } from "@/features/admin/services/assessment-service";
 import type { PublicSection, PublicTask } from "@/features/admin/types/assessment.types";
@@ -24,6 +24,7 @@ interface Props {
  * admin-authored tasks instead, or the required empty state. */
 export default function WritingSection({ lessonId }: Props) {
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
 
   const { data: assessment, isLoading } = useQuery({
     queryKey: ["public-lesson-assessment", lessonId],
@@ -69,6 +70,7 @@ export default function WritingSection({ lessonId }: Props) {
               locked={attemptLocked}
               allowEdit={assessment!.allow_edit}
               allowResubmit={assessment!.allow_resubmit}
+              onSubmitted={() => queryClient.invalidateQueries({ queryKey: ["section-gate", lessonId] })}
             />
           ))}
         </div>
