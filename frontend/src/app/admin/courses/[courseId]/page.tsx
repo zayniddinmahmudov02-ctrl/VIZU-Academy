@@ -59,7 +59,10 @@ export default function CourseLessonsPage() {
   // Title-only editing — the lesson's topic/title is the one field this
   // view lets an admin change; content (video, grammar, ...) is still
   // managed on the lesson's own /admin/lessons/{id} page.
-  const { update } = useCrudMutations("course-lessons-content-status", lessonsApi);
+  const { update } = useCrudMutations("course-lessons-content-status", lessonsApi, [
+    ["public-lessons-by-module"],
+    ["public-courses-with-lesson-counts"],
+  ]);
   const [editing, setEditing] = useState<LessonContentStatus | null>(null);
   const [title, setTitle] = useState("");
 

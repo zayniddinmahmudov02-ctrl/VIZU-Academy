@@ -12,7 +12,9 @@ import QuizOptionsEditor from "./quiz-options-editor";
 
 export default function QuizQuestionsEditor({ quizId }: { quizId: string }) {
   const { data: all, isLoading } = useCrudList("quiz-questions", quizQuestionsApi);
-  const { create, update, remove } = useCrudMutations("quiz-questions", quizQuestionsApi);
+  const { create, update, remove } = useCrudMutations("quiz-questions", quizQuestionsApi, [
+    ["quiz-questions-with-options"],
+  ]);
 
   const questions = useMemo(
     () => (all ?? []).filter((q) => q.quiz_id === quizId),

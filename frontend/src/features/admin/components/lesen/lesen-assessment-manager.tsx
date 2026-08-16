@@ -96,6 +96,8 @@ export default function LesenAssessmentManager({ lessonId, skill }: Props) {
     queryClient.invalidateQueries({ queryKey: ["skill-assessment", lessonId, skill] });
     queryClient.invalidateQueries({ queryKey: ["skill-sections"] });
     queryClient.invalidateQueries({ queryKey: ["skill-tasks"] });
+    queryClient.invalidateQueries({ queryKey: ["public-lesson-assessment", lessonId] });
+    queryClient.invalidateQueries({ queryKey: ["course-lessons-content-status"] });
   }
 
   async function ensureAssessmentAndSection(): Promise<string> {

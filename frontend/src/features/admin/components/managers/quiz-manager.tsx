@@ -34,7 +34,10 @@ export default function QuizManager({ lessonId, quizType = "GRAMMAR" }: Props) {
   };
 
   const { data: all, isLoading } = useCrudList("quizzes", quizzesApi);
-  const { create, update, remove } = useCrudMutations("quizzes", quizzesApi);
+  const { create, update, remove } = useCrudMutations("quizzes", quizzesApi, [
+    ["lesson-quizzes"],
+    ["course-lessons-content-status"],
+  ]);
 
   const data = useMemo(
     () => (all ?? []).filter((q) => (lessonId ? q.lesson_id === lessonId : true) && q.quiz_type === quizType),

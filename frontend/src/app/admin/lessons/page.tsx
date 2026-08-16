@@ -31,7 +31,11 @@ const EMPTY_FORM = {
 export default function LessonsPage() {
   const { data: modules } = useCrudList("modules", modulesApi);
   const { data, isLoading } = useCrudList("lessons", lessonsApi);
-  const { create, update, remove } = useCrudMutations("lessons", lessonsApi);
+  const { create, update, remove } = useCrudMutations("lessons", lessonsApi, [
+    ["public-lessons-by-module"],
+    ["public-courses-with-lesson-counts"],
+    ["course-lessons-content-status"],
+  ]);
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<Lesson | null>(null);

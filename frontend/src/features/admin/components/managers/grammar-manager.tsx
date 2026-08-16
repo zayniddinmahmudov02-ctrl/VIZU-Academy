@@ -24,7 +24,10 @@ const EMPTY_FORM = {
 
 export default function GrammarManager({ lessonId }: { lessonId?: string }) {
   const { data: all, isLoading } = useCrudList("grammar", grammarApi);
-  const { create, update, remove } = useCrudMutations("grammar", grammarApi);
+  const { create, update, remove } = useCrudMutations("grammar", grammarApi, [
+    ["lesson-grammars"],
+    ["course-lessons-content-status"],
+  ]);
 
   const data = useMemo(
     () => (lessonId ? (all ?? []).filter((g) => g.lesson_id === lessonId) : all),

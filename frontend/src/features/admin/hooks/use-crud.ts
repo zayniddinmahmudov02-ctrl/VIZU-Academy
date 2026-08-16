@@ -20,11 +20,18 @@ export function useCrudList<TResponse>(
 export function useCrudMutations<TResponse, TCreate, TUpdate>(
   key: string,
   api: Omit<CrudApi<TResponse, TCreate, TUpdate>, "list">,
+  /** Extra query-key roots to invalidate alongside `[key]` — for content
+   * types that other parts of the app (student lesson pages, the Course
+   * content-status table) read under a differently-named key. Without
+   * this, those views only pick up the change after a manual refresh. */
+  extraInvalidateKeys?: unknown[][],
 ) {
   const queryClient = useQueryClient();
 
-  const invalidate = () =>
+  const invalidate = () => {
     queryClient.invalidateQueries({ queryKey: [key] });
+    extraInvalidateKeys?.forEach((queryKey) => queryClient.invalidateQueries({ queryKey }));
+  };
 
   const create = useMutation({
     mutationFn: (data: TCreate) => api.create(data),

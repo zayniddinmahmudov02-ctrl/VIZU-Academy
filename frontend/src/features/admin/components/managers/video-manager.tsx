@@ -62,6 +62,7 @@ export default function VideoManager({ lessonId: fixedLessonId }: { lessonId?: s
 
   function invalidate() {
     queryClient.invalidateQueries({ queryKey: ["videos-by-lesson", lessonId] });
+    queryClient.invalidateQueries({ queryKey: ["course-lessons-content-status"] });
   }
 
   function openUpload() {

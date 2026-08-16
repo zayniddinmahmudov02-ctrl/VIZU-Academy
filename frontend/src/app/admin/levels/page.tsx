@@ -31,7 +31,10 @@ const EMPTY_FORM = {
 export default function LevelsPage() {
   const { data: languages } = useCrudList("languages", languagesApi);
   const { data, isLoading } = useCrudList("levels", levelsApi);
-  const { create, update, remove } = useCrudMutations("levels", levelsApi);
+  const { create, update, remove } = useCrudMutations("levels", levelsApi, [
+    ["public-courses"],
+    ["public-courses-with-lesson-counts"],
+  ]);
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<Level | null>(null);

@@ -37,7 +37,10 @@ const EMPTY_FORM = {
 export default function VocabularyManager({ lessonId }: { lessonId?: string }) {
   const queryClient = useQueryClient();
   const { data: all, isLoading } = useCrudList("vocabularies", vocabularyApi);
-  const { create, update, remove } = useCrudMutations("vocabularies", vocabularyApi);
+  const { create, update, remove } = useCrudMutations("vocabularies", vocabularyApi, [
+    ["lesson-vocabularies"],
+    ["course-lessons-content-status"],
+  ]);
 
   const data = useMemo(
     () => (lessonId ? (all ?? []).filter((v) => v.lesson_id === lessonId) : all),
@@ -86,6 +89,8 @@ export default function VocabularyManager({ lessonId }: { lessonId?: string }) {
       clearSelection();
       setBulkDeleteOpen(false);
       await queryClient.invalidateQueries({ queryKey: ["vocabularies"] });
+      await queryClient.invalidateQueries({ queryKey: ["lesson-vocabularies"] });
+      await queryClient.invalidateQueries({ queryKey: ["course-lessons-content-status"] });
     } catch {
       setBulkError("Löschen fehlgeschlagen.");
     } finally {
