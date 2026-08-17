@@ -106,8 +106,11 @@ class StudentProgressRepository:
     def mark_vocabulary_completed(
         self,
         progress: StudentProgress,
+        percentage: int | None = None,
     ) -> StudentProgress:
         progress.vocabulary_completed = True
+        if percentage is not None:
+            progress.vocabulary_score = max(0, min(100, percentage))
 
         self.db.commit()
         self.db.refresh(progress)

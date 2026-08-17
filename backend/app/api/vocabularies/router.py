@@ -19,6 +19,7 @@ from app.schemas.vocabulary import (
     BulkDeleteResponse,
     BulkSaveRequest,
     BulkSaveResponse,
+    VocabularyCompleteRequest,
     VocabularyCreate,
     VocabularyResponse,
     VocabularyUpdate,
@@ -97,6 +98,7 @@ def get_lesson_vocabularies(
 @router.post("/lesson/{lesson_id}/complete")
 def complete_lesson_vocabulary(
     lesson_id: UUID,
+    payload: VocabularyCompleteRequest | None = None,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
     __: object = Depends(require_lesson_access),
@@ -104,13 +106,17 @@ def complete_lesson_vocabulary(
     """Marks Wortschatz reviewed for this lesson — same simple
     StudentProgress-flag pattern as video completion (see
     StudentProgressRepository.mark_video_completed), feeding the
-    Wortschatz component of the 100-point lesson score."""
+    Wortschatz component of the 100-point lesson score. An optional
+    percentage (from the interactive exercise session) is stored
+    alongside the binary flag so LessonScoringService can award partial
+    credit; callers that omit it keep the old all-or-nothing behavior."""
 
     repo = StudentProgressRepository(db)
     progress = repo.get_or_create(str(current_user.id), str(lesson_id))
-    repo.mark_vocabulary_completed(progress)
+    percentage = payload.percentage if payload else None
+    repo.mark_vocabulary_completed(progress, percentage=percentage)
 
-    return {"vocabulary_completed": True}
+    return {"vocabulary_completed": True, "vocabulary_score": progress.vocabulary_score}
 
 
 @router.post(

@@ -52,6 +52,11 @@ class StudentProgress(BaseModel):
         default=False,
     )
 
+    vocabulary_score: Mapped[int | None] = mapped_column(
+        Integer,
+        nullable=True,
+    )
+
     reading_completed: Mapped[bool] = mapped_column(
         Boolean,
         default=False,

@@ -33,6 +33,18 @@ class QuizQuestion(BaseModel):
         nullable=False,
     )
 
+    question_type: Mapped[str] = mapped_column(
+        String(30),
+        default="MULTIPLE_CHOICE",
+        server_default="MULTIPLE_CHOICE",
+        nullable=False,
+    )
+
+    correct_text_answer: Mapped[str | None] = mapped_column(
+        Text,
+        nullable=True,
+    )
+
     explanation: Mapped[str | None] = mapped_column(
         Text,
         nullable=True,

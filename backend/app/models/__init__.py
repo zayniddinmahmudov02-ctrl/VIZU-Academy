@@ -95,6 +95,9 @@ from .writing_evaluation import WritingEvaluation
 from .speaking_submission import SpeakingSubmission
 from .speaking_evaluation import SpeakingEvaluation
 
+# Notifications
+from .notification import Notification
+
 
 __all__ = [
     "Base",
@@ -193,4 +196,7 @@ __all__ = [
     "WritingEvaluation",
     "SpeakingSubmission",
     "SpeakingEvaluation",
+
+    # Notifications
+    "Notification",
 ]

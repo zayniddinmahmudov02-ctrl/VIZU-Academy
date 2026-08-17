@@ -13,10 +13,21 @@ export interface LessonQuiz {
   is_published: boolean;
 }
 
+export type QuizQuestionType =
+  | "MULTIPLE_CHOICE"
+  | "TRUE_FALSE"
+  | "CLOZE_TEXT"
+  | "SENTENCE_COMPLETION"
+  | "SENTENCE_ORDERING"
+  | "ERROR_FINDING"
+  | "MATCHING";
+
 export interface LessonQuizQuestion {
   id: string;
   quiz_id: string;
   question: string;
+  question_type: QuizQuestionType;
+  correct_text_answer: string | null;
   explanation: string | null;
   points: number;
   order_index: number;
@@ -29,6 +40,7 @@ export interface LessonQuizOption {
   option_text: string;
   is_correct: boolean;
   order_index: number;
+  match_value: string | null;
 }
 
 // Public — no video/lesson-access gate of its own beyond what the lesson

@@ -1,16 +1,20 @@
 "use client";
 
+import { useState } from "react";
 import {
   Bell,
   BookOpen,
   GraduationCap,
   Info,
+  Loader2,
+  Play,
   Settings as SettingsIcon,
   Sparkles,
   type LucideIcon,
 } from "lucide-react";
 
 import Popover from "@/components/ui/popover";
+import { api } from "@/services/api";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { useNotifications } from "../hooks/use-notifications";
 import { formatRelativeTime } from "../utils/format-relative-time";
@@ -122,10 +126,47 @@ function NotificationRow({
         <span className="mt-0.5 block line-clamp-2 text-xs text-text-secondary">
           {notification.message}
         </span>
-        <span className="mt-1 block text-[11px] text-text-muted">
+        <span className="mt-1 flex items-center gap-2 text-[11px] text-text-muted">
           {formatRelativeTime(notification.createdAt, t)}
+          {notification.audioUrl && <AudioFeedbackButton audioUrl={notification.audioUrl} />}
         </span>
       </span>
+    </button>
+  );
+}
+
+function AudioFeedbackButton({ audioUrl }: { audioUrl: string }) {
+  const { t } = useTranslation();
+  const [loading, setLoading] = useState(false);
+
+  async function play(event: React.MouseEvent) {
+    event.stopPropagation();
+    if (loading) return;
+
+    setLoading(true);
+    try {
+      const response = await api.get(audioUrl, { responseType: "blob" });
+      const url = URL.createObjectURL(response.data);
+      const audio = new Audio(url);
+      audio.addEventListener("ended", () => URL.revokeObjectURL(url));
+      await audio.play();
+    } catch {
+      // Playback failure isn't worth surfacing an error state for a
+      // small inline dropdown control — the notification text stands on its own.
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={play}
+      disabled={loading}
+      className="flex items-center gap-1 font-semibold text-accent-blue transition-colors hover:text-accent-blue-hover disabled:opacity-60"
+    >
+      {loading ? <Loader2 size={11} className="animate-spin" /> : <Play size={11} />}
+      {t("header.playFeedback")}
     </button>
   );
 }

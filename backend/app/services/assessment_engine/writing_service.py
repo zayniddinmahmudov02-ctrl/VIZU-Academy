@@ -23,6 +23,9 @@ from app.models.assessment_task import (
     TYPE_WRITING,
     AssessmentTask,
 )
+from app.models.course import Course
+from app.models.lesson import Lesson
+from app.models.module import Module
 from app.models.user import User
 from app.models.writing_evaluation import EVALUATOR_AI, EVALUATOR_TEACHER, WritingEvaluation
 from app.models.writing_submission import (
@@ -42,9 +45,30 @@ from app.schemas.assessment_engine import (
 )
 
 from app.services.mock_exam import ai_service
+from app.services.notification import create_notification
 
 from . import attempt_service
 from .rubric_scoring import clamp_rubric_scores
+
+# Hausaufgaben queue buckets — writing has no "reviewed but not final"
+# intermediate state (unlike speaking's REVIEWED), so IN_PRUEFUNG is
+# always empty rather than inventing a state the model doesn't have.
+BUCKET_NEU = "NEU"
+BUCKET_IN_PRUEFUNG = "IN_PRUEFUNG"
+BUCKET_BEWERTET = "BEWERTET"
+BUCKET_ZURUECKGEGEBEN = "ZURUECKGEGEBEN"
+
+
+def _get_lesson_info(db: Session, assessment_id) -> tuple[str, str]:
+    row = (
+        db.query(Lesson.title, Course.level)
+        .join(Module, Module.id == Lesson.module_id)
+        .join(Course, Course.id == Module.course_id)
+        .join(Assessment, Assessment.lesson_id == Lesson.id)
+        .filter(Assessment.id == assessment_id)
+        .first()
+    )
+    return (row[0], row[1]) if row else ("", "A1")
 
 
 def _now() -> datetime:
@@ -219,6 +243,23 @@ async def _run_ai_evaluation(db: Session, submission: WritingSubmission, task: A
 
     attempt_service.recompute_attempt_result(db, submission.attempt_id)
 
+    if submission.status == STATUS_GRADED:
+        _notify_writing_graded(db, submission, total)
+
+
+def _notify_writing_graded(db: Session, submission: WritingSubmission, total_score: int) -> None:
+    lesson_title, _level = _get_lesson_info(db, submission.assessment_id)
+    create_notification(
+        db,
+        user_id=str(submission.user_id),
+        title="Neue Bewertung",
+        message=f"Dein Schreiben wurde bewertet: {total_score} Punkte"
+        + (f" ({lesson_title})" if lesson_title else "") + ".",
+        type="exam",
+    )
+    submission.notified = True
+    db.commit()
+
 
 # ============================================================
 # Teacher review
@@ -254,11 +295,32 @@ def submit_teacher_review(
     db.refresh(evaluation)
 
     attempt_service.recompute_attempt_result(db, submission.attempt_id)
+    _notify_writing_graded(db, submission, total)
     return _evaluation_to_schema(evaluation)
 
 
-def list_pending_reviews(db: Session, assessment_id: str | None = None) -> list[PendingWritingReviewItem]:
-    query = select(WritingSubmission).where(WritingSubmission.status == STATUS_PENDING_REVIEW)
+def list_pending_reviews(
+    db: Session, assessment_id: str | None = None, bucket: str | None = None
+) -> list[PendingWritingReviewItem]:
+    query = select(WritingSubmission)
+
+    if bucket is None:
+        # Original behavior, preserved exactly for existing callers
+        # (writing-review page): the single flat pending queue.
+        query = query.where(WritingSubmission.status == STATUS_PENDING_REVIEW)
+    elif bucket == BUCKET_NEU:
+        query = query.where(WritingSubmission.status == STATUS_PENDING_REVIEW)
+    elif bucket == BUCKET_IN_PRUEFUNG:
+        # No intermediate "reviewed but not final" state exists for
+        # writing (see module docstring) — always empty.
+        return []
+    elif bucket == BUCKET_BEWERTET:
+        query = query.where(WritingSubmission.status == STATUS_GRADED, WritingSubmission.notified.is_(False))
+    elif bucket == BUCKET_ZURUECKGEGEBEN:
+        query = query.where(WritingSubmission.status == STATUS_GRADED, WritingSubmission.notified.is_(True))
+    else:
+        raise HTTPException(status_code=400, detail=f"Unknown bucket '{bucket}'.")
+
     if assessment_id:
         query = query.where(WritingSubmission.assessment_id == UUID(assessment_id))
     submissions = db.scalars(query.order_by(WritingSubmission.submitted_at)).all()
@@ -267,12 +329,15 @@ def list_pending_reviews(db: Session, assessment_id: str | None = None) -> list[
     for submission in submissions:
         task = db.get(AssessmentTask, submission.task_id)
         student = db.get(User, submission.user_id)
+        lesson_title, level = _get_lesson_info(db, submission.assessment_id)
         ai_evaluation = next((e for e in submission.evaluations if e.evaluator_type == EVALUATOR_AI), None)
         items.append(
             PendingWritingReviewItem(
                 submission=WritingSubmissionResponse.model_validate(submission),
                 task_title=task.title if task else "",
                 student_name=student.username if student else "",
+                lesson_title=lesson_title,
+                level=level,
                 rubric_criteria=(
                     [WritingRubricCriterionResponse.model_validate(c) for c in task.rubric_criteria] if task else []
                 ),

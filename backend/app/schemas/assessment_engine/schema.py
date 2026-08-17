@@ -517,6 +517,7 @@ class WritingSubmissionResponse(BaseSchema):
     status: WritingSubmissionStatus
     submitted_at: datetime | None
     final_score: int | None
+    notified: bool = False
 
     model_config = ConfigDict(from_attributes=True, extra="ignore")
 
@@ -560,6 +561,9 @@ class PendingWritingReviewItem(BaseSchema):
     submission: WritingSubmissionResponse
     task_title: str
     student_name: str
+    lesson_title: str = ""
+    level: str = "A1"
+    skill: str = "SCHREIBEN"
     rubric_criteria: list[WritingRubricCriterionResponse] = Field(default_factory=list)
     ai_evaluation: WritingEvaluationResponse | None = None
 
@@ -582,6 +586,7 @@ class SpeakingSubmissionResponse(BaseSchema):
     status: SpeakingSubmissionStatus
     submitted_at: datetime
     final_score: int | None
+    notified: bool = False
 
     model_config = ConfigDict(from_attributes=True, extra="ignore")
 
@@ -593,6 +598,7 @@ class SpeakingEvaluationResponse(BaseSchema):
     rubric_scores: dict[str, int] = Field(default_factory=dict)
     total_score: int
     feedback: str | None
+    has_audio_feedback: bool = False
     created_at: datetime
 
     model_config = ConfigDict(from_attributes=True, extra="ignore")
@@ -616,4 +622,7 @@ class PendingSpeakingReviewItem(BaseSchema):
     submission: SpeakingSubmissionResponse
     task_title: str
     student_name: str
+    lesson_title: str = ""
+    level: str = "A1"
+    skill: str = "SPRECHEN"
     rubric_criteria: list[WritingRubricCriterionResponse] = Field(default_factory=list)

@@ -7,6 +7,7 @@ export interface Notification {
   type: NotificationType;
   createdAt: string;
   isRead: boolean;
+  audioUrl?: string;
 }
 
 export interface NotificationInput {

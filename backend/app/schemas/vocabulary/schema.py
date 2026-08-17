@@ -51,6 +51,17 @@ class VocabularyResponse(VocabularyBase):
 
 
 # ==========================
+# Lesson completion
+# ==========================
+
+
+class VocabularyCompleteRequest(BaseSchema):
+    # Score of the interactive exercise session (0-100). Omitted by
+    # legacy callers, who still get the old binary "completed" credit.
+    percentage: int | None = None
+
+
+# ==========================
 # Bulk generator
 # ==========================
 

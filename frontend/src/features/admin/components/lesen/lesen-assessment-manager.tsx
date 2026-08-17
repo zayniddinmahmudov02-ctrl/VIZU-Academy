@@ -2,14 +2,16 @@
 
 import { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { AlertTriangle, CheckCircle2, ChevronDown, ChevronRight, Eye, Plus, Trash2 } from "lucide-react";
+import { AlertTriangle, CheckCircle2, ChevronDown, ChevronRight, Eye, Plus, Sparkles, Trash2 } from "lucide-react";
 
 import { AdminButton, AdminInput } from "@/components/admin/admin-ui";
 import ConfirmDialog from "@/components/admin/confirm-dialog";
+import AiGenerateDialog from "@/features/admin/components/ai/ai-generate-dialog";
 import {
   createAssessment,
   createOption,
   createQuestion,
+  createRubricCriterion,
   createSection,
   createTask,
   deleteOption,
@@ -24,6 +26,16 @@ import {
   updateTask,
   validateTask,
 } from "@/features/admin/services/assessment-service";
+import {
+  generateHoerenPreview,
+  generateLesenPreview,
+  generateSchreibenPreview,
+  generateSprechenPreview,
+  type AIHoerenPreview,
+  type AILesenPreview,
+  type AISchreibenPreview,
+  type AISprechenPreview,
+} from "@/features/admin/services/ai-content-service";
 import {
   TASK_TYPES,
   TASK_TYPE_LABELS,
@@ -324,6 +336,7 @@ function TaskDetailEditor({
   onChanged: () => void;
 }) {
   const queryClient = useQueryClient();
+  const [aiDialogOpen, setAiDialogOpen] = useState(false);
 
   async function saveTitle(title: string) {
     if (title === task.title) return;
@@ -384,8 +397,139 @@ function TaskDetailEditor({
     return nextIndex;
   }
 
+  async function applyComprehensionPreview(preview: AILesenPreview | AIHoerenPreview) {
+    if (skill === "LESEN" && "reading_text" in preview) {
+      await saveContent(preview.reading_text);
+    }
+    let order = task.questions.length;
+    for (const q of preview.questions) {
+      order += 1;
+      const created = await createQuestion(task.id, { prompt: q.prompt, points: 1, sort_order: order });
+      let optionOrder = 0;
+      for (const o of q.options) {
+        optionOrder += 1;
+        await createOption(created.id, { option_text: o.option_text, is_correct: o.is_correct, sort_order: optionOrder });
+      }
+    }
+    onChanged();
+    queryClient.invalidateQueries({ queryKey: ["skill-tasks"] });
+  }
+
+  async function applySchreibenPreview(preview: AISchreibenPreview) {
+    await saveContent(preview.task_content);
+    await saveInstructions(preview.requirements);
+    let order = 0;
+    for (const c of preview.rubric_criteria) {
+      order += 1;
+      await createRubricCriterion(task.id, { name: c.name, max_score: c.max_score, sort_order: order });
+    }
+    onChanged();
+  }
+
+  async function applySprechenPreview(preview: AISprechenPreview) {
+    await saveContent(preview.task_content);
+    await saveInstructions(preview.preparation_instructions);
+    let order = 0;
+    for (const c of preview.rubric_criteria) {
+      order += 1;
+      await createRubricCriterion(task.id, { name: c.name, max_score: c.max_score, sort_order: order });
+    }
+    onChanged();
+  }
+
+  function renderComprehensionPreview(preview: AILesenPreview | AIHoerenPreview) {
+    return (
+      <div className="space-y-2 text-xs text-[var(--admin-text-secondary)]">
+        {"reading_text" in preview && (
+          <p className="rounded-lg bg-white/[0.03] p-3 italic">{preview.reading_text}</p>
+        )}
+        {preview.questions.map((q, i) => (
+          <div key={i} className="rounded-lg bg-white/[0.03] p-3">
+            <p className="font-semibold text-[var(--admin-text-primary)]">
+              {i + 1}. {q.prompt}
+            </p>
+            <ul className="mt-1 space-y-0.5">
+              {q.options.map((o, oi) => (
+                <li key={oi} className={o.is_correct ? "text-[var(--admin-accent)]" : undefined}>
+                  {o.option_text}
+                  {o.is_correct ? " ✓" : ""}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  function renderRubricPreview(preview: AISchreibenPreview | AISprechenPreview) {
+    return (
+      <div className="space-y-2 text-xs text-[var(--admin-text-secondary)]">
+        <p className="rounded-lg bg-white/[0.03] p-3">{preview.task_content}</p>
+        <p className="rounded-lg bg-white/[0.03] p-3">
+          {"requirements" in preview ? preview.requirements : preview.preparation_instructions}
+        </p>
+        <ul className="space-y-0.5">
+          {preview.rubric_criteria.map((c, i) => (
+            <li key={i}>
+              {c.name} — {c.max_score} Pkt.
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+
+  const showComprehensionAi =
+    task.task_type === "MULTIPLE_CHOICE" && (skill === "LESEN" || skill === "HOEREN");
+  const showSchreibenAi = task.task_type === "WRITING";
+  const showSprechenAi = task.task_type === "SPEAKING";
+
   return (
     <div className="space-y-4">
+      {(showComprehensionAi || showSchreibenAi || showSprechenAi) && (
+        <div className="flex justify-end">
+          <AdminButton type="button" variant="secondary" size="sm" onClick={() => setAiDialogOpen(true)}>
+            <Sparkles size={13} />
+            Mit KI erstellen
+          </AdminButton>
+        </div>
+      )}
+
+      {showComprehensionAi && (
+        <AiGenerateDialog<AILesenPreview | AIHoerenPreview>
+          open={aiDialogOpen}
+          onOpenChange={setAiDialogOpen}
+          title={`${skill === "LESEN" ? "Lesen" : "Hören"} mit KI erstellen`}
+          hasCount
+          generate={(input) => (skill === "LESEN" ? generateLesenPreview(input) : generateHoerenPreview(input))}
+          onApply={applyComprehensionPreview}
+          renderPreview={renderComprehensionPreview}
+        />
+      )}
+
+      {showSchreibenAi && (
+        <AiGenerateDialog<AISchreibenPreview>
+          open={aiDialogOpen}
+          onOpenChange={setAiDialogOpen}
+          title="Schreiben-Aufgabe mit KI erstellen"
+          generate={generateSchreibenPreview}
+          onApply={applySchreibenPreview}
+          renderPreview={renderRubricPreview}
+        />
+      )}
+
+      {showSprechenAi && (
+        <AiGenerateDialog<AISprechenPreview>
+          open={aiDialogOpen}
+          onOpenChange={setAiDialogOpen}
+          title="Sprechen-Aufgabe mit KI erstellen"
+          generate={generateSprechenPreview}
+          onApply={applySprechenPreview}
+          renderPreview={renderRubricPreview}
+        />
+      )}
+
       <div>
         <label className="mb-1 block text-xs font-medium text-[var(--admin-text-secondary)]">Titel</label>
         <AdminInput defaultValue={task.title} onBlur={(e) => saveTitle(e.target.value)} />
@@ -442,10 +586,11 @@ function TaskDetailEditor({
         <>
           {(task.task_type === "HEADING_MATCHING" ||
             task.task_type === "ADVERTISEMENT_MATCHING" ||
-            task.task_type === "TEXT_MATCHING") && (
+            task.task_type === "TEXT_MATCHING" ||
+            (task.task_type === "MULTIPLE_CHOICE" && skill === "LESEN")) && (
             <div>
               <label className="mb-1 block text-xs font-medium text-[var(--admin-text-secondary)]">
-                Text / Anzeigen
+                {task.task_type === "MULTIPLE_CHOICE" ? "Lesetext" : "Text / Anzeigen"}
               </label>
               <LesenRichTextEditor content={task.content ?? ""} onChange={saveContent} />
             </div>

@@ -1,139 +1,101 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Check, Library, Volume2 } from "lucide-react";
-import { motion } from "framer-motion";
+import { Library } from "lucide-react";
 
 import { completeLessonVocabulary, getLessonVocabularies } from "@/features/lessons/services/vocabulary-service";
-import { cardEntrance, staggerContainer } from "@/lib/motion";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import LessonSection from "../common/lesson-section";
+import { generateExercises, type VocabularyExercise } from "./exercise-generator";
+import ExerciseRunner from "./exercise-runner";
 
 interface Props {
   lessonId: string;
 }
 
 /** Real Wortschatz panel — published Vocabulary rows for this lesson (see
- * app/models/vocabulary.py). Requires the lesson's video to be completed
- * first, enforced server-side (GET /vocabularies/lesson/{id}). Marking
- * every word learned, then confirming, persists Wortschatz completion
- * server-side (StudentProgress.vocabulary_completed) — the 10-point
- * Wortschatz component of the lesson score. */
+ * app/models/vocabulary.py), turned into a sequential run of interactive
+ * exercises generated client-side (see exercise-generator.ts). Finishing
+ * the run persists the session's score server-side
+ * (StudentProgress.vocabulary_score, feeding LessonScoringService's
+ * partial-credit Wortschatz component out of 10 points). No vocabulary
+ * audio anywhere in this flow — not a feature right now. */
 export default function VocabularySection({ lessonId }: Props) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
-  const [learned, setLearned] = useState<Set<string>>(new Set());
-  const [completed, setCompleted] = useState(false);
 
   const { data: words, isLoading } = useQuery({
     queryKey: ["lesson-vocabularies", lessonId],
     queryFn: () => getLessonVocabularies(lessonId),
   });
 
+  const exercises: VocabularyExercise[] = useMemo(() => generateExercises(words ?? []), [words]);
+
+  const [index, setIndex] = useState(0);
+  const [correctCount, setCorrectCount] = useState(0);
+  const [finished, setFinished] = useState(false);
+
   const completeMutation = useMutation({
-    mutationFn: () => completeLessonVocabulary(lessonId),
+    mutationFn: (percentage: number) => completeLessonVocabulary(lessonId, percentage),
     onSuccess: () => {
-      setCompleted(true);
       queryClient.invalidateQueries({ queryKey: ["section-gate", lessonId] });
     },
   });
 
-  function toggleLearned(id: string) {
-    setLearned((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
-    });
+  function handleExerciseDone(correct: boolean) {
+    const nextCorrect = correctCount + (correct ? 1 : 0);
+    setCorrectCount(nextCorrect);
+
+    if (index + 1 >= exercises.length) {
+      setFinished(true);
+      const percentage = Math.round((nextCorrect / exercises.length) * 100);
+      completeMutation.mutate(percentage);
+    } else {
+      setIndex(index + 1);
+    }
   }
 
-  const allLearned = (words?.length ?? 0) > 0 && learned.size === words?.length;
+  const percentage = exercises.length > 0 ? Math.round((correctCount / exercises.length) * 100) : 0;
 
   return (
     <LessonSection title={t("lessons.sectionVocabulary")} description={t("lessons.vocabularyDescription")} icon={Library}>
       {isLoading && <p className="text-sm text-text-secondary">{t("common.loading")}</p>}
 
-      {!isLoading && (words?.length ?? 0) === 0 && (
+      {!isLoading && exercises.length === 0 && (
         <p className="rounded-2xl bg-surface-hover p-6 text-center text-sm text-text-secondary">
           Für diese Lektion sind noch keine Inhalte verfügbar.
         </p>
       )}
 
-      <motion.div variants={staggerContainer} initial="hidden" animate="show" className="space-y-3">
-        {words?.map((word) => {
-          const isLearned = learned.has(word.id);
-          return (
-            <motion.div
-              key={word.id}
-              variants={cardEntrance}
-              onClick={() => toggleLearned(word.id)}
-              className={`cursor-pointer rounded-2xl border p-5 transition-all duration-200 ${
-                isLearned
-                  ? "border-success/40 bg-success/5"
-                  : "border-surface-border bg-surface-hover hover:border-accent-blue/30"
-              }`}
-            >
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <p className="text-lg font-bold text-text-primary">
-                    {word.article && <span className="text-text-secondary">{word.article} </span>}
-                    {word.german_word}
-                  </p>
-                  {word.plural && (
-                    <p className="mt-0.5 text-xs text-text-muted">Plural: {word.plural}</p>
-                  )}
-                  <p className="mt-1 text-sm text-text-secondary">{word.translation}</p>
-                  {word.example_sentence && (
-                    <p className="mt-2 text-sm italic text-text-muted">&quot;{word.example_sentence}&quot;</p>
-                  )}
-                  {word.example_translation && (
-                    <p className="mt-1 text-sm italic text-text-muted/80">&quot;{word.example_translation}&quot;</p>
-                  )}
-                </div>
-                <div className="flex shrink-0 items-center gap-2">
-                  {word.audio_url && (
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        new Audio(word.audio_url!).play();
-                      }}
-                      className="flex h-8 w-8 items-center justify-center rounded-full bg-surface-card text-accent-blue ring-1 ring-surface-border"
-                      aria-label="Aussprache abspielen"
-                    >
-                      <Volume2 size={15} />
-                    </button>
-                  )}
-                  {isLearned && (
-                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-success/15 text-success">
-                      <Check size={15} />
-                    </span>
-                  )}
-                </div>
-              </div>
-            </motion.div>
-          );
-        })}
-      </motion.div>
+      {!isLoading && exercises.length > 0 && !finished && (
+        <div className="space-y-4">
+          <div className="flex items-center justify-between text-xs font-medium text-text-muted">
+            <span>
+              Übung {index + 1} / {exercises.length}
+            </span>
+            <span>
+              {correctCount} richtig bisher
+            </span>
+          </div>
+          <div className="h-1.5 w-full overflow-hidden rounded-full bg-surface-hover">
+            <div
+              className="h-full rounded-full bg-accent-blue transition-all duration-300"
+              style={{ width: `${(index / exercises.length) * 100}%` }}
+            />
+          </div>
 
-      {(words?.length ?? 0) > 0 && (
-        <div className="mt-5 flex items-center gap-3">
-          <button
-            type="button"
-            disabled={!allLearned || completed || completeMutation.isPending}
-            onClick={() => completeMutation.mutate()}
-            className="inline-flex items-center gap-1.5 rounded-button bg-gradient-to-r from-accent-blue-hover to-accent-blue px-4 py-2.5 text-sm font-semibold text-white shadow-md shadow-accent-blue/25 transition enabled:hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            {completed
-              ? "Wortschatz abgeschlossen ✓"
-              : completeMutation.isPending
-                ? "Wird gespeichert..."
-                : "Wortschatz als gelernt markieren"}
-          </button>
-          {!allLearned && !completed && (
-            <span className="text-xs text-text-muted">Markiere zuerst alle Wörter als gelernt.</span>
-          )}
+          <ExerciseRunner key={index} exercise={exercises[index]} onDone={handleExerciseDone} />
+        </div>
+      )}
+
+      {finished && (
+        <div className="rounded-2xl bg-surface-card p-6 text-center ring-1 ring-surface-border">
+          <p className="text-3xl font-bold text-text-primary">{percentage}%</p>
+          <p className="mt-1 text-sm text-text-secondary">
+            {correctCount} von {exercises.length} Übungen richtig
+          </p>
+          <p className="mt-3 text-sm font-medium text-success">Wortschatz abgeschlossen ✓</p>
         </div>
       )}
     </LessonSection>

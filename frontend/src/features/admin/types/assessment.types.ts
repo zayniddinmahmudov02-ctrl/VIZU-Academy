@@ -381,6 +381,7 @@ export interface WritingSubmission {
   status: WritingSubmissionStatus;
   submitted_at: string | null;
   final_score: number | null;
+  notified: boolean;
 }
 
 export interface WritingEvaluation {
@@ -412,6 +413,9 @@ export interface PendingWritingReviewItem {
   submission: WritingSubmission;
   task_title: string;
   student_name: string;
+  lesson_title: string;
+  level: string;
+  skill: string;
   rubric_criteria: WritingRubricCriterion[];
   ai_evaluation: WritingEvaluation | null;
 }
@@ -434,6 +438,7 @@ export interface SpeakingSubmission {
   status: SpeakingSubmissionStatus;
   submitted_at: string;
   final_score: number | null;
+  notified: boolean;
 }
 
 export interface SpeakingEvaluation {
@@ -462,5 +467,8 @@ export interface PendingSpeakingReviewItem {
   submission: SpeakingSubmission;
   task_title: string;
   student_name: string;
+  lesson_title: string;
+  level: string;
+  skill: string;
   rubric_criteria: WritingRubricCriterion[];
 }

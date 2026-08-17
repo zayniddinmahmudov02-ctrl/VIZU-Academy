@@ -3,7 +3,10 @@ progress/assessment infrastructure end to end — nothing here invents a
 new grading algorithm:
 
   Video        (10 pts) <- StudentProgress.video_completed
-  Wortschatz   (10 pts) <- StudentProgress.vocabulary_completed
+  Wortschatz   (10 pts) <- StudentProgress.vocabulary_score (falls back to
+                           the binary vocabulary_completed flag for
+                           students who completed it before exercises
+                           existed)
   Grammatik Quiz(10 pts) <- StudentQuiz.score for the lesson's GRAMMAR-type Quiz
   Lesen        (15 pts) <- Universal Assessment Engine, SectionResult(skill=LESEN)
   Hören        (15 pts) <- Universal Assessment Engine, SectionResult(skill=HOEREN)
@@ -153,7 +156,13 @@ class LessonScoringService:
         )
 
         video_points = MAX_VIDEO if (progress and progress.video_completed) else 0
-        wortschatz_points = MAX_WORTSCHATZ if (progress and progress.vocabulary_completed) else 0
+
+        if progress and progress.vocabulary_score is not None:
+            wortschatz_points = round(max(0, min(100, progress.vocabulary_score)) * MAX_WORTSCHATZ / 100)
+        elif progress and progress.vocabulary_completed:
+            wortschatz_points = MAX_WORTSCHATZ
+        else:
+            wortschatz_points = 0
 
         grammar_pct, _ = self._quiz_percentage(user_id, lesson_id, QUIZ_TYPE_GRAMMAR)
         lesen_pct, _ = self._skill_percentage(user_id, lesson_id, SKILL_LESEN)

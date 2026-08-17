@@ -371,10 +371,21 @@ export interface QuizCreate {
 }
 export type QuizUpdate = Partial<Omit<QuizCreate, "lesson_id">>;
 
+export type QuizQuestionType =
+  | "MULTIPLE_CHOICE"
+  | "TRUE_FALSE"
+  | "CLOZE_TEXT"
+  | "SENTENCE_COMPLETION"
+  | "SENTENCE_ORDERING"
+  | "ERROR_FINDING"
+  | "MATCHING";
+
 export interface QuizQuestion {
   id: string;
   quiz_id: string;
   question: string;
+  question_type: QuizQuestionType;
+  correct_text_answer: string | null;
   explanation: string | null;
   points: number;
   order_index: number;
@@ -383,6 +394,8 @@ export interface QuizQuestion {
 export interface QuizQuestionCreate {
   quiz_id: string;
   question: string;
+  question_type?: QuizQuestionType;
+  correct_text_answer?: string | null;
   explanation?: string | null;
   points?: number;
   order_index?: number;
@@ -396,12 +409,14 @@ export interface QuizOption {
   option_text: string;
   is_correct: boolean;
   order_index: number;
+  match_value: string | null;
 }
 export interface QuizOptionCreate {
   question_id: string;
   option_text: string;
   is_correct?: boolean;
   order_index?: number;
+  match_value?: string | null;
 }
 export type QuizOptionUpdate = Partial<Omit<QuizOptionCreate, "question_id">>;
 

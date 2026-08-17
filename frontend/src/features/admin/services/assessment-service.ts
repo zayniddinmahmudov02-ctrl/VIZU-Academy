@@ -362,9 +362,12 @@ export async function getWritingResult(attemptId: string, taskId: string): Promi
 // Teacher review — AI_AND_TEACHER / TEACHER_ONLY
 // ============================================================
 
-export async function listPendingWritingReviews(assessmentId?: string): Promise<PendingWritingReviewItem[]> {
+export async function listPendingWritingReviews(
+  assessmentId?: string,
+  bucket?: string,
+): Promise<PendingWritingReviewItem[]> {
   const response = await api.get<PendingWritingReviewItem[]>(`${ADMIN_ENDPOINTS.writing}/pending-review`, {
-    params: assessmentId ? { assessment_id: assessmentId } : undefined,
+    params: { ...(assessmentId ? { assessment_id: assessmentId } : {}), ...(bucket ? { bucket } : {}) },
   });
   return ensureArray<PendingWritingReviewItem>(response.data);
 }
@@ -421,14 +424,36 @@ export async function getSpeakingResult(attemptId: string, taskId: string): Prom
 // Teacher review — Sprechen
 // ============================================================
 
-export async function listPendingSpeakingReviews(assessmentId?: string): Promise<PendingSpeakingReviewItem[]> {
+export async function listPendingSpeakingReviews(
+  assessmentId?: string,
+  bucket?: string,
+): Promise<PendingSpeakingReviewItem[]> {
   const response = await api.get<PendingSpeakingReviewItem[]>(`${ADMIN_ENDPOINTS.speaking}/pending-review`, {
-    params: assessmentId ? { assessment_id: assessmentId } : undefined,
+    params: { ...(assessmentId ? { assessment_id: assessmentId } : {}), ...(bucket ? { bucket } : {}) },
   });
   return ensureArray<PendingSpeakingReviewItem>(response.data);
 }
 
 export async function reviewSpeakingSubmission(submissionId: string, data: SpeakingReviewInput) {
   const response = await api.post(`${ADMIN_ENDPOINTS.speaking}/${submissionId}/review`, data);
+  return response.data;
+}
+
+// Voice feedback variant — teacher records/uploads an audio clip instead
+// of (or alongside) typed feedback. rubric_scores travels as a JSON
+// string because this is a multipart request (see backend router).
+export async function reviewSpeakingSubmissionWithAudio(
+  submissionId: string,
+  data: { rubric_scores: Record<string, number>; feedback?: string; finalize: boolean; file: Blob; filename: string },
+) {
+  const formData = new FormData();
+  formData.append("rubric_scores", JSON.stringify(data.rubric_scores));
+  if (data.feedback) formData.append("feedback", data.feedback);
+  formData.append("finalize", String(data.finalize));
+  formData.append("file", data.file, data.filename);
+
+  const response = await api.post(`${ADMIN_ENDPOINTS.speaking}/${submissionId}/review-audio`, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
   return response.data;
 }

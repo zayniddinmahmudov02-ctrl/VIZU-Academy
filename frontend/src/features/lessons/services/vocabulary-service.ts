@@ -21,9 +21,18 @@ export async function getLessonVocabularies(lessonId: string): Promise<LessonVoc
 }
 
 // Marks Wortschatz reviewed — feeds the Wortschatz component of the
-// 100-point lesson score (see LessonScoringService).
-export async function completeLessonVocabulary(lessonId: string): Promise<{ vocabulary_completed: boolean }> {
-  return api<{ vocabulary_completed: boolean }>(`/api/v1/vocabularies/lesson/${lessonId}/complete`, {
-    method: "POST",
-  });
+// 100-point lesson score (see LessonScoringService). percentage (0-100)
+// is the interactive exercise session's score, stored as partial credit
+// instead of the old all-or-nothing completion.
+export async function completeLessonVocabulary(
+  lessonId: string,
+  percentage: number,
+): Promise<{ vocabulary_completed: boolean; vocabulary_score: number | null }> {
+  return api<{ vocabulary_completed: boolean; vocabulary_score: number | null }>(
+    `/api/v1/vocabularies/lesson/${lessonId}/complete`,
+    {
+      method: "POST",
+      body: JSON.stringify({ percentage }),
+    },
+  );
 }

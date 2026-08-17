@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import DateTime, ForeignKey, Integer, String, UniqueConstraint
+from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, String, UniqueConstraint
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -52,6 +52,7 @@ class SpeakingSubmission(BaseModel):
     )
     submitted_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
     final_score: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    notified: Mapped[bool] = mapped_column(Boolean, default=False, server_default="false", nullable=False)
 
     user = relationship("User")
     assessment = relationship("Assessment")

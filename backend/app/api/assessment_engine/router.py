@@ -1,3 +1,5 @@
+import json
+
 from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, UploadFile
 from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
@@ -624,10 +626,11 @@ def get_writing_result(
 @router.get("/writing/pending-review", response_model=list[PendingWritingReviewItem])
 def list_pending_writing_reviews(
     assessment_id: str | None = None,
+    bucket: str | None = None,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin_panel_access),
 ):
-    return writing_service.list_pending_reviews(db, assessment_id)
+    return writing_service.list_pending_reviews(db, assessment_id, bucket)
 
 
 @router.post("/writing/{submission_id}/review", response_model=WritingEvaluationResponse)
@@ -708,19 +711,62 @@ def get_speaking_result(
 @router.get("/speaking/pending-review", response_model=list[PendingSpeakingReviewItem])
 def list_pending_speaking_reviews(
     assessment_id: str | None = None,
+    bucket: str | None = None,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin_panel_access),
 ):
-    return speaking_service.list_pending_reviews(db, assessment_id)
+    return speaking_service.list_pending_reviews(db, assessment_id, bucket)
 
 
 @router.post("/speaking/{submission_id}/review", response_model=SpeakingEvaluationResponse)
-def review_speaking_submission(
+async def review_speaking_submission(
     submission_id: str,
     data: SpeakingReviewInput,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin_panel_access),
 ):
-    return speaking_service.submit_teacher_review(
+    return await speaking_service.submit_teacher_review(
         db, submission_id, current_user, data.rubric_scores, data.feedback, data.finalize
+    )
+
+
+@router.post("/speaking/{submission_id}/review-audio", response_model=SpeakingEvaluationResponse)
+async def review_speaking_submission_with_audio(
+    submission_id: str,
+    rubric_scores: str = Form(...),
+    feedback: str | None = Form(None),
+    finalize: bool = Form(True),
+    file: UploadFile = File(...),
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    """Same as /speaking/{submission_id}/review but for voice feedback —
+    a teacher records or uploads a short audio clip instead of (or
+    alongside) typed feedback. rubric_scores arrives as a JSON-encoded
+    string because this is a multipart request."""
+    try:
+        scores = json.loads(rubric_scores)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="rubric_scores must be a JSON object.")
+
+    return await speaking_service.submit_teacher_review(
+        db, submission_id, current_user, scores, feedback, finalize, audio_file=file
+    )
+
+
+@router.get("/speaking/evaluations/{evaluation_id}/feedback-audio")
+def get_speaking_feedback_audio(
+    evaluation_id: str,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """The playable audio URL referenced by grading notifications — same
+    protected-storage pattern as student speaking submissions, never a
+    public URL."""
+    evaluation = speaking_service.authorize_feedback_audio_access(db, evaluation_id, current_user)
+    path = speaking_service.resolve_feedback_audio_path(evaluation)
+    if not path.exists():
+        raise HTTPException(status_code=404, detail="Audio file missing on disk.")
+    return FileResponse(
+        path=path, media_type=evaluation.feedback_audio_content_type, filename=evaluation.feedback_audio_filename
     )

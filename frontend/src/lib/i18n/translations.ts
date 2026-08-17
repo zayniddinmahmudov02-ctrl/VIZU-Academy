@@ -32,6 +32,7 @@ export const translations: Record<string, Namespace> = {
     },
     markAllRead: { de: "Alle als gelesen markieren", uz: "Barchasini o'qilgan deb belgilash" },
     markRead: { de: "Als gelesen markieren", uz: "O'qilgan deb belgilash" },
+    playFeedback: { de: "Feedback anhören", uz: "Fikr-mulohazani tinglash" },
     calendarAria: { de: "Kalender öffnen", uz: "Kalendarni ochish" },
     logout: { de: "Abmelden", uz: "Chiqish" },
     learner: { de: "Lernender", uz: "O'quvchi" },

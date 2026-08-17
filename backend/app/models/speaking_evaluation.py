@@ -25,5 +25,9 @@ class SpeakingEvaluation(BaseModel):
     total_score: Mapped[int] = mapped_column(Integer, nullable=False)
     feedback: Mapped[str | None] = mapped_column(Text, nullable=True)
 
+    feedback_audio_path: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    feedback_audio_filename: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    feedback_audio_content_type: Mapped[str | None] = mapped_column(String(100), nullable=True)
+
     submission = relationship("SpeakingSubmission", back_populates="evaluations")
     reviewed_by = relationship("User")

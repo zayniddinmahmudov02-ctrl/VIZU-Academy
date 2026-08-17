@@ -55,6 +55,11 @@ from app.api.homework import (
     router as homework_router,
 )
 
+# Notifications
+from app.api.notifications import (
+    router as notifications_router,
+)
+
 # Enrollment
 from app.api.enrollment import (
     router as enrollment_router,
@@ -113,6 +118,9 @@ from app.api.admin.vizu_pay_router import (
 )
 from app.api.admin.videos_router import (
     router as admin_videos_router,
+)
+from app.api.admin.ai_content_router import (
+    router as admin_ai_content_router,
 )
 
 # VIZU Pay
@@ -201,6 +209,7 @@ _ALL_ROUTERS = [
     quiz_question_router,
     quiz_option_router,
     homework_router,
+    notifications_router,
     enrollment_router,
     payment_router,
     dashboard_router,
@@ -217,6 +226,7 @@ _ALL_ROUTERS = [
     admin_users_router,
     admin_vizu_pay_router,
     admin_videos_router,
+    admin_ai_content_router,
     vizu_pay_router,
     assessment_engine_router,
     health_router,

@@ -54,6 +54,7 @@ export const ADMIN_ENDPOINTS = {
   speakingSubmissions: "/api/v1/speaking-submissions",
   certificates: "/api/v1/certificates",
   adminDashboard: "/api/v1/admin/dashboard/overview",
+  aiContent: "/api/v1/admin/ai-content",
 
   // Mock Exam System (Phase 4)
   mockExamProviders: "/api/v1/mock-exam/providers",
