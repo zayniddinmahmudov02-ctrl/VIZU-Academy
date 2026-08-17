@@ -61,6 +61,13 @@ export default function LessonSectionNav({ lessonId, currentSlug }: Props) {
               key={section.slug}
               href={`/lessons/${lessonId}/${section.slug}`}
               aria-current={active ? "page" : undefined}
+              // This whole 11-item bar re-renders on every section
+              // navigation (currentSlug changes), and most of these links
+              // won't be the one the student clicks next — unlike
+              // Previous/Next below, which stay prefetched since they're
+              // the likely next click. See nav-item.tsx for the measured
+              // background-request cost of prefetching persistent nav.
+              prefetch={false}
               className={`relative flex shrink-0 items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors duration-200 ${
                 active
                   ? "bg-gradient-to-r from-accent-blue to-purple-600 text-white shadow-md shadow-accent-blue/25"

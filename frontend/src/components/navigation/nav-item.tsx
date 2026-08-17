@@ -33,6 +33,16 @@ export default function NavItem({
     <Tooltip label={title} disabled={!collapsed}>
       <Link
         href={href}
+        // This link is part of the persistent sidebar/mobile nav, mounted
+        // once and visible on every dashboard page. Next.js prefetches a
+        // visible Link's full route+data, and re-prefetches it again each
+        // time the router context it was cached against changes (i.e. on
+        // every client-side navigation) — with ~9 always-visible nav links,
+        // that adds up to hundreds of background requests during normal
+        // browsing (measured: ~1370 req/min while navigating between
+        // lesson sections). None of these links benefit meaningfully from
+        // being prefetched milliseconds early, so it's not worth the cost.
+        prefetch={false}
         className={`group relative flex items-center gap-3 overflow-hidden rounded-2xl px-3.5 py-3 text-sm font-semibold transition-all duration-300 ${
           collapsed ? "justify-center" : ""
         } ${

@@ -52,6 +52,12 @@ export default function AiTools() {
             >
               <Link
                 href={tool.href}
+                // Same reasoning as the sidebar nav: this card re-mounts
+                // every time a student returns to /dashboard (the
+                // most-visited page), and re-prefetching its target on
+                // every visit was a measured contributor to excessive
+                // background requests — see nav-item.tsx.
+                prefetch={false}
                 className={`group flex h-full min-h-[164px] flex-col overflow-hidden rounded-card bg-gradient-to-br p-5 text-white shadow-[var(--shadow-card)] transition-all duration-300 hover:shadow-[var(--shadow-card-hover)] ${tool.gradient}`}
               >
                 <div className="flex flex-col gap-3">
