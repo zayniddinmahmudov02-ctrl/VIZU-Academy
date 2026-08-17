@@ -1,7 +1,6 @@
 import type { ComponentType } from "react";
 import { notFound } from "next/navigation";
 
-import GrammarSection from "@/components/lesson-player/grammar/grammar-section";
 import HomeworkSection from "@/components/lesson-player/homework/homework-section";
 import PremiumLessonGate from "@/components/lesson-player/video/premium-lesson-gate";
 import ListeningSection from "@/components/lesson-player/listening/listening-section";
@@ -21,7 +20,6 @@ interface SectionComponentProps {
 const SECTION_COMPONENTS: Record<LessonSectionMeta["type"], ComponentType<SectionComponentProps>> = {
   video: VideoSection,
   vocabulary: VocabularySection,
-  grammar: GrammarSection,
   "grammar-quiz": (props) => <QuizSection {...props} quizType="GRAMMAR" />,
   reading: ReadingSection,
   listening: ListeningSection,

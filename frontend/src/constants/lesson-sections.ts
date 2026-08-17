@@ -1,5 +1,4 @@
 import {
-  BookOpenText,
   ClipboardList,
   FileText,
   Headphones,
@@ -17,7 +16,6 @@ import type { SectionGateKey } from "@/features/lessons/services/section-gate-se
 export type LessonSectionType =
   | "video"
   | "vocabulary"
-  | "grammar"
   | "grammar-quiz"
   | "reading"
   | "listening"
@@ -36,18 +34,23 @@ export interface LessonSectionMeta {
   titleKey: string;
 }
 
-// Fixed order — identical to the Admin CMS lesson-content order, never
-// reordered based on which sections happen to have content (see
-// LessonContentGate). "reading"/"listening" here render "Lesen"/"Hören"
-// (their real titleKeys), each already the Universal Assessment Engine's
-// combined passage+questions flow — there's no separate "Lesen Quiz"/
-// "Hören Quiz" step to route to, only a labeled distinction in the admin
-// content-status view. homework has no fixed point in the required
-// 100-point order, so it's kept at the end rather than dropped.
+// Fixed 7-step student order (Video 10 / Wortschatz 10 / Grammatik Quiz
+// 10 / Lesen 15 / Hören 15 / Schreiben 20 / Sprechen 20 = 100), identical
+// to the Admin CMS lesson-content order, never reordered based on which
+// sections happen to have content (see LessonContentGate). Standalone
+// "Grammatik" is deliberately absent — grammar is taught inside the
+// Video, and Grammatik Quiz is the only grammar step in the student
+// flow (the Grammar model/admin CRUD still exist, just unreachable from
+// this student-facing list — see GrammarManager in the admin CMS).
+// "reading"/"listening" here render "Lesen"/"Hören" (their real
+// titleKeys), each already the Universal Assessment Engine's combined
+// passage+questions flow — there's no separate "Lesen Quiz"/"Hören Quiz"
+// step to route to, only a labeled distinction in the admin content-
+// status view. homework has no fixed point in the required 100-point
+// order, so it's kept at the end rather than dropped.
 export const lessonSections: LessonSectionMeta[] = [
   { slug: "video", type: "video", icon: PlayCircle, emoji: "▶️", titleKey: "lessons.sectionVideo" },
   { slug: "wortschatz", type: "vocabulary", icon: Library, emoji: "📖", titleKey: "lessons.sectionVocabulary" },
-  { slug: "grammatik", type: "grammar", icon: BookOpenText, emoji: "📘", titleKey: "lessons.sectionGrammar" },
   { slug: "grammatik-quiz", type: "grammar-quiz", icon: HelpCircle, emoji: "❓", titleKey: "lessons.sectionGrammarQuiz" },
   { slug: "lesen", type: "reading", icon: FileText, emoji: "📄", titleKey: "lessons.sectionReading" },
   { slug: "hoeren", type: "listening", icon: Headphones, emoji: "🎧", titleKey: "lessons.sectionListening" },
@@ -76,7 +79,6 @@ export function getSectionIndex(slug: string): number {
 export const SECTION_GATE_KEYS: Record<LessonSectionType, SectionGateKey | null> = {
   video: null,
   vocabulary: "wortschatz",
-  grammar: "grammatik",
   "grammar-quiz": "grammatik_quiz",
   reading: "lesen",
   listening: "hoeren",

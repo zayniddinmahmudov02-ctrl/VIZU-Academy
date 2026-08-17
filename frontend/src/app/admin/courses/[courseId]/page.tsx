@@ -17,19 +17,21 @@ import {
 import { levelsApi } from "@/features/admin/services/levels-service";
 import { modulesApi } from "@/features/admin/services/modules-service";
 
-// Fixed order matching the required lesson-content order exactly (see
-// frontend/src/constants/lesson-sections.ts and the Admin lesson editor's
-// tab order) — Video, Wortschatz, Grammatik, Grammatik Quiz, Lesen, Lesen
-// Quiz, Hören, Hören Quiz, Schreiben, Sprechen, Lesson Quiz.
+// Matches the 7-step student flow exactly (see
+// frontend/src/constants/lesson-sections.ts) plus the separate Lesson
+// Quiz diagnostic — Video, Wortschatz, Grammatik Quiz, Lesen, Hören,
+// Schreiben, Sprechen, Lesson Quiz. No standalone "Grammatik" row (not a
+// student step) and no separate "Lesen Quiz"/"Hören Quiz" rows (Lesen/
+// Hören are each one unified Assessment Engine section, not two steps).
+// The backend still reports has_grammar/has_lesen_quiz/has_hoeren_quiz
+// on LessonContentStatus for other internal consumers; this table just
+// doesn't render those columns.
 const PANELS: { key: keyof LessonContentStatus; label: string }[] = [
   { key: "has_video", label: "Video" },
   { key: "has_vocabulary", label: "Wortschatz" },
-  { key: "has_grammar", label: "Grammatik" },
   { key: "has_grammar_quiz", label: "Grammatik Quiz" },
   { key: "has_lesen", label: "Lesen" },
-  { key: "has_lesen_quiz", label: "Lesen Quiz" },
   { key: "has_hoeren", label: "Hören" },
-  { key: "has_hoeren_quiz", label: "Hören Quiz" },
   { key: "has_schreiben", label: "Schreiben" },
   { key: "has_sprechen", label: "Sprechen" },
   { key: "has_lesson_quiz", label: "Lesson Quiz" },

@@ -47,13 +47,17 @@ export default function LessonEditorPage() {
         </p>
       </div>
 
-      {/* Fixed content order (Video -> Wortschatz -> Grammatik -> Grammatik
-          Quiz -> Lesen -> Hören -> Schreiben -> Sprechen -> Lesson Quiz),
-          identical to the student lesson page — never reordered based on
-          which sections happen to have content yet. Homework and the
-          legacy per-skill managers (pre-Assessment-Engine) are kept for
-          existing content but placed after the required order rather than
-          interleaved with it. */}
+      {/* Fixed content order matching the 7-step student flow (Video ->
+          Wortschatz -> Grammatik Quiz -> Lesen -> Hören -> Schreiben ->
+          Sprechen), plus Lesson Quiz as a separate diagnostic — never
+          reordered based on which sections happen to have content yet.
+          The "Grammatik" tab manages the Grammar model directly after
+          Video for authoring convenience; it's admin-only content
+          management, not a step in the student-facing lesson flow (see
+          lessonSections in constants/lesson-sections.ts). Homework and
+          the legacy per-skill managers (pre-Assessment-Engine) are kept
+          for existing content but placed after the required order rather
+          than interleaved with it. */}
       <AdminTabs
         defaultValue="video"
         tabs={[

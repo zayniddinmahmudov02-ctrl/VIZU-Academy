@@ -14,10 +14,15 @@ const LABELS: Record<keyof SectionGateState, string> = {
   lesson_quiz: "Lesson Quiz",
 };
 
+// Standalone "grammatik" is deliberately excluded — it's no longer a
+// student-facing lesson step (grammar is taught inside the Video;
+// Grammatik Quiz is the only grammar step left). The backend still
+// returns a "grammatik" entry in SectionGateState (kept for other
+// internal consumers), so it stays in LABELS above for type-correctness,
+// it's just never rendered here.
 const ORDER: (keyof SectionGateState)[] = [
   "video",
   "wortschatz",
-  "grammatik",
   "grammatik_quiz",
   "lesen",
   "hoeren",

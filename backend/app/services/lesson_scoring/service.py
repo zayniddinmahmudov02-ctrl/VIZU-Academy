@@ -49,12 +49,12 @@ assert MAX_TOTAL == 100
 
 # Ordered so a 100 checks the first (highest) range it satisfies.
 _FEEDBACK_RANGES: list[tuple[int, int, str]] = [
-    (90, 100, "Sehr gut! Hervorragende Leistung."),
-    (80, 89, "Sehr gut! Du bist auf einem starken Niveau."),
-    (70, 79, "Gut gemacht! Einige Bereiche solltest du noch wiederholen."),
-    (60, 69, "Nicht schlecht. Wiederhole die schwächeren Bereiche noch einmal."),
-    (50, 59, "Du hast Fortschritte gemacht. Mehr Übung ist noch nötig."),
-    (0, 49, "Du solltest diese Lektion noch einmal gründlich bearbeiten."),
+    (90, 100, "Sehr gut! Du beherrschst diese Lektion sehr sicher."),
+    (80, 89, "Sehr gut! Einige Bereiche können noch verbessert werden."),
+    (70, 79, "Gut gemacht! Wiederhole die schwächeren Bereiche."),
+    (60, 69, "Du hast die Grundlagen verstanden. Weitere Übung wird empfohlen."),
+    (40, 59, "Wiederhole die Lektion und übe die schwächeren Bereiche erneut."),
+    (0, 39, "Die Lektion sollte noch einmal gründlich bearbeitet werden."),
 ]
 
 # A component counts as a "strength" at 70%+ of its own max, "weak"
