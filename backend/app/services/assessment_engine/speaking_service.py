@@ -353,8 +353,14 @@ async def submit_teacher_review(
         attempt_service.recompute_attempt_result(db, submission.attempt_id)
 
         lesson_title, _level = _get_lesson_info(db, submission.assessment_id)
+        # The frontend fetches this through the shared axios client, whose
+        # baseURL is the bare backend origin — must include /api/v1 itself,
+        # since the public nginx gateway only proxies /api/v1/* (a bare
+        # path 404s there even though the backend route exists).
         audio_url = (
-            f"/speaking/evaluations/{evaluation.id}/feedback-audio" if evaluation.feedback_audio_path else None
+            f"/api/v1/speaking/evaluations/{evaluation.id}/feedback-audio"
+            if evaluation.feedback_audio_path
+            else None
         )
         create_notification(
             db,
