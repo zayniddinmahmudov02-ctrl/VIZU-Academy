@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException, Response, status
 from sqlalchemy.orm import Session
 
 from app.api.dependencies.auth import get_current_user, require_admin_panel_access
-from app.api.dependencies.progress import require_lesson_access, require_video_completed
+from app.api.dependencies.progress import require_lesson_access
 from app.db.session import get_db
 from app.models.lesson import Lesson
 from app.models.user import User
@@ -71,12 +71,13 @@ def get_reading(
 def get_lesson_readings(
     lesson_id: UUID,
     db: Session = Depends(get_db),
-    _: object = Depends(require_video_completed),
     __: object = Depends(require_lesson_access),
 ):
-    """Requires the caller to have completed this lesson's video first,
-    and (require_lesson_access) that they have access to this lesson at
-    all under the free-3-lessons / Premium rule."""
+    """require_lesson_access enforces the free-3-lessons / Premium rule.
+    Sections are independently accessible in any order (no sequential
+    video-first requirement). Note: this legacy per-skill endpoint isn't
+    called by the current frontend, which uses the Assessment Engine's
+    Lesen implementation instead — see project memory."""
 
     service = ReadingService(db)
 

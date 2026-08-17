@@ -6,7 +6,7 @@ from fastapi.responses import StreamingResponse
 from sqlalchemy.orm import Session
 
 from app.api.dependencies.auth import get_current_user, require_admin_panel_access
-from app.api.dependencies.progress import require_lesson_access, require_video_completed
+from app.api.dependencies.progress import require_lesson_access
 from app.db.session import get_db
 from app.models.lesson import Lesson
 from app.models.user import User
@@ -78,15 +78,14 @@ def get_vocabulary(
 def get_lesson_vocabularies(
     lesson_id: UUID,
     db: Session = Depends(get_db),
-    _: object = Depends(require_video_completed),
     __: object = Depends(require_lesson_access),
 ):
-    """Requires the caller to have completed this lesson's video first —
-    Vocabulary is the activity right after Video in the lesson flow.
-    Published-only — a DRAFT vocabulary item must never reach a student,
-    regardless of what the admin-only list/detail endpoints return.
-    require_lesson_access additionally enforces the free-3-lessons /
-    Premium rule, same as every other lesson-content endpoint."""
+    """Published-only — a DRAFT vocabulary item must never reach a
+    student, regardless of what the admin-only list/detail endpoints
+    return. require_lesson_access enforces the free-3-lessons / Premium
+    rule, same as every other lesson-content endpoint. Sections are
+    independently accessible in any order (no sequential video-first
+    requirement) — see project memory on section-gate removal."""
 
     service = VocabularyService(db)
     return service.get_by_lesson(
