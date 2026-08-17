@@ -306,6 +306,18 @@ export const translations: Record<string, Namespace> = {
     videoResumeFrom: { de: "Fortsetzen ab {time}", uz: "{time} dan davom eting" },
     videoCompleted: { de: "Video abgeschlossen", uz: "Video tugallandi" },
 
+    videoSkipBack15: { de: "15 Sekunden zurück", uz: "15 soniya orqaga" },
+    videoSkipForward15: { de: "15 Sekunden vor", uz: "15 soniya oldinga" },
+    videoSeek: { de: "Videoposition", uz: "Video pozitsiyasi" },
+    videoVolume: { de: "Lautstärke", uz: "Ovoz balandligi" },
+    videoSettings: { de: "Einstellungen", uz: "Sozlamalar" },
+    videoSpeed: { de: "Geschwindigkeit", uz: "Tezlik" },
+    videoStreamError: {
+      de: "Video konnte nicht geladen werden.",
+      uz: "Videoni yuklab bo'lmadi.",
+    },
+    videoRetry: { de: "Erneut versuchen", uz: "Qayta urinish" },
+
     premiumRequiredTitle: { de: "🔒 Premium erforderlich", uz: "🔒 Premium talab qilinadi" },
     premiumRequiredHint: {
       de: "Die ersten 3 Lektionen jeder Stufe sind kostenlos. Schalte Premium frei, um auf diese Lektion zuzugreifen.",

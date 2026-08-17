@@ -31,7 +31,7 @@ function formatTime(totalSeconds: number): string {
 
 export default function VideoSection({ lessonId }: Props) {
   const { t } = useTranslation();
-  const { video, progress, loading, error, reportProgress, markComplete } = useVideoProgress(lessonId);
+  const { video, progress, loading, error, reportProgress, markComplete, reload } = useVideoProgress(lessonId);
   const { user } = useCurrentUser();
   const queryClient = useQueryClient();
   const watermarkText = buildWatermarkText(user);
@@ -82,6 +82,7 @@ export default function VideoSection({ lessonId }: Props) {
             initialPosition={progress?.lastPosition ?? 0}
             onProgress={handleProgress}
             watermarkText={watermarkText}
+            onRetryLoad={reload}
           />
         </div>
       )}
