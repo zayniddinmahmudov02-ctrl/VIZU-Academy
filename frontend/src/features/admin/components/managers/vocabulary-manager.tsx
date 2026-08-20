@@ -16,6 +16,7 @@ import FileUploadField from "@/components/admin/file-upload-field";
 import FormDialog from "@/components/admin/form-dialog";
 import { useCrudList, useCrudMutations } from "@/features/admin/hooks/use-crud";
 import { bulkDeleteVocabulary, vocabularyApi } from "@/features/admin/services/vocabulary-service";
+import { quizQuestionsApi, quizzesApi } from "@/features/admin/services/quiz-service";
 import type { Vocabulary } from "@/features/admin/types/content.types";
 
 import BulkVocabularyDialog from "../vocabulary/bulk-vocabulary-dialog";
@@ -46,6 +47,26 @@ export default function VocabularyManager({ lessonId }: { lessonId?: string }) {
     () => (lessonId ? (all ?? []).filter((v) => v.lesson_id === lessonId) : all),
     [all, lessonId],
   );
+
+  // A1's auto-generated Wortschatz test (see
+  // app/services/vocabulary/test_sync_service.py) has no admin authoring
+  // UI at all — this is purely an informational badge showing what the
+  // backend already generated. Renders nothing for B1+ lessons, since no
+  // VOCABULARY-type quiz ever exists for them.
+  const { data: allQuizzes } = useCrudList("quizzes", quizzesApi);
+  const { data: allQuizQuestions } = useCrudList("quiz-questions", quizQuestionsApi);
+  const vocabularyQuiz = useMemo(
+    () => (lessonId ? allQuizzes?.find((q) => q.lesson_id === lessonId && q.quiz_type === "VOCABULARY") : undefined),
+    [allQuizzes, lessonId],
+  );
+  const vocabularyTestQuestionCount = useMemo(
+    () =>
+      vocabularyQuiz
+        ? (allQuizQuestions ?? []).filter((q) => q.quiz_id === vocabularyQuiz.id && q.is_published).length
+        : 0,
+    [allQuizQuestions, vocabularyQuiz],
+  );
+  const vocabularyTestTarget = Math.min((data ?? []).filter((v) => v.is_published).length, 20);
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [bulkOpen, setBulkOpen] = useState(false);
@@ -189,6 +210,17 @@ export default function VocabularyManager({ lessonId }: { lessonId?: string }) {
 
   return (
     <div>
+      {vocabularyQuiz && (
+        <div className="mb-4 flex items-center gap-2">
+          <span className="rounded-full bg-[var(--admin-accent)]/15 px-2.5 py-1 text-xs font-semibold text-[var(--admin-accent)]">
+            Test generiert
+          </span>
+          <span className="text-xs text-[var(--admin-text-muted)]">
+            {vocabularyTestQuestionCount}/{vocabularyTestTarget} Fragen
+          </span>
+        </div>
+      )}
+
       <div className="mb-4 flex flex-wrap items-center justify-end gap-2.5">
         {lessonId && selectedCount > 0 && (
           <div className="mr-auto flex items-center gap-2.5">

@@ -25,7 +25,12 @@ from app.schemas.vocabulary import (
     VocabularyUpdate,
 )
 
-from app.services.vocabulary import VocabularyBulkService, VocabularyService, normalize_word_list
+from app.services.vocabulary import (
+    VocabularyBulkService,
+    VocabularyService,
+    normalize_word_list,
+    sync_vocabulary_test,
+)
 
 
 router = APIRouter(
@@ -130,7 +135,9 @@ def create_vocabulary(
     current_user: User = Depends(require_admin_panel_access),
 ):
     service = VocabularyService(db)
-    return service.create(payload.model_dump())
+    created = service.create(payload.model_dump())
+    sync_vocabulary_test(db, payload.lesson_id)
+    return created
 
 
 @router.put(
@@ -147,10 +154,12 @@ def update_vocabulary(
 
     vocabulary = service.get(vocabulary_id)
 
-    return service.update(
+    updated = service.update(
         vocabulary,
         payload.model_dump(exclude_unset=True),
     )
+    sync_vocabulary_test(db, updated.lesson_id)
+    return updated
 
 
 @router.patch(
@@ -166,7 +175,9 @@ def publish_vocabulary(
 
     vocabulary = service.get(vocabulary_id)
 
-    return service.publish(vocabulary)
+    published = service.publish(vocabulary)
+    sync_vocabulary_test(db, published.lesson_id)
+    return published
 
 
 @router.patch(
@@ -182,7 +193,9 @@ def unpublish_vocabulary(
 
     vocabulary = service.get(vocabulary_id)
 
-    return service.unpublish(vocabulary)
+    unpublished = service.unpublish(vocabulary)
+    sync_vocabulary_test(db, unpublished.lesson_id)
+    return unpublished
 
 
 @router.delete(
@@ -197,8 +210,10 @@ def delete_vocabulary(
     service = VocabularyService(db)
 
     vocabulary = service.get(vocabulary_id)
+    lesson_id = vocabulary.lesson_id
 
     service.delete(vocabulary)
+    sync_vocabulary_test(db, lesson_id)
 
     return Response(
         status_code=status.HTTP_204_NO_CONTENT,
@@ -218,6 +233,7 @@ async def bulk_delete_vocabulary(
 
     service = VocabularyBulkService(db)
     deleted_count = await service.bulk_delete(payload.lesson_id, payload.vocabulary_ids)
+    sync_vocabulary_test(db, payload.lesson_id)
     return BulkDeleteResponse(deleted_count=deleted_count)
 
 
@@ -265,4 +281,5 @@ async def bulk_save_vocabulary(
         payload.lesson_id,
         [item.model_dump() for item in payload.items],
     )
+    sync_vocabulary_test(db, payload.lesson_id)
     return BulkSaveResponse(**result)

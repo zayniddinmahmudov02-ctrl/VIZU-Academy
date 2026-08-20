@@ -1,6 +1,6 @@
 import { api } from "@/lib/api";
 
-export type QuizType = "GRAMMAR" | "LESSON";
+export type QuizType = "GRAMMAR" | "LESSON" | "VOCABULARY";
 
 export interface LessonQuiz {
   id: string;

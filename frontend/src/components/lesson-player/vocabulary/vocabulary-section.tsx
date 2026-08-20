@@ -5,25 +5,49 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Library } from "lucide-react";
 
 import { completeLessonVocabulary, getLessonVocabularies } from "@/features/lessons/services/vocabulary-service";
+import { getLessonQuizzes, getQuizOptions, getQuizQuestions } from "@/features/lessons/services/quiz-service";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import LessonSection from "../common/lesson-section";
 import { generateExercises, type VocabularyExercise } from "./exercise-generator";
 import ExerciseRunner from "./exercise-runner";
+import VocabularyTestSection from "./vocabulary-test-section";
 
 interface Props {
   lessonId: string;
 }
 
 /** Real Wortschatz panel — published Vocabulary rows for this lesson (see
- * app/models/vocabulary.py), turned into a sequential run of interactive
- * exercises generated client-side (see exercise-generator.ts). Finishing
- * the run persists the session's score server-side
- * (StudentProgress.vocabulary_score, feeding LessonScoringService's
+ * app/models/vocabulary.py). A1 lessons get an auto-generated 20-question
+ * 2-option test (backend keeps Quiz/QuizQuestion/QuizOption in sync with
+ * vocabulary — see app/services/vocabulary/test_sync_service.py); this
+ * component detects that by simply checking whether a published
+ * VOCABULARY-type quiz with questions exists for the lesson — true only
+ * for A1 by construction, so no level needs to be plumbed in here at
+ * all. Every other level falls through to the original sequential
+ * client-side exercise generator (see exercise-generator.ts), completely
+ * unchanged. Finishing either flow persists the session's score server-
+ * side (StudentProgress.vocabulary_score, feeding LessonScoringService's
  * partial-credit Wortschatz component out of 10 points). No vocabulary
  * audio anywhere in this flow — not a feature right now. */
 export default function VocabularySection({ lessonId }: Props) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
+
+  const { data: vocabQuizzes, isLoading: vocabQuizLoading } = useQuery({
+    queryKey: ["lesson-quizzes", lessonId, "VOCABULARY"],
+    queryFn: () => getLessonQuizzes(lessonId, "VOCABULARY"),
+  });
+  const vocabQuiz = vocabQuizzes?.[0];
+
+  const { data: vocabQuestions, isLoading: vocabQuestionsLoading } = useQuery({
+    queryKey: ["quiz-questions-with-options", vocabQuiz?.id],
+    queryFn: async () => {
+      if (!vocabQuiz) return [];
+      const qs = await getQuizQuestions(vocabQuiz.id);
+      return Promise.all(qs.map(async (q) => ({ ...q, options: await getQuizOptions(q.id) })));
+    },
+    enabled: !!vocabQuiz,
+  });
 
   const { data: words, isLoading } = useQuery({
     queryKey: ["lesson-vocabularies", lessonId],
@@ -57,6 +81,14 @@ export default function VocabularySection({ lessonId }: Props) {
   }
 
   const percentage = exercises.length > 0 ? Math.round((correctCount / exercises.length) * 100) : 0;
+
+  // A1's auto-generated test takes over whenever one exists for this
+  // lesson — every other level never has a VOCABULARY-type quiz at all
+  // (see test_sync_service.py's level gate), so this check alone is a
+  // complete, self-contained A1/B1+ router with no level plumbing needed.
+  if (!vocabQuizLoading && !vocabQuestionsLoading && vocabQuestions && vocabQuestions.length > 0) {
+    return <VocabularyTestSection lessonId={lessonId} questions={vocabQuestions} />;
+  }
 
   return (
     <LessonSection title={t("lessons.sectionVocabulary")} description={t("lessons.vocabularyDescription")} icon={Library}>

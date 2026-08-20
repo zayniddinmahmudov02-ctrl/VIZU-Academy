@@ -348,7 +348,7 @@ export interface SpeakingCreate {
 }
 export type SpeakingUpdate = Partial<Omit<SpeakingCreate, "lesson_id">>;
 
-export type QuizType = "GRAMMAR" | "LESSON";
+export type QuizType = "GRAMMAR" | "LESSON" | "VOCABULARY";
 
 export interface Quiz {
   id: string;
