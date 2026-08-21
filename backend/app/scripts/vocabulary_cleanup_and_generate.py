@@ -31,7 +31,14 @@ Run from the `backend/` directory:
     python -m app.scripts.vocabulary_cleanup_and_generate report
     python -m app.scripts.vocabulary_cleanup_and_generate cleanup --confirm
     python -m app.scripts.vocabulary_cleanup_and_generate verify
-    python -m app.scripts.vocabulary_cleanup_and_generate generate --target 20 --levels A1,A2
+    python -m app.scripts.vocabulary_cleanup_and_generate generate --levels A1,A2,B1,B2,C1
+
+Generation is content-driven, not count-driven: for each lesson, Gemini
+analyzes the lesson's title, its Grammar content, and its existing
+vocabulary, and returns however many NEW, genuinely relevant words the
+topic calls for -- no fixed target, no minimum, no filler. A generous
+runaway-response safety cap exists (MAX_WORDS_PER_CALL_SAFETY_CAP) but
+it is a defensive bound, not a design target.
 """
 
 import app.models  # noqa: F401 -- registers every model with Base before querying
@@ -53,6 +60,7 @@ from app.core.audit import write_audit
 from app.core.config import settings
 from app.db.session import SessionLocal
 from app.models.course import Course
+from app.models.grammar import Grammar
 from app.models.lesson import Lesson
 from app.models.module import Module
 from app.models.vocabulary import Vocabulary
@@ -248,9 +256,13 @@ def cmd_verify(db: Session) -> None:
 # generate
 # ============================================================
 
-GENERATION_PROMPT = """You are a German-language curriculum assistant creating NEW Wortschatz (vocabulary) entries for Uzbek-speaking students at level {level}, for a lesson titled "{lesson_title}".
+GENERATION_PROMPT = """You are a German-language curriculum assistant. Analyze this lesson and determine the COMPLETE set of NEW Wortschatz (vocabulary) words a student at level {level} genuinely needs to learn for it -- there is no fixed count. If the topic only calls for a handful of words, return a handful; if it genuinely calls for dozens, return dozens. Do not pad the list with irrelevant or generic filler just to reach a round number, and do not hold back a word that's genuinely needed for this topic.
 
-Generate exactly {count} NEW German words or short phrases appropriate for this lesson's topic and level. Every word you generate MUST be different (case-insensitive, article-independent) from all of these already-used words:
+Lesson title: "{lesson_title}"
+Level: {level}
+{grammar_context}Vocabulary already taught in this lesson (context only, do not repeat): {existing_words}
+
+Every word you generate MUST be genuinely relevant to this specific lesson's topic, and MUST be different (case-insensitive, article-independent) from every one of these already-taught words across every level (lower levels always take priority -- never reintroduce a word already known from an earlier level):
 {exclusion_sample}
 {exclusion_note}
 
@@ -266,22 +278,32 @@ For EACH generated word, determine:
 Respond with ONLY a JSON object (no markdown, no prose), exactly this shape:
 {{"words": [{{"word_type": "...", "article": "..."|null, "base_word": "...", "plural": "..."|null, "translation": "...", "example_sentence": "...", "example_translation": "..."}}]}}"""
 
-MAX_GENERATION_ATTEMPTS = 3
+# Not a target -- a runaway-response guard only, generous enough that no
+# genuinely content-driven lesson should ever hit it. Protects against a
+# single malformed/hallucinating Gemini response, nothing else.
+MAX_WORDS_PER_CALL_SAFETY_CAP = 80
+MAX_GENERATION_ATTEMPTS = 2
 
 
 async def _generate_words_for_lesson(
     level: str,
     lesson_title: str,
-    count: int,
+    grammar_context: str,
+    existing_words: list[str],
     exclusion: set[str],
-) -> list[dict]:
+) -> tuple[list[dict], int, bool]:
+    """Returns (accepted_words, skipped_duplicate_count, succeeded). No
+    target count is requested from or enforced on the model -- the
+    lesson's own content determines how many words come back.
+    `succeeded=False` means every attempt hit a real API failure (never
+    just "this lesson needs 0 new words," which is a legitimate,
+    successful outcome with an empty word list)."""
+
     accepted: list[dict] = []
-    remaining_needed = count
+    skipped_duplicates = 0
+    succeeded = False
 
-    for _attempt in range(MAX_GENERATION_ATTEMPTS):
-        if remaining_needed <= 0:
-            break
-
+    for attempt in range(MAX_GENERATION_ATTEMPTS):
         sample = list(exclusion)[:80]
         exclusion_sample = ", ".join(sample) if sample else "(none yet)"
         exclusion_note = (
@@ -290,13 +312,14 @@ async def _generate_words_for_lesson(
             if len(exclusion) > len(sample)
             else ""
         )
-        # Ask for a bit more than needed since some candidates will collide.
-        ask_count = remaining_needed + 2
+        grammar_block = f"Grammar/topic context for this lesson: {grammar_context}\n" if grammar_context else ""
+        existing_block = ", ".join(existing_words) if existing_words else "(none yet)"
 
         prompt = GENERATION_PROMPT.format(
             level=level,
             lesson_title=lesson_title,
-            count=ask_count,
+            grammar_context=grammar_block,
+            existing_words=existing_block,
             exclusion_sample=exclusion_sample,
             exclusion_note=exclusion_note,
         )
@@ -305,15 +328,23 @@ async def _generate_words_for_lesson(
             text = await call_gemini(prompt)
             data = extract_json_object(text)
         except AIContentError as exc:
-            print(f"    Gemini call failed: {exc}")
+            print(f"    Gemini call failed (attempt {attempt + 1}): {exc}")
             continue
 
-        for item in data.get("words", []):
+        words = data.get("words", [])
+        if not isinstance(words, list):
+            continue
+        succeeded = True
+
+        for item in words[:MAX_WORDS_PER_CALL_SAFETY_CAP]:
             base_word = (item.get("base_word") or "").strip()
             if not base_word:
                 continue
             key = normalize_word(base_word)
-            if not key or key in exclusion:
+            if not key:
+                continue
+            if key in exclusion:
+                skipped_duplicates += 1
                 continue
 
             word_type = str(item.get("word_type") or "OTHER").upper()
@@ -328,14 +359,16 @@ async def _generate_words_for_lesson(
                 }
             )
             exclusion.add(key)
-            remaining_needed -= 1
-            if remaining_needed <= 0:
-                break
 
-    return accepted[:count]
+        # A genuine response (even an empty word list, meaning "this
+        # lesson needs nothing new") is a success -- only a hard failure
+        # (exception above, `continue`d past) should retry.
+        break
+
+    return accepted, skipped_duplicates, succeeded
 
 
-async def cmd_generate(db: Session, target: int, levels: list[str]) -> None:
+async def cmd_generate(db: Session, levels: list[str]) -> None:
     rows = _load_all_with_level(db)
     exclusion = {normalize_word(vocab.german_word) for vocab, _level, _lesson in rows}
 
@@ -358,19 +391,34 @@ async def cmd_generate(db: Session, target: int, levels: list[str]) -> None:
             .count()
         )
         level_generated = 0
-        level_shortfall = 0
+        level_skipped_duplicates = 0
+        level_failures: list[str] = []
 
         for lesson in lessons:
-            current_count = db.query(Vocabulary).filter(Vocabulary.lesson_id == lesson.id).count()
-            needed = target - current_count
-            if needed <= 0:
+            existing = db.query(Vocabulary).filter(Vocabulary.lesson_id == lesson.id).order_by(
+                Vocabulary.order_index
+            ).all()
+            existing_words = [v.german_word for v in existing]
+
+            grammar_rows = db.query(Grammar).filter(Grammar.lesson_id == lesson.id).all()
+            grammar_context = " ".join(
+                f"{g.title}: {g.content}"[:500] for g in grammar_rows
+            )
+
+            words, skipped, succeeded = await _generate_words_for_lesson(
+                level, lesson.title, grammar_context, existing_words, exclusion
+            )
+            level_skipped_duplicates += skipped
+
+            if not succeeded:
+                level_failures.append(f"{lesson.title} (#{lesson.number})")
+                print(f'  "{lesson.title}" (#{lesson.number}): FAILED -- Gemini call did not succeed.')
                 continue
 
-            words = await _generate_words_for_lesson(level, lesson.title, needed, exclusion)
+            if not words:
+                print(f'  "{lesson.title}" (#{lesson.number}): 0 new words needed (genuinely covered already).')
+                continue
 
-            # current_count + 1 would collide with an existing order_index
-            # after cleanup deletions leave gaps (order_index isn't
-            # guaranteed contiguous) -- MAX(order_index) + 1 is always safe.
             max_order = (
                 db.query(func.max(Vocabulary.order_index)).filter(Vocabulary.lesson_id == lesson.id).scalar()
             )
@@ -393,19 +441,17 @@ async def cmd_generate(db: Session, target: int, levels: list[str]) -> None:
 
             db.commit()
             level_generated += len(words)
-
-            shortfall = needed - len(words)
-            if shortfall > 0:
-                level_shortfall += shortfall
-                print(
-                    f'  SHORTFALL: lesson "{lesson.title}" (#{lesson.number}) needed {needed}, '
-                    f"got {len(words)} unique words, short by {shortfall}."
-                )
+            print(
+                f'  "{lesson.title}" (#{lesson.number}): {len(existing_words)} existing -> '
+                f"{len(words)} new (total {len(existing_words) + len(words)}), "
+                f"{skipped} duplicate(s) skipped."
+            )
 
         level_after = level_before + level_generated
         print(
             f"{level}: before={level_before} newly_generated={level_generated} "
-            f"final={level_after} shortfall={level_shortfall}"
+            f"final={level_after} skipped_duplicates={level_skipped_duplicates} "
+            f"failures={len(level_failures)}"
         )
 
         write_audit(
@@ -415,11 +461,11 @@ async def cmd_generate(db: Session, target: int, levels: list[str]) -> None:
             details=json.dumps(
                 {
                     "level": level,
-                    "target_per_lesson": target,
                     "before": level_before,
                     "generated": level_generated,
                     "after": level_after,
-                    "shortfall": level_shortfall,
+                    "skipped_duplicates": level_skipped_duplicates,
+                    "failures": level_failures,
                 }
             ),
         )
@@ -444,7 +490,6 @@ def main() -> None:
     cleanup_parser.add_argument("--confirm", action="store_true")
 
     generate_parser = sub.add_parser("generate")
-    generate_parser.add_argument("--target", type=int, required=True)
     generate_parser.add_argument("--levels", type=str, default=",".join(LEVEL_ORDER))
 
     args = parser.parse_args()
@@ -468,7 +513,7 @@ def main() -> None:
                 print(f"Unknown level(s): {invalid}. Valid: {LEVEL_ORDER}")
                 sys.exit(1)
             levels.sort(key=lambda lvl: LEVEL_RANK[lvl])
-            asyncio.run(cmd_generate(db, target=args.target, levels=levels))
+            asyncio.run(cmd_generate(db, levels=levels))
     finally:
         db.close()
 
