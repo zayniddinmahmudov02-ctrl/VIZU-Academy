@@ -95,17 +95,25 @@ class Settings(BaseSettings):
     # against the API this key can actually reach.
     GEMINI_MODEL: str = "gemini-flash-latest"
 
-    # Optional fallback model for the bulk vocabulary "Wörter importieren"
-    # flow (see app/services/vocabulary/ai_enrichment.py) — tried only
-    # after GEMINI_MODEL's own retries are exhausted on a transient
-    # (503/429/5xx) failure. Empty by default: deliberately NOT a guessed
-    # model name — this codebase has no way to verify which model names
-    # a given production API key can actually reach, so an unverified
-    # default here would risk silently trading one failure mode (a real
-    # 503) for another (a fake 404 on a model that was never confirmed
-    # to exist for this key). Set it explicitly only once you've
-    # confirmed the model name works for GEMINI_API_KEY.
-    GEMINI_FALLBACK_MODEL: str = ""
+    # Fallback model for both Gemini integrations that support one (the
+    # bulk vocabulary "Wörter importieren" flow, ai_enrichment.py, and
+    # the shared ai_content/gemini_client.py used by AI content
+    # generation + the vocabulary_cleanup_and_generate script) — tried
+    # only after GEMINI_MODEL's own retries are exhausted on a transient
+    # (429/5xx) failure.
+    #
+    # NOT a guessed model name: verified live against the real Gemini
+    # API on 2026-08-21 via app/scripts/check_gemini_models.py, using
+    # the GEMINI_API_KEY configured at the time. ListModels confirmed
+    # "gemini-flash-lite-latest" supports generateContent, and a real
+    # generateContent call against it succeeded in ~0.8s. If this
+    # environment's GEMINI_API_KEY differs from the one used for that
+    # verification, re-run check_gemini_models.py to confirm the same
+    # holds here before trusting this default — a wrong value here only
+    # ever degrades to the primary model's own error (see
+    # gemini_client.py/_call_gemini), never a harder failure, but "safe
+    # to fail into" isn't the same as "confirmed for this key."
+    GEMINI_FALLBACK_MODEL: str = "gemini-flash-lite-latest"
 
     # Bulk vocabulary generator text enrichment (see
     # app/services/vocabulary/ai_enrichment.py) — word-type/article/

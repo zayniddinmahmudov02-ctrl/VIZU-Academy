@@ -325,7 +325,7 @@ async def _generate_words_for_lesson(
         )
 
         try:
-            text = await call_gemini(prompt)
+            text = await call_gemini(prompt, context=f"{level} \"{lesson_title}\"")
             data = extract_json_object(text)
         except AIContentError as exc:
             print(f"    Gemini call failed (attempt {attempt + 1}): {exc}")
