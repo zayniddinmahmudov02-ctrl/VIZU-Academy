@@ -106,7 +106,7 @@ class VocabularyBulkService:
         if auto_complete and raw_words:
             yield {"type": "progress", "phase": "text", "processed": 0, "total": total}
             try:
-                enriched = await ai_enrichment.enrich_words(raw_words, level)
+                enriched = await ai_enrichment.enrich_words(raw_words, level, context=f"lesson={lesson_id}")
             except ai_enrichment.AIServiceError as exc:
                 # Never forward str(exc) to the client -- it embeds Gemini's
                 # raw error response body. Log it server-side, surface a

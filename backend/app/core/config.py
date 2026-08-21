@@ -95,6 +95,18 @@ class Settings(BaseSettings):
     # against the API this key can actually reach.
     GEMINI_MODEL: str = "gemini-flash-latest"
 
+    # Optional fallback model for the bulk vocabulary "Wörter importieren"
+    # flow (see app/services/vocabulary/ai_enrichment.py) — tried only
+    # after GEMINI_MODEL's own retries are exhausted on a transient
+    # (503/429/5xx) failure. Empty by default: deliberately NOT a guessed
+    # model name — this codebase has no way to verify which model names
+    # a given production API key can actually reach, so an unverified
+    # default here would risk silently trading one failure mode (a real
+    # 503) for another (a fake 404 on a model that was never confirmed
+    # to exist for this key). Set it explicitly only once you've
+    # confirmed the model name works for GEMINI_API_KEY.
+    GEMINI_FALLBACK_MODEL: str = ""
+
     # Bulk vocabulary generator text enrichment (see
     # app/services/vocabulary/ai_enrichment.py) — word-type/article/
     # plural/translation/example sentence, reusing GEMINI_API_KEY.
