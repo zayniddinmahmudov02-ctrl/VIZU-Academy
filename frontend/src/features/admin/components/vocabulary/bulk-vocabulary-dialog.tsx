@@ -8,6 +8,7 @@ import FormDialog from "@/components/admin/form-dialog";
 import {
   analyzeVocabularyBulk,
   saveVocabularyBulk,
+  SessionExpiredError,
 } from "@/features/admin/services/vocabulary-service";
 import type {
   BulkVocabularySaveItem,
@@ -45,6 +46,7 @@ export default function BulkVocabularyDialog({ lessonId, open, onOpenChange, onS
   const [progress, setProgress] = useState<Progress | null>(null);
   const [rows, setRows] = useState<EditableRow[]>([]);
   const [analyzeError, setAnalyzeError] = useState<string | null>(null);
+  const [sessionExpired, setSessionExpired] = useState(false);
   const [saveResult, setSaveResult] = useState<BulkVocabularySaveResult | null>(null);
   const [controller, setController] = useState<AbortController | null>(null);
 
@@ -56,6 +58,7 @@ export default function BulkVocabularyDialog({ lessonId, open, onOpenChange, onS
     setProgress(null);
     setRows([]);
     setAnalyzeError(null);
+    setSessionExpired(false);
     setSaveResult(null);
     setController(null);
   }
@@ -70,6 +73,7 @@ export default function BulkVocabularyDialog({ lessonId, open, onOpenChange, onS
     if (words.every((w) => !w.trim())) return;
 
     setAnalyzeError(null);
+    setSessionExpired(false);
     setRows([]);
     setProgress(null);
     setPhase("analyzing");
@@ -108,6 +112,12 @@ export default function BulkVocabularyDialog({ lessonId, open, onOpenChange, onS
       setPhase((current) => (current === "analyzing" ? "preview" : current));
     } catch (err) {
       if (!abort.signal.aborted) {
+        // Never rendered as the same "Gemini overloaded" text — a
+        // distinct message and a reload action, since retrying this
+        // dialog alone can't fix an expired session.
+        if (err instanceof SessionExpiredError) {
+          setSessionExpired(true);
+        }
         setAnalyzeError(err instanceof Error ? err.message : "Analyse fehlgeschlagen.");
       }
       setPhase("input");
@@ -224,7 +234,16 @@ export default function BulkVocabularyDialog({ lessonId, open, onOpenChange, onS
               nacheinander für die ganze Lektion mit dem Mikrofon aufgenommen werden.
             </p>
 
-            {analyzeError && <p className="text-sm text-[var(--admin-danger)]">{analyzeError}</p>}
+            {analyzeError && (
+              <div className="space-y-2">
+                <p className="text-sm text-[var(--admin-danger)]">{analyzeError}</p>
+                {sessionExpired && (
+                  <AdminButton type="button" variant="secondary" size="sm" onClick={() => window.location.reload()}>
+                    Seite neu laden
+                  </AdminButton>
+                )}
+              </div>
+            )}
           </>
         )}
 
@@ -251,7 +270,16 @@ export default function BulkVocabularyDialog({ lessonId, open, onOpenChange, onS
 
         {(phase === "preview" || phase === "saving") && (
           <>
-            {analyzeError && <p className="text-sm text-[var(--admin-danger)]">{analyzeError}</p>}
+            {analyzeError && (
+              <div className="space-y-2">
+                <p className="text-sm text-[var(--admin-danger)]">{analyzeError}</p>
+                {sessionExpired && (
+                  <AdminButton type="button" variant="secondary" size="sm" onClick={() => window.location.reload()}>
+                    Seite neu laden
+                  </AdminButton>
+                )}
+              </div>
+            )}
             <label className="flex cursor-pointer items-center gap-2.5">
               <AdminCheckbox checked={publishImmediately} onCheckedChange={setPublishImmediately} />
               <span className="text-sm text-[var(--admin-text-secondary)]">Sofort veröffentlichen</span>

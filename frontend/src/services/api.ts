@@ -76,7 +76,7 @@ function redirectToLogin() {
 // refresh call instead of each racing to redeem the same refresh token.
 let refreshPromise: Promise<string | null> | null = null;
 
-async function refreshAccessToken(): Promise<string | null> {
+export async function refreshAccessToken(): Promise<string | null> {
   const refreshToken = getRefreshToken();
 
   if (!refreshToken) {
