@@ -1,8 +1,10 @@
+from uuid import UUID
+
 from fastapi import APIRouter, Depends, HTTPException
 
 from sqlalchemy.orm import Session
 
-from app.api.dependencies.auth import require_admin_panel_access
+from app.api.dependencies.auth import get_current_user, require_admin_panel_access
 from app.api.dependencies.progress import require_lesson_access
 from app.db.session import get_db
 
@@ -13,9 +15,11 @@ from app.schemas.quiz import (
     QuizCreate,
     QuizUpdate,
     QuizResponse,
+    QuizSubmitRequest,
+    QuizSubmitResponse,
 )
 
-from app.services.quiz import QuizService
+from app.services.quiz import QuizService, grade_and_submit
 
 router = APIRouter(
     prefix="/quizzes",
@@ -74,6 +78,26 @@ def get_one(
         )
 
     return quiz
+
+
+@router.post(
+    "/{quiz_id}/submit",
+    response_model=QuizSubmitResponse,
+)
+def submit_quiz(
+    quiz_id: str,
+    data: QuizSubmitRequest,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """The only way a student's answers are graded — server-side,
+    against questions/options freshly loaded from the DB, never
+    trusting anything the client claims about correctness (see
+    app/services/quiz/grading_service.py). Replaces the old
+    POST /student-quizzes flow, which let the client report any score
+    it liked; that endpoint's CRUD still exists for admin tooling but
+    the student player no longer calls it directly."""
+    return grade_and_submit(db, UUID(quiz_id), current_user, data.answers)
 
 
 @router.post(

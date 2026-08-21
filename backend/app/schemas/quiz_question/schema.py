@@ -36,3 +36,31 @@ class QuizQuestionResponse(QuizQuestionBase):
     model_config = ConfigDict(
         from_attributes=True,
     )
+
+
+class QuizQuestionPublicResponse(BaseSchema):
+    """Student/anonymous-facing shape — omits correct_text_answer
+    entirely (used by CLOZE_TEXT/SENTENCE_COMPLETION), same rationale
+    as QuizOptionPublicResponse.
+
+    match_value_pool is the MATCHING-question analogue: since each
+    option's own match_value is hidden (it directly pairs with
+    option_text — the answer key itself), a MATCHING question would
+    otherwise have no way to render its right-hand column of choices
+    at all. This is a fresh, server-shuffled list of just the values
+    (no option_id attached), rebuilt on every fetch — populated only
+    for question_type == MATCHING, null otherwise."""
+
+    id: UUID
+    quiz_id: UUID
+    question: str
+    question_type: str
+    explanation: str | None = None
+    points: int
+    order_index: int
+    is_published: bool
+    match_value_pool: list[str] | None = None
+
+    model_config = ConfigDict(
+        from_attributes=True,
+    )

@@ -30,3 +30,21 @@ class QuizOptionResponse(QuizOptionBase):
     model_config = ConfigDict(
         from_attributes=True,
     )
+
+
+class QuizOptionPublicResponse(BaseSchema):
+    """Student/anonymous-facing shape — deliberately a separate model,
+    not QuizOptionResponse with fields nulled out, so is_correct and
+    match_value are genuinely absent from the JSON rather than present
+    with a null value. Grading now happens server-side (see
+    app/services/quiz/grading_service.py); the correct answer is never
+    sent to the client before submission."""
+
+    id: UUID
+    question_id: UUID
+    option_text: str
+    order_index: int
+
+    model_config = ConfigDict(
+        from_attributes=True,
+    )

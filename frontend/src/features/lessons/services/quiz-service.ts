@@ -22,25 +22,30 @@ export type QuizQuestionType =
   | "ERROR_FINDING"
   | "MATCHING";
 
+// Student-facing shape — the backend deliberately omits correct_text_answer
+// (question) and is_correct/match_value (option) from these unauthenticated
+// reads. Grading happens server-side via submitQuizAttempt(); the correct
+// answer is never sent to the client before submission (see
+// app/services/quiz/grading_service.py).
 export interface LessonQuizQuestion {
   id: string;
   quiz_id: string;
   question: string;
   question_type: QuizQuestionType;
-  correct_text_answer: string | null;
   explanation: string | null;
   points: number;
   order_index: number;
   is_published: boolean;
+  // MATCHING only — a fresh, server-shuffled list of just the values (no
+  // option_id attached), since each option's own match_value is hidden.
+  match_value_pool: string[] | null;
 }
 
 export interface LessonQuizOption {
   id: string;
   question_id: string;
   option_text: string;
-  is_correct: boolean;
   order_index: number;
-  match_value: string | null;
 }
 
 // Public — no video/lesson-access gate of its own beyond what the lesson
@@ -68,19 +73,42 @@ export async function getQuizOptions(questionId: string): Promise<LessonQuizOpti
     .sort((a, b) => a.order_index - b.order_index);
 }
 
-export interface SubmitQuizResultPayload {
-  user_id: string;
-  quiz_id: string;
+// ============================================================
+// Server-side grading — POST /quizzes/{quizId}/submit
+// ============================================================
+
+export interface QuizAnswerSubmit {
+  question_id: string;
+  option_id?: string | null;
+  text_answer?: string | null;
+  ordered_option_ids?: string[] | null;
+  matches?: Record<string, string> | null;
+}
+
+export interface QuizAnswerResult {
+  question_id: string;
+  is_correct: boolean;
+  correct_option_id: string | null;
+  correct_text_answer: string | null;
+  correct_order_option_ids: string[] | null;
+  correct_matches: Record<string, string> | null;
+}
+
+export interface QuizSubmitResult {
+  score: number;
   correct_answers: number;
   wrong_answers: number;
   skipped_answers: number;
-  score: number;
   passed: boolean;
+  results: QuizAnswerResult[];
 }
 
-export async function submitQuizResult(payload: SubmitQuizResultPayload): Promise<void> {
-  await api(`/api/v1/student-quizzes`, {
+export async function submitQuizAttempt(
+  quizId: string,
+  answers: QuizAnswerSubmit[],
+): Promise<QuizSubmitResult> {
+  return api<QuizSubmitResult>(`/api/v1/quizzes/${quizId}/submit`, {
     method: "POST",
-    body: JSON.stringify(payload),
+    body: JSON.stringify({ answers }),
   });
 }

@@ -9,9 +9,11 @@ import {
   getLessonQuizzes,
   getQuizOptions,
   getQuizQuestions,
-  submitQuizResult,
+  submitQuizAttempt,
   type LessonQuizOption,
   type LessonQuizQuestion,
+  type QuizAnswerResult,
+  type QuizAnswerSubmit,
   type QuizType,
 } from "@/features/lessons/services/quiz-service";
 import { useTranslation } from "@/lib/i18n/use-translation";
@@ -35,26 +37,24 @@ function shuffle<T>(items: T[]): T[] {
   return arr;
 }
 
-function normalize(text: string): string {
-  return text.trim().toLowerCase();
-}
-
 const OPTION_BASED_TYPES = new Set(["MULTIPLE_CHOICE", "TRUE_FALSE", "ERROR_FINDING"]);
 
 /** Real quiz player, backed by the legacy Quiz/QuizQuestion/QuizOption
  * models (see app/models/quiz.py) — grammar quiz_type feeds 10 of the
  * lesson's 100 points (see LessonScoringService), lesson quiz_type is
- * shown separately and never added to that total. Scored client-side
- * and persisted via POST /student-quizzes, matching this legacy quiz
- * system's existing architecture (no dedicated server-side grading
- * endpoint exists for it, unlike the newer Assessment Engine).
+ * shown separately and never added to that total. Grading is server-
+ * side (POST /quizzes/{quizId}/submit, see
+ * app/services/quiz/grading_service.py) — the fetched questions/options
+ * never carry is_correct/correct_text_answer/match_value, so this
+ * component only ever learns what was correct from the submit
+ * response, after the student has committed their answers.
  *
  * Extended beyond plain multiple-choice per question_type: TRUE_FALSE/
- * ERROR_FINDING reuse the same options/is_correct mechanism as MC;
- * CLOZE_TEXT/SENTENCE_COMPLETION are free-text compared against
- * correct_text_answer; SENTENCE_ORDERING compares a click-built order
- * against each option's order_index; MATCHING pairs option_text with
- * match_value, each option row already carrying its own correct pair. */
+ * ERROR_FINDING reuse the same options mechanism as MC; CLOZE_TEXT/
+ * SENTENCE_COMPLETION are free-text; SENTENCE_ORDERING is a click-built
+ * order; MATCHING pairs option_text with a chosen value — all four are
+ * graded the same way server-side and revealed via the submit response's
+ * per-question `results`. */
 export default function QuizSection({ lessonId, quizType = "GRAMMAR" }: Props) {
   const { t } = useTranslation();
   const { user } = useCurrentUser();
@@ -70,6 +70,7 @@ export default function QuizSection({ lessonId, quizType = "GRAMMAR" }: Props) {
   const [result, setResult] = useState<{ correct: number; wrong: number; skipped: number; score: number } | null>(
     null,
   );
+  const [resultsByQuestion, setResultsByQuestion] = useState<Record<string, QuizAnswerResult>>({});
   const [submitting, setSubmitting] = useState(false);
 
   const { data: quizzes, isLoading: quizzesLoading } = useQuery({
@@ -101,11 +102,14 @@ export default function QuizSection({ lessonId, quizType = "GRAMMAR" }: Props) {
     return map;
   }, [questions]);
 
-  const shuffledMatchValues = useMemo(() => {
+  // Already server-shuffled per fetch (see QuizQuestionPublicResponse.
+  // match_value_pool) — no client-side shuffling needed or possible,
+  // since individual options no longer carry their own match_value.
+  const matchValuePools = useMemo(() => {
     const map: Record<string, string[]> = {};
     for (const q of questions ?? []) {
       if (q.question_type === "MATCHING") {
-        map[q.id] = shuffle(q.options.map((o) => o.match_value ?? ""));
+        map[q.id] = q.match_value_pool ?? [];
       }
     }
     return map;
@@ -160,26 +164,17 @@ export default function QuizSection({ lessonId, quizType = "GRAMMAR" }: Props) {
     return !!selectedOptions[question.id];
   }
 
-  function isQuestionCorrect(question: QuestionWithOptions): boolean {
+  function buildAnswer(question: QuestionWithOptions): QuizAnswerSubmit | null {
     switch (question.question_type) {
       case "CLOZE_TEXT":
       case "SENTENCE_COMPLETION":
-        return normalize(textAnswers[question.id] ?? "") === normalize(question.correct_text_answer ?? "");
-      case "SENTENCE_ORDERING": {
-        const correctOrder = [...question.options]
-          .sort((a, b) => a.order_index - b.order_index)
-          .map((o) => o.id);
-        const given = orderAnswers[question.id] ?? [];
-        return given.length === correctOrder.length && given.every((id, i) => id === correctOrder[i]);
-      }
-      case "MATCHING": {
-        const answered = matchAnswers[question.id] ?? {};
-        return question.options.every((o) => answered[o.id] === (o.match_value ?? ""));
-      }
-      default: {
-        const selectedId = selectedOptions[question.id];
-        return !!question.options.find((o) => o.id === selectedId)?.is_correct;
-      }
+        return { question_id: question.id, text_answer: textAnswers[question.id] };
+      case "SENTENCE_ORDERING":
+        return { question_id: question.id, ordered_option_ids: orderAnswers[question.id] };
+      case "MATCHING":
+        return { question_id: question.id, matches: matchAnswers[question.id] };
+      default:
+        return { question_id: question.id, option_id: selectedOptions[question.id] };
     }
   }
 
@@ -187,33 +182,20 @@ export default function QuizSection({ lessonId, quizType = "GRAMMAR" }: Props) {
     if (!questions || !quiz || !user) return;
     setSubmitting(true);
 
-    let correct = 0;
-    let wrong = 0;
-    let skipped = 0;
-
-    for (const question of questions) {
-      if (!isQuestionAnswered(question)) {
-        skipped += 1;
-        continue;
-      }
-      if (isQuestionCorrect(question)) correct += 1;
-      else wrong += 1;
-    }
-
-    const total = questions.length;
-    const score = total > 0 ? Math.round((correct / total) * 100) : 0;
+    const answers = questions
+      .filter((q) => isQuestionAnswered(q))
+      .map((q) => buildAnswer(q))
+      .filter((a): a is QuizAnswerSubmit => a !== null);
 
     try {
-      await submitQuizResult({
-        user_id: user.id,
-        quiz_id: quiz.id,
-        correct_answers: correct,
-        wrong_answers: wrong,
-        skipped_answers: skipped,
-        score,
-        passed: score >= quiz.passing_score,
+      const response = await submitQuizAttempt(quiz.id, answers);
+      setResultsByQuestion(Object.fromEntries(response.results.map((r) => [r.question_id, r])));
+      setResult({
+        correct: response.correct_answers,
+        wrong: response.wrong_answers,
+        skipped: response.skipped_answers,
+        score: response.score,
       });
-      setResult({ correct, wrong, skipped, score });
       setSubmitted(true);
       queryClient.invalidateQueries({ queryKey: ["section-gate", lessonId] });
     } finally {
@@ -243,8 +225,9 @@ export default function QuizSection({ lessonId, quizType = "GRAMMAR" }: Props) {
                 <div className="mt-4 space-y-2.5">
                   {question.options.map((option) => {
                     const isSelected = selectedOptions[question.id] === option.id;
-                    const showCorrect = submitted && option.is_correct;
-                    const showIncorrect = submitted && isSelected && !option.is_correct;
+                    const correctOptionId = resultsByQuestion[question.id]?.correct_option_id;
+                    const showCorrect = submitted && correctOptionId === option.id;
+                    const showIncorrect = submitted && isSelected && correctOptionId !== option.id;
 
                     return (
                       <button
@@ -283,9 +266,10 @@ export default function QuizSection({ lessonId, quizType = "GRAMMAR" }: Props) {
                   />
                   {submitted && (
                     <p
-                      className={`text-sm ${isQuestionCorrect(question) ? "text-success" : "text-danger"}`}
+                      className={`text-sm ${resultsByQuestion[question.id]?.is_correct ? "text-success" : "text-danger"}`}
                     >
-                      Richtige Antwort: <span className="font-semibold">{question.correct_text_answer}</span>
+                      Richtige Antwort:{" "}
+                      <span className="font-semibold">{resultsByQuestion[question.id]?.correct_text_answer}</span>
                     </p>
                   )}
                 </div>
@@ -330,7 +314,9 @@ export default function QuizSection({ lessonId, quizType = "GRAMMAR" }: Props) {
                     })}
                   </div>
                   {submitted && (
-                    <p className={`text-sm ${isQuestionCorrect(question) ? "text-success" : "text-danger"}`}>
+                    <p
+                      className={`text-sm ${resultsByQuestion[question.id]?.is_correct ? "text-success" : "text-danger"}`}
+                    >
                       Richtige Reihenfolge:{" "}
                       <span className="font-semibold">
                         {[...question.options]
@@ -349,7 +335,8 @@ export default function QuizSection({ lessonId, quizType = "GRAMMAR" }: Props) {
                     {question.options.map((option) => {
                       const isPending = matchPending[question.id] === option.id;
                       const pairedValue = matchAnswers[question.id]?.[option.id];
-                      const isCorrectPair = submitted && pairedValue === (option.match_value ?? "");
+                      const correctValue = resultsByQuestion[question.id]?.correct_matches?.[option.id];
+                      const isCorrectPair = submitted && !!pairedValue && pairedValue === correctValue;
                       const isWrongPair = submitted && !!pairedValue && !isCorrectPair;
                       return (
                         <button
@@ -374,7 +361,7 @@ export default function QuizSection({ lessonId, quizType = "GRAMMAR" }: Props) {
                     })}
                   </div>
                   <div className="space-y-2">
-                    {shuffledMatchValues[question.id]?.map((value) => {
+                    {matchValuePools[question.id]?.map((value) => {
                       const usedBy = Object.entries(matchAnswers[question.id] ?? {}).find(
                         ([, v]) => v === value,
                       );

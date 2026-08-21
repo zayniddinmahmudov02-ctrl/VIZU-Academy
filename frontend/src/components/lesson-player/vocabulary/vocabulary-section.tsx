@@ -86,8 +86,8 @@ export default function VocabularySection({ lessonId }: Props) {
   // lesson — every other level never has a VOCABULARY-type quiz at all
   // (see test_sync_service.py's level gate), so this check alone is a
   // complete, self-contained A1/B1+ router with no level plumbing needed.
-  if (!vocabQuizLoading && !vocabQuestionsLoading && vocabQuestions && vocabQuestions.length > 0) {
-    return <VocabularyTestSection lessonId={lessonId} questions={vocabQuestions} />;
+  if (!vocabQuizLoading && !vocabQuestionsLoading && vocabQuiz && vocabQuestions && vocabQuestions.length > 0) {
+    return <VocabularyTestSection lessonId={lessonId} quizId={vocabQuiz.id} questions={vocabQuestions} />;
   }
 
   return (

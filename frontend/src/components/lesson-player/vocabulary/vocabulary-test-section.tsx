@@ -5,7 +5,11 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ArrowLeft, ArrowRight, Library } from "lucide-react";
 
 import { completeLessonVocabulary } from "@/features/lessons/services/vocabulary-service";
-import type { LessonQuizOption, LessonQuizQuestion } from "@/features/lessons/services/quiz-service";
+import {
+  submitQuizAttempt,
+  type LessonQuizOption,
+  type LessonQuizQuestion,
+} from "@/features/lessons/services/quiz-service";
 import LessonSection from "../common/lesson-section";
 
 interface QuestionWithOptions extends LessonQuizQuestion {
@@ -14,6 +18,7 @@ interface QuestionWithOptions extends LessonQuizQuestion {
 
 interface Props {
   lessonId: string;
+  quizId: string;
   questions: QuestionWithOptions[];
 }
 
@@ -30,16 +35,20 @@ const OPTION_LETTERS = ["A", "B"];
  * fewer words) 2-option Wortschatz test — content comes from
  * Quiz/QuizQuestion/QuizOption rows the backend keeps in sync with this
  * lesson's Vocabulary (see app/services/vocabulary/test_sync_service.py).
- * Scoring bypasses the legacy quiz system entirely: the percentage is
- * sent straight to the same completeLessonVocabulary() call the B1+
- * exercise generator already uses, feeding
- * StudentProgress.vocabulary_score and, through it, the existing
- * 100-point LessonScoringService — nothing new on the scoring side. */
-export default function VocabularyTestSection({ lessonId, questions }: Props) {
+ * Grading is server-side (POST /quizzes/{quizId}/submit, see
+ * app/services/quiz/grading_service.py) — fetched options never carry
+ * is_correct, so this component only learns the score from that
+ * response. That score is then sent straight to the same
+ * completeLessonVocabulary() call the B1+ exercise generator already
+ * uses, feeding StudentProgress.vocabulary_score and, through it, the
+ * existing 100-point LessonScoringService — nothing new on that side. */
+export default function VocabularyTestSection({ lessonId, quizId, questions }: Props) {
   const queryClient = useQueryClient();
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [finished, setFinished] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitResult, setSubmitResult] = useState<{ score: number; correct: number; total: number } | null>(null);
 
   const sorted = useMemo(
     () => [...questions].sort((a, b) => a.order_index - b.order_index),
@@ -66,23 +75,28 @@ export default function VocabularyTestSection({ lessonId, questions }: Props) {
     setIndex((i) => Math.max(0, i - 1));
   }
 
-  function goNext() {
-    if (isLast) {
-      let correct = 0;
-      for (const q of sorted) {
-        const selected = q.options.find((o) => o.id === answers[q.id]);
-        if (selected?.is_correct) correct += 1;
-      }
-      const percentage = total > 0 ? Math.round((correct / total) * 100) : 0;
-      setFinished(true);
-      completeMutation.mutate(percentage);
+  async function goNext() {
+    if (!isLast) {
+      setIndex((i) => Math.min(total - 1, i + 1));
       return;
     }
-    setIndex((i) => Math.min(total - 1, i + 1));
+
+    setSubmitting(true);
+    try {
+      const response = await submitQuizAttempt(
+        quizId,
+        sorted.map((q) => ({ question_id: q.id, option_id: answers[q.id] })),
+      );
+      setSubmitResult({ score: response.score, correct: response.correct_answers, total });
+      setFinished(true);
+      await completeMutation.mutateAsync(response.score);
+    } finally {
+      setSubmitting(false);
+    }
   }
 
-  const correctCount = sorted.filter((q) => q.options.find((o) => o.id === answers[q.id])?.is_correct).length;
-  const percentage = total > 0 ? Math.round((correctCount / total) * 100) : 0;
+  const percentage = submitResult?.score ?? 0;
+  const correctCount = submitResult?.correct ?? 0;
   const points = Math.round((percentage / 100) * 10 * 10) / 10;
 
   return (
@@ -145,10 +159,10 @@ export default function VocabularyTestSection({ lessonId, questions }: Props) {
             <button
               type="button"
               onClick={goNext}
-              disabled={!currentAnswer || completeMutation.isPending}
+              disabled={!currentAnswer || submitting}
               className="inline-flex items-center gap-1.5 rounded-button bg-gradient-to-r from-accent-blue-hover to-accent-blue px-4 py-2.5 text-sm font-semibold text-white shadow-md shadow-accent-blue/25 transition enabled:hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {isLast ? "Test abschließen" : "Weiter"}
+              {isLast ? (submitting ? "Wird ausgewertet..." : "Test abschließen") : "Weiter"}
               {!isLast && <ArrowRight size={14} />}
             </button>
           </div>
