@@ -108,7 +108,28 @@ class VocabularyBulkService:
             try:
                 enriched = await ai_enrichment.enrich_words(raw_words, level)
             except ai_enrichment.AIServiceError as exc:
-                yield {"type": "error", "message": str(exc)}
+                # Never forward str(exc) to the client -- it embeds Gemini's
+                # raw error response body. Log it server-side, surface a
+                # clean, human-readable message instead.
+                print(f"[bulk vocabulary] Gemini enrichment failed: {exc}")
+                if exc.transient:
+                    yield {
+                        "type": "error",
+                        "code": "GEMINI_UNAVAILABLE",
+                        "message": (
+                            "Gemini ist momentan stark ausgelastet. Dieser Abschnitt wurde "
+                            "übersprungen und kann später erneut generiert werden."
+                        ),
+                    }
+                else:
+                    yield {
+                        "type": "error",
+                        "code": "GEMINI_ERROR",
+                        "message": (
+                            "Die automatische Vervollständigung ist fehlgeschlagen. Bitte versuche es "
+                            "erneut oder deaktiviere „Automatisch vervollständigen“."
+                        ),
+                    }
                 return
 
             for e in enriched:

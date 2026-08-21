@@ -181,9 +181,9 @@ export default function BulkVocabularyDialog({ lessonId, open, onOpenChange, onS
             </AdminButton>
           )}
 
-          {phase === "preview" && (
-            <AdminButton onClick={handleSaveAll} disabled={rows.length === 0}>
-              Alle speichern
+          {(phase === "preview" || phase === "saving") && (
+            <AdminButton onClick={handleSaveAll} disabled={rows.length === 0 || phase === "saving"}>
+              {phase === "saving" ? "Wird gespeichert..." : "Alle speichern"}
             </AdminButton>
           )}
         </>

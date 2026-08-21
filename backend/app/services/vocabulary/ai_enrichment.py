@@ -22,12 +22,19 @@ can surface it instead of a bare 500.
 import asyncio
 import json
 import re
+import time
 import urllib.error
 import urllib.request
 
 from app.core.config import settings
 
 GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
+
+# Bounded exponential backoff for transient upstream failures (503/
+# UNAVAILABLE, 429/rate-limited) only -- 4 total attempts (1 initial +
+# 3 retries). Permanent errors (auth, bad request, config) are never
+# retried; they raise on the first attempt.
+RETRY_DELAYS_SECONDS = [2, 5, 10]
 
 VALID_WORD_TYPES = {
     "NOMEN",
@@ -43,7 +50,9 @@ VALID_WORD_TYPES = {
 
 
 class AIServiceError(Exception):
-    pass
+    def __init__(self, message: str, transient: bool = False):
+        super().__init__(message)
+        self.transient = transient
 
 
 def _require_api_key() -> str:
@@ -70,19 +79,38 @@ def _call_gemini(parts: list[dict]) -> str:
         method="POST",
     )
 
-    try:
-        with urllib.request.urlopen(request, timeout=90) as response:
-            body = json.loads(response.read().decode("utf-8"))
-    except urllib.error.HTTPError as exc:
-        detail = exc.read().decode("utf-8", errors="ignore")
-        raise AIServiceError(f"Gemini API error ({exc.code}): {detail}") from exc
-    except urllib.error.URLError as exc:
-        raise AIServiceError(f"Could not reach Gemini API: {exc.reason}") from exc
+    body = _post_with_retry(request)
 
     try:
         return body["candidates"][0]["content"]["parts"][0]["text"]
     except (KeyError, IndexError) as exc:
         raise AIServiceError(f"Unexpected Gemini response shape: {body}") from exc
+
+
+def _post_with_retry(request: urllib.request.Request) -> dict:
+    """Retries only 503 (UNAVAILABLE) and 429 (rate-limited) — genuinely
+    transient upstream conditions. Everything else (401/403 auth, 400
+    validation, missing config) raises immediately on the first
+    attempt."""
+    delays = [0] + RETRY_DELAYS_SECONDS
+    for attempt, delay in enumerate(delays):
+        if delay:
+            time.sleep(delay)
+
+        try:
+            with urllib.request.urlopen(request, timeout=90) as response:
+                return json.loads(response.read().decode("utf-8"))
+        except urllib.error.HTTPError as exc:
+            detail = exc.read().decode("utf-8", errors="ignore")
+            is_transient = exc.code in (503, 429)
+            is_last_attempt = attempt == len(delays) - 1
+            if not is_transient or is_last_attempt:
+                raise AIServiceError(f"Gemini API error ({exc.code}): {detail}", transient=is_transient) from exc
+        except urllib.error.URLError as exc:
+            if attempt == len(delays) - 1:
+                raise AIServiceError(f"Could not reach Gemini API: {exc.reason}", transient=True) from exc
+
+    raise AIServiceError("Gemini request failed after retries.", transient=True)
 
 
 def _extract_json_array(text: str) -> list:

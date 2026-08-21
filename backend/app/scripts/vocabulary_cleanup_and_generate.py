@@ -372,6 +372,15 @@ async def cmd_generate(db: Session, levels: list[str]) -> None:
     rows = _load_all_with_level(db)
     exclusion = {normalize_word(vocab.german_word) for vocab, _level, _lesson in rows}
 
+    # Whole-run tallies (across every level processed) for the final
+    # compact summary -- distinct from the per-level counters below.
+    # A lesson landing in FAILED never blocks the next lesson (or the
+    # next level) from being processed; nothing about a failure ever
+    # deletes existing vocabulary -- this loop only ever inserts.
+    run_success: list[str] = []
+    run_failed: list[tuple[str, str]] = []
+    run_skipped: list[str] = []
+
     for level in levels:
         lessons = (
             db.query(Lesson)
@@ -405,6 +414,8 @@ async def cmd_generate(db: Session, levels: list[str]) -> None:
                 f"{g.title}: {g.content}"[:500] for g in grammar_rows
             )
 
+            lesson_label = f"{level} #{lesson.number} \"{lesson.title}\""
+
             words, skipped, succeeded = await _generate_words_for_lesson(
                 level, lesson.title, grammar_context, existing_words, exclusion
             )
@@ -412,10 +423,12 @@ async def cmd_generate(db: Session, levels: list[str]) -> None:
 
             if not succeeded:
                 level_failures.append(f"{lesson.title} (#{lesson.number})")
+                run_failed.append((lesson_label, "Gemini call did not succeed after retries (see log above)"))
                 print(f'  "{lesson.title}" (#{lesson.number}): FAILED -- Gemini call did not succeed.')
                 continue
 
             if not words:
+                run_skipped.append(lesson_label)
                 print(f'  "{lesson.title}" (#{lesson.number}): 0 new words needed (genuinely covered already).')
                 continue
 
@@ -441,6 +454,7 @@ async def cmd_generate(db: Session, levels: list[str]) -> None:
 
             db.commit()
             level_generated += len(words)
+            run_success.append(lesson_label)
             print(
                 f'  "{lesson.title}" (#{lesson.number}): {len(existing_words)} existing -> '
                 f"{len(words)} new (total {len(existing_words) + len(words)}), "
@@ -472,6 +486,17 @@ async def cmd_generate(db: Session, levels: list[str]) -> None:
 
     remaining = _build_duplicate_groups(_load_all_with_level(db))
     print(f"DUPLICATES AFTER GENERATION = {len(remaining)}")
+
+    print()
+    print("=== GENERATION SUMMARY ===")
+    print(f"SUCCESS: {len(run_success)} lessons")
+    print(f"FAILED: {len(run_failed)} lessons")
+    print(f"SKIPPED: {len(run_skipped)} lessons")
+    if run_failed:
+        print()
+        print("Failed lessons:")
+        for label, reason in run_failed:
+            print(f"  - {label}: {reason}")
 
 
 # ============================================================

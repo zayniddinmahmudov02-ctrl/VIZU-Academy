@@ -185,7 +185,7 @@ export interface BulkVocabularyPreviewItem {
 export type BulkVocabularyStreamEvent =
   | { type: "progress"; phase: "text"; processed: number; total: number }
   | ({ type: "item" } & BulkVocabularyPreviewItem)
-  | { type: "error"; message: string }
+  | { type: "error"; code?: "GEMINI_UNAVAILABLE" | "GEMINI_ERROR"; message: string }
   | { type: "done" };
 
 export interface BulkVocabularySaveItem {
