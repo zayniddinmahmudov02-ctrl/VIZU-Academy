@@ -271,6 +271,7 @@ export const translations: Record<string, Namespace> = {
     sectionGrammar: { de: "Grammatik", uz: "Grammatika" },
     sectionGrammarQuiz: { de: "Grammatik Quiz", uz: "Grammatika testi" },
     sectionVocabulary: { de: "Wortschatz", uz: "Lug'at" },
+    sectionVocabularyQuiz: { de: "Wortschatz Quiz", uz: "Lug'at testi" },
     sectionReading: { de: "Lesen", uz: "O'qish" },
     sectionListening: { de: "Hören", uz: "Tinglash" },
     sectionWriting: { de: "Schreiben", uz: "Yozish" },

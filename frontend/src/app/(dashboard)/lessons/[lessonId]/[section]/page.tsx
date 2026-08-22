@@ -10,6 +10,7 @@ import ResultSection from "@/components/lesson-player/results/result-section";
 import SpeakingSection from "@/components/lesson-player/speaking/speaking-section";
 import VideoSection from "@/components/lesson-player/video/video-section";
 import VocabularySection from "@/components/lesson-player/vocabulary/vocabulary-section";
+import VocabularyQuizSection from "@/components/lesson-player/vocabulary/vocabulary-quiz-section";
 import WritingSection from "@/components/lesson-player/writing/writing-section";
 import { getSectionBySlug, type LessonSectionMeta } from "@/constants/lesson-sections";
 
@@ -20,6 +21,7 @@ interface SectionComponentProps {
 const SECTION_COMPONENTS: Record<LessonSectionMeta["type"], ComponentType<SectionComponentProps>> = {
   video: VideoSection,
   vocabulary: VocabularySection,
+  "vocabulary-quiz": VocabularyQuizSection,
   "grammar-quiz": (props) => <QuizSection {...props} quizType="GRAMMAR" />,
   reading: ReadingSection,
   listening: ListeningSection,

@@ -17,8 +17,9 @@ from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
 from app.models.lesson import Lesson
-from app.models.quiz import Quiz
+from app.models.quiz import QUIZ_TYPE_VOCABULARY, Quiz
 from app.models.quiz_question import QuizQuestion
+from app.models.student_progress import StudentProgress
 from app.models.user import User
 
 from app.schemas.quiz import (
@@ -99,6 +100,19 @@ def grade_and_submit(
     lesson = db.get(Lesson, quiz.lesson_id)
     if lesson is None or not can_access_lesson(user, lesson):
         raise HTTPException(status_code=403, detail="PREMIUM_REQUIRED")
+
+    if quiz.quiz_type == QUIZ_TYPE_VOCABULARY:
+        # Narrow, quiz-local gate (not a revival of the old sequential
+        # section lock): the Wortschatz Quiz requires its own vocabulary
+        # learning step to be done first, enforced server-side so it
+        # can't be bypassed via a direct API call.
+        progress = (
+            db.query(StudentProgress)
+            .filter(StudentProgress.user_id == str(user.id), StudentProgress.lesson_id == str(lesson.id))
+            .first()
+        )
+        if not (progress and progress.vocabulary_completed):
+            raise HTTPException(status_code=403, detail="VOCABULARY_NOT_COMPLETED")
 
     questions = (
         db.query(QuizQuestion)

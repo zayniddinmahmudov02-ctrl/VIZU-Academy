@@ -15,6 +15,7 @@ import ReadingManager from "@/features/admin/components/managers/reading-manager
 import SpeakingManager from "@/features/admin/components/managers/speaking-manager";
 import VideoManager from "@/features/admin/components/managers/video-manager";
 import VocabularyManager from "@/features/admin/components/managers/vocabulary-manager";
+import VocabularyQuizManager from "@/features/admin/components/managers/vocabulary-quiz-manager";
 import WritingManager from "@/features/admin/components/managers/writing-manager";
 import { getLesson } from "@/features/admin/services/lessons-service";
 
@@ -47,22 +48,31 @@ export default function LessonEditorPage() {
         </p>
       </div>
 
-      {/* Fixed content order matching the 7-step student flow (Video ->
-          Wortschatz -> Grammatik Quiz -> Lesen -> Hören -> Schreiben ->
-          Sprechen), plus Lesson Quiz as a separate diagnostic — never
-          reordered based on which sections happen to have content yet.
-          The "Grammatik" tab manages the Grammar model directly after
-          Video for authoring convenience; it's admin-only content
-          management, not a step in the student-facing lesson flow (see
-          lessonSections in constants/lesson-sections.ts). Homework and
-          the legacy per-skill managers (pre-Assessment-Engine) are kept
-          for existing content but placed after the required order rather
-          than interleaved with it. */}
+      {/* Fixed content order matching the student flow (Video ->
+          Wortschatz -> Wortschatz Quiz -> Grammatik Quiz -> Lesen -> Hören
+          -> Schreiben -> Sprechen), plus Lesson Quiz as a separate
+          diagnostic — never reordered based on which sections happen to
+          have content yet. "Wortschatz Quiz" is vocabulary-management-
+          only in Wortschatz's own tab; it just reviews the auto-generated
+          quiz questions (see vocabulary-quiz-manager.tsx) — A1 only, no
+          create/delete UI, since the backend keeps it in sync with
+          published vocabulary. The "Grammatik" tab manages the Grammar
+          model directly after Video for authoring convenience; it's
+          admin-only content management, not a step in the student-facing
+          lesson flow (see lessonSections in constants/lesson-sections.ts).
+          Homework and the legacy per-skill managers (pre-Assessment-
+          Engine) are kept for existing content but placed after the
+          required order rather than interleaved with it. */}
       <AdminTabs
         defaultValue="video"
         tabs={[
           { value: "video", label: "Video", content: <VideoManager lessonId={lessonId} /> },
           { value: "vocabulary", label: "Wortschatz", content: <VocabularyManager lessonId={lessonId} /> },
+          {
+            value: "vocabulary-quiz",
+            label: "Wortschatz Quiz",
+            content: <VocabularyQuizManager lessonId={lessonId} />,
+          },
           { value: "grammar", label: "Grammatik", content: <GrammarManager lessonId={lessonId} /> },
           {
             value: "grammar-quiz",

@@ -44,6 +44,7 @@ from app.models.writing_submission import STATUS_DRAFT, WritingSubmission
 SECTION_ORDER = [
     "video",
     "wortschatz",
+    "wortschatz_quiz",
     "grammatik",
     "grammatik_quiz",
     "lesen",
@@ -152,6 +153,9 @@ class SectionGateService:
 
         video_done = bool(progress and progress.video_completed)
         wortschatz_done = bool(progress and progress.vocabulary_completed)
+        # Derived, not a new column: the Wortschatz Quiz is the only writer
+        # of vocabulary_score, so a non-null score means the quiz was taken.
+        wortschatz_quiz_done = bool(progress and progress.vocabulary_score is not None)
         grammatik_done = bool(progress and progress.grammar_completed)
         grammatik_quiz_done = self._quiz_submitted(user_id, lesson_id, QUIZ_TYPE_GRAMMAR)
 
@@ -166,6 +170,7 @@ class SectionGateService:
         completed = {
             "video": video_done,
             "wortschatz": wortschatz_done,
+            "wortschatz_quiz": wortschatz_quiz_done,
             "grammatik": grammatik_done,
             "grammatik_quiz": grammatik_quiz_done,
             "lesen": lesen_done,

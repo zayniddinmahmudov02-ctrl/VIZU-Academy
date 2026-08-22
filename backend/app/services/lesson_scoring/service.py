@@ -34,7 +34,7 @@ from app.models.assessment_section import (
     SKILL_SPRECHEN,
     AssessmentSection,
 )
-from app.models.quiz import QUIZ_TYPE_GRAMMAR, QUIZ_TYPE_LESSON, Quiz
+from app.models.quiz import QUIZ_TYPE_GRAMMAR, QUIZ_TYPE_LESSON, QUIZ_TYPE_VOCABULARY, Quiz
 from app.models.section_result import SectionResult
 from app.models.student_progress import StudentProgress
 from app.models.student_quiz import StudentQuiz
@@ -157,9 +157,22 @@ class LessonScoringService:
 
         video_points = MAX_VIDEO if (progress and progress.video_completed) else 0
 
+        has_vocab_quiz = (
+            self.db.query(Quiz)
+            .filter(Quiz.lesson_id == str(lesson_id), Quiz.quiz_type == QUIZ_TYPE_VOCABULARY)
+            .first()
+            is not None
+        )
+
         if progress and progress.vocabulary_score is not None:
             wortschatz_points = round(max(0, min(100, progress.vocabulary_score)) * MAX_WORTSCHATZ / 100)
-        elif progress and progress.vocabulary_completed:
+        elif progress and progress.vocabulary_completed and not has_vocab_quiz:
+            # Only lessons with no separate Wortschatz Quiz (B1-C1, where
+            # completing the exercises IS the whole Wortschatz component)
+            # get full credit from vocabulary_completed alone. For A1
+            # lessons with a Quiz, vocabulary_completed only means the
+            # learning step is done — no credit until vocabulary_score
+            # exists (see vocabulary-learn-section.tsx / test-section.tsx).
             wortschatz_points = MAX_WORTSCHATZ
         else:
             wortschatz_points = 0

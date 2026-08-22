@@ -4,6 +4,7 @@ import {
   Headphones,
   HelpCircle,
   Library,
+  ListChecks,
   Mic,
   PenLine,
   PlayCircle,
@@ -16,6 +17,7 @@ import type { SectionGateKey } from "@/features/lessons/services/section-gate-se
 export type LessonSectionType =
   | "video"
   | "vocabulary"
+  | "vocabulary-quiz"
   | "grammar-quiz"
   | "reading"
   | "listening"
@@ -48,9 +50,16 @@ export interface LessonSectionMeta {
 // step to route to, only a labeled distinction in the admin content-
 // status view. homework has no fixed point in the required 100-point
 // order, so it's kept at the end rather than dropped.
+//
+// "wortschatz-quiz" (A1 only — see vocabulary-quiz-section.tsx, which
+// self-detects and shows "nicht verfügbar" for B1-C1) does NOT add its
+// own points to the 100-point total: it's how A1 students earn the
+// existing 10 Wortschatz points (StudentProgress.vocabulary_score), same
+// budget "wortschatz" already accounts for above.
 export const lessonSections: LessonSectionMeta[] = [
   { slug: "video", type: "video", icon: PlayCircle, emoji: "▶️", titleKey: "lessons.sectionVideo" },
   { slug: "wortschatz", type: "vocabulary", icon: Library, emoji: "📖", titleKey: "lessons.sectionVocabulary" },
+  { slug: "wortschatz-quiz", type: "vocabulary-quiz", icon: ListChecks, emoji: "📝", titleKey: "lessons.sectionVocabularyQuiz" },
   { slug: "grammatik-quiz", type: "grammar-quiz", icon: HelpCircle, emoji: "❓", titleKey: "lessons.sectionGrammarQuiz" },
   { slug: "lesen", type: "reading", icon: FileText, emoji: "📄", titleKey: "lessons.sectionReading" },
   { slug: "hoeren", type: "listening", icon: Headphones, emoji: "🎧", titleKey: "lessons.sectionListening" },
@@ -79,6 +88,7 @@ export function getSectionIndex(slug: string): number {
 export const SECTION_GATE_KEYS: Record<LessonSectionType, SectionGateKey | null> = {
   video: null,
   vocabulary: "wortschatz",
+  "vocabulary-quiz": "wortschatz_quiz",
   "grammar-quiz": "grammatik_quiz",
   reading: "lesen",
   listening: "hoeren",

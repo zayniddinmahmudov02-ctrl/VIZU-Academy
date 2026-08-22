@@ -5,6 +5,7 @@ import type { SectionGateState } from "@/features/lessons/services/section-gate-
 const LABELS: Record<keyof SectionGateState, string> = {
   video: "Video",
   wortschatz: "Wortschatz",
+  wortschatz_quiz: "Wortschatz Quiz",
   grammatik: "Grammatik",
   grammatik_quiz: "Grammatik Quiz",
   lesen: "Lesen",
@@ -20,9 +21,16 @@ const LABELS: Record<keyof SectionGateState, string> = {
 // returns a "grammatik" entry in SectionGateState (kept for other
 // internal consumers), so it stays in LABELS above for type-correctness,
 // it's just never rendered here.
+//
+// "wortschatz_quiz" is A1-only (see vocabulary-quiz-section.tsx) but this
+// list has no level awareness, same as lessonSections' nav pill bar — a
+// B1-C1 student sees it perpetually "Offen" rather than it being hidden,
+// the same accepted trade-off made there, since A1 students genuinely
+// need it tracked as its own step.
 const ORDER: (keyof SectionGateState)[] = [
   "video",
   "wortschatz",
+  "wortschatz_quiz",
   "grammatik_quiz",
   "lesen",
   "hoeren",

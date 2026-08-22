@@ -8,6 +8,7 @@ export interface SectionGateEntry {
 export type SectionGateKey =
   | "video"
   | "wortschatz"
+  | "wortschatz_quiz"
   | "grammatik"
   | "grammatik_quiz"
   | "lesen"
@@ -18,7 +19,7 @@ export type SectionGateKey =
 
 export type SectionGateState = Record<SectionGateKey, SectionGateEntry>;
 
-// This student's own completion state for each of a lesson's 9 sections
+// This student's own completion state for each of a lesson's sections
 // — used for progress checkmarks (nav, results, admin per-student view).
 // `unlocked` is always true (sections are independently accessible in
 // any order); kept in the shape for API/frontend compatibility.

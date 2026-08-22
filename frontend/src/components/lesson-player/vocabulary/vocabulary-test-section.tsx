@@ -31,17 +31,19 @@ function feedbackFor(percentage: number): string {
 
 const OPTION_LETTERS = ["A", "B"];
 
-/** The A1-only, auto-generated 20-question (or fewer, if the lesson has
- * fewer words) 2-option Wortschatz test — content comes from
- * Quiz/QuizQuestion/QuizOption rows the backend keeps in sync with this
- * lesson's Vocabulary (see app/services/vocabulary/test_sync_service.py).
- * Grading is server-side (POST /quizzes/{quizId}/submit, see
- * app/services/quiz/grading_service.py) — fetched options never carry
- * is_correct, so this component only learns the score from that
- * response. That score is then sent straight to the same
- * completeLessonVocabulary() call the B1+ exercise generator already
- * uses, feeding StudentProgress.vocabulary_score and, through it, the
- * existing 100-point LessonScoringService — nothing new on that side. */
+/** The A1-only, auto-generated Wortschatz Quiz — one 2-option question per
+ * vocabulary word (content-driven count, never hardcoded), rendered by the
+ * separate "wortschatz-quiz" section (see vocabulary-quiz-section.tsx,
+ * which also enforces that the Wortschatz learning step is done first).
+ * Content comes from Quiz/QuizQuestion/QuizOption rows the backend keeps
+ * in sync with this lesson's Vocabulary (see
+ * app/services/vocabulary/test_sync_service.py). Grading is server-side
+ * (POST /quizzes/{quizId}/submit, see app/services/quiz/grading_service.py)
+ * — fetched options never carry is_correct, so this component only learns
+ * the score from that response. That score is then sent to
+ * completeLessonVocabulary(lessonId, score) — same call the B1+ exercise
+ * generator uses — feeding StudentProgress.vocabulary_score and, through
+ * it, the existing 100-point LessonScoringService. */
 export default function VocabularyTestSection({ lessonId, quizId, questions }: Props) {
   const queryClient = useQueryClient();
   const [index, setIndex] = useState(0);
@@ -101,7 +103,7 @@ export default function VocabularyTestSection({ lessonId, quizId, questions }: P
 
   return (
     <LessonSection
-      title="Wortschatz Test"
+      title="Wortschatz Quiz"
       description={finished ? "Ergebnis" : `Frage ${index + 1} von ${total}`}
       icon={Library}
     >

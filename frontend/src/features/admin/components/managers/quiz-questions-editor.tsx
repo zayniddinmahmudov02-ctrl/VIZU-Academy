@@ -32,7 +32,18 @@ const OPTION_BASED_TYPES: QuizQuestionType[] = [
   "MATCHING",
 ];
 
-export default function QuizQuestionsEditor({ quizId }: { quizId: string }) {
+interface Props {
+  quizId: string;
+  /** Hides the "Neue Frage..." add-bar — off for quiz types the admin
+   * never manually authors questions for (e.g. VOCABULARY, auto-synced
+   * from published vocabulary — see vocabulary-quiz-manager.tsx). */
+  allowManualAdd?: boolean;
+  /** Hides the "Mit KI erstellen" button (hardcoded to the GRAMMAR quiz
+   * generator) — off for the same non-manually-authored quiz types. */
+  allowAiGenerate?: boolean;
+}
+
+export default function QuizQuestionsEditor({ quizId, allowManualAdd = true, allowAiGenerate = true }: Props) {
   const { data: all, isLoading } = useCrudList("quiz-questions", quizQuestionsApi);
   const { create, update, remove } = useCrudMutations("quiz-questions", quizQuestionsApi, [
     ["quiz-questions-with-options"],
@@ -87,48 +98,52 @@ export default function QuizQuestionsEditor({ quizId }: { quizId: string }) {
 
   return (
     <div className="space-y-3">
-      <div className="flex justify-end">
-        <AdminButton type="button" variant="secondary" size="sm" onClick={() => setAiDialogOpen(true)}>
-          <Sparkles size={13} />
-          Mit KI erstellen
-        </AdminButton>
-      </div>
+      {allowAiGenerate && (
+        <div className="flex justify-end">
+          <AdminButton type="button" variant="secondary" size="sm" onClick={() => setAiDialogOpen(true)}>
+            <Sparkles size={13} />
+            Mit KI erstellen
+          </AdminButton>
+        </div>
+      )}
 
-      <AiGenerateDialog<AIGrammarQuizPreview>
-        open={aiDialogOpen}
-        onOpenChange={setAiDialogOpen}
-        title="Grammatik Quiz mit KI erstellen"
-        hasCount
-        generate={generateGrammarQuizPreview}
-        onApply={applyAiPreview}
-        renderPreview={(preview) => (
-          <div className="space-y-2">
-            {preview.questions.map((q, i) => (
-              <div key={i} className="rounded-lg bg-white/[0.03] p-3 text-xs text-[var(--admin-text-secondary)]">
-                <p className="font-semibold text-[var(--admin-text-primary)]">
-                  {i + 1}. {q.question}{" "}
-                  <span className="font-normal text-[var(--admin-text-muted)]">({q.question_type})</span>
-                </p>
-                {q.options.length > 0 ? (
-                  <ul className="mt-1 space-y-0.5">
-                    {q.options.map((o, oi) => (
-                      <li key={oi} className={o.is_correct ? "text-[var(--admin-accent)]" : undefined}>
-                        {o.option_text}
-                        {o.match_value ? ` → ${o.match_value}` : ""}
-                        {o.is_correct ? " ✓" : ""}
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p className="mt-1">
-                    Antwort: <span className="text-[var(--admin-accent)]">{q.correct_text_answer}</span>
+      {allowAiGenerate && (
+        <AiGenerateDialog<AIGrammarQuizPreview>
+          open={aiDialogOpen}
+          onOpenChange={setAiDialogOpen}
+          title="Grammatik Quiz mit KI erstellen"
+          hasCount
+          generate={generateGrammarQuizPreview}
+          onApply={applyAiPreview}
+          renderPreview={(preview) => (
+            <div className="space-y-2">
+              {preview.questions.map((q, i) => (
+                <div key={i} className="rounded-lg bg-white/[0.03] p-3 text-xs text-[var(--admin-text-secondary)]">
+                  <p className="font-semibold text-[var(--admin-text-primary)]">
+                    {i + 1}. {q.question}{" "}
+                    <span className="font-normal text-[var(--admin-text-muted)]">({q.question_type})</span>
                   </p>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
-      />
+                  {q.options.length > 0 ? (
+                    <ul className="mt-1 space-y-0.5">
+                      {q.options.map((o, oi) => (
+                        <li key={oi} className={o.is_correct ? "text-[var(--admin-accent)]" : undefined}>
+                          {o.option_text}
+                          {o.match_value ? ` → ${o.match_value}` : ""}
+                          {o.is_correct ? " ✓" : ""}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="mt-1">
+                      Antwort: <span className="text-[var(--admin-accent)]">{q.correct_text_answer}</span>
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        />
+      )}
 
       {isLoading && <p className="text-xs text-[var(--admin-text-muted)]">Wird geladen...</p>}
 
@@ -242,19 +257,21 @@ export default function QuizQuestionsEditor({ quizId }: { quizId: string }) {
         </div>
       ))}
 
-      <div className="flex items-center gap-2">
-        <AdminInput
-          value={newQuestion}
-          onChange={(e) => setNewQuestion(e.target.value)}
-          placeholder="Neue Frage..."
-          className="h-9 flex-1 text-sm"
-          onKeyDown={(e) => e.key === "Enter" && handleAdd()}
-        />
-        <AdminButton type="button" variant="secondary" size="sm" onClick={handleAdd}>
-          <Plus size={14} />
-          Frage
-        </AdminButton>
-      </div>
+      {allowManualAdd && (
+        <div className="flex items-center gap-2">
+          <AdminInput
+            value={newQuestion}
+            onChange={(e) => setNewQuestion(e.target.value)}
+            placeholder="Neue Frage..."
+            className="h-9 flex-1 text-sm"
+            onKeyDown={(e) => e.key === "Enter" && handleAdd()}
+          />
+          <AdminButton type="button" variant="secondary" size="sm" onClick={handleAdd}>
+            <Plus size={14} />
+            Frage
+          </AdminButton>
+        </div>
+      )}
     </div>
   );
 }

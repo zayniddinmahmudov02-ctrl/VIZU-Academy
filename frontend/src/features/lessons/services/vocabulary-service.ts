@@ -22,17 +22,20 @@ export async function getLessonVocabularies(lessonId: string): Promise<LessonVoc
 
 // Marks Wortschatz reviewed — feeds the Wortschatz component of the
 // 100-point lesson score (see LessonScoringService). percentage (0-100)
-// is the interactive exercise session's score, stored as partial credit
-// instead of the old all-or-nothing completion.
+// is a quiz/exercise session's score, stored as partial credit. Called
+// with no percentage from the vocabulary-learn (browsing) step — sets
+// only vocabulary_completed, which is what unlocks the Wortschatz Quiz
+// (see vocabulary-quiz-section.tsx); called WITH a percentage from
+// vocabulary-test-section.tsx (B1+ exercises and the A1 Wortschatz
+// Quiz), which sets vocabulary_score.
 export async function completeLessonVocabulary(
   lessonId: string,
-  percentage: number,
+  percentage?: number,
 ): Promise<{ vocabulary_completed: boolean; vocabulary_score: number | null }> {
   return api<{ vocabulary_completed: boolean; vocabulary_score: number | null }>(
     `/api/v1/vocabularies/lesson/${lessonId}/complete`,
-    {
-      method: "POST",
-      body: JSON.stringify({ percentage }),
-    },
+    percentage === undefined
+      ? { method: "POST" }
+      : { method: "POST", body: JSON.stringify({ percentage }) },
   );
 }
