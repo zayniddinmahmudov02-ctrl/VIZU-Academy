@@ -1,10 +1,12 @@
-"""Auto-generates/syncs the A1-only 20-question Wortschatz test whenever
-a lesson's vocabulary changes — no admin authoring step. Reuses the
-legacy Quiz/QuizQuestion/QuizOption tables (quiz_type=VOCABULARY)
-purely for content storage; scoring never reads back through this
-machinery (see QUIZ_TYPE_VOCABULARY's docstring in app/models/quiz.py) —
-it flows through StudentProgress.vocabulary_score exactly like the
-client-side exercise generator it replaces for A1.
+"""Auto-generates/syncs the A1-only Wortschatz Quiz whenever a lesson's
+vocabulary changes — no admin authoring step. Question count is always
+exactly the lesson's published-vocabulary count (one question per word,
+no artificial cap — 5 words makes 5 questions, 52 makes 52, 100 makes
+100). Reuses the legacy Quiz/QuizQuestion/QuizOption tables
+(quiz_type=VOCABULARY) purely for content storage; scoring never reads
+back through this machinery (see QUIZ_TYPE_VOCABULARY's docstring in
+app/models/quiz.py) — it flows through StudentProgress.vocabulary_score
+exactly like the client-side exercise generator it replaces for A1.
 
 Deliberately duplicates the tiny lesson->level lookup already in
 VocabularyBulkService.get_lesson_level rather than sharing it, so the
@@ -24,8 +26,6 @@ from app.models.quiz_option import QuizOption
 from app.models.quiz_question import QuizQuestion
 from app.models.vocabulary import Vocabulary
 
-MAX_QUESTIONS = 20
-
 
 def _get_lesson_level(db: Session, lesson_id: UUID) -> str:
     row = (
@@ -36,6 +36,18 @@ def _get_lesson_level(db: Session, lesson_id: UUID) -> str:
         .first()
     )
     return row[0] if row else "A1"
+
+
+def _get_level_translation_pool(db: Session, level: str) -> list[str]:
+    rows = (
+        db.query(Vocabulary.translation)
+        .join(Lesson, Lesson.id == Vocabulary.lesson_id)
+        .join(Module, Module.id == Lesson.module_id)
+        .join(Course, Course.id == Module.course_id)
+        .filter(Course.level == level, Vocabulary.is_published.is_(True))
+        .all()
+    )
+    return [row[0] for row in rows]
 
 
 def _get_or_create_quiz(db: Session, lesson_id: UUID) -> Quiz:
@@ -59,10 +71,14 @@ def _get_or_create_quiz(db: Session, lesson_id: UUID) -> Quiz:
 
 
 def sync_vocabulary_test(db: Session, lesson_id: UUID) -> None:
-    """Full regenerate, not incremental diffing — cheap at <=20 rows and
-    avoids needing a word<->question identity column. Safe to call after
-    every vocabulary create/update/delete/publish/unpublish/bulk-op; a
-    no-op for every level except A1."""
+    """Full regenerate, not incremental diffing — avoids needing a
+    word<->question identity column, and a lesson's vocabulary count is
+    small enough that this stays cheap regardless of size. Safe to call
+    after every vocabulary create/update/delete/publish/unpublish/bulk-op;
+    a no-op for every level except A1. Every published word becomes
+    exactly one question — no count cap, so growing or shrinking the
+    published set (e.g. 20 -> 52 words, or 52 -> 0) is reflected exactly
+    on the next sync."""
 
     if _get_lesson_level(db, lesson_id) != "A1":
         return
@@ -71,7 +87,6 @@ def sync_vocabulary_test(db: Session, lesson_id: UUID) -> None:
         db.query(Vocabulary)
         .filter(Vocabulary.lesson_id == str(lesson_id), Vocabulary.is_published.is_(True))
         .order_by(Vocabulary.order_index.asc(), Vocabulary.created_at.asc())
-        .limit(MAX_QUESTIONS)
         .all()
     )
 
@@ -81,6 +96,13 @@ def sync_vocabulary_test(db: Session, lesson_id: UUID) -> None:
     db.query(QuizQuestion).filter(QuizQuestion.quiz_id == quiz.id).delete()
     db.flush()
 
+    # Lazily computed, once: every other published A1 word's translation
+    # (across all A1 lessons), used only as a fallback distractor source
+    # for a word whose own lesson has no other distinct-translation word
+    # (e.g. a single-word lesson) — so a word is never skipped just
+    # because its own lesson can't supply a second option.
+    level_pool: list[str] | None = None
+
     order_index = 0
     for word in words:
         distractor_pool = [
@@ -89,8 +111,14 @@ def sync_vocabulary_test(db: Session, lesson_id: UUID) -> None:
             if w.id != word.id and w.translation.strip().lower() != word.translation.strip().lower()
         ]
         if not distractor_pool:
-            # No valid distractor available (e.g. a single-word lesson) —
-            # can't build a valid 2-option question for this word.
+            if level_pool is None:
+                level_pool = _get_level_translation_pool(db, "A1")
+            distractor_pool = [
+                t for t in level_pool if t.strip().lower() != word.translation.strip().lower()
+            ]
+        if not distractor_pool:
+            # Only possible if no other distinct-translation A1 word
+            # exists anywhere — a valid 2-option question is impossible.
             continue
 
         distractor = random.choice(distractor_pool)

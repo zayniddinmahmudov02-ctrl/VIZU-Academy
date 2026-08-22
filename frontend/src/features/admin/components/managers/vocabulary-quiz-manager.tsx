@@ -5,6 +5,7 @@ import { CheckCircle2 } from "lucide-react";
 
 import { useCrudList } from "@/features/admin/hooks/use-crud";
 import { quizQuestionsApi, quizzesApi } from "@/features/admin/services/quiz-service";
+import { vocabularyApi } from "@/features/admin/services/vocabulary-service";
 
 import QuizQuestionsEditor from "./quiz-questions-editor";
 
@@ -22,6 +23,7 @@ import QuizQuestionsEditor from "./quiz-questions-editor";
 export default function VocabularyQuizManager({ lessonId }: { lessonId: string }) {
   const { data: allQuizzes, isLoading: quizzesLoading } = useCrudList("quizzes", quizzesApi);
   const { data: allQuizQuestions } = useCrudList("quiz-questions", quizQuestionsApi);
+  const { data: allVocabulary } = useCrudList("vocabularies", vocabularyApi);
 
   const quiz = useMemo(
     () => allQuizzes?.find((q) => q.lesson_id === lessonId && q.quiz_type === "VOCABULARY"),
@@ -33,6 +35,13 @@ export default function VocabularyQuizManager({ lessonId }: { lessonId: string }
     [allQuizQuestions, quiz],
   );
   const publishedCount = questions.filter((q) => q.is_published).length;
+  // Published vocabulary count — shown next to the question count so it's
+  // visible at a glance that they always match 1:1 (no cap), e.g.
+  // "52 Wörter · 52 Fragen".
+  const publishedWordCount = useMemo(
+    () => (allVocabulary ?? []).filter((v) => v.lesson_id === lessonId && v.is_published).length,
+    [allVocabulary, lessonId],
+  );
 
   if (quizzesLoading) {
     return <p className="text-sm text-[var(--admin-text-muted)]">Wird geladen...</p>;
@@ -54,7 +63,8 @@ export default function VocabularyQuizManager({ lessonId }: { lessonId: string }
           Wortschatz Quiz
         </span>
         <span className="text-xs text-[var(--admin-text-muted)]">
-          {questions.length} Fragen — {publishedCount} veröffentlicht — {questions.length - publishedCount} Entwurf
+          {publishedWordCount} Wörter · {questions.length} Fragen — {publishedCount} veröffentlicht —{" "}
+          {questions.length - publishedCount} Entwurf
         </span>
       </div>
 
