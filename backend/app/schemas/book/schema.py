@@ -10,6 +10,12 @@ class BookBase(BaseSchema):
     author: str | None = None
     description: str | None = None
     level: str
+    # Public media_library URL, set by the admin form's cover upload
+    # (FileUploadField) before the book itself is saved — must exist
+    # here too, not just on BookResponse, since BaseSchema's
+    # extra="forbid" rejects the whole create/update request outright
+    # if the payload includes a field the schema doesn't declare.
+    cover_url: str | None = None
     order_index: int = 1
     is_published: bool = False
 
@@ -23,6 +29,7 @@ class BookUpdate(BaseSchema):
     author: str | None = None
     description: str | None = None
     level: str | None = None
+    cover_url: str | None = None
     order_index: int | None = None
     is_published: bool | None = None
 
