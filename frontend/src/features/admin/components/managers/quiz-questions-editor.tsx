@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { ChevronDown, ChevronRight, Plus, Trash2, Wand2 } from "lucide-react";
 
-import { AdminButton, AdminInput, AdminSelect, AdminTextarea } from "@/components/admin/admin-ui";
+import { AdminButton, AdminCheckbox, AdminInput, AdminSelect, AdminTextarea } from "@/components/admin/admin-ui";
 import { useCrudList, useCrudMutations } from "@/features/admin/hooks/use-crud";
 import { quizQuestionsApi } from "@/features/admin/services/quiz-service";
 import type { QuizQuestion, QuizQuestionType } from "@/features/admin/types/content.types";
@@ -122,6 +122,16 @@ export default function QuizQuestionsEditor({ quizId, lessonId, allowManualAdd =
               }}
               className="h-8 w-16 shrink-0 text-sm"
             />
+            <label
+              className="flex shrink-0 items-center gap-1.5 text-xs text-[var(--admin-text-muted)]"
+              title="Veröffentlicht — erst dann sieht der Student diese Frage."
+            >
+              <AdminCheckbox
+                checked={question.is_published}
+                onCheckedChange={(checked) => update.mutate({ id: question.id, data: { is_published: checked } })}
+              />
+              Veröffentlicht
+            </label>
             <button
               onClick={() => remove.mutate(question.id)}
               aria-label="Frage löschen"

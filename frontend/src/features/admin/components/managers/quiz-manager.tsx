@@ -8,7 +8,7 @@ import ConfirmDialog from "@/components/admin/confirm-dialog";
 import DataTable, { DataTableColumn } from "@/components/admin/data-table";
 import FormDialog from "@/components/admin/form-dialog";
 import { useCrudList, useCrudMutations } from "@/features/admin/hooks/use-crud";
-import { quizzesApi } from "@/features/admin/services/quiz-service";
+import { quizQuestionsApi, quizzesApi } from "@/features/admin/services/quiz-service";
 import type { Quiz } from "@/features/admin/types/content.types";
 
 import LessonPicker from "./lesson-picker";
@@ -38,11 +38,17 @@ export default function QuizManager({ lessonId, quizType = "GRAMMAR" }: Props) {
     ["lesson-quizzes"],
     ["course-lessons-content-status"],
   ]);
+  const { data: allQuestions } = useCrudList("quiz-questions", quizQuestionsApi);
 
   const data = useMemo(
     () => (all ?? []).filter((q) => (lessonId ? q.lesson_id === lessonId : true) && q.quiz_type === quizType),
     [all, lessonId, quizType],
   );
+
+  function questionCounts(quizId: string): { total: number; published: number } {
+    const questions = (allQuestions ?? []).filter((q) => q.quiz_id === quizId);
+    return { total: questions.length, published: questions.filter((q) => q.is_published).length };
+  }
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<Quiz | null>(null);
@@ -106,6 +112,18 @@ export default function QuizManager({ lessonId, quizType = "GRAMMAR" }: Props) {
           {item.is_published ? "Veröffentlicht" : "Entwurf"}
         </span>
       ),
+    },
+    {
+      key: "question_count",
+      header: "Fragen",
+      render: (item) => {
+        const { total, published } = questionCounts(item.id);
+        return (
+          <span className="text-xs text-[var(--admin-text-secondary)]">
+            {total} Fragen — {published} veröffentlicht
+          </span>
+        );
+      },
     },
     {
       key: "questions",
