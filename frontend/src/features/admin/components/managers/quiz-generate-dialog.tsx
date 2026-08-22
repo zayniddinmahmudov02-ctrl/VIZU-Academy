@@ -90,6 +90,19 @@ export default function QuizGenerateDialog({ lessonId, quizId, open, onOpenChang
       setResult(response);
       queryClient.invalidateQueries({ queryKey: ["quiz-questions"] });
       queryClient.invalidateQueries({ queryKey: ["quiz-questions-with-options"] });
+      // Generating a GRAMMAR quiz's questions can also flip the quiz
+      // container itself to published (see quiz_generation_service.
+      // generate_quiz's auto-publish) — without these two, every other
+      // admin view reading cached quiz data (QuizManager's own list,
+      // and specifically the Courses -> lesson-list content-status
+      // table, which is a *separate* query keyed on
+      // ["course-lessons-content-status", moduleId]) keeps showing the
+      // pre-generation "not published" state until something unrelated
+      // happens to invalidate the same keys. Matches the exact keys
+      // QuizManager's own create/update/remove mutations already
+      // invalidate for the same reason.
+      queryClient.invalidateQueries({ queryKey: ["quizzes"] });
+      queryClient.invalidateQueries({ queryKey: ["course-lessons-content-status"] });
     } catch {
       setError("Generierung fehlgeschlagen. Bitte erneut versuchen.");
     } finally {
