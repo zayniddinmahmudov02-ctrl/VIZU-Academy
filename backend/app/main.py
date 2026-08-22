@@ -122,6 +122,9 @@ from app.api.admin.videos_router import (
 from app.api.admin.ai_content_router import (
     router as admin_ai_content_router,
 )
+from app.api.admin.quiz_generation_router import (
+    router as admin_quiz_generation_router,
+)
 
 # VIZU Pay
 from app.api.vizu_pay import (
@@ -227,6 +230,7 @@ _ALL_ROUTERS = [
     admin_vizu_pay_router,
     admin_videos_router,
     admin_ai_content_router,
+    admin_quiz_generation_router,
     vizu_pay_router,
     assessment_engine_router,
     health_router,

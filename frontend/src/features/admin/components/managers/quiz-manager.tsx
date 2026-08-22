@@ -217,7 +217,7 @@ export default function QuizManager({ lessonId, quizType = "GRAMMAR" }: Props) {
         description="Fragen und Antwortmöglichkeiten für dieses Quiz."
         size="lg"
       >
-        {questionsFor && <QuizQuestionsEditor quizId={questionsFor.id} />}
+        {questionsFor && <QuizQuestionsEditor quizId={questionsFor.id} lessonId={questionsFor.lesson_id} />}
       </FormDialog>
 
       <ConfirmDialog

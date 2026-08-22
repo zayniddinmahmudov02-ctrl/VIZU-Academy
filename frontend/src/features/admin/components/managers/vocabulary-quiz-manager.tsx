@@ -68,7 +68,7 @@ export default function VocabularyQuizManager({ lessonId }: { lessonId: string }
         </span>
       </div>
 
-      <QuizQuestionsEditor quizId={quiz.id} allowManualAdd={false} allowAiGenerate={false} />
+      <QuizQuestionsEditor quizId={quiz.id} lessonId={lessonId} allowManualAdd={false} allowAiGenerate={false} />
     </div>
   );
 }

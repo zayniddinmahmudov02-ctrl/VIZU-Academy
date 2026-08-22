@@ -1,15 +1,14 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { ChevronDown, ChevronRight, Plus, Sparkles, Trash2 } from "lucide-react";
+import { ChevronDown, ChevronRight, Plus, Trash2, Wand2 } from "lucide-react";
 
 import { AdminButton, AdminInput, AdminSelect, AdminTextarea } from "@/components/admin/admin-ui";
-import AiGenerateDialog from "@/features/admin/components/ai/ai-generate-dialog";
 import { useCrudList, useCrudMutations } from "@/features/admin/hooks/use-crud";
-import { generateGrammarQuizPreview, type AIGrammarQuizPreview } from "@/features/admin/services/ai-content-service";
-import { quizOptionsApi, quizQuestionsApi } from "@/features/admin/services/quiz-service";
+import { quizQuestionsApi } from "@/features/admin/services/quiz-service";
 import type { QuizQuestion, QuizQuestionType } from "@/features/admin/types/content.types";
 
+import QuizGenerateDialog from "./quiz-generate-dialog";
 import QuizOptionsEditor from "./quiz-options-editor";
 
 const QUESTION_TYPE_LABELS: Record<QuizQuestionType, string> = {
@@ -34,16 +33,18 @@ const OPTION_BASED_TYPES: QuizQuestionType[] = [
 
 interface Props {
   quizId: string;
+  lessonId: string;
   /** Hides the "Neue Frage..." add-bar — off for quiz types the admin
    * never manually authors questions for (e.g. VOCABULARY, auto-synced
    * from published vocabulary — see vocabulary-quiz-manager.tsx). */
   allowManualAdd?: boolean;
-  /** Hides the "Mit KI erstellen" button (hardcoded to the GRAMMAR quiz
-   * generator) — off for the same non-manually-authored quiz types. */
+  /** Hides the "Automatisch erstellen" button (the deterministic
+   * template-based generator — see quiz-generate-dialog.tsx) — off for
+   * the same non-manually-authored quiz types. */
   allowAiGenerate?: boolean;
 }
 
-export default function QuizQuestionsEditor({ quizId, allowManualAdd = true, allowAiGenerate = true }: Props) {
+export default function QuizQuestionsEditor({ quizId, lessonId, allowManualAdd = true, allowAiGenerate = true }: Props) {
   const { data: all, isLoading } = useCrudList("quiz-questions", quizQuestionsApi);
   const { create, update, remove } = useCrudMutations("quiz-questions", quizQuestionsApi, [
     ["quiz-questions-with-options"],
@@ -56,7 +57,7 @@ export default function QuizQuestionsEditor({ quizId, allowManualAdd = true, all
 
   const [expanded, setExpanded] = useState<string | null>(null);
   const [newQuestion, setNewQuestion] = useState("");
-  const [aiDialogOpen, setAiDialogOpen] = useState(false);
+  const [generateDialogOpen, setGenerateDialogOpen] = useState(false);
 
   async function handleAdd() {
     if (!newQuestion.trim()) return;
@@ -69,79 +70,23 @@ export default function QuizQuestionsEditor({ quizId, allowManualAdd = true, all
     setExpanded(created.id);
   }
 
-  async function applyAiPreview(preview: AIGrammarQuizPreview) {
-    let orderIndex = questions.length;
-    for (const q of preview.questions) {
-      orderIndex += 1;
-      const createdQuestion = await create.mutateAsync({
-        quiz_id: quizId,
-        question: q.question,
-        question_type: q.question_type as QuizQuestionType,
-        correct_text_answer: q.correct_text_answer,
-        points: q.points,
-        order_index: orderIndex,
-      });
-
-      let optionOrder = 0;
-      for (const o of q.options) {
-        optionOrder += 1;
-        await quizOptionsApi.create({
-          question_id: createdQuestion.id,
-          option_text: o.option_text,
-          is_correct: o.is_correct,
-          match_value: o.match_value,
-          order_index: optionOrder,
-        });
-      }
-    }
-  }
-
   return (
     <div className="space-y-3">
       {allowAiGenerate && (
         <div className="flex justify-end">
-          <AdminButton type="button" variant="secondary" size="sm" onClick={() => setAiDialogOpen(true)}>
-            <Sparkles size={13} />
-            Mit KI erstellen
+          <AdminButton type="button" variant="secondary" size="sm" onClick={() => setGenerateDialogOpen(true)}>
+            <Wand2 size={13} />
+            Automatisch erstellen
           </AdminButton>
         </div>
       )}
 
       {allowAiGenerate && (
-        <AiGenerateDialog<AIGrammarQuizPreview>
-          open={aiDialogOpen}
-          onOpenChange={setAiDialogOpen}
-          title="Grammatik Quiz mit KI erstellen"
-          hasCount
-          generate={generateGrammarQuizPreview}
-          onApply={applyAiPreview}
-          renderPreview={(preview) => (
-            <div className="space-y-2">
-              {preview.questions.map((q, i) => (
-                <div key={i} className="rounded-lg bg-white/[0.03] p-3 text-xs text-[var(--admin-text-secondary)]">
-                  <p className="font-semibold text-[var(--admin-text-primary)]">
-                    {i + 1}. {q.question}{" "}
-                    <span className="font-normal text-[var(--admin-text-muted)]">({q.question_type})</span>
-                  </p>
-                  {q.options.length > 0 ? (
-                    <ul className="mt-1 space-y-0.5">
-                      {q.options.map((o, oi) => (
-                        <li key={oi} className={o.is_correct ? "text-[var(--admin-accent)]" : undefined}>
-                          {o.option_text}
-                          {o.match_value ? ` → ${o.match_value}` : ""}
-                          {o.is_correct ? " ✓" : ""}
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p className="mt-1">
-                      Antwort: <span className="text-[var(--admin-accent)]">{q.correct_text_answer}</span>
-                    </p>
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
+        <QuizGenerateDialog
+          lessonId={lessonId}
+          quizId={quizId}
+          open={generateDialogOpen}
+          onOpenChange={setGenerateDialogOpen}
         />
       )}
 

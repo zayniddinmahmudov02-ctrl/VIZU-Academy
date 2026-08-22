@@ -55,6 +55,7 @@ export const ADMIN_ENDPOINTS = {
   certificates: "/api/v1/certificates",
   adminDashboard: "/api/v1/admin/dashboard/overview",
   aiContent: "/api/v1/admin/ai-content",
+  quizGeneration: "/api/v1/admin/quiz-generation",
 
   // Mock Exam System (Phase 4)
   mockExamProviders: "/api/v1/mock-exam/providers",
