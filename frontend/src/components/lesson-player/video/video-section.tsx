@@ -41,7 +41,7 @@ export default function VideoSection({ lessonId }: Props) {
   function handleProgress(position: number, ended: boolean) {
     reportProgress(position, ended);
 
-    if (ended || (video && video.durationSeconds > 0 && position / video.durationSeconds >= 0.95)) {
+    if (ended || (video && video.durationSeconds > 0 && position / video.durationSeconds >= 0.7)) {
       markComplete(ended).then((updated) => {
         if (updated?.completed) {
           queryClient.invalidateQueries({ queryKey: ["section-gate", lessonId] });

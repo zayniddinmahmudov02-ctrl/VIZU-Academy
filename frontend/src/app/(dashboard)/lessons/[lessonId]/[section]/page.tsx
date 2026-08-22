@@ -1,6 +1,7 @@
 import type { ComponentType } from "react";
 import { notFound } from "next/navigation";
 
+import SectionGateBoundary from "@/components/lesson-player/common/section-gate-boundary";
 import HomeworkSection from "@/components/lesson-player/homework/homework-section";
 import PremiumLessonGate from "@/components/lesson-player/video/premium-lesson-gate";
 import ListeningSection from "@/components/lesson-player/listening/listening-section";
@@ -50,12 +51,16 @@ export default async function LessonSectionPage({ params }: Props) {
 
   const SectionComponent = SECTION_COMPONENTS[meta.type];
 
-  // Every section is independently accessible in any order — only the
-  // lesson-level Premium/free-lesson rule (PremiumLessonGate) still
-  // applies. No sequential section gate.
+  // PremiumLessonGate enforces the free-3-lessons/Premium rule.
+  // SectionGateBoundary enforces real sequential section unlocking
+  // (server-computed, dynamic per lesson content — see
+  // section-gate-boundary.tsx) — this is UX; the actual unbypassable
+  // gate lives server-side on each section's submit endpoint.
   return (
     <PremiumLessonGate lessonId={lessonId}>
-      <SectionComponent lessonId={lessonId} />
+      <SectionGateBoundary lessonId={lessonId} meta={meta}>
+        <SectionComponent lessonId={lessonId} />
+      </SectionGateBoundary>
     </PremiumLessonGate>
   );
 }

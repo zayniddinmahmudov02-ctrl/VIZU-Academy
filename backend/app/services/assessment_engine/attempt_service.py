@@ -6,13 +6,14 @@ from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from app.models.answer import Answer
-from app.models.assessment import Assessment, STATUS_PUBLISHED
+from app.models.assessment import Assessment, STATUS_PUBLISHED, TYPE_COURSE
 from app.models.assessment_attempt import (
     STATUS_GRADED,
     STATUS_IN_PROGRESS,
     AssessmentAttempt,
 )
 from app.models.assessment_result import AssessmentResult
+from app.models.assessment_section import SKILL_HOEREN, SKILL_LESEN, AssessmentSection
 from app.models.assessment_task import TYPE_SPEAKING, TYPE_WRITING, AssessmentTask
 from app.models.lesson import Lesson
 from app.models.section_result import SectionResult
@@ -23,9 +24,17 @@ from app.models.user import User
 from app.models.writing_submission import WritingSubmission
 
 from app.schemas.assessment_engine import AnswerSubmit
+from app.services.lesson_progress.section_gate import SectionGateService
 from app.services.vizu_pay.access import can_access_lesson
 
 from .scoring import get_handler
+
+# Only LESEN/HOEREN questions flow through submit_answer (Schreiben/
+# Sprechen have their own dedicated submission endpoints) — used to gate
+# a direct API submission the same way the frontend already locks it,
+# but only for a real lesson-linked (TYPE_COURSE) assessment; Vorbereitung/
+# MockTest assessments have no lesson_id and are never section-gated.
+_SKILL_TO_SECTION_KEY = {SKILL_LESEN: "lesen", SKILL_HOEREN: "hoeren"}
 
 
 def _now() -> datetime:
@@ -139,6 +148,13 @@ def submit_answer(db: Session, attempt_id: str, user: User, data: AnswerSubmit) 
     if question is None:
         raise HTTPException(status_code=404, detail="Question not found.")
     task = db.get(AssessmentTask, question.task_id)
+
+    if assessment.assessment_type == TYPE_COURSE and assessment.lesson_id:
+        section = db.get(AssessmentSection, task.section_id)
+        section_key = _SKILL_TO_SECTION_KEY.get(section.skill if section else None)
+        if section_key and not SectionGateService(db).is_unlocked(user.id, assessment.lesson_id, section_key):
+            raise HTTPException(status_code=403, detail="SECTION_LOCKED")
+
     task_attempt = get_or_create_task_attempt(db, attempt, task)
 
     handler = get_handler(task.task_type)

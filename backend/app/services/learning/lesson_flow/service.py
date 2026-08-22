@@ -1,7 +1,10 @@
+from uuid import UUID
+
 from sqlalchemy.orm import Session
 
 from app.models.lesson import Lesson
 from app.models.student_progress import StudentProgress
+from app.services.lesson_progress.section_gate import SectionGateService
 
 
 class LessonFlowService:
@@ -20,17 +23,14 @@ class LessonFlowService:
         self,
         progress: StudentProgress,
     ):
-
-        return all(
-            [
-                progress.video_completed,
-                progress.grammar_completed,
-                progress.reading_completed,
-                progress.listening_completed,
-                progress.writing_completed,
-                progress.speaking_completed,
-                progress.quiz_completed,
-            ]
+        # Delegates to the single canonical, content-aware completion
+        # check (SectionGateService) instead of re-deriving it from a
+        # fixed flag list — a lesson missing a section type is no longer
+        # incorrectly required to have it, and this stays in sync with
+        # section_gate.py automatically instead of drifting.
+        return SectionGateService(self.db).is_lesson_completed(
+            UUID(progress.user_id),
+            UUID(progress.lesson_id),
         )
 
     # ======================================

@@ -14,9 +14,9 @@ from app.repositories.video_progress import VideoProgressRepository
 
 from app.services.video.service import VideoService
 
-# Matches the spec: watching >=95% of the video (or reaching its end)
+# Matches the spec: watching >=70% of the video (or reaching its end)
 # is what "completed" means.
-COMPLETION_THRESHOLD_PERCENT = 95
+COMPLETION_THRESHOLD_PERCENT = 70
 
 # A user is considered to have reached the end if they're within this
 # many seconds of the video's reported duration.

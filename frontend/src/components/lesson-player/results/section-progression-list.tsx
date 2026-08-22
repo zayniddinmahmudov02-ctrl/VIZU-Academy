@@ -22,11 +22,11 @@ const LABELS: Record<keyof SectionGateState, string> = {
 // internal consumers), so it stays in LABELS above for type-correctness,
 // it's just never rendered here.
 //
-// "wortschatz_quiz" is A1-only (see vocabulary-quiz-section.tsx) but this
-// list has no level awareness, same as lessonSections' nav pill bar — a
-// B1-C1 student sees it perpetually "Offen" rather than it being hidden,
-// the same accepted trade-off made there, since A1 students genuinely
-// need it tracked as its own step.
+// Every other key is only rendered when the lesson actually has that
+// content (entry.applicable) — e.g. "wortschatz_quiz" only shows for A1
+// lessons, which have a real VOCABULARY quiz; B1-C1 lessons don't render
+// it at all, same real data the nav pill bar now uses (see
+// lesson-section-nav.tsx).
 const ORDER: (keyof SectionGateState)[] = [
   "video",
   "wortschatz",
@@ -46,7 +46,7 @@ const ORDER: (keyof SectionGateState)[] = [
 export default function SectionProgressionList({ gate }: { gate: SectionGateState }) {
   return (
     <div className="space-y-1.5">
-      {ORDER.map((key) => {
+      {ORDER.filter((key) => gate[key].applicable).map((key) => {
         const entry = gate[key];
         const icon = entry.completed ? (
           <Check size={14} className="text-success" />

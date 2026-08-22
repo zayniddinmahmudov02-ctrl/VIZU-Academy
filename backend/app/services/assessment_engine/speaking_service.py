@@ -18,7 +18,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.core.security.roles import UserRole
-from app.models.assessment import Assessment
+from app.models.assessment import Assessment, TYPE_COURSE
 from app.models.assessment_task import TYPE_SPEAKING, AssessmentTask
 from app.models.course import Course
 from app.models.lesson import Lesson
@@ -41,6 +41,7 @@ from app.schemas.assessment_engine import (
     WritingRubricCriterionResponse,
 )
 
+from app.services.lesson_progress.section_gate import SectionGateService
 from app.services.notification import create_notification
 
 from . import attempt_service
@@ -120,6 +121,13 @@ async def upload_submission(
 
     if attempt.locked:
         raise HTTPException(status_code=403, detail="This attempt is locked and can no longer be edited.")
+
+    if (
+        assessment.assessment_type == TYPE_COURSE
+        and assessment.lesson_id
+        and not SectionGateService(db).is_unlocked(user.id, assessment.lesson_id, "sprechen")
+    ):
+        raise HTTPException(status_code=403, detail="SECTION_LOCKED")
 
     existing = _get_submission(db, attempt_id, task_id)
     if existing is not None and existing.status == STATUS_FINAL and not assessment.allow_resubmit:

@@ -283,8 +283,6 @@ export const translations: Record<string, Namespace> = {
 
     navPrevious: { de: "Zurück", uz: "Orqaga" },
     navNext: { de: "Weiter", uz: "Keyingi" },
-    navMarkComplete: { de: "Als abgeschlossen markieren", uz: "Bajarilgan deb belgilash" },
-    navCompleted: { de: "Abgeschlossen", uz: "Bajarildi" },
     navProgress: { de: "{completed}/{total} abgeschlossen", uz: "{completed}/{total} ta bajarildi" },
 
     videoDescription: {

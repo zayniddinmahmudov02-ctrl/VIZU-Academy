@@ -16,7 +16,7 @@ from fastapi import HTTPException
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app.models.assessment import Assessment
+from app.models.assessment import Assessment, TYPE_COURSE
 from app.models.assessment_task import (
     EVAL_MODE_AI_AND_TEACHER,
     EVAL_MODE_AI_ONLY,
@@ -44,6 +44,7 @@ from app.schemas.assessment_engine import (
     WritingSubmissionResponse,
 )
 
+from app.services.lesson_progress.section_gate import SectionGateService
 from app.services.mock_exam import ai_service
 from app.services.notification import create_notification
 
@@ -158,6 +159,13 @@ async def submit_submission(db: Session, attempt_id: str, task_id: str, user: Us
 
     if attempt.locked:
         raise HTTPException(status_code=403, detail="This attempt is locked and can no longer be edited.")
+
+    if (
+        assessment.assessment_type == TYPE_COURSE
+        and assessment.lesson_id
+        and not SectionGateService(db).is_unlocked(user.id, assessment.lesson_id, "schreiben")
+    ):
+        raise HTTPException(status_code=403, detail="SECTION_LOCKED")
 
     submission = _get_submission(db, attempt_id, task_id)
     if submission is None or not submission.content.strip():

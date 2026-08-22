@@ -17,9 +17,8 @@ from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
 from app.models.lesson import Lesson
-from app.models.quiz import QUIZ_TYPE_VOCABULARY, Quiz
+from app.models.quiz import QUIZ_TYPE_GRAMMAR, QUIZ_TYPE_LESSON, QUIZ_TYPE_VOCABULARY, Quiz
 from app.models.quiz_question import QuizQuestion
-from app.models.student_progress import StudentProgress
 from app.models.user import User
 
 from app.schemas.quiz import (
@@ -29,12 +28,24 @@ from app.schemas.quiz import (
 )
 from app.schemas.student_quiz import StudentQuizCreate
 
+from app.services.lesson_progress.section_gate import SectionGateService
 from app.services.student_quiz import StudentQuizService
 from app.services.vizu_pay.access import can_access_lesson
 
 TEXT_ANSWER_TYPES = {"CLOZE_TEXT", "SENTENCE_COMPLETION"}
 ORDERING_TYPES = {"SENTENCE_ORDERING"}
 MATCHING_TYPES = {"MATCHING"}
+
+# Maps each gated legacy-Quiz type to its section-gate key — used to
+# enforce the same real sequential unlock server-side that
+# SectionGateService already computes for the frontend, so a direct API
+# call can't bypass it either. VOCABULARY/GRAMMAR/LESSON are the only
+# quiz_types this legacy system has (see app/models/quiz.py).
+_QUIZ_TYPE_TO_SECTION_KEY = {
+    QUIZ_TYPE_VOCABULARY: "wortschatz_quiz",
+    QUIZ_TYPE_GRAMMAR: "grammatik_quiz",
+    QUIZ_TYPE_LESSON: "lesson_quiz",
+}
 
 
 def _normalize(text: str) -> str:
@@ -101,18 +112,12 @@ def grade_and_submit(
     if lesson is None or not can_access_lesson(user, lesson):
         raise HTTPException(status_code=403, detail="PREMIUM_REQUIRED")
 
-    if quiz.quiz_type == QUIZ_TYPE_VOCABULARY:
-        # Narrow, quiz-local gate (not a revival of the old sequential
-        # section lock): the Wortschatz Quiz requires its own vocabulary
-        # learning step to be done first, enforced server-side so it
-        # can't be bypassed via a direct API call.
-        progress = (
-            db.query(StudentProgress)
-            .filter(StudentProgress.user_id == str(user.id), StudentProgress.lesson_id == str(lesson.id))
-            .first()
-        )
-        if not (progress and progress.vocabulary_completed):
-            raise HTTPException(status_code=403, detail="VOCABULARY_NOT_COMPLETED")
+    section_key = _QUIZ_TYPE_TO_SECTION_KEY.get(quiz.quiz_type)
+    if section_key and not SectionGateService(db).is_unlocked(user.id, lesson.id, section_key):
+        # Real sequential section gate (see section_gate.py) enforced
+        # server-side, so it can't be bypassed via a direct API call
+        # regardless of what the frontend shows.
+        raise HTTPException(status_code=403, detail="SECTION_LOCKED")
 
     questions = (
         db.query(QuizQuestion)

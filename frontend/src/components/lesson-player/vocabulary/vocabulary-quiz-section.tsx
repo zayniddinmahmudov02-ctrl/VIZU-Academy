@@ -1,11 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
-import { Lock, Library } from "lucide-react";
+import { Library } from "lucide-react";
 
 import { getLessonQuizzes, getQuizOptions, getQuizQuestions } from "@/features/lessons/services/quiz-service";
-import { useSectionGate } from "@/features/lessons/hooks/use-section-gate";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import LessonSection from "../common/lesson-section";
 import VocabularyTestSection from "./vocabulary-test-section";
@@ -19,13 +17,13 @@ interface Props {
  * lesson has a VOCABULARY-type quiz at all (A1 only, by construction of
  * test_sync_service.py's level gate); B1-C1 lessons render a short
  * "not applicable" panel instead of erroring, since this section slug is
- * always present in lessonSections regardless of level. Access is gated
- * on the Wortschatz learning step being done (StudentProgress.
- * vocabulary_completed, surfaced via useSectionGate) — this is UX only;
- * the real, unbypassable gate is server-side in grading_service.
- * grade_and_submit(), which 403s a submit attempt for a VOCABULARY quiz
- * if vocabulary_completed isn't true yet, regardless of how this page was
- * reached. */
+ * always present in lessonSections regardless of level. Whether the
+ * Wortschatz learning step is done first is enforced by the central
+ * SectionGateBoundary wrapping this component (see
+ * section-gate-boundary.tsx) — this component only needs to distinguish
+ * "not applicable for this level" from "has real quiz content," it
+ * doesn't duplicate the lock check itself. The real, unbypassable gate
+ * is server-side in grading_service.grade_and_submit(). */
 export default function VocabularyQuizSection({ lessonId }: Props) {
   const { t } = useTranslation();
 
@@ -35,8 +33,6 @@ export default function VocabularyQuizSection({ lessonId }: Props) {
   });
   const vocabQuiz = vocabQuizzes?.[0];
 
-  const { data: gate, isLoading: gateLoading } = useSectionGate(lessonId);
-
   const { data: questions, isLoading: questionsLoading } = useQuery({
     queryKey: ["quiz-questions-with-options", vocabQuiz?.id],
     queryFn: async () => {
@@ -44,10 +40,10 @@ export default function VocabularyQuizSection({ lessonId }: Props) {
       const qs = await getQuizQuestions(vocabQuiz.id);
       return Promise.all(qs.map(async (q) => ({ ...q, options: await getQuizOptions(q.id) })));
     },
-    enabled: !!vocabQuiz && !!gate?.wortschatz.completed,
+    enabled: !!vocabQuiz,
   });
 
-  if (vocabQuizLoading || gateLoading) {
+  if (vocabQuizLoading) {
     return (
       <LessonSection title="Wortschatz Quiz" description={t("common.loading")} icon={Library}>
         <p className="text-sm text-text-secondary">{t("common.loading")}</p>
@@ -61,25 +57,6 @@ export default function VocabularyQuizSection({ lessonId }: Props) {
         <p className="rounded-2xl bg-surface-hover p-6 text-center text-sm text-text-secondary">
           Für dieses Niveau nicht verfügbar.
         </p>
-      </LessonSection>
-    );
-  }
-
-  if (!gate?.wortschatz.completed) {
-    return (
-      <LessonSection title="Wortschatz Quiz" description="Gesperrt" icon={Library}>
-        <div className="rounded-2xl bg-surface-hover p-8 text-center ring-1 ring-surface-border">
-          <Lock className="mx-auto text-text-muted" size={28} />
-          <p className="mt-3 text-sm font-medium text-text-primary">
-            🔒 Wortschatz Quiz — Schließe zuerst den Wortschatz ab.
-          </p>
-          <Link
-            href={`/lessons/${lessonId}/wortschatz`}
-            className="mt-4 inline-flex items-center gap-1.5 rounded-button bg-gradient-to-r from-accent-blue-hover to-accent-blue px-4 py-2.5 text-sm font-semibold text-white shadow-md shadow-accent-blue/25 transition hover:-translate-y-0.5"
-          >
-            Zum Wortschatz
-          </Link>
-        </div>
       </LessonSection>
     );
   }

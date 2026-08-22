@@ -16,7 +16,6 @@ import {
   VolumeX,
 } from "lucide-react";
 
-import { useLessonProgressStore } from "@/store/lesson-progress-store";
 import { useTranslation } from "@/lib/i18n/use-translation";
 
 /** How often (ms) we report the current position to the server while
@@ -96,7 +95,6 @@ export default function VideoPlayer({
   const hideTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const restoredPositionRef = useRef(false);
   const onProgressRef = useRef(onProgress);
-  const markSectionComplete = useLessonProgressStore((state) => state.markSectionComplete);
 
   const [buffering, setBuffering] = useState(true);
   const [error, setError] = useState(false);
@@ -364,7 +362,6 @@ export default function VideoPlayer({
             setControlsVisible(true);
             const video = videoRef.current;
             onProgressRef.current?.(Math.floor(video?.currentTime ?? duration), true);
-            if (lessonId) markSectionComplete(lessonId, "video");
           }}
           onError={() => {
             setBuffering(false);

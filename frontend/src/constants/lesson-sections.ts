@@ -81,12 +81,12 @@ export function getSectionIndex(slug: string): number {
 }
 
 // Maps a lesson-section type to its backend section-gate key — null for
-// sections with no completion concept (Hausaufgabe, Ergebnis). Sections
-// are no longer sequentially locked; this is only used to look up each
-// section's completed/not-completed state for progress display (lesson
-// nav checkmarks, results, admin per-student view).
+// sections with no completion concept (Hausaufgabe, Ergebnis — homework
+// has no student-submission/review system yet, so it's never gated or
+// required). Real sequential gating: see section-gate-boundary.tsx and
+// backend/app/services/lesson_progress/section_gate.py.
 export const SECTION_GATE_KEYS: Record<LessonSectionType, SectionGateKey | null> = {
-  video: null,
+  video: "video",
   vocabulary: "wortschatz",
   "vocabulary-quiz": "wortschatz_quiz",
   "grammar-quiz": "grammatik_quiz",

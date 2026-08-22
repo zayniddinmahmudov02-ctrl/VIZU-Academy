@@ -1,11 +1,35 @@
-"""Computes each of a lesson's 9 content sections' completion state for a
-given student — used to render progress/checkmarks (lesson results, admin
-per-student view). Sections are no longer sequentially locked (students
-may complete them in any order); `unlocked` is kept in the returned shape
-only for API/frontend compatibility and is always `True`. The gating
-dependencies in app/api/dependencies/section_gate.py consume this too,
-so `is_unlocked` always passing means those endpoints no longer enforce
-an access order either.
+"""Computes each of a lesson's content sections' real state for a given
+student — the single source of truth for completion, applicability, and
+sequential unlocking. Used by: the student/admin section-gate API
+(app/api/lessons/router.py), lesson completion (LessonFlowService /
+LessonProgressService, both now delegate to is_lesson_completed here
+instead of each re-deriving it), and the server-side submission gates in
+app/api/dependencies/section_gate.py + grading_service.py.
+
+Three signals per section:
+  - applicable: does this LESSON actually have this kind of content at
+    all (a published Video, published Vocabulary, a published Quiz of
+    the matching type, an Assessment section with tasks for that
+    skill)? A lesson missing a section type never blocks on it and it's
+    never counted toward "lesson completed" — this is what makes the
+    same code work unmodified across A1-C1: nothing here branches on
+    level, it only ever looks at what content actually exists.
+  - completed: real evaluated-completion, not "merely opened/submitted"
+    — Lesen/Hören require every question in that skill answered;
+    Schreiben/Sprechen require the submission to have reached its final
+    reviewed status (STATUS_GRADED / STATUS_FINAL), not just SUBMITTED/
+    PENDING_REVIEW/REVIEWED; quizzes (Grammatik/Lesson/Wortschatz) are
+    graded synchronously on submit, so a StudentQuiz row existing always
+    means fully graded.
+  - unlocked: sections open in a fixed sequence (see GATED_ORDER),
+    skipping whatever isn't applicable to this lesson — a section is
+    unlocked once every applicable section before it (in that fixed
+    order) is completed. "grammatik" (standalone grammar content, not
+    a quiz) is deliberately excluded from the gated sequence — it isn't
+    a student-facing step (grammar is taught inside the video; only
+    Grammatik Quiz is), matching lessonSections on the frontend, which
+    has no "grammatik" entry. Homework is also excluded from gating —
+    no student-submission/review system exists for it yet.
 
 Lesen/Hören are each one half of the same bundled Universal-Assessment-
 Engine Assessment (no separate "Lesen Quiz" content exists — see project
@@ -33,13 +57,15 @@ from app.models.assessment_section import (
     AssessmentSection,
 )
 from app.models.assessment_task import AssessmentTask
-from app.models.quiz import QUIZ_TYPE_GRAMMAR, QUIZ_TYPE_LESSON, Quiz
-from app.models.speaking_submission import SpeakingSubmission
+from app.models.quiz import QUIZ_TYPE_GRAMMAR, QUIZ_TYPE_LESSON, QUIZ_TYPE_VOCABULARY, Quiz
+from app.models.speaking_submission import STATUS_FINAL as SPEAKING_STATUS_FINAL, SpeakingSubmission
 from app.models.student_progress import StudentProgress
 from app.models.student_quiz import StudentQuiz
 from app.models.task_attempt import TaskAttempt
 from app.models.task_question import TaskQuestion
-from app.models.writing_submission import STATUS_DRAFT, WritingSubmission
+from app.models.video import Video
+from app.models.vocabulary import Vocabulary
+from app.models.writing_submission import STATUS_GRADED as WRITING_STATUS_GRADED, WritingSubmission
 
 SECTION_ORDER = [
     "video",
@@ -54,10 +80,17 @@ SECTION_ORDER = [
     "lesson_quiz",
 ]
 
+# The real sequential gate — "grammatik" excluded (see module docstring).
+GATED_ORDER = [key for key in SECTION_ORDER if key != "grammatik"]
+
 
 class SectionGateService:
     def __init__(self, db: Session):
         self.db = db
+
+    # ==========================
+    # Completion signals
+    # ==========================
 
     def _quiz_submitted(self, user_id: UUID, lesson_id: UUID, quiz_type: str) -> bool:
         quiz = (
@@ -94,8 +127,7 @@ class SectionGateService:
         """LESEN/HOEREN: every TaskQuestion under this skill's section(s)
         has a recorded Answer within the student's latest attempt. Real,
         already-graded-per-question signal (see attempt_service.
-        submit_answer) — doesn't require the whole attempt to be
-        submitted/graded, only unchanged by this feature either way."""
+        submit_answer)."""
         question_ids = {
             row[0]
             for row in self.db.query(TaskQuestion.id)
@@ -118,7 +150,9 @@ class SectionGateService:
         }
         return question_ids.issubset(answered_ids)
 
-    def _writing_submitted(self, assessment: Assessment, attempt: AssessmentAttempt | None) -> bool:
+    def _writing_evaluated(self, assessment: Assessment, attempt: AssessmentAttempt | None) -> bool:
+        """Only STATUS_GRADED counts — SUBMITTED/PENDING_REVIEW mean a
+        human/AI decision is still pending (see writing_submission.py)."""
         if attempt is None:
             return False
         return (
@@ -127,22 +161,70 @@ class SectionGateService:
             .filter(
                 WritingSubmission.attempt_id == attempt.id,
                 AssessmentSection.skill == SKILL_SCHREIBEN,
-                WritingSubmission.status != STATUS_DRAFT,
+                WritingSubmission.status == WRITING_STATUS_GRADED,
             )
             .first()
             is not None
         )
 
-    def _speaking_submitted(self, assessment: Assessment, attempt: AssessmentAttempt | None) -> bool:
+    def _speaking_evaluated(self, assessment: Assessment, attempt: AssessmentAttempt | None) -> bool:
+        """Only STATUS_FINAL counts — PENDING_REVIEW/REVIEWED mean the
+        teacher hasn't finalized/released the score yet (see
+        speaking_submission.py)."""
         if attempt is None:
             return False
         return (
             self.db.query(SpeakingSubmission)
             .join(AssessmentSection, SpeakingSubmission.section_id == AssessmentSection.id)
-            .filter(SpeakingSubmission.attempt_id == attempt.id, AssessmentSection.skill == SKILL_SPRECHEN)
+            .filter(
+                SpeakingSubmission.attempt_id == attempt.id,
+                AssessmentSection.skill == SKILL_SPRECHEN,
+                SpeakingSubmission.status == SPEAKING_STATUS_FINAL,
+            )
             .first()
             is not None
         )
+
+    # ==========================
+    # Applicability signals
+    # ==========================
+
+    def _video_applicable(self, lesson_id: UUID) -> bool:
+        return (
+            self.db.query(Video).filter(Video.lesson_id == lesson_id, Video.is_published.is_(True)).first()
+            is not None
+        )
+
+    def _wortschatz_applicable(self, lesson_id: UUID) -> bool:
+        return (
+            self.db.query(Vocabulary)
+            .filter(Vocabulary.lesson_id == str(lesson_id), Vocabulary.is_published.is_(True))
+            .first()
+            is not None
+        )
+
+    def _quiz_applicable(self, lesson_id: UUID, quiz_type: str) -> bool:
+        return (
+            self.db.query(Quiz)
+            .filter(Quiz.lesson_id == str(lesson_id), Quiz.quiz_type == quiz_type, Quiz.is_published.is_(True))
+            .first()
+            is not None
+        )
+
+    def _skill_applicable(self, assessment: Assessment | None, skill: str) -> bool:
+        if assessment is None:
+            return False
+        return (
+            self.db.query(AssessmentTask.id)
+            .join(AssessmentSection, AssessmentTask.section_id == AssessmentSection.id)
+            .filter(AssessmentSection.assessment_id == assessment.id, AssessmentSection.skill == skill)
+            .first()
+            is not None
+        )
+
+    # ==========================
+    # Public API
+    # ==========================
 
     def get_state(self, user_id: UUID, lesson_id: UUID) -> dict:
         progress = (
@@ -151,42 +233,69 @@ class SectionGateService:
             .first()
         )
 
-        video_done = bool(progress and progress.video_completed)
-        wortschatz_done = bool(progress and progress.vocabulary_completed)
-        # Derived, not a new column: the Wortschatz Quiz is the only writer
-        # of vocabulary_score, so a non-null score means the quiz was taken.
-        wortschatz_quiz_done = bool(progress and progress.vocabulary_score is not None)
-        grammatik_done = bool(progress and progress.grammar_completed)
-        grammatik_quiz_done = self._quiz_submitted(user_id, lesson_id, QUIZ_TYPE_GRAMMAR)
-
         assessment, attempt = self._latest_attempt(user_id, lesson_id)
-        lesen_done = bool(assessment) and self._skill_all_answered(assessment, attempt, SKILL_LESEN)
-        hoeren_done = bool(assessment) and self._skill_all_answered(assessment, attempt, SKILL_HOEREN)
-        schreiben_done = bool(assessment) and self._writing_submitted(assessment, attempt)
-        sprechen_done = bool(assessment) and self._speaking_submitted(assessment, attempt)
-
-        lesson_quiz_done = self._quiz_submitted(user_id, lesson_id, QUIZ_TYPE_LESSON)
 
         completed = {
-            "video": video_done,
-            "wortschatz": wortschatz_done,
-            "wortschatz_quiz": wortschatz_quiz_done,
-            "grammatik": grammatik_done,
-            "grammatik_quiz": grammatik_quiz_done,
-            "lesen": lesen_done,
-            "hoeren": hoeren_done,
-            "schreiben": schreiben_done,
-            "sprechen": sprechen_done,
-            "lesson_quiz": lesson_quiz_done,
+            "video": bool(progress and progress.video_completed),
+            "wortschatz": bool(progress and progress.vocabulary_completed),
+            # Derived, not a new column: the Wortschatz Quiz is the only
+            # writer of vocabulary_score, so a non-null score means the
+            # quiz was taken.
+            "wortschatz_quiz": bool(progress and progress.vocabulary_score is not None),
+            "grammatik": bool(progress and progress.grammar_completed),
+            "grammatik_quiz": self._quiz_submitted(user_id, lesson_id, QUIZ_TYPE_GRAMMAR),
+            "lesen": bool(assessment) and self._skill_all_answered(assessment, attempt, SKILL_LESEN),
+            "hoeren": bool(assessment) and self._skill_all_answered(assessment, attempt, SKILL_HOEREN),
+            "schreiben": bool(assessment) and self._writing_evaluated(assessment, attempt),
+            "sprechen": bool(assessment) and self._speaking_evaluated(assessment, attempt),
+            "lesson_quiz": self._quiz_submitted(user_id, lesson_id, QUIZ_TYPE_LESSON),
         }
 
-        # Sections are independently accessible — no sequential lock.
-        # `unlocked` is always True; kept in the shape for API/frontend
-        # compatibility (see module docstring).
+        applicable = {
+            "video": self._video_applicable(lesson_id),
+            "wortschatz": self._wortschatz_applicable(lesson_id),
+            "wortschatz_quiz": self._quiz_applicable(lesson_id, QUIZ_TYPE_VOCABULARY),
+            "grammatik": False,  # not a gated/required student-facing section
+            "grammatik_quiz": self._quiz_applicable(lesson_id, QUIZ_TYPE_GRAMMAR),
+            "lesen": self._skill_applicable(assessment, SKILL_LESEN),
+            "hoeren": self._skill_applicable(assessment, SKILL_HOEREN),
+            "schreiben": self._skill_applicable(assessment, SKILL_SCHREIBEN),
+            "sprechen": self._skill_applicable(assessment, SKILL_SPRECHEN),
+            "lesson_quiz": self._quiz_applicable(lesson_id, QUIZ_TYPE_LESSON),
+        }
+
+        unlocked = self._compute_unlocked(applicable, completed)
+
         return {
-            key: {"unlocked": True, "completed": completed[key]}
+            key: {"unlocked": unlocked[key], "completed": completed[key], "applicable": applicable[key]}
             for key in SECTION_ORDER
         }
 
+    def _compute_unlocked(self, applicable: dict[str, bool], completed: dict[str, bool]) -> dict[str, bool]:
+        """Walks GATED_ORDER, skipping inapplicable sections — the
+        previous *applicable* section must be completed for the next
+        applicable one to unlock. Inapplicable sections themselves are
+        reported unlocked (there's nothing to lock) but don't factor
+        into what unlocks the next real section."""
+        unlocked = {"grammatik": True}
+        previous_applicable_completed = True
+        for key in GATED_ORDER:
+            if not applicable[key]:
+                unlocked[key] = True
+                continue
+            unlocked[key] = previous_applicable_completed
+            previous_applicable_completed = completed[key]
+        return unlocked
+
     def is_unlocked(self, user_id: UUID, lesson_id: UUID, section: str) -> bool:
-        return True
+        state = self.get_state(user_id, lesson_id)
+        entry = state.get(section)
+        return True if entry is None else entry["unlocked"]
+
+    def is_lesson_completed(self, user_id: UUID, lesson_id: UUID) -> bool:
+        """LESSON COMPLETED = every applicable, gated section is
+        completed. A lesson with zero applicable sections is vacuously
+        complete — not expected in practice (every lesson has at least
+        a video), but not a special case to guard against either."""
+        state = self.get_state(user_id, lesson_id)
+        return all(state[key]["completed"] for key in GATED_ORDER if state[key]["applicable"])

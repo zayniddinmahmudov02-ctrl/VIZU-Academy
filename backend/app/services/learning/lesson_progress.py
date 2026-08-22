@@ -1,6 +1,9 @@
+from uuid import UUID
+
 from sqlalchemy.orm import Session
 
 from app.models.student_progress import StudentProgress
+from app.services.lesson_progress.section_gate import SectionGateService
 
 
 class LessonProgressService:
@@ -13,7 +16,10 @@ class LessonProgressService:
         user_id: str,
         lesson_id: str,
     ):
-
+        # Delegates to the single canonical, content-aware completion
+        # check (SectionGateService) — see LessonFlowService.is_completed
+        # for the same consolidation, fixing the previous duplicate
+        # fixed-flag-list logic that lived independently in both places.
         progress = (
             self.db.query(StudentProgress)
             .filter(
@@ -26,15 +32,7 @@ class LessonProgressService:
         if not progress:
             return False
 
-        return (
-            progress.video_completed
-            and progress.grammar_completed
-            and progress.reading_completed
-            and progress.listening_completed
-            and progress.writing_completed
-            and progress.speaking_completed
-            and progress.quiz_completed
-        )
+        return SectionGateService(self.db).is_lesson_completed(UUID(user_id), UUID(lesson_id))
 
     def update_completion(
         self,
