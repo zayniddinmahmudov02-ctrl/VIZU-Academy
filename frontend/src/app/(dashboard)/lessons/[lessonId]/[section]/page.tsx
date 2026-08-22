@@ -58,7 +58,7 @@ export default async function LessonSectionPage({ params }: Props) {
   // gate lives server-side on each section's submit endpoint.
   return (
     <PremiumLessonGate lessonId={lessonId}>
-      <SectionGateBoundary lessonId={lessonId} meta={meta}>
+      <SectionGateBoundary lessonId={lessonId} slug={meta.slug}>
         <SectionComponent lessonId={lessonId} />
       </SectionGateBoundary>
     </PremiumLessonGate>
