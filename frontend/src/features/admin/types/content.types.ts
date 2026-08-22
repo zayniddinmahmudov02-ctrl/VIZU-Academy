@@ -87,6 +87,30 @@ export interface Video {
   is_published: boolean;
 }
 
+export interface Book {
+  id: string;
+  title: string;
+  author: string | null;
+  description: string | null;
+  level: string;
+  cover_url: string | null;
+  storage_key: string | null;
+  original_filename: string | null;
+  order_index: number;
+  is_published: boolean;
+}
+
+export interface BookCreate {
+  title: string;
+  author?: string | null;
+  description?: string | null;
+  level: string;
+  order_index?: number;
+  is_published?: boolean;
+}
+
+export type BookUpdate = Partial<BookCreate>;
+
 export interface VideoUploadInitPayload {
   lesson_id: string;
   title: string;

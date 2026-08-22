@@ -1,5 +1,6 @@
 import {
   Award,
+  BookOpen,
   ClipboardList,
   CreditCard,
   Crown,
@@ -42,6 +43,7 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
       { label: "Users", href: "/admin/users", icon: Users },
       { label: "Premium-Users", href: "/admin/premium-users", icon: Crown },
       { label: "Certificate", href: "/admin/certificates", icon: Award },
+      { label: "Bücher", href: "/admin/books", icon: BookOpen },
       { label: "Payments", href: "/admin/payments", icon: CreditCard },
       { label: "Analytics", href: "/admin/analytics", icon: TrendingUp },
       { label: "Homeworks", href: "/admin/homeworks", icon: ClipboardList },

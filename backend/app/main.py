@@ -55,6 +55,9 @@ from app.api.homework import (
     router as homework_router,
 )
 
+# Books
+from app.api.books.router import router as books_router
+
 # Notifications
 from app.api.notifications import (
     router as notifications_router,
@@ -124,6 +127,9 @@ from app.api.admin.ai_content_router import (
 )
 from app.api.admin.quiz_generation_router import (
     router as admin_quiz_generation_router,
+)
+from app.api.admin.books_router import (
+    router as admin_books_router,
 )
 
 # VIZU Pay
@@ -212,6 +218,7 @@ _ALL_ROUTERS = [
     quiz_question_router,
     quiz_option_router,
     homework_router,
+    books_router,
     notifications_router,
     enrollment_router,
     payment_router,
@@ -231,6 +238,7 @@ _ALL_ROUTERS = [
     admin_videos_router,
     admin_ai_content_router,
     admin_quiz_generation_router,
+    admin_books_router,
     vizu_pay_router,
     assessment_engine_router,
     health_router,

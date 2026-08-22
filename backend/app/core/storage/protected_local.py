@@ -50,6 +50,17 @@ class ProtectedVideoStorage(LocalStorage):
     ROOT = Path("app/protected_storage")
 
 
+class ProtectedBookStorage(LocalStorage):
+    """PDF book files — same isolation as ProtectedLocalStorage/
+    ProtectedPaymentProofStorage, separate root. Never used to build a
+    public URL; the only way to fetch bytes is the authenticated
+    GET /books/{id}/file endpoint, gated on the book being published and
+    the requesting user being Premium (see BookService.
+    get_downloadable_book)."""
+
+    ROOT = Path("app/protected_storage/books")
+
+
 class ProtectedVideoUploadTempStorage(LocalStorage):
     """Where in-progress chunked video uploads live while incomplete —
     never public, and separate from ProtectedVideoStorage's finished-video

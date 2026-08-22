@@ -25,6 +25,7 @@ export const ADMIN_ENDPOINTS = {
   quizQuestions: "/api/v1/quiz-questions",
   quizOptions: "/api/v1/quiz-options",
   homeworks: "/api/v1/homeworks",
+  adminBooks: "/api/v1/admin/books",
   examProviders: "/api/v1/exam-providers",
   exams: "/api/v1/exams",
   mediaLibrary: "/api/v1/media-library/",

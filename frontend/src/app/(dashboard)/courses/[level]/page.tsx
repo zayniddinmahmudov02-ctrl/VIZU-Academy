@@ -1,3 +1,4 @@
+import BookRow from "@/components/courses/detail/book-row";
 import CourseHero from "@/components/courses/detail/course-hero";
 import CourseProgress from "@/components/courses/detail/course-progress";
 import ModuleList from "@/components/courses/detail/module-list";
@@ -23,6 +24,8 @@ export default async function CourseDetailPage({ params }: Props) {
       />
 
       <CourseProgress level={courseLevel} />
+
+      <BookRow level={courseLevel} />
 
       <ModuleList level={courseLevel} />
     </div>

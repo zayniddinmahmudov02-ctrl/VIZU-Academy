@@ -25,6 +25,7 @@ from .quiz import Quiz
 from .quiz_question import QuizQuestion
 from .quiz_option import QuizOption
 from .homework import Homework
+from .book import Book
 
 # Student
 from .student_progress import StudentProgress
@@ -127,6 +128,7 @@ __all__ = [
     "QuizQuestion",
     "QuizOption",
     "Homework",
+    "Book",
 
     # Student
     "StudentProgress",
