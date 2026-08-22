@@ -1,11 +1,11 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { ChevronDown, ChevronRight, Plus, Trash2, Wand2 } from "lucide-react";
+import { AlertTriangle, ChevronDown, ChevronRight, Plus, Trash2, Wand2 } from "lucide-react";
 
 import { AdminButton, AdminCheckbox, AdminInput, AdminSelect, AdminTextarea } from "@/components/admin/admin-ui";
 import { useCrudList, useCrudMutations } from "@/features/admin/hooks/use-crud";
-import { quizQuestionsApi } from "@/features/admin/services/quiz-service";
+import { quizQuestionsApi, quizzesApi } from "@/features/admin/services/quiz-service";
 import type { QuizQuestion, QuizQuestionType } from "@/features/admin/types/content.types";
 
 import QuizGenerateDialog from "./quiz-generate-dialog";
@@ -49,11 +49,22 @@ export default function QuizQuestionsEditor({ quizId, lessonId, allowManualAdd =
   const { create, update, remove } = useCrudMutations("quiz-questions", quizQuestionsApi, [
     ["quiz-questions-with-options"],
   ]);
+  const { data: allQuizzes } = useCrudList("quizzes", quizzesApi);
 
   const questions = useMemo(
     () => (all ?? []).filter((q) => q.quiz_id === quizId),
     [all, quizId],
   );
+
+  // Two independent publish gates exist — the quiz container AND each
+  // question — both must be published before a student sees anything.
+  // This was the actual root cause behind "questions exist in the DB
+  // but the quiz doesn't appear": an admin publishes questions here and
+  // has no way to notice the quiz itself is still a draft. Surfaced
+  // directly rather than auto-publishing the quiz (which would bypass
+  // the deliberate "review before publish" step for its own metadata).
+  const quiz = allQuizzes?.find((q) => q.id === quizId);
+  const quizUnpublished = quiz && !quiz.is_published;
 
   const [expanded, setExpanded] = useState<string | null>(null);
   const [newQuestion, setNewQuestion] = useState("");
@@ -72,6 +83,17 @@ export default function QuizQuestionsEditor({ quizId, lessonId, allowManualAdd =
 
   return (
     <div className="space-y-3">
+      {quizUnpublished && (
+        <div className="flex items-start gap-2.5 rounded-lg bg-[var(--admin-warning)]/10 p-3 text-xs text-[var(--admin-warning)]">
+          <AlertTriangle size={15} className="mt-0.5 shrink-0" />
+          <span>
+            Dieses Quiz selbst ist noch <strong>nicht veröffentlicht</strong> — Studenten sehen es nicht,
+            auch wenn einzelne Fragen unten als "Veröffentlicht" markiert sind. Veröffentliche das Quiz über
+            "Quiz bearbeiten" oben.
+          </span>
+        </div>
+      )}
+
       {allowAiGenerate && (
         <div className="flex justify-end">
           <AdminButton type="button" variant="secondary" size="sm" onClick={() => setGenerateDialogOpen(true)}>
