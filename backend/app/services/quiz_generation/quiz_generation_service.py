@@ -8,10 +8,21 @@ shortfall is reported, never invented filler.
 
 Writes directly into the existing Quiz/QuizQuestion/QuizOption tables
 (same models/tables the manual admin UI and the legacy AI-preview flow
-already use) — grading, scoring, publishing and the student-facing API
-are completely untouched; a generated question is just a QuizQuestion
-row like any other, created as a draft (is_published=False) exactly like
-the AI-generated flow's rows, until an admin reviews and publishes it."""
+already use) — grading, scoring, and the student-facing API are
+completely untouched.
+
+Publishing: for GRAMMAR-type quizzes specifically, a successful
+generation immediately publishes both the quiz container and every
+question it just created (QuizOption has no publish flag of its own —
+it's always visible once its parent question is). This was a deliberate
+change from the original "always draft" default: a two-gate design
+(quiz-level + question-level, both defaulting unpublished) turned out to
+be a real, repeated source of "questions exist in the DB but the quiz
+doesn't fully show" bugs, since nothing prompted an admin to flip both
+switches after generating a batch. Scoped to GRAMMAR only — other quiz
+types generated through this same service (should that ever happen; only
+GRAMMAR/LESSON quizzes expose "Automatisch erstellen" in the admin UI
+today) keep the original draft-first behavior."""
 
 import random
 import unicodedata
@@ -29,7 +40,7 @@ from app.services.quiz_generation import alphabet_templates  # noqa: F401
 from app.models.course import Course
 from app.models.lesson import Lesson
 from app.models.module import Module
-from app.models.quiz import Quiz
+from app.models.quiz import QUIZ_TYPE_GRAMMAR, Quiz
 from app.models.quiz_option import QuizOption
 from app.models.quiz_question import QuizQuestion
 from app.services.quiz_generation.registry import get_templates, get_topics_for_level
@@ -118,6 +129,12 @@ def generate_quiz(
 
     order_index = db.query(func.max(QuizQuestion.order_index)).filter(QuizQuestion.quiz_id == quiz.id).scalar() or 0
 
+    # GRAMMAR only (see module docstring) — a generated question is
+    # published immediately, not left in a draft an admin has to
+    # remember to flip. QuizOption has no publish flag of its own; it's
+    # always visible once its parent question is.
+    publish_immediately = quiz.quiz_type == QUIZ_TYPE_GRAMMAR
+
     for candidate in selected:
         order_index += 1
         question = QuizQuestion(
@@ -126,7 +143,7 @@ def generate_quiz(
             question_type=type_by_template[candidate.template_type],
             points=1,
             order_index=order_index,
-            is_published=False,
+            is_published=publish_immediately,
         )
         db.add(question)
         db.flush()
@@ -142,6 +159,9 @@ def generate_quiz(
                     order_index=i,
                 )
             )
+
+    if publish_immediately and not quiz.is_published:
+        quiz.is_published = True
 
     db.commit()
 

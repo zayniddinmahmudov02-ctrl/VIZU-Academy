@@ -20,10 +20,22 @@ from app.services.quiz_generation.quiz_generation_service import (
 )
 
 
-def build_mock_db(level: str, existing_question_texts: list[str] | None = None, existing_max_order: int = 0):
+def build_mock_db(
+    level: str,
+    existing_question_texts: list[str] | None = None,
+    existing_max_order: int = 0,
+    quiz_type: str = "GRAMMAR",
+    quiz_already_published: bool = False,
+):
     quiz_id = uuid.uuid4()
     lesson_id = uuid.uuid4()
-    quiz = Quiz(id=quiz_id, lesson_id=str(lesson_id), quiz_type="GRAMMAR", title="Grammatik Quiz")
+    quiz = Quiz(
+        id=quiz_id,
+        lesson_id=str(lesson_id),
+        quiz_type=quiz_type,
+        title="Grammatik Quiz",
+        is_published=quiz_already_published,
+    )
 
     db = MagicMock()
     db.get.return_value = quiz
@@ -141,6 +153,47 @@ class TestQuizGenerationService(unittest.TestCase):
         db, quiz_id, lesson_id = build_mock_db("A1")
         with self.assertRaises(QuizGenerationError):
             generate_quiz(db, quiz_id, lesson_id, topic="not-a-real-topic", count=5)
+
+
+class TestGrammarQuizAutoPublish(unittest.TestCase):
+    """A generated GRAMMAR quiz's questions (and the quiz container
+    itself) are published immediately — the two-gate "draft by default"
+    design was the actual root cause of "questions exist but the quiz
+    doesn't fully show". Scoped to GRAMMAR only; other quiz types keep
+    the original draft-first behavior."""
+
+    def test_5_20_50_questions_all_published_immediately(self):
+        for count in (5, 20, 50):
+            with self.subTest(count=count):
+                db, quiz_id, lesson_id = build_mock_db("A1")
+                result = generate_quiz(db, quiz_id, lesson_id, topic="alphabet", count=count, seed=count)
+                self.assertEqual(result.created_count, count)
+                questions = added_questions(db)
+                self.assertEqual(len(questions), count)
+                self.assertTrue(all(q.is_published for q in questions))
+
+    def test_quiz_container_becomes_published_after_generation(self):
+        db, quiz_id, lesson_id = build_mock_db("A1", quiz_already_published=False)
+        quiz = db.get.return_value
+        self.assertFalse(quiz.is_published)
+        generate_quiz(db, quiz_id, lesson_id, topic="alphabet", count=10, seed=1)
+        self.assertTrue(quiz.is_published)
+
+    def test_already_published_quiz_stays_published_idempotent(self):
+        db, quiz_id, lesson_id = build_mock_db("A1", quiz_already_published=True)
+        generate_quiz(db, quiz_id, lesson_id, topic="alphabet", count=10, seed=1)
+        self.assertTrue(db.get.return_value.is_published)
+
+    def test_lesson_type_quiz_keeps_draft_default_out_of_scope(self):
+        # Only GRAMMAR gets the auto-publish behavior — LESSON-type
+        # generation (should it ever be used) is untouched, per the
+        # explicit "only change Grammar Quiz" scope of this fix.
+        db, quiz_id, lesson_id = build_mock_db("A1", quiz_type="LESSON")
+        generate_quiz(db, quiz_id, lesson_id, topic="alphabet", count=10, seed=1)
+        questions = added_questions(db)
+        self.assertEqual(len(questions), 10)
+        self.assertTrue(all(not q.is_published for q in questions))
+        self.assertFalse(db.get.return_value.is_published)
 
 
 if __name__ == "__main__":
