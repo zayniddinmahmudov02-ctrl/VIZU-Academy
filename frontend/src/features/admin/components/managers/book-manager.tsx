@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { CheckCircle2, FileText, Upload, XCircle } from "lucide-react";
+import { CheckCircle2, FileText, Upload, X, XCircle } from "lucide-react";
 
 import { AdminButton, AdminCheckbox, AdminInput, AdminLabel, AdminSelect, AdminTextarea } from "@/components/admin/admin-ui";
 import ConfirmDialog from "@/components/admin/confirm-dialog";
@@ -13,6 +13,13 @@ import { germanLevels } from "@/constants/levels";
 import { useCrudList, useCrudMutations } from "@/features/admin/hooks/use-crud";
 import { booksApi, uploadBookPdf } from "@/features/admin/services/books-service";
 import type { Book } from "@/features/admin/types/content.types";
+import { formatFileSize } from "@/lib/upload-format";
+
+const PDF_TYPE_ERROR = "Nur PDF-Dateien sind erlaubt.";
+
+function isPdfFile(file: File): boolean {
+  return file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
+}
 
 const EMPTY_FORM = {
   title: "",
@@ -26,13 +33,17 @@ const EMPTY_FORM = {
 
 /** Admin "Bücher" manager — PDF books tagged by CEFR level, shown at the
  * top of the matching level's student lesson list (see book-row.tsx).
- * Upload -> preview -> save -> publish, per spec: metadata is created
- * first (Speichern), then the PDF itself is uploaded via a dedicated
- * per-row action once the book exists (POST .../upload-pdf) — mirrors
- * VideoManager's two-step create-then-upload shape. Publishing is a
- * plain is_published toggle, same as every other publishable content
- * type in this admin — a book is never visible to students, and its
- * PDF never downloadable, until Published. */
+ * The "Neues Buch"/"Buch bearbeiten" dialog picks up a PDF inline (see
+ * handleSubmit) — since POST .../{book_id}/upload-pdf needs a real id,
+ * Speichern still does book create/update first and the PDF upload
+ * second, but both happen in one click from the admin's point of view;
+ * a PDF is required to create a new book. The table's own per-row
+ * "Hochladen"/"Ersetzen" action (POST .../upload-pdf directly) still
+ * works unchanged as a quick way to replace an existing book's PDF
+ * without opening the full edit dialog. Publishing is a plain
+ * is_published toggle, same as every other publishable content type in
+ * this admin — a book is never visible to students, and its PDF never
+ * downloadable, until Published. */
 export default function BookManager() {
   const queryClient = useQueryClient();
   const { data: all, isLoading } = useCrudList("books", booksApi);
@@ -50,6 +61,17 @@ export default function BookManager() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const pendingUploadBookId = useRef<string | null>(null);
 
+  // The "Neues Buch"/"Buch bearbeiten" modal's own inline PDF field —
+  // separate state from the table's per-row upload above, since both
+  // can be open/in-flight independently. A newly picked file here is
+  // only actually uploaded once Speichern succeeds (see handleSubmit):
+  // book create/update always happens first, since upload-pdf requires
+  // an existing book_id.
+  const [modalPdfFile, setModalPdfFile] = useState<File | null>(null);
+  const [modalPdfError, setModalPdfError] = useState<string | null>(null);
+  const [modalPdfUploading, setModalPdfUploading] = useState(false);
+  const modalPdfInputRef = useRef<HTMLInputElement>(null);
+
   const data = (all ?? [])
     .filter((b) => !levelFilter || b.level === levelFilter)
     .sort((a, b) => a.order_index - b.order_index);
@@ -58,6 +80,8 @@ export default function BookManager() {
     setEditing(null);
     setForm(EMPTY_FORM);
     setError(null);
+    setModalPdfFile(null);
+    setModalPdfError(null);
     setDialogOpen(true);
   }
 
@@ -73,17 +97,77 @@ export default function BookManager() {
       is_published: item.is_published,
     });
     setError(null);
+    setModalPdfFile(null);
+    setModalPdfError(null);
     setDialogOpen(true);
   }
 
+  function pickModalPdf() {
+    modalPdfInputRef.current?.click();
+  }
+
+  function handleModalPdfSelected(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (modalPdfInputRef.current) modalPdfInputRef.current.value = "";
+    if (!file) return;
+    if (!isPdfFile(file)) {
+      setModalPdfError(PDF_TYPE_ERROR);
+      return;
+    }
+    setModalPdfError(null);
+    setModalPdfFile(file);
+  }
+
+  function clearModalPdf() {
+    setModalPdfFile(null);
+    setModalPdfError(null);
+  }
+
+  // 1. validation -> 2. book create/update -> 3. PDF upload (only once
+  // the book row exists, since POST .../{book_id}/upload-pdf needs a
+  // real id) -> 4. the PDF is linked to the book by that same call
+  // (BookService.upload_pdf sets storage_key/original_filename) ->
+  // 5. close + refresh only after both steps succeed. A PDF is required
+  // for a brand-new book (there's no table row to fall back to yet);
+  // editing an existing book that already has a PDF doesn't force a
+  // new one, matching "don't force existing incomplete books to
+  // suddenly require a PDF on every metadata edit."
   async function handleSubmit() {
     setError(null);
+
+    if (!editing && !modalPdfFile) {
+      setError("Bitte wähle eine PDF-Datei aus.");
+      return;
+    }
+
     try {
+      let book: Book;
       if (editing) {
-        await update.mutateAsync({ id: editing.id, data: form });
+        book = await update.mutateAsync({ id: editing.id, data: form });
       } else {
-        await create.mutateAsync(form);
+        book = await create.mutateAsync(form);
       }
+
+      if (modalPdfFile) {
+        setModalPdfUploading(true);
+        try {
+          await uploadBookPdf(book.id, modalPdfFile);
+        } catch {
+          // The book row itself is already saved at this point — point
+          // `editing` at it so a retry from here updates instead of
+          // creating a second, duplicate book, and keep the dialog open
+          // with the same picked file so the admin can just retry.
+          setEditing(book);
+          setError("Buch gespeichert, aber PDF-Upload fehlgeschlagen. Bitte erneut versuchen.");
+          await queryClient.invalidateQueries({ queryKey: ["books"] });
+          return;
+        } finally {
+          setModalPdfUploading(false);
+        }
+      }
+
+      await queryClient.invalidateQueries({ queryKey: ["books"] });
+      setModalPdfFile(null);
       setDialogOpen(false);
     } catch {
       setError("Speichern fehlgeschlagen.");
@@ -227,9 +311,20 @@ export default function BookManager() {
             </AdminButton>
             <AdminButton
               onClick={handleSubmit}
-              disabled={create.isPending || update.isPending || !form.title || !form.level}
+              disabled={
+                create.isPending ||
+                update.isPending ||
+                modalPdfUploading ||
+                !form.title ||
+                !form.level ||
+                (!editing && !modalPdfFile)
+              }
             >
-              {create.isPending || update.isPending ? "Wird gespeichert..." : "Speichern"}
+              {modalPdfUploading
+                ? "PDF wird hochgeladen..."
+                : create.isPending || update.isPending
+                  ? "Wird gespeichert..."
+                  : "Speichern"}
             </AdminButton>
           </>
         }
@@ -288,6 +383,55 @@ export default function BookManager() {
             />
           </div>
 
+          <div>
+            <AdminLabel>PDF-Datei{!editing && " *"}</AdminLabel>
+            <input
+              ref={modalPdfInputRef}
+              type="file"
+              accept="application/pdf,.pdf"
+              className="hidden"
+              onChange={handleModalPdfSelected}
+            />
+
+            {modalPdfFile ? (
+              <div className="flex items-center gap-2 rounded-lg bg-[var(--admin-card)] px-3.5 py-2.5 ring-1 ring-[var(--admin-border-strong)]">
+                <FileText size={15} className="shrink-0 text-[var(--admin-text-muted)]" />
+                <span className="flex-1 truncate text-sm text-[var(--admin-text-secondary)]" title={modalPdfFile.name}>
+                  {modalPdfFile.name}
+                </span>
+                <span className="shrink-0 text-xs text-[var(--admin-text-muted)]">
+                  {formatFileSize(modalPdfFile.size)}
+                </span>
+                <button
+                  type="button"
+                  onClick={clearModalPdf}
+                  aria-label="PDF entfernen"
+                  className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md text-[var(--admin-text-muted)] hover:bg-[var(--admin-hover)] hover:text-[var(--admin-danger)]"
+                >
+                  <X size={14} />
+                </button>
+              </div>
+            ) : editing?.storage_key ? (
+              <div className="flex items-center gap-2 rounded-lg bg-[var(--admin-card)] px-3.5 py-2.5 ring-1 ring-[var(--admin-border-strong)]">
+                <CheckCircle2 size={15} className="shrink-0 text-[var(--admin-accent)]" />
+                <span className="flex-1 truncate text-sm text-[var(--admin-text-secondary)]">
+                  Aktuelle Datei: {editing.original_filename ?? "PDF"}
+                </span>
+                <AdminButton type="button" variant="ghost" size="sm" onClick={pickModalPdf}>
+                  <Upload size={13} />
+                  Ersetzen
+                </AdminButton>
+              </div>
+            ) : (
+              <AdminButton type="button" variant="secondary" size="sm" onClick={pickModalPdf}>
+                <Upload size={14} />
+                PDF auswählen
+              </AdminButton>
+            )}
+
+            {modalPdfError && <p className="mt-1.5 text-xs text-[var(--admin-danger)]">{modalPdfError}</p>}
+          </div>
+
           <label className="flex cursor-pointer items-center gap-2.5">
             <AdminCheckbox
               checked={form.is_published}
@@ -295,12 +439,6 @@ export default function BookManager() {
             />
             <span className="text-sm text-[var(--admin-text-secondary)]">Veröffentlicht</span>
           </label>
-
-          {!editing && (
-            <p className="text-xs text-[var(--admin-text-muted)]">
-              Nach dem Speichern kann die PDF-Datei über die Tabelle hochgeladen werden.
-            </p>
-          )}
         </div>
       </FormDialog>
 

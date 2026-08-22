@@ -105,6 +105,7 @@ export interface BookCreate {
   author?: string | null;
   description?: string | null;
   level: string;
+  cover_url?: string | null;
   order_index?: number;
   is_published?: boolean;
 }
