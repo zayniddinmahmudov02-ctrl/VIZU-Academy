@@ -79,8 +79,14 @@ def get_content_status_for_module(db: Session, module_id: str) -> list[dict]:
         return []
 
     def _lesson_ids_with(model) -> set:
+        # Stringified regardless of the column's native type — Video/
+        # Vocabulary.lesson_id are UUID columns but Grammar/Quiz.lesson_id
+        # are plain str columns (see app/models/*.py); comparing a mixed
+        # UUID/str set against `lesson.id` (a UUID) below would silently
+        # never match for whichever models use the str variant. str() on
+        # an already-str value is a no-op, so this is safe for both.
         return {
-            row[0]
+            str(row[0])
             for row in db.execute(
                 select(model.lesson_id).where(model.lesson_id.in_(lesson_ids)).distinct()
             ).all()
@@ -119,10 +125,10 @@ def get_content_status_for_module(db: Session, module_id: str) -> list[dict]:
             "lesson_id": str(lesson.id),
             "number": lesson.number,
             "title": lesson.title,
-            "has_video": lesson.id in video_lessons,
-            "has_grammar": lesson.id in grammar_lessons,
+            "has_video": str(lesson.id) in video_lessons,
+            "has_grammar": str(lesson.id) in grammar_lessons,
             "has_grammar_quiz": QUIZ_TYPE_GRAMMAR in quiz_types_by_lesson.get(str(lesson.id), set()),
-            "has_vocabulary": lesson.id in vocabulary_lessons,
+            "has_vocabulary": str(lesson.id) in vocabulary_lessons,
             # Lesen/Hören each unify passage + comprehension questions
             # into one Assessment-engine section — "Lesen" and "Lesen
             # Quiz" are the same underlying content, shown as two rows.

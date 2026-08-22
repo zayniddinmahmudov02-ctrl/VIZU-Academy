@@ -108,9 +108,23 @@ class SectionGateService:
         )
 
     def _latest_attempt(self, user_id: UUID, lesson_id: UUID) -> tuple[Assessment | None, AssessmentAttempt | None]:
+        # Nothing enforces at most one COURSE assessment per lesson at the
+        # DB level (no unique constraint on lesson_id+assessment_type) —
+        # the admin builder's own "get-or-create on first task" flow
+        # (LesenAssessmentManager.ensureAssessmentAndSection) can end up
+        # creating a second one if two skill tabs are used before the
+        # first tab's assessment list has loaded (each tab holds its own
+        # query, keyed by skill, that doesn't know about the others).
+        # Ordering by created_at desc — matching crud_service.
+        # list_assessments' own ordering, which is what the admin UI's
+        # `assessments?.[0]` already relies on — keeps this in sync with
+        # whichever assessment the admin is actually looking at, instead
+        # of an arbitrary DB-order pick that could land on an older,
+        # incomplete duplicate.
         assessment = (
             self.db.query(Assessment)
             .filter(Assessment.assessment_type == TYPE_COURSE, Assessment.lesson_id == lesson_id)
+            .order_by(Assessment.created_at.desc())
             .first()
         )
         if assessment is None:
@@ -211,13 +225,24 @@ class SectionGateService:
             is not None
         )
 
-    def _skill_applicable(self, assessment: Assessment | None, skill: str) -> bool:
-        if assessment is None:
-            return False
+    def _skill_applicable(self, lesson_id: UUID, skill: str) -> bool:
+        # Deliberately does NOT go through a single resolved Assessment
+        # (unlike the pre-fix version) — joins straight from lesson_id so
+        # this stays correct even if a duplicate COURSE assessment exists
+        # for this lesson (see _latest_attempt's docstring): a task under
+        # *any* of them still counts as "this skill has content," matching
+        # what the admin's own content-status view already does (see
+        # get_content_status_for_module, which never narrows to one
+        # assessment either — this brings the two back in sync).
         return (
             self.db.query(AssessmentTask.id)
             .join(AssessmentSection, AssessmentTask.section_id == AssessmentSection.id)
-            .filter(AssessmentSection.assessment_id == assessment.id, AssessmentSection.skill == skill)
+            .join(Assessment, AssessmentSection.assessment_id == Assessment.id)
+            .filter(
+                Assessment.assessment_type == TYPE_COURSE,
+                Assessment.lesson_id == lesson_id,
+                AssessmentSection.skill == skill,
+            )
             .first()
             is not None
         )
@@ -257,10 +282,10 @@ class SectionGateService:
             "wortschatz_quiz": self._quiz_applicable(lesson_id, QUIZ_TYPE_VOCABULARY),
             "grammatik": False,  # not a gated/required student-facing section
             "grammatik_quiz": self._quiz_applicable(lesson_id, QUIZ_TYPE_GRAMMAR),
-            "lesen": self._skill_applicable(assessment, SKILL_LESEN),
-            "hoeren": self._skill_applicable(assessment, SKILL_HOEREN),
-            "schreiben": self._skill_applicable(assessment, SKILL_SCHREIBEN),
-            "sprechen": self._skill_applicable(assessment, SKILL_SPRECHEN),
+            "lesen": self._skill_applicable(lesson_id, SKILL_LESEN),
+            "hoeren": self._skill_applicable(lesson_id, SKILL_HOEREN),
+            "schreiben": self._skill_applicable(lesson_id, SKILL_SCHREIBEN),
+            "sprechen": self._skill_applicable(lesson_id, SKILL_SPRECHEN),
             "lesson_quiz": self._quiz_applicable(lesson_id, QUIZ_TYPE_LESSON),
         }
 
