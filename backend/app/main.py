@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
 from app.core.config import settings
+from app.core.cors import ALLOWED_ORIGIN_REGEX, ALLOWED_ORIGINS
 from app.core.exceptions import register_exception_handlers
 
 # Authentication
@@ -161,12 +162,12 @@ app.add_middleware(
     # environment — never hardcoded, since a frontend served from a real
     # domain would otherwise be silently rejected by the browser's CORS
     # check on every API call.
-    allow_origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-        *settings.cors_origins,
-    ],
-    allow_origin_regex=r"https?://(localhost|127\.0\.0\.1)(:\d+)?",
+    #
+    # Sourced from app.core.cors so the exception handlers (which
+    # CORSMiddleware does NOT wrap) can apply the exact same allow-list to
+    # error responses — see core/cors.py for why that matters.
+    allow_origins=ALLOWED_ORIGINS,
+    allow_origin_regex=ALLOWED_ORIGIN_REGEX.pattern,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

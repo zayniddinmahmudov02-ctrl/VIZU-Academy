@@ -3,6 +3,8 @@ from fastapi import HTTPException
 from fastapi import Request
 from fastapi.responses import JSONResponse
 
+from app.core.cors import cors_headers_for
+
 from .errors import DomainError, NotFoundError
 
 
@@ -20,6 +22,7 @@ def register_exception_handlers(app: FastAPI):
                 "success": False,
                 "message": exc.detail,
             },
+            headers=cors_headers_for(request.headers.get("origin")),
         )
 
     @app.exception_handler(NotFoundError)
@@ -34,6 +37,7 @@ def register_exception_handlers(app: FastAPI):
                 "success": False,
                 "message": exc.message,
             },
+            headers=cors_headers_for(request.headers.get("origin")),
         )
 
     @app.exception_handler(DomainError)
@@ -48,6 +52,7 @@ def register_exception_handlers(app: FastAPI):
                 "success": False,
                 "message": exc.message,
             },
+            headers=cors_headers_for(request.headers.get("origin")),
         )
 
     @app.exception_handler(Exception)
@@ -62,4 +67,5 @@ def register_exception_handlers(app: FastAPI):
                 "success": False,
                 "message": "Internal Server Error",
             },
+            headers=cors_headers_for(request.headers.get("origin")),
         )
