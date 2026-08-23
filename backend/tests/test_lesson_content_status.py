@@ -8,7 +8,20 @@ no level parameter and branches on nothing level-specific, so running
 the same assertions against several distinct module/lesson id sets
 (standing in for A1-C1) is itself the proof there's no per-level
 special-casing. Uses stdlib unittest + MagicMock (no real DB), matching
-this session's established pattern."""
+this session's established pattern.
+
+Root cause this pins down: every lesson_id column touched here
+(Video/Vocabulary/Grammar/Quiz.lesson_id) resolves to a native
+UUID(as_uuid=True) column at the DB level regardless of its Python
+`Mapped[str]` vs `Mapped[UUID]` annotation — mapped_column(ForeignKey
+(...)) with no explicit type infers from the FK target (Lesson.id),
+confirmed directly via Quiz.__table__.columns["lesson_id"].type.
+python_type (== uuid.UUID, not str). A real query on Quiz.lesson_id
+therefore returns uuid.UUID objects, not strings — so every fixture
+below passes raw UUID objects for lesson_id in *_rows (matching real
+query results), not pre-stringified ones; a test that stringified them
+itself would never have caught the "keyed by UUID, looked up by str"
+bug this file exists to pin down."""
 
 import unittest
 import uuid
@@ -34,15 +47,11 @@ def build_mock_db(
     vocabulary_rows: list[tuple] = (),
 ):
     """quiz_type_rows: list of (lesson_id, quiz_type) tuples already
-    filtered as if Quiz.is_published.is_(True) had been applied — same
-    shape the real query produces. video_rows/grammar_rows/
-    vocabulary_rows: list of (lesson_id,) tuples, exactly the row shape
-    `select(model.lesson_id)...` returns — Video/Vocabulary.lesson_id
-    are native UUID columns (so real rows carry UUID objects here),
-    Grammar.lesson_id is a plain str column (so real rows carry str) —
-    passing a str row for grammar_rows even though `lesson.id` itself is
-    a UUID is deliberate: it's exactly the mismatch that caused
-    has_grammar to always read False before the UUID/str fix."""
+    filtered as if Quiz.is_published.is_(True) had been applied.
+    video_rows/grammar_rows/vocabulary_rows: list of (lesson_id,)
+    tuples. All lesson_id values here are raw uuid.UUID objects — see
+    the module docstring for why that's what a real query actually
+    returns for every one of these columns, Grammar/Quiz included."""
     db = MagicMock()
 
     execute_results = [
@@ -62,7 +71,7 @@ class TestGrammarQuizContentStatus(unittest.TestCase):
     def test_published_grammar_quiz_shows_as_present(self):
         lesson_id = uuid.uuid4()
         lesson = make_lesson(lesson_id, number=1, title="Herzlich Willkommen")
-        db = build_mock_db(lesson, quiz_type_rows=[(str(lesson_id), "GRAMMAR")])
+        db = build_mock_db(lesson, quiz_type_rows=[(lesson_id, "GRAMMAR")])
 
         result = get_content_status_for_module(db, "module-1")
 
@@ -78,12 +87,26 @@ class TestGrammarQuizContentStatus(unittest.TestCase):
 
         self.assertFalse(result[0]["has_grammar_quiz"])
 
+    def test_unpublished_grammar_quiz_shows_as_absent(self):
+        # quiz_type_rows already reflects Quiz.is_published.is_(True)
+        # having been applied at the query level (see get_content_status_
+        # for_module) — an unpublished quiz simply never appears in this
+        # list, same effect as "no quiz at all" from this function's
+        # point of view.
+        lesson_id = uuid.uuid4()
+        lesson = make_lesson(lesson_id)
+        db = build_mock_db(lesson, quiz_type_rows=[])
+
+        result = get_content_status_for_module(db, "module-1")
+
+        self.assertFalse(result[0]["has_grammar_quiz"])
+
     def test_lesson_quiz_type_does_not_count_as_grammar_quiz(self):
         # A LESSON-type quiz existing must not make has_grammar_quiz true
         # — the two are tracked independently (has_lesson_quiz is separate).
         lesson_id = uuid.uuid4()
         lesson = make_lesson(lesson_id)
-        db = build_mock_db(lesson, quiz_type_rows=[(str(lesson_id), "LESSON")])
+        db = build_mock_db(lesson, quiz_type_rows=[(lesson_id, "LESSON")])
 
         result = get_content_status_for_module(db, "module-1")
 
@@ -94,13 +117,23 @@ class TestGrammarQuizContentStatus(unittest.TestCase):
         lesson_id = uuid.uuid4()
         lesson = make_lesson(lesson_id)
         db = build_mock_db(
-            lesson, quiz_type_rows=[(str(lesson_id), "GRAMMAR"), (str(lesson_id), "LESSON")]
+            lesson, quiz_type_rows=[(lesson_id, "GRAMMAR"), (lesson_id, "LESSON")]
         )
 
         result = get_content_status_for_module(db, "module-1")
 
         self.assertTrue(result[0]["has_grammar_quiz"])
         self.assertTrue(result[0]["has_lesson_quiz"])
+
+    def test_other_lessons_quiz_rows_do_not_leak_into_this_lesson(self):
+        lesson_id = uuid.uuid4()
+        other_lesson_id = uuid.uuid4()
+        lesson = make_lesson(lesson_id)
+        db = build_mock_db(lesson, quiz_type_rows=[(other_lesson_id, "GRAMMAR")])
+
+        result = get_content_status_for_module(db, "module-1")
+
+        self.assertFalse(result[0]["has_grammar_quiz"])
 
     def test_universal_across_simulated_levels_no_special_casing(self):
         # get_content_status_for_module takes only a module_id — running
@@ -111,7 +144,7 @@ class TestGrammarQuizContentStatus(unittest.TestCase):
             with self.subTest(level=level_name):
                 lesson_id = uuid.uuid4()
                 lesson = make_lesson(lesson_id, title=f"{level_name} Lektion 1")
-                db = build_mock_db(lesson, quiz_type_rows=[(str(lesson_id), "GRAMMAR")])
+                db = build_mock_db(lesson, quiz_type_rows=[(lesson_id, "GRAMMAR")])
 
                 result = get_content_status_for_module(db, f"module-{level_name}")
 
@@ -119,20 +152,17 @@ class TestGrammarQuizContentStatus(unittest.TestCase):
 
 
 class TestVideoGrammarVocabularyContentStatus(unittest.TestCase):
-    """Regression for has_grammar always reading False: Grammar.lesson_id
-    is a plain str column (unlike Video/Vocabulary.lesson_id, which are
-    native UUID columns) — comparing `lesson.id` (a UUID) directly
-    against a set built from str rows never matched, so a published
-    Grammar row for a lesson was silently invisible to this admin view
-    regardless of whether it actually existed. Fixed by stringifying
-    both sides of the membership check uniformly."""
+    """Regression for has_grammar/has_video/has_vocabulary: every one of
+    these lesson_id columns is a real UUID column at the DB level (see
+    module docstring) — a set built from raw query rows must be
+    stringified the same way the str(lesson.id) lookup is, or the
+    membership check silently never matches even though the row is
+    genuinely there."""
 
-    def test_has_grammar_true_when_a_str_typed_row_matches(self):
+    def test_has_grammar_true_when_a_matching_row_exists(self):
         lesson_id = uuid.uuid4()
         lesson = make_lesson(lesson_id)
-        # Exactly what a real query returns for Grammar (str column) —
-        # str(lesson_id), not the UUID object itself.
-        db = build_mock_db(lesson, quiz_type_rows=[], grammar_rows=[(str(lesson_id),)])
+        db = build_mock_db(lesson, quiz_type_rows=[], grammar_rows=[(lesson_id,)])
 
         result = get_content_status_for_module(db, "module-1")
 
@@ -147,18 +177,16 @@ class TestVideoGrammarVocabularyContentStatus(unittest.TestCase):
 
         self.assertFalse(result[0]["has_grammar"])
 
-    def test_has_video_true_when_a_uuid_typed_row_matches(self):
+    def test_has_video_true_when_a_matching_row_exists(self):
         lesson_id = uuid.uuid4()
         lesson = make_lesson(lesson_id)
-        # Video.lesson_id is a native UUID column — real rows carry the
-        # UUID object itself, not a string.
         db = build_mock_db(lesson, quiz_type_rows=[], video_rows=[(lesson_id,)])
 
         result = get_content_status_for_module(db, "module-1")
 
         self.assertTrue(result[0]["has_video"])
 
-    def test_has_vocabulary_true_when_a_uuid_typed_row_matches(self):
+    def test_has_vocabulary_true_when_a_matching_row_exists(self):
         lesson_id = uuid.uuid4()
         lesson = make_lesson(lesson_id)
         db = build_mock_db(lesson, quiz_type_rows=[], vocabulary_rows=[(lesson_id,)])
@@ -171,7 +199,7 @@ class TestVideoGrammarVocabularyContentStatus(unittest.TestCase):
         lesson_id = uuid.uuid4()
         other_lesson_id = uuid.uuid4()
         lesson = make_lesson(lesson_id)
-        db = build_mock_db(lesson, quiz_type_rows=[], grammar_rows=[(str(other_lesson_id),)])
+        db = build_mock_db(lesson, quiz_type_rows=[], grammar_rows=[(other_lesson_id,)])
 
         result = get_content_status_for_module(db, "module-1")
 

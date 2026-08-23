@@ -79,12 +79,15 @@ def get_content_status_for_module(db: Session, module_id: str) -> list[dict]:
         return []
 
     def _lesson_ids_with(model) -> set:
-        # Stringified regardless of the column's native type — Video/
-        # Vocabulary.lesson_id are UUID columns but Grammar/Quiz.lesson_id
-        # are plain str columns (see app/models/*.py); comparing a mixed
-        # UUID/str set against `lesson.id` (a UUID) below would silently
-        # never match for whichever models use the str variant. str() on
-        # an already-str value is a no-op, so this is safe for both.
+        # Stringified unconditionally — every one of these lesson_id
+        # columns (Video/Vocabulary/Grammar, and Quiz.lesson_id below)
+        # resolves to a native UUID(as_uuid=True) column at the DB level
+        # regardless of a `Mapped[str]` vs `Mapped[UUID]` Python
+        # annotation (mapped_column(ForeignKey(...)) with no explicit
+        # type infers from the FK target, Lesson.id — confirmed via
+        # Quiz.__table__.columns["lesson_id"].type.python_type). str() on
+        # an already-str value is a no-op, so this is safe either way —
+        # what matters is every lookup below uses the same str(...) key.
         return {
             str(row[0])
             for row in db.execute(
@@ -114,7 +117,18 @@ def get_content_status_for_module(db: Session, module_id: str) -> list[dict]:
     ).all()
     quiz_types_by_lesson: dict = {}
     for lesson_id, quiz_type in quiz_type_rows:
-        quiz_types_by_lesson.setdefault(lesson_id, set()).add(quiz_type)
+        # Quiz.lesson_id is declared `Mapped[str]` in the ORM, but
+        # mapped_column(ForeignKey("lessons.id")) with no explicit type
+        # infers the actual column type from the FK target (Lesson.id,
+        # UUID(as_uuid=True)) — confirmed directly via
+        # Quiz.__table__.columns["lesson_id"].type.python_type, which is
+        # uuid.UUID, not str. So `lesson_id` here is a real UUID object,
+        # not a string, even though the annotation suggests otherwise —
+        # stringify it so it actually matches the str(lesson.id) lookups
+        # below (has_grammar_quiz/has_lesson_quiz), which a bare
+        # `lesson_id` key never did (a UUID object and its str() are
+        # different dict keys).
+        quiz_types_by_lesson.setdefault(str(lesson_id), set()).add(quiz_type)
 
     lessons = db.scalars(
         select(Lesson).where(Lesson.module_id == module_id).order_by(Lesson.number)
