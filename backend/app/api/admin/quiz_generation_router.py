@@ -21,9 +21,11 @@ from app.schemas.quiz_generation import (
     QuizGenerationResponse,
     QuizGenerationTopicsResponse,
 )
+from app.services.ai_content import AIContentError
 from app.services.quiz_generation import (
     QuizGenerationError,
     generate_quiz,
+    generate_quiz_from_prompt,
     list_topics_for_lesson,
 )
 
@@ -46,23 +48,43 @@ def get_topics(
 
 
 @router.post("/generate", response_model=QuizGenerationResponse)
-def generate(
+async def generate(
     data: QuizGenerationRequest,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin_panel_access),
 ):
+    """Either/or: a non-empty `prompt` routes to the Gemini AI generator
+    (generate_quiz_from_prompt — GRAMMAR only, always drafts); an empty
+    prompt runs the original deterministic, topic/template-based
+    generate_quiz exactly as before, unchanged. `topic` is only
+    required in that second, no-prompt case."""
+    prompt = (data.prompt or "").strip()
+
     try:
-        result = generate_quiz(
-            db,
-            quiz_id=data.quiz_id,
-            lesson_id=data.lesson_id,
-            topic=data.topic,
-            count=data.count,
-            question_types=data.question_types,
-            seed=data.seed,
-        )
+        if prompt:
+            result = await generate_quiz_from_prompt(
+                db,
+                quiz_id=data.quiz_id,
+                lesson_id=data.lesson_id,
+                prompt=prompt,
+                count=data.count,
+            )
+        else:
+            if not data.topic:
+                raise QuizGenerationError("Bitte ein Thema auswählen oder einen Prompt eingeben.")
+            result = generate_quiz(
+                db,
+                quiz_id=data.quiz_id,
+                lesson_id=data.lesson_id,
+                topic=data.topic,
+                count=data.count,
+                question_types=data.question_types,
+                seed=data.seed,
+            )
     except QuizGenerationError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except AIContentError as exc:
+        raise HTTPException(status_code=502, detail=str(exc)) from exc
 
     return QuizGenerationResponse(
         quiz_id=result.quiz_id,

@@ -22,7 +22,12 @@ export interface QuizGenerationTopicsResponse {
 export interface QuizGenerationRequest {
   lesson_id: string;
   quiz_id: string;
-  topic: string;
+  // Required only when prompt is empty — see quiz-generate-dialog.tsx.
+  topic?: string;
+  // Non-empty routes generation through Gemini AI instead of the
+  // deterministic template engine (GRAMMAR quizzes only, backend-
+  // enforced — see app/api/admin/quiz_generation_router.py).
+  prompt?: string;
   count: number;
   question_types?: string[] | null;
 }

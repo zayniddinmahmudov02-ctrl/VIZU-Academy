@@ -11,6 +11,7 @@ from app.schemas.ai_content import (
     AIGrammarQuizPreview,
     AIHoerenPreview,
     AILesenPreview,
+    AIQuizQuestionPreview,
     AISchreibenPreview,
     AISprechenPreview,
 )
@@ -54,6 +55,50 @@ Respond with ONLY a JSON object (no markdown, no prose), exactly this shape:
         return AIGrammarQuizPreview.model_validate(data)
     except ValidationError as exc:
         raise AIContentError(f"Gemini returned an unexpected shape: {exc}") from exc
+
+
+async def generate_grammar_quiz_mc_from_prompt(
+    prompt: str, level: str, count: int
+) -> list[AIQuizQuestionPreview]:
+    """Strict Multiple-Choice-only variant for the "Automatisch
+    erstellen" dialog's free-form prompt field (see
+    quiz_generation_service.generate_quiz_from_prompt, which writes the
+    result to the DB as drafts) — unlike generate_grammar_quiz above,
+    which allows a mix of question types for the older preview/apply
+    "Mit KI erstellen" flow, this always asks for exactly `count`
+    MULTIPLE_CHOICE questions with exactly 4 options and exactly 1
+    correct one, and drops (never repairs/pads) any question Gemini
+    returned that doesn't actually conform — the same "never invented
+    filler, exactly what qualifies" rule the deterministic generator
+    already follows."""
+
+    ai_prompt = f"""You are a German-language curriculum assistant creating a Grammatik Quiz (multiple choice only) for level {level} students.
+
+The admin's instructions below may be written in Uzbek, German, or English — read and follow them in whichever language they're written, but write the quiz content itself (the questions and answer options) in German, appropriate for level {level} learners:
+
+{prompt}
+
+Generate EXACTLY {count} Multiple Choice questions. Every question MUST have EXACTLY 4 answer options, with EXACTLY ONE marked is_correct: true and the other three false — never fewer or more than 4 options, never more than one correct answer.
+
+Respond with ONLY a JSON object (no markdown, no prose), exactly this shape:
+{{"questions": [{{"question": "...", "options": [{{"option_text": "...", "is_correct": true}}, {{"option_text": "...", "is_correct": false}}, {{"option_text": "...", "is_correct": false}}, {{"option_text": "...", "is_correct": false}}]}}]}}"""
+
+    text = await call_gemini(ai_prompt, context="grammar-quiz-prompt")
+    data = extract_json_object(text)
+
+    try:
+        preview = AIGrammarQuizPreview.model_validate({"questions": data.get("questions", [])})
+    except ValidationError as exc:
+        raise AIContentError(f"Gemini returned an unexpected shape: {exc}") from exc
+
+    # Server-side enforcement, never just trusted from the prompt — a
+    # question that doesn't actually have exactly 4 options with
+    # exactly 1 correct is dropped rather than written to the quiz.
+    return [
+        q
+        for q in preview.questions
+        if len(q.options) == 4 and sum(1 for o in q.options if o.is_correct) == 1
+    ]
 
 
 async def generate_lesen(source_text: str, level: str, count: int) -> AILesenPreview:
