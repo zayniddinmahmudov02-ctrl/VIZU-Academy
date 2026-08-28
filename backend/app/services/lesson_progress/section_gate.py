@@ -1,7 +1,7 @@
 """Computes each of a lesson's content sections' real state for a given
 student — the single source of truth for completion, applicability, and
-sequential unlocking. Used by: the student/admin section-gate API
-(app/api/lessons/router.py), lesson completion (LessonFlowService /
+(no longer) sequential unlocking. Used by: the student/admin section-gate
+API (app/api/lessons/router.py), lesson completion (LessonFlowService /
 LessonProgressService, both now delegate to is_lesson_completed here
 instead of each re-deriving it), and the server-side submission gates in
 app/api/dependencies/section_gate.py + grading_service.py.
@@ -21,20 +21,25 @@ Three signals per section:
     PENDING_REVIEW/REVIEWED; quizzes (Grammatik/Lesson/Wortschatz) are
     graded synchronously on submit, so a StudentQuiz row existing always
     means fully graded.
-  - unlocked: sections open in a fixed sequence (see GATED_ORDER),
-    skipping whatever isn't applicable to this lesson — a section is
-    unlocked once every applicable section before it (in that fixed
-    order) is completed. "grammatik" (standalone grammar content, not
-    a quiz) is deliberately excluded from the gated sequence — it isn't
-    a student-facing step (grammar is taught inside the video; only
-    Grammatik Quiz is), matching lessonSections on the frontend, which
-    has no "grammatik" entry. Homework is also excluded from gating —
-    no student-submission/review system exists for it yet.
+  - unlocked: ALWAYS True for every section, unconditionally (see
+    _compute_unlocked). There is no sequential gate anymore — a section
+    being incomplete never blocks any other section, applicable or not.
+    This field is kept (rather than removed from the API/frontend
+    contract) purely for backward compatibility with every consumer
+    already reading it; it simply never evaluates to False.
 
 Lesen/Hören are each one half of the same bundled Universal-Assessment-
 Engine Assessment (no separate "Lesen Quiz" content exists — see project
 memory) so "Lesen done" means every LESEN TaskQuestion has a recorded
 Answer, not a separate submission step.
+
+lesson_quiz (Lesson Quiz) is excluded from GATED_ORDER — same treatment
+as "grammatik" and homework — because it has been removed from student
+navigation entirely (see frontend/src/constants/lesson-sections.ts): a
+lesson with a published-but-unreachable Lesson Quiz must never be stuck
+"incomplete" forever. Its applicable/completed signals are still computed
+(the admin CMS's content-status view and per-student progression list
+still read them), only its membership in the gated/required set changed.
 
 Deliberately does not touch the Assessment Engine's own attempt/scoring
 logic (shared with Vorbereitung/MockTest) — this only *reads* Answer/
@@ -80,8 +85,12 @@ SECTION_ORDER = [
     "lesson_quiz",
 ]
 
-# The real sequential gate — "grammatik" excluded (see module docstring).
-GATED_ORDER = [key for key in SECTION_ORDER if key != "grammatik"]
+# The "required for lesson completion" set — used only by
+# is_lesson_completed now (no sequential gating exists anymore, see
+# _compute_unlocked). "grammatik" and "lesson_quiz" excluded (see module
+# docstring); "homework"/"hausaufgabe" were never section_gate keys to
+# begin with, so there's nothing to exclude for them.
+GATED_ORDER = [key for key in SECTION_ORDER if key not in ("grammatik", "lesson_quiz")]
 
 
 class SectionGateService:
@@ -289,28 +298,22 @@ class SectionGateService:
             "lesson_quiz": self._quiz_applicable(lesson_id, QUIZ_TYPE_LESSON),
         }
 
-        unlocked = self._compute_unlocked(applicable, completed)
+        unlocked = self._compute_unlocked()
 
         return {
             key: {"unlocked": unlocked[key], "completed": completed[key], "applicable": applicable[key]}
             for key in SECTION_ORDER
         }
 
-    def _compute_unlocked(self, applicable: dict[str, bool], completed: dict[str, bool]) -> dict[str, bool]:
-        """Walks GATED_ORDER, skipping inapplicable sections — the
-        previous *applicable* section must be completed for the next
-        applicable one to unlock. Inapplicable sections themselves are
-        reported unlocked (there's nothing to lock) but don't factor
-        into what unlocks the next real section."""
-        unlocked = {"grammatik": True}
-        previous_applicable_completed = True
-        for key in GATED_ORDER:
-            if not applicable[key]:
-                unlocked[key] = True
-                continue
-            unlocked[key] = previous_applicable_completed
-            previous_applicable_completed = completed[key]
-        return unlocked
+    def _compute_unlocked(self) -> dict[str, bool]:
+        """No sequential gate: every section is always open, regardless
+        of what else has or hasn't been completed. Takes no input on
+        purpose — unlocking no longer depends on applicable/completed at
+        all, which is itself the proof there's no hidden ordering logic
+        left. completed/applicable (progress bars, checkmarks,
+        is_lesson_completed) are computed independently in get_state and
+        are entirely unaffected by this."""
+        return {key: True for key in SECTION_ORDER}
 
     def is_unlocked(self, user_id: UUID, lesson_id: UUID, section: str) -> bool:
         state = self.get_state(user_id, lesson_id)

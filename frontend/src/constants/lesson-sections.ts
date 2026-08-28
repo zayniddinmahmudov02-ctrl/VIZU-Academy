@@ -36,20 +36,32 @@ export interface LessonSectionMeta {
   titleKey: string;
 }
 
-// Fixed 7-step student order (Video 10 / Wortschatz 10 / Grammatik Quiz
-// 10 / Lesen 15 / Hören 15 / Schreiben 20 / Sprechen 20 = 100), identical
-// to the Admin CMS lesson-content order, never reordered based on which
-// sections happen to have content (see LessonContentGate). Standalone
-// "Grammatik" is deliberately absent — grammar is taught inside the
-// Video, and Grammatik Quiz is the only grammar step in the student
-// flow (the Grammar model/admin CRUD still exist, just unreachable from
-// this student-facing list — see GrammarManager in the admin CMS).
+// Fixed student order (Video / Wortschatz / Wortschatz Quiz / Grammatik
+// Quiz / Lesen / Hören / Schreiben / Sprechen / Hausaufgabe / Ergebnis),
+// identical to the Admin CMS lesson-content order, never reordered based
+// on which sections happen to have content. None of these sections gate
+// each other — every one of them is independently reachable regardless
+// of what has or hasn't been completed elsewhere (see
+// backend/app/services/lesson_progress/section_gate.py; the "unlocked"
+// field it still returns per section is now unconditionally true, kept
+// only for API/consumer backward compatibility). Standalone "Grammatik"
+// is deliberately absent — grammar is taught inside the Video, and
+// Grammatik Quiz is the only grammar step in the student flow (the
+// Grammar model/admin CRUD still exist, just unreachable from this
+// student-facing list — see GrammarManager in the admin CMS).
 // "reading"/"listening" here render "Lesen"/"Hören" (their real
 // titleKeys), each already the Universal Assessment Engine's combined
 // passage+questions flow — there's no separate "Lesen Quiz"/"Hören Quiz"
 // step to route to, only a labeled distinction in the admin content-
-// status view. homework has no fixed point in the required 100-point
-// order, so it's kept at the end rather than dropped.
+// status view.
+//
+// "lesson-quiz" (Lesson Quiz) is deliberately NOT in this list — removed
+// from student navigation entirely (getSectionBySlug("lesson-quiz") now
+// returns undefined, so the route 404s). The Quiz model/admin CRUD/
+// QuizManager and the QUIZ_TYPE_LESSON quiz-taking infra are untouched;
+// only this student-facing entry point is gone. Backend: excluded from
+// GATED_ORDER (section_gate.py) so a lesson with a published-but-
+// unreachable Lesson Quiz can still be reported "completed".
 //
 // "wortschatz-quiz" (A1 only — see vocabulary-quiz-section.tsx, which
 // self-detects and shows "nicht verfügbar" for B1-C1) does NOT add its
@@ -65,7 +77,6 @@ export const lessonSections: LessonSectionMeta[] = [
   { slug: "hoeren", type: "listening", icon: Headphones, emoji: "🎧", titleKey: "lessons.sectionListening" },
   { slug: "schreiben", type: "writing", icon: PenLine, emoji: "✍️", titleKey: "lessons.sectionWriting" },
   { slug: "sprechen", type: "speaking", icon: Mic, emoji: "🎤", titleKey: "lessons.sectionSpeaking" },
-  { slug: "lesson-quiz", type: "lesson-quiz", icon: Trophy, emoji: "🏆", titleKey: "lessons.sectionLessonQuiz" },
   { slug: "hausaufgabe", type: "homework", icon: ClipboardList, emoji: "📝", titleKey: "lessons.sectionHomework" },
   { slug: "ergebnis", type: "results", icon: Trophy, emoji: "📊", titleKey: "lessons.sectionResults" },
 ];

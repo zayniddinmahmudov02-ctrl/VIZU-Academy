@@ -1,11 +1,12 @@
-"""Verifies the core new logic in SectionGateService: dynamic sequential
-unlocking that skips whatever a lesson doesn't have (_compute_unlocked,
-a pure function — no DB), lesson completion counting only applicable
-sections (is_lesson_completed), and the tightened Schreiben/Sprechen
-"evaluated" checks (STATUS_GRADED / STATUS_FINAL, not merely submitted).
-Uses stdlib unittest + MagicMock/patch, matching this session's
-established pattern (no pytest, no real DB) — _compute_unlocked needs no
-mocking at all since it takes plain dicts."""
+"""Verifies the core logic in SectionGateService: sections are never
+sequentially gated (_compute_unlocked, a pure function — no DB, no
+inputs at all now), lesson completion counting only applicable sections
+and excluding the removed-from-navigation Lesson Quiz (is_lesson_completed),
+and the tightened Schreiben/Sprechen "evaluated" checks (STATUS_GRADED /
+STATUS_FINAL, not merely submitted). Uses stdlib unittest + MagicMock/
+patch, matching this session's established pattern (no pytest, no real
+DB) — _compute_unlocked needs no mocking at all since it takes nothing
+and returns a fixed shape."""
 
 import unittest
 from unittest.mock import MagicMock, patch
@@ -26,101 +27,119 @@ def all_incomplete(**overrides) -> dict[str, bool]:
     return base
 
 
-class TestComputeUnlockedSequential(unittest.TestCase):
-    """The core sequential-gate logic — pure, no DB, no level branching
-    anywhere (proven directly by feeding it differently-shaped
-    "applicable" dicts, one per A1-C1's realistic section mix, in
-    test_universal_across_levels below)."""
+class TestSectionsAlwaysUnlocked(unittest.TestCase):
+    """No sequential gate exists anymore: every section is open
+    regardless of what else has or hasn't been completed. Covers the
+    exact scenarios requested — video incomplete -> wortschatz open,
+    wortschatz incomplete -> grammatik_quiz open, grammatik_quiz
+    incomplete -> lesen open, lesen incomplete -> hoeren open, hoeren
+    incomplete -> schreiben open, schreiben incomplete -> sprechen
+    open — plus the general "any one incomplete, everything else still
+    open" case, and confirms this holds identically for every A1-C1
+    section-content shape (same universal, non-level-branching proof
+    the previous version of this test made for the old gate)."""
 
     def setUp(self):
         self.service = SectionGateService(db=MagicMock())
 
-    def test_first_applicable_section_always_unlocked(self):
+    def test_compute_unlocked_takes_no_input_and_is_unconditionally_true(self):
+        # The direct proof of the fix: unlocking no longer depends on
+        # applicable/completed at all — the function doesn't even
+        # accept them as parameters anymore.
+        unlocked = self.service._compute_unlocked()
+        for key in SECTION_ORDER:
+            with self.subTest(section=key):
+                self.assertTrue(unlocked[key])
+
+    def _get_state_with(self, applicable: dict, completed: dict) -> dict:
+        unlocked = self.service._compute_unlocked()
+        return {
+            key: {"applicable": applicable[key], "completed": completed[key], "unlocked": unlocked[key]}
+            for key in SECTION_ORDER
+        }
+
+    def test_video_incomplete_wortschatz_still_open(self):
         applicable = all_applicable()
         completed = all_incomplete()
-        unlocked = self.service._compute_unlocked(applicable, completed)
-        self.assertTrue(unlocked["video"])
+        with patch.object(SectionGateService, "get_state", return_value=self._get_state_with(applicable, completed)):
+            state = self.service.get_state(user_id="u", lesson_id="l")
+            self.assertFalse(state["video"]["completed"])
+            self.assertTrue(state["wortschatz"]["unlocked"])
 
-    def test_wortschatz_locked_until_video_done(self):
+    def test_wortschatz_incomplete_grammatik_quiz_still_open(self):
         applicable = all_applicable()
-        completed = all_incomplete()
-        unlocked = self.service._compute_unlocked(applicable, completed)
-        self.assertFalse(unlocked["wortschatz"])
+        completed = all_incomplete(video=True)
+        with patch.object(SectionGateService, "get_state", return_value=self._get_state_with(applicable, completed)):
+            state = self.service.get_state(user_id="u", lesson_id="l")
+            self.assertFalse(state["wortschatz"]["completed"])
+            self.assertTrue(state["grammatik_quiz"]["unlocked"])
 
-    def test_wortschatz_quiz_locked_while_wortschatz_incomplete(self):
-        applicable = all_applicable()
-        completed = all_incomplete(video=True, wortschatz=False)
-        unlocked = self.service._compute_unlocked(applicable, completed)
-        self.assertFalse(unlocked["wortschatz_quiz"])
-
-    def test_wortschatz_quiz_available_once_wortschatz_complete(self):
-        applicable = all_applicable()
-        completed = all_incomplete(video=True, wortschatz=True)
-        unlocked = self.service._compute_unlocked(applicable, completed)
-        self.assertTrue(unlocked["wortschatz_quiz"])
-
-    def test_next_section_available_once_wortschatz_quiz_complete(self):
+    def test_grammatik_quiz_incomplete_lesen_still_open(self):
         applicable = all_applicable()
         completed = all_incomplete(video=True, wortschatz=True, wortschatz_quiz=True)
-        unlocked = self.service._compute_unlocked(applicable, completed)
-        self.assertTrue(unlocked["grammatik_quiz"])
+        with patch.object(SectionGateService, "get_state", return_value=self._get_state_with(applicable, completed)):
+            state = self.service.get_state(user_id="u", lesson_id="l")
+            self.assertFalse(state["grammatik_quiz"]["completed"])
+            self.assertTrue(state["lesen"]["unlocked"])
 
-    def test_lesen_locked_until_previous_required_sections_done(self):
-        applicable = all_applicable()
-        completed = all_incomplete(video=True, wortschatz=True, wortschatz_quiz=True, grammatik_quiz=False)
-        unlocked = self.service._compute_unlocked(applicable, completed)
-        self.assertFalse(unlocked["lesen"])
-
-    def test_lesen_available_once_earlier_sections_done(self):
+    def test_lesen_incomplete_hoeren_still_open(self):
         applicable = all_applicable()
         completed = all_incomplete(video=True, wortschatz=True, wortschatz_quiz=True, grammatik_quiz=True)
-        unlocked = self.service._compute_unlocked(applicable, completed)
-        self.assertTrue(unlocked["lesen"])
+        with patch.object(SectionGateService, "get_state", return_value=self._get_state_with(applicable, completed)):
+            state = self.service.get_state(user_id="u", lesson_id="l")
+            self.assertFalse(state["lesen"]["completed"])
+            self.assertTrue(state["hoeren"]["unlocked"])
 
-    def test_hoeren_locked_until_lesen_done_and_available_after(self):
+    def test_hoeren_incomplete_schreiben_still_open(self):
         applicable = all_applicable()
-        base_completed = {
-            "video": True,
-            "wortschatz": True,
-            "wortschatz_quiz": True,
-            "grammatik_quiz": True,
-        }
-        locked = self.service._compute_unlocked(applicable, {**all_incomplete(), **base_completed, "lesen": False})
-        self.assertFalse(locked["hoeren"])
+        completed = all_incomplete(video=True, wortschatz=True, wortschatz_quiz=True, grammatik_quiz=True, lesen=True)
+        with patch.object(SectionGateService, "get_state", return_value=self._get_state_with(applicable, completed)):
+            state = self.service.get_state(user_id="u", lesson_id="l")
+            self.assertFalse(state["hoeren"]["completed"])
+            self.assertTrue(state["schreiben"]["unlocked"])
 
-        unlocked = self.service._compute_unlocked(applicable, {**all_incomplete(), **base_completed, "lesen": True})
-        self.assertTrue(unlocked["hoeren"])
+    def test_schreiben_incomplete_sprechen_still_open(self):
+        applicable = all_applicable()
+        completed = all_incomplete(
+            video=True, wortschatz=True, wortschatz_quiz=True, grammatik_quiz=True, lesen=True, hoeren=True,
+        )
+        with patch.object(SectionGateService, "get_state", return_value=self._get_state_with(applicable, completed)):
+            state = self.service.get_state(user_id="u", lesson_id="l")
+            self.assertFalse(state["schreiben"]["completed"])
+            self.assertTrue(state["sprechen"]["unlocked"])
 
-    def test_missing_section_never_blocks_the_chain(self):
-        # A lesson missing grammatik_quiz/schreiben/sprechen/lesson_quiz —
-        # only video/wortschatz/wortschatz_quiz/lesen/hoeren applicable.
-        applicable = all_applicable(grammatik_quiz=False, schreiben=False, sprechen=False, lesson_quiz=False)
-        completed = all_incomplete(video=True, wortschatz=True, wortschatz_quiz=True)
-        unlocked = self.service._compute_unlocked(applicable, completed)
-        # lesen unlocks right after wortschatz_quiz — grammatik_quiz is
-        # skipped entirely, not a blocker.
-        self.assertTrue(unlocked["lesen"])
-        # the inapplicable sections themselves report unlocked (nothing
-        # to lock) but don't participate in the real chain.
-        self.assertTrue(unlocked["grammatik_quiz"])
-        self.assertTrue(unlocked["schreiben"])
+    def test_sprechen_incomplete_hausaufgabe_area_still_open(self):
+        # Hausaufgabe/Ergebnisse have no gate key at all (see
+        # lesson-sections.ts SECTION_GATE_KEYS: homework/results -> null)
+        # so they were never lockable to begin with; the section
+        # immediately before them (sprechen) staying incomplete must not
+        # newly block anything either.
+        applicable = all_applicable()
+        completed = all_incomplete(
+            video=True, wortschatz=True, wortschatz_quiz=True, grammatik_quiz=True,
+            lesen=True, hoeren=True, schreiben=True, sprechen=False,
+        )
+        with patch.object(SectionGateService, "get_state", return_value=self._get_state_with(applicable, completed)):
+            state = self.service.get_state(user_id="u", lesson_id="l")
+            self.assertFalse(state["sprechen"]["completed"])
+            for key in SECTION_ORDER:
+                self.assertTrue(state[key]["unlocked"], f"{key} must stay unlocked")
 
-    def test_grammatik_standalone_always_unlocked_not_gated(self):
+    def test_nothing_completed_everything_still_unlocked(self):
         applicable = all_applicable()
         completed = all_incomplete()
-        unlocked = self.service._compute_unlocked(applicable, completed)
-        self.assertTrue(unlocked["grammatik"])
+        with patch.object(SectionGateService, "get_state", return_value=self._get_state_with(applicable, completed)):
+            state = self.service.get_state(user_id="u", lesson_id="l")
+            for key in SECTION_ORDER:
+                with self.subTest(section=key):
+                    self.assertTrue(state[key]["unlocked"])
 
     def test_universal_across_levels_no_branching(self):
-        """Same function, five different realistic section shapes — one
-        per level. Passing all five with no level parameter anywhere in
-        _compute_unlocked's signature is itself the proof there's no
-        level-specific code path."""
-        # A1: has wortschatz_quiz (VOCABULARY quiz exists for A1 only).
+        """Same _compute_unlocked, five different realistic A1-C1
+        section-content shapes — none of them change the (unconditional)
+        result, which is itself the proof there's no level-specific code
+        path left."""
         a1 = all_applicable()
-        # A2/B1/B2/C1: no VOCABULARY quiz ever gets created for them
-        # (test_sync_service.py's existing A1-only gate) — and this
-        # lesson also has no lesson_quiz.
         a2 = all_applicable(wortschatz_quiz=False)
         b1 = all_applicable(wortschatz_quiz=False, sprechen=False)
         b2 = all_applicable(wortschatz_quiz=False, lesson_quiz=False)
@@ -128,15 +147,17 @@ class TestComputeUnlockedSequential(unittest.TestCase):
 
         for level_name, applicable in [("A1", a1), ("A2", a2), ("B1", b1), ("B2", b2), ("C1", c1)]:
             with self.subTest(level=level_name):
-                completed = all_incomplete(video=True)
-                unlocked = self.service._compute_unlocked(applicable, completed)
-                # Whatever the first applicable section after video is,
-                # it must be unlocked; video itself always is.
-                self.assertTrue(unlocked["video"])
-                first_after_video = next(
-                    key for key in GATED_ORDER if key != "video" and applicable[key]
-                )
-                self.assertTrue(unlocked[first_after_video])
+                completed = all_incomplete()
+                unlocked = self.service._compute_unlocked()
+                for key in SECTION_ORDER:
+                    self.assertTrue(unlocked[key])
+
+    def test_lesson_quiz_removed_from_gated_order(self):
+        # Lesson Quiz is out of student navigation entirely (see
+        # frontend/src/constants/lesson-sections.ts) and must never be
+        # able to block lesson completion for a lesson that still has a
+        # published-but-unreachable one.
+        self.assertNotIn("lesson_quiz", GATED_ORDER)
 
 
 class TestIsLessonCompleted(unittest.TestCase):
@@ -177,6 +198,17 @@ class TestIsLessonCompleted(unittest.TestCase):
         # never be part of the required/gated sequence.
         self.assertNotIn("hausaufgabe", GATED_ORDER)
         self.assertNotIn("homework", GATED_ORDER)
+
+    def test_incomplete_but_applicable_lesson_quiz_never_blocks_completion(self):
+        # A published Lesson Quiz exists (applicable=True) but the
+        # student never took it (completed=False) — since it's been
+        # removed from student navigation entirely, this must not
+        # prevent the lesson from being reported complete.
+        applicable = all_applicable()  # lesson_quiz applicable=True
+        completed = {key: True for key in SECTION_ORDER}
+        completed["lesson_quiz"] = False
+        with patch.object(SectionGateService, "get_state", return_value=self._state(applicable, completed)):
+            self.assertTrue(self.service.is_lesson_completed(user_id="u", lesson_id="l"))
 
 
 class TestWritingSpeakingEvaluatedTightening(unittest.TestCase):
