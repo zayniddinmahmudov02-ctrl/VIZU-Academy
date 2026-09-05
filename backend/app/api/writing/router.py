@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.api.dependencies.auth import get_current_user, require_admin_panel_access
+from app.api.dependencies.progress import require_lesson_access
 from app.db.session import get_db
 
 from app.models.lesson import Lesson
@@ -29,6 +30,18 @@ def get_writings(
 ):
     # Unscoped across every lesson — admin CMS content table only.
     return WritingService(db).get_all()
+
+
+@router.get("/lesson/{lesson_id}", response_model=list[WritingResponse])
+def get_lesson_writings(
+    lesson_id: str,
+    db: Session = Depends(get_db),
+    __: User = Depends(require_lesson_access),
+):
+    """Student-facing, published-only — Schreiben's source of truth (the
+    Assessment Engine's Schreiben implementation is no longer used by the
+    student frontend; see lesson-sections.ts)."""
+    return WritingService(db).get_by_lesson(lesson_id, published_only=True)
 
 
 @router.get("/{writing_id}", response_model=WritingResponse)

@@ -18,6 +18,9 @@ class WritingService:
     def get(self, writing_id: str):
         return self.repository.get(writing_id)
 
+    def get_by_lesson(self, lesson_id, published_only: bool = False):
+        return self.repository.get_by_lesson(lesson_id, published_only=published_only)
+
     def create(self, data: WritingCreate):
         return self.repository.create(data)
 

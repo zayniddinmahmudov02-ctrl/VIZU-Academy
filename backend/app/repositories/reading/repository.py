@@ -21,14 +21,17 @@ class ReadingRepository(BaseRepository[Reading]):
     def get_by_lesson(
         self,
         lesson_id: UUID,
+        published_only: bool = False,
     ) -> list[Reading]:
 
+        query = select(Reading).where(
+            Reading.lesson_id == lesson_id,
+        )
+        if published_only:
+            query = query.where(Reading.is_published.is_(True))
+
         result = self.db.execute(
-            select(Reading)
-            .where(
-                Reading.lesson_id == lesson_id,
-            )
-            .order_by(
+            query.order_by(
                 Reading.order_index,
             )
         )

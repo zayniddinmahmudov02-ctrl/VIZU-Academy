@@ -73,16 +73,17 @@ def get_lesson_readings(
     db: Session = Depends(get_db),
     __: object = Depends(require_lesson_access),
 ):
-    """require_lesson_access enforces the free-3-lessons / Premium rule.
-    Sections are independently accessible in any order (no sequential
-    video-first requirement). Note: this legacy per-skill endpoint isn't
-    called by the current frontend, which uses the Assessment Engine's
-    Lesen implementation instead — see project memory."""
+    """Student-facing, published-only — Lesen's source of truth (the
+    Assessment Engine's Lesen implementation is no longer used by the
+    student frontend; see lesson-sections.ts). require_lesson_access
+    enforces the free-3-lessons / Premium rule. Sections are
+    independently accessible in any order (no sequential requirement)."""
 
     service = ReadingService(db)
 
     return service.get_by_lesson(
         lesson_id,
+        published_only=True,
     )
 
 

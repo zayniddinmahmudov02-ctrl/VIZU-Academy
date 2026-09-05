@@ -1,81 +1,56 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { Mic } from "lucide-react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
-import { getPublicLessonAssessment, startAttempt } from "@/features/admin/services/assessment-service";
-import type { PublicSection, PublicTask } from "@/features/admin/types/assessment.types";
+import { getLessonSpeakings } from "@/features/lessons/services/speaking-service";
 import { useTranslation } from "@/lib/i18n/use-translation";
 
 import LessonSection from "../common/lesson-section";
-import SprechenTask from "./sprechen-task";
 
 interface Props {
   lessonId: string;
 }
 
-/** The real Sprechen player, backed by the universal Assessment engine
- * (Assessment[type=COURSE] -> Section[skill=SPRECHEN] -> Task[SPEAKING]).
- * Previously this slot always rendered the same hardcoded generic
- * recording prompt via WritingEditor-style MediaRecorder code that posted
- * to a nonexistent /speakings/evaluate endpoint (confirmed dead in
- * research — the endpoint 404s). That component's files are left
- * untouched but now unused; this renders genuinely published,
- * admin-authored tasks with real backend storage, or the required empty
- * state — never a demo task. */
+/** The real Sprechen panel — published Speaking rows for this lesson
+ * (see app/models/speaking.py, admin/components/managers/speaking-
+ * manager.tsx). Legacy-backed on purpose, same as its Lesen/Hören/
+ * Schreiben siblings — see reading-section.tsx's docstring. View-only:
+ * the legacy schema has no wired recording-upload/grading pipeline
+ * (unlike the Assessment Engine's SpeakingSubmission flow) — building
+ * one is a separate feature, not part of this switch back to legacy
+ * content. */
 export default function SpeakingSection({ lessonId }: Props) {
   const { t } = useTranslation();
-  const queryClient = useQueryClient();
 
-  const { data: assessment, isLoading } = useQuery({
-    queryKey: ["public-lesson-assessment", lessonId],
-    queryFn: () => getPublicLessonAssessment(lessonId),
+  const { data: items, isLoading } = useQuery({
+    queryKey: ["lesson-speakings", lessonId],
+    queryFn: () => getLessonSpeakings(lessonId),
   });
-
-  const sections = (assessment?.sections ?? []).filter((s: PublicSection) => s.skill === "SPRECHEN");
-  const allTasks = sections.flatMap((s: PublicSection) => s.tasks);
-  const hasContent = allTasks.length > 0;
-
-  const [attemptId, setAttemptId] = useState<string | null>(null);
-  const [attemptLocked, setAttemptLocked] = useState(false);
-
-  useEffect(() => {
-    if (assessment && hasContent && !attemptId) {
-      startAttempt(assessment.id).then((attempt) => {
-        setAttemptId(attempt.id);
-        setAttemptLocked(attempt.locked);
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [assessment, hasContent]);
 
   return (
     <LessonSection title={t("lessons.sectionSpeaking")} description={t("lessons.speakingDescription")} icon={Mic}>
       {isLoading && <p className="text-sm text-text-muted">{t("common.loading")}</p>}
 
-      {!isLoading && !hasContent && (
+      {!isLoading && (items?.length ?? 0) === 0 && (
         <div className="rounded-2xl bg-surface-hover/60 p-6 text-center ring-1 ring-surface-border sm:p-8">
           <p className="text-text-secondary">Für diese Lektion ist noch keine Sprechaufgabe verfügbar.</p>
         </div>
       )}
 
-      {!isLoading && hasContent && !attemptId && <p className="text-sm text-text-muted">{t("common.loading")}</p>}
-
-      {!isLoading && hasContent && attemptId && (
-        <div className="space-y-6">
-          {allTasks.map((task: PublicTask) => (
-            <SprechenTask
-              key={task.id}
-              task={task}
-              attemptId={attemptId}
-              locked={attemptLocked}
-              allowResubmit={assessment!.allow_resubmit}
-              onSubmitted={() => queryClient.invalidateQueries({ queryKey: ["section-gate", lessonId] })}
-            />
-          ))}
-        </div>
-      )}
+      <div className="space-y-5">
+        {items?.map((item) => (
+          <div key={item.id} className="rounded-2xl bg-surface-hover p-6">
+            <h3 className="text-lg font-bold text-text-primary">{item.title}</h3>
+            {item.topic && <p className="mt-1 text-sm text-text-muted">{item.topic}</p>}
+            <p className="mt-2.5 whitespace-pre-line text-sm text-text-secondary sm:text-base">{item.instruction}</p>
+            <div className="mt-3 flex flex-wrap gap-3 text-xs text-text-muted">
+              <span>Vorbereitung: {item.preparation_time}s</span>
+              <span>Sprechzeit: {item.speaking_time}s</span>
+            </div>
+          </div>
+        ))}
+      </div>
     </LessonSection>
   );
 }

@@ -178,9 +178,14 @@ class TestIsLessonCompleted(unittest.TestCase):
             self.assertTrue(self.service.is_lesson_completed(user_id="u", lesson_id="l"))
 
     def test_one_incomplete_applicable_section_blocks_completion(self):
+        # wortschatz_quiz stays in GATED_ORDER (unlike lesen/hoeren/
+        # schreiben/sprechen, now legacy-backed and excluded — see
+        # section_gate.py's module docstring), so it's the key that
+        # still proves "one incomplete applicable+gated section blocks
+        # completion".
         applicable = all_applicable()
         completed = {key: True for key in SECTION_ORDER}
-        completed["sprechen"] = False
+        completed["wortschatz_quiz"] = False
         with patch.object(SectionGateService, "get_state", return_value=self._state(applicable, completed)):
             self.assertFalse(self.service.is_lesson_completed(user_id="u", lesson_id="l"))
 

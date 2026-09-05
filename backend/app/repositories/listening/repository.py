@@ -26,6 +26,12 @@ class ListeningRepository:
             .first()
         )
 
+    def get_by_lesson(self, lesson_id, published_only: bool = False):
+        query = self.db.query(Listening).filter(Listening.lesson_id == lesson_id)
+        if published_only:
+            query = query.filter(Listening.is_published.is_(True))
+        return query.order_by(Listening.order_index).all()
+
     def create(self, data: ListeningCreate):
         listening = Listening(**data.model_dump())
 

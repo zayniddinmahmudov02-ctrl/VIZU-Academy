@@ -55,11 +55,16 @@ export interface LessonSectionMeta {
 // entry while leaving its backend endpoints, service and section
 // component in place unused — this restores the nav entry, not new
 // functionality.)
-// "reading"/"listening" here render "Lesen"/"Hören" (their real
-// titleKeys), each already the Universal Assessment Engine's combined
-// passage+questions flow — there's no separate "Lesen Quiz"/"Hören Quiz"
-// step to route to, only a labeled distinction in the admin content-
-// status view.
+// "reading"/"listening"/"writing"/"speaking" here render "Lesen"/
+// "Hören"/"Schreiben"/"Sprechen" (their real titleKeys) from the LEGACY
+// readings/listenings/writings/speakings tables — the Universal
+// Assessment Engine is deliberately no longer the student-facing source
+// for these four (see backend/app/services/lesson_progress/
+// section_gate.py's module docstring); the admin's "(Legacy)" CMS tabs
+// for these are this content's real, non-legacy home again from the
+// student's point of view. There's no separate "Lesen Quiz"/"Hören
+// Quiz" step to route to, only a labeled distinction in the admin
+// content-status view.
 //
 // "lesson-quiz" (Lesson Quiz) is deliberately NOT in this list — removed
 // from student navigation entirely (getSectionBySlug("lesson-quiz") now

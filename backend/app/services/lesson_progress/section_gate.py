@@ -28,10 +28,28 @@ Three signals per section:
     contract) purely for backward compatibility with every consumer
     already reading it; it simply never evaluates to False.
 
-Lesen/Hören are each one half of the same bundled Universal-Assessment-
-Engine Assessment (no separate "Lesen Quiz" content exists — see project
-memory) so "Lesen done" means every LESEN TaskQuestion has a recorded
-Answer, not a separate submission step.
+Lesen/Hören/Schreiben/Sprechen are LEGACY-backed: "applicable" for these
+four is real existence of a Reading/Listening/Writing/Speaking row for
+this lesson — *any* row, regardless of its own is_published (mirrors
+exactly how the Assessment Engine's task-existence check behaved before
+this switch: a task's/row's own status never gated the nav tab, only
+the actual content-fetch endpoint's published_only filter did). The
+Assessment Engine is no longer the student-facing source for these four
+skills at all (see frontend/src/constants/lesson-sections.ts and
+reading/listening/writing/speaking-section.tsx) — a lesson's real
+content now lives in the `readings`/`listenings`/`writings`/`speakings`
+tables, the same ones the admin's "(Legacy)" CMS tabs already manage.
+
+completed for lesen/hoeren/schreiben/sprechen still reads the Assessment
+Engine's Answer/WritingSubmission/SpeakingSubmission rows below —
+deliberately left as-is (harmless, just permanently False going forward
+since the student frontend no longer starts Assessment Engine attempts
+for these skills) rather than removed, so any real historical completion
+data for a lesson that had genuine Assessment Engine content isn't lost
+from the API response. This is exactly why all four are also excluded
+from GATED_ORDER now: there is no legacy completion signal to replace it
+with, and leaving them gated-but-permanently-uncompletable would make
+is_lesson_completed() unreachable for every such lesson.
 
 lesson_quiz (Lesson Quiz) is excluded from GATED_ORDER — same treatment
 as "grammatik" and homework — because it has been removed from student
@@ -63,7 +81,10 @@ from app.models.assessment_section import (
 )
 from app.models.assessment_task import AssessmentTask
 from app.models.grammar import Grammar
+from app.models.listening import Listening
 from app.models.quiz import QUIZ_TYPE_GRAMMAR, QUIZ_TYPE_LESSON, QUIZ_TYPE_VOCABULARY, Quiz
+from app.models.reading import Reading
+from app.models.speaking import Speaking
 from app.models.speaking_submission import STATUS_FINAL as SPEAKING_STATUS_FINAL, SpeakingSubmission
 from app.models.student_progress import StudentProgress
 from app.models.student_quiz import StudentQuiz
@@ -71,6 +92,7 @@ from app.models.task_attempt import TaskAttempt
 from app.models.task_question import TaskQuestion
 from app.models.video import Video
 from app.models.vocabulary import Vocabulary
+from app.models.writing import Writing
 from app.models.writing_submission import STATUS_GRADED as WRITING_STATUS_GRADED, WritingSubmission
 
 SECTION_ORDER = [
@@ -89,9 +111,14 @@ SECTION_ORDER = [
 # The "required for lesson completion" set — used only by
 # is_lesson_completed now (no sequential gating exists anymore, see
 # _compute_unlocked). "grammatik" and "lesson_quiz" excluded (see module
-# docstring); "homework"/"hausaufgabe" were never section_gate keys to
-# begin with, so there's nothing to exclude for them.
-GATED_ORDER = [key for key in SECTION_ORDER if key not in ("grammatik", "lesson_quiz")]
+# docstring); "lesen"/"hoeren"/"schreiben"/"sprechen" excluded too, now
+# that they're legacy-backed with no completion signal to gate on (see
+# module docstring); "homework"/"hausaufgabe" were never section_gate
+# keys to begin with, so there's nothing to exclude for them.
+_LEGACY_BACKED_SKILLS = ("lesen", "hoeren", "schreiben", "sprechen")
+GATED_ORDER = [
+    key for key in SECTION_ORDER if key not in ("grammatik", "lesson_quiz", *_LEGACY_BACKED_SKILLS)
+]
 
 
 class SectionGateService:
@@ -243,27 +270,28 @@ class SectionGateService:
             is not None
         )
 
-    def _skill_applicable(self, lesson_id: UUID, skill: str) -> bool:
-        # Deliberately does NOT go through a single resolved Assessment
-        # (unlike the pre-fix version) — joins straight from lesson_id so
-        # this stays correct even if a duplicate COURSE assessment exists
-        # for this lesson (see _latest_attempt's docstring): a task under
-        # *any* of them still counts as "this skill has content," matching
-        # what the admin's own content-status view already does (see
-        # get_content_status_for_module, which never narrows to one
-        # assessment either — this brings the two back in sync).
+    def _reading_applicable(self, lesson_id: UUID) -> bool:
+        # Existence only, no is_published filter — matches how the
+        # Assessment Engine's task-existence check behaved before this
+        # switch (a row's own status never gated the nav tab; only the
+        # student content-fetch endpoint's published_only filter did —
+        # see GET /readings/lesson/{id}).
+        return self.db.query(Reading).filter(Reading.lesson_id == lesson_id).first() is not None
+
+    def _listening_applicable(self, lesson_id: UUID) -> bool:
+        # Same existence-only rule — a Listening row with no real
+        # audio_url yet (see seed_lesson_1.py) still makes the tab
+        # applicable; the empty/no-audio state is handled inside the
+        # section component, not by hiding the tab.
         return (
-            self.db.query(AssessmentTask.id)
-            .join(AssessmentSection, AssessmentTask.section_id == AssessmentSection.id)
-            .join(Assessment, AssessmentSection.assessment_id == Assessment.id)
-            .filter(
-                Assessment.assessment_type == TYPE_COURSE,
-                Assessment.lesson_id == lesson_id,
-                AssessmentSection.skill == skill,
-            )
-            .first()
-            is not None
+            self.db.query(Listening).filter(Listening.lesson_id == str(lesson_id)).first() is not None
         )
+
+    def _writing_applicable(self, lesson_id: UUID) -> bool:
+        return self.db.query(Writing).filter(Writing.lesson_id == str(lesson_id)).first() is not None
+
+    def _speaking_applicable(self, lesson_id: UUID) -> bool:
+        return self.db.query(Speaking).filter(Speaking.lesson_id == str(lesson_id)).first() is not None
 
     # ==========================
     # Public API
@@ -305,10 +333,13 @@ class SectionGateService:
             # has no separate points/required-for-completion role.
             "grammatik": self._grammar_applicable(lesson_id),
             "grammatik_quiz": self._quiz_applicable(lesson_id, QUIZ_TYPE_GRAMMAR),
-            "lesen": self._skill_applicable(lesson_id, SKILL_LESEN),
-            "hoeren": self._skill_applicable(lesson_id, SKILL_HOEREN),
-            "schreiben": self._skill_applicable(lesson_id, SKILL_SCHREIBEN),
-            "sprechen": self._skill_applicable(lesson_id, SKILL_SPRECHEN),
+            # Legacy-backed now — see module docstring. Existence only,
+            # any publish status; content is-published gating happens at
+            # the GET .../lesson/{id} endpoints instead.
+            "lesen": self._reading_applicable(lesson_id),
+            "hoeren": self._listening_applicable(lesson_id),
+            "schreiben": self._writing_applicable(lesson_id),
+            "sprechen": self._speaking_applicable(lesson_id),
             "lesson_quiz": self._quiz_applicable(lesson_id, QUIZ_TYPE_LESSON),
         }
 

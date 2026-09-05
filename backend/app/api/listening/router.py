@@ -1,7 +1,10 @@
+from uuid import UUID
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.api.dependencies.auth import get_current_user, require_admin_panel_access
+from app.api.dependencies.progress import require_lesson_access
 from app.db.session import get_db
 from app.models.lesson import Lesson
 from app.models.user import User
@@ -26,6 +29,21 @@ def get_listenings(
 ):
     # Unscoped across every lesson — admin CMS content table only.
     return ListeningService(db).get_all()
+
+
+@router.get("/lesson/{lesson_id}", response_model=list[ListeningResponse])
+def get_lesson_listenings(
+    lesson_id: UUID,
+    db: Session = Depends(get_db),
+    __: User = Depends(require_lesson_access),
+):
+    """Student-facing, published-only — Hören's source of truth (the
+    Assessment Engine's Hören implementation is no longer used by the
+    student frontend; see lesson-sections.ts). A Listening row with no
+    real audio_url yet simply isn't published, so it never reaches this
+    endpoint — the frontend never has to fabricate a player for missing
+    audio."""
+    return ListeningService(db).get_by_lesson(lesson_id, published_only=True)
 
 
 @router.get("/{listening_id}", response_model=ListeningResponse)

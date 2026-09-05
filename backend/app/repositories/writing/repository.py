@@ -26,6 +26,12 @@ class WritingRepository:
             .first()
         )
 
+    def get_by_lesson(self, lesson_id, published_only: bool = False):
+        query = self.db.query(Writing).filter(Writing.lesson_id == lesson_id)
+        if published_only:
+            query = query.filter(Writing.is_published.is_(True))
+        return query.order_by(Writing.order_index).all()
+
     def create(self, data: WritingCreate):
         writing = Writing(**data.model_dump())
 

@@ -1,34 +1,22 @@
-"""Regression test for the "Hören/Schreiben/Sprechen missing from
-student nav despite admin content existing" incident.
+"""Regression tests for Lesen/Hören/Schreiben/Sprechen applicability.
 
-Root cause: nothing enforces at most one COURSE Assessment row per
-lesson at the DB level (no unique constraint on lesson_id+
-assessment_type — see app/models/assessment.py). The admin builder
-(LesenAssessmentManager.ensureAssessmentAndSection, frontend) lazily
-get-or-creates the Assessment the first time a task is added under any
-skill tab; each skill tab holds its own independently-keyed React Query
-cache (["skill-assessment", lessonId, skill]), so switching tabs before
-the first tab's assessment list has loaded can create a second,
-duplicate Assessment row for the same lesson.
+History: this file originally covered `_skill_applicable`, which checked
+Assessment Engine task existence for these four skills, joining
+Assessment -> Section -> Task by lesson_id (fixed from an earlier bug
+where a duplicate COURSE Assessment row per lesson could hide an entire
+section from students — see git history for the original incident).
 
-The pre-fix `_skill_applicable(assessment, skill)` only checked tasks
-under ONE already-resolved Assessment (picked by `_latest_attempt`'s
-unordered `.first()`) — so a skill whose section/task happened to land
-under a *different* duplicate Assessment than the one that query
-returned was reported as not-applicable, hiding an entire section
-(Hören/Schreiben/Sprechen) from students even though content existed
-and was published, while the admin's own content-status view
-(get_content_status_for_module, which never narrows to a single
-Assessment) correctly showed it as present — a real divergence between
-the two "source of truth" views the student nav and admin panel are
-supposed to share.
-
-Fix: `_skill_applicable` now takes `lesson_id` directly and joins
-Assessment -> Section -> Task filtered by lesson_id + assessment_type,
-so a task under *any* matching Assessment counts — correct regardless
-of how many duplicate rows exist, no DB constraint required, no
-migration, no level-specific branching (skill is just a parameter,
-proven across all four skills below via subTest)."""
+That whole code path — and the Assessment Engine as the student-facing
+source for these four skills — no longer exists: Lesen/Hören/Schreiben/
+Sprechen are now LEGACY-backed (readings/listenings/writings/speakings
+tables are the source of truth; see section_gate.py's module docstring
+and reading/listening/writing/speaking-section.tsx). `_skill_applicable`
+itself was removed. This file now covers its replacements:
+`_reading_applicable`, `_listening_applicable`, `_writing_applicable`,
+`_speaking_applicable` — each a simple existence check against its
+legacy table, with no is_published filter (matches the old method's
+behavior: a row's own status never gated the nav tab, only the
+content-fetch endpoint's published_only filter does)."""
 
 import unittest
 from unittest.mock import MagicMock
@@ -36,55 +24,67 @@ from unittest.mock import MagicMock
 from app.services.lesson_progress.section_gate import SectionGateService
 
 
-class TestSkillApplicableTakesLessonIdNotAssessment(unittest.TestCase):
-    """The actual API-contract regression: the old signature required a
-    pre-resolved Assessment object (`assessment.id` access internally);
-    the new one takes a plain lesson_id and never assumes a single
-    resolved assessment exists."""
+class TestLegacyApplicableExistenceOnly(unittest.TestCase):
+    """Each of the four legacy-applicable checks is a plain existence
+    query against its own table — no is_published filter, no Assessment
+    Engine involvement at all."""
 
     def _mock_db_returning(self, row_or_none):
         db = MagicMock()
         query = MagicMock()
-        query.join.return_value = query
         query.filter.return_value = query
         query.first.return_value = row_or_none
         db.query.return_value = query
         return db
 
-    def test_applicable_true_when_a_task_exists_for_the_skill(self):
-        service = SectionGateService(db=self._mock_db_returning(("task-id",)))
-        self.assertTrue(service._skill_applicable(lesson_id="lesson-1", skill="HOEREN"))
+    def test_reading_applicable_true_when_a_row_exists(self):
+        service = SectionGateService(db=self._mock_db_returning(MagicMock()))
+        self.assertTrue(service._reading_applicable(lesson_id="lesson-1"))
 
-    def test_applicable_false_when_no_task_exists_for_the_skill(self):
+    def test_reading_applicable_false_when_no_row_exists(self):
         service = SectionGateService(db=self._mock_db_returning(None))
-        self.assertFalse(service._skill_applicable(lesson_id="lesson-1", skill="HOEREN"))
+        self.assertFalse(service._reading_applicable(lesson_id="lesson-1"))
 
-    def test_never_dereferences_an_assessment_object(self):
-        # Calling with a plain string (no .id attribute at all) must not
-        # raise — proves the function doesn't internally do
-        # `assessment.id` the way the pre-fix version did.
-        db = self._mock_db_returning(None)
-        service = SectionGateService(db=db)
-        try:
-            service._skill_applicable(lesson_id="plain-lesson-id-string", skill="SCHREIBEN")
-        except AttributeError as exc:
-            self.fail(f"_skill_applicable unexpectedly touched an Assessment attribute: {exc}")
+    def test_listening_applicable_true_regardless_of_publish_status(self):
+        # A Listening row with is_published=False (no real audio yet,
+        # see seed_lesson_1.py) still makes the section applicable —
+        # this query never filters on is_published at all.
+        service = SectionGateService(db=self._mock_db_returning(MagicMock()))
+        self.assertTrue(service._listening_applicable(lesson_id="lesson-1"))
 
-    def test_universal_across_all_four_skills_no_special_casing(self):
-        for skill in ("LESEN", "HOEREN", "SCHREIBEN", "SPRECHEN"):
-            with self.subTest(skill=skill):
-                service = SectionGateService(db=self._mock_db_returning(("task-id",)))
-                self.assertTrue(service._skill_applicable(lesson_id="lesson-1", skill=skill))
+    def test_listening_applicable_false_when_no_row_exists(self):
+        service = SectionGateService(db=self._mock_db_returning(None))
+        self.assertFalse(service._listening_applicable(lesson_id="lesson-1"))
+
+    def test_writing_applicable_true_when_a_row_exists(self):
+        service = SectionGateService(db=self._mock_db_returning(MagicMock()))
+        self.assertTrue(service._writing_applicable(lesson_id="lesson-1"))
+
+    def test_writing_applicable_false_when_no_row_exists(self):
+        service = SectionGateService(db=self._mock_db_returning(None))
+        self.assertFalse(service._writing_applicable(lesson_id="lesson-1"))
+
+    def test_speaking_applicable_true_when_a_row_exists(self):
+        service = SectionGateService(db=self._mock_db_returning(MagicMock()))
+        self.assertTrue(service._speaking_applicable(lesson_id="lesson-1"))
+
+    def test_speaking_applicable_false_when_no_row_exists(self):
+        service = SectionGateService(db=self._mock_db_returning(None))
+        self.assertFalse(service._speaking_applicable(lesson_id="lesson-1"))
+
+    def test_skill_applicable_no_longer_exists(self):
+        # Proves the Assessment-Engine-based method was actually removed,
+        # not just superseded/left dangling.
+        self.assertFalse(hasattr(SectionGateService, "_skill_applicable"))
 
 
 class TestLatestAttemptOrdersByNewestAssessment(unittest.TestCase):
-    """When duplicate COURSE assessments exist for one lesson (the exact
-    scenario above), _latest_attempt must deterministically pick the
-    most recently created one — matching crud_service.list_assessments'
-    own created_at-desc ordering, which is what the admin UI's
-    `assessments?.[0]` already relies on — instead of arbitrary DB
-    order, which could silently return an older, content-less
-    duplicate."""
+    """_latest_attempt still exists (feeds the now-vestigial-but-present
+    Assessment-Engine-based `completed` signal for lesen/hoeren/
+    schreiben/sprechen — see section_gate.py's module docstring). When
+    duplicate COURSE assessments exist for one lesson, it must
+    deterministically pick the most recently created one — matching
+    crud_service.list_assessments' own created_at-desc ordering."""
 
     def test_orders_assessment_query_by_created_at_desc(self):
         db = MagicMock()
