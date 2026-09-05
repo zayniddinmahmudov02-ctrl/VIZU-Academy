@@ -272,6 +272,51 @@ class TestSchreibenSprechenMapping(unittest.TestCase):
         self.assertTrue(sprechen_task.publish)
 
 
+class TestContentRenderedAsHtml(unittest.TestCase):
+    """SchreibenTask/SprechenTask render `content` via
+    dangerouslySetInnerHTML — plain '\\n'-separated legacy text would
+    collapse to one run-on line. Writing/Speaking `content` must convert
+    newlines to <br> (and escape any pre-existing HTML-special chars);
+    `instructions` (plain React text, never dangerouslySetInnerHTML)
+    must stay untouched. Hoeren's transcript is a different, unrelated
+    field/render path and must also stay untouched (see
+    TestHoerenNeverPublished.test_hoeren_transcript_is_never_lost)."""
+
+    def test_writing_content_newlines_become_br(self):
+        db = build_mock_db(writings=[make_writing(instruction="Line one\nLine two\n\nLine three")])
+        plan = migrate.build_plan(db, make_lesson())
+        task = next(s for s in plan.sections if s.skill == SKILL_SCHREIBEN).tasks[0]
+        self.assertEqual(task.content, "Line one<br>Line two<br><br>Line three")
+
+    def test_writing_content_escapes_html_special_chars(self):
+        db = build_mock_db(writings=[make_writing(instruction="A & B <tag> \"quoted\"")])
+        plan = migrate.build_plan(db, make_lesson())
+        task = next(s for s in plan.sections if s.skill == SKILL_SCHREIBEN).tasks[0]
+        self.assertNotIn("<tag>", task.content)
+        self.assertIn("&amp;", task.content)
+
+    def test_speaking_content_newlines_become_br(self):
+        db = build_mock_db(speakings=[make_speaking(instruction="Hallo!\nWie geht es dir?")])
+        plan = migrate.build_plan(db, make_lesson())
+        task = next(s for s in plan.sections if s.skill == SKILL_SPRECHEN).tasks[0]
+        self.assertEqual(task.content, "Hallo!<br>Wie geht es dir?")
+
+    def test_speaking_instructions_topic_stays_plain_text(self):
+        # instructions (the "topic" field) is rendered as plain React
+        # text, not dangerouslySetInnerHTML - must never be HTML-escaped
+        # or have its newlines converted.
+        db = build_mock_db(speakings=[make_speaking(topic="Thema & Vorstellung")])
+        plan = migrate.build_plan(db, make_lesson())
+        task = next(s for s in plan.sections if s.skill == SKILL_SPRECHEN).tasks[0]
+        self.assertEqual(task.instructions, "Thema & Vorstellung")
+
+    def test_hoeren_content_stays_raw_not_html_converted(self):
+        db = build_mock_db(listenings=[make_listening(transcript="Line one\nLine two")])
+        plan = migrate.build_plan(db, make_lesson())
+        task = next(s for s in plan.sections if s.skill == SKILL_HOEREN).tasks[0]
+        self.assertEqual(task.content, "Line one\nLine two")
+
+
 class TestApplyPlanOnlyWritesWhatsMissing(unittest.TestCase):
     def _plan_with_one_new_task(self, skill, publish):
         task = migrate.TaskPlan(

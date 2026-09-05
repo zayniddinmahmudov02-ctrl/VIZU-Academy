@@ -30,16 +30,25 @@ itself writes for each task_type:
     Assessment-level; see PUBLISH_ON_CREATE below) — so DRAFT is both
     the safe and the structurally consistent choice.
   Schreiben (Writing -> task_type=WRITING):
-    title -> title, instruction -> content, min_words/max_words ->
-    min_words/max_words, order_index -> sort_order,
-    evaluation_mode="AI_ONLY" (the schema/admin default for WRITING).
+    title -> title, instruction -> content (see _plain_text_to_html
+    below), min_words/max_words -> min_words/max_words, order_index ->
+    sort_order, evaluation_mode="AI_ONLY" (the schema/admin default for
+    WRITING).
   Sprechen (Speaking -> task_type=SPEAKING):
     title -> title, topic -> instructions (the short guidance line the
-    admin UI's own "Anweisung für Lernende" field is for), instruction ->
-    content, preparation_time -> prep_seconds, speaking_time ->
-    speak_seconds, order_index -> sort_order,
+    admin UI's own "Anweisung für Lernende" field is for, rendered as
+    plain text — never HTML-converted), instruction -> content (see
+    _plain_text_to_html below), preparation_time -> prep_seconds,
+    speaking_time -> speak_seconds, order_index -> sort_order,
     evaluation_mode="TEACHER_ONLY" (the schema/admin default the manager
     itself applies for every SPEAKING task).
+
+_plain_text_to_html(): SchreibenTask/SprechenTask render `content` via
+dangerouslySetInnerHTML, so the legacy plain text's line breaks would
+otherwise collapse into one run-on line in the browser — this
+HTML-escapes the text first, then turns '\n' into '<br>'. Applied to
+Schreiben/Sprechen `content` only (the one field actually rendered as
+HTML); `instructions` stays plain text as-is.
 
 PUBLISH_ON_CREATE and why Schreiben/Sprechen are set PUBLISHED here even
 though LesenAssessmentManager's own "createTask" call never passes a
@@ -90,6 +99,7 @@ Run from the `backend/` directory — dry-run first, always:
 """
 
 import argparse
+import html
 from dataclasses import dataclass, field
 from uuid import UUID
 
@@ -121,6 +131,20 @@ from app.models.writing import Writing
 
 LEVEL = "A1"
 LESSON_NUMBER = 1
+
+
+def _plain_text_to_html(text: str) -> str:
+    """SchreibenTask/SprechenTask (frontend/src/components/lesson-player/
+    writing/schreiben-task.tsx, speaking/sprechen-task.tsx) render `content`
+    via dangerouslySetInnerHTML — a raw '\\n'-separated plain-text string
+    (what the legacy Writing/Speaking rows hold) collapses to one run-on
+    line in the browser. Escapes any existing HTML-special characters
+    first (this legacy text was never meant to contain markup) then turns
+    newlines into <br> so the line breaks the source actually has survive
+    rendering. Only applied to `content` — `instructions` is rendered as
+    a plain React child (auto-escaped), never dangerouslySetInnerHTML, so
+    it's left untouched."""
+    return html.escape(text).replace("\n", "<br>")
 
 SECTION_TITLES = {
     SKILL_HOEREN: "Hören",
@@ -273,7 +297,7 @@ def build_plan(db, lesson: Lesson) -> MigrationPlan:
                 title=writing.title,
                 already_exists=writing.title in existing_titles,
                 task_type=TYPE_WRITING,
-                content=writing.instruction,
+                content=_plain_text_to_html(writing.instruction),
                 min_words=writing.min_words,
                 max_words=writing.max_words,
                 evaluation_mode="AI_ONLY",
@@ -306,7 +330,7 @@ def build_plan(db, lesson: Lesson) -> MigrationPlan:
                 title=speaking.title,
                 already_exists=speaking.title in existing_titles,
                 task_type=TYPE_SPEAKING,
-                content=content,
+                content=_plain_text_to_html(content),
                 instructions=speaking.topic,
                 prep_seconds=speaking.preparation_time,
                 speak_seconds=speaking.speaking_time,
