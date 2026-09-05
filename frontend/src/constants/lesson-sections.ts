@@ -3,6 +3,7 @@ import {
   FileText,
   Headphones,
   HelpCircle,
+  Languages,
   Library,
   ListChecks,
   Mic,
@@ -18,6 +19,7 @@ export type LessonSectionType =
   | "video"
   | "vocabulary"
   | "vocabulary-quiz"
+  | "grammar"
   | "grammar-quiz"
   | "reading"
   | "listening"
@@ -36,19 +38,23 @@ export interface LessonSectionMeta {
   titleKey: string;
 }
 
-// Fixed student order (Video / Wortschatz / Wortschatz Quiz / Grammatik
-// Quiz / Lesen / Hören / Schreiben / Sprechen / Hausaufgabe / Ergebnis),
-// identical to the Admin CMS lesson-content order, never reordered based
-// on which sections happen to have content. None of these sections gate
-// each other — every one of them is independently reachable regardless
-// of what has or hasn't been completed elsewhere (see
-// backend/app/services/lesson_progress/section_gate.py; the "unlocked"
-// field it still returns per section is now unconditionally true, kept
-// only for API/consumer backward compatibility). Standalone "Grammatik"
-// is deliberately absent — grammar is taught inside the Video, and
-// Grammatik Quiz is the only grammar step in the student flow (the
-// Grammar model/admin CRUD still exist, just unreachable from this
-// student-facing list — see GrammarManager in the admin CMS).
+// Fixed student order (Video / Wortschatz / Wortschatz Quiz / Grammatik /
+// Grammatik Quiz / Lesen / Hören / Schreiben / Sprechen / Hausaufgabe /
+// Ergebnis), identical to the Admin CMS lesson-content order, never
+// reordered based on which sections happen to have content. None of
+// these sections gate each other — every one of them is independently
+// reachable regardless of what has or hasn't been completed elsewhere
+// (see backend/app/services/lesson_progress/section_gate.py; the
+// "unlocked" field it still returns per section is now unconditionally
+// true, kept only for API/consumer backward compatibility). "Grammatik"
+// and "Grammatik Quiz" are two separate sections on purpose — Grammatik
+// renders the published Grammar rows for this lesson (its own simple,
+// non-gated content type: GrammarSection/grammar-service.ts, backed by
+// GET /grammars/lesson/{id}), Grammatik Quiz is the separate multiple-
+// choice check. (A prior refactor removed the standalone Grammatik nav
+// entry while leaving its backend endpoints, service and section
+// component in place unused — this restores the nav entry, not new
+// functionality.)
 // "reading"/"listening" here render "Lesen"/"Hören" (their real
 // titleKeys), each already the Universal Assessment Engine's combined
 // passage+questions flow — there's no separate "Lesen Quiz"/"Hören Quiz"
@@ -72,6 +78,7 @@ export const lessonSections: LessonSectionMeta[] = [
   { slug: "video", type: "video", icon: PlayCircle, emoji: "▶️", titleKey: "lessons.sectionVideo" },
   { slug: "wortschatz", type: "vocabulary", icon: Library, emoji: "📖", titleKey: "lessons.sectionVocabulary" },
   { slug: "wortschatz-quiz", type: "vocabulary-quiz", icon: ListChecks, emoji: "📝", titleKey: "lessons.sectionVocabularyQuiz" },
+  { slug: "grammatik", type: "grammar", icon: Languages, emoji: "🔤", titleKey: "lessons.sectionGrammar" },
   { slug: "grammatik-quiz", type: "grammar-quiz", icon: HelpCircle, emoji: "❓", titleKey: "lessons.sectionGrammarQuiz" },
   { slug: "lesen", type: "reading", icon: FileText, emoji: "📄", titleKey: "lessons.sectionReading" },
   { slug: "hoeren", type: "listening", icon: Headphones, emoji: "🎧", titleKey: "lessons.sectionListening" },
@@ -100,6 +107,7 @@ export const SECTION_GATE_KEYS: Record<LessonSectionType, SectionGateKey | null>
   video: "video",
   vocabulary: "wortschatz",
   "vocabulary-quiz": "wortschatz_quiz",
+  grammar: "grammatik",
   "grammar-quiz": "grammatik_quiz",
   reading: "lesen",
   listening: "hoeren",

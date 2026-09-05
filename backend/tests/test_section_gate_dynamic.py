@@ -16,7 +16,6 @@ from app.services.lesson_progress.section_gate import GATED_ORDER, SECTION_ORDER
 
 def all_applicable(**overrides) -> dict[str, bool]:
     base = {key: True for key in SECTION_ORDER}
-    base["grammatik"] = False  # never applicable/gated — matches production logic
     base.update(overrides)
     return base
 
@@ -290,6 +289,36 @@ class TestQuizSubmittedIsAlwaysFullyGraded(unittest.TestCase):
         db.query.side_effect = [quiz_query, student_quiz_query]
         service = SectionGateService(db=db)
         self.assertTrue(service._quiz_submitted(user_id="u", lesson_id="l", quiz_type="LESSON"))
+
+
+class TestGrammarApplicable(unittest.TestCase):
+    """Regression for the Grammatik nav item: applicable["grammatik"] used
+    to be hardcoded False (so the standalone Grammatik section could
+    never appear in student navigation, even though its backend endpoint
+    GET /grammars/lesson/{id} and frontend GrammarSection component
+    already existed) — now it reflects real published Grammar content,
+    same is_published-only pattern as _wortschatz_applicable."""
+
+    def _mock_db_returning(self, row_or_none):
+        db = MagicMock()
+        query = MagicMock()
+        query.filter.return_value = query
+        query.first.return_value = row_or_none
+        db.query.return_value = query
+        return db
+
+    def test_true_when_a_published_grammar_row_exists(self):
+        service = SectionGateService(db=self._mock_db_returning(MagicMock()))
+        self.assertTrue(service._grammar_applicable(lesson_id="l"))
+
+    def test_false_when_no_grammar_row_exists(self):
+        service = SectionGateService(db=self._mock_db_returning(None))
+        self.assertFalse(service._grammar_applicable(lesson_id="l"))
+
+    def test_grammatik_excluded_from_gated_order_even_when_applicable(self):
+        # Grammatik has no separate completion/points role — it must stay
+        # out of GATED_ORDER regardless of applicability.
+        self.assertNotIn("grammatik", GATED_ORDER)
 
 
 if __name__ == "__main__":

@@ -62,6 +62,7 @@ from app.models.assessment_section import (
     AssessmentSection,
 )
 from app.models.assessment_task import AssessmentTask
+from app.models.grammar import Grammar
 from app.models.quiz import QUIZ_TYPE_GRAMMAR, QUIZ_TYPE_LESSON, QUIZ_TYPE_VOCABULARY, Quiz
 from app.models.speaking_submission import STATUS_FINAL as SPEAKING_STATUS_FINAL, SpeakingSubmission
 from app.models.student_progress import StudentProgress
@@ -226,6 +227,14 @@ class SectionGateService:
             is not None
         )
 
+    def _grammar_applicable(self, lesson_id: UUID) -> bool:
+        return (
+            self.db.query(Grammar)
+            .filter(Grammar.lesson_id == str(lesson_id), Grammar.is_published.is_(True))
+            .first()
+            is not None
+        )
+
     def _quiz_applicable(self, lesson_id: UUID, quiz_type: str) -> bool:
         return (
             self.db.query(Quiz)
@@ -289,7 +298,12 @@ class SectionGateService:
             "video": self._video_applicable(lesson_id),
             "wortschatz": self._wortschatz_applicable(lesson_id),
             "wortschatz_quiz": self._quiz_applicable(lesson_id, QUIZ_TYPE_VOCABULARY),
-            "grammatik": False,  # not a gated/required student-facing section
+            # Visible whenever the lesson has published Grammar content —
+            # not hardcoded False anymore (see GrammarSection/GET
+            # /grammars/lesson/{id}, both of which already existed and
+            # expected this). Still excluded from GATED_ORDER below: it
+            # has no separate points/required-for-completion role.
+            "grammatik": self._grammar_applicable(lesson_id),
             "grammatik_quiz": self._quiz_applicable(lesson_id, QUIZ_TYPE_GRAMMAR),
             "lesen": self._skill_applicable(lesson_id, SKILL_LESEN),
             "hoeren": self._skill_applicable(lesson_id, SKILL_HOEREN),

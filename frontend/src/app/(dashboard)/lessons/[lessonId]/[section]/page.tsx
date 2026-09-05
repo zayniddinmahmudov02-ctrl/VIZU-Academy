@@ -2,6 +2,7 @@ import type { ComponentType } from "react";
 import { notFound } from "next/navigation";
 
 import SectionGateBoundary from "@/components/lesson-player/common/section-gate-boundary";
+import GrammarSection from "@/components/lesson-player/grammar/grammar-section";
 import HomeworkSection from "@/components/lesson-player/homework/homework-section";
 import PremiumLessonGate from "@/components/lesson-player/video/premium-lesson-gate";
 import ListeningSection from "@/components/lesson-player/listening/listening-section";
@@ -23,6 +24,7 @@ const SECTION_COMPONENTS: Record<LessonSectionMeta["type"], ComponentType<Sectio
   video: VideoSection,
   vocabulary: VocabularySection,
   "vocabulary-quiz": VocabularyQuizSection,
+  grammar: GrammarSection,
   "grammar-quiz": (props) => <QuizSection {...props} quizType="GRAMMAR" />,
   reading: ReadingSection,
   listening: ListeningSection,
