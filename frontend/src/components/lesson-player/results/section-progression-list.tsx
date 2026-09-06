@@ -25,8 +25,8 @@ const LABELS: Record<keyof SectionGateState, string> = {
 // Every other key is only rendered when the lesson actually has that
 // content (entry.applicable) — e.g. "wortschatz_quiz" only shows for A1
 // lessons, which have a real VOCABULARY quiz; B1-C1 lessons don't render
-// it at all, same real data the nav pill bar now uses (see
-// lesson-section-nav.tsx).
+// it at all, same real data the right sidebar now uses (see
+// lesson-right-sidebar.tsx / section-progress.ts).
 const ORDER: (keyof SectionGateState)[] = [
   "video",
   "wortschatz",
