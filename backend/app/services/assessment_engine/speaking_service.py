@@ -43,6 +43,7 @@ from app.schemas.assessment_engine import (
 
 from app.services.lesson_progress.section_gate import SectionGateService
 from app.services.notification import create_notification
+from app.services.teacher.scope import teacher_course_ids_or_none
 
 from . import attempt_service
 from .audio_service import MAX_AUDIO_SIZE_BYTES, resolve_audio_format, storage
@@ -56,6 +57,9 @@ BUCKET_NEU = "NEU"
 BUCKET_IN_PRUEFUNG = "IN_PRUEFUNG"
 BUCKET_BEWERTET = "BEWERTET"
 BUCKET_ZURUECKGEGEBEN = "ZURUECKGEGEBEN"
+# Added for the Teacher Panel's "Alle" filter — purely additive, see
+# writing_service's identical addition.
+BUCKET_ALLE = "ALLE"
 
 
 def _get_lesson_info(db: Session, assessment_id) -> tuple[str, str]:
@@ -68,6 +72,23 @@ def _get_lesson_info(db: Session, assessment_id) -> tuple[str, str]:
         .first()
     )
     return (row[0], row[1]) if row else ("", "A1")
+
+
+def _get_course_id(db: Session, assessment_id) -> str | None:
+    """Used only for the TEACHER-scoping check (list_pending_reviews,
+    submit_teacher_review, authorize_submission_access,
+    authorize_feedback_audio_access) — None for a standalone assessment
+    with no lesson_id (Vorbereitung/model-test), which a TEACHER is never
+    assigned to, so it correctly fails an `in course_ids` check."""
+    row = (
+        db.query(Course.id)
+        .join(Module, Module.course_id == Course.id)
+        .join(Lesson, Lesson.module_id == Module.id)
+        .join(Assessment, Assessment.lesson_id == Lesson.id)
+        .filter(Assessment.id == assessment_id)
+        .first()
+    )
+    return str(row[0]) if row else None
 
 
 def _now() -> datetime:
@@ -195,15 +216,24 @@ def resolve_submission_audio_path(submission: SpeakingSubmission) -> Path:
 
 def authorize_submission_access(db: Session, submission_id: str, user: User) -> SpeakingSubmission:
     """Per spec section 13: a student may only ever access their own audio;
-    staff (super admin / teacher / other admin-panel roles) may access any
-    submission for review. 404 (not 403) when the submission doesn't
-    exist or doesn't belong to the caller, so a guessed ID can't be used
-    to probe for existence."""
+    staff (super admin / other admin-panel roles) may access any
+    submission for review. A TEACHER is additionally scoped to their
+    TeacherAssignment courses (app/services/teacher/scope.py) — guessing
+    another course's submission id must 404 exactly like a nonexistent one,
+    never reveal it exists. 404 (not 403) in every rejection case, so a
+    guessed ID can't be used to probe for existence."""
     submission = db.get(SpeakingSubmission, UUID(submission_id))
     if submission is None:
         raise HTTPException(status_code=404, detail="Submission not found.")
 
-    if submission.user_id == user.id or user.role in UserRole.ADMIN_PANEL_ROLES:
+    if submission.user_id == user.id:
+        return submission
+
+    if user.role == UserRole.TEACHER:
+        course_ids = teacher_course_ids_or_none(db, user)
+        if course_ids is not None and _get_course_id(db, submission.assessment_id) in course_ids:
+            return submission
+    elif user.role in UserRole.ADMIN_PANEL_ROLES:
         return submission
 
     raise HTTPException(status_code=404, detail="Submission not found.")
@@ -214,15 +244,23 @@ def resolve_feedback_audio_path(evaluation: SpeakingEvaluation) -> Path:
 
 
 def authorize_feedback_audio_access(db: Session, evaluation_id: str, user: User) -> SpeakingEvaluation:
-    """Same ownership rule as authorize_submission_access — the student
-    who was evaluated, or any admin-panel/teacher role."""
+    """Same ownership rule as authorize_submission_access, including the
+    TEACHER course-scoping — the student who was evaluated, any other
+    admin-panel role, or a TEACHER assigned to this submission's course."""
     evaluation = db.get(SpeakingEvaluation, UUID(evaluation_id))
     if evaluation is None or evaluation.feedback_audio_path is None:
         raise HTTPException(status_code=404, detail="No feedback audio for this evaluation.")
 
     submission = db.get(SpeakingSubmission, evaluation.submission_id)
-    if submission is not None and (submission.user_id == user.id or user.role in UserRole.ADMIN_PANEL_ROLES):
-        return evaluation
+    if submission is not None:
+        if submission.user_id == user.id:
+            return evaluation
+        if user.role == UserRole.TEACHER:
+            course_ids = teacher_course_ids_or_none(db, user)
+            if course_ids is not None and _get_course_id(db, submission.assessment_id) in course_ids:
+                return evaluation
+        elif user.role in UserRole.ADMIN_PANEL_ROLES:
+            return evaluation
 
     raise HTTPException(status_code=404, detail="No feedback audio for this evaluation.")
 
@@ -259,8 +297,11 @@ def get_speaking_result(db: Session, attempt_id: str, task_id: str, user: User) 
 # ============================================================
 
 def list_pending_reviews(
-    db: Session, assessment_id: str | None = None, bucket: str | None = None
+    db: Session, assessment_id: str | None = None, bucket: str | None = None, course_ids: list[str] | None = None
 ) -> list[PendingSpeakingReviewItem]:
+    """`course_ids` — see writing_service.list_pending_reviews's docstring
+    for the same None-vs-list scoping contract (None = unrestricted, every
+    non-TEACHER admin-panel role; a list = TEACHER, filtered down)."""
     query = select(SpeakingSubmission)
 
     if bucket is None:
@@ -275,6 +316,8 @@ def list_pending_reviews(
         query = query.where(SpeakingSubmission.status == STATUS_FINAL, SpeakingSubmission.notified.is_(False))
     elif bucket == BUCKET_ZURUECKGEGEBEN:
         query = query.where(SpeakingSubmission.status == STATUS_FINAL, SpeakingSubmission.notified.is_(True))
+    elif bucket == BUCKET_ALLE:
+        pass  # no status filter at all — every submission, any status.
     else:
         raise HTTPException(status_code=400, detail=f"Unknown bucket '{bucket}'.")
 
@@ -284,6 +327,9 @@ def list_pending_reviews(
 
     items = []
     for submission in submissions:
+        if course_ids is not None and _get_course_id(db, submission.assessment_id) not in course_ids:
+            continue
+
         task = db.get(AssessmentTask, submission.task_id)
         student = db.get(User, submission.user_id)
         lesson_title, level = _get_lesson_info(db, submission.assessment_id)
@@ -310,9 +356,15 @@ async def submit_teacher_review(
     feedback: str | None,
     finalize: bool,
     audio_file: UploadFile | None = None,
+    course_ids: list[str] | None = None,
 ) -> SpeakingEvaluationResponse:
+    """`course_ids` — see writing_service.submit_teacher_review's
+    docstring for the same IDOR contract."""
     submission = db.get(SpeakingSubmission, UUID(submission_id))
     if submission is None:
+        raise HTTPException(status_code=404, detail="Submission not found.")
+
+    if course_ids is not None and _get_course_id(db, submission.assessment_id) not in course_ids:
         raise HTTPException(status_code=404, detail="Submission not found.")
 
     task = db.get(AssessmentTask, submission.task_id)

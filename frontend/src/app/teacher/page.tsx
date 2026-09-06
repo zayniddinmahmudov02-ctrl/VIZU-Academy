@@ -1,6 +1,6 @@
 "use client";
 
-import { BookOpen, Users } from "lucide-react";
+import { BookOpen, CheckCircle2, ClipboardList, TrendingUp, Users } from "lucide-react";
 
 import PageHeader from "@/components/dashboard/page-header";
 import { useTeacherOverview } from "@/features/teacher/hooks/use-teacher-overview";
@@ -19,7 +19,7 @@ export default function TeacherOverviewPage() {
         gradient="from-accent-blue to-purple-600"
       />
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <StatCard
           icon={BookOpen}
           label={t("teacher.assignedCourses")}
@@ -29,6 +29,26 @@ export default function TeacherOverviewPage() {
           icon={Users}
           label={t("teacher.totalStudents")}
           value={isLoading ? "…" : String(data?.student_count ?? 0)}
+        />
+        <StatCard
+          icon={TrendingUp}
+          label={t("teacher.avgProgress")}
+          value={isLoading ? "…" : `${data?.average_progress ?? 0}%`}
+        />
+        <StatCard
+          icon={ClipboardList}
+          label={t("teacher.newHomework")}
+          value={isLoading ? "…" : String(data?.new_homework_count ?? 0)}
+        />
+        <StatCard
+          icon={ClipboardList}
+          label={t("teacher.toGrade")}
+          value={isLoading ? "…" : String(data?.to_grade_count ?? 0)}
+        />
+        <StatCard
+          icon={CheckCircle2}
+          label={t("teacher.gradedCount")}
+          value={isLoading ? "…" : String(data?.graded_count ?? 0)}
         />
       </div>
     </div>

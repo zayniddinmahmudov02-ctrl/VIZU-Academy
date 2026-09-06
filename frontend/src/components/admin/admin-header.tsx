@@ -8,6 +8,7 @@ import { LayoutGrid, LogOut, Menu } from "lucide-react";
 import Avatar from "@/components/ui/avatar";
 import { logoutService } from "@/features/auth/services/auth.service";
 import { CURRENT_USER_QUERY_KEY, useCurrentUser } from "@/features/auth/hooks/use-current-user";
+import PanelSwitcherMenu from "@/features/auth/components/panel-switcher-menu";
 import { setActivePanel } from "@/lib/active-panel";
 import { getRefreshToken, removeRefreshToken, removeToken } from "@/lib/token";
 
@@ -89,6 +90,8 @@ export default function AdminHeader({ onMenuClick }: Props) {
                   <p className="truncate text-xs text-[var(--admin-text-muted)]">{user?.email}</p>
                 </div>
               </div>
+              <PanelSwitcherMenu theme="admin" />
+
               <button
                 onClick={handleLogout}
                 className="flex w-full items-center gap-2 px-3.5 py-2.5 text-sm text-[var(--admin-danger)] transition hover:bg-[var(--admin-hover)]"

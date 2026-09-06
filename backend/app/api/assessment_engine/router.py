@@ -9,6 +9,7 @@ from app.api.dependencies.progress import require_lesson_access
 from app.api.dependencies.section_gate import require_lesen_unlocked
 from app.db.session import get_db
 from app.models.user import User
+from app.services.teacher.scope import teacher_course_ids_or_none
 
 from app.schemas.assessment_engine import (
     AnswerResponse,
@@ -630,7 +631,9 @@ def list_pending_writing_reviews(
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin_panel_access),
 ):
-    return writing_service.list_pending_reviews(db, assessment_id, bucket)
+    return writing_service.list_pending_reviews(
+        db, assessment_id, bucket, course_ids=teacher_course_ids_or_none(db, current_user)
+    )
 
 
 @router.post("/writing/{submission_id}/review", response_model=WritingEvaluationResponse)
@@ -646,7 +649,12 @@ def review_writing_submission(
     re-validated against its own max_score server-side; the frontend's
     numbers are never trusted as-is."""
     return writing_service.submit_teacher_review(
-        db, submission_id, current_user, data.rubric_scores, data.feedback
+        db,
+        submission_id,
+        current_user,
+        data.rubric_scores,
+        data.feedback,
+        course_ids=teacher_course_ids_or_none(db, current_user),
     )
 
 
@@ -715,7 +723,9 @@ def list_pending_speaking_reviews(
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin_panel_access),
 ):
-    return speaking_service.list_pending_reviews(db, assessment_id, bucket)
+    return speaking_service.list_pending_reviews(
+        db, assessment_id, bucket, course_ids=teacher_course_ids_or_none(db, current_user)
+    )
 
 
 @router.post("/speaking/{submission_id}/review", response_model=SpeakingEvaluationResponse)
@@ -726,7 +736,13 @@ async def review_speaking_submission(
     current_user: User = Depends(require_admin_panel_access),
 ):
     return await speaking_service.submit_teacher_review(
-        db, submission_id, current_user, data.rubric_scores, data.feedback, data.finalize
+        db,
+        submission_id,
+        current_user,
+        data.rubric_scores,
+        data.feedback,
+        data.finalize,
+        course_ids=teacher_course_ids_or_none(db, current_user),
     )
 
 
@@ -750,7 +766,14 @@ async def review_speaking_submission_with_audio(
         raise HTTPException(status_code=400, detail="rubric_scores must be a JSON object.")
 
     return await speaking_service.submit_teacher_review(
-        db, submission_id, current_user, scores, feedback, finalize, audio_file=file
+        db,
+        submission_id,
+        current_user,
+        scores,
+        feedback,
+        finalize,
+        audio_file=file,
+        course_ids=teacher_course_ids_or_none(db, current_user),
     )
 
 

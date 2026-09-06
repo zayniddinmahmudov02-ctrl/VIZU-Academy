@@ -34,6 +34,12 @@ export default function TeacherStudentsPage() {
                 <div className="min-w-0">
                   <p className="truncate text-sm font-bold text-text-primary">{student.name}</p>
                   <p className="truncate text-xs text-text-muted">{student.email}</p>
+                  <p className="mt-0.5 truncate text-[11px] text-text-muted">
+                    {t("teacher.lastActivity")}:{" "}
+                    {student.last_activity
+                      ? new Date(student.last_activity).toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" })
+                      : t("teacher.neverActive")}
+                  </p>
                 </div>
                 <div className="flex items-center gap-4 sm:w-64 sm:shrink-0">
                   <span className="shrink-0 rounded-full bg-accent-blue/10 px-2.5 py-1 text-xs font-semibold text-accent-blue">

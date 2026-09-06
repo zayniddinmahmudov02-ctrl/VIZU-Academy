@@ -1,14 +1,16 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
-import { GraduationCap, LayoutDashboard, LogOut, Users } from "lucide-react";
+import { ClipboardList, GraduationCap, LayoutDashboard, LogOut, Mic, PenLine, Users } from "lucide-react";
 
 import Logo from "@/components/common/logo";
 import Avatar from "@/components/ui/avatar";
 import { logoutService } from "@/features/auth/services/auth.service";
 import { CURRENT_USER_QUERY_KEY, useCurrentUser } from "@/features/auth/hooks/use-current-user";
+import PanelSwitcherMenu from "@/features/auth/components/panel-switcher-menu";
 import { getRefreshToken, removeRefreshToken, removeToken } from "@/lib/token";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { cn } from "@/lib/utils";
@@ -18,6 +20,9 @@ import TeacherGuard from "./teacher-guard";
 const NAV = [
   { href: "/teacher", labelKey: "teacher.overviewTitle", icon: LayoutDashboard },
   { href: "/teacher/students", labelKey: "teacher.navStudents", icon: Users },
+  { href: "/teacher/homework", labelKey: "teacher.navHomework", icon: ClipboardList },
+  { href: "/teacher/schreiben", labelKey: "teacher.navSchreiben", icon: PenLine },
+  { href: "/teacher/sprechen", labelKey: "teacher.navSprechen", icon: Mic },
 ];
 
 function isActive(pathname: string, href: string): boolean {
@@ -32,6 +37,7 @@ export default function TeacherShell({ children }: { children: React.ReactNode }
   const queryClient = useQueryClient();
   const { user } = useCurrentUser();
   const displayName = user ? [user.firstName, user.lastName].filter(Boolean).join(" ") || user.username : "";
+  const [menuOpen, setMenuOpen] = useState(false);
 
   async function handleLogout() {
     const refreshToken = getRefreshToken();
@@ -65,15 +71,38 @@ export default function TeacherShell({ children }: { children: React.ReactNode }
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
-            <Avatar src={user?.profileImage ?? undefined} name={displayName} size={32} />
+          <div className="relative flex items-center gap-2">
             <button
-              onClick={handleLogout}
-              aria-label="Abmelden"
-              className="flex h-11 w-11 items-center justify-center rounded-full text-text-secondary transition-colors hover:bg-surface-hover hover:text-danger"
+              onClick={() => setMenuOpen((v) => !v)}
+              className="flex items-center gap-2 rounded-full px-1.5 py-1 transition-colors hover:bg-surface-hover"
             >
-              <LogOut size={16} />
+              <Avatar src={user?.profileImage ?? undefined} name={displayName} size={32} />
             </button>
+
+            {menuOpen && (
+              <>
+                <div className="fixed inset-0 z-10" onClick={() => setMenuOpen(false)} />
+                <div className="absolute right-0 top-12 z-20 w-56 overflow-hidden rounded-xl bg-surface-card py-1.5 shadow-[var(--shadow-lg)] ring-1 ring-surface-border">
+                  <div className="flex items-center gap-2.5 border-b border-surface-border px-3.5 py-2.5">
+                    <Avatar src={user?.profileImage ?? undefined} name={displayName} size={32} />
+                    <div className="min-w-0">
+                      <p className="truncate text-sm font-medium text-text-primary">{displayName}</p>
+                      <p className="truncate text-xs text-text-muted">{user?.email}</p>
+                    </div>
+                  </div>
+
+                  <PanelSwitcherMenu />
+
+                  <button
+                    onClick={handleLogout}
+                    className="flex w-full items-center gap-2 border-t border-surface-border px-3.5 py-2.5 text-sm text-danger transition-colors hover:bg-surface-hover"
+                  >
+                    <LogOut size={14} />
+                    Abmelden
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         </header>
 

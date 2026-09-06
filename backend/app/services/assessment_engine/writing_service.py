@@ -58,6 +58,10 @@ BUCKET_NEU = "NEU"
 BUCKET_IN_PRUEFUNG = "IN_PRUEFUNG"
 BUCKET_BEWERTET = "BEWERTET"
 BUCKET_ZURUECKGEGEBEN = "ZURUECKGEGEBEN"
+# Added for the Teacher Panel's "Alle" filter — every other bucket value
+# and bucket=None both predate this and are completely unchanged (see
+# list_pending_reviews); this is purely additive.
+BUCKET_ALLE = "ALLE"
 
 
 def _get_lesson_info(db: Session, assessment_id) -> tuple[str, str]:
@@ -70,6 +74,24 @@ def _get_lesson_info(db: Session, assessment_id) -> tuple[str, str]:
         .first()
     )
     return (row[0], row[1]) if row else ("", "A1")
+
+
+def _get_lesson_info_with_course_id(db: Session, assessment_id) -> tuple[str, str | None]:
+    """Same join as _get_lesson_info, plus the raw Course.id — used only
+    for the TEACHER-scoping check in submit_teacher_review (Course.level
+    alone can't be compared against a TeacherAssignment.course_id list).
+    None for a standalone assessment with no lesson_id (e.g. Vorbereitung/
+    model-test) — a TEACHER is never assigned to those, so this correctly
+    fails the `in course_ids` check rather than crashing."""
+    row = (
+        db.query(Lesson.title, Course.id)
+        .join(Module, Module.id == Lesson.module_id)
+        .join(Course, Course.id == Module.course_id)
+        .join(Assessment, Assessment.lesson_id == Lesson.id)
+        .filter(Assessment.id == assessment_id)
+        .first()
+    )
+    return (row[0], str(row[1])) if row else ("", None)
 
 
 def _now() -> datetime:
@@ -279,10 +301,22 @@ def submit_teacher_review(
     teacher: User,
     rubric_scores: dict[str, int],
     feedback: str | None,
+    course_ids: list[str] | None = None,
 ) -> WritingEvaluationResponse:
+    """`course_ids` is the TEACHER-role scoping from
+    app.services.teacher.scope.teacher_course_ids_or_none — None means "no
+    restriction" (every other admin-panel role, unchanged); a list means a
+    TEACHER caller, and the submission's own course must be in it or this
+    404s exactly like a nonexistent submission would (IDOR: a guessed id
+    for another course's work must never even reveal it exists)."""
     submission = db.get(WritingSubmission, UUID(submission_id))
     if submission is None:
         raise HTTPException(status_code=404, detail="Submission not found.")
+
+    if course_ids is not None:
+        _, submission_course_id = _get_lesson_info_with_course_id(db, submission.assessment_id)
+        if submission_course_id is None or submission_course_id not in course_ids:
+            raise HTTPException(status_code=404, detail="Submission not found.")
 
     task = db.get(AssessmentTask, submission.task_id)
     clamped, total = clamp_rubric_scores(rubric_scores, list(task.rubric_criteria), task.max_points)
@@ -308,8 +342,13 @@ def submit_teacher_review(
 
 
 def list_pending_reviews(
-    db: Session, assessment_id: str | None = None, bucket: str | None = None
+    db: Session, assessment_id: str | None = None, bucket: str | None = None, course_ids: list[str] | None = None
 ) -> list[PendingWritingReviewItem]:
+    """`course_ids` — see submit_teacher_review's docstring: None (every
+    non-TEACHER admin-panel role) means unrestricted, exactly the
+    existing behavior; a list (TEACHER only) filters down to submissions
+    from lesson-scoped assessments whose course is in it — a standalone
+    (no lesson_id) assessment is never a teacher's, so it's excluded."""
     query = select(WritingSubmission)
 
     if bucket is None:
@@ -326,6 +365,8 @@ def list_pending_reviews(
         query = query.where(WritingSubmission.status == STATUS_GRADED, WritingSubmission.notified.is_(False))
     elif bucket == BUCKET_ZURUECKGEGEBEN:
         query = query.where(WritingSubmission.status == STATUS_GRADED, WritingSubmission.notified.is_(True))
+    elif bucket == BUCKET_ALLE:
+        pass  # no status filter at all — every submission, any status.
     else:
         raise HTTPException(status_code=400, detail=f"Unknown bucket '{bucket}'.")
 
@@ -335,6 +376,11 @@ def list_pending_reviews(
 
     items = []
     for submission in submissions:
+        if course_ids is not None:
+            _, submission_course_id = _get_lesson_info_with_course_id(db, submission.assessment_id)
+            if submission_course_id is None or submission_course_id not in course_ids:
+                continue
+
         task = db.get(AssessmentTask, submission.task_id)
         student = db.get(User, submission.user_id)
         lesson_title, level = _get_lesson_info(db, submission.assessment_id)

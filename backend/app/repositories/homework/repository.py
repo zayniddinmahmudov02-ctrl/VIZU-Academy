@@ -36,6 +36,16 @@ class HomeworkRepository:
             .first()
         )
 
+    def get_by_lesson(
+        self,
+        lesson_id,
+        published_only: bool = False,
+    ):
+        query = self.db.query(Homework).filter(Homework.lesson_id == lesson_id)
+        if published_only:
+            query = query.filter(Homework.is_published.is_(True))
+        return query.all()
+
     def create(
         self,
         data: HomeworkCreate,

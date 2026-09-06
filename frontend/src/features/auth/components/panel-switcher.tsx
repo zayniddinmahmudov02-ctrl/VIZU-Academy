@@ -1,63 +1,22 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { usePathname } from "next/navigation";
-import { Check, GraduationCap, ShieldCheck, User } from "lucide-react";
+import { Check } from "lucide-react";
 
-import { useCurrentUser } from "@/features/auth/hooks/use-current-user";
-import { setActivePanel, type ActivePanel } from "@/lib/active-panel";
+import { usePanelSwitcher } from "@/features/auth/hooks/use-panel-switcher";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { cn } from "@/lib/utils";
 
-interface PanelOption {
-  panel: ActivePanel;
-  href: string;
-  icon: typeof User;
-  labelKey: string;
-  descriptionKey: string;
-}
-
-const ALL_OPTIONS: PanelOption[] = [
-  { panel: "student", href: "/dashboard", icon: User, labelKey: "settings.panelStudent", descriptionKey: "settings.panelStudentDesc" },
-  { panel: "teacher", href: "/teacher", icon: GraduationCap, labelKey: "settings.panelTeacher", descriptionKey: "settings.panelTeacherDesc" },
-  { panel: "admin", href: "/admin", icon: ShieldCheck, labelKey: "settings.panelAdmin", descriptionKey: "settings.panelAdminDesc" },
-];
-
-/** Source of truth for panel switching lives here, not the header — see
- * the spec's own "Settings → Panel almashtirish" requirement. Visibility
- * is purely additive to whatever role gate already protects each panel
- * (AuthGuard/TeacherGuard/AdminGuard, backend-enforced regardless of what
- * this component shows) — hiding an option here never grants or revokes
- * access, it only avoids offering a link that would immediately bounce.
- *
- * A plain STUDENT has no second panel to switch to, so this component
- * renders nothing at all for them (not an empty/disabled section) —
- * exactly the "ko'rinmasin" requirement, not just an inert one. */
+/** Settings' full-card presentation of the switcher — the source of
+ * truth per the spec ("Settings → Panel almashtirish"). Same shared
+ * usePanelSwitcher() hook as the compact header dropdown
+ * (panel-switcher-menu.tsx); only the layout differs. Renders nothing
+ * at all for a plain STUDENT (see the hook's `visible` flag) — not an
+ * empty/disabled section. */
 export default function PanelSwitcher() {
   const { t } = useTranslation();
-  const { user } = useCurrentUser();
-  const router = useRouter();
-  const pathname = usePathname();
+  const { options, visible, current, go } = usePanelSwitcher();
 
-  if (!user) return null;
-
-  const options = ALL_OPTIONS.filter((opt) => {
-    if (opt.panel === "student") return true;
-    if (opt.panel === "teacher") return user.role === "TEACHER" || user.role === "SUPER_ADMIN";
-    if (opt.panel === "admin") return user.role === "SUPER_ADMIN";
-    return false;
-  });
-
-  // Nothing beyond the student's own panel to offer — stay hidden
-  // entirely (see the docstring above).
-  if (options.length <= 1) return null;
-
-  function go(option: PanelOption) {
-    setActivePanel(option.panel);
-    router.push(option.href);
-  }
-
-  const current = options.find((opt) => pathname.startsWith(opt.href))?.panel ?? "student";
+  if (!visible) return null;
 
   return (
     <section className="rounded-card bg-surface-card p-7 shadow-[var(--shadow-md)] ring-1 ring-surface-border">

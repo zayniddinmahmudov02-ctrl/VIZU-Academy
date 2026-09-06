@@ -11,6 +11,7 @@ import InstallAppButton from "@/components/pwa/install-app-button";
 import CalendarDropdown from "@/features/calendar/components/calendar-dropdown";
 import { logoutService } from "@/features/auth/services/auth.service";
 import { CURRENT_USER_QUERY_KEY } from "@/features/auth/hooks/use-current-user";
+import { usePanelSwitcher } from "@/features/auth/hooks/use-panel-switcher";
 import NotificationDropdown from "@/features/notifications/components/notification-dropdown";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { getRefreshToken, removeRefreshToken, removeToken } from "@/lib/token";
@@ -23,6 +24,11 @@ export default function Header({ onMenuClick }: Props) {
   const router = useRouter();
   const { t } = useTranslation();
   const queryClient = useQueryClient();
+  // Same shared hook Admin/Teacher headers use (panel-switcher-menu.tsx)
+  // — a plain STUDENT gets an empty `options` array here, so no extra
+  // items are added and the dropdown is completely unchanged for them.
+  const { options: panelOptions, visible: panelSwitcherVisible, current: currentPanel, go: goToPanel } =
+    usePanelSwitcher();
 
   async function handleLogout() {
     const refreshToken = getRefreshToken();
@@ -96,6 +102,13 @@ export default function Header({ onMenuClick }: Props) {
           items={[
             { label: t("sidebar.profile"), icon: User, onClick: () => router.push("/profile") },
             { label: t("sidebar.settings"), icon: Settings, onClick: () => router.push("/settings") },
+            ...(panelSwitcherVisible
+              ? panelOptions.map((option) => ({
+                  label: `${option.panel === currentPanel ? "✓ " : ""}${t(option.labelKey)}`,
+                  icon: option.icon,
+                  onClick: () => goToPanel(option),
+                }))
+              : []),
             { label: t("header.logout"), icon: LogOut, onClick: handleLogout, danger: true },
           ]}
         />

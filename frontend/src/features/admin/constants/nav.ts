@@ -1,7 +1,6 @@
 import {
   Award,
   BookOpen,
-  ClipboardList,
   CreditCard,
   Crown,
   FlaskConical,
@@ -48,7 +47,16 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
       { label: "Bücher", href: "/admin/books", icon: BookOpen },
       { label: "Payments", href: "/admin/payments", icon: CreditCard },
       { label: "Analytics", href: "/admin/analytics", icon: TrendingUp },
-      { label: "Homeworks", href: "/admin/homeworks", icon: ClipboardList },
+      // "Homeworks" (the Schreiben/Sprechen submission review queue,
+      // /admin/homeworks) is deliberately no longer linked here — that
+      // operational review workflow now lives in the Teacher Panel
+      // (Schreiben/Sprechen, scoped per-teacher via TeacherAssignment).
+      // The route/page/data are untouched (nothing deleted, no admin
+      // access removed), just unlinked from the sidebar, same convention
+      // as the CMS reorganization note above. The unrelated Homework
+      // *task* CRUD (/admin/homework, singular — title/description/
+      // max_score content management) was never linked here either and
+      // stays reachable via Courses -> Level -> Lesson, unaffected.
       { label: "Settings", href: "/admin/settings", icon: Settings },
     ],
   },
