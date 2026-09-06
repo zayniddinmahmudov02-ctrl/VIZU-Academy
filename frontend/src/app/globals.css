@@ -194,6 +194,14 @@ body {
   color: var(--text-primary);
   font-family: var(--font-sans);
   font-feature-settings: "cv11", "ss01";
+  /* German compound words (Rechtsschutzversicherung-length) have no
+     natural break point and, by default, would rather overflow their
+     container than wrap — this is inherited by nearly everything, so
+     lesson text/vocab cards/quiz options never need it added
+     individually. Doesn't affect single-line UI chrome that
+     intentionally sets `whitespace-nowrap` (e.g. badges/kbd hints) —
+     that property wins over this one where it's explicitly set. */
+  overflow-wrap: break-word;
   /* PWA/iOS safe-area: on notch/Dynamic-Island/home-indicator devices
      these resolve to real px values (only when viewport-fit=cover is
      set — see layout.tsx's viewport export); everywhere else they're
@@ -213,6 +221,24 @@ body {
 }
 .safe-bottom {
   padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* iOS Safari auto-zooms the whole page when a focused input's font-size
+   is under 16px — every text input/textarea/select in this app (student
+   Input/Textarea, admin AdminInput/AdminTextarea/AdminSelect) uses
+   Tailwind's text-sm (14px). Overriding the element directly (not a
+   utility class) so it applies regardless of which component rendered
+   it; !important is needed since a plain element-selector rule is
+   otherwise weaker than the .text-sm utility class already on the
+   element. Mobile-only (desktop is untouched) and does not change any
+   *visual* sizing that isn't purely the focus-zoom trigger — a 1-2px
+   text bump on small screens, not a layout change. */
+@media (max-width: 767px) {
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
 }
 
 /* Smooth, scoped theme-switch transition — never on `transform`, so it
