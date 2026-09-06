@@ -7,6 +7,7 @@ import { Crown, LogOut, Menu, Search, Settings, User } from "lucide-react";
 import Avatar from "@/components/ui/avatar";
 import DropdownMenu from "@/components/ui/dropdown-menu";
 import ThemeToggle from "@/components/ui/theme-toggle";
+import InstallAppButton from "@/components/pwa/install-app-button";
 import CalendarDropdown from "@/features/calendar/components/calendar-dropdown";
 import { logoutService } from "@/features/auth/services/auth.service";
 import { CURRENT_USER_QUERY_KEY } from "@/features/auth/hooks/use-current-user";
@@ -74,6 +75,8 @@ export default function Header({ onMenuClick }: Props) {
         </div>
 
         <NotificationDropdown />
+
+        <InstallAppButton />
 
         <ThemeToggle variant="icon" className="hidden sm:flex" />
 

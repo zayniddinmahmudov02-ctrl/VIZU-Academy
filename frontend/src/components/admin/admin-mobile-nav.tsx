@@ -19,7 +19,11 @@ export default function AdminMobileNav({ open, onOpenChange }: Props) {
           }`}
         />
         <Dialog.Popup
-          className={`admin-shell fixed left-0 top-0 z-50 h-full w-[270px] shadow-[var(--admin-shadow-card)] outline-none transition-transform duration-300 ease-out ${
+          // safe-top/safe-bottom: this is fixed + h-full, reaching the
+          // true viewport edges — not covered by body's safe-area
+          // padding (globals.css), so its own header/nav must clear the
+          // notch/home indicator explicitly.
+          className={`admin-shell safe-top safe-bottom fixed left-0 top-0 z-50 h-full w-[270px] shadow-[var(--admin-shadow-card)] outline-none transition-transform duration-300 ease-out ${
             open ? "translate-x-0" : "-translate-x-full"
           }`}
         >

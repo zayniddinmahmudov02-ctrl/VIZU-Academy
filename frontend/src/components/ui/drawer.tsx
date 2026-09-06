@@ -26,7 +26,12 @@ export default function Drawer({ open, onOpenChange, children, side = "left", cl
         />
         <Dialog.Popup
           className={cn(
-            "fixed top-0 z-50 h-full w-[260px] bg-surface-sidebar shadow-[var(--shadow-lg)] outline-none transition-transform duration-300 ease-out",
+            // fixed + h-full reaches the true viewport edges, so unlike
+            // normal-flow content it isn't covered by body's safe-area
+            // padding (globals.css) — needs its own, since the header/
+            // close button (top) and language switcher (bottom, see
+            // mobile-nav.tsx) must clear the iPhone notch/home indicator.
+            "safe-top safe-bottom fixed top-0 z-50 h-full w-[260px] bg-surface-sidebar shadow-[var(--shadow-lg)] outline-none transition-transform duration-300 ease-out",
             side === "left"
               ? cn("left-0", open ? "translate-x-0" : "-translate-x-full")
               : cn("right-0", open ? "translate-x-0" : "translate-x-full"),

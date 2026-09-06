@@ -27,6 +27,22 @@ export function removeToken() {
   if (typeof window === "undefined") return;
   localStorage.removeItem(TOKEN_KEY);
   sessionStorage.removeItem(TOKEN_KEY);
+  clearRuntimeCache();
+}
+
+/** Tells the service worker (see public/sw.js) to drop its runtime
+ * cache — the one holding network-first lesson/progress/user-data
+ * responses — on every logout (explicit or forced by a 401), so the
+ * next user on this device never sees a previous student's cached
+ * data. The static-asset cache is untouched; nothing sensitive lives
+ * there. No-ops silently if service workers aren't supported/active. */
+function clearRuntimeCache() {
+  if (!("serviceWorker" in navigator)) return;
+  navigator.serviceWorker.ready
+    .then((registration) => {
+      registration.active?.postMessage({ type: "CLEAR_RUNTIME_CACHE" });
+    })
+    .catch(() => {});
 }
 
 export function saveRefreshToken(token: string, remember: boolean = true) {

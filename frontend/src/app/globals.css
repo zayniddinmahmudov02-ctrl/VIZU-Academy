@@ -194,6 +194,25 @@ body {
   color: var(--text-primary);
   font-family: var(--font-sans);
   font-feature-settings: "cv11", "ss01";
+  /* PWA/iOS safe-area: on notch/Dynamic-Island/home-indicator devices
+     these resolve to real px values (only when viewport-fit=cover is
+     set — see layout.tsx's viewport export); everywhere else they're
+     0, so this is a no-op on ordinary browsers/desktops. Applied once
+     here so no individual component needs to handle it itself. */
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* For a component that's actually position:fixed to the viewport edge
+   (rather than relying on body's padding pushing normal-flow content
+   down) — added padding on top of its own spacing, not a replacement. */
+.safe-top {
+  padding-top: env(safe-area-inset-top);
+}
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 /* Smooth, scoped theme-switch transition — never on `transform`, so it
