@@ -204,7 +204,7 @@ export default function BookManager() {
       render: (item) =>
         item.cover_url ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={item.cover_url} alt="" className="h-12 w-9 rounded object-cover" />
+          <img src={item.cover_url} alt="" loading="lazy" className="h-12 w-9 rounded object-cover" />
         ) : (
           <div className="flex h-12 w-9 items-center justify-center rounded bg-white/5 text-[var(--admin-text-muted)]">
             <FileText size={16} />

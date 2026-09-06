@@ -321,6 +321,7 @@ export default function VideoPlayer({
           ref={videoRef}
           className="h-full w-full"
           poster={poster}
+          preload="metadata"
           playsInline
           controlsList="nodownload noremoteplayback"
           disablePictureInPicture

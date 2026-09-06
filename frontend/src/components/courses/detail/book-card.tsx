@@ -31,7 +31,7 @@ export default function BookCard({ book, isPremium, onOpen }: Props) {
       >
         {book.cover_url ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={book.cover_url} alt={book.title} className="h-full w-full object-cover" />
+          <img src={book.cover_url} alt={book.title} loading="lazy" className="h-full w-full object-cover" />
         ) : (
           <BookOpen size={32} className={locked ? "text-slate-500 dark:text-slate-300" : "text-white"} />
         )}

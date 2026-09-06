@@ -1,5 +1,8 @@
 import { WifiOff } from "lucide-react";
 
+import Logo from "@/components/common/logo";
+import OfflineRetryButton from "./retry-button";
+
 export const metadata = {
   title: "Offline — VIZU Academy",
 };
@@ -11,13 +14,15 @@ export const metadata = {
 export default function OfflinePage() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-surface-bg p-6 text-center">
-      <WifiOff size={40} className="text-text-muted" />
+      <Logo size={56} />
+      <WifiOff size={40} className="mt-2 text-text-muted" />
       <h1 className="text-xl font-bold text-text-primary">Keine Internetverbindung</h1>
       <p className="max-w-sm text-sm text-text-secondary">
         Für diese Seite ist eine Internetverbindung erforderlich. Bitte überprüfe deine Verbindung und
         versuche es erneut.
       </p>
       <p className="max-w-sm text-xs text-text-muted">Internet connection required.</p>
+      <OfflineRetryButton />
     </div>
   );
 }

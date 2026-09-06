@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Download, Share, SquarePlus, X } from "lucide-react";
 
 import { useInstallPrompt } from "@/features/pwa/hooks/use-install-prompt";
@@ -14,6 +14,26 @@ import { useInstallPrompt } from "@/features/pwa/hooks/use-install-prompt";
 export default function InstallAppButton() {
   const { canInstall, showIOSInstructions, promptInstall } = useInstallPrompt();
   const [iosDialogOpen, setIosDialogOpen] = useState(false);
+  const openButtonRef = useRef<HTMLButtonElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+  // Escape closes the dialog; focus moves into it on open and back to
+  // the trigger button on close, so keyboard users never lose their
+  // place — same expectations as any other modal in this app.
+  useEffect(() => {
+    if (!iosDialogOpen) return;
+
+    closeButtonRef.current?.focus();
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") setIosDialogOpen(false);
+    }
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      openButtonRef.current?.focus();
+    };
+  }, [iosDialogOpen]);
 
   const buttonClass =
     "flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-surface-card text-text-secondary shadow-[var(--shadow-3d-soft)] ring-1 ring-surface-border transition-all duration-200 hover:-translate-y-px hover:text-accent-blue active:translate-y-0";
@@ -30,6 +50,7 @@ export default function InstallAppButton() {
     return (
       <>
         <button
+          ref={openButtonRef}
           type="button"
           onClick={() => setIosDialogOpen(true)}
           aria-label="App installieren"
@@ -43,6 +64,7 @@ export default function InstallAppButton() {
           <div
             role="dialog"
             aria-modal="true"
+            aria-labelledby="install-ios-dialog-title"
             // safe-bottom: this sits flush against the bottom edge on
             // mobile (items-end) — needs clearance from the home
             // indicator, same reasoning as drawer.tsx/admin-mobile-nav.tsx.
@@ -54,12 +76,15 @@ export default function InstallAppButton() {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-between">
-                <h3 className="text-sm font-bold text-text-primary">VIZU App installieren</h3>
+                <h3 id="install-ios-dialog-title" className="text-sm font-bold text-text-primary">
+                  VIZU App installieren
+                </h3>
                 <button
+                  ref={closeButtonRef}
                   type="button"
                   onClick={() => setIosDialogOpen(false)}
                   aria-label="Schließen"
-                  className="text-text-muted hover:text-text-primary"
+                  className="rounded text-text-muted hover:text-text-primary focus:outline-none focus:ring-2 focus:ring-accent-blue/50"
                 >
                   <X size={16} />
                 </button>

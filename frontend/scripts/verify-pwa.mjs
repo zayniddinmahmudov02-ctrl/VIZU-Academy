@@ -29,9 +29,16 @@ console.log("Manifest");
 {
   const src = read("src/app/manifest.ts");
   await check("declares required manifest fields", () => {
-    for (const field of ["name:", "short_name:", "start_url:", "display:", "theme_color:", "background_color:", "icons:"]) {
+    for (const field of [
+      "name:", "short_name:", "description:", "start_url:", "scope:",
+      "display:", "theme_color:", "background_color:", "icons:",
+    ]) {
       assert.ok(src.includes(field), `manifest.ts missing "${field}"`);
     }
+  });
+  await check('name is "VIZU Academy", short_name is "VIZU"', () => {
+    assert.ok(/name:\s*"VIZU Academy"/.test(src));
+    assert.ok(/short_name:\s*"VIZU"/.test(src));
   });
   await check("display is standalone", () => assert.ok(/display:\s*"standalone"/.test(src)));
   await check("declares a maskable icon purpose", () => assert.ok(src.includes('purpose: "maskable"')));
@@ -110,6 +117,13 @@ console.log("\nService worker — sensitive data never cached");
 console.log("\nOffline page + install UI");
 {
   await check("offline page exists", () => assert.ok(existsSync(path.join(root, "src/app/offline/page.tsx"))));
+  await check("offline page has a retry action and branding", () => {
+    const offlineSrc = read("src/app/offline/page.tsx");
+    assert.ok(offlineSrc.includes("OfflineRetryButton"), "offline page has no retry button");
+    assert.ok(offlineSrc.includes("Logo"), "offline page has no VIZU Academy branding");
+    const retrySrc = read("src/app/offline/retry-button.tsx");
+    assert.ok(retrySrc.includes("window.location.reload()"), "retry button doesn't actually retry");
+  });
   await check("install prompt hook exists", () => assert.ok(existsSync(path.join(root, "src/features/pwa/hooks/use-install-prompt.ts"))));
   const hookSrc = read("src/features/pwa/hooks/use-install-prompt.ts");
   await check("listens for beforeinstallprompt (Android/Chrome support detection)", () =>
@@ -119,6 +133,12 @@ console.log("\nOffline page + install UI");
   const buttonSrc = read("src/components/pwa/install-app-button.tsx");
   await check("renders nothing when neither install path applies", () => {
     assert.ok(buttonSrc.includes("return null;"), "install button has no not-applicable fallback");
+  });
+  await check("iOS dialog: Escape closes, focus is managed", () => {
+    assert.ok(buttonSrc.includes('"Escape"'), "dialog doesn't handle Escape");
+    assert.ok(buttonSrc.includes("closeButtonRef.current?.focus()"), "dialog doesn't focus on open");
+    assert.ok(buttonSrc.includes("openButtonRef.current?.focus()"), "dialog doesn't restore focus on close");
+    assert.ok(buttonSrc.includes('role="dialog"') && buttonSrc.includes("aria-modal"), "dialog missing ARIA role");
   });
 }
 

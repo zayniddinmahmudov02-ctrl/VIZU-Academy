@@ -164,7 +164,7 @@ export default function VideoManager({ lessonId: fixedLessonId }: { lessonId?: s
               <div className="flex h-16 w-28 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-black/30">
                 {video.thumbnail_url ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={video.thumbnail_url} alt="" className="h-full w-full object-cover" />
+                  <img src={video.thumbnail_url} alt="" loading="lazy" className="h-full w-full object-cover" />
                 ) : (
                   <Eye size={18} className="text-[var(--admin-text-muted)]" />
                 )}
