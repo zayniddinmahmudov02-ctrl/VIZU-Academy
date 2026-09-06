@@ -5,6 +5,7 @@ import { Bell, Globe, Settings as SettingsIcon } from "lucide-react";
 
 import PageHeader from "@/components/dashboard/page-header";
 import { languages } from "@/constants/languages";
+import PanelSwitcher from "@/features/auth/components/panel-switcher";
 import { useTranslation } from "@/lib/i18n/use-translation";
 
 export default function SettingsPage() {
@@ -21,6 +22,8 @@ export default function SettingsPage() {
         subtitleKey="settings.subtitle"
         gradient="from-accent-blue to-purple-600"
       />
+
+      <PanelSwitcher />
 
       <section className="rounded-card bg-surface-card p-7 shadow-[var(--shadow-md)] ring-1 ring-surface-border">
         <h2 className="text-lg font-bold text-text-primary">{t("settings.notifications")}</h2>

@@ -167,3 +167,24 @@ async def require_admin_panel_access(
         )
 
     return current_user
+
+
+async def require_teacher_panel_access(
+    current_user: User = Depends(get_current_user),
+) -> User:
+    """Gate for /teacher/* routes. TEACHER or SUPER_ADMIN only — a plain
+    ADMIN/CONTENT_MANAGER/PAYMENT_MANAGER/SUPPORT account has no Teacher
+    Panel access (that's not what those roles are for), but SUPER_ADMIN
+    always does, matching the panel-switcher spec ("the special account,
+    already SUPER_ADMIN, must reach Student + Teacher + Admin panels").
+    Enforced here server-side; the frontend TeacherGuard is a UX
+    convenience only, never the source of truth.
+    """
+
+    if current_user.role not in (UserRole.TEACHER, UserRole.SUPER_ADMIN):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Teacher panel access required",
+        )
+
+    return current_user

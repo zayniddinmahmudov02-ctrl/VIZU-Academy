@@ -8,6 +8,7 @@ import { LayoutGrid, LogOut, Menu } from "lucide-react";
 import Avatar from "@/components/ui/avatar";
 import { logoutService } from "@/features/auth/services/auth.service";
 import { CURRENT_USER_QUERY_KEY, useCurrentUser } from "@/features/auth/hooks/use-current-user";
+import { setActivePanel } from "@/lib/active-panel";
 import { getRefreshToken, removeRefreshToken, removeToken } from "@/lib/token";
 
 interface Props {
@@ -52,7 +53,13 @@ export default function AdminHeader({ onMenuClick }: Props) {
 
       <div className="relative flex items-center gap-2">
         <button
-          onClick={() => router.push("/dashboard")}
+          onClick={() => {
+            // Without this, AuthGuard's "SUPER_ADMIN always bounces to
+            // /admin" rule immediately sends them right back here — see
+            // components/auth/auth-guard.tsx / lib/active-panel.ts.
+            setActivePanel("student");
+            router.push("/dashboard");
+          }}
           className="hidden items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-medium text-[var(--admin-text-secondary)] transition hover:bg-[var(--admin-hover)] hover:text-[var(--admin-text-primary)] sm:flex"
         >
           <LayoutGrid size={14} />

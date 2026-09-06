@@ -33,6 +33,7 @@ from .student_quiz import StudentQuiz
 from .student_writing import StudentWriting
 from .student_speaking import StudentSpeaking
 from .enrollment import Enrollment
+from .teacher_assignment import TeacherAssignment
 
 # Certificate
 from .certificate import Certificate
@@ -136,6 +137,7 @@ __all__ = [
     "StudentWriting",
     "StudentSpeaking",
     "Enrollment",
+    "TeacherAssignment",
 
     # Certificate
     "Certificate",

@@ -258,6 +258,42 @@ export const translations: Record<string, Namespace> = {
       uz: "Rang sxemasini yuqori paneldagi tugma orqali o'zgartirishingiz mumkin.",
     },
     language: { de: "Sprache", uz: "Til" },
+    panelSwitcher: { de: "Panel wechseln", uz: "Panel almashtirish" },
+    panelSwitcherBody: {
+      de: "Wechsle zwischen den Bereichen, auf die dein Konto Zugriff hat.",
+      uz: "Hisobingiz kirisha oladigan bo'limlar orasida almashing.",
+    },
+    panelStudent: { de: "Student-Panel", uz: "Student Panel" },
+    panelStudentDesc: { de: "Deine Lektionen und Ergebnisse", uz: "Darslaringiz va natijalaringiz" },
+    panelTeacher: { de: "Lehrer-Panel", uz: "Teacher Panel" },
+    panelTeacherDesc: { de: "Schüler und Aufgaben", uz: "O'quvchilar va topshiriqlar" },
+    panelAdmin: { de: "Admin-Panel", uz: "Admin Panel" },
+    panelAdminDesc: { de: "Systemverwaltung", uz: "Tizim boshqaruvi" },
+    panelCurrent: { de: "Aktuell", uz: "Joriy" },
+  },
+
+  teacher: {
+    overviewTitle: { de: "Übersicht", uz: "Umumiy ko'rinish" },
+    overviewSubtitle: {
+      de: "Deine zugewiesenen Kurse und Schüler auf einen Blick",
+      uz: "Sizga biriktirilgan kurslar va o'quvchilar bir qarashda",
+    },
+    assignedCourses: { de: "Zugewiesene Kurse", uz: "Biriktirilgan kurslar" },
+    totalStudents: { de: "Schüler gesamt", uz: "Jami o'quvchilar" },
+    myStudents: { de: "Meine Schüler", uz: "Mening o'quvchilarim" },
+    myStudentsSubtitle: {
+      de: "Schüler aus deinen zugewiesenen Kursen",
+      uz: "Sizga biriktirilgan kurslardagi o'quvchilar",
+    },
+    noStudents: {
+      de: "Dir sind noch keine Kurse zugewiesen, oder deine Kurse haben noch keine Schüler.",
+      uz: "Sizga hali kurs biriktirilmagan yoki kurslaringizda o'quvchi yo'q.",
+    },
+    student: { de: "Schüler", uz: "O'quvchi" },
+    course: { de: "Kurs", uz: "Kurs" },
+    progress: { de: "Fortschritt", uz: "Progress" },
+    nav: { de: "Lehrer-Panel", uz: "Teacher Panel" },
+    navStudents: { de: "Meine Schüler", uz: "Mening o'quvchilarim" },
   },
 
   lessons: {

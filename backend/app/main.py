@@ -132,6 +132,12 @@ from app.api.admin.quiz_generation_router import (
 from app.api.admin.books_router import (
     router as admin_books_router,
 )
+from app.api.admin.teacher_assignments_router import (
+    router as admin_teacher_assignments_router,
+)
+
+# Teacher Panel
+from app.api.teacher import router as teacher_router
 
 # VIZU Pay
 from app.api.vizu_pay import (
@@ -240,6 +246,8 @@ _ALL_ROUTERS = [
     admin_ai_content_router,
     admin_quiz_generation_router,
     admin_books_router,
+    admin_teacher_assignments_router,
+    teacher_router,
     vizu_pay_router,
     assessment_engine_router,
     health_router,
