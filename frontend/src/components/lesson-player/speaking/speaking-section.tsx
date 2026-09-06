@@ -7,19 +7,21 @@ import { getLessonSpeakings } from "@/features/lessons/services/speaking-service
 import { useTranslation } from "@/lib/i18n/use-translation";
 
 import LessonSection from "../common/lesson-section";
+import SpeakingTaskRecorder from "./speaking-task-recorder";
 
 interface Props {
   lessonId: string;
 }
 
 /** The real Sprechen panel — published Speaking rows for this lesson
- * (see app/models/speaking.py, admin/components/managers/speaking-
- * manager.tsx). Legacy-backed on purpose, same as its Lesen/Hören/
- * Schreiben siblings — see reading-section.tsx's docstring. View-only:
- * the legacy schema has no wired recording-upload/grading pipeline
- * (unlike the Assessment Engine's SpeakingSubmission flow) — building
- * one is a separate feature, not part of this switch back to legacy
- * content. */
+ * (see app/models/speaking.py), each now paired with a real microphone
+ * recorder (SpeakingTaskRecorder — MediaRecorder, pause/resume, preview,
+ * re-record, upload) backed by StudentSpeaking
+ * (app/models/student_speaking.py), a table that already existed but had
+ * no user_id column and no real submission workflow until now. Legacy-
+ * backed on purpose, same as its Lesen/Hören/Schreiben siblings — see
+ * reading-section.tsx's docstring; only the "view-only" half no longer
+ * applies to this section specifically. */
 export default function SpeakingSection({ lessonId }: Props) {
   const { t } = useTranslation();
 
@@ -48,6 +50,7 @@ export default function SpeakingSection({ lessonId }: Props) {
               <span>Vorbereitung: {item.preparation_time}s</span>
               <span>Sprechzeit: {item.speaking_time}s</span>
             </div>
+            <SpeakingTaskRecorder speaking={item} />
           </div>
         ))}
       </div>

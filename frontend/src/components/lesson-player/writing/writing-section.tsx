@@ -7,18 +7,21 @@ import { getLessonWritings } from "@/features/lessons/services/writing-service";
 import { useTranslation } from "@/lib/i18n/use-translation";
 
 import LessonSection from "../common/lesson-section";
+import WritingTaskPanel from "./writing-task-panel";
 
 interface Props {
   lessonId: string;
 }
 
 /** The real Schreiben panel — published Writing rows for this lesson
- * (see app/models/writing.py, admin/components/managers/writing-
- * manager.tsx). Legacy-backed on purpose, same as its Lesen/Hören/
- * Sprechen siblings — see reading-section.tsx's docstring. View-only:
- * the legacy schema has no wired submission/grading pipeline (unlike
- * the Assessment Engine's WritingSubmission flow) — building one is a
- * separate feature, not part of this switch back to legacy content. */
+ * (see app/models/writing.py), each now paired with a real writing panel
+ * (WritingTaskPanel — textarea, ÄÖÜß insertion, word/char count, draft/
+ * submit) backed by StudentWriting (app/models/student_writing.py), a
+ * table that already existed but had no real submission workflow wired
+ * to it until now. Legacy-backed on purpose, same as its Lesen/Hören/
+ * Sprechen siblings — see reading-section.tsx's docstring; only the
+ * "view-only" half of that description no longer applies to this
+ * section specifically. */
 export default function WritingSection({ lessonId }: Props) {
   const { t } = useTranslation();
 
@@ -42,11 +45,7 @@ export default function WritingSection({ lessonId }: Props) {
           <div key={item.id} className="rounded-2xl bg-surface-hover p-6">
             <h3 className="text-lg font-bold text-text-primary">{item.title}</h3>
             <p className="mt-2.5 whitespace-pre-line text-sm text-text-secondary sm:text-base">{item.instruction}</p>
-            {(item.min_words != null || item.max_words != null) && (
-              <p className="mt-3 text-xs text-text-muted">
-                {item.min_words ?? 0}–{item.max_words ?? "∞"} Wörter
-              </p>
-            )}
+            <WritingTaskPanel writing={item} />
           </div>
         ))}
       </div>

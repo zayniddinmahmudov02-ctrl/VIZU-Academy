@@ -71,3 +71,17 @@ class ProtectedVideoUploadTempStorage(LocalStorage):
     "{upload_id}/" directory."""
 
     ROOT = Path("app/protected_storage/video-uploads")
+
+
+class ProtectedLegacySpeakingStorage(LocalStorage):
+    """Audio recordings for the legacy per-lesson Sprechen task
+    (StudentSpeaking, app/models/student_speaking.py) — separate root
+    from ProtectedLocalStorage (Hören's admin-uploaded audio) and from
+    the Assessment Engine's own speaking storage (audio_service.py),
+    even though the isolation mechanics are identical, so the two
+    speaking systems' files can never collide or be confused on disk.
+    Never used to build a public URL — GET /speakings/submissions/{id}/
+    audio is the only way to fetch bytes, gated by ownership or an
+    assigned-teacher/admin check (see student_speaking/service.py)."""
+
+    ROOT = Path("app/protected_storage/legacy-speaking")

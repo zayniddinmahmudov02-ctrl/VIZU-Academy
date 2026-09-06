@@ -42,3 +42,41 @@ export interface TeacherHomeworkFilters {
   lesson_id?: string;
   search?: string;
 }
+
+export interface TeacherLegacyWritingItem {
+  id: string;
+  student_id: string;
+  student_name: string;
+  student_email: string;
+  course_title: string;
+  course_level: string;
+  lesson_title: string;
+  lesson_number: number;
+  writing_title: string;
+  min_words: number;
+  max_words: number;
+  answer_text: string;
+  status: "SUBMITTED" | "GRADED" | "NEEDS_REVISION";
+  submitted_at: string | null;
+  score: number | null;
+  feedback: string | null;
+  reviewed_at: string | null;
+}
+
+export interface TeacherLegacySpeakingItem {
+  id: string;
+  student_id: string;
+  student_name: string;
+  student_email: string;
+  course_title: string;
+  course_level: string;
+  lesson_title: string;
+  lesson_number: number;
+  speaking_title: string;
+  duration_seconds: number | null;
+  status: "SUBMITTED" | "GRADED" | "NEEDS_REVISION";
+  submitted_at: string | null;
+  score: number | null;
+  feedback: string | null;
+  reviewed_at: string | null;
+}

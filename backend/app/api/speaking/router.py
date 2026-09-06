@@ -1,4 +1,7 @@
-from fastapi import APIRouter, Depends, HTTPException
+from uuid import UUID
+
+from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
+from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 
 from app.api.dependencies.auth import get_current_user, require_admin_panel_access
@@ -11,7 +14,9 @@ from app.schemas.speaking import (
     SpeakingResponse,
     SpeakingUpdate,
 )
+from app.schemas.student_speaking import StudentSpeakingOwnResponse
 from app.services.speaking import SpeakingService
+from app.services.student_speaking import StudentSpeakingService
 from app.services.vizu_pay.access import can_access_lesson
 
 router = APIRouter(
@@ -110,3 +115,50 @@ def delete_speaking(
     return {
         "message": "Speaking deleted"
     }
+
+
+# ==========================
+# Real student submission (see app/models/student_speaking.py)
+# ==========================
+
+
+@router.post("/{speaking_id}/submissions", response_model=StudentSpeakingOwnResponse, status_code=201)
+async def submit_speaking(
+    speaking_id: UUID,
+    file: UploadFile = File(...),
+    duration_seconds: int | None = Form(None),
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Aufgabe senden (or a re-record) — always the complete recording in
+    one call, never a partial/draft upload (matches the Assessment
+    Engine's own speaking upload — there's no "save draft" concept for
+    audio, only record -> stop -> send)."""
+    return await StudentSpeakingService(db).upload_recording(current_user.id, speaking_id, file, duration_seconds)
+
+
+@router.get("/{speaking_id}/submissions/me", response_model=StudentSpeakingOwnResponse | None)
+def get_my_speaking_submission(
+    speaking_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    return StudentSpeakingService(db).get_own(current_user.id, speaking_id)
+
+
+@router.get("/submissions/{submission_id}/audio")
+def get_speaking_submission_audio(
+    submission_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """The only way to fetch a legacy Sprechen recording's bytes — never
+    a public URL. Re-checked on every request: the submitting student, an
+    assigned teacher (TeacherAssignment-scoped), or any other admin-panel
+    role — see StudentSpeakingService.authorize_audio_access."""
+    service = StudentSpeakingService(db)
+    item = service.authorize_audio_access(submission_id, current_user)
+    path = service.resolve_audio_path(item)
+    if not path.exists():
+        raise HTTPException(status_code=404, detail="Audio file missing on disk.")
+    return FileResponse(path=path, media_type=item.content_type, filename=item.filename)

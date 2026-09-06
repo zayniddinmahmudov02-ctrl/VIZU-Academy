@@ -1,4 +1,7 @@
-from pydantic import ConfigDict
+from datetime import datetime
+from uuid import UUID
+
+from pydantic import ConfigDict, Field
 
 from app.schemas.base import BaseSchema
 
@@ -42,5 +45,54 @@ class StudentSpeakingUpdate(BaseSchema):
 
 class StudentSpeakingResponse(StudentSpeakingBase):
     id: str
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+# ==========================
+# Real submission workflow (see app/models/student_speaking.py)
+# ==========================
+
+
+class StudentSpeakingOwnResponse(BaseSchema):
+    id: UUID
+    speaking_id: UUID
+    filename: str | None
+    content_type: str | None
+    duration_seconds: int | None
+    status: str
+    submitted_at: datetime | None
+    score: int | None
+    feedback: str | None
+    reviewed_at: datetime | None
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class SpeakingGradeRequest(BaseSchema):
+    score: int = Field(ge=0, le=100)
+    feedback: str = Field(min_length=1, max_length=5000)
+    status: str = Field(pattern="^(GRADED|NEEDS_REVISION)$")
+
+
+class TeacherSpeakingItem(BaseSchema):
+    """Denormalized row for Teacher Panel -> Sprechen (legacy) — see
+    app/services/student_speaking/service.py."""
+
+    id: UUID
+    student_id: UUID
+    student_name: str
+    student_email: str
+    course_title: str
+    course_level: str
+    lesson_title: str
+    lesson_number: int
+    speaking_title: str
+    duration_seconds: int | None
+    status: str
+    submitted_at: datetime | None
+    score: int | None
+    feedback: str | None
+    reviewed_at: datetime | None
 
     model_config = ConfigDict(from_attributes=True)

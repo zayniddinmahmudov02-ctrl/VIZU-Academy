@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
@@ -14,8 +16,10 @@ from app.schemas.writing import (
     WritingUpdate,
     WritingResponse,
 )
+from app.schemas.student_writing import StudentWritingOwnResponse, WritingSubmitRequest
 
 from app.services.writing import WritingService
+from app.services.student_writing import StudentWritingService
 
 router = APIRouter(
     prefix="/writings",
@@ -113,3 +117,28 @@ def delete_writing(
     return {
         "message": "Writing deleted"
     }
+
+
+# ==========================
+# Real student submission (see app/models/student_writing.py) — the
+# Homework/{id}/submissions pattern, applied here.
+# ==========================
+
+
+@router.post("/{writing_id}/submissions", response_model=StudentWritingOwnResponse)
+def submit_writing(
+    writing_id: UUID,
+    data: WritingSubmitRequest,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    return StudentWritingService(db).submit(current_user.id, writing_id, data.answer_text, data.submit)
+
+
+@router.get("/{writing_id}/submissions/me", response_model=StudentWritingOwnResponse | None)
+def get_my_writing_submission(
+    writing_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    return StudentWritingService(db).get_own(current_user.id, writing_id)
