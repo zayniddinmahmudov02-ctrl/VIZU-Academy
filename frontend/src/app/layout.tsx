@@ -17,11 +17,25 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "VIZU Academy",
   description: "German Learning Platform",
-  manifest: "/manifest.webmanifest",
+  // No explicit `manifest:` field here — src/app/manifest.ts (the App
+  // Router file convention) already auto-injects the <link
+  // rel="manifest"> tag; setting both was redundant (verified: Next
+  // only ever renders one <link rel="manifest"> either way, but there's
+  // no reason to carry two sources of truth for the same URL).
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
     title: "VIZU",
+  },
+  // Next 16.2.10's `appleWebApp.capable` only emits the generic
+  // <meta name="mobile-web-app-capable">, NOT the traditional
+  // <meta name="apple-mobile-web-app-capable"> older iOS/Safari
+  // versions specifically look for (confirmed by reading
+  // node_modules/next/dist/lib/metadata/metadata.js directly — this is
+  // the framework's own behavior, not a misconfiguration on our side).
+  // Added via `other` since Metadata's typed API has no field for it.
+  other: {
+    "apple-mobile-web-app-capable": "yes",
   },
   icons: {
     icon: [{ url: "/icon.svg", type: "image/svg+xml" }],

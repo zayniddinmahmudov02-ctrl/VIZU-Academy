@@ -71,10 +71,15 @@ console.log("\nApple / iOS metadata (layout.tsx)");
 {
   const src = read("src/app/layout.tsx");
   await check("appleWebApp.capable is set", () => assert.ok(src.includes("appleWebApp") && src.includes("capable: true")));
+  await check("apple-mobile-web-app-capable meta present (Next 16 only emits the generic one by default)", () =>
+    assert.ok(src.includes('"apple-mobile-web-app-capable": "yes"')),
+  );
+  await check("manifest is declared exactly once (file convention only, no redundant metadata.manifest)", () => {
+    assert.ok(!/manifest:\s*"\/manifest\.webmanifest"/.test(src), "redundant explicit metadata.manifest field found");
+  });
   await check("apple-touch-icon referenced", () => assert.ok(src.includes("apple-touch-icon.png")));
   await check("viewportFit cover (safe-area support)", () => assert.ok(src.includes('viewportFit: "cover"')));
   await check("themeColor set", () => assert.ok(src.includes("themeColor")));
-  await check("manifest link wired", () => assert.ok(src.includes("manifest.webmanifest")));
   await check("service worker registration mounted", () => assert.ok(src.includes("ServiceWorkerRegistration")));
 }
 
@@ -92,6 +97,10 @@ console.log("\nService worker — sensitive data never cached");
 {
   const src = read("public/sw.js");
   await check("sw.js exists and defines a fetch handler", () => assert.ok(src.includes('addEventListener("fetch"')));
+  await check("registration failures are logged, not silently swallowed", () => {
+    const swrSrc = read("src/components/pwa/service-worker-registration.tsx");
+    assert.ok(swrSrc.includes("console.error"), "a failed navigator.serviceWorker.register() is invisible in DevTools");
+  });
   await check("auth/admin/payments are in the never-cache list", () => {
     for (const p of ["/api/v1/auth", "/api/v1/admin", "/api/v1/vizu-pay", "/api/v1/payments"]) {
       assert.ok(src.includes(p), `sw.js never-cache list missing ${p}`);
