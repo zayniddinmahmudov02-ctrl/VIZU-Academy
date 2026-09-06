@@ -101,6 +101,17 @@ console.log("\nService worker — sensitive data never cached");
     const swrSrc = read("src/components/pwa/service-worker-registration.tsx");
     assert.ok(swrSrc.includes("console.error"), "a failed navigator.serviceWorker.register() is invisible in DevTools");
   });
+  await check("206 Partial Content is never cached (Cache Storage rejects it — real production bug)", () => {
+    assert.ok(/status\s*===\s*200/.test(src), "isCacheableResponse must check status === 200, not just response.ok (206 is also .ok)");
+    assert.ok(!/response\.ok\s*&&.*cache\.put/s.test(src), "a bare response.ok check before cache.put would still try to cache 206");
+  });
+  await check("Range requests (media seeking) bypass the cache entirely, in both directions", () => {
+    assert.ok(src.includes('request.headers.has("range")'), "no request-side Range detection");
+    assert.ok(/isRangeRequest\(request\)\s*\)\s*\{\s*\n\s*return;/.test(src), "fetch handler doesn't bail out early for Range requests");
+  });
+  await check("cache.put() failures are caught, never an unhandled rejection", () => {
+    assert.ok(src.includes("safeCachePut"), "cache.put() is not wrapped in a try/catch helper");
+  });
   await check("auth/admin/payments are in the never-cache list", () => {
     for (const p of ["/api/v1/auth", "/api/v1/admin", "/api/v1/vizu-pay", "/api/v1/payments"]) {
       assert.ok(src.includes(p), `sw.js never-cache list missing ${p}`);

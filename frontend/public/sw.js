@@ -30,8 +30,13 @@
 // has no access to at all; this file only ever deals with HTTP
 // response bodies for the URLs listed above.
 
-const STATIC_CACHE = "vizu-static-v1";
-const RUNTIME_CACHE = "vizu-runtime-v1";
+// Bumped v1 -> v2 with this fix: the activate handler below already
+// deletes any cache key that isn't one of these two current names, so
+// changing the version here is what actually purges the old (possibly
+// bug-affected) caches on the next SW activation — not a rename for
+// its own sake.
+const STATIC_CACHE = "vizu-static-v2";
+const RUNTIME_CACHE = "vizu-runtime-v2";
 const OFFLINE_URL = "/offline";
 
 const NEVER_CACHE_PATTERNS = [
@@ -93,12 +98,45 @@ function isApiRequest(url) {
   return url.pathname.startsWith("/api/v1/") || url.pathname.startsWith("/api/");
 }
 
+// A Range request (browser seeking/streaming video or audio) always
+// gets a 206 Partial Content response — and Cache Storage's `put()`
+// throws synchronously for any 206 response ("Partial response (status
+// code 206) is unsupported"), regardless of which cache logic called
+// it. Checked on the *request* (not just the response) so a range
+// request never even attempts the cache-read/cache-write dance below —
+// media playback/seeking always goes straight to the network,
+// untouched, exactly like a non-GET mutation.
+function isRangeRequest(request) {
+  return request.headers.has("range");
+}
+
+// The only response ever safe to store: a real, complete, successful
+// GET response. This excludes 206 (see above), every 4xx/5xx error
+// (response.ok alone is NOT enough — 206 is also `ok`), and opaque
+// cross-origin responses (status is always 0 for those).
+function isCacheableResponse(response) {
+  return !!response && response.status === 200;
+}
+
+// cache.put() can still fail for other reasons (quota exceeded, a
+// browser-specific edge case) — never let that become an unhandled
+// promise rejection, and never let it block the real network response
+// the page is waiting on (the caller already has `response` and
+// returns it regardless of how this settles).
+async function safeCachePut(cacheName, request, response) {
+  try {
+    const cache = await caches.open(cacheName);
+    await cache.put(request, response);
+  } catch (err) {
+    // Best-effort only — the user already got the real response.
+  }
+}
+
 async function networkFirst(request, cacheName) {
   try {
     const response = await fetch(request);
-    if (response && response.ok && request.method === "GET") {
-      const cache = await caches.open(cacheName);
-      cache.put(request, response.clone());
+    if (request.method === "GET" && !isRangeRequest(request) && isCacheableResponse(response)) {
+      safeCachePut(cacheName, request, response.clone());
     }
     return response;
   } catch (err) {
@@ -112,9 +150,8 @@ async function cacheFirst(request) {
   const cached = await caches.match(request);
   if (cached) return cached;
   const response = await fetch(request);
-  if (response && response.ok) {
-    const cache = await caches.open(STATIC_CACHE);
-    cache.put(request, response.clone());
+  if (!isRangeRequest(request) && isCacheableResponse(response)) {
+    safeCachePut(STATIC_CACHE, request, response.clone());
   }
   return response;
 }
@@ -128,6 +165,16 @@ self.addEventListener("fetch", (event) => {
   }
 
   const url = new URL(request.url);
+
+  // Media Range requests (video/audio seeking/streaming) are their own
+  // category, distinct from a plain API GET — always straight to the
+  // network, never cached (see isRangeRequest's docstring above), same
+  // treatment as a mutation. Checked before the never-cache/static/API
+  // branches below since a Range request can otherwise match any of
+  // them (e.g. a video served from an /api/v1/... endpoint).
+  if (isRangeRequest(request)) {
+    return;
+  }
 
   // Never-cache list: bypass this service worker entirely (no cache
   // read, no cache write, no offline fallback) — a failure here should
