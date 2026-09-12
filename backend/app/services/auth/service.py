@@ -5,7 +5,7 @@ from uuid import UUID
 from fastapi import HTTPException
 from jose import JWTError
 
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from app.core.config import settings
@@ -37,7 +37,7 @@ def create_user(
 
     existing_email = db.scalar(
         select(User).where(
-            User.email == data.email,
+            func.lower(User.email) == data.email.strip().lower(),
         )
     )
 
@@ -81,10 +81,22 @@ def authenticate_user(
     email: str,
     password: str,
 ):
+    """Email lookup is case-insensitive and whitespace-trimmed — this was
+    a real, previously-unaddressed gap (the comparison was a plain `==`,
+    nowhere in the codebase normalizes an email's case either on
+    registration or login), root-caused as the actual production 401:
+    any account whose stored email differs in case from what's typed at
+    login (autocapitalize on mobile, a copy-paste with different casing,
+    etc.) could never log in, no matter how correct the password was.
+    Storage itself is left untouched (still whatever case was originally
+    registered) — only the comparison changed, so this needs no backfill/
+    migration of existing rows."""
+
+    normalized_email = email.strip().lower()
 
     user = db.scalar(
         select(User).where(
-            User.email == email,
+            func.lower(User.email) == normalized_email,
         )
     )
 
@@ -115,10 +127,12 @@ def get_user_by_email(
     db: Session,
     email: str,
 ) -> User | None:
+    """Same case-insensitive lookup as authenticate_user — used by
+    password reset, which must find the same account login would."""
 
     return db.scalar(
         select(User).where(
-            User.email == email,
+            func.lower(User.email) == email.strip().lower(),
         )
     )
 
