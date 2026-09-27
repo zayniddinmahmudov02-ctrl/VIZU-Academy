@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
@@ -8,6 +7,7 @@ import QueryProvider from "@/providers/query-provider";
 import LanguageProvider from "@/providers/language-provider";
 import ServiceWorkerRegistration from "@/components/pwa/service-worker-registration";
 import TelegramWebAppInit from "@/components/telegram/telegram-webapp-init";
+import TelegramWebAppScript from "@/components/telegram/telegram-webapp-script";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -73,11 +73,13 @@ export default function RootLayout({
         <ServiceWorkerRegistration />
         {/* Telegram Mini App SDK — a plain <script>, not an npm package
             (see lib/telegram/webapp.ts). afterInteractive: doesn't block
-            first paint, and every accessor built on it already handles
-            window.Telegram being undefined (ad-blocked, failed to load,
-            or just an ordinary browser tab), so there's nothing to await
-            here before the rest of the app renders. */}
-        <Script src="https://telegram.org/js/telegram-web-app.js" strategy="afterInteractive" />
+            first paint; its onLoad (wired in TelegramWebAppScript) is
+            what lets waitForTelegramWebApp() know the SDK has actually
+            finished loading, instead of every caller guessing with a
+            single synchronous check. Every accessor already handles
+            window.Telegram being undefined regardless (ad-blocked,
+            failed to load, or just an ordinary browser tab). */}
+        <TelegramWebAppScript />
         <TelegramWebAppInit />
       </body>
     </html>

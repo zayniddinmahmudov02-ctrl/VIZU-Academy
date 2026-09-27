@@ -5,58 +5,74 @@ import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 
 import { saveRefreshToken, saveToken } from "@/lib/token";
-import { getTelegramInitData, isTelegramWebApp } from "@/lib/telegram/webapp";
+import { getTelegramInitData, waitForTelegramWebApp } from "@/lib/telegram/webapp";
 
 import { telegramLoginService } from "../services/auth.service";
 
 type Status = "idle" | "checking" | "failed";
 
 /** Auto-login for a Telegram Mini App launch, sitting *beside*
- * LoginForm (see login-card.tsx) — never replacing it. Outside
- * Telegram, isTelegramWebApp() is false and this renders nothing at
- * all; the existing manual login/register flow is completely
- * untouched, hook order and all (fixed useState/useEffect calls, no
- * branch runs before them).
+ * LoginForm (see login-card.tsx) — never replacing it.
  *
- * On success: same saveToken/saveRefreshToken this app's own login
- * already uses, then a plain redirect to /dashboard — deliberately
- * NOT role-branching here. A SUPER_ADMIN account is bounced from
- * /dashboard to /admin by AuthGuard's own existing check
- * (components/auth/auth-guard.tsx), exactly like visiting /dashboard
- * directly after any other login already behaves; this component
- * doesn't need to (and shouldn't) reimplement that.
+ * Root cause of the "no request ever reaches /auth/telegram" production
+ * bug: this used to check `isTelegramWebApp()` exactly once, synchronously,
+ * on mount. The SDK (next/script, strategy="afterInteractive") finishes
+ * loading asynchronously on its own schedule — if that single check ran
+ * before window.Telegram.WebApp existed yet, it concluded "not Telegram"
+ * forever and never looked again, so a real Telegram launch could open
+ * this page and simply never attempt login. Fixed by waiting for the SDK
+ * (waitForTelegramWebApp(), which resolves immediately if already loaded
+ * or once the script's load event fires — see lib/telegram/webapp.ts)
+ * instead of checking once and giving up.
  *
- * On failure (not in Telegram, no initData, invalid/expired signature,
- * network error): shows a small non-blocking notice and stops — it
- * never hides or disables the form underneath, so manual login always
- * keeps working. */
+ * Outside Telegram — the SDK never loads, or loads but initData is empty
+ * (an ordinary browser tab, no real Telegram bridge) — this stays "idle"
+ * (renders nothing) forever; the existing manual login/register flow is
+ * completely untouched. "failed" is reserved for a *confirmed* Telegram
+ * launch (real, non-empty initData) whose backend call then failed, so a
+ * plain website visitor never sees a Telegram-specific error banner.
+ *
+ * StrictMode-safe: `cancelled` (checked before every state update) plus
+ * the AbortController passed into waitForTelegramWebApp cover both the
+ * dev-only mount -> cleanup -> mount replay and a real unmount — neither
+ * can produce a duplicate login request whose result is actually acted
+ * on. */
 export default function TelegramAutoLogin() {
   const router = useRouter();
   const [status, setStatus] = useState<Status>("idle");
 
   useEffect(() => {
-    if (!isTelegramWebApp()) return;
+    const controller = new AbortController();
+    let cancelled = false;
 
-    const initData = getTelegramInitData();
-    if (!initData) {
-      setStatus("failed");
-      return;
-    }
+    waitForTelegramWebApp({ signal: controller.signal })
+      .then((webApp) => {
+        if (cancelled || !webApp) return;
 
-    setStatus("checking");
+        const initData = getTelegramInitData();
+        if (!initData) return;
 
-    telegramLoginService(initData)
-      .then((response) => {
-        // A Mini App launch is a fresh session each time, not a
-        // "remember me" choice — same non-persistent storage path
-        // saveToken/saveRefreshToken already use for that case.
-        saveToken(response.access_token, false);
-        saveRefreshToken(response.refresh_token, false);
-        router.push("/dashboard");
+        setStatus("checking");
+
+        return telegramLoginService(initData).then((response) => {
+          if (cancelled) return;
+
+          // A Mini App launch is a fresh session each time, not a
+          // "remember me" choice — same non-persistent storage path
+          // saveToken/saveRefreshToken already use for that case.
+          saveToken(response.access_token, false);
+          saveRefreshToken(response.refresh_token, false);
+          router.push("/dashboard");
+        });
       })
       .catch(() => {
-        setStatus("failed");
+        if (!cancelled) setStatus("failed");
       });
+
+    return () => {
+      cancelled = true;
+      controller.abort();
+    };
   }, [router]);
 
   if (status === "idle") return null;

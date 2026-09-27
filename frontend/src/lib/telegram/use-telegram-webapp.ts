@@ -7,7 +7,7 @@ import {
   getTelegramThemeParams,
   getTelegramUser,
   initTelegramWebApp,
-  isTelegramWebApp,
+  waitForTelegramWebApp,
 } from "./webapp";
 
 interface TelegramWebAppState {
@@ -38,14 +38,27 @@ export function useTelegramWebApp(): TelegramWebAppState {
   const [state, setState] = useState<TelegramWebAppState>(INITIAL_STATE);
 
   useEffect(() => {
-    if (!isTelegramWebApp()) return;
+    // A single synchronous check here — the bug this whole file was
+    // rewritten to fix — can run before next/script's SDK has finished
+    // loading and permanently conclude "not Telegram." Waiting (which
+    // resolves immediately if it's already loaded) is what makes this
+    // correct instead of racy; the AbortController makes it safe to
+    // cancel if the component unmounts (or Strict Mode replays this
+    // effect) before that resolves.
+    const controller = new AbortController();
 
-    setState({
-      isTelegram: true,
-      user: getTelegramUser(),
-      colorScheme: getTelegramColorScheme(),
-      themeParams: getTelegramThemeParams(),
+    waitForTelegramWebApp({ signal: controller.signal }).then((webApp) => {
+      if (!webApp) return;
+
+      setState({
+        isTelegram: true,
+        user: getTelegramUser(),
+        colorScheme: getTelegramColorScheme(),
+        themeParams: getTelegramThemeParams(),
+      });
     });
+
+    return () => controller.abort();
   }, []);
 
   return state;
@@ -58,21 +71,38 @@ export function useTelegramWebApp(): TelegramWebAppState {
  * re-triggers ready()/expand(). */
 export function useTelegramWebAppInit(): void {
   useEffect(() => {
-    const webApp = typeof window !== "undefined" ? window.Telegram?.WebApp : undefined;
-    if (!webApp) return;
+    // Same fix as useTelegramWebApp above: wait for the SDK instead of
+    // checking window.Telegram.WebApp exactly once. This is also the
+    // effect responsible for calling ready()/expand() at all — if the
+    // one-shot check lost the race, this Mini App's chrome/viewport
+    // never got initialized either, not just auto-login.
+    const controller = new AbortController();
+    let cleanupViewportListener: (() => void) | null = null;
 
-    initTelegramWebApp();
-    document.documentElement.classList.add("telegram-app");
+    waitForTelegramWebApp({ signal: controller.signal }).then((result) => {
+      if (!result) return;
 
-    function applyViewportHeight() {
-      document.documentElement.style.setProperty("--tg-viewport-height", `${webApp!.viewportHeight}px`);
-    }
+      // Narrowed to a non-null local — TS can't carry the `!result`
+      // check above into the nested function declaration below on its
+      // own (it only narrows the outer closed-over binding at the point
+      // of the check, not inside a separately-called inner function).
+      const webApp: TelegramWebApp = result;
 
-    applyViewportHeight();
-    webApp.onEvent("viewportChanged", applyViewportHeight);
+      initTelegramWebApp();
+      document.documentElement.classList.add("telegram-app");
+
+      function applyViewportHeight() {
+        document.documentElement.style.setProperty("--tg-viewport-height", `${webApp.viewportHeight}px`);
+      }
+
+      applyViewportHeight();
+      webApp.onEvent("viewportChanged", applyViewportHeight);
+      cleanupViewportListener = () => webApp.offEvent("viewportChanged", applyViewportHeight);
+    });
 
     return () => {
-      webApp.offEvent("viewportChanged", applyViewportHeight);
+      controller.abort();
+      cleanupViewportListener?.();
     };
   }, []);
 }
