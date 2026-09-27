@@ -72,6 +72,7 @@ export const translations: Record<string, Namespace> = {
     continueLearning: { de: "Weiter lernen", uz: "O'qishni davom ettirish" },
     allCourses: { de: "Alle Kurse", uz: "Barcha kurslar" },
     lessonTitle: { de: "Unterricht 1 · Begrüßung", uz: "1-dars · Salomlashish" },
+    lessonNumber: { de: "{number}. Unterricht", uz: "{number}-dars" },
     lessonsAvailable: { de: "{count} Unterricht verfügbar", uz: "{count} ta dars mavjud" },
     progressLabel: { de: "Fortschritt", uz: "Taraqqiyot" },
     jetztStarten: { de: "Jetzt starten", uz: "Hozir boshlash" },

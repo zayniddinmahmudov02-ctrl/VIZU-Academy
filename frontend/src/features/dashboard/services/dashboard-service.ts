@@ -11,6 +11,7 @@ export interface DashboardOverview {
   current_module: string | null;
   current_lesson: string | null;
   current_lesson_id: string | null;
+  current_lesson_number: number | null;
   current_lesson_score: number | null;
   current_lesson_max_score: number | null;
 }

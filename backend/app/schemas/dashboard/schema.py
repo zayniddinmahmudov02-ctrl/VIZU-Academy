@@ -30,5 +30,10 @@ class DashboardResponse(BaseModel):
     # this lesson's live score (GET /lessons/{id}/score) instead of
     # only having a display-only title string.
     current_lesson_id: str | None = None
+
+    # The lesson's own sequence number within its module (Lesson.number)
+    # — lets the "Weiter lernen" card show e.g. "2. Unterricht" instead
+    # of only the lesson's title.
+    current_lesson_number: int | None = None
     current_lesson_score: int | None = None
     current_lesson_max_score: int | None = None

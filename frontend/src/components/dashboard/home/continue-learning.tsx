@@ -80,6 +80,12 @@ export default function ContinueLearning() {
                 {current.level} — {current.title}
               </p>
 
+              {dashboard?.current_lesson && dashboard.current_lesson_number != null && (
+                <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-white/60">
+                  {t("dashboard.lessonNumber", { number: dashboard.current_lesson_number })}
+                </p>
+              )}
+
               <h3 className="mt-1 text-2xl font-bold">
                 {dashboard?.current_lesson ?? t("dashboard.lessonTitle")}
               </h3>
