@@ -29,6 +29,23 @@ to migrate (see user_id above), so there is no existing data to reconcile.
 Both new `user_id`/`reviewed_by_id` FKs are nullable — neither table is
 known to be empty in every environment this runs against, and a nullable
 add is always safe regardless of row count.
+
+IDEMPOTENCY: at least one production database already has
+student_speakings.user_id (plus a FK named "student_speakings_user_id_
+fkey" and an index named "ix_student_speakings_user_id") and
+student_writings.user_id/its FK/its index — none of those were created
+by this migration (student_writings.user_id predates it entirely; the
+student_speakings trio was evidently added out-of-band before this
+migration first ran there), but Alembic still recorded this revision as
+not-yet-applied for that database, so a plain re-run hit DuplicateColumn
+on the very first `add_column`. Every operation below is now written to
+check for the target object first (columns via "ADD COLUMN IF NOT
+EXISTS", indexes via "CREATE INDEX IF NOT EXISTS", FK constraints via an
+information_schema lookup keyed on the column — not a fixed constraint
+name, since the pre-existing FKs use Postgres's own default naming, not
+this file's) — so running this migration is safe whether a given object
+already exists (in any of these databases) or not, and never drops or
+recreates anything that's already there.
 """
 from typing import Sequence, Union
 
@@ -44,65 +61,172 @@ branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
 
+def _add_foreign_key_if_missing(
+    constraint_name: str,
+    source_table: str,
+    column: str,
+    referent_table: str,
+    referent_column: str,
+    ondelete: str,
+) -> None:
+    """Adds the FK only if no foreign key already exists on `column` —
+    checked by column, not by `constraint_name`, since a pre-existing FK
+    on that column (e.g. Postgres's own default-named
+    "student_speakings_user_id_fkey") must block a second, redundant FK
+    on the same column just as much as one already carrying this exact
+    name would."""
+    op.execute(
+        sa.text(
+            f"""
+            DO $$
+            BEGIN
+                IF NOT EXISTS (
+                    SELECT 1
+                    FROM information_schema.table_constraints tc
+                    JOIN information_schema.key_column_usage kcu
+                        ON tc.constraint_name = kcu.constraint_name
+                        AND tc.table_schema = kcu.table_schema
+                    WHERE tc.table_schema = current_schema()
+                        AND tc.table_name = '{source_table}'
+                        AND tc.constraint_type = 'FOREIGN KEY'
+                        AND kcu.column_name = '{column}'
+                ) THEN
+                    ALTER TABLE {source_table}
+                    ADD CONSTRAINT {constraint_name}
+                    FOREIGN KEY ({column}) REFERENCES {referent_table} ({referent_column})
+                    ON DELETE {ondelete};
+                END IF;
+            END $$;
+            """
+        )
+    )
+
+
+def _drop_foreign_key_if_present(source_table: str, column: str) -> None:
+    """Downgrade counterpart of _add_foreign_key_if_missing — drops
+    whatever FK constraint currently exists on `column` (this file's own
+    name, or a pre-existing differently-named one), by name, looked up
+    the same way. A no-op if none exists."""
+    op.execute(
+        sa.text(
+            f"""
+            DO $$
+            DECLARE
+                fk_name text;
+            BEGIN
+                SELECT tc.constraint_name INTO fk_name
+                FROM information_schema.table_constraints tc
+                JOIN information_schema.key_column_usage kcu
+                    ON tc.constraint_name = kcu.constraint_name
+                    AND tc.table_schema = kcu.table_schema
+                WHERE tc.table_schema = current_schema()
+                    AND tc.table_name = '{source_table}'
+                    AND tc.constraint_type = 'FOREIGN KEY'
+                    AND kcu.column_name = '{column}'
+                LIMIT 1;
+
+                IF fk_name IS NOT NULL THEN
+                    EXECUTE format('ALTER TABLE {source_table} DROP CONSTRAINT %I', fk_name);
+                END IF;
+            END $$;
+            """
+        )
+    )
+
+
+def _set_column_nullable_if_needed(table: str, column: str, nullable: bool) -> None:
+    """Only touches the column if it exists and its current nullability
+    doesn't already match — makes both directions (upgrade's "relax to
+    nullable" and downgrade's "restore NOT NULL") safe to re-run and safe
+    against a column that was already changed out-of-band."""
+    target = "TRUE" if nullable else "FALSE"
+    drop_or_set = "DROP NOT NULL" if nullable else "SET NOT NULL"
+    op.execute(
+        sa.text(
+            f"""
+            DO $$
+            BEGIN
+                IF EXISTS (
+                    SELECT 1 FROM information_schema.columns
+                    WHERE table_schema = current_schema()
+                        AND table_name = '{table}'
+                        AND column_name = '{column}'
+                        AND (is_nullable = 'YES') IS DISTINCT FROM {target}
+                ) THEN
+                    ALTER TABLE {table} ALTER COLUMN {column} {drop_or_set};
+                END IF;
+            END $$;
+            """
+        )
+    )
+
+
 def upgrade() -> None:
     """Upgrade schema."""
-    # student_writings
-    op.add_column('student_writings', sa.Column('submitted_at', sa.DateTime(timezone=True), nullable=True))
-    op.add_column('student_writings', sa.Column('score', sa.Integer(), nullable=True))
-    op.add_column('student_writings', sa.Column('feedback', sa.Text(), nullable=True))
-    op.add_column('student_writings', sa.Column('reviewed_by_id', postgresql.UUID(as_uuid=True), nullable=True))
-    op.add_column('student_writings', sa.Column('reviewed_at', sa.DateTime(timezone=True), nullable=True))
-    op.create_foreign_key(
+    # student_writings — new grading columns only; user_id/its FK/index
+    # predate this migration entirely (original table shape) and are
+    # never touched here.
+    op.execute("ALTER TABLE student_writings ADD COLUMN IF NOT EXISTS submitted_at TIMESTAMPTZ")
+    op.execute("ALTER TABLE student_writings ADD COLUMN IF NOT EXISTS score INTEGER")
+    op.execute("ALTER TABLE student_writings ADD COLUMN IF NOT EXISTS feedback TEXT")
+    op.execute("ALTER TABLE student_writings ADD COLUMN IF NOT EXISTS reviewed_by_id UUID")
+    op.execute("ALTER TABLE student_writings ADD COLUMN IF NOT EXISTS reviewed_at TIMESTAMPTZ")
+    _add_foreign_key_if_missing(
         'fk_student_writings_reviewed_by_id_users',
-        'student_writings', 'users', ['reviewed_by_id'], ['id'], ondelete='SET NULL',
+        'student_writings', 'reviewed_by_id', 'users', 'id', ondelete='SET NULL',
     )
 
     # student_speakings
-    op.add_column('student_speakings', sa.Column('user_id', postgresql.UUID(as_uuid=True), nullable=True))
-    op.create_foreign_key(
+    op.execute("ALTER TABLE student_speakings ADD COLUMN IF NOT EXISTS user_id UUID")
+    _add_foreign_key_if_missing(
         'fk_student_speakings_user_id_users',
-        'student_speakings', 'users', ['user_id'], ['id'], ondelete='CASCADE',
+        'student_speakings', 'user_id', 'users', 'id', ondelete='CASCADE',
     )
-    op.create_index(op.f('ix_student_speakings_user_id'), 'student_speakings', ['user_id'])
+    op.execute(
+        sa.text(f"CREATE INDEX IF NOT EXISTS {op.f('ix_student_speakings_user_id')} ON student_speakings (user_id)")
+    )
 
-    op.alter_column('student_speakings', 'audio_url', existing_type=sa.String(length=500), nullable=True)
-    op.add_column('student_speakings', sa.Column('storage_path', sa.String(length=500), nullable=True))
-    op.add_column('student_speakings', sa.Column('filename', sa.String(length=255), nullable=True))
-    op.add_column('student_speakings', sa.Column('content_type', sa.String(length=100), nullable=True))
-    op.add_column('student_speakings', sa.Column('duration_seconds', sa.Integer(), nullable=True))
-    op.add_column('student_speakings', sa.Column('file_size_bytes', sa.Integer(), nullable=True))
-    op.add_column('student_speakings', sa.Column('submitted_at', sa.DateTime(timezone=True), nullable=True))
-    op.add_column('student_speakings', sa.Column('score', sa.Integer(), nullable=True))
-    op.add_column('student_speakings', sa.Column('feedback', sa.Text(), nullable=True))
-    op.add_column('student_speakings', sa.Column('reviewed_by_id', postgresql.UUID(as_uuid=True), nullable=True))
-    op.add_column('student_speakings', sa.Column('reviewed_at', sa.DateTime(timezone=True), nullable=True))
-    op.create_foreign_key(
+    _set_column_nullable_if_needed('student_speakings', 'audio_url', nullable=True)
+
+    op.execute("ALTER TABLE student_speakings ADD COLUMN IF NOT EXISTS storage_path VARCHAR(500)")
+    op.execute("ALTER TABLE student_speakings ADD COLUMN IF NOT EXISTS filename VARCHAR(255)")
+    op.execute("ALTER TABLE student_speakings ADD COLUMN IF NOT EXISTS content_type VARCHAR(100)")
+    op.execute("ALTER TABLE student_speakings ADD COLUMN IF NOT EXISTS duration_seconds INTEGER")
+    op.execute("ALTER TABLE student_speakings ADD COLUMN IF NOT EXISTS file_size_bytes INTEGER")
+    op.execute("ALTER TABLE student_speakings ADD COLUMN IF NOT EXISTS submitted_at TIMESTAMPTZ")
+    op.execute("ALTER TABLE student_speakings ADD COLUMN IF NOT EXISTS score INTEGER")
+    op.execute("ALTER TABLE student_speakings ADD COLUMN IF NOT EXISTS feedback TEXT")
+    op.execute("ALTER TABLE student_speakings ADD COLUMN IF NOT EXISTS reviewed_by_id UUID")
+    op.execute("ALTER TABLE student_speakings ADD COLUMN IF NOT EXISTS reviewed_at TIMESTAMPTZ")
+    _add_foreign_key_if_missing(
         'fk_student_speakings_reviewed_by_id_users',
-        'student_speakings', 'users', ['reviewed_by_id'], ['id'], ondelete='SET NULL',
+        'student_speakings', 'reviewed_by_id', 'users', 'id', ondelete='SET NULL',
     )
 
 
 def downgrade() -> None:
     """Downgrade schema."""
-    op.drop_constraint('fk_student_speakings_reviewed_by_id_users', 'student_speakings', type_='foreignkey')
-    op.drop_column('student_speakings', 'reviewed_at')
-    op.drop_column('student_speakings', 'reviewed_by_id')
-    op.drop_column('student_speakings', 'feedback')
-    op.drop_column('student_speakings', 'score')
-    op.drop_column('student_speakings', 'submitted_at')
-    op.drop_column('student_speakings', 'file_size_bytes')
-    op.drop_column('student_speakings', 'duration_seconds')
-    op.drop_column('student_speakings', 'content_type')
-    op.drop_column('student_speakings', 'filename')
-    op.drop_column('student_speakings', 'storage_path')
-    op.alter_column('student_speakings', 'audio_url', existing_type=sa.String(length=500), nullable=False)
-    op.drop_index(op.f('ix_student_speakings_user_id'), table_name='student_speakings')
-    op.drop_constraint('fk_student_speakings_user_id_users', 'student_speakings', type_='foreignkey')
-    op.drop_column('student_speakings', 'user_id')
+    _drop_foreign_key_if_present('student_speakings', 'reviewed_by_id')
+    op.execute("ALTER TABLE student_speakings DROP COLUMN IF EXISTS reviewed_at")
+    op.execute("ALTER TABLE student_speakings DROP COLUMN IF EXISTS reviewed_by_id")
+    op.execute("ALTER TABLE student_speakings DROP COLUMN IF EXISTS feedback")
+    op.execute("ALTER TABLE student_speakings DROP COLUMN IF EXISTS score")
+    op.execute("ALTER TABLE student_speakings DROP COLUMN IF EXISTS submitted_at")
+    op.execute("ALTER TABLE student_speakings DROP COLUMN IF EXISTS file_size_bytes")
+    op.execute("ALTER TABLE student_speakings DROP COLUMN IF EXISTS duration_seconds")
+    op.execute("ALTER TABLE student_speakings DROP COLUMN IF EXISTS content_type")
+    op.execute("ALTER TABLE student_speakings DROP COLUMN IF EXISTS filename")
+    op.execute("ALTER TABLE student_speakings DROP COLUMN IF EXISTS storage_path")
 
-    op.drop_constraint('fk_student_writings_reviewed_by_id_users', 'student_writings', type_='foreignkey')
-    op.drop_column('student_writings', 'reviewed_at')
-    op.drop_column('student_writings', 'reviewed_by_id')
-    op.drop_column('student_writings', 'feedback')
-    op.drop_column('student_writings', 'score')
-    op.drop_column('student_writings', 'submitted_at')
+    _set_column_nullable_if_needed('student_speakings', 'audio_url', nullable=False)
+
+    op.execute(f"DROP INDEX IF EXISTS {op.f('ix_student_speakings_user_id')}")
+    _drop_foreign_key_if_present('student_speakings', 'user_id')
+    op.execute("ALTER TABLE student_speakings DROP COLUMN IF EXISTS user_id")
+
+    _drop_foreign_key_if_present('student_writings', 'reviewed_by_id')
+    op.execute("ALTER TABLE student_writings DROP COLUMN IF EXISTS reviewed_at")
+    op.execute("ALTER TABLE student_writings DROP COLUMN IF EXISTS reviewed_by_id")
+    op.execute("ALTER TABLE student_writings DROP COLUMN IF EXISTS feedback")
+    op.execute("ALTER TABLE student_writings DROP COLUMN IF EXISTS score")
+    op.execute("ALTER TABLE student_writings DROP COLUMN IF EXISTS submitted_at")
