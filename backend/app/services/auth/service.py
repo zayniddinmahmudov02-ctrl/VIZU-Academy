@@ -295,6 +295,23 @@ def request_password_reset(
     token = create_password_reset_token(user)
     reset_link = f"{settings.FRONTEND_URL}/reset-password?token={token}"
 
+    # FRONTEND_URL's own default (core/config.py) is the local dev
+    # address on purpose — this only warns when that default is still in
+    # effect somewhere that has clearly identified itself as NOT local
+    # dev, i.e. FRONTEND_URL was never actually set in that environment.
+    # This is exactly the real production bug it was written for
+    # (reset links pointing at localhost:3000) — a loud, one-line signal
+    # for the next deploy instead of a silently wrong link, with no
+    # change to local dev's own (correct) behavior at all.
+    if settings.APP_ENV != "development" and settings.FRONTEND_URL == "http://localhost:3000":
+        logger.warning(
+            "FRONTEND_URL is unset in a non-development environment (APP_ENV=%s) — "
+            "password reset links are being generated against http://localhost:3000. "
+            "Set the FRONTEND_URL environment variable to this environment's real "
+            "frontend origin (e.g. https://vizu-deutsch.com).",
+            settings.APP_ENV,
+        )
+
     logger.info(
         "Password reset requested for user_id=%s email=%s — link: %s",
         user.id,
