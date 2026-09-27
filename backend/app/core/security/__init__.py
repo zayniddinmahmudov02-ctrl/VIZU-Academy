@@ -16,6 +16,10 @@ from .roles import (
     UserRole,
 )
 
+from .telegram import (
+    validate_telegram_init_data,
+)
+
 __all__ = [
     "create_access_token",
     "create_password_reset_token",
@@ -26,4 +30,5 @@ __all__ = [
     "password_hash_fingerprint",
     "verify_password",
     "UserRole",
+    "validate_telegram_init_data",
 ]

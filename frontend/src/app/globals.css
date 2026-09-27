@@ -223,6 +223,19 @@ body {
   padding-bottom: env(safe-area-inset-bottom);
 }
 
+/* Telegram Mini App: --tg-viewport-height is set in JS (see
+   lib/telegram/webapp.ts) from WebApp.viewportHeight — Telegram's chrome
+   (header, closing-confirmation bar, keyboard) can shrink the usable
+   viewport below the browser's own 100dvh. Falls back to 100dvh (with a
+   100vh fallback for older engines) outside Telegram, where the variable
+   is never set — a plain browser tab is completely unaffected. Opt-in
+   via .telegram-app (added by TelegramWebAppInit only when the SDK is
+   actually present), never applied globally. */
+.telegram-app {
+  min-height: 100vh;
+  min-height: var(--tg-viewport-height, 100dvh);
+}
+
 /* iOS Safari auto-zooms the whole page when a focused input's font-size
    is under 16px — every text input/textarea/select in this app (student
    Input/Textarea, admin AdminInput/AdminTextarea/AdminSelect) uses

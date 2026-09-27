@@ -143,6 +143,16 @@ class Settings(BaseSettings):
     SUPER_ADMIN_VERIFICATION_PASSWORD: str = "Zz_20020614"
 
     # ==================================================
+    # TELEGRAM MINI APP
+    # ==================================================
+    # Empty by default — validate_telegram_init_data (core/security/
+    # telegram.py) raises a clear config error rather than silently
+    # accepting unverifiable data when this isn't set. Never sent to the
+    # frontend; set only in the backend's own environment once the
+    # Telegram BOT project issues a token.
+    TELEGRAM_BOT_TOKEN: str = ""
+
+    # ==================================================
     # DATABASE
     # ==================================================
     DATABASE_HOST: str
