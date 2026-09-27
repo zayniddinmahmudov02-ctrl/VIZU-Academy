@@ -4,6 +4,7 @@ import BrandenburgGate from "@/components/auth/brandenburg-gate";
 import Logo from "@/components/common/logo";
 import LoginForm from "./login-form";
 import SessionRedirect from "./session-redirect";
+import TelegramAutoLogin from "./telegram-auto-login";
 
 const FEATURES = [
   { icon: GraduationCap, label: "Zertifizierte Kurse" },
@@ -66,6 +67,7 @@ export default function LoginCard() {
             </p>
           </div>
 
+          <TelegramAutoLogin />
           <LoginForm />
         </div>
       </div>

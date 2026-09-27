@@ -21,6 +21,24 @@ export async function loginService(
   return response.data;
 }
 
+// Same Token response shape as loginService — a new login METHOD, not a
+// new auth system. initData is Telegram's own signed string
+// (window.Telegram.WebApp.initData); the backend re-verifies it via
+// HMAC-SHA256 before ever trusting anything in it (see
+// backend/app/core/security/telegram.py) — nothing here sends the
+// unverified initDataUnsafe.
+export async function telegramLoginService(
+  initData: string,
+): Promise<TokenResponse> {
+
+  const response = await api.post<TokenResponse>(
+    "/auth/telegram",
+    { init_data: initData },
+  );
+
+  return response.data;
+}
+
 export async function registerService(
   data: RegisterRequest,
 ): Promise<UserResponse> {

@@ -19,6 +19,7 @@ from app.db.session import get_db
 from app.models.login_history import LoginHistory
 from app.models.user import User
 
+from app.core.security.telegram import validate_telegram_init_data
 from app.schemas.auth.password import (
     ForgotPasswordRequest,
     ForgotPasswordResponse,
@@ -27,6 +28,7 @@ from app.schemas.auth.password import (
     ResetPasswordRequest,
     VerifyAdminPasswordRequest,
 )
+from app.schemas.auth.telegram import TelegramAuthRequest
 from app.schemas.auth.user import (
     Token,
     UserLogin,
@@ -37,6 +39,7 @@ from app.schemas.auth.user import (
 from app.services.auth.service import (
     authenticate_user,
     create_user,
+    get_or_create_telegram_user,
     issue_token_pair,
     refresh_access_token,
     request_password_reset,
@@ -132,6 +135,72 @@ def login(
             **parsed_ua,
         )
     )
+    user.last_login = datetime.now(timezone.utc).replace(tzinfo=None)
+    db.commit()
+
+    return issue_token_pair(db, user)
+
+
+@router.post(
+    "/telegram",
+    response_model=Token,
+)
+def telegram_login(
+    data: TelegramAuthRequest,
+    db: Session = Depends(get_db),
+):
+    """New login *method* alongside (never instead of) POST /login — same
+    issue_token_pair() at the end, same Token response shape, no change
+    to email/password login at all. initData is the frontend's
+    Telegram.WebApp.initData (signed by Telegram); initDataUnsafe is
+    never accepted here or anywhere in this flow — only the verified
+    fields from validate_telegram_init_data() are ever trusted."""
+
+    if not data.init_data:
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid Telegram authentication data",
+        )
+
+    try:
+        fields = validate_telegram_init_data(data.init_data)
+    except RuntimeError:
+        # Configuration error (TELEGRAM_BOT_TOKEN unset) — distinct from
+        # "the data itself is invalid," so this is a 500, not a 401.
+        raise HTTPException(
+            status_code=500,
+            detail="Telegram authentication is not configured.",
+        )
+
+    if fields is None:
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid Telegram authentication data",
+        )
+
+    telegram_user = fields.get("user")
+    if not isinstance(telegram_user, dict) or "id" not in telegram_user:
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid Telegram authentication data",
+        )
+
+    user = get_or_create_telegram_user(db, telegram_user)
+
+    # Same standing checks POST /login already applies — a banned/
+    # suspended account must not get a second, Telegram-shaped way in.
+    if user.is_banned:
+        raise HTTPException(
+            status_code=403,
+            detail="This account has been banned.",
+        )
+
+    if user.suspended_until and user.suspended_until > datetime.now(timezone.utc).replace(tzinfo=None):
+        raise HTTPException(
+            status_code=403,
+            detail="This account is suspended.",
+        )
+
     user.last_login = datetime.now(timezone.utc).replace(tzinfo=None)
     db.commit()
 

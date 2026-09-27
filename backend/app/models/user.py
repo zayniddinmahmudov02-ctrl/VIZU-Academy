@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import Boolean, DateTime, String
+from sqlalchemy import BigInteger, Boolean, DateTime, String
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.models.base import BaseModel
@@ -126,4 +126,18 @@ class User(BaseModel):
         default="de",
         server_default="de",
         nullable=False,
+    )
+
+    # Telegram Mini App login (see app/api/auth/router.py's POST
+    # /auth/telegram, app/services/auth/service.py's
+    # get_or_create_telegram_user) — nullable/unique: a normal
+    # email/password account never sets this, a Telegram-originated
+    # account is always found again by it (never by email/username,
+    # which are synthetic placeholders for that account — see
+    # get_or_create_telegram_user's docstring).
+    telegram_id: Mapped[int | None] = mapped_column(
+        BigInteger,
+        unique=True,
+        nullable=True,
+        index=True,
     )

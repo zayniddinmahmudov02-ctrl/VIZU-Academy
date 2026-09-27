@@ -112,6 +112,57 @@ def authenticate_user(
     return user
 
 
+def get_or_create_telegram_user(
+    db: Session,
+    telegram_user: dict,
+) -> User:
+    """Telegram Mini App login's identity resolution — called only after
+    validate_telegram_init_data() has already verified the HMAC signature
+    (see app/api/auth/router.py's POST /auth/telegram); `telegram_user` is
+    the trusted, JSON-decoded `user` field from that verified payload,
+    never the frontend's own unverified initDataUnsafe.
+
+    A returning Telegram user is found by `telegram_id` alone — never by
+    email/username, which are only ever synthetic placeholders on a
+    Telegram-originated account (Telegram doesn't give out an email
+    address), so two different logins here can never create a second,
+    duplicate account for the same Telegram id. A brand-new account gets
+    a random, never-typed password (hash_password over a generated
+    token) — there is no password-based login path for a Telegram-only
+    account, only this one."""
+
+    telegram_id = telegram_user["id"]
+
+    existing = db.scalar(
+        select(User).where(User.telegram_id == telegram_id)
+    )
+    if existing is not None:
+        return existing
+
+    username_base = telegram_user.get("username") or f"tg_{telegram_id}"
+    username = username_base
+    suffix = 0
+    while db.scalar(select(User).where(User.username == username)) is not None:
+        suffix += 1
+        username = f"{username_base}_{suffix}"
+
+    user = User(
+        email=f"telegram_{telegram_id}@telegram.local",
+        username=username,
+        password_hash=hash_password(secrets.token_urlsafe(32)),
+        telegram_id=telegram_id,
+        first_name=telegram_user.get("first_name"),
+        last_name=telegram_user.get("last_name"),
+        is_verified=True,
+    )
+
+    db.add(user)
+    db.commit()
+    db.refresh(user)
+
+    return user
+
+
 def get_user_by_id(
     db: Session,
     user_id: str,
