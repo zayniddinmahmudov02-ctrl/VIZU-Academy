@@ -1,14 +1,13 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { AlertTriangle, ChevronDown, ChevronRight, Plus, Trash2, Wand2 } from "lucide-react";
+import { AlertTriangle, ChevronDown, ChevronRight, Plus, Trash2 } from "lucide-react";
 
 import { AdminButton, AdminCheckbox, AdminInput, AdminSelect, AdminTextarea } from "@/components/admin/admin-ui";
 import { useCrudList, useCrudMutations } from "@/features/admin/hooks/use-crud";
 import { quizQuestionsApi, quizzesApi } from "@/features/admin/services/quiz-service";
-import type { QuizQuestion, QuizQuestionType, QuizType } from "@/features/admin/types/content.types";
+import type { QuizQuestion, QuizQuestionType } from "@/features/admin/types/content.types";
 
-import QuizGenerateDialog from "./quiz-generate-dialog";
 import QuizOptionsEditor from "./quiz-options-editor";
 
 const QUESTION_TYPE_LABELS: Record<QuizQuestionType, string> = {
@@ -33,28 +32,17 @@ const OPTION_BASED_TYPES: QuizQuestionType[] = [
 
 interface Props {
   quizId: string;
-  lessonId: string;
-  /** Only used to decide whether QuizGenerateDialog shows its Gemini
-   * prompt field (GRAMMAR only, see quiz-generate-dialog.tsx) — not
-   * required when allowAiGenerate is false, since that dialog never
-   * renders in that case. */
-  quizType?: QuizType;
   /** Hides the "Neue Frage..." add-bar — off for quiz types the admin
-   * never manually authors questions for (e.g. VOCABULARY, auto-synced
-   * from published vocabulary — see vocabulary-quiz-manager.tsx). */
+   * never manually authors questions for (VOCABULARY, auto-synced from
+   * published vocabulary — see vocabulary-quiz-manager.tsx, the only
+   * remaining caller of this editor now that Grammatik/Lesson Quiz
+   * authoring has been removed from the admin panel). */
   allowManualAdd?: boolean;
-  /** Hides the "Automatisch erstellen" button (the deterministic
-   * template-based generator — see quiz-generate-dialog.tsx) — off for
-   * the same non-manually-authored quiz types. */
-  allowAiGenerate?: boolean;
 }
 
 export default function QuizQuestionsEditor({
   quizId,
-  lessonId,
-  quizType,
   allowManualAdd = true,
-  allowAiGenerate = true,
 }: Props) {
   const { data: all, isLoading } = useCrudList("quiz-questions", quizQuestionsApi);
   const { create, update, remove } = useCrudMutations("quiz-questions", quizQuestionsApi, [
@@ -79,7 +67,6 @@ export default function QuizQuestionsEditor({
 
   const [expanded, setExpanded] = useState<string | null>(null);
   const [newQuestion, setNewQuestion] = useState("");
-  const [generateDialogOpen, setGenerateDialogOpen] = useState(false);
 
   async function handleAdd() {
     if (!newQuestion.trim()) return;
@@ -103,25 +90,6 @@ export default function QuizQuestionsEditor({
             "Quiz bearbeiten" oben.
           </span>
         </div>
-      )}
-
-      {allowAiGenerate && (
-        <div className="flex justify-end">
-          <AdminButton type="button" variant="secondary" size="sm" onClick={() => setGenerateDialogOpen(true)}>
-            <Wand2 size={13} />
-            Automatisch erstellen
-          </AdminButton>
-        </div>
-      )}
-
-      {allowAiGenerate && (
-        <QuizGenerateDialog
-          lessonId={lessonId}
-          quizId={quizId}
-          quizType={quizType}
-          open={generateDialogOpen}
-          onOpenChange={setGenerateDialogOpen}
-        />
       )}
 
       {isLoading && <p className="text-xs text-[var(--admin-text-muted)]">Wird geladen...</p>}

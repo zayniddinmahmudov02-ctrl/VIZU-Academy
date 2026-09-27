@@ -55,6 +55,8 @@ from .schema import (
     PublicModelTestDetailResponse,
     PublicTeilContent,
     PublicKompetenzDetailResponse,
+    TeacherMockWritingItem,
+    TeacherMockSpeakingItem,
 )
 
 __all__ = [
@@ -114,4 +116,6 @@ __all__ = [
     'PublicModelTestDetailResponse',
     'PublicTeilContent',
     'PublicKompetenzDetailResponse',
+    'TeacherMockWritingItem',
+    'TeacherMockSpeakingItem',
 ]

@@ -146,18 +146,6 @@ export default function MockExamCertificatesPage() {
         description="Zertifikate → Levels → Modelltests → Kompetenzen → Teile → Fragen."
         action={
           <div className="flex items-center gap-2">
-            <Link href="/admin/mock-exams/question-bank">
-              <AdminButton variant="secondary">
-                <Layers3 size={16} />
-                Question Bank
-              </AdminButton>
-            </Link>
-            <Link href="/admin/mock-exams/results">
-              <AdminButton variant="secondary">
-                <ClipboardList size={16} />
-                Ergebnisse
-              </AdminButton>
-            </Link>
             <Link href="/admin/mock-exams/analytics">
               <AdminButton variant="secondary">
                 <BarChart3 size={16} />

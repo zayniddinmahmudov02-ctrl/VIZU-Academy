@@ -9,11 +9,7 @@ from app.models.reading import Reading
 from app.models.user import User
 from app.services.vizu_pay.access import can_access_lesson
 
-from app.schemas.reading_question import (
-    ReadingQuestionCreate,
-    ReadingQuestionUpdate,
-    ReadingQuestionResponse,
-)
+from app.schemas.reading_question import ReadingQuestionResponse
 
 from app.services.reading_question import (
     ReadingQuestionService,
@@ -62,60 +58,3 @@ def get_one(
         raise HTTPException(status_code=403, detail="PREMIUM_REQUIRED")
 
     return item
-
-
-@router.post(
-    "",
-    response_model=ReadingQuestionResponse,
-)
-def create(
-    data: ReadingQuestionCreate,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_admin_panel_access),
-):
-    return ReadingQuestionService(db).create(data)
-
-
-@router.put(
-    "/{question_id}",
-    response_model=ReadingQuestionResponse,
-)
-def update(
-    question_id: str,
-    data: ReadingQuestionUpdate,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_admin_panel_access),
-):
-    item = ReadingQuestionService(db).update(
-        question_id,
-        data,
-    )
-
-    if not item:
-        raise HTTPException(
-            status_code=404,
-            detail="Question not found",
-        )
-
-    return item
-
-
-@router.delete("/{question_id}")
-def delete(
-    question_id: str,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_admin_panel_access),
-):
-    deleted = ReadingQuestionService(db).delete(
-        question_id,
-    )
-
-    if not deleted:
-        raise HTTPException(
-            status_code=404,
-            detail="Question not found",
-        )
-
-    return {
-        "message": "Deleted",
-    }

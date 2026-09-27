@@ -9,7 +9,6 @@ import {
   getReadingContentByTeil,
   getSpeakingTaskByTeil,
   getWritingTaskByTeil,
-  listQuestions,
   mockExamListeningContentApi,
   mockExamReadingContentApi,
   mockExamSpeakingTasksApi,
@@ -18,7 +17,6 @@ import {
 import type { KompetenzType } from "@/features/admin/types/mock-exam.types";
 
 import MediaUploadButton from "./media-upload-button";
-import MockQuestionEditor from "./mock-question-editor";
 
 export default function TeilContentEditor({
   teilId,
@@ -43,13 +41,6 @@ function ReadingTeilContent({ teilId }: { teilId: string }) {
   const { data: content, isLoading } = useQuery({
     queryKey,
     queryFn: () => getReadingContentByTeil(teilId),
-  });
-
-  const questionsKey = `mock-exam-questions-reading-${content?.id}`;
-  const { data: questions } = useQuery({
-    queryKey: [questionsKey],
-    queryFn: () => listQuestions({ reading_content_id: content!.id }),
-    enabled: !!content,
   });
 
   async function handleCreate() {
@@ -107,22 +98,14 @@ function ReadingTeilContent({ teilId }: { teilId: string }) {
           accept="image/*"
         />
       )}
-
-      <div>
-        <AdminLabel>Fragen</AdminLabel>
-        <MockQuestionEditor
-          parentKey="reading_content_id"
-          parentId={content.id}
-          questions={questions ?? []}
-          queryKey={questionsKey}
-        />
-      </div>
     </div>
   );
 }
 
 // ============================================================
-// Hören — Listening content + questions
+// Hören — Listening content (audio upload stays; manual question
+// authoring was removed from the admin panel, see mock-question-
+// editor.tsx's removal — exam questions are now produced externally)
 // ============================================================
 
 function ListeningTeilContent({ teilId }: { teilId: string }) {
@@ -131,13 +114,6 @@ function ListeningTeilContent({ teilId }: { teilId: string }) {
   const { data: content, isLoading } = useQuery({
     queryKey,
     queryFn: () => getListeningContentByTeil(teilId),
-  });
-
-  const questionsKey = `mock-exam-questions-listening-${content?.id}`;
-  const { data: questions } = useQuery({
-    queryKey: [questionsKey],
-    queryFn: () => listQuestions({ listening_content_id: content!.id }),
-    enabled: !!content,
   });
 
   async function handleCreate() {
@@ -190,16 +166,6 @@ function ListeningTeilContent({ teilId }: { teilId: string }) {
           value={content.transcript ?? ""}
           onChange={(html) => patch({ transcript: html })}
           placeholder="Transkript des Audios..."
-        />
-      </div>
-
-      <div>
-        <AdminLabel>Fragen</AdminLabel>
-        <MockQuestionEditor
-          parentKey="listening_content_id"
-          parentId={content.id}
-          questions={questions ?? []}
-          queryKey={questionsKey}
         />
       </div>
     </div>

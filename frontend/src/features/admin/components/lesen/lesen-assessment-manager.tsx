@@ -134,6 +134,13 @@ export default function LesenAssessmentManager({ lessonId, skill }: Props) {
     return currentSection.id;
   }
 
+  // Only SCHREIBEN/SPRECHEN reach this manager now (Lesen/Hören manual
+  // question authoring was removed from the admin panel); restrict the
+  // picker to the one task type each skill actually supports, since the
+  // others' backing question/option endpoints no longer exist.
+  const availableTaskTypes: TaskType[] =
+    skill === "SCHREIBEN" ? ["WRITING"] : skill === "SPRECHEN" ? ["SPEAKING"] : [...TASK_TYPES];
+
   async function handleCreateTask(taskType: TaskType) {
     const sectionId = await ensureAssessmentAndSection();
     const created = await createTask(sectionId, {
@@ -199,7 +206,7 @@ export default function LesenAssessmentManager({ lessonId, skill }: Props) {
             </AdminButton>
             {pickerOpen && (
               <div className="absolute right-0 z-10 mt-1.5 w-64 rounded-xl bg-[var(--admin-card)] p-1.5 shadow-[var(--admin-shadow-card)] ring-1 ring-[var(--admin-border-strong)]">
-                {TASK_TYPES.map((type) => (
+                {availableTaskTypes.map((type) => (
                   <button
                     key={type}
                     onClick={() => handleCreateTask(type)}

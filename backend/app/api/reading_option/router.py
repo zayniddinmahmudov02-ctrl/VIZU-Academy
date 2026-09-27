@@ -10,11 +10,7 @@ from app.models.reading_question import ReadingQuestion
 from app.models.user import User
 from app.services.vizu_pay.access import can_access_lesson
 
-from app.schemas.reading_option import (
-    ReadingOptionCreate,
-    ReadingOptionUpdate,
-    ReadingOptionResponse,
-)
+from app.schemas.reading_option import ReadingOptionResponse
 
 from app.services.reading_option import ReadingOptionService
 
@@ -57,50 +53,3 @@ def get_one(
         raise HTTPException(status_code=403, detail="PREMIUM_REQUIRED")
 
     return item
-
-
-@router.post("", response_model=ReadingOptionResponse)
-def create(
-    data: ReadingOptionCreate,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_admin_panel_access),
-):
-    return ReadingOptionService(db).create(data)
-
-
-@router.put("/{option_id}", response_model=ReadingOptionResponse)
-def update(
-    option_id: str,
-    data: ReadingOptionUpdate,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_admin_panel_access),
-):
-    item = ReadingOptionService(db).update(
-        option_id,
-        data,
-    )
-
-    if not item:
-        raise HTTPException(
-            status_code=404,
-            detail="Option not found",
-        )
-
-    return item
-
-
-@router.delete("/{option_id}")
-def delete(
-    option_id: str,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_admin_panel_access),
-):
-    deleted = ReadingOptionService(db).delete(option_id)
-
-    if not deleted:
-        raise HTTPException(
-            status_code=404,
-            detail="Option not found",
-        )
-
-    return {"message": "Deleted"}

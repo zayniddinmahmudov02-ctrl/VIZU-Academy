@@ -37,12 +37,6 @@ from app.schemas.assessment_engine import (
     SpeakingReviewInput,
     SpeakingSubmissionResponse,
     TaskAudioResponse,
-    TaskOptionCreate,
-    TaskOptionResponse,
-    TaskOptionUpdate,
-    TaskQuestionCreate,
-    TaskQuestionResponse,
-    TaskQuestionUpdate,
     TaskReorderRequest,
     TaskValidationResponse,
     TeacherReviewInput,
@@ -364,80 +358,10 @@ def register_audio_play(
     return audio_service.register_play(db, task_id, current_user)
 
 
-# ============================================================
-# Questions
-# ============================================================
-
-@router.post("/tasks/{task_id}/questions", response_model=TaskQuestionResponse, status_code=201)
-def create_question(
-    task_id: str,
-    data: TaskQuestionCreate,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_super_admin),
-):
-    payload = data.model_copy(update={"task_id": task_id})
-    return crud_service.create_question(db, payload)
-
-
-@router.put("/questions/{question_id}", response_model=TaskQuestionResponse)
-def update_question(
-    question_id: str,
-    data: TaskQuestionUpdate,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_super_admin),
-):
-    question = crud_service.update_question(db, question_id, data)
-    if question is None:
-        raise HTTPException(status_code=404, detail="Question not found.")
-    return question
-
-
-@router.delete("/questions/{question_id}", status_code=204)
-def delete_question(
-    question_id: str,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_super_admin),
-):
-    if not crud_service.delete_question(db, question_id):
-        raise HTTPException(status_code=404, detail="Question not found.")
-
-
-# ============================================================
-# Options
-# ============================================================
-
-@router.post("/questions/{question_id}/options", response_model=TaskOptionResponse, status_code=201)
-def create_option(
-    question_id: str,
-    data: TaskOptionCreate,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_super_admin),
-):
-    payload = data.model_copy(update={"question_id": question_id})
-    return crud_service.create_option(db, payload)
-
-
-@router.put("/options/{option_id}", response_model=TaskOptionResponse)
-def update_option(
-    option_id: str,
-    data: TaskOptionUpdate,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_super_admin),
-):
-    option = crud_service.update_option(db, option_id, data)
-    if option is None:
-        raise HTTPException(status_code=404, detail="Option not found.")
-    return option
-
-
-@router.delete("/options/{option_id}", status_code=204)
-def delete_option(
-    option_id: str,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_super_admin),
-):
-    if not crud_service.delete_option(db, option_id):
-        raise HTTPException(status_code=404, detail="Option not found.")
+# Manual Lesen/Hören question & option authoring (task_question/
+# task_option CRUD) was removed from the admin panel — that content is
+# now produced externally and inserted directly into the DB. The
+# underlying models/attempt-scoring code path is untouched.
 
 
 # ============================================================

@@ -80,3 +80,69 @@ export interface TeacherLegacySpeakingItem {
   feedback: string | null;
   reviewed_at: string | null;
 }
+
+// ==========================
+// Vorbereitung (Zertifikat/Modelltest) — the real exam-attempt
+// submissions (app/models/mock_writing_submission.py, mock_speaking_
+// submission.py), never the Assessment Engine's own WritingSubmission/
+// SpeakingSubmission (that engine has no consumer in the real exam
+// attempt flow — see backend/app/services/mock_exam/teacher_review_
+// service.py's module docstring).
+// ==========================
+
+export interface TeacherMockWritingSubmission {
+  id: string;
+  attempt_id: string;
+  writing_task_id: string;
+  answer_text: string;
+  word_count: number;
+  time_spent_seconds: number;
+  ai_score: number | null;
+  ai_grammar_score: number | null;
+  ai_vocabulary_score: number | null;
+  ai_structure_score: number | null;
+  ai_task_achievement_score: number | null;
+  ai_coherence_score: number | null;
+  ai_feedback: string | null;
+  ai_evaluated_at: string | null;
+  teacher_score: number | null;
+  teacher_feedback: string | null;
+  submitted_at: string;
+}
+
+export interface TeacherMockWritingItem {
+  submission: TeacherMockWritingSubmission;
+  student_username: string;
+  student_email: string;
+  provider_name: string;
+  level_code: string;
+  model_test_title: string;
+  teil_title: string;
+  task_text: string;
+  word_limit: number | null;
+}
+
+export interface TeacherMockSpeakingSubmission {
+  id: string;
+  attempt_id: string;
+  speaking_task_id: string;
+  audio_url: string;
+  transcript: string | null;
+  ai_score: number | null;
+  ai_feedback: string | null;
+  ai_evaluated_at: string | null;
+  teacher_score: number | null;
+  teacher_feedback: string | null;
+  submitted_at: string;
+}
+
+export interface TeacherMockSpeakingItem {
+  submission: TeacherMockSpeakingSubmission;
+  student_username: string;
+  student_email: string;
+  provider_name: string;
+  level_code: string;
+  model_test_title: string;
+  teil_title: string;
+  task_text: string;
+}

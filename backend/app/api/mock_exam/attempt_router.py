@@ -3,7 +3,7 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
-from app.api.dependencies.auth import get_current_user, require_admin_panel_access
+from app.api.dependencies.auth import get_current_user, require_admin_panel_access, require_teacher_panel_access
 from app.core.security.roles import UserRole
 from app.db.session import get_db
 from app.models.mock_test_attempt import MockTestAttempt
@@ -135,7 +135,7 @@ def create_writing_submission(
 async def evaluate_writing_submission(
     submission_id: UUID,
     db: Session = Depends(get_db),
-    current_user: User = Depends(require_admin_panel_access),
+    current_user: User = Depends(require_teacher_panel_access),
 ):
     try:
         submission = await attempt_service.run_writing_ai_evaluation(db, submission_id)
@@ -151,7 +151,7 @@ def review_writing_submission(
     submission_id: UUID,
     data: MockWritingSubmissionTeacherUpdate,
     db: Session = Depends(get_db),
-    current_user: User = Depends(require_admin_panel_access),
+    current_user: User = Depends(require_teacher_panel_access),
 ):
     submission = attempt_service.update_writing_teacher_review(db, submission_id, data)
     if submission is None:
@@ -190,7 +190,7 @@ def create_speaking_submission(
 async def evaluate_speaking_submission(
     submission_id: UUID,
     db: Session = Depends(get_db),
-    current_user: User = Depends(require_admin_panel_access),
+    current_user: User = Depends(require_teacher_panel_access),
 ):
     try:
         submission = await attempt_service.run_speaking_ai_evaluation(db, submission_id)
@@ -206,7 +206,7 @@ def review_speaking_submission(
     submission_id: UUID,
     data: MockSpeakingSubmissionTeacherUpdate,
     db: Session = Depends(get_db),
-    current_user: User = Depends(require_admin_panel_access),
+    current_user: User = Depends(require_teacher_panel_access),
 ):
     submission = attempt_service.update_speaking_teacher_review(db, submission_id, data)
     if submission is None:

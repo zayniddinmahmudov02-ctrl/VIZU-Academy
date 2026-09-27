@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { HelpCircle, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 
 import { AdminButton, AdminCheckbox, AdminInput } from "@/components/admin/admin-ui";
 import ConfirmDialog from "@/components/admin/confirm-dialog";
@@ -13,7 +13,6 @@ import { readingsApi } from "@/features/admin/services/reading-service";
 import type { Reading } from "@/features/admin/types/content.types";
 
 import LessonPicker from "./lesson-picker";
-import ReadingQuestionsEditor from "./reading-questions-editor";
 
 const EMPTY_FORM = { lesson_id: "", title: "", content: "", order_index: 1, is_published: false };
 
@@ -29,7 +28,6 @@ export default function ReadingManager({ lessonId }: { lessonId?: string }) {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<Reading | null>(null);
   const [deleting, setDeleting] = useState<Reading | null>(null);
-  const [questionsFor, setQuestionsFor] = useState<Reading | null>(null);
   const [form, setForm] = useState(EMPTY_FORM);
   const [error, setError] = useState<string | null>(null);
 
@@ -84,19 +82,6 @@ export default function ReadingManager({ lessonId }: { lessonId?: string }) {
         >
           {item.is_published ? "Veröffentlicht" : "Entwurf"}
         </span>
-      ),
-    },
-    {
-      key: "questions",
-      header: "",
-      render: (item) => (
-        <button
-          onClick={() => setQuestionsFor(item)}
-          className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-medium text-[var(--admin-primary)] hover:bg-[var(--admin-primary)]/10"
-        >
-          <HelpCircle size={13} />
-          Fragen verwalten
-        </button>
       ),
     },
   ];
@@ -179,16 +164,6 @@ export default function ReadingManager({ lessonId }: { lessonId?: string }) {
             <span className="text-sm text-[var(--admin-text-secondary)]">Veröffentlicht</span>
           </label>
         </div>
-      </FormDialog>
-
-      <FormDialog
-        open={!!questionsFor}
-        onOpenChange={(open) => !open && setQuestionsFor(null)}
-        title={`Fragen — ${questionsFor?.title ?? ""}`}
-        description="Multiple-Choice-Fragen zu diesem Lesetext."
-        size="lg"
-      >
-        {questionsFor && <ReadingQuestionsEditor readingId={questionsFor.id} />}
       </FormDialog>
 
       <ConfirmDialog

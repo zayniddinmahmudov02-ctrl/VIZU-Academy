@@ -5,6 +5,8 @@ import type {
   TeacherHomeworkSubmission,
   TeacherLegacySpeakingItem,
   TeacherLegacyWritingItem,
+  TeacherMockSpeakingItem,
+  TeacherMockWritingItem,
   TeacherOverview,
   TeacherStudent,
 } from "../types";
@@ -88,4 +90,56 @@ export async function gradeTeacherLegacySpeakingSubmission(
 export async function getTeacherLegacySpeakingAudioBlobUrl(submissionId: string): Promise<string> {
   const response = await api.get(`/api/v1/speakings/submissions/${submissionId}/audio`, { responseType: "blob" });
   return URL.createObjectURL(response.data as Blob);
+}
+
+// ==========================
+// Vorbereitung (Zertifikat/Modelltest) Schreiben/Sprechen — real exam-
+// attempt submissions, grouped by Provider/Level/Modelltest breadcrumb
+// on the frontend (see teacher-schreiben/sprechen page components).
+// ==========================
+
+export async function getTeacherVorbereitungWriting(): Promise<TeacherMockWritingItem[]> {
+  const response = await api.get<TeacherMockWritingItem[]>("/api/v1/teacher/vorbereitung/writing");
+  return response.data;
+}
+
+export async function aiEvaluateVorbereitungWriting(submissionId: string): Promise<TeacherMockWritingItem> {
+  const response = await api.post<TeacherMockWritingItem>(
+    `/api/v1/teacher/vorbereitung/writing/${submissionId}/ai-evaluate`,
+  );
+  return response.data;
+}
+
+export async function reviewVorbereitungWriting(
+  submissionId: string,
+  data: { teacher_score: number | null; teacher_feedback: string | null },
+): Promise<TeacherMockWritingItem> {
+  const response = await api.put<TeacherMockWritingItem>(
+    `/api/v1/teacher/vorbereitung/writing/${submissionId}/review`,
+    data,
+  );
+  return response.data;
+}
+
+export async function getTeacherVorbereitungSpeaking(): Promise<TeacherMockSpeakingItem[]> {
+  const response = await api.get<TeacherMockSpeakingItem[]>("/api/v1/teacher/vorbereitung/speaking");
+  return response.data;
+}
+
+export async function aiEvaluateVorbereitungSpeaking(submissionId: string): Promise<TeacherMockSpeakingItem> {
+  const response = await api.post<TeacherMockSpeakingItem>(
+    `/api/v1/teacher/vorbereitung/speaking/${submissionId}/ai-evaluate`,
+  );
+  return response.data;
+}
+
+export async function reviewVorbereitungSpeaking(
+  submissionId: string,
+  data: { teacher_score: number | null; teacher_feedback: string | null },
+): Promise<TeacherMockSpeakingItem> {
+  const response = await api.put<TeacherMockSpeakingItem>(
+    `/api/v1/teacher/vorbereitung/speaking/${submissionId}/review`,
+    data,
+  );
+  return response.data;
 }

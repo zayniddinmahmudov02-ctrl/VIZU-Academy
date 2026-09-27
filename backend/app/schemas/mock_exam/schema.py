@@ -566,6 +566,36 @@ class PublicModelTestDetailResponse(BaseSchema):
     kompetenzen: list[PublicKompetenzSummary]
 
 
+# ============================================================
+# Teacher Panel — Vorbereitung (Zertifikat/Modelltest) Schreiben/
+# Sprechen review, grouped by provider/level/model-test so a submission's
+# source is never ambiguous (see services/mock_exam/teacher_review_service.py)
+# ============================================================
+
+
+class TeacherMockWritingItem(BaseSchema):
+    submission: MockWritingSubmissionResponse
+    student_username: str
+    student_email: str
+    provider_name: str
+    level_code: str
+    model_test_title: str
+    teil_title: str
+    task_text: str
+    word_limit: int | None
+
+
+class TeacherMockSpeakingItem(BaseSchema):
+    submission: MockSpeakingSubmissionResponse
+    student_username: str
+    student_email: str
+    provider_name: str
+    level_code: str
+    model_test_title: str
+    teil_title: str
+    task_text: str
+
+
 class PublicTeilContent(BaseSchema):
     id: UUID
     title: str
