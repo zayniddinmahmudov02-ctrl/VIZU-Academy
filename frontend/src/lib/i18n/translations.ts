@@ -48,10 +48,10 @@ export const translations: Record<string, Namespace> = {
 
   levels: {
     a1: { de: "Anfänger", uz: "Boshlang'ich" },
-    a2: { de: "Grundlegend", uz: "Asosiy" },
-    b1: { de: "Mittelstufe", uz: "O'rta daraja" },
-    b2: { de: "Fortgeschritten", uz: "Yuqori daraja" },
-    c1: { de: "Kompetent", uz: "Malakali" },
+    a2: { de: "Grundstufe", uz: "Boshlang'ichdan yuqori" },
+    b1: { de: "Mittelstufe", uz: "O'rta" },
+    b2: { de: "Obere Mittelstufe", uz: "O'rta-yuqori" },
+    c1: { de: "Fortgeschritten", uz: "Ilg'or" },
   },
 
   dashboard: {
@@ -78,8 +78,8 @@ export const translations: Record<string, Namespace> = {
     jetztStarten: { de: "Jetzt starten", uz: "Hozir boshlash" },
     lessonsCount: { de: "{count} Unterricht", uz: "{count} ta dars" },
     quickAccess: { de: "Schnellzugriff", uz: "Tezkor kirish" },
-    mockExams: { de: "Mock Exams", uz: "Mock Exams" },
-    mockExamsSubtitle: { de: "Teste dein Wissen", uz: "Bilimingizni sinang" },
+    mockExams: { de: "Probeprüfungen", uz: "Mock imtihonlar" },
+    mockExamsSubtitle: { de: "Testen Sie Ihr Wissen", uz: "Bilimingizni sinang" },
     woerterbuchSubtitle: { de: "Vokabeln nachschlagen", uz: "So'zlarni qidirish" },
   },
 
@@ -127,6 +127,22 @@ export const translations: Record<string, Namespace> = {
     notStarted: { de: "Noch nicht begonnen", uz: "Hali boshlanmagan" },
     premiumRequired: { de: "Premium erforderlich", uz: "Premium talab qilinadi" },
     unlockPremium: { de: "Premium freischalten", uz: "Premium sotib olish" },
+
+    // Static Multilevel section — see vorbereitung-view.tsx's own
+    // docstring: everything here is a locked placeholder (no real
+    // content exists yet), not backed by the provider/level/model-test
+    // API at all.
+    multilevelSection: { de: "Multilevel", uz: "Multilevel" },
+    multilevelSubtitle: {
+      de: "10 Modelltests · bald verfügbar",
+      uz: "10 ta Modelltest · tez orada",
+    },
+    modelltestNumber: { de: "Modelltest {number}", uz: "Modelltest {number}" },
+    comingSoonTitle: { de: "Noch nicht verfügbar", uz: "Hali baza qo'shilmagan" },
+    comingSoonBody: {
+      de: "Die Prüfungsinhalte für diesen Modelltest wurden noch nicht zur Datenbank hinzugefügt. Bald verfügbar.",
+      uz: "Bu Modelltest uchun imtihon materiallari hali bazaga qo'shilmagan. Tez orada mavjud bo'ladi.",
+    },
   },
 
   certificates: {

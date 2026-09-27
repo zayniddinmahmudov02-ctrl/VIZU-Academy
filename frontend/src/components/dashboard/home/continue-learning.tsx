@@ -17,9 +17,13 @@ import {
   staggerContainer,
 } from "@/lib/motion";
 
-// Presentation only — gradient/chip colors per CEFR level code, same style
-// table as CourseCard. Content (title, lesson count) comes from the live
-// Course API below, not from constants/levels.ts.
+// gradient/chip colors AND the localized level label (t(labelKey), the
+// same "levels" i18n keys the lesson right-sidebar already uses) per
+// CEFR level code — the live Course API is only the source for the
+// level code itself and lesson count; the Course.title column is raw,
+// unlocalized admin content ("BEGINNER", ...) and is never displayed
+// directly anymore, only as a last-resort fallback for a level code
+// that isn't one of the five known ones.
 const LEVEL_STYLE = new Map<string, (typeof germanLevels)[number]>(
   germanLevels.map((l) => [l.code, l]),
 );
@@ -77,7 +81,7 @@ export default function ContinueLearning() {
 
             <div>
               <p className="text-xs font-semibold uppercase tracking-wide text-white/70">
-                {current.level} — {current.title}
+                {current.level} — {currentStyle ? t(currentStyle.labelKey) : current.title}
               </p>
 
               {dashboard?.current_lesson && dashboard.current_lesson_number != null && (
@@ -128,33 +132,37 @@ export default function ContinueLearning() {
         animate="show"
         className="mt-6 grid grid-cols-2 gap-5 sm:grid-cols-3 xl:grid-cols-5"
       >
-        {(courses ?? []).map((course) => (
-          <motion.div
-            key={course.id}
-            variants={cardEntrance}
-            whileHover={{ scale: 1.03, y: -3 }}
-            transition={{ duration: 0.2 }}
-          >
-            <Link
-              href={`/courses/${course.level.toLowerCase()}`}
-              className={`block rounded-2xl p-5 shadow-[var(--shadow-card)] transition-all duration-300 hover:shadow-[var(--shadow-card-hover)] ${
-                LEVEL_STYLE.get(course.level)?.chip ?? "bg-surface-hover text-text-primary ring-1 ring-surface-border"
-              }`}
+        {(courses ?? []).map((course) => {
+          const courseStyle = LEVEL_STYLE.get(course.level);
+
+          return (
+            <motion.div
+              key={course.id}
+              variants={cardEntrance}
+              whileHover={{ scale: 1.03, y: -3 }}
+              transition={{ duration: 0.2 }}
             >
-              <span className="text-xl font-bold">
-                {course.level}
-              </span>
+              <Link
+                href={`/courses/${course.level.toLowerCase()}`}
+                className={`block rounded-2xl p-5 shadow-[var(--shadow-card)] transition-all duration-300 hover:shadow-[var(--shadow-card-hover)] ${
+                  courseStyle?.chip ?? "bg-surface-hover text-text-primary ring-1 ring-surface-border"
+                }`}
+              >
+                <span className="text-xl font-bold">
+                  {course.level}
+                </span>
 
-              <p className="mt-2 text-sm font-semibold opacity-90">
-                {course.title}
-              </p>
+                <p className="mt-2 text-sm font-semibold opacity-90">
+                  {courseStyle ? t(courseStyle.labelKey) : course.title}
+                </p>
 
-              <p className="mt-1 text-xs opacity-70">
-                {t("dashboard.lessonsCount", { count: course.lessonCount })}
-              </p>
-            </Link>
-          </motion.div>
-        ))}
+                <p className="mt-1 text-xs opacity-70">
+                  {t("dashboard.lessonsCount", { count: course.lessonCount })}
+                </p>
+              </Link>
+            </motion.div>
+          );
+        })}
       </motion.div>
     </motion.section>
   );
