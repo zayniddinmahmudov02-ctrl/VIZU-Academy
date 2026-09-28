@@ -4,7 +4,7 @@ Uses stdlib unittest + MagicMock (no real DB), matching this session's
 established pattern."""
 
 import unittest
-from unittest.mock import MagicMock
+from unittest.mock import patch, MagicMock
 
 from fastapi import HTTPException
 
@@ -62,8 +62,11 @@ class TestVideoCompletionThreshold(unittest.TestCase):
         self._progress_at(70, last_position=70)
         student_progress = MagicMock(video_completed=False)
         self.service.student_progress.get_or_create.return_value = student_progress
-        self.service.complete_progress(self.user, self.video.id, ended=False)
+        with patch("app.services.video_progress.service.refresh_lesson_completion") as refresh:
+            self.service.complete_progress(self.user, self.video.id, ended=False)
         self.service.student_progress.mark_video_completed.assert_called_once_with(student_progress)
+        # Finishing the video re-evaluates (and persists) lesson completion.
+        refresh.assert_called_once()
 
     def test_does_not_re_mark_already_completed_student_progress(self):
         # Idempotency: a duplicate complete-request on an already-

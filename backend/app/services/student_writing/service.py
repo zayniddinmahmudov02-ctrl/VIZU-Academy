@@ -11,6 +11,7 @@ from app.repositories.student_writing import (
     StudentWritingRepository,
 )
 from app.repositories.teacher_assignment import TeacherAssignmentRepository
+from app.services.learning.lesson_progress import refresh_lesson_completion
 from app.schemas.student_writing import (
     StudentWritingCreate,
     StudentWritingUpdate,
@@ -199,6 +200,9 @@ class StudentWritingService:
         item.reviewed_at = datetime.now(timezone.utc)
         self.db.commit()
         self.db.refresh(item)
+
+        # Grading is what makes Schreiben/Sprechen count as completed.
+        refresh_lesson_completion(self.db, item.user_id, item.writing.lesson_id)
 
         return self._to_teacher_item(
             (item, item.writing, item.writing.lesson, item.writing.lesson.module, item.writing.lesson.module.course, item.user)

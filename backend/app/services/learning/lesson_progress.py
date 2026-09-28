@@ -62,3 +62,14 @@ class LessonProgressService:
         self.db.refresh(progress)
 
         return progress
+
+
+def refresh_lesson_completion(db: Session, user_id, lesson_id) -> None:
+    """Persists StudentProgress.lesson_completed from the canonical
+    SectionGateService check, right after any event that can change it
+    (video finished, Wortschatz Test / Yakuniy Test submitted, a teacher
+    graded a Schreiben/Sprechen submission). Nothing else ever wrote that
+    flag, although the dashboard ("Weiter lernen"), lesson progress,
+    unlocking and course completion all read it. A student with no
+    progress row yet is left alone (update_completion returns None)."""
+    LessonProgressService(db).update_completion(str(user_id), str(lesson_id))

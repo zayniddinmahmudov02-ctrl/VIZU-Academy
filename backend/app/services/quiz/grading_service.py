@@ -30,6 +30,7 @@ from app.schemas.student_quiz import StudentQuizCreate
 
 from app.services.lesson_progress.section_gate import SectionGateService
 from app.services.student_quiz import StudentQuizService
+from app.services.learning.lesson_progress import refresh_lesson_completion
 from app.services.vizu_pay.access import can_access_lesson
 
 TEXT_ANSWER_TYPES = {"CLOZE_TEXT", "SENTENCE_COMPLETION"}
@@ -157,6 +158,7 @@ def grade_and_submit(
             passed=passed,
         )
     )
+    refresh_lesson_completion(db, user.id, quiz.lesson_id)
 
     return QuizSubmitResponse(
         score=score,

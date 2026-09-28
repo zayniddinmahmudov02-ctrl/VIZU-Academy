@@ -13,6 +13,7 @@ from app.models.task_audio import ALL_AUDIO_FORMATS, CONTENT_TYPE_BY_FORMAT
 from app.models.user import User
 from app.repositories.student_speaking import StudentSpeakingRepository
 from app.repositories.teacher_assignment import TeacherAssignmentRepository
+from app.services.learning.lesson_progress import refresh_lesson_completion
 from app.schemas.student_speaking import (
     StudentSpeakingCreate,
     StudentSpeakingUpdate,
@@ -240,6 +241,9 @@ class StudentSpeakingService:
         item.reviewed_at = datetime.now(timezone.utc)
         self.db.commit()
         self.db.refresh(item)
+
+        # Grading is what makes Schreiben/Sprechen count as completed.
+        refresh_lesson_completion(self.db, item.user_id, item.speaking.lesson_id)
 
         return self._to_teacher_item(
             (item, item.speaking, item.speaking.lesson, item.speaking.lesson.module, item.speaking.lesson.module.course, item.user)

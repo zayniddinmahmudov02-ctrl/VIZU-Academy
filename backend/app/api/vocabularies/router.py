@@ -16,6 +16,7 @@ from app.schemas.vocabulary import (
     VocabularyResponse,
 )
 
+from app.services.learning import refresh_lesson_completion
 from app.services.vocabulary import VocabularyService
 
 # Read-only apart from the Wortschatz Test completion below: vocabulary
@@ -111,5 +112,6 @@ def complete_lesson_vocabulary(
     progress = repo.get_or_create(str(current_user.id), str(lesson_id))
     percentage = payload.percentage if payload else None
     repo.mark_vocabulary_completed(progress, percentage=percentage)
+    refresh_lesson_completion(db, current_user.id, lesson_id)
 
     return {"vocabulary_completed": True, "vocabulary_score": progress.vocabulary_score}

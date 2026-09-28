@@ -13,6 +13,7 @@ from app.repositories.video import VideoRepository
 from app.repositories.video_progress import VideoProgressRepository
 
 from app.services.video.service import VideoService
+from app.services.learning.lesson_progress import refresh_lesson_completion
 
 # Matches the spec: watching >=70% of the video (or reaching its end)
 # is what "completed" means.
@@ -223,5 +224,6 @@ class VideoProgressService:
 
         if not student_progress.video_completed:
             self.student_progress.mark_video_completed(student_progress)
+            refresh_lesson_completion(self.db, user.id, video.lesson_id)
 
         return progress
