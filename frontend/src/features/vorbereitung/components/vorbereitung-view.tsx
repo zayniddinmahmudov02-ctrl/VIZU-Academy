@@ -13,10 +13,7 @@ import {
   Clock3,
   FileText,
   GraduationCap,
-  Headphones,
   Lock,
-  Mic,
-  PenLine,
   Play,
   ShieldCheck,
 } from "lucide-react";
@@ -25,7 +22,6 @@ import Button from "@/components/ui/button";
 import PageHeader from "@/components/dashboard/page-header";
 import { fadeInUp } from "@/lib/motion";
 import { useTranslation } from "@/lib/i18n/use-translation";
-import ComingSoonModal from "@/features/vorbereitung/components/coming-soon-modal";
 import {
   getPublicLevels,
   getPublicModelTests,
@@ -34,27 +30,17 @@ import {
 import type { PublicLevel, PublicProvider } from "@/features/vorbereitung/types/vorbereitung.types";
 
 // The "Multilevel" certificate is deliberately excluded from the normal
-// Niveau -> Zertifikat -> Mock-Tests flow below — it now gets its own
-// static section (see MultilevelSection) instead of appearing as a
-// selectable provider under B1/B2/C1. Matched on name OR code,
-// case-insensitively, so this holds regardless of exactly how the
-// provider record was entered in the admin panel.
+// Niveau -> Zertifikat -> Mock-Tests flow below — it's its own Niveau-
+// step card instead (see the MULTILEVEL_CODE block in Step 1), linking
+// to its own static page (app/(dashboard)/vorbereitung/multilevel) with
+// 10 locked Modelltests, never appearing as a selectable provider under
+// B1/B2/C1. Matched on name OR code, case-insensitively, so this holds
+// regardless of exactly how the provider record was entered in the
+// admin panel.
 function isMultilevelProvider(provider: PublicProvider): boolean {
   const needle = "multilevel";
   return provider.name.toLowerCase().includes(needle) || provider.code.toLowerCase().includes(needle);
 }
-
-// Purely static placeholder content — 10 Modelltests, each with the same
-// 4 skills, all locked. No API call, no real ModelTest/Kompetenz rows
-// exist for this yet (see the task this shipped with); every card opens
-// the same ComingSoonModal instead of navigating anywhere.
-const MULTILEVEL_MODELLTEST_COUNT = 10;
-const MULTILEVEL_SKILLS = [
-  { icon: FileText, labelKey: "lessons.sectionReading" },
-  { icon: Headphones, labelKey: "lessons.sectionListening" },
-  { icon: PenLine, labelKey: "lessons.sectionWriting" },
-  { icon: Mic, labelKey: "lessons.sectionSpeaking" },
-] as const;
 
 type Step = 1 | 2 | 3;
 
@@ -77,7 +63,6 @@ export default function VorbereitungView() {
   const { t } = useTranslation();
   const [levelCode, setLevelCode] = useState<string | null>(null);
   const [selected, setSelected] = useState<ProviderLevel | null>(null);
-  const [comingSoonOpen, setComingSoonOpen] = useState(false);
 
   const step: Step = selected ? 3 : levelCode ? 2 : 1;
 
@@ -128,18 +113,16 @@ export default function VorbereitungView() {
         </div>
       </header>
 
-      <MultilevelSection onLockedClick={() => setComingSoonOpen(true)} />
-
       {isLoading && <p className="text-sm text-text-secondary">{t("common.loading")}</p>}
 
-      {!isLoading && levels.length === 0 && (
+      {!isLoading && levels.length === 0 && step === 1 && (
         <p className="rounded-2xl bg-surface-card p-6 text-center text-sm text-text-secondary shadow-[var(--shadow-sm)] ring-1 ring-surface-border">
           Für die Vorbereitung sind noch keine Zertifikate verfügbar.
         </p>
       )}
 
       <AnimatePresence mode="wait">
-        {step === 1 && levels.length > 0 && (
+        {step === 1 && !isLoading && (
           <motion.section key="step-1" variants={fadeInUp} initial="hidden" animate="show" exit="hidden">
             <h2 className="text-lg font-bold text-text-primary">{t("vorbereitung.step1Heading")}</h2>
             <div className="mb-6 mt-4 h-px w-full bg-surface-border" />
@@ -164,6 +147,26 @@ export default function VorbereitungView() {
                   </Button>
                 </div>
               ))}
+
+              {/* Multilevel — same card shape as A1..C1, but it's not
+                  provider-driven (isMultilevelProvider filters it out of
+                  `levels` above) and it links straight to its own static
+                  page instead of stepping to a Zertifikat list. */}
+              <div className="group flex h-full w-full flex-col justify-between rounded-2xl bg-surface-card p-6 shadow-[var(--shadow-sm)] ring-1 ring-surface-border transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[var(--shadow-lg)] hover:ring-accent-blue/30 sm:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)]">
+                <div>
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-accent-purple to-accent-blue text-white shadow-md">
+                    <BookOpen size={22} />
+                  </div>
+                  <p className="mt-4 font-semibold text-text-primary">{t("vorbereitung.multilevelSection")}</p>
+                  <p className="mt-1 text-sm text-text-secondary">{t("vorbereitung.multilevelCardSubtitle")}</p>
+                </div>
+
+                <Link href="/vorbereitung/multilevel" className="mt-5 block">
+                  <Button size="sm" fullWidth>
+                    {t("common.auswaehlen")}
+                  </Button>
+                </Link>
+              </div>
             </div>
           </motion.section>
         )}

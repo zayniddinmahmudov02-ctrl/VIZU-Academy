@@ -131,7 +131,9 @@ export const translations: Record<string, Namespace> = {
     // Static Multilevel section — see vorbereitung-view.tsx's own
     // docstring: everything here is a locked placeholder (no real
     // content exists yet), not backed by the provider/level/model-test
-    // API at all.
+    // API at all. Multilevel is its own Niveau-step card (multilevelCard
+    // Subtitle) leading to its own page (multilevelSection/Subtitle).
+    multilevelCardSubtitle: { de: "Modelltests", uz: "Modelltestlar" },
     multilevelSection: { de: "Multilevel", uz: "Multilevel" },
     multilevelSubtitle: {
       de: "10 Modelltests · bald verfügbar",
