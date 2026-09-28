@@ -31,7 +31,7 @@ import type { PublicLevel, PublicProvider } from "@/features/vorbereitung/types/
 
 // The "Multilevel" certificate is deliberately excluded from the normal
 // Niveau -> Zertifikat -> Mock-Tests flow below — it's its own Niveau-
-// step card instead (see the MULTILEVEL_CODE block in Step 1), linking
+// step card instead (see the Multilevel card in Step 1), linking
 // to its own static page (app/(dashboard)/vorbereitung/multilevel) with
 // 10 locked Modelltests, never appearing as a selectable provider under
 // B1/B2/C1. Matched on name OR code, case-insensitively, so this holds
@@ -298,61 +298,7 @@ export default function VorbereitungView() {
           </motion.section>
         )}
       </AnimatePresence>
-
-      <ComingSoonModal open={comingSoonOpen} onClose={() => setComingSoonOpen(false)} />
     </div>
-  );
-}
-
-function MultilevelSection({ onLockedClick }: { onLockedClick: () => void }) {
-  const { t } = useTranslation();
-
-  return (
-    <section>
-      <div className="mb-5 flex items-center gap-3">
-        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-accent-purple to-accent-blue text-white shadow-md">
-          <BookOpen size={20} />
-        </div>
-        <div>
-          <h2 className="text-lg font-bold text-text-primary">{t("vorbereitung.multilevelSection")}</h2>
-          <p className="text-sm text-text-secondary">{t("vorbereitung.multilevelSubtitle")}</p>
-        </div>
-      </div>
-
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-        {Array.from({ length: MULTILEVEL_MODELLTEST_COUNT }, (_, i) => i + 1).map((number) => (
-          <button
-            key={number}
-            type="button"
-            onClick={onLockedClick}
-            className="group flex flex-col gap-4 rounded-2xl bg-surface-hover/60 p-5 text-left shadow-[var(--shadow-sm)] ring-1 ring-surface-border transition-all duration-200 hover:-translate-y-1 hover:bg-surface-hover hover:shadow-[var(--shadow-lg)]"
-          >
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-warning/10 text-warning">
-                <Lock size={18} />
-              </div>
-              <p className="flex items-center gap-1.5 font-semibold text-text-primary">
-                <Lock size={12} className="text-warning" />
-                {t("vorbereitung.modelltestNumber", { number })}
-              </p>
-            </div>
-
-            <div className="grid grid-cols-2 gap-2">
-              {MULTILEVEL_SKILLS.map((skill) => (
-                <span
-                  key={skill.labelKey}
-                  className="flex items-center gap-1.5 rounded-lg bg-surface-card px-2.5 py-2 text-xs font-medium text-text-muted ring-1 ring-surface-border"
-                >
-                  <Lock size={11} className="shrink-0" />
-                  <skill.icon size={13} className="shrink-0" />
-                  <span className="truncate">{t(skill.labelKey)}</span>
-                </span>
-              ))}
-            </div>
-          </button>
-        ))}
-      </div>
-    </section>
   );
 }
 
