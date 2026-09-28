@@ -2,9 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { CheckCircle2, Mic, Pause, Play, RotateCcw, Square } from "lucide-react";
+import { CheckCircle2, Clock, Mic, Pause, Play, RotateCcw, Square } from "lucide-react";
 
 import type { LessonSpeaking } from "@/features/lessons/services/speaking-service";
+import { useTranslation } from "@/lib/i18n/use-translation";
 import {
   getMySpeakingSubmission,
   getSpeakingSubmissionAudioBlobUrl,
@@ -404,6 +405,7 @@ function SubmittedView({
   canReRecord: boolean;
   onReRecord: () => void;
 }) {
+  const { t } = useTranslation();
   return (
     <div className="text-center">
       <p className="mb-3 flex items-center justify-center gap-1.5 text-sm font-semibold text-success">
@@ -431,7 +433,10 @@ function SubmittedView({
           <strong>Zur Überarbeitung:</strong> {submission.feedback}
         </div>
       ) : (
-        <p className="mt-5 text-sm text-text-secondary">Deine Aufnahme wird noch von einem Lehrer bewertet.</p>
+        <p className="mx-auto mt-5 inline-flex items-center gap-1.5 rounded-xl bg-warning/10 px-4 py-2 text-sm font-semibold text-warning">
+          <Clock size={15} />
+          {t("lessons.statusPending")}
+        </p>
       )}
 
       {canReRecord && (

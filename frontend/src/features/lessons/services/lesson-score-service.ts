@@ -4,11 +4,7 @@ export interface LessonScoreComponent {
   label: string;
   points: number;
   max_points: number;
-}
-
-export interface LessonQuizResult {
-  percentage: number;
-  has_result: boolean;
+  status?: "final" | "pending";
 }
 
 export interface LessonScore {
@@ -20,7 +16,6 @@ export interface LessonScore {
   feedback: string;
   strengths: string[];
   weak_areas: string[];
-  lesson_quiz: LessonQuizResult;
 }
 
 // This student's own 100-point breakdown for a lesson — same access gate

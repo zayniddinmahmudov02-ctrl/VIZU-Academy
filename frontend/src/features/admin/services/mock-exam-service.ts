@@ -1,5 +1,4 @@
 import { api } from "@/src/services/api";
-import { ensureArray } from "@/lib/ensure-array";
 import { createCrudApi, createWriteOnlyCrudApi } from "../lib/crud-api";
 import { ADMIN_ENDPOINTS } from "../constants/endpoints";
 import type {
@@ -17,26 +16,11 @@ import type {
   MockExamLevel,
   MockExamLevelCreate,
   MockExamLevelUpdate,
-  MockQuestion,
-  MockQuestionCreate,
-  MockQuestionMoveRequest,
-  MockQuestionOption,
-  MockQuestionOptionCreate,
-  MockQuestionOptionUpdate,
-  MockQuestionUpdate,
-  MockSpeakingSubmission,
-  MockSpeakingSubmissionTeacherUpdate,
-  MockTestAttempt,
-  MockWritingSubmission,
-  MockWritingSubmissionTeacherUpdate,
   ModelTest,
   ModelTestAnalytics,
   ModelTestCreate,
   ModelTestScore,
   ModelTestUpdate,
-  ReadingContent,
-  ReadingContentCreate,
-  ReadingContentUpdate,
   SpeakingTask,
   SpeakingTaskCreate,
   SpeakingTaskUpdate,
@@ -78,14 +62,8 @@ export async function getModelTestScore(modelTestId: string): Promise<ModelTestS
 }
 
 // ============================================================
-// Content (Reading / Listening / Writing / Speaking) — 1:1 with a Teil
+// Content (Listening audio / Writing / Speaking tasks) — 1:1 with a Teil
 // ============================================================
-
-export const mockExamReadingContentApi = createWriteOnlyCrudApi<
-  ReadingContent,
-  ReadingContentCreate,
-  ReadingContentUpdate
->(ADMIN_ENDPOINTS.mockExamReadingContent);
 
 export const mockExamListeningContentApi = createWriteOnlyCrudApi<
   ListeningContent,
@@ -106,101 +84,12 @@ async function getOrNull<T>(url: string): Promise<T | null> {
   return response.data ?? null;
 }
 
-export const getReadingContentByTeil = (teilId: string) =>
-  getOrNull<ReadingContent>(ADMIN_ENDPOINTS.mockExamReadingContentByTeil(teilId));
 export const getListeningContentByTeil = (teilId: string) =>
   getOrNull<ListeningContent>(ADMIN_ENDPOINTS.mockExamListeningContentByTeil(teilId));
 export const getWritingTaskByTeil = (teilId: string) =>
   getOrNull<WritingTask>(ADMIN_ENDPOINTS.mockExamWritingTaskByTeil(teilId));
 export const getSpeakingTaskByTeil = (teilId: string) =>
   getOrNull<SpeakingTask>(ADMIN_ENDPOINTS.mockExamSpeakingTaskByTeil(teilId));
-
-// ============================================================
-// Questions (Question Bank) + Options
-// ============================================================
-
-export const mockExamQuestionsApi = createCrudApi<MockQuestion, MockQuestionCreate, MockQuestionUpdate>(
-  ADMIN_ENDPOINTS.mockExamQuestions,
-);
-
-export const mockExamQuestionOptionsApi = createWriteOnlyCrudApi<
-  MockQuestionOption,
-  MockQuestionOptionCreate,
-  MockQuestionOptionUpdate
->(ADMIN_ENDPOINTS.mockExamQuestionOptions);
-
-export async function listQuestions(params: {
-  reading_content_id?: string;
-  listening_content_id?: string;
-}): Promise<MockQuestion[]> {
-  const response = await api.get<MockQuestion[]>(ADMIN_ENDPOINTS.mockExamQuestions, { params });
-  return ensureArray<MockQuestion>(response.data);
-}
-
-export async function duplicateQuestion(questionId: string): Promise<MockQuestion> {
-  const response = await api.post<MockQuestion>(ADMIN_ENDPOINTS.mockExamQuestionDuplicate(questionId));
-  return response.data;
-}
-
-export async function moveQuestion(
-  questionId: string,
-  data: MockQuestionMoveRequest,
-): Promise<MockQuestion> {
-  const response = await api.post<MockQuestion>(ADMIN_ENDPOINTS.mockExamQuestionMove(questionId), data);
-  return response.data;
-}
-
-// ============================================================
-// Student Attempts / Results / AI Evaluation
-// ============================================================
-
-export async function listAttempts(params?: {
-  model_test_id?: string;
-  user_id?: string;
-}): Promise<MockTestAttempt[]> {
-  const response = await api.get<MockTestAttempt[]>(ADMIN_ENDPOINTS.mockExamAttempts, { params });
-  return ensureArray<MockTestAttempt>(response.data);
-}
-
-export async function listWritingSubmissions(attemptId?: string): Promise<MockWritingSubmission[]> {
-  const response = await api.get<MockWritingSubmission[]>(ADMIN_ENDPOINTS.mockExamWritingSubmissions, {
-    params: attemptId ? { attempt_id: attemptId } : undefined,
-  });
-  return ensureArray<MockWritingSubmission>(response.data);
-}
-
-export async function evaluateWritingSubmission(id: string): Promise<MockWritingSubmission> {
-  const response = await api.post<MockWritingSubmission>(ADMIN_ENDPOINTS.mockExamWritingSubmissionAiEvaluate(id));
-  return response.data;
-}
-
-export async function reviewWritingSubmission(
-  id: string,
-  data: MockWritingSubmissionTeacherUpdate,
-): Promise<MockWritingSubmission> {
-  const response = await api.put<MockWritingSubmission>(ADMIN_ENDPOINTS.mockExamWritingSubmissionReview(id), data);
-  return response.data;
-}
-
-export async function listSpeakingSubmissions(attemptId?: string): Promise<MockSpeakingSubmission[]> {
-  const response = await api.get<MockSpeakingSubmission[]>(ADMIN_ENDPOINTS.mockExamSpeakingSubmissions, {
-    params: attemptId ? { attempt_id: attemptId } : undefined,
-  });
-  return ensureArray<MockSpeakingSubmission>(response.data);
-}
-
-export async function evaluateSpeakingSubmission(id: string): Promise<MockSpeakingSubmission> {
-  const response = await api.post<MockSpeakingSubmission>(ADMIN_ENDPOINTS.mockExamSpeakingSubmissionAiEvaluate(id));
-  return response.data;
-}
-
-export async function reviewSpeakingSubmission(
-  id: string,
-  data: MockSpeakingSubmissionTeacherUpdate,
-): Promise<MockSpeakingSubmission> {
-  const response = await api.put<MockSpeakingSubmission>(ADMIN_ENDPOINTS.mockExamSpeakingSubmissionReview(id), data);
-  return response.data;
-}
 
 // ============================================================
 // Analytics

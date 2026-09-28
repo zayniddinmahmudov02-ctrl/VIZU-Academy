@@ -2,15 +2,13 @@
 
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
-import { AdminButton, AdminInput, AdminLabel, AdminSelect } from "@/components/admin/admin-ui";
+import { AdminButton, AdminInput, AdminLabel } from "@/components/admin/admin-ui";
 import RichTextEditor from "@/components/admin/rich-text-editor";
 import {
   getListeningContentByTeil,
-  getReadingContentByTeil,
   getSpeakingTaskByTeil,
   getWritingTaskByTeil,
   mockExamListeningContentApi,
-  mockExamReadingContentApi,
   mockExamSpeakingTasksApi,
   mockExamWritingTasksApi,
 } from "@/features/admin/services/mock-exam-service";
@@ -25,80 +23,22 @@ export default function TeilContentEditor({
   teilId: string;
   kompetenzType: KompetenzType;
 }) {
-  if (kompetenzType === "LESEN") return <ReadingTeilContent teilId={teilId} />;
+  if (kompetenzType === "LESEN") return <ReadingTeilContent />;
   if (kompetenzType === "HOEREN") return <ListeningTeilContent teilId={teilId} />;
   if (kompetenzType === "SCHREIBEN") return <WritingTeilContent teilId={teilId} />;
   return <SpeakingTeilContent teilId={teilId} />;
 }
 
 // ============================================================
-// Lesen — Reading content + questions
+// Lesen — no in-app editor: reading passages and their questions are
+// produced externally and imported straight into the database.
 // ============================================================
 
-function ReadingTeilContent({ teilId }: { teilId: string }) {
-  const queryClient = useQueryClient();
-  const queryKey = ["mock-exam-reading-content", teilId];
-  const { data: content, isLoading } = useQuery({
-    queryKey,
-    queryFn: () => getReadingContentByTeil(teilId),
-  });
-
-  async function handleCreate() {
-    await mockExamReadingContentApi.create({ teil_id: teilId, content_type: "TEXT", text: "", image_url: null });
-    queryClient.invalidateQueries({ queryKey });
-  }
-
-  if (isLoading) return <p className="text-xs text-[var(--admin-text-muted)]">Wird geladen...</p>;
-
-  if (!content) {
-    return (
-      <AdminButton variant="secondary" size="sm" onClick={handleCreate}>
-        Lesetext-Inhalt anlegen
-      </AdminButton>
-    );
-  }
-
-  async function patch(data: Partial<{ content_type: "TEXT" | "IMAGE" | "TEXT_IMAGE"; text: string; image_url: string | null }>) {
-    await mockExamReadingContentApi.update(content!.id, data);
-    queryClient.invalidateQueries({ queryKey });
-  }
-
+function ReadingTeilContent() {
   return (
-    <div className="space-y-4">
-      <div>
-        <AdminLabel>Inhaltstyp</AdminLabel>
-        <AdminSelect
-          defaultValue={content.content_type}
-          onChange={(e) => patch({ content_type: e.target.value as "TEXT" | "IMAGE" | "TEXT_IMAGE" })}
-          className="h-9 text-sm"
-        >
-          <option value="TEXT">Nur Text</option>
-          <option value="IMAGE">Nur Bild</option>
-          <option value="TEXT_IMAGE">Text + Bild</option>
-        </AdminSelect>
-      </div>
-
-      {content.content_type !== "IMAGE" && (
-        <div>
-          <AdminLabel>Lesetext</AdminLabel>
-          <RichTextEditor
-            value={content.text ?? ""}
-            onChange={(html) => patch({ text: html })}
-            placeholder="Lesetext mit Absätzen..."
-          />
-        </div>
-      )}
-
-      {content.content_type !== "TEXT" && (
-        <MediaUploadButton
-          value={content.image_url}
-          onChange={(url) => patch({ image_url: url })}
-          folder="images"
-          label="Bild"
-          accept="image/*"
-        />
-      )}
-    </div>
+    <p className="rounded-lg bg-white/[0.02] p-3 text-xs text-[var(--admin-text-muted)] ring-1 ring-[var(--admin-border)]">
+      Lesen-Inhalte werden nicht im Admin-Panel erstellt, sondern extern vorbereitet und direkt importiert.
+    </p>
   );
 }
 

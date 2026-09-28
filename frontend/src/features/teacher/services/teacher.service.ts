@@ -2,7 +2,6 @@ import { api } from "@/src/services/api";
 
 import type {
   TeacherHomeworkFilters,
-  TeacherHomeworkSubmission,
   TeacherLegacySpeakingItem,
   TeacherLegacyWritingItem,
   TeacherMockSpeakingItem,
@@ -23,26 +22,6 @@ export async function getTeacherOverview(): Promise<TeacherOverview> {
 
 export async function getTeacherStudents(): Promise<TeacherStudent[]> {
   const response = await api.get<TeacherStudent[]>("/api/v1/teacher/students");
-  return response.data;
-}
-
-export async function getTeacherHomeworkSubmissions(
-  filters: TeacherHomeworkFilters = {},
-): Promise<TeacherHomeworkSubmission[]> {
-  const response = await api.get<TeacherHomeworkSubmission[]>("/api/v1/teacher/homework", { params: filters });
-  return response.data;
-}
-
-export async function getTeacherHomeworkSubmission(id: string): Promise<TeacherHomeworkSubmission> {
-  const response = await api.get<TeacherHomeworkSubmission>(`/api/v1/teacher/homework/${id}`);
-  return response.data;
-}
-
-export async function gradeTeacherHomeworkSubmission(
-  id: string,
-  data: { score: number; feedback: string; status: "GRADED" | "NEEDS_REVISION" },
-): Promise<TeacherHomeworkSubmission> {
-  const response = await api.patch<TeacherHomeworkSubmission>(`/api/v1/teacher/homework/${id}/grade`, data);
   return response.data;
 }
 

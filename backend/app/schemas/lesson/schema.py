@@ -7,11 +7,9 @@ class LessonScoreComponent(BaseModel):
     label: str
     points: int
     max_points: int
-
-
-class LessonQuizResult(BaseModel):
-    percentage: int
-    has_result: bool
+    # "final" or "pending" (a Schreiben/Sprechen submission a teacher
+    # hasn't graded yet — see LessonScoringService).
+    status: str = "final"
 
 
 class LessonScore(BaseModel):
@@ -23,7 +21,6 @@ class LessonScore(BaseModel):
     feedback: str
     strengths: list[str]
     weak_areas: list[str]
-    lesson_quiz: LessonQuizResult
 
 
 class LessonBase(BaseModel):

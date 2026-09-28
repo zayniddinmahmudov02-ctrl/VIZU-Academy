@@ -5,6 +5,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { CheckCircle2, PenLine, RotateCcw, Sparkles } from "lucide-react";
 
 import PageHeader from "@/components/dashboard/page-header";
+import LevelFilter, { ALL_LEVELS, levelSortKey } from "@/components/teacher/level-filter";
 import {
   aiEvaluateVorbereitungWriting,
   getTeacherLegacyWritingSubmissions,
@@ -17,6 +18,14 @@ import { useTranslation } from "@/lib/i18n/use-translation";
 import { cn } from "@/lib/utils";
 
 type Source = "LEKTIONEN" | "VORBEREITUNG";
+
+const COURSE_LEVELS = ["A1", "A2", "B1", "B2", "C1"] as const;
+const EXAM_LEVELS = [...COURSE_LEVELS, "Multilevel"] as const;
+
+// A Multilevel Modelltest is its own exam level, never filed under B1/B2/C1.
+function examLevel(item: TeacherMockWritingItem): string {
+  return item.provider_name.toLowerCase().includes("multilevel") ? "Multilevel" : item.level_code;
+}
 
 const LEKTIONEN_TABS = [
   { key: "", label: "Alle" },
@@ -56,6 +65,7 @@ function vorbereitungStatus(item: TeacherMockWritingItem): VorbereitungTabKey {
  * actually writes to — see backend/app/services/mock_exam/
  * teacher_review_service.py's module docstring. */
 export default function TeacherSchreibenPage() {
+  const { t } = useTranslation();
   const [source, setSource] = useState<Source>("LEKTIONEN");
 
   return (
@@ -70,7 +80,7 @@ export default function TeacherSchreibenPage() {
             source === "LEKTIONEN" ? "bg-accent-blue text-white" : "text-text-secondary hover:bg-surface-card",
           )}
         >
-          Lektionen
+          {t("teacher.sourceCourses")}
         </button>
         <button
           onClick={() => setSource("VORBEREITUNG")}
@@ -79,7 +89,7 @@ export default function TeacherSchreibenPage() {
             source === "VORBEREITUNG" ? "bg-accent-blue text-white" : "text-text-secondary hover:bg-surface-card",
           )}
         >
-          Vorbereitung
+          {t("vorbereitung.title")}
         </button>
       </div>
 
@@ -93,20 +103,31 @@ function LegacyWritingQueue() {
   const queryClient = useQueryClient();
   const [tab, setTab] = useState<(typeof LEKTIONEN_TABS)[number]["key"]>("");
   const [active, setActive] = useState<TeacherLegacyWritingItem | null>(null);
+  const [level, setLevel] = useState<string>(ALL_LEVELS);
 
-  const { data: items, isLoading } = useQuery({
+  const { data: allItems, isLoading } = useQuery({
     queryKey: ["teacher-legacy-writing", tab],
     queryFn: () => getTeacherLegacyWritingSubmissions({ status: tab || undefined }),
   });
 
+  const counts = useMemo(() => {
+    const result: Record<string, number> = {};
+    for (const item of allItems ?? []) result[item.course_level] = (result[item.course_level] ?? 0) + 1;
+    return result;
+  }, [allItems]);
+  const items = useMemo(
+    () => (allItems ?? []).filter((item) => level === ALL_LEVELS || item.course_level === level),
+    [allItems, level],
+  );
+
   const groups = useMemo(() => {
     const byLevel = new Map<string, TeacherLegacyWritingItem[]>();
-    for (const item of items ?? []) {
+    for (const item of items) {
       const list = byLevel.get(item.course_level) ?? [];
       list.push(item);
       byLevel.set(item.course_level, list);
     }
-    return Array.from(byLevel.entries()).sort(([a], [b]) => a.localeCompare(b));
+    return Array.from(byLevel.entries()).sort(([a], [b]) => levelSortKey(a) - levelSortKey(b));
   }, [items]);
 
   function handleGraded(updated: TeacherLegacyWritingItem) {
@@ -133,6 +154,18 @@ function LegacyWritingQueue() {
             {tb.label}
           </button>
         ))}
+      </div>
+
+      <div className="mt-3">
+        <LevelFilter
+          levels={COURSE_LEVELS}
+          counts={counts}
+          active={level}
+          onChange={(next) => {
+            setLevel(next);
+            setActive(null);
+          }}
+        />
       </div>
 
       {isLoading && <p className="mt-4 text-sm text-text-muted">{t("common.loading")}</p>}
@@ -297,21 +330,24 @@ interface WritingGroup {
 }
 
 function groupVorbereitungWriting(items: TeacherMockWritingItem[]): WritingGroup[] {
-  const byZertifikat = new Map<string, Map<string, TeacherMockWritingItem[]>>();
+  // Grouped per exam level, so a level's submissions are never mixed with
+  // another's (Multilevel is its own level, labelled by its provider).
+  const byZertifikat = new Map<string, { level: string; byModelTest: Map<string, TeacherMockWritingItem[]> }>();
   for (const item of items) {
-    const zertifikatKey = `${item.provider_name} · ${item.level_code}`;
-    const byModelTest = byZertifikat.get(zertifikatKey) ?? new Map<string, TeacherMockWritingItem[]>();
-    const list = byModelTest.get(item.model_test_title) ?? [];
+    const level = examLevel(item);
+    const zertifikatKey = level === "Multilevel" ? item.provider_name : `${item.provider_name} · ${item.level_code}`;
+    const group = byZertifikat.get(zertifikatKey) ?? { level, byModelTest: new Map<string, TeacherMockWritingItem[]>() };
+    const list = group.byModelTest.get(item.model_test_title) ?? [];
     list.push(item);
-    byModelTest.set(item.model_test_title, list);
-    byZertifikat.set(zertifikatKey, byModelTest);
+    group.byModelTest.set(item.model_test_title, list);
+    byZertifikat.set(zertifikatKey, group);
   }
   return Array.from(byZertifikat.entries())
-    .sort(([a], [b]) => a.localeCompare(b))
-    .map(([key, byModelTest]) => ({
+    .sort(([, a], [, b]) => levelSortKey(a.level) - levelSortKey(b.level))
+    .map(([key, group]) => ({
       key,
       label: key,
-      modelTests: Array.from(byModelTest.entries()).map(([title, modelTestItems]) => ({
+      modelTests: Array.from(group.byModelTest.entries()).map(([title, modelTestItems]) => ({
         title,
         items: modelTestItems,
       })),
@@ -323,15 +359,25 @@ function VorbereitungWritingQueue() {
   const queryClient = useQueryClient();
   const [tab, setTab] = useState<VorbereitungTabKey>("ALLE");
   const [active, setActive] = useState<TeacherMockWritingItem | null>(null);
+  const [level, setLevel] = useState<string>(ALL_LEVELS);
 
   const { data: allItems, isLoading } = useQuery({
     queryKey: ["teacher-vorbereitung-writing"],
     queryFn: () => getTeacherVorbereitungWriting(),
   });
 
-  const items = useMemo(
+  const statusItems = useMemo(
     () => (allItems ?? []).filter((item) => tab === "ALLE" || vorbereitungStatus(item) === tab),
     [allItems, tab],
+  );
+  const counts = useMemo(() => {
+    const result: Record<string, number> = {};
+    for (const item of statusItems) result[examLevel(item)] = (result[examLevel(item)] ?? 0) + 1;
+    return result;
+  }, [statusItems]);
+  const items = useMemo(
+    () => statusItems.filter((item) => level === ALL_LEVELS || examLevel(item) === level),
+    [statusItems, level],
   );
   const groups = useMemo(() => groupVorbereitungWriting(items), [items]);
 
@@ -358,6 +404,18 @@ function VorbereitungWritingQueue() {
             {tb.label}
           </button>
         ))}
+      </div>
+
+      <div className="mt-3">
+        <LevelFilter
+          levels={EXAM_LEVELS}
+          counts={counts}
+          active={level}
+          onChange={(next) => {
+            setLevel(next);
+            setActive(null);
+          }}
+        />
       </div>
 
       {isLoading && <p className="mt-4 text-sm text-text-muted">{t("common.loading")}</p>}

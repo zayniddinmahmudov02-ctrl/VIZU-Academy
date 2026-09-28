@@ -40,9 +40,9 @@ function shuffle<T>(items: T[]): T[] {
 const OPTION_BASED_TYPES = new Set(["MULTIPLE_CHOICE", "TRUE_FALSE", "ERROR_FINDING"]);
 
 /** Real quiz player, backed by the legacy Quiz/QuizQuestion/QuizOption
- * models (see app/models/quiz.py) — grammar quiz_type feeds 10 of the
- * lesson's 100 points (see LessonScoringService), lesson quiz_type is
- * shown separately and never added to that total. Grading is server-
+ * models (see app/models/quiz.py) — used as the Yakuniy Test (the
+ * lesson's LESSON-type quiz), which feeds 10 of the lesson's 100 points
+ * (see LessonScoringService). Grading is server-
  * side (POST /quizzes/{quizId}/submit, see
  * app/services/quiz/grading_service.py) — the fetched questions/options
  * never carry is_correct/correct_text_answer/match_value, so this
@@ -116,7 +116,7 @@ export default function QuizSection({ lessonId, quizType = "GRAMMAR" }: Props) {
   }, [questions]);
 
   const isLoading = quizzesLoading || questionsLoading;
-  const title = quizType === "LESSON" ? "Lesson Quiz" : t("lessons.sectionQuiz");
+  const title = t("lessons.sectionLessonQuiz");
 
   function selectOption(questionId: string, optionId: string) {
     if (submitted) return;

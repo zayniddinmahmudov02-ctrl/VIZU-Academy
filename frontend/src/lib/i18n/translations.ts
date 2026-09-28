@@ -315,7 +315,8 @@ export const translations: Record<string, Namespace> = {
     neverActive: { de: "Noch keine Aktivität", uz: "Hali faollik yo'q" },
     nav: { de: "Lehrer-Panel", uz: "Teacher Panel" },
     navStudents: { de: "Meine Schüler", uz: "Mening o'quvchilarim" },
-    navHomework: { de: "Hausaufgaben", uz: "Uy vazifalari" },
+    allLevels: { de: "Alle Niveaus", uz: "Barcha darajalar" },
+    sourceCourses: { de: "Kurse", uz: "Kurslar" },
     navSchreiben: { de: "Schreiben", uz: "Yozish" },
     navSprechen: { de: "Sprechen", uz: "Gapirish" },
     toGrade: { de: "Zu bewerten", uz: "Baholanishi kerak" },
@@ -346,19 +347,20 @@ export const translations: Record<string, Namespace> = {
     loadError: { de: "Lektionen konnten nicht geladen werden.", uz: "Darslarni yuklab bo'lmadi." },
     loadLessonError: { de: "Lektion konnte nicht geladen werden.", uz: "Darsni yuklab bo'lmadi." },
 
-    sectionVideo: { de: "Video", uz: "Video" },
-    sectionGrammar: { de: "Grammatik", uz: "Grammatika" },
-    sectionGrammarQuiz: { de: "Grammatik Quiz", uz: "Grammatika testi" },
-    sectionVocabulary: { de: "Wortschatz", uz: "Lug'at" },
-    sectionVocabularyQuiz: { de: "Wortschatz Quiz", uz: "Lug'at testi" },
-    sectionReading: { de: "Lesen", uz: "O'qish" },
-    sectionListening: { de: "Hören", uz: "Tinglash" },
-    sectionWriting: { de: "Schreiben", uz: "Yozish" },
-    sectionSpeaking: { de: "Sprechen", uz: "Gapirish" },
-    sectionHomework: { de: "Hausaufgabe", uz: "Uy vazifasi" },
-    sectionQuiz: { de: "Quiz", uz: "Test" },
-    sectionLessonQuiz: { de: "Lesson Quiz", uz: "Dars testi" },
-    sectionResults: { de: "Ergebnis", uz: "Natija" },
+    sectionVideo: { de: "Videokurs", uz: "Video dars" },
+    sectionReading: { de: "Lesen", uz: "Lesen" },
+    sectionListening: { de: "Hören", uz: "Hören" },
+    sectionWriting: { de: "Schreiben", uz: "Schreiben" },
+    sectionSpeaking: { de: "Sprechen", uz: "Sprechen" },
+    sectionVocabularyQuiz: { de: "Wortschatztest", uz: "Wortschatz Test" },
+    sectionLessonQuiz: { de: "Abschlusstest", uz: "Yakuniy Test" },
+    sectionResults: { de: "Ergebnisse", uz: "Natijalar" },
+
+    // Schreiben/Sprechen submission awaiting a teacher's grade.
+    statusPending: { de: "Wird geprüft", uz: "Tekshirilmoqda" },
+    notYetGraded: { de: "Noch nicht bewertet", uz: "Hali baholanmagan" },
+    resultsDescription: { de: "Deine Ergebnisse für diese Lektion.", uz: "Ushbu dars bo'yicha natijalaringiz." },
+    lessonCompleted: { de: "Lektion abgeschlossen ✓", uz: "Dars yakunlandi ✓" },
 
     navPrevious: { de: "Zurück", uz: "Orqaga" },
     navNext: { de: "Weiter", uz: "Keyingi" },
@@ -403,20 +405,7 @@ export const translations: Record<string, Namespace> = {
       uz: "Har bir darajaning dastlabki 3 ta darsi bepul. Ushbu darsga kirish uchun Premiumni faollashtiring.",
     },
 
-    grammarDescription: {
-      de: "Lerne die heutigen Grammatikregeln und Beispiele.",
-      uz: "Bugungi grammatika qoidalari va misollarni o'rganing.",
-    },
-    grammarTopicTitle: { de: "Personalpronomen", uz: "Shaxs olmoshlari" },
-    grammarExampleLabel: { de: "Beispiel", uz: "Misol" },
 
-    vocabularyDescription: {
-      de: "Lerne die neuen Wörter von heute.",
-      uz: "Bugungi yangi so'zlarni o'rganing.",
-    },
-    vocabularyMarkLearned: { de: "Als gelernt markieren", uz: "O'rganilgan deb belgilash" },
-    vocabularyLearned: { de: "Gelernt", uz: "O'rganildi" },
-    vocabularyPlayAudio: { de: "Aussprache anhören", uz: "Talaffuzni tinglash" },
 
     readingDescription: {
       de: "Lies den Text aufmerksam durch.",
@@ -487,14 +476,6 @@ export const translations: Record<string, Namespace> = {
     speakingStartEvaluation: { de: "KI-Auswertung starten", uz: "SI bahosini boshlash" },
     speakingEvaluating: { de: "Wird ausgewertet…", uz: "Baholanmoqda…" },
 
-    homeworkDescription: {
-      de: "Schließe die heutige Hausaufgabe ab.",
-      uz: "Bugungi uy vazifasini bajaring.",
-    },
-    homeworkBody: {
-      de: "Nimm eine kurze Selbstvorstellung auf und schreibe 5 Sätze über dich.",
-      uz: "Qisqacha o'zingiz haqingizda tanishtiruv yozib oling va o'zingiz haqingizda 5 ta gap yozing.",
-    },
 
     quizDescription: { de: "Überprüfe dein Verständnis.", uz: "Tushunganingizni tekshiring." },
     quizCorrect: { de: "Richtig!", uz: "To'g'ri!" },

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { CheckCircle2, RotateCcw } from "lucide-react";
+import { CheckCircle2, Clock, RotateCcw } from "lucide-react";
 
 import type { LessonWriting } from "@/features/lessons/services/writing-service";
 import {
@@ -11,6 +11,7 @@ import {
   type WritingOwnSubmission,
 } from "@/features/lessons/services/writing-submission-service";
 import { ApiError } from "@/lib/api";
+import { useTranslation } from "@/lib/i18n/use-translation";
 
 const GERMAN_CHARS = ["Ä", "Ö", "Ü", "ß"] as const;
 
@@ -26,6 +27,7 @@ function countWords(text: string): number {
  * StudentWriting submission (see app/models/student_writing.py) — not a
  * fake/local-only draft. */
 export default function WritingTaskPanel({ writing }: { writing: LessonWriting }) {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -111,6 +113,13 @@ export default function WritingTaskPanel({ writing }: { writing: LessonWriting }
         <div className="flex items-center gap-2 rounded-xl bg-success/10 px-4 py-3 text-sm font-semibold text-success">
           <CheckCircle2 size={16} />
           Aufgabe abgegeben
+        </div>
+      )}
+
+      {existing?.status === "SUBMITTED" && (
+        <div className="flex items-center gap-2 rounded-xl bg-warning/10 px-4 py-3 text-sm font-semibold text-warning">
+          <Clock size={16} />
+          {t("lessons.statusPending")}
         </div>
       )}
 

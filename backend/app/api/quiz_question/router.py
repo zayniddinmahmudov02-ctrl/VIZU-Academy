@@ -3,7 +3,7 @@ import random
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from app.api.dependencies.auth import get_current_user_optional, require_admin_panel_access
+from app.api.dependencies.auth import get_current_user_optional
 from app.core.security.roles import UserRole
 from app.db.session import get_db
 
@@ -11,8 +11,6 @@ from app.models.quiz_question import QuizQuestion
 from app.models.user import User
 
 from app.schemas.quiz_question import (
-    QuizQuestionCreate,
-    QuizQuestionUpdate,
     QuizQuestionResponse,
     QuizQuestionPublicResponse,
 )
@@ -86,60 +84,3 @@ def get_one(
         return QuizQuestionResponse.model_validate(item)
 
     return _to_public(item)
-
-
-@router.post(
-    "",
-    response_model=QuizQuestionResponse,
-)
-def create(
-    data: QuizQuestionCreate,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_admin_panel_access),
-):
-    return QuizQuestionService(db).create(data)
-
-
-@router.put(
-    "/{question_id}",
-    response_model=QuizQuestionResponse,
-)
-def update(
-    question_id: str,
-    data: QuizQuestionUpdate,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_admin_panel_access),
-):
-    item = QuizQuestionService(db).update(
-        question_id,
-        data,
-    )
-
-    if not item:
-        raise HTTPException(
-            status_code=404,
-            detail="Question not found",
-        )
-
-    return item
-
-
-@router.delete("/{question_id}")
-def delete(
-    question_id: str,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_admin_panel_access),
-):
-    deleted = QuizQuestionService(db).delete(
-        question_id,
-    )
-
-    if not deleted:
-        raise HTTPException(
-            status_code=404,
-            detail="Question not found",
-        )
-
-    return {
-        "message": "Deleted",
-    }

@@ -1,23 +1,24 @@
 """Computes a student's 100-point score for one lesson, reusing existing
-progress/assessment infrastructure end to end — nothing here invents a
-new grading algorithm:
+progress/quiz infrastructure end to end — nothing here invents a new
+grading algorithm:
 
   Video        (10 pts) <- StudentProgress.video_completed
-  Wortschatz   (10 pts) <- StudentProgress.vocabulary_score (falls back to
-                           the binary vocabulary_completed flag for
-                           students who completed it before exercises
-                           existed)
-  Grammatik Quiz(10 pts) <- StudentQuiz.score for the lesson's GRAMMAR-type Quiz
   Lesen        (15 pts) <- Universal Assessment Engine, SectionResult(skill=LESEN)
   Hören        (15 pts) <- Universal Assessment Engine, SectionResult(skill=HOEREN)
-  Schreiben    (20 pts) <- Universal Assessment Engine, SectionResult(skill=SCHREIBEN)
-  Sprechen     (20 pts) <- Universal Assessment Engine, SectionResult(skill=SPRECHEN)
+  Schreiben    (20 pts) <- StudentWriting.score, ONLY once a teacher GRADED it
+  Sprechen     (20 pts) <- StudentSpeaking.score, ONLY once a teacher GRADED it
+  Wortschatz   (10 pts) <- StudentProgress.vocabulary_score (the Wortschatz
+                           Test's server-graded result)
+  Yakuniy Test (10 pts) <- StudentQuiz.score of the lesson's LESSON-type Quiz
                 -------
                 100 pts total (never exceeds this — each component is
                 individually clamped to its own max before summing)
 
-The separate "Lesson Quiz" (a lesson's LESSON-type Quiz) is reported
-alongside but deliberately excluded from the 100-point total, per spec.
+Grammatik is no longer part of the lesson and contributes nothing.
+
+Schreiben/Sprechen: a merely SUBMITTED answer earns no points and is
+reported with status "pending" (shown to the student as not yet graded),
+never as a silent 0.
 """
 
 from uuid import UUID
@@ -30,25 +31,40 @@ from app.models.assessment_attempt import STATUS_GRADED, AssessmentAttempt
 from app.models.assessment_section import (
     SKILL_HOEREN,
     SKILL_LESEN,
-    SKILL_SCHREIBEN,
-    SKILL_SPRECHEN,
     AssessmentSection,
 )
-from app.models.quiz import QUIZ_TYPE_GRAMMAR, QUIZ_TYPE_LESSON, QUIZ_TYPE_VOCABULARY, Quiz
+from app.models.quiz import QUIZ_TYPE_LESSON, QUIZ_TYPE_VOCABULARY, Quiz
 from app.models.section_result import SectionResult
+from app.models.speaking import Speaking
 from app.models.student_progress import StudentProgress
 from app.models.student_quiz import StudentQuiz
+from app.models.student_speaking import (
+    STATUS_GRADED as SPEAKING_STATUS_GRADED,
+    STATUS_SUBMITTED as SPEAKING_STATUS_SUBMITTED,
+    StudentSpeaking,
+)
+from app.models.student_writing import (
+    STATUS_GRADED as WRITING_STATUS_GRADED,
+    STATUS_SUBMITTED as WRITING_STATUS_SUBMITTED,
+    StudentWriting,
+)
+from app.models.writing import Writing
 from app.repositories.student_progress import StudentProgressRepository
 
 MAX_VIDEO = 10
-MAX_WORTSCHATZ = 10
-MAX_GRAMMATIK_QUIZ = 10
 MAX_LESEN = 15
 MAX_HOEREN = 15
 MAX_SCHREIBEN = 20
 MAX_SPRECHEN = 20
-MAX_TOTAL = MAX_VIDEO + MAX_WORTSCHATZ + MAX_GRAMMATIK_QUIZ + MAX_LESEN + MAX_HOEREN + MAX_SCHREIBEN + MAX_SPRECHEN
+MAX_WORTSCHATZ = 10
+MAX_YAKUNIY_TEST = 10
+MAX_TOTAL = MAX_VIDEO + MAX_LESEN + MAX_HOEREN + MAX_SCHREIBEN + MAX_SPRECHEN + MAX_WORTSCHATZ + MAX_YAKUNIY_TEST
 assert MAX_TOTAL == 100
+
+# "final": the points shown are what the student has earned so far.
+# "pending": a submission exists that a teacher hasn't graded yet.
+STATUS_FINAL = "final"
+STATUS_PENDING = "pending"
 
 # Ordered so a 100 checks the first (highest) range it satisfies.
 _FEEDBACK_RANGES: list[tuple[int, int, str]] = [
@@ -148,6 +164,57 @@ class LessonScoringService:
 
         return max(0, min(100, round(result.percentage))), True
 
+    def _graded_task_percentage(
+        self, task_scores: dict[str, tuple[str | None, int | None]], task_ids: list[str]
+    ) -> tuple[int, str]:
+        """Shared Schreiben/Sprechen rule. `task_scores` maps task id ->
+        (submission status, score); a task counts only when GRADED, the
+        percentage is the mean over the lesson's published tasks, and the
+        status is "pending" while any submission still awaits grading."""
+        if not task_ids:
+            return 0, STATUS_FINAL
+        total = 0
+        pending = False
+        for task_id in task_ids:
+            status, score = task_scores.get(task_id, (None, None))
+            if status in (WRITING_STATUS_GRADED, SPEAKING_STATUS_GRADED) and score is not None:
+                total += max(0, min(100, score))
+            elif status in (WRITING_STATUS_SUBMITTED, SPEAKING_STATUS_SUBMITTED):
+                pending = True
+        return round(total / len(task_ids)), (STATUS_PENDING if pending else STATUS_FINAL)
+
+    def _writing_percentage(self, user_id: UUID, lesson_id: UUID) -> tuple[int, str]:
+        task_ids = [
+            str(row[0])
+            for row in self.db.query(Writing.id)
+            .filter(Writing.lesson_id == str(lesson_id), Writing.is_published.is_(True))
+            .all()
+        ]
+        if not task_ids:
+            return 0, STATUS_FINAL
+        rows = (
+            self.db.query(StudentWriting.writing_id, StudentWriting.status, StudentWriting.score)
+            .filter(StudentWriting.user_id == str(user_id), StudentWriting.writing_id.in_(task_ids))
+            .all()
+        )
+        return self._graded_task_percentage({str(r[0]): (r[1], r[2]) for r in rows}, task_ids)
+
+    def _speaking_percentage(self, user_id: UUID, lesson_id: UUID) -> tuple[int, str]:
+        task_ids = [
+            str(row[0])
+            for row in self.db.query(Speaking.id)
+            .filter(Speaking.lesson_id == str(lesson_id), Speaking.is_published.is_(True))
+            .all()
+        ]
+        if not task_ids:
+            return 0, STATUS_FINAL
+        rows = (
+            self.db.query(StudentSpeaking.speaking_id, StudentSpeaking.status, StudentSpeaking.score)
+            .filter(StudentSpeaking.user_id == user_id, StudentSpeaking.speaking_id.in_(task_ids))
+            .all()
+        )
+        return self._graded_task_percentage({str(r[0]): (r[1], r[2]) for r in rows}, task_ids)
+
     def compute(self, user_id: UUID, lesson_id: UUID) -> dict:
         progress = (
             self.db.query(StudentProgress)
@@ -177,32 +244,29 @@ class LessonScoringService:
         else:
             wortschatz_points = 0
 
-        grammar_pct, _ = self._quiz_percentage(user_id, lesson_id, QUIZ_TYPE_GRAMMAR)
         lesen_pct, _ = self._skill_percentage(user_id, lesson_id, SKILL_LESEN)
         hoeren_pct, _ = self._skill_percentage(user_id, lesson_id, SKILL_HOEREN)
-        schreiben_pct, _ = self._skill_percentage(user_id, lesson_id, SKILL_SCHREIBEN)
-        sprechen_pct, _ = self._skill_percentage(user_id, lesson_id, SKILL_SPRECHEN)
+        schreiben_pct, schreiben_status = self._writing_percentage(user_id, lesson_id)
+        sprechen_pct, sprechen_status = self._speaking_percentage(user_id, lesson_id)
+        yakuniy_pct, _ = self._quiz_percentage(user_id, lesson_id, QUIZ_TYPE_LESSON)
+
+        def component(label: str, points: int, max_points: int, status: str = STATUS_FINAL) -> dict:
+            return {"label": label, "points": points, "max_points": max_points, "status": status}
 
         breakdown = {
-            "video": {"label": "Video", "points": video_points, "max_points": MAX_VIDEO},
-            "wortschatz": {"label": "Wortschatz", "points": wortschatz_points, "max_points": MAX_WORTSCHATZ},
-            "grammatik_quiz": {
-                "label": "Grammatik Quiz",
-                "points": round(grammar_pct * MAX_GRAMMATIK_QUIZ / 100),
-                "max_points": MAX_GRAMMATIK_QUIZ,
-            },
-            "lesen": {"label": "Lesen", "points": round(lesen_pct * MAX_LESEN / 100), "max_points": MAX_LESEN},
-            "hoeren": {"label": "Hören", "points": round(hoeren_pct * MAX_HOEREN / 100), "max_points": MAX_HOEREN},
-            "schreiben": {
-                "label": "Schreiben",
-                "points": round(schreiben_pct * MAX_SCHREIBEN / 100),
-                "max_points": MAX_SCHREIBEN,
-            },
-            "sprechen": {
-                "label": "Sprechen",
-                "points": round(sprechen_pct * MAX_SPRECHEN / 100),
-                "max_points": MAX_SPRECHEN,
-            },
+            "video": component("Video", video_points, MAX_VIDEO),
+            "lesen": component("Lesen", round(lesen_pct * MAX_LESEN / 100), MAX_LESEN),
+            "hoeren": component("Hören", round(hoeren_pct * MAX_HOEREN / 100), MAX_HOEREN),
+            "schreiben": component(
+                "Schreiben", round(schreiben_pct * MAX_SCHREIBEN / 100), MAX_SCHREIBEN, schreiben_status
+            ),
+            "sprechen": component(
+                "Sprechen", round(sprechen_pct * MAX_SPRECHEN / 100), MAX_SPRECHEN, sprechen_status
+            ),
+            "wortschatz": component("Wortschatz", wortschatz_points, MAX_WORTSCHATZ),
+            "yakuniy_test": component(
+                "Yakuniy Test", round(yakuniy_pct * MAX_YAKUNIY_TEST / 100), MAX_YAKUNIY_TEST
+            ),
         }
 
         # Each component is already individually clamped to its own max
@@ -210,14 +274,15 @@ class LessonScoringService:
         # belt-and-suspenders guarantee, not something expected to bite.
         total = min(sum(item["points"] for item in breakdown.values()), MAX_TOTAL)
 
+        # A component still awaiting a teacher's grade is neither a
+        # strength nor a weak area — it simply isn't decided yet.
+        decided = {key: item for key, item in breakdown.items() if item["status"] != STATUS_PENDING}
         strengths = [
-            key for key, item in breakdown.items() if item["points"] / item["max_points"] >= _WEAK_AREA_THRESHOLD
+            key for key, item in decided.items() if item["points"] / item["max_points"] >= _WEAK_AREA_THRESHOLD
         ]
         weak_areas = [
-            key for key, item in breakdown.items() if item["points"] / item["max_points"] < _WEAK_AREA_THRESHOLD
+            key for key, item in decided.items() if item["points"] / item["max_points"] < _WEAK_AREA_THRESHOLD
         ]
-
-        lesson_quiz_pct, lesson_quiz_has_result = self._quiz_percentage(user_id, lesson_id, QUIZ_TYPE_LESSON)
 
         # Cache the total on StudentProgress (an existing, previously-
         # unpopulated field) so the dashboard/overview can read it
@@ -236,8 +301,4 @@ class LessonScoringService:
             "feedback": _feedback_for(total),
             "strengths": strengths,
             "weak_areas": weak_areas,
-            "lesson_quiz": {
-                "percentage": lesson_quiz_pct,
-                "has_result": lesson_quiz_has_result,
-            },
         }

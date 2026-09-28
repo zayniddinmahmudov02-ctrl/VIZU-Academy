@@ -4,13 +4,6 @@ from .schema import (
     VocabularyUpdate,
     VocabularyResponse,
     VocabularyCompleteRequest,
-    BulkAnalyzeRequest,
-    BulkSaveItem,
-    BulkSaveRequest,
-    BulkSaveNeedsReview,
-    BulkSaveResponse,
-    BulkDeleteRequest,
-    BulkDeleteResponse,
 )
 
 __all__ = [
@@ -19,11 +12,4 @@ __all__ = [
     "VocabularyUpdate",
     "VocabularyResponse",
     "VocabularyCompleteRequest",
-    "BulkAnalyzeRequest",
-    "BulkSaveItem",
-    "BulkSaveRequest",
-    "BulkSaveNeedsReview",
-    "BulkSaveResponse",
-    "BulkDeleteRequest",
-    "BulkDeleteResponse",
 ]

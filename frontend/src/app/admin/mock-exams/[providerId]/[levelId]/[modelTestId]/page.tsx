@@ -10,8 +10,6 @@ import { AdminButton, AdminInput, AdminLabel, AdminPageHeader } from "@/componen
 import ConfirmDialog from "@/components/admin/confirm-dialog";
 import { useCrudList, useCrudMutations } from "@/features/admin/hooks/use-crud";
 import TeilContentEditor from "@/features/admin/components/mock-exam/teil-content-editor";
-import TaskManager from "@/features/admin/components/assessment/task-manager";
-import { getOrCreateModelTestKompetenz } from "@/features/admin/services/assessment-service";
 import {
   getModelTestScore,
   mockExamKompetenzenApi,
@@ -120,16 +118,6 @@ function KompetenzPanel({ kompetenz, modelTestId }: { kompetenz: Kompetenz; mode
   });
   const { create, remove } = useCrudMutations("mock-exam-teile", mockExamTeileApi);
 
-  // Universal Task engine integration point — resolves (creating on first
-  // use) the shared AssessmentSection for this ModelTest+skill so the
-  // reusable TaskManager can list/create/publish tasks against it. Purely
-  // additive alongside the Teile list above: neither reads nor writes the
-  // legacy Kompetenz/Teil/*Content tables that section already manages.
-  const { data: section } = useQuery({
-    queryKey: ["assessment-section-for-model-test", modelTestId, kompetenz.type],
-    queryFn: () => getOrCreateModelTestKompetenz(modelTestId, kompetenz.type),
-  });
-
   const [expanded, setExpanded] = useState<string | null>(null);
   const [deleting, setDeleting] = useState<Teil | null>(null);
 
@@ -228,17 +216,6 @@ function KompetenzPanel({ kompetenz, modelTestId }: { kompetenz: Kompetenz; mode
             <p className="text-sm text-[var(--admin-text-muted)]">Noch keine Teile angelegt.</p>
           )}
         </div>
-      </div>
-
-      <div className="mt-6 rounded-2xl bg-[var(--admin-card)] p-5 ring-1 ring-[var(--admin-border)]">
-        <p className="mb-4 text-xs font-semibold uppercase tracking-wide text-[var(--admin-text-muted)]">
-          Universelle Aufgaben-Engine
-        </p>
-        {section ? (
-          <TaskManager sectionId={section.id} />
-        ) : (
-          <p className="text-xs text-[var(--admin-text-muted)]">Wird geladen...</p>
-        )}
       </div>
 
       <ConfirmDialog

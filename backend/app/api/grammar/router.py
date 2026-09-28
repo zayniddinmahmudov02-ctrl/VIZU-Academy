@@ -11,8 +11,6 @@ from app.repositories.student_progress import StudentProgressRepository
 from app.services.vizu_pay.access import can_access_lesson
 
 from app.schemas.grammar import (
-    GrammarCreate,
-    GrammarUpdate,
     GrammarResponse,
 )
 
@@ -89,52 +87,3 @@ def get_grammar(
         raise HTTPException(status_code=403, detail="PREMIUM_REQUIRED")
 
     return grammar
-
-
-@router.post("", response_model=GrammarResponse)
-def create_grammar(
-    data: GrammarCreate,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_admin_panel_access),
-):
-    return GrammarService(db).create(data)
-
-
-@router.put("/{grammar_id}", response_model=GrammarResponse)
-def update_grammar(
-    grammar_id: str,
-    data: GrammarUpdate,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_admin_panel_access),
-):
-    grammar = GrammarService(db).update(
-        grammar_id,
-        data,
-    )
-
-    if not grammar:
-        raise HTTPException(
-            status_code=404,
-            detail="Grammar not found",
-        )
-
-    return grammar
-
-
-@router.delete("/{grammar_id}")
-def delete_grammar(
-    grammar_id: str,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_admin_panel_access),
-):
-    deleted = GrammarService(db).delete(grammar_id)
-
-    if not deleted:
-        raise HTTPException(
-            status_code=404,
-            detail="Grammar not found",
-        )
-
-    return {
-        "message": "Grammar deleted"
-    }

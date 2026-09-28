@@ -1,8 +1,6 @@
-import json
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, Response, status
-from fastapi.responses import StreamingResponse
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.api.dependencies.auth import get_current_user, require_admin_panel_access
@@ -14,23 +12,16 @@ from app.repositories.student_progress import StudentProgressRepository
 from app.services.vizu_pay.access import can_access_lesson
 
 from app.schemas.vocabulary import (
-    BulkAnalyzeRequest,
-    BulkDeleteRequest,
-    BulkDeleteResponse,
-    BulkSaveRequest,
-    BulkSaveResponse,
     VocabularyCompleteRequest,
-    VocabularyCreate,
     VocabularyResponse,
-    VocabularyUpdate,
 )
 
-from app.services.vocabulary import (
-    VocabularyBulkService,
-    VocabularyService,
-    normalize_word_list,
-    sync_vocabulary_test,
-)
+from app.services.vocabulary import VocabularyService
+
+# Read-only apart from the Wortschatz Test completion below: vocabulary
+# create/update/publish/delete, the bulk generator and the AI enrichment
+# were removed from the admin panel (vocabulary content is produced
+# externally and imported straight into the database).
 
 
 router = APIRouter(
@@ -122,164 +113,3 @@ def complete_lesson_vocabulary(
     repo.mark_vocabulary_completed(progress, percentage=percentage)
 
     return {"vocabulary_completed": True, "vocabulary_score": progress.vocabulary_score}
-
-
-@router.post(
-    "/",
-    response_model=VocabularyResponse,
-    status_code=status.HTTP_201_CREATED,
-)
-def create_vocabulary(
-    payload: VocabularyCreate,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_admin_panel_access),
-):
-    service = VocabularyService(db)
-    created = service.create(payload.model_dump())
-    sync_vocabulary_test(db, payload.lesson_id)
-    return created
-
-
-@router.put(
-    "/{vocabulary_id}",
-    response_model=VocabularyResponse,
-)
-def update_vocabulary(
-    vocabulary_id: UUID,
-    payload: VocabularyUpdate,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_admin_panel_access),
-):
-    service = VocabularyService(db)
-
-    vocabulary = service.get(vocabulary_id)
-
-    updated = service.update(
-        vocabulary,
-        payload.model_dump(exclude_unset=True),
-    )
-    sync_vocabulary_test(db, updated.lesson_id)
-    return updated
-
-
-@router.patch(
-    "/{vocabulary_id}/publish",
-    response_model=VocabularyResponse,
-)
-def publish_vocabulary(
-    vocabulary_id: UUID,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_admin_panel_access),
-):
-    service = VocabularyService(db)
-
-    vocabulary = service.get(vocabulary_id)
-
-    published = service.publish(vocabulary)
-    sync_vocabulary_test(db, published.lesson_id)
-    return published
-
-
-@router.patch(
-    "/{vocabulary_id}/unpublish",
-    response_model=VocabularyResponse,
-)
-def unpublish_vocabulary(
-    vocabulary_id: UUID,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_admin_panel_access),
-):
-    service = VocabularyService(db)
-
-    vocabulary = service.get(vocabulary_id)
-
-    unpublished = service.unpublish(vocabulary)
-    sync_vocabulary_test(db, unpublished.lesson_id)
-    return unpublished
-
-
-@router.delete(
-    "/{vocabulary_id}",
-    status_code=status.HTTP_204_NO_CONTENT,
-)
-def delete_vocabulary(
-    vocabulary_id: UUID,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_admin_panel_access),
-):
-    service = VocabularyService(db)
-
-    vocabulary = service.get(vocabulary_id)
-    lesson_id = vocabulary.lesson_id
-
-    service.delete(vocabulary)
-    sync_vocabulary_test(db, lesson_id)
-
-    return Response(
-        status_code=status.HTTP_204_NO_CONTENT,
-    )
-
-
-@router.post("/bulk/delete", response_model=BulkDeleteResponse)
-async def bulk_delete_vocabulary(
-    payload: BulkDeleteRequest,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_admin_panel_access),
-):
-    """One request for however many words are selected — not one DELETE
-    per row. Scoped to lesson_id server-side (see
-    VocabularyBulkService.bulk_delete) so a stale/tampered ID list can
-    never delete a word belonging to a different lesson."""
-
-    service = VocabularyBulkService(db)
-    deleted_count = await service.bulk_delete(payload.lesson_id, payload.vocabulary_ids)
-    sync_vocabulary_test(db, payload.lesson_id)
-    return BulkDeleteResponse(deleted_count=deleted_count)
-
-
-# ==========================
-# Bulk generator
-# ==========================
-
-
-@router.post("/bulk/analyze")
-async def bulk_analyze_vocabulary(
-    payload: BulkAnalyzeRequest,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_admin_panel_access),
-):
-    """Streams newline-delimited JSON — progress updates while Gemini
-    TEXT enrichment runs (article/plural/translation/example — never
-    audio), then one line per preview row, then a final {"type": "done"}.
-    Nothing is written to the database here; see POST /bulk/save for
-    that. A native fetch() reader on the frontend, not axios, consumes
-    this (see bulk-vocabulary-dialog.tsx) — StreamingResponse's body
-    never completes until every word has been processed."""
-
-    words = normalize_word_list("\n".join(payload.words))
-    service = VocabularyBulkService(db)
-
-    async def ndjson():
-        async for event in service.analyze_stream(
-            payload.lesson_id,
-            words,
-            payload.auto_complete,
-        ):
-            yield json.dumps(event) + "\n"
-
-    return StreamingResponse(ndjson(), media_type="application/x-ndjson")
-
-
-@router.post("/bulk/save", response_model=BulkSaveResponse)
-async def bulk_save_vocabulary(
-    payload: BulkSaveRequest,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_admin_panel_access),
-):
-    service = VocabularyBulkService(db)
-    result = await service.bulk_save(
-        payload.lesson_id,
-        [item.model_dump() for item in payload.items],
-    )
-    sync_vocabulary_test(db, payload.lesson_id)
-    return BulkSaveResponse(**result)

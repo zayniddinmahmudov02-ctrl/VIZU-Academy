@@ -1,9 +1,9 @@
 """Verifies the core logic in SectionGateService: sections are never
 sequentially gated (_compute_unlocked, a pure function — no DB, no
 inputs at all now), lesson completion counting only applicable sections
-and excluding the removed-from-navigation Lesson Quiz (is_lesson_completed),
-and the tightened Schreiben/Sprechen "evaluated" checks (STATUS_GRADED /
-STATUS_FINAL, not merely submitted). Uses stdlib unittest + MagicMock/
+(is_lesson_completed; Yakuniy Test = lesson_quiz is required again), and
+the Schreiben/Sprechen "graded" checks (only a teacher-GRADED
+StudentWriting/StudentSpeaking counts, never merely SUBMITTED). Uses stdlib unittest + MagicMock/
 patch, matching this session's established pattern (no pytest, no real
 DB) — _compute_unlocked needs no mocking at all since it takes nothing
 and returns a fixed shape."""
@@ -151,12 +151,14 @@ class TestSectionsAlwaysUnlocked(unittest.TestCase):
                 for key in SECTION_ORDER:
                     self.assertTrue(unlocked[key])
 
-    def test_lesson_quiz_removed_from_gated_order(self):
-        # Lesson Quiz is out of student navigation entirely (see
-        # frontend/src/constants/lesson-sections.ts) and must never be
-        # able to block lesson completion for a lesson that still has a
-        # published-but-unreachable one.
-        self.assertNotIn("lesson_quiz", GATED_ORDER)
+    def test_gated_order_is_the_new_student_flow(self):
+        # Yakuniy Test (lesson_quiz) is a real, reachable student step
+        # again; Schreiben/Sprechen count once teacher-graded; the removed
+        # steps (Wortschatz browsing, Grammatik, Grammatik Quiz) and the
+        # passage/audio-only Lesen/Hören are never required.
+        self.assertEqual(GATED_ORDER, ["video", "schreiben", "sprechen", "wortschatz_quiz", "lesson_quiz"])
+        for removed in ("wortschatz", "grammatik", "grammatik_quiz", "lesen", "hoeren"):
+            self.assertNotIn(removed, GATED_ORDER)
 
 
 class TestIsLessonCompleted(unittest.TestCase):
@@ -178,11 +180,6 @@ class TestIsLessonCompleted(unittest.TestCase):
             self.assertTrue(self.service.is_lesson_completed(user_id="u", lesson_id="l"))
 
     def test_one_incomplete_applicable_section_blocks_completion(self):
-        # wortschatz_quiz stays in GATED_ORDER (unlike lesen/hoeren/
-        # schreiben/sprechen, now legacy-backed and excluded — see
-        # section_gate.py's module docstring), so it's the key that
-        # still proves "one incomplete applicable+gated section blocks
-        # completion".
         applicable = all_applicable()
         completed = {key: True for key in SECTION_ORDER}
         completed["wortschatz_quiz"] = False
@@ -203,63 +200,68 @@ class TestIsLessonCompleted(unittest.TestCase):
         self.assertNotIn("hausaufgabe", GATED_ORDER)
         self.assertNotIn("homework", GATED_ORDER)
 
-    def test_incomplete_but_applicable_lesson_quiz_never_blocks_completion(self):
-        # A published Lesson Quiz exists (applicable=True) but the
-        # student never took it (completed=False) — since it's been
-        # removed from student navigation entirely, this must not
-        # prevent the lesson from being reported complete.
-        applicable = all_applicable()  # lesson_quiz applicable=True
+    def test_incomplete_applicable_yakuniy_test_blocks_completion(self):
+        applicable = all_applicable()
         completed = {key: True for key in SECTION_ORDER}
         completed["lesson_quiz"] = False
+        with patch.object(SectionGateService, "get_state", return_value=self._state(applicable, completed)):
+            self.assertFalse(self.service.is_lesson_completed(user_id="u", lesson_id="l"))
+
+    def test_ungraded_writing_blocks_completion_until_teacher_grades(self):
+        applicable = all_applicable()
+        completed = {key: True for key in SECTION_ORDER}
+        completed["schreiben"] = False
+        with patch.object(SectionGateService, "get_state", return_value=self._state(applicable, completed)):
+            self.assertFalse(self.service.is_lesson_completed(user_id="u", lesson_id="l"))
+
+    def test_removed_steps_never_block_completion(self):
+        applicable = all_applicable()
+        completed = {key: True for key in SECTION_ORDER}
+        for key in ("wortschatz", "grammatik", "grammatik_quiz", "lesen", "hoeren"):
+            completed[key] = False
         with patch.object(SectionGateService, "get_state", return_value=self._state(applicable, completed)):
             self.assertTrue(self.service.is_lesson_completed(user_id="u", lesson_id="l"))
 
 
-class TestWritingSpeakingEvaluatedTightening(unittest.TestCase):
-    """Only STATUS_GRADED (writing) / STATUS_FINAL (speaking) count as
-    truly evaluated — SUBMITTED/PENDING_REVIEW/REVIEWED must not."""
+class TestWritingSpeakingGradedCompletion(unittest.TestCase):
+    """Only a teacher-GRADED StudentWriting/StudentSpeaking counts — every
+    published task of the lesson must be graded; SUBMITTED / DRAFT /
+    NEEDS_REVISION (i.e. absent from the GRADED query result) must not."""
 
-    def _mock_db_returning(self, row_or_none):
+    def _db(self, task_ids, graded_ids):
         db = MagicMock()
-        query = MagicMock()
-        query.join.return_value = query
-        query.filter.return_value = query
-        query.first.return_value = row_or_none
-        db.query.return_value = query
+        tasks_query = MagicMock()
+        tasks_query.filter.return_value = tasks_query
+        tasks_query.all.return_value = [(t,) for t in task_ids]
+        graded_query = MagicMock()
+        graded_query.filter.return_value = graded_query
+        graded_query.all.return_value = [(g,) for g in graded_ids]
+        db.query.side_effect = [tasks_query, graded_query]
         return db
 
-    def test_writing_pending_review_is_not_evaluated(self):
-        service = SectionGateService(db=self._mock_db_returning(None))
-        attempt = MagicMock(id="attempt-1")
-        assessment = MagicMock(id="assessment-1")
-        self.assertFalse(service._writing_evaluated(assessment, attempt))
+    def test_writing_with_no_published_task_is_not_graded(self):
+        service = SectionGateService(db=self._db([], []))
+        self.assertFalse(service._writing_graded("u", "l"))
 
-    def test_writing_graded_is_evaluated(self):
-        service = SectionGateService(db=self._mock_db_returning(MagicMock()))
-        attempt = MagicMock(id="attempt-1")
-        assessment = MagicMock(id="assessment-1")
-        self.assertTrue(service._writing_evaluated(assessment, attempt))
+    def test_writing_submitted_but_not_graded_is_not_graded(self):
+        service = SectionGateService(db=self._db(["w1"], []))
+        self.assertFalse(service._writing_graded("u", "l"))
 
-    def test_speaking_reviewed_but_not_final_is_not_evaluated(self):
-        # The mock DB's filter().first() returning None simulates the
-        # STATUS_FINAL filter matching nothing — i.e. a REVIEWED-but-not-
-        # finalized submission exists but doesn't satisfy the query.
-        service = SectionGateService(db=self._mock_db_returning(None))
-        attempt = MagicMock(id="attempt-1")
-        assessment = MagicMock(id="assessment-1")
-        self.assertFalse(service._speaking_evaluated(assessment, attempt))
+    def test_writing_partially_graded_is_not_graded(self):
+        service = SectionGateService(db=self._db(["w1", "w2"], ["w1"]))
+        self.assertFalse(service._writing_graded("u", "l"))
 
-    def test_speaking_final_is_evaluated(self):
-        service = SectionGateService(db=self._mock_db_returning(MagicMock()))
-        attempt = MagicMock(id="attempt-1")
-        assessment = MagicMock(id="assessment-1")
-        self.assertTrue(service._speaking_evaluated(assessment, attempt))
+    def test_writing_all_graded_is_graded(self):
+        service = SectionGateService(db=self._db(["w1", "w2"], ["w1", "w2"]))
+        self.assertTrue(service._writing_graded("u", "l"))
 
-    def test_no_attempt_is_never_evaluated(self):
-        service = SectionGateService(db=MagicMock())
-        assessment = MagicMock(id="assessment-1")
-        self.assertFalse(service._writing_evaluated(assessment, None))
-        self.assertFalse(service._speaking_evaluated(assessment, None))
+    def test_speaking_submitted_but_not_graded_is_not_graded(self):
+        service = SectionGateService(db=self._db(["s1"], []))
+        self.assertFalse(service._speaking_graded("u", "l"))
+
+    def test_speaking_all_graded_is_graded(self):
+        service = SectionGateService(db=self._db(["s1"], ["s1"]))
+        self.assertTrue(service._speaking_graded("u", "l"))
 
 
 class TestQuizSubmittedIsAlwaysFullyGraded(unittest.TestCase):

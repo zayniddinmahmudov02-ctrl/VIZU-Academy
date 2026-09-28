@@ -3,6 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { CheckCircle2, Trophy } from "lucide-react";
 
+import { COMPLETION_TRACKED_GATE_KEYS } from "@/constants/lesson-sections";
 import { useSectionGate } from "@/features/lessons/hooks/use-section-gate";
 import { getMyLessonScore } from "@/features/lessons/services/lesson-score-service";
 import { useTranslation } from "@/lib/i18n/use-translation";
@@ -18,7 +19,7 @@ interface Props {
  * üben/Lesson Quiz" — computed live from real progress/quiz/assessment
  * data (see LessonScoringService), never a static placeholder. Shows
  * "Lektion abgeschlossen ✓" once every required section (up through
- * Lesson Quiz) is done. */
+ * Yakuniy Test) is done. */
 export default function ResultSection({ lessonId }: Props) {
   const { t } = useTranslation();
 
@@ -28,10 +29,13 @@ export default function ResultSection({ lessonId }: Props) {
   });
   const { data: gate, isLoading: gateLoading } = useSectionGate(lessonId);
 
-  const allDone = gate ? Object.values(gate).every((entry) => entry.completed) : false;
+  // Lesson completed = every applicable step that has a completion signal
+  // is done (Schreiben/Sprechen only once a teacher has graded them).
+  const tracked = gate ? COMPLETION_TRACKED_GATE_KEYS.filter((key) => gate[key].applicable) : [];
+  const allDone = gate ? tracked.length > 0 && tracked.every((key) => gate[key].completed) : false;
 
   return (
-    <LessonSection title={t("lessons.sectionResults")} description="Deine Ergebnisse für diese Lektion." icon={Trophy}>
+    <LessonSection title={t("lessons.sectionResults")} description={t("lessons.resultsDescription")} icon={Trophy}>
       {(isLoading || gateLoading) && <p className="text-sm text-text-secondary">{t("common.loading")}</p>}
 
       {!isLoading && !gateLoading && (
@@ -39,7 +43,7 @@ export default function ResultSection({ lessonId }: Props) {
           {allDone && (
             <div className="flex items-center gap-2 rounded-2xl bg-success/10 px-5 py-4 text-success">
               <CheckCircle2 size={20} />
-              <span className="text-base font-bold">Lektion abgeschlossen ✓</span>
+              <span className="text-base font-bold">{t("lessons.lessonCompleted")}</span>
             </div>
           )}
 

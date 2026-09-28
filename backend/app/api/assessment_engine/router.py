@@ -1,6 +1,6 @@
 import json
 
-from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, UploadFile
+from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
 from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 
@@ -16,35 +16,23 @@ from app.schemas.assessment_engine import (
     AnswerSubmit,
     AssessmentAttemptCreate,
     AssessmentAttemptResponse,
-    AssessmentCreate,
     AssessmentFullResponse,
     AssessmentResponse,
     AssessmentResultResponse,
-    AssessmentSectionCreate,
     AssessmentSectionResponse,
-    AssessmentSectionUpdate,
-    AssessmentTaskCreate,
     AssessmentTaskResponse,
-    AssessmentTaskUpdate,
-    AssessmentUpdate,
     AudioPlayStatusResponse,
     PendingSpeakingReviewItem,
     PendingWritingReviewItem,
     PublicAssessment,
-    SectionSkill,
     SpeakingEvaluationResponse,
     SpeakingResultResponse,
     SpeakingReviewInput,
     SpeakingSubmissionResponse,
-    TaskAudioResponse,
-    TaskReorderRequest,
     TaskValidationResponse,
     TeacherReviewInput,
     WritingEvaluationResponse,
     WritingResultResponse,
-    WritingRubricCriterionCreate,
-    WritingRubricCriterionResponse,
-    WritingRubricCriterionUpdate,
     WritingSubmissionResponse,
     WritingSubmissionSave,
 )
@@ -76,15 +64,6 @@ def list_assessments(
     return crud_service.list_assessments(db, assessment_type, status, lesson_id)
 
 
-@router.post("/assessments", response_model=AssessmentResponse, status_code=201)
-def create_assessment(
-    data: AssessmentCreate,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_super_admin),
-):
-    return crud_service.create_assessment(db, data, current_user)
-
-
 @router.get("/assessments/{assessment_id}", response_model=AssessmentResponse)
 def get_assessment(
     assessment_id: str,
@@ -111,29 +90,6 @@ def get_assessment_full(
     return assessment
 
 
-@router.put("/assessments/{assessment_id}", response_model=AssessmentResponse)
-def update_assessment(
-    assessment_id: str,
-    data: AssessmentUpdate,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_super_admin),
-):
-    assessment = crud_service.update_assessment(db, assessment_id, data)
-    if assessment is None:
-        raise HTTPException(status_code=404, detail="Assessment not found.")
-    return assessment
-
-
-@router.delete("/assessments/{assessment_id}", status_code=204)
-async def delete_assessment(
-    assessment_id: str,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_super_admin),
-):
-    if not await crud_service.delete_assessment(db, assessment_id):
-        raise HTTPException(status_code=404, detail="Assessment not found.")
-
-
 # ============================================================
 # Sections
 # ============================================================
@@ -145,40 +101,6 @@ def list_sections(
     current_user: User = Depends(require_super_admin),
 ):
     return crud_service.list_sections(db, assessment_id)
-
-
-@router.post("/assessments/{assessment_id}/sections", response_model=AssessmentSectionResponse, status_code=201)
-def create_section(
-    assessment_id: str,
-    data: AssessmentSectionCreate,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_super_admin),
-):
-    payload = data.model_copy(update={"assessment_id": assessment_id})
-    return crud_service.create_section(db, payload)
-
-
-@router.put("/sections/{section_id}", response_model=AssessmentSectionResponse)
-def update_section(
-    section_id: str,
-    data: AssessmentSectionUpdate,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_super_admin),
-):
-    section = crud_service.update_section(db, section_id, data)
-    if section is None:
-        raise HTTPException(status_code=404, detail="Section not found.")
-    return section
-
-
-@router.delete("/sections/{section_id}", status_code=204)
-async def delete_section(
-    section_id: str,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_super_admin),
-):
-    if not await crud_service.delete_section(db, section_id):
-        raise HTTPException(status_code=404, detail="Section not found.")
 
 
 # ============================================================
@@ -194,17 +116,6 @@ def list_tasks(
     return crud_service.list_tasks(db, section_id)
 
 
-@router.post("/sections/{section_id}/tasks", response_model=AssessmentTaskResponse, status_code=201)
-def create_task(
-    section_id: str,
-    data: AssessmentTaskCreate,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_super_admin),
-):
-    payload = data.model_copy(update={"section_id": section_id})
-    return crud_service.create_task(db, payload)
-
-
 @router.get("/tasks/{task_id}", response_model=AssessmentTaskResponse)
 def get_task(
     task_id: str,
@@ -217,39 +128,6 @@ def get_task(
     return task
 
 
-@router.put("/tasks/{task_id}", response_model=AssessmentTaskResponse)
-def update_task(
-    task_id: str,
-    data: AssessmentTaskUpdate,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_super_admin),
-):
-    task = crud_service.update_task(db, task_id, data)
-    if task is None:
-        raise HTTPException(status_code=404, detail="Task not found.")
-    return task
-
-
-@router.delete("/tasks/{task_id}", status_code=204)
-async def delete_task(
-    task_id: str,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_super_admin),
-):
-    if not await crud_service.delete_task(db, task_id):
-        raise HTTPException(status_code=404, detail="Task not found.")
-
-
-@router.put("/sections/{section_id}/tasks/reorder", response_model=list[AssessmentTaskResponse])
-def reorder_tasks(
-    section_id: str,
-    data: TaskReorderRequest,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_super_admin),
-):
-    return crud_service.reorder_tasks(db, section_id, data.task_ids)
-
-
 # ============================================================
 # Kompetenz integration points — Course Lesson admin and ModelTest admin
 # both call these to get the AssessmentSection for a given skill,
@@ -257,26 +135,6 @@ def reorder_tasks(
 # reusable attachment point the Task Manager component builds on for
 # either source without the admin ever managing an Assessment directly.
 # ============================================================
-
-@router.post("/model-tests/{model_test_id}/kompetenzen/{skill}", response_model=AssessmentSectionResponse)
-def get_or_create_model_test_kompetenz(
-    model_test_id: str,
-    skill: SectionSkill,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_super_admin),
-):
-    return crud_service.get_or_create_model_test_kompetenz_section(db, model_test_id, skill, current_user)
-
-
-@router.post("/lessons/{lesson_id}/kompetenzen/{skill}", response_model=AssessmentSectionResponse)
-def get_or_create_lesson_kompetenz(
-    lesson_id: str,
-    skill: SectionSkill,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_super_admin),
-):
-    return crud_service.get_or_create_lesson_kompetenz_section(db, lesson_id, skill, current_user)
-
 
 @router.get("/tasks/{task_id}/validate", response_model=TaskValidationResponse)
 def validate_task(
@@ -295,29 +153,6 @@ def validate_task(
 # Audio (HOEREN) — admin upload/replace/delete, secure serving,
 # server-enforced play count
 # ============================================================
-
-@router.post("/tasks/{task_id}/audio", response_model=TaskAudioResponse, status_code=201)
-async def upload_task_audio(
-    task_id: str,
-    file: UploadFile = File(...),
-    duration_seconds: int | None = Form(None),
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_super_admin),
-):
-    """Upload or replace this task's audio in one call — a second upload
-    always removes the previous file first (see audio_service.upload_audio)."""
-    return await audio_service.upload_audio(db, task_id, file, duration_seconds)
-
-
-@router.delete("/tasks/{task_id}/audio", status_code=204)
-async def delete_task_audio(
-    task_id: str,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_super_admin),
-):
-    if not await audio_service.delete_audio(db, task_id):
-        raise HTTPException(status_code=404, detail="No audio for this task.")
-
 
 @router.get("/audio/{task_id}")
 def get_task_audio(
@@ -367,40 +202,6 @@ def register_audio_play(
 # ============================================================
 # Writing rubric criteria (SCHREIBEN) — admin builder
 # ============================================================
-
-@router.post("/tasks/{task_id}/rubric-criteria", response_model=WritingRubricCriterionResponse, status_code=201)
-def create_rubric_criterion(
-    task_id: str,
-    data: WritingRubricCriterionCreate,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_super_admin),
-):
-    payload = data.model_copy(update={"task_id": task_id})
-    return crud_service.create_rubric_criterion(db, payload)
-
-
-@router.put("/rubric-criteria/{criterion_id}", response_model=WritingRubricCriterionResponse)
-def update_rubric_criterion(
-    criterion_id: str,
-    data: WritingRubricCriterionUpdate,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_super_admin),
-):
-    criterion = crud_service.update_rubric_criterion(db, criterion_id, data)
-    if criterion is None:
-        raise HTTPException(status_code=404, detail="Rubric criterion not found.")
-    return criterion
-
-
-@router.delete("/rubric-criteria/{criterion_id}", status_code=204)
-def delete_rubric_criterion(
-    criterion_id: str,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(require_super_admin),
-):
-    if not crud_service.delete_rubric_criterion(db, criterion_id):
-        raise HTTPException(status_code=404, detail="Rubric criterion not found.")
-
 
 # ============================================================
 # Public (published-only — any authenticated user)

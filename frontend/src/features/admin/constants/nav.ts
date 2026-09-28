@@ -25,13 +25,13 @@ export interface AdminNavGroup {
   items: AdminNavItem[];
 }
 
-// CMS reorganization: the sidebar now exposes exactly the 12 top-level
-// sections requested. Everything that used to be a standalone sidebar item
-// (Modules, Lessons, Video Lessons, Vocabulary, Grammar, Reading,
-// Listening, Writing, Speaking, Quiz, Media Library) still exists and is
-// fully functional at its original route — those routes are just no
-// longer linked directly from the sidebar. They're reached instead through
-// Courses -> Level -> Lesson, which manages the same underlying data.
+// The sidebar exposes only top-level sections. A lesson's own content
+// (Videokurs, Hören Audio, Schreiben / Sprechen Aufgaben) is managed
+// through Courses -> Level -> Lesson. There are no test/quiz/vocabulary/
+// grammar creators or generators, and no Schreiben/Sprechen grading in
+// the admin panel: that content is produced externally (Claude) and
+// imported into the database, and student submissions are reviewed in
+// the Teacher Panel.
 export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
   {
     items: [
@@ -47,16 +47,6 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
       { label: "Bücher", href: "/admin/books", icon: BookOpen },
       { label: "Payments", href: "/admin/payments", icon: CreditCard },
       { label: "Analytics", href: "/admin/analytics", icon: TrendingUp },
-      // "Homeworks" (the Schreiben/Sprechen submission review queue,
-      // /admin/homeworks) is deliberately no longer linked here — that
-      // operational review workflow now lives in the Teacher Panel
-      // (Schreiben/Sprechen, scoped per-teacher via TeacherAssignment).
-      // The route/page/data are untouched (nothing deleted, no admin
-      // access removed), just unlinked from the sidebar, same convention
-      // as the CMS reorganization note above. The unrelated Homework
-      // *task* CRUD (/admin/homework, singular — title/description/
-      // max_score content management) was never linked here either and
-      // stays reachable via Courses -> Level -> Lesson, unaffected.
       { label: "Settings", href: "/admin/settings", icon: Settings },
     ],
   },

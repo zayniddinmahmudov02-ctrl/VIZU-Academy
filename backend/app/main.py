@@ -123,9 +123,6 @@ from app.api.admin.vizu_pay_router import (
 from app.api.admin.videos_router import (
     router as admin_videos_router,
 )
-from app.api.admin.ai_content_router import (
-    router as admin_ai_content_router,
-)
 from app.api.admin.books_router import (
     router as admin_books_router,
 )
@@ -240,7 +237,6 @@ _ALL_ROUTERS = [
     admin_users_router,
     admin_vizu_pay_router,
     admin_videos_router,
-    admin_ai_content_router,
     admin_books_router,
     admin_teacher_assignments_router,
     teacher_router,

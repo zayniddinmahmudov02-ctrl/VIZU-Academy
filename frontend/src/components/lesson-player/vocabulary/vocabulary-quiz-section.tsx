@@ -45,7 +45,7 @@ export default function VocabularyQuizSection({ lessonId }: Props) {
 
   if (vocabQuizLoading) {
     return (
-      <LessonSection title="Wortschatz Quiz" description={t("common.loading")} icon={Library}>
+      <LessonSection title={t("lessons.sectionVocabularyQuiz")} description={t("common.loading")} icon={Library}>
         <p className="text-sm text-text-secondary">{t("common.loading")}</p>
       </LessonSection>
     );
@@ -53,7 +53,7 @@ export default function VocabularyQuizSection({ lessonId }: Props) {
 
   if (!vocabQuiz) {
     return (
-      <LessonSection title="Wortschatz Quiz" description="Nicht verfügbar" icon={Library}>
+      <LessonSection title={t("lessons.sectionVocabularyQuiz")} description="Nicht verfügbar" icon={Library}>
         <p className="rounded-2xl bg-surface-hover p-6 text-center text-sm text-text-secondary">
           Für dieses Niveau nicht verfügbar.
         </p>
@@ -63,7 +63,7 @@ export default function VocabularyQuizSection({ lessonId }: Props) {
 
   if (questionsLoading || !questions || questions.length === 0) {
     return (
-      <LessonSection title="Wortschatz Quiz" description={t("common.loading")} icon={Library}>
+      <LessonSection title={t("lessons.sectionVocabularyQuiz")} description={t("common.loading")} icon={Library}>
         <p className="text-sm text-text-secondary">{t("common.loading")}</p>
       </LessonSection>
     );

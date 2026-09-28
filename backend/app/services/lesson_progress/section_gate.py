@@ -40,24 +40,23 @@ reading/listening/writing/speaking-section.tsx) — a lesson's real
 content now lives in the `readings`/`listenings`/`writings`/`speakings`
 tables, the same ones the admin's "(Legacy)" CMS tabs already manage.
 
-completed for lesen/hoeren/schreiben/sprechen still reads the Assessment
-Engine's Answer/WritingSubmission/SpeakingSubmission rows below —
-deliberately left as-is (harmless, just permanently False going forward
-since the student frontend no longer starts Assessment Engine attempts
-for these skills) rather than removed, so any real historical completion
-data for a lesson that had genuine Assessment Engine content isn't lost
-from the API response. This is exactly why all four are also excluded
-from GATED_ORDER now: there is no legacy completion signal to replace it
-with, and leaving them gated-but-permanently-uncompletable would make
-is_lesson_completed() unreachable for every such lesson.
+completed for lesen/hoeren still reads the Assessment Engine's Answer
+rows (permanently False for new students, since the student frontend no
+longer starts Assessment Engine attempts; kept only so historical
+completion data isn't lost from the API response). Lesen/Hören are
+therefore not in GATED_ORDER: they have no completion signal to gate on.
 
-lesson_quiz (Lesson Quiz) is excluded from GATED_ORDER — same treatment
-as "grammatik" and homework — because it has been removed from student
-navigation entirely (see frontend/src/constants/lesson-sections.ts): a
-lesson with a published-but-unreachable Lesson Quiz must never be stuck
-"incomplete" forever. Its applicable/completed signals are still computed
-(the admin CMS's content-status view and per-student progression list
-still read them), only its membership in the gated/required set changed.
+completed for schreiben/sprechen reads the student's real submissions
+(StudentWriting / StudentSpeaking — the tables the student UI actually
+writes to) and counts ONLY once a teacher has GRADED every published task
+of the lesson; SUBMITTED / DRAFT / NEEDS_REVISION never count. Those two
+are in GATED_ORDER, so a lesson is complete only after teacher grading.
+
+The student-facing flow is Video -> Lesen -> Hören -> Schreiben ->
+Sprechen -> Wortschatz Test (wortschatz_quiz) -> Yakuniy Test
+(lesson_quiz) -> Ergebnisse. The keys "wortschatz" (browsing),
+"grammatik" and "grammatik_quiz" are no longer student steps: they stay
+in the returned state for API compatibility but are never gated.
 
 Deliberately does not touch the Assessment Engine's own attempt/scoring
 logic (shared with Vorbereitung/MockTest) — this only *reads* Answer/
@@ -75,8 +74,6 @@ from app.models.assessment_attempt import AssessmentAttempt
 from app.models.assessment_section import (
     SKILL_HOEREN,
     SKILL_LESEN,
-    SKILL_SCHREIBEN,
-    SKILL_SPRECHEN,
     AssessmentSection,
 )
 from app.models.assessment_task import AssessmentTask
@@ -85,40 +82,40 @@ from app.models.listening import Listening
 from app.models.quiz import QUIZ_TYPE_GRAMMAR, QUIZ_TYPE_LESSON, QUIZ_TYPE_VOCABULARY, Quiz
 from app.models.reading import Reading
 from app.models.speaking import Speaking
-from app.models.speaking_submission import STATUS_FINAL as SPEAKING_STATUS_FINAL, SpeakingSubmission
 from app.models.student_progress import StudentProgress
 from app.models.student_quiz import StudentQuiz
+from app.models.student_speaking import STATUS_GRADED as SPEAKING_STATUS_GRADED, StudentSpeaking
+from app.models.student_writing import STATUS_GRADED as WRITING_STATUS_GRADED, StudentWriting
 from app.models.task_attempt import TaskAttempt
 from app.models.task_question import TaskQuestion
 from app.models.video import Video
 from app.models.vocabulary import Vocabulary
 from app.models.writing import Writing
-from app.models.writing_submission import STATUS_GRADED as WRITING_STATUS_GRADED, WritingSubmission
 
+# Student-facing order first (Video, Lesen, Hören, Schreiben, Sprechen,
+# Wortschatz Test, Yakuniy Test); the last three keys are no longer part
+# of the student flow (browsing, Grammatik, Grammatik Quiz) and are kept
+# only so the section-gate API contract keeps returning every key.
 SECTION_ORDER = [
     "video",
-    "wortschatz",
-    "wortschatz_quiz",
-    "grammatik",
-    "grammatik_quiz",
     "lesen",
     "hoeren",
     "schreiben",
     "sprechen",
+    "wortschatz_quiz",
     "lesson_quiz",
+    "wortschatz",
+    "grammatik",
+    "grammatik_quiz",
 ]
 
 # The "required for lesson completion" set — used only by
-# is_lesson_completed now (no sequential gating exists anymore, see
-# _compute_unlocked). "grammatik" and "lesson_quiz" excluded (see module
-# docstring); "lesen"/"hoeren"/"schreiben"/"sprechen" excluded too, now
-# that they're legacy-backed with no completion signal to gate on (see
-# module docstring); "homework"/"hausaufgabe" were never section_gate
-# keys to begin with, so there's nothing to exclude for them.
-_LEGACY_BACKED_SKILLS = ("lesen", "hoeren", "schreiben", "sprechen")
-GATED_ORDER = [
-    key for key in SECTION_ORDER if key not in ("grammatik", "lesson_quiz", *_LEGACY_BACKED_SKILLS)
-]
+# is_lesson_completed (no sequential gating exists, see
+# _compute_unlocked). Lesen/Hören are passage/audio only (no completion
+# signal); the removed Wortschatz browsing / Grammatik / Grammatik Quiz
+# steps can no longer be completed by a student. Schreiben/Sprechen count
+# only once a teacher has GRADED the student's submission.
+GATED_ORDER = ["video", "schreiben", "sprechen", "wortschatz_quiz", "lesson_quiz"]
 
 
 class SectionGateService:
@@ -201,40 +198,51 @@ class SectionGateService:
         }
         return question_ids.issubset(answered_ids)
 
-    def _writing_evaluated(self, assessment: Assessment, attempt: AssessmentAttempt | None) -> bool:
-        """Only STATUS_GRADED counts — SUBMITTED/PENDING_REVIEW mean a
-        human/AI decision is still pending (see writing_submission.py)."""
-        if attempt is None:
+    def _writing_graded(self, user_id: UUID, lesson_id: UUID) -> bool:
+        """Every published Writing task of this lesson has a student
+        submission that a teacher has GRADED — a merely SUBMITTED (or
+        DRAFT / NEEDS_REVISION) answer never counts as completed."""
+        task_ids = [
+            str(row[0])
+            for row in self.db.query(Writing.id)
+            .filter(Writing.lesson_id == str(lesson_id), Writing.is_published.is_(True))
+            .all()
+        ]
+        if not task_ids:
             return False
-        return (
-            self.db.query(WritingSubmission)
-            .join(AssessmentSection, WritingSubmission.section_id == AssessmentSection.id)
+        graded = {
+            str(row[0])
+            for row in self.db.query(StudentWriting.writing_id)
             .filter(
-                WritingSubmission.attempt_id == attempt.id,
-                AssessmentSection.skill == SKILL_SCHREIBEN,
-                WritingSubmission.status == WRITING_STATUS_GRADED,
+                StudentWriting.user_id == str(user_id),
+                StudentWriting.writing_id.in_(task_ids),
+                StudentWriting.status == WRITING_STATUS_GRADED,
             )
-            .first()
-            is not None
-        )
+            .all()
+        }
+        return set(task_ids).issubset(graded)
 
-    def _speaking_evaluated(self, assessment: Assessment, attempt: AssessmentAttempt | None) -> bool:
-        """Only STATUS_FINAL counts — PENDING_REVIEW/REVIEWED mean the
-        teacher hasn't finalized/released the score yet (see
-        speaking_submission.py)."""
-        if attempt is None:
+    def _speaking_graded(self, user_id: UUID, lesson_id: UUID) -> bool:
+        """Same rule as _writing_graded, for StudentSpeaking."""
+        task_ids = [
+            str(row[0])
+            for row in self.db.query(Speaking.id)
+            .filter(Speaking.lesson_id == str(lesson_id), Speaking.is_published.is_(True))
+            .all()
+        ]
+        if not task_ids:
             return False
-        return (
-            self.db.query(SpeakingSubmission)
-            .join(AssessmentSection, SpeakingSubmission.section_id == AssessmentSection.id)
+        graded = {
+            str(row[0])
+            for row in self.db.query(StudentSpeaking.speaking_id)
             .filter(
-                SpeakingSubmission.attempt_id == attempt.id,
-                AssessmentSection.skill == SKILL_SPRECHEN,
-                SpeakingSubmission.status == SPEAKING_STATUS_FINAL,
+                StudentSpeaking.user_id == user_id,
+                StudentSpeaking.speaking_id.in_(task_ids),
+                StudentSpeaking.status == SPEAKING_STATUS_GRADED,
             )
-            .first()
-            is not None
-        )
+            .all()
+        }
+        return set(task_ids).issubset(graded)
 
     # ==========================
     # Applicability signals
@@ -288,10 +296,22 @@ class SectionGateService:
         )
 
     def _writing_applicable(self, lesson_id: UUID) -> bool:
-        return self.db.query(Writing).filter(Writing.lesson_id == str(lesson_id)).first() is not None
+        # Published only: an unpublished task is invisible to students, so
+        # it must neither show a nav tab nor block lesson completion.
+        return (
+            self.db.query(Writing)
+            .filter(Writing.lesson_id == str(lesson_id), Writing.is_published.is_(True))
+            .first()
+            is not None
+        )
 
     def _speaking_applicable(self, lesson_id: UUID) -> bool:
-        return self.db.query(Speaking).filter(Speaking.lesson_id == str(lesson_id)).first() is not None
+        return (
+            self.db.query(Speaking)
+            .filter(Speaking.lesson_id == str(lesson_id), Speaking.is_published.is_(True))
+            .first()
+            is not None
+        )
 
     # ==========================
     # Public API
@@ -317,8 +337,8 @@ class SectionGateService:
             "grammatik_quiz": self._quiz_submitted(user_id, lesson_id, QUIZ_TYPE_GRAMMAR),
             "lesen": bool(assessment) and self._skill_all_answered(assessment, attempt, SKILL_LESEN),
             "hoeren": bool(assessment) and self._skill_all_answered(assessment, attempt, SKILL_HOEREN),
-            "schreiben": bool(assessment) and self._writing_evaluated(assessment, attempt),
-            "sprechen": bool(assessment) and self._speaking_evaluated(assessment, attempt),
+            "schreiben": self._writing_graded(user_id, lesson_id),
+            "sprechen": self._speaking_graded(user_id, lesson_id),
             "lesson_quiz": self._quiz_submitted(user_id, lesson_id, QUIZ_TYPE_LESSON),
         }
 

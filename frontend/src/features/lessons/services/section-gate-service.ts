@@ -32,12 +32,12 @@ export async function getSectionGate(lessonId: string): Promise<SectionGateState
   return api<SectionGateState>(`/api/v1/lessons/${lessonId}/section-gate`);
 }
 
-/** Lesson completed = every applicable, gated section is completed
- * ("grammatik" is never gated/required — see section_gate.py). Derived
- * client-side from the same state the nav already fetches, rather than
- * a separate endpoint. */
+/** Lesson completed = every applicable step that has a completion signal
+ * is completed (Video, Schreiben, Sprechen, Wortschatz Test, Yakuniy
+ * Test — mirrors GATED_ORDER in section_gate.py). Derived client-side
+ * from the same state the nav already fetches, rather than a separate
+ * endpoint. */
 export function isLessonComplete(gate: SectionGateState): boolean {
-  return (Object.keys(gate) as SectionGateKey[])
-    .filter((key) => key !== "grammatik")
-    .every((key) => !gate[key].applicable || gate[key].completed);
+  const tracked: SectionGateKey[] = ["video", "schreiben", "sprechen", "wortschatz_quiz", "lesson_quiz"];
+  return tracked.every((key) => !gate[key].applicable || gate[key].completed);
 }
