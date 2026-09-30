@@ -1,5 +1,5 @@
 """Idempotent content import for VIZU-Mock's Hören module: 5 Aufgaben
-(1 per CEFR level A1-C1), 20 graded questions, 1 point each (20 max).
+(1 per CEFR level A1-C1), 20 graded questions, 5 points each (100 max).
 
 No passage_text is ever set for Hören content — the source material is
 audio, uploaded separately per Aufgabe from the admin panel (see
@@ -248,7 +248,7 @@ def _upsert_question(
     question.question_type = question_type
     question.passage_text = None
     question.prompt = prompt
-    question.points = 1
+    question.points = 5
     db.flush()
     return question
 
