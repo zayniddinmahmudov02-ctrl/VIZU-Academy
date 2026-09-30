@@ -55,6 +55,7 @@ export const ADMIN_ENDPOINTS = {
   vizuMockAttempts: "/api/v1/admin/vizu-mock/attempts",
   vizuMockAttemptDetail: (attemptId: string) => `/api/v1/admin/vizu-mock/attempts/${attemptId}`,
   vizuMockLesenContent: "/api/v1/admin/vizu-mock/lesen-content",
+  vizuMockLesenContentImportCsv: "/api/v1/admin/vizu-mock/lesen-content/import-csv",
   vizuMockHoerenContent: "/api/v1/admin/vizu-mock/hoeren-content",
   vizuMockHoerenContentImportCsv: "/api/v1/admin/vizu-mock/hoeren-content/import-csv",
   vizuMockSchreibenContent: "/api/v1/admin/vizu-mock/schreiben-content",

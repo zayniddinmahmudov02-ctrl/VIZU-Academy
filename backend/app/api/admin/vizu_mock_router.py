@@ -24,7 +24,7 @@ from app.schemas.vizu_mock import (
 )
 from app.services.admin import vizu_mock_admin_service as service
 from app.services.admin import vizu_mock_writing_admin_service as writing_service
-from app.services.vizu_mock import hoeren_csv_import_service, hoeren_service, lesen_service
+from app.services.vizu_mock import hoeren_csv_import_service, hoeren_service, lesen_csv_import_service, lesen_service
 
 router = APIRouter(prefix="/admin/vizu-mock", tags=["Admin - VIZU-Mock"])
 
@@ -98,8 +98,10 @@ def get_attempt_detail(
 
 
 # ============================================================
-# Lesen — read-only view of the already-seeded content (no generator/
-# editor here, per the current phase's explicit scope)
+# Lesen — read-only preview of the seeded content, plus a CSV import for
+# re-entering/updating it (see services/vizu_mock/
+# lesen_csv_import_service.py) — no manual question-by-question editor,
+# per the module's original scope.
 # ============================================================
 
 
@@ -109,6 +111,27 @@ def get_lesen_content(
     current_user: User = Depends(require_admin_panel_access),
 ):
     return lesen_service.list_lesen_tasks(db)
+
+
+@router.post("/lesen-content/import-csv")
+async def import_lesen_csv(
+    file: UploadFile = File(...),
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    """CSV import for VIZU-Mock's own Lesen Aufgabe/question/option
+    content. Safe to re-run: matches existing tasks/questions/options by
+    their natural key and updates them in place instead of duplicating."""
+    raw = await file.read()
+    try:
+        text = raw.decode("utf-8-sig")
+    except UnicodeDecodeError:
+        raise HTTPException(status_code=400, detail="CSV must be UTF-8 encoded.")
+
+    try:
+        return lesen_csv_import_service.import_csv_text(db, text)
+    except lesen_csv_import_service.CsvImportError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
 # ============================================================
