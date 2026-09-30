@@ -6,6 +6,7 @@ import { Mic, RotateCcw, Square } from "lucide-react";
 
 import Button from "@/components/ui/button";
 import { useTranslation } from "@/lib/i18n/use-translation";
+import VizuMockFinishConfirmDialog from "@/features/vizu-mock/components/finish-confirm-dialog";
 import VizuMockStepShell from "@/features/vizu-mock/components/step-shell";
 import { getSkillMeta } from "@/features/vizu-mock/constants/skills";
 
@@ -25,6 +26,7 @@ export default function VizuMockSprechenPage() {
 
   const [state, setState] = useState<RecordState>("idle");
   const [elapsed, setElapsed] = useState(0);
+  const [finishConfirmOpen, setFinishConfirmOpen] = useState(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
@@ -49,12 +51,19 @@ export default function VizuMockSprechenPage() {
     setState("idle");
   }
 
+  function handleFinish() {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    setFinishConfirmOpen(false);
+    router.push(`/vizu-mock/${attemptId}/natijalar`);
+  }
+
   const mm = String(Math.floor(elapsed / 60)).padStart(2, "0");
   const ss = String(elapsed % 60).padStart(2, "0");
 
   return (
     <VizuMockStepShell
       skill={skill}
+      onFinishClick={() => setFinishConfirmOpen(true)}
       footer={
         <Button
           disabled={state !== "recorded"}
@@ -110,6 +119,12 @@ export default function VizuMockSprechenPage() {
           )}
         </div>
       </div>
+
+      <VizuMockFinishConfirmDialog
+        open={finishConfirmOpen}
+        onCancel={() => setFinishConfirmOpen(false)}
+        onConfirm={handleFinish}
+      />
     </VizuMockStepShell>
   );
 }

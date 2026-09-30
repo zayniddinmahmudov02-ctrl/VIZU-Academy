@@ -4,10 +4,11 @@ import { useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { AlertTriangle, ArrowLeft, ArrowRight, Check, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, CheckCircle2 } from "lucide-react";
 
 import Button from "@/components/ui/button";
 import { useTranslation } from "@/lib/i18n/use-translation";
+import VizuMockFinishConfirmDialog from "@/features/vizu-mock/components/finish-confirm-dialog";
 import VizuMockStepShell from "@/features/vizu-mock/components/step-shell";
 import VizuMockWritingEditor from "@/features/vizu-mock/components/writing-editor";
 import { getSkillMeta } from "@/features/vizu-mock/constants/skills";
@@ -112,6 +113,7 @@ export default function VizuMockSchreibenPage() {
   return (
     <VizuMockStepShell
       skill={skill}
+      onFinishClick={() => setConfirmOpen(true)}
       footer={
         <div className="flex items-center gap-2">
           {taskIndex > 0 && (
@@ -176,27 +178,12 @@ export default function VizuMockSchreibenPage() {
         </div>
       )}
 
-      {confirmOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
-          <div className="w-full max-w-sm space-y-4 rounded-2xl bg-surface-card p-6 shadow-[var(--shadow-lg)] ring-1 ring-surface-border">
-            <div className="flex items-start gap-3">
-              <AlertTriangle size={20} className="mt-0.5 shrink-0 text-warning" />
-              <div>
-                <p className="text-sm font-bold text-text-primary">{t("vizuMock.schreibenConfirmTitle")}</p>
-                <p className="mt-1 text-sm text-text-secondary">{t("vizuMock.schreibenConfirmBody")}</p>
-              </div>
-            </div>
-            <div className="flex justify-end gap-2">
-              <Button variant="secondary" onClick={() => setConfirmOpen(false)} disabled={submitMutation.isPending}>
-                {t("vizuMock.schreibenConfirmCancel")}
-              </Button>
-              <Button onClick={() => submitMutation.mutate()} disabled={submitMutation.isPending}>
-                {submitMutation.isPending ? t("common.loading") : t("vizuMock.schreibenConfirmSubmit")}
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
+      <VizuMockFinishConfirmDialog
+        open={confirmOpen}
+        onCancel={() => setConfirmOpen(false)}
+        onConfirm={() => submitMutation.mutate()}
+        isSubmitting={submitMutation.isPending}
+      />
     </VizuMockStepShell>
   );
 }

@@ -207,21 +207,25 @@ export const translations: Record<string, Namespace> = {
     schreibenSave: { de: "Speichern", uz: "Saqlash" },
     schreibenSaved: { de: "Gespeichert", uz: "Saqlandi" },
     schreibenAbsenden: { de: "Schreiben absenden", uz: "Schreiben'ni yuborish" },
-    schreibenConfirmTitle: {
-      de: "Möchten Sie Ihre Antworten wirklich abgeben?",
-      uz: "Javoblaringizni haqiqatan ham topshirmoqchimisiz?",
-    },
-    schreibenConfirmBody: {
-      de: "Nach dem Absenden können die Antworten nicht mehr geändert werden.",
-      uz: "Yuborilgandan so'ng javoblarni o'zgartirib bo'lmaydi.",
-    },
     schreibenConfirmCancel: { de: "Abbrechen", uz: "Bekor qilish" },
-    schreibenConfirmSubmit: { de: "Absenden", uz: "Yuborish" },
     schreibenSubmittedTitle: {
       de: "Ihre Antworten wurden erfolgreich übermittelt.",
       uz: "Javoblaringiz muvaffaqiyatli yuborildi.",
     },
     continueToSprechen: { de: "Weiter zu Sprechen", uz: "Sprechenga o'tish" },
+    // Persistent "Yakunlash" — lets a student end the CURRENT competency
+    // early (Lesen/Hören/Schreiben/Sprechen), even with unanswered
+    // questions, instead of being forced to finish everything first.
+    finishLabel: { de: "Beenden", uz: "Yakunlash" },
+    finishConfirmTitle: {
+      de: "Möchten Sie diesen Abschnitt wirklich beenden?",
+      uz: "Ushbu bo'limni haqiqatan ham yakunlamoqchimisiz?",
+    },
+    finishConfirmBody: {
+      de: "Unbeantwortete Fragen werden als falsch gewertet. Diese Aktion kann nicht rückgängig gemacht werden.",
+      uz: "Javob berilmagan savollar xato deb hisoblanadi. Bu amalni qaytarib bo'lmaydi.",
+    },
+    finishConfirmSubmit: { de: "Beenden", uz: "Yakunlash" },
     writingPrompt: { de: "Aufgabe", uz: "Topshiriq" },
     writingPromptPlaceholder: {
       de: "Die Schreibaufgabe wird bald hinzugefügt.",

@@ -8,6 +8,7 @@ import { AlertCircle, ArrowRight, Check, X } from "lucide-react";
 
 import Button from "@/components/ui/button";
 import { useTranslation } from "@/lib/i18n/use-translation";
+import VizuMockFinishConfirmDialog from "@/features/vizu-mock/components/finish-confirm-dialog";
 import VizuMockStepShell from "@/features/vizu-mock/components/step-shell";
 import { getSkillMeta } from "@/features/vizu-mock/constants/skills";
 import { getVizuMockLesenTasks, submitVizuMockLesen } from "@/features/vizu-mock/services/vizu-mock-service";
@@ -32,6 +33,7 @@ export default function VizuMockLesenPage() {
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [result, setResult] = useState<VizuMockLesenResult | null>(null);
   const [timedOut, setTimedOut] = useState(false);
+  const [finishConfirmOpen, setFinishConfirmOpen] = useState(false);
   const submittingRef = useRef(false);
 
   const submitMutation = useMutation({
@@ -70,6 +72,7 @@ export default function VizuMockLesenPage() {
     <VizuMockStepShell
       skill={skill}
       onTimerExpire={() => handleSubmit(true)}
+      onFinishClick={() => setFinishConfirmOpen(true)}
       footer={
         <Button
           onClick={() => (isLastTask ? handleSubmit(false) : setTaskIndex((i) => i + 1))}
@@ -147,6 +150,16 @@ export default function VizuMockLesenPage() {
           </div>
         </div>
       )}
+
+      <VizuMockFinishConfirmDialog
+        open={finishConfirmOpen}
+        onCancel={() => setFinishConfirmOpen(false)}
+        onConfirm={() => {
+          setFinishConfirmOpen(false);
+          handleSubmit(false);
+        }}
+        isSubmitting={submitMutation.isPending}
+      />
     </VizuMockStepShell>
   );
 }

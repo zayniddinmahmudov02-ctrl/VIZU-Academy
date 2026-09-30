@@ -18,6 +18,14 @@ interface Props {
    * instant the 20-minute countdown hits 0 — the other, still-placeholder
    * steps leave it unset. */
   onTimerExpire?: () => void;
+  /** Persistent "Yakunlash" button, shown next to the timer on every
+   * step when provided — lets the student end the CURRENT competency
+   * early (even with unanswered questions) instead of only via the
+   * footer's last-Aufgabe button or a timer expiry. Opens that step's
+   * own confirm dialog (see finish-confirm-dialog.tsx); the step decides
+   * what "finish" means for it (submit-and-grade for Lesen/Hören/
+   * Schreiben, just navigate onward for the still-placeholder Sprechen). */
+  onFinishClick?: () => void;
 }
 
 /** Shared layout for the four skill steps (Lesen/Hören/Schreiben/
@@ -25,7 +33,7 @@ interface Props {
  * countdown, and a fixed footer for the step's own action button. Keeps
  * the four step pages themselves down to just their placeholder content
  * + footer button, instead of each re-implementing this chrome. */
-export default function VizuMockStepShell({ skill, children, footer, onTimerExpire }: Props) {
+export default function VizuMockStepShell({ skill, children, footer, onTimerExpire, onFinishClick }: Props) {
   const { t } = useTranslation();
   const Icon = skill.icon;
   const currentIndex = getSkillIndex(skill.skill);
@@ -50,7 +58,18 @@ export default function VizuMockStepShell({ skill, children, footer, onTimerExpi
           </div>
         </div>
 
-        <VizuMockTimer key={skill.skill} minutes={skill.durationMinutes} onExpire={onTimerExpire} />
+        <div className="flex items-center gap-2">
+          <VizuMockTimer key={skill.skill} minutes={skill.durationMinutes} onExpire={onTimerExpire} />
+          {onFinishClick && (
+            <button
+              type="button"
+              onClick={onFinishClick}
+              className="rounded-full px-3 py-1.5 text-xs font-semibold text-text-muted ring-1 ring-surface-border transition-colors hover:bg-surface-hover hover:text-text-primary"
+            >
+              {t("vizuMock.finishLabel")}
+            </button>
+          )}
+        </div>
       </div>
 
       <div className="flex items-center gap-1.5">
