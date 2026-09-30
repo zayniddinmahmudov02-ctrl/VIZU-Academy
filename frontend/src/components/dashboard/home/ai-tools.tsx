@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, BookText, GraduationCap } from "lucide-react";
+import { ArrowRight, BookText, Gauge, GraduationCap } from "lucide-react";
 
 import { cardEntrance, staggerContainer } from "@/lib/motion";
 import { useTranslation } from "@/lib/i18n/use-translation";
@@ -14,6 +14,13 @@ const tools = [
     href: "/vorbereitung",
     icon: GraduationCap,
     gradient: "from-purple-600 to-accent-purple",
+  },
+  {
+    titleKey: "dashboard.vizuMockTitle",
+    subtitleKey: "dashboard.vizuMockSubtitle",
+    href: "/vizu-mock",
+    icon: Gauge,
+    gradient: "from-accent-blue to-blue-500",
   },
   {
     titleKey: "sidebar.dictionary",
@@ -37,7 +44,7 @@ export default function AiTools() {
         variants={staggerContainer}
         initial="hidden"
         animate="show"
-        className="grid gap-6 sm:grid-cols-2"
+        className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3"
       >
         {tools.map((tool) => {
           const Icon = tool.icon;

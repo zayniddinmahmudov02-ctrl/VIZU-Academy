@@ -81,6 +81,11 @@ export const translations: Record<string, Namespace> = {
     mockExams: { de: "Probeprüfungen", uz: "Mock imtihonlar" },
     mockExamsSubtitle: { de: "Testen Sie Ihr Wissen", uz: "Bilimingizni sinang" },
     woerterbuchSubtitle: { de: "Vokabeln nachschlagen", uz: "So'zlarni qidirish" },
+    vizuMockTitle: { de: "Teste dein Niveau kostenlos", uz: "Darajangizni bepul sinab oling" },
+    vizuMockSubtitle: {
+      de: "Bestimme dein Deutschniveau zwischen A1 und C1 durch Lesen, Hören, Schreiben und Sprechen.",
+      uz: "A1–C1 oralig'idagi nemis tili darajangizni Lesen, Hören, Schreiben va Sprechen orqali aniqlang.",
+    },
   },
 
   courses: {
@@ -145,6 +150,69 @@ export const translations: Record<string, Namespace> = {
       de: "Die Prüfungsinhalte für diesen Modelltest wurden noch nicht zur Datenbank hinzugefügt. Bald verfügbar.",
       uz: "Bu Modelltest uchun imtihon materiallari hali bazaga qo'shilmagan. Tez orada mavjud bo'ladi.",
     },
+  },
+
+  // VIZU-Mock — standalone free level-check, framework only (no question
+  // bank/grading/level algorithm yet, see backend/app/models/
+  // vizu_mock_attempt.py). Reuses the same i18n system, no new mechanism.
+  vizuMock: {
+    title: { de: "VIZU-Mock", uz: "VIZU-Mock" },
+    subtitle: { de: "Kostenloser Einstufungstest", uz: "Bepul daraja aniqlash testi" },
+    heroTitle: { de: "Teste dein Niveau kostenlos", uz: "Darajangizni bepul sinab oling" },
+    heroBody: {
+      de: "Bestimme dein Deutschniveau zwischen A1 und C1 durch Lesen, Hören, Schreiben und Sprechen.",
+      uz: "A1–C1 oralig'idagi nemis tili darajangizni Lesen, Hören, Schreiben va Sprechen orqali aniqlang.",
+    },
+    howItWorks: { de: "So funktioniert's", uz: "Bu qanday ishlaydi" },
+    minutesEach: { de: "je 20 Minuten", uz: "har biri 20 daqiqa" },
+    totalDuration: { de: "Gesamtdauer: ca. 100 Minuten", uz: "Umumiy davomiylik: taxminan 100 daqiqa" },
+    startNewAttempt: { de: "Neuen Versuch starten", uz: "Yangi urinish boshlash" },
+    step: { de: "Schritt {current} von {total}", uz: "{current}/{total}-qadam" },
+    next: { de: "Weiter", uz: "Keyingi" },
+    submit: { de: "Einreichen", uz: "Yuborish" },
+    finish: { de: "Abschließen", uz: "Yakunlash" },
+    placeholderNote: {
+      de: "Die echten Testinhalte werden in einer zukünftigen Version hinzugefügt.",
+      uz: "Haqiqiy test materiallari keyingi versiyada qo'shiladi.",
+    },
+    readingInstruction: { de: "Lies den Text und beantworte die Fragen.", uz: "Matnni o'qing va savollarga javob bering." },
+    listeningInstruction: { de: "Höre das Audio und beantworte die Fragen.", uz: "Audioni tinglang va savollarga javob bering." },
+    writingPrompt: { de: "Aufgabe", uz: "Topshiriq" },
+    writingPromptPlaceholder: {
+      de: "Die Schreibaufgabe wird bald hinzugefügt.",
+      uz: "Yozish topshirig'i tez orada qo'shiladi.",
+    },
+    writingAnswerLabel: { de: "Deine Antwort", uz: "Sizning javobingiz" },
+    writingAnswerPlaceholder: { de: "Schreibe hier deinen Text...", uz: "Matningizni shu yerga yozing..." },
+    speakingPrompt: { de: "Aufgabe", uz: "Topshiriq" },
+    speakingPromptPlaceholder: {
+      de: "Die Sprechaufgabe wird bald hinzugefügt.",
+      uz: "Gapirish topshirig'i tez orada qo'shiladi.",
+    },
+    recordStart: { de: "Aufnahme starten", uz: "Yozishni boshlash" },
+    recordStop: { de: "Aufnahme stoppen", uz: "Yozishni to'xtatish" },
+    recording: { de: "Aufnahme läuft…", uz: "Yozilmoqda…" },
+    recorded: { de: "Aufnahme bereit", uz: "Yozuv tayyor" },
+    reRecord: { de: "Neu aufnehmen", uz: "Qayta yozish" },
+    resultsTitle: { de: "VIZU-Mock Ergebnisse", uz: "VIZU-Mock Natijalari" },
+    resultsOverall: { de: "Dein Niveau", uz: "Sizning darajangiz" },
+    resultsPending: { de: "Noch nicht bewertet", uz: "Hali baholanmagan" },
+    resultsPendingNote: {
+      de: "Das Bewertungssystem wird in einer zukünftigen Version verfügbar sein.",
+      uz: "Baholash tizimi keyingi versiyada qo'shiladi.",
+    },
+    viewCertificate: { de: "Zertifikat ansehen", uz: "Sertifikatni ko'rish" },
+    certificateSubject: { de: "Deutsch Einstufung", uz: "Nemis tili darajasi" },
+    certificateStudent: { de: "Student", uz: "Talaba" },
+    certificateDate: { de: "Datum", uz: "Sana" },
+    certificateOverallLevel: { de: "Gesamtniveau", uz: "Umumiy daraja" },
+    backToHub: { de: "Zurück zu VIZU-Mock", uz: "VIZU-Mock ga qaytish" },
+    historyTitle: { de: "Frühere Versuche", uz: "Oldingi urinishlar" },
+    historyEmpty: { de: "Du hast noch keinen Versuch gestartet.", uz: "Siz hali birorta urinish boshlamadingiz." },
+    statusInProgress: { de: "Läuft", uz: "Davom etmoqda" },
+    statusCompleted: { de: "Abgeschlossen", uz: "Yakunlangan" },
+    continueAttempt: { de: "Fortsetzen", uz: "Davom ettirish" },
+    viewResults: { de: "Ergebnisse ansehen", uz: "Natijalarni ko'rish" },
   },
 
   certificates: {

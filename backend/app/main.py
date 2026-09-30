@@ -105,6 +105,10 @@ from app.api.mock_exam.attempt_router import router as mock_exam_attempt_router
 from app.api.mock_exam.analytics_router import router as mock_exam_analytics_router
 from app.api.mock_exam.public_router import router as mock_exam_public_router
 
+# VIZU-Mock (standalone free level-check — framework only, see the model's
+# own docstring)
+from app.api.vizu_mock.router import router as vizu_mock_router
+
 # Upload
 from app.api.upload import (
     router as upload_router,
@@ -232,6 +236,7 @@ _ALL_ROUTERS = [
     mock_exam_attempt_router,
     mock_exam_analytics_router,
     mock_exam_public_router,
+    vizu_mock_router,
     upload_router,
     admin_router,
     admin_users_router,
