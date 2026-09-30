@@ -13,7 +13,9 @@ class VizuMockAttemptResponse(BaseSchema):
     completed_at: datetime | None
     lesen_score: int | None
     lesen_level: str | None
-    hoeren_score: int | None
+    # Float, not int: Hören weights points by CEFR level (A1=0.5 ...
+    # C1=2.5) — see services/vizu_mock/hoeren_csv_import_service.py.
+    hoeren_score: float | None
     hoeren_level: str | None
     schreiben_score: int | None
     schreiben_level: str | None
@@ -46,7 +48,7 @@ class VizuMockQuestionPublic(BaseSchema):
     passage_text: str | None
     prompt: str
     order_index: int
-    points: int
+    points: float
     options: list[VizuMockOptionPublic]
     model_config = ConfigDict(from_attributes=True)
 
@@ -78,14 +80,14 @@ class VizuMockLesenSubmitRequest(BaseSchema):
 
 class VizuMockLevelScore(BaseSchema):
     level: str
-    points: int
-    max_points: int
+    points: float
+    max_points: float
     passed: bool
 
 
 class VizuMockLesenResult(BaseSchema):
     attempt_id: UUID
-    total_points: int
-    max_points: int
+    total_points: float
+    max_points: float
     level_scores: list[VizuMockLevelScore]
     lesen_level: str | None

@@ -38,7 +38,6 @@ def _to_public(item: QuizQuestion) -> QuizQuestionPublicResponse:
         question_type=item.question_type,
         explanation=item.explanation,
         points=item.points,
-        group_label=item.group_label,
         order_index=item.order_index,
         is_published=item.is_published,
         match_value_pool=pool,

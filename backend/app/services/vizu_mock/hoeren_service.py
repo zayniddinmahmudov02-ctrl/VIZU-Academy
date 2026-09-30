@@ -56,6 +56,11 @@ def list_hoeren_tasks(db: Session) -> list[dict]:
 
 
 def _level_breakdown(db: Session, attempt_id: UUID) -> list[dict]:
+    """Each level's points/max_points are sums of VizuMockQuestion.points
+    (a float — Hören weights points by CEFR level, A1=0.5 ... C1=2.5, see
+    services/vizu_mock/hoeren_csv_import_service.py), not a flat integer
+    per question like Lesen. The 3/4 pass check below is a ratio, so it
+    stays correct regardless of the per-level point scale."""
     rows = db.execute(
         select(VizuMockTask.level, VizuMockQuestion.points, VizuMockAnswer.points_earned)
         .select_from(VizuMockAnswer)

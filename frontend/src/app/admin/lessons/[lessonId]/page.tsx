@@ -5,7 +5,6 @@ import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft } from "lucide-react";
 
 import AdminTabs from "@/components/admin/admin-tabs";
-import HoerenQuizImport from "@/features/admin/components/managers/hoeren-quiz-import";
 import LessonResultsManager from "@/features/admin/components/lesson-results/lesson-results-manager";
 import ListeningManager from "@/features/admin/components/managers/listening-manager";
 import SpeakingManager from "@/features/admin/components/managers/speaking-manager";
@@ -48,17 +47,14 @@ export default function LessonEditorPage() {
           Yakuniy Test and every other exercise/test content is produced
           externally (Claude) and imported straight into the database —
           there are no test/question/vocabulary/grammar creators or
-          generators in the admin panel any more. The Hören Quiz tab is a
-          CSV import, not a question editor, for the same reason (see
-          hoeren-quiz-import.tsx). Student submissions are reviewed in the
-          Teacher Panel, never here ("Ergebnisse" is a read-only
-          per-student score view). */}
+          generators in the admin panel any more. Student submissions are
+          reviewed in the Teacher Panel, never here ("Ergebnisse" is a
+          read-only per-student score view). */}
       <AdminTabs
         defaultValue="video"
         tabs={[
           { value: "video", label: "Videokurs", content: <VideoManager lessonId={lessonId} /> },
           { value: "listening", label: "Hören Audio", content: <ListeningManager lessonId={lessonId} /> },
-          { value: "hoeren-quiz", label: "Hören Quiz (CSV)", content: <HoerenQuizImport lessonId={lessonId} /> },
           { value: "writing", label: "Schreiben Aufgabe", content: <WritingManager lessonId={lessonId} /> },
           { value: "speaking", label: "Sprechen Aufgabe", content: <SpeakingManager lessonId={lessonId} /> },
           { value: "results", label: "Ergebnisse", content: <LessonResultsManager lessonId={lessonId} /> },

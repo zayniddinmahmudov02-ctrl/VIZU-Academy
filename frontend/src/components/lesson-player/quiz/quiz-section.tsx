@@ -116,7 +116,7 @@ export default function QuizSection({ lessonId, quizType = "GRAMMAR" }: Props) {
   }, [questions]);
 
   const isLoading = quizzesLoading || questionsLoading;
-  const title = quizType === "HOEREN" ? t("lessons.sectionHoerenQuiz") : t("lessons.sectionLessonQuiz");
+  const title = t("lessons.sectionLessonQuiz");
 
   function selectOption(questionId: string, optionId: string) {
     if (submitted) return;
@@ -215,16 +215,8 @@ export default function QuizSection({ lessonId, quizType = "GRAMMAR" }: Props) {
 
       {!isLoading && quiz && questions && questions.length > 0 && (
         <div className="space-y-5">
-          {questions.map((question, index) => {
-            const showGroupHeader = question.group_label && question.group_label !== questions[index - 1]?.group_label;
-            return (
-            <div key={question.id}>
-              {showGroupHeader && (
-                <p className="mb-2 mt-6 text-xs font-bold uppercase tracking-wide text-text-muted first:mt-0">
-                  {question.group_label}
-                </p>
-              )}
-              <div className="rounded-2xl bg-surface-hover/60 p-6 ring-1 ring-surface-border">
+          {questions.map((question, index) => (
+            <div key={question.id} className="rounded-2xl bg-surface-hover/60 p-6 ring-1 ring-surface-border">
               <h3 className="text-base font-semibold text-text-primary">
                 {index + 1}. {question.question}
               </h3>
@@ -396,10 +388,8 @@ export default function QuizSection({ lessonId, quizType = "GRAMMAR" }: Props) {
               {submitted && question.explanation && (
                 <p className="mt-3 text-sm text-text-muted">{question.explanation}</p>
               )}
-              </div>
             </div>
-            );
-          })}
+          ))}
 
           {!submitted ? (
             <button

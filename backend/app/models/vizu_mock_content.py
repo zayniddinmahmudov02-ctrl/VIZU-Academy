@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, ForeignKey, Integer, String, Text, UniqueConstraint
+from sqlalchemy import Boolean, ForeignKey, Integer, Numeric, String, Text, UniqueConstraint
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -70,7 +70,14 @@ class VizuMockQuestion(BaseModel):
     passage_text: Mapped[str | None] = mapped_column(Text, nullable=True)
     prompt: Mapped[str] = mapped_column(Text, nullable=False)
     order_index: Mapped[int] = mapped_column(Integer, nullable=False)
-    points: Mapped[int] = mapped_column(Integer, default=1, server_default="1", nullable=False)
+    # Numeric, not Integer: Hören weights points by the question's CEFR
+    # level (A1=0.5 ... C1=2.5, see services/vizu_mock/
+    # hoeren_csv_import_service.py) — Lesen's flat 5-per-question still
+    # stores fine as a Numeric value (5.0), so this is a safe widening
+    # shared by both skills' questions.
+    points: Mapped[float] = mapped_column(
+        Numeric(4, 1, asdecimal=False), default=1, server_default="1", nullable=False
+    )
 
     task = relationship("VizuMockTask", back_populates="questions")
     options = relationship(
@@ -115,6 +122,8 @@ class VizuMockAnswer(BaseModel):
         UUID(as_uuid=True), ForeignKey("vizu_mock_options.id", ondelete="SET NULL"), nullable=True
     )
     is_correct: Mapped[bool] = mapped_column(Boolean, default=False, server_default="false", nullable=False)
-    points_earned: Mapped[int] = mapped_column(Integer, default=0, server_default="0", nullable=False)
+    points_earned: Mapped[float] = mapped_column(
+        Numeric(4, 1, asdecimal=False), default=0, server_default="0", nullable=False
+    )
 
     __table_args__ = (UniqueConstraint("attempt_id", "question_id", name="uq_vizu_mock_answer_attempt_question"),)

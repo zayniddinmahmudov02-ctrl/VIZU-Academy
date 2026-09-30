@@ -1,5 +1,9 @@
 """Idempotent content import for VIZU-Mock's Hören module: 5 Aufgaben
-(1 per CEFR level A1-C1), 20 graded questions, 5 points each (100 max).
+(1 per CEFR level A1-C1), 20 graded questions. Points are weighted by
+CEFR level (see LEVEL_POINTS below: A1=0.5 ... C1=2.5 per question, 30
+max) — same scheme app/services/vizu_mock/hoeren_csv_import_service.py
+uses for CSV imports, kept in sync here so this script and a CSV import
+of the same content always produce identical data.
 
 No passage_text is ever set for Hören content — the source material is
 audio, uploaded separately per Aufgabe from the admin panel (see
@@ -32,6 +36,11 @@ from app.models.vizu_mock_content import (
     VizuMockQuestion,
     VizuMockTask,
 )
+
+# Kept identical to hoeren_csv_import_service.LEVEL_POINTS — the fixed
+# rule for how many points a question is worth, based on its Aufgabe's
+# CEFR level (never a flat per-question value).
+LEVEL_POINTS = {"A1": 0.5, "A2": 1.0, "B1": 1.5, "B2": 2.0, "C1": 2.5}
 
 # Each entry: (level, [
 #     (question_type, prompt, [(option_text, is_correct), ...]),
@@ -235,7 +244,7 @@ def _upsert_task(db: Session, order_index: int, level: str) -> VizuMockTask:
 
 
 def _upsert_question(
-    db: Session, task: VizuMockTask, order_index: int, question_type: str, prompt: str
+    db: Session, task: VizuMockTask, order_index: int, question_type: str, prompt: str, points: float
 ) -> VizuMockQuestion:
     question = db.scalar(
         select(VizuMockQuestion).where(
@@ -248,7 +257,7 @@ def _upsert_question(
     question.question_type = question_type
     question.passage_text = None
     question.prompt = prompt
-    question.points = 5
+    question.points = points
     db.flush()
     return question
 
@@ -277,9 +286,10 @@ def main() -> None:
         for task_order, (level, questions) in enumerate(TASKS, start=1):
             task = _upsert_task(db, task_order, level)
             task_count += 1
+            points = LEVEL_POINTS[level]
 
             for question_order, (q_type, prompt, options) in enumerate(questions, start=1):
-                question = _upsert_question(db, task, question_order, q_type, prompt)
+                question = _upsert_question(db, task, question_order, q_type, prompt, points)
                 question_count += 1
                 for option_order, (text, is_correct) in enumerate(options, start=1):
                     _upsert_option(db, question, option_order, text, is_correct)

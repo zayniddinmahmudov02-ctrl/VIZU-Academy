@@ -66,6 +66,28 @@ export async function getVizuMockHoerenContent(): Promise<VizuMockAdminHoerenTas
   return ensureArray<VizuMockAdminHoerenTask>(response.data);
 }
 
+export interface VizuMockHoerenCsvImportResult {
+  tasks_created: number;
+  tasks_updated: number;
+  questions_created: number;
+  questions_updated: number;
+  total_questions: number;
+}
+
+// Imports VIZU-Mock's own Hören Aufgabe/question/option content — see
+// backend/app/services/vizu_mock/hoeren_csv_import_service.py. Entirely
+// independent of the regular course lesson's Quiz/CSV import (if any).
+export async function importVizuMockHoerenCsv(file: File): Promise<VizuMockHoerenCsvImportResult> {
+  const formData = new FormData();
+  formData.append("file", file);
+  const response = await api.post<VizuMockHoerenCsvImportResult>(
+    ADMIN_ENDPOINTS.vizuMockHoerenContentImportCsv,
+    formData,
+    { headers: { "Content-Type": "multipart/form-data" } },
+  );
+  return response.data;
+}
+
 export async function listVizuMockSchreibenTasks(): Promise<VizuMockWritingTaskAdmin[]> {
   const response = await api.get<VizuMockWritingTaskAdmin[]>(ADMIN_ENDPOINTS.vizuMockSchreibenContent);
   return ensureArray<VizuMockWritingTaskAdmin>(response.data);

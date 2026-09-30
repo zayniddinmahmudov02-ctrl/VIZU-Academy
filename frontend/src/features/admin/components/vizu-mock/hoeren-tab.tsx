@@ -1,20 +1,22 @@
 "use client";
 
+import { useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Loader2, Trash2 } from "lucide-react";
+import { CheckCircle2, Loader2, Trash2, Upload } from "lucide-react";
 
-import { AdminCard } from "@/components/admin/admin-ui";
+import { AdminButton, AdminCard } from "@/components/admin/admin-ui";
 import ConfirmDialog from "@/components/admin/confirm-dialog";
 import FileUploadField from "@/components/admin/file-upload-field";
 import {
   createVizuMockAudio,
   deleteVizuMockAudio,
   getVizuMockHoerenContent,
+  importVizuMockHoerenCsv,
   listVizuMockAudio,
   updateVizuMockAudio,
+  type VizuMockHoerenCsvImportResult,
 } from "@/features/admin/services/vizu-mock-admin-service";
 import type { VizuMockAdminHoerenTask, VizuMockAudio } from "@/features/admin/types/vizu-mock-admin.types";
-import { useState } from "react";
 
 function formatDuration(seconds: number | null): string {
   if (seconds === null) return "—";
@@ -105,6 +107,76 @@ function AufgabeAudioSlot({ task, audio }: { task: VizuMockAdminHoerenTask; audi
   );
 }
 
+/** CSV import for VIZU-Mock's own Hören Aufgabe/question/option content
+ * — entirely separate from the regular course lesson's content, never
+ * touches it. Columns: aufgabe (or task), question, type, option_a-d,
+ * correct_answer, level (A1-C1 — determines each question's points:
+ * A1=0.5 ... C1=2.5), points (informational, not authoritative), order.
+ * Idempotent: re-importing an edited CSV updates existing Aufgabe/
+ * questions/options in place instead of duplicating them. */
+function HoerenCsvImport() {
+  const queryClient = useQueryClient();
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [file, setFile] = useState<File | null>(null);
+  const [result, setResult] = useState<VizuMockHoerenCsvImportResult | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const importMutation = useMutation({
+    mutationFn: () => importVizuMockHoerenCsv(file!),
+    onSuccess: (res) => {
+      setResult(res);
+      setError(null);
+      setFile(null);
+      if (inputRef.current) inputRef.current.value = "";
+      queryClient.invalidateQueries({ queryKey: ["vizu-mock-admin-hoeren-content"] });
+      queryClient.invalidateQueries({ queryKey: ["vizu-mock-admin-overview"] });
+      queryClient.invalidateQueries({ queryKey: ["vizu-mock-admin-level-analytics"] });
+    },
+    onError: () => {
+      setResult(null);
+      setError(
+        "Import fehlgeschlagen. Bitte CSV-Format prüfen (aufgabe, question, type, option_a-d, correct_answer, level, points, order).",
+      );
+    },
+  });
+
+  return (
+    <AdminCard className="mb-4">
+      <h3 className="text-sm font-semibold text-[var(--admin-text-primary)]">Hören-Aufgaben per CSV importieren</h3>
+      <p className="mt-1 text-xs text-[var(--admin-text-secondary)]">
+        Spalten: aufgabe (oder task), question, type (MULTIPLE_CHOICE / TRUE_FALSE / CLOZE), option_a–d,
+        correct_answer, level (A1–C1), points, order. Die Punktzahl wird immer aus dem Niveau abgeleitet (A1=0,5 ...
+        C1=2,5) — die points-Spalte ist rein informativ.
+      </p>
+
+      <div className="mt-4 flex flex-wrap items-center gap-2">
+        <input
+          ref={inputRef}
+          type="file"
+          accept=".csv,text/csv"
+          onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+          className="text-sm text-[var(--admin-text-secondary)]"
+        />
+        <AdminButton size="sm" onClick={() => importMutation.mutate()} disabled={!file || importMutation.isPending}>
+          <Upload size={14} />
+          {importMutation.isPending ? "Wird importiert..." : "Importieren"}
+        </AdminButton>
+      </div>
+
+      {error && <p className="mt-3 text-sm text-[var(--admin-danger)]">{error}</p>}
+
+      {result && (
+        <div className="mt-3 flex items-center gap-2 rounded-lg bg-[var(--admin-success,#22c55e)]/10 px-3 py-2 text-sm text-[var(--admin-success,#22c55e)]">
+          <CheckCircle2 size={15} />
+          {result.total_questions} Frage(n) importiert ({result.tasks_created} Aufgabe(n) neu,{" "}
+          {result.tasks_updated} aktualisiert · {result.questions_created} Frage(n) neu,{" "}
+          {result.questions_updated} aktualisiert).
+        </div>
+      )}
+    </AdminCard>
+  );
+}
+
 export default function VizuMockHoerenTab() {
   const { data: tasks, isLoading: tasksLoading } = useQuery({
     queryKey: ["vizu-mock-admin-hoeren-content"],
@@ -120,20 +192,20 @@ export default function VizuMockHoerenTab() {
 
   const audioByTaskId = new Map((audios ?? []).filter((a) => a.task_id).map((a) => [a.task_id as string, a]));
 
-  if (isLoading) {
-    return (
-      <div className="flex h-40 items-center justify-center">
-        <Loader2 size={22} className="animate-spin text-[var(--admin-primary)]" />
-      </div>
-    );
-  }
-
   return (
     <div>
+      <HoerenCsvImport />
+
       <p className="mb-4 text-sm text-[var(--admin-text-secondary)]">
-        5 Hören-Aufgaben (je 4 Fragen, 1 Punkt pro Frage). Fragen/Optionen werden per Import gepflegt — hier wird nur
-        die zugehörige Audiodatei je Aufgabe verwaltet.
+        Hören-Aufgaben (Punkte je Niveau: A1=0,5 · A2=1,0 · B1=1,5 · B2=2,0 · C1=2,5 pro Frage). Fragen/Optionen
+        werden per CSV-Import gepflegt — hier wird zusätzlich die zugehörige Audiodatei je Aufgabe verwaltet.
       </p>
+
+      {isLoading ? (
+        <div className="flex h-40 items-center justify-center">
+          <Loader2 size={22} className="animate-spin text-[var(--admin-primary)]" />
+        </div>
+      ) : (
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {tasks?.map((task) => {
           const points = task.questions.reduce((sum, q) => sum + q.points, 0);
@@ -153,6 +225,7 @@ export default function VizuMockHoerenTab() {
           );
         })}
       </div>
+      )}
     </div>
   );
 }

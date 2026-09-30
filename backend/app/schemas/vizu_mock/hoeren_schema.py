@@ -28,7 +28,7 @@ class VizuMockHoerenSubmitRequest(BaseSchema):
 
 class VizuMockHoerenResult(BaseSchema):
     attempt_id: UUID
-    total_points: int
-    max_points: int
+    total_points: float
+    max_points: float
     level_scores: list[VizuMockLevelScore]
     hoeren_level: str | None

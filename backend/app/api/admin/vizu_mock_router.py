@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile
 from sqlalchemy.orm import Session
 
 from app.api.dependencies.auth import require_admin_panel_access
@@ -24,7 +24,7 @@ from app.schemas.vizu_mock import (
 )
 from app.services.admin import vizu_mock_admin_service as service
 from app.services.admin import vizu_mock_writing_admin_service as writing_service
-from app.services.vizu_mock import hoeren_service, lesen_service
+from app.services.vizu_mock import hoeren_csv_import_service, hoeren_service, lesen_service
 
 router = APIRouter(prefix="/admin/vizu-mock", tags=["Admin - VIZU-Mock"])
 
@@ -124,6 +124,29 @@ def get_hoeren_content(
     current_user: User = Depends(require_admin_panel_access),
 ):
     return hoeren_service.list_hoeren_tasks(db)
+
+
+@router.post("/hoeren-content/import-csv")
+async def import_hoeren_csv(
+    file: UploadFile = File(...),
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    """CSV import for VIZU-Mock's own Hören Aufgabe/question/option
+    content (see services/vizu_mock/hoeren_csv_import_service.py) —
+    entirely independent of the regular course lesson's Quiz system.
+    Safe to re-run: matches existing tasks/questions/options by their
+    natural key and updates them in place instead of duplicating."""
+    raw = await file.read()
+    try:
+        text = raw.decode("utf-8-sig")
+    except UnicodeDecodeError:
+        raise HTTPException(status_code=400, detail="CSV must be UTF-8 encoded.")
+
+    try:
+        return hoeren_csv_import_service.import_csv_text(db, text)
+    except hoeren_csv_import_service.CsvImportError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
 # ============================================================

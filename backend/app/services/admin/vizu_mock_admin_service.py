@@ -212,7 +212,11 @@ def get_level_analytics(db: Session) -> dict:
 
     competencies = [
         _competency_stat(db, "LESEN", VizuMockAttempt.lesen_score, VizuMockAttempt.lesen_level, max_points=100),
-        _competency_stat(db, "HOEREN", VizuMockAttempt.hoeren_score, VizuMockAttempt.hoeren_level, max_points=100),
+        # Hören's real max is 30 (4 questions x each of A1=0.5..C1=2.5,
+        # see services/vizu_mock/hoeren_csv_import_service.py) — not 100
+        # like Lesen/Schreiben, since it weights points by CEFR level
+        # instead of a flat per-question value.
+        _competency_stat(db, "HOEREN", VizuMockAttempt.hoeren_score, VizuMockAttempt.hoeren_level, max_points=30),
         _competency_stat(db, "SCHREIBEN", VizuMockAttempt.schreiben_score, VizuMockAttempt.schreiben_level, max_points=100),
         _competency_stat(db, "SPRECHEN", None, VizuMockAttempt.sprechen_level, max_points=None),
     ]

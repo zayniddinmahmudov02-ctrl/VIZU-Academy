@@ -467,7 +467,6 @@ export const translations: Record<string, Namespace> = {
     sectionSpeaking: { de: "Sprechen", uz: "Sprechen" },
     sectionVocabularyQuiz: { de: "Wortschatztest", uz: "Wortschatz Test" },
     sectionLessonQuiz: { de: "Abschlusstest", uz: "Yakuniy Test" },
-    sectionHoerenQuiz: { de: "Hören-Fragen", uz: "Hören savollari" },
     sectionResults: { de: "Ergebnisse", uz: "Natijalar" },
 
     // Schreiben/Sprechen submission awaiting a teacher's grade.

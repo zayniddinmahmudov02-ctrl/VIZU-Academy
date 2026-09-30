@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import DateTime, ForeignKey, Integer, String, Text, func
+from sqlalchemy import DateTime, ForeignKey, Integer, Numeric, String, Text, func
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -45,11 +45,16 @@ class VizuMockAttempt(BaseModel):
     started_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
     completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
-    # Raw Lesen/Hören points (0-20 each, auto-graded) and Schreiben points
-    # (0-100, teacher-graded — see class docstring). Sprechen has no
-    # equivalent yet — that module is still framework-only.
+    # Raw Lesen points (0-100, auto-graded, flat per-question weighting)
+    # and Schreiben points (0-100, teacher-graded — see class docstring).
+    # Sprechen has no equivalent yet — that module is still framework-only.
     lesen_score: Mapped[int | None] = mapped_column(Integer, nullable=True)
-    hoeren_score: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    # Numeric, not Integer: Hören weights each question's points by its
+    # CEFR level (A1=0.5 ... C1=2.5, see services/vizu_mock/
+    # hoeren_csv_import_service.py), so a partial attempt's total can be
+    # fractional (e.g. one A1 question correct = 0.5) even though a
+    # fully-answered attempt's total always lands on a whole number.
+    hoeren_score: Mapped[float | None] = mapped_column(Numeric(5, 1, asdecimal=False), nullable=True)
     schreiben_score: Mapped[int | None] = mapped_column(Integer, nullable=True)
 
     # CEFR code (A1-C1) per skill, plus the overall result — sprechen/

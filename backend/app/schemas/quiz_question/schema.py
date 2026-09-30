@@ -12,7 +12,6 @@ class QuizQuestionBase(BaseSchema):
     correct_text_answer: str | None = None
     explanation: str | None = None
     points: int = 1
-    group_label: str | None = None
     order_index: int = 1
     is_published: bool = False
 
@@ -27,7 +26,6 @@ class QuizQuestionUpdate(BaseSchema):
     correct_text_answer: str | None = None
     explanation: str | None = None
     points: int | None = None
-    group_label: str | None = None
     order_index: int | None = None
     is_published: bool | None = None
 
@@ -59,7 +57,6 @@ class QuizQuestionPublicResponse(BaseSchema):
     question_type: str
     explanation: str | None = None
     points: int
-    group_label: str | None = None
     order_index: int
     is_published: bool
     match_value_pool: list[str] | None = None
