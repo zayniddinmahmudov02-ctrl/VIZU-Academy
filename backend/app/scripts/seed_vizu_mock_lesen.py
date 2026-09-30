@@ -1,5 +1,5 @@
 """Idempotent content import for VIZU-Mock's Lesen module: 10 Aufgaben
-(2 per CEFR level A1-C1), 20 graded questions, 1 point each (20 max).
+(2 per CEFR level A1-C1), 20 graded questions, 5 points each (100 max).
 
 Matched by the natural key (skill, order_index) for tasks, then
 (task_id, order_index) for questions and (question_id, order_index) for
@@ -380,7 +380,7 @@ def _upsert_question(
     question.question_type = question_type
     question.passage_text = passage
     question.prompt = prompt
-    question.points = 1
+    question.points = 5
     db.flush()
     return question
 

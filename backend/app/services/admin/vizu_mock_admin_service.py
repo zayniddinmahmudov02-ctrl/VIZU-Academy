@@ -85,7 +85,11 @@ def get_overview(db: Session) -> dict:
     avg_score = (
         db.query(func.avg(VizuMockAttempt.lesen_score)).filter(VizuMockAttempt.lesen_score.isnot(None)).scalar()
     )
-    average_score_percent = round(float(avg_score) / 20 * 100, 1) if avg_score is not None else None
+    # Lesen is now scored out of 100 (20 questions x 5 points, see
+    # scripts/seed_vizu_mock_lesen.py) — this stat is Lesen-only (see the
+    # module's "based on available modules today" note elsewhere), so the
+    # percentage is just the raw average.
+    average_score_percent = round(float(avg_score), 1) if avg_score is not None else None
 
     return {
         "total_attempts": total_attempts,
@@ -207,7 +211,7 @@ def get_level_analytics(db: Session) -> dict:
     ]
 
     competencies = [
-        _competency_stat(db, "LESEN", VizuMockAttempt.lesen_score, VizuMockAttempt.lesen_level, max_points=20),
+        _competency_stat(db, "LESEN", VizuMockAttempt.lesen_score, VizuMockAttempt.lesen_level, max_points=100),
         _competency_stat(db, "HOEREN", VizuMockAttempt.hoeren_score, VizuMockAttempt.hoeren_level, max_points=20),
         _competency_stat(db, "SCHREIBEN", VizuMockAttempt.schreiben_score, VizuMockAttempt.schreiben_level, max_points=100),
         _competency_stat(db, "SPRECHEN", None, VizuMockAttempt.sprechen_level, max_points=None),

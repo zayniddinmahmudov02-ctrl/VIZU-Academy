@@ -150,7 +150,7 @@ export default function VizuMockResultsTab() {
               <div>
                 <p className="text-[var(--admin-text-muted)]">Lesen-Punkte</p>
                 <p className="font-semibold text-[var(--admin-text-primary)]">
-                  {selected.lesen_score !== null ? `${selected.lesen_score}/20` : "—"}
+                  {selected.lesen_score !== null ? `${selected.lesen_score}/100` : "—"}
                 </p>
               </div>
             </div>
