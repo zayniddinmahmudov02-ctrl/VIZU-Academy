@@ -46,4 +46,15 @@ export const ADMIN_ENDPOINTS = {
   mockExamDashboardSummary: "/api/v1/mock-exam/dashboard-summary",
   mockExamModelTestAnalytics: (modelTestId: string) => `/api/v1/mock-exam/model-tests/${modelTestId}/analytics`,
   mockExamProviderAnalytics: (providerId: string) => `/api/v1/mock-exam/providers/${providerId}/analytics`,
+
+  // VIZU-Mock Admin Dashboard
+  vizuMockOverview: "/api/v1/admin/vizu-mock/overview",
+  vizuMockActivity: "/api/v1/admin/vizu-mock/activity",
+  vizuMockLevelAnalytics: "/api/v1/admin/vizu-mock/level-analytics",
+  vizuMockAnalytics: "/api/v1/admin/vizu-mock/analytics",
+  vizuMockAttempts: "/api/v1/admin/vizu-mock/attempts",
+  vizuMockAttemptDetail: (attemptId: string) => `/api/v1/admin/vizu-mock/attempts/${attemptId}`,
+  vizuMockLesenContent: "/api/v1/admin/vizu-mock/lesen-content",
+  vizuMockAudio: "/api/v1/admin/vizu-mock/audio",
+  vizuMockAudioDetail: (audioId: string) => `/api/v1/admin/vizu-mock/audio/${audioId}`,
 } as const;

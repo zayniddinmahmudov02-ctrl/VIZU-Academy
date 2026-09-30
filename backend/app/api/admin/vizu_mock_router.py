@@ -1,0 +1,151 @@
+from uuid import UUID
+
+from fastapi import APIRouter, Depends, HTTPException, Query
+from sqlalchemy.orm import Session
+
+from app.api.dependencies.auth import require_admin_panel_access
+from app.db.session import get_db
+from app.models.user import User
+from app.schemas.vizu_mock import (
+    VizuMockActivityStats,
+    VizuMockAdminAttemptItem,
+    VizuMockAdminAttemptsPage,
+    VizuMockAnalytics,
+    VizuMockAudioCreate,
+    VizuMockAudioResponse,
+    VizuMockAudioUpdate,
+    VizuMockLevelAnalytics,
+    VizuMockOverviewStats,
+    VizuMockTaskPublic,
+)
+from app.services.admin import vizu_mock_admin_service as service
+from app.services.vizu_mock import lesen_service
+
+router = APIRouter(prefix="/admin/vizu-mock", tags=["Admin - VIZU-Mock"])
+
+
+# ============================================================
+# Overview / Analytics
+# ============================================================
+
+
+@router.get("/overview", response_model=VizuMockOverviewStats)
+def get_overview(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    return service.get_overview(db)
+
+
+@router.get("/activity", response_model=VizuMockActivityStats)
+def get_activity(
+    days: int = Query(7, ge=1, le=90),
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    return service.get_activity(db, days)
+
+
+@router.get("/level-analytics", response_model=VizuMockLevelAnalytics)
+def get_level_analytics(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    return service.get_level_analytics(db)
+
+
+@router.get("/analytics", response_model=VizuMockAnalytics)
+def get_analytics(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    return service.get_analytics(db)
+
+
+# ============================================================
+# Oxirgi testlar / Natijalar
+# ============================================================
+
+
+@router.get("/attempts", response_model=VizuMockAdminAttemptsPage)
+def list_attempts(
+    page: int = Query(1, ge=1),
+    page_size: int = Query(20, ge=1, le=100),
+    search: str | None = Query(None),
+    level: str | None = Query(None),
+    status: str | None = Query(None),
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    return service.list_attempts(db, page=page, page_size=page_size, search=search, level=level, status=status)
+
+
+@router.get("/attempts/{attempt_id}", response_model=VizuMockAdminAttemptItem)
+def get_attempt_detail(
+    attempt_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    detail = service.get_attempt_detail(db, attempt_id)
+    if detail is None:
+        raise HTTPException(status_code=404, detail="Attempt not found.")
+    return detail
+
+
+# ============================================================
+# Lesen — read-only view of the already-seeded content (no generator/
+# editor here, per the current phase's explicit scope)
+# ============================================================
+
+
+@router.get("/lesen-content", response_model=list[VizuMockTaskPublic])
+def get_lesen_content(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    return lesen_service.list_lesen_tasks(db)
+
+
+# ============================================================
+# Hören Audio management
+# ============================================================
+
+
+@router.get("/audio", response_model=list[VizuMockAudioResponse])
+def list_audio(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    return service.list_audio(db)
+
+
+@router.post("/audio", response_model=VizuMockAudioResponse, status_code=201)
+def create_audio(
+    data: VizuMockAudioCreate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    return service.create_audio(db, data)
+
+
+@router.put("/audio/{audio_id}", response_model=VizuMockAudioResponse)
+def update_audio(
+    audio_id: UUID,
+    data: VizuMockAudioUpdate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    audio = service.update_audio(db, audio_id, data)
+    if audio is None:
+        raise HTTPException(status_code=404, detail="Audio not found.")
+    return audio
+
+
+@router.delete("/audio/{audio_id}", status_code=204)
+def delete_audio(
+    audio_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    if not service.delete_audio(db, audio_id):
+        raise HTTPException(status_code=404, detail="Audio not found.")

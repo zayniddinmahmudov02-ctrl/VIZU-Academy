@@ -1,20 +1,64 @@
-import { FlaskConical } from "lucide-react";
+import { Headphones, Mic, PenLine } from "lucide-react";
 
 import { AdminPageHeader } from "@/components/admin/admin-ui";
+import AdminTabs from "@/components/admin/admin-tabs";
 import AdminEmptySection from "@/components/admin/admin-empty-section";
+import VizuMockAnalyticsTab from "@/features/admin/components/vizu-mock/analytics-tab";
+import VizuMockAudioTab from "@/features/admin/components/vizu-mock/audio-tab";
+import VizuMockLesenTab from "@/features/admin/components/vizu-mock/lesen-tab";
+import VizuMockOverviewTab from "@/features/admin/components/vizu-mock/overview-tab";
+import VizuMockResultsTab from "@/features/admin/components/vizu-mock/results-tab";
 
 export default function VizuMockPage() {
   return (
     <div>
       <AdminPageHeader
         title="VIZU-MOCK"
-        description="Ein eigenständiges Mock-Test-System, unabhängig von Vorbereitung."
+        description="Darajani aniqlash testi boshqaruvi va statistika — eigenständiges Mock-Test-System, unabhängig von Vorbereitung."
       />
 
-      <AdminEmptySection
-        icon={FlaskConical}
-        title="Noch nicht eingerichtet"
-        description="VIZU-MOCK ist bereit für die zukünftige Entwicklung. Es werden noch keine Mock-Tests oder Testdaten angelegt."
+      <AdminTabs
+        defaultValue="overview"
+        tabs={[
+          { value: "overview", label: "Overview", content: <VizuMockOverviewTab /> },
+          { value: "audio", label: "Hören Audio", content: <VizuMockAudioTab /> },
+          { value: "lesen", label: "Lesen", content: <VizuMockLesenTab /> },
+          {
+            value: "hoeren",
+            label: "Hören",
+            content: (
+              <AdminEmptySection
+                icon={Headphones}
+                title="Noch nicht eingerichtet"
+                description="Hören-Testinhalte werden in einer späteren Phase hinzugefügt. Audiodateien können bereits jetzt unter „Hören Audio“ hochgeladen werden."
+              />
+            ),
+          },
+          {
+            value: "schreiben",
+            label: "Schreiben",
+            content: (
+              <AdminEmptySection
+                icon={PenLine}
+                title="Noch nicht eingerichtet"
+                description="Schreiben-Testinhalte werden in einer späteren Phase hinzugefügt."
+              />
+            ),
+          },
+          {
+            value: "sprechen",
+            label: "Sprechen",
+            content: (
+              <AdminEmptySection
+                icon={Mic}
+                title="Noch nicht eingerichtet"
+                description="Sprechen-Testinhalte werden in einer späteren Phase hinzugefügt."
+              />
+            ),
+          },
+          { value: "results", label: "Results", content: <VizuMockResultsTab /> },
+          { value: "analytics", label: "Analytics", content: <VizuMockAnalyticsTab /> },
+        ]}
       />
     </div>
   );

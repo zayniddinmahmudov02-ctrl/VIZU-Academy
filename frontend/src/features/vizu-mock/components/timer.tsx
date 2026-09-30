@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Clock } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -8,6 +8,8 @@ import { cn } from "@/lib/utils";
 interface Props {
   minutes: number;
   className?: string;
+  /** Fires exactly once, the instant the countdown reaches 0. */
+  onExpire?: () => void;
 }
 
 /** Simple client-side countdown — purely a UX affordance for this
@@ -19,8 +21,9 @@ interface Props {
  * inventing a new look. The caller remounts this (via `key`) whenever
  * the countdown should restart — e.g. one `key` per skill step, see
  * step-shell.tsx — rather than this component resetting itself. */
-export default function VizuMockTimer({ minutes, className }: Props) {
+export default function VizuMockTimer({ minutes, className, onExpire }: Props) {
   const [remaining, setRemaining] = useState(() => minutes * 60);
+  const expiredRef = useRef(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -28,6 +31,13 @@ export default function VizuMockTimer({ minutes, className }: Props) {
     }, 1000);
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    if (remaining === 0 && !expiredRef.current) {
+      expiredRef.current = true;
+      onExpire?.();
+    }
+  }, [remaining, onExpire]);
 
   const mm = String(Math.floor(remaining / 60)).padStart(2, "0");
   const ss = String(remaining % 60).padStart(2, "0");

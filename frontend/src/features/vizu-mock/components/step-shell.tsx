@@ -14,6 +14,10 @@ interface Props {
   skill: VizuMockSkillMeta;
   children: ReactNode;
   footer: ReactNode;
+  /** Lesen wires this to auto-submit whatever's answered so far the
+   * instant the 20-minute countdown hits 0 — the other, still-placeholder
+   * steps leave it unset. */
+  onTimerExpire?: () => void;
 }
 
 /** Shared layout for the four skill steps (Lesen/Hören/Schreiben/
@@ -21,7 +25,7 @@ interface Props {
  * countdown, and a fixed footer for the step's own action button. Keeps
  * the four step pages themselves down to just their placeholder content
  * + footer button, instead of each re-implementing this chrome. */
-export default function VizuMockStepShell({ skill, children, footer }: Props) {
+export default function VizuMockStepShell({ skill, children, footer, onTimerExpire }: Props) {
   const { t } = useTranslation();
   const Icon = skill.icon;
   const currentIndex = getSkillIndex(skill.skill);
@@ -46,7 +50,7 @@ export default function VizuMockStepShell({ skill, children, footer }: Props) {
           </div>
         </div>
 
-        <VizuMockTimer key={skill.skill} minutes={skill.durationMinutes} />
+        <VizuMockTimer key={skill.skill} minutes={skill.durationMinutes} onExpire={onTimerExpire} />
       </div>
 
       <div className="flex items-center gap-1.5">

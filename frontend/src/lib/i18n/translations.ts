@@ -177,6 +177,19 @@ export const translations: Record<string, Namespace> = {
     },
     readingInstruction: { de: "Lies den Text und beantworte die Fragen.", uz: "Matnni o'qing va savollarga javob bering." },
     listeningInstruction: { de: "Höre das Audio und beantworte die Fragen.", uz: "Audioni tinglang va savollarga javob bering." },
+    // Lesen — real content flow (10 Aufgaben, 20 questions).
+    aufgabeStep: { de: "Aufgabe {current} von {total}", uz: "{current}/{total}-Aufgabe" },
+    question: { de: "Frage {number}", uz: "{number}-savol" },
+    finishLesen: { de: "Lesen abschließen", uz: "Lesenni yakunlash" },
+    lesenTimeUpNote: {
+      de: "Die Zeit ist abgelaufen — deine Antworten wurden automatisch eingereicht.",
+      uz: "Vaqt tugadi — javoblaringiz avtomatik yuborildi.",
+    },
+    lesenResultTitle: { de: "VIZU-Mock — Lesen Ergebnis", uz: "VIZU-Mock — Lesen Natijasi" },
+    lesenNiveau: { de: "Lesen-Niveau", uz: "Lesen darajasi" },
+    lesenNiveauNotConfirmed: { de: "Niveau nicht bestätigt", uz: "Daraja aniqlanmadi" },
+    points: { de: "Punkte", uz: "Ball" },
+    continueToHoeren: { de: "Weiter zu Hören", uz: "Hörenga o'tish" },
     writingPrompt: { de: "Aufgabe", uz: "Topshiriq" },
     writingPromptPlaceholder: {
       de: "Die Schreibaufgabe wird bald hinzugefügt.",

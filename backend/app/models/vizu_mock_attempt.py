@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import DateTime, ForeignKey, String, func
+from sqlalchemy import DateTime, ForeignKey, Integer, String, func
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -17,14 +17,13 @@ class VizuMockAttempt(BaseModel):
     the Vorbereitung/Zertifikat exam system (see the "VIZU-MOCK" admin
     nav entry, reserved for this since an earlier phase).
 
-    Framework only, per spec: there is no question bank, no AI grading and
-    no level-determination algorithm yet, so the four *_level columns and
-    overall_level stay NULL forever for now. What this table exists to
-    support today is real: creating an attempt when a student starts,
-    marking it completed when they finish the four skill steps, and
-    listing a student's own past attempts (their results-history view).
-    A later phase fills the level columns in place — no migration should
-    be needed for that, only new write paths.
+    Lesen is now real end to end (see vizu_mock_content.py's models and
+    services/vizu_mock/lesen_service.py): lesen_level/lesen_score are
+    written once, at submit time. Hören/Schreiben/Sprechen have no
+    question bank or grading yet, so hoeren_level/schreiben_level/
+    sprechen_level/overall_level stay NULL until a later phase fills
+    them in place — no migration should be needed for that, only new
+    write paths per skill.
     """
 
     __tablename__ = "vizu_mock_attempts"
@@ -38,8 +37,14 @@ class VizuMockAttempt(BaseModel):
     started_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
     completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
-    # CEFR code (A1-C1) per skill, plus the overall result — all nullable
-    # placeholders, never computed today (see class docstring).
+    # Raw Lesen points (0-20), set once by services/vizu_mock/lesen_service
+    # .submit_lesen alongside lesen_level below. Hören/Schreiben/Sprechen
+    # have no equivalent yet — those modules are still framework-only.
+    lesen_score: Mapped[int | None] = mapped_column(Integer, nullable=True)
+
+    # CEFR code (A1-C1) per skill, plus the overall result — hoeren/
+    # schreiben/sprechen/overall stay nullable placeholders (see class
+    # docstring); lesen_level is now real, written by submit_lesen.
     lesen_level: Mapped[str | None] = mapped_column(String(10), nullable=True)
     hoeren_level: Mapped[str | None] = mapped_column(String(10), nullable=True)
     schreiben_level: Mapped[str | None] = mapped_column(String(10), nullable=True)

@@ -6,8 +6,13 @@ from sqlalchemy.orm import Session
 from app.api.dependencies.auth import get_current_user
 from app.db.session import get_db
 from app.models.user import User
-from app.schemas.vizu_mock import VizuMockAttemptResponse
-from app.services.vizu_mock import service
+from app.schemas.vizu_mock import (
+    VizuMockAttemptResponse,
+    VizuMockLesenResult,
+    VizuMockLesenSubmitRequest,
+    VizuMockTaskPublic,
+)
+from app.services.vizu_mock import lesen_service, service
 
 router = APIRouter(prefix="/vizu-mock", tags=["VIZU-Mock"])
 
@@ -50,3 +55,42 @@ def complete_my_attempt(
     if attempt is None:
         raise HTTPException(status_code=404, detail="Attempt not found.")
     return attempt
+
+
+# ============================================================
+# Lesen — real content, real grading (Hören/Schreiben/Sprechen are still
+# framework-only, see the attempt model's docstring)
+# ============================================================
+
+
+@router.get("/lesen/tasks", response_model=list[VizuMockTaskPublic])
+def get_lesen_tasks(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    return lesen_service.list_lesen_tasks(db)
+
+
+@router.post("/attempts/{attempt_id}/lesen/submit", response_model=VizuMockLesenResult)
+def submit_lesen_answers(
+    attempt_id: UUID,
+    data: VizuMockLesenSubmitRequest,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    attempt = service.get_own_attempt(db, current_user.id, attempt_id)
+    if attempt is None:
+        raise HTTPException(status_code=404, detail="Attempt not found.")
+    return lesen_service.submit_lesen(db, attempt, data.answers)
+
+
+@router.get("/attempts/{attempt_id}/lesen/result", response_model=VizuMockLesenResult)
+def get_lesen_result(
+    attempt_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    attempt = service.get_own_attempt(db, current_user.id, attempt_id)
+    if attempt is None:
+        raise HTTPException(status_code=404, detail="Attempt not found.")
+    return lesen_service.get_lesen_result(db, attempt)

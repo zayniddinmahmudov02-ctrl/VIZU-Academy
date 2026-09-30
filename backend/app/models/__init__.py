@@ -36,6 +36,8 @@ from .student_speaking import StudentSpeaking
 from .enrollment import Enrollment
 from .teacher_assignment import TeacherAssignment
 from .vizu_mock_attempt import VizuMockAttempt
+from .vizu_mock_content import VizuMockAnswer, VizuMockOption, VizuMockQuestion, VizuMockTask
+from .vizu_mock_audio import VizuMockAudio
 
 # Certificate
 from .certificate import Certificate
