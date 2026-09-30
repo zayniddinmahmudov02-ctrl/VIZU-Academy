@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getLessonListenings } from "@/features/lessons/services/listening-service";
 import { useTranslation } from "@/lib/i18n/use-translation";
 
+import QuizSection from "../quiz/quiz-section";
 import LessonSection from "../common/lesson-section";
 import ListeningPlayer from "./listening-player";
 
@@ -20,7 +21,13 @@ interface Props {
  * no real audio_url yet keeps the section visible (see
  * SectionGateService._listening_applicable, existence-only) but shows
  * the transcript with an explicit "audio not ready yet" state instead
- * of a broken/empty player, rather than hiding the section entirely. */
+ * of a broken/empty player, rather than hiding the section entirely.
+ *
+ * Below the audio/transcript cards, the real Hören listening-
+ * comprehension quiz (quiz_type=HOEREN, imported via CSV — see
+ * services/quiz/csv_import_service.py) renders as its own card, reusing
+ * QuizSection exactly like the Grammatik/Lesson/Wortschatz quizzes
+ * already do — no new/parallel quiz UI. */
 export default function ListeningSection({ lessonId }: Props) {
   const { t } = useTranslation();
 
@@ -30,7 +37,8 @@ export default function ListeningSection({ lessonId }: Props) {
   });
 
   return (
-    <LessonSection title={t("lessons.sectionListening")} description={t("lessons.listeningDescription")} icon={Headphones}>
+    <div className="space-y-6">
+      <LessonSection title={t("lessons.sectionListening")} description={t("lessons.listeningDescription")} icon={Headphones}>
       {isLoading && <p className="text-sm text-text-muted">{t("common.loading")}</p>}
 
       {!isLoading && (items?.length ?? 0) === 0 && (
@@ -63,6 +71,9 @@ export default function ListeningSection({ lessonId }: Props) {
           </div>
         ))}
       </div>
-    </LessonSection>
+      </LessonSection>
+
+      <QuizSection lessonId={lessonId} quizType="HOEREN" />
+    </div>
   );
 }

@@ -1,6 +1,6 @@
 import { api } from "@/lib/api";
 
-export type QuizType = "GRAMMAR" | "LESSON" | "VOCABULARY";
+export type QuizType = "GRAMMAR" | "LESSON" | "VOCABULARY" | "HOEREN";
 
 export interface LessonQuiz {
   id: string;
@@ -34,6 +34,10 @@ export interface LessonQuizQuestion {
   question_type: QuizQuestionType;
   explanation: string | null;
   points: number;
+  // "Aufgabe 1", "Aufgabe 2", ... — set on CSV-imported questions
+  // (currently HOEREN only) to group related questions under one
+  // heading; null for every GRAMMAR/LESSON/VOCABULARY question.
+  group_label: string | null;
   order_index: number;
   is_published: boolean;
   // MATCHING only — a fresh, server-shuffled list of just the values (no

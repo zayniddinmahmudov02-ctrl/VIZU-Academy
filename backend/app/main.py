@@ -136,6 +136,9 @@ from app.api.admin.books_router import (
 from app.api.admin.teacher_assignments_router import (
     router as admin_teacher_assignments_router,
 )
+from app.api.admin.quiz_router import (
+    router as admin_quiz_router,
+)
 
 # Teacher Panel
 from app.api.teacher import router as teacher_router
@@ -248,6 +251,7 @@ _ALL_ROUTERS = [
     admin_vizu_mock_router,
     admin_books_router,
     admin_teacher_assignments_router,
+    admin_quiz_router,
     teacher_router,
     vizu_pay_router,
     assessment_engine_router,

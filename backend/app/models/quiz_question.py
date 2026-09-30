@@ -55,6 +55,16 @@ class QuizQuestion(BaseModel):
         default=1,
     )
 
+    # Optional grouping label ("Aufgabe 1", "Aufgabe 2", ...) — used by
+    # CSV-imported quizzes (currently only HOEREN, see
+    # services/quiz/csv_import_service.py) to cluster related questions
+    # under one heading in the student player. Null for every existing
+    # GRAMMAR/LESSON/VOCABULARY question, which render exactly as before.
+    group_label: Mapped[str | None] = mapped_column(
+        String(100),
+        nullable=True,
+    )
+
     order_index: Mapped[int] = mapped_column(
         Integer,
         default=1,

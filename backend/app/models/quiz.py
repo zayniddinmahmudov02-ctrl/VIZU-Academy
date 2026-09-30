@@ -26,7 +26,14 @@ from app.models.base import BaseModel
 QUIZ_TYPE_GRAMMAR = "GRAMMAR"
 QUIZ_TYPE_LESSON = "LESSON"
 QUIZ_TYPE_VOCABULARY = "VOCABULARY"
-ALL_QUIZ_TYPES = {QUIZ_TYPE_GRAMMAR, QUIZ_TYPE_LESSON, QUIZ_TYPE_VOCABULARY}
+# HOEREN is the lesson's real Hören listening-comprehension quiz,
+# imported via CSV (see services/quiz/csv_import_service.py) — same
+# machinery (Quiz/QuizQuestion/QuizOption/StudentQuiz, server-side
+# grading) as GRAMMAR/LESSON, just a new quiz_type value. Not in
+# lesson_scoring/service.py's lookups, so it never affects the lesson's
+# 100-point score — same "shown separately" treatment as LESSON.
+QUIZ_TYPE_HOEREN = "HOEREN"
+ALL_QUIZ_TYPES = {QUIZ_TYPE_GRAMMAR, QUIZ_TYPE_LESSON, QUIZ_TYPE_VOCABULARY, QUIZ_TYPE_HOEREN}
 
 
 class Quiz(BaseModel):
