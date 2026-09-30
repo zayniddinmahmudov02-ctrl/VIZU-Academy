@@ -13,6 +13,7 @@ export interface VizuMockAttempt {
   // client-side.
   lesen_score: number | null;
   lesen_level: string | null;
+  hoeren_score: number | null;
   hoeren_level: string | null;
   schreiben_level: string | null;
   sprechen_level: string | null;
@@ -66,4 +67,26 @@ export interface VizuMockLesenResult {
   max_points: number;
   level_scores: VizuMockLevelScore[];
   lesen_level: string | null;
+}
+
+// ---- Hören content — same shape as Lesen's task/question/option types,
+// plus `audio_url` (no passage_text is ever set; the source is audio,
+// never a script/transcript sent to the client) ----
+
+export interface VizuMockHoerenTask {
+  id: string;
+  skill: string;
+  level: string;
+  order_index: number;
+  passage_text: string | null;
+  audio_url: string | null;
+  questions: VizuMockQuestion[];
+}
+
+export interface VizuMockHoerenResult {
+  attempt_id: string;
+  total_points: number;
+  max_points: number;
+  level_scores: VizuMockLevelScore[];
+  hoeren_level: string | null;
 }

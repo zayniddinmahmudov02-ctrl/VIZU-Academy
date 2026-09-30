@@ -105,6 +105,7 @@ class VizuMockAdminAttemptItem(BaseSchema):
     sprechen_level: str | None
     overall_level: str | None
     lesen_score: int | None
+    hoeren_score: int | None
 
 
 class VizuMockAdminAttemptsPage(BaseSchema):

@@ -14,12 +14,13 @@ from app.schemas.vizu_mock import (
     VizuMockAudioCreate,
     VizuMockAudioResponse,
     VizuMockAudioUpdate,
+    VizuMockHoerenTaskPublic,
     VizuMockLevelAnalytics,
     VizuMockOverviewStats,
     VizuMockTaskPublic,
 )
 from app.services.admin import vizu_mock_admin_service as service
-from app.services.vizu_mock import lesen_service
+from app.services.vizu_mock import hoeren_service, lesen_service
 
 router = APIRouter(prefix="/admin/vizu-mock", tags=["Admin - VIZU-Mock"])
 
@@ -104,6 +105,21 @@ def get_lesen_content(
     current_user: User = Depends(require_admin_panel_access),
 ):
     return lesen_service.list_lesen_tasks(db)
+
+
+# ============================================================
+# Hören — read-only view of the already-seeded content, including each
+# Aufgabe's attached audio (used by the "Hören" admin tab to drive
+# per-Aufgabe audio upload/replace/preview)
+# ============================================================
+
+
+@router.get("/hoeren-content", response_model=list[VizuMockHoerenTaskPublic])
+def get_hoeren_content(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    return hoeren_service.list_hoeren_tasks(db)
 
 
 # ============================================================

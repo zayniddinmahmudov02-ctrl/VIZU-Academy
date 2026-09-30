@@ -13,6 +13,7 @@ class VizuMockAttemptResponse(BaseSchema):
     completed_at: datetime | None
     lesen_score: int | None
     lesen_level: str | None
+    hoeren_score: int | None
     hoeren_level: str | None
     schreiben_level: str | None
     sprechen_level: str | None

@@ -116,3 +116,15 @@ export interface VizuMockAdminTask {
   passage_text: string | null;
   questions: { id: string }[];
 }
+
+// Read-only Hören content preview — same shape, plus the task's
+// currently-attached active audio URL (if any).
+export interface VizuMockAdminHoerenTask {
+  id: string;
+  skill: string;
+  level: string;
+  order_index: number;
+  passage_text: string | null;
+  audio_url: string | null;
+  questions: { id: string; points: number }[];
+}

@@ -8,11 +8,14 @@ from app.db.session import get_db
 from app.models.user import User
 from app.schemas.vizu_mock import (
     VizuMockAttemptResponse,
+    VizuMockHoerenResult,
+    VizuMockHoerenSubmitRequest,
+    VizuMockHoerenTaskPublic,
     VizuMockLesenResult,
     VizuMockLesenSubmitRequest,
     VizuMockTaskPublic,
 )
-from app.services.vizu_mock import lesen_service, service
+from app.services.vizu_mock import hoeren_service, lesen_service, service
 
 router = APIRouter(prefix="/vizu-mock", tags=["VIZU-Mock"])
 
@@ -94,3 +97,42 @@ def get_lesen_result(
     if attempt is None:
         raise HTTPException(status_code=404, detail="Attempt not found.")
     return lesen_service.get_lesen_result(db, attempt)
+
+
+# ============================================================
+# Hören — real content, real grading (Schreiben/Sprechen are still
+# framework-only, see the attempt model's docstring)
+# ============================================================
+
+
+@router.get("/hoeren/tasks", response_model=list[VizuMockHoerenTaskPublic])
+def get_hoeren_tasks(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    return hoeren_service.list_hoeren_tasks(db)
+
+
+@router.post("/attempts/{attempt_id}/hoeren/submit", response_model=VizuMockHoerenResult)
+def submit_hoeren_answers(
+    attempt_id: UUID,
+    data: VizuMockHoerenSubmitRequest,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    attempt = service.get_own_attempt(db, current_user.id, attempt_id)
+    if attempt is None:
+        raise HTTPException(status_code=404, detail="Attempt not found.")
+    return hoeren_service.submit_hoeren(db, attempt, data.answers)
+
+
+@router.get("/attempts/{attempt_id}/hoeren/result", response_model=VizuMockHoerenResult)
+def get_hoeren_result(
+    attempt_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    attempt = service.get_own_attempt(db, current_user.id, attempt_id)
+    if attempt is None:
+        raise HTTPException(status_code=404, detail="Attempt not found.")
+    return hoeren_service.get_hoeren_result(db, attempt)

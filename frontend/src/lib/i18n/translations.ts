@@ -190,6 +190,17 @@ export const translations: Record<string, Namespace> = {
     lesenNiveauNotConfirmed: { de: "Niveau nicht bestätigt", uz: "Daraja aniqlanmadi" },
     points: { de: "Punkte", uz: "Ball" },
     continueToHoeren: { de: "Weiter zu Hören", uz: "Hörenga o'tish" },
+    // Hören — real content flow (5 Aufgaben, 20 questions). No CEFR level
+    // is ever shown to the student for this module (backend-only
+    // diagnostic metadata) — only the raw score, see hoeren/page.tsx.
+    finishHoeren: { de: "Hören abschließen", uz: "Hörenni yakunlash" },
+    hoerenResultTitle: { de: "VIZU-Mock — Hören Ergebnis", uz: "VIZU-Mock — Hören Natijasi" },
+    hoerenResultBody: {
+      de: "Du hast {points} von {max} Punkten erreicht.",
+      uz: "Siz {max} balldan {points} ball to'pladingiz.",
+    },
+    continueToSchreiben: { de: "Weiter zu Schreiben", uz: "Schreibenga o'tish" },
+    playAudioLabel: { de: "Audio abspielen", uz: "Audio ijro etish" },
     writingPrompt: { de: "Aufgabe", uz: "Topshiriq" },
     writingPromptPlaceholder: {
       de: "Die Schreibaufgabe wird bald hinzugefügt.",

@@ -8,6 +8,11 @@ from .schema import (
     VizuMockQuestionPublic,
     VizuMockTaskPublic,
 )
+from .hoeren_schema import (
+    VizuMockHoerenResult,
+    VizuMockHoerenSubmitRequest,
+    VizuMockHoerenTaskPublic,
+)
 from .admin_schema import (
     VizuMockActivityPoint,
     VizuMockActivityStats,
@@ -33,6 +38,9 @@ __all__ = [
     "VizuMockOptionPublic",
     "VizuMockQuestionPublic",
     "VizuMockTaskPublic",
+    "VizuMockHoerenResult",
+    "VizuMockHoerenSubmitRequest",
+    "VizuMockHoerenTaskPublic",
     "VizuMockActivityPoint",
     "VizuMockActivityStats",
     "VizuMockAdminAttemptItem",

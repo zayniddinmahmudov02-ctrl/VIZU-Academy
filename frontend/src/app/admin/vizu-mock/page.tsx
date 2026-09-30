@@ -1,10 +1,11 @@
-import { Headphones, Mic, PenLine } from "lucide-react";
+import { Mic, PenLine } from "lucide-react";
 
 import { AdminPageHeader } from "@/components/admin/admin-ui";
 import AdminTabs from "@/components/admin/admin-tabs";
 import AdminEmptySection from "@/components/admin/admin-empty-section";
 import VizuMockAnalyticsTab from "@/features/admin/components/vizu-mock/analytics-tab";
 import VizuMockAudioTab from "@/features/admin/components/vizu-mock/audio-tab";
+import VizuMockHoerenTab from "@/features/admin/components/vizu-mock/hoeren-tab";
 import VizuMockLesenTab from "@/features/admin/components/vizu-mock/lesen-tab";
 import VizuMockOverviewTab from "@/features/admin/components/vizu-mock/overview-tab";
 import VizuMockResultsTab from "@/features/admin/components/vizu-mock/results-tab";
@@ -23,17 +24,7 @@ export default function VizuMockPage() {
           { value: "overview", label: "Overview", content: <VizuMockOverviewTab /> },
           { value: "audio", label: "Hören Audio", content: <VizuMockAudioTab /> },
           { value: "lesen", label: "Lesen", content: <VizuMockLesenTab /> },
-          {
-            value: "hoeren",
-            label: "Hören",
-            content: (
-              <AdminEmptySection
-                icon={Headphones}
-                title="Noch nicht eingerichtet"
-                description="Hören-Testinhalte werden in einer späteren Phase hinzugefügt. Audiodateien können bereits jetzt unter „Hören Audio“ hochgeladen werden."
-              />
-            ),
-          },
+          { value: "hoeren", label: "Hören", content: <VizuMockHoerenTab /> },
           {
             value: "schreiben",
             label: "Schreiben",

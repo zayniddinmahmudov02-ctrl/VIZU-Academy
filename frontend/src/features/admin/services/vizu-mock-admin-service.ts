@@ -6,6 +6,7 @@ import type {
   VizuMockActivityStats,
   VizuMockAdminAttemptItem,
   VizuMockAdminAttemptsPage,
+  VizuMockAdminHoerenTask,
   VizuMockAdminTask,
   VizuMockAnalytics,
   VizuMockAudio,
@@ -56,6 +57,11 @@ export async function getVizuMockAttemptDetail(attemptId: string): Promise<VizuM
 export async function getVizuMockLesenContent(): Promise<VizuMockAdminTask[]> {
   const response = await api.get<VizuMockAdminTask[]>(ADMIN_ENDPOINTS.vizuMockLesenContent);
   return ensureArray<VizuMockAdminTask>(response.data);
+}
+
+export async function getVizuMockHoerenContent(): Promise<VizuMockAdminHoerenTask[]> {
+  const response = await api.get<VizuMockAdminHoerenTask[]>(ADMIN_ENDPOINTS.vizuMockHoerenContent);
+  return ensureArray<VizuMockAdminHoerenTask>(response.data);
 }
 
 export async function listVizuMockAudio(): Promise<VizuMockAudio[]> {

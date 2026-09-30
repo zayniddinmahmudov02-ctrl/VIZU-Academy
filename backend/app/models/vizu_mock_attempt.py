@@ -17,13 +17,12 @@ class VizuMockAttempt(BaseModel):
     the Vorbereitung/Zertifikat exam system (see the "VIZU-MOCK" admin
     nav entry, reserved for this since an earlier phase).
 
-    Lesen is now real end to end (see vizu_mock_content.py's models and
-    services/vizu_mock/lesen_service.py): lesen_level/lesen_score are
-    written once, at submit time. Hören/Schreiben/Sprechen have no
-    question bank or grading yet, so hoeren_level/schreiben_level/
-    sprechen_level/overall_level stay NULL until a later phase fills
-    them in place — no migration should be needed for that, only new
-    write paths per skill.
+    Lesen and Hören are now real end to end (see vizu_mock_content.py's
+    models, services/vizu_mock/lesen_service.py and .../hoeren_service.py):
+    lesen_level/lesen_score and hoeren_level/hoeren_score are each written
+    once, at submit time. Schreiben/Sprechen have no question bank or
+    grading yet, so schreiben_level/sprechen_level/overall_level stay
+    NULL until a later phase fills them in place.
     """
 
     __tablename__ = "vizu_mock_attempts"
@@ -37,10 +36,13 @@ class VizuMockAttempt(BaseModel):
     started_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
     completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
-    # Raw Lesen points (0-20), set once by services/vizu_mock/lesen_service
-    # .submit_lesen alongside lesen_level below. Hören/Schreiben/Sprechen
+    # Raw Lesen/Hören points (0-20 each), set once by
+    # services/vizu_mock/lesen_service.submit_lesen and
+    # services/vizu_mock/hoeren_service.submit_hoeren respectively,
+    # alongside their matching *_level column below. Schreiben/Sprechen
     # have no equivalent yet — those modules are still framework-only.
     lesen_score: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    hoeren_score: Mapped[int | None] = mapped_column(Integer, nullable=True)
 
     # CEFR code (A1-C1) per skill, plus the overall result — hoeren/
     # schreiben/sprechen/overall stay nullable placeholders (see class

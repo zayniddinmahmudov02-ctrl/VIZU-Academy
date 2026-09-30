@@ -55,6 +55,7 @@ export const ADMIN_ENDPOINTS = {
   vizuMockAttempts: "/api/v1/admin/vizu-mock/attempts",
   vizuMockAttemptDetail: (attemptId: string) => `/api/v1/admin/vizu-mock/attempts/${attemptId}`,
   vizuMockLesenContent: "/api/v1/admin/vizu-mock/lesen-content",
+  vizuMockHoerenContent: "/api/v1/admin/vizu-mock/hoeren-content",
   vizuMockAudio: "/api/v1/admin/vizu-mock/audio",
   vizuMockAudioDetail: (audioId: string) => `/api/v1/admin/vizu-mock/audio/${audioId}`,
 } as const;
