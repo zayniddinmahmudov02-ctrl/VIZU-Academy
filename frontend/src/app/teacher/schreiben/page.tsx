@@ -9,15 +9,24 @@ import LevelFilter, { ALL_LEVELS, levelSortKey } from "@/components/teacher/leve
 import {
   aiEvaluateVorbereitungWriting,
   getTeacherLegacyWritingSubmissions,
+  getTeacherVizuMockWriting,
+  getTeacherVizuMockWritingDetail,
   getTeacherVorbereitungWriting,
   gradeTeacherLegacyWritingSubmission,
+  gradeTeacherVizuMockWritingTask,
   reviewVorbereitungWriting,
+  setTeacherVizuMockWritingFeedback,
 } from "@/features/teacher/services/teacher.service";
-import type { TeacherLegacyWritingItem, TeacherMockWritingItem } from "@/features/teacher/types";
+import type {
+  TeacherLegacyWritingItem,
+  TeacherMockWritingItem,
+  VizuMockTeacherWritingDetail,
+  VizuMockTeacherWritingListItem,
+} from "@/features/teacher/types";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { cn } from "@/lib/utils";
 
-type Source = "LEKTIONEN" | "VORBEREITUNG";
+type Source = "LEKTIONEN" | "VORBEREITUNG" | "VIZU_MOCK";
 
 const COURSE_LEVELS = ["A1", "A2", "B1", "B2", "C1"] as const;
 const EXAM_LEVELS = [...COURSE_LEVELS, "Multilevel"] as const;
@@ -91,9 +100,20 @@ export default function TeacherSchreibenPage() {
         >
           {t("vorbereitung.title")}
         </button>
+        <button
+          onClick={() => setSource("VIZU_MOCK")}
+          className={cn(
+            "min-h-11 flex-1 rounded-lg px-3 py-2 text-xs font-bold transition-colors",
+            source === "VIZU_MOCK" ? "bg-accent-blue text-white" : "text-text-secondary hover:bg-surface-card",
+          )}
+        >
+          VIZU-MOCK
+        </button>
       </div>
 
-      {source === "LEKTIONEN" ? <LegacyWritingQueue /> : <VorbereitungWritingQueue />}
+      {source === "LEKTIONEN" && <LegacyWritingQueue />}
+      {source === "VORBEREITUNG" && <VorbereitungWritingQueue />}
+      {source === "VIZU_MOCK" && <VizuMockWritingQueue />}
     </div>
   );
 }
@@ -585,6 +605,333 @@ function MockWritingReviewCard({
         <CheckCircle2 size={14} />
         {saving ? "Wird gespeichert..." : "Bewertung speichern"}
       </button>
+    </div>
+  );
+}
+
+// ==========================
+// VIZU-MOCK Schreiben — flat list (VIZU-Mock has no course/Zertifikat
+// grouping to speak of, one item per attempt, all 5 Aufgabe graded
+// together). Status buckets are computed server-side from graded_count.
+// ==========================
+
+const VIZU_MOCK_TABS: { key: "" | "NEW" | "IN_PROGRESS" | "GRADED"; label: string }[] = [
+  { key: "", label: "Alle" },
+  { key: "NEW", label: "Neue Einsendungen" },
+  { key: "IN_PROGRESS", label: "In Bewertung" },
+  { key: "GRADED", label: "Bewertet" },
+];
+
+function VizuMockWritingQueue() {
+  const { t } = useTranslation();
+  const [tab, setTab] = useState<(typeof VIZU_MOCK_TABS)[number]["key"]>("");
+  const [activeId, setActiveId] = useState<string | null>(null);
+
+  const { data: allItems, isLoading } = useQuery({
+    queryKey: ["teacher-vizu-mock-writing"],
+    queryFn: getTeacherVizuMockWriting,
+  });
+
+  const items = useMemo(
+    () => (allItems ?? []).filter((item) => tab === "" || item.status === tab),
+    [allItems, tab],
+  );
+
+  return (
+    <>
+      <div className="flex gap-1.5 overflow-x-auto rounded-xl bg-surface-hover p-1 ring-1 ring-surface-border">
+        {VIZU_MOCK_TABS.map((tb) => (
+          <button
+            key={tb.key}
+            onClick={() => {
+              setTab(tb.key);
+              setActiveId(null);
+            }}
+            className={cn(
+              "min-h-11 flex-1 shrink-0 whitespace-nowrap rounded-lg px-3 py-2 text-xs font-semibold transition-colors",
+              tab === tb.key ? "bg-accent-blue text-white" : "text-text-secondary hover:bg-surface-card",
+            )}
+          >
+            {tb.label}
+          </button>
+        ))}
+      </div>
+
+      {isLoading && <p className="mt-4 text-sm text-text-muted">{t("common.loading")}</p>}
+
+      {!isLoading && items.length === 0 && (
+        <div className="mt-4 rounded-card bg-surface-card p-10 text-center shadow-[var(--shadow-md)] ring-1 ring-surface-border">
+          <PenLine className="mx-auto mb-2 text-text-muted" size={22} />
+          <p className="text-sm text-text-muted">Keine Abgaben vorhanden.</p>
+        </div>
+      )}
+
+      {!isLoading && items.length > 0 && (
+        <div className="mt-4 grid gap-4 lg:grid-cols-[380px_1fr]">
+          <div className="space-y-2">
+            {items.map((item) => (
+              <VizuMockWritingListRow
+                key={item.attempt_id}
+                item={item}
+                active={activeId === item.attempt_id}
+                onClick={() => setActiveId(item.attempt_id)}
+              />
+            ))}
+          </div>
+
+          <div>
+            {activeId ? (
+              <VizuMockWritingDetailCard attemptId={activeId} />
+            ) : (
+              <div className="flex h-full min-h-[200px] items-center justify-center rounded-card bg-surface-card text-sm text-text-muted ring-1 ring-surface-border">
+                Wähle eine Abgabe aus der Liste.
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
+const VIZU_MOCK_STATUS_LABEL: Record<string, string> = {
+  NEW: "Neu",
+  IN_PROGRESS: "In Bewertung",
+  GRADED: "Bewertet",
+};
+
+function VizuMockWritingListRow({
+  item,
+  active,
+  onClick,
+}: {
+  item: VizuMockTeacherWritingListItem;
+  active: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className={cn(
+        "w-full rounded-2xl p-4 text-left ring-1 transition-colors",
+        active ? "bg-accent-blue/10 ring-accent-blue/30" : "bg-surface-card ring-surface-border hover:bg-surface-hover",
+      )}
+    >
+      <div className="flex items-start justify-between gap-2">
+        <div>
+          <p className="text-sm font-bold text-text-primary">{item.student_name}</p>
+          <p className="mt-0.5 text-xs text-text-muted">
+            VIZU-MOCK · {new Date(item.schreiben_submitted_at).toLocaleDateString("de-DE")}
+          </p>
+        </div>
+        <span className="shrink-0 rounded-full bg-accent-blue/10 px-2 py-0.5 text-[10px] font-bold text-accent-blue">
+          {VIZU_MOCK_STATUS_LABEL[item.status]}
+        </span>
+      </div>
+      <p className="mt-1 text-xs text-text-muted">
+        {item.schreiben_score !== null ? `${item.schreiben_score}/${item.max_score} Punkte` : `${item.graded_count}/${item.total_tasks} bewertet`}
+      </p>
+    </button>
+  );
+}
+
+function VizuMockWritingDetailCard({ attemptId }: { attemptId: string }) {
+  const queryClient = useQueryClient();
+  const { data: detail, isLoading } = useQuery({
+    queryKey: ["teacher-vizu-mock-writing-detail", attemptId],
+    queryFn: () => getTeacherVizuMockWritingDetail(attemptId),
+  });
+
+  const [feedback, setFeedback] = useState("");
+  const [feedbackSaving, setFeedbackSaving] = useState(false);
+  const [feedbackTouched, setFeedbackTouched] = useState(false);
+
+  const currentFeedback = feedbackTouched ? feedback : detail?.schreiben_feedback ?? "";
+
+  function invalidate(updated: VizuMockTeacherWritingDetail) {
+    queryClient.setQueryData(["teacher-vizu-mock-writing-detail", attemptId], updated);
+    queryClient.invalidateQueries({ queryKey: ["teacher-vizu-mock-writing"] });
+  }
+
+  async function handleSaveFeedback() {
+    setFeedbackSaving(true);
+    try {
+      const updated = await setTeacherVizuMockWritingFeedback(attemptId, currentFeedback || null);
+      invalidate(updated);
+      setFeedbackTouched(false);
+    } finally {
+      setFeedbackSaving(false);
+    }
+  }
+
+  if (isLoading || !detail) {
+    return (
+      <div className="flex h-full min-h-[200px] items-center justify-center rounded-card bg-surface-card text-sm text-text-muted ring-1 ring-surface-border">
+        Wird geladen...
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-4">
+      <div className="rounded-card bg-surface-card p-6 shadow-[var(--shadow-md)] ring-1 ring-surface-border">
+        <h3 className="text-base font-bold text-text-primary">VIZU-MOCK — Schreiben</h3>
+        <p className="text-xs text-text-muted">
+          {detail.student_name} ({detail.email}) · {detail.username} · eingereicht am{" "}
+          {new Date(detail.schreiben_submitted_at).toLocaleString("de-DE")}
+        </p>
+        <div className="mt-3 flex items-center gap-4">
+          <p className="text-lg font-bold text-text-primary">
+            Gesamt: {detail.schreiben_score ?? 0}/100 Punkte
+          </p>
+          {detail.schreiben_level && (
+            <span className="rounded-full bg-accent-blue/10 px-2.5 py-1 text-xs font-bold text-accent-blue">
+              Schreiben-Niveau: {detail.schreiben_level}
+            </span>
+          )}
+        </div>
+      </div>
+
+      {detail.submissions.map((submission) => (
+        <VizuMockWritingTaskGradeCard
+          key={submission.task_id}
+          attemptId={attemptId}
+          submission={submission}
+          onGraded={invalidate}
+        />
+      ))}
+
+      <div className="rounded-card bg-surface-card p-6 shadow-[var(--shadow-md)] ring-1 ring-surface-border">
+        <label className="mb-1 block text-xs font-medium text-text-secondary">Gesamtfeedback</label>
+        <textarea
+          value={currentFeedback}
+          onChange={(e) => {
+            setFeedback(e.target.value);
+            setFeedbackTouched(true);
+          }}
+          rows={3}
+          className="w-full rounded-xl bg-surface-hover p-3 text-sm text-text-primary ring-1 ring-surface-border outline-none focus:ring-accent-blue"
+        />
+        <button
+          onClick={handleSaveFeedback}
+          disabled={feedbackSaving}
+          className="mt-2 flex min-h-11 items-center gap-1.5 rounded-xl bg-accent-blue px-4 py-2 text-sm font-semibold text-white disabled:opacity-60"
+        >
+          <CheckCircle2 size={14} />
+          {feedbackSaving ? "Wird gespeichert..." : "Gesamtfeedback speichern"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function VizuMockWritingTaskGradeCard({
+  attemptId,
+  submission,
+  onGraded,
+}: {
+  attemptId: string;
+  submission: VizuMockTeacherWritingDetail["submissions"][number];
+  onGraded: (updated: VizuMockTeacherWritingDetail) => void;
+}) {
+  const [scores, setScores] = useState<Record<string, string>>(() => {
+    const initial: Record<string, string> = {};
+    for (const c of submission.rubric_criteria) {
+      initial[c.id] = submission.criterion_scores[c.id]?.toString() ?? "";
+    }
+    return initial;
+  });
+  const [comment, setComment] = useState(submission.teacher_comment ?? "");
+  const [saving, setSaving] = useState(false);
+
+  const total = submission.rubric_criteria.reduce((sum, c) => sum + (Number(scores[c.id]) || 0), 0);
+  const maxTotal = submission.rubric_criteria.reduce((sum, c) => sum + c.max_score, 0);
+
+  async function handleSave() {
+    setSaving(true);
+    try {
+      const criterionScores: Record<string, number> = {};
+      for (const c of submission.rubric_criteria) {
+        criterionScores[c.id] = Math.min(c.max_score, Math.max(0, Number(scores[c.id]) || 0));
+      }
+      const updated = await gradeTeacherVizuMockWritingTask(attemptId, submission.task_id, {
+        criterion_scores: criterionScores,
+        comment: comment || null,
+      });
+      onGraded(updated);
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  return (
+    <div className="space-y-3 rounded-card bg-surface-card p-6 shadow-[var(--shadow-md)] ring-1 ring-surface-border">
+      <div className="flex items-center justify-between gap-2">
+        <h4 className="text-sm font-bold text-text-primary">
+          Aufgabe {submission.order_index} — {submission.title}
+        </h4>
+        <span className="shrink-0 rounded-full bg-accent-blue/10 px-2 py-0.5 text-[10px] font-bold text-accent-blue">
+          {submission.level}
+        </span>
+      </div>
+
+      <p className="whitespace-pre-line rounded-xl bg-surface-hover/60 p-3 text-xs text-text-secondary">
+        {submission.instruction}
+      </p>
+
+      {submission.image_url && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={submission.image_url} alt="" className="max-h-48 w-auto rounded-xl object-cover" />
+      )}
+
+      <div className="whitespace-pre-line rounded-xl bg-surface-hover p-3 text-sm text-text-primary">
+        {submission.content || <span className="text-text-muted">(keine Antwort)</span>}
+      </div>
+      <p className="text-xs text-text-muted">
+        {submission.word_count} Wörter ({submission.min_words}–{submission.max_words})
+      </p>
+
+      <div className="grid gap-3 sm:grid-cols-2">
+        {submission.rubric_criteria.map((c) => (
+          <div key={c.id}>
+            <label className="mb-1 block text-xs font-medium text-text-secondary">
+              {c.name} (0–{c.max_score})
+            </label>
+            <input
+              type="number"
+              min={0}
+              max={c.max_score}
+              value={scores[c.id] ?? ""}
+              onChange={(e) => setScores((prev) => ({ ...prev, [c.id]: e.target.value }))}
+              className="h-11 w-full rounded-xl bg-surface-hover px-3 text-sm text-text-primary ring-1 ring-surface-border outline-none focus:ring-accent-blue"
+            />
+          </div>
+        ))}
+      </div>
+
+      <div>
+        <label className="mb-1 block text-xs font-medium text-text-secondary">Kommentar</label>
+        <textarea
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+          rows={2}
+          className="w-full rounded-xl bg-surface-hover p-3 text-sm text-text-primary ring-1 ring-surface-border outline-none focus:ring-accent-blue"
+        />
+      </div>
+
+      <div className="flex items-center justify-between">
+        <p className="text-sm font-semibold text-text-primary">
+          Aufgabe {submission.order_index}: {total}/{maxTotal}
+        </p>
+        <button
+          onClick={handleSave}
+          disabled={saving}
+          className="flex min-h-11 items-center gap-1.5 rounded-xl bg-accent-blue px-4 py-2 text-sm font-semibold text-white disabled:opacity-60"
+        >
+          <CheckCircle2 size={14} />
+          {saving ? "Wird gespeichert..." : "Aufgabe speichern"}
+        </button>
+      </div>
     </div>
   );
 }

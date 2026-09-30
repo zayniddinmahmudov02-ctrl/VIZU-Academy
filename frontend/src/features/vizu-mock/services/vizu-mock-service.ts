@@ -7,6 +7,8 @@ import type {
   VizuMockHoerenTask,
   VizuMockLesenResult,
   VizuMockTask,
+  VizuMockWritingSubmission,
+  VizuMockWritingTask,
 } from "../types/vizu-mock.types";
 
 const ROOT = "/api/v1/vizu-mock";
@@ -75,5 +77,38 @@ export async function submitVizuMockHoeren(
 
 export async function getVizuMockHoerenResult(attemptId: string): Promise<VizuMockHoerenResult> {
   const response = await api.get<VizuMockHoerenResult>(`${BASE}/${attemptId}/hoeren/result`);
+  return response.data;
+}
+
+// ---- Schreiben ----
+
+export async function getVizuMockSchreibenTasks(): Promise<VizuMockWritingTask[]> {
+  const response = await api.get<VizuMockWritingTask[]>(`${ROOT}/schreiben/tasks`);
+  return ensureArray<VizuMockWritingTask>(response.data);
+}
+
+export async function getVizuMockSchreibenSubmissions(attemptId: string): Promise<VizuMockWritingSubmission[]> {
+  const response = await api.get<VizuMockWritingSubmission[]>(`${BASE}/${attemptId}/schreiben/submissions`);
+  return ensureArray<VizuMockWritingSubmission>(response.data);
+}
+
+export async function saveVizuMockSchreibenDraft(
+  attemptId: string,
+  taskId: string,
+  content: string,
+): Promise<VizuMockWritingSubmission> {
+  const response = await api.put<VizuMockWritingSubmission>(`${BASE}/${attemptId}/schreiben/save`, {
+    task_id: taskId,
+    content,
+  });
+  return response.data;
+}
+
+export async function submitVizuMockSchreiben(
+  attemptId: string,
+): Promise<{ attempt_id: string; schreiben_submitted_at: string }> {
+  const response = await api.post<{ attempt_id: string; schreiben_submitted_at: string }>(
+    `${BASE}/${attemptId}/schreiben/submit`,
+  );
   return response.data;
 }

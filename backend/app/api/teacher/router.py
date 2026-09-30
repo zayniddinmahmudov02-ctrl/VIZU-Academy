@@ -16,12 +16,19 @@ from app.schemas.mock_exam import (
 from app.schemas.student_speaking import SpeakingGradeRequest, TeacherSpeakingItem
 from app.schemas.student_writing import TeacherWritingItem, WritingGradeRequest
 from app.schemas.teacher import TeacherOverview, TeacherStudent
+from app.schemas.vizu_mock import (
+    VizuMockTeacherFeedbackRequest,
+    VizuMockTeacherGradeTaskRequest,
+    VizuMockTeacherWritingDetail,
+    VizuMockTeacherWritingListItem,
+)
 from app.services.homework_submission import HomeworkSubmissionService
 from app.services.mock_exam import attempt_service, teacher_review_service
 from app.services.mock_exam.ai_service import AIServiceError
 from app.services.student_speaking import StudentSpeakingService
 from app.services.student_writing import StudentWritingService
 from app.services.teacher import TeacherService
+from app.services.teacher import vizu_mock_writing_review_service
 
 router = APIRouter(
     prefix="/teacher",
@@ -281,3 +288,60 @@ def _find_speaking_item(db: Session, submission_id: UUID) -> TeacherMockSpeaking
         if item["submission"].id == submission_id:
             return item
     raise HTTPException(status_code=404, detail="Speaking submission not found.")
+
+
+# ==========================
+# VIZU-MOCK Schreiben review — "Schreiben Vorbereitung → VIZU-MOCK".
+# Unscoped like /teacher/vorbereitung/* above: VIZU-Mock has no course
+# concept either, so every teacher (or SUPER_ADMIN) sees every
+# submission (see vizu_mock_writing_review_service.py's own docstring).
+# ==========================
+
+
+@router.get("/vizu-mock/schreiben", response_model=list[VizuMockTeacherWritingListItem])
+def get_vizu_mock_writing_submissions(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_teacher_panel_access),
+):
+    return vizu_mock_writing_review_service.list_writing_for_teacher(db)
+
+
+@router.get("/vizu-mock/schreiben/{attempt_id}", response_model=VizuMockTeacherWritingDetail)
+def get_vizu_mock_writing_detail(
+    attempt_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_teacher_panel_access),
+):
+    detail = vizu_mock_writing_review_service.get_writing_detail_for_teacher(db, attempt_id)
+    if detail is None:
+        raise HTTPException(status_code=404, detail="Submission not found.")
+    return detail
+
+
+@router.put("/vizu-mock/schreiben/{attempt_id}/task/{task_id}", response_model=VizuMockTeacherWritingDetail)
+def grade_vizu_mock_writing_task(
+    attempt_id: UUID,
+    task_id: UUID,
+    data: VizuMockTeacherGradeTaskRequest,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_teacher_panel_access),
+):
+    detail = vizu_mock_writing_review_service.grade_task(
+        db, attempt_id, task_id, current_user.id, data.criterion_scores, data.comment
+    )
+    if detail is None:
+        raise HTTPException(status_code=404, detail="Submission not found.")
+    return detail
+
+
+@router.put("/vizu-mock/schreiben/{attempt_id}/feedback", response_model=VizuMockTeacherWritingDetail)
+def set_vizu_mock_writing_feedback(
+    attempt_id: UUID,
+    data: VizuMockTeacherFeedbackRequest,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_teacher_panel_access),
+):
+    detail = vizu_mock_writing_review_service.set_feedback(db, attempt_id, data.schreiben_feedback)
+    if detail is None:
+        raise HTTPException(status_code=404, detail="Submission not found.")
+    return detail

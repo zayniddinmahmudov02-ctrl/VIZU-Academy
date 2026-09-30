@@ -15,7 +15,9 @@ export interface VizuMockAttempt {
   lesen_level: string | null;
   hoeren_score: number | null;
   hoeren_level: string | null;
+  schreiben_score: number | null;
   schreiben_level: string | null;
+  schreiben_submitted_at: string | null;
   sprechen_level: string | null;
   overall_level: string | null;
 }
@@ -89,4 +91,27 @@ export interface VizuMockHoerenResult {
   max_points: number;
   level_scores: VizuMockLevelScore[];
   hoeren_level: string | null;
+}
+
+// ---- Schreiben content — free-text, teacher-graded. No CEFR level or
+// rubric is ever sent to the student (see backend's VizuMockWritingTaskPublic
+// / VizuMockWritingSubmissionPublic schemas). ----
+
+export interface VizuMockWritingTask {
+  id: string;
+  level: string;
+  order_index: number;
+  title: string;
+  instruction: string;
+  min_words: number;
+  max_words: number;
+  image_url: string | null;
+  points: number;
+}
+
+export interface VizuMockWritingSubmission {
+  task_id: string;
+  content: string;
+  word_count: number;
+  status: "DRAFT" | "SUBMITTED";
 }

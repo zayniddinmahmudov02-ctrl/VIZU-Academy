@@ -15,7 +15,9 @@ class VizuMockAttemptResponse(BaseSchema):
     lesen_level: str | None
     hoeren_score: int | None
     hoeren_level: str | None
+    schreiben_score: int | None
     schreiben_level: str | None
+    schreiben_submitted_at: datetime | None
     sprechen_level: str | None
     overall_level: str | None
     model_config = ConfigDict(from_attributes=True)

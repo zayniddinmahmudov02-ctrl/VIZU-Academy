@@ -8,6 +8,8 @@ import type {
   TeacherMockWritingItem,
   TeacherOverview,
   TeacherStudent,
+  VizuMockTeacherWritingDetail,
+  VizuMockTeacherWritingListItem,
 } from "../types";
 
 // /api/v1/teacher/* — gated server-side by require_teacher_panel_access
@@ -120,5 +122,42 @@ export async function reviewVorbereitungSpeaking(
     `/api/v1/teacher/vorbereitung/speaking/${submissionId}/review`,
     data,
   );
+  return response.data;
+}
+
+// ==========================
+// VIZU-MOCK Schreiben — see app/services/teacher/
+// vizu_mock_writing_review_service.py
+// ==========================
+
+export async function getTeacherVizuMockWriting(): Promise<VizuMockTeacherWritingListItem[]> {
+  const response = await api.get<VizuMockTeacherWritingListItem[]>("/api/v1/teacher/vizu-mock/schreiben");
+  return response.data;
+}
+
+export async function getTeacherVizuMockWritingDetail(attemptId: string): Promise<VizuMockTeacherWritingDetail> {
+  const response = await api.get<VizuMockTeacherWritingDetail>(`/api/v1/teacher/vizu-mock/schreiben/${attemptId}`);
+  return response.data;
+}
+
+export async function gradeTeacherVizuMockWritingTask(
+  attemptId: string,
+  taskId: string,
+  data: { criterion_scores: Record<string, number>; comment: string | null },
+): Promise<VizuMockTeacherWritingDetail> {
+  const response = await api.put<VizuMockTeacherWritingDetail>(
+    `/api/v1/teacher/vizu-mock/schreiben/${attemptId}/task/${taskId}`,
+    data,
+  );
+  return response.data;
+}
+
+export async function setTeacherVizuMockWritingFeedback(
+  attemptId: string,
+  schreibenFeedback: string | null,
+): Promise<VizuMockTeacherWritingDetail> {
+  const response = await api.put<VizuMockTeacherWritingDetail>(`/api/v1/teacher/vizu-mock/schreiben/${attemptId}/feedback`, {
+    schreiben_feedback: schreibenFeedback,
+  });
   return response.data;
 }

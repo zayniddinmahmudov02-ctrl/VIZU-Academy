@@ -14,8 +14,13 @@ from app.schemas.vizu_mock import (
     VizuMockLesenResult,
     VizuMockLesenSubmitRequest,
     VizuMockTaskPublic,
+    VizuMockWritingSaveRequest,
+    VizuMockWritingSubmissionPublic,
+    VizuMockWritingSubmitAllResponse,
+    VizuMockWritingTaskPublic,
 )
-from app.services.vizu_mock import hoeren_service, lesen_service, service
+from app.services.vizu_mock import hoeren_service, lesen_service, schreiben_service, service
+from app.services.vizu_mock.schreiben_service import WritingAlreadySubmittedError
 
 router = APIRouter(prefix="/vizu-mock", tags=["VIZU-Mock"])
 
@@ -136,3 +141,58 @@ def get_hoeren_result(
     if attempt is None:
         raise HTTPException(status_code=404, detail="Attempt not found.")
     return hoeren_service.get_hoeren_result(db, attempt)
+
+
+# ============================================================
+# Schreiben — real content, teacher-graded (Sprechen is still
+# framework-only, see the attempt model's docstring)
+# ============================================================
+
+
+@router.get("/schreiben/tasks", response_model=list[VizuMockWritingTaskPublic])
+def get_schreiben_tasks(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    return schreiben_service.list_writing_tasks(db)
+
+
+@router.get("/attempts/{attempt_id}/schreiben/submissions", response_model=list[VizuMockWritingSubmissionPublic])
+def get_schreiben_submissions(
+    attempt_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    attempt = service.get_own_attempt(db, current_user.id, attempt_id)
+    if attempt is None:
+        raise HTTPException(status_code=404, detail="Attempt not found.")
+    return schreiben_service.get_own_submissions(db, attempt.id)
+
+
+@router.put("/attempts/{attempt_id}/schreiben/save", response_model=VizuMockWritingSubmissionPublic)
+def save_schreiben_draft(
+    attempt_id: UUID,
+    data: VizuMockWritingSaveRequest,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    attempt = service.get_own_attempt(db, current_user.id, attempt_id)
+    if attempt is None:
+        raise HTTPException(status_code=404, detail="Attempt not found.")
+    try:
+        return schreiben_service.save_draft(db, attempt, data.task_id, data.content)
+    except WritingAlreadySubmittedError:
+        raise HTTPException(status_code=409, detail="Schreiben was already submitted and can no longer be edited.")
+
+
+@router.post("/attempts/{attempt_id}/schreiben/submit", response_model=VizuMockWritingSubmitAllResponse)
+def submit_schreiben(
+    attempt_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    attempt = service.get_own_attempt(db, current_user.id, attempt_id)
+    if attempt is None:
+        raise HTTPException(status_code=404, detail="Attempt not found.")
+    attempt = schreiben_service.submit_all(db, attempt)
+    return {"attempt_id": attempt.id, "schreiben_submitted_at": attempt.schreiben_submitted_at}

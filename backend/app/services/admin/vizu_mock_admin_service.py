@@ -209,7 +209,7 @@ def get_level_analytics(db: Session) -> dict:
     competencies = [
         _competency_stat(db, "LESEN", VizuMockAttempt.lesen_score, VizuMockAttempt.lesen_level, max_points=20),
         _competency_stat(db, "HOEREN", VizuMockAttempt.hoeren_score, VizuMockAttempt.hoeren_level, max_points=20),
-        _competency_stat(db, "SCHREIBEN", None, VizuMockAttempt.schreiben_level, max_points=None),
+        _competency_stat(db, "SCHREIBEN", VizuMockAttempt.schreiben_score, VizuMockAttempt.schreiben_level, max_points=100),
         _competency_stat(db, "SPRECHEN", None, VizuMockAttempt.sprechen_level, max_points=None),
     ]
 
@@ -274,6 +274,7 @@ def _attempt_item(attempt: VizuMockAttempt) -> dict:
         "overall_level": attempt.overall_level,
         "lesen_score": attempt.lesen_score,
         "hoeren_score": attempt.hoeren_score,
+        "schreiben_score": attempt.schreiben_score,
     }
 
 

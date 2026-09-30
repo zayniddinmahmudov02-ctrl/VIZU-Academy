@@ -128,3 +128,39 @@ export interface VizuMockAdminHoerenTask {
   audio_url: string | null;
   questions: { id: string; points: number }[];
 }
+
+// Schreiben Aufgabe management — full CRUD, unlike Lesen/Hören's
+// read-only preview (this module explicitly asked for a real editor).
+export interface VizuMockWritingRubricCriterion {
+  id: string | null;
+  name: string;
+  max_score: number;
+  order_index: number;
+}
+
+export interface VizuMockWritingTaskAdmin {
+  id: string;
+  level: string;
+  order_index: number;
+  title: string;
+  instruction: string;
+  min_words: number;
+  max_words: number;
+  image_url: string | null;
+  points: number;
+  is_active: boolean;
+  rubric_criteria: VizuMockWritingRubricCriterion[];
+}
+
+export interface VizuMockWritingTaskAdminPayload {
+  level?: string;
+  order_index?: number;
+  title?: string;
+  instruction?: string;
+  min_words?: number;
+  max_words?: number;
+  image_url?: string | null;
+  points?: number;
+  is_active?: boolean;
+  rubric_criteria?: VizuMockWritingRubricCriterion[];
+}

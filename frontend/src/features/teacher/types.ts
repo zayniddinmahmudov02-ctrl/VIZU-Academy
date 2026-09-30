@@ -128,3 +128,58 @@ export interface TeacherMockSpeakingItem {
   teil_title: string;
   task_text: string;
 }
+
+// ==========================
+// VIZU-MOCK Schreiben — unscoped (no course concept), same as
+// Vorbereitung above (app/services/teacher/vizu_mock_writing_review_
+// service.py). One row per attempt (all 5 Aufgabe graded together).
+// ==========================
+
+export interface VizuMockTeacherWritingListItem {
+  attempt_id: string;
+  student_name: string;
+  username: string;
+  email: string;
+  schreiben_submitted_at: string;
+  graded_count: number;
+  total_tasks: number;
+  schreiben_score: number | null;
+  max_score: number;
+  status: "NEW" | "IN_PROGRESS" | "GRADED";
+}
+
+export interface VizuMockWritingRubricCriterion {
+  id: string;
+  name: string;
+  max_score: number;
+  order_index: number;
+}
+
+export interface VizuMockTeacherWritingSubmissionDetail {
+  task_id: string;
+  order_index: number;
+  level: string;
+  title: string;
+  instruction: string;
+  min_words: number;
+  max_words: number;
+  image_url: string | null;
+  content: string;
+  word_count: number;
+  rubric_criteria: VizuMockWritingRubricCriterion[];
+  criterion_scores: Record<string, number>;
+  teacher_score: number | null;
+  teacher_comment: string | null;
+}
+
+export interface VizuMockTeacherWritingDetail {
+  attempt_id: string;
+  student_name: string;
+  username: string;
+  email: string;
+  schreiben_submitted_at: string;
+  schreiben_score: number | null;
+  schreiben_level: string | null;
+  schreiben_feedback: string | null;
+  submissions: VizuMockTeacherWritingSubmissionDetail[];
+}

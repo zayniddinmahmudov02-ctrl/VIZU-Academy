@@ -14,6 +14,8 @@ import type {
   VizuMockAudioUpdatePayload,
   VizuMockLevelAnalytics,
   VizuMockOverviewStats,
+  VizuMockWritingTaskAdmin,
+  VizuMockWritingTaskAdminPayload,
 } from "../types/vizu-mock-admin.types";
 
 export async function getVizuMockOverview(): Promise<VizuMockOverviewStats> {
@@ -62,6 +64,19 @@ export async function getVizuMockLesenContent(): Promise<VizuMockAdminTask[]> {
 export async function getVizuMockHoerenContent(): Promise<VizuMockAdminHoerenTask[]> {
   const response = await api.get<VizuMockAdminHoerenTask[]>(ADMIN_ENDPOINTS.vizuMockHoerenContent);
   return ensureArray<VizuMockAdminHoerenTask>(response.data);
+}
+
+export async function listVizuMockSchreibenTasks(): Promise<VizuMockWritingTaskAdmin[]> {
+  const response = await api.get<VizuMockWritingTaskAdmin[]>(ADMIN_ENDPOINTS.vizuMockSchreibenContent);
+  return ensureArray<VizuMockWritingTaskAdmin>(response.data);
+}
+
+export async function updateVizuMockSchreibenTask(
+  taskId: string,
+  data: VizuMockWritingTaskAdminPayload,
+): Promise<VizuMockWritingTaskAdmin> {
+  const response = await api.put<VizuMockWritingTaskAdmin>(ADMIN_ENDPOINTS.vizuMockSchreibenContentDetail(taskId), data);
+  return response.data;
 }
 
 export async function listVizuMockAudio(): Promise<VizuMockAudio[]> {

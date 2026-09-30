@@ -18,8 +18,12 @@ from app.schemas.vizu_mock import (
     VizuMockLevelAnalytics,
     VizuMockOverviewStats,
     VizuMockTaskPublic,
+    VizuMockWritingTaskAdminCreate,
+    VizuMockWritingTaskAdminResponse,
+    VizuMockWritingTaskAdminUpdate,
 )
 from app.services.admin import vizu_mock_admin_service as service
+from app.services.admin import vizu_mock_writing_admin_service as writing_service
 from app.services.vizu_mock import hoeren_service, lesen_service
 
 router = APIRouter(prefix="/admin/vizu-mock", tags=["Admin - VIZU-Mock"])
@@ -165,3 +169,50 @@ def delete_audio(
 ):
     if not service.delete_audio(db, audio_id):
         raise HTTPException(status_code=404, detail="Audio not found.")
+
+
+# ============================================================
+# Schreiben — full Aufgabe management (topic/instruction/word limits/
+# image/points/rubric/order/status), unlike Lesen/Hören's read-only
+# preview — this module explicitly asked for a real admin editor.
+# ============================================================
+
+
+@router.get("/schreiben-content", response_model=list[VizuMockWritingTaskAdminResponse])
+def list_schreiben_tasks(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    return writing_service.list_tasks(db)
+
+
+@router.post("/schreiben-content", response_model=VizuMockWritingTaskAdminResponse, status_code=201)
+def create_schreiben_task(
+    data: VizuMockWritingTaskAdminCreate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    return writing_service.create_task(db, data)
+
+
+@router.put("/schreiben-content/{task_id}", response_model=VizuMockWritingTaskAdminResponse)
+def update_schreiben_task(
+    task_id: UUID,
+    data: VizuMockWritingTaskAdminUpdate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    task = writing_service.update_task(db, task_id, data)
+    if task is None:
+        raise HTTPException(status_code=404, detail="Aufgabe not found.")
+    return task
+
+
+@router.delete("/schreiben-content/{task_id}", status_code=204)
+def delete_schreiben_task(
+    task_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    if not writing_service.delete_task(db, task_id):
+        raise HTTPException(status_code=404, detail="Aufgabe not found.")

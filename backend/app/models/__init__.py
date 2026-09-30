@@ -38,6 +38,12 @@ from .teacher_assignment import TeacherAssignment
 from .vizu_mock_attempt import VizuMockAttempt
 from .vizu_mock_content import VizuMockAnswer, VizuMockOption, VizuMockQuestion, VizuMockTask
 from .vizu_mock_audio import VizuMockAudio
+from .vizu_mock_writing import (
+    VizuMockWritingCriterionScore,
+    VizuMockWritingRubricCriterion,
+    VizuMockWritingSubmission,
+    VizuMockWritingTask,
+)
 
 # Certificate
 from .certificate import Certificate

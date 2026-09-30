@@ -28,6 +28,26 @@ from .admin_schema import (
     VizuMockOverviewStats,
     VizuMockTimeAnalytics,
 )
+from .writing_schema import (
+    VizuMockWritingSaveRequest,
+    VizuMockWritingSubmissionPublic,
+    VizuMockWritingSubmitAllResponse,
+    VizuMockWritingTaskPublic,
+)
+from .writing_admin_schema import (
+    VizuMockWritingRubricCriterionInput,
+    VizuMockWritingRubricCriterionResponse,
+    VizuMockWritingTaskAdminCreate,
+    VizuMockWritingTaskAdminResponse,
+    VizuMockWritingTaskAdminUpdate,
+)
+from .writing_teacher_schema import (
+    VizuMockTeacherFeedbackRequest,
+    VizuMockTeacherGradeTaskRequest,
+    VizuMockTeacherWritingDetail,
+    VizuMockTeacherWritingListItem,
+    VizuMockTeacherWritingSubmissionDetail,
+)
 
 __all__ = [
     "VizuMockAnswerSubmit",
@@ -54,4 +74,18 @@ __all__ = [
     "VizuMockLevelBucket",
     "VizuMockOverviewStats",
     "VizuMockTimeAnalytics",
+    "VizuMockWritingSaveRequest",
+    "VizuMockWritingSubmissionPublic",
+    "VizuMockWritingSubmitAllResponse",
+    "VizuMockWritingTaskPublic",
+    "VizuMockWritingRubricCriterionInput",
+    "VizuMockWritingRubricCriterionResponse",
+    "VizuMockWritingTaskAdminCreate",
+    "VizuMockWritingTaskAdminResponse",
+    "VizuMockWritingTaskAdminUpdate",
+    "VizuMockTeacherFeedbackRequest",
+    "VizuMockTeacherGradeTaskRequest",
+    "VizuMockTeacherWritingDetail",
+    "VizuMockTeacherWritingListItem",
+    "VizuMockTeacherWritingSubmissionDetail",
 ]

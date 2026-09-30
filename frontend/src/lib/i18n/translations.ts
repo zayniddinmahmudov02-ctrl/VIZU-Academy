@@ -169,6 +169,7 @@ export const translations: Record<string, Namespace> = {
     startNewAttempt: { de: "Neuen Versuch starten", uz: "Yangi urinish boshlash" },
     step: { de: "Schritt {current} von {total}", uz: "{current}/{total}-qadam" },
     next: { de: "Weiter", uz: "Keyingi" },
+    previous: { de: "Zurück", uz: "Orqaga" },
     submit: { de: "Einreichen", uz: "Yuborish" },
     finish: { de: "Abschließen", uz: "Yakunlash" },
     placeholderNote: {
@@ -201,6 +202,26 @@ export const translations: Record<string, Namespace> = {
     },
     continueToSchreiben: { de: "Weiter zu Schreiben", uz: "Schreibenga o'tish" },
     playAudioLabel: { de: "Audio abspielen", uz: "Audio ijro etish" },
+    // Schreiben — real content flow (5 Aufgaben, teacher-graded). No CEFR
+    // level is shown to the student for this module either.
+    schreibenSave: { de: "Speichern", uz: "Saqlash" },
+    schreibenSaved: { de: "Gespeichert", uz: "Saqlandi" },
+    schreibenAbsenden: { de: "Schreiben absenden", uz: "Schreiben'ni yuborish" },
+    schreibenConfirmTitle: {
+      de: "Möchten Sie Ihre Antworten wirklich abgeben?",
+      uz: "Javoblaringizni haqiqatan ham topshirmoqchimisiz?",
+    },
+    schreibenConfirmBody: {
+      de: "Nach dem Absenden können die Antworten nicht mehr geändert werden.",
+      uz: "Yuborilgandan so'ng javoblarni o'zgartirib bo'lmaydi.",
+    },
+    schreibenConfirmCancel: { de: "Abbrechen", uz: "Bekor qilish" },
+    schreibenConfirmSubmit: { de: "Absenden", uz: "Yuborish" },
+    schreibenSubmittedTitle: {
+      de: "Ihre Antworten wurden erfolgreich übermittelt.",
+      uz: "Javoblaringiz muvaffaqiyatli yuborildi.",
+    },
+    continueToSprechen: { de: "Weiter zu Sprechen", uz: "Sprechenga o'tish" },
     writingPrompt: { de: "Aufgabe", uz: "Topshiriq" },
     writingPromptPlaceholder: {
       de: "Die Schreibaufgabe wird bald hinzugefügt.",
