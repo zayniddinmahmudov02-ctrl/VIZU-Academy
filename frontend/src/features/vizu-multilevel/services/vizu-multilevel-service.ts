@@ -17,6 +17,7 @@ import type {
   VizuMultilevelSpeakingSubmission,
   VizuMultilevelSpeakingTask,
   VizuMultilevelTask,
+  VizuMultilevelWritingEvaluation,
   VizuMultilevelWritingSubmission,
   VizuMultilevelWritingTask,
 } from "../types/vizu-multilevel.types";
@@ -160,6 +161,16 @@ export async function saveVizuMultilevelSchreibenDraft(
 
 export async function submitVizuMultilevelSchreiben(attemptId: string): Promise<void> {
   await api.post(`${BASE}/${attemptId}/schreiben/submit`);
+}
+
+/** Evaluation state and — once DONE — the per-Aufgabe result. */
+export async function getVizuMultilevelSchreibenEvaluation(attemptId: string): Promise<VizuMultilevelWritingEvaluation> {
+  const response = await api.get<VizuMultilevelWritingEvaluation>(`${BASE}/${attemptId}/schreiben/evaluation`);
+  return response.data;
+}
+
+export async function retryVizuMultilevelSchreibenEvaluation(attemptId: string): Promise<void> {
+  await api.post(`${BASE}/${attemptId}/schreiben/evaluation/retry`);
 }
 
 // ---- Sprechen ----

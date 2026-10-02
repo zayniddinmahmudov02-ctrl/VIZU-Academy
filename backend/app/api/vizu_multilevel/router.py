@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
+from fastapi import APIRouter, BackgroundTasks, Depends, File, Form, HTTPException, UploadFile
 from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 
@@ -26,12 +26,22 @@ from app.schemas.vizu_multilevel import (
     VizuMultilevelSpeakingSubmitAllResponse,
     VizuMultilevelSpeakingTaskPublic,
     VizuMultilevelTaskPublic,
+    VizuMultilevelWritingEvaluation,
     VizuMultilevelWritingSaveRequest,
     VizuMultilevelWritingSubmissionPublic,
     VizuMultilevelWritingSubmitAllResponse,
     VizuMultilevelWritingTaskPublic,
 )
-from app.services.vizu_multilevel import hoeren_audio_service, hoeren_json_import_service, hoeren_service, lesen_service, schreiben_service, service, sprechen_service
+from app.services.vizu_multilevel import (
+    hoeren_audio_service,
+    hoeren_json_import_service,
+    hoeren_service,
+    lesen_service,
+    schreiben_evaluation_service,
+    schreiben_service,
+    service,
+    sprechen_service,
+)
 from app.services.vizu_multilevel.schreiben_service import SectionTimeUpError, WritingAlreadySubmittedError
 from app.services.vizu_multilevel.service import SectionFlowError
 from app.services.vizu_multilevel.sprechen_service import SectionTimeUpError as SpeakingTimeUpError
@@ -348,15 +358,51 @@ def save_schreiben_draft(
 @router.post("/attempts/{attempt_id}/schreiben/submit", response_model=VizuMultilevelWritingSubmitAllResponse)
 def submit_schreiben(
     attempt_id: UUID,
+    background_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
+    """Final submission: all 5 Aufgaben required (MIN_ANSWERS_REQUIRED
+    otherwise), answers are locked, a second call is 409
+    SECTION_ALREADY_SUBMITTED. The AI evaluation then runs server-side in
+    the background — poll GET .../schreiben/evaluation."""
     attempt = _own_attempt(db, current_user, attempt_id)
     try:
         attempt = schreiben_service.submit_all(db, attempt)
     except SectionFlowError as exc:
         raise _flow_error(exc)
+    background_tasks.add_task(schreiben_evaluation_service.run_for_attempt, attempt.id)
     return {"attempt_id": attempt.id, "schreiben_submitted_at": attempt.schreiben_submitted_at}
+
+
+@router.get("/attempts/{attempt_id}/schreiben/evaluation", response_model=VizuMultilevelWritingEvaluation)
+def get_schreiben_evaluation(
+    attempt_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Evaluation state and — once DONE — the per-Aufgabe scores, verified
+    errors with corrections, feedback and the overall summary. Read-only:
+    there is no way for a client to send or change points."""
+    attempt = _own_attempt(db, current_user, attempt_id)
+    return schreiben_evaluation_service.build_student_result(db, attempt)
+
+
+@router.post("/attempts/{attempt_id}/schreiben/evaluation/retry", response_model=VizuMultilevelWritingEvaluation)
+def retry_schreiben_evaluation(
+    attempt_id: UUID,
+    background_tasks: BackgroundTasks,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Re-queues Aufgaben whose evaluation FAILED (e.g. AI temporarily
+    unavailable). Never re-scores Aufgaben that are already DONE."""
+    attempt = _own_attempt(db, current_user, attempt_id)
+    result = schreiben_evaluation_service.build_student_result(db, attempt)
+    if result["status"] != "FAILED":
+        raise HTTPException(status_code=409, detail="EVALUATION_NOT_FAILED")
+    background_tasks.add_task(schreiben_evaluation_service.run_for_attempt, attempt.id)
+    return result
 
 
 # ============================================================
@@ -471,4 +517,11 @@ legacy_router.add_api_route(
 )
 legacy_router.add_api_route(
     "/attempts/{attempt_id}/hoeren/result", get_hoeren_result, methods=["GET"], response_model=VizuMultilevelHoerenResult
+)
+
+legacy_router.add_api_route(
+    "/attempts/{attempt_id}/schreiben/evaluation",
+    get_schreiben_evaluation,
+    methods=["GET"],
+    response_model=VizuMultilevelWritingEvaluation,
 )

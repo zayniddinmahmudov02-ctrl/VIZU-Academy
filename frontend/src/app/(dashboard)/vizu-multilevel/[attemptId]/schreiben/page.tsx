@@ -1,23 +1,24 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { ArrowLeft, Check } from "lucide-react";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowLeft, Check, CircleDot, Send } from "lucide-react";
 
 import Button from "@/components/ui/button";
 import { useTranslation } from "@/lib/i18n/use-translation";
+import { cn } from "@/lib/utils";
 import VizuMultilevelFinishConfirmDialog from "@/features/vizu-multilevel/components/finish-confirm-dialog";
+import SchreibenEvaluationFlow from "@/features/vizu-multilevel/components/schreiben-evaluation";
 import { SectionError, SectionLoading, SectionPreparing } from "@/features/vizu-multilevel/components/section-states";
 import VizuMultilevelStepShell from "@/features/vizu-multilevel/components/step-shell";
 import VizuMultilevelWritingEditor from "@/features/vizu-multilevel/components/writing-editor";
 import { getSkillMeta, nextStepPath } from "@/features/vizu-multilevel/constants/skills";
-import VizuMultilevelProgressHeader from "@/features/vizu-multilevel/components/progress-header";
 import {
   apiErrorCode,
   isConflict,
-  minAnswersRequired,
-  useVizuMultilevelSection,
+  useVizuMultilevelSectionOrSubmitted,
 } from "@/features/vizu-multilevel/hooks/use-section";
 import {
   getVizuMultilevelSchreibenSubmissions,
@@ -26,128 +27,138 @@ import {
   submitVizuMultilevelSchreiben,
 } from "@/features/vizu-multilevel/services/vizu-multilevel-service";
 
-/** Schreiben step. A plain-text editor (no rich formatting) with umlaut
- * keys and a word counter per Aufgabe. Drafts persist on the server per
- * Aufgabe ("Speichern" + an implicit save on "Weiter"/finish) — but only
- * while the server-owned 20-minute window is open. Nothing is graded
- * automatically (a teacher grades afterwards), so this step never shows a
- * level or score; finishing moves straight on to Sprechen. */
+type Phase = "write" | "evaluating";
+
+/** Schreiben: 5 Aufgaben in a split screen — instructions on the left, the
+ * editor on the right. Every Aufgabe is saved to the server on its own
+ * ("Speichern & Weiter"), so nothing is lost when navigating or reloading,
+ * and stays editable until the final submission. "Alle 5 Aufgaben abgeben"
+ * needs all five saved (the server enforces it too), locks the answers and
+ * starts the server-side evaluation; the student then sees the evaluation
+ * screen (>= 10 s, until the real result exists) and the detailed result.
+ * No CEFR level is shown while writing. */
 export default function VizuMultilevelSchreibenPage() {
   const { t } = useTranslation();
   const router = useRouter();
   const { attemptId } = useParams<{ attemptId: string }>();
   const skill = getSkillMeta("schreiben")!;
-  const queryClient = useQueryClient();
 
-  const gate = useVizuMultilevelSection(attemptId, "schreiben");
-  const { data: tasks, isLoading: tasksLoading } = useQuery({
-    queryKey: ["vizu-multilevel-schreiben-tasks"],
-    queryFn: getVizuMultilevelSchreibenTasks,
-  });
-  const { data: submissions, isLoading: submissionsLoading } = useQuery({
+  const gate = useVizuMultilevelSectionOrSubmitted(attemptId, "schreiben");
+  const tasksQuery = useQuery({ queryKey: ["vizu-multilevel-schreiben-tasks"], queryFn: getVizuMultilevelSchreibenTasks });
+  const subsQuery = useQuery({
     queryKey: ["vizu-multilevel-schreiben-submissions", attemptId],
     queryFn: () => getVizuMultilevelSchreibenSubmissions(attemptId),
   });
+  const tasks = tasksQuery.data;
 
   const [taskIndex, setTaskIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
-  const [savedTaskIds, setSavedTaskIds] = useState<Record<string, boolean>>({});
+  // Text as last CONFIRMED by the server — the single source of truth for "Gespeichert".
+  const [saved, setSaved] = useState<Record<string, string>>({});
+  const [phase, setPhase] = useState<Phase>("write");
+  const [justSubmitted, setJustSubmitted] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const submittingRef = useRef(false);
 
-  // Resume previously-saved drafts exactly once, the instant the
-  // submissions query first resolves (setState-during-render: React's
-  // documented pattern for "adjust state when data arrives").
-  const [hydratedFrom, setHydratedFrom] = useState<typeof submissions>(undefined);
-  if (submissions && submissions !== hydratedFrom) {
-    const initial: Record<string, string> = {};
-    const saved: Record<string, boolean> = {};
-    for (const s of submissions) {
-      initial[s.task_id] = s.content;
-      saved[s.task_id] = true;
-    }
-    setAnswers(initial);
-    setSavedTaskIds(saved);
-    setHydratedFrom(submissions);
+  // Restore the server-side drafts once they arrive (setState during render).
+  const [hydratedFrom, setHydratedFrom] = useState<typeof subsQuery.data>(undefined);
+  if (subsQuery.data && subsQuery.data !== hydratedFrom) {
+    const fromServer: Record<string, string> = {};
+    for (const s of subsQuery.data) fromServer[s.task_id] = s.content;
+    setAnswers((prev) => ({ ...fromServer, ...prev }));
+    setSaved(fromServer);
+    setHydratedFrom(subsQuery.data);
   }
 
+  const dirty = (tasks ?? []).some((task) => (answers[task.id] ?? "") !== (saved[task.id] ?? ""));
+  useEffect(() => {
+    if (!dirty || phase !== "write") return;
+    const warn = (e: BeforeUnloadEvent) => e.preventDefault();
+    window.addEventListener("beforeunload", warn);
+    return () => window.removeEventListener("beforeunload", warn);
+  }, [dirty, phase]);
+
   const saveMutation = useMutation({
-    mutationFn: (taskId: string) => saveVizuMultilevelSchreibenDraft(attemptId, taskId, answers[taskId] ?? ""),
-    onSuccess: (_, taskId) => {
-      setSavedTaskIds((prev) => ({ ...prev, [taskId]: true }));
-      queryClient.invalidateQueries({ queryKey: ["vizu-multilevel-schreiben-submissions", attemptId] });
+    mutationFn: ({ taskId, content }: { taskId: string; content: string }) =>
+      saveVizuMultilevelSchreibenDraft(attemptId, taskId, content),
+    onSuccess: (submission) => {
+      setSaved((prev) => ({ ...prev, [submission.task_id]: submission.content }));
+      setError(null);
     },
+    onError: () => setError(t("vizuMultilevel.saveFailed")),
   });
 
   const submitMutation = useMutation({
     mutationFn: async () => {
-      // Best-effort save of the Aufgabe on screen. After the deadline the
-      // server rejects it (409) — the final submit below still goes through.
       const current = tasks?.[taskIndex];
-      if (current && answers[current.id] && !savedTaskIds[current.id]) {
+      if (current && (answers[current.id] ?? "") !== (saved[current.id] ?? "")) {
         try {
-          await saveVizuMultilevelSchreibenDraft(attemptId, current.id, answers[current.id]);
+          await saveVizuMultilevelSchreibenDraft(attemptId, current.id, answers[current.id] ?? "");
         } catch {
-          /* window closed or transient — submit regardless */
+          /* time up — the server keeps the last in-time drafts */
         }
       }
       await submitVizuMultilevelSchreiben(attemptId);
     },
-    onSuccess: () => router.push(nextStepPath(attemptId, "schreiben")),
-    onError: (error) => {
-      if (apiErrorCode(error) === "MIN_ANSWERS_REQUIRED") {
-        submittingRef.current = false;
-        setSubmitError(t("vizuMultilevel.minRequiredError", { min: minRequired }));
-        return;
-      }
-      if (isConflict(error)) {
-        router.push(nextStepPath(attemptId, "schreiben"));
-        return;
-      }
+    onSuccess: () => {
+      setJustSubmitted(true);
+      setPhase("evaluating");
+    },
+    onError: (e) => {
       submittingRef.current = false;
-      setSubmitError(t("vizuMultilevel.submitFailed"));
+      const code = apiErrorCode(e);
+      if (code === "MIN_ANSWERS_REQUIRED") setError(t("vizuMultilevel.allTasksRequiredError"));
+      else if (code === "SECTION_ALREADY_SUBMITTED") setPhase("evaluating");
+      else if (isConflict(e)) router.push(nextStepPath(attemptId, "schreiben"));
+      else setError(t("vizuMultilevel.submitFailed"));
     },
   });
 
   function handleSubmit() {
     if (submittingRef.current) return;
     submittingRef.current = true;
-    setSubmitError(null);
+    setError(null);
     setConfirmOpen(false);
     submitMutation.mutate();
   }
 
-  const task = tasks?.[taskIndex];
-  const isLastTask = tasks ? taskIndex >= tasks.length - 1 : false;
-  const writtenCount = (tasks ?? []).filter((x) => (answers[x.id] ?? "").trim()).length;
-  const minRequired = minAnswersRequired(tasks?.length ?? 0);
-  const canFinish = writtenCount >= minRequired;
-
-  function updateAnswer(taskId: string, content: string) {
-    setAnswers((prev) => ({ ...prev, [taskId]: content }));
-    setSavedTaskIds((prev) => ({ ...prev, [taskId]: false }));
+  async function saveCurrent(): Promise<boolean> {
+    const task = tasks?.[taskIndex];
+    if (!task) return true;
+    const content = answers[task.id] ?? "";
+    if (content === (saved[task.id] ?? "")) return true;
+    try {
+      await saveMutation.mutateAsync({ taskId: task.id, content });
+      return true;
+    } catch {
+      return false;
+    }
   }
 
   async function goTo(index: number) {
-    if (task && !savedTaskIds[task.id] && answers[task.id]) {
-      try {
-        await saveMutation.mutateAsync(task.id);
-      } catch {
-        /* keep the text locally; the student can retry with "Speichern" */
-      }
-    }
-    setTaskIndex(index);
+    if (await saveCurrent()) setTaskIndex(index);
   }
 
-  if (gate.status === "error") {
+  // ---- after submission (fresh, or on reload) ----
+  if (phase === "evaluating" || gate.status === "submitted") {
+    return (
+      <SchreibenEvaluationFlow
+        attemptId={attemptId}
+        minDurationMs={justSubmitted ? 10_000 : 0}
+        onContinue={() => router.push(nextStepPath(attemptId, "schreiben"))}
+      />
+    );
+  }
+
+  if (gate.status === "error" || tasksQuery.isError || subsQuery.isError) {
     return (
       <VizuMultilevelStepShell skill={skill} footer={null}>
         <SectionError />
       </VizuMultilevelStepShell>
     );
   }
-  if (gate.status === "loading" || tasksLoading || submissionsLoading || !tasks) {
+  if (gate.status === "loading" || !tasks || subsQuery.isLoading) {
     return (
       <VizuMultilevelStepShell skill={skill} footer={null}>
         <SectionLoading />
@@ -155,36 +166,41 @@ export default function VizuMultilevelSchreibenPage() {
     );
   }
 
+  const task = tasks[taskIndex];
+  const isLast = taskIndex >= tasks.length - 1;
+  const completeCount = tasks.filter((x) => (saved[x.id] ?? "").trim()).length;
+  const allComplete = tasks.length > 0 && completeCount === tasks.length;
+  const currentSaved = task ? (answers[task.id] ?? "") === (saved[task.id] ?? "") : true;
+
   return (
     <VizuMultilevelStepShell
       skill={skill}
+      wide
       initialSeconds={gate.secondsRemaining}
       onTimerExpire={handleSubmit}
-      onFinishClick={() => setConfirmOpen(true)}
       footer={
         <div className="flex flex-wrap items-center justify-end gap-2">
           {task && taskIndex > 0 && (
-            <Button variant="secondary" onClick={() => goTo(taskIndex - 1)} disabled={saveMutation.isPending}>
+            <Button variant="secondary" onClick={() => void goTo(taskIndex - 1)} disabled={saveMutation.isPending}>
               <ArrowLeft size={16} />
               {t("vizuMultilevel.previous")}
             </Button>
           )}
           {task && (
-            <Button variant="secondary" onClick={() => saveMutation.mutate(task.id)} disabled={saveMutation.isPending}>
-              {savedTaskIds[task.id] && !saveMutation.isPending ? (
-                <>
-                  <Check size={16} /> {t("vizuMultilevel.schreibenSaved")}
-                </>
-              ) : (
-                t("vizuMultilevel.schreibenSave")
-              )}
+            <Button
+              variant="secondary"
+              onClick={() => void (isLast ? saveCurrent() : goTo(taskIndex + 1))}
+              disabled={saveMutation.isPending || submitMutation.isPending}
+            >
+              {isLast ? t("vizuMultilevel.schreibenSave") : t("vizuMultilevel.saveAndNext")}
             </Button>
           )}
           <Button
-            onClick={() => (!task || isLastTask ? setConfirmOpen(true) : goTo(taskIndex + 1))}
-            disabled={saveMutation.isPending || submitMutation.isPending}
+            onClick={() => (allComplete || !task ? setConfirmOpen(true) : setError(t("vizuMultilevel.allTasksRequiredError")))}
+            disabled={submitMutation.isPending || (!!task && !allComplete)}
           >
-            {!task || isLastTask ? t("vizuMultilevel.schreibenAbsenden") : t("vizuMultilevel.next")}
+            <Send size={15} />
+            {submitMutation.isPending ? t("common.loading") : t("vizuMultilevel.submitAll", { count: tasks.length })}
           </Button>
         </div>
       }
@@ -192,50 +208,106 @@ export default function VizuMultilevelSchreibenPage() {
       {!task ? (
         <SectionPreparing skill="schreiben" />
       ) : (
-        <div className="space-y-6">
-          <VizuMultilevelProgressHeader
-            positionLabel={t("vizuMultilevel.aufgabePos", { current: taskIndex + 1, total: tasks.length })}
-            answered={writtenCount}
-            total={tasks.length}
-            minRequired={minRequired}
-          />
-
-          <div>
-            <h2 className="mb-2 text-base font-bold text-text-primary">{task.title}</h2>
-            <div className="whitespace-pre-line rounded-2xl bg-surface-hover/60 p-4 text-sm leading-relaxed text-text-secondary ring-1 ring-surface-border">
-              {task.instruction}
-            </div>
+        <div className="space-y-5">
+          {/* Aufgabe navigation */}
+          <div className="flex flex-wrap items-center gap-2" role="tablist">
+            {tasks.map((x, i) => {
+              const isSaved = (saved[x.id] ?? "").trim() !== "" && (answers[x.id] ?? "") === (saved[x.id] ?? "");
+              return (
+                <motion.button
+                  key={x.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={i === taskIndex}
+                  whileTap={{ scale: 0.96 }}
+                  onClick={() => void goTo(i)}
+                  className={cn(
+                    "inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-bold ring-1 transition-colors",
+                    i === taskIndex
+                      ? "bg-blue-600 text-white ring-blue-600"
+                      : "bg-surface-card text-slate-700 ring-slate-200 hover:ring-blue-300 dark:text-slate-200 dark:ring-slate-700",
+                  )}
+                >
+                  {isSaved ? <Check size={13} className={i === taskIndex ? "text-white" : "text-emerald-600"} /> : <CircleDot size={12} className="text-orange-500" />}
+                  {t("vizuMultilevel.aufgabe", { number: x.order_index })}
+                </motion.button>
+              );
+            })}
+            <span className="ml-auto text-xs font-semibold text-slate-500 dark:text-slate-400">
+              {t("vizuMultilevel.savedOf", { done: completeCount, total: tasks.length })}
+            </span>
           </div>
 
-          {task.image_url && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={task.image_url} alt="" className="w-full rounded-2xl object-cover" />
-          )}
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={task.id}
+              initial={{ opacity: 0, x: 18 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -18 }}
+              transition={{ duration: 0.18 }}
+              className="grid gap-6 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]"
+            >
+              {/* LEFT: task */}
+              <section className="rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200 dark:bg-slate-800/60 dark:ring-slate-700">
+                <p className="text-xs font-extrabold uppercase tracking-wide text-blue-600">
+                  {t("vizuMultilevel.aufgabe", { number: task.order_index })}
+                </p>
+                <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">{t("vizuMultilevel.thema")}</p>
+                <h2 className="text-lg font-bold text-slate-900 dark:text-white">{task.title}</h2>
+                <div className="mt-4 whitespace-pre-line text-sm leading-relaxed text-slate-700 dark:text-slate-200">{task.instruction}</div>
+                {task.image_url && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={task.image_url} alt="" className="mt-4 w-full rounded-xl object-cover" />
+                )}
+                <p className="mt-5 inline-flex rounded-full bg-orange-100 px-3 py-1 text-xs font-bold text-orange-700 dark:bg-orange-500/15 dark:text-orange-300">
+                  {t("vizuMultilevel.wordTarget", { min: task.min_words, max: task.max_words })}
+                </p>
+              </section>
 
-          <div>
-            <label className="mb-1.5 block text-sm font-semibold text-text-primary">
-              {t("vizuMultilevel.writingAnswerLabel")}
-            </label>
-            <VizuMultilevelWritingEditor
-              value={answers[task.id] ?? ""}
-              onChange={(content) => updateAnswer(task.id, content)}
-              minWords={task.min_words}
-              maxWords={task.max_words}
-            />
-          </div>
-
-          {saveMutation.isError && <p className="text-sm text-danger">{t("vizuMultilevel.saveFailed")}</p>}
+              {/* RIGHT: editor */}
+              <section>
+                <div className="mb-2 flex items-center justify-between">
+                  <label className="text-sm font-semibold text-slate-900 dark:text-white">{t("vizuMultilevel.writingAnswerLabel")}</label>
+                  <span
+                    className={cn(
+                      "inline-flex items-center gap-1 text-xs font-semibold",
+                      saveMutation.isPending ? "text-slate-500" : currentSaved && (saved[task.id] ?? "") ? "text-emerald-600" : "text-orange-600",
+                    )}
+                    aria-live="polite"
+                  >
+                    {saveMutation.isPending ? (
+                      t("vizuMultilevel.saving")
+                    ) : currentSaved && (saved[task.id] ?? "") ? (
+                      <>
+                        <Check size={13} /> {t("vizuMultilevel.schreibenSaved")}
+                      </>
+                    ) : (
+                      t("vizuMultilevel.unsaved")
+                    )}
+                  </span>
+                </div>
+                <VizuMultilevelWritingEditor
+                  value={answers[task.id] ?? ""}
+                  onChange={(content) => setAnswers((prev) => ({ ...prev, [task.id]: content }))}
+                  minWords={task.min_words}
+                  maxWords={task.max_words}
+                />
+              </section>
+            </motion.div>
+          </AnimatePresence>
         </div>
       )}
 
-      {submitError && <p className="mt-4 text-sm font-medium text-orange-600">{submitError}</p>}
+      {error && <p className="mt-4 text-sm font-medium text-orange-600">{error}</p>}
 
       <VizuMultilevelFinishConfirmDialog
         open={confirmOpen}
         onCancel={() => setConfirmOpen(false)}
         onConfirm={handleSubmit}
         isSubmitting={submitMutation.isPending}
-        blockedReason={canFinish ? null : t("vizuMultilevel.minRequiredError", { min: minRequired })}
+        title={t("vizuMultilevel.submitAllConfirm", { count: tasks.length })}
+        body={t("vizuMultilevel.submitAllBody")}
+        confirmLabel={t("vizuMultilevel.submitAllConfirmButton")}
       />
     </VizuMultilevelStepShell>
   );

@@ -25,6 +25,8 @@ interface Props {
    * questions (they score 0). Opens the shared confirm dialog (see
    * finish-confirm-dialog.tsx). */
   onFinishClick?: () => void;
+  /** Wider layout (split screen), e.g. Schreiben. */
+  wide?: boolean;
 }
 
 /** Shared layout for the four competency steps (Lesen/Hören/Schreiben/
@@ -37,13 +39,19 @@ export default function VizuMultilevelStepShell({
   initialSeconds,
   onTimerExpire,
   onFinishClick,
+  wide = false,
 }: Props) {
   const { t } = useTranslation();
   const Icon = skill.icon;
   const currentIndex = getSkillIndex(skill.skill);
 
   return (
-    <motion.div variants={fadeInUp} initial="hidden" animate="show" className="mx-auto max-w-2xl space-y-6">
+    <motion.div
+      variants={fadeInUp}
+      initial="hidden"
+      animate="show"
+      className={cn("mx-auto space-y-6", wide ? "max-w-6xl" : "max-w-2xl")}
+    >
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           <div

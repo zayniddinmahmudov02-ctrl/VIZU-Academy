@@ -12,14 +12,28 @@ export type SectionGate =
   | { status: "ready"; secondsRemaining: number }
   | { status: "error" };
 
+/** Like SectionGate, plus "submitted" (only from useVizuMultilevelSectionOrSubmitted). */
+export type SectionGateOrSubmitted = SectionGate | { status: "submitted" };
+
 /** Opens a competency on the SERVER: stamps its 20-minute window once and
  * returns the seconds left, computed by the backend's clock. A reload gets
  * the same deadline back (never a fresh timer). If the competency was
  * already finished, or an earlier one is still open, the student is sent
  * to the step they actually belong on. */
 export function useVizuMultilevelSection(attemptId: string, skill: VizuMultilevelSkill): SectionGate {
+  return useSectionGate(attemptId, skill, false) as SectionGate;
+}
+
+/** Same, but a competency that is already submitted stays on its page
+ * (status "submitted") instead of redirecting — used by Schreiben to show
+ * its evaluation/result after a reload. */
+export function useVizuMultilevelSectionOrSubmitted(attemptId: string, skill: VizuMultilevelSkill): SectionGateOrSubmitted {
+  return useSectionGate(attemptId, skill, true);
+}
+
+function useSectionGate(attemptId: string, skill: VizuMultilevelSkill, stayIfSubmitted: boolean): SectionGateOrSubmitted {
   const router = useRouter();
-  const [gate, setGate] = useState<SectionGate>({ status: "loading" });
+  const [gate, setGate] = useState<SectionGateOrSubmitted>({ status: "loading" });
 
   useEffect(() => {
     let cancelled = false;
@@ -29,6 +43,10 @@ export function useVizuMultilevelSection(attemptId: string, skill: VizuMultileve
         const section = await startVizuMultilevelSection(attemptId, skill);
         if (cancelled) return;
         if (section.submitted) {
+          if (stayIfSubmitted) {
+            setGate({ status: "submitted" });
+            return;
+          }
           router.replace(nextStepPath(attemptId, skill));
           return;
         }
@@ -54,7 +72,7 @@ export function useVizuMultilevelSection(attemptId: string, skill: VizuMultileve
     return () => {
       cancelled = true;
     };
-  }, [attemptId, skill, router]);
+  }, [attemptId, skill, router, stayIfSubmitted]);
 
   return gate;
 }

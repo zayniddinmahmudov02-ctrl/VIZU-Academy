@@ -13,6 +13,10 @@ interface Props {
   /** When set, finishing is not allowed yet (e.g. fewer than 5 answers):
    * the reason is shown and the confirm button is disabled. */
   blockedReason?: string | null;
+  /** Optional overrides of the default title / body / confirm label. */
+  title?: string;
+  body?: string;
+  confirmLabel?: string;
 }
 
 /** Shared confirmation modal for VIZU-Multilevel's persistent "Yakunlash"
@@ -22,7 +26,16 @@ interface Props {
  * existing submit path (server-side grading already treats an
  * unanswered question as incorrect/0 points — see lesen_service.py /
  * hoeren_service.py — so ending early needs no new backend logic). */
-export default function VizuMultilevelFinishConfirmDialog({ open, onCancel, onConfirm, isSubmitting, blockedReason }: Props) {
+export default function VizuMultilevelFinishConfirmDialog({
+  open,
+  onCancel,
+  onConfirm,
+  isSubmitting,
+  blockedReason,
+  title,
+  body,
+  confirmLabel,
+}: Props) {
   const { t } = useTranslation();
 
   if (!open) return null;
@@ -33,8 +46,8 @@ export default function VizuMultilevelFinishConfirmDialog({ open, onCancel, onCo
         <div className="flex items-start gap-3">
           <AlertTriangle size={20} className="mt-0.5 shrink-0 text-warning" />
           <div>
-            <p className="text-sm font-bold text-text-primary">{t("vizuMultilevel.finishConfirmTitle")}</p>
-            <p className="mt-1 text-sm text-text-secondary">{t("vizuMultilevel.finishConfirmBody")}</p>
+            <p className="text-sm font-bold text-text-primary">{title ?? t("vizuMultilevel.finishConfirmTitle")}</p>
+            <p className="mt-1 text-sm text-text-secondary">{body ?? t("vizuMultilevel.finishConfirmBody")}</p>
             {blockedReason && <p className="mt-2 text-sm font-semibold text-orange-600">{blockedReason}</p>}
           </div>
         </div>
@@ -43,7 +56,7 @@ export default function VizuMultilevelFinishConfirmDialog({ open, onCancel, onCo
             {t("vizuMultilevel.schreibenConfirmCancel")}
           </Button>
           <Button onClick={onConfirm} disabled={isSubmitting || !!blockedReason}>
-            {isSubmitting ? t("common.loading") : t("vizuMultilevel.finishConfirmSubmit")}
+            {isSubmitting ? t("common.loading") : (confirmLabel ?? t("vizuMultilevel.finishConfirmSubmit"))}
           </Button>
         </div>
       </div>

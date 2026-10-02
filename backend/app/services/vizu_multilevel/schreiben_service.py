@@ -87,7 +87,8 @@ def submit_all(db: Session, attempt: VizuMultilevelAttempt) -> VizuMultilevelAtt
     timestamp or raises)."""
     service.ensure_attempt_active(attempt)
     if attempt.schreiben_submitted_at is not None:
-        return attempt
+        # A second final submission is rejected (answers are locked).
+        raise service.SectionFlowError("SECTION_ALREADY_SUBMITTED")
 
     # Stamps the section start if it was never opened (finishing without
     # answering), and enforces the Lesen -> Hören -> Schreiben order. A
@@ -104,6 +105,11 @@ def submit_all(db: Session, attempt: VizuMultilevelAttempt) -> VizuMultilevelAtt
         submission.submitted_at = now
 
     attempt.schreiben_submitted_at = now
+    # Queue every Aufgabe for the server-side AI evaluation (run in the
+    # background by the router; see schreiben_evaluation_service).
+    from app.services.vizu_multilevel import schreiben_evaluation_service
+
+    schreiben_evaluation_service.mark_pending(db, attempt.id)
     db.commit()
     db.refresh(attempt)
     return attempt

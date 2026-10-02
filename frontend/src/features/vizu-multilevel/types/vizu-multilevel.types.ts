@@ -206,3 +206,36 @@ export interface VizuMultilevelAvailability {
   min_answers: number;
   available: boolean;
 }
+
+// ---- Schreiben AI evaluation (read-only; scores are computed server-side) ----
+
+export interface VizuMultilevelWritingErrorItem {
+  original: string;
+  correction: string;
+  explanation: string;
+  category: string;
+}
+
+export interface VizuMultilevelWritingTaskEvaluation {
+  task_id: string;
+  order_index: number;
+  title: string;
+  score: number;
+  max_score: number;
+  word_count: number;
+  criteria: { name: string; score: number; max: number; justification: string }[];
+  strengths: string[];
+  errors: VizuMultilevelWritingErrorItem[];
+  feedback: string;
+  next_steps: string[];
+}
+
+export interface VizuMultilevelWritingEvaluation {
+  status: "NOT_SUBMITTED" | "PENDING" | "DONE" | "FAILED";
+  evaluated: number;
+  total_tasks: number;
+  total_score: number | null;
+  max_score: number;
+  tasks: VizuMultilevelWritingTaskEvaluation[];
+  summary: { good: string[]; improve: string[]; next: string[] } | null;
+}

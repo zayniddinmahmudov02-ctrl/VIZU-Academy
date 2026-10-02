@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, String, Text, UniqueConstraint
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models.base import BaseModel
@@ -96,6 +96,16 @@ class VizuMultilevelWritingSubmission(BaseModel):
         UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"), nullable=True
     )
     reviewed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+    # Server-side AI evaluation (see services/vizu_multilevel/
+    # schreiben_evaluation_service.py): PENDING -> RUNNING -> DONE / FAILED.
+    # The per-task points are teacher_score (= sum of the clamped criterion
+    # scores); `ai_feedback` holds strengths, VERIFIED errors with
+    # corrections, the feedback text and next steps.
+    evaluation_status: Mapped[str | None] = mapped_column(String(20), nullable=True)
+    ai_feedback: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
+    evaluation_error: Mapped[str | None] = mapped_column(Text, nullable=True)
+    evaluated_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
     task = relationship("VizuMultilevelWritingTask")
     reviewed_by = relationship("User")
