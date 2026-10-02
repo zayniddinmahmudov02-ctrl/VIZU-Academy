@@ -31,7 +31,7 @@ type Phase = "write" | "evaluating";
 
 /** Schreiben: 5 Aufgaben in a split screen — instructions on the left, the
  * editor on the right. Every Aufgabe is saved to the server on its own
- * ("Speichern & Weiter"), so nothing is lost when navigating or reloading,
+ * ("Antwort speichern & weiter"), so nothing is lost when navigating or reloading,
  * and stays editable until the final submission. "Alle 5 Aufgaben abgeben"
  * needs all five saved (the server enforces it too), locks the answers and
  * starts the server-side evaluation; the student then sees the evaluation
@@ -250,7 +250,7 @@ export default function VizuMultilevelSchreibenPage() {
               {/* LEFT: task */}
               <section className="rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200 dark:bg-slate-800/60 dark:ring-slate-700">
                 <p className="text-xs font-extrabold uppercase tracking-wide text-blue-600">
-                  {t("vizuMultilevel.aufgabe", { number: task.order_index })}
+                  {t("vizuMultilevel.schreibenAufgabeOf", { number: task.order_index, total: tasks.length })}
                 </p>
                 <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">{t("vizuMultilevel.thema")}</p>
                 <h2 className="text-lg font-bold text-slate-900 dark:text-white">{task.title}</h2>
@@ -265,7 +265,7 @@ export default function VizuMultilevelSchreibenPage() {
               </section>
 
               {/* RIGHT: editor */}
-              <section>
+              <section className="rounded-2xl bg-surface-card p-5 shadow-[var(--shadow-sm)] ring-1 ring-surface-border">
                 <div className="mb-2 flex items-center justify-between">
                   <label className="text-sm font-semibold text-slate-900 dark:text-white">{t("vizuMultilevel.writingAnswerLabel")}</label>
                   <span

@@ -64,6 +64,12 @@ class VizuMultilevelWritingTaskEvaluation(BaseSchema):
     errors: list[VizuMultilevelWritingErrorItem]
     feedback: str
     next_steps: list[str]
+    # Comments on this student's text per area (empty for evaluations
+    # stored before these fields existed).
+    grammar: str = ""
+    vocabulary: str = ""
+    task_fulfilment: str = ""
+    improvement: str = ""
 
 
 class VizuMultilevelWritingSummary(BaseSchema):

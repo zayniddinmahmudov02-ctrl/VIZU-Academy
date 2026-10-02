@@ -228,6 +228,11 @@ export interface VizuMultilevelWritingTaskEvaluation {
   errors: VizuMultilevelWritingErrorItem[];
   feedback: string;
   next_steps: string[];
+  /** Comments on this student's text per area (may be empty for older results). */
+  grammar?: string;
+  vocabulary?: string;
+  task_fulfilment?: string;
+  improvement?: string;
 }
 
 export interface VizuMultilevelWritingEvaluation {

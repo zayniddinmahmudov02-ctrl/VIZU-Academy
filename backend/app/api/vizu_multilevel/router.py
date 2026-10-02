@@ -37,6 +37,7 @@ from app.services.vizu_multilevel import (
     hoeren_json_import_service,
     hoeren_service,
     lesen_service,
+    schreiben_content,
     schreiben_evaluation_service,
     schreiben_service,
     service,
@@ -322,6 +323,9 @@ def get_schreiben_tasks(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
+    # Never serve an empty Schreiben screen: create any of the 5 standard
+    # Aufgaben that does not exist yet (see schreiben_content.ensure_content).
+    schreiben_content.ensure_content(db)
     return schreiben_service.list_writing_tasks(db)
 
 

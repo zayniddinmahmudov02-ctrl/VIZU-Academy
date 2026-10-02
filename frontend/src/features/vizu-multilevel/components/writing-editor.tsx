@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 
+import { useTranslation } from "@/lib/i18n/use-translation";
 import { cn } from "@/lib/utils";
 
 const UMLAUT_KEYS = ["Ä", "Ö", "Ü", "ä", "ö", "ü", "ß"];
@@ -26,6 +27,7 @@ interface Props {
  * ("Faqat oddiy yozuv... boshqa rang tanlay olmasin"), so a new, much
  * smaller component was written instead of reusing/stripping that one. */
 export default function VizuMultilevelWritingEditor({ value, onChange, minWords, maxWords, disabled }: Props) {
+  const { t } = useTranslation();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const wordCount = countWords(value);
   const belowMin = wordCount < minWords;
@@ -71,11 +73,19 @@ export default function VizuMultilevelWritingEditor({ value, onChange, minWords,
         placeholder="Schreiben Sie hier Ihren Text..."
       />
 
-      <p className={cn("mt-1.5 text-xs font-medium", belowMin || aboveMax ? "text-warning" : "text-text-muted")}>
-        Wörter: {wordCount} / {minWords}–{maxWords}
-        {belowMin && " — Mindestwortzahl noch nicht erreicht."}
-        {aboveMax && " — Maximale Wortzahl überschritten."}
+      <p
+        data-testid="word-counter"
+        className={cn("mt-2 text-sm font-bold tabular-nums", belowMin || aboveMax ? "text-orange-600" : "text-emerald-600")}
+      >
+        {t("vizuMultilevel.wordsOfMax", { count: wordCount, max: maxWords })}
       </p>
+      {(belowMin || aboveMax) && (
+        <p role="status" className="mt-1.5 rounded-lg bg-orange-50 px-3 py-2 text-xs font-semibold text-orange-700 ring-1 ring-orange-200 dark:bg-orange-500/10 dark:text-orange-300 dark:ring-orange-500/30">
+          {belowMin
+            ? t("vizuMultilevel.wordsBelowMin", { min: minWords, missing: minWords - wordCount })
+            : t("vizuMultilevel.wordsAboveMax", { max: maxWords, extra: wordCount - maxWords })}
+        </p>
+      )}
     </div>
   );
 }

@@ -107,10 +107,15 @@ Regeln:
 - "strengths": 2-4 konkrete Beobachtungen, die sich auf den Text beziehen (gern mit kurzem Zitat).
 - "feedback": 2-4 natürliche Sätze wie eine Lehrkraft: was gut gelungen ist und was besser werden muss.
 - "next_steps": 1-3 konkrete Empfehlungen für die nächste Schreibaufgabe.
+- "grammar": 1-3 Sätze zur Grammatik DIESES Textes — nenne konkrete Stellen (kurzes Zitat) und ihre richtige Form; wenn die Grammatik korrekt ist, sag das mit einem Beispiel aus dem Text.
+- "vocabulary": 1-3 Sätze zum Wortschatz DIESES Textes (Vielfalt, Passung) mit einem Zitat aus dem Text.
+- "task_fulfilment": 1-3 Sätze, welche Inhaltspunkte der Aufgabe erfüllt sind und welche fehlen oder zu kurz kommen.
+- "improvement": 1-2 Sätze mit einer konkreten Verbesserung, gern als umformulierter Satz aus dem Text.
+- Keine allgemeinen Floskeln, die auf jeden Text passen würden. Erfinde keine Zitate.
 - Alles auf Deutsch.
 
 Antworte NUR mit JSON in genau dieser Form:
-{{"criteria": [{{"name": "<exakter Kriteriumsname>", "score": <ganze Zahl>, "justification": "kurz"}}], "strengths": ["..."], "feedback": "...", "next_steps": ["..."]}}"""
+{{"criteria": [{{"name": "<exakter Kriteriumsname>", "score": <ganze Zahl>, "justification": "kurz"}}], "strengths": ["..."], "feedback": "...", "next_steps": ["..."], "grammar": "...", "vocabulary": "...", "task_fulfilment": "...", "improvement": "..."}}"""
 
 
 # ============================================================
@@ -224,6 +229,15 @@ def score_criteria(criteria: list[VizuMultilevelWritingCriterionScore] | list, a
     return result
 
 
+# Per-area comments on the student's actual text (Grammatik / Wortschatz /
+# Aufgabenbearbeitung / Verbesserung) — returned by the rubric agent.
+COMMENT_KEYS = ("grammar", "vocabulary", "task_fulfilment", "improvement")
+
+
+def _clean_text(value) -> str:
+    return str(value).strip()[:800] if isinstance(value, str) else ""
+
+
 def _clean_list(value, limit: int) -> list[str]:
     if not isinstance(value, list):
         return []
@@ -287,6 +301,7 @@ def _evaluate(task, submission_text: str, word_count: int) -> dict:
         "strengths": _clean_list(rubric.get("strengths"), 4),
         "feedback": str(rubric.get("feedback", "")).strip()[:1500],
         "next_steps": _clean_list(rubric.get("next_steps"), 3),
+        **{key: _clean_text(rubric.get(key)) for key in COMMENT_KEYS},
     }
 
 
@@ -315,6 +330,10 @@ def _empty_result(task) -> dict:
         "strengths": [],
         "feedback": "Zu dieser Aufgabe wurde kein Text abgegeben.",
         "next_steps": ["Bearbeite jede Aufgabe — auch ein kurzer Text bringt Punkte."],
+        "grammar": "",
+        "vocabulary": "",
+        "task_fulfilment": "Zu dieser Aufgabe wurde kein Text abgegeben, daher ist kein Inhaltspunkt erfüllt.",
+        "improvement": "",
     }
 
 
@@ -345,6 +364,7 @@ def _store(db: Session, submission: VizuMultilevelWritingSubmission, evaluation:
         "strengths": evaluation["strengths"],
         "feedback": evaluation["feedback"],
         "next_steps": evaluation["next_steps"],
+        **{key: evaluation.get(key, "") for key in COMMENT_KEYS},
     }
     submission.evaluation_status = DONE
     submission.evaluation_error = None
@@ -521,6 +541,7 @@ def build_student_result(db: Session, attempt: VizuMultilevelAttempt) -> dict:
                 "errors": fb.get("errors", []),
                 "feedback": fb.get("feedback", ""),
                 "next_steps": fb.get("next_steps", []),
+                **{key: fb.get(key, "") for key in COMMENT_KEYS},
             }
         )
     payload["tasks"] = task_results

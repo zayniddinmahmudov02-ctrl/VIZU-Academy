@@ -97,6 +97,11 @@ function EvaluatingScreen({ evaluated, total }: { evaluated: number; total: numb
         aria-hidden="true"
       />
       <h1 className="mt-6 text-xl font-bold text-slate-900 dark:text-white">{t("vizuMultilevel.evalTitle")}</h1>
+      <p className="mt-2 text-sm font-medium text-slate-700 dark:text-slate-200">{t("vizuMultilevel.evalChecking")}</p>
+      <p className="mt-1 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-orange-500">
+        <span className="h-2 w-2 animate-pulse rounded-full bg-orange-500 motion-reduce:animate-none" />
+        {t("vizuMultilevel.evalRunning")}
+      </p>
       <div className="mt-3 h-6">
         <AnimatePresence mode="wait">
           <motion.p
@@ -220,6 +225,7 @@ function TaskCard({ task, defaultOpen }: { task: VizuMultilevelWritingTaskEvalua
         </div>
         <div className="flex shrink-0 items-center gap-3">
           <span className="text-lg font-extrabold tabular-nums text-slate-900 dark:text-white">
+            <span className="mr-1.5 text-xs font-bold uppercase tracking-wide text-slate-500">{t("vizuMultilevel.taskPointsLabel")}:</span>
             {task.score} / {task.max_score}
           </span>
           <ChevronDown size={18} className={cn("text-slate-400 transition-transform", open && "rotate-180")} />
@@ -279,11 +285,24 @@ function TaskCard({ task, defaultOpen }: { task: VizuMultilevelWritingTaskEvalua
                 )}
               </Section>
 
+              {[
+                ["grammarTitle", task.grammar],
+                ["vocabularyTitle", task.vocabulary],
+                ["taskFulfilmentTitle", task.task_fulfilment],
+              ].map(([key, text]) =>
+                text ? (
+                  <Section key={key} title={t(`vizuMultilevel.${key}`)}>
+                    <p className="leading-relaxed text-slate-700 dark:text-slate-200">{text}</p>
+                  </Section>
+                ) : null,
+              )}
+
               <Section title={t("vizuMultilevel.feedbackTitle")}>
                 <p className="leading-relaxed text-slate-700 dark:text-slate-200">{task.feedback}</p>
               </Section>
 
-              <Section title={t("vizuMultilevel.nextStepTitle")}>
+              <Section title={t("vizuMultilevel.improvementTitle")}>
+                {task.improvement && <p className="mb-1.5 leading-relaxed text-slate-700 dark:text-slate-200">{task.improvement}</p>}
                 <ul className="list-disc space-y-1 pl-5 text-slate-700 dark:text-slate-200">
                   {task.next_steps.map((s, i) => (
                     <li key={i}>{s}</li>
