@@ -106,13 +106,18 @@ def get_hoeren_result(db: Session, attempt: VizuMultilevelAttempt) -> dict:
         .join(VizuMultilevelTask, VizuMultilevelQuestion.task_id == VizuMultilevelTask.id)
         .where(VizuMultilevelAnswer.attempt_id == attempt.id, VizuMultilevelTask.skill == SKILL_HOEREN)
     ).all()
+    max_points = float(sum(r[0] for r in rows))
     return {
         "attempt_id": attempt.id,
         "total_points": float(attempt.hoeren_score or 0),
-        "max_points": float(sum(r[0] for r in rows)),
+        "max_points": max_points,
         "correct": attempt.hoeren_correct or 0,
         "wrong": attempt.hoeren_wrong or 0,
         "unanswered": attempt.hoeren_unanswered or 0,
+        # Stored at submit time via level_for_score (0-19 % below A1,
+        # 20-39 A1, 40-59 A2, 60-74 B1, 75-89 B2, 90-100 C1).
+        "hoeren_level": attempt.hoeren_level,
+        "below_a1": service.is_submitted(attempt, "hoeren") and attempt.hoeren_level is None and max_points > 0,
     }
 
 

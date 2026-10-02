@@ -110,6 +110,9 @@ export interface VizuMultilevelHoerenResult {
   correct: number;
   wrong: number;
   unanswered: number;
+  /** Determined by the server from the score; null = below A1. */
+  hoeren_level: string | null;
+  below_a1: boolean;
 }
 
 export interface VizuMultilevelAnswerSubmit {

@@ -41,6 +41,10 @@ class VizuMultilevelHoerenResult(BaseSchema):
     correct: int
     wrong: int
     unanswered: int
+    # Determined by the server from the total score (same thresholds as
+    # Lesen: 20/40/60/75/90 %). null = below A1.
+    hoeren_level: str | None
+    below_a1: bool
 
 
 class VizuMultilevelHoerenAudioSlot(BaseSchema):

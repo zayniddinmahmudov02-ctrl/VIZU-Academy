@@ -284,6 +284,10 @@ function HoerenResultView({
         <p className="mt-1 text-4xl font-extrabold text-text-primary">
           {result.total_points} / {result.max_points}
         </p>
+        <p className="mt-4 text-sm font-semibold text-slate-600 dark:text-slate-300">
+          {t("vizuMultilevel.determinedLevel")}:{" "}
+          <span className="text-lg font-extrabold text-blue-600">{result.hoeren_level ?? t("vizuMultilevel.belowA1")}</span>
+        </p>
       </div>
 
       <div className="grid grid-cols-3 gap-3 text-center">
