@@ -278,8 +278,13 @@ def _route_exists(method: str, path: str) -> bool:
     return any(route.matches(scope)[0] == Match.FULL for route in app.router.routes)
 
 
-for _path in ("/api/v1/vizu-multilevel/attempts", "/api/v1/vizu-mock/attempts"):
-    for _method in ("GET", "POST"):
+for _path in (
+    "/api/v1/vizu-multilevel/attempts",
+    "/api/v1/vizu-mock/attempts",
+    "/api/v1/vizu-multilevel/hoeren/tasks",
+    "/api/v1/vizu-mock/hoeren/tasks",
+):
+    for _method in ("GET", "POST") if _path.endswith("/attempts") else ("GET",):
         assert _route_exists(_method, _path), f"missing route {_method} {_path}"
 
 # ==================================================

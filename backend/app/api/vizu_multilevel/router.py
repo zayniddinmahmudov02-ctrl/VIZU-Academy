@@ -421,3 +421,24 @@ legacy_router.add_api_route("/attempts/{attempt_id}", get_my_attempt, methods=["
 legacy_router.add_api_route(
     "/attempts/{attempt_id}/complete", complete_my_attempt, methods=["POST"], response_model=VizuMultilevelCompleteResponse
 )
+# Hören under the legacy /vizu-mock prefix — the SAME handlers (same
+# owner-scoping, protected audio streaming, autosave, server-side grading),
+# so /vizu-mock/hoeren/* and /vizu-multilevel/hoeren/* can never diverge.
+legacy_router.add_api_route("/attempts/{attempt_id}/state", get_attempt_state, methods=["GET"], response_model=VizuMultilevelAttemptState)
+legacy_router.add_api_route(
+    "/attempts/{attempt_id}/{skill}/start", start_section, methods=["POST"], response_model=VizuMultilevelSectionState
+)
+legacy_router.add_api_route("/hoeren/tasks", get_hoeren_tasks, methods=["GET"], response_model=list[VizuMultilevelHoerenTaskPublic])
+legacy_router.add_api_route(
+    "/attempts/{attempt_id}/hoeren/answers", get_hoeren_draft, methods=["GET"], response_model=VizuMultilevelHoerenDraft
+)
+legacy_router.add_api_route(
+    "/attempts/{attempt_id}/hoeren/answers", save_hoeren_draft, methods=["PUT"], response_model=VizuMultilevelHoerenDraft
+)
+legacy_router.add_api_route("/attempts/{attempt_id}/hoeren/aufgabe/{aufgabe_number}/audio", stream_hoeren_audio, methods=["GET"])
+legacy_router.add_api_route(
+    "/attempts/{attempt_id}/hoeren/submit", submit_hoeren_answers, methods=["POST"], response_model=VizuMultilevelHoerenResult
+)
+legacy_router.add_api_route(
+    "/attempts/{attempt_id}/hoeren/result", get_hoeren_result, methods=["GET"], response_model=VizuMultilevelHoerenResult
+)

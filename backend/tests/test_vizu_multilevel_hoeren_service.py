@@ -66,5 +66,22 @@ class TestHoerenScoreToLevel(unittest.TestCase):
                 self.assertEqual(level_for_score(score, 100), level)
 
 
+class TestVizuMockHoerenSeed(unittest.TestCase):
+    """app/scripts/seed_vizu_mock_hoeren.py — the production seed."""
+
+    def test_seed_dataset_is_5_aufgaben_20_tests_80_options_100_points(self):
+        from app.scripts.seed_vizu_mock_hoeren import DATASET
+
+        parsed = _parse(DATASET)
+        self.assertEqual(len(parsed), 5)
+        self.assertEqual([len(a["questions"]) for a in parsed], [4] * 5)
+        self.assertEqual(sum(len(q["options"]) for a in parsed for q in a["questions"]), 80)
+        self.assertEqual(sum(q["points"] for a in parsed for q in a["questions"]), 100)
+        self.assertEqual([q["order"] for a in parsed for q in a["questions"]], list(range(1, 21)))
+        keys = "".join(q["correct_answer"] for a in DATASET["aufgaben"] for q in a["questions"])
+        self.assertEqual(keys, "CBDACCCBBCCCBBBCBABC")
+        self.assertTrue(parsed[0]["script"].startswith("Daniel ist 23 Jahre alt."))
+
+
 if __name__ == "__main__":
     unittest.main()
