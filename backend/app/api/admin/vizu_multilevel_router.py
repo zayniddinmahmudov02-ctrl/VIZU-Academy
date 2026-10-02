@@ -1,7 +1,8 @@
 import json
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile
+from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, UploadFile
+from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 
 from app.api.dependencies.auth import require_admin_panel_access
@@ -12,9 +13,7 @@ from app.schemas.vizu_multilevel import (
     VizuMultilevelAdminAttemptItem,
     VizuMultilevelAdminAttemptsPage,
     VizuMultilevelAnalytics,
-    VizuMultilevelAudioCreate,
-    VizuMultilevelAudioResponse,
-    VizuMultilevelAudioUpdate,
+    VizuMultilevelHoerenAudioSlot,
     VizuMultilevelLevelAnalytics,
     VizuMultilevelOverviewStats,
     VizuMultilevelQuestionInput,
@@ -34,7 +33,13 @@ from app.services.admin import vizu_multilevel_writing_admin_service as writing_
 from app.services.admin import vizu_multilevel_content_admin_service as content_service
 from app.services.admin import vizu_multilevel_speaking_admin_service as speaking_service
 from app.services.admin.vizu_multilevel_content_admin_service import ContentConflictError
-from app.services.vizu_multilevel import hoeren_csv_import_service, lesen_csv_import_service, lesen_json_import_service
+from app.services.vizu_multilevel import (
+    hoeren_audio_service,
+    hoeren_csv_import_service,
+    hoeren_json_import_service,
+    lesen_csv_import_service,
+    lesen_json_import_service,
+)
 
 router = APIRouter(prefix="/admin/vizu-multilevel", tags=["Admin - VIZU-Multilevel"])
 
@@ -213,48 +218,83 @@ async def import_hoeren_csv(
 
 
 # ============================================================
-# Hören Audio management
+# Hören audio — one PROTECTED audio file per Aufgabe (1-5). The admin picks
+# the Aufgabe explicitly; uploading again replaces the previous file.
 # ============================================================
 
 
-@router.get("/audio", response_model=list[VizuMultilevelAudioResponse])
-def list_audio(
+@router.get("/hoeren/audio", response_model=list[VizuMultilevelHoerenAudioSlot])
+def list_hoeren_audio(
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin_panel_access),
 ):
-    return service.list_audio(db)
+    return hoeren_audio_service.list_slots(db)
 
 
-@router.post("/audio", response_model=VizuMultilevelAudioResponse, status_code=201)
-def create_audio(
-    data: VizuMultilevelAudioCreate,
+@router.post("/hoeren/audio", response_model=VizuMultilevelHoerenAudioSlot, status_code=201)
+async def upload_hoeren_audio(
+    aufgabe_number: int = Form(...),
+    duration_seconds: int | None = Form(None),
+    file: UploadFile = File(...),
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin_panel_access),
 ):
-    return service.create_audio(db, data)
+    await hoeren_audio_service.upload(db, aufgabe_number, file, duration_seconds)
+    return next(slot for slot in hoeren_audio_service.list_slots(db) if slot["aufgabe_number"] == aufgabe_number)
 
 
-@router.put("/audio/{audio_id}", response_model=VizuMultilevelAudioResponse)
-def update_audio(
+@router.put("/hoeren/audio/{audio_id}", response_model=VizuMultilevelHoerenAudioSlot)
+async def replace_hoeren_audio(
     audio_id: UUID,
-    data: VizuMultilevelAudioUpdate,
+    duration_seconds: int | None = Form(None),
+    file: UploadFile = File(...),
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin_panel_access),
 ):
-    audio = service.update_audio(db, audio_id, data)
+    audio = await hoeren_audio_service.replace(db, audio_id, file, duration_seconds)
     if audio is None:
         raise HTTPException(status_code=404, detail="Audio not found.")
-    return audio
+    return next(slot for slot in hoeren_audio_service.list_slots(db) if slot["aufgabe_number"] == audio.aufgabe_number)
 
 
-@router.delete("/audio/{audio_id}", status_code=204)
-def delete_audio(
+@router.delete("/hoeren/audio/{audio_id}", status_code=204)
+def delete_hoeren_audio(
     audio_id: UUID,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin_panel_access),
 ):
-    if not service.delete_audio(db, audio_id):
+    if not hoeren_audio_service.delete(db, audio_id):
         raise HTTPException(status_code=404, detail="Audio not found.")
+
+
+@router.get("/hoeren/audio/{audio_id}/file")
+def preview_hoeren_audio(
+    audio_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    """Admin preview — streamed through the authenticated endpoint, no public URL."""
+    audio = hoeren_audio_service.get_by_id(db, audio_id)
+    if audio is None or not audio.storage_path:
+        raise HTTPException(status_code=404, detail="Audio not found.")
+    path = hoeren_audio_service.resolve_path(audio)
+    if not path.exists():
+        raise HTTPException(status_code=404, detail="Audio file missing on disk.")
+    return FileResponse(path=path, media_type=audio.content_type)
+
+
+@router.post("/hoeren-content/import-json")
+def import_hoeren_json(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    """Loads the bundled hoeren.json (5 Aufgaben x 4 questions, 1 point
+    each). Replaces only Hören content, transactional, no-op when identical;
+    uploaded audio is kept."""
+    try:
+        return hoeren_json_import_service.import_default(db)
+    except hoeren_json_import_service.HoerenImportError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
 # ============================================================

@@ -1,0 +1,564 @@
+{
+  "module": "hoeren",
+  "title": "VIZU-Multilevel Hören",
+  "total_questions": 20,
+  "points_per_question": 1,
+  "max_score": 20,
+  "aufgaben": [
+    {
+      "id": 1,
+      "order": 1,
+      "audio_script": "Hallo! Ich heiße Daniel und bin 23 Jahre alt. Ich komme aus Spanien, aber ich wohne jetzt in Berlin. Ich lerne Deutsch an einer Sprachschule. Jeden Morgen stehe ich um sieben Uhr auf. Danach frühstücke ich und fahre mit dem Bus zur Schule. Am Nachmittag arbeite ich in einem kleinen Café. Am Wochenende treffe ich oft meine Freunde.",
+      "questions": [
+        {
+          "id": 1,
+          "order": 1,
+          "type": "multiple_choice",
+          "question": "Wie alt ist Daniel?",
+          "options": [
+            {
+              "key": "A",
+              "text": "21 Jahre"
+            },
+            {
+              "key": "B",
+              "text": "22 Jahre"
+            },
+            {
+              "key": "C",
+              "text": "23 Jahre"
+            },
+            {
+              "key": "D",
+              "text": "24 Jahre"
+            }
+          ],
+          "correct_answer": "C",
+          "points": 1
+        },
+        {
+          "id": 2,
+          "order": 2,
+          "type": "multiple_choice",
+          "question": "Wo wohnt Daniel jetzt?",
+          "options": [
+            {
+              "key": "A",
+              "text": "In Spanien"
+            },
+            {
+              "key": "B",
+              "text": "In Berlin"
+            },
+            {
+              "key": "C",
+              "text": "In Hamburg"
+            },
+            {
+              "key": "D",
+              "text": "In München"
+            }
+          ],
+          "correct_answer": "B",
+          "points": 1
+        },
+        {
+          "id": 3,
+          "order": 3,
+          "type": "multiple_choice",
+          "question": "Wie fährt Daniel zur Sprachschule?",
+          "options": [
+            {
+              "key": "A",
+              "text": "Mit dem Auto"
+            },
+            {
+              "key": "B",
+              "text": "Mit dem Fahrrad"
+            },
+            {
+              "key": "C",
+              "text": "Mit dem Zug"
+            },
+            {
+              "key": "D",
+              "text": "Mit dem Bus"
+            }
+          ],
+          "correct_answer": "D",
+          "points": 1
+        },
+        {
+          "id": 4,
+          "order": 4,
+          "type": "multiple_choice",
+          "question": "Was macht Daniel am Nachmittag?",
+          "options": [
+            {
+              "key": "A",
+              "text": "Er arbeitet in einem Café."
+            },
+            {
+              "key": "B",
+              "text": "Er besucht seine Freunde."
+            },
+            {
+              "key": "C",
+              "text": "Er lernt an der Universität."
+            },
+            {
+              "key": "D",
+              "text": "Er geht einkaufen."
+            }
+          ],
+          "correct_answer": "A",
+          "points": 1
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "order": 2,
+      "audio_script": "Guten Morgen, hier ist eine Information für alle Kursteilnehmer. Der Deutschkurs am Dienstag beginnt nicht wie geplant um 18 Uhr, sondern erst um 19 Uhr. Der Unterricht findet außerdem nicht in Raum 204, sondern in Raum 208 statt. Der Kurs dauert wie gewohnt 90 Minuten. Bitte bringen Sie Ihr Kursbuch und Ihre Hausaufgaben mit. Nach dem Unterricht findet kein zusätzlicher Test statt.",
+      "questions": [
+        {
+          "id": 5,
+          "order": 5,
+          "type": "multiple_choice",
+          "question": "Wann beginnt der Deutschkurs?",
+          "options": [
+            {
+              "key": "A",
+              "text": "Um 17 Uhr"
+            },
+            {
+              "key": "B",
+              "text": "Um 18 Uhr"
+            },
+            {
+              "key": "C",
+              "text": "Um 19 Uhr"
+            },
+            {
+              "key": "D",
+              "text": "Um 20 Uhr"
+            }
+          ],
+          "correct_answer": "C",
+          "points": 1
+        },
+        {
+          "id": 6,
+          "order": 6,
+          "type": "multiple_choice",
+          "question": "In welchem Raum findet der Unterricht statt?",
+          "options": [
+            {
+              "key": "A",
+              "text": "Raum 202"
+            },
+            {
+              "key": "B",
+              "text": "Raum 204"
+            },
+            {
+              "key": "C",
+              "text": "Raum 208"
+            },
+            {
+              "key": "D",
+              "text": "Raum 218"
+            }
+          ],
+          "correct_answer": "C",
+          "points": 1
+        },
+        {
+          "id": 7,
+          "order": 7,
+          "type": "multiple_choice",
+          "question": "Wie lange dauert der Unterricht?",
+          "options": [
+            {
+              "key": "A",
+              "text": "60 Minuten"
+            },
+            {
+              "key": "B",
+              "text": "75 Minuten"
+            },
+            {
+              "key": "C",
+              "text": "90 Minuten"
+            },
+            {
+              "key": "D",
+              "text": "120 Minuten"
+            }
+          ],
+          "correct_answer": "C",
+          "points": 1
+        },
+        {
+          "id": 8,
+          "order": 8,
+          "type": "multiple_choice",
+          "question": "Was sollen die Kursteilnehmer mitbringen?",
+          "options": [
+            {
+              "key": "A",
+              "text": "Nur einen Stift"
+            },
+            {
+              "key": "B",
+              "text": "Kursbuch und Hausaufgaben"
+            },
+            {
+              "key": "C",
+              "text": "Einen Laptop"
+            },
+            {
+              "key": "D",
+              "text": "Einen neuen Test"
+            }
+          ],
+          "correct_answer": "B",
+          "points": 1
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "order": 3,
+      "audio_script": "In vielen Städten nutzen Menschen inzwischen häufiger öffentliche Verkehrsmittel. Ein Grund dafür ist, dass der Autoverkehr in den Innenstädten immer stärker zunimmt. Busse und Bahnen können dazu beitragen, Straßen zu entlasten und den Platzbedarf im Stadtzentrum zu reduzieren. Allerdings entscheiden sich nicht alle Menschen freiwillig für Bus und Bahn. Besonders außerhalb der großen Städte sind die Verbindungen teilweise unregelmäßig oder zu selten.\n\nEin weiterer wichtiger Punkt ist die Zuverlässigkeit. Wenn Busse häufig verspätet sind oder Anschlüsse nicht funktionieren, verlieren Fahrgäste schnell das Vertrauen in den öffentlichen Verkehr. Deshalb investieren viele Städte inzwischen nicht nur in neue Fahrzeuge, sondern auch in bessere Fahrpläne und digitale Informationssysteme.",
+      "questions": [
+        {
+          "id": 9,
+          "order": 9,
+          "type": "multiple_choice",
+          "question": "Warum nutzen Menschen häufiger öffentliche Verkehrsmittel?",
+          "options": [
+            {
+              "key": "A",
+              "text": "Weil Autos in allen Städten verboten sind."
+            },
+            {
+              "key": "B",
+              "text": "Weil der Autoverkehr in Innenstädten zunimmt."
+            },
+            {
+              "key": "C",
+              "text": "Weil Busse immer schneller als Autos sind."
+            },
+            {
+              "key": "D",
+              "text": "Weil öffentliche Verkehrsmittel kostenlos sind."
+            }
+          ],
+          "correct_answer": "B",
+          "points": 1
+        },
+        {
+          "id": 10,
+          "order": 10,
+          "type": "multiple_choice",
+          "question": "Was ist laut Audio ein Problem außerhalb großer Städte?",
+          "options": [
+            {
+              "key": "A",
+              "text": "Es gibt zu viele Busse."
+            },
+            {
+              "key": "B",
+              "text": "Die Fahrkarten sind immer kostenlos."
+            },
+            {
+              "key": "C",
+              "text": "Die Verbindungen sind teilweise zu selten."
+            },
+            {
+              "key": "D",
+              "text": "Die Straßen sind zu breit."
+            }
+          ],
+          "correct_answer": "C",
+          "points": 1
+        },
+        {
+          "id": 11,
+          "order": 11,
+          "type": "multiple_choice",
+          "question": "Was kann dazu führen, dass Fahrgäste das Vertrauen verlieren?",
+          "options": [
+            {
+              "key": "A",
+              "text": "Neue Fahrzeuge"
+            },
+            {
+              "key": "B",
+              "text": "Gute Fahrpläne"
+            },
+            {
+              "key": "C",
+              "text": "Verspätungen und Probleme bei Anschlüssen"
+            },
+            {
+              "key": "D",
+              "text": "Digitale Informationssysteme"
+            }
+          ],
+          "correct_answer": "C",
+          "points": 1
+        },
+        {
+          "id": 12,
+          "order": 12,
+          "type": "multiple_choice",
+          "question": "Worin investieren viele Städte?",
+          "options": [
+            {
+              "key": "A",
+              "text": "Nur in neue Straßen."
+            },
+            {
+              "key": "B",
+              "text": "Nur in größere Parkplätze."
+            },
+            {
+              "key": "C",
+              "text": "In neue Fahrzeuge, bessere Fahrpläne und digitale Informationssysteme."
+            },
+            {
+              "key": "D",
+              "text": "Ausschließlich in Fahrräder."
+            }
+          ],
+          "correct_answer": "C",
+          "points": 1
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "order": 4,
+      "audio_script": "Die zunehmende Verbreitung von Homeoffice hat die Organisation vieler Unternehmen verändert. Während einige Beschäftigte die gewonnene Flexibilität als großen Vorteil betrachten, berichten andere von Schwierigkeiten, Arbeit und Privatleben klar voneinander zu trennen. Besonders problematisch kann es werden, wenn Mitarbeiter auch außerhalb ihrer regulären Arbeitszeit ständig Nachrichten beantworten oder an digitalen Besprechungen teilnehmen.\n\nGleichzeitig hat sich gezeigt, dass Homeoffice nicht für jede Tätigkeit gleichermaßen geeignet ist. Aufgaben, die eine intensive persönliche Zusammenarbeit erfordern, lassen sich teilweise schwieriger vollständig online erledigen. Viele Unternehmen setzen deshalb inzwischen auf hybride Modelle, bei denen Beschäftigte einen Teil der Woche zu Hause und einen Teil im Büro arbeiten.\n\nEntscheidend ist dabei nicht allein die technische Ausstattung. Auch klare Kommunikationsregeln, realistische Arbeitszeiten und regelmäßiger persönlicher Austausch spielen eine wichtige Rolle.",
+      "questions": [
+        {
+          "id": 13,
+          "order": 13,
+          "type": "multiple_choice",
+          "question": "Welchen Vorteil sehen einige Beschäftigte im Homeoffice?",
+          "options": [
+            {
+              "key": "A",
+              "text": "Weniger Verantwortung"
+            },
+            {
+              "key": "B",
+              "text": "Mehr Flexibilität"
+            },
+            {
+              "key": "C",
+              "text": "Höhere Gehälter"
+            },
+            {
+              "key": "D",
+              "text": "Weniger Aufgaben"
+            }
+          ],
+          "correct_answer": "B",
+          "points": 1
+        },
+        {
+          "id": 14,
+          "order": 14,
+          "type": "multiple_choice",
+          "question": "Welches Problem wird im Zusammenhang mit Homeoffice genannt?",
+          "options": [
+            {
+              "key": "A",
+              "text": "Mitarbeiter haben keine technischen Geräte."
+            },
+            {
+              "key": "B",
+              "text": "Arbeit und Privatleben können schwer voneinander getrennt werden."
+            },
+            {
+              "key": "C",
+              "text": "Unternehmen müssen immer neue Büros bauen."
+            },
+            {
+              "key": "D",
+              "text": "Mitarbeiter können überhaupt nicht kommunizieren."
+            }
+          ],
+          "correct_answer": "B",
+          "points": 1
+        },
+        {
+          "id": 15,
+          "order": 15,
+          "type": "multiple_choice",
+          "question": "Warum nutzen viele Unternehmen hybride Arbeitsmodelle?",
+          "options": [
+            {
+              "key": "A",
+              "text": "Weil Homeoffice gesetzlich verboten ist."
+            },
+            {
+              "key": "B",
+              "text": "Weil persönliche Zusammenarbeit bei bestimmten Aufgaben weiterhin wichtig ist."
+            },
+            {
+              "key": "C",
+              "text": "Weil Mitarbeiter nicht zu Hause arbeiten möchten."
+            },
+            {
+              "key": "D",
+              "text": "Weil Büros vollständig abgeschafft werden sollen."
+            }
+          ],
+          "correct_answer": "B",
+          "points": 1
+        },
+        {
+          "id": 16,
+          "order": 16,
+          "type": "multiple_choice",
+          "question": "Was ist laut Audio neben der technischen Ausstattung wichtig?",
+          "options": [
+            {
+              "key": "A",
+              "text": "Längere Arbeitszeiten"
+            },
+            {
+              "key": "B",
+              "text": "Weniger Kommunikation"
+            },
+            {
+              "key": "C",
+              "text": "Klare Kommunikationsregeln, realistische Arbeitszeiten und persönlicher Austausch"
+            },
+            {
+              "key": "D",
+              "text": "Mehr digitale Besprechungen außerhalb der Arbeitszeit"
+            }
+          ],
+          "correct_answer": "C",
+          "points": 1
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "order": 5,
+      "audio_script": "Die Diskussion über den Einsatz künstlicher Intelligenz im Bildungsbereich wird häufig auf die Frage reduziert, ob KI Lernprozesse schneller und effizienter machen kann. Eine solche Perspektive greift jedoch zu kurz. Bildung besteht nicht ausschließlich darin, möglichst schnell Informationen aufzunehmen oder Aufgaben zu erledigen. Ebenso wichtig sind die Fähigkeit, Argumente zu beurteilen, Quellen kritisch zu hinterfragen und eigene Gedanken zu entwickeln.\n\nKI-Systeme können Lernende beispielsweise dabei unterstützen, unterschiedliche Erklärungen zu einem Thema zu erhalten oder erste Rückmeldungen zu einem selbst verfassten Text zu bekommen. Gleichzeitig besteht die Gefahr, dass Lernende die Verantwortung für den eigenen Denkprozess an ein System abgeben. Wenn eine KI eine vollständige Lösung liefert, kann das zwar kurzfristig Zeit sparen, führt aber nicht zwangsläufig zu einem nachhaltigen Lernerfolg.\n\nDeshalb sollte die zentrale Frage nicht lauten, ob KI im Unterricht eingesetzt werden darf, sondern unter welchen Bedingungen ihr Einsatz pädagogisch sinnvoll ist. Lehrkräfte benötigen dafür nicht nur technische Kenntnisse, sondern auch die Fähigkeit, Lernaufgaben so zu gestalten, dass KI als Werkzeug genutzt wird, ohne zentrale Denk- und Lernprozesse zu ersetzen.",
+      "questions": [
+        {
+          "id": 17,
+          "order": 17,
+          "type": "multiple_choice",
+          "question": "Warum greift die Perspektive auf KI als reines Effizienzwerkzeug laut Audio zu kurz?",
+          "options": [
+            {
+              "key": "A",
+              "text": "Weil KI im Bildungsbereich noch nicht existiert."
+            },
+            {
+              "key": "B",
+              "text": "Weil Bildung mehr umfasst als die schnelle Aufnahme von Informationen."
+            },
+            {
+              "key": "C",
+              "text": "Weil KI keine Informationen verarbeiten kann."
+            },
+            {
+              "key": "D",
+              "text": "Weil Lernende keine digitalen Systeme benutzen möchten."
+            }
+          ],
+          "correct_answer": "B",
+          "points": 1
+        },
+        {
+          "id": 18,
+          "order": 18,
+          "type": "multiple_choice",
+          "question": "Welche Möglichkeit von KI wird im Audio genannt?",
+          "options": [
+            {
+              "key": "A",
+              "text": "KI kann Lernenden unterschiedliche Erklärungen geben und Rückmeldungen zu Texten liefern."
+            },
+            {
+              "key": "B",
+              "text": "KI kann Lehrer vollständig ersetzen."
+            },
+            {
+              "key": "C",
+              "text": "KI kann Prüfungen grundsätzlich abschaffen."
+            },
+            {
+              "key": "D",
+              "text": "KI kann nur mathematische Aufgaben lösen."
+            }
+          ],
+          "correct_answer": "A",
+          "points": 1
+        },
+        {
+          "id": 19,
+          "order": 19,
+          "type": "multiple_choice",
+          "question": "Welche Gefahr wird beschrieben?",
+          "options": [
+            {
+              "key": "A",
+              "text": "Lernende könnten zu viele Bücher lesen."
+            },
+            {
+              "key": "B",
+              "text": "Lernende könnten die Verantwortung für ihren eigenen Denkprozess an KI abgeben."
+            },
+            {
+              "key": "C",
+              "text": "Lehrkräfte könnten keine Computer mehr benutzen."
+            },
+            {
+              "key": "D",
+              "text": "Digitale Medien könnten vollständig verschwinden."
+            }
+          ],
+          "correct_answer": "B",
+          "points": 1
+        },
+        {
+          "id": 20,
+          "order": 20,
+          "type": "multiple_choice",
+          "question": "Welche zentrale Frage wird am Ende des Audios formuliert?",
+          "options": [
+            {
+              "key": "A",
+              "text": "Wie kann KI vollständig aus Schulen entfernt werden?"
+            },
+            {
+              "key": "B",
+              "text": "Wie kann man möglichst viele KI-Systeme kaufen?"
+            },
+            {
+              "key": "C",
+              "text": "Unter welchen Bedingungen kann KI pädagogisch sinnvoll eingesetzt werden?"
+            },
+            {
+              "key": "D",
+              "text": "Wie kann man traditionelle Unterrichtsmethoden abschaffen?"
+            }
+          ],
+          "correct_answer": "C",
+          "points": 1
+        }
+      ]
+    }
+  ]
+}

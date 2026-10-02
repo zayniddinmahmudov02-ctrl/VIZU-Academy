@@ -14,9 +14,7 @@ import type {
   VizuMultilevelStatistics,
   VizuMultilevelWritingTaskCreatePayload,
   VizuMultilevelAnalytics,
-  VizuMultilevelAudio,
-  VizuMultilevelAudioCreatePayload,
-  VizuMultilevelAudioUpdatePayload,
+  VizuMultilevelHoerenAudioSlot,
   VizuMultilevelLevelAnalytics,
   VizuMultilevelOverviewStats,
   VizuMultilevelWritingTaskAdmin,
@@ -146,23 +144,70 @@ export async function updateVizuMultilevelSchreibenTask(
   return response.data;
 }
 
-export async function listVizuMultilevelAudio(): Promise<VizuMultilevelAudio[]> {
-  const response = await api.get<VizuMultilevelAudio[]>(ADMIN_ENDPOINTS.vizuMultilevelAudio);
-  return ensureArray<VizuMultilevelAudio>(response.data);
+// ---- Hören audio (protected, one file per Aufgabe 1-5) ----
+
+export async function listVizuMultilevelHoerenAudio(): Promise<VizuMultilevelHoerenAudioSlot[]> {
+  const response = await api.get<VizuMultilevelHoerenAudioSlot[]>(ADMIN_ENDPOINTS.vizuMultilevelHoerenAudio);
+  return ensureArray<VizuMultilevelHoerenAudioSlot>(response.data);
 }
 
-export async function createVizuMultilevelAudio(data: VizuMultilevelAudioCreatePayload): Promise<VizuMultilevelAudio> {
-  const response = await api.post<VizuMultilevelAudio>(ADMIN_ENDPOINTS.vizuMultilevelAudio, data);
+function audioForm(file: File, durationSeconds: number | null, aufgabeNumber?: number): FormData {
+  const formData = new FormData();
+  if (aufgabeNumber !== undefined) formData.append("aufgabe_number", String(aufgabeNumber));
+  if (durationSeconds !== null) formData.append("duration_seconds", String(Math.round(durationSeconds)));
+  formData.append("file", file);
+  return formData;
+}
+
+const MULTIPART = { headers: { "Content-Type": "multipart/form-data" } };
+
+/** The admin explicitly picks the Aufgabe; uploading again replaces its audio. */
+export async function uploadVizuMultilevelHoerenAudio(
+  aufgabeNumber: number,
+  file: File,
+  durationSeconds: number | null,
+): Promise<VizuMultilevelHoerenAudioSlot> {
+  const response = await api.post<VizuMultilevelHoerenAudioSlot>(
+    ADMIN_ENDPOINTS.vizuMultilevelHoerenAudio,
+    audioForm(file, durationSeconds, aufgabeNumber),
+    MULTIPART,
+  );
   return response.data;
 }
 
-export async function updateVizuMultilevelAudio(id: string, data: VizuMultilevelAudioUpdatePayload): Promise<VizuMultilevelAudio> {
-  const response = await api.put<VizuMultilevelAudio>(ADMIN_ENDPOINTS.vizuMultilevelAudioDetail(id), data);
+export async function replaceVizuMultilevelHoerenAudio(
+  audioId: string,
+  file: File,
+  durationSeconds: number | null,
+): Promise<VizuMultilevelHoerenAudioSlot> {
+  const response = await api.put<VizuMultilevelHoerenAudioSlot>(
+    ADMIN_ENDPOINTS.vizuMultilevelHoerenAudioDetail(audioId),
+    audioForm(file, durationSeconds),
+    MULTIPART,
+  );
   return response.data;
 }
 
-export async function deleteVizuMultilevelAudio(id: string): Promise<void> {
-  await api.delete(ADMIN_ENDPOINTS.vizuMultilevelAudioDetail(id));
+export async function deleteVizuMultilevelHoerenAudio(audioId: string): Promise<void> {
+  await api.delete(ADMIN_ENDPOINTS.vizuMultilevelHoerenAudioDetail(audioId));
+}
+
+/** Admin preview: authenticated fetch -> blob URL (no public URL exists). */
+export async function getVizuMultilevelHoerenAudioPreviewUrl(audioId: string): Promise<string> {
+  const response = await api.get(`${ADMIN_ENDPOINTS.vizuMultilevelHoerenAudioDetail(audioId)}/file`, { responseType: "blob" });
+  return URL.createObjectURL(response.data as Blob);
+}
+
+export interface VizuMultilevelHoerenJsonImportResult {
+  status: "imported" | "unchanged";
+  aufgaben: number;
+  questions: number;
+}
+
+/** Loads the bundled hoeren.json (replaces only Hören content; uploaded audio is kept). */
+export async function importVizuMultilevelHoerenJson(): Promise<VizuMultilevelHoerenJsonImportResult> {
+  const response = await api.post<VizuMultilevelHoerenJsonImportResult>(ADMIN_ENDPOINTS.vizuMultilevelHoerenContentImportJson);
+  return response.data;
 }
 
 // ---- Lesen / Hören content authoring ----

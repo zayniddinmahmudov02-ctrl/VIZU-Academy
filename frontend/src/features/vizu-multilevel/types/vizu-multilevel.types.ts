@@ -95,8 +95,19 @@ export interface VizuMultilevelHoerenTask {
   skill: string;
   order_index: number;
   passage_text: string | null;
-  audio_url: string | null;
+  /** The audio itself is fetched through an authenticated endpoint — the
+   * client never receives a URL, file name or storage path. */
+  has_audio: boolean;
   questions: VizuMultilevelQuestion[];
+}
+
+export interface VizuMultilevelHoerenResult {
+  attempt_id: string;
+  total_points: number;
+  max_points: number;
+  correct: number;
+  wrong: number;
+  unanswered: number;
 }
 
 export interface VizuMultilevelAnswerSubmit {

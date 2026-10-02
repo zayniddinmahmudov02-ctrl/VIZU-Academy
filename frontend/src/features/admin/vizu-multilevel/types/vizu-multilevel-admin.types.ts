@@ -85,29 +85,15 @@ export interface VizuMultilevelAdminAttemptsPage {
   total_pages: number;
 }
 
-export interface VizuMultilevelAudio {
-  id: string;
-  title: string;
-  audio_url: string;
+export interface VizuMultilevelHoerenAudioSlot {
+  aufgabe_number: number;
+  audio_id: string | null;
+  has_audio: boolean;
+  file_name: string | null;
+  content_type: string | null;
   duration_seconds: number | null;
-  task_id: string | null;
   is_active: boolean;
-  created_at: string;
-}
-
-export interface VizuMultilevelAudioCreatePayload {
-  title: string;
-  audio_url: string;
-  duration_seconds?: number | null;
-  task_id?: string | null;
-}
-
-export interface VizuMultilevelAudioUpdatePayload {
-  title?: string;
-  audio_url?: string;
-  duration_seconds?: number | null;
-  task_id?: string | null;
-  is_active?: boolean;
+  updated_at: string | null;
 }
 
 // Lesen / Hören content authoring — the ADMIN view of an Aufgabe: unlike

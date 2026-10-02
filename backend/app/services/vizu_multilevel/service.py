@@ -176,6 +176,18 @@ def ensure_section_open(db: Session, attempt: VizuMultilevelAttempt, skill: str)
     return _now() <= _deadline(attempt, skill) + timedelta(seconds=GRACE_SECONDS)
 
 
+def ensure_section_open_strict(db: Session, attempt: VizuMultilevelAttempt, skill: str) -> None:
+    """Like ensure_section_open, but a closed window is an error too."""
+    if not ensure_section_open(db, attempt, skill):
+        raise SectionFlowError("SECTION_TIME_UP")
+
+
+def section_expired(attempt: VizuMultilevelAttempt, skill: str) -> bool:
+    """True once the nominal 20 minutes are over (no grace)."""
+    deadline = _deadline(attempt, skill)
+    return deadline is not None and _now() >= deadline
+
+
 def begin_submission(db: Session, attempt: VizuMultilevelAttempt, skill: str) -> bool:
     """Validates a competency's final submission. Returns True if answers
     arrived in time (and may be graded), False if the window has closed —

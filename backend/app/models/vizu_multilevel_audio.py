@@ -20,8 +20,18 @@ class VizuMultilevelAudio(BaseModel):
 
     __tablename__ = "vizu_mock_audios"
 
+    # Hören audio is stored in PROTECTED storage (never a public URL) and
+    # linked to its Aufgabe by number (1-5). At most one row per Aufgabe —
+    # uploading again replaces the previous audio. `audio_url` is legacy
+    # (older rows pointed at a public media-library URL) and unused for the
+    # protected flow.
+    aufgabe_number: Mapped[int | None] = mapped_column(Integer, nullable=True, unique=True)
+    file_name: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    storage_path: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    content_type: Mapped[str | None] = mapped_column(String(100), nullable=True)
+
     title: Mapped[str] = mapped_column(String(255), nullable=False)
-    audio_url: Mapped[str] = mapped_column(Text, nullable=False)
+    audio_url: Mapped[str | None] = mapped_column(Text, nullable=True)
     duration_seconds: Mapped[int | None] = mapped_column(Integer, nullable=True)
     task_id: Mapped[UUID | None] = mapped_column(
         UUID(as_uuid=True), ForeignKey("vizu_mock_tasks.id", ondelete="SET NULL"), nullable=True, index=True

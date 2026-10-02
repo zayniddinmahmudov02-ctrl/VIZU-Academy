@@ -1,26 +1,39 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { Headphones } from "lucide-react";
+import { AlertCircle, ArrowLeft, ArrowRight, Check } from "lucide-react";
 
 import Button from "@/components/ui/button";
 import { useTranslation } from "@/lib/i18n/use-translation";
-import VizuMultilevelFinishConfirmDialog from "@/features/vizu-multilevel/components/finish-confirm-dialog";
+import VizuMultilevelHoerenAudioPlayer from "@/features/vizu-multilevel/components/hoeren-audio-player";
 import VizuMultilevelQuestionList from "@/features/vizu-multilevel/components/question-list";
 import { SectionError, SectionLoading, SectionPreparing } from "@/features/vizu-multilevel/components/section-states";
 import VizuMultilevelStepShell from "@/features/vizu-multilevel/components/step-shell";
 import { getSkillMeta, nextStepPath } from "@/features/vizu-multilevel/constants/skills";
 import { isConflict, useVizuMultilevelSection } from "@/features/vizu-multilevel/hooks/use-section";
-import { usePersistedAnswers } from "@/features/vizu-multilevel/hooks/use-persisted-answers";
-import { getVizuMultilevelHoerenTasks, submitVizuMultilevelHoeren } from "@/features/vizu-multilevel/services/vizu-multilevel-service";
+import {
+  getVizuMultilevelHoerenDraft,
+  getVizuMultilevelHoerenTasks,
+  saveVizuMultilevelHoerenDraft,
+  submitVizuMultilevelHoeren,
+} from "@/features/vizu-multilevel/services/vizu-multilevel-service";
+import type { VizuMultilevelHoerenResult } from "@/features/vizu-multilevel/types/vizu-multilevel.types";
 
-/** Hören step. One screen per Aufgabe (audio player + its questions). The
- * 20-minute window is owned by the server; finishing — by the last Aufgabe,
- * "Testni yakunlash", or the timer expiring — submits whatever is answered
- * (unanswered = 0 points) and moves straight on to Schreiben. No CEFR
- * level, score or transcript is ever shown or sent to the student. */
+type SaveState = "idle" | "saving" | "saved" | "error";
+
+function conflictCode(error: unknown): string | undefined {
+  return (error as { response?: { data?: { message?: string } } }).response?.data?.message;
+}
+
+/** Hören step: five Aufgaben, one per page — the audio on top, the four
+ * tests below. 20 tests x 1 point. Answers are autosaved to the server (a
+ * refresh restores them); the final button grades on the server and locks
+ * the answers. The 20 minutes are owned by the server and shared by all five
+ * Aufgaben. No transcript, file name, path, level or correct answer ever
+ * reaches this page. */
 export default function VizuMultilevelHoerenPage() {
   const { t } = useTranslation();
   const router = useRouter();
@@ -32,39 +45,112 @@ export default function VizuMultilevelHoerenPage() {
     queryKey: ["vizu-multilevel-hoeren-tasks"],
     queryFn: getVizuMultilevelHoerenTasks,
   });
+  const { data: draft } = useQuery({
+    queryKey: ["vizu-multilevel-hoeren-draft", attemptId],
+    queryFn: () => getVizuMultilevelHoerenDraft(attemptId),
+    staleTime: Infinity,
+    gcTime: 0,
+    retry: false,
+  });
 
-  const { answers, select, clear } = usePersistedAnswers(attemptId, "hoeren");
-  const [taskIndex, setTaskIndex] = useState(0);
-  const [finishConfirmOpen, setFinishConfirmOpen] = useState(false);
-  const [submitFailed, setSubmitFailed] = useState(false);
+  const [index, setIndex] = useState(0);
+  const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [saveState, setSaveState] = useState<SaveState>("idle");
+  const [result, setResult] = useState<VizuMultilevelHoerenResult | null>(null);
+  const [timedOut, setTimedOut] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const submittingRef = useRef(false);
+  const pendingRef = useRef<Record<string, string>>({});
+  const saveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Restore autosaved answers exactly once, when the draft first arrives.
+  const [hydratedFrom, setHydratedFrom] = useState<typeof draft>(undefined);
+  if (draft && draft !== hydratedFrom) {
+    setAnswers((prev) => ({ ...draft, ...prev }));
+    setHydratedFrom(draft);
+  }
+
+  const flush = useCallback(async () => {
+    if (saveTimerRef.current) {
+      clearTimeout(saveTimerRef.current);
+      saveTimerRef.current = null;
+    }
+    const batch = pendingRef.current;
+    const entries = Object.entries(batch);
+    if (entries.length === 0) return;
+    pendingRef.current = {};
+    setSaveState("saving");
+    try {
+      await saveVizuMultilevelHoerenDraft(
+        attemptId,
+        entries.map(([question_id, option_id]) => ({ question_id, option_id })),
+      );
+      setSaveState("saved");
+    } catch (error) {
+      // Keep the unsaved answers so the next flush retries them. A 409
+      // (time up / already submitted) is final — nothing more can be saved.
+      if (!isConflict(error)) pendingRef.current = { ...batch, ...pendingRef.current };
+      setSaveState("error");
+    }
+  }, [attemptId]);
+
+  useEffect(
+    () => () => {
+      if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
+    },
+    [],
+  );
+
+  function select(questionId: string, optionId: string) {
+    setAnswers((prev) => ({ ...prev, [questionId]: optionId }));
+    pendingRef.current[questionId] = optionId;
+    setSaveState("idle");
+    if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
+    saveTimerRef.current = setTimeout(() => void flush(), 600);
+  }
+
+  const allQuestions = (tasks ?? []).flatMap((task) => task.questions);
+  const answeredCount = allQuestions.filter((q) => answers[q.id]).length;
+  const allAnswered = answeredCount === allQuestions.length;
 
   const submitMutation = useMutation({
-    mutationFn: () => {
-      const payload = (tasks ?? []).flatMap((task) =>
-        task.questions.map((q) => ({ question_id: q.id, option_id: answers[q.id] ?? null })),
+    mutationFn: async () => {
+      await flush();
+      return submitVizuMultilevelHoeren(
+        attemptId,
+        allQuestions.map((q) => ({ question_id: q.id, option_id: answers[q.id] ?? null })),
       );
-      return submitVizuMultilevelHoeren(attemptId, payload);
     },
-    onSuccess: () => {
-      clear();
-      router.push(nextStepPath(attemptId, "hoeren"));
-    },
+    onSuccess: (data) => setResult(data),
     onError: (error) => {
+      submittingRef.current = false;
+      if (conflictCode(error) === "ALL_QUESTIONS_REQUIRED") {
+        setSubmitError("required");
+        return;
+      }
       if (isConflict(error)) {
         router.push(nextStepPath(attemptId, "hoeren"));
         return;
       }
-      submittingRef.current = false;
-      setSubmitFailed(true);
+      setSubmitError("failed");
     },
   });
 
-  function handleSubmit() {
+  function handleSubmit(dueToTimeout: boolean) {
     if (submittingRef.current) return;
     submittingRef.current = true;
-    setSubmitFailed(false);
+    setSubmitError(null);
+    if (dueToTimeout) setTimedOut(true);
     submitMutation.mutate();
+  }
+
+  async function goTo(next: number) {
+    await flush();
+    setIndex(next);
+  }
+
+  if (result) {
+    return <HoerenResultView attemptId={attemptId} result={result} timedOut={timedOut} />;
   }
 
   if (gate.status === "error") {
@@ -82,26 +168,42 @@ export default function VizuMultilevelHoerenPage() {
     );
   }
 
-  const task = tasks[taskIndex];
-  const isLastTask = taskIndex >= tasks.length - 1;
+  const task = tasks[index];
+  const isLast = index >= tasks.length - 1;
 
   return (
     <VizuMultilevelStepShell
       skill={skill}
       initialSeconds={gate.secondsRemaining}
-      onTimerExpire={handleSubmit}
-      onFinishClick={() => setFinishConfirmOpen(true)}
+      onTimerExpire={() => handleSubmit(true)}
       footer={
-        <Button
-          onClick={() => (!task || isLastTask ? handleSubmit() : setTaskIndex((i) => i + 1))}
-          disabled={submitMutation.isPending}
-        >
-          {submitMutation.isPending
-            ? t("common.loading")
-            : !task || isLastTask
-              ? t("vizuMultilevel.finishHoeren")
-              : t("vizuMultilevel.next")}
-        </Button>
+        <div className="flex flex-wrap items-center justify-end gap-2">
+          {task && index > 0 && (
+            <Button variant="secondary" onClick={() => void goTo(index - 1)} disabled={submitMutation.isPending}>
+              <ArrowLeft size={16} />
+              {t("vizuMultilevel.previous")}
+            </Button>
+          )}
+          {task && (
+            <Button variant="secondary" onClick={() => void flush()} disabled={submitMutation.isPending}>
+              {saveState === "saved" ? (
+                <>
+                  <Check size={16} /> {t("vizuMultilevel.schreibenSaved")}
+                </>
+              ) : saveState === "saving" ? (
+                t("common.loading")
+              ) : (
+                t("vizuMultilevel.saveAnswers")
+              )}
+            </Button>
+          )}
+          <Button
+            onClick={() => (!task || isLast ? handleSubmit(false) : void goTo(index + 1))}
+            disabled={submitMutation.isPending || (isLast && !allAnswered)}
+          >
+            {submitMutation.isPending ? t("common.loading") : !task || isLast ? t("vizuMultilevel.finishHoeren") : t("vizuMultilevel.next")}
+          </Button>
+        </div>
       }
     >
       {!task ? (
@@ -109,34 +211,89 @@ export default function VizuMultilevelHoerenPage() {
       ) : (
         <div className="space-y-6">
           <p className="text-xs font-semibold uppercase tracking-wide text-text-muted">
-            {t("vizuMultilevel.aufgabeStep", { current: taskIndex + 1, total: tasks.length })}
+            {t("vizuMultilevel.aufgabeOf", { current: index + 1, total: tasks.length })}
           </p>
 
-          <div className="flex flex-col items-center gap-3 rounded-2xl bg-surface-hover/60 px-6 py-8 text-center ring-1 ring-surface-border">
-            <Headphones size={26} className="text-accent-blue" />
-            {task.audio_url ? (
-              <audio key={task.id} controls src={task.audio_url} className="w-full max-w-sm" />
-            ) : (
-              <p className="text-sm text-text-muted">{t("vizuMultilevel.audioMissing")}</p>
-            )}
-            <p className="text-xs text-text-muted">{t("vizuMultilevel.listeningInstruction")}</p>
-          </div>
+          <VizuMultilevelHoerenAudioPlayer key={task.id} attemptId={attemptId} aufgabeNumber={task.order_index} hasAudio={task.has_audio} />
 
-          <VizuMultilevelQuestionList questions={task.questions} answers={answers} onSelect={select} />
+          <section className="rounded-2xl p-1">
+            <h2 className="mb-4 text-xs font-bold uppercase tracking-wide text-text-muted">{t("vizuMultilevel.testsTitle")}</h2>
+            <VizuMultilevelQuestionList
+              questions={task.questions}
+              answers={answers}
+              onSelect={select}
+              numberFromOrder
+              numberLabelKey="vizuMultilevel.testNumber"
+            />
+          </section>
+
+          {saveState === "error" && <p className="text-sm text-danger">{t("vizuMultilevel.saveFailed")}</p>}
         </div>
       )}
 
-      {submitFailed && <p className="mt-4 text-sm text-danger">{t("vizuMultilevel.submitFailed")}</p>}
-
-      <VizuMultilevelFinishConfirmDialog
-        open={finishConfirmOpen}
-        onCancel={() => setFinishConfirmOpen(false)}
-        onConfirm={() => {
-          setFinishConfirmOpen(false);
-          handleSubmit();
-        }}
-        isSubmitting={submitMutation.isPending}
-      />
+      {isLast && !allAnswered && task && (
+        <p className="mt-4 text-sm text-text-muted">
+          {t("vizuMultilevel.answerAllFirst", { answered: answeredCount, total: allQuestions.length })}
+        </p>
+      )}
+      {submitError === "required" && <p className="mt-2 text-sm text-danger">{t("vizuMultilevel.answerAllRequired")}</p>}
+      {submitError === "failed" && <p className="mt-2 text-sm text-danger">{t("vizuMultilevel.submitFailed")}</p>}
     </VizuMultilevelStepShell>
+  );
+}
+
+function HoerenResultView({
+  attemptId,
+  result,
+  timedOut,
+}: {
+  attemptId: string;
+  result: VizuMultilevelHoerenResult;
+  timedOut: boolean;
+}) {
+  const { t } = useTranslation();
+
+  return (
+    <div className="mx-auto max-w-2xl space-y-6">
+      <h1 className="text-center text-xl font-bold text-text-primary">{t("vizuMultilevel.hoerenResultTitle")}</h1>
+
+      {timedOut && (
+        <div className="flex items-center gap-2 rounded-xl bg-warning/10 px-4 py-3 text-sm text-warning">
+          <AlertCircle size={16} />
+          {t("vizuMultilevel.hoerenTimeUp")}
+        </div>
+      )}
+
+      <div className="rounded-card bg-surface-card p-8 text-center shadow-[var(--shadow-md)] ring-1 ring-surface-border">
+        <p className="text-xs font-semibold uppercase tracking-wide text-text-muted">{t("vizuMultilevel.points")}</p>
+        <p className="mt-1 text-4xl font-extrabold text-text-primary">
+          {result.total_points} / {result.max_points}
+        </p>
+      </div>
+
+      <div className="grid grid-cols-3 gap-3 text-center">
+        <Stat label={t("vizuMultilevel.statCorrect")} value={result.correct} />
+        <Stat label={t("vizuMultilevel.statWrong")} value={result.wrong} />
+        <Stat label={t("vizuMultilevel.statUnanswered")} value={result.unanswered} />
+      </div>
+
+      <div className="flex justify-center">
+        <Link href={nextStepPath(attemptId, "hoeren")}>
+          <Button>
+            {t("vizuMultilevel.continueNext")}
+            <ArrowRight size={16} />
+          </Button>
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+function Stat({ label, value }: { label: string; value: number }) {
+  return (
+    <div className="rounded-2xl bg-surface-card p-4 ring-1 ring-surface-border">
+      <p className="text-2xl font-bold text-text-primary">{value}</p>
+      <p className="mt-0.5 text-xs text-text-muted">{label}</p>
+    </div>
   );
 }

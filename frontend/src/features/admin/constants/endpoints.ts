@@ -68,6 +68,7 @@ export const ADMIN_ENDPOINTS = {
   vizuMultilevelContentTaskQuestions: (taskId: string) => `/api/v1/admin/vizu-multilevel/content/tasks/${taskId}/questions`,
   vizuMultilevelContentQuestion: (questionId: string) => `/api/v1/admin/vizu-multilevel/content/questions/${questionId}`,
   vizuMultilevelStatistics: "/api/v1/admin/vizu-multilevel/statistics",
-  vizuMultilevelAudio: "/api/v1/admin/vizu-multilevel/audio",
-  vizuMultilevelAudioDetail: (audioId: string) => `/api/v1/admin/vizu-multilevel/audio/${audioId}`,
+  vizuMultilevelHoerenAudio: "/api/v1/admin/vizu-multilevel/hoeren/audio",
+  vizuMultilevelHoerenAudioDetail: (audioId: string) => `/api/v1/admin/vizu-multilevel/hoeren/audio/${audioId}`,
+  vizuMultilevelHoerenContentImportJson: "/api/v1/admin/vizu-multilevel/hoeren-content/import-json",
 } as const;

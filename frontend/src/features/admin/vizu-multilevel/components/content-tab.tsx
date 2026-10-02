@@ -23,10 +23,9 @@ import {
   deleteVizuMultilevelContentTask,
   getVizuMultilevelHoerenContent,
   getVizuMultilevelLesenContent,
-  importVizuMultilevelHoerenCsv,
-  importVizuMultilevelLesenCsv,
+  importVizuMultilevelHoerenJson,
   importVizuMultilevelLesenJson,
-  listVizuMultilevelAudio,
+  listVizuMultilevelHoerenAudio,
   updateVizuMultilevelContentQuestion,
   updateVizuMultilevelContentTask,
 } from "@/features/admin/vizu-multilevel/services/vizu-multilevel-admin-service";
@@ -36,7 +35,6 @@ import type {
   VizuMultilevelQuestionPayload,
 } from "@/features/admin/vizu-multilevel/types/vizu-multilevel-admin.types";
 
-import VizuMultilevelAudioSlot from "./audio-slot";
 
 type ContentSkill = "lesen" | "hoeren";
 
@@ -66,57 +64,43 @@ function errorMessage(error: unknown): string {
 }
 
 // ============================================================
-// CSV import (bulk content entry — idempotent)
+// JSON import (bulk content entry — transactional, idempotent)
 // ============================================================
 
-function ContentCsvImport({ skill }: { skill: ContentSkill }) {
+function HoerenJsonImport() {
   const queryClient = useQueryClient();
-  const inputRef = useRef<HTMLInputElement>(null);
-  const [file, setFile] = useState<File | null>(null);
   const [message, setMessage] = useState<{ ok: boolean; text: string } | null>(null);
 
   const importMutation = useMutation({
-    mutationFn: () => (skill === "lesen" ? importVizuMultilevelLesenCsv(file!) : importVizuMultilevelHoerenCsv(file!)),
+    mutationFn: importVizuMultilevelHoerenJson,
     onSuccess: (res) => {
       setMessage({
         ok: true,
-        text: `${res.total_questions} Frage(n) importiert (${res.tasks_created} Aufgabe(n) neu, ${res.tasks_updated} aktualisiert · ${res.questions_created} Frage(n) neu, ${res.questions_updated} aktualisiert).`,
+        text:
+          res.status === "unchanged"
+            ? `Keine Änderung — ${res.aufgaben} Aufgaben / ${res.questions} Tests sind bereits aktuell.`
+            : `${res.aufgaben} Aufgaben / ${res.questions} Tests importiert (Hören-Inhalt ersetzt, Audio bleibt erhalten).`,
       });
-      setFile(null);
-      if (inputRef.current) inputRef.current.value = "";
-      queryClient.invalidateQueries({ queryKey: [COPY[skill].queryKey] });
+      queryClient.invalidateQueries({ queryKey: [COPY.hoeren.queryKey] });
     },
-    onError: () =>
-      setMessage({
-        ok: false,
-        text: "Import fehlgeschlagen. Bitte CSV-Format prüfen (aufgabe, level, question, type, option_a-d, correct_answer, order).",
-      }),
+    onError: (e) => setMessage({ ok: false, text: errorMessage(e) }),
   });
 
   return (
     <div>
-      <h3 className="text-sm font-semibold text-[var(--admin-text-primary)]">{COPY[skill].label}-Aufgaben per CSV importieren</h3>
+      <h3 className="text-sm font-semibold text-[var(--admin-text-primary)]">Hören-Inhalt aus hoeren.json laden</h3>
       <p className="mt-1 text-xs text-[var(--admin-text-secondary)]">
-        Optional für große Mengen. Spalten: aufgabe, level (A1–C1), question, type, option_a–d, correct_answer, order
-        {skill === "lesen" ? ", task_passage / question_passage" : ""}. Erneutes Importieren aktualisiert vorhandene Einträge.
+        5 Aufgaben mit je 4 Tests (je 1 Punkt = 20) inklusive Audio-Script. Ersetzt nur den Hören-Inhalt in einer Transaktion;
+        hochgeladene Audios bleiben erhalten. Lesen, Schreiben und Sprechen bleiben unberührt.
       </p>
-      <div className="mt-3 flex flex-wrap items-center gap-2">
-        <input
-          ref={inputRef}
-          type="file"
-          accept=".csv,text/csv"
-          onChange={(e) => setFile(e.target.files?.[0] ?? null)}
-          className="text-sm text-[var(--admin-text-secondary)]"
-        />
-        <AdminButton size="sm" variant="secondary" onClick={() => importMutation.mutate()} disabled={!file || importMutation.isPending}>
+      <div className="mt-3">
+        <AdminButton size="sm" variant="secondary" onClick={() => importMutation.mutate()} disabled={importMutation.isPending}>
           <Upload size={14} />
-          {importMutation.isPending ? "Wird importiert..." : "Importieren"}
+          {importMutation.isPending ? "Wird importiert..." : "Standard-hoeren.json laden"}
         </AdminButton>
       </div>
       {message && (
-        <p
-          className={`mt-3 flex items-center gap-2 text-sm ${message.ok ? "text-[var(--admin-success,#22c55e)]" : "text-[var(--admin-danger)]"}`}
-        >
+        <p className={`mt-3 flex items-center gap-2 text-sm ${message.ok ? "text-[var(--admin-success,#22c55e)]" : "text-[var(--admin-danger)]"}`}>
           {message.ok && <CheckCircle2 size={15} />}
           {message.text}
         </p>
@@ -553,11 +537,6 @@ export default function VizuMultilevelContentTab({ skill }: { skill: ContentSkil
     queryKey: [copy.queryKey],
     queryFn: skill === "lesen" ? getVizuMultilevelLesenContent : getVizuMultilevelHoerenContent,
   });
-  const { data: audios } = useQuery({
-    queryKey: ["vizu-multilevel-admin-audio"],
-    queryFn: listVizuMultilevelAudio,
-    enabled: skill === "hoeren",
-  });
 
   const [taskDialog, setTaskDialog] = useState<{ open: boolean; task: VizuMultilevelContentTask | null }>({
     open: false,
@@ -590,7 +569,12 @@ export default function VizuMultilevelContentTab({ skill }: { skill: ContentSkil
     },
   });
 
-  const audioByTaskId = new Map((audios ?? []).filter((a) => a.task_id).map((a) => [a.task_id as string, a]));
+  const { data: audioSlots } = useQuery({
+    queryKey: ["vizu-multilevel-admin-hoeren-audio"],
+    queryFn: listVizuMultilevelHoerenAudio,
+    enabled: skill === "hoeren",
+  });
+  const audioNumbers = new Set((audioSlots ?? []).filter((s) => s.has_audio).map((s) => s.aufgabe_number));
   const nextTaskOrder = (tasks?.reduce((max, t) => Math.max(max, t.order_index), 0) ?? 0) + 1;
   const SkillIcon = skill === "lesen" ? BookOpen : Headphones;
 
@@ -608,7 +592,7 @@ export default function VizuMultilevelContentTab({ skill }: { skill: ContentSkil
           </AdminButton>
         </div>
         <div className="mt-4 border-t border-[var(--admin-border)] pt-4">
-          {skill === "lesen" ? <LesenJsonImport /> : <ContentCsvImport skill={skill} />}
+          {skill === "lesen" ? <LesenJsonImport /> : <HoerenJsonImport />}
         </div>
       </AdminCard>
 
@@ -672,10 +656,12 @@ export default function VizuMultilevelContentTab({ skill }: { skill: ContentSkil
               <p className="mt-3 line-clamp-3 text-sm text-[var(--admin-text-secondary)]">{task.passage_text}</p>
             )}
             {skill === "hoeren" && (
-              <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                <VizuMultilevelAudioSlot task={task} audio={audioByTaskId.get(task.id)} />
+              <div className="mt-3 space-y-1">
+                <p className="text-xs text-[var(--admin-text-muted)]">
+                  Audio: {audioNumbers.has(task.order_index) ? "hochgeladen" : "Noch kein Audio hochgeladen"} (Aufgabe {task.order_index})
+                </p>
                 {task.transcript && (
-                  <p className="line-clamp-4 text-xs text-[var(--admin-text-muted)]">Transkript: {task.transcript}</p>
+                  <p className="line-clamp-4 text-xs text-[var(--admin-text-muted)]">Audio-Script (nur Admin): {task.transcript}</p>
                 )}
               </div>
             )}

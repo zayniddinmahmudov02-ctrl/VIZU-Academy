@@ -13,6 +13,8 @@ from app.schemas.vizu_multilevel import (
     VizuMultilevelAttemptState,
     VizuMultilevelCertificate,
     VizuMultilevelCompleteResponse,
+    VizuMultilevelHoerenDraft,
+    VizuMultilevelHoerenDraftSave,
     VizuMultilevelHoerenResult,
     VizuMultilevelHoerenSubmitRequest,
     VizuMultilevelHoerenTaskPublic,
@@ -28,7 +30,7 @@ from app.schemas.vizu_multilevel import (
     VizuMultilevelWritingSubmitAllResponse,
     VizuMultilevelWritingTaskPublic,
 )
-from app.services.vizu_multilevel import hoeren_service, lesen_service, schreiben_service, service, sprechen_service
+from app.services.vizu_multilevel import hoeren_audio_service, hoeren_service, lesen_service, schreiben_service, service, sprechen_service
 from app.services.vizu_multilevel.schreiben_service import SectionTimeUpError, WritingAlreadySubmittedError
 from app.services.vizu_multilevel.service import SectionFlowError
 from app.services.vizu_multilevel.sprechen_service import SectionTimeUpError as SpeakingTimeUpError
@@ -198,6 +200,52 @@ def get_hoeren_tasks(
     current_user: User = Depends(get_current_user),
 ):
     return hoeren_service.list_hoeren_tasks(db)
+
+
+@router.get("/attempts/{attempt_id}/hoeren/answers", response_model=VizuMultilevelHoerenDraft)
+def get_hoeren_draft(
+    attempt_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Autosaved answers, restored after a refresh."""
+    return {"answers": hoeren_service.get_draft(_own_attempt(db, current_user, attempt_id))}
+
+
+@router.put("/attempts/{attempt_id}/hoeren/answers", response_model=VizuMultilevelHoerenDraft)
+def save_hoeren_draft(
+    attempt_id: UUID,
+    data: VizuMultilevelHoerenDraftSave,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    attempt = _own_attempt(db, current_user, attempt_id)
+    try:
+        return {"answers": hoeren_service.save_draft(db, attempt, data.answers)}
+    except SectionFlowError as exc:
+        raise _flow_error(exc)
+
+
+@router.get("/attempts/{attempt_id}/hoeren/aufgabe/{aufgabe_number}/audio")
+def stream_hoeren_audio(
+    attempt_id: UUID,
+    aufgabe_number: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """The only way a student gets Hören audio bytes: the student's own
+    attempt, with the Hören section opened (not yet submitted). No public
+    URL, no file name, no storage path ever reaches the client."""
+    attempt = _own_attempt(db, current_user, attempt_id)
+    if attempt.hoeren_started_at is None or attempt.hoeren_submitted_at is not None:
+        raise HTTPException(status_code=404, detail="Audio not found.")
+    audio = hoeren_audio_service.get_for_aufgabe(db, aufgabe_number)
+    if audio is None:
+        raise HTTPException(status_code=404, detail="Audio not found.")
+    path = hoeren_audio_service.resolve_path(audio)
+    if not path.exists():
+        raise HTTPException(status_code=404, detail="Audio not found.")
+    return FileResponse(path=path, media_type=audio.content_type, headers={"Cache-Control": "private, no-store"})
 
 
 @router.post("/attempts/{attempt_id}/hoeren/submit", response_model=VizuMultilevelHoerenResult)

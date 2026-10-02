@@ -119,37 +119,6 @@ class VizuMultilevelAdminAttemptsPage(BaseSchema):
 
 
 # ============================================================
-# Hören Audio management
-# ============================================================
-
-
-class VizuMultilevelAudioCreate(BaseSchema):
-    title: str
-    audio_url: str
-    duration_seconds: int | None = None
-    task_id: UUID | None = None
-
-
-class VizuMultilevelAudioUpdate(BaseSchema):
-    title: str | None = None
-    audio_url: str | None = None
-    duration_seconds: int | None = None
-    task_id: UUID | None = None
-    is_active: bool | None = None
-
-
-class VizuMultilevelAudioResponse(BaseSchema):
-    id: UUID
-    title: str
-    audio_url: str
-    duration_seconds: int | None
-    task_id: UUID | None
-    is_active: bool
-    created_at: datetime
-    model_config = ConfigDict(from_attributes=True)
-
-
-# ============================================================
 # Statistics tab
 # ============================================================
 

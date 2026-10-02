@@ -28,11 +28,13 @@ interface Props {
   numberFromOrder?: boolean;
   /** Prefix the options with A) B) C) D). */
   showLetters?: boolean;
+  /** Translation key of the "Frage n" / "Test n" label. */
+  numberLabelKey?: string;
 }
 
 /** The multiple-choice block shared by Lesen and Hören. No correct answer
  * and no CEFR level is ever present in the data this renders. */
-export default function VizuMultilevelQuestionList({ questions, answers, onSelect, showQuestionPassage, hideNumbers, numberFromOrder, showLetters }: Props) {
+export default function VizuMultilevelQuestionList({ questions, answers, onSelect, showQuestionPassage, hideNumbers, numberFromOrder, showLetters, numberLabelKey }: Props) {
   const { t } = useTranslation();
 
   return (
@@ -40,7 +42,7 @@ export default function VizuMultilevelQuestionList({ questions, answers, onSelec
       {questions.map((question, qi) => (
         <div key={question.id}>
           {!hideNumbers && (
-            <p className="mb-2 text-sm font-semibold text-text-primary">{t("vizuMultilevel.question", { number: numberFromOrder ? question.order_index : qi + 1 })}</p>
+            <p className="mb-2 text-sm font-semibold text-text-primary">{t(numberLabelKey ?? "vizuMultilevel.question", { number: numberFromOrder ? question.order_index : qi + 1 })}</p>
           )}
 
           {showQuestionPassage && question.passage_text && (

@@ -1,49 +1,41 @@
-from uuid import UUID
+"""VIZU-Multilevel Hören — task list, autosave, server-side grading.
+
+5 Aufgaben x 1 audio x 4 multiple-choice questions, 1 point each = 20.
+Correctness lives only in the database: students receive questions and
+options, never `is_correct`, never the audio script (transcript) and never
+a storage path — the audio itself is streamed through an authenticated
+endpoint (see hoeren_audio_service). The level used for the overall result
+is derived from the total score with the same percentage thresholds as
+Lesen and is never shown to the student."""
 
 from sqlalchemy import select
 from sqlalchemy.orm import Session, joinedload
 
 from app.models.vizu_multilevel_attempt import VizuMultilevelAttempt
-from app.services.vizu_multilevel import service
-from app.models.vizu_multilevel_audio import VizuMultilevelAudio
-from app.models.vizu_multilevel_content import SKILL_HOEREN, CEFR_LEVELS, VizuMultilevelAnswer, VizuMultilevelQuestion, VizuMultilevelTask
+from app.models.vizu_multilevel_content import (
+    SKILL_HOEREN,
+    VizuMultilevelAnswer,
+    VizuMultilevelQuestion,
+    VizuMultilevelTask,
+)
+from app.services.vizu_multilevel import hoeren_audio_service, service
+from app.services.vizu_multilevel.lesen_service import level_for_score
 
-# Same "kamida 3/4" cascade rule as Lesen (see lesen_service.py's own
-# docstring) — duplicated rather than imported so each skill module stays
-# independently readable/self-contained, matching this codebase's
-# existing per-skill service convention.
-PASS_NUMERATOR = 3
-PASS_DENOMINATOR = 4
+# The final submit needs every question answered — except when the 20
+# minutes are up (then whatever is saved is graded).
+REQUIRE_ALL_ANSWERED = True
 
 
-def list_hoeren_tasks(db: Session, include_unpublished: bool = False) -> list[dict]:
-    """Like lesen_service.list_lesen_tasks, but each task also carries its
-    active Hören audio's URL (never the script/transcript — Hören content
-    has no passage_text at all, only spoken audio + questions)."""
-    query = select(VizuMultilevelTask).where(VizuMultilevelTask.skill == SKILL_HOEREN)
-    if not include_unpublished:
-        query = query.where(VizuMultilevelTask.is_published.is_(True))
+def list_hoeren_tasks(db: Session) -> list[dict]:
     tasks = list(
         db.scalars(
-            query
+            select(VizuMultilevelTask)
+            .where(VizuMultilevelTask.skill == SKILL_HOEREN, VizuMultilevelTask.is_published.is_(True))
             .options(joinedload(VizuMultilevelTask.questions).joinedload(VizuMultilevelQuestion.options))
             .order_by(VizuMultilevelTask.order_index)
         ).unique()
     )
-    task_ids = [t.id for t in tasks]
-
-    audio_by_task: dict[UUID, str] = {}
-    if task_ids:
-        audio_rows = db.execute(
-            select(VizuMultilevelAudio.task_id, VizuMultilevelAudio.audio_url)
-            .where(VizuMultilevelAudio.task_id.in_(task_ids), VizuMultilevelAudio.is_active.is_(True))
-            .order_by(VizuMultilevelAudio.created_at.desc())
-        ).all()
-        for task_id, audio_url in audio_rows:
-            # Most-recently-created active audio wins if more than one was
-            # ever attached to the same task (rows are already newest-first).
-            audio_by_task.setdefault(task_id, audio_url)
-
+    with_audio = hoeren_audio_service.numbers_with_audio(db)
     return [
         {
             "id": t.id,
@@ -51,110 +43,140 @@ def list_hoeren_tasks(db: Session, include_unpublished: bool = False) -> list[di
             "order_index": t.order_index,
             # Hören has no reading text; the transcript is admin-only.
             "passage_text": None,
-            "audio_url": audio_by_task.get(t.id),
+            "has_audio": t.order_index in with_audio,
             "questions": t.questions,
         }
         for t in tasks
     ]
 
 
-def _level_breakdown(db: Session, attempt_id: UUID) -> list[dict]:
-    """Each level's points/max_points are sums of VizuMultilevelQuestion.points
-    (a float — Hören weights points by CEFR level, A1=0.5 ... C1=2.5, see
-    services/vizu_multilevel/hoeren_csv_import_service.py), not a flat integer
-    per question like Lesen. The 3/4 pass check below is a ratio, so it
-    stays correct regardless of the per-level point scale."""
-    rows = db.execute(
-        select(VizuMultilevelTask.level, VizuMultilevelQuestion.points, VizuMultilevelAnswer.points_earned)
-        .select_from(VizuMultilevelAnswer)
-        .join(VizuMultilevelQuestion, VizuMultilevelAnswer.question_id == VizuMultilevelQuestion.id)
-        .join(VizuMultilevelTask, VizuMultilevelQuestion.task_id == VizuMultilevelTask.id)
-        .where(VizuMultilevelAnswer.attempt_id == attempt_id, VizuMultilevelTask.skill == SKILL_HOEREN)
-    ).all()
-
-    points_by_level = {level: 0 for level in CEFR_LEVELS}
-    max_by_level = {level: 0 for level in CEFR_LEVELS}
-    for level, max_points, earned in rows:
-        max_by_level[level] += max_points
-        points_by_level[level] += earned
-
-    return [
-        {
-            "level": level,
-            "points": points_by_level[level],
-            "max_points": max_by_level[level],
-            "passed": max_by_level[level] > 0
-            and points_by_level[level] * PASS_DENOMINATOR >= PASS_NUMERATOR * max_by_level[level],
-        }
-        for level in CEFR_LEVELS
-    ]
-
-
-def _confirmed_level(level_scores: list[dict]) -> str | None:
-    confirmed = None
-    for entry in level_scores:
-        if entry["passed"]:
-            confirmed = entry["level"]
-        else:
-            break
-    return confirmed
-
-
-def get_hoeren_result(db: Session, attempt: VizuMultilevelAttempt) -> dict:
-    level_scores = _level_breakdown(db, attempt.id)
-    return {
-        "attempt_id": attempt.id,
-        "total_points": sum(entry["points"] for entry in level_scores),
-        "max_points": sum(entry["max_points"] for entry in level_scores),
-        "level_scores": level_scores,
-        "hoeren_level": attempt.hoeren_level,
-    }
-
-
-def submit_hoeren(db: Session, attempt: VizuMultilevelAttempt, answers: list) -> dict:
-    """Grades every Hören question server-side (never trusting anything the
-    client claims about correctness) and writes hoeren_score/hoeren_level
-    onto the attempt exactly once. Unanswered questions earn 0 points, so
-    the student may finish at any time without answering everything.
-    If the 20-minute window has already closed (server clock, deadline +
-    grace) the submitted answers are ignored and the section is graded as
-    unanswered. A resubmit is a no-op that returns the stored result."""
-    if service.is_submitted(attempt, "hoeren"):
-        return get_hoeren_result(db, attempt)
-
-    in_time = service.begin_submission(db, attempt, "hoeren")
-    if not in_time:
-        answers = []
-
-    questions = list(
+def _questions(db: Session) -> list[VizuMultilevelQuestion]:
+    return list(
         db.scalars(
             select(VizuMultilevelQuestion)
             .join(VizuMultilevelTask, VizuMultilevelQuestion.task_id == VizuMultilevelTask.id)
             .where(VizuMultilevelTask.skill == SKILL_HOEREN, VizuMultilevelTask.is_published.is_(True))
             .options(joinedload(VizuMultilevelQuestion.options))
+            .order_by(VizuMultilevelQuestion.order_index)
         ).unique()
     )
-    answer_by_question = {a.question_id: a.option_id for a in answers}
 
+
+def _valid_choice(question: VizuMultilevelQuestion, option_id: str | None) -> bool:
+    return bool(option_id) and any(str(o.id) == option_id for o in question.options)
+
+
+# ============================================================
+# Autosave
+# ============================================================
+
+
+def get_draft(attempt: VizuMultilevelAttempt) -> dict[str, str]:
+    return dict(attempt.hoeren_draft or {})
+
+
+def save_draft(db: Session, attempt: VizuMultilevelAttempt, answers: list) -> dict[str, str]:
+    """Merges the given answers into the attempt's draft. Only possible
+    while the competency is open (not submitted, inside the 20 minutes);
+    selections that do not belong to a real Hören question are ignored."""
+    service.ensure_section_open_strict(db, attempt, "hoeren")
+    by_id = {str(q.id): q for q in _questions(db)}
+    draft = get_draft(attempt)
+    for answer in answers:
+        question = by_id.get(str(answer.question_id))
+        if question is None:
+            continue
+        option_id = str(answer.option_id) if answer.option_id else None
+        if option_id is None:
+            draft.pop(str(question.id), None)
+        elif _valid_choice(question, option_id):
+            draft[str(question.id)] = option_id
+    attempt.hoeren_draft = draft
+    db.commit()
+    return draft
+
+
+# ============================================================
+# Result / submit
+# ============================================================
+
+
+def get_hoeren_result(db: Session, attempt: VizuMultilevelAttempt) -> dict:
+    rows = db.execute(
+        select(VizuMultilevelQuestion.points)
+        .select_from(VizuMultilevelAnswer)
+        .join(VizuMultilevelQuestion, VizuMultilevelAnswer.question_id == VizuMultilevelQuestion.id)
+        .join(VizuMultilevelTask, VizuMultilevelQuestion.task_id == VizuMultilevelTask.id)
+        .where(VizuMultilevelAnswer.attempt_id == attempt.id, VizuMultilevelTask.skill == SKILL_HOEREN)
+    ).all()
+    return {
+        "attempt_id": attempt.id,
+        "total_points": float(attempt.hoeren_score or 0),
+        "max_points": float(sum(r[0] for r in rows)),
+        "correct": attempt.hoeren_correct or 0,
+        "wrong": attempt.hoeren_wrong or 0,
+        "unanswered": attempt.hoeren_unanswered or 0,
+    }
+
+
+def submit_hoeren(db: Session, attempt: VizuMultilevelAttempt, answers: list) -> dict:
+    """Final "Hören abschließen". Grades every published Hören question on
+    the server (1 point each, no negatives) and stores score + counts +
+    level on the attempt exactly once — afterwards answers can no longer
+    change. Answers = the autosaved draft, overridden by the ones sent now
+    (ignored if the window already closed). Unless the time is up, every
+    question must be answered."""
+    if service.is_submitted(attempt, "hoeren"):
+        return get_hoeren_result(db, attempt)
+
+    in_time = service.begin_submission(db, attempt, "hoeren")
+    questions = _questions(db)
+
+    chosen = get_draft(attempt)
+    if in_time:
+        for answer in answers:
+            if answer.option_id:
+                chosen[str(answer.question_id)] = str(answer.option_id)
+
+    answered = sum(1 for q in questions if _valid_choice(q, chosen.get(str(q.id))))
+    if (
+        REQUIRE_ALL_ANSWERED
+        and questions
+        and answered < len(questions)
+        and not service.section_expired(attempt, "hoeren")
+    ):
+        raise service.SectionFlowError("ALL_QUESTIONS_REQUIRED")
+
+    total = maximum = 0.0
+    correct = wrong = unanswered = 0
     for question in questions:
-        selected_id = answer_by_question.get(question.id)
-        selected_option = next((o for o in question.options if o.id == selected_id), None) if selected_id else None
-        is_correct = bool(selected_option and selected_option.is_correct)
+        selected_id = chosen.get(str(question.id))
+        selected = next((o for o in question.options if str(o.id) == selected_id), None) if selected_id else None
+        is_correct = bool(selected and selected.is_correct)
+        earned = question.points if is_correct else 0
+        total += earned
+        maximum += question.points
+        if selected is None:
+            unanswered += 1
+        elif is_correct:
+            correct += 1
+        else:
+            wrong += 1
         db.add(
             VizuMultilevelAnswer(
                 attempt_id=attempt.id,
                 question_id=question.id,
-                # Only keep a selection that really belongs to this question.
-                selected_option_id=selected_option.id if selected_option else None,
+                selected_option_id=selected.id if selected else None,
                 is_correct=is_correct,
-                points_earned=question.points if is_correct else 0,
+                points_earned=earned,
             )
         )
 
-    db.flush()
-    level_scores = _level_breakdown(db, attempt.id)
-    attempt.hoeren_score = sum(entry["points"] for entry in level_scores)
-    attempt.hoeren_level = _confirmed_level(level_scores)
+    attempt.hoeren_score = total
+    attempt.hoeren_correct = correct
+    attempt.hoeren_wrong = wrong
+    attempt.hoeren_unanswered = unanswered
+    attempt.hoeren_level = level_for_score(total, maximum)
+    attempt.hoeren_draft = None
     service.mark_submitted(db, attempt, "hoeren")
-
     return get_hoeren_result(db, attempt)

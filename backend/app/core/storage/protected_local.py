@@ -87,6 +87,15 @@ class ProtectedLegacySpeakingStorage(LocalStorage):
     ROOT = Path("app/protected_storage/legacy-speaking")
 
 
+class ProtectedVizuMultilevelHoerenStorage(LocalStorage):
+    """Hören audio of the VIZU-Multilevel level check. Same isolation as the
+    other protected roots: outside the public /uploads mount, only ever
+    streamed through authenticated endpoints (an exam attempt that has
+    opened Hören, or an admin)."""
+
+    ROOT = Path("app/protected_storage/vizu-multilevel-hoeren")
+
+
 class ProtectedVizuMultilevelSpeakingStorage(LocalStorage):
     """Sprechen recordings of the VIZU-Multilevel level check — a separate
     root from the lesson-level speaking systems so files can never collide

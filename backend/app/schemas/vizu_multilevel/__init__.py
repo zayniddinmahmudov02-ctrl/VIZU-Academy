@@ -16,6 +16,9 @@ from .schema import (
     VizuMultilevelTaskPublic,
 )
 from .hoeren_schema import (
+    VizuMultilevelHoerenAudioSlot,
+    VizuMultilevelHoerenDraft,
+    VizuMultilevelHoerenDraftSave,
     VizuMultilevelHoerenResult,
     VizuMultilevelHoerenSubmitRequest,
     VizuMultilevelHoerenTaskPublic,
@@ -26,9 +29,6 @@ from .admin_schema import (
     VizuMultilevelAdminAttemptItem,
     VizuMultilevelAdminAttemptsPage,
     VizuMultilevelAnalytics,
-    VizuMultilevelAudioCreate,
-    VizuMultilevelAudioResponse,
-    VizuMultilevelAudioUpdate,
     VizuMultilevelCompetencyAverage,
     VizuMultilevelCompetencyStat,
     VizuMultilevelLevelAnalytics,

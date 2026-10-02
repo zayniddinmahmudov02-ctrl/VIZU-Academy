@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from sqlalchemy import DateTime, ForeignKey, Integer, Numeric, String, Text, func
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models.base import BaseModel
@@ -83,6 +83,13 @@ class VizuMultilevelAttempt(BaseModel):
     lesen_correct: Mapped[int | None] = mapped_column(Integer, nullable=True)
     lesen_wrong: Mapped[int | None] = mapped_column(Integer, nullable=True)
     lesen_unanswered: Mapped[int | None] = mapped_column(Integer, nullable=True)
+
+    # Hören autosave: {question_id: option_id}. Written while the section is
+    # open, restored after a refresh, and the fallback when the time runs out.
+    hoeren_draft: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
+    hoeren_correct: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    hoeren_wrong: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    hoeren_unanswered: Mapped[int | None] = mapped_column(Integer, nullable=True)
 
     sprechen_score: Mapped[int | None] = mapped_column(Integer, nullable=True)
     sprechen_feedback: Mapped[str | None] = mapped_column(Text, nullable=True)

@@ -8,6 +8,7 @@ import type {
   VizuMultilevelAttemptState,
   VizuMultilevelCertificate,
   VizuMultilevelCompleteResponse,
+  VizuMultilevelHoerenResult,
   VizuMultilevelHoerenTask,
   VizuMultilevelLesenResult,
   VizuMultilevelSectionState,
@@ -91,8 +92,29 @@ export async function getVizuMultilevelHoerenTasks(): Promise<VizuMultilevelHoer
   return ensureArray<VizuMultilevelHoerenTask>(response.data);
 }
 
-export async function submitVizuMultilevelHoeren(attemptId: string, answers: VizuMultilevelAnswerSubmit[]): Promise<void> {
-  await api.post(`${BASE}/${attemptId}/hoeren/submit`, { answers });
+export async function submitVizuMultilevelHoeren(
+  attemptId: string,
+  answers: VizuMultilevelAnswerSubmit[],
+): Promise<VizuMultilevelHoerenResult> {
+  const response = await api.post<VizuMultilevelHoerenResult>(`${BASE}/${attemptId}/hoeren/submit`, { answers });
+  return response.data;
+}
+
+/** Autosaved answers (question_id -> option_id), restored after a refresh. */
+export async function getVizuMultilevelHoerenDraft(attemptId: string): Promise<Record<string, string>> {
+  const response = await api.get<{ answers: Record<string, string> }>(`${BASE}/${attemptId}/hoeren/answers`);
+  return response.data.answers ?? {};
+}
+
+export async function saveVizuMultilevelHoerenDraft(attemptId: string, answers: VizuMultilevelAnswerSubmit[]): Promise<void> {
+  await api.put(`${BASE}/${attemptId}/hoeren/answers`, { answers });
+}
+
+/** Streams one Aufgabe's audio through the authenticated endpoint and
+ * returns a short-lived blob URL for the <audio> element. */
+export async function getVizuMultilevelHoerenAudioBlobUrl(attemptId: string, aufgabeNumber: number): Promise<string> {
+  const response = await api.get(`${BASE}/${attemptId}/hoeren/aufgabe/${aufgabeNumber}/audio`, { responseType: "blob" });
+  return URL.createObjectURL(response.data as Blob);
 }
 
 // ---- Schreiben ----

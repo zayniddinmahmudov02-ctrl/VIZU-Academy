@@ -15,9 +15,7 @@ from sqlalchemy.orm import Session, joinedload
 
 from app.models.user import User
 from app.models.vizu_multilevel_attempt import STATUS_COMPLETED, STATUS_IN_PROGRESS, VizuMultilevelAttempt
-from app.models.vizu_multilevel_audio import VizuMultilevelAudio
 from app.models.vizu_multilevel_content import CEFR_LEVELS
-from app.schemas.vizu_multilevel import VizuMultilevelAudioCreate, VizuMultilevelAudioUpdate
 
 
 def _now() -> datetime:
@@ -332,48 +330,6 @@ def get_attempt_detail(db: Session, attempt_id: UUID) -> dict | None:
         .first()
     )
     return _attempt_item(attempt) if attempt is not None else None
-
-
-# ============================================================
-# Hören Audio management
-# ============================================================
-
-
-def list_audio(db: Session) -> list[VizuMultilevelAudio]:
-    return db.query(VizuMultilevelAudio).order_by(VizuMultilevelAudio.created_at.desc()).all()
-
-
-def create_audio(db: Session, data: VizuMultilevelAudioCreate) -> VizuMultilevelAudio:
-    audio = VizuMultilevelAudio(
-        title=data.title,
-        audio_url=data.audio_url,
-        duration_seconds=data.duration_seconds,
-        task_id=data.task_id,
-    )
-    db.add(audio)
-    db.commit()
-    db.refresh(audio)
-    return audio
-
-
-def update_audio(db: Session, audio_id: UUID, data: VizuMultilevelAudioUpdate) -> VizuMultilevelAudio | None:
-    audio = db.query(VizuMultilevelAudio).filter(VizuMultilevelAudio.id == audio_id).first()
-    if audio is None:
-        return None
-    for field, value in data.model_dump(exclude_unset=True).items():
-        setattr(audio, field, value)
-    db.commit()
-    db.refresh(audio)
-    return audio
-
-
-def delete_audio(db: Session, audio_id: UUID) -> bool:
-    audio = db.query(VizuMultilevelAudio).filter(VizuMultilevelAudio.id == audio_id).first()
-    if audio is None:
-        return False
-    db.delete(audio)
-    db.commit()
-    return True
 
 
 # ============================================================
