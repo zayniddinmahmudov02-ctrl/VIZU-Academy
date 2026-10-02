@@ -14,6 +14,7 @@ import type {
   VizuMultilevelLesenResult,
   VizuMultilevelSectionState,
   VizuMultilevelSkill,
+  VizuMultilevelSpeakingEvaluation,
   VizuMultilevelSpeakingSubmission,
   VizuMultilevelSpeakingTask,
   VizuMultilevelTask,
@@ -180,6 +181,12 @@ export async function getVizuMultilevelSprechenTasks(): Promise<VizuMultilevelSp
   return ensureArray<VizuMultilevelSpeakingTask>(response.data);
 }
 
+/** This attempt's 5 Aufgaben (answered ones keep their task). */
+export async function getVizuMultilevelAttemptSprechenTasks(attemptId: string): Promise<VizuMultilevelSpeakingTask[]> {
+  const response = await api.get<VizuMultilevelSpeakingTask[]>(`${BASE}/${attemptId}/sprechen/tasks`);
+  return ensureArray<VizuMultilevelSpeakingTask>(response.data);
+}
+
 export async function getVizuMultilevelSprechenSubmissions(attemptId: string): Promise<VizuMultilevelSpeakingSubmission[]> {
   const response = await api.get<VizuMultilevelSpeakingSubmission[]>(`${BASE}/${attemptId}/sprechen/submissions`);
   return ensureArray<VizuMultilevelSpeakingSubmission>(response.data);
@@ -194,7 +201,9 @@ export async function uploadVizuMultilevelSprechenRecording(
   const formData = new FormData();
   formData.append("task_id", taskId);
   formData.append("duration_seconds", String(Math.round(durationSeconds)));
-  formData.append("file", blob, "recording.webm");
+  const type = blob.type.split(";")[0];
+  const extension = type === "audio/ogg" ? "ogg" : type === "audio/mp4" ? "m4a" : type === "audio/mpeg" ? "mp3" : "webm";
+  formData.append("file", blob, `recording.${extension}`);
   const response = await api.post<VizuMultilevelSpeakingSubmission>(`${BASE}/${attemptId}/sprechen/upload`, formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });
@@ -203,4 +212,13 @@ export async function uploadVizuMultilevelSprechenRecording(
 
 export async function submitVizuMultilevelSprechen(attemptId: string): Promise<void> {
   await api.post(`${BASE}/${attemptId}/sprechen/submit`);
+}
+
+export async function getVizuMultilevelSprechenEvaluation(attemptId: string): Promise<VizuMultilevelSpeakingEvaluation> {
+  const response = await api.get<VizuMultilevelSpeakingEvaluation>(`${BASE}/${attemptId}/sprechen/evaluation`);
+  return response.data;
+}
+
+export async function retryVizuMultilevelSprechenEvaluation(attemptId: string): Promise<void> {
+  await api.post(`${BASE}/${attemptId}/sprechen/evaluation/retry`);
 }

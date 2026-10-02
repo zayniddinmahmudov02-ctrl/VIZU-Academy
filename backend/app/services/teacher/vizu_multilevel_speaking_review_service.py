@@ -14,24 +14,15 @@ from app.models.vizu_multilevel_speaking import VizuMultilevelSpeakingSubmission
 from app.services.vizu_multilevel import service as flow
 from app.services.vizu_multilevel import sprechen_service
 
-# Same "kamida 12/20" rule as Schreiben, expressed as a ratio of the
-# Aufgabe's own points so it stays correct if an admin changes `points`.
-PASS_NUMERATOR = 3
-PASS_DENOMINATOR = 5
-
-
 def _student_name(user) -> str:
     return f"{user.first_name or ''} {user.last_name or ''}".strip() or user.username
 
 
-def _active_tasks(db: Session) -> list[VizuMultilevelSpeakingTask]:
-    return list(
-        db.scalars(
-            select(VizuMultilevelSpeakingTask)
-            .where(VizuMultilevelSpeakingTask.is_active.is_(True))
-            .order_by(VizuMultilevelSpeakingTask.order_index)
-        )
-    )
+def _active_tasks(db: Session, attempt_id: UUID | None = None) -> list[VizuMultilevelSpeakingTask]:
+    """The attempt's 5 Sprechen Aufgaben (ladder), not the whole bank."""
+    if attempt_id is not None:
+        return sprechen_service.attempt_tasks(db, attempt_id)
+    return sprechen_service.assigned_tasks(db)
 
 
 def _status(graded: int, total: int) -> str:
@@ -66,7 +57,7 @@ def list_speaking_for_teacher(db: Session) -> list[dict]:
     graded_by_attempt: dict[UUID, int] = {}
     for sub in subs:
         total_by_attempt[sub.attempt_id] = total_by_attempt.get(sub.attempt_id, 0) + 1
-        if sub.teacher_score is not None:
+        if sprechen_service.effective_score(sub) is not None:
             graded_by_attempt[sub.attempt_id] = graded_by_attempt.get(sub.attempt_id, 0) + 1
 
     items = []
@@ -84,7 +75,7 @@ def list_speaking_for_teacher(db: Session) -> list[dict]:
                 "graded_count": graded,
                 "total_submissions": total,
                 "sprechen_score": attempt.sprechen_score,
-                "max_score": sum(t.points for t in tasks),
+                "max_score": sum(t.points for t in _active_tasks(db, attempt.id)) or sum(t.points for t in tasks),
                 "status": _status(graded, total),
             }
         )
@@ -129,8 +120,15 @@ def get_speaking_detail_for_teacher(db: Session, attempt_id: UUID) -> dict | Non
                 "has_audio": t.id in subs,
                 "teacher_score": subs[t.id].teacher_score if t.id in subs else None,
                 "teacher_comment": subs[t.id].teacher_comment if t.id in subs else None,
+                "status": subs[t.id].status if t.id in subs else None,
+                "transcript": subs[t.id].transcript if t.id in subs else None,
+                "transcript_confidence": subs[t.id].transcript_confidence if t.id in subs else None,
+                "audio_observations": subs[t.id].audio_observations if t.id in subs else None,
+                "ai_score": subs[t.id].ai_score if t.id in subs else None,
+                "ai_feedback": subs[t.id].ai_feedback if t.id in subs else None,
+                "evaluation_error": subs[t.id].evaluation_error if t.id in subs else None,
             }
-            for t in _active_tasks(db)
+            for t in _active_tasks(db, attempt_id)
         ],
     }
 
@@ -148,25 +146,8 @@ def get_audio(db: Session, attempt_id: UUID, submission_id: UUID) -> tuple[Path,
 
 
 def _recompute_attempt(db: Session, attempt: VizuMultilevelAttempt) -> None:
-    tasks = _active_tasks(db)
-    subs = {
-        s.task_id: s
-        for s in db.scalars(
-            select(VizuMultilevelSpeakingSubmission).where(VizuMultilevelSpeakingSubmission.attempt_id == attempt.id)
-        )
-    }
-    graded = [subs[t.id].teacher_score for t in tasks if t.id in subs and subs[t.id].teacher_score is not None]
-    attempt.sprechen_score = sum(graded) if graded else None
-
-    confirmed = None
-    for task in tasks:
-        sub = subs.get(task.id)
-        score = sub.teacher_score if sub else None
-        if score is not None and score * PASS_DENOMINATOR >= PASS_NUMERATOR * task.points:
-            confirmed = task.level
-        else:
-            break
-    attempt.sprechen_level = confirmed
+    # Same rule as the AI pipeline: sum of the 5 Aufgaben, level from the 0-100 table.
+    sprechen_service.recompute_attempt(db, attempt)
 
 
 def grade_task(

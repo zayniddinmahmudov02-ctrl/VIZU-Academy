@@ -307,8 +307,11 @@ def _writing_totals(db: Session) -> tuple[int, int]:
     return len(tasks), sum(t.points for t in tasks)
 
 
-def _speaking_totals(db: Session) -> tuple[int, int]:
-    tasks = list(db.scalars(select(VizuMultilevelSpeakingTask).where(VizuMultilevelSpeakingTask.is_active.is_(True))))
+def _speaking_totals(db: Session, attempt_id: UUID | None = None) -> tuple[int, int]:
+    """Sprechen = the student's 5 ladder Aufgaben (not the whole 25-variant bank)."""
+    from app.services.vizu_multilevel import sprechen_service
+
+    tasks = sprechen_service.attempt_tasks(db, attempt_id) if attempt_id else sprechen_service.assigned_tasks(db)
     return len(tasks), sum(t.points for t in tasks)
 
 
@@ -346,18 +349,9 @@ def _graded_complete_writing(db: Session, attempt_id: UUID) -> bool:
 
 
 def _graded_complete_speaking(db: Session, attempt_id: UUID) -> bool:
-    tasks = list(db.scalars(select(VizuMultilevelSpeakingTask).where(VizuMultilevelSpeakingTask.is_active.is_(True))))
-    subs = {
-        s.task_id: s
-        for s in db.scalars(
-            select(VizuMultilevelSpeakingSubmission).where(VizuMultilevelSpeakingSubmission.attempt_id == attempt_id)
-        )
-    }
-    for task in tasks:
-        sub = subs.get(task.id)
-        if sub is not None and sub.teacher_score is None:
-            return False
-    return True
+    from app.services.vizu_multilevel import sprechen_service
+
+    return sprechen_service.is_graded_complete(db, attempt_id)
 
 
 def _percentage(raw: float | None, maximum: float | None) -> float | None:
@@ -399,8 +393,8 @@ def competency_results(db: Session, attempt: VizuMultilevelAttempt) -> list[dict
     else:
         out.append(_competency("schreiben", R_PENDING_REVIEW, attempt.schreiben_score, max_points, None))
 
-    # Sprechen — teacher-graded.
-    task_count, max_points = _speaking_totals(db)
+    # Sprechen — AI-evaluated (teacher may override).
+    task_count, max_points = _speaking_totals(db, attempt.id)
     if task_count == 0:
         out.append(_competency("sprechen", R_NO_CONTENT, None, None, None))
     elif not is_submitted(attempt, "sprechen"):

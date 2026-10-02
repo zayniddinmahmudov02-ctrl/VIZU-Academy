@@ -115,6 +115,15 @@ class Settings(BaseSettings):
     # to fail into" isn't the same as "confirmed for this key."
     GEMINI_FALLBACK_MODEL: str = "gemini-flash-lite-latest"
 
+    # Speech-to-Text for VIZU-Multilevel Sprechen (app/services/speech/).
+    # "gemini" (default, uses GEMINI_API_KEY — also reports what it hears
+    # about pronunciation / fluency) or "openai" (Whisper, uses
+    # OPENAI_API_KEY). SPEECH_TO_TEXT_MODEL empty = provider default
+    # (gemini: GEMINI_MODEL then GEMINI_FALLBACK_MODEL; openai: whisper-1).
+    # Keys stay server-side; nothing here is ever sent to the browser.
+    SPEECH_TO_TEXT_PROVIDER: str = "gemini"
+    SPEECH_TO_TEXT_MODEL: str = ""
+
     # Bulk vocabulary generator text enrichment (see
     # app/services/vocabulary/ai_enrichment.py) — word-type/article/
     # plural/translation/example sentence, reusing GEMINI_API_KEY.

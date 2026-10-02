@@ -9,6 +9,7 @@ from app.api.dependencies.auth import require_admin_panel_access
 from app.db.session import get_db
 from app.models.user import User
 from app.schemas.vizu_multilevel import (
+    VizuMultilevelTeacherSpeakingDetail,
     VizuMultilevelActivityStats,
     VizuMultilevelAdminAttemptItem,
     VizuMultilevelAdminAttemptsPage,
@@ -34,6 +35,7 @@ from app.services.admin import vizu_multilevel_writing_admin_service as writing_
 from app.services.admin import vizu_multilevel_content_admin_service as content_service
 from app.services.admin import vizu_multilevel_speaking_admin_service as speaking_service
 from app.services.admin.vizu_multilevel_content_admin_service import ContentConflictError
+from app.services.teacher import vizu_multilevel_speaking_review_service as speaking_review_service
 from app.services.vizu_multilevel import (
     hoeren_audio_service,
     hoeren_csv_import_service,
@@ -495,5 +497,37 @@ def delete_sprechen_task(
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin_panel_access),
 ):
-    if not speaking_service.delete_task(db, task_id):
+    try:
+        deleted = speaking_service.delete_task(db, task_id)
+    except ContentConflictError as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
+    if not deleted:
         raise HTTPException(status_code=404, detail="Aufgabe not found.")
+
+
+@router.get("/attempts/{attempt_id}/sprechen", response_model=VizuMultilevelTeacherSpeakingDetail)
+def get_attempt_sprechen_detail(
+    attempt_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    """A student's Sprechen: audio (via the endpoint below), transcript,
+    AI scores per Aufgabe, AI feedback and the internal task levels."""
+    detail = speaking_review_service.get_speaking_detail_for_teacher(db, attempt_id)
+    if detail is None:
+        raise HTTPException(status_code=404, detail="Sprechen not submitted for this attempt.")
+    return detail
+
+
+@router.get("/attempts/{attempt_id}/sprechen/submissions/{submission_id}/audio")
+def get_attempt_sprechen_audio(
+    attempt_id: UUID,
+    submission_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    found = speaking_review_service.get_audio(db, attempt_id, submission_id)
+    if found is None or not found[0].exists():
+        raise HTTPException(status_code=404, detail="Recording not found.")
+    path, content_type = found
+    return FileResponse(path=path, media_type=content_type)

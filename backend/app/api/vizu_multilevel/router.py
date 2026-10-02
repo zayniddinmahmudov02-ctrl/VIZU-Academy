@@ -22,6 +22,7 @@ from app.schemas.vizu_multilevel import (
     VizuMultilevelLesenResult,
     VizuMultilevelLesenSubmitRequest,
     VizuMultilevelSectionState,
+    VizuMultilevelSpeakingEvaluation,
     VizuMultilevelSpeakingSubmissionPublic,
     VizuMultilevelSpeakingSubmitAllResponse,
     VizuMultilevelSpeakingTaskPublic,
@@ -41,6 +42,8 @@ from app.services.vizu_multilevel import (
     schreiben_evaluation_service,
     schreiben_service,
     service,
+    sprechen_content,
+    sprechen_evaluation_service,
     sprechen_service,
 )
 from app.services.vizu_multilevel.schreiben_service import SectionTimeUpError, WritingAlreadySubmittedError
@@ -419,7 +422,22 @@ def get_sprechen_tasks(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-    return sprechen_service.list_speaking_tasks(db)
+    """The 5 Aufgaben a student gets (ladder; no level exposed). Never serve
+    an empty Sprechen screen: missing standard variants are created first."""
+    sprechen_content.ensure_content(db)
+    return sprechen_service.assigned_tasks(db)
+
+
+@router.get("/attempts/{attempt_id}/sprechen/tasks", response_model=list[VizuMultilevelSpeakingTaskPublic])
+def get_attempt_sprechen_tasks(
+    attempt_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """This attempt's 5 Aufgaben (answered ones keep their task)."""
+    attempt = _own_attempt(db, current_user, attempt_id)
+    sprechen_content.ensure_content(db)
+    return sprechen_service.attempt_tasks(db, attempt.id)
 
 
 @router.get("/attempts/{attempt_id}/sprechen/submissions", response_model=list[VizuMultilevelSpeakingSubmissionPublic])
@@ -435,19 +453,25 @@ def get_sprechen_submissions(
 @router.post("/attempts/{attempt_id}/sprechen/upload", response_model=VizuMultilevelSpeakingSubmissionPublic)
 async def upload_sprechen_recording(
     attempt_id: UUID,
+    background_tasks: BackgroundTasks,
     task_id: UUID = Form(...),
     duration_seconds: int | None = Form(None),
     file: UploadFile = File(...),
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
+    """"Antwort speichern": stores the audio once (409 ANSWER_ALREADY_SAVED
+    on a second save, 409 PREVIOUS_TASK_REQUIRED out of order) and starts
+    speech-to-text + AI evaluation in the background."""
     attempt = _own_attempt(db, current_user, attempt_id)
     try:
-        return await sprechen_service.upload_recording(db, attempt, task_id, file, duration_seconds)
+        submission = await sprechen_service.upload_recording(db, attempt, task_id, file, duration_seconds)
     except SpeakingTimeUpError:
         raise HTTPException(status_code=409, detail="SECTION_TIME_UP")
     except SectionFlowError as exc:
         raise _flow_error(exc)
+    background_tasks.add_task(sprechen_evaluation_service.process_submission, submission.id)
+    return submission
 
 
 @router.get("/attempts/{attempt_id}/sprechen/submissions/{submission_id}/audio")
@@ -472,6 +496,7 @@ def get_sprechen_audio(
 @router.post("/attempts/{attempt_id}/sprechen/submit", response_model=VizuMultilevelSpeakingSubmitAllResponse)
 def submit_sprechen(
     attempt_id: UUID,
+    background_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
@@ -480,7 +505,46 @@ def submit_sprechen(
         attempt = sprechen_service.submit_all(db, attempt)
     except SectionFlowError as exc:
         raise _flow_error(exc)
+    # Finishes anything still pending (and the Sprechen result once all 5 are evaluated).
+    background_tasks.add_task(sprechen_evaluation_service.run_pending, attempt.id)
     return {"attempt_id": attempt.id, "sprechen_submitted_at": attempt.sprechen_submitted_at}
+
+
+@router.get("/attempts/{attempt_id}/sprechen/evaluation", response_model=VizuMultilevelSpeakingEvaluation)
+def get_sprechen_evaluation(
+    attempt_id: UUID,
+    background_tasks: BackgroundTasks,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Per-answer pipeline progress while the test runs; after the final
+    submit the full result (score /100, level, 5 Aufgaben with feedback).
+    Self-healing: answers stuck without a live worker are re-queued."""
+    attempt = _own_attempt(db, current_user, attempt_id)
+    if attempt.sprechen_submitted_at is not None and any(
+        s.status != sprechen_service.FAILED
+        for s in sprechen_service.get_own_submissions(db, attempt.id)
+        if s.id in sprechen_evaluation_service.pending_submission_ids(db, attempt.id)
+    ):
+        background_tasks.add_task(sprechen_evaluation_service.run_pending, attempt.id)
+    return sprechen_evaluation_service.build_student_result(db, attempt)
+
+
+@router.post("/attempts/{attempt_id}/sprechen/evaluation/retry", response_model=VizuMultilevelSpeakingEvaluation)
+def retry_sprechen_evaluation(
+    attempt_id: UUID,
+    background_tasks: BackgroundTasks,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Re-runs only answers whose processing FAILED (audio is never lost).
+    409 if nothing failed. Students cannot influence scores here."""
+    attempt = _own_attempt(db, current_user, attempt_id)
+    failed = [s for s in sprechen_service.get_own_submissions(db, attempt.id) if s.status == sprechen_service.FAILED]
+    if not failed:
+        raise HTTPException(status_code=409, detail="NOTHING_TO_RETRY")
+    background_tasks.add_task(sprechen_evaluation_service.run_pending, attempt.id)
+    return sprechen_evaluation_service.build_student_result(db, attempt)
 
 
 # ============================================================

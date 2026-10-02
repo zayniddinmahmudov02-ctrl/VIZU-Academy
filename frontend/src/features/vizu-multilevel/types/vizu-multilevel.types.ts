@@ -146,15 +146,50 @@ export interface VizuMultilevelSpeakingTask {
   instruction: string;
   preparation_text: string | null;
   prep_seconds: number;
+  /** Recommended speaking time (hint) … max_seconds (recording stops automatically). */
+  min_seconds: number;
   max_seconds: number;
   points: number;
 }
+
+/** Server pipeline of one saved answer (null = recorded before the AI pipeline). */
+export type VizuMultilevelSpeakingStatus = "PROCESSING" | "TRANSCRIBED" | "EVALUATING" | "EVALUATED" | "FAILED";
 
 export interface VizuMultilevelSpeakingSubmission {
   id: string;
   task_id: string;
   duration_seconds: number | null;
   submitted_at: string | null;
+  status: VizuMultilevelSpeakingStatus | null;
+}
+
+export interface VizuMultilevelSpeakingTaskEvaluation {
+  task_id: string;
+  order_index: number;
+  title: string;
+  score: number;
+  max_score: number;
+  answered: boolean;
+  transcript: string | null;
+  criteria: { key: string; label: string; score: number; max: number }[];
+  strengths: string[];
+  improvements: string[];
+  errors: { original: string; correction: string; explanation: string }[];
+  feedback: string;
+  next_step: string;
+  teacher_comment: string | null;
+}
+
+export interface VizuMultilevelSpeakingEvaluation {
+  status: "NOT_SUBMITTED" | "PENDING" | "DONE" | "FAILED";
+  evaluated: number;
+  total_tasks: number;
+  progress: { task_id: string; order_index: number; status: VizuMultilevelSpeakingStatus | null }[];
+  total_score: number | null;
+  max_score: number;
+  /** Only in the final result: A1..C1 or "BELOW_A1". */
+  level: string | null;
+  tasks: VizuMultilevelSpeakingTaskEvaluation[];
 }
 
 // ---- Results ----
