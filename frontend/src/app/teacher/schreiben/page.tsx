@@ -9,24 +9,24 @@ import LevelFilter, { ALL_LEVELS, levelSortKey } from "@/components/teacher/leve
 import {
   aiEvaluateVorbereitungWriting,
   getTeacherLegacyWritingSubmissions,
-  getTeacherVizuMockWriting,
-  getTeacherVizuMockWritingDetail,
+  getTeacherVizuMultilevelWriting,
+  getTeacherVizuMultilevelWritingDetail,
   getTeacherVorbereitungWriting,
   gradeTeacherLegacyWritingSubmission,
-  gradeTeacherVizuMockWritingTask,
+  gradeTeacherVizuMultilevelWritingTask,
   reviewVorbereitungWriting,
-  setTeacherVizuMockWritingFeedback,
+  setTeacherVizuMultilevelWritingFeedback,
 } from "@/features/teacher/services/teacher.service";
 import type {
   TeacherLegacyWritingItem,
   TeacherMockWritingItem,
-  VizuMockTeacherWritingDetail,
-  VizuMockTeacherWritingListItem,
+  VizuMultilevelTeacherWritingDetail,
+  VizuMultilevelTeacherWritingListItem,
 } from "@/features/teacher/types";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { cn } from "@/lib/utils";
 
-type Source = "LEKTIONEN" | "VORBEREITUNG" | "VIZU_MOCK";
+type Source = "LEKTIONEN" | "VORBEREITUNG" | "VIZU_MULTILEVEL";
 
 const COURSE_LEVELS = ["A1", "A2", "B1", "B2", "C1"] as const;
 const EXAM_LEVELS = [...COURSE_LEVELS, "Multilevel"] as const;
@@ -101,19 +101,19 @@ export default function TeacherSchreibenPage() {
           {t("vorbereitung.title")}
         </button>
         <button
-          onClick={() => setSource("VIZU_MOCK")}
+          onClick={() => setSource("VIZU_MULTILEVEL")}
           className={cn(
             "min-h-11 flex-1 rounded-lg px-3 py-2 text-xs font-bold transition-colors",
-            source === "VIZU_MOCK" ? "bg-accent-blue text-white" : "text-text-secondary hover:bg-surface-card",
+            source === "VIZU_MULTILEVEL" ? "bg-accent-blue text-white" : "text-text-secondary hover:bg-surface-card",
           )}
         >
-          VIZU-MOCK
+          VIZU-Multilevel
         </button>
       </div>
 
       {source === "LEKTIONEN" && <LegacyWritingQueue />}
       {source === "VORBEREITUNG" && <VorbereitungWritingQueue />}
-      {source === "VIZU_MOCK" && <VizuMockWritingQueue />}
+      {source === "VIZU_MULTILEVEL" && <VizuMultilevelWritingQueue />}
     </div>
   );
 }
@@ -610,26 +610,26 @@ function MockWritingReviewCard({
 }
 
 // ==========================
-// VIZU-MOCK Schreiben — flat list (VIZU-Mock has no course/Zertifikat
+// VIZU-Multilevel Schreiben — flat list (VIZU-Multilevel has no course/Zertifikat
 // grouping to speak of, one item per attempt, all 5 Aufgabe graded
 // together). Status buckets are computed server-side from graded_count.
 // ==========================
 
-const VIZU_MOCK_TABS: { key: "" | "NEW" | "IN_PROGRESS" | "GRADED"; label: string }[] = [
+const VIZU_MULTILEVEL_TABS: { key: "" | "NEW" | "IN_PROGRESS" | "GRADED"; label: string }[] = [
   { key: "", label: "Alle" },
   { key: "NEW", label: "Neue Einsendungen" },
   { key: "IN_PROGRESS", label: "In Bewertung" },
   { key: "GRADED", label: "Bewertet" },
 ];
 
-function VizuMockWritingQueue() {
+function VizuMultilevelWritingQueue() {
   const { t } = useTranslation();
-  const [tab, setTab] = useState<(typeof VIZU_MOCK_TABS)[number]["key"]>("");
+  const [tab, setTab] = useState<(typeof VIZU_MULTILEVEL_TABS)[number]["key"]>("");
   const [activeId, setActiveId] = useState<string | null>(null);
 
   const { data: allItems, isLoading } = useQuery({
-    queryKey: ["teacher-vizu-mock-writing"],
-    queryFn: getTeacherVizuMockWriting,
+    queryKey: ["teacher-vizu-multilevel-writing"],
+    queryFn: getTeacherVizuMultilevelWriting,
   });
 
   const items = useMemo(
@@ -640,7 +640,7 @@ function VizuMockWritingQueue() {
   return (
     <>
       <div className="flex gap-1.5 overflow-x-auto rounded-xl bg-surface-hover p-1 ring-1 ring-surface-border">
-        {VIZU_MOCK_TABS.map((tb) => (
+        {VIZU_MULTILEVEL_TABS.map((tb) => (
           <button
             key={tb.key}
             onClick={() => {
@@ -670,7 +670,7 @@ function VizuMockWritingQueue() {
         <div className="mt-4 grid gap-4 lg:grid-cols-[380px_1fr]">
           <div className="space-y-2">
             {items.map((item) => (
-              <VizuMockWritingListRow
+              <VizuMultilevelWritingListRow
                 key={item.attempt_id}
                 item={item}
                 active={activeId === item.attempt_id}
@@ -681,7 +681,7 @@ function VizuMockWritingQueue() {
 
           <div>
             {activeId ? (
-              <VizuMockWritingDetailCard attemptId={activeId} />
+              <VizuMultilevelWritingDetailCard attemptId={activeId} />
             ) : (
               <div className="flex h-full min-h-[200px] items-center justify-center rounded-card bg-surface-card text-sm text-text-muted ring-1 ring-surface-border">
                 Wähle eine Abgabe aus der Liste.
@@ -694,18 +694,18 @@ function VizuMockWritingQueue() {
   );
 }
 
-const VIZU_MOCK_STATUS_LABEL: Record<string, string> = {
+const VIZU_MULTILEVEL_STATUS_LABEL: Record<string, string> = {
   NEW: "Neu",
   IN_PROGRESS: "In Bewertung",
   GRADED: "Bewertet",
 };
 
-function VizuMockWritingListRow({
+function VizuMultilevelWritingListRow({
   item,
   active,
   onClick,
 }: {
-  item: VizuMockTeacherWritingListItem;
+  item: VizuMultilevelTeacherWritingListItem;
   active: boolean;
   onClick: () => void;
 }) {
@@ -721,11 +721,11 @@ function VizuMockWritingListRow({
         <div>
           <p className="text-sm font-bold text-text-primary">{item.student_name}</p>
           <p className="mt-0.5 text-xs text-text-muted">
-            VIZU-MOCK · {new Date(item.schreiben_submitted_at).toLocaleDateString("de-DE")}
+            VIZU-Multilevel · {new Date(item.schreiben_submitted_at).toLocaleDateString("de-DE")}
           </p>
         </div>
         <span className="shrink-0 rounded-full bg-accent-blue/10 px-2 py-0.5 text-[10px] font-bold text-accent-blue">
-          {VIZU_MOCK_STATUS_LABEL[item.status]}
+          {VIZU_MULTILEVEL_STATUS_LABEL[item.status]}
         </span>
       </div>
       <p className="mt-1 text-xs text-text-muted">
@@ -735,11 +735,11 @@ function VizuMockWritingListRow({
   );
 }
 
-function VizuMockWritingDetailCard({ attemptId }: { attemptId: string }) {
+function VizuMultilevelWritingDetailCard({ attemptId }: { attemptId: string }) {
   const queryClient = useQueryClient();
   const { data: detail, isLoading } = useQuery({
-    queryKey: ["teacher-vizu-mock-writing-detail", attemptId],
-    queryFn: () => getTeacherVizuMockWritingDetail(attemptId),
+    queryKey: ["teacher-vizu-multilevel-writing-detail", attemptId],
+    queryFn: () => getTeacherVizuMultilevelWritingDetail(attemptId),
   });
 
   const [feedback, setFeedback] = useState("");
@@ -748,15 +748,15 @@ function VizuMockWritingDetailCard({ attemptId }: { attemptId: string }) {
 
   const currentFeedback = feedbackTouched ? feedback : detail?.schreiben_feedback ?? "";
 
-  function invalidate(updated: VizuMockTeacherWritingDetail) {
-    queryClient.setQueryData(["teacher-vizu-mock-writing-detail", attemptId], updated);
-    queryClient.invalidateQueries({ queryKey: ["teacher-vizu-mock-writing"] });
+  function invalidate(updated: VizuMultilevelTeacherWritingDetail) {
+    queryClient.setQueryData(["teacher-vizu-multilevel-writing-detail", attemptId], updated);
+    queryClient.invalidateQueries({ queryKey: ["teacher-vizu-multilevel-writing"] });
   }
 
   async function handleSaveFeedback() {
     setFeedbackSaving(true);
     try {
-      const updated = await setTeacherVizuMockWritingFeedback(attemptId, currentFeedback || null);
+      const updated = await setTeacherVizuMultilevelWritingFeedback(attemptId, currentFeedback || null);
       invalidate(updated);
       setFeedbackTouched(false);
     } finally {
@@ -775,7 +775,7 @@ function VizuMockWritingDetailCard({ attemptId }: { attemptId: string }) {
   return (
     <div className="space-y-4">
       <div className="rounded-card bg-surface-card p-6 shadow-[var(--shadow-md)] ring-1 ring-surface-border">
-        <h3 className="text-base font-bold text-text-primary">VIZU-MOCK — Schreiben</h3>
+        <h3 className="text-base font-bold text-text-primary">VIZU-Multilevel — Schreiben</h3>
         <p className="text-xs text-text-muted">
           {detail.student_name} ({detail.email}) · {detail.username} · eingereicht am{" "}
           {new Date(detail.schreiben_submitted_at).toLocaleString("de-DE")}
@@ -793,7 +793,7 @@ function VizuMockWritingDetailCard({ attemptId }: { attemptId: string }) {
       </div>
 
       {detail.submissions.map((submission) => (
-        <VizuMockWritingTaskGradeCard
+        <VizuMultilevelWritingTaskGradeCard
           key={submission.task_id}
           attemptId={attemptId}
           submission={submission}
@@ -825,14 +825,14 @@ function VizuMockWritingDetailCard({ attemptId }: { attemptId: string }) {
   );
 }
 
-function VizuMockWritingTaskGradeCard({
+function VizuMultilevelWritingTaskGradeCard({
   attemptId,
   submission,
   onGraded,
 }: {
   attemptId: string;
-  submission: VizuMockTeacherWritingDetail["submissions"][number];
-  onGraded: (updated: VizuMockTeacherWritingDetail) => void;
+  submission: VizuMultilevelTeacherWritingDetail["submissions"][number];
+  onGraded: (updated: VizuMultilevelTeacherWritingDetail) => void;
 }) {
   const [scores, setScores] = useState<Record<string, string>>(() => {
     const initial: Record<string, string> = {};
@@ -854,7 +854,7 @@ function VizuMockWritingTaskGradeCard({
       for (const c of submission.rubric_criteria) {
         criterionScores[c.id] = Math.min(c.max_score, Math.max(0, Number(scores[c.id]) || 0));
       }
-      const updated = await gradeTeacherVizuMockWritingTask(attemptId, submission.task_id, {
+      const updated = await gradeTeacherVizuMultilevelWritingTask(attemptId, submission.task_id, {
         criterion_scores: criterionScores,
         comment: comment || null,
       });

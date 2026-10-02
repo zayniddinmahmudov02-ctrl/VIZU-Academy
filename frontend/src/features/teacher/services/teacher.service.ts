@@ -8,8 +8,10 @@ import type {
   TeacherMockWritingItem,
   TeacherOverview,
   TeacherStudent,
-  VizuMockTeacherWritingDetail,
-  VizuMockTeacherWritingListItem,
+  VizuMultilevelTeacherWritingDetail,
+  VizuMultilevelTeacherWritingListItem,
+  VizuMultilevelTeacherSpeakingDetail,
+  VizuMultilevelTeacherSpeakingListItem,
 } from "../types";
 
 // /api/v1/teacher/* — gated server-side by require_teacher_panel_access
@@ -126,38 +128,74 @@ export async function reviewVorbereitungSpeaking(
 }
 
 // ==========================
-// VIZU-MOCK Schreiben — see app/services/teacher/
-// vizu_mock_writing_review_service.py
+// VIZU-Multilevel Schreiben — see app/services/teacher/
+// vizu_multilevel_writing_review_service.py
 // ==========================
 
-export async function getTeacherVizuMockWriting(): Promise<VizuMockTeacherWritingListItem[]> {
-  const response = await api.get<VizuMockTeacherWritingListItem[]>("/api/v1/teacher/vizu-mock/schreiben");
+export async function getTeacherVizuMultilevelWriting(): Promise<VizuMultilevelTeacherWritingListItem[]> {
+  const response = await api.get<VizuMultilevelTeacherWritingListItem[]>("/api/v1/teacher/vizu-multilevel/schreiben");
   return response.data;
 }
 
-export async function getTeacherVizuMockWritingDetail(attemptId: string): Promise<VizuMockTeacherWritingDetail> {
-  const response = await api.get<VizuMockTeacherWritingDetail>(`/api/v1/teacher/vizu-mock/schreiben/${attemptId}`);
+export async function getTeacherVizuMultilevelWritingDetail(attemptId: string): Promise<VizuMultilevelTeacherWritingDetail> {
+  const response = await api.get<VizuMultilevelTeacherWritingDetail>(`/api/v1/teacher/vizu-multilevel/schreiben/${attemptId}`);
   return response.data;
 }
 
-export async function gradeTeacherVizuMockWritingTask(
+export async function gradeTeacherVizuMultilevelWritingTask(
   attemptId: string,
   taskId: string,
   data: { criterion_scores: Record<string, number>; comment: string | null },
-): Promise<VizuMockTeacherWritingDetail> {
-  const response = await api.put<VizuMockTeacherWritingDetail>(
-    `/api/v1/teacher/vizu-mock/schreiben/${attemptId}/task/${taskId}`,
+): Promise<VizuMultilevelTeacherWritingDetail> {
+  const response = await api.put<VizuMultilevelTeacherWritingDetail>(
+    `/api/v1/teacher/vizu-multilevel/schreiben/${attemptId}/task/${taskId}`,
     data,
   );
   return response.data;
 }
 
-export async function setTeacherVizuMockWritingFeedback(
+export async function setTeacherVizuMultilevelWritingFeedback(
   attemptId: string,
   schreibenFeedback: string | null,
-): Promise<VizuMockTeacherWritingDetail> {
-  const response = await api.put<VizuMockTeacherWritingDetail>(`/api/v1/teacher/vizu-mock/schreiben/${attemptId}/feedback`, {
+): Promise<VizuMultilevelTeacherWritingDetail> {
+  const response = await api.put<VizuMultilevelTeacherWritingDetail>(`/api/v1/teacher/vizu-multilevel/schreiben/${attemptId}/feedback`, {
     schreiben_feedback: schreibenFeedback,
   });
+  return response.data;
+}
+
+// ==========================
+// VIZU-Multilevel Sprechen — see app/services/teacher/
+// vizu_multilevel_speaking_review_service.py
+// ==========================
+
+export async function getTeacherVizuMultilevelSpeaking(): Promise<VizuMultilevelTeacherSpeakingListItem[]> {
+  const response = await api.get<VizuMultilevelTeacherSpeakingListItem[]>("/api/v1/teacher/vizu-multilevel/sprechen");
+  return response.data;
+}
+
+export async function getTeacherVizuMultilevelSpeakingDetail(attemptId: string): Promise<VizuMultilevelTeacherSpeakingDetail> {
+  const response = await api.get<VizuMultilevelTeacherSpeakingDetail>(`/api/v1/teacher/vizu-multilevel/sprechen/${attemptId}`);
+  return response.data;
+}
+
+// Authenticated fetch -> blob URL (same pattern as the other speaking
+// audio helpers above) — never a public URL.
+export async function getTeacherVizuMultilevelSpeakingAudioBlobUrl(attemptId: string, submissionId: string): Promise<string> {
+  const response = await api.get(`/api/v1/teacher/vizu-multilevel/sprechen/${attemptId}/submissions/${submissionId}/audio`, {
+    responseType: "blob",
+  });
+  return URL.createObjectURL(response.data as Blob);
+}
+
+export async function gradeTeacherVizuMultilevelSpeakingTask(
+  attemptId: string,
+  taskId: string,
+  data: { score: number; comment: string | null },
+): Promise<VizuMultilevelTeacherSpeakingDetail> {
+  const response = await api.put<VizuMultilevelTeacherSpeakingDetail>(
+    `/api/v1/teacher/vizu-multilevel/sprechen/${attemptId}/task/${taskId}`,
+    data,
+  );
   return response.data;
 }

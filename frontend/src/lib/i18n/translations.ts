@@ -81,10 +81,10 @@ export const translations: Record<string, Namespace> = {
     mockExams: { de: "Probeprüfungen", uz: "Mock imtihonlar" },
     mockExamsSubtitle: { de: "Testen Sie Ihr Wissen", uz: "Bilimingizni sinang" },
     woerterbuchSubtitle: { de: "Vokabeln nachschlagen", uz: "So'zlarni qidirish" },
-    vizuMockTitle: { de: "Teste dein Niveau kostenlos", uz: "Darajangizni bepul sinab oling" },
-    vizuMockSubtitle: {
-      de: "Bestimme dein Deutschniveau zwischen A1 und C1 durch Lesen, Hören, Schreiben und Sprechen.",
-      uz: "A1–C1 oralig'idagi nemis tili darajangizni Lesen, Hören, Schreiben va Sprechen orqali aniqlang.",
+    vizuMultilevelTitle: { de: "VIZU-Multilevel", uz: "VIZU-Multilevel" },
+    vizuMultilevelSubtitle: {
+      de: "Teste dein Deutschniveau kostenlos",
+      uz: "Darajangizni bepul sinab oling",
     },
   },
 
@@ -152,110 +152,124 @@ export const translations: Record<string, Namespace> = {
     },
   },
 
-  // VIZU-Mock — standalone free level-check, framework only (no question
-  // bank/grading/level algorithm yet, see backend/app/models/
-  // vizu_mock_attempt.py). Reuses the same i18n system, no new mechanism.
-  vizuMock: {
-    title: { de: "VIZU-Mock", uz: "VIZU-Mock" },
+  // VIZU-Multilevel — standalone free level check (A1–C1): Lesen, Hören,
+  // Schreiben, Sprechen. Reuses the same i18n system, no new mechanism.
+  vizuMultilevel: {
+    title: { de: "VIZU-Multilevel", uz: "VIZU-Multilevel" },
     subtitle: { de: "Kostenloser Einstufungstest", uz: "Bepul daraja aniqlash testi" },
-    heroTitle: { de: "Teste dein Niveau kostenlos", uz: "Darajangizni bepul sinab oling" },
+    levelRange: { de: "A1–C1", uz: "A1–C1" },
+    heroTitle: { de: "Teste dein Deutschniveau kostenlos", uz: "Darajangizni bepul sinab oling" },
     heroBody: {
       de: "Bestimme dein Deutschniveau zwischen A1 und C1 durch Lesen, Hören, Schreiben und Sprechen.",
       uz: "A1–C1 oralig'idagi nemis tili darajangizni Lesen, Hören, Schreiben va Sprechen orqali aniqlang.",
     },
     howItWorks: { de: "So funktioniert's", uz: "Bu qanday ishlaydi" },
     minutesEach: { de: "je 20 Minuten", uz: "har biri 20 daqiqa" },
-    totalDuration: { de: "Gesamtdauer: ca. 100 Minuten", uz: "Umumiy davomiylik: taxminan 100 daqiqa" },
+    totalDuration: { de: "Gesamtdauer: 100 Minuten", uz: "Umumiy davomiylik: 100 daqiqa" },
     startNewAttempt: { de: "Neuen Versuch starten", uz: "Yangi urinish boshlash" },
     step: { de: "Schritt {current} von {total}", uz: "{current}/{total}-qadam" },
     next: { de: "Weiter", uz: "Keyingi" },
     previous: { de: "Zurück", uz: "Orqaga" },
     submit: { de: "Einreichen", uz: "Yuborish" },
     finish: { de: "Abschließen", uz: "Yakunlash" },
-    placeholderNote: {
-      de: "Die echten Testinhalte werden in einer zukünftigen Version hinzugefügt.",
-      uz: "Haqiqiy test materiallari keyingi versiyada qo'shiladi.",
+    // Empty states — shown while a competency has no published content.
+    preparingLesen: { de: "Lesen-Test wird vorbereitet.", uz: "Lesen testi tayyorlanmoqda." },
+    preparingHoeren: { de: "Hören-Test wird vorbereitet.", uz: "Hören testi tayyorlanmoqda." },
+    preparingSchreiben: { de: "Schreiben-Test wird vorbereitet.", uz: "Schreiben testi tayyorlanmoqda." },
+    preparingSprechen: { de: "Sprechen-Test wird vorbereitet.", uz: "Sprechen testi tayyorlanmoqda." },
+    preparingBody: {
+      de: "Für diesen Teil gibt es noch keine Aufgaben. Du kannst einfach fortfahren.",
+      uz: "Bu bo'lim uchun hali topshiriqlar yo'q. Davom etishingiz mumkin.",
     },
-    readingInstruction: { de: "Lies den Text und beantworte die Fragen.", uz: "Matnni o'qing va savollarga javob bering." },
+    sectionError: {
+      de: "Dieser Abschnitt konnte nicht geöffnet werden. Bitte versuche es erneut.",
+      uz: "Bu bo'limni ochib bo'lmadi. Iltimos, qayta urinib ko'ring.",
+    },
+    submitFailed: {
+      de: "Das Einreichen ist fehlgeschlagen. Bitte versuche es erneut.",
+      uz: "Yuborish amalga oshmadi. Iltimos, qayta urinib ko'ring.",
+    },
+    saveFailed: {
+      de: "Speichern fehlgeschlagen — möglicherweise ist die Zeit abgelaufen.",
+      uz: "Saqlab bo'lmadi — vaqt tugagan bo'lishi mumkin.",
+    },
     listeningInstruction: { de: "Höre das Audio und beantworte die Fragen.", uz: "Audioni tinglang va savollarga javob bering." },
-    // Lesen — real content flow (10 Aufgaben, 20 questions).
+    audioMissing: { de: "Für diese Aufgabe ist noch kein Audio hinterlegt.", uz: "Bu topshiriq uchun audio hali yuklanmagan." },
     aufgabeStep: { de: "Aufgabe {current} von {total}", uz: "{current}/{total}-Aufgabe" },
     question: { de: "Frage {number}", uz: "{number}-savol" },
     finishLesen: { de: "Lesen abschließen", uz: "Lesenni yakunlash" },
-    lesenTimeUpNote: {
-      de: "Die Zeit ist abgelaufen — deine Antworten wurden automatisch eingereicht.",
-      uz: "Vaqt tugadi — javoblaringiz avtomatik yuborildi.",
-    },
-    lesenResultTitle: { de: "VIZU-Mock — Lesen Ergebnis", uz: "VIZU-Mock — Lesen Natijasi" },
-    lesenNiveau: { de: "Lesen-Niveau", uz: "Lesen darajasi" },
-    lesenNiveauNotConfirmed: { de: "Niveau nicht bestätigt", uz: "Daraja aniqlanmadi" },
-    points: { de: "Punkte", uz: "Ball" },
-    continueToHoeren: { de: "Weiter zu Hören", uz: "Hörenga o'tish" },
-    // Hören — real content flow (5 Aufgaben, 20 questions). No CEFR level
-    // is ever shown to the student for this module (backend-only
-    // diagnostic metadata) — only the raw score, see hoeren/page.tsx.
     finishHoeren: { de: "Hören abschließen", uz: "Hörenni yakunlash" },
-    hoerenResultTitle: { de: "VIZU-Mock — Hören Ergebnis", uz: "VIZU-Mock — Hören Natijasi" },
-    hoerenResultBody: {
-      de: "Du hast {points} von {max} Punkten erreicht.",
-      uz: "Siz {max} balldan {points} ball to'pladingiz.",
-    },
-    continueToSchreiben: { de: "Weiter zu Schreiben", uz: "Schreibenga o'tish" },
-    playAudioLabel: { de: "Audio abspielen", uz: "Audio ijro etish" },
-    // Schreiben — real content flow (5 Aufgaben, teacher-graded). No CEFR
-    // level is shown to the student for this module either.
+    // Schreiben — teacher-graded. No level/score is shown during the test.
     schreibenSave: { de: "Speichern", uz: "Saqlash" },
     schreibenSaved: { de: "Gespeichert", uz: "Saqlandi" },
     schreibenAbsenden: { de: "Schreiben absenden", uz: "Schreiben'ni yuborish" },
     schreibenConfirmCancel: { de: "Abbrechen", uz: "Bekor qilish" },
-    schreibenSubmittedTitle: {
-      de: "Ihre Antworten wurden erfolgreich übermittelt.",
-      uz: "Javoblaringiz muvaffaqiyatli yuborildi.",
-    },
-    continueToSprechen: { de: "Weiter zu Sprechen", uz: "Sprechenga o'tish" },
-    // Persistent "Yakunlash" — lets a student end the CURRENT competency
-    // early (Lesen/Hören/Schreiben/Sprechen), even with unanswered
-    // questions, instead of being forced to finish everything first.
-    finishLabel: { de: "Beenden", uz: "Yakunlash" },
+    sprechenAbsenden: { de: "Sprechen absenden", uz: "Sprechen'ni yuborish" },
+    // Persistent "Testni yakunlash" — end the CURRENT competency at any
+    // time; unanswered questions simply score 0.
+    finishLabel: { de: "Test beenden", uz: "Testni yakunlash" },
     finishConfirmTitle: {
-      de: "Möchten Sie diesen Abschnitt wirklich beenden?",
+      de: "Möchtest du diesen Abschnitt wirklich beenden?",
       uz: "Ushbu bo'limni haqiqatan ham yakunlamoqchimisiz?",
     },
     finishConfirmBody: {
-      de: "Unbeantwortete Fragen werden als falsch gewertet. Diese Aktion kann nicht rückgängig gemacht werden.",
-      uz: "Javob berilmagan savollar xato deb hisoblanadi. Bu amalni qaytarib bo'lmaydi.",
+      de: "Unbeantwortete Fragen werden mit 0 Punkten gewertet. Diese Aktion kann nicht rückgängig gemacht werden.",
+      uz: "Javob berilmagan savollar 0 ball bilan hisoblanadi. Bu amalni qaytarib bo'lmaydi.",
     },
     finishConfirmSubmit: { de: "Beenden", uz: "Yakunlash" },
-    writingPrompt: { de: "Aufgabe", uz: "Topshiriq" },
-    writingPromptPlaceholder: {
-      de: "Die Schreibaufgabe wird bald hinzugefügt.",
-      uz: "Yozish topshirig'i tez orada qo'shiladi.",
-    },
     writingAnswerLabel: { de: "Deine Antwort", uz: "Sizning javobingiz" },
-    writingAnswerPlaceholder: { de: "Schreibe hier deinen Text...", uz: "Matningizni shu yerga yozing..." },
-    speakingPrompt: { de: "Aufgabe", uz: "Topshiriq" },
-    speakingPromptPlaceholder: {
-      de: "Die Sprechaufgabe wird bald hinzugefügt.",
-      uz: "Gapirish topshirig'i tez orada qo'shiladi.",
-    },
+    maxRecording: { de: "Maximale Aufnahmedauer: {seconds} Sekunden", uz: "Maksimal yozuv davomiyligi: {seconds} soniya" },
     recordStart: { de: "Aufnahme starten", uz: "Yozishni boshlash" },
     recordStop: { de: "Aufnahme stoppen", uz: "Yozishni to'xtatish" },
     recording: { de: "Aufnahme läuft…", uz: "Yozilmoqda…" },
     recorded: { de: "Aufnahme bereit", uz: "Yozuv tayyor" },
+    recordedSent: { de: "Aufnahme gesendet", uz: "Yozuv yuborildi" },
     reRecord: { de: "Neu aufnehmen", uz: "Qayta yozish" },
-    resultsTitle: { de: "VIZU-Mock Ergebnisse", uz: "VIZU-Mock Natijalari" },
+    micError: {
+      de: "Mikrofon nicht verfügbar. Bitte erlaube den Zugriff auf das Mikrofon.",
+      uz: "Mikrofon mavjud emas. Iltimos, mikrofonga ruxsat bering.",
+    },
+    // Results (Ergebnis)
+    resultsTitle: { de: "VIZU-Multilevel Ergebnisse", uz: "VIZU-Multilevel Natijalari" },
     resultsOverall: { de: "Dein Niveau", uz: "Sizning darajangiz" },
-    resultsPending: { de: "Noch nicht bewertet", uz: "Hali baholanmagan" },
+    resultsPending: { de: "Noch nicht abgeschlossen", uz: "Hali yakunlanmagan" },
     resultsPendingNote: {
-      de: "Das Bewertungssystem wird in einer zukünftigen Version verfügbar sein.",
-      uz: "Baholash tizimi keyingi versiyada qo'shiladi.",
+      de: "Das Ergebnis liegt noch nicht vollständig vor.",
+      uz: "Natija hali to'liq emas.",
+    },
+    pendingReview: { de: "Wird von der Lehrkraft bewertet", uz: "O'qituvchi tomonidan baholanmoqda" },
+    pendingReviewNote: {
+      de: "Schreiben und Sprechen werden von einer Lehrkraft bewertet. Dein Gesamtergebnis erscheint danach hier.",
+      uz: "Schreiben va Sprechen o'qituvchi tomonidan baholanadi. Umumiy natijangiz shundan keyin shu yerda ko'rinadi.",
+    },
+    notAvailable: { de: "Noch nicht verfügbar", uz: "Hali mavjud emas" },
+    noContentNote: {
+      de: "Der Test wird noch vorbereitet — es gibt noch kein Ergebnis.",
+      uz: "Test hali tayyorlanmoqda — natija mavjud emas.",
+    },
+    belowA1: { de: "Unter A1", uz: "A1 dan past" },
+    belowA1Note: {
+      de: "Dein Ergebnis hat das Niveau A1 noch nicht erreicht.",
+      uz: "Natijangiz hali A1 darajasiga yetmadi.",
+    },
+    notSavedNote: {
+      de: "Dieses Ergebnis wird nicht in deinem Verlauf gespeichert.",
+      uz: "Bu natija tarixingizda saqlanmaydi.",
+    },
+    resultNotKept: {
+      de: "Für diesen Versuch ist kein gespeichertes Ergebnis vorhanden.",
+      uz: "Bu urinish uchun saqlangan natija mavjud emas.",
     },
     viewCertificate: { de: "Zertifikat ansehen", uz: "Sertifikatni ko'rish" },
     certificateSubject: { de: "Deutsch Einstufung", uz: "Nemis tili darajasi" },
     certificateStudent: { de: "Student", uz: "Talaba" },
     certificateDate: { de: "Datum", uz: "Sana" },
     certificateOverallLevel: { de: "Gesamtniveau", uz: "Umumiy daraja" },
-    backToHub: { de: "Zurück zu VIZU-Mock", uz: "VIZU-Mock ga qaytish" },
+    certificateUnavailable: {
+      de: "Für diesen Versuch ist kein Zertifikat verfügbar.",
+      uz: "Bu urinish uchun sertifikat mavjud emas.",
+    },
+    backToHub: { de: "Zurück zu VIZU-Multilevel", uz: "VIZU-Multilevel ga qaytish" },
     historyTitle: { de: "Frühere Versuche", uz: "Oldingi urinishlar" },
     historyEmpty: { de: "Du hast noch keinen Versuch gestartet.", uz: "Siz hali birorta urinish boshlamadingiz." },
     statusInProgress: { de: "Läuft", uz: "Davom etmoqda" },

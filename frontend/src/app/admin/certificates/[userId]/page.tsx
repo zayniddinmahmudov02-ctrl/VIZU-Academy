@@ -13,7 +13,7 @@ import type { UserCertificateEntry } from "@/features/admin/types/certificate.ty
 const SOURCE_LABEL: Record<string, string> = {
   COURSE: "Kursabschluss",
   VORBEREITUNG: "Vorbereitung",
-  VIZU_MOCK: "VIZU-MOCK",
+  VIZU_MULTILEVEL: "VIZU-Multilevel",
 };
 
 export default function UserCertificateProfilePage() {

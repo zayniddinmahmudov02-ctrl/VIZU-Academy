@@ -16,9 +16,9 @@ const tools = [
     gradient: "from-purple-600 to-accent-purple",
   },
   {
-    titleKey: "dashboard.vizuMockTitle",
-    subtitleKey: "dashboard.vizuMockSubtitle",
-    href: "/vizu-mock",
+    titleKey: "dashboard.vizuMultilevelTitle",
+    subtitleKey: "dashboard.vizuMultilevelSubtitle",
+    href: "/vizu-multilevel",
     icon: Gauge,
     gradient: "from-accent-blue to-blue-500",
   },

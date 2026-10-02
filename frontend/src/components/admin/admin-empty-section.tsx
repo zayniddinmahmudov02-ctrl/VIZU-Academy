@@ -7,7 +7,7 @@ interface Props {
 }
 
 /** A clean, centered empty state for admin sections that have no
- * functionality yet (VIZU-MOCK, Homeworks) — intentionally not wired to
+ * functionality yet (VIZU-Multilevel, Homeworks) — intentionally not wired to
  * any data source, so it never risks rendering demo/placeholder content. */
 export default function AdminEmptySection({ icon: Icon, title, description }: Props) {
   return (

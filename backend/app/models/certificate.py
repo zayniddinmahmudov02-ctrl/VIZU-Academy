@@ -19,8 +19,8 @@ from app.models.base import BaseModel
 
 SOURCE_COURSE = "COURSE"
 SOURCE_VORBEREITUNG = "VORBEREITUNG"
-SOURCE_VIZU_MOCK = "VIZU_MOCK"
-ALL_CERTIFICATE_SOURCES = {SOURCE_COURSE, SOURCE_VORBEREITUNG, SOURCE_VIZU_MOCK}
+SOURCE_VIZU_MULTILEVEL = "VIZU_MULTILEVEL"
+ALL_CERTIFICATE_SOURCES = {SOURCE_COURSE, SOURCE_VORBEREITUNG, SOURCE_VIZU_MULTILEVEL}
 
 
 class Certificate(BaseModel):
@@ -37,7 +37,7 @@ class Certificate(BaseModel):
     )
 
     # Nullable — only COURSE-sourced certificates are tied to a Course row;
-    # VORBEREITUNG/VIZU_MOCK certificates come from the Mock Exam hierarchy
+    # VORBEREITUNG/VIZU_MULTILEVEL certificates come from the Mock Exam hierarchy
     # instead, which has no course_id to reference.
     course_id: Mapped[str | None] = mapped_column(
         ForeignKey(

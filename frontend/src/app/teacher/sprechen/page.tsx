@@ -14,11 +14,12 @@ import {
   gradeTeacherLegacySpeakingSubmission,
   reviewVorbereitungSpeaking,
 } from "@/features/teacher/services/teacher.service";
+import VizuMultilevelSpeakingQueue from "@/features/teacher/components/vizu-multilevel-speaking-queue";
 import type { TeacherLegacySpeakingItem, TeacherMockSpeakingItem } from "@/features/teacher/types";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { cn } from "@/lib/utils";
 
-type Source = "LEKTIONEN" | "VORBEREITUNG";
+type Source = "LEKTIONEN" | "VORBEREITUNG" | "VIZU_MULTILEVEL";
 
 const COURSE_LEVELS = ["A1", "A2", "B1", "B2", "C1"] as const;
 const EXAM_LEVELS = [...COURSE_LEVELS, "Multilevel"] as const;
@@ -90,9 +91,20 @@ export default function TeacherSprechenPage() {
         >
           {t("vorbereitung.title")}
         </button>
+        <button
+          onClick={() => setSource("VIZU_MULTILEVEL")}
+          className={cn(
+            "min-h-11 flex-1 rounded-lg px-3 py-2 text-xs font-bold transition-colors",
+            source === "VIZU_MULTILEVEL" ? "bg-accent-blue text-white" : "text-text-secondary hover:bg-surface-card",
+          )}
+        >
+          VIZU-Multilevel
+        </button>
       </div>
 
-      {source === "LEKTIONEN" ? <LegacySpeakingQueue /> : <VorbereitungSpeakingQueue />}
+      {source === "LEKTIONEN" && <LegacySpeakingQueue />}
+      {source === "VORBEREITUNG" && <VorbereitungSpeakingQueue />}
+      {source === "VIZU_MULTILEVEL" && <VizuMultilevelSpeakingQueue />}
     </div>
   );
 }

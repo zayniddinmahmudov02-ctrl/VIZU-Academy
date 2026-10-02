@@ -1,6 +1,7 @@
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException
+from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 
 from app.api.dependencies.auth import require_teacher_panel_access
@@ -16,11 +17,15 @@ from app.schemas.mock_exam import (
 from app.schemas.student_speaking import SpeakingGradeRequest, TeacherSpeakingItem
 from app.schemas.student_writing import TeacherWritingItem, WritingGradeRequest
 from app.schemas.teacher import TeacherOverview, TeacherStudent
-from app.schemas.vizu_mock import (
-    VizuMockTeacherFeedbackRequest,
-    VizuMockTeacherGradeTaskRequest,
-    VizuMockTeacherWritingDetail,
-    VizuMockTeacherWritingListItem,
+from app.schemas.vizu_multilevel import (
+    VizuMultilevelTeacherFeedbackRequest,
+    VizuMultilevelTeacherGradeTaskRequest,
+    VizuMultilevelTeacherSpeakingDetail,
+    VizuMultilevelTeacherSpeakingFeedbackRequest,
+    VizuMultilevelTeacherSpeakingGradeRequest,
+    VizuMultilevelTeacherSpeakingListItem,
+    VizuMultilevelTeacherWritingDetail,
+    VizuMultilevelTeacherWritingListItem,
 )
 from app.services.homework_submission import HomeworkSubmissionService
 from app.services.mock_exam import attempt_service, teacher_review_service
@@ -28,7 +33,7 @@ from app.services.mock_exam.ai_service import AIServiceError
 from app.services.student_speaking import StudentSpeakingService
 from app.services.student_writing import StudentWritingService
 from app.services.teacher import TeacherService
-from app.services.teacher import vizu_mock_writing_review_service
+from app.services.teacher import vizu_multilevel_speaking_review_service, vizu_multilevel_writing_review_service
 
 router = APIRouter(
     prefix="/teacher",
@@ -291,42 +296,42 @@ def _find_speaking_item(db: Session, submission_id: UUID) -> TeacherMockSpeaking
 
 
 # ==========================
-# VIZU-MOCK Schreiben review — "Schreiben Vorbereitung → VIZU-MOCK".
-# Unscoped like /teacher/vorbereitung/* above: VIZU-Mock has no course
+# VIZU-Multilevel Schreiben review — "Schreiben Vorbereitung → VIZU-Multilevel".
+# Unscoped like /teacher/vorbereitung/* above: VIZU-Multilevel has no course
 # concept either, so every teacher (or SUPER_ADMIN) sees every
-# submission (see vizu_mock_writing_review_service.py's own docstring).
+# submission (see vizu_multilevel_writing_review_service.py's own docstring).
 # ==========================
 
 
-@router.get("/vizu-mock/schreiben", response_model=list[VizuMockTeacherWritingListItem])
-def get_vizu_mock_writing_submissions(
+@router.get("/vizu-multilevel/schreiben", response_model=list[VizuMultilevelTeacherWritingListItem])
+def get_vizu_multilevel_writing_submissions(
     db: Session = Depends(get_db),
     current_user: User = Depends(require_teacher_panel_access),
 ):
-    return vizu_mock_writing_review_service.list_writing_for_teacher(db)
+    return vizu_multilevel_writing_review_service.list_writing_for_teacher(db)
 
 
-@router.get("/vizu-mock/schreiben/{attempt_id}", response_model=VizuMockTeacherWritingDetail)
-def get_vizu_mock_writing_detail(
+@router.get("/vizu-multilevel/schreiben/{attempt_id}", response_model=VizuMultilevelTeacherWritingDetail)
+def get_vizu_multilevel_writing_detail(
     attempt_id: UUID,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_teacher_panel_access),
 ):
-    detail = vizu_mock_writing_review_service.get_writing_detail_for_teacher(db, attempt_id)
+    detail = vizu_multilevel_writing_review_service.get_writing_detail_for_teacher(db, attempt_id)
     if detail is None:
         raise HTTPException(status_code=404, detail="Submission not found.")
     return detail
 
 
-@router.put("/vizu-mock/schreiben/{attempt_id}/task/{task_id}", response_model=VizuMockTeacherWritingDetail)
-def grade_vizu_mock_writing_task(
+@router.put("/vizu-multilevel/schreiben/{attempt_id}/task/{task_id}", response_model=VizuMultilevelTeacherWritingDetail)
+def grade_vizu_multilevel_writing_task(
     attempt_id: UUID,
     task_id: UUID,
-    data: VizuMockTeacherGradeTaskRequest,
+    data: VizuMultilevelTeacherGradeTaskRequest,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_teacher_panel_access),
 ):
-    detail = vizu_mock_writing_review_service.grade_task(
+    detail = vizu_multilevel_writing_review_service.grade_task(
         db, attempt_id, task_id, current_user.id, data.criterion_scores, data.comment
     )
     if detail is None:
@@ -334,14 +339,88 @@ def grade_vizu_mock_writing_task(
     return detail
 
 
-@router.put("/vizu-mock/schreiben/{attempt_id}/feedback", response_model=VizuMockTeacherWritingDetail)
-def set_vizu_mock_writing_feedback(
+@router.put("/vizu-multilevel/schreiben/{attempt_id}/feedback", response_model=VizuMultilevelTeacherWritingDetail)
+def set_vizu_multilevel_writing_feedback(
     attempt_id: UUID,
-    data: VizuMockTeacherFeedbackRequest,
+    data: VizuMultilevelTeacherFeedbackRequest,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_teacher_panel_access),
 ):
-    detail = vizu_mock_writing_review_service.set_feedback(db, attempt_id, data.schreiben_feedback)
+    detail = vizu_multilevel_writing_review_service.set_feedback(db, attempt_id, data.schreiben_feedback)
+    if detail is None:
+        raise HTTPException(status_code=404, detail="Submission not found.")
+    return detail
+
+
+# ==========================
+# VIZU-Multilevel Sprechen review — same unscoped model as Schreiben above.
+# ==========================
+
+
+@router.get("/vizu-multilevel/sprechen", response_model=list[VizuMultilevelTeacherSpeakingListItem])
+def get_vizu_multilevel_speaking_submissions(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_teacher_panel_access),
+):
+    return vizu_multilevel_speaking_review_service.list_speaking_for_teacher(db)
+
+
+@router.get("/vizu-multilevel/sprechen/{attempt_id}", response_model=VizuMultilevelTeacherSpeakingDetail)
+def get_vizu_multilevel_speaking_detail(
+    attempt_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_teacher_panel_access),
+):
+    detail = vizu_multilevel_speaking_review_service.get_speaking_detail_for_teacher(db, attempt_id)
+    if detail is None:
+        raise HTTPException(status_code=404, detail="Submission not found.")
+    return detail
+
+
+@router.get("/vizu-multilevel/sprechen/{attempt_id}/submissions/{submission_id}/audio")
+def get_vizu_multilevel_speaking_audio(
+    attempt_id: UUID,
+    submission_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_teacher_panel_access),
+):
+    found = vizu_multilevel_speaking_review_service.get_audio(db, attempt_id, submission_id)
+    if found is None or not found[0].exists():
+        raise HTTPException(status_code=404, detail="Recording not found.")
+    path, content_type = found
+    return FileResponse(path=path, media_type=content_type)
+
+
+@router.put(
+    "/vizu-multilevel/sprechen/{attempt_id}/task/{task_id}", response_model=VizuMultilevelTeacherSpeakingDetail
+)
+def grade_vizu_multilevel_speaking_task(
+    attempt_id: UUID,
+    task_id: UUID,
+    data: VizuMultilevelTeacherSpeakingGradeRequest,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_teacher_panel_access),
+):
+    detail = vizu_multilevel_speaking_review_service.grade_task(
+        db, attempt_id, task_id, current_user.id, data.score, data.comment
+    )
+    if detail == "INVALID_SCORE":
+        raise HTTPException(status_code=422, detail="Score must be between 0 and the Aufgabe's points.")
+    if detail is None:
+        raise HTTPException(status_code=404, detail="Submission not found.")
+    return detail
+
+
+@router.put(
+    "/vizu-multilevel/sprechen/{attempt_id}/feedback", response_model=VizuMultilevelTeacherSpeakingDetail
+)
+def set_vizu_multilevel_speaking_feedback(
+    attempt_id: UUID,
+    data: VizuMultilevelTeacherSpeakingFeedbackRequest,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_teacher_panel_access),
+):
+    detail = vizu_multilevel_speaking_review_service.set_feedback(db, attempt_id, data.sprechen_feedback)
     if detail is None:
         raise HTTPException(status_code=404, detail="Submission not found.")
     return detail

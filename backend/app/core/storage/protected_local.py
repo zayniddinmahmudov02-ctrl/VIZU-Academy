@@ -85,3 +85,13 @@ class ProtectedLegacySpeakingStorage(LocalStorage):
     assigned-teacher/admin check (see student_speaking/service.py)."""
 
     ROOT = Path("app/protected_storage/legacy-speaking")
+
+
+class ProtectedVizuMultilevelSpeakingStorage(LocalStorage):
+    """Sprechen recordings of the VIZU-Multilevel level check — a separate
+    root from the lesson-level speaking systems so files can never collide
+    or be confused. Never exposed through a public URL: the only way to
+    fetch bytes is the authenticated, ownership-checked (student) or
+    teacher/admin-only audio endpoints."""
+
+    ROOT = Path("app/protected_storage/vizu-multilevel-speaking")

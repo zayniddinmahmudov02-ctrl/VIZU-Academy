@@ -225,7 +225,7 @@ class CertificateService:
     # ==========================
     #
     # Every certificate currently in this table is course-issued — the
-    # unified COURSE/VORBEREITUNG/VIZU_MOCK "source" concept the admin CMS
+    # unified COURSE/VORBEREITUNG/VIZU_MULTILEVEL "source" concept the admin CMS
     # spec asks for needs a new `source` column (a migration), which is
     # blocked in this environment (backend/ has no new-file write
     # permission right now — see final report). `_serialize_grouped`

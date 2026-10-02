@@ -25,7 +25,7 @@ const PAGE_SIZE = 50;
 const SOURCE_OPTIONS: { value: CertificateSource; label: string }[] = [
   { value: "COURSE", label: "Kursabschluss" },
   { value: "VORBEREITUNG", label: "Vorbereitung" },
-  { value: "VIZU_MOCK", label: "VIZU-MOCK" },
+  { value: "VIZU_MULTILEVEL", label: "VIZU-Multilevel" },
 ];
 
 const EMPTY_FORM = {

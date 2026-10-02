@@ -55,9 +55,9 @@ export interface CertificateHolderListResponse {
 }
 
 // Automatic issuance (course completion) only ever produces "COURSE" today.
-// VORBEREITUNG/VIZU_MOCK are issuable manually via the admin dialog — no
+// VORBEREITUNG/VIZU_MULTILEVEL are issuable manually via the admin dialog — no
 // automatic issuer exists yet for the Mock Exam hierarchy.
-export type CertificateSource = "COURSE" | "VORBEREITUNG" | "VIZU_MOCK";
+export type CertificateSource = "COURSE" | "VORBEREITUNG" | "VIZU_MULTILEVEL";
 
 export interface UserCertificateEntry {
   id: string;

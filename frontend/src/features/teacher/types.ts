@@ -130,12 +130,12 @@ export interface TeacherMockSpeakingItem {
 }
 
 // ==========================
-// VIZU-MOCK Schreiben — unscoped (no course concept), same as
-// Vorbereitung above (app/services/teacher/vizu_mock_writing_review_
+// VIZU-Multilevel Schreiben — unscoped (no course concept), same as
+// Vorbereitung above (app/services/teacher/vizu_multilevel_writing_review_
 // service.py). One row per attempt (all 5 Aufgabe graded together).
 // ==========================
 
-export interface VizuMockTeacherWritingListItem {
+export interface VizuMultilevelTeacherWritingListItem {
   attempt_id: string;
   student_name: string;
   username: string;
@@ -148,14 +148,14 @@ export interface VizuMockTeacherWritingListItem {
   status: "NEW" | "IN_PROGRESS" | "GRADED";
 }
 
-export interface VizuMockWritingRubricCriterion {
+export interface VizuMultilevelWritingRubricCriterion {
   id: string;
   name: string;
   max_score: number;
   order_index: number;
 }
 
-export interface VizuMockTeacherWritingSubmissionDetail {
+export interface VizuMultilevelTeacherWritingSubmissionDetail {
   task_id: string;
   order_index: number;
   level: string;
@@ -166,13 +166,13 @@ export interface VizuMockTeacherWritingSubmissionDetail {
   image_url: string | null;
   content: string;
   word_count: number;
-  rubric_criteria: VizuMockWritingRubricCriterion[];
+  rubric_criteria: VizuMultilevelWritingRubricCriterion[];
   criterion_scores: Record<string, number>;
   teacher_score: number | null;
   teacher_comment: string | null;
 }
 
-export interface VizuMockTeacherWritingDetail {
+export interface VizuMultilevelTeacherWritingDetail {
   attempt_id: string;
   student_name: string;
   username: string;
@@ -181,5 +181,46 @@ export interface VizuMockTeacherWritingDetail {
   schreiben_score: number | null;
   schreiben_level: string | null;
   schreiben_feedback: string | null;
-  submissions: VizuMockTeacherWritingSubmissionDetail[];
+  submissions: VizuMultilevelTeacherWritingSubmissionDetail[];
+}
+
+// VIZU-Multilevel Sprechen — see app/services/teacher/
+// vizu_multilevel_speaking_review_service.py
+export interface VizuMultilevelTeacherSpeakingListItem {
+  attempt_id: string;
+  student_name: string;
+  username: string;
+  email: string;
+  sprechen_submitted_at: string;
+  graded_count: number;
+  total_submissions: number;
+  sprechen_score: number | null;
+  max_score: number;
+  status: "NEW" | "IN_PROGRESS" | "GRADED";
+}
+
+export interface VizuMultilevelTeacherSpeakingSubmissionDetail {
+  submission_id: string | null;
+  task_id: string;
+  order_index: number;
+  level: string;
+  title: string;
+  instruction: string;
+  points: number;
+  duration_seconds: number | null;
+  has_audio: boolean;
+  teacher_score: number | null;
+  teacher_comment: string | null;
+}
+
+export interface VizuMultilevelTeacherSpeakingDetail {
+  attempt_id: string;
+  student_name: string;
+  username: string;
+  email: string;
+  sprechen_submitted_at: string;
+  sprechen_score: number | null;
+  sprechen_level: string | null;
+  sprechen_feedback: string | null;
+  submissions: VizuMultilevelTeacherSpeakingSubmissionDetail[];
 }

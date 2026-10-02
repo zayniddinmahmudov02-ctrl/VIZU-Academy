@@ -40,7 +40,7 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
       { label: "Languages", href: "/admin/languages", icon: Globe },
       { label: "Courses", href: "/admin/courses", icon: GraduationCap },
       { label: "Vorbereitung", href: "/admin/mock-exams", icon: ShieldCheck },
-      { label: "VIZU-MOCK", href: "/admin/vizu-mock", icon: FlaskConical },
+      { label: "VIZU-Multilevel", href: "/admin/vizu-multilevel", icon: FlaskConical },
       { label: "Users", href: "/admin/users", icon: Users },
       { label: "Team", href: "/admin/team", icon: Contact },
       { label: "Lehrer-Zuweisungen", href: "/admin/teacher-assignments", icon: School },

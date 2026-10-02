@@ -105,9 +105,9 @@ from app.api.mock_exam.attempt_router import router as mock_exam_attempt_router
 from app.api.mock_exam.analytics_router import router as mock_exam_analytics_router
 from app.api.mock_exam.public_router import router as mock_exam_public_router
 
-# VIZU-Mock (standalone free level-check — framework only, see the model's
+# VIZU-Multilevel (standalone free level-check — see the model's
 # own docstring)
-from app.api.vizu_mock.router import router as vizu_mock_router
+from app.api.vizu_multilevel.router import router as vizu_multilevel_router
 
 # Upload
 from app.api.upload import (
@@ -127,8 +127,8 @@ from app.api.admin.vizu_pay_router import (
 from app.api.admin.videos_router import (
     router as admin_videos_router,
 )
-from app.api.admin.vizu_mock_router import (
-    router as admin_vizu_mock_router,
+from app.api.admin.vizu_multilevel_router import (
+    router as admin_vizu_multilevel_router,
 )
 from app.api.admin.books_router import (
     router as admin_books_router,
@@ -239,13 +239,13 @@ _ALL_ROUTERS = [
     mock_exam_attempt_router,
     mock_exam_analytics_router,
     mock_exam_public_router,
-    vizu_mock_router,
+    vizu_multilevel_router,
     upload_router,
     admin_router,
     admin_users_router,
     admin_vizu_pay_router,
     admin_videos_router,
-    admin_vizu_mock_router,
+    admin_vizu_multilevel_router,
     admin_books_router,
     admin_teacher_assignments_router,
     teacher_router,

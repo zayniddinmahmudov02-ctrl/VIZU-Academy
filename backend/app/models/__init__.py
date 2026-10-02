@@ -35,15 +35,17 @@ from .student_writing import StudentWriting
 from .student_speaking import StudentSpeaking
 from .enrollment import Enrollment
 from .teacher_assignment import TeacherAssignment
-from .vizu_mock_attempt import VizuMockAttempt
-from .vizu_mock_content import VizuMockAnswer, VizuMockOption, VizuMockQuestion, VizuMockTask
-from .vizu_mock_audio import VizuMockAudio
-from .vizu_mock_writing import (
-    VizuMockWritingCriterionScore,
-    VizuMockWritingRubricCriterion,
-    VizuMockWritingSubmission,
-    VizuMockWritingTask,
+from .vizu_multilevel_attempt import VizuMultilevelAttempt
+from .vizu_multilevel_content import VizuMultilevelAnswer, VizuMultilevelOption, VizuMultilevelQuestion, VizuMultilevelTask
+from .vizu_multilevel_audio import VizuMultilevelAudio
+from .vizu_multilevel_writing import (
+    VizuMultilevelWritingCriterionScore,
+    VizuMultilevelWritingRubricCriterion,
+    VizuMultilevelWritingSubmission,
+    VizuMultilevelWritingTask,
 )
+from .vizu_multilevel_speaking import VizuMultilevelSpeakingSubmission, VizuMultilevelSpeakingTask
+from .vizu_multilevel_discarded import VizuMultilevelDiscardedAttempt
 
 # Certificate
 from .certificate import Certificate
