@@ -92,7 +92,9 @@ function AudioSlotRow({ slot }: { slot: VizuMultilevelHoerenAudioSlot }) {
           {slot.has_audio ? (
             <p className="mt-0.5 text-xs text-[var(--admin-text-muted)]">
               Audio: <span className="font-medium text-[var(--admin-text-secondary)]">{slot.file_name}</span> · Dauer{" "}
-              {formatDuration(slot.duration_seconds)}
+              {formatDuration(slot.duration_seconds)} · {slot.content_type}
+              <br />
+              Speicher: geschützter Server-Speicher (kein öffentlicher Link) · wird dem Studenten von Aufgabe {slot.aufgabe_number} automatisch angezeigt
             </p>
           ) : (
             <p className="mt-0.5 text-xs text-[var(--admin-warning,#f59e0b)]">Noch kein Audio hochgeladen</p>

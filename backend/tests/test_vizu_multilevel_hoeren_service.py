@@ -1,5 +1,5 @@
 """VIZU-Multilevel Hören: content integrity (5 Aufgaben x 4 questions,
-1 point each = 20) and score -> level mapping. The DB-facing parts (audio
+5 points each = 100) and score -> level mapping. The DB-facing parts (audio
 upload/streaming, autosave, grading, immutability) are verified end to end
 against a real Postgres over HTTP."""
 
@@ -19,8 +19,8 @@ class TestHoerenJson(unittest.TestCase):
     def test_five_aufgaben_four_questions_each_twenty_points(self):
         self.assertEqual(len(self.parsed), 5)
         self.assertTrue(all(len(a["questions"]) == 4 for a in self.parsed))
-        self.assertEqual(self.data["max_score"], 20)
-        self.assertTrue(all(q["points"] == 1 for a in self.parsed for q in a["questions"]))
+        self.assertEqual(self.data["max_score"], 100)
+        self.assertTrue(all(q["points"] == 5 for a in self.parsed for q in a["questions"]))
 
     def test_test_numbers_run_1_to_20_in_aufgabe_order(self):
         self.assertEqual([q["order"] for a in self.parsed for q in a["questions"]], list(range(1, 21)))
@@ -38,7 +38,7 @@ class TestHoerenJson(unittest.TestCase):
         self.assertEqual(keys, "CBDACCCBBCCCBBBCBABC")
 
     def test_audio_scripts_are_stored_verbatim(self):
-        self.assertTrue(self.parsed[0]["script"].startswith("Hallo! Ich heiße Daniel und bin 23 Jahre alt."))
+        self.assertTrue(self.parsed[0]["script"].startswith("Daniel ist 23 Jahre alt. Er wohnt jetzt in Berlin."))
         self.assertIn("Nach dem Unterricht findet kein zusätzlicher Test statt.", self.parsed[1]["script"])
 
     def test_five_audio_slots(self):
@@ -59,11 +59,11 @@ class TestHoerenJson(unittest.TestCase):
 
 
 class TestHoerenScoreToLevel(unittest.TestCase):
-    def test_twenty_point_scale_uses_the_percentage_thresholds(self):
-        cases = {0: None, 3: None, 4: "A1", 7: "A1", 8: "A2", 11: "A2", 12: "B1", 14: "B1", 15: "B2", 17: "B2", 18: "C1", 20: "C1"}
+    def test_hundred_point_scale_uses_the_percentage_thresholds(self):
+        cases = {0: None, 15: None, 20: "A1", 35: "A1", 40: "A2", 55: "A2", 60: "B1", 70: "B1", 75: "B2", 85: "B2", 90: "C1", 100: "C1"}
         for score, level in cases.items():
             with self.subTest(score=score):
-                self.assertEqual(level_for_score(score, 20), level)
+                self.assertEqual(level_for_score(score, 100), level)
 
 
 if __name__ == "__main__":

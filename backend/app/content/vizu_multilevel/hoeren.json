@@ -2,13 +2,13 @@
   "module": "hoeren",
   "title": "VIZU-Multilevel Hören",
   "total_questions": 20,
-  "points_per_question": 1,
-  "max_score": 20,
+  "points_per_question": 5,
+  "max_score": 100,
   "aufgaben": [
     {
       "id": 1,
       "order": 1,
-      "audio_script": "Hallo! Ich heiße Daniel und bin 23 Jahre alt. Ich komme aus Spanien, aber ich wohne jetzt in Berlin. Ich lerne Deutsch an einer Sprachschule. Jeden Morgen stehe ich um sieben Uhr auf. Danach frühstücke ich und fahre mit dem Bus zur Schule. Am Nachmittag arbeite ich in einem kleinen Café. Am Wochenende treffe ich oft meine Freunde.",
+      "audio_script": "Daniel ist 23 Jahre alt. Er wohnt jetzt in Berlin. Jeden Morgen steht er um 7 Uhr auf. Danach fährt er mit dem Bus zur Sprachschule. Am Nachmittag arbeitet er in einem Café.",
       "questions": [
         {
           "id": 1,
@@ -34,7 +34,7 @@
             }
           ],
           "correct_answer": "C",
-          "points": 1
+          "points": 5
         },
         {
           "id": 2,
@@ -60,7 +60,7 @@
             }
           ],
           "correct_answer": "B",
-          "points": 1
+          "points": 5
         },
         {
           "id": 3,
@@ -86,7 +86,7 @@
             }
           ],
           "correct_answer": "D",
-          "points": 1
+          "points": 5
         },
         {
           "id": 4,
@@ -112,7 +112,7 @@
             }
           ],
           "correct_answer": "A",
-          "points": 1
+          "points": 5
         }
       ]
     },
@@ -145,7 +145,7 @@
             }
           ],
           "correct_answer": "C",
-          "points": 1
+          "points": 5
         },
         {
           "id": 6,
@@ -171,7 +171,7 @@
             }
           ],
           "correct_answer": "C",
-          "points": 1
+          "points": 5
         },
         {
           "id": 7,
@@ -197,7 +197,7 @@
             }
           ],
           "correct_answer": "C",
-          "points": 1
+          "points": 5
         },
         {
           "id": 8,
@@ -223,7 +223,7 @@
             }
           ],
           "correct_answer": "B",
-          "points": 1
+          "points": 5
         }
       ]
     },
@@ -256,7 +256,7 @@
             }
           ],
           "correct_answer": "B",
-          "points": 1
+          "points": 5
         },
         {
           "id": 10,
@@ -282,7 +282,7 @@
             }
           ],
           "correct_answer": "C",
-          "points": 1
+          "points": 5
         },
         {
           "id": 11,
@@ -308,7 +308,7 @@
             }
           ],
           "correct_answer": "C",
-          "points": 1
+          "points": 5
         },
         {
           "id": 12,
@@ -334,7 +334,7 @@
             }
           ],
           "correct_answer": "C",
-          "points": 1
+          "points": 5
         }
       ]
     },
@@ -367,7 +367,7 @@
             }
           ],
           "correct_answer": "B",
-          "points": 1
+          "points": 5
         },
         {
           "id": 14,
@@ -393,7 +393,7 @@
             }
           ],
           "correct_answer": "B",
-          "points": 1
+          "points": 5
         },
         {
           "id": 15,
@@ -419,7 +419,7 @@
             }
           ],
           "correct_answer": "B",
-          "points": 1
+          "points": 5
         },
         {
           "id": 16,
@@ -445,7 +445,7 @@
             }
           ],
           "correct_answer": "C",
-          "points": 1
+          "points": 5
         }
       ]
     },
@@ -478,7 +478,7 @@
             }
           ],
           "correct_answer": "B",
-          "points": 1
+          "points": 5
         },
         {
           "id": 18,
@@ -504,7 +504,7 @@
             }
           ],
           "correct_answer": "A",
-          "points": 1
+          "points": 5
         },
         {
           "id": 19,
@@ -530,7 +530,7 @@
             }
           ],
           "correct_answer": "B",
-          "points": 1
+          "points": 5
         },
         {
           "id": 20,
@@ -556,7 +556,7 @@
             }
           ],
           "correct_answer": "C",
-          "points": 1
+          "points": 5
         }
       ]
     }
