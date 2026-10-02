@@ -25,7 +25,7 @@ from app.models.video_upload_session import VideoUploadSession
 from app.repositories.enrollment import EnrollmentRepository
 from app.repositories.lesson import LessonRepository
 from app.repositories.video import VideoRepository
-from app.services.vizu_pay.access import has_premium_bypass, is_free_lesson, is_user_premium
+from app.services.vizu_pay.access import can_access_lesson, has_premium_bypass, is_user_premium
 
 # Bounds RAM while re-assembling chunks into the final file in
 # complete_upload(), independent of LocalStorage.CHUNK_SIZE.
@@ -414,12 +414,12 @@ class VideoService:
         if has_premium_bypass(user) or is_user_premium(user):
             return
 
-        # The level's first 3 lessons are free regardless of premium
-        # status — same rule as every other lesson-content endpoint (see
+        # Free first lesson / purchased Angebote level — the same rule as
+        # every other lesson-content endpoint (see
         # app.services.vizu_pay.access.can_access_lesson).
         lesson = self.lessons.get(str(video.lesson_id))
 
-        if lesson is not None and is_free_lesson(lesson):
+        if lesson is not None and can_access_lesson(user, lesson):
             return
 
         course_id = self.repository.get_course_id(video.id)

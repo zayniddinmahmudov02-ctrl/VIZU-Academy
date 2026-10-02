@@ -11,6 +11,8 @@ interface Props {
   title: string;
   lessons: number;
   locked: boolean;
+  /** The course's free first lesson (backend `is_free_lesson`). */
+  free?: boolean;
   href: string;
 }
 
@@ -18,14 +20,15 @@ export default function ModuleCard({
   number,
   title,
   locked,
+  free = false,
   href,
 }: Props) {
   const { t } = useTranslation();
-  const target = locked ? "/vizu-pay" : href;
-  // Cosmetic only — the first 3 lessons per level are free by position;
-  // anything past that shown unlocked here got there via Premium. Actual
-  // access is enforced server-side regardless of this label.
-  const isInherentlyFree = number <= 3;
+  const target = locked ? "/angebote" : href;
+  // Cosmetic only — only the course's first lesson is free; anything else
+  // shown unlocked here was bought (Angebote). Actual access is enforced
+  // server-side regardless of this label.
+  const isInherentlyFree = free;
 
   return (
     <motion.div
@@ -82,7 +85,7 @@ export default function ModuleCard({
 
         {locked ? (
           <div className="flex items-center gap-2 rounded-full bg-warning/15 px-4 py-2 text-xs font-semibold text-warning transition-all group-hover:scale-105">
-            {t("vorbereitung.unlockPremium")}
+            {t("courses.unlockCourse")}
           </div>
         ) : (
           <div className="flex items-center gap-2 rounded-full bg-[var(--accent-gold)] px-4 py-2 text-sm font-semibold text-white transition-all group-hover:scale-105">

@@ -1,6 +1,7 @@
 import { api } from "@/services/api";
 
 import type {
+  Offer,
   OrderItem,
   OrderListResponse,
   PaymentCard,
@@ -37,6 +38,35 @@ export async function getPlans(): Promise<PlanOption[]> {
   return response.data;
 }
 
+interface OfferPayload {
+  code: string;
+  kind: Offer["kind"];
+  label: string;
+  levels: string[] | null;
+  original_price: number | null;
+  sale_price: number | null;
+  discount_percent: number | null;
+  active: boolean;
+  free_lessons: number;
+  currency: string;
+}
+
+export async function getOffers(): Promise<Offer[]> {
+  const response = await api.get<OfferPayload[]>("/api/v1/vizu-pay/offers");
+  return (Array.isArray(response.data) ? response.data : []).map((o) => ({
+    code: o.code,
+    kind: o.kind,
+    label: o.label,
+    levels: o.levels ?? [],
+    originalPrice: o.original_price,
+    salePrice: o.sale_price,
+    discountPercent: o.discount_percent,
+    active: !!o.active,
+    freeLessons: o.free_lessons,
+    currency: o.currency,
+  }));
+}
+
 export async function getPaymentCards(): Promise<PaymentCard[]> {
   const response = await api.get<PaymentCard[]>("/api/v1/vizu-pay/payment-cards");
   return response.data.map((c) => ({ label: c.label, number: c.number }));
@@ -48,6 +78,7 @@ export async function getStatus(): Promise<SubscriptionStatus> {
   return {
     isPremium: data.is_premium,
     premiumUntil: data.premium_until,
+    ownedLevels: Array.isArray(data.owned_levels) ? data.owned_levels : [],
     hasPendingOrder: data.has_pending_order,
     rejectionCount: data.rejection_count,
     isBlocked: data.is_blocked,

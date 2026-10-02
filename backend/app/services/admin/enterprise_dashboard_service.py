@@ -139,7 +139,7 @@ class EnterpriseDashboardService:
     def _approved_revenue_since(self, since: datetime | None) -> int:
         query = self.db.query(func.coalesce(func.sum(SubscriptionOrder.final_amount), 0)).filter(
             SubscriptionOrder.status == plan_config.STATUS_APPROVED,
-            SubscriptionOrder.plan.in_(list(plan_config.PAID_PLANS)),
+            SubscriptionOrder.plan.in_(list(plan_config.REVENUE_PLANS)),
         )
         if since is not None:
             query = query.filter(SubscriptionOrder.reviewed_at >= since)
@@ -176,7 +176,7 @@ class EnterpriseDashboardService:
             self.db.query(label.label("label"), func.coalesce(func.sum(SubscriptionOrder.final_amount), 0))
             .filter(
                 SubscriptionOrder.status == plan_config.STATUS_APPROVED,
-                SubscriptionOrder.plan.in_(list(plan_config.PAID_PLANS)),
+                SubscriptionOrder.plan.in_(list(plan_config.REVENUE_PLANS)),
                 SubscriptionOrder.reviewed_at >= since,
             )
             .group_by(label)
@@ -440,7 +440,7 @@ class EnterpriseDashboardService:
                 self.db.query(SubscriptionOrder)
                 .filter(
                     SubscriptionOrder.status == plan_config.STATUS_APPROVED,
-                    SubscriptionOrder.plan.in_(list(plan_config.PAID_PLANS)),
+                    SubscriptionOrder.plan.in_(list(plan_config.REVENUE_PLANS)),
                 )
                 .count()
             ),
@@ -529,7 +529,7 @@ class EnterpriseDashboardService:
             self.db.query(SubscriptionOrder)
             .filter(
                 SubscriptionOrder.status == plan_config.STATUS_APPROVED,
-                SubscriptionOrder.plan.in_(list(plan_config.PAID_PLANS)),
+                SubscriptionOrder.plan.in_(list(plan_config.REVENUE_PLANS)),
             )
             .order_by(SubscriptionOrder.reviewed_at.desc())
             .limit(limit)

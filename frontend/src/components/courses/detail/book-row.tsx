@@ -44,7 +44,7 @@ export default function BookRow({ level }: Props) {
           <BookCard
             key={book.id}
             book={book}
-            isPremium={!!status?.isPremium}
+            isPremium={!!status?.isPremium || !!status?.ownedLevels.includes(level)}
             onOpen={() => setOpenBook({ id: book.id, title: book.title })}
           />
         ))}

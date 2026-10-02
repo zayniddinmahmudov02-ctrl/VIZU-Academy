@@ -6,9 +6,26 @@ export interface PlanOption {
   currency: string;
 }
 
+/** One Angebote offer — values come from the backend
+ * (GET /vizu-pay/offers, app/services/vizu_pay/offers.py), never hard-coded. */
+export interface Offer {
+  code: string;
+  kind: "LEVEL" | "PACKAGE";
+  label: string;
+  levels: string[];
+  originalPrice: number | null;
+  salePrice: number | null;
+  discountPercent: number | null;
+  active: boolean;
+  freeLessons: number;
+  currency: string;
+}
+
 export interface SubscriptionStatus {
   isPremium: boolean;
   premiumUntil: string | null;
+  /** CEFR levels unlocked by approved Angebote orders. */
+  ownedLevels: string[];
   hasPendingOrder: boolean;
   rejectionCount: number;
   isBlocked: boolean;

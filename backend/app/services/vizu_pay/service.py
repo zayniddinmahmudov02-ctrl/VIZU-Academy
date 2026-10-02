@@ -16,7 +16,9 @@ from app.models.promo_code_redemption import PromoCodeRedemption
 from app.models.subscription_order import SubscriptionOrder
 from app.models.user import User
 
+from . import offers as offer_config
 from . import plans as plan_config
+from .access import owned_levels
 
 DISCOUNT_TYPES_AT_CHECKOUT = {"PERCENT", "FIXED"}
 DISCOUNT_TYPE_FREE_DAYS = "FREE_DAYS"
@@ -79,17 +81,22 @@ class VizuPayService:
     # ------------------------------------------------------------------
 
     def list_plans(self) -> list[dict]:
+        """Legacy shape kept for compatibility — now the purchasable
+        Angebote offers (time-based plans are no longer sold)."""
         return [
             {
-                "plan": plan,
-                "label": cfg["label"],
-                "days": cfg["days"],
-                "price": cfg["price"],
-                "currency": "UZS",
+                "plan": offer["code"],
+                "label": offer["label"],
+                "days": 0,
+                "price": offer["sale_price"],
+                "currency": offer["currency"],
             }
-            for plan, cfg in plan_config.PLAN_CONFIG.items()
-            if plan in plan_config.PAID_PLANS
+            for offer in offer_config.list_offers()
+            if offer_config.is_purchasable(offer["code"])
         ]
+
+    def list_offers(self) -> list[dict]:
+        return offer_config.list_offers()
 
     def list_payment_cards(self) -> list[dict]:
         return plan_config.PAYMENT_CARDS
@@ -150,6 +157,7 @@ class VizuPayService:
         return {
             "is_premium": is_premium,
             "premium_until": user.premium_until,
+            "owned_levels": sorted(owned_levels(user)),
             "has_pending_order": has_pending_order,
             "rejection_count": rejection_count,
             "is_blocked": rejection_count >= plan_config.MAX_REJECTIONS,
@@ -324,8 +332,10 @@ class VizuPayService:
         proof_file: UploadFile,
         ip: str | None,
     ) -> dict:
-        if plan not in plan_config.PAID_PLANS:
+        if not offer_config.is_offer(plan):
             raise VizuPayError("Invalid plan.")
+        if not offer_config.is_purchasable(plan):
+            raise HTTPException(status_code=409, detail="OFFER_NOT_AVAILABLE")
         if payment_method not in plan_config.PAYMENT_METHODS:
             raise VizuPayError("Invalid payment method.")
 
@@ -343,6 +353,9 @@ class VizuPayService:
                 detail="PAYMENT_REQUEST_ALREADY_PENDING",
             )
 
+        if set(offer_config.offer_levels(plan)) <= owned_levels(user):
+            raise HTTPException(status_code=409, detail="OFFER_ALREADY_OWNED")
+
         contents = await proof_file.read()
         if len(contents) == 0:
             raise VizuPayError("Payment proof file is empty.")
@@ -350,7 +363,7 @@ class VizuPayService:
             raise VizuPayError("Payment proof file is too large (max 10MB).")
         await proof_file.seek(0)
 
-        base_amount = plan_config.plan_price(plan)
+        base_amount = offer_config.OFFERS[plan]["sale_price"]
         discount_amount = 0
         promo: PromoCode | None = None
 
@@ -374,7 +387,7 @@ class VizuPayService:
             id=order_id,
             user_id=user.id,
             plan=plan,
-            duration_days=plan_config.plan_days(plan),
+            duration_days=0,  # course access is permanent, not time-based
             base_amount=base_amount,
             discount_amount=discount_amount,
             final_amount=final_amount,

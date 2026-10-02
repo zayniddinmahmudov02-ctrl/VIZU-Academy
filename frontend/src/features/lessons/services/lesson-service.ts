@@ -13,6 +13,7 @@ interface LessonListItemPayload {
   progress: number;
   is_locked?: boolean;
   requires_premium?: boolean;
+  is_free_lesson?: boolean;
 }
 
 interface LessonDetailPayload extends LessonListItemPayload {
@@ -31,6 +32,7 @@ function mapLessonListItem(payload: LessonListItemPayload): Lesson {
     progress: payload.progress,
     isLocked: payload.is_locked ?? false,
     requiresPremium: payload.requires_premium ?? false,
+    isFreeLesson: payload.is_free_lesson ?? false,
   };
 }
 
@@ -54,6 +56,7 @@ interface LessonByModulePayload {
   is_free: boolean;
   is_locked?: boolean;
   requires_premium?: boolean;
+  is_free_lesson?: boolean;
 }
 
 function mapLessonByModule(payload: LessonByModulePayload): Lesson {
@@ -68,6 +71,7 @@ function mapLessonByModule(payload: LessonByModulePayload): Lesson {
     progress: 0,
     isLocked: payload.is_locked ?? false,
     requiresPremium: payload.requires_premium ?? false,
+    isFreeLesson: payload.is_free_lesson ?? false,
   };
 }
 

@@ -188,6 +188,7 @@ def _serialize_lesson_response(lesson: Lesson, user: User | None) -> dict:
         "is_free": lesson.is_free,
         "is_locked": locked,
         "requires_premium": locked,
+        "is_free_lesson": is_free_lesson(lesson),
     }
 
 
@@ -215,6 +216,7 @@ def get_all_lessons(db: Session, user: User) -> list[dict]:
             "progress": _progress_percent(progress_by_lesson.get(lesson.id)),
             "is_locked": not can_access_lesson(user, lesson),
             "requires_premium": not can_access_lesson(user, lesson),
+            "is_free_lesson": is_free_lesson(lesson),
         }
         for lesson in lessons
     ]
@@ -259,4 +261,5 @@ def get_lesson_detail(db: Session, lesson_id: str, user_id: str) -> dict | None:
         "progress": _progress_percent(progress),
         "is_locked": False,
         "requires_premium": not is_free_lesson(lesson),
+        "is_free_lesson": is_free_lesson(lesson),
     }

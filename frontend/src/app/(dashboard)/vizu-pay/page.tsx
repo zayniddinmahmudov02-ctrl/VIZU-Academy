@@ -1,5 +1,6 @@
-import VizuPayPage from "@/features/vizu-pay/pages/vizu-pay-page";
+import { redirect } from "next/navigation";
 
-export default function VizuPayRoute() {
-  return <VizuPayPage />;
+/** VIZU-Pay was renamed to "Angebote" — old links and bookmarks keep working. */
+export default function VizuPayRedirect() {
+  redirect("/angebote");
 }

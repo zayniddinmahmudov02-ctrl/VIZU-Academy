@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AlertTriangle, Crown, Loader2, Lock, Ticket } from "lucide-react";
+import { AlertTriangle, CheckCircle2, Crown, Loader2, Lock, Ticket } from "lucide-react";
 
 import { useTranslation } from "@/lib/i18n/use-translation";
 import type { PromoRedeemResult, SubscriptionStatus } from "../types";
@@ -105,7 +105,21 @@ export default function SubscriptionStatusCard({ status, onRedeemPromo }: Props)
 
   return (
     <div className="rounded-card bg-surface-card p-6 shadow-[var(--shadow-md)] ring-1 ring-surface-border">
-      <p className="text-sm text-text-secondary">{t("vizuPay.statusNoPremium")}</p>
+      {status.ownedLevels.length > 0 ? (
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="flex items-center gap-1.5 text-sm font-bold text-success">
+            <CheckCircle2 size={16} />
+            {t("angebote.ownedTitle")}
+          </span>
+          {status.ownedLevels.map((level) => (
+            <span key={level} className="rounded-lg bg-accent-blue/10 px-2.5 py-1 text-xs font-bold text-accent-blue">
+              {level}
+            </span>
+          ))}
+        </div>
+      ) : (
+        <p className="text-sm text-text-secondary">{t("angebote.noneOwned")}</p>
+      )}
 
       {!status.hasPendingOrder && status.latestRejectionReason && (
         <div className="mt-3 rounded-xl bg-danger/10 p-3.5">

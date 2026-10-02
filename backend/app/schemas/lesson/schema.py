@@ -54,6 +54,9 @@ class LessonResponse(LessonBase):
     # reflected immediately.
     is_locked: bool = False
     requires_premium: bool = False
+    # True only for the course's first lesson — free for everyone
+    # (app.services.vizu_pay.access.is_free_lesson).
+    is_free_lesson: bool = False
 
 
 class LessonListItem(BaseModel):
@@ -67,6 +70,7 @@ class LessonListItem(BaseModel):
     progress: int
     is_locked: bool = False
     requires_premium: bool = False
+    is_free_lesson: bool = False
 
 
 class LessonDetail(LessonListItem):

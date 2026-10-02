@@ -41,10 +41,10 @@ export default function PremiumLessonGate({ lessonId, children }: Props) {
       <p className="max-w-sm text-sm text-text-secondary">{t("lessons.premiumRequiredHint")}</p>
 
       <Link
-        href="/vizu-pay"
+        href="/angebote"
         className="mt-2 rounded-xl bg-accent-blue px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90"
       >
-        {t("vorbereitung.unlockPremium")}
+        {t("courses.unlockCourse")}
       </Link>
     </div>
   );

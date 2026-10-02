@@ -2,11 +2,11 @@ import {
   Award,
   BookOpen,
   BookText,
-  CreditCard,
   GraduationCap,
   Info,
   LayoutDashboard,
   Settings,
+  Tag,
   User,
 } from "lucide-react";
 
@@ -42,9 +42,9 @@ export const sidebarItems = [
     icon: Info,
   },
   {
-    titleKey: "sidebar.vizuPay",
-    href: "/vizu-pay",
-    icon: CreditCard,
+    titleKey: "sidebar.angebote",
+    href: "/angebote",
+    icon: Tag,
   },
   {
     titleKey: "sidebar.profile",

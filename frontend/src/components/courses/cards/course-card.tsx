@@ -2,11 +2,14 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, BookOpen } from "lucide-react";
+import { ArrowRight, BookOpen, Check, Lock } from "lucide-react";
 
 import Badge from "@/components/ui/badge";
 import ProgressBar from "@/components/ui/progress-bar";
 import type { CourseWithLessonCount } from "@/features/courses/hooks/use-courses-with-lesson-counts";
+import { OfferBadges, OfferPrice } from "@/features/vizu-pay/components/offer-card";
+import { offerState } from "@/features/vizu-pay/offer-state";
+import type { Offer, SubscriptionStatus } from "@/features/vizu-pay/types";
 import { scaleOnHover } from "@/lib/motion";
 import { useTranslation } from "@/lib/i18n/use-translation";
 
@@ -26,17 +29,20 @@ const DEFAULT_GRADIENT = "from-brand-600 to-accent-blue";
 interface Props {
   course: CourseWithLessonCount;
   progress?: number;
+  /** This level's Angebote offer (price, discount, active) — from the backend. */
+  offer?: Offer;
+  offerStatus?: SubscriptionStatus | null;
 }
 
-export default function CourseCard({ course, progress = 0 }: Props) {
+export default function CourseCard({ course, progress = 0, offer, offerStatus }: Props) {
   const { t } = useTranslation();
   const gradient = LEVEL_STYLE[course.level]?.gradient ?? DEFAULT_GRADIENT;
 
   return (
-    <motion.div {...scaleOnHover} className="h-full">
+    <motion.div {...scaleOnHover} className="flex h-full flex-col overflow-hidden rounded-card bg-surface-card shadow-[var(--shadow-md)] ring-1 ring-surface-border transition-shadow duration-200 hover:shadow-[var(--shadow-lg)]">
       <Link
         href={`/courses/${course.level.toLowerCase()}`}
-        className="group flex h-full flex-col overflow-hidden rounded-card bg-surface-card shadow-[var(--shadow-md)] ring-1 ring-surface-border transition-shadow duration-200 hover:shadow-[var(--shadow-lg)]"
+        className="group flex flex-1 flex-col"
       >
         {/* Gradient illustration band */}
         <div className={`relative h-28 overflow-hidden bg-gradient-to-br ${gradient}`}>
@@ -70,6 +76,52 @@ export default function CourseCard({ course, progress = 0 }: Props) {
           </div>
         </div>
       </Link>
+
+      {offer && <CoursePriceFooter offer={offer} status={offerStatus} />}
     </motion.div>
+  );
+}
+
+/** Price strip under a course card: old price struck through, sale price,
+ * "50% CHEGIRMA" + "1. Dars bepul" badges and a buy button — or
+ * "Hozircha aktiv emas" (disabled) for B2 / C1. Outside the card's link so
+ * the button is not a nested interactive element. */
+function CoursePriceFooter({ offer, status }: { offer: Offer; status?: SubscriptionStatus | null }) {
+  const { t } = useTranslation();
+  const state = offerState(offer, status);
+
+  return (
+    <div className="border-t border-surface-border bg-gradient-to-br from-transparent to-orange-500/[0.04] px-6 pb-6 pt-5" data-course-offer={offer.code}>
+      <OfferBadges offer={offer} />
+      <div className="mt-3">
+        <OfferPrice offer={offer} size="md" />
+      </div>
+      {state === "available" ? (
+        <Link
+          href={`/angebote?offer=${encodeURIComponent(offer.code)}`}
+          className="mt-4 flex w-full items-center justify-center gap-2 rounded-button bg-accent-blue py-2.5 text-sm font-bold text-white shadow-md transition-all hover:bg-orange-500 active:scale-[0.98] motion-reduce:transition-none"
+        >
+          {t("angebote.buy")}
+          <ArrowRight size={15} />
+        </Link>
+      ) : (
+        <button
+          type="button"
+          disabled
+          className={`mt-4 flex w-full cursor-not-allowed items-center justify-center gap-2 rounded-button py-2.5 text-sm font-bold ${
+            state === "owned" ? "bg-emerald-500/12 text-emerald-600 dark:text-emerald-400" : "bg-surface-hover text-text-muted"
+          }`}
+        >
+          {state === "owned" ? <Check size={15} /> : state === "inactive" ? <Lock size={14} /> : null}
+          {state === "owned"
+            ? t("angebote.owned")
+            : state === "inactive"
+              ? t("angebote.inactive")
+              : state === "pending"
+                ? t("angebote.pending")
+                : t("angebote.buy")}
+        </button>
+      )}
+    </div>
   );
 }

@@ -16,8 +16,16 @@ PLAN_MONTH_3 = "MONTH_3"
 PLAN_MONTH_6 = "MONTH_6"
 PLAN_MONTH_12 = "MONTH_12"
 
+from .offers import OFFER_CODES, offer_label  # noqa: E402
+
+# Time-based Premium plans. No longer sold (replaced by the Angebote course
+# offers in offers.py) but kept so historical orders, revenue and labels
+# still resolve, and existing Premium users keep their access.
 PAID_PLANS = {PLAN_MONTH_1, PLAN_MONTH_3, PLAN_MONTH_6, PLAN_MONTH_12}
-ALL_PLANS = PAID_PLANS | {PLAN_TRIAL, PLAN_PROMO}
+ALL_PLANS = PAID_PLANS | {PLAN_TRIAL, PLAN_PROMO} | OFFER_CODES
+
+# Every plan that represents real money — used by the admin revenue figures.
+REVENUE_PLANS = PAID_PLANS | OFFER_CODES
 
 PLAN_CONFIG = {
     PLAN_TRIAL: {"days": 7, "price": 0, "label": "7-Day Trial (discontinued)"},
@@ -70,7 +78,7 @@ MAX_REJECTIONS = 3
 
 
 def plan_label(plan: str) -> str:
-    return PLAN_CONFIG.get(plan, {}).get("label", plan)
+    return offer_label(plan) or PLAN_CONFIG.get(plan, {}).get("label", plan)
 
 
 def plan_days(plan: str) -> int:

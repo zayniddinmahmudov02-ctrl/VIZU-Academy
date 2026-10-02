@@ -3,10 +3,10 @@
 import { useCallback, useEffect, useState } from "react";
 
 import * as vizuPayService from "../services/vizu-pay-service";
-import type { OrderListResponse, PaymentCard, PlanOption, SubscriptionStatus } from "../types";
+import type { Offer, OrderListResponse, PaymentCard, SubscriptionStatus } from "../types";
 
 export function useVizuPay() {
-  const [plans, setPlans] = useState<PlanOption[]>([]);
+  const [offers, setOffers] = useState<Offer[]>([]);
   const [paymentCards, setPaymentCards] = useState<PaymentCard[]>([]);
   const [status, setStatus] = useState<SubscriptionStatus | null>(null);
   const [orders, setOrders] = useState<OrderListResponse | null>(null);
@@ -17,18 +17,18 @@ export function useVizuPay() {
     setLoading(true);
     setError(false);
     try {
-      const [plansRes, cardsRes, statusRes, ordersRes] = await Promise.all([
-        vizuPayService.getPlans(),
+      const [offersRes, cardsRes, statusRes, ordersRes] = await Promise.all([
+        vizuPayService.getOffers(),
         vizuPayService.getPaymentCards(),
         vizuPayService.getStatus(),
         vizuPayService.getMyOrders(),
       ]);
-      setPlans(plansRes);
+      setOffers(offersRes);
       setPaymentCards(cardsRes);
       setStatus(statusRes);
       setOrders(ordersRes);
     } catch (err) {
-      console.warn("Failed to load VIZU Pay data:", err);
+      console.warn("Failed to load Angebote data:", err);
       setError(true);
     } finally {
       setLoading(false);
@@ -50,5 +50,5 @@ export function useVizuPay() {
     await load();
   }
 
-  return { plans, paymentCards, status, orders, loading, error, refetch: load, redeemPromo, submitOrder };
+  return { offers, paymentCards, status, orders, loading, error, refetch: load, redeemPromo, submitOrder };
 }

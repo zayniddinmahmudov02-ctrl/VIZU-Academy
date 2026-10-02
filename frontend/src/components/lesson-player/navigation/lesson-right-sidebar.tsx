@@ -146,7 +146,7 @@ function LessonAccordionItem({
   onNavigate?: () => void;
 }) {
   const { t } = useTranslation();
-  const href = lesson.isLocked ? "/vizu-pay" : `/lessons/${lesson.id}`;
+  const href = lesson.isLocked ? "/angebote" : `/lessons/${lesson.id}`;
   const completed = lesson.progress >= 100;
 
   return (

@@ -7,6 +7,7 @@ from app.db.session import get_db
 from app.models.user import User
 from app.schemas.vizu_pay import (
     MySubscriptionStatus,
+    OfferItem,
     OrderItem,
     OrderListResponse,
     PaymentCardItem,
@@ -30,6 +31,13 @@ def _client_ip(request: Request) -> str | None:
 @router.get("/plans", response_model=list[PlanOption])
 def list_plans(db: Session = Depends(get_db)):
     return VizuPayService(db).list_plans()
+
+
+@router.get("/offers", response_model=list[OfferItem])
+def list_offers(db: Session = Depends(get_db)):
+    """Angebote: course prices (A1, A2, B1, B2, C1) and packages
+    (A1 → B1, A1 → C1). Public, like /plans — prices are not secret."""
+    return VizuPayService(db).list_offers()
 
 
 @router.get("/payment-cards", response_model=list[PaymentCardItem])

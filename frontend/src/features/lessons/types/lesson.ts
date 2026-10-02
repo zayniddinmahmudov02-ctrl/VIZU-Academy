@@ -20,9 +20,13 @@ export interface Lesson {
    *  fractional in-lesson progress tracker. */
   progress: number;
 
+  /** The course's first lesson — free for everyone (backend
+   *  is_free_lesson). The only free lesson per course. */
+  isFreeLesson?: boolean;
+
   /** Computed relative to the requesting user (see backend
-   *  can_access_lesson) — first 3 lessons per level are always false,
-   *  everything else is true unless the viewer is Premium/staff. */
+   *  can_access_lesson) — false for the course's first lesson, and for
+   *  levels the viewer bought (Angebote), has Premium for, or is staff. */
   isLocked: boolean;
   requiresPremium: boolean;
 }

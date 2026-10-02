@@ -14,7 +14,7 @@ interface Props {
 
 /** Mirrors ModuleCard's exact locked/unlocked visual language (see
  * components/courses/detail/module-card.tsx) — free users get a lock
- * badge + a link to /vizu-pay, Premium users get an "OCHISH" open pill
+ * badge + a link to /angebote, unlocked users get an "OCHISH" open pill
  * that opens the PDF viewer. `isPremium` here is only a one-time status
  * check driving this badge (see book-row.tsx) — the real gate is always
  * the backend's own check on the file endpoint, so a stale/wrong value
@@ -65,7 +65,7 @@ export default function BookCard({ book, isPremium, onOpen }: Props) {
     <motion.div whileHover={{ y: -3 }} transition={{ duration: 0.2 }}>
       {locked ? (
         <Link
-          href="/vizu-pay"
+          href="/angebote"
           className="block rounded-2xl border border-slate-200 bg-slate-100 p-3 transition-all duration-300 dark:border-slate-700 dark:bg-slate-800"
         >
           {content}

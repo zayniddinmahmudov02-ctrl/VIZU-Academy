@@ -21,7 +21,7 @@ from sqlalchemy.orm import Session
 from app.core.storage.protected_local import ProtectedBookStorage
 from app.models.book import Book
 from app.models.user import User
-from app.services.vizu_pay.access import has_premium_bypass, is_user_premium
+from app.services.vizu_pay.access import has_premium_bypass, is_user_premium, owns_level
 
 storage = ProtectedBookStorage()
 
@@ -131,7 +131,9 @@ class BookService:
             # — same principle as audio_service.authorize_audio_access.
             raise HTTPException(status_code=404, detail="Book not found")
 
-        if not (is_user_premium(user) or has_premium_bypass(user)):
+        # Legacy Premium, staff, or a purchased Angebote level that covers
+        # this book's level.
+        if not (is_user_premium(user) or has_premium_bypass(user) or owns_level(user, book.level)):
             raise HTTPException(status_code=403, detail="PREMIUM_REQUIRED")
 
         return book

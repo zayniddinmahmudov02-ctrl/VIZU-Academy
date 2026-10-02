@@ -13,6 +13,7 @@ from app.models.promo_code_redemption import PromoCodeRedemption
 from app.models.subscription_order import SubscriptionOrder
 from app.models.user import User
 
+from . import offers as offer_config
 from . import plans as plan_config
 from .service import VizuPayError, VizuPayService
 
@@ -162,8 +163,11 @@ class AdminVizuPayService:
         now = _now()
         user = order.user
 
-        base = user.premium_until if (user.premium_until and user.premium_until > now) else now
-        user.premium_until = base + timedelta(days=order.duration_days)
+        # Angebote orders unlock their course levels through the APPROVED
+        # order itself (access.owned_levels) — no time-based Premium.
+        if not offer_config.is_offer(order.plan):
+            base = user.premium_until if (user.premium_until and user.premium_until > now) else now
+            user.premium_until = base + timedelta(days=order.duration_days)
 
         order.status = plan_config.STATUS_APPROVED
         order.reviewed_by_id = actor.id
@@ -176,7 +180,11 @@ class AdminVizuPayService:
             actor_id=actor.id,
             action="order_approved",
             target_user_id=order.user_id,
-            details=f"{order.plan} +{order.duration_days}d, {order.final_amount} {order.currency}",
+            details=(
+                f"{order.plan} levels={','.join(offer_config.offer_levels(order.plan))}, {order.final_amount} {order.currency}"
+                if offer_config.is_offer(order.plan)
+                else f"{order.plan} +{order.duration_days}d, {order.final_amount} {order.currency}"
+            ),
             ip_address=ip,
         )
 
@@ -225,7 +233,9 @@ class AdminVizuPayService:
             raise VizuPayError(f"Only approved orders can be refunded (current status: {order.status}).")
 
         user = order.user
-        if user.premium_until:
+        # Refunding an Angebote order revokes its levels automatically (the
+        # order is no longer APPROVED); only legacy plans touch premium_until.
+        if user.premium_until and not offer_config.is_offer(order.plan):
             user.premium_until = max(_now(), user.premium_until - timedelta(days=order.duration_days))
 
         order.status = plan_config.STATUS_REFUNDED
@@ -362,7 +372,7 @@ class AdminVizuPayService:
 
         total_revenue = int(
             self.db.query(func.coalesce(func.sum(SubscriptionOrder.final_amount), 0))
-            .filter(SubscriptionOrder.status == plan_config.STATUS_APPROVED, SubscriptionOrder.plan.in_(list(plan_config.PAID_PLANS)))
+            .filter(SubscriptionOrder.status == plan_config.STATUS_APPROVED, SubscriptionOrder.plan.in_(list(plan_config.REVENUE_PLANS)))
             .scalar()
             or 0
         )
@@ -371,7 +381,7 @@ class AdminVizuPayService:
             self.db.query(func.coalesce(func.sum(SubscriptionOrder.final_amount), 0))
             .filter(
                 SubscriptionOrder.status == plan_config.STATUS_APPROVED,
-                SubscriptionOrder.plan.in_(list(plan_config.PAID_PLANS)),
+                SubscriptionOrder.plan.in_(list(plan_config.REVENUE_PLANS)),
                 SubscriptionOrder.reviewed_at >= month_start,
             )
             .scalar()
@@ -382,7 +392,7 @@ class AdminVizuPayService:
             self.db.query(func.coalesce(func.sum(SubscriptionOrder.final_amount), 0))
             .filter(
                 SubscriptionOrder.status == plan_config.STATUS_APPROVED,
-                SubscriptionOrder.plan.in_(list(plan_config.PAID_PLANS)),
+                SubscriptionOrder.plan.in_(list(plan_config.REVENUE_PLANS)),
                 SubscriptionOrder.reviewed_at >= today_start,
             )
             .scalar()
@@ -395,7 +405,7 @@ class AdminVizuPayService:
         bucket = func.to_char(SubscriptionOrder.reviewed_at, "YYYY-MM")
         monthly_rows = (
             self.db.query(bucket.label("label"), func.coalesce(func.sum(SubscriptionOrder.final_amount), 0))
-            .filter(SubscriptionOrder.status == plan_config.STATUS_APPROVED, SubscriptionOrder.plan.in_(list(plan_config.PAID_PLANS)))
+            .filter(SubscriptionOrder.status == plan_config.STATUS_APPROVED, SubscriptionOrder.plan.in_(list(plan_config.REVENUE_PLANS)))
             .group_by(bucket)
             .order_by(bucket)
             .all()
@@ -404,7 +414,7 @@ class AdminVizuPayService:
 
         plan_rows = (
             self.db.query(SubscriptionOrder.plan, func.count(SubscriptionOrder.id), func.coalesce(func.sum(SubscriptionOrder.final_amount), 0))
-            .filter(SubscriptionOrder.status == plan_config.STATUS_APPROVED, SubscriptionOrder.plan.in_(list(plan_config.PAID_PLANS)))
+            .filter(SubscriptionOrder.status == plan_config.STATUS_APPROVED, SubscriptionOrder.plan.in_(list(plan_config.REVENUE_PLANS)))
             .group_by(SubscriptionOrder.plan)
             .all()
         )
@@ -415,7 +425,7 @@ class AdminVizuPayService:
 
         method_rows = (
             self.db.query(SubscriptionOrder.payment_method, func.count(SubscriptionOrder.id), func.coalesce(func.sum(SubscriptionOrder.final_amount), 0))
-            .filter(SubscriptionOrder.status == plan_config.STATUS_APPROVED, SubscriptionOrder.plan.in_(list(plan_config.PAID_PLANS)))
+            .filter(SubscriptionOrder.status == plan_config.STATUS_APPROVED, SubscriptionOrder.plan.in_(list(plan_config.REVENUE_PLANS)))
             .group_by(SubscriptionOrder.payment_method)
             .all()
         )

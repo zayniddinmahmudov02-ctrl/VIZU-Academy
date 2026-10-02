@@ -12,9 +12,26 @@ class PlanOption(BaseSchema):
     currency: str = "UZS"
 
 
+class OfferItem(BaseSchema):
+    """One Angebote offer (single level or package) — values come from
+    app.services.vizu_pay.offers, the single source of truth."""
+
+    code: str
+    kind: str
+    label: str
+    levels: list[str]
+    original_price: int | None
+    sale_price: int | None
+    discount_percent: int | None
+    active: bool
+    free_lessons: int
+    currency: str = "UZS"
+
+
 class MySubscriptionStatus(BaseSchema):
     is_premium: bool
     premium_until: datetime | None
+    owned_levels: list[str] = []
     has_pending_order: bool
     rejection_count: int
     is_blocked: bool

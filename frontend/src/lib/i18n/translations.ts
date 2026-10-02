@@ -13,7 +13,7 @@ export const translations: Record<string, Namespace> = {
     certificates: { de: "Zertifikate", uz: "Sertifikatlar" },
     dictionary: { de: "Wörterbuch", uz: "Lug'at" },
     informationen: { de: "Informationen", uz: "Ma'lumot" },
-    vizuPay: { de: "VIZU Pay", uz: "VIZU Pay" },
+    angebote: { de: "Angebote", uz: "Angebote" },
     profile: { de: "Profil", uz: "Profil" },
     settings: { de: "Einstellungen", uz: "Sozlamalar" },
     expand: { de: "Sidebar erweitern", uz: "Yon panelni kengaytirish" },
@@ -103,11 +103,12 @@ export const translations: Record<string, Namespace> = {
     percentDone: { de: "{count}% abgeschlossen", uz: "{count}% tugallandi" },
     lessonFree: { de: "Kostenlos", uz: "Bepul" },
     lessonUnlocked: { de: "Freigeschaltet", uz: "Ochilgan" },
-    lessonPremium: { de: "Premium", uz: "Premium" },
+    lessonPremium: { de: "Gesperrt", uz: "Yopiq" },
+    unlockCourse: { de: "Kurs freischalten", uz: "Kursni sotib olish" },
     lessonOpen: { de: "Öffnen", uz: "Ochish" },
     lessonsSubtitle: {
-      de: "Die ersten 3 Lektionen sind kostenlos. Danach benötigst du Premium.",
-      uz: "Dastlabki 3 ta dars bepul. Keyingilari uchun Premium kerak.",
+      de: "Die 1. Lektion ist kostenlos. Weitere Lektionen nach dem Kauf des Kurses.",
+      uz: "1-dars bepul. Qolgan darslar kurs sotib olingandan keyin ochiladi.",
     },
   },
 
@@ -750,10 +751,10 @@ export const translations: Record<string, Namespace> = {
     },
     videoRetry: { de: "Erneut versuchen", uz: "Qayta urinish" },
 
-    premiumRequiredTitle: { de: "🔒 Premium erforderlich", uz: "🔒 Premium talab qilinadi" },
+    premiumRequiredTitle: { de: "🔒 Lektion gesperrt", uz: "🔒 Dars yopiq" },
     premiumRequiredHint: {
-      de: "Die ersten 3 Lektionen jeder Stufe sind kostenlos. Schalte Premium frei, um auf diese Lektion zuzugreifen.",
-      uz: "Har bir darajaning dastlabki 3 ta darsi bepul. Ushbu darsga kirish uchun Premiumni faollashtiring.",
+      de: "Nur die 1. Lektion jedes Kurses ist kostenlos. Schalte den Kurs unter „Angebote“ frei, um diese Lektion zu öffnen.",
+      uz: "Har bir kursda faqat 1-dars bepul. Ushbu darsni ochish uchun kursni „Angebote“ bo'limida sotib oling.",
     },
 
 
@@ -914,11 +915,51 @@ export const translations: Record<string, Namespace> = {
     youtubeLabel: { de: "YouTube-Link", uz: "YouTube havolasi" },
   },
 
-  vizuPay: {
-    title: { de: "VIZU Pay", uz: "VIZU Pay" },
+  angebote: {
+    title: { de: "Angebote", uz: "Angebote" },
     subtitle: {
-      de: "Verwalte dein Premium-Abonnement und deine Zahlungen.",
-      uz: "Premium obunangiz va to'lovlaringizni boshqaring.",
+      de: "Kurse und Pakete zum Aktionspreis. Die 1. Lektion jedes Kurses ist kostenlos.",
+      uz: "Kurslar va paketlar aksiya narxida. Har bir kursning 1-darsi bepul.",
+    },
+    currency: { de: "so‘m", uz: "so‘m" },
+    packagesTitle: { de: "Pakete", uz: "Paketlar" },
+    packagesSubtitle: {
+      de: "Mehrere Stufen auf einmal — zum besten Preis.",
+      uz: "Bir nechta daraja birdaniga — eng qulay narxda.",
+    },
+    levelsTitle: { de: "Einzelne Kurse", uz: "Alohida kurslar" },
+    levelsSubtitle: {
+      de: "Jede Stufe einzeln freischalten.",
+      uz: "Har bir darajani alohida sotib oling.",
+    },
+    packageKicker: { de: "Paket", uz: "Paket" },
+    levelKicker: { de: "Kurs", uz: "Kurs" },
+    bestValue: { de: "Bestes Angebot", uz: "Eng foydali" },
+    discountBadge: { de: "{percent} % Rabatt", uz: "{percent}% chegirma" },
+    freeLessonBadge: { de: "1. Lektion kostenlos", uz: "1. Dars bepul" },
+    buy: { de: "Jetzt kaufen", uz: "Sotib olish" },
+    owned: { de: "Freigeschaltet", uz: "Ochilgan" },
+    pending: { de: "Zahlung wird geprüft", uz: "To'lov tekshirilmoqda" },
+    inactive: { de: "Derzeit nicht aktiv", uz: "Hozircha aktiv emas" },
+    notAvailable: { de: "Derzeit nicht verfügbar", uz: "Hozircha mavjud emas" },
+    featureContents: { de: "Enthält: {levels}", uz: "Tarkibi: {levels}" },
+    featureFree: { de: "Nur die 1. Lektion ist kostenlos", uz: "Faqat 1-dars bepul" },
+    featureRest: {
+      de: "Alle weiteren Lektionen nach der Zahlung",
+      uz: "Qolgan darslar to'lovdan keyin ochiladi",
+    },
+    ownedTitle: { de: "Freigeschaltete Kurse:", uz: "Ochilgan kurslar:" },
+    noneOwned: {
+      de: "Noch kein Kurs freigeschaltet. Die 1. Lektion jedes Kurses ist kostenlos.",
+      uz: "Hali kurs sotib olinmagan. Har bir kursning 1-darsi bepul.",
+    },
+  },
+
+  vizuPay: {
+    title: { de: "Angebote", uz: "Angebote" },
+    subtitle: {
+      de: "Kurse freischalten und Zahlungen verwalten.",
+      uz: "Kurslarni sotib oling va to'lovlaringizni boshqaring.",
     },
     error: {
       de: "Zahlungsdaten konnten nicht geladen werden.",

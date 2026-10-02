@@ -116,15 +116,15 @@ export default function BookViewer({ bookId, title, onClose }: Props) {
             <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-warning/15 text-warning">
               <Lock size={22} />
             </div>
-            <p className="text-lg font-semibold text-text-primary">Premium erforderlich</p>
+            <p className="text-lg font-semibold text-text-primary">Kurs nicht freigeschaltet</p>
             <p className="max-w-sm text-sm text-text-secondary">
-              Dieses Buch ist nur für Premium-Studenten verfügbar.
+              Dieses Buch ist nach dem Kauf des Kurses (Angebote) verfügbar.
             </p>
             <Link
-              href="/vizu-pay"
+              href="/angebote"
               className="mt-2 rounded-xl bg-accent-blue px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90"
             >
-              Premium freischalten
+              Kurs freischalten
             </Link>
           </div>
         )}

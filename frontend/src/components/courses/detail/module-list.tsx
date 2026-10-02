@@ -54,6 +54,7 @@ export default function ModuleList({ level }: Props) {
               title={lesson.title}
               lessons={0}
               locked={lesson.isLocked}
+              free={lesson.isFreeLesson}
               href={`/lessons/${lesson.id}`}
             />
           </motion.div>
