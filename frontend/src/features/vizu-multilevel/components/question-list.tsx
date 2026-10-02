@@ -22,18 +22,22 @@ interface Props {
   onSelect: (questionId: string, optionId: string) => void;
   /** Lesen questions may carry their own passage; Hören ones never do. */
   showQuestionPassage?: boolean;
+  /** Hide the per-question "Frage n" label (Lesen shows "Test n / 20" itself). */
+  hideNumbers?: boolean;
 }
 
 /** The multiple-choice block shared by Lesen and Hören. No correct answer
  * and no CEFR level is ever present in the data this renders. */
-export default function VizuMultilevelQuestionList({ questions, answers, onSelect, showQuestionPassage }: Props) {
+export default function VizuMultilevelQuestionList({ questions, answers, onSelect, showQuestionPassage, hideNumbers }: Props) {
   const { t } = useTranslation();
 
   return (
     <div className="space-y-6">
       {questions.map((question, qi) => (
         <div key={question.id}>
-          <p className="mb-2 text-sm font-semibold text-text-primary">{t("vizuMultilevel.question", { number: qi + 1 })}</p>
+          {!hideNumbers && (
+            <p className="mb-2 text-sm font-semibold text-text-primary">{t("vizuMultilevel.question", { number: qi + 1 })}</p>
+          )}
 
           {showQuestionPassage && question.passage_text && (
             <div className="mb-3">

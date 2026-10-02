@@ -96,8 +96,12 @@ class VizuMultilevelLesenResult(BaseSchema):
     attempt_id: UUID
     total_points: float
     max_points: float
-    level_scores: list[VizuMultilevelLevelScore]
+    correct: int
+    wrong: int
+    unanswered: int
+    # null = below A1: not stored as a successful level.
     lesen_level: str | None
+    below_a1: bool
 
 
 # ============================================================

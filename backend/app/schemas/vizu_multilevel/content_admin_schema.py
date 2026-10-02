@@ -20,6 +20,7 @@ class VizuMultilevelQuestionAdmin(BaseSchema):
     prompt: str
     order_index: int
     points: float
+    is_active: bool
     options: list[VizuMultilevelOptionAdmin]
 
 
@@ -86,6 +87,7 @@ class VizuMultilevelQuestionInput(BaseSchema):
     prompt: str
     order_index: int
     points: float = 5
+    is_active: bool = True
     options: list[VizuMultilevelOptionInput]
 
     @field_validator("question_type")

@@ -44,6 +44,13 @@ const QUESTION_TYPES: { value: VizuMultilevelQuestionPayload["question_type"]; l
   { value: "MULTIPLE_CHOICE", label: "Multiple Choice" },
   { value: "TRUE_FALSE", label: "Richtig / Falsch" },
   { value: "CLOZE_TEXT", label: "Lückentext" },
+  { value: "HEADLINE_MATCH", label: "Überschrift zuordnen" },
+  { value: "AD_MATCH", label: "Anzeige zuordnen" },
+  { value: "STATEMENT_MATCH", label: "Aussage zuordnen" },
+  { value: "MAIN_IDEA", label: "Hauptaussage finden" },
+  { value: "DETAIL", label: "Detailinformation" },
+  { value: "INFO_MATCH", label: "Passende Information finden" },
+  { value: "COMPREHENSION", label: "Textverständnis" },
 ];
 
 const COPY: Record<ContentSkill, { label: string; queryKey: string; emptyTitle: string }> = {
@@ -253,6 +260,7 @@ interface QuestionForm {
   prompt: string;
   order_index: number;
   points: number;
+  is_active: boolean;
   options: { option_text: string; is_correct: boolean }[];
 }
 
@@ -263,6 +271,7 @@ function emptyQuestionForm(order: number): QuestionForm {
     prompt: "",
     order_index: order,
     points: 5,
+    is_active: true,
     options: [
       { option_text: "", is_correct: true },
       { option_text: "", is_correct: false },
@@ -305,6 +314,7 @@ function QuestionDialog({
               prompt: question.prompt,
               order_index: question.order_index,
               points: question.points,
+              is_active: question.is_active,
               options: question.options.map((o) => ({ option_text: o.option_text, is_correct: o.is_correct })),
             }
           : emptyQuestionForm(nextOrder),
@@ -320,6 +330,7 @@ function QuestionDialog({
         prompt: form.prompt,
         order_index: form.order_index,
         points: form.points,
+        is_active: form.is_active,
         options: form.options.filter((o) => o.option_text.trim() !== ""),
       };
       return isEdit
@@ -458,6 +469,17 @@ function QuestionDialog({
             </AdminButton>
           )}
         </div>
+
+        {skill === "lesen" && (
+          <div className="flex items-center gap-2">
+            <AdminCheckbox
+              checked={form.is_active}
+              onCheckedChange={(checked) => setForm({ ...form, is_active: checked })}
+              aria-label="Aktiv"
+            />
+            <span className="text-sm text-[var(--admin-text-primary)]">Aktiv (inaktive Fragen werden weder gezeigt noch bewertet)</span>
+          </div>
+        )}
 
         {error && <p className="text-sm text-[var(--admin-danger)]">{error}</p>}
       </div>
@@ -614,6 +636,7 @@ export default function VizuMultilevelContentTab({ skill }: { skill: ContentSkil
                       </p>
                       <p className="mt-0.5 text-xs text-[var(--admin-text-muted)]">
                         Richtig: {q.options.find((o) => o.is_correct)?.option_text ?? "—"} · {q.points} Punkt(e)
+                        {skill === "lesen" && !q.is_active ? " · inaktiv" : ""}
                       </p>
                     </div>
                     <div className="flex shrink-0 items-center gap-1">

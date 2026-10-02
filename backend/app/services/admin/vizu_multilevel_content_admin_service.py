@@ -74,6 +74,7 @@ def _to_admin(task: VizuMultilevelTask, audio_url: str | None) -> dict:
                 "prompt": q.prompt,
                 "order_index": q.order_index,
                 "points": q.points,
+                "is_active": q.is_active,
                 "options": [
                     {"id": o.id, "option_text": o.option_text, "is_correct": o.is_correct, "order_index": o.order_index}
                     for o in q.options
@@ -192,6 +193,7 @@ def create_question(db: Session, task_id: UUID, data: VizuMultilevelQuestionInpu
         prompt=data.prompt,
         order_index=data.order_index,
         points=data.points,
+        is_active=data.is_active,
     )
     _replace_options(question, data)
     db.add(question)
@@ -217,6 +219,7 @@ def update_question(db: Session, question_id: UUID, data: VizuMultilevelQuestion
     question.prompt = data.prompt
     question.order_index = data.order_index
     question.points = data.points
+    question.is_active = data.is_active
     _replace_options(question, data)
     db.commit()
     return get_task(db, question.task_id)

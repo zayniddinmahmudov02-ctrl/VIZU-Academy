@@ -122,11 +122,12 @@ export interface VizuMultilevelAdminOption {
 
 export interface VizuMultilevelAdminQuestion {
   id: string;
-  question_type: "TRUE_FALSE" | "MULTIPLE_CHOICE" | "CLOZE_TEXT";
+  question_type: string;
   passage_text: string | null;
   prompt: string;
   order_index: number;
   points: number;
+  is_active: boolean;
   options: VizuMultilevelAdminOption[];
 }
 
@@ -151,11 +152,12 @@ export interface VizuMultilevelContentTaskPayload {
 }
 
 export interface VizuMultilevelQuestionPayload {
-  question_type: "TRUE_FALSE" | "MULTIPLE_CHOICE" | "CLOZE_TEXT";
+  question_type: string;
   passage_text?: string | null;
   prompt: string;
   order_index: number;
   points: number;
+  is_active?: boolean;
   options: { option_text: string; is_correct: boolean }[];
 }
 

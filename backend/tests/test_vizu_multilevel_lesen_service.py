@@ -1,61 +1,78 @@
-"""VIZU-Multilevel Lesen grading — the cascade level-confirmation rule
-(app/services/vizu_multilevel/lesen_service.py). The DB-facing parts
-(_level_breakdown/submit_lesen's grading + idempotent-resubmit behavior)
-were verified against a real, isolated Postgres instance over real HTTP
-in this session (26/26 checks, including the spec's own worked example:
-A1 4/4, A2 4/4, B1 3/4, B2 2/4, C1 1/4 -> lesen_level=B1, 14/20) rather
-than mocked here, since mocking SQLAlchemy's join/aggregate query would
-mostly test the mock. This file covers the pure cascade logic directly."""
+"""VIZU-Multilevel Lesen: score -> level thresholds, and the integrity of
+the seeded content (5 texts x 4 questions, 5 points each = 100)."""
 
 import unittest
 
-from app.services.vizu_multilevel.lesen_service import _confirmed_level
+from app.scripts.seed_vizu_multilevel_lesen import POINTS_PER_QUESTION, TEXTS
+from app.services.vizu_multilevel.lesen_service import level_for_score
 
 
-def scores(**by_level: tuple[int, int]) -> list[dict]:
-    """scores(A1=(4, 4), A2=(3, 4), ...) -> the level_scores shape
-    _level_breakdown produces, with `passed` derived the same way it is."""
-    return [
-        {
-            "level": level,
-            "points": points,
-            "max_points": max_points,
-            "passed": max_points > 0 and points * 4 >= 3 * max_points,
+class TestLevelThresholds(unittest.TestCase):
+    def test_boundaries(self):
+        cases = {
+            0: None,
+            19: None,
+            20: "A1",
+            39: "A1",
+            40: "A2",
+            59: "A2",
+            60: "B1",
+            74: "B1",
+            75: "B2",
+            89: "B2",
+            90: "C1",
+            100: "C1",
         }
-        for level, (points, max_points) in by_level.items()
-    ]
+        for score, expected in cases.items():
+            with self.subTest(score=score):
+                self.assertEqual(level_for_score(score, 100), expected)
+
+    def test_score_is_five_points_per_correct_answer(self):
+        # 20 correct = 100, 18 = 90, 16 = 80, 14 = 70, 12 = 60, 10 = 50
+        self.assertEqual([n * 5 for n in (20, 18, 16, 14, 12, 10)], [100, 90, 80, 70, 60, 50])
+        self.assertEqual(level_for_score(18 * 5, 100), "C1")
+        self.assertEqual(level_for_score(16 * 5, 100), "B2")
+        self.assertEqual(level_for_score(14 * 5, 100), "B1")
+        self.assertEqual(level_for_score(10 * 5, 100), "A2")
+
+    def test_no_content_never_yields_a_level(self):
+        self.assertIsNone(level_for_score(0, 0))
+
+    def test_threshold_scales_with_a_different_max(self):
+        # Normalised to a percentage if an admin deactivates a question.
+        self.assertEqual(level_for_score(95, 95), "C1")
+        self.assertIsNone(level_for_score(0, 95))
 
 
-class TestConfirmedLevelCascade(unittest.TestCase):
-    def test_spec_example_a1_a2_full_b1_partial_b2_low_c1_low_is_b1(self):
-        level_scores = scores(A1=(4, 4), A2=(4, 4), B1=(3, 4), B2=(2, 4), C1=(1, 4))
-        self.assertEqual(_confirmed_level(level_scores), "B1")
+class TestSeedContent(unittest.TestCase):
+    def test_five_texts_levels_in_order(self):
+        self.assertEqual([t["level"] for t in TEXTS], ["A1", "A2", "B1", "B2", "C1"])
+        self.assertEqual([t["order"] for t in TEXTS], [1, 2, 3, 4, 5])
 
-    def test_all_levels_passed_is_c1(self):
-        level_scores = scores(A1=(4, 4), A2=(3, 4), B1=(3, 4), B2=(3, 4), C1=(4, 4))
-        self.assertEqual(_confirmed_level(level_scores), "C1")
+    def test_each_text_has_four_questions_twenty_in_total(self):
+        self.assertTrue(all(len(t["questions"]) == 4 for t in TEXTS))
+        self.assertEqual(sum(len(t["questions"]) for t in TEXTS), 20)
 
-    def test_a1_below_threshold_confirms_nothing(self):
-        level_scores = scores(A1=(2, 4), A2=(4, 4), B1=(4, 4), B2=(4, 4), C1=(4, 4))
-        self.assertIsNone(_confirmed_level(level_scores))
+    def test_max_score_is_100(self):
+        self.assertEqual(POINTS_PER_QUESTION, 5)
+        self.assertEqual(sum(len(t["questions"]) for t in TEXTS) * POINTS_PER_QUESTION, 100)
 
-    def test_gap_in_the_middle_stops_the_cascade_even_if_later_levels_pass(self):
-        # A2 fails (2/4) even though B1 alone would technically pass (3/4)
-        # — the result must still be A1, never "B1 because B1 passed".
-        level_scores = scores(A1=(4, 4), A2=(2, 4), B1=(3, 4), B2=(4, 4), C1=(4, 4))
-        self.assertEqual(_confirmed_level(level_scores), "A1")
+    def test_every_question_has_exactly_one_valid_correct_option(self):
+        for text in TEXTS:
+            for item in text["questions"]:
+                with self.subTest(prompt=item["prompt"]):
+                    self.assertGreaterEqual(len(item["options"]), 2)
+                    self.assertIn(item["correct"], range(len(item["options"])))
+                    self.assertEqual(len(set(item["options"])), len(item["options"]))
 
-    def test_exact_threshold_3_of_4_counts_as_passed(self):
-        level_scores = scores(A1=(3, 4))
-        self.assertEqual(_confirmed_level(level_scores), "A1")
+    def test_question_formats_vary_within_a_level(self):
+        for text in TEXTS:
+            types = {item["type"] for item in text["questions"]}
+            self.assertGreaterEqual(len(types), 3, text["level"])
 
-    def test_below_threshold_2_of_4_does_not_count(self):
-        level_scores = scores(A1=(2, 4))
-        self.assertIsNone(_confirmed_level(level_scores))
-
-    def test_all_zero_confirms_nothing(self):
-        level_scores = scores(A1=(0, 4), A2=(0, 4), B1=(0, 4), B2=(0, 4), C1=(0, 4))
-        self.assertIsNone(_confirmed_level(level_scores))
+    def test_texts_are_not_trivially_short(self):
+        for text in TEXTS:
+            self.assertGreater(len(text["passage"].split()), 40, text["level"])
 
 
 if __name__ == "__main__":

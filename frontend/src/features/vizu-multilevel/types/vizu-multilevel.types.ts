@@ -50,7 +50,19 @@ export interface VizuMultilevelAttemptState {
 // ---- Content (never carries a correct-answer field or a CEFR level —
 // grading and levels are server-side only) ----
 
-export type VizuMultilevelQuestionType = "TRUE_FALSE" | "MULTIPLE_CHOICE" | "CLOZE_TEXT";
+export type VizuMultilevelQuestionType = string;
+
+export interface VizuMultilevelLesenResult {
+  attempt_id: string;
+  total_points: number;
+  max_points: number;
+  correct: number;
+  wrong: number;
+  unanswered: number;
+  /** null = below A1 (not stored as a successful level). */
+  lesen_level: string | null;
+  below_a1: boolean;
+}
 
 export interface VizuMultilevelOption {
   id: string;

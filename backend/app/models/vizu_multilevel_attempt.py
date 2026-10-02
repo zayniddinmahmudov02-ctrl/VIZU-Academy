@@ -78,6 +78,12 @@ class VizuMultilevelAttempt(BaseModel):
 
     # Sprechen — teacher-graded like Schreiben (score is the sum of the
     # graded Aufgaben's points; level is the highest unbroken pass chain).
+    # Lesen breakdown (kept separately so the competencies can later be
+    # merged into one certificate): correct / wrong / unanswered questions.
+    lesen_correct: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    lesen_wrong: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    lesen_unanswered: Mapped[int | None] = mapped_column(Integer, nullable=True)
+
     sprechen_score: Mapped[int | None] = mapped_column(Integer, nullable=True)
     sprechen_feedback: Mapped[str | None] = mapped_column(Text, nullable=True)
 

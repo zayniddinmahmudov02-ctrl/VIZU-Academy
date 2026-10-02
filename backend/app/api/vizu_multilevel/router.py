@@ -352,3 +352,21 @@ def submit_sprechen(
     except SectionFlowError as exc:
         raise _flow_error(exc)
     return {"attempt_id": attempt.id, "sprechen_submitted_at": attempt.sprechen_submitted_at}
+
+
+# ============================================================
+# Legacy alias: /vizu-mock/attempts*
+#
+# The module was renamed VIZU-Mock -> VIZU-Multilevel, but a frontend build
+# that predates the rename still calls /api/v1/vizu-mock/attempts. These
+# four routes reuse the SAME handlers (same auth, same owner scoping), so
+# no logic is duplicated; they are hidden from the OpenAPI schema.
+# ============================================================
+
+legacy_router = APIRouter(prefix="/vizu-mock", tags=["VIZU-Mock (legacy alias)"], include_in_schema=False)
+legacy_router.add_api_route("/attempts", create_attempt, methods=["POST"], response_model=VizuMultilevelAttemptResponse, status_code=201)
+legacy_router.add_api_route("/attempts", list_my_attempts, methods=["GET"], response_model=list[VizuMultilevelAttemptResponse])
+legacy_router.add_api_route("/attempts/{attempt_id}", get_my_attempt, methods=["GET"], response_model=VizuMultilevelAttemptResponse)
+legacy_router.add_api_route(
+    "/attempts/{attempt_id}/complete", complete_my_attempt, methods=["POST"], response_model=VizuMultilevelCompleteResponse
+)

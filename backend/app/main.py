@@ -107,6 +107,7 @@ from app.api.mock_exam.public_router import router as mock_exam_public_router
 
 # VIZU-Multilevel (standalone free level-check — see the model's
 # own docstring)
+from app.api.vizu_multilevel.router import legacy_router as vizu_mock_legacy_router
 from app.api.vizu_multilevel.router import router as vizu_multilevel_router
 
 # Upload
@@ -240,6 +241,7 @@ _ALL_ROUTERS = [
     mock_exam_analytics_router,
     mock_exam_public_router,
     vizu_multilevel_router,
+    vizu_mock_legacy_router,
     upload_router,
     admin_router,
     admin_users_router,
@@ -265,6 +267,20 @@ app.include_router(certificate_router, prefix=settings.API_V1_PREFIX)
 # 2. Standardized /api/v1 mounts — the official API surface going forward.
 for _router in _ALL_ROUTERS:
     app.include_router(_router, prefix=settings.API_V1_PREFIX)
+
+# Startup guard: the attempt API must be reachable at both the current and the
+# legacy (pre-rename) address, otherwise fail fast instead of 404ing in prod.
+from starlette.routing import Match  # noqa: E402
+
+
+def _route_exists(method: str, path: str) -> bool:
+    scope = {"type": "http", "method": method, "path": path, "root_path": "", "query_string": b"", "headers": []}
+    return any(route.matches(scope)[0] == Match.FULL for route in app.router.routes)
+
+
+for _path in ("/api/v1/vizu-multilevel/attempts", "/api/v1/vizu-mock/attempts"):
+    for _method in ("GET", "POST"):
+        assert _route_exists(_method, _path), f"missing route {_method} {_path}"
 
 # ==================================================
 # STATIC FILES

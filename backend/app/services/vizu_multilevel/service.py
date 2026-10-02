@@ -240,11 +240,14 @@ def get_state(attempt: VizuMultilevelAttempt) -> dict:
 
 
 def _published_question_count(db: Session, skill_const: str) -> tuple[int, float]:
-    rows = db.execute(
+    query = (
         select(VizuMultilevelQuestion.points)
         .join(VizuMultilevelTask, VizuMultilevelQuestion.task_id == VizuMultilevelTask.id)
         .where(VizuMultilevelTask.skill == skill_const, VizuMultilevelTask.is_published.is_(True))
-    ).all()
+    )
+    if skill_const == SKILL_LESEN:
+        query = query.where(VizuMultilevelQuestion.is_active.is_(True))
+    rows = db.execute(query).all()
     return len(rows), float(sum(r[0] for r in rows))
 
 

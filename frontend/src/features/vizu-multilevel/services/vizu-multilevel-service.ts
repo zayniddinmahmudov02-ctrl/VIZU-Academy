@@ -9,6 +9,7 @@ import type {
   VizuMultilevelCertificate,
   VizuMultilevelCompleteResponse,
   VizuMultilevelHoerenTask,
+  VizuMultilevelLesenResult,
   VizuMultilevelSectionState,
   VizuMultilevelSkill,
   VizuMultilevelSpeakingSubmission,
@@ -75,8 +76,12 @@ export async function getVizuMultilevelLesenTasks(): Promise<VizuMultilevelTask[
   return ensureArray<VizuMultilevelTask>(response.data);
 }
 
-export async function submitVizuMultilevelLesen(attemptId: string, answers: VizuMultilevelAnswerSubmit[]): Promise<void> {
-  await api.post(`${BASE}/${attemptId}/lesen/submit`, { answers });
+export async function submitVizuMultilevelLesen(
+  attemptId: string,
+  answers: VizuMultilevelAnswerSubmit[],
+): Promise<VizuMultilevelLesenResult> {
+  const response = await api.post<VizuMultilevelLesenResult>(`${BASE}/${attemptId}/lesen/submit`, { answers });
+  return response.data;
 }
 
 // ---- Hören ----

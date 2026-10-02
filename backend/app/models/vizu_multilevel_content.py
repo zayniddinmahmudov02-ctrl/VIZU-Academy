@@ -16,7 +16,27 @@ ALL_SKILLS = {SKILL_LESEN, SKILL_HOEREN, SKILL_SCHREIBEN, SKILL_SPRECHEN}
 QUESTION_TYPE_TRUE_FALSE = "TRUE_FALSE"
 QUESTION_TYPE_MULTIPLE_CHOICE = "MULTIPLE_CHOICE"
 QUESTION_TYPE_CLOZE_TEXT = "CLOZE_TEXT"
-ALL_QUESTION_TYPES = {QUESTION_TYPE_TRUE_FALSE, QUESTION_TYPE_MULTIPLE_CHOICE, QUESTION_TYPE_CLOZE_TEXT}
+# Reading formats. All are graded identically (exactly one correct option);
+# the type only describes the task format for the admin / the student UI.
+QUESTION_TYPE_HEADLINE_MATCH = "HEADLINE_MATCH"  # Überschrift zuordnen
+QUESTION_TYPE_AD_MATCH = "AD_MATCH"  # Anzeige zuordnen
+QUESTION_TYPE_STATEMENT_MATCH = "STATEMENT_MATCH"  # Aussage zuordnen
+QUESTION_TYPE_MAIN_IDEA = "MAIN_IDEA"  # Hauptaussage finden
+QUESTION_TYPE_DETAIL = "DETAIL"  # Detailinformation
+QUESTION_TYPE_INFO_MATCH = "INFO_MATCH"  # passende Information finden
+QUESTION_TYPE_COMPREHENSION = "COMPREHENSION"  # Textverständnis
+ALL_QUESTION_TYPES = {
+    QUESTION_TYPE_TRUE_FALSE,
+    QUESTION_TYPE_MULTIPLE_CHOICE,
+    QUESTION_TYPE_CLOZE_TEXT,
+    QUESTION_TYPE_HEADLINE_MATCH,
+    QUESTION_TYPE_AD_MATCH,
+    QUESTION_TYPE_STATEMENT_MATCH,
+    QUESTION_TYPE_MAIN_IDEA,
+    QUESTION_TYPE_DETAIL,
+    QUESTION_TYPE_INFO_MATCH,
+    QUESTION_TYPE_COMPREHENSION,
+}
 
 CEFR_LEVELS = ["A1", "A2", "B1", "B2", "C1"]
 
@@ -76,6 +96,8 @@ class VizuMultilevelQuestion(BaseModel):
     passage_text: Mapped[str | None] = mapped_column(Text, nullable=True)
     prompt: Mapped[str] = mapped_column(Text, nullable=False)
     order_index: Mapped[int] = mapped_column(Integer, nullable=False)
+    # Lesen only: an inactive question is neither shown nor graded.
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True, server_default="true", nullable=False)
     # Numeric, not Integer: Hören weights points by the question's CEFR
     # level (A1=0.5 ... C1=2.5, see services/vizu_multilevel/
     # hoeren_csv_import_service.py) — Lesen's flat 5-per-question still

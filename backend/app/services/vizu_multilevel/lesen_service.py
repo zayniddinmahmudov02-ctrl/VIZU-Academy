@@ -1,98 +1,107 @@
-from uuid import UUID
+"""VIZU-Multilevel Lesen — task list, server-side grading and the final
+level. 20 questions x 5 points = 100 points. The level is derived from the
+TOTAL score only (see LEVEL_THRESHOLDS); the CEFR level stored on each
+task is internal data and is never sent to the student."""
 
 from sqlalchemy import select
 from sqlalchemy.orm import Session, joinedload
 
 from app.models.vizu_multilevel_attempt import VizuMultilevelAttempt
+from app.models.vizu_multilevel_content import (
+    SKILL_LESEN,
+    VizuMultilevelAnswer,
+    VizuMultilevelQuestion,
+    VizuMultilevelTask,
+)
 from app.services.vizu_multilevel import service
-from app.models.vizu_multilevel_content import SKILL_LESEN, CEFR_LEVELS, VizuMultilevelAnswer, VizuMultilevelQuestion, VizuMultilevelTask
 
-# "kamida 3/4" — a level counts as confirmed once its 4 questions earn at
-# least 3 of their 4 points. Computed as a fraction of each level's real
-# max (not hardcoded to 4) so this still works if content is added later
-# with a different question count per level.
-PASS_NUMERATOR = 3
-PASS_DENOMINATOR = 4
+POINTS_PER_QUESTION = 5
+
+# (minimum score out of 100, level) — highest first. Below the lowest
+# threshold the result is "below A1" (level None).
+LEVEL_THRESHOLDS: list[tuple[float, str]] = [
+    (90, "C1"),
+    (75, "B2"),
+    (60, "B1"),
+    (40, "A2"),
+    (20, "A1"),
+]
 
 
-def list_lesen_tasks(db: Session, include_unpublished: bool = False) -> list[VizuMultilevelTask]:
-    query = select(VizuMultilevelTask).where(VizuMultilevelTask.skill == SKILL_LESEN)
-    if not include_unpublished:
-        query = query.where(VizuMultilevelTask.is_published.is_(True))
-    return list(
+def level_for_score(total_points: float, max_points: float) -> str | None:
+    """Maps the Lesen score to a CEFR level. The thresholds are defined on
+    a 0-100 scale, so the score is normalised to a percentage of the max
+    (identical to the raw score while the max is 100). No questions at all
+    (max 0) never yields a level."""
+    if max_points <= 0:
+        return None
+    percent = total_points / max_points * 100
+    for minimum, level in LEVEL_THRESHOLDS:
+        if percent >= minimum:
+            return level
+    return None
+
+
+def list_lesen_tasks(db: Session) -> list[dict]:
+    """Published Aufgaben with their ACTIVE questions, in order. Carries no
+    CEFR level and no correct-answer information."""
+    tasks = list(
         db.scalars(
-            query
+            select(VizuMultilevelTask)
+            .where(VizuMultilevelTask.skill == SKILL_LESEN, VizuMultilevelTask.is_published.is_(True))
             .options(joinedload(VizuMultilevelTask.questions).joinedload(VizuMultilevelQuestion.options))
             .order_by(VizuMultilevelTask.order_index)
-        )
-        .unique()
+        ).unique()
     )
-
-
-def _level_breakdown(db: Session, attempt_id: UUID) -> list[dict]:
-    """Aggregates this attempt's stored VizuMultilevelAnswer rows into a
-    per-level points/max_points/passed breakdown — the single function
-    both a fresh grading and a later idempotent re-fetch build their
-    response from, so they can never disagree with each other."""
-    rows = db.execute(
-        select(VizuMultilevelTask.level, VizuMultilevelQuestion.points, VizuMultilevelAnswer.points_earned)
-        .select_from(VizuMultilevelAnswer)
-        .join(VizuMultilevelQuestion, VizuMultilevelAnswer.question_id == VizuMultilevelQuestion.id)
-        .join(VizuMultilevelTask, VizuMultilevelQuestion.task_id == VizuMultilevelTask.id)
-        .where(VizuMultilevelAnswer.attempt_id == attempt_id, VizuMultilevelTask.skill == SKILL_LESEN)
-    ).all()
-
-    points_by_level = {level: 0 for level in CEFR_LEVELS}
-    max_by_level = {level: 0 for level in CEFR_LEVELS}
-    for level, max_points, earned in rows:
-        max_by_level[level] += max_points
-        points_by_level[level] += earned
-
-    return [
-        {
-            "level": level,
-            "points": points_by_level[level],
-            "max_points": max_by_level[level],
-            "passed": max_by_level[level] > 0
-            and points_by_level[level] * PASS_DENOMINATOR >= PASS_NUMERATOR * max_by_level[level],
-        }
-        for level in CEFR_LEVELS
-    ]
-
-
-def _confirmed_level(level_scores: list[dict]) -> str | None:
-    """The result is the highest level in an unbroken chain of passes
-    starting from A1 — never just "whichever levels passed", so a
-    student who fails B1 but somehow passes B2 still gets A2, matching
-    the spec's example exactly."""
-    confirmed = None
-    for entry in level_scores:
-        if entry["passed"]:
-            confirmed = entry["level"]
-        else:
-            break
-    return confirmed
+    result = []
+    for task in tasks:
+        questions = [q for q in task.questions if q.is_active]
+        if questions:
+            result.append(
+                {
+                    "id": task.id,
+                    "skill": task.skill,
+                    "order_index": task.order_index,
+                    "passage_text": task.passage_text,
+                    "questions": questions,
+                }
+            )
+    return result
 
 
 def get_lesen_result(db: Session, attempt: VizuMultilevelAttempt) -> dict:
-    level_scores = _level_breakdown(db, attempt.id)
+    max_points = _answered_max(db, attempt)
     return {
         "attempt_id": attempt.id,
-        "total_points": sum(entry["points"] for entry in level_scores),
-        "max_points": sum(entry["max_points"] for entry in level_scores),
-        "level_scores": level_scores,
+        "total_points": float(attempt.lesen_score or 0),
+        "max_points": max_points,
+        "correct": attempt.lesen_correct or 0,
+        "wrong": attempt.lesen_wrong or 0,
+        "unanswered": attempt.lesen_unanswered or 0,
         "lesen_level": attempt.lesen_level,
+        "below_a1": service.is_submitted(attempt, "lesen") and attempt.lesen_level is None and max_points > 0,
     }
 
 
+def _answered_max(db: Session, attempt: VizuMultilevelAttempt) -> float:
+    rows = db.execute(
+        select(VizuMultilevelQuestion.points)
+        .select_from(VizuMultilevelAnswer)
+        .join(VizuMultilevelQuestion, VizuMultilevelAnswer.question_id == VizuMultilevelQuestion.id)
+        .join(VizuMultilevelTask, VizuMultilevelQuestion.task_id == VizuMultilevelTask.id)
+        .where(VizuMultilevelAnswer.attempt_id == attempt.id, VizuMultilevelTask.skill == SKILL_LESEN)
+    ).all()
+    return float(sum(r[0] for r in rows))
+
+
 def submit_lesen(db: Session, attempt: VizuMultilevelAttempt, answers: list) -> dict:
-    """Grades every Lesen question server-side (never trusting anything the
-    client claims about correctness) and writes lesen_score/lesen_level
-    onto the attempt exactly once. Unanswered questions earn 0 points, so
-    the student may finish at any time without answering everything.
-    If the 20-minute window has already closed (server clock, deadline +
-    grace) the submitted answers are ignored and the section is graded as
-    unanswered. A resubmit is a no-op that returns the stored result."""
+    """Grades every active Lesen question server-side (the client never
+    sends or receives correctness): correct = +5, wrong or unanswered = 0,
+    no negative scoring. Writes score, correct/wrong/unanswered counts and
+    the level onto the attempt exactly once. Unanswered questions simply
+    score 0, so the student may finish at any time. If the 20-minute window
+    has already closed (server clock, deadline + grace) the submitted
+    answers are ignored. A resubmit returns the stored result."""
     if service.is_submitted(attempt, "lesen"):
         return get_lesen_result(db, attempt)
 
@@ -104,16 +113,32 @@ def submit_lesen(db: Session, attempt: VizuMultilevelAttempt, answers: list) -> 
         db.scalars(
             select(VizuMultilevelQuestion)
             .join(VizuMultilevelTask, VizuMultilevelQuestion.task_id == VizuMultilevelTask.id)
-            .where(VizuMultilevelTask.skill == SKILL_LESEN, VizuMultilevelTask.is_published.is_(True))
+            .where(
+                VizuMultilevelTask.skill == SKILL_LESEN,
+                VizuMultilevelTask.is_published.is_(True),
+                VizuMultilevelQuestion.is_active.is_(True),
+            )
             .options(joinedload(VizuMultilevelQuestion.options))
         ).unique()
     )
     answer_by_question = {a.question_id: a.option_id for a in answers}
 
+    total = 0.0
+    maximum = 0.0
+    correct = wrong = unanswered = 0
     for question in questions:
         selected_id = answer_by_question.get(question.id)
         selected_option = next((o for o in question.options if o.id == selected_id), None) if selected_id else None
         is_correct = bool(selected_option and selected_option.is_correct)
+        earned = question.points if is_correct else 0
+        total += earned
+        maximum += question.points
+        if selected_option is None:
+            unanswered += 1
+        elif is_correct:
+            correct += 1
+        else:
+            wrong += 1
         db.add(
             VizuMultilevelAnswer(
                 attempt_id=attempt.id,
@@ -121,14 +146,16 @@ def submit_lesen(db: Session, attempt: VizuMultilevelAttempt, answers: list) -> 
                 # Only keep a selection that really belongs to this question.
                 selected_option_id=selected_option.id if selected_option else None,
                 is_correct=is_correct,
-                points_earned=question.points if is_correct else 0,
+                points_earned=earned,
             )
         )
 
-    db.flush()
-    level_scores = _level_breakdown(db, attempt.id)
-    attempt.lesen_score = sum(entry["points"] for entry in level_scores)
-    attempt.lesen_level = _confirmed_level(level_scores)
+    attempt.lesen_score = int(total)
+    attempt.lesen_correct = correct
+    attempt.lesen_wrong = wrong
+    attempt.lesen_unanswered = unanswered
+    # Below A1 -> None: not stored as a successful level.
+    attempt.lesen_level = level_for_score(total, maximum)
     service.mark_submitted(db, attempt, "lesen")
 
     return get_lesen_result(db, attempt)
