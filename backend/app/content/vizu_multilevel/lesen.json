@@ -1,0 +1,669 @@
+{
+  "module": "lesen",
+  "title": "VIZU-Multilevel Lesen",
+  "total_questions": 20,
+  "points_per_question": 5,
+  "max_score": 100,
+  "aufgaben": [
+    {
+      "id": 1,
+      "order": 1,
+      "text": "Hallo! Ich heiße Maria. Ich bin 22 Jahre alt und komme aus Spanien. Jetzt wohne ich in Berlin. Ich lerne Deutsch und arbeite am Nachmittag in einem Café. In meiner Freizeit höre ich gern Musik.",
+      "questions": [
+        {
+          "id": 1,
+          "order": 1,
+          "type": "multiple_choice",
+          "question": "Wie alt ist Maria?",
+          "options": [
+            {
+              "key": "A",
+              "text": "20 Jahre"
+            },
+            {
+              "key": "B",
+              "text": "21 Jahre"
+            },
+            {
+              "key": "C",
+              "text": "22 Jahre"
+            },
+            {
+              "key": "D",
+              "text": "23 Jahre"
+            }
+          ],
+          "correct_answer": "C",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "order": 2,
+      "text": "Heute ist Montag. Paul hat um 8 Uhr Unterricht. Nach dem Unterricht geht er nach Hause. Am Abend trifft er seinen Freund Max. Sie trinken zusammen einen Kaffee.",
+      "questions": [
+        {
+          "id": 2,
+          "order": 2,
+          "type": "multiple_choice",
+          "question": "Was macht Paul am Abend?",
+          "options": [
+            {
+              "key": "A",
+              "text": "Er arbeitet."
+            },
+            {
+              "key": "B",
+              "text": "Er trifft Max."
+            },
+            {
+              "key": "C",
+              "text": "Er lernt Deutsch."
+            },
+            {
+              "key": "D",
+              "text": "Er geht ins Kino."
+            }
+          ],
+          "correct_answer": "B",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "order": 3,
+      "text": "Liebe Anna,\n\nich kann heute leider nicht mit dir einkaufen gehen. Ich muss bis 17 Uhr arbeiten. Danach habe ich Zeit. Wir können uns um 18 Uhr im Stadtzentrum treffen.\n\nLiebe Grüße\nSophie",
+      "questions": [
+        {
+          "id": 3,
+          "order": 3,
+          "type": "multiple_choice",
+          "question": "Warum kann Sophie heute nicht früher kommen?",
+          "options": [
+            {
+              "key": "A",
+              "text": "Sie muss arbeiten."
+            },
+            {
+              "key": "B",
+              "text": "Sie ist krank."
+            },
+            {
+              "key": "C",
+              "text": "Sie hat einen Termin."
+            },
+            {
+              "key": "D",
+              "text": "Sie fährt nach Hause."
+            }
+          ],
+          "correct_answer": "A",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "order": 4,
+      "text": "Stadtbibliothek\n\nDie Bibliothek ist Montag bis Freitag von 9 bis 19 Uhr geöffnet. Am Samstag können Besucher die Bibliothek von 10 bis 15 Uhr besuchen. Sonntags ist die Bibliothek geschlossen.",
+      "questions": [
+        {
+          "id": 4,
+          "order": 4,
+          "type": "multiple_choice",
+          "question": "Wann ist die Bibliothek am Samstag geöffnet?",
+          "options": [
+            {
+              "key": "A",
+              "text": "8–14 Uhr"
+            },
+            {
+              "key": "B",
+              "text": "9–18 Uhr"
+            },
+            {
+              "key": "C",
+              "text": "10–15 Uhr"
+            },
+            {
+              "key": "D",
+              "text": "12–17 Uhr"
+            }
+          ],
+          "correct_answer": "C",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "order": 5,
+      "text": "Hallo Lukas,\n\nam Samstag möchte ich mit einigen Freunden einen Ausflug machen. Wir treffen uns um 9 Uhr am Bahnhof. Danach fahren wir mit dem Zug zu einem kleinen See. Wenn das Wetter gut ist, möchten wir dort spazieren und grillen. Bring bitte etwas zu trinken mit.\n\nViele Grüße\nDaniel",
+      "questions": [
+        {
+          "id": 5,
+          "order": 5,
+          "type": "multiple_choice",
+          "question": "Was sollen die Freunde mitbringen?",
+          "options": [
+            {
+              "key": "A",
+              "text": "Essen für das Frühstück"
+            },
+            {
+              "key": "B",
+              "text": "Getränke"
+            },
+            {
+              "key": "C",
+              "text": "Fahrräder"
+            },
+            {
+              "key": "D",
+              "text": "Zelte"
+            }
+          ],
+          "correct_answer": "B",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "order": 6,
+      "text": "Wegen Bauarbeiten fährt der Bus 24 am Dienstag nicht wie gewohnt. Die Haltestellen „Marktplatz“ und „Rathaus“ werden nicht angefahren. Fahrgäste können stattdessen die Straßenbahn 3 benutzen.",
+      "questions": [
+        {
+          "id": 6,
+          "order": 6,
+          "type": "multiple_choice",
+          "question": "Was sollen die Fahrgäste am Dienstag benutzen?",
+          "options": [
+            {
+              "key": "A",
+              "text": "Bus 12"
+            },
+            {
+              "key": "B",
+              "text": "Bus 24"
+            },
+            {
+              "key": "C",
+              "text": "Straßenbahn 3"
+            },
+            {
+              "key": "D",
+              "text": "Zug 3"
+            }
+          ],
+          "correct_answer": "C",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "order": 7,
+      "text": "Viele Menschen kaufen heute Lebensmittel online. Das ist besonders praktisch für Personen, die wenig Zeit haben oder nicht selbst zum Supermarkt fahren können. Allerdings können Kunden die Produkte vor dem Kauf nicht direkt ansehen. Außerdem muss man häufig einige Stunden oder sogar einen Tag auf die Lieferung warten.",
+      "questions": [
+        {
+          "id": 7,
+          "order": 7,
+          "type": "multiple_choice",
+          "question": "Welcher Nachteil des Online-Einkaufs wird genannt?",
+          "options": [
+            {
+              "key": "A",
+              "text": "Die Produkte sind immer teurer."
+            },
+            {
+              "key": "B",
+              "text": "Man kann die Produkte vor dem Kauf nicht direkt ansehen."
+            },
+            {
+              "key": "C",
+              "text": "Es gibt keine verschiedenen Produkte."
+            },
+            {
+              "key": "D",
+              "text": "Die Lieferung ist immer kostenlos."
+            }
+          ],
+          "correct_answer": "B",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "order": 8,
+      "text": "Neue Öffnungszeiten\n\nAb dem 1. Oktober öffnet unser Fitnessstudio bereits um 6 Uhr morgens. Unter der Woche bleibt es bis 22 Uhr geöffnet. Am Wochenende gelten andere Öffnungszeiten: Samstag von 8 bis 18 Uhr und Sonntag von 9 bis 14 Uhr.",
+      "questions": [
+        {
+          "id": 8,
+          "order": 8,
+          "type": "multiple_choice",
+          "question": "Was ändert sich ab dem 1. Oktober?",
+          "options": [
+            {
+              "key": "A",
+              "text": "Das Fitnessstudio schließt früher."
+            },
+            {
+              "key": "B",
+              "text": "Das Fitnessstudio öffnet morgens früher."
+            },
+            {
+              "key": "C",
+              "text": "Das Fitnessstudio ist am Wochenende geschlossen."
+            },
+            {
+              "key": "D",
+              "text": "Die Mitgliedschaft wird günstiger."
+            }
+          ],
+          "correct_answer": "B",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "order": 9,
+      "text": "Immer mehr Menschen entscheiden sich dafür, mit dem Fahrrad zur Arbeit zu fahren. Ein wichtiger Grund dafür ist die Möglichkeit, sich regelmäßig zu bewegen. Gleichzeitig können Radfahrer in vielen Städten Staus vermeiden. Allerdings ist das Fahrrad nicht für jeden Arbeitsweg geeignet, besonders wenn die Entfernung sehr groß ist oder die Wetterbedingungen schlecht sind.",
+      "questions": [
+        {
+          "id": 9,
+          "order": 9,
+          "type": "multiple_choice",
+          "question": "Welche Vorteile des Fahrrads werden im Text genannt?",
+          "options": [
+            {
+              "key": "A",
+              "text": "Es ist immer schneller als das Auto."
+            },
+            {
+              "key": "B",
+              "text": "Es ermöglicht Bewegung und kann helfen, Staus zu vermeiden."
+            },
+            {
+              "key": "C",
+              "text": "Es ist bei jedem Wetter geeignet."
+            },
+            {
+              "key": "D",
+              "text": "Es kostet nichts und benötigt keine Wartung."
+            }
+          ],
+          "correct_answer": "B",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "order": 10,
+      "text": "E-Mail\n\nLiebe Frau Schneider,\n\nleider kann ich am geplanten Termin am Donnerstag nicht an der Besprechung teilnehmen, da ich zu dieser Zeit einen wichtigen Kundentermin habe. Wäre es möglich, die Besprechung auf Freitagvormittag zu verschieben? Zwischen 9 und 12 Uhr bin ich flexibel.\n\nVielen Dank für Ihr Verständnis.\n\nMit freundlichen Grüßen\nThomas Weber",
+      "questions": [
+        {
+          "id": 10,
+          "order": 10,
+          "type": "multiple_choice",
+          "question": "Was möchte Thomas?",
+          "options": [
+            {
+              "key": "A",
+              "text": "Die Besprechung absagen."
+            },
+            {
+              "key": "B",
+              "text": "Einen neuen Kunden kennenlernen."
+            },
+            {
+              "key": "C",
+              "text": "Die Besprechung verschieben."
+            },
+            {
+              "key": "D",
+              "text": "Am Donnerstag früher arbeiten."
+            }
+          ],
+          "correct_answer": "C",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "order": 11,
+      "text": "Immer häufiger bieten Unternehmen ihren Mitarbeitern die Möglichkeit an, zumindest teilweise von zu Hause aus zu arbeiten. Für viele Beschäftigte bedeutet das mehr Flexibilität, weil sie beispielsweise lange Wege zur Arbeit vermeiden können. Gleichzeitig berichten manche Unternehmen von Schwierigkeiten bei der Kommunikation und Zusammenarbeit. Besonders neue Mitarbeiter benötigen häufig mehr persönlichen Kontakt, um sich in ein Team zu integrieren.",
+      "questions": [
+        {
+          "id": 11,
+          "order": 11,
+          "type": "multiple_choice",
+          "question": "Welches Problem kann laut Text beim Homeoffice entstehen?",
+          "options": [
+            {
+              "key": "A",
+              "text": "Mitarbeiter haben grundsätzlich weniger Freizeit."
+            },
+            {
+              "key": "B",
+              "text": "Neue Mitarbeiter können Schwierigkeiten bei der Integration in ein Team haben."
+            },
+            {
+              "key": "C",
+              "text": "Unternehmen müssen mehr Büros bauen."
+            },
+            {
+              "key": "D",
+              "text": "Die Arbeitswege werden länger."
+            }
+          ],
+          "correct_answer": "B",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "order": 12,
+      "text": "Nachhaltiger Tourismus\n\nTourismus bringt vielen Regionen wirtschaftliche Vorteile. Gleichzeitig kann eine große Zahl von Besuchern die Umwelt und die lokale Infrastruktur belasten. Nachhaltiger Tourismus versucht deshalb, wirtschaftliche Interessen mit dem Schutz natürlicher und kultureller Ressourcen zu verbinden. Dazu gehören beispielsweise kleinere Reisegruppen, die Nutzung öffentlicher Verkehrsmittel und die Unterstützung lokaler Unternehmen.",
+      "questions": [
+        {
+          "id": 12,
+          "order": 12,
+          "type": "multiple_choice",
+          "question": "Was ist ein Ziel des nachhaltigen Tourismus?",
+          "options": [
+            {
+              "key": "A",
+              "text": "Möglichst viele Touristen an einen Ort zu bringen."
+            },
+            {
+              "key": "B",
+              "text": "Reisen grundsätzlich zu verbieten."
+            },
+            {
+              "key": "C",
+              "text": "Wirtschaftliche Interessen und Umweltschutz miteinander zu verbinden."
+            },
+            {
+              "key": "D",
+              "text": "Nur internationale Unternehmen zu unterstützen."
+            }
+          ],
+          "correct_answer": "C",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "order": 13,
+      "text": "Lernen mit digitalen Medien\n\nDigitale Medien haben den Zugang zu Informationen erheblich erleichtert. Lernende können heute unabhängig von Ort und Zeit auf Videos, digitale Bücher und Online-Kurse zugreifen. Dennoch bedeutet die große Menge an verfügbaren Informationen nicht automatisch, dass Lernen effektiver wird. Entscheidend ist vielmehr, ob Lernende relevante Informationen erkennen, kritisch bewerten und sinnvoll in ihren Lernprozess integrieren können.",
+      "questions": [
+        {
+          "id": 13,
+          "order": 13,
+          "type": "multiple_choice",
+          "question": "Was ist laut Text für erfolgreiches Lernen mit digitalen Medien besonders wichtig?",
+          "options": [
+            {
+              "key": "A",
+              "text": "Möglichst viele Videos anzusehen."
+            },
+            {
+              "key": "B",
+              "text": "Alle verfügbaren Informationen auswendig zu lernen."
+            },
+            {
+              "key": "C",
+              "text": "Informationen kritisch zu bewerten und sinnvoll zu nutzen."
+            },
+            {
+              "key": "D",
+              "text": "Nur gedruckte Bücher zu verwenden."
+            }
+          ],
+          "correct_answer": "C",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "order": 14,
+      "text": "E-Mail an die Universität\n\nSehr geehrte Damen und Herren,\n\nich interessiere mich für Ihren Masterstudiengang und habe auf Ihrer Website bereits die allgemeinen Zulassungsvoraussetzungen gelesen. Unklar ist mir jedoch, ob Bewerber mit einem ausländischen Bachelorabschluss zusätzlich eine beglaubigte Übersetzung ihrer Abschlussunterlagen einreichen müssen. Außerdem würde ich gerne wissen, ob der Nachweis eines Sprachzertifikats bereits bei der Bewerbung erforderlich ist oder bis zur Einschreibung nachgereicht werden kann.\n\nFür eine kurze Auskunft wäre ich Ihnen sehr dankbar.\n\nMit freundlichen Grüßen\nNina Hoffmann",
+      "questions": [
+        {
+          "id": 14,
+          "order": 14,
+          "type": "multiple_choice",
+          "question": "Welche Informationen möchte Nina von der Universität erhalten?",
+          "options": [
+            {
+              "key": "A",
+              "text": "Informationen über die Kosten einer Wohnung."
+            },
+            {
+              "key": "B",
+              "text": "Informationen über die Zulassungs- und Sprachnachweisanforderungen."
+            },
+            {
+              "key": "C",
+              "text": "Informationen über die Arbeitsmöglichkeiten für Studenten."
+            },
+            {
+              "key": "D",
+              "text": "Informationen über die Prüfungen im ersten Semester."
+            }
+          ],
+          "correct_answer": "B",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "order": 15,
+      "text": "Digitale Kommunikation im Berufsleben\n\nDie zunehmende Digitalisierung hat die Kommunikation am Arbeitsplatz verändert. E-Mails, Videokonferenzen und digitale Projektplattformen ermöglichen eine Zusammenarbeit über große Entfernungen hinweg. Dadurch können Unternehmen flexibler auf internationale Märkte reagieren und Mitarbeiter aus unterschiedlichen Regionen in gemeinsame Projekte einbinden.\n\nGleichzeitig entstehen neue Herausforderungen. Wenn ein großer Teil der Kommunikation schriftlich oder digital stattfindet, können Missverständnisse leichter entstehen, da nonverbale Signale fehlen. Hinzu kommt die Gefahr, dass Beschäftigte ständig erreichbar sind und dadurch die Grenze zwischen Arbeitszeit und Freizeit zunehmend verschwimmt.",
+      "questions": [
+        {
+          "id": 15,
+          "order": 15,
+          "type": "multiple_choice",
+          "question": "Welche Aussage entspricht dem Text?",
+          "options": [
+            {
+              "key": "A",
+              "text": "Digitale Kommunikation hat ausschließlich Vorteile."
+            },
+            {
+              "key": "B",
+              "text": "Internationale Zusammenarbeit ist durch Digitalisierung schwieriger geworden."
+            },
+            {
+              "key": "C",
+              "text": "Digitale Kommunikation ermöglicht flexiblere Zusammenarbeit, bringt aber auch neue Herausforderungen mit sich."
+            },
+            {
+              "key": "D",
+              "text": "Videokonferenzen ersetzen in allen Unternehmen persönliche Gespräche."
+            }
+          ],
+          "correct_answer": "C",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "order": 16,
+      "text": "Stadtentwicklung und Lebensqualität\n\nWenn Städte wachsen, stehen sie vor der Herausforderung, Wohnraum, Verkehr und öffentliche Dienstleistungen an die steigende Bevölkerungszahl anzupassen. Dabei reicht es nicht aus, lediglich neue Wohnungen zu bauen. Entscheidend ist auch, ob Bewohner Zugang zu Schulen, medizinischer Versorgung, Grünflächen und öffentlichen Verkehrsmitteln haben.\n\nEine nachhaltige Stadtentwicklung versucht deshalb, verschiedene Interessen miteinander zu verbinden. Verdichtetes Bauen kann beispielsweise dazu beitragen, vorhandene Infrastruktur effizienter zu nutzen. Gleichzeitig muss darauf geachtet werden, dass ausreichend öffentliche Räume erhalten bleiben.",
+      "questions": [
+        {
+          "id": 16,
+          "order": 16,
+          "type": "multiple_choice",
+          "question": "Welche Aussage beschreibt die zentrale Aussage des Textes am besten?",
+          "options": [
+            {
+              "key": "A",
+              "text": "Städte sollten grundsätzlich nicht weiter wachsen."
+            },
+            {
+              "key": "B",
+              "text": "Neue Wohnungen sind das einzige wichtige Element der Stadtentwicklung."
+            },
+            {
+              "key": "C",
+              "text": "Stadtentwicklung muss Wohnraum mit Infrastruktur und Lebensqualität verbinden."
+            },
+            {
+              "key": "D",
+              "text": "Öffentliche Räume sind für moderne Städte nicht mehr notwendig."
+            }
+          ],
+          "correct_answer": "C",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "order": 17,
+      "text": "Die Vier-Tage-Woche\n\nDie Diskussion über eine mögliche Verkürzung der Arbeitswoche hat in den vergangenen Jahren an Bedeutung gewonnen. Befürworter argumentieren, dass eine kürzere Arbeitszeit die Zufriedenheit der Beschäftigten erhöhen und langfristig sogar die Produktivität verbessern könnte. Kritiker weisen dagegen darauf hin, dass sich eine Reduzierung der Arbeitszeit nicht in jeder Branche problemlos umsetzen lässt.\n\nBesonders problematisch kann eine solche Veränderung in Bereichen sein, in denen eine kontinuierliche Betreuung oder Versorgung notwendig ist. Dort müsste eine kürzere Arbeitszeit möglicherweise durch zusätzliche Beschäftigte ausgeglichen werden.",
+      "questions": [
+        {
+          "id": 17,
+          "order": 17,
+          "type": "multiple_choice",
+          "question": "Welche Positionen werden im Text gegenübergestellt?",
+          "options": [
+            {
+              "key": "A",
+              "text": "Die Vor- und Nachteile einer Vier-Tage-Woche."
+            },
+            {
+              "key": "B",
+              "text": "Die Vor- und Nachteile von Homeoffice."
+            },
+            {
+              "key": "C",
+              "text": "Die Kosten und Vorteile von Universitäten."
+            },
+            {
+              "key": "D",
+              "text": "Die Unterschiede zwischen Vollzeit und Teilzeit im Studium."
+            }
+          ],
+          "correct_answer": "A",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "order": 18,
+      "text": "Künstliche Intelligenz und Bildung\n\nDer Einsatz künstlicher Intelligenz im Bildungsbereich eröffnet neue Möglichkeiten, etwa bei der individuellen Anpassung von Lernmaterialien oder bei der automatisierten Rückmeldung zu bestimmten Aufgaben. Daraus lässt sich jedoch nicht automatisch schließen, dass traditionelle Unterrichtsformen überflüssig werden.\n\nVielmehr hängt der pädagogische Nutzen solcher Systeme davon ab, wie sie eingesetzt werden. Wenn Lernende lediglich fertige Antworten übernehmen, besteht die Gefahr, dass wichtige Denkprozesse ausgelagert werden. Werden KI-Systeme dagegen als Werkzeug zur Recherche, zur Reflexion oder zur Überarbeitung eigener Texte eingesetzt, können sie Lernprozesse sinnvoll ergänzen.",
+      "questions": [
+        {
+          "id": 18,
+          "order": 18,
+          "type": "multiple_choice",
+          "question": "Welche Schlussfolgerung lässt sich aus dem Text ableiten?",
+          "options": [
+            {
+              "key": "A",
+              "text": "KI wird traditionelle Bildung vollständig ersetzen."
+            },
+            {
+              "key": "B",
+              "text": "KI ist für Bildungszwecke grundsätzlich ungeeignet."
+            },
+            {
+              "key": "C",
+              "text": "Der Nutzen von KI hängt wesentlich von der Art ihrer Verwendung ab."
+            },
+            {
+              "key": "D",
+              "text": "Lernende sollten KI ausschließlich für automatische Übersetzungen verwenden."
+            }
+          ],
+          "correct_answer": "C",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "order": 19,
+      "text": "Sprache und gesellschaftliche Teilhabe\n\nSprachkenntnisse werden häufig als Schlüssel zur gesellschaftlichen Teilhabe betrachtet. Wer die Sprache eines Landes beherrscht, kann sich leichter über Bildungsangebote informieren, berufliche Kontakte aufbauen und administrative Angelegenheiten selbstständig erledigen. Dennoch wäre es verkürzt, mangelnde Sprachkenntnisse ausschließlich als individuelles Problem zu betrachten.\n\nAuch institutionelle Rahmenbedingungen spielen eine Rolle. Sprachkurse müssen zugänglich und bezahlbar sein, Informationen sollten verständlich bereitgestellt werden, und öffentliche Einrichtungen benötigen geeignete Kommunikationsmöglichkeiten. Erfolgreiche Integration entsteht daher nicht allein durch individuelle Lernbereitschaft, sondern durch das Zusammenspiel persönlicher und gesellschaftlicher Faktoren.",
+      "questions": [
+        {
+          "id": 19,
+          "order": 19,
+          "type": "multiple_choice",
+          "question": "Welche zentrale Aussage vertritt der Text?",
+          "options": [
+            {
+              "key": "A",
+              "text": "Sprachkenntnisse sind für gesellschaftliche Teilhabe bedeutungslos."
+            },
+            {
+              "key": "B",
+              "text": "Integration hängt ausschließlich von der individuellen Lernbereitschaft ab."
+            },
+            {
+              "key": "C",
+              "text": "Sprachkenntnisse sind wichtig, aber gesellschaftliche Rahmenbedingungen spielen ebenfalls eine entscheidende Rolle."
+            },
+            {
+              "key": "D",
+              "text": "Öffentliche Einrichtungen sollten keine Informationen in einfacher Sprache anbieten."
+            }
+          ],
+          "correct_answer": "C",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "order": 20,
+      "text": "Automatisierung und die Zukunft der Arbeit\n\nDie zunehmende Automatisierung verändert nicht nur einzelne Arbeitsabläufe, sondern auch die Anforderungen an berufliche Qualifikationen. Tätigkeiten, die sich durch standardisierte und wiederholbare Prozesse auszeichnen, lassen sich vergleichsweise leicht automatisieren. Gleichzeitig entstehen neue Aufgabenfelder, in denen technologische Kenntnisse, kreative Problemlösung und zwischenmenschliche Fähigkeiten gefragt sind.\n\nDie häufig geäußerte Vorstellung, Automatisierung führe zwangsläufig zu einem einfachen Ersatz menschlicher Arbeitskraft, greift daher zu kurz. Entscheidend ist vielmehr, wie sich Tätigkeiten innerhalb von Berufen verändern und ob Beschäftigte die Möglichkeit erhalten, ihre Kompetenzen entsprechend weiterzuentwickeln.\n\nDaraus ergibt sich eine zentrale Herausforderung für Bildungssysteme und Unternehmen: Weiterbildung darf nicht erst dann beginnen, wenn technologische Veränderungen bereits zu einem Verlust beruflicher Perspektiven geführt haben. Sie sollte vielmehr als kontinuierlicher Bestandteil des Arbeitslebens verstanden werden.",
+      "questions": [
+        {
+          "id": 20,
+          "order": 20,
+          "type": "multiple_choice",
+          "question": "Welche Aussage fasst die zentrale Argumentation des Textes am besten zusammen?",
+          "options": [
+            {
+              "key": "A",
+              "text": "Automatisierung führt zwangsläufig zum Verlust der meisten Arbeitsplätze."
+            },
+            {
+              "key": "B",
+              "text": "Technologische Entwicklungen machen berufliche Weiterbildung überflüssig."
+            },
+            {
+              "key": "C",
+              "text": "Automatisierung verändert berufliche Anforderungen, weshalb kontinuierliche Weiterbildung zunehmend wichtig wird."
+            },
+            {
+              "key": "D",
+              "text": "Nur technische Berufe sind von Automatisierung betroffen."
+            }
+          ],
+          "correct_answer": "C",
+          "points": 5
+        }
+      ]
+    }
+  ]
+}

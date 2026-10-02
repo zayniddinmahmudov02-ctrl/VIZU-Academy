@@ -55,6 +55,7 @@ export const ADMIN_ENDPOINTS = {
   vizuMultilevelAttempts: "/api/v1/admin/vizu-multilevel/attempts",
   vizuMultilevelAttemptDetail: (attemptId: string) => `/api/v1/admin/vizu-multilevel/attempts/${attemptId}`,
   vizuMultilevelLesenContent: "/api/v1/admin/vizu-multilevel/lesen-content",
+  vizuMultilevelLesenContentImportJson: "/api/v1/admin/vizu-multilevel/lesen-content/import-json",
   vizuMultilevelLesenContentImportCsv: "/api/v1/admin/vizu-multilevel/lesen-content/import-csv",
   vizuMultilevelHoerenContent: "/api/v1/admin/vizu-multilevel/hoeren-content",
   vizuMultilevelHoerenContentImportCsv: "/api/v1/admin/vizu-multilevel/hoeren-content/import-csv",

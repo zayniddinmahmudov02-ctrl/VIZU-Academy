@@ -1,3 +1,4 @@
+import json
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile
@@ -33,7 +34,7 @@ from app.services.admin import vizu_multilevel_writing_admin_service as writing_
 from app.services.admin import vizu_multilevel_content_admin_service as content_service
 from app.services.admin import vizu_multilevel_speaking_admin_service as speaking_service
 from app.services.admin.vizu_multilevel_content_admin_service import ContentConflictError
-from app.services.vizu_multilevel import hoeren_csv_import_service, lesen_csv_import_service
+from app.services.vizu_multilevel import hoeren_csv_import_service, lesen_csv_import_service, lesen_json_import_service
 
 router = APIRouter(prefix="/admin/vizu-multilevel", tags=["Admin - VIZU-Multilevel"])
 
@@ -148,6 +149,28 @@ async def import_lesen_csv(
     try:
         return lesen_csv_import_service.import_csv_text(db, text)
     except lesen_csv_import_service.CsvImportError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@router.post("/lesen-content/import-json")
+async def import_lesen_json(
+    file: UploadFile | None = File(None),
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    """Replaces the Lesen content from a structured JSON dataset — the
+    uploaded file, or the bundled app/content/vizu_multilevel/lesen.json when
+    no file is sent. Transactional (a failure changes nothing); importing an
+    identical dataset again is a no-op. Only Lesen content is affected."""
+    try:
+        if file is None:
+            data = lesen_json_import_service.load_default()
+        else:
+            data = json.loads((await file.read()).decode("utf-8-sig"))
+        return lesen_json_import_service.import_lesen(db, data)
+    except (ValueError, UnicodeDecodeError) as exc:  # invalid JSON / encoding
+        raise HTTPException(status_code=400, detail=f"Invalid JSON file: {exc}") from exc
+    except lesen_json_import_service.LesenImportError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 

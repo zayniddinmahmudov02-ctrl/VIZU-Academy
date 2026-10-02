@@ -25,6 +25,7 @@ import {
   getVizuMultilevelLesenContent,
   importVizuMultilevelHoerenCsv,
   importVizuMultilevelLesenCsv,
+  importVizuMultilevelLesenJson,
   listVizuMultilevelAudio,
   updateVizuMultilevelContentQuestion,
   updateVizuMultilevelContentTask,
@@ -116,6 +117,59 @@ function ContentCsvImport({ skill }: { skill: ContentSkill }) {
         <p
           className={`mt-3 flex items-center gap-2 text-sm ${message.ok ? "text-[var(--admin-success,#22c55e)]" : "text-[var(--admin-danger)]"}`}
         >
+          {message.ok && <CheckCircle2 size={15} />}
+          {message.text}
+        </p>
+      )}
+    </div>
+  );
+}
+
+function LesenJsonImport() {
+  const queryClient = useQueryClient();
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [file, setFile] = useState<File | null>(null);
+  const [message, setMessage] = useState<{ ok: boolean; text: string } | null>(null);
+
+  const importMutation = useMutation({
+    mutationFn: () => importVizuMultilevelLesenJson(file),
+    onSuccess: (res) => {
+      setMessage({
+        ok: true,
+        text:
+          res.status === "unchanged"
+            ? `Keine Änderung — ${res.aufgaben} Aufgaben / ${res.questions} Fragen sind bereits aktuell.`
+            : `${res.aufgaben} Aufgaben / ${res.questions} Fragen importiert (Lesen-Inhalt ersetzt).`,
+      });
+      setFile(null);
+      if (inputRef.current) inputRef.current.value = "";
+      queryClient.invalidateQueries({ queryKey: [COPY.lesen.queryKey] });
+    },
+    onError: (e) => setMessage({ ok: false, text: errorMessage(e) }),
+  });
+
+  return (
+    <div>
+      <h3 className="text-sm font-semibold text-[var(--admin-text-primary)]">Lesen-Inhalt aus lesen.json laden</h3>
+      <p className="mt-1 text-xs text-[var(--admin-text-secondary)]">
+        Ersetzt nur den Lesen-Inhalt (alles in einer Transaktion; bei einem Fehler bleibt alles unverändert). Ohne Datei wird
+        das mitgelieferte lesen.json (20 Aufgaben, je 1 Frage, 5 Punkte) geladen. Hören, Schreiben und Sprechen bleiben unberührt.
+      </p>
+      <div className="mt-3 flex flex-wrap items-center gap-2">
+        <input
+          ref={inputRef}
+          type="file"
+          accept=".json,application/json"
+          onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+          className="text-sm text-[var(--admin-text-secondary)]"
+        />
+        <AdminButton size="sm" variant="secondary" onClick={() => importMutation.mutate()} disabled={importMutation.isPending}>
+          <Upload size={14} />
+          {importMutation.isPending ? "Wird importiert..." : file ? "Datei importieren" : "Standard-lesen.json laden"}
+        </AdminButton>
+      </div>
+      {message && (
+        <p className={`mt-3 flex items-center gap-2 text-sm ${message.ok ? "text-[var(--admin-success,#22c55e)]" : "text-[var(--admin-danger)]"}`}>
           {message.ok && <CheckCircle2 size={15} />}
           {message.text}
         </p>
@@ -554,7 +608,7 @@ export default function VizuMultilevelContentTab({ skill }: { skill: ContentSkil
           </AdminButton>
         </div>
         <div className="mt-4 border-t border-[var(--admin-border)] pt-4">
-          <ContentCsvImport skill={skill} />
+          {skill === "lesen" ? <LesenJsonImport /> : <ContentCsvImport skill={skill} />}
         </div>
       </AdminCard>
 

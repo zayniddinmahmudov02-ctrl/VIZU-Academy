@@ -66,6 +66,25 @@ export async function getVizuMultilevelLesenContent(): Promise<VizuMultilevelCon
   return ensureArray<VizuMultilevelContentTask>(response.data);
 }
 
+export interface VizuMultilevelLesenJsonImportResult {
+  status: "imported" | "unchanged";
+  aufgaben: number;
+  questions: number;
+}
+
+// Replaces ONLY the Lesen content from lesen.json — the bundled dataset when
+// no file is given. Transactional; an identical dataset is a no-op.
+export async function importVizuMultilevelLesenJson(file?: File | null): Promise<VizuMultilevelLesenJsonImportResult> {
+  const formData = new FormData();
+  if (file) formData.append("file", file);
+  const response = await api.post<VizuMultilevelLesenJsonImportResult>(
+    ADMIN_ENDPOINTS.vizuMultilevelLesenContentImportJson,
+    formData,
+    { headers: { "Content-Type": "multipart/form-data" } },
+  );
+  return response.data;
+}
+
 export interface VizuMultilevelLesenCsvImportResult {
   tasks_created: number;
   tasks_updated: number;

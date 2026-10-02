@@ -1,9 +1,10 @@
 """VIZU-Multilevel Lesen: score -> level thresholds, and the integrity of
 the seeded content (5 texts x 4 questions, 5 points each = 100)."""
 
+import copy
 import unittest
 
-from app.scripts.seed_vizu_multilevel_lesen import POINTS_PER_QUESTION, TEXTS
+from app.services.vizu_multilevel.lesen_json_import_service import LesenImportError, _parse, load_default
 from app.services.vizu_multilevel.lesen_service import level_for_score
 
 
@@ -44,35 +45,56 @@ class TestLevelThresholds(unittest.TestCase):
         self.assertIsNone(level_for_score(0, 95))
 
 
-class TestSeedContent(unittest.TestCase):
-    def test_five_texts_levels_in_order(self):
-        self.assertEqual([t["level"] for t in TEXTS], ["A1", "A2", "B1", "B2", "C1"])
-        self.assertEqual([t["order"] for t in TEXTS], [1, 2, 3, 4, 5])
+class TestLesenJson(unittest.TestCase):
+    def setUp(self):
+        self.data = load_default()
+        self.parsed = _parse(self.data)
 
-    def test_each_text_has_four_questions_twenty_in_total(self):
-        self.assertTrue(all(len(t["questions"]) == 4 for t in TEXTS))
-        self.assertEqual(sum(len(t["questions"]) for t in TEXTS), 20)
+    def test_20_aufgaben_20_questions_100_points(self):
+        self.assertEqual(len(self.parsed), 20)
+        self.assertEqual(sum(len(a["questions"]) for a in self.parsed), 20)
+        self.assertEqual(self.data["max_score"], 100)
+        self.assertTrue(all(q["points"] == 5 for a in self.parsed for q in a["questions"]))
 
-    def test_max_score_is_100(self):
-        self.assertEqual(POINTS_PER_QUESTION, 5)
-        self.assertEqual(sum(len(t["questions"]) for t in TEXTS) * POINTS_PER_QUESTION, 100)
+    def test_orders_are_1_to_20(self):
+        self.assertEqual([a["order"] for a in self.parsed], list(range(1, 21)))
+        self.assertEqual([q["order"] for a in self.parsed for q in a["questions"]], list(range(1, 21)))
 
-    def test_every_question_has_exactly_one_valid_correct_option(self):
-        for text in TEXTS:
-            for item in text["questions"]:
-                with self.subTest(prompt=item["prompt"]):
-                    self.assertGreaterEqual(len(item["options"]), 2)
-                    self.assertIn(item["correct"], range(len(item["options"])))
-                    self.assertEqual(len(set(item["options"])), len(item["options"]))
+    def test_four_options_and_exactly_one_correct(self):
+        for a in self.parsed:
+            for q in a["questions"]:
+                self.assertEqual(len(q["options"]), 4)
+                self.assertEqual(sum(1 for _, ok in q["options"] if ok), 1)
 
-    def test_question_formats_vary_within_a_level(self):
-        for text in TEXTS:
-            types = {item["type"] for item in text["questions"]}
-            self.assertGreaterEqual(len(types), 3, text["level"])
+    def test_internal_levels_by_position(self):
+        levels = [a["level"] for a in self.parsed]
+        self.assertEqual(levels, ["A1"] * 4 + ["A2"] * 4 + ["B1"] * 4 + ["B2"] * 4 + ["C1"] * 4)
 
-    def test_texts_are_not_trivially_short(self):
-        for text in TEXTS:
-            self.assertGreater(len(text["passage"].split()), 40, text["level"])
+    def test_source_answers_preserved(self):
+        keys = "".join(a["questions"][0]["correct_answer"] for a in self.data["aufgaben"])
+        self.assertEqual(keys, "CBACBCBBBCBCCBCCACCC")
+
+    def test_text_is_verbatim(self):
+        self.assertTrue(self.parsed[0]["text"].startswith("Hallo! Ich heiße Maria. Ich bin 22 Jahre alt"))
+        self.assertIn("Der Einsatz künstlicher Intelligenz", self.parsed[17]["text"])
+
+    def test_invalid_datasets_are_rejected(self):
+        bad = copy.deepcopy(self.data)
+        bad["aufgaben"][0]["questions"][0]["correct_answer"] = "E"
+        with self.assertRaises(LesenImportError):
+            _parse(bad)
+        bad = copy.deepcopy(self.data)
+        bad["aufgaben"][1]["questions"][0]["options"].pop()
+        with self.assertRaises(LesenImportError):
+            _parse(bad)
+        bad = copy.deepcopy(self.data)
+        bad["aufgaben"][2]["questions"][0]["points"] = 4
+        with self.assertRaises(LesenImportError):
+            _parse(bad)
+        bad = copy.deepcopy(self.data)
+        bad["aufgaben"][3]["order"] = 1  # duplicate order
+        with self.assertRaises(LesenImportError):
+            _parse(bad)
 
 
 if __name__ == "__main__":

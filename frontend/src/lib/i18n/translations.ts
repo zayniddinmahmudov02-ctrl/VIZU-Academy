@@ -198,7 +198,8 @@ export const translations: Record<string, Namespace> = {
     aufgabeStep: { de: "Aufgabe {current} von {total}", uz: "{current}/{total}-Aufgabe" },
     question: { de: "Frage {number}", uz: "{number}-savol" },
     finishLesen: { de: "Lesen Test abschließen", uz: "Testni yakunlash" },
-    testOf: { de: "Test {current} / {total}", uz: "Test {current} / {total}" },
+    testOf: { de: "Test {current} von {total}", uz: "Test {current} / {total}" },
+    aufgabe: { de: "AUFGABE {number}", uz: "AUFGABE {number}" },
     lesenResultTitle: { de: "Lesen Ergebnis", uz: "Lesen natijasi" },
     points: { de: "Punkte", uz: "Ball" },
     determinedLevel: { de: "Ermitteltes Niveau", uz: "Aniqlangan daraja" },
@@ -206,7 +207,7 @@ export const translations: Record<string, Namespace> = {
     statWrong: { de: "Falsche Antworten", uz: "Noto'g'ri javoblar" },
     statUnanswered: { de: "Unbeantwortet", uz: "Javobsiz savollar" },
     lesenBelowA1: {
-      de: "Für die Ermittlung des Lesen-Niveaus wurde kein ausreichendes Ergebnis erzielt.",
+      de: "Für eine zuverlässige Einstufung wurde noch kein Niveau erreicht.",
       uz: "Lesen bo'yicha darajani aniqlash uchun yetarli natija qayd etilmadi.",
     },
     continueNext: { de: "Weiter", uz: "Davom etish" },

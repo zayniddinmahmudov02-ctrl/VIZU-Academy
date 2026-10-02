@@ -24,11 +24,15 @@ interface Props {
   showQuestionPassage?: boolean;
   /** Hide the per-question "Frage n" label (Lesen shows "Test n / 20" itself). */
   hideNumbers?: boolean;
+  /** Number the question by its own order (1..20) instead of its list position. */
+  numberFromOrder?: boolean;
+  /** Prefix the options with A) B) C) D). */
+  showLetters?: boolean;
 }
 
 /** The multiple-choice block shared by Lesen and Hören. No correct answer
  * and no CEFR level is ever present in the data this renders. */
-export default function VizuMultilevelQuestionList({ questions, answers, onSelect, showQuestionPassage, hideNumbers }: Props) {
+export default function VizuMultilevelQuestionList({ questions, answers, onSelect, showQuestionPassage, hideNumbers, numberFromOrder, showLetters }: Props) {
   const { t } = useTranslation();
 
   return (
@@ -36,7 +40,7 @@ export default function VizuMultilevelQuestionList({ questions, answers, onSelec
       {questions.map((question, qi) => (
         <div key={question.id}>
           {!hideNumbers && (
-            <p className="mb-2 text-sm font-semibold text-text-primary">{t("vizuMultilevel.question", { number: qi + 1 })}</p>
+            <p className="mb-2 text-sm font-semibold text-text-primary">{t("vizuMultilevel.question", { number: numberFromOrder ? question.order_index : qi + 1 })}</p>
           )}
 
           {showQuestionPassage && question.passage_text && (
@@ -48,7 +52,7 @@ export default function VizuMultilevelQuestionList({ questions, answers, onSelec
           <p className="mb-3 text-sm text-text-primary">{question.prompt}</p>
 
           <div className="space-y-2">
-            {question.options.map((option) => {
+            {question.options.map((option, oi) => {
               const selected = answers[question.id] === option.id;
               return (
                 <button
@@ -61,6 +65,7 @@ export default function VizuMultilevelQuestionList({ questions, answers, onSelec
                       : "bg-surface-card text-text-primary ring-surface-border hover:bg-accent-blue/5 hover:ring-accent-blue/30"
                   }`}
                 >
+                  {showLetters ? `${String.fromCharCode(65 + oi)}) ` : ""}
                   {option.option_text}
                 </button>
               );

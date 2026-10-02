@@ -4,7 +4,7 @@ import { useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { AlertCircle, ArrowRight } from "lucide-react";
+import { AlertCircle, ArrowLeft, ArrowRight } from "lucide-react";
 
 import Button from "@/components/ui/button";
 import { useTranslation } from "@/lib/i18n/use-translation";
@@ -45,7 +45,10 @@ export default function VizuMultilevelLesenPage() {
 
   // Questions 1..20 in order, each carrying its text.
   const items = useMemo(
-    () => (tasks ?? []).flatMap((task) => task.questions.map((question) => ({ passage: task.passage_text, question }))),
+    () =>
+      (tasks ?? []).flatMap((task) =>
+        task.questions.map((question) => ({ aufgabe: task.order_index, passage: task.passage_text, question })),
+      ),
     [tasks],
   );
 
@@ -106,6 +109,13 @@ export default function VizuMultilevelLesenPage() {
       onTimerExpire={handleSubmit}
       onFinishClick={() => setFinishConfirmOpen(true)}
       footer={
+        <div className="flex items-center gap-2">
+          {current && index > 0 && (
+            <Button variant="secondary" onClick={() => setIndex((i) => i - 1)} disabled={submitMutation.isPending}>
+              <ArrowLeft size={16} />
+              {t("vizuMultilevel.previous")}
+            </Button>
+          )}
         <Button
           onClick={() => (!current || isLast ? handleSubmit() : setIndex((i) => i + 1))}
           disabled={submitMutation.isPending}
@@ -116,6 +126,7 @@ export default function VizuMultilevelLesenPage() {
               ? t("vizuMultilevel.finishLesen")
               : t("vizuMultilevel.next")}
         </Button>
+        </div>
       }
     >
       {!current ? (
@@ -132,6 +143,10 @@ export default function VizuMultilevelLesenPage() {
             </div>
           </div>
 
+          <p className="text-sm font-extrabold uppercase tracking-wide text-text-primary">
+            {t("vizuMultilevel.aufgabe", { number: current.aufgabe })}
+          </p>
+
           {current.passage && <VizuMultilevelPassage text={current.passage} />}
 
           <VizuMultilevelQuestionList
@@ -140,7 +155,8 @@ export default function VizuMultilevelLesenPage() {
             answers={answers}
             onSelect={select}
             showQuestionPassage
-            hideNumbers
+            numberFromOrder
+            showLetters
           />
         </div>
       )}
