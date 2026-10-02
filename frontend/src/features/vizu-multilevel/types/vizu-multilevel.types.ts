@@ -20,6 +20,8 @@ export interface VizuMultilevelAttempt {
   sprechen_score: number | null;
   sprechen_level: string | null;
   overall_level: string | null;
+  /** Set when a finished attempt is not kept as a result (BELOW_A1 / NO_CONTENT). */
+  discarded_reason?: string | null;
 }
 
 // ---- Server-authoritative section timing ----
@@ -191,4 +193,13 @@ export interface VizuMultilevelCertificate {
   issued_at: string | null;
   overall_level: string;
   competencies: VizuMultilevelCompetencyResult[];
+}
+
+export interface VizuMultilevelAvailability {
+  lesen: number;
+  hoeren: number;
+  schreiben: number;
+  sprechen: number;
+  min_answers: number;
+  available: boolean;
 }

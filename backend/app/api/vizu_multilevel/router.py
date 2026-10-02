@@ -11,6 +11,7 @@ from app.schemas.vizu_multilevel import (
     VizuMultilevelAttemptResponse,
     VizuMultilevelAttemptResult,
     VizuMultilevelAttemptState,
+    VizuMultilevelAvailability,
     VizuMultilevelCertificate,
     VizuMultilevelCompleteResponse,
     VizuMultilevelHoerenDraft,
@@ -59,7 +60,34 @@ def create_attempt(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-    return service.create_attempt(db, current_user.id)
+    """One attempt per student, ever — a second call is a 409
+    ATTEMPT_ALREADY_EXISTS (use GET /attempts/current instead)."""
+    try:
+        return service.create_attempt(db, current_user.id)
+    except SectionFlowError as exc:
+        raise _flow_error(exc)
+
+
+@router.get("/attempts/current", response_model=VizuMultilevelAttemptResponse)
+def get_current_attempt(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """The student's single attempt (404 if not started yet)."""
+    attempt = service.get_current_attempt(db, current_user.id)
+    if attempt is None:
+        raise HTTPException(status_code=404, detail="No attempt yet.")
+    return attempt
+
+
+@router.get("/availability", response_model=VizuMultilevelAvailability)
+def get_availability(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """How many items each competency has — lets the start page show an
+    empty state instead of a blank test when no content exists."""
+    return service.availability(db)
 
 
 @router.get("/attempts", response_model=list[VizuMultilevelAttemptResponse])
@@ -417,6 +445,8 @@ def submit_sprechen(
 legacy_router = APIRouter(prefix="/vizu-mock", tags=["VIZU-Mock (legacy alias)"], include_in_schema=False)
 legacy_router.add_api_route("/attempts", create_attempt, methods=["POST"], response_model=VizuMultilevelAttemptResponse, status_code=201)
 legacy_router.add_api_route("/attempts", list_my_attempts, methods=["GET"], response_model=list[VizuMultilevelAttemptResponse])
+legacy_router.add_api_route("/availability", get_availability, methods=["GET"], response_model=VizuMultilevelAvailability)
+legacy_router.add_api_route("/attempts/current", get_current_attempt, methods=["GET"], response_model=VizuMultilevelAttemptResponse)
 legacy_router.add_api_route("/attempts/{attempt_id}", get_my_attempt, methods=["GET"], response_model=VizuMultilevelAttemptResponse)
 legacy_router.add_api_route(
     "/attempts/{attempt_id}/complete", complete_my_attempt, methods=["POST"], response_model=VizuMultilevelCompleteResponse

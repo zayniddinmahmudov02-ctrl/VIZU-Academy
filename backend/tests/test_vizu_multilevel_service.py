@@ -5,7 +5,7 @@ server-authoritative 20-minute window, and the overall-level rules
 
 import unittest
 from datetime import datetime, timedelta, timezone
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock
 
 from app.models.vizu_multilevel_attempt import STATUS_COMPLETED, STATUS_IN_PROGRESS, VizuMultilevelAttempt
 from app.services.vizu_multilevel import service
@@ -23,19 +23,49 @@ def _now() -> datetime:
 class TestCreateAttempt(unittest.TestCase):
     def test_new_attempt_is_in_progress_with_no_levels(self):
         db = MagicMock()
-        db.scalar.return_value = None  # no live attempt to resume
+        db.scalar.return_value = None  # the student has no attempt yet
         attempt = service.create_attempt(db, user_id="u1")
         self.assertEqual(attempt.status, STATUS_IN_PROGRESS)
         self.assertIsNone(attempt.overall_level)
-        self.assertIsNone(attempt.lesen_level)
         db.add.assert_called_once_with(attempt)
 
-    def test_resumes_the_live_attempt_instead_of_creating_another(self):
+    def test_only_one_attempt_ever_in_progress(self):
         db = MagicMock()
-        live = _attempt()
-        db.scalar.return_value = live
-        self.assertIs(service.create_attempt(db, user_id="u1"), live)
+        db.scalar.return_value = _attempt()
+        with self.assertRaises(SectionFlowError) as ctx:
+            service.create_attempt(db, user_id="u1")
+        self.assertEqual(ctx.exception.code, "ATTEMPT_ALREADY_EXISTS")
         db.add.assert_not_called()
+
+    def test_only_one_attempt_ever_even_after_completion(self):
+        db = MagicMock()
+        db.scalar.return_value = _attempt(status=STATUS_COMPLETED)
+        with self.assertRaises(SectionFlowError):
+            service.create_attempt(db, user_id="u1")
+        db.add.assert_not_called()
+
+
+class TestMinimumAnswers(unittest.TestCase):
+    def test_min_is_five_or_all_if_fewer_items(self):
+        self.assertEqual(service.min_answers_required(20), 5)
+        self.assertEqual(service.min_answers_required(3), 3)
+        self.assertEqual(service.min_answers_required(0), 0)
+
+    def test_four_answers_rejected_five_accepted(self):
+        attempt = _attempt(lesen_started_at=_now())
+        with self.assertRaises(SectionFlowError) as ctx:
+            service.check_min_answers(attempt, "lesen", 4, 20)
+        self.assertEqual(ctx.exception.code, "MIN_ANSWERS_REQUIRED")
+        service.check_min_answers(attempt, "lesen", 5, 20)  # no exception
+
+    def test_time_up_allows_fewer_answers(self):
+        attempt = _attempt(lesen_started_at=_now() - timedelta(seconds=service.SECTION_SECONDS + 1))
+        service.check_min_answers(attempt, "lesen", 0, 20)  # no exception
+
+    def test_finished_attempt_cannot_be_submitted_again(self):
+        with self.assertRaises(SectionFlowError) as ctx:
+            service.ensure_attempt_active(_attempt(status=STATUS_COMPLETED))
+        self.assertEqual(ctx.exception.code, "ATTEMPT_ALREADY_COMPLETED")
 
 
 class TestOwnerScoping(unittest.TestCase):
@@ -58,12 +88,12 @@ class TestOwnerScoping(unittest.TestCase):
             service.complete_attempt(db, user_id="u1", attempt_id="a1")
         self.assertEqual(ctx.exception.code, "SECTIONS_NOT_SUBMITTED")
 
-    def test_completed_attempt_is_returned_without_changes(self):
+    def test_completed_attempt_cannot_be_completed_again(self):
         db = MagicMock()
         db.scalar.return_value = _attempt(status=STATUS_COMPLETED)
-        with patch.object(service, "build_result", return_value={"overall": {"status": "FINAL", "level": "B1"}}):
-            outcome = service.complete_attempt(db, user_id="u1", attempt_id="a1")
-        self.assertTrue(outcome["saved"])
+        with self.assertRaises(SectionFlowError) as ctx:
+            service.complete_attempt(db, user_id="u1", attempt_id="a1")
+        self.assertEqual(ctx.exception.code, "ATTEMPT_ALREADY_COMPLETED")
         db.commit.assert_not_called()
 
 

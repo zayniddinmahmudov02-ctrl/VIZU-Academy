@@ -348,13 +348,25 @@ def get_statistics(db: Session) -> dict:
     )
     from app.services.vizu_multilevel import service as flow
 
-    flow.purge_abandoned(db)
-
-    saved_total = db.query(func.count(VizuMultilevelAttempt.id)).scalar() or 0
+    # Rows marked as discarded (below A1 / no content) are counted through
+    # their tally row only; abandoned = idle unfinished attempts (they are no
+    # longer deleted) + legacy tally rows.
+    kept = VizuMultilevelAttempt.discarded_reason.is_(None)
+    stale_cutoff = flow._now() - flow.ABANDON_AFTER
+    saved_total = db.query(func.count(VizuMultilevelAttempt.id)).filter(kept).scalar() or 0
     completed = (
-        db.query(func.count(VizuMultilevelAttempt.id)).filter(VizuMultilevelAttempt.status == STATUS_COMPLETED).scalar() or 0
+        db.query(func.count(VizuMultilevelAttempt.id))
+        .filter(kept, VizuMultilevelAttempt.status == STATUS_COMPLETED)
+        .scalar()
+        or 0
     )
-    in_progress = saved_total - completed
+    stale = (
+        db.query(func.count(VizuMultilevelAttempt.id))
+        .filter(VizuMultilevelAttempt.status == STATUS_IN_PROGRESS, VizuMultilevelAttempt.updated_at < stale_cutoff)
+        .scalar()
+        or 0
+    )
+    in_progress = saved_total - completed - stale
     below_a1 = (
         db.query(func.count(VizuMultilevelDiscardedAttempt.id))
         .filter(VizuMultilevelDiscardedAttempt.reason == REASON_BELOW_A1)
@@ -366,10 +378,10 @@ def get_statistics(db: Session) -> dict:
         .filter(VizuMultilevelDiscardedAttempt.reason == REASON_ABANDONED)
         .scalar()
         or 0
-    )
+    ) + stale
     pending_review = (
         db.query(func.count(VizuMultilevelAttempt.id))
-        .filter(VizuMultilevelAttempt.status == STATUS_COMPLETED, VizuMultilevelAttempt.overall_level.is_(None))
+        .filter(kept, VizuMultilevelAttempt.status == STATUS_COMPLETED, VizuMultilevelAttempt.overall_level.is_(None))
         .scalar()
         or 0
     )
@@ -398,7 +410,7 @@ def get_statistics(db: Session) -> dict:
         discarded_col = getattr(VizuMultilevelDiscardedAttempt, column)
         kept_sum, kept_count = (
             db.query(func.coalesce(func.sum(kept_col), 0), func.count(kept_col))
-            .filter(VizuMultilevelAttempt.status == STATUS_COMPLETED, kept_col.isnot(None))
+            .filter(kept, VizuMultilevelAttempt.status == STATUS_COMPLETED, kept_col.isnot(None))
             .one()
         )
         disc_sum, disc_count = (
@@ -415,7 +427,7 @@ def get_statistics(db: Session) -> dict:
     average_score = round(sum(scored) / len(scored), 1) if scored else 0.0
 
     finished = completed + below_a1
-    total = saved_total + below_a1 + abandoned
+    total = saved_total - stale + below_a1 + abandoned
     completion_rate = round(finished / total * 100, 1) if total else 0.0
 
     return {

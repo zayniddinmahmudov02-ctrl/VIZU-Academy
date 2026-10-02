@@ -299,6 +299,144 @@ export const translations: Record<string, Namespace> = {
       de: "Für diesen Versuch ist kein Zertifikat verfügbar.",
       uz: "Bu urinish uchun sertifikat mavjud emas.",
     },
+    oneAttemptNote: {
+      de: "Der Test kann nur einmal abgelegt werden.",
+      uz: "Testni faqat bir marta topshirish mumkin.",
+    },
+    startTest: { de: "Test starten", uz: "Testni boshlash" },
+    continueTest: { de: "Test fortsetzen", uz: "Testni davom ettirish" },
+    viewResult: { de: "Ergebnis ansehen", uz: "Natijani ko'rish" },
+    notAvailableYet: { de: "VIZU-Mock ist derzeit nicht verfügbar.", uz: "VIZU-Mock hozircha mavjud emas." },
+    loadError: {
+      de: "Beim Laden der Testdaten ist ein Fehler aufgetreten.",
+      uz: "Test ma'lumotlarini yuklashda xatolik yuz berdi.",
+    },
+    retry: { de: "Erneut versuchen", uz: "Qayta urinish" },
+    aufgabePos: { de: "Aufgabe {current} / {total}", uz: "Aufgabe {current} / {total}" },
+    answeredOf: { de: "{answered} / {total} beantwortet", uz: "{answered} / {total} javob berildi" },
+    minRequired: {
+      de: "{answered} / {min} beantwortet — mindestens {min} Aufgaben beantworten",
+      uz: "{answered} / {min} javob berildi — kamida {min} ta topshiriqqa javob bering",
+    },
+    minReached: { de: "Mindestanzahl erreicht", uz: "Minimal son bajarildi" },
+    minRequiredError: {
+      de: "Bitte beantworte mindestens {min} Aufgaben.",
+      uz: "Iltimos, kamida {min} ta topshiriqqa javob bering.",
+    },
+    missingTitle: { de: "Noch nicht abgeschlossen", uz: "Hali yakunlanmagan" },
+    missingBody: {
+      de: "Der Test kann erst beendet werden, wenn alle vier Kompetenzen abgegeben sind. Offen:",
+      uz: "Test barcha to'rt kompetenz topshirilgandan keyingina yakunlanadi. Qolganlar:",
+    },
+    resultHeading: { de: "Dein Ergebnis", uz: "Sizning natijangiz" },
+    totalPoints: { de: "Gesamtpunkte", uz: "Umumiy ball" },
+    strengths: { de: "Stärken", uz: "Kuchli tomonlar" },
+    improvements: { de: "Verbesserungspotenzial", uz: "Rivojlantirish kerak" },
+    nextSteps: { de: "Nächster Lernschritt", uz: "Keyingi o'rganish yo'nalishi" },
+    noStrengthsYet: {
+      de: "Noch keine Kompetenz liegt bei 75 % oder mehr — der nächste Lernschritt zeigt, wo du anfangen solltest.",
+      uz: "Hali hech bir kompetenz 75% dan yuqori emas — keyingi qadam qayerdan boshlashni ko'rsatadi.",
+    },
+    noImprovementsNeeded: {
+      de: "Alle bewerteten Kompetenzen liegen bei 75 % oder mehr.",
+      uz: "Baholangan barcha kompetenzlar 75% va undan yuqori.",
+    },
+    fb_lesen_strong: {
+      de: "Lesen: Du erfasst Hauptaussagen und Details sicher.",
+      uz: "Lesen: asosiy fikr va detallarni ishonchli topyapsiz.",
+    },
+    fb_lesen_mid: {
+      de: "Lesen: Achte stärker auf Detailinformationen und vergleiche jede Antwortoption genau mit dem Text.",
+      uz: "Lesen: detal ma'lumotlarga ko'proq e'tibor bering va har bir variantni matn bilan aniq taqqoslang.",
+    },
+    fb_lesen_weak: {
+      de: "Lesen: Hauptaussage eines Textes finden, Detailinformationen herausfiltern und die Antwortoptionen mit dem Text vergleichen.",
+      uz: "Lesen bo'yicha asosiy e'tibor: matndan asosiy fikrni topish, detal ma'lumotlarni ajratish va savol variantlarini matn bilan taqqoslash.",
+    },
+    fb_hoeren_strong: {
+      de: "Hören: Du verstehst Schlüsselinformationen, Zahlen und Zeitangaben zuverlässig.",
+      uz: "Hören: kalit ma'lumotlar, raqamlar va vaqtni ishonchli tushunyapsiz.",
+    },
+    fb_hoeren_mid: {
+      de: "Hören: Konzentriere dich beim zweiten Hören auf Zahlen, Uhrzeiten und Begründungen.",
+      uz: "Hören: tinglashda raqamlar, vaqt va sabablarga alohida e'tibor qarating.",
+    },
+    fb_hoeren_weak: {
+      de: "Hören: Schlüsselwörter heraushören, Zahlen und Zeitangaben erkennen und die Hauptaussage bestimmen.",
+      uz: "Hören bo'yicha asosiy e'tibor: kalit so'zlarni tinglab ajratish, raqamlar, vaqt va asosiy fikrlarni aniqlash.",
+    },
+    fb_schreiben_strong: {
+      de: "Schreiben: Deine Texte sind gut strukturiert und sprachlich sicher.",
+      uz: "Schreiben: matnlaringiz yaxshi tuzilgan va til jihatdan ishonchli.",
+    },
+    fb_schreiben_mid: {
+      de: "Schreiben: Arbeite an Satzverbindungen und einem präziseren Wortschatz.",
+      uz: "Schreiben: gaplarni bog'lash va aniqroq so'z boyligi ustida ishlang.",
+    },
+    fb_schreiben_weak: {
+      de: "Schreiben: Satzbau, Grammatik, Wortschatz und Textstruktur gezielt üben.",
+      uz: "Schreiben bo'yicha asosiy e'tibor: Satzbau, Grammatik, Wortschatz va matn strukturasi.",
+    },
+    fb_sprechen_strong: {
+      de: "Sprechen: Du sprichst flüssig, verständlich und mit passendem Wortschatz.",
+      uz: "Sprechen: ravon, tushunarli va mos so'zlar bilan gapiryapsiz.",
+    },
+    fb_sprechen_mid: {
+      de: "Sprechen: Übe längere zusammenhängende Antworten und achte auf grammatische Genauigkeit.",
+      uz: "Sprechen: uzunroq bog'langan javoblarni mashq qiling va grammatik aniqlikka e'tibor bering.",
+    },
+    fb_sprechen_weak: {
+      de: "Sprechen: Flüssigkeit, Aussprache, Wortschatz und grammatische Genauigkeit trainieren.",
+      uz: "Sprechen bo'yicha asosiy e'tibor: fluency, pronunciation, Wortschatz va grammatik aniqlik.",
+    },
+    next_lesen_strong: {
+      de: "Lies jetzt authentische, längere Texte (Zeitungsartikel, Kommentare) und achte auf die Meinung des Autors.",
+      uz: "Endi uzunroq haqiqiy matnlarni (maqola, sharh) o'qing va muallif pozitsiyasiga e'tibor bering.",
+    },
+    next_lesen_mid: {
+      de: "Lies täglich einen kurzen Text und markiere zuerst die Hauptaussage, dann zwei Details.",
+      uz: "Har kuni bitta qisqa matn o'qing: avval asosiy fikrni, keyin ikkita detalni belgilang.",
+    },
+    next_lesen_weak: {
+      de: "Beginne mit kurzen Alltagstexten (Anzeigen, E-Mails) und beantworte zu jedem Text die W-Fragen.",
+      uz: "Qisqa kundalik matnlardan (e'lonlar, e-mail) boshlang va har biriga W-savollariga javob bering.",
+    },
+    next_hoeren_strong: {
+      de: "Höre Podcasts oder Nachrichten in normalem Tempo und fasse sie in zwei Sätzen zusammen.",
+      uz: "Podkast yoki yangiliklarni oddiy tezlikda tinglang va ikki gapda xulosa qiling.",
+    },
+    next_hoeren_mid: {
+      de: "Höre kurze Durchsagen und Dialoge zweimal und notiere Zahlen, Zeiten und Orte.",
+      uz: "Qisqa e'lon va dialoglarni ikki marta tinglang, raqam, vaqt va joylarni yozib boring.",
+    },
+    next_hoeren_weak: {
+      de: "Beginne mit langsamen, kurzen Hörtexten und lies das Transkript erst nach dem Hören mit.",
+      uz: "Sekin va qisqa audiolardan boshlang, transkriptni esa faqat tinglagandan keyin o'qing.",
+    },
+    next_schreiben_strong: {
+      de: "Schreibe argumentative Texte mit Einleitung, Begründung und Schluss.",
+      uz: "Kirish, asoslash va xulosaga ega argumentativ matnlar yozing.",
+    },
+    next_schreiben_mid: {
+      de: "Schreibe kurze E-Mails und verbinde Sätze mit weil, dass, obwohl.",
+      uz: "Qisqa e-mail yozing va gaplarni weil, dass, obwohl bilan bog'lang.",
+    },
+    next_schreiben_weak: {
+      de: "Übe einfache Sätze mit korrekter Verbstellung und schreibe täglich fünf Sätze über deinen Alltag.",
+      uz: "Fe'l o'rni to'g'ri bo'lgan oddiy gaplarni mashq qiling va har kuni kundalik hayotingiz haqida 5 ta gap yozing.",
+    },
+    next_sprechen_strong: {
+      de: "Diskutiere Themen und begründe deine Meinung zwei Minuten lang frei.",
+      uz: "Mavzularni muhokama qiling va fikringizni ikki daqiqa erkin asoslang.",
+    },
+    next_sprechen_mid: {
+      de: "Nimm dich täglich eine Minute lang auf und höre auf Aussprache und Fehler.",
+      uz: "Har kuni bir daqiqa o'zingizni yozib oling va talaffuz hamda xatolarga quloq soling.",
+    },
+    next_sprechen_weak: {
+      de: "Sprich einfache Sätze laut nach (Shadowing) und lerne feste Redemittel für die Vorstellung.",
+      uz: "Oddiy gaplarni ovoz chiqarib takrorlang (shadowing) va tanishtirish uchun tayyor iboralarni o'rganing.",
+    },
     backToHub: { de: "Zurück zu VIZU-Multilevel", uz: "VIZU-Multilevel ga qaytish" },
     historyTitle: { de: "Frühere Versuche", uz: "Oldingi urinishlar" },
     historyEmpty: { de: "Du hast noch keinen Versuch gestartet.", uz: "Siz hali birorta urinish boshlamadingiz." },

@@ -84,6 +84,10 @@ class VizuMultilevelAttempt(BaseModel):
     lesen_wrong: Mapped[int | None] = mapped_column(Integer, nullable=True)
     lesen_unanswered: Mapped[int | None] = mapped_column(Integer, nullable=True)
 
+    # Set (instead of deleting the row) when a finished attempt is not kept as a
+    # result: BELOW_A1 / NO_CONTENT. The row stays so the one-attempt rule holds.
+    discarded_reason: Mapped[str | None] = mapped_column(String(20), nullable=True)
+
     # Hören autosave: {question_id: option_id}. Written while the section is
     # open, restored after a refresh, and the fallback when the time runs out.
     hoeren_draft: Mapped[dict | None] = mapped_column(JSONB, nullable=True)

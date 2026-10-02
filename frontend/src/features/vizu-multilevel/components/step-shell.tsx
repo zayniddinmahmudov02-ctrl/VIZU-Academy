@@ -48,8 +48,7 @@ export default function VizuMultilevelStepShell({
         <div className="flex items-center gap-3">
           <div
             className={cn(
-              "flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br text-white shadow-md",
-              skill.color,
+              "flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-600 text-white shadow-md",
             )}
           >
             <Icon size={20} />
@@ -70,7 +69,7 @@ export default function VizuMultilevelStepShell({
             <button
               type="button"
               onClick={onFinishClick}
-              className="rounded-full px-3 py-1.5 text-xs font-semibold text-text-primary ring-1 ring-surface-border transition-colors hover:bg-surface-hover"
+              className="rounded-full px-3 py-1.5 text-xs font-semibold text-blue-700 ring-1 ring-blue-200 transition-all hover:bg-blue-50 active:scale-95 dark:text-blue-300 dark:ring-blue-500/40 dark:hover:bg-blue-500/10"
             >
               {t("vizuMultilevel.finishLabel")}
             </button>
@@ -84,7 +83,7 @@ export default function VizuMultilevelStepShell({
             key={s.skill}
             className={cn(
               "h-1.5 flex-1 rounded-full transition-colors",
-              i < currentIndex ? "bg-success" : i === currentIndex ? `bg-gradient-to-r ${s.color}` : "bg-surface-border",
+              i < currentIndex ? "bg-blue-600" : i === currentIndex ? "bg-orange-500" : "bg-surface-border",
             )}
           />
         ))}

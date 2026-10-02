@@ -12,7 +12,13 @@ import { SectionError, SectionLoading, SectionPreparing } from "@/features/vizu-
 import VizuMultilevelStepShell from "@/features/vizu-multilevel/components/step-shell";
 import VizuMultilevelWritingEditor from "@/features/vizu-multilevel/components/writing-editor";
 import { getSkillMeta, nextStepPath } from "@/features/vizu-multilevel/constants/skills";
-import { isConflict, useVizuMultilevelSection } from "@/features/vizu-multilevel/hooks/use-section";
+import VizuMultilevelProgressHeader from "@/features/vizu-multilevel/components/progress-header";
+import {
+  apiErrorCode,
+  isConflict,
+  minAnswersRequired,
+  useVizuMultilevelSection,
+} from "@/features/vizu-multilevel/hooks/use-section";
 import {
   getVizuMultilevelSchreibenSubmissions,
   getVizuMultilevelSchreibenTasks,
@@ -47,7 +53,7 @@ export default function VizuMultilevelSchreibenPage() {
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [savedTaskIds, setSavedTaskIds] = useState<Record<string, boolean>>({});
   const [confirmOpen, setConfirmOpen] = useState(false);
-  const [submitFailed, setSubmitFailed] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const submittingRef = useRef(false);
 
   // Resume previously-saved drafts exactly once, the instant the
@@ -90,25 +96,33 @@ export default function VizuMultilevelSchreibenPage() {
     },
     onSuccess: () => router.push(nextStepPath(attemptId, "schreiben")),
     onError: (error) => {
+      if (apiErrorCode(error) === "MIN_ANSWERS_REQUIRED") {
+        submittingRef.current = false;
+        setSubmitError(t("vizuMultilevel.minRequiredError", { min: minRequired }));
+        return;
+      }
       if (isConflict(error)) {
         router.push(nextStepPath(attemptId, "schreiben"));
         return;
       }
       submittingRef.current = false;
-      setSubmitFailed(true);
+      setSubmitError(t("vizuMultilevel.submitFailed"));
     },
   });
 
   function handleSubmit() {
     if (submittingRef.current) return;
     submittingRef.current = true;
-    setSubmitFailed(false);
+    setSubmitError(null);
     setConfirmOpen(false);
     submitMutation.mutate();
   }
 
   const task = tasks?.[taskIndex];
   const isLastTask = tasks ? taskIndex >= tasks.length - 1 : false;
+  const writtenCount = (tasks ?? []).filter((x) => (answers[x.id] ?? "").trim()).length;
+  const minRequired = minAnswersRequired(tasks?.length ?? 0);
+  const canFinish = writtenCount >= minRequired;
 
   function updateAnswer(taskId: string, content: string) {
     setAnswers((prev) => ({ ...prev, [taskId]: content }));
@@ -179,9 +193,12 @@ export default function VizuMultilevelSchreibenPage() {
         <SectionPreparing skill="schreiben" />
       ) : (
         <div className="space-y-6">
-          <p className="text-xs font-semibold uppercase tracking-wide text-text-muted">
-            {t("vizuMultilevel.aufgabeStep", { current: taskIndex + 1, total: tasks.length })}
-          </p>
+          <VizuMultilevelProgressHeader
+            positionLabel={t("vizuMultilevel.aufgabePos", { current: taskIndex + 1, total: tasks.length })}
+            answered={writtenCount}
+            total={tasks.length}
+            minRequired={minRequired}
+          />
 
           <div>
             <h2 className="mb-2 text-base font-bold text-text-primary">{task.title}</h2>
@@ -211,13 +228,14 @@ export default function VizuMultilevelSchreibenPage() {
         </div>
       )}
 
-      {submitFailed && <p className="mt-4 text-sm text-danger">{t("vizuMultilevel.submitFailed")}</p>}
+      {submitError && <p className="mt-4 text-sm font-medium text-orange-600">{submitError}</p>}
 
       <VizuMultilevelFinishConfirmDialog
         open={confirmOpen}
         onCancel={() => setConfirmOpen(false)}
         onConfirm={handleSubmit}
         isSubmitting={submitMutation.isPending}
+        blockedReason={canFinish ? null : t("vizuMultilevel.minRequiredError", { min: minRequired })}
       />
     </VizuMultilevelStepShell>
   );

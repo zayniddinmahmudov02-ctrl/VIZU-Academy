@@ -21,9 +21,6 @@ from app.models.vizu_multilevel_content import (
 from app.services.vizu_multilevel import hoeren_audio_service, service
 from app.services.vizu_multilevel.lesen_service import level_for_score
 
-# The final submit needs every question answered — except when the 20
-# minutes are up (then whatever is saved is graded).
-REQUIRE_ALL_ANSWERED = True
 
 
 def list_hoeren_tasks(db: Session) -> list[dict]:
@@ -124,8 +121,9 @@ def submit_hoeren(db: Session, attempt: VizuMultilevelAttempt, answers: list) ->
     the server (1 point each, no negatives) and stores score + counts +
     level on the attempt exactly once — afterwards answers can no longer
     change. Answers = the autosaved draft, overridden by the ones sent now
-    (ignored if the window already closed). Unless the time is up, every
-    question must be answered."""
+    (ignored if the window already closed). Unless the time is up, at least
+    MIN_ANSWERS questions must be answered."""
+    service.ensure_attempt_active(attempt)
     if service.is_submitted(attempt, "hoeren"):
         return get_hoeren_result(db, attempt)
 
@@ -139,13 +137,8 @@ def submit_hoeren(db: Session, attempt: VizuMultilevelAttempt, answers: list) ->
                 chosen[str(answer.question_id)] = str(answer.option_id)
 
     answered = sum(1 for q in questions if _valid_choice(q, chosen.get(str(q.id))))
-    if (
-        REQUIRE_ALL_ANSWERED
-        and questions
-        and answered < len(questions)
-        and not service.section_expired(attempt, "hoeren")
-    ):
-        raise service.SectionFlowError("ALL_QUESTIONS_REQUIRED")
+    # At least 5 answered (or all, if fewer exist) — unless the time is up.
+    service.check_min_answers(attempt, "hoeren", answered, len(questions))
 
     total = maximum = 0.0
     correct = wrong = unanswered = 0

@@ -63,3 +63,14 @@ export function useVizuMultilevelSection(attemptId: string, skill: VizuMultileve
 export function isConflict(error: unknown): boolean {
   return (error as { response?: { status?: number } }).response?.status === 409;
 }
+
+/** The machine-readable code of a 409 flow error (e.g. MIN_ANSWERS_REQUIRED). */
+export function apiErrorCode(error: unknown): string | undefined {
+  const message = (error as { response?: { data?: { message?: unknown } } }).response?.data?.message;
+  return typeof message === "string" ? message : undefined;
+}
+
+/** Minimum answered items per competency: 5, or all if there are fewer. */
+export function minAnswersRequired(total: number): number {
+  return Math.min(5, Math.max(total, 0));
+}

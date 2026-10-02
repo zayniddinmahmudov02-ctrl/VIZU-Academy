@@ -102,6 +102,7 @@ def submit_lesen(db: Session, attempt: VizuMultilevelAttempt, answers: list) -> 
     score 0, so the student may finish at any time. If the 20-minute window
     has already closed (server clock, deadline + grace) the submitted
     answers are ignored. A resubmit returns the stored result."""
+    service.ensure_attempt_active(attempt)
     if service.is_submitted(attempt, "lesen"):
         return get_lesen_result(db, attempt)
 
@@ -122,6 +123,10 @@ def submit_lesen(db: Session, attempt: VizuMultilevelAttempt, answers: list) -> 
         ).unique()
     )
     answer_by_question = {a.question_id: a.option_id for a in answers}
+    answered = sum(
+        1 for q in questions if any(o.id == answer_by_question.get(q.id) for o in q.options)
+    )
+    service.check_min_answers(attempt, "lesen", answered, len(questions))
 
     total = 0.0
     maximum = 0.0

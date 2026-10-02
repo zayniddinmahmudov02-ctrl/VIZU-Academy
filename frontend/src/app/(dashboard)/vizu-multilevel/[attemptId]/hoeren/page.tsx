@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { AnimatePresence, motion } from "framer-motion";
 import { AlertCircle, ArrowLeft, ArrowRight, Check } from "lucide-react";
 
 import Button from "@/components/ui/button";
@@ -13,7 +14,13 @@ import VizuMultilevelQuestionList from "@/features/vizu-multilevel/components/qu
 import { SectionError, SectionLoading, SectionPreparing } from "@/features/vizu-multilevel/components/section-states";
 import VizuMultilevelStepShell from "@/features/vizu-multilevel/components/step-shell";
 import { getSkillMeta, nextStepPath } from "@/features/vizu-multilevel/constants/skills";
-import { isConflict, useVizuMultilevelSection } from "@/features/vizu-multilevel/hooks/use-section";
+import {
+  apiErrorCode,
+  isConflict,
+  minAnswersRequired,
+  useVizuMultilevelSection,
+} from "@/features/vizu-multilevel/hooks/use-section";
+import VizuMultilevelProgressHeader from "@/features/vizu-multilevel/components/progress-header";
 import {
   getVizuMultilevelHoerenDraft,
   getVizuMultilevelHoerenTasks,
@@ -23,10 +30,6 @@ import {
 import type { VizuMultilevelHoerenResult } from "@/features/vizu-multilevel/types/vizu-multilevel.types";
 
 type SaveState = "idle" | "saving" | "saved" | "error";
-
-function conflictCode(error: unknown): string | undefined {
-  return (error as { response?: { data?: { message?: string } } }).response?.data?.message;
-}
 
 /** Hören step: five Aufgaben, one per page — the audio on top, the four
  * tests below. 20 tests x 1 point. Answers are autosaved to the server (a
@@ -111,7 +114,8 @@ export default function VizuMultilevelHoerenPage() {
 
   const allQuestions = (tasks ?? []).flatMap((task) => task.questions);
   const answeredCount = allQuestions.filter((q) => answers[q.id]).length;
-  const allAnswered = answeredCount === allQuestions.length;
+  const minRequired = minAnswersRequired(allQuestions.length);
+  const canFinish = answeredCount >= minRequired;
 
   const submitMutation = useMutation({
     mutationFn: async () => {
@@ -124,7 +128,7 @@ export default function VizuMultilevelHoerenPage() {
     onSuccess: (data) => setResult(data),
     onError: (error) => {
       submittingRef.current = false;
-      if (conflictCode(error) === "ALL_QUESTIONS_REQUIRED") {
+      if (apiErrorCode(error) === "MIN_ANSWERS_REQUIRED") {
         setSubmitError("required");
         return;
       }
@@ -199,7 +203,7 @@ export default function VizuMultilevelHoerenPage() {
           )}
           <Button
             onClick={() => (!task || isLast ? handleSubmit(false) : void goTo(index + 1))}
-            disabled={submitMutation.isPending || (isLast && !allAnswered)}
+            disabled={submitMutation.isPending || (isLast && !canFinish)}
           >
             {submitMutation.isPending ? t("common.loading") : !task || isLast ? t("vizuMultilevel.finishHoeren") : t("vizuMultilevel.next")}
           </Button>
@@ -210,33 +214,44 @@ export default function VizuMultilevelHoerenPage() {
         <SectionPreparing skill="hoeren" />
       ) : (
         <div className="space-y-6">
-          <p className="text-xs font-semibold uppercase tracking-wide text-text-muted">
-            {t("vizuMultilevel.aufgabeOf", { current: index + 1, total: tasks.length })}
-          </p>
+          <VizuMultilevelProgressHeader
+            positionLabel={t("vizuMultilevel.aufgabeOf", { current: index + 1, total: tasks.length })}
+            answered={answeredCount}
+            total={allQuestions.length}
+            minRequired={minRequired}
+          />
 
-          <VizuMultilevelHoerenAudioPlayer key={task.id} attemptId={attemptId} aufgabeNumber={task.order_index} hasAudio={task.has_audio} />
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={task.id}
+              initial={{ opacity: 0, x: 24 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -24 }}
+              transition={{ duration: 0.18, ease: "easeOut" }}
+              className="space-y-6"
+            >
+              <VizuMultilevelHoerenAudioPlayer attemptId={attemptId} aufgabeNumber={task.order_index} hasAudio={task.has_audio} />
 
-          <section className="rounded-2xl p-1">
-            <h2 className="mb-4 text-xs font-bold uppercase tracking-wide text-text-muted">{t("vizuMultilevel.testsTitle")}</h2>
-            <VizuMultilevelQuestionList
-              questions={task.questions}
-              answers={answers}
-              onSelect={select}
-              numberFromOrder
-              numberLabelKey="vizuMultilevel.testNumber"
-            />
-          </section>
+              <section className="rounded-2xl p-1">
+                <h2 className="mb-4 text-xs font-bold uppercase tracking-wide text-text-muted">{t("vizuMultilevel.testsTitle")}</h2>
+                <VizuMultilevelQuestionList
+                  questions={task.questions}
+                  answers={answers}
+                  onSelect={select}
+                  numberFromOrder
+                  numberLabelKey="vizuMultilevel.testNumber"
+                />
+              </section>
+            </motion.div>
+          </AnimatePresence>
 
           {saveState === "error" && <p className="text-sm text-danger">{t("vizuMultilevel.saveFailed")}</p>}
         </div>
       )}
 
-      {isLast && !allAnswered && task && (
-        <p className="mt-4 text-sm text-text-muted">
-          {t("vizuMultilevel.answerAllFirst", { answered: answeredCount, total: allQuestions.length })}
-        </p>
+      {submitError === "required" && (
+        <p className="mt-2 text-sm font-medium text-orange-600">{t("vizuMultilevel.minRequiredError", { min: minRequired })}</p>
       )}
-      {submitError === "required" && <p className="mt-2 text-sm text-danger">{t("vizuMultilevel.answerAllRequired")}</p>}
       {submitError === "failed" && <p className="mt-2 text-sm text-danger">{t("vizuMultilevel.submitFailed")}</p>}
     </VizuMultilevelStepShell>
   );

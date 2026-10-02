@@ -1,5 +1,7 @@
 "use client";
 
+import { motion } from "framer-motion";
+
 import { useTranslation } from "@/lib/i18n/use-translation";
 
 import type { VizuMultilevelQuestion } from "../types/vizu-multilevel.types";
@@ -57,19 +59,38 @@ export default function VizuMultilevelQuestionList({ questions, answers, onSelec
             {question.options.map((option, oi) => {
               const selected = answers[question.id] === option.id;
               return (
-                <button
+                <motion.button
                   key={option.id}
                   type="button"
                   onClick={() => onSelect(question.id, option.id)}
-                  className={`w-full rounded-xl px-4 py-3 text-left text-sm font-medium shadow-sm ring-1 transition-colors ${
+                  whileTap={{ scale: 0.985 }}
+                  aria-pressed={selected}
+                  className={`flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-medium shadow-sm ring-1 transition-colors duration-150 ${
                     selected
-                      ? "bg-accent-blue/10 text-text-primary ring-accent-blue/40"
-                      : "bg-surface-card text-text-primary ring-surface-border hover:bg-accent-blue/5 hover:ring-accent-blue/30"
+                      ? "bg-blue-50 text-slate-900 ring-2 ring-blue-600 dark:bg-blue-500/15 dark:text-white"
+                      : "bg-surface-card text-text-primary ring-surface-border hover:bg-blue-50/60 hover:ring-blue-300 dark:hover:bg-blue-500/10"
                   }`}
                 >
-                  {showLetters ? `${String.fromCharCode(65 + oi)}) ` : ""}
-                  {option.option_text}
-                </button>
+                  <span
+                    aria-hidden="true"
+                    className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
+                      selected ? "border-blue-600 bg-blue-600" : "border-slate-300 dark:border-slate-500"
+                    }`}
+                  >
+                    {selected && (
+                      <motion.span
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                        className="h-2 w-2 rounded-full bg-white"
+                      />
+                    )}
+                  </span>
+                  <span>
+                    {showLetters ? `${String.fromCharCode(65 + oi)}) ` : ""}
+                    {option.option_text}
+                  </span>
+                </motion.button>
               );
             })}
           </div>

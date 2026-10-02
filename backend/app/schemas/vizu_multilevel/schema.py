@@ -21,6 +21,7 @@ class VizuMultilevelAttemptResponse(BaseSchema):
     schreiben_level: str | None
     schreiben_submitted_at: datetime | None
     lesen_submitted_at: datetime | None
+    discarded_reason: str | None = None
     hoeren_submitted_at: datetime | None
     sprechen_submitted_at: datetime | None
     sprechen_score: int | None
@@ -173,3 +174,12 @@ class VizuMultilevelCertificate(BaseSchema):
     issued_at: datetime | None
     overall_level: str
     competencies: list[VizuMultilevelCompetencyResult]
+
+
+class VizuMultilevelAvailability(BaseSchema):
+    lesen: int
+    hoeren: int
+    schreiben: int
+    sprechen: int
+    min_answers: int
+    available: bool

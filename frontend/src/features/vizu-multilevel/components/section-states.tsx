@@ -1,6 +1,6 @@
 "use client";
 
-import { AlertCircle, Hourglass } from "lucide-react";
+import { AlertCircle, Hourglass, RotateCw } from "lucide-react";
 
 import { useTranslation } from "@/lib/i18n/use-translation";
 
@@ -21,9 +21,17 @@ export function SectionLoading() {
 export function SectionError() {
   const { t } = useTranslation();
   return (
-    <div className="flex flex-col items-center gap-2 py-10 text-center">
-      <AlertCircle size={26} className="text-danger" />
-      <p className="text-sm text-text-secondary">{t("vizuMultilevel.sectionError")}</p>
+    <div className="flex flex-col items-center gap-3 py-10 text-center">
+      <AlertCircle size={26} className="text-orange-500" />
+      <p className="text-sm font-semibold text-slate-900 dark:text-white">{t("vizuMultilevel.loadError")}</p>
+      <button
+        type="button"
+        onClick={() => window.location.reload()}
+        className="inline-flex items-center gap-1.5 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-transform hover:bg-blue-700 active:scale-95"
+      >
+        <RotateCw size={14} />
+        {t("vizuMultilevel.retry")}
+      </button>
     </div>
   );
 }

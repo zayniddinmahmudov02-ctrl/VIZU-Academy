@@ -4,26 +4,33 @@ import { useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { AnimatePresence, motion } from "framer-motion";
 import { AlertCircle, ArrowLeft, ArrowRight } from "lucide-react";
 
 import Button from "@/components/ui/button";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import VizuMultilevelFinishConfirmDialog from "@/features/vizu-multilevel/components/finish-confirm-dialog";
+import VizuMultilevelProgressHeader from "@/features/vizu-multilevel/components/progress-header";
 import VizuMultilevelQuestionList, { VizuMultilevelPassage } from "@/features/vizu-multilevel/components/question-list";
 import { SectionError, SectionLoading, SectionPreparing } from "@/features/vizu-multilevel/components/section-states";
 import VizuMultilevelStepShell from "@/features/vizu-multilevel/components/step-shell";
 import { getSkillMeta, nextStepPath } from "@/features/vizu-multilevel/constants/skills";
-import { isConflict, useVizuMultilevelSection } from "@/features/vizu-multilevel/hooks/use-section";
+import {
+  apiErrorCode,
+  isConflict,
+  minAnswersRequired,
+  useVizuMultilevelSection,
+} from "@/features/vizu-multilevel/hooks/use-section";
 import { usePersistedAnswers } from "@/features/vizu-multilevel/hooks/use-persisted-answers";
 import { getVizuMultilevelLesenTasks, submitVizuMultilevelLesen } from "@/features/vizu-multilevel/services/vizu-multilevel-service";
 import type { VizuMultilevelLesenResult } from "@/features/vizu-multilevel/types/vizu-multilevel.types";
 
-/** Lesen step: the 20 questions are shown one at a time as "Test 1 / 20 …
- * Test 20 / 20", each with the text it belongs to. The CEFR level of a
- * question is never sent to or shown to the student. Finishing — on the
- * last question, via the always-visible "Testni yakunlash" button, or when
- * the server-owned 20-minute window ends — grades on the server
- * (unanswered = 0) and shows the Lesen Ergebnis before moving on. */
+/** Lesen step: one question per screen ("Aufgabe n / 20") with its text,
+ * free back/forward navigation, answers kept while navigating (and across a
+ * reload), and a progress bar of answered questions. At least 5 questions
+ * must be answered before Lesen can be submitted (enforced by the server;
+ * the only exception is the time running out). No CEFR level and no correct
+ * answer is ever shown during the test. */
 export default function VizuMultilevelLesenPage() {
   const { t } = useTranslation();
   const router = useRouter();
@@ -31,19 +38,20 @@ export default function VizuMultilevelLesenPage() {
   const skill = getSkillMeta("lesen")!;
 
   const gate = useVizuMultilevelSection(attemptId, "lesen");
-  const { data: tasks, isLoading } = useQuery({
+  const { data: tasks, isLoading, isError } = useQuery({
     queryKey: ["vizu-multilevel-lesen-tasks"],
     queryFn: getVizuMultilevelLesenTasks,
   });
 
   const { answers, select, clear } = usePersistedAnswers(attemptId, "lesen");
   const [index, setIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
   const [result, setResult] = useState<VizuMultilevelLesenResult | null>(null);
   const [finishConfirmOpen, setFinishConfirmOpen] = useState(false);
-  const [submitFailed, setSubmitFailed] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const submittingRef = useRef(false);
 
-  // Questions 1..20 in order, each carrying its text.
+  // Questions 1..20 in order, each carrying its text and Aufgabe number.
   const items = useMemo(
     () =>
       (tasks ?? []).flatMap((task) =>
@@ -51,6 +59,9 @@ export default function VizuMultilevelLesenPage() {
       ),
     [tasks],
   );
+  const answeredCount = items.filter(({ question }) => answers[question.id]).length;
+  const minRequired = minAnswersRequired(items.length);
+  const canFinish = answeredCount >= minRequired;
 
   const submitMutation = useMutation({
     mutationFn: () =>
@@ -63,27 +74,37 @@ export default function VizuMultilevelLesenPage() {
       setResult(data);
     },
     onError: (error) => {
+      submittingRef.current = false;
+      const code = apiErrorCode(error);
+      if (code === "MIN_ANSWERS_REQUIRED") {
+        setSubmitError(t("vizuMultilevel.minRequiredError", { min: minRequired }));
+        return;
+      }
       if (isConflict(error)) {
         router.push(nextStepPath(attemptId, "lesen"));
         return;
       }
-      submittingRef.current = false;
-      setSubmitFailed(true);
+      setSubmitError(t("vizuMultilevel.submitFailed"));
     },
   });
 
   function handleSubmit() {
     if (submittingRef.current) return;
     submittingRef.current = true;
-    setSubmitFailed(false);
+    setSubmitError(null);
     submitMutation.mutate();
+  }
+
+  function go(next: number) {
+    setDirection(next > index ? 1 : -1);
+    setIndex(next);
   }
 
   if (result) {
     return <LesenResultView attemptId={attemptId} result={result} />;
   }
 
-  if (gate.status === "error") {
+  if (gate.status === "error" || isError) {
     return (
       <VizuMultilevelStepShell skill={skill} footer={null}>
         <SectionError />
@@ -111,21 +132,22 @@ export default function VizuMultilevelLesenPage() {
       footer={
         <div className="flex items-center gap-2">
           {current && index > 0 && (
-            <Button variant="secondary" onClick={() => setIndex((i) => i - 1)} disabled={submitMutation.isPending}>
+            <Button variant="secondary" onClick={() => go(index - 1)} disabled={submitMutation.isPending}>
               <ArrowLeft size={16} />
               {t("vizuMultilevel.previous")}
             </Button>
           )}
-        <Button
-          onClick={() => (!current || isLast ? handleSubmit() : setIndex((i) => i + 1))}
-          disabled={submitMutation.isPending}
-        >
-          {submitMutation.isPending
-            ? t("common.loading")
-            : !current || isLast
-              ? t("vizuMultilevel.finishLesen")
-              : t("vizuMultilevel.next")}
-        </Button>
+          <Button
+            onClick={() => (!current || isLast ? handleSubmit() : go(index + 1))}
+            disabled={submitMutation.isPending || ((!current || isLast) && !canFinish)}
+          >
+            {submitMutation.isPending
+              ? t("common.loading")
+              : !current || isLast
+                ? t("vizuMultilevel.finishLesen")
+                : t("vizuMultilevel.next")}
+            {current && !isLast && <ArrowRight size={16} />}
+          </Button>
         </div>
       }
     >
@@ -133,35 +155,43 @@ export default function VizuMultilevelLesenPage() {
         <SectionPreparing skill="lesen" />
       ) : (
         <div className="space-y-5">
-          <div>
-            <div className="mb-2 flex items-center justify-between text-xs font-semibold text-text-muted">
-              <span className="uppercase tracking-wide">{t("vizuMultilevel.testOf", { current: index + 1, total })}</span>
-              <span>{Math.round(((index + 1) / total) * 100)}%</span>
-            </div>
-            <div className="h-2 w-full overflow-hidden rounded-full bg-surface-border" role="progressbar" aria-valuenow={index + 1} aria-valuemin={1} aria-valuemax={total}>
-              <div className="h-full rounded-full bg-gradient-to-r from-blue-600 to-blue-400 transition-all" style={{ width: `${((index + 1) / total) * 100}%` }} />
-            </div>
-          </div>
-
-          <p className="text-sm font-extrabold uppercase tracking-wide text-text-primary">
-            {t("vizuMultilevel.aufgabe", { number: current.aufgabe })}
-          </p>
-
-          {current.passage && <VizuMultilevelPassage text={current.passage} />}
-
-          <VizuMultilevelQuestionList
-            key={current.question.id}
-            questions={[current.question]}
-            answers={answers}
-            onSelect={select}
-            showQuestionPassage
-            numberFromOrder
-            showLetters
+          <VizuMultilevelProgressHeader
+            positionLabel={t("vizuMultilevel.aufgabePos", { current: index + 1, total })}
+            answered={answeredCount}
+            total={total}
+            minRequired={minRequired}
           />
+
+          <AnimatePresence mode="wait" initial={false} custom={direction}>
+            <motion.div
+              key={current.question.id}
+              custom={direction}
+              initial={{ opacity: 0, x: direction * 24 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: direction * -24 }}
+              transition={{ duration: 0.18, ease: "easeOut" }}
+              className="space-y-5"
+            >
+              <p className="text-sm font-extrabold uppercase tracking-wide text-slate-900 dark:text-white">
+                {t("vizuMultilevel.aufgabe", { number: current.aufgabe })}
+              </p>
+
+              {current.passage && <VizuMultilevelPassage text={current.passage} />}
+
+              <VizuMultilevelQuestionList
+                questions={[current.question]}
+                answers={answers}
+                onSelect={select}
+                showQuestionPassage
+                numberFromOrder
+                showLetters
+              />
+            </motion.div>
+          </AnimatePresence>
         </div>
       )}
 
-      {submitFailed && <p className="mt-4 text-sm text-danger">{t("vizuMultilevel.submitFailed")}</p>}
+      {submitError && <p className="mt-4 text-sm font-medium text-orange-600">{submitError}</p>}
 
       <VizuMultilevelFinishConfirmDialog
         open={finishConfirmOpen}
@@ -171,6 +201,7 @@ export default function VizuMultilevelLesenPage() {
           handleSubmit();
         }}
         isSubmitting={submitMutation.isPending}
+        blockedReason={canFinish ? null : t("vizuMultilevel.minRequiredError", { min: minRequired })}
       />
     </VizuMultilevelStepShell>
   );
@@ -180,22 +211,25 @@ function LesenResultView({ attemptId, result }: { attemptId: string; result: Viz
   const { t } = useTranslation();
 
   return (
-    <div className="mx-auto max-w-2xl space-y-6">
-      <h1 className="text-center text-xl font-bold text-text-primary">{t("vizuMultilevel.lesenResultTitle")}</h1>
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.25 }}
+      className="mx-auto max-w-2xl space-y-6"
+    >
+      <h1 className="text-center text-xl font-bold text-slate-900 dark:text-white">{t("vizuMultilevel.lesenResultTitle")}</h1>
 
       <div className="rounded-card bg-surface-card p-8 text-center shadow-[var(--shadow-md)] ring-1 ring-surface-border">
         <p className="text-xs font-semibold uppercase tracking-wide text-text-muted">{t("vizuMultilevel.points")}</p>
-        <p className="mt-1 text-4xl font-extrabold text-text-primary">
+        <p className="mt-1 text-4xl font-extrabold text-slate-900 dark:text-white">
           {result.total_points} / {result.max_points}
         </p>
 
-        <p className="mt-6 text-xs font-semibold uppercase tracking-wide text-text-muted">
-          {t("vizuMultilevel.determinedLevel")}
-        </p>
-        <p className="mt-1 text-4xl font-extrabold text-accent-blue">{result.lesen_level ?? "—"}</p>
+        <p className="mt-6 text-xs font-semibold uppercase tracking-wide text-text-muted">{t("vizuMultilevel.determinedLevel")}</p>
+        <p className="mt-1 text-4xl font-extrabold text-blue-600">{result.lesen_level ?? "—"}</p>
 
         {result.below_a1 && (
-          <div className="mt-5 flex items-start justify-center gap-2 rounded-xl bg-warning/10 px-4 py-3 text-left text-sm text-warning">
+          <div className="mt-5 flex items-start justify-center gap-2 rounded-xl bg-orange-50 px-4 py-3 text-left text-sm text-orange-700 dark:bg-orange-500/10 dark:text-orange-300">
             <AlertCircle size={16} className="mt-0.5 shrink-0" />
             {t("vizuMultilevel.lesenBelowA1")}
           </div>
@@ -216,14 +250,14 @@ function LesenResultView({ attemptId, result }: { attemptId: string; result: Viz
           </Button>
         </Link>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
 function Stat({ label, value }: { label: string; value: number }) {
   return (
     <div className="rounded-2xl bg-surface-card p-4 ring-1 ring-surface-border">
-      <p className="text-2xl font-bold text-text-primary">{value}</p>
+      <p className="text-2xl font-bold text-slate-900 dark:text-white">{value}</p>
       <p className="mt-0.5 text-xs text-text-muted">{label}</p>
     </div>
   );

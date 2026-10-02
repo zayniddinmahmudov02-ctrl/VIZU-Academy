@@ -11,7 +11,13 @@ import VizuMultilevelFinishConfirmDialog from "@/features/vizu-multilevel/compon
 import { SectionError, SectionLoading, SectionPreparing } from "@/features/vizu-multilevel/components/section-states";
 import VizuMultilevelStepShell from "@/features/vizu-multilevel/components/step-shell";
 import { getSkillMeta, nextStepPath } from "@/features/vizu-multilevel/constants/skills";
-import { isConflict, useVizuMultilevelSection } from "@/features/vizu-multilevel/hooks/use-section";
+import VizuMultilevelProgressHeader from "@/features/vizu-multilevel/components/progress-header";
+import {
+  apiErrorCode,
+  isConflict,
+  minAnswersRequired,
+  useVizuMultilevelSection,
+} from "@/features/vizu-multilevel/hooks/use-section";
 import {
   getVizuMultilevelSprechenSubmissions,
   getVizuMultilevelSprechenTasks,
@@ -60,7 +66,7 @@ export default function VizuMultilevelSprechenPage() {
   const [elapsed, setElapsed] = useState(0);
   const [micError, setMicError] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
-  const [submitFailed, setSubmitFailed] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const recorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
@@ -82,6 +88,9 @@ export default function VizuMultilevelSprechenPage() {
   }, []);
 
   const uploadedTaskIds = new Set((existing ?? []).map((s) => s.task_id));
+  const recordedCount = (tasks ?? []).filter((x) => recordings[x.id] || uploadedTaskIds.has(x.id)).length;
+  const minRequired = minAnswersRequired(tasks?.length ?? 0);
+  const canFinish = recordedCount >= minRequired;
 
   function stopRecording() {
     if (timerRef.current) clearInterval(timerRef.current);
@@ -156,19 +165,24 @@ export default function VizuMultilevelSprechenPage() {
     },
     onSuccess: () => router.push(nextStepPath(attemptId, "sprechen")),
     onError: (error) => {
+      if (apiErrorCode(error) === "MIN_ANSWERS_REQUIRED") {
+        submittingRef.current = false;
+        setSubmitError(t("vizuMultilevel.minRequiredError", { min: minRequired }));
+        return;
+      }
       if (isConflict(error)) {
         router.push(nextStepPath(attemptId, "sprechen"));
         return;
       }
       submittingRef.current = false;
-      setSubmitFailed(true);
+      setSubmitError(t("vizuMultilevel.submitFailed"));
     },
   });
 
   function handleSubmit() {
     if (submittingRef.current) return;
     submittingRef.current = true;
-    setSubmitFailed(false);
+    setSubmitError(null);
     setConfirmOpen(false);
     // Let a running recording flush its final chunk before uploading.
     setTimeout(() => submitMutation.mutate(), recorderRef.current?.state === "recording" ? 400 : 0);
@@ -222,9 +236,12 @@ export default function VizuMultilevelSprechenPage() {
         <SectionPreparing skill="sprechen" />
       ) : (
         <div className="space-y-4">
-          <p className="text-xs font-semibold uppercase tracking-wide text-text-muted">
-            {t("vizuMultilevel.aufgabeStep", { current: taskIndex + 1, total: tasks.length })}
-          </p>
+          <VizuMultilevelProgressHeader
+            positionLabel={t("vizuMultilevel.aufgabePos", { current: taskIndex + 1, total: tasks.length })}
+            answered={recordedCount}
+            total={tasks.length}
+            minRequired={minRequired}
+          />
 
           <div className="flex items-start gap-3 rounded-2xl bg-surface-hover/60 p-4 ring-1 ring-surface-border">
             <Mic size={18} className="mt-0.5 shrink-0 text-text-muted" />
@@ -283,13 +300,14 @@ export default function VizuMultilevelSprechenPage() {
         </div>
       )}
 
-      {submitFailed && <p className="mt-4 text-sm text-danger">{t("vizuMultilevel.submitFailed")}</p>}
+      {submitError && <p className="mt-4 text-sm font-medium text-orange-600">{submitError}</p>}
 
       <VizuMultilevelFinishConfirmDialog
         open={confirmOpen}
         onCancel={() => setConfirmOpen(false)}
         onConfirm={handleSubmit}
         isSubmitting={submitMutation.isPending}
+        blockedReason={canFinish ? null : t("vizuMultilevel.minRequiredError", { min: minRequired })}
       />
     </VizuMultilevelStepShell>
   );

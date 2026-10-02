@@ -6,6 +6,7 @@ import type {
   VizuMultilevelAttempt,
   VizuMultilevelAttemptResult,
   VizuMultilevelAttemptState,
+  VizuMultilevelAvailability,
   VizuMultilevelCertificate,
   VizuMultilevelCompleteResponse,
   VizuMultilevelHoerenResult,
@@ -27,6 +28,22 @@ const BASE = `${ROOT}/attempts`;
 
 export async function createVizuMultilevelAttempt(): Promise<VizuMultilevelAttempt> {
   const response = await api.post<VizuMultilevelAttempt>(BASE);
+  return response.data;
+}
+
+/** The student's one and only attempt, or null if none was started yet. */
+export async function getCurrentVizuMultilevelAttempt(): Promise<VizuMultilevelAttempt | null> {
+  try {
+    const response = await api.get<VizuMultilevelAttempt>(`${BASE}/current`);
+    return response.data;
+  } catch (error) {
+    if ((error as { response?: { status?: number } }).response?.status === 404) return null;
+    throw error;
+  }
+}
+
+export async function getVizuMultilevelAvailability(): Promise<VizuMultilevelAvailability> {
+  const response = await api.get<VizuMultilevelAvailability>(`${ROOT}/availability`);
   return response.data;
 }
 

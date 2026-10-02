@@ -10,12 +10,12 @@ cannot be submitted out of order, a late submission cannot add answers)."""
 from datetime import datetime, timedelta, timezone
 from uuid import UUID
 
-from sqlalchemy import select
+from sqlalchemy import func, select, text
 from sqlalchemy.orm import Session
 
 from app.models.vizu_multilevel_attempt import STATUS_COMPLETED, STATUS_IN_PROGRESS, VizuMultilevelAttempt
 from app.models.vizu_multilevel_content import CEFR_LEVELS, SKILL_HOEREN, SKILL_LESEN, VizuMultilevelQuestion, VizuMultilevelTask
-from app.models.vizu_multilevel_discarded import REASON_ABANDONED, REASON_BELOW_A1, VizuMultilevelDiscardedAttempt
+from app.models.vizu_multilevel_discarded import REASON_BELOW_A1, VizuMultilevelDiscardedAttempt
 from app.models.vizu_multilevel_speaking import VizuMultilevelSpeakingSubmission, VizuMultilevelSpeakingTask
 from app.models.vizu_multilevel_writing import VizuMultilevelWritingSubmission, VizuMultilevelWritingTask
 
@@ -79,28 +79,31 @@ def get_own_attempt(db: Session, user_id: UUID, attempt_id: UUID) -> VizuMultile
 
 
 def list_attempts(db: Session, user_id: UUID) -> list[VizuMultilevelAttempt]:
-    return list(
-        db.scalars(
-            select(VizuMultilevelAttempt)
-            .where(VizuMultilevelAttempt.user_id == user_id)
-            .order_by(VizuMultilevelAttempt.started_at.desc())
-        )
+    """No attempt history for students: at most the one current attempt."""
+    current = get_current_attempt(db, user_id)
+    return [current] if current is not None else []
+
+
+def get_current_attempt(db: Session, user_id: UUID) -> VizuMultilevelAttempt | None:
+    """The student's one and only attempt (the latest, should legacy data
+    contain more than one)."""
+    return db.scalar(
+        select(VizuMultilevelAttempt)
+        .where(VizuMultilevelAttempt.user_id == user_id)
+        .order_by(VizuMultilevelAttempt.started_at.desc())
+        .limit(1)
     )
 
 
 def create_attempt(db: Session, user_id: UUID) -> VizuMultilevelAttempt:
-    """Starts a new attempt — or resumes the student's live one. A student
-    never has two unfinished attempts, so unfinished attempts do not pile
-    up and the timers cannot be 'reset' by starting over."""
-    purge_abandoned(db)
-
-    existing = db.scalar(
-        select(VizuMultilevelAttempt)
-        .where(VizuMultilevelAttempt.user_id == user_id, VizuMultilevelAttempt.status == STATUS_IN_PROGRESS)
-        .order_by(VizuMultilevelAttempt.started_at.desc())
-    )
-    if existing is not None:
-        return existing
+    """ONE attempt per student, ever. If the student already has an attempt
+    (in progress or finished) nothing is created — SectionFlowError
+    ATTEMPT_ALREADY_EXISTS. A transaction-scoped advisory lock per user makes
+    two simultaneous requests unable to create two attempts."""
+    db.execute(text("SELECT pg_advisory_xact_lock(hashtext(:key))"), {"key": f"vizu-attempt:{user_id}"})
+    if get_current_attempt(db, user_id) is not None:
+        db.rollback()  # releases the advisory lock
+        raise SectionFlowError("ATTEMPT_ALREADY_EXISTS")
 
     attempt = VizuMultilevelAttempt(user_id=user_id, status=STATUS_IN_PROGRESS)
     db.add(attempt)
@@ -174,6 +177,42 @@ def ensure_section_open(db: Session, attempt: VizuMultilevelAttempt, skill: str)
         db.refresh(attempt)
         return True
     return _now() <= _deadline(attempt, skill) + timedelta(seconds=GRACE_SECONDS)
+
+
+# Every competency needs at least this many answered questions/tasks before
+# it can be submitted (fewer if the competency has fewer items). Not "correct"
+# — answered. The only exception is a section whose time is up.
+MIN_ANSWERS = 5
+
+
+def min_answers_required(total_items: int) -> int:
+    return min(MIN_ANSWERS, max(total_items, 0))
+
+
+def ensure_attempt_active(attempt: VizuMultilevelAttempt) -> None:
+    """A finished attempt can never be submitted to again."""
+    if attempt.status != STATUS_IN_PROGRESS:
+        raise SectionFlowError("ATTEMPT_ALREADY_COMPLETED")
+
+
+def check_min_answers(attempt: VizuMultilevelAttempt, skill: str, answered: int, total: int) -> None:
+    if answered < min_answers_required(total) and not section_expired(attempt, skill):
+        raise SectionFlowError("MIN_ANSWERS_REQUIRED")
+
+
+def missing_sections(attempt: VizuMultilevelAttempt) -> list[str]:
+    return [s for s in SKILLS if not is_submitted(attempt, s)]
+
+
+def availability(db: Session) -> dict:
+    """How many items each competency has (no content details)."""
+    counts = {
+        "lesen": _published_question_count(db, SKILL_LESEN)[0],
+        "hoeren": _published_question_count(db, SKILL_HOEREN)[0],
+        "schreiben": _writing_totals(db)[0],
+        "sprechen": _speaking_totals(db)[0],
+    }
+    return {**counts, "min_answers": MIN_ANSWERS, "available": any(counts.values())}
 
 
 def ensure_section_open_strict(db: Session, attempt: VizuMultilevelAttempt, skill: str) -> None:
@@ -420,10 +459,12 @@ def build_result(db: Session, attempt: VizuMultilevelAttempt) -> dict:
 
 
 def _discard(db: Session, attempt: VizuMultilevelAttempt, reason: str) -> None:
-    """Removes the attempt (and, by cascade, its answers/submissions) and
-    its stored recordings; keeps only an anonymous tally row."""
-    from app.services.vizu_multilevel import sprechen_service
-
+    """Marks a finished attempt as NOT kept as a result (e.g. below A1). The
+    row is no longer deleted: it must survive so the one-attempt rule holds
+    and no data is lost. The anonymous tally row is still written so the
+    admin statistics keep counting exactly as before."""
+    if attempt.discarded_reason is not None:
+        return
     db.add(
         VizuMultilevelDiscardedAttempt(
             reason=reason,
@@ -434,10 +475,11 @@ def _discard(db: Session, attempt: VizuMultilevelAttempt, reason: str) -> None:
             sprechen_score=attempt.sprechen_score,
         )
     )
-    paths = sprechen_service.stored_paths(db, attempt.id)
-    db.delete(attempt)
+    attempt.discarded_reason = reason
+    attempt.status = STATUS_COMPLETED
+    attempt.completed_at = attempt.completed_at or _now()
     db.commit()
-    sprechen_service.delete_files(paths)
+    db.refresh(attempt)
 
 
 def complete_attempt(db: Session, user_id: UUID, attempt_id: UUID) -> dict | None:
@@ -449,19 +491,19 @@ def complete_attempt(db: Session, user_id: UUID, attempt_id: UUID) -> dict | Non
         return None
 
     if attempt.status == STATUS_COMPLETED:
-        return {"saved": True, "result": build_result(db, attempt)}
+        raise SectionFlowError("ATTEMPT_ALREADY_COMPLETED")
 
-    if not all(is_submitted(attempt, s) for s in SKILLS):
+    if missing_sections(attempt):
         raise SectionFlowError("SECTIONS_NOT_SUBMITTED")
 
     result = build_result(db, attempt)
     overall = result["overall"]
 
     if overall["status"] == O_NO_CONTENT:
-        result_attempt_id = attempt.id
-        db.delete(attempt)
+        attempt.discarded_reason = "NO_CONTENT"
+        attempt.status = STATUS_COMPLETED
+        attempt.completed_at = _now()
         db.commit()
-        result["attempt_id"] = result_attempt_id
         return {"saved": False, "result": result}
 
     if overall["status"] == O_BELOW_A1:
@@ -480,7 +522,7 @@ def refresh_overall(db: Session, attempt: VizuMultilevelAttempt) -> None:
     """Called after a teacher grades Schreiben/Sprechen: re-derives the
     overall result of an already-completed attempt. Becomes final (level
     set) when everything is graded; is discarded if it turns out below A1."""
-    if attempt.status != STATUS_COMPLETED:
+    if attempt.status != STATUS_COMPLETED or attempt.discarded_reason is not None:
         return
     overall = build_result(db, attempt)["overall"]
     if overall["status"] == O_BELOW_A1:
@@ -488,20 +530,3 @@ def refresh_overall(db: Session, attempt: VizuMultilevelAttempt) -> None:
     elif overall["status"] == O_FINAL:
         attempt.overall_level = overall["level"]
         db.commit()
-
-
-def purge_abandoned(db: Session) -> int:
-    """Unfinished attempts that have been idle for ABANDON_AFTER are not
-    kept: each becomes an anonymous 'ABANDONED' tally row (so statistics
-    stay truthful) and the attempt itself is deleted."""
-    cutoff = _now() - ABANDON_AFTER
-    stale = list(
-        db.scalars(
-            select(VizuMultilevelAttempt).where(
-                VizuMultilevelAttempt.status == STATUS_IN_PROGRESS, VizuMultilevelAttempt.updated_at < cutoff
-            )
-        )
-    )
-    for attempt in stale:
-        _discard(db, attempt, REASON_ABANDONED)
-    return len(stale)

@@ -85,6 +85,7 @@ def submit_all(db: Session, attempt: VizuMultilevelAttempt) -> VizuMultilevelAtt
     and stamps the attempt. Idempotent: a repeat call is a no-op that
     just returns the already-submitted attempt (never re-stamps the
     timestamp or raises)."""
+    service.ensure_attempt_active(attempt)
     if attempt.schreiben_submitted_at is not None:
         return attempt
 
@@ -96,6 +97,8 @@ def submit_all(db: Session, attempt: VizuMultilevelAttempt) -> VizuMultilevelAtt
 
     now = datetime.now(timezone.utc)
     submissions = get_own_submissions(db, attempt.id)
+    written = sum(1 for sub in submissions if sub.content.strip())
+    service.check_min_answers(attempt, "schreiben", written, len(list_writing_tasks(db)))
     for submission in submissions:
         submission.status = STATUS_SUBMITTED
         submission.submitted_at = now

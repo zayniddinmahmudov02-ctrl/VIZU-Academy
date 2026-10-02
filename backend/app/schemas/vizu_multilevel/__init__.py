@@ -3,6 +3,7 @@ from .schema import (
     VizuMultilevelAttemptResponse,
     VizuMultilevelAttemptResult,
     VizuMultilevelAttemptState,
+    VizuMultilevelAvailability,
     VizuMultilevelCertificate,
     VizuMultilevelCompetencyResult,
     VizuMultilevelCompleteResponse,

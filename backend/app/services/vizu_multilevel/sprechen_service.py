@@ -145,8 +145,12 @@ def submit_all(db: Session, attempt: VizuMultilevelAttempt) -> VizuMultilevelAtt
     (finishing without answering). A late final submit is accepted: only
     recordings uploaded while the window was open exist (upload enforces
     that), so there is nothing to discard here."""
+    service.ensure_attempt_active(attempt)
     if attempt.sprechen_submitted_at is not None:
         return attempt
     service.begin_submission(db, attempt, "sprechen")
+    service.check_min_answers(
+        attempt, "sprechen", len(get_own_submissions(db, attempt.id)), len(list_speaking_tasks(db))
+    )
     service.mark_submitted(db, attempt, "sprechen")
     return attempt
