@@ -11,13 +11,14 @@ import { AlertCircle, Eye, EyeOff, ShieldCheck } from "lucide-react";
 import Button from "@/components/ui/button";
 import Checkbox from "@/components/ui/checkbox";
 import Input from "@/components/ui/input";
+import { useTranslation } from "@/lib/i18n/use-translation";
 import { decodeJwtPayload } from "@/lib/jwt";
 import { saveRefreshToken, saveToken } from "@/lib/token";
 
 import { useLogin } from "../hooks/use-login";
 import { verifyAdminPasswordService } from "../services/auth.service";
 import type { JwtPayload } from "../types/auth.types";
-import { getErrorMessage } from "../utils/get-error-message";
+import { getAuthErrorKey } from "../utils/get-error-message";
 
 import {
   loginSchema,
@@ -26,6 +27,7 @@ import {
 
 export default function LoginForm() {
   const router = useRouter();
+  const { t } = useTranslation();
 
   const loginMutation = useLogin();
 
@@ -65,7 +67,7 @@ export default function LoginForm() {
 
       router.push("/dashboard");
     } catch (error) {
-      setFormError(getErrorMessage(error, "Email oder Passwort ist falsch."));
+      setFormError(getAuthErrorKey(error, "auth.errInvalidCredentials"));
     }
   }
 
@@ -77,7 +79,7 @@ export default function LoginForm() {
       await verifyAdminPasswordService({ password: adminPassword });
       router.push("/admin");
     } catch (error) {
-      setAdminError(getErrorMessage(error, "Incorrect administrator password."));
+      setAdminError(getAuthErrorKey(error, "auth.errAdminPassword"));
     } finally {
       setAdminVerifying(false);
     }
@@ -92,10 +94,10 @@ export default function LoginForm() {
           </div>
           <div>
             <h2 className="text-lg font-semibold text-text-primary">
-              Zusätzliche Verifizierung
+              {t("auth.adminVerifyTitle")}
             </h2>
             <p className="mt-1 text-sm text-text-secondary">
-              Für den Super-Admin-Zugang ist ein zusätzliches Admin-Passwort erforderlich.
+              {t("auth.adminVerifyText")}
             </p>
           </div>
         </div>
@@ -103,18 +105,18 @@ export default function LoginForm() {
         {adminError && (
           <div className="flex items-start gap-2 rounded-xl bg-danger/10 px-4 py-3 text-sm text-danger">
             <AlertCircle size={16} className="mt-0.5 shrink-0" />
-            <span>{adminError}</span>
+            <span>{t(adminError)}</span>
           </div>
         )}
 
         <div>
           <label className="mb-2 block text-sm font-medium text-text-primary">
-            Admin-Passwort
+            {t("auth.adminPassword")}
           </label>
           <div className="relative">
             <Input
               type={showAdminPassword ? "text" : "password"}
-              placeholder="Admin-Passwort"
+              placeholder={t("auth.adminPassword")}
               value={adminPassword}
               error={!!adminError}
               onChange={(e) => setAdminPassword(e.target.value)}
@@ -132,7 +134,7 @@ export default function LoginForm() {
               onClick={() => setShowAdminPassword((v) => !v)}
               className="absolute inset-y-0 right-0 flex w-11 items-center justify-center text-text-muted hover:text-text-secondary"
               tabIndex={-1}
-              aria-label={showAdminPassword ? "Passwort verbergen" : "Passwort anzeigen"}
+              aria-label={showAdminPassword ? t("auth.hidePassword") : t("auth.showPassword")}
             >
               {showAdminPassword ? <EyeOff size={17} /> : <Eye size={17} />}
             </button>
@@ -145,7 +147,7 @@ export default function LoginForm() {
           disabled={adminVerifying || adminPassword.length === 0}
           onClick={onVerifyAdminPassword}
         >
-          {adminVerifying ? "Wird überprüft..." : "Bestätigen"}
+          {adminVerifying ? t("auth.adminVerifying") : t("auth.adminConfirm")}
         </Button>
 
         <button
@@ -157,38 +159,38 @@ export default function LoginForm() {
           }}
           className="w-full text-center text-sm font-medium text-text-secondary hover:text-text-primary"
         >
-          Zurück zur Anmeldung
+          {t("auth.backToLogin")}
         </button>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+    <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
       {formError && (
         <div className="flex items-start gap-2 rounded-xl bg-danger/10 px-4 py-3 text-sm text-danger">
           <AlertCircle size={16} className="mt-0.5 shrink-0" />
-          <span>{formError}</span>
+          <span>{t(formError)}</span>
         </div>
       )}
 
       <div>
-        <label className="mb-2 block text-sm font-medium text-text-primary">Email</label>
+        <label className="mb-2 block text-sm font-medium text-text-primary">{t("auth.email")}</label>
 
-        <Input type="email" placeholder="deine@email.com" error={!!errors.email} {...register("email")} />
+        <Input type="email" placeholder={t("auth.emailPlaceholder")} error={!!errors.email} {...register("email")} />
 
         {errors.email && (
-          <p className="mt-2 text-sm text-danger">{errors.email.message}</p>
+          <p className="mt-2 text-sm text-danger">{t(errors.email.message ?? "")}</p>
         )}
       </div>
 
       <div>
-        <label className="mb-2 block text-sm font-medium text-text-primary">Passwort</label>
+        <label className="mb-2 block text-sm font-medium text-text-primary">{t("auth.password")}</label>
 
         <div className="relative">
           <Input
             type={showPassword ? "text" : "password"}
-            placeholder="Passwort"
+            placeholder={t("auth.password")}
             autoComplete="current-password"
             error={!!errors.password}
             className="pr-11"
@@ -199,36 +201,36 @@ export default function LoginForm() {
             onClick={() => setShowPassword((v) => !v)}
             className="absolute inset-y-0 right-0 flex w-11 items-center justify-center text-text-muted hover:text-text-secondary"
             tabIndex={-1}
-            aria-label={showPassword ? "Passwort verbergen" : "Passwort anzeigen"}
+            aria-label={showPassword ? t("auth.hidePassword") : t("auth.showPassword")}
           >
             {showPassword ? <EyeOff size={17} /> : <Eye size={17} />}
           </button>
         </div>
 
         {errors.password && (
-          <p className="mt-2 text-sm text-danger">{errors.password.message}</p>
+          <p className="mt-2 text-sm text-danger">{t(errors.password.message ?? "")}</p>
         )}
       </div>
 
       <div className="flex items-center justify-between">
         <label className="flex cursor-pointer items-center gap-2.5 select-none">
-          <Checkbox checked={rememberMe} onCheckedChange={setRememberMe} aria-label="Angemeldet bleiben" />
-          <span className="text-sm text-text-secondary">Angemeldet bleiben</span>
+          <Checkbox checked={rememberMe} onCheckedChange={setRememberMe} aria-label={t("auth.rememberMe")} />
+          <span className="text-sm text-text-secondary">{t("auth.rememberMe")}</span>
         </label>
 
         <Link href="/forgot-password" className="text-sm font-medium text-accent-blue hover:text-accent-blue-hover">
-          Passwort vergessen?
+          {t("auth.forgotPassword")}
         </Link>
       </div>
 
       <Button type="submit" fullWidth disabled={loginMutation.isPending}>
-        {loginMutation.isPending ? "Wird angemeldet..." : "Anmelden"}
+        {loginMutation.isPending ? t("auth.loggingIn") : t("auth.login")}
       </Button>
 
       <p className="text-center text-sm text-text-secondary">
-        Noch kein Konto?{" "}
+        {t("auth.noAccount")}{" "}
         <Link href="/register" className="font-medium text-accent-blue hover:text-accent-blue-hover">
-          Jetzt registrieren
+          {t("auth.toRegister")}
         </Link>
       </p>
     </form>

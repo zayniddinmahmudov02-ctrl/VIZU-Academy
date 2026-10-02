@@ -1,17 +1,19 @@
 import { z } from "zod";
 
+// Messages are translation keys (namespace "auth") — the form renders them
+// with t(), so validation errors follow the selected language (DE / UZ).
 export const registerSchema = z
   .object({
     username: z
       .string()
-      .min(3, "Benutzername muss mindestens 3 Zeichen lang sein.")
-      .regex(/^[a-zA-Z0-9_]+$/, "Nur Buchstaben, Zahlen und Unterstriche erlaubt."),
-    email: z.email("Please enter a valid email."),
-    password: z.string().min(6, "Password must be at least 6 characters."),
+      .min(3, "auth.errUsernameMin")
+      .regex(/^[a-zA-Z0-9_]+$/, "auth.errUsernameChars"),
+    email: z.email("auth.errEmailInvalid"),
+    password: z.string().min(6, "auth.errPasswordMin"),
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match.",
+    message: "auth.errPasswordMismatch",
     path: ["confirmPassword"],
   });
 

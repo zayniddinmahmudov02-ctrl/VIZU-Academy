@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 
+import { useTranslation } from "@/lib/i18n/use-translation";
 import { saveRefreshToken, saveToken } from "@/lib/token";
 import { getTelegramInitData, waitForTelegramWebApp } from "@/lib/telegram/webapp";
 
@@ -39,6 +40,7 @@ type Status = "idle" | "checking" | "failed";
  * on. */
 export default function TelegramAutoLogin() {
   const router = useRouter();
+  const { t } = useTranslation();
   const [status, setStatus] = useState<Status>("idle");
 
   useEffect(() => {
@@ -81,14 +83,14 @@ export default function TelegramAutoLogin() {
     return (
       <div className="mb-6 flex items-center justify-center gap-2 rounded-2xl bg-surface-hover px-4 py-3 text-sm text-text-secondary">
         <Loader2 size={15} className="animate-spin" />
-        Telegram-Authentifizierung läuft...
+        {t("auth.telegramChecking")}
       </div>
     );
   }
 
   return (
     <div className="mb-6 rounded-2xl bg-warning/10 px-4 py-3 text-center text-sm text-warning">
-      Telegram-Anmeldung nicht möglich. Bitte melde dich unten manuell an.
+      {t("auth.telegramFailed")}
     </div>
   );
 }

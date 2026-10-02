@@ -1,18 +1,24 @@
+"use client";
+
 import { BookOpen, GraduationCap, Users } from "lucide-react";
 
 import BrandenburgGate from "@/components/auth/brandenburg-gate";
 import Logo from "@/components/common/logo";
+import LanguageSwitcher from "@/components/dashboard/languages/language-switcher";
+import { useTranslation } from "@/lib/i18n/use-translation";
 import LoginForm from "./login-form";
 import SessionRedirect from "./session-redirect";
 import TelegramAutoLogin from "./telegram-auto-login";
 
 const FEATURES = [
-  { icon: GraduationCap, label: "Zertifizierte Kurse" },
-  { icon: BookOpen, label: "Interaktive Lektionen" },
-  { icon: Users, label: "Tausende Lernende" },
+  { icon: GraduationCap, labelKey: "auth.featureCourses" },
+  { icon: BookOpen, labelKey: "auth.featureLessons" },
+  { icon: Users, labelKey: "auth.featureLearners" },
 ];
 
 export default function LoginCard() {
+  const { t } = useTranslation();
+
   return (
     <div className="mx-auto grid w-full max-w-4xl overflow-hidden rounded-dialog bg-surface-card shadow-[var(--shadow-lg)] ring-1 ring-surface-border lg:grid-cols-2">
       <SessionRedirect />
@@ -25,29 +31,28 @@ export default function LoginCard() {
         <div className="relative z-10">
           <div className="inline-flex items-center gap-2.5 rounded-full bg-white/15 px-4 py-2 backdrop-blur-md">
             <GraduationCap size={17} />
-            <span className="text-sm font-semibold">Deutsch lernen, professionell</span>
+            <span className="text-sm font-semibold">{t("auth.heroBadge")}</span>
           </div>
 
           <h2 className="mt-6 text-3xl font-bold leading-tight tracking-tight">
-            Dein Weg zum
+            {t("auth.heroTitleLine1")}
             <br />
-            Deutsch-Zertifikat
+            {t("auth.heroTitleLine2")}
           </h2>
 
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/80">
-            Von A1 bis C2 — strukturierte Kurse, echte Prüfungsvorbereitung und ein
-            Lernpfad, der zu dir passt.
+            {t("auth.heroText")}
           </p>
         </div>
 
         <div className="relative z-10 flex flex-col gap-3">
-          {FEATURES.map(({ icon: Icon, label }) => (
+          {FEATURES.map(({ icon: Icon, labelKey }) => (
             <div
-              key={label}
+              key={labelKey}
               className="flex items-center gap-3 rounded-2xl bg-white/10 px-4 py-3 backdrop-blur-md transition hover:bg-white/15"
             >
               <Icon size={18} />
-              <span className="text-sm font-medium">{label}</span>
+              <span className="text-sm font-medium">{t(labelKey)}</span>
             </div>
           ))}
         </div>
@@ -57,13 +62,16 @@ export default function LoginCard() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--accent-blue)_0%,transparent_60%)] opacity-[0.05]" />
 
         <div className="relative">
+          <div className="mb-2 flex justify-end">
+            <LanguageSwitcher variant="segmented" />
+          </div>
           <div className="mb-8 flex flex-col items-center lg:items-start">
             <Logo size={48} showText={false} />
             <h1 className="mt-4 text-2xl font-bold tracking-tight text-text-primary">
-              Willkommen zurück
+              {t("auth.loginTitle")}
             </h1>
             <p className="mt-2 text-center text-sm leading-6 text-text-secondary lg:text-left">
-              Melde dich an, um mit deinem Deutschkurs fortzufahren.
+              {t("auth.loginSubtitle")}
             </p>
           </div>
 

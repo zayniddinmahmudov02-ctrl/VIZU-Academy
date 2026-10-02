@@ -11,13 +11,44 @@ import { useTranslation } from "@/lib/i18n/use-translation";
 import { cn } from "@/lib/utils";
 
 type Props = {
-  /** "sidebar" = compact Deutsch/Uzbek toggle styled for the navy sidebar footer. */
-  variant?: "default" | "sidebar";
+  /** "sidebar" = compact Deutsch/Uzbek toggle styled for the navy sidebar footer.
+   *  "segmented" = small DE | UZ buttons (Registration / Anmeldung pages). */
+  variant?: "default" | "sidebar" | "segmented";
+  className?: string;
 };
 
-export default function LanguageSwitcher({ variant = "default" }: Props) {
+export default function LanguageSwitcher({ variant = "default", className }: Props) {
   const { language, setLanguage } = useLanguageStore();
   const { t } = useTranslation();
+
+  if (variant === "segmented") {
+    return (
+      <div
+        role="group"
+        aria-label={t("auth.languageSwitchAria")}
+        className={cn("inline-flex rounded-full bg-surface-hover p-1 ring-1 ring-surface-border", className)}
+      >
+        {languages.map((item) => {
+          const active = language === item.code;
+          return (
+            <button
+              key={item.code}
+              type="button"
+              aria-pressed={active}
+              data-lang={item.code}
+              onClick={() => setLanguage(item.code)}
+              className={cn(
+                "min-w-[44px] rounded-full px-3 py-1.5 text-xs font-bold uppercase tracking-wide transition-colors",
+                active ? "bg-accent-blue text-white shadow-sm" : "text-text-secondary hover:text-text-primary",
+              )}
+            >
+              {item.code}
+            </button>
+          );
+        })}
+      </div>
+    );
+  }
 
   if (variant === "sidebar") {
     const isUz = language === "uz";
