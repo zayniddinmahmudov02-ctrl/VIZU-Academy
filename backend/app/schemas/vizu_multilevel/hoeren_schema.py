@@ -54,3 +54,25 @@ class VizuMultilevelHoerenAudioSlot(BaseSchema):
     duration_seconds: int | None
     is_active: bool
     updated_at: datetime | None
+
+
+class VizuMultilevelHoerenDiagnosticsAufgabe(BaseSchema):
+    aufgabe_number: int
+    task_exists: bool
+    is_published: bool
+    questions: int
+    expected_questions: int
+    options: int
+    has_audio: bool
+
+
+class VizuMultilevelHoerenDiagnostics(BaseSchema):
+    aufgaben: list[VizuMultilevelHoerenDiagnosticsAufgabe]
+    tasks: int
+    expected_tasks: int
+    questions: int
+    expected_questions: int
+    options: int
+    expected_options: int
+    audio: int
+    complete: bool

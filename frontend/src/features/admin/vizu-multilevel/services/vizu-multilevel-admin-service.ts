@@ -15,6 +15,7 @@ import type {
   VizuMultilevelWritingTaskCreatePayload,
   VizuMultilevelAnalytics,
   VizuMultilevelHoerenAudioSlot,
+  VizuMultilevelHoerenDiagnostics,
   VizuMultilevelLevelAnalytics,
   VizuMultilevelOverviewStats,
   VizuMultilevelWritingTaskAdmin,
@@ -196,6 +197,12 @@ export async function deleteVizuMultilevelHoerenAudio(audioId: string): Promise<
 export async function getVizuMultilevelHoerenAudioPreviewUrl(audioId: string): Promise<string> {
   const response = await api.get(`${ADMIN_ENDPOINTS.vizuMultilevelHoerenAudioDetail(audioId)}/file`, { responseType: "blob" });
   return URL.createObjectURL(response.data as Blob);
+}
+
+/** Real database counts: Aufgaben / Tests / Optionen / Audio. */
+export async function getVizuMultilevelHoerenDiagnostics(): Promise<VizuMultilevelHoerenDiagnostics> {
+  const response = await api.get<VizuMultilevelHoerenDiagnostics>(ADMIN_ENDPOINTS.vizuMultilevelHoerenDiagnostics);
+  return response.data;
 }
 
 export interface VizuMultilevelHoerenJsonImportResult {

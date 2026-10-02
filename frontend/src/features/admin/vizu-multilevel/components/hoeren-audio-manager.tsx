@@ -8,6 +8,8 @@ import { AdminButton, AdminCard, AdminLabel, AdminSelect } from "@/components/ad
 import ConfirmDialog from "@/components/admin/confirm-dialog";
 import {
   deleteVizuMultilevelHoerenAudio,
+  getVizuMultilevelHoerenDiagnostics,
+  importVizuMultilevelHoerenJson,
   getVizuMultilevelHoerenAudioPreviewUrl,
   listVizuMultilevelHoerenAudio,
   replaceVizuMultilevelHoerenAudio,
@@ -156,6 +158,44 @@ function AudioSlotRow({ slot }: { slot: VizuMultilevelHoerenAudioSlot }) {
   );
 }
 
+/** What is REALLY in the database for Hören — and a one-click repair. */
+function HoerenDiagnosticsCard() {
+  const queryClient = useQueryClient();
+  const { data } = useQuery({ queryKey: ["vizu-multilevel-admin-hoeren-diagnostics"], queryFn: getVizuMultilevelHoerenDiagnostics });
+  const repair = useMutation({
+    mutationFn: importVizuMultilevelHoerenJson,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["vizu-multilevel-admin-hoeren-diagnostics"] });
+      queryClient.invalidateQueries({ queryKey: ["vizu-multilevel-admin-hoeren-content"] });
+      queryClient.invalidateQueries({ queryKey: QUERY_KEY });
+    },
+  });
+  if (!data) return null;
+
+  return (
+    <AdminCard>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <p className="text-sm font-semibold text-[var(--admin-text-primary)]">
+          Aufgaben {data.tasks}/{data.expected_tasks} · Tests {data.questions}/{data.expected_questions} · Optionen {data.options}/
+          {data.expected_options} · Audio {data.audio}/{data.expected_tasks}
+        </p>
+        {!data.complete && (
+          <AdminButton size="sm" onClick={() => repair.mutate()} disabled={repair.isPending}>
+            {repair.isPending ? "Wird importiert..." : "Tests jetzt importieren (hoeren.json)"}
+          </AdminButton>
+        )}
+      </div>
+      {!data.complete && (
+        <p className="mt-2 text-xs text-[var(--admin-warning,#f59e0b)]">
+          Hören-Inhalt unvollständig — Aufgaben ohne Tests:{" "}
+          {data.aufgaben.filter((a) => a.questions < a.expected_questions).map((a) => a.aufgabe_number).join(", ") || "—"}. Hochgeladene
+          Audios bleiben beim Import erhalten.
+        </p>
+      )}
+    </AdminCard>
+  );
+}
+
 /** VIZU-Multilevel → Hören → Audio: the admin explicitly picks the Aufgabe
  * (1-5) and uploads its audio; each Aufgabe holds exactly one audio, which
  * is stored in protected storage and streamed only to authorised users. */
@@ -181,6 +221,7 @@ export default function VizuMultilevelHoerenAudioManager() {
 
   return (
     <div className="space-y-4">
+      <HoerenDiagnosticsCard />
       <AdminCard>
         <h3 className="text-sm font-semibold text-[var(--admin-text-primary)]">HÖREN AUDIO</h3>
         <p className="mt-1 text-xs text-[var(--admin-text-secondary)]">

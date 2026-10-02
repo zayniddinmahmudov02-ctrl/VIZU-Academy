@@ -85,6 +85,26 @@ export interface VizuMultilevelAdminAttemptsPage {
   total_pages: number;
 }
 
+export interface VizuMultilevelHoerenDiagnostics {
+  aufgaben: {
+    aufgabe_number: number;
+    task_exists: boolean;
+    is_published: boolean;
+    questions: number;
+    expected_questions: number;
+    options: number;
+    has_audio: boolean;
+  }[];
+  tasks: number;
+  expected_tasks: number;
+  questions: number;
+  expected_questions: number;
+  options: number;
+  expected_options: number;
+  audio: number;
+  complete: boolean;
+}
+
 export interface VizuMultilevelHoerenAudioSlot {
   aufgabe_number: number;
   audio_id: string | null;

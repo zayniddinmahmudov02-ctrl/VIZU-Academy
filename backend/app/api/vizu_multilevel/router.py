@@ -30,7 +30,7 @@ from app.schemas.vizu_multilevel import (
     VizuMultilevelWritingSubmitAllResponse,
     VizuMultilevelWritingTaskPublic,
 )
-from app.services.vizu_multilevel import hoeren_audio_service, hoeren_service, lesen_service, schreiben_service, service, sprechen_service
+from app.services.vizu_multilevel import hoeren_audio_service, hoeren_json_import_service, hoeren_service, lesen_service, schreiben_service, service, sprechen_service
 from app.services.vizu_multilevel.schreiben_service import SectionTimeUpError, WritingAlreadySubmittedError
 from app.services.vizu_multilevel.service import SectionFlowError
 from app.services.vizu_multilevel.sprechen_service import SectionTimeUpError as SpeakingTimeUpError
@@ -199,6 +199,9 @@ def get_hoeren_tasks(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
+    # Never serve an empty Hören page: if no question exists at all, load the
+    # bundled standard content first (see ensure_content for why this is safe).
+    hoeren_json_import_service.ensure_content(db)
     return hoeren_service.list_hoeren_tasks(db)
 
 

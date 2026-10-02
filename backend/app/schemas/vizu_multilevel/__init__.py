@@ -17,6 +17,7 @@ from .schema import (
 )
 from .hoeren_schema import (
     VizuMultilevelHoerenAudioSlot,
+    VizuMultilevelHoerenDiagnostics,
     VizuMultilevelHoerenDraft,
     VizuMultilevelHoerenDraftSave,
     VizuMultilevelHoerenResult,

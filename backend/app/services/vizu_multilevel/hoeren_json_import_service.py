@@ -174,3 +174,79 @@ def import_hoeren(db: Session, data: dict) -> dict:
 
 def import_default(db: Session) -> dict:
     return import_hoeren(db, load_default())
+
+
+# ============================================================
+# Diagnostics / self-healing
+# ============================================================
+
+
+def content_stats(db: Session) -> dict:
+    """What is really in the database for Hören: per Aufgabe the task,
+    its questions and options and whether audio exists, compared with the
+    bundled dataset. Used by the admin diagnostics and by ensure_content."""
+    from sqlalchemy import func
+
+    from app.services.vizu_multilevel import hoeren_audio_service
+
+    expected = _parse(load_default())
+    expected_questions = sum(len(a["questions"]) for a in expected)
+    audio_numbers = hoeren_audio_service.numbers_with_audio(db)
+
+    tasks = list(
+        db.scalars(
+            select(VizuMultilevelTask)
+            .where(VizuMultilevelTask.skill == SKILL_HOEREN)
+            .options(joinedload(VizuMultilevelTask.questions).joinedload(VizuMultilevelQuestion.options))
+            .order_by(VizuMultilevelTask.order_index)
+        ).unique()
+    )
+    by_order = {t.order_index: t for t in tasks}
+    aufgaben = []
+    for a in expected:
+        task = by_order.get(a["order"])
+        aufgaben.append(
+            {
+                "aufgabe_number": a["order"],
+                "task_exists": task is not None,
+                "is_published": bool(task and task.is_published),
+                "questions": len(task.questions) if task else 0,
+                "expected_questions": len(a["questions"]),
+                "options": sum(len(q.options) for q in task.questions) if task else 0,
+                "has_audio": a["order"] in audio_numbers,
+            }
+        )
+    total_q = sum(x["questions"] for x in aufgaben)
+    total_o = sum(x["options"] for x in aufgaben)
+    return {
+        "aufgaben": aufgaben,
+        "tasks": sum(1 for x in aufgaben if x["task_exists"]),
+        "expected_tasks": len(expected),
+        "questions": total_q,
+        "expected_questions": expected_questions,
+        "options": total_o,
+        "expected_options": expected_questions * 4,
+        "audio": sum(1 for x in aufgaben if x["has_audio"]),
+        "complete": total_q == expected_questions
+        and all(x["questions"] == x["expected_questions"] and x["is_published"] for x in aufgaben),
+    }
+
+
+def ensure_content(db: Session) -> bool:
+    """Safety net against an empty Hören page: if there is NOT A SINGLE
+    Hören question in the database (e.g. only empty Aufgaben/audio exist,
+    because the standard content was never imported), load the bundled
+    hoeren.json. Nothing can be lost by this — there are no questions to
+    overwrite — and uploaded audio is kept. Returns True if it imported."""
+    from sqlalchemy import func
+
+    has_question = db.scalar(
+        select(func.count())
+        .select_from(VizuMultilevelQuestion)
+        .join(VizuMultilevelTask, VizuMultilevelQuestion.task_id == VizuMultilevelTask.id)
+        .where(VizuMultilevelTask.skill == SKILL_HOEREN)
+    )
+    if has_question:
+        return False
+    import_default(db)
+    return True

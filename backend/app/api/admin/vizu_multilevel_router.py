@@ -14,6 +14,7 @@ from app.schemas.vizu_multilevel import (
     VizuMultilevelAdminAttemptsPage,
     VizuMultilevelAnalytics,
     VizuMultilevelHoerenAudioSlot,
+    VizuMultilevelHoerenDiagnostics,
     VizuMultilevelLevelAnalytics,
     VizuMultilevelOverviewStats,
     VizuMultilevelQuestionInput,
@@ -221,6 +222,15 @@ async def import_hoeren_csv(
 # Hören audio — one PROTECTED audio file per Aufgabe (1-5). The admin picks
 # the Aufgabe explicitly; uploading again replaces the previous file.
 # ============================================================
+
+
+@router.get("/hoeren/diagnostics", response_model=VizuMultilevelHoerenDiagnostics)
+def hoeren_diagnostics(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    """Real database counts for Hören (Aufgaben / Tests / Optionen / Audio)."""
+    return hoeren_json_import_service.content_stats(db)
 
 
 @router.get("/hoeren/audio", response_model=list[VizuMultilevelHoerenAudioSlot])
