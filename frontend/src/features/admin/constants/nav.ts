@@ -8,6 +8,7 @@ import {
   GraduationCap,
   Globe,
   LayoutDashboard,
+  Megaphone,
   School,
   Settings,
   ShieldCheck,
@@ -37,6 +38,7 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
   {
     items: [
       { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
+      { label: "Werbung-Banner", href: "/admin/werbung-banner", icon: Megaphone },
       { label: "Languages", href: "/admin/languages", icon: Globe },
       { label: "Courses", href: "/admin/courses", icon: GraduationCap },
       { label: "Vorbereitung", href: "/admin/mock-exams", icon: ShieldCheck },

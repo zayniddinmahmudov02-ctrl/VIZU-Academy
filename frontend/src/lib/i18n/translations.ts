@@ -78,6 +78,13 @@ export const translations: Record<string, Namespace> = {
     jetztStarten: { de: "Jetzt starten", uz: "Hozir boshlash" },
     lessonsCount: { de: "{count} Unterricht", uz: "{count} ta dars" },
     quickAccess: { de: "Schnellzugriff", uz: "Tezkor kirish" },
+    statistics: { de: "Statistik", uz: "Statistika" },
+    adFallbackTitle: { de: "VIZU Academy", uz: "VIZU Academy" },
+    adFallbackBody: {
+      de: "Setze deinen Lernweg fort und entdecke neue Möglichkeiten.",
+      uz: "O'qish yo'lingizni davom ettiring va yangi imkoniyatlarni kashf eting.",
+    },
+    adFallbackCta: { de: "Zu den Kursen", uz: "Kurslarga o'tish" },
     mockExams: { de: "Probeprüfungen", uz: "Mock imtihonlar" },
     mockExamsSubtitle: { de: "Testen Sie Ihr Wissen", uz: "Bilimingizni sinang" },
     woerterbuchSubtitle: { de: "Vokabeln nachschlagen", uz: "So'zlarni qidirish" },

@@ -110,6 +110,10 @@ from app.api.mock_exam.public_router import router as mock_exam_public_router
 from app.api.vizu_multilevel.router import legacy_router as vizu_mock_legacy_router
 from app.api.vizu_multilevel.router import router as vizu_multilevel_router
 
+# Werbung-Banner (dashboard advertisements)
+from app.api.advertisements.router import admin_router as admin_advertisements_router
+from app.api.advertisements.router import router as advertisements_router
+
 # Upload
 from app.api.upload import (
     router as upload_router,
@@ -242,6 +246,8 @@ _ALL_ROUTERS = [
     mock_exam_public_router,
     vizu_multilevel_router,
     vizu_mock_legacy_router,
+    advertisements_router,
+    admin_advertisements_router,
     upload_router,
     admin_router,
     admin_users_router,

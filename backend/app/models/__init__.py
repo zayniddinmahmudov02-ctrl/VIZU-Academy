@@ -46,6 +46,7 @@ from .vizu_multilevel_writing import (
 )
 from .vizu_multilevel_speaking import VizuMultilevelSpeakingSubmission, VizuMultilevelSpeakingTask
 from .vizu_multilevel_discarded import VizuMultilevelDiscardedAttempt
+from .advertisement import Advertisement, AdvertisementEvent
 
 # Certificate
 from .certificate import Certificate
