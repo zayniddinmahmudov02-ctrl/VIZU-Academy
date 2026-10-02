@@ -41,6 +41,26 @@ class TestImageUrl(unittest.TestCase):
         self.assertEqual(validate_image_url("https://cdn.example.com/a.jpg"), "https://cdn.example.com/a.jpg")
         self.assertIsNone(validate_image_url(""))
         self.assertIsNone(validate_image_url(None))
+        # Real upload paths keep the original file name (spaces / non-ASCII).
+        for ok in (
+            "/uploads/images/3f2a_Screenshot 2026-10-02 at 21.45.png",
+            "/uploads/images/3f2a_Снимок экрана.png",
+            "/uploads/images/3f2a_logo..final.png",
+        ):
+            with self.subTest(ok=ok):
+                self.assertEqual(validate_image_url(ok), ok)
+        for bad in (
+            "/uploads/images/../../etc/passwd",
+            "/uploads/images/a/../b.png",
+            "/uploads/images/",
+            "/uploads/images//a.png",
+            "/uploads/images/a\\b.png",
+            "/uploads/images/a\nb.png",
+            "https://cdn.example.com/a b.jpg",
+        ):
+            with self.subTest(bad=bad):
+                with self.assertRaises(ValueError):
+                    validate_image_url(bad)
 
     def test_rejects_base64_and_other_paths(self):
         for bad in ("data:image/png;base64,AAAA", "/uploads/../secret", "/etc/passwd", "http://insecure.com/a.png", "/uploads/videos/a.mp4"):

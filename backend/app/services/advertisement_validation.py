@@ -30,12 +30,18 @@ def validate_image_url(value: str | None) -> str | None:
     value = value.strip()
     if not value:
         return None
-    if len(value) > 500 or any(ch in value for ch in ("\n", "\r", " ", "\\")):
+    if len(value) > 500 or "\\" in value or any(ord(ch) < 32 or ord(ch) == 127 for ch in value):
         raise ValueError("Ungültige Bild-URL.")
-    if value.startswith("/uploads/images/") and ".." not in value:
-        return value
+    if value.startswith("/uploads/images/"):
+        # The media-library upload keeps the original file name, so spaces /
+        # non-ASCII letters are legitimate here ("Screenshot 2026-10-02 at
+        # 21.45.png"). Path traversal is what must never pass.
+        segments = value[len("/uploads/images/"):].split("/")
+        if all(seg and seg not in (".", "..") for seg in segments):
+            return value
+        raise ValueError("Ungültiger Bildpfad.")
     parsed = urlparse(value)
-    if parsed.scheme == "https" and parsed.netloc:
+    if parsed.scheme == "https" and parsed.netloc and " " not in value:
         return value
     raise ValueError("Bild muss über den Upload (/uploads/images/...) oder als https-URL angegeben werden.")
 

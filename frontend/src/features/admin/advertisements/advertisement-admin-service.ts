@@ -23,16 +23,50 @@ export interface AdminAdvertisement {
   is_current: boolean;
 }
 
-export interface AdvertisementPayload {
+/** Exactly the backend's AdvertisementCreate contract
+ * (backend/app/schemas/advertisement.py). Never send form state directly —
+ * build this with the manager's payload mapper. */
+export interface CreateAdvertisementPayload {
   title: string;
+  /** Optional — null when empty. */
   description: string | null;
+  /** The stored upload path ("/uploads/images/...") or an https URL — never the preview URL. */
   image_url: string | null;
+  /** Absolute http(s) URL. */
   target_url: string;
   cta_text: string;
   is_active: boolean;
+  /** Integer. */
   priority: number;
+  /** ISO 8601 in UTC ("2026-10-02T16:45:00.000Z") or null. */
   starts_at: string | null;
   ends_at: string | null;
+}
+
+export type UpdateAdvertisementPayload = Partial<CreateAdvertisementPayload>;
+
+export interface AdvertisementFieldError {
+  field: string;
+  message: string;
+}
+
+/** Reads a failed save: FastAPI's 422 body ({detail: [{loc, msg}]}) or the
+ * app's {message} body. Returns per-field errors (if any) and a message. */
+export function parseAdvertisementApiError(error: unknown): { status?: number; fieldErrors: AdvertisementFieldError[]; message?: string } {
+  const response = (error as { response?: { status?: number; data?: unknown } }).response;
+  const data = (response?.data ?? {}) as { detail?: unknown; message?: unknown };
+  const fieldErrors: AdvertisementFieldError[] = [];
+  const items = Array.isArray(data.detail) ? data.detail : Array.isArray(data.message) ? data.message : [];
+  for (const item of items as { loc?: unknown[]; msg?: string }[]) {
+    const loc = Array.isArray(item?.loc) ? item.loc.filter((x) => x !== "body") : [];
+    fieldErrors.push({
+      field: loc.length ? String(loc[loc.length - 1]) : "",
+      message: String(item?.msg ?? "").replace(/^Value error, /, ""),
+    });
+  }
+  const message =
+    typeof data.message === "string" ? data.message : typeof data.detail === "string" ? data.detail : undefined;
+  return { status: response?.status, fieldErrors, message };
 }
 
 export interface AdvertisementAnalytics {
@@ -52,12 +86,12 @@ export async function listAdvertisements(): Promise<AdminAdvertisement[]> {
   return ensureArray<AdminAdvertisement>(response.data);
 }
 
-export async function createAdvertisement(data: AdvertisementPayload): Promise<AdminAdvertisement> {
+export async function createAdvertisement(data: CreateAdvertisementPayload): Promise<AdminAdvertisement> {
   const response = await api.post<AdminAdvertisement>(BASE, data);
   return response.data;
 }
 
-export async function updateAdvertisement(id: string, data: Partial<AdvertisementPayload>): Promise<AdminAdvertisement> {
+export async function updateAdvertisement(id: string, data: UpdateAdvertisementPayload): Promise<AdminAdvertisement> {
   const response = await api.put<AdminAdvertisement>(`${BASE}/${id}`, data);
   return response.data;
 }

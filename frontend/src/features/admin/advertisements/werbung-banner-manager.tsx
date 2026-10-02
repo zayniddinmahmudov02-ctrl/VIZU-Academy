@@ -25,47 +25,20 @@ import {
   getAdvertisementAnalytics,
   listAdvertisements,
   setAdvertisementActive,
+  parseAdvertisementApiError,
   updateAdvertisement,
   type AdminAdvertisement,
-  type AdvertisementPayload,
+  type AdvertisementFieldError,
 } from "./advertisement-admin-service";
+import {
+  ADVERTISEMENT_FIELD_LABELS,
+  EMPTY_ADVERTISEMENT_FORM,
+  buildAdvertisementPayload,
+  isoToLocalInput,
+  type AdvertisementFormState,
+} from "./advertisement-payload";
 
 const QUERY_KEY = ["admin-advertisements"];
-
-interface FormState {
-  title: string;
-  description: string;
-  image_url: string | null;
-  target_url: string;
-  cta_text: string;
-  is_active: boolean;
-  priority: number;
-  starts_at: string; // datetime-local value
-  ends_at: string;
-}
-
-const EMPTY: FormState = {
-  title: "",
-  description: "",
-  image_url: null,
-  target_url: "",
-  cta_text: "Mehr erfahren",
-  is_active: false,
-  priority: 0,
-  starts_at: "",
-  ends_at: "",
-};
-
-function toLocalInput(iso: string | null): string {
-  if (!iso) return "";
-  const d = new Date(iso);
-  const pad = (n: number) => String(n).padStart(2, "0");
-  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
-}
-
-function toIso(local: string): string | null {
-  return local ? new Date(local).toISOString() : null;
-}
 
 function formatRange(ad: AdminAdvertisement): string {
   const fmt = (iso: string | null) => (iso ? new Date(iso).toLocaleDateString("de-DE") : null);
@@ -75,12 +48,20 @@ function formatRange(ad: AdminAdvertisement): string {
   return `${start ?? "sofort"} – ${end ?? "offen"}`;
 }
 
-function errorMessage(error: unknown): string {
-  const data = (error as { response?: { data?: { message?: unknown } } }).response?.data;
-  const message = data?.message;
-  if (typeof message === "string") return message;
-  if (Array.isArray(message)) return "Bitte Eingaben prüfen (Link muss mit https:// beginnen).";
-  return "Speichern fehlgeschlagen. Bitte Eingaben prüfen.";
+/** Turns a failed save into messages for the admin. The full backend
+ * response (which field failed and why) is always logged for developers. */
+function saveErrors(error: unknown): AdvertisementFieldError[] {
+  const parsed = parseAdvertisementApiError(error);
+  console.error("[Werbung-Banner] Speichern fehlgeschlagen", {
+    status: parsed.status,
+    fieldErrors: parsed.fieldErrors,
+    message: parsed.message,
+    response: (error as { response?: { data?: unknown } }).response?.data,
+  });
+  if (parsed.fieldErrors.length) return parsed.fieldErrors;
+  if (parsed.status === 403) return [{ field: "", message: "Keine Berechtigung, Werbung zu verwalten." }];
+  if (parsed.message) return [{ field: "", message: parsed.message }];
+  return [{ field: "", message: "Speichern fehlgeschlagen. Bitte später erneut versuchen." }];
 }
 
 const numberFmt = new Intl.NumberFormat("de-DE");
@@ -93,33 +74,21 @@ export default function WerbungBannerManager() {
   const { data: ads, isLoading, isError } = useQuery({ queryKey: QUERY_KEY, queryFn: listAdvertisements, retry: false });
 
   const [editing, setEditing] = useState<AdminAdvertisement | "new" | null>(null);
-  const [form, setForm] = useState<FormState>(EMPTY);
-  const [error, setError] = useState<string | null>(null);
+  const [form, setForm] = useState<AdvertisementFormState>(EMPTY_ADVERTISEMENT_FORM);
+  const [errors, setErrors] = useState<AdvertisementFieldError[]>([]);
   const [deleteTarget, setDeleteTarget] = useState<AdminAdvertisement | null>(null);
   const [analyticsFor, setAnalyticsFor] = useState<AdminAdvertisement | null>(null);
 
   const invalidate = () => queryClient.invalidateQueries({ queryKey: QUERY_KEY });
 
   const saveMutation = useMutation({
-    mutationFn: () => {
-      const payload: AdvertisementPayload = {
-        title: form.title,
-        description: form.description.trim() || null,
-        image_url: form.image_url,
-        target_url: form.target_url.trim(),
-        cta_text: form.cta_text,
-        is_active: form.is_active,
-        priority: form.priority,
-        starts_at: toIso(form.starts_at),
-        ends_at: toIso(form.ends_at),
-      };
-      return editing === "new" ? createAdvertisement(payload) : updateAdvertisement((editing as AdminAdvertisement).id, payload);
-    },
+    mutationFn: (payload: Parameters<typeof createAdvertisement>[0]) =>
+      editing === "new" ? createAdvertisement(payload) : updateAdvertisement((editing as AdminAdvertisement).id, payload),
     onSuccess: () => {
       invalidate();
       setEditing(null);
     },
-    onError: (e) => setError(errorMessage(e)),
+    onError: (e) => setErrors(saveErrors(e)),
   });
 
   const toggleMutation = useMutation({
@@ -136,14 +105,24 @@ export default function WerbungBannerManager() {
     },
   });
 
+  function save() {
+    const result = buildAdvertisementPayload(form);
+    if (!result.ok) {
+      setErrors(result.errors);
+      return;
+    }
+    setErrors([]);
+    saveMutation.mutate(result.payload);
+  }
+
   function openNew() {
-    setError(null);
-    setForm(EMPTY);
+    setErrors([]);
+    setForm(EMPTY_ADVERTISEMENT_FORM);
     setEditing("new");
   }
 
   function openEdit(ad: AdminAdvertisement) {
-    setError(null);
+    setErrors([]);
     setForm({
       title: ad.title,
       description: ad.description ?? "",
@@ -152,8 +131,8 @@ export default function WerbungBannerManager() {
       cta_text: ad.cta_text,
       is_active: ad.is_active,
       priority: ad.priority,
-      starts_at: toLocalInput(ad.starts_at),
-      ends_at: toLocalInput(ad.ends_at),
+      starts_at: isoToLocalInput(ad.starts_at),
+      ends_at: isoToLocalInput(ad.ends_at),
     });
     setEditing(ad);
   }
@@ -243,17 +222,38 @@ export default function WerbungBannerManager() {
                     </div>
                     <div>
                       <AdminLabel>Priorität</AdminLabel>
-                      <AdminInput type="number" value={form.priority} onChange={(e) => setForm({ ...form, priority: Number(e.target.value) })} />
+                      <AdminInput
+                        type="number"
+                        step={1}
+                        inputMode="numeric"
+                        value={form.priority}
+                        onChange={(e) => {
+                          const value = Number.parseInt(e.target.value, 10);
+                          setForm({ ...form, priority: Number.isNaN(value) ? 0 : value });
+                        }}
+                      />
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
                     <AdminCheckbox checked={form.is_active} onCheckedChange={(c) => setForm({ ...form, is_active: c })} aria-label="Aktiv" />
                     <span className="text-sm text-[var(--admin-text-primary)]">Aktiv</span>
                   </div>
-                  {error && <p className="text-sm text-[var(--admin-danger)]">{error}</p>}
+                  {errors.length > 0 && (
+                    <div role="alert" data-testid="ad-form-errors" className="rounded-lg bg-[var(--admin-danger)]/10 px-3 py-2 text-sm text-[var(--admin-danger)]">
+                      <p className="font-semibold">Werbung wurde nicht gespeichert:</p>
+                      <ul className="mt-1 list-disc space-y-0.5 pl-5">
+                        {errors.map((e, i) => (
+                          <li key={i}>
+                            {e.field ? `${ADVERTISEMENT_FIELD_LABELS[e.field] ?? e.field}: ` : ""}
+                            {e.message}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                   <div className="flex gap-2">
                     <AdminButton
-                      onClick={() => saveMutation.mutate()}
+                      onClick={save}
                       disabled={saveMutation.isPending || !form.title.trim() || !form.target_url.trim()}
                     >
                       {saveMutation.isPending ? "Wird gespeichert..." : "Speichern"}
