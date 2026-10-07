@@ -356,6 +356,19 @@ export const translations: Record<string, Namespace> = {
       uz: "Test hali tayyorlanmoqda — natija mavjud emas.",
     },
     belowA1: { de: "Unter A1", uz: "A1 dan past" },
+    certDownload: { de: "Zertifikat herunterladen", uz: "Sertifikatni yuklab olish" },
+    certGenerating: { de: "Zertifikat wird erstellt...", uz: "Sertifikat tayyorlanmoqda..." },
+    certSubtitle: { de: "Offizielles VIZU-Multilevel-Zertifikat als PDF", uz: "Rasmiy VIZU-Multilevel sertifikati (PDF)" },
+    certLevel: { de: "Niveau {level}", uz: "Niveau {level}" },
+    certError: {
+      de: "Das Zertifikat konnte nicht erstellt werden. Bitte versuchen Sie es erneut.",
+      uz: "Sertifikatni yaratib bo'lmadi. Iltimos, qayta urinib ko'ring.",
+    },
+    certNone: { de: "Kein Zertifikat", uz: "Sertifikat berilmaydi" },
+    certNoneBody: {
+      de: "Für den Erhalt eines Zertifikats ist mindestens das Niveau A1 erforderlich.",
+      uz: "Sertifikat olish uchun kamida A1 darajasi talab qilinadi.",
+    },
     belowA1Note: {
       de: "Dein Ergebnis hat das Niveau A1 noch nicht erreicht.",
       uz: "Natijangiz hali A1 darajasiga yetmadi.",

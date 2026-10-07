@@ -112,4 +112,8 @@ class VizuMultilevelAttempt(BaseModel):
     sprechen_started_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     sprechen_submitted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
+    # Issued once (first certificate request for an eligible attempt), e.g.
+    # "VIZU-ML-2026-000123" — a running number, never an internal id.
+    certificate_number: Mapped[str | None] = mapped_column(String(32), unique=True, nullable=True)
+
     user = relationship("User")

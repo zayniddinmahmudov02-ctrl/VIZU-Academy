@@ -34,6 +34,8 @@ from app.schemas.vizu_multilevel import (
     VizuMultilevelWritingTaskPublic,
 )
 from app.services.vizu_multilevel import (
+    certificate_pdf,
+    certificate_service,
     hoeren_audio_service,
     hoeren_json_import_service,
     hoeren_service,
@@ -179,20 +181,39 @@ def get_certificate(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-    """Certificate data — only for a completed attempt whose overall result
-    is final and at least A1. Anything else is a 404 (no certificate)."""
+    """Certificate data — only for the caller's own completed attempt whose
+    overall result is final and at least A1. Anything else is a 404."""
     attempt = _own_attempt(db, current_user, attempt_id)
-    result = service.build_result(db, attempt)
-    if attempt.status != "COMPLETED" or result["overall"]["status"] != service.O_FINAL:
-        raise HTTPException(status_code=404, detail="No certificate available.")
-    student_name = f"{current_user.first_name or ''} {current_user.last_name or ''}".strip() or current_user.username
+    try:
+        cert = certificate_service.build_certificate(db, attempt, current_user)
+    except certificate_service.CertificateUnavailable as exc:
+        raise HTTPException(status_code=404, detail=f"NO_CERTIFICATE_{exc.reason}")
     return {
         "attempt_id": attempt.id,
-        "student_name": student_name,
+        "student_name": cert.student_name,
         "issued_at": attempt.completed_at,
-        "overall_level": result["overall"]["level"],
-        "competencies": result["competencies"],
+        "overall_level": cert.level,
+        "competencies": service.build_result(db, attempt)["competencies"],
+        "certificate_number": cert.certificate_number,
+        "total_score": cert.total_score,
     }
+
+
+@router.get("/attempts/{attempt_id}/certificate/pdf")
+def download_certificate_pdf(
+    attempt_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """The official PDF certificate (A4 landscape). Every value comes from
+    the database for the caller's OWN attempt — nothing is read from the
+    request except the attempt id, and another student's id is a 404."""
+    attempt = _own_attempt(db, current_user, attempt_id)
+    try:
+        data = certificate_service.build_certificate(db, attempt, current_user)
+    except certificate_service.CertificateUnavailable as exc:
+        raise HTTPException(status_code=404, detail=f"NO_CERTIFICATE_{exc.reason}")
+    return certificate_pdf.certificate_pdf_response(data)
 
 
 # ============================================================

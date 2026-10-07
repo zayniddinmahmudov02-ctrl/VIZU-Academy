@@ -8,6 +8,7 @@ import { animate, motion, useReducedMotion } from "framer-motion";
 import { AlertCircle, ArrowRight, Award, CheckCircle2, Compass, RefreshCw, TrendingUp } from "lucide-react";
 
 import Button from "@/components/ui/button";
+import VizuMultilevelCertificateDownload from "@/features/vizu-multilevel/components/certificate-download";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { VIZU_MULTILEVEL_SKILLS, stepPath } from "@/features/vizu-multilevel/constants/skills";
 import {
@@ -206,6 +207,11 @@ function ResultScreen({ data }: { data: VizuMultilevelAttemptResult }) {
           <CompetencyCard key={s.skill} meta={s} competency={data.competencies.find((c) => c.skill === s.skill)} />
         ))}
       </motion.div>
+
+      {/* Certificate (A1-C1) or "Kein Zertifikat" (below A1) */}
+      {(overall.status === "FINAL" || overall.status === "BELOW_A1") && (
+        <VizuMultilevelCertificateDownload attemptId={data.attempt_id} level={overall.status === "FINAL" ? overall.level : null} />
+      )}
 
       {/* Feedback */}
       {graded.length > 0 && (

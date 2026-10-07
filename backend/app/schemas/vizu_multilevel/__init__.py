@@ -5,6 +5,7 @@ from .schema import (
     VizuMultilevelAttemptState,
     VizuMultilevelAvailability,
     VizuMultilevelCertificate,
+    VizuMultilevelCertificateStatus,
     VizuMultilevelCompetencyResult,
     VizuMultilevelCompleteResponse,
     VizuMultilevelOverallResult,

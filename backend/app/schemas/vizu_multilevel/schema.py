@@ -174,6 +174,22 @@ class VizuMultilevelCertificate(BaseSchema):
     issued_at: datetime | None
     overall_level: str
     competencies: list[VizuMultilevelCompetencyResult]
+    certificate_number: str | None = None
+    # Gesamtergebnis 0-100 (average of the graded competencies, as on the result page).
+    total_score: int | None = None
+
+
+class VizuMultilevelCertificateStatus(BaseSchema):
+    """Admin: certificate information for one attempt (read-only)."""
+
+    attempt_id: UUID
+    student_name: str
+    available: bool
+    reason: str | None
+    level: str | None
+    total_score: int | None
+    certificate_number: str | None
+    completed_at: datetime | None
 
 
 class VizuMultilevelAvailability(BaseSchema):

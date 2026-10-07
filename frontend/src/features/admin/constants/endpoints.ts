@@ -64,6 +64,8 @@ export const ADMIN_ENDPOINTS = {
   vizuMultilevelSprechenContent: "/api/v1/admin/vizu-multilevel/sprechen-content",
   vizuMultilevelSprechenContentDetail: (taskId: string) => `/api/v1/admin/vizu-multilevel/sprechen-content/${taskId}`,
   vizuMultilevelAttemptSprechen: (attemptId: string) => `/api/v1/admin/vizu-multilevel/attempts/${attemptId}/sprechen`,
+  vizuMultilevelAttemptCertificate: (attemptId: string) => `/api/v1/admin/vizu-multilevel/attempts/${attemptId}/certificate`,
+  vizuMultilevelAttemptCertificatePdf: (attemptId: string) => `/api/v1/admin/vizu-multilevel/attempts/${attemptId}/certificate/pdf`,
   vizuMultilevelAttemptSprechenAudio: (attemptId: string, submissionId: string) =>
     `/api/v1/admin/vizu-multilevel/attempts/${attemptId}/sprechen/submissions/${submissionId}/audio`,
   vizuMultilevelContentTasks: (skill: "lesen" | "hoeren") => `/api/v1/admin/vizu-multilevel/content/${skill}/tasks`,

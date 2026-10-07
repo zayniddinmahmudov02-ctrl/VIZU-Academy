@@ -9,6 +9,7 @@ import FormDialog from "@/components/admin/form-dialog";
 import { listVizuMultilevelAttempts } from "@/features/admin/vizu-multilevel/services/vizu-multilevel-admin-service";
 import type { VizuMultilevelAdminAttemptItem } from "@/features/admin/vizu-multilevel/types/vizu-multilevel-admin.types";
 import VizuMultilevelAttemptsTable from "./attempts-table";
+import CertificateAdminSection from "./certificate-admin-section";
 import SprechenAttemptDetail from "./sprechen-attempt-detail";
 
 const PAGE_SIZE = 20;
@@ -169,6 +170,11 @@ export default function VizuMultilevelResultsTab() {
                   ))}
                 </tbody>
               </table>
+            </div>
+
+            <div>
+              <p className="mb-2 text-sm font-semibold text-[var(--admin-text-primary)]">Zertifikat</p>
+              <CertificateAdminSection attemptId={selected.id} />
             </div>
 
             <div>

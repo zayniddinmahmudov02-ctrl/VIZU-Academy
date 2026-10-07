@@ -231,6 +231,9 @@ export interface VizuMultilevelCertificate {
   issued_at: string | null;
   overall_level: string;
   competencies: VizuMultilevelCompetencyResult[];
+  certificate_number?: string | null;
+  /** Gesamtergebnis 0-100 (as on the result page). */
+  total_score?: number | null;
 }
 
 export interface VizuMultilevelAvailability {

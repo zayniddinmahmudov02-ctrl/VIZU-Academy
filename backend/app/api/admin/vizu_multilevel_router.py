@@ -9,6 +9,7 @@ from app.api.dependencies.auth import require_admin_panel_access
 from app.db.session import get_db
 from app.models.user import User
 from app.schemas.vizu_multilevel import (
+    VizuMultilevelCertificateStatus,
     VizuMultilevelTeacherSpeakingDetail,
     VizuMultilevelActivityStats,
     VizuMultilevelAdminAttemptItem,
@@ -36,6 +37,8 @@ from app.services.admin import vizu_multilevel_content_admin_service as content_
 from app.services.admin import vizu_multilevel_speaking_admin_service as speaking_service
 from app.services.admin.vizu_multilevel_content_admin_service import ContentConflictError
 from app.services.teacher import vizu_multilevel_speaking_review_service as speaking_review_service
+from app.models.vizu_multilevel_attempt import VizuMultilevelAttempt
+from app.services.vizu_multilevel import certificate_pdf, certificate_service
 from app.services.vizu_multilevel import (
     hoeren_audio_service,
     hoeren_csv_import_service,
@@ -121,6 +124,43 @@ def get_attempt_detail(
     if detail is None:
         raise HTTPException(status_code=404, detail="Attempt not found.")
     return detail
+
+
+def _attempt_or_404(db: Session, attempt_id: UUID) -> VizuMultilevelAttempt:
+    attempt = db.get(VizuMultilevelAttempt, attempt_id)
+    if attempt is None:
+        raise HTTPException(status_code=404, detail="Attempt not found.")
+    return attempt
+
+
+@router.get("/attempts/{attempt_id}/certificate", response_model=VizuMultilevelCertificateStatus)
+def get_attempt_certificate_status(
+    attempt_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    """Certificate availability, number, level, Gesamtergebnis, date (read-only)."""
+    attempt = _attempt_or_404(db, attempt_id)
+    return {
+        "attempt_id": attempt.id,
+        "student_name": certificate_service.student_name(attempt.user),
+        **certificate_service.certificate_status(db, attempt),
+    }
+
+
+@router.get("/attempts/{attempt_id}/certificate/pdf")
+def download_attempt_certificate_pdf(
+    attempt_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    """The same PDF the student downloads (data of the attempt's owner)."""
+    attempt = _attempt_or_404(db, attempt_id)
+    try:
+        data = certificate_service.build_certificate(db, attempt, attempt.user)
+    except certificate_service.CertificateUnavailable as exc:
+        raise HTTPException(status_code=404, detail=f"NO_CERTIFICATE_{exc.reason}")
+    return certificate_pdf.certificate_pdf_response(data)
 
 
 # ============================================================

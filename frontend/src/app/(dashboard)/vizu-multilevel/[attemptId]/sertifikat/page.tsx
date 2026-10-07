@@ -7,6 +7,7 @@ import { ArrowLeft, Award } from "lucide-react";
 
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { VIZU_MULTILEVEL_SKILLS } from "@/features/vizu-multilevel/constants/skills";
+import VizuMultilevelCertificateDownload from "@/features/vizu-multilevel/components/certificate-download";
 import { getVizuMultilevelCertificate } from "@/features/vizu-multilevel/services/vizu-multilevel-service";
 
 /** VIZU-Multilevel's own certificate. Data comes from the backend, which
@@ -93,10 +94,13 @@ export default function VizuMultilevelCertificatePage() {
 
             <p className="mt-8 text-xs text-text-muted">
               {t("vizuMultilevel.certificateDate")}: {cert.issued_at ? new Date(cert.issued_at).toLocaleDateString() : "—"}
+              {cert.certificate_number ? ` · ${cert.certificate_number}` : ""}
             </p>
           </div>
         </div>
       )}
+
+      {cert && <VizuMultilevelCertificateDownload attemptId={attemptId} level={cert.overall_level} />}
     </div>
   );
 }

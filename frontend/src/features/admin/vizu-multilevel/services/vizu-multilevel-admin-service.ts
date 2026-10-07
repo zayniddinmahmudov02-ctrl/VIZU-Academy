@@ -1,6 +1,8 @@
 import { api } from "@/src/services/api";
 import { ensureArray } from "@/lib/ensure-array";
 
+import { savePdfBlob } from "@/features/vizu-multilevel/services/vizu-multilevel-service";
+
 import { ADMIN_ENDPOINTS } from "../../constants/endpoints";
 import type {
   VizuMultilevelActivityStats,
@@ -9,6 +11,7 @@ import type {
   VizuMultilevelContentTask,
   VizuMultilevelContentTaskPayload,
   VizuMultilevelQuestionPayload,
+  VizuMultilevelCertificateStatus,
   VizuMultilevelSpeakingAttemptDetail,
   VizuMultilevelSpeakingTaskAdmin,
   VizuMultilevelSpeakingTaskPayload,
@@ -331,4 +334,16 @@ export async function getVizuMultilevelAttemptSprechenAudio(attemptId: string, s
 export async function getVizuMultilevelStatistics(): Promise<VizuMultilevelStatistics> {
   const response = await api.get<VizuMultilevelStatistics>(ADMIN_ENDPOINTS.vizuMultilevelStatistics);
   return response.data;
+}
+
+// ---- Certificate ----
+
+export async function getVizuMultilevelAttemptCertificate(attemptId: string): Promise<VizuMultilevelCertificateStatus> {
+  const response = await api.get<VizuMultilevelCertificateStatus>(ADMIN_ENDPOINTS.vizuMultilevelAttemptCertificate(attemptId));
+  return response.data;
+}
+
+export async function downloadVizuMultilevelAttemptCertificatePdf(attemptId: string): Promise<void> {
+  const response = await api.get<Blob>(ADMIN_ENDPOINTS.vizuMultilevelAttemptCertificatePdf(attemptId), { responseType: "blob" });
+  savePdfBlob(response.data, response.headers["content-disposition"] as string | undefined, "VIZU-Zertifikat.pdf");
 }

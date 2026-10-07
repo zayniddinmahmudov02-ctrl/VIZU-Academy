@@ -277,3 +277,16 @@ export interface VizuMultilevelWritingTaskAdminPayload {
   is_active?: boolean;
   rubric_criteria?: VizuMultilevelWritingRubricCriterion[];
 }
+
+/** Admin: certificate information of one attempt (read-only). */
+export interface VizuMultilevelCertificateStatus {
+  attempt_id: string;
+  student_name: string;
+  available: boolean;
+  /** NOT_COMPLETED / BELOW_A1 / NOT_FINAL when not available. */
+  reason: string | null;
+  level: string | null;
+  total_score: number | null;
+  certificate_number: string | null;
+  completed_at: string | null;
+}
