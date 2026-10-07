@@ -1225,6 +1225,74 @@ export const translations: Record<string, Namespace> = {
     errBanned: { de: "Dieses Konto wurde gesperrt.", uz: "Bu hisob bloklangan." },
     errSuspended: { de: "Dieses Konto ist vorübergehend gesperrt.", uz: "Bu hisob vaqtincha to'xtatilgan." },
     errAdminPassword: { de: "Falsches Administrator-Passwort.", uz: "Administrator paroli noto'g'ri." },
+    fullName: { de: "Vor- und Nachname", uz: "Ism va familiya" },
+    fullNamePlaceholder: { de: "Max Mustermann", uz: "Ism Familiya" },
+    errFullName: { de: "Bitte geben Sie Ihren Vor- und Nachnamen ein.", uz: "Iltimos, ism va familiyangizni kiriting." },
+
+    // E-Mail-Bestätigung
+    verifyTitle: { de: "E-Mail-Adresse bestätigen", uz: "Elektron pochtani tasdiqlash" },
+    verifySent: {
+      de: "Wir haben einen Bestätigungscode an Ihre E-Mail-Adresse gesendet.",
+      uz: "Elektron pochtangizga tasdiqlash kodi yubordik.",
+    },
+    verifySentTo: { de: "Gesendet an {email}", uz: "{email} manziliga yuborildi" },
+    verifyEmailPrompt: {
+      de: "Geben Sie Ihre E-Mail-Adresse ein, um einen Bestätigungscode zu erhalten.",
+      uz: "Tasdiqlash kodini olish uchun elektron pochtangizni kiriting.",
+    },
+    codeLabel: { de: "Bestätigungscode", uz: "Tasdiqlash kodi" },
+    codeDigitAria: { de: "Ziffer {n} von 6", uz: "6 tadan {n}-raqam" },
+    verifyButton: { de: "Bestätigen", uz: "Tasdiqlash" },
+    verifying: { de: "Wird geprüft...", uz: "Tekshirilmoqda..." },
+    resendCode: { de: "Code erneut senden", uz: "Kodni qayta yuborish" },
+    resendIn: { de: "Neuen Code anfordern in {time}", uz: "Yangi kodni {time} dan keyin so'rash" },
+    resendDone: { de: "Ein neuer Code wurde gesendet.", uz: "Yangi kod yuborildi." },
+    sendCode: { de: "Code senden", uz: "Kodni yuborish" },
+    changeEmail: { de: "Andere E-Mail-Adresse verwenden", uz: "Boshqa elektron pochtadan foydalanish" },
+    verifySuccess: { de: "E-Mail-Adresse erfolgreich bestätigt.", uz: "Elektron pochta muvaffaqiyatli tasdiqlandi." },
+    verifySuccessLogin: { de: "Sie können sich jetzt anmelden.", uz: "Endi tizimga kirishingiz mumkin." },
+    emailNotVerified: { de: "E-Mail-Adresse wurde noch nicht bestätigt.", uz: "Elektron pochta hali tasdiqlanmagan." },
+    reverify: { de: "E-Mail erneut bestätigen", uz: "Pochtani qayta tasdiqlash" },
+    emailNotSent: {
+      de: "Der Bestätigungscode konnte gerade nicht gesendet werden. Bitte fordern Sie einen neuen Code an.",
+      uz: "Tasdiqlash kodini hozir yuborib bo'lmadi. Iltimos, yangi kod so'rang.",
+    },
+
+    // Passwort zurücksetzen
+    resetTitle: { de: "Passwort zurücksetzen", uz: "Parolni tiklash" },
+    resetIntro: {
+      de: "Geben Sie Ihre E-Mail-Adresse ein. Wir senden Ihnen einen Bestätigungscode.",
+      uz: "Elektron pochtangizni kiriting. Biz sizga tasdiqlash kodini yuboramiz.",
+    },
+    resetCodeTitle: { de: "Bestätigungscode eingeben", uz: "Tasdiqlash kodini kiriting" },
+    resetNewTitle: { de: "Neues Passwort festlegen", uz: "Yangi parol o'rnatish" },
+    resetGeneric: {
+      de: "Falls diese E-Mail-Adresse registriert ist, wurde ein Bestätigungscode gesendet.",
+      uz: "Agar bu elektron pochta ro'yxatdan o'tgan bo'lsa, tasdiqlash kodi yuborildi.",
+    },
+    next: { de: "Weiter", uz: "Davom etish" },
+    newPassword: { de: "Neues Passwort", uz: "Yangi parol" },
+    savePassword: { de: "Passwort speichern", uz: "Parolni saqlash" },
+    saving: { de: "Wird gespeichert...", uz: "Saqlanmoqda..." },
+    sending: { de: "Wird gesendet...", uz: "Yuborilmoqda..." },
+    resetSuccess: { de: "Passwort erfolgreich zurückgesetzt.", uz: "Parol muvaffaqiyatli tiklandi." },
+
+    // Code / Limits
+    errCodeFormat: { de: "Bitte geben Sie den 6-stelligen Code ein.", uz: "Iltimos, 6 xonali kodni kiriting." },
+    errCodeInvalid: { de: "Der Bestätigungscode ist ungültig.", uz: "Tasdiqlash kodi noto'g'ri." },
+    errCodeExpired: { de: "Der Bestätigungscode ist abgelaufen.", uz: "Tasdiqlash kodining muddati tugagan." },
+    errTooManyAttempts: {
+      de: "Zu viele ungültige Versuche. Bitte fordern Sie einen neuen Code an.",
+      uz: "Juda ko'p noto'g'ri urinish. Iltimos, yangi kod so'rang.",
+    },
+    errRateLimited: {
+      de: "Bitte warten Sie, bevor Sie einen neuen Code anfordern.",
+      uz: "Yangi kod so'rashdan oldin biroz kuting.",
+    },
+    errGeneric: {
+      de: "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",
+      uz: "Nimadir xato ketdi. Iltimos, qayta urinib ko'ring.",
+    },
     errRegisterFailed: {
       de: "Registrierung fehlgeschlagen. Bitte versuche es erneut.",
       uz: "Ro'yxatdan o'tib bo'lmadi. Iltimos, qayta urinib ko'ring.",

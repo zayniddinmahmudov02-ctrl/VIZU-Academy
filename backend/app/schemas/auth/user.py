@@ -1,13 +1,30 @@
 from datetime import datetime
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, EmailStr, Field
+from pydantic import BaseModel, ConfigDict, EmailStr, Field, model_validator
 
 from uuid import UUID
+# Same password rule as the existing frontend forms and ChangePasswordRequest
+# (min 6) — plus an upper bound so a huge body can't reach the hash function.
+PASSWORD_MIN_LENGTH = 6
+PASSWORD_MAX_LENGTH = 128
+
+
 class UserRegister(BaseModel):
     email: EmailStr
-    username: str
-    password: str
+    password: str = Field(min_length=PASSWORD_MIN_LENGTH, max_length=PASSWORD_MAX_LENGTH)
+    # "Vor- und Nachname" — the registration form sends this; older clients
+    # may still send a username instead. At least one of the two is required.
+    full_name: str | None = Field(default=None, min_length=2, max_length=120)
+    username: str | None = Field(default=None, min_length=3, max_length=50, pattern=r"^[a-zA-Z0-9_]+$")
+
+    @model_validator(mode="after")
+    def _name_or_username(self):
+        if not (self.full_name and self.full_name.strip()) and not self.username:
+            raise ValueError("full_name is required.")
+        if not self.password.strip():
+            raise ValueError("Password must not be empty.")
+        return self
 
 
 class UserLogin(BaseModel):
@@ -33,6 +50,13 @@ class UserResponse(BaseModel):
     suspended_until: datetime | None = None
     role: str
     created_at: datetime
+
+class RegisterResponse(UserResponse):
+    """Registration result — the account exists but must confirm its email."""
+
+    email_verification_required: bool
+    verification_email_sent: bool
+
 
 class Token(BaseModel):
     access_token: str

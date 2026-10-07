@@ -92,6 +92,16 @@ async def get_current_user(
             detail="User not found",
         )
 
+    # Sessions ended by a password reset: access tokens issued before
+    # users.tokens_valid_after are no longer accepted (NULL = no restriction).
+    if user.tokens_valid_after is not None:
+        issued_at = payload.get("iat")
+        if not isinstance(issued_at, (int, float)) or int(issued_at) < int(user.tokens_valid_after.timestamp()):
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Token revoked",
+            )
+
     # Re-check standing on every request, not just at login — a ban or
     # suspension applied mid-session must take effect immediately instead
     # of waiting for the access token to naturally expire.

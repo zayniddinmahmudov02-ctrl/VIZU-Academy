@@ -4,12 +4,9 @@ import { z } from "zod";
 // with t(), so validation errors follow the selected language (DE / UZ).
 export const registerSchema = z
   .object({
-    username: z
-      .string()
-      .min(3, "auth.errUsernameMin")
-      .regex(/^[a-zA-Z0-9_]+$/, "auth.errUsernameChars"),
+    fullName: z.string().trim().min(2, "auth.errFullName").max(120, "auth.errFullName"),
     email: z.email("auth.errEmailInvalid"),
-    password: z.string().min(6, "auth.errPasswordMin"),
+    password: z.string().min(6, "auth.errPasswordMin").max(128, "auth.errPasswordMin"),
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {

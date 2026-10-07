@@ -141,3 +141,24 @@ class User(BaseModel):
         nullable=True,
         index=True,
     )
+
+    # ---- Email verification (registration) ----
+    # True only for accounts created through self-registration after email
+    # verification was introduced; every pre-existing, Telegram, admin-made
+    # account keeps False, so their login behaviour is unchanged.
+    email_verification_required: Mapped[bool] = mapped_column(
+        Boolean,
+        default=False,
+        server_default="false",
+        nullable=False,
+    )
+    email_verified_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True),
+        nullable=True,
+    )
+    # Access tokens issued before this moment are rejected (set on password
+    # reset). NULL = no restriction (every existing session stays valid).
+    tokens_valid_after: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True),
+        nullable=True,
+    )

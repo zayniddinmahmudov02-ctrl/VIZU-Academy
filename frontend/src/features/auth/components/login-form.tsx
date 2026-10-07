@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AlertCircle, Eye, EyeOff, ShieldCheck } from "lucide-react";
+import { AlertCircle, CheckCircle2, Eye, EyeOff, MailWarning, ShieldCheck } from "lucide-react";
 
 import Button from "@/components/ui/button";
 import Checkbox from "@/components/ui/checkbox";
@@ -16,9 +16,10 @@ import { decodeJwtPayload } from "@/lib/jwt";
 import { saveRefreshToken, saveToken } from "@/lib/token";
 
 import { useLogin } from "../hooks/use-login";
-import { verifyAdminPasswordService } from "../services/auth.service";
+import { resendVerificationService, verifyAdminPasswordService } from "../services/auth.service";
 import type { JwtPayload } from "../types/auth.types";
 import { getAuthErrorKey } from "../utils/get-error-message";
+import { clearAuthNotice, peekAuthNotice, setPendingEmail, type AuthNotice } from "../utils/pending-email";
 
 import {
   loginSchema,
@@ -35,6 +36,9 @@ export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
   const [formError, setFormError] = useState<string | null>(null);
+  const [unverifiedEmail, setUnverifiedEmail] = useState<string | null>(null);
+  const [reverifying, setReverifying] = useState(false);
+  const [notice, setNotice] = useState<AuthNotice | null>(null);
 
   const [adminPassword, setAdminPassword] = useState("");
   const [showAdminPassword, setShowAdminPassword] = useState(false);
@@ -49,8 +53,31 @@ export default function LoginForm() {
     resolver: zodResolver(loginSchema),
   });
 
+  // One-shot success message after e-mail verification / password reset.
+  useEffect(() => {
+    const timer = setTimeout(() => setNotice(peekAuthNotice()), 0);
+    return () => clearTimeout(timer);
+  }, []);
+
+  async function onReverify() {
+    if (!unverifiedEmail) return;
+    setReverifying(true);
+    try {
+      await resendVerificationService(unverifiedEmail);
+    } catch {
+      // Rate-limited or temporarily failing: the verify page offers a resend.
+    } finally {
+      setPendingEmail(unverifiedEmail);
+      setReverifying(false);
+      router.push("/verify-email");
+    }
+  }
+
   async function onSubmit(data: LoginFormData) {
     setFormError(null);
+    setUnverifiedEmail(null);
+    setNotice(null);
+    clearAuthNotice();
 
     try {
       const response = await loginMutation.mutateAsync(data);
@@ -67,7 +94,12 @@ export default function LoginForm() {
 
       router.push("/dashboard");
     } catch (error) {
-      setFormError(getAuthErrorKey(error, "auth.errInvalidCredentials"));
+      const key = getAuthErrorKey(error, "auth.errInvalidCredentials");
+      if (key === "auth.emailNotVerified") {
+        setUnverifiedEmail(data.email);
+        return;
+      }
+      setFormError(key);
     }
   }
 
@@ -167,6 +199,25 @@ export default function LoginForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
+      {notice && (
+        <div className="flex items-start gap-2 rounded-xl bg-success/10 px-4 py-3 text-sm text-success" role="status" data-testid="auth-notice">
+          <CheckCircle2 size={16} className="mt-0.5 shrink-0" />
+          <span>{t(notice === "verified" ? "auth.verifySuccess" : "auth.resetSuccess")}</span>
+        </div>
+      )}
+
+      {unverifiedEmail && (
+        <div className="space-y-3 rounded-xl bg-warning/10 px-4 py-3 text-sm" role="alert" data-testid="email-not-verified">
+          <div className="flex items-start gap-2 text-text-primary">
+            <MailWarning size={16} className="mt-0.5 shrink-0 text-warning" />
+            <span>{t("auth.emailNotVerified")}</span>
+          </div>
+          <Button type="button" variant="secondary" size="sm" fullWidth disabled={reverifying} onClick={onReverify}>
+            {reverifying ? t("auth.sending") : t("auth.reverify")}
+          </Button>
+        </div>
+      )}
+
       {formError && (
         <div className="flex items-start gap-2 rounded-xl bg-danger/10 px-4 py-3 text-sm text-danger">
           <AlertCircle size={16} className="mt-0.5 shrink-0" />

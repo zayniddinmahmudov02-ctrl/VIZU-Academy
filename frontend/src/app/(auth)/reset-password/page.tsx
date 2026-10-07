@@ -1,12 +1,7 @@
-import { Suspense } from "react";
+import { redirect } from "next/navigation";
 
-import Loading from "@/components/common/loading";
-import ResetPasswordCard from "@/features/auth/components/reset-password-card";
-
+// Password reset is code-based now (Passwort vergessen -> 6-digit code);
+// old e-mailed reset links land on the new flow.
 export default function ResetPasswordPage() {
-  return (
-    <Suspense fallback={<Loading />}>
-      <ResetPasswordCard />
-    </Suspense>
-  );
+  redirect("/forgot-password");
 }

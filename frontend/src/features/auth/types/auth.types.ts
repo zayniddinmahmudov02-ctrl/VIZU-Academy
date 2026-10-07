@@ -4,9 +4,22 @@ export interface LoginRequest {
 }
 
 export interface RegisterRequest {
+  full_name: string;
+  email: string;
+  password: string;
+}
+
+export interface RegisterResponse {
+  id: string;
   email: string;
   username: string;
-  password: string;
+  email_verification_required: boolean;
+  verification_email_sent: boolean;
+}
+
+export interface EmailCodeRequest {
+  email: string;
+  code: string;
 }
 
 export interface TokenResponse {
@@ -26,7 +39,8 @@ export interface ForgotPasswordRequest {
 }
 
 export interface ResetPasswordRequest {
-  token: string;
+  email: string;
+  code: string;
   new_password: string;
 }
 

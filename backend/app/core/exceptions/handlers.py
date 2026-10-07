@@ -22,7 +22,9 @@ def register_exception_handlers(app: FastAPI):
                 "success": False,
                 "message": exc.detail,
             },
-            headers=cors_headers_for(request.headers.get("origin")),
+            # Keep the exception's own headers (e.g. Retry-After on 429,
+            # WWW-Authenticate on 401) alongside the CORS headers.
+            headers={**(exc.headers or {}), **cors_headers_for(request.headers.get("origin"))},
         )
 
     @app.exception_handler(NotFoundError)

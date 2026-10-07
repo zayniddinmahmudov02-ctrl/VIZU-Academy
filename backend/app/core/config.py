@@ -142,9 +142,31 @@ class Settings(BaseSettings):
     # long before they're rejected regardless of use.
     PASSWORD_RESET_TOKEN_EXPIRE_MINUTES: int = 30
 
-    # Used to build the reset link logged by /auth/forgot-password (no
-    # email-sending infrastructure exists yet — see that endpoint).
+    # Public origin of the frontend (used in email footers / links).
     FRONTEND_URL: str = "http://localhost:3000"
+
+    # ==================================================
+    # EMAIL (verification + password-reset codes, app/services/email/)
+    # ==================================================
+    # "smtp"   — real delivery via SMTP (needs SMTP_HOST / SMTP_PORT /
+    #            SMTP_USERNAME / SMTP_PASSWORD / EMAIL_FROM).
+    # "outbox" — development only: writes each email as a .eml file into
+    #            EMAIL_OUTBOX_DIR (git-ignored) instead of sending it.
+    # ""       — not configured: "outbox" in development, sending fails
+    #            (cleanly, 503) in any other APP_ENV.
+    # Secrets live only in the backend environment, never in code/frontend.
+    EMAIL_PROVIDER: str = ""
+    EMAIL_FROM: str = ""
+    EMAIL_FROM_NAME: str = "VIZU-Academy"
+    SMTP_HOST: str = ""
+    SMTP_PORT: int = 587
+    SMTP_USERNAME: str = ""
+    SMTP_PASSWORD: str = ""
+    # STARTTLS on SMTP_PORT (587). Set SMTP_USE_SSL=true for implicit TLS (465).
+    SMTP_USE_TLS: bool = True
+    SMTP_USE_SSL: bool = False
+    SMTP_TIMEOUT_SECONDS: int = 15
+    EMAIL_OUTBOX_DIR: str = "var/email-outbox"
 
     # Shared passphrase for the Super Admin's second verification screen.
     # Never sent to or embedded in the frontend — compared server-side

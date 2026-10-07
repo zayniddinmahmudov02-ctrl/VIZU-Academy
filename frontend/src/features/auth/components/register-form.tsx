@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AlertCircle, CheckCircle2, Eye, EyeOff } from "lucide-react";
+import { AlertCircle, Eye, EyeOff } from "lucide-react";
 
 import Button from "@/components/ui/button";
 import Input from "@/components/ui/input";
@@ -12,6 +12,7 @@ import { useTranslation } from "@/lib/i18n/use-translation";
 
 import { useRegister } from "../hooks/use-register";
 import { getAuthErrorKey } from "../utils/get-error-message";
+import { setPendingEmail } from "../utils/pending-email";
 import { registerSchema, RegisterFormData } from "../validation/register.schema";
 
 export default function RegisterForm() {
@@ -19,7 +20,6 @@ export default function RegisterForm() {
   const { t } = useTranslation();
   const registerMutation = useRegister();
 
-  const [submitted, setSubmitted] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -36,31 +36,18 @@ export default function RegisterForm() {
     setFormError(null);
 
     try {
-      await registerMutation.mutateAsync({
+      const result = await registerMutation.mutateAsync({
+        full_name: data.fullName.trim(),
         email: data.email,
-        username: data.username,
         password: data.password,
       });
 
-      setSubmitted(true);
-
-      setTimeout(() => {
-        router.push("/login");
-      }, 1800);
+      // Unverified account: confirm the e-mail code before the first login.
+      setPendingEmail(result.email, !result.verification_email_sent);
+      router.push("/verify-email");
     } catch (error) {
       setFormError(getAuthErrorKey(error, "auth.errRegisterFailed"));
     }
-  }
-
-  if (submitted) {
-    return (
-      <div className="flex flex-col items-center gap-3 rounded-2xl bg-success/10 p-6 text-center">
-        <CheckCircle2 size={32} className="text-success" />
-        <p className="text-sm font-medium text-text-primary">
-          {t("auth.registerSuccess")}
-        </p>
-      </div>
-    );
   }
 
   return (
@@ -73,14 +60,14 @@ export default function RegisterForm() {
       )}
 
       <div>
-        <label className="mb-2 block text-sm font-medium text-text-primary">{t("auth.username")}</label>
-        <Input placeholder={t("auth.usernamePlaceholder")} error={!!errors.username} {...register("username")} />
-        {errors.username && <p className="mt-2 text-sm text-danger">{t(errors.username.message ?? "")}</p>}
+        <label className="mb-2 block text-sm font-medium text-text-primary">{t("auth.fullName")}</label>
+        <Input autoComplete="name" placeholder={t("auth.fullNamePlaceholder")} error={!!errors.fullName} {...register("fullName")} />
+        {errors.fullName && <p className="mt-2 text-sm text-danger">{t(errors.fullName.message ?? "")}</p>}
       </div>
 
       <div>
         <label className="mb-2 block text-sm font-medium text-text-primary">{t("auth.email")}</label>
-        <Input type="email" placeholder={t("auth.emailPlaceholder")} error={!!errors.email} {...register("email")} />
+        <Input type="email" autoComplete="email" placeholder={t("auth.emailPlaceholder")} error={!!errors.email} {...register("email")} />
         {errors.email && <p className="mt-2 text-sm text-danger">{t(errors.email.message ?? "")}</p>}
       </div>
 

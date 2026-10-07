@@ -13,6 +13,11 @@ const AUTH_ERROR_KEYS: Record<string, string> = {
   "This account has been banned.": "auth.errBanned",
   "This account is suspended.": "auth.errSuspended",
   "Incorrect administrator password.": "auth.errAdminPassword",
+  EMAIL_NOT_VERIFIED: "auth.emailNotVerified",
+  CODE_INVALID: "auth.errCodeInvalid",
+  CODE_EXPIRED: "auth.errCodeExpired",
+  TOO_MANY_ATTEMPTS: "auth.errTooManyAttempts",
+  RATE_LIMITED: "auth.errRateLimited",
 };
 
 /** A translation key for a known auth error (or the fallback key); an

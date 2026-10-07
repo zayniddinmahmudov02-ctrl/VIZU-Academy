@@ -1,21 +1,17 @@
+import re
 import secrets
 from datetime import UTC, datetime, timedelta
 from uuid import UUID
 
 from fastapi import HTTPException
-from jose import JWTError
 
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from app.core.config import settings
-from app.core.logging.logger import logger
 from app.core.security import (
-    create_password_reset_token,
     create_user_token,
-    decode_password_reset_token,
     hash_password,
-    password_hash_fingerprint,
     verify_password,
 )
 
@@ -30,10 +26,31 @@ from app.schemas.auth.user import (
 )
 
 
+def _split_name(full_name: str | None) -> tuple[str | None, str | None]:
+    parts = (full_name or "").split()
+    if not parts:
+        return None, None
+    return parts[0][:100], (" ".join(parts[1:])[:100] or None)
+
+
+def _unique_username(db: Session, base: str) -> str:
+    base = re.sub(r"[^a-zA-Z0-9_]", "_", base).strip("_")[:30] or "user"
+    if len(base) < 3:
+        base = f"{base}_user"
+    candidate, suffix = base, 0
+    while db.scalar(select(User.id).where(func.lower(User.username) == candidate.lower())) is not None:
+        suffix += 1
+        candidate = f"{base}_{suffix}"
+    return candidate
+
+
 def create_user(
     db: Session,
     data: UserRegister,
 ) -> User:
+    """Self-registration. The new account must confirm its e-mail address
+    (email_verification_required=True) before it can log in — accounts that
+    existed before this flow keep False and are unaffected."""
 
     existing_email = db.scalar(
         select(User).where(
@@ -47,24 +64,33 @@ def create_user(
             detail="Email already exists.",
         )
 
-    existing_username = db.scalar(
-        select(User).where(
-            User.username == data.username,
+    if data.username:
+        existing_username = db.scalar(
+            select(User).where(
+                func.lower(User.username) == data.username.lower(),
+            )
         )
-    )
+        if existing_username:
+            raise HTTPException(
+                status_code=409,
+                detail="Username already exists.",
+            )
+        username = data.username
+    else:
+        username = _unique_username(db, data.email.split("@", 1)[0])
 
-    if existing_username:
-        raise HTTPException(
-            status_code=409,
-            detail="Username already exists.",
-        )
+    first_name, last_name = _split_name(data.full_name)
 
     user = User(
-        email=data.email,
-        username=data.username,
+        email=data.email.strip(),
+        username=username,
+        first_name=first_name,
+        last_name=last_name,
         password_hash=hash_password(
             data.password,
         ),
+        is_verified=False,
+        email_verification_required=True,
     )
 
     db.add(user)
@@ -74,6 +100,21 @@ def create_user(
     db.refresh(user)
 
     return user
+
+
+def needs_email_verification(user: User) -> bool:
+    return bool(user.email_verification_required and user.email_verified_at is None)
+
+
+def mark_email_verified(db: Session, user: User) -> None:
+    if user.email_verified_at is None:
+        user.email_verified_at = datetime.now(UTC)
+    user.is_verified = True
+    db.commit()
+
+
+def display_name(user: User) -> str:
+    return (user.first_name or "").strip() or user.username
 
 
 def authenticate_user(
@@ -273,89 +314,33 @@ def revoke_refresh_token(
 
 
 # ==========================
-# Password reset
+# Password reset (6-digit e-mail code — see auth/email_code_service.py)
 # ==========================
 
-def request_password_reset(
+def can_receive_email(user: User) -> bool:
+    """Telegram-only accounts carry a synthetic @telegram.local address."""
+    return bool(user.email) and not user.email.lower().endswith("@telegram.local")
+
+
+def apply_password_reset(
     db: Session,
-    email: str,
-) -> None:
-    """Never reveals whether the email exists — the router always returns
-    the same generic message regardless of what happens in here. With no
-    email-sending infrastructure in this codebase, the reset link is
-    logged server-side instead; wiring an actual mail provider is the one
-    piece of real infrastructure this still needs before it's usable in
-    production."""
-
-    user = get_user_by_email(db, email)
-
-    if user is None:
-        return
-
-    token = create_password_reset_token(user)
-    reset_link = f"{settings.FRONTEND_URL}/reset-password?token={token}"
-
-    # FRONTEND_URL's own default (core/config.py) is the local dev
-    # address on purpose — this only warns when that default is still in
-    # effect somewhere that has clearly identified itself as NOT local
-    # dev, i.e. FRONTEND_URL was never actually set in that environment.
-    # This is exactly the real production bug it was written for
-    # (reset links pointing at localhost:3000) — a loud, one-line signal
-    # for the next deploy instead of a silently wrong link, with no
-    # change to local dev's own (correct) behavior at all.
-    if settings.APP_ENV != "development" and settings.FRONTEND_URL == "http://localhost:3000":
-        logger.warning(
-            "FRONTEND_URL is unset in a non-development environment (APP_ENV=%s) — "
-            "password reset links are being generated against http://localhost:3000. "
-            "Set the FRONTEND_URL environment variable to this environment's real "
-            "frontend origin (e.g. https://vizu-deutsch.com).",
-            settings.APP_ENV,
-        )
-
-    logger.info(
-        "Password reset requested for user_id=%s email=%s — link: %s",
-        user.id,
-        user.email,
-        reset_link,
-    )
-
-
-def reset_password(
-    db: Session,
-    token: str,
+    user: User,
     new_password: str,
-) -> bool:
-    """Returns False for any invalid/expired/already-used token, True on
-    success. Never raises for a bad token — only for genuinely
-    unexpected failures."""
-
-    try:
-        payload = decode_password_reset_token(token)
-    except (JWTError, ValueError):
-        return False
-
-    user_id = payload.get("sub")
-
-    if not user_id:
-        return False
-
-    try:
-        user = get_user_by_id(db, user_id)
-    except (ValueError, TypeError):
-        return False
-
-    if user is None:
-        return False
-
-    if payload.get("pwd_fp") != password_hash_fingerprint(user.password_hash):
-        # Password already changed since this token was issued — either
-        # it was already redeemed, or the account changed some other way.
-        return False
+) -> None:
+    """Sets the new password and ends every existing session: all refresh
+    tokens are revoked and access tokens issued before now are rejected
+    (users.tokens_valid_after, checked in get_current_user). A successful
+    reset also proves the address belongs to the user."""
 
     user.password_hash = hash_password(new_password)
+    now = datetime.now(UTC)
+    user.tokens_valid_after = now
+    if user.email_verification_required and user.email_verified_at is None:
+        user.email_verified_at = now
+        user.is_verified = True
     db.commit()
 
-    return True
+    RefreshTokenRepository(db).delete_all_for_user(str(user.id))
 
 
 # ==========================
