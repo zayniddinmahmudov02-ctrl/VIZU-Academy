@@ -9,6 +9,7 @@ import FormDialog from "@/components/admin/form-dialog";
 import { listVizuMultilevelAttempts } from "@/features/admin/vizu-multilevel/services/vizu-multilevel-admin-service";
 import type { VizuMultilevelAdminAttemptItem } from "@/features/admin/vizu-multilevel/types/vizu-multilevel-admin.types";
 import VizuMultilevelAttemptsTable from "./attempts-table";
+import SprechenAttemptDetail from "./sprechen-attempt-detail";
 
 const PAGE_SIZE = 20;
 const LEVELS = ["A1", "A2", "B1", "B2", "C1"];
@@ -128,7 +129,7 @@ export default function VizuMultilevelResultsTab() {
         onOpenChange={(open) => !open && setSelected(null)}
         title={selected ? selected.student_name : ""}
         description={selected ? `${selected.username} · ${selected.email}` : undefined}
-        size="md"
+        size="lg"
       >
         {selected && (
           <div className="space-y-5">
@@ -168,6 +169,11 @@ export default function VizuMultilevelResultsTab() {
                   ))}
                 </tbody>
               </table>
+            </div>
+
+            <div>
+              <p className="mb-2 text-sm font-semibold text-[var(--admin-text-primary)]">Sprechen — Aufnahmen, Transkript & KI-Bewertung</p>
+              <SprechenAttemptDetail attemptId={selected.id} />
             </div>
           </div>
         )}

@@ -124,6 +124,7 @@ Regeln:
 - "feedback": 2-3 natürliche Sätze Gesamteindruck.
 - "next_step": EIN konkreter Tipp für die nächste Antwort (z. B. mit Beispielwörtern oder einem Mustersatz).
 - Erfinde keine Fehler, die nicht in der Fehlerliste oder im Transkript stehen.
+- Keine Begrüßung oder Briefanrede; nenne keinen Namen und setze kein Geschlecht voraus (kein „Frau …“/„Herr …“). Beginne direkt mit dem Inhalt.
 
 Antworte NUR mit JSON:
 {{"strengths": ["..."], "improvements": ["..."], "feedback": "...", "next_step": "..."}}"""

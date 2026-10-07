@@ -9,6 +9,7 @@ import type {
   VizuMultilevelContentTask,
   VizuMultilevelContentTaskPayload,
   VizuMultilevelQuestionPayload,
+  VizuMultilevelSpeakingAttemptDetail,
   VizuMultilevelSpeakingTaskAdmin,
   VizuMultilevelSpeakingTaskPayload,
   VizuMultilevelStatistics,
@@ -303,6 +304,26 @@ export async function updateVizuMultilevelSprechenTask(
 
 export async function deleteVizuMultilevelSprechenTask(taskId: string): Promise<void> {
   await api.delete(ADMIN_ENDPOINTS.vizuMultilevelSprechenContentDetail(taskId));
+}
+
+/** null = this attempt has not submitted Sprechen yet (404). */
+export async function getVizuMultilevelAttemptSprechen(attemptId: string): Promise<VizuMultilevelSpeakingAttemptDetail | null> {
+  try {
+    const response = await api.get<VizuMultilevelSpeakingAttemptDetail>(ADMIN_ENDPOINTS.vizuMultilevelAttemptSprechen(attemptId));
+    return response.data;
+  } catch (error) {
+    if ((error as { response?: { status?: number } }).response?.status === 404) return null;
+    throw error;
+  }
+}
+
+/** The private recording as a blob (the endpoint needs the admin's token, so
+ * it cannot be an <audio src> URL directly). */
+export async function getVizuMultilevelAttemptSprechenAudio(attemptId: string, submissionId: string): Promise<Blob> {
+  const response = await api.get<Blob>(ADMIN_ENDPOINTS.vizuMultilevelAttemptSprechenAudio(attemptId, submissionId), {
+    responseType: "blob",
+  });
+  return response.data;
 }
 
 // ---- Statistics ----

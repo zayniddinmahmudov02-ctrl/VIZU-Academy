@@ -176,9 +176,50 @@ export interface VizuMultilevelSpeakingTaskAdmin {
   instruction: string;
   preparation_text: string | null;
   prep_seconds: number;
+  /** Recommended minimum speaking time (hint for the student). */
+  min_seconds: number;
   max_seconds: number;
   points: number;
   is_active: boolean;
+}
+
+/** A student's Sprechen (admin view): per Aufgabe audio, transcript, AI result. */
+export interface VizuMultilevelSpeakingAttemptDetail {
+  attempt_id: string;
+  student_name: string;
+  username: string;
+  email: string;
+  sprechen_submitted_at: string;
+  sprechen_score: number | null;
+  sprechen_level: string | null;
+  sprechen_feedback: string | null;
+  submissions: {
+    submission_id: string | null;
+    task_id: string;
+    order_index: number;
+    level: string;
+    title: string;
+    instruction: string;
+    points: number;
+    duration_seconds: number | null;
+    has_audio: boolean;
+    teacher_score: number | null;
+    teacher_comment: string | null;
+    status: string | null;
+    transcript: string | null;
+    transcript_confidence: number | null;
+    audio_observations: Record<string, string> | null;
+    ai_score: number | null;
+    ai_feedback: {
+      strengths?: string[];
+      improvements?: string[];
+      errors?: { original: string; correction: string; explanation: string }[];
+      feedback?: string;
+      next_step?: string;
+      justification?: Record<string, string>;
+    } | null;
+    evaluation_error: string | null;
+  }[];
 }
 
 export type VizuMultilevelSpeakingTaskPayload = Partial<Omit<VizuMultilevelSpeakingTaskAdmin, "id">>;
