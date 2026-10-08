@@ -290,3 +290,58 @@ export interface VizuMultilevelCertificateStatus {
   certificate_number: string | null;
   completed_at: string | null;
 }
+
+// ---- Studenten: best result per student (up to 3 attempts) ----
+
+export interface VizuMultilevelStudentAttempt {
+  id: string;
+  attempt_number: number | null;
+  status: "IN_PROGRESS" | "COMPLETED";
+  started_at: string;
+  completed_at: string | null;
+  result_score: number | null;
+  /** A1..C1 or "BELOW_A1" ("unter A1") */
+  result_level: string | null;
+  certificate_available: boolean;
+  certificate_number: string | null;
+}
+
+export interface VizuMultilevelStudentRow {
+  user_id: string;
+  student_name: string;
+  email: string;
+  attempts_used: number;
+  attempts_remaining: number;
+  max_attempts: number;
+  best_score: number | null;
+  best_level: string | null;
+  best_attempt_number: number | null;
+  best_attempt_id: string | null;
+  last_attempt_id: string | null;
+  last_attempt_number: number | null;
+  last_attempt_status: string | null;
+  last_attempt_score: number | null;
+  last_attempt_level: string | null;
+  last_attempt_date: string | null;
+  attempts: VizuMultilevelStudentAttempt[];
+}
+
+export type VizuMultilevelStudentSort = "best_score" | "level" | "attempts" | "date";
+
+export interface VizuMultilevelStudentsPage {
+  items: VizuMultilevelStudentRow[];
+  total: number;
+  page: number;
+  page_size: number;
+  total_pages: number;
+  sort: VizuMultilevelStudentSort;
+  order: "asc" | "desc";
+}
+
+export interface VizuMultilevelStudentsQuery {
+  page?: number;
+  page_size?: number;
+  search?: string;
+  sort?: VizuMultilevelStudentSort;
+  order?: "asc" | "desc";
+}

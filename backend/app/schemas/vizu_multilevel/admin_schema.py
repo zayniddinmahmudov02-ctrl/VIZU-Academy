@@ -91,6 +91,8 @@ class VizuMultilevelAnalytics(BaseSchema):
 
 class VizuMultilevelAdminAttemptItem(BaseSchema):
     id: UUID
+    attempt_number: int | None = None
+    result_score: int | None = None
     user_id: UUID
     student_name: str
     username: str
@@ -116,6 +118,50 @@ class VizuMultilevelAdminAttemptsPage(BaseSchema):
     page: int
     page_size: int
     total_pages: int
+
+
+class VizuMultilevelStudentAttempt(BaseSchema):
+    id: UUID
+    attempt_number: int | None
+    status: str
+    started_at: datetime
+    completed_at: datetime | None
+    result_score: int | None
+    result_level: str | None
+    certificate_available: bool
+    certificate_number: str | None
+
+
+class VizuMultilevelStudentRow(BaseSchema):
+    """Admin analytics per student — "Bestes Ergebnis" is the headline."""
+
+    user_id: UUID
+    student_name: str
+    email: str
+    attempts_used: int
+    attempts_remaining: int
+    max_attempts: int
+    best_score: int | None
+    best_level: str | None
+    best_attempt_number: int | None
+    best_attempt_id: UUID | None
+    last_attempt_id: UUID | None
+    last_attempt_number: int | None
+    last_attempt_status: str | None
+    last_attempt_score: int | None
+    last_attempt_level: str | None
+    last_attempt_date: datetime | None
+    attempts: list[VizuMultilevelStudentAttempt]
+
+
+class VizuMultilevelStudentsPage(BaseSchema):
+    items: list[VizuMultilevelStudentRow]
+    total: int
+    page: int
+    page_size: int
+    total_pages: int
+    sort: str
+    order: str
 
 
 # ============================================================

@@ -12,6 +12,7 @@ import type {
   VizuMultilevelHoerenResult,
   VizuMultilevelHoerenTask,
   VizuMultilevelLesenResult,
+  VizuMultilevelMyResults,
   VizuMultilevelSectionState,
   VizuMultilevelSkill,
   VizuMultilevelSpeakingEvaluation,
@@ -33,7 +34,7 @@ export async function createVizuMultilevelAttempt(): Promise<VizuMultilevelAttem
   return response.data;
 }
 
-/** The student's one and only attempt, or null if none was started yet. */
+/** The student's latest attempt, or null if none was started yet. */
 export async function getCurrentVizuMultilevelAttempt(): Promise<VizuMultilevelAttempt | null> {
   try {
     const response = await api.get<VizuMultilevelAttempt>(`${BASE}/current`);
@@ -42,6 +43,18 @@ export async function getCurrentVizuMultilevelAttempt(): Promise<VizuMultilevelA
     if ((error as { response?: { status?: number } }).response?.status === 404) return null;
     throw error;
   }
+}
+
+/** "Meine Ergebnisse": own attempts (Versuch 1-3), attempts left, best result. */
+export async function getMyVizuMultilevelResults(): Promise<VizuMultilevelMyResults> {
+  const response = await api.get<VizuMultilevelMyResults>(`${ROOT}/my-results`);
+  return response.data;
+}
+
+/** True when the server refused a new attempt because all 3 are used. */
+export function isMaxAttemptsError(error: unknown): boolean {
+  const response = (error as { response?: { status?: number; data?: { message?: string } } })?.response;
+  return response?.status === 403 && response.data?.message === "MAX_ATTEMPTS_REACHED";
 }
 
 export async function getVizuMultilevelAvailability(): Promise<VizuMultilevelAvailability> {

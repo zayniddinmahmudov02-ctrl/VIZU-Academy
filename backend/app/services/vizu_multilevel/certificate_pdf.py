@@ -3,7 +3,9 @@
 One shared layout (BaseCertificate below) + CERTIFICATE_THEMES: only the
 level-specific styling changes — frame, corner ornaments, accent colour,
 level badge, seal and (C1) watermark — so A1..C1 read as five levels of the
-same certificate system. All visible text is German (the director title is
+same certificate system. "Niveau unter A1" (BELOW_A1) has its own calm,
+minimal theme and neutral wording ("teilgenommen … Ergebnis erzielt"): the
+result is shown in full, never as "nicht bestanden". All visible text is German (the director title is
 kept exactly as "Director of VIZU-Academy" by design).
 
 Fonts: the PDF standard fonts Times / Helvetica — built into every PDF reader,
@@ -23,9 +25,11 @@ from reportlab.pdfbase.pdfmetrics import stringWidth
 from reportlab.pdfgen.canvas import Canvas
 
 from app.services.vizu_multilevel.certificate_service import (
+    BELOW_A1_LEVEL,
     CertificateData,
     format_points,
     german_date,
+    level_label,
     pdf_filename,
 )
 
@@ -51,7 +55,7 @@ class CertificateTheme:
     accent: Color  # level colour (badge, rules, ornaments)
     accent_soft: Color  # tinted backgrounds
     secondary: Color  # second accent (A2+)
-    frame: str  # single | double | bracketed | banded | prestige
+    frame: str  # soft | single | double | bracketed | banded | prestige
     corners: str  # none | squares | brackets | diamonds | rosettes
     seal: str  # none | ring | double_ring | rosette
     guilloche: bool  # fine concentric arcs in the corners
@@ -60,6 +64,11 @@ class CertificateTheme:
 
 
 CERTIFICATE_THEMES: dict[str, CertificateTheme] = {
+    # "Niveau unter A1" — calm and minimal: slate frame with a thin blue top
+    # edge, outlined badge, no ornaments or seal. Same family, clearly distinct.
+    BELOW_A1_LEVEL: CertificateTheme(
+        BELOW_A1_LEVEL, HexColor("#475569"), HexColor("#f1f5f9"), HexColor("#94a3b8"), "soft", "none", "none", False, False, False
+    ),
     # Entry level — minimal: one thin frame, light blue, outlined badge.
     "A1": CertificateTheme("A1", HexColor("#3b82f6"), HexColor("#eef4ff"), HexColor("#93c5fd"), "single", "none", "none", False, False, False),
     # Double rule, teal secondary accent, small corner squares.
@@ -151,7 +160,16 @@ def draw_logo(c: Canvas, cx: float, cy: float, size: float, alpha: float = 1.0, 
 def _frame(c: Canvas, theme: CertificateTheme) -> None:
     x0, y0, w, h = MARGIN, MARGIN, PAGE_W - 2 * MARGIN, PAGE_H - 2 * MARGIN
     c.saveState()
-    if theme.frame == "single":
+    if theme.frame == "soft":
+        # unter A1: one slate hairline frame, fine blue rules top and bottom
+        c.setStrokeColor(theme.accent)
+        c.setLineWidth(0.6)
+        c.rect(x0, y0, w, h)
+        c.setStrokeColor(HexColor("#3b82f6"))
+        c.setLineWidth(1.2)
+        c.line(x0 + 40, y0 + h - 8, x0 + w - 40, y0 + h - 8)
+        c.line(x0 + 40, y0 + 8, x0 + w - 40, y0 + 8)
+    elif theme.frame == "single":
         c.setStrokeColor(INK)
         c.setLineWidth(0.8)
         c.rect(x0, y0, w, h)
@@ -340,9 +358,13 @@ def _body(c: Canvas, theme: CertificateTheme, data: CertificateData) -> None:
     c.setStrokeColor(RULE)
     c.setLineWidth(0.7)
     c.line(cx - 210, 324, cx + 210, 324)
-    _centered(c, "die VIZU-Multilevel-Prüfung erfolgreich abgelegt und das", 302, SERIF, 13, INK)
+    below_a1 = data.level == BELOW_A1_LEVEL
+    if below_a1:
+        _centered(c, "an der VIZU-Multilevel-Prüfung teilgenommen und folgendes Ergebnis erzielt hat:", 302, SERIF, 13, INK)
+    else:
+        _centered(c, "die VIZU-Multilevel-Prüfung erfolgreich abgelegt und das", 302, SERIF, 13, INK)
 
-    label = f"Niveau {data.level}"
+    label = f"Niveau {level_label(data.level)}"
     bw, bh = _text_width(label, SERIF_BOLD, 22, 1.5) + 48, 36
     c.saveState()
     if theme.badge_filled:
@@ -361,7 +383,8 @@ def _body(c: Canvas, theme: CertificateTheme, data: CertificateData) -> None:
         text_color = theme.accent
     c.restoreState()
     _centered(c, label, 266, SERIF_BOLD, 22, text_color, char_space=1.5)
-    _centered(c, "erreicht hat.", 234, SERIF, 13, INK)
+    if not below_a1:
+        _centered(c, "erreicht hat.", 234, SERIF, 13, INK)
 
     # Competencies — four cells, then the total line.
     cell_w, cell_h, gap = 112, 40, 12
@@ -411,11 +434,11 @@ def render_certificate_pdf(data: CertificateData) -> bytes:
     theme = CERTIFICATE_THEMES[data.level]
     buffer = io.BytesIO()
     c = Canvas(buffer, pagesize=(PAGE_W, PAGE_H), pageCompression=1)
-    c.setTitle(f"VIZU-Multilevel-Zertifikat – Niveau {data.level}")
+    c.setTitle(f"VIZU-Multilevel-Zertifikat – Niveau {level_label(data.level)}")
     c.setAuthor("VIZU-Akademie")
     c.setSubject("VIZU-Multilevel-Prüfung")
     c.setCreator("VIZU-Akademie")
-    c.setKeywords(f"Zertifikat, Niveau {data.level}, {data.certificate_number}")
+    c.setKeywords(f"Zertifikat, Niveau {level_label(data.level)}, {data.certificate_number}")
 
     c.setFillColor(white)
     c.rect(0, 0, PAGE_W, PAGE_H, stroke=0, fill=1)

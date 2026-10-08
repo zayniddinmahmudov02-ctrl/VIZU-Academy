@@ -4,6 +4,8 @@ export type VizuMultilevelSkill = "lesen" | "hoeren" | "schreiben" | "sprechen";
 
 export interface VizuMultilevelAttempt {
   id: string;
+  /** Versuch 1..3 */
+  attempt_number?: number | null;
   status: VizuMultilevelAttemptStatus;
   started_at: string;
   completed_at: string | null;
@@ -20,8 +22,34 @@ export interface VizuMultilevelAttempt {
   sprechen_score: number | null;
   sprechen_level: string | null;
   overall_level: string | null;
-  /** Set when a finished attempt is not kept as a result (BELOW_A1 / NO_CONTENT). */
+  /** BELOW_A1 = result "unter A1" (still a full result); NO_CONTENT = no result. */
   discarded_reason?: string | null;
+  /** Gesamtergebnis 0-100 once final. */
+  result_score?: number | null;
+}
+
+/** Result level: A1..C1 or "BELOW_A1" (shown as "unter A1"). */
+export type VizuMultilevelResultLevel = string;
+
+export interface VizuMultilevelAttemptSummary {
+  id: string;
+  attempt_number: number | null;
+  status: VizuMultilevelAttemptStatus;
+  started_at: string;
+  completed_at: string | null;
+  result_score: number | null;
+  result_level: VizuMultilevelResultLevel | null;
+  certificate_available: boolean;
+}
+
+export interface VizuMultilevelMyResults {
+  max_attempts: number;
+  attempts_used: number;
+  attempts_remaining: number;
+  can_start: boolean;
+  in_progress_attempt_id: string | null;
+  attempts: VizuMultilevelAttemptSummary[];
+  best: VizuMultilevelAttemptSummary | null;
 }
 
 // ---- Server-authoritative section timing ----
@@ -215,12 +243,14 @@ export interface VizuMultilevelOverallResult {
 
 export interface VizuMultilevelAttemptResult {
   attempt_id: string;
+  attempt_number?: number | null;
+  max_attempts?: number;
   competencies: VizuMultilevelCompetencyResult[];
   overall: VizuMultilevelOverallResult;
 }
 
 export interface VizuMultilevelCompleteResponse {
-  /** false = shown once, not kept in the student's history (below A1 / empty). */
+  /** false only when there was no content at all (nothing to keep). */
   saved: boolean;
   result: VizuMultilevelAttemptResult;
 }

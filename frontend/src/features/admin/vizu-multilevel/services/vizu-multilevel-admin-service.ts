@@ -24,6 +24,8 @@ import type {
   VizuMultilevelOverviewStats,
   VizuMultilevelWritingTaskAdmin,
   VizuMultilevelWritingTaskAdminPayload,
+  VizuMultilevelStudentsPage,
+  VizuMultilevelStudentsQuery,
 } from "../types/vizu-multilevel-admin.types";
 
 export async function getVizuMultilevelOverview(): Promise<VizuMultilevelOverviewStats> {
@@ -56,6 +58,12 @@ export interface VizuMultilevelAttemptsQuery {
 
 export async function listVizuMultilevelAttempts(query: VizuMultilevelAttemptsQuery): Promise<VizuMultilevelAdminAttemptsPage> {
   const response = await api.get<VizuMultilevelAdminAttemptsPage>(ADMIN_ENDPOINTS.vizuMultilevelAttempts, { params: query });
+  return response.data;
+}
+
+/** Per-student analytics — "Bestes Ergebnis" over all final attempts. */
+export async function listVizuMultilevelStudents(query: VizuMultilevelStudentsQuery): Promise<VizuMultilevelStudentsPage> {
+  const response = await api.get<VizuMultilevelStudentsPage>(ADMIN_ENDPOINTS.vizuMultilevelStudents, { params: query });
   return response.data;
 }
 

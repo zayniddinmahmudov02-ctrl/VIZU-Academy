@@ -12,8 +12,8 @@ import {
 
 const REASON: Record<string, string> = {
   NOT_COMPLETED: "Test noch nicht abgeschlossen",
-  BELOW_A1: "Unter A1 — kein Zertifikat",
   NOT_FINAL: "Ergebnis noch nicht endgültig",
+  NO_RESULT: "Kein Ergebnis (keine Inhalte)",
 };
 
 function germanDate(value: string | null): string {
@@ -52,7 +52,7 @@ export default function CertificateAdminSection({ attemptId }: { attemptId: stri
     ["Student", data.student_name],
     ["Zertifikat", data.available ? "verfügbar" : REASON[data.reason ?? ""] ?? "nicht verfügbar"],
     ["Zertifikatsnummer", data.certificate_number ?? (data.available ? "wird beim ersten Download vergeben" : "—")],
-    ["Niveau", data.level ? `Niveau ${data.level}` : "—"],
+    ["Niveau", data.level ? `Niveau ${data.level === "BELOW_A1" ? "unter A1" : data.level}` : "—"],
     ["Gesamtergebnis", data.total_score !== null ? `${data.total_score} / 100 Punkte` : "—"],
     ["Abgeschlossen am", germanDate(data.completed_at)],
   ];

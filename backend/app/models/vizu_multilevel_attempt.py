@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import DateTime, ForeignKey, Integer, Numeric, String, Text, func
+from sqlalchemy import DateTime, ForeignKey, Integer, Numeric, String, Text, UniqueConstraint, func
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -9,6 +9,9 @@ from app.models.base import BaseModel
 STATUS_IN_PROGRESS = "IN_PROGRESS"
 STATUS_COMPLETED = "COMPLETED"
 ALL_STATUSES = {STATUS_IN_PROGRESS, STATUS_COMPLETED}
+
+# Each student may take the VIZU-Multilevel exam at most this many times.
+MAX_ATTEMPTS = 3
 
 
 class VizuMultilevelAttempt(BaseModel):
@@ -35,10 +38,13 @@ class VizuMultilevelAttempt(BaseModel):
     """
 
     __tablename__ = "vizu_mock_attempts"
+    __table_args__ = (UniqueConstraint("user_id", "attempt_number", name="uq_vizu_mock_attempts_user_attempt_number"),)
 
     user_id: Mapped[UUID] = mapped_column(
         UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True
     )
+    # 1, 2, 3 per student (see MAX_ATTEMPTS) — assigned once at creation.
+    attempt_number: Mapped[int] = mapped_column(Integer, nullable=False)
     status: Mapped[str] = mapped_column(
         String(20), default=STATUS_IN_PROGRESS, server_default=STATUS_IN_PROGRESS, nullable=False, index=True
     )
@@ -84,8 +90,9 @@ class VizuMultilevelAttempt(BaseModel):
     lesen_wrong: Mapped[int | None] = mapped_column(Integer, nullable=True)
     lesen_unanswered: Mapped[int | None] = mapped_column(Integer, nullable=True)
 
-    # Set (instead of deleting the row) when a finished attempt is not kept as a
-    # result: BELOW_A1 / NO_CONTENT. The row stays so the one-attempt rule holds.
+    # Set when a finished attempt has no CEFR level: BELOW_A1 (a real result —
+    # "Niveau unter A1", certificate included) or NO_CONTENT (no result at
+    # all). The name is historical; the row is never deleted.
     discarded_reason: Mapped[str | None] = mapped_column(String(20), nullable=True)
 
     # Hören autosave: {question_id: option_id}. Written while the section is
@@ -115,5 +122,10 @@ class VizuMultilevelAttempt(BaseModel):
     # Issued once (first certificate request for an eligible attempt), e.g.
     # "VIZU-ML-2026-000123" — a running number, never an internal id.
     certificate_number: Mapped[str | None] = mapped_column(String(32), unique=True, nullable=True)
+
+    # Gesamtergebnis 0-100 once the result is final (every competency graded):
+    # the same number as the result page and the certificate. Kept in sync by
+    # service.sync_result_score whenever a grade changes; NULL while pending.
+    result_score: Mapped[int | None] = mapped_column(Integer, nullable=True)
 
     user = relationship("User")

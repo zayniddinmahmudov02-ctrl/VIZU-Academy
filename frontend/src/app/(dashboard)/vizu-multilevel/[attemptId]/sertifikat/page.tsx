@@ -11,8 +11,8 @@ import VizuMultilevelCertificateDownload from "@/features/vizu-multilevel/compon
 import { getVizuMultilevelCertificate } from "@/features/vizu-multilevel/services/vizu-multilevel-service";
 
 /** VIZU-Multilevel's own certificate. Data comes from the backend, which
- * only issues it for a completed attempt whose overall level is final and
- * at least A1 — for anything else the request is a 404 and no certificate
+ * only issues it for a completed attempt whose result is final (A1..C1 or
+ * "unter A1") — for anything else the request is a 404 and no certificate
  * is shown (nothing is fabricated client-side). */
 export default function VizuMultilevelCertificatePage() {
   const { t } = useTranslation();
@@ -89,7 +89,9 @@ export default function VizuMultilevelCertificatePage() {
               <p className="text-xs font-semibold uppercase tracking-wide text-accent-blue">
                 {t("vizuMultilevel.certificateOverallLevel")}
               </p>
-              <p className="mt-1 text-2xl font-extrabold text-text-primary">{cert.overall_level}</p>
+              <p className="mt-1 text-2xl font-extrabold text-text-primary">
+                {cert.overall_level === "BELOW_A1" ? t("vizuMultilevel.belowA1") : cert.overall_level}
+              </p>
             </div>
 
             <p className="mt-8 text-xs text-text-muted">

@@ -6,6 +6,7 @@ import VizuMultilevelOverviewTab from "@/features/admin/vizu-multilevel/componen
 import VizuMultilevelSchreibenTab from "@/features/admin/vizu-multilevel/components/schreiben-tab";
 import VizuMultilevelSprechenTab from "@/features/admin/vizu-multilevel/components/sprechen-tab";
 import VizuMultilevelStatisticsTab from "@/features/admin/vizu-multilevel/components/statistics-tab";
+import VizuMultilevelStudentsTab from "@/features/admin/vizu-multilevel/components/students-tab";
 
 export default function VizuMultilevelPage() {
   return (
@@ -19,6 +20,7 @@ export default function VizuMultilevelPage() {
         defaultValue="overview"
         tabs={[
           { value: "overview", label: "Overview", content: <VizuMultilevelOverviewTab /> },
+          { value: "students", label: "Studenten", content: <VizuMultilevelStudentsTab /> },
           { value: "lesen", label: "Lesen", content: <VizuMultilevelContentTab skill="lesen" /> },
           {
             value: "hoeren",

@@ -21,27 +21,32 @@ def _now() -> datetime:
 
 
 class TestCreateAttempt(unittest.TestCase):
+    """Up to 3 attempts per student (was: one ever) — see also
+    test_vizu_multilevel_attempts.py for the full limit / best-result rules."""
+
     def test_new_attempt_is_in_progress_with_no_levels(self):
         db = MagicMock()
-        db.scalar.return_value = None  # the student has no attempt yet
+        db.scalars.return_value = []  # the student has no attempt yet
         attempt = service.create_attempt(db, user_id="u1")
         self.assertEqual(attempt.status, STATUS_IN_PROGRESS)
+        self.assertEqual(attempt.attempt_number, 1)
         self.assertIsNone(attempt.overall_level)
         db.add.assert_called_once_with(attempt)
 
-    def test_only_one_attempt_ever_in_progress(self):
+    def test_no_second_attempt_while_one_is_in_progress(self):
         db = MagicMock()
-        db.scalar.return_value = _attempt()
+        db.scalars.return_value = [_attempt(attempt_number=1)]
         with self.assertRaises(SectionFlowError) as ctx:
             service.create_attempt(db, user_id="u1")
         self.assertEqual(ctx.exception.code, "ATTEMPT_ALREADY_EXISTS")
         db.add.assert_not_called()
 
-    def test_only_one_attempt_ever_even_after_completion(self):
+    def test_no_fourth_attempt_after_three_completed(self):
         db = MagicMock()
-        db.scalar.return_value = _attempt(status=STATUS_COMPLETED)
-        with self.assertRaises(SectionFlowError):
+        db.scalars.return_value = [_attempt(status=STATUS_COMPLETED, attempt_number=n) for n in (1, 2, 3)]
+        with self.assertRaises(SectionFlowError) as ctx:
             service.create_attempt(db, user_id="u1")
+        self.assertEqual(ctx.exception.code, "MAX_ATTEMPTS_REACHED")
         db.add.assert_not_called()
 
 

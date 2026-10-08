@@ -264,6 +264,8 @@ def _attempt_item(attempt: VizuMultilevelAttempt) -> dict:
 
     return {
         "id": attempt.id,
+        "attempt_number": attempt.attempt_number,
+        "result_score": attempt.result_score,
         "user_id": attempt.user_id,
         "student_name": student_name,
         "username": user.username,
@@ -440,4 +442,106 @@ def get_statistics(db: Session) -> dict:
         "average_score_percent": average_score,
         "competency_averages": averages,
         "completion_rate_percent": completion_rate,
+    }
+
+
+# ============================================================
+# Studenten — best result per student (up to MAX_ATTEMPTS attempts each)
+# ============================================================
+
+STUDENT_SORTS = ("best_score", "level", "attempts", "date")
+
+
+def _student_row(user: User, attempts: list[VizuMultilevelAttempt]) -> dict:
+    from app.models.vizu_multilevel_attempt import MAX_ATTEMPTS
+    from app.services.vizu_multilevel import service as flow
+
+    attempts = sorted(attempts, key=lambda a: (a.attempt_number or 0, a.started_at))
+    best = flow.best_attempt(attempts)
+    last = attempts[-1] if attempts else None
+    name = f"{user.first_name or ''} {user.last_name or ''}".strip() or user.username
+    return {
+        "user_id": user.id,
+        "student_name": name,
+        "email": user.email,
+        "attempts_used": len(attempts),
+        "attempts_remaining": max(0, MAX_ATTEMPTS - len(attempts)),
+        "max_attempts": MAX_ATTEMPTS,
+        "best_score": best.result_score if best else None,
+        "best_level": flow.result_level(best) if best else None,
+        "best_attempt_number": best.attempt_number if best else None,
+        "best_attempt_id": best.id if best else None,
+        "last_attempt_id": last.id if last else None,
+        "last_attempt_number": last.attempt_number if last else None,
+        "last_attempt_status": last.status if last else None,
+        "last_attempt_score": last.result_score if last else None,
+        "last_attempt_level": flow.result_level(last) if last else None,
+        "last_attempt_date": (last.completed_at or last.started_at) if last else None,
+        "attempts": [
+            {**flow.attempt_summary_item(a), "certificate_number": a.certificate_number} for a in attempts
+        ],
+    }
+
+
+def _sorted_rows(rows: list[dict], sort: str, descending: bool) -> list[dict]:
+    """Rows without a value for the sort key always go last; ties fall back
+    to the best score (desc), then the name."""
+    from app.services.vizu_multilevel import service as flow
+
+    def value(row: dict):
+        if sort == "level":
+            level = row["best_level"]
+            return flow.RESULT_LEVEL_ORDER.index(level) if level in flow.RESULT_LEVEL_ORDER else None
+        if sort == "attempts":
+            return row["attempts_used"]
+        if sort == "date":
+            return row["last_attempt_date"]
+        return row["best_score"]
+
+    rows = sorted(rows, key=lambda r: (-(r["best_score"] if r["best_score"] is not None else -1), r["student_name"].lower()))
+    with_value = [r for r in rows if value(r) is not None]
+    without = [r for r in rows if value(r) is None]
+    with_value.sort(key=value, reverse=descending)  # stable: keeps the tie order
+    return with_value + without
+
+
+def list_students(
+    db: Session,
+    page: int = 1,
+    page_size: int = 20,
+    search: str | None = None,
+    sort: str = "best_score",
+    order: str = "desc",
+) -> dict:
+    """Every student who started VIZU-Multilevel, with attempts used/remaining,
+    best result (highest Gesamtergebnis over ALL final attempts, not just the
+    last) and the last attempt. Default order: Bestes Ergebnis, descending."""
+    from app.services.vizu_multilevel import service as flow
+
+    sort = sort if sort in STUDENT_SORTS else "best_score"
+    descending = order != "asc"
+    query = db.query(VizuMultilevelAttempt).join(User, User.id == VizuMultilevelAttempt.user_id)
+    if search:
+        like = f"%{search}%"
+        query = query.filter(
+            or_(User.username.ilike(like), User.email.ilike(like), User.first_name.ilike(like), User.last_name.ilike(like))
+        )
+    attempts = query.options(joinedload(VizuMultilevelAttempt.user)).all()
+    flow.sync_missing_scores(db, attempts)
+
+    by_user: dict = {}
+    for attempt in attempts:
+        by_user.setdefault(attempt.user_id, (attempt.user, []))[1].append(attempt)
+    rows = _sorted_rows([_student_row(user, items) for user, items in by_user.values()], sort, descending)
+
+    total = len(rows)
+    start = (page - 1) * page_size
+    return {
+        "items": rows[start : start + page_size],
+        "total": total,
+        "page": page,
+        "page_size": page_size,
+        "total_pages": max(1, (total + page_size - 1) // page_size),
+        "sort": sort,
+        "order": "desc" if descending else "asc",
     }

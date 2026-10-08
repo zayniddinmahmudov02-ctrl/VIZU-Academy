@@ -53,6 +53,7 @@ export const ADMIN_ENDPOINTS = {
   vizuMultilevelLevelAnalytics: "/api/v1/admin/vizu-multilevel/level-analytics",
   vizuMultilevelAnalytics: "/api/v1/admin/vizu-multilevel/analytics",
   vizuMultilevelAttempts: "/api/v1/admin/vizu-multilevel/attempts",
+  vizuMultilevelStudents: "/api/v1/admin/vizu-multilevel/students",
   vizuMultilevelAttemptDetail: (attemptId: string) => `/api/v1/admin/vizu-multilevel/attempts/${attemptId}`,
   vizuMultilevelLesenContent: "/api/v1/admin/vizu-multilevel/lesen-content",
   vizuMultilevelLesenContentImportJson: "/api/v1/admin/vizu-multilevel/lesen-content/import-json",

@@ -1,19 +1,21 @@
 """VIZU-Multilevel attempt lifecycle: server-authoritative timing, the
 Lesen -> Hören -> Schreiben -> Sprechen flow, per-competency results, the
-overall level, and the "below A1 / incomplete attempts are not kept" rule.
+overall level, the attempt limit (MAX_ATTEMPTS per student, each attempt
+independent) and the stored Gesamtergebnis used for "Bestes Ergebnis".
 
 Everything time- or flow-related is decided HERE, from timestamps the
 backend stamps itself — the client's clock and navigation state are never
 trusted (a reload cannot restart the 20-minute timer, a skipped step
 cannot be submitted out of order, a late submission cannot add answers)."""
 
+import math
 from datetime import datetime, timedelta, timezone
 from uuid import UUID
 
 from sqlalchemy import func, select, text
 from sqlalchemy.orm import Session
 
-from app.models.vizu_multilevel_attempt import STATUS_COMPLETED, STATUS_IN_PROGRESS, VizuMultilevelAttempt
+from app.models.vizu_multilevel_attempt import MAX_ATTEMPTS, STATUS_COMPLETED, STATUS_IN_PROGRESS, VizuMultilevelAttempt
 from app.models.vizu_multilevel_content import CEFR_LEVELS, SKILL_HOEREN, SKILL_LESEN, VizuMultilevelQuestion, VizuMultilevelTask
 from app.models.vizu_multilevel_discarded import REASON_BELOW_A1, VizuMultilevelDiscardedAttempt
 from app.models.vizu_multilevel_speaking import VizuMultilevelSpeakingSubmission, VizuMultilevelSpeakingTask
@@ -49,6 +51,13 @@ O_PENDING_REVIEW = "PENDING_REVIEW"
 O_FINAL = "FINAL"
 O_BELOW_A1 = "BELOW_A1"
 
+# Result level of an attempt below A1 ("Niveau unter A1"). Internal value;
+# the frontend/certificate show it as "unter A1".
+LEVEL_BELOW_A1 = "BELOW_A1"
+# Ordering for "best level" / sorting: below A1 < A1 < ... < C1.
+RESULT_LEVEL_ORDER = [LEVEL_BELOW_A1, *CEFR_LEVELS]
+REASON_NO_CONTENT = "NO_CONTENT"
+
 
 class SectionFlowError(Exception):
     """A request violates the competency flow (wrong order, unknown skill,
@@ -79,33 +88,45 @@ def get_own_attempt(db: Session, user_id: UUID, attempt_id: UUID) -> VizuMultile
 
 
 def list_attempts(db: Session, user_id: UUID) -> list[VizuMultilevelAttempt]:
-    """No attempt history for students: at most the one current attempt."""
-    current = get_current_attempt(db, user_id)
-    return [current] if current is not None else []
+    """The student's own attempts, Versuch 1, 2, 3 (owner-scoped)."""
+    return list(
+        db.scalars(
+            select(VizuMultilevelAttempt)
+            .where(VizuMultilevelAttempt.user_id == user_id)
+            .order_by(VizuMultilevelAttempt.attempt_number, VizuMultilevelAttempt.started_at)
+        )
+    )
 
 
 def get_current_attempt(db: Session, user_id: UUID) -> VizuMultilevelAttempt | None:
-    """The student's one and only attempt (the latest, should legacy data
-    contain more than one)."""
+    """The student's latest attempt (the running one, if any)."""
     return db.scalar(
         select(VizuMultilevelAttempt)
         .where(VizuMultilevelAttempt.user_id == user_id)
-        .order_by(VizuMultilevelAttempt.started_at.desc())
+        .order_by(VizuMultilevelAttempt.attempt_number.desc(), VizuMultilevelAttempt.started_at.desc())
         .limit(1)
     )
 
 
 def create_attempt(db: Session, user_id: UUID) -> VizuMultilevelAttempt:
-    """ONE attempt per student, ever. If the student already has an attempt
-    (in progress or finished) nothing is created — SectionFlowError
-    ATTEMPT_ALREADY_EXISTS. A transaction-scoped advisory lock per user makes
-    two simultaneous requests unable to create two attempts."""
+    """Starts Versuch n+1. Rules (SectionFlowError codes):
+    * ATTEMPT_ALREADY_EXISTS — an attempt is still running: finish it first
+      (it counts as one of the MAX_ATTEMPTS; there is no way to skip it).
+    * MAX_ATTEMPTS_REACHED — the student already used all MAX_ATTEMPTS.
+    Earlier attempts are never touched. A transaction-scoped advisory lock per
+    user (plus the unique (user_id, attempt_number) constraint) makes two
+    simultaneous requests unable to create two attempts."""
     db.execute(text("SELECT pg_advisory_xact_lock(hashtext(:key))"), {"key": f"vizu-attempt:{user_id}"})
-    if get_current_attempt(db, user_id) is not None:
+    existing = list_attempts(db, user_id)
+    if any(a.status == STATUS_IN_PROGRESS for a in existing):
         db.rollback()  # releases the advisory lock
         raise SectionFlowError("ATTEMPT_ALREADY_EXISTS")
+    if len(existing) >= MAX_ATTEMPTS:
+        db.rollback()
+        raise SectionFlowError("MAX_ATTEMPTS_REACHED")
 
-    attempt = VizuMultilevelAttempt(user_id=user_id, status=STATUS_IN_PROGRESS)
+    number = max((a.attempt_number or 0 for a in existing), default=0) + 1
+    attempt = VizuMultilevelAttempt(user_id=user_id, status=STATUS_IN_PROGRESS, attempt_number=number)
     db.add(attempt)
     db.commit()
     db.refresh(attempt)
@@ -442,8 +463,104 @@ def build_result(db: Session, attempt: VizuMultilevelAttempt) -> dict:
     competencies = competency_results(db, attempt)
     return {
         "attempt_id": attempt.id,
+        "attempt_number": attempt.attempt_number,
+        "max_attempts": MAX_ATTEMPTS,
         "competencies": competencies,
         "overall": overall_result(competencies),
+    }
+
+
+def round_half_up(value: float) -> int:
+    """Same rounding as the result page (JS Math.round), not banker's rounding."""
+    return int(math.floor(value + 0.5))
+
+
+def gesamtergebnis(competencies: list[dict]) -> int:
+    """Gesamtergebnis 0-100 = the average of the graded competency percentages,
+    exactly as the result page and the certificate show it (unchanged rule)."""
+    graded = [float(c["percentage"]) for c in competencies if c["status"] == R_GRADED and c.get("percentage") is not None]
+    total = round_half_up(sum(graded) / len(graded)) if graded else 0
+    return max(0, min(100, total))
+
+
+def is_result_final(result: dict) -> bool:
+    """Every competency with content is graded, and there is a level (A1-C1)
+    or the overall result is below A1. Pending reviews -> not final yet."""
+    considered = [c for c in result["competencies"] if c["status"] != R_NO_CONTENT]
+    if not considered or any(c["status"] != R_GRADED for c in considered):
+        return False
+    return result["overall"]["status"] in (O_FINAL, O_BELOW_A1)
+
+
+def result_level(attempt: VizuMultilevelAttempt) -> str | None:
+    """A1..C1, BELOW_A1, or None (no final result yet / no result at all)."""
+    if attempt.result_score is None:
+        return None
+    if attempt.overall_level:
+        return attempt.overall_level
+    return LEVEL_BELOW_A1 if attempt.discarded_reason == REASON_BELOW_A1 else None
+
+
+def sync_result_score(db: Session, attempt: VizuMultilevelAttempt, result: dict | None = None) -> None:
+    """Stores the attempt's final Gesamtergebnis (or NULL while not final).
+    Only ever derived from build_result — no separate score calculation."""
+    score = None
+    if attempt.status == STATUS_COMPLETED and attempt.discarded_reason != REASON_NO_CONTENT:
+        result = result or build_result(db, attempt)
+        if is_result_final(result):
+            score = gesamtergebnis(result["competencies"])
+    if attempt.result_score != score:
+        attempt.result_score = score
+        db.commit()
+        db.refresh(attempt)
+
+
+def sync_missing_scores(db: Session, attempts: list[VizuMultilevelAttempt]) -> None:
+    """Lazily fills result_score for finished attempts that predate the column
+    or are still waiting for a review (cheap no-op once everything is final)."""
+    for attempt in attempts:
+        if attempt.status == STATUS_COMPLETED and attempt.result_score is None and attempt.discarded_reason != REASON_NO_CONTENT:
+            sync_result_score(db, attempt)
+
+
+def best_attempt(attempts: list[VizuMultilevelAttempt]) -> VizuMultilevelAttempt | None:
+    """Highest Gesamtergebnis over all FINAL attempts (not just the last);
+    on a tie the most recently completed one."""
+    final = [a for a in attempts if a.result_score is not None]
+    if not final:
+        return None
+    epoch = datetime.min.replace(tzinfo=timezone.utc)
+    return max(final, key=lambda a: (a.result_score, a.completed_at or epoch))
+
+
+def attempt_summary_item(attempt: VizuMultilevelAttempt) -> dict:
+    return {
+        "id": attempt.id,
+        "attempt_number": attempt.attempt_number,
+        "status": attempt.status,
+        "started_at": attempt.started_at,
+        "completed_at": attempt.completed_at,
+        "result_score": attempt.result_score,
+        "result_level": result_level(attempt),
+        "certificate_available": attempt.result_score is not None and result_level(attempt) is not None,
+    }
+
+
+def my_results(db: Session, user_id: UUID) -> dict:
+    """The student's own attempts + best result. Never another student's."""
+    attempts = list_attempts(db, user_id)
+    sync_missing_scores(db, attempts)
+    best = best_attempt(attempts)
+    running = next((a for a in attempts if a.status == STATUS_IN_PROGRESS), None)
+    used = len(attempts)
+    return {
+        "max_attempts": MAX_ATTEMPTS,
+        "attempts_used": used,
+        "attempts_remaining": max(0, MAX_ATTEMPTS - used),
+        "can_start": running is None and used < MAX_ATTEMPTS,
+        "in_progress_attempt_id": running.id if running else None,
+        "attempts": [attempt_summary_item(a) for a in attempts],
+        "best": attempt_summary_item(best) if best else None,
     }
 
 
@@ -453,10 +570,10 @@ def build_result(db: Session, attempt: VizuMultilevelAttempt) -> dict:
 
 
 def _discard(db: Session, attempt: VizuMultilevelAttempt, reason: str) -> None:
-    """Marks a finished attempt as NOT kept as a result (e.g. below A1). The
-    row is no longer deleted: it must survive so the one-attempt rule holds
-    and no data is lost. The anonymous tally row is still written so the
-    admin statistics keep counting exactly as before."""
+    """Marks a finished attempt's result as having no CEFR level (below A1).
+    The attempt stays a full result ("Niveau unter A1", with certificate);
+    the anonymous tally row is still written so the admin statistics keep
+    counting exactly as before."""
     if attempt.discarded_reason is not None:
         return
     db.add(
@@ -478,8 +595,8 @@ def _discard(db: Session, attempt: VizuMultilevelAttempt, reason: str) -> None:
 
 def complete_attempt(db: Session, user_id: UUID, attempt_id: UUID) -> dict | None:
     """Finishes the attempt. Returns None for an unknown/foreign id.
-    Otherwise `{"saved": bool, "result": {...}}`: below-A1 (or empty)
-    results are returned once but NOT kept in the student's history."""
+    Otherwise `{"saved": bool, "result": {...}}`: every result is kept,
+    below A1 included; only an attempt without any content is not a result."""
     attempt = get_own_attempt(db, user_id, attempt_id)
     if attempt is None:
         return None
@@ -494,7 +611,7 @@ def complete_attempt(db: Session, user_id: UUID, attempt_id: UUID) -> dict | Non
     overall = result["overall"]
 
     if overall["status"] == O_NO_CONTENT:
-        attempt.discarded_reason = "NO_CONTENT"
+        attempt.discarded_reason = REASON_NO_CONTENT
         attempt.status = STATUS_COMPLETED
         attempt.completed_at = _now()
         db.commit()
@@ -502,25 +619,31 @@ def complete_attempt(db: Session, user_id: UUID, attempt_id: UUID) -> dict | Non
 
     if overall["status"] == O_BELOW_A1:
         _discard(db, attempt, REASON_BELOW_A1)
-        return {"saved": False, "result": result}
+        sync_result_score(db, attempt, result)
+        return {"saved": True, "result": result}
 
     attempt.status = STATUS_COMPLETED
     attempt.completed_at = _now()
     attempt.overall_level = overall["level"]
     db.commit()
     db.refresh(attempt)
+    sync_result_score(db, attempt, result)
     return {"saved": True, "result": result}
 
 
 def refresh_overall(db: Session, attempt: VizuMultilevelAttempt) -> None:
-    """Called after a teacher grades Schreiben/Sprechen: re-derives the
+    """Called after a teacher/AI grades Schreiben/Sprechen: re-derives the
     overall result of an already-completed attempt. Becomes final (level
-    set) when everything is graded; is discarded if it turns out below A1."""
-    if attempt.status != STATUS_COMPLETED or attempt.discarded_reason is not None:
+    set) when everything is graded; is marked below A1 if it turns out so.
+    The stored Gesamtergebnis follows every (re)grade."""
+    if attempt.status != STATUS_COMPLETED or attempt.discarded_reason == REASON_NO_CONTENT:
         return
-    overall = build_result(db, attempt)["overall"]
-    if overall["status"] == O_BELOW_A1:
-        _discard(db, attempt, REASON_BELOW_A1)
-    elif overall["status"] == O_FINAL:
-        attempt.overall_level = overall["level"]
-        db.commit()
+    result = build_result(db, attempt)
+    overall = result["overall"]
+    if attempt.discarded_reason is None:
+        if overall["status"] == O_BELOW_A1:
+            _discard(db, attempt, REASON_BELOW_A1)
+        elif overall["status"] == O_FINAL:
+            attempt.overall_level = overall["level"]
+            db.commit()
+    sync_result_score(db, attempt, result)

@@ -24,6 +24,7 @@ from app.schemas.vizu_multilevel import (
     VizuMultilevelSpeakingTaskAdminResponse,
     VizuMultilevelSpeakingTaskAdminUpdate,
     VizuMultilevelStatistics,
+    VizuMultilevelStudentsPage,
     VizuMultilevelTaskAdmin,
     VizuMultilevelTaskAdminCreate,
     VizuMultilevelTaskAdminUpdate,
@@ -94,6 +95,21 @@ def get_analytics(
     current_user: User = Depends(require_admin_panel_access),
 ):
     return service.get_analytics(db)
+
+
+@router.get("/students", response_model=VizuMultilevelStudentsPage)
+def list_students(
+    page: int = Query(1, ge=1),
+    page_size: int = Query(20, ge=1, le=100),
+    search: str | None = Query(None),
+    sort: str = Query("best_score", pattern="^(best_score|level|attempts|date)$"),
+    order: str = Query("desc", pattern="^(asc|desc)$"),
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    """Per-student analytics: attempts used/remaining, Bestes Ergebnis (best of
+    all final attempts), best level, last attempt. Default: best score desc."""
+    return service.list_students(db, page=page, page_size=page_size, search=search, sort=sort, order=order)
 
 
 # ============================================================

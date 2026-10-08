@@ -21,6 +21,7 @@ from app.schemas.vizu_multilevel import (
     VizuMultilevelHoerenTaskPublic,
     VizuMultilevelLesenResult,
     VizuMultilevelLesenSubmitRequest,
+    VizuMultilevelMyResults,
     VizuMultilevelSectionState,
     VizuMultilevelSpeakingEvaluation,
     VizuMultilevelSpeakingSubmissionPublic,
@@ -63,6 +64,10 @@ def _own_attempt(db: Session, user: User, attempt_id: UUID):
 
 
 def _flow_error(exc: SectionFlowError) -> HTTPException:
+    # All attempts used up is a permission-style refusal (403); every other
+    # flow violation is a state conflict (409).
+    if exc.code == "MAX_ATTEMPTS_REACHED":
+        return HTTPException(status_code=403, detail=exc.code)
     return HTTPException(status_code=409, detail=exc.code)
 
 
@@ -76,8 +81,8 @@ def create_attempt(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-    """One attempt per student, ever — a second call is a 409
-    ATTEMPT_ALREADY_EXISTS (use GET /attempts/current instead)."""
+    """Starts the next attempt (Versuch 1-3). 409 ATTEMPT_ALREADY_EXISTS while
+    an attempt is still running; 403 MAX_ATTEMPTS_REACHED after 3 attempts."""
     try:
         return service.create_attempt(db, current_user.id)
     except SectionFlowError as exc:
@@ -89,7 +94,7 @@ def get_current_attempt(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-    """The student's single attempt (404 if not started yet)."""
+    """The student's latest attempt (404 if none started yet)."""
     attempt = service.get_current_attempt(db, current_user.id)
     if attempt is None:
         raise HTTPException(status_code=404, detail="No attempt yet.")
@@ -104,6 +109,16 @@ def get_availability(
     """How many items each competency has — lets the start page show an
     empty state instead of a blank test when no content exists."""
     return service.availability(db)
+
+
+@router.get("/my-results", response_model=VizuMultilevelMyResults)
+def get_my_results(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """"Meine Ergebnisse": the caller's own attempts (Versuch 1-3), attempts
+    used/remaining and the best result. Only ever the caller's own data."""
+    return service.my_results(db, current_user.id)
 
 
 @router.get("/attempts", response_model=list[VizuMultilevelAttemptResponse])
@@ -164,8 +179,7 @@ def complete_my_attempt(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-    """Finishes the attempt. A result below A1 is returned once but not
-    kept in the student's history (`saved: false`)."""
+    """Finishes the attempt. Every result is kept (below A1 included)."""
     try:
         outcome = service.complete_attempt(db, current_user.id, attempt_id)
     except SectionFlowError as exc:
@@ -182,7 +196,7 @@ def get_certificate(
     current_user: User = Depends(get_current_user),
 ):
     """Certificate data — only for the caller's own completed attempt whose
-    overall result is final and at least A1. Anything else is a 404."""
+    result is final (A1..C1 or "unter A1"). Anything else is a 404."""
     attempt = _own_attempt(db, current_user, attempt_id)
     try:
         cert = certificate_service.build_certificate(db, attempt, current_user)
@@ -192,7 +206,7 @@ def get_certificate(
         "attempt_id": attempt.id,
         "student_name": cert.student_name,
         "issued_at": attempt.completed_at,
-        "overall_level": cert.level,
+        "overall_level": cert.level,  # A1..C1 or BELOW_A1
         "competencies": service.build_result(db, attempt)["competencies"],
         "certificate_number": cert.certificate_number,
         "total_score": cert.total_score,

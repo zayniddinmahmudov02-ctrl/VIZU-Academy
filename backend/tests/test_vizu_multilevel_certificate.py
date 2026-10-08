@@ -98,9 +98,10 @@ class TestPdfAllThemes(unittest.TestCase):
         renders = {level: pdf.render_certificate_pdf(_data(level)) for level in LEVELS}
         self.assertEqual(len({len(r) for r in renders.values()}), 5)
         themes = pdf.CERTIFICATE_THEMES
-        self.assertEqual(set(themes), set(LEVELS))
+        # A1..C1 plus the separate "unter A1" theme — six distinct designs.
+        self.assertEqual(set(themes), set(LEVELS) | {"BELOW_A1"})
         signature = {(t.frame, t.corners, t.seal, t.guilloche, t.watermark) for t in themes.values()}
-        self.assertEqual(len(signature), 5)
+        self.assertEqual(len(signature), 6)
         self.assertEqual(themes["C1"].seal, "rosette")
         self.assertTrue(themes["C1"].watermark)
         self.assertEqual(themes["A1"].corners, "none")
@@ -160,22 +161,35 @@ def _attempt(status="COMPLETED", completed=True, discarded=None):
 class TestEligibility(unittest.TestCase):
     """The certificate level is the exam's existing FINAL overall level."""
 
-    def _result(self, status, level):
-        return {"overall": {"status": status, "level": level}, "competencies": []}
+    def _result(self, status, level, graded=True):
+        comp = {"skill": "lesen", "status": service.R_GRADED if graded else service.R_PENDING_REVIEW,
+                "raw_score": 10.0, "max_score": 100.0, "percentage": 10.0, "level": level}
+        return {"overall": {"status": status, "level": level}, "competencies": [comp]}
 
     def test_each_final_level_is_certified(self):
         for level in LEVELS:
             with self.subTest(level=level), patch.object(service, "build_result", return_value=self._result(service.O_FINAL, level)):
                 self.assertEqual(cert.eligibility(None, _attempt())["overall"]["level"], level)
 
-    def test_below_a1_has_no_certificate(self):
-        with patch.object(service, "build_result", return_value=self._result(service.O_BELOW_A1, None)):
+    def test_below_a1_is_certified_as_unter_a1(self):
+        # Changed rule (2026-10-08): a final below-A1 result gets a certificate.
+        for discarded in (None, "BELOW_A1"):
+            with self.subTest(discarded=discarded), patch.object(
+                service, "build_result", return_value=self._result(service.O_BELOW_A1, None)
+            ):
+                result = cert.eligibility(None, _attempt(discarded=discarded))
+                self.assertEqual(cert.certificate_level(result), "BELOW_A1")
+
+    def test_below_a1_still_waiting_for_a_grade_has_no_certificate_yet(self):
+        with patch.object(service, "build_result", return_value=self._result(service.O_BELOW_A1, None, graded=False)):
             with self.assertRaises(cert.CertificateUnavailable) as ctx:
-                cert.eligibility(None, _attempt())
-        self.assertEqual(ctx.exception.reason, cert.BELOW_A1)
+                cert.eligibility(None, _attempt(discarded="BELOW_A1"))
+        self.assertEqual(ctx.exception.reason, cert.NOT_FINAL)
+
+    def test_attempt_without_content_has_no_certificate(self):
         with self.assertRaises(cert.CertificateUnavailable) as ctx:
-            cert.eligibility(None, _attempt(discarded="BELOW_A1"))
-        self.assertEqual(ctx.exception.reason, cert.BELOW_A1)
+            cert.eligibility(None, _attempt(discarded="NO_CONTENT"))
+        self.assertEqual(ctx.exception.reason, cert.NO_RESULT)
 
     def test_incomplete_attempt_has_no_certificate(self):
         for attempt in (_attempt(status="IN_PROGRESS"), _attempt(completed=False)):

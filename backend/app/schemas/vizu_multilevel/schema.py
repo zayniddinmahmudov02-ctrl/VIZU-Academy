@@ -8,6 +8,8 @@ from app.schemas.base import BaseSchema
 
 class VizuMultilevelAttemptResponse(BaseSchema):
     id: UUID
+    # Versuch 1..3 (see MAX_ATTEMPTS)
+    attempt_number: int | None = None
     status: str
     started_at: datetime
     completed_at: datetime | None
@@ -27,7 +29,34 @@ class VizuMultilevelAttemptResponse(BaseSchema):
     sprechen_score: int | None
     sprechen_level: str | None
     overall_level: str | None
+    # Gesamtergebnis 0-100 once the result is final, else null.
+    result_score: int | None = None
     model_config = ConfigDict(from_attributes=True)
+
+
+class VizuMultilevelAttemptSummary(BaseSchema):
+    """One of the student's own attempts ("Meine Ergebnisse")."""
+
+    id: UUID
+    attempt_number: int | None
+    status: str
+    started_at: datetime
+    completed_at: datetime | None
+    result_score: int | None
+    # A1..C1, BELOW_A1 ("unter A1"), or null while not final
+    result_level: str | None
+    certificate_available: bool
+
+
+class VizuMultilevelMyResults(BaseSchema):
+    max_attempts: int
+    attempts_used: int
+    attempts_remaining: int
+    can_start: bool
+    in_progress_attempt_id: UUID | None
+    attempts: list[VizuMultilevelAttemptSummary]
+    # Highest Gesamtergebnis over all final attempts (null = none final yet)
+    best: VizuMultilevelAttemptSummary | None
 
 
 # ============================================================
@@ -155,19 +184,22 @@ class VizuMultilevelOverallResult(BaseSchema):
 
 class VizuMultilevelAttemptResult(BaseSchema):
     attempt_id: UUID
+    attempt_number: int | None = None
+    max_attempts: int = 3
     competencies: list[VizuMultilevelCompetencyResult]
     overall: VizuMultilevelOverallResult
 
 
 class VizuMultilevelCompleteResponse(BaseSchema):
-    # False = the result was shown once but not stored (below A1 / empty).
+    # False only when there was no content at all (no result to keep).
     saved: bool
     result: VizuMultilevelAttemptResult
 
 
 class VizuMultilevelCertificate(BaseSchema):
     """Data for the VIZU-Multilevel certificate. Only ever returned for a
-    completed attempt with a final overall level of A1 or higher."""
+    completed attempt with a final result; overall_level is A1..C1 or
+    BELOW_A1 ("Niveau unter A1")."""
 
     attempt_id: UUID
     student_name: str

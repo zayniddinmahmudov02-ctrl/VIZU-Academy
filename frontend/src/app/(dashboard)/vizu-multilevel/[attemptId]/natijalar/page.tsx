@@ -13,6 +13,7 @@ import { useTranslation } from "@/lib/i18n/use-translation";
 import { VIZU_MULTILEVEL_SKILLS, stepPath } from "@/features/vizu-multilevel/constants/skills";
 import {
   completeVizuMultilevelAttempt,
+  getMyVizuMultilevelResults,
   getVizuMultilevelAttemptState,
   getVizuMultilevelResult,
 } from "@/features/vizu-multilevel/services/vizu-multilevel-service";
@@ -54,6 +55,7 @@ export default function VizuMultilevelResultsPage() {
     mutationFn: () => completeVizuMultilevelAttempt(attemptId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["vizu-multilevel-current"] });
+      queryClient.invalidateQueries({ queryKey: ["vizu-multilevel-my-results"] });
       queryClient.invalidateQueries({ queryKey: ["vizu-multilevel-state", attemptId] });
     },
   });
@@ -97,6 +99,15 @@ export default function VizuMultilevelResultsPage() {
 
   if (!data) return null;
   return <ResultScreen data={data} />;
+}
+
+/** The certificate level once the result is final: A1..C1, or "BELOW_A1"
+ * when every competency is graded and the overall result is below A1. */
+function certificateLevel(data: VizuMultilevelAttemptResult): string | null {
+  const allGraded = data.competencies.every((c) => c.status === "GRADED" || c.status === "NO_CONTENT");
+  if (!allGraded) return null;
+  if (data.overall.status === "FINAL") return data.overall.level;
+  return data.overall.status === "BELOW_A1" ? "BELOW_A1" : null;
 }
 
 function MissingCompetencies({ attemptId, missing }: { attemptId: string; missing: VizuMultilevelSkill[] }) {
@@ -144,6 +155,8 @@ function AnimatedNumber({ value }: { value: number }) {
 
 function ResultScreen({ data }: { data: VizuMultilevelAttemptResult }) {
   const { t } = useTranslation();
+  const mine = useQuery({ queryKey: ["vizu-multilevel-my-results"], queryFn: getMyVizuMultilevelResults });
+  const maxAttempts = data.max_attempts ?? mine.data?.max_attempts ?? 3;
   const graded = data.competencies.filter((c) => c.status === "GRADED" && c.max_score && c.percentage !== null);
   const pending = data.competencies.filter((c) => c.status === "PENDING_REVIEW");
   const overallPercent = graded.length
@@ -167,6 +180,11 @@ function ResultScreen({ data }: { data: VizuMultilevelAttemptResult }) {
         className="rounded-card bg-surface-card p-8 text-center shadow-[var(--shadow-lg)] ring-1 ring-surface-border sm:p-10"
       >
         <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-blue-600">{t("vizuMultilevel.title")}</p>
+        {data.attempt_number ? (
+          <p className="mt-2 inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-slate-700 dark:bg-slate-800 dark:text-slate-200" data-testid="attempt-of">
+            {t("vizuMultilevel.attemptOf", { n: data.attempt_number, max: maxAttempts })}
+          </p>
+        ) : null}
         <p className="mt-1 text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">{t("vizuMultilevel.resultHeading")}</p>
         <p className="mt-5 text-6xl font-extrabold tabular-nums text-slate-900 dark:text-white">
           {overallPercent === null ? "—" : <AnimatedNumber value={overallPercent} />}
@@ -194,6 +212,11 @@ function ResultScreen({ data }: { data: VizuMultilevelAttemptResult }) {
                 : "—"}
         </div>
         {pending.length > 0 && <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">{t("vizuMultilevel.pendingReviewNote")}</p>}
+        {mine.data && (
+          <p className="mt-3 text-xs font-medium text-slate-500 dark:text-slate-400" data-testid="attempts-used">
+            {t("vizuMultilevel.attemptsUsed", { used: mine.data.attempts_used, max: mine.data.max_attempts })}
+          </p>
+        )}
       </motion.section>
 
       {/* Competency cards */}
@@ -208,9 +231,9 @@ function ResultScreen({ data }: { data: VizuMultilevelAttemptResult }) {
         ))}
       </motion.div>
 
-      {/* Certificate (A1-C1) or "Kein Zertifikat" (below A1) */}
+      {/* Certificate for every final result: A1-C1 or "unter A1" (null = review still running) */}
       {(overall.status === "FINAL" || overall.status === "BELOW_A1") && (
-        <VizuMultilevelCertificateDownload attemptId={data.attempt_id} level={overall.status === "FINAL" ? overall.level : null} />
+        <VizuMultilevelCertificateDownload attemptId={data.attempt_id} level={certificateLevel(data)} />
       )}
 
       {/* Feedback */}
