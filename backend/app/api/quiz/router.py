@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException
 
 from sqlalchemy.orm import Session
 
-from app.api.dependencies.auth import get_current_user
+from app.api.dependencies.auth import get_current_user, require_admin_panel_access
 from app.api.dependencies.progress import require_lesson_access
 from app.db.session import get_db
 
@@ -31,6 +31,7 @@ router = APIRouter(
 )
 def get_all(
     db: Session = Depends(get_db),
+    _: User = Depends(require_admin_panel_access),
 ):
     # Manual quiz authoring was removed from the admin panel (Claude-
     # generated content is inserted directly into the DB instead); this
@@ -69,7 +70,10 @@ def get_lesson_quizzes(
 def get_one(
     quiz_id: str,
     db: Session = Depends(get_db),
+    _: User = Depends(require_admin_panel_access),
 ):
+    """Admin panel only (it bypasses the per-lesson access gate); students
+    get their quizzes via GET /quizzes/lesson/{id}."""
     quiz = db.query(Quiz).filter(Quiz.id == quiz_id).first()
 
     if not quiz:

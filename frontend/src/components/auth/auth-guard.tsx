@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Loading from "@/components/common/loading";
 import { useCurrentUser } from "@/features/auth/hooks/use-current-user";
 import { getActivePanel } from "@/lib/active-panel";
+import { loginUrl } from "@/lib/auth-redirect";
 
 interface Props {
   children: React.ReactNode;
@@ -31,7 +32,8 @@ export default function AuthGuard({ children, requiredRole }: Props) {
 
   useEffect(() => {
     if (unauthenticated) {
-      router.replace("/login");
+      // keep the requested page: /login?next=<it> (back here after login)
+      router.replace(loginUrl());
     } else if (isSuperAdminOnStudentSurface) {
       router.replace("/admin");
     } else if (forbidden) {

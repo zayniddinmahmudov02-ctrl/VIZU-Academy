@@ -3,6 +3,8 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
+import { loginUrl } from "@/lib/auth-redirect";
+
 import { useCurrentUser } from "@/features/auth/hooks/use-current-user";
 
 /** Gate for the entire /teacher route tree — TEACHER or SUPER_ADMIN only
@@ -20,7 +22,7 @@ export default function TeacherGuard({ children }: { children: React.ReactNode }
 
   useEffect(() => {
     if (unauthenticated) {
-      router.replace("/login");
+      router.replace(loginUrl());
     } else if (forbidden) {
       router.replace("/dashboard");
     }

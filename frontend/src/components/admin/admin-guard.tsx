@@ -3,6 +3,8 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
+import { loginUrl } from "@/lib/auth-redirect";
+
 import { useCurrentUser } from "@/features/auth/hooks/use-current-user";
 
 /** Gate for the entire /admin route tree. Deliberately standalone — does
@@ -23,7 +25,7 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
 
   useEffect(() => {
     if (unauthenticated) {
-      router.replace("/login");
+      router.replace(loginUrl());
     } else if (notSuperAdmin) {
       router.replace("/dashboard");
     }

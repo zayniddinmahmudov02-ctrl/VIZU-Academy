@@ -12,6 +12,7 @@ import Button from "@/components/ui/button";
 import Checkbox from "@/components/ui/checkbox";
 import Input from "@/components/ui/input";
 import { useTranslation } from "@/lib/i18n/use-translation";
+import { readNextParam } from "@/lib/auth-redirect";
 import { decodeJwtPayload } from "@/lib/jwt";
 import { saveRefreshToken, saveToken } from "@/lib/token";
 
@@ -65,7 +66,8 @@ export default function LoginForm() {
         return;
       }
 
-      router.push("/dashboard");
+      // back to the page that sent the visitor to /login (?next=), if any
+      router.replace(readNextParam() ?? "/dashboard");
     } catch (error) {
       setFormError(getAuthErrorKey(error, "auth.errInvalidCredentials"));
     }
@@ -77,7 +79,7 @@ export default function LoginForm() {
 
     try {
       await verifyAdminPasswordService({ password: adminPassword });
-      router.push("/admin");
+      router.replace(readNextParam() ?? "/admin");
     } catch (error) {
       setAdminError(getAuthErrorKey(error, "auth.errAdminPassword"));
     } finally {

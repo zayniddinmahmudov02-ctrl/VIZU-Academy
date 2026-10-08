@@ -1,4 +1,5 @@
 import { API_URL } from "@/constants/api";
+import { loginUrl } from "@/lib/auth-redirect";
 import {
   getRefreshToken,
   getToken,
@@ -13,7 +14,7 @@ function redirectToLogin() {
   removeToken();
   removeRefreshToken();
   if (typeof window !== "undefined" && window.location.pathname !== "/login") {
-    window.location.href = "/login";
+    window.location.href = loginUrl();
   }
 }
 

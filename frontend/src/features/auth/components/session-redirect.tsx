@@ -3,6 +3,8 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
+import { readNextParam } from "@/lib/auth-redirect";
+
 import { useCurrentUser } from "../hooks/use-current-user";
 
 /** If a still-valid session already exists (e.g. the user hits /login again
@@ -15,7 +17,7 @@ export default function SessionRedirect() {
 
   useEffect(() => {
     if (!loading && user) {
-      router.replace(user.role === "SUPER_ADMIN" ? "/admin" : "/dashboard");
+      router.replace(readNextParam() ?? (user.role === "SUPER_ADMIN" ? "/admin" : "/dashboard"));
     }
   }, [loading, user, router]);
 

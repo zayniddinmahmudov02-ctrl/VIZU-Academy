@@ -1,4 +1,5 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
+import { loginUrl } from "@/lib/auth-redirect";
 
 import { API_URL } from "@/src/constants/api";
 import {
@@ -67,7 +68,7 @@ function redirectToLogin() {
   removeToken();
   removeRefreshToken();
   if (typeof window !== "undefined" && window.location.pathname !== "/login") {
-    window.location.href = "/login";
+    window.location.href = loginUrl();
   }
 }
 

@@ -32,7 +32,10 @@ router = APIRouter(
 )
 def get_all(
     db: Session = Depends(get_db),
+    _: User = Depends(require_admin_panel_access),
 ):
+    """Every homework of every lesson (drafts included) — admin panel only.
+    Students use GET /homeworks/lesson/{id}, which applies the lesson gate."""
     return HomeworkService(db).get_all()
 
 
@@ -59,7 +62,9 @@ def get_lesson_homework(
 def get_one(
     item_id: str,
     db: Session = Depends(get_db),
+    _: User = Depends(require_admin_panel_access),
 ):
+    """Admin panel only (it bypasses the per-lesson access gate)."""
     item = HomeworkService(db).get(item_id)
 
     if not item:

@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+
+import { readNextParam } from "@/lib/auth-redirect";
 import { Loader2 } from "lucide-react";
 
 import { useTranslation } from "@/lib/i18n/use-translation";
@@ -64,7 +66,7 @@ export default function TelegramAutoLogin() {
           // saveToken/saveRefreshToken already use for that case.
           saveToken(response.access_token, false);
           saveRefreshToken(response.refresh_token, false);
-          router.push("/dashboard");
+          router.replace(readNextParam() ?? "/dashboard");
         });
       })
       .catch(() => {
