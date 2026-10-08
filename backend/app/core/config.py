@@ -8,7 +8,9 @@ class Settings(BaseSettings):
     APP_NAME: str = "VIZU Academy API"
     APP_VERSION: str = "1.0.0"
     APP_ENV: str = "development"
-    DEBUG: bool = True
+    # Off unless explicitly enabled (DEBUG=true in a development .env).
+    # A missing value never turns debug mode / SQL echo on.
+    DEBUG: bool = False
     
     # ==================================================
     # Storage
@@ -152,8 +154,10 @@ class Settings(BaseSettings):
     #            SMTP_USERNAME / SMTP_PASSWORD / EMAIL_FROM).
     # "outbox" — development only: writes each email as a .eml file into
     #            EMAIL_OUTBOX_DIR (git-ignored) instead of sending it.
-    # ""       — not configured: "outbox" in development, sending fails
-    #            (cleanly, 503) in any other APP_ENV.
+    # ""       — not configured: sending fails cleanly (no silent fallback).
+    # Production must use "smtp"; "outbox" is refused unless APP_ENV is
+    # development/test, so production can never write .eml files instead
+    # of delivering mail.
     # Secrets live only in the backend environment, never in code/frontend.
     EMAIL_PROVIDER: str = ""
     EMAIL_FROM: str = ""
@@ -170,8 +174,10 @@ class Settings(BaseSettings):
 
     # Shared passphrase for the Super Admin's second verification screen.
     # Never sent to or embedded in the frontend — compared server-side
-    # only, in POST /auth/verify-admin-password.
-    SUPER_ADMIN_VERIFICATION_PASSWORD: str = "Zz_20020614"
+    # only, in POST /auth/verify-admin-password. Must come from the
+    # environment: there is no default, and while it is empty the
+    # verification step refuses (503) instead of accepting anything.
+    SUPER_ADMIN_VERIFICATION_PASSWORD: str = ""
 
     # ==================================================
     # TELEGRAM MINI APP
@@ -200,6 +206,12 @@ class Settings(BaseSettings):
             f"@{self.DATABASE_HOST}:{self.DATABASE_PORT}"
             f"/{self.DATABASE_NAME}"
         )
+
+    @property
+    def SQL_ECHO(self) -> bool:
+        """SQL statement logging (incl. bound parameters): only with DEBUG
+        explicitly on, and never in production."""
+        return self.DEBUG and self.APP_ENV in ("development", "test")
 
     model_config = SettingsConfigDict(
         env_file=".env",

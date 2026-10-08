@@ -1225,6 +1225,10 @@ export const translations: Record<string, Namespace> = {
     errBanned: { de: "Dieses Konto wurde gesperrt.", uz: "Bu hisob bloklangan." },
     errSuspended: { de: "Dieses Konto ist vorübergehend gesperrt.", uz: "Bu hisob vaqtincha to'xtatilgan." },
     errAdminPassword: { de: "Falsches Administrator-Passwort.", uz: "Administrator paroli noto'g'ri." },
+    errAdminNotConfigured: {
+      de: "Die Administrator-Bestätigung ist nicht konfiguriert. Bitte wenden Sie sich an den Systemadministrator.",
+      uz: "Administrator tasdiqlovi sozlanmagan. Iltimos, tizim administratoriga murojaat qiling.",
+    },
     fullName: { de: "Vor- und Nachname", uz: "Ism va familiya" },
     fullNamePlaceholder: { de: "Max Mustermann", uz: "Ism Familiya" },
     errFullName: { de: "Bitte geben Sie Ihren Vor- und Nachnamen ein.", uz: "Iltimos, ism va familiyangizni kiriting." },

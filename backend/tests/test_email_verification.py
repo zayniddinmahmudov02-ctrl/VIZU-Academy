@@ -94,7 +94,7 @@ class TestEmailService(unittest.TestCase):
 
     def test_outbox_in_development_writes_eml_and_never_logs_the_code(self):
         with tempfile.TemporaryDirectory() as tmp:
-            settings.EMAIL_PROVIDER, settings.APP_ENV, settings.EMAIL_OUTBOX_DIR = "", "development", tmp
+            settings.EMAIL_PROVIDER, settings.APP_ENV, settings.EMAIL_OUTBOX_DIR = "outbox", "development", tmp
             with self.assertLogs(email_service.logger.name, level=logging.INFO) as logs:
                 email_service.EmailService().send_verification_code("a@example.com", "Anna", "654321")
             files = list(Path(tmp).glob("*.eml"))

@@ -455,9 +455,18 @@ def verify_admin_password(
     current_user: User = Depends(require_super_admin),
 ):
 
+    expected = settings.SUPER_ADMIN_VERIFICATION_PASSWORD
+    if not expected:
+        # Configuration error — never fall back to a built-in password.
+        logger.error("SUPER_ADMIN_VERIFICATION_PASSWORD is not configured; admin verification refused.")
+        raise HTTPException(
+            status_code=503,
+            detail="ADMIN_VERIFICATION_NOT_CONFIGURED",
+        )
+
     if not secrets.compare_digest(
-        data.password,
-        settings.SUPER_ADMIN_VERIFICATION_PASSWORD,
+        data.password.encode("utf-8"),
+        expected.encode("utf-8"),
     ):
         raise HTTPException(
             status_code=403,

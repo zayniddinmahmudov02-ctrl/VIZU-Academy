@@ -13,6 +13,7 @@ const AUTH_ERROR_KEYS: Record<string, string> = {
   "This account has been banned.": "auth.errBanned",
   "This account is suspended.": "auth.errSuspended",
   "Incorrect administrator password.": "auth.errAdminPassword",
+  ADMIN_VERIFICATION_NOT_CONFIGURED: "auth.errAdminNotConfigured",
   EMAIL_NOT_VERIFIED: "auth.emailNotVerified",
   CODE_INVALID: "auth.errCodeInvalid",
   CODE_EXPIRED: "auth.errCodeExpired",

@@ -5,6 +5,8 @@ from fastapi.staticfiles import StaticFiles
 from app.core.config import settings
 from app.core.cors import ALLOWED_ORIGIN_REGEX, ALLOWED_ORIGINS
 from app.core.exceptions import register_exception_handlers
+from app.core.logging.logger import logger
+from app.services.email.email_service import log_email_configuration
 
 # Authentication
 from app.api.auth.router import router as auth_router
@@ -162,6 +164,11 @@ app = FastAPI(
 )
 
 register_exception_handlers(app)
+
+# Configuration check at startup — logs setting NAMES only, never values.
+log_email_configuration()
+if not settings.SUPER_ADMIN_VERIFICATION_PASSWORD:
+    logger.error("SUPER_ADMIN_VERIFICATION_PASSWORD is not set: Super Admin verification is disabled until it is configured.")
 
 # ==================================================
 # CORS

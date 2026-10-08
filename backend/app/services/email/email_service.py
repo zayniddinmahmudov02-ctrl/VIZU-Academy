@@ -5,8 +5,12 @@ Provider (settings.EMAIL_PROVIDER):
              587 or implicit TLS (SMTP_USE_SSL) on 465.
 * "outbox" — development: writes a .eml file to EMAIL_OUTBOX_DIR
              (git-ignored); nothing is sent.
-* ""       — "outbox" in development; any other APP_ENV refuses to send
-             (EmailNotConfigured) instead of silently dropping mail.
+* ""       — not configured: refuses to send (EmailNotConfigured) in
+             every environment — there is no implicit fallback.
+
+The outbox is refused unless APP_ENV is development/test, and SMTP refuses
+to run with incomplete settings — production can never "send" by writing
+local files or silently drop mail.
 
 Never logs codes, passwords or credentials — only "sent"/"failed" events
 with a non-identifying reason."""
@@ -32,11 +36,36 @@ class EmailNotConfigured(EmailDeliveryError):
     """No email provider configured for this environment."""
 
 
+DEV_ENVIRONMENTS = ("development", "test")
+
+
 def _provider() -> str:
-    provider = (settings.EMAIL_PROVIDER or "").strip().lower()
-    if provider:
-        return provider
-    return "outbox" if settings.APP_ENV == "development" else ""
+    return (settings.EMAIL_PROVIDER or "").strip().lower()
+
+
+def missing_email_settings() -> list[str]:
+    """Names (never values) of the settings that keep email from working."""
+    provider = _provider()
+    if provider == "outbox":
+        return [] if settings.APP_ENV in DEV_ENVIRONMENTS else ["EMAIL_PROVIDER"]
+    if provider != "smtp":
+        return ["EMAIL_PROVIDER"]
+    missing = [name for name in ("EMAIL_FROM", "SMTP_HOST") if not getattr(settings, name)]
+    if not settings.SMTP_PORT:
+        missing.append("SMTP_PORT")
+    # Authenticated relay: username and password come as a pair.
+    if bool(settings.SMTP_USERNAME) != bool(settings.SMTP_PASSWORD):
+        missing.append("SMTP_PASSWORD" if settings.SMTP_USERNAME else "SMTP_USERNAME")
+    return missing
+
+
+def log_email_configuration() -> None:
+    """Startup check: a clear configuration error (names only, no values)."""
+    missing = missing_email_settings()
+    if missing:
+        logger.error("Email delivery is NOT configured (APP_ENV=%s): missing/invalid %s", settings.APP_ENV, ", ".join(missing))
+    else:
+        logger.info("Email delivery configured: provider=%s", _provider())
 
 
 def _build(to_address: str, message: EmailMessage) -> MimeMessage:
@@ -80,8 +109,8 @@ class EmailService:
     # ---- providers ----
 
     def _send_smtp(self, mime: MimeMessage) -> None:
-        if not (settings.SMTP_HOST and settings.EMAIL_FROM):
-            raise EmailNotConfigured("SMTP_HOST / EMAIL_FROM missing.")
+        if missing_email_settings():
+            raise EmailNotConfigured("SMTP settings incomplete.")
         context = ssl.create_default_context()
         timeout = settings.SMTP_TIMEOUT_SECONDS
         if settings.SMTP_USE_SSL:
@@ -96,7 +125,7 @@ class EmailService:
             server.send_message(mime)
 
     def _write_outbox(self, mime: MimeMessage) -> None:
-        if settings.APP_ENV not in ("development", "test"):
+        if settings.APP_ENV not in DEV_ENVIRONMENTS:
             raise EmailNotConfigured("The outbox provider is for development only.")
         folder = Path(settings.EMAIL_OUTBOX_DIR)
         folder.mkdir(parents=True, exist_ok=True)
