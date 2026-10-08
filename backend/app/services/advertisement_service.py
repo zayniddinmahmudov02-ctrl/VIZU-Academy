@@ -44,6 +44,25 @@ def get_current(db: Session) -> Advertisement | None:
     )
 
 
+# Upper bound for the dashboard carousel (all eligible ads, rotating).
+MAX_CAROUSEL_ADS = 10
+
+
+def list_current(db: Session, limit: int = MAX_CAROUSEL_ADS) -> list[Advertisement]:
+    """Every advertisement students may see right now, in the same order as
+    get_current (priority, then most recently updated) — the dashboard
+    carousel rotates through them. get_current() stays the first of these."""
+    now = _now()
+    return list(
+        db.scalars(
+            select(Advertisement)
+            .where(eligible_filter(now))
+            .order_by(Advertisement.priority.desc(), Advertisement.updated_at.desc())
+            .limit(limit)
+        )
+    )
+
+
 def is_eligible(ad: Advertisement, now: datetime | None = None) -> bool:
     now = now or _now()
     return bool(
@@ -74,10 +93,11 @@ def client_hash(ip: str | None, user_agent: str | None) -> str:
 
 
 def record_impression(db: Session, ad: Advertisement, user_id: UUID) -> bool:
-    """Counts an impression of the CURRENT dashboard ad, at most once per
-    user per IMPRESSION_DEDUP_WINDOW. Returns whether it was counted."""
-    current = get_current(db)
-    if current is None or current.id != ad.id:
+    """Counts an impression of an ad that is currently shown on the dashboard
+    (any eligible ad — the carousel rotates through all of them), at most once
+    per user per IMPRESSION_DEDUP_WINDOW. Returns whether it was counted.
+    Inactive / scheduled / expired ads are never counted."""
+    if not is_eligible(ad):
         return False
     recent = db.scalar(
         select(AdvertisementEvent.id).where(

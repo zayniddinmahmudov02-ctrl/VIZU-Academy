@@ -17,6 +17,13 @@ export async function getActiveAdvertisement(): Promise<ActiveAdvertisement | nu
   return response.data ?? null;
 }
 
+/** Every advertisement currently eligible for the dashboard carousel, in
+ * display order (priority first). */
+export async function getActiveAdvertisements(): Promise<ActiveAdvertisement[]> {
+  const response = await api.get<ActiveAdvertisement[]>("/api/v1/advertisements/active-list");
+  return Array.isArray(response.data) ? response.data : [];
+}
+
 export async function trackAdvertisementImpression(id: string): Promise<void> {
   await api.post(`/api/v1/advertisements/${id}/impression`);
 }

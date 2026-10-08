@@ -37,15 +37,26 @@ def get_active_advertisement(
     return service.to_public(ad) if ad else None
 
 
+@router.get("/active-list", response_model=list[AdvertisementPublic])
+def list_active_advertisements(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """All advertisements currently eligible for the dashboard carousel, in
+    display order (priority first). Same public fields as /active — no
+    analytics, no destination URL. /active is unchanged (= the first one)."""
+    return [service.to_public(ad) for ad in service.list_current(db)]
+
+
 @router.post("/{advertisement_id}/impression", response_model=ImpressionResult)
 def track_impression(
     advertisement_id: UUID,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-    """Called once the banner is actually visible (IntersectionObserver).
-    Counted at most once per user per 30 minutes, and only for the ad that
-    is currently shown."""
+    """Called once a banner is actually visible (IntersectionObserver).
+    Counted at most once per user per 30 minutes, and only for an ad that is
+    currently eligible (active and inside its date range)."""
     ad = service.get(db, advertisement_id)
     if ad is None:
         raise HTTPException(status_code=404, detail="Advertisement not found.")

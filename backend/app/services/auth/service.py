@@ -6,6 +6,7 @@ from uuid import UUID
 from fastapi import HTTPException
 
 from sqlalchemy import func, select
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.core.config import settings
@@ -16,6 +17,14 @@ from app.core.security import (
 )
 
 from app.models.user import User
+from app.services.auth.identifier import (
+    KIND_EMAIL,
+    InvalidIdentifier,
+    LoginIdentifier,
+    is_reserved_email,
+    parse_identifier,
+    phone_placeholder_email,
+)
 
 from app.repositories.refresh_token import RefreshTokenRepository
 
@@ -44,102 +53,96 @@ def _unique_username(db: Session, base: str) -> str:
     return candidate
 
 
+def _find_by_identifier(db: Session, ident: LoginIdentifier) -> User | None:
+    if ident.kind == KIND_EMAIL:
+        return db.scalar(select(User).where(func.lower(User.email) == ident.value))
+    return db.scalar(select(User).where(User.login_phone == ident.value))
+
+
 def create_user(
     db: Session,
     data: UserRegister,
 ) -> User:
-    """Self-registration. The new account must confirm its e-mail address
-    (email_verification_required=True) before it can log in — accounts that
-    existed before this flow keep False and are unaffected."""
+    """Self-registration with an e-mail address OR a phone number. The
+    account is active and verified immediately — there is no confirmation
+    step. One account per e-mail and per phone number (409 ACCOUNT_EXISTS);
+    the unique constraints on users.email / users.login_phone back this up
+    against concurrent requests."""
 
-    existing_email = db.scalar(
-        select(User).where(
-            func.lower(User.email) == data.email.strip().lower(),
-        )
-    )
+    try:
+        ident = parse_identifier(data.login_identifier, strict=True)
+    except InvalidIdentifier:
+        raise HTTPException(status_code=422, detail="INVALID_IDENTIFIER")
+    if ident.kind == KIND_EMAIL and is_reserved_email(ident.value):
+        raise HTTPException(status_code=422, detail="INVALID_IDENTIFIER")
 
-    if existing_email:
-        raise HTTPException(
-            status_code=409,
-            detail="Email already exists.",
-        )
+    if _find_by_identifier(db, ident) is not None:
+        raise HTTPException(status_code=409, detail="ACCOUNT_EXISTS")
+
+    if ident.kind == KIND_EMAIL:
+        email, login_phone, phone_number = ident.value, None, None
+        username_base = ident.value.split("@", 1)[0]
+    else:
+        email, login_phone, phone_number = phone_placeholder_email(ident.value), ident.value, ident.value
+        username_base = f"u{ident.value.lstrip('+')}"
+        if db.scalar(select(User.id).where(func.lower(User.email) == email)) is not None:
+            raise HTTPException(status_code=409, detail="ACCOUNT_EXISTS")
 
     if data.username:
-        existing_username = db.scalar(
-            select(User).where(
-                func.lower(User.username) == data.username.lower(),
-            )
-        )
-        if existing_username:
-            raise HTTPException(
-                status_code=409,
-                detail="Username already exists.",
-            )
+        if db.scalar(select(User).where(func.lower(User.username) == data.username.lower())):
+            raise HTTPException(status_code=409, detail="Username already exists.")
         username = data.username
     else:
-        username = _unique_username(db, data.email.split("@", 1)[0])
+        username = _unique_username(db, username_base)
 
     first_name, last_name = _split_name(data.full_name)
 
     user = User(
-        email=data.email.strip(),
+        email=email,
+        login_phone=login_phone,
+        phone_number=phone_number,
         username=username,
         first_name=first_name,
         last_name=last_name,
-        password_hash=hash_password(
-            data.password,
-        ),
-        is_verified=False,
-        email_verification_required=True,
+        password_hash=hash_password(data.password),
+        is_active=True,
+        is_verified=True,
     )
-
     db.add(user)
-
-    db.commit()
-
+    try:
+        db.commit()
+    except IntegrityError:
+        # a concurrent registration with the same e-mail / phone won the race
+        db.rollback()
+        raise HTTPException(status_code=409, detail="ACCOUNT_EXISTS")
     db.refresh(user)
-
     return user
-
-
-def needs_email_verification(user: User) -> bool:
-    return bool(user.email_verification_required and user.email_verified_at is None)
-
-
-def mark_email_verified(db: Session, user: User) -> None:
-    if user.email_verified_at is None:
-        user.email_verified_at = datetime.now(UTC)
-    user.is_verified = True
-    db.commit()
 
 
 def display_name(user: User) -> str:
     return (user.first_name or "").strip() or user.username
 
 
+def get_user_by_identifier(db: Session, identifier: str) -> User | None:
+    """E-mail (case-insensitive) or phone number (normalised) -> account."""
+    try:
+        ident = parse_identifier(identifier)
+    except InvalidIdentifier:
+        return None
+    return _find_by_identifier(db, ident)
+
+
 def authenticate_user(
     db: Session,
-    email: str,
+    identifier: str,
     password: str,
 ):
-    """Email lookup is case-insensitive and whitespace-trimmed — this was
-    a real, previously-unaddressed gap (the comparison was a plain `==`,
-    nowhere in the codebase normalizes an email's case either on
-    registration or login), root-caused as the actual production 401:
-    any account whose stored email differs in case from what's typed at
-    login (autocapitalize on mobile, a copy-paste with different casing,
-    etc.) could never log in, no matter how correct the password was.
-    Storage itself is left untouched (still whatever case was originally
-    registered) — only the comparison changed, so this needs no backfill/
-    migration of existing rows."""
+    """Login with e-mail OR phone number. E-mail lookup stays
+    case-insensitive and whitespace-trimmed (stored case is untouched, so a
+    mobile autocapitalised address still matches). Returns None for an
+    unknown identifier or a wrong password — the caller cannot tell which."""
 
-    normalized_email = email.strip().lower()
-
-    user = db.scalar(
-        select(User).where(
-            func.lower(User.email) == normalized_email,
-        )
-    )
+    user = get_user_by_identifier(db, identifier)
 
     if user is None:
         return None
@@ -219,8 +222,7 @@ def get_user_by_email(
     db: Session,
     email: str,
 ) -> User | None:
-    """Same case-insensitive lookup as authenticate_user — used by
-    password reset, which must find the same account login would."""
+    """Case-insensitive e-mail lookup (same comparison as login)."""
 
     return db.scalar(
         select(User).where(
@@ -311,36 +313,6 @@ def revoke_refresh_token(
 
     if stored is not None:
         repository.delete(stored)
-
-
-# ==========================
-# Password reset (6-digit e-mail code — see auth/email_code_service.py)
-# ==========================
-
-def can_receive_email(user: User) -> bool:
-    """Telegram-only accounts carry a synthetic @telegram.local address."""
-    return bool(user.email) and not user.email.lower().endswith("@telegram.local")
-
-
-def apply_password_reset(
-    db: Session,
-    user: User,
-    new_password: str,
-) -> None:
-    """Sets the new password and ends every existing session: all refresh
-    tokens are revoked and access tokens issued before now are rejected
-    (users.tokens_valid_after, checked in get_current_user). A successful
-    reset also proves the address belongs to the user."""
-
-    user.password_hash = hash_password(new_password)
-    now = datetime.now(UTC)
-    user.tokens_valid_after = now
-    if user.email_verification_required and user.email_verified_at is None:
-        user.email_verified_at = now
-        user.is_verified = True
-    db.commit()
-
-    RefreshTokenRepository(db).delete_all_for_user(str(user.id))
 
 
 # ==========================

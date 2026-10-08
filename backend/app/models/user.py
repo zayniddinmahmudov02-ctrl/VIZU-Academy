@@ -142,22 +142,19 @@ class User(BaseModel):
         index=True,
     )
 
-    # ---- Email verification (registration) ----
-    # True only for accounts created through self-registration after email
-    # verification was introduced; every pre-existing, Telegram, admin-made
-    # account keeps False, so their login behaviour is unchanged.
-    email_verification_required: Mapped[bool] = mapped_column(
-        Boolean,
-        default=False,
-        server_default="false",
-        nullable=False,
-    )
-    email_verified_at: Mapped[datetime | None] = mapped_column(
-        DateTime(timezone=True),
+    # Login identifier of accounts registered with a phone number ("+<digits>",
+    # see services/auth/identifier.py). Unique; NULL for e-mail, Telegram and
+    # admin-created accounts. Such an account's `email` is an internal
+    # placeholder on PHONE_EMAIL_DOMAIN (never mailed), like Telegram's.
+    login_phone: Mapped[str | None] = mapped_column(
+        String(20),
+        unique=True,
         nullable=True,
+        index=True,
     )
-    # Access tokens issued before this moment are rejected (set on password
-    # reset). NULL = no restriction (every existing session stays valid).
+
+    # Access tokens issued before this moment are rejected (checked in
+    # get_current_user). NULL = no restriction.
     tokens_valid_after: Mapped[datetime | None] = mapped_column(
         DateTime(timezone=True),
         nullable=True,

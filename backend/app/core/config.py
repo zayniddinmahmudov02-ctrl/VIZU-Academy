@@ -142,35 +142,6 @@ class Settings(BaseSettings):
 
     # Stateless password-reset JWTs (see core/security/jwt.py) live this
     # long before they're rejected regardless of use.
-    PASSWORD_RESET_TOKEN_EXPIRE_MINUTES: int = 30
-
-    # Public origin of the frontend (used in email footers / links).
-    FRONTEND_URL: str = "http://localhost:3000"
-
-    # ==================================================
-    # EMAIL (verification + password-reset codes, app/services/email/)
-    # ==================================================
-    # "smtp"   — real delivery via SMTP (needs SMTP_HOST / SMTP_PORT /
-    #            SMTP_USERNAME / SMTP_PASSWORD / EMAIL_FROM).
-    # "outbox" — development only: writes each email as a .eml file into
-    #            EMAIL_OUTBOX_DIR (git-ignored) instead of sending it.
-    # ""       — not configured: sending fails cleanly (no silent fallback).
-    # Production must use "smtp"; "outbox" is refused unless APP_ENV is
-    # development/test, so production can never write .eml files instead
-    # of delivering mail.
-    # Secrets live only in the backend environment, never in code/frontend.
-    EMAIL_PROVIDER: str = ""
-    EMAIL_FROM: str = ""
-    EMAIL_FROM_NAME: str = "VIZU-Academy"
-    SMTP_HOST: str = ""
-    SMTP_PORT: int = 587
-    SMTP_USERNAME: str = ""
-    SMTP_PASSWORD: str = ""
-    # STARTTLS on SMTP_PORT (587). Set SMTP_USE_SSL=true for implicit TLS (465).
-    SMTP_USE_TLS: bool = True
-    SMTP_USE_SSL: bool = False
-    SMTP_TIMEOUT_SECONDS: int = 15
-    EMAIL_OUTBOX_DIR: str = "var/email-outbox"
 
     # Shared passphrase for the Super Admin's second verification screen.
     # Never sent to or embedded in the frontend — compared server-side

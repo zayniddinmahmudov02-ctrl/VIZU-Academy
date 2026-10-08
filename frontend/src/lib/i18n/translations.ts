@@ -85,6 +85,10 @@ export const translations: Record<string, Namespace> = {
       uz: "O'qish yo'lingizni davom ettiring va yangi imkoniyatlarni kashf eting.",
     },
     adFallbackCta: { de: "Zu den Kursen", uz: "Kurslarga o'tish" },
+    adCarouselLabel: { de: "Werbung", uz: "Reklama" },
+    adSlide: { de: "Werbung {n} von {total}", uz: "{total} tadan {n}-reklama" },
+    adPause: { de: "Automatischen Wechsel anhalten", uz: "Avtomatik almashishni to'xtatish" },
+    adPlay: { de: "Automatischen Wechsel fortsetzen", uz: "Avtomatik almashishni davom ettirish" },
     mockExams: { de: "Probeprüfungen", uz: "Mock imtihonlar" },
     mockExamsSubtitle: { de: "Testen Sie Ihr Wissen", uz: "Bilimingizni sinang" },
     woerterbuchSubtitle: { de: "Vokabeln nachschlagen", uz: "So'zlarni qidirish" },
@@ -1190,13 +1194,9 @@ export const translations: Record<string, Namespace> = {
       de: "Starte deine Deutschlernreise mit VIZU Academy.",
       uz: "VIZU Academy bilan nemis tilini o'rganishni boshlang.",
     },
-    email: { de: "E-Mail", uz: "Elektron pochta" },
-    emailPlaceholder: { de: "deine@email.com", uz: "sizning@email.com" },
     password: { de: "Passwort", uz: "Parol" },
-    passwordConfirm: { de: "Passwort bestätigen", uz: "Parolni tasdiqlash" },
+    passwordConfirm: { de: "Passwort wiederholen", uz: "Parolni qayta kiriting" },
     passwordRepeatPlaceholder: { de: "Passwort wiederholen", uz: "Parolni qayta kiriting" },
-    username: { de: "Benutzername", uz: "Foydalanuvchi nomi" },
-    usernamePlaceholder: { de: "dein_benutzername", uz: "foydalanuvchi_nomingiz" },
     showPassword: { de: "Passwort anzeigen", uz: "Parolni ko'rsatish" },
     hidePassword: { de: "Passwort verbergen", uz: "Parolni yashirish" },
     rememberMe: { de: "Angemeldet bleiben", uz: "Meni eslab qolish" },
@@ -1209,10 +1209,6 @@ export const translations: Record<string, Namespace> = {
     toRegister: { de: "Zur Registrierung", uz: "Ro'yxatdan o'tish" },
     haveAccount: { de: "Bereits ein Konto?", uz: "Allaqachon hisobingiz bormi?" },
     toLogin: { de: "Zum Login", uz: "Kirish" },
-    registerSuccess: {
-      de: "Konto erfolgreich erstellt! Du wirst zur Anmeldung weitergeleitet...",
-      uz: "Hisob muvaffaqiyatli yaratildi! Siz kirish sahifasiga yo'naltirilmoqdasiz...",
-    },
     telegramChecking: { de: "Telegram-Authentifizierung läuft...", uz: "Telegram orqali tekshirilmoqda..." },
     telegramFailed: {
       de: "Telegram-Anmeldung nicht möglich. Bitte melde dich unten manuell an.",
@@ -1229,15 +1225,14 @@ export const translations: Record<string, Namespace> = {
     backToLogin: { de: "Zurück zur Anmeldung", uz: "Kirish sahifasiga qaytish" },
 
     // Validation
-    errEmailInvalid: { de: "Bitte gib eine gültige E-Mail-Adresse ein.", uz: "Iltimos, to'g'ri elektron pochta manzilini kiriting." },
     errPasswordMin: { de: "Das Passwort muss mindestens 6 Zeichen lang sein.", uz: "Parol kamida 6 ta belgidan iborat bo'lishi kerak." },
-    errPasswordMismatch: { de: "Die Passwörter stimmen nicht überein.", uz: "Parollar mos kelmadi." },
-    errUsernameMin: { de: "Der Benutzername muss mindestens 3 Zeichen lang sein.", uz: "Foydalanuvchi nomi kamida 3 ta belgidan iborat bo'lishi kerak." },
-    errUsernameChars: { de: "Nur Buchstaben, Zahlen und Unterstriche erlaubt.", uz: "Faqat harflar, raqamlar va pastki chiziq ruxsat etiladi." },
+    errPasswordMismatch: { de: "Die Passwörter stimmen nicht überein.", uz: "Parollar bir-biriga mos kelmaydi." },
 
     // Server responses (mapped from the backend's fixed messages)
-    errInvalidCredentials: { de: "E-Mail oder Passwort ist falsch.", uz: "Elektron pochta yoki parol noto'g'ri." },
-    errEmailExists: { de: "Diese E-Mail-Adresse ist bereits registriert.", uz: "Bu elektron pochta allaqachon ro'yxatdan o'tgan." },
+    errInvalidCredentials: {
+      de: "E-Mail/Telefonnummer oder Passwort ist falsch.",
+      uz: "E-mail/telefon raqami yoki parol noto'g'ri.",
+    },
     errUsernameExists: { de: "Dieser Benutzername ist bereits vergeben.", uz: "Bu foydalanuvchi nomi allaqachon band." },
     errBanned: { de: "Dieses Konto wurde gesperrt.", uz: "Bu hisob bloklangan." },
     errSuspended: { de: "Dieses Konto ist vorübergehend gesperrt.", uz: "Bu hisob vaqtincha to'xtatilgan." },
@@ -1250,70 +1245,31 @@ export const translations: Record<string, Namespace> = {
     fullNamePlaceholder: { de: "Max Mustermann", uz: "Ism Familiya" },
     errFullName: { de: "Bitte geben Sie Ihren Vor- und Nachnamen ein.", uz: "Iltimos, ism va familiyangizni kiriting." },
 
-    // E-Mail-Bestätigung
-    verifyTitle: { de: "E-Mail-Adresse bestätigen", uz: "Elektron pochtani tasdiqlash" },
-    verifySent: {
-      de: "Wir haben einen Bestätigungscode an Ihre E-Mail-Adresse gesendet.",
-      uz: "Elektron pochtangizga tasdiqlash kodi yubordik.",
-    },
-    verifySentTo: { de: "Gesendet an {email}", uz: "{email} manziliga yuborildi" },
-    verifyEmailPrompt: {
-      de: "Geben Sie Ihre E-Mail-Adresse ein, um einen Bestätigungscode zu erhalten.",
-      uz: "Tasdiqlash kodini olish uchun elektron pochtangizni kiriting.",
-    },
-    codeLabel: { de: "Bestätigungscode", uz: "Tasdiqlash kodi" },
-    codeDigitAria: { de: "Ziffer {n} von 6", uz: "6 tadan {n}-raqam" },
-    verifyButton: { de: "Bestätigen", uz: "Tasdiqlash" },
-    verifying: { de: "Wird geprüft...", uz: "Tekshirilmoqda..." },
-    resendCode: { de: "Code erneut senden", uz: "Kodni qayta yuborish" },
-    resendIn: { de: "Neuen Code anfordern in {time}", uz: "Yangi kodni {time} dan keyin so'rash" },
-    resendDone: { de: "Ein neuer Code wurde gesendet.", uz: "Yangi kod yuborildi." },
-    sendCode: { de: "Code senden", uz: "Kodni yuborish" },
-    changeEmail: { de: "Andere E-Mail-Adresse verwenden", uz: "Boshqa elektron pochtadan foydalanish" },
-    verifySuccess: { de: "E-Mail-Adresse erfolgreich bestätigt.", uz: "Elektron pochta muvaffaqiyatli tasdiqlandi." },
-    verifySuccessLogin: { de: "Sie können sich jetzt anmelden.", uz: "Endi tizimga kirishingiz mumkin." },
-    emailNotVerified: { de: "E-Mail-Adresse wurde noch nicht bestätigt.", uz: "Elektron pochta hali tasdiqlanmagan." },
-    reverify: { de: "E-Mail erneut bestätigen", uz: "Pochtani qayta tasdiqlash" },
-    emailNotSent: {
-      de: "Der Bestätigungscode konnte gerade nicht gesendet werden. Bitte fordern Sie einen neuen Code an.",
-      uz: "Tasdiqlash kodini hozir yuborib bo'lmadi. Iltimos, yangi kod so'rang.",
-    },
-
-    // Passwort zurücksetzen
-    resetTitle: { de: "Passwort zurücksetzen", uz: "Parolni tiklash" },
-    resetIntro: {
-      de: "Geben Sie Ihre E-Mail-Adresse ein. Wir senden Ihnen einen Bestätigungscode.",
-      uz: "Elektron pochtangizni kiriting. Biz sizga tasdiqlash kodini yuboramiz.",
-    },
-    resetCodeTitle: { de: "Bestätigungscode eingeben", uz: "Tasdiqlash kodini kiriting" },
-    resetNewTitle: { de: "Neues Passwort festlegen", uz: "Yangi parol o'rnatish" },
-    resetGeneric: {
-      de: "Falls diese E-Mail-Adresse registriert ist, wurde ein Bestätigungscode gesendet.",
-      uz: "Agar bu elektron pochta ro'yxatdan o'tgan bo'lsa, tasdiqlash kodi yuborildi.",
-    },
-    next: { de: "Weiter", uz: "Davom etish" },
-    newPassword: { de: "Neues Passwort", uz: "Yangi parol" },
-    savePassword: { de: "Passwort speichern", uz: "Parolni saqlash" },
-    saving: { de: "Wird gespeichert...", uz: "Saqlanmoqda..." },
-    sending: { de: "Wird gesendet...", uz: "Yuborilmoqda..." },
-    resetSuccess: { de: "Passwort erfolgreich zurückgesetzt.", uz: "Parol muvaffaqiyatli tiklandi." },
-
-    // Code / Limits
-    errCodeFormat: { de: "Bitte geben Sie den 6-stelligen Code ein.", uz: "Iltimos, 6 xonali kodni kiriting." },
-    errCodeInvalid: { de: "Der Bestätigungscode ist ungültig.", uz: "Tasdiqlash kodi noto'g'ri." },
-    errCodeExpired: { de: "Der Bestätigungscode ist abgelaufen.", uz: "Tasdiqlash kodining muddati tugagan." },
-    errTooManyAttempts: {
-      de: "Zu viele ungültige Versuche. Bitte fordern Sie einen neuen Code an.",
-      uz: "Juda ko'p noto'g'ri urinish. Iltimos, yangi kod so'rang.",
-    },
     errRateLimited: {
-      de: "Bitte warten Sie, bevor Sie einen neuen Code anfordern.",
-      uz: "Yangi kod so'rashdan oldin biroz kuting.",
+      de: "Zu viele Versuche. Bitte versuchen Sie es in einigen Minuten erneut.",
+      uz: "Juda ko'p urinish. Iltimos, bir necha daqiqadan so'ng qayta urinib ko'ring.",
     },
-    errGeneric: {
-      de: "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",
-      uz: "Nimadir xato ketdi. Iltimos, qayta urinib ko'ring.",
+    identifier: { de: "E-Mail oder Telefonnummer", uz: "E-mail yoki telefon raqami" },
+    identifierPlaceholder: { de: "E-Mail oder +998 90 123 45 67", uz: "E-mail yoki +998 90 123 45 67" },
+    identifierHint: {
+      de: "Damit melden Sie sich später an.",
+      uz: "Tizimga keyinchalik shu ma'lumot bilan kirasiz.",
     },
+    errIdentifierInvalid: {
+      de: "Bitte geben Sie eine gültige E-Mail-Adresse oder Telefonnummer ein.",
+      uz: "To'g'ri e-mail manzili yoki telefon raqamini kiriting.",
+    },
+    errRequired: { de: "Bitte füllen Sie dieses Feld aus.", uz: "Bu maydonni to'ldiring." },
+    errAccountExists: {
+      de: "Mit dieser E-Mail-Adresse oder Telefonnummer ist bereits ein Konto registriert.",
+      uz: "Bu e-mail yoki telefon raqami bilan foydalanuvchi allaqachon ro'yxatdan o'tgan.",
+    },
+    // Parolni unutdim: no automatic reset — {telegram} becomes the @Mahmudow_Z link.
+    forgotTelegram: {
+      de: "Wenn Sie Ihr Passwort vergessen haben, schreiben Sie {telegram} auf Telegram. Dort wird Ihnen weitergeholfen.",
+      uz: "Parolingizni unutgan bo'lsangiz, {telegram} Telegramiga yozing. Aniqlab beradilar.",
+    },
+    openTelegram: { de: "In Telegram schreiben", uz: "Telegramda yozish" },
     errRegisterFailed: {
       de: "Registrierung fehlgeschlagen. Bitte versuche es erneut.",
       uz: "Ro'yxatdan o'tib bo'lmadi. Iltimos, qayta urinib ko'ring.",

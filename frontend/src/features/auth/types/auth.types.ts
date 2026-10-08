@@ -1,25 +1,14 @@
+/** `identifier` = e-mail address OR phone number (the login). */
 export interface LoginRequest {
-  email: string;
+  identifier: string;
   password: string;
 }
 
 export interface RegisterRequest {
   full_name: string;
-  email: string;
+  identifier: string;
   password: string;
-}
-
-export interface RegisterResponse {
-  id: string;
-  email: string;
-  username: string;
-  email_verification_required: boolean;
-  verification_email_sent: boolean;
-}
-
-export interface EmailCodeRequest {
-  email: string;
-  code: string;
+  password_confirm: string;
 }
 
 export interface TokenResponse {
@@ -32,16 +21,7 @@ export interface UserResponse {
   id: string;
   email: string;
   username: string;
-}
-
-export interface ForgotPasswordRequest {
-  email: string;
-}
-
-export interface ResetPasswordRequest {
-  email: string;
-  code: string;
-  new_password: string;
+  login_phone?: string | null;
 }
 
 export interface VerifyAdminPasswordRequest {

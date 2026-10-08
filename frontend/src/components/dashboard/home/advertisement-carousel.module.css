@@ -1,0 +1,112 @@
+/* Werbung carousel transitions — transform / opacity only (GPU-composited).
+   Per-shard values come in as CSS custom properties from glass-shatter.ts. */
+
+.shard {
+  position: absolute;
+  inset: 0;
+  transform-origin: var(--ox) var(--oy);
+  will-change: transform, opacity;
+  animation: shard-fall var(--fall) cubic-bezier(0.45, 0, 0.75, 0.6) var(--delay) both;
+}
+
+@keyframes shard-fall {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(var(--dx), var(--dy), 0) rotate(var(--rot)) scale(0.93);
+    opacity: 0;
+  }
+}
+
+/* glass sheen on each shard */
+.sheen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.38) 0%,
+    rgba(255, 255, 255, 0) 38%,
+    rgba(255, 255, 255, 0) 70%,
+    rgba(255, 255, 255, 0.14) 100%
+  );
+}
+
+/* crack lines: flash in, hold briefly, fade while the shards fall */
+.cracks {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  animation: crack-flash var(--crack) ease-out both;
+}
+
+@keyframes crack-flash {
+  0% {
+    opacity: 0;
+  }
+  18% {
+    opacity: 1;
+  }
+  45% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* the next banner settles in behind the falling glass */
+.reveal {
+  animation: reveal var(--reveal) ease-out both;
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0.35;
+    transform: scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* prefers-reduced-motion: plain cross-fade */
+.fadeIn {
+  animation: fade-in var(--fade) ease-out both;
+}
+
+.fadeOut {
+  animation: fade-out var(--fade) ease-out both;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shard,
+  .cracks,
+  .reveal {
+    animation: none;
+  }
+}

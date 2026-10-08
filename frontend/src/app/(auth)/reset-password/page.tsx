@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 
-// Password reset is code-based now (Passwort vergessen -> 6-digit code);
-// old e-mailed reset links land on the new flow.
+// There is no self-service password reset any more (no e-mail, code or
+// token): old reset links land on the "Parolni unutdingizmi?" help page.
 export default function ResetPasswordPage() {
   redirect("/forgot-password");
 }

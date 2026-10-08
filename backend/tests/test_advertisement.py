@@ -106,5 +106,54 @@ class TestSchema(unittest.TestCase):
         self.assertEqual(len(h), 64)
 
 
+
+class TestCarouselImpressions(unittest.TestCase):
+    """The dashboard rotates through every eligible ad, so an impression counts
+    for any eligible ad (not only the top-priority one) — still de-duplicated
+    per user, and never for an inactive / scheduled / expired ad."""
+
+    def _ad(self, **kw):
+        base = {"id": "ad-2", "is_active": True, "starts_at": None, "ends_at": None}
+        base.update(kw)
+        return SimpleNamespace(**base)
+
+    def test_second_eligible_ad_is_counted(self):
+        from unittest.mock import MagicMock
+
+        from app.services import advertisement_service as svc
+
+        db = MagicMock()
+        db.scalar.return_value = None  # no recent impression by this user
+        self.assertTrue(svc.record_impression(db, self._ad(), "u1"))
+        db.add.assert_called_once()
+
+    def test_dedup_window_still_applies(self):
+        from unittest.mock import MagicMock
+
+        from app.services import advertisement_service as svc
+
+        db = MagicMock()
+        db.scalar.return_value = "recent-event"
+        self.assertFalse(svc.record_impression(db, self._ad(), "u1"))
+        db.add.assert_not_called()
+
+    def test_ineligible_ads_never_counted(self):
+        from unittest.mock import MagicMock
+
+        from app.services import advertisement_service as svc
+
+        for ad in (self._ad(is_active=False), self._ad(ends_at=datetime(2000, 1, 1, tzinfo=timezone.utc))):
+            db = MagicMock()
+            self.assertFalse(svc.record_impression(db, ad, "u1"))
+            db.add.assert_not_called()
+
+    def test_list_endpoint_is_registered_and_active_unchanged(self):
+        from app.api.advertisements.router import router
+
+        paths = {r.path for r in router.routes}
+        self.assertIn("/advertisements/active-list", paths)
+        self.assertIn("/advertisements/active", paths)
+
+
 if __name__ == "__main__":
     unittest.main()

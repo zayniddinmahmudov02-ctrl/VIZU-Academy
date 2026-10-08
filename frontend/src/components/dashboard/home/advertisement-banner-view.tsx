@@ -16,6 +16,9 @@ interface Props {
   external?: boolean;
   /** Small label above the title (e.g. "Werbung"). */
   badge?: ReactNode;
+  /** Slide-in on mount (default). The carousel turns it off for slides it
+   * reveals itself and for the static shard copies of the glass effect. */
+  animateIn?: boolean;
 }
 
 /** The dashboard "Werbung-Banner" — used by the real dashboard AND by the
@@ -24,7 +27,7 @@ interface Props {
  * flame-orange accents) so it renders identically inside the admin shell.
  * The whole banner is one link; reduced motion disables the slide-in. */
 const AdvertisementBannerView = forwardRef<HTMLAnchorElement, Props>(function AdvertisementBannerView(
-  { title, description, imageUrl, ctaText, href, external = false, badge },
+  { title, description, imageUrl, ctaText, href, external = false, badge, animateIn = true },
   ref,
 ) {
   const reduce = useReducedMotion();
@@ -36,7 +39,7 @@ const AdvertisementBannerView = forwardRef<HTMLAnchorElement, Props>(function Ad
       href={href || undefined}
       target={external ? "_blank" : undefined}
       rel={external ? "noopener noreferrer sponsored" : undefined}
-      initial={reduce ? { opacity: 0 } : { opacity: 0, y: 14 }}
+      initial={!animateIn ? false : reduce ? { opacity: 0 } : { opacity: 0, y: 14 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: "easeOut" }}
       className="group relative flex flex-col overflow-hidden rounded-[22px] border border-orange-100 bg-gradient-to-br from-white via-[#fff8ee] to-white shadow-[0_10px_30px_-12px_rgba(15,23,42,0.18)] transition-shadow hover:shadow-[0_16px_40px_-14px_rgba(15,23,42,0.28)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-300 sm:flex-row"

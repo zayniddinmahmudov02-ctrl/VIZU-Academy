@@ -5,10 +5,11 @@ from app.models.base import BaseModel
 
 
 class AuthRateLimitEvent(BaseModel):
-    """One rate-limited auth action (code e-mail request, code check). Email
-    and IP are stored only as keyed hashes (HMAC with SECRET_KEY) — enough to
-    count, useless for anything else. Works across all server workers
-    (database-backed). Rows older than a day are pruned opportunistically."""
+    """One rate-limited auth action (failed login, registration — see
+    services/auth/rate_limit.py). The login identifier (column email_hash,
+    historical name) and the IP are stored only as keyed hashes (HMAC with
+    SECRET_KEY) — enough to count, useless for anything else. Works across all
+    server workers (database-backed). Rows older than a day are pruned."""
 
     __tablename__ = "auth_rate_limit_events"
     __table_args__ = (
