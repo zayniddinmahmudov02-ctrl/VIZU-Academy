@@ -1,4 +1,5 @@
 from sqlalchemy import Boolean, ForeignKey, Integer, String
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models.base import BaseModel
@@ -37,6 +38,11 @@ class Course(BaseModel):
         Boolean,
         default=True,
     )
+
+    # How a lesson's overall result is computed from its skills:
+    # {"weights": {"lesen": 25, ...}, "required": ["lesen", ...]}.
+    # NULL = equal weights, all four skills required.
+    result_config: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
 
     language = relationship(
         "Language",

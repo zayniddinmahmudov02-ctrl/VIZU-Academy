@@ -52,6 +52,7 @@ from app.models.speaking import Speaking
 from app.models.student_speaking import StudentSpeaking
 from app.models.student_writing import StudentWriting
 from app.models.writing import Writing
+from app.services.lesson_skills import levels
 from app.services.mock_exam.ai_service import GEMINI_ENDPOINT, AIServiceError, _extract_json, _require_api_key
 
 STATUS_SUBMITTED = "SUBMITTED"
@@ -61,20 +62,20 @@ STATUS_EVALUATION_FAILED = "EVALUATION_FAILED"
 STALE_AFTER = timedelta(minutes=10)
 MAX_ERRORS = 10
 
-DEFAULT_WRITING_RUBRIC = [
-    {"key": "task", "name": "Topshiriqni bajarish", "max": 25},
-    {"key": "grammar", "name": "Grammatika", "max": 25},
-    {"key": "vocabulary", "name": "Lug'at va mavzuga moslik", "max": 20},
-    {"key": "coherence", "name": "Gaplar tuzilishi va mantiqiy bog'lanish", "max": 15},
-    {"key": "spelling", "name": "Imlo va tinish belgilari", "max": 15},
-]
-DEFAULT_SPEAKING_RUBRIC = [
-    {"key": "content", "name": "Savolga javob va mazmun", "max": 25},
-    {"key": "grammar", "name": "Grammatika", "max": 20},
-    {"key": "vocabulary", "name": "Lug'at", "max": 20},
-    {"key": "pronunciation", "name": "Talaffuz", "max": 20},
-    {"key": "fluency", "name": "Ravonlik va tushunarlilik", "max": 15},
-]
+# A1 defaults (kept for compatibility); every level has its own — levels.py
+DEFAULT_WRITING_RUBRIC = levels.writing_rubric("A1")
+DEFAULT_SPEAKING_RUBRIC = levels.speaking_rubric("A1")
+
+TEXT_TYPE_NAMES = {
+    "message": "qisqa xabar (SMS / chat)",
+    "email": "e-mail",
+    "letter": "xat",
+    "description": "tavsif",
+    "opinion": "fikr bildirish",
+    "essay": "esse",
+    "report": "hisobot",
+    "other": "boshqa",
+}
 PRONUNCIATION_KEY = "pronunciation"
 
 LANGUAGE_NAMES = {"uz": "o'zbek (lotin yozuvida)", "de": "nemis", "en": "ingliz", "ru": "rus"}
@@ -206,22 +207,26 @@ def _rubric_lines(rubric: list[dict], assessed: set[str]) -> str:
     return "\n".join(f'- "{c["key"]}" — {c["name"]}: 0-{c["max"]} ball' for c in rubric if c["key"] in assessed)
 
 
-def writing_prompt(task: Writing, text_value: str, rubric: list[dict]) -> str:
+def writing_prompt(task: Writing, text_value: str, rubric: list[dict], level: str = "A1") -> str:
+    level = levels.normalise_level(level)
     lang = LANGUAGE_NAMES.get(task.feedback_language, task.feedback_language)
     assessed = {c["key"] for c in rubric}
     extra = f"\nO'qituvchining qo'shimcha ko'rsatmasi: {task.ai_instructions.strip()}" if task.ai_instructions else ""
-    helper = f"\nYordamchi so'zlar: {task.helper_words.strip()}" if task.helper_words else ""
-    return f"""Sen nemis tili o'qituvchisisan va A1 darajadagi o'quvchining yozma ishini baholaysan.
+    helper = f"\nYordamchi iboralar: {task.helper_words.strip()}" if task.helper_words else ""
+    text_type = getattr(task, "text_type", None)
+    kind = f"\nMatn turi: {TEXT_TYPE_NAMES.get(text_type, text_type)}." if text_type else ""
+    audience = f"\nAuditoriya / vaziyat: {task.audience.strip()}" if getattr(task, "audience", None) else ""
+    return f"""Sen nemis tili o'qituvchisisan va {level} darajadagi o'quvchining yozma ishini baholaysan.
 
 TOPSHIRIQ: {task.title}
-{task.instruction}
+{task.instruction}{kind}{audience}
 So'zlar soni: {task.min_words}-{task.max_words}.{helper}{extra}
 
 BAHOLASH MEZONLARI (butun sonlar):
 {_rubric_lines(rubric, assessed)}
 
 Qoidalar:
-- Bu A1 darajasi: qisqa, oddiy gaplar kutiladi. B2/C1 talablarini qo'llama. Avvalo topshiriq talabi va mazmun bajarilganini bahola.
+- {levels.WRITING_EXPECTATIONS[level]}
 - Faqat matnda haqiqatan bor narsani bahola. Matnda yo'q xatoni o'ylab topma.
 - "errors": har bir xato uchun "original" — o'quvchi matnidan AYNAN ko'chirilgan qism, "correction" — to'g'ri nemischa variant, "explanation" — qisqa izoh.
 - Barcha izohlar (comment, strengths, explanation, recommendation, summary) {lang} tilida bo'lsin; nemischa misollar va tuzatishlar nemis tilida qolsin.
@@ -234,9 +239,19 @@ Faqat JSON qaytar:
 {{"criteria": [{{"key": "<mezon kaliti>", "score": <butun son>, "comment": "..."}}], "strengths": ["..."], "errors": [{{"original": "...", "correction": "...", "explanation": "..."}}], "recommendation": "...", "summary": "..."}}"""
 
 
-def speaking_prompt(task: Speaking, transcript: str, observations: dict | None, rubric: list[dict], assessed: set[str]) -> str:
+def speaking_prompt(
+    task: Speaking, transcript: str, observations: dict | None, rubric: list[dict], assessed: set[str], level: str = "A1"
+) -> str:
+    level = levels.normalise_level(level)
     lang = LANGUAGE_NAMES.get(task.feedback_language, task.feedback_language)
     extra = f"\nO'qituvchining qo'shimcha ko'rsatmasi: {task.ai_instructions.strip()}" if task.ai_instructions else ""
+    questions = getattr(task, "questions", None) or []
+    if questions:
+        extra += "\nSavollar:\n" + "\n".join(f"- {q}" for q in questions if str(q).strip())
+    if getattr(task, "response_type", None) == "DIALOG":
+        extra += "\nJavob turi: dialog (suhbat vaziyati) — o'quvchi o'z qismini gapiradi."
+    if getattr(task, "speech_goal", None):
+        extra += f"\nKutiladigan nutq maqsadi: {task.speech_goal.strip()}"
     heard = ""
     if observations:
         heard = (
@@ -245,7 +260,7 @@ def speaking_prompt(task: Speaking, transcript: str, observations: dict | None, 
             f"- talaffuz: {observations.get('pronunciation', '')}\n"
             f"- ravonlik: {observations.get('fluency', '')}"
         )
-    return f"""Sen nemis tili o'qituvchisisan va A1 darajadagi o'quvchining og'zaki javobini baholaysan.
+    return f"""Sen nemis tili o'qituvchisisan va {level} darajadagi o'quvchining og'zaki javobini baholaysan.
 
 TOPSHIRIQ: {task.title} — {task.topic}
 {task.instruction}{extra}
@@ -254,7 +269,7 @@ BAHOLASH MEZONLARI (butun sonlar):
 {_rubric_lines(rubric, assessed)}
 
 Qoidalar:
-- Bu A1 darajasi: qisqa, oddiy gaplar kutiladi. Yuqori daraja talablarini qo'llama.
+- {levels.SPEAKING_EXPECTATIONS[level]}
 - Transkript so'zma-so'z (xatolar tuzatilmagan). Faqat unda bor narsani bahola.
 - "errors": "original" — transkriptdan AYNAN ko'chirilgan qism, "correction" — to'g'ri nemischa variant, "explanation" — qisqa izoh.
 - Barcha izohlar {lang} tilida; nemischa misollar nemis tilida qolsin.
@@ -364,10 +379,11 @@ def evaluate_writing(db: Session, submission_id: UUID) -> None:
         sub.status = STATUS_SUBMITTED  # teacher grading
         db.commit()
         return
-    rubric = effective_rubric(task, DEFAULT_WRITING_RUBRIC)
+    level = levels.lesson_level(db, task.lesson_id)
+    rubric = effective_rubric(task, levels.writing_rubric(level))
     model = None
     try:
-        raw, model = call_gemini_json(writing_prompt(task, sub.answer_text, rubric))
+        raw, model = call_gemini_json(writing_prompt(task, sub.answer_text, rubric, level))
         result = validate_result(raw, rubric, sub.answer_text, {c["key"] for c in rubric}, task.feedback_language)
     except (AIServiceError, InvalidAIResult) as exc:
         _fail(db, EVAL_KIND_WRITING, sub, f"{type(exc).__name__}: {exc}", model)
@@ -387,7 +403,8 @@ def evaluate_speaking(db: Session, submission_id: UUID, audio_root: Path) -> Non
         sub.status = STATUS_SUBMITTED
         db.commit()
         return
-    rubric = effective_rubric(task, DEFAULT_SPEAKING_RUBRIC)
+    level = levels.lesson_level(db, task.lesson_id)
+    rubric = effective_rubric(task, levels.speaking_rubric(level))
     previous = sub.ai_evaluation or {}
     observations = previous.get("stt_observations") if isinstance(previous, dict) else None
     if not sub.transcript:
@@ -413,7 +430,7 @@ def evaluate_speaking(db: Session, submission_id: UUID, audio_root: Path) -> Non
                 "summary": "Yozuvda nemischa nutq aniqlanmadi. Iltimos, javobni qayta yozib yuboring.",
             }
         else:
-            raw, model = call_gemini_json(speaking_prompt(task, transcript, observations, rubric, assessed))
+            raw, model = call_gemini_json(speaking_prompt(task, transcript, observations, rubric, assessed, level))
         result = validate_result(raw, rubric, transcript, assessed, task.feedback_language)
     except (AIServiceError, InvalidAIResult) as exc:
         _fail(db, EVAL_KIND_SPEAKING, sub, f"{type(exc).__name__}: {exc}", model)

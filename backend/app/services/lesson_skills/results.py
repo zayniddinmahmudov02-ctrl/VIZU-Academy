@@ -1,10 +1,11 @@
 """Per-lesson skill results: Lesen, Hören, Schreiben, Sprechen.
 
-Overall = equal-weight average of the skills the lesson actually has
-(normally (Lesen + Hören + Schreiben + Sprechen) / 4). It is FINAL only when
-every one of them is graded; until then an INTERIM value is reported together
-with the exact method ("average of the n graded skills") — a skill that is
-not done yet is never counted as 0."""
+Overall = weighted average of the REQUIRED skills the lesson actually has.
+Default (course.result_config NULL): equal weights, all four required —
+(Lesen + Hören + Schreiben + Sprechen) / 4. Admins can change weights and
+which skills are required per course (level). It is FINAL only when every
+required skill is graded; until then an INTERIM value is reported with the
+exact method — a skill that is not done yet is never counted as 0."""
 
 from uuid import UUID
 
@@ -36,8 +37,53 @@ SUBMISSION_STATUS = {
 }
 
 
+SKILL_KEYS = ("lesen", "hoeren", "schreiben", "sprechen")
+DEFAULT_RESULT_CONFIG = {"weights": {k: 25 for k in SKILL_KEYS}, "required": list(SKILL_KEYS)}
+
+
 def _mean(values: list[int]) -> int | None:
     return tests.round_half_up(sum(values) / len(values)) if values else None
+
+
+def validate_result_config(config) -> dict:
+    """{"weights": {skill: 0-100}, "required": [skill, ...]}; raises ValueError."""
+    if config is None:
+        return {"weights": dict(DEFAULT_RESULT_CONFIG["weights"]), "required": list(SKILL_KEYS)}
+    if not isinstance(config, dict):
+        raise ValueError("result_config must be an object")
+    weights = config.get("weights") or {}
+    required = config.get("required")
+    if not isinstance(weights, dict) or not isinstance(required, list):
+        raise ValueError("result_config needs 'weights' and 'required'")
+    clean_w = {}
+    for k in SKILL_KEYS:
+        try:
+            w = int(weights.get(k, 25))
+        except (TypeError, ValueError):
+            raise ValueError(f"weight of {k} must be a number") from None
+        if not 0 <= w <= 100:
+            raise ValueError(f"weight of {k} must be 0-100")
+        clean_w[k] = w
+    clean_r = [k for k in SKILL_KEYS if k in required]
+    if not clean_r:
+        raise ValueError("at least one skill must be required")
+    if any(clean_w[k] == 0 for k in clean_r):
+        raise ValueError("a required skill needs a weight above 0")
+    return {"weights": clean_w, "required": clean_r}
+
+
+def lesson_result_config(db: Session, lesson_id: UUID) -> dict:
+    from app.models.course import Course
+    from app.models.lesson import Lesson
+    from app.models.module import Module
+
+    lesson = db.get(Lesson, lesson_id)
+    module = db.get(Module, lesson.module_id) if lesson else None
+    course = db.get(Course, module.course_id) if module else None
+    try:
+        return validate_result_config(course.result_config if course else None)
+    except ValueError:
+        return validate_result_config(None)
 
 
 def _lesen(db: Session, user_id: UUID, lesson_id: UUID) -> dict:
@@ -154,28 +200,39 @@ def _sprechen(db: Session, user_id: UUID, lesson_id: UUID) -> dict:
 SKILL_NAMES = {"lesen": "Lesen", "hoeren": "Hören", "schreiben": "Schreiben", "sprechen": "Sprechen"}
 
 
-def overall(skills: dict) -> dict:
-    required = {k: v for k, v in skills.items() if v["available"]}
+def overall(skills: dict, config: dict | None = None) -> dict:
+    config = config or validate_result_config(None)
+    weights, required_keys = config["weights"], config["required"]
+    required = {k: v for k, v in skills.items() if v["available"] and k in required_keys}
+    base = {"weights": {k: weights[k] for k in required}, "required": list(required)}
     if not required:
-        return {"status": NOT_AVAILABLE, "score": None, "method": None, "graded_skills": 0, "required_skills": 0}
+        return {"status": NOT_AVAILABLE, "score": None, "method": None, "graded_skills": 0, "required_skills": 0, **base}
     graded = {k: v for k, v in required.items() if v["status"] == COMPLETED and v["score"] is not None}
     n, m = len(graded), len(required)
+    equal = len({weights[k] for k in required}) == 1
+
+    def weighted(items: dict) -> int:
+        total = sum(weights[k] for k in items)
+        return tests.round_half_up(sum(v["score"] * weights[k] for k, v in items.items()) / total)
+
+    def formula(items) -> str:
+        names = [SKILL_NAMES.get(k, k) for k in items]
+        if equal:
+            return f"({' + '.join(names)}) / {len(names)}"
+        total = sum(weights[k] for k in items)
+        return f"({' + '.join(f'{SKILL_NAMES.get(k, k)}×{weights[k]}' for k in items)}) / {total}"
+
     if n == m:
-        return {
-            "status": "final",
-            "score": _mean([v["score"] for v in graded.values()]),
-            "method": f"({' + '.join(SKILL_NAMES.get(k, k) for k in required)}) / {m}",
-            "graded_skills": n,
-            "required_skills": m,
-        }
+        return {"status": "final", "score": weighted(graded), "method": formula(required), "graded_skills": n, "required_skills": m, **base}
     if n == 0:
-        return {"status": NOT_STARTED, "score": None, "method": None, "graded_skills": 0, "required_skills": m}
+        return {"status": NOT_STARTED, "score": None, "method": None, "graded_skills": 0, "required_skills": m, **base}
     return {
         "status": "interim",
-        "score": _mean([v["score"] for v in graded.values()]),
-        "method": f"interim: average of the {n} of {m} graded skills ({', '.join(SKILL_NAMES.get(k, k) for k in graded)})",
+        "score": weighted(graded),
+        "method": f"interim: {formula(graded)} — {n} of {m} required skills graded",
         "graded_skills": n,
         "required_skills": m,
+        **base,
     }
 
 
@@ -186,4 +243,4 @@ def lesson_skill_results(db: Session, user_id: UUID, lesson_id: UUID) -> dict:
         "schreiben": _schreiben(db, user_id, lesson_id),
         "sprechen": _sprechen(db, user_id, lesson_id),
     }
-    return {"lesson_id": lesson_id, "skills": skills, "overall": overall(skills)}
+    return {"lesson_id": lesson_id, "skills": skills, "overall": overall(skills, lesson_result_config(db, lesson_id))}

@@ -39,6 +39,11 @@ class WritingBase(BaseSchema):
     image_url: str | None = Field(default=None, max_length=500)
     opens_at: datetime | None = None
     closes_at: datetime | None = None
+    # A1-C1 task metadata
+    text_type: str | None = Field(default=None, pattern=r"^(message|email|letter|description|opinion|essay|report|other)$")
+    audience: str | None = Field(default=None, max_length=1000)
+    time_limit_minutes: int | None = Field(default=None, ge=1, le=240)
+    content_id: str | None = Field(default=None, max_length=120)
 
     _rubric_ok = field_validator("rubric")(classmethod(lambda cls, v: _check_rubric(v)))
 
@@ -65,6 +70,9 @@ class WritingUpdate(BaseSchema):
     image_url: str | None = Field(default=None, max_length=500)
     opens_at: datetime | None = None
     closes_at: datetime | None = None
+    text_type: str | None = Field(default=None, pattern=r"^(message|email|letter|description|opinion|essay|report|other)$")
+    audience: str | None = Field(default=None, max_length=1000)
+    time_limit_minutes: int | None = Field(default=None, ge=1, le=240)
 
     _rubric_ok = field_validator("rubric")(classmethod(lambda cls, v: _check_rubric(v)))
 

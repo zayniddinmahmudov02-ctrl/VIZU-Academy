@@ -1,4 +1,5 @@
 from sqlalchemy import Boolean, ForeignKey, Integer, String, Text
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models.base import BaseModel
@@ -51,6 +52,10 @@ class ReadingQuestion(BaseModel):
         Boolean,
         default=False,
     )
+
+    # MATCHING / GAP_FILL / SHORT_ANSWER definition incl. answer key
+    # (see app/services/lesson_skills/question_types.py)
+    config: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
 
     reading = relationship(
         "Reading",

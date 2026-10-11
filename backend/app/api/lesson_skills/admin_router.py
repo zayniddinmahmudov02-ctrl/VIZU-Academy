@@ -23,6 +23,8 @@ from app.schemas.speaking import SpeakingAdminResponse
 from app.schemas.writing import WritingAdminResponse
 from app.services.lesson_skills import admin as skill_admin
 from app.services.lesson_skills import skill_tests as tests
+from app.services.lesson_skills import levels
+from app.services.lesson_skills import results as skill_results
 from app.services.lesson_skills.ai_evaluation import run_speaking_evaluation, run_writing_evaluation
 
 router = APIRouter(prefix="/admin/lesson-skills", tags=["Admin - Lesson skills"])
@@ -40,7 +42,9 @@ class QuestionIn(BaseModel):
     question_type: str = "MULTIPLE_CHOICE"
     points: int = Field(default=1, ge=1, le=100)
     explanation: str | None = Field(default=None, max_length=2000)
-    options: list[OptionIn] = Field(min_length=2, max_length=6)
+    # option-based types: 2-6 options; MATCHING / GAP_FILL / SHORT_ANSWER: config
+    options: list[OptionIn] = Field(default_factory=list, max_length=6)
+    config: dict | None = None
 
 
 class QuestionsIn(BaseModel):
@@ -78,8 +82,10 @@ def lesson_overview(lesson_id: UUID, db: Session = Depends(get_db), _: User = De
     lesson = _lesson_or_404(db, lesson_id)
     readings = sorted(db.query(Reading).filter(Reading.lesson_id == lesson_id).all(), key=lambda r: (r.order_index, r.created_at))
     listenings = sorted(db.query(Listening).filter(Listening.lesson_id == lesson_id).all(), key=lambda r: (r.order_index, r.created_at))
+    level = levels.lesson_level(db, lesson_id)
     return {
-        "lesson": {"id": lesson.id, "title": lesson.title, "number": lesson.number},
+        "lesson": {"id": lesson.id, "title": lesson.title, "number": lesson.number, "level": level},
+        "default_rubrics": {"writing": levels.writing_rubric(level), "speaking": levels.speaking_rubric(level)},
         "lesen": [
             {
                 "id": r.id,
@@ -199,3 +205,105 @@ def reevaluate(kind: str, submission_id: UUID, background_tasks: BackgroundTasks
 
 
 __all__ = ["router", "tests"]
+
+
+# ============================================================
+# Course (level) structure + result configuration — A1-C1
+# ============================================================
+
+
+class ResultConfigIn(BaseModel):
+    weights: dict[str, int]
+    required: list[str]
+
+
+def _course_or_404(db: Session, course_id: UUID):
+    from app.models.course import Course
+
+    course = db.get(Course, course_id)
+    if course is None:
+        raise HTTPException(status_code=404, detail="Course not found.")
+    return course
+
+
+def _counts(db: Session, model, lesson_ids: list) -> dict:
+    from sqlalchemy import case, func, select
+
+    rows = db.execute(
+        select(model.lesson_id, func.count(model.id), func.sum(case((model.is_published.is_(True), 1), else_=0)))
+        .where(model.lesson_id.in_(lesson_ids))
+        .group_by(model.lesson_id)
+    ).all()
+    return {str(lid): {"total": int(total), "published": int(published or 0)} for lid, total, published in rows}
+
+
+@router.get("/courses/{course_id}/structure")
+def course_structure(course_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+    """Every module of a level with its lessons and per-skill content counts
+    (Lesen texts, Hören tasks, Schreiben / Sprechen tasks; total + published)."""
+    from sqlalchemy import select
+
+    from app.models.module import Module
+
+    course = _course_or_404(db, course_id)
+    modules = list(db.scalars(select(Module).where(Module.course_id == course.id).order_by(Module.order_index, Module.number)))
+    lessons = list(db.scalars(select(Lesson).where(Lesson.module_id.in_([m.id for m in modules])).order_by(Lesson.number))) if modules else []
+    ids = [lesson.id for lesson in lessons]
+    counts = {
+        "lesen": _counts(db, Reading, ids),
+        "hoeren": _counts(db, Listening, ids),
+        "schreiben": _counts(db, Writing, ids),
+        "sprechen": _counts(db, Speaking, ids),
+    } if ids else {}
+    empty = {"total": 0, "published": 0}
+    return {
+        "course": {"id": course.id, "level": course.level, "title": course.title, "is_active": course.is_active},
+        "result_config": skill_results.validate_result_config(course.result_config),
+        "result_config_is_default": course.result_config is None,
+        "modules": [
+            {
+                "id": m.id,
+                "number": m.number,
+                "title": m.title,
+                "is_active": m.is_active,
+                "lessons": [
+                    {
+                        "id": lesson.id,
+                        "number": lesson.number,
+                        "title": lesson.title,
+                        "skills": {k: counts.get(k, {}).get(str(lesson.id), empty) for k in ("lesen", "hoeren", "schreiben", "sprechen")},
+                    }
+                    for lesson in lessons
+                    if str(lesson.module_id) == str(m.id)
+                ],
+            }
+            for m in modules
+        ],
+    }
+
+
+@router.put("/courses/{course_id}/result-config")
+def put_result_config(course_id: UUID, data: ResultConfigIn, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+    """Weights and required skills of the lesson overall result for this level."""
+    course = _course_or_404(db, course_id)
+    try:
+        config = skill_results.validate_result_config(data.model_dump())
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from None
+    course.result_config = config
+    db.commit()
+    return {"result_config": config, "result_config_is_default": False}
+
+
+@router.delete("/courses/{course_id}/result-config")
+def reset_result_config(course_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+    course = _course_or_404(db, course_id)
+    course.result_config = None
+    db.commit()
+    return {"result_config": skill_results.validate_result_config(None), "result_config_is_default": True}
+
+
+@router.get("/rubrics")
+def default_rubrics(_: User = Depends(require_admin_panel_access)):
+    """Default Schreiben / Sprechen rubrics of every level."""
+    return levels.all_default_rubrics()

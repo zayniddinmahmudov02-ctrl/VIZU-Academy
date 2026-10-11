@@ -20,6 +20,7 @@ from sqlalchemy.orm import Session
 from app.models.lesson_skill import (
     ATTEMPT_IN_PROGRESS,
     ATTEMPT_SUBMITTED,
+    CONFIG_TYPES,
     SKILL_HOEREN,
     SKILL_LESEN,
     LessonSkillAttempt,
@@ -27,6 +28,7 @@ from app.models.lesson_skill import (
 from app.models.listening import Listening
 from app.models.reading import Reading
 from app.models.reading_question import ReadingQuestion
+from app.services.lesson_skills import question_types as qt
 
 
 def _now() -> datetime:
@@ -82,14 +84,17 @@ def has_audio(listening: Listening) -> bool:
 
 
 def public_question(question) -> dict:
-    """Student-facing shape — no is_correct, no explanation."""
-    options = sorted(question.options, key=lambda o: (o.order_index, o.created_at))
+    """Student-facing shape — no is_correct, no accepted answers, no pairs,
+    no explanation."""
+    is_config = question.question_type in CONFIG_TYPES
+    options = [] if is_config else sorted(question.options, key=lambda o: (o.order_index, o.created_at))
     return {
         "id": question.id,
         "question": question.question,
         "question_type": question.question_type,
         "points": question.points,
         "options": [{"id": o.id, "text": o.option_text} for o in options],
+        "config": qt.public_config(question) if is_config else None,
     }
 
 
@@ -98,20 +103,60 @@ def public_question(question) -> dict:
 # ============================================================
 
 
-def grade(questions: list, answers: dict[str, str]) -> dict:
-    """answers: {question_id: option_id}. Unknown questions are ignored, an
-    option of another question counts as unanswered."""
+def clean_answers(questions: list, answers: dict) -> dict:
+    """Keeps only well-formed answers to the given questions."""
+    by_id = {str(q.id): q for q in questions}
+    out = {}
+    for key, value in (answers or {}).items():
+        q = by_id.get(str(key))
+        if q is None:
+            continue
+        if getattr(q, "question_type", None) in CONFIG_TYPES:
+            value = qt.clean_answer(q.question_type, value)
+        else:
+            value = str(value) if isinstance(value, (str, int)) and str(value) else None
+        if value is not None:
+            out[str(key)] = value
+    return out
+
+
+def grade(questions: list, answers: dict) -> dict:
+    """answers: {question_id: option_id | text | {item/gap id: value}}.
+    Unknown questions are ignored, an option of another question counts as
+    unanswered. Zuordnung / Lückentext earn partial credit per item / gap;
+    a question counts as "correct" only when fully right."""
     results = []
     points = max_points = 0.0
     correct = 0
     for q in questions:
+        weight = float(q.points or 1)
+        max_points += weight
+        if getattr(q, "question_type", None) in CONFIG_TYPES:
+            g = qt.grade_config_question(q, answers.get(str(q.id)))
+            earned = round(weight * g["fraction"], 2)
+            points += earned
+            full = g["fraction"] >= 0.999
+            correct += 1 if full else 0
+            results.append(
+                {
+                    "question_id": q.id,
+                    "selected_option_id": None,
+                    "correct_option_id": None,
+                    "answer": g["selected"],
+                    "correct_answer": g["correct_answer"],
+                    "details": g["details"],
+                    "is_correct": full,
+                    "points": earned,
+                    "max_points": weight,
+                    "explanation": q.explanation,
+                }
+            )
+            continue
         options = {str(o.id): o for o in q.options}
         correct_ids = [oid for oid, o in options.items() if o.is_correct]
         selected = answers.get(str(q.id))
-        selected = selected if selected in options else None
+        selected = selected if isinstance(selected, str) and selected in options else None
         is_correct = selected is not None and selected in correct_ids
-        weight = float(q.points or 1)
-        max_points += weight
         if is_correct:
             points += weight
             correct += 1
@@ -185,7 +230,7 @@ def submit_attempt(
     lesson_id: UUID,
     skill: str,
     attempt_id: UUID,
-    answers: dict[str, str],
+    answers: dict,
     questions: list,
     listening_id: UUID | None = None,
 ) -> tuple[LessonSkillAttempt, dict]:
@@ -201,7 +246,7 @@ def submit_attempt(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Attempt not found.")
     if attempt.status != ATTEMPT_IN_PROGRESS:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="ATTEMPT_ALREADY_SUBMITTED")
-    clean = {str(k): str(v) for k, v in (answers or {}).items() if v}
+    clean = clean_answers(questions, answers)
     result = grade(questions, clean)
     now = _now()
     attempt.answers = clean

@@ -13,6 +13,8 @@ class ReadingBase(BaseSchema):
 
     order_index: int = 1
     is_published: bool = False
+    image_url: str | None = None
+    content_id: str | None = None
 
 
 class ReadingCreate(ReadingBase):
@@ -28,6 +30,7 @@ class ReadingUpdate(BaseSchema):
 
     order_index: int | None = None
     is_published: bool | None = None
+    image_url: str | None = None
 
     _safe_content = field_validator("content")(classmethod(lambda cls, v: sanitize_html(v)))
 

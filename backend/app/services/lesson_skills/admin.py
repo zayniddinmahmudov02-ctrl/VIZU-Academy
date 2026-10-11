@@ -16,6 +16,7 @@ from app.core.storage.protected_local import ProtectedLessonListeningStorage
 from app.models.lesson_skill import (
     EVAL_KIND_SPEAKING,
     EVAL_KIND_WRITING,
+    CONFIG_TYPES,
     QUESTION_TRUE_FALSE,
     QUESTION_TYPES,
     AiEvaluation,
@@ -33,6 +34,7 @@ from app.models.student_writing import StudentWriting
 from app.models.user import User
 from app.models.writing import Writing
 from app.services.lesson_skills import ai_evaluation
+from app.services.lesson_skills import question_types as qt
 from app.services.lesson_skills.results import lesson_skill_results
 
 listening_storage = ProtectedLessonListeningStorage()
@@ -67,9 +69,16 @@ def validate_questions(items: list[dict]) -> list[dict]:
             raise HTTPException(status_code=422, detail=f"Question {n}: text is required (max 2000 characters).")
         if qtype not in QUESTION_TYPES:
             raise HTTPException(status_code=422, detail=f"Question {n}: unknown type.")
-        if qtype == QUESTION_TRUE_FALSE and len(options) != 2:
+        config = None
+        if qtype in CONFIG_TYPES:
+            try:
+                config = qt.validate_config(qtype, q.get("config"))
+            except qt.QuestionConfigError as exc:
+                raise HTTPException(status_code=422, detail=f"Question {n}: {exc}") from None
+            options = []
+        elif qtype == QUESTION_TRUE_FALSE and len(options) != 2:
             raise HTTPException(status_code=422, detail=f"Question {n}: Richtig/Falsch needs exactly 2 options.")
-        if not 2 <= len(options) <= 6:
+        if qtype not in CONFIG_TYPES and not 2 <= len(options) <= 6:
             raise HTTPException(status_code=422, detail=f"Question {n}: 2-6 options are required.")
         opts = []
         for o in options:
@@ -77,7 +86,7 @@ def validate_questions(items: list[dict]) -> list[dict]:
             if not otext or len(otext) > 500:
                 raise HTTPException(status_code=422, detail=f"Question {n}: every option needs a text (max 500).")
             opts.append({"id": o.get("id"), "text": otext, "is_correct": bool(o.get("is_correct"))})
-        if sum(o["is_correct"] for o in opts) != 1:
+        if qtype not in CONFIG_TYPES and sum(o["is_correct"] for o in opts) != 1:
             raise HTTPException(status_code=422, detail=f"Question {n}: exactly one option must be correct.")
         raw_points = q.get("points", 1)
         try:
@@ -94,6 +103,7 @@ def validate_questions(items: list[dict]) -> list[dict]:
                 "points": points,
                 "explanation": (str(q.get("explanation") or "").strip() or None),
                 "options": opts,
+                "config": config,
             }
         )
     return clean
@@ -112,6 +122,7 @@ def _sync_questions(db: Session, existing: list, items: list[dict], new_question
         q.question_type = item["question_type"]
         q.points = item["points"]
         q.explanation = item["explanation"]
+        q.config = item.get("config")
         q.order_index = order
         db.flush()
         keep.add(str(q.id))
@@ -143,6 +154,7 @@ def admin_question(q) -> dict:
         "question_type": q.question_type,
         "points": q.points,
         "explanation": q.explanation,
+        "config": q.config,
         "options": [
             {"id": o.id, "text": o.option_text, "is_correct": o.is_correct}
             for o in sorted(q.options, key=lambda o: (o.order_index, o.created_at))
@@ -248,12 +260,13 @@ def duplicate_reading(db: Session, reading_id: UUID) -> Reading:
     src = db.get(Reading, reading_id)
     if src is None:
         raise HTTPException(status_code=404, detail="Reading not found.")
-    copy = Reading(lesson_id=src.lesson_id, title=_copy_title(src.title), content=src.content, order_index=src.order_index + 1, is_published=False)
+    copy = Reading(lesson_id=src.lesson_id, title=_copy_title(src.title), content=src.content, order_index=src.order_index + 1, is_published=False,
+                   image_url=src.image_url)
     db.add(copy)
     db.flush()
     for q in src.questions:
         nq = ReadingQuestion(reading_id=copy.id, question=q.question, explanation=q.explanation, order_index=q.order_index,
-                             is_published=q.is_published, question_type=q.question_type, points=q.points)
+                             is_published=q.is_published, question_type=q.question_type, points=q.points, config=q.config)
         db.add(nq)
         db.flush()
         for o in q.options:
@@ -282,7 +295,7 @@ def duplicate_listening(db: Session, listening_id: UUID) -> Listening:
     db.flush()
     for q in src.questions:
         nq = ListeningQuestion(listening_id=copy.id, question=q.question, question_type=q.question_type, points=q.points,
-                               explanation=q.explanation, order_index=q.order_index)
+                               explanation=q.explanation, order_index=q.order_index, config=q.config)
         db.add(nq)
         db.flush()
         for o in q.options:
@@ -294,9 +307,11 @@ def duplicate_listening(db: Session, listening_id: UUID) -> Listening:
 
 _TASK_COPY_FIELDS = {
     Writing: ("lesson_id", "instruction", "min_words", "max_words", "order_index", "ai_evaluation_enabled", "ai_instructions",
-              "feedback_language", "max_score", "rubric", "max_attempts", "helper_words", "image_url", "opens_at", "closes_at"),
+              "feedback_language", "max_score", "rubric", "max_attempts", "helper_words", "image_url", "opens_at", "closes_at",
+              "text_type", "audience", "time_limit_minutes"),
     Speaking: ("lesson_id", "topic", "instruction", "sample_answer", "keywords", "preparation_time", "speaking_time", "order_index",
-               "ai_evaluation_enabled", "ai_instructions", "feedback_language", "max_score", "rubric", "max_attempts", "min_duration_seconds"),
+               "ai_evaluation_enabled", "ai_instructions", "feedback_language", "max_score", "rubric", "max_attempts", "min_duration_seconds",
+               "response_type", "questions", "speech_goal"),
 }
 
 

@@ -13,6 +13,7 @@ from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
+from app.api.dependencies.auth import get_current_user
 from app.api.dependencies.progress import require_lesson_access
 from app.db.session import get_db
 from app.models.lesson_skill import SKILL_HOEREN, SKILL_LESEN, LessonSkillAttempt
@@ -26,8 +27,8 @@ router = APIRouter(prefix="/lesson-skills", tags=["Lesson skills"])
 
 class SubmitAnswers(BaseModel):
     attempt_id: UUID
-    # {question_id: option_id}
-    answers: dict[str, str] = Field(default_factory=dict, max_length=200)
+    # option id | text | {item/gap id: value} — shape-checked per question type
+    answers: dict[str, str | dict[str, str]] = Field(default_factory=dict, max_length=200)
 
 
 class AttemptOut(BaseModel):
@@ -46,6 +47,10 @@ class QuestionResult(BaseModel):
     question_id: UUID
     selected_option_id: str | None
     correct_option_id: UUID | None
+    # MATCHING / GAP_FILL / SHORT_ANSWER: the given answer, the key and per item/gap correctness
+    answer: str | dict | None = None
+    correct_answer: str | dict | None = None
+    details: dict | None = None
     is_correct: bool
     points: float
     max_points: float
@@ -207,3 +212,40 @@ def my_results(lesson_id: UUID, db: Session = Depends(get_db), user: User = Depe
     """The caller's own Lesen / Hören / Schreiben / Sprechen results and the
     lesson's overall result (final or interim, with its method)."""
     return lesson_skill_results(db, user.id, lesson_id)
+
+
+@router.get("/levels/{level}/progress")
+def my_level_progress(
+    level: str,
+    db: Session = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """The caller's own skill status per lesson of one level (A1-C1):
+    completed / pending evaluation / not started per skill + overall. Only
+    the caller's data; no lesson content."""
+    from sqlalchemy import select
+
+    from app.models.course import Course
+    from app.models.lesson import Lesson
+    from app.models.module import Module
+    from app.services.lesson_skills import levels
+
+    code = level.strip().upper()
+    if code not in levels.LEVELS:
+        raise HTTPException(status_code=404, detail="Unknown level.")
+    courses = list(db.scalars(select(Course.id).where(Course.level == code)))
+    modules = list(db.scalars(select(Module).where(Module.course_id.in_(courses)).order_by(Module.order_index, Module.number))) if courses else []
+    out = []
+    for module in modules:
+        for lesson in db.scalars(select(Lesson).where(Lesson.module_id == module.id).order_by(Lesson.number)):
+            r = lesson_skill_results(db, user.id, lesson.id)
+            out.append(
+                {
+                    "lesson_id": lesson.id,
+                    "module_number": module.number,
+                    "lesson_number": lesson.number,
+                    "skills": {k: {"status": v["status"], "score": v["score"]} for k, v in r["skills"].items()},
+                    "overall": {k: r["overall"][k] for k in ("status", "score", "graded_skills", "required_skills")},
+                }
+            )
+    return {"level": code, "lessons": out}

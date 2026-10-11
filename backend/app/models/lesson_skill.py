@@ -23,7 +23,13 @@ from app.models.base import BaseModel
 # Question types shared by Lesen and Hören
 QUESTION_MULTIPLE_CHOICE = "MULTIPLE_CHOICE"
 QUESTION_TRUE_FALSE = "TRUE_FALSE"  # "Richtig / Falsch" — two options
-QUESTION_TYPES = {QUESTION_MULTIPLE_CHOICE, QUESTION_TRUE_FALSE}
+# config-based types (answer key inside `config`, never sent to students):
+QUESTION_MATCHING = "MATCHING"  # Zuordnung: items -> targets
+QUESTION_GAP_FILL = "GAP_FILL"  # Lückentext: [[gap]] placeholders
+QUESTION_SHORT_ANSWER = "SHORT_ANSWER"  # short text vs. accepted answers
+OPTION_TYPES = {QUESTION_MULTIPLE_CHOICE, QUESTION_TRUE_FALSE}
+CONFIG_TYPES = {QUESTION_MATCHING, QUESTION_GAP_FILL, QUESTION_SHORT_ANSWER}
+QUESTION_TYPES = OPTION_TYPES | CONFIG_TYPES
 
 SKILL_LESEN = "LESEN"
 SKILL_HOEREN = "HOEREN"
@@ -52,6 +58,8 @@ class ListeningQuestion(BaseModel):
     points: Mapped[int] = mapped_column(Integer, nullable=False, default=1, server_default="1")
     explanation: Mapped[str | None] = mapped_column(Text, nullable=True)
     order_index: Mapped[int] = mapped_column(Integer, nullable=False, default=1, server_default="1")
+    # MATCHING / GAP_FILL / SHORT_ANSWER definition incl. answer key
+    config: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
 
     options = relationship(
         "ListeningOption", cascade="all, delete-orphan", order_by="ListeningOption.order_index", lazy="selectin"

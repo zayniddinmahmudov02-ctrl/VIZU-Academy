@@ -60,6 +60,9 @@ class Listening(BaseModel):
         default=False,
     )
 
+    # stable id of imported (Claude JSON) content — duplicate detection
+    content_id: Mapped[str | None] = mapped_column(String(120), nullable=True, index=True)
+
     lesson = relationship(
         "Lesson",
         back_populates="listenings",

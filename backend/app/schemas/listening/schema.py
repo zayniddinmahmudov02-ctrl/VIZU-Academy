@@ -15,6 +15,7 @@ class ListeningBase(BaseSchema):
     instruction: str | None = Field(default=None, max_length=5000)
     order_index: int = 1
     is_published: bool = False
+    content_id: str | None = Field(default=None, max_length=120)
 
 
 class ListeningCreate(ListeningBase):

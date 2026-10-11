@@ -126,6 +126,13 @@ class Settings(BaseSettings):
     SPEECH_TO_TEXT_PROVIDER: str = "gemini"
     SPEECH_TO_TEXT_MODEL: str = ""
 
+    # Optional: server-side generation of lesson content drafts with Claude
+    # (admin content import, app/services/content_import/claude_client.py).
+    # Empty key = feature reported as "not configured"; JSON import and
+    # manual editing work without it. Never sent to the browser.
+    ANTHROPIC_API_KEY: str = ""
+    ANTHROPIC_MODEL: str = "claude-sonnet-5-5"
+
     # Bulk vocabulary generator text enrichment (see
     # app/services/vocabulary/ai_enrichment.py) — word-type/article/
     # plural/translation/example sentence, reusing GEMINI_API_KEY.

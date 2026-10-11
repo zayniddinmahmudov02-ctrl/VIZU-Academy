@@ -43,6 +43,12 @@ class Reading(BaseModel):
         default=False,
     )
 
+    # optional picture / extra material shown with the text
+    image_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
+
+    # stable id of imported (Claude JSON) content — duplicate detection
+    content_id: Mapped[str | None] = mapped_column(String(120), nullable=True, index=True)
+
     lesson = relationship(
         "Lesson",
         back_populates="readings",

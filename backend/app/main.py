@@ -155,6 +155,9 @@ from app.api.vizu_pay import (
 from app.api.lesson_skills import admin_router as admin_lesson_skills_router
 from app.api.lesson_skills import router as lesson_skills_router
 
+# LMS A1-C1: Claude/JSON content import
+from app.api.content_import import router as content_import_router
+
 # Health
 from app.api.health import (
     router as health_router,
@@ -270,6 +273,7 @@ _ALL_ROUTERS = [
     assessment_engine_router,
     lesson_skills_router,
     admin_lesson_skills_router,
+    content_import_router,
     health_router,
 ]
 

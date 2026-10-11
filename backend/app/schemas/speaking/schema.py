@@ -50,12 +50,18 @@ class SpeakingBase(BaseSchema):
     rubric: list[RubricCriterion] | None = None
     # speaking_time (above) is the maximum answer length in seconds
     min_duration_seconds: int = Field(default=0, ge=0, le=3600)
+    # A1-C1 task metadata
+    response_type: str = Field(default="MONOLOG", pattern=r"^(MONOLOG|DIALOG)$")
+    questions: list[str] | None = Field(default=None, max_length=20)
+    content_id: str | None = Field(default=None, max_length=120)
 
     _rubric_ok = field_validator("rubric")(classmethod(lambda cls, v: _check_rubric(v)))
 
 
 class SpeakingCreate(SpeakingBase):
     ai_instructions: str | None = Field(default=None, max_length=5000)
+    # expected communicative goal — for the AI evaluation only
+    speech_goal: str | None = Field(default=None, max_length=2000)
 
     pass
 
@@ -85,6 +91,9 @@ class SpeakingUpdate(BaseSchema):
     max_attempts: int | None = Field(default=None, ge=1, le=20)
     rubric: list[RubricCriterion] | None = None
     min_duration_seconds: int | None = Field(default=None, ge=0, le=3600)
+    response_type: str | None = Field(default=None, pattern=r"^(MONOLOG|DIALOG)$")
+    questions: list[str] | None = Field(default=None, max_length=20)
+    speech_goal: str | None = Field(default=None, max_length=2000)
 
     _rubric_ok = field_validator("rubric")(classmethod(lambda cls, v: _check_rubric(v)))
 
@@ -99,3 +108,4 @@ class SpeakingResponse(SpeakingBase):
 
 class SpeakingAdminResponse(SpeakingResponse):
     ai_instructions: str | None = None
+    speech_goal: str | None = None

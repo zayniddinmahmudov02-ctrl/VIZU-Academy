@@ -49,6 +49,7 @@ from .vizu_multilevel_discarded import VizuMultilevelDiscardedAttempt
 from .advertisement import Advertisement, AdvertisementEvent
 from .auth_rate_limit_event import AuthRateLimitEvent
 from .lesson_skill import AiEvaluation, LessonSkillAttempt, ListeningOption, ListeningQuestion
+from .content_import import ContentImport
 
 # Certificate
 from .certificate import Certificate

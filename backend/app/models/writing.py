@@ -75,6 +75,13 @@ class Writing(BaseModel):
     image_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
     opens_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     closes_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    # A1-C1 task metadata: message / email / letter / description / opinion / essay / other
+    text_type: Mapped[str | None] = mapped_column(String(30), nullable=True)
+    # audience or communicative situation ("an einen Freund", "an die Hausverwaltung")
+    audience: Mapped[str | None] = mapped_column(Text, nullable=True)
+    time_limit_minutes: Mapped[int | None] = mapped_column(Integer, nullable=True)  # recommended time
+    # stable id of imported (Claude JSON) content — duplicate detection
+    content_id: Mapped[str | None] = mapped_column(String(120), nullable=True, index=True)
 
     lesson = relationship(
         "Lesson",

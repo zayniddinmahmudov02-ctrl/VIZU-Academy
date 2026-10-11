@@ -1,3 +1,4 @@
+from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
 from app.repositories.listening import ListeningRepository
@@ -22,6 +23,10 @@ class ListeningService:
         return self.repository.get_by_lesson(lesson_id, published_only=published_only)
 
     def create(self, data: ListeningCreate):
+        # a Hören task is published only once real audio exists — a new task
+        # has none yet unless a legacy external URL is given
+        if data.is_published and not data.audio_url:
+            raise HTTPException(status_code=409, detail="AUDIO_REQUIRED_TO_PUBLISH")
         return self.repository.create(data)
 
     def update(
@@ -33,6 +38,11 @@ class ListeningService:
 
         if not listening:
             return None
+
+        publishing = data.is_published is True and not listening.is_published
+        audio_after = data.audio_url if "audio_url" in data.model_fields_set else listening.audio_url
+        if publishing and not (listening.audio_storage_path or audio_after):
+            raise HTTPException(status_code=409, detail="AUDIO_REQUIRED_TO_PUBLISH")
 
         return self.repository.update(
             listening,
