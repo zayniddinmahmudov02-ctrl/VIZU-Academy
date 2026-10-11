@@ -72,6 +72,12 @@ class StudentWritingOwnResponse(BaseSchema):
     feedback: str | None
     reviewed_at: datetime | None
 
+    # AI evaluation (tasks with ai_evaluation_enabled)
+    attempt_count: int = 0
+    ai_score: int | None = None
+    evaluated_at: datetime | None = None
+    ai_evaluation: dict | None = None
+
     model_config = ConfigDict(from_attributes=True)
 
 

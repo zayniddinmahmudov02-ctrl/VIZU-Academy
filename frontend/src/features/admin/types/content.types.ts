@@ -310,16 +310,18 @@ export interface Listening {
   id: string;
   lesson_id: string;
   title: string;
-  audio_url: string;
+  audio_url: string | null;
   transcript: string | null;
+  instruction?: string | null;
   order_index: number;
   is_published: boolean;
 }
 export interface ListeningCreate {
   lesson_id: string;
   title: string;
-  audio_url: string;
+  audio_url?: string | null;
   transcript?: string | null;
+  instruction?: string | null;
   order_index?: number;
   is_published?: boolean;
 }
@@ -343,6 +345,15 @@ export interface WritingCreate {
   max_words?: number;
   order_index?: number;
   is_published?: boolean;
+  ai_evaluation_enabled?: boolean;
+  ai_instructions?: string | null;
+  feedback_language?: string;
+  max_attempts?: number;
+  rubric?: { key: string; name: string; max: number }[] | null;
+  helper_words?: string | null;
+  image_url?: string | null;
+  opens_at?: string | null;
+  closes_at?: string | null;
 }
 export type WritingUpdate = Partial<Omit<WritingCreate, "lesson_id">>;
 
@@ -370,6 +381,12 @@ export interface SpeakingCreate {
   speaking_time?: number;
   order_index?: number;
   is_published?: boolean;
+  ai_evaluation_enabled?: boolean;
+  ai_instructions?: string | null;
+  feedback_language?: string;
+  max_attempts?: number;
+  rubric?: { key: string; name: string; max: number }[] | null;
+  min_duration_seconds?: number;
 }
 export type SpeakingUpdate = Partial<Omit<SpeakingCreate, "lesson_id">>;
 

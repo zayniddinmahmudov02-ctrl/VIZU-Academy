@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 import Loading from "@/components/common/loading";
+import { useBfcacheAuthRecheck } from "@/features/auth/hooks/use-bfcache-auth-recheck";
 import { useCurrentUser } from "@/features/auth/hooks/use-current-user";
 import { getActivePanel } from "@/lib/active-panel";
 import { loginUrl } from "@/lib/auth-redirect";
@@ -18,6 +19,7 @@ interface Props {
 export default function AuthGuard({ children, requiredRole }: Props) {
   const router = useRouter();
   const { user, loading, error } = useCurrentUser();
+  useBfcacheAuthRecheck("protected");
 
   const unauthenticated = !loading && (error || !user);
   const forbidden = !loading && !!user && !!requiredRole && user.role !== requiredRole;

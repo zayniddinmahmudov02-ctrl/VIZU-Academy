@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { loginUrl } from "@/lib/auth-redirect";
 
+import { useBfcacheAuthRecheck } from "@/features/auth/hooks/use-bfcache-auth-recheck";
 import { useCurrentUser } from "@/features/auth/hooks/use-current-user";
 
 /** Gate for the entire /teacher route tree — TEACHER or SUPER_ADMIN only
@@ -16,6 +17,7 @@ import { useCurrentUser } from "@/features/auth/hooks/use-current-user";
 export default function TeacherGuard({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const { user, loading, error } = useCurrentUser();
+  useBfcacheAuthRecheck("protected");
 
   const unauthenticated = !loading && (error || !user);
   const forbidden = !loading && !!user && user.role !== "TEACHER" && user.role !== "SUPER_ADMIN";

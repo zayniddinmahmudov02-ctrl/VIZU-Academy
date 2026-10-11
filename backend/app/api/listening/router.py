@@ -14,7 +14,15 @@ from app.schemas.listening import (
     ListeningUpdate,
 )
 from app.services.listening import ListeningService
+from app.core.security.roles import UserRole
 from app.services.vizu_pay.access import can_access_lesson
+
+def _student_view(listening) -> ListeningResponse:
+    """A Hören task with questions is a test: its transcript is shown only
+    after a submitted attempt (GET /lesson-skills/.../hoeren), never here."""
+    view = ListeningResponse.model_validate(listening)
+    return view.model_copy(update={"transcript": None}) if listening.questions else view
+
 
 router = APIRouter(
     prefix="/listenings",
@@ -43,7 +51,7 @@ def get_lesson_listenings(
     real audio_url yet simply isn't published, so it never reaches this
     endpoint — the frontend never has to fabricate a player for missing
     audio."""
-    return ListeningService(db).get_by_lesson(lesson_id, published_only=True)
+    return [_student_view(item) for item in ListeningService(db).get_by_lesson(lesson_id, published_only=True)]
 
 
 @router.get("/{listening_id}", response_model=ListeningResponse)
@@ -65,7 +73,11 @@ def get_listening(
     if lesson is None or not can_access_lesson(current_user, lesson):
         raise HTTPException(status_code=403, detail="PREMIUM_REQUIRED")
 
-    return listening
+    if current_user.role in UserRole.ADMIN_PANEL_ROLES:
+        return listening
+    if not listening.is_published:
+        raise HTTPException(status_code=404, detail="Listening not found")
+    return _student_view(listening)
 
 
 @router.post("", response_model=ListeningResponse)

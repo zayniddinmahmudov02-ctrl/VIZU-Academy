@@ -11,6 +11,9 @@ export interface LessonSpeaking {
   preparation_time: number;
   speaking_time: number;
   order_index: number;
+  ai_evaluation_enabled?: boolean;
+  max_attempts?: number;
+  min_duration_seconds?: number;
 }
 
 // Public, published-only — Sprechen's source of truth (see

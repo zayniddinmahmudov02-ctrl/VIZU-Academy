@@ -13,6 +13,7 @@ export const ADMIN_ENDPOINTS = {
   lessonsContentStatus: (moduleId: string) => `/api/v1/lessons/module/${moduleId}/content-status`,
   videos: "/api/v1/admin/videos",
   videosByLesson: (lessonId: string) => `/api/v1/admin/videos?lesson_id=${lessonId}`,
+  readings: "/api/v1/readings",
   listenings: "/api/v1/listenings",
   writings: "/api/v1/writings",
   speakings: "/api/v1/speakings",

@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from app.api.dependencies.auth import get_current_user
+from app.api.dependencies.auth import require_admin_panel_access
 
 from app.core.security.roles import UserRole
 
@@ -45,7 +45,7 @@ def _ensure_owner_or_admin(
 )
 def get_all(
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     items = StudentSpeakingService(db).get_all()
 
@@ -66,7 +66,7 @@ def get_all(
 def get_one(
     item_id: str,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     item = StudentSpeakingService(db).get(item_id)
 
@@ -88,7 +88,7 @@ def get_one(
 def create(
     data: StudentSpeakingCreate,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     _ensure_owner_or_admin(data.user_id, current_user)
 
@@ -103,7 +103,7 @@ def update(
     item_id: str,
     data: StudentSpeakingUpdate,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     existing = StudentSpeakingService(db).get(item_id)
 
@@ -133,7 +133,7 @@ def update(
 def delete(
     item_id: str,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     existing = StudentSpeakingService(db).get(item_id)
 

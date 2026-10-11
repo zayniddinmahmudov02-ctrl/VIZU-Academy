@@ -1,8 +1,24 @@
 from uuid import UUID
 
-from pydantic import ConfigDict
+from pydantic import ConfigDict, Field, field_validator
 
 from app.schemas.base import BaseSchema
+
+
+class RubricCriterion(BaseSchema):
+    key: str = Field(min_length=1, max_length=40)
+    name: str = Field(min_length=1, max_length=120)
+    max: int = Field(ge=1, le=100)
+
+
+def _check_rubric(value):
+    if value is None:
+        return value
+    from app.services.lesson_skills.ai_evaluation import validate_rubric
+
+    validate_rubric([c.model_dump() if hasattr(c, "model_dump") else c for c in value])
+    return value
+
 
 
 class SpeakingBase(BaseSchema):
@@ -26,8 +42,21 @@ class SpeakingBase(BaseSchema):
 
     is_published: bool = False
 
+    # AI evaluation (A1 speaking rubric by default)
+    ai_evaluation_enabled: bool = True
+    feedback_language: str = Field(default="uz", pattern=r"^[a-z]{2}$")
+    max_score: int = Field(default=100, ge=1, le=1000)
+    max_attempts: int = Field(default=3, ge=1, le=20)
+    rubric: list[RubricCriterion] | None = None
+    # speaking_time (above) is the maximum answer length in seconds
+    min_duration_seconds: int = Field(default=0, ge=0, le=3600)
+
+    _rubric_ok = field_validator("rubric")(classmethod(lambda cls, v: _check_rubric(v)))
+
 
 class SpeakingCreate(SpeakingBase):
+    ai_instructions: str | None = Field(default=None, max_length=5000)
+
     pass
 
 
@@ -49,6 +78,15 @@ class SpeakingUpdate(BaseSchema):
     order_index: int | None = None
 
     is_published: bool | None = None
+    ai_evaluation_enabled: bool | None = None
+    ai_instructions: str | None = Field(default=None, max_length=5000)
+    feedback_language: str | None = Field(default=None, pattern=r"^[a-z]{2}$")
+    max_score: int | None = Field(default=None, ge=1, le=1000)
+    max_attempts: int | None = Field(default=None, ge=1, le=20)
+    rubric: list[RubricCriterion] | None = None
+    min_duration_seconds: int | None = Field(default=None, ge=0, le=3600)
+
+    _rubric_ok = field_validator("rubric")(classmethod(lambda cls, v: _check_rubric(v)))
 
 
 class SpeakingResponse(SpeakingBase):
@@ -57,3 +95,7 @@ class SpeakingResponse(SpeakingBase):
     model_config = ConfigDict(
         from_attributes=True,
     )
+
+
+class SpeakingAdminResponse(SpeakingResponse):
+    ai_instructions: str | None = None

@@ -104,3 +104,6 @@ media/
 .claude/
 # Development email outbox (EMAIL_PROVIDER=outbox) — may contain one-time codes
 backend/var/
+
+# Private uploads (student recordings, protected audio) — never in git
+backend/app/protected_storage/

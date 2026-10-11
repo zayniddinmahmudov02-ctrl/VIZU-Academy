@@ -104,3 +104,12 @@ class ProtectedVizuMultilevelSpeakingStorage(LocalStorage):
     teacher/admin-only audio endpoints."""
 
     ROOT = Path("app/protected_storage/vizu-multilevel-speaking")
+
+
+class ProtectedLessonListeningStorage(LocalStorage):
+    """Admin-uploaded Hören audio of the lesson skill exercises (Listening,
+    app/models/listening.py). Outside the public /uploads mount; streamed only
+    through GET /lesson-skills/{lesson_id}/hoeren/{listening_id}/audio (lesson
+    access + published task) or the admin preview endpoint."""
+
+    ROOT = Path("app/protected_storage/lesson-listening")

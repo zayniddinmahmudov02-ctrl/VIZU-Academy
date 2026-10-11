@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
+from fastapi import APIRouter, BackgroundTasks, Depends, File, Form, HTTPException, UploadFile
 from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 
@@ -11,10 +11,12 @@ from app.models.lesson import Lesson
 from app.models.user import User
 from app.schemas.speaking import (
     SpeakingCreate,
+    SpeakingAdminResponse,
     SpeakingResponse,
     SpeakingUpdate,
 )
 from app.schemas.student_speaking import StudentSpeakingOwnResponse
+from app.services.lesson_skills.ai_evaluation import STATUS_EVALUATION_FAILED, STATUS_SUBMITTED, run_speaking_evaluation
 from app.services.speaking import SpeakingService
 from app.services.student_speaking import StudentSpeakingService
 from app.services.vizu_pay.access import can_access_lesson
@@ -25,7 +27,7 @@ router = APIRouter(
 )
 
 
-@router.get("", response_model=list[SpeakingResponse])
+@router.get("", response_model=list[SpeakingAdminResponse])
 def get_speakings(
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin_panel_access),
@@ -68,7 +70,7 @@ def get_speaking(
     return speaking
 
 
-@router.post("", response_model=SpeakingResponse)
+@router.post("", response_model=SpeakingAdminResponse)
 def create_speaking(
     data: SpeakingCreate,
     db: Session = Depends(get_db),
@@ -77,7 +79,7 @@ def create_speaking(
     return SpeakingService(db).create(data)
 
 
-@router.put("/{speaking_id}", response_model=SpeakingResponse)
+@router.put("/{speaking_id}", response_model=SpeakingAdminResponse)
 def update_speaking(
     speaking_id: str,
     data: SpeakingUpdate,
@@ -125,16 +127,40 @@ def delete_speaking(
 @router.post("/{speaking_id}/submissions", response_model=StudentSpeakingOwnResponse, status_code=201)
 async def submit_speaking(
     speaking_id: UUID,
+    background_tasks: BackgroundTasks,
     file: UploadFile = File(...),
     duration_seconds: int | None = Form(None),
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
     """Aufgabe senden (or a re-record) — always the complete recording in
-    one call, never a partial/draft upload (matches the Assessment
-    Engine's own speaking upload — there's no "save draft" concept for
-    audio, only record -> stop -> send)."""
-    return await StudentSpeakingService(db).upload_recording(current_user.id, speaking_id, file, duration_seconds)
+    one call. AI-evaluated tasks then run speech-to-text + AI evaluation in
+    the background; the audio is stored first, so nothing is lost if a
+    service is temporarily unavailable."""
+    item = await StudentSpeakingService(db).upload_recording(current_user.id, speaking_id, file, duration_seconds)
+    if item.speaking is not None and item.speaking.ai_evaluation_enabled:
+        background_tasks.add_task(run_speaking_evaluation, item.id)
+    return item
+
+
+@router.post("/{speaking_id}/submissions/me/evaluate", response_model=StudentSpeakingOwnResponse)
+def retry_my_speaking_evaluation(
+    speaking_id: UUID,
+    background_tasks: BackgroundTasks,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Retry after EVALUATION_FAILED (the recording was kept)."""
+    item = StudentSpeakingService(db).get_own(current_user.id, speaking_id)
+    if item is None or item.status != STATUS_EVALUATION_FAILED:
+        raise HTTPException(status_code=409, detail="NOTHING_TO_RETRY")
+    # pending again BEFORE responding, so the client keeps polling until the
+    # background run (which claims SUBMITTED -> EVALUATING) has finished
+    item.status = STATUS_SUBMITTED
+    db.commit()
+    db.refresh(item)
+    background_tasks.add_task(run_speaking_evaluation, item.id)
+    return item
 
 
 @router.get("/{speaking_id}/submissions/me", response_model=StudentSpeakingOwnResponse | None)

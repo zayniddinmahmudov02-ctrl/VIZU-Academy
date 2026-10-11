@@ -1,3 +1,4 @@
+import type { AiEvaluationResult } from "@/components/lesson-player/common/ai-evaluation-card";
 import { api } from "@/src/services/api";
 
 export interface SpeakingOwnSubmission {
@@ -6,11 +7,16 @@ export interface SpeakingOwnSubmission {
   filename: string | null;
   content_type: string | null;
   duration_seconds: number | null;
-  status: "SUBMITTED" | "GRADED" | "NEEDS_REVISION";
+  status: "SUBMITTED" | "EVALUATING" | "GRADED" | "EVALUATION_FAILED" | "NEEDS_REVISION";
   submitted_at: string | null;
   score: number | null;
   feedback: string | null;
   reviewed_at: string | null;
+  attempt_count?: number;
+  ai_score?: number | null;
+  evaluated_at?: string | null;
+  ai_evaluation?: AiEvaluationResult | null;
+  transcript?: string | null;
 }
 
 export async function getMySpeakingSubmission(speakingId: string): Promise<SpeakingOwnSubmission | null> {
@@ -42,4 +48,10 @@ export async function getSpeakingSubmissionAudioBlobUrl(submissionId: string): P
     responseType: "blob",
   });
   return URL.createObjectURL(response.data as Blob);
+}
+
+/** Retry after EVALUATION_FAILED (the recording is kept on the server). */
+export async function retrySpeakingEvaluation(speakingId: string): Promise<SpeakingOwnSubmission> {
+  const response = await api.post<SpeakingOwnSubmission>(`/api/v1/speakings/${speakingId}/submissions/me/evaluate`);
+  return response.data;
 }

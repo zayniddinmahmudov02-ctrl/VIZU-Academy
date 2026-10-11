@@ -6,7 +6,9 @@ import { ArrowLeft } from "lucide-react";
 
 import AdminTabs from "@/components/admin/admin-tabs";
 import LessonResultsManager from "@/features/admin/components/lesson-results/lesson-results-manager";
-import ListeningManager from "@/features/admin/components/managers/listening-manager";
+import HoerenManager from "@/features/admin/components/lesson-skills/hoeren-manager";
+import LesenManager from "@/features/admin/components/lesson-skills/lesen-manager";
+import SkillResultsAdmin from "@/features/admin/components/lesson-skills/skill-results-admin";
 import SpeakingManager from "@/features/admin/components/managers/speaking-manager";
 import VideoManager from "@/features/admin/components/managers/video-manager";
 import WritingManager from "@/features/admin/components/managers/writing-manager";
@@ -41,23 +43,33 @@ export default function LessonEditorPage() {
         </p>
       </div>
 
-      {/* Content management is deliberately limited to what an admin still
-          authors by hand: the lesson's Video, the Hören audio upload, and
-          the Schreiben / Sprechen task definitions. Lesen, Wortschatz Test,
-          Yakuniy Test and every other exercise/test content is produced
-          externally (Claude) and imported straight into the database —
-          there are no test/question/vocabulary/grammar creators or
-          generators in the admin panel any more. Student submissions are
-          reviewed in the Teacher Panel, never here ("Ergebnisse" is a
-          read-only per-student score view). */}
+      {/* One place per lesson for the four book skills: Lesen texts and
+          Hören audio with their auto-graded questions (answer keys stay
+          server-side for students), Schreiben / Sprechen tasks with their
+          AI-evaluation settings, and the students' results incl. AI review,
+          audited score correction and re-evaluation. Teacher review of
+          non-AI tasks stays in the Teacher Panel. */}
       <AdminTabs
         defaultValue="video"
         tabs={[
           { value: "video", label: "Videokurs", content: <VideoManager lessonId={lessonId} /> },
-          { value: "listening", label: "Hören Audio", content: <ListeningManager lessonId={lessonId} /> },
-          { value: "writing", label: "Schreiben Aufgabe", content: <WritingManager lessonId={lessonId} /> },
-          { value: "speaking", label: "Sprechen Aufgabe", content: <SpeakingManager lessonId={lessonId} /> },
-          { value: "results", label: "Ergebnisse", content: <LessonResultsManager lessonId={lessonId} /> },
+          { value: "lesen", label: "Lesen", content: <LesenManager lessonId={lessonId} /> },
+          { value: "hoeren", label: "Hören", content: <HoerenManager lessonId={lessonId} /> },
+          { value: "writing", label: "Schreiben", content: <WritingManager lessonId={lessonId} /> },
+          { value: "speaking", label: "Sprechen", content: <SpeakingManager lessonId={lessonId} /> },
+          {
+            value: "results",
+            label: "Schülerergebnisse",
+            content: (
+              <div className="space-y-10">
+                <SkillResultsAdmin lessonId={lessonId} />
+                <div>
+                  <h3 className="mb-3 text-base font-bold text-[var(--admin-text-primary)]">Punkteübersicht pro Schüler (100-Punkte-Lektion)</h3>
+                  <LessonResultsManager lessonId={lessonId} />
+                </div>
+              </div>
+            ),
+          },
         ]}
       />
     </div>

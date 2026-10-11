@@ -1,15 +1,20 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Plus } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
+import { Copy, Plus, Sparkles } from "lucide-react";
 
 import { AdminButton, AdminCheckbox, AdminInput, AdminTextarea } from "@/components/admin/admin-ui";
 import ConfirmDialog from "@/components/admin/confirm-dialog";
 import DataTable, { DataTableColumn } from "@/components/admin/data-table";
 import FormDialog from "@/components/admin/form-dialog";
 import { useCrudList, useCrudMutations } from "@/features/admin/hooks/use-crud";
+import { apiErrorMessage, duplicateItem, type AdminSpeakingTask } from "@/features/admin/services/lesson-skills-admin-service";
 import { speakingApi } from "@/features/admin/services/speaking-service";
-import type { Speaking } from "@/features/admin/types/content.types";
+
+import AiTaskFields, { aiFormFrom, aiPayload, DEFAULT_SPEAKING_RUBRIC, EMPTY_AI_FORM, rubricProblem } from "../lesson-skills/ai-task-fields";
+
+type Speaking = AdminSpeakingTask;
 
 import LessonPicker from "./lesson-picker";
 
@@ -24,11 +29,16 @@ const EMPTY_FORM = {
   speaking_time: 90,
   order_index: 1,
   is_published: false,
+  min_duration_seconds: 0,
+  ai: EMPTY_AI_FORM,
 };
 
 export default function SpeakingManager({ lessonId }: { lessonId?: string }) {
-  const { data: all, isLoading } = useCrudList("speakings", speakingApi);
-  const { create, update, remove } = useCrudMutations("speakings", speakingApi);
+  const queryClient = useQueryClient();
+  const { data: rawAll, isLoading } = useCrudList("speakings", speakingApi);
+  const all = rawAll as Speaking[] | undefined;
+  const { create, update, remove } = useCrudMutations("speakings", speakingApi, lessonId ? [["admin-lesson-skills", lessonId]] : undefined);
+  const [duplicating, setDuplicating] = useState<string | null>(null);
 
   const data = useMemo(
     () => (lessonId ? (all ?? []).filter((s) => s.lesson_id === lessonId) : all),
@@ -61,6 +71,8 @@ export default function SpeakingManager({ lessonId }: { lessonId?: string }) {
       speaking_time: item.speaking_time,
       order_index: item.order_index,
       is_published: item.is_published,
+      min_duration_seconds: item.min_duration_seconds ?? 0,
+      ai: aiFormFrom(item),
     });
     setError(null);
     setDialogOpen(true);
@@ -68,23 +80,55 @@ export default function SpeakingManager({ lessonId }: { lessonId?: string }) {
 
   async function handleSubmit() {
     setError(null);
+    const problem = rubricProblem(form.ai.ai_evaluation_enabled ? form.ai.rubric : null);
+    if (problem) {
+      setError(problem);
+      return;
+    }
+    if (form.min_duration_seconds && form.speaking_time && form.min_duration_seconds > form.speaking_time) {
+      setError("Mindestdauer darf nicht größer als die Sprechzeit sein.");
+      return;
+    }
+    const { lesson_id, ai, ...rest } = form;
+    const payload = { ...rest, ...aiPayload(ai) };
     try {
       if (editing) {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { lesson_id: _lessonId, ...updateData } = form;
-        await update.mutateAsync({ id: editing.id, data: updateData });
+        await update.mutateAsync({ id: editing.id, data: payload });
       } else {
-        await create.mutateAsync(form);
+        await create.mutateAsync({ ...payload, lesson_id });
       }
       setDialogOpen(false);
-    } catch {
-      setError("Speichern fehlgeschlagen.");
+    } catch (err) {
+      setError(apiErrorMessage(err, "Speichern fehlgeschlagen."));
+    }
+  }
+
+  async function duplicate(item: Speaking) {
+    setDuplicating(item.id);
+    try {
+      await duplicateItem("speakings", item.id);
+      await queryClient.invalidateQueries({ queryKey: ["speakings"] });
+      if (lessonId) await queryClient.invalidateQueries({ queryKey: ["admin-lesson-skills", lessonId] });
+    } finally {
+      setDuplicating(null);
     }
   }
 
   const columns: DataTableColumn<Speaking>[] = [
     { key: "title", header: "Titel", render: (item) => item.title },
     { key: "topic", header: "Thema", render: (item) => item.topic },
+    {
+      key: "ai",
+      header: "Bewertung",
+      render: (item) =>
+        item.ai_evaluation_enabled ? (
+          <span className="inline-flex items-center gap-1 text-xs font-semibold text-[var(--admin-primary)]">
+            <Sparkles size={12} /> KI · {item.max_attempts} Versuche
+          </span>
+        ) : (
+          <span className="text-xs text-[var(--admin-text-muted)]">Lehrkraft</span>
+        ),
+    },
     {
       key: "is_published",
       header: "Status",
@@ -98,6 +142,21 @@ export default function SpeakingManager({ lessonId }: { lessonId?: string }) {
         >
           {item.is_published ? "Veröffentlicht" : "Entwurf"}
         </span>
+      ),
+    },
+    {
+      key: "duplicate",
+      header: "",
+      render: (item) => (
+        <button
+          type="button"
+          onClick={() => duplicate(item)}
+          disabled={duplicating === item.id}
+          className="inline-flex items-center gap-1 text-xs font-semibold text-[var(--admin-text-secondary)] hover:text-[var(--admin-text-primary)]"
+          title="Duplizieren (Kopie ist verborgen)"
+        >
+          <Copy size={13} /> Duplizieren
+        </button>
       ),
     },
   ];
@@ -233,6 +292,20 @@ export default function SpeakingManager({ lessonId }: { lessonId?: string }) {
               />
             </div>
           </div>
+
+          <div className="w-48">
+            <label className="mb-1.5 block text-sm font-medium text-[var(--admin-text-primary)]">
+              Mindestdauer (Sek.)
+            </label>
+            <AdminInput
+              type="number"
+              min={0}
+              value={form.min_duration_seconds}
+              onChange={(e) => setForm({ ...form, min_duration_seconds: Number(e.target.value) })}
+            />
+          </div>
+
+          <AiTaskFields value={form.ai} onChange={(ai) => setForm({ ...form, ai })} defaultRubric={DEFAULT_SPEAKING_RUBRIC} />
 
           <label className="flex cursor-pointer items-center gap-2.5">
             <AdminCheckbox

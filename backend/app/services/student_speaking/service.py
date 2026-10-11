@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 from app.core.security.roles import UserRole
 from app.core.storage.protected_local import ProtectedLegacySpeakingStorage
 from app.models.speaking import Speaking
-from app.models.student_speaking import STATUS_SUBMITTED, StudentSpeaking
+from app.models.student_speaking import STATUS_EVALUATING, STATUS_SUBMITTED, StudentSpeaking
 from app.models.task_audio import ALL_AUDIO_FORMATS, CONTENT_TYPE_BY_FORMAT
 from app.models.user import User
 from app.repositories.student_speaking import StudentSpeakingRepository
@@ -85,7 +85,19 @@ class StudentSpeakingService:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Speaking task not found")
 
         existing = self.repository.get_by_user_and_speaking(user_id, speaking_id)
-        if existing is not None and existing.status == "GRADED":
+        if speaking.ai_evaluation_enabled:
+            # AI-evaluated task: no re-record while the evaluation runs,
+            # re-submission up to max_attempts, recording length checked.
+            if existing is not None and existing.status in (STATUS_SUBMITTED, STATUS_EVALUATING):
+                raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="EVALUATION_IN_PROGRESS")
+            if existing is not None and (existing.attempt_count or 0) >= speaking.max_attempts:
+                raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="MAX_ATTEMPTS_REACHED")
+            if duration_seconds is not None:
+                if speaking.min_duration_seconds and duration_seconds < speaking.min_duration_seconds:
+                    raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="RECORDING_TOO_SHORT")
+                if speaking.speaking_time and duration_seconds > speaking.speaking_time + 5:
+                    raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="RECORDING_TOO_LONG")
+        elif existing is not None and existing.status == "GRADED":
             raise HTTPException(
                 status_code=status.HTTP_409_CONFLICT,
                 detail="This submission has already been graded and can no longer be re-recorded.",
@@ -135,6 +147,11 @@ class StudentSpeakingService:
             existing.file_size_bytes = len(contents)
             existing.status = STATUS_SUBMITTED
             existing.submitted_at = datetime.now(timezone.utc)
+            # a new recording is a new attempt: the previous transcript /
+            # evaluation belong to the old audio (history stays in ai_evaluations)
+            existing.attempt_count = (existing.attempt_count or 0) + 1
+            existing.transcript = None
+            existing.evaluation_error = None
             self.db.commit()
             self.db.refresh(existing)
             return existing
@@ -149,6 +166,7 @@ class StudentSpeakingService:
             file_size_bytes=len(contents),
             status=STATUS_SUBMITTED,
             submitted_at=datetime.now(timezone.utc),
+            attempt_count=1,
         )
         self.db.add(item)
         self.db.commit()
@@ -234,6 +252,12 @@ class StudentSpeakingService:
         self.get_for_teacher(teacher_id, submission_id)
 
         item = self.repository.get(str(submission_id))
+        if item.ai_score is not None:
+            # overriding an AI result: keep the original in the audit history
+            from app.models.lesson_skill import EVAL_KIND_SPEAKING
+            from app.services.lesson_skills.ai_evaluation import record_override
+
+            record_override(self.db, EVAL_KIND_SPEAKING, item, teacher_id, score, "teacher review")
         item.score = score
         item.feedback = feedback
         item.status = new_status

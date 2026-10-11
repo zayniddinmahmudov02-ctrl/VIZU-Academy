@@ -4,7 +4,14 @@ from uuid import UUID
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
 
-from app.models.student_writing import STATUS_DRAFT, STATUS_SUBMITTED, StudentWriting
+from app.models.student_writing import (
+    STATUS_DRAFT,
+    STATUS_EVALUATING,
+    STATUS_EVALUATION_FAILED,
+    STATUS_GRADED,
+    STATUS_SUBMITTED,
+    StudentWriting,
+)
 from app.models.user import User
 from app.models.writing import Writing
 from app.repositories.student_writing import (
@@ -103,10 +110,22 @@ class StudentWritingService:
 
         existing = self.repository.get_by_user_and_writing(user_id, writing_id)
 
+        if writing.ai_evaluation_enabled:
+            # AI-evaluated task: open/close window, no edits while the
+            # evaluation is pending, re-submission up to max_attempts.
+            now = datetime.now(timezone.utc)
+            if writing.opens_at and now < writing.opens_at:
+                raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="TASK_NOT_OPEN")
+            if writing.closes_at and now > writing.closes_at:
+                raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="TASK_CLOSED")
+            if existing is not None and existing.status in (STATUS_SUBMITTED, STATUS_EVALUATING):
+                raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="EVALUATION_IN_PROGRESS")
+            if submit_final and existing is not None and (existing.attempt_count or 0) >= writing.max_attempts:
+                raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="MAX_ATTEMPTS_REACHED")
         # A GRADED submission is final — the student can no longer overwrite
         # it by simply calling submit again; only a teacher setting
         # NEEDS_REVISION reopens it (see grade()).
-        if existing is not None and existing.status == "GRADED":
+        elif existing is not None and existing.status == "GRADED":
             raise HTTPException(
                 status_code=status.HTTP_409_CONFLICT,
                 detail="This submission has already been graded and can no longer be edited.",
@@ -116,9 +135,16 @@ class StudentWritingService:
 
         if existing is not None:
             existing.answer_text = answer_text
+            if writing.ai_evaluation_enabled and not submit_final and existing.status in (STATUS_GRADED, STATUS_EVALUATION_FAILED):
+                # drafting a new version keeps the last result visible until it is submitted
+                self.db.commit()
+                self.db.refresh(existing)
+                return existing
             existing.status = new_status
             if submit_final:
                 existing.submitted_at = datetime.now(timezone.utc)
+                existing.attempt_count = (existing.attempt_count or 0) + 1
+                existing.evaluation_error = None
             self.db.commit()
             self.db.refresh(existing)
             return existing
@@ -129,6 +155,7 @@ class StudentWritingService:
             answer_text=answer_text,
             status=new_status,
             submitted_at=datetime.now(timezone.utc) if submit_final else None,
+            attempt_count=1 if submit_final else 0,
         )
         self.db.add(item)
         self.db.commit()
@@ -193,6 +220,12 @@ class StudentWritingService:
         self.get_for_teacher(teacher_id, submission_id)
 
         item = self.repository.get(str(submission_id))
+        if item.ai_score is not None:
+            # overriding an AI result: keep the original in the audit history
+            from app.models.lesson_skill import EVAL_KIND_WRITING
+            from app.services.lesson_skills.ai_evaluation import record_override
+
+            record_override(self.db, EVAL_KIND_WRITING, item, teacher_id, score, "teacher review")
         item.score = score
         item.feedback = feedback
         item.status = new_status

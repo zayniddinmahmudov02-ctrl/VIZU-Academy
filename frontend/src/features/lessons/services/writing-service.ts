@@ -8,6 +8,13 @@ export interface LessonWriting {
   min_words: number;
   max_words: number;
   order_index: number;
+  ai_evaluation_enabled?: boolean;
+  max_attempts?: number;
+  max_score?: number;
+  helper_words?: string | null;
+  image_url?: string | null;
+  opens_at?: string | null;
+  closes_at?: string | null;
 }
 
 // Public, published-only — Schreiben's source of truth (see

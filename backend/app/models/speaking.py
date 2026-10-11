@@ -6,6 +6,7 @@ from sqlalchemy import (
     Text,
 )
 
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import (
     Mapped,
     mapped_column,
@@ -69,6 +70,21 @@ class Speaking(BaseModel):
         Boolean,
         default=False,
     )
+
+
+    # ---- AI evaluation (per task; existing tasks keep teacher grading) ----
+    ai_evaluation_enabled: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default="false")
+    # Extra, server-side-only instructions for the evaluator (never sent to students).
+    ai_instructions: Mapped[str | None] = mapped_column(Text, nullable=True)
+    # Language of the feedback explanations ("uz", "de", ...); examples stay German.
+    feedback_language: Mapped[str] = mapped_column(String(10), nullable=False, default="uz", server_default="uz")
+    # Points the task is worth (the stored score itself is always 0-100).
+    max_score: Mapped[int] = mapped_column(Integer, nullable=False, default=100, server_default="100")
+    # [{"key": "...", "name": "...", "max": 25}, ...] — NULL = the A1 default rubric.
+    rubric: Mapped[list | None] = mapped_column(JSONB, nullable=True)
+    max_attempts: Mapped[int] = mapped_column(Integer, nullable=False, default=3, server_default="3")
+    # speaking_time (seconds) is the maximum answer length; this is the minimum.
+    min_duration_seconds: Mapped[int] = mapped_column(Integer, nullable=False, default=0, server_default="0")
 
     lesson = relationship(
         "Lesson",

@@ -32,7 +32,9 @@ export function safeNextPath(raw: string | null | undefined): string | null {
 export function currentPath(): string {
   if (typeof window === "undefined") return "/";
   const { pathname, search, hash } = window.location;
-  return pathname + search + hash;
+  // A Telegram Mini App launch carries its signed launch data in the hash
+  // (#tgWebAppData=...) — never copy that into ?next=.
+  return pathname + search + (hash.startsWith("#tgWebApp") ? "" : hash);
 }
 
 /** /login, carrying the given (or current) page as `next` when it's useful. */

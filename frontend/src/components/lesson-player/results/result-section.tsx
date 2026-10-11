@@ -10,6 +10,7 @@ import { useTranslation } from "@/lib/i18n/use-translation";
 import LessonSection from "../common/lesson-section";
 import LessonScoreBreakdown from "./lesson-score-breakdown";
 import SectionProgressionList from "./section-progression-list";
+import SkillResultsPanel from "./skill-results-panel";
 
 interface Props {
   lessonId: string;
@@ -47,6 +48,7 @@ export default function ResultSection({ lessonId }: Props) {
             </div>
           )}
 
+          <SkillResultsPanel lessonId={lessonId} />
           {gate && <SectionProgressionList gate={gate} />}
           {score && <LessonScoreBreakdown score={score} />}
         </div>

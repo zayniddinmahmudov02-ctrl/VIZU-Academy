@@ -48,7 +48,7 @@ class TestStudentWritingServiceSubmit(unittest.TestCase):
 
     def test_submit_final_below_min_words_rejected(self):
         service = self._service()
-        writing = MagicMock(is_published=True, min_words=10, max_words=100)
+        writing = MagicMock(is_published=True, min_words=10, max_words=100, ai_evaluation_enabled=False)
         service.db.get.return_value = writing
 
         with self.assertRaises(HTTPException) as ctx:
@@ -59,7 +59,7 @@ class TestStudentWritingServiceSubmit(unittest.TestCase):
 
     def test_submit_final_above_max_words_rejected(self):
         service = self._service()
-        writing = MagicMock(is_published=True, min_words=0, max_words=3)
+        writing = MagicMock(is_published=True, min_words=0, max_words=3, ai_evaluation_enabled=False)
         service.db.get.return_value = writing
 
         with self.assertRaises(HTTPException) as ctx:
@@ -71,7 +71,7 @@ class TestStudentWritingServiceSubmit(unittest.TestCase):
         # "Entwurf speichern" must never block on word count — only the
         # final "Aufgabe abgeben" does.
         service = self._service()
-        writing = MagicMock(is_published=True, min_words=50, max_words=100)
+        writing = MagicMock(is_published=True, min_words=50, max_words=100, ai_evaluation_enabled=False)
         service.db.get.return_value = writing
         service.repository.get_by_user_and_writing.return_value = None
 
@@ -95,7 +95,7 @@ class TestStudentWritingServiceSubmit(unittest.TestCase):
 
     def test_cannot_resubmit_an_already_graded_submission(self):
         service = self._service()
-        writing = MagicMock(is_published=True, min_words=0, max_words=1000)
+        writing = MagicMock(is_published=True, min_words=0, max_words=1000, ai_evaluation_enabled=False)
         service.db.get.return_value = writing
         service.repository.get_by_user_and_writing.return_value = MagicMock(status="GRADED")
 

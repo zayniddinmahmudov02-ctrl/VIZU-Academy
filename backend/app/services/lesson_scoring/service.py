@@ -179,7 +179,7 @@ class LessonScoringService:
             status, score = task_scores.get(task_id, (None, None))
             if status in (WRITING_STATUS_GRADED, SPEAKING_STATUS_GRADED) and score is not None:
                 total += max(0, min(100, score))
-            elif status in (WRITING_STATUS_SUBMITTED, SPEAKING_STATUS_SUBMITTED):
+            elif status in (WRITING_STATUS_SUBMITTED, SPEAKING_STATUS_SUBMITTED, "EVALUATING", "EVALUATION_FAILED"):
                 pending = True
         return round(total / len(task_ids)), (STATUS_PENDING if pending else STATUS_FINAL)
 
@@ -246,6 +246,15 @@ class LessonScoringService:
 
         lesen_pct, _ = self._skill_percentage(user_id, lesson_id, SKILL_LESEN)
         hoeren_pct, _ = self._skill_percentage(user_id, lesson_id, SKILL_HOEREN)
+        # Lessons with the graded Lesen / Hören tests (lesson_skill_attempts)
+        # use those results instead of the Assessment Engine.
+        from app.services.lesson_skills.results import lesson_skill_results
+
+        skill_results = lesson_skill_results(self.db, user_id, lesson_id)["skills"]
+        if skill_results["lesen"]["available"]:
+            lesen_pct = skill_results["lesen"]["score"] or 0
+        if skill_results["hoeren"]["available"]:
+            hoeren_pct = skill_results["hoeren"]["score"] or 0
         schreiben_pct, schreiben_status = self._writing_percentage(user_id, lesson_id)
         sprechen_pct, sprechen_status = self._speaking_percentage(user_id, lesson_id)
         yakuniy_pct, _ = self._quiz_percentage(user_id, lesson_id, QUIZ_TYPE_LESSON)

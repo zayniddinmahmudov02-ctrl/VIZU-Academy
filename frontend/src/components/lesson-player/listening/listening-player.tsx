@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { Headphones, Pause, Play, SkipBack, SkipForward } from "lucide-react";
+import { Headphones, Pause, Play, SkipBack, SkipForward, Volume2 } from "lucide-react";
 
 import ProgressBar from "@/components/ui/progress-bar";
 import { useTranslation } from "@/lib/i18n/use-translation";
@@ -23,6 +23,7 @@ export default function ListeningPlayer({ src }: Props) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [volume, setVolume] = useState(1);
 
   function togglePlay() {
     const audio = audioRef.current;
@@ -51,6 +52,7 @@ export default function ListeningPlayer({ src }: Props) {
         onPause={() => setIsPlaying(false)}
         onTimeUpdate={(e) => setCurrentTime(e.currentTarget.currentTime)}
         onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
+        data-testid="listening-audio"
         onEnded={() => setIsPlaying(false)}
       />
 
@@ -90,6 +92,25 @@ export default function ListeningPlayer({ src }: Props) {
           <SkipForward size={18} />
         </button>
       </div>
+
+      <label className="mx-auto mt-5 flex max-w-[220px] items-center gap-2 text-white/80">
+        <Volume2 size={16} aria-hidden="true" />
+        <span className="sr-only">{t("lessons.mediaVolume")}</span>
+        <input
+          type="range"
+          min={0}
+          max={1}
+          step={0.05}
+          value={volume}
+          aria-label={t("lessons.mediaVolume")}
+          onChange={(e) => {
+            const v = Number(e.target.value);
+            setVolume(v);
+            if (audioRef.current) audioRef.current.volume = v;
+          }}
+          className="h-1.5 w-full cursor-pointer accent-white"
+        />
+      </label>
     </div>
   );
 }

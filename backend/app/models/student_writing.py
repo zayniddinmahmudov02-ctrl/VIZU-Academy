@@ -8,7 +8,7 @@ from sqlalchemy import (
     Text,
 )
 
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import (
     Mapped,
     mapped_column,
@@ -21,7 +21,18 @@ STATUS_DRAFT = "DRAFT"
 STATUS_SUBMITTED = "SUBMITTED"
 STATUS_GRADED = "GRADED"
 STATUS_NEEDS_REVISION = "NEEDS_REVISION"
-ALL_STUDENT_WRITING_STATUSES = {STATUS_DRAFT, STATUS_SUBMITTED, STATUS_GRADED, STATUS_NEEDS_REVISION}
+# AI-evaluated tasks: SUBMITTED = pending_evaluation, then EVALUATING (a worker
+# holds it), GRADED (AI or teacher) or EVALUATION_FAILED (retry possible).
+STATUS_EVALUATING = "EVALUATING"
+STATUS_EVALUATION_FAILED = "EVALUATION_FAILED"
+ALL_STUDENT_WRITING_STATUSES = {
+    STATUS_DRAFT,
+    STATUS_SUBMITTED,
+    STATUS_GRADED,
+    STATUS_NEEDS_REVISION,
+    STATUS_EVALUATING,
+    STATUS_EVALUATION_FAILED,
+}
 
 
 class StudentWriting(BaseModel):
@@ -99,6 +110,17 @@ class StudentWriting(BaseModel):
         UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"), nullable=True
     )
     reviewed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+    # ---- AI evaluation (tasks with ai_evaluation_enabled) ----
+    # Latest successful AI result (criteria, strengths, errors, ...); every
+    # run, failed ones and manual overrides included, is in ai_evaluations.
+    ai_evaluation: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
+    ai_score: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    evaluation_error: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    evaluated_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    evaluation_runs: Mapped[int] = mapped_column(Integer, nullable=False, default=0, server_default="0")
+    # Final submissions so far (re-submission allowed up to the task's max_attempts).
+    attempt_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0, server_default="0")
 
     user = relationship(
         "User",

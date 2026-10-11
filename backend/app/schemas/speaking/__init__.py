@@ -3,6 +3,7 @@ from .schema import (
     SpeakingCreate,
     SpeakingUpdate,
     SpeakingResponse,
+    SpeakingAdminResponse,
 )
 
 __all__ = [
@@ -10,4 +11,5 @@ __all__ = [
     "SpeakingCreate",
     "SpeakingUpdate",
     "SpeakingResponse",
+    "SpeakingAdminResponse",
 ]

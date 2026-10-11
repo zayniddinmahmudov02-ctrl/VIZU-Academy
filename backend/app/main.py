@@ -151,6 +151,10 @@ from app.api.vizu_pay import (
     router as vizu_pay_router,
 )
 
+# Lesson skills (Lesen / Hören tests, AI-evaluated Schreiben / Sprechen)
+from app.api.lesson_skills import admin_router as admin_lesson_skills_router
+from app.api.lesson_skills import router as lesson_skills_router
+
 # Health
 from app.api.health import (
     router as health_router,
@@ -264,6 +268,8 @@ _ALL_ROUTERS = [
     teacher_router,
     vizu_pay_router,
     assessment_engine_router,
+    lesson_skills_router,
+    admin_lesson_skills_router,
     health_router,
 ]
 

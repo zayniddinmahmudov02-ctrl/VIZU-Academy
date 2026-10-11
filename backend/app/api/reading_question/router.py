@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from app.api.dependencies.auth import get_current_user, require_admin_panel_access
+from app.api.dependencies.auth import require_admin_panel_access
 from app.db.session import get_db
 
 from app.models.lesson import Lesson
@@ -40,7 +40,7 @@ def get_all(
 def get_one(
     question_id: str,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     item = ReadingQuestionService(db).get(question_id)
 

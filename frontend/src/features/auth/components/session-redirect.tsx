@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { readNextParam } from "@/lib/auth-redirect";
 
+import { useBfcacheAuthRecheck } from "../hooks/use-bfcache-auth-recheck";
 import { useCurrentUser } from "../hooks/use-current-user";
 
 /** If a still-valid session already exists (e.g. the user hits /login again
@@ -14,6 +15,8 @@ import { useCurrentUser } from "../hooks/use-current-user";
 export default function SessionRedirect() {
   const router = useRouter();
   const { user, loading } = useCurrentUser();
+  // back/forward to an old /login page while logged in: continue, no stale form
+  useBfcacheAuthRecheck("login", user?.role === "SUPER_ADMIN" ? "/admin" : "/dashboard");
 
   useEffect(() => {
     if (!loading && user) {

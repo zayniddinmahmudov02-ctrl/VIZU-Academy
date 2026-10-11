@@ -50,7 +50,7 @@ export default function ListeningManager({ lessonId }: { lessonId?: string }) {
     setForm({
       lesson_id: item.lesson_id,
       title: item.title,
-      audio_url: item.audio_url,
+      audio_url: item.audio_url ?? "",
       transcript: item.transcript ?? "",
       order_index: item.order_index,
       is_published: item.is_published,

@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.api.dependencies.auth import get_current_user, require_admin_panel_access
@@ -15,7 +15,9 @@ from app.schemas.writing import (
     WritingCreate,
     WritingUpdate,
     WritingResponse,
+    WritingAdminResponse,
 )
+from app.services.lesson_skills.ai_evaluation import STATUS_EVALUATION_FAILED, STATUS_SUBMITTED, run_writing_evaluation
 from app.schemas.student_writing import StudentWritingOwnResponse, WritingSubmitRequest
 
 from app.services.writing import WritingService
@@ -27,7 +29,7 @@ router = APIRouter(
 )
 
 
-@router.get("", response_model=list[WritingResponse])
+@router.get("", response_model=list[WritingAdminResponse])
 def get_writings(
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin_panel_access),
@@ -70,7 +72,7 @@ def get_writing(
     return writing
 
 
-@router.post("", response_model=WritingResponse)
+@router.post("", response_model=WritingAdminResponse)
 def create_writing(
     data: WritingCreate,
     db: Session = Depends(get_db),
@@ -79,7 +81,7 @@ def create_writing(
     return WritingService(db).create(data)
 
 
-@router.put("/{writing_id}", response_model=WritingResponse)
+@router.put("/{writing_id}", response_model=WritingAdminResponse)
 def update_writing(
     writing_id: str,
     data: WritingUpdate,
@@ -129,10 +131,37 @@ def delete_writing(
 def submit_writing(
     writing_id: UUID,
     data: WritingSubmitRequest,
+    background_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-    return StudentWritingService(db).submit(current_user.id, writing_id, data.answer_text, data.submit)
+    """Entwurf speichern (submit=false) or final submission (submit=true).
+    For AI-evaluated tasks a final submission is evaluated in the
+    background (status SUBMITTED -> EVALUATING -> GRADED / EVALUATION_FAILED)."""
+    item = StudentWritingService(db).submit(current_user.id, writing_id, data.answer_text, data.submit)
+    if data.submit and item.writing is not None and item.writing.ai_evaluation_enabled:
+        background_tasks.add_task(run_writing_evaluation, item.id)
+    return item
+
+
+@router.post("/{writing_id}/submissions/me/evaluate", response_model=StudentWritingOwnResponse)
+def retry_my_writing_evaluation(
+    writing_id: UUID,
+    background_tasks: BackgroundTasks,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Retry after EVALUATION_FAILED (the text was kept). Nothing else."""
+    item = StudentWritingService(db).get_own(current_user.id, writing_id)
+    if item is None or item.status != STATUS_EVALUATION_FAILED:
+        raise HTTPException(status_code=409, detail="NOTHING_TO_RETRY")
+    # pending again BEFORE responding, so the client keeps polling until the
+    # background run (which claims SUBMITTED -> EVALUATING) has finished
+    item.status = STATUS_SUBMITTED
+    db.commit()
+    db.refresh(item)
+    background_tasks.add_task(run_writing_evaluation, item.id)
+    return item
 
 
 @router.get("/{writing_id}/submissions/me", response_model=StudentWritingOwnResponse | None)
