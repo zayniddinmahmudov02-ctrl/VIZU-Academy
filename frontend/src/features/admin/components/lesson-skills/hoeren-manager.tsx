@@ -192,7 +192,20 @@ export default function HoerenManager({ lessonId }: { lessonId: string }) {
             key={item.id}
             testId="hoeren-item"
             title={`${item.order_index}. ${item.title}`}
-            badge={<PublishBadge published={item.is_published} />}
+            badge={
+              <span className="flex flex-wrap gap-1.5">
+                <PublishBadge published={item.is_published} />
+                {!hasAudio && (
+                  <span className="rounded-full bg-[var(--admin-warning)]/15 px-2.5 py-1 text-xs font-semibold text-[var(--admin-warning)]">Audio fehlt</span>
+                )}
+                {!!item.key_missing && (
+                  <span className="rounded-full bg-[var(--admin-warning)]/15 px-2.5 py-1 text-xs font-semibold text-[var(--admin-warning)]"
+                        data-testid="hoeren-key-missing" title="Nach dem Anhören des Audios unter „Fragen“ die richtigen Antworten festlegen.">
+                    Lösung fehlt: {item.key_missing} Frage(n)
+                  </span>
+                )}
+              </span>
+            }
             meta={
               <>
                 {item.questions.length} Fragen · {item.max_points} Punkte · Dauer {formatTime(item.audio_duration_seconds)}

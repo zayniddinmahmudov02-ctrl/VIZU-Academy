@@ -393,6 +393,7 @@ export interface SpeakingCreate {
   response_type?: "MONOLOG" | "DIALOG";
   questions?: string[] | null;
   speech_goal?: string | null;
+  task_kind?: "SPRECHEN" | "FRAGE";
 }
 export type SpeakingUpdate = Partial<Omit<SpeakingCreate, "lesson_id">>;
 

@@ -323,6 +323,7 @@ export default function ContentImportClient() {
   const [json, setJson] = useState("");
   const [filename, setFilename] = useState<string | null>(null);
   const [createMissing, setCreateMissing] = useState(false);
+  const [skipExisting, setSkipExisting] = useState(false);
   const [report, setReport] = useState<ImportReport | null>(null);
   const [checkedJson, setCheckedJson] = useState<string | null>(null);
   const [busy, setBusy] = useState<"validate" | "commit" | null>(null);
@@ -346,8 +347,8 @@ export default function ContentImportClient() {
     if (doc === undefined) return;
     setBusy("validate");
     try {
-      setReport(await validateImport(doc, createMissing));
-      setCheckedJson(json + String(createMissing));
+      setReport(await validateImport(doc, createMissing, skipExisting));
+      setCheckedJson(json + String(createMissing) + String(skipExisting));
     } catch (err) {
       setError(apiErrorMessage(err, "Prüfung fehlgeschlagen."));
     } finally {
@@ -361,7 +362,7 @@ export default function ContentImportClient() {
     if (doc === undefined) return;
     setBusy("commit");
     try {
-      const batch = await commitImport(doc, filename, createMissing);
+      const batch = await commitImport(doc, filename, createMissing, skipExisting);
       await queryClient.invalidateQueries({ queryKey: BATCHES_KEY });
       await queryClient.invalidateQueries({ queryKey: ["lms-structure"] });
       setReport(null);
@@ -385,7 +386,7 @@ export default function ContentImportClient() {
     setError(null);
   }
 
-  const stale = report !== null && checkedJson !== json + String(createMissing);
+  const stale = report !== null && checkedJson !== json + String(createMissing) + String(skipExisting);
   const canCommit = !!report && !stale && report.errors.length === 0 && report.valid > 0;
   const items = report?.items.filter((i) => showValidOnly === "all" || !i.valid) ?? [];
 
@@ -445,6 +446,10 @@ export default function ContentImportClient() {
                   <AdminCheckbox checked={createMissing} onCheckedChange={setCreateMissing} aria-label="Fehlende Module/Lektionen anlegen" />
                   Fehlende Module / Lektionen anlegen (der Kurs des Niveaus muss existieren)
                 </label>
+                <label className="flex items-center gap-2 text-sm text-[var(--admin-text-secondary)]">
+                  <AdminCheckbox checked={skipExisting} onCheckedChange={setSkipExisting} aria-label="Vorhandenes überspringen" />
+                  Erneuter Import: vorhandene Inhalte (gleiche content_id, gleicher Titel, gleiches Wort) überspringen statt Fehler
+                </label>
                 {error && (
                   <p className="text-sm text-[var(--admin-danger)]" role="alert">
                     {error}
@@ -472,7 +477,7 @@ export default function ContentImportClient() {
                   setJson(text);
                   setFilename("claude-generated.json");
                   setReport(r);
-                  setCheckedJson(text + String(false));
+                  setCheckedJson(text + String(false) + String(skipExisting));
                   setCreateMissing(false);
                 }}
               />
@@ -490,6 +495,7 @@ export default function ContentImportClient() {
               <p className="mt-1 text-sm text-[var(--admin-text-secondary)]" data-testid="import-summary">
                 {report.total} Einträge · <b className="text-[var(--admin-accent)]">{report.valid} gültig</b> ·{" "}
                 <b className={report.invalid ? "text-[var(--admin-danger)]" : ""}>{report.invalid} fehlerhaft</b>
+                {report.skipped ? <> · {report.skipped} übersprungen</> : null}
               </p>
             </div>
             <div className="w-44">

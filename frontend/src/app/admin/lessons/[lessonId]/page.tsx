@@ -6,7 +6,10 @@ import { ArrowLeft } from "lucide-react";
 
 import AdminTabs from "@/components/admin/admin-tabs";
 import LessonResultsManager from "@/features/admin/components/lesson-results/lesson-results-manager";
+import ExerciseManager from "@/features/admin/components/lesson-skills/exercise-manager";
+import GrammarManager from "@/features/admin/components/lesson-skills/grammar-manager";
 import HoerenManager from "@/features/admin/components/lesson-skills/hoeren-manager";
+import WordManager from "@/features/admin/components/lesson-skills/word-manager";
 import LesenManager from "@/features/admin/components/lesson-skills/lesen-manager";
 import SkillResultsAdmin from "@/features/admin/components/lesson-skills/skill-results-admin";
 import SpeakingManager from "@/features/admin/components/managers/speaking-manager";
@@ -20,7 +23,7 @@ export default function LessonEditorPage() {
   const lessonId = params.lessonId;
   // deep link from the LMS structure view: ?tab=lesen|hoeren|writing|speaking|results
   const tab = useSearchParams().get("tab");
-  const initialTab = tab && ["video", "lesen", "hoeren", "writing", "speaking", "results"].includes(tab) ? tab : "video";
+  const initialTab = tab && ["video", "frage", "grammatik", "lesen", "hoeren", "writing", "speaking", "wortschatz", "yakuniy", "results"].includes(tab) ? tab : "video";
 
   const { data: lesson } = useQuery({
     queryKey: ["lesson", lessonId],
@@ -56,10 +59,18 @@ export default function LessonEditorPage() {
         defaultValue={initialTab}
         tabs={[
           { value: "video", label: "Videokurs", content: <VideoManager lessonId={lessonId} /> },
+          { value: "frage", label: "Frage des Themas", content: <SpeakingManager lessonId={lessonId} kind="FRAGE" /> },
+          { value: "grammatik", label: "Grammatik", content: <GrammarManager lessonId={lessonId} /> },
           { value: "lesen", label: "Lesen", content: <LesenManager lessonId={lessonId} /> },
           { value: "hoeren", label: "Hören", content: <HoerenManager lessonId={lessonId} /> },
           { value: "writing", label: "Schreiben", content: <WritingManager lessonId={lessonId} /> },
           { value: "speaking", label: "Sprechen", content: <SpeakingManager lessonId={lessonId} /> },
+          { value: "wortschatz", label: "Wortschatz", content: <WordManager lessonId={lessonId} /> },
+          {
+            value: "yakuniy",
+            label: "Yakuniy Test",
+            content: <ExerciseManager lessonId={lessonId} skill="YAKUNIY" label="Yakuniy Test" />,
+          },
           {
             value: "results",
             label: "Schülerergebnisse",

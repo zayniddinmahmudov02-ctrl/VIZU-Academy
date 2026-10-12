@@ -122,6 +122,37 @@ function Preview({ skill, p }: { skill: string | null; p: ImportPreview }) {
           {p.speech_goal && <p>Sprechziel: {p.speech_goal}</p>}
         </div>
       )}
+      {p.key_pending ? <p className="text-xs text-[var(--admin-warning)]">{p.key_pending} Frage(n) ohne Lösung — nach dem Anhören festlegen.</p> : null}
+      {p.rules?.map((r, i) => (
+        <div key={i} className="rounded-lg bg-white/[0.03] p-3">
+          <p className="font-semibold">Regel: {r.title}</p>
+          {/* sanitized by the server's validation */}
+          <div className="prose-editor mt-1 max-h-60 overflow-auto text-xs text-[var(--admin-text-secondary)]" dangerouslySetInnerHTML={{ __html: r.html }} />
+        </div>
+      ))}
+      {p.exercises?.map((ex, i) => (
+        <div key={i} className="rounded-lg bg-white/[0.03] p-3 text-xs">
+          <p className="text-sm font-semibold">
+            Übung: {ex.title} <span className="font-normal text-[var(--admin-text-muted)]">· {ex.questions.length} Fragen · {ex.max_points} P. · {ex.source === "book" ? "Buch" : "VIZU"}</span>
+          </p>
+          <ol className="mt-1 space-y-1">
+            {ex.questions.map((q, n) => (
+              <li key={n}>
+                <b>{n + 1}.</b> {q.question} <span className="text-[var(--admin-text-muted)]">({TYPE_LABEL[q.question_type] ?? q.question_type})</span>
+                <QuestionKey q={q} />
+              </li>
+            ))}
+          </ol>
+        </div>
+      ))}
+      {p.words && (
+        <div className="rounded-lg bg-white/[0.03] p-3 text-xs">
+          <p className="text-sm font-semibold">{p.words.length} Wörter{p.auto_practice ? ` · automatische Übung: ${p.auto_practice} Fragen` : ""}</p>
+          <p className="mt-1 text-[var(--admin-text-secondary)]">
+            {p.words.map((w) => `${w.article ? w.article + " " : ""}${w.word} — ${w.translation}`).join(" · ")}
+          </p>
+        </div>
+      )}
       {p.rubric && (
         <p className={row}>
           Raster {p.rubric_is_default ? "(Standard des Niveaus)" : "(eigenes)"}: {p.rubric.map((c) => `${c.name} ${c.max}`).join(" · ")}
@@ -138,7 +169,8 @@ export function ImportItemCard({ item }: { item: ImportItemReport }) {
   const t = item.target;
   // Sprechen guiding questions are strings; Lesen/Hören questions objects
   const preview = item.preview;
-  const speakingQuestions = item.skill === "sprechen" && Array.isArray(preview?.questions) ? (preview?.questions as unknown as string[]) : null;
+  const speakingQuestions = (item.skill === "sprechen" || item.skill === "frage") && Array.isArray(preview?.questions)
+    ? (preview?.questions as unknown as string[]) : null;
   const normalised = speakingQuestions && preview ? { ...preview, questions: undefined } : preview;
   return (
     <div
@@ -186,6 +218,7 @@ export function ImportItemCard({ item }: { item: ImportItemReport }) {
           </button>
         )}
       </div>
+      {item.skip && !item.errors.length && <p className="mt-2 text-xs text-[var(--admin-text-muted)]">Übersprungen: {item.skip}</p>}
       {item.errors.length > 0 && (
         <ul className="mt-2 space-y-0.5 text-xs text-[var(--admin-danger)]" data-testid="import-item-errors">
           {item.errors.map((e, i) => (

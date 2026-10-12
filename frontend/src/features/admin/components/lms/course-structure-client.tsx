@@ -13,12 +13,24 @@ import {
   saveResultConfig,
   SKILL_KEYS,
   SKILL_LABELS,
+  STRUCTURE_KEYS,
+  STRUCTURE_LABELS,
+  type StructureKey,
   type ResultConfig,
   type SkillCount,
-  type SkillKey,
 } from "@/features/admin/services/lms-service";
 
-const TAB_OF: Record<SkillKey, string> = { lesen: "lesen", hoeren: "hoeren", schreiben: "writing", sprechen: "speaking" };
+const TAB_OF: Record<StructureKey, string> = {
+  frage: "frage",
+  grammatik: "grammatik",
+  lesen: "lesen",
+  hoeren: "hoeren",
+  schreiben: "writing",
+  sprechen: "speaking",
+  wortschatz: "wortschatz",
+  uebungen: "grammatik",
+  yakuniy: "yakuniy",
+};
 
 function CountCell({ count, href }: { count: SkillCount; href: string }) {
   const tone =
@@ -186,13 +198,13 @@ export default function CourseStructureClient({ courseId }: { courseId: string }
               <p className="px-5 py-4 text-sm text-[var(--admin-text-muted)]">Keine Lektionen.</p>
             ) : (
               <div className="overflow-x-auto">
-                <table className="w-full min-w-[560px] text-sm" data-testid="lms-module-table">
+                <table className="w-full min-w-[900px] text-sm" data-testid="lms-module-table">
                   <thead>
                     <tr className="text-left text-xs uppercase tracking-wide text-[var(--admin-text-muted)]">
                       <th className="px-5 py-2.5 font-semibold">Lektion</th>
-                      {SKILL_KEYS.map((k) => (
+                      {STRUCTURE_KEYS.map((k) => (
                         <th key={k} className="px-2 py-2.5 text-center font-semibold">
-                          {SKILL_LABELS[k]}
+                          {STRUCTURE_LABELS[k]}
                         </th>
                       ))}
                       <th className="w-10" />
@@ -206,9 +218,9 @@ export default function CourseStructureClient({ courseId }: { courseId: string }
                             {l.number}. {l.title}
                           </Link>
                         </td>
-                        {SKILL_KEYS.map((k) => (
+                        {STRUCTURE_KEYS.map((k) => (
                           <td key={k} className="px-2 py-2.5 text-center">
-                            <CountCell count={l.skills[k]} href={`/admin/lessons/${l.id}?tab=${TAB_OF[k]}`} />
+                            <CountCell count={l.skills[k] ?? { total: 0, published: 0 }} href={`/admin/lessons/${l.id}?tab=${TAB_OF[k]}`} />
                           </td>
                         ))}
                         <td className="pr-4 text-right">

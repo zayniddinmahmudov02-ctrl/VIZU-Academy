@@ -37,7 +37,9 @@ const EMPTY_FORM = {
   ai: EMPTY_AI_FORM,
 };
 
-export default function SpeakingManager({ lessonId }: { lessonId?: string }) {
+/** kind FRAGE manages the lesson's Frage des Themas voice tasks (same
+ * recorder for students, no rubric unless an admin adds one). */
+export default function SpeakingManager({ lessonId, kind = "SPRECHEN" }: { lessonId?: string; kind?: "SPRECHEN" | "FRAGE" }) {
   const queryClient = useQueryClient();
   const { data: rawAll, isLoading } = useCrudList("speakings", speakingApi);
   const all = rawAll as Speaking[] | undefined;
@@ -45,8 +47,8 @@ export default function SpeakingManager({ lessonId }: { lessonId?: string }) {
   const [duplicating, setDuplicating] = useState<string | null>(null);
 
   const data = useMemo(
-    () => (lessonId ? (all ?? []).filter((s) => s.lesson_id === lessonId) : all),
-    [all, lessonId],
+    () => (all ?? []).filter((s) => (!lessonId || s.lesson_id === lessonId) && (s.task_kind ?? "SPRECHEN") === kind),
+    [all, lessonId, kind],
   );
 
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -58,7 +60,11 @@ export default function SpeakingManager({ lessonId }: { lessonId?: string }) {
 
   function openCreate() {
     setEditing(null);
-    setForm({ ...EMPTY_FORM, lesson_id: lessonId ?? "" });
+    setForm({
+      ...EMPTY_FORM,
+      lesson_id: lessonId ?? "",
+      ...(kind === "FRAGE" ? { preparation_time: 0, speaking_time: 120, ai: { ...EMPTY_AI_FORM, ai_evaluation_enabled: false } } : {}),
+    });
     setError(null);
     setDialogOpen(true);
   }
@@ -113,7 +119,7 @@ export default function SpeakingManager({ lessonId }: { lessonId?: string }) {
       if (editing) {
         await update.mutateAsync({ id: editing.id, data: payload });
       } else {
-        await create.mutateAsync({ ...payload, lesson_id });
+        await create.mutateAsync({ ...payload, lesson_id, task_kind: kind });
       }
       setDialogOpen(false);
     } catch (err) {
@@ -184,7 +190,7 @@ export default function SpeakingManager({ lessonId }: { lessonId?: string }) {
       <div className="mb-4 flex justify-end">
         <AdminButton onClick={openCreate}>
           <Plus size={16} />
-          Neue Sprechübung
+          {kind === "FRAGE" ? "Neue Frage des Themas" : "Neue Sprechübung"}
         </AdminButton>
       </div>
 
@@ -195,13 +201,13 @@ export default function SpeakingManager({ lessonId }: { lessonId?: string }) {
         getRowId={(item) => item.id}
         onEdit={openEdit}
         onDelete={setDeleting}
-        emptyMessage="Noch keine Sprechübungen angelegt."
+        emptyMessage={kind === "FRAGE" ? "Noch keine Frage des Themas angelegt." : "Noch keine Sprechübungen angelegt."}
       />
 
       <FormDialog
         open={dialogOpen}
         onOpenChange={setDialogOpen}
-        title={editing ? "Sprechübung bearbeiten" : "Neue Sprechübung"}
+        title={kind === "FRAGE" ? (editing ? "Frage des Themas bearbeiten" : "Neue Frage des Themas") : editing ? "Sprechübung bearbeiten" : "Neue Sprechübung"}
         size="lg"
         footer={
           <>

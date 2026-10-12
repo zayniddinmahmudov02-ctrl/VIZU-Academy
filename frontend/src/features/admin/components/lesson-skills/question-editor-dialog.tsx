@@ -55,7 +55,7 @@ function problems(questions: AdminQuestion[]): string | null {
 interface Props {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  kind: "readings" | "listenings";
+  kind: "readings" | "listenings" | "exercises";
   ownerId: string;
   title: string;
   initial: AdminQuestion[];

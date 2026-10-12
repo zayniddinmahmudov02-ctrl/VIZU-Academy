@@ -61,7 +61,51 @@ export interface AdminHoerenTask {
   audio_original_name: string | null;
   question_count: number;
   max_points: number;
+  /** questions still waiting for their answer key (block publishing) */
+  key_missing?: number;
   questions: AdminQuestion[];
+}
+
+export type ExerciseSkill = "GRAMMATIK" | "WORTSCHATZ" | "YAKUNIY";
+
+export interface AdminExercise {
+  id: string;
+  lesson_id: string;
+  skill: ExerciseSkill;
+  title: string;
+  instruction: string | null;
+  order_index: number;
+  is_published: boolean;
+  /** "book" = from the course book, "vizu" = created by VIZU */
+  source: "book" | "vizu";
+  content_id: string | null;
+  question_count: number;
+  max_points: number;
+  questions: AdminQuestion[];
+}
+
+export interface AdminGrammar {
+  id: string;
+  lesson_id: string;
+  title: string;
+  content: string;
+  order_index: number;
+  is_published: boolean;
+  content_id: string | null;
+}
+
+export interface AdminWord {
+  id: string;
+  lesson_id: string;
+  german_word: string;
+  article: string | null;
+  plural: string | null;
+  translation: string;
+  example_sentence: string | null;
+  example_translation: string | null;
+  order_index: number;
+  is_published: boolean;
+  content_id: string | null;
 }
 
 export interface RubricCriterion {
@@ -100,6 +144,7 @@ export type AdminSpeakingTask = Speaking &
     questions: string[] | null;
     speech_goal: string | null;
     content_id: string | null;
+    task_kind?: "SPRECHEN" | "FRAGE";
   };
 
 export interface LessonSkillsOverview {
@@ -110,6 +155,10 @@ export interface LessonSkillsOverview {
   hoeren: AdminHoerenTask[];
   schreiben: AdminWritingTask[];
   sprechen: AdminSpeakingTask[];
+  frage: AdminSpeakingTask[];
+  grammatik: AdminGrammar[];
+  wortschatz: AdminWord[];
+  exercises: AdminExercise[];
 }
 
 export interface EvaluationHistoryEntry {
@@ -168,7 +217,7 @@ export async function getLessonSkillsOverview(lessonId: string): Promise<LessonS
   return (await api.get<LessonSkillsOverview>(`${BASE}/lessons/${lessonId}`)).data;
 }
 
-export async function saveQuestions(kind: "readings" | "listenings", id: string, questions: AdminQuestion[]) {
+export async function saveQuestions(kind: "readings" | "listenings" | "exercises", id: string, questions: AdminQuestion[]) {
   return (await api.put<{ id: string; questions: AdminQuestion[] }>(`${BASE}/${kind}/${id}/questions`, { questions })).data;
 }
 
@@ -184,7 +233,7 @@ export async function getListeningAudioBlobUrl(listeningId: string): Promise<str
   return URL.createObjectURL(response.data as Blob);
 }
 
-export async function duplicateItem(kind: "readings" | "listenings" | "writings" | "speakings", id: string) {
+export async function duplicateItem(kind: "readings" | "listenings" | "writings" | "speakings" | "exercises", id: string) {
   return (await api.post<{ id: string }>(`${BASE}/${kind}/${id}/duplicate`)).data;
 }
 
@@ -211,10 +260,75 @@ export async function getSpeakingAudioBlobUrl(submissionId: string): Promise<str
 }
 
 /** Server error code / message of an axios error ({success:false, message}). */
+const KNOWN_ERRORS: Record<string, string> = {
+  AUDIO_REQUIRED_TO_PUBLISH: "Zuerst das Audio hochladen — ohne Audio kann die Hören-Aufgabe nicht veröffentlicht werden.",
+  ANSWER_KEY_REQUIRED_TO_PUBLISH: "Zuerst für jede Frage die richtige Antwort festlegen (Fragen → nach dem Anhören des Audios).",
+  NO_QUESTIONS: "Ohne Fragen kann die Übung nicht veröffentlicht werden.",
+  KEY_REQUIRED: "Jede Frage braucht zuerst eine Lösung.",
+};
+
 export function apiErrorMessage(err: unknown, fallback: string): string {
   const data = (err as { response?: { data?: { message?: unknown; detail?: unknown } } })?.response?.data;
   const message = data?.message ?? data?.detail;
-  if (typeof message === "string" && message) return message;
+  if (typeof message === "string" && message) return KNOWN_ERRORS[message] ?? message;
   if (Array.isArray(message)) return fallback;
   return fallback;
+}
+
+// ---------- exercise sets (Grammatik / Wortschatz / Yakuniy Test) ----------
+
+export type ExerciseInput = Partial<Pick<AdminExercise, "title" | "instruction" | "order_index" | "is_published" | "source">> & { skill?: ExerciseSkill };
+
+export async function createExercise(lessonId: string, data: ExerciseInput & { skill: ExerciseSkill; title: string }) {
+  return (await api.post<AdminExercise>(`${BASE}/lessons/${lessonId}/exercises`, data)).data;
+}
+
+export async function updateExercise(id: string, data: ExerciseInput) {
+  return (await api.put<AdminExercise>(`${BASE}/exercises/${id}`, data)).data;
+}
+
+export async function deleteExercise(id: string) {
+  return (await api.delete(`${BASE}/exercises/${id}`)).data;
+}
+
+// ---------- Grammatik rules ----------
+
+export interface GrammarInput {
+  title: string;
+  content: string;
+  order_index: number;
+  is_published: boolean;
+}
+
+export async function saveGrammar(lessonId: string, data: GrammarInput, id?: string) {
+  return id
+    ? (await api.put<AdminGrammar>(`${BASE}/grammars/${id}`, data)).data
+    : (await api.post<AdminGrammar>(`${BASE}/lessons/${lessonId}/grammars`, data)).data;
+}
+
+export async function deleteGrammar(id: string) {
+  return (await api.delete(`${BASE}/grammars/${id}`)).data;
+}
+
+// ---------- Wortschatz words ----------
+
+export interface WordInput {
+  german_word: string;
+  translation: string;
+  article: string | null;
+  plural: string | null;
+  example_sentence: string | null;
+  example_translation: string | null;
+  order_index?: number | null;
+  is_published: boolean;
+}
+
+export async function saveWord(lessonId: string, data: WordInput, id?: string) {
+  return id
+    ? (await api.put<AdminWord>(`${BASE}/words/${id}`, data)).data
+    : (await api.post<AdminWord>(`${BASE}/lessons/${lessonId}/words`, data)).data;
+}
+
+export async function deleteWord(id: string) {
+  return (await api.delete(`${BASE}/words/${id}`)).data;
 }

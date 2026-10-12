@@ -8,9 +8,34 @@ import type { AdminQuestion, RubricCriterion } from "./lesson-skills-admin-servi
 
 export const LMS_LEVELS = ["A1", "A2", "B1", "B2", "C1"] as const;
 export type LmsLevel = (typeof LMS_LEVELS)[number];
-export const SKILL_KEYS = ["lesen", "hoeren", "schreiben", "sprechen"] as const;
+// lesson order (lesson flow v3) — the skills of the lesson result
+export const SKILL_KEYS = ["frage", "grammatik", "lesen", "hoeren", "schreiben", "sprechen", "wortschatz", "yakuniy"] as const;
 export type SkillKey = (typeof SKILL_KEYS)[number];
-export const SKILL_LABELS: Record<SkillKey, string> = { lesen: "Lesen", hoeren: "Hören", schreiben: "Schreiben", sprechen: "Sprechen" };
+export const SKILL_LABELS: Record<SkillKey, string> = {
+  frage: "Frage des Themas",
+  grammatik: "Grammatik",
+  lesen: "Lesen",
+  hoeren: "Hören",
+  schreiben: "Schreiben",
+  sprechen: "Sprechen",
+  wortschatz: "Wortschatz",
+  yakuniy: "Yakuniy Test",
+};
+// content columns of the course structure (grammatik = rules, wortschatz =
+// words, uebungen = Grammatik / Wortschatz exercise sets)
+export const STRUCTURE_KEYS = ["frage", "grammatik", "lesen", "hoeren", "schreiben", "sprechen", "wortschatz", "uebungen", "yakuniy"] as const;
+export type StructureKey = (typeof STRUCTURE_KEYS)[number];
+export const STRUCTURE_LABELS: Record<StructureKey, string> = {
+  frage: "Frage",
+  grammatik: "Regeln",
+  lesen: "Lesen",
+  hoeren: "Hören",
+  schreiben: "Schreiben",
+  sprechen: "Sprechen",
+  wortschatz: "Wörter",
+  uebungen: "Übungen",
+  yakuniy: "Yakuniy",
+};
 
 export interface ResultConfig {
   weights: Record<SkillKey, number>;
@@ -31,7 +56,7 @@ export interface CourseStructure {
     number: number;
     title: string;
     is_active: boolean;
-    lessons: { id: string; number: number; title: string; skills: Record<SkillKey, SkillCount> }[];
+    lessons: { id: string; number: number; title: string; skills: Partial<Record<StructureKey, SkillCount>> }[];
   }[];
 }
 
@@ -92,6 +117,11 @@ export interface ImportPreview {
   speech_goal?: string | null;
   rubric?: RubricCriterion[];
   rubric_is_default?: boolean;
+  key_pending?: number;
+  rules?: { title: string; html: string }[];
+  exercises?: { title: string; source: "book" | "vizu"; questions: AdminQuestion[]; max_points: number }[];
+  words?: { word: string; article?: string | null; plural?: string | null; translation: string; group?: string | null }[];
+  auto_practice?: number;
 }
 
 export interface ImportItemReport {
@@ -105,6 +135,9 @@ export interface ImportItemReport {
   target: ImportTarget | null;
   preview: ImportPreview | null;
   valid: boolean;
+  /** re-import: why the item is skipped (already exists) */
+  skip?: string | null;
+  source?: "book" | "vizu" | null;
 }
 
 export interface ImportReport {
@@ -113,6 +146,7 @@ export interface ImportReport {
   total: number;
   valid: number;
   invalid: number;
+  skipped?: number;
   items: ImportItemReport[];
 }
 
@@ -124,7 +158,8 @@ export interface BatchItem {
   title: string | null;
   errors: string[];
   warnings: string[];
-  status: "created" | "error";
+  status: "created" | "error" | "skipped";
+  skip?: string;
   created: { kind: "reading" | "listening" | "writing" | "speaking"; id: string }[];
   published: boolean;
   publish_problem?: string;
@@ -140,6 +175,7 @@ export interface ImportBatch {
   total_items: number;
   created_items: number;
   failed_items: number;
+  skipped_items?: number;
   published_items: number;
   created_at: string;
   published_at: string | null;
@@ -176,13 +212,13 @@ export async function getImportSchema(): Promise<Record<string, unknown>> {
   return (await api.get<Record<string, unknown>>(`${IMPORT_BASE}/schema`)).data;
 }
 
-export async function validateImport(document: unknown, createMissing: boolean): Promise<ImportReport> {
-  const data = (await api.post<ImportReport>(`${IMPORT_BASE}/validate`, { document, create_missing: createMissing })).data;
+export async function validateImport(document: unknown, createMissing: boolean, skipExisting = false): Promise<ImportReport> {
+  const data = (await api.post<ImportReport>(`${IMPORT_BASE}/validate`, { document, create_missing: createMissing, skip_existing: skipExisting })).data;
   return { ...data, errors: data?.errors ?? [], items: Array.isArray(data?.items) ? data.items : [] };
 }
 
-export async function commitImport(document: unknown, filename: string | null, createMissing: boolean): Promise<ImportBatch> {
-  return (await api.post<ImportBatch>(`${IMPORT_BASE}/commit`, { document, filename, create_missing: createMissing })).data;
+export async function commitImport(document: unknown, filename: string | null, createMissing: boolean, skipExisting = false): Promise<ImportBatch> {
+  return (await api.post<ImportBatch>(`${IMPORT_BASE}/commit`, { document, filename, create_missing: createMissing, skip_existing: skipExisting })).data;
 }
 
 export async function generateWithClaude(data: {
