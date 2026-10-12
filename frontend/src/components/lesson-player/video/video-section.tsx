@@ -1,12 +1,17 @@
 "use client";
 
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
-import { CheckCircle2, PlayCircle } from "lucide-react";
+import { CheckCircle2, PlayCircle, RotateCcw } from "lucide-react";
 
 import Loading from "@/components/common/loading";
 import { useCurrentUser } from "@/features/auth/hooks/use-current-user";
+import { useSectionGate } from "@/features/lessons/hooks/use-section-gate";
 import { useVideoProgress } from "@/features/lessons/hooks/use-video-progress";
+import { computeSectionProgress } from "@/features/lessons/utils/section-progress";
 import { useTranslation } from "@/lib/i18n/use-translation";
+import { resolveMediaUrl } from "@/lib/media";
 import LessonSection from "../common/lesson-section";
 import VideoPlayer from "./video-player";
 
@@ -31,10 +36,26 @@ function formatTime(totalSeconds: number): string {
 
 export default function VideoSection({ lessonId }: Props) {
   const { t } = useTranslation();
-  const { video, progress, loading, error, reportProgress, markComplete, reload } = useVideoProgress(lessonId);
+  const { video, progress, loading, error, errorKind, reportProgress, markComplete, reload } = useVideoProgress(lessonId);
   const { user } = useCurrentUser();
+  const { data: gate } = useSectionGate(lessonId);
+  const router = useRouter();
   const queryClient = useQueryClient();
   const watermarkText = buildWatermarkText(user);
+
+  // A lesson without a published video: the sidebar already hides the
+  // Video step (gate.video.applicable = false), but /lessons/{id} always
+  // lands here (DEFAULT_SECTION_SLUG). Only when both the backend 404 and
+  // the gate agree there is no video, continue with the lesson's first
+  // available step instead of parking the student on an empty page. A 404
+  // for a video the gate still counts (published, stored file missing)
+  // stays here and shows the message + retry.
+  const noVideoInLesson = errorKind === "not_found" && gate?.video?.applicable === false;
+  const videoFileMissing = errorKind === "not_found" && gate?.video?.applicable === true;
+  const firstStepSlug = noVideoInLesson ? computeSectionProgress(gate).visibleSections[0]?.slug : undefined;
+  useEffect(() => {
+    if (firstStepSlug && firstStepSlug !== "video") router.replace(`/lessons/${lessonId}/${firstStepSlug}`);
+  }, [firstStepSlug, lessonId, router]);
 
   const showResume = Boolean(progress && progress.lastPosition > 0 && !progress.completed);
 
@@ -59,8 +80,25 @@ export default function VideoSection({ lessonId }: Props) {
       {loading ? (
         <Loading />
       ) : error || !video ? (
-        <div className="flex aspect-video items-center justify-center rounded-card bg-surface-hover text-center">
-          <p className="px-6 text-text-secondary">{t("lessons.videoNotAvailable")}</p>
+        <div
+          className="flex aspect-video flex-col items-center justify-center gap-4 rounded-card bg-surface-hover text-center"
+          role={errorKind === "failed" ? "alert" : undefined}
+          data-testid="video-unavailable"
+          data-reason={errorKind ?? "empty"}
+        >
+          <p className="max-w-md px-6 text-text-secondary">
+            {t(videoFileMissing ? "lessons.videoFileMissing" : (error ?? "lessons.videoNotAvailable"))}
+          </p>
+          {(errorKind === "failed" || videoFileMissing) && (
+            <button
+              type="button"
+              onClick={reload}
+              className="flex items-center gap-2 rounded-full bg-surface-card px-5 py-2.5 text-sm font-semibold text-text-primary shadow-[var(--shadow-3d-soft)] ring-1 ring-surface-border transition-colors hover:text-accent-blue"
+            >
+              <RotateCcw size={16} />
+              {t("lessons.videoRetry")}
+            </button>
+          )}
         </div>
       ) : (
         <div className="space-y-3">
@@ -76,8 +114,8 @@ export default function VideoSection({ lessonId }: Props) {
           ) : null}
 
           <VideoPlayer
-            src={video.videoUrl}
-            poster={video.thumbnailUrl ?? undefined}
+            src={resolveMediaUrl(video.videoUrl) ?? video.videoUrl}
+            poster={resolveMediaUrl(video.thumbnailUrl) ?? undefined}
             lessonId={lessonId}
             initialPosition={progress?.lastPosition ?? 0}
             onProgress={handleProgress}

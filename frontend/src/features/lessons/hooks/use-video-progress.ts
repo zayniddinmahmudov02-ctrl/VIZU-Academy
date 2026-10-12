@@ -2,6 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import { ApiError } from "@/lib/api";
+
 import type { LessonVideo, VideoProgress } from "../types/video";
 import {
   completeVideo,
@@ -16,6 +18,11 @@ interface UseVideoProgressResult {
   loading: boolean;
   /** A translation key (resolve with `t()`), not display text. */
   error: string | null;
+  /** Why loading failed: "not_found" = the backend has no playable video
+   *  for this lesson (GET /videos/by-lesson 404 — no published video, or
+   *  its stored file is missing), "forbidden" = 403 (no access), "failed"
+   *  = anything else (network, 5xx) — worth a retry. */
+  errorKind: VideoLoadErrorKind | null;
   /** Reports the current playback position to the server (free seeking —
    *  forward and backward jumps are both trusted directly, bounded only
    *  to the video's real duration). `progress` is updated with whatever
@@ -27,15 +34,29 @@ interface UseVideoProgressResult {
    *  stream token has expired or the stream otherwise failed to load. */
   reload: () => void;
 }
+export type VideoLoadErrorKind = "not_found" | "forbidden" | "failed";
+
+function classifyLoadError(err: unknown): VideoLoadErrorKind {
+  if (err instanceof ApiError && err.status === 404) return "not_found";
+  if (err instanceof ApiError && err.status === 403) return "forbidden";
+  return "failed";
+}
+
+const ERROR_KEYS: Record<VideoLoadErrorKind, string> = {
+  not_found: "lessons.videoNotAvailable",
+  forbidden: "lessons.videoAccessDenied",
+  failed: "lessons.videoLoadError",
+};
 
 export function useVideoProgress(lessonId: string): UseVideoProgressResult {
   const [video, setVideo] = useState<LessonVideo | null>(null);
   const [progress, setProgress] = useState<VideoProgress | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [errorKind, setErrorKind] = useState<VideoLoadErrorKind | null>(null);
 
   const videoRef = useRef<LessonVideo | null>(null);
   const reportingRef = useRef(false);
+  const inflightReportRef = useRef<Promise<void> | null>(null);
   // Only the very first load should show the section-level loading state
   // (which unmounts the player entirely). A `reload()` — e.g. recovering
   // from an expired stream token — happens in the background instead,
@@ -54,7 +75,7 @@ export function useVideoProgress(lessonId: string): UseVideoProgressResult {
   useEffect(() => {
     if (!lessonId) {
       setLoading(false);
-      setError("lessons.loadLessonError");
+      setErrorKind("failed");
       return;
     }
 
@@ -63,7 +84,7 @@ export function useVideoProgress(lessonId: string): UseVideoProgressResult {
     async function load() {
       try {
         if (!hasLoadedOnceRef.current) setLoading(true);
-        setError(null);
+        setErrorKind(null);
 
         const [videoData, progressData] = await Promise.all([
           getLessonVideo(lessonId),
@@ -75,12 +96,15 @@ export function useVideoProgress(lessonId: string): UseVideoProgressResult {
           setProgress(progressData);
         }
       } catch (err) {
-        console.warn("Failed to load lesson video:", err);
+        const kind = classifyLoadError(err);
+        // 404 = this lesson has no playable video (a data state the UI
+        // shows as such), not a client failure worth a console warning.
+        if (kind !== "not_found") console.warn("Failed to load lesson video:", err);
 
         if (isMounted) {
           setVideo(null);
           setProgress(null);
-          setError("lessons.videoNotAvailable");
+          setErrorKind(kind);
         }
       } finally {
         if (isMounted) {
@@ -105,17 +129,24 @@ export function useVideoProgress(lessonId: string): UseVideoProgressResult {
 
     reportingRef.current = true;
 
-    updateVideoProgress(current.id, Math.floor(position), ended)
+    inflightReportRef.current = updateVideoProgress(current.id, Math.floor(position), ended)
       .then((updated) => setProgress(updated))
       .catch((err) => console.warn("Failed to report video progress:", err))
       .finally(() => {
         reportingRef.current = false;
+        inflightReportRef.current = null;
       });
   }, []);
 
   const markComplete = useCallback(async (ended = false) => {
     const current = videoRef.current;
     if (!current) return null;
+
+    // POST /videos/complete is judged against the server-side watch
+    // progress — sent while the report for the same position is still in
+    // flight it can arrive first (400 "No watch progress recorded" / too
+    // little watched) and the completion would be lost.
+    await inflightReportRef.current;
 
     try {
       const updated = await completeVideo(current.id, ended);
@@ -131,7 +162,8 @@ export function useVideoProgress(lessonId: string): UseVideoProgressResult {
     video,
     progress,
     loading,
-    error,
+    error: errorKind ? ERROR_KEYS[errorKind] : null,
+    errorKind,
     reportProgress,
     markComplete,
     reload,

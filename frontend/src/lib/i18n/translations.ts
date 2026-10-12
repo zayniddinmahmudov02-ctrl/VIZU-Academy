@@ -877,6 +877,18 @@ export const translations: Record<string, Namespace> = {
       de: "Für diese Lektion ist noch kein Video verfügbar.",
       uz: "Bu dars uchun hali video mavjud emas.",
     },
+    videoFileMissing: {
+      de: "Das Video dieser Lektion ist gerade nicht abrufbar. Bitte versuche es später erneut oder wende dich an den Support.",
+      uz: "Bu dars videosi hozircha ochilmayapti. Keyinroq qayta urinib ko'ring yoki administratorga murojaat qiling.",
+    },
+    videoAccessDenied: {
+      de: "Du hast keinen Zugriff auf dieses Video.",
+      uz: "Bu videoni ko'rish uchun ruxsatingiz yo'q.",
+    },
+    videoLoadError: {
+      de: "Das Video konnte nicht geladen werden. Prüfe deine Internetverbindung und versuche es erneut.",
+      uz: "Videoni yuklab bo'lmadi. Internet aloqasini tekshirib, qayta urinib ko'ring.",
+    },
     videoProgressLabel: { de: "Videofortschritt", uz: "Video jarayoni" },
     mediaPlay: { de: "Abspielen", uz: "Ijro etish" },
     mediaPause: { de: "Pausieren", uz: "To'xtatish" },
