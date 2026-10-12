@@ -1,0 +1,1252 @@
+{
+ "schema_version": "1.1",
+ "language": "de",
+ "source": "vizu-deutsch-a1-book",
+ "items": [
+  {
+   "content_id": "vizu-a1-l10-frage-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 10,
+   "skill": "frage",
+   "title": "Frage: Wie kaufen die Deutschen ein?",
+   "source": "book",
+   "metadata": {
+    "book_page": 99
+   },
+   "prompt": "Wie kaufen die Deutschen ein? (Supermarkt, Qualität, Angebote, regional & Bio, Einkaufsliste) Und wie kaufen Sie ein?",
+   "min_duration": 10,
+   "max_duration": 120
+  },
+  {
+   "content_id": "vizu-a1-l10-grammatik-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 10,
+   "skill": "grammatik",
+   "title": "Grammatik: Adjektivdeklination",
+   "source": "book",
+   "metadata": {
+    "book_page": "100-101"
+   },
+   "rules": [
+    {
+     "title": "Adjektivdeklination",
+     "html": "<p>Sifat ot oldida kelganda kelishik, rod va artiklga qarab qo'shimcha oladi.</p><table><thead><tr><th>Kelishik + rod</th><th>Aniq artikel bilan</th><th>Noaniq artikel bilan</th><th>Artikelsiz</th></tr></thead><tbody><tr><td>Mask. Nominativ</td><td>der gute Mann</td><td>ein guter Mann</td><td>guter Mann</td></tr><tr><td>Mask. Genitiv</td><td>des guten Mannes</td><td>eines guten Mannes</td><td>guten Mannes</td></tr><tr><td>Mask. Dativ</td><td>dem guten Mann</td><td>einem guten Mann</td><td>gutem Mann</td></tr><tr><td>Mask. Akkusativ</td><td>den guten Mann</td><td>einen guten Mann</td><td>guten Mann</td></tr><tr><td>Fem. Nominativ</td><td>die gute Frau</td><td>eine gute Frau</td><td>gute Frau</td></tr><tr><td>Fem. Genitiv</td><td>der guten Frau</td><td>einer guten Frau</td><td>guter Frau</td></tr><tr><td>Fem. Dativ</td><td>der guten Frau</td><td>einer guten Frau</td><td>guter Frau</td></tr><tr><td>Fem. Akkusativ</td><td>die gute Frau</td><td>eine gute Frau</td><td>gute Frau</td></tr><tr><td>Neut. Nominativ</td><td>das gute Kind</td><td>ein gutes Kind</td><td>gutes Kind</td></tr><tr><td>Neut. Genitiv</td><td>des guten Kindes</td><td>eines guten Kindes</td><td>guten Kindes</td></tr><tr><td>Neut. Dativ</td><td>dem guten Kind</td><td>einem guten Kind</td><td>gutem Kind</td></tr><tr><td>Neut. Akkusativ</td><td>das gute Kind</td><td>ein gutes Kind</td><td>gutes Kind</td></tr><tr><td>Pl. Nominativ</td><td>die guten Leute</td><td>meine guten Leute</td><td>gute Leute</td></tr><tr><td>Pl. Genitiv</td><td>der guten Leute</td><td>meiner guten Leute</td><td>guter Leute</td></tr><tr><td>Pl. Dativ</td><td>den guten Leuten</td><td>meinen guten Leuten</td><td>guten Leuten</td></tr><tr><td>Pl. Akkusativ</td><td>die guten Leute</td><td>meine guten Leute</td><td>gute Leute</td></tr></tbody></table><p>Tarjima: der gute Mann — yaxshi erkak; des guten Mannes — yaxshi erkakning; dem guten Mann — yaxshi erkakka; den guten Mann — yaxshi erkakni.</p><h3>Qo'shimchalar jadvali</h3><table><thead><tr><th>Kelishik + rod</th><th>Aniq artikel bilan</th><th>Noaniq artikel bilan</th><th>Artikelsiz</th></tr></thead><tbody><tr><td>Mask. Nominativ (der)</td><td>der -e</td><td>ein -er</td><td>-er</td></tr><tr><td>Mask. Genitiv (des)</td><td>des -en</td><td>eines -en</td><td>-en</td></tr><tr><td>Mask. Dativ (dem)</td><td>dem -en</td><td>einem -en</td><td>-em</td></tr><tr><td>Mask. Akkusativ (den)</td><td>den -en</td><td>einen -en</td><td>-en</td></tr><tr><td>Fem. Nominativ (die)</td><td>die -e</td><td>eine -e</td><td>-e</td></tr><tr><td>Fem. Genitiv (der)</td><td>der -en</td><td>einer -en</td><td>-er</td></tr><tr><td>Fem. Dativ (der)</td><td>der -en</td><td>einer -en</td><td>-er</td></tr><tr><td>Fem. Akkusativ (die)</td><td>die -e</td><td>eine -e</td><td>-e</td></tr><tr><td>Neut. Nominativ (das)</td><td>das -e</td><td>ein -es</td><td>-es</td></tr><tr><td>Neut. Genitiv (des)</td><td>des -en</td><td>eines -en</td><td>-en</td></tr><tr><td>Neut. Dativ (dem)</td><td>dem -en</td><td>einem -en</td><td>-em</td></tr><tr><td>Neut. Akkusativ (das)</td><td>das -e</td><td>ein -es</td><td>-es</td></tr><tr><td>Pl. Nominativ (die)</td><td>die -en</td><td>meine -en</td><td>-e</td></tr><tr><td>Pl. Genitiv (der)</td><td>der -en</td><td>meiner -en</td><td>-er</td></tr><tr><td>Pl. Dativ (den)</td><td>den -en</td><td>meinen -en</td><td>-en</td></tr><tr><td>Pl. Akkusativ (die)</td><td>die -en</td><td>meine -en</td><td>-e</td></tr></tbody></table>"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "Grammatik-Aufgaben: Adjektivendungen (30)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Der gut___ Mann arbeitet im Büro.",
+       "options": [
+        "-er",
+        "-e",
+        "-en"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Jadval (S. 100) bo'yicha."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Die schön___ Frau wohnt in Berlin.",
+       "options": [
+        "-e",
+        "-er",
+        "-en"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Jadval (S. 100) bo'yicha."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Das klein___ Kind schläft jetzt.",
+       "options": [
+        "-es",
+        "-e",
+        "-en"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Jadval (S. 100) bo'yicha."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich sehe den alt___ Mann im Park.",
+       "options": [
+        "-er",
+        "-en",
+        "-e"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Jadval (S. 100) bo'yicha."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich helfe dem gut___ Freund heute.",
+       "options": [
+        "-em",
+        "-en",
+        "-er"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Jadval (S. 100) bo'yicha."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Das Dach der neu___ Schule ist groß.",
+       "options": [
+        "-e",
+        "-er",
+        "-en"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Jadval (S. 100) bo'yicha."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Die jung___ Leute lernen Deutsch.",
+       "options": [
+        "-e",
+        "-er",
+        "-en"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Jadval (S. 100) bo'yicha."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich spreche mit den gut___ Kindern.",
+       "options": [
+        "-e",
+        "-en",
+        "-er"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Jadval (S. 100) bo'yicha."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Das groß___ Haus steht am See.",
+       "options": [
+        "-e",
+        "-es",
+        "-en"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Jadval (S. 100) bo'yicha."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Die alt___ Bücher liegen auf dem Tisch.",
+       "options": [
+        "-e",
+        "-er",
+        "-en"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Jadval (S. 100) bo'yicha."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ein gut___ Mann hilft mir.",
+       "options": [
+        "-e",
+        "-er",
+        "-en"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Jadval (S. 100) bo'yicha."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Eine schön___ Stadt gefällt mir.",
+       "options": [
+        "-e",
+        "-er",
+        "-en"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Jadval (S. 100) bo'yicha."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ein klein___ Kind spielt draußen.",
+       "options": [
+        "-e",
+        "-es",
+        "-en"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Jadval (S. 100) bo'yicha."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Das Auto eines alt___ Mannes ist blau.",
+       "options": [
+        "-er",
+        "-en",
+        "-em"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Jadval (S. 100) bo'yicha."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich danke einem gut___ Freund.",
+       "options": [
+        "-en",
+        "-em",
+        "-er"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Jadval (S. 100) bo'yicha."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich kenne einen jung___ Lehrer.",
+       "options": [
+        "-e",
+        "-er",
+        "-en"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Jadval (S. 100) bo'yicha."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich spreche mit meiner gut___ Mutter.",
+       "options": [
+        "-e",
+        "-er",
+        "-en"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Jadval (S. 100) bo'yicha."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Mein neu___ Auto ist schnell.",
+       "options": [
+        "-e",
+        "-es",
+        "-en"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Jadval (S. 100) bo'yicha."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Meine alt___ Tasche ist kaputt.",
+       "options": [
+        "-e",
+        "-er",
+        "-en"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Jadval (S. 100) bo'yicha."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich besuche meinen klein___ Bruder.",
+       "options": [
+        "-e",
+        "-en",
+        "-er"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Jadval (S. 100) bo'yicha."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Gut___ Mann arbeitet viel.",
+       "options": [
+        "-er",
+        "-e",
+        "-en"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Jadval (S. 100) bo'yicha."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Schön___ Frau kommt heute.",
+       "options": [
+        "-e",
+        "-er",
+        "-en"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Jadval (S. 100) bo'yicha."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Klein___ Kind lacht laut.",
+       "options": [
+        "-e",
+        "-es",
+        "-en"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Jadval (S. 100) bo'yicha."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Das ist das Haus gut___ Mannes.",
+       "options": [
+        "-er",
+        "-en",
+        "-em"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Jadval (S. 100) bo'yicha."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich helfe gut___ Freund.",
+       "options": [
+        "-em",
+        "-en",
+        "-er"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Jadval (S. 100) bo'yicha."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Alt___ Haus steht im Dorf.",
+       "options": [
+        "-e",
+        "-es",
+        "-en"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Jadval (S. 100) bo'yicha."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Jung___ Leute reisen viel.",
+       "options": [
+        "-e",
+        "-er",
+        "-en"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Jadval (S. 100) bo'yicha."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich spreche mit gut___ Kindern.",
+       "options": [
+        "-e",
+        "-en",
+        "-er"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Jadval (S. 100) bo'yicha."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Neu___ Bücher sind interessant.",
+       "options": [
+        "-e",
+        "-er",
+        "-en"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Jadval (S. 100) bo'yicha."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Groß___ Stadt liegt am Fluss.",
+       "options": [
+        "-e",
+        "-er",
+        "-en"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Jadval (S. 100) bo'yicha."
+      }
+     ],
+     "instruction": "Wählen Sie die richtige Endung."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l10-lesen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 10,
+   "skill": "lesen",
+   "title": "Lesen: Einkaufen im Supermarkt",
+   "source": "book",
+   "metadata": {
+    "book_page": 102
+   },
+   "instruction": "Lesen Sie die Texte und entscheiden Sie: Richtig oder Falsch?",
+   "passages": [
+    {
+     "title": "Mein Einkauf im Supermarkt (Familie)",
+     "text": "Ich heiße Herr Julian und ich kaufe oft im Supermarkt für meine Familie ein. Heute gehe ich nach der Arbeit einkaufen. Ich nehme meinen Einkaufswagen und gehe zuerst zu Brot und Milch. Ich kaufe frisches Brot, Milch, Eier und Käse. Für meine Kinder kaufe ich Äpfel, Bananen und Saft. Meine Frau möchte Reis, Nudeln und Gemüse. Manchmal gibt es Rabatte auf Obst und Gemüse, und heute gibt es 10% Rabatt auf Äpfel, das ist gut für meine Familie.\n\nIm Supermarkt ist es sauber und groß. Die Preise sind gut, besonders die Angebote an der Kasse. Ich bezahle mit Karte und bekomme eine Einkaufsquittung. Danach gehe ich nach Hause. Meine Kinder freuen sich über die Früchte und meine Frau kocht ein gesundes Abendessen. Ich mag den Einkauf im Supermarkt, weil er schnell und einfach ist und es immer viele gute Angebote gibt."
+    },
+    {
+     "title": "Mein Einkauf für das Wochenende",
+     "text": "Max und Alex sind gute Freunde und wohnen zusammen in einer Wohnung. Am Samstag gehen sie zusammen in den Supermarkt. Max kauft Brot, Butter und Käse, und Alex kauft Nudeln, Tomaten und Fleisch. Sie schauen auch auf Sonderangebote, zum Beispiel gibt es 2 zum Preis von 1 auf Cola. Sie kaufen außerdem Wasser, Kekse und Snacks, weil sie heute Abend zusammen kochen wollen.\n\nDer Supermarkt ist groß und modern, aber es sind viele Menschen da. Die Freunde sprechen und lachen viel. Sie achten auf die Preise und vergleichen Angebote. Am Ende bezahlen sie zusammen an der Kasse. Zu Hause kochen sie leckeres Abendessen und genießen es. Der Einkauf macht Spaß, besonders wenn es gute Rabatte und frische Lebensmittel gibt."
+    }
+   ],
+   "questions": [
+    {
+     "type": "true_false",
+     "question": "Herr Julian kauft oft im Supermarkt für seine Familie ein.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "true_false",
+     "question": "Heute kauft er nur Süßigkeiten für sich selbst.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch"
+    },
+    {
+     "type": "true_false",
+     "question": "Er kauft Brot, Milch, Eier und Käse.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "true_false",
+     "question": "Seine Kinder bekommen Äpfel, Bananen und Saft.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "true_false",
+     "question": "Im Supermarkt gibt es keine Rabatte auf Obst und Gemüse.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„… heute gibt es 10% Rabatt auf Äpfel.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Herr Julian bezahlt an der Kasse mit Karte.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "true_false",
+     "question": "Max und Alex sind gute Freunde und wohnen zusammen.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "true_false",
+     "question": "Sie gehen am Samstag alleine spazieren, nicht einkaufen.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "falsch"
+    },
+    {
+     "type": "true_false",
+     "question": "Max kauft Brot, Butter und Käse, Alex kauft Nudeln, Tomaten und Fleisch.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "true_false",
+     "question": "Sie schauen auf Sonderangebote, z. B. 2 zum Preis von 1 auf Cola.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "true_false",
+     "question": "Der Supermarkt ist leer und es sind keine anderen Kunden da.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "falsch",
+     "explanation": "„… es sind viele Menschen da.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Am Ende bezahlen sie zusammen an der Kasse und kochen zu Hause.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "richtig"
+    }
+   ],
+   "max_score": 12
+  },
+  {
+   "content_id": "vizu-a1-l10-hoeren-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 10,
+   "skill": "hoeren",
+   "title": "Hören: Im Supermarkt und im Markt",
+   "source": "book",
+   "metadata": {
+    "book_page": "103-104"
+   },
+   "audio_file": "A1-10.1.mp3 / A1-10.2.mp3",
+   "instruction": "Hören Sie die zwei Texte und wählen Sie die richtige Antwort (A, B, C).",
+   "transcript": "Text 1 — Wir sind im Supermarkt: Heute sind wir mit unserem Deutschlehrer in den Supermarkt gegangen. Der Lehrer hat uns mitgenommen, um neue Wörter zu lernen. Unsere Aufgabe war, 20 neue Wörter zu schreiben. Wir mussten die Namen von Produkten auf Deutsch und auf Usbekisch aufschreiben, die wir noch nicht kannten. Im Supermarkt haben wir viele neue Sachen gesehen und viel gelernt. Am Ende hat unser Lehrer jedem von uns ein kleines Geschenk gekauft. Wir haben uns sehr gefreut. Heute haben wir 20 neue Wörter gelernt und Geschenke bekommen. Vielen Dank an unseren Lehrer!\n\nText 2 — Wir sind im Markt: Ich heiße Zayd und ich bin 12 Jahre alt. Heute sind wir als Familie in den Markt gegangen. Wir wollten Kleidung für die Schule kaufen. Meine Mutter hat schöne Kleidung für uns Kinder gekauft. Für meine Mutter haben wir auch ein Kopftuch gekauft. Wir waren alle glücklich. Aber mein Vater hat für sich selbst nichts gekauft. Er hat nur auf uns geachtet. Er hat immer gesagt: „Das ist nicht wichtig.“ Als wir nach Hause gekommen sind, habe ich gesehen, dass mein Vater keine neuen Kleider hat. Ich war traurig und habe geweint. Ich habe gesagt: „Papa, du hast für alle Kleidung gekauft, aber für dich nichts.“ Mein Vater hat mich umarmt und gelächelt. Er hat gesagt, dass unsere Freude für ihn das Wichtigste ist. Ich liebe meinen Vater sehr.",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Text 1: Wohin sind die Schüler heute gegangen?",
+     "options": [
+      "In die Schule",
+      "In den Supermarkt",
+      "In den Park"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Text 1: Mit wem sind die Schüler in den Supermarkt gegangen?",
+     "options": [
+      "Mit ihren Eltern",
+      "Mit ihrem Freund",
+      "Mit ihrem Deutschlehrer"
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Text 1: Was war die Aufgabe der Schüler?",
+     "options": [
+      "10 neue Wörter schreiben",
+      "20 neue Wörter schreiben",
+      "30 neue Wörter schreiben"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Text 1: Was mussten die Schüler aufschreiben?",
+     "options": [
+      "Nur deutsche Wörter",
+      "Nur usbekische Wörter",
+      "Deutsche und usbekische Wörter"
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Text 1: Was hat der Lehrer am Ende gemacht?",
+     "options": [
+      "Er hat Hausaufgaben gegeben.",
+      "Er hat einen Test geschrieben.",
+      "Er hat Geschenke gekauft."
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Text 1: Wie fühlen sich die Schüler am Ende?",
+     "options": [
+      "Sie sind müde.",
+      "Sie sind traurig.",
+      "Sie freuen sich."
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Text 2: Wie alt ist Zayd?",
+     "options": [
+      "10 Jahre alt",
+      "12 Jahre alt",
+      "14 Jahre alt"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Text 2: Warum ist die Familie in den Markt gegangen?",
+     "options": [
+      "Um Essen zu kaufen",
+      "Um Kleidung für die Schule zu kaufen",
+      "Um Geschenke zu kaufen"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Text 2: Für wen hat die Mutter Kleidung gekauft?",
+     "options": [
+      "Nur für sich selbst",
+      "Für die Kinder und für sich selbst",
+      "Nur für die Kinder"
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Text 2: Was hat die Familie für die Mutter gekauft?",
+     "options": [
+      "Eine Jacke",
+      "Ein Kopftuch",
+      "Schuhe"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Text 2: Was hat der Vater für sich selbst gekauft?",
+     "options": [
+      "Kleidung",
+      "Schuhe",
+      "Nichts"
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Text 2: Wie reagiert Zayd zu Hause?",
+     "options": [
+      "Er lacht.",
+      "Er ist wütend.",
+      "Er weint."
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1
+    }
+   ],
+   "max_score": 12
+  },
+  {
+   "content_id": "vizu-a1-l10-schreiben-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 10,
+   "skill": "schreiben",
+   "title": "Schreiben: Ich gehe einkaufen",
+   "source": "book",
+   "metadata": {
+    "book_page": 105
+   },
+   "prompt": "Schreiben Sie einen Text über einen Einkauf:\n1. Matnni boshlash: Ich möchte einkaufen gehen. Heute gehe ich in den Supermarkt.\n2. Mit wem? Ich gehe mit meinem Freund einkaufen.\n3. Was möchten Sie kaufen? Ich kaufe Brot, Milch und Obst.\n4. Einkauf: Ich gehe zum Obststand und kaufe Äpfel.\n5. Gefühle: Ich freue mich, weil …\n6. Schluss / Dank: Danke an … für die Hilfe.",
+   "task_type": "description",
+   "min_words": 40,
+   "max_words": 120,
+   "time_limit": 20,
+   "support_phrases": [
+    "Heute gehe ich in den Supermarkt.",
+    "Ich gehe mit … einkaufen.",
+    "Ich kaufe …",
+    "Ich freue mich, weil …"
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l10-sprechen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 10,
+   "skill": "sprechen",
+   "title": "Dialog: Im Geschäft",
+   "source": "book",
+   "metadata": {
+    "book_page": 106
+   },
+   "topic": "Einkaufen",
+   "prompt": "Spielen Sie den Kunden. Sprechen Sie einen der Dialoge (Bäckerei / Lebensmittel oder Kleidung).",
+   "questions": [
+    "Kunde: Guten Tag! Ich möchte Brot und Milch kaufen. — Verkäufer: Welches Brot möchten Sie? Weißbrot oder Vollkornbrot?",
+    "Kunde: Ich nehme das Vollkornbrot, bitte. — Verkäufer: Möchten Sie noch Milch?",
+    "Kunde: Ja, zwei Liter Milch, bitte. — Verkäufer: Möchten Sie auch Obst oder Gemüse?",
+    "Kunde: Ja, ich nehme Äpfel und Tomaten. — Verkäufer: Das macht zusammen 15 Euro, bitte.",
+    "Kunde: Guten Tag! Ich möchte eine neue Jacke kaufen. — Verkäufer: Welche Größe haben Sie?",
+    "Kunde: Ich habe Größe M. — Verkäufer: Möchten Sie eine blaue oder schwarze Jacke?",
+    "Kunde: Ich nehme die blaue Jacke, bitte. — Verkäufer: Möchten Sie die Kleidung anprobieren?",
+    "Kunde: Ja, gern. Wo ist die Umkleidekabine? — Verkäufer: Das macht zusammen 75 Euro, bitte."
+   ],
+   "response_type": "dialog",
+   "min_duration": 30,
+   "max_duration": 150,
+   "speech_goal": "Im Geschäft höflich Waren verlangen, Größe/Farbe nennen und bezahlen.",
+   "keywords": [
+    "Ich möchte",
+    "Ich nehme",
+    "bitte",
+    "Das macht zusammen"
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l10-wortschatz-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 10,
+   "skill": "wortschatz",
+   "title": "Wortschatz Modul 10: Im Supermarkt",
+   "source": "book",
+   "metadata": {
+    "book_page": 107
+   },
+   "words": [
+    {
+     "word": "Supermarkt",
+     "translation": "supermarket",
+     "article": "der",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Laden",
+     "translation": "do'kon",
+     "article": "der",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Verkäufer",
+     "translation": "sotuvchi",
+     "article": "der",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Verkäuferin",
+     "translation": "sotuvchi ayol",
+     "article": "die",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Kunde",
+     "translation": "mijoz",
+     "article": "der",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Kundin",
+     "translation": "mijoz ayol",
+     "article": "die",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "einkaufen",
+     "translation": "xarid qilmoq",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Einkaufswagen",
+     "translation": "savat (aravacha)",
+     "article": "der",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Tasche",
+     "translation": "sumka",
+     "article": "die",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Brot",
+     "translation": "non",
+     "article": "das",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Weißbrot",
+     "translation": "oq non",
+     "article": "das",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Vollkornbrot",
+     "translation": "to'liq donli non",
+     "article": "das",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Milch",
+     "translation": "sut",
+     "article": "die",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Butter",
+     "translation": "sariyog'",
+     "article": "die",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Käse",
+     "translation": "pishloq",
+     "article": "der",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Eier",
+     "translation": "tuxum",
+     "article": "die",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Obst",
+     "translation": "meva",
+     "article": "das",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Apfel",
+     "translation": "olma",
+     "article": "der",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Banane",
+     "translation": "banan",
+     "article": "die",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Tomate",
+     "translation": "pomidor",
+     "article": "die",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Gurke",
+     "translation": "bodring",
+     "article": "die",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Gemüse",
+     "translation": "sabzavot",
+     "article": "das",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Reis",
+     "translation": "guruch",
+     "article": "der",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Nudeln",
+     "translation": "makaron",
+     "article": "die",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Fleisch",
+     "translation": "go'sht",
+     "article": "das",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Wasser",
+     "translation": "suv",
+     "article": "das",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Saft",
+     "translation": "sharbat",
+     "article": "der",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Cola",
+     "translation": "kola",
+     "article": "die",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Snack",
+     "translation": "gazak",
+     "article": "der",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Angebot",
+     "translation": "aksiya, chegirma",
+     "article": "das",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Kasse",
+     "translation": "kassa",
+     "article": "die",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "bezahlen",
+     "translation": "to'lamoq",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Karte",
+     "translation": "karta (to'lov)",
+     "article": "die",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Preis",
+     "translation": "narx",
+     "article": "der",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Produkt",
+     "translation": "mahsulot",
+     "article": "das",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "frisch",
+     "translation": "yangi",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "alt",
+     "translation": "eski",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "groß",
+     "translation": "katta",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "klein",
+     "translation": "kichik",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "blau",
+     "translation": "ko'k",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "schwarz",
+     "translation": "qora",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "rot",
+     "translation": "qizil",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Jacke",
+     "translation": "kurtka",
+     "article": "die",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Hose",
+     "translation": "shim",
+     "article": "die",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "T-Shirt",
+     "translation": "futbolka",
+     "article": "das",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Schuhe",
+     "translation": "poyabzal",
+     "article": "die",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "anprobieren",
+     "translation": "kiyib ko'rmoq",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "Umkleidekabine",
+     "translation": "kiyinish xonasi",
+     "article": "die",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "gesund",
+     "translation": "sog'lom",
+     "group": "Im Supermarkt"
+    },
+    {
+     "word": "lecker",
+     "translation": "mazali",
+     "group": "Im Supermarkt"
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l10-yakuniy-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 10,
+   "skill": "yakuniy",
+   "title": "Yakuniy Test: Modul 10",
+   "source": "vizu",
+   "instruction": "Sifatlarning turlanishi va xarid so'zlari bo'yicha yakuniy test.",
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Das ist ein [[1]] Apfel.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "roter"
+       ],
+       "options": [
+        "roter",
+        "rote",
+        "rotes"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Ich kaufe eine [[1]] Jacke.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "blaue"
+       ],
+       "options": [
+        "blaue",
+        "blauen",
+        "blauer"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Der [[1]] Käse ist lecker.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "frische"
+       ],
+       "options": [
+        "frische",
+        "frischer",
+        "frischen"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Ich sehe den [[1]] Supermarkt.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "großen"
+       ],
+       "options": [
+        "großen",
+        "große",
+        "großer"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Wir kaufen [[1]] Brot. (artikelsiz)",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "frisches"
+       ],
+       "options": [
+        "frisches",
+        "frische",
+        "frischen"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„mit dem neu__ Auto“",
+     "options": [
+      "-en",
+      "-e",
+      "-es"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„die Kasse“ — o'zbekchasi qaysi?",
+     "options": [
+      "kassa",
+      "narx",
+      "sumka"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„anprobieren“ — o'zbekchasi qaysi?",
+     "options": [
+      "kiyib ko'rmoq",
+      "to'lamoq",
+      "xarid qilmoq"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "„das Angebot“ bedeutet „aksiya, chegirma“.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "matching",
+     "question": "Was passt zusammen?",
+     "items": [
+      "der Preis",
+      "die Hose",
+      "die Schuhe",
+      "gesund"
+     ],
+     "targets": [
+      "narx",
+      "shim",
+      "poyabzal",
+      "sog'lom",
+      "sumka"
+     ],
+     "pairs": {
+      "1": "A",
+      "2": "B",
+      "3": "C",
+      "4": "D"
+     },
+     "points": 1,
+     "passage": 1
+    }
+   ]
+  }
+ ]
+}

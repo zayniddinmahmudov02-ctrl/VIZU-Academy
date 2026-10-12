@@ -5,7 +5,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { ChevronDown, ChevronRight, History, Play, RefreshCw } from "lucide-react";
 
 import { AdminButton, AdminInput, AdminSelect, AdminTextarea } from "@/components/admin/admin-ui";
-import type { SkillResult } from "@/features/lessons/services/lesson-skills-service";
+import type { SkillResult, SkillKey } from "@/features/lessons/services/lesson-skills-service";
 import {
   apiErrorMessage,
   getLessonSkillsResults,
@@ -47,8 +47,19 @@ function fmtDate(iso: string | null | undefined): string {
   return Number.isNaN(d.getTime()) ? "—" : d.toLocaleString("de-DE", { dateStyle: "short", timeStyle: "short" });
 }
 
-function SkillCell({ skill }: { skill: SkillResult }) {
-  if (!skill.available) return <span className="text-[var(--admin-text-muted)]">—</span>;
+const SKILL_COLUMNS: { key: SkillKey; label: string }[] = [
+  { key: "frage", label: "Frage" },
+  { key: "grammatik", label: "Grammatik" },
+  { key: "lesen", label: "Lesen" },
+  { key: "hoeren", label: "Hören" },
+  { key: "schreiben", label: "Schreiben" },
+  { key: "sprechen", label: "Sprechen" },
+  { key: "wortschatz", label: "Wortschatz" },
+  { key: "yakuniy", label: "Yakuniy" },
+];
+
+function SkillCell({ skill }: { skill: SkillResult | undefined }) {
+  if (!skill || !skill.available) return <span className="text-[var(--admin-text-muted)]">—</span>;
   return (
     <div className="leading-tight">
       <span className="font-bold tabular-nums text-[var(--admin-text-primary)]">{skill.score ?? "—"}</span>
@@ -63,14 +74,13 @@ function StudentsTable({ students }: { students: AdminStudentResult[] }) {
   }
   return (
     <div className="overflow-x-auto rounded-2xl bg-[var(--admin-card)] ring-1 ring-[var(--admin-border)]">
-      <table className="w-full min-w-[720px] text-left text-sm" data-testid="admin-skill-students">
+      <table className="w-full min-w-[1040px] text-left text-sm" data-testid="admin-skill-students">
         <thead>
           <tr className="border-b border-[var(--admin-border)] text-xs uppercase tracking-wide text-[var(--admin-text-muted)]">
             <th className="px-4 py-3">Schüler</th>
-            <th className="px-3 py-3">Lesen</th>
-            <th className="px-3 py-3">Hören</th>
-            <th className="px-3 py-3">Schreiben</th>
-            <th className="px-3 py-3">Sprechen</th>
+            {SKILL_COLUMNS.map((c) => (
+              <th key={c.key} className="px-3 py-3">{c.label}</th>
+            ))}
             <th className="px-3 py-3">Gesamt</th>
           </tr>
         </thead>
@@ -81,10 +91,9 @@ function StudentsTable({ students }: { students: AdminStudentResult[] }) {
                 <span className="font-semibold text-[var(--admin-text-primary)]">{s.student_name}</span>
                 {s.email && <span className="block text-xs text-[var(--admin-text-muted)]">{s.email}</span>}
               </td>
-              <td className="px-3 py-3"><SkillCell skill={s.skills.lesen} /></td>
-              <td className="px-3 py-3"><SkillCell skill={s.skills.hoeren} /></td>
-              <td className="px-3 py-3"><SkillCell skill={s.skills.schreiben} /></td>
-              <td className="px-3 py-3"><SkillCell skill={s.skills.sprechen} /></td>
+              {SKILL_COLUMNS.map((c) => (
+                <td key={c.key} className="px-3 py-3"><SkillCell skill={s.skills[c.key]} /></td>
+              ))}
               <td className="px-3 py-3">
                 {s.overall.score === null ? (
                   <span className="text-[var(--admin-text-muted)]">—</span>

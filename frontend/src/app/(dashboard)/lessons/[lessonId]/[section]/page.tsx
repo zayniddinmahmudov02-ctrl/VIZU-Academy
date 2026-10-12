@@ -3,13 +3,14 @@ import { notFound } from "next/navigation";
 
 import SectionGateBoundary from "@/components/lesson-player/common/section-gate-boundary";
 import PremiumLessonGate from "@/components/lesson-player/video/premium-lesson-gate";
+import GrammarSection from "@/components/lesson-player/grammar/grammar-section";
 import ListeningSection from "@/components/lesson-player/listening/listening-section";
-import QuizSection from "@/components/lesson-player/quiz/quiz-section";
+import FinalTestSection from "@/components/lesson-player/quiz/final-test-section";
 import ReadingSection from "@/components/lesson-player/reading/reading-section";
 import ResultSection from "@/components/lesson-player/results/result-section";
 import SpeakingSection from "@/components/lesson-player/speaking/speaking-section";
 import VideoSection from "@/components/lesson-player/video/video-section";
-import VocabularyQuizSection from "@/components/lesson-player/vocabulary/vocabulary-quiz-section";
+import VocabularySection from "@/components/lesson-player/vocabulary/vocabulary-section";
 import WritingSection from "@/components/lesson-player/writing/writing-section";
 import { getSectionBySlug, type LessonSectionMeta } from "@/constants/lesson-sections";
 
@@ -19,12 +20,14 @@ interface SectionComponentProps {
 
 const SECTION_COMPONENTS: Record<LessonSectionMeta["type"], ComponentType<SectionComponentProps>> = {
   video: VideoSection,
+  frage: (props) => <SpeakingSection {...props} kind="FRAGE" />,
+  grammar: GrammarSection,
   reading: ReadingSection,
   listening: ListeningSection,
   writing: WritingSection,
   speaking: SpeakingSection,
-  "vocabulary-quiz": VocabularyQuizSection,
-  "lesson-quiz": (props) => <QuizSection {...props} quizType="LESSON" />,
+  vocabulary: VocabularySection,
+  "lesson-quiz": FinalTestSection,
   results: ResultSection,
 };
 

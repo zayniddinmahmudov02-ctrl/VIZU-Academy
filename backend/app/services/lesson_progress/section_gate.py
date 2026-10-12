@@ -107,6 +107,13 @@ SECTION_ORDER = [
     "wortschatz",
     "grammatik",
     "grammatik_quiz",
+    # lesson flow v3 (VIZU-DEUTSCH book): server-graded attempts
+    "frage",
+    "grammatik_test",
+    "lesen_test",
+    "hoeren_test",
+    "wortschatz_test",
+    "yakuniy_test",
 ]
 
 # The "required for lesson completion" set — used only by
@@ -115,7 +122,17 @@ SECTION_ORDER = [
 # signal); the removed Wortschatz browsing / Grammatik / Grammatik Quiz
 # steps can no longer be completed by a student. Schreiben/Sprechen count
 # only once a teacher has GRADED the student's submission.
-GATED_ORDER = ["video", "schreiben", "sprechen", "wortschatz_quiz", "lesson_quiz"]
+GATED_ORDER = [
+    "video",
+    "frage",
+    "grammatik_test",
+    "lesen_test",
+    "hoeren_test",
+    "schreiben",
+    "sprechen",
+    "wortschatz_test",
+    "yakuniy_test",
+]
 
 
 class SectionGateService:
@@ -227,7 +244,7 @@ class SectionGateService:
         task_ids = [
             str(row[0])
             for row in self.db.query(Speaking.id)
-            .filter(Speaking.lesson_id == str(lesson_id), Speaking.is_published.is_(True))
+            .filter(Speaking.lesson_id == str(lesson_id), Speaking.is_published.is_(True), Speaking.task_kind == "SPRECHEN")
             .all()
         ]
         if not task_ids:
@@ -308,7 +325,7 @@ class SectionGateService:
     def _speaking_applicable(self, lesson_id: UUID) -> bool:
         return (
             self.db.query(Speaking)
-            .filter(Speaking.lesson_id == str(lesson_id), Speaking.is_published.is_(True))
+            .filter(Speaking.lesson_id == str(lesson_id), Speaking.is_published.is_(True), Speaking.task_kind == "SPRECHEN")
             .first()
             is not None
         )
@@ -362,6 +379,36 @@ class SectionGateService:
             "sprechen": self._speaking_applicable(lesson_id),
             "lesson_quiz": self._quiz_applicable(lesson_id, QUIZ_TYPE_LESSON),
         }
+
+        # lesson flow v3: the same per-skill state the results page shows
+        from app.services.lesson_skills import results as skill_results
+
+        flow = skill_results.lesson_skill_results(self.db, user_id, lesson_id)["skills"]
+
+        def done(skill: str) -> bool:
+            return flow[skill]["status"] == skill_results.COMPLETED
+
+        for key, skill in (("lesen_test", "lesen"), ("hoeren_test", "hoeren")):
+            applicable[key] = flow[skill]["available"]
+            completed[key] = done(skill)
+        applicable["frage"] = flow["frage"]["available"]
+        completed["frage"] = bool(flow["frage"].get("submitted"))
+        # Grammatik: rules and / or exercises; with exercises they must be
+        # done, rules alone count once viewed (grammar_completed).
+        applicable["grammatik_test"] = flow["grammatik"]["available"] or applicable["grammatik"]
+        completed["grammatik_test"] = done("grammatik") if flow["grammatik"]["available"] else completed["grammatik"]
+        # Wortschatz: the new practice sets replace the legacy VOCABULARY quiz
+        if flow["wortschatz"]["available"]:
+            applicable["wortschatz_test"], completed["wortschatz_test"] = True, done("wortschatz")
+        elif applicable["wortschatz_quiz"]:
+            applicable["wortschatz_test"], completed["wortschatz_test"] = True, completed["wortschatz_quiz"]
+        else:
+            applicable["wortschatz_test"], completed["wortschatz_test"] = applicable["wortschatz"], completed["wortschatz"]
+        # Yakuniy Test: the new final test replaces the legacy LESSON quiz
+        if flow["yakuniy"]["available"]:
+            applicable["yakuniy_test"], completed["yakuniy_test"] = True, done("yakuniy")
+        else:
+            applicable["yakuniy_test"], completed["yakuniy_test"] = applicable["lesson_quiz"], completed["lesson_quiz"]
 
         unlocked = self._compute_unlocked()
 

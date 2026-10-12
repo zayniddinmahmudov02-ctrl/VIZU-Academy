@@ -1,0 +1,968 @@
+{
+ "schema_version": "1.1",
+ "language": "de",
+ "source": "vizu-deutsch-a1-book",
+ "items": [
+  {
+   "content_id": "vizu-a1-l14-frage-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 14,
+   "skill": "frage",
+   "title": "Frage: Wie sind die Gesundheitsprobleme in Deutschland?",
+   "source": "book",
+   "metadata": {
+    "book_page": 137
+   },
+   "prompt": "Welche Gesundheitsprobleme haben viele Menschen in Deutschland (Schmerzen, Erkältung, Schlafstörungen, Stress …)? Was machen Sie für Ihre Gesundheit?",
+   "min_duration": 10,
+   "max_duration": 120
+  },
+  {
+   "content_id": "vizu-a1-l14-grammatik-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 14,
+   "skill": "grammatik",
+   "title": "Grammatik: Futur I",
+   "source": "book",
+   "metadata": {
+    "book_page": 138
+   },
+   "rules": [
+    {
+     "title": "Futur I — Kelasi zamon",
+     "html": "<p><strong>Futur I (kelasi zamon)</strong> — kelajakda bo'ladigan ish-harakatni bildiradi.</p><ul><li><strong>werden</strong> 2-o'rinda turadi.</li><li>Asosiy fe'l oxirida turadi.</li><li>Infinitiv shakli o'zgarmaydi (lernen, gehen, machen).</li></ul><table><thead><tr><th>Shaxs</th><th>werden</th><th>Misol</th><th>Tarjima</th></tr></thead><tbody><tr><td>ich</td><td>werde</td><td>Ich werde morgen lernen.</td><td>Men ertaga o'qiyman.</td></tr><tr><td>du</td><td>wirst</td><td>Du wirst Deutsch sprechen.</td><td>Sen nemis tilida gapirasan.</td></tr><tr><td>er / sie / es</td><td>wird</td><td>Er wird nach Berlin fahren.</td><td>U Berlinga boradi.</td></tr><tr><td>wir</td><td>werden</td><td>Wir werden zu Hause bleiben.</td><td>Biz uyda qolamiz.</td></tr><tr><td>ihr</td><td>werdet</td><td>Ihr werdet morgen abfahren.</td><td>Sizlar ertaga jo'nab ketasizlar.</td></tr><tr><td>sie / Sie</td><td>werden</td><td>Sie werden später kommen.</td><td>Ular keyinroq kelishadi.</td></tr></tbody></table>"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "Topshiriqlar 1–10: werden einsetzen",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie die richtige Form von „werden“ ein.",
+       "text": "Ich [[1]] morgen nach Berlin fahren.",
+       "gaps": {
+        "1": [
+         "werde"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie die richtige Form von „werden“ ein.",
+       "text": "Du [[1]] heute Abend lernen.",
+       "gaps": {
+        "1": [
+         "wirst"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie die richtige Form von „werden“ ein.",
+       "text": "Er [[1]] später kommen.",
+       "gaps": {
+        "1": [
+         "wird"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie die richtige Form von „werden“ ein.",
+       "text": "Wir [[1]] am Wochenende Fußball spielen.",
+       "gaps": {
+        "1": [
+         "werden"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie die richtige Form von „werden“ ein.",
+       "text": "Ihr [[1]] Deutsch sprechen.",
+       "gaps": {
+        "1": [
+         "werdet"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie die richtige Form von „werden“ ein.",
+       "text": "Sie (Plural) [[1]] das Buch lesen.",
+       "gaps": {
+        "1": [
+         "werden"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie die richtige Form von „werden“ ein.",
+       "text": "Maria [[1]] ihre Oma besuchen.",
+       "gaps": {
+        "1": [
+         "wird"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie die richtige Form von „werden“ ein.",
+       "text": "Thomas und Ali [[1]] im Sommer reisen.",
+       "gaps": {
+        "1": [
+         "werden"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie die richtige Form von „werden“ ein.",
+       "text": "Du [[1]] mir helfen.",
+       "gaps": {
+        "1": [
+         "wirst"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie die richtige Form von „werden“ ein.",
+       "text": "Ich [[1]] das nicht machen.",
+       "gaps": {
+        "1": [
+         "werde"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "Setzen Sie die richtige Form von „werden“ ein."
+    },
+    {
+     "title": "Topshiriqlar 11–20: Sätze bilden (Futur I)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie einen Satz im Futur I: morgen / ich / lernen / werde",
+       "accepted": [
+        "Ich werde morgen lernen.",
+        "Morgen werde ich lernen."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Ich werde morgen lernen."
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie einen Satz im Futur I: wird / er / kommen / später",
+       "accepted": [
+        "Er wird später kommen.",
+        "Später wird er kommen."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Er wird später kommen."
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie einen Satz im Futur I: wir / bleiben / zu Hause / werden",
+       "accepted": [
+        "Wir werden zu Hause bleiben."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Wir werden zu Hause bleiben."
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie einen Satz im Futur I: du / machen / wirst / was",
+       "accepted": [
+        "Was wirst du machen?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Was wirst du machen?"
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie einen Satz im Futur I: fahren / sie / nach Deutschland / werden",
+       "accepted": [
+        "Sie werden nach Deutschland fahren."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Sie werden nach Deutschland fahren."
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie einen Satz im Futur I: das Buch / lesen / ich / werde",
+       "accepted": [
+        "Ich werde das Buch lesen.",
+        "Das Buch werde ich lesen."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Ich werde das Buch lesen."
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie einen Satz im Futur I: arbeiten / ihr / morgen / werdet",
+       "accepted": [
+        "Ihr werdet morgen arbeiten.",
+        "Morgen werdet ihr arbeiten."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Ihr werdet morgen arbeiten."
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie einen Satz im Futur I: wird / sie / nicht / kommen",
+       "accepted": [
+        "Sie wird nicht kommen."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Sie wird nicht kommen."
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie einen Satz im Futur I: am Wochenende / spielen / wir / werden / Tennis",
+       "accepted": [
+        "Wir werden am Wochenende Tennis spielen.",
+        "Am Wochenende werden wir Tennis spielen."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Wir werden am Wochenende Tennis spielen."
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie einen Satz im Futur I: helfen / wirst / du / mir",
+       "accepted": [
+        "Du wirst mir helfen.",
+        "Wirst du mir helfen?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Du wirst mir helfen."
+      }
+     ],
+     "instruction": "Bilden Sie Sätze aus den Wörtern."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l14-lesen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 14,
+   "skill": "lesen",
+   "title": "Lesen: Gesund bleiben — krank sein",
+   "source": "book",
+   "metadata": {
+    "book_page": 139,
+    "note": "Savollar kitobdan; javob variantlari VIZU tomonidan."
+   },
+   "instruction": "Lesen Sie die Texte und beantworten Sie die Fragen.",
+   "passages": [
+    {
+     "title": "Ich möchte immer gesund werden.",
+     "text": "Ich möchte immer gesund werden und gesund bleiben. Gesundheit ist für mich sehr wichtig, denn ohne Gesundheit ist alles schwer. Jeden Morgen stehe ich um sieben Uhr auf. Zuerst öffne ich das Fenster und atme frische Luft. Danach mache ich zehn Minuten Sport. Manchmal gehe ich im Park joggen, manchmal mache ich Yoga oder einfache Übungen zu Hause.\n\nZum Frühstück esse ich Obst, Eier und Brot. Ich trinke Tee oder Wasser, aber keine süßen Getränke. In der Schule oder bei der Arbeit esse ich auch gesund. Ich nehme oft einen Apfel oder einen Salat mit. Am Mittag esse ich nicht zu fett und nicht zu viel.\n\nAm Abend gehe ich spazieren oder fahre Fahrrad. Das hilft meinem Körper und meinem Kopf. Ich schlafe jeden Tag acht Stunden, weil Schlaf sehr wichtig ist. Wenn ich Stress habe, höre ich Musik oder lese ein Buch. Ich denke positiv und lache viel. So fühle ich mich stark und glücklich. Ich hoffe, ich werde immer gesund bleiben und ein langes Leben haben."
+    },
+    {
+     "title": "Ich bin leider krank.",
+     "text": "Ich bin leider krank und fühle mich nicht gut. Seit einer Woche habe ich Husten, Schnupfen und Fieber. Mein Hals tut weh und ich habe Kopfschmerzen. Ich bin sehr müde und habe keine Energie. Deshalb bleibe ich zu Hause und gehe nicht zur Schule oder zur Arbeit.\n\nIch liege viel im Bett und schlafe. Meine Familie hilft mir. Meine Mutter kocht Suppe und mein Bruder kauft Medikamente in der Apotheke. Ich trinke viel Tee mit Honig und Zitrone. Das hilft meinem Hals. Ich esse wenig, aber ich versuche Obst zu essen.\n\nVor zwei Tagen war ich beim Arzt. Der Arzt hat mich untersucht und gesagt: „Sie müssen viel schlafen und viel trinken.“ Er hat mir Tabletten gegeben. Ich nehme die Medikamente jeden Tag. Ich hoffe, ich werde bald wieder gesund. Ich vermisse meine Freunde und möchte wieder nach draußen gehen. Gesundheit ist wirklich sehr wichtig."
+    }
+   ],
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Warum ist Gesundheit für die Person sehr wichtig?",
+     "options": [
+      "Denn ohne Gesundheit ist alles schwer.",
+      "Denn sie möchte viel Geld haben.",
+      "Denn sie hat keine Zeit."
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was macht die Person jeden Morgen nach dem Aufstehen?",
+     "options": [
+      "Sie öffnet das Fenster, atmet frische Luft und macht zehn Minuten Sport.",
+      "Sie sieht fern.",
+      "Sie trinkt süße Getränke."
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was macht die Person gegen Stress?",
+     "options": [
+      "Sie hört Musik oder liest ein Buch.",
+      "Sie isst Schokolade.",
+      "Sie schläft nicht."
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Wenn ich Stress habe, höre ich Musik oder lese ein Buch.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Welche Symptome hat die Person?",
+     "options": [
+      "Husten, Schnupfen, Fieber, Halsschmerzen und Kopfschmerzen",
+      "Nur Bauchschmerzen",
+      "Keine Symptome"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 2
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was sagt der Arzt?",
+     "options": [
+      "„Sie müssen viel schlafen und viel trinken.“",
+      "„Sie müssen viel Sport machen.“",
+      "„Sie können morgen arbeiten.“"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 2
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Warum möchte die Person schnell gesund werden?",
+     "options": [
+      "Sie vermisst ihre Freunde und möchte wieder nach draußen gehen.",
+      "Sie möchte in den Urlaub fahren.",
+      "Sie muss eine Prüfung schreiben."
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 2
+    }
+   ],
+   "max_score": 6
+  },
+  {
+   "content_id": "vizu-a1-l14-hoeren-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 14,
+   "skill": "hoeren",
+   "title": "Hören: Alisa oder Alex?",
+   "source": "book",
+   "metadata": {
+    "book_page": 140
+   },
+   "audio_file": "A1-14.1.mp3 / A1-14.2.mp3",
+   "key_pending": true,
+   "instruction": "Hören Sie den Text und wählen Sie: Alisa oder Alex?",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Wer macht am Morgen Gymnastik und atmet frische Luft?",
+     "options": [
+      "Alisa",
+      "Alex"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer geht drei Mal pro Woche ins Fitnessstudio?",
+     "options": [
+      "Alisa",
+      "Alex"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer isst am Abend Salat oder Suppe?",
+     "options": [
+      "Alisa",
+      "Alex"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer spielt am Wochenende Basketball?",
+     "options": [
+      "Alisa",
+      "Alex"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer geht oft zu Fuß zur Arbeit?",
+     "options": [
+      "Alisa",
+      "Alex"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer trainiert eine Stunde im Fitnessstudio?",
+     "options": [
+      "Alisa",
+      "Alex"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer liest vor dem Schlafen ein Buch?",
+     "options": [
+      "Alisa",
+      "Alex"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer isst viel Gemüse und Fisch?",
+     "options": [
+      "Alisa",
+      "Alex"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer trifft am Nachmittag ihre Freundin im Park?",
+     "options": [
+      "Alisa",
+      "Alex"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer möchte stark und aktiv bleiben?",
+     "options": [
+      "Alisa",
+      "Alex"
+     ],
+     "points": 1
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l14-schreiben-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 14,
+   "skill": "schreiben",
+   "title": "Schreiben: Ich werde wieder gesund",
+   "source": "book",
+   "metadata": {
+    "book_page": 141
+   },
+   "prompt": "Sie sind krank, aber Sie werden wieder gesund. Schreiben Sie einen Text wie im Beispiel (Buch S. 141):\nWelche Symptome haben Sie? Was machen Sie jetzt (zu Hause bleiben, schlafen, Tee trinken, Tabletten nehmen …)?\nWas werden Sie machen, wenn Sie wieder gesund sind? Benutzen Sie das Futur I (Ich werde …).",
+   "task_type": "description",
+   "min_words": 50,
+   "max_words": 150,
+   "time_limit": 20,
+   "support_phrases": [
+    "Ich habe Fieber und Husten.",
+    "Deshalb bleibe ich zu Hause.",
+    "Ich werde bald wieder gesund sein.",
+    "Danach werde ich …",
+    "Gesundheit ist sehr wichtig für mich."
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l14-sprechen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 14,
+   "skill": "sprechen",
+   "title": "Beim Arzt — Dialog",
+   "source": "book",
+   "metadata": {
+    "book_page": 142
+   },
+   "topic": "Beim Arzt",
+   "prompt": "Sie sind der Patient / die Patientin. Antworten Sie dem Arzt.",
+   "questions": [
+    "Guten Tag. Wie heißen Sie?",
+    "Was fehlt Ihnen?",
+    "Seit wann sind Sie krank?",
+    "Haben Sie auch Kopfschmerzen?",
+    "Haben Sie Halsschmerzen?",
+    "Bitte öffnen Sie den Mund. Atmen Sie tief ein und aus.",
+    "Sie haben eine Erkältung. Hier ist ein Rezept. Nehmen Sie diese Tabletten zweimal am Tag.",
+    "Bleiben Sie zu Hause und schlafen Sie viel. Trinken Sie viel Tee oder Wasser.",
+    "Gute Besserung!"
+   ],
+   "response_type": "dialog",
+   "min_duration": 30,
+   "max_duration": 150,
+   "speech_goal": "Beim Arzt Beschwerden beschreiben, Fragen stellen (Muss ich …? Soll ich …? Wann kann ich …?) und sich bedanken.",
+   "keywords": [
+    "Ich habe Fieber",
+    "Seit … Tagen",
+    "Muss ich …",
+    "Danke, Herr Doktor"
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l14-wortschatz-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 14,
+   "skill": "wortschatz",
+   "title": "Wortschatz Modul 14: Gesundheit",
+   "source": "book",
+   "metadata": {
+    "book_page": 143
+   },
+   "words": [
+    {
+     "word": "Gesundheit",
+     "translation": "sog'liq",
+     "article": "die",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "gesund",
+     "translation": "sog'lom",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "krank",
+     "translation": "kasal",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "Krankheit",
+     "translation": "kasallik",
+     "article": "die",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "Fieber",
+     "translation": "isitma",
+     "article": "das",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "Husten",
+     "translation": "yo'tal",
+     "article": "der",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "Schnupfen",
+     "translation": "shamollash (tumov)",
+     "article": "der",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "Kopfschmerzen",
+     "translation": "bosh og'rig'i",
+     "article": "die",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "Halsschmerzen",
+     "translation": "tomoq og'rig'i",
+     "article": "die",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "müde",
+     "translation": "charchagan",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "Arzt",
+     "translation": "shifokor",
+     "article": "der",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "Ärztin",
+     "translation": "ayol shifokor",
+     "article": "die",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "Praxis",
+     "translation": "klinika",
+     "article": "die",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "Krankenhaus",
+     "translation": "shifoxona",
+     "article": "das",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "Tablette",
+     "translation": "dori (tabletka)",
+     "article": "die",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "Medikament",
+     "translation": "dori",
+     "article": "das",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "Apotheke",
+     "translation": "dorixona",
+     "article": "die",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "Patient",
+     "translation": "bemor",
+     "article": "der",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "Patientin",
+     "translation": "ayol bemor",
+     "article": "die",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "Termin",
+     "translation": "uchrashuv",
+     "article": "der",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "Rezept",
+     "translation": "retsept",
+     "article": "das",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "untersuchen",
+     "translation": "tekshirmoq",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "helfen",
+     "translation": "yordam bermoq",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "bleiben",
+     "translation": "qolmoq",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "schlafen",
+     "translation": "uxlamoq",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "trinken",
+     "translation": "ichmoq",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "essen",
+     "translation": "yemoq",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "spazieren gehen",
+     "translation": "sayr qilmoq",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "Sport machen",
+     "translation": "sport bilan shug'ullanmoq",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "Fitnessstudio",
+     "translation": "sport zali",
+     "article": "das",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "stark",
+     "translation": "kuchli",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "schwach",
+     "translation": "kuchsiz",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "sich fühlen",
+     "translation": "o'zini his qilmoq",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "Erkältung",
+     "translation": "shamollash",
+     "article": "die",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "zu Hause bleiben",
+     "translation": "uyda qolmoq",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "gesund bleiben",
+     "translation": "sog'lom qolmoq",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "Leben",
+     "translation": "hayot",
+     "article": "das",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "lange leben",
+     "translation": "uzoq yashamoq",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "die frische Luft",
+     "translation": "toza havo",
+     "group": "Gesundheit und Krankheit"
+    },
+    {
+     "word": "Suppe",
+     "translation": "sho'rva",
+     "article": "die",
+     "group": "Gesundheit und Krankheit"
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l14-yakuniy-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 14,
+   "skill": "yakuniy",
+   "title": "Yakuniy Test: Modul 14",
+   "source": "vizu",
+   "instruction": "Futur I va sog'liq so'zlari bo'yicha yakuniy test.",
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Ich [[1]] morgen zum Arzt gehen.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "werde"
+       ],
+       "options": [
+        "werde",
+        "wird",
+        "wirst"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Er [[1]] bald wieder gesund.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "wird"
+       ],
+       "options": [
+        "wird",
+        "werdet",
+        "werde"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Ihr [[1]] viel Wasser trinken.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "werdet"
+       ],
+       "options": [
+        "werdet",
+        "werden",
+        "wird"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Welcher Satz ist richtig?",
+     "options": [
+      "Wir werden morgen Tennis spielen.",
+      "Wir werden spielen morgen Tennis.",
+      "Wir morgen werden Tennis spielen."
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wo steht das Infinitiv im Futur I?",
+     "options": [
+      "Auf Position 2",
+      "Am Ende",
+      "Am Anfang"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„die Apotheke“ — o'zbekchasi qaysi?",
+     "options": [
+      "dorixona",
+      "shifoxona",
+      "klinika"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„der Husten“ — o'zbekchasi qaysi?",
+     "options": [
+      "yo'tal",
+      "isitma",
+      "bosh og'rig'i"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„Gute Besserung!“ sagt man …",
+     "options": [
+      "einer kranken Person",
+      "zum Geburtstag",
+      "am Morgen"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "„schwach“ bedeutet „kuchsiz“.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "matching",
+     "question": "Was passt zusammen?",
+     "items": [
+      "das Rezept",
+      "untersuchen",
+      "das Fieber",
+      "die Erkältung"
+     ],
+     "targets": [
+      "retsept",
+      "tekshirmoq",
+      "isitma",
+      "shamollash",
+      "dori"
+     ],
+     "pairs": {
+      "1": "A",
+      "2": "B",
+      "3": "C",
+      "4": "D"
+     },
+     "points": 1,
+     "passage": 1
+    }
+   ]
+  }
+ ]
+}

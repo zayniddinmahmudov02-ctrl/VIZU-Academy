@@ -29,6 +29,9 @@ class ImportRequest(BaseModel):
     document: dict
     filename: str | None = Field(default=None, max_length=255)
     create_missing: bool = False
+    # re-import: content that already exists (same content_id, or same title
+    # in the lesson) is skipped instead of reported as an error
+    skip_existing: bool = False
 
 
 class GenerateRequest(BaseModel):
@@ -67,7 +70,7 @@ def get_status(_: User = Depends(require_admin_panel_access)):
 def validate(data: ImportRequest, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
     """Validation + preview. Writes nothing."""
     _check_size(data.document)
-    return importer.public_report(importer.validate_document(db, data.document, data.create_missing))
+    return importer.public_report(importer.validate_document(db, data.document, data.create_missing, data.skip_existing))
 
 
 @router.post("/commit")
@@ -75,7 +78,7 @@ def commit(data: ImportRequest, db: Session = Depends(get_db), actor: User = Dep
     """Creates every VALID item as unpublished content; invalid items are
     listed with their errors. Nothing is published here."""
     _check_size(data.document)
-    batch = importer.commit_document(db, data.document, actor, data.filename, data.create_missing)
+    batch = importer.commit_document(db, data.document, actor, data.filename, data.create_missing, data.skip_existing)
     return importer.batch_summary(batch, with_items=True)
 
 

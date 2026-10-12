@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from fastapi import APIRouter, BackgroundTasks, Depends, File, Form, HTTPException, UploadFile
+from fastapi import APIRouter, BackgroundTasks, Depends, File, Form, HTTPException, Query, UploadFile
 from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 
@@ -39,13 +39,15 @@ def get_speakings(
 @router.get("/lesson/{lesson_id}", response_model=list[SpeakingResponse])
 def get_lesson_speakings(
     lesson_id: str,
+    kind: str = Query("SPRECHEN", pattern=r"^(SPRECHEN|FRAGE)$"),
     db: Session = Depends(get_db),
     __: User = Depends(require_lesson_access),
 ):
     """Student-facing, published-only — Sprechen's source of truth (the
     Assessment Engine's Sprechen implementation is no longer used by the
-    student frontend; see lesson-sections.ts)."""
-    return SpeakingService(db).get_by_lesson(lesson_id, published_only=True)
+    student frontend; see lesson-sections.ts). kind=FRAGE returns the
+    lesson's Frage des Themas voice task(s) instead."""
+    return SpeakingService(db).get_by_lesson(lesson_id, published_only=True, task_kind=kind)
 
 
 @router.get("/{speaking_id}", response_model=SpeakingResponse)

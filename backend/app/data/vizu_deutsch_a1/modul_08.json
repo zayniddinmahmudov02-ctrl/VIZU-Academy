@@ -1,0 +1,1975 @@
+{
+ "schema_version": "1.1",
+ "language": "de",
+ "source": "vizu-deutsch-a1-book",
+ "items": [
+  {
+   "content_id": "vizu-a1-l08-frage-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 8,
+   "skill": "frage",
+   "title": "Frage: Was machen die Deutschen im Urlaub?",
+   "source": "book",
+   "metadata": {
+    "book_page": 81
+   },
+   "prompt": "Was machen die Deutschen im Urlaub? Und was machen Sie gern im Urlaub?",
+   "min_duration": 10,
+   "max_duration": 120
+  },
+  {
+   "content_id": "vizu-a1-l08-grammatik-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 8,
+   "skill": "grammatik",
+   "title": "Grammatik: Perfekt",
+   "source": "book",
+   "metadata": {
+    "book_page": "82-83"
+   },
+   "rules": [
+    {
+     "title": "Perfekt",
+     "html": "<p><strong>Perfekt</strong> — o'tmishda bo'lib o'tgan ish-harakatni aytish uchun ishlatiladi. Ko'proq og'zaki nutqda ishlatiladi. O'zbekchasi: qildim, bordim, yedim kabi. Ich habe gelernt. — Men o'rgandim. Er ist gekommen. — U keldi.</p><p><strong>Tuzilishi:</strong> Subjekt + haben / sein + Objekt + Partizip II. — Ich habe gestern eine Pizza gegessen.</p><table><thead><tr><th>haben qachon ishlatiladi</th><th>sein qachon ishlatiladi</th></tr></thead><tbody><tr><td>-ieren fe'llar: studieren → hat studiert, telefonieren → hat telefoniert</td><td>Harakat fe'llari / joy o'zgarishi: gehen → ist gegangen, kommen → ist gekommen</td></tr><tr><td>sich fe'llar: sich freuen → hat sich gefreut, sich waschen → hat sich gewaschen</td><td>Harakat va holat o'zgarishi: fahren → ist gefahren, fliegen → ist geflogen</td></tr><tr><td>O'timli (Akkusativ) fe'llar: essen → hat gegessen, kaufen → hat gekauft</td><td>Holat o'zgarishi: aufstehen → ist aufgestanden</td></tr><tr><td>Tinch holat fe'llari: arbeiten → hat gearbeitet, schlafen → hat geschlafen</td><td></td></tr></tbody></table><h3>Partizip II — Perfekt zamonida ishlatiladigan fe'l shakli, gap oxirida keladi</h3><table><thead><tr><th>Fe'l turi</th><th>Qoidasi</th><th>Misollar</th></tr></thead><tbody><tr><td>Kuchli (unregelmäßig) fe'llar</td><td>ge + o'zgargan fe'l asosi + en</td><td>sehen → gesehen, essen → gegessen</td></tr><tr><td>Kuchsiz (regelmäßig) fe'llar</td><td>ge + fe'l asosi + t</td><td>machen → gemacht, lernen → gelernt, suchen → gesucht</td></tr><tr><td>Ajralmaydigan fe'llar (be-, er-, ver-, zer-, miss-, ent-, emp-)</td><td>„ge“ qo'shilmaydi</td><td>besuchen → besucht</td></tr><tr><td>-ieren bilan tugagan fe'llar</td><td>ge qo'shilmaydi, oxiri -t</td><td>studieren → studiert, telefonieren → telefoniert</td></tr><tr><td>Ajraladigan fe'llar (ab-, an-, auf-, aus-, bei-, ein-, mit-, nach-, vor-, zu-, zurück-, zusammen-)</td><td>prefiks + ge + fe'l</td><td>aufstehen → aufgestanden, einkaufen → eingekauft</td></tr></tbody></table>"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "Aufgabe 1: regelmäßige Verben (Präsens → Perfekt)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Wir [[1]] oft im Park. (spielen) → Wir [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "spielen"
+        ],
+        "2": [
+         "haben"
+        ],
+        "3": [
+         "gespielt"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "spielen → haben … gespielt"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Er [[1]] heute Abend Pizza. (kochen) → Er [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "kocht"
+        ],
+        "2": [
+         "hat"
+        ],
+        "3": [
+         "gekocht"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "kocht → hat … gekocht"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Ihr [[1]] gerne Musik. (tanzen) → Ihr [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "tanzt"
+        ],
+        "2": [
+         "habt"
+        ],
+        "3": [
+         "getanzt"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "tanzt → habt … getanzt"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Sie [[1]] auf den Bus. (warten) → Sie [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "wartet",
+         "warten"
+        ],
+        "2": [
+         "hat",
+         "haben"
+        ],
+        "3": [
+         "gewartet"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "wartet → hat … gewartet"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Ich [[1]] immer auf Fragen. (antworten) → Ich [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "antworte"
+        ],
+        "2": [
+         "habe"
+        ],
+        "3": [
+         "geantwortet"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "antworte → habe … geantwortet"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Du [[1]] viele Fragen. (fragen) → Du [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "fragst"
+        ],
+        "2": [
+         "hast"
+        ],
+        "3": [
+         "gefragt"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "fragst → hast … gefragt"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Wir [[1]] unsere Freunde. (besuchen) → Wir [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "besuchen"
+        ],
+        "2": [
+         "haben"
+        ],
+        "3": [
+         "besucht"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "besuchen → haben … besucht"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Er [[1]] Radio. (hören) → Er [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "hört"
+        ],
+        "2": [
+         "hat"
+        ],
+        "3": [
+         "gehört"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "hört → hat … gehört"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Ihr [[1]] miteinander. (sprechen) → Ihr [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "sprecht"
+        ],
+        "2": [
+         "habt"
+        ],
+        "3": [
+         "gesprochen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "sprecht → habt … gesprochen"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Ich [[1]] Brot im Supermarkt. (kaufen) → Ich [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "kaufe"
+        ],
+        "2": [
+         "habe"
+        ],
+        "3": [
+         "gekauft"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "kaufe → habe … gekauft"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Du [[1]] jeden Tag Klavier. (üben) → Du [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "übst"
+        ],
+        "2": [
+         "hast"
+        ],
+        "3": [
+         "geübt"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "übst → hast … geübt"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Wir [[1]] lange im Garten. (arbeiten) → Wir [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "arbeiten"
+        ],
+        "2": [
+         "haben"
+        ],
+        "3": [
+         "gearbeitet"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "arbeiten → haben … gearbeitet"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Sie [[1]] viel für die Schule. (lernen) → Sie [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "lernen",
+         "lernt"
+        ],
+        "2": [
+         "haben",
+         "hat"
+        ],
+        "3": [
+         "gelernt"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "lernen → haben … gelernt"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Ich [[1]] jeden Morgen Sport. (machen) → Ich [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "mache"
+        ],
+        "2": [
+         "habe"
+        ],
+        "3": [
+         "gemacht"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "mache → habe … gemacht"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Er [[1]] gern Fußball. (spielen) → Er [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "spielt"
+        ],
+        "2": [
+         "hat"
+        ],
+        "3": [
+         "gespielt"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "spielt → hat … gespielt"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Ihr [[1]] oft am Wochenende. (tanzen) → Ihr [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "tanzt"
+        ],
+        "2": [
+         "habt"
+        ],
+        "3": [
+         "getanzt"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "tanzt → habt … getanzt"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Du [[1]] für das Abendessen. (kochen) → Du [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "kochst"
+        ],
+        "2": [
+         "hast"
+        ],
+        "3": [
+         "gekocht"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "kochst → hast … gekocht"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Wir [[1]] auf den Zug. (warten) → Wir [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "warten"
+        ],
+        "2": [
+         "haben"
+        ],
+        "3": [
+         "gewartet"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "warten → haben … gewartet"
+      }
+     ],
+     "instruction": "Beispiel: Ich lerne jeden Tag Deutsch. → Ich habe Deutsch gelernt."
+    },
+    {
+     "title": "Aufgabe 2: unregelmäßige Verben (Präsens → Perfekt)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Wir [[1]] das Buch. (lesen) → Wir [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "lesen"
+        ],
+        "2": [
+         "haben"
+        ],
+        "3": [
+         "gelesen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "lesen → haben … gelesen"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Er [[1]] gestern ins Kino. (gehen) → Er [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "geht"
+        ],
+        "2": [
+         "ist"
+        ],
+        "3": [
+         "gegangen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "geht → ist … gegangen"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Ihr [[1]] hoch in den Himmel. (fliegen) → Ihr [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "fliegt"
+        ],
+        "2": [
+         "seid"
+        ],
+        "3": [
+         "geflogen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "fliegt → seid … geflogen"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Sie [[1]] den Ball. (nehmen) → Sie [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "nimmt",
+         "nehmen"
+        ],
+        "2": [
+         "hat",
+         "haben"
+        ],
+        "3": [
+         "genommen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "nimmt → hat … genommen"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Ich [[1]] den Hund. (finden) → Ich [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "finde"
+        ],
+        "2": [
+         "habe"
+        ],
+        "3": [
+         "gefunden"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "finde → habe … gefunden"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Du [[1]] spät nach Hause. (kommen) → Du [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "kommst"
+        ],
+        "2": [
+         "bist"
+        ],
+        "3": [
+         "gekommen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "kommst → bist … gekommen"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Wir [[1]] das Geschenk. (geben) → Wir [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "geben"
+        ],
+        "2": [
+         "haben"
+        ],
+        "3": [
+         "gegeben"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "geben → haben … gegeben"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Er [[1]] die Aufgabe. (vergessen) → Er [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "vergisst"
+        ],
+        "2": [
+         "hat"
+        ],
+        "3": [
+         "vergessen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "vergisst → hat … vergessen"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Ihr [[1]] im Garten. (laufen) → Ihr [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "lauft"
+        ],
+        "2": [
+         "seid"
+        ],
+        "3": [
+         "gelaufen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "lauft → seid … gelaufen"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Sie [[1]] die Stadt. (sehen) → Sie [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "sieht",
+         "sehen"
+        ],
+        "2": [
+         "hat",
+         "haben"
+        ],
+        "3": [
+         "gesehen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "sieht → hat … gesehen"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Ich [[1]] meine Schlüssel. (verlieren) → Ich [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "verliere"
+        ],
+        "2": [
+         "habe"
+        ],
+        "3": [
+         "verloren"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "verliere → habe … verloren"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Du [[1]] gestern Abend Pizza. (essen) → Du [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "isst"
+        ],
+        "2": [
+         "hast"
+        ],
+        "3": [
+         "gegessen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "isst → hast … gegessen"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Wir [[1]] viel im Urlaub. (fahren) → Wir [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "fahren"
+        ],
+        "2": [
+         "sind"
+        ],
+        "3": [
+         "gefahren"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "fahren → sind … gefahren"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Er [[1]] nach Hause. (gehen) → Er [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "geht"
+        ],
+        "2": [
+         "ist"
+        ],
+        "3": [
+         "gegangen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "geht → ist … gegangen"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Ich [[1]] das Bild. (lesen) → Ich [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "lese"
+        ],
+        "2": [
+         "habe"
+        ],
+        "3": [
+         "gelesen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "lese → habe … gelesen"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Ihr [[1]] den Ball. (werfen) → Ihr [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "werft"
+        ],
+        "2": [
+         "habt"
+        ],
+        "3": [
+         "geworfen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "werft → habt … geworfen"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Sie [[1]] auf die Idee. (kommen) → Sie [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "kommt",
+         "kommen"
+        ],
+        "2": [
+         "ist",
+         "sind"
+        ],
+        "3": [
+         "gekommen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "kommt → ist … gekommen"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Du [[1]] das Lied. (singen) → Du [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "singst"
+        ],
+        "2": [
+         "hast"
+        ],
+        "3": [
+         "gesungen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "singst → hast … gesungen"
+      }
+     ],
+     "instruction": "Beispiel: Ich sehe heute Morgen viel. → Ich habe viel gesehen. Du fährst nach Berlin. → Du bist nach Berlin gefahren."
+    },
+    {
+     "title": "Aufgabe 3: trennbare Verben (Präsens → Perfekt)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Wir [[1]] die Tür. (zumachen) → Wir [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "machen zu",
+         "machen … zu",
+         "machen ... zu"
+        ],
+        "2": [
+         "haben"
+        ],
+        "3": [
+         "zugemacht"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "machen zu → haben … zugemacht"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Er [[1]] das Geschenk. (mitbringen) → Er [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "bringt mit",
+         "bringt … mit",
+         "bringt ... mit"
+        ],
+        "2": [
+         "hat"
+        ],
+        "3": [
+         "mitgebracht"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "bringt mit → hat … mitgebracht"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Ihr [[1]] früh am Morgen. (aufstehen) → Ihr [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "steht auf",
+         "steht … auf",
+         "steht ... auf"
+        ],
+        "2": [
+         "seid"
+        ],
+        "3": [
+         "aufgestanden"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "steht auf → seid … aufgestanden"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Sie [[1]] mich gestern. (anrufen) → Sie [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "ruft an",
+         "ruft … an",
+         "ruft ... an",
+         "rufen an",
+         "rufen … an",
+         "rufen ... an"
+        ],
+        "2": [
+         "hat",
+         "haben"
+        ],
+        "3": [
+         "angerufen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "ruft an → hat … angerufen"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Ich [[1]] die Wohnung. (aufräumen) → Ich [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "räume auf",
+         "räume … auf",
+         "räume ... auf"
+        ],
+        "2": [
+         "habe"
+        ],
+        "3": [
+         "aufgeräumt"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "räume auf → habe … aufgeräumt"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Du [[1]] Lebensmittel. (einkaufen) → Du [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "kaufst ein",
+         "kaufst … ein",
+         "kaufst ... ein"
+        ],
+        "2": [
+         "hast"
+        ],
+        "3": [
+         "eingekauft"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "kaufst ein → hast … eingekauft"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Wir [[1]] zusammen im Projekt. (mitmachen) → Wir [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "machen mit",
+         "machen … mit",
+         "machen ... mit"
+        ],
+        "2": [
+         "haben"
+        ],
+        "3": [
+         "mitgemacht"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "machen mit → haben … mitgemacht"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Er [[1]] aufmerksam. (zuhören) → Er [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "hört zu",
+         "hört … zu",
+         "hört ... zu"
+        ],
+        "2": [
+         "hat"
+        ],
+        "3": [
+         "zugehört"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "hört zu → hat … zugehört"
+      }
+     ],
+     "instruction": "Beispiel: Ich kaufe im Supermarkt ein. → Ich habe im Supermarkt eingekauft."
+    },
+    {
+     "title": "Aufgabe 4: untrennbare Verben (Präsens → Perfekt)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Wir [[1]] unsere Freunde. (besuchen) → Wir [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "besuchen"
+        ],
+        "2": [
+         "haben"
+        ],
+        "3": [
+         "besucht"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "besuchen → haben … besucht"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Er [[1]] die Rechnung. (bezahlen) → Er [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "bezahlt"
+        ],
+        "2": [
+         "hat"
+        ],
+        "3": [
+         "bezahlt"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "bezahlt → hat … bezahlt"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Ihr [[1]] den Plan. (erklären) → Ihr [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "erklärt"
+        ],
+        "2": [
+         "habt"
+        ],
+        "3": [
+         "erklärt"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "erklärt → habt … erklärt"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Sie [[1]] die Regeln. (gehören) → Sie [[2]] [[3]]. (Kitobda: gehören → hat gehört)",
+       "gaps": {
+        "1": [
+         "gehört",
+         "gehören",
+         "hört",
+         "hören"
+        ],
+        "2": [
+         "hat",
+         "haben"
+        ],
+        "3": [
+         "gehört"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "gehört → hat … gehört"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Ich [[1]] ein Paket. (bekommen) → Ich [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "bekomme"
+        ],
+        "2": [
+         "habe"
+        ],
+        "3": [
+         "bekommen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "bekomme → habe … bekommen"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Du [[1]] den Schlüssel. (verlieren) → Du [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "verlierst"
+        ],
+        "2": [
+         "hast"
+        ],
+        "3": [
+         "verloren"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "verlierst → hast … verloren"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Wir [[1]] eine tolle Erfahrung. (erleben) → Wir [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "erleben"
+        ],
+        "2": [
+         "haben"
+        ],
+        "3": [
+         "erlebt"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "erleben → haben … erlebt"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Präsens → Perfekt: ergänzen Sie.",
+       "text": "Er [[1]] ein neues Museum. (entdecken) → Er [[2]] [[3]].",
+       "gaps": {
+        "1": [
+         "entdeckt"
+        ],
+        "2": [
+         "hat"
+        ],
+        "3": [
+         "entdeckt"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "entdeckt → hat … entdeckt"
+      }
+     ],
+     "instruction": "Beispiel: Ich verstehe die Aufgabe. → Ich habe die Aufgabe verstanden. Präfixe: be-, ge-, er-, ver-, zer-, miss-, ent-, emp-."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l08-lesen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 8,
+   "skill": "lesen",
+   "title": "Lesen: Mein Urlaub in Spanien",
+   "source": "book",
+   "metadata": {
+    "book_page": 84,
+    "note": "Savollar kitobdan; javob variantlari VIZU tomonidan (kitob javoblari asosida)."
+   },
+   "instruction": "Lies den Text und beantworte die Fragen.",
+   "passages": [
+    {
+     "title": "Mein Urlaub in Spanien",
+     "text": "Letzten Sommer bin ich nach Spanien gereist. Ich habe in einem Hotel am Strand gewohnt. Das Wetter war sehr schön und warm. Ich habe jeden Tag im Meer gebadet und habe viel Sonne getankt. Manchmal habe ich auch Volleyball am Strand gespielt. Ich habe Tapas gegessen und habe spanische Paella probiert. Jeden Abend bin ich spazieren gegangen und habe schöne Fotos gemacht. Ich habe viele nette Leute getroffen und wir haben zusammen gelacht.\n\nIch habe auch eine Stadtbesichtigung gemacht. Ich habe viele interessante Gebäude gesehen und habe Souvenirs gekauft. Außerdem habe ich ein Museum besucht und habe viel über die Geschichte Spaniens gelernt.\n\nMein Urlaub hat mir sehr gut gefallen. Ich habe mich entspannt und habe viel Spaß gehabt. Ich habe neue Freunde gefunden und ich habe schöne Erinnerungen gesammelt."
+    }
+   ],
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Wohin bist du letzten Sommer gereist?",
+     "options": [
+      "Nach Italien",
+      "Nach Spanien",
+      "In die Schweiz"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Ich bin nach Spanien gereist."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wo hast du gewohnt?",
+     "options": [
+      "Bei einer Gastfamilie",
+      "In einem Hotel am Strand",
+      "In einem Hostel"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wie war das Wetter?",
+     "options": [
+      "Sehr schön und warm",
+      "Kalt",
+      "Regnerisch"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was hast du jeden Tag gemacht?",
+     "options": [
+      "Ich habe im Meer gebadet und Sonne getankt.",
+      "Ich habe gearbeitet.",
+      "Ich habe Deutsch gelernt."
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Hast du am Strand gespielt?",
+     "options": [
+      "Ja, ich habe Volleyball am Strand gespielt.",
+      "Nein, nie.",
+      "Ja, Fußball im Park."
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was hast du gegessen?",
+     "options": [
+      "Pizza und Pasta",
+      "Tapas und Paella",
+      "Schnitzel"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was hast du abends gemacht?",
+     "options": [
+      "Ich bin spazieren gegangen und habe Fotos gemacht.",
+      "Ich habe ferngesehen.",
+      "Ich habe geschlafen."
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Hast du neue Leute getroffen?",
+     "options": [
+      "Ja, ich habe viele nette Leute getroffen.",
+      "Nein, niemanden.",
+      "Nur meine Familie."
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Hast du Souvenirs gekauft?",
+     "options": [
+      "Ja",
+      "Nein",
+      "Das steht nicht im Text."
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Hat dir dein Urlaub gefallen?",
+     "options": [
+      "Ja, sehr gut.",
+      "Nein, gar nicht.",
+      "Er war langweilig."
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    }
+   ],
+   "max_score": 10
+  },
+  {
+   "content_id": "vizu-a1-l08-hoeren-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 8,
+   "skill": "hoeren",
+   "title": "Hören: Meine Reise nach Zermatt in der Schweiz",
+   "source": "book",
+   "metadata": {
+    "book_page": 85
+   },
+   "audio_file": "A1-8.mp3",
+   "instruction": "Hören Sie den Text und ergänzen Sie die Verben im Perfekt (Hilfsverb und Partizip II).",
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "Meine Reise nach Zermatt — ergänzen Sie die Lücken (1)",
+     "text": "Vor einem Monat wollte ich nach Island reisen, aber ich [[1]] (sein) zuerst in die Schweiz [[2]] (fliegen). Ich [[3]] (sein) nach Zermatt [[4]] (fahren), weil ich die Berge sehen wollte. Zermatt ist eine kleine Stadt in den Alpen.",
+     "gaps": {
+      "1": [
+       "bin"
+      ],
+      "2": [
+       "geflogen"
+      ],
+      "3": [
+       "bin"
+      ],
+      "4": [
+       "gefahren"
+      ]
+     },
+     "points": 4,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Meine Reise nach Zermatt — ergänzen Sie die Lücken (2)",
+     "text": "Ich [[5]] (haben) in einem Hotel in der Nähe des Matterhorns [[6]] (übernachten). Das Hotel [[7]] (haben) mir sehr gut [[8]] (gefallen). Ich [[9]] (sein) jeden Tag in der Natur spazieren [[10]] (gehen) und [[11]] (haben) die schöne Landschaft [[12]] (bewundern).",
+     "gaps": {
+      "5": [
+       "habe"
+      ],
+      "6": [
+       "übernachtet"
+      ],
+      "7": [
+       "hat"
+      ],
+      "8": [
+       "gefallen"
+      ],
+      "9": [
+       "bin"
+      ],
+      "10": [
+       "gegangen"
+      ],
+      "11": [
+       "habe"
+      ],
+      "12": [
+       "bewundert"
+      ]
+     },
+     "points": 8,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Meine Reise nach Zermatt — ergänzen Sie die Lücken (3)",
+     "text": "Ich [[13]] (haben) viele Fotos [[14]] (machen). Ich [[15]] (haben) ein paar Wanderungen [[16]] (machen) und [[17]] (haben) frische Bergluft [[18]] (genießen). Ich [[19]] (haben) auch Schokolade und Käse [[20]] (probieren).",
+     "gaps": {
+      "13": [
+       "habe"
+      ],
+      "14": [
+       "gemacht"
+      ],
+      "15": [
+       "habe"
+      ],
+      "16": [
+       "gemacht"
+      ],
+      "17": [
+       "habe"
+      ],
+      "18": [
+       "genossen"
+      ],
+      "19": [
+       "habe"
+      ],
+      "20": [
+       "probiert"
+      ]
+     },
+     "points": 8,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Meine Reise nach Zermatt — ergänzen Sie die Lücken (4)",
+     "text": "Ich [[21]] (haben) neue Leute [[22]] (treffen) und wir [[23]] (haben) zusammen [[24]] (lachen). Ich [[25]] (haben) Souvenirs [[26]] (kaufen), zum Beispiel kleine Schokoladen und Postkarten.",
+     "gaps": {
+      "21": [
+       "habe"
+      ],
+      "22": [
+       "getroffen"
+      ],
+      "23": [
+       "haben"
+      ],
+      "24": [
+       "gelacht"
+      ],
+      "25": [
+       "habe"
+      ],
+      "26": [
+       "gekauft"
+      ]
+     },
+     "points": 6,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Meine Reise nach Zermatt — ergänzen Sie die Lücken (5)",
+     "text": "Meine Reise [[27]] (haben) mir sehr gut [[28]] (gefallen). Ich [[29]] (haben) mich [[30]] (entspannen) und [[31]] (haben) viele schöne Erinnerungen [[32]] (sammeln). Zermatt in der Schweiz [[33]] (sein) ein wunderbarer Ort, und ich [[34]] (möchten) dort wieder [[35]] (hinfahren).",
+     "gaps": {
+      "27": [
+       "hat"
+      ],
+      "28": [
+       "gefallen"
+      ],
+      "29": [
+       "habe"
+      ],
+      "30": [
+       "entspannt"
+      ],
+      "31": [
+       "habe"
+      ],
+      "32": [
+       "gesammelt"
+      ],
+      "33": [
+       "war",
+       "ist"
+      ],
+      "34": [
+       "möchte"
+      ],
+      "35": [
+       "hinfahren"
+      ]
+     },
+     "points": 9,
+     "passage": 1,
+     "case_sensitive": false
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l08-schreiben-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 8,
+   "skill": "schreiben",
+   "title": "Schreiben: Mein Urlaub",
+   "source": "book",
+   "metadata": {
+    "book_page": 86
+   },
+   "prompt": "Schreiben Sie über Ihren Urlaub. Beantworten Sie die Fragen in ganzen Sätzen (Perfekt):\nWohin bist du gereist? Wann war dein Urlaub? Wo hast du gewohnt? Mit wem warst du? Was hast du gemacht? Was hast du gegessen und getrunken? Was hat dir besonders gefallen? Hast du Souvenirs gekauft? Wie hast du dich gefühlt? Möchtest du wieder dorthin fahren?",
+   "task_type": "description",
+   "min_words": 50,
+   "max_words": 150,
+   "time_limit": 25,
+   "support_phrases": [
+    "Ich bin nach … gefahren.",
+    "Letzten Sommer habe ich Urlaub gemacht.",
+    "Ich habe in einem Hotel gewohnt.",
+    "Ich bin mit meiner Familie gereist.",
+    "Die Landschaft hat mir sehr gut gefallen.",
+    "Ich möchte nächstes Jahr wieder dorthin fahren."
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l08-sprechen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 8,
+   "skill": "sprechen",
+   "title": "Dialog: Nach dem Urlaub",
+   "source": "book",
+   "metadata": {
+    "book_page": 87
+   },
+   "topic": "Nach dem Urlaub",
+   "prompt": "Sie sind der Student / die Studentin. Beantworten Sie die Fragen des Lehrers über Ihren Urlaub (im Perfekt).",
+   "questions": [
+    "Wie war dein Urlaub?",
+    "Wohin bist du gereist?",
+    "Wo hast du gewohnt?",
+    "Mit wem bist du gereist?",
+    "Was hast du gemacht?",
+    "Hast du neue Leute getroffen?",
+    "Welche Städte oder Orte hast du besucht?",
+    "Hast du etwas Besonderes gemacht?",
+    "Hat dir dein Urlaub gefallen?",
+    "Was hast du gegessen und getrunken?",
+    "Möchtest du wieder dorthin reisen?"
+   ],
+   "response_type": "dialog",
+   "min_duration": 30,
+   "max_duration": 180,
+   "speech_goal": "Über eine Reise im Perfekt sprechen: Ziel, Unterkunft, Begleitung, Aktivitäten, Essen, Eindruck.",
+   "keywords": [
+    "Ich bin … gereist",
+    "Ich habe … gewohnt",
+    "Ich habe … gemacht"
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l08-wortschatz-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 8,
+   "skill": "wortschatz",
+   "title": "Wortschatz Modul 8: Urlaub",
+   "source": "book",
+   "metadata": {
+    "book_page": 88
+   },
+   "words": [
+    {
+     "word": "Urlaub",
+     "translation": "ta'til",
+     "article": "der",
+     "group": "Urlaub"
+    },
+    {
+     "word": "reisen",
+     "translation": "sayohat qilmoq",
+     "group": "Urlaub"
+    },
+    {
+     "word": "reisen nach",
+     "translation": "…ga sayohat qilmoq",
+     "group": "Urlaub"
+    },
+    {
+     "word": "letzten Sommer",
+     "translation": "o'tgan yoz",
+     "group": "Urlaub"
+    },
+    {
+     "word": "wohnen",
+     "translation": "yashamoq, qolmoq",
+     "group": "Urlaub"
+    },
+    {
+     "word": "Hotel",
+     "translation": "mehmonxona",
+     "article": "das",
+     "group": "Urlaub"
+    },
+    {
+     "word": "am Strand",
+     "translation": "plyajda",
+     "group": "Urlaub"
+    },
+    {
+     "word": "Wetter",
+     "translation": "ob-havo",
+     "article": "das",
+     "group": "Urlaub"
+    },
+    {
+     "word": "schön",
+     "translation": "chiroyli, yaxshi",
+     "group": "Urlaub"
+    },
+    {
+     "word": "warm",
+     "translation": "issiq",
+     "group": "Urlaub"
+    },
+    {
+     "word": "baden",
+     "translation": "cho'milmoq",
+     "group": "Urlaub"
+    },
+    {
+     "word": "die Sonne tanken",
+     "translation": "quyosh nurida toblanmoq",
+     "group": "Urlaub"
+    },
+    {
+     "word": "Volleyball spielen",
+     "translation": "voleybol o'ynamoq",
+     "group": "Urlaub"
+    },
+    {
+     "word": "essen",
+     "translation": "yemoq",
+     "group": "Urlaub"
+    },
+    {
+     "word": "Tapas",
+     "translation": "tapas (ispan taomi)",
+     "article": "die",
+     "group": "Urlaub"
+    },
+    {
+     "word": "Paella",
+     "translation": "paella (ispan taomi)",
+     "article": "die",
+     "group": "Urlaub"
+    },
+    {
+     "word": "abends",
+     "translation": "kechqurun",
+     "group": "Urlaub"
+    },
+    {
+     "word": "spazieren gehen",
+     "translation": "sayr qilmoq",
+     "group": "Urlaub"
+    },
+    {
+     "word": "Fotos machen",
+     "translation": "fotosurat tushirmoq",
+     "group": "Urlaub"
+    },
+    {
+     "word": "nette Leute",
+     "translation": "yoqimli odamlar",
+     "group": "Urlaub"
+    },
+    {
+     "word": "lachen",
+     "translation": "kulmoq",
+     "group": "Urlaub"
+    },
+    {
+     "word": "Stadtbesichtigung",
+     "translation": "shahar bo'ylab sayohat / ekskursiya",
+     "article": "die",
+     "group": "Urlaub"
+    },
+    {
+     "word": "interessant",
+     "translation": "qiziqarli",
+     "group": "Urlaub"
+    },
+    {
+     "word": "Gebäude",
+     "translation": "binolar",
+     "article": "die",
+     "group": "Urlaub"
+    },
+    {
+     "word": "Souvenirs kaufen",
+     "translation": "sovg'a sotib olmoq",
+     "group": "Urlaub"
+    },
+    {
+     "word": "Museum",
+     "translation": "muzey",
+     "article": "das",
+     "group": "Urlaub"
+    },
+    {
+     "word": "Geschichte",
+     "translation": "tarix",
+     "article": "die",
+     "group": "Urlaub"
+    },
+    {
+     "word": "gefallen",
+     "translation": "yoqmoq",
+     "group": "Urlaub"
+    },
+    {
+     "word": "sich entspannen",
+     "translation": "dam olmoq",
+     "group": "Urlaub"
+    },
+    {
+     "word": "Spaß haben",
+     "translation": "zavqlanmoq, rohatlanmoq",
+     "group": "Urlaub"
+    },
+    {
+     "word": "neue Freunde finden",
+     "translation": "yangi do'stlar topmoq",
+     "group": "Urlaub"
+    },
+    {
+     "word": "Erinnerungen sammeln",
+     "translation": "xotiralar to'plamoq",
+     "group": "Urlaub"
+    },
+    {
+     "word": "Alpen",
+     "translation": "Alp tog'lari",
+     "article": "die",
+     "group": "Urlaub"
+    },
+    {
+     "word": "Matterhorn",
+     "translation": "Matterhorn tog'i",
+     "article": "das",
+     "group": "Urlaub"
+    },
+    {
+     "word": "Natur",
+     "translation": "tabiat",
+     "article": "die",
+     "group": "Urlaub"
+    },
+    {
+     "word": "bewundern",
+     "translation": "hayratlanib tomosha qilmoq",
+     "group": "Urlaub"
+    },
+    {
+     "word": "Wanderung",
+     "translation": "piyoda sayr, trekking",
+     "article": "die",
+     "group": "Urlaub"
+    },
+    {
+     "word": "die frische Luft",
+     "translation": "toza havo",
+     "group": "Urlaub"
+    },
+    {
+     "word": "Schokolade probieren",
+     "translation": "shokolad tatib ko'rmoq",
+     "group": "Urlaub"
+    },
+    {
+     "word": "Käse probieren",
+     "translation": "pishloq tatib ko'rmoq",
+     "group": "Urlaub"
+    },
+    {
+     "word": "zusammen lachen",
+     "translation": "birga kulmoq",
+     "group": "Urlaub"
+    },
+    {
+     "word": "hinfahren",
+     "translation": "(bir joyga) borib kelmoq",
+     "group": "Urlaub"
+    },
+    {
+     "word": "möchten",
+     "translation": "xohlamoq",
+     "group": "Urlaub"
+    },
+    {
+     "word": "zuerst",
+     "translation": "avval, birinchi",
+     "group": "Urlaub"
+    },
+    {
+     "word": "weiterreisen",
+     "translation": "sayohatni davom ettirmoq",
+     "group": "Urlaub"
+    },
+    {
+     "word": "klein",
+     "translation": "kichik",
+     "group": "Urlaub"
+    },
+    {
+     "word": "überall",
+     "translation": "hamma joyda",
+     "group": "Urlaub"
+    },
+    {
+     "word": "Stadt",
+     "translation": "shahar",
+     "article": "die",
+     "group": "Urlaub"
+    },
+    {
+     "word": "sehr gut",
+     "translation": "juda yaxshi",
+     "group": "Urlaub"
+    },
+    {
+     "word": "besonders",
+     "translation": "ayniqsa, maxsus",
+     "group": "Urlaub"
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l08-yakuniy-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 8,
+   "skill": "yakuniy",
+   "title": "Yakuniy Test: Modul 8",
+   "source": "vizu",
+   "instruction": "Perfekt va ta'til so'zlari bo'yicha yakuniy test.",
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Ich [[1]] nach Berlin gefahren.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "bin"
+       ],
+       "options": [
+        "bin",
+        "habe",
+        "hat"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Wir [[1]] Pizza gegessen.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "haben"
+       ],
+       "options": [
+        "haben",
+        "sind",
+        "hat"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Er ist früh [[1]]. (aufstehen)",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "aufgestanden"
+       ],
+       "options": [
+        "aufgestanden",
+        "aufgesteht",
+        "geaufstanden"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Partizip II von „besuchen“:",
+     "options": [
+      "gebesucht",
+      "besucht",
+      "besuchen"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Partizip II von „studieren“:",
+     "options": [
+      "gestudiert",
+      "studiert",
+      "studieren"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Partizip II von „sehen“:",
+     "options": [
+      "gesehen",
+      "gesieht",
+      "gesah"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Partizip II von „einkaufen“:",
+     "options": [
+      "eingekauft",
+      "geeinkauft",
+      "einkaufte"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Welcher Satz ist richtig?",
+     "options": [
+      "Ich habe gestern gearbeitet.",
+      "Ich bin gestern gearbeitet.",
+      "Ich habe gestern arbeiten."
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„der Urlaub“ — o'zbekchasi qaysi?",
+     "options": [
+      "ta'til",
+      "mehmonxona",
+      "plyaj"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "„sich entspannen“ bedeutet „dam olmoq“.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "matching",
+     "question": "Was passt zusammen?",
+     "items": [
+      "baden",
+      "die Wanderung",
+      "das Wetter",
+      "gefallen"
+     ],
+     "targets": [
+      "cho'milmoq",
+      "piyoda sayr",
+      "ob-havo",
+      "yoqmoq",
+      "muzey"
+     ],
+     "pairs": {
+      "1": "A",
+      "2": "B",
+      "3": "C",
+      "4": "D"
+     },
+     "points": 1,
+     "passage": 1
+    }
+   ]
+  }
+ ]
+}

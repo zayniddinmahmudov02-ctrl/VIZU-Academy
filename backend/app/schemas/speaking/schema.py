@@ -54,6 +54,8 @@ class SpeakingBase(BaseSchema):
     response_type: str = Field(default="MONOLOG", pattern=r"^(MONOLOG|DIALOG)$")
     questions: list[str] | None = Field(default=None, max_length=20)
     content_id: str | None = Field(default=None, max_length=120)
+    # SPRECHEN = the Sprechen step; FRAGE = Frage des Themas (same recorder)
+    task_kind: str = Field(default="SPRECHEN", pattern=r"^(SPRECHEN|FRAGE)$")
 
     _rubric_ok = field_validator("rubric")(classmethod(lambda cls, v: _check_rubric(v)))
 
@@ -94,6 +96,7 @@ class SpeakingUpdate(BaseSchema):
     response_type: str | None = Field(default=None, pattern=r"^(MONOLOG|DIALOG)$")
     questions: list[str] | None = Field(default=None, max_length=20)
     speech_goal: str | None = Field(default=None, max_length=2000)
+    task_kind: str | None = Field(default=None, pattern=r"^(SPRECHEN|FRAGE)$")
 
     _rubric_ok = field_validator("rubric")(classmethod(lambda cls, v: _check_rubric(v)))
 

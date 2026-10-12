@@ -10,7 +10,11 @@ their content). Standard library only.
 from html import escape
 from html.parser import HTMLParser
 
-ALLOWED_TAGS = {"p", "br", "strong", "b", "em", "i", "u", "ul", "ol", "li", "h3", "h4", "blockquote"}
+ALLOWED_TAGS = {
+    "p", "br", "strong", "b", "em", "i", "u", "ul", "ol", "li", "h3", "h4", "blockquote",
+    # grammar rules: plain tables (still without any attribute)
+    "table", "thead", "tbody", "tr", "th", "td",
+}
 VOID_TAGS = {"br"}
 DROP_WITH_CONTENT = {"script", "style", "iframe", "object", "embed", "template", "noscript", "svg", "math"}
 

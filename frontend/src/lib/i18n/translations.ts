@@ -820,6 +820,37 @@ export const translations: Record<string, Namespace> = {
     loadLessonError: { de: "Lektion konnte nicht geladen werden.", uz: "Darsni yuklab bo'lmadi." },
 
     sectionVideo: { de: "Videokurs", uz: "Video dars" },
+    sectionFrage: { de: "Frage des Themas", uz: "Frage des Themas" },
+    sectionGrammar: { de: "Grammatik", uz: "Grammatik" },
+    sectionVocabulary: { de: "Wortschatz", uz: "Wortschatz" },
+    frageDescription: {
+      de: "Beantworte die Frage zum Thema mit deiner Stimme: aufnehmen, anhören, neu aufnehmen und senden.",
+      uz: "Mavzu savoliga ovozli javob bering: yozing, tinglang, qayta yozing va yuboring.",
+    },
+    frageEmpty: { de: "Für diese Lektion gibt es noch keine Frage des Themas.", uz: "Bu dars uchun hali mavzu savoli yo'q." },
+    frageSent: { de: "Gesendet", uz: "Yuborildi" },
+    grammarDescription: {
+      de: "Die Regeln der Lektion mit Beispielen — danach üben und automatisch prüfen.",
+      uz: "Darsning grammatik qoidalari va misollar — so'ng mashqlar avtomatik tekshiriladi.",
+    },
+    grammarEmpty: { de: "Für diese Lektion ist noch keine Grammatik verfügbar.", uz: "Bu dars uchun hali grammatika mavjud emas." },
+    grammarExercises: { de: "Übungen", uz: "Mashqlar" },
+    vocabularyDescription: {
+      de: "Die Wörter der Lektion lernen und mit Übungen wiederholen.",
+      uz: "Dars so'zlarini o'rganing va mashqlar bilan takrorlang.",
+    },
+    vocabularyEmpty: { de: "Für diese Lektion sind noch keine Wörter verfügbar.", uz: "Bu dars uchun hali so'zlar mavjud emas." },
+    vocabularySearch: { de: "Wort suchen …", uz: "So'z qidirish…" },
+    vocabularyCount: { de: "{n} Wörter", uz: "{n} ta so'z" },
+    vocabularyPractice: { de: "Übungen", uz: "Mashqlar" },
+    finalTestDescription: {
+      de: "Abschlusstest zur Grammatik und zum Wortschatz dieser Lektion — automatisch bewertet.",
+      uz: "Shu darsdagi grammatika va so'zlar bo'yicha yakuniy test — avtomatik baholanadi.",
+    },
+    exerciseSourceVizu: {
+      de: "Von VIZU zum Lernstoff des Buches erstellt.",
+      uz: "VIZU tomonidan kitob materiali asosida tuzilgan.",
+    },
     sectionReading: { de: "Lesen", uz: "Lesen" },
     sectionListening: { de: "Hören", uz: "Hören" },
     sectionWriting: { de: "Schreiben", uz: "Schreiben" },

@@ -187,24 +187,31 @@ def grade(questions: list, answers: dict) -> dict:
 # ============================================================
 
 
-def _scope(query, user_id: UUID, lesson_id: UUID, skill: str, listening_id: UUID | None):
+def _scope(query, user_id: UUID, lesson_id: UUID, skill: str, listening_id: UUID | None, exercise_id: UUID | None = None):
     query = query.where(
         LessonSkillAttempt.user_id == user_id, LessonSkillAttempt.lesson_id == lesson_id, LessonSkillAttempt.skill == skill
     )
     if listening_id is not None:
         query = query.where(LessonSkillAttempt.listening_id == listening_id)
+    if exercise_id is not None:
+        query = query.where(LessonSkillAttempt.exercise_id == exercise_id)
     return query
 
 
-def attempts(db: Session, user_id: UUID, lesson_id: UUID, skill: str, listening_id: UUID | None = None) -> list[LessonSkillAttempt]:
-    return list(db.scalars(_scope(select(LessonSkillAttempt), user_id, lesson_id, skill, listening_id).order_by(LessonSkillAttempt.attempt_number)))
+def attempts(
+    db: Session, user_id: UUID, lesson_id: UUID, skill: str, listening_id: UUID | None = None, exercise_id: UUID | None = None
+) -> list[LessonSkillAttempt]:
+    query = _scope(select(LessonSkillAttempt), user_id, lesson_id, skill, listening_id, exercise_id)
+    return list(db.scalars(query.order_by(LessonSkillAttempt.attempt_number)))
 
 
-def start_attempt(db: Session, user_id: UUID, lesson_id: UUID, skill: str, listening_id: UUID | None = None) -> LessonSkillAttempt:
+def start_attempt(
+    db: Session, user_id: UUID, lesson_id: UUID, skill: str, listening_id: UUID | None = None, exercise_id: UUID | None = None
+) -> LessonSkillAttempt:
     """Idempotent: an open attempt is returned as is (a reload keeps its start time)."""
-    key = f"lesson-skill:{user_id}:{lesson_id}:{skill}:{listening_id or ''}"
+    key = f"lesson-skill:{user_id}:{lesson_id}:{skill}:{listening_id or ''}:{exercise_id or ''}"
     db.execute(text("SELECT pg_advisory_xact_lock(hashtext(:key))"), {"key": key})
-    existing = attempts(db, user_id, lesson_id, skill, listening_id)
+    existing = attempts(db, user_id, lesson_id, skill, listening_id, exercise_id)
     open_attempt = next((a for a in existing if a.status == ATTEMPT_IN_PROGRESS), None)
     if open_attempt is not None:
         db.commit()
@@ -214,6 +221,7 @@ def start_attempt(db: Session, user_id: UUID, lesson_id: UUID, skill: str, liste
         lesson_id=lesson_id,
         skill=skill,
         listening_id=listening_id,
+        exercise_id=exercise_id,
         attempt_number=len(existing) + 1,
         status=ATTEMPT_IN_PROGRESS,
         started_at=_now(),
@@ -233,12 +241,13 @@ def submit_attempt(
     answers: dict,
     questions: list,
     listening_id: UUID | None = None,
+    exercise_id: UUID | None = None,
 ) -> tuple[LessonSkillAttempt, dict]:
     if not questions:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="NO_QUESTIONS")
     # row lock: two parallel submits of the same attempt cannot both grade it
     attempt = db.scalar(
-        _scope(select(LessonSkillAttempt), user_id, lesson_id, skill, listening_id)
+        _scope(select(LessonSkillAttempt), user_id, lesson_id, skill, listening_id, exercise_id)
         .where(LessonSkillAttempt.id == attempt_id)
         .with_for_update()
     )

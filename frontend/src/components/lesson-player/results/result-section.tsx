@@ -1,14 +1,11 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
 import { CheckCircle2, Trophy } from "lucide-react";
 
 import { COMPLETION_TRACKED_GATE_KEYS } from "@/constants/lesson-sections";
 import { useSectionGate } from "@/features/lessons/hooks/use-section-gate";
-import { getMyLessonScore } from "@/features/lessons/services/lesson-score-service";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import LessonSection from "../common/lesson-section";
-import LessonScoreBreakdown from "./lesson-score-breakdown";
 import SectionProgressionList from "./section-progression-list";
 import SkillResultsPanel from "./skill-results-panel";
 
@@ -24,15 +21,12 @@ interface Props {
 export default function ResultSection({ lessonId }: Props) {
   const { t } = useTranslation();
 
-  const { data: score, isLoading } = useQuery({
-    queryKey: ["lesson-score", lessonId],
-    queryFn: () => getMyLessonScore(lessonId),
-  });
+  const isLoading = false;
   const { data: gate, isLoading: gateLoading } = useSectionGate(lessonId);
 
   // Lesson completed = every applicable step that has a completion signal
   // is done (Schreiben/Sprechen only once a teacher has graded them).
-  const tracked = gate ? COMPLETION_TRACKED_GATE_KEYS.filter((key) => gate[key].applicable) : [];
+  const tracked = gate ? COMPLETION_TRACKED_GATE_KEYS.filter((key) => gate[key]?.applicable) : [];
   const allDone = gate ? tracked.length > 0 && tracked.every((key) => gate[key].completed) : false;
 
   return (
@@ -50,7 +44,9 @@ export default function ResultSection({ lessonId }: Props) {
 
           <SkillResultsPanel lessonId={lessonId} />
           {gate && <SectionProgressionList gate={gate} />}
-          {score && <LessonScoreBreakdown score={score} />}
+          {/* the lesson result is SkillResultsPanel (proportional, interim
+              until every required skill is graded); the legacy 100-point
+              breakdown stays in the admin per-student view only */}
         </div>
       )}
     </LessonSection>

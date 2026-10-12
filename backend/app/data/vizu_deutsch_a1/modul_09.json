@@ -1,0 +1,1180 @@
+{
+ "schema_version": "1.1",
+ "language": "de",
+ "source": "vizu-deutsch-a1-book",
+ "items": [
+  {
+   "content_id": "vizu-a1-l09-frage-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 9,
+   "skill": "frage",
+   "title": "Frage: Wie ist der Tourismus in Deutschland?",
+   "source": "book",
+   "metadata": {
+    "book_page": 90
+   },
+   "prompt": "Wie ist der Tourismus in Deutschland? (Beliebte Reiseziele, Natur, Kultur, Infrastruktur …) Welche Stadt oder welchen Ort in Deutschland möchten Sie besuchen und warum?",
+   "min_duration": 10,
+   "max_duration": 120
+  },
+  {
+   "content_id": "vizu-a1-l09-grammatik-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 9,
+   "skill": "grammatik",
+   "title": "Grammatik: Lokalangaben (wo? wohin?)",
+   "source": "book",
+   "metadata": {
+    "book_page": "91-92"
+   },
+   "rules": [
+    {
+     "title": "Lokalangaben — wo? wohin?",
+     "html": "<h3>WOHIN? (Qayerga?) — yo'nalish</h3><table><thead><tr><th>Qoida</th><th>Misollar</th></tr></thead><tbody><tr><td>1. nach + shahar / davlat (artiklsiz)</td><td>nach Deutschland — Germaniyaga, nach Usbekistan — O'zbekistonga, nach Berlin — Berlinga, nach Hause — uyga (maxsus holat)</td></tr><tr><td>2. in + Akkusativ — artiklli joylar yoki ichiga kirish</td><td>in die Schule — maktabga, in die Stadt — shaharga, in den Park — parkka, ins Kino (in das Kino) — kinoga, ins Krankenhaus — kasalxonaga, in die Türkei — Turkiyaga, in die Schweiz — Shveysariyaga, in den Iran — Eronga</td></tr><tr><td>3. zu + Dativ — odamga, ishga, maqsadga (ichiga kirish emas)</td><td>zur Arbeit — ishga, zum Arzt — shifokorga, zur Schule — maktabga (umumiy maqsad), zum Freund — do'stimnikiga, zur Party — bazmga</td></tr><tr><td>4. auf + Akkusativ — tadbirlar, ochiq joylar</td><td>auf den Markt — bozorga, auf die Party — bazmga, aufs Konzert — konsertga, auf die Messe — ko'rgazmaga</td></tr></tbody></table><h3>WO? (Qayerda?) — joy</h3><table><thead><tr><th>Qoida</th><th>Misollar</th></tr></thead><tbody><tr><td>1. in + Dativ — ichida, hududda</td><td>in der Schule — maktabda, in der Küche — oshxonada, in der Stadt — shaharda, in Deutschland — Germaniyada (artiklsiz), in der Türkei, in der Schweiz (artiklli)</td></tr><tr><td>2. bei + Dativ — yonida, ish / holat paytida</td><td>bei der Arbeit — ishda, beim Arzt — shifokor huzurida, bei meiner Mutter — onamnikida, beim Freund — do'stimnikida, zu Hause — uyda (maxsus holat!)</td></tr><tr><td>3. auf + Dativ — ustida / tadbirda, ochiq joyda</td><td>auf der Straße — ko'chada, auf dem Markt — bozorda, auf der Party — ziyofatda, auf der Arbeit (ba'zan ishlatiladi)</td></tr><tr><td>4. an + Dativ — yonida, chetida (suv, devor, chegara)</td><td>am Fenster — deraza yonida, an der Wand — devorda, am Meer — dengiz bo'yida, an der Grenze — chegarada</td></tr><tr><td>5. von … aus — joydan turib</td><td>von zu Hause aus — uydan turib, von hier aus — shu yerdan</td></tr></tbody></table>"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "Aufgaben: Präpositionen (30)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Ich bin ___ Schule.",
+       "options": [
+        "in die",
+        "in der",
+        "zur"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich gehe ___ Schule.",
+       "options": [
+        "in der",
+        "zur",
+        "bei der"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Er arbeitet ___ Arbeit.",
+       "options": [
+        "in der",
+        "bei der",
+        "zur"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Kitob qoidasi (S. 91): bei der Arbeit — ishda."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Wir gehen ___ Arbeit.",
+       "options": [
+        "bei der",
+        "zur",
+        "in der"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Sie lebt ___ Deutschland.",
+       "options": [
+        "nach",
+        "in",
+        "zu"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Er fährt ___ Deutschland.",
+       "options": [
+        "zu",
+        "in",
+        "nach"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Das Buch liegt ___ Tisch.",
+       "options": [
+        "auf den",
+        "auf dem",
+        "in dem"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich lege das Buch ___ Tisch.",
+       "options": [
+        "auf dem",
+        "auf den",
+        "in den"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Die Kinder sind ___ Park.",
+       "options": [
+        "in dem",
+        "in den",
+        "zu dem"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Die Kinder gehen ___ Park.",
+       "options": [
+        "in dem",
+        "zu dem",
+        "in den"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Meine Mutter ist ___ Küche.",
+       "options": [
+        "in die",
+        "in der",
+        "zur"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Meine Mutter geht ___ Küche.",
+       "options": [
+        "in der",
+        "zu der",
+        "in die"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Wir sind ___ Markt.",
+       "options": [
+        "auf dem",
+        "auf den",
+        "in den"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Wir gehen ___ Markt.",
+       "options": [
+        "auf dem",
+        "auf den",
+        "bei dem"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Er ist ___ Arzt.",
+       "options": [
+        "beim",
+        "zum",
+        "bei den"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Er geht ___ Arzt.",
+       "options": [
+        "beim",
+        "zum",
+        "bei dem"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Sie sind ___ Party.",
+       "options": [
+        "auf der",
+        "auf die",
+        "zur"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Sie gehen ___ Party.",
+       "options": [
+        "auf der",
+        "zur",
+        "auf die"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1,
+       "explanation": "auf die Party (zur Party ham ishlatiladi)."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich bin ___ Hause.",
+       "options": [
+        "in",
+        "nach",
+        "zu"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich gehe ___ Hause.",
+       "options": [
+        "zu",
+        "nach",
+        "in"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Das Bild hängt ___ Wand.",
+       "options": [
+        "an der",
+        "an die",
+        "auf der"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich hänge das Bild ___ Wand.",
+       "options": [
+        "an der",
+        "auf die",
+        "an die"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Wir sind ___ Schweiz.",
+       "options": [
+        "in die",
+        "in der",
+        "nach"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Wir fahren ___ Schweiz.",
+       "options": [
+        "nach",
+        "in der",
+        "in die"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Kitob qoidasi (S. 91): in die Schweiz — Shveysariyaga."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Er ist ___ Meer.",
+       "options": [
+        "am",
+        "an das",
+        "im"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Wir fahren ___ Meer.",
+       "options": [
+        "am",
+        "an das",
+        "ans"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1,
+       "explanation": "ans = an das."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Sie arbeitet ___ Hause aus.",
+       "options": [
+        "von zu",
+        "von dem",
+        "bei"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Er sitzt ___ Fenster.",
+       "options": [
+        "an dem",
+        "am",
+        "bei dem"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "am = an dem."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich gehe ___ Kino.",
+       "options": [
+        "im",
+        "ins",
+        "in dem"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Wir sind ___ Kino.",
+       "options": [
+        "im",
+        "ins",
+        "zum"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "Wählen Sie die richtige Präposition. Ergänzen Sie die Sätze."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l09-lesen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 9,
+   "skill": "lesen",
+   "title": "Lesen: Briefe von der Reise",
+   "source": "book",
+   "metadata": {
+    "book_page": 93
+   },
+   "instruction": "Lesen Sie die Texte und entscheiden Sie: Richtig oder Falsch?",
+   "passages": [
+    {
+     "title": "Brief 1 — Max (Italien)",
+     "text": "Lieber Tom,\n\nwie geht es dir? Ich hoffe, es geht dir gut. Mir geht es sehr gut.\n\nIch bin jetzt in Italien, in Rom. Die Stadt ist sehr alt und schön. Ich wohne in einem kleinen Hotel im Zentrum. Jeden Tag gehe ich durch die Stadt spazieren.\n\nIch besuche Museen und alte Gebäude. Das Kolosseum gefällt mir sehr. Ich esse Pizza und Pasta und trinke Kaffee. Das Essen ist lecker.\n\nAm Abend sitze ich in einem Café und höre Musik. Das Wetter ist warm und sonnig. Die Reise macht mir viel Spaß.\n\nViele Grüße\nMax"
+    },
+    {
+     "title": "Brief 2 — Lisa (Türkei)",
+     "text": "Liebe Schwester Anna,\n\nwie geht es dir? Ich hoffe, du bist gesund.\n\nIch bin jetzt in der Türkei, in Istanbul. Die Stadt ist sehr groß und lebendig. Ich wohne bei einer Gastfamilie. Die Leute sind freundlich.\n\nAm Morgen gehe ich in die Stadt. Ich besichtige Moscheen und alte Häuser. Ich mache viele Fotos. Am Mittag esse ich türkisches Essen und trinke Tee.\n\nAm Abend gehe ich am Meer spazieren. Das Wetter ist schön, aber manchmal heiß. Die Reise ist sehr interessant.\n\nLiebe Grüße\nLisa"
+    },
+    {
+     "title": "Brief 3 — Paul (Schweiz)",
+     "text": "Sehr geehrter Herr Müller,\n\nwie geht es Ihnen? Mir geht es gut, vielen Dank.\n\nIch bin zurzeit in der Schweiz, in Zürich. Die Stadt ist sehr sauber und ruhig. Ich wohne in einem kleinen Hostel.\n\nJeden Tag fahre ich mit dem Zug. Ich sehe die Berge und die Natur. Ich gehe viel spazieren und mache Notizen. Ich lerne neue Wörter und übe Deutsch.\n\nAm Nachmittag lese ich ein Buch oder schreibe E-Mails. Die Reise ist sehr schön und lehrreich. Vielen Dank für Ihren Unterricht.\n\nMit freundlichen Grüßen\nPaul Schneider"
+    }
+   ],
+   "questions": [
+    {
+     "type": "true_false",
+     "question": "Max ist in Rom.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "true_false",
+     "question": "Er wohnt in einem kleinen Hotel im Zentrum.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "true_false",
+     "question": "Max besucht Museen und hört Musik im Café.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "true_false",
+     "question": "Er isst Pizza und Pasta und trinkt Kaffee.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "true_false",
+     "question": "Das Wetter ist warm und sonnig.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "true_false",
+     "question": "Lisa ist in Istanbul.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "true_false",
+     "question": "Sie wohnt bei einer Gastfamilie.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "true_false",
+     "question": "Lisa macht viele Fotos in der Stadt.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "true_false",
+     "question": "Sie trinkt Tee zum Mittagessen.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "true_false",
+     "question": "Am Abend geht sie am Meer spazieren.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "true_false",
+     "question": "Paul ist in Zürich.",
+     "points": 1,
+     "passage": 3,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "true_false",
+     "question": "Er wohnt in einem großen Hotel.",
+     "points": 1,
+     "passage": 3,
+     "correct_answer": "falsch",
+     "explanation": "„Ich wohne in einem kleinen Hostel.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Paul fährt jeden Tag mit dem Zug in die Berge.",
+     "points": 1,
+     "passage": 3,
+     "correct_answer": "falsch",
+     "explanation": "„Jeden Tag fahre ich mit dem Zug. Ich sehe die Berge …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Paul liest Bücher und schreibt E-Mails.",
+     "points": 1,
+     "passage": 3,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "true_false",
+     "question": "Die Reise ist langweilig.",
+     "points": 1,
+     "passage": 3,
+     "correct_answer": "falsch",
+     "explanation": "„Die Reise ist sehr schön und lehrreich.“"
+    }
+   ],
+   "max_score": 15
+  },
+  {
+   "content_id": "vizu-a1-l09-hoeren-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 9,
+   "skill": "hoeren",
+   "title": "Hören: Reise der Freunde",
+   "source": "book",
+   "metadata": {
+    "book_page": 94
+   },
+   "audio_file": "A1-9.mp3",
+   "instruction": "Hören Sie den Text und ergänzen Sie die Lücken (Präpositionen).",
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "Reise der Freunde — ergänzen Sie die Präpositionen.",
+     "text": "Letzten Sommer haben drei Freunde aus Deutschland eine Reise gemacht. Max, Lisa und Paul haben neue Länder gesehen und viele Dinge erlebt. Max ist [[1]] Italien gefahren. Er war [[2]] Rom und hat in einem kleinen Hotel [[3]] Zentrum gewohnt. Die Stadt war sehr alt und schön. Max hat viele Museen besucht und Musik [[4]] Café gehört. Er hat Pizza und Pasta gegessen und Kaffee getrunken. Am Nachmittag ist er [[5]] Markt gegangen und hat Fotos gemacht. Am Abend ist er noch [[6]] Straße spazieren gegangen.\nLisa ist [[7]] Türkei gefahren. Sie war [[8]] Istanbul und hat bei einer Gastfamilie gewohnt. Die Stadt war groß und lebendig. Sie hat viele Fotos gemacht und alte Häuser besichtigt. Lisa hat türkisches Essen gegessen und Tee getrunken. Am Abend ist sie [[9]] Meer spazieren gegangen. Am Wochenende ist sie noch [[10]] Party gegangen.\nPaul ist [[11]] Schweiz gefahren. Er war [[12]] Zürich und hat in einem kleinen Hostel gewohnt. Die Stadt war sauber und ruhig. Paul hat jeden Tag mit dem Zug die Berge gesehen. Er hat viele Notizen geschrieben und Deutsch geübt. Am Morgen ist er [[13]] Messe gegangen und hat etwas Neues gelernt. Alle drei Freunde haben eine schöne Reise gehabt. Sie haben viel gesehen, gegessen und fotografiert. Sie haben neue Länder, Städte und Kulturen kennengelernt. Sie sind oft [[14]] Straße, [[15]] Kino oder [[16]] Park gegangen.",
+     "gaps": {
+      "1": [
+       "nach"
+      ],
+      "2": [
+       "in"
+      ],
+      "3": [
+       "im"
+      ],
+      "4": [
+       "im"
+      ],
+      "5": [
+       "auf den"
+      ],
+      "6": [
+       "auf der"
+      ],
+      "7": [
+       "in die"
+      ],
+      "8": [
+       "in"
+      ],
+      "9": [
+       "am"
+      ],
+      "10": [
+       "auf die",
+       "zur"
+      ],
+      "11": [
+       "in die"
+      ],
+      "12": [
+       "in"
+      ],
+      "13": [
+       "zur",
+       "auf die"
+      ],
+      "14": [
+       "auf die"
+      ],
+      "15": [
+       "ins"
+      ],
+      "16": [
+       "in den"
+      ]
+     },
+     "points": 16,
+     "passage": 1,
+     "case_sensitive": false
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l09-schreiben-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 9,
+   "skill": "schreiben",
+   "title": "Schreiben: Brief — Meine Reise",
+   "source": "book",
+   "metadata": {
+    "book_page": 95
+   },
+   "prompt": "Schreiben Sie einen Brief an Alex / Alexandra über Ihre Reise. Nutzen Sie die Stichwörter:\n1. Wann und wohin? Mit wem? (Letzten Sommer habe ich eine Reise gemacht. Ich bin mit meinen Freunden gereist.)\n2. Wohin? (Ich bin nach Berlin gefahren. Ich war in der Stadt …)\n3. Wo haben Sie gewohnt? (in + Dativ)\n4. Was haben Sie gemacht? (mit Ortsangaben)\n5. Essen und Trinken\n6. Wetter und Atmosphäre\n7. Besondere Erlebnisse\n8. Fazit (Meine Reise war sehr schön …)\nAnrede: Liebe/r Alex/Alexandra, … Gruß: Liebe Grüße / Mit freundlichen Grüßen, (Name)",
+   "task_type": "letter",
+   "audience": "Alex / Alexandra (Freund / Freundin)",
+   "min_words": 60,
+   "max_words": 150,
+   "time_limit": 25,
+   "support_phrases": [
+    "Liebe/r …,",
+    "Ich bin nach … gefahren.",
+    "Ich habe in einem … gewohnt.",
+    "Am Abend bin ich am Meer spazieren gegangen.",
+    "Liebe Grüße"
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l09-sprechen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 9,
+   "skill": "sprechen",
+   "title": "Sprechen: Über die Reise erzählen",
+   "source": "book",
+   "metadata": {
+    "book_page": 96
+   },
+   "topic": "Meine Reise",
+   "prompt": "Sprechen Sie über Ihre Reise nach dem Plan. Beispiel: „Guten Tag! Heute möchte ich über meine Reise erzählen. …“",
+   "questions": [
+    "Wann war die Reise?",
+    "Mit wem bist du gereist?",
+    "Wohin bist du gefahren?",
+    "Wo hast du gewohnt?",
+    "Was hast du gemacht?",
+    "Wo hast du diese Dinge gemacht?",
+    "Wie war das Wetter?",
+    "Wie war die Reise?"
+   ],
+   "response_type": "monolog",
+   "min_duration": 40,
+   "max_duration": 180,
+   "speech_goal": "Eine Reise im Perfekt mit Ortsangaben (nach, in, am, auf …) erzählen.",
+   "keywords": [
+    "Ich bin nach … gefahren",
+    "in einem Hotel",
+    "am Meer",
+    "auf den Markt"
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l09-wortschatz-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 9,
+   "skill": "wortschatz",
+   "title": "Wortschatz Modul 9: Reise",
+   "source": "book",
+   "metadata": {
+    "book_page": 97
+   },
+   "words": [
+    {
+     "word": "Reise",
+     "translation": "sayohat",
+     "article": "die",
+     "group": "Reise"
+    },
+    {
+     "word": "reisen",
+     "translation": "sayohat qilmoq",
+     "group": "Reise"
+    },
+    {
+     "word": "Tourist",
+     "translation": "sayyoh",
+     "article": "der",
+     "group": "Reise"
+    },
+    {
+     "word": "Tourismus",
+     "translation": "turizm",
+     "article": "der",
+     "group": "Reise"
+    },
+    {
+     "word": "Land",
+     "translation": "mamlakat",
+     "article": "das",
+     "group": "Reise"
+    },
+    {
+     "word": "Stadt",
+     "translation": "shahar",
+     "article": "die",
+     "group": "Reise"
+    },
+    {
+     "word": "Zentrum",
+     "translation": "markaz",
+     "article": "das",
+     "group": "Reise"
+    },
+    {
+     "word": "Hotel",
+     "translation": "mehmonxona",
+     "article": "das",
+     "group": "Reise"
+    },
+    {
+     "word": "Hostel",
+     "translation": "xostel",
+     "article": "das",
+     "group": "Reise"
+    },
+    {
+     "word": "Gastfamilie",
+     "translation": "mehmon oila",
+     "article": "die",
+     "group": "Reise"
+    },
+    {
+     "word": "wohnen",
+     "translation": "yashamoq, qolmoq",
+     "group": "Reise"
+    },
+    {
+     "word": "fahren",
+     "translation": "bormoq (transport bilan)",
+     "group": "Reise"
+    },
+    {
+     "word": "gehen",
+     "translation": "piyoda bormoq",
+     "group": "Reise"
+    },
+    {
+     "word": "ankommen",
+     "translation": "yetib kelmoq",
+     "group": "Reise"
+    },
+    {
+     "word": "bleiben",
+     "translation": "qolmoq",
+     "group": "Reise"
+    },
+    {
+     "word": "besuchen",
+     "translation": "tashrif buyurmoq",
+     "group": "Reise"
+    },
+    {
+     "word": "besichtigen",
+     "translation": "tomosha qilmoq",
+     "group": "Reise"
+    },
+    {
+     "word": "Museum",
+     "translation": "muzey",
+     "article": "das",
+     "group": "Reise"
+    },
+    {
+     "word": "Markt",
+     "translation": "bozor",
+     "article": "der",
+     "group": "Reise"
+    },
+    {
+     "word": "Park",
+     "translation": "park",
+     "article": "der",
+     "group": "Reise"
+    },
+    {
+     "word": "Straße",
+     "translation": "ko'cha",
+     "article": "die",
+     "group": "Reise"
+    },
+    {
+     "word": "Café",
+     "translation": "kafe",
+     "article": "das",
+     "group": "Reise"
+    },
+    {
+     "word": "Kino",
+     "translation": "kino",
+     "article": "das",
+     "group": "Reise"
+    },
+    {
+     "word": "Meer",
+     "translation": "dengiz",
+     "article": "das",
+     "group": "Reise"
+    },
+    {
+     "word": "Berge",
+     "translation": "tog'lar",
+     "article": "die",
+     "group": "Reise"
+    },
+    {
+     "word": "spazieren gehen",
+     "translation": "sayr qilmoq",
+     "group": "Reise"
+    },
+    {
+     "word": "Fotos machen",
+     "translation": "suratga tushirmoq",
+     "group": "Reise"
+    },
+    {
+     "word": "essen",
+     "translation": "yemoq",
+     "group": "Reise"
+    },
+    {
+     "word": "trinken",
+     "translation": "ichmoq",
+     "group": "Reise"
+    },
+    {
+     "word": "Essen",
+     "translation": "ovqat",
+     "article": "das",
+     "group": "Reise"
+    },
+    {
+     "word": "Tee",
+     "translation": "choy",
+     "article": "der",
+     "group": "Reise"
+    },
+    {
+     "word": "Kaffee",
+     "translation": "qahva",
+     "article": "der",
+     "group": "Reise"
+    },
+    {
+     "word": "Pizza",
+     "translation": "pitsa",
+     "article": "die",
+     "group": "Reise"
+    },
+    {
+     "word": "Pasta",
+     "translation": "pasta",
+     "article": "die",
+     "group": "Reise"
+    },
+    {
+     "word": "Wetter",
+     "translation": "ob-havo",
+     "article": "das",
+     "group": "Reise"
+    },
+    {
+     "word": "sonnig",
+     "translation": "quyoshli",
+     "group": "Reise"
+    },
+    {
+     "word": "warm",
+     "translation": "iliq",
+     "group": "Reise"
+    },
+    {
+     "word": "schön",
+     "translation": "chiroyli",
+     "group": "Reise"
+    },
+    {
+     "word": "ruhig",
+     "translation": "tinch",
+     "group": "Reise"
+    },
+    {
+     "word": "lebendig",
+     "translation": "jonli",
+     "group": "Reise"
+    },
+    {
+     "word": "lernen",
+     "translation": "o'rganmoq",
+     "group": "Reise"
+    },
+    {
+     "word": "kennenlernen",
+     "translation": "tanishib olmoq",
+     "group": "Reise"
+    },
+    {
+     "word": "erleben",
+     "translation": "boshdan kechirmoq",
+     "group": "Reise"
+    },
+    {
+     "word": "Kultur",
+     "translation": "madaniyat",
+     "article": "die",
+     "group": "Reise"
+    },
+    {
+     "word": "Party",
+     "translation": "bazm",
+     "article": "die",
+     "group": "Reise"
+    },
+    {
+     "word": "Messe",
+     "translation": "ko'rgazma",
+     "article": "die",
+     "group": "Reise"
+    },
+    {
+     "word": "Zug",
+     "translation": "poyezd",
+     "article": "der",
+     "group": "Reise"
+    },
+    {
+     "word": "Sehenswürdigkeit",
+     "translation": "diqqatga sazovor joy",
+     "article": "die",
+     "group": "Reise"
+    },
+    {
+     "word": "Urlaub",
+     "translation": "ta'til",
+     "article": "der",
+     "group": "Reise"
+    },
+    {
+     "word": "Erinnerung",
+     "translation": "xotira",
+     "article": "die",
+     "group": "Reise"
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l09-yakuniy-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 9,
+   "skill": "yakuniy",
+   "title": "Yakuniy Test: Modul 9",
+   "source": "vizu",
+   "instruction": "Lokalangaben (wo? wohin?) va sayohat so'zlari bo'yicha yakuniy test.",
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Ich fahre [[1]] Berlin.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "nach"
+       ],
+       "options": [
+        "nach",
+        "in",
+        "zu"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Wir wohnen [[1]] Deutschland.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "in"
+       ],
+       "options": [
+        "in",
+        "nach",
+        "zu"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Er geht [[1]] Arzt.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "zum"
+       ],
+       "options": [
+        "zum",
+        "beim",
+        "im"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Sie ist [[1]] Arbeit.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "bei der"
+       ],
+       "options": [
+        "bei der",
+        "zur",
+        "nach"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Ich gehe [[1]] Kino.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "ins"
+       ],
+       "options": [
+        "ins",
+        "im",
+        "zum"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Wir sind [[1]] Meer.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "am"
+       ],
+       "options": [
+        "am",
+        "ans",
+        "nach"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wohin? oder Wo?: „in die Schule“",
+     "options": [
+      "Wohin?",
+      "Wo?"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Welcher Satz ist richtig?",
+     "options": [
+      "Ich bin zu Hause.",
+      "Ich bin nach Hause.",
+      "Ich bin in Hause."
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„die Sehenswürdigkeit“ — o'zbekchasi qaysi?",
+     "options": [
+      "diqqatga sazovor joy",
+      "ko'rgazma",
+      "mehmon oila"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "„ankommen“ bedeutet „yetib kelmoq“.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "matching",
+     "question": "Was passt zusammen?",
+     "items": [
+      "der Markt",
+      "das Meer",
+      "die Messe",
+      "der Zug"
+     ],
+     "targets": [
+      "bozor",
+      "dengiz",
+      "ko'rgazma",
+      "poyezd",
+      "tog'"
+     ],
+     "pairs": {
+      "1": "A",
+      "2": "B",
+      "3": "C",
+      "4": "D"
+     },
+     "points": 1,
+     "passage": 1
+    }
+   ]
+  }
+ ]
+}

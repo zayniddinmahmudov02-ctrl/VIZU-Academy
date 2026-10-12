@@ -39,8 +39,10 @@ class SpeakingRepository:
             .first()
         )
 
-    def get_by_lesson(self, lesson_id, published_only: bool = False):
+    def get_by_lesson(self, lesson_id, published_only: bool = False, task_kind: str | None = None):
         query = self.db.query(Speaking).filter(Speaking.lesson_id == lesson_id)
+        if task_kind:
+            query = query.filter(Speaking.task_kind == task_kind)
         if published_only:
             query = query.filter(Speaking.is_published.is_(True))
         return query.order_by(Speaking.order_index).all()

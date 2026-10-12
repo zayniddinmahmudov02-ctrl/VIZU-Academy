@@ -1,3 +1,4 @@
+import { COMPLETION_TRACKED_GATE_KEYS } from "@/constants/lesson-sections";
 import { api } from "@/lib/api";
 
 export interface SectionGateEntry {
@@ -20,7 +21,14 @@ export type SectionGateKey =
   | "hoeren"
   | "schreiben"
   | "sprechen"
-  | "lesson_quiz";
+  | "lesson_quiz"
+  // lesson flow v3 (see lesson-sections.ts)
+  | "frage"
+  | "grammatik_test"
+  | "lesen_test"
+  | "hoeren_test"
+  | "wortschatz_test"
+  | "yakuniy_test";
 
 export type SectionGateState = Record<SectionGateKey, SectionGateEntry>;
 
@@ -32,12 +40,9 @@ export async function getSectionGate(lessonId: string): Promise<SectionGateState
   return api<SectionGateState>(`/api/v1/lessons/${lessonId}/section-gate`);
 }
 
-/** Lesson completed = every applicable step that has a completion signal
- * is completed (Video, Schreiben, Sprechen, Wortschatz Test, Yakuniy
- * Test — mirrors GATED_ORDER in section_gate.py). Derived client-side
- * from the same state the nav already fetches, rather than a separate
- * endpoint. */
+/** Lesson completed = every applicable step is completed (mirrors
+ * GATED_ORDER in section_gate.py). Derived client-side from the same state
+ * the nav already fetches, rather than a separate endpoint. */
 export function isLessonComplete(gate: SectionGateState): boolean {
-  const tracked: SectionGateKey[] = ["video", "schreiben", "sprechen", "wortschatz_quiz", "lesson_quiz"];
-  return tracked.every((key) => !gate[key].applicable || gate[key].completed);
+  return COMPLETION_TRACKED_GATE_KEYS.every((key) => !gate[key]?.applicable || gate[key].completed);
 }

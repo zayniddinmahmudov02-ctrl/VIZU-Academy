@@ -75,6 +75,9 @@ class Vocabulary(BaseModel):
         default=False,
     )
 
+    # stable id of imported book content — duplicate detection on re-import
+    content_id: Mapped[str | None] = mapped_column(String(120), nullable=True, index=True)
+
     lesson = relationship(
         "Lesson",
         back_populates="vocabularies",

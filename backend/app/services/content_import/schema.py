@@ -12,7 +12,9 @@ from typing import Annotated, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
-SCHEMA_VERSION = "1.0"
+SCHEMA_VERSION = "1.1"
+SCHEMA_VERSIONS = ("1.0", "1.1")  # 1.1 = 1.0 + grammatik / wortschatz / frage / yakuniy items
+Source = Literal["book", "vizu"]
 
 Level = Literal["A1", "A2", "B1", "B2", "C1"]
 ContentId = Annotated[str, Field(pattern=r"^[A-Za-z0-9][A-Za-z0-9._-]{2,119}$", description="Stable unique id, e.g. 'a1-m1-l1-lesen-01'")]
@@ -74,7 +76,8 @@ class _ItemBase(_Strict):
     max_score: int | None = Field(default=None, ge=1, le=1000, description="Lesen/Hören: must equal the sum of question points; Schreiben/Sprechen: must equal the rubric total")
     status: Literal["draft", "review"] = Field(default="draft", description="Imported content is ALWAYS created unpublished; an admin publishes it after preview")
     order: int | None = Field(default=None, ge=1, le=100)
-    metadata: dict | None = Field(default=None, description="Free-form (topic, grammar, can-do statements, source …)")
+    source: Source = Field(default="book", description="book = taken from the course book; vizu = created by VIZU from the lesson material")
+    metadata: dict | None = Field(default=None, description="Free-form (topic, grammar, can-do statements, page …)")
 
 
 class LesenItem(_ItemBase):
@@ -89,6 +92,11 @@ class HoerenItem(_ItemBase):
     audio_file: str | None = Field(default=None, max_length=255, description="Hint only (expected file name)")
     transcript: str | None = Field(default=None, max_length=20000, description="Script / transcript; shown to students only after their first attempt")
     questions: list[Question] = Field(min_length=1, max_length=40)
+    key_pending: bool = Field(
+        default=False,
+        description="True when the answer key can only be set after listening to the audio: questions may omit correct_answer; "
+        "the task stays unpublished until an admin has uploaded the audio and set every key",
+    )
 
 
 class SchreibenItem(_ItemBase):
@@ -125,11 +133,64 @@ class SprechenItem(_ItemBase):
     max_attempts: int = Field(default=3, ge=1, le=20)
 
 
-ContentItem = Annotated[LesenItem | HoerenItem | SchreibenItem | SprechenItem, Field(discriminator="skill")]
+class ExerciseSet(_Strict):
+    """One auto-graded exercise set (Grammatik / Wortschatz practice, Yakuniy Test)."""
+
+    title: str = Field(min_length=1, max_length=255)
+    instruction: str | None = Field(default=None, max_length=5000)
+    source: Source = "book"
+    questions: list[Question] = Field(min_length=1, max_length=100)
+
+
+class GrammarRule(_Strict):
+    title: str = Field(min_length=1, max_length=255)
+    html: str = Field(min_length=1, max_length=100_000, description="Rule, explanations, examples and tables as simple HTML (sanitized)")
+
+
+class GrammatikItem(_ItemBase):
+    skill: Literal["grammatik"]
+    rules: list[GrammarRule] = Field(default_factory=list, max_length=20)
+    exercises: list[ExerciseSet] = Field(default_factory=list, max_length=20)
+
+
+class Word(_Strict):
+    word: str = Field(min_length=1, max_length=255, description="German word or phrase without the article")
+    article: Literal["der", "die", "das"] | None = None
+    plural: str | None = Field(default=None, max_length=255)
+    translation: str = Field(min_length=1, max_length=255)
+    example: str | None = Field(default=None, max_length=1000)
+    example_translation: str | None = Field(default=None, max_length=1000)
+    group: str | None = Field(default=None, max_length=120, description="Topic group as in the book")
+
+
+class WortschatzItem(_ItemBase):
+    skill: Literal["wortschatz"]
+    words: list[Word] = Field(min_length=1, max_length=300)
+    exercises: list[ExerciseSet] = Field(default_factory=list, max_length=10)
+    auto_practice: bool = Field(default=True, description="Generate a translation practice set (multiple choice) from the words")
+
+
+class FrageItem(_ItemBase):
+    skill: Literal["frage"]
+    prompt: str = Field(min_length=1, max_length=5000, description="The topic question / instruction shown to the student")
+    questions: list[str] | None = Field(default=None, max_length=20)
+    min_duration: int = Field(default=0, ge=0, le=3600)
+    max_duration: int = Field(default=120, ge=10, le=3600)
+
+
+class YakuniyItem(_ItemBase):
+    skill: Literal["yakuniy"]
+    questions: list[Question] = Field(min_length=1, max_length=100)
+
+
+ContentItem = Annotated[
+    LesenItem | HoerenItem | SchreibenItem | SprechenItem | GrammatikItem | WortschatzItem | FrageItem | YakuniyItem,
+    Field(discriminator="skill"),
+]
 
 
 class ContentDocument(_Strict):
-    schema_version: Literal["1.0"]
+    schema_version: Literal["1.0", "1.1"]
     language: str = Field(default="de", pattern=r"^[a-z]{2}$")
     source: str | None = Field(default=None, max_length=100, description="e.g. 'claude'")
     items: list[ContentItem] = Field(min_length=1, max_length=200)
@@ -138,6 +199,6 @@ class ContentDocument(_Strict):
 def json_schema() -> dict:
     schema = ContentDocument.model_json_schema()
     schema["$schema"] = "https://json-schema.org/draft/2020-12/schema"
-    schema["$id"] = "https://vizu.academy/schemas/lesson-content-1.0.json"
+    schema["$id"] = "https://vizu.academy/schemas/lesson-content-1.1.json"
     schema["title"] = "VIZU Academy lesson content (A1-C1)"
     return schema

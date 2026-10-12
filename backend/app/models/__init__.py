@@ -48,7 +48,15 @@ from .vizu_multilevel_speaking import VizuMultilevelSpeakingSubmission, VizuMult
 from .vizu_multilevel_discarded import VizuMultilevelDiscardedAttempt
 from .advertisement import Advertisement, AdvertisementEvent
 from .auth_rate_limit_event import AuthRateLimitEvent
-from .lesson_skill import AiEvaluation, LessonSkillAttempt, ListeningOption, ListeningQuestion
+from .lesson_skill import (
+    AiEvaluation,
+    LessonSkillAttempt,
+    ListeningOption,
+    ListeningQuestion,
+    SkillExercise,
+    SkillExerciseOption,
+    SkillExerciseQuestion,
+)
 from .content_import import ContentImport
 
 # Certificate

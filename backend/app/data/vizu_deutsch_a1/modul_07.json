@@ -1,0 +1,1189 @@
+{
+ "schema_version": "1.1",
+ "language": "de",
+ "source": "vizu-deutsch-a1-book",
+ "items": [
+  {
+   "content_id": "vizu-a1-l07-frage-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 7,
+   "skill": "frage",
+   "title": "Frage des Themas: Wie ist die Geschichte von Deutschland?",
+   "source": "book",
+   "metadata": {
+    "book_page": 71
+   },
+   "prompt": "Wie ist die Geschichte von Deutschland? Was weißt du über die Geschichte von Deutschland? (früher viele Königreiche, 1871 Kaiserreich, 1914–1945 zwei Weltkriege, 1949 zwei Teile, 1990 wieder ein Land)",
+   "min_duration": 10,
+   "max_duration": 120
+  },
+  {
+   "content_id": "vizu-a1-l07-grammatik-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 7,
+   "skill": "grammatik",
+   "title": "Grammatik: Präteritum",
+   "source": "book",
+   "metadata": {
+    "book_page": "72-73"
+   },
+   "rules": [
+    {
+     "title": "Präteritum",
+     "html": "<p><strong>Präteritum</strong> — o'tgan zamon shakli. Asosan hikoya va yozma matnlarda ishlatiladi. Kuchli fe'llar shakli o'zgaradi. Sein va haben — yordamchi fe'llar.</p><h3>haben — Präteritum (hatte) / sein — Präteritum (war)</h3><table><thead><tr><th>Shaxs</th><th>haben</th><th>Misol</th><th>sein</th><th>Misol</th></tr></thead><tbody><tr><td>ich</td><td>hatte</td><td>Ich hatte Zeit. (Mening vaqtim bor edi.)</td><td>war</td><td>Ich war müde. (Men charchagan edim.)</td></tr><tr><td>du</td><td>hattest</td><td>Du hattest Hunger. (Sening ochliging bor edi.)</td><td>warst</td><td>Du warst zu Hause. (Sen uyda eding.)</td></tr><tr><td>er / sie / es</td><td>hatte</td><td>Er hatte ein Auto. (Uning mashinasi bor edi.)</td><td>war</td><td>Er war krank. (U kasal edi.)</td></tr><tr><td>wir</td><td>hatten</td><td>Wir hatten Unterricht. (Bizda dars bor edi.)</td><td>waren</td><td>Wir waren im Park. (Biz parkda edik.)</td></tr><tr><td>ihr</td><td>hattet</td><td>Ihr hattet Glück. (Sizlarda omad bor edi.)</td><td>wart</td><td>Ihr wart pünktlich. (Sizlar o'z vaqtida edingiz.)</td></tr><tr><td>sie / Sie</td><td>hatten</td><td>Sie hatten Probleme. (Ularda muammo bor edi.)</td><td>waren</td><td>Sie waren glücklich. (Ular xursand edilar.)</td></tr></tbody></table><h3>Schwache Verben / kuchsiz fe'llar — spielen</h3><table><thead><tr><th>Shaxs</th><th>Präsens</th><th>Präteritum</th><th>Tarjima</th></tr></thead><tbody><tr><td>ich</td><td>spiele</td><td>spielte</td><td>Men o'ynayman / Men o'ynadim</td></tr><tr><td>du</td><td>spielst</td><td>spieltest</td><td>Sen o'ynaysan / Sen o'ynading</td></tr><tr><td>er / sie / es</td><td>spielt</td><td>spielte</td><td>U o'ynaydi / U o'ynadi</td></tr><tr><td>wir</td><td>spielen</td><td>spielten</td><td>Biz o'ynaymiz / Biz o'ynadik</td></tr><tr><td>ihr</td><td>spielt</td><td>spieltet</td><td>Sizlar o'ynaysizlar / Sizlar o'ynadingiz</td></tr><tr><td>sie / Sie</td><td>spielen</td><td>spielten</td><td>Ular o'ynaydilar / Ular o'ynadilar</td></tr></tbody></table><h3>Starke Verben / kuchli fe'llar — sehen</h3><table><thead><tr><th>Shaxs</th><th>Präsens</th><th>Präteritum</th><th>Tarjima</th></tr></thead><tbody><tr><td>ich</td><td>sehe</td><td>sah</td><td>Men ko'ryapman / Men ko'rdim</td></tr><tr><td>du</td><td>siehst</td><td>sahst</td><td>Sen ko'ryapsan / Sen ko'rding</td></tr><tr><td>er / sie / es</td><td>sieht</td><td>sah</td><td>U ko'ryapti / U ko'rdi</td></tr><tr><td>wir</td><td>sehen</td><td>sahen</td><td>Biz ko'ryapmiz / Biz ko'rdik</td></tr><tr><td>ihr</td><td>seht</td><td>saht</td><td>Sizlar ko'ryapsizlar / Sizlar ko'rdingiz</td></tr><tr><td>sie / Sie</td><td>sehen</td><td>sahen</td><td>Ular ko'ryaptilar / Ular ko'rdilar</td></tr></tbody></table><h3>Präsens → Präteritum: machen / aufstehen</h3><table><thead><tr><th>Shaxs</th><th>Präsens</th><th>Präteritum</th></tr></thead><tbody><tr><td>ich</td><td>mache / stehe auf</td><td>machte / stand auf</td></tr><tr><td>du</td><td>machst / stehst auf</td><td>machtest / standst auf</td></tr><tr><td>er / sie / es</td><td>macht / steht auf</td><td>machte / stand auf</td></tr><tr><td>wir</td><td>machen / stehen auf</td><td>machten / standen auf</td></tr><tr><td>ihr</td><td>macht / steht auf</td><td>machtet / standet auf</td></tr><tr><td>sie / Sie</td><td>machen / stehen auf</td><td>machten / standen auf</td></tr></tbody></table><p><strong>Beispiele:</strong> Gestern spielte ich Fußball. Er sah einen Film. Wir machten Hausaufgaben. Ich war zu Hause.</p><p><strong>Tipp:</strong> Ko'proq misollar bilan mashq qiling. Shakllarni yodlab oling!</p>"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "Aufgabe 1: Präteritum einsetzen (20)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Setze die richtige Form im Präteritum ein!",
+       "text": "Gestern [[1]] ich viel zu tun. (haben)",
+       "gaps": {
+        "1": [
+         "hatte"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: hatte"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setze die richtige Form im Präteritum ein!",
+       "text": "Letzte Woche [[1]] meine Eltern im Urlaub. (sein)",
+       "gaps": {
+        "1": [
+         "waren"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: waren"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setze die richtige Form im Präteritum ein!",
+       "text": "Wir [[1]] Fußball im Park. (spielen)",
+       "gaps": {
+        "1": [
+         "spielten"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: spielten"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setze die richtige Form im Präteritum ein!",
+       "text": "Ich [[1]] gestern einen Brief. (schreiben)",
+       "gaps": {
+        "1": [
+         "schrieb"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: schrieb"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setze die richtige Form im Präteritum ein!",
+       "text": "Du [[1]] spät nach Hause. (kommen)",
+       "gaps": {
+        "1": [
+         "kamst"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: kamst"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setze die richtige Form im Präteritum ein!",
+       "text": "Er [[1]] einen Film im Fernsehen. (sehen)",
+       "gaps": {
+        "1": [
+         "sah"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: sah"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setze die richtige Form im Präteritum ein!",
+       "text": "Wir [[1]] letzte Nacht lange wach. (bleiben)",
+       "gaps": {
+        "1": [
+         "blieben"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: blieben"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setze die richtige Form im Präteritum ein!",
+       "text": "Ihr [[1]] gestern Pizza zum Mittagessen. (essen)",
+       "gaps": {
+        "1": [
+         "aßt"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: aßt"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setze die richtige Form im Präteritum ein!",
+       "text": "Sie [[1]] mir beim Umzug. (helfen)",
+       "gaps": {
+        "1": [
+         "halfen",
+         "half"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: halfen (sie — u: half)"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setze die richtige Form im Präteritum ein!",
+       "text": "Ich [[1]] gestern früh auf. (aufstehen)",
+       "gaps": {
+        "1": [
+         "stand"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: stand"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setze die richtige Form im Präteritum ein!",
+       "text": "Letztes Wochenende [[1]] ich viel Hausaufgaben. (machen)",
+       "gaps": {
+        "1": [
+         "machte"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: machte"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setze die richtige Form im Präteritum ein!",
+       "text": "Du [[1]] gestern einen Freund an. (anrufen)",
+       "gaps": {
+        "1": [
+         "riefst"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: riefst"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setze die richtige Form im Präteritum ein!",
+       "text": "Er [[1]] letzte Woche krank. (sein)",
+       "gaps": {
+        "1": [
+         "war"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: war"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setze die richtige Form im Präteritum ein!",
+       "text": "Wir [[1]] gestern eine schöne Wanderung. (machen)",
+       "gaps": {
+        "1": [
+         "machten"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: machten"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setze die richtige Form im Präteritum ein!",
+       "text": "Ihr [[1]] am Samstag im Kino. (sein)",
+       "gaps": {
+        "1": [
+         "wart"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: wart"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setze die richtige Form im Präteritum ein!",
+       "text": "Sie [[1]] gestern das neue Buch. (lesen)",
+       "gaps": {
+        "1": [
+         "lasen",
+         "las"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: lasen (sie — u: las)"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setze die richtige Form im Präteritum ein!",
+       "text": "Ich [[1]] gestern spät ins Bett. (gehen)",
+       "gaps": {
+        "1": [
+         "ging"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: ging"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setze die richtige Form im Präteritum ein!",
+       "text": "Du [[1]] gestern deine Hausaufgaben. (machen)",
+       "gaps": {
+        "1": [
+         "machtest"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: machtest"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setze die richtige Form im Präteritum ein!",
+       "text": "Er [[1]] am Sonntag im Garten. (arbeiten)",
+       "gaps": {
+        "1": [
+         "arbeitete"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: arbeitete"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setze die richtige Form im Präteritum ein!",
+       "text": "Wir [[1]] gestern einen tollen Film. (sehen)",
+       "gaps": {
+        "1": [
+         "sahen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: sahen"
+      }
+     ],
+     "instruction": "Setze die richtige Form im Präteritum ein! (haben, sein, spielen, schreiben, kommen, sehen, bleiben, essen, helfen, aufstehen, machen, anrufen, lesen, gehen, arbeiten)"
+    },
+    {
+     "title": "Aufgabe 2: Bilde Sätze im Präteritum (6)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "short_answer",
+       "question": "Bilde einen Satz im Präteritum: ich / gestern / Schule / haben",
+       "accepted": [
+        "Ich hatte gestern Schule.",
+        "Gestern hatte ich Schule."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Ich hatte gestern Schule."
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilde einen Satz im Präteritum: wir / am Wochenende / Ausflug / machen",
+       "accepted": [
+        "Wir machten am Wochenende einen Ausflug.",
+        "Am Wochenende machten wir einen Ausflug.",
+        "Wir machten am Wochenende Ausflug."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Wir machten am Wochenende einen Ausflug."
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilde einen Satz im Präteritum: du / spät / nach Hause / kommen",
+       "accepted": [
+        "Du kamst spät nach Hause."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Du kamst spät nach Hause."
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilde einen Satz im Präteritum: er / ein Buch / lesen",
+       "accepted": [
+        "Er las ein Buch."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Er las ein Buch."
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilde einen Satz im Präteritum: sie / im Park / sitzen",
+       "accepted": [
+        "Sie saß im Park.",
+        "Sie saßen im Park."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Sie saß im Park."
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilde einen Satz im Präteritum: ihr / am Abend / fernsehen",
+       "accepted": [
+        "Ihr saht am Abend fern.",
+        "Am Abend saht ihr fern."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Ihr saht am Abend fern."
+      }
+     ],
+     "instruction": "Bilde Sätze im Präteritum!"
+    },
+    {
+     "title": "Aufgabe 4: Wandle die Sätze in das Präteritum um (6)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "short_answer",
+       "question": "Wandle den Satz in das Präteritum um: Ich habe einen Hund.",
+       "accepted": [
+        "Ich hatte einen Hund."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1
+      },
+      {
+       "type": "short_answer",
+       "question": "Wandle den Satz in das Präteritum um: Wir gehen ins Kino.",
+       "accepted": [
+        "Wir gingen ins Kino."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1
+      },
+      {
+       "type": "short_answer",
+       "question": "Wandle den Satz in das Präteritum um: Er spielt Gitarre.",
+       "accepted": [
+        "Er spielte Gitarre."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1
+      },
+      {
+       "type": "short_answer",
+       "question": "Wandle den Satz in das Präteritum um: Sie macht Hausaufgaben.",
+       "accepted": [
+        "Sie machte Hausaufgaben."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1
+      },
+      {
+       "type": "short_answer",
+       "question": "Wandle den Satz in das Präteritum um: Du hilfst mir.",
+       "accepted": [
+        "Du halfst mir."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1
+      },
+      {
+       "type": "short_answer",
+       "question": "Wandle den Satz in das Präteritum um: Ihr seid müde.",
+       "accepted": [
+        "Ihr wart müde."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1
+      }
+     ],
+     "instruction": "Wandle die Sätze in das Präteritum um!"
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l07-lesen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 7,
+   "skill": "lesen",
+   "title": "Lesen: Mein Tag in Paris",
+   "source": "book",
+   "metadata": {
+    "book_page": "74-75",
+    "note": "Savollar kitobdan (javob variantlari VIZU tomonidan)."
+   },
+   "instruction": "Lies die beiden Briefe und beantworte die Fragen.",
+   "passages": [
+    {
+     "title": "Brief 1: Mein erster Tag in Paris",
+     "text": "Liebe Lili,\n\nich bin heute in Paris. Das Wetter ist schön. Ich gehe spazieren und sehe viele schöne Gebäude. Ich esse Croissants und trinke Kaffee. Ich besuche den Eiffelturm und mache Fotos. Ich kaufe auch Souvenirs für dich.\n\nViele Grüße\n[Name]"
+    },
+    {
+     "title": "Brief 2: Mein Tag in Paris",
+     "text": "Liebe Lili,\n\nich war gestern in Paris. Das Wetter war schön. Ich ging spazieren und sah viele schöne Gebäude. Ich aß Croissants und trank Kaffee. Ich besuchte den Eiffelturm und machte Fotos. Ich kaufte auch Souvenirs für dich.\n\nViele Grüße\n[Name]"
+    }
+   ],
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Wo ist die Person im ersten Brief?",
+     "options": [
+      "In Berlin",
+      "In Paris",
+      "In Rom"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Brief 1: „ich bin heute in Paris.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wie ist das Wetter?",
+     "options": [
+      "Schön",
+      "Kalt und regnerisch",
+      "Windig"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was isst sie?",
+     "options": [
+      "Pizza",
+      "Croissants",
+      "Kuchen"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was trinkt sie?",
+     "options": [
+      "Tee",
+      "Saft",
+      "Kaffee"
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was besucht sie?",
+     "options": [
+      "Den Eiffelturm",
+      "Ein Museum",
+      "Einen Park"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was macht sie am Eiffelturm?",
+     "options": [
+      "Sie macht Fotos.",
+      "Sie isst.",
+      "Sie schläft."
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was kauft sie?",
+     "options": [
+      "Bücher",
+      "Souvenirs für Lili",
+      "Kleidung"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wann war sie im zweiten Brief in Paris?",
+     "options": [
+      "Heute",
+      "Gestern",
+      "Morgen"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 2,
+     "explanation": "Brief 2: „ich war gestern in Paris.“"
+    }
+   ],
+   "max_score": 8
+  },
+  {
+   "content_id": "vizu-a1-l07-hoeren-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 7,
+   "skill": "hoeren",
+   "title": "Hören: Mein Tag in Taschkent",
+   "source": "book",
+   "metadata": {
+    "book_page": 76
+   },
+   "audio_file": "A1-7.mp3",
+   "instruction": "Höre den Text und ergänze die Lücken mit den passenden Wörtern: sah, aß, ging, war, kaufte, probierte, machte, trank, frühstückte, besuchte, ruhte, kam, war, ging, aß, ging, war, war.",
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "Mein Tag in Taschkent — ergänze die Lücken.",
+     "text": "Gestern [[1]] ich in Taschkent. Ich [[2]] am Morgen an und das Wetter [[3]] schön. Zuerst [[4]] ich in einem kleinen Café. Ich [[5]] ein Brötchen und [[6]] einen Tee. Danach [[7]] ich in die Stadt und [[8]] viele interessante Gebäude. Ich [[9]] den Amir-Timur-Platz und [[10]] viele Fotos. Später [[11]] ich in einen Park und [[12]] mich ein bisschen aus. Ich [[13]] auch Souvenirs für meine Familie und meine Freunde. Am Abend [[14]] ich in einem Restaurant und [[15]] usbekisches Essen. Danach [[16]] ich zurück nach Hause und ich [[17]] müde, aber glücklich. Es [[18]] ein sehr schöner Tag in Taschkent.",
+     "gaps": {
+      "1": [
+       "war"
+      ],
+      "2": [
+       "kam"
+      ],
+      "3": [
+       "war"
+      ],
+      "4": [
+       "frühstückte"
+      ],
+      "5": [
+       "aß"
+      ],
+      "6": [
+       "trank"
+      ],
+      "7": [
+       "ging"
+      ],
+      "8": [
+       "sah"
+      ],
+      "9": [
+       "besuchte"
+      ],
+      "10": [
+       "machte"
+      ],
+      "11": [
+       "ging"
+      ],
+      "12": [
+       "ruhte"
+      ],
+      "13": [
+       "kaufte"
+      ],
+      "14": [
+       "aß"
+      ],
+      "15": [
+       "probierte"
+      ],
+      "16": [
+       "ging"
+      ],
+      "17": [
+       "war"
+      ],
+      "18": [
+       "war"
+      ]
+     },
+     "points": 18,
+     "passage": 1,
+     "case_sensitive": false
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l07-schreiben-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 7,
+   "skill": "schreiben",
+   "title": "Schreiben: Meine letzte Woche",
+   "source": "book",
+   "metadata": {
+    "book_page": 77
+   },
+   "prompt": "Schreibe einen kurzen Text über deine letzte Woche. Benutze die Struktur:\nEinleitung: Letzte Woche war ich sehr beschäftigt. / Letzte Woche war meine Woche interessant.\nHauptteil: Am Montag ging ich zur Schule und lernte Deutsch. Am Dienstag arbeitete ich zu Hause und machte meine Hausaufgaben. Am Mittwoch besuchte ich meine Freunde und spielte Fußball. … (die ganze Woche)\nSchluss: Es war eine schöne Woche. / Ich freute mich über meine Woche. / Ich war müde, aber glücklich.",
+   "task_type": "description",
+   "min_words": 40,
+   "max_words": 120,
+   "time_limit": 20,
+   "support_phrases": [
+    "Letzte Woche war ich …",
+    "Am Montag ging ich …",
+    "Am Dienstag …",
+    "Es war eine schöne Woche."
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l07-sprechen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 7,
+   "skill": "sprechen",
+   "title": "Sprechen: Meine Kindheit",
+   "source": "book",
+   "metadata": {
+    "book_page": 78
+   },
+   "topic": "Meine Kindheit",
+   "prompt": "Sprich über deine Kindheit. Benutze die Fragen und den Beispieltext (Als Kind war ich sehr glücklich. Ich wurde in Taschkent geboren und wuchs dort auf. Ich spielte gern mit meinen Freunden im Park …).",
+   "questions": [
+    "Wann bist du geboren?",
+    "Wo bist du aufgewachsen?",
+    "Was hast du als Kind gern gemacht?",
+    "Hattest du Geschwister?"
+   ],
+   "response_type": "monolog",
+   "min_duration": 30,
+   "max_duration": 150,
+   "speech_goal": "Über die eigene Kindheit im Präteritum erzählen: Geburtsort, Spiele, Familie, Schule.",
+   "keywords": [
+    "Als Kind",
+    "war",
+    "hatte",
+    "spielte"
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l07-wortschatz-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 7,
+   "skill": "wortschatz",
+   "title": "Wortschatz Modul 7",
+   "source": "book",
+   "metadata": {
+    "book_page": "74, 79"
+   },
+   "words": [
+    {
+     "word": "Stadt",
+     "translation": "shahar",
+     "article": "die",
+     "group": "Wörter"
+    },
+    {
+     "word": "Gebäude",
+     "translation": "bino",
+     "article": "das",
+     "group": "Wörter"
+    },
+    {
+     "word": "Eiffelturm",
+     "translation": "Eyfel minorasi",
+     "article": "der",
+     "group": "Wörter"
+    },
+    {
+     "word": "Amir-Timur-Platz",
+     "translation": "Amir Temur maydoni",
+     "article": "der",
+     "group": "Wörter"
+    },
+    {
+     "word": "Großeltern",
+     "translation": "buvi va bobo",
+     "article": "die",
+     "group": "Wörter"
+    },
+    {
+     "word": "Hund",
+     "translation": "it",
+     "article": "der",
+     "group": "Wörter"
+    },
+    {
+     "word": "Eis",
+     "translation": "muzqaymoq",
+     "article": "das",
+     "group": "Wörter"
+    },
+    {
+     "word": "Saft",
+     "translation": "sharbat",
+     "article": "der",
+     "group": "Wörter"
+    },
+    {
+     "word": "Restaurant",
+     "translation": "restoran",
+     "article": "das",
+     "group": "Wörter"
+    },
+    {
+     "word": "Tag",
+     "translation": "kun",
+     "article": "der",
+     "group": "Wörter"
+    },
+    {
+     "word": "Woche",
+     "translation": "hafta",
+     "article": "die",
+     "group": "Wörter"
+    },
+    {
+     "word": "Kindheit",
+     "translation": "bolalik",
+     "article": "die",
+     "group": "Wörter"
+    },
+    {
+     "word": "gestern",
+     "translation": "kecha",
+     "group": "Wörter"
+    },
+    {
+     "word": "heute",
+     "translation": "bugun",
+     "group": "Wörter"
+    },
+    {
+     "word": "morgen",
+     "translation": "ertaga",
+     "group": "Wörter"
+    },
+    {
+     "word": "am Morgen",
+     "translation": "ertalab",
+     "group": "Wörter"
+    },
+    {
+     "word": "am Abend",
+     "translation": "kechqurun",
+     "group": "Wörter"
+    },
+    {
+     "word": "letzte Woche",
+     "translation": "o'tgan hafta",
+     "group": "Wörter"
+    },
+    {
+     "word": "letztes Jahr",
+     "translation": "o'tgan yil",
+     "group": "Wörter"
+    },
+    {
+     "word": "am Wochenende",
+     "translation": "hafta oxiri",
+     "group": "Wörter"
+    },
+    {
+     "word": "vorher",
+     "translation": "oldin",
+     "group": "Wörter"
+    },
+    {
+     "word": "danach",
+     "translation": "keyin",
+     "group": "Wörter"
+    },
+    {
+     "word": "Montag",
+     "translation": "dushanba",
+     "group": "Wochentage — hafta kunlari"
+    },
+    {
+     "word": "Dienstag",
+     "translation": "seshanba",
+     "group": "Wochentage — hafta kunlari"
+    },
+    {
+     "word": "Mittwoch",
+     "translation": "chorshanba",
+     "group": "Wochentage — hafta kunlari"
+    },
+    {
+     "word": "Donnerstag",
+     "translation": "payshanba",
+     "group": "Wochentage — hafta kunlari"
+    },
+    {
+     "word": "Freitag",
+     "translation": "juma",
+     "group": "Wochentage — hafta kunlari"
+    },
+    {
+     "word": "Samstag",
+     "translation": "shanba",
+     "group": "Wochentage — hafta kunlari"
+    },
+    {
+     "word": "Sonntag",
+     "translation": "yakshanba",
+     "group": "Wochentage — hafta kunlari"
+    },
+    {
+     "word": "Januar",
+     "translation": "yanvar",
+     "group": "Monate — oy nomlari"
+    },
+    {
+     "word": "Februar",
+     "translation": "fevral",
+     "group": "Monate — oy nomlari"
+    },
+    {
+     "word": "März",
+     "translation": "mart",
+     "group": "Monate — oy nomlari"
+    },
+    {
+     "word": "April",
+     "translation": "aprel",
+     "group": "Monate — oy nomlari"
+    },
+    {
+     "word": "Mai",
+     "translation": "may",
+     "group": "Monate — oy nomlari"
+    },
+    {
+     "word": "Juni",
+     "translation": "iyun",
+     "group": "Monate — oy nomlari"
+    },
+    {
+     "word": "Juli",
+     "translation": "iyul",
+     "group": "Monate — oy nomlari"
+    },
+    {
+     "word": "August",
+     "translation": "avgust",
+     "group": "Monate — oy nomlari"
+    },
+    {
+     "word": "September",
+     "translation": "sentyabr",
+     "group": "Monate — oy nomlari"
+    },
+    {
+     "word": "Oktober",
+     "translation": "oktyabr",
+     "group": "Monate — oy nomlari"
+    },
+    {
+     "word": "November",
+     "translation": "noyabr",
+     "group": "Monate — oy nomlari"
+    },
+    {
+     "word": "Dezember",
+     "translation": "dekabr",
+     "group": "Monate — oy nomlari"
+    },
+    {
+     "word": "spazieren",
+     "translation": "sayr qilmoq",
+     "group": "Lesen: Wörter-Hilfe"
+    },
+    {
+     "word": "Fotos machen",
+     "translation": "suratlar olish",
+     "group": "Lesen: Wörter-Hilfe"
+    },
+    {
+     "word": "Croissants",
+     "translation": "kruassanlar",
+     "article": "die",
+     "group": "Lesen: Wörter-Hilfe"
+    },
+    {
+     "word": "Souvenirs",
+     "translation": "esdalik sovg'alar",
+     "article": "die",
+     "group": "Lesen: Wörter-Hilfe"
+    },
+    {
+     "word": "besuchen",
+     "translation": "bormoq, tashrif buyurmoq",
+     "group": "Lesen: Wörter-Hilfe"
+    },
+    {
+     "word": "kaufen",
+     "translation": "sotib olmoq",
+     "group": "Lesen: Wörter-Hilfe"
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l07-yakuniy-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 7,
+   "skill": "yakuniy",
+   "title": "Yakuniy Test: Modul 7",
+   "source": "vizu",
+   "instruction": "Präteritum va darsdagi so'zlar bo'yicha yakuniy test.",
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Gestern [[1]] ich krank.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "war"
+       ],
+       "options": [
+        "war",
+        "bin",
+        "warst"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Wir [[1]] keine Zeit.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "hatten"
+       ],
+       "options": [
+        "hatten",
+        "hattet",
+        "hatte"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Du [[1]] gestern zu Hause.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "warst"
+       ],
+       "options": [
+        "warst",
+        "wart",
+        "war"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Er [[1]] einen Film.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "sah"
+       ],
+       "options": [
+        "sah",
+        "sieht",
+        "sahen"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Ich [[1]] Fußball. (spielen)",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "spielte"
+       ],
+       "options": [
+        "spielte",
+        "spielt",
+        "spielten"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Präteritum von „gehen“ (ich):",
+     "options": [
+      "ging",
+      "gehte",
+      "gang"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Präteritum von „essen“ (er):",
+     "options": [
+      "aß",
+      "esste",
+      "isst"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Präteritum von „aufstehen“ (ich):",
+     "options": [
+      "stand auf",
+      "stehte auf",
+      "aufstand"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„letzte Woche“ — o'zbekchasi qaysi?",
+     "options": [
+      "o'tgan hafta",
+      "keyingi hafta",
+      "hafta oxiri"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "„die Kindheit“ bedeutet „bolalik“.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "matching",
+     "question": "Was passt zusammen?",
+     "items": [
+      "Januar",
+      "Juli",
+      "Oktober",
+      "gestern"
+     ],
+     "targets": [
+      "yanvar",
+      "iyul",
+      "oktyabr",
+      "kecha",
+      "ertaga"
+     ],
+     "pairs": {
+      "1": "A",
+      "2": "B",
+      "3": "C",
+      "4": "D"
+     },
+     "points": 1,
+     "passage": 1
+    }
+   ]
+  }
+ ]
+}

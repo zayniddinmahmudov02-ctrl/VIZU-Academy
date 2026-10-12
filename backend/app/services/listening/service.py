@@ -43,6 +43,13 @@ class ListeningService:
         audio_after = data.audio_url if "audio_url" in data.model_fields_set else listening.audio_url
         if publishing and not (listening.audio_storage_path or audio_after):
             raise HTTPException(status_code=409, detail="AUDIO_REQUIRED_TO_PUBLISH")
+        # imported Hören questions may wait for their answer key until an admin
+        # has listened to the uploaded audio — never publish them without it
+        if publishing:
+            from app.services.lesson_skills.exercises import has_key
+
+            if any(not has_key(q) for q in listening.questions):
+                raise HTTPException(status_code=409, detail="ANSWER_KEY_REQUIRED_TO_PUBLISH")
 
         return self.repository.update(
             listening,

@@ -8,10 +8,14 @@ import { useTranslation } from "@/lib/i18n/use-translation";
 
 const LABEL_KEYS: Partial<Record<SectionGateKey, string>> = {
   video: "lessons.sectionVideo",
+  frage: "lessons.sectionFrage",
+  grammatik_test: "lessons.sectionGrammar",
+  lesen_test: "lessons.sectionReading",
+  hoeren_test: "lessons.sectionListening",
   schreiben: "lessons.sectionWriting",
   sprechen: "lessons.sectionSpeaking",
-  wortschatz_quiz: "lessons.sectionVocabularyQuiz",
-  lesson_quiz: "lessons.sectionLessonQuiz",
+  wortschatz_test: "lessons.sectionVocabulary",
+  yakuniy_test: "lessons.sectionLessonQuiz",
 };
 
 // Only the steps that have a real completion signal are listed (the same
@@ -29,7 +33,7 @@ export default function SectionProgressionList({ gate }: { gate: SectionGateStat
 
   return (
     <div className="space-y-1.5">
-      {COMPLETION_TRACKED_GATE_KEYS.filter((key) => gate[key].applicable).map((key) => {
+      {COMPLETION_TRACKED_GATE_KEYS.filter((key) => gate[key]?.applicable).map((key) => {
         const entry = gate[key];
         const icon = entry.completed ? (
           <Check size={14} className="text-success" />

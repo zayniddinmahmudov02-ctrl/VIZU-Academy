@@ -18,8 +18,8 @@ class SpeakingService:
     def get(self, speaking_id: str):
         return self.repository.get(speaking_id)
 
-    def get_by_lesson(self, lesson_id, published_only: bool = False):
-        return self.repository.get_by_lesson(lesson_id, published_only=published_only)
+    def get_by_lesson(self, lesson_id, published_only: bool = False, task_kind: str | None = None):
+        return self.repository.get_by_lesson(lesson_id, published_only=published_only, task_kind=task_kind)
 
     def create(self, data: SpeakingCreate):
         return self.repository.create(data)

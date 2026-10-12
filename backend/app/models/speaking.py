@@ -92,6 +92,9 @@ class Speaking(BaseModel):
     speech_goal: Mapped[str | None] = mapped_column(Text, nullable=True)
     # stable id of imported (Claude JSON) content — duplicate detection
     content_id: Mapped[str | None] = mapped_column(String(120), nullable=True, index=True)
+    # SPRECHEN (the Sprechen step) or FRAGE (Frage des Themas — a voice
+    # answer to the lesson's topic question, sharing the same recorder)
+    task_kind: Mapped[str] = mapped_column(String(20), nullable=False, default="SPRECHEN", server_default="SPRECHEN")
 
     lesson = relationship(
         "Lesson",

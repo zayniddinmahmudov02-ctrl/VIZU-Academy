@@ -156,7 +156,14 @@ class TestSectionsAlwaysUnlocked(unittest.TestCase):
         # again; Schreiben/Sprechen count once teacher-graded; the removed
         # steps (Wortschatz browsing, Grammatik, Grammatik Quiz) and the
         # passage/audio-only Lesen/Hören are never required.
-        self.assertEqual(GATED_ORDER, ["video", "schreiben", "sprechen", "wortschatz_quiz", "lesson_quiz"])
+        # Lesson flow v3 (VIZU-DEUTSCH book): Frage des Themas, the Grammatik /
+        # Lesen / Hören / Wortschatz / Yakuniy tests (server-graded attempts)
+        # count too; the legacy quizzes only while a lesson has no new test.
+        self.assertEqual(
+            GATED_ORDER,
+            ["video", "frage", "grammatik_test", "lesen_test", "hoeren_test", "schreiben", "sprechen",
+             "wortschatz_test", "yakuniy_test"],
+        )
         for removed in ("wortschatz", "grammatik", "grammatik_quiz", "lesen", "hoeren"):
             self.assertNotIn(removed, GATED_ORDER)
 
@@ -182,7 +189,7 @@ class TestIsLessonCompleted(unittest.TestCase):
     def test_one_incomplete_applicable_section_blocks_completion(self):
         applicable = all_applicable()
         completed = {key: True for key in SECTION_ORDER}
-        completed["wortschatz_quiz"] = False
+        completed["wortschatz_test"] = False
         with patch.object(SectionGateService, "get_state", return_value=self._state(applicable, completed)):
             self.assertFalse(self.service.is_lesson_completed(user_id="u", lesson_id="l"))
 
@@ -203,7 +210,7 @@ class TestIsLessonCompleted(unittest.TestCase):
     def test_incomplete_applicable_yakuniy_test_blocks_completion(self):
         applicable = all_applicable()
         completed = {key: True for key in SECTION_ORDER}
-        completed["lesson_quiz"] = False
+        completed["yakuniy_test"] = False  # new final test or, without one, the legacy LESSON quiz
         with patch.object(SectionGateService, "get_state", return_value=self._state(applicable, completed)):
             self.assertFalse(self.service.is_lesson_completed(user_id="u", lesson_id="l"))
 

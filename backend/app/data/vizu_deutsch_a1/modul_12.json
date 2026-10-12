@@ -1,0 +1,1077 @@
+{
+ "schema_version": "1.1",
+ "language": "de",
+ "source": "vizu-deutsch-a1-book",
+ "items": [
+  {
+   "content_id": "vizu-a1-l12-frage-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 12,
+   "skill": "frage",
+   "title": "Frage: Ist Deutschland regnerisch?",
+   "source": "book",
+   "metadata": {
+    "book_page": 118
+   },
+   "prompt": "Ist Deutschland regnerisch? Wie oft regnet es in Deutschland? (Norden und Westen, Süden, Herbst und Winter) Wie ist das Wetter in Ihrer Stadt?",
+   "min_duration": 10,
+   "max_duration": 120
+  },
+  {
+   "content_id": "vizu-a1-l12-grammatik-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 12,
+   "skill": "grammatik",
+   "title": "Grammatik: Die Konjunktionen",
+   "source": "book",
+   "metadata": {
+    "book_page": "119-120"
+   },
+   "rules": [
+    {
+     "title": "Die Konjunktionen",
+     "html": "<table><thead><tr><th>Bog'lovchi</th><th>Strukturasi</th><th>Misollar</th></tr></thead><tbody><tr><td>und — va</td><td>Gap + und + gap</td><td>Ich lerne Deutsch und Englisch. — Men nemis va ingliz tillarini o'rganaman. / Ich arbeite und lerne zu Hause. / Wir trinken Tee und Kaffee.</td></tr><tr><td>oder — yoki</td><td>Gap + oder + gap</td><td>Möchtest du Tee oder Kaffee? — Sen choy yoki qahva xohlaysanmi? / Kommst du heute oder morgen? / Wir lernen zu Hause oder in der Schule.</td></tr><tr><td>aber — lekin</td><td>Gap, aber gap</td><td>Die Wohnung ist klein, aber billig. — Kvartira kichkina, lekin arzon. / Ich bin müde, aber glücklich. / Er arbeitet viel, aber verdient wenig.</td></tr><tr><td>denn — chunki</td><td>Gap, denn gap</td><td>Ich gehe nicht zur Arbeit, denn ich bin krank. — Men ishga bormayman, chunki kasalman. / Wir bleiben zu Hause, denn es regnet. / Ich lerne Deutsch, denn es ist wichtig.</td></tr><tr><td>deshalb / deswegen / darum — shuning uchun</td><td>Gap. Deshalb + fe'l + ega …</td><td>Ich bin krank. Deshalb gehe ich nicht zur Arbeit. — Men kasalman. Shuning uchun ishga bormayman. / Es ist kalt. Darum bleiben wir zu Hause. / Ich habe viel Arbeit. Deswegen komme ich spät.</td></tr><tr><td>dann / danach — keyin</td><td>Gap. Dann / Danach + fe'l + ega …</td><td>Wir essen zu Mittag. Danach gehen wir spazieren. — Biz tushlik qilamiz. Keyin sayr qilamiz. / Ich lerne Deutsch. Dann mache ich Hausaufgaben. / Er arbeitet am Morgen. Danach ruht er sich aus.</td></tr></tbody></table><p><strong>E'tibor bering:</strong> und, oder, aber, denn dan keyin so'z tartibi o'zgarmaydi; deshalb / deswegen / darum va dann / danach dan keyin fe'l 2-o'rinda keladi.</p>"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "Übung: Konjunktionen",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Ich bin müde, [[1]] ich lerne Deutsch.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "aber"
+         ],
+         "options": [
+          "aber",
+          "denn",
+          "oder"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Wir bleiben zu Hause, [[1]] es regnet.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "denn"
+         ],
+         "options": [
+          "denn",
+          "deshalb",
+          "und"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Möchtest du Tee [[1]] Kaffee?",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "oder"
+         ],
+         "options": [
+          "oder",
+          "aber",
+          "denn"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Es ist kalt. [[1]] bleiben wir zu Hause.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "Darum"
+         ],
+         "options": [
+          "Darum",
+          "Denn",
+          "Aber"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Wir essen zu Mittag. [[1]] gehen wir spazieren.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "Danach"
+         ],
+         "options": [
+          "Danach",
+          "Denn",
+          "Oder"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Meine Mutter kocht [[1]] mein Vater arbeitet.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "und"
+         ],
+         "options": [
+          "und",
+          "deshalb",
+          "dann"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Welcher Satz ist richtig?",
+       "options": [
+        "Ich bin krank. Deshalb ich gehe nicht zur Arbeit.",
+        "Ich bin krank. Deshalb gehe ich nicht zur Arbeit.",
+        "Ich bin krank, deshalb ich nicht gehe zur Arbeit."
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Deshalb + Verb (Position 2) + Subjekt."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Welcher Satz ist richtig?",
+       "options": [
+        "Ich lerne Deutsch, denn es ist wichtig.",
+        "Ich lerne Deutsch, denn ist es wichtig.",
+        "Ich lerne Deutsch, denn es wichtig ist."
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Nach „denn“ bleibt die normale Wortstellung."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Welcher Satz ist richtig?",
+       "options": [
+        "Ich stehe auf. Dann ich frühstücke.",
+        "Ich stehe auf. Dann frühstücke ich.",
+        "Ich stehe auf. Dann frühstücken ich."
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "true_false",
+       "question": "„deswegen“ bedeutet „shuning uchun“.",
+       "points": 1,
+       "passage": 1,
+       "correct_answer": "richtig"
+      }
+     ],
+     "instruction": "Wählen Sie die richtige Konjunktion bzw. den richtigen Satz."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l12-lesen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 12,
+   "skill": "lesen",
+   "title": "Lesen: Die Jahreszeiten in Deutschland",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 121,
+    "note": "Matnlar kitobdan; savollar VIZU tomonidan matn asosida tuzilgan."
+   },
+   "instruction": "Lesen Sie die Texte und beantworten Sie die Fragen.",
+   "passages": [
+    {
+     "title": "Winter in Deutschland",
+     "text": "Im Winter ist das Wetter in Deutschland sehr kalt. Die Temperaturen sind oft unter null Grad und es schneit viel. Die Tage sind kurz und die Nächte sind lang. Viele Menschen bleiben gern zu Hause, trinken heißen Tee oder Kaffee und verbringen Zeit mit der Familie. Im Winter kann man Nürnberg besuchen. Die Stadt ist bekannt für ihren großen Weihnachtsmarkt. Dort gibt es viele Lichter, Musik und traditionelles Essen. Auch Dresden ist im Winter sehr beliebt, weil der Weihnachtsmarkt dort alt und sehr schön ist. Der Winter ist kalt, aber ideal für Weihnachtsmärkte, Kultur und gemütliche Zeit."
+    },
+    {
+     "title": "Frühling in Deutschland",
+     "text": "Im Frühling wird das Wetter langsam wärmer. Die Sonne scheint öfter und die Natur wird grün. Blumen blühen überall und die Menschen sind wieder mehr draußen. Es regnet manchmal, aber die Luft ist frisch und angenehm. Im Frühling ist Bonn sehr schön, weil viele Bäume und Blumen blühen. Besonders die Kirschblüten sind sehr bekannt. Auch Freiburg ist im Frühling beliebt, denn die Stadt ist sonnig und liegt nah an der Natur. Der Frühling ist perfekt für Spaziergänge, Natur und frische Luft."
+    },
+    {
+     "title": "Sommer in Deutschland",
+     "text": "Im Sommer ist es in Deutschland warm oder manchmal sehr heiß. Die Tage sind lang und viele Menschen haben Urlaub. Man reist viel, geht schwimmen oder sitzt draußen im Café. Parks und Seen sind sehr beliebt. Im Sommer fahren viele Leute nach Berlin, weil es dort viele Feste, Parks und Seen gibt. Auch Hamburg ist im Sommer interessant, denn der Hafen, die Alster und die Spaziergänge am Wasser sind sehr schön. Der Sommer ist die beste Zeit für Reisen, Freizeit und Aktivitäten im Freien."
+    },
+    {
+     "title": "Herbst in Deutschland",
+     "text": "Im Herbst wird das Wetter kühler. Die Blätter werden gelb, rot und braun. Es regnet öfter und die Tage werden kürzer. Viele Menschen trinken gern warmen Tee und genießen ruhige Abende. Im Herbst kann man Heidelberg besuchen, weil die Stadt ruhig und romantisch ist. Auch Weimar ist im Herbst gut zu besuchen, denn dort gibt es viel Kultur und Geschichte. Der Herbst ist ruhig und ideal für Kultur, Natur und Entspannung."
+    }
+   ],
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Wie ist das Wetter im Winter?",
+     "options": [
+      "Sehr kalt, es schneit viel",
+      "Warm und sonnig",
+      "Heiß"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wofür ist Nürnberg bekannt?",
+     "options": [
+      "Für den Hafen",
+      "Für den großen Weihnachtsmarkt",
+      "Für die Kirschblüten"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "Im Winter sind die Tage lang und die Nächte kurz.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„Die Tage sind kurz und die Nächte sind lang.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Warum ist Bonn im Frühling schön?",
+     "options": [
+      "Weil es dort viele Feste gibt",
+      "Weil viele Bäume und Blumen blühen",
+      "Weil es dort schneit"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 2
+    },
+    {
+     "type": "true_false",
+     "question": "Freiburg ist sonnig und liegt nah an der Natur.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was machen viele Menschen im Sommer?",
+     "options": [
+      "Sie bleiben zu Hause.",
+      "Sie reisen, gehen schwimmen oder sitzen im Café.",
+      "Sie fahren Ski."
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 3
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Warum fahren viele Leute im Sommer nach Berlin?",
+     "options": [
+      "Wegen der Feste, Parks und Seen",
+      "Wegen des Weihnachtsmarkts",
+      "Wegen der Berge"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 3
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Welche Farben haben die Blätter im Herbst?",
+     "options": [
+      "Grün und blau",
+      "Gelb, rot und braun",
+      "Weiß"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 4
+    },
+    {
+     "type": "true_false",
+     "question": "Weimar ist im Herbst gut zu besuchen, denn es gibt dort viel Kultur und Geschichte.",
+     "points": 1,
+     "passage": 4,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Welche Jahreszeit ist ideal für Weihnachtsmärkte?",
+     "options": [
+      "Der Sommer",
+      "Der Herbst",
+      "Der Winter"
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1
+    }
+   ],
+   "max_score": 10
+  },
+  {
+   "content_id": "vizu-a1-l12-hoeren-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 12,
+   "skill": "hoeren",
+   "title": "Hören: Wetterberichte",
+   "source": "book",
+   "metadata": {
+    "book_page": 122,
+    "note": "Javoblar kitobning javoblar varag'idan; audio yuklanganda admin tekshirsin."
+   },
+   "audio_file": "A1-12.1.mp3 / A1-12.2.mp3",
+   "instruction": "Hören Sie die Wetterberichte und ergänzen Sie die Städte und die Temperaturen.",
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "Wetterbericht — Städte und Temperaturen.",
+     "text": "Wetterbericht 1: Guten Morgen! Hier ist der Wetterbericht für heute in Deutschland. Heute ist das Wetter kalt und wechselhaft. Am Morgen ist es bewölkt und es regnet leicht. In [[1]] sind es am Morgen [[2]] Grad. In [[3]] sind es nur [[4]] Grad und es ist windig. Am Mittag steigen die Temperaturen ein bisschen. Am Nachmittag bleibt es kühl. In [[5]] sind es [[6]] Grad und es gibt wenig Regen. Am Abend wird es wieder kälter. Ziehen Sie eine warme Jacke an.\nWetterbericht 2: Guten Tag! Hier ist der Wetterbericht für morgen in Deutschland. Morgen ist das Wetter sehr schön und sonnig. Am Morgen scheint die Sonne. In [[7]] sind es [[8]] Grad. In [[9]] sind es [[10]] Grad. Am Mittag wird es warm. Am Nachmittag ist das Wetter angenehm. In [[11]] steigen die Temperaturen auf [[12]] Grad. Am Abend bleibt es mild. Ein perfekter Tag für einen Spaziergang.",
+     "gaps": {
+      "1": [
+       "Berlin"
+      ],
+      "2": [
+       "8",
+       "8 Grad"
+      ],
+      "3": [
+       "Hamburg"
+      ],
+      "4": [
+       "7",
+       "7 Grad"
+      ],
+      "5": [
+       "Köln"
+      ],
+      "6": [
+       "12",
+       "12 Grad"
+      ],
+      "7": [
+       "München"
+      ],
+      "8": [
+       "16",
+       "16 Grad"
+      ],
+      "9": [
+       "Stuttgart"
+      ],
+      "10": [
+       "17",
+       "17 Grad"
+      ],
+      "11": [
+       "Frankfurt"
+      ],
+      "12": [
+       "24",
+       "24 Grad"
+      ]
+     },
+     "points": 12,
+     "passage": 1,
+     "case_sensitive": false
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l12-schreiben-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 12,
+   "skill": "schreiben",
+   "title": "Schreiben: Mein Lieblingswetter",
+   "source": "book",
+   "metadata": {
+    "book_page": 123
+   },
+   "prompt": "Was ist dein Lieblingswetter? Warum? Beschreibe das Wetter und was du gern bei diesem Wetter machst. Schreibe 4–5 Sätze.",
+   "task_type": "description",
+   "min_words": 25,
+   "max_words": 80,
+   "time_limit": 10,
+   "support_phrases": [
+    "Mein Lieblingswetter ist …",
+    "…, denn …",
+    "Bei diesem Wetter gehe ich gern …"
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l12-schreiben-02",
+   "level": "A1",
+   "module": 1,
+   "lesson": 12,
+   "skill": "schreiben",
+   "title": "Schreiben: Mein Lieblingsmonat",
+   "source": "book",
+   "metadata": {
+    "book_page": 123
+   },
+   "prompt": "Welcher ist dein Lieblingsmonat? Beschreibe den Monat, das Wetter, die Feste oder Aktivitäten. Schreibe 4–5 Sätze.",
+   "task_type": "description",
+   "min_words": 25,
+   "max_words": 80,
+   "time_limit": 10,
+   "support_phrases": [
+    "Mein Lieblingsmonat ist …",
+    "Im … ist das Wetter …",
+    "Im … feiern wir …"
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l12-schreiben-03",
+   "level": "A1",
+   "module": 1,
+   "lesson": 12,
+   "skill": "schreiben",
+   "title": "Gap tuzish: und, oder, aber (30 Sätze)",
+   "source": "book",
+   "metadata": {
+    "book_page": 120
+   },
+   "prompt": "Gap tuzish mashqlari (Buch S. 120). Schreiben Sie zu jeder Zeile einen vollständigen deutschen Satz.\n\nUND — va: 1. ich / Deutsch lernen / Englisch lernen  2. meine Mutter / kochen / mein Vater / arbeiten  3. ich / Kaffee trinken / Musik hören  4. wir / Fußball spielen / Tennis spielen  5. Anna / lesen / Peter / schreiben  6. ich / in Berlin wohnen / Deutsch studieren  7. er / früh aufstehen / zur Arbeit gehen  8. wir / am Wochenende lernen / Freunde treffen  9. sie / Brot kaufen / Milch kaufen  10. ich / ein Buch lesen / einen Film sehen\n\nODER — yoki: 1. Tee / Kaffee trinken  2. heute / morgen kommen  3. zu Hause / in der Schule lernen  4. mit dem Bus / mit dem Zug fahren  5. Pizza / Hamburger essen  6. Deutsch / Englisch sprechen  7. am Samstag / am Sonntag arbeiten  8. einen Film / eine Serie sehen  9. im Sommer / im Winter reisen  10. morgens / abends lernen\n\nABER — lekin: 1. die Wohnung ist klein / sie ist schön  2. ich bin müde / ich lerne Deutsch  3. das Wetter ist schlecht / wir gehen spazieren  4. der Kaffee ist teuer / er schmeckt gut  5. ich habe wenig Zeit / ich helfe dir  6. er arbeitet viel / er verdient wenig  7. Deutsch ist schwierig / ich lerne es gern  8. das Auto ist alt / es funktioniert gut  9. sie ist krank / sie geht zur Arbeit  10. der Film ist lang / er ist interessant",
+   "task_type": "other",
+   "min_words": 150,
+   "max_words": 400,
+   "time_limit": 40,
+   "rubric": [
+    {
+     "key": "task",
+     "name": "Topshiriqni bajarish (barcha gaplar)",
+     "max": 30
+    },
+    {
+     "key": "grammar",
+     "name": "Bog'lovchi va so'z tartibi",
+     "max": 40
+    },
+    {
+     "key": "vocabulary",
+     "name": "Fe'l shakllari",
+     "max": 20
+    },
+    {
+     "key": "spelling",
+     "name": "Imlo va tinish belgilari",
+     "max": 10
+    }
+   ],
+   "max_score": 100,
+   "ai_instructions": "Bu gap tuzish mashqi. Har bir satr uchun talaba bitta to'liq nemischa gap yozishi kerak. Bog'lovchi to'g'ri ishlatilganini, so'z tartibini (deshalb/deswegen/darum va dann/danach dan keyin fe'l 2-o'rinda; und/oder/aber/denn dan keyin oddiy tartib) va fe'l shakllarini tekshir. Mazmunan boshqacha, lekin grammatik jihatdan to'g'ri variantlarni to'g'ri deb hisobla. Yo'q gaplarni 'task' mezonida kamaytir."
+  },
+  {
+   "content_id": "vizu-a1-l12-schreiben-04",
+   "level": "A1",
+   "module": 1,
+   "lesson": 12,
+   "skill": "schreiben",
+   "title": "Gap tuzish: denn, deshalb, dann (30 Sätze)",
+   "source": "book",
+   "metadata": {
+    "book_page": 120
+   },
+   "prompt": "Gap tuzish mashqlari (Buch S. 120). Verbinden Sie die zwei Sätze. Achten Sie auf die Wortstellung.\n\nDENN — chunki: 1. ich gehe nicht zur Arbeit / ich bin krank  2. wir bleiben zu Hause / es regnet  3. ich lerne Deutsch / Deutsch ist wichtig  4. er geht früh ins Bett / er ist müde  5. sie kauft einen Regenschirm / es regnet  6. ich trinke keinen Kaffee / ich mag Kaffee nicht  7. wir fahren nicht mit dem Auto / das Auto ist kaputt  8. er lernt jeden Tag / er möchte die Prüfung bestehen  9. ich esse jetzt / ich habe Hunger  10. sie bleibt heute zu Hause / sie fühlt sich nicht gut\n\nDESHALB / DESWEGEN / DARUM — shuning uchun (Verb auf Position 2): 1. ich bin krank / ich gehe nicht zur Arbeit  2. es ist kalt / wir bleiben zu Hause  3. ich habe viel Arbeit / ich komme spät  4. er ist müde / er geht früh ins Bett  5. es regnet / wir nehmen einen Regenschirm  6. sie hat Hunger / sie macht ein Sandwich  7. Deutsch ist wichtig / ich lerne jeden Tag  8. das Auto ist kaputt / wir fahren mit dem Bus  9. morgen ist eine Prüfung / ich lerne heute viel  10. ich habe keine Zeit / ich kann dir nicht helfen\n\nDANN / DANACH — keyin: 1. ich stehe auf / ich frühstücke  2. ich frühstücke / ich gehe zur Arbeit  3. wir essen zu Mittag / wir gehen spazieren  4. ich lerne Deutsch / ich mache Hausaufgaben  5. er arbeitet am Morgen / er ruht sich aus  6. sie macht Sport / sie duscht  7. ich komme nach Hause / ich esse zu Abend  8. wir sehen einen Film / wir gehen ins Bett  9. er kauft ein Buch / er liest das Buch  10. ich mache meine Hausaufgaben / ich treffe meine Freunde",
+   "task_type": "other",
+   "min_words": 150,
+   "max_words": 400,
+   "time_limit": 40,
+   "rubric": [
+    {
+     "key": "task",
+     "name": "Topshiriqni bajarish (barcha gaplar)",
+     "max": 30
+    },
+    {
+     "key": "grammar",
+     "name": "Bog'lovchi va so'z tartibi",
+     "max": 40
+    },
+    {
+     "key": "vocabulary",
+     "name": "Fe'l shakllari",
+     "max": 20
+    },
+    {
+     "key": "spelling",
+     "name": "Imlo va tinish belgilari",
+     "max": 10
+    }
+   ],
+   "max_score": 100,
+   "ai_instructions": "Bu gap tuzish mashqi. Har bir satr uchun talaba bitta to'liq nemischa gap yozishi kerak. Bog'lovchi to'g'ri ishlatilganini, so'z tartibini (deshalb/deswegen/darum va dann/danach dan keyin fe'l 2-o'rinda; und/oder/aber/denn dan keyin oddiy tartib) va fe'l shakllarini tekshir. Mazmunan boshqacha, lekin grammatik jihatdan to'g'ri variantlarni to'g'ri deb hisobla. Yo'q gaplarni 'task' mezonida kamaytir."
+  },
+  {
+   "content_id": "vizu-a1-l12-sprechen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 12,
+   "skill": "sprechen",
+   "title": "Sprechen: Mein Lieblingsmonat und meine Lieblingsjahreszeit",
+   "source": "book",
+   "metadata": {
+    "book_page": 124
+   },
+   "topic": "Wetter und Jahreszeiten",
+   "prompt": "Beantworte die Fragen in ganzen Sätzen. Beispiel: Mein Lieblingsmonat ist Juli. Im Juli haben wir Sommerferien. Im Juli gehe ich gerne schwimmen.",
+   "questions": [
+    "Welcher ist dein Lieblingsmonat?",
+    "Warum ist es dein Lieblingsmonat?",
+    "Was machst du dann gerne?",
+    "Welche ist deine Lieblingsjahreszeit?",
+    "Warum ist das deine Lieblingsjahreszeit?",
+    "Was machst du gerne in der Jahreszeit?"
+   ],
+   "response_type": "monolog",
+   "min_duration": 30,
+   "max_duration": 120,
+   "speech_goal": "Lieblingsmonat und Lieblingsjahreszeit nennen, begründen und Aktivitäten beschreiben.",
+   "keywords": [
+    "Mein Lieblingsmonat ist",
+    "Meine Lieblingsjahreszeit ist",
+    "Im Sommer / Winter …",
+    "gerne"
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l12-wortschatz-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 12,
+   "skill": "wortschatz",
+   "title": "Wortschatz Modul 12: Wetter",
+   "source": "book",
+   "metadata": {
+    "book_page": 125
+   },
+   "words": [
+    {
+     "word": "regnen",
+     "translation": "yomg'ir yog'moq",
+     "group": "Verben"
+    },
+    {
+     "word": "schneien",
+     "translation": "qor yog'moq",
+     "group": "Verben"
+    },
+    {
+     "word": "scheinen",
+     "translation": "porlamoq (quyosh)",
+     "group": "Verben"
+    },
+    {
+     "word": "wehen",
+     "translation": "esmoq (shamol)",
+     "group": "Verben"
+    },
+    {
+     "word": "frieren",
+     "translation": "sovqotmoq",
+     "group": "Verben"
+    },
+    {
+     "word": "schwitzen",
+     "translation": "terlamoq",
+     "group": "Verben"
+    },
+    {
+     "word": "steigen",
+     "translation": "ko'tarilmoq",
+     "group": "Verben"
+    },
+    {
+     "word": "sinken",
+     "translation": "pasaymoq",
+     "group": "Verben"
+    },
+    {
+     "word": "blitzen",
+     "translation": "chaqmoq chaqmoq",
+     "group": "Verben"
+    },
+    {
+     "word": "donnern",
+     "translation": "momaqaldiroq gumburlamoq",
+     "group": "Verben"
+    },
+    {
+     "word": "bewölkt sein",
+     "translation": "bulutli bo'lmoq",
+     "group": "Verben"
+    },
+    {
+     "word": "aufklaren",
+     "translation": "ochilmoq (osmon)",
+     "group": "Verben"
+    },
+    {
+     "word": "hageln",
+     "translation": "do'l yog'moq",
+     "group": "Verben"
+    },
+    {
+     "word": "tauen",
+     "translation": "erimoq",
+     "group": "Verben"
+    },
+    {
+     "word": "sich ändern",
+     "translation": "o'zgarmoq",
+     "group": "Verben"
+    },
+    {
+     "word": "Regen",
+     "translation": "yomg'ir",
+     "article": "der",
+     "group": "Nomen"
+    },
+    {
+     "word": "Schnee",
+     "translation": "qor",
+     "article": "der",
+     "group": "Nomen"
+    },
+    {
+     "word": "Sonne",
+     "translation": "quyosh",
+     "article": "die",
+     "group": "Nomen"
+    },
+    {
+     "word": "Wind",
+     "translation": "shamol",
+     "article": "der",
+     "group": "Nomen"
+    },
+    {
+     "word": "Kälte",
+     "translation": "sovuq",
+     "article": "die",
+     "group": "Nomen"
+    },
+    {
+     "word": "Hitze",
+     "translation": "issiq",
+     "article": "die",
+     "group": "Nomen"
+    },
+    {
+     "word": "Temperatur",
+     "translation": "harorat",
+     "article": "die",
+     "group": "Nomen"
+    },
+    {
+     "word": "Wolke",
+     "translation": "bulut",
+     "article": "die",
+     "group": "Nomen"
+    },
+    {
+     "word": "Gewitter",
+     "translation": "momaqaldiroq",
+     "article": "das",
+     "group": "Nomen"
+    },
+    {
+     "word": "Sturm",
+     "translation": "bo'ron",
+     "article": "der",
+     "group": "Nomen"
+    },
+    {
+     "word": "Nebel",
+     "translation": "tuman",
+     "article": "der",
+     "group": "Nomen"
+    },
+    {
+     "word": "Himmel",
+     "translation": "osmon",
+     "article": "der",
+     "group": "Nomen"
+    },
+    {
+     "word": "Hagel",
+     "translation": "do'l",
+     "article": "der",
+     "group": "Nomen"
+    },
+    {
+     "word": "Eis",
+     "translation": "muz",
+     "article": "das",
+     "group": "Nomen"
+    },
+    {
+     "word": "Klima",
+     "translation": "iqlim",
+     "article": "das",
+     "group": "Nomen"
+    },
+    {
+     "word": "kalt",
+     "translation": "sovuq",
+     "group": "Adjektive"
+    },
+    {
+     "word": "warm",
+     "translation": "iliq",
+     "group": "Adjektive"
+    },
+    {
+     "word": "heiß",
+     "translation": "issiq",
+     "group": "Adjektive"
+    },
+    {
+     "word": "kühl",
+     "translation": "salqin",
+     "group": "Adjektive"
+    },
+    {
+     "word": "sonnig",
+     "translation": "quyoshli",
+     "group": "Adjektive"
+    },
+    {
+     "word": "windig",
+     "translation": "shamolli",
+     "group": "Adjektive"
+    },
+    {
+     "word": "regnerisch",
+     "translation": "yomg'irli",
+     "group": "Adjektive"
+    },
+    {
+     "word": "neblig",
+     "translation": "tumanli",
+     "group": "Adjektive"
+    },
+    {
+     "word": "trocken",
+     "translation": "quruq",
+     "group": "Adjektive"
+    },
+    {
+     "word": "nass",
+     "translation": "ho'l",
+     "group": "Adjektive"
+    },
+    {
+     "word": "bewölkt",
+     "translation": "bulutli",
+     "group": "Adjektive"
+    },
+    {
+     "word": "stürmisch",
+     "translation": "bo'ronli",
+     "group": "Adjektive"
+    },
+    {
+     "word": "angenehm",
+     "translation": "yoqimli",
+     "group": "Adjektive"
+    },
+    {
+     "word": "mild",
+     "translation": "yumshoq (ob-havo)",
+     "group": "Adjektive"
+    },
+    {
+     "word": "wechselhaft",
+     "translation": "o'zgaruvchan",
+     "group": "Adjektive"
+    },
+    {
+     "word": "heute",
+     "translation": "bugun",
+     "group": "Adverbien"
+    },
+    {
+     "word": "morgen",
+     "translation": "ertaga",
+     "group": "Adverbien"
+    },
+    {
+     "word": "gestern",
+     "translation": "kecha",
+     "group": "Adverbien"
+    },
+    {
+     "word": "draußen",
+     "translation": "tashqarida",
+     "group": "Adverbien"
+    },
+    {
+     "word": "drinnen",
+     "translation": "ichkarida",
+     "group": "Adverbien"
+    },
+    {
+     "word": "überall",
+     "translation": "hamma joyda",
+     "group": "Adverbien"
+    },
+    {
+     "word": "manchmal",
+     "translation": "ba'zan",
+     "group": "Adverbien"
+    },
+    {
+     "word": "oft",
+     "translation": "tez-tez",
+     "group": "Adverbien"
+    },
+    {
+     "word": "selten",
+     "translation": "kamdan-kam",
+     "group": "Adverbien"
+    },
+    {
+     "word": "plötzlich",
+     "translation": "to'satdan",
+     "group": "Adverbien"
+    },
+    {
+     "word": "langsam",
+     "translation": "sekin",
+     "group": "Adverbien"
+    },
+    {
+     "word": "schnell",
+     "translation": "tez",
+     "group": "Adverbien"
+    },
+    {
+     "word": "tagsüber",
+     "translation": "kunduz kuni",
+     "group": "Adverbien"
+    },
+    {
+     "word": "nachts",
+     "translation": "tunda",
+     "group": "Adverbien"
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l12-yakuniy-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 12,
+   "skill": "yakuniy",
+   "title": "Yakuniy Test: Modul 12",
+   "source": "vizu",
+   "instruction": "Bog'lovchilar va ob-havo so'zlari bo'yicha yakuniy test.",
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Es regnet, [[1]] bleiben wir zu Hause.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "deshalb"
+       ],
+       "options": [
+        "deshalb",
+        "denn",
+        "aber"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Ich gehe spazieren, [[1]] das Wetter ist schön.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "denn"
+       ],
+       "options": [
+        "denn",
+        "deshalb",
+        "oder"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Das Wetter ist kalt, [[1]] sonnig.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "aber"
+       ],
+       "options": [
+        "aber",
+        "denn",
+        "dann"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Wir frühstücken. [[1]] gehen wir zur Schule.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "Danach"
+       ],
+       "options": [
+        "Danach",
+        "Denn",
+        "Aber"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Welcher Satz ist richtig?",
+     "options": [
+      "Es ist kalt. Darum wir bleiben zu Hause.",
+      "Es ist kalt. Darum bleiben wir zu Hause."
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„neblig“ — o'zbekchasi qaysi?",
+     "options": [
+      "tumanli",
+      "shamolli",
+      "quruq"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„der Schnee“ — o'zbekchasi qaysi?",
+     "options": [
+      "qor",
+      "yomg'ir",
+      "do'l"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„Die Sonne ___.“",
+     "options": [
+      "scheint",
+      "schneit",
+      "regnet"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "„wechselhaft“ bedeutet „o'zgaruvchan“.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "matching",
+     "question": "Was passt zusammen?",
+     "items": [
+      "der Wind",
+      "das Gewitter",
+      "heiß",
+      "selten"
+     ],
+     "targets": [
+      "shamol",
+      "momaqaldiroq",
+      "issiq",
+      "kamdan-kam",
+      "tuman"
+     ],
+     "pairs": {
+      "1": "A",
+      "2": "B",
+      "3": "C",
+      "4": "D"
+     },
+     "points": 1,
+     "passage": 1
+    }
+   ]
+  }
+ ]
+}

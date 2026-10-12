@@ -33,6 +33,18 @@ QUESTION_TYPES = OPTION_TYPES | CONFIG_TYPES
 
 SKILL_LESEN = "LESEN"
 SKILL_HOEREN = "HOEREN"
+# exercise sets (skill_exercises): Grammatik / Wortschatz practice and the
+# lesson's final test (Yakuniy Test)
+SKILL_GRAMMATIK = "GRAMMATIK"
+SKILL_WORTSCHATZ = "WORTSCHATZ"
+SKILL_YAKUNIY = "YAKUNIY"
+EXERCISE_SKILLS = (SKILL_GRAMMATIK, SKILL_WORTSCHATZ, SKILL_YAKUNIY)
+EXERCISE_SOURCE_BOOK = "book"  # taken from the course book
+EXERCISE_SOURCE_VIZU = "vizu"  # created by VIZU from the lesson material
+
+# speakings.task_kind
+TASK_KIND_SPRECHEN = "SPRECHEN"
+TASK_KIND_FRAGE = "FRAGE"  # Frage des Themas
 
 ATTEMPT_IN_PROGRESS = "IN_PROGRESS"
 ATTEMPT_SUBMITTED = "SUBMITTED"
@@ -78,6 +90,59 @@ class ListeningOption(BaseModel):
     order_index: Mapped[int] = mapped_column(Integer, nullable=False, default=1, server_default="1")
 
 
+class SkillExercise(BaseModel):
+    """One auto-graded exercise set of a lesson (Grammatik, Wortschatz or the
+    Yakuniy Test). Questions work exactly like Lesen/Hören questions: the key
+    stays in the option rows / `config` and is graded on the server."""
+
+    __tablename__ = "skill_exercises"
+    __table_args__ = (Index("ix_skill_exercises_lesson_skill", "lesson_id", "skill"),)
+
+    lesson_id: Mapped[UUID] = mapped_column(PGUUID(as_uuid=True), ForeignKey("lessons.id", ondelete="CASCADE"), nullable=False)
+    skill: Mapped[str] = mapped_column(String(20), nullable=False)
+    title: Mapped[str] = mapped_column(String(255), nullable=False)
+    instruction: Mapped[str | None] = mapped_column(Text, nullable=True)
+    order_index: Mapped[int] = mapped_column(Integer, nullable=False, default=1, server_default="1")
+    is_published: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default="false")
+    source: Mapped[str] = mapped_column(String(20), nullable=False, default=EXERCISE_SOURCE_BOOK, server_default=EXERCISE_SOURCE_BOOK)
+    content_id: Mapped[str | None] = mapped_column(String(120), nullable=True, index=True)
+
+    questions = relationship(
+        "SkillExerciseQuestion", cascade="all, delete-orphan", order_by="SkillExerciseQuestion.order_index", lazy="selectin"
+    )
+
+
+class SkillExerciseQuestion(BaseModel):
+    __tablename__ = "skill_exercise_questions"
+
+    exercise_id: Mapped[UUID] = mapped_column(
+        PGUUID(as_uuid=True), ForeignKey("skill_exercises.id", ondelete="CASCADE"), nullable=False, index=True
+    )
+    question: Mapped[str] = mapped_column(Text, nullable=False)
+    question_type: Mapped[str] = mapped_column(
+        String(20), nullable=False, default=QUESTION_MULTIPLE_CHOICE, server_default=QUESTION_MULTIPLE_CHOICE
+    )
+    points: Mapped[int] = mapped_column(Integer, nullable=False, default=1, server_default="1")
+    explanation: Mapped[str | None] = mapped_column(Text, nullable=True)
+    order_index: Mapped[int] = mapped_column(Integer, nullable=False, default=1, server_default="1")
+    config: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
+
+    options = relationship(
+        "SkillExerciseOption", cascade="all, delete-orphan", order_by="SkillExerciseOption.order_index", lazy="selectin"
+    )
+
+
+class SkillExerciseOption(BaseModel):
+    __tablename__ = "skill_exercise_options"
+
+    question_id: Mapped[UUID] = mapped_column(
+        PGUUID(as_uuid=True), ForeignKey("skill_exercise_questions.id", ondelete="CASCADE"), nullable=False, index=True
+    )
+    option_text: Mapped[str] = mapped_column(String(500), nullable=False)
+    is_correct: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default="false")
+    order_index: Mapped[int] = mapped_column(Integer, nullable=False, default=1, server_default="1")
+
+
 class LessonSkillAttempt(BaseModel):
     """One Lesen test (all of a lesson's published texts) or one Hören task
     test. `answers` = {question_id: option_id} as submitted; grading happens
@@ -92,6 +157,10 @@ class LessonSkillAttempt(BaseModel):
     # Hören: the task the test belongs to; Lesen: NULL (one test per lesson).
     listening_id: Mapped[UUID | None] = mapped_column(
         PGUUID(as_uuid=True), ForeignKey("listenings.id", ondelete="CASCADE"), nullable=True, index=True
+    )
+    # Grammatik / Wortschatz / Yakuniy Test: the exercise set of the attempt
+    exercise_id: Mapped[UUID | None] = mapped_column(
+        PGUUID(as_uuid=True), ForeignKey("skill_exercises.id", ondelete="CASCADE"), nullable=True, index=True
     )
     attempt_number: Mapped[int] = mapped_column(Integer, nullable=False)
     status: Mapped[str] = mapped_column(String(20), nullable=False, default=ATTEMPT_IN_PROGRESS, server_default=ATTEMPT_IN_PROGRESS)

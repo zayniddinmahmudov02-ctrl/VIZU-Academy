@@ -127,6 +127,8 @@ export interface SkillResultTask {
 
 export interface SkillResult {
   available: boolean;
+  /** Frage des Themas: the voice answer has been sent (it is not scored automatically) */
+  submitted?: boolean;
   status: SkillStatus;
   score: number | null;
   interim?: boolean;
@@ -139,7 +141,7 @@ export interface SkillResult {
 
 export interface LessonSkillResults {
   lesson_id: string;
-  skills: Record<"lesen" | "hoeren" | "schreiben" | "sprechen", SkillResult>;
+  skills: Partial<Record<SkillKey, SkillResult>>;
   overall: {
     status: "final" | "interim" | "not_started" | "not_available";
     score: number | null;
@@ -151,13 +153,13 @@ export interface LessonSkillResults {
   };
 }
 
-export type SkillKey = "lesen" | "hoeren" | "schreiben" | "sprechen";
+export type SkillKey = "frage" | "grammatik" | "lesen" | "hoeren" | "schreiben" | "sprechen" | "wortschatz" | "yakuniy";
 
 export interface LevelProgressLesson {
   lesson_id: string;
   module_number: number;
   lesson_number: number;
-  skills: Record<SkillKey, { status: SkillStatus; score: number | null }>;
+  skills: Partial<Record<SkillKey, { status: SkillStatus; score: number | null }>>;
   overall: Pick<LessonSkillResults["overall"], "status" | "score" | "graded_skills" | "required_skills">;
 }
 
@@ -220,4 +222,38 @@ export async function getLessonSkillResults(lessonId: string): Promise<LessonSki
 export async function getLevelProgress(level: string): Promise<LevelProgress> {
   const data = (await api.get<LevelProgress>(`${BASE}/levels/${level}/progress`)).data;
   return { level: data?.level ?? level, lessons: Array.isArray(data?.lessons) ? data.lessons : [] };
+}
+
+// ============================================================
+// Exercise sets — Grammatik / Wortschatz practice, Yakuniy Test
+// ============================================================
+
+export type ExerciseSkill = "grammatik" | "wortschatz" | "yakuniy";
+
+export interface ExerciseSet {
+  id: string;
+  title: string;
+  instruction: string | null;
+  /** "book" = from the course book, "vizu" = created from the lesson material */
+  source: "book" | "vizu";
+  questions: PublicQuestion[];
+  summary: AttemptSummary;
+  attempts: SkillAttempt[];
+}
+
+export async function getExercises(lessonId: string, skill: ExerciseSkill): Promise<ExerciseSet[]> {
+  const data = (await api.get<{ exercises: ExerciseSet[] }>(`${BASE}/${lessonId}/exercises/${skill}`)).data;
+  return Array.isArray(data?.exercises) ? data.exercises : [];
+}
+
+export async function startExercise(lessonId: string, skill: ExerciseSkill, exerciseId: string): Promise<SkillAttempt> {
+  return (await api.post<SkillAttempt>(`${BASE}/${lessonId}/exercises/${skill}/${exerciseId}/start`)).data;
+}
+
+export async function submitExercise(lessonId: string, skill: ExerciseSkill, exerciseId: string, attemptId: string, answers: Answers): Promise<AttemptResult> {
+  return (await api.post<AttemptResult>(`${BASE}/${lessonId}/exercises/${skill}/${exerciseId}/submit`, { attempt_id: attemptId, answers })).data;
+}
+
+export async function reviewExercise(lessonId: string, skill: ExerciseSkill, exerciseId: string, attemptId: string): Promise<AttemptResult> {
+  return (await api.get<AttemptResult>(`${BASE}/${lessonId}/exercises/${skill}/${exerciseId}/attempts/${attemptId}`)).data;
 }

@@ -14,13 +14,13 @@ import type { SectionGateState } from "@/features/lessons/services/section-gate-
 export function isSectionVisible(section: LessonSectionMeta, gate: SectionGateState | undefined): boolean {
   const key = SECTION_GATE_KEYS[section.type];
   if (!key) return true;
-  return gate ? gate[key].applicable : true;
+  return gate ? Boolean(gate[key]?.applicable) : true;
 }
 
 export function isSectionDone(section: LessonSectionMeta, gate: SectionGateState | undefined): boolean {
   const key = SECTION_GATE_KEYS[section.type];
   if (!key || !gate) return false;
-  return gate[key].completed;
+  return Boolean(gate[key]?.completed);
 }
 
 export interface SectionProgress {

@@ -1,0 +1,1335 @@
+{
+ "schema_version": "1.1",
+ "language": "de",
+ "source": "vizu-deutsch-a1-book",
+ "items": [
+  {
+   "content_id": "vizu-a1-l05-frage-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 5,
+   "skill": "frage",
+   "title": "Frage des Themas: Warum stellt man die Zeit in Deutschland um?",
+   "source": "book",
+   "metadata": {
+    "book_page": 48
+   },
+   "prompt": "Warum stellen wir die Zeit in Deutschland um (Sommerzeit / Winterzeit)? Was wissen Sie darüber? (Tageslicht besser nutzen, Energie sparen, Tagesrhythmus, Tradition)",
+   "min_duration": 10,
+   "max_duration": 120
+  },
+  {
+   "content_id": "vizu-a1-l05-grammatik-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 5,
+   "skill": "grammatik",
+   "title": "Grammatik: Fragesätze und Uhrzeiten",
+   "source": "book",
+   "metadata": {
+    "book_page": "49-53"
+   },
+   "rules": [
+    {
+     "title": "Ja / Nein — Fragen",
+     "html": "<h3>Ja / Nein — savollar</h3><p><strong>Qoida:</strong> savolda fe'l 1-o'rinda bo'ladi va du / ihr / Sie ga mos tuslanadi. Javob faqat „Ja, …“ yoki „Nein, …“ bilan beriladi. „Ja“ — ha, „Nein“ — yo'q.</p><p><strong>So'z tartibi:</strong> Fe'l + du / ihr / Sie + …? — Masalan: <em>Lernst du Deutsch?</em></p><table><thead><tr><th>Infinitiv</th><th>du</th><th>ihr</th><th>Sie</th></tr></thead><tbody><tr><td>lernen</td><td>lernst</td><td>lernt</td><td>lernen</td></tr><tr><td>wohnen</td><td>wohnst</td><td>wohnt</td><td>wohnen</td></tr></tbody></table><table><thead><tr><th></th><th>du (singular, tanish)</th><th>ihr (plural, tanish)</th><th>Sie (singular / plural, rasmiy)</th></tr></thead><tbody><tr><td>Oddiy gap</td><td>Du lernst Deutsch. (Sen nemis tilini o'rganasan)</td><td>Ihr lernt Deutsch. (Sizlar nemis tilini o'rganasizlar)</td><td>Sie lernen Deutsch. (Siz nemis tilini o'rganasiz)</td></tr><tr><td>Ja/Nein savol</td><td>Lernst du Deutsch?</td><td>Lernt ihr Deutsch?</td><td>Lernen Sie Deutsch?</td></tr><tr><td>Eslatma</td><td>du → fe'lga -st qo'shiladi (lernst)</td><td>ihr → fe'lga -t qo'shiladi (lernt)</td><td>Sie → fe'l o'zgarishsiz qoladi (lernen)</td></tr></tbody></table>"
+    },
+    {
+     "title": "W-Fragesätze",
+     "html": "<h3>W-Fragesätze</h3><p>W-so'z savolga ma'no beradi. <strong>Fe'l doimo ikkinchi o'rinda</strong> bo'ladi. So'roq belgisi (?) oxirida yoziladi. Javob gapda tartib odatiy holatda bo'ladi. Ich va wir bilan odatda savol qilinmaydi; du, ihr, Sie bilan W-Fragen bo'ladi.</p><p><strong>Tuzilishi:</strong> W-so'z + fe'l + du / ihr / Sie + … ?</p><table><thead><tr><th>W-so'z</th><th>Ma'nosi</th><th>W-so'z</th><th>Ma'nosi</th></tr></thead><tbody><tr><td>Was</td><td>nima</td><td>Wohin</td><td>qayerga</td></tr><tr><td>Wo</td><td>qayerda</td><td>Woher</td><td>qayerdan</td></tr><tr><td>Wann</td><td>qachon</td><td>Welche</td><td>qaysi</td></tr><tr><td>Warum</td><td>nega</td><td>Wie viel</td><td>qancha</td></tr><tr><td>Wie</td><td>qanday</td><td>Wer</td><td>kim</td></tr></tbody></table><table><thead><tr><th></th><th>du</th><th>ihr</th><th>Sie</th></tr></thead><tbody><tr><td>Oddiy gap</td><td>Du lernst Deutsch.</td><td>Ihr wohnt in Berlin.</td><td>Sie arbeiten heute.</td></tr><tr><td>W-Fragen</td><td>Was lernst du? Wann lernst du?</td><td>Wo wohnt ihr? Warum wohnt ihr in Berlin?</td><td>Warum arbeiten Sie heute? Wann arbeiten Sie?</td></tr></tbody></table>"
+    },
+    {
+     "title": "Die Uhrzeiten",
+     "html": "<h3>Rasmiy soatlar (Uhrzeit — formal)</h3><p>Stunden (1–24) + Minuten (00–59) + Uhr. 24-soat tizimi ishlatiladi. Soatni aytishda <strong>um</strong> ishlatiladi: Der Zug kommt um 18:45 Uhr. — Poyezd soat 18:45 da keladi.</p><table><thead><tr><th>Raqam bilan</th><th>Misol jumla</th></tr></thead><tbody><tr><td>08:00</td><td>Es ist acht Uhr.</td></tr><tr><td>09:15</td><td>Es ist neun Uhr fünfzehn.</td></tr><tr><td>12:30</td><td>Es ist zwölf Uhr dreißig.</td></tr><tr><td>14:45</td><td>Es ist vierzehn Uhr fünfundvierzig.</td></tr><tr><td>18:05</td><td>Es ist achtzehn Uhr fünf.</td></tr><tr><td>23:50</td><td>Es ist dreiundzwanzig Uhr fünfzig.</td></tr><tr><td>00:00</td><td>Es ist null Uhr.</td></tr></tbody></table><h3>Norasmiy soatlar (informal / umgangssprachlich)</h3><p>12-soat tizimi ishlatiladi; „Uhr“ ko'pincha ishlatilmaydi. <strong>halb</strong> = yarim (keyingi soatga qarab), <strong>Viertel nach</strong> = 15 daqiqa o'tgan, <strong>Viertel vor</strong> = 15 daqiqa kam, <strong>vor</strong> = … daqiqa kam, <strong>nach</strong> = … daqiqa o'tgan.</p><table><thead><tr><th>Raqam bilan</th><th>Misol jumla</th></tr></thead><tbody><tr><td>08:00</td><td>Es ist acht.</td></tr><tr><td>09:15</td><td>Es ist Viertel nach neun.</td></tr><tr><td>12:30</td><td>Es ist halb eins.</td></tr><tr><td>14:45</td><td>Es ist Viertel vor drei.</td></tr><tr><td>08:25</td><td>Es ist fünf vor halb neun.</td></tr><tr><td>08:35</td><td>Es ist fünf nach halb neun.</td></tr><tr><td>18:05</td><td>Es ist fünf nach sechs.</td></tr><tr><td>23:50</td><td>Es ist zehn vor zwölf.</td></tr><tr><td>00:00</td><td>Es ist zwölf.</td></tr></tbody></table><p><strong>Wie spät ist es?</strong> — Soat necha bo'ldi?</p>"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "Aufgaben: Ja/Nein-Fragen (20)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine Ja/Nein-Frage: Du lernst Deutsch.",
+       "accepted": [
+        "Lernst du Deutsch?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine Ja/Nein-Frage: Ihr wohnt in Berlin.",
+       "accepted": [
+        "Wohnt ihr in Berlin?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine Ja/Nein-Frage: Sie arbeiten heute.",
+       "accepted": [
+        "Arbeiten Sie heute?",
+        "Arbeitet sie heute?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine Ja/Nein-Frage: Er spielt Tennis.",
+       "accepted": [
+        "Spielt er Tennis?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine Ja/Nein-Frage: Sie tanzt gern.",
+       "accepted": [
+        "Tanzt sie gern?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine Ja/Nein-Frage: Es arbeitet heute.",
+       "accepted": [
+        "Arbeitet es heute?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine Ja/Nein-Frage: Du liest ein Buch.",
+       "accepted": [
+        "Liest du ein Buch?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine Ja/Nein-Frage: Ihr macht Hausaufgaben.",
+       "accepted": [
+        "Macht ihr Hausaufgaben?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine Ja/Nein-Frage: Sie besuchen Freunde.",
+       "accepted": [
+        "Besuchen Sie Freunde?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine Ja/Nein-Frage: Er kocht heute.",
+       "accepted": [
+        "Kocht er heute?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine Ja/Nein-Frage: Du gehst ins Kino.",
+       "accepted": [
+        "Gehst du ins Kino?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine Ja/Nein-Frage: Ihr spielt Fußball.",
+       "accepted": [
+        "Spielt ihr Fußball?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine Ja/Nein-Frage: Sie lesen Zeitung.",
+       "accepted": [
+        "Lesen Sie Zeitung?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine Ja/Nein-Frage: Es schwimmt im See.",
+       "accepted": [
+        "Schwimmt es im See?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine Ja/Nein-Frage: Du schreibst einen Brief.",
+       "accepted": [
+        "Schreibst du einen Brief?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine Ja/Nein-Frage: Ihr hört Musik.",
+       "accepted": [
+        "Hört ihr Musik?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine Ja/Nein-Frage: Er fährt nach Berlin.",
+       "accepted": [
+        "Fährt er nach Berlin?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine Ja/Nein-Frage: Sie fährt nach München.",
+       "accepted": [
+        "Fährt sie nach München?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine Ja/Nein-Frage: Es schläft viel.",
+       "accepted": [
+        "Schläft es viel?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine Ja/Nein-Frage: Du kaufst ein neues Buch.",
+       "accepted": [
+        "Kaufst du ein neues Buch?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1
+      }
+     ],
+     "instruction": "Bilden Sie aus jedem Satz eine Ja/Nein-Frage."
+    },
+    {
+     "title": "Aufgaben: W-Fragen (20)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine W-Frage: Du lernst Deutsch.",
+       "accepted": [
+        "Was lernst du?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Was lernst du?"
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine W-Frage: Ihr wohnt in Berlin.",
+       "accepted": [
+        "Wo wohnt ihr?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Wo wohnt ihr?"
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine W-Frage: Sie arbeiten heute.",
+       "accepted": [
+        "Wann arbeiten Sie?",
+        "Warum arbeiten Sie heute?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Wann arbeiten Sie?"
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine W-Frage: Er spielt Tennis.",
+       "accepted": [
+        "Was spielt er?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Was spielt er?"
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine W-Frage: Sie tanzt gern.",
+       "accepted": [
+        "Was macht sie gern?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Was macht sie gern?"
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine W-Frage: Es arbeitet heute.",
+       "accepted": [
+        "Wann arbeitet es?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Wann arbeitet es?"
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine W-Frage: Du liest ein Buch.",
+       "accepted": [
+        "Was liest du?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Was liest du?"
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine W-Frage: Ihr macht Hausaufgaben.",
+       "accepted": [
+        "Was macht ihr?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Was macht ihr?"
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine W-Frage: Sie besuchen Freunde.",
+       "accepted": [
+        "Wen besuchen Sie?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Wen besuchen Sie?"
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine W-Frage: Er kocht heute.",
+       "accepted": [
+        "Was macht er heute?",
+        "Wann kocht er?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Was macht er heute?"
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine W-Frage: Du gehst ins Kino.",
+       "accepted": [
+        "Wohin gehst du?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Wohin gehst du?"
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine W-Frage: Ihr spielt Fußball.",
+       "accepted": [
+        "Was spielt ihr?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Was spielt ihr?"
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine W-Frage: Sie lesen Zeitung.",
+       "accepted": [
+        "Was lesen Sie?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Was lesen Sie?"
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine W-Frage: Es schwimmt im See.",
+       "accepted": [
+        "Wo schwimmt es?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Wo schwimmt es?"
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine W-Frage: Du schreibst einen Brief.",
+       "accepted": [
+        "Was schreibst du?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Was schreibst du?"
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine W-Frage: Ihr hört Musik.",
+       "accepted": [
+        "Was hört ihr?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Was hört ihr?"
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine W-Frage: Er fährt nach Berlin.",
+       "accepted": [
+        "Wohin fährt er?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Wohin fährt er?"
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine W-Frage: Sie fährt nach München.",
+       "accepted": [
+        "Wohin fährt sie?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Wohin fährt sie?"
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine W-Frage: Es schläft viel.",
+       "accepted": [
+        "Wie viel schläft es?",
+        "Wieviel schläft es?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Wie viel schläft es?"
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilden Sie eine W-Frage: Du kaufst ein neues Buch.",
+       "accepted": [
+        "Was kaufst du?"
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Was kaufst du?"
+      }
+     ],
+     "instruction": "Bilden Sie aus jedem Satz eine W-Frage. Hinweis: Es gibt manchmal mehrere richtige W-Fragen; bewertet wird die Lösung aus dem Buch."
+    },
+    {
+     "title": "Aufgabe: Wie viel Uhr ist es? (informell)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "short_answer",
+       "question": "Es ist 09:15 Uhr. Wie sagt man das informell? (Es ist …)",
+       "accepted": [
+        "Viertel nach neun",
+        "Es ist Viertel nach neun"
+       ],
+       "points": 1,
+       "max_length": 60,
+       "passage": 1
+      },
+      {
+       "type": "short_answer",
+       "question": "Es ist 06:30 Uhr. Wie sagt man das informell? (Es ist …)",
+       "accepted": [
+        "halb sieben",
+        "Es ist halb sieben"
+       ],
+       "points": 1,
+       "max_length": 60,
+       "passage": 1
+      },
+      {
+       "type": "short_answer",
+       "question": "Es ist 01:00 Uhr. Wie sagt man das informell? (Es ist …)",
+       "accepted": [
+        "ein Uhr",
+        "eins",
+        "Es ist ein Uhr",
+        "Es ist eins"
+       ],
+       "points": 1,
+       "max_length": 60,
+       "passage": 1
+      },
+      {
+       "type": "short_answer",
+       "question": "Es ist 08:15 Uhr. Wie sagt man das informell? (Es ist …)",
+       "accepted": [
+        "Viertel nach acht",
+        "Es ist Viertel nach acht"
+       ],
+       "points": 1,
+       "max_length": 60,
+       "passage": 1
+      },
+      {
+       "type": "short_answer",
+       "question": "Es ist 04:50 Uhr. Wie sagt man das informell? (Es ist …)",
+       "accepted": [
+        "zehn vor fünf",
+        "Es ist zehn vor fünf"
+       ],
+       "points": 1,
+       "max_length": 60,
+       "passage": 1
+      },
+      {
+       "type": "short_answer",
+       "question": "Es ist 09:20 Uhr. Wie sagt man das informell? (Es ist …)",
+       "accepted": [
+        "zwanzig nach neun",
+        "Es ist zwanzig nach neun"
+       ],
+       "points": 1,
+       "max_length": 60,
+       "passage": 1
+      },
+      {
+       "type": "short_answer",
+       "question": "Es ist 05:00 Uhr. Wie sagt man das informell? (Es ist …)",
+       "accepted": [
+        "fünf Uhr",
+        "fünf",
+        "Es ist fünf Uhr",
+        "Es ist fünf"
+       ],
+       "points": 1,
+       "max_length": 60,
+       "passage": 1
+      },
+      {
+       "type": "short_answer",
+       "question": "Es ist 01:45 Uhr. Wie sagt man das informell? (Es ist …)",
+       "accepted": [
+        "Viertel vor zwei",
+        "Es ist Viertel vor zwei"
+       ],
+       "points": 1,
+       "max_length": 60,
+       "passage": 1
+      },
+      {
+       "type": "short_answer",
+       "question": "Es ist 09:45 Uhr. Wie sagt man das informell? (Es ist …)",
+       "accepted": [
+        "Viertel vor zehn",
+        "Es ist Viertel vor zehn"
+       ],
+       "points": 1,
+       "max_length": 60,
+       "passage": 1
+      },
+      {
+       "type": "short_answer",
+       "question": "Es ist 06:00 Uhr. Wie sagt man das informell? (Es ist …)",
+       "accepted": [
+        "sechs Uhr",
+        "sechs",
+        "Es ist sechs Uhr",
+        "Es ist sechs"
+       ],
+       "points": 1,
+       "max_length": 60,
+       "passage": 1
+      },
+      {
+       "type": "short_answer",
+       "question": "Es ist 12:30 Uhr. Wie sagt man das informell? (Es ist …)",
+       "accepted": [
+        "halb eins",
+        "Es ist halb eins"
+       ],
+       "points": 1,
+       "max_length": 60,
+       "passage": 1
+      }
+     ],
+     "instruction": "Schreiben Sie die Uhrzeit informell (z. B. „Viertel nach neun“)."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l05-lesen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 5,
+   "skill": "lesen",
+   "title": "Lesen: Der Tagesablauf von Tom und Anna",
+   "source": "book",
+   "metadata": {
+    "book_page": 54
+   },
+   "instruction": "Lesen Sie die Texte und antworten Sie auf die Fragen.",
+   "passages": [
+    {
+     "title": "Tom",
+     "text": "Hallo! Ich heiße Tom. Ich bin 20 Jahre alt. Ich studiere an der Universität. Ich stehe um 06:45 Uhr auf, frühstücke um 07:15 Uhr und gehe um 07:45 Uhr zur Uni. Um 12:15 Uhr esse ich Mittag, danach lerne ich um 13:00 Uhr in der Bibliothek. Um 16:30 Uhr gehe ich nach Hause, spiele um 17:30 Uhr Tennis mit Freunden, esse um 19:00 Uhr Abendessen, sehe um 20:30 Uhr fern oder höre Musik und gehe um 22:45 Uhr ins Bett."
+    },
+    {
+     "title": "Anna",
+     "text": "Hallo! Ich heiße Anna. Ich bin 19 Jahre alt. Ich arbeite in einem Café. Ich stehe um 07:00 Uhr auf, frühstücke um 07:30 Uhr, trinke Kaffee und gehe um 08:00 Uhr zur Arbeit. Um 12:30 Uhr esse ich Mittag, arbeite weiter bis 16:00 Uhr, gehe dann einkaufen oder treffe Freunde. Um 18:30 Uhr esse ich Abendessen, lerne um 19:30 Uhr Deutsch oder lese ein Buch, sehe um 21:00 Uhr fern und gehe um 22:30 Uhr ins Bett."
+    }
+   ],
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Um wie viel Uhr steht Tom auf?",
+     "options": [
+      "06:00 Uhr",
+      "06:45 Uhr",
+      "07:15 Uhr"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was macht Tom um 07:15 Uhr?",
+     "options": [
+      "Er geht zur Universität.",
+      "Er frühstückt.",
+      "Er spielt Tennis."
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wann frühstückt Anna?",
+     "options": [
+      "Um 07:00 Uhr",
+      "Um 07:30 Uhr",
+      "Um 08:00 Uhr"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 2
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was macht Anna nach der Arbeit?",
+     "options": [
+      "Sie lernt Deutsch.",
+      "Sie geht einkaufen oder trifft Freunde.",
+      "Sie spielt Tennis."
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 2
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Um wie viel Uhr isst Anna Abendessen?",
+     "options": [
+      "Um 18:30 Uhr",
+      "Um 19:30 Uhr",
+      "Um 21:00 Uhr"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 2
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Um wie viel Uhr geht Tom ins Bett?",
+     "options": [
+      "22:45 Uhr",
+      "21:00 Uhr",
+      "23:00 Uhr"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    }
+   ],
+   "max_score": 6
+  },
+  {
+   "content_id": "vizu-a1-l05-hoeren-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 5,
+   "skill": "hoeren",
+   "title": "Hören: Mein Wochenende",
+   "source": "book",
+   "metadata": {
+    "book_page": 55,
+    "note": "Javoblar kitobning javoblar varag'idan; audio yuklanganda admin tekshirsin."
+   },
+   "audio_file": "A1-5.mp3",
+   "instruction": "Hören Sie den Text und füllen Sie die Lücken mit der richtigen Uhrzeit aus.",
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "Meine Wochenende — tragen Sie die Uhrzeiten ein.",
+     "text": "Am Samstag stehe ich um [[1]] Uhr auf. Ich frühstücke um [[2]] Uhr und danach gehe ich spazieren. Um [[3]] Uhr treffe ich meine Freunde und wir spielen Fußball im Park. Um [[4]] Uhr esse ich Mittag zu Hause. Am Nachmittag lerne ich ein bisschen Deutsch und lese ein Buch. Um [[5]] Uhr gehe ich einkaufen und danach esse ich Abendessen. Am Abend sehe ich fern oder höre Musik. Um [[6]] Uhr gehe ich ins Bett.\nAm Sonntag stehe ich etwas später auf, um [[7]] Uhr. Ich frühstücke gemütlich und danach helfe ich meiner Mutter im Haus. Um [[8]] Uhr gehe ich mit meiner Familie ins Café oder wir essen zusammen zu Hause. Am Nachmittag gehe ich oft ins Kino oder treffe Freunde. Abends mache ich meine Hausaufgaben und lese ein Buch. Um [[9]] Uhr gehe ich schlafen.",
+     "gaps": {
+      "1": [
+       "08:00",
+       "8:00",
+       "08.00",
+       "8.00",
+       "08:00 Uhr",
+       "8:00 Uhr"
+      ],
+      "2": [
+       "08:30",
+       "8:30",
+       "08.30",
+       "8.30",
+       "08:30 Uhr",
+       "8:30 Uhr"
+      ],
+      "3": [
+       "11:00",
+       "11:00",
+       "11.00",
+       "11.00",
+       "11:00 Uhr",
+       "11:00 Uhr"
+      ],
+      "4": [
+       "13:00",
+       "13:00",
+       "13.00",
+       "13.00",
+       "13:00 Uhr",
+       "13:00 Uhr"
+      ],
+      "5": [
+       "18:00",
+       "18:00",
+       "18.00",
+       "18.00",
+       "18:00 Uhr",
+       "18:00 Uhr"
+      ],
+      "6": [
+       "23:00",
+       "23:00",
+       "23.00",
+       "23.00",
+       "23:00 Uhr",
+       "23:00 Uhr"
+      ],
+      "7": [
+       "09:00",
+       "9:00",
+       "09.00",
+       "9.00",
+       "09:00 Uhr",
+       "9:00 Uhr"
+      ],
+      "8": [
+       "12:00",
+       "12:00",
+       "12.00",
+       "12.00",
+       "12:00 Uhr",
+       "12:00 Uhr"
+      ],
+      "9": [
+       "22:00",
+       "22:00",
+       "22.00",
+       "22.00",
+       "22:00 Uhr",
+       "22:00 Uhr"
+      ]
+     },
+     "points": 9,
+     "passage": 1,
+     "case_sensitive": false
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l05-schreiben-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 5,
+   "skill": "schreiben",
+   "title": "Schreiben: Mein Tagesablauf",
+   "source": "book",
+   "metadata": {
+    "book_page": 56
+   },
+   "prompt": "Schreiben Sie über Ihren Tagesablauf. Benutzen Sie die Beispiele und schreiben Sie vollständige Sätze:\nKirish: Hallo! Ich heiße … Ich bin … Jahre alt. Ich bin … / Ich arbeite als …\nErtalab: Ich stehe um … Uhr auf. Ich frühstücke um … Ich gehe um … Uhr zur Schule / Arbeit.\nTushlik: Um … Uhr esse ich Mittag. Ich lerne / arbeite / spiele um … Uhr. Ich treffe Freunde um … Uhr.\nKechqurun: Ich esse um … Uhr Abendessen. Am Abend sehe ich fern / höre Musik / lese ein Buch. Um … Uhr gehe ich ins Bett.\nYakun: Mein Tag ist interessant. / Ich habe viel Spaß.",
+   "task_type": "description",
+   "min_words": 40,
+   "max_words": 120,
+   "time_limit": 20,
+   "support_phrases": [
+    "Ich stehe um … Uhr auf.",
+    "Um … Uhr esse ich Mittag.",
+    "Am Abend …",
+    "Um … Uhr gehe ich ins Bett.",
+    "Mein Tag ist interessant."
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l05-sprechen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 5,
+   "skill": "sprechen",
+   "title": "Sprechen: Fragen zum Alltag",
+   "source": "book",
+   "metadata": {
+    "book_page": 57
+   },
+   "topic": "Mein Tagesablauf",
+   "prompt": "Beantworte die Fragen. Sprich in vollständigen Sätzen und erzähle mehr!",
+   "questions": [
+    "Lernst du Deutsch?",
+    "Arbeitest du heute?",
+    "Wohnst du in Berlin?",
+    "Magst du Pizza?",
+    "Hast du Geschwister?",
+    "Trinkst du Kaffee?",
+    "Spielst du Fußball?",
+    "Gehst du zur Schule?",
+    "Isst du gern Obst?",
+    "Fährst du mit dem Fahrrad?",
+    "Wie heißt du?",
+    "Wo wohnst du?",
+    "Was machst du gern?",
+    "Wann stehst du auf?",
+    "Mit wem spielst du Fußball?",
+    "Warum lernst du Deutsch?",
+    "Was isst du zum Frühstück?",
+    "Wo gehst du einkaufen?",
+    "Welche Musik hörst du gern?",
+    "Wie spät ist es jetzt?"
+   ],
+   "response_type": "monolog",
+   "min_duration": 30,
+   "max_duration": 180,
+   "speech_goal": "Ja/Nein-Fragen und W-Fragen zum Alltag in ganzen Sätzen beantworten, mit Uhrzeiten.",
+   "keywords": [
+    "Ja",
+    "Nein",
+    "um … Uhr",
+    "gern"
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l05-wortschatz-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 5,
+   "skill": "wortschatz",
+   "title": "Wortschatz Modul 5",
+   "source": "book",
+   "metadata": {
+    "book_page": 58
+   },
+   "words": [
+    {
+     "word": "lernen",
+     "translation": "o'rganmoq",
+     "group": "Fe'llar"
+    },
+    {
+     "word": "arbeiten",
+     "translation": "ishlamoq",
+     "group": "Fe'llar"
+    },
+    {
+     "word": "wohnen",
+     "translation": "yashamoq",
+     "group": "Fe'llar"
+    },
+    {
+     "word": "schlafen",
+     "translation": "uxlamoq",
+     "group": "Fe'llar"
+    },
+    {
+     "word": "spielen",
+     "translation": "o'ynamoq",
+     "group": "Fe'llar"
+    },
+    {
+     "word": "tanzen",
+     "translation": "raqsga tushmoq",
+     "group": "Fe'llar"
+    },
+    {
+     "word": "lesen",
+     "translation": "o'qimoq",
+     "group": "Fe'llar"
+    },
+    {
+     "word": "schreiben",
+     "translation": "yozmoq",
+     "group": "Fe'llar"
+    },
+    {
+     "word": "essen",
+     "translation": "yemoq",
+     "group": "Fe'llar"
+    },
+    {
+     "word": "trinken",
+     "translation": "ichmoq",
+     "group": "Fe'llar"
+    },
+    {
+     "word": "gehen",
+     "translation": "bormoq",
+     "group": "Fe'llar"
+    },
+    {
+     "word": "um … Uhr",
+     "translation": "soat … da",
+     "group": "Vaqt & kun"
+    },
+    {
+     "word": "morgens",
+     "translation": "ertalab",
+     "group": "Vaqt & kun"
+    },
+    {
+     "word": "mittags",
+     "translation": "tush payti",
+     "group": "Vaqt & kun"
+    },
+    {
+     "word": "nachmittags",
+     "translation": "tushdan keyin",
+     "group": "Vaqt & kun"
+    },
+    {
+     "word": "abends",
+     "translation": "kechqurun",
+     "group": "Vaqt & kun"
+    },
+    {
+     "word": "nachts",
+     "translation": "tun(da)",
+     "group": "Vaqt & kun"
+    },
+    {
+     "word": "heute",
+     "translation": "bugun",
+     "group": "Vaqt & kun"
+    },
+    {
+     "word": "am Wochenende",
+     "translation": "hafta oxiri",
+     "group": "Vaqt & kun"
+    },
+    {
+     "word": "Haus",
+     "translation": "uy",
+     "article": "das",
+     "group": "Joy nomlari"
+    },
+    {
+     "word": "Straße",
+     "translation": "ko'cha",
+     "article": "die",
+     "group": "Joy nomlari"
+    },
+    {
+     "word": "Büro",
+     "translation": "idora",
+     "article": "das",
+     "group": "Joy nomlari"
+    },
+    {
+     "word": "Café",
+     "translation": "kafe",
+     "article": "das",
+     "group": "Joy nomlari"
+    },
+    {
+     "word": "Park",
+     "translation": "park",
+     "article": "der",
+     "group": "Joy nomlari"
+    },
+    {
+     "word": "Bibliothek",
+     "translation": "kutubxona",
+     "article": "die",
+     "group": "Joy nomlari"
+    },
+    {
+     "word": "Schule",
+     "translation": "maktab",
+     "article": "die",
+     "group": "Joy nomlari"
+    },
+    {
+     "word": "Universität",
+     "translation": "universitet",
+     "article": "die",
+     "group": "Joy nomlari"
+    },
+    {
+     "word": "aufstehen",
+     "translation": "uyg'onmoq",
+     "group": "Kundalik iboralar"
+    },
+    {
+     "word": "frühstücken",
+     "translation": "nonushta qilmoq",
+     "group": "Kundalik iboralar"
+    },
+    {
+     "word": "Mittag essen",
+     "translation": "tushlik qilmoq",
+     "group": "Kundalik iboralar"
+    },
+    {
+     "word": "Abendessen essen",
+     "translation": "kechki ovqat qilmoq",
+     "group": "Kundalik iboralar"
+    },
+    {
+     "word": "fernsehen",
+     "translation": "televizor tomosha qilmoq",
+     "group": "Kundalik iboralar"
+    },
+    {
+     "word": "Musik hören",
+     "translation": "musiqa tinglamoq",
+     "group": "Kundalik iboralar"
+    },
+    {
+     "word": "ins Kino gehen",
+     "translation": "kinoga bormoq",
+     "group": "Kundalik iboralar"
+    },
+    {
+     "word": "Hausaufgaben machen",
+     "translation": "uy vazifasini qilmoq",
+     "group": "Kundalik iboralar"
+    },
+    {
+     "word": "spazieren gehen",
+     "translation": "sayr qilmoq",
+     "group": "Kundalik iboralar"
+    },
+    {
+     "word": "einkaufen gehen",
+     "translation": "xaridga bormoq",
+     "group": "Kundalik iboralar"
+    },
+    {
+     "word": "wer",
+     "translation": "kim",
+     "group": "Savol so'zlari"
+    },
+    {
+     "word": "was",
+     "translation": "nima",
+     "group": "Savol so'zlari"
+    },
+    {
+     "word": "wo",
+     "translation": "qayerda",
+     "group": "Savol so'zlari"
+    },
+    {
+     "word": "wann",
+     "translation": "qachon",
+     "group": "Savol so'zlari"
+    },
+    {
+     "word": "warum",
+     "translation": "nima uchun",
+     "group": "Savol so'zlari"
+    },
+    {
+     "word": "mit wem",
+     "translation": "kim bilan",
+     "group": "Savol so'zlari"
+    },
+    {
+     "word": "welche",
+     "translation": "qaysi",
+     "group": "Savol so'zlari"
+    },
+    {
+     "word": "wie",
+     "translation": "qanday",
+     "group": "Savol so'zlari"
+    },
+    {
+     "word": "wohin",
+     "translation": "qayerga",
+     "group": "Savol so'zlari"
+    },
+    {
+     "word": "ja",
+     "translation": "ha",
+     "group": "Boshqa muhim so'zlar"
+    },
+    {
+     "word": "nein",
+     "translation": "yo'q",
+     "group": "Boshqa muhim so'zlar"
+    },
+    {
+     "word": "gern",
+     "translation": "yoqtirmoq, xohlash",
+     "group": "Boshqa muhim so'zlar"
+    },
+    {
+     "word": "viel Spaß",
+     "translation": "ko'p zavq",
+     "group": "Boshqa muhim so'zlar"
+    },
+    {
+     "word": "interessant",
+     "translation": "qiziqarli",
+     "group": "Boshqa muhim so'zlar"
+    },
+    {
+     "word": "zu Hause",
+     "translation": "uyda",
+     "group": "Boshqa muhim so'zlar"
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l05-yakuniy-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 5,
+   "skill": "yakuniy",
+   "title": "Yakuniy Test: Modul 5",
+   "source": "vizu",
+   "instruction": "Savol gaplar, soatlar va kundalik so'zlar bo'yicha yakuniy test.",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Welche Frage ist richtig?",
+     "options": [
+      "Du lernst Deutsch?",
+      "Lernst du Deutsch?",
+      "Deutsch lernst du?"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Welche W-Frage ist richtig?",
+     "options": [
+      "Wo wohnst du?",
+      "Wo du wohnst?",
+      "Du wohnst wo?"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "[[1]] kommst du? — Aus Usbekistan.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "Woher"
+       ],
+       "options": [
+        "Woher",
+        "Wohin",
+        "Wann"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "[[1]] gehst du? — Ins Kino.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "Wohin"
+       ],
+       "options": [
+        "Wo",
+        "Wohin",
+        "Wer"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "[[1]] heißt du? — Ich heiße Anna.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "Wie"
+       ],
+       "options": [
+        "Wie",
+        "Was",
+        "Wer"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "multiple_choice",
+     "question": "08:30 — informell:",
+     "options": [
+      "halb acht",
+      "halb neun",
+      "Viertel nach acht"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "14:45 — informell:",
+     "options": [
+      "Viertel vor drei",
+      "Viertel nach drei",
+      "halb drei"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„Es ist zehn vor zwölf.“ — Wie spät ist es?",
+     "options": [
+      "11:50",
+      "12:10",
+      "10:50"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "„aufstehen“ bedeutet „uyg'onmoq“.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "matching",
+     "question": "Was passt zusammen?",
+     "items": [
+      "wann",
+      "warum",
+      "wer",
+      "wohin"
+     ],
+     "targets": [
+      "qachon",
+      "nima uchun",
+      "kim",
+      "qayerga",
+      "qanday"
+     ],
+     "pairs": {
+      "1": "A",
+      "2": "B",
+      "3": "C",
+      "4": "D"
+     },
+     "points": 1,
+     "passage": 1
+    }
+   ]
+  }
+ ]
+}

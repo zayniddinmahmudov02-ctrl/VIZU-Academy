@@ -96,11 +96,26 @@ class TestResultConfig(unittest.TestCase):
         return {k: {"available": True, "status": "completed" if scores.get(k) is not None else "not_started", "score": scores.get(k)}
                 for k in results.SKILL_KEYS}
 
-    def test_default_is_equal_average_and_interim_until_all_graded(self):
+    def test_default_weights_and_interim_until_all_graded(self):
+        # Lesen 15, Hören 15, Schreiben 15, Sprechen 15, Grammatik 10, Wortschatz 10, Yakuniy 20; Frage not required
         o = results.overall(self._skills(lesen=80, hoeren=60))
         self.assertEqual((o["status"], o["score"]), ("interim", 70))
-        o = results.overall(self._skills(lesen=80, hoeren=60, schreiben=100, sprechen=40))
-        self.assertEqual((o["status"], o["score"]), ("final", 70))
+        full = dict(lesen=80, hoeren=60, schreiben=100, sprechen=40, grammatik=50, wortschatz=100, yakuniy=90)
+        o = results.overall(self._skills(**full))
+        # (80*15 + 60*15 + 100*15 + 40*15 + 50*10 + 100*10 + 90*20) / 100 = 75
+        self.assertEqual((o["status"], o["score"]), ("final", 75))
+        self.assertNotIn("frage", o["required"])
+
+    def test_missing_skills_rescale_proportionally(self):
+        skills = {k: {"available": k in ("lesen", "yakuniy"), "status": "completed", "score": 100 if k == "lesen" else 40} for k in results.SKILL_KEYS}
+        o = results.overall(skills)
+        # (100*15 + 40*20) / 35 = 65.7 -> 66
+        self.assertEqual((o["status"], o["score"]), ("final", 66))
+
+    def test_old_four_skill_config_still_valid(self):
+        cfg = results.validate_result_config({"weights": {"lesen": 25, "hoeren": 25, "schreiben": 25, "sprechen": 25},
+                                              "required": ["lesen", "hoeren", "schreiben", "sprechen"]})
+        self.assertEqual(cfg["required"], ["lesen", "hoeren", "schreiben", "sprechen"])
 
     def test_weights_and_required(self):
         cfg = results.validate_result_config({"weights": {"lesen": 3, "hoeren": 1, "schreiben": 0, "sprechen": 0}, "required": ["lesen", "hoeren"]})

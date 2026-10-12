@@ -18,6 +18,7 @@ from app.api.dependencies.progress import require_lesson_access
 from app.db.session import get_db
 from app.models.lesson_skill import SKILL_HOEREN, SKILL_LESEN, LessonSkillAttempt
 from app.models.user import User
+from app.services.lesson_skills import exercises
 from app.services.lesson_skills import admin as skill_admin
 from app.services.lesson_skills import skill_tests as tests
 from app.services.lesson_skills.results import lesson_skill_results
@@ -249,3 +250,53 @@ def my_level_progress(
                 }
             )
     return {"level": code, "lessons": out}
+
+
+# ============================================================
+# Exercise sets — Grammatik / Wortschatz practice, Yakuniy Test
+# ============================================================
+
+
+def _own_exercise_attempt(db: Session, user: User, lesson_id: UUID, attempt_id: UUID, skill: str, exercise_id: UUID):
+    rows = [a for a in tests.attempts(db, user.id, lesson_id, skill, exercise_id=exercise_id) if a.id == attempt_id]
+    if not rows:
+        raise HTTPException(status_code=404, detail="Attempt not found.")
+    return rows[0]
+
+
+@router.get("/{lesson_id}/exercises/{skill_slug}")
+def get_exercises(lesson_id: UUID, skill_slug: str, db: Session = Depends(get_db), user: User = Depends(require_lesson_access)):
+    """Published exercise sets of one skill (grammatik | wortschatz | yakuniy)
+    with their questions — never the answer key — and the caller's attempts."""
+    return exercises.student_view(db, user.id, lesson_id, exercises.skill_from_slug(skill_slug))
+
+
+@router.post("/{lesson_id}/exercises/{skill_slug}/{exercise_id}/start", response_model=AttemptOut)
+def start_exercise(lesson_id: UUID, skill_slug: str, exercise_id: UUID, db: Session = Depends(get_db), user: User = Depends(require_lesson_access)):
+    skill = exercises.skill_from_slug(skill_slug)
+    ex = exercises.published_exercise(db, lesson_id, skill, exercise_id)
+    if not exercises.gradable_questions(ex):
+        raise HTTPException(status_code=409, detail="NO_QUESTIONS")
+    return tests.attempt_item(tests.start_attempt(db, user.id, lesson_id, skill, exercise_id=ex.id))
+
+
+@router.post("/{lesson_id}/exercises/{skill_slug}/{exercise_id}/submit", response_model=AttemptResult)
+def submit_exercise(
+    lesson_id: UUID, skill_slug: str, exercise_id: UUID, data: SubmitAnswers, db: Session = Depends(get_db), user: User = Depends(require_lesson_access)
+):
+    skill = exercises.skill_from_slug(skill_slug)
+    ex = exercises.published_exercise(db, lesson_id, skill, exercise_id)
+    attempt, graded = tests.submit_attempt(
+        db, user.id, lesson_id, skill, data.attempt_id, data.answers, exercises.gradable_questions(ex), exercise_id=ex.id
+    )
+    return _result(attempt, graded)
+
+
+@router.get("/{lesson_id}/exercises/{skill_slug}/{exercise_id}/attempts/{attempt_id}", response_model=AttemptResult)
+def review_exercise(
+    lesson_id: UUID, skill_slug: str, exercise_id: UUID, attempt_id: UUID, db: Session = Depends(get_db), user: User = Depends(require_lesson_access)
+):
+    skill = exercises.skill_from_slug(skill_slug)
+    ex = exercises.published_exercise(db, lesson_id, skill, exercise_id)
+    attempt = _own_exercise_attempt(db, user, lesson_id, attempt_id, skill, ex.id)
+    return _result(attempt, tests.review(attempt, exercises.gradable_questions(ex)))

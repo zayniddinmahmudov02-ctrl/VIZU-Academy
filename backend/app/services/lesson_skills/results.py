@@ -1,18 +1,23 @@
-"""Per-lesson skill results: Lesen, Hören, Schreiben, Sprechen.
+"""Per-lesson skill results: Frage des Themas, Grammatik, Lesen, Hören,
+Schreiben, Sprechen, Wortschatz and the Yakuniy Test.
 
-Overall = weighted average of the REQUIRED skills the lesson actually has.
-Default (course.result_config NULL): equal weights, all four required —
-(Lesen + Hören + Schreiben + Sprechen) / 4. Admins can change weights and
-which skills are required per course (level). It is FINAL only when every
-required skill is graded; until then an INTERIM value is reported with the
-exact method — a skill that is not done yet is never counted as 0."""
+Every skill is a 0-100 score. Overall = weighted average of the REQUIRED
+skills the lesson actually has (a skill without content is left out).
+Default (course.result_config NULL): Lesen 15, Hören 15, Schreiben 15,
+Sprechen 15, Grammatik 10, Wortschatz 10, Yakuniy Test 20 — the weights of
+the skills a lesson has are rescaled proportionally. Frage des Themas is a
+voice answer without a fixed rubric: its status is reported, it is not
+required by default. Admins can change weights and required skills per
+course (level). The overall result is FINAL only when every required skill
+is graded; until then an INTERIM value is reported with the exact method —
+a skill that is not done yet is never counted as 0."""
 
 from uuid import UUID
 
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app.models.lesson_skill import SKILL_HOEREN, SKILL_LESEN
+from app.models.lesson_skill import SKILL_GRAMMATIK, SKILL_HOEREN, SKILL_LESEN, SKILL_WORTSCHATZ, SKILL_YAKUNIY, TASK_KIND_FRAGE, TASK_KIND_SPRECHEN
 from app.models.speaking import Speaking
 from app.models.student_speaking import StudentSpeaking
 from app.models.student_writing import StudentWriting
@@ -37,8 +42,11 @@ SUBMISSION_STATUS = {
 }
 
 
-SKILL_KEYS = ("lesen", "hoeren", "schreiben", "sprechen")
-DEFAULT_RESULT_CONFIG = {"weights": {k: 25 for k in SKILL_KEYS}, "required": list(SKILL_KEYS)}
+# lesson order
+SKILL_KEYS = ("frage", "grammatik", "lesen", "hoeren", "schreiben", "sprechen", "wortschatz", "yakuniy")
+DEFAULT_WEIGHTS = {"frage": 0, "grammatik": 10, "lesen": 15, "hoeren": 15, "schreiben": 15, "sprechen": 15, "wortschatz": 10, "yakuniy": 20}
+DEFAULT_REQUIRED = [k for k in SKILL_KEYS if k != "frage"]
+DEFAULT_RESULT_CONFIG = {"weights": dict(DEFAULT_WEIGHTS), "required": list(DEFAULT_REQUIRED)}
 
 
 def _mean(values: list[int]) -> int | None:
@@ -48,7 +56,7 @@ def _mean(values: list[int]) -> int | None:
 def validate_result_config(config) -> dict:
     """{"weights": {skill: 0-100}, "required": [skill, ...]}; raises ValueError."""
     if config is None:
-        return {"weights": dict(DEFAULT_RESULT_CONFIG["weights"]), "required": list(SKILL_KEYS)}
+        return {"weights": dict(DEFAULT_WEIGHTS), "required": list(DEFAULT_REQUIRED)}
     if not isinstance(config, dict):
         raise ValueError("result_config must be an object")
     weights = config.get("weights") or {}
@@ -58,7 +66,7 @@ def validate_result_config(config) -> dict:
     clean_w = {}
     for k in SKILL_KEYS:
         try:
-            w = int(weights.get(k, 25))
+            w = int(weights.get(k, DEFAULT_WEIGHTS[k]))
         except (TypeError, ValueError):
             raise ValueError(f"weight of {k} must be a number") from None
         if not 0 <= w <= 100:
@@ -189,7 +197,11 @@ def _schreiben(db: Session, user_id: UUID, lesson_id: UUID) -> dict:
 
 
 def _sprechen(db: Session, user_id: UUID, lesson_id: UUID) -> dict:
-    rows = list(db.scalars(select(Speaking).where(Speaking.lesson_id == lesson_id, Speaking.is_published.is_(True)).order_by(Speaking.order_index)))
+    return _speaking_kind(db, user_id, lesson_id, TASK_KIND_SPRECHEN)
+
+
+def _speaking_kind(db: Session, user_id: UUID, lesson_id: UUID, kind: str) -> dict:
+    rows = list(db.scalars(select(Speaking).where(Speaking.lesson_id == lesson_id, Speaking.is_published.is_(True), Speaking.task_kind == kind).order_by(Speaking.order_index)))
     subs = {
         str(s.speaking_id): s
         for s in db.scalars(select(StudentSpeaking).where(StudentSpeaking.user_id == user_id, StudentSpeaking.speaking_id.in_([s.id for s in rows])))
@@ -197,7 +209,55 @@ def _sprechen(db: Session, user_id: UUID, lesson_id: UUID) -> dict:
     return _graded_tasks(rows, subs)
 
 
-SKILL_NAMES = {"lesen": "Lesen", "hoeren": "Hören", "schreiben": "Schreiben", "sprechen": "Sprechen"}
+def _frage(db: Session, user_id: UUID, lesson_id: UUID) -> dict:
+    """Frage des Themas: a voice answer. Scored only if the task has an AI
+    rubric or a teacher grades it — never an invented score."""
+    out = _speaking_kind(db, user_id, lesson_id, TASK_KIND_FRAGE)
+    if out["available"]:
+        out["submitted"] = out["status"] in (PENDING_EVALUATION, COMPLETED, EVALUATION_FAILED)
+    return out
+
+
+def _exercise_skill(db: Session, user_id: UUID, lesson_id: UUID, skill: str) -> dict:
+    """Grammatik / Wortschatz practice, Yakuniy Test: mean of the best score of
+    every published exercise set; COMPLETED once each set has been done."""
+    from app.services.lesson_skills import exercises
+
+    sets = [ex for ex in exercises.published_exercises(db, lesson_id, skill) if exercises.gradable_questions(ex)]
+    if not sets:
+        return {"available": False, "status": NOT_AVAILABLE, "score": None}
+    tasks, bests, attempts_total, last = [], [], 0, None
+    for ex in sets:
+        s = tests.summary(tests.attempts(db, user_id, lesson_id, skill, exercise_id=ex.id))
+        attempts_total += s["attempts_count"]
+        if s["best_score"] is not None:
+            bests.append(s["best_score"])
+        if s["last_submitted_at"] and (last is None or s["last_submitted_at"] > last):
+            last = s["last_submitted_at"]
+        tasks.append({"id": ex.id, "title": ex.title, "best_score": s["best_score"], "attempts": s["attempts_count"]})
+    done = len(bests) == len(sets)
+    return {
+        "available": True,
+        "status": COMPLETED if done else (IN_PROGRESS if bests or attempts_total else NOT_STARTED),
+        "score": _mean(bests),
+        "interim": not done and bool(bests),
+        "attempts": attempts_total,
+        "submitted_at": last,
+        "tasks": tasks,
+        "can_retry": True,
+    }
+
+
+SKILL_NAMES = {
+    "frage": "Frage des Themas",
+    "grammatik": "Grammatik",
+    "lesen": "Lesen",
+    "hoeren": "Hören",
+    "schreiben": "Schreiben",
+    "sprechen": "Sprechen",
+    "wortschatz": "Wortschatz",
+    "yakuniy": "Yakuniy Test",
+}
 
 
 def overall(skills: dict, config: dict | None = None) -> dict:
@@ -238,9 +298,13 @@ def overall(skills: dict, config: dict | None = None) -> dict:
 
 def lesson_skill_results(db: Session, user_id: UUID, lesson_id: UUID) -> dict:
     skills = {
+        "frage": _frage(db, user_id, lesson_id),
+        "grammatik": _exercise_skill(db, user_id, lesson_id, SKILL_GRAMMATIK),
         "lesen": _lesen(db, user_id, lesson_id),
         "hoeren": _hoeren(db, user_id, lesson_id),
         "schreiben": _schreiben(db, user_id, lesson_id),
         "sprechen": _sprechen(db, user_id, lesson_id),
+        "wortschatz": _exercise_skill(db, user_id, lesson_id, SKILL_WORTSCHATZ),
+        "yakuniy": _exercise_skill(db, user_id, lesson_id, SKILL_YAKUNIY),
     }
     return {"lesson_id": lesson_id, "skills": skills, "overall": overall(skills, lesson_result_config(db, lesson_id))}

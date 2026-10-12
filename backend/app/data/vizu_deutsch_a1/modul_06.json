@@ -1,0 +1,1785 @@
+{
+ "schema_version": "1.1",
+ "language": "de",
+ "source": "vizu-deutsch-a1-book",
+ "items": [
+  {
+   "content_id": "vizu-a1-l06-frage-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 6,
+   "skill": "frage",
+   "title": "Frage: Was essen die Deutschen?",
+   "source": "book",
+   "metadata": {
+    "book_page": 60
+   },
+   "prompt": "Was essen die Deutschen? Was wissen Sie darüber (Frühstück, Mittagessen, Abendessen, beliebte Gerichte)? Und was essen Sie gern?",
+   "min_duration": 10,
+   "max_duration": 120
+  },
+  {
+   "content_id": "vizu-a1-l06-grammatik-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 6,
+   "skill": "grammatik",
+   "title": "Grammatik: Modalverben, nicht und kein",
+   "source": "book",
+   "metadata": {
+    "book_page": "61-64, 67"
+   },
+   "rules": [
+    {
+     "title": "Modalverben",
+     "html": "<p>Modalfe'l 2-o'rinda tuslanadi, asosiy fe'l <strong>infinitivda gap oxirida</strong> turadi.</p><table><thead><tr><th></th><th>können — qila olmoq / mumkin</th><th>müssen — majbur bo'lmoq / kerak</th><th>wollen — xohlamoq</th></tr></thead><tbody><tr><td>ich</td><td>kann (Fußball spielen)</td><td>muss (arbeiten)</td><td>will (Deutsch lernen)</td></tr><tr><td>du</td><td>kannst (Deutsch sprechen)</td><td>musst (lernen)</td><td>willst (schlafen)</td></tr><tr><td>er / sie / es</td><td>kann (Auto fahren)</td><td>muss (gehen)</td><td>will (essen)</td></tr><tr><td>wir</td><td>können (heute lernen)</td><td>müssen (warten)</td><td>wollen (bleiben)</td></tr><tr><td>ihr</td><td>könnt (schnell kommen)</td><td>müsst (kommen)</td><td>wollt (gehen)</td></tr><tr><td>sie / Sie</td><td>können (mir helfen)</td><td>müssen (helfen)</td><td>wollen (fragen)</td></tr><tr><td>Misol</td><td>Kannst du Deutsch sprechen? — Ja, ich kann Deutsch sprechen.</td><td>Musst du heute arbeiten? — Ja, ich muss heute arbeiten.</td><td>Willst du Deutsch lernen? — Ja, ich will Deutsch lernen.</td></tr></tbody></table><table><thead><tr><th></th><th>sollen — kerak (maslahat / buyruq)</th><th>dürfen — mumkin / ruxsat</th><th>mögen — yoqtirmoq / xohlamoq</th></tr></thead><tbody><tr><td>ich</td><td>soll (lernen)</td><td>darf (gehen)</td><td>mag (Kaffee trinken)</td></tr><tr><td>du</td><td>sollst (kommen)</td><td>darfst (fragen)</td><td>magst (Musik hören)</td></tr><tr><td>er / sie / es</td><td>soll (helfen)</td><td>darf (bleiben)</td><td>mag (lesen)</td></tr><tr><td>wir</td><td>sollen (warten)</td><td>dürfen (sprechen)</td><td>mögen (Filme sehen)</td></tr><tr><td>ihr</td><td>sollt (zuhören)</td><td>dürft (essen)</td><td>mögt (Sport machen)</td></tr><tr><td>sie / Sie</td><td>sollen (antworten)</td><td>dürfen (sitzen)</td><td>mögen (Ruhe haben)</td></tr><tr><td>Misol</td><td>Soll ich anfangen? — Ja, du sollst anfangen.</td><td>Darf ich hier sitzen? — Ja, du darfst hier sitzen.</td><td>Magst du Kaffee trinken? — Ja, ich mag Kaffee trinken.</td></tr></tbody></table>"
+    },
+    {
+     "title": "nicht und kein",
+     "html": "<table><thead><tr><th></th><th>nicht — „emas“</th><th>kein — „hech qaysi / yo'q“</th></tr></thead><tbody><tr><td>Qachon ishlatiladi</td><td>Fe'lni, sifatni, ravishni yoki butun gapni inkor qilish: Ich spiele nicht. — Men o'ynamayman. Das ist nicht gut. — Bu yaxshi emas. Ich mag den Film nicht. — Men filmni yoqtirmayman.</td><td>Otlar bilan (der / die / das → kein, plural → keine); „no / not any“ ma'nosi.</td></tr><tr><td>Strukturasi</td><td>Subjekt + Verb + nicht + qolgan gap</td><td>Subjekt + Verb + kein / keine + Nomen</td></tr><tr><td>Misollar</td><td>Ich esse nicht. — Men yemayman. Er ist nicht müde. — U charchamagan. Wir haben nicht genug Zeit. — Bizda yetarli vaqt yo'q.</td><td>Ich habe kein Geld. — Menda pul yo'q. Sie hat keine Zeit. — Unda vaqt yo'q. Wir sehen keinen Hund. — Biz itni ko'rmayapmiz.</td></tr></tbody></table><p><strong>Eslatma:</strong> nicht — fe'lni, sifatni yoki butun gapni inkor qiladi; kein / keine — ot (Nomen) bilan ishlatiladi. Ich trinke <strong>keinen</strong> Kaffee.</p>"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "Übungen: Modalverben (30)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das richtige Modalverb in der passenden Form ein.",
+       "text": "Ich [[1]] (können) Deutsch sprechen.",
+       "gaps": {
+        "1": [
+         "kann"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: kann"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das richtige Modalverb in der passenden Form ein.",
+       "text": "Du [[1]] (müssen) Hausaufgaben machen.",
+       "gaps": {
+        "1": [
+         "musst"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: musst"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das richtige Modalverb in der passenden Form ein.",
+       "text": "Er [[1]] (wollen) ein Buch lesen.",
+       "gaps": {
+        "1": [
+         "will"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: will"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das richtige Modalverb in der passenden Form ein.",
+       "text": "Wir [[1]] (mögen) Filme sehen.",
+       "gaps": {
+        "1": [
+         "mögen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: mögen"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das richtige Modalverb in der passenden Form ein.",
+       "text": "Ihr [[1]] (dürfen) jetzt kommen.",
+       "gaps": {
+        "1": [
+         "dürft"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: dürft"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das richtige Modalverb in der passenden Form ein.",
+       "text": "Sie [[1]] (sollen) mir helfen. (menga yordam berishi kerak)",
+       "gaps": {
+        "1": [
+         "sollen",
+         "soll"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: sollen (sie — u: soll)"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das richtige Modalverb in der passenden Form ein.",
+       "text": "Ich [[1]] (mögen) Kaffee trinken.",
+       "gaps": {
+        "1": [
+         "mag"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: mag"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das richtige Modalverb in der passenden Form ein.",
+       "text": "Du [[1]] (dürfen) eine Frage stellen.",
+       "gaps": {
+        "1": [
+         "darfst"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: darfst"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das richtige Modalverb in der passenden Form ein.",
+       "text": "Er [[1]] (können) Auto fahren.",
+       "gaps": {
+        "1": [
+         "kann"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: kann"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das richtige Modalverb in der passenden Form ein.",
+       "text": "Wir [[1]] (wollen) zu Hause bleiben.",
+       "gaps": {
+        "1": [
+         "wollen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: wollen"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das richtige Modalverb in der passenden Form ein.",
+       "text": "Ihr [[1]] (können) schnell laufen.",
+       "gaps": {
+        "1": [
+         "könnt"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: könnt"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das richtige Modalverb in der passenden Form ein.",
+       "text": "Sie [[1]] (mögen) Ruhe haben.",
+       "gaps": {
+        "1": [
+         "mögen",
+         "mag"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: mögen (sie — u: mag)"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das richtige Modalverb in der passenden Form ein.",
+       "text": "Ich [[1]] (müssen) arbeiten.",
+       "gaps": {
+        "1": [
+         "muss"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: muss"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das richtige Modalverb in der passenden Form ein.",
+       "text": "Du [[1]] (wollen) schlafen.",
+       "gaps": {
+        "1": [
+         "willst"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: willst"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das richtige Modalverb in der passenden Form ein.",
+       "text": "Er [[1]] (dürfen) essen.",
+       "gaps": {
+        "1": [
+         "darf"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: darf"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das richtige Modalverb in der passenden Form ein.",
+       "text": "Wir [[1]] (sollen) lernen.",
+       "gaps": {
+        "1": [
+         "sollen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: sollen"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das richtige Modalverb in der passenden Form ein.",
+       "text": "Ihr [[1]] (müssen) Fragen beantworten.",
+       "gaps": {
+        "1": [
+         "müsst"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: müsst"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das richtige Modalverb in der passenden Form ein.",
+       "text": "Sie [[1]] (können) Deutsch sprechen. (nemischa gapira oladilar)",
+       "gaps": {
+        "1": [
+         "können"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: können"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das richtige Modalverb in der passenden Form ein.",
+       "text": "Ich [[1]] (können) Fußball spielen.",
+       "gaps": {
+        "1": [
+         "kann"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: kann"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das richtige Modalverb in der passenden Form ein.",
+       "text": "Du [[1]] (müssen) zum Arzt gehen.",
+       "gaps": {
+        "1": [
+         "musst"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: musst"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das richtige Modalverb in der passenden Form ein.",
+       "text": "Er [[1]] (sollen) mir helfen.",
+       "gaps": {
+        "1": [
+         "soll"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: soll"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das richtige Modalverb in der passenden Form ein.",
+       "text": "Wir [[1]] (dürfen) warten.",
+       "gaps": {
+        "1": [
+         "dürfen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: dürfen"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das richtige Modalverb in der passenden Form ein.",
+       "text": "Ihr [[1]] (mögen) Musik hören.",
+       "gaps": {
+        "1": [
+         "mögt"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: mögt"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das richtige Modalverb in der passenden Form ein.",
+       "text": "Sie [[1]] (wollen) zu Hause bleiben.",
+       "gaps": {
+        "1": [
+         "wollen",
+         "will"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: wollen (sie — u: will)"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das richtige Modalverb in der passenden Form ein.",
+       "text": "Ich [[1]] (mögen) ein Buch lesen.",
+       "gaps": {
+        "1": [
+         "mag"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: mag"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das richtige Modalverb in der passenden Form ein.",
+       "text": "Du [[1]] (dürfen) gehen.",
+       "gaps": {
+        "1": [
+         "darfst"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: darfst"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das richtige Modalverb in der passenden Form ein.",
+       "text": "Er [[1]] (können) eine Frage stellen.",
+       "gaps": {
+        "1": [
+         "kann"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: kann"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das richtige Modalverb in der passenden Form ein.",
+       "text": "Wir [[1]] (sollen) antworten.",
+       "gaps": {
+        "1": [
+         "sollen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: sollen"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das richtige Modalverb in der passenden Form ein.",
+       "text": "Ihr [[1]] (dürfen) essen.",
+       "gaps": {
+        "1": [
+         "dürft"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: dürft"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das richtige Modalverb in der passenden Form ein.",
+       "text": "Sie [[1]] (müssen) lernen. (o'rganishlari kerak)",
+       "gaps": {
+        "1": [
+         "müssen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob kaliti: müssen"
+      }
+     ],
+     "instruction": "Setzen Sie das richtige Modalverb in der passenden Form ein."
+    },
+    {
+     "title": "Aufgabe: nicht oder kein (20)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze mit nicht oder kein in der richtigen Form.",
+       "text": "Ich habe heute [[1]] Zeit.",
+       "gaps": {
+        "1": [
+         "keine",
+         "nicht"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "To'g'ri nemischa: Ich habe heute keine Zeit. (Kitobda „nicht“ ustunida.)"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze mit nicht oder kein in der richtigen Form.",
+       "text": "Er kann [[1]] Deutsch sprechen.",
+       "gaps": {
+        "1": [
+         "nicht",
+         "kein"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze mit nicht oder kein in der richtigen Form.",
+       "text": "Wir gehen heute [[1]] ins Kino.",
+       "gaps": {
+        "1": [
+         "nicht"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze mit nicht oder kein in der richtigen Form.",
+       "text": "Sie hat [[1]] viel Geld.",
+       "gaps": {
+        "1": [
+         "nicht"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze mit nicht oder kein in der richtigen Form.",
+       "text": "Das Essen ist [[1]] gut.",
+       "gaps": {
+        "1": [
+         "nicht"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze mit nicht oder kein in der richtigen Form.",
+       "text": "Ich verstehe die Aufgabe [[1]].",
+       "gaps": {
+        "1": [
+         "nicht"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze mit nicht oder kein in der richtigen Form.",
+       "text": "Du musst [[1]] zu spät kommen.",
+       "gaps": {
+        "1": [
+         "nicht"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze mit nicht oder kein in der richtigen Form.",
+       "text": "Wir haben [[1]] genug Platz.",
+       "gaps": {
+        "1": [
+         "nicht"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze mit nicht oder kein in der richtigen Form.",
+       "text": "Er spielt [[1]] Fußball.",
+       "gaps": {
+        "1": [
+         "nicht",
+         "kein"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze mit nicht oder kein in der richtigen Form.",
+       "text": "Ich trinke [[1]] Kaffee.",
+       "gaps": {
+        "1": [
+         "nicht",
+         "keinen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitob: „Ich trinke nicht Kaffee.“ / „Ich trinke keinen Kaffee.“"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze mit nicht oder kein in der richtigen Form.",
+       "text": "Ich habe [[1]] Geld.",
+       "gaps": {
+        "1": [
+         "kein"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze mit nicht oder kein in der richtigen Form.",
+       "text": "Sie hat [[1]] Bruder.",
+       "gaps": {
+        "1": [
+         "keinen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze mit nicht oder kein in der richtigen Form.",
+       "text": "Wir sehen [[1]] Film.",
+       "gaps": {
+        "1": [
+         "keinen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze mit nicht oder kein in der richtigen Form.",
+       "text": "Er trinkt [[1]] Alkohol.",
+       "gaps": {
+        "1": [
+         "keinen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze mit nicht oder kein in der richtigen Form.",
+       "text": "Du hast [[1]] Zeit.",
+       "gaps": {
+        "1": [
+         "keine"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze mit nicht oder kein in der richtigen Form.",
+       "text": "Ich kaufe [[1]] Brot.",
+       "gaps": {
+        "1": [
+         "kein"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze mit nicht oder kein in der richtigen Form.",
+       "text": "Wir haben [[1]] Auto.",
+       "gaps": {
+        "1": [
+         "kein"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze mit nicht oder kein in der richtigen Form.",
+       "text": "Sie isst [[1]] Fleisch.",
+       "gaps": {
+        "1": [
+         "kein"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze mit nicht oder kein in der richtigen Form.",
+       "text": "Ihr bringt [[1]] Bücher.",
+       "gaps": {
+        "1": [
+         "keine"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze mit nicht oder kein in der richtigen Form.",
+       "text": "Er fragt [[1]] Fragen.",
+       "gaps": {
+        "1": [
+         "keine"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "Ergänzen Sie die Sätze mit nicht oder kein in der richtigen Form."
+    },
+    {
+     "title": "Schreiben-Aufgabe (Buch S. 67): Sätze bilden (20)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "short_answer",
+       "question": "Bilde einen Satz: ich / jeden Morgen / Brot / esse",
+       "accepted": [
+        "Ich esse jeden Morgen Brot.",
+        "Jeden Morgen esse ich Brot."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Ich esse jeden Morgen Brot."
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilde einen Satz: Wasser / trinke / ich / oft",
+       "accepted": [
+        "Ich trinke oft Wasser.",
+        "Oft trinke ich Wasser."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Ich trinke oft Wasser."
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilde einen Satz: zum Mittagessen / Nudeln / ich / esse",
+       "accepted": [
+        "Ich esse zum Mittagessen Nudeln.",
+        "Zum Mittagessen esse ich Nudeln."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Ich esse zum Mittagessen Nudeln."
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilde einen Satz: ich / gern / Käse / esse",
+       "accepted": [
+        "Ich esse gern Käse.",
+        "Ich esse Käse gern."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Ich esse gern Käse."
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilde einen Satz: Saft / trinke / ich / zum Frühstück",
+       "accepted": [
+        "Ich trinke zum Frühstück Saft.",
+        "Zum Frühstück trinke ich Saft.",
+        "Ich trinke Saft zum Frühstück."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Ich trinke zum Frühstück Saft."
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilde einen Satz: ich / darf / hier / sitzen",
+       "accepted": [
+        "Ich darf hier sitzen.",
+        "Hier darf ich sitzen."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Ich darf hier sitzen."
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilde einen Satz: oft / ich / Obst / esse",
+       "accepted": [
+        "Ich esse oft Obst.",
+        "Oft esse ich Obst."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Ich esse oft Obst."
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilde einen Satz: ich / trinke / Milch / abends",
+       "accepted": [
+        "Ich trinke abends Milch.",
+        "Abends trinke ich Milch.",
+        "Ich trinke Milch abends."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Ich trinke abends Milch."
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilde einen Satz: ich / mag / Paprika",
+       "accepted": [
+        "Ich mag Paprika."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Ich mag Paprika."
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilde einen Satz: ich / muss / Hausaufgaben / machen",
+       "accepted": [
+        "Ich muss Hausaufgaben machen."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Ich muss Hausaufgaben machen."
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilde einen Satz: ich / Gemüse / oft / esse",
+       "accepted": [
+        "Ich esse oft Gemüse.",
+        "Oft esse ich Gemüse."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Ich esse oft Gemüse."
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilde einen Satz: Frühstück / ich / esse / Butter",
+       "accepted": [
+        "Ich esse Butter zum Frühstück.",
+        "Zum Frühstück esse ich Butter.",
+        "Ich esse zum Frühstück Butter."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Ich esse Butter zum Frühstück."
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilde einen Satz: ich / kann / gut / kochen",
+       "accepted": [
+        "Ich kann gut kochen."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Ich kann gut kochen."
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilde einen Satz: ich / trinke / keinen / Kaffee",
+       "accepted": [
+        "Ich trinke keinen Kaffee."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Ich trinke keinen Kaffee."
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilde einen Satz: ich / möchte / Tee / trinken",
+       "accepted": [
+        "Ich möchte Tee trinken."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Ich möchte Tee trinken."
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilde einen Satz: ich / esse / nicht / viel / Schokolade",
+       "accepted": [
+        "Ich esse nicht viel Schokolade."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Ich esse nicht viel Schokolade."
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilde einen Satz: ich / manchmal / Wurst / esse",
+       "accepted": [
+        "Ich esse manchmal Wurst.",
+        "Manchmal esse ich Wurst."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Ich esse manchmal Wurst."
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilde einen Satz: ich / koche / Kartoffeln / mit / Gemüse",
+       "accepted": [
+        "Ich koche Kartoffeln mit Gemüse."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Ich koche Kartoffeln mit Gemüse."
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilde einen Satz: ich / esse / Salat / gern",
+       "accepted": [
+        "Ich esse gern Salat.",
+        "Ich esse Salat gern."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Ich esse gern Salat."
+      },
+      {
+       "type": "short_answer",
+       "question": "Bilde einen Satz: ich / kaufe / keine / Süßigkeiten",
+       "accepted": [
+        "Ich kaufe keine Süßigkeiten."
+       ],
+       "points": 1,
+       "max_length": 120,
+       "passage": 1,
+       "explanation": "Kitob kaliti: Ich kaufe keine Süßigkeiten."
+      }
+     ],
+     "instruction": "Bilde Sätze aus den Wörtern und schreibe sie richtig. Großschreibung am Satzanfang und Punkt am Satzende."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l06-lesen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 6,
+   "skill": "lesen",
+   "title": "Lesen: Meine Essgewohnheit",
+   "source": "book",
+   "metadata": {
+    "book_page": 65,
+    "note": "Savollar 1-5 kitobdan (javob variantlari VIZU tomonidan), 6-7 VIZU."
+   },
+   "instruction": "Lies den Text aufmerksam und beantworte die Fragen.",
+   "passages": [
+    {
+     "title": "Meine Essgewohnheit",
+     "text": "Hallo! Ich heiße Markus. Ich möchte über meine Essgewohnheit erzählen. Ich frühstücke jeden Tag um 7 Uhr. Zum Frühstück esse ich Brot, Butter, Marmelade und manchmal Käse oder Wurst. Ich trinke dazu Kaffee oder Tee.\n\nMittags esse ich meistens Reis, Nudeln oder Kartoffeln mit Gemüse, Fleisch oder Fisch. Ich mag Salat, Tomaten, Gurken, Karotten und Paprika. Manchmal esse ich auch Suppe.\n\nAm Nachmittag esse ich oft Obst wie Äpfel, Bananen, Orangen oder Trauben. Ich trinke Wasser, Saft oder Milch.\n\nAbends esse ich Brot mit Käse oder Schinken. Manchmal koche ich auch ein warmes Gericht. Ich esse Fleisch wie Huhn, Rind oder Schwein. Ich mag auch Fisch wie Lachs oder Thunfisch.\n\nIch liebe Süßigkeiten, Schokolade, Kuchen und Kekse. Ich esse sie aber nur selten. Ich achte auf gesunde Ernährung. Ich esse viel Obst und Gemüse, und ich trinke viel Wasser."
+    }
+   ],
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Wann frühstückt Markus?",
+     "options": [
+      "Um 6 Uhr",
+      "Um 7 Uhr",
+      "Um 8 Uhr"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Ich frühstücke jeden Tag um 7 Uhr.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was isst Markus zum Frühstück?",
+     "options": [
+      "Brot, Butter, Marmelade und manchmal Käse oder Wurst",
+      "Reis und Fisch",
+      "Obst und Kuchen"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was isst er mittags?",
+     "options": [
+      "Nur Suppe",
+      "Meistens Reis, Nudeln oder Kartoffeln mit Gemüse, Fleisch oder Fisch",
+      "Brot mit Schinken"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was isst er am Nachmittag?",
+     "options": [
+      "Oft Obst wie Äpfel, Bananen, Orangen oder Trauben",
+      "Schokolade und Kekse",
+      "Ein warmes Gericht"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was isst er abends?",
+     "options": [
+      "Brot mit Käse oder Schinken",
+      "Nur Obst",
+      "Nudeln mit Gemüse"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Abends esse ich Brot mit Käse oder Schinken.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Markus isst jeden Tag viele Süßigkeiten.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„Ich esse sie aber nur selten.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Markus trinkt viel Wasser.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig"
+    }
+   ],
+   "max_score": 7
+  },
+  {
+   "content_id": "vizu-a1-l06-hoeren-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 6,
+   "skill": "hoeren",
+   "title": "Hören: Essen und Trinken (Lückentext)",
+   "source": "book",
+   "metadata": {
+    "book_page": 66
+   },
+   "audio_file": "A1-6.mp3",
+   "key_pending": true,
+   "instruction": "Höre die Sätze und ergänze die fehlenden Wörter. Wörter zum Thema: Brot, Butter, Marmelade, Käse, Wurst, Reis, Suppe, Fisch, Salat, Obst, Schokolade, Kuchen, Joghurt, Wasser, Kaffee, Saft.",
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "Höre die Sätze und ergänze die fehlenden Wörter.",
+     "text": "Ich esse jeden Morgen [[1]].\nZum Frühstück esse ich [[2]].\nIch streiche [[3]] auf mein Brot.\nIch esse gern [[4]].\nManchmal esse ich [[5]].\nZum Mittagessen esse ich [[6]].\nIch esse oft [[7]].\nIch koche [[8]] mit Gemüse.\nIch esse gern [[9]].\nZum Abendessen esse ich [[10]].\nIch esse viel [[11]].\nIch esse oft [[12]].\nIch kaufe frische [[13]].\nIch schneide [[14]] für den Salat.\nIch esse jeden Tag [[15]].\nIch mag [[16]].\nIch esse gern [[17]].\nIch esse oft [[18]].\nIch trinke [[19]].\nIch trinke [[20]] zum Frühstück.",
+     "gaps": {
+      "1": [
+       "Brot"
+      ],
+      "2": [
+       "Butter"
+      ],
+      "3": [
+       "Marmelade"
+      ],
+      "4": [
+       "Käse"
+      ],
+      "5": [
+       "Wurst"
+      ],
+      "6": [],
+      "7": [],
+      "8": [],
+      "9": [],
+      "10": [],
+      "11": [],
+      "12": [],
+      "13": [],
+      "14": [],
+      "15": [],
+      "16": [],
+      "17": [],
+      "18": [],
+      "19": [],
+      "20": []
+     },
+     "points": 20,
+     "passage": 1,
+     "case_sensitive": false
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l06-schreiben-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 6,
+   "skill": "schreiben",
+   "title": "Schreiben: Meine Essgewohnheiten (VIZU qo'shimcha)",
+   "source": "vizu",
+   "prompt": "Schreiben Sie über Ihre Essgewohnheiten (5–8 Sätze): Was essen und trinken Sie zum Frühstück, zum Mittagessen und zum Abendessen? Was essen Sie gern, was nicht? Benutzen Sie mindestens zwei Modalverben (können, müssen, wollen, sollen, dürfen, mögen) und nicht / kein.",
+   "task_type": "description",
+   "min_words": 40,
+   "max_words": 100,
+   "time_limit": 15,
+   "support_phrases": [
+    "Zum Frühstück esse ich …",
+    "Ich trinke gern …",
+    "Ich mag keinen / keine / kein …",
+    "Ich muss / soll …",
+    "Ich esse nicht gern …"
+   ],
+   "metadata": {
+    "note": "Kitobdagi S. 67 topshirig'i (gap tuzish) Grammatik bo'limida; erkin yozma topshiriq VIZU tomonidan qo'shilgan."
+   }
+  },
+  {
+   "content_id": "vizu-a1-l06-sprechen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 6,
+   "skill": "sprechen",
+   "title": "Sprechen: Essen und Trinken",
+   "source": "book",
+   "metadata": {
+    "book_page": 68
+   },
+   "topic": "Essen und Trinken",
+   "prompt": "Beantwortet die Fragen mit den richtigen Wörtern und sprecht. Antwortet mit vollständigen Sätzen.",
+   "questions": [
+    "Was essen Sie morgen zum Frühstück?",
+    "Was trinken Sie zum Frühstück?",
+    "Was essen Sie morgen Mittag?",
+    "Was trinken Sie zum Mittagessen?",
+    "Was essen Sie morgen Abend?",
+    "Was trinken Sie am Abend?",
+    "Können Sie morgen frühstücken?",
+    "Möchten Sie Mittagessen essen?",
+    "Dürfen Sie abends trinken?",
+    "Müssen Sie Gemüse essen?",
+    "Sollen Sie Obst essen?",
+    "Wollen Sie Kuchen essen?",
+    "Haben Sie kein Fleisch zu Mittag?",
+    "Haben Sie keine Süßigkeiten?",
+    "Essen Sie nicht gern Fisch?",
+    "Trinken Sie nicht oft Kaffee?"
+   ],
+   "response_type": "monolog",
+   "min_duration": 30,
+   "max_duration": 180,
+   "speech_goal": "Über Essen und Trinken zu den Mahlzeiten sprechen; Modalverben sowie nicht / kein richtig benutzen.",
+   "keywords": [
+    "zum Frühstück",
+    "Ich esse",
+    "Ich trinke",
+    "kein",
+    "nicht",
+    "können",
+    "müssen"
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l06-wortschatz-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 6,
+   "skill": "wortschatz",
+   "title": "Wortschatz Modul 6: Essen und Trinken",
+   "source": "book",
+   "metadata": {
+    "book_page": "60, 69"
+   },
+   "words": [
+    {
+     "word": "deftig",
+     "translation": "mazali, to'yimli",
+     "group": "Frage des Themas: nützliche Wörter"
+    },
+    {
+     "word": "frisch",
+     "translation": "yangi, toza",
+     "group": "Frage des Themas: nützliche Wörter"
+    },
+    {
+     "word": "Gericht",
+     "translation": "taom",
+     "article": "das",
+     "group": "Frage des Themas: nützliche Wörter"
+    },
+    {
+     "word": "Frühstück",
+     "translation": "nonushta",
+     "article": "das",
+     "group": "Frage des Themas: nützliche Wörter"
+    },
+    {
+     "word": "Mittagessen",
+     "translation": "tushlik",
+     "article": "das",
+     "group": "Frage des Themas: nützliche Wörter"
+    },
+    {
+     "word": "Abendessen",
+     "translation": "kechki ovqat",
+     "article": "das",
+     "group": "Frage des Themas: nützliche Wörter"
+    },
+    {
+     "word": "Brot",
+     "translation": "non",
+     "article": "das",
+     "group": "Brotwaren — non mahsulotlari"
+    },
+    {
+     "word": "Brötchen",
+     "translation": "bulka",
+     "article": "das",
+     "group": "Brotwaren — non mahsulotlari"
+    },
+    {
+     "word": "Croissant",
+     "translation": "kruassan",
+     "article": "das",
+     "group": "Brotwaren — non mahsulotlari"
+    },
+    {
+     "word": "Butter",
+     "translation": "sariyog'",
+     "article": "die",
+     "group": "Fette — yog'lar"
+    },
+    {
+     "word": "Margarine",
+     "translation": "margarin",
+     "article": "die",
+     "group": "Fette — yog'lar"
+    },
+    {
+     "word": "Marmelade",
+     "translation": "murabbo",
+     "article": "die",
+     "group": "Aufstriche und Süßigkeiten"
+    },
+    {
+     "word": "Schokolade",
+     "translation": "shokolad",
+     "article": "die",
+     "group": "Aufstriche und Süßigkeiten"
+    },
+    {
+     "word": "Kuchen",
+     "translation": "pirog",
+     "article": "der",
+     "group": "Aufstriche und Süßigkeiten"
+    },
+    {
+     "word": "Kekse",
+     "translation": "pechenye",
+     "article": "die",
+     "group": "Aufstriche und Süßigkeiten"
+    },
+    {
+     "word": "Eis",
+     "translation": "muzqaymoq",
+     "article": "das",
+     "group": "Aufstriche und Süßigkeiten"
+    },
+    {
+     "word": "Pralinen",
+     "translation": "pralin",
+     "article": "die",
+     "group": "Aufstriche und Süßigkeiten"
+    },
+    {
+     "word": "Torte",
+     "translation": "tort",
+     "article": "die",
+     "group": "Aufstriche und Süßigkeiten"
+    },
+    {
+     "word": "Käse",
+     "translation": "pishloq",
+     "article": "der",
+     "group": "Milchprodukte — sut mahsulotlari"
+    },
+    {
+     "word": "Joghurt",
+     "translation": "yogurt",
+     "article": "der",
+     "group": "Milchprodukte — sut mahsulotlari"
+    },
+    {
+     "word": "Milch",
+     "translation": "sut",
+     "article": "die",
+     "group": "Milchprodukte — sut mahsulotlari"
+    },
+    {
+     "word": "Wurst",
+     "translation": "kolbasa",
+     "article": "die",
+     "group": "Fleisch und Wurst"
+    },
+    {
+     "word": "Huhn",
+     "translation": "tovuq",
+     "article": "das",
+     "group": "Fleisch und Wurst"
+    },
+    {
+     "word": "Rind",
+     "translation": "mol go'shti",
+     "article": "das",
+     "group": "Fleisch und Wurst"
+    },
+    {
+     "word": "Schwein",
+     "translation": "cho'chqa go'shti",
+     "article": "das",
+     "group": "Fleisch und Wurst"
+    },
+    {
+     "word": "Fleisch",
+     "translation": "go'sht",
+     "article": "das",
+     "group": "Fleisch und Wurst"
+    },
+    {
+     "word": "Fisch",
+     "translation": "baliq",
+     "article": "der",
+     "group": "Fisch — baliq"
+    },
+    {
+     "word": "Lachs",
+     "translation": "losos",
+     "article": "der",
+     "group": "Fisch — baliq"
+    },
+    {
+     "word": "Thunfisch",
+     "translation": "ton (tunets)",
+     "article": "der",
+     "group": "Fisch — baliq"
+    },
+    {
+     "word": "Forelle",
+     "translation": "forel",
+     "article": "die",
+     "group": "Fisch — baliq"
+    },
+    {
+     "word": "Sardinen",
+     "translation": "sardina",
+     "article": "die",
+     "group": "Fisch — baliq"
+    },
+    {
+     "word": "Garnelen",
+     "translation": "krevetka",
+     "article": "die",
+     "group": "Fisch — baliq"
+    },
+    {
+     "word": "Salat",
+     "translation": "salat",
+     "article": "der",
+     "group": "Gemüse — sabzavotlar"
+    },
+    {
+     "word": "Karotten",
+     "translation": "sabzi",
+     "article": "die",
+     "group": "Gemüse — sabzavotlar"
+    },
+    {
+     "word": "Paprika",
+     "translation": "bulg'or qalampiri",
+     "article": "die",
+     "group": "Gemüse — sabzavotlar"
+    },
+    {
+     "word": "Tomaten",
+     "translation": "pomidor",
+     "article": "die",
+     "group": "Gemüse — sabzavotlar"
+    },
+    {
+     "word": "Gurken",
+     "translation": "bodring",
+     "article": "die",
+     "group": "Gemüse — sabzavotlar"
+    },
+    {
+     "word": "Brokkoli",
+     "translation": "brokkoli",
+     "article": "der",
+     "group": "Gemüse — sabzavotlar"
+    },
+    {
+     "word": "Gemüse",
+     "translation": "sabzavot",
+     "article": "das",
+     "group": "Gemüse — sabzavotlar"
+    },
+    {
+     "word": "Äpfel",
+     "translation": "olma",
+     "article": "die",
+     "group": "Obst — mevalar"
+    },
+    {
+     "word": "Bananen",
+     "translation": "banan",
+     "article": "die",
+     "group": "Obst — mevalar"
+    },
+    {
+     "word": "Orangen",
+     "translation": "apelsin",
+     "article": "die",
+     "group": "Obst — mevalar"
+    },
+    {
+     "word": "Trauben",
+     "translation": "uzum",
+     "article": "die",
+     "group": "Obst — mevalar"
+    },
+    {
+     "word": "Birnen",
+     "translation": "nok",
+     "article": "die",
+     "group": "Obst — mevalar"
+    },
+    {
+     "word": "Kirschen",
+     "translation": "gilos",
+     "article": "die",
+     "group": "Obst — mevalar"
+    },
+    {
+     "word": "Obst",
+     "translation": "mevalar",
+     "article": "das",
+     "group": "Obst — mevalar"
+    },
+    {
+     "word": "Wasser",
+     "translation": "suv",
+     "article": "das",
+     "group": "Getränke — ichimliklar"
+    },
+    {
+     "word": "Tee",
+     "translation": "choy",
+     "article": "der",
+     "group": "Getränke — ichimliklar"
+    },
+    {
+     "word": "Kaffee",
+     "translation": "qahva",
+     "article": "der",
+     "group": "Getränke — ichimliklar"
+    },
+    {
+     "word": "Saft",
+     "translation": "sharbat",
+     "article": "der",
+     "group": "Getränke — ichimliklar"
+    },
+    {
+     "word": "Limonade",
+     "translation": "limonad",
+     "article": "die",
+     "group": "Getränke — ichimliklar"
+    },
+    {
+     "word": "Kakao",
+     "translation": "kakao",
+     "article": "der",
+     "group": "Getränke — ichimliklar"
+    },
+    {
+     "word": "Suppe",
+     "translation": "sho'rva",
+     "article": "die",
+     "group": "Suppen und warme Speisen"
+    },
+    {
+     "word": "Nudeln",
+     "translation": "makaron",
+     "article": "die",
+     "group": "Suppen und warme Speisen"
+    },
+    {
+     "word": "Reis",
+     "translation": "guruch",
+     "article": "der",
+     "group": "Suppen und warme Speisen"
+    },
+    {
+     "word": "Kartoffeln",
+     "translation": "kartoshka",
+     "article": "die",
+     "group": "Suppen und warme Speisen"
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l06-yakuniy-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 6,
+   "skill": "yakuniy",
+   "title": "Yakuniy Test: Modul 6",
+   "source": "vizu",
+   "instruction": "Modalfe'llar, nicht / kein va ovqat so'zlari bo'yicha yakuniy test.",
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Ich [[1]] gut kochen.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "kann"
+       ],
+       "options": [
+        "kann",
+        "kannst",
+        "können"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Du [[1]] heute Hausaufgaben machen.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "musst"
+       ],
+       "options": [
+        "musst",
+        "muss",
+        "müsst"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Wir [[1]] ins Kino gehen.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "wollen"
+       ],
+       "options": [
+        "wollen",
+        "will",
+        "wollt"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "[[1]] ich hier sitzen?",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "Darf"
+       ],
+       "options": [
+        "Darf",
+        "Dürfen",
+        "Darfst"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wo steht das Infinitiv im Satz mit Modalverb?",
+     "options": [
+      "Am Anfang",
+      "Auf Position 2",
+      "Am Ende"
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Ich habe [[1]] Zeit.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "keine"
+       ],
+       "options": [
+        "keine",
+        "nicht",
+        "kein"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Das Essen ist [[1]] gut.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "nicht"
+       ],
+       "options": [
+        "nicht",
+        "kein",
+        "keine"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Er trinkt [[1]] Kaffee.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "keinen"
+       ],
+       "options": [
+        "keinen",
+        "kein",
+        "nicht"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„die Gurken“ — o'zbekchasi qaysi?",
+     "options": [
+      "bodring",
+      "pomidor",
+      "sabzi"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was ist ein Getränk?",
+     "options": [
+      "der Saft",
+      "die Wurst",
+      "der Reis"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "„die Suppe“ bedeutet „sho'rva“.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "matching",
+     "question": "Was passt zusammen?",
+     "items": [
+      "der Käse",
+      "die Milch",
+      "das Huhn",
+      "die Trauben"
+     ],
+     "targets": [
+      "pishloq",
+      "sut",
+      "tovuq",
+      "uzum",
+      "baliq"
+     ],
+     "pairs": {
+      "1": "A",
+      "2": "B",
+      "3": "C",
+      "4": "D"
+     },
+     "points": 1,
+     "passage": 1
+    }
+   ]
+  }
+ ]
+}

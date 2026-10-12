@@ -1,24 +1,31 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { BookOpen, Headphones, Mic, PenLine, type LucideIcon } from "lucide-react";
+import { BookMarked, BookOpen, ClipboardCheck, Headphones, Languages, MessageCircleQuestion, Mic, PenLine, type LucideIcon } from "lucide-react";
 
 import {
   getLessonSkillResults,
+  type SkillKey,
   type SkillResult,
   type SkillStatus,
 } from "@/features/lessons/services/lesson-skills-service";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { cn } from "@/lib/utils";
 
-export const SKILLS: { key: "lesen" | "hoeren" | "schreiben" | "sprechen"; label: string; icon: LucideIcon }[] = [
+// lesson order (lesson flow v3)
+export const SKILLS: { key: SkillKey; label: string; icon: LucideIcon }[] = [
+  { key: "frage", label: "lessons.sectionFrage", icon: MessageCircleQuestion },
+  { key: "grammatik", label: "lessons.sectionGrammar", icon: BookMarked },
   { key: "lesen", label: "lessons.sectionReading", icon: BookOpen },
   { key: "hoeren", label: "lessons.sectionListening", icon: Headphones },
   { key: "schreiben", label: "lessons.sectionWriting", icon: PenLine },
   { key: "sprechen", label: "lessons.sectionSpeaking", icon: Mic },
+  { key: "wortschatz", label: "lessons.sectionVocabulary", icon: Languages },
+  { key: "yakuniy", label: "lessons.sectionLessonQuiz", icon: ClipboardCheck },
 ];
 
-export const STATUS: Record<SkillStatus, { label: string; tone: string }> = {
+export const STATUS: Record<SkillStatus | "frage_sent", { label: string; tone: string }> = {
+  frage_sent: { label: "lessons.frageSent", tone: "bg-success/10 text-success" },
   not_available: { label: "lessons.skillNotAvailable", tone: "bg-surface-hover text-text-muted" },
   not_started: { label: "lessons.skillNotStarted", tone: "bg-surface-hover text-text-secondary" },
   in_progress: { label: "lessons.skillInProgress", tone: "bg-accent-blue/10 text-accent-blue" },
@@ -84,7 +91,11 @@ export default function SkillResultsPanel({ lessonId }: { lessonId: string }) {
       <ul className="grid gap-3 sm:grid-cols-2">
         {SKILLS.map(({ key, label, icon: Icon }) => {
           const skill = skills[key];
-          const status = STATUS[skill.status] ?? STATUS.not_started;
+          // a step the lesson has no content for is not listed
+          if (!skill || !skill.available) return null;
+          // Frage des Themas: no fixed rubric — "sent" instead of "waiting for a score"
+          const frageSent = key === "frage" && skill.submitted && skill.status !== "completed";
+          const status = frageSent ? STATUS.frage_sent : (STATUS[skill.status] ?? STATUS.not_started);
           const attempts = attemptsOf(skill);
           const date = formatDate(skill.evaluated_at ?? skill.submitted_at);
           return (

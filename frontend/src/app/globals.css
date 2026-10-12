@@ -494,3 +494,27 @@ img {
   -webkit-user-select: none;
   user-select: none;
 }
+
+/* Grammar rules (lesson Grammatik step): plain tables from the course book.
+   The table scrolls inside its own box on narrow screens, never the page. */
+.prose-editor table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  margin: 0.75rem 0;
+  font-size: 0.9rem;
+}
+
+.prose-editor th,
+.prose-editor td {
+  border: 1px solid var(--surface-border);
+  padding: 0.4rem 0.6rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.prose-editor th {
+  background: var(--surface-hover);
+  font-weight: 700;
+}

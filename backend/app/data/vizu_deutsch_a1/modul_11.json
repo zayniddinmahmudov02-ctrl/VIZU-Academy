@@ -1,0 +1,1089 @@
+{
+ "schema_version": "1.1",
+ "language": "de",
+ "source": "vizu-deutsch-a1-book",
+ "items": [
+  {
+   "content_id": "vizu-a1-l11-frage-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 11,
+   "skill": "frage",
+   "title": "Frage des Themas: Ist die Wohnung teuer in der BRD?",
+   "source": "book",
+   "metadata": {
+    "book_page": 109
+   },
+   "prompt": "Ist die Wohnung in Deutschland teuer? Wie hoch sind die Mietpreise in verschiedenen Städten? Warum sind Wohnungen in manchen Städten teuer? Was kann man tun, um eine günstige Wohnung zu finden? Sagen Sie Ihre Meinung.",
+   "min_duration": 10,
+   "max_duration": 120
+  },
+  {
+   "content_id": "vizu-a1-l11-grammatik-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 11,
+   "skill": "grammatik",
+   "title": "Grammatik: Adjektive — Steigerung",
+   "source": "book",
+   "metadata": {
+    "book_page": "110-111"
+   },
+   "rules": [
+    {
+     "title": "Adjektive — Steigerung",
+     "html": "<p>Nemis tilida sifatlarning darajalanishi (Adjektiv-Steigerung) uch bosqichda bo'ladi: <strong>Positiv, Komparativ</strong> va <strong>Superlativ</strong>.</p><p><strong>Positiv</strong> — sifatning oddiy shakli (gut, groß, billig). <strong>Komparativ</strong> ikki narsa yoki holatni solishtirish uchun ishlatiladi va sifat oxiriga <strong>-er</strong> qo'shiladi (groß → größer, billig → billiger); ba'zi sifatlarda unli umlaut (ä, ö, ü) ga o'zgaradi (alt → älter, groß → größer). <strong>Superlativ</strong> „eng“ ma'nosini bildiradi va odatda <strong>am + sifat + -sten</strong> shaklida yasaladi (am größten, am billigsten); sifat d, t, s, ß, z bilan tugasa, talaffuz uchun <strong>-esten</strong> qo'shiladi (laut → am lautesten). Ayrim sifatlar qoidaga bo'ysunmaydi: gut → besser → am besten, viel → mehr → am meisten.</p><table><thead><tr><th>Positiv</th><th>Komparativ</th><th>Superlativ</th></tr></thead><tbody><tr><td>gut (yaxshi)</td><td>besser (yaxshiroq)</td><td>am besten (eng yaxshi)</td></tr><tr><td>viel (ko'p)</td><td>mehr (ko'proq)</td><td>am meisten (eng ko'p)</td></tr><tr><td>gern (xush ko'rib)</td><td>lieber (ko'proq xush ko'rib)</td><td>am liebsten (eng xush ko'rib)</td></tr><tr><td>hoch (baland)</td><td>höher (balandroq)</td><td>am höchsten (eng baland)</td></tr><tr><td>nah (yaqin)</td><td>näher (yaqinroq)</td><td>am nächsten (eng yaqin)</td></tr><tr><td>alt (eski / qari)</td><td>älter (eskiroq / yoshi kattaroq)</td><td>am ältesten (eng eski)</td></tr><tr><td>jung (yosh)</td><td>jünger (yoshroq)</td><td>am jüngsten (eng yosh)</td></tr><tr><td>groß (katta)</td><td>größer (kattaroq)</td><td>am größten (eng katta)</td></tr><tr><td>lang (uzun)</td><td>länger (uzunroq)</td><td>am längsten (eng uzun)</td></tr><tr><td>kalt (sovuq)</td><td>kälter (sovuqroq)</td><td>am kältesten (eng sovuq)</td></tr><tr><td>schnell (tez)</td><td>schneller (tezroq)</td><td>am schnellsten (eng tez)</td></tr><tr><td>billig (arzon)</td><td>billiger (arzonroq)</td><td>am billigsten (eng arzon)</td></tr><tr><td>teuer (qimmat)</td><td>teurer (qimmatroq)</td><td>am teuersten (eng qimmat)</td></tr><tr><td>schön (chiroyli)</td><td>schöner (chiroyliroq)</td><td>am schönsten (eng chiroyli)</td></tr><tr><td>klein (kichik)</td><td>kleiner (kichikroq)</td><td>am kleinsten (eng kichik)</td></tr><tr><td>langsam (sekin)</td><td>langsamer (sekinroq)</td><td>am langsamsten (eng sekin)</td></tr><tr><td>fleißig (tirishqoq)</td><td>fleißiger (tirishqoqroq)</td><td>am fleißigsten (eng tirishqoq)</td></tr><tr><td>freundlich (xushmuomala)</td><td>freundlicher (xushmuomalaroq)</td><td>am freundlichsten (eng xushmuomala)</td></tr><tr><td>laut (shovqinli)</td><td>lauter (shovqinliroq)</td><td>am lautesten (eng shovqinli)</td></tr><tr><td>sauber (toza)</td><td>sauberer (tozaroq)</td><td>am saubersten (eng toza)</td></tr></tbody></table>"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "Aufgaben: Die Top-3 Fakten der Welt (15)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Komparativ und Superlativ: ergänzen Sie.",
+       "text": "Kanada ist groß, die USA ist [[1]] (groß), Russland ist [[2]] Land der Welt.",
+       "gaps": {
+        "1": [
+         "größer"
+        ],
+        "2": [
+         "größte",
+         "das größte"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "größer — größte"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Komparativ und Superlativ: ergänzen Sie.",
+       "text": "Der Nil ist lang, der Amazonas ist [[1]] (lang), der [[2]] Fluss der Welt ist der Amazonas.",
+       "gaps": {
+        "1": [
+         "länger"
+        ],
+        "2": [
+         "längste"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "länger — längste"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Komparativ und Superlativ: ergänzen Sie.",
+       "text": "Der Kilimandscharo ist hoch, der Elbrus ist [[1]] (hoch), der Mount Everest ist [[2]] Berg der Welt.",
+       "gaps": {
+        "1": [
+         "höher"
+        ],
+        "2": [
+         "höchste",
+         "der höchste"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "höher — höchste"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Komparativ und Superlativ: ergänzen Sie.",
+       "text": "Deutsch ist schwierig, Russisch ist [[1]] (schwierig), Chinesisch ist die [[2]] Sprache der Welt.",
+       "gaps": {
+        "1": [
+         "schwieriger"
+        ],
+        "2": [
+         "schwierigste"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "schwieriger — schwierigste"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Komparativ und Superlativ: ergänzen Sie.",
+       "text": "Ein Auto ist schnell, ein Zug ist [[1]] (schnell), ein Flugzeug ist das [[2]] Verkehrsmittel.",
+       "gaps": {
+        "1": [
+         "schneller"
+        ],
+        "2": [
+         "schnellste"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "schneller — schnellste"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Komparativ und Superlativ: ergänzen Sie.",
+       "text": "Der Sommer in Deutschland ist warm, der Sommer in Spanien ist [[1]] (warm), der Sommer in der Wüste ist der [[2]].",
+       "gaps": {
+        "1": [
+         "wärmer"
+        ],
+        "2": [
+         "wärmste"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "wärmer — wärmste"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Komparativ und Superlativ: ergänzen Sie.",
+       "text": "Gold ist teuer, Platin ist [[1]] (teuer), Diamanten sind die [[2]] Steine der Welt.",
+       "gaps": {
+        "1": [
+         "teurer"
+        ],
+        "2": [
+         "teuersten"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "teurer — teuersten"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Komparativ und Superlativ: ergänzen Sie.",
+       "text": "Ein Dorf ist klein, eine Stadt ist [[1]], eine Metropole ist die [[2]] Wohnform.",
+       "gaps": {
+        "1": [
+         "größer"
+        ],
+        "2": [
+         "größte"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Tarjima: shahar undan kattaroq, megapolis eng katta → größer — größte."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Komparativ und Superlativ: ergänzen Sie.",
+       "text": "Ein See ist tief, das Schwarze Meer ist [[1]] (tief), der Pazifik ist der [[2]] Ozean der Welt.",
+       "gaps": {
+        "1": [
+         "tiefer"
+        ],
+        "2": [
+         "tiefste"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "tiefer — tiefste"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Komparativ und Superlativ: ergänzen Sie.",
+       "text": "Ein Hund ist intelligent, ein Delfin ist [[1]] (intelligent), der Mensch ist das [[2]] Lebewesen.",
+       "gaps": {
+        "1": [
+         "intelligenter"
+        ],
+        "2": [
+         "intelligenteste"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "intelligenter — intelligenteste"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Komparativ und Superlativ: ergänzen Sie.",
+       "text": "Ein Elefant ist schwer, ein Nashorn ist [[1]] (schwer), der Blauwal ist das [[2]] Tier der Welt.",
+       "gaps": {
+        "1": [
+         "schwerer"
+        ],
+        "2": [
+         "schwerste"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "schwerer — schwerste"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Komparativ und Superlativ: ergänzen Sie.",
+       "text": "Ein Dorf ist ruhig, eine Kleinstadt ist [[1]] (ruhig), ein Bergdorf ist der [[2]] Ort.",
+       "gaps": {
+        "1": [
+         "ruhiger"
+        ],
+        "2": [
+         "ruhigste"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "ruhiger — ruhigste"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Komparativ und Superlativ: ergänzen Sie.",
+       "text": "Ein Buch ist interessant, ein Film ist [[1]] (interessant), eine Serie ist das [[2]] Medium.",
+       "gaps": {
+        "1": [
+         "interessanter"
+        ],
+        "2": [
+         "interessanteste"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "interessanter — interessanteste"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Komparativ und Superlativ: ergänzen Sie.",
+       "text": "Ein Haus ist alt, ein Schloss ist [[1]] (alt), eine Pyramide ist das [[2]] Bauwerk der Welt.",
+       "gaps": {
+        "1": [
+         "älter"
+        ],
+        "2": [
+         "älteste"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "älter — älteste"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Komparativ und Superlativ: ergänzen Sie.",
+       "text": "Ein Fluss ist breit, ein Meer ist [[1]] (breit), ein Ozean ist das [[2]] Gewässer der Welt.",
+       "gaps": {
+        "1": [
+         "breiter"
+        ],
+        "2": [
+         "breiteste"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "breiter — breiteste"
+      }
+     ],
+     "instruction": "Ergänzen Sie den Komparativ und den Superlativ."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l11-lesen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 11,
+   "skill": "lesen",
+   "title": "Lesen: Die deutschen Städte",
+   "source": "book",
+   "metadata": {
+    "book_page": 112
+   },
+   "instruction": "Lesen Sie den Text und wählen Sie die richtige Antwort.",
+   "passages": [
+    {
+     "title": "Die deutschen Städte",
+     "text": "Deutschland hat viele Städte. Jede Stadt ist anders. Manche Städte sind groß, andere sind ruhig oder teuer. Hier sind einige bekannte Städte in Deutschland.\n\nBerlin ist die Hauptstadt von Deutschland. Die Stadt ist sehr lebendig. Berlin ist größer als viele andere Städte. Es gibt viele Museen, Geschichte und Kultur. Das Leben in Berlin ist günstiger als in München.\n\nMünchen liegt im Süden von Deutschland. München ist eine saubere Stadt. Sie ist teurer als Berlin. Die Stadt ist ruhig und gut organisiert. Viele Menschen mögen München.\n\nHamburg liegt im Norden von Deutschland. Hamburg ist eine große Stadt. Sie ist kleiner als Berlin. Die Stadt hat einen großen Hafen. Hamburg ist ruhiger als Berlin.\n\nKöln liegt am Rhein. Die Stadt ist bekannt für den Kölner Dom. Köln ist lebendig und freundlich. Die Stadt ist nicht so groß wie Berlin.\n\nHeidelberg ist eine kleine Stadt. Sie ist ruhiger als Berlin und Hamburg. Viele Studierende leben dort. Die Altstadt ist sehr schön.\n\nFrankfurt am Main liegt in der Mitte von Deutschland. Die Stadt ist sehr modern. Frankfurt ist bekannt für Banken und hohe Häuser. Die Stadt ist größer als Heidelberg.\n\nStuttgart liegt im Süden von Deutschland. Stuttgart ist eine ruhige Stadt. Viele Autos kommen aus Stuttgart. Die Stadt ist kleiner als München.\n\nDüsseldorf liegt am Rhein. Die Stadt ist modern und sauber. Düsseldorf ist bekannt für Mode und Messen. Sie ist ruhiger als Berlin."
+    }
+   ],
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Welche Stadt ist die Hauptstadt?",
+     "options": [
+      "Hamburg",
+      "Berlin",
+      "München"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Welche Stadt liegt im Süden?",
+     "options": [
+      "Köln",
+      "Hamburg",
+      "München"
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Welche Stadt hat einen großen Hafen?",
+     "options": [
+      "Frankfurt",
+      "Hamburg",
+      "Stuttgart"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Welche Stadt ist größer als Hamburg?",
+     "options": [
+      "München",
+      "Berlin",
+      "Köln"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Welche Stadt liegt am Rhein und hat den Dom?",
+     "options": [
+      "Düsseldorf",
+      "Köln",
+      "Frankfurt"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Welche Stadt ist klein und ruhig?",
+     "options": [
+      "Berlin",
+      "Hamburg",
+      "Heidelberg"
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Welche Stadt ist modern und bekannt für Banken?",
+     "options": [
+      "Stuttgart",
+      "Düsseldorf",
+      "Frankfurt"
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Welche Stadt ist bekannt für Mode und Messen?",
+     "options": [
+      "Köln",
+      "Hamburg",
+      "Düsseldorf"
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Welche Stadt ist größer als Heidelberg?",
+     "options": [
+      "Heidelberg",
+      "Frankfurt",
+      "Dorf"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Welche Stadt ist teurer als Berlin?",
+     "options": [
+      "Heidelberg",
+      "München",
+      "Köln"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Welche Stadt liegt im Norden?",
+     "options": [
+      "Hamburg",
+      "München",
+      "Stuttgart"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Welche Stadt ist ruhiger als Berlin?",
+     "options": [
+      "Berlin",
+      "München",
+      "Hamburg"
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Hamburg ist ruhiger als Berlin.“"
+    }
+   ],
+   "max_score": 12
+  },
+  {
+   "content_id": "vizu-a1-l11-hoeren-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 11,
+   "skill": "hoeren",
+   "title": "Hören: Unsere Wohngemeinschaft",
+   "source": "book",
+   "metadata": {
+    "book_page": 113,
+    "note": "Javoblar kitobning javoblar varag'idan; audio yuklanganda admin tekshirsin."
+   },
+   "audio_file": "A1-11.mp3",
+   "instruction": "Hören Sie den Text und wählen Sie die richtige Antwort.",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Wie viele Personen wohnen zusammen?",
+     "options": [
+      "Drei",
+      "Vier",
+      "Fünf"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer erzählt die Geschichte?",
+     "options": [
+      "Max",
+      "Tom",
+      "Anna"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was studiert Max?",
+     "options": [
+      "Design",
+      "Informatik",
+      "Deutsch"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer putzt oft die Küche?",
+     "options": [
+      "Tom",
+      "Lisa",
+      "Max"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer kocht gern?",
+     "options": [
+      "Anna",
+      "Tom",
+      "Max"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer ist kreativ?",
+     "options": [
+      "Max",
+      "Lisa",
+      "Anna"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wo essen sie zusammen?",
+     "options": [
+      "Küche",
+      "Zimmer",
+      "Bad"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wie ist die WG?",
+     "options": [
+      "Laut",
+      "Ruhig",
+      "Alt"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    }
+   ],
+   "max_score": 8
+  },
+  {
+   "content_id": "vizu-a1-l11-schreiben-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 11,
+   "skill": "schreiben",
+   "title": "Schreiben: Was mache ich zu Hause?",
+   "source": "book",
+   "metadata": {
+    "book_page": 114
+   },
+   "prompt": "Schreiben Sie über Ihre Hausarbeit (Was mache ich zu Hause?):\nEinleitung: Ich heiße … und ich bin oft zu Hause. In diesem Text schreibe ich über meine Hausarbeit.\nHauptteil: Was machen Sie zu Hause, wann und wo? (Am Morgen mache ich mein Bett und frühstücke in der Küche. Danach putze ich mein Zimmer … Am Nachmittag … Am Abend …)\nSchluss: Ihre Meinung (Ich helfe zu Hause gern, weil Hausarbeit wichtig ist.)",
+   "task_type": "description",
+   "min_words": 40,
+   "max_words": 120,
+   "time_limit": 20,
+   "support_phrases": [
+    "Am Morgen mache ich …",
+    "Danach putze ich …",
+    "Am Abend koche ich …",
+    "Ich helfe zu Hause gern, weil …"
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l11-sprechen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 11,
+   "skill": "sprechen",
+   "title": "Sprechen: Mein(e) beste(r) Freund(in)",
+   "source": "book",
+   "metadata": {
+    "book_page": 115
+   },
+   "topic": "Mein bester Freund / Meine beste Freundin",
+   "prompt": "Sprechen Sie über Ihren besten Freund / Ihre beste Freundin. Beantworten Sie die Fragen.",
+   "questions": [
+    "Wie heißt dein(e) beste(r) Freund(in)?",
+    "Wie alt ist er/sie?",
+    "Wo wohnt er/sie?",
+    "Wie sieht er/sie aus?",
+    "Was macht er/sie gern?",
+    "Was macht deinen besten Freund / deine beste Freundin besonders?"
+   ],
+   "response_type": "monolog",
+   "min_duration": 30,
+   "max_duration": 120,
+   "speech_goal": "Eine Person beschreiben: Name, Alter, Wohnort, Aussehen, Hobbys, Charakter.",
+   "keywords": [
+    "Mein bester Freund heißt",
+    "Er/Sie ist … Jahre alt",
+    "Er/Sie wohnt",
+    "Er/Sie ist groß / freundlich"
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l11-wortschatz-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 11,
+   "skill": "wortschatz",
+   "title": "Wortschatz Modul 11: Wohnen",
+   "source": "book",
+   "metadata": {
+    "book_page": 116
+   },
+   "words": [
+    {
+     "word": "groß",
+     "translation": "katta",
+     "group": "Adjektive"
+    },
+    {
+     "word": "klein",
+     "translation": "kichik",
+     "group": "Adjektive"
+    },
+    {
+     "word": "teuer",
+     "translation": "qimmat",
+     "group": "Adjektive"
+    },
+    {
+     "word": "billig",
+     "translation": "arzon",
+     "group": "Adjektive"
+    },
+    {
+     "word": "ruhig",
+     "translation": "tinch",
+     "group": "Adjektive"
+    },
+    {
+     "word": "laut",
+     "translation": "shovqinli",
+     "group": "Adjektive"
+    },
+    {
+     "word": "sauber",
+     "translation": "toza",
+     "group": "Adjektive"
+    },
+    {
+     "word": "alt",
+     "translation": "eski",
+     "group": "Adjektive"
+    },
+    {
+     "word": "neu",
+     "translation": "yangi",
+     "group": "Adjektive"
+    },
+    {
+     "word": "modern",
+     "translation": "zamonaviy",
+     "group": "Adjektive"
+    },
+    {
+     "word": "gemütlich",
+     "translation": "shinam",
+     "group": "Adjektive"
+    },
+    {
+     "word": "hell",
+     "translation": "yorug'",
+     "group": "Adjektive"
+    },
+    {
+     "word": "dunkel",
+     "translation": "qorong'i",
+     "group": "Adjektive"
+    },
+    {
+     "word": "großzügig",
+     "translation": "keng",
+     "group": "Adjektive"
+    },
+    {
+     "word": "nah",
+     "translation": "yaqin",
+     "group": "Adjektive"
+    },
+    {
+     "word": "fern",
+     "translation": "uzoq",
+     "group": "Adjektive"
+    },
+    {
+     "word": "hoch",
+     "translation": "baland",
+     "group": "Adjektive"
+    },
+    {
+     "word": "niedrig",
+     "translation": "past",
+     "group": "Adjektive"
+    },
+    {
+     "word": "warm",
+     "translation": "iliq",
+     "group": "Adjektive"
+    },
+    {
+     "word": "kalt",
+     "translation": "sovuq",
+     "group": "Adjektive"
+    },
+    {
+     "word": "schön",
+     "translation": "chiroyli",
+     "group": "Adjektive"
+    },
+    {
+     "word": "hässlich",
+     "translation": "xunuk",
+     "group": "Adjektive"
+    },
+    {
+     "word": "bequem",
+     "translation": "qulay",
+     "group": "Adjektive"
+    },
+    {
+     "word": "ordentlich",
+     "translation": "tartibli",
+     "group": "Adjektive"
+    },
+    {
+     "word": "freundlich",
+     "translation": "xushmuomala",
+     "group": "Adjektive"
+    },
+    {
+     "word": "Wohnung",
+     "translation": "kvartira",
+     "article": "die",
+     "group": "Wörter"
+    },
+    {
+     "word": "Haus",
+     "translation": "uy",
+     "article": "das",
+     "group": "Wörter"
+    },
+    {
+     "word": "Zimmer",
+     "translation": "xona",
+     "article": "das",
+     "group": "Wörter"
+    },
+    {
+     "word": "Miete",
+     "translation": "ijara",
+     "article": "die",
+     "group": "Wörter"
+    },
+    {
+     "word": "Balkon",
+     "translation": "balkon",
+     "article": "der",
+     "group": "Wörter"
+    },
+    {
+     "word": "Küche",
+     "translation": "oshxona",
+     "article": "die",
+     "group": "Wörter"
+    },
+    {
+     "word": "Bad",
+     "translation": "hammom",
+     "article": "das",
+     "group": "Wörter"
+    },
+    {
+     "word": "Wohnzimmer",
+     "translation": "mehmonxona",
+     "article": "das",
+     "group": "Wörter"
+    },
+    {
+     "word": "Vermieter",
+     "translation": "uy egasi",
+     "article": "der",
+     "group": "Wörter"
+    },
+    {
+     "word": "Mieter",
+     "translation": "ijarachi",
+     "article": "der",
+     "group": "Wörter"
+    },
+    {
+     "word": "wohnen",
+     "translation": "yashamoq",
+     "group": "Wörter"
+    },
+    {
+     "word": "leben",
+     "translation": "yashamoq, hayot kechirmoq",
+     "group": "Wörter"
+    },
+    {
+     "word": "mieten",
+     "translation": "ijaraga olmoq",
+     "group": "Wörter"
+    },
+    {
+     "word": "bezahlen",
+     "translation": "to'lamoq",
+     "group": "Wörter"
+    },
+    {
+     "word": "suchen",
+     "translation": "qidirmoq",
+     "group": "Wörter"
+    },
+    {
+     "word": "finden",
+     "translation": "topmoq",
+     "group": "Wörter"
+    },
+    {
+     "word": "Nachbar",
+     "translation": "qo'shni",
+     "article": "der",
+     "group": "Wörter"
+    },
+    {
+     "word": "Stadt",
+     "translation": "shahar",
+     "article": "die",
+     "group": "Wörter"
+    },
+    {
+     "word": "Dorf",
+     "translation": "qishloq",
+     "article": "das",
+     "group": "Wörter"
+    },
+    {
+     "word": "Gebäude",
+     "translation": "bino",
+     "article": "das",
+     "group": "Wörter"
+    },
+    {
+     "word": "Aufzug",
+     "translation": "lift",
+     "article": "der",
+     "group": "Wörter"
+    },
+    {
+     "word": "Heizung",
+     "translation": "isitish tizimi",
+     "article": "die",
+     "group": "Wörter"
+    },
+    {
+     "word": "Fenster",
+     "translation": "deraza",
+     "article": "das",
+     "group": "Wörter"
+    },
+    {
+     "word": "Tür",
+     "translation": "eshik",
+     "article": "die",
+     "group": "Wörter"
+    },
+    {
+     "word": "Boden",
+     "translation": "pol",
+     "article": "der",
+     "group": "Wörter"
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l11-yakuniy-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 11,
+   "skill": "yakuniy",
+   "title": "Yakuniy Test: Modul 11",
+   "source": "vizu",
+   "instruction": "Sifat darajalari va uy-joy so'zlari bo'yicha yakuniy test.",
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Berlin ist [[1]] als Heidelberg. (groß)",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "größer"
+       ],
+       "options": [
+        "größer",
+        "großer",
+        "am größten"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "München ist [[1]] als Berlin. (teuer)",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "teurer"
+       ],
+       "options": [
+        "teurer",
+        "teuerer",
+        "teuer"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Das ist das [[1]] Haus. (alt)",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "älteste"
+       ],
+       "options": [
+        "älteste",
+        "alteste",
+        "älter"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Komparativ von „gut“:",
+     "options": [
+      "guter",
+      "besser",
+      "am besten"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Superlativ von „viel“:",
+     "options": [
+      "am vielsten",
+      "am meisten",
+      "mehr"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Superlativ von „laut“:",
+     "options": [
+      "am lautsten",
+      "am lautesten",
+      "am lauter"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„die Miete“ — o'zbekchasi qaysi?",
+     "options": [
+      "ijara",
+      "lift",
+      "qo'shni"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„der Vermieter“ — o'zbekchasi qaysi?",
+     "options": [
+      "uy egasi",
+      "ijarachi",
+      "qo'shni"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "„billig“ bedeutet „arzon“.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "matching",
+     "question": "Was passt zusammen?",
+     "items": [
+      "hell",
+      "dunkel",
+      "der Aufzug",
+      "die Heizung"
+     ],
+     "targets": [
+      "yorug'",
+      "qorong'i",
+      "lift",
+      "isitish tizimi",
+      "eshik"
+     ],
+     "pairs": {
+      "1": "A",
+      "2": "B",
+      "3": "C",
+      "4": "D"
+     },
+     "points": 1,
+     "passage": 1
+    }
+   ]
+  }
+ ]
+}

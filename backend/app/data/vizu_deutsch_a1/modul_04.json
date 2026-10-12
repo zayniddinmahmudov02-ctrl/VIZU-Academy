@@ -1,0 +1,968 @@
+{
+ "schema_version": "1.1",
+ "language": "de",
+ "source": "vizu-deutsch-a1-book",
+ "items": [
+  {
+   "content_id": "vizu-a1-l04-frage-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 4,
+   "skill": "frage",
+   "title": "Frage: Wie ist die Wohnung von Deutschen?",
+   "source": "book",
+   "metadata": {
+    "book_page": 39
+   },
+   "prompt": "Wie ist die Wohnung von Deutschen? Was wissen Sie über moderne Wohnungen in Deutschland (Ausstattung, Größe und Stil, Komfort und Gemütlichkeit)?",
+   "min_duration": 10,
+   "max_duration": 120
+  },
+  {
+   "content_id": "vizu-a1-l04-grammatik-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 4,
+   "skill": "grammatik",
+   "title": "Grammatik: Possessivpronomen",
+   "source": "book",
+   "metadata": {
+    "book_page": "40-41"
+   },
+   "rules": [
+    {
+     "title": "Possessivpronomen",
+     "html": "<h3>1. Possessivpronomen — Grundformen</h3><table><thead><tr><th>Person</th><th>Possessivpronomen</th><th>Beispielsatz</th></tr></thead><tbody><tr><td>ich</td><td>mein</td><td>Das ist mein Buch.</td></tr><tr><td>du</td><td>dein</td><td>Ist das dein Zimmer?</td></tr><tr><td>er</td><td>sein</td><td>Das ist sein Auto.</td></tr><tr><td>sie (fem.)</td><td>ihr</td><td>Das ist ihr Fahrrad.</td></tr><tr><td>es</td><td>sein</td><td>Das ist sein Spielzeug.</td></tr><tr><td>wir</td><td>unser</td><td>Das ist unser Haus.</td></tr><tr><td>ihr</td><td>euer</td><td>Das ist euer Hund.</td></tr><tr><td>sie (pl.)</td><td>ihr</td><td>Das ist ihr Garten.</td></tr><tr><td>Sie (formell)</td><td>Ihr</td><td>Ist das Ihr Auto?</td></tr></tbody></table><h3>2. Deklination (nach Kasus und Genus) — am Beispiel „mein“</h3><table><thead><tr><th>Kasus</th><th>Maskulin (der)</th><th>Feminin (die)</th><th>Neutrum (das)</th><th>Plural (die)</th></tr></thead><tbody><tr><td>Nominativ (Wer? Was?)</td><td>mein</td><td>meine</td><td>mein</td><td>meine</td></tr><tr><td>Genitiv (Wessen?)</td><td>meines</td><td>meiner</td><td>meines</td><td>meiner</td></tr><tr><td>Dativ (Wem?)</td><td>meinem</td><td>meiner</td><td>meinem</td><td>meinen</td></tr><tr><td>Akkusativ (Wen? Was?)</td><td>meinen</td><td>meine</td><td>mein</td><td>meine</td></tr></tbody></table><p><strong>Merke:</strong> Possessivpronomen zeigen, wem eine Person oder Sache gehört. Sie stehen immer vor dem Nomen. Die Endungen (Suffixe) hängen vom Kasus und Genus ab.</p>"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "Test: Possessivpronomen (20)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Das ist ___ Buch.",
+       "options": [
+        "mein",
+        "meine",
+        "meines",
+        "meinen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ist das ___ Handy?",
+       "options": [
+        "dein",
+        "deine",
+        "deines",
+        "deinen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Hier ist ___ Schlüssel.",
+       "options": [
+        "sein",
+        "seine",
+        "seines",
+        "seinen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Das ist ___ Fahrrad.",
+       "options": [
+        "ihr",
+        "ihre",
+        "ihres",
+        "ihren"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich sehe ___ Bruder.",
+       "options": [
+        "mein",
+        "meine",
+        "meines",
+        "meinen"
+       ],
+       "correct_answer": "D",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Akkusativ maskulin: meinen."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Wir besuchen ___ Oma.",
+       "options": [
+        "unser",
+        "unsere",
+        "unseres",
+        "unseren"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Das ist ___ Haus.",
+       "options": [
+        "euer",
+        "eure",
+        "eures",
+        "euren"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Er zeigt ___ Auto.",
+       "options": [
+        "sein",
+        "seine",
+        "seines",
+        "seinen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich putze ___ Zimmer.",
+       "options": [
+        "mein",
+        "meine",
+        "meines",
+        "meinen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Sie liest ___ Buch.",
+       "options": [
+        "ihr",
+        "ihre",
+        "ihres",
+        "ihren"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Das ist ___ Hund.",
+       "options": [
+        "unser",
+        "unsere",
+        "unseres",
+        "unseren"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ist das ___ Stift?",
+       "options": [
+        "dein",
+        "deine",
+        "deines",
+        "deinen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Das sind ___ Eltern.",
+       "options": [
+        "sein",
+        "seine",
+        "seines",
+        "seinen"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich nehme ___ Tasche.",
+       "options": [
+        "mein",
+        "meine",
+        "meines",
+        "meinen"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Wir machen ___ Hausaufgaben.",
+       "options": [
+        "unser",
+        "unsere",
+        "unseres",
+        "unseren"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Das ist ___ Idee.",
+       "options": [
+        "euer",
+        "eure",
+        "eures",
+        "euren"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Er trägt ___ Jacke.",
+       "options": [
+        "sein",
+        "seine",
+        "seines",
+        "seinen"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Sie öffnet ___ Tür.",
+       "options": [
+        "ihr",
+        "ihre",
+        "ihres",
+        "ihren"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich habe ___ Ball.",
+       "options": [
+        "mein",
+        "meine",
+        "meines",
+        "meinen"
+       ],
+       "correct_answer": "D",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Akkusativ maskulin: meinen."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Das sind ___ Freunde.",
+       "options": [
+        "unser",
+        "unsere",
+        "unseres",
+        "unseren"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "Wähle die richtige Form des Possessivpronomens. Tipp: Achte auf den Besitzer und den Kasus!"
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l04-lesen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 4,
+   "skill": "lesen",
+   "title": "Lesen: Mein Zimmer",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 42,
+    "note": "Matnlar kitobdan; savollar VIZU tomonidan matn asosida tuzilgan."
+   },
+   "instruction": "Lesen Sie die Texte und beantworten Sie die Fragen.",
+   "passages": [
+    {
+     "title": "Mein Zimmer (Niko)",
+     "text": "Hallo! Ich heiße Niko. Das ist mein Zimmer. Mein Zimmer ist klein, aber gemütlich. In meinem Zimmer gibt es ein Bett, einen Tisch und einen Stuhl. Auf meinem Tisch liegen meine Bücher und mein Heft. Neben meinem Bett steht meine Lampe. Mein Fenster ist groß. Ich lerne und lese gern in meinem Zimmer. Mein Zimmer gefällt mir sehr."
+    },
+    {
+     "title": "Das Zimmer von Maria",
+     "text": "Maria ist meine Schwester. Das ist ihr Zimmer. Ihr Zimmer ist schön und sauber. In ihrem Zimmer gibt es ein Bett, einen Tisch und einen Schrank. Auf ihrem Tisch liegen ihre Bücher und ihr Handy. An ihrer Wand hängen Fotos. Maria liest gern in ihrem Zimmer. Ihr Zimmer gefällt ihr sehr."
+    },
+    {
+     "title": "Das Zimmer von Albert",
+     "text": "Albert ist mein Bruder. Das ist sein Zimmer. Sein Zimmer ist groß und modern. In seinem Zimmer gibt es ein Bett, einen Tisch und einen Computer. Auf seinem Tisch stehen sein Computer und seine Bücher. Sein Fenster ist groß. Albert macht seine Hausaufgaben in seinem Zimmer. Sein Zimmer gefällt ihm sehr."
+    }
+   ],
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Wie ist Nikos Zimmer?",
+     "options": [
+      "Groß und modern",
+      "Klein, aber gemütlich",
+      "Schön und sauber"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was liegt auf Nikos Tisch?",
+     "options": [
+      "Seine Bücher und sein Heft",
+      "Sein Computer",
+      "Sein Handy"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "Neben Nikos Bett steht seine Lampe.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer ist Maria?",
+     "options": [
+      "Nikos Mutter",
+      "Nikos Schwester",
+      "Nikos Freundin"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 2
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was gibt es in Marias Zimmer?",
+     "options": [
+      "Ein Bett, einen Tisch und einen Schrank",
+      "Ein Bett und einen Computer",
+      "Nur einen Tisch"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 2
+    },
+    {
+     "type": "true_false",
+     "question": "An Marias Wand hängen Fotos.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wie ist Alberts Zimmer?",
+     "options": [
+      "Klein und dunkel",
+      "Groß und modern",
+      "Alt"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 3
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was steht auf Alberts Tisch?",
+     "options": [
+      "Seine Lampe",
+      "Sein Computer und seine Bücher",
+      "Seine Fotos"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 3
+    },
+    {
+     "type": "true_false",
+     "question": "Albert macht seine Hausaufgaben in der Küche.",
+     "points": 1,
+     "passage": 3,
+     "correct_answer": "falsch",
+     "explanation": "„Albert macht seine Hausaufgaben in seinem Zimmer.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer liest gern in ihrem Zimmer?",
+     "options": [
+      "Maria",
+      "Albert",
+      "Niemand"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 2
+    }
+   ],
+   "max_score": 10
+  },
+  {
+   "content_id": "vizu-a1-l04-hoeren-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 4,
+   "skill": "hoeren",
+   "title": "Hören: Alex und sein Zimmer",
+   "source": "book",
+   "metadata": {
+    "book_page": 43
+   },
+   "audio_file": "A1-4.mp3",
+   "key_pending": true,
+   "instruction": "Höre den Text und kreuze die richtige Antwort an.",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Wie heißt die Person?",
+     "options": [
+      "Max",
+      "Alex",
+      "Tom"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Frage 2: „Wie alt ist Alex?“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wie alt ist Alex?",
+     "options": [
+      "19 Jahre alt",
+      "20 Jahre alt",
+      "21 Jahre alt"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wie ist sein Zimmer?",
+     "options": [
+      "Schön, sauber und hell",
+      "Klein und dunkel",
+      "Alt und schmutzig"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was steht auf dem Tisch?",
+     "options": [
+      "Ein Fernseher",
+      "Ein Computer",
+      "Eine Lampe"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was hat Alex für seine Kleidung?",
+     "options": [
+      "Einen Schrank",
+      "Ein Regal",
+      "Einen Koffer"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was gibt es in seinem Zimmer?",
+     "options": [
+      "Ein großes Fenster",
+      "Zwei Türen",
+      "Einen Balkon"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was hängt an der Wand?",
+     "options": [
+      "Uhren",
+      "Bilder",
+      "Spiegel"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was macht Alex oft in seinem Zimmer?",
+     "options": [
+      "Er schläft.",
+      "Er lernt.",
+      "Er kocht."
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was macht Alex manchmal?",
+     "options": [
+      "Bücher lesen oder Musik hören",
+      "Fußball spielen",
+      "Einkaufen gehen"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Warum mag Alex sein Zimmer?",
+     "options": [
+      "Es ist sehr groß.",
+      "Es ist sein Lieblingsplatz zu Hause.",
+      "Es hat einen Fernseher."
+     ],
+     "points": 1
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l04-schreiben-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 4,
+   "skill": "schreiben",
+   "title": "Schreiben: Mein Zimmer",
+   "source": "book",
+   "metadata": {
+    "book_page": 44
+   },
+   "prompt": "Beschreiben Sie Ihr Zimmer (O'z xonangizni tasvirlang!). Schreiben Sie einfache Sätze:\n1. Kirish: Ich heiße … Das ist mein Zimmer.\n2. Mein Zimmer ist … (groß / klein / schön / gemütlich / modern).\n3. In meinem Zimmer gibt es … (ein Bett, einen Tisch, einen Schrank …).\n4. Mein Bett steht … Auf meinem Tisch liegen … Neben … steht … Über … hängt …\n5. Die Wände sind … An der Wand hängen … Mein Zimmer ist hell / bunt / modern.\n6. Ich lerne / lese / höre Musik / spiele … in meinem Zimmer.\n7. Ich mag mein Zimmer sehr, weil …\n8. Das ist mein Zimmer. Ich bin gern in meinem Zimmer.",
+   "task_type": "description",
+   "min_words": 40,
+   "max_words": 120,
+   "time_limit": 20,
+   "support_phrases": [
+    "In meinem Zimmer gibt es …",
+    "Auf meinem Tisch liegen …",
+    "Neben meinem Bett steht …",
+    "An der Wand hängen …",
+    "Ich mag mein Zimmer sehr, weil …"
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l04-sprechen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 4,
+   "skill": "sprechen",
+   "title": "Sprechen: Mein Zimmer",
+   "source": "book",
+   "metadata": {
+    "book_page": 45
+   },
+   "topic": "Mein Zimmer",
+   "prompt": "Beantworten Sie die Fragen. Sprechen Sie in vollständigen Sätzen.",
+   "questions": [
+    "Wie ist dein Zimmer?",
+    "Was gibt es in deinem Zimmer?",
+    "Wo stehen die Möbel in deinem Zimmer?",
+    "Was hast du in deinem Zimmer?",
+    "Welche Farben hat dein Zimmer?",
+    "Warum magst du dein Zimmer?"
+   ],
+   "response_type": "monolog",
+   "min_duration": 30,
+   "max_duration": 120,
+   "speech_goal": "Das eigene Zimmer beschreiben: Größe, Möbel und ihr Ort (neben / auf / an), Farben und einen Grund (weil …).",
+   "keywords": [
+    "mein",
+    "in meinem Zimmer",
+    "es gibt",
+    "neben",
+    "auf",
+    "weil"
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l04-wortschatz-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 4,
+   "skill": "wortschatz",
+   "title": "Wortschatz Modul 4: Zimmer & Möbel",
+   "source": "book",
+   "metadata": {
+    "book_page": "44, 46"
+   },
+   "words": [
+    {
+     "word": "Schlafzimmer",
+     "translation": "yotoqxona",
+     "article": "das",
+     "group": "Zimmer — xonalar"
+    },
+    {
+     "word": "Wohnzimmer",
+     "translation": "mehmonxona",
+     "article": "das",
+     "group": "Zimmer — xonalar"
+    },
+    {
+     "word": "Küche",
+     "translation": "oshxona",
+     "article": "die",
+     "group": "Zimmer — xonalar"
+    },
+    {
+     "word": "Badezimmer",
+     "translation": "hammom",
+     "article": "das",
+     "group": "Zimmer — xonalar"
+    },
+    {
+     "word": "Kinderzimmer",
+     "translation": "bolalar xonasi",
+     "article": "das",
+     "group": "Zimmer — xonalar"
+    },
+    {
+     "word": "Arbeitszimmer",
+     "translation": "ish xonasi",
+     "article": "das",
+     "group": "Zimmer — xonalar"
+    },
+    {
+     "word": "Flur",
+     "translation": "yo'lak",
+     "article": "der",
+     "group": "Zimmer — xonalar"
+    },
+    {
+     "word": "Esszimmer",
+     "translation": "ovqatlanish xonasi",
+     "article": "das",
+     "group": "Zimmer — xonalar"
+    },
+    {
+     "word": "Balkon",
+     "translation": "balkon",
+     "article": "der",
+     "group": "Zimmer — xonalar"
+    },
+    {
+     "word": "Garten",
+     "translation": "bog'",
+     "article": "der",
+     "group": "Zimmer — xonalar"
+    },
+    {
+     "word": "schön",
+     "translation": "chiroyli",
+     "group": "Nützliche Wörter — foydali so'zlar"
+    },
+    {
+     "word": "sauber",
+     "translation": "toza",
+     "group": "Nützliche Wörter — foydali so'zlar"
+    },
+    {
+     "word": "groß",
+     "translation": "katta",
+     "group": "Nützliche Wörter — foydali so'zlar"
+    },
+    {
+     "word": "klein",
+     "translation": "kichik",
+     "group": "Nützliche Wörter — foydali so'zlar"
+    },
+    {
+     "word": "hell",
+     "translation": "yorug'",
+     "group": "Nützliche Wörter — foydali so'zlar"
+    },
+    {
+     "word": "gemütlich",
+     "translation": "qulay",
+     "group": "Nützliche Wörter — foydali so'zlar"
+    },
+    {
+     "word": "modern",
+     "translation": "zamonaviy",
+     "group": "Schreiben: yangi so'zlar"
+    },
+    {
+     "word": "Kleiderschrank",
+     "translation": "kiyim shkafi",
+     "article": "der",
+     "group": "Schreiben: yangi so'zlar"
+    },
+    {
+     "word": "Regal",
+     "translation": "javon",
+     "article": "das",
+     "group": "Schreiben: yangi so'zlar"
+    },
+    {
+     "word": "Schreibtisch",
+     "translation": "yozuv stoli",
+     "article": "der",
+     "group": "Schreiben: yangi so'zlar"
+    },
+    {
+     "word": "Rucksack",
+     "translation": "ryukzak",
+     "article": "der",
+     "group": "Schreiben: yangi so'zlar"
+    },
+    {
+     "word": "Kalender",
+     "translation": "taqvim",
+     "article": "der",
+     "group": "Schreiben: yangi so'zlar"
+    },
+    {
+     "word": "Trophäe",
+     "translation": "sovrin (kubok)",
+     "article": "die",
+     "group": "Schreiben: yangi so'zlar"
+    },
+    {
+     "word": "ruhig",
+     "translation": "tinch",
+     "group": "Schreiben: yangi so'zlar"
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l04-yakuniy-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 4,
+   "skill": "yakuniy",
+   "title": "Yakuniy Test: Modul 4",
+   "source": "vizu",
+   "instruction": "Possessivpronomen va xona so'zlari bo'yicha yakuniy test.",
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Das ist [[1]] Zimmer. (mening)",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "mein"
+       ],
+       "options": [
+        "mein",
+        "meine",
+        "meinen"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Ist das [[1]] Tasche? (sening)",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "deine"
+       ],
+       "options": [
+        "dein",
+        "deine",
+        "deinen"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Ich sehe [[1]] Vater. (uning — er)",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "seinen"
+       ],
+       "options": [
+        "sein",
+        "seine",
+        "seinen"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Das ist [[1]] Wohnung. (bizning)",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "unsere"
+       ],
+       "options": [
+        "unser",
+        "unsere",
+        "unseren"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Wo ist [[1]] Auto? (sizlarning)",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "euer"
+       ],
+       "options": [
+        "euer",
+        "eure",
+        "euren"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Anna liest ___ Buch.",
+     "options": [
+      "ihr",
+      "ihre",
+      "ihren"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Ich wohne in ___ Haus. (Dativ)",
+     "options": [
+      "meinem",
+      "meinen",
+      "meine"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„die Küche“ — o'zbekchasi qaysi?",
+     "options": [
+      "oshxona",
+      "hammom",
+      "yo'lak"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„gemütlich“ — o'zbekchasi qaysi?",
+     "options": [
+      "qulay",
+      "katta",
+      "toza"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "„das Schlafzimmer“ bedeutet „yotoqxona“.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "matching",
+     "question": "Was passt zusammen?",
+     "items": [
+      "der Flur",
+      "das Badezimmer",
+      "der Balkon",
+      "hell"
+     ],
+     "targets": [
+      "yo'lak",
+      "hammom",
+      "balkon",
+      "yorug'",
+      "kichik"
+     ],
+     "pairs": {
+      "1": "A",
+      "2": "B",
+      "3": "C",
+      "4": "D"
+     },
+     "points": 1,
+     "passage": 1
+    }
+   ]
+  }
+ ]
+}

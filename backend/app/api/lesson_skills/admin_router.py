@@ -12,7 +12,9 @@ from sqlalchemy.orm import Session
 from app.api.dependencies.auth import require_admin_panel_access
 from app.db.session import get_db
 from app.models.lesson import Lesson
-from app.models.lesson_skill import EVAL_KIND_SPEAKING, EVAL_KIND_WRITING
+from app.models.grammar import Grammar
+from app.models.lesson_skill import EVAL_KIND_SPEAKING, EVAL_KIND_WRITING, TASK_KIND_FRAGE, TASK_KIND_SPRECHEN
+from app.models.vocabulary import Vocabulary
 from app.models.listening import Listening
 from app.models.reading import Reading
 from app.models.speaking import Speaking
@@ -22,6 +24,7 @@ from app.schemas.listening import ListeningResponse
 from app.schemas.speaking import SpeakingAdminResponse
 from app.schemas.writing import WritingAdminResponse
 from app.services.lesson_skills import admin as skill_admin
+from app.services.lesson_skills import exercises as ex_service
 from app.services.lesson_skills import skill_tests as tests
 from app.services.lesson_skills import levels
 from app.services.lesson_skills import results as skill_results
@@ -102,11 +105,24 @@ def lesson_overview(lesson_id: UUID, db: Session = Depends(get_db), _: User = De
                 **ListeningResponse.model_validate(lst).model_dump(),
                 "questions": [skill_admin.admin_question(q) for q in sorted(lst.questions, key=lambda q: (q.order_index, q.created_at))],
                 "max_points": sum(q.points for q in lst.questions),
+                # questions without a complete key (e.g. imported before the
+                # audio was checked) block publishing
+                "key_missing": sum(1 for q in lst.questions if not ex_service.has_key(q)),
             }
             for lst in listenings
         ],
         "schreiben": [WritingAdminResponse.model_validate(w).model_dump() for w in db.query(Writing).filter(Writing.lesson_id == lesson_id).order_by(Writing.order_index)],
-        "sprechen": [SpeakingAdminResponse.model_validate(s).model_dump() for s in db.query(Speaking).filter(Speaking.lesson_id == lesson_id).order_by(Speaking.order_index)],
+        "sprechen": [
+            SpeakingAdminResponse.model_validate(s).model_dump()
+            for s in db.query(Speaking).filter(Speaking.lesson_id == lesson_id, Speaking.task_kind == TASK_KIND_SPRECHEN).order_by(Speaking.order_index)
+        ],
+        "frage": [
+            SpeakingAdminResponse.model_validate(s).model_dump()
+            for s in db.query(Speaking).filter(Speaking.lesson_id == lesson_id, Speaking.task_kind == TASK_KIND_FRAGE).order_by(Speaking.order_index)
+        ],
+        "grammatik": [ex_service.admin_grammar(g) for g in db.query(Grammar).filter(Grammar.lesson_id == lesson_id).order_by(Grammar.order_index)],
+        "wortschatz": [ex_service.admin_word(v) for v in db.query(Vocabulary).filter(Vocabulary.lesson_id == lesson_id).order_by(Vocabulary.order_index)],
+        "exercises": [ex_service.admin_exercise(e) for e in ex_service.lesson_exercises(db, lesson_id)],
     }
 
 
@@ -226,15 +242,18 @@ def _course_or_404(db: Session, course_id: UUID):
     return course
 
 
-def _counts(db: Session, model, lesson_ids: list) -> dict:
+def _counts(db: Session, model, lesson_ids: list, *where) -> dict:
     from sqlalchemy import case, func, select
 
     rows = db.execute(
         select(model.lesson_id, func.count(model.id), func.sum(case((model.is_published.is_(True), 1), else_=0)))
-        .where(model.lesson_id.in_(lesson_ids))
+        .where(model.lesson_id.in_(lesson_ids), *where)
         .group_by(model.lesson_id)
     ).all()
     return {str(lid): {"total": int(total), "published": int(published or 0)} for lid, total, published in rows}
+
+
+STRUCTURE_KEYS = ("frage", "grammatik", "lesen", "hoeren", "schreiben", "sprechen", "wortschatz", "uebungen", "yakuniy")
 
 
 @router.get("/courses/{course_id}/structure")
@@ -249,11 +268,18 @@ def course_structure(course_id: UUID, db: Session = Depends(get_db), _: User = D
     modules = list(db.scalars(select(Module).where(Module.course_id == course.id).order_by(Module.order_index, Module.number)))
     lessons = list(db.scalars(select(Lesson).where(Lesson.module_id.in_([m.id for m in modules])).order_by(Lesson.number))) if modules else []
     ids = [lesson.id for lesson in lessons]
+    from app.models.lesson_skill import SkillExercise
+
     counts = {
+        "frage": _counts(db, Speaking, ids, Speaking.task_kind == TASK_KIND_FRAGE),
+        "grammatik": _counts(db, Grammar, ids),
         "lesen": _counts(db, Reading, ids),
         "hoeren": _counts(db, Listening, ids),
         "schreiben": _counts(db, Writing, ids),
-        "sprechen": _counts(db, Speaking, ids),
+        "sprechen": _counts(db, Speaking, ids, Speaking.task_kind == TASK_KIND_SPRECHEN),
+        "wortschatz": _counts(db, Vocabulary, ids),
+        "uebungen": _counts(db, SkillExercise, ids, SkillExercise.skill.in_(("GRAMMATIK", "WORTSCHATZ"))),
+        "yakuniy": _counts(db, SkillExercise, ids, SkillExercise.skill == "YAKUNIY"),
     } if ids else {}
     empty = {"total": 0, "published": 0}
     return {
@@ -271,7 +297,7 @@ def course_structure(course_id: UUID, db: Session = Depends(get_db), _: User = D
                         "id": lesson.id,
                         "number": lesson.number,
                         "title": lesson.title,
-                        "skills": {k: counts.get(k, {}).get(str(lesson.id), empty) for k in ("lesen", "hoeren", "schreiben", "sprechen")},
+                        "skills": {k: counts.get(k, {}).get(str(lesson.id), empty) for k in STRUCTURE_KEYS},
                     }
                     for lesson in lessons
                     if str(lesson.module_id) == str(m.id)
@@ -307,3 +333,105 @@ def reset_result_config(course_id: UUID, db: Session = Depends(get_db), _: User 
 def default_rubrics(_: User = Depends(require_admin_panel_access)):
     """Default Schreiben / Sprechen rubrics of every level."""
     return levels.all_default_rubrics()
+
+
+# ============================================================
+# Exercise sets (Grammatik / Wortschatz / Yakuniy Test), Grammatik rules,
+# Wortschatz words
+# ============================================================
+
+
+class ExerciseIn(BaseModel):
+    skill: str | None = Field(default=None, pattern=r"^(GRAMMATIK|WORTSCHATZ|YAKUNIY)$")
+    title: str | None = Field(default=None, max_length=255)
+    instruction: str | None = Field(default=None, max_length=5000)
+    order_index: int | None = Field(default=None, ge=1, le=1000)
+    is_published: bool | None = None
+    source: str | None = Field(default=None, pattern=r"^(book|vizu)$")
+
+
+class GrammarIn(BaseModel):
+    title: str = Field(min_length=1, max_length=255)
+    content: str = Field(min_length=1, max_length=100_000)
+    order_index: int = Field(default=1, ge=1, le=1000)
+    is_published: bool = False
+
+
+class WordIn(BaseModel):
+    german_word: str = Field(min_length=1, max_length=255)
+    translation: str = Field(min_length=1, max_length=255)
+    article: str | None = Field(default=None, max_length=10)
+    plural: str | None = Field(default=None, max_length=255)
+    example_sentence: str | None = Field(default=None, max_length=1000)
+    example_translation: str | None = Field(default=None, max_length=1000)
+    order_index: int | None = Field(default=None, ge=1, le=10000)
+    is_published: bool = True
+
+
+@router.post("/lessons/{lesson_id}/exercises")
+def create_exercise(lesson_id: UUID, data: ExerciseIn, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+    _lesson_or_404(db, lesson_id)
+    return ex_service.admin_exercise(ex_service.create_exercise(db, lesson_id, data.model_dump()))
+
+
+@router.put("/exercises/{exercise_id}")
+def update_exercise(exercise_id: UUID, data: ExerciseIn, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+    return ex_service.admin_exercise(ex_service.update_exercise(db, exercise_id, data.model_dump(exclude={"skill"})))
+
+
+@router.delete("/exercises/{exercise_id}")
+def delete_exercise(exercise_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+    ex_service.delete_exercise(db, exercise_id)
+    return {"deleted": True}
+
+
+@router.put("/exercises/{exercise_id}/questions")
+def put_exercise_questions(exercise_id: UUID, data: QuestionsIn, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+    return ex_service.admin_exercise(ex_service.replace_exercise_questions(db, exercise_id, _payload(data)))
+
+
+@router.post("/exercises/{exercise_id}/duplicate")
+def duplicate_exercise(exercise_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+    return ex_service.admin_exercise(ex_service.duplicate_exercise(db, exercise_id))
+
+
+@router.post("/lessons/{lesson_id}/grammars")
+def create_grammar(lesson_id: UUID, data: GrammarIn, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+    _lesson_or_404(db, lesson_id)
+    return ex_service.admin_grammar(ex_service.save_grammar(db, lesson_id, data.model_dump()))
+
+
+@router.put("/grammars/{grammar_id}")
+def update_grammar(grammar_id: UUID, data: GrammarIn, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+    return ex_service.admin_grammar(ex_service.save_grammar(db, None, data.model_dump(), grammar_id))
+
+
+@router.delete("/grammars/{grammar_id}")
+def delete_grammar(grammar_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+    grammar = db.get(Grammar, grammar_id)
+    if grammar is None:
+        raise HTTPException(status_code=404, detail="Grammar not found.")
+    db.delete(grammar)
+    db.commit()
+    return {"deleted": True}
+
+
+@router.post("/lessons/{lesson_id}/words")
+def create_word(lesson_id: UUID, data: WordIn, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+    _lesson_or_404(db, lesson_id)
+    return ex_service.admin_word(ex_service.save_word(db, lesson_id, data.model_dump()))
+
+
+@router.put("/words/{word_id}")
+def update_word(word_id: UUID, data: WordIn, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+    return ex_service.admin_word(ex_service.save_word(db, None, data.model_dump(), word_id))
+
+
+@router.delete("/words/{word_id}")
+def delete_word(word_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+    word = db.get(Vocabulary, word_id)
+    if word is None:
+        raise HTTPException(status_code=404, detail="Word not found.")
+    db.delete(word)
+    db.commit()
+    return {"deleted": True}

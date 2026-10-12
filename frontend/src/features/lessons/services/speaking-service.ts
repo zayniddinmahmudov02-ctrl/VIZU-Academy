@@ -21,6 +21,7 @@ export interface LessonSpeaking {
 // Public, published-only — Sprechen's source of truth (see
 // backend/app/services/lesson_progress/section_gate.py's module
 // docstring: the Assessment Engine is no longer used for this skill).
-export async function getLessonSpeakings(lessonId: string): Promise<LessonSpeaking[]> {
-  return api<LessonSpeaking[]>(`/api/v1/speakings/lesson/${lessonId}`);
+// kind "FRAGE" = the lesson's Frage des Themas voice task(s).
+export async function getLessonSpeakings(lessonId: string, kind: "SPRECHEN" | "FRAGE" = "SPRECHEN"): Promise<LessonSpeaking[]> {
+  return api<LessonSpeaking[]>(`/api/v1/speakings/lesson/${lessonId}?kind=${kind}`);
 }

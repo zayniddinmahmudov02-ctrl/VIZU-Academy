@@ -203,7 +203,7 @@ class LessonScoringService:
         task_ids = [
             str(row[0])
             for row in self.db.query(Speaking.id)
-            .filter(Speaking.lesson_id == str(lesson_id), Speaking.is_published.is_(True))
+            .filter(Speaking.lesson_id == str(lesson_id), Speaking.is_published.is_(True), Speaking.task_kind == "SPRECHEN")
             .all()
         ]
         if not task_ids:

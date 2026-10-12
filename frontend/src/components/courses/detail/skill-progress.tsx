@@ -62,9 +62,10 @@ export default function SkillProgress({ level }: { level: LevelCode }) {
                 </span>
               )}
             </div>
-            <div className="mt-2 grid grid-cols-2 gap-1.5 sm:grid-cols-4">
+            <div className="mt-2 grid grid-cols-2 gap-1.5 sm:grid-cols-4 lg:grid-cols-8">
               {SKILLS.map(({ key, label, icon: Icon }) => {
                 const s = l.skills[key];
+                if (!s || s.status === "not_available") return null;
                 const tone = STATUS[s.status] ?? STATUS.not_started;
                 return (
                   <span key={key} className={cn("flex items-center gap-1.5 rounded-lg px-2 py-1.5 text-xs", tone.tone)}>
