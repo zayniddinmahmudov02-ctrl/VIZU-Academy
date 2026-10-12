@@ -9,7 +9,6 @@ from app.db.session import get_db
 from app.models.lesson import Lesson
 from app.models.user import User
 from app.repositories.student_progress import StudentProgressRepository
-from app.services.vizu_pay.access import can_access_lesson
 
 from app.schemas.vocabulary import (
     VocabularyCompleteRequest,
@@ -18,6 +17,7 @@ from app.schemas.vocabulary import (
 
 from app.services.learning import refresh_lesson_completion
 from app.services.vocabulary import VocabularyService
+from app.services.lms.access import ensure_lesson_open
 
 # Read-only apart from the Wortschatz Test completion below: vocabulary
 # create/update/publish/delete, the bulk generator and the AI enrichment
@@ -63,8 +63,9 @@ def get_vocabulary(
     # Same gate as GET /vocabularies/lesson/{lesson_id} — direct-by-ID must
     # not bypass the free-3-lessons/Premium rule.
     lesson = db.get(Lesson, vocabulary.lesson_id)
-    if lesson is None or not can_access_lesson(current_user, lesson):
+    if lesson is None:
         raise HTTPException(status_code=403, detail="PREMIUM_REQUIRED")
+    ensure_lesson_open(db, current_user, lesson)
 
     return vocabulary
 

@@ -85,6 +85,18 @@ class Video(BaseModel):
         server_default="false",
     )
 
+    # VIZU LMS: the competency the video belongs to (NULL = Einführung)
+    # and an optional WebVTT subtitle file in protected video storage.
+    competency: Mapped[str | None] = mapped_column(
+        String(20),
+        nullable=True,
+    )
+
+    subtitle_key: Mapped[str | None] = mapped_column(
+        String(1024),
+        nullable=True,
+    )
+
     is_published: Mapped[bool] = mapped_column(
         Boolean,
         default=False,

@@ -36,7 +36,7 @@ class TestGradingServiceSectionGate(unittest.TestCase):
         return db, quiz, lesson
 
     @patch("app.services.quiz.grading_service.StudentQuizService")
-    @patch("app.services.quiz.grading_service.can_access_lesson", return_value=True)
+    @patch("app.services.quiz.grading_service.ensure_lesson_open", return_value=None)
     @patch("app.services.quiz.grading_service.SectionGateService")
     def test_locked_section_rejects_submission_for_every_gated_type(
         self, mock_gate_cls, mock_can_access, mock_student_quiz_cls
@@ -52,7 +52,7 @@ class TestGradingServiceSectionGate(unittest.TestCase):
                 self.assertEqual(ctx.exception.detail, "SECTION_LOCKED")
 
     @patch("app.services.quiz.grading_service.StudentQuizService")
-    @patch("app.services.quiz.grading_service.can_access_lesson", return_value=True)
+    @patch("app.services.quiz.grading_service.ensure_lesson_open", return_value=None)
     @patch("app.services.quiz.grading_service.SectionGateService")
     def test_unlocked_section_allows_submission_for_every_gated_type(
         self, mock_gate_cls, mock_can_access, mock_student_quiz_cls
@@ -66,7 +66,7 @@ class TestGradingServiceSectionGate(unittest.TestCase):
                 self.assertEqual(response.score, 0)  # no questions in this mock -> 0/0 -> 0
 
     @patch("app.services.quiz.grading_service.StudentQuizService")
-    @patch("app.services.quiz.grading_service.can_access_lesson", return_value=True)
+    @patch("app.services.quiz.grading_service.ensure_lesson_open", return_value=None)
     @patch("app.services.quiz.grading_service.SectionGateService")
     def test_gate_checked_against_the_matching_section_key(self, mock_gate_cls, mock_can_access, mock_student_quiz_cls):
         mock_gate_cls.return_value.is_unlocked.return_value = True

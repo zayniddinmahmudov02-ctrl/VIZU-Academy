@@ -8,11 +8,11 @@ from app.models.lesson import Lesson
 from app.models.reading import Reading
 from app.models.reading_question import ReadingQuestion
 from app.models.user import User
-from app.services.vizu_pay.access import can_access_lesson
 
 from app.schemas.reading_option import ReadingOptionResponse
 
 from app.services.reading_option import ReadingOptionService
+from app.services.lms.access import ensure_lesson_open
 
 router = APIRouter(
     prefix="/reading-options",
@@ -49,7 +49,8 @@ def get_one(
     question = db.get(ReadingQuestion, item.question_id)
     reading = db.get(Reading, question.reading_id) if question else None
     lesson = db.get(Lesson, reading.lesson_id) if reading else None
-    if lesson is None or not can_access_lesson(current_user, lesson):
+    if lesson is None:
         raise HTTPException(status_code=403, detail="PREMIUM_REQUIRED")
+    ensure_lesson_open(db, current_user, lesson)
 
     return item

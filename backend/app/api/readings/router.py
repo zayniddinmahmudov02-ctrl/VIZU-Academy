@@ -8,7 +8,6 @@ from app.api.dependencies.progress import require_lesson_access
 from app.db.session import get_db
 from app.models.lesson import Lesson
 from app.models.user import User
-from app.services.vizu_pay.access import can_access_lesson
 
 from app.schemas.reading import (
     ReadingCreate,
@@ -17,6 +16,7 @@ from app.schemas.reading import (
 )
 
 from app.services.reading import ReadingService
+from app.services.lms.access import ensure_lesson_open
 
 
 router = APIRouter(
@@ -58,8 +58,9 @@ def get_reading(
     # Same gate as GET /readings/lesson/{lesson_id} — direct-by-ID must not
     # bypass the free-3-lessons/Premium rule.
     lesson = db.get(Lesson, reading.lesson_id)
-    if lesson is None or not can_access_lesson(current_user, lesson):
+    if lesson is None:
         raise HTTPException(status_code=403, detail="PREMIUM_REQUIRED")
+    ensure_lesson_open(db, current_user, lesson)
 
     return reading
 

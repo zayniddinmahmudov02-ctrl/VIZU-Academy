@@ -3,7 +3,7 @@ from uuid import UUID
 from sqlalchemy.orm import Session
 
 from app.models.student_progress import StudentProgress
-from app.services.lesson_progress.section_gate import SectionGateService
+from app.services.lms import progress as lms_progress
 
 
 class LessonProgressService:
@@ -16,10 +16,9 @@ class LessonProgressService:
         user_id: str,
         lesson_id: str,
     ):
-        # Delegates to the single canonical, content-aware completion
-        # check (SectionGateService) — see LessonFlowService.is_completed
-        # for the same consolidation, fixing the previous duplicate
-        # fixed-flag-list logic that lived independently in both places.
+        # Delegates to the single canonical completion rule — the VIZU LMS
+        # progress service (app.services.lms.progress), which decides from
+        # the lesson's published, tracked competencies.
         progress = (
             self.db.query(StudentProgress)
             .filter(
@@ -32,15 +31,17 @@ class LessonProgressService:
         if not progress:
             return False
 
-        return SectionGateService(self.db).is_lesson_completed(UUID(user_id), UUID(lesson_id))
+        return lms_progress.is_lesson_completed(self.db, UUID(user_id), UUID(lesson_id))
 
     def update_completion(
         self,
         user_id: str,
         lesson_id: str,
     ):
-
-        progress = (
+        """Recompute and persist the lesson + competency snapshot; returns
+        the StudentProgress row (None while the student has no activity)."""
+        lms_progress.sync_lesson(self.db, UUID(str(user_id)), UUID(str(lesson_id)))
+        return (
             self.db.query(StudentProgress)
             .filter(
                 StudentProgress.user_id == user_id,
@@ -49,27 +50,12 @@ class LessonProgressService:
             .first()
         )
 
-        if not progress:
-            return None
-
-        progress.lesson_completed = self.lesson_completed(
-            user_id,
-            lesson_id,
-        )
-
-        self.db.commit()
-
-        self.db.refresh(progress)
-
-        return progress
-
 
 def refresh_lesson_completion(db: Session, user_id, lesson_id) -> None:
-    """Persists StudentProgress.lesson_completed from the canonical
-    SectionGateService check, right after any event that can change it
-    (video finished, Wortschatz Test / Yakuniy Test submitted, a teacher
-    graded a Schreiben/Sprechen submission). Nothing else ever wrote that
-    flag, although the dashboard ("Weiter lernen"), lesson progress,
-    unlocking and course completion all read it. A student with no
-    progress row yet is left alone (update_completion returns None)."""
+    """Persists the student's lesson progress (competency snapshot,
+    StudentProgress.lesson_completed / completed_at / last_activity_at)
+    right after any event that can change it — video finished, an exercise /
+    test / Lesen / Hören attempt submitted, a teacher or the AI graded a
+    Schreiben / Sprechen submission. The dashboard ("Weiter lernen"),
+    sequential unlocking and the level overview read that snapshot."""
     LessonProgressService(db).update_completion(str(user_id), str(lesson_id))

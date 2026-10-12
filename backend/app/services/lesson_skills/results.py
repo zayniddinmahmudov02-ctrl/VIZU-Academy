@@ -17,7 +17,16 @@ from uuid import UUID
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app.models.lesson_skill import SKILL_GRAMMATIK, SKILL_HOEREN, SKILL_LESEN, SKILL_WORTSCHATZ, SKILL_YAKUNIY, TASK_KIND_FRAGE, TASK_KIND_SPRECHEN
+from app.models.lesson_skill import (
+    SKILL_GRAMMATIK,
+    SKILL_HOEREN,
+    SKILL_LESEN,
+    SKILL_UEBUNGEN,
+    SKILL_WORTSCHATZ,
+    SKILL_YAKUNIY,
+    TASK_KIND_FRAGE,
+    TASK_KIND_SPRECHEN,
+)
 from app.models.speaking import Speaking
 from app.models.student_speaking import StudentSpeaking
 from app.models.student_writing import StudentWriting
@@ -43,8 +52,10 @@ SUBMISSION_STATUS = {
 
 
 # lesson order
-SKILL_KEYS = ("frage", "grammatik", "lesen", "hoeren", "schreiben", "sprechen", "wortschatz", "yakuniy")
-DEFAULT_WEIGHTS = {"frage": 0, "grammatik": 10, "lesen": 15, "hoeren": 15, "schreiben": 15, "sprechen": 15, "wortschatz": 10, "yakuniy": 20}
+# "uebungen" (VIZU LMS Übungen) only counts in lessons that have such sets —
+# a skill without content is always left out of the overall result.
+SKILL_KEYS = ("frage", "grammatik", "lesen", "hoeren", "schreiben", "sprechen", "wortschatz", "uebungen", "yakuniy")
+DEFAULT_WEIGHTS = {"frage": 0, "grammatik": 10, "lesen": 15, "hoeren": 15, "schreiben": 15, "sprechen": 15, "wortschatz": 10, "uebungen": 10, "yakuniy": 20}
 DEFAULT_REQUIRED = [k for k in SKILL_KEYS if k != "frage"]
 DEFAULT_RESULT_CONFIG = {"weights": dict(DEFAULT_WEIGHTS), "required": list(DEFAULT_REQUIRED)}
 
@@ -256,7 +267,8 @@ SKILL_NAMES = {
     "schreiben": "Schreiben",
     "sprechen": "Sprechen",
     "wortschatz": "Wortschatz",
-    "yakuniy": "Yakuniy Test",
+    "uebungen": "Übungen",
+    "yakuniy": "Abschlusstest",
 }
 
 
@@ -305,6 +317,7 @@ def lesson_skill_results(db: Session, user_id: UUID, lesson_id: UUID) -> dict:
         "schreiben": _schreiben(db, user_id, lesson_id),
         "sprechen": _sprechen(db, user_id, lesson_id),
         "wortschatz": _exercise_skill(db, user_id, lesson_id, SKILL_WORTSCHATZ),
+        "uebungen": _exercise_skill(db, user_id, lesson_id, SKILL_UEBUNGEN),
         "yakuniy": _exercise_skill(db, user_id, lesson_id, SKILL_YAKUNIY),
     }
     return {"lesson_id": lesson_id, "skills": skills, "overall": overall(skills, lesson_result_config(db, lesson_id))}

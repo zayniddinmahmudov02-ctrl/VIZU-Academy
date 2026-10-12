@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, ForeignKey, Integer, String
+from sqlalchemy import Boolean, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models.base import BaseModel
@@ -37,6 +37,13 @@ class Lesson(BaseModel):
         Boolean,
         default=False,
     )
+
+    # VIZU LMS (docs/lms-architecture.md): short description for the lesson
+    # card, draft/publish (students never see a draft lesson) and the
+    # admin's manual override of the unlock rules (NULL / OPEN / LOCKED).
+    description: Mapped[str | None] = mapped_column(Text, nullable=True)
+    is_published: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True, server_default="true")
+    access_override: Mapped[str | None] = mapped_column(String(10), nullable=True)
 
     module = relationship(
         "Module",

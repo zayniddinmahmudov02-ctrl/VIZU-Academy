@@ -7,13 +7,13 @@ from app.db.session import get_db
 from app.models.lesson import Lesson
 from app.models.reading import Reading
 from app.models.user import User
-from app.services.vizu_pay.access import can_access_lesson
 
 from app.schemas.reading_question import ReadingQuestionResponse
 
 from app.services.reading_question import (
     ReadingQuestionService,
 )
+from app.services.lms.access import ensure_lesson_open
 
 router = APIRouter(
     prefix="/reading-questions",
@@ -54,7 +54,8 @@ def get_one(
     # gates the parent reading's lesson.
     reading = db.get(Reading, item.reading_id)
     lesson = db.get(Lesson, reading.lesson_id) if reading else None
-    if lesson is None or not can_access_lesson(current_user, lesson):
+    if lesson is None:
         raise HTTPException(status_code=403, detail="PREMIUM_REQUIRED")
+    ensure_lesson_open(db, current_user, lesson)
 
     return item

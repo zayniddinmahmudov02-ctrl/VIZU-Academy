@@ -25,7 +25,8 @@ from app.models.video_upload_session import VideoUploadSession
 from app.repositories.enrollment import EnrollmentRepository
 from app.repositories.lesson import LessonRepository
 from app.repositories.video import VideoRepository
-from app.services.vizu_pay.access import can_access_lesson, has_premium_bypass, is_user_premium
+from app.services.vizu_pay.access import has_premium_bypass, is_user_premium
+from app.services.lms.access import REASON_PREMIUM, lesson_access
 
 # Bounds RAM while re-assembling chunks into the final file in
 # complete_upload(), independent of LocalStorage.CHUNK_SIZE.
@@ -411,15 +412,23 @@ class VideoService:
         video: Video,
         user: User,
     ) -> None:
-        if has_premium_bypass(user) or is_user_premium(user):
+        if has_premium_bypass(user):
             return
 
-        # Free first lesson / purchased Angebote level — the same rule as
-        # every other lesson-content endpoint (see
-        # app.services.vizu_pay.access.can_access_lesson).
+        # LMS rules first (app.services.lms.access): a draft lesson is
+        # invisible, an admin-locked / sequentially locked lesson stays
+        # locked even for Premium users.
         lesson = self.lessons.get(str(video.lesson_id))
 
-        if lesson is not None and can_access_lesson(user, lesson):
+        if lesson is not None:
+            access = lesson_access(self.db, user, lesson)
+            if not access.visible:
+                raise NotFoundError("Video not found")
+            if access.unlocked:
+                return
+            if access.reason != REASON_PREMIUM:
+                raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="LESSON_LOCKED")
+        elif is_user_premium(user):
             return
 
         course_id = self.repository.get_course_id(video.id)

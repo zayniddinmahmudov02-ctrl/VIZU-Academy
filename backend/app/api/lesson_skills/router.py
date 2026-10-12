@@ -21,6 +21,7 @@ from app.models.user import User
 from app.services.lesson_skills import exercises
 from app.services.lesson_skills import admin as skill_admin
 from app.services.lesson_skills import skill_tests as tests
+from app.services.learning.lesson_progress import refresh_lesson_completion
 from app.services.lesson_skills.results import lesson_skill_results
 
 router = APIRouter(prefix="/lesson-skills", tags=["Lesson skills"])
@@ -120,6 +121,7 @@ def start_lesen(lesson_id: UUID, db: Session = Depends(get_db), user: User = Dep
 def submit_lesen(lesson_id: UUID, data: SubmitAnswers, db: Session = Depends(get_db), user: User = Depends(require_lesson_access)):
     questions = tests.lesen_questions(db, lesson_id)
     attempt, graded = tests.submit_attempt(db, user.id, lesson_id, SKILL_LESEN, data.attempt_id, data.answers, questions)
+    refresh_lesson_completion(db, user.id, lesson_id)
     return _result(attempt, graded)
 
 
@@ -191,6 +193,7 @@ def submit_hoeren(
     attempt, graded = tests.submit_attempt(
         db, user.id, lesson_id, SKILL_HOEREN, data.attempt_id, data.answers, _sorted_questions(listening), listening.id
     )
+    refresh_lesson_completion(db, user.id, lesson_id)
     return _result(attempt, graded, listening.transcript)
 
 
@@ -289,6 +292,7 @@ def submit_exercise(
     attempt, graded = tests.submit_attempt(
         db, user.id, lesson_id, skill, data.attempt_id, data.answers, exercises.gradable_questions(ex), exercise_id=ex.id
     )
+    refresh_lesson_completion(db, user.id, lesson_id)
     return _result(attempt, graded)
 
 

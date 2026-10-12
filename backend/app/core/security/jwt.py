@@ -113,3 +113,27 @@ def decode_video_stream_token(token: str) -> str:
         raise ValueError("Not a video-stream token")
 
     return payload["sub"]
+
+
+LMS_RESOURCE_PURPOSE = "lms_resource"
+
+
+def create_resource_token(resource_id: str) -> str:
+    """Same idea as create_video_stream_token for VIZU LMS resource files
+    (<audio>, PDF viewer, <img> can't send a Bearer header): issued only by
+    GET /lms/lessons/{id} after the lesson access check, scoped to one
+    resource, short-lived."""
+
+    return create_access_token(
+        {"sub": str(resource_id), "purpose": LMS_RESOURCE_PURPOSE},
+        expires_minutes=settings.VIDEO_STREAM_TOKEN_EXPIRE_MINUTES,
+    )
+
+
+def decode_resource_token(token: str) -> str:
+    payload = decode_access_token(token)
+
+    if payload.get("purpose") != LMS_RESOURCE_PURPOSE:
+        raise ValueError("Not an LMS resource token")
+
+    return payload["sub"]

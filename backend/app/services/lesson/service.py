@@ -17,7 +17,8 @@ from app.models.vocabulary import Vocabulary
 
 from app.repositories.lesson import LessonRepository
 from app.schemas.lesson import LessonCreate, LessonUpdate
-from app.services.vizu_pay.access import can_access_lesson, is_free_lesson
+from app.services.lms.access import REASON_PREMIUM, lesson_access
+from app.services.vizu_pay.access import has_premium_bypass, is_free_lesson
 
 
 class LessonService:
@@ -173,11 +174,16 @@ def get_lessons_for_module(db: Session, module_id: str, user: User | None = None
         .order_by(Lesson.number)
     ).all()
 
-    return [_serialize_lesson_response(lesson, user) for lesson in lessons]
+    return [_serialize_lesson_response(db, lesson, user) for lesson in lessons if _listed(lesson, user)]
 
 
-def _serialize_lesson_response(lesson: Lesson, user: User | None) -> dict:
-    locked = not can_access_lesson(user, lesson)
+def _listed(lesson: Lesson, user: User | None) -> bool:
+    # LMS drafts are invisible to students (staff review them).
+    return lesson.is_published or has_premium_bypass(user)
+
+
+def _serialize_lesson_response(db: Session, lesson: Lesson, user: User | None) -> dict:
+    access = lesson_access(db, user, lesson)
     return {
         "id": lesson.id,
         "module_id": lesson.module_id,
@@ -186,8 +192,8 @@ def _serialize_lesson_response(lesson: Lesson, user: User | None) -> dict:
         "duration": lesson.duration,
         "video_url": lesson.video_url,
         "is_free": lesson.is_free,
-        "is_locked": locked,
-        "requires_premium": locked,
+        "is_locked": not access.unlocked,
+        "requires_premium": access.reason == REASON_PREMIUM,
         "is_free_lesson": is_free_lesson(lesson),
     }
 
@@ -204,22 +210,27 @@ def get_all_lessons(db: Session, user: User) -> list[dict]:
         ).all()
     }
 
-    return [
-        {
-            "id": str(lesson.id),
-            "module_id": str(lesson.module_id),
-            "number": lesson.number,
-            "title": lesson.title,
-            "duration": lesson.duration,
-            "video_url": lesson.video_url,
-            "is_free": lesson.is_free,
-            "progress": _progress_percent(progress_by_lesson.get(lesson.id)),
-            "is_locked": not can_access_lesson(user, lesson),
-            "requires_premium": not can_access_lesson(user, lesson),
-            "is_free_lesson": is_free_lesson(lesson),
-        }
-        for lesson in lessons
-    ]
+    out = []
+    for lesson in lessons:
+        if not _listed(lesson, user):
+            continue
+        access = lesson_access(db, user, lesson)
+        out.append(
+            {
+                "id": str(lesson.id),
+                "module_id": str(lesson.module_id),
+                "number": lesson.number,
+                "title": lesson.title,
+                "duration": lesson.duration,
+                "video_url": lesson.video_url,
+                "is_free": lesson.is_free,
+                "progress": _progress_percent(progress_by_lesson.get(lesson.id)),
+                "is_locked": not access.unlocked,
+                "requires_premium": access.reason == REASON_PREMIUM,
+                "is_free_lesson": is_free_lesson(lesson),
+            }
+        )
+    return out
 
 
 def get_lesson_detail(db: Session, lesson_id: str, user_id: str) -> dict | None:

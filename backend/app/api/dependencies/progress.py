@@ -9,7 +9,7 @@ from app.db.session import get_db
 from app.models.lesson import Lesson
 from app.models.user import User
 
-from app.services.vizu_pay.access import can_access_lesson
+from app.services.lms.access import ensure_lesson_open
 
 
 async def require_lesson_access(
@@ -32,10 +32,9 @@ async def require_lesson_access(
             detail="Lesson not found",
         )
 
-    if not can_access_lesson(current_user, lesson):
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="PREMIUM_REQUIRED",
-        )
+    # Premium / Angebote rule plus the LMS rules (draft lesson -> 404,
+    # admin lock / sequential unlock -> 403 LESSON_LOCKED); see
+    # app.services.lms.access.
+    ensure_lesson_open(db, current_user, lesson)
 
     return current_user

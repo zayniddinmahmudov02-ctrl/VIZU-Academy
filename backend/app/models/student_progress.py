@@ -1,5 +1,8 @@
+from datetime import datetime
+
 from sqlalchemy import (
     Boolean,
+    DateTime,
     ForeignKey,
     Integer,
     UniqueConstraint,
@@ -124,3 +127,8 @@ class StudentProgress(BaseModel):
         Integer,
         default=0,
     )
+
+    # VIZU LMS: when lesson_completed first became true, and the student's
+    # latest activity in the lesson (app.services.lms.progress).
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    last_activity_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)

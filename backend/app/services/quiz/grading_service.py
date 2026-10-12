@@ -31,7 +31,7 @@ from app.schemas.student_quiz import StudentQuizCreate
 from app.services.lesson_progress.section_gate import SectionGateService
 from app.services.student_quiz import StudentQuizService
 from app.services.learning.lesson_progress import refresh_lesson_completion
-from app.services.vizu_pay.access import can_access_lesson
+from app.services.lms.access import ensure_lesson_open
 
 TEXT_ANSWER_TYPES = {"CLOZE_TEXT", "SENTENCE_COMPLETION"}
 ORDERING_TYPES = {"SENTENCE_ORDERING"}
@@ -110,8 +110,9 @@ def grade_and_submit(
         raise HTTPException(status_code=404, detail="Quiz not found")
 
     lesson = db.get(Lesson, quiz.lesson_id)
-    if lesson is None or not can_access_lesson(user, lesson):
+    if lesson is None:
         raise HTTPException(status_code=403, detail="PREMIUM_REQUIRED")
+    ensure_lesson_open(db, user, lesson)
 
     section_key = _QUIZ_TYPE_TO_SECTION_KEY.get(quiz.quiz_type)
     if section_key and not SectionGateService(db).is_unlocked(user.id, lesson.id, section_key):

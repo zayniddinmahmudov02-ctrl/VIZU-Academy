@@ -19,7 +19,7 @@ from app.schemas.student_speaking import StudentSpeakingOwnResponse
 from app.services.lesson_skills.ai_evaluation import STATUS_EVALUATION_FAILED, STATUS_SUBMITTED, run_speaking_evaluation
 from app.services.speaking import SpeakingService
 from app.services.student_speaking import StudentSpeakingService
-from app.services.vizu_pay.access import can_access_lesson
+from app.services.lms.access import ensure_lesson_open
 
 router = APIRouter(
     prefix="/speakings",
@@ -66,8 +66,9 @@ def get_speaking(
 
     # Direct-by-ID must not bypass the free-3-lessons/Premium rule.
     lesson = db.get(Lesson, speaking.lesson_id)
-    if lesson is None or not can_access_lesson(current_user, lesson):
+    if lesson is None:
         raise HTTPException(status_code=403, detail="PREMIUM_REQUIRED")
+    ensure_lesson_open(db, current_user, lesson)
 
     return speaking
 

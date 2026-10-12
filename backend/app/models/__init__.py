@@ -58,6 +58,7 @@ from .lesson_skill import (
     SkillExerciseQuestion,
 )
 from .content_import import ContentImport
+from .lms import LearningResource, LessonCompetency, StudentCompetencyProgress
 
 # Certificate
 from .certificate import Certificate

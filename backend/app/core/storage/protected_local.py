@@ -113,3 +113,12 @@ class ProtectedLessonListeningStorage(LocalStorage):
     access + published task) or the admin preview endpoint."""
 
     ROOT = Path("app/protected_storage/lesson-listening")
+
+
+class ProtectedLmsResourceStorage(LocalStorage):
+    """VIZU LMS learning resources (audio, PDF, images, documents) — outside
+    the public /uploads mount; served only through GET
+    /lms/resources/{id}/file (lesson access + published) or the admin
+    preview endpoint. Keys are "<lesson_id>/<uuid>.<ext>"."""
+
+    ROOT = Path("app/protected_storage/lms-resources")

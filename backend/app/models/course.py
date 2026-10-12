@@ -43,6 +43,9 @@ class Course(BaseModel):
     # {"weights": {"lesen": 25, ...}, "required": ["lesen", ...]}.
     # NULL = equal weights, all four skills required.
     result_config: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
+    # VIZU LMS: when on, a lesson opens only after the previous published
+    # lesson of the level is completed (admin override per lesson).
+    sequential_unlock: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default="false")
 
     language = relationship(
         "Language",

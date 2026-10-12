@@ -15,7 +15,7 @@ from app.schemas.listening import (
 )
 from app.services.listening import ListeningService
 from app.core.security.roles import UserRole
-from app.services.vizu_pay.access import can_access_lesson
+from app.services.lms.access import ensure_lesson_open
 
 def _student_view(listening) -> ListeningResponse:
     """A Hören task with questions is a test: its transcript is shown only
@@ -70,8 +70,9 @@ def get_listening(
 
     # Direct-by-ID must not bypass the free-3-lessons/Premium rule.
     lesson = db.get(Lesson, listening.lesson_id)
-    if lesson is None or not can_access_lesson(current_user, lesson):
+    if lesson is None:
         raise HTTPException(status_code=403, detail="PREMIUM_REQUIRED")
+    ensure_lesson_open(db, current_user, lesson)
 
     if current_user.role in UserRole.ADMIN_PANEL_ROLES:
         return listening

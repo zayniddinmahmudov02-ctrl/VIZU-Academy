@@ -28,7 +28,7 @@ from app.services.lesson_skills import admin as skill_admin
 from app.services.lesson_skills import skill_tests as tests
 
 # URL segment <-> skill
-SKILL_BY_SLUG = {"grammatik": "GRAMMATIK", "wortschatz": "WORTSCHATZ", "yakuniy": "YAKUNIY"}
+SKILL_BY_SLUG = {"grammatik": "GRAMMATIK", "wortschatz": "WORTSCHATZ", "uebungen": "UEBUNGEN", "yakuniy": "YAKUNIY"}
 SLUG_BY_SKILL = {v: k for k, v in SKILL_BY_SLUG.items()}
 
 

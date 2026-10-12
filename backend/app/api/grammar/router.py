@@ -8,13 +8,13 @@ from app.db.session import get_db
 from app.models.lesson import Lesson
 from app.models.user import User
 from app.repositories.student_progress import StudentProgressRepository
-from app.services.vizu_pay.access import can_access_lesson
 
 from app.schemas.grammar import (
     GrammarResponse,
 )
 
 from app.services.grammar import GrammarService
+from app.services.lms.access import ensure_lesson_open
 
 router = APIRouter(
     prefix="/grammars",
@@ -83,7 +83,8 @@ def get_grammar(
     # — otherwise the free-3-lessons/Premium rule is bypassable by anyone
     # who has a grammar_id (e.g. from a free lesson's own list response).
     lesson = db.get(Lesson, grammar.lesson_id)
-    if lesson is None or not can_access_lesson(current_user, lesson):
+    if lesson is None:
         raise HTTPException(status_code=403, detail="PREMIUM_REQUIRED")
+    ensure_lesson_open(db, current_user, lesson)
 
     return grammar

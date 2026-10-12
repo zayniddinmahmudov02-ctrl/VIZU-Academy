@@ -25,9 +25,9 @@ from app.models.writing_submission import WritingSubmission
 
 from app.schemas.assessment_engine import AnswerSubmit
 from app.services.lesson_progress.section_gate import SectionGateService
-from app.services.vizu_pay.access import can_access_lesson
 
 from .scoring import get_handler
+from app.services.lms.access import ensure_lesson_open
 
 # Only LESEN/HOEREN questions flow through submit_answer (Schreiben/
 # Sprechen have their own dedicated submission endpoints) — used to gate
@@ -57,8 +57,8 @@ def start_attempt(db: Session, assessment_id: str, user: User) -> AssessmentAtte
     # their own gating lives in mock_exam/attempt_service.py.
     if assessment.lesson_id is not None:
         lesson = db.get(Lesson, assessment.lesson_id)
-        if lesson is not None and not can_access_lesson(user, lesson):
-            raise HTTPException(status_code=403, detail="PREMIUM_REQUIRED")
+        if lesson is not None:
+            ensure_lesson_open(db, user, lesson)
 
     existing = db.scalars(
         select(AssessmentAttempt)

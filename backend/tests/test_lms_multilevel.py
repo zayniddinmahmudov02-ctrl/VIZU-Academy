@@ -93,7 +93,10 @@ class TestLevels(unittest.TestCase):
 class TestResultConfig(unittest.TestCase):
     @staticmethod
     def _skills(**scores):
-        return {k: {"available": True, "status": "completed" if scores.get(k) is not None else "not_started", "score": scores.get(k)}
+        # "uebungen" (VIZU LMS Übungen) only exists when the test passes it —
+        # the book lessons have no such sets.
+        return {k: {"available": k != "uebungen" or k in scores,
+                    "status": "completed" if scores.get(k) is not None else "not_started", "score": scores.get(k)}
                 for k in results.SKILL_KEYS}
 
     def test_default_weights_and_interim_until_all_graded(self):
@@ -105,6 +108,11 @@ class TestResultConfig(unittest.TestCase):
         # (80*15 + 60*15 + 100*15 + 40*15 + 50*10 + 100*10 + 90*20) / 100 = 75
         self.assertEqual((o["status"], o["score"]), ("final", 75))
         self.assertNotIn("frage", o["required"])
+        # with Übungen sets (weight 10): (7500 + 60*10) / 110 = 73.6 -> 74
+        o = results.overall(self._skills(**full, uebungen=60))
+        self.assertEqual((o["status"], o["score"]), ("final", 74))
+        o = results.overall(self._skills(**{**full, "uebungen": None}))
+        self.assertEqual(o["status"], "interim")
 
     def test_missing_skills_rescale_proportionally(self):
         skills = {k: {"available": k in ("lesen", "yakuniy"), "status": "completed", "score": 100 if k == "lesen" else 40} for k in results.SKILL_KEYS}

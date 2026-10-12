@@ -9,7 +9,6 @@ from app.db.session import get_db
 
 from app.models.lesson import Lesson
 from app.models.user import User
-from app.services.vizu_pay.access import can_access_lesson
 
 from app.schemas.writing import (
     WritingCreate,
@@ -22,6 +21,7 @@ from app.schemas.student_writing import StudentWritingOwnResponse, WritingSubmit
 
 from app.services.writing import WritingService
 from app.services.student_writing import StudentWritingService
+from app.services.lms.access import ensure_lesson_open
 
 router = APIRouter(
     prefix="/writings",
@@ -66,8 +66,9 @@ def get_writing(
 
     # Direct-by-ID must not bypass the free-3-lessons/Premium rule.
     lesson = db.get(Lesson, writing.lesson_id)
-    if lesson is None or not can_access_lesson(current_user, lesson):
+    if lesson is None:
         raise HTTPException(status_code=403, detail="PREMIUM_REQUIRED")
+    ensure_lesson_open(db, current_user, lesson)
 
     return writing
 
