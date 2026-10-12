@@ -15,6 +15,10 @@
 
 # next.js
 /.next/
+# build slots + state of scripts/deploy-frontend.sh
+/.next-a/
+/.next-b/
+/.deploy/
 /out/
 
 # production

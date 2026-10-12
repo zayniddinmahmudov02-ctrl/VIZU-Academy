@@ -60,11 +60,15 @@ async function refreshAccessToken(): Promise<string | null> {
 export class ApiError extends Error {
   status: number;
   data: unknown;
+  /** Backend X-Request-ID of the failed response — the same id is in the
+   * backend log line of an unhandled error (journalctl -u vizu-backend). */
+  requestId: string | null;
 
-  constructor(status: number, data: unknown) {
-    super(`API Error: ${status}`);
+  constructor(status: number, data: unknown, requestId: string | null = null) {
+    super(requestId ? `API Error: ${status} (request ${requestId})` : `API Error: ${status}`);
     this.status = status;
     this.data = data;
+    this.requestId = requestId;
   }
 }
 
@@ -123,7 +127,7 @@ export async function api<T>(
     } catch {
       // No JSON body (e.g. a plain 404) — data stays null.
     }
-    throw new ApiError(response.status, data);
+    throw new ApiError(response.status, data, response.headers.get("x-request-id"));
   }
 
   return response.json();

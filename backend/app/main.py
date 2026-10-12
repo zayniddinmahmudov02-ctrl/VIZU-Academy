@@ -6,6 +6,7 @@ from app.core.config import settings
 from app.core.cors import ALLOWED_ORIGIN_REGEX, ALLOWED_ORIGINS
 from app.core.exceptions import register_exception_handlers
 from app.core.logging.logger import logger
+from app.core.request_id import RequestIdMiddleware
 
 # Authentication
 from app.api.auth.router import router as auth_router
@@ -197,6 +198,10 @@ app.add_middleware(
     allow_headers=["*"],
     expose_headers=["*"],
 )
+
+# Added after CORS = outermost user middleware: every response, including
+# CORS preflights and error responses, carries X-Request-ID.
+app.add_middleware(RequestIdMiddleware)
 
 # ==================================================
 # ROUTERS

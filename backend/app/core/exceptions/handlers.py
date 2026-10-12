@@ -7,6 +7,8 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
 from app.core.cors import cors_headers_for
+from app.core.logging.logger import logger
+from app.core.request_id import REQUEST_ID_HEADER, request_id_of
 
 from .errors import DomainError, NotFoundError
 
@@ -84,12 +86,28 @@ def register_exception_handlers(app: FastAPI):
         request: Request,
         exc: Exception,
     ):
+        # Runs outside RequestIdMiddleware (Starlette's ServerErrorMiddleware
+        # is outermost), so the id header is attached here. Path only — the
+        # query string can carry stream tokens.
+        request_id = request_id_of(request)
+        logger.error(
+            "Unhandled %s on %s %s request_id=%s",
+            type(exc).__name__,
+            request.method,
+            request.url.path,
+            request_id,
+            exc_info=(type(exc), exc, exc.__traceback__),
+        )
+        headers = cors_headers_for(request.headers.get("origin"))
+        if request_id:
+            headers[REQUEST_ID_HEADER] = request_id
 
         return JSONResponse(
             status_code=500,
             content={
                 "success": False,
                 "message": "Internal Server Error",
+                "request_id": request_id,
             },
-            headers=cors_headers_for(request.headers.get("origin")),
+            headers=headers,
         )
