@@ -16,6 +16,17 @@ export function useLessonSkillsOverview(lessonId: string) {
   return { ...query, refresh };
 }
 
+/** Default Schreiben / Sprechen rubric of the lesson's level (A1-C1) — the
+ * server applies it when a task has no own rubric. */
+export function useLevelDefaultRubric(lessonId: string | undefined, kind: "writing" | "speaking") {
+  const { data } = useQuery({
+    queryKey: overviewKey(lessonId ?? ""),
+    queryFn: () => getLessonSkillsOverview(lessonId as string),
+    enabled: !!lessonId,
+  });
+  return { level: data?.lesson.level ?? null, rubric: data?.default_rubrics?.[kind] ?? null };
+}
+
 export function PublishBadge({ published }: { published: boolean }) {
   return (
     <span

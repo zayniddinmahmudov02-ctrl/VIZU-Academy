@@ -354,6 +354,9 @@ export interface WritingCreate {
   image_url?: string | null;
   opens_at?: string | null;
   closes_at?: string | null;
+  text_type?: string | null;
+  audience?: string | null;
+  time_limit_minutes?: number | null;
 }
 export type WritingUpdate = Partial<Omit<WritingCreate, "lesson_id">>;
 
@@ -387,6 +390,9 @@ export interface SpeakingCreate {
   max_attempts?: number;
   rubric?: { key: string; name: string; max: number }[] | null;
   min_duration_seconds?: number;
+  response_type?: "MONOLOG" | "DIALOG";
+  questions?: string[] | null;
+  speech_goal?: string | null;
 }
 export type SpeakingUpdate = Partial<Omit<SpeakingCreate, "lesson_id">>;
 

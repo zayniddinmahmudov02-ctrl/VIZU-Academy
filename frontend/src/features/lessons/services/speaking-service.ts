@@ -14,6 +14,8 @@ export interface LessonSpeaking {
   ai_evaluation_enabled?: boolean;
   max_attempts?: number;
   min_duration_seconds?: number;
+  response_type?: "MONOLOG" | "DIALOG";
+  questions?: string[] | null;
 }
 
 // Public, published-only — Sprechen's source of truth (see

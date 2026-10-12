@@ -45,6 +45,26 @@ export default function WritingSection({ lessonId }: Props) {
           <div key={item.id} className="rounded-2xl bg-surface-hover p-6">
             <h3 className="text-lg font-bold text-text-primary">{item.title}</h3>
             <p className="mt-2.5 whitespace-pre-line text-sm text-text-secondary sm:text-base">{item.instruction}</p>
+            <div className="mt-3 flex flex-wrap gap-2 text-xs text-text-muted">
+              {item.text_type && (
+                <span className="rounded-full bg-surface-card px-2.5 py-1 font-semibold ring-1 ring-surface-border">
+                  {t(`lessons.textType_${item.text_type}`)}
+                </span>
+              )}
+              {item.audience && (
+                <span className="rounded-full bg-surface-card px-2.5 py-1 ring-1 ring-surface-border">
+                  {t("lessons.writingAudience")}: {item.audience}
+                </span>
+              )}
+              <span className="rounded-full bg-surface-card px-2.5 py-1 ring-1 ring-surface-border">
+                {t("lessons.writingWordRange", { min: item.min_words, max: item.max_words })}
+              </span>
+              {item.time_limit_minutes && (
+                <span className="rounded-full bg-surface-card px-2.5 py-1 ring-1 ring-surface-border">
+                  {t("lessons.writingTimeLimit", { n: item.time_limit_minutes })}
+                </span>
+              )}
+            </div>
             <WritingTaskPanel writing={item} />
           </div>
         ))}

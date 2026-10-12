@@ -12,6 +12,8 @@ import {
   type AdminQuestionType,
 } from "@/features/admin/services/lesson-skills-admin-service";
 
+import ConfigQuestionEditor, { blankConfig, cleanConfig, CONFIG_QUESTION_TYPES, configProblem } from "./config-question-editor";
+
 const TRUE_FALSE_OPTIONS = ["Richtig", "Falsch"];
 
 function blankQuestion(type: AdminQuestionType = "MULTIPLE_CHOICE"): AdminQuestion {
@@ -20,10 +22,12 @@ function blankQuestion(type: AdminQuestionType = "MULTIPLE_CHOICE"): AdminQuesti
     question_type: type,
     points: 1,
     explanation: null,
-    options:
-      type === "TRUE_FALSE"
+    options: CONFIG_QUESTION_TYPES.includes(type)
+      ? []
+      : type === "TRUE_FALSE"
         ? TRUE_FALSE_OPTIONS.map((text, i) => ({ text, is_correct: i === 0 }))
         : ["", "", ""].map((text, i) => ({ text, is_correct: i === 0 })),
+    config: blankConfig(type),
   };
 }
 
@@ -34,11 +38,16 @@ function problems(questions: AdminQuestion[]): string | null {
   for (const [i, q] of questions.entries()) {
     const n = i + 1;
     if (!q.question.trim()) return `Frage ${n}: Fragetext fehlt.`;
+    if (!Number.isInteger(q.points) || q.points < 1 || q.points > 100) return `Frage ${n}: Punkte 1–100.`;
+    if (CONFIG_QUESTION_TYPES.includes(q.question_type)) {
+      const problem = configProblem(q);
+      if (problem) return `Frage ${n}: ${problem}`;
+      continue;
+    }
     if (q.options.some((o) => !o.text.trim())) return `Frage ${n}: Eine Antwortoption ist leer.`;
     if (q.question_type === "TRUE_FALSE" && q.options.length !== 2) return `Frage ${n}: Richtig/Falsch braucht genau 2 Optionen.`;
     if (q.question_type === "MULTIPLE_CHOICE" && (q.options.length < 2 || q.options.length > 6)) return `Frage ${n}: 2–6 Optionen erlaubt.`;
     if (q.options.filter((o) => o.is_correct).length !== 1) return `Frage ${n}: Genau eine richtige Antwort markieren.`;
-    if (!Number.isInteger(q.points) || q.points < 1 || q.points > 100) return `Frage ${n}: Punkte 1–100.`;
   }
   return null;
 }
@@ -70,7 +79,8 @@ export default function QuestionEditorDialog({ open, onOpenChange, kind, ownerId
   function setType(index: number, type: AdminQuestionType) {
     const q = questions[index];
     if (q.question_type === type) return;
-    patch(index, { question_type: type, options: blankQuestion(type).options });
+    const blank = blankQuestion(type);
+    patch(index, { question_type: type, options: blank.options, config: blank.config });
   }
 
   function setOption(qi: number, oi: number, text: string) {
@@ -103,7 +113,11 @@ export default function QuestionEditorDialog({ open, onOpenChange, kind, ownerId
       await saveQuestions(
         kind,
         ownerId,
-        questions.map((q) => ({ ...q, explanation: q.explanation?.trim() ? q.explanation.trim() : null })),
+        questions.map((q) => ({
+          ...q,
+          explanation: q.explanation?.trim() ? q.explanation.trim() : null,
+          config: CONFIG_QUESTION_TYPES.includes(q.question_type) ? cleanConfig(q) : null,
+        })),
       );
       onSaved();
       onOpenChange(false);
@@ -147,6 +161,9 @@ export default function QuestionEditorDialog({ open, onOpenChange, kind, ownerId
                 <AdminSelect value={q.question_type} onChange={(e) => setType(qi, e.target.value as AdminQuestionType)} aria-label="Fragetyp">
                   <option value="MULTIPLE_CHOICE">Multiple Choice</option>
                   <option value="TRUE_FALSE">Richtig / Falsch</option>
+                  <option value="MATCHING">Zuordnung</option>
+                  <option value="GAP_FILL">Lückentext</option>
+                  <option value="SHORT_ANSWER">Kurzantwort</option>
                 </AdminSelect>
               </div>
               <label className="flex items-center gap-1.5 text-xs text-[var(--admin-text-secondary)]">
@@ -185,6 +202,9 @@ export default function QuestionEditorDialog({ open, onOpenChange, kind, ownerId
               placeholder="Fragetext (nur Fakten aus dem Text / Audio)"
             />
 
+            {CONFIG_QUESTION_TYPES.includes(q.question_type) ? (
+              <ConfigQuestionEditor question={q} onChange={(config) => patch(qi, { config })} />
+            ) : (
             <div className="space-y-2">
               {q.options.map((o, oi) => (
                 <div key={oi} className="flex items-center gap-2">
@@ -226,6 +246,7 @@ export default function QuestionEditorDialog({ open, onOpenChange, kind, ownerId
                 </button>
               )}
             </div>
+            )}
 
             <AdminInput
               value={q.explanation ?? ""}
@@ -241,6 +262,15 @@ export default function QuestionEditorDialog({ open, onOpenChange, kind, ownerId
           </AdminButton>
           <AdminButton variant="secondary" onClick={() => setQuestions((prev) => [...prev, blankQuestion("TRUE_FALSE")])}>
             <Plus size={15} /> Richtig / Falsch
+          </AdminButton>
+          <AdminButton variant="secondary" onClick={() => setQuestions((prev) => [...prev, blankQuestion("MATCHING")])} data-testid="question-add-matching">
+            <Plus size={15} /> Zuordnung
+          </AdminButton>
+          <AdminButton variant="secondary" onClick={() => setQuestions((prev) => [...prev, blankQuestion("GAP_FILL")])} data-testid="question-add-gap">
+            <Plus size={15} /> Lückentext
+          </AdminButton>
+          <AdminButton variant="secondary" onClick={() => setQuestions((prev) => [...prev, blankQuestion("SHORT_ANSWER")])} data-testid="question-add-short">
+            <Plus size={15} /> Kurzantwort
           </AdminButton>
         </div>
       </div>

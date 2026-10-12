@@ -90,10 +90,12 @@ const LANGUAGES = [
 
 const label = "mb-1.5 block text-sm font-medium text-[var(--admin-text-primary)]";
 
-export default function AiTaskFields({ value, onChange, defaultRubric }: {
+export default function AiTaskFields({ value, onChange, defaultRubric, level }: {
   value: AiFormState;
   onChange: (next: AiFormState) => void;
   defaultRubric: RubricCriterion[];
+  /** CEFR level of the lesson whose default rubric is shown */
+  level?: string | null;
 }) {
   const rubric = value.rubric ?? defaultRubric;
   const total = rubric.reduce((sum, c) => sum + (Number(c.max) || 0), 0);
@@ -148,7 +150,7 @@ export default function AiTaskFields({ value, onChange, defaultRubric }: {
           <div>
             <div className="mb-1.5 flex flex-wrap items-center justify-between gap-2">
               <span className="text-sm font-medium text-[var(--admin-text-primary)]">
-                Bewertungsraster {value.rubric ? "(eigenes)" : "(Standard A1)"} · {total} Punkte → Ergebnis /100
+                Bewertungsraster {value.rubric ? "(eigenes)" : `(Standard ${level ?? "A1"})`} · {total} Punkte → Ergebnis /100
               </span>
               {value.rubric && (
                 <button type="button" onClick={() => onChange({ ...value, rubric: null })} className="inline-flex items-center gap-1 text-xs font-semibold text-[var(--admin-primary)] hover:underline">

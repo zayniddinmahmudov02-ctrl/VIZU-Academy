@@ -4,7 +4,21 @@ import { api } from "@/src/services/api";
  * (backend: app/api/lesson_skills/router.py). Questions never contain the
  * answer key — it is only part of a SUBMITTED attempt's result. */
 
-export type QuestionType = "MULTIPLE_CHOICE" | "TRUE_FALSE";
+export type QuestionType = "MULTIPLE_CHOICE" | "TRUE_FALSE" | "MATCHING" | "GAP_FILL" | "SHORT_ANSWER";
+
+/** option id (Multiple Choice, Richtig/Falsch), text (Kurzantwort) or
+ * {item/gap id: value} (Zuordnung, Lückentext). */
+export type AnswerValue = string | Record<string, string>;
+export type Answers = Record<string, AnswerValue>;
+
+/** Student view of a Zuordnung / Lückentext / Kurzantwort — never the key. */
+export interface PublicQuestionConfig {
+  items?: { id: string; text: string }[];
+  targets?: { id: string; text: string }[];
+  text?: string;
+  gaps?: { id: string; options?: { id: string; text: string }[] }[];
+  max_length?: number;
+}
 
 export interface PublicOption {
   id: string;
@@ -17,6 +31,7 @@ export interface PublicQuestion {
   question_type: QuestionType;
   points: number;
   options: PublicOption[];
+  config?: PublicQuestionConfig | null;
 }
 
 export interface SkillAttempt {
@@ -43,6 +58,10 @@ export interface QuestionResult {
   question_id: string;
   selected_option_id: string | null;
   correct_option_id: string | null;
+  /** config-based types: the given answer, the key and per item/gap correctness */
+  answer?: AnswerValue | null;
+  correct_answer?: AnswerValue | null;
+  details?: Record<string, boolean> | null;
   is_correct: boolean;
   points: number;
   max_points: number;
@@ -127,7 +146,24 @@ export interface LessonSkillResults {
     method: string | null;
     graded_skills: number;
     required_skills: number;
+    weights?: Partial<Record<SkillKey, number>>;
+    required?: SkillKey[];
   };
+}
+
+export type SkillKey = "lesen" | "hoeren" | "schreiben" | "sprechen";
+
+export interface LevelProgressLesson {
+  lesson_id: string;
+  module_number: number;
+  lesson_number: number;
+  skills: Record<SkillKey, { status: SkillStatus; score: number | null }>;
+  overall: Pick<LessonSkillResults["overall"], "status" | "score" | "graded_skills" | "required_skills">;
+}
+
+export interface LevelProgress {
+  level: string;
+  lessons: LevelProgressLesson[];
 }
 
 const BASE = "/api/v1/lesson-skills";
@@ -140,7 +176,7 @@ export async function startLesen(lessonId: string): Promise<SkillAttempt> {
   return (await api.post<SkillAttempt>(`${BASE}/${lessonId}/lesen/start`)).data;
 }
 
-export async function submitLesen(lessonId: string, attemptId: string, answers: Record<string, string>): Promise<AttemptResult> {
+export async function submitLesen(lessonId: string, attemptId: string, answers: Answers): Promise<AttemptResult> {
   return (await api.post<AttemptResult>(`${BASE}/${lessonId}/lesen/submit`, { attempt_id: attemptId, answers })).data;
 }
 
@@ -161,7 +197,7 @@ export async function submitHoeren(
   lessonId: string,
   listeningId: string,
   attemptId: string,
-  answers: Record<string, string>,
+  answers: Answers,
 ): Promise<AttemptResult> {
   return (await api.post<AttemptResult>(`${BASE}/${lessonId}/hoeren/${listeningId}/submit`, { attempt_id: attemptId, answers })).data;
 }
@@ -178,4 +214,10 @@ export async function getHoerenAudioBlobUrl(lessonId: string, listeningId: strin
 
 export async function getLessonSkillResults(lessonId: string): Promise<LessonSkillResults> {
   return (await api.get<LessonSkillResults>(`${BASE}/${lessonId}/results`)).data;
+}
+
+/** The caller's own skill status per lesson of one level (A1-C1). */
+export async function getLevelProgress(level: string): Promise<LevelProgress> {
+  const data = (await api.get<LevelProgress>(`${BASE}/levels/${level}/progress`)).data;
+  return { level: data?.level ?? level, lessons: Array.isArray(data?.lessons) ? data.lessons : [] };
 }

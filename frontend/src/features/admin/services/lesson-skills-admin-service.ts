@@ -6,7 +6,20 @@ import type { Speaking, Writing } from "../types/content.types";
 
 const BASE = "/api/v1/admin/lesson-skills";
 
-export type AdminQuestionType = "MULTIPLE_CHOICE" | "TRUE_FALSE";
+export type AdminQuestionType = "MULTIPLE_CHOICE" | "TRUE_FALSE" | "MATCHING" | "GAP_FILL" | "SHORT_ANSWER";
+
+/** Zuordnung / Lückentext / Kurzantwort definition incl. answer key
+ * (backend: app/services/lesson_skills/question_types.py). */
+export interface AdminQuestionConfig {
+  items?: { id: string; text: string }[];
+  targets?: { id: string; text: string }[];
+  pairs?: Record<string, string>;
+  text?: string;
+  gaps?: Record<string, { accepted: string[]; options?: string[] }>;
+  accepted?: string[];
+  case_sensitive?: boolean;
+  max_length?: number;
+}
 
 export interface AdminOption {
   id?: string;
@@ -21,6 +34,7 @@ export interface AdminQuestion {
   points: number;
   explanation: string | null;
   options: AdminOption[];
+  config?: AdminQuestionConfig | null;
 }
 
 export interface AdminLesenText {
@@ -65,18 +79,33 @@ export interface AiTaskSettings {
   rubric: RubricCriterion[] | null;
 }
 
+export type WritingTextType = "message" | "email" | "letter" | "description" | "opinion" | "essay" | "report" | "other";
+
 export type AdminWritingTask = Writing &
   AiTaskSettings & {
+    text_type: WritingTextType | null;
+    audience: string | null;
+    time_limit_minutes: number | null;
+    content_id: string | null;
     helper_words: string | null;
     image_url: string | null;
     opens_at: string | null;
     closes_at: string | null;
   };
 
-export type AdminSpeakingTask = Speaking & AiTaskSettings & { min_duration_seconds: number };
+export type AdminSpeakingTask = Speaking &
+  AiTaskSettings & {
+    min_duration_seconds: number;
+    response_type: "MONOLOG" | "DIALOG";
+    questions: string[] | null;
+    speech_goal: string | null;
+    content_id: string | null;
+  };
 
 export interface LessonSkillsOverview {
-  lesson: { id: string; title: string; number: number };
+  lesson: { id: string; title: string; number: number; level: string };
+  /** the level's default rubrics (applied when a task has no own rubric) */
+  default_rubrics: { writing: RubricCriterion[]; speaking: RubricCriterion[] };
   lesen: AdminLesenText[];
   hoeren: AdminHoerenTask[];
   schreiben: AdminWritingTask[];

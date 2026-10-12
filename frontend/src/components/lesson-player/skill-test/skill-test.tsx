@@ -4,9 +4,18 @@ import { useMemo, useRef, useState, type ReactNode } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { CheckCircle2, CircleDot, History, RotateCcw, Trophy, XCircle } from "lucide-react";
 
-import type { AttemptResult, AttemptSummary, PublicQuestion, SkillAttempt } from "@/features/lessons/services/lesson-skills-service";
+import type {
+  AnswerValue,
+  Answers,
+  AttemptResult,
+  AttemptSummary,
+  PublicQuestion,
+  SkillAttempt,
+} from "@/features/lessons/services/lesson-skills-service";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { cn } from "@/lib/utils";
+
+import ConfigQuestion, { CONFIG_TYPES, isAnswered } from "./config-question";
 
 export interface SkillTestSection {
   id: string;
@@ -19,7 +28,7 @@ interface Props {
   summary: AttemptSummary;
   attempts: SkillAttempt[];
   start: () => Promise<SkillAttempt>;
-  submit: (attemptId: string, answers: Record<string, string>) => Promise<AttemptResult>;
+  submit: (attemptId: string, answers: Answers) => Promise<AttemptResult>;
   review: (attemptId: string) => Promise<AttemptResult>;
   /** react-query keys refreshed after a submission */
   invalidate: unknown[][];
@@ -44,7 +53,7 @@ export default function SkillTest({ sections, summary, attempts, start, submit, 
   const queryClient = useQueryClient();
   const questions = useMemo(() => sections.flatMap((s) => s.questions), [sections]);
 
-  const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [answers, setAnswers] = useState<Answers>({});
   const [ownAttemptId, setAttemptId] = useState<string | null>(null);
   const [submittedIds, setSubmittedIds] = useState<string[]>([]);
   const [result, setResult] = useState<AttemptResult | null>(null);
@@ -58,7 +67,8 @@ export default function SkillTest({ sections, summary, attempts, start, submit, 
   const serverOpen = summary.in_progress_attempt_id;
   const attemptId = ownAttemptId ?? (!result && serverOpen && !submittedIds.includes(serverOpen) ? serverOpen : null);
 
-  const answered = questions.filter((q) => answers[q.id]).length;
+  const answered = questions.filter((q) => isAnswered(q, answers[q.id])).length;
+  const touched = questions.some((q) => answers[q.id] !== undefined);
   const resultById = useMemo(() => new Map((result?.results ?? []).map((r) => [r.question_id, r])), [result]);
 
   async function ensureAttempt(): Promise<string> {
@@ -70,9 +80,9 @@ export default function SkillTest({ sections, summary, attempts, start, submit, 
     return attempt.id;
   }
 
-  function choose(questionId: string, optionId: string) {
+  function choose(questionId: string, value: AnswerValue) {
     if (result || busy) return;
-    setAnswers((prev) => ({ ...prev, [questionId]: optionId }));
+    setAnswers((prev) => ({ ...prev, [questionId]: value }));
     setError(null);
     void ensureAttempt().catch(() => setError(t("lessons.loadError")));
   }
@@ -115,7 +125,12 @@ export default function SkillTest({ sections, summary, attempts, start, submit, 
     try {
       const graded = await review(last.id);
       setResult(graded);
-      setAnswers(Object.fromEntries(graded.results.filter((r) => r.selected_option_id).map((r) => [r.question_id, r.selected_option_id as string])));
+      const restored: Answers = {};
+      for (const r of graded.results) {
+        const value = r.selected_option_id ?? r.answer;
+        if (value) restored[r.question_id] = value;
+      }
+      setAnswers(restored);
       onResult?.(graded);
     } finally {
       setBusy(false);
@@ -178,12 +193,14 @@ export default function SkillTest({ sections, summary, attempts, start, submit, 
             const qIndex = questions.indexOf(q) + 1;
             const r = resultById.get(q.id);
             const chosen = answers[q.id];
+            const isConfig = CONFIG_TYPES.has(q.question_type);
+            const partial = !!r && !r.is_correct && r.points > 0;
             return (
               <div
                 key={q.id}
                 className={cn(
                   "rounded-2xl bg-surface-card p-4 ring-1 sm:p-5",
-                  r ? (r.is_correct ? "ring-success/50" : "ring-danger/40") : chosen ? "ring-accent-blue/40" : "ring-surface-border",
+                  r ? (r.is_correct ? "ring-success/50" : partial ? "ring-warning/50" : "ring-danger/40") : chosen ? "ring-accent-blue/40" : "ring-surface-border",
                 )}
                 data-testid="test-question"
               >
@@ -191,7 +208,15 @@ export default function SkillTest({ sections, summary, attempts, start, submit, 
                   <span
                     className={cn(
                       "flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold",
-                      r ? (r.is_correct ? "bg-success text-white" : "bg-danger text-white") : chosen ? "bg-accent-blue text-white" : "bg-surface-hover text-text-secondary",
+                      r
+                        ? r.is_correct
+                          ? "bg-success text-white"
+                          : partial
+                            ? "bg-warning text-white"
+                            : "bg-danger text-white"
+                        : chosen
+                          ? "bg-accent-blue text-white"
+                          : "bg-surface-hover text-text-secondary",
                     )}
                     aria-hidden="true"
                   >
@@ -200,6 +225,9 @@ export default function SkillTest({ sections, summary, attempts, start, submit, 
                   <p className="pt-0.5 text-[15px] font-semibold text-text-primary">{q.question}</p>
                 </div>
 
+                {isConfig ? (
+                  <ConfigQuestion question={q} value={chosen} result={r} disabled={!!result || busy} onChange={(v) => choose(q.id, v)} />
+                ) : (
                 <div className={cn("mt-3 grid gap-2", q.question_type === "TRUE_FALSE" ? "grid-cols-2" : "sm:grid-cols-1")} role="radiogroup" aria-label={q.question}>
                   {q.options.map((o, i) => {
                     const selected = chosen === o.id;
@@ -235,10 +263,14 @@ export default function SkillTest({ sections, summary, attempts, start, submit, 
                     );
                   })}
                 </div>
+                )}
 
                 {r && (
                   <div className="mt-3 space-y-1 text-xs">
-                    {!r.selected_option_id && <p className="font-semibold text-danger">{t("lessons.testNotAnswered")}</p>}
+                    {!r.selected_option_id && !r.answer && <p className="font-semibold text-danger">{t("lessons.testNotAnswered")}</p>}
+                    {isConfig && r.max_points > 0 && (
+                      <p className="font-semibold text-text-secondary">{t("lessons.testPoints", { points: r.points, max: r.max_points })}</p>
+                    )}
                     {r.explanation && <p className="text-text-secondary">{r.explanation}</p>}
                   </div>
                 )}
@@ -270,7 +302,7 @@ export default function SkillTest({ sections, summary, attempts, start, submit, 
               <button
                 type="button"
                 onClick={check}
-                disabled={busy || answered === 0}
+                disabled={busy || !touched}
                 className="min-h-11 rounded-xl bg-accent-blue px-5 text-sm font-bold text-white transition-opacity hover:opacity-90 disabled:opacity-50"
                 data-testid="test-check"
               >

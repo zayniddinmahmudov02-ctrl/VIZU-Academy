@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft } from "lucide-react";
 
@@ -18,6 +18,9 @@ export default function LessonEditorPage() {
   const params = useParams<{ lessonId: string }>();
   const router = useRouter();
   const lessonId = params.lessonId;
+  // deep link from the LMS structure view: ?tab=lesen|hoeren|writing|speaking|results
+  const tab = useSearchParams().get("tab");
+  const initialTab = tab && ["video", "lesen", "hoeren", "writing", "speaking", "results"].includes(tab) ? tab : "video";
 
   const { data: lesson } = useQuery({
     queryKey: ["lesson", lessonId],
@@ -50,7 +53,7 @@ export default function LessonEditorPage() {
           audited score correction and re-evaluation. Teacher review of
           non-AI tasks stays in the Teacher Panel. */}
       <AdminTabs
-        defaultValue="video"
+        defaultValue={initialTab}
         tabs={[
           { value: "video", label: "Videokurs", content: <VideoManager lessonId={lessonId} /> },
           { value: "lesen", label: "Lesen", content: <LesenManager lessonId={lessonId} /> },

@@ -15,6 +15,9 @@ export interface LessonWriting {
   image_url?: string | null;
   opens_at?: string | null;
   closes_at?: string | null;
+  text_type?: "message" | "email" | "letter" | "description" | "opinion" | "essay" | "report" | "other" | null;
+  audience?: string | null;
+  time_limit_minutes?: number | null;
 }
 
 // Public, published-only — Schreiben's source of truth (see

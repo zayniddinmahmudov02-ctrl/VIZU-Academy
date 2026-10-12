@@ -4,15 +4,32 @@ import { useMemo, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Copy, Plus, Sparkles } from "lucide-react";
 
-import { AdminButton, AdminCheckbox, AdminInput, AdminTextarea } from "@/components/admin/admin-ui";
+import { AdminButton, AdminCheckbox, AdminInput, AdminSelect, AdminTextarea } from "@/components/admin/admin-ui";
 import ConfirmDialog from "@/components/admin/confirm-dialog";
 import DataTable, { DataTableColumn } from "@/components/admin/data-table";
 import FormDialog from "@/components/admin/form-dialog";
 import { useCrudList, useCrudMutations } from "@/features/admin/hooks/use-crud";
-import { apiErrorMessage, duplicateItem, type AdminWritingTask } from "@/features/admin/services/lesson-skills-admin-service";
+import {
+  apiErrorMessage,
+  duplicateItem,
+  type AdminWritingTask,
+  type WritingTextType,
+} from "@/features/admin/services/lesson-skills-admin-service";
 import { writingApi } from "@/features/admin/services/writing-service";
 
 import AiTaskFields, { aiFormFrom, aiPayload, DEFAULT_WRITING_RUBRIC, EMPTY_AI_FORM, rubricProblem } from "../lesson-skills/ai-task-fields";
+import { useLevelDefaultRubric } from "../lesson-skills/shared";
+
+export const TEXT_TYPES: { value: WritingTextType; label: string }[] = [
+  { value: "message", label: "Nachricht" },
+  { value: "email", label: "E-Mail" },
+  { value: "letter", label: "Brief" },
+  { value: "description", label: "Beschreibung" },
+  { value: "opinion", label: "Meinung / Stellungnahme" },
+  { value: "essay", label: "Essay / Erörterung" },
+  { value: "report", label: "Bericht" },
+  { value: "other", label: "Andere" },
+];
 
 type Writing = AdminWritingTask;
 
@@ -38,6 +55,9 @@ const EMPTY_FORM = {
   max_words: 150,
   order_index: 1,
   is_published: false,
+  text_type: "" as WritingTextType | "",
+  audience: "",
+  time_limit_minutes: "" as number | "",
   helper_words: "",
   image_url: "",
   opens_at: "",
@@ -62,6 +82,7 @@ export default function WritingManager({ lessonId }: { lessonId?: string }) {
   const [deleting, setDeleting] = useState<Writing | null>(null);
   const [form, setForm] = useState(EMPTY_FORM);
   const [error, setError] = useState<string | null>(null);
+  const levelDefault = useLevelDefaultRubric(lessonId, "writing");
 
   function openCreate() {
     setEditing(null);
@@ -80,6 +101,9 @@ export default function WritingManager({ lessonId }: { lessonId?: string }) {
       max_words: item.max_words,
       order_index: item.order_index,
       is_published: item.is_published,
+      text_type: item.text_type ?? "",
+      audience: item.audience ?? "",
+      time_limit_minutes: item.time_limit_minutes ?? "",
       helper_words: item.helper_words ?? "",
       image_url: item.image_url ?? "",
       opens_at: toLocalInput(item.opens_at),
@@ -101,9 +125,12 @@ export default function WritingManager({ lessonId }: { lessonId?: string }) {
       setError("Min. Wörter darf nicht größer als Max. Wörter sein.");
       return;
     }
-    const { lesson_id, ai, helper_words, image_url, opens_at, closes_at, ...rest } = form;
+    const { lesson_id, ai, helper_words, image_url, opens_at, closes_at, text_type, audience, time_limit_minutes, ...rest } = form;
     const payload = {
       ...rest,
+      text_type: text_type || null,
+      audience: audience.trim() || null,
+      time_limit_minutes: time_limit_minutes === "" ? null : time_limit_minutes,
       ...aiPayload(ai),
       helper_words: helper_words.trim() || null,
       image_url: image_url.trim() || null,
@@ -278,6 +305,43 @@ export default function WritingManager({ lessonId }: { lessonId?: string }) {
             </div>
           </div>
 
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+            <div>
+              <label className="mb-1.5 block text-sm font-medium text-[var(--admin-text-primary)]">Textsorte</label>
+              <AdminSelect
+                value={form.text_type}
+                onChange={(e) => setForm({ ...form, text_type: e.target.value as WritingTextType | "" })}
+                aria-label="Textsorte"
+              >
+                <option value="">—</option>
+                {TEXT_TYPES.map((t) => (
+                  <option key={t.value} value={t.value}>
+                    {t.label}
+                  </option>
+                ))}
+              </AdminSelect>
+            </div>
+            <div className="sm:col-span-2">
+              <label className="mb-1.5 block text-sm font-medium text-[var(--admin-text-primary)]">Adressat / Situation (optional)</label>
+              <AdminInput
+                value={form.audience}
+                onChange={(e) => setForm({ ...form, audience: e.target.value })}
+                placeholder="eine Freundin; der Vermieter; ein Forum …"
+              />
+            </div>
+          </div>
+
+          <div className="w-56">
+            <label className="mb-1.5 block text-sm font-medium text-[var(--admin-text-primary)]">Empfohlene Zeit (Min., optional)</label>
+            <AdminInput
+              type="number"
+              min={1}
+              max={240}
+              value={form.time_limit_minutes}
+              onChange={(e) => setForm({ ...form, time_limit_minutes: e.target.value === "" ? "" : Number(e.target.value) })}
+            />
+          </div>
+
           <div>
             <label className="mb-1.5 block text-sm font-medium text-[var(--admin-text-primary)]">
               Hilfswörter (optional)
@@ -315,7 +379,7 @@ export default function WritingManager({ lessonId }: { lessonId?: string }) {
             </div>
           </div>
 
-          <AiTaskFields value={form.ai} onChange={(ai) => setForm({ ...form, ai })} defaultRubric={DEFAULT_WRITING_RUBRIC} />
+          <AiTaskFields value={form.ai} onChange={(ai) => setForm({ ...form, ai })} defaultRubric={levelDefault.rubric ?? DEFAULT_WRITING_RUBRIC} level={levelDefault.level} />
 
           <label className="flex cursor-pointer items-center gap-2.5">
             <AdminCheckbox

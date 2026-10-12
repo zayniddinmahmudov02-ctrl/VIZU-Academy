@@ -11,14 +11,14 @@ import {
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { cn } from "@/lib/utils";
 
-const SKILLS: { key: "lesen" | "hoeren" | "schreiben" | "sprechen"; label: string; icon: LucideIcon }[] = [
+export const SKILLS: { key: "lesen" | "hoeren" | "schreiben" | "sprechen"; label: string; icon: LucideIcon }[] = [
   { key: "lesen", label: "lessons.sectionReading", icon: BookOpen },
   { key: "hoeren", label: "lessons.sectionListening", icon: Headphones },
   { key: "schreiben", label: "lessons.sectionWriting", icon: PenLine },
   { key: "sprechen", label: "lessons.sectionSpeaking", icon: Mic },
 ];
 
-const STATUS: Record<SkillStatus, { label: string; tone: string }> = {
+export const STATUS: Record<SkillStatus, { label: string; tone: string }> = {
   not_available: { label: "lessons.skillNotAvailable", tone: "bg-surface-hover text-text-muted" },
   not_started: { label: "lessons.skillNotStarted", tone: "bg-surface-hover text-text-secondary" },
   in_progress: { label: "lessons.skillInProgress", tone: "bg-accent-blue/10 text-accent-blue" },

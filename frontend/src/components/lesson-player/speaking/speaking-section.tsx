@@ -46,7 +46,15 @@ export default function SpeakingSection({ lessonId }: Props) {
             <h3 className="text-lg font-bold text-text-primary">{item.title}</h3>
             {item.topic && <p className="mt-1 text-sm text-text-muted">{item.topic}</p>}
             <p className="mt-2.5 whitespace-pre-line text-sm text-text-secondary sm:text-base">{item.instruction}</p>
+            {!!item.questions?.length && (
+              <ol className="mt-3 list-decimal space-y-1 pl-5 text-sm text-text-primary" data-testid="speaking-questions">
+                {item.questions.map((q, i) => (
+                  <li key={i}>{q}</li>
+                ))}
+              </ol>
+            )}
             <div className="mt-3 flex flex-wrap gap-3 text-xs text-text-muted">
+              {item.response_type === "DIALOG" && <span className="font-semibold">{t("lessons.speakingDialog")}</span>}
               <span>Vorbereitung: {item.preparation_time}s</span>
               <span>Sprechzeit: {item.speaking_time}s</span>
             </div>
