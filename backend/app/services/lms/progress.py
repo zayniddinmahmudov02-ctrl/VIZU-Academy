@@ -340,6 +340,13 @@ def persist(db: Session, user_id, lesson_id, state: dict) -> None:
             changed = True
         if changed or progress.last_activity_at is None:
             progress.last_activity_at = now
+    else:
+        # untouched lesson: keep an existing row's counts current, never
+        # create a row (a progress row means "the student started it")
+        progress = db.scalar(select(StudentProgress).where(StudentProgress.user_id == user_id, StudentProgress.lesson_id == lesson_id))
+    if progress is not None:
+        progress.competencies_total = state["competencies_total"]
+        progress.competencies_completed = state["competencies_completed"]
 
 
 def sync_lesson(db: Session, user_id, lesson_id) -> dict | None:
@@ -375,7 +382,10 @@ def record_visit(db: Session, user: User, lesson: Lesson, kind: str) -> dict:
 # ============================================================
 
 
-def level_overview(db: Session, user: User, level: str, *, include_drafts: bool = False) -> dict:
+def level_overview(db: Session, user: User, level: str, *, include_drafts: bool = False, detail: bool = True) -> dict:
+    """Level summary + lesson cards. Card counts come from the snapshot;
+    with `detail`, a lesson without one is computed read-only (nothing is
+    written for lessons the student has not touched)."""
     level = structure.normalize_level(level)
     course = structure.level_course(db, level)
     module = structure.main_module(db, course) if course else None
@@ -385,29 +395,19 @@ def level_overview(db: Session, user: User, level: str, *, include_drafts: bool 
         row.lesson_id: row
         for row in db.scalars(select(StudentProgress).where(StudentProgress.user_id == user.id, StudentProgress.lesson_id.in_(ids)))
     } if ids else {}
-    comp_done: dict[UUID, int] = {}
     comp_started: dict[UUID, int] = {}
     if ids:
-        for lesson_id, status, n in db.execute(
-            select(StudentCompetencyProgress.lesson_id, StudentCompetencyProgress.status, func.count())
-            .where(StudentCompetencyProgress.user_id == user.id, StudentCompetencyProgress.lesson_id.in_(ids))
-            .group_by(StudentCompetencyProgress.lesson_id, StudentCompetencyProgress.status)
-        ):
-            if status == PROGRESS_COMPLETED:
-                comp_done[lesson_id] = comp_done.get(lesson_id, 0) + n
-            if status in (PROGRESS_COMPLETED, PROGRESS_IN_PROGRESS):
-                comp_started[lesson_id] = comp_started.get(lesson_id, 0) + n
-    video_lessons = set(db.scalars(select(Video.lesson_id).where(Video.lesson_id.in_(ids), Video.is_published.is_(True)))) if ids else set()
-    published_comps: dict[UUID, int] = {}
-    if ids:
-        from app.models.lms import LessonCompetency
-
         for lesson_id, n in db.execute(
-            select(LessonCompetency.lesson_id, func.count())
-            .where(LessonCompetency.lesson_id.in_(ids), LessonCompetency.is_published.is_(True))
-            .group_by(LessonCompetency.lesson_id)
+            select(StudentCompetencyProgress.lesson_id, func.count())
+            .where(
+                StudentCompetencyProgress.user_id == user.id,
+                StudentCompetencyProgress.lesson_id.in_(ids),
+                StudentCompetencyProgress.status.in_((PROGRESS_COMPLETED, PROGRESS_IN_PROGRESS)),
+            )
+            .group_by(StudentCompetencyProgress.lesson_id)
         ):
-            published_comps[lesson_id] = n
+            comp_started[lesson_id] = n
+    video_lessons = set(db.scalars(select(Video.lesson_id).where(Video.lesson_id.in_(ids), Video.is_published.is_(True)))) if ids else set()
 
     cards = []
     for lesson in lessons:
@@ -416,7 +416,19 @@ def level_overview(db: Session, user: User, level: str, *, include_drafts: bool 
         completed = bool(row and row.lesson_completed)
         started = completed or comp_started.get(lesson.id, 0) > 0
         status = STATUS_LOCKED if not access.unlocked else (PROGRESS_COMPLETED if completed else (PROGRESS_IN_PROGRESS if started else PROGRESS_NOT_STARTED))
-        total = published_comps.get(lesson.id, 0)
+        if row is not None and row.competencies_total is not None:
+            comp_total, comp_completed = row.competencies_total, row.competencies_completed or 0
+        elif detail:
+            state = compute(db, user, lesson)
+            comp_total, comp_completed = state["competencies_total"], state["competencies_completed"]
+        else:
+            comp_total, comp_completed = None, None
+        if completed:
+            percent = 100
+        elif comp_total:
+            percent = round(100 * min(comp_completed, comp_total) / comp_total)
+        else:
+            percent = 0
         cards.append(
             {
                 "id": lesson.id,
@@ -429,7 +441,9 @@ def level_overview(db: Session, user: User, level: str, *, include_drafts: bool 
                 "status": status,
                 "lock_reason": access.reason,
                 "completed": completed,
-                "percent": 100 if completed else (round(100 * min(comp_done.get(lesson.id, 0), total) / total) if total else 0),
+                "percent": percent,
+                "competencies_total": comp_total,
+                "competencies_completed": comp_completed,
                 "completed_at": row.completed_at if row else None,
                 "last_activity_at": row.last_activity_at if row else None,
             }

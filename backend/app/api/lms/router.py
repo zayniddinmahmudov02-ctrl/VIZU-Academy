@@ -33,7 +33,7 @@ def list_levels(db: Session = Depends(get_db), user: User = Depends(get_current_
     lessons, percent, last lesson and the lesson to continue with."""
     out = []
     for level in structure.LEVELS:
-        overview = progress.level_overview(db, user, level)
+        overview = progress.level_overview(db, user, level, detail=False)
         overview.pop("lessons")
         out.append(overview)
     return {"total_lessons_target": structure.TOTAL_LESSONS, "levels": out}

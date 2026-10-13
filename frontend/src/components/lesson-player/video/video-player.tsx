@@ -58,6 +58,10 @@ interface Props {
    *  expired) — called when the user hits "retry" after a load/stream
    *  error. The new `src` prop this produces re-initializes the player. */
   onRetryLoad?: () => void;
+  /** Optional WebVTT subtitles (signed URL, same origin rules as `src`).
+   *  When set, the video is loaded with crossOrigin="anonymous" — a
+   *  cross-origin <track> is otherwise refused by the browser. */
+  subtitleUrl?: string;
 }
 
 function formatTime(totalSeconds: number): string {
@@ -87,6 +91,7 @@ export default function VideoPlayer({
   onProgress,
   watermarkText,
   onRetryLoad,
+  subtitleUrl,
 }: Props) {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -318,6 +323,7 @@ export default function VideoPlayer({
       <div className="relative isolate aspect-video" onClick={handleSurfaceClick}>
         <video
           key={src}
+          crossOrigin={subtitleUrl ? "anonymous" : undefined}
           ref={videoRef}
           className="h-full w-full"
           poster={poster}
@@ -371,6 +377,7 @@ export default function VideoPlayer({
           }}
         >
           <source src={src} type="video/mp4" />
+          {subtitleUrl && <track kind="subtitles" src={subtitleUrl} srcLang="de" label="Deutsch" default />}
         </video>
 
         {buffering && !error && (

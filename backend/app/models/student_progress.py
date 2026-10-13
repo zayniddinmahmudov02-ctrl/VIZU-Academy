@@ -132,3 +132,6 @@ class StudentProgress(BaseModel):
     # latest activity in the lesson (app.services.lms.progress).
     completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     last_activity_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    # how many competencies decide completion / are completed (LMS snapshot)
+    competencies_total: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    competencies_completed: Mapped[int | None] = mapped_column(Integer, nullable=True)
