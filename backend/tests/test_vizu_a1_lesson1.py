@@ -142,10 +142,28 @@ class ModulOneDocumentTests(unittest.TestCase):
             word = q["options"][LETTERS.index(q["correct_answer"])]
             self.assertEqual("".join(names[x] for x in letters), word.upper(), q["question"])
 
-    def test_page_images_exist(self):
-        for filename, competency, _ in m1.IMAGES:
+    def test_only_the_cover_image_no_grammar_images(self):
+        """Grammatik is text + tables only; the page images of the other
+        competencies would only repeat their own text content."""
+        self.assertEqual([(c, f) for f, c, _ in m1.IMAGES], [("EINFUEHRUNG", "01_cover.jpg")])
+        for filename, _, title in m1.IMAGES:
             self.assertTrue((build.OUT_DIR / "images" / "modul_01" / filename).is_file(), filename)
-            self.assertIn(competency, {"EINFUEHRUNG", "GRAMMATIK", "LESEN", "SCHREIBEN", "SPRECHEN", "WORTSCHATZ"})
+            self.assertNotIn(title, m1.RETIRED_IMAGE_TITLES)
+        self.assertEqual(sorted(p.name for p in (build.OUT_DIR / "images" / "modul_01").iterdir()), ["01_cover.jpg"])
+        grammar = self.items["vizu-a1-l01-grammatik-01"]
+        self.assertFalse(any("<img" in r["html"] for r in grammar["rules"]))
+        self.assertTrue(all("<table>" in r["html"] for r in grammar["rules"]))
+
+    def test_no_question_appears_twice_in_the_lesson(self):
+        seen: dict[str, str] = {}
+        for item in self.doc["items"]:
+            for q in _questions(item):
+                key = re.sub(r"\s+", " ", (q["question"] + " " + q.get("text", "")).lower()).strip()
+                if q["type"] == "matching":
+                    key += " " + "|".join(q["items"])
+                self.assertNotIn(key, seen, f"{item['content_id']} repeats {seen.get(key)}: {q['question']}")
+                seen[key] = item["content_id"]
+        self.assertFalse(self.items["vizu-a1-l01-wortschatz-01"]["auto_practice"])
 
 
 class _Q:

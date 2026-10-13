@@ -108,9 +108,13 @@ def _json_default(v):
     return str(v)
 
 
-def replace_plan(db, lesson: Lesson, document: dict) -> dict:
+def replace_plan(db, lesson: Lesson, document: dict, mod=None) -> dict:
     """What --replace would do: per content row 'delete' or 'archive'
-    (student history), plus the competency texts the module brings."""
+    (student history), the competency texts the module brings, and the
+    lesson's image resources that are outdated: every image of the
+    Grammatik competency (grammar is taught as text / tables) and the book
+    page images an earlier import attached that the module retired.
+    Videos, audio, PDFs and other resources are never touched."""
     from app.scripts.course_content_audit import fk_edges
     from app.scripts.legacy_content_cleanup import HISTORY_TABLES, cascade
 
@@ -127,14 +131,19 @@ def replace_plan(db, lesson: Lesson, document: dict) -> dict:
     kinds = {i["competency"] for i in document["items"] if i.get("skill") == "kompetenz"}
     competencies = [c for c in db.scalars(select(LessonCompetency).where(LessonCompetency.lesson_id == lesson.id, LessonCompetency.kind.in_(kinds)))
                     if (c.body or "").strip()]
-    return {"rows": rows, "competencies": competencies}
+    retired = set(getattr(mod, "RETIRED_IMAGE_TITLES", []))
+    images = [r for r in db.scalars(select(LearningResource).where(LearningResource.lesson_id == lesson.id, LearningResource.resource_type == "IMAGE"))
+              if r.competency == "GRAMMATIK" or r.title in retired]
+    return {"rows": rows, "competencies": competencies, "images": images}
 
 
 def print_replace_plan(plan: dict) -> None:
     deletes = [r for r in plan["rows"] if r["action"] == "delete"]
     archives = [r for r in plan["rows"] if r["action"] == "archive"]
     print(f"  replace: {len(deletes)} row(s) to delete, {len(archives)} with student history to hide as [Archiv], "
-          f"{len(plan['competencies'])} competency text(s) to clear")
+          f"{len(plan['competencies'])} competency text(s) to clear, {len(plan['images'])} outdated image(s) to remove")
+    for r in plan["images"]:
+        print(f"    remove  image ({r.competency or 'Lektion'}) {r.title!s:.60}")
     for r in plan["rows"]:
         print(f"    {r['action']:<7} {r['table']:<16} {r['title']!s:.60}" + (f"  ({r['history_rows']} history rows kept)" if r["history_rows"] else ""))
 
@@ -173,7 +182,30 @@ def execute_replace(db, plan: dict, archive_dir: Path, stamp: str) -> dict:
     for c in plan["competencies"]:
         c.body = None
     db.commit()
-    return {"deleted": deleted, "archived": archived, "competency_texts_cleared": len(plan["competencies"])}
+    images = asyncio.run(_remove_images(db, plan["images"], archive_dir))
+    return {"deleted": deleted, "archived": archived, "competency_texts_cleared": len(plan["competencies"]), "images_removed": images}
+
+
+async def _remove_images(db, images: list, archive_dir: Path) -> int:
+    """Each image: its row to images.jsonl and a copy of the file to
+    archive_dir/images/, then the regular resource delete (the file goes
+    only when no other resource uses it)."""
+    import shutil
+
+    from app.services.lms import resources
+
+    if not images:
+        return 0
+    (archive_dir / "images").mkdir(parents=True, exist_ok=True)
+    with open(archive_dir / "images.jsonl", "a", encoding="utf-8") as fh:
+        for r in images:
+            fh.write(json.dumps({c.name: getattr(r, c.name) for c in r.__table__.columns}, default=_json_default, ensure_ascii=False) + "\n")
+            path = resources.file_path(r)
+            if path is not None:
+                shutil.copy2(path, archive_dir / "images" / f"{r.id}{path.suffix}")
+    for r in images:
+        await resources.delete_resource(db, r)
+    return len(images)
 
 
 # ============================================================
@@ -252,7 +284,7 @@ def main() -> int:
                 failed += 1
                 continue
             if args.replace:
-                plan = replace_plan(db, lesson, document)
+                plan = replace_plan(db, lesson, document, mod)
                 print(f"\nModul {n} — lesson {lesson.id} ({lesson.title})")
                 print_replace_plan(plan)
                 if args.dry_run:

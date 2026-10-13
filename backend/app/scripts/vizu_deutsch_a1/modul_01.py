@@ -20,14 +20,19 @@ LESSON_DESCRIPTION = "Thema: Herzlich Willkommen! · Grammatik: Das deutsche Alp
 # book page images (app/data/vizu_deutsch_a1/images/modul_01) -> competency
 IMAGES = [
     ("01_cover.jpg", "EINFUEHRUNG", "Modul 1 — Herzlich Willkommen! (Buch, S. 3)"),
-    ("02_frage.jpg", "EINFUEHRUNG", "Frage des Themas: Nima uchun nemis tili? (Buch, S. 4)"),
-    ("03_alphabet.jpg", "GRAMMATIK", "Nemis tili alifbosi (Buch, S. 5)"),
-    ("04_harflar.jpg", "GRAMMATIK", "Muhim harflar va ularning o'qilishi (Buch, S. 6)"),
-    ("05_birikmalar.jpg", "GRAMMATIK", "Harf birikmalari va diftonglar (Buch, S. 7)"),
-    ("06_lesen.jpg", "LESEN", "Lesen — Tom und Anna (Buch, S. 8)"),
-    ("07_schreiben.jpg", "SCHREIBEN", "Schreiben — Aufgaben 1-4 (Buch, S. 10)"),
-    ("08_sprechen.jpg", "SPRECHEN", "Sprechen — Stellen Sie sich vor! (Buch, S. 11)"),
-    ("09_wortschatz.jpg", "WORTSCHATZ", "Wortschatz Modul 1 (Buch, S. 12)"),
+]
+# Page images attached by an earlier import: their content is in the lesson
+# as text / tables / tasks now (Grammatik must have no page images at all),
+# so --replace removes them (archived first).
+RETIRED_IMAGE_TITLES = [
+    "Frage des Themas: Nima uchun nemis tili? (Buch, S. 4)",
+    "Nemis tili alifbosi (Buch, S. 5)",
+    "Muhim harflar va ularning o'qilishi (Buch, S. 6)",
+    "Harf birikmalari va diftonglar (Buch, S. 7)",
+    "Lesen — Tom und Anna (Buch, S. 8)",
+    "Schreiben — Aufgaben 1-4 (Buch, S. 10)",
+    "Sprechen — Stellen Sie sich vor! (Buch, S. 11)",
+    "Wortschatz Modul 1 (Buch, S. 12)",
 ]
 
 # ============================================================
@@ -445,7 +450,9 @@ def items() -> list[dict]:
              prompt="Nima uchun nemis tili? Nima uchun aynan nemis tilini o'rganmoqchisiz? Fikringizni 2–3 gap bilan ovozli yuboring "
                     "(nemischa yoki o'zbekcha).",
              min_duration=10, max_duration=120),
-        base(L, "wortschatz", 1, "Wortschatz Modul 1", page=12, words=WORDS, exercises=WORTSCHATZ_SETS),
+        # auto_practice off: its "„X“ — o'zbekchasi qaysi?" questions would repeat the
+        # matching sets and the Abschlusstest word questions
+        base(L, "wortschatz", 1, "Wortschatz Modul 1", page=12, words=WORDS, exercises=WORTSCHATZ_SETS, auto_practice=False),
         base(L, "grammatik", 1, "Grammatik: Das deutsche Alphabet", page="5-7",
              rules=[
                  {"title": "Das deutsche Alphabet", "html": "<h3>Nemis tili alifbosi</h3>" + _ALPHABET},
