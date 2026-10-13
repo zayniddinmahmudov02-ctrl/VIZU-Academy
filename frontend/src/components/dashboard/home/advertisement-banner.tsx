@@ -32,7 +32,7 @@ export default function AdvertisementBanner() {
         title={t("dashboard.adFallbackTitle")}
         description={t("dashboard.adFallbackBody")}
         ctaText={t("dashboard.adFallbackCta")}
-        href="/courses"
+        href="/kurse"
       />
     );
   }

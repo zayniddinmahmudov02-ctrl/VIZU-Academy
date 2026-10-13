@@ -40,9 +40,9 @@ export default function ContinueLearning() {
   // so this never regresses the previous always-visible card.
   const progress = dashboard?.progress ?? 0;
   const continueHref = dashboard?.current_lesson_id
-    ? `/lessons/${dashboard.current_lesson_id}`
+    ? `/lektion/${dashboard.current_lesson_id}`
     : current
-      ? `/courses/${current.level.toLowerCase()}`
+      ? `/kurse/${current.level.toLowerCase()}`
       : undefined;
 
   if (!current) return null;
@@ -57,7 +57,7 @@ export default function ContinueLearning() {
         </h2>
 
         <Link
-          href="/courses"
+          href="/kurse"
           className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent-blue transition-colors hover:text-accent-blue-hover"
         >
           {t("dashboard.allCourses")}
@@ -67,7 +67,7 @@ export default function ContinueLearning() {
 
       <motion.div {...scaleOnHover}>
         <Link
-          href={continueHref ?? `/courses/${current.level.toLowerCase()}`}
+          href={continueHref ?? `/kurse/${current.level.toLowerCase()}`}
           className={`group relative flex flex-col gap-8 overflow-hidden rounded-card bg-gradient-to-br ${currentStyle?.gradient ?? "from-brand-600 to-accent-blue"} p-7 text-white shadow-[var(--shadow-card)] transition-all duration-300 hover:shadow-[var(--shadow-card-hover)] sm:flex-row sm:items-center sm:justify-between sm:p-8`}
         >
           <div className="pointer-events-none absolute -bottom-4 right-5 opacity-20">
@@ -143,7 +143,7 @@ export default function ContinueLearning() {
               transition={{ duration: 0.2 }}
             >
               <Link
-                href={`/courses/${course.level.toLowerCase()}`}
+                href={`/kurse/${course.level.toLowerCase()}`}
                 className={`block rounded-2xl p-5 shadow-[var(--shadow-card)] transition-all duration-300 hover:shadow-[var(--shadow-card-hover)] ${
                   courseStyle?.chip ?? "bg-surface-hover text-text-primary ring-1 ring-surface-border"
                 }`}
