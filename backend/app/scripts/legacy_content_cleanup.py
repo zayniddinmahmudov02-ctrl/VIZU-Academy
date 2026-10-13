@@ -11,6 +11,12 @@ Categories (deletable, each root row cascades through the real foreign keys):
                       shows VOCABULARY / LESSON ones as a fallback where a
                       lesson has no exercise sets — see "lms_content_lost")
   orphan_video_files  files under protected video storage no row points at
+  lesson_video_files  video + subtitle files of the A1–C1 lesson videos (the
+                      old player; the LMS has no videos). The files are MOVED
+                      into the archive (not copied — videos are large), the
+                      video rows are kept (video_progress is student history)
+                      and only unpublished. Restore: move the files back to
+                      the storage key the row still carries, republish.
 Report only (never deleted here): lessons outside the LMS structure, stale
 video upload sessions (cleaned automatically by the upload flow).
 
@@ -26,6 +32,7 @@ between, the code no longer matches and nothing is deleted.
 
     python -m app.scripts.legacy_content_cleanup
     python -m app.scripts.legacy_content_cleanup --categories homeworks orphan_video_files
+    python -m app.scripts.legacy_content_cleanup --categories lesson_video_files orphan_video_files
     python -m app.scripts.legacy_content_cleanup --categories homeworks --execute \\
         --confirm 1a2b3c4d5e6f --archive-dir /var/backups/vizu/legacy-2026-10-13 --i-have-a-verified-backup
 """
@@ -49,7 +56,8 @@ from app.db.session import SessionLocal
 from app.scripts.course_content_audit import fk_edges, ids_where
 from app.services.lms import structure
 
-CATEGORIES = ("homeworks", "lesson_assessments", "legacy_quizzes", "orphan_video_files")
+CATEGORIES = ("homeworks", "lesson_assessments", "legacy_quizzes", "orphan_video_files", "lesson_video_files")
+MOVED_FILE_CATEGORIES = {"lesson_video_files"}
 HISTORY_TABLES = {
     "homework_submissions", "assessment_attempts", "task_attempts", "answers", "section_results", "assessment_results",
     "speaking_submissions", "writing_submissions", "speaking_evaluations", "writing_evaluations", "student_quizzes",
@@ -110,6 +118,25 @@ def orphan_video_files(db) -> list[dict]:
     return out
 
 
+def lesson_video_files(db) -> tuple[list, list[dict]]:
+    """Video rows of A1–C1 lessons and the files they own under protected
+    video storage. A file another (out of scope) row also points at is
+    marked shared and left alone."""
+    rows = db.execute(text("""
+        SELECT v.id FROM videos v JOIN lessons le ON le.id = v.lesson_id JOIN modules m ON m.id = le.module_id
+        JOIN courses c ON c.id = m.course_id WHERE c.level = ANY(:levels) ORDER BY v.id
+    """), {"levels": list(structure.LEVELS)}).all()
+    ids = [r[0] for r in rows]
+    files = []
+    for col in ("storage_key", "subtitle_key"):
+        for row_id, key in db.execute(text(f'SELECT id, "{col}" FROM videos WHERE id = ANY(:v) AND "{col}" IS NOT NULL AND "{col}" <> \'\''), {"v": ids}):
+            shared = db.scalar(text('SELECT count(*) FROM videos WHERE (storage_key = :k OR subtitle_key = :k) AND NOT (id = ANY(:v))'), {"k": key, "v": ids})
+            path = ProtectedVideoStorage.ROOT / key
+            files.append({"table": "videos", "row": str(row_id), "key": key, "path": str(path), "exists": path.is_file(),
+                          "bytes": path.stat().st_size if path.is_file() else 0, "shared": shared > 0})
+    return ids, files
+
+
 def lms_content_lost(db, quiz_ids: set) -> list[dict]:
     """Lessons whose only Wortschatz / Abschlusstest content is a legacy quiz."""
     if not quiz_ids:
@@ -131,6 +158,14 @@ def plan(db, categories: list[str], include_history: bool) -> dict:
             files = orphan_video_files(db)
             result["categories"][cat] = {"roots": [], "rows": {}, "history_rows": 0, "skipped_roots_with_history": 0,
                                          "files": files, "file_bytes": sum(f["bytes"] for f in files)}
+            continue
+        if cat == "lesson_video_files":
+            ids, files = lesson_video_files(db)
+            files = [f for f in files if not f["shared"]]
+            result["categories"][cat] = {"roots": [], "rows": {"videos (kept, unpublished)": len(ids)}, "history_rows": 0,
+                                         "skipped_roots_with_history": 0, "files": files, "file_bytes": sum(f["bytes"] for f in files),
+                                         "files_missing": sum(1 for f in files if not f["exists"]),
+                                         "unpublish": [str(i) for i in ids], "_archive_rows": {"videos": set(ids)}}
             continue
         table, sql = ROOT_QUERIES[cat]
         roots = [r[0] for r in db.execute(text(sql))]
@@ -174,6 +209,7 @@ def plan(db, categories: list[str], include_history: bool) -> dict:
         "stale_video_upload_sessions": db.scalar(text("SELECT count(*) FROM video_upload_sessions WHERE created_at < now() - interval '24 hours'")),
     }
     token = sorted(f"{c}:{t}:{i}" for c, e in result["categories"].items() for t, ids in e.get("_affected", {}).items() for i in ids)
+    token += sorted(f"{c}:keep:{t}:{i}" for c, e in result["categories"].items() for t, ids in e.get("_archive_rows", {}).items() for i in ids)
     token += sorted(f"{c}:file:{f['path']}" for c, e in result["categories"].items() for f in e["files"])
     result["plan_code"] = hashlib.sha256("\n".join(token).encode()).hexdigest()[:12]
     return result
@@ -189,43 +225,78 @@ def _json_default(v):
     return str(v)
 
 
+def _check_space(p: dict, archive_dir: Path) -> None:
+    """Moving across filesystems is a copy: make sure it fits."""
+    need = 0
+    for cat in MOVED_FILE_CATEGORIES & p["categories"].keys():
+        for f in p["categories"][cat]["files"]:
+            if f["exists"] and Path(f["path"]).stat().st_dev != archive_dir.parent.stat().st_dev:
+                need += f["bytes"]
+    if need and shutil.disk_usage(archive_dir.parent).free < need * 1.05:
+        sys.exit(f"Refusing to execute: the archive needs {need} bytes on another filesystem, not enough free space there.")
+
+
 def archive(db, p: dict, archive_dir: Path) -> None:
-    archive_dir.mkdir(parents=True, exist_ok=False)
+    archive_dir.parent.mkdir(parents=True, exist_ok=True)
+    _check_space(p, archive_dir)
+    archive_dir.mkdir(exist_ok=False)
     for cat, entry in p["categories"].items():
-        for table, ids in entry.get("_affected", {}).items():
+        for table, ids in {**entry.get("_affected", {}), **entry.get("_archive_rows", {})}.items():
             rows = db.execute(text(f'SELECT * FROM "{table}" WHERE id = ANY(:v)'), {"v": list(ids)}).mappings().all()
             with open(archive_dir / f"{cat}__{table}.jsonl", "w", encoding="utf-8") as fh:
                 for row in rows:
                     fh.write(json.dumps(dict(row), default=_json_default, ensure_ascii=False) + "\n")
+        if cat in MOVED_FILE_CATEGORIES:
+            continue  # moved by execute(), after the rows are archived
         for f in entry["files"]:
             if f["exists"]:
                 target = archive_dir / "files" / cat / Path(f["path"]).name
                 target.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(f["path"], target)
     report = {k: v for k, v in p.items() if k != "categories"}
-    report["categories"] = {c: {k: v for k, v in e.items() if k != "_affected"} for c, e in p["categories"].items()}
+    report["categories"] = {c: _public(e) for c, e in p["categories"].items()}
     (archive_dir / "plan.json").write_text(json.dumps(report, default=_json_default, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
-def execute(db, p: dict) -> dict:
-    deleted = {}
+def _public(entry: dict) -> dict:
+    return {k: v for k, v in entry.items() if not k.startswith("_")}
+
+
+def execute(db, p: dict, archive_dir: Path) -> dict:
+    deleted, unpublished = {}, {}
     for cat, entry in p["categories"].items():
         if entry.get("roots"):
             res = db.execute(text(f'DELETE FROM "{entry["root_table"]}" WHERE id = ANY(:v)'), {"v": entry["roots"]})
             deleted[cat] = res.rowcount
+        if entry.get("unpublish"):
+            res = db.execute(text("UPDATE videos SET is_published = false WHERE id = ANY(:v)"), {"v": entry["unpublish"]})
+            unpublished[cat] = res.rowcount
     db.execute(
         text("INSERT INTO audit_logs (id, action, details, created_at, updated_at) VALUES (gen_random_uuid(), 'legacy_content_cleanup', :d, now(), now())"),
-        {"d": json.dumps({"plan_code": p["plan_code"], "deleted_roots": deleted}, ensure_ascii=False)},
+        {"d": json.dumps({"plan_code": p["plan_code"], "deleted_roots": deleted, "unpublished": unpublished, "archive_dir": str(archive_dir)}, ensure_ascii=False)},
     )
     db.commit()
+    moved = moved_bytes = 0
+    for cat in MOVED_FILE_CATEGORIES & p["categories"].keys():
+        for f in p["categories"][cat]["files"]:
+            src = Path(f["path"])
+            if f["exists"] and src.is_file():
+                # keep the storage key as the relative path: restore = move back
+                target = archive_dir / "files" / cat / f["key"]
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.move(str(src), str(target))
+                moved += 1
+                moved_bytes += f["bytes"]
     removed = 0
-    for entry in p["categories"].values():
+    for cat, entry in p["categories"].items():
+        if cat in MOVED_FILE_CATEGORIES:
+            continue
         for f in entry["files"]:
             path = Path(f["path"])
             if f["exists"] and not f["shared"] and path.is_file():
                 path.unlink()
                 removed += 1
-    return {"deleted_roots": deleted, "files_removed": removed}
+    return {"deleted_roots": deleted, "unpublished": unpublished, "files_removed": removed, "files_moved_to_archive": moved, "bytes_moved": moved_bytes}
 
 
 def print_plan(p: dict) -> None:
@@ -236,6 +307,8 @@ def print_plan(p: dict) -> None:
               f" · skipped roots with history: {e['skipped_roots_with_history']} · files: {len(e['files'])} ({e['file_bytes']} bytes)")
         for t, n in e["rows"].items():
             print(f"    {t:28} {n}{'   <- student history' if t in HISTORY_TABLES else ''}")
+        if e.get("files_missing"):
+            print(f"    {e['files_missing']} referenced file(s) already missing on disk")
         if e.get("lms_content_lost"):
             print(f"    !! LMS would lose its only Wortschatz / Abschlusstest content in {len(e['lms_content_lost'])} lesson(s)")
     r = p["report_only"]
@@ -263,7 +336,7 @@ def main() -> None:
         print_plan(p)
         if args.json:
             report = {k: v for k, v in p.items() if k != "categories"}
-            report["categories"] = {c: {k: v for k, v in e.items() if k != "_affected"} for c, e in p["categories"].items()}
+            report["categories"] = {c: _public(e) for c, e in p["categories"].items()}
             Path(args.json).write_text(json.dumps(report, default=_json_default, indent=2, ensure_ascii=False), encoding="utf-8")
         if not args.execute:
             db.rollback()
@@ -277,7 +350,7 @@ def main() -> None:
             sys.exit(f"Refusing to execute: --confirm {args.confirm} does not match the current plan code {p['plan_code']} (data changed or other categories).")
         archive(db, p, Path(args.archive_dir))
         print(f"\narchived to {args.archive_dir}")
-        result = execute(db, p)
+        result = execute(db, p, Path(args.archive_dir))
         print(f"EXECUTED at {datetime.now(timezone.utc).isoformat()}: {result}")
     finally:
         db.close()

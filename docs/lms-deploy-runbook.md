@@ -80,6 +80,19 @@ Reja ko'rib chiqilgach, faqat tasdiqlangan kategoriyalar bilan:
 - O'quvchi tarixi bor yozuvlar `--include-student-history` berilmasa o'chirilmaydi.
 - Ma'lumot reja tuzilgandan keyin o'zgargan bo'lsa, PLAN CODE mos kelmaydi va skript hech narsa qilmaydi.
 
+### 8a. Eski dars videolari (LMS'da video yo'q)
+`lesson_video_files` kategoriyasi A1–C1 darslarining video va subtitr fayllarini faol storage'dan arxivga **ko'chiradi** (nusxalamaydi, chunki videolar katta). `videos` qatorlari va `video_progress` (o'quvchi tarixi) saqlanadi, qatorlar faqat `is_published=false` bo'ladi. `orphan_video_files` esa hech bir qator ko'rsatmaydigan fayllarni oladi.
+```bash
+cd /opt/vizu/VIZU-Academy/backend
+du -sh app/protected_storage/videos; df -h /var/backups app/protected_storage    # joy yetadimi
+.venv/bin/python -m app.scripts.legacy_content_cleanup --categories lesson_video_files orphan_video_files --json /root/video-plan.json
+.venv/bin/python -m app.scripts.legacy_content_cleanup --categories lesson_video_files orphan_video_files --execute \
+  --confirm <PLAN CODE> --archive-dir /var/backups/vizu/videos-$(date +%F) --i-have-a-verified-backup
+```
+- Arxiv boshqa diskda bo'lsa, skript avval bo'sh joyni tekshiradi; yetmasa ishlamaydi.
+- Tiklash: `cd <archive>/files/lesson_video_files && find . -type f -exec sh -c 'mkdir -p "/opt/vizu/VIZU-Academy/backend/app/protected_storage/$(dirname "$1")" && mv "$1" "/opt/vizu/VIZU-Academy/backend/app/protected_storage/$1"' _ {} \;`, so'ng `lesson_video_files__videos.jsonl` dagi `is_published` qiymatlarini qaytarish.
+- `backup-course-content.sh` `files.tar` ga videolarni ham oladi. Video katalogi katta bo'lsa, backupdan oldin `/var/backups` dagi bo'sh joyni tekshiring.
+
 ## Rollback
 | Nima | Qanday |
 |---|---|
