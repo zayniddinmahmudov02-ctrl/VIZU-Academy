@@ -4,11 +4,39 @@ Hören (p.43): the book has the questions but neither transcript nor a valid
 answer sheet, so only question 1 has a key (the name, given by question 2);
 an admin sets the other answers after listening to the audio. The Wortschatz
 page announces 40 words but its section B (Möbel) is missing in the book —
-the 16 printed words and the new words of the Schreiben page are imported."""
+the 16 printed words and the new words of the Schreiben page are imported.
+The Schreiben practice uses the book's sample text "Mein Zimmer von Aziz"
+(p.44): the gaps are its possessive pronouns, the answers its own words."""
 
-from . import base, choice_gap, exercise, html_table, match, mc, mc_pending, tf, words
+from . import (
+    article_set, base, choice_gap, exercise, gap, html_table, intro_html, match, mc, mc_pending, reverse_vocab_set, summary_html, tf,
+    vocab_match_sets, words,
+)
 
 L = 4
+LESSON_TITLE = "Mein Zimmer ist gemütlich"
+LESSON_DESCRIPTION = "Thema: Mein Zimmer ist gemütlich · Grammatik: Possessivpronomen"
+IMAGES = [("01_cover.jpg", "EINFUEHRUNG", "Modul 4 — Mein Zimmer ist gemütlich (Buch, S. 38)")]
+RETIRED_IMAGE_TITLES: list[str] = []
+
+EINFUEHRUNG_HTML = intro_html(
+    4, "Mein Zimmer ist gemütlich", "Possessivpronomen (egalik olmoshlari)",
+    ["egalik olmoshlarini bilish: mein, dein, sein, ihr, unser, euer, Ihr;",
+     "ularni kelishiklar bo'yicha o'zgartirish: mein / meine / meinen / meinem …;",
+     "xonalar va mebel nomlarini (das Schlafzimmer, die Küche, der Schreibtisch …) o'rganish;",
+     "narsalarning joyini aytish: auf, neben, an, über."],
+    ["„Das ist mein Zimmer. In meinem Zimmer gibt es ein Bett …“ — xonangizni tasvirlaysiz;",
+     "„Ist das dein Handy? — Ja, das ist mein Handy.“ kabi savol-javob qilasiz;",
+     "Niko, Maria va Albertning xonalari haqidagi matnlarni o'qib tushunasiz;",
+     "Alexning xonasi haqidagi matnni tinglab, savollarga javob berasiz."])
+
+ZUSAMMENFASSUNG_HTML = summary_html(4, [
+    "<strong>Possessivpronomen:</strong> ich → mein, du → dein, er / es → sein, sie → ihr, wir → unser, ihr → euer, sie → ihr, Sie → Ihr.",
+    "<strong>Endungen (mein):</strong> Nominativ mein / meine / mein / meine · Akkusativ meinen / meine / mein / meine · "
+    "Dativ meinem / meiner / meinem / meinen · Genitiv meines / meiner / meines / meiner.",
+    "<strong>Mein Zimmer:</strong> In meinem Zimmer gibt es … · Auf meinem Tisch liegen … · Neben meinem Bett steht … · An der Wand hängen …",
+    "<strong>Wortschatz:</strong> das Schlafzimmer, das Wohnzimmer, die Küche, das Badezimmer, der Flur, der Schreibtisch, das Regal, gemütlich, hell.",
+])
 
 _POSS = (
     "<h3>1. Possessivpronomen — Grundformen</h3>"
@@ -83,6 +111,30 @@ HOEREN = [
     mc_pending("Warum mag Alex sein Zimmer?", ["Es ist sehr groß.", "Es ist sein Lieblingsplatz zu Hause.", "Es hat einen Fernseher."]),
 ]
 
+# p.44 sample text "Mein Zimmer von Aziz" (book) — its possessive pronouns as gaps
+_AZIZ_OPTS = ["mein", "meine", "meinem", "meinen"]
+SCHREIBEN_SETS = [
+    exercise("Mein Zimmer von Aziz — mein, meine, meinem?", [
+        gap("Ergänzen Sie den Text von Aziz.", "Ich heiße Aziz. Das ist [[1]] Zimmer. [[2]] Zimmer ist groß, modern und sehr gemütlich.",
+            {"1": {"accepted": ["mein"], "options": _AZIZ_OPTS}, "2": {"accepted": ["Mein"], "options": ["Mein", "Meine", "Meinem"]}}, points=2),
+        gap("Ergänzen Sie den Text von Aziz.", "In [[1]] Zimmer gibt es ein Bett, einen Schreibtisch, einen Stuhl, einen Kleiderschrank und ein Regal.",
+            {"1": {"accepted": ["meinem"], "options": _AZIZ_OPTS}}, explanation="in + Dativ, Neutrum: in meinem Zimmer."),
+        gap("Ergänzen Sie den Text von Aziz.", "[[1]] Bett steht neben [[2]] Fenster.",
+            {"1": {"accepted": ["Mein"], "options": ["Mein", "Meine", "Meinen"]}, "2": {"accepted": ["meinem"], "options": _AZIZ_OPTS}}, points=2,
+            explanation="neben + Dativ: neben meinem Fenster."),
+        gap("Ergänzen Sie den Text von Aziz.", "Auf [[1]] Schreibtisch stehen [[2]] Laptop, [[3]] Bücher, [[4]] Heft und [[5]] Lampe.",
+            {"1": {"accepted": ["meinem"], "options": _AZIZ_OPTS}, "2": {"accepted": ["mein"], "options": _AZIZ_OPTS},
+             "3": {"accepted": ["meine"], "options": _AZIZ_OPTS}, "4": {"accepted": ["mein"], "options": _AZIZ_OPTS},
+             "5": {"accepted": ["meine"], "options": _AZIZ_OPTS}}, points=5,
+            explanation="der Laptop → mein, die Bücher → meine, das Heft → mein, die Lampe → meine."),
+        gap("Ergänzen Sie den Text von Aziz.", "Neben [[1]] Bett steht [[2]] Rucksack. An der Wand hängen [[3]] Fotos und ein Kalender.",
+            {"1": {"accepted": ["meinem"], "options": _AZIZ_OPTS}, "2": {"accepted": ["mein"], "options": _AZIZ_OPTS},
+             "3": {"accepted": ["meine"], "options": _AZIZ_OPTS}}, points=3),
+        gap("Ergänzen Sie den Text von Aziz.", "Ich mag [[1]] Zimmer sehr, weil es schön, sauber und ruhig ist. Ich bin gern in [[2]] Zimmer!",
+            {"1": {"accepted": ["mein"], "options": _AZIZ_OPTS}, "2": {"accepted": ["meinem"], "options": _AZIZ_OPTS}}, points=2),
+    ], "Kitobdagi namuna matn (44-bet) — egalik olmoshini to'g'ri shaklda tanlang.", source="book"),
+]
+
 WORDS = (
     words([("das", "Schlafzimmer", "yotoqxona"), ("das", "Wohnzimmer", "mehmonxona"), ("die", "Küche", "oshxona"), ("das", "Badezimmer", "hammom"),
            ("das", "Kinderzimmer", "bolalar xonasi"), ("das", "Arbeitszimmer", "ish xonasi"), ("der", "Flur", "yo'lak"),
@@ -95,8 +147,26 @@ WORDS = (
 )
 
 
+WORTSCHATZ_SETS = [*vocab_match_sets(WORDS), article_set(WORDS)]
+
+UEBUNGEN_SETS = [
+    exercise("Wessen Zimmer ist das? (Lesen)", [
+        choice_gap("Niko sagt: „Das ist ___ Zimmer.“", ["mein", "sein", "ihr"], "mein", explanation="Niko spricht über sich: mein Zimmer."),
+        choice_gap("Maria ist Nikos Schwester. Das ist ___ Zimmer.", ["ihr", "sein", "mein"], "ihr", explanation="Maria (sie) → ihr Zimmer."),
+        choice_gap("Albert ist Nikos Bruder. Das ist ___ Zimmer.", ["sein", "ihr", "dein"], "sein", explanation="Albert (er) → sein Zimmer."),
+        choice_gap("Auf ___ Tisch liegen Marias Bücher.", ["ihrem", "seinem", "ihren"], "ihrem", explanation="auf + Dativ, der Tisch, Maria: auf ihrem Tisch."),
+        choice_gap("Albert macht ___ Hausaufgaben in seinem Zimmer.", ["seine", "sein", "seinen"], "seine", explanation="die Hausaufgaben (Plural, Akkusativ): seine."),
+        choice_gap("Tom und Anna, ist das ___ Haus?", ["euer", "eure", "unser"], "euer", explanation="ihr → euer; das Haus → euer Haus."),
+        choice_gap("Frau Müller, ist das ___ Tasche?", ["Ihre", "Ihr", "deine"], "Ihre", explanation="Sie (formell) → Ihr; die Tasche → Ihre Tasche."),
+        choice_gap("Wir wohnen in ___ Wohnung.", ["unserer", "unsere", "unserem"], "unserer", explanation="in + Dativ, die Wohnung: in unserer Wohnung."),
+    ], "Kimniki? Egalik olmoshini tanlang.", source="vizu"),
+    reverse_vocab_set(WORDS),
+]
+
+
 def items() -> list[dict]:
     return [
+        base(L, "kompetenz", 1, "Einführung: Modul 4", source="vizu", page=38, competency="EINFUEHRUNG", html=EINFUEHRUNG_HTML),
         base(L, "frage", 1, "Frage: Wie ist die Wohnung von Deutschen?", page=39,
              prompt="Wie ist die Wohnung von Deutschen? Was wissen Sie über moderne Wohnungen in Deutschland "
                     "(Ausstattung, Größe und Stil, Komfort und Gemütlichkeit)?",
@@ -119,7 +189,13 @@ def items() -> list[dict]:
                     "4. Mein Bett steht … Auf meinem Tisch liegen … Neben … steht … Über … hängt …\n"
                     "5. Die Wände sind … An der Wand hängen … Mein Zimmer ist hell / bunt / modern.\n"
                     "6. Ich lerne / lese / höre Musik / spiele … in meinem Zimmer.\n7. Ich mag mein Zimmer sehr, weil …\n"
-                    "8. Das ist mein Zimmer. Ich bin gern in meinem Zimmer.",
+                    "8. Das ist mein Zimmer. Ich bin gern in meinem Zimmer.\n\n"
+                    "Namuna (kitob): Ich heiße Aziz. Das ist mein Zimmer. Mein Zimmer ist groß, modern und sehr gemütlich. In meinem Zimmer gibt es "
+                    "ein Bett, einen Schreibtisch, einen Stuhl, einen Kleiderschrank und ein Regal. Mein Bett steht neben meinem Fenster. Auf meinem "
+                    "Schreibtisch stehen mein Laptop, meine Bücher, mein Heft und meine Lampe. Neben meinem Bett steht mein Rucksack. Über dem Bett "
+                    "hängt ein Poster. An der Wand hängen meine Fotos und ein Kalender. Auf meinem Regal stehen meine Trophäen, meine Spiele und mein "
+                    "Fußball. Die Wände sind hellblau, das macht mein Zimmer hell. Ich lerne, höre Musik und spiele Fußball in meinem Zimmer. "
+                    "Ich mag mein Zimmer sehr, weil es schön, sauber und ruhig ist. Das ist mein Zimmer. Ich bin gern in meinem Zimmer!",
              task_type="description", min_words=40, max_words=120, time_limit=20,
              support_phrases=["In meinem Zimmer gibt es …", "Auf meinem Tisch liegen …", "Neben meinem Bett steht …", "An der Wand hängen …",
                               "Ich mag mein Zimmer sehr, weil …"]),
@@ -130,8 +206,10 @@ def items() -> list[dict]:
              response_type="monolog", min_duration=30, max_duration=120,
              speech_goal="Das eigene Zimmer beschreiben: Größe, Möbel und ihr Ort (neben / auf / an), Farben und einen Grund (weil …).",
              keywords=["mein", "in meinem Zimmer", "es gibt", "neben", "auf", "weil"]),
-        base(L, "wortschatz", 1, "Wortschatz Modul 4: Zimmer & Möbel", page="44, 46", words=WORDS),
-        base(L, "yakuniy", 1, "Yakuniy Test: Modul 4", source="vizu",
+        base(L, "wortschatz", 1, "Wortschatz Modul 4: Zimmer & Möbel", page="44, 46", words=WORDS, exercises=WORTSCHATZ_SETS, auto_practice=False),
+        base(L, "schreiben_uebungen", 1, "Schreiben: Mein Zimmer von Aziz", page=44, exercises=SCHREIBEN_SETS),
+        base(L, "uebungen", 1, "Übungen Modul 4", exercises=UEBUNGEN_SETS, source="vizu"),
+        base(L, "yakuniy", 1, "Abschlusstest: Modul 4", source="vizu",
              instruction="Possessivpronomen va xona so'zlari bo'yicha yakuniy test.",
              questions=[
                  choice_gap("Das ist ___ Zimmer. (mening)", ["mein", "meine", "meinen"], "mein"),
@@ -147,4 +225,5 @@ def items() -> list[dict]:
                  match("Was passt zusammen?", ["der Flur", "das Badezimmer", "der Balkon", "hell"],
                        ["yo'lak", "hammom", "balkon", "yorug'", "kichik"], {"1": "A", "2": "B", "3": "C", "4": "D"}),
              ]),
+        base(L, "kompetenz", 2, "Zusammenfassung: Modul 4", source="vizu", competency="ZUSAMMENFASSUNG", html=ZUSAMMENFASSUNG_HTML),
     ]

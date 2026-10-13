@@ -1,8 +1,22 @@
 {
- "schema_version": "1.1",
+ "schema_version": "1.2",
  "language": "de",
  "source": "vizu-deutsch-a1-book",
  "items": [
+  {
+   "content_id": "vizu-a1-l04-kompetenz-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 4,
+   "skill": "kompetenz",
+   "title": "Einführung: Modul 4",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 38
+   },
+   "competency": "EINFUEHRUNG",
+   "html": "<h3>Modul 4 — Mein Zimmer ist gemütlich</h3><p><strong>Mavzu:</strong> Mein Zimmer ist gemütlich · <strong>Grammatik:</strong> Possessivpronomen (egalik olmoshlari)</p><h4>Dars maqsadlari</h4><ul><li>egalik olmoshlarini bilish: mein, dein, sein, ihr, unser, euer, Ihr;</li><li>ularni kelishiklar bo'yicha o'zgartirish: mein / meine / meinen / meinem …;</li><li>xonalar va mebel nomlarini (das Schlafzimmer, die Küche, der Schreibtisch …) o'rganish;</li><li>narsalarning joyini aytish: auf, neben, an, über.</li></ul><h4>Dars oxirida siz quyidagilarni bajara olasiz</h4><ul><li>„Das ist mein Zimmer. In meinem Zimmer gibt es ein Bett …“ — xonangizni tasvirlaysiz;</li><li>„Ist das dein Handy? — Ja, das ist mein Handy.“ kabi savol-javob qilasiz;</li><li>Niko, Maria va Albertning xonalari haqidagi matnlarni o'qib tushunasiz;</li><li>Alexning xonasi haqidagi matnni tinglab, savollarga javob berasiz.</li></ul><h4>Darsning tuzilishi</h4><p>Einführung → Wortschatz → Grammatik → Lesen → Hören → Sprechen → Schreiben → Übungen → Abschlusstest → Zusammenfassung</p>"
+  },
   {
    "content_id": "vizu-a1-l04-frage-01",
    "level": "A1",
@@ -575,7 +589,7 @@
    "metadata": {
     "book_page": 44
    },
-   "prompt": "Beschreiben Sie Ihr Zimmer (O'z xonangizni tasvirlang!). Schreiben Sie einfache Sätze:\n1. Kirish: Ich heiße … Das ist mein Zimmer.\n2. Mein Zimmer ist … (groß / klein / schön / gemütlich / modern).\n3. In meinem Zimmer gibt es … (ein Bett, einen Tisch, einen Schrank …).\n4. Mein Bett steht … Auf meinem Tisch liegen … Neben … steht … Über … hängt …\n5. Die Wände sind … An der Wand hängen … Mein Zimmer ist hell / bunt / modern.\n6. Ich lerne / lese / höre Musik / spiele … in meinem Zimmer.\n7. Ich mag mein Zimmer sehr, weil …\n8. Das ist mein Zimmer. Ich bin gern in meinem Zimmer.",
+   "prompt": "Beschreiben Sie Ihr Zimmer (O'z xonangizni tasvirlang!). Schreiben Sie einfache Sätze:\n1. Kirish: Ich heiße … Das ist mein Zimmer.\n2. Mein Zimmer ist … (groß / klein / schön / gemütlich / modern).\n3. In meinem Zimmer gibt es … (ein Bett, einen Tisch, einen Schrank …).\n4. Mein Bett steht … Auf meinem Tisch liegen … Neben … steht … Über … hängt …\n5. Die Wände sind … An der Wand hängen … Mein Zimmer ist hell / bunt / modern.\n6. Ich lerne / lese / höre Musik / spiele … in meinem Zimmer.\n7. Ich mag mein Zimmer sehr, weil …\n8. Das ist mein Zimmer. Ich bin gern in meinem Zimmer.\n\nNamuna (kitob): Ich heiße Aziz. Das ist mein Zimmer. Mein Zimmer ist groß, modern und sehr gemütlich. In meinem Zimmer gibt es ein Bett, einen Schreibtisch, einen Stuhl, einen Kleiderschrank und ein Regal. Mein Bett steht neben meinem Fenster. Auf meinem Schreibtisch stehen mein Laptop, meine Bücher, mein Heft und meine Lampe. Neben meinem Bett steht mein Rucksack. Über dem Bett hängt ein Poster. An der Wand hängen meine Fotos und ein Kalender. Auf meinem Regal stehen meine Trophäen, meine Spiele und mein Fußball. Die Wände sind hellblau, das macht mein Zimmer hell. Ich lerne, höre Musik und spiele Fußball in meinem Zimmer. Ich mag mein Zimmer sehr, weil es schön, sauber und ruhig ist. Das ist mein Zimmer. Ich bin gern in meinem Zimmer!",
    "task_type": "description",
    "min_words": 40,
    "max_words": 120,
@@ -770,6 +784,890 @@
      "translation": "tinch",
      "group": "Schreiben: yangi so'zlar"
     }
+   ],
+   "exercises": [
+    {
+     "title": "Zuordnung 1",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Zimmer — xonalar 1)",
+       "items": [
+        "das Schlafzimmer",
+        "das Wohnzimmer",
+        "die Küche",
+        "das Badezimmer",
+        "das Kinderzimmer",
+        "das Arbeitszimmer"
+       ],
+       "targets": [
+        "yotoqxona",
+        "mehmonxona",
+        "oshxona",
+        "hammom",
+        "bolalar xonasi",
+        "ish xonasi",
+        "yo'lak"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Zimmer — xonalar 2)",
+       "items": [
+        "der Flur",
+        "das Esszimmer",
+        "der Balkon",
+        "der Garten"
+       ],
+       "targets": [
+        "yo'lak",
+        "ovqatlanish xonasi",
+        "balkon",
+        "bog'",
+        "yotoqxona"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D"
+       },
+       "points": 4,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Nützliche Wörter — foydali so'zlar)",
+       "items": [
+        "schön",
+        "sauber",
+        "groß",
+        "klein",
+        "hell",
+        "gemütlich"
+       ],
+       "targets": [
+        "chiroyli",
+        "toza",
+        "katta",
+        "kichik",
+        "yorug'",
+        "qulay",
+        "yotoqxona"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Zuordnung 2",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Schreiben: yangi so'zlar)",
+       "items": [
+        "modern",
+        "der Kleiderschrank",
+        "das Regal",
+        "der Schreibtisch",
+        "der Rucksack",
+        "der Kalender",
+        "die Trophäe",
+        "ruhig"
+       ],
+       "targets": [
+        "zamonaviy",
+        "kiyim shkafi",
+        "javon",
+        "yozuv stoli",
+        "ryukzak",
+        "taqvim",
+        "sovrin (kubok)",
+        "tinch",
+        "yotoqxona"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F",
+        "7": "G",
+        "8": "H"
+       },
+       "points": 8,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Der, die oder das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Schlafzimmer (yotoqxona)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Wohnzimmer (mehmonxona)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Küche (oshxona)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Badezimmer (hammom)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Kinderzimmer (bolalar xonasi)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Arbeitszimmer (ish xonasi)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Flur (yo'lak)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Esszimmer (ovqatlanish xonasi)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Balkon (balkon)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Garten (bog')",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "So'zning artiklini tanlang (kitobdagi lug'at bo'yicha)."
+    }
+   ],
+   "auto_practice": false
+  },
+  {
+   "content_id": "vizu-a1-l04-schreiben_uebungen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 4,
+   "skill": "schreiben_uebungen",
+   "title": "Schreiben: Mein Zimmer von Aziz",
+   "source": "book",
+   "metadata": {
+    "book_page": 44
+   },
+   "exercises": [
+    {
+     "title": "Mein Zimmer von Aziz — mein, meine, meinem?",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie den Text von Aziz.",
+       "text": "Ich heiße Aziz. Das ist [[1]] Zimmer. [[2]] Zimmer ist groß, modern und sehr gemütlich.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "mein"
+         ],
+         "options": [
+          "mein",
+          "meine",
+          "meinem",
+          "meinen"
+         ]
+        },
+        "2": {
+         "accepted": [
+          "Mein"
+         ],
+         "options": [
+          "Mein",
+          "Meine",
+          "Meinem"
+         ]
+        }
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie den Text von Aziz.",
+       "text": "In [[1]] Zimmer gibt es ein Bett, einen Schreibtisch, einen Stuhl, einen Kleiderschrank und ein Regal.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "meinem"
+         ],
+         "options": [
+          "mein",
+          "meine",
+          "meinem",
+          "meinen"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "in + Dativ, Neutrum: in meinem Zimmer."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie den Text von Aziz.",
+       "text": "[[1]] Bett steht neben [[2]] Fenster.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "Mein"
+         ],
+         "options": [
+          "Mein",
+          "Meine",
+          "Meinen"
+         ]
+        },
+        "2": {
+         "accepted": [
+          "meinem"
+         ],
+         "options": [
+          "mein",
+          "meine",
+          "meinem",
+          "meinen"
+         ]
+        }
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "neben + Dativ: neben meinem Fenster."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie den Text von Aziz.",
+       "text": "Auf [[1]] Schreibtisch stehen [[2]] Laptop, [[3]] Bücher, [[4]] Heft und [[5]] Lampe.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "meinem"
+         ],
+         "options": [
+          "mein",
+          "meine",
+          "meinem",
+          "meinen"
+         ]
+        },
+        "2": {
+         "accepted": [
+          "mein"
+         ],
+         "options": [
+          "mein",
+          "meine",
+          "meinem",
+          "meinen"
+         ]
+        },
+        "3": {
+         "accepted": [
+          "meine"
+         ],
+         "options": [
+          "mein",
+          "meine",
+          "meinem",
+          "meinen"
+         ]
+        },
+        "4": {
+         "accepted": [
+          "mein"
+         ],
+         "options": [
+          "mein",
+          "meine",
+          "meinem",
+          "meinen"
+         ]
+        },
+        "5": {
+         "accepted": [
+          "meine"
+         ],
+         "options": [
+          "mein",
+          "meine",
+          "meinem",
+          "meinen"
+         ]
+        }
+       },
+       "points": 5,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "der Laptop → mein, die Bücher → meine, das Heft → mein, die Lampe → meine."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie den Text von Aziz.",
+       "text": "Neben [[1]] Bett steht [[2]] Rucksack. An der Wand hängen [[3]] Fotos und ein Kalender.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "meinem"
+         ],
+         "options": [
+          "mein",
+          "meine",
+          "meinem",
+          "meinen"
+         ]
+        },
+        "2": {
+         "accepted": [
+          "mein"
+         ],
+         "options": [
+          "mein",
+          "meine",
+          "meinem",
+          "meinen"
+         ]
+        },
+        "3": {
+         "accepted": [
+          "meine"
+         ],
+         "options": [
+          "mein",
+          "meine",
+          "meinem",
+          "meinen"
+         ]
+        }
+       },
+       "points": 3,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie den Text von Aziz.",
+       "text": "Ich mag [[1]] Zimmer sehr, weil es schön, sauber und ruhig ist. Ich bin gern in [[2]] Zimmer!",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "mein"
+         ],
+         "options": [
+          "mein",
+          "meine",
+          "meinem",
+          "meinen"
+         ]
+        },
+        "2": {
+         "accepted": [
+          "meinem"
+         ],
+         "options": [
+          "mein",
+          "meine",
+          "meinem",
+          "meinen"
+         ]
+        }
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "Kitobdagi namuna matn (44-bet) — egalik olmoshini to'g'ri shaklda tanlang."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l04-uebungen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 4,
+   "skill": "uebungen",
+   "title": "Übungen Modul 4",
+   "source": "vizu",
+   "exercises": [
+    {
+     "title": "Wessen Zimmer ist das? (Lesen)",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Niko sagt: „Das ist [[1]] Zimmer.“",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "mein"
+         ],
+         "options": [
+          "mein",
+          "sein",
+          "ihr"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Niko spricht über sich: mein Zimmer."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Maria ist Nikos Schwester. Das ist [[1]] Zimmer.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "ihr"
+         ],
+         "options": [
+          "ihr",
+          "sein",
+          "mein"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Maria (sie) → ihr Zimmer."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Albert ist Nikos Bruder. Das ist [[1]] Zimmer.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "sein"
+         ],
+         "options": [
+          "sein",
+          "ihr",
+          "dein"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Albert (er) → sein Zimmer."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Auf [[1]] Tisch liegen Marias Bücher.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "ihrem"
+         ],
+         "options": [
+          "ihrem",
+          "seinem",
+          "ihren"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "auf + Dativ, der Tisch, Maria: auf ihrem Tisch."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Albert macht [[1]] Hausaufgaben in seinem Zimmer.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "seine"
+         ],
+         "options": [
+          "seine",
+          "sein",
+          "seinen"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "die Hausaufgaben (Plural, Akkusativ): seine."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Tom und Anna, ist das [[1]] Haus?",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "euer"
+         ],
+         "options": [
+          "euer",
+          "eure",
+          "unser"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "ihr → euer; das Haus → euer Haus."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Frau Müller, ist das [[1]] Tasche?",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "Ihre"
+         ],
+         "options": [
+          "Ihre",
+          "Ihr",
+          "deine"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Sie (formell) → Ihr; die Tasche → Ihre Tasche."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Wir wohnen in [[1]] Wohnung.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "unserer"
+         ],
+         "options": [
+          "unserer",
+          "unsere",
+          "unserem"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "in + Dativ, die Wohnung: in unserer Wohnung."
+      }
+     ],
+     "instruction": "Kimniki? Egalik olmoshini tanlang."
+    },
+    {
+     "title": "Nemischa qanday?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "„mehmonxona“ — nemischa qanday?",
+       "options": [
+        "das Wohnzimmer",
+        "der Schreibtisch",
+        "das Schlafzimmer"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„bolalar xonasi“ — nemischa qanday?",
+       "options": [
+        "der Garten",
+        "der Schreibtisch",
+        "das Kinderzimmer"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„ovqatlanish xonasi“ — nemischa qanday?",
+       "options": [
+        "das Schlafzimmer",
+        "das Esszimmer",
+        "der Rucksack"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„chiroyli“ — nemischa qanday?",
+       "options": [
+        "schön",
+        "klein",
+        "ruhig"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„kichik“ — nemischa qanday?",
+       "options": [
+        "ruhig",
+        "sauber",
+        "klein"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„zamonaviy“ — nemischa qanday?",
+       "options": [
+        "modern",
+        "sauber",
+        "klein"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„yozuv stoli“ — nemischa qanday?",
+       "options": [
+        "der Rucksack",
+        "der Schreibtisch",
+        "die Küche"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„sovrin (kubok)“ — nemischa qanday?",
+       "options": [
+        "das Regal",
+        "die Trophäe",
+        "das Badezimmer"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "O'zbekcha so'zning nemischasini tanlang."
+    }
    ]
   },
   {
@@ -778,7 +1676,7 @@
    "module": 1,
    "lesson": 4,
    "skill": "yakuniy",
-   "title": "Yakuniy Test: Modul 4",
+   "title": "Abschlusstest: Modul 4",
    "source": "vizu",
    "instruction": "Possessivpronomen va xona so'zlari bo'yicha yakuniy test.",
    "questions": [
@@ -963,6 +1861,17 @@
      "passage": 1
     }
    ]
+  },
+  {
+   "content_id": "vizu-a1-l04-kompetenz-02",
+   "level": "A1",
+   "module": 1,
+   "lesson": 4,
+   "skill": "kompetenz",
+   "title": "Zusammenfassung: Modul 4",
+   "source": "vizu",
+   "competency": "ZUSAMMENFASSUNG",
+   "html": "<h3>Modul 4 — qisqacha</h3><ul><li><strong>Possessivpronomen:</strong> ich → mein, du → dein, er / es → sein, sie → ihr, wir → unser, ihr → euer, sie → ihr, Sie → Ihr.</li><li><strong>Endungen (mein):</strong> Nominativ mein / meine / mein / meine · Akkusativ meinen / meine / mein / meine · Dativ meinem / meiner / meinem / meinen · Genitiv meines / meiner / meines / meiner.</li><li><strong>Mein Zimmer:</strong> In meinem Zimmer gibt es … · Auf meinem Tisch liegen … · Neben meinem Bett steht … · An der Wand hängen …</li><li><strong>Wortschatz:</strong> das Schlafzimmer, das Wohnzimmer, die Küche, das Badezimmer, der Flur, der Schreibtisch, das Regal, gemütlich, hell.</li></ul><p>Natijalaringiz pastda — tugallanmagan bo'limlarni yakunlang, so'ng keyingi darsga o'ting.</p>"
   }
  ]
 }

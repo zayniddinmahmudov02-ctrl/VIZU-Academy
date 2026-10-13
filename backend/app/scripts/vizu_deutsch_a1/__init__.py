@@ -140,3 +140,98 @@ def gap_paragraphs(question: str, text: str, gaps: dict) -> list[dict]:
             continue
         out.append(gap(f"{question} ({n})", para, {i: gaps[i] for i in ids}, points=len(ids)))
     return out
+
+
+# ---------- lesson standard (Einführung / Zusammenfassung, vocabulary practice) ----------
+
+STRUCTURE = "Einführung → Wortschatz → Grammatik → Lesen → Hören → Sprechen → Schreiben → Übungen → Abschlusstest → Zusammenfassung"
+
+
+def pairs(n: int) -> dict:
+    return {str(i): "ABCDEFGHIJKL"[i - 1] for i in range(1, n + 1)}
+
+
+def intro_html(n: int, topic: str, grammar: str, goals: list[str], can_do: list[str]) -> str:
+    return (
+        f"<h3>Modul {n} — {topic}</h3>"
+        f"<p><strong>Mavzu:</strong> {topic} · <strong>Grammatik:</strong> {grammar}</p>"
+        "<h4>Dars maqsadlari</h4>" + ul(goals)
+        + "<h4>Dars oxirida siz quyidagilarni bajara olasiz</h4>" + ul(can_do)
+        + f"<h4>Darsning tuzilishi</h4><p>{STRUCTURE}</p>"
+    )
+
+
+def summary_html(n: int, points: list[str]) -> str:
+    return (f"<h3>Modul {n} — qisqacha</h3>" + ul(points)
+            + "<p>Natijalaringiz pastda — tugallanmagan bo'limlarni yakunlang, so'ng keyingi darsga o'ting.</p>")
+
+
+def _label(w: dict) -> str:
+    return f"{w['article']} {w['word']}" if w.get("article") else w["word"]
+
+
+def _unique_words(word_list: list[dict]) -> list[dict]:
+    """Words whose label and translation are both unique in the list — a
+    matching / choice question about them has exactly one right answer."""
+    labels: dict[str, int] = {}
+    trans: dict[str, int] = {}
+    for w in word_list:
+        labels[_label(w).lower()] = labels.get(_label(w).lower(), 0) + 1
+        trans[w["translation"].lower()] = trans.get(w["translation"].lower(), 0) + 1
+    return [w for w in word_list if labels[_label(w).lower()] == 1 and trans[w["translation"].lower()] == 1]
+
+
+def vocab_match_sets(word_list: list[dict], per_question: int = 6, per_set: int = 3) -> list[dict]:
+    """Matching questions German -> translation per book group (chunks of
+    `per_question`, one extra distractor from the same list), grouped into
+    exercise sets of `per_set` questions."""
+    words_ = _unique_words(word_list)
+    questions = []
+    groups: dict[str, list[dict]] = {}
+    for w in words_:
+        groups.setdefault(w.get("group") or "Wörter", []).append(w)
+    all_tr = [w["translation"] for w in words_]
+    for group, ws in groups.items():
+        chunks = [ws[i:i + per_question] for i in range(0, len(ws), per_question)]
+        if len(chunks) > 1 and len(chunks[-1]) < 3:
+            chunks[-2].extend(chunks.pop())
+        for c, chunk in enumerate(chunks, start=1):
+            chunk = chunk[:10]
+            own = [w["translation"] for w in chunk]
+            distractor = next((t for t in all_tr if t not in own), None)
+            targets = own + ([distractor] if distractor else [])
+            title = f"Was passt zusammen? ({group}{f' {c}' if len(chunks) > 1 else ''})"
+            questions.append(match(title, [_label(w) for w in chunk], targets, pairs(len(chunk)), points=len(chunk)))
+    sets = [questions[i:i + per_set] for i in range(0, len(questions), per_set)]
+    return [exercise(f"Zuordnung {i}" if len(sets) > 1 else "Zuordnung", qs, "Nemischa so'zni tarjimasi bilan moslashtiring.", source="vizu")
+            for i, qs in enumerate(sets, start=1)]
+
+
+def article_set(word_list: list[dict], limit: int = 10) -> dict | None:
+    """der / die / das for the nouns of the word list (evenly spread)."""
+    nouns = [w for w in _unique_words(word_list) if w.get("article") in ("der", "die", "das")]
+    if len(nouns) < 4:
+        return None
+    step = max(1, len(nouns) // limit)
+    picked = nouns[::step][:limit]
+    return exercise("Der, die oder das?", [choice_gap(f"___ {w['word']} ({w['translation']})", ["der", "die", "das"], w["article"]) for w in picked],
+                    "So'zning artiklini tanlang (kitobdagi lug'at bo'yicha).", source="vizu")
+
+
+def reverse_vocab_set(word_list: list[dict], limit: int = 8, title: str = "Nemischa qanday?") -> dict | None:
+    """'„translation“ — nemischa qanday?' with two distractors from the list."""
+    import hashlib
+
+    words_ = _unique_words(word_list)
+    if len(words_) < 3:
+        return None
+    step = max(1, len(words_) // limit)
+    picked = words_[1::step][:limit] if len(words_) > limit else words_[:limit]
+    questions = []
+    for w in picked:
+        others = [o for o in words_ if o is not w and bool(o.get("article")) == bool(w.get("article"))] or [o for o in words_ if o is not w]
+        others.sort(key=lambda o: hashlib.sha256(f"{w['word']}:{o['word']}".encode()).hexdigest())
+        options = [_label(w), _label(others[0]), _label(others[1])]
+        options.sort(key=lambda o: hashlib.sha256(f"{o}:{w['word']}".encode()).hexdigest())
+        questions.append(mc(f"„{w['translation']}“ — nemischa qanday?", options, chr(65 + options.index(_label(w)))))
+    return exercise(title, questions, "O'zbekcha so'zning nemischasini tanlang.", source="vizu")

@@ -1,8 +1,22 @@
 {
- "schema_version": "1.1",
+ "schema_version": "1.2",
  "language": "de",
  "source": "vizu-deutsch-a1-book",
  "items": [
+  {
+   "content_id": "vizu-a1-l03-kompetenz-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 3,
+   "skill": "kompetenz",
+   "title": "Einführung: Modul 3",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 27
+   },
+   "competency": "EINFUEHRUNG",
+   "html": "<h3>Modul 3 — Das Leben in der Stadt</h3><p><strong>Mavzu:</strong> Das Leben in der Stadt · <strong>Grammatik:</strong> haben und sein, bestimmte und unbestimmte Artikel</p><h4>Dars maqsadlari</h4><ul><li>„haben“ (ega bo'lmoq) va „sein“ (bo'lmoq) fe'llarini barcha shaxslarda tuslash;</li><li>aniq (der / die / das) va noaniq (ein / eine) artikllarni Nominativ, Akkusativ, Dativ va Genitivda ishlatish;</li><li>restoran va shahar hayotiga oid so'zlarni o'rganish;</li><li>restoranda stol, menyu, taom va hisobni so'rash.</li></ul><h4>Dars oxirida siz quyidagilarni bajara olasiz</h4><ul><li>„Ich habe Hunger. Ich bin müde. Wir sind zu Hause.“ kabi gaplarni tuzasiz;</li><li>„Ich sehe den Mann. Ich gebe der Frau einen Apfel.“ — artiklni to'g'ri tanlaysiz;</li><li>Tom va Anna haqidagi matnlarni o'qib, savollarga javob berasiz;</li><li>restorandagi dialoglarni tinglab tushunasiz va o'zingiz mehmon sifatida gapira olasiz.</li></ul><h4>Darsning tuzilishi</h4><p>Einführung → Wortschatz → Grammatik → Lesen → Hören → Sprechen → Schreiben → Übungen → Abschlusstest → Zusammenfassung</p>"
+  },
   {
    "content_id": "vizu-a1-l03-frage-01",
    "level": "A1",
@@ -19,6 +33,961 @@
    "max_duration": 90
   },
   {
+   "content_id": "vizu-a1-l03-wortschatz-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 3,
+   "skill": "wortschatz",
+   "title": "Wortschatz Modul 3",
+   "source": "book",
+   "metadata": {
+    "book_page": 37
+   },
+   "words": [
+    {
+     "word": "Mann",
+     "translation": "odam, erkak",
+     "article": "der",
+     "group": "Shaxslar va kasblar"
+    },
+    {
+     "word": "Frau",
+     "translation": "ayol",
+     "article": "die",
+     "group": "Shaxslar va kasblar"
+    },
+    {
+     "word": "Kind",
+     "translation": "bola",
+     "article": "das",
+     "group": "Shaxslar va kasblar"
+    },
+    {
+     "word": "Vater",
+     "translation": "ota",
+     "article": "der",
+     "group": "Shaxslar va kasblar"
+    },
+    {
+     "word": "Mutter",
+     "translation": "ona",
+     "article": "die",
+     "group": "Shaxslar va kasblar"
+    },
+    {
+     "word": "Freund",
+     "translation": "do'st (erkak)",
+     "article": "der",
+     "group": "Shaxslar va kasblar"
+    },
+    {
+     "word": "Freundin",
+     "translation": "do'st (ayol)",
+     "article": "die",
+     "group": "Shaxslar va kasblar"
+    },
+    {
+     "word": "Kinder",
+     "translation": "bolalar",
+     "article": "die",
+     "group": "Shaxslar va kasblar"
+    },
+    {
+     "word": "Kellner",
+     "translation": "ofitsant",
+     "article": "der",
+     "group": "Shaxslar va kasblar"
+    },
+    {
+     "word": "Kellnerin",
+     "translation": "ofitsant ayol",
+     "article": "die",
+     "group": "Shaxslar va kasblar"
+    },
+    {
+     "word": "haben",
+     "translation": "ega bo'lmoq",
+     "group": "Fe'llar (A1 daraja)"
+    },
+    {
+     "word": "sein",
+     "translation": "bo'lmoq",
+     "group": "Fe'llar (A1 daraja)"
+    },
+    {
+     "word": "lesen",
+     "translation": "o'qimoq",
+     "group": "Fe'llar (A1 daraja)"
+    },
+    {
+     "word": "sehen",
+     "translation": "ko'rmoq",
+     "group": "Fe'llar (A1 daraja)"
+    },
+    {
+     "word": "geben",
+     "translation": "berish",
+     "group": "Fe'llar (A1 daraja)"
+    },
+    {
+     "word": "nehmen",
+     "translation": "olish",
+     "group": "Fe'llar (A1 daraja)"
+    },
+    {
+     "word": "arbeiten",
+     "translation": "ishlamoq",
+     "group": "Fe'llar (A1 daraja)"
+    },
+    {
+     "word": "kochen",
+     "translation": "pishirmoq",
+     "group": "Fe'llar (A1 daraja)"
+    },
+    {
+     "word": "trinken",
+     "translation": "ichmoq",
+     "group": "Fe'llar (A1 daraja)"
+    },
+    {
+     "word": "essen",
+     "translation": "yeymoq",
+     "group": "Fe'llar (A1 daraja)"
+    },
+    {
+     "word": "bezahlen",
+     "translation": "to'lamoq",
+     "group": "Fe'llar (A1 daraja)"
+    },
+    {
+     "word": "finden",
+     "translation": "topmoq",
+     "group": "Fe'llar (A1 daraja)"
+    },
+    {
+     "word": "schlafen",
+     "translation": "uxlamoq",
+     "group": "Fe'llar (A1 daraja)"
+    },
+    {
+     "word": "lernen",
+     "translation": "o'rganmoq",
+     "group": "Fe'llar (A1 daraja)"
+    },
+    {
+     "word": "mögen",
+     "translation": "yoqtirmoq",
+     "group": "Fe'llar (A1 daraja)"
+    },
+    {
+     "word": "brauchen",
+     "translation": "kerak bo'lmoq",
+     "group": "Fe'llar (A1 daraja)"
+    },
+    {
+     "word": "es gibt",
+     "translation": "bor bo'lmoq",
+     "group": "Fe'llar (A1 daraja)"
+    },
+    {
+     "word": "gut",
+     "translation": "yaxshi",
+     "group": "Sifatlar va boshqa so'zlar"
+    },
+    {
+     "word": "lecker",
+     "translation": "mazali",
+     "group": "Sifatlar va boshqa so'zlar"
+    },
+    {
+     "word": "frisch",
+     "translation": "yangi",
+     "group": "Sifatlar va boshqa so'zlar"
+    },
+    {
+     "word": "groß",
+     "translation": "katta",
+     "group": "Sifatlar va boshqa so'zlar"
+    },
+    {
+     "word": "klein",
+     "translation": "kichik",
+     "group": "Sifatlar va boshqa so'zlar"
+    },
+    {
+     "word": "schön",
+     "translation": "chiroyli",
+     "group": "Sifatlar va boshqa so'zlar"
+    },
+    {
+     "word": "sauber",
+     "translation": "toza",
+     "group": "Sifatlar va boshqa so'zlar"
+    },
+    {
+     "word": "freundlich",
+     "translation": "do'stona, samimiy",
+     "group": "Sifatlar va boshqa so'zlar"
+    },
+    {
+     "word": "beschäftigt",
+     "translation": "band, ishlaydigan",
+     "group": "Sifatlar va boshqa so'zlar"
+    },
+    {
+     "word": "müde",
+     "translation": "charchagan",
+     "group": "Sifatlar va boshqa so'zlar"
+    },
+    {
+     "word": "zufrieden",
+     "translation": "mamnun",
+     "group": "Sifatlar va boshqa so'zlar"
+    },
+    {
+     "word": "hungrig",
+     "translation": "och",
+     "group": "Sifatlar va boshqa so'zlar"
+    },
+    {
+     "word": "durstig",
+     "translation": "chanqoq",
+     "group": "Sifatlar va boshqa so'zlar"
+    },
+    {
+     "word": "glücklich",
+     "translation": "baxtli",
+     "group": "Sifatlar va boshqa so'zlar"
+    },
+    {
+     "word": "voll",
+     "translation": "to'la, gavjum",
+     "group": "Sifatlar va boshqa so'zlar"
+    },
+    {
+     "word": "schnell",
+     "translation": "tez",
+     "group": "Sifatlar va boshqa so'zlar"
+    },
+    {
+     "word": "manchmal",
+     "translation": "ba'zan",
+     "group": "Sifatlar va boshqa so'zlar"
+    },
+    {
+     "word": "Buch",
+     "translation": "kitob",
+     "article": "das",
+     "group": "Buyumlar va narsalar"
+    },
+    {
+     "word": "Auto",
+     "translation": "mashina",
+     "article": "das",
+     "group": "Buyumlar va narsalar"
+    },
+    {
+     "word": "Handy",
+     "translation": "telefon",
+     "article": "das",
+     "group": "Buyumlar va narsalar"
+    },
+    {
+     "word": "Schlüssel",
+     "translation": "kalit",
+     "article": "der",
+     "group": "Buyumlar va narsalar"
+    },
+    {
+     "word": "Stift",
+     "translation": "ruchka",
+     "article": "der",
+     "group": "Buyumlar va narsalar"
+    },
+    {
+     "word": "Spielzeug",
+     "translation": "o'yinchoq",
+     "article": "das",
+     "group": "Buyumlar va narsalar"
+    },
+    {
+     "word": "Lampe",
+     "translation": "chiroq",
+     "article": "die",
+     "group": "Buyumlar va narsalar"
+    },
+    {
+     "word": "Kleid",
+     "translation": "ko'ylak",
+     "article": "das",
+     "group": "Buyumlar va narsalar"
+    },
+    {
+     "word": "Restaurant",
+     "translation": "restoran",
+     "article": "das",
+     "group": "Mehmonxona / restoran so'zlari"
+    },
+    {
+     "word": "Tisch",
+     "translation": "stol",
+     "article": "der",
+     "group": "Mehmonxona / restoran so'zlari"
+    },
+    {
+     "word": "Stuhl",
+     "translation": "stul",
+     "article": "der",
+     "group": "Mehmonxona / restoran so'zlari"
+    },
+    {
+     "word": "Speisekarte",
+     "translation": "menyu",
+     "article": "die",
+     "group": "Mehmonxona / restoran so'zlari"
+    },
+    {
+     "word": "Essen",
+     "translation": "taom",
+     "article": "das",
+     "group": "Mehmonxona / restoran so'zlari"
+    },
+    {
+     "word": "Getränk",
+     "translation": "ichimlik",
+     "article": "das",
+     "group": "Mehmonxona / restoran so'zlari"
+    },
+    {
+     "word": "Rechnung",
+     "translation": "hisob",
+     "article": "die",
+     "group": "Mehmonxona / restoran so'zlari"
+    },
+    {
+     "word": "Kaffee",
+     "translation": "qahva",
+     "article": "der",
+     "group": "Mehmonxona / restoran so'zlari"
+    },
+    {
+     "word": "Saft",
+     "translation": "sharbat",
+     "article": "der",
+     "group": "Mehmonxona / restoran so'zlari"
+    },
+    {
+     "word": "Wasser",
+     "translation": "suv",
+     "article": "das",
+     "group": "Mehmonxona / restoran so'zlari"
+    },
+    {
+     "word": "Brot",
+     "translation": "non",
+     "article": "das",
+     "group": "Mehmonxona / restoran so'zlari"
+    },
+    {
+     "word": "Pizza",
+     "translation": "pitsa",
+     "article": "die",
+     "group": "Mehmonxona / restoran so'zlari"
+    },
+    {
+     "word": "Schnitzel",
+     "translation": "schnitzel",
+     "article": "das",
+     "group": "Mehmonxona / restoran so'zlari"
+    },
+    {
+     "word": "Pommes",
+     "translation": "kartoshka frit",
+     "article": "die",
+     "group": "Mehmonxona / restoran so'zlari"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "Zuordnung 1",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Shaxslar va kasblar 1)",
+       "items": [
+        "der Mann",
+        "die Frau",
+        "das Kind",
+        "der Vater",
+        "die Mutter",
+        "der Freund"
+       ],
+       "targets": [
+        "odam, erkak",
+        "ayol",
+        "bola",
+        "ota",
+        "ona",
+        "do'st (erkak)",
+        "do'st (ayol)"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Shaxslar va kasblar 2)",
+       "items": [
+        "die Freundin",
+        "die Kinder",
+        "der Kellner",
+        "die Kellnerin"
+       ],
+       "targets": [
+        "do'st (ayol)",
+        "bolalar",
+        "ofitsant",
+        "ofitsant ayol",
+        "odam, erkak"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D"
+       },
+       "points": 4,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Fe'llar (A1 daraja) 1)",
+       "items": [
+        "haben",
+        "sein",
+        "lesen",
+        "sehen",
+        "geben",
+        "nehmen"
+       ],
+       "targets": [
+        "ega bo'lmoq",
+        "bo'lmoq",
+        "o'qimoq",
+        "ko'rmoq",
+        "berish",
+        "olish",
+        "odam, erkak"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Zuordnung 2",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Fe'llar (A1 daraja) 2)",
+       "items": [
+        "arbeiten",
+        "kochen",
+        "trinken",
+        "essen",
+        "bezahlen",
+        "finden"
+       ],
+       "targets": [
+        "ishlamoq",
+        "pishirmoq",
+        "ichmoq",
+        "yeymoq",
+        "to'lamoq",
+        "topmoq",
+        "odam, erkak"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Fe'llar (A1 daraja) 3)",
+       "items": [
+        "schlafen",
+        "lernen",
+        "mögen",
+        "brauchen",
+        "es gibt"
+       ],
+       "targets": [
+        "uxlamoq",
+        "o'rganmoq",
+        "yoqtirmoq",
+        "kerak bo'lmoq",
+        "bor bo'lmoq",
+        "odam, erkak"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E"
+       },
+       "points": 5,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Sifatlar va boshqa so'zlar 1)",
+       "items": [
+        "gut",
+        "lecker",
+        "frisch",
+        "groß",
+        "klein",
+        "schön"
+       ],
+       "targets": [
+        "yaxshi",
+        "mazali",
+        "yangi",
+        "katta",
+        "kichik",
+        "chiroyli",
+        "odam, erkak"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Zuordnung 3",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Sifatlar va boshqa so'zlar 2)",
+       "items": [
+        "sauber",
+        "freundlich",
+        "beschäftigt",
+        "müde",
+        "zufrieden",
+        "hungrig"
+       ],
+       "targets": [
+        "toza",
+        "do'stona, samimiy",
+        "band, ishlaydigan",
+        "charchagan",
+        "mamnun",
+        "och",
+        "odam, erkak"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Sifatlar va boshqa so'zlar 3)",
+       "items": [
+        "durstig",
+        "glücklich",
+        "voll",
+        "schnell",
+        "manchmal"
+       ],
+       "targets": [
+        "chanqoq",
+        "baxtli",
+        "to'la, gavjum",
+        "tez",
+        "ba'zan",
+        "odam, erkak"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E"
+       },
+       "points": 5,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Buyumlar va narsalar)",
+       "items": [
+        "das Buch",
+        "das Auto",
+        "das Handy",
+        "der Schlüssel",
+        "der Stift",
+        "das Spielzeug",
+        "die Lampe",
+        "das Kleid"
+       ],
+       "targets": [
+        "kitob",
+        "mashina",
+        "telefon",
+        "kalit",
+        "ruchka",
+        "o'yinchoq",
+        "chiroq",
+        "ko'ylak",
+        "odam, erkak"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F",
+        "7": "G",
+        "8": "H"
+       },
+       "points": 8,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Zuordnung 4",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Mehmonxona / restoran so'zlari 1)",
+       "items": [
+        "das Restaurant",
+        "der Tisch",
+        "der Stuhl",
+        "die Speisekarte",
+        "das Essen",
+        "das Getränk"
+       ],
+       "targets": [
+        "restoran",
+        "stol",
+        "stul",
+        "menyu",
+        "taom",
+        "ichimlik",
+        "odam, erkak"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Mehmonxona / restoran so'zlari 2)",
+       "items": [
+        "die Rechnung",
+        "der Kaffee",
+        "der Saft",
+        "das Wasser",
+        "das Brot",
+        "die Pizza",
+        "das Schnitzel",
+        "die Pommes"
+       ],
+       "targets": [
+        "hisob",
+        "qahva",
+        "sharbat",
+        "suv",
+        "non",
+        "pitsa",
+        "schnitzel",
+        "kartoshka frit",
+        "odam, erkak"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F",
+        "7": "G",
+        "8": "H"
+       },
+       "points": 8,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Der, die oder das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Mann (odam, erkak)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Vater (ota)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Freundin (do'st (ayol))",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Kellnerin (ofitsant ayol)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Handy (telefon)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Spielzeug (o'yinchoq)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Restaurant (restoran)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Speisekarte (menyu)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Rechnung (hisob)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Wasser (suv)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "So'zning artiklini tanlang (kitobdagi lug'at bo'yicha)."
+    }
+   ],
+   "auto_practice": false
+  },
+  {
    "content_id": "vizu-a1-l03-grammatik-01",
    "level": "A1",
    "module": 1,
@@ -27,21 +996,21 @@
    "title": "Grammatik: haben und sein, Artikel",
    "source": "book",
    "metadata": {
-    "book_page": "29-32, 35"
+    "book_page": "29-32"
    },
    "rules": [
     {
      "title": "Haben und sein",
-     "html": "<h3>HABEN — ega bo'lmoq</h3><table><thead><tr><th>Shaxs</th><th>haben</th><th>Misol</th></tr></thead><tbody><tr><td>ich</td><td>habe</td><td>Ich habe ein Buch. — Menda kitob bor.</td></tr><tr><td>du</td><td>hast</td><td>Du hast Zeit. — Senda vaqt bor.</td></tr><tr><td>er / sie / es</td><td>hat</td><td>Er hat einen Bruder. — Uning akasi bor.</td></tr><tr><td>wir</td><td>haben</td><td>Wir haben eine Schule. — Bizning maktabimiz bor.</td></tr><tr><td>ihr</td><td>habt</td><td>Ihr habt viele Freunde. — Sizlarning do'stlaringiz bor.</td></tr><tr><td>sie / Sie</td><td>haben</td><td>Sie haben eine Frage. — Ularda / Sizda savol bor.</td></tr></tbody></table><h3>SEIN — bo'lmoq</h3><table><thead><tr><th>Shaxs</th><th>sein</th><th>Misol</th></tr></thead><tbody><tr><td>ich</td><td>bin</td><td>Ich bin Lehrer. — Men o'qituvchiman.</td></tr><tr><td>du</td><td>bist</td><td>Du bist müde. — Sen charchagansan.</td></tr><tr><td>er / sie / es</td><td>ist</td><td>Sie ist Studentin. — U talaba (qiz).</td></tr><tr><td>wir</td><td>sind</td><td>Wir sind zu Hause. — Biz uydamiz.</td></tr><tr><td>ihr</td><td>seid</td><td>Ihr seid pünktlich. — Sizlar vaqtida keldingiz.</td></tr><tr><td>sie / Sie</td><td>sind</td><td>Sie sind freundlich. — Siz muloyimsiz.</td></tr></tbody></table>"
+     "html": "<h3>HABEN — ega bo'lmoq</h3><table><thead><tr><th>Shaxs</th><th>haben</th><th>Ma'nosi</th><th>Misol</th></tr></thead><tbody><tr><td>ich</td><td>habe</td><td>menda bor</td><td>Ich habe ein Buch. — Menda kitob bor.</td></tr><tr><td>du</td><td>hast</td><td>senda bor</td><td>Du hast Zeit. — Senda vaqt bor.</td></tr><tr><td>er / sie / es</td><td>hat</td><td>unda bor</td><td>Er hat einen Bruder. — Uning akasi bor.</td></tr><tr><td>wir</td><td>haben</td><td>bizda bor</td><td>Wir haben eine Schule. — Bizning maktabimiz bor.</td></tr><tr><td>ihr</td><td>habt</td><td>sizlarda bor</td><td>Ihr habt viele Freunde. — Sizlarning do'stlaringiz bor.</td></tr><tr><td>sie / Sie</td><td>haben</td><td>ularda / sizda bor</td><td>Sie haben eine Frage. — Ularda / Sizda savol bor.</td></tr></tbody></table><h3>SEIN — bo'lmoq</h3><table><thead><tr><th>Shaxs</th><th>sein</th><th>Ma'nosi</th><th>Misol</th></tr></thead><tbody><tr><td>ich</td><td>bin</td><td>menman</td><td>Ich bin Lehrer. — Men o'qituvchiman.</td></tr><tr><td>du</td><td>bist</td><td>sansan</td><td>Du bist müde. — Sen charchagansan.</td></tr><tr><td>er / sie / es</td><td>ist</td><td>u ...dir</td><td>Sie ist Studentin. — U talaba (qiz).</td></tr><tr><td>wir</td><td>sind</td><td>bizmiz</td><td>Wir sind zu Hause. — Biz uydamiz.</td></tr><tr><td>ihr</td><td>seid</td><td>sizlarsiz</td><td>Ihr seid pünktlich. — Sizlar vaqtida keldingiz.</td></tr><tr><td>sie / Sie</td><td>sind</td><td>ular / sizsiz</td><td>Sie sind freundlich. — Siz muloyimsiz.</td></tr></tbody></table>"
     },
     {
      "title": "Bestimmte und unbestimmte Artikel",
-     "html": "<table><thead><tr><th>Geschlecht / Kasus</th><th>Aniq artikel (der / die / das / die)</th><th>Noaniq artikel (ein / eine)</th></tr></thead><tbody><tr><td><strong>Maskulin</strong> — Nominativ</td><td>Der Lehrer liest ein Buch.</td><td>Ein Lehrer liest ein Buch.</td></tr><tr><td>Maskulin — Genitiv</td><td>Des Lehrers Buch ist interessant.</td><td>—</td></tr><tr><td>Maskulin — Dativ</td><td>Ich gebe dem Lehrer ein Buch.</td><td>Ich gebe einem Lehrer ein Buch.</td></tr><tr><td>Maskulin — Akkusativ</td><td>Ich sehe den Lehrer.</td><td>Ich sehe einen Lehrer.</td></tr><tr><td><strong>Feminin</strong> — Nominativ</td><td>Die Lehrerin liest ein Buch.</td><td>Eine Lehrerin liest ein Buch.</td></tr><tr><td>Feminin — Genitiv</td><td>Der Lehrerin Buch ist interessant.</td><td>—</td></tr><tr><td>Feminin — Dativ</td><td>Ich gebe der Lehrerin ein Buch.</td><td>Ich gebe einer Lehrerin ein Buch.</td></tr><tr><td>Feminin — Akkusativ</td><td>Ich sehe die Lehrerin.</td><td>Ich sehe eine Lehrerin.</td></tr><tr><td><strong>Neutrum</strong> — Nominativ</td><td>Das Buch ist interessant.</td><td>Ein Buch ist interessant.</td></tr><tr><td>Neutrum — Genitiv</td><td>Des Buches Inhalt ist wichtig.</td><td>—</td></tr><tr><td>Neutrum — Dativ</td><td>Ich gebe dem Buch Aufmerksamkeit.</td><td>Ich gebe einem Buch Aufmerksamkeit.</td></tr><tr><td>Neutrum — Akkusativ</td><td>Ich lese das Buch.</td><td>Ich lese ein Buch.</td></tr><tr><td><strong>Plural</strong> — Nominativ</td><td>Die Lehrer lesen Bücher.</td><td>—</td></tr><tr><td>Plural — Genitiv</td><td>Der Lehrer Bücher sind wichtig.</td><td>—</td></tr><tr><td>Plural — Dativ</td><td>Ich gebe den Lehrern Bücher.</td><td>—</td></tr><tr><td>Plural — Akkusativ</td><td>Ich sehe die Lehrer.</td><td>—</td></tr></tbody></table>"
+     "html": "<p><strong>Maskulin:</strong> der / des / dem / den · <strong>Feminin:</strong> die / der / der / die · <strong>Neutrum:</strong> das / des / dem / das · <strong>Plural:</strong> die / der / den / die</p><table><thead><tr><th>Geschlecht — Kasus</th><th>Aniq artikel (der / die / das / die)</th><th>Noaniq artikel (ein / eine)</th></tr></thead><tbody><tr><td><strong>Maskulin</strong> — Nominativ</td><td>Der Lehrer liest ein Buch.</td><td>Ein Lehrer liest ein Buch.</td></tr><tr><td>Maskulin — Genitiv</td><td>Des Lehrers Buch ist interessant.</td><td>—</td></tr><tr><td>Maskulin — Dativ</td><td>Ich gebe dem Lehrer ein Buch.</td><td>Ich gebe einem Lehrer ein Buch.</td></tr><tr><td>Maskulin — Akkusativ</td><td>Ich sehe den Lehrer.</td><td>Ich sehe einen Lehrer.</td></tr><tr><td><strong>Feminin</strong> — Nominativ</td><td>Die Lehrerin liest ein Buch.</td><td>Eine Lehrerin liest ein Buch.</td></tr><tr><td>Feminin — Genitiv</td><td>Der Lehrerin Buch ist interessant.</td><td>—</td></tr><tr><td>Feminin — Dativ</td><td>Ich gebe der Lehrerin ein Buch.</td><td>Ich gebe einer Lehrerin ein Buch.</td></tr><tr><td>Feminin — Akkusativ</td><td>Ich sehe die Lehrerin.</td><td>Ich sehe eine Lehrerin.</td></tr><tr><td><strong>Neutrum</strong> — Nominativ</td><td>Das Buch ist interessant.</td><td>Ein Buch ist interessant.</td></tr><tr><td>Neutrum — Genitiv</td><td>Des Buches Inhalt ist wichtig.</td><td>—</td></tr><tr><td>Neutrum — Dativ</td><td>Ich gebe dem Buch Aufmerksamkeit.</td><td>Ich gebe einem Buch Aufmerksamkeit.</td></tr><tr><td>Neutrum — Akkusativ</td><td>Ich lese das Buch.</td><td>Ich lese ein Buch.</td></tr><tr><td><strong>Plural</strong> — Nominativ</td><td>Die Lehrer lesen Bücher.</td><td>—</td></tr><tr><td>Plural — Genitiv</td><td>Der Lehrer Bücher sind wichtig.</td><td>—</td></tr><tr><td>Plural — Dativ</td><td>Ich gebe den Lehrern Bücher.</td><td>—</td></tr><tr><td>Plural — Akkusativ</td><td>Ich sehe die Lehrer.</td><td>—</td></tr></tbody></table>"
     }
    ],
    "exercises": [
     {
-     "title": "Aufgaben: haben oder sein (30)",
+     "title": "Aufgaben: haben oder sein (29)",
      "source": "book",
      "questions": [
       {
@@ -274,7 +1243,7 @@
       {
        "type": "gap_fill",
        "question": "Setzen Sie haben oder sein in der richtigen Form ein.",
-       "text": "Ihr [[1]] Spaß (quvnoqlik).",
+       "text": "Ihr [[1]] Spaß (havo, quvnoqlik).",
        "gaps": {
         "1": [
          "habt"
@@ -421,19 +1390,6 @@
       {
        "type": "gap_fill",
        "question": "Setzen Sie haben oder sein in der richtigen Form ein.",
-       "text": "Es [[1]] klein (kichik).",
-       "gaps": {
-        "1": [
-         "ist"
-        ]
-       },
-       "points": 1,
-       "passage": 1,
-       "case_sensitive": false
-      },
-      {
-       "type": "gap_fill",
-       "question": "Setzen Sie haben oder sein in der richtigen Form ein.",
        "text": "Wir [[1]] Lehrer (o'qituvchi).",
        "gaps": {
         "1": [
@@ -445,10 +1401,10 @@
        "case_sensitive": false
       }
      ],
-     "instruction": "Setzen Sie haben oder sein in der richtigen Form ein."
+     "instruction": "Setzen Sie haben oder sein in der richtigen Form ein. (Kitob, 30-bet.)"
     },
     {
-     "title": "Test: Artikel (20)",
+     "title": "Test: Artikel (19)",
      "source": "book",
      "questions": [
       {
@@ -497,7 +1453,8 @@
        ],
        "correct_answer": "B",
        "points": 1,
-       "passage": 1
+       "passage": 1,
+       "explanation": "Dativ, Maskulin: dem."
       },
       {
        "type": "multiple_choice",
@@ -509,7 +1466,8 @@
        ],
        "correct_answer": "A",
        "points": 1,
-       "passage": 1
+       "passage": 1,
+       "explanation": "Genitiv, Neutrum: des Kindes."
       },
       {
        "type": "multiple_choice",
@@ -521,7 +1479,8 @@
        ],
        "correct_answer": "A",
        "points": 1,
-       "passage": 1
+       "passage": 1,
+       "explanation": "Akkusativ, Plural: die."
       },
       {
        "type": "multiple_choice",
@@ -533,7 +1492,8 @@
        ],
        "correct_answer": "B",
        "points": 1,
-       "passage": 1
+       "passage": 1,
+       "explanation": "Dativ, Feminin: der."
       },
       {
        "type": "multiple_choice",
@@ -617,7 +1577,8 @@
        ],
        "correct_answer": "C",
        "points": 1,
-       "passage": 1
+       "passage": 1,
+       "explanation": "Dativ, Maskulin: einem."
       },
       {
        "type": "multiple_choice",
@@ -629,7 +1590,8 @@
        ],
        "correct_answer": "C",
        "points": 1,
-       "passage": 1
+       "passage": 1,
+       "explanation": "Dativ, Feminin: einer."
       },
       {
        "type": "multiple_choice",
@@ -677,25 +1639,318 @@
        ],
        "correct_answer": "C",
        "points": 1,
-       "passage": 1
-      },
-      {
-       "type": "multiple_choice",
-       "question": "___ Kind spielt im Park. (Bir bola bog'da o'ynayapti.)",
-       "options": [
-        "Ein",
-        "Eine",
-        "Einer"
-       ],
-       "correct_answer": "A",
-       "points": 1,
-       "passage": 1
+       "passage": 1,
+       "explanation": "Dativ, Neutrum: einem."
       }
      ],
-     "instruction": "Wählen Sie den richtigen Artikel."
+     "instruction": "Wählen Sie den richtigen Artikel. (Kitob, 32-bet.)"
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l03-lesen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 3,
+   "skill": "lesen",
+   "title": "Lesen: Tom ist Koch, Anna ist Kellnerin",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 33,
+    "note": "Matnlar kitobdan; savollar VIZU tomonidan matn asosida tuzilgan."
+   },
+   "instruction": "Lesen Sie die Texte und beantworten Sie die Fragen.",
+   "passages": [
+    {
+     "title": "Tom ist Koch",
+     "text": "Tom arbeitet in einem Restaurant. Er hat viele Rezepte. Er liebt es zu kochen. Heute ist das Restaurant sehr voll. Viele Gäste sind da. Tom hat viel Gemüse, Fleisch und andere Zutaten vorbereitet. Er ist sehr beschäftigt, aber er ist glücklich. Manchmal hat Tom Stress, aber er hat Spaß an seiner Arbeit. Am Ende des Tages ist Tom müde, aber er hat alles geschafft. Er ist zufrieden, weil die Gäste das Essen mögen."
     },
     {
-     "title": "Schreiben-Aufgabe (Buch S. 35): haben oder sein im Präsens",
+     "title": "Anna ist Kellnerin",
+     "text": "Anna arbeitet in demselben Restaurant. Sie hat immer gute Laune. Sie bringt den Gästen das Essen. Heute ist das Restaurant sehr voll. Viele Gäste sind da. Anna hat viele Bestellungen aufgenommen. Sie ist schnell und freundlich. Manchmal ist Anna gestresst, aber sie hat Spaß an ihrer Arbeit. Am Ende des Tages ist Anna müde, aber sie hat alles gut gemacht. Sie ist zufrieden, weil die Gäste glücklich sind."
+    }
+   ],
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Wo arbeitet Tom?",
+     "options": [
+      "In einer Schule",
+      "In einem Restaurant",
+      "In einem Krankenhaus"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Tom arbeitet in einem Restaurant.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was ist Tom von Beruf?",
+     "options": [
+      "Kellner",
+      "Koch",
+      "Lehrer"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Überschrift: „Tom ist Koch“; „Er liebt es zu kochen.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Heute sind nur wenige Gäste im Restaurant.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„Heute ist das Restaurant sehr voll. Viele Gäste sind da.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was hat Tom vorbereitet?",
+     "options": [
+      "Gemüse, Fleisch und andere Zutaten",
+      "Nur Kuchen",
+      "Getränke"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Tom hat viel Gemüse, Fleisch und andere Zutaten vorbereitet.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Warum ist Tom zufrieden?",
+     "options": [
+      "Weil er frei hat",
+      "Weil die Gäste das Essen mögen",
+      "Weil er nicht müde ist"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Er ist zufrieden, weil die Gäste das Essen mögen.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was macht Anna im Restaurant?",
+     "options": [
+      "Sie kocht.",
+      "Sie bringt den Gästen das Essen.",
+      "Sie bezahlt die Rechnung."
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 2,
+     "explanation": "„Sie bringt den Gästen das Essen.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Anna hat immer gute Laune.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "richtig",
+     "explanation": "„Sie hat immer gute Laune.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wie ist Anna bei der Arbeit?",
+     "options": [
+      "Langsam und unfreundlich",
+      "Schnell und freundlich",
+      "Müde und traurig"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 2,
+     "explanation": "„Sie ist schnell und freundlich.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Anna hat keinen Spaß an ihrer Arbeit.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "falsch",
+     "explanation": "„… aber sie hat Spaß an ihrer Arbeit.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Warum ist Anna am Ende zufrieden?",
+     "options": [
+      "Weil die Gäste glücklich sind",
+      "Weil das Restaurant leer ist",
+      "Weil sie viel Geld hat"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 2,
+     "explanation": "„Sie ist zufrieden, weil die Gäste glücklich sind.“"
+    }
+   ],
+   "max_score": 10
+  },
+  {
+   "content_id": "vizu-a1-l03-hoeren-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 3,
+   "skill": "hoeren",
+   "title": "Hören: Dialoge im Restaurant",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 34,
+    "note": "Dialoglar kitobdan (transkript); savollar VIZU tomonidan tuzilgan."
+   },
+   "audio_file": "A1-3.mp3",
+   "instruction": "Hören Sie die Dialoge im Restaurant und beantworten Sie die Fragen.",
+   "transcript": "1) Kellner: Guten Tag! Haben Sie einen Tisch reserviert? — Gast 1: Ja, wir haben einen Tisch für zwei Personen. — Kellner: Sehr gut. Folgen Sie mir bitte. — Gast 2: Danke. Der Tisch ist sehr schön.\n2) Kellner: Möchten Sie etwas trinken? — Gast 1: Ja, wir haben Durst. Ich habe gern ein Glas Wasser. — Gast 2: Ich habe Lust auf einen Apfelsaft. — Kellner: Sehr gut. Ich bringe Ihnen gleich die Getränke.\n3) Kellner: Sind Sie bereit zu bestellen? — Gast 1: Ja, ich habe Hunger. Ich nehme das Schnitzel mit Pommes. — Gast 2: Ich habe schon lange Lust auf Pizza. Ich nehme die Margherita.\n4) Kellner: Sind Sie Allergiker? — Gast 1: Nein, ich habe keine Allergien. — Gast 2: Ich auch nicht.\n5) Kellner: Hat es Ihnen geschmeckt? — Gast 1: Ja, das Essen war sehr lecker. Wir haben alles genossen. — Gast 2: Ja, alles war frisch. Wir sind sehr zufrieden.\n6) Kellner: Möchten Sie noch einen Kaffee oder Dessert? — Gast 1: Nein, danke. Wir haben genug. — Gast 2: Ja, wir sind satt.\n7) Kellner: Alles klar. Ich bringe Ihnen die Rechnung. — Gast 1: Vielen Dank! Wir haben heute einen schönen Abend gehabt. — Gast 2: Ja, es war sehr schön.",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Für wie viele Personen ist der Tisch reserviert?",
+     "options": [
+      "Für eine Person",
+      "Für zwei Personen",
+      "Für vier Personen"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Ja, wir haben einen Tisch für zwei Personen.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was trinkt Gast 1?",
+     "options": [
+      "Ein Glas Wasser",
+      "Einen Apfelsaft",
+      "Einen Kaffee"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Ich habe gern ein Glas Wasser.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was möchte Gast 2 trinken?",
+     "options": [
+      "Wasser",
+      "Einen Apfelsaft",
+      "Tee"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Ich habe Lust auf einen Apfelsaft.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was bestellt Gast 1?",
+     "options": [
+      "Pizza Margherita",
+      "Das Schnitzel mit Pommes",
+      "Einen Salat"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Ich nehme das Schnitzel mit Pommes.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was bestellt Gast 2?",
+     "options": [
+      "Die Pizza Margherita",
+      "Das Schnitzel",
+      "Eine Suppe"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Ich nehme die Margherita.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Die Gäste haben Allergien.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„Nein, ich habe keine Allergien. — Ich auch nicht.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Das Essen war lecker und frisch.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„… das Essen war sehr lecker … alles war frisch.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Möchten die Gäste noch einen Kaffee oder ein Dessert?",
+     "options": [
+      "Ja, einen Kaffee",
+      "Ja, ein Dessert",
+      "Nein, sie sind satt"
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Nein, danke. Wir haben genug. — Ja, wir sind satt.“"
+    }
+   ],
+   "max_score": 8
+  },
+  {
+   "content_id": "vizu-a1-l03-sprechen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 3,
+   "skill": "sprechen",
+   "title": "Üben Sie die Dialoge im Restaurant!",
+   "source": "book",
+   "metadata": {
+    "book_page": 36
+   },
+   "topic": "Im Restaurant",
+   "prompt": "Spielen Sie den Gast. Lesen Sie den Dialog laut vor (Gast und Kellner) oder sprechen Sie die Rolle des Gastes frei.",
+   "questions": [
+    "Gast: Guten Tag! Ich hätte gern einen Tisch. — Kellner: Guten Tag! Natürlich, bitte folgen Sie mir. Hier ist Ihr Tisch.",
+    "Gast: Danke schön. Kann ich bitte die Speisekarte haben? — Kellner: Ja, hier bitte. Möchten Sie etwas trinken?",
+    "Gast: Ja, ein Wasser bitte. — Kellner: Kommt sofort.",
+    "Gast: Ich nehme die Pizza, bitte. — Kellner: Alles klar. Ich bringe das gleich.",
+    "Gast: Entschuldigung, kann ich noch Brot haben? — Kellner: Ja, natürlich. Bitte schön.",
+    "Gast: Vielen Dank! Das Essen schmeckt sehr gut. — Kellner: Das freut mich. Haben Sie alles, was Sie brauchen?",
+    "Gast: Ja, alles ist gut. Kann ich die Rechnung haben? — Kellner: Natürlich, hier bitte.",
+    "Gast: Danke schön! Auf Wiedersehen! — Kellner: Auf Wiedersehen und einen schönen Tag noch!"
+   ],
+   "response_type": "dialog",
+   "min_duration": 30,
+   "max_duration": 120,
+   "speech_goal": "Im Restaurant einen Tisch, die Speisekarte, ein Getränk, ein Essen und die Rechnung höflich erbitten.",
+   "keywords": [
+    "Speisekarte",
+    "Ich nehme",
+    "Rechnung",
+    "bitte",
+    "danke"
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l03-schreiben_uebungen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 3,
+   "skill": "schreiben_uebungen",
+   "title": "Schreiben: haben oder sein (Buch S. 35)",
+   "source": "book",
+   "metadata": {
+    "book_page": 35
+   },
+   "exercises": [
+    {
+     "title": "Aufgabe: haben oder sein im Präsens (20)",
      "source": "book",
      "questions": [
       {
@@ -775,7 +2030,8 @@
        },
        "points": 1,
        "passage": 1,
-       "case_sensitive": false
+       "case_sensitive": false,
+       "explanation": "sie (u) ist; Sie (Siz) sind."
       },
       {
        "type": "gap_fill",
@@ -835,14 +2091,13 @@
        "text": "Gestern [[1]] wir im Café.",
        "gaps": {
         "1": [
-         "waren",
-         "sind"
+         "waren"
         ]
        },
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Gestern → o'tgan zamon: waren."
+       "explanation": "„Gestern“ (kecha) — o'tgan zamon: Gestern waren wir im Café. (Kitobda topshiriq „Präsens“ deydi, lekin bu gapda faqat „waren“ to'g'ri.)"
       },
       {
        "type": "gap_fill",
@@ -908,7 +2163,8 @@
        },
        "points": 1,
        "passage": 1,
-       "case_sensitive": false
+       "case_sensitive": false,
+       "explanation": "Ikkalasi ham to'g'ri: Wir haben am Wochenende frei. / Wir sind am Wochenende frei."
       },
       {
        "type": "gap_fill",
@@ -922,7 +2178,8 @@
        },
        "points": 1,
        "passage": 1,
-       "case_sensitive": false
+       "case_sensitive": false,
+       "explanation": "Ihr seid gute Freunde (do'stsizlar) yoki Ihr habt gute Freunde (yaxshi do'stlaringiz bor)."
       },
       {
        "type": "gap_fill",
@@ -962,255 +2219,13 @@
        },
        "points": 1,
        "passage": 1,
-       "case_sensitive": false
+       "case_sensitive": false,
+       "explanation": "sie (u) ist; sie / Sie (ular / Siz) sind."
       }
      ],
-     "instruction": "Ergänzen Sie die richtige Form von haben oder sein im Präsens. Tipp: Achten Sie auf das Personalpronomen."
+     "instruction": "Ergänzen Sie die richtige Form von haben oder sein im Präsens. Tipp: Achten Sie auf das Personalpronomen. (Kitob, 35-bet.)"
     }
    ]
-  },
-  {
-   "content_id": "vizu-a1-l03-lesen-01",
-   "level": "A1",
-   "module": 1,
-   "lesson": 3,
-   "skill": "lesen",
-   "title": "Lesen: Tom ist Koch, Anna ist Kellnerin",
-   "source": "vizu",
-   "metadata": {
-    "book_page": 33,
-    "note": "Matnlar kitobdan; savollar VIZU tomonidan matn asosida tuzilgan."
-   },
-   "instruction": "Lesen Sie die Texte und beantworten Sie die Fragen.",
-   "passages": [
-    {
-     "title": "Tom ist Koch",
-     "text": "Tom arbeitet in einem Restaurant. Er hat viele Rezepte. Er liebt es zu kochen. Heute ist das Restaurant sehr voll. Viele Gäste sind da. Tom hat viel Gemüse, Fleisch und andere Zutaten vorbereitet. Er ist sehr beschäftigt, aber er ist glücklich. Manchmal hat Tom Stress, aber er hat Spaß an seiner Arbeit. Am Ende des Tages ist Tom müde, aber er hat alles geschafft. Er ist zufrieden, weil die Gäste das Essen mögen."
-    },
-    {
-     "title": "Anna ist Kellnerin",
-     "text": "Anna arbeitet in demselben Restaurant. Sie hat immer gute Laune. Sie bringt den Gästen das Essen. Heute ist das Restaurant sehr voll. Viele Gäste sind da. Anna hat viele Bestellungen aufgenommen. Sie ist schnell und freundlich. Manchmal ist Anna gestresst, aber sie hat Spaß an ihrer Arbeit. Am Ende des Tages ist Anna müde, aber sie hat alles gut gemacht. Sie ist zufrieden, weil die Gäste glücklich sind."
-    }
-   ],
-   "questions": [
-    {
-     "type": "multiple_choice",
-     "question": "Wo arbeitet Tom?",
-     "options": [
-      "In einer Schule",
-      "In einem Restaurant",
-      "In einem Krankenhaus"
-     ],
-     "correct_answer": "B",
-     "points": 1,
-     "passage": 1,
-     "explanation": "„Tom arbeitet in einem Restaurant.“"
-    },
-    {
-     "type": "multiple_choice",
-     "question": "Was ist Tom von Beruf?",
-     "options": [
-      "Kellner",
-      "Koch",
-      "Lehrer"
-     ],
-     "correct_answer": "B",
-     "points": 1,
-     "passage": 1,
-     "explanation": "Überschrift: „Tom ist Koch“; „Er liebt es zu kochen.“"
-    },
-    {
-     "type": "true_false",
-     "question": "Heute sind nur wenige Gäste im Restaurant.",
-     "points": 1,
-     "passage": 1,
-     "correct_answer": "falsch",
-     "explanation": "„Heute ist das Restaurant sehr voll. Viele Gäste sind da.“"
-    },
-    {
-     "type": "multiple_choice",
-     "question": "Was hat Tom vorbereitet?",
-     "options": [
-      "Gemüse, Fleisch und andere Zutaten",
-      "Nur Kuchen",
-      "Getränke"
-     ],
-     "correct_answer": "A",
-     "points": 1,
-     "passage": 1
-    },
-    {
-     "type": "multiple_choice",
-     "question": "Warum ist Tom zufrieden?",
-     "options": [
-      "Weil er frei hat",
-      "Weil die Gäste das Essen mögen",
-      "Weil er nicht müde ist"
-     ],
-     "correct_answer": "B",
-     "points": 1,
-     "passage": 1
-    },
-    {
-     "type": "multiple_choice",
-     "question": "Was macht Anna im Restaurant?",
-     "options": [
-      "Sie kocht.",
-      "Sie bringt den Gästen das Essen.",
-      "Sie bezahlt die Rechnung."
-     ],
-     "correct_answer": "B",
-     "points": 1,
-     "passage": 2
-    },
-    {
-     "type": "true_false",
-     "question": "Anna hat immer gute Laune.",
-     "points": 1,
-     "passage": 2,
-     "correct_answer": "richtig",
-     "explanation": "„Sie hat immer gute Laune.“"
-    },
-    {
-     "type": "multiple_choice",
-     "question": "Wie ist Anna bei der Arbeit?",
-     "options": [
-      "Langsam und unfreundlich",
-      "Schnell und freundlich",
-      "Müde und traurig"
-     ],
-     "correct_answer": "B",
-     "points": 1,
-     "passage": 2
-    },
-    {
-     "type": "true_false",
-     "question": "Anna hat keinen Spaß an ihrer Arbeit.",
-     "points": 1,
-     "passage": 2,
-     "correct_answer": "falsch",
-     "explanation": "„… aber sie hat Spaß an ihrer Arbeit.“"
-    },
-    {
-     "type": "multiple_choice",
-     "question": "Warum ist Anna am Ende zufrieden?",
-     "options": [
-      "Weil die Gäste glücklich sind",
-      "Weil das Restaurant leer ist",
-      "Weil sie viel Geld hat"
-     ],
-     "correct_answer": "A",
-     "points": 1,
-     "passage": 2
-    }
-   ],
-   "max_score": 10
-  },
-  {
-   "content_id": "vizu-a1-l03-hoeren-01",
-   "level": "A1",
-   "module": 1,
-   "lesson": 3,
-   "skill": "hoeren",
-   "title": "Hören: Dialoge im Restaurant",
-   "source": "vizu",
-   "metadata": {
-    "book_page": 34,
-    "note": "Dialoglar kitobdan (transkript); savollar VIZU tomonidan tuzilgan."
-   },
-   "audio_file": "A1-3.mp3",
-   "instruction": "Hören Sie die Dialoge im Restaurant und beantworten Sie die Fragen.",
-   "transcript": "1) Kellner: Guten Tag! Haben Sie einen Tisch reserviert? — Gast 1: Ja, wir haben einen Tisch für zwei Personen. — Kellner: Sehr gut. Folgen Sie mir bitte. — Gast 2: Danke. Der Tisch ist sehr schön.\n2) Kellner: Möchten Sie etwas trinken? — Gast 1: Ja, wir haben Durst. Ich habe gern ein Glas Wasser. — Gast 2: Ich habe Lust auf einen Apfelsaft. — Kellner: Sehr gut. Ich bringe Ihnen gleich die Getränke.\n3) Kellner: Sind Sie bereit zu bestellen? — Gast 1: Ja, ich habe Hunger. Ich nehme das Schnitzel mit Pommes. — Gast 2: Ich habe schon lange Lust auf Pizza. Ich nehme die Margherita.\n4) Kellner: Sind Sie Allergiker? — Gast 1: Nein, ich habe keine Allergien. — Gast 2: Ich auch nicht.\n5) Kellner: Hat es Ihnen geschmeckt? — Gast 1: Ja, das Essen war sehr lecker. Wir haben alles genossen. — Gast 2: Ja, alles war frisch. Wir sind sehr zufrieden.\n6) Kellner: Möchten Sie noch einen Kaffee oder Dessert? — Gast 1: Nein, danke. Wir haben genug. — Gast 2: Ja, wir sind satt.\n7) Kellner: Alles klar. Ich bringe Ihnen die Rechnung. — Gast 1: Vielen Dank! Wir haben heute einen schönen Abend gehabt. — Gast 2: Ja, es war sehr schön.",
-   "questions": [
-    {
-     "type": "multiple_choice",
-     "question": "Für wie viele Personen ist der Tisch reserviert?",
-     "options": [
-      "Für eine Person",
-      "Für zwei Personen",
-      "Für vier Personen"
-     ],
-     "correct_answer": "B",
-     "points": 1,
-     "passage": 1
-    },
-    {
-     "type": "multiple_choice",
-     "question": "Was trinkt Gast 1?",
-     "options": [
-      "Ein Glas Wasser",
-      "Einen Apfelsaft",
-      "Einen Kaffee"
-     ],
-     "correct_answer": "A",
-     "points": 1,
-     "passage": 1
-    },
-    {
-     "type": "multiple_choice",
-     "question": "Was möchte Gast 2 trinken?",
-     "options": [
-      "Wasser",
-      "Einen Apfelsaft",
-      "Tee"
-     ],
-     "correct_answer": "B",
-     "points": 1,
-     "passage": 1
-    },
-    {
-     "type": "multiple_choice",
-     "question": "Was bestellt Gast 1?",
-     "options": [
-      "Pizza Margherita",
-      "Das Schnitzel mit Pommes",
-      "Einen Salat"
-     ],
-     "correct_answer": "B",
-     "points": 1,
-     "passage": 1
-    },
-    {
-     "type": "multiple_choice",
-     "question": "Was bestellt Gast 2?",
-     "options": [
-      "Die Pizza Margherita",
-      "Das Schnitzel",
-      "Eine Suppe"
-     ],
-     "correct_answer": "A",
-     "points": 1,
-     "passage": 1
-    },
-    {
-     "type": "true_false",
-     "question": "Die Gäste haben Allergien.",
-     "points": 1,
-     "passage": 1,
-     "correct_answer": "falsch",
-     "explanation": "„Nein, ich habe keine Allergien. — Ich auch nicht.“"
-    },
-    {
-     "type": "true_false",
-     "question": "Das Essen war lecker und frisch.",
-     "points": 1,
-     "passage": 1,
-     "correct_answer": "richtig"
-    },
-    {
-     "type": "multiple_choice",
-     "question": "Möchten die Gäste noch einen Kaffee oder ein Dessert?",
-     "options": [
-      "Ja, einen Kaffee",
-      "Ja, ein Dessert",
-      "Nein, sie sind satt"
-     ],
-     "correct_answer": "C",
-     "points": 1,
-     "passage": 1
-    }
-   ],
-   "max_score": 8
   },
   {
    "content_id": "vizu-a1-l03-schreiben-01",
@@ -1218,7 +2233,7 @@
    "module": 1,
    "lesson": 3,
    "skill": "schreiben",
-   "title": "Schreiben: Ein Abend im Restaurant (VIZU qo'shimcha)",
+   "title": "Schreiben: Ein Abend im Restaurant",
    "source": "vizu",
    "prompt": "Sie waren mit einem Freund / einer Freundin im Restaurant. Schreiben Sie 5–7 Sätze:\nWer war dabei? Was haben Sie getrunken und gegessen? Wie war das Essen? Wie war der Kellner / die Kellnerin?\nBenutzen Sie haben und sein.",
    "task_type": "description",
@@ -1233,417 +2248,427 @@
     "Ich bin satt."
    ],
    "metadata": {
-    "note": "Kitobda bu modul uchun erkin yozma topshiriq yo'q (S. 35 haben/sein mashqi Grammatik bo'limida)."
+    "note": "Kitobda bu modul uchun erkin yozma topshiriq yo'q — VIZU qo'shimcha topshirig'i."
    }
   },
   {
-   "content_id": "vizu-a1-l03-sprechen-01",
+   "content_id": "vizu-a1-l03-uebungen-01",
    "level": "A1",
    "module": 1,
    "lesson": 3,
-   "skill": "sprechen",
-   "title": "Üben Sie die Dialoge im Restaurant!",
-   "source": "book",
-   "metadata": {
-    "book_page": 36
-   },
-   "topic": "Im Restaurant",
-   "prompt": "Spielen Sie den Gast. Lesen Sie den Dialog laut vor (Gast und Kellner) oder sprechen Sie die Rolle des Gastes frei.",
-   "questions": [
-    "Gast: Guten Tag! Ich hätte gern einen Tisch. — Kellner: Guten Tag! Natürlich, bitte folgen Sie mir. Hier ist Ihr Tisch.",
-    "Gast: Danke schön. Kann ich bitte die Speisekarte haben? — Kellner: Ja, hier bitte. Möchten Sie etwas trinken?",
-    "Gast: Ja, ein Wasser bitte. — Kellner: Kommt sofort.",
-    "Gast: Ich nehme die Pizza, bitte. — Kellner: Alles klar. Ich bringe das gleich.",
-    "Gast: Entschuldigung, kann ich noch Brot haben? — Kellner: Ja, natürlich. Bitte schön.",
-    "Gast: Vielen Dank! Das Essen schmeckt sehr gut. — Kellner: Das freut mich. Haben Sie alles, was Sie brauchen?",
-    "Gast: Ja, alles ist gut. Kann ich die Rechnung haben? — Kellner: Natürlich, hier bitte.",
-    "Gast: Danke schön! Auf Wiedersehen! — Kellner: Auf Wiedersehen und einen schönen Tag noch!"
-   ],
-   "response_type": "dialog",
-   "min_duration": 30,
-   "max_duration": 120,
-   "speech_goal": "Im Restaurant einen Tisch, die Speisekarte, ein Getränk, ein Essen und die Rechnung höflich erbitten.",
-   "keywords": [
-    "Speisekarte",
-    "Ich nehme",
-    "Rechnung",
-    "bitte",
-    "danke"
-   ]
-  },
-  {
-   "content_id": "vizu-a1-l03-wortschatz-01",
-   "level": "A1",
-   "module": 1,
-   "lesson": 3,
-   "skill": "wortschatz",
-   "title": "Wortschatz Modul 3",
-   "source": "book",
-   "metadata": {
-    "book_page": 37
-   },
-   "words": [
-    {
-     "word": "Mann",
-     "translation": "odam, erkak",
-     "article": "der",
-     "group": "Shaxslar va kasblar"
-    },
-    {
-     "word": "Frau",
-     "translation": "ayol",
-     "article": "die",
-     "group": "Shaxslar va kasblar"
-    },
-    {
-     "word": "Kind",
-     "translation": "bola",
-     "article": "das",
-     "group": "Shaxslar va kasblar"
-    },
-    {
-     "word": "Vater",
-     "translation": "ota",
-     "article": "der",
-     "group": "Shaxslar va kasblar"
-    },
-    {
-     "word": "Mutter",
-     "translation": "ona",
-     "article": "die",
-     "group": "Shaxslar va kasblar"
-    },
-    {
-     "word": "Freund",
-     "translation": "do'st (erkak)",
-     "article": "der",
-     "group": "Shaxslar va kasblar"
-    },
-    {
-     "word": "Freundin",
-     "translation": "do'st (ayol)",
-     "article": "die",
-     "group": "Shaxslar va kasblar"
-    },
-    {
-     "word": "Kinder",
-     "translation": "bolalar",
-     "article": "die",
-     "group": "Shaxslar va kasblar"
-    },
-    {
-     "word": "Kellner",
-     "translation": "ofitsant",
-     "article": "der",
-     "group": "Shaxslar va kasblar"
-    },
-    {
-     "word": "Kellnerin",
-     "translation": "ofitsant ayol",
-     "article": "die",
-     "group": "Shaxslar va kasblar"
-    },
-    {
-     "word": "haben",
-     "translation": "ega bo'lmoq",
-     "group": "Fe'llar (A1 daraja)"
-    },
-    {
-     "word": "sein",
-     "translation": "bo'lmoq",
-     "group": "Fe'llar (A1 daraja)"
-    },
-    {
-     "word": "lesen",
-     "translation": "o'qimoq",
-     "group": "Fe'llar (A1 daraja)"
-    },
-    {
-     "word": "sehen",
-     "translation": "ko'rmoq",
-     "group": "Fe'llar (A1 daraja)"
-    },
-    {
-     "word": "geben",
-     "translation": "bermoq",
-     "group": "Fe'llar (A1 daraja)"
-    },
-    {
-     "word": "nehmen",
-     "translation": "olmoq",
-     "group": "Fe'llar (A1 daraja)"
-    },
-    {
-     "word": "arbeiten",
-     "translation": "ishlamoq",
-     "group": "Fe'llar (A1 daraja)"
-    },
-    {
-     "word": "kochen",
-     "translation": "pishirmoq",
-     "group": "Fe'llar (A1 daraja)"
-    },
-    {
-     "word": "trinken",
-     "translation": "ichmoq",
-     "group": "Fe'llar (A1 daraja)"
-    },
-    {
-     "word": "essen",
-     "translation": "yemoq",
-     "group": "Fe'llar (A1 daraja)"
-    },
-    {
-     "word": "bezahlen",
-     "translation": "to'lamoq",
-     "group": "Fe'llar (A1 daraja)"
-    },
-    {
-     "word": "finden",
-     "translation": "topmoq",
-     "group": "Fe'llar (A1 daraja)"
-    },
-    {
-     "word": "schlafen",
-     "translation": "uxlamoq",
-     "group": "Fe'llar (A1 daraja)"
-    },
-    {
-     "word": "lernen",
-     "translation": "o'rganmoq",
-     "group": "Fe'llar (A1 daraja)"
-    },
-    {
-     "word": "mögen",
-     "translation": "yoqtirmoq",
-     "group": "Fe'llar (A1 daraja)"
-    },
-    {
-     "word": "brauchen",
-     "translation": "kerak bo'lmoq",
-     "group": "Fe'llar (A1 daraja)"
-    },
-    {
-     "word": "es gibt",
-     "translation": "bor bo'lmoq",
-     "group": "Fe'llar (A1 daraja)"
-    },
-    {
-     "word": "gut",
-     "translation": "yaxshi",
-     "group": "Sifatlar va boshqa so'zlar"
-    },
-    {
-     "word": "lecker",
-     "translation": "mazali",
-     "group": "Sifatlar va boshqa so'zlar"
-    },
-    {
-     "word": "frisch",
-     "translation": "yangi",
-     "group": "Sifatlar va boshqa so'zlar"
-    },
-    {
-     "word": "groß",
-     "translation": "katta",
-     "group": "Sifatlar va boshqa so'zlar"
-    },
-    {
-     "word": "klein",
-     "translation": "kichik",
-     "group": "Sifatlar va boshqa so'zlar"
-    },
-    {
-     "word": "schön",
-     "translation": "chiroyli",
-     "group": "Sifatlar va boshqa so'zlar"
-    },
-    {
-     "word": "sauber",
-     "translation": "toza",
-     "group": "Sifatlar va boshqa so'zlar"
-    },
-    {
-     "word": "freundlich",
-     "translation": "do'stona, samimiy",
-     "group": "Sifatlar va boshqa so'zlar"
-    },
-    {
-     "word": "beschäftigt",
-     "translation": "band",
-     "group": "Sifatlar va boshqa so'zlar"
-    },
-    {
-     "word": "müde",
-     "translation": "charchagan",
-     "group": "Sifatlar va boshqa so'zlar"
-    },
-    {
-     "word": "zufrieden",
-     "translation": "mamnun",
-     "group": "Sifatlar va boshqa so'zlar"
-    },
-    {
-     "word": "hungrig",
-     "translation": "och",
-     "group": "Sifatlar va boshqa so'zlar"
-    },
-    {
-     "word": "durstig",
-     "translation": "chanqoq",
-     "group": "Sifatlar va boshqa so'zlar"
-    },
-    {
-     "word": "glücklich",
-     "translation": "baxtli",
-     "group": "Sifatlar va boshqa so'zlar"
-    },
-    {
-     "word": "voll",
-     "translation": "to'la, gavjum",
-     "group": "Sifatlar va boshqa so'zlar"
-    },
-    {
-     "word": "schnell",
-     "translation": "tez",
-     "group": "Sifatlar va boshqa so'zlar"
-    },
-    {
-     "word": "manchmal",
-     "translation": "ba'zan",
-     "group": "Sifatlar va boshqa so'zlar"
-    },
-    {
-     "word": "Buch",
-     "translation": "kitob",
-     "article": "das",
-     "group": "Buyumlar va narsalar"
-    },
-    {
-     "word": "Auto",
-     "translation": "mashina",
-     "article": "das",
-     "group": "Buyumlar va narsalar"
-    },
-    {
-     "word": "Handy",
-     "translation": "telefon",
-     "article": "das",
-     "group": "Buyumlar va narsalar"
-    },
-    {
-     "word": "Schlüssel",
-     "translation": "kalit",
-     "article": "der",
-     "group": "Buyumlar va narsalar"
-    },
-    {
-     "word": "Tisch",
-     "translation": "stol",
-     "article": "der",
-     "group": "Buyumlar va narsalar"
-    },
-    {
-     "word": "Stuhl",
-     "translation": "stul",
-     "article": "der",
-     "group": "Buyumlar va narsalar"
-    },
-    {
-     "word": "Stift",
-     "translation": "ruchka",
-     "article": "der",
-     "group": "Buyumlar va narsalar"
-    },
-    {
-     "word": "Spielzeug",
-     "translation": "o'yinchoq",
-     "article": "das",
-     "group": "Buyumlar va narsalar"
-    },
-    {
-     "word": "Lampe",
-     "translation": "chiroq",
-     "article": "die",
-     "group": "Buyumlar va narsalar"
-    },
-    {
-     "word": "Kleid",
-     "translation": "ko'ylak",
-     "article": "das",
-     "group": "Buyumlar va narsalar"
-    },
-    {
-     "word": "Restaurant",
-     "translation": "restoran",
-     "article": "das",
-     "group": "Restoran so'zlari"
-    },
-    {
-     "word": "Rechnung",
-     "translation": "hisob",
-     "article": "die",
-     "group": "Restoran so'zlari"
-    },
-    {
-     "word": "Kaffee",
-     "translation": "qahva",
-     "article": "der",
-     "group": "Restoran so'zlari"
-    },
-    {
-     "word": "Saft",
-     "translation": "sharbat",
-     "article": "der",
-     "group": "Restoran so'zlari"
-    },
-    {
-     "word": "Wasser",
-     "translation": "suv",
-     "article": "das",
-     "group": "Restoran so'zlari"
-    },
-    {
-     "word": "Speisekarte",
-     "translation": "menyu",
-     "article": "die",
-     "group": "Restoran so'zlari"
-    },
-    {
-     "word": "Brot",
-     "translation": "non",
-     "article": "das",
-     "group": "Restoran so'zlari"
-    },
-    {
-     "word": "Essen",
-     "translation": "taom",
-     "article": "das",
-     "group": "Restoran so'zlari"
-    },
-    {
-     "word": "Pizza",
-     "translation": "pitsa",
-     "article": "die",
-     "group": "Restoran so'zlari"
-    },
-    {
-     "word": "Schnitzel",
-     "translation": "shnitsel",
-     "article": "das",
-     "group": "Restoran so'zlari"
-    },
-    {
-     "word": "Getränk",
-     "translation": "ichimlik",
-     "article": "das",
-     "group": "Restoran so'zlari"
-    },
-    {
-     "word": "Pommes",
-     "translation": "kartoshka fri",
-     "article": "die",
-     "group": "Restoran so'zlari"
+   "skill": "uebungen",
+   "title": "Übungen Modul 3",
+   "source": "vizu",
+   "exercises": [
+    {
+     "title": "haben oder sein? (Lesen & Hören)",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Tom [[1]] Koch.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "ist"
+         ],
+         "options": [
+          "ist",
+          "hat",
+          "bin"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Lesen: „Tom ist Koch“."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Tom [[1]] viele Rezepte.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "hat"
+         ],
+         "options": [
+          "hat",
+          "ist",
+          "habt"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Lesen: „Er hat viele Rezepte.“"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Anna [[1]] immer gute Laune.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "hat"
+         ],
+         "options": [
+          "hat",
+          "ist",
+          "hast"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Lesen: „Sie hat immer gute Laune.“"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Die Gäste [[1]] glücklich.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "sind"
+         ],
+         "options": [
+          "sind",
+          "haben",
+          "seid"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Lesen: „… weil die Gäste glücklich sind.“"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Wir [[1]] Durst.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "haben"
+         ],
+         "options": [
+          "haben",
+          "sind",
+          "habt"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Hören: „Ja, wir haben Durst.“"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Ich [[1]] Hunger.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "habe"
+         ],
+         "options": [
+          "habe",
+          "bin",
+          "hat"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Hören: „Ja, ich habe Hunger.“"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Wir [[1]] satt.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "sind"
+         ],
+         "options": [
+          "sind",
+          "haben",
+          "seid"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Hören: „Ja, wir sind satt.“"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Das Restaurant [[1]] heute sehr voll.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "ist"
+         ],
+         "options": [
+          "ist",
+          "hat",
+          "sind"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Lesen: „Heute ist das Restaurant sehr voll.“"
+      }
+     ],
+     "instruction": "Darsdagi matnlar asosida haben yoki sein ni tanlang."
+    },
+    {
+     "title": "Artikel im Restaurant",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Ich nehme [[1]] Schnitzel. (das Schnitzel)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "das",
+          "den",
+          "die"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Akkusativ, Neutrum: das."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Ich bringe Ihnen [[1]] Rechnung. (die Rechnung)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "die",
+          "der",
+          "den"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Akkusativ, Feminin: die."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Kann ich [[1]] Speisekarte haben? (die Speisekarte)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "die",
+          "den",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Wir haben [[1]] Tisch für zwei Personen. (der Tisch)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "einen"
+         ],
+         "options": [
+          "einen",
+          "ein",
+          "eine"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Akkusativ, Maskulin: einen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Ich möchte [[1]] Glas Wasser. (das Glas)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "ein"
+         ],
+         "options": [
+          "ein",
+          "einen",
+          "eine"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Akkusativ, Neutrum: ein."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Der Kellner gibt [[1]] Gast die Rechnung. (der Gast)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "dem"
+         ],
+         "options": [
+          "dem",
+          "den",
+          "der"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Dativ, Maskulin: dem."
+      }
+     ],
+     "instruction": "Restoran gaplarida to'g'ri artiklni tanlang."
+    },
+    {
+     "title": "Nemischa qanday?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "„ayol“ — nemischa qanday?",
+       "options": [
+        "der Kaffee",
+        "das Brot",
+        "die Frau"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„ofitsant ayol“ — nemischa qanday?",
+       "options": [
+        "die Kellnerin",
+        "die Mutter",
+        "der Freund"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„pishirmoq“ — nemischa qanday?",
+       "options": [
+        "kochen",
+        "freundlich",
+        "mögen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„kerak bo'lmoq“ — nemischa qanday?",
+       "options": [
+        "brauchen",
+        "manchmal",
+        "nehmen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„toza“ — nemischa qanday?",
+       "options": [
+        "voll",
+        "sauber",
+        "sein"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„to'la, gavjum“ — nemischa qanday?",
+       "options": [
+        "arbeiten",
+        "essen",
+        "voll"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„o'yinchoq“ — nemischa qanday?",
+       "options": [
+        "das Spielzeug",
+        "die Freundin",
+        "der Mann"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„ichimlik“ — nemischa qanday?",
+       "options": [
+        "die Mutter",
+        "das Getränk",
+        "der Kellner"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "O'zbekcha so'zning nemischasini tanlang."
     }
    ]
   },
@@ -1653,7 +2678,7 @@
    "module": 1,
    "lesson": 3,
    "skill": "yakuniy",
-   "title": "Yakuniy Test: Modul 3",
+   "title": "Abschlusstest: Modul 3",
    "source": "vizu",
    "instruction": "haben / sein, artikllar va restoran so'zlari bo'yicha yakuniy test.",
    "questions": [
@@ -1700,7 +2725,7 @@
     {
      "type": "gap_fill",
      "question": "Wählen Sie das richtige Wort.",
-     "text": "Ihr [[1]] gute Freunde.",
+     "text": "Ihr [[1]] pünktlich.",
      "gaps": {
       "1": {
        "accepted": [
@@ -1720,7 +2745,7 @@
     {
      "type": "gap_fill",
      "question": "Wählen Sie das richtige Wort.",
-     "text": "Er [[1]] einen Bruder.",
+     "text": "Er [[1]] eine Schwester.",
      "gaps": {
       "1": {
        "accepted": [
@@ -1740,7 +2765,7 @@
     {
      "type": "gap_fill",
      "question": "Wählen Sie das richtige Wort.",
-     "text": "Du [[1]] Hunger.",
+     "text": "Du [[1]] Zeit für mich.",
      "gaps": {
       "1": {
        "accepted": [
@@ -1771,7 +2796,7 @@
     },
     {
      "type": "multiple_choice",
-     "question": "Ich sehe ___ Mann.",
+     "question": "Ich sehe ___ Kellner.",
      "options": [
       "der",
       "den",
@@ -1779,19 +2804,21 @@
      ],
      "correct_answer": "B",
      "points": 1,
-     "passage": 1
+     "passage": 1,
+     "explanation": "Akkusativ, Maskulin: den."
     },
     {
      "type": "multiple_choice",
-     "question": "Ich gebe ___ Kind ein Buch.",
+     "question": "Ich gebe ___ Kellnerin das Geld.",
      "options": [
-      "dem",
-      "den",
-      "das"
+      "der",
+      "die",
+      "dem"
      ],
      "correct_answer": "A",
      "points": 1,
-     "passage": 1
+     "passage": 1,
+     "explanation": "Dativ, Feminin: der."
     },
     {
      "type": "multiple_choice",
@@ -1825,31 +2852,37 @@
      "correct_answer": "richtig"
     },
     {
-     "type": "matching",
-     "question": "Was passt zusammen?",
-     "items": [
-      "die Speisekarte",
-      "das Getränk",
-      "der Kellner",
-      "lecker"
+     "type": "true_false",
+     "question": "Anna ist Köchin im Restaurant. (Lesen)",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "Lesen: „Anna ist Kellnerin“ — Tom ist Koch."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was sagt man im Restaurant am Ende?",
+     "options": [
+      "Kann ich die Rechnung haben?",
+      "Ich hätte gern einen Tisch.",
+      "Haben Sie Allergien?"
      ],
-     "targets": [
-      "menyu",
-      "ichimlik",
-      "ofitsant",
-      "mazali",
-      "kalit"
-     ],
-     "pairs": {
-      "1": "A",
-      "2": "B",
-      "3": "C",
-      "4": "D"
-     },
+     "correct_answer": "A",
      "points": 1,
      "passage": 1
     }
    ]
+  },
+  {
+   "content_id": "vizu-a1-l03-kompetenz-02",
+   "level": "A1",
+   "module": 1,
+   "lesson": 3,
+   "skill": "kompetenz",
+   "title": "Zusammenfassung: Modul 3",
+   "source": "vizu",
+   "competency": "ZUSAMMENFASSUNG",
+   "html": "<h3>Modul 3 — qisqacha</h3><ul><li><strong>haben:</strong> ich habe, du hast, er/sie/es hat, wir haben, ihr habt, sie/Sie haben.</li><li><strong>sein:</strong> ich bin, du bist, er/sie/es ist, wir sind, ihr seid, sie/Sie sind.</li><li><strong>Artikel (Nominativ / Akkusativ / Dativ):</strong> der / den / dem (Maskulin), die / die / der (Feminin), das / das / dem (Neutrum), die / die / den (Plural); ein / einen / einem, eine / eine / einer.</li><li><strong>Im Restaurant:</strong> Ich hätte gern einen Tisch. · Kann ich die Speisekarte haben? · Ich nehme … · Die Rechnung, bitte.</li></ul><p>Natijalaringiz pastda — tugallanmagan bo'limlarni yakunlang, so'ng keyingi darsga o'ting.</p>"
   }
  ]
 }
