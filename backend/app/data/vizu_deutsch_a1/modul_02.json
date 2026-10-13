@@ -1,8 +1,22 @@
 {
- "schema_version": "1.1",
+ "schema_version": "1.2",
  "language": "de",
  "source": "vizu-deutsch-a1-book",
  "items": [
+  {
+   "content_id": "vizu-a1-l02-kompetenz-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 2,
+   "skill": "kompetenz",
+   "title": "Einführung: Modul 2",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 13
+   },
+   "competency": "EINFUEHRUNG",
+   "html": "<h3>Modul 2 — Meine Familie</h3><p><strong>Mavzu:</strong> Meine Familie (mening oilam) · <strong>Grammatik:</strong> Präsens (hozirgi zamon), Die Zahlen (raqamlar)</p><h4>Dars maqsadlari</h4><ul><li>fe'llarni hozirgi zamonda (Präsens) barcha shaxslarda tuslash: ich lerne, du lernst, er lernt …;</li><li>kuchli fe'llarda unlining o'zgarishini bilish: fahren → du fährst, sprechen → du sprichst, lesen → du liest;</li><li>ajraladigan fe'llarni gapda to'g'ri ishlatish: Ich stehe um 7 Uhr auf.;</li><li>1 dan 100 gacha va undan katta raqamlarni aytish va yozish;</li><li>oila a'zolari nomlarini (Vater, Mutter, Bruder, Schwester, Großvater …) o'rganish.</li></ul><h4>Dars oxirida siz quyidagilarni bajara olasiz</h4><ul><li>oilangizni tanishtirasiz: „Das ist mein Vater. Er heißt … und er ist … Jahre alt.“;</li><li>Müller oilasi haqidagi matnlarni o'qib, savollarga javob berasiz;</li><li>oila haqidagi matnni tinglab, bo'sh joylarni to'ldirasiz;</li><li>yoshingizni, telefon raqamingizni va boshqa sonlarni nemischa aytasiz.</li></ul><h4>Darsning tuzilishi</h4><p>Einführung → Wortschatz → Grammatik → Lesen → Hören → Sprechen → Schreiben → Übungen → Abschlusstest → Zusammenfassung</p>"
+  },
   {
    "content_id": "vizu-a1-l02-frage-01",
    "level": "A1",
@@ -14,9 +28,678 @@
    "metadata": {
     "book_page": 14
    },
-   "prompt": "Germaniyada hayot qanday? Germaniyadagi hayot haqida nimalarni bilasiz? Fikringizni ovozli yuboring.",
+   "prompt": "Germaniyada hayot qanday? Germaniyadagi hayot haqida nimalarni bilasiz? Fikringizni ovozli yuboring (nemischa yoki o'zbekcha).",
    "min_duration": 10,
    "max_duration": 120
+  },
+  {
+   "content_id": "vizu-a1-l02-wortschatz-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 2,
+   "skill": "wortschatz",
+   "title": "Wortschatz Modul 2",
+   "source": "book",
+   "metadata": {
+    "book_page": 26
+   },
+   "words": [
+    {
+     "word": "wohnen",
+     "translation": "yashamoq",
+     "group": "A1 daraja fe'llari"
+    },
+    {
+     "word": "gehen",
+     "translation": "bormoq, yurmoq",
+     "group": "A1 daraja fe'llari"
+    },
+    {
+     "word": "kommen",
+     "translation": "kelmoq",
+     "group": "A1 daraja fe'llari"
+    },
+    {
+     "word": "arbeiten",
+     "translation": "ishlamoq",
+     "group": "A1 daraja fe'llari"
+    },
+    {
+     "word": "lernen",
+     "translation": "o'rganmoq",
+     "group": "A1 daraja fe'llari"
+    },
+    {
+     "word": "lesen",
+     "translation": "o'qimoq",
+     "group": "A1 daraja fe'llari"
+    },
+    {
+     "word": "spielen",
+     "translation": "o'ynamoq",
+     "group": "A1 daraja fe'llari"
+    },
+    {
+     "word": "essen",
+     "translation": "yeyish",
+     "group": "A1 daraja fe'llari"
+    },
+    {
+     "word": "trinken",
+     "translation": "ichmoq",
+     "group": "A1 daraja fe'llari"
+    },
+    {
+     "word": "kochen",
+     "translation": "pishirmoq",
+     "group": "A1 daraja fe'llari"
+    },
+    {
+     "word": "schlafen",
+     "translation": "uxlamoq",
+     "group": "A1 daraja fe'llari"
+    },
+    {
+     "word": "sehen",
+     "translation": "ko'rmoq",
+     "group": "A1 daraja fe'llari"
+    },
+    {
+     "word": "sprechen",
+     "translation": "gapirmoq",
+     "group": "A1 daraja fe'llari"
+    },
+    {
+     "word": "lieben",
+     "translation": "sevmoq",
+     "group": "A1 daraja fe'llari"
+    },
+    {
+     "word": "helfen",
+     "translation": "yordam berish",
+     "group": "A1 daraja fe'llari"
+    },
+    {
+     "word": "tanzen",
+     "translation": "raqsga tushmoq",
+     "group": "A1 daraja fe'llari"
+    },
+    {
+     "word": "Vater",
+     "translation": "ota",
+     "article": "der",
+     "group": "Oila a'zolari"
+    },
+    {
+     "word": "Mutter",
+     "translation": "ona",
+     "article": "die",
+     "group": "Oila a'zolari"
+    },
+    {
+     "word": "Sohn",
+     "translation": "o'g'il bola",
+     "article": "der",
+     "group": "Oila a'zolari"
+    },
+    {
+     "word": "Tochter",
+     "translation": "qiz bola",
+     "article": "die",
+     "group": "Oila a'zolari"
+    },
+    {
+     "word": "Bruder",
+     "translation": "aka / uka",
+     "article": "der",
+     "group": "Oila a'zolari"
+    },
+    {
+     "word": "Schwester",
+     "translation": "opa / singil",
+     "article": "die",
+     "group": "Oila a'zolari"
+    },
+    {
+     "word": "Großvater",
+     "translation": "bobo (Opa)",
+     "article": "der",
+     "group": "Oila a'zolari"
+    },
+    {
+     "word": "Großmutter",
+     "translation": "buvi (Oma)",
+     "article": "die",
+     "group": "Oila a'zolari"
+    },
+    {
+     "word": "Onkel",
+     "translation": "amaki / tog'a",
+     "article": "der",
+     "group": "Oila a'zolari"
+    },
+    {
+     "word": "Tante",
+     "translation": "xola / amma",
+     "article": "die",
+     "group": "Oila a'zolari"
+    },
+    {
+     "word": "Cousin",
+     "translation": "amaki / xola o'g'li",
+     "article": "der",
+     "group": "Oila a'zolari"
+    },
+    {
+     "word": "Cousine",
+     "translation": "amaki / xola qizi",
+     "article": "die",
+     "group": "Oila a'zolari"
+    },
+    {
+     "word": "Neffe",
+     "translation": "jiyan o'g'il",
+     "article": "der",
+     "group": "Oila a'zolari"
+    },
+    {
+     "word": "Nichte",
+     "translation": "jiyan qiz",
+     "article": "die",
+     "group": "Oila a'zolari"
+    },
+    {
+     "word": "Ehemann",
+     "translation": "er",
+     "article": "der",
+     "group": "Oila a'zolari"
+    },
+    {
+     "word": "Ehefrau",
+     "translation": "xotin",
+     "article": "die",
+     "group": "Oila a'zolari"
+    },
+    {
+     "word": "Schwiegermutter",
+     "translation": "qaynona",
+     "article": "die",
+     "group": "Oila a'zolari"
+    },
+    {
+     "word": "Schwiegervater",
+     "translation": "qaynota",
+     "article": "der",
+     "group": "Oila a'zolari"
+    },
+    {
+     "word": "Schwägerin",
+     "translation": "qaynisingil",
+     "article": "die",
+     "group": "Oila a'zolari"
+    },
+    {
+     "word": "Schwager",
+     "translation": "qayni aka / qayni uka",
+     "article": "der",
+     "group": "Oila a'zolari"
+    },
+    {
+     "word": "Enkel",
+     "translation": "nabira o'g'il",
+     "article": "der",
+     "group": "Oila a'zolari"
+    },
+    {
+     "word": "Enkelin",
+     "translation": "nabira qiz",
+     "article": "die",
+     "group": "Oila a'zolari"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "Zuordnung 1: A1-Verben",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen?",
+       "items": [
+        "wohnen",
+        "gehen",
+        "kommen",
+        "arbeiten",
+        "lernen",
+        "lesen"
+       ],
+       "targets": [
+        "yashamoq",
+        "bormoq, yurmoq",
+        "kelmoq",
+        "ishlamoq",
+        "o'rganmoq",
+        "o'qimoq",
+        "uxlamoq"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen?",
+       "items": [
+        "spielen",
+        "essen",
+        "trinken",
+        "kochen",
+        "schlafen"
+       ],
+       "targets": [
+        "o'ynamoq",
+        "yeyish",
+        "ichmoq",
+        "pishirmoq",
+        "uxlamoq",
+        "sevmoq"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E"
+       },
+       "points": 5,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen?",
+       "items": [
+        "sehen",
+        "sprechen",
+        "lieben",
+        "helfen",
+        "tanzen"
+       ],
+       "targets": [
+        "ko'rmoq",
+        "gapirmoq",
+        "sevmoq",
+        "yordam berish",
+        "raqsga tushmoq",
+        "kelmoq"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E"
+       },
+       "points": 5,
+       "passage": 1
+      }
+     ],
+     "instruction": "Fe'lni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Zuordnung 2: Familie",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen?",
+       "items": [
+        "der Vater",
+        "die Mutter",
+        "der Sohn",
+        "die Tochter",
+        "der Großvater",
+        "die Großmutter"
+       ],
+       "targets": [
+        "ota",
+        "ona",
+        "o'g'il bola",
+        "qiz bola",
+        "bobo (Opa)",
+        "buvi (Oma)",
+        "amaki / tog'a"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen?",
+       "items": [
+        "der Onkel",
+        "die Tante",
+        "der Cousin",
+        "die Cousine",
+        "der Neffe",
+        "die Nichte"
+       ],
+       "targets": [
+        "amaki / tog'a",
+        "xola / amma",
+        "amaki / xola o'g'li",
+        "amaki / xola qizi",
+        "jiyan o'g'il",
+        "jiyan qiz",
+        "nabira qiz"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen?",
+       "items": [
+        "der Ehemann",
+        "die Ehefrau",
+        "die Schwiegermutter",
+        "der Schwiegervater",
+        "der Enkel",
+        "die Enkelin"
+       ],
+       "targets": [
+        "er",
+        "xotin",
+        "qaynona",
+        "qaynota",
+        "nabira o'g'il",
+        "nabira qiz",
+        "qaynisingil"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      }
+     ],
+     "instruction": "Oila a'zosini tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Der oder die?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Vater (ota)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Tochter (qiz bola)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Onkel (amaki / tog'a)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Tante (xola / amma)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Neffe (jiyan o'g'il)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Nichte (jiyan qiz)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Schwager (qayni aka / qayni uka)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Schwägerin (qaynisingil)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "Oila so'zlarining artiklini tanlang (erkak — der, ayol — die)."
+    },
+    {
+     "title": "Wer ist das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Der Vater von meinem Vater ist mein …",
+       "options": [
+        "Onkel",
+        "Großvater",
+        "Bruder"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Der Bruder von meiner Mutter ist mein …",
+       "options": [
+        "Onkel",
+        "Cousin",
+        "Neffe"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Die Tochter von meiner Tante ist meine …",
+       "options": [
+        "Nichte",
+        "Cousine",
+        "Schwester"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Der Sohn von meinem Bruder ist mein …",
+       "options": [
+        "Neffe",
+        "Enkel",
+        "Cousin"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Die Tochter von meinem Sohn ist meine …",
+       "options": [
+        "Nichte",
+        "Enkelin",
+        "Tochter"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Die Mutter von meinem Ehemann ist meine …",
+       "options": [
+        "Schwiegermutter",
+        "Großmutter",
+        "Tante"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "Oila a'zolari o'rtasidagi qarindoshlikni toping."
+    }
+   ],
+   "auto_practice": false
   },
   {
    "content_id": "vizu-a1-l02-grammatik-01",
@@ -32,15 +715,15 @@
    "rules": [
     {
      "title": "Präsens — Hozirgi zamon",
-     "html": "<p><strong>Präsens (hozirgi zamon)</strong> — fe'llarning hozirgi paytdagi yoki doimiy takrorlanadigan harakatni bildiradi.</p><h3>1. Kuchsiz fe'llar (Regelmäßige Verben)</h3><p>Fe'lning asosi o'zgarmaydi, faqat shaxs qo'shimchalari qo'shiladi.</p><table><thead><tr><th>Shaxs</th><th>Qo'shimcha</th><th>lernen (o'rganmoq)</th></tr></thead><tbody><tr><td>ich (men)</td><td>-e</td><td>ich lerne</td></tr><tr><td>du (sen)</td><td>-st</td><td>du lernst</td></tr><tr><td>er / sie / es (u)</td><td>-t</td><td>er lernt</td></tr><tr><td>wir (biz)</td><td>-en</td><td>wir lernen</td></tr><tr><td>ihr (sizlar)</td><td>-t</td><td>ihr lernt</td></tr><tr><td>sie / Sie (ular / Siz)</td><td>-en</td><td>sie lernen</td></tr></tbody></table><p><strong>Misollar:</strong></p><ul><li>Ich spiele Fußball. — Men futbol o'ynayman.</li><li>Du gehst zur Schule. — Sen maktabga borasan.</li><li>Wir lesen ein Buch. — Biz bir kitob o'qiymiz.</li><li>Sie wohnen in Berlin. — Ular Berlinda yashashadi.</li></ul><h3>2. Kuchli fe'llar</h3><p>Unli harf faqat <strong>du</strong> va <strong>er / sie / es</strong> da o'zgaradi.</p><table><thead><tr><th>Infinitiv</th><th>du</th><th>er / sie / es</th></tr></thead><tbody><tr><td>fahren</td><td>fährst</td><td>fährt</td></tr><tr><td>schlafen</td><td>schläfst</td><td>schläft</td></tr><tr><td>tragen</td><td>trägst</td><td>trägt</td></tr><tr><td>waschen</td><td>wäschst</td><td>wäscht</td></tr><tr><td>sprechen</td><td>sprichst</td><td>spricht</td></tr><tr><td>helfen</td><td>hilfst</td><td>hilft</td></tr><tr><td>nehmen</td><td>nimmst</td><td>nimmt</td></tr><tr><td>lesen</td><td>liest</td><td>liest</td></tr><tr><td>essen</td><td>isst</td><td>isst</td></tr></tbody></table><ul><li>Du fährst zur Schule. Er fährt zur Schule.</li><li>Du sprichst Deutsch. Sie spricht Deutsch.</li><li>Du liest ein Buch. Er liest ein Buch.</li></ul><h3>3. Ajraladigan fe'llar — Trennbare Verben</h3><p>Asosiy fe'l odatda 2-o'rinda keladi, prefiks (old qo'shimcha) gap oxirida keladi.</p><p><strong>aufstehen</strong> — turmoq / uyg'onmoq: ich stehe auf, du stehst auf, er steht auf, wir stehen auf, ihr steht auf, sie stehen auf.</p><ul><li>Ich stehe jeden Morgen um 7 Uhr auf. — Men har kuni ertalab soat 7 da turaman.</li><li>Wir gehen um 8 Uhr zur Schule los. — Biz 8 da maktabga yo'lga chiqamiz.</li></ul>"
+     "html": "<p><strong>Präsens (hozirgi zamon)</strong> — fe'llarning hozirgi paytdagi yoki doimiy takrorlanadigan harakatini bildiradi.</p><h3>1. Kuchsiz fe'llar (Regelmäßige Verben)</h3><p>Fe'lning asosi o'zgarmaydi, faqat shaxs qo'shimchalari qo'shiladi.</p><table><thead><tr><th>Shaxs</th><th>Qo'shimcha</th><th>lernen (o'rganmoq)</th></tr></thead><tbody><tr><td>ich (men)</td><td>-e</td><td>ich lerne</td></tr><tr><td>du (sen)</td><td>-st</td><td>du lernst</td></tr><tr><td>er / sie / es (u)</td><td>-t</td><td>er lernt</td></tr><tr><td>wir (biz)</td><td>-en</td><td>wir lernen</td></tr><tr><td>ihr (sizlar)</td><td>-t</td><td>ihr lernt</td></tr><tr><td>sie / Sie (ular / Siz)</td><td>-en</td><td>sie lernen</td></tr></tbody></table><p><strong>Misollar:</strong></p><ul><li>Ich spiele Fußball. — Men futbol o'ynayman.</li><li>Du gehst zur Schule. — Sen maktabga borasan.</li><li>Wir lesen ein Buch. — Biz bir kitob o'qiymiz.</li><li>Sie wohnen in Berlin. — Ular Berlinda yashashadi.</li></ul><h3>2. Kuchli fe'llar</h3><p>Unli harf faqat <strong>du</strong> va <strong>er / sie / es</strong> da o'zgaradi.</p><table><thead><tr><th>O'zgarish</th><th>Infinitiv</th><th>du</th><th>er / sie / es</th></tr></thead><tbody><tr><td>a → ä</td><td>fahren</td><td>fährst</td><td>fährt</td></tr><tr><td>a → ä</td><td>schlafen</td><td>schläfst</td><td>schläft</td></tr><tr><td>a → ä</td><td>tragen</td><td>trägst</td><td>trägt</td></tr><tr><td>a → ä</td><td>waschen</td><td>wäschst</td><td>wäscht</td></tr><tr><td>e → i</td><td>sprechen</td><td>sprichst</td><td>spricht</td></tr><tr><td>e → i</td><td>helfen</td><td>hilfst</td><td>hilft</td></tr><tr><td>e → i</td><td>essen</td><td>isst</td><td>isst</td></tr><tr><td>e → i</td><td>nehmen</td><td>nimmst</td><td>nimmt</td></tr><tr><td>e → ie</td><td>lesen</td><td>liest</td><td>liest</td></tr></tbody></table><ul><li>Du fährst zur Schule. Er fährt zur Schule.</li><li>Du sprichst Deutsch. Sie spricht Deutsch.</li><li>Du liest ein Buch. Er liest ein Buch.</li></ul><h3>3. Ajraladigan fe'llar — Trennbare Verben</h3><p>Asosiy fe'l odatda 2-o'rinda keladi, prefiks (old qo'shimcha) gap oxirida keladi.</p><table><thead><tr><th>aufstehen (turmoq / uyg'onmoq)</th><th></th><th></th></tr></thead><tbody><tr><td>ich stehe auf</td><td>wir stehen auf</td><td></td></tr><tr><td>du stehst auf</td><td>ihr steht auf</td><td></td></tr><tr><td>er steht auf</td><td>sie stehen auf</td><td></td></tr></tbody></table><ul><li>Ich stehe jeden Morgen um 7 Uhr auf. — Men har kuni ertalab soat 7 da turaman.</li><li>Wir gehen um 8 Uhr zur Schule los. — Biz 8 da maktabga yo'lga chiqamiz.</li></ul>"
     },
     {
      "title": "Präsens — Qoidalar davomi",
-     "html": "<h3>Präsensda qo'shimcha -e</h3><p>Fe'l asosi <strong>-t, -d, -gn, -ffn, -tm</strong> bilan tugasa, du / er / sie / es / ihr shakllarida talaffuz oson bo'lishi uchun <strong>-e</strong> qo'shiladi. ich / wir / sie / Sie oddiy qo'shimchalar bilan qoladi.</p><table><thead><tr><th>Tugashi</th><th>Fe'l</th><th>du</th><th>er</th><th>ihr</th></tr></thead><tbody><tr><td>-t / -d</td><td>arbeiten, warten, reden</td><td>du arbeitest, du wartest, du redest</td><td>er arbeitet, er wartet, er redet</td><td>ihr arbeitet, ihr wartet, ihr redet</td></tr><tr><td>-gn</td><td>regnen</td><td>—</td><td>es regnet</td><td>—</td></tr><tr><td>-ffn</td><td>öffnen</td><td>du öffnest</td><td>er öffnet</td><td>ihr öffnet</td></tr><tr><td>-tm</td><td>atmen</td><td>du atmest</td><td>er atmet</td><td>ihr atmet</td></tr></tbody></table><h3>du shaklida -s qo'shilmaydi</h3><p>Fe'l asosi <strong>-s, -ß, -z</strong> bilan tugasa, du shaklida faqat <strong>-t</strong> qo'shiladi:</p><ul><li>heißen: du heißt — er heißt — ihr heißt (Ich heiße Max.)</li><li>tanzen: du tanzt — er tanzt — ihr tanzt (Ich tanze gern.)</li></ul><p><em>Eslatma:</em> Präsensda fe'lning oxiriga qo'shimcha talaffuzni osonlashtirish uchun qo'shiladi, ammo ma'no o'zgarmaydi.</p>"
+     "html": "<h3>Präsensda qo'shimcha -e (qisqaroq)</h3><p>Fe'l asosi quyidagi tovushlar bilan tugasa, <strong>du / er / sie / es / ihr</strong> shakllarida talaffuz oson bo'lishi uchun <strong>-e</strong> qo'shiladi. <strong>ich / wir / sie / Sie</strong> oddiy qo'shimchalar bilan qoladi.</p><table><thead><tr><th>Asos tugashi</th><th>Fe'l</th><th>du</th><th>er / sie / es</th><th>ihr</th></tr></thead><tbody><tr><td>-t</td><td>arbeiten</td><td>du arbeitest</td><td>er arbeitet</td><td>ihr arbeitet</td></tr><tr><td>-d</td><td>warten</td><td>du wartest</td><td>er wartet</td><td>ihr wartet</td></tr><tr><td>-d</td><td>reden</td><td>du redest</td><td>er redet</td><td>ihr redet</td></tr><tr><td>-gn</td><td>regnen</td><td>du regnest</td><td>es regnet</td><td>ihr regnet</td></tr><tr><td>-ffn</td><td>öffnen</td><td>du öffnest</td><td>er öffnet</td><td>ihr öffnet</td></tr><tr><td>-tm</td><td>atmen</td><td>du atmest</td><td>er atmet</td><td>ihr atmet</td></tr></tbody></table><p><em>Izoh:</em> kitobda „stauchen — du stauchest“ (-chn) misoli berilgan. „stauchen“ ning asosi <strong>-ch</strong> bilan tugaydi, shuning uchun -e qo'shilmaydi: <strong>du stauchst, er staucht</strong>. „reden“ esa -d bilan tugaydi (yuqoridagi jadvalda).</p><h3>du shaklida -s qo'shilmaydi (oxiri ß va z bilan tugagan fe'llar)</h3><table><thead><tr><th>Fe'l</th><th>du</th><th>er / sie / es</th><th>ihr</th><th>Misol</th></tr></thead><tbody><tr><td>heißen</td><td>du heißt</td><td>er heißt</td><td>ihr heißt</td><td>Ich heiße Max.</td></tr><tr><td>tanzen</td><td>du tanzt</td><td>er tanzt</td><td>ihr tanzt</td><td>Ich tanze gern.</td></tr></tbody></table><p><strong>Eslatma:</strong> Präsensda fe'lning oxiriga qo'shimcha talaffuzni osonlashtirish uchun qo'shiladi, ammo ma'no o'zgarmaydi.</p>"
     },
     {
-     "title": "Die Zahlen — Raqamlar",
-     "html": "<h3>Die Zahlen 1–12</h3><table><thead><tr><th>Zahl</th><th>Wort</th><th>Zahl</th><th>Wort</th><th>Zahl</th><th>Wort</th></tr></thead><tbody><tr><td>1</td><td>eins</td><td>5</td><td>fünf</td><td>9</td><td>neun</td></tr><tr><td>2</td><td>zwei</td><td>6</td><td>sechs</td><td>10</td><td>zehn</td></tr><tr><td>3</td><td>drei</td><td>7</td><td>sieben</td><td>11</td><td>elf</td></tr><tr><td>4</td><td>vier</td><td>8</td><td>acht</td><td>12</td><td>zwölf</td></tr></tbody></table><h3>Die Zahlen 13–19 (mit „zehn“ am Ende)</h3><table><thead><tr><th>Zahl</th><th>Wort</th><th>Zahl</th><th>Wort</th></tr></thead><tbody><tr><td>13</td><td>dreizehn</td><td>17</td><td>siebzehn</td></tr><tr><td>14</td><td>vierzehn</td><td>18</td><td>achtzehn</td></tr><tr><td>15</td><td>fünfzehn</td><td>19</td><td>neunzehn</td></tr><tr><td>16</td><td>sechzehn</td><td></td><td></td></tr></tbody></table><h3>Zehner</h3><table><thead><tr><th>Zahl</th><th>Wort</th><th>Zahl</th><th>Wort</th></tr></thead><tbody><tr><td>20</td><td>zwanzig</td><td>60</td><td>sechzig</td></tr><tr><td>30</td><td>dreißig</td><td>70</td><td>siebzig</td></tr><tr><td>40</td><td>vierzig</td><td>80</td><td>achtzig</td></tr><tr><td>50</td><td>fünfzig</td><td>90</td><td>neunzig</td></tr><tr><td>100</td><td>hundert</td><td></td><td></td></tr></tbody></table><h3>Höhere Zahlen — 21 bis 99 mit „und“</h3><ul><li>21 einundzwanzig, 22 zweiundzwanzig, 23 dreiundzwanzig, 24 vierundzwanzig, 25 fünfundzwanzig, 26 sechsundzwanzig, 27 siebenundzwanzig, 28 achtundzwanzig, 29 neunundzwanzig</li><li>31 einunddreißig, 32 zweiunddreißig, 33 dreiunddreißig, 34 vierunddreißig, 35 fünfunddreißig, 39 neununddreißig</li><li>41 einundvierzig, 42 zweiundvierzig, 49 neunundvierzig, 51 einundfünfzig, 59 neunundfünfzig, 61 einundsechzig, 69 neunundsechzig, 71 einundsiebzig, 99 neunundneunzig</li></ul><h3>Hunderter und Tausender</h3><ul><li>100 einhundert, 200 zweihundert, 300 dreihundert, 350 dreihundertfünfzig, 900 neunhundert</li><li>1.000 eintausend, 1.500 eintausendfünfhundert, 2.000 zweitausend</li></ul><p><strong>TIPP:</strong> Die Zahlen 1–12 sind einfach. Die Zahlen 13–19 haben „zehn“ am Ende. Ab 21 benutzen wir „und“ zwischen Zehner und Einer.</p>"
+     "title": "Die Zahlen — Raqamlar 1–100",
+     "html": "<h3>Die Zahlen 1–12</h3><table><thead><tr><th>Zahl</th><th>Wort</th><th>Zahl</th><th>Wort</th><th>Zahl</th><th>Wort</th></tr></thead><tbody><tr><td>1</td><td>eins</td><td>5</td><td>fünf</td><td>9</td><td>neun</td></tr><tr><td>2</td><td>zwei</td><td>6</td><td>sechs</td><td>10</td><td>zehn</td></tr><tr><td>3</td><td>drei</td><td>7</td><td>sieben</td><td>11</td><td>elf</td></tr><tr><td>4</td><td>vier</td><td>8</td><td>acht</td><td>12</td><td>zwölf</td></tr></tbody></table><h3>Die Zahlen 13–19 (mit „zehn“ am Ende)</h3><table><thead><tr><th>Zahl</th><th>Wort</th><th>Zahl</th><th>Wort</th></tr></thead><tbody><tr><td>13</td><td>dreizehn</td><td>17</td><td>siebzehn</td></tr><tr><td>14</td><td>vierzehn</td><td>18</td><td>achtzehn</td></tr><tr><td>15</td><td>fünfzehn</td><td>19</td><td>neunzehn</td></tr><tr><td>16</td><td>sechzehn</td><td></td><td></td></tr></tbody></table><h3>Zehner</h3><table><thead><tr><th>Zahl</th><th>Wort</th><th>Zahl</th><th>Wort</th></tr></thead><tbody><tr><td>20</td><td>zwanzig</td><td>60</td><td>sechzig</td></tr><tr><td>30</td><td>dreißig</td><td>70</td><td>siebzig</td></tr><tr><td>40</td><td>vierzig</td><td>80</td><td>achtzig</td></tr><tr><td>50</td><td>fünfzig</td><td>90</td><td>neunzig</td></tr><tr><td>100</td><td>hundert</td><td></td><td></td></tr></tbody></table><h3>Die Zahlen 21–99 (mit „und“)</h3><table><thead><tr><th>Zahl</th><th>Wort</th><th>Zahl</th><th>Wort</th></tr></thead><tbody><tr><td>21</td><td>einundzwanzig</td><td>35</td><td>fünfunddreißig</td></tr><tr><td>22</td><td>zweiundzwanzig</td><td>39</td><td>neununddreißig</td></tr><tr><td>23</td><td>dreiundzwanzig</td><td>41</td><td>einundvierzig</td></tr><tr><td>24</td><td>vierundzwanzig</td><td>49</td><td>neunundvierzig</td></tr><tr><td>25</td><td>fünfundzwanzig</td><td>51</td><td>einundfünfzig</td></tr><tr><td>26</td><td>sechsundzwanzig</td><td>59</td><td>neunundfünfzig</td></tr><tr><td>27</td><td>siebenundzwanzig</td><td>61</td><td>einundsechzig</td></tr><tr><td>28</td><td>achtundzwanzig</td><td>69</td><td>neunundsechzig</td></tr><tr><td>29</td><td>neunundzwanzig</td><td>71</td><td>einundsiebzig</td></tr><tr><td>31</td><td>einunddreißig</td><td>99</td><td>neunundneunzig</td></tr><tr><td>32</td><td>zweiunddreißig</td><td></td><td></td></tr><tr><td>33</td><td>dreiunddreißig</td><td></td><td></td></tr><tr><td>34</td><td>vierunddreißig</td><td></td><td></td></tr></tbody></table><h3>Höhere Zahlen — Hunderter und Tausender</h3><table><thead><tr><th>Zahl</th><th>Wort</th></tr></thead><tbody><tr><td>100</td><td>einhundert</td></tr><tr><td>200</td><td>zweihundert</td></tr><tr><td>300</td><td>dreihundert</td></tr><tr><td>350</td><td>dreihundertfünfzig</td></tr><tr><td>900</td><td>neunhundert</td></tr><tr><td>1.000</td><td>eintausend</td></tr><tr><td>1.500</td><td>eintausendfünfhundert</td></tr><tr><td>2.000</td><td>zweitausend</td></tr></tbody></table><p><strong>TIPP:</strong> Die Zahlen 1–12 sind einfach. Die Zahlen 13–19 haben „zehn“ am Ende. Ab 21 benutzen wir „und“ zwischen Zehner und Einer.</p>"
     }
    ],
    "exercises": [
@@ -72,7 +755,8 @@
        },
        "points": 1,
        "passage": 1,
-       "case_sensitive": false
+       "case_sensitive": false,
+       "explanation": "-d: du wartest (-e qo'shiladi)."
       },
       {
        "type": "gap_fill",
@@ -85,7 +769,8 @@
        },
        "points": 1,
        "passage": 1,
-       "case_sensitive": false
+       "case_sensitive": false,
+       "explanation": "-d: er redet (-e qo'shiladi)."
       },
       {
        "type": "gap_fill",
@@ -152,7 +837,8 @@
        },
        "points": 1,
        "passage": 1,
-       "case_sensitive": false
+       "case_sensitive": false,
+       "explanation": "stauchen asosi -ch bilan tugaydi, -e qo'shilmaydi: du stauchst."
       },
       {
        "type": "gap_fill",
@@ -192,7 +878,8 @@
        },
        "points": 1,
        "passage": 1,
-       "case_sensitive": false
+       "case_sensitive": false,
+       "explanation": "a → ä: du fährst."
       },
       {
        "type": "gap_fill",
@@ -205,7 +892,8 @@
        },
        "points": 1,
        "passage": 1,
-       "case_sensitive": false
+       "case_sensitive": false,
+       "explanation": "a → ä: er schläft."
       },
       {
        "type": "gap_fill",
@@ -231,7 +919,8 @@
        },
        "points": 1,
        "passage": 1,
-       "case_sensitive": false
+       "case_sensitive": false,
+       "explanation": "e → ie: du siehst."
       },
       {
        "type": "gap_fill",
@@ -289,7 +978,8 @@
        },
        "points": 1,
        "passage": 1,
-       "case_sensitive": false
+       "case_sensitive": false,
+       "explanation": "heißen: du heißt (-s qo'shilmaydi)."
       },
       {
        "type": "gap_fill",
@@ -316,10 +1006,11 @@
        },
        "points": 1,
        "passage": 1,
-       "case_sensitive": false
+       "case_sensitive": false,
+       "explanation": "Sie (Siz / ular) öffnen; sie (u) öffnet."
       }
      ],
-     "instruction": "Fe'lni to'g'ri shaklga keltiring (Präsens)."
+     "instruction": "Fe'lni to'g'ri shaklga keltiring (Präsens). Kitob, 17-bet."
     },
     {
      "title": "Test mashqlar (20 ta): Präsens",
@@ -422,17 +1113,26 @@
        "passage": 1
       },
       {
-       "type": "multiple_choice",
+       "type": "gap_fill",
        "question": "Sie ___ (o'ynamoq) gern Fußball.",
-       "options": [
-        "spielst",
-        "spielt",
-        "spielen"
-       ],
-       "correct_answer": "C",
+       "text": "Sie [[1]] gern Fußball.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "spielen",
+          "spielt"
+         ],
+         "options": [
+          "spielst",
+          "spielt",
+          "spielen"
+         ]
+        }
+       },
        "points": 1,
        "passage": 1,
-       "explanation": "Kitob kaliti: Sie (Siz / ular) → spielen."
+       "case_sensitive": false,
+       "explanation": "Ikkala javob ham to'g'ri: sie (u) spielt, sie / Sie (ular / Siz) spielen."
       },
       {
        "type": "multiple_choice",
@@ -520,7 +1220,7 @@
       },
       {
        "type": "multiple_choice",
-       "question": "Du ___ (yordam bermoq) mir.",
+       "question": "Du ___ (yordam berish) mir.",
        "options": [
         "hilft",
         "hilfst",
@@ -567,7 +1267,7 @@
        "passage": 1
       }
      ],
-     "instruction": "To'g'ri javobni tanlang."
+     "instruction": "To'g'ri javobni tanlang. Kitob, 18-bet."
     },
     {
      "title": "Übung: Die Zahlen",
@@ -683,9 +1383,37 @@
        "passage": 1,
        "correct_answer": "falsch",
        "explanation": "17 — siebzehn."
+      },
+      {
+       "type": "matching",
+       "question": "Zahl und Wort: Was passt zusammen?",
+       "items": [
+        "11",
+        "20",
+        "60",
+        "100",
+        "1.000"
+       ],
+       "targets": [
+        "elf",
+        "zwanzig",
+        "sechzig",
+        "hundert",
+        "eintausend",
+        "zwölf"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E"
+       },
+       "points": 5,
+       "passage": 1
       }
      ],
-     "instruction": "Raqamlarni to'g'ri yozilishini tanlang."
+     "instruction": "Raqamlarning to'g'ri yozilishini tanlang (kitob, 23-bet)."
     }
    ]
   },
@@ -704,19 +1432,19 @@
    "passages": [
     {
      "title": "Herr Müller",
-     "text": "Das ist Herr Müller, der Vater von Tom und Anna. Er arbeitet als Ingenieur in einer Firma. Seine Muttersprache ist Deutsch. Er spricht auch Englisch. Herr Müller ist verheiratet und liebt seine Familie sehr. In seiner Freizeit liest er gern Zeitung und fährt Fahrrad."
+     "text": "Das ist Herr Müller, der Vater von Tom und Anna. Er arbeitet als Ingenieur in einer Firma. Seine Muttersprache ist Deutsch. Er spricht auch Englisch. Herr Müller ist verheiratet und liebt seine Familie sehr. In seiner Freizeit liest er gern Zeitung und fährt Fahrrad.\n\nO'zbekcha tarjima: Bu Herr Müller, Tom va Annaning otasi. U bir firmada muhandis bo'lib ishlaydi. Uning ona tili nemis tili. U ingliz tilida ham gapira oladi. Herr Müller uylangan va oilasini juda yaxshi ko'radi. Bo'sh vaqtida gazeta o'qishni va velosiped haydashni yaxshi ko'radi."
     },
     {
      "title": "Frau Müller",
-     "text": "Das ist Frau Müller, die Mutter von Tom und Anna. Sie arbeitet als Ärztin in einem Krankenhaus. Ihre Muttersprache ist Deutsch. Sie spricht auch ein bisschen Französisch. Frau Müller kocht gern und hört abends gern ruhige Musik. Sie liebt ihre Kinder sehr."
+     "text": "Das ist Frau Müller, die Mutter von Tom und Anna. Sie arbeitet als Ärztin in einem Krankenhaus. Ihre Muttersprache ist Deutsch. Sie spricht auch ein bisschen Französisch. Frau Müller kocht gern und hört abends gern ruhige Musik. Sie liebt ihre Kinder sehr.\n\nO'zbekcha tarjima: Bu Frau Müller, Tom va Annaning onasi. U shifoxonada shifokor bo'lib ishlaydi. Uning ona tili nemis tili. U fransuz tilini ham ozgina biladi. Frau Müller ovqat pishirishni yaxshi ko'radi va kechqurun sokin musiqa tinglaydi. U bolalarini juda yaxshi ko'radi."
     },
     {
      "title": "Tom",
-     "text": "Das ist Tom, der Sohn von Herr und Frau Müller und der Bruder von Anna. Er ist 14 Jahre alt und geht in die Schule. Tom spielt gern Fußball und hört gern Popmusik. Seine Lieblingsfächer sind Sport und Englisch. Er hilft seinem Vater oft im Garten."
+     "text": "Das ist Tom, der Sohn von Herr und Frau Müller und der Bruder von Anna. Er ist 14 Jahre alt und geht in die Schule. Tom spielt gern Fußball und hört gern Popmusik. Seine Lieblingsfächer sind Sport und Englisch. Er hilft seinem Vater oft im Garten.\n\nO'zbekcha tarjima: Bu Tom, Herr va Frau Müllerning o'g'li va Annaning akasi. U 14 yoshda va maktabga boradi. Tom futbol o'ynashni va pop musiqa tinglashni yaxshi ko'radi. Uning sevimli fanlari sport va ingliz tili. U ko'pincha otasiga bog'da yordam beradi."
     },
     {
      "title": "Anna",
-     "text": "Das ist Anna, die Tochter von Herr und Frau Müller und die Schwester von Tom. Sie ist 11 Jahre alt und geht auch in die Schule. Anna malt gern und liest gern Märchen. Sie spielt gern mit ihrer Katze und hilft ihrer Mutter in der Küche."
+     "text": "Das ist Anna, die Tochter von Herr und Frau Müller und die Schwester von Tom. Sie ist 11 Jahre alt und geht auch in die Schule. Anna malt gern und liest gern Märchen. Sie spielt gern mit ihrer Katze und hilft ihrer Mutter in der Küche.\n\nO'zbekcha tarjima: Bu Anna, Herr va Frau Müllerning qizi va Tomning singlisi. U 11 yoshda va u ham maktabga boradi. Anna rasm chizishni va ertak o'qishni yaxshi ko'radi. U mushugi bilan o'ynashni yaxshi ko'radi va onasiga oshxonada yordam beradi."
     }
    ],
    "questions": [
@@ -730,7 +1458,8 @@
      ],
      "correct_answer": "B",
      "points": 1,
-     "passage": 1
+     "passage": 1,
+     "explanation": "„Das ist Herr Müller, der Vater von Tom und Anna.“"
     },
     {
      "type": "multiple_choice",
@@ -755,7 +1484,8 @@
      ],
      "correct_answer": "A",
      "points": 1,
-     "passage": 1
+     "passage": 1,
+     "explanation": "„Seine Muttersprache ist Deutsch. Er spricht auch Englisch.“"
     },
     {
      "type": "multiple_choice",
@@ -767,7 +1497,8 @@
      ],
      "correct_answer": "A",
      "points": 1,
-     "passage": 1
+     "passage": 1,
+     "explanation": "„Herr Müller ist verheiratet …“"
     },
     {
      "type": "multiple_choice",
@@ -779,7 +1510,8 @@
      ],
      "correct_answer": "B",
      "points": 1,
-     "passage": 1
+     "passage": 1,
+     "explanation": "„In seiner Freizeit liest er gern Zeitung und fährt Fahrrad.“"
     },
     {
      "type": "multiple_choice",
@@ -791,7 +1523,8 @@
      ],
      "correct_answer": "B",
      "points": 1,
-     "passage": 2
+     "passage": 2,
+     "explanation": "„Das ist Frau Müller, die Mutter von Tom und Anna.“"
     },
     {
      "type": "multiple_choice",
@@ -803,7 +1536,8 @@
      ],
      "correct_answer": "B",
      "points": 1,
-     "passage": 2
+     "passage": 2,
+     "explanation": "„Sie arbeitet als Ärztin in einem Krankenhaus.“"
     },
     {
      "type": "multiple_choice",
@@ -828,7 +1562,8 @@
      ],
      "correct_answer": "A",
      "points": 1,
-     "passage": 2
+     "passage": 2,
+     "explanation": "„Frau Müller kocht gern und hört abends gern ruhige Musik.“"
     },
     {
      "type": "multiple_choice",
@@ -853,7 +1588,8 @@
      ],
      "correct_answer": "A",
      "points": 1,
-     "passage": 3
+     "passage": 3,
+     "explanation": "„Tom spielt gern Fußball und hört gern Popmusik.“"
     },
     {
      "type": "multiple_choice",
@@ -865,7 +1601,8 @@
      ],
      "correct_answer": "A",
      "points": 1,
-     "passage": 3
+     "passage": 3,
+     "explanation": "„Seine Lieblingsfächer sind Sport und Englisch.“"
     },
     {
      "type": "multiple_choice",
@@ -877,7 +1614,8 @@
      ],
      "correct_answer": "A",
      "points": 1,
-     "passage": 4
+     "passage": 4,
+     "explanation": "„… und die Schwester von Tom.“"
     },
     {
      "type": "multiple_choice",
@@ -902,7 +1640,8 @@
      ],
      "correct_answer": "B",
      "points": 1,
-     "passage": 4
+     "passage": 4,
+     "explanation": "„Anna malt gern und liest gern Märchen.“"
     }
    ],
    "max_score": 15
@@ -916,11 +1655,12 @@
    "title": "Hören: Meine Familie (Lückentext)",
    "source": "book",
    "metadata": {
-    "book_page": 22
+    "book_page": 22,
+    "note": "Bo'sh joylarning bir qismi faqat audiodan aniqlanadi — admin audio (A1-2.mp3) ni tinglab javoblarni belgilaydi."
    },
    "audio_file": "A1-2.mp3",
    "key_pending": true,
-   "instruction": "Hören Sie den Text und ergänzen Sie die Lücken. Passende Wörter: Familie, Vater, Mutter, Bruder, Schwester, Haus, Berlin, Peter, Tom, Anna, spielt, Fußball, Kuchen, freundlich, liest, arbeitet, Lehrerin, Musik, malt, hilft, Garten, Ausflüge, Geburtstage.",
+   "instruction": "Hören Sie den Text und ergänzen Sie die Lücken. Passende Wörter — mos keladigan so'zlar: Familie (oila), Vater (ota), Mutter (ona), Bruder (aka), Schwester (singil), Haus (uy), Berlin (Berlin), Peter (Peter), Tom (Tom), Anna (Anna), spielt (o'ynaydi), Fußball (futbol), Kuchen (pirogi), freundlich (do'stona), liest (o'qiydi), arbeitet (ishlaydi), Lehrerin (o'qituvchi), Musik (musiqa), malt (chizadi), hilft (yordam beradi), Garten (bog'), Ausflüge (sayrlar), Geburtstage (tug'ilgan kunlar).",
    "questions": [
     {
      "type": "gap_fill",
@@ -1032,30 +1772,6 @@
    ]
   },
   {
-   "content_id": "vizu-a1-l02-schreiben-01",
-   "level": "A1",
-   "module": 1,
-   "lesson": 2,
-   "skill": "schreiben",
-   "title": "Schreiben: Meine Familie vorstellen",
-   "source": "book",
-   "metadata": {
-    "book_page": 24
-   },
-   "prompt": "Stellen Sie Ihre Familie vor. Schreiben Sie über 5–8 Familienmitglieder:\n\nHallo! Ich möchte meine Familie vorstellen.\nMein Großvater (bobom) heißt … und er ist … Jahre alt.\nMeine Großmutter (buvim) heißt … und sie ist … Jahre alt.\nMein Vater / Meine Mutter / Mein Bruder / Meine Schwester / Mein Onkel / Meine Tante / Mein Cousin / Meine Cousine … heißt … und er/sie ist … Jahre alt.",
-   "task_type": "description",
-   "min_words": 30,
-   "max_words": 100,
-   "time_limit": 15,
-   "support_phrases": [
-    "Ich möchte meine Familie vorstellen.",
-    "Mein Vater heißt …",
-    "Meine Mutter heißt …",
-    "… und er ist … Jahre alt.",
-    "… und sie ist … Jahre alt."
-   ]
-  },
-  {
    "content_id": "vizu-a1-l02-sprechen-01",
    "level": "A1",
    "module": 1,
@@ -1092,228 +1808,697 @@
    ]
   },
   {
-   "content_id": "vizu-a1-l02-wortschatz-01",
+   "content_id": "vizu-a1-l02-schreiben_uebungen-01",
    "level": "A1",
    "module": 1,
    "lesson": 2,
-   "skill": "wortschatz",
-   "title": "Wortschatz Modul 2",
+   "skill": "schreiben_uebungen",
+   "title": "Schreiben: Meine Familie — Übungen",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 24
+   },
+   "exercises": [
+    {
+     "title": "Oilani tanishtirish: Mein oder meine?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Großvater heißt Karl.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "Mein"
+         ],
+         "options": [
+          "Mein",
+          "Meine"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "der Großvater → mein Großvater"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Großmutter heißt Erika.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "Meine"
+         ],
+         "options": [
+          "Mein",
+          "Meine"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "die Großmutter → meine Großmutter"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Vater heißt Peter.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "Mein"
+         ],
+         "options": [
+          "Mein",
+          "Meine"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Mutter heißt Maria.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "Meine"
+         ],
+         "options": [
+          "Mein",
+          "Meine"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Bruder heißt Tom.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "Mein"
+         ],
+         "options": [
+          "Mein",
+          "Meine"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Schwester heißt Anna.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "Meine"
+         ],
+         "options": [
+          "Mein",
+          "Meine"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Onkel heißt Max.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "Mein"
+         ],
+         "options": [
+          "Mein",
+          "Meine"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Tante heißt Laura.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "Meine"
+         ],
+         "options": [
+          "Mein",
+          "Meine"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "der → mein, die → meine (kitobdagi 24-bet namunasi: Mein Großvater heißt …, Meine Großmutter heißt …). VIZU mashqi."
+    },
+    {
+     "title": "Oilani tanishtirish: er oder sie?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Mein Vater heißt Peter und [[1]] ist 45 Jahre alt.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "er"
+         ],
+         "options": [
+          "er",
+          "sie"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Meine Mutter heißt Maria und [[1]] ist 42 Jahre alt.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "sie"
+         ],
+         "options": [
+          "er",
+          "sie"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Mein Sohn heißt Ali und [[1]] ist 8 Jahre alt.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "er"
+         ],
+         "options": [
+          "er",
+          "sie"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Meine Tochter heißt Lola und [[1]] ist 6 Jahre alt.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "sie"
+         ],
+         "options": [
+          "er",
+          "sie"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Meine Cousine heißt Nora und [[1]] ist 15 Jahre alt.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "sie"
+         ],
+         "options": [
+          "er",
+          "sie"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Mein Neffe heißt Jan und [[1]] ist 3 Jahre alt.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "er"
+         ],
+         "options": [
+          "er",
+          "sie"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "Erkak — er, ayol — sie. VIZU mashqi."
+    },
+    {
+     "title": "Sätze bauen: Meine Familie",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Welcher Satz ist richtig? (heißt / Mein Bruder / Tom)",
+       "options": [
+        "Mein Bruder heißt Tom.",
+        "Heißt Tom mein Bruder.",
+        "Tom mein Bruder heißt."
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Welcher Satz ist richtig? (ist / 14 Jahre alt / er)",
+       "options": [
+        "Er 14 Jahre alt ist.",
+        "Er ist 14 Jahre alt.",
+        "Ist er alt 14 Jahre."
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Welcher Satz ist richtig? (möchte / meine Familie / vorstellen / ich)",
+       "options": [
+        "Ich möchte meine Familie vorstellen.",
+        "Ich vorstellen möchte meine Familie.",
+        "Meine Familie ich möchte vorstellen."
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Welcher Satz ist richtig? (wohnen / in Berlin / wir)",
+       "options": [
+        "In wohnen wir Berlin.",
+        "Wir in Berlin wohnen.",
+        "Wir wohnen in Berlin."
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "So'zlardan to'g'ri gapni tanlang. VIZU mashqi."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l02-schreiben-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 2,
+   "skill": "schreiben",
+   "title": "Schreiben: Meine Familie vorstellen",
    "source": "book",
    "metadata": {
-    "book_page": 26
+    "book_page": 24
    },
-   "words": [
+   "prompt": "Nemis tilida: Oilani tanishtirish. Stellen Sie Ihre Familie vor. Schreiben Sie über 5–8 Familienmitglieder:\n\nHallo! Ich möchte meine Familie vorstellen.\nMein Großvater (bobom) heißt … und er ist … Jahre alt.\nMeine Großmutter (buvim) heißt … und sie ist … Jahre alt.\nMein Vater / Meine Mutter / Mein Bruder / Meine Schwester / Mein Onkel / Meine Tante / Mein Cousin / Meine Cousine / Mein Sohn / Meine Tochter / Mein Enkel / Meine Enkelin / Mein Neffe / Meine Nichte … heißt … und er/sie ist … Jahre alt.",
+   "task_type": "description",
+   "min_words": 30,
+   "max_words": 100,
+   "time_limit": 15,
+   "support_phrases": [
+    "Ich möchte meine Familie vorstellen.",
+    "Mein Vater heißt …",
+    "Meine Mutter heißt …",
+    "… und er ist … Jahre alt.",
+    "… und sie ist … Jahre alt."
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l02-uebungen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 2,
+   "skill": "uebungen",
+   "title": "Übungen Modul 2",
+   "source": "vizu",
+   "exercises": [
     {
-     "word": "wohnen",
-     "translation": "yashamoq",
-     "group": "A1 daraja fe'llari"
+     "title": "Präsens: ich, du, er …",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Welche Form passt? (wohnen)",
+       "items": [
+        "ich",
+        "du",
+        "er",
+        "wir"
+       ],
+       "targets": [
+        "wohne",
+        "wohnst",
+        "wohnt",
+        "wohnen",
+        "wohnest"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D"
+       },
+       "points": 4,
+       "passage": 1,
+       "explanation": "ich wohne, du wohnst, er wohnt, wir wohnen (ihr wohnt)"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Tom [[1]] gern Fußball.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "spielt"
+         ],
+         "options": [
+          "spielt",
+          "spielst",
+          "spiele"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Lesen: „Tom spielt gern Fußball …“"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Frau Müller [[1]] gern.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "kocht"
+         ],
+         "options": [
+          "kocht",
+          "kochst",
+          "kochen"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Lesen: „Frau Müller kocht gern …“"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Herr Müller [[1]] auch Englisch.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "spricht"
+         ],
+         "options": [
+          "spricht",
+          "sprecht",
+          "sprichst"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "e → i: er spricht."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Anna [[1]] gern Märchen.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "liest"
+         ],
+         "options": [
+          "liest",
+          "lest",
+          "lesen"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "e → ie: sie liest."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Du [[1]] deiner Mutter in der Küche.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "hilfst"
+         ],
+         "options": [
+          "hilfst",
+          "helfst",
+          "hilft"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "e → i: du hilfst."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Er [[1]] Fahrrad.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "fährt"
+         ],
+         "options": [
+          "fährt",
+          "fahrt",
+          "fährst"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "a → ä: er fährt."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Ihr [[1]] jeden Tag.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "arbeitet"
+         ],
+         "options": [
+          "arbeitet",
+          "arbeitt",
+          "arbeitest"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "-t: ihr arbeitet (-e qo'shiladi)."
+      }
+     ],
+     "instruction": "Darsdagi fe'llar bilan Präsensni takrorlang."
     },
     {
-     "word": "gehen",
-     "translation": "bormoq, yurmoq",
-     "group": "A1 daraja fe'llari"
-    },
-    {
-     "word": "kommen",
-     "translation": "kelmoq",
-     "group": "A1 daraja fe'llari"
-    },
-    {
-     "word": "arbeiten",
-     "translation": "ishlamoq",
-     "group": "A1 daraja fe'llari"
-    },
-    {
-     "word": "lernen",
-     "translation": "o'rganmoq",
-     "group": "A1 daraja fe'llari"
-    },
-    {
-     "word": "lesen",
-     "translation": "o'qimoq",
-     "group": "A1 daraja fe'llari"
-    },
-    {
-     "word": "spielen",
-     "translation": "o'ynamoq",
-     "group": "A1 daraja fe'llari"
-    },
-    {
-     "word": "essen",
-     "translation": "yemoq",
-     "group": "A1 daraja fe'llari"
-    },
-    {
-     "word": "trinken",
-     "translation": "ichmoq",
-     "group": "A1 daraja fe'llari"
-    },
-    {
-     "word": "kochen",
-     "translation": "pishirmoq",
-     "group": "A1 daraja fe'llari"
-    },
-    {
-     "word": "schlafen",
-     "translation": "uxlamoq",
-     "group": "A1 daraja fe'llari"
-    },
-    {
-     "word": "sehen",
-     "translation": "ko'rmoq",
-     "group": "A1 daraja fe'llari"
-    },
-    {
-     "word": "sprechen",
-     "translation": "gapirmoq",
-     "group": "A1 daraja fe'llari"
-    },
-    {
-     "word": "lieben",
-     "translation": "sevmoq",
-     "group": "A1 daraja fe'llari"
-    },
-    {
-     "word": "helfen",
-     "translation": "yordam bermoq",
-     "group": "A1 daraja fe'llari"
-    },
-    {
-     "word": "tanzen",
-     "translation": "raqsga tushmoq",
-     "group": "A1 daraja fe'llari"
-    },
-    {
-     "word": "Vater",
-     "translation": "ota",
-     "article": "der",
-     "group": "Oila a'zolari"
-    },
-    {
-     "word": "Mutter",
-     "translation": "ona",
-     "article": "die",
-     "group": "Oila a'zolari"
-    },
-    {
-     "word": "Sohn",
-     "translation": "o'g'il bola",
-     "article": "der",
-     "group": "Oila a'zolari"
-    },
-    {
-     "word": "Tochter",
-     "translation": "qiz bola",
-     "article": "die",
-     "group": "Oila a'zolari"
-    },
-    {
-     "word": "Bruder",
-     "translation": "aka / uka",
-     "article": "der",
-     "group": "Oila a'zolari"
-    },
-    {
-     "word": "Schwester",
-     "translation": "opa / singil",
-     "article": "die",
-     "group": "Oila a'zolari"
-    },
-    {
-     "word": "Großvater",
-     "translation": "bobo (Opa)",
-     "article": "der",
-     "group": "Oila a'zolari"
-    },
-    {
-     "word": "Großmutter",
-     "translation": "buvi (Oma)",
-     "article": "die",
-     "group": "Oila a'zolari"
-    },
-    {
-     "word": "Onkel",
-     "translation": "amaki / tog'a",
-     "article": "der",
-     "group": "Oila a'zolari"
-    },
-    {
-     "word": "Tante",
-     "translation": "xola / amma",
-     "article": "die",
-     "group": "Oila a'zolari"
-    },
-    {
-     "word": "Cousin",
-     "translation": "amaki / xola o'g'li",
-     "article": "der",
-     "group": "Oila a'zolari"
-    },
-    {
-     "word": "Cousine",
-     "translation": "amaki / xola qizi",
-     "article": "die",
-     "group": "Oila a'zolari"
-    },
-    {
-     "word": "Neffe",
-     "translation": "jiyan (o'g'il)",
-     "article": "der",
-     "group": "Oila a'zolari"
-    },
-    {
-     "word": "Nichte",
-     "translation": "jiyan (qiz)",
-     "article": "die",
-     "group": "Oila a'zolari"
-    },
-    {
-     "word": "Ehemann",
-     "translation": "er",
-     "article": "der",
-     "group": "Oila a'zolari"
-    },
-    {
-     "word": "Ehefrau",
-     "translation": "xotin",
-     "article": "die",
-     "group": "Oila a'zolari"
-    },
-    {
-     "word": "Schwiegermutter",
-     "translation": "qaynona",
-     "article": "die",
-     "group": "Oila a'zolari"
-    },
-    {
-     "word": "Schwiegervater",
-     "translation": "qaynota",
-     "article": "der",
-     "group": "Oila a'zolari"
-    },
-    {
-     "word": "Schwägerin",
-     "translation": "qaynisingil",
-     "article": "die",
-     "group": "Oila a'zolari"
-    },
-    {
-     "word": "Schwager",
-     "translation": "qayni aka / qayni uka",
-     "article": "der",
-     "group": "Oila a'zolari"
-    },
-    {
-     "word": "Enkel",
-     "translation": "nabira (o'g'il)",
-     "article": "der",
-     "group": "Oila a'zolari"
-    },
-    {
-     "word": "Enkelin",
-     "translation": "nabira (qiz)",
-     "article": "die",
-     "group": "Oila a'zolari"
+     "title": "Zahlen im Alltag",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Tom ist [[1]] Jahre alt. (14)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "vierzehn"
+         ],
+         "options": [
+          "vierzehn",
+          "vierzig",
+          "vierundzehn"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Lesen: Tom ist 14 Jahre alt."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Anna ist [[1]] Jahre alt. (11)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "elf"
+         ],
+         "options": [
+          "elf",
+          "eins",
+          "zwölf"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Lesen: Anna ist 11 Jahre alt."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Mein Großvater ist [[1]] Jahre alt. (78)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "achtundsiebzig"
+         ],
+         "options": [
+          "achtundsiebzig",
+          "siebenundachtzig",
+          "achtzehnsiebzig"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Meine Mutter ist [[1]] Jahre alt. (42)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "zweiundvierzig"
+         ],
+         "options": [
+          "zweiundvierzig",
+          "vierundzwanzig",
+          "zweivierzig"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Das kostet [[1]] Euro. (15)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "fünfzehn"
+         ],
+         "options": [
+          "fünfzehn",
+          "fünfzig",
+          "fünfundzehn"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Wir wohnen in Haus Nummer [[1]]. (60)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "sechzig"
+         ],
+         "options": [
+          "sechzig",
+          "sechszig",
+          "sechzehn"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "Raqamni so'z bilan tanlang."
     }
    ]
   },
@@ -1323,9 +2508,9 @@
    "module": 1,
    "lesson": 2,
    "skill": "yakuniy",
-   "title": "Yakuniy Test: Modul 2",
+   "title": "Abschlusstest: Modul 2",
    "source": "vizu",
-   "instruction": "Präsens, raqamlar va oila so'zlari bo'yicha yakuniy test.",
+   "instruction": "Präsens, raqamlar, oila so'zlari va Lesen matnlari bo'yicha yakuniy test.",
    "questions": [
     {
      "type": "multiple_choice",
@@ -1376,16 +2561,25 @@
      "passage": 1
     },
     {
-     "type": "multiple_choice",
-     "question": "Ich ___ jeden Morgen um 7 Uhr ___.",
-     "options": [
-      "stehe … auf",
-      "aufstehe … (—)",
-      "stehst … auf"
-     ],
-     "correct_answer": "A",
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Ich [[1]] jeden Morgen um 7 Uhr auf.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "stehe"
+       ],
+       "options": [
+        "stehe",
+        "stehst",
+        "aufstehe"
+       ]
+      }
+     },
      "points": 1,
-     "passage": 1
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "aufstehen: Ich stehe … auf."
     },
     {
      "type": "gap_fill",
@@ -1400,6 +2594,26 @@
         "heißt",
         "heißst",
         "heiße"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Er [[1]] lange.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "schläft"
+       ],
+       "options": [
+        "schläft",
+        "schlaft",
+        "schläfst"
        ]
       }
      },
@@ -1426,6 +2640,18 @@
       "neunzehn",
       "neunzig",
       "neunzehnzig"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wie schreibt man 1.000?",
+     "options": [
+      "eintausend",
+      "einhundert",
+      "zehnhundert"
      ],
      "correct_answer": "A",
      "points": 1,
@@ -1463,6 +2689,26 @@
      "correct_answer": "richtig"
     },
     {
+     "type": "true_false",
+     "question": "Herr Müller arbeitet als Arzt. (Lesen)",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "Lesen: „Er arbeitet als Ingenieur in einer Firma.“ Frau Müller ist Ärztin."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wo arbeitet Frau Müller? (Lesen)",
+     "options": [
+      "In einem Krankenhaus",
+      "In einer Firma",
+      "In einer Schule"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
      "type": "matching",
      "question": "Was passt zusammen?",
      "items": [
@@ -1475,7 +2721,7 @@
       "aka / uka",
       "opa / singil",
       "o'g'il bola",
-      "nabira (qiz)",
+      "nabira qiz",
       "qaynona"
      ],
      "pairs": {
@@ -1484,10 +2730,21 @@
       "3": "C",
       "4": "D"
      },
-     "points": 1,
+     "points": 4,
      "passage": 1
     }
    ]
+  },
+  {
+   "content_id": "vizu-a1-l02-kompetenz-02",
+   "level": "A1",
+   "module": 1,
+   "lesson": 2,
+   "skill": "kompetenz",
+   "title": "Zusammenfassung: Modul 2",
+   "source": "vizu",
+   "competency": "ZUSAMMENFASSUNG",
+   "html": "<h3>Modul 2 — qisqacha</h3><ul><li><strong>Präsens:</strong> ich -e · du -st · er/sie/es -t · wir -en · ihr -t · sie/Sie -en (ich lerne, du lernst, er lernt …).</li><li><strong>Kuchli fe'llar:</strong> a → ä (fahren: du fährst), e → i (sprechen: du sprichst), e → ie (lesen: du liest) — faqat du va er/sie/es da.</li><li><strong>-e qo'shiladi:</strong> du arbeitest, er wartet, ihr öffnet · <strong>-s qo'shilmaydi:</strong> du heißt, du tanzt.</li><li><strong>Ajraladigan fe'llar:</strong> Ich stehe um 7 Uhr auf. Wir fangen die Arbeit an.</li><li><strong>Zahlen:</strong> 13–19 „-zehn“ (dreizehn), 21–99 „und“ bilan (einundzwanzig), 30 = dreißig, 100 = hundert.</li><li><strong>Familie:</strong> der Vater, die Mutter, der Sohn, die Tochter, der Bruder, die Schwester, der Großvater, die Großmutter …</li></ul><p>Natijalaringiz pastda — tugallanmagan bo'limlarni yakunlang, so'ng keyingi darsga o'ting.</p>"
   }
  ]
 }
