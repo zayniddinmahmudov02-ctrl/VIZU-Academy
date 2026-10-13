@@ -39,6 +39,10 @@ const nextConfig: NextConfig = {
       })),
       { source: "/lessons/:lessonId/:section", destination: "/lektion/:lessonId", permanent: false },
       { source: "/lessons/:lessonId", destination: "/lektion/:lessonId", permanent: false },
+      // the old admin Courses / Videos pages were removed; Kurse (LMS) replaces them
+      { source: "/admin/courses", destination: "/admin/kurse", permanent: false },
+      { source: "/admin/courses/:courseId", destination: "/admin/kurse", permanent: false },
+      { source: "/admin/videos", destination: "/admin/kurse", permanent: false },
     ];
   },
   turbopack: {

@@ -13,7 +13,7 @@ export interface LevelWithLessonCount extends Level {
 
 /** Admin-side counterpart to the public useCoursesWithLessonCounts — same
  * Course -> Module -> Lessons fan-out, just against the admin CRUD
- * endpoints so /admin/courses can show a real lesson count per level. */
+ * endpoints so /admin/lms can show a real lesson count per level. */
 export function useLevelsWithLessonCounts() {
   return useQuery({
     queryKey: ["admin-levels-with-lesson-counts"],

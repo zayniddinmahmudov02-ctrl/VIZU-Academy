@@ -7,7 +7,6 @@ import {
   Crown,
   FlaskConical,
   Layers,
-  GraduationCap,
   Globe,
   LayoutDashboard,
   Megaphone,
@@ -31,7 +30,7 @@ export interface AdminNavGroup {
 
 // The sidebar exposes only top-level sections. A lesson's own content
 // (Videokurs, Hören Audio, Schreiben / Sprechen Aufgaben) is managed
-// through Courses -> Level -> Lesson. There are no test/quiz/vocabulary/
+// through Kurse (LMS) -> Level -> Lesson. There are no test/quiz/vocabulary/
 // grammar creators or generators, and no Schreiben/Sprechen grading in
 // the admin panel: that content is produced externally (Claude) and
 // imported into the database, and student submissions are reviewed in
@@ -42,7 +41,6 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
       { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
       { label: "Werbung-Banner", href: "/admin/werbung-banner", icon: Megaphone },
       { label: "Languages", href: "/admin/languages", icon: Globe },
-      { label: "Courses", href: "/admin/courses", icon: GraduationCap },
       { label: "Kurse (LMS)", href: "/admin/kurse", icon: BookOpenCheck },
       { label: "LMS A1–C1", href: "/admin/lms", icon: Layers },
       { label: "Vorbereitung", href: "/admin/mock-exams", icon: ShieldCheck },
