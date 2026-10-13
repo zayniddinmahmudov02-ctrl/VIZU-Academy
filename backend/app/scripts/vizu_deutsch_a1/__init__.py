@@ -229,9 +229,29 @@ def reverse_vocab_set(word_list: list[dict], limit: int = 8, title: str = "Nemis
     picked = words_[1::step][:limit] if len(words_) > limit else words_[:limit]
     questions = []
     for w in picked:
-        others = [o for o in words_ if o is not w and bool(o.get("article")) == bool(w.get("article"))] or [o for o in words_ if o is not w]
+        others = [o for o in words_ if o is not w and bool(o.get("article")) == bool(w.get("article"))]
+        if len(others) < 2:
+            others = [o for o in words_ if o is not w]
         others.sort(key=lambda o: hashlib.sha256(f"{w['word']}:{o['word']}".encode()).hexdigest())
         options = [_label(w), _label(others[0]), _label(others[1])]
         options.sort(key=lambda o: hashlib.sha256(f"{o}:{w['word']}".encode()).hexdigest())
         questions.append(mc(f"„{w['translation']}“ — nemischa qanday?", options, chr(65 + options.index(_label(w)))))
     return exercise(title, questions, "O'zbekcha so'zning nemischasini tanlang.", source="vizu")
+
+
+def word_order_mc(words_: str, correct: str, question: str = "Bilde einen Satz") -> dict:
+    """'Build a sentence from the words' as a choice: the book's sentence and
+    two wrong word orders (finite verb at the end; subject + verb moved to
+    the end) — never another correct order, so the key is unique."""
+    import hashlib
+
+    tokens = correct.rstrip(".").split()
+
+    def cap(ws):
+        ws = [w if i == 0 or w != "Ich" else "ich" for i, w in enumerate(ws)]
+        return " ".join([ws[0][:1].upper() + ws[0][1:], *ws[1:]]) + "."
+
+    first = tokens[0].lower() if tokens[0] in ("Ich", "Wir", "Du", "Er", "Ihr") else tokens[0]
+    options = [correct, cap([tokens[0], *tokens[2:], tokens[1]]), cap([*tokens[2:], first, tokens[1]])]
+    options.sort(key=lambda o: hashlib.sha256(f"{o}:{words_}".encode()).hexdigest())
+    return mc(f"{question}: {words_}", options, "ABC"[options.index(correct)], f"{correct} — fe'l (yoki modal fe'l) 2-o'rinda turadi.")

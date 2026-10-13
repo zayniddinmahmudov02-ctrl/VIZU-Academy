@@ -1,8 +1,22 @@
 {
- "schema_version": "1.1",
+ "schema_version": "1.2",
  "language": "de",
  "source": "vizu-deutsch-a1-book",
  "items": [
+  {
+   "content_id": "vizu-a1-l07-kompetenz-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 7,
+   "skill": "kompetenz",
+   "title": "Einführung: Modul 7",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 70
+   },
+   "competency": "EINFUEHRUNG",
+   "html": "<h3>Modul 7 — Meine letzte Woche</h3><p><strong>Mavzu:</strong> Meine letzte Woche · <strong>Grammatik:</strong> Präteritum (o'tgan zamon)</p><h4>Dars maqsadlari</h4><ul><li>haben va sein ning o'tgan zamon shakllari: ich hatte, ich war, du hattest, du warst …;</li><li>kuchsiz fe'llarning Präteritumi: spielen → spielte, machen → machte;</li><li>kuchli fe'llarning Präteritumi: sehen → sah, gehen → ging, essen → aß;</li><li>hafta kunlari, oy nomlari va vaqt iboralarini o'rganish: gestern, letzte Woche, am Wochenende.</li></ul><h4>Dars oxirida siz quyidagilarni bajara olasiz</h4><ul><li>„Letzte Woche war ich in Taschkent. Am Montag ging ich ins Kino.“ — o'tgan haftangiz haqida aytasiz;</li><li>Parijdan yozilgan ikki xatni o'qib, hozirgi va o'tgan zamonni farqlaysiz;</li><li>Toshkentdagi kun haqidagi matnni tinglab, fe'llarni to'ldirasiz;</li><li>bolaligingiz haqida qisqa hikoya qilasiz.</li></ul><h4>Darsning tuzilishi</h4><p>Einführung → Wortschatz → Grammatik → Lesen → Hören → Sprechen → Schreiben → Übungen → Abschlusstest → Zusammenfassung</p>"
+  },
   {
    "content_id": "vizu-a1-l07-frage-01",
    "level": "A1",
@@ -52,7 +66,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: hatte"
+       "explanation": "Javob: hatte"
       },
       {
        "type": "gap_fill",
@@ -66,7 +80,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: waren"
+       "explanation": "Javob: waren"
       },
       {
        "type": "gap_fill",
@@ -80,7 +94,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: spielten"
+       "explanation": "Javob: spielten"
       },
       {
        "type": "gap_fill",
@@ -94,7 +108,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: schrieb"
+       "explanation": "Javob: schrieb"
       },
       {
        "type": "gap_fill",
@@ -108,7 +122,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: kamst"
+       "explanation": "Javob: kamst"
       },
       {
        "type": "gap_fill",
@@ -122,7 +136,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: sah"
+       "explanation": "Javob: sah"
       },
       {
        "type": "gap_fill",
@@ -136,7 +150,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: blieben"
+       "explanation": "Javob: blieben"
       },
       {
        "type": "gap_fill",
@@ -150,7 +164,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: aßt"
+       "explanation": "Javob: aßt"
       },
       {
        "type": "gap_fill",
@@ -165,7 +179,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: halfen (sie — u: half)"
+       "explanation": "Javob: halfen (sie — u: half)"
       },
       {
        "type": "gap_fill",
@@ -179,7 +193,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: stand"
+       "explanation": "Javob: stand"
       },
       {
        "type": "gap_fill",
@@ -193,7 +207,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: machte"
+       "explanation": "Javob: machte"
       },
       {
        "type": "gap_fill",
@@ -207,7 +221,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: riefst"
+       "explanation": "Javob: riefst"
       },
       {
        "type": "gap_fill",
@@ -221,7 +235,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: war"
+       "explanation": "Javob: war"
       },
       {
        "type": "gap_fill",
@@ -235,7 +249,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: machten"
+       "explanation": "Javob: machten"
       },
       {
        "type": "gap_fill",
@@ -249,7 +263,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: wart"
+       "explanation": "Javob: wart"
       },
       {
        "type": "gap_fill",
@@ -264,7 +278,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: lasen (sie — u: las)"
+       "explanation": "Javob: lasen (sie — u: las)"
       },
       {
        "type": "gap_fill",
@@ -278,7 +292,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: ging"
+       "explanation": "Javob: ging"
       },
       {
        "type": "gap_fill",
@@ -292,7 +306,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: machtest"
+       "explanation": "Javob: machtest"
       },
       {
        "type": "gap_fill",
@@ -306,7 +320,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: arbeitete"
+       "explanation": "Javob: arbeitete"
       },
       {
        "type": "gap_fill",
@@ -320,7 +334,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: sahen"
+       "explanation": "Javob: sahen"
       }
      ],
      "instruction": "Setze die richtige Form im Präteritum ein! (haben, sein, spielen, schreiben, kommen, sehen, bleiben, essen, helfen, aufstehen, machen, anrufen, lesen, gehen, arbeiten)"
@@ -330,75 +344,82 @@
      "source": "book",
      "questions": [
       {
-       "type": "short_answer",
+       "type": "multiple_choice",
        "question": "Bilde einen Satz im Präteritum: ich / gestern / Schule / haben",
-       "accepted": [
+       "options": [
         "Ich hatte gestern Schule.",
-        "Gestern hatte ich Schule."
+        "Gestern Schule ich hatte.",
+        "Ich gestern Schule hatte."
        ],
+       "correct_answer": "A",
        "points": 1,
-       "max_length": 120,
        "passage": 1,
-       "explanation": "Ich hatte gestern Schule."
+       "explanation": "Ich hatte gestern Schule. — fe'l (yoki modal fe'l) 2-o'rinda turadi."
       },
       {
-       "type": "short_answer",
+       "type": "multiple_choice",
        "question": "Bilde einen Satz im Präteritum: wir / am Wochenende / Ausflug / machen",
-       "accepted": [
-        "Wir machten am Wochenende einen Ausflug.",
-        "Am Wochenende machten wir einen Ausflug.",
-        "Wir machten am Wochenende Ausflug."
+       "options": [
+        "Wir am Wochenende einen Ausflug machten.",
+        "Am Wochenende einen Ausflug wir machten.",
+        "Wir machten am Wochenende einen Ausflug."
        ],
+       "correct_answer": "C",
        "points": 1,
-       "max_length": 120,
        "passage": 1,
-       "explanation": "Wir machten am Wochenende einen Ausflug."
+       "explanation": "Wir machten am Wochenende einen Ausflug. — fe'l (yoki modal fe'l) 2-o'rinda turadi."
       },
       {
-       "type": "short_answer",
+       "type": "multiple_choice",
        "question": "Bilde einen Satz im Präteritum: du / spät / nach Hause / kommen",
-       "accepted": [
+       "options": [
+        "Spät nach Hause du kamst.",
+        "Du spät nach Hause kamst.",
         "Du kamst spät nach Hause."
        ],
+       "correct_answer": "C",
        "points": 1,
-       "max_length": 120,
        "passage": 1,
-       "explanation": "Du kamst spät nach Hause."
+       "explanation": "Du kamst spät nach Hause. — fe'l (yoki modal fe'l) 2-o'rinda turadi."
       },
       {
-       "type": "short_answer",
+       "type": "multiple_choice",
        "question": "Bilde einen Satz im Präteritum: er / ein Buch / lesen",
-       "accepted": [
-        "Er las ein Buch."
+       "options": [
+        "Ein Buch er las.",
+        "Er las ein Buch.",
+        "Er ein Buch las."
        ],
+       "correct_answer": "B",
        "points": 1,
-       "max_length": 120,
        "passage": 1,
-       "explanation": "Er las ein Buch."
+       "explanation": "Er las ein Buch. — fe'l (yoki modal fe'l) 2-o'rinda turadi."
       },
       {
-       "type": "short_answer",
+       "type": "multiple_choice",
        "question": "Bilde einen Satz im Präteritum: sie / im Park / sitzen",
-       "accepted": [
-        "Sie saß im Park.",
-        "Sie saßen im Park."
+       "options": [
+        "Im Park Sie saß.",
+        "Sie im Park saß.",
+        "Sie saß im Park."
        ],
+       "correct_answer": "C",
        "points": 1,
-       "max_length": 120,
        "passage": 1,
-       "explanation": "Sie saß im Park."
+       "explanation": "Sie saß im Park. — fe'l (yoki modal fe'l) 2-o'rinda turadi."
       },
       {
-       "type": "short_answer",
+       "type": "multiple_choice",
        "question": "Bilde einen Satz im Präteritum: ihr / am Abend / fernsehen",
-       "accepted": [
+       "options": [
+        "Am Abend fern ihr saht.",
         "Ihr saht am Abend fern.",
-        "Am Abend saht ihr fern."
+        "Ihr am Abend fern saht."
        ],
+       "correct_answer": "B",
        "points": 1,
-       "max_length": 120,
        "passage": 1,
-       "explanation": "Ihr saht am Abend fern."
+       "explanation": "Ihr saht am Abend fern. — fe'l (yoki modal fe'l) 2-o'rinda turadi."
       }
      ],
      "instruction": "Bilde Sätze im Präteritum!"
@@ -488,11 +509,11 @@
    "passages": [
     {
      "title": "Brief 1: Mein erster Tag in Paris",
-     "text": "Liebe Lili,\n\nich bin heute in Paris. Das Wetter ist schön. Ich gehe spazieren und sehe viele schöne Gebäude. Ich esse Croissants und trinke Kaffee. Ich besuche den Eiffelturm und mache Fotos. Ich kaufe auch Souvenirs für dich.\n\nViele Grüße\n[Name]"
+     "text": "Liebe Lili,\n\nich bin heute in Paris. Das Wetter ist schön. Ich gehe spazieren und sehe viele schöne Gebäude. Ich esse Croissants und trinke Kaffee. Ich besuche den Eiffelturm und mache Fotos. Ich kaufe auch Souvenirs für dich.\n\nViele Grüße\n[Name]\n\nO'zbekcha tarjima: Aziz Lili, men bugun Parijdaman. Ob-havo chiroyli. Men sayr qilaman va ko'p chiroyli binolarni ko'raman. Men kruassan yeyman va qahva ichaman. Men Eyfel minorasiga boraman va suratlar olaman. Men sen uchun sovg'alar ham sotib olaman. Ko'p salomlar bilan …"
     },
     {
      "title": "Brief 2: Mein Tag in Paris",
-     "text": "Liebe Lili,\n\nich war gestern in Paris. Das Wetter war schön. Ich ging spazieren und sah viele schöne Gebäude. Ich aß Croissants und trank Kaffee. Ich besuchte den Eiffelturm und machte Fotos. Ich kaufte auch Souvenirs für dich.\n\nViele Grüße\n[Name]"
+     "text": "Liebe Lili,\n\nich war gestern in Paris. Das Wetter war schön. Ich ging spazieren und sah viele schöne Gebäude. Ich aß Croissants und trank Kaffee. Ich besuchte den Eiffelturm und machte Fotos. Ich kaufte auch Souvenirs für dich.\n\nViele Grüße\n[Name]\n\nO'zbekcha tarjima: Aziz Lili, men kecha Parijda edim. Ob-havo chiroyli edi. Men sayr qildim va ko'p chiroyli binolarni ko'rdim. Men kruassan yedim va qahva ichdim. Men Eyfel minorasiga bordim va suratlar oldim. Men sen uchun sovg'alar ham sotib oldim. Ko'p salomlar bilan …"
     }
    ],
    "questions": [
@@ -507,7 +528,7 @@
      "correct_answer": "B",
      "points": 1,
      "passage": 1,
-     "explanation": "Brief 1: „ich bin heute in Paris.“"
+     "explanation": "Brief 1: „ich bin heute in Paris.“ (Kitobda: „Wo ist Lili?“ — Lili xatni oluvchi, Parijda xat yozuvchi.)"
     },
     {
      "type": "multiple_choice",
@@ -991,6 +1012,800 @@
      "translation": "sotib olmoq",
      "group": "Lesen: Wörter-Hilfe"
     }
+   ],
+   "exercises": [
+    {
+     "title": "Zuordnung 1",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Wörter 1)",
+       "items": [
+        "die Stadt",
+        "das Gebäude",
+        "der Eiffelturm",
+        "der Amir-Timur-Platz",
+        "die Großeltern",
+        "der Hund"
+       ],
+       "targets": [
+        "shahar",
+        "bino",
+        "Eyfel minorasi",
+        "Amir Temur maydoni",
+        "buvi va bobo",
+        "it",
+        "muzqaymoq"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Wörter 2)",
+       "items": [
+        "das Eis",
+        "der Saft",
+        "das Restaurant",
+        "der Tag",
+        "die Woche",
+        "die Kindheit"
+       ],
+       "targets": [
+        "muzqaymoq",
+        "sharbat",
+        "restoran",
+        "kun",
+        "hafta",
+        "bolalik",
+        "shahar"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Wörter 3)",
+       "items": [
+        "gestern",
+        "heute",
+        "morgen",
+        "am Morgen",
+        "am Abend",
+        "letzte Woche"
+       ],
+       "targets": [
+        "kecha",
+        "bugun",
+        "ertaga",
+        "ertalab",
+        "kechqurun",
+        "o'tgan hafta",
+        "shahar"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Zuordnung 2",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Wörter 4)",
+       "items": [
+        "letztes Jahr",
+        "am Wochenende",
+        "vorher",
+        "danach"
+       ],
+       "targets": [
+        "o'tgan yil",
+        "hafta oxiri",
+        "oldin",
+        "keyin",
+        "shahar"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D"
+       },
+       "points": 4,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Wochentage — hafta kunlari)",
+       "items": [
+        "Montag",
+        "Dienstag",
+        "Mittwoch",
+        "Donnerstag",
+        "Freitag",
+        "Samstag",
+        "Sonntag"
+       ],
+       "targets": [
+        "dushanba",
+        "seshanba",
+        "chorshanba",
+        "payshanba",
+        "juma",
+        "shanba",
+        "yakshanba",
+        "shahar"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F",
+        "7": "G"
+       },
+       "points": 7,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Monate — oy nomlari 1)",
+       "items": [
+        "Januar",
+        "Februar",
+        "März",
+        "April",
+        "Mai",
+        "Juni"
+       ],
+       "targets": [
+        "yanvar",
+        "fevral",
+        "mart",
+        "aprel",
+        "may",
+        "iyun",
+        "shahar"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Zuordnung 3",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Monate — oy nomlari 2)",
+       "items": [
+        "Juli",
+        "August",
+        "September",
+        "Oktober",
+        "November",
+        "Dezember"
+       ],
+       "targets": [
+        "iyul",
+        "avgust",
+        "sentyabr",
+        "oktyabr",
+        "noyabr",
+        "dekabr",
+        "shahar"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Lesen: Wörter-Hilfe)",
+       "items": [
+        "spazieren",
+        "Fotos machen",
+        "die Croissants",
+        "die Souvenirs",
+        "besuchen",
+        "kaufen"
+       ],
+       "targets": [
+        "sayr qilmoq",
+        "suratlar olish",
+        "kruassanlar",
+        "esdalik sovg'alar",
+        "bormoq, tashrif buyurmoq",
+        "sotib olmoq",
+        "shahar"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Der, die oder das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Stadt (shahar)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Gebäude (bino)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Eiffelturm (Eyfel minorasi)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Amir-Timur-Platz (Amir Temur maydoni)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Großeltern (buvi va bobo)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Hund (it)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Eis (muzqaymoq)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Saft (sharbat)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Restaurant (restoran)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Tag (kun)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "So'zning artiklini tanlang (kitobdagi lug'at bo'yicha)."
+    }
+   ],
+   "auto_practice": false
+  },
+  {
+   "content_id": "vizu-a1-l07-uebungen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 7,
+   "skill": "uebungen",
+   "title": "Übungen Modul 7",
+   "source": "vizu",
+   "exercises": [
+    {
+     "title": "Präsens → Präteritum (Lesen)",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Ich bin heute in Paris. → Ich [[1]] gestern in Paris.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "war"
+         ],
+         "options": [
+          "war",
+          "bin",
+          "wurde"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Brief 2: „ich war gestern in Paris.“"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Ich gehe spazieren. → Ich [[1]] spazieren.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "ging"
+         ],
+         "options": [
+          "ging",
+          "gehte",
+          "gang"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Brief 2: „Ich ging spazieren …“"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Ich sehe viele Gebäude. → Ich [[1]] viele Gebäude.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "sah"
+         ],
+         "options": [
+          "sah",
+          "sehte",
+          "sahe"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Ich esse Croissants. → Ich [[1]] Croissants.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "aß"
+         ],
+         "options": [
+          "aß",
+          "esste",
+          "ass"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Ich trinke Kaffee. → Ich [[1]] Kaffee.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "trank"
+         ],
+         "options": [
+          "trank",
+          "trinkte",
+          "trunk"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Ich besuche den Eiffelturm. → Ich [[1]] den Eiffelturm.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "besuchte"
+         ],
+         "options": [
+          "besuchte",
+          "besuch",
+          "besuchten"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Ich kaufe Souvenirs. → Ich [[1]] Souvenirs.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "kaufte"
+         ],
+         "options": [
+          "kaufte",
+          "kauf",
+          "kaufen"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "Brief 1 dagi gaplarni Präteritumga o'tkazing (Brief 2 bilan solishtiring)."
+    },
+    {
+     "title": "Wann war das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Heute ist Mittwoch. Gestern war …",
+       "options": [
+        "Dienstag",
+        "Donnerstag",
+        "Montag"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Jetzt ist März. Letzten Monat war …",
+       "options": [
+        "Februar",
+        "April",
+        "Januar"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Welcher Monat kommt nach Juni?",
+       "options": [
+        "Juli",
+        "Mai",
+        "August"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„vorher“ bedeutet …",
+       "options": [
+        "oldin",
+        "keyin",
+        "kecha"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "Kunlar, oylar va vaqt so'zlari."
+    },
+    {
+     "title": "Nemischa qanday?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "„bino“ — nemischa qanday?",
+       "options": [
+        "das Restaurant",
+        "das Gebäude",
+        "der Saft"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„muzqaymoq“ — nemischa qanday?",
+       "options": [
+        "die Woche",
+        "das Eis",
+        "der Amir-Timur-Platz"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„bolalik“ — nemischa qanday?",
+       "options": [
+        "die Kindheit",
+        "der Amir-Timur-Platz",
+        "die Souvenirs"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„kechqurun“ — nemischa qanday?",
+       "options": [
+        "April",
+        "Samstag",
+        "am Abend"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„keyin“ — nemischa qanday?",
+       "options": [
+        "September",
+        "danach",
+        "am Morgen"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„juma“ — nemischa qanday?",
+       "options": [
+        "Freitag",
+        "Samstag",
+        "Donnerstag"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„mart“ — nemischa qanday?",
+       "options": [
+        "Juli",
+        "Juni",
+        "März"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„avgust“ — nemischa qanday?",
+       "options": [
+        "November",
+        "Freitag",
+        "August"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "O'zbekcha so'zning nemischasini tanlang."
+    }
    ]
   },
   {
@@ -999,7 +1814,7 @@
    "module": 1,
    "lesson": 7,
    "skill": "yakuniy",
-   "title": "Yakuniy Test: Modul 7",
+   "title": "Abschlusstest: Modul 7",
    "source": "vizu",
    "instruction": "Präteritum va darsdagi so'zlar bo'yicha yakuniy test.",
    "questions": [
@@ -1184,6 +1999,17 @@
      "passage": 1
     }
    ]
+  },
+  {
+   "content_id": "vizu-a1-l07-kompetenz-02",
+   "level": "A1",
+   "module": 1,
+   "lesson": 7,
+   "skill": "kompetenz",
+   "title": "Zusammenfassung: Modul 7",
+   "source": "vizu",
+   "competency": "ZUSAMMENFASSUNG",
+   "html": "<h3>Modul 7 — qisqacha</h3><ul><li><strong>haben / sein:</strong> ich hatte / war, du hattest / warst, er hatte / war, wir hatten / waren, ihr hattet / wart, sie hatten / waren.</li><li><strong>Schwache Verben:</strong> spielen → ich spielte, du spieltest, wir spielten · machen → machte, arbeiten → arbeitete.</li><li><strong>Starke Verben:</strong> sehen → sah, gehen → ging, kommen → kam, essen → aß, trinken → trank, schreiben → schrieb, aufstehen → stand auf.</li><li><strong>Zeit:</strong> gestern, letzte Woche, letztes Jahr, am Wochenende, am Montag … · Monate: Januar … Dezember.</li></ul><p>Natijalaringiz pastda — tugallanmagan bo'limlarni yakunlang, so'ng keyingi darsga o'ting.</p>"
   }
  ]
 }

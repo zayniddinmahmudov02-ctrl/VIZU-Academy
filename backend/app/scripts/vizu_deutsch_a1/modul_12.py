@@ -4,11 +4,42 @@ p.120 ("6 Bog'lovchi — 60 topshiriq"): free sentence building with several
 correct solutions (and no matching answer sheet) — imported as two Schreiben
 tasks evaluated against the rubric, not as auto-graded items. A short
 auto-graded conjunction exercise is added by VIZU. The Lesen texts (p.121)
-have no questions in the book; the questions are created by VIZU."""
+have no questions in the book; the questions are created by VIZU.
 
-from . import base, choice_gap, exercise, gap, html_table, match, mc, tf, words
+The Hören page (p.122) prints the reports with blanks and no solution; the
+cities and temperatures exist only on the old answer sheet, so the gaps wait
+for the audio (key_pending) and the old values are kept as a hint. Options
+that would also give a correct sentence (e.g. "Ich bin müde, denn ich lerne
+Deutsch") are not offered."""
+
+from . import (
+    article_set, base, choice_gap, exercise, gap, html_table, intro_html, match, mc, reverse_vocab_set, summary_html, tf, vocab_match_sets,
+    words,
+)
 
 L = 12
+LESSON_TITLE = "Das Wetter in Berlin"
+LESSON_DESCRIPTION = "Thema: Das Wetter in Berlin · Grammatik: Die Konjunktionen"
+IMAGES = [("01_cover.jpg", "EINFUEHRUNG", "Modul 12 — Das Wetter in Berlin (Buch, S. 117)")]
+RETIRED_IMAGE_TITLES: list[str] = []
+
+EINFUEHRUNG_HTML = intro_html(
+    12, "Das Wetter in Berlin", "Die Konjunktionen (bog'lovchilar)",
+    ["und, oder, aber, denn — ikki gapni bog'lash, so'z tartibi o'zgarmaydi;",
+     "deshalb / deswegen / darum va dann / danach — ulardan keyin fe'l 2-o'rinda turadi;",
+     "ob-havo haqida gapirish: Es regnet. Die Sonne scheint. Es ist kalt und windig.;",
+     "yil fasllari, ob-havo fe'llari, sifatlari va ravishlarini o'rganish."],
+    ["„Es regnet, deshalb bleibe ich zu Hause.“ — sabab va natijani bog'lab aytasiz;",
+     "Germaniyadagi to'rt fasl haqidagi matnlarni o'qib, savollarga javob berasiz;",
+     "ikki ob-havo ma'lumotini tinglab, shahar va haroratlarni yozasiz;",
+     "sevimli oyingiz va faslingiz haqida yozasiz va gapirasiz."])
+
+ZUSAMMENFASSUNG_HTML = summary_html(12, [
+    "<strong>und, oder, aber, denn:</strong> oddiy tartib — Ich bleibe zu Hause, denn es regnet.",
+    "<strong>deshalb / deswegen / darum:</strong> fe'l 2-o'rinda — Es regnet. Deshalb bleibe ich zu Hause.",
+    "<strong>dann / danach:</strong> fe'l 2-o'rinda — Ich frühstücke. Danach gehe ich zur Arbeit.",
+    "<strong>Wetter:</strong> Es regnet / schneit. Die Sonne scheint. Es ist kalt, warm, windig, bewölkt. Es sind 20 Grad.",
+])
 
 _KONJ = html_table(
     ["Bog'lovchi", "Strukturasi", "Misollar"],
@@ -32,17 +63,18 @@ _KONJ = html_table(
     "keyin fe'l 2-o'rinda keladi.</p>"
 
 KONJ_EX = [
-    choice_gap("Ich bin müde, ___ ich lerne Deutsch.", ["aber", "denn", "oder"], "aber"),
+    choice_gap("Ich bin müde, ___ ich lerne Deutsch.", ["aber", "deshalb", "dann"], "aber",
+               explanation="deshalb / dann dan keyin fe'l 2-o'rinda bo'lardi (deshalb lerne ich)."),
     choice_gap("Wir bleiben zu Hause, ___ es regnet.", ["denn", "deshalb", "und"], "denn"),
     choice_gap("Möchtest du Tee ___ Kaffee?", ["oder", "aber", "denn"], "oder"),
     choice_gap("Es ist kalt. ___ bleiben wir zu Hause.", ["Darum", "Denn", "Aber"], "Darum"),
     choice_gap("Wir essen zu Mittag. ___ gehen wir spazieren.", ["Danach", "Denn", "Oder"], "Danach"),
     choice_gap("Meine Mutter kocht ___ mein Vater arbeitet.", ["und", "deshalb", "dann"], "und"),
-    mc("Welcher Satz ist richtig?", ["Ich bin krank. Deshalb ich gehe nicht zur Arbeit.", "Ich bin krank. Deshalb gehe ich nicht zur Arbeit.",
+    mc("Welcher Satz ist richtig? (deshalb)", ["Ich bin krank. Deshalb ich gehe nicht zur Arbeit.", "Ich bin krank. Deshalb gehe ich nicht zur Arbeit.",
                                      "Ich bin krank, deshalb ich nicht gehe zur Arbeit."], "B", "Deshalb + Verb (Position 2) + Subjekt."),
-    mc("Welcher Satz ist richtig?", ["Ich lerne Deutsch, denn es ist wichtig.", "Ich lerne Deutsch, denn ist es wichtig.",
+    mc("Welcher Satz ist richtig? (denn)", ["Ich lerne Deutsch, denn es ist wichtig.", "Ich lerne Deutsch, denn ist es wichtig.",
                                      "Ich lerne Deutsch, denn es wichtig ist."], "A", "Nach „denn“ bleibt die normale Wortstellung."),
-    mc("Welcher Satz ist richtig?", ["Ich stehe auf. Dann ich frühstücke.", "Ich stehe auf. Dann frühstücke ich.", "Ich stehe auf. Dann frühstücken ich."], "B"),
+    mc("Welcher Satz ist richtig? (dann)", ["Ich stehe auf. Dann ich frühstücke.", "Ich stehe auf. Dann frühstücke ich.", "Ich stehe auf. Dann frühstücken ich."], "B"),
     tf("„deswegen“ bedeutet „shuning uchun“.", True),
 ]
 
@@ -117,16 +149,17 @@ LESEN = [
     mc("Welche Jahreszeit ist ideal für Weihnachtsmärkte?", ["Der Sommer", "Der Herbst", "Der Winter"], "C", passage=1),
 ]
 
-_T = lambda n: [str(n), f"{n} Grad"]  # noqa: E731
 HOEREN_TEXT = ("Wetterbericht 1: Guten Morgen! Hier ist der Wetterbericht für heute in Deutschland. Heute ist das Wetter kalt und wechselhaft. Am Morgen "
                "ist es bewölkt und es regnet leicht. In [[1]] sind es am Morgen [[2]] Grad. In [[3]] sind es nur [[4]] Grad und es ist windig. Am "
                "Mittag steigen die Temperaturen ein bisschen. Am Nachmittag bleibt es kühl. In [[5]] sind es [[6]] Grad und es gibt wenig Regen. "
-               "Am Abend wird es wieder kälter. Ziehen Sie eine warme Jacke an.\n"
+               "Am Abend wird es wieder kälter. Ziehen Sie eine warme Jacke an. Das war der Wetterbericht. Vielen Dank fürs Zuhören.\n"
                "Wetterbericht 2: Guten Tag! Hier ist der Wetterbericht für morgen in Deutschland. Morgen ist das Wetter sehr schön und sonnig. Am "
                "Morgen scheint die Sonne. In [[7]] sind es [[8]] Grad. In [[9]] sind es [[10]] Grad. Am Mittag wird es warm. Am Nachmittag ist das "
-               "Wetter angenehm. In [[11]] steigen die Temperaturen auf [[12]] Grad. Am Abend bleibt es mild. Ein perfekter Tag für einen Spaziergang.")
-HOEREN_GAPS = {"1": ["Berlin"], "2": _T(8), "3": ["Hamburg"], "4": _T(7), "5": ["Köln"], "6": _T(12), "7": ["München"], "8": _T(16),
-               "9": ["Stuttgart"], "10": _T(17), "11": ["Frankfurt"], "12": _T(24)}
+               "Wetter angenehm. In [[11]] steigen die Temperaturen auf [[12]] Grad. Am Abend bleibt es mild. Ein perfekter Tag für einen Spaziergang. "
+               "Das war der Wetterbericht. Auf Wiederhören!")
+HOEREN_GAPS = {str(i): [] for i in range(1, 13)}
+OLD_SHEET_HINT = ("Eski javoblar varag'i (tekshirilmagan): 1) Berlin 2) 8 3) Hamburg 4) 7 5) Köln 6) 12 7) München 8) 16 9) Stuttgart 10) 17 "
+                  "11) Frankfurt 12) 24")
 
 _V = [("regnen", "yomg'ir yog'moq"), ("schneien", "qor yog'moq"), ("scheinen", "porlamoq (quyosh)"), ("wehen", "esmoq (shamol)"), ("frieren", "sovqotmoq"),
       ("schwitzen", "terlamoq"), ("steigen", "ko'tarilmoq"), ("sinken", "pasaymoq"), ("blitzen", "chaqmoq chaqmoq"), ("donnern", "momaqaldiroq gumburlamoq"),
@@ -143,8 +176,27 @@ _R = [("heute", "bugun"), ("morgen", "ertaga"), ("gestern", "kecha"), ("draußen
 WORDS = words(_V, "Verben") + words(_N, "Nomen") + words(_A, "Adjektive") + words(_R, "Adverbien")
 
 
+WORTSCHATZ_SETS = [*vocab_match_sets(WORDS, per_set=4), article_set(WORDS)]
+
+UEBUNGEN_SETS = [
+    exercise("Konjunktionen in den Jahreszeiten-Texten", [
+        choice_gap("Es regnet manchmal, ___ die Luft ist frisch und angenehm.", ["aber", "deshalb", "dann"], "aber",
+                   explanation="Frühling: „Es regnet manchmal, aber die Luft ist frisch und angenehm.“"),
+        choice_gap("Freiburg ist im Frühling beliebt, ___ die Stadt ist sonnig.", ["denn", "deshalb", "danach"], "denn"),
+        choice_gap("Viele Menschen bleiben gern zu Hause ___ trinken heißen Tee.", ["und", "denn", "deshalb"], "und",
+                   explanation="Ega bitta (viele Menschen) — „und“ bilan ikkinchi fe'l qo'shiladi."),
+        choice_gap("Im Herbst regnet es oft. ___ trinken viele Menschen warmen Tee.", ["Darum", "Denn", "Aber"], "Darum",
+                   explanation="Darum + fe'l (2-o'rin) + ega."),
+        choice_gap("Der Winter ist kalt, ___ ideal für Weihnachtsmärkte.", ["aber", "denn", "deshalb"], "aber"),
+        choice_gap("Hamburg ist im Sommer interessant, ___ der Hafen und die Alster sind sehr schön.", ["denn", "darum", "dann"], "denn"),
+    ], "Matnlardagi gaplarga mos bog'lovchini tanlang.", source="vizu"),
+    reverse_vocab_set(WORDS),
+]
+
+
 def items() -> list[dict]:
     return [
+        base(L, "kompetenz", 1, "Einführung: Modul 12", source="vizu", page=117, competency="EINFUEHRUNG", html=EINFUEHRUNG_HTML),
         base(L, "frage", 1, "Frage: Ist Deutschland regnerisch?", page=118,
              prompt="Ist Deutschland regnerisch? Wie oft regnet es in Deutschland? (Norden und Westen, Süden, Herbst und Winter) "
                     "Wie ist das Wetter in Ihrer Stadt?",
@@ -156,9 +208,10 @@ def items() -> list[dict]:
              instruction="Lesen Sie die Texte und beantworten Sie die Fragen.",
              metadata={"book_page": 121, "note": "Matnlar kitobdan; savollar VIZU tomonidan matn asosida tuzilgan."},
              passages=[{"title": t, "text": x} for t, x in TEXTS.items()], questions=LESEN, max_score=len(LESEN)),
-        base(L, "hoeren", 1, "Hören: Wetterberichte", page=122, audio_file="A1-12.1.mp3 / A1-12.2.mp3",
+        base(L, "hoeren", 1, "Hören: Wetterberichte", page=122, audio_file="A1-12.1.mp3 / A1-12.2.mp3", key_pending=True,
              instruction="Hören Sie die Wetterberichte und ergänzen Sie die Städte und die Temperaturen.",
-             metadata={"book_page": 122, "note": "Javoblar kitobning javoblar varag'idan; audio yuklanganda admin tekshirsin."},
+             metadata={"book_page": 122, "note": "Shahar va haroratlar faqat audiodan aniqlanadi — admin audioni tinglab javoblarni belgilaydi. "
+                                                 + OLD_SHEET_HINT},
              questions=[gap("Wetterbericht — Städte und Temperaturen.", HOEREN_TEXT, HOEREN_GAPS, points=12)]),
         base(L, "schreiben", 1, "Schreiben: Mein Lieblingswetter", page=123,
              prompt="Was ist dein Lieblingswetter? Warum? Beschreibe das Wetter und was du gern bei diesem Wetter machst. Schreibe 4–5 Sätze.",
@@ -180,15 +233,16 @@ def items() -> list[dict]:
              response_type="monolog", min_duration=30, max_duration=120,
              speech_goal="Lieblingsmonat und Lieblingsjahreszeit nennen, begründen und Aktivitäten beschreiben.",
              keywords=["Mein Lieblingsmonat ist", "Meine Lieblingsjahreszeit ist", "Im Sommer / Winter …", "gerne"]),
-        base(L, "wortschatz", 1, "Wortschatz Modul 12: Wetter", page=125, words=WORDS),
-        base(L, "yakuniy", 1, "Yakuniy Test: Modul 12", source="vizu",
+        base(L, "wortschatz", 1, "Wortschatz Modul 12: Wetter", page=125, words=WORDS, exercises=WORTSCHATZ_SETS, auto_practice=False),
+        base(L, "uebungen", 1, "Übungen Modul 12", exercises=UEBUNGEN_SETS, source="vizu"),
+        base(L, "yakuniy", 1, "Abschlusstest: Modul 12", source="vizu",
              instruction="Bog'lovchilar va ob-havo so'zlari bo'yicha yakuniy test.",
              questions=[
                  choice_gap("Es regnet, ___ bleiben wir zu Hause.", ["deshalb", "denn", "aber"], "deshalb"),
-                 choice_gap("Ich gehe spazieren, ___ das Wetter ist schön.", ["denn", "deshalb", "oder"], "denn"),
+                 choice_gap("Ich gehe spazieren, ___ das Wetter ist schön.", ["denn", "deshalb", "dann"], "denn"),
                  choice_gap("Das Wetter ist kalt, ___ sonnig.", ["aber", "denn", "dann"], "aber"),
                  choice_gap("Wir frühstücken. ___ gehen wir zur Schule.", ["Danach", "Denn", "Aber"], "Danach"),
-                 mc("Welcher Satz ist richtig?", ["Es ist kalt. Darum wir bleiben zu Hause.", "Es ist kalt. Darum bleiben wir zu Hause."], "B"),
+                 mc("Welcher Satz ist richtig? (darum)", ["Es ist kalt. Darum wir bleiben zu Hause.", "Es ist kalt. Darum bleiben wir zu Hause."], "B"),
                  mc("„neblig“ — o'zbekchasi qaysi?", ["tumanli", "shamolli", "quruq"], "A"),
                  mc("„der Schnee“ — o'zbekchasi qaysi?", ["qor", "yomg'ir", "do'l"], "A"),
                  mc("„Die Sonne ___.“", ["scheint", "schneit", "regnet"], "A"),
@@ -196,4 +250,5 @@ def items() -> list[dict]:
                  match("Was passt zusammen?", ["der Wind", "das Gewitter", "heiß", "selten"], ["shamol", "momaqaldiroq", "issiq", "kamdan-kam", "tuman"],
                        {"1": "A", "2": "B", "3": "C", "4": "D"}),
              ]),
+        base(L, "kompetenz", 2, "Zusammenfassung: Modul 12", source="vizu", competency="ZUSAMMENFASSUNG", html=ZUSAMMENFASSUNG_HTML),
     ]

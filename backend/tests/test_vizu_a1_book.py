@@ -48,16 +48,20 @@ class BookModuleStandardTests(unittest.TestCase):
                         self.assertTrue(all(ex_service.has_key(_Q(p)) for p in payloads))
 
     def test_no_question_twice_in_a_lesson(self):
+        dups: list[str] = []
         for n, _, doc, _ in self._each():
             seen: dict[str, str] = {}
             for item in doc["items"]:
                 for q in _questions(item):
-                    key = re.sub(r"\s+", " ", (q["question"] + " " + q.get("text", "")).lower()).strip()
+                    # the sentence a student sees: a gap text ([[1]] -> ___) or the question
+                    sentence = re.sub(r"\[\[\d+\]\]", "___", q["text"]) if q["type"] == "gap_fill" else q["question"]
+                    key = re.sub(r"\s+", " ", sentence.lower()).strip()
                     if q["type"] == "matching":
                         key += " " + "|".join(q["items"])
-                    with self.subTest(modul=n, question=q["question"]):
-                        self.assertNotIn(key, seen, f"repeats {seen.get(key)}")
+                    if key in seen:
+                        dups.append(f"modul {n}: {sentence!r} in {item['content_id']} and {seen[key]}")
                     seen[key] = item["content_id"]
+        self.assertEqual(dups, [])
 
     def test_cover_only_and_grammar_as_text(self):
         for n, mod, _, items in self._each():

@@ -1,8 +1,22 @@
 {
- "schema_version": "1.1",
+ "schema_version": "1.2",
  "language": "de",
  "source": "vizu-deutsch-a1-book",
  "items": [
+  {
+   "content_id": "vizu-a1-l12-kompetenz-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 12,
+   "skill": "kompetenz",
+   "title": "Einführung: Modul 12",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 117
+   },
+   "competency": "EINFUEHRUNG",
+   "html": "<h3>Modul 12 — Das Wetter in Berlin</h3><p><strong>Mavzu:</strong> Das Wetter in Berlin · <strong>Grammatik:</strong> Die Konjunktionen (bog'lovchilar)</p><h4>Dars maqsadlari</h4><ul><li>und, oder, aber, denn — ikki gapni bog'lash, so'z tartibi o'zgarmaydi;</li><li>deshalb / deswegen / darum va dann / danach — ulardan keyin fe'l 2-o'rinda turadi;</li><li>ob-havo haqida gapirish: Es regnet. Die Sonne scheint. Es ist kalt und windig.;</li><li>yil fasllari, ob-havo fe'llari, sifatlari va ravishlarini o'rganish.</li></ul><h4>Dars oxirida siz quyidagilarni bajara olasiz</h4><ul><li>„Es regnet, deshalb bleibe ich zu Hause.“ — sabab va natijani bog'lab aytasiz;</li><li>Germaniyadagi to'rt fasl haqidagi matnlarni o'qib, savollarga javob berasiz;</li><li>ikki ob-havo ma'lumotini tinglab, shahar va haroratlarni yozasiz;</li><li>sevimli oyingiz va faslingiz haqida yozasiz va gapirasiz.</li></ul><h4>Darsning tuzilishi</h4><p>Einführung → Wortschatz → Grammatik → Lesen → Hören → Sprechen → Schreiben → Übungen → Abschlusstest → Zusammenfassung</p>"
+  },
   {
    "content_id": "vizu-a1-l12-frage-01",
    "level": "A1",
@@ -51,14 +65,15 @@
          ],
          "options": [
           "aber",
-          "denn",
-          "oder"
+          "deshalb",
+          "dann"
          ]
         }
        },
        "points": 1,
        "passage": 1,
-       "case_sensitive": false
+       "case_sensitive": false,
+       "explanation": "deshalb / dann dan keyin fe'l 2-o'rinda bo'lardi (deshalb lerne ich)."
       },
       {
        "type": "gap_fill",
@@ -162,7 +177,7 @@
       },
       {
        "type": "multiple_choice",
-       "question": "Welcher Satz ist richtig?",
+       "question": "Welcher Satz ist richtig? (deshalb)",
        "options": [
         "Ich bin krank. Deshalb ich gehe nicht zur Arbeit.",
         "Ich bin krank. Deshalb gehe ich nicht zur Arbeit.",
@@ -175,7 +190,7 @@
       },
       {
        "type": "multiple_choice",
-       "question": "Welcher Satz ist richtig?",
+       "question": "Welcher Satz ist richtig? (denn)",
        "options": [
         "Ich lerne Deutsch, denn es ist wichtig.",
         "Ich lerne Deutsch, denn ist es wichtig.",
@@ -188,7 +203,7 @@
       },
       {
        "type": "multiple_choice",
-       "question": "Welcher Satz ist richtig?",
+       "question": "Welcher Satz ist richtig? (dann)",
        "options": [
         "Ich stehe auf. Dann ich frühstücke.",
         "Ich stehe auf. Dann frühstücke ich.",
@@ -361,58 +376,29 @@
    "source": "book",
    "metadata": {
     "book_page": 122,
-    "note": "Javoblar kitobning javoblar varag'idan; audio yuklanganda admin tekshirsin."
+    "note": "Shahar va haroratlar faqat audiodan aniqlanadi — admin audioni tinglab javoblarni belgilaydi. Eski javoblar varag'i (tekshirilmagan): 1) Berlin 2) 8 3) Hamburg 4) 7 5) Köln 6) 12 7) München 8) 16 9) Stuttgart 10) 17 11) Frankfurt 12) 24"
    },
    "audio_file": "A1-12.1.mp3 / A1-12.2.mp3",
+   "key_pending": true,
    "instruction": "Hören Sie die Wetterberichte und ergänzen Sie die Städte und die Temperaturen.",
    "questions": [
     {
      "type": "gap_fill",
      "question": "Wetterbericht — Städte und Temperaturen.",
-     "text": "Wetterbericht 1: Guten Morgen! Hier ist der Wetterbericht für heute in Deutschland. Heute ist das Wetter kalt und wechselhaft. Am Morgen ist es bewölkt und es regnet leicht. In [[1]] sind es am Morgen [[2]] Grad. In [[3]] sind es nur [[4]] Grad und es ist windig. Am Mittag steigen die Temperaturen ein bisschen. Am Nachmittag bleibt es kühl. In [[5]] sind es [[6]] Grad und es gibt wenig Regen. Am Abend wird es wieder kälter. Ziehen Sie eine warme Jacke an.\nWetterbericht 2: Guten Tag! Hier ist der Wetterbericht für morgen in Deutschland. Morgen ist das Wetter sehr schön und sonnig. Am Morgen scheint die Sonne. In [[7]] sind es [[8]] Grad. In [[9]] sind es [[10]] Grad. Am Mittag wird es warm. Am Nachmittag ist das Wetter angenehm. In [[11]] steigen die Temperaturen auf [[12]] Grad. Am Abend bleibt es mild. Ein perfekter Tag für einen Spaziergang.",
+     "text": "Wetterbericht 1: Guten Morgen! Hier ist der Wetterbericht für heute in Deutschland. Heute ist das Wetter kalt und wechselhaft. Am Morgen ist es bewölkt und es regnet leicht. In [[1]] sind es am Morgen [[2]] Grad. In [[3]] sind es nur [[4]] Grad und es ist windig. Am Mittag steigen die Temperaturen ein bisschen. Am Nachmittag bleibt es kühl. In [[5]] sind es [[6]] Grad und es gibt wenig Regen. Am Abend wird es wieder kälter. Ziehen Sie eine warme Jacke an. Das war der Wetterbericht. Vielen Dank fürs Zuhören.\nWetterbericht 2: Guten Tag! Hier ist der Wetterbericht für morgen in Deutschland. Morgen ist das Wetter sehr schön und sonnig. Am Morgen scheint die Sonne. In [[7]] sind es [[8]] Grad. In [[9]] sind es [[10]] Grad. Am Mittag wird es warm. Am Nachmittag ist das Wetter angenehm. In [[11]] steigen die Temperaturen auf [[12]] Grad. Am Abend bleibt es mild. Ein perfekter Tag für einen Spaziergang. Das war der Wetterbericht. Auf Wiederhören!",
      "gaps": {
-      "1": [
-       "Berlin"
-      ],
-      "2": [
-       "8",
-       "8 Grad"
-      ],
-      "3": [
-       "Hamburg"
-      ],
-      "4": [
-       "7",
-       "7 Grad"
-      ],
-      "5": [
-       "Köln"
-      ],
-      "6": [
-       "12",
-       "12 Grad"
-      ],
-      "7": [
-       "München"
-      ],
-      "8": [
-       "16",
-       "16 Grad"
-      ],
-      "9": [
-       "Stuttgart"
-      ],
-      "10": [
-       "17",
-       "17 Grad"
-      ],
-      "11": [
-       "Frankfurt"
-      ],
-      "12": [
-       "24",
-       "24 Grad"
-      ]
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": [],
+      "5": [],
+      "6": [],
+      "7": [],
+      "8": [],
+      "9": [],
+      "10": [],
+      "11": [],
+      "12": []
      },
      "points": 12,
      "passage": 1,
@@ -900,6 +886,763 @@
      "translation": "tunda",
      "group": "Adverbien"
     }
+   ],
+   "exercises": [
+    {
+     "title": "Zuordnung 1",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Verben 1)",
+       "items": [
+        "regnen",
+        "schneien",
+        "scheinen",
+        "wehen",
+        "frieren",
+        "schwitzen"
+       ],
+       "targets": [
+        "yomg'ir yog'moq",
+        "qor yog'moq",
+        "porlamoq (quyosh)",
+        "esmoq (shamol)",
+        "sovqotmoq",
+        "terlamoq",
+        "ko'tarilmoq"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Verben 2)",
+       "items": [
+        "steigen",
+        "sinken",
+        "blitzen",
+        "donnern",
+        "bewölkt sein",
+        "aufklaren"
+       ],
+       "targets": [
+        "ko'tarilmoq",
+        "pasaymoq",
+        "chaqmoq chaqmoq",
+        "momaqaldiroq gumburlamoq",
+        "bulutli bo'lmoq",
+        "ochilmoq (osmon)",
+        "yomg'ir yog'moq"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Verben 3)",
+       "items": [
+        "hageln",
+        "tauen",
+        "sich ändern"
+       ],
+       "targets": [
+        "do'l yog'moq",
+        "erimoq",
+        "o'zgarmoq",
+        "yomg'ir yog'moq"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C"
+       },
+       "points": 3,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Nomen 1)",
+       "items": [
+        "der Regen",
+        "der Schnee",
+        "die Sonne",
+        "der Wind",
+        "die Temperatur",
+        "die Wolke"
+       ],
+       "targets": [
+        "yomg'ir",
+        "qor",
+        "quyosh",
+        "shamol",
+        "harorat",
+        "bulut",
+        "yomg'ir yog'moq"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Zuordnung 2",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Nomen 2)",
+       "items": [
+        "das Gewitter",
+        "der Sturm",
+        "der Nebel",
+        "der Himmel",
+        "der Hagel",
+        "das Eis",
+        "das Klima"
+       ],
+       "targets": [
+        "momaqaldiroq",
+        "bo'ron",
+        "tuman",
+        "osmon",
+        "do'l",
+        "muz",
+        "iqlim",
+        "yomg'ir yog'moq"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F",
+        "7": "G"
+       },
+       "points": 7,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Adjektive 1)",
+       "items": [
+        "warm",
+        "kühl",
+        "sonnig",
+        "windig",
+        "regnerisch",
+        "neblig"
+       ],
+       "targets": [
+        "iliq",
+        "salqin",
+        "quyoshli",
+        "shamolli",
+        "yomg'irli",
+        "tumanli",
+        "yomg'ir yog'moq"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Adjektive 2)",
+       "items": [
+        "trocken",
+        "nass",
+        "bewölkt",
+        "stürmisch",
+        "angenehm",
+        "mild",
+        "wechselhaft"
+       ],
+       "targets": [
+        "quruq",
+        "ho'l",
+        "bulutli",
+        "bo'ronli",
+        "yoqimli",
+        "yumshoq (ob-havo)",
+        "o'zgaruvchan",
+        "yomg'ir yog'moq"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F",
+        "7": "G"
+       },
+       "points": 7,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Adverbien 1)",
+       "items": [
+        "heute",
+        "morgen",
+        "gestern",
+        "draußen",
+        "drinnen",
+        "überall"
+       ],
+       "targets": [
+        "bugun",
+        "ertaga",
+        "kecha",
+        "tashqarida",
+        "ichkarida",
+        "hamma joyda",
+        "yomg'ir yog'moq"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Zuordnung 3",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Adverbien 2)",
+       "items": [
+        "manchmal",
+        "oft",
+        "selten",
+        "plötzlich",
+        "langsam",
+        "schnell",
+        "tagsüber",
+        "nachts"
+       ],
+       "targets": [
+        "ba'zan",
+        "tez-tez",
+        "kamdan-kam",
+        "to'satdan",
+        "sekin",
+        "tez",
+        "kunduz kuni",
+        "tunda",
+        "yomg'ir yog'moq"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F",
+        "7": "G",
+        "8": "H"
+       },
+       "points": 8,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Der, die oder das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Regen (yomg'ir)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Schnee (qor)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Sonne (quyosh)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Wind (shamol)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Temperatur (harorat)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Wolke (bulut)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Gewitter (momaqaldiroq)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Sturm (bo'ron)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Nebel (tuman)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Himmel (osmon)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "So'zning artiklini tanlang (kitobdagi lug'at bo'yicha)."
+    }
+   ],
+   "auto_practice": false
+  },
+  {
+   "content_id": "vizu-a1-l12-uebungen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 12,
+   "skill": "uebungen",
+   "title": "Übungen Modul 12",
+   "source": "vizu",
+   "exercises": [
+    {
+     "title": "Konjunktionen in den Jahreszeiten-Texten",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Es regnet manchmal, [[1]] die Luft ist frisch und angenehm.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "aber"
+         ],
+         "options": [
+          "aber",
+          "deshalb",
+          "dann"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Frühling: „Es regnet manchmal, aber die Luft ist frisch und angenehm.“"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Freiburg ist im Frühling beliebt, [[1]] die Stadt ist sonnig.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "denn"
+         ],
+         "options": [
+          "denn",
+          "deshalb",
+          "danach"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Viele Menschen bleiben gern zu Hause [[1]] trinken heißen Tee.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "und"
+         ],
+         "options": [
+          "und",
+          "denn",
+          "deshalb"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Ega bitta (viele Menschen) — „und“ bilan ikkinchi fe'l qo'shiladi."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Im Herbst regnet es oft. [[1]] trinken viele Menschen warmen Tee.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "Darum"
+         ],
+         "options": [
+          "Darum",
+          "Denn",
+          "Aber"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Darum + fe'l (2-o'rin) + ega."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Der Winter ist kalt, [[1]] ideal für Weihnachtsmärkte.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "aber"
+         ],
+         "options": [
+          "aber",
+          "denn",
+          "deshalb"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Hamburg ist im Sommer interessant, [[1]] der Hafen und die Alster sind sehr schön.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "denn"
+         ],
+         "options": [
+          "denn",
+          "darum",
+          "dann"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "Matnlardagi gaplarga mos bog'lovchini tanlang."
+    },
+    {
+     "title": "Nemischa qanday?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "„qor yog'moq“ — nemischa qanday?",
+       "options": [
+        "schnell",
+        "schneien",
+        "wechselhaft"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„pasaymoq“ — nemischa qanday?",
+       "options": [
+        "tagsüber",
+        "sinken",
+        "blitzen"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„erimoq“ — nemischa qanday?",
+       "options": [
+        "wehen",
+        "tauen",
+        "nass"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„harorat“ — nemischa qanday?",
+       "options": [
+        "der Hagel",
+        "der Sturm",
+        "die Temperatur"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„do'l“ — nemischa qanday?",
+       "options": [
+        "der Himmel",
+        "die Wolke",
+        "der Hagel"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„shamolli“ — nemischa qanday?",
+       "options": [
+        "windig",
+        "heute",
+        "wehen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„bo'ronli“ — nemischa qanday?",
+       "options": [
+        "blitzen",
+        "tauen",
+        "stürmisch"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„kecha“ — nemischa qanday?",
+       "options": [
+        "gestern",
+        "langsam",
+        "donnern"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "O'zbekcha so'zning nemischasini tanlang."
+    }
    ]
   },
   {
@@ -908,7 +1651,7 @@
    "module": 1,
    "lesson": 12,
    "skill": "yakuniy",
-   "title": "Yakuniy Test: Modul 12",
+   "title": "Abschlusstest: Modul 12",
    "source": "vizu",
    "instruction": "Bog'lovchilar va ob-havo so'zlari bo'yicha yakuniy test.",
    "questions": [
@@ -944,7 +1687,7 @@
        "options": [
         "denn",
         "deshalb",
-        "oder"
+        "dann"
        ]
       }
      },
@@ -994,7 +1737,7 @@
     },
     {
      "type": "multiple_choice",
-     "question": "Welcher Satz ist richtig?",
+     "question": "Welcher Satz ist richtig? (darum)",
      "options": [
       "Es ist kalt. Darum wir bleiben zu Hause.",
       "Es ist kalt. Darum bleiben wir zu Hause."
@@ -1072,6 +1815,17 @@
      "passage": 1
     }
    ]
+  },
+  {
+   "content_id": "vizu-a1-l12-kompetenz-02",
+   "level": "A1",
+   "module": 1,
+   "lesson": 12,
+   "skill": "kompetenz",
+   "title": "Zusammenfassung: Modul 12",
+   "source": "vizu",
+   "competency": "ZUSAMMENFASSUNG",
+   "html": "<h3>Modul 12 — qisqacha</h3><ul><li><strong>und, oder, aber, denn:</strong> oddiy tartib — Ich bleibe zu Hause, denn es regnet.</li><li><strong>deshalb / deswegen / darum:</strong> fe'l 2-o'rinda — Es regnet. Deshalb bleibe ich zu Hause.</li><li><strong>dann / danach:</strong> fe'l 2-o'rinda — Ich frühstücke. Danach gehe ich zur Arbeit.</li><li><strong>Wetter:</strong> Es regnet / schneit. Die Sonne scheint. Es ist kalt, warm, windig, bewölkt. Es sind 20 Grad.</li></ul><p>Natijalaringiz pastda — tugallanmagan bo'limlarni yakunlang, so'ng keyingi darsga o'ting.</p>"
   }
  ]
 }

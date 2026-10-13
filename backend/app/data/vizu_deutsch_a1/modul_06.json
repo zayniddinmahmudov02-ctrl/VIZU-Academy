@@ -1,8 +1,22 @@
 {
- "schema_version": "1.1",
+ "schema_version": "1.2",
  "language": "de",
  "source": "vizu-deutsch-a1-book",
  "items": [
+  {
+   "content_id": "vizu-a1-l06-kompetenz-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 6,
+   "skill": "kompetenz",
+   "title": "Einführung: Modul 6",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 59
+   },
+   "competency": "EINFUEHRUNG",
+   "html": "<h3>Modul 6 — Essen und Trinken</h3><p><strong>Mavzu:</strong> Essen und Trinken · <strong>Grammatik:</strong> Modalverben (können, müssen, wollen, sollen, dürfen, mögen), nicht und kein</p><h4>Dars maqsadlari</h4><ul><li>modal fe'llarni tuslash va gapda ishlatish: Ich kann gut kochen. Du musst Gemüse essen.;</li><li>asosiy fe'l gap oxirida turishini bilish: Ich möchte Tee trinken.;</li><li>inkor qilish: nicht (fe'l, sifat, butun gap) va kein / keine / keinen (ot bilan);</li><li>ovqat va ichimlik nomlarini o'rganish: das Brot, der Käse, das Obst, der Saft …</li></ul><h4>Dars oxirida siz quyidagilarni bajara olasiz</h4><ul><li>„Zum Frühstück esse ich Brot mit Butter. Ich trinke keinen Kaffee.“ — ovqatlanish odatlaringizni aytasiz;</li><li>„Darf ich hier sitzen? Kannst du kochen?“ kabi savollar berasiz;</li><li>Markusning ovqatlanish odatlari haqidagi matnni o'qib tushunasiz;</li><li>ovqat haqidagi gaplarni tinglab, yetishmayotgan so'zlarni yozasiz.</li></ul><h4>Darsning tuzilishi</h4><p>Einführung → Wortschatz → Grammatik → Lesen → Hören → Sprechen → Schreiben → Übungen → Abschlusstest → Zusammenfassung</p>"
+  },
   {
    "content_id": "vizu-a1-l06-frage-01",
    "level": "A1",
@@ -27,7 +41,7 @@
    "title": "Grammatik: Modalverben, nicht und kein",
    "source": "book",
    "metadata": {
-    "book_page": "61-64, 67"
+    "book_page": "61-64"
    },
    "rules": [
     {
@@ -56,7 +70,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: kann"
+       "explanation": "Javob: kann"
       },
       {
        "type": "gap_fill",
@@ -70,7 +84,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: musst"
+       "explanation": "Javob: musst"
       },
       {
        "type": "gap_fill",
@@ -84,7 +98,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: will"
+       "explanation": "Javob: will"
       },
       {
        "type": "gap_fill",
@@ -98,7 +112,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: mögen"
+       "explanation": "Javob: mögen"
       },
       {
        "type": "gap_fill",
@@ -112,7 +126,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: dürft"
+       "explanation": "Javob: dürft"
       },
       {
        "type": "gap_fill",
@@ -127,7 +141,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: sollen (sie — u: soll)"
+       "explanation": "Javob: sollen (sie — u: soll)"
       },
       {
        "type": "gap_fill",
@@ -141,7 +155,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: mag"
+       "explanation": "Javob: mag"
       },
       {
        "type": "gap_fill",
@@ -155,7 +169,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: darfst"
+       "explanation": "Javob: darfst"
       },
       {
        "type": "gap_fill",
@@ -169,7 +183,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: kann"
+       "explanation": "Javob: kann"
       },
       {
        "type": "gap_fill",
@@ -183,7 +197,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: wollen"
+       "explanation": "Javob: wollen"
       },
       {
        "type": "gap_fill",
@@ -197,7 +211,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: könnt"
+       "explanation": "Javob: könnt"
       },
       {
        "type": "gap_fill",
@@ -212,7 +226,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: mögen (sie — u: mag)"
+       "explanation": "Javob: mögen (sie — u: mag)"
       },
       {
        "type": "gap_fill",
@@ -226,7 +240,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: muss"
+       "explanation": "Javob: muss"
       },
       {
        "type": "gap_fill",
@@ -240,7 +254,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: willst"
+       "explanation": "Javob: willst"
       },
       {
        "type": "gap_fill",
@@ -254,7 +268,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: darf"
+       "explanation": "Javob: darf"
       },
       {
        "type": "gap_fill",
@@ -268,7 +282,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: sollen"
+       "explanation": "Javob: sollen"
       },
       {
        "type": "gap_fill",
@@ -282,7 +296,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: müsst"
+       "explanation": "Javob: müsst"
       },
       {
        "type": "gap_fill",
@@ -296,7 +310,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: können"
+       "explanation": "Javob: können"
       },
       {
        "type": "gap_fill",
@@ -310,7 +324,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: kann"
+       "explanation": "Javob: kann"
       },
       {
        "type": "gap_fill",
@@ -324,7 +338,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: musst"
+       "explanation": "Javob: musst"
       },
       {
        "type": "gap_fill",
@@ -338,7 +352,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: soll"
+       "explanation": "Javob: soll"
       },
       {
        "type": "gap_fill",
@@ -352,7 +366,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: dürfen"
+       "explanation": "Javob: dürfen"
       },
       {
        "type": "gap_fill",
@@ -366,7 +380,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: mögt"
+       "explanation": "Javob: mögt"
       },
       {
        "type": "gap_fill",
@@ -381,7 +395,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: wollen (sie — u: will)"
+       "explanation": "Javob: wollen (sie — u: will)"
       },
       {
        "type": "gap_fill",
@@ -395,7 +409,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: mag"
+       "explanation": "Javob: mag"
       },
       {
        "type": "gap_fill",
@@ -409,7 +423,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: darfst"
+       "explanation": "Javob: darfst"
       },
       {
        "type": "gap_fill",
@@ -423,7 +437,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: kann"
+       "explanation": "Javob: kann"
       },
       {
        "type": "gap_fill",
@@ -437,7 +451,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: sollen"
+       "explanation": "Javob: sollen"
       },
       {
        "type": "gap_fill",
@@ -451,7 +465,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: dürft"
+       "explanation": "Javob: dürft"
       },
       {
        "type": "gap_fill",
@@ -465,7 +479,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: müssen"
+       "explanation": "Javob: müssen"
       }
      ],
      "instruction": "Setzen Sie das richtige Modalverb in der passenden Form ein."
@@ -480,14 +494,13 @@
        "text": "Ich habe heute [[1]] Zeit.",
        "gaps": {
         "1": [
-         "keine",
-         "nicht"
+         "keine"
         ]
        },
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "To'g'ri nemischa: Ich habe heute keine Zeit. (Kitobda „nicht“ ustunida.)"
+       "explanation": "Zeit — ot (Nomen), shuning uchun kein: Ich habe heute keine Zeit. (Kitobda bu gap „nicht“ ustunida berilgan.)"
       },
       {
        "type": "gap_fill",
@@ -742,248 +755,6 @@
       }
      ],
      "instruction": "Ergänzen Sie die Sätze mit nicht oder kein in der richtigen Form."
-    },
-    {
-     "title": "Schreiben-Aufgabe (Buch S. 67): Sätze bilden (20)",
-     "source": "book",
-     "questions": [
-      {
-       "type": "short_answer",
-       "question": "Bilde einen Satz: ich / jeden Morgen / Brot / esse",
-       "accepted": [
-        "Ich esse jeden Morgen Brot.",
-        "Jeden Morgen esse ich Brot."
-       ],
-       "points": 1,
-       "max_length": 120,
-       "passage": 1,
-       "explanation": "Kitob kaliti: Ich esse jeden Morgen Brot."
-      },
-      {
-       "type": "short_answer",
-       "question": "Bilde einen Satz: Wasser / trinke / ich / oft",
-       "accepted": [
-        "Ich trinke oft Wasser.",
-        "Oft trinke ich Wasser."
-       ],
-       "points": 1,
-       "max_length": 120,
-       "passage": 1,
-       "explanation": "Kitob kaliti: Ich trinke oft Wasser."
-      },
-      {
-       "type": "short_answer",
-       "question": "Bilde einen Satz: zum Mittagessen / Nudeln / ich / esse",
-       "accepted": [
-        "Ich esse zum Mittagessen Nudeln.",
-        "Zum Mittagessen esse ich Nudeln."
-       ],
-       "points": 1,
-       "max_length": 120,
-       "passage": 1,
-       "explanation": "Kitob kaliti: Ich esse zum Mittagessen Nudeln."
-      },
-      {
-       "type": "short_answer",
-       "question": "Bilde einen Satz: ich / gern / Käse / esse",
-       "accepted": [
-        "Ich esse gern Käse.",
-        "Ich esse Käse gern."
-       ],
-       "points": 1,
-       "max_length": 120,
-       "passage": 1,
-       "explanation": "Kitob kaliti: Ich esse gern Käse."
-      },
-      {
-       "type": "short_answer",
-       "question": "Bilde einen Satz: Saft / trinke / ich / zum Frühstück",
-       "accepted": [
-        "Ich trinke zum Frühstück Saft.",
-        "Zum Frühstück trinke ich Saft.",
-        "Ich trinke Saft zum Frühstück."
-       ],
-       "points": 1,
-       "max_length": 120,
-       "passage": 1,
-       "explanation": "Kitob kaliti: Ich trinke zum Frühstück Saft."
-      },
-      {
-       "type": "short_answer",
-       "question": "Bilde einen Satz: ich / darf / hier / sitzen",
-       "accepted": [
-        "Ich darf hier sitzen.",
-        "Hier darf ich sitzen."
-       ],
-       "points": 1,
-       "max_length": 120,
-       "passage": 1,
-       "explanation": "Kitob kaliti: Ich darf hier sitzen."
-      },
-      {
-       "type": "short_answer",
-       "question": "Bilde einen Satz: oft / ich / Obst / esse",
-       "accepted": [
-        "Ich esse oft Obst.",
-        "Oft esse ich Obst."
-       ],
-       "points": 1,
-       "max_length": 120,
-       "passage": 1,
-       "explanation": "Kitob kaliti: Ich esse oft Obst."
-      },
-      {
-       "type": "short_answer",
-       "question": "Bilde einen Satz: ich / trinke / Milch / abends",
-       "accepted": [
-        "Ich trinke abends Milch.",
-        "Abends trinke ich Milch.",
-        "Ich trinke Milch abends."
-       ],
-       "points": 1,
-       "max_length": 120,
-       "passage": 1,
-       "explanation": "Kitob kaliti: Ich trinke abends Milch."
-      },
-      {
-       "type": "short_answer",
-       "question": "Bilde einen Satz: ich / mag / Paprika",
-       "accepted": [
-        "Ich mag Paprika."
-       ],
-       "points": 1,
-       "max_length": 120,
-       "passage": 1,
-       "explanation": "Kitob kaliti: Ich mag Paprika."
-      },
-      {
-       "type": "short_answer",
-       "question": "Bilde einen Satz: ich / muss / Hausaufgaben / machen",
-       "accepted": [
-        "Ich muss Hausaufgaben machen."
-       ],
-       "points": 1,
-       "max_length": 120,
-       "passage": 1,
-       "explanation": "Kitob kaliti: Ich muss Hausaufgaben machen."
-      },
-      {
-       "type": "short_answer",
-       "question": "Bilde einen Satz: ich / Gemüse / oft / esse",
-       "accepted": [
-        "Ich esse oft Gemüse.",
-        "Oft esse ich Gemüse."
-       ],
-       "points": 1,
-       "max_length": 120,
-       "passage": 1,
-       "explanation": "Kitob kaliti: Ich esse oft Gemüse."
-      },
-      {
-       "type": "short_answer",
-       "question": "Bilde einen Satz: Frühstück / ich / esse / Butter",
-       "accepted": [
-        "Ich esse Butter zum Frühstück.",
-        "Zum Frühstück esse ich Butter.",
-        "Ich esse zum Frühstück Butter."
-       ],
-       "points": 1,
-       "max_length": 120,
-       "passage": 1,
-       "explanation": "Kitob kaliti: Ich esse Butter zum Frühstück."
-      },
-      {
-       "type": "short_answer",
-       "question": "Bilde einen Satz: ich / kann / gut / kochen",
-       "accepted": [
-        "Ich kann gut kochen."
-       ],
-       "points": 1,
-       "max_length": 120,
-       "passage": 1,
-       "explanation": "Kitob kaliti: Ich kann gut kochen."
-      },
-      {
-       "type": "short_answer",
-       "question": "Bilde einen Satz: ich / trinke / keinen / Kaffee",
-       "accepted": [
-        "Ich trinke keinen Kaffee."
-       ],
-       "points": 1,
-       "max_length": 120,
-       "passage": 1,
-       "explanation": "Kitob kaliti: Ich trinke keinen Kaffee."
-      },
-      {
-       "type": "short_answer",
-       "question": "Bilde einen Satz: ich / möchte / Tee / trinken",
-       "accepted": [
-        "Ich möchte Tee trinken."
-       ],
-       "points": 1,
-       "max_length": 120,
-       "passage": 1,
-       "explanation": "Kitob kaliti: Ich möchte Tee trinken."
-      },
-      {
-       "type": "short_answer",
-       "question": "Bilde einen Satz: ich / esse / nicht / viel / Schokolade",
-       "accepted": [
-        "Ich esse nicht viel Schokolade."
-       ],
-       "points": 1,
-       "max_length": 120,
-       "passage": 1,
-       "explanation": "Kitob kaliti: Ich esse nicht viel Schokolade."
-      },
-      {
-       "type": "short_answer",
-       "question": "Bilde einen Satz: ich / manchmal / Wurst / esse",
-       "accepted": [
-        "Ich esse manchmal Wurst.",
-        "Manchmal esse ich Wurst."
-       ],
-       "points": 1,
-       "max_length": 120,
-       "passage": 1,
-       "explanation": "Kitob kaliti: Ich esse manchmal Wurst."
-      },
-      {
-       "type": "short_answer",
-       "question": "Bilde einen Satz: ich / koche / Kartoffeln / mit / Gemüse",
-       "accepted": [
-        "Ich koche Kartoffeln mit Gemüse."
-       ],
-       "points": 1,
-       "max_length": 120,
-       "passage": 1,
-       "explanation": "Kitob kaliti: Ich koche Kartoffeln mit Gemüse."
-      },
-      {
-       "type": "short_answer",
-       "question": "Bilde einen Satz: ich / esse / Salat / gern",
-       "accepted": [
-        "Ich esse gern Salat.",
-        "Ich esse Salat gern."
-       ],
-       "points": 1,
-       "max_length": 120,
-       "passage": 1,
-       "explanation": "Kitob kaliti: Ich esse gern Salat."
-      },
-      {
-       "type": "short_answer",
-       "question": "Bilde einen Satz: ich / kaufe / keine / Süßigkeiten",
-       "accepted": [
-        "Ich kaufe keine Süßigkeiten."
-       ],
-       "points": 1,
-       "max_length": 120,
-       "passage": 1,
-       "explanation": "Kitob kaliti: Ich kaufe keine Süßigkeiten."
-      }
-     ],
-     "instruction": "Bilde Sätze aus den Wörtern und schreibe sie richtig. Großschreibung am Satzanfang und Punkt am Satzende."
     }
    ]
   },
@@ -1145,12 +916,293 @@
    ]
   },
   {
+   "content_id": "vizu-a1-l06-schreiben_uebungen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 6,
+   "skill": "schreiben_uebungen",
+   "title": "Schreiben: Sätze bilden (Buch S. 67)",
+   "source": "book",
+   "metadata": {
+    "book_page": 67
+   },
+   "exercises": [
+    {
+     "title": "Sätze bilden (20)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Bilde einen Satz: ich / jeden Morgen / Brot / esse",
+       "options": [
+        "Jeden Morgen Brot ich esse.",
+        "Ich jeden Morgen Brot esse.",
+        "Ich esse jeden Morgen Brot."
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Ich esse jeden Morgen Brot. — fe'l (yoki modal fe'l) 2-o'rinda turadi."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Bilde einen Satz: Wasser / trinke / ich / oft",
+       "options": [
+        "Ich oft Wasser trinke.",
+        "Ich trinke oft Wasser.",
+        "Oft Wasser ich trinke."
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Ich trinke oft Wasser. — fe'l (yoki modal fe'l) 2-o'rinda turadi."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Bilde einen Satz: zum Mittagessen / Nudeln / ich / esse",
+       "options": [
+        "Ich esse zum Mittagessen Nudeln.",
+        "Ich zum Mittagessen Nudeln esse.",
+        "Zum Mittagessen Nudeln ich esse."
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Ich esse zum Mittagessen Nudeln. — fe'l (yoki modal fe'l) 2-o'rinda turadi."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Bilde einen Satz: ich / gern / Käse / esse",
+       "options": [
+        "Ich esse gern Käse.",
+        "Ich gern Käse esse.",
+        "Gern Käse ich esse."
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Ich esse gern Käse. — fe'l (yoki modal fe'l) 2-o'rinda turadi."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Bilde einen Satz: Saft / trinke / ich / zum Frühstück",
+       "options": [
+        "Ich zum Frühstück Saft trinke.",
+        "Zum Frühstück Saft ich trinke.",
+        "Ich trinke zum Frühstück Saft."
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Ich trinke zum Frühstück Saft. — fe'l (yoki modal fe'l) 2-o'rinda turadi."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Bilde einen Satz: ich / darf / hier / sitzen",
+       "options": [
+        "Hier sitzen ich darf.",
+        "Ich hier sitzen darf.",
+        "Ich darf hier sitzen."
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Ich darf hier sitzen. — fe'l (yoki modal fe'l) 2-o'rinda turadi."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Bilde einen Satz: oft / ich / Obst / esse",
+       "options": [
+        "Ich oft Obst esse.",
+        "Oft Obst ich esse.",
+        "Ich esse oft Obst."
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Ich esse oft Obst. — fe'l (yoki modal fe'l) 2-o'rinda turadi."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Bilde einen Satz: ich / trinke / Milch / abends",
+       "options": [
+        "Ich abends Milch trinke.",
+        "Abends Milch ich trinke.",
+        "Ich trinke abends Milch."
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Ich trinke abends Milch. — fe'l (yoki modal fe'l) 2-o'rinda turadi."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Bilde einen Satz: ich / mag / Paprika",
+       "options": [
+        "Paprika ich mag.",
+        "Ich Paprika mag.",
+        "Ich mag Paprika."
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Ich mag Paprika. — fe'l (yoki modal fe'l) 2-o'rinda turadi."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Bilde einen Satz: ich / muss / Hausaufgaben / machen",
+       "options": [
+        "Ich muss Hausaufgaben machen.",
+        "Hausaufgaben machen ich muss.",
+        "Ich Hausaufgaben machen muss."
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Ich muss Hausaufgaben machen. — fe'l (yoki modal fe'l) 2-o'rinda turadi."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Bilde einen Satz: ich / Gemüse / oft / esse",
+       "options": [
+        "Ich esse oft Gemüse.",
+        "Ich oft Gemüse esse.",
+        "Oft Gemüse ich esse."
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Ich esse oft Gemüse. — fe'l (yoki modal fe'l) 2-o'rinda turadi."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Bilde einen Satz: Frühstück / ich / esse / Butter",
+       "options": [
+        "Ich Butter zum Frühstück esse.",
+        "Butter zum Frühstück ich esse.",
+        "Ich esse Butter zum Frühstück."
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Ich esse Butter zum Frühstück. — fe'l (yoki modal fe'l) 2-o'rinda turadi."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Bilde einen Satz: ich / kann / gut / kochen",
+       "options": [
+        "Ich kann gut kochen.",
+        "Ich gut kochen kann.",
+        "Gut kochen ich kann."
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Ich kann gut kochen. — fe'l (yoki modal fe'l) 2-o'rinda turadi."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Bilde einen Satz: ich / trinke / keinen / Kaffee",
+       "options": [
+        "Ich trinke keinen Kaffee.",
+        "Keinen Kaffee ich trinke.",
+        "Ich keinen Kaffee trinke."
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Ich trinke keinen Kaffee. — fe'l (yoki modal fe'l) 2-o'rinda turadi."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Bilde einen Satz: ich / möchte / Tee / trinken",
+       "options": [
+        "Ich möchte Tee trinken.",
+        "Tee trinken ich möchte.",
+        "Ich Tee trinken möchte."
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Ich möchte Tee trinken. — fe'l (yoki modal fe'l) 2-o'rinda turadi."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Bilde einen Satz: ich / esse / nicht / viel / Schokolade",
+       "options": [
+        "Ich esse nicht viel Schokolade.",
+        "Ich nicht viel Schokolade esse.",
+        "Nicht viel Schokolade ich esse."
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Ich esse nicht viel Schokolade. — fe'l (yoki modal fe'l) 2-o'rinda turadi."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Bilde einen Satz: ich / manchmal / Wurst / esse",
+       "options": [
+        "Ich esse manchmal Wurst.",
+        "Ich manchmal Wurst esse.",
+        "Manchmal Wurst ich esse."
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Ich esse manchmal Wurst. — fe'l (yoki modal fe'l) 2-o'rinda turadi."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Bilde einen Satz: ich / koche / Kartoffeln / mit / Gemüse",
+       "options": [
+        "Ich Kartoffeln mit Gemüse koche.",
+        "Kartoffeln mit Gemüse ich koche.",
+        "Ich koche Kartoffeln mit Gemüse."
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Ich koche Kartoffeln mit Gemüse. — fe'l (yoki modal fe'l) 2-o'rinda turadi."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Bilde einen Satz: ich / esse / Salat / gern",
+       "options": [
+        "Ich esse gern Salat.",
+        "Gern Salat ich esse.",
+        "Ich gern Salat esse."
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Ich esse gern Salat. — fe'l (yoki modal fe'l) 2-o'rinda turadi."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Bilde einen Satz: ich / kaufe / keine / Süßigkeiten",
+       "options": [
+        "Keine Süßigkeiten ich kaufe.",
+        "Ich keine Süßigkeiten kaufe.",
+        "Ich kaufe keine Süßigkeiten."
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Ich kaufe keine Süßigkeiten. — fe'l (yoki modal fe'l) 2-o'rinda turadi."
+      }
+     ],
+     "instruction": "Bilde Sätze aus den Wörtern: Welcher Satz ist richtig? Achte auf die Wortstellung! (Kitob, 67-bet.)"
+    }
+   ]
+  },
+  {
    "content_id": "vizu-a1-l06-schreiben-01",
    "level": "A1",
    "module": 1,
    "lesson": 6,
    "skill": "schreiben",
-   "title": "Schreiben: Meine Essgewohnheiten (VIZU qo'shimcha)",
+   "title": "Schreiben: Meine Essgewohnheiten",
    "source": "vizu",
    "prompt": "Schreiben Sie über Ihre Essgewohnheiten (5–8 Sätze): Was essen und trinken Sie zum Frühstück, zum Mittagessen und zum Abendessen? Was essen Sie gern, was nicht? Benutzen Sie mindestens zwei Modalverben (können, müssen, wollen, sollen, dürfen, mögen) und nicht / kein.",
    "task_type": "description",
@@ -1165,7 +1217,7 @@
     "Ich esse nicht gern …"
    ],
    "metadata": {
-    "note": "Kitobdagi S. 67 topshirig'i (gap tuzish) Grammatik bo'limida; erkin yozma topshiriq VIZU tomonidan qo'shilgan."
+    "note": "Erkin yozma topshiriq VIZU tomonidan qo'shilgan (kitobdagi 67-bet — gap tuzish mashqi)."
    }
   },
   {
@@ -1281,13 +1333,13 @@
      "word": "Butter",
      "translation": "sariyog'",
      "article": "die",
-     "group": "Fette — yog'lar"
+     "group": "Fette — yog' va yog'lar"
     },
     {
      "word": "Margarine",
      "translation": "margarin",
      "article": "die",
-     "group": "Fette — yog'lar"
+     "group": "Fette — yog' va yog'lar"
     },
     {
      "word": "Marmelade",
@@ -1303,7 +1355,7 @@
     },
     {
      "word": "Kuchen",
-     "translation": "pirog",
+     "translation": "piroq",
      "article": "der",
      "group": "Aufstriche und Süßigkeiten"
     },
@@ -1393,13 +1445,13 @@
     },
     {
      "word": "Thunfisch",
-     "translation": "ton (tunets)",
+     "translation": "ton",
      "article": "der",
      "group": "Fisch — baliq"
     },
     {
      "word": "Forelle",
-     "translation": "forel",
+     "translation": "losos baliqi",
      "article": "die",
      "group": "Fisch — baliq"
     },
@@ -1536,6 +1588,12 @@
      "group": "Getränke — ichimliklar"
     },
     {
+     "word": "Bier",
+     "translation": "pivo",
+     "article": "das",
+     "group": "Getränke — ichimliklar"
+    },
+    {
      "word": "Suppe",
      "translation": "sho'rva",
      "article": "die",
@@ -1559,6 +1617,844 @@
      "article": "die",
      "group": "Suppen und warme Speisen"
     }
+   ],
+   "exercises": [
+    {
+     "title": "Zuordnung 1",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Frage des Themas: nützliche Wörter)",
+       "items": [
+        "deftig",
+        "frisch",
+        "das Gericht",
+        "das Frühstück",
+        "das Mittagessen",
+        "das Abendessen"
+       ],
+       "targets": [
+        "mazali, to'yimli",
+        "yangi, toza",
+        "taom",
+        "nonushta",
+        "tushlik",
+        "kechki ovqat",
+        "non"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Brotwaren — non mahsulotlari)",
+       "items": [
+        "das Brot",
+        "das Brötchen",
+        "das Croissant"
+       ],
+       "targets": [
+        "non",
+        "bulka",
+        "kruassan",
+        "mazali, to'yimli"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C"
+       },
+       "points": 3,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Fette — yog' va yog'lar)",
+       "items": [
+        "die Butter",
+        "die Margarine"
+       ],
+       "targets": [
+        "sariyog'",
+        "margarin",
+        "mazali, to'yimli"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B"
+       },
+       "points": 2,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Zuordnung 2",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Aufstriche und Süßigkeiten)",
+       "items": [
+        "die Marmelade",
+        "die Schokolade",
+        "der Kuchen",
+        "die Kekse",
+        "das Eis",
+        "die Pralinen",
+        "die Torte"
+       ],
+       "targets": [
+        "murabbo",
+        "shokolad",
+        "piroq",
+        "pechenye",
+        "muzqaymoq",
+        "pralin",
+        "tort",
+        "mazali, to'yimli"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F",
+        "7": "G"
+       },
+       "points": 7,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Milchprodukte — sut mahsulotlari)",
+       "items": [
+        "der Käse",
+        "der Joghurt",
+        "die Milch"
+       ],
+       "targets": [
+        "pishloq",
+        "yogurt",
+        "sut",
+        "mazali, to'yimli"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C"
+       },
+       "points": 3,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Fleisch und Wurst)",
+       "items": [
+        "die Wurst",
+        "das Huhn",
+        "das Rind",
+        "das Schwein",
+        "das Fleisch"
+       ],
+       "targets": [
+        "kolbasa",
+        "tovuq",
+        "mol go'shti",
+        "cho'chqa go'shti",
+        "go'sht",
+        "mazali, to'yimli"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E"
+       },
+       "points": 5,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Zuordnung 3",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Fisch — baliq)",
+       "items": [
+        "der Fisch",
+        "der Lachs",
+        "der Thunfisch",
+        "die Forelle",
+        "die Sardinen",
+        "die Garnelen"
+       ],
+       "targets": [
+        "baliq",
+        "losos",
+        "ton",
+        "losos baliqi",
+        "sardina",
+        "krevetka",
+        "mazali, to'yimli"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Gemüse — sabzavotlar)",
+       "items": [
+        "der Salat",
+        "die Karotten",
+        "die Paprika",
+        "die Tomaten",
+        "die Gurken",
+        "der Brokkoli",
+        "das Gemüse"
+       ],
+       "targets": [
+        "salat",
+        "sabzi",
+        "bulg'or qalampiri",
+        "pomidor",
+        "bodring",
+        "brokkoli",
+        "sabzavot",
+        "mazali, to'yimli"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F",
+        "7": "G"
+       },
+       "points": 7,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Obst — mevalar)",
+       "items": [
+        "die Äpfel",
+        "die Bananen",
+        "die Orangen",
+        "die Trauben",
+        "die Birnen",
+        "die Kirschen",
+        "das Obst"
+       ],
+       "targets": [
+        "olma",
+        "banan",
+        "apelsin",
+        "uzum",
+        "nok",
+        "gilos",
+        "mevalar",
+        "mazali, to'yimli"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F",
+        "7": "G"
+       },
+       "points": 7,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Zuordnung 4",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Getränke — ichimliklar)",
+       "items": [
+        "das Wasser",
+        "der Tee",
+        "der Kaffee",
+        "der Saft",
+        "die Limonade",
+        "der Kakao",
+        "das Bier"
+       ],
+       "targets": [
+        "suv",
+        "choy",
+        "qahva",
+        "sharbat",
+        "limonad",
+        "kakao",
+        "pivo",
+        "mazali, to'yimli"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F",
+        "7": "G"
+       },
+       "points": 7,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Suppen und warme Speisen)",
+       "items": [
+        "die Suppe",
+        "die Nudeln",
+        "der Reis",
+        "die Kartoffeln"
+       ],
+       "targets": [
+        "sho'rva",
+        "makaron",
+        "guruch",
+        "kartoshka",
+        "mazali, to'yimli"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D"
+       },
+       "points": 4,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Der, die oder das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Gericht (taom)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Brötchen (bulka)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Schokolade (shokolad)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Torte (tort)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Huhn (tovuq)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Lachs (losos)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Salat (salat)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Brokkoli (brokkoli)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Trauben (uzum)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Tee (choy)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "So'zning artiklini tanlang (kitobdagi lug'at bo'yicha)."
+    }
+   ],
+   "auto_practice": false
+  },
+  {
+   "content_id": "vizu-a1-l06-uebungen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 6,
+   "skill": "uebungen",
+   "title": "Übungen Modul 6",
+   "source": "vizu",
+   "exercises": [
+    {
+     "title": "Modalverben und kein (Lesen)",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Markus [[1]] Salat, Tomaten und Gurken.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "mag"
+         ],
+         "options": [
+          "mag",
+          "mögt",
+          "magst"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Lesen: „Ich mag Salat, Tomaten, Gurken …“"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Er [[1]] nicht viele Süßigkeiten essen. (sollen)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "soll"
+         ],
+         "options": [
+          "soll",
+          "sollst",
+          "sollen"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] du gut kochen? (können)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "Kannst"
+         ],
+         "options": [
+          "Kannst",
+          "Kann",
+          "Könnt"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Wir [[1]] viel Wasser trinken. (müssen)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "müssen"
+         ],
+         "options": [
+          "müssen",
+          "muss",
+          "müsst"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Ich esse [[1]] Fleisch. (inkor)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "kein"
+         ],
+         "options": [
+          "kein",
+          "keine",
+          "nicht"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "das Fleisch → kein Fleisch."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Er trinkt [[1]] Milch. (inkor)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "keine"
+         ],
+         "options": [
+          "keine",
+          "kein",
+          "keinen"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "die Milch → keine Milch."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Sie mag den Fisch [[1]].",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "nicht"
+         ],
+         "options": [
+          "nicht",
+          "kein",
+          "keinen"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Aniq artiklli ot butun gapni inkor qiladi: nicht."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Markus isst Süßigkeiten nur [[1]]. (kam)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "selten"
+         ],
+         "options": [
+          "selten",
+          "oft",
+          "jeden Tag"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Lesen: „Ich esse sie aber nur selten.“"
+      }
+     ],
+     "instruction": "Darsdagi grammatikani takrorlang."
+    },
+    {
+     "title": "Nemischa qanday?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "„yangi, toza“ — nemischa qanday?",
+       "options": [
+        "der Thunfisch",
+        "das Wasser",
+        "frisch"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„kruassan“ — nemischa qanday?",
+       "options": [
+        "das Croissant",
+        "der Kuchen",
+        "die Butter"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„muzqaymoq“ — nemischa qanday?",
+       "options": [
+        "die Schokolade",
+        "das Gemüse",
+        "das Eis"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„tovuq“ — nemischa qanday?",
+       "options": [
+        "der Salat",
+        "die Tomaten",
+        "das Huhn"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„losos baliqi“ — nemischa qanday?",
+       "options": [
+        "die Forelle",
+        "der Joghurt",
+        "der Tee"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„bodring“ — nemischa qanday?",
+       "options": [
+        "das Abendessen",
+        "die Gurken",
+        "die Milch"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„nok“ — nemischa qanday?",
+       "options": [
+        "das Obst",
+        "das Mittagessen",
+        "die Birnen"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„limonad“ — nemischa qanday?",
+       "options": [
+        "das Mittagessen",
+        "die Limonade",
+        "der Brokkoli"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "O'zbekcha so'zning nemischasini tanlang."
+    }
    ]
   },
   {
@@ -1567,7 +2463,7 @@
    "module": 1,
    "lesson": 6,
    "skill": "yakuniy",
-   "title": "Yakuniy Test: Modul 6",
+   "title": "Abschlusstest: Modul 6",
    "source": "vizu",
    "instruction": "Modalfe'llar, nicht / kein va ovqat so'zlari bo'yicha yakuniy test.",
    "questions": [
@@ -1686,7 +2582,7 @@
     {
      "type": "gap_fill",
      "question": "Wählen Sie das richtige Wort.",
-     "text": "Das Essen ist [[1]] gut.",
+     "text": "Die Suppe ist [[1]] heiß.",
      "gaps": {
       "1": {
        "accepted": [
@@ -1701,7 +2597,8 @@
      },
      "points": 1,
      "passage": 1,
-     "case_sensitive": false
+     "case_sensitive": false,
+     "explanation": "Sifatni inkor qilish: nicht heiß."
     },
     {
      "type": "gap_fill",
@@ -1780,6 +2677,17 @@
      "passage": 1
     }
    ]
+  },
+  {
+   "content_id": "vizu-a1-l06-kompetenz-02",
+   "level": "A1",
+   "module": 1,
+   "lesson": 6,
+   "skill": "kompetenz",
+   "title": "Zusammenfassung: Modul 6",
+   "source": "vizu",
+   "competency": "ZUSAMMENFASSUNG",
+   "html": "<h3>Modul 6 — qisqacha</h3><ul><li><strong>Modalverben:</strong> ich kann / muss / will / soll / darf / mag · du kannst / musst / willst / sollst / darfst / magst · wir können / müssen / wollen / sollen / dürfen / mögen.</li><li><strong>Satzbau:</strong> Modalverb auf Position 2, Infinitiv am Ende — Ich muss heute Hausaufgaben machen.</li><li><strong>nicht:</strong> Ich esse nicht. Das ist nicht gut. · <strong>kein:</strong> Ich habe kein Geld / keine Zeit / keinen Hund.</li><li><strong>Essen und Trinken:</strong> zum Frühstück, zum Mittagessen, zum Abendessen; das Brot, die Butter, der Käse, das Obst, das Gemüse, der Saft.</li></ul><p>Natijalaringiz pastda — tugallanmagan bo'limlarni yakunlang, so'ng keyingi darsga o'ting.</p>"
   }
  ]
 }

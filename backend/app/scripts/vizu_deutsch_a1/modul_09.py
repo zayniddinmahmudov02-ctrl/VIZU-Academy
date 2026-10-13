@@ -2,11 +2,42 @@
 
 p.92 (30 questions): the answer sheet contradicts the book's own rules on
 p.91 in two places (3: "bei der Arbeit"; 24: "in die Schweiz"); the book's
-rule is used there."""
+rule is used there.
 
-from . import base, choice_gap, exercise, gap, html_table, match, mc, tf, ul, words
+p.93 Brief 3 question 3 "Paul fährt jeden Tag mit dem Zug in die Berge" is
+left out: the letter says he takes the train every day and sees the
+mountains — that he goes INTO the mountains is neither stated nor denied, so
+no Richtig/Falsch answer can be proven from the text. Hören gap 5 ("…ist er
+___ Markt gegangen") accepts "auf den" and "zum" (both correct German)."""
+
+from . import (
+    article_set, base, choice_gap, exercise, gap, html_table, intro_html, match, mc, reverse_vocab_set, summary_html, tf, ul, vocab_match_sets,
+    words,
+)
 
 L = 9
+LESSON_TITLE = "Meine Reise nach Deutschland"
+LESSON_DESCRIPTION = "Thema: Meine Reise nach Deutschland · Grammatik: Lokalangaben (wo? wohin?)"
+IMAGES = [("01_cover.jpg", "EINFUEHRUNG", "Modul 9 — Meine Reise nach Deutschland (Buch, S. 89)")]
+RETIRED_IMAGE_TITLES: list[str] = []
+
+EINFUEHRUNG_HTML = intro_html(
+    9, "Meine Reise nach Deutschland", "Lokalangaben — wo? (qayerda?) va wohin? (qayerga?)",
+    ["„qayerga?“ (wohin?): nach Berlin, in die Stadt, ins Kino, zum Arzt, auf den Markt;",
+     "„qayerda?“ (wo?): in der Stadt, im Kino, beim Arzt, auf dem Markt, am Meer, zu Hause;",
+     "wohin? — Akkusativ, wo? — Dativ farqini tushunish;",
+     "sayohatga oid so'zlarni o'rganish: die Reise, das Hotel, die Gastfamilie, besichtigen."],
+    ["„Ich bin nach Italien gefahren. Ich war in Rom.“ — qayerga borganingiz va qayerda bo'lganingizni aytasiz;",
+     "Max, Lisa va Paulning sayohat xatlarini o'qib, Richtig/Falsch topshirig'ini bajarasiz;",
+     "uch do'stning sayohati haqidagi matnni tinglab, predloglarni yozasiz;",
+     "do'stingizga sayohatingiz haqida xat yozasiz."])
+
+ZUSAMMENFASSUNG_HTML = summary_html(9, [
+    "<strong>Wohin? (Akkusativ):</strong> nach Deutschland / Berlin / Hause · in die Schule, in den Park, ins Kino · zur Arbeit, zum Arzt · auf den Markt, ans Meer.",
+    "<strong>Wo? (Dativ):</strong> in Deutschland · in der Schule, im Park, im Kino · bei der Arbeit, beim Arzt · auf dem Markt, am Meer · zu Hause.",
+    "<strong>Länder mit Artikel:</strong> in die Türkei / in der Türkei, in die Schweiz / in der Schweiz.",
+    "<strong>Reise:</strong> Ich bin nach … gefahren. Ich habe in einem Hotel / bei einer Gastfamilie gewohnt. Ich habe … besichtigt.",
+])
 
 _LOKAL = (
     "<h3>WOHIN? (Qayerga?) — yo'nalish</h3>"
@@ -73,7 +104,6 @@ LESEN = [
     tf("Lisa macht viele Fotos in der Stadt.", True, passage=2), tf("Sie trinkt Tee zum Mittagessen.", True, passage=2),
     tf("Am Abend geht sie am Meer spazieren.", True, passage=2),
     tf("Paul ist in Zürich.", True, passage=3), tf("Er wohnt in einem großen Hotel.", False, "„Ich wohne in einem kleinen Hostel.“", passage=3),
-    tf("Paul fährt jeden Tag mit dem Zug in die Berge.", False, "„Jeden Tag fahre ich mit dem Zug. Ich sehe die Berge …“", passage=3),
     tf("Paul liest Bücher und schreibt E-Mails.", True, passage=3), tf("Die Reise ist langweilig.", False, "„Die Reise ist sehr schön und lehrreich.“", passage=3),
 ]
 
@@ -89,7 +119,7 @@ HOEREN_TEXT = ("Letzten Sommer haben drei Freunde aus Deutschland eine Reise gem
                "Messe gegangen und hat etwas Neues gelernt. Alle drei Freunde haben eine schöne Reise gehabt. Sie haben viel gesehen, gegessen "
                "und fotografiert. Sie haben neue Länder, Städte und Kulturen kennengelernt. Sie sind oft [[14]] Straße, [[15]] Kino oder [[16]] "
                "Park gegangen.")
-HOEREN_GAPS = {"1": ["nach"], "2": ["in"], "3": ["im"], "4": ["im"], "5": ["auf den"], "6": ["auf der"], "7": ["in die"], "8": ["in"],
+HOEREN_GAPS = {"1": ["nach"], "2": ["in"], "3": ["im"], "4": ["im"], "5": ["auf den", "zum"], "6": ["auf der"], "7": ["in die"], "8": ["in"],
                "9": ["am"], "10": ["auf die", "zur"], "11": ["in die"], "12": ["in"], "13": ["zur", "auf die"], "14": ["auf die"], "15": ["ins"],
                "16": ["in den"]}
 
@@ -107,8 +137,26 @@ _W = [("die", "Reise", "sayohat"), ("reisen", "sayohat qilmoq"), ("der", "Touris
 WORDS = words(_W, "Reise")
 
 
+WORTSCHATZ_SETS = [*vocab_match_sets(WORDS, per_set=4), article_set(WORDS)]
+
+UEBUNGEN_SETS = [
+    exercise("Wo? oder Wohin? (Lesen)", [
+        choice_gap("Max ist jetzt ___ Italien.", ["in", "nach", "zu"], "in", explanation="Brief 1: „Ich bin jetzt in Italien, in Rom.“"),
+        choice_gap("Max wohnt in einem kleinen Hotel ___ Zentrum.", ["im", "ins", "zum"], "im"),
+        choice_gap("Lisa ist jetzt ___ Türkei.", ["in der", "in die", "nach"], "in der", explanation="die Türkei — Wo? in der Türkei."),
+        choice_gap("Am Morgen geht Lisa ___ Stadt.", ["in die", "in der", "nach"], "in die", explanation="Brief 2: „Am Morgen gehe ich in die Stadt.“"),
+        choice_gap("Am Abend geht Lisa ___ Meer spazieren.", ["am", "ans", "im"], "am"),
+        choice_gap("Paul ist zurzeit ___ Schweiz.", ["in der", "in die", "nach"], "in der"),
+        choice_gap("Lisa wohnt ___ einer Gastfamilie.", ["bei", "zu", "in"], "bei"),
+        choice_gap("Am Abend sitzt Max ___ einem Café.", ["in", "auf", "nach"], "in"),
+    ], "Xatlardagi gaplarda to'g'ri predlogni tanlang.", source="vizu"),
+    reverse_vocab_set(WORDS),
+]
+
+
 def items() -> list[dict]:
     return [
+        base(L, "kompetenz", 1, "Einführung: Modul 9", source="vizu", page=89, competency="EINFUEHRUNG", html=EINFUEHRUNG_HTML),
         base(L, "frage", 1, "Frage: Wie ist der Tourismus in Deutschland?", page=90,
              prompt="Wie ist der Tourismus in Deutschland? (Beliebte Reiseziele, Natur, Kultur, Infrastruktur …) Welche Stadt oder welchen Ort "
                     "in Deutschland möchten Sie besuchen und warum?",
@@ -140,15 +188,16 @@ def items() -> list[dict]:
              response_type="monolog", min_duration=40, max_duration=180,
              speech_goal="Eine Reise im Perfekt mit Ortsangaben (nach, in, am, auf …) erzählen.",
              keywords=["Ich bin nach … gefahren", "in einem Hotel", "am Meer", "auf den Markt"]),
-        base(L, "wortschatz", 1, "Wortschatz Modul 9: Reise", page=97, words=WORDS),
-        base(L, "yakuniy", 1, "Yakuniy Test: Modul 9", source="vizu",
+        base(L, "wortschatz", 1, "Wortschatz Modul 9: Reise", page=97, words=WORDS, exercises=WORTSCHATZ_SETS, auto_practice=False),
+        base(L, "uebungen", 1, "Übungen Modul 9", exercises=UEBUNGEN_SETS, source="vizu"),
+        base(L, "yakuniy", 1, "Abschlusstest: Modul 9", source="vizu",
              instruction="Lokalangaben (wo? wohin?) va sayohat so'zlari bo'yicha yakuniy test.",
              questions=[
                  choice_gap("Ich fahre ___ Berlin.", ["nach", "in", "zu"], "nach"),
                  choice_gap("Wir wohnen ___ Deutschland.", ["in", "nach", "zu"], "in"),
-                 choice_gap("Er geht ___ Arzt.", ["zum", "beim", "im"], "zum"),
+                 choice_gap("Meine Schwester geht ___ Zahnarzt.", ["zum", "beim", "im"], "zum"),
                  choice_gap("Sie ist ___ Arbeit.", ["bei der", "zur", "nach"], "bei der"),
-                 choice_gap("Ich gehe ___ Kino.", ["ins", "im", "zum"], "ins"),
+                 choice_gap("Wir gehen heute Abend ___ Theater.", ["ins", "im", "zum"], "ins", explanation="in + das (Akkusativ) = ins."),
                  choice_gap("Wir sind ___ Meer.", ["am", "ans", "nach"], "am"),
                  mc("Wohin? oder Wo?: „in die Schule“", ["Wohin?", "Wo?"], "A"),
                  mc("Welcher Satz ist richtig?", ["Ich bin zu Hause.", "Ich bin nach Hause.", "Ich bin in Hause."], "A"),
@@ -157,4 +206,5 @@ def items() -> list[dict]:
                  match("Was passt zusammen?", ["der Markt", "das Meer", "die Messe", "der Zug"], ["bozor", "dengiz", "ko'rgazma", "poyezd", "tog'"],
                        {"1": "A", "2": "B", "3": "C", "4": "D"}),
              ]),
+        base(L, "kompetenz", 2, "Zusammenfassung: Modul 9", source="vizu", competency="ZUSAMMENFASSUNG", html=ZUSAMMENFASSUNG_HTML),
     ]

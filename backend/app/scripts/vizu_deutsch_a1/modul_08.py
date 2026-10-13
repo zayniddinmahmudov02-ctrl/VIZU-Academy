@@ -3,11 +3,41 @@
 p.83: each sentence asks for the Präsens form and the Perfekt (Hilfsverb +
 Partizip II) — imported as one Lückentext per sentence (3 gaps, partial
 credit). Where the book's sentence starts with an ambiguous "Sie", both the
-singular (sie) and plural / polite (Sie) forms are accepted."""
+singular (sie) and plural / polite (Sie) forms are accepted.
 
-from . import base, choice_gap, exercise, gap, gap_paragraphs, html_table, match, mc, tf, ul, words
+Book corrections: task 4 sentence 3 repeats task 1 sentence 9 ("Wir ___
+unsere Freunde. (besuchen)") — asked once. Task 4 sentence 6 prints
+"gehören" for "Sie ___ die Regeln" (key: hat gehört) — the verb is hören.
+The Hören gaps are decided by the infinitives in brackets (Perfekt forms)."""
+
+from . import (
+    article_set, base, choice_gap, exercise, gap, gap_paragraphs, html_table, intro_html, match, mc, reverse_vocab_set, summary_html, tf, ul,
+    vocab_match_sets, words,
+)
 
 L = 8
+LESSON_TITLE = "Mein Urlaub in Deutschland"
+LESSON_DESCRIPTION = "Thema: Mein Urlaub in Deutschland · Grammatik: Perfekt"
+IMAGES = [("01_cover.jpg", "EINFUEHRUNG", "Modul 8 — Mein Urlaub in Deutschland (Buch, S. 80)")]
+RETIRED_IMAGE_TITLES: list[str] = []
+
+EINFUEHRUNG_HTML = intro_html(
+    8, "Mein Urlaub in Deutschland", "Perfekt (o'tgan zamon — og'zaki nutqda)",
+    ["Perfekt tuzilishi: haben / sein + Partizip II (gap oxirida) — Ich habe Pizza gegessen.;",
+     "qachon sein ishlatilishini bilish: harakat va holat o'zgarishi — Ich bin nach Berlin gefahren.;",
+     "Partizip II yasash: gemacht, gesehen, besucht, studiert, eingekauft, aufgestanden;",
+     "ta'til va sayohatga oid so'zlarni o'rganish: der Urlaub, das Hotel, am Strand, die Wanderung."],
+    ["„Letzten Sommer bin ich nach Spanien gereist. Ich habe in einem Hotel gewohnt.“ — ta'tilingiz haqida gapirasiz;",
+     "Ispaniyadagi ta'til haqidagi matnni o'qib, savollarga javob berasiz;",
+     "Shveytsariyadagi sayohat haqidagi matnni tinglab, Perfekt shakllarini yozasiz;",
+     "ta'tildan keyingi suhbatda o'qituvchining savollariga javob berasiz."])
+
+ZUSAMMENFASSUNG_HTML = summary_html(8, [
+    "<strong>Perfekt:</strong> Subjekt + haben / sein (Position 2) + … + Partizip II (Ende): Ich habe gestern gearbeitet. Er ist gekommen.",
+    "<strong>sein:</strong> gehen → ist gegangen, kommen → ist gekommen, fahren → ist gefahren, fliegen → ist geflogen, aufstehen → ist aufgestanden.",
+    "<strong>Partizip II:</strong> ge…t (gemacht, gelernt) · ge…en (gesehen, gegessen) · ohne ge- (besucht, verstanden, studiert) · trennbar (eingekauft, aufgeräumt).",
+    "<strong>Urlaub:</strong> Ich bin nach … gereist. Ich habe in einem Hotel gewohnt. Das Wetter war schön. Der Urlaub hat mir gut gefallen.",
+])
 
 _PERFEKT = (
     "<p><strong>Perfekt</strong> — o'tmishda bo'lib o'tgan ish-harakatni aytish uchun ishlatiladi. Ko'proq og'zaki nutqda ishlatiladi. "
@@ -90,11 +120,9 @@ BLOCK3 = [
     _pf("Er", "aufmerksam.", "zuhören", _sep("hört", "zu"), ["hat"], ["zugehört"]),
 ]
 BLOCK4 = [
-    _pf("Wir", "unsere Freunde.", "besuchen", ["besuchen"], ["haben"], ["besucht"]),
     _pf("Er", "die Rechnung.", "bezahlen", ["bezahlt"], ["hat"], ["bezahlt"]),
     _pf("Ihr", "den Plan.", "erklären", ["erklärt"], ["habt"], ["erklärt"]),
-    _pf("Sie", "die Regeln.", "gehören", ["gehört", "gehören", "hört", "hören"], ["hat", "haben"], ["gehört"],
-        "(Kitobda: gehören → hat gehört)"),
+    _pf("Sie", "die Regeln.", "hören", ["hört", "hören"], ["hat", "haben"], ["gehört"]),
     _pf("Ich", "ein Paket.", "bekommen", ["bekomme"], ["habe"], ["bekommen"]),
     _pf("Du", "den Schlüssel.", "verlieren", ["verlierst"], ["hast"], ["verloren"]),
     _pf("Wir", "eine tolle Erfahrung.", "erleben", ["erleben"], ["haben"], ["erlebt"]),
@@ -155,8 +183,32 @@ _W = [("der", "Urlaub", "ta'til"), ("reisen", "sayohat qilmoq"), ("reisen nach",
 WORDS = words(_W, "Urlaub")
 
 
+WORTSCHATZ_SETS = [*vocab_match_sets(WORDS, per_set=4), article_set(WORDS)]
+
+UEBUNGEN_SETS = [
+    exercise("haben oder sein? (Lesen & Hören)", [
+        choice_gap("Letzten Sommer ___ ich nach Spanien gereist.", ["bin", "habe", "hat"], "bin", explanation="Lesen: „Letzten Sommer bin ich nach Spanien gereist.“"),
+        choice_gap("Ich ___ in einem Hotel am Strand gewohnt.", ["habe", "bin", "ist"], "habe"),
+        choice_gap("Jeden Abend ___ ich spazieren gegangen.", ["bin", "habe", "hat"], "bin", explanation="gehen → ist gegangen."),
+        choice_gap("Ich ___ Tapas gegessen.", ["habe", "bin", "hat"], "habe"),
+        choice_gap("Mein Urlaub ___ mir sehr gut gefallen.", ["hat", "ist", "habe"], "hat"),
+        choice_gap("Ich ___ nach Zermatt gefahren.", ["bin", "habe", "hat"], "bin", explanation="fahren → ist gefahren."),
+    ], "Perfektda haben yoki sein ni tanlang.", source="vizu"),
+    exercise("Partizip II", [
+        mc("Partizip II von „reisen“:", ["gereist", "gereisen", "reist"], "A"),
+        mc("Partizip II von „treffen“:", ["getroffen", "getrefft", "getraffen"], "A"),
+        mc("Partizip II von „probieren“:", ["probiert", "geprobiert", "probieren"], "A", "-ieren: ge- qo'shilmaydi."),
+        mc("Partizip II von „verstehen“:", ["verstanden", "geverstanden", "verstehte"], "A", "ver-: ge- qo'shilmaydi."),
+        mc("Partizip II von „aufräumen“:", ["aufgeräumt", "geaufräumt", "aufräumt"], "A", "Ajraladigan fe'l: auf + ge + räumt."),
+        mc("Partizip II von „finden“:", ["gefunden", "gefindet", "gefanden"], "A"),
+    ], "To'g'ri Partizip II shaklini tanlang.", source="vizu"),
+    reverse_vocab_set(WORDS),
+]
+
+
 def items() -> list[dict]:
     return [
+        base(L, "kompetenz", 1, "Einführung: Modul 8", source="vizu", page=80, competency="EINFUEHRUNG", html=EINFUEHRUNG_HTML),
         base(L, "frage", 1, "Frage: Was machen die Deutschen im Urlaub?", page=81,
              prompt="Was machen die Deutschen im Urlaub? Und was machen Sie gern im Urlaub?", min_duration=10, max_duration=120),
         base(L, "grammatik", 1, "Grammatik: Perfekt", page="82-83",
@@ -168,7 +220,7 @@ def items() -> list[dict]:
                           "Beispiel: Ich sehe heute Morgen viel. → Ich habe viel gesehen. Du fährst nach Berlin. → Du bist nach Berlin gefahren."),
                  exercise("Aufgabe 3: trennbare Verben (Präsens → Perfekt)", BLOCK3,
                           "Beispiel: Ich kaufe im Supermarkt ein. → Ich habe im Supermarkt eingekauft."),
-                 exercise("Aufgabe 4: untrennbare Verben (Präsens → Perfekt)", BLOCK4,
+                 exercise("Aufgabe 4: untrennbare Verben (Präsens → Perfekt)", BLOCK4,  # book sentence 3 = task 1 sentence 9
                           "Beispiel: Ich verstehe die Aufgabe. → Ich habe die Aufgabe verstanden. Präfixe: be-, ge-, er-, ver-, zer-, miss-, ent-, emp-."),
              ]),
         base(L, "lesen", 1, "Lesen: Mein Urlaub in Spanien", page=84,
@@ -194,8 +246,9 @@ def items() -> list[dict]:
              response_type="dialog", min_duration=30, max_duration=180,
              speech_goal="Über eine Reise im Perfekt sprechen: Ziel, Unterkunft, Begleitung, Aktivitäten, Essen, Eindruck.",
              keywords=["Ich bin … gereist", "Ich habe … gewohnt", "Ich habe … gemacht"]),
-        base(L, "wortschatz", 1, "Wortschatz Modul 8: Urlaub", page=88, words=WORDS),
-        base(L, "yakuniy", 1, "Yakuniy Test: Modul 8", source="vizu",
+        base(L, "wortschatz", 1, "Wortschatz Modul 8: Urlaub", page=88, words=WORDS, exercises=WORTSCHATZ_SETS, auto_practice=False),
+        base(L, "uebungen", 1, "Übungen Modul 8", exercises=UEBUNGEN_SETS, source="vizu"),
+        base(L, "yakuniy", 1, "Abschlusstest: Modul 8", source="vizu",
              instruction="Perfekt va ta'til so'zlari bo'yicha yakuniy test.",
              questions=[
                  choice_gap("Ich ___ nach Berlin gefahren.", ["bin", "habe", "hat"], "bin"),
@@ -211,4 +264,5 @@ def items() -> list[dict]:
                  match("Was passt zusammen?", ["baden", "die Wanderung", "das Wetter", "gefallen"], ["cho'milmoq", "piyoda sayr", "ob-havo", "yoqmoq", "muzey"],
                        {"1": "A", "2": "B", "3": "C", "4": "D"}),
              ]),
+        base(L, "kompetenz", 2, "Zusammenfassung: Modul 8", source="vizu", competency="ZUSAMMENFASSUNG", html=ZUSAMMENFASSUNG_HTML),
     ]

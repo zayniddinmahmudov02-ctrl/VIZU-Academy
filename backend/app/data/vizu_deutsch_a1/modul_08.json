@@ -1,8 +1,22 @@
 {
- "schema_version": "1.1",
+ "schema_version": "1.2",
  "language": "de",
  "source": "vizu-deutsch-a1-book",
  "items": [
+  {
+   "content_id": "vizu-a1-l08-kompetenz-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 8,
+   "skill": "kompetenz",
+   "title": "Einführung: Modul 8",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 80
+   },
+   "competency": "EINFUEHRUNG",
+   "html": "<h3>Modul 8 — Mein Urlaub in Deutschland</h3><p><strong>Mavzu:</strong> Mein Urlaub in Deutschland · <strong>Grammatik:</strong> Perfekt (o'tgan zamon — og'zaki nutqda)</p><h4>Dars maqsadlari</h4><ul><li>Perfekt tuzilishi: haben / sein + Partizip II (gap oxirida) — Ich habe Pizza gegessen.;</li><li>qachon sein ishlatilishini bilish: harakat va holat o'zgarishi — Ich bin nach Berlin gefahren.;</li><li>Partizip II yasash: gemacht, gesehen, besucht, studiert, eingekauft, aufgestanden;</li><li>ta'til va sayohatga oid so'zlarni o'rganish: der Urlaub, das Hotel, am Strand, die Wanderung.</li></ul><h4>Dars oxirida siz quyidagilarni bajara olasiz</h4><ul><li>„Letzten Sommer bin ich nach Spanien gereist. Ich habe in einem Hotel gewohnt.“ — ta'tilingiz haqida gapirasiz;</li><li>Ispaniyadagi ta'til haqidagi matnni o'qib, savollarga javob berasiz;</li><li>Shveytsariyadagi sayohat haqidagi matnni tinglab, Perfekt shakllarini yozasiz;</li><li>ta'tildan keyingi suhbatda o'qituvchining savollariga javob berasiz.</li></ul><h4>Darsning tuzilishi</h4><p>Einführung → Wortschatz → Grammatik → Lesen → Hören → Sprechen → Schreiben → Übungen → Abschlusstest → Zusammenfassung</p>"
+  },
   {
    "content_id": "vizu-a1-l08-frage-01",
    "level": "A1",
@@ -974,26 +988,6 @@
       {
        "type": "gap_fill",
        "question": "Präsens → Perfekt: ergänzen Sie.",
-       "text": "Wir [[1]] unsere Freunde. (besuchen) → Wir [[2]] [[3]].",
-       "gaps": {
-        "1": [
-         "besuchen"
-        ],
-        "2": [
-         "haben"
-        ],
-        "3": [
-         "besucht"
-        ]
-       },
-       "points": 1,
-       "passage": 1,
-       "case_sensitive": false,
-       "explanation": "besuchen → haben … besucht"
-      },
-      {
-       "type": "gap_fill",
-       "question": "Präsens → Perfekt: ergänzen Sie.",
        "text": "Er [[1]] die Rechnung. (bezahlen) → Er [[2]] [[3]].",
        "gaps": {
         "1": [
@@ -1034,11 +1028,9 @@
       {
        "type": "gap_fill",
        "question": "Präsens → Perfekt: ergänzen Sie.",
-       "text": "Sie [[1]] die Regeln. (gehören) → Sie [[2]] [[3]]. (Kitobda: gehören → hat gehört)",
+       "text": "Sie [[1]] die Regeln. (hören) → Sie [[2]] [[3]].",
        "gaps": {
         "1": [
-         "gehört",
-         "gehören",
          "hört",
          "hören"
         ],
@@ -1053,7 +1045,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "gehört → hat … gehört"
+       "explanation": "hört → hat … gehört"
       },
       {
        "type": "gap_fill",
@@ -1793,6 +1785,810 @@
      "translation": "ayniqsa, maxsus",
      "group": "Urlaub"
     }
+   ],
+   "exercises": [
+    {
+     "title": "Zuordnung 1",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Urlaub 1)",
+       "items": [
+        "der Urlaub",
+        "reisen",
+        "reisen nach",
+        "letzten Sommer",
+        "wohnen",
+        "das Hotel"
+       ],
+       "targets": [
+        "ta'til",
+        "sayohat qilmoq",
+        "…ga sayohat qilmoq",
+        "o'tgan yoz",
+        "yashamoq, qolmoq",
+        "mehmonxona",
+        "plyajda"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Urlaub 2)",
+       "items": [
+        "am Strand",
+        "das Wetter",
+        "schön",
+        "warm",
+        "baden",
+        "die Sonne tanken"
+       ],
+       "targets": [
+        "plyajda",
+        "ob-havo",
+        "chiroyli, yaxshi",
+        "issiq",
+        "cho'milmoq",
+        "quyosh nurida toblanmoq",
+        "ta'til"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Urlaub 3)",
+       "items": [
+        "Volleyball spielen",
+        "essen",
+        "die Tapas",
+        "die Paella",
+        "abends",
+        "spazieren gehen"
+       ],
+       "targets": [
+        "voleybol o'ynamoq",
+        "yemoq",
+        "tapas (ispan taomi)",
+        "paella (ispan taomi)",
+        "kechqurun",
+        "sayr qilmoq",
+        "ta'til"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Urlaub 4)",
+       "items": [
+        "Fotos machen",
+        "nette Leute",
+        "lachen",
+        "die Stadtbesichtigung",
+        "interessant",
+        "die Gebäude"
+       ],
+       "targets": [
+        "fotosurat tushirmoq",
+        "yoqimli odamlar",
+        "kulmoq",
+        "shahar bo'ylab sayohat / ekskursiya",
+        "qiziqarli",
+        "binolar",
+        "ta'til"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Zuordnung 2",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Urlaub 5)",
+       "items": [
+        "Souvenirs kaufen",
+        "das Museum",
+        "die Geschichte",
+        "gefallen",
+        "sich entspannen",
+        "Spaß haben"
+       ],
+       "targets": [
+        "sovg'a sotib olmoq",
+        "muzey",
+        "tarix",
+        "yoqmoq",
+        "dam olmoq",
+        "zavqlanmoq, rohatlanmoq",
+        "ta'til"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Urlaub 6)",
+       "items": [
+        "neue Freunde finden",
+        "Erinnerungen sammeln",
+        "die Alpen",
+        "das Matterhorn",
+        "die Natur",
+        "bewundern"
+       ],
+       "targets": [
+        "yangi do'stlar topmoq",
+        "xotiralar to'plamoq",
+        "Alp tog'lari",
+        "Matterhorn tog'i",
+        "tabiat",
+        "hayratlanib tomosha qilmoq",
+        "ta'til"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Urlaub 7)",
+       "items": [
+        "die Wanderung",
+        "die frische Luft",
+        "Schokolade probieren",
+        "Käse probieren",
+        "zusammen lachen",
+        "hinfahren"
+       ],
+       "targets": [
+        "piyoda sayr, trekking",
+        "toza havo",
+        "shokolad tatib ko'rmoq",
+        "pishloq tatib ko'rmoq",
+        "birga kulmoq",
+        "(bir joyga) borib kelmoq",
+        "ta'til"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Urlaub 8)",
+       "items": [
+        "möchten",
+        "zuerst",
+        "weiterreisen",
+        "klein",
+        "überall",
+        "die Stadt",
+        "sehr gut",
+        "besonders"
+       ],
+       "targets": [
+        "xohlamoq",
+        "avval, birinchi",
+        "sayohatni davom ettirmoq",
+        "kichik",
+        "hamma joyda",
+        "shahar",
+        "juda yaxshi",
+        "ayniqsa, maxsus",
+        "ta'til"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F",
+        "7": "G",
+        "8": "H"
+       },
+       "points": 8,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Der, die oder das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Urlaub (ta'til)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Hotel (mehmonxona)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Wetter (ob-havo)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Tapas (tapas (ispan taomi))",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Paella (paella (ispan taomi))",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Stadtbesichtigung (shahar bo'ylab sayohat / ekskursiya)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Gebäude (binolar)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Museum (muzey)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Geschichte (tarix)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Alpen (Alp tog'lari)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "So'zning artiklini tanlang (kitobdagi lug'at bo'yicha)."
+    }
+   ],
+   "auto_practice": false
+  },
+  {
+   "content_id": "vizu-a1-l08-uebungen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 8,
+   "skill": "uebungen",
+   "title": "Übungen Modul 8",
+   "source": "vizu",
+   "exercises": [
+    {
+     "title": "haben oder sein? (Lesen & Hören)",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Letzten Sommer [[1]] ich nach Spanien gereist.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "bin"
+         ],
+         "options": [
+          "bin",
+          "habe",
+          "hat"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Lesen: „Letzten Sommer bin ich nach Spanien gereist.“"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Ich [[1]] in einem Hotel am Strand gewohnt.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "habe"
+         ],
+         "options": [
+          "habe",
+          "bin",
+          "ist"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Jeden Abend [[1]] ich spazieren gegangen.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "bin"
+         ],
+         "options": [
+          "bin",
+          "habe",
+          "hat"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "gehen → ist gegangen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Ich [[1]] Tapas gegessen.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "habe"
+         ],
+         "options": [
+          "habe",
+          "bin",
+          "hat"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Mein Urlaub [[1]] mir sehr gut gefallen.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "hat"
+         ],
+         "options": [
+          "hat",
+          "ist",
+          "habe"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Ich [[1]] nach Zermatt gefahren.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "bin"
+         ],
+         "options": [
+          "bin",
+          "habe",
+          "hat"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "fahren → ist gefahren."
+      }
+     ],
+     "instruction": "Perfektda haben yoki sein ni tanlang."
+    },
+    {
+     "title": "Partizip II",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Partizip II von „reisen“:",
+       "options": [
+        "gereist",
+        "gereisen",
+        "reist"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Partizip II von „treffen“:",
+       "options": [
+        "getroffen",
+        "getrefft",
+        "getraffen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Partizip II von „probieren“:",
+       "options": [
+        "probiert",
+        "geprobiert",
+        "probieren"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "-ieren: ge- qo'shilmaydi."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Partizip II von „verstehen“:",
+       "options": [
+        "verstanden",
+        "geverstanden",
+        "verstehte"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "ver-: ge- qo'shilmaydi."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Partizip II von „aufräumen“:",
+       "options": [
+        "aufgeräumt",
+        "geaufräumt",
+        "aufräumt"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Ajraladigan fe'l: auf + ge + räumt."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Partizip II von „finden“:",
+       "options": [
+        "gefunden",
+        "gefindet",
+        "gefanden"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "To'g'ri Partizip II shaklini tanlang."
+    },
+    {
+     "title": "Nemischa qanday?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "„sayohat qilmoq“ — nemischa qanday?",
+       "options": [
+        "reisen",
+        "sehr gut",
+        "sich entspannen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„ob-havo“ — nemischa qanday?",
+       "options": [
+        "das Wetter",
+        "die Natur",
+        "die Stadt"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„yemoq“ — nemischa qanday?",
+       "options": [
+        "klein",
+        "sich entspannen",
+        "essen"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„yoqimli odamlar“ — nemischa qanday?",
+       "options": [
+        "nette Leute",
+        "interessant",
+        "reisen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„muzey“ — nemischa qanday?",
+       "options": [
+        "das Matterhorn",
+        "die Stadt",
+        "das Museum"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„xotiralar to'plamoq“ — nemischa qanday?",
+       "options": [
+        "interessant",
+        "Erinnerungen sammeln",
+        "nette Leute"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„toza havo“ — nemischa qanday?",
+       "options": [
+        "Käse probieren",
+        "schön",
+        "die frische Luft"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„avval, birinchi“ — nemischa qanday?",
+       "options": [
+        "hinfahren",
+        "zuerst",
+        "besonders"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "O'zbekcha so'zning nemischasini tanlang."
+    }
    ]
   },
   {
@@ -1801,7 +2597,7 @@
    "module": 1,
    "lesson": 8,
    "skill": "yakuniy",
-   "title": "Yakuniy Test: Modul 8",
+   "title": "Abschlusstest: Modul 8",
    "source": "vizu",
    "instruction": "Perfekt va ta'til so'zlari bo'yicha yakuniy test.",
    "questions": [
@@ -1970,6 +2766,17 @@
      "passage": 1
     }
    ]
+  },
+  {
+   "content_id": "vizu-a1-l08-kompetenz-02",
+   "level": "A1",
+   "module": 1,
+   "lesson": 8,
+   "skill": "kompetenz",
+   "title": "Zusammenfassung: Modul 8",
+   "source": "vizu",
+   "competency": "ZUSAMMENFASSUNG",
+   "html": "<h3>Modul 8 — qisqacha</h3><ul><li><strong>Perfekt:</strong> Subjekt + haben / sein (Position 2) + … + Partizip II (Ende): Ich habe gestern gearbeitet. Er ist gekommen.</li><li><strong>sein:</strong> gehen → ist gegangen, kommen → ist gekommen, fahren → ist gefahren, fliegen → ist geflogen, aufstehen → ist aufgestanden.</li><li><strong>Partizip II:</strong> ge…t (gemacht, gelernt) · ge…en (gesehen, gegessen) · ohne ge- (besucht, verstanden, studiert) · trennbar (eingekauft, aufgeräumt).</li><li><strong>Urlaub:</strong> Ich bin nach … gereist. Ich habe in einem Hotel gewohnt. Das Wetter war schön. Der Urlaub hat mir gut gefallen.</li></ul><p>Natijalaringiz pastda — tugallanmagan bo'limlarni yakunlang, so'ng keyingi darsga o'ting.</p>"
   }
  ]
 }

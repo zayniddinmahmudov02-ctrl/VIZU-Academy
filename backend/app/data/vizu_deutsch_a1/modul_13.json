@@ -1,8 +1,22 @@
 {
- "schema_version": "1.1",
+ "schema_version": "1.2",
  "language": "de",
  "source": "vizu-deutsch-a1-book",
  "items": [
+  {
+   "content_id": "vizu-a1-l13-kompetenz-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 13,
+   "skill": "kompetenz",
+   "title": "Einführung: Modul 13",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 126
+   },
+   "competency": "EINFUEHRUNG",
+   "html": "<h3>Modul 13 — Termine und Alltag in Deutschland</h3><p><strong>Mavzu:</strong> Termine und Alltag in Deutschland · <strong>Grammatik:</strong> Modalverben im Präteritum</p><h4>Dars maqsadlari</h4><ul><li>modal fe'llarning o'tgan zamoni: konnte, musste, wollte, durfte, sollte, mochte (umlaut tushib qoladi);</li><li>shaxs qo'shimchalari: ich konnte, du konntest, er konnte, wir konnten, ihr konntet, sie konnten;</li><li>uchrashuv (Termin) belgilash, ko'chirish va bekor qilish;</li><li>rasmiy va norasmiy xat yozish: Sehr geehrte … / Hallo …</li></ul><h4>Dars oxirida siz quyidagilarni bajara olasiz</h4><ul><li>„Leider konnte ich gestern nicht kommen, ich musste arbeiten.“ — nega kela olmaganingizni tushuntirasiz;</li><li>uchrashuvlar haqidagi to'rtta xatni o'qib, sarlavhalarni moslaysiz;</li><li>telefon xabarlarini tinglab, kim nega kela olmasligini aniqlaysiz;</li><li>uzr so'rab xat yozasiz va telefonda shifokor qabuliga yozilasiz.</li></ul><h4>Darsning tuzilishi</h4><p>Einführung → Wortschatz → Grammatik → Lesen → Hören → Sprechen → Schreiben → Übungen → Abschlusstest → Zusammenfassung</p>"
+  },
   {
    "content_id": "vizu-a1-l13-frage-01",
    "level": "A1",
@@ -42,8 +56,8 @@
      "questions": [
       {
        "type": "gap_fill",
-       "question": "Text 1 — Reise nach Berlin: Ergänzen Sie das passende Modalverb im Präteritum.",
-       "text": "Letzten Monat [[1]] ich nach Berlin fahren. Ich [[2]] sehr früh aufstehen. Am Bahnhof [[3]] ich mein Ticket nicht finden. Ein Mann [[4]] mir helfen. Im Hotel [[5]] ich länger bleiben, aber es war teuer. Am Abend [[6]] ich die Stadt besichtigen.",
+       "question": "Text 1 — Reise nach Berlin: Setzen Sie das Modalverb in Klammern ins Präteritum.",
+       "text": "Letzten Monat [[1]] (wollen) ich nach Berlin fahren. Ich [[2]] (müssen) sehr früh aufstehen. Am Bahnhof [[3]] (können) ich mein Ticket nicht finden. Ein Mann [[4]] (können) mir helfen. Im Hotel [[5]] (wollen) ich länger bleiben, aber es war teuer. Am Abend [[6]] (wollen) ich die Stadt besichtigen.",
        "gaps": {
         "1": [
          "wollte"
@@ -55,8 +69,7 @@
          "konnte"
         ],
         "4": [
-         "konnte",
-         "wollte"
+         "konnte"
         ],
         "5": [
          "wollte"
@@ -68,12 +81,12 @@
        "points": 6,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: wollte, musste, konnte, konnte, wollte, wollte"
+       "explanation": "Javob: wollte, musste, konnte, konnte, wollte, wollte"
       },
       {
        "type": "gap_fill",
-       "question": "Text 2 — Schulzeit: Ergänzen Sie das passende Modalverb im Präteritum.",
-       "text": "In der Schule [[1]] wir jeden Tag viele Aufgaben machen. Ich [[2]] Mathe nicht verstehen. Mein Freund [[3]] mir alles erklären. Wir [[4]] in der Pause nicht laut sein. Unsere Lehrerin sagte, wir [[5]] mehr lernen. Nach der Schule [[6]] ich nach Hause gehen.",
+       "question": "Text 2 — Schulzeit: Setzen Sie das Modalverb in Klammern ins Präteritum.",
+       "text": "In der Schule [[1]] (müssen) wir jeden Tag viele Aufgaben machen. Ich [[2]] (können) Mathe nicht verstehen. Mein Freund [[3]] (können) mir alles erklären. Wir [[4]] (dürfen) in der Pause nicht laut sein. Unsere Lehrerin sagte, wir [[5]] (sollen) mehr lernen. Nach der Schule [[6]] (können) ich nach Hause gehen.",
        "gaps": {
         "1": [
          "mussten"
@@ -82,8 +95,7 @@
          "konnte"
         ],
         "3": [
-         "konnte",
-         "wollte"
+         "konnte"
         ],
         "4": [
          "durften"
@@ -92,20 +104,18 @@
          "sollten"
         ],
         "6": [
-         "konnte",
-         "durfte",
-         "musste"
+         "konnte"
         ]
        },
        "points": 6,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: mussten, konnte, konnte, durften, sollten, konnte"
+       "explanation": "Javob: mussten, konnte, konnte, durften, sollten, konnte"
       },
       {
        "type": "gap_fill",
-       "question": "Text 3 — Familienabend: Ergänzen Sie das passende Modalverb im Präteritum.",
-       "text": "Gestern [[1]] wir zusammen kochen. Meine Mutter [[2]] eine Suppe machen. Ich [[3]] den Tisch decken. Mein Bruder [[4]] nicht helfen, weil er krank war. Wir [[5]] lange fernsehen. Am Ende [[6]] ich noch Musik hören.",
+       "question": "Text 3 — Familienabend: Setzen Sie das Modalverb in Klammern ins Präteritum.",
+       "text": "Gestern [[1]] (wollen) wir zusammen kochen. Meine Mutter [[2]] (wollen) eine Suppe machen. Ich [[3]] (müssen) den Tisch decken. Mein Bruder [[4]] (können) nicht helfen, weil er krank war. Wir [[5]] (dürfen) lange fernsehen. Am Ende [[6]] (wollen) ich noch Musik hören.",
        "gaps": {
         "1": [
          "wollten"
@@ -114,8 +124,7 @@
          "wollte"
         ],
         "3": [
-         "musste",
-         "sollte"
+         "musste"
         ],
         "4": [
          "konnte"
@@ -130,17 +139,15 @@
        "points": 6,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: wollten, wollte, musste, konnte, durften, wollte"
+       "explanation": "Javob: wollten, wollte, musste, konnte, durften, wollte"
       },
       {
        "type": "gap_fill",
-       "question": "Text 4 — Sporttag: Ergänzen Sie das passende Modalverb im Präteritum.",
-       "text": "Am Samstag [[1]] wir am Sportfest teilnehmen. Ich [[2]] sehr schnell laufen. Mein Freund [[3]] leider nicht kommen. Wir [[4]] lange trainieren. Der Trainer sagte, wir [[5]] mehr üben. Am Ende [[6]] wir früher nach Hause gehen.",
+       "question": "Text 4 — Sporttag: Setzen Sie das Modalverb in Klammern ins Präteritum.",
+       "text": "Am Samstag [[1]] (wollen) wir am Sportfest teilnehmen. Ich [[2]] (können) sehr schnell laufen. Mein Freund [[3]] (können) leider nicht kommen. Wir [[4]] (müssen) lange trainieren. Der Trainer sagte, wir [[5]] (sollen) mehr üben. Am Ende [[6]] (dürfen) wir früher nach Hause gehen.",
        "gaps": {
         "1": [
-         "wollten",
-         "durften",
-         "mussten"
+         "wollten"
         ],
         "2": [
          "konnte"
@@ -155,26 +162,24 @@
          "sollten"
         ],
         "6": [
-         "durften",
-         "konnten"
+         "durften"
         ]
        },
        "points": 6,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: wollten, konnte, konnte, mussten, sollten, durften"
+       "explanation": "Javob: wollten, konnte, konnte, mussten, sollten, durften"
       },
       {
        "type": "gap_fill",
-       "question": "Text 5 — Krankenhaus: Ergänzen Sie das passende Modalverb im Präteritum.",
-       "text": "Letzte Woche [[1]] ich ins Krankenhaus gehen. Ich [[2]] nicht arbeiten. Der Arzt sagte, ich [[3]] viel Wasser trinken. Ich [[4]] im Bett bleiben. Meine Schwester [[5]] mich besuchen. Zum Glück [[6]] ich bald nach Hause gehen.",
+       "question": "Text 5 — Krankenhaus: Setzen Sie das Modalverb in Klammern ins Präteritum.",
+       "text": "Letzte Woche [[1]] (müssen) ich ins Krankenhaus gehen. Ich [[2]] (können) nicht arbeiten. Der Arzt sagte, ich [[3]] (sollen) viel Wasser trinken. Ich [[4]] (müssen) im Bett bleiben. Meine Schwester [[5]] (wollen) mich besuchen. Zum Glück [[6]] (können) ich bald nach Hause gehen.",
        "gaps": {
         "1": [
          "musste"
         ],
         "2": [
-         "konnte",
-         "durfte"
+         "konnte"
         ],
         "3": [
          "sollte"
@@ -183,24 +188,21 @@
          "musste"
         ],
         "5": [
-         "wollte",
-         "konnte",
-         "durfte"
+         "wollte"
         ],
         "6": [
-         "konnte",
-         "durfte"
+         "konnte"
         ]
        },
        "points": 6,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: musste, konnte, sollte, musste, wollte, konnte"
+       "explanation": "Javob: musste, konnte, sollte, musste, wollte, konnte"
       },
       {
        "type": "gap_fill",
-       "question": "Text 6 — Kindheit: Ergänzen Sie das passende Modalverb im Präteritum.",
-       "text": "Als Kind [[1]] ich nicht schwimmen. Meine Eltern [[2]] mir helfen. Ich [[3]] jeden Tag üben. Wir [[4]] abends nicht lange draußen bleiben. In der Schule [[5]] ich viele Bücher lesen. Am Wochenende [[6]] ich mit Freunden spielen.",
+       "question": "Text 6 — Kindheit: Setzen Sie das Modalverb in Klammern ins Präteritum.",
+       "text": "Als Kind [[1]] (können) ich nicht schwimmen. Meine Eltern [[2]] (wollen) mir helfen. Ich [[3]] (müssen) jeden Tag üben. Wir [[4]] (dürfen) abends nicht lange draußen bleiben. In der Schule [[5]] (müssen) ich viele Bücher lesen. Am Wochenende [[6]] (wollen) ich mit Freunden spielen.",
        "gaps": {
         "1": [
          "konnte"
@@ -215,22 +217,19 @@
          "durften"
         ],
         "5": [
-         "musste",
-         "sollte"
+         "musste"
         ],
         "6": [
-         "wollte",
-         "durfte",
-         "konnte"
+         "wollte"
         ]
        },
        "points": 6,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Kitob kaliti: konnte, wollten, musste, durften, musste, wollte"
+       "explanation": "Javob: konnte, wollten, musste, durften, musste, wollte"
       }
      ],
-     "instruction": "Ergänzen Sie das passende Modalverb im Präteritum."
+     "instruction": "Setzen Sie das Modalverb in Klammern ins Präteritum."
     }
    ]
   },
@@ -346,9 +345,11 @@
    "source": "book",
    "metadata": {
     "book_page": 132,
-    "note": "Javoblar kitobning javoblar varag'idan; audio yuklanganda admin tekshirsin."
+    "note": "Kitobda transkript yo'q — javoblarni audio yuklangandan keyin admin kiritadi.",
+    "old_sheet_hint": "Eski javoblar varag'i (tekshirilmagan): 1-B, 2-A, 3-B, 4-B, 5-C, 6-A"
    },
    "audio_file": "A1-13.m4a",
+   "key_pending": true,
    "instruction": "Hören Sie die Nachrichten und wählen Sie die richtige Antwort.",
    "questions": [
     {
@@ -359,9 +360,7 @@
       "Er konnte nicht zum Termin kommen.",
       "Er hatte keinen Parkplatz."
      ],
-     "correct_answer": "B",
-     "points": 1,
-     "passage": 1
+     "points": 1
     },
     {
      "type": "multiple_choice",
@@ -371,9 +370,7 @@
       "20 Minuten später.",
       "Er kommt nicht."
      ],
-     "correct_answer": "A",
-     "points": 1,
-     "passage": 1
+     "points": 1
     },
     {
      "type": "multiple_choice",
@@ -383,9 +380,7 @@
       "Sie war krank.",
       "Sie hatte einen anderen Termin."
      ],
-     "correct_answer": "B",
-     "points": 1,
-     "passage": 1
+     "points": 1
     },
     {
      "type": "multiple_choice",
@@ -395,9 +390,7 @@
       "Er konnte keinen Parkplatz finden.",
       "Er war krank."
      ],
-     "correct_answer": "B",
-     "points": 1,
-     "passage": 1
+     "points": 1
     },
     {
      "type": "multiple_choice",
@@ -407,9 +400,7 @@
       "Sie wollte nicht kommen.",
       "Der Zug hatte Verspätung."
      ],
-     "correct_answer": "C",
-     "points": 1,
-     "passage": 1
+     "points": 1
     },
     {
      "type": "multiple_choice",
@@ -419,12 +410,9 @@
       "Den Termin absagen.",
       "30 Minuten später kommen."
      ],
-     "correct_answer": "A",
-     "points": 1,
-     "passage": 1
+     "points": 1
     }
-   ],
-   "max_score": 6
+   ]
   },
   {
    "content_id": "vizu-a1-l13-schreiben-01",
@@ -765,6 +753,719 @@
      "translation": "bo'sh",
      "group": "Termine und Alltag"
     }
+   ],
+   "exercises": [
+    {
+     "title": "Zuordnung 1",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Termine und Alltag 1)",
+       "items": [
+        "der Termin",
+        "das Büro",
+        "der Chef",
+        "der Mitarbeiter",
+        "die Firma",
+        "die Besprechung"
+       ],
+       "targets": [
+        "uchrashuv, termin",
+        "ofis",
+        "boshliq",
+        "xodim",
+        "firma",
+        "yig'ilish",
+        "loyiha"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Termine und Alltag 2)",
+       "items": [
+        "das Projekt",
+        "die Zusammenarbeit",
+        "der Arzt",
+        "die Praxis",
+        "das Krankenhaus",
+        "krank"
+       ],
+       "targets": [
+        "loyiha",
+        "hamkorlik",
+        "shifokor",
+        "klinika",
+        "kasalxona",
+        "kasal",
+        "uchrashuv, termin"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Termine und Alltag 3)",
+       "items": [
+        "das Fieber",
+        "die Kopfschmerzen",
+        "der Anruf",
+        "vereinbaren",
+        "verschieben",
+        "absagen"
+       ],
+       "targets": [
+        "isitma",
+        "bosh og'rig'i",
+        "qo'ng'iroq",
+        "kelishmoq",
+        "ko'chirmoq",
+        "bekor qilmoq",
+        "uchrashuv, termin"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Termine und Alltag 4)",
+       "items": [
+        "pünktlich",
+        "spät",
+        "die Arbeit",
+        "arbeiten",
+        "helfen",
+        "bleiben"
+       ],
+       "targets": [
+        "vaqtida",
+        "kech",
+        "ish",
+        "ishlamoq",
+        "yordam bermoq",
+        "qolmoq",
+        "uchrashuv, termin"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Zuordnung 2",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Termine und Alltag 5)",
+       "items": [
+        "kommen",
+        "gehen",
+        "sprechen",
+        "warten",
+        "planen",
+        "teilnehmen"
+       ],
+       "targets": [
+        "kelmoq",
+        "bormoq",
+        "gaplashmoq",
+        "kutmoq",
+        "rejalashtirmoq",
+        "qatnashmoq",
+        "uchrashuv, termin"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Termine und Alltag 6)",
+       "items": [
+        "informieren",
+        "entschuldigen",
+        "der Kalender",
+        "der Kunde",
+        "die Einladung",
+        "bestätigen"
+       ],
+       "targets": [
+        "xabardor qilmoq",
+        "uzr so'ramoq",
+        "taqvim",
+        "mijoz",
+        "taklif",
+        "tasdiqlamoq",
+        "uchrashuv, termin"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Termine und Alltag 7)",
+       "items": [
+        "ändern",
+        "wichtig",
+        "dringend",
+        "frei"
+       ],
+       "targets": [
+        "o'zgartirmoq",
+        "muhim",
+        "shoshilinch",
+        "bo'sh",
+        "uchrashuv, termin"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D"
+       },
+       "points": 4,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Der, die oder das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Termin (uchrashuv, termin)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Büro (ofis)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Chef (boshliq)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Mitarbeiter (xodim)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Firma (firma)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Besprechung (yig'ilish)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Projekt (loyiha)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Zusammenarbeit (hamkorlik)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Arzt (shifokor)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Praxis (klinika)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "So'zning artiklini tanlang (kitobdagi lug'at bo'yicha)."
+    }
+   ],
+   "auto_practice": false
+  },
+  {
+   "content_id": "vizu-a1-l13-uebungen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 13,
+   "skill": "uebungen",
+   "title": "Übungen Modul 13",
+   "source": "vizu",
+   "exercises": [
+    {
+     "title": "Modalverben in den Briefen",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Anna Weber [[1]] zu Hause bleiben und sich ausruhen. (müssen)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "musste"
+         ],
+         "options": [
+          "musste",
+          "mussten",
+          "muss"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Text A: „Ich musste zu Hause bleiben und mich ausruhen.“"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Julia Fischer [[1]] an einer wichtigen Besprechung teilnehmen. (müssen)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "musste"
+         ],
+         "options": [
+          "musste",
+          "müsste",
+          "muss"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Thomas Schneider und Frau Hoffmann [[1]] über das neue Projekt sprechen. (wollen)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "wollten"
+         ],
+         "options": [
+          "wollten",
+          "wollte",
+          "wollen"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Bei dem Treffen [[1]] Thomas und Frau Hoffmann gute Ideen sammeln. (können)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "konnten"
+         ],
+         "options": [
+          "konnten",
+          "konnte",
+          "können"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Lukas Müller [[1]] viele Informationen über die Stelle bekommen. (können)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "konnte"
+         ],
+         "options": [
+          "konnte",
+          "konnten",
+          "kann"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "Xatlardagi gaplarni modal fe'lning Präteritum shakli bilan to'ldiring."
+    },
+    {
+     "title": "Präteritum: die richtige Form",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "du + dürfen:",
+       "options": [
+        "du durftest",
+        "du durfest",
+        "du dürftest"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "ihr + können:",
+       "options": [
+        "ihr konntet",
+        "ihr konntest",
+        "ihr könntet"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "wir + sollen:",
+       "options": [
+        "wir sollten",
+        "wir sollen",
+        "wir solltet"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "er + mögen:",
+       "options": [
+        "er mochte",
+        "er mögte",
+        "er möchte"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "„möchte“ — hozirgi zamon (xohlardi emas, xohlaydi)."
+      }
+     ],
+     "instruction": "To'g'ri Präteritum shaklini tanlang."
+    },
+    {
+     "title": "Nemischa qanday?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "„ofis“ — nemischa qanday?",
+       "options": [
+        "das Büro",
+        "der Chef",
+        "der Arzt"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„loyiha“ — nemischa qanday?",
+       "options": [
+        "der Termin",
+        "das Fieber",
+        "das Projekt"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„kasal“ — nemischa qanday?",
+       "options": [
+        "krank",
+        "frei",
+        "sprechen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„ko'chirmoq“ — nemischa qanday?",
+       "options": [
+        "entschuldigen",
+        "verschieben",
+        "sprechen"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„ishlamoq“ — nemischa qanday?",
+       "options": [
+        "arbeiten",
+        "helfen",
+        "kommen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„gaplashmoq“ — nemischa qanday?",
+       "options": [
+        "sprechen",
+        "absagen",
+        "bestätigen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„uzr so'ramoq“ — nemischa qanday?",
+       "options": [
+        "verschieben",
+        "helfen",
+        "entschuldigen"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„o'zgartirmoq“ — nemischa qanday?",
+       "options": [
+        "sprechen",
+        "ändern",
+        "krank"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "O'zbekcha so'zning nemischasini tanlang."
+    }
    ]
   },
   {
@@ -773,7 +1474,7 @@
    "module": 1,
    "lesson": 13,
    "skill": "yakuniy",
-   "title": "Yakuniy Test: Modul 13",
+   "title": "Abschlusstest: Modul 13",
    "source": "vizu",
    "instruction": "Modal fe'llarning Präteritum shakllari va darsdagi so'zlar bo'yicha yakuniy test.",
    "questions": [
@@ -946,6 +1647,17 @@
      "passage": 1
     }
    ]
+  },
+  {
+   "content_id": "vizu-a1-l13-kompetenz-02",
+   "level": "A1",
+   "module": 1,
+   "lesson": 13,
+   "skill": "kompetenz",
+   "title": "Zusammenfassung: Modul 13",
+   "source": "vizu",
+   "competency": "ZUSAMMENFASSUNG",
+   "html": "<h3>Modul 13 — qisqacha</h3><ul><li><strong>Präteritum:</strong> können → konnte, müssen → musste, dürfen → durfte, mögen → mochte, wollen → wollte, sollen → sollte.</li><li><strong>Endungen:</strong> ich -te, du -test, er/sie/es -te, wir -ten, ihr -tet, sie/Sie -ten (ich va er shakli bir xil).</li><li><strong>Satz:</strong> modal fe'l 2-o'rinda, Infinitiv oxirida — Ich musste gestern lange arbeiten.</li><li><strong>Termine:</strong> einen Termin vereinbaren / verschieben / absagen / bestätigen · Leider konnte ich nicht kommen. · Können wir einen neuen Termin machen?</li></ul><p>Natijalaringiz pastda — tugallanmagan bo'limlarni yakunlang, so'ng keyingi darsga o'ting.</p>"
   }
  ]
 }

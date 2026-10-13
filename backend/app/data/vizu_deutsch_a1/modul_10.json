@@ -1,8 +1,22 @@
 {
- "schema_version": "1.1",
+ "schema_version": "1.2",
  "language": "de",
  "source": "vizu-deutsch-a1-book",
  "items": [
+  {
+   "content_id": "vizu-a1-l10-kompetenz-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 10,
+   "skill": "kompetenz",
+   "title": "Einführung: Modul 10",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 98
+   },
+   "competency": "EINFUEHRUNG",
+   "html": "<h3>Modul 10 — Wir sind im Supermarkt</h3><p><strong>Mavzu:</strong> Wir sind im Supermarkt · <strong>Grammatik:</strong> Adjektivdeklination (sifatlarning turlanishi)</p><h4>Dars maqsadlari</h4><ul><li>sifat qo'shimchasini artikl, rod va kelishikka qarab tanlash: der gute Mann, ein guter Mann, guter Wein;</li><li>aniq artikl bilan: Nominativda -e, qolgan joylarda ko'pincha -en;</li><li>noaniq artikl bilan: ein guter Mann, ein gutes Kind, eine gute Frau;</li><li>supermarket va kiyim do'koniga oid so'zlarni o'rganish: die Kasse, das Angebot, anprobieren.</li></ul><h4>Dars oxirida siz quyidagilarni bajara olasiz</h4><ul><li>„Ich kaufe frisches Brot und eine blaue Jacke.“ — xarid haqida sifatlar bilan gapirasiz;</li><li>supermarketdagi xarid haqidagi ikki matnni o'qib, Richtig/Falsch topshirig'ini bajarasiz;</li><li>supermarket va bozor haqidagi ikki matnni tinglab, savollarga javob berasiz;</li><li>do'konda sotuvchi bilan dialog qurasiz.</li></ul><h4>Darsning tuzilishi</h4><p>Einführung → Wortschatz → Grammatik → Lesen → Hören → Sprechen → Schreiben → Übungen → Abschlusstest → Zusammenfassung</p>"
+  },
   {
    "content_id": "vizu-a1-l10-frage-01",
    "level": "A1",
@@ -311,7 +325,7 @@
        "correct_answer": "A",
        "points": 1,
        "passage": 1,
-       "explanation": "Jadval (S. 100) bo'yicha."
+       "explanation": "Jadval (S. 100) bo'yicha. (Jadvalning „Artikelsiz“ ustuni; birlikdagi sanaladigan ot odatda gapda artikl bilan keladi: ein guter Mann.)"
       },
       {
        "type": "multiple_choice",
@@ -324,7 +338,7 @@
        "correct_answer": "A",
        "points": 1,
        "passage": 1,
-       "explanation": "Jadval (S. 100) bo'yicha."
+       "explanation": "Jadval (S. 100) bo'yicha. (Jadvalning „Artikelsiz“ ustuni; birlikdagi sanaladigan ot odatda gapda artikl bilan keladi: ein guter Mann.)"
       },
       {
        "type": "multiple_choice",
@@ -337,7 +351,7 @@
        "correct_answer": "B",
        "points": 1,
        "passage": 1,
-       "explanation": "Jadval (S. 100) bo'yicha."
+       "explanation": "Jadval (S. 100) bo'yicha. (Jadvalning „Artikelsiz“ ustuni; birlikdagi sanaladigan ot odatda gapda artikl bilan keladi: ein guter Mann.)"
       },
       {
        "type": "multiple_choice",
@@ -350,7 +364,7 @@
        "correct_answer": "B",
        "points": 1,
        "passage": 1,
-       "explanation": "Jadval (S. 100) bo'yicha."
+       "explanation": "Jadval (S. 100) bo'yicha. (Jadvalning „Artikelsiz“ ustuni; birlikdagi sanaladigan ot odatda gapda artikl bilan keladi: ein guter Mann.)"
       },
       {
        "type": "multiple_choice",
@@ -363,7 +377,7 @@
        "correct_answer": "A",
        "points": 1,
        "passage": 1,
-       "explanation": "Jadval (S. 100) bo'yicha."
+       "explanation": "Jadval (S. 100) bo'yicha. (Jadvalning „Artikelsiz“ ustuni; birlikdagi sanaladigan ot odatda gapda artikl bilan keladi: ein guter Mann.)"
       },
       {
        "type": "multiple_choice",
@@ -376,7 +390,7 @@
        "correct_answer": "B",
        "points": 1,
        "passage": 1,
-       "explanation": "Jadval (S. 100) bo'yicha."
+       "explanation": "Jadval (S. 100) bo'yicha. (Jadvalning „Artikelsiz“ ustuni; birlikdagi sanaladigan ot odatda gapda artikl bilan keladi: ein guter Mann.)"
       },
       {
        "type": "multiple_choice",
@@ -428,7 +442,7 @@
        "correct_answer": "A",
        "points": 1,
        "passage": 1,
-       "explanation": "Jadval (S. 100) bo'yicha."
+       "explanation": "Jadval (S. 100) bo'yicha. (Jadvalning „Artikelsiz“ ustuni; birlikdagi sanaladigan ot odatda gapda artikl bilan keladi: ein guter Mann.)"
       }
      ],
      "instruction": "Wählen Sie die richtige Endung."
@@ -453,7 +467,7 @@
      "text": "Ich heiße Herr Julian und ich kaufe oft im Supermarkt für meine Familie ein. Heute gehe ich nach der Arbeit einkaufen. Ich nehme meinen Einkaufswagen und gehe zuerst zu Brot und Milch. Ich kaufe frisches Brot, Milch, Eier und Käse. Für meine Kinder kaufe ich Äpfel, Bananen und Saft. Meine Frau möchte Reis, Nudeln und Gemüse. Manchmal gibt es Rabatte auf Obst und Gemüse, und heute gibt es 10% Rabatt auf Äpfel, das ist gut für meine Familie.\n\nIm Supermarkt ist es sauber und groß. Die Preise sind gut, besonders die Angebote an der Kasse. Ich bezahle mit Karte und bekomme eine Einkaufsquittung. Danach gehe ich nach Hause. Meine Kinder freuen sich über die Früchte und meine Frau kocht ein gesundes Abendessen. Ich mag den Einkauf im Supermarkt, weil er schnell und einfach ist und es immer viele gute Angebote gibt."
     },
     {
-     "title": "Mein Einkauf für das Wochenende",
+     "title": "Mein Einkauf für Wochenende",
      "text": "Max und Alex sind gute Freunde und wohnen zusammen in einer Wohnung. Am Samstag gehen sie zusammen in den Supermarkt. Max kauft Brot, Butter und Käse, und Alex kauft Nudeln, Tomaten und Fleisch. Sie schauen auch auf Sonderangebote, zum Beispiel gibt es 2 zum Preis von 1 auf Cola. Sie kaufen außerdem Wasser, Kekse und Snacks, weil sie heute Abend zusammen kochen wollen.\n\nDer Supermarkt ist groß und modern, aber es sind viele Menschen da. Die Freunde sprechen und lachen viel. Sie achten auf die Preise und vergleichen Angebote. Am Ende bezahlen sie zusammen an der Kasse. Zu Hause kochen sie leckeres Abendessen und genießen es. Der Einkauf macht Spaß, besonders wenn es gute Rabatte und frische Lebensmittel gibt."
     }
    ],
@@ -560,7 +574,7 @@
    },
    "audio_file": "A1-10.1.mp3 / A1-10.2.mp3",
    "instruction": "Hören Sie die zwei Texte und wählen Sie die richtige Antwort (A, B, C).",
-   "transcript": "Text 1 — Wir sind im Supermarkt: Heute sind wir mit unserem Deutschlehrer in den Supermarkt gegangen. Der Lehrer hat uns mitgenommen, um neue Wörter zu lernen. Unsere Aufgabe war, 20 neue Wörter zu schreiben. Wir mussten die Namen von Produkten auf Deutsch und auf Usbekisch aufschreiben, die wir noch nicht kannten. Im Supermarkt haben wir viele neue Sachen gesehen und viel gelernt. Am Ende hat unser Lehrer jedem von uns ein kleines Geschenk gekauft. Wir haben uns sehr gefreut. Heute haben wir 20 neue Wörter gelernt und Geschenke bekommen. Vielen Dank an unseren Lehrer!\n\nText 2 — Wir sind im Markt: Ich heiße Zayd und ich bin 12 Jahre alt. Heute sind wir als Familie in den Markt gegangen. Wir wollten Kleidung für die Schule kaufen. Meine Mutter hat schöne Kleidung für uns Kinder gekauft. Für meine Mutter haben wir auch ein Kopftuch gekauft. Wir waren alle glücklich. Aber mein Vater hat für sich selbst nichts gekauft. Er hat nur auf uns geachtet. Er hat immer gesagt: „Das ist nicht wichtig.“ Als wir nach Hause gekommen sind, habe ich gesehen, dass mein Vater keine neuen Kleider hat. Ich war traurig und habe geweint. Ich habe gesagt: „Papa, du hast für alle Kleidung gekauft, aber für dich nichts.“ Mein Vater hat mich umarmt und gelächelt. Er hat gesagt, dass unsere Freude für ihn das Wichtigste ist. Ich liebe meinen Vater sehr.",
+   "transcript": "Text 1 — Wir sind im Supermarkt: Heute sind wir mit unserem Deutschlehrer in den Supermarkt gegangen. Der Lehrer hat uns mitgenommen, um neue Wörter zu lernen. Unsere Aufgabe war, 20 neue Wörter zu schreiben. Wir mussten die Namen von Produkten auf Deutsch und auf Usbekisch aufschreiben, die wir noch nicht kannten. Im Supermarkt haben wir viele neue Sachen gesehen und viel gelernt. Am Ende hat unser Lehrer jedem von uns ein kleines Geschenk gekauft. Wir haben uns sehr gefreut. Heute haben wir 20 neue Wörter gelernt und Geschenke bekommen. Vielen Dank an unseren Lehrer!\n\nO'zbekcha tarjima — Biz supermarketdamiz: Bugun biz nemis tili ustozimiz bilan supermarketga bordik. Ustoz bizni yangi so'zlarni o'rganish uchun olib bordi. Bizning vazifamiz 20 ta yangi so'zni yozish edi. Biz hali bilmagan mahsulotlarning nomlarini nemischa va o'zbekcha qilib yozishimiz kerak edi. Supermarketda biz juda ko'p yangi narsalarni ko'rdik va ko'p bilim oldik. Oxirida ustozimiz har birimizga kichkina sovg'a olib berdi. Biz juda xursand bo'ldik. Bugun biz 20 ta yangi so'z o'rgandik va sovg'alarga ega bo'ldik. Ustozimizga katta rahmat!\n\nText 2 — Wir sind im Markt: Ich heiße Zayd und ich bin 12 Jahre alt. Heute sind wir als Familie in den Markt gegangen. Wir wollten Kleidung für die Schule kaufen. Meine Mutter hat schöne Kleidung für uns Kinder gekauft. Für meine Mutter haben wir auch ein Kopftuch gekauft. Wir waren alle glücklich. Aber mein Vater hat für sich selbst nichts gekauft. Er hat nur auf uns geachtet. Er hat immer gesagt: „Das ist nicht wichtig.“ Als wir nach Hause gekommen sind, habe ich gesehen, dass mein Vater keine neuen Kleider hat. Ich war traurig und habe geweint. Ich habe gesagt: „Papa, du hast für alle Kleidung gekauft, aber für dich nichts.“ Mein Vater hat mich umarmt und gelächelt. Er hat gesagt, dass unsere Freude für ihn das Wichtigste ist. Ich liebe meinen Vater sehr.\n\nO'zbekcha tarjima — Biz bozordamiz: Mening ismim Zayd, men 12 yoshdaman. Bugun biz oilamiz bilan bozorga bordik. Biz maktab uchun kiyim sotib olmoqchi edik. Onam biz bolalar uchun chiroyli kiyimlar oldi. Onam uchun ham bosh kiyim sotib oldik. Biz hammamiz xursand edik. Lekin dadam o'zi uchun hech narsa olmadi. U faqat bizni o'yladi. U doim: «Bu muhim emas», derdi. Uyga qaytganimizda dadamning yangi kiyimi yo'qligini ko'rdim. Men xafa bo'ldim va yig'ladim. Men dedim: «Dada, siz hammaga kiyim oldingiz, lekin o'zingizga hech narsa olmadingiz». Dadam meni quchoqladi va kulib dedi: bizning quvonchimiz u uchun eng muhim narsa ekan. Men dadamni juda yaxshi ko'raman.",
    "questions": [
     {
      "type": "multiple_choice",
@@ -821,7 +835,7 @@
     },
     {
      "word": "Einkaufswagen",
-     "translation": "savat (aravacha)",
+     "translation": "savat",
      "article": "der",
      "group": "Im Supermarkt"
     },
@@ -947,7 +961,7 @@
     },
     {
      "word": "Snack",
-     "translation": "gazak",
+     "translation": "gazak / atirli taom",
      "article": "der",
      "group": "Im Supermarkt"
     },
@@ -965,7 +979,7 @@
     },
     {
      "word": "bezahlen",
-     "translation": "to'lamoq",
+     "translation": "to'lash",
      "group": "Im Supermarkt"
     },
     {
@@ -1066,6 +1080,752 @@
      "translation": "mazali",
      "group": "Im Supermarkt"
     }
+   ],
+   "exercises": [
+    {
+     "title": "Zuordnung 1",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Im Supermarkt 1)",
+       "items": [
+        "der Supermarkt",
+        "der Laden",
+        "der Verkäufer",
+        "die Verkäuferin",
+        "der Kunde",
+        "die Kundin"
+       ],
+       "targets": [
+        "supermarket",
+        "do'kon",
+        "sotuvchi",
+        "sotuvchi ayol",
+        "mijoz",
+        "mijoz ayol",
+        "xarid qilmoq"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Im Supermarkt 2)",
+       "items": [
+        "einkaufen",
+        "der Einkaufswagen",
+        "die Tasche",
+        "das Brot",
+        "das Weißbrot",
+        "das Vollkornbrot"
+       ],
+       "targets": [
+        "xarid qilmoq",
+        "savat",
+        "sumka",
+        "non",
+        "oq non",
+        "to'liq donli non",
+        "supermarket"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Im Supermarkt 3)",
+       "items": [
+        "die Milch",
+        "die Butter",
+        "der Käse",
+        "die Eier",
+        "das Obst",
+        "der Apfel"
+       ],
+       "targets": [
+        "sut",
+        "sariyog'",
+        "pishloq",
+        "tuxum",
+        "meva",
+        "olma",
+        "supermarket"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Im Supermarkt 4)",
+       "items": [
+        "die Banane",
+        "die Tomate",
+        "die Gurke",
+        "das Gemüse",
+        "der Reis",
+        "die Nudeln"
+       ],
+       "targets": [
+        "banan",
+        "pomidor",
+        "bodring",
+        "sabzavot",
+        "guruch",
+        "makaron",
+        "supermarket"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Zuordnung 2",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Im Supermarkt 5)",
+       "items": [
+        "das Fleisch",
+        "das Wasser",
+        "der Saft",
+        "die Cola",
+        "der Snack",
+        "das Angebot"
+       ],
+       "targets": [
+        "go'sht",
+        "suv",
+        "sharbat",
+        "kola",
+        "gazak / atirli taom",
+        "aksiya, chegirma",
+        "supermarket"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Im Supermarkt 6)",
+       "items": [
+        "die Kasse",
+        "bezahlen",
+        "die Karte",
+        "der Preis",
+        "das Produkt",
+        "frisch"
+       ],
+       "targets": [
+        "kassa",
+        "to'lash",
+        "karta (to'lov)",
+        "narx",
+        "mahsulot",
+        "yangi",
+        "supermarket"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Im Supermarkt 7)",
+       "items": [
+        "alt",
+        "groß",
+        "klein",
+        "blau",
+        "schwarz",
+        "rot"
+       ],
+       "targets": [
+        "eski",
+        "katta",
+        "kichik",
+        "ko'k",
+        "qora",
+        "qizil",
+        "supermarket"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Im Supermarkt 8)",
+       "items": [
+        "die Jacke",
+        "die Hose",
+        "das T-Shirt",
+        "die Schuhe",
+        "anprobieren",
+        "die Umkleidekabine",
+        "gesund",
+        "lecker"
+       ],
+       "targets": [
+        "kurtka",
+        "shim",
+        "futbolka",
+        "poyabzal",
+        "kiyib ko'rmoq",
+        "kiyinish xonasi",
+        "sog'lom",
+        "mazali",
+        "supermarket"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F",
+        "7": "G",
+        "8": "H"
+       },
+       "points": 8,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Der, die oder das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Supermarkt (supermarket)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Verkäuferin (sotuvchi ayol)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Einkaufswagen (savat)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Weißbrot (oq non)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Butter (sariyog')",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Obst (meva)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Tomate (pomidor)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Reis (guruch)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Wasser (suv)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Snack (gazak / atirli taom)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "So'zning artiklini tanlang (kitobdagi lug'at bo'yicha)."
+    }
+   ],
+   "auto_practice": false
+  },
+  {
+   "content_id": "vizu-a1-l10-uebungen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 10,
+   "skill": "uebungen",
+   "title": "Übungen Modul 10",
+   "source": "vizu",
+   "exercises": [
+    {
+     "title": "Adjektivendungen in den Texten",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Herr Julian kauft [[1]] Brot, Milch, Eier und Käse.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "frisches"
+         ],
+         "options": [
+          "frisches",
+          "frische",
+          "frischen"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Lesen: „Ich kaufe frisches Brot …“ — artikelsiz, das Brot, Akkusativ: -es."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Seine Frau kocht ein [[1]] Abendessen.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "gesundes"
+         ],
+         "options": [
+          "gesundes",
+          "gesunde",
+          "gesunden"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "ein + das Abendessen (Akkusativ): -es."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Max und Alex sind [[1]] Freunde.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "gute"
+         ],
+         "options": [
+          "gute",
+          "guten",
+          "guter"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "artikelsiz, Plural Nominativ: -e."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Zu Hause kochen sie [[1]] Abendessen.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "leckeres"
+         ],
+         "options": [
+          "leckeres",
+          "leckere",
+          "leckeren"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "artikelsiz, das Abendessen (Akkusativ): -es."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Der Lehrer hat jedem Schüler ein [[1]] Geschenk gekauft.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "kleines"
+         ],
+         "options": [
+          "kleines",
+          "kleine",
+          "kleinen"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Hören: „ein kleines Geschenk“."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Die Mutter hat [[1]] Kleidung für die Kinder gekauft.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "schöne"
+         ],
+         "options": [
+          "schöne",
+          "schönen",
+          "schöner"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "artikelsiz, die Kleidung (Akkusativ): -e."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Der Vater hat keine [[1]] Kleider.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "neuen"
+         ],
+         "options": [
+          "neuen",
+          "neue",
+          "neuer"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "keine + Plural: -en (meine guten Leute kabi)."
+      }
+     ],
+     "instruction": "O'qish va tinglash matnlaridagi sifatlarning to'g'ri shaklini tanlang."
+    },
+    {
+     "title": "Nemischa qanday?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "„do'kon“ — nemischa qanday?",
+       "options": [
+        "das Fleisch",
+        "der Preis",
+        "der Laden"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„savat“ — nemischa qanday?",
+       "options": [
+        "der Einkaufswagen",
+        "die Umkleidekabine",
+        "die Hose"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„sariyog'“ — nemischa qanday?",
+       "options": [
+        "das Weißbrot",
+        "der Laden",
+        "die Butter"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„pomidor“ — nemischa qanday?",
+       "options": [
+        "der Käse",
+        "die Tomate",
+        "das Fleisch"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„suv“ — nemischa qanday?",
+       "options": [
+        "das Gemüse",
+        "das Wasser",
+        "die Kundin"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„to'lash“ — nemischa qanday?",
+       "options": [
+        "bezahlen",
+        "einkaufen",
+        "klein"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„katta“ — nemischa qanday?",
+       "options": [
+        "groß",
+        "anprobieren",
+        "schwarz"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„shim“ — nemischa qanday?",
+       "options": [
+        "die Kundin",
+        "die Hose",
+        "die Milch"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "O'zbekcha so'zning nemischasini tanlang."
+    }
    ]
   },
   {
@@ -1074,7 +1834,7 @@
    "module": 1,
    "lesson": 10,
    "skill": "yakuniy",
-   "title": "Yakuniy Test: Modul 10",
+   "title": "Abschlusstest: Modul 10",
    "source": "vizu",
    "instruction": "Sifatlarning turlanishi va xarid so'zlari bo'yicha yakuniy test.",
    "questions": [
@@ -1247,6 +2007,17 @@
      "passage": 1
     }
    ]
+  },
+  {
+   "content_id": "vizu-a1-l10-kompetenz-02",
+   "level": "A1",
+   "module": 1,
+   "lesson": 10,
+   "skill": "kompetenz",
+   "title": "Zusammenfassung: Modul 10",
+   "source": "vizu",
+   "competency": "ZUSAMMENFASSUNG",
+   "html": "<h3>Modul 10 — qisqacha</h3><ul><li><strong>Aniq artikl bilan:</strong> der/die/das gute … (Nominativ), die gute Frau, das gute Kind (Akkusativ) — boshqa hamma joyda -en: den guten Mann, dem guten Kind, die guten Leute.</li><li><strong>Noaniq artikl bilan:</strong> ein guter Mann, ein gutes Kind, eine gute Frau · einen guten Mann · einem guten Freund · meine guten Leute.</li><li><strong>Artikelsiz:</strong> qo'shimcha artikl vazifasini bajaradi — frisches Brot, kalte Milch, guter Wein, mit gutem Freund, gute Leute.</li><li><strong>Einkaufen:</strong> Ich möchte … kaufen. Ich nehme … Was kostet …? Das macht zusammen … Euro. Ich bezahle mit Karte.</li></ul><p>Natijalaringiz pastda — tugallanmagan bo'limlarni yakunlang, so'ng keyingi darsga o'ting.</p>"
   }
  ]
 }

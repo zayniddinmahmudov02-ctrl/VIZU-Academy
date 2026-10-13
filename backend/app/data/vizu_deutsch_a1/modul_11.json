@@ -1,8 +1,22 @@
 {
- "schema_version": "1.1",
+ "schema_version": "1.2",
  "language": "de",
  "source": "vizu-deutsch-a1-book",
  "items": [
+  {
+   "content_id": "vizu-a1-l11-kompetenz-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 11,
+   "skill": "kompetenz",
+   "title": "Einführung: Modul 11",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 108
+   },
+   "competency": "EINFUEHRUNG",
+   "html": "<h3>Modul 11 — Wohnen in Deutschland</h3><p><strong>Mavzu:</strong> Wohnen in Deutschland · <strong>Grammatik:</strong> Adjektive — Steigerung (sifat darajalari)</p><h4>Dars maqsadlari</h4><ul><li>Komparativ yasash: billig → billiger, groß → größer — va „als“ bilan solishtirish;</li><li>Superlativ yasash: am billigsten, am größten, der / die / das größte …;</li><li>qoidaga bo'ysunmaydigan shakllar: gut → besser → am besten, viel → mehr → am meisten, gern → lieber → am liebsten;</li><li>uy-joy va shahar haqidagi so'zlarni o'rganish: die Miete, der Vermieter, ruhig, gemütlich.</li></ul><h4>Dars oxirida siz quyidagilarni bajara olasiz</h4><ul><li>„München ist teurer als Berlin.“ — shaharlar va uylarni solishtirasiz;</li><li>Germaniya shaharlari haqidagi matnni o'qib, savollarga javob berasiz;</li><li>talabalar uyi (WG) haqidagi matnni tinglaysiz;</li><li>uydagi ishlaringiz haqida yozasiz va eng yaqin do'stingizni tasvirlaysiz.</li></ul><h4>Darsning tuzilishi</h4><p>Einführung → Wortschatz → Grammatik → Lesen → Hören → Sprechen → Schreiben → Übungen → Abschlusstest → Zusammenfassung</p>"
+  },
   {
    "content_id": "vizu-a1-l11-frage-01",
    "level": "A1",
@@ -43,7 +57,7 @@
       {
        "type": "gap_fill",
        "question": "Komparativ und Superlativ: ergänzen Sie.",
-       "text": "Kanada ist groß, die USA ist [[1]] (groß), Russland ist [[2]] Land der Welt.",
+       "text": "Kanada ist groß, die USA sind [[1]] (groß), Russland ist [[2]] Land der Welt.",
        "gaps": {
         "1": [
          "größer"
@@ -56,7 +70,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "größer — größte"
+       "explanation": "größer — größte. Tarjima: Kanada katta, AQSh undan kattaroq, Rossiya esa dunyodagi eng katta davlat."
       },
       {
        "type": "gap_fill",
@@ -73,7 +87,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "länger — längste"
+       "explanation": "länger — längste. Tarjima: Nil uzun, Amazonka undan uzunroq, Amazonka esa dunyodagi eng uzun daryo."
       },
       {
        "type": "gap_fill",
@@ -91,7 +105,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "höher — höchste"
+       "explanation": "höher — höchste. Tarjima: Kilimanjaro baland, Elbrus undan balandroq, Everest esa dunyodagi eng baland tog'."
       },
       {
        "type": "gap_fill",
@@ -108,7 +122,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "schwieriger — schwierigste"
+       "explanation": "schwieriger — schwierigste. Tarjima: Nemis tili qiyin, rus tili undan qiyinroq, xitoy tili esa dunyodagi eng qiyin til."
       },
       {
        "type": "gap_fill",
@@ -125,7 +139,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "schneller — schnellste"
+       "explanation": "schneller — schnellste. Tarjima: Mashina tez, poyezd undan tezroq, samolyot esa eng tez transport vositasi."
       },
       {
        "type": "gap_fill",
@@ -142,7 +156,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "wärmer — wärmste"
+       "explanation": "wärmer — wärmste. Tarjima: Germaniyada yoz iliq, Ispaniyada undan issiqroq, cho'lda esa eng issiq."
       },
       {
        "type": "gap_fill",
@@ -159,7 +173,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "teurer — teuersten"
+       "explanation": "teurer — teuersten. Tarjima: Oltin qimmat, platina undan qimmatroq, olmoslar esa dunyodagi eng qimmat toshlar."
       },
       {
        "type": "gap_fill",
@@ -176,7 +190,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "Tarjima: shahar undan kattaroq, megapolis eng katta → größer — größte."
+       "explanation": "größer — größte. Tarjima: Qishloq kichik, shahar undan kattaroq, megapolis esa eng katta yashash joyi. (Kitobda qavsda „klein“ yozilgan, lekin tarjima bo'yicha „kattaroq / eng katta“ kerak.)"
       },
       {
        "type": "gap_fill",
@@ -193,7 +207,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "tiefer — tiefste"
+       "explanation": "tiefer — tiefste. Tarjima: Ko'l chuqur, Qora dengiz undan chuqurroq, Tinch okeani esa dunyodagi eng chuqur okean."
       },
       {
        "type": "gap_fill",
@@ -210,7 +224,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "intelligenter — intelligenteste"
+       "explanation": "intelligenter — intelligenteste. Tarjima: It aqlli, delfin undan aqlliroq, inson esa eng aqlli mavjudot."
       },
       {
        "type": "gap_fill",
@@ -227,7 +241,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "schwerer — schwerste"
+       "explanation": "schwerer — schwerste. Tarjima: Fil og'ir, karkidon undan og'irroq, ko'k kit esa dunyodagi eng og'ir hayvon."
       },
       {
        "type": "gap_fill",
@@ -244,7 +258,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "ruhiger — ruhigste"
+       "explanation": "ruhiger — ruhigste. Tarjima: Qishloq tinch, kichik shahar undan tinchroq, tog' qishlog'i esa eng tinch joy."
       },
       {
        "type": "gap_fill",
@@ -261,7 +275,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "interessanter — interessanteste"
+       "explanation": "interessanter — interessanteste. Tarjima: Kitob qiziqarli, film undan qiziqroq, serial esa eng qiziqarli vosita."
       },
       {
        "type": "gap_fill",
@@ -278,7 +292,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "älter — älteste"
+       "explanation": "älter — älteste. Tarjima: Uy eski, saroy undan eskiroq, piramida esa dunyodagi eng eski inshoot."
       },
       {
        "type": "gap_fill",
@@ -295,7 +309,7 @@
        "points": 1,
        "passage": 1,
        "case_sensitive": false,
-       "explanation": "breiter — breiteste"
+       "explanation": "breiter — breiteste. Tarjima: Daryo keng, dengiz undan kengroq, okean esa dunyodagi eng keng suv havzasi."
       }
      ],
      "instruction": "Ergänzen Sie den Komparativ und den Superlativ."
@@ -479,9 +493,11 @@
    "source": "book",
    "metadata": {
     "book_page": 113,
-    "note": "Javoblar kitobning javoblar varag'idan; audio yuklanganda admin tekshirsin."
+    "note": "Kitobda transkript yo'q — javoblarni audio yuklangandan keyin admin kiritadi.",
+    "old_sheet_hint": "Eski javoblar varag'i (tekshirilmagan): 1-B, 2-A, 3-B, 4-A, 5-A, 6-B, 7-A, 8-B"
    },
    "audio_file": "A1-11.mp3",
+   "key_pending": true,
    "instruction": "Hören Sie den Text und wählen Sie die richtige Antwort.",
    "questions": [
     {
@@ -492,9 +508,7 @@
       "Vier",
       "Fünf"
      ],
-     "correct_answer": "B",
-     "points": 1,
-     "passage": 1
+     "points": 1
     },
     {
      "type": "multiple_choice",
@@ -504,9 +518,7 @@
       "Tom",
       "Anna"
      ],
-     "correct_answer": "A",
-     "points": 1,
-     "passage": 1
+     "points": 1
     },
     {
      "type": "multiple_choice",
@@ -516,9 +528,7 @@
       "Informatik",
       "Deutsch"
      ],
-     "correct_answer": "B",
-     "points": 1,
-     "passage": 1
+     "points": 1
     },
     {
      "type": "multiple_choice",
@@ -528,9 +538,7 @@
       "Lisa",
       "Max"
      ],
-     "correct_answer": "A",
-     "points": 1,
-     "passage": 1
+     "points": 1
     },
     {
      "type": "multiple_choice",
@@ -540,9 +548,7 @@
       "Tom",
       "Max"
      ],
-     "correct_answer": "A",
-     "points": 1,
-     "passage": 1
+     "points": 1
     },
     {
      "type": "multiple_choice",
@@ -552,9 +558,7 @@
       "Lisa",
       "Anna"
      ],
-     "correct_answer": "B",
-     "points": 1,
-     "passage": 1
+     "points": 1
     },
     {
      "type": "multiple_choice",
@@ -564,9 +568,7 @@
       "Zimmer",
       "Bad"
      ],
-     "correct_answer": "A",
-     "points": 1,
-     "passage": 1
+     "points": 1
     },
     {
      "type": "multiple_choice",
@@ -576,12 +578,9 @@
       "Ruhig",
       "Alt"
      ],
-     "correct_answer": "B",
-     "points": 1,
-     "passage": 1
+     "points": 1
     }
-   ],
-   "max_score": 8
+   ]
   },
   {
    "content_id": "vizu-a1-l11-schreiben-01",
@@ -842,7 +841,7 @@
     },
     {
      "word": "leben",
-     "translation": "yashamoq, hayot kechirmoq",
+     "translation": "yashamoq",
      "group": "Wörter"
     },
     {
@@ -919,6 +918,790 @@
      "article": "der",
      "group": "Wörter"
     }
+   ],
+   "exercises": [
+    {
+     "title": "Zuordnung 1",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Adjektive 1)",
+       "items": [
+        "groß",
+        "klein",
+        "teuer",
+        "billig",
+        "ruhig",
+        "laut"
+       ],
+       "targets": [
+        "katta",
+        "kichik",
+        "qimmat",
+        "arzon",
+        "tinch",
+        "shovqinli",
+        "toza"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Adjektive 2)",
+       "items": [
+        "sauber",
+        "alt",
+        "neu",
+        "modern",
+        "gemütlich",
+        "hell"
+       ],
+       "targets": [
+        "toza",
+        "eski",
+        "yangi",
+        "zamonaviy",
+        "shinam",
+        "yorug'",
+        "katta"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Adjektive 3)",
+       "items": [
+        "dunkel",
+        "großzügig",
+        "nah",
+        "fern",
+        "hoch",
+        "niedrig"
+       ],
+       "targets": [
+        "qorong'i",
+        "keng",
+        "yaqin",
+        "uzoq",
+        "baland",
+        "past",
+        "katta"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Adjektive 4)",
+       "items": [
+        "warm",
+        "kalt",
+        "schön",
+        "hässlich",
+        "bequem",
+        "ordentlich",
+        "freundlich"
+       ],
+       "targets": [
+        "iliq",
+        "sovuq",
+        "chiroyli",
+        "xunuk",
+        "qulay",
+        "tartibli",
+        "xushmuomala",
+        "katta"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F",
+        "7": "G"
+       },
+       "points": 7,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Zuordnung 2",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Wörter 1)",
+       "items": [
+        "die Wohnung",
+        "das Haus",
+        "das Zimmer",
+        "die Miete",
+        "der Balkon",
+        "die Küche"
+       ],
+       "targets": [
+        "kvartira",
+        "uy",
+        "xona",
+        "ijara",
+        "balkon",
+        "oshxona",
+        "katta"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Wörter 2)",
+       "items": [
+        "das Bad",
+        "das Wohnzimmer",
+        "der Vermieter",
+        "der Mieter",
+        "mieten",
+        "bezahlen"
+       ],
+       "targets": [
+        "hammom",
+        "mehmonxona",
+        "uy egasi",
+        "ijarachi",
+        "ijaraga olmoq",
+        "to'lamoq",
+        "katta"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Wörter 3)",
+       "items": [
+        "suchen",
+        "finden",
+        "der Nachbar",
+        "die Stadt",
+        "das Dorf",
+        "das Gebäude"
+       ],
+       "targets": [
+        "qidirmoq",
+        "topmoq",
+        "qo'shni",
+        "shahar",
+        "qishloq",
+        "bino",
+        "katta"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Wörter 4)",
+       "items": [
+        "der Aufzug",
+        "die Heizung",
+        "das Fenster",
+        "die Tür",
+        "der Boden"
+       ],
+       "targets": [
+        "lift",
+        "isitish tizimi",
+        "deraza",
+        "eshik",
+        "pol",
+        "katta"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E"
+       },
+       "points": 5,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Der, die oder das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Wohnung (kvartira)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Haus (uy)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Zimmer (xona)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Miete (ijara)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Balkon (balkon)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Küche (oshxona)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Bad (hammom)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Wohnzimmer (mehmonxona)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Vermieter (uy egasi)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Mieter (ijarachi)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "So'zning artiklini tanlang (kitobdagi lug'at bo'yicha)."
+    }
+   ],
+   "auto_practice": false
+  },
+  {
+   "content_id": "vizu-a1-l11-uebungen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 11,
+   "skill": "uebungen",
+   "title": "Übungen Modul 11",
+   "source": "vizu",
+   "exercises": [
+    {
+     "title": "Die deutschen Städte vergleichen",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Berlin ist [[1]] als viele andere Städte.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "größer"
+         ],
+         "options": [
+          "größer",
+          "großer",
+          "am größten"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Lesen: „Berlin ist größer als viele andere Städte.“"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Das Leben in Berlin ist [[1]] als in München.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "günstiger"
+         ],
+         "options": [
+          "günstiger",
+          "günstig",
+          "am günstigsten"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Hamburg ist [[1]] als Berlin. (klein)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "kleiner"
+         ],
+         "options": [
+          "kleiner",
+          "kleinerer",
+          "am kleinsten"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Heidelberg ist [[1]] als Berlin und Hamburg. (ruhig)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "ruhiger"
+         ],
+         "options": [
+          "ruhiger",
+          "ruhig",
+          "am ruhigsten"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Köln ist nicht so [[1]] wie Berlin.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "groß"
+         ],
+         "options": [
+          "groß",
+          "größer",
+          "am größten"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "so … wie — sifat o'zgarmaydi (Positiv)."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Stuttgart ist [[1]] als München. (klein)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "kleiner"
+         ],
+         "options": [
+          "kleiner",
+          "klein",
+          "am kleinsten"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Lesen: „Die Stadt ist kleiner als München.“"
+      }
+     ],
+     "instruction": "Matndagi shaharlarni solishtiring."
+    },
+    {
+     "title": "Steigerung: unregelmäßige Formen",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Komparativ von „hoch“:",
+       "options": [
+        "höher",
+        "hocher",
+        "am höchsten"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Superlativ von „nah“:",
+       "options": [
+        "am nächsten",
+        "am nahsten",
+        "am näheren"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Komparativ von „gern“:",
+       "options": [
+        "lieber",
+        "gerner",
+        "am liebsten"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Superlativ von „alt“:",
+       "options": [
+        "am ältesten",
+        "am altesten",
+        "am älteren"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "t bilan tugaydi → -esten, umlaut: ä."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Komparativ von „jung“:",
+       "options": [
+        "jünger",
+        "junger",
+        "am jüngsten"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "To'g'ri shaklni tanlang."
+    },
+    {
+     "title": "Nemischa qanday?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "„kichik“ — nemischa qanday?",
+       "options": [
+        "sauber",
+        "klein",
+        "neu"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„eski“ — nemischa qanday?",
+       "options": [
+        "groß",
+        "alt",
+        "hässlich"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„keng“ — nemischa qanday?",
+       "options": [
+        "bezahlen",
+        "großzügig",
+        "suchen"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„sovuq“ — nemischa qanday?",
+       "options": [
+        "gemütlich",
+        "kalt",
+        "klein"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„kvartira“ — nemischa qanday?",
+       "options": [
+        "der Vermieter",
+        "der Balkon",
+        "die Wohnung"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„hammom“ — nemischa qanday?",
+       "options": [
+        "die Küche",
+        "das Bad",
+        "der Aufzug"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„qidirmoq“ — nemischa qanday?",
+       "options": [
+        "suchen",
+        "groß",
+        "klein"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„lift“ — nemischa qanday?",
+       "options": [
+        "das Haus",
+        "die Stadt",
+        "der Aufzug"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "O'zbekcha so'zning nemischasini tanlang."
+    }
    ]
   },
   {
@@ -927,7 +1710,7 @@
    "module": 1,
    "lesson": 11,
    "skill": "yakuniy",
-   "title": "Yakuniy Test: Modul 11",
+   "title": "Abschlusstest: Modul 11",
    "source": "vizu",
    "instruction": "Sifat darajalari va uy-joy so'zlari bo'yicha yakuniy test.",
    "questions": [
@@ -1084,6 +1867,17 @@
      "passage": 1
     }
    ]
+  },
+  {
+   "content_id": "vizu-a1-l11-kompetenz-02",
+   "level": "A1",
+   "module": 1,
+   "lesson": 11,
+   "skill": "kompetenz",
+   "title": "Zusammenfassung: Modul 11",
+   "source": "vizu",
+   "competency": "ZUSAMMENFASSUNG",
+   "html": "<h3>Modul 11 — qisqacha</h3><ul><li><strong>Komparativ:</strong> sifat + -er (+ umlaut): billig → billiger, alt → älter, groß → größer · Berlin ist größer als Hamburg.</li><li><strong>Superlativ:</strong> am + sifat + -sten: am billigsten, am größten · d, t, s, ß, z dan keyin -esten: am ältesten, am lautesten.</li><li><strong>Unregelmäßig:</strong> gut – besser – am besten · viel – mehr – am meisten · gern – lieber – am liebsten · hoch – höher – am höchsten · nah – näher – am nächsten.</li><li><strong>so … wie:</strong> teng solishtirish Positiv bilan — Köln ist nicht so groß wie Berlin.</li></ul><p>Natijalaringiz pastda — tugallanmagan bo'limlarni yakunlang, so'ng keyingi darsga o'ting.</p>"
   }
  ]
 }

@@ -3,11 +3,41 @@
 Hören (p.140): the answer sheet contradicts the page (e.g. question 9 asks
 about "ihre Freundin" — the sheet says Alex), so the answers are set by an
 admin after listening to the audio. The Lesen questions are the book's open
-questions with answer options added by VIZU."""
+questions with answer options added by VIZU; text 1 question 3 ("Was macht
+die Person am Abend gegen Stress?") is asked without "am Abend": the text
+names walking / cycling for the evening and music / a book against stress.
+Tasks 11-20 (Sätze bilden) are a choice between the correct sentence and two
+wrong word orders, because several orders are correct (Morgen werde ich … /
+Ich werde morgen …)."""
 
-from . import base, choice_gap, exercise, html_table, match, mc, mc_pending, short, text_gap, tf, ul, words
+from . import (
+    article_set, base, choice_gap, exercise, html_table, intro_html, match, mc, mc_pending, reverse_vocab_set, summary_html, text_gap, tf, ul,
+    vocab_match_sets, word_order_mc, words,
+)
 
 L = 14
+LESSON_TITLE = "Gesundheit und Krankheit"
+LESSON_DESCRIPTION = "Thema: Gesundheit und Krankheit · Grammatik: Futur I"
+IMAGES = [("01_cover.jpg", "EINFUEHRUNG", "Modul 14 — Gesundheit und Krankheit (Buch, S. 136)")]
+RETIRED_IMAGE_TITLES: list[str] = []
+
+EINFUEHRUNG_HTML = intro_html(
+    14, "Gesundheit und Krankheit", "Futur I (kelasi zamon)",
+    ["Futur I tuzilishi: werden (2-o'rin) + … + Infinitiv (oxirida) — Ich werde morgen lernen.;",
+     "werden fe'lining shakllari: ich werde, du wirst, er wird, wir werden, ihr werdet, sie werden;",
+     "kasallik belgilarini aytish: Ich habe Fieber, Husten und Kopfschmerzen.;",
+     "shifokor qabulida gaplashish: Was fehlt Ihnen? Gute Besserung!"],
+    ["„Ich werde viel schlafen und bald wieder gesund sein.“ — rejalaringizni kelasi zamonda aytasiz;",
+     "sog'lom turmush tarzi va kasallik haqidagi ikki matnni o'qib, savollarga javob berasiz;",
+     "Alisa va Alex haqidagi matnni tinglab, kim nima qilishini aniqlaysiz;",
+     "shifokor bilan dialog qurasiz."])
+
+ZUSAMMENFASSUNG_HTML = summary_html(14, [
+    "<strong>Futur I:</strong> werden (Position 2) + Infinitiv (Ende) — Wir werden am Wochenende Tennis spielen.",
+    "<strong>werden:</strong> ich werde, du wirst, er/sie/es wird, wir werden, ihr werdet, sie/Sie werden.",
+    "<strong>Krankheit:</strong> Ich habe Fieber / Husten / Schnupfen / Kopfschmerzen / Halsschmerzen. Mein Hals tut weh.",
+    "<strong>Beim Arzt:</strong> Was fehlt Ihnen? Seit wann …? Nehmen Sie die Tabletten zweimal am Tag. Gute Besserung!",
+])
 
 _FUTUR = (
     "<p><strong>Futur I (kelasi zamon)</strong> — kelajakda bo'ladigan ish-harakatni bildiradi.</p>"
@@ -35,7 +65,10 @@ _ORD = [("morgen / ich / lernen / werde", ["Ich werde morgen lernen.", "Morgen w
         ("wird / sie / nicht / kommen", ["Sie wird nicht kommen."]),
         ("am Wochenende / spielen / wir / werden / Tennis", ["Wir werden am Wochenende Tennis spielen.", "Am Wochenende werden wir Tennis spielen."]),
         ("helfen / wirst / du / mir", ["Du wirst mir helfen.", "Wirst du mir helfen?"])]
-ORDNUNG = [short(f"Bilden Sie einen Satz im Futur I: {w}", acc, max_length=120, explanation="Kitob kaliti: " + acc[0]) for w, acc in _ORD]
+_FQ = "Bilden Sie einen Satz im Futur I"
+ORDNUNG = [mc(f"{_FQ}: {w}", ["Was wirst du machen?", "Was du wirst machen?", "Was machen du wirst?"], "A",
+              "Was wirst du machen? — so'roq so'zidan keyin werden 2-o'rinda, Infinitiv oxirida.")
+           if acc[0].endswith("?") else word_order_mc(w, acc[0], _FQ) for w, acc in _ORD]
 
 TEXT_1 = ("Ich möchte immer gesund werden und gesund bleiben. Gesundheit ist für mich sehr wichtig, denn ohne Gesundheit ist alles schwer. Jeden Morgen "
           "stehe ich um sieben Uhr auf. Zuerst öffne ich das Fenster und atme frische Luft. Danach mache ich zehn Minuten Sport. Manchmal gehe ich im "
@@ -56,7 +89,7 @@ LESEN = [
                                                             "Denn sie hat keine Zeit."], "A", passage=1),
     mc("Was macht die Person jeden Morgen nach dem Aufstehen?", ["Sie öffnet das Fenster, atmet frische Luft und macht zehn Minuten Sport.",
                                                                  "Sie sieht fern.", "Sie trinkt süße Getränke."], "A", passage=1),
-    mc("Was macht die Person gegen Stress?", ["Sie hört Musik oder liest ein Buch.", "Sie isst Schokolade.", "Sie schläft nicht."], "A",
+    mc("Was macht die Person, wenn sie Stress hat?", ["Sie hört Musik oder liest ein Buch.", "Sie isst Schokolade.", "Sie schläft nicht."], "A",
        "„Wenn ich Stress habe, höre ich Musik oder lese ein Buch.“", passage=1),
     mc("Welche Symptome hat die Person?", ["Husten, Schnupfen, Fieber, Halsschmerzen und Kopfschmerzen", "Nur Bauchschmerzen", "Keine Symptome"], "A", passage=2),
     mc("Was sagt der Arzt?", ["„Sie müssen viel schlafen und viel trinken.“", "„Sie müssen viel Sport machen.“", "„Sie können morgen arbeiten.“"], "A", passage=2),
@@ -72,7 +105,7 @@ HOEREN = [mc_pending(q, _AA) for q in [
     "Wer möchte stark und aktiv bleiben?"]]
 
 _W = [("die", "Gesundheit", "sog'liq"), ("gesund", "sog'lom"), ("krank", "kasal"), ("die", "Krankheit", "kasallik"), ("das", "Fieber", "isitma"),
-      ("der", "Husten", "yo'tal"), ("der", "Schnupfen", "shamollash (tumov)"), ("die", "Kopfschmerzen", "bosh og'rig'i"), ("die", "Halsschmerzen", "tomoq og'rig'i"),
+      ("der", "Husten", "yo'tal"), ("der", "Schnupfen", "shamollash"), ("die", "Kopfschmerzen", "bosh og'rig'i"), ("die", "Halsschmerzen", "tomoq og'rig'i"),
       ("müde", "charchagan"), ("der", "Arzt", "shifokor"), ("die", "Ärztin", "ayol shifokor"), ("die", "Praxis", "klinika"), ("das", "Krankenhaus", "shifoxona"),
       ("die", "Tablette", "dori (tabletka)"), ("das", "Medikament", "dori"), ("die", "Apotheke", "dorixona"), ("der", "Patient", "bemor"),
       ("die", "Patientin", "ayol bemor"), ("der", "Termin", "uchrashuv"), ("das", "Rezept", "retsept"), ("untersuchen", "tekshirmoq"), ("helfen", "yordam bermoq"),
@@ -83,8 +116,25 @@ _W = [("die", "Gesundheit", "sog'liq"), ("gesund", "sog'lom"), ("krank", "kasal"
 WORDS = words(_W, "Gesundheit und Krankheit")
 
 
+WORTSCHATZ_SETS = [*vocab_match_sets(WORDS, per_set=4), article_set(WORDS)]
+
+UEBUNGEN_SETS = [
+    exercise("Präsens → Futur I (Lesen)", [
+        mc("„Ich bleibe zu Hause.“ — im Futur I:", ["Ich werde zu Hause bleiben.", "Ich werde zu Hause bleibe.", "Ich wird zu Hause bleiben."], "A"),
+        mc("„Meine Mutter kocht Suppe.“ — im Futur I:", ["Meine Mutter wird Suppe kochen.", "Meine Mutter werdet Suppe kochen.",
+                                                        "Meine Mutter wird kochen Suppe."], "A"),
+        mc("„Wir gehen spazieren.“ — im Futur I:", ["Wir werden spazieren gehen.", "Wir werden gehen spazieren.", "Wir wird spazieren gehen."], "A"),
+        mc("„Du nimmst die Tabletten.“ — im Futur I:", ["Du wirst die Tabletten nehmen.", "Du wirst die Tabletten nimmst.",
+                                                       "Du werdest die Tabletten nehmen."], "A", "Infinitiv o'zgarmaydi: nehmen."),
+        choice_gap("Ich hoffe, ich ___ immer gesund bleiben.", ["werde", "wird", "werden"], "werde", explanation="Text 1: „Ich hoffe, ich werde immer gesund bleiben …“"),
+    ], "Gaplarni Futur I ga o'tkazing.", source="vizu"),
+    reverse_vocab_set(WORDS),
+]
+
+
 def items() -> list[dict]:
     return [
+        base(L, "kompetenz", 1, "Einführung: Modul 14", source="vizu", page=136, competency="EINFUEHRUNG", html=EINFUEHRUNG_HTML),
         base(L, "frage", 1, "Frage: Wie sind die Gesundheitsprobleme in Deutschland?", page=137,
              prompt="Welche Gesundheitsprobleme haben viele Menschen in Deutschland (Schmerzen, Erkältung, Schlafstörungen, Stress …)? "
                     "Was machen Sie für Ihre Gesundheit?",
@@ -116,15 +166,16 @@ def items() -> list[dict]:
              response_type="dialog", min_duration=30, max_duration=150,
              speech_goal="Beim Arzt Beschwerden beschreiben, Fragen stellen (Muss ich …? Soll ich …? Wann kann ich …?) und sich bedanken.",
              keywords=["Ich habe Fieber", "Seit … Tagen", "Muss ich …", "Danke, Herr Doktor"]),
-        base(L, "wortschatz", 1, "Wortschatz Modul 14: Gesundheit", page=143, words=WORDS),
-        base(L, "yakuniy", 1, "Yakuniy Test: Modul 14", source="vizu",
+        base(L, "wortschatz", 1, "Wortschatz Modul 14: Gesundheit", page=143, words=WORDS, exercises=WORTSCHATZ_SETS, auto_practice=False),
+        base(L, "uebungen", 1, "Übungen Modul 14", exercises=UEBUNGEN_SETS, source="vizu"),
+        base(L, "yakuniy", 1, "Abschlusstest: Modul 14", source="vizu",
              instruction="Futur I va sog'liq so'zlari bo'yicha yakuniy test.",
              questions=[
                  choice_gap("Ich ___ morgen zum Arzt gehen.", ["werde", "wird", "wirst"], "werde"),
                  choice_gap("Er ___ bald wieder gesund.", ["wird", "werdet", "werde"], "wird"),
                  choice_gap("Ihr ___ viel Wasser trinken.", ["werdet", "werden", "wird"], "werdet"),
-                 mc("Welcher Satz ist richtig?", ["Wir werden morgen Tennis spielen.", "Wir werden spielen morgen Tennis.", "Wir morgen werden Tennis spielen."], "A"),
-                 mc("Wo steht das Infinitiv im Futur I?", ["Auf Position 2", "Am Ende", "Am Anfang"], "B"),
+                 mc("Welcher Satz ist richtig? (Futur I)", ["Wir werden morgen Tennis spielen.", "Wir werden spielen morgen Tennis.", "Wir morgen werden Tennis spielen."], "A"),
+                 mc("Wo steht der Infinitiv im Futur I?", ["Auf Position 2", "Am Ende", "Am Anfang"], "B"),
                  mc("„die Apotheke“ — o'zbekchasi qaysi?", ["dorixona", "shifoxona", "klinika"], "A"),
                  mc("„der Husten“ — o'zbekchasi qaysi?", ["yo'tal", "isitma", "bosh og'rig'i"], "A"),
                  mc("„Gute Besserung!“ sagt man …", ["einer kranken Person", "zum Geburtstag", "am Morgen"], "A"),
@@ -132,4 +183,5 @@ def items() -> list[dict]:
                  match("Was passt zusammen?", ["das Rezept", "untersuchen", "das Fieber", "die Erkältung"], ["retsept", "tekshirmoq", "isitma", "shamollash", "dori"],
                        {"1": "A", "2": "B", "3": "C", "4": "D"}),
              ]),
+        base(L, "kompetenz", 2, "Zusammenfassung: Modul 14", source="vizu", competency="ZUSAMMENFASSUNG", html=ZUSAMMENFASSUNG_HTML),
     ]

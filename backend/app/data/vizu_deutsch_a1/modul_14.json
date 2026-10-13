@@ -1,8 +1,22 @@
 {
- "schema_version": "1.1",
+ "schema_version": "1.2",
  "language": "de",
  "source": "vizu-deutsch-a1-book",
  "items": [
+  {
+   "content_id": "vizu-a1-l14-kompetenz-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 14,
+   "skill": "kompetenz",
+   "title": "Einführung: Modul 14",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 136
+   },
+   "competency": "EINFUEHRUNG",
+   "html": "<h3>Modul 14 — Gesundheit und Krankheit</h3><p><strong>Mavzu:</strong> Gesundheit und Krankheit · <strong>Grammatik:</strong> Futur I (kelasi zamon)</p><h4>Dars maqsadlari</h4><ul><li>Futur I tuzilishi: werden (2-o'rin) + … + Infinitiv (oxirida) — Ich werde morgen lernen.;</li><li>werden fe'lining shakllari: ich werde, du wirst, er wird, wir werden, ihr werdet, sie werden;</li><li>kasallik belgilarini aytish: Ich habe Fieber, Husten und Kopfschmerzen.;</li><li>shifokor qabulida gaplashish: Was fehlt Ihnen? Gute Besserung!</li></ul><h4>Dars oxirida siz quyidagilarni bajara olasiz</h4><ul><li>„Ich werde viel schlafen und bald wieder gesund sein.“ — rejalaringizni kelasi zamonda aytasiz;</li><li>sog'lom turmush tarzi va kasallik haqidagi ikki matnni o'qib, savollarga javob berasiz;</li><li>Alisa va Alex haqidagi matnni tinglab, kim nima qilishini aniqlaysiz;</li><li>shifokor bilan dialog qurasiz.</li></ul><h4>Darsning tuzilishi</h4><p>Einführung → Wortschatz → Grammatik → Lesen → Hören → Sprechen → Schreiben → Übungen → Abschlusstest → Zusammenfassung</p>"
+  },
   {
    "content_id": "vizu-a1-l14-frage-01",
    "level": "A1",
@@ -178,120 +192,134 @@
      "source": "book",
      "questions": [
       {
-       "type": "short_answer",
+       "type": "multiple_choice",
        "question": "Bilden Sie einen Satz im Futur I: morgen / ich / lernen / werde",
-       "accepted": [
-        "Ich werde morgen lernen.",
-        "Morgen werde ich lernen."
+       "options": [
+        "Ich morgen lernen werde.",
+        "Morgen lernen ich werde.",
+        "Ich werde morgen lernen."
        ],
+       "correct_answer": "C",
        "points": 1,
-       "max_length": 120,
        "passage": 1,
-       "explanation": "Kitob kaliti: Ich werde morgen lernen."
+       "explanation": "Ich werde morgen lernen. — fe'l (yoki modal fe'l) 2-o'rinda turadi."
       },
       {
-       "type": "short_answer",
+       "type": "multiple_choice",
        "question": "Bilden Sie einen Satz im Futur I: wird / er / kommen / später",
-       "accepted": [
+       "options": [
         "Er wird später kommen.",
-        "Später wird er kommen."
+        "Er später kommen wird.",
+        "Später kommen er wird."
        ],
+       "correct_answer": "A",
        "points": 1,
-       "max_length": 120,
        "passage": 1,
-       "explanation": "Kitob kaliti: Er wird später kommen."
+       "explanation": "Er wird später kommen. — fe'l (yoki modal fe'l) 2-o'rinda turadi."
       },
       {
-       "type": "short_answer",
+       "type": "multiple_choice",
        "question": "Bilden Sie einen Satz im Futur I: wir / bleiben / zu Hause / werden",
-       "accepted": [
-        "Wir werden zu Hause bleiben."
+       "options": [
+        "Wir werden zu Hause bleiben.",
+        "Zu Hause bleiben wir werden.",
+        "Wir zu Hause bleiben werden."
        ],
+       "correct_answer": "A",
        "points": 1,
-       "max_length": 120,
        "passage": 1,
-       "explanation": "Kitob kaliti: Wir werden zu Hause bleiben."
+       "explanation": "Wir werden zu Hause bleiben. — fe'l (yoki modal fe'l) 2-o'rinda turadi."
       },
       {
-       "type": "short_answer",
+       "type": "multiple_choice",
        "question": "Bilden Sie einen Satz im Futur I: du / machen / wirst / was",
-       "accepted": [
-        "Was wirst du machen?"
+       "options": [
+        "Was wirst du machen?",
+        "Was du wirst machen?",
+        "Was machen du wirst?"
        ],
+       "correct_answer": "A",
        "points": 1,
-       "max_length": 120,
        "passage": 1,
-       "explanation": "Kitob kaliti: Was wirst du machen?"
+       "explanation": "Was wirst du machen? — so'roq so'zidan keyin werden 2-o'rinda, Infinitiv oxirida."
       },
       {
-       "type": "short_answer",
+       "type": "multiple_choice",
        "question": "Bilden Sie einen Satz im Futur I: fahren / sie / nach Deutschland / werden",
-       "accepted": [
+       "options": [
+        "Sie nach Deutschland fahren werden.",
+        "Nach Deutschland fahren Sie werden.",
         "Sie werden nach Deutschland fahren."
        ],
+       "correct_answer": "C",
        "points": 1,
-       "max_length": 120,
        "passage": 1,
-       "explanation": "Kitob kaliti: Sie werden nach Deutschland fahren."
+       "explanation": "Sie werden nach Deutschland fahren. — fe'l (yoki modal fe'l) 2-o'rinda turadi."
       },
       {
-       "type": "short_answer",
+       "type": "multiple_choice",
        "question": "Bilden Sie einen Satz im Futur I: das Buch / lesen / ich / werde",
-       "accepted": [
+       "options": [
+        "Das Buch lesen ich werde.",
         "Ich werde das Buch lesen.",
-        "Das Buch werde ich lesen."
+        "Ich das Buch lesen werde."
        ],
+       "correct_answer": "B",
        "points": 1,
-       "max_length": 120,
        "passage": 1,
-       "explanation": "Kitob kaliti: Ich werde das Buch lesen."
+       "explanation": "Ich werde das Buch lesen. — fe'l (yoki modal fe'l) 2-o'rinda turadi."
       },
       {
-       "type": "short_answer",
+       "type": "multiple_choice",
        "question": "Bilden Sie einen Satz im Futur I: arbeiten / ihr / morgen / werdet",
-       "accepted": [
-        "Ihr werdet morgen arbeiten.",
-        "Morgen werdet ihr arbeiten."
+       "options": [
+        "Ihr morgen arbeiten werdet.",
+        "Morgen arbeiten ihr werdet.",
+        "Ihr werdet morgen arbeiten."
        ],
+       "correct_answer": "C",
        "points": 1,
-       "max_length": 120,
        "passage": 1,
-       "explanation": "Kitob kaliti: Ihr werdet morgen arbeiten."
+       "explanation": "Ihr werdet morgen arbeiten. — fe'l (yoki modal fe'l) 2-o'rinda turadi."
       },
       {
-       "type": "short_answer",
+       "type": "multiple_choice",
        "question": "Bilden Sie einen Satz im Futur I: wird / sie / nicht / kommen",
-       "accepted": [
-        "Sie wird nicht kommen."
+       "options": [
+        "Sie wird nicht kommen.",
+        "Sie nicht kommen wird.",
+        "Nicht kommen Sie wird."
        ],
+       "correct_answer": "A",
        "points": 1,
-       "max_length": 120,
        "passage": 1,
-       "explanation": "Kitob kaliti: Sie wird nicht kommen."
+       "explanation": "Sie wird nicht kommen. — fe'l (yoki modal fe'l) 2-o'rinda turadi."
       },
       {
-       "type": "short_answer",
+       "type": "multiple_choice",
        "question": "Bilden Sie einen Satz im Futur I: am Wochenende / spielen / wir / werden / Tennis",
-       "accepted": [
-        "Wir werden am Wochenende Tennis spielen.",
-        "Am Wochenende werden wir Tennis spielen."
+       "options": [
+        "Am Wochenende Tennis spielen wir werden.",
+        "Wir am Wochenende Tennis spielen werden.",
+        "Wir werden am Wochenende Tennis spielen."
        ],
+       "correct_answer": "C",
        "points": 1,
-       "max_length": 120,
        "passage": 1,
-       "explanation": "Kitob kaliti: Wir werden am Wochenende Tennis spielen."
+       "explanation": "Wir werden am Wochenende Tennis spielen. — fe'l (yoki modal fe'l) 2-o'rinda turadi."
       },
       {
-       "type": "short_answer",
+       "type": "multiple_choice",
        "question": "Bilden Sie einen Satz im Futur I: helfen / wirst / du / mir",
-       "accepted": [
-        "Du wirst mir helfen.",
-        "Wirst du mir helfen?"
+       "options": [
+        "Du mir helfen wirst.",
+        "Mir helfen du wirst.",
+        "Du wirst mir helfen."
        ],
+       "correct_answer": "C",
        "points": 1,
-       "max_length": 120,
        "passage": 1,
-       "explanation": "Kitob kaliti: Du wirst mir helfen."
+       "explanation": "Du wirst mir helfen. — fe'l (yoki modal fe'l) 2-o'rinda turadi."
       }
      ],
      "instruction": "Bilden Sie Sätze aus den Wörtern."
@@ -348,7 +376,7 @@
     },
     {
      "type": "multiple_choice",
-     "question": "Was macht die Person gegen Stress?",
+     "question": "Was macht die Person, wenn sie Stress hat?",
      "options": [
       "Sie hört Musik oder liest ein Buch.",
       "Sie isst Schokolade.",
@@ -612,7 +640,7 @@
     },
     {
      "word": "Schnupfen",
-     "translation": "shamollash (tumov)",
+     "translation": "shamollash",
      "article": "der",
      "group": "Gesundheit und Krankheit"
     },
@@ -798,6 +826,613 @@
      "article": "die",
      "group": "Gesundheit und Krankheit"
     }
+   ],
+   "exercises": [
+    {
+     "title": "Zuordnung 1",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Gesundheit und Krankheit 1)",
+       "items": [
+        "die Gesundheit",
+        "gesund",
+        "krank",
+        "die Krankheit",
+        "das Fieber",
+        "der Husten"
+       ],
+       "targets": [
+        "sog'liq",
+        "sog'lom",
+        "kasal",
+        "kasallik",
+        "isitma",
+        "yo'tal",
+        "bosh og'rig'i"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Gesundheit und Krankheit 2)",
+       "items": [
+        "die Kopfschmerzen",
+        "die Halsschmerzen",
+        "müde",
+        "der Arzt",
+        "die Ärztin",
+        "die Praxis"
+       ],
+       "targets": [
+        "bosh og'rig'i",
+        "tomoq og'rig'i",
+        "charchagan",
+        "shifokor",
+        "ayol shifokor",
+        "klinika",
+        "sog'liq"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Gesundheit und Krankheit 3)",
+       "items": [
+        "das Krankenhaus",
+        "die Tablette",
+        "das Medikament",
+        "die Apotheke",
+        "der Patient",
+        "die Patientin"
+       ],
+       "targets": [
+        "shifoxona",
+        "dori (tabletka)",
+        "dori",
+        "dorixona",
+        "bemor",
+        "ayol bemor",
+        "sog'liq"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Gesundheit und Krankheit 4)",
+       "items": [
+        "der Termin",
+        "das Rezept",
+        "untersuchen",
+        "helfen",
+        "bleiben",
+        "schlafen"
+       ],
+       "targets": [
+        "uchrashuv",
+        "retsept",
+        "tekshirmoq",
+        "yordam bermoq",
+        "qolmoq",
+        "uxlamoq",
+        "sog'liq"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Zuordnung 2",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Gesundheit und Krankheit 5)",
+       "items": [
+        "trinken",
+        "essen",
+        "spazieren gehen",
+        "Sport machen",
+        "das Fitnessstudio",
+        "stark"
+       ],
+       "targets": [
+        "ichmoq",
+        "yemoq",
+        "sayr qilmoq",
+        "sport bilan shug'ullanmoq",
+        "sport zali",
+        "kuchli",
+        "sog'liq"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Gesundheit und Krankheit 6)",
+       "items": [
+        "schwach",
+        "sich fühlen",
+        "zu Hause bleiben",
+        "gesund bleiben",
+        "das Leben",
+        "lange leben",
+        "die frische Luft",
+        "die Suppe"
+       ],
+       "targets": [
+        "kuchsiz",
+        "o'zini his qilmoq",
+        "uyda qolmoq",
+        "sog'lom qolmoq",
+        "hayot",
+        "uzoq yashamoq",
+        "toza havo",
+        "sho'rva",
+        "sog'liq"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F",
+        "7": "G",
+        "8": "H"
+       },
+       "points": 8,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Der, die oder das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Gesundheit (sog'liq)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Fieber (isitma)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Kopfschmerzen (bosh og'rig'i)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Arzt (shifokor)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Praxis (klinika)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Tablette (dori (tabletka))",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Apotheke (dorixona)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Patientin (ayol bemor)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Rezept (retsept)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Leben (hayot)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "So'zning artiklini tanlang (kitobdagi lug'at bo'yicha)."
+    }
+   ],
+   "auto_practice": false
+  },
+  {
+   "content_id": "vizu-a1-l14-uebungen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 14,
+   "skill": "uebungen",
+   "title": "Übungen Modul 14",
+   "source": "vizu",
+   "exercises": [
+    {
+     "title": "Präsens → Futur I (Lesen)",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "„Ich bleibe zu Hause.“ — im Futur I:",
+       "options": [
+        "Ich werde zu Hause bleiben.",
+        "Ich werde zu Hause bleibe.",
+        "Ich wird zu Hause bleiben."
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„Meine Mutter kocht Suppe.“ — im Futur I:",
+       "options": [
+        "Meine Mutter wird Suppe kochen.",
+        "Meine Mutter werdet Suppe kochen.",
+        "Meine Mutter wird kochen Suppe."
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„Wir gehen spazieren.“ — im Futur I:",
+       "options": [
+        "Wir werden spazieren gehen.",
+        "Wir werden gehen spazieren.",
+        "Wir wird spazieren gehen."
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„Du nimmst die Tabletten.“ — im Futur I:",
+       "options": [
+        "Du wirst die Tabletten nehmen.",
+        "Du wirst die Tabletten nimmst.",
+        "Du werdest die Tabletten nehmen."
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Infinitiv o'zgarmaydi: nehmen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Ich hoffe, ich [[1]] immer gesund bleiben.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "werde"
+         ],
+         "options": [
+          "werde",
+          "wird",
+          "werden"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Text 1: „Ich hoffe, ich werde immer gesund bleiben …“"
+      }
+     ],
+     "instruction": "Gaplarni Futur I ga o'tkazing."
+    },
+    {
+     "title": "Nemischa qanday?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "„sog'lom“ — nemischa qanday?",
+       "options": [
+        "bleiben",
+        "gesund",
+        "stark"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„yo'tal“ — nemischa qanday?",
+       "options": [
+        "der Husten",
+        "das Fieber",
+        "die Ärztin"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„shifokor“ — nemischa qanday?",
+       "options": [
+        "der Arzt",
+        "der Patient",
+        "der Termin"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„dori (tabletka)“ — nemischa qanday?",
+       "options": [
+        "die Apotheke",
+        "das Krankenhaus",
+        "die Tablette"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„ayol bemor“ — nemischa qanday?",
+       "options": [
+        "die Patientin",
+        "das Leben",
+        "die Kopfschmerzen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„yordam bermoq“ — nemischa qanday?",
+       "options": [
+        "helfen",
+        "lange leben",
+        "untersuchen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„yemoq“ — nemischa qanday?",
+       "options": [
+        "essen",
+        "gesund",
+        "sich fühlen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„kuchli“ — nemischa qanday?",
+       "options": [
+        "essen",
+        "trinken",
+        "stark"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "O'zbekcha so'zning nemischasini tanlang."
+    }
    ]
   },
   {
@@ -806,7 +1441,7 @@
    "module": 1,
    "lesson": 14,
    "skill": "yakuniy",
-   "title": "Yakuniy Test: Modul 14",
+   "title": "Abschlusstest: Modul 14",
    "source": "vizu",
    "instruction": "Futur I va sog'liq so'zlari bo'yicha yakuniy test.",
    "questions": [
@@ -872,7 +1507,7 @@
     },
     {
      "type": "multiple_choice",
-     "question": "Welcher Satz ist richtig?",
+     "question": "Welcher Satz ist richtig? (Futur I)",
      "options": [
       "Wir werden morgen Tennis spielen.",
       "Wir werden spielen morgen Tennis.",
@@ -884,7 +1519,7 @@
     },
     {
      "type": "multiple_choice",
-     "question": "Wo steht das Infinitiv im Futur I?",
+     "question": "Wo steht der Infinitiv im Futur I?",
      "options": [
       "Auf Position 2",
       "Am Ende",
@@ -963,6 +1598,17 @@
      "passage": 1
     }
    ]
+  },
+  {
+   "content_id": "vizu-a1-l14-kompetenz-02",
+   "level": "A1",
+   "module": 1,
+   "lesson": 14,
+   "skill": "kompetenz",
+   "title": "Zusammenfassung: Modul 14",
+   "source": "vizu",
+   "competency": "ZUSAMMENFASSUNG",
+   "html": "<h3>Modul 14 — qisqacha</h3><ul><li><strong>Futur I:</strong> werden (Position 2) + Infinitiv (Ende) — Wir werden am Wochenende Tennis spielen.</li><li><strong>werden:</strong> ich werde, du wirst, er/sie/es wird, wir werden, ihr werdet, sie/Sie werden.</li><li><strong>Krankheit:</strong> Ich habe Fieber / Husten / Schnupfen / Kopfschmerzen / Halsschmerzen. Mein Hals tut weh.</li><li><strong>Beim Arzt:</strong> Was fehlt Ihnen? Seit wann …? Nehmen Sie die Tabletten zweimal am Tag. Gute Besserung!</li></ul><p>Natijalaringiz pastda — tugallanmagan bo'limlarni yakunlang, so'ng keyingi darsga o'ting.</p>"
   }
  ]
 }

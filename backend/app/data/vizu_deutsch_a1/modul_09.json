@@ -1,8 +1,22 @@
 {
- "schema_version": "1.1",
+ "schema_version": "1.2",
  "language": "de",
  "source": "vizu-deutsch-a1-book",
  "items": [
+  {
+   "content_id": "vizu-a1-l09-kompetenz-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 9,
+   "skill": "kompetenz",
+   "title": "Einführung: Modul 9",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 89
+   },
+   "competency": "EINFUEHRUNG",
+   "html": "<h3>Modul 9 — Meine Reise nach Deutschland</h3><p><strong>Mavzu:</strong> Meine Reise nach Deutschland · <strong>Grammatik:</strong> Lokalangaben — wo? (qayerda?) va wohin? (qayerga?)</p><h4>Dars maqsadlari</h4><ul><li>„qayerga?“ (wohin?): nach Berlin, in die Stadt, ins Kino, zum Arzt, auf den Markt;</li><li>„qayerda?“ (wo?): in der Stadt, im Kino, beim Arzt, auf dem Markt, am Meer, zu Hause;</li><li>wohin? — Akkusativ, wo? — Dativ farqini tushunish;</li><li>sayohatga oid so'zlarni o'rganish: die Reise, das Hotel, die Gastfamilie, besichtigen.</li></ul><h4>Dars oxirida siz quyidagilarni bajara olasiz</h4><ul><li>„Ich bin nach Italien gefahren. Ich war in Rom.“ — qayerga borganingiz va qayerda bo'lganingizni aytasiz;</li><li>Max, Lisa va Paulning sayohat xatlarini o'qib, Richtig/Falsch topshirig'ini bajarasiz;</li><li>uch do'stning sayohati haqidagi matnni tinglab, predloglarni yozasiz;</li><li>do'stingizga sayohatingiz haqida xat yozasiz.</li></ul><h4>Darsning tuzilishi</h4><p>Einführung → Wortschatz → Grammatik → Lesen → Hören → Sprechen → Schreiben → Übungen → Abschlusstest → Zusammenfassung</p>"
+  },
   {
    "content_id": "vizu-a1-l09-frage-01",
    "level": "A1",
@@ -524,14 +538,6 @@
     },
     {
      "type": "true_false",
-     "question": "Paul fährt jeden Tag mit dem Zug in die Berge.",
-     "points": 1,
-     "passage": 3,
-     "correct_answer": "falsch",
-     "explanation": "„Jeden Tag fahre ich mit dem Zug. Ich sehe die Berge …“"
-    },
-    {
-     "type": "true_false",
      "question": "Paul liest Bücher und schreibt E-Mails.",
      "points": 1,
      "passage": 3,
@@ -546,7 +552,7 @@
      "explanation": "„Die Reise ist sehr schön und lehrreich.“"
     }
    ],
-   "max_score": 15
+   "max_score": 14
   },
   {
    "content_id": "vizu-a1-l09-hoeren-01",
@@ -580,7 +586,8 @@
        "im"
       ],
       "5": [
-       "auf den"
+       "auf den",
+       "zum"
       ],
       "6": [
        "auf der"
@@ -975,6 +982,768 @@
      "article": "die",
      "group": "Reise"
     }
+   ],
+   "exercises": [
+    {
+     "title": "Zuordnung 1",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Reise 1)",
+       "items": [
+        "die Reise",
+        "reisen",
+        "der Tourist",
+        "der Tourismus",
+        "das Land",
+        "die Stadt"
+       ],
+       "targets": [
+        "sayohat",
+        "sayohat qilmoq",
+        "sayyoh",
+        "turizm",
+        "mamlakat",
+        "shahar",
+        "markaz"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Reise 2)",
+       "items": [
+        "das Zentrum",
+        "das Hotel",
+        "das Hostel",
+        "die Gastfamilie",
+        "wohnen",
+        "fahren"
+       ],
+       "targets": [
+        "markaz",
+        "mehmonxona",
+        "xostel",
+        "mehmon oila",
+        "yashamoq, qolmoq",
+        "bormoq (transport bilan)",
+        "sayohat"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Reise 3)",
+       "items": [
+        "gehen",
+        "ankommen",
+        "bleiben",
+        "besuchen",
+        "besichtigen",
+        "das Museum"
+       ],
+       "targets": [
+        "piyoda bormoq",
+        "yetib kelmoq",
+        "qolmoq",
+        "tashrif buyurmoq",
+        "tomosha qilmoq",
+        "muzey",
+        "sayohat"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Reise 4)",
+       "items": [
+        "der Markt",
+        "der Park",
+        "die Straße",
+        "das Café",
+        "das Kino",
+        "das Meer"
+       ],
+       "targets": [
+        "bozor",
+        "park",
+        "ko'cha",
+        "kafe",
+        "kino",
+        "dengiz",
+        "sayohat"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Zuordnung 2",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Reise 5)",
+       "items": [
+        "die Berge",
+        "spazieren gehen",
+        "Fotos machen",
+        "essen",
+        "trinken",
+        "das Essen"
+       ],
+       "targets": [
+        "tog'lar",
+        "sayr qilmoq",
+        "suratga tushirmoq",
+        "yemoq",
+        "ichmoq",
+        "ovqat",
+        "sayohat"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Reise 6)",
+       "items": [
+        "der Tee",
+        "der Kaffee",
+        "die Pizza",
+        "die Pasta",
+        "das Wetter",
+        "sonnig"
+       ],
+       "targets": [
+        "choy",
+        "qahva",
+        "pitsa",
+        "pasta",
+        "ob-havo",
+        "quyoshli",
+        "sayohat"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Reise 7)",
+       "items": [
+        "warm",
+        "schön",
+        "ruhig",
+        "lebendig",
+        "lernen",
+        "kennenlernen"
+       ],
+       "targets": [
+        "iliq",
+        "chiroyli",
+        "tinch",
+        "jonli",
+        "o'rganmoq",
+        "tanishib olmoq",
+        "sayohat"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Reise 8)",
+       "items": [
+        "erleben",
+        "die Kultur",
+        "die Party",
+        "die Messe",
+        "der Zug",
+        "die Sehenswürdigkeit",
+        "der Urlaub",
+        "die Erinnerung"
+       ],
+       "targets": [
+        "boshdan kechirmoq",
+        "madaniyat",
+        "bazm",
+        "ko'rgazma",
+        "poyezd",
+        "diqqatga sazovor joy",
+        "ta'til",
+        "xotira",
+        "sayohat"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F",
+        "7": "G",
+        "8": "H"
+       },
+       "points": 8,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Der, die oder das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Reise (sayohat)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Land (mamlakat)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Hotel (mehmonxona)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Museum (muzey)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Straße (ko'cha)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Meer (dengiz)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Tee (choy)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Pasta (pasta)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Party (bazm)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Sehenswürdigkeit (diqqatga sazovor joy)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "So'zning artiklini tanlang (kitobdagi lug'at bo'yicha)."
+    }
+   ],
+   "auto_practice": false
+  },
+  {
+   "content_id": "vizu-a1-l09-uebungen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 9,
+   "skill": "uebungen",
+   "title": "Übungen Modul 9",
+   "source": "vizu",
+   "exercises": [
+    {
+     "title": "Wo? oder Wohin? (Lesen)",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Max ist jetzt [[1]] Italien.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "in"
+         ],
+         "options": [
+          "in",
+          "nach",
+          "zu"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Brief 1: „Ich bin jetzt in Italien, in Rom.“"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Max wohnt in einem kleinen Hotel [[1]] Zentrum.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "im"
+         ],
+         "options": [
+          "im",
+          "ins",
+          "zum"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Lisa ist jetzt [[1]] Türkei.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "in der"
+         ],
+         "options": [
+          "in der",
+          "in die",
+          "nach"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "die Türkei — Wo? in der Türkei."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Am Morgen geht Lisa [[1]] Stadt.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "in die"
+         ],
+         "options": [
+          "in die",
+          "in der",
+          "nach"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Brief 2: „Am Morgen gehe ich in die Stadt.“"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Am Abend geht Lisa [[1]] Meer spazieren.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "am"
+         ],
+         "options": [
+          "am",
+          "ans",
+          "im"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Paul ist zurzeit [[1]] Schweiz.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "in der"
+         ],
+         "options": [
+          "in der",
+          "in die",
+          "nach"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Lisa wohnt [[1]] einer Gastfamilie.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "bei"
+         ],
+         "options": [
+          "bei",
+          "zu",
+          "in"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Am Abend sitzt Max [[1]] einem Café.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "in"
+         ],
+         "options": [
+          "in",
+          "auf",
+          "nach"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "Xatlardagi gaplarda to'g'ri predlogni tanlang."
+    },
+    {
+     "title": "Nemischa qanday?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "„sayohat qilmoq“ — nemischa qanday?",
+       "options": [
+        "reisen",
+        "lebendig",
+        "kennenlernen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„mehmonxona“ — nemischa qanday?",
+       "options": [
+        "das Hotel",
+        "der Park",
+        "der Tourist"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„yetib kelmoq“ — nemischa qanday?",
+       "options": [
+        "ankommen",
+        "sonnig",
+        "reisen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„park“ — nemischa qanday?",
+       "options": [
+        "das Kino",
+        "der Park",
+        "die Pizza"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„sayr qilmoq“ — nemischa qanday?",
+       "options": [
+        "spazieren gehen",
+        "besuchen",
+        "gehen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„qahva“ — nemischa qanday?",
+       "options": [
+        "das Museum",
+        "die Reise",
+        "der Kaffee"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„chiroyli“ — nemischa qanday?",
+       "options": [
+        "schön",
+        "ruhig",
+        "wohnen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„madaniyat“ — nemischa qanday?",
+       "options": [
+        "die Kultur",
+        "die Pizza",
+        "das Museum"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "O'zbekcha so'zning nemischasini tanlang."
+    }
    ]
   },
   {
@@ -983,7 +1752,7 @@
    "module": 1,
    "lesson": 9,
    "skill": "yakuniy",
-   "title": "Yakuniy Test: Modul 9",
+   "title": "Abschlusstest: Modul 9",
    "source": "vizu",
    "instruction": "Lokalangaben (wo? wohin?) va sayohat so'zlari bo'yicha yakuniy test.",
    "questions": [
@@ -1030,7 +1799,7 @@
     {
      "type": "gap_fill",
      "question": "Wählen Sie das richtige Wort.",
-     "text": "Er geht [[1]] Arzt.",
+     "text": "Meine Schwester geht [[1]] Zahnarzt.",
      "gaps": {
       "1": {
        "accepted": [
@@ -1070,7 +1839,7 @@
     {
      "type": "gap_fill",
      "question": "Wählen Sie das richtige Wort.",
-     "text": "Ich gehe [[1]] Kino.",
+     "text": "Wir gehen heute Abend [[1]] Theater.",
      "gaps": {
       "1": {
        "accepted": [
@@ -1085,7 +1854,8 @@
      },
      "points": 1,
      "passage": 1,
-     "case_sensitive": false
+     "case_sensitive": false,
+     "explanation": "in + das (Akkusativ) = ins."
     },
     {
      "type": "gap_fill",
@@ -1175,6 +1945,17 @@
      "passage": 1
     }
    ]
+  },
+  {
+   "content_id": "vizu-a1-l09-kompetenz-02",
+   "level": "A1",
+   "module": 1,
+   "lesson": 9,
+   "skill": "kompetenz",
+   "title": "Zusammenfassung: Modul 9",
+   "source": "vizu",
+   "competency": "ZUSAMMENFASSUNG",
+   "html": "<h3>Modul 9 — qisqacha</h3><ul><li><strong>Wohin? (Akkusativ):</strong> nach Deutschland / Berlin / Hause · in die Schule, in den Park, ins Kino · zur Arbeit, zum Arzt · auf den Markt, ans Meer.</li><li><strong>Wo? (Dativ):</strong> in Deutschland · in der Schule, im Park, im Kino · bei der Arbeit, beim Arzt · auf dem Markt, am Meer · zu Hause.</li><li><strong>Länder mit Artikel:</strong> in die Türkei / in der Türkei, in die Schweiz / in der Schweiz.</li><li><strong>Reise:</strong> Ich bin nach … gefahren. Ich habe in einem Hotel / bei einer Gastfamilie gewohnt. Ich habe … besichtigt.</li></ul><p>Natijalaringiz pastda — tugallanmagan bo'limlarni yakunlang, so'ng keyingi darsga o'ting.</p>"
   }
  ]
 }
