@@ -105,10 +105,16 @@ def _frage_part(skill: dict) -> dict | None:
 
 
 def published_videos(db: Session, lesson_id) -> dict[str, list[Video]]:
+    """Published videos a student can actually play — one whose file is
+    missing on disk is not shown, so it cannot block the competency."""
+    from app.services.video.service import stored_file_path
+
     out: dict[str, list[Video]] = {}
     for video in db.scalars(
         select(Video).where(Video.lesson_id == lesson_id, Video.is_published.is_(True)).order_by(Video.order_index, Video.created_at)
     ):
+        if stored_file_path(video.storage_key) is None:
+            continue
         out.setdefault(video.competency or "EINFUEHRUNG", []).append(video)
     return out
 

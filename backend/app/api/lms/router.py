@@ -23,6 +23,7 @@ from app.models.video import Video
 from app.models.video_progress import VideoProgress
 from app.services.lms import progress, resources, structure
 from app.services.lms.access import lesson_access
+from app.services.video.service import log_missing_file, stored_file_path
 
 router = APIRouter(prefix="/lms", tags=["LMS"])
 
@@ -66,6 +67,9 @@ def _videos(db: Session, user: User, lesson_id: UUID) -> list[dict]:
     out = []
     for v in rows:
         if not v.storage_key:
+            continue
+        if stored_file_path(v.storage_key) is None:
+            log_missing_file(v)
             continue
         token = create_video_stream_token(str(v.id))
         p = prog.get(v.id)

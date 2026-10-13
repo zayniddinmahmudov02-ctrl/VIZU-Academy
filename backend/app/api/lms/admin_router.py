@@ -29,7 +29,7 @@ from app.models.video import Video
 from app.models.writing import Writing
 from app.services.lesson_skills import admin as skill_admin
 from app.services.lms import progress, resources, structure
-from app.services.video.service import VideoService
+from app.services.video.service import VideoService, stored_file_path
 
 router = APIRouter(prefix="/admin/lms", tags=["Admin - LMS"])
 
@@ -197,8 +197,8 @@ def _competency_content(db: Session, lesson_id: UUID) -> dict[str, dict]:
 
 
 def _video_admin(video: Video, service: VideoService) -> dict:
-    file_ok = bool(video.storage_key) and service.resolve_video_path(video).is_file()
-    subtitle_ok = bool(video.subtitle_key) and (service.video_storage.ROOT / video.subtitle_key).is_file()
+    file_ok = service.resolve_video_path(video) is not None
+    subtitle_ok = stored_file_path(video.subtitle_key) is not None
     return {
         "id": video.id,
         "title": video.title,

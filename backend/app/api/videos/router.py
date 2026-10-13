@@ -23,6 +23,7 @@ from app.schemas.video import (
 )
 
 from app.services.video import VideoService
+from app.services.video.service import log_missing_file, stored_file_path, video_media_type
 
 
 router = APIRouter(
@@ -109,10 +110,14 @@ def stream_video(
 
     path = service.resolve_video_path(video)
 
-    if not path.exists():
-        raise HTTPException(status_code=404, detail="Video file missing on disk")
+    if path is None:
+        # the row is fine, the bytes are not where storage_key says —
+        # logged with the absolute expected path (journalctl), reported as
+        # its own error code instead of a generic "not found"
+        log_missing_file(video)
+        raise HTTPException(status_code=404, detail="VIDEO_FILE_MISSING")
 
-    return FileResponse(path=path, media_type="video/mp4")
+    return FileResponse(path=path, media_type=video_media_type(path), headers={"Cache-Control": "private, no-store"})
 
 
 @router.get(
@@ -331,7 +336,7 @@ def stream_subtitles(video_id: UUID, token: str, db: Session = Depends(get_db)):
     video = service.get(video_id)
     if video is None or not video.is_published or not video.subtitle_key:
         raise HTTPException(status_code=404, detail="Subtitles not found")
-    path = service.video_storage.ROOT / video.subtitle_key
-    if not path.is_file():
+    path = stored_file_path(video.subtitle_key)
+    if path is None:
         raise HTTPException(status_code=404, detail="Subtitles file missing on disk")
     return FileResponse(path=path, media_type="text/vtt", headers={"Cache-Control": "private, no-store"})

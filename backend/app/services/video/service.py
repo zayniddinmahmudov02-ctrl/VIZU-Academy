@@ -28,6 +28,38 @@ from app.repositories.video import VideoRepository
 from app.services.vizu_pay.access import has_premium_bypass, is_user_premium
 from app.services.lms.access import REASON_PREMIUM, lesson_access
 
+VIDEO_MEDIA_TYPES = {".mp4": "video/mp4", ".m4v": "video/mp4", ".webm": "video/webm", ".mov": "video/quicktime"}
+
+
+def stored_file_path(key: str | None) -> Path | None:
+    """The file a video / subtitle storage key points at, inside protected
+    video storage — or None when the key is empty, leaves the storage root
+    (".." / absolute path) or the file is not on disk. Upload, chunk
+    assembly, stream and the LMS all use ProtectedVideoStorage.ROOT; this is
+    the single place that turns a key into a readable path."""
+
+    if not key:
+        return None
+    root = ProtectedVideoStorage.ROOT.resolve()
+    path = (root / key).resolve()
+    if root not in path.parents:
+        logger.error("Rejected video storage key outside the storage root: key=%s", key)
+        return None
+    return path if path.is_file() else None
+
+
+def video_media_type(path: Path) -> str:
+    return VIDEO_MEDIA_TYPES.get(path.suffix.lower(), "video/mp4")
+
+
+def log_missing_file(video: Video) -> None:
+    logger.error(
+        "Stored file missing for published video: video_id=%s key=%s expected=%s",
+        video.id,
+        video.storage_key,
+        (ProtectedVideoStorage.ROOT / (video.storage_key or "")).resolve(),
+    )
+
 # Bounds RAM while re-assembling chunks into the final file in
 # complete_upload(), independent of LocalStorage.CHUNK_SIZE.
 _ASSEMBLE_READ_SIZE = 1024 * 1024
@@ -400,12 +432,8 @@ class VideoService:
         if not video.is_preview:
             self._require_access(video, user)
 
-        if not (self.video_storage.ROOT / video.storage_key).exists():
-            logger.error(
-                "Stored file missing for published video: video_id=%s key=%s",
-                video_id,
-                video.storage_key,
-            )
+        if self.resolve_video_path(video) is None:
+            log_missing_file(video)
             raise NotFoundError("Video not found")
 
         return video
@@ -447,11 +475,12 @@ class VideoService:
             detail="PREMIUM_REQUIRED",
         )
 
-    def resolve_video_path(self, video: Video) -> Path:
+    def resolve_video_path(self, video: Video) -> Path | None:
         """Where GET /videos/{id}/stream reads bytes from, once the
-        caller's token has already proven authorization."""
+        caller's token has already proven authorization — None when the
+        file is missing or the key points outside protected storage."""
 
-        return self.video_storage.ROOT / video.storage_key
+        return stored_file_path(video.storage_key)
 
     # ==========================
     # Chunked Upload
