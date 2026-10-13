@@ -84,7 +84,18 @@ function ContentManager({ lessonId, kind }: { lessonId: string; kind: Competency
     case "SPRECHEN":
       return <SpeakingManager lessonId={lessonId} />;
     case "SCHREIBEN":
-      return <WritingManager lessonId={lessonId} />;
+      return (
+        <div className="space-y-6">
+          <section>
+            <h4 className="mb-3 text-sm font-bold uppercase tracking-wide text-[var(--admin-text-muted)]">Schreiben-Übungen (automatisch bewertet: Wortkasten, Lückentext, Sätze bauen)</h4>
+            <ExerciseManager lessonId={lessonId} skill="SCHREIBEN" label="Schreiben-Übung" />
+          </section>
+          <section>
+            <h4 className="mb-3 text-sm font-bold uppercase tracking-wide text-[var(--admin-text-muted)]">Freie Schreibaufgaben (Lehrer / KI bewertet)</h4>
+            <WritingManager lessonId={lessonId} />
+          </section>
+        </div>
+      );
     case "UEBUNGEN":
       return <ExerciseManager lessonId={lessonId} skill="UEBUNGEN" label="Übungen" />;
     case "ABSCHLUSSTEST":

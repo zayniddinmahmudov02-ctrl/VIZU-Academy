@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AlertTriangle, Copy, Eye, EyeOff, ListChecks, Pencil, Play, Plus, Trash2, Upload } from "lucide-react";
+import { AlertTriangle, Copy, Eye, EyeOff, ListChecks, Pencil, Play, Plus, Trash2, Upload, VolumeX } from "lucide-react";
 
 import { AdminButton, AdminCheckbox, AdminInput, AdminTextarea } from "@/components/admin/admin-ui";
 import ConfirmDialog from "@/components/admin/confirm-dialog";
 import FormDialog from "@/components/admin/form-dialog";
 import {
   apiErrorMessage,
+  deleteListeningAudio,
   duplicateItem,
   getListeningAudioBlobUrl,
   uploadListeningAudio,
@@ -87,6 +88,7 @@ export default function HoerenManager({ lessonId }: { lessonId: string }) {
   const [form, setForm] = useState(EMPTY);
   const [questionsFor, setQuestionsFor] = useState<AdminHoerenTask | null>(null);
   const [deleting, setDeleting] = useState<AdminHoerenTask | null>(null);
+  const [deletingAudio, setDeletingAudio] = useState<AdminHoerenTask | null>(null);
   const [busy, setBusy] = useState(false);
   const [uploadingId, setUploadingId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -196,7 +198,8 @@ export default function HoerenManager({ lessonId }: { lessonId: string }) {
               <span className="flex flex-wrap gap-1.5">
                 <PublishBadge published={item.is_published} />
                 {!hasAudio && (
-                  <span className="rounded-full bg-[var(--admin-warning)]/15 px-2.5 py-1 text-xs font-semibold text-[var(--admin-warning)]">Audio fehlt</span>
+                  <span className="rounded-full bg-[var(--admin-warning)]/15 px-2.5 py-1 text-xs font-semibold text-[var(--admin-warning)]" data-testid="hoeren-no-audio"
+                        title="Ohne Audio ist die Aufgabe für Schüler nicht sichtbar.">Audio fehlt · Audio yuklanmagan</span>
                 )}
                 {!!item.key_missing && (
                   <span className="rounded-full bg-[var(--admin-warning)]/15 px-2.5 py-1 text-xs font-semibold text-[var(--admin-warning)]"
@@ -220,6 +223,12 @@ export default function HoerenManager({ lessonId }: { lessonId: string }) {
                 <AdminButton size="sm" variant="secondary" disabled={uploadingId === item.id} onClick={() => pickFile(item.id)} data-testid="hoeren-upload">
                   <Upload size={14} /> {uploadingId === item.id ? "Lädt hoch..." : item.has_uploaded_audio ? "Audio ersetzen" : "Audio hochladen"}
                 </AdminButton>
+                {item.has_uploaded_audio && (
+                  <AdminButton size="sm" variant="ghost" disabled={busy} onClick={() => setDeletingAudio(item)} aria-label="Audio löschen" title="Audio löschen"
+                               data-testid="hoeren-delete-audio">
+                    <VolumeX size={14} />
+                  </AdminButton>
+                )}
                 <AdminButton size="sm" variant="ghost" onClick={() => openEdit(item)} aria-label="Bearbeiten">
                   <Pencil size={14} />
                 </AdminButton>
@@ -323,6 +332,19 @@ export default function HoerenManager({ lessonId }: { lessonId: string }) {
         onConfirm={async () => {
           if (!deleting) return;
           if (await run(() => listeningApi.remove(deleting.id), "Löschen fehlgeschlagen.")) setDeleting(null);
+        }}
+      />
+
+      <ConfirmDialog
+        open={!!deletingAudio}
+        onOpenChange={(open) => !open && setDeletingAudio(null)}
+        title="Audio löschen"
+        description={`Die Audiodatei von "${deletingAudio?.title}" wird gelöscht. Fragen, Antworten und Ergebnisse bleiben erhalten; ohne Audio ist die Aufgabe für Schüler verborgen, bis ein neues Audio hochgeladen ist.`}
+        confirmLabel="Audio löschen"
+        isPending={busy}
+        onConfirm={async () => {
+          if (!deletingAudio) return;
+          if (await run(() => deleteListeningAudio(deletingAudio.id), "Löschen fehlgeschlagen.")) setDeletingAudio(null);
         }}
       />
     </div>

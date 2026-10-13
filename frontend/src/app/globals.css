@@ -518,3 +518,84 @@ img {
   background: var(--surface-hover);
   font-weight: 700;
 }
+
+/* VIZU LMS (/kurse, /lektion): learning happens on a white surface with
+   navy / blue accents (light theme only — dark mode keeps its tokens), and
+   with short, quiet motion that is switched off for prefers-reduced-motion. */
+html:not(.dark) .lms-theme {
+  --surface-bg: #ffffff;
+  --surface-hover: #f1f5fd;
+  --surface-border: rgba(30, 58, 138, 0.1);
+  --text-primary: #0e1834;
+}
+
+@keyframes lms-fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes lms-pop {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes lms-shimmer {
+  from { background-position: 100% 0; }
+  to { background-position: -100% 0; }
+}
+
+@keyframes lms-celebrate {
+  0% { opacity: 0; transform: scale(0.6); }
+  60% { opacity: 1; transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+@keyframes lms-ring {
+  from { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.45); }
+  to { box-shadow: 0 0 0 16px rgba(34, 197, 94, 0); }
+}
+
+@keyframes lms-correct {
+  0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.35); }
+  100% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+}
+
+@keyframes lms-wrong {
+  0%, 100% { transform: none; }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}
+
+.lms-fade-in { animation: lms-fade-in 0.28s ease-out both; }
+.lms-pop { animation: lms-pop 0.22s ease-out both; }
+.lms-celebrate { animation: lms-celebrate 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.2) both, lms-ring 1.2s ease-out 0.3s 2; }
+
+.lms-card { transition: transform 0.18s ease, box-shadow 0.18s ease; }
+.lms-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+.lms-skeleton {
+  background: linear-gradient(90deg, var(--surface-hover) 25%, var(--surface-card) 50%, var(--surface-hover) 75%);
+  background-size: 200% 100%;
+  animation: lms-shimmer 1.4s ease-in-out infinite;
+}
+
+.lms-flashcard-inner { transform-style: preserve-3d; transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.lms-flashcard-inner.is-flipped { transform: rotateY(180deg); }
+.lms-flashcard-face { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.lms-flashcard-back { transform: rotateY(180deg); }
+
+.lms-theme [data-testid="test-result"] { animation: lms-pop 0.25s ease-out both; }
+.lms-theme [data-testid="test-question"][data-result="correct"] { animation: lms-correct 0.6s ease-out; }
+.lms-theme [data-testid="test-question"][data-result="wrong"] { animation: lms-wrong 0.3s ease-in-out; }
+
+@media (prefers-reduced-motion: reduce) {
+  .lms-fade-in,
+  .lms-pop,
+  .lms-celebrate,
+  .lms-skeleton,
+  .lms-theme [data-testid="test-result"],
+  .lms-theme [data-testid="test-question"] { animation: none !important; }
+  .lms-card,
+  .lms-card:hover { transition: none; transform: none; }
+  .lms-flashcard-inner { transition: none; }
+}

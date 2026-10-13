@@ -228,7 +228,7 @@ export async function getLevelProgress(level: string): Promise<LevelProgress> {
 // Exercise sets — Grammatik / Wortschatz practice, Yakuniy Test
 // ============================================================
 
-export type ExerciseSkill = "grammatik" | "wortschatz" | "uebungen" | "yakuniy";
+export type ExerciseSkill = "grammatik" | "wortschatz" | "uebungen" | "yakuniy" | "schreiben";
 
 export interface ExerciseSet {
   id: string;

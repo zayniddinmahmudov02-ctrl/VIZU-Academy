@@ -203,6 +203,7 @@ export default function SkillTest({ sections, summary, attempts, start, submit, 
                   r ? (r.is_correct ? "ring-success/50" : partial ? "ring-warning/50" : "ring-danger/40") : chosen ? "ring-accent-blue/40" : "ring-surface-border",
                 )}
                 data-testid="test-question"
+                data-result={r ? (r.is_correct ? "correct" : partial ? "partial" : "wrong") : undefined}
               >
                 <div className="flex items-start gap-3">
                   <span
