@@ -18,7 +18,7 @@ export const sidebarItems = [
   },
   {
     titleKey: "sidebar.courses",
-    href: "/courses",
+    href: "/kurse",
     icon: BookOpen,
   },
   {

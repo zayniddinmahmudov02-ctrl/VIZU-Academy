@@ -23,7 +23,7 @@ export default function NextLessonCard() {
       </div>
 
       <Link
-        href="/lessons"
+        href="/kurse"
         className="inline-flex w-fit items-center gap-1.5 rounded-button bg-accent-blue/10 px-4 py-2.5 text-sm font-semibold text-accent-blue shadow-[var(--shadow-3d-soft)] transition-all duration-200 hover:-translate-y-px hover:bg-accent-blue/15"
       >
         Öffnen

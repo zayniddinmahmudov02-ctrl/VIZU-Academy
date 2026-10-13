@@ -8,7 +8,39 @@ import type { NextConfig } from "next";
 // workspace root. Both settings must point at the same directory.
 const projectRoot = path.resolve(__dirname);
 
+// Old lesson-player section slug -> VIZU LMS competency slug.
+const LEGACY_SECTION_TO_COMPETENCY: Record<string, string> = {
+  video: "einfuehrung",
+  frage: "einfuehrung",
+  grammatik: "grammatik",
+  lesen: "lesen",
+  hoeren: "hoeren",
+  schreiben: "schreiben",
+  sprechen: "sprechen",
+  wortschatz: "wortschatz",
+  "wortschatz-test": "wortschatz",
+  "yakuniy-test": "abschlusstest",
+  natijalar: "zusammenfassung",
+};
+
 const nextConfig: NextConfig = {
+  // The VIZU LMS (/kurse, /lektion) replaces the old course pages and lesson
+  // player. Their code stays in the repo (rollback = revert this block); old
+  // links / bookmarks land on the matching new page. 307 = not cached.
+  async redirects() {
+    return [
+      { source: "/courses", destination: "/kurse", permanent: false },
+      { source: "/courses/:level", destination: "/kurse/:level", permanent: false },
+      { source: "/lessons", destination: "/kurse", permanent: false },
+      ...Object.entries(LEGACY_SECTION_TO_COMPETENCY).map(([section, competency]) => ({
+        source: `/lessons/:lessonId/${section}`,
+        destination: `/lektion/:lessonId/${competency}`,
+        permanent: false,
+      })),
+      { source: "/lessons/:lessonId/:section", destination: "/lektion/:lessonId", permanent: false },
+      { source: "/lessons/:lessonId", destination: "/lektion/:lessonId", permanent: false },
+    ];
+  },
   turbopack: {
     root: projectRoot,
   },
