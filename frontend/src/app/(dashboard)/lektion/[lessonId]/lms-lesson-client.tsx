@@ -5,12 +5,12 @@ import Link from "next/link";
 import { useQueryClient } from "@tanstack/react-query";
 import { ArrowLeft, ArrowRight, ChevronRight, Clock, Video } from "lucide-react";
 
-import Loading from "@/components/common/loading";
 import LmsCompetencyContent from "@/components/lms/lms-competency-content";
 import LmsCompetencyNav from "@/components/lms/lms-competency-nav";
 import LmsErrorCard from "@/components/lms/lms-error-card";
 import LmsLessonLock from "@/components/lms/lms-lesson-lock";
 import LmsResourceList from "@/components/lms/lms-resource-list";
+import LmsSkeleton from "@/components/lms/lms-skeleton";
 import LmsStatusBadge from "@/components/lms/lms-status-badge";
 import ProgressBar from "@/components/ui/progress-bar";
 import { COMPETENCY_META, competencyHref, kindFromSlug, lessonHref, levelHref } from "@/features/lms/competencies";
@@ -21,14 +21,15 @@ import type { LmsCompetency, LmsLesson } from "@/features/lms/types";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { cn } from "@/lib/utils";
 
-function CompetencyCard({ lessonId, c }: { lessonId: string; c: LmsCompetency }) {
+function CompetencyCard({ lessonId, c, index }: { lessonId: string; c: LmsCompetency; index: number }) {
   const { t } = useTranslation();
   const meta = COMPETENCY_META[c.kind];
   const Icon = meta.icon;
   const unavailable = c.status === "not_available";
   const locked = c.status === "locked";
   return (
-    <li className={cn("flex flex-col gap-3 rounded-card bg-surface-card p-4 ring-1 ring-surface-border shadow-[var(--shadow-sm)]", unavailable && "opacity-70")}
+    <li className={cn("lms-card lms-fade-in flex flex-col gap-3 rounded-card bg-surface-card p-4 ring-1 ring-surface-border shadow-[var(--shadow-sm)]", unavailable && "opacity-70")}
+        style={{ animationDelay: `${Math.min(index, 9) * 40}ms` }}
         data-testid="lms-competency-card" data-kind={c.kind} data-status={c.status}>
       <div className="flex items-start gap-3">
         <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent-blue/10 text-accent-blue"><Icon size={18} /></span>
@@ -61,7 +62,7 @@ function LessonHeader({ data }: { data: LmsLesson }) {
   const { t } = useTranslation();
   const level = data.lesson.level;
   return (
-    <header className="space-y-4 rounded-card bg-surface-card p-5 shadow-[var(--shadow-md)] ring-1 ring-surface-border sm:p-6">
+    <header className="lms-fade-in space-y-4 rounded-card bg-surface-card p-5 shadow-[var(--shadow-md)] ring-1 ring-surface-border sm:p-6">
       <nav className="flex flex-wrap items-center gap-1 text-xs text-text-muted" aria-label="Breadcrumb">
         <Link href="/kurse" className="hover:text-accent-blue">{t("lms.levelsTitle")}</Link>
         {level && (
@@ -134,7 +135,7 @@ export default function LmsLessonClient({ lessonId, kompetenz }: { lessonId: str
     };
   }, [visitable, kind, lessonId, queryClient]);
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return <LmsSkeleton variant="lesson" />;
   if (error || !data) return <LmsErrorCard error={error} onRetry={() => refetch()} backHref="/kurse" backLabelKey="lms.levelsTitle" />;
 
   const ordered = [...data.competencies].sort((a, b) => a.position - b.position);
@@ -214,7 +215,7 @@ export default function LmsLessonClient({ lessonId, kompetenz }: { lessonId: str
               <p className="rounded-card bg-surface-card p-8 text-center text-text-secondary ring-1 ring-surface-border">{t("lms.noCompetencies")}</p>
             ) : (
               <ol className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3" data-testid="lms-competencies">
-                {ordered.map((c) => <CompetencyCard key={c.kind} lessonId={data.lesson.id} c={c} />)}
+                {ordered.map((c, i) => <CompetencyCard key={c.kind} lessonId={data.lesson.id} c={c} index={i} />)}
               </ol>
             )}
           </section>

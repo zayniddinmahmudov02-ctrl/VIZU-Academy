@@ -13,9 +13,8 @@ from pydantic import BaseModel, Field
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
-from app.api.dependencies.auth import get_current_user, require_admin_panel_access
+from app.api.dependencies.auth import require_admin_panel_access, require_content_editor
 from app.core.audit import write_audit
-from app.core.security.roles import UserRole
 from app.core.utils.safe_html import sanitize_html
 from app.db.session import get_db
 from app.models.lesson import Lesson
@@ -32,14 +31,6 @@ from app.services.lms import progress, resources, structure
 from app.services.video.service import VideoService, stored_file_path
 
 router = APIRouter(prefix="/admin/lms", tags=["Admin - LMS"])
-
-CONTENT_EDITOR_ROLES = {UserRole.SUPER_ADMIN, UserRole.ADMIN, UserRole.CONTENT_MANAGER}
-
-
-async def require_content_editor(user: User = Depends(get_current_user)) -> User:
-    if user.role not in CONTENT_EDITOR_ROLES:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Content editor access required")
-    return user
 
 
 def _audit(db: Session, request: Request, user: User, action: str, **details) -> None:
@@ -185,7 +176,7 @@ def _competency_content(db: Session, lesson_id: UUID) -> dict[str, dict]:
         "LESEN": {"readings": counts["readings"]},
         "HOEREN": {"listenings": counts["listenings"]},
         "SPRECHEN": {"tasks": speakings("SPRECHEN")},
-        "SCHREIBEN": {"tasks": {"total": len(writings), "published": sum(1 for w in writings if w.is_published)}},
+        "SCHREIBEN": {"tasks": {"total": len(writings), "published": sum(1 for w in writings if w.is_published)}, "exercises": exercises("SCHREIBEN")},
         "UEBUNGEN": {"exercises": exercises("UEBUNGEN")},
         "ABSCHLUSSTEST": {"exercises": exercises("YAKUNIY")},
         "ZUSAMMENFASSUNG": {},

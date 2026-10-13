@@ -2,7 +2,7 @@
 
 import { GraduationCap } from "lucide-react";
 
-import Loading from "@/components/common/loading";
+import LmsSkeleton from "@/components/lms/lms-skeleton";
 import PageHeader from "@/components/dashboard/page-header";
 import LmsErrorCard from "@/components/lms/lms-error-card";
 import LmsLevelCard from "@/components/lms/lms-level-card";
@@ -23,7 +23,7 @@ export default function KursePageClient() {
         gradient="from-accent-blue to-purple-600"
       />
 
-      {isLoading && <Loading />}
+      {isLoading && <LmsSkeleton variant="grid" />}
       {error ? <LmsErrorCard error={error} onRetry={() => refetch()} /> : null}
 
       {data && (

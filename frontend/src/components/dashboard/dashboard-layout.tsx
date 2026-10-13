@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import type { ReactNode } from "react";
+import { usePathname } from "next/navigation";
 
 import Header from "./header";
 import Sidebar from "./sidebar";
 import MobileNav from "./mobile-nav";
 import PageTransition from "@/components/motion/page-transition";
+import { cn } from "@/lib/utils";
 
 interface Props {
   children: ReactNode;
@@ -14,9 +16,12 @@ interface Props {
 
 export default function DashboardLayout({ children }: Props) {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  // VIZU LMS pages learn on a white surface (light theme; see .lms-theme)
+  const pathname = usePathname() ?? "";
+  const lms = /^\/(kurse|lektion)(\/|$)/.test(pathname);
 
   return (
-    <div className="flex min-h-screen bg-surface-bg">
+    <div className={cn("flex min-h-screen bg-surface-bg", lms && "lms-theme")} data-lms={lms || undefined}>
       <Sidebar />
       <MobileNav open={mobileNavOpen} onOpenChange={setMobileNavOpen} />
 
@@ -24,7 +29,7 @@ export default function DashboardLayout({ children }: Props) {
         <Header onMenuClick={() => setMobileNavOpen(true)} />
 
         <main className="relative flex-1 overflow-x-hidden overflow-y-auto">
-          <div className="pointer-events-none absolute -right-40 -top-40 h-[480px] w-[480px] rounded-full bg-accent-gold/[0.08] blur-3xl dark:bg-accent-blue/[0.08]" />
+          {!lms && <div className="pointer-events-none absolute -right-40 -top-40 h-[480px] w-[480px] rounded-full bg-accent-gold/[0.08] blur-3xl dark:bg-accent-blue/[0.08]" />}
 
           <section className="relative z-10 mx-auto w-full max-w-[1440px] px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
             <PageTransition>{children}</PageTransition>

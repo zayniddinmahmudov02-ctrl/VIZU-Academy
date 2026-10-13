@@ -66,7 +66,7 @@ export interface AdminHoerenTask {
   questions: AdminQuestion[];
 }
 
-export type ExerciseSkill = "GRAMMATIK" | "WORTSCHATZ" | "UEBUNGEN" | "YAKUNIY";
+export type ExerciseSkill = "GRAMMATIK" | "WORTSCHATZ" | "UEBUNGEN" | "YAKUNIY" | "SCHREIBEN";
 
 export interface AdminExercise {
   id: string;
@@ -226,6 +226,11 @@ export async function uploadListeningAudio(listeningId: string, file: File, dura
   form.append("file", file);
   if (durationSeconds) form.append("duration_seconds", String(Math.round(durationSeconds)));
   return (await api.post(`${BASE}/listenings/${listeningId}/audio`, form, { headers: { "Content-Type": "multipart/form-data" } })).data;
+}
+
+/** Removes the uploaded audio; the Hören task is hidden until a new one is uploaded. */
+export async function deleteListeningAudio(listeningId: string) {
+  return (await api.delete(`${BASE}/listenings/${listeningId}/audio`)).data;
 }
 
 export async function getListeningAudioBlobUrl(listeningId: string): Promise<string> {

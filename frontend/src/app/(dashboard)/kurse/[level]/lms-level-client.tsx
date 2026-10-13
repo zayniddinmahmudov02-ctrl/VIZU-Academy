@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ArrowLeft, PlayCircle } from "lucide-react";
 
-import Loading from "@/components/common/loading";
+import LmsSkeleton from "@/components/lms/lms-skeleton";
 import LmsErrorCard from "@/components/lms/lms-error-card";
 import LmsLessonCard from "@/components/lms/lms-lesson-card";
 import { LEVEL_GRADIENT } from "@/components/lms/lms-level-card";
@@ -25,7 +25,7 @@ export default function LmsLevelClient({ level }: { level: string }) {
         <ArrowLeft size={16} /> {t("lms.levelsTitle")}
       </Link>
 
-      {isLoading && <Loading />}
+      {isLoading && <LmsSkeleton variant="grid" />}
       {error ? <LmsErrorCard error={error} onRetry={() => refetch()} backHref="/kurse" backLabelKey="lms.levelsTitle" /> : null}
 
       {data && (
