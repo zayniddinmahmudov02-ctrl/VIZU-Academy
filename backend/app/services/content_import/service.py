@@ -35,6 +35,8 @@ from app.models.lesson import Lesson
 from app.models.lesson_skill import (
     CONFIG_TYPES,
     SKILL_GRAMMATIK,
+    SKILL_SCHREIBEN,
+    SKILL_UEBUNGEN,
     SKILL_WORTSCHATZ,
     SKILL_YAKUNIY,
     TASK_KIND_FRAGE,
@@ -46,6 +48,7 @@ from app.models.lesson_skill import (
     SkillExerciseQuestion,
 )
 from app.models.listening import Listening
+from app.models.lms import LessonCompetency
 from app.models.module import Module
 from app.models.reading import Reading
 from app.models.reading_option import ReadingOption
@@ -60,7 +63,8 @@ from app.services.lesson_skills import ai_evaluation, levels
 from app.services.lesson_skills.exercises import has_key
 
 ITEM_ADAPTER = TypeAdapter(ContentItem)
-SKILLS = ("frage", "grammatik", "lesen", "hoeren", "schreiben", "sprechen", "wortschatz", "yakuniy")
+SKILLS = ("frage", "grammatik", "lesen", "hoeren", "schreiben", "sprechen", "wortschatz", "yakuniy", "uebungen", "schreiben_uebungen", "kompetenz")
+EXERCISE_ITEM_SKILLS = {"uebungen": SKILL_UEBUNGEN, "schreiben_uebungen": SKILL_SCHREIBEN}
 MAX_ITEMS = 200
 LETTERS = "ABCDEFGHIJKLMNO"
 TRUE_WORDS = {"richtig", "r", "true", "wahr", "ja", "a"}
@@ -503,6 +507,13 @@ def _validate_item(db: Session, raw, index: int, language: str, create_missing: 
         preview["exercises"] = _exercise_sets(item.exercises, errors)
         if item.auto_practice:
             preview["auto_practice"] = sum(len(s["questions"]) for s in practice_sets(words, f"Wortschatz-Übung: {item.title}"))
+    elif item.skill in EXERCISE_ITEM_SKILLS:
+        preview["exercises"] = _exercise_sets(item.exercises, errors)
+    elif item.skill == "kompetenz":
+        html = sanitize_html(item.html)
+        if not html.strip():
+            errors.append("kompetenz: html is empty after sanitizing")
+        preview.update(competency=item.competency, html=html)
     else:  # yakuniy
         questions = _validated_questions(item.questions, errors)
         total = sum(q["points"] for q in questions)
@@ -563,6 +574,15 @@ def validate_document(db: Session, document, create_missing: bool = False, skip_
         elif same:
             r["warnings"].append(f"In dieser Lektion gibt es bereits Inhalt mit gleichem Titel: {', '.join(same)}"
                                  + (" — wird übersprungen" if skip_existing else ""))
+        if r["skill"] == "kompetenz":
+            row = _competency_row(db, lesson_id, r["_item"].competency)
+            if row is not None and (row.body or "").strip():
+                if skip_existing:
+                    r["skip"] = "Kompetenz hat bereits einen Text"
+                else:
+                    r["errors"].append("Diese Kompetenz hat bereits einen Text — im Kurs-Editor bearbeiten.")
+            else:
+                r["warnings"].append("Der Text ist sichtbar, sobald Lektion und Kompetenz veröffentlicht sind.")
         if r["skill"] == "wortschatz":
             fresh = {id(w) for w in _new_words(db, lesson_id, r["_item"].words)}
             known = [w.word for w in r["_item"].words if id(w) not in fresh]
@@ -625,6 +645,10 @@ def _add_exercise(db: Session, lesson_id: UUID, skill: str, ex: dict, content_id
     db.flush()
     _add_questions(db, row.id, ex["questions"], "exercise")
     return {"kind": "exercise", "id": str(row.id)}
+
+
+def _competency_row(db: Session, lesson_id: UUID, kind: str) -> LessonCompetency | None:
+    return db.scalar(select(LessonCompetency).where(LessonCompetency.lesson_id == lesson_id, LessonCompetency.kind == kind))
 
 
 def _create(db: Session, item, report: dict, target: dict, skip_existing: bool = False) -> list[dict]:
@@ -725,6 +749,18 @@ def _create(db: Session, item, report: dict, target: dict, skip_existing: bool =
         if item.auto_practice:
             for n, ex in enumerate(practice_sets(item.words, f"Wortschatz-Übung: {item.title}"), start=1):
                 created.append(_add_exercise(db, lesson_id, SKILL_WORTSCHATZ, ex, f"{item.content_id}#auto{n}"))
+    elif item.skill in EXERCISE_ITEM_SKILLS:
+        for n, ex in enumerate(preview["exercises"], start=1):
+            created.append(_add_exercise(db, lesson_id, EXERCISE_ITEM_SKILLS[item.skill], ex, f"{item.content_id}#ex{n}"))
+    elif item.skill == "kompetenz":
+        from app.services.lms import structure
+
+        structure.ensure_competencies(db, db.get(Lesson, lesson_id))
+        row = _competency_row(db, lesson_id, item.competency)
+        if row is not None and not (row.body or "").strip():
+            row.body = preview["html"]
+            db.flush()
+            created.append({"kind": "competency", "id": str(row.id)})
     else:  # yakuniy
         ex = {"title": item.title, "instruction": item.instruction, "source": item.source, "questions": preview["questions"]}
         created.append(_add_exercise(db, lesson_id, SKILL_YAKUNIY, ex, f"{item.content_id}#ex1"))
@@ -790,6 +826,7 @@ _KIND_MODEL = {
     "grammar": Grammar,
     "word": Vocabulary,
     "exercise": SkillExercise,
+    "competency": LessonCompetency,
 }
 
 

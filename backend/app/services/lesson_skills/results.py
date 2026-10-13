@@ -21,6 +21,7 @@ from app.models.lesson_skill import (
     SKILL_GRAMMATIK,
     SKILL_HOEREN,
     SKILL_LESEN,
+    SKILL_SCHREIBEN,
     SKILL_UEBUNGEN,
     SKILL_WORTSCHATZ,
     SKILL_YAKUNIY,
@@ -199,12 +200,46 @@ def _graded_tasks(task_rows, subs_by_task: dict) -> dict:
 
 
 def _schreiben(db: Session, user_id: UUID, lesson_id: UUID) -> dict:
+    """Free writing tasks (teacher / AI graded) plus the auto-graded Schreiben
+    practice sets (word bank, gap texts). With both, Schreiben is completed
+    when both parts are, and its score is the mean of the two parts."""
     rows = list(db.scalars(select(Writing).where(Writing.lesson_id == lesson_id, Writing.is_published.is_(True)).order_by(Writing.order_index)))
     subs = {
         str(s.writing_id): s
         for s in db.scalars(select(StudentWriting).where(StudentWriting.user_id == user_id, StudentWriting.writing_id.in_([w.id for w in rows])))
     } if rows else {}
-    return _graded_tasks(rows, subs)
+    return _merge_parts(_graded_tasks(rows, subs), _exercise_skill(db, user_id, lesson_id, SKILL_SCHREIBEN))
+
+
+def _merge_parts(a: dict, b: dict) -> dict:
+    if not b["available"]:
+        return a
+    if not a["available"]:
+        return b
+    statuses = (a["status"], b["status"])
+    if all(s == COMPLETED for s in statuses):
+        status = COMPLETED
+    elif PENDING_EVALUATION in statuses:
+        status = PENDING_EVALUATION
+    elif EVALUATION_FAILED in statuses:
+        status = EVALUATION_FAILED
+    elif all(s == NOT_STARTED for s in statuses):
+        status = NOT_STARTED
+    else:
+        status = IN_PROGRESS
+    scores = [p["score"] for p in (a, b) if p["score"] is not None]
+    times = [t for t in (a.get("submitted_at"), b.get("submitted_at")) if t]
+    return {
+        "available": True,
+        "status": status,
+        "score": _mean(scores),
+        "interim": status != COMPLETED and bool(scores),
+        "attempts": (a.get("attempts") or 0) + (b.get("attempts") or 0),
+        "submitted_at": max(times) if times else None,
+        "evaluated_at": a.get("evaluated_at"),
+        "tasks": [*a.get("tasks", []), *b.get("tasks", [])],
+        "can_retry": bool(a.get("can_retry") or b.get("can_retry")),
+    }
 
 
 def _sprechen(db: Session, user_id: UUID, lesson_id: UUID) -> dict:

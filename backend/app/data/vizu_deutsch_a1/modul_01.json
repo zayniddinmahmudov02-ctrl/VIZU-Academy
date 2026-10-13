@@ -1,8 +1,22 @@
 {
- "schema_version": "1.1",
+ "schema_version": "1.2",
  "language": "de",
  "source": "vizu-deutsch-a1-book",
  "items": [
+  {
+   "content_id": "vizu-a1-l01-kompetenz-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 1,
+   "skill": "kompetenz",
+   "title": "Einführung: Modul 1",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 3
+   },
+   "competency": "EINFUEHRUNG",
+   "html": "<h3>Modul 1 — Herzlich Willkommen!</h3><p><strong>Mavzu:</strong> Herzlich Willkommen · <strong>Grammatik:</strong> Das deutsche Alphabet (nemis alifbosi)</p><h4>Dars maqsadlari</h4><ul><li>nemis alifbosidagi 26 harf, Ä Ö Ü va ß ni tanish va ularning nomini aytish;</li><li>muhim harflar (C, H, J, Q, R, S, V, W, Y, Z) va harf birikmalari (ch, sch, sp, st, ei, eu, ie …) qanday o'qilishini bilish;</li><li>o'zingiz haqingizda oddiy gaplar tuzish: ism, yosh, qayerdan ekanligingiz, qayerda yashashingiz, nima yoqishi;</li><li>1-modul so'zlarini (shaxs olmoshlari, maktab, oila, hobbilar, kunlar, ob-havo) o'rganish.</li></ul><h4>Dars oxirida siz quyidagilarni bajara olasiz</h4><ul><li>„Hallo! Ich heiße … Ich bin … Jahre alt. Ich komme aus … und wohne in …“ — o'zingizni nemis tilida tanishtirasiz;</li><li>ismingizni harflab aytasiz (buchstabieren);</li><li>Tom va Anna haqidagi qisqa matnlarni o'qib, savollarga javob berasiz;</li><li>parkdagi kun haqidagi matnni tinglab tushunasiz.</li></ul><h4>Darsning tuzilishi</h4><p>Einführung → Wortschatz → Grammatik → Lesen → Hören → Sprechen → Schreiben → Übungen → Abschlusstest → Zusammenfassung</p>"
+  },
   {
    "content_id": "vizu-a1-l01-frage-01",
    "level": "A1",
@@ -17,657 +31,6 @@
    "prompt": "Nima uchun nemis tili? Nima uchun aynan nemis tilini o'rganmoqchisiz? Fikringizni 2–3 gap bilan ovozli yuboring (nemischa yoki o'zbekcha).",
    "min_duration": 10,
    "max_duration": 120
-  },
-  {
-   "content_id": "vizu-a1-l01-grammatik-01",
-   "level": "A1",
-   "module": 1,
-   "lesson": 1,
-   "skill": "grammatik",
-   "title": "Grammatik: Das deutsche Alphabet",
-   "source": "book",
-   "metadata": {
-    "book_page": "5-7"
-   },
-   "rules": [
-    {
-     "title": "Das deutsche Alphabet",
-     "html": "<h3>Nemis tili alifbosi</h3><table><thead><tr><th>Harf</th><th>Nomi</th><th>Harf</th><th>Nomi</th><th>Harf</th><th>Nomi</th></tr></thead><tbody><tr><td>A a</td><td>A (ah)</td><td>B b</td><td>Be (bay)</td><td>C c</td><td>Ce (tsay)</td></tr><tr><td>D d</td><td>De (day)</td><td>E e</td><td>E (ay)</td><td>F f</td><td>Ef (eff)</td></tr><tr><td>G g</td><td>Ge (gay)</td><td>H h</td><td>Ha (hah)</td><td>I i</td><td>I (eeh)</td></tr><tr><td>J j</td><td>Jott / Je (yot)</td><td>K k</td><td>Ka (kah)</td><td>L l</td><td>El (ell)</td></tr><tr><td>M m</td><td>Em (em)</td><td>N n</td><td>En (en)</td><td>O o</td><td>O (oh)</td></tr><tr><td>P p</td><td>Pe (pay)</td><td>Q q</td><td>Qu / Que (koo)</td><td>R r</td><td>Er (err)</td></tr><tr><td>S s</td><td>Es (es)</td><td>T t</td><td>Te (tay)</td><td>U u</td><td>U (ooh)</td></tr><tr><td>V v</td><td>Vau (fow)</td><td>W w</td><td>We (vay)</td><td>X x</td><td>Ix (iks)</td></tr><tr><td>Y y</td><td>Ypsilon (oopsilohn)</td><td>Z z</td><td>Zett (tset)</td><td>Ä ä</td><td>Ä (eh)</td></tr><tr><td>Ö ö</td><td>Ö (ouh)</td><td>Ü ü</td><td>Ü (uuh)</td><td>ß</td><td>Eszett (ess-set)</td></tr></tbody></table>"
-    },
-    {
-     "title": "Nemis alifbosidagi muhim harflar",
-     "html": "<table><thead><tr><th>Harf</th><th>Qoida</th><th>Misollar</th></tr></thead><tbody><tr><td>C c</td><td>a, o, u yoki undoshdan oldin — [k]; e, i, ä, ö, ü oldidan — [ts]</td><td>Café [kafe], Clown [klawn]; Cent [tsent], Cinema [tsinema]</td></tr><tr><td>H h</td><td>So'z boshida yoki unli oldida [h]; ikki unli orasida talaffuz qilinmaydi, oldingi unlini cho'zadi</td><td>Haus [haus] (uy), heute [hoyte] (bugun); sehen [ze:en] (ko'rmoq), gehen [ge:en] (bormoq); Uhr [u:a] (soat), Zahn [tsa:n] (tish)</td></tr><tr><td>J j</td><td>Asli nemischa so'zlarda [y]; xorijiy so'zlarda [ʒ] (o'zbekcha J)</td><td>Jahr [ya:r] (yil), Junge [yunge] (bola); Job (ish), Joggen (yugurish), Jeans (jinsi)</td></tr><tr><td>Q q</td><td>Har doim [kv]</td><td>Qualität [kvali'te:t] (sifat), Quelle [kvele] (manba)</td></tr><tr><td>R r</td><td>So'z boshida yoki undoshdan keyin tomoqdan chiqadigan [ʁ]; so'z yoki bo'g'in oxirida ko'pincha [ɐ] ga yaqin</td><td>Rot (qizil), Brief (xat); Lehrer (o'qituvchi), Mutter (ona)</td></tr><tr><td>S s</td><td>So'z boshida unli oldidan [z]; so'z oxiri yoki undosh oldidan [s]; sp — [shp], st — [sht]</td><td>Sonne [zone] (quyosh), sieben [zi:ben] (yetti); Haus [haus], ist [ist]; Sport [shport], Straße [shtra:se], Student [shtudent]</td></tr><tr><td>V v</td><td>Ko'pincha [f]; ba'zi xorijiy so'zlarda [v]</td><td>Vater [fa:ter] (ota), Volk [folk] (xalq); Video, Virus</td></tr><tr><td>W w</td><td>Har doim [v]</td><td>Wasser [vaser] (suv), Winter [vinter] (qish)</td></tr><tr><td>Y y</td><td>Ko'pincha [ü] yoki [i]; ba'zi xorijiy so'zlarda [y]</td><td>Physik [füzik] (fizika), Psychologie (psixologiya); Yoga [jo:ga]</td></tr><tr><td>Z z</td><td>Har doim [ts]</td><td>Zeit [tsayt] (vaqt), Zimmer [tsimmer] (xona)</td></tr><tr><td>Ä ä</td><td>„a“ va „e“ oralig'idagi tovush</td><td>Mädchen [me:dchen] (qizcha)</td></tr><tr><td>Ö ö</td><td>„o“ va „e“ aralash tovush</td><td>schön [shø:n] (chiroyli)</td></tr><tr><td>Ü ü</td><td>„u“ va „i“ aralash tovush</td><td>Tür [ty:r] (eshik)</td></tr><tr><td>ß</td><td>Eszett („scharfes S“) — har doim [s]</td><td>Straße [shtra:se] (ko'cha), Fußball [fu:sbal] (futbol)</td></tr></tbody></table>"
-    },
-    {
-     "title": "Harf birikmalari va diftonglar",
-     "html": "<h3>A. Harf birikmalari (undoshlar birikmasi)</h3><table><thead><tr><th>Birikma</th><th>O'qilishi</th><th>Misollar</th></tr></thead><tbody><tr><td>ch</td><td>[ç] (ich); a, o, u, au dan keyin [x]; ba'zi xorijiy so'zlarda [k]</td><td>ich (men), Küche (oshxona); Bach (soy), Buch (kitob); Charakter (xarakter)</td></tr><tr><td>sch</td><td>[sh]</td><td>Schule [shu:le] (maktab), Schnee [shne:] (qor)</td></tr><tr><td>sp</td><td>[shp]</td><td>Sport [shport] (sport), Sprache [shpra:xe] (til)</td></tr><tr><td>st</td><td>[sht]</td><td>Student [shtudent] (talaba), Stadt [shtat] (shahar)</td></tr><tr><td>ph</td><td>[f]</td><td>Philosophie (falsafa), Physik (fizika)</td></tr><tr><td>th</td><td>[t]</td><td>Theater [teater] (teatr), Thema [tema] (mavzu)</td></tr><tr><td>ck</td><td>[k]</td><td>Jacke [yake] (kurtka), Zucker [tsuker] (shakar)</td></tr><tr><td>ng</td><td>[ŋ]</td><td>singen (kuylamoq), Finger (barmoq)</td></tr></tbody></table><h3>B. Diftonglar (ikki unli tovush birikmasi)</h3><table><thead><tr><th>Diftong</th><th>O'qilishi</th><th>Misollar</th></tr></thead><tbody><tr><td>ei / ai</td><td>[ay]</td><td>mein [mayn] (mening), Kaiser (imperator)</td></tr><tr><td>eu / äu</td><td>[oy]</td><td>neu [noy] (yangi), Häuser [hoyzer] (uylar), Europa, Eule (boyo'g'li)</td></tr><tr><td>au</td><td>[au]</td><td>Haus [haus] (uy), Auto [auto] (mashina)</td></tr><tr><td>ie</td><td>[i:] (cho'ziq i)</td><td>Liebe [li:be] (muhabbat), vier [fi:r] (to'rt)</td></tr></tbody></table>"
-    }
-   ],
-   "exercises": [
-    {
-     "title": "Übung: Alphabet und Aussprache",
-     "source": "vizu",
-     "questions": [
-      {
-       "type": "multiple_choice",
-       "question": "Nemis alifbosida nechta asosiy harf bor?",
-       "options": [
-        "24",
-        "26",
-        "28",
-        "30"
-       ],
-       "correct_answer": "B",
-       "points": 1,
-       "passage": 1
-      },
-      {
-       "type": "multiple_choice",
-       "question": "Nemis tilida nechta Umlaut harfi bor?",
-       "options": [
-        "2",
-        "3",
-        "4",
-        "5"
-       ],
-       "correct_answer": "B",
-       "points": 1,
-       "passage": 1,
-       "explanation": "Ä, Ö, Ü"
-      },
-      {
-       "type": "multiple_choice",
-       "question": "„sch“ harf birikmasi o'zbekchaga yaqin qanday o'qiladi?",
-       "options": [
-        "ch",
-        "sh",
-        "s",
-        "k"
-       ],
-       "correct_answer": "B",
-       "points": 1,
-       "passage": 1
-      },
-      {
-       "type": "multiple_choice",
-       "question": "„sp“ so'z boshida qanday o'qiladi?",
-       "options": [
-        "sp",
-        "shp",
-        "sht",
-        "sh"
-       ],
-       "correct_answer": "B",
-       "points": 1,
-       "passage": 1
-      },
-      {
-       "type": "multiple_choice",
-       "question": "„st“ so'z boshida qanday o'qiladi?",
-       "options": [
-        "st",
-        "sht",
-        "shp",
-        "ts"
-       ],
-       "correct_answer": "B",
-       "points": 1,
-       "passage": 1
-      },
-      {
-       "type": "multiple_choice",
-       "question": "„ch“ „ich“ so'zida qanday tovush beradi?",
-       "options": [
-        "[k]",
-        "[ç]",
-        "[sh]",
-        "[t]"
-       ],
-       "correct_answer": "B",
-       "points": 1,
-       "passage": 1
-      },
-      {
-       "type": "multiple_choice",
-       "question": "Nemis tilida „ß“ qanday ataladi?",
-       "options": [
-        "Umlaut",
-        "Eszett",
-        "Zett",
-        "Ypsilon"
-       ],
-       "correct_answer": "B",
-       "points": 1,
-       "passage": 1
-      },
-      {
-       "type": "multiple_choice",
-       "question": "„z“ harfi nemis tilida qanday o'qiladi?",
-       "options": [
-        "z",
-        "ts",
-        "s",
-        "sh"
-       ],
-       "correct_answer": "B",
-       "points": 1,
-       "passage": 1
-      },
-      {
-       "type": "multiple_choice",
-       "question": "„w“ harfi nemis tilida qanday o'qiladi?",
-       "options": [
-        "w",
-        "v",
-        "f",
-        "y"
-       ],
-       "correct_answer": "B",
-       "points": 1,
-       "passage": 1
-      },
-      {
-       "type": "multiple_choice",
-       "question": "„v“ ko'p nemis so'zlarida qanday o'qiladi?",
-       "options": [
-        "v",
-        "f",
-        "b",
-        "w"
-       ],
-       "correct_answer": "B",
-       "points": 1,
-       "passage": 1,
-       "explanation": "Vater [fa:ter]"
-      },
-      {
-       "type": "multiple_choice",
-       "question": "„j“ nemischa so'zlarda ko'pincha qanday o'qiladi?",
-       "options": [
-        "j",
-        "y",
-        "sh",
-        "ts"
-       ],
-       "correct_answer": "B",
-       "points": 1,
-       "passage": 1,
-       "explanation": "Jahr [ya:r]"
-      },
-      {
-       "type": "multiple_choice",
-       "question": "„qu“ qanday o'qiladi?",
-       "options": [
-        "ku",
-        "kv",
-        "shu",
-        "tsu"
-       ],
-       "correct_answer": "B",
-       "points": 1,
-       "passage": 1
-      },
-      {
-       "type": "multiple_choice",
-       "question": "„ei“ qanday o'qiladi?",
-       "options": [
-        "ey",
-        "ay",
-        "iy",
-        "oy"
-       ],
-       "correct_answer": "B",
-       "points": 1,
-       "passage": 1,
-       "explanation": "mein [mayn]"
-      },
-      {
-       "type": "multiple_choice",
-       "question": "„eu“ qanday o'qiladi?",
-       "options": [
-        "ay",
-        "oy",
-        "au",
-        "iy"
-       ],
-       "correct_answer": "B",
-       "points": 1,
-       "passage": 1,
-       "explanation": "neu [noy]"
-      },
-      {
-       "type": "multiple_choice",
-       "question": "„au“ qanday o'qiladi?",
-       "options": [
-        "ay",
-        "oy",
-        "au",
-        "u"
-       ],
-       "correct_answer": "C",
-       "points": 1,
-       "passage": 1
-      },
-      {
-       "type": "multiple_choice",
-       "question": "„ie“ qanday o'qiladi?",
-       "options": [
-        "[i:] (cho'ziq i)",
-        "ay",
-        "oy",
-        "e"
-       ],
-       "correct_answer": "A",
-       "points": 1,
-       "passage": 1
-      },
-      {
-       "type": "multiple_choice",
-       "question": "„ph“ qanday o'qiladi?",
-       "options": [
-        "p",
-        "f",
-        "h",
-        "v"
-       ],
-       "correct_answer": "B",
-       "points": 1,
-       "passage": 1
-      },
-      {
-       "type": "multiple_choice",
-       "question": "„th“ qanday o'qiladi?",
-       "options": [
-        "t",
-        "th",
-        "f",
-        "s"
-       ],
-       "correct_answer": "A",
-       "points": 1,
-       "passage": 1
-      },
-      {
-       "type": "multiple_choice",
-       "question": "„ck“ qanday o'qiladi?",
-       "options": [
-        "k",
-        "ts",
-        "sh",
-        "g"
-       ],
-       "correct_answer": "A",
-       "points": 1,
-       "passage": 1
-      },
-      {
-       "type": "multiple_choice",
-       "question": "„ng“ qanday tovush beradi?",
-       "options": [
-        "n",
-        "[ŋ]",
-        "g",
-        "nk"
-       ],
-       "correct_answer": "B",
-       "points": 1,
-       "passage": 1
-      }
-     ],
-     "instruction": "Alifbo va talaffuz qoidalari bo'yicha to'g'ri javobni tanlang."
-    }
-   ]
-  },
-  {
-   "content_id": "vizu-a1-l01-lesen-01",
-   "level": "A1",
-   "module": 1,
-   "lesson": 1,
-   "skill": "lesen",
-   "title": "Lesen: Tom und Anna",
-   "source": "vizu",
-   "metadata": {
-    "book_page": "8-9",
-    "note": "Matnlar kitobdan; savollar VIZU tomonidan matn asosida tuzilgan (kitobda savol yo'q)."
-   },
-   "instruction": "Lesen Sie die Texte und beantworten Sie die Fragen.",
-   "passages": [
-    {
-     "title": "Text 1: Tom",
-     "text": "Hallo! Ich heiße Tom und ich bin 10 Jahre alt. Ich komme aus Usbekistan und wohne in Taschkent. Ich gehe in die Schule und lerne Deutsch. Ich mag Fußball. Danke!"
-    },
-    {
-     "title": "Text 2: Anna",
-     "text": "Hallo! Ich heiße Anna und ich bin 9 Jahre alt. Ich komme aus Usbekistan und wohne in Taschkent. Ich gehe in die Schule und lerne Deutsch. Ich mag Malen und Musik. Danke!"
-    },
-    {
-     "title": "Text 3: Tom und Anna",
-     "text": "Hallo! Wir heißen Tom und Anna. Wir sind 10 und 9 Jahre alt. Wir kommen aus Usbekistan und wohnen in Taschkent. Wir gehen in die Schule und lernen Deutsch. Wir mögen Fußball, Malen und Musik. Danke!"
-    },
-    {
-     "title": "Text 4: Im Park",
-     "text": "Es ist Samstag. Tom und Anna gehen in den Park. Es ist sonnig und warm. Tom spielt Fußball und Anna liest ein Buch. Ein Hund kommt und läuft zu ihnen. Sie lachen und spielen mit dem Hund. Nach zwei Stunden gehen sie nach Hause. Sie sind müde, aber glücklich."
-    }
-   ],
-   "questions": [
-    {
-     "type": "multiple_choice",
-     "question": "Wie alt ist Tom?",
-     "options": [
-      "8 Jahre",
-      "10 Jahre",
-      "12 Jahre"
-     ],
-     "correct_answer": "B",
-     "points": 1,
-     "passage": 1,
-     "explanation": "Matnda: „Ich bin 10 Jahre alt.“"
-    },
-    {
-     "type": "multiple_choice",
-     "question": "Wo wohnt Tom?",
-     "options": [
-      "In Berlin",
-      "In München",
-      "In Taschkent"
-     ],
-     "correct_answer": "C",
-     "points": 1,
-     "passage": 1,
-     "explanation": "Matnda: „Ich wohne in Taschkent.“"
-    },
-    {
-     "type": "true_false",
-     "question": "Tom kommt aus Usbekistan.",
-     "points": 1,
-     "passage": 1,
-     "correct_answer": "richtig",
-     "explanation": "Matnda: „Ich komme aus Usbekistan.“"
-    },
-    {
-     "type": "multiple_choice",
-     "question": "Was lernt Tom in der Schule?",
-     "options": [
-      "Englisch",
-      "Deutsch",
-      "Russisch"
-     ],
-     "correct_answer": "B",
-     "points": 1,
-     "passage": 1,
-     "explanation": "Matnda: „Ich gehe in die Schule und lerne Deutsch.“"
-    },
-    {
-     "type": "multiple_choice",
-     "question": "Was mag Tom?",
-     "options": [
-      "Malen",
-      "Fußball",
-      "Musik"
-     ],
-     "correct_answer": "B",
-     "points": 1,
-     "passage": 1,
-     "explanation": "Matnda: „Ich mag Fußball.“"
-    },
-    {
-     "type": "true_false",
-     "question": "Anna ist 9 Jahre alt.",
-     "points": 1,
-     "passage": 2,
-     "correct_answer": "richtig",
-     "explanation": "Matnda: „Ich bin 9 Jahre alt.“"
-    },
-    {
-     "type": "multiple_choice",
-     "question": "Was mag Anna?",
-     "options": [
-      "Fußball und Tennis",
-      "Malen und Musik",
-      "Lesen und Schwimmen"
-     ],
-     "correct_answer": "B",
-     "points": 1,
-     "passage": 2,
-     "explanation": "Matnda: „Ich mag Malen und Musik.“"
-    },
-    {
-     "type": "multiple_choice",
-     "question": "Woher kommt Anna?",
-     "options": [
-      "Aus Deutschland",
-      "Aus Usbekistan",
-      "Aus Österreich"
-     ],
-     "correct_answer": "B",
-     "points": 1,
-     "passage": 2,
-     "explanation": "Matnda: „Ich komme aus Usbekistan.“"
-    },
-    {
-     "type": "true_false",
-     "question": "Anna wohnt in Berlin.",
-     "points": 1,
-     "passage": 2,
-     "correct_answer": "falsch",
-     "explanation": "Noto'g'ri — matnda: „Ich wohne in Taschkent.“"
-    },
-    {
-     "type": "multiple_choice",
-     "question": "Was lernt Anna?",
-     "options": [
-      "Deutsch",
-      "Französisch",
-      "Englisch"
-     ],
-     "correct_answer": "A",
-     "points": 1,
-     "passage": 2,
-     "explanation": "Matnda: „Ich gehe in die Schule und lerne Deutsch.“"
-    },
-    {
-     "type": "true_false",
-     "question": "Tom und Anna kommen aus Deutschland.",
-     "points": 1,
-     "passage": 3,
-     "correct_answer": "falsch",
-     "explanation": "Noto'g'ri — matnda: „Wir kommen aus Usbekistan.“"
-    },
-    {
-     "type": "multiple_choice",
-     "question": "Wie alt sind Tom und Anna?",
-     "options": [
-      "10 und 9 Jahre",
-      "9 und 8 Jahre",
-      "11 und 10 Jahre"
-     ],
-     "correct_answer": "A",
-     "points": 1,
-     "passage": 3,
-     "explanation": "Matnda: „Wir sind 10 und 9 Jahre alt.“"
-    },
-    {
-     "type": "multiple_choice",
-     "question": "Wo wohnen Tom und Anna?",
-     "options": [
-      "In Samarkand",
-      "In Taschkent",
-      "In Buchara"
-     ],
-     "correct_answer": "B",
-     "points": 1,
-     "passage": 3,
-     "explanation": "Matnda: „Wir wohnen in Taschkent.“"
-    },
-    {
-     "type": "true_false",
-     "question": "Tom und Anna gehen in die Schule.",
-     "points": 1,
-     "passage": 3,
-     "correct_answer": "richtig",
-     "explanation": "Matnda: „Wir gehen in die Schule.“"
-    },
-    {
-     "type": "multiple_choice",
-     "question": "Was mögen Tom und Anna?",
-     "options": [
-      "Fußball, Malen und Musik",
-      "Tennis und Schwimmen",
-      "Lesen und Kochen"
-     ],
-     "correct_answer": "A",
-     "points": 1,
-     "passage": 3,
-     "explanation": "Matnda: „Wir mögen Fußball, Malen und Musik.“"
-    },
-    {
-     "type": "multiple_choice",
-     "question": "Welcher Tag ist es?",
-     "options": [
-      "Sonntag",
-      "Samstag",
-      "Montag"
-     ],
-     "correct_answer": "B",
-     "points": 1,
-     "passage": 4,
-     "explanation": "Matnda: „Es ist Samstag.“"
-    },
-    {
-     "type": "multiple_choice",
-     "question": "Wohin gehen Tom und Anna?",
-     "options": [
-      "In die Schule",
-      "In den Park",
-      "Nach Hause"
-     ],
-     "correct_answer": "B",
-     "points": 1,
-     "passage": 4,
-     "explanation": "Matnda: „Tom und Anna gehen in den Park.“"
-    },
-    {
-     "type": "multiple_choice",
-     "question": "Was macht Anna im Park?",
-     "options": [
-      "Sie spielt Fußball.",
-      "Sie liest ein Buch.",
-      "Sie malt."
-     ],
-     "correct_answer": "B",
-     "points": 1,
-     "passage": 4,
-     "explanation": "Matnda: „Anna liest ein Buch.“"
-    },
-    {
-     "type": "true_false",
-     "question": "Ein Hund kommt und spielt mit Tom und Anna.",
-     "points": 1,
-     "passage": 4,
-     "correct_answer": "richtig",
-     "explanation": "Matnda: „Ein Hund kommt … Sie lachen und spielen mit dem Hund.“"
-    },
-    {
-     "type": "multiple_choice",
-     "question": "Wie sind Tom und Anna am Ende?",
-     "options": [
-      "Müde, aber glücklich",
-      "Traurig",
-      "Krank"
-     ],
-     "correct_answer": "A",
-     "points": 1,
-     "passage": 4,
-     "explanation": "Matnda: „Sie sind müde, aber glücklich.“"
-    }
-   ],
-   "max_score": 20
-  },
-  {
-   "content_id": "vizu-a1-l01-schreiben-01",
-   "level": "A1",
-   "module": 1,
-   "lesson": 1,
-   "skill": "schreiben",
-   "title": "Topshiriq 1",
-   "source": "book",
-   "metadata": {
-    "book_page": 10
-   },
-   "prompt": "Schreiben Sie über sich. Ergänzen Sie den Text mit Ihren Informationen:\n\nHallo! Ich heiße ____, ich bin ____ Jahre alt, ich komme aus ____ und wohne in ____.\nIch gehe in die Schule und lerne ____. Ich mag ____.\n\nBeispiel (Tom): 10, Fußball, Usbekistan, Tom, Taschkent, Deutsch",
-   "task_type": "description",
-   "min_words": 20,
-   "max_words": 60,
-   "time_limit": 10,
-   "support_phrases": [
-    "Ich heiße …",
-    "Ich bin … Jahre alt.",
-    "Ich komme aus …",
-    "Ich wohne in …",
-    "Ich lerne …",
-    "Ich mag …"
-   ]
-  },
-  {
-   "content_id": "vizu-a1-l01-schreiben-02",
-   "level": "A1",
-   "module": 1,
-   "lesson": 1,
-   "skill": "schreiben",
-   "title": "Topshiriq 3",
-   "source": "book",
-   "metadata": {
-    "book_page": 10
-   },
-   "prompt": "Schreiben Sie über Ihren Freund / Ihre Freundin:\n\nDas ist mein Freund / meine Freundin ____. Er/Sie ist ____ Jahre alt, er/sie kommt aus ____ und wohnt in ____.\nEr/Sie geht in die Schule und lernt ____. Er/Sie mag ____.\n\nBeispiel (Anna): Usbekistan, Anna, Malen und Musik, Taschkent, 9, Deutsch",
-   "task_type": "description",
-   "audience": "Freund / Freundin",
-   "min_words": 20,
-   "max_words": 60,
-   "time_limit": 10,
-   "support_phrases": [
-    "Das ist mein Freund …",
-    "Er/Sie ist … Jahre alt.",
-    "Er/Sie kommt aus …",
-    "Er/Sie wohnt in …",
-    "Er/Sie mag …"
-   ]
-  },
-  {
-   "content_id": "vizu-a1-l01-sprechen-01",
-   "level": "A1",
-   "module": 1,
-   "lesson": 1,
-   "skill": "sprechen",
-   "title": "Stellen Sie sich vor!",
-   "source": "book",
-   "metadata": {
-    "book_page": 11
-   },
-   "topic": "Sich vorstellen – Erzählen Sie über sich!",
-   "prompt": "Sich vorstellen — Erzählen Sie über sich! Sprechen Sie mit diesen Sätzen.",
-   "questions": [
-    "Hallo! Ich heiße … , ich bin … Jahre alt.",
-    "Ich komme aus … und wohne in …",
-    "Ich gehe in die Schule und lerne …",
-    "Ich mag … (z. B. Fußball, Musik, Bücher).",
-    "Meine Hobbys sind …",
-    "Mein Lieblingsfach ist …",
-    "Ich habe … Bruder / … Schwester.",
-    "Meine Familie ist …",
-    "Ich freue mich, Deutsch zu lernen!"
-   ],
-   "response_type": "monolog",
-   "min_duration": 20,
-   "max_duration": 90,
-   "speech_goal": "Name, Alter, Herkunft, Wohnort, Schule/Deutsch, Hobbys und Familie in einfachen Sätzen nennen.",
-   "keywords": [
-    "Ich heiße",
-    "Jahre alt",
-    "Ich komme aus",
-    "Ich wohne in",
-    "Ich mag"
-   ]
   },
   {
    "content_id": "vizu-a1-l01-wortschatz-01",
@@ -693,12 +56,12 @@
     },
     {
      "word": "er",
-     "translation": "u (erkak)",
+     "translation": "u",
      "group": "Personen"
     },
     {
      "word": "sie",
-     "translation": "u (ayol)",
+     "translation": "u",
      "group": "Personen"
     },
     {
@@ -708,7 +71,7 @@
     },
     {
      "word": "ihr",
-     "translation": "siz (sizlar)",
+     "translation": "siz",
      "group": "Personen"
     },
     {
@@ -799,7 +162,7 @@
      "group": "Hobbys und Freizeit"
     },
     {
-     "word": "malen",
+     "word": "Malen",
      "translation": "rasm chizmoq",
      "group": "Hobbys und Freizeit"
     },
@@ -938,7 +301,7 @@
     },
     {
      "word": "wohnen",
-     "translation": "yashamoq",
+     "translation": "yashamoq (yashash)",
      "group": "Wichtige Wörter"
     },
     {
@@ -971,6 +334,2410 @@
      "translation": "yo'q",
      "group": "Wichtige Wörter"
     }
+   ],
+   "exercises": [
+    {
+     "title": "Zuordnung 1: Personen, Schule, Familie",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Personen)",
+       "items": [
+        "ich",
+        "du",
+        "wir",
+        "ihr"
+       ],
+       "targets": [
+        "men",
+        "sen",
+        "biz",
+        "siz",
+        "ular"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D"
+       },
+       "points": 4,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Schule und Lernen)",
+       "items": [
+        "die Schule",
+        "lernen",
+        "das Buch",
+        "das Heft",
+        "der Stift"
+       ],
+       "targets": [
+        "maktab",
+        "o'rganmoq",
+        "kitob",
+        "daftar",
+        "ruchka",
+        "oila"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E"
+       },
+       "points": 5,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Familie)",
+       "items": [
+        "die Mutter",
+        "der Vater",
+        "der Bruder",
+        "die Schwester",
+        "die Familie"
+       ],
+       "targets": [
+        "ona",
+        "ota",
+        "aka / uka",
+        "opa / singil",
+        "oila",
+        "do'st (qiz)"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E"
+       },
+       "points": 5,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Zuordnung 2: Hobbys, Tage, Wetter",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Hobbys)",
+       "items": [
+        "Fußball spielen",
+        "Musik hören",
+        "lesen",
+        "schwimmen",
+        "Rad fahren"
+       ],
+       "targets": [
+        "futbol o'ynamoq",
+        "musiqa tinglamoq",
+        "o'qimoq",
+        "suzmoq",
+        "velosiped haydamoq",
+        "rasm chizmoq"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E"
+       },
+       "points": 5,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Wochentage)",
+       "items": [
+        "Montag",
+        "Dienstag",
+        "Mittwoch",
+        "Donnerstag",
+        "Freitag",
+        "Samstag",
+        "Sonntag"
+       ],
+       "targets": [
+        "dushanba",
+        "seshanba",
+        "chorshanba",
+        "payshanba",
+        "juma",
+        "shanba",
+        "yakshanba"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F",
+        "7": "G"
+       },
+       "points": 7,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Wetter und Jahreszeiten)",
+       "items": [
+        "sonnig",
+        "kalt",
+        "windig",
+        "der Frühling",
+        "der Sommer",
+        "der Winter"
+       ],
+       "targets": [
+        "quyoshli",
+        "sovuq",
+        "shamolli",
+        "bahor",
+        "yoz",
+        "qish",
+        "kuz"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Lückentext: Wörter im Satz",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Ich gehe in die [[1]] und lerne Deutsch.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "Schule"
+         ],
+         "options": [
+          "Schule",
+          "Familie",
+          "Nacht"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Lesen, Text 1: „Ich gehe in die Schule und lerne Deutsch.“"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Ich [[1]] aus Usbekistan.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "komme"
+         ],
+         "options": [
+          "komme",
+          "wohne",
+          "mag"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "„Ich komme aus Usbekistan.“ — kommen = kelmoq"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Ich [[1]] in Taschkent.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "wohne"
+         ],
+         "options": [
+          "wohne",
+          "komme",
+          "gehe"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "„Ich wohne in Taschkent.“ — wohnen = yashamoq"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Ich [[1]] Fußball.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "mag"
+         ],
+         "options": [
+          "mag",
+          "wohne",
+          "komme"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "„Ich mag Fußball.“ — mögen = yoqtirmoq"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Anna liest ein [[1]].",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "Buch"
+         ],
+         "options": [
+          "Buch",
+          "Stift",
+          "Tag"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Hören: „Anna liest ein Buch.“"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Es ist [[1]] und warm.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "sonnig"
+         ],
+         "options": [
+          "sonnig",
+          "Montag",
+          "danke"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Hören: „Es ist sonnig und warm.“"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] ist der Tag nach Freitag.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "Samstag"
+         ],
+         "options": [
+          "Samstag",
+          "Sonntag",
+          "Montag"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Freitag → Samstag → Sonntag"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Hallo! [[1]]! — Rahmat!",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "Danke"
+         ],
+         "options": [
+          "Danke",
+          "Bitte",
+          "Nein"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "danke = rahmat"
+      }
+     ],
+     "instruction": "Bo'sh joyga mos so'zni tanlang."
+    },
+    {
+     "title": "Der, die oder das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Schule (maktab)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Buch (kitob)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Heft (daftar)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Stift (ruchka)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Mutter (ona)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Vater (ota)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Familie (oila)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Nacht (tun)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Sommer (yoz)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Morgen (tong)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "So'zning artiklini tanlang (kitobdagi lug'at bo'yicha)."
+    },
+    {
+     "title": "Nemischa qanday?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "„kitob“ — nemischa qanday?",
+       "options": [
+        "das Buch",
+        "das Heft",
+        "der Stift"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„oila“ — nemischa qanday?",
+       "options": [
+        "die Schule",
+        "die Familie",
+        "die Freundin"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„chorshanba“ — nemischa qanday?",
+       "options": [
+        "Dienstag",
+        "Mittwoch",
+        "Donnerstag"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„kuz“ — nemischa qanday?",
+       "options": [
+        "der Herbst",
+        "der Winter",
+        "der Frühling"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„yomg'irli“ — nemischa qanday?",
+       "options": [
+        "windig",
+        "regnerisch",
+        "sonnig"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„iltimos“ — nemischa qanday?",
+       "options": [
+        "danke",
+        "bitte",
+        "nein"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„kechqurun“ — nemischa qanday?",
+       "options": [
+        "der Abend",
+        "der Morgen",
+        "die Nacht"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„suzmoq“ — nemischa qanday?",
+       "options": [
+        "lesen",
+        "schwimmen",
+        "Rad fahren"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "O'zbekcha so'zning nemischasini tanlang."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l01-grammatik-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 1,
+   "skill": "grammatik",
+   "title": "Grammatik: Das deutsche Alphabet",
+   "source": "book",
+   "metadata": {
+    "book_page": "5-7"
+   },
+   "rules": [
+    {
+     "title": "Das deutsche Alphabet",
+     "html": "<h3>Nemis tili alifbosi</h3><table><thead><tr><th>Harf</th><th>Nomi</th><th>Harf</th><th>Nomi</th><th>Harf</th><th>Nomi</th></tr></thead><tbody><tr><td>A a</td><td>A (ah)</td><td>B b</td><td>Be (bay)</td><td>C c</td><td>Ce (tsay)</td></tr><tr><td>D d</td><td>De (day)</td><td>E e</td><td>E (ay)</td><td>F f</td><td>Ef (eff)</td></tr><tr><td>G g</td><td>Ge (gay)</td><td>H h</td><td>Ha (hah)</td><td>I i</td><td>I (eeh)</td></tr><tr><td>J j</td><td>Jott / Je (yot)</td><td>K k</td><td>Ka (kah)</td><td>L l</td><td>El (ell)</td></tr><tr><td>M m</td><td>Em (em)</td><td>N n</td><td>En (en)</td><td>O o</td><td>O (oh)</td></tr><tr><td>P p</td><td>Pe (pay)</td><td>Q q</td><td>Qu / Que (koo)</td><td>R r</td><td>Er (err)</td></tr><tr><td>S s</td><td>Es (es)</td><td>T t</td><td>Te (tay)</td><td>U u</td><td>U (ooh)</td></tr><tr><td>V v</td><td>Vau (fow)</td><td>W w</td><td>We (vay)</td><td>X x</td><td>Ix (iks)</td></tr><tr><td>Y y</td><td>Ypsilon (oopsilohn)</td><td>Z z</td><td>Zett (tset)</td><td>Ä ä</td><td>Ä (eh)</td></tr><tr><td>Ü ü</td><td>Ü (uuh)</td><td>Ö ö</td><td>Ö (ouh)</td><td>ß</td><td>Eszett (ess-set)</td></tr></tbody></table>"
+    },
+    {
+     "title": "Nemis alifbosidagi muhim harflar",
+     "html": "<h3>Muhim harflar va ularning o'qilishi</h3><table><thead><tr><th>Harf</th><th>Qoida</th><th>Misollar</th></tr></thead><tbody><tr><td>C c</td><td>a, o, u yoki undoshdan oldin — [k]; e, i, ä, ö, ü oldidan — [ts]</td><td>Cafe [kafe], Clown [klawn]; Cent [tsent], Cinema [tsinema]</td></tr><tr><td>H h</td><td>So'z boshida yoki unli oldida [h]; ikki unli orasida talaffuz qilinmaydi va oldingi unlini cho'zadi; ba'zi so'zlarda faqat unlining uzunligini bildiradi</td><td>Haus [haus] (uy), heute [hoyte] (bugun); sehen [ze:en] (ko'rmoq), gehen [ge:en] (bormoq); Uhr [u:a] (soat), Zahn [tsa:n] (tish)</td></tr><tr><td>J j</td><td>Asli nemischa so'zlarda [y]; xorijiy so'zlarda [ʒ] (o'zbekcha J)</td><td>Jahr [ya:r] (yil), Junge [yunge] (bola); Job (ish), Joggen (yugurish), Jeans (jinsi)</td></tr><tr><td>Q q</td><td>Har doim [kv]</td><td>Qualität [kvali'te:t] (sifat), Quelle [kvelə] (manba)</td></tr><tr><td>R r</td><td>So'z boshida yoki undoshdan keyin tomoqdan chiqadigan [ʁ]; so'z yoki bo'g'in oxirida ko'pincha [ɐ] ga yaqin</td><td>Rot [ʁo:t] (qizil), Brief [bʁi:f] (xat); Lehrer [le:ʁɐ] (o'qituvchi), Mutter [mutɐ] (ona)</td></tr><tr><td>S s</td><td>So'z boshida unli oldidan [z]; so'z oxiri yoki undosh oldidan [s]; sp — [shp], st — [sht]</td><td>Sonne [zonə] (quyosh), sieben [zi:bən] (yetti); Haus [haus] (uy), ist [ist] (dir); Sport [shport], sprechen [shprechen]; Straße [shtra:se], Student [shtudent]</td></tr><tr><td>V v</td><td>Ko'pincha [f]; ba'zi xorijiy so'zlarda [v]</td><td>Vater [fa:ter] (ota), Volk [folk] (xalq); Video [video], Virus [virus]</td></tr><tr><td>W w</td><td>Har doim [v]</td><td>Wasser [vaser] (suv), Winter [vinter] (qish)</td></tr><tr><td>Y y</td><td>Ko'pincha [ü] yoki [i] tovushiga yaqin; ba'zi xorijiy so'zlarda [y]</td><td>Physik [füzik] (fizika), Psychologie [psüxolo'gi:] (psixologiya); Yoga [jo:ga]</td></tr><tr><td>Z z</td><td>Har doim [ts]</td><td>Zeit [tsayt] (vaqt), Zimmer [tsimmer] (xona)</td></tr><tr><td>Ä ä</td><td>„a“ va „e“ oralig'idagi tovush</td><td>Mädchen [me:dchen] (qizcha)</td></tr><tr><td>Ö ö</td><td>„o“ va „e“ aralash tovush</td><td>schön [shø:n] (chiroyli)</td></tr><tr><td>Ü ü</td><td>„u“ va „i“ aralash tovush</td><td>Tür [ty:r] (eshik)</td></tr><tr><td>ß</td><td>Eszett („scharfes S“) — har doim [s]</td><td>Straße [shtra:se] (ko'cha), Fußball [fu:sbal] (futbol)</td></tr></tbody></table>"
+    },
+    {
+     "title": "Harf birikmalari va diftonglar",
+     "html": "<h3>A. Harf birikmalari (undoshlar birikmasi)</h3><table><thead><tr><th>Birikma</th><th>O'qilishi</th><th>Misollar</th></tr></thead><tbody><tr><td>ch</td><td>[ç]; a, o, u, au dan keyin [x]; ba'zi xorijiy so'zlarda [k]</td><td>ich [ix] (men), Küche [kyxə] (oshxona); Bach [bax] (soy), Buch [bux] (kitob); Charakter [karakter] (xarakter)</td></tr><tr><td>sch</td><td>[sh]</td><td>Schule [shu:lə] (maktab), Schnee [shne:] (qor)</td></tr><tr><td>sp</td><td>[shp]</td><td>Sport [shport] (sport), Sprache [shpra:xə] (til)</td></tr><tr><td>st</td><td>[sht]</td><td>Student [shtudent] (talaba), Stadt [shtat] (shahar)</td></tr><tr><td>ph</td><td>[f]</td><td>Philosophie [filozofi:] (falsafa), Physik [fizik] (fizika)</td></tr><tr><td>th</td><td>[t]</td><td>Theater [teater] (teatr), Thema [tema] (mavzu)</td></tr><tr><td>ck</td><td>[k]</td><td>Jacke [yaka] (kurtka), Zucker [tsuker] (shakar)</td></tr><tr><td>ng</td><td>[ŋ]</td><td>singen [ziŋən] (kuylamoq), Finger (barmoq)</td></tr></tbody></table><h3>B. Diftonglar (ikki unli tovush birikmasi)</h3><table><thead><tr><th>Diftong</th><th>O'qilishi</th><th>Misollar</th></tr></thead><tbody><tr><td>ei / ai</td><td>[ay]</td><td>mein [mayn] (mening), Kaiser (imperator)</td></tr><tr><td>eu / äu</td><td>[oy]</td><td>neu [noy] (yangi), Häuser [hoyzer] (uylar)</td></tr><tr><td>au</td><td>[au]</td><td>Haus [haus] (uy), Auto [auto] (mashina)</td></tr><tr><td>ie</td><td>[i:] (cho'ziq i)</td><td>Liebe [li:bə] (muhabbat), vier [fi:r] (to'rt)</td></tr><tr><td>eu (xorijiy so'zlarda)</td><td>[oy] yoki [eü]</td><td>Europa [oyropa] (Yevropa), Eule (boyo'g'li)</td></tr></tbody></table>"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "Übung 1: Buchstaben und ihre Namen",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Welcher Name gehört zu welchem Buchstaben?",
+       "items": [
+        "B",
+        "C",
+        "H",
+        "J",
+        "Q",
+        "V"
+       ],
+       "targets": [
+        "Be (bay)",
+        "Ce (tsay)",
+        "Ha (hah)",
+        "Jott / Je (yot)",
+        "Qu / Que (koo)",
+        "Vau (fow)",
+        "We (vay)"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1,
+       "explanation": "Buch, S. 5: B — Be, C — Ce, H — Ha, J — Jott, Q — Qu, V — Vau."
+      },
+      {
+       "type": "matching",
+       "question": "Welcher Name gehört zu welchem Buchstaben?",
+       "items": [
+        "W",
+        "Y",
+        "Z",
+        "ß",
+        "X",
+        "R"
+       ],
+       "targets": [
+        "Ix (iks)",
+        "Er (err)",
+        "We (vay)",
+        "Ypsilon (oopsilohn)",
+        "Zett (tset)",
+        "Eszett (ess-set)",
+        "Vau (fow)"
+       ],
+       "pairs": {
+        "1": "C",
+        "2": "D",
+        "3": "E",
+        "4": "F",
+        "5": "A",
+        "6": "B"
+       },
+       "points": 6,
+       "passage": 1,
+       "explanation": "Buch, S. 5: W — We, Y — Ypsilon, Z — Zett, ß — Eszett, X — Ix, R — Er."
+      }
+     ],
+     "instruction": "Harfni uning nemischa nomi bilan moslashtiring (kitob, 5-bet)."
+    },
+    {
+     "title": "Übung 2: Groß- und Kleinbuchstaben",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Großbuchstabe — Kleinbuchstabe: Was passt zusammen?",
+       "items": [
+        "A",
+        "B",
+        "D",
+        "E",
+        "G",
+        "Q"
+       ],
+       "targets": [
+        "a",
+        "b",
+        "d",
+        "e",
+        "g",
+        "q",
+        "p"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Großbuchstabe — Kleinbuchstabe: Was passt zusammen?",
+       "items": [
+        "R",
+        "T",
+        "Ä",
+        "Ö",
+        "Ü",
+        "N"
+       ],
+       "targets": [
+        "ü",
+        "ö",
+        "ä",
+        "r",
+        "t",
+        "n",
+        "u"
+       ],
+       "pairs": {
+        "1": "D",
+        "2": "E",
+        "3": "C",
+        "4": "B",
+        "5": "A",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Welcher Buchstabe hat keinen Großbuchstaben im Alphabet der Buchseite?",
+       "options": [
+        "ß",
+        "ä",
+        "z",
+        "y"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Buch, S. 5: „ß“ steht im Alphabet nur klein (Eszett)."
+      }
+     ],
+     "instruction": "Katta va kichik harflarni moslashtiring."
+    },
+    {
+     "title": "Übung 3: Wie liest man das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Nemis alifbosida (Ä, Ö, Ü, ß dan tashqari) nechta harf bor?",
+       "options": [
+        "24",
+        "26",
+        "28",
+        "30"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Buch, S. 5: A dan Z gacha 26 harf."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Nemis tilida nechta Umlaut harfi bor?",
+       "options": [
+        "2",
+        "3",
+        "4",
+        "5"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Ä, Ö, Ü"
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„sch“ harf birikmasi qanday o'qiladi?",
+       "options": [
+        "[ch]",
+        "[sh]",
+        "[s]",
+        "[k]"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Schule [shu:lə]"
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„sp“ (Sport) qanday o'qiladi?",
+       "options": [
+        "[sp]",
+        "[shp]",
+        "[sht]",
+        "[sh]"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„st“ (Student) qanday o'qiladi?",
+       "options": [
+        "[st]",
+        "[sht]",
+        "[shp]",
+        "[ts]"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„ch“ „ich“ so'zida qanday tovush beradi?",
+       "options": [
+        "[k]",
+        "[ç]",
+        "[sh]",
+        "[t]"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„ch“ „Buch“ so'zida (u dan keyin) qanday o'qiladi?",
+       "options": [
+        "[ç]",
+        "[x]",
+        "[k]",
+        "[sh]"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "a, o, u, au dan keyin [x]: Bach, Buch."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„ß“ qanday ataladi?",
+       "options": [
+        "Umlaut",
+        "Eszett",
+        "Zett",
+        "Ypsilon"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„z“ qanday o'qiladi?",
+       "options": [
+        "[z]",
+        "[ts]",
+        "[s]",
+        "[sh]"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Zeit [tsayt]"
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„w“ qanday o'qiladi?",
+       "options": [
+        "[w]",
+        "[v]",
+        "[f]",
+        "[y]"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Wasser [vaser]"
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„v“ ko'pincha qanday o'qiladi?",
+       "options": [
+        "[v]",
+        "[f]",
+        "[b]",
+        "[w]"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Vater [fa:ter]"
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„j“ asli nemischa so'zlarda qanday o'qiladi?",
+       "options": [
+        "[j]",
+        "[y]",
+        "[sh]",
+        "[ts]"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Jahr [ya:r]"
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„qu“ qanday o'qiladi?",
+       "options": [
+        "[ku]",
+        "[kv]",
+        "[shu]",
+        "[tsu]"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Qualität [kvali'te:t]"
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„ei“ qanday o'qiladi?",
+       "options": [
+        "[ey]",
+        "[ay]",
+        "[iy]",
+        "[oy]"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "mein [mayn]"
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„eu“ qanday o'qiladi?",
+       "options": [
+        "[ay]",
+        "[oy]",
+        "[au]",
+        "[iy]"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "neu [noy]"
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„ie“ qanday o'qiladi?",
+       "options": [
+        "[i:] (cho'ziq i)",
+        "[ay]",
+        "[oy]",
+        "[e]"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "vier [fi:r]"
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„ph“ qanday o'qiladi?",
+       "options": [
+        "[p]",
+        "[f]",
+        "[h]",
+        "[v]"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Physik"
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„th“ qanday o'qiladi?",
+       "options": [
+        "[t]",
+        "[th]",
+        "[f]",
+        "[s]"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Theater [teater]"
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„ck“ qanday o'qiladi?",
+       "options": [
+        "[k]",
+        "[ts]",
+        "[sh]",
+        "[g]"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Zucker [tsuker]"
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„s“ so'z boshida unli oldidan („Sonne“) qanday o'qiladi?",
+       "options": [
+        "[s]",
+        "[z]",
+        "[sh]",
+        "[ts]"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Sonne [zonə]"
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„c“ „Cafe“ so'zida (a oldidan) qanday o'qiladi?",
+       "options": [
+        "[ts]",
+        "[k]",
+        "[s]",
+        "[ch]"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "a, o, u oldidan [k]."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„c“ „Cent“ so'zida (e oldidan) qanday o'qiladi?",
+       "options": [
+        "[k]",
+        "[ts]",
+        "[s]",
+        "[ch]"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "e, i, ä, ö, ü oldidan [ts]."
+      }
+     ],
+     "instruction": "Alifbo va talaffuz qoidalari bo'yicha to'g'ri javobni tanlang (kitob, 5-7-betlar)."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l01-lesen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 1,
+   "skill": "lesen",
+   "title": "Lesen: Tom und Anna",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 8,
+    "note": "Matnlar va tarjimalar kitobdan; savollar VIZU tomonidan matn asosida tuzilgan (kitobda savol yo'q)."
+   },
+   "instruction": "Lesen Sie die Texte und beantworten Sie die Fragen.",
+   "passages": [
+    {
+     "title": "Text 1: Tom",
+     "text": "Hallo! Ich heiße Tom und ich bin 10 Jahre alt. Ich komme aus Usbekistan und wohne in Taschkent. Ich gehe in die Schule und lerne Deutsch. Ich mag Fußball. Danke!\n\nO'zbekcha tarjima: Salom! Mening ismim Tom va men 10 yoshdaman. Men O'zbekistondan va Toshkentda yashayman. Men maktabga boraman va nemis tilini o'rganaman. Menga futbol yoqadi. Rahmat!"
+    },
+    {
+     "title": "Text 2: Anna",
+     "text": "Hallo! Ich heiße Anna und ich bin 9 Jahre alt. Ich komme aus Usbekistan und wohne in Taschkent. Ich gehe in die Schule und lerne Deutsch. Ich mag Malen und Musik. Danke!\n\nO'zbekcha tarjima: Salom! Mening ismim Anna va men 9 yoshdaman. Men O'zbekistondan va Toshkentda yashayman. Men maktabga boraman va nemis tilini o'rganaman. Menga rasm chizish va musiqa yoqadi. Rahmat!"
+    },
+    {
+     "title": "Text 3: Tom und Anna",
+     "text": "Hallo! Wir heißen Tom und Anna. Wir sind 10 und 9 Jahre alt. Wir kommen aus Usbekistan und wohnen in Taschkent. Wir gehen in die Schule und lernen Deutsch. Wir mögen Fußball, Malen und Musik. Danke!\n\nO'zbekcha tarjima: Salom! Bizning ismimiz Tom va Anna. Biz 10 va 9 yoshdamiz. Biz O'zbekistonlikmiz va Toshkentda yashaymiz. Biz maktabga boramiz va nemis tilini o'rganamiz. Bizga futbol, rasm chizish va musiqa yoqadi. Rahmat!"
+    }
+   ],
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Wie alt ist Tom?",
+     "options": [
+      "8 Jahre",
+      "10 Jahre",
+      "12 Jahre"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Matnda: „Ich bin 10 Jahre alt.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wo wohnt Tom?",
+     "options": [
+      "In Berlin",
+      "In München",
+      "In Taschkent"
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Matnda: „Ich … wohne in Taschkent.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Tom kommt aus Usbekistan.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "Matnda: „Ich komme aus Usbekistan.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was lernt Tom in der Schule?",
+     "options": [
+      "Englisch",
+      "Deutsch",
+      "Russisch"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Matnda: „Ich gehe in die Schule und lerne Deutsch.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was mag Tom?",
+     "options": [
+      "Malen",
+      "Fußball",
+      "Musik"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Matnda: „Ich mag Fußball.“"
+    },
+    {
+     "type": "gap_fill",
+     "question": "Ergänzen Sie den Text über Tom.",
+     "text": "Ich heiße Tom und ich bin [[1]] Jahre alt. Ich komme aus [[2]].",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "10"
+       ],
+       "options": [
+        "9",
+        "10",
+        "12"
+       ]
+      },
+      "2": {
+       "accepted": [
+        "Usbekistan"
+       ],
+       "options": [
+        "Deutschland",
+        "Usbekistan",
+        "Taschkent"
+       ]
+      }
+     },
+     "points": 2,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "Matnda: „Ich heiße Tom und ich bin 10 Jahre alt. Ich komme aus Usbekistan …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Anna ist 9 Jahre alt.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "richtig",
+     "explanation": "Matnda: „Ich bin 9 Jahre alt.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was mag Anna?",
+     "options": [
+      "Fußball und Tennis",
+      "Malen und Musik",
+      "Lesen und Schwimmen"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 2,
+     "explanation": "Matnda: „Ich mag Malen und Musik.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Woher kommt Anna?",
+     "options": [
+      "Aus Deutschland",
+      "Aus Usbekistan",
+      "Aus Österreich"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 2,
+     "explanation": "Matnda: „Ich komme aus Usbekistan.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Anna wohnt in Berlin.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "falsch",
+     "explanation": "Noto'g'ri — matnda: „… und wohne in Taschkent.“"
+    },
+    {
+     "type": "gap_fill",
+     "question": "Ergänzen Sie den Text über Anna.",
+     "text": "Ich gehe in die [[1]] und lerne [[2]].",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "Schule"
+       ],
+       "options": [
+        "Schule",
+        "Familie",
+        "Musik"
+       ]
+      },
+      "2": {
+       "accepted": [
+        "Deutsch"
+       ],
+       "options": [
+        "Englisch",
+        "Deutsch",
+        "Malen"
+       ]
+      }
+     },
+     "points": 2,
+     "passage": 2,
+     "case_sensitive": false,
+     "explanation": "Matnda: „Ich gehe in die Schule und lerne Deutsch.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Tom und Anna kommen aus Deutschland.",
+     "points": 1,
+     "passage": 3,
+     "correct_answer": "falsch",
+     "explanation": "Noto'g'ri — matnda: „Wir kommen aus Usbekistan.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wie alt sind Tom und Anna?",
+     "options": [
+      "10 und 9 Jahre",
+      "9 und 8 Jahre",
+      "11 und 10 Jahre"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 3,
+     "explanation": "Matnda: „Wir sind 10 und 9 Jahre alt.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wo wohnen Tom und Anna?",
+     "options": [
+      "In Samarkand",
+      "In Taschkent",
+      "In Buchara"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 3,
+     "explanation": "Matnda: „… und wohnen in Taschkent.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Tom und Anna gehen in die Schule.",
+     "points": 1,
+     "passage": 3,
+     "correct_answer": "richtig",
+     "explanation": "Matnda: „Wir gehen in die Schule …“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was mögen Tom und Anna?",
+     "options": [
+      "Fußball, Malen und Musik",
+      "Tennis und Schwimmen",
+      "Lesen und Kochen"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 3,
+     "explanation": "Matnda: „Wir mögen Fußball, Malen und Musik.“"
+    },
+    {
+     "type": "gap_fill",
+     "question": "Ergänzen Sie den Text.",
+     "text": "Wir [[1]] Tom und Anna. Wir [[2]] in die Schule und lernen Deutsch.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "heißen"
+       ],
+       "options": [
+        "heißen",
+        "heiße",
+        "heißt"
+       ]
+      },
+      "2": {
+       "accepted": [
+        "gehen"
+       ],
+       "options": [
+        "gehe",
+        "gehen",
+        "geht"
+       ]
+      }
+     },
+     "points": 2,
+     "passage": 3,
+     "case_sensitive": false,
+     "explanation": "Matnda: „Wir heißen Tom und Anna. … Wir gehen in die Schule …“"
+    }
+   ],
+   "max_score": 20
+  },
+  {
+   "content_id": "vizu-a1-l01-hoeren-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 1,
+   "skill": "hoeren",
+   "title": "Hören: Im Park",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 9,
+    "note": "Matn kitobdan (audio A1-1.mp3); savollar VIZU tomonidan matn asosida tuzilgan."
+   },
+   "instruction": "Hören Sie den Text und beantworten Sie die Fragen.",
+   "audio_file": "A1-1.mp3",
+   "transcript": "Es ist Samstag. Tom und Anna gehen in den Park. Es ist sonnig und warm. Tom spielt Fußball und Anna liest ein Buch. Ein Hund kommt und läuft zu ihnen. Sie lachen und spielen mit dem Hund. Nach zwei Stunden gehen sie nach Hause. Sie sind müde, aber glücklich.\n\nO'zbekcha tarjima: Shanba kuni. Tom va Anna parkka borishadi. Quyoshli va iliq kun. Tom futbol o'ynaydi, Anna esa kitob o'qiydi. Bir it kelib ularga qo'shiladi. Ular kulib, it bilan o'ynashadi. Ikki soatdan so'ng uyga ketishadi. Ular charchagan, lekin baxtli.",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Welcher Tag ist es?",
+     "options": [
+      "Sonntag",
+      "Samstag",
+      "Montag"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Audio: „Es ist Samstag.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wohin gehen Tom und Anna?",
+     "options": [
+      "In die Schule",
+      "In den Park",
+      "Nach Hause"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Audio: „Tom und Anna gehen in den Park.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Es ist kalt und regnerisch.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "Noto'g'ri — audio: „Es ist sonnig und warm.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was macht Tom im Park?",
+     "options": [
+      "Er liest ein Buch.",
+      "Er spielt Fußball.",
+      "Er malt."
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Audio: „Tom spielt Fußball …“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was macht Anna im Park?",
+     "options": [
+      "Sie spielt Fußball.",
+      "Sie liest ein Buch.",
+      "Sie hört Musik."
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Audio: „… und Anna liest ein Buch.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Ein Hund kommt und läuft zu Tom und Anna.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "Audio: „Ein Hund kommt und läuft zu ihnen.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Tom und Anna spielen mit dem Hund.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "Audio: „Sie lachen und spielen mit dem Hund.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wann gehen sie nach Hause?",
+     "options": [
+      "Nach einer Stunde",
+      "Nach zwei Stunden",
+      "Nach drei Stunden"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Audio: „Nach zwei Stunden gehen sie nach Hause.“"
+    },
+    {
+     "type": "gap_fill",
+     "question": "Ergänzen Sie, was Sie hören.",
+     "text": "Es ist [[1]] und [[2]].",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "sonnig"
+       ],
+       "options": [
+        "sonnig",
+        "kalt",
+        "windig"
+       ]
+      },
+      "2": {
+       "accepted": [
+        "warm"
+       ],
+       "options": [
+        "regnerisch",
+        "warm",
+        "kalt"
+       ]
+      }
+     },
+     "points": 2,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "Audio: „Es ist sonnig und warm.“"
+    },
+    {
+     "type": "gap_fill",
+     "question": "Ergänzen Sie, was Sie hören.",
+     "text": "Sie sind [[1]], aber [[2]].",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "müde"
+       ],
+       "options": [
+        "müde",
+        "traurig",
+        "krank"
+       ]
+      },
+      "2": {
+       "accepted": [
+        "glücklich"
+       ],
+       "options": [
+        "glücklich",
+        "kalt",
+        "böse"
+       ]
+      }
+     },
+     "points": 2,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "Audio: „Sie sind müde, aber glücklich.“"
+    }
+   ],
+   "max_score": 12
+  },
+  {
+   "content_id": "vizu-a1-l01-sprechen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 1,
+   "skill": "sprechen",
+   "title": "Stellen Sie sich vor!",
+   "source": "book",
+   "metadata": {
+    "book_page": 11
+   },
+   "topic": "Sich vorstellen – Erzählen Sie über sich!",
+   "prompt": "Sich vorstellen — Erzählen Sie über sich! Sprechen Sie mit diesen Sätzen. Tipp: Sprich über dich selbst! Sei mutig und lächle!",
+   "questions": [
+    "Hallo! Ich heiße … , ich bin … Jahre alt.",
+    "Ich komme aus … und wohne in …",
+    "Ich gehe in die Schule und lerne …",
+    "Ich mag … (z. B. Fußball, Musik, Bücher).",
+    "Meine Hobbys sind …",
+    "Mein Lieblingsfach ist …",
+    "Ich habe … Bruder / … Schwester.",
+    "Meine Familie ist …",
+    "Ich freue mich, Deutsch zu lernen!"
+   ],
+   "response_type": "monolog",
+   "min_duration": 20,
+   "max_duration": 90,
+   "speech_goal": "Name, Alter, Herkunft, Wohnort, Schule/Deutsch, Hobbys und Familie in einfachen Sätzen nennen.",
+   "keywords": [
+    "Ich heiße",
+    "Jahre alt",
+    "Ich komme aus",
+    "Ich wohne in",
+    "Ich mag"
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l01-schreiben_uebungen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 1,
+   "skill": "schreiben_uebungen",
+   "title": "Schreiben: Aufgaben 1–4 und Sätze bauen",
+   "source": "book",
+   "metadata": {
+    "book_page": 10
+   },
+   "exercises": [
+    {
+     "title": "Aufgabe 1: Tom (Lückentext)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie den Text mit den Wörtern aus dem Kasten.",
+       "text": "Hallo! Ich heiße [[1]], ich bin [[2]] Jahre alt, ich komme aus [[3]] und wohne in [[4]]. Ich gehe in die Schule und lerne [[5]]. Ich mag [[6]].",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "Tom"
+         ],
+         "options": [
+          "10",
+          "Fußball",
+          "Usbekistan",
+          "Tom",
+          "Taschkent",
+          "Deutsch"
+         ]
+        },
+        "2": {
+         "accepted": [
+          "10"
+         ],
+         "options": [
+          "10",
+          "Fußball",
+          "Usbekistan",
+          "Tom",
+          "Taschkent",
+          "Deutsch"
+         ]
+        },
+        "3": {
+         "accepted": [
+          "Usbekistan"
+         ],
+         "options": [
+          "10",
+          "Fußball",
+          "Usbekistan",
+          "Tom",
+          "Taschkent",
+          "Deutsch"
+         ]
+        },
+        "4": {
+         "accepted": [
+          "Taschkent"
+         ],
+         "options": [
+          "10",
+          "Fußball",
+          "Usbekistan",
+          "Tom",
+          "Taschkent",
+          "Deutsch"
+         ]
+        },
+        "5": {
+         "accepted": [
+          "Deutsch"
+         ],
+         "options": [
+          "10",
+          "Fußball",
+          "Usbekistan",
+          "Tom",
+          "Taschkent",
+          "Deutsch"
+         ]
+        },
+        "6": {
+         "accepted": [
+          "Fußball"
+         ],
+         "options": [
+          "10",
+          "Fußball",
+          "Usbekistan",
+          "Tom",
+          "Taschkent",
+          "Deutsch"
+         ]
+        }
+       },
+       "points": 6,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Hallo! Ich heiße Tom, ich bin 10 Jahre alt, ich komme aus Usbekistan und wohne in Taschkent. Ich gehe in die Schule und lerne Deutsch. Ich mag Fußball."
+      }
+     ],
+     "instruction": "Wörter: 10, Fußball, Usbekistan, Tom, Taschkent, Deutsch (kitob, 10-bet)."
+    },
+    {
+     "title": "Aufgabe 2: Tom (o'zbekcha)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Bo'sh joylarni qutidagi so'zlar bilan to'ldiring.",
+       "text": "Salom! Mening ismim [[1]], men [[2]] yoshdaman, men [[3]]danman va [[4]] yashayman. Men maktabga boraman va [[5]] tilini o'rganaman. Menga [[6]] yoqadi.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "Tom"
+         ],
+         "options": [
+          "10",
+          "futbol",
+          "Usbekiston",
+          "Tom",
+          "Toshkentda",
+          "nemis"
+         ]
+        },
+        "2": {
+         "accepted": [
+          "10"
+         ],
+         "options": [
+          "10",
+          "futbol",
+          "Usbekiston",
+          "Tom",
+          "Toshkentda",
+          "nemis"
+         ]
+        },
+        "3": {
+         "accepted": [
+          "Usbekiston"
+         ],
+         "options": [
+          "10",
+          "futbol",
+          "Usbekiston",
+          "Tom",
+          "Toshkentda",
+          "nemis"
+         ]
+        },
+        "4": {
+         "accepted": [
+          "Toshkentda"
+         ],
+         "options": [
+          "10",
+          "futbol",
+          "Usbekiston",
+          "Tom",
+          "Toshkentda",
+          "nemis"
+         ]
+        },
+        "5": {
+         "accepted": [
+          "nemis"
+         ],
+         "options": [
+          "10",
+          "futbol",
+          "Usbekiston",
+          "Tom",
+          "Toshkentda",
+          "nemis"
+         ]
+        },
+        "6": {
+         "accepted": [
+          "futbol"
+         ],
+         "options": [
+          "10",
+          "futbol",
+          "Usbekiston",
+          "Tom",
+          "Toshkentda",
+          "nemis"
+         ]
+        }
+       },
+       "points": 6,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Salom! Mening ismim Tom, men 10 yoshdaman, men Usbekistondanman va Toshkentda yashayman. Men maktabga boraman va nemis tilini o'rganaman. Menga futbol yoqadi."
+      }
+     ],
+     "instruction": "So'zlar: 10, futbol, Usbekiston, Tom, Toshkentda, nemis (kitob, 10-bet)."
+    },
+    {
+     "title": "Aufgabe 3: Anna (Lückentext)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie den Text mit den Wörtern aus dem Kasten.",
+       "text": "Das ist mein Freund / meine Freundin [[1]]. Er/Sie ist [[2]] Jahre alt, er/sie kommt aus [[3]] und wohnt in [[4]]. Er/Sie geht in die Schule und lernt [[5]]. Er/Sie mag [[6]].",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "Anna"
+         ],
+         "options": [
+          "Usbekistan",
+          "Anna",
+          "Malen und Musik",
+          "Taschkent",
+          "9",
+          "Deutsch"
+         ]
+        },
+        "2": {
+         "accepted": [
+          "9"
+         ],
+         "options": [
+          "Usbekistan",
+          "Anna",
+          "Malen und Musik",
+          "Taschkent",
+          "9",
+          "Deutsch"
+         ]
+        },
+        "3": {
+         "accepted": [
+          "Usbekistan"
+         ],
+         "options": [
+          "Usbekistan",
+          "Anna",
+          "Malen und Musik",
+          "Taschkent",
+          "9",
+          "Deutsch"
+         ]
+        },
+        "4": {
+         "accepted": [
+          "Taschkent"
+         ],
+         "options": [
+          "Usbekistan",
+          "Anna",
+          "Malen und Musik",
+          "Taschkent",
+          "9",
+          "Deutsch"
+         ]
+        },
+        "5": {
+         "accepted": [
+          "Deutsch"
+         ],
+         "options": [
+          "Usbekistan",
+          "Anna",
+          "Malen und Musik",
+          "Taschkent",
+          "9",
+          "Deutsch"
+         ]
+        },
+        "6": {
+         "accepted": [
+          "Malen und Musik"
+         ],
+         "options": [
+          "Usbekistan",
+          "Anna",
+          "Malen und Musik",
+          "Taschkent",
+          "9",
+          "Deutsch"
+         ]
+        }
+       },
+       "points": 6,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Das ist meine Freundin Anna. Sie ist 9 Jahre alt, sie kommt aus Usbekistan und wohnt in Taschkent. Sie geht in die Schule und lernt Deutsch. Sie mag Malen und Musik."
+      }
+     ],
+     "instruction": "Wörter: Usbekistan, Anna, Malen und Musik, Taschkent, 9, Deutsch (kitob, 10-bet)."
+    },
+    {
+     "title": "Aufgabe 4: Anna (o'zbekcha)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Bo'sh joylarni qutidagi so'zlar bilan to'ldiring.",
+       "text": "Bu mening do'stim [[1]]. U [[2]] yoshda, u [[3]] va [[4]] yashaydi. U maktabga boradi va [[5]] tilini o'rganadi. Uga [[6]] yoqadi.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "Anna"
+         ],
+         "options": [
+          "Anna",
+          "9",
+          "Usbekistondan",
+          "Toshkentda",
+          "nemis",
+          "Malen va musiqa"
+         ]
+        },
+        "2": {
+         "accepted": [
+          "9"
+         ],
+         "options": [
+          "Anna",
+          "9",
+          "Usbekistondan",
+          "Toshkentda",
+          "nemis",
+          "Malen va musiqa"
+         ]
+        },
+        "3": {
+         "accepted": [
+          "Usbekistondan"
+         ],
+         "options": [
+          "Anna",
+          "9",
+          "Usbekistondan",
+          "Toshkentda",
+          "nemis",
+          "Malen va musiqa"
+         ]
+        },
+        "4": {
+         "accepted": [
+          "Toshkentda"
+         ],
+         "options": [
+          "Anna",
+          "9",
+          "Usbekistondan",
+          "Toshkentda",
+          "nemis",
+          "Malen va musiqa"
+         ]
+        },
+        "5": {
+         "accepted": [
+          "nemis"
+         ],
+         "options": [
+          "Anna",
+          "9",
+          "Usbekistondan",
+          "Toshkentda",
+          "nemis",
+          "Malen va musiqa"
+         ]
+        },
+        "6": {
+         "accepted": [
+          "Malen va musiqa"
+         ],
+         "options": [
+          "Anna",
+          "9",
+          "Usbekistondan",
+          "Toshkentda",
+          "nemis",
+          "Malen va musiqa"
+         ]
+        }
+       },
+       "points": 6,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Bu mening do'stim Anna. U 9 yoshda, u Usbekistondan va Toshkentda yashaydi. U maktabga boradi va nemis tilini o'rganadi. Uga Malen va musiqa yoqadi."
+      }
+     ],
+     "instruction": "So'zlar: Anna, 9, Usbekistondan, Toshkentda, nemis, Malen va musiqa (kitob, 10-bet)."
+    },
+    {
+     "title": "Sätze bauen",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Welcher Satz ist richtig? (heiße / Ich / Tom)",
+       "options": [
+        "Ich heiße Tom.",
+        "Heiße Tom ich.",
+        "Tom ich heiße."
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Ich heiße Tom."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Welcher Satz ist richtig? (bin / 10 Jahre alt / ich)",
+       "options": [
+        "Ich bin 10 Jahre alt.",
+        "Bin ich alt 10 Jahre.",
+        "10 Jahre ich bin alt."
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Welcher Satz ist richtig? (komme / aus Usbekistan / Ich)",
+       "options": [
+        "Aus ich komme Usbekistan.",
+        "Ich komme aus Usbekistan.",
+        "Komme Usbekistan ich aus."
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Welcher Satz ist richtig? (wohne / in Taschkent / Ich)",
+       "options": [
+        "Ich wohne in Taschkent.",
+        "In wohne ich Taschkent.",
+        "Wohne Taschkent ich in."
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Welcher Satz ist richtig? (mag / Ich / Musik)",
+       "options": [
+        "Musik mag ich ich.",
+        "Mag ich Musik ich.",
+        "Ich mag Musik."
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "So'zlardan to'g'ri gap tanlang (kitobdagi gaplar asosida, VIZU mashqi)."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l01-schreiben-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 1,
+   "skill": "schreiben",
+   "title": "Über mich",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 10
+   },
+   "prompt": "Schreiben Sie über sich — wie in Aufgabe 1, aber mit Ihren eigenen Informationen:\n\nHallo! Ich heiße ____, ich bin ____ Jahre alt, ich komme aus ____ und wohne in ____.\nIch gehe in die Schule und lerne ____. Ich mag ____.",
+   "task_type": "description",
+   "min_words": 20,
+   "max_words": 60,
+   "time_limit": 10,
+   "support_phrases": [
+    "Ich heiße …",
+    "Ich bin … Jahre alt.",
+    "Ich komme aus …",
+    "Ich wohne in …",
+    "Ich lerne …",
+    "Ich mag …"
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l01-uebungen-01",
+   "level": "A1",
+   "module": 1,
+   "lesson": 1,
+   "skill": "uebungen",
+   "title": "Übungen Modul 1",
+   "source": "vizu",
+   "exercises": [
+    {
+     "title": "Buchstabieren",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Te – O – Em: Welches Wort ist das?",
+       "options": [
+        "Tom",
+        "Tim",
+        "Ton"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "A – En – En – A: Welches Wort ist das?",
+       "options": [
+        "Anja",
+        "Anna",
+        "Hanna"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Be – U – Ce – Ha: Welches Wort ist das?",
+       "options": [
+        "Bach",
+        "Buch",
+        "Busch"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ha – E – Ef – Te: Welches Wort ist das?",
+       "options": [
+        "Heft",
+        "Haft",
+        "Hund"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Vau – A – Te – E – Er: Welches Wort ist das?",
+       "options": [
+        "Wasser",
+        "Vater",
+        "Winter"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "V = Vau, wird [f] gesprochen: Vater [fa:ter]."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "We – I – En – Te – E – Er: Welches Wort ist das?",
+       "options": [
+        "Winter",
+        "Wetter",
+        "Vater"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "W = We, wird [v] gesprochen: Winter [vinter]."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Zett – E – I – Te: Welches Wort ist das?",
+       "options": [
+        "Zeit",
+        "Seit",
+        "Zett"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Z = Zett [ts]: Zeit [tsayt]."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Es – Ce – Ha – U – El – E: Welches Wort ist das?",
+       "options": [
+        "Schule",
+        "Schale",
+        "Stuhl"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "Harflab aytilgan so'zni toping (alifbo nomlari, kitob 5-bet)."
+    },
+    {
+     "title": "Wiederholung: Laute und Wörter",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "In welchem Wort hört man [sht]?",
+       "options": [
+        "Student",
+        "Sonne",
+        "Zimmer"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "st — [sht]: Student, Stadt."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "In welchem Wort hört man [shp]?",
+       "options": [
+        "Sport",
+        "Haus",
+        "Zeit"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "sp — [shp]: Sport, Sprache."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "In welchem Wort hört man [ay]?",
+       "options": [
+        "mein",
+        "neu",
+        "vier"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "ei — [ay]: mein."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "In welchem Wort hört man [oy]?",
+       "options": [
+        "neu",
+        "Haus",
+        "Liebe"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "eu — [oy]: neu."
+      },
+      {
+       "type": "true_false",
+       "question": "„Wasser“ spricht man [vaser].",
+       "points": 1,
+       "passage": 1,
+       "correct_answer": "richtig",
+       "explanation": "W — har doim [v]."
+      },
+      {
+       "type": "true_false",
+       "question": "„Vater“ spricht man [vater] mit [v].",
+       "points": 1,
+       "passage": 1,
+       "correct_answer": "falsch",
+       "explanation": "V — ko'pincha [f]: Vater [fa:ter]."
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen?",
+       "items": [
+        "der Morgen",
+        "der Abend",
+        "die Nacht",
+        "der Tag"
+       ],
+       "targets": [
+        "tong",
+        "kechqurun",
+        "tun",
+        "kun",
+        "yil"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D"
+       },
+       "points": 4,
+       "passage": 1
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Hallo! Ich [[1]] Tom.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "heiße"
+         ],
+         "options": [
+          "heiße",
+          "komme",
+          "mag"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Ich heiße … — mening ismim …"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "Wir [[1]] in die Schule und lernen Deutsch.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "gehen"
+         ],
+         "options": [
+          "gehen",
+          "gehe",
+          "geht"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Lesen, Text 3: „Wir gehen in die Schule …“"
+      }
+     ],
+     "instruction": "Darsdagi tovushlar, so'zlar va gaplar bo'yicha takrorlash."
+    }
    ]
   },
   {
@@ -979,9 +2746,9 @@
    "module": 1,
    "lesson": 1,
    "skill": "yakuniy",
-   "title": "Yakuniy Test: Modul 1",
+   "title": "Abschlusstest: Modul 1",
    "source": "vizu",
-   "instruction": "Alifbo, talaffuz va darsdagi so'zlar bo'yicha yakuniy test.",
+   "instruction": "Alifbo, talaffuz, darsdagi so'zlar va Lesen matnlari bo'yicha yakuniy test.",
    "questions": [
     {
      "type": "multiple_choice",
@@ -1009,6 +2776,18 @@
     },
     {
      "type": "multiple_choice",
+     "question": "Wie heißt der Buchstabe „J“?",
+     "options": [
+      "Ge",
+      "Jott",
+      "Ja"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
      "question": "Welches Wort beginnt mit [sht]?",
      "options": [
       "Straße",
@@ -1026,6 +2805,30 @@
       "[ay]",
       "[ey]",
       "[i:]"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„ie“ in „vier“ klingt wie …",
+     "options": [
+      "[i:]",
+      "[ay]",
+      "[ie]"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Welche Buchstaben sind Umlaute?",
+     "options": [
+      "Ä, Ö, Ü",
+      "A, O, U",
+      "ß, Y, Z"
      ],
      "correct_answer": "A",
      "points": 1,
@@ -1095,7 +2898,7 @@
       "men",
       "sen",
       "biz",
-      "siz (sizlar)",
+      "siz",
       "ular"
      ],
      "pairs": {
@@ -1104,10 +2907,82 @@
       "3": "C",
       "4": "D"
      },
-     "points": 1,
+     "points": 4,
      "passage": 1
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Hallo! Ich [[1]] Anna und ich bin 9 Jahre alt.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "heiße"
+       ],
+       "options": [
+        "heiße",
+        "wohne",
+        "lerne"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wählen Sie das richtige Wort.",
+     "text": "Ich komme aus Usbekistan und [[1]] in Taschkent.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "wohne"
+       ],
+       "options": [
+        "wohne",
+        "heiße",
+        "mag"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Tom mag … (Lesen, Text 1)",
+     "options": [
+      "Fußball",
+      "Malen",
+      "Musik"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Ich mag Fußball.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Anna lernt in der Schule Deutsch. (Lesen, Text 2)",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„Ich gehe in die Schule und lerne Deutsch.“"
     }
    ]
+  },
+  {
+   "content_id": "vizu-a1-l01-kompetenz-02",
+   "level": "A1",
+   "module": 1,
+   "lesson": 1,
+   "skill": "kompetenz",
+   "title": "Zusammenfassung: Modul 1",
+   "source": "vizu",
+   "competency": "ZUSAMMENFASSUNG",
+   "html": "<h3>Modul 1 — qisqacha</h3><ul><li><strong>Alphabet:</strong> A–Z, Umlaute Ä Ö Ü va ß (Eszett). W = [v], V = ko'pincha [f], Z = [ts], J = [y], Qu = [kv].</li><li><strong>Birikmalar:</strong> sch = [sh], sp/st (so'z boshida) = [shp]/[sht], ch = [ç]/[x], ei = [ay], eu/äu = [oy], ie = [i:].</li><li><strong>O'zini tanishtirish:</strong> Ich heiße … · Ich bin … Jahre alt. · Ich komme aus … · Ich wohne in … · Ich lerne Deutsch. · Ich mag …</li><li><strong>Wortschatz:</strong> ich, du, er, sie, wir, ihr · die Schule, das Buch, das Heft · die Familie · Montag … Sonntag · sonnig, warm, kalt.</li></ul><p>Natijalaringiz pastda — tugallanmagan bo'limlarni yakunlang, so'ng keyingi darsga o'ting.</p>"
   }
  ]
 }

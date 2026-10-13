@@ -1,7 +1,8 @@
-"""Writes the VIZU-DEUTSCH A1 book content as import documents (format 1.1):
+"""Writes the VIZU-DEUTSCH A1 book content as import documents:
 app/data/vizu_deutsch_a1/modul_01.json … modul_14.json.
 
     python -m app.scripts.vizu_deutsch_a1.build
+    python -m app.scripts.vizu_deutsch_a1.build --modules 1
 """
 
 import importlib
@@ -31,8 +32,13 @@ def available_modules() -> list[int]:
 
 
 def main() -> None:
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Write the book modules as import documents.")
+    parser.add_argument("--modules", type=int, nargs="*", help="book modules (default: all available)")
+    args = parser.parse_args()
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    for n in available_modules():
+    for n in args.modules or available_modules():
         doc = document(n)
         ContentDocument.model_validate(doc)  # format check (keys are checked by the importer)
         path = OUT_DIR / f"modul_{n:02d}.json"

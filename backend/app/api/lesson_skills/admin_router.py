@@ -9,7 +9,8 @@ from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
-from app.api.dependencies.auth import require_admin_panel_access
+from app.api.dependencies.auth import require_admin_panel_access, require_content_editor
+from app.core.audit import write_audit
 from app.db.session import get_db
 from app.models.lesson import Lesson
 from app.models.grammar import Grammar
@@ -153,6 +154,14 @@ async def upload_listening_audio(
 ):
     """MP3 / WAV / M4A, max 25 MB; type checked by content, stored privately."""
     return await skill_admin.upload_listening_audio(db, listening_id, file, duration_seconds)
+
+
+@router.delete("/listenings/{listening_id}/audio", response_model=ListeningResponse)
+async def delete_listening_audio(listening_id: UUID, db: Session = Depends(get_db), user: User = Depends(require_content_editor)):
+    """Removes the uploaded audio; the task is hidden until a new one is uploaded."""
+    listening = await skill_admin.delete_listening_audio(db, listening_id)
+    write_audit(db, actor_id=user.id, action="listening_audio_deleted", details=f"listening={listening_id}")
+    return listening
 
 
 @router.get("/listenings/{listening_id}/audio")

@@ -179,6 +179,24 @@ async def require_admin_panel_access(
     return current_user
 
 
+CONTENT_EDITOR_ROLES = {UserRole.SUPER_ADMIN, UserRole.ADMIN, UserRole.CONTENT_MANAGER}
+
+
+async def require_content_editor(
+    current_user: User = Depends(get_current_user),
+) -> User:
+    """Course content changes (VIZU LMS editor, lesson media): SUPER_ADMIN,
+    ADMIN and CONTENT_MANAGER."""
+
+    if current_user.role not in CONTENT_EDITOR_ROLES:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Content editor access required",
+        )
+
+    return current_user
+
+
 async def require_teacher_panel_access(
     current_user: User = Depends(get_current_user),
 ) -> User:

@@ -12,8 +12,10 @@ from typing import Annotated, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
-SCHEMA_VERSION = "1.1"
-SCHEMA_VERSIONS = ("1.0", "1.1")  # 1.1 = 1.0 + grammatik / wortschatz / frage / yakuniy items
+SCHEMA_VERSION = "1.2"
+# 1.1 = 1.0 + grammatik / wortschatz / frage / yakuniy items
+# 1.2 = 1.1 + uebungen / schreiben_uebungen (exercise sets) and kompetenz (VIZU LMS competency text)
+SCHEMA_VERSIONS = ("1.0", "1.1", "1.2")
 Source = Literal["book", "vizu"]
 
 Level = Literal["A1", "A2", "B1", "B2", "C1"]
@@ -183,14 +185,36 @@ class YakuniyItem(_ItemBase):
     questions: list[Question] = Field(min_length=1, max_length=100)
 
 
+class ExercisesItem(_ItemBase):
+    """Auto-graded practice sets of the VIZU LMS Übungen competency
+    (skill 'uebungen') or of Schreiben (skill 'schreiben_uebungen': word bank,
+    gap texts, sentence building — free writing stays a 'schreiben' item)."""
+
+    skill: Literal["uebungen", "schreiben_uebungen"]
+    exercises: list[ExerciseSet] = Field(min_length=1, max_length=20)
+
+
+Competency = Literal["EINFUEHRUNG", "WORTSCHATZ", "GRAMMATIK", "LESEN", "HOEREN", "SPRECHEN", "SCHREIBEN", "UEBUNGEN", "ABSCHLUSSTEST", "ZUSAMMENFASSUNG"]
+
+
+class KompetenzItem(_ItemBase):
+    """The explanatory text of one VIZU LMS competency (topic, goals, summary).
+    Written only into an empty competency text — an admin's text is never
+    overwritten."""
+
+    skill: Literal["kompetenz"]
+    competency: Competency
+    html: str = Field(min_length=1, max_length=100_000, description="Simple HTML (sanitized)")
+
+
 ContentItem = Annotated[
-    LesenItem | HoerenItem | SchreibenItem | SprechenItem | GrammatikItem | WortschatzItem | FrageItem | YakuniyItem,
+    LesenItem | HoerenItem | SchreibenItem | SprechenItem | GrammatikItem | WortschatzItem | FrageItem | YakuniyItem | ExercisesItem | KompetenzItem,
     Field(discriminator="skill"),
 ]
 
 
 class ContentDocument(_Strict):
-    schema_version: Literal["1.0", "1.1"]
+    schema_version: Literal["1.0", "1.1", "1.2"]
     language: str = Field(default="de", pattern=r"^[a-z]{2}$")
     source: str | None = Field(default=None, max_length=100, description="e.g. 'claude'")
     items: list[ContentItem] = Field(min_length=1, max_length=200)
@@ -199,6 +223,6 @@ class ContentDocument(_Strict):
 def json_schema() -> dict:
     schema = ContentDocument.model_json_schema()
     schema["$schema"] = "https://json-schema.org/draft/2020-12/schema"
-    schema["$id"] = "https://vizu.academy/schemas/lesson-content-1.1.json"
+    schema["$id"] = "https://vizu.academy/schemas/lesson-content-1.2.json"
     schema["title"] = "VIZU Academy lesson content (A1-C1)"
     return schema

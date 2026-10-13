@@ -239,6 +239,28 @@ async def upload_listening_audio(db: Session, listening_id: UUID, file: UploadFi
     return listening
 
 
+async def delete_listening_audio(db: Session, listening_id: UUID) -> Listening:
+    """Removes the uploaded audio file. A Hören task cannot be published
+    without audio, so it is hidden again (questions and answers are kept)."""
+    listening = db.get(Listening, listening_id)
+    if listening is None:
+        raise HTTPException(status_code=404, detail="Listening not found.")
+    if not listening.audio_storage_path:
+        raise HTTPException(status_code=404, detail="Audio not found.")
+    old = listening.audio_storage_path
+    listening.audio_storage_path = None
+    listening.audio_content_type = None
+    listening.audio_size_bytes = None
+    listening.audio_original_name = None
+    listening.audio_duration_seconds = None
+    if not listening.audio_url:
+        listening.is_published = False
+    db.commit()
+    await listening_storage.delete(old)
+    db.refresh(listening)
+    return listening
+
+
 def listening_audio_path(listening: Listening) -> Path | None:
     if not listening.audio_storage_path:
         return None
