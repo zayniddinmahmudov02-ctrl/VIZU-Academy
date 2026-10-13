@@ -63,6 +63,11 @@ if [ "$install" = 1 ]; then
 fi
 
 rm -rf "$slot"
+# tsconfig includes the generated route types of every slot; the live
+# slot's still name pages this commit may have removed and would fail the
+# type check. They are type-check only (the running server never reads
+# them), so dropping them leaves the live slot and the rollback intact.
+for d in .next .next-a .next-b; do rm -rf "$d/types" "$d/dev/types"; done
 NEXT_DIST_DIR="$slot" NEXT_DEPLOYMENT_ID="$deploy_id" npm run build
 
 missing=0
