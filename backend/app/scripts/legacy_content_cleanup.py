@@ -11,12 +11,14 @@ Categories (deletable, each root row cascades through the real foreign keys):
                       shows VOCABULARY / LESSON ones as a fallback where a
                       lesson has no exercise sets — see "lms_content_lost")
   orphan_video_files  files under protected video storage no row points at
-  lesson_video_files  video + subtitle files of the A1–C1 lesson videos (the
-                      old player; the LMS has no videos). The files are MOVED
-                      into the archive (not copied — videos are large), the
-                      video rows are kept (video_progress is student history)
-                      and only unpublished. Restore: move the files back to
-                      the storage key the row still carries, republish.
+  non_lms_video_files video + subtitle files of videos on A1–C1 lessons that
+                      are OUTSIDE the LMS structure (old modules, numbers
+                      beyond the level's range) — the old Courses system.
+                      Videos of LMS lessons are never touched. The files are
+                      MOVED into the archive (not copied — videos are large),
+                      the video rows are kept (video_progress is student
+                      history) and only unpublished. Restore: move the files
+                      back to the storage key the row still carries, republish.
 Report only (never deleted here): lessons outside the LMS structure, stale
 video upload sessions (cleaned automatically by the upload flow).
 
@@ -32,7 +34,7 @@ between, the code no longer matches and nothing is deleted.
 
     python -m app.scripts.legacy_content_cleanup
     python -m app.scripts.legacy_content_cleanup --categories homeworks orphan_video_files
-    python -m app.scripts.legacy_content_cleanup --categories lesson_video_files orphan_video_files
+    python -m app.scripts.legacy_content_cleanup --categories non_lms_video_files orphan_video_files
     python -m app.scripts.legacy_content_cleanup --categories homeworks --execute \\
         --confirm 1a2b3c4d5e6f --archive-dir /var/backups/vizu/legacy-2026-10-13 --i-have-a-verified-backup
 """
@@ -56,8 +58,8 @@ from app.db.session import SessionLocal
 from app.scripts.course_content_audit import fk_edges, ids_where
 from app.services.lms import structure
 
-CATEGORIES = ("homeworks", "lesson_assessments", "legacy_quizzes", "orphan_video_files", "lesson_video_files")
-MOVED_FILE_CATEGORIES = {"lesson_video_files"}
+CATEGORIES = ("homeworks", "lesson_assessments", "legacy_quizzes", "orphan_video_files", "non_lms_video_files")
+MOVED_FILE_CATEGORIES = {"non_lms_video_files"}
 HISTORY_TABLES = {
     "homework_submissions", "assessment_attempts", "task_attempts", "answers", "section_results", "assessment_results",
     "speaking_submissions", "writing_submissions", "speaking_evaluations", "writing_evaluations", "student_quizzes",
@@ -118,15 +120,28 @@ def orphan_video_files(db) -> list[dict]:
     return out
 
 
-def lesson_video_files(db) -> tuple[list, list[dict]]:
-    """Video rows of A1–C1 lessons and the files they own under protected
-    video storage. A file another (out of scope) row also points at is
-    marked shared and left alone."""
-    rows = db.execute(text("""
-        SELECT v.id FROM videos v JOIN lessons le ON le.id = v.lesson_id JOIN modules m ON m.id = le.module_id
-        JOIN courses c ON c.id = m.course_id WHERE c.level = ANY(:levels) ORDER BY v.id
-    """), {"levels": list(structure.LEVELS)}).all()
-    ids = [r[0] for r in rows]
+def lessons_outside_lms(db) -> list[dict]:
+    """A1–C1 lessons the LMS does not show: not in the level's main module or
+    numbered outside 1..N."""
+    outside = []
+    for level in structure.LEVELS:
+        course = structure.level_course(db, level)
+        if course is None:
+            continue
+        main = structure.main_module(db, course)
+        for lid, num, mid in db.execute(text(
+            "SELECT le.id, le.number, le.module_id FROM lessons le JOIN modules m ON m.id = le.module_id WHERE m.course_id = :c"), {"c": course.id}):
+            if main is None or mid != main.id or not 1 <= num <= structure.LEVEL_LESSON_COUNTS[level]:
+                outside.append({"level": level, "lesson_id": str(lid), "number": num})
+    return outside
+
+
+def non_lms_video_files(db) -> tuple[list, list[dict]]:
+    """Video rows of lessons outside the LMS structure and the files they own
+    under protected video storage. A file another (out of scope) row also
+    points at — e.g. an LMS lesson's video — is marked shared and left alone."""
+    lesson_ids = [o["lesson_id"] for o in lessons_outside_lms(db)]
+    ids = [r[0] for r in db.execute(text("SELECT id FROM videos WHERE lesson_id = ANY(CAST(:l AS uuid[])) ORDER BY id"), {"l": lesson_ids})] if lesson_ids else []
     files = []
     for col in ("storage_key", "subtitle_key"):
         for row_id, key in db.execute(text(f'SELECT id, "{col}" FROM videos WHERE id = ANY(:v) AND "{col}" IS NOT NULL AND "{col}" <> \'\''), {"v": ids}):
@@ -159,8 +174,8 @@ def plan(db, categories: list[str], include_history: bool) -> dict:
             result["categories"][cat] = {"roots": [], "rows": {}, "history_rows": 0, "skipped_roots_with_history": 0,
                                          "files": files, "file_bytes": sum(f["bytes"] for f in files)}
             continue
-        if cat == "lesson_video_files":
-            ids, files = lesson_video_files(db)
+        if cat == "non_lms_video_files":
+            ids, files = non_lms_video_files(db)
             files = [f for f in files if not f["shared"]]
             result["categories"][cat] = {"roots": [], "rows": {"videos (kept, unpublished)": len(ids)}, "history_rows": 0,
                                          "skipped_roots_with_history": 0, "files": files, "file_bytes": sum(f["bytes"] for f in files),
@@ -194,18 +209,8 @@ def plan(db, categories: list[str], include_history: bool) -> dict:
         result["categories"][cat] = entry
 
     # report-only
-    outside = []
-    for level in structure.LEVELS:
-        course = structure.level_course(db, level)
-        if course is None:
-            continue
-        main = structure.main_module(db, course)
-        for lid, num, mid in db.execute(text(
-            "SELECT le.id, le.number, le.module_id FROM lessons le JOIN modules m ON m.id = le.module_id WHERE m.course_id = :c"), {"c": course.id}):
-            if main is None or mid != main.id or not 1 <= num <= structure.LEVEL_LESSON_COUNTS[level]:
-                outside.append({"level": level, "lesson_id": str(lid), "number": num})
     result["report_only"] = {
-        "lessons_outside_lms_structure": outside,
+        "lessons_outside_lms_structure": lessons_outside_lms(db),
         "stale_video_upload_sessions": db.scalar(text("SELECT count(*) FROM video_upload_sessions WHERE created_at < now() - interval '24 hours'")),
     }
     token = sorted(f"{c}:{t}:{i}" for c, e in result["categories"].items() for t, ids in e.get("_affected", {}).items() for i in ids)
