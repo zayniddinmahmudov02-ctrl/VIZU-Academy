@@ -9,6 +9,7 @@ from app.api.dependencies.auth import (
     get_current_user,
     require_admin_panel_access,
 )
+from app.core.audit import write_audit
 from app.core.security.jwt import decode_video_stream_token
 from app.db.session import get_db
 
@@ -200,10 +201,12 @@ def update_video(
         if field in changes and changes[field] is None:
             raise HTTPException(status_code=422, detail=f"{field} must not be null")
 
-    return service.update(
+    updated = service.update(
         video,
         changes,
     )
+    write_audit(db, actor_id=current_user.id, action="video_updated", details=f"video={video_id} fields={','.join(sorted(changes))}")
+    return updated
 
 
 @router.patch(
@@ -291,6 +294,7 @@ async def upload_subtitles(
     db.commit()
     if old_key:
         await service.video_storage.delete(old_key)
+    write_audit(db, actor_id=current_user.id, action="video_subtitles_uploaded", details=f"video={video_id} bytes={len(data)}")
     return {"video_id": video.id, "has_subtitles": True}
 
 
@@ -309,6 +313,7 @@ async def delete_subtitles(
     db.commit()
     if old_key:
         await service.video_storage.delete(old_key)
+    write_audit(db, actor_id=current_user.id, action="video_subtitles_deleted", details=f"video={video_id}")
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 

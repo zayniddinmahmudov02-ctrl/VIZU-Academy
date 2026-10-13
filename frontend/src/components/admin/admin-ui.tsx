@@ -132,6 +132,7 @@ interface AdminCheckboxProps {
   checked?: boolean;
   onCheckedChange?: (checked: boolean) => void;
   "aria-label"?: string;
+  disabled?: boolean;
 }
 
 export function AdminCheckbox({ checked, onCheckedChange, ...props }: AdminCheckboxProps) {
@@ -142,7 +143,7 @@ export function AdminCheckbox({ checked, onCheckedChange, ...props }: AdminCheck
       {...props}
       className={cn(
         "flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-[var(--admin-card)] ring-1 ring-[var(--admin-border-strong)] transition-all duration-150",
-        "data-[checked]:bg-[var(--admin-primary)] data-[checked]:ring-[var(--admin-primary)]",
+        "data-[checked]:bg-[var(--admin-primary)] data-[checked]:ring-[var(--admin-primary)] data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
       )}
     >
       <BaseCheckbox.Indicator className="flex items-center justify-center text-white data-[unchecked]:hidden">

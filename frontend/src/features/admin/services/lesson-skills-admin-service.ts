@@ -66,7 +66,7 @@ export interface AdminHoerenTask {
   questions: AdminQuestion[];
 }
 
-export type ExerciseSkill = "GRAMMATIK" | "WORTSCHATZ" | "YAKUNIY";
+export type ExerciseSkill = "GRAMMATIK" | "WORTSCHATZ" | "UEBUNGEN" | "YAKUNIY";
 
 export interface AdminExercise {
   id: string;

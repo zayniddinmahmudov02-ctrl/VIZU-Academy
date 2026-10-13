@@ -1,4 +1,5 @@
 import {
+  BookOpenCheck,
   Award,
   BookOpen,
   Contact,
@@ -42,6 +43,7 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
       { label: "Werbung-Banner", href: "/admin/werbung-banner", icon: Megaphone },
       { label: "Languages", href: "/admin/languages", icon: Globe },
       { label: "Courses", href: "/admin/courses", icon: GraduationCap },
+      { label: "Kurse (LMS)", href: "/admin/kurse", icon: BookOpenCheck },
       { label: "LMS A1–C1", href: "/admin/lms", icon: Layers },
       { label: "Vorbereitung", href: "/admin/mock-exams", icon: ShieldCheck },
       { label: "VIZU-Multilevel", href: "/admin/vizu-multilevel", icon: FlaskConical },
