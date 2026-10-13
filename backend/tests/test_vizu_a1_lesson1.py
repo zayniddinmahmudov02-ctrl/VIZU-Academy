@@ -65,6 +65,12 @@ class ModulOneDocumentTests(unittest.TestCase):
         self.assertFalse(hoeren.get("key_pending", False))
         self.assertEqual(hoeren["max_score"], sum(q["points"] for q in hoeren["questions"]))
 
+    def test_every_lesen_text_and_the_hoeren_text_have_questions(self):
+        lesen = self.items["vizu-a1-l01-lesen-01"]
+        per_text = {n: sum(q["passage"] == n for q in lesen["questions"]) for n in range(1, len(lesen["passages"]) + 1)}
+        self.assertTrue(all(c >= 3 for c in per_text.values()), per_text)
+        self.assertGreaterEqual(len(self.items["vizu-a1-l01-hoeren-01"]["questions"]), 3)
+
     def test_lesen_and_hoeren_answers_are_in_the_text(self):
         """Every correct option / gap answer of Lesen and Hören occurs in the
         text it is about (the book text — no invented facts)."""
