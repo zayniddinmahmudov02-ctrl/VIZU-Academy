@@ -1,6 +1,6 @@
-from uuid import UUID
+from uuid import UUID, uuid4
 
-from fastapi import APIRouter, Depends, HTTPException, Response, status
+from fastapi import APIRouter, Depends, File, HTTPException, Response, UploadFile, status
 from fastapi.responses import FileResponse
 from jose import JWTError
 from sqlalchemy.orm import Session
@@ -190,9 +190,19 @@ def update_video(
 
     video = service.get(video_id)
 
+    if video is None:
+        raise HTTPException(status_code=404, detail="Video not found")
+
+    # Only the fields the client sent; NOT NULL columns can't be cleared.
+    # (Passing the schema object itself made the repository fail with a 500.)
+    changes = payload.model_dump(exclude_unset=True)
+    for field in ("title", "duration_seconds", "order_index", "is_preview", "is_published"):
+        if field in changes and changes[field] is None:
+            raise HTTPException(status_code=422, detail=f"{field} must not be null")
+
     return service.update(
         video,
-        payload,
+        changes,
     )
 
 
@@ -246,3 +256,77 @@ async def delete_video(
     return Response(
         status_code=status.HTTP_204_NO_CONTENT,
     )
+
+
+# ==================================================
+# Subtitles (VIZU LMS) — WebVTT next to the video file in protected storage
+# ==================================================
+
+MAX_SUBTITLE_BYTES = 2 * 1024 * 1024
+
+
+@router.post("/{video_id}/subtitles")
+async def upload_subtitles(
+    video_id: UUID,
+    file: UploadFile = File(...),
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    """Attach / replace the video's WebVTT subtitles (.vtt, max 2 MB)."""
+    service = VideoService(db)
+    video = service.get(video_id)
+    if video is None:
+        raise HTTPException(status_code=404, detail="Video not found")
+    data = await file.read(MAX_SUBTITLE_BYTES + 1)
+    if len(data) > MAX_SUBTITLE_BYTES:
+        raise HTTPException(status_code=413, detail="SUBTITLES_TOO_LARGE: max 2 MB")
+    if not data.lstrip(b"\xef\xbb\xbf").startswith(b"WEBVTT"):
+        raise HTTPException(status_code=400, detail="UNSUPPORTED_SUBTITLES: WebVTT (.vtt) files only")
+    key = f"videos/{video.lesson_id}/subtitles/{uuid4().hex}.vtt"
+    path = service.video_storage.ROOT / key
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(data)
+    old_key = video.subtitle_key
+    video.subtitle_key = key
+    db.commit()
+    if old_key:
+        await service.video_storage.delete(old_key)
+    return {"video_id": video.id, "has_subtitles": True}
+
+
+@router.delete("/{video_id}/subtitles", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_subtitles(
+    video_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin_panel_access),
+):
+    service = VideoService(db)
+    video = service.get(video_id)
+    if video is None:
+        raise HTTPException(status_code=404, detail="Video not found")
+    old_key = video.subtitle_key
+    video.subtitle_key = None
+    db.commit()
+    if old_key:
+        await service.video_storage.delete(old_key)
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+
+@router.get("/{video_id}/subtitles")
+def stream_subtitles(video_id: UUID, token: str, db: Session = Depends(get_db)):
+    """Same signed stream token as GET /{video_id}/stream (a <track> element
+    can't send a Bearer header either)."""
+    try:
+        token_video_id = decode_video_stream_token(token)
+    except (JWTError, ValueError):
+        raise HTTPException(status_code=401, detail="Invalid or expired stream token")
+    if token_video_id != str(video_id):
+        raise HTTPException(status_code=403, detail="Token does not authorize this video")
+    service = VideoService(db)
+    video = service.get(video_id)
+    if video is None or not video.is_published or not video.subtitle_key:
+        raise HTTPException(status_code=404, detail="Subtitles not found")
+    path = service.video_storage.ROOT / video.subtitle_key
+    if not path.is_file():
+        raise HTTPException(status_code=404, detail="Subtitles file missing on disk")
+    return FileResponse(path=path, media_type="text/vtt", headers={"Cache-Control": "private, no-store"})

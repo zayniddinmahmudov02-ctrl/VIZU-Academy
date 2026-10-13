@@ -207,6 +207,10 @@ def compute(db: Session, user: User, lesson: Lesson) -> dict:
         tracked = bool(parts)
         resources = counts["resources"].get(kind, 0)
         has_body = bool((comp.body or "").strip())
+        if kind == "ZUSAMMENFASSUNG":
+            # the summary always has the lesson results to show once any
+            # competency is tracked (it is last, so all others are in `items`)
+            extra_content[kind] = sum(1 for i in items if i["tracked"] and i["is_published"])
         available = tracked or has_body or resources > 0 or extra_content.get(kind, 0) > 0
         row = snap.get(kind)
         if not available:

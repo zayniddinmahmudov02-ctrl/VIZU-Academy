@@ -159,6 +159,10 @@ from app.api.lesson_skills import router as lesson_skills_router
 # LMS A1-C1: Claude/JSON content import
 from app.api.content_import import router as content_import_router
 
+# VIZU LMS (A1-C1 course system): student + admin API
+from app.api.lms import admin_router as admin_lms_router
+from app.api.lms import router as lms_router
+
 # Health
 from app.api.health import (
     router as health_router,
@@ -279,6 +283,8 @@ _ALL_ROUTERS = [
     lesson_skills_router,
     admin_lesson_skills_router,
     content_import_router,
+    lms_router,
+    admin_lms_router,
     health_router,
 ]
 

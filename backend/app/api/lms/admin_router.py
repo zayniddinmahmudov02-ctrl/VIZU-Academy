@@ -16,6 +16,7 @@ from sqlalchemy.orm import Session
 from app.api.dependencies.auth import get_current_user, require_admin_panel_access
 from app.core.audit import write_audit
 from app.core.security.roles import UserRole
+from app.core.utils.safe_html import sanitize_html
 from app.db.session import get_db
 from app.models.lesson import Lesson
 from app.models.lesson_skill import SkillExercise
@@ -258,11 +259,11 @@ def update_lesson(lesson_id: UUID, data: LessonUpdate, request: Request, db: Ses
     changes = data.model_dump(exclude_unset=True)
     if "number" in changes:
         if changes["number"] is None:
-            raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="LESSON_NUMBER_REQUIRED")
+            raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_CONTENT, detail="LESSON_NUMBER_REQUIRED")
         structure.validate_lesson_number(db, lesson, changes["number"])
     for field in ("title", "is_published"):
         if field in changes and changes[field] is None:
-            raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=f"{field.upper()}_REQUIRED")
+            raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_CONTENT, detail=f"{field.upper()}_REQUIRED")
     if "description" in changes and changes["description"] is not None:
         changes["description"] = changes["description"].strip() or None
     for field, value in changes.items():
@@ -288,10 +289,10 @@ def update_competency(
     comp = {c.kind: c for c in structure.ensure_competencies(db, lesson)}[kind]
     changes = data.model_dump(exclude_unset=True)
     if "is_published" in changes and changes["is_published"] is None:
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="IS_PUBLISHED_REQUIRED")
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_CONTENT, detail="IS_PUBLISHED_REQUIRED")
     if "body" in changes:
-        # same sanitising as the existing Grammatik rules (rich text from the admin editor)
-        comp.body = skill_admin.clean_html(changes["body"]) if changes["body"] else None
+        # same allowlist sanitiser as the Lesen / Grammatik texts — rendered as HTML to students
+        comp.body = (sanitize_html(changes["body"]) or "").strip() or None if changes["body"] else None
     if "is_published" in changes:
         comp.is_published = changes["is_published"]
     db.commit()
@@ -358,12 +359,12 @@ def update_resource(resource_id: UUID, data: ResourceUpdate, request: Request, d
     changes = data.model_dump(exclude_unset=True)
     for field in ("title", "order_index", "is_published"):
         if field in changes and changes[field] is None:
-            raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=f"{field.upper()}_REQUIRED")
+            raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_CONTENT, detail=f"{field.upper()}_REQUIRED")
     if "competency" in changes:
         resource.competency = resources.validate_competency(changes["competency"])
     if "url" in changes:
         if resource.resource_type != "LINK" or not changes["url"] or not resources.URL_RE.match(changes["url"].strip()):
-            raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="INVALID_URL: https:// links only")
+            raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_CONTENT, detail="INVALID_URL: https:// links only")
         resource.external_url = changes["url"].strip()
     if "title" in changes:
         resource.title = changes["title"].strip()

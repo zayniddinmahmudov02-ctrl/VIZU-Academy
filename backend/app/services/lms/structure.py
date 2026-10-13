@@ -117,7 +117,7 @@ def validate_lesson_number(db: Session, lesson: Lesson, number: int) -> None:
     if course is None or course.level not in LEVEL_LESSON_COUNTS:
         return
     if not 1 <= number <= LEVEL_LESSON_COUNTS[course.level]:
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=f"LESSON_NUMBER_OUT_OF_RANGE: 1-{LEVEL_LESSON_COUNTS[course.level]}")
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_CONTENT, detail=f"LESSON_NUMBER_OUT_OF_RANGE: 1-{LEVEL_LESSON_COUNTS[course.level]}")
     clash = db.scalar(select(Lesson.id).where(Lesson.module_id == lesson.module_id, Lesson.number == number, Lesson.id != lesson.id))
     if clash is not None:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="LESSON_NUMBER_TAKEN")
@@ -133,9 +133,9 @@ def reorder(db: Session, level: str, lesson_ids: list[UUID]) -> list[Lesson]:
     lessons = level_lessons(db, module)
     by_id = {lesson.id: lesson for lesson in lessons}
     if len(lesson_ids) != len(set(lesson_ids)) or set(lesson_ids) != set(by_id):
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="REORDER_MUST_LIST_EVERY_LESSON_ONCE")
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_CONTENT, detail="REORDER_MUST_LIST_EVERY_LESSON_ONCE")
     if len(lesson_ids) > LEVEL_LESSON_COUNTS[level]:
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="TOO_MANY_LESSONS_FOR_LEVEL")
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_CONTENT, detail="TOO_MANY_LESSONS_FOR_LEVEL")
     for i, lesson_id in enumerate(lesson_ids, start=1):
         by_id[lesson_id].number = -i
     db.flush()

@@ -31,6 +31,11 @@ PUBLIC_ALLOWLIST = {
     ("GET", "/advertisements/{advertisement_id}/click"),
     # authorised by its own short-lived signed stream token
     ("GET", "/videos/{video_id}/stream"),
+    # same signed stream token (a <track> element can't send a Bearer header)
+    ("GET", "/videos/{video_id}/subtitles"),
+    # VIZU LMS resource files: short-lived signed resource token issued by
+    # GET /lms/lessons/{id} after the lesson access check
+    ("GET", "/lms/resources/{resource_id}/file"),
     # catalogue metadata (titles / levels / covers) — content itself is gated
     ("GET", "/courses/"),
     ("GET", "/courses/{course_id}"),

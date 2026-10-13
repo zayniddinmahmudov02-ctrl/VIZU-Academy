@@ -1,6 +1,8 @@
 from uuid import UUID
 
-from pydantic import ConfigDict
+from pydantic import ConfigDict, field_validator
+
+from app.models.lms import COMPETENCY_ORDER
 
 from app.schemas.base import BaseSchema
 
@@ -29,6 +31,18 @@ class VideoUpdate(BaseSchema):
     order_index: int | None = None
     is_preview: bool | None = None
     is_published: bool | None = None
+    # VIZU LMS: the competency the video belongs to (null = Einführung)
+    competency: str | None = None
+
+    @field_validator("competency")
+    @classmethod
+    def _known_competency(cls, value: str | None) -> str | None:
+        if value is None or value == "":
+            return None
+        value = value.strip().upper()
+        if value not in COMPETENCY_ORDER:
+            raise ValueError("unknown competency")
+        return value
 
 
 class VideoResponse(VideoBase):
@@ -41,6 +55,8 @@ class VideoResponse(VideoBase):
     # return VideoStreamResponse instead, which never includes these.
     storage_key: str | None = None
     thumbnail_key: str | None = None
+    competency: str | None = None
+    subtitle_key: str | None = None
 
     model_config = ConfigDict(from_attributes=True)
 

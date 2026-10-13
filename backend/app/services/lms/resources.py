@@ -84,14 +84,14 @@ def validate_competency(competency: str | None) -> str | None:
         return None
     value = competency.strip().upper()
     if value not in COMPETENCY_ORDER:
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="UNKNOWN_COMPETENCY")
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_CONTENT, detail="UNKNOWN_COMPETENCY")
     return value
 
 
 def validate_type(resource_type: str) -> str:
     value = (resource_type or "").strip().upper()
     if value not in RESOURCE_TYPES:
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="UNKNOWN_RESOURCE_TYPE")
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_CONTENT, detail="UNKNOWN_RESOURCE_TYPE")
     return value
 
 
@@ -134,7 +134,7 @@ async def create_file_resource(
 ) -> LearningResource:
     resource_type = validate_type(resource_type)
     if resource_type == "LINK":
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="LINK_HAS_NO_FILE")
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_CONTENT, detail="LINK_HAS_NO_FILE")
     competency = validate_competency(competency)
     stored = await _store(lesson.id, resource_type, file)
     resource = LearningResource(
@@ -153,7 +153,7 @@ def create_link_resource(
 ) -> LearningResource:
     url = (url or "").strip()
     if not URL_RE.match(url):
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="INVALID_URL: https:// links only")
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_CONTENT, detail="INVALID_URL: https:// links only")
     competency = validate_competency(competency)
     resource = LearningResource(
         lesson_id=lesson.id, competency=competency, resource_type="LINK", title=title.strip()[:255],
@@ -179,7 +179,7 @@ async def _delete_file_if_unused(db: Session, key: str | None, resource_id: UUID
 
 async def replace_file(db: Session, resource: LearningResource, file: UploadFile, duration_seconds: int | None) -> LearningResource:
     if resource.resource_type == "LINK":
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="LINK_HAS_NO_FILE")
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_CONTENT, detail="LINK_HAS_NO_FILE")
     stored = await _store(resource.lesson_id, resource.resource_type, file)
     old_key = resource.storage_key
     for k, v in stored.items():

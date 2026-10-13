@@ -114,6 +114,9 @@ class VideoService:
         if video.thumbnail_key:
             await self.storage.delete(video.thumbnail_key)
 
+        if video.subtitle_key:
+            await self.video_storage.delete(video.subtitle_key)
+
         self.repository.delete(video)
 
     # ==========================
