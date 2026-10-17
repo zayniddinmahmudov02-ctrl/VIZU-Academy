@@ -221,11 +221,14 @@ export async function saveQuestions(kind: "readings" | "listenings" | "exercises
   return (await api.put<{ id: string; questions: AdminQuestion[] }>(`${BASE}/${kind}/${id}/questions`, { questions })).data;
 }
 
-export async function uploadListeningAudio(listeningId: string, file: File, durationSeconds: number | null) {
+export async function uploadListeningAudio(listeningId: string, file: File, durationSeconds: number | null, onProgress?: (percent: number) => void) {
   const form = new FormData();
   form.append("file", file);
   if (durationSeconds) form.append("duration_seconds", String(Math.round(durationSeconds)));
-  return (await api.post(`${BASE}/listenings/${listeningId}/audio`, form, { headers: { "Content-Type": "multipart/form-data" } })).data;
+  return (await api.post(`${BASE}/listenings/${listeningId}/audio`, form, {
+    headers: { "Content-Type": "multipart/form-data" },
+    onUploadProgress: onProgress ? (e) => e.total && onProgress(Math.round((e.loaded / e.total) * 100)) : undefined,
+  })).data;
 }
 
 /** Removes the uploaded audio; the Hören task is hidden until a new one is uploaded. */

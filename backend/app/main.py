@@ -134,6 +134,9 @@ from app.api.admin.vizu_pay_router import (
 from app.api.admin.videos_router import (
     router as admin_videos_router,
 )
+from app.api.admin.media_management_router import (
+    router as admin_media_management_router,
+)
 from app.api.admin.vizu_multilevel_router import (
     router as admin_vizu_multilevel_router,
 )
@@ -274,6 +277,7 @@ _ALL_ROUTERS = [
     admin_users_router,
     admin_vizu_pay_router,
     admin_videos_router,
+    admin_media_management_router,
     admin_vizu_multilevel_router,
     admin_books_router,
     admin_teacher_assignments_router,
