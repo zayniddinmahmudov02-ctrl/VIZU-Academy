@@ -2,7 +2,8 @@
 
 import { useMemo, useRef, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { AlertTriangle, Eye, EyeOff, Film, Music, Play, RefreshCw, Search, Trash2, Upload, X } from "lucide-react";
+import Link from "next/link";
+import { AlertTriangle, Eye, EyeOff, FileText, Film, Music, Play, RefreshCw, Search, Trash2, Upload, X } from "lucide-react";
 
 import { AdminButton, AdminCheckbox, AdminInput, AdminPageHeader, AdminSelect } from "@/components/admin/admin-ui";
 import ConfirmDialog from "@/components/admin/confirm-dialog";
@@ -164,7 +165,13 @@ export default function MediaManagementClient() {
 
   return (
     <div className="space-y-6" data-testid="media-management">
-      <AdminPageHeader title="Media Management" description="Videos und Hören-Audio aller Lektionen (A1–C1) hochladen, zuordnen und verwalten." />
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <AdminPageHeader title="Media Management" description="Videos und Hören-Audio aller Lektionen (A1–C1) hochladen, zuordnen und verwalten." />
+        <Link href="/admin/media-management/hoeren-a1" data-testid="mm-hoeren-a1-link"
+              className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-[var(--admin-primary)] ring-1 ring-[var(--admin-border-strong)] hover:bg-[var(--admin-hover)]">
+          <FileText size={15} /> A1 Hören: Antwort-PDF & Veröffentlichung
+        </Link>
+      </div>
       <input ref={videoInput} type="file" accept={VIDEO_ACCEPT} className="hidden" onChange={(e) => onVideoFile(e.target.files?.[0])} data-testid="mm-video-file" />
       <input ref={audioInput} type="file" accept={AUDIO_ACCEPT} className="hidden" onChange={(e) => onAudioFile(e.target.files?.[0])} data-testid="mm-audio-file" />
 

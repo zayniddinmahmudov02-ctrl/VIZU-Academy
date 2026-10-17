@@ -195,6 +195,11 @@ def replace_listening_questions(db: Session, listening_id: UUID, items: list[dic
         lambda q: ListeningOption(question_id=q.id, option_text=""),
     )
     db.refresh(listening)
+    # A1: the last missing answer key entered -> publish once the audio is there
+    from app.services.lesson_skills.hoeren_pdf_import import auto_publish
+
+    if auto_publish(db, listening) == "published":
+        db.refresh(listening)
     return listening
 
 
@@ -240,6 +245,11 @@ async def upload_listening_audio(db: Session, listening_id: UUID, file: UploadFi
     listening.audio_duration_seconds = duration_seconds if duration_seconds and 0 < duration_seconds < 6 * 3600 else None
     db.commit()
     db.refresh(listening)
+    # A1: audio + complete answer keys -> "Veröffentlicht" automatically
+    from app.services.lesson_skills.hoeren_pdf_import import auto_publish
+
+    if auto_publish(db, listening) == "published":
+        db.refresh(listening)
     return listening
 
 
