@@ -31,6 +31,8 @@ PUBLIC_ALLOWLIST = {
     ("GET", "/advertisements/{advertisement_id}/click"),
     # authorised by its own short-lived signed stream token
     ("GET", "/videos/{video_id}/stream"),
+    # admin player in Media Management: its own admin-only preview token
+    ("GET", "/admin/media-management/videos/{video_id}/stream"),
     # same signed stream token (a <track> element can't send a Bearer header)
     ("GET", "/videos/{video_id}/subtitles"),
     # VIZU LMS resource files: short-lived signed resource token issued by

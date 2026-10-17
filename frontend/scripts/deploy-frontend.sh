@@ -46,7 +46,9 @@ mkdir -p "$STATE_DIR"
 
 # One-time setup must be in place, otherwise the service would keep
 # serving .next and never see the new slot.
-if ! $SYSTEMCTL cat "$SERVICE" 2>/dev/null | grep -q "$ACTIVE_ENV"; then
+# (no `grep -q` here: it exits on the first match, systemctl gets SIGPIPE and
+# with pipefail the check fails at random)
+if ! $SYSTEMCTL cat "$SERVICE" 2>/dev/null | grep -F "$ACTIVE_ENV" >/dev/null; then
   echo "ERROR: $SERVICE has no EnvironmentFile=-$ACTIVE_ENV (see docs/deploy-frontend.md, one-time setup)." >&2
   exit 1
 fi

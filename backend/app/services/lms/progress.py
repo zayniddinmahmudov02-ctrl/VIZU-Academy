@@ -473,5 +473,31 @@ def level_overview(db: Session, user: User, level: str, *, include_drafts: bool 
         "percent": round(100 * completed_n / len(published)) if published else 0,
         "last_lesson_id": last["id"] if last else None,
         "continue_lesson_id": continue_card["id"] if continue_card else None,
+        "sale": level_sale(user, level),
         "lessons": cards,
+    }
+
+
+def level_sale(user: User, level: str) -> dict:
+    """What the student sees about buying a level: available or "Tez orada",
+    already owned (purchase / legacy Premium / staff), the single-level offer
+    and the packages that contain the level — all from the Angebote
+    configuration (Admin -> Angebote), never from the client."""
+    from app.services.vizu_pay import offers as offer_config
+    from app.services.vizu_pay.access import has_premium_bypass, is_user_premium, owns_level
+
+    available = offer_config.level_available(level)
+    listed = {o["code"]: o for o in offer_config.list_offers()}
+
+    def brief(o: dict) -> dict:
+        return {k: o[k] for k in ("code", "kind", "label", "levels", "available_levels", "original_price", "sale_price", "discount_percent",
+                                  "purchasable", "currency")}
+
+    return {
+        "available": available,
+        "coming_soon": not available,
+        "owned": bool(has_premium_bypass(user) or (available and (is_user_premium(user) or owns_level(user, level)))),
+        "free_lessons": offer_config.free_lessons() if available else 0,
+        "offer": brief(listed[level]) if level in listed else None,
+        "packages": [brief(o) for o in listed.values() if o["kind"] == offer_config.KIND_PACKAGE and level in o["levels"] and o["purchasable"]],
     }

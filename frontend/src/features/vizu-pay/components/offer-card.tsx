@@ -103,11 +103,18 @@ export default function OfferCard({ offer, state, highlighted = false, compact =
 
       {offer.kind === "PACKAGE" && (
         <div className="mt-3 flex flex-wrap gap-1.5">
-          {offer.levels.map((level) => (
-            <span key={level} className="rounded-lg bg-accent-blue/10 px-2.5 py-1 text-xs font-bold text-accent-blue">
-              {level}
-            </span>
-          ))}
+          {offer.levels.map((level) =>
+            offer.availableLevels.includes(level) ? (
+              <span key={level} className="rounded-lg bg-accent-blue/10 px-2.5 py-1 text-xs font-bold text-accent-blue">
+                {level}
+              </span>
+            ) : (
+              // in the package, opens once the level is released ("Tez orada")
+              <span key={level} className="rounded-lg bg-surface-hover px-2.5 py-1 text-xs font-bold text-text-muted" title={t("lms.comingSoon")}>
+                {level} · {t("lms.comingSoon")}
+              </span>
+            ),
+          )}
         </div>
       )}
 

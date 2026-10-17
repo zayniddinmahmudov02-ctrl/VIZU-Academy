@@ -13,14 +13,16 @@ import LmsStatusBadge from "./lms-status-badge";
 
 const LOCK_HINT: Record<string, string> = {
   PREMIUM_REQUIRED: "lms.lockPremiumShort",
+  LEVEL_COMING_SOON: "lms.comingSoonHint",
   PREVIOUS_LESSON_NOT_COMPLETED: "lms.lockSequentialShort",
   ADMIN_LOCKED: "lms.lockAdminShort",
 };
 
-export default function LmsLessonCard({ lesson }: { lesson: Card }) {
+export default function LmsLessonCard({ lesson, onBuy }: { lesson: Card; onBuy?: () => void }) {
   const { t } = useTranslation();
   const locked = lesson.status === "locked";
   const premium = lesson.lock_reason === "PREMIUM_REQUIRED";
+  const buyable = locked && premium && !!onBuy;
   const counted = lesson.competencies_total;
 
   return (
@@ -63,7 +65,7 @@ export default function LmsLessonCard({ lesson }: { lesson: Card }) {
           <span data-testid="lms-lesson-competencies">{t("lms.competenciesDone", { done: lesson.competencies_completed ?? 0, total: counted })}</span>
         )}
         {premium && (
-          <span className="inline-flex items-center gap-1 font-semibold text-warning"><Crown size={13} /> Premium</span>
+          <span className="inline-flex items-center gap-1 font-semibold text-warning"><Crown size={13} /> {t("lms.lockPremiumTitle")}</span>
         )}
       </div>
 
@@ -76,6 +78,12 @@ export default function LmsLessonCard({ lesson }: { lesson: Card }) {
 
       {locked && lesson.lock_reason && <p className="text-xs text-text-secondary">{t(LOCK_HINT[lesson.lock_reason] ?? "lms.lockLockedHint")}</p>}
 
+      {buyable ? (
+        <button onClick={onBuy} data-testid="lms-lesson-buy"
+                className="mt-auto inline-flex items-center justify-center gap-2 rounded-xl bg-accent-blue/10 px-4 py-2.5 text-sm font-semibold text-accent-blue ring-1 ring-accent-blue/30 hover:bg-accent-blue/15">
+          <Lock size={15} /> {t("lms.buyCourse")}
+        </button>
+      ) : (
       <Link
         href={lessonHref(lesson.id)}
         className={cn(
@@ -87,6 +95,7 @@ export default function LmsLessonCard({ lesson }: { lesson: Card }) {
         {locked ? <Lock size={15} /> : <PlayCircle size={15} />}
         {t(locked ? "lms.whyLocked" : lesson.status === "not_started" ? "lms.start" : lesson.completed ? "lms.review" : "lms.continue")}
       </Link>
+      )}
     </article>
   );
 }

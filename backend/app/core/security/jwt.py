@@ -137,3 +137,27 @@ def decode_resource_token(token: str) -> str:
         raise ValueError("Not an LMS resource token")
 
     return payload["sub"]
+
+
+ADMIN_VIDEO_PREVIEW_PURPOSE = "admin_video_preview"
+
+
+def create_admin_video_preview_token(video_id: str) -> str:
+    """Admin player in Media Management: like create_video_stream_token, but
+    also for drafts — so it has its own purpose and is issued only by the
+    admin-authenticated preview endpoint; a student stream token never opens
+    a draft."""
+
+    return create_access_token(
+        {"sub": str(video_id), "purpose": ADMIN_VIDEO_PREVIEW_PURPOSE},
+        expires_minutes=settings.VIDEO_STREAM_TOKEN_EXPIRE_MINUTES,
+    )
+
+
+def decode_admin_video_preview_token(token: str) -> str:
+    payload = decode_access_token(token)
+
+    if payload.get("purpose") != ADMIN_VIDEO_PREVIEW_PURPOSE:
+        raise ValueError("Not an admin video preview token")
+
+    return payload["sub"]

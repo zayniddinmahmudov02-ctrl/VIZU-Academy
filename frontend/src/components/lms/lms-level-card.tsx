@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, BookOpen, PlayCircle } from "lucide-react";
+import { ArrowRight, BookOpen, Lock, PlayCircle } from "lucide-react";
 
 import ProgressBar from "@/components/ui/progress-bar";
 import { lessonHref, levelHref } from "@/features/lms/competencies";
@@ -21,6 +21,28 @@ export default function LmsLevelCard({ level }: { level: LmsLevelSummary }) {
   const { t } = useTranslation();
   const gradient = LEVEL_GRADIENT[level.level] ?? "from-brand-600 to-accent-blue";
   const started = level.lessons_completed > 0 || level.last_lesson_id !== null;
+  const sale = level.sale;
+
+  if (sale?.coming_soon) {
+    return (
+      <article className="flex h-full flex-col overflow-hidden rounded-card bg-surface-card opacity-90 shadow-[var(--shadow-md)] ring-1 ring-surface-border"
+               data-testid="lms-level-card" data-level={level.level} data-coming-soon="true">
+        <div className={`relative h-24 overflow-hidden bg-gradient-to-br ${gradient} grayscale-[40%]`}>
+          <div className="absolute inset-0 flex items-center justify-between px-6">
+            <span className="text-4xl font-bold text-white drop-shadow-sm">{level.level}</span>
+            <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/20 text-white backdrop-blur-md"><Lock size={20} /></span>
+          </div>
+        </div>
+        <div className="flex flex-1 flex-col gap-3 p-5">
+          <h2 className="font-semibold text-text-primary">{level.title}</h2>
+          <p className="text-sm text-text-secondary">{t("lms.comingSoonHint")}</p>
+          <span className="mt-auto inline-flex items-center justify-center gap-2 rounded-xl bg-surface-hover px-4 py-2.5 text-sm font-semibold text-text-muted">
+            <Lock size={15} /> {t("lms.comingSoon")}
+          </span>
+        </div>
+      </article>
+    );
+  }
 
   return (
     <article className="flex h-full flex-col overflow-hidden rounded-card bg-surface-card shadow-[var(--shadow-md)] ring-1 ring-surface-border" data-testid="lms-level-card" data-level={level.level}>
@@ -35,7 +57,17 @@ export default function LmsLevelCard({ level }: { level: LmsLevelSummary }) {
       </Link>
 
       <div className="flex flex-1 flex-col gap-4 p-5">
-        <h2 className="font-semibold text-text-primary">{level.title}</h2>
+        <div className="flex items-start justify-between gap-2">
+          <h2 className="font-semibold text-text-primary">{level.title}</h2>
+          {sale?.owned ? (
+            <span className="shrink-0 rounded-full bg-success/15 px-2.5 py-1 text-xs font-semibold text-success">{t("lms.owned")}</span>
+          ) : sale?.offer?.purchasable && sale.offer.sale_price ? (
+            <span className="shrink-0 rounded-full bg-accent-blue/10 px-2.5 py-1 text-xs font-bold text-accent-blue" data-testid="lms-level-price">
+              {t("lms.som", { n: sale.offer.sale_price.toLocaleString("ru-RU").replace(/ /g, " ") })}
+            </span>
+          ) : null}
+        </div>
+        {sale && !sale.owned && sale.free_lessons > 0 && <p className="-mt-2 text-xs text-text-muted">{t("lms.buyFree")}</p>}
 
         <dl className="grid grid-cols-3 gap-2 text-center">
           <div className="rounded-xl bg-surface-hover/60 px-2 py-2">
