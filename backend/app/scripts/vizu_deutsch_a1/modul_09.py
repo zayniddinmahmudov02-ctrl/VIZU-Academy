@@ -11,6 +11,7 @@ no Richtig/Falsch answer can be proven from the text. Hören gap 5 ("…ist er
 ___ Markt gegangen") accepts "auf den" and "zum" (both correct German)."""
 
 from . import (
+    forward_vocab_set,
     article_set, base, choice_gap, exercise, gap, html_table, intro_html, match, mc, reverse_vocab_set, summary_html, tf, ul, vocab_match_sets,
     words,
 )
@@ -137,7 +138,7 @@ _W = [("die", "Reise", "sayohat"), ("reisen", "sayohat qilmoq"), ("der", "Touris
 WORDS = words(_W, "Reise")
 
 
-WORTSCHATZ_SETS = [*vocab_match_sets(WORDS, per_set=4), article_set(WORDS)]
+WORTSCHATZ_SETS = [*vocab_match_sets(WORDS, per_set=4), article_set(WORDS), forward_vocab_set(WORDS)]
 
 UEBUNGEN_SETS = [
     exercise("Wo? oder Wohin? (Lesen)", [

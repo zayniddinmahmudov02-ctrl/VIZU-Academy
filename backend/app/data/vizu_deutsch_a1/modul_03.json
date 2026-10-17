@@ -983,6 +983,109 @@
       }
      ],
      "instruction": "So'zning artiklini tanlang (kitobdagi lug'at bo'yicha)."
+    },
+    {
+     "title": "Was bedeutet das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „der Mann“?",
+       "options": [
+        "odam, erkak",
+        "sharbat",
+        "kichik"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „der Kellner“?",
+       "options": [
+        "non",
+        "berish",
+        "ofitsant"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „arbeiten“?",
+       "options": [
+        "schnitzel",
+        "bola",
+        "ishlamoq"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „mögen“?",
+       "options": [
+        "kitob",
+        "mashina",
+        "yoqtirmoq"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „schön“?",
+       "options": [
+        "chiroyli",
+        "yangi",
+        "toza"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „glücklich“?",
+       "options": [
+        "baxtli",
+        "ayol",
+        "olish"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „der Stift“?",
+       "options": [
+        "ruchka",
+        "ba'zan",
+        "kerak bo'lmoq"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „das Essen“?",
+       "options": [
+        "ishlamoq",
+        "schnitzel",
+        "taom"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zning o'zbekcha tarjimasini tanlang."
     }
    ],
    "auto_practice": false

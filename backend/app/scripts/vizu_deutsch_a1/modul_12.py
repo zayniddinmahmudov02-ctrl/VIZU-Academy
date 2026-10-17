@@ -13,6 +13,7 @@ that would also give a correct sentence (e.g. "Ich bin müde, denn ich lerne
 Deutsch") are not offered."""
 
 from . import (
+    forward_vocab_set,
     article_set, base, choice_gap, exercise, gap, html_table, intro_html, match, mc, reverse_vocab_set, summary_html, tf, vocab_match_sets,
     words,
 )
@@ -182,7 +183,7 @@ _R = [("heute", "bugun"), ("morgen", "ertaga"), ("gestern", "kecha"), ("draußen
 WORDS = words(_V, "Verben") + words(_N, "Nomen") + words(_A, "Adjektive") + words(_R, "Adverbien")
 
 
-WORTSCHATZ_SETS = [*vocab_match_sets(WORDS, per_set=4), article_set(WORDS)]
+WORTSCHATZ_SETS = [*vocab_match_sets(WORDS, per_set=4), article_set(WORDS), forward_vocab_set(WORDS)]
 
 UEBUNGEN_SETS = [
     exercise("Konjunktionen in den Jahreszeiten-Texten", [

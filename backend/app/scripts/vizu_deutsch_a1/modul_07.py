@@ -8,6 +8,7 @@ choice between the correct sentence and two wrong word orders. p.74 question
 Hören word list (war ×4, ging ×3, aß ×2, …) decides every gap."""
 
 from . import (
+    forward_vocab_set,
     article_set, base, choice_gap, exercise, gap, html_table, intro_html, match, mc, reverse_vocab_set, short, summary_html, text_gap, tf, ul,
     vocab_match_sets, word_order_mc, words,
 )
@@ -142,7 +143,7 @@ WORDS = (
 )
 
 
-WORTSCHATZ_SETS = [*vocab_match_sets(WORDS), article_set(WORDS)]
+WORTSCHATZ_SETS = [*vocab_match_sets(WORDS), article_set(WORDS), forward_vocab_set(WORDS)]
 
 UEBUNGEN_SETS = [
     exercise("Präsens → Präteritum (Lesen)", [

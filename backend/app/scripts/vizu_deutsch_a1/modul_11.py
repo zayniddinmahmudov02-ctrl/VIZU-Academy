@@ -9,6 +9,7 @@ sheet's letters are kept in the metadata as a hint for the admin. Sentence 1:
 the book prints "die USA ist"; "die USA" is plural, so "sind"."""
 
 from . import (
+    forward_vocab_set,
     article_set, base, choice_gap, exercise, gap, html_table, intro_html, match, mc, mc_pending, reverse_vocab_set, summary_html, tf,
     vocab_match_sets, words,
 )
@@ -154,7 +155,7 @@ _N = [("die", "Wohnung", "kvartira"), ("das", "Haus", "uy"), ("das", "Zimmer", "
 WORDS = words(_W, "Adjektive") + words(_N, "Wörter")
 
 
-WORTSCHATZ_SETS = [*vocab_match_sets(WORDS, per_set=4), article_set(WORDS)]
+WORTSCHATZ_SETS = [*vocab_match_sets(WORDS, per_set=4), article_set(WORDS), forward_vocab_set(WORDS)]
 
 UEBUNGEN_SETS = [
     exercise("Die deutschen Städte vergleichen", [

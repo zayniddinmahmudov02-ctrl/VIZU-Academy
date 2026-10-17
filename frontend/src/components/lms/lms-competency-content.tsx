@@ -138,11 +138,16 @@ export default function LmsCompetencyContent({
       section = <ListeningSection lessonId={lessonId} />;
       break;
     case "SPRECHEN":
-      section = <SpeakingSection lessonId={lessonId} />;
+      // task cards on white with dark text in every theme (.lms-paper)
+      section = (
+        <div className="lms-paper" data-testid="lms-paper">
+          <SpeakingSection lessonId={lessonId} />
+        </div>
+      );
       break;
     case "SCHREIBEN":
       section = (
-        <div className="space-y-10">
+        <div className="lms-paper space-y-10" data-testid="lms-paper">
           <SchreibenPractice lessonId={lessonId} />
           <WritingSection lessonId={lessonId} />
         </div>

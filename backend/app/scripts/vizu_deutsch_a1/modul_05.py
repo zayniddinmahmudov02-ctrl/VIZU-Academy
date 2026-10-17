@@ -17,6 +17,7 @@ sheet is not reliable for this edition, so the gaps are left for the admin
 (key_pending); its values are kept as a hint in the item metadata."""
 
 from . import (
+    forward_vocab_set,
     article_set, base, choice_gap, exercise, gap, html_table, intro_html, match, mc, reverse_vocab_set, short, summary_html, tf, ul,
     vocab_match_sets, words,
 )
@@ -184,7 +185,7 @@ WORDS = (
 )
 
 
-WORTSCHATZ_SETS = [*vocab_match_sets(WORDS), article_set(WORDS)]
+WORTSCHATZ_SETS = [*vocab_match_sets(WORDS), article_set(WORDS), forward_vocab_set(WORDS)]
 
 UEBUNGEN_SETS = [
     exercise("Das richtige Fragewort", [

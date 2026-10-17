@@ -8,6 +8,7 @@ countable noun normally needs an article in a real sentence. Item 24 prints
 no gap in the book ("das Haus guten Mannes"); the gap is set on "gut__"."""
 
 from . import (
+    forward_vocab_set,
     article_set, base, choice_gap, exercise, html_table, intro_html, match, mc, reverse_vocab_set, summary_html, tf, vocab_match_sets, words,
 )
 
@@ -158,7 +159,7 @@ _W = [("der", "Supermarkt", "supermarket"), ("der", "Laden", "do'kon"), ("der", 
 WORDS = words(_W, "Im Supermarkt")
 
 
-WORTSCHATZ_SETS = [*vocab_match_sets(WORDS, per_set=4), article_set(WORDS)]
+WORTSCHATZ_SETS = [*vocab_match_sets(WORDS, per_set=4), article_set(WORDS), forward_vocab_set(WORDS)]
 
 UEBUNGEN_SETS = [
     exercise("Adjektivendungen in den Texten", [

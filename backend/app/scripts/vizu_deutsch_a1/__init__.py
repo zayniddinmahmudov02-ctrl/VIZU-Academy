@@ -239,6 +239,27 @@ def reverse_vocab_set(word_list: list[dict], limit: int = 8, title: str = "Nemis
     return exercise(title, questions, "O'zbekcha so'zning nemischasini tanlang.", source="vizu")
 
 
+def forward_vocab_set(word_list: list[dict], limit: int = 8, title: str = "Was bedeutet das?") -> dict | None:
+    """'Was bedeutet „der Tisch“?' — the Uzbek translation from the book's
+    word list, two distractors from the same list (other words than the
+    ones reverse_vocab_set asks)."""
+    import hashlib
+
+    words_ = _unique_words(word_list)
+    if len(words_) < 3:
+        return None
+    step = max(1, len(words_) // limit)
+    picked = words_[0::step][:limit] if len(words_) > limit else words_[:limit]
+    questions = []
+    for w in picked:
+        others = [o for o in words_ if o is not w and o["translation"] != w["translation"]]
+        others.sort(key=lambda o: hashlib.sha256(f"{w['word']}>{o['word']}".encode()).hexdigest())
+        options = [w["translation"], others[0]["translation"], others[1]["translation"]]
+        options.sort(key=lambda o: hashlib.sha256(f"{o}>{w['word']}".encode()).hexdigest())
+        questions.append(mc(f"Was bedeutet „{_label(w)}“?", options, chr(65 + options.index(w["translation"]))))
+    return exercise(title, questions, "Nemischa so'zning o'zbekcha tarjimasini tanlang.", source="vizu")
+
+
 def word_order_mc(words_: str, correct: str, question: str = "Bilde einen Satz") -> dict:
     """'Build a sentence from the words' as a choice: the book's sentence and
     two wrong word orders (finite verb at the end; subject + verb moved to

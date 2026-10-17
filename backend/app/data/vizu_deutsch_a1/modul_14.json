@@ -1240,6 +1240,109 @@
       }
      ],
      "instruction": "So'zning artiklini tanlang (kitobdagi lug'at bo'yicha)."
+    },
+    {
+     "title": "Was bedeutet das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „die Gesundheit“?",
+       "options": [
+        "sog'liq",
+        "uzoq yashamoq",
+        "o'zini his qilmoq"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „das Fieber“?",
+       "options": [
+        "bemor",
+        "yemoq",
+        "isitma"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „müde“?",
+       "options": [
+        "sog'lom",
+        "bemor",
+        "charchagan"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „das Krankenhaus“?",
+       "options": [
+        "shifoxona",
+        "kasal",
+        "toza havo"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „der Patient“?",
+       "options": [
+        "retsept",
+        "isitma",
+        "bemor"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „untersuchen“?",
+       "options": [
+        "yo'tal",
+        "tekshirmoq",
+        "sog'lom qolmoq"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „trinken“?",
+       "options": [
+        "kuchli",
+        "shifokor",
+        "ichmoq"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „das Fitnessstudio“?",
+       "options": [
+        "yordam bermoq",
+        "isitma",
+        "sport zali"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zning o'zbekcha tarjimasini tanlang."
     }
    ],
    "auto_practice": false

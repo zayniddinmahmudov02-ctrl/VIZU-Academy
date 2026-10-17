@@ -11,7 +11,7 @@ the alphabet or the words: those are created by VIZU strictly from the
 book's own texts, tables and word list (source "vizu"); every answer can be
 found in the book material."""
 
-from . import base, choice_gap, exercise, gap, html_table, match, mc, tf, ul, words
+from . import base, forward_vocab_set, choice_gap, exercise, gap, html_table, match, mc, tf, ul, words
 
 L = 1
 LESSON_TITLE = "Herzlich Willkommen!"
@@ -388,6 +388,7 @@ WORTSCHATZ_SETS = [
         mc("„kechqurun“ — nemischa qanday?", ["der Abend", "der Morgen", "die Nacht"], "A"),
         mc("„suzmoq“ — nemischa qanday?", ["lesen", "schwimmen", "Rad fahren"], "B"),
     ], "O'zbekcha so'zning nemischasini tanlang.", source="vizu"),
+    forward_vocab_set(WORDS),
 ]
 
 # ============================================================

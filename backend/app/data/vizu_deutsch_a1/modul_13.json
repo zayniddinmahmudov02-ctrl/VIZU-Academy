@@ -1275,6 +1275,109 @@
       }
      ],
      "instruction": "So'zning artiklini tanlang (kitobdagi lug'at bo'yicha)."
+    },
+    {
+     "title": "Was bedeutet das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „der Termin“?",
+       "options": [
+        "uchrashuv, termin",
+        "bormoq",
+        "loyiha"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „die Besprechung“?",
+       "options": [
+        "firma",
+        "bo'sh",
+        "yig'ilish"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „das Krankenhaus“?",
+       "options": [
+        "kech",
+        "gaplashmoq",
+        "kasalxona"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „vereinbaren“?",
+       "options": [
+        "kelishmoq",
+        "yordam bermoq",
+        "isitma"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „die Arbeit“?",
+       "options": [
+        "hamkorlik",
+        "ish",
+        "ishlamoq"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „gehen“?",
+       "options": [
+        "loyiha",
+        "bormoq",
+        "klinika"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „informieren“?",
+       "options": [
+        "kelmoq",
+        "kelishmoq",
+        "xabardor qilmoq"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „bestätigen“?",
+       "options": [
+        "qatnashmoq",
+        "tasdiqlamoq",
+        "uzr so'ramoq"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zning o'zbekcha tarjimasini tanlang."
     }
    ],
    "auto_practice": false

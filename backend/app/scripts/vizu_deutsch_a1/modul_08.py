@@ -11,6 +11,7 @@ unsere Freunde. (besuchen)") — asked once. Task 4 sentence 6 prints
 The Hören gaps are decided by the infinitives in brackets (Perfekt forms)."""
 
 from . import (
+    forward_vocab_set,
     article_set, base, choice_gap, exercise, gap, gap_paragraphs, html_table, intro_html, match, mc, reverse_vocab_set, summary_html, tf, ul,
     vocab_match_sets, words,
 )
@@ -183,7 +184,7 @@ _W = [("der", "Urlaub", "ta'til"), ("reisen", "sayohat qilmoq"), ("reisen nach",
 WORDS = words(_W, "Urlaub")
 
 
-WORTSCHATZ_SETS = [*vocab_match_sets(WORDS, per_set=4), article_set(WORDS)]
+WORTSCHATZ_SETS = [*vocab_match_sets(WORDS, per_set=4), article_set(WORDS), forward_vocab_set(WORDS)]
 
 UEBUNGEN_SETS = [
     exercise("haben oder sein? (Lesen & Hören)", [

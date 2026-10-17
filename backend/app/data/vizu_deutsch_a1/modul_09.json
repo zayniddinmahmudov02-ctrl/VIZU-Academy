@@ -1458,6 +1458,109 @@
       }
      ],
      "instruction": "So'zning artiklini tanlang (kitobdagi lug'at bo'yicha)."
+    },
+    {
+     "title": "Was bedeutet das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „die Reise“?",
+       "options": [
+        "bozor",
+        "quyoshli",
+        "sayohat"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „das Zentrum“?",
+       "options": [
+        "yemoq",
+        "markaz",
+        "ko'cha"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „gehen“?",
+       "options": [
+        "yemoq",
+        "piyoda bormoq",
+        "ko'cha"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „der Markt“?",
+       "options": [
+        "boshdan kechirmoq",
+        "bozor",
+        "choy"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „die Berge“?",
+       "options": [
+        "tog'lar",
+        "xotira",
+        "piyoda bormoq"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „der Tee“?",
+       "options": [
+        "yashamoq, qolmoq",
+        "choy",
+        "yetib kelmoq"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „warm“?",
+       "options": [
+        "iliq",
+        "chiroyli",
+        "bozor"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „erleben“?",
+       "options": [
+        "yashamoq, qolmoq",
+        "markaz",
+        "boshdan kechirmoq"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zning o'zbekcha tarjimasini tanlang."
     }
    ],
    "auto_practice": false

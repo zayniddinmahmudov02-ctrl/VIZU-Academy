@@ -1574,6 +1574,109 @@
       }
      ],
      "instruction": "So'zning artiklini tanlang (kitobdagi lug'at bo'yicha)."
+    },
+    {
+     "title": "Was bedeutet das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „der Supermarkt“?",
+       "options": [
+        "supermarket",
+        "sharbat",
+        "savat"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „einkaufen“?",
+       "options": [
+        "xarid qilmoq",
+        "pishloq",
+        "non"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „die Milch“?",
+       "options": [
+        "sut",
+        "kiyinish xonasi",
+        "qizil"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „die Banane“?",
+       "options": [
+        "pishloq",
+        "banan",
+        "supermarket"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „das Fleisch“?",
+       "options": [
+        "go'sht",
+        "do'kon",
+        "banan"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „die Kasse“?",
+       "options": [
+        "kassa",
+        "supermarket",
+        "do'kon"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „alt“?",
+       "options": [
+        "eski",
+        "sharbat",
+        "ko'k"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „die Jacke“?",
+       "options": [
+        "guruch",
+        "kurtka",
+        "qora"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zning o'zbekcha tarjimasini tanlang."
     }
    ],
    "auto_practice": false

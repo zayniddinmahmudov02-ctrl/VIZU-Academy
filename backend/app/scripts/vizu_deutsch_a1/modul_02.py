@@ -18,7 +18,7 @@ Berlin" — is not even in the book's word list): only the family words that
 the text itself determines are keyed, the task stays key_pending until an
 admin has listened to A1-2.mp3 and set the remaining answers."""
 
-from . import base, choice_gap, exercise, gap, gap_paragraphs, html_table, match, mc, text_gap, tf, ul, words
+from . import base, forward_vocab_set, choice_gap, exercise, gap, gap_paragraphs, html_table, match, mc, text_gap, tf, ul, words
 
 L = 2
 LESSON_TITLE = "Meine Familie"
@@ -374,6 +374,7 @@ WORTSCHATZ_SETS = [
         mc("Die Tochter von meinem Sohn ist meine …", ["Nichte", "Enkelin", "Tochter"], "B"),
         mc("Die Mutter von meinem Ehemann ist meine …", ["Schwiegermutter", "Großmutter", "Tante"], "A"),
     ], "Oila a'zolari o'rtasidagi qarindoshlikni toping.", source="vizu"),
+    forward_vocab_set(WORDS),
 ]
 
 # ============================================================

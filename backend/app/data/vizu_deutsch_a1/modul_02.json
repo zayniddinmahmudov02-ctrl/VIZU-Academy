@@ -697,6 +697,109 @@
       }
      ],
      "instruction": "Oila a'zolari o'rtasidagi qarindoshlikni toping."
+    },
+    {
+     "title": "Was bedeutet das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „wohnen“?",
+       "options": [
+        "yashamoq",
+        "ota",
+        "opa / singil"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „lernen“?",
+       "options": [
+        "gapirmoq",
+        "er",
+        "o'rganmoq"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „trinken“?",
+       "options": [
+        "xola / amma",
+        "gapirmoq",
+        "ichmoq"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „sprechen“?",
+       "options": [
+        "ichmoq",
+        "amaki / xola qizi",
+        "gapirmoq"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „der Vater“?",
+       "options": [
+        "jiyan qiz",
+        "ota",
+        "qaynisingil"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „der Bruder“?",
+       "options": [
+        "qaynota",
+        "aka / uka",
+        "qaynisingil"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „der Onkel“?",
+       "options": [
+        "sevmoq",
+        "amaki / tog'a",
+        "o'qimoq"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „der Neffe“?",
+       "options": [
+        "amaki / xola qizi",
+        "qaynota",
+        "jiyan o'g'il"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zning o'zbekcha tarjimasini tanlang."
     }
    ],
    "auto_practice": false

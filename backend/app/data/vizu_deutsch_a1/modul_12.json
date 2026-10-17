@@ -1459,6 +1459,109 @@
       }
      ],
      "instruction": "So'zning artiklini tanlang (kitobdagi lug'at bo'yicha)."
+    },
+    {
+     "title": "Was bedeutet das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „regnen“?",
+       "options": [
+        "bo'ron",
+        "yomg'ir yog'moq",
+        "kamdan-kam"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „steigen“?",
+       "options": [
+        "qor yog'moq",
+        "sovqotmoq",
+        "ko'tarilmoq"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „hageln“?",
+       "options": [
+        "ichkarida",
+        "ochilmoq (osmon)",
+        "do'l yog'moq"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „der Wind“?",
+       "options": [
+        "o'zgarmoq",
+        "salqin",
+        "shamol"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „der Himmel“?",
+       "options": [
+        "kunduz kuni",
+        "porlamoq (quyosh)",
+        "osmon"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „sonnig“?",
+       "options": [
+        "quyoshli",
+        "quyosh",
+        "pasaymoq"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „bewölkt“?",
+       "options": [
+        "bulutli",
+        "qor yog'moq",
+        "tashqarida"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „morgen“?",
+       "options": [
+        "erimoq",
+        "ba'zan",
+        "ertaga"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zning o'zbekcha tarjimasini tanlang."
     }
    ],
    "auto_practice": false

@@ -1515,6 +1515,109 @@
       }
      ],
      "instruction": "So'zning artiklini tanlang (kitobdagi lug'at bo'yicha)."
+    },
+    {
+     "title": "Was bedeutet das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „die Stadt“?",
+       "options": [
+        "shahar",
+        "payshanba",
+        "o'tgan hafta"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „der Hund“?",
+       "options": [
+        "it",
+        "iyun",
+        "suratlar olish"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „die Woche“?",
+       "options": [
+        "yakshanba",
+        "esdalik sovg'alar",
+        "hafta"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „am Morgen“?",
+       "options": [
+        "ertalab",
+        "bugun",
+        "payshanba"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „vorher“?",
+       "options": [
+        "oldin",
+        "kruassanlar",
+        "kechqurun"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „Donnerstag“?",
+       "options": [
+        "payshanba",
+        "oldin",
+        "hafta oxiri"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „Februar“?",
+       "options": [
+        "iyun",
+        "fevral",
+        "Amir Temur maydoni"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „Juli“?",
+       "options": [
+        "payshanba",
+        "buvi va bobo",
+        "iyul"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zning o'zbekcha tarjimasini tanlang."
     }
    ],
    "auto_practice": false

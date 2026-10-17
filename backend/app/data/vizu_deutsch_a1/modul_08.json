@@ -2261,6 +2261,109 @@
       }
      ],
      "instruction": "So'zning artiklini tanlang (kitobdagi lug'at bo'yicha)."
+    },
+    {
+     "title": "Was bedeutet das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „der Urlaub“?",
+       "options": [
+        "binolar",
+        "muzey",
+        "ta'til"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „am Strand“?",
+       "options": [
+        "voleybol o'ynamoq",
+        "muzey",
+        "plyajda"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „Volleyball spielen“?",
+       "options": [
+        "yoqmoq",
+        "(bir joyga) borib kelmoq",
+        "voleybol o'ynamoq"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „Fotos machen“?",
+       "options": [
+        "fotosurat tushirmoq",
+        "hayratlanib tomosha qilmoq",
+        "(bir joyga) borib kelmoq"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „Souvenirs kaufen“?",
+       "options": [
+        "(bir joyga) borib kelmoq",
+        "sayohat qilmoq",
+        "sovg'a sotib olmoq"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „neue Freunde finden“?",
+       "options": [
+        "yangi do'stlar topmoq",
+        "qiziqarli",
+        "yoqimli odamlar"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „die Wanderung“?",
+       "options": [
+        "xotiralar to'plamoq",
+        "yoqimli odamlar",
+        "piyoda sayr, trekking"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „möchten“?",
+       "options": [
+        "xohlamoq",
+        "sayr qilmoq",
+        "yashamoq, qolmoq"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zning o'zbekcha tarjimasini tanlang."
     }
    ],
    "auto_practice": false

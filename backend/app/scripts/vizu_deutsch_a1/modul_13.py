@@ -9,6 +9,7 @@ has no transcript: the questions wait for the audio (key_pending), the old
 answer sheet's letters are kept as a hint."""
 
 from . import (
+    forward_vocab_set,
     article_set, base, choice_gap, exercise, gap, html_table, intro_html, match, mc, mc_pending, reverse_vocab_set, summary_html, tf,
     vocab_match_sets, words,
 )
@@ -152,7 +153,7 @@ _W = [("der", "Termin", "uchrashuv, termin"), ("das", "Büro", "ofis"), ("der", 
 WORDS = words(_W, "Termine und Alltag")
 
 
-WORTSCHATZ_SETS = [*vocab_match_sets(WORDS, per_set=4), article_set(WORDS)]
+WORTSCHATZ_SETS = [*vocab_match_sets(WORDS, per_set=4), article_set(WORDS), forward_vocab_set(WORDS)]
 
 UEBUNGEN_SETS = [
     exercise("Modalverben in den Briefen", [

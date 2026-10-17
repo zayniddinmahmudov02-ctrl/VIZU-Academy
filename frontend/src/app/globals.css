@@ -529,6 +529,34 @@ html:not(.dark) .lms-theme {
   --text-primary: #0e1834;
 }
 
+/* Schreiben / Sprechen: the task area is always white with dark text — also
+   in dark mode, where the dark tokens made textarea and recorder text hard
+   to read. Only the colour tokens change; buttons keep their accent colours. */
+.lms-paper {
+  --surface-bg: #ffffff;
+  --surface-card: #ffffff;
+  --surface-hover: #f4f6fb;
+  --surface-border: rgba(15, 23, 42, 0.14);
+  --text-primary: #0e1834;
+  --text-secondary: #374151;
+  --text-muted: #6b7280;
+  color: var(--text-primary);
+  background: #ffffff;
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.08);
+  color-scheme: light;
+}
+@media (min-width: 640px) {
+  .lms-paper { padding: 1.5rem; }
+}
+.lms-paper textarea,
+.lms-paper input,
+.lms-paper select {
+  background: #ffffff;
+  color: #0e1834;
+}
+
 @keyframes lms-fade-in {
   from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: none; }

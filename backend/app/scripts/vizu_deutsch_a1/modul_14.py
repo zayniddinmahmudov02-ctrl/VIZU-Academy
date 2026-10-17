@@ -11,6 +11,7 @@ wrong word orders, because several orders are correct (Morgen werde ich … /
 Ich werde morgen …)."""
 
 from . import (
+    forward_vocab_set,
     article_set, base, choice_gap, exercise, html_table, intro_html, match, mc, mc_pending, reverse_vocab_set, summary_html, text_gap, tf, ul,
     vocab_match_sets, word_order_mc, words,
 )
@@ -116,7 +117,7 @@ _W = [("die", "Gesundheit", "sog'liq"), ("gesund", "sog'lom"), ("krank", "kasal"
 WORDS = words(_W, "Gesundheit und Krankheit")
 
 
-WORTSCHATZ_SETS = [*vocab_match_sets(WORDS, per_set=4), article_set(WORDS)]
+WORTSCHATZ_SETS = [*vocab_match_sets(WORDS, per_set=4), article_set(WORDS), forward_vocab_set(WORDS)]
 
 UEBUNGEN_SETS = [
     exercise("Präsens → Futur I (Lesen)", [

@@ -2167,6 +2167,109 @@
       }
      ],
      "instruction": "So'zning artiklini tanlang (kitobdagi lug'at bo'yicha)."
+    },
+    {
+     "title": "Was bedeutet das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „deftig“?",
+       "options": [
+        "non",
+        "mazali, to'yimli",
+        "tushlik"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „das Brötchen“?",
+       "options": [
+        "murabbo",
+        "kakao",
+        "bulka"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „die Kekse“?",
+       "options": [
+        "kruassan",
+        "pechenye",
+        "sut"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „die Wurst“?",
+       "options": [
+        "kolbasa",
+        "makaron",
+        "muzqaymoq"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „der Thunfisch“?",
+       "options": [
+        "ton",
+        "piroq",
+        "sho'rva"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „die Tomaten“?",
+       "options": [
+        "mol go'shti",
+        "sabzavot",
+        "pomidor"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „die Trauben“?",
+       "options": [
+        "kakao",
+        "cho'chqa go'shti",
+        "uzum"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „der Saft“?",
+       "options": [
+        "losos",
+        "suv",
+        "sharbat"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zning o'zbekcha tarjimasini tanlang."
     }
    ],
    "auto_practice": false

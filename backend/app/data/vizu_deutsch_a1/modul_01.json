@@ -1007,6 +1007,109 @@
       }
      ],
      "instruction": "O'zbekcha so'zning nemischasini tanlang."
+    },
+    {
+     "title": "Was bedeutet das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „ich“?",
+       "options": [
+        "men",
+        "rasm chizmoq",
+        "suzmoq"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „der Deutschunterricht“?",
+       "options": [
+        "nemis tili darsi",
+        "kitob",
+        "juma"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „der Bruder“?",
+       "options": [
+        "do'st (qiz)",
+        "aka / uka",
+        "musiqa tinglamoq"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „Malen“?",
+       "options": [
+        "yomg'irli",
+        "rasm chizmoq",
+        "kelmoq"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „der Tag“?",
+       "options": [
+        "daftar",
+        "tong",
+        "kun"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „Donnerstag“?",
+       "options": [
+        "payshanba",
+        "seshanba",
+        "bahor"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „kalt“?",
+       "options": [
+        "sovuq",
+        "bormoq",
+        "kun"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „der Winter“?",
+       "options": [
+        "qish",
+        "futbol o'ynamoq",
+        "do'st (qiz)"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zning o'zbekcha tarjimasini tanlang."
     }
    ],
    "auto_practice": false

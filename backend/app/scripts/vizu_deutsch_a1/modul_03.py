@@ -15,6 +15,7 @@ note. The Lesen / Hören questions and the free writing task are created by
 VIZU from the book's texts (source "vizu")."""
 
 from . import (
+    forward_vocab_set,
     article_set, base, choice_gap, exercise, html_table, intro_html, match, mc, pairs, reverse_vocab_set, summary_html, text_gap, tf,
     vocab_match_sets, words,
 )
@@ -230,7 +231,7 @@ WORDS = (
              ("das", "Schnitzel", "schnitzel"), ("die", "Pommes", "kartoshka frit")], "Mehmonxona / restoran so'zlari")
 )
 
-WORTSCHATZ_SETS = [*vocab_match_sets(WORDS), article_set(WORDS)]
+WORTSCHATZ_SETS = [*vocab_match_sets(WORDS), article_set(WORDS), forward_vocab_set(WORDS)]
 
 # ============================================================
 # Übungen / Abschlusstest

@@ -12,6 +12,7 @@ list (Brot, Butter, Marmelade, Käse, Wurst); the rest is set by an admin
 after listening (key_pending)."""
 
 from . import (
+    forward_vocab_set,
     article_set, base, choice_gap, exercise, gap, html_table, intro_html, match, mc, reverse_vocab_set, short, summary_html, text_gap, tf, ul,
     vocab_match_sets, word_order_mc, words,
 )
@@ -187,7 +188,7 @@ WORDS = (
 )
 
 
-WORTSCHATZ_SETS = [*vocab_match_sets(WORDS), article_set(WORDS)]
+WORTSCHATZ_SETS = [*vocab_match_sets(WORDS), article_set(WORDS), forward_vocab_set(WORDS)]
 
 UEBUNGEN_SETS = [
     exercise("Modalverben und kein (Lesen)", [

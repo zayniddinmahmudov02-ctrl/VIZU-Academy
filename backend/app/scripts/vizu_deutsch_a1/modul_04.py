@@ -9,6 +9,7 @@ The Schreiben practice uses the book's sample text "Mein Zimmer von Aziz"
 (p.44): the gaps are its possessive pronouns, the answers its own words."""
 
 from . import (
+    forward_vocab_set,
     article_set, base, choice_gap, exercise, gap, html_table, intro_html, match, mc, mc_pending, reverse_vocab_set, summary_html, tf,
     vocab_match_sets, words,
 )
@@ -147,7 +148,7 @@ WORDS = (
 )
 
 
-WORTSCHATZ_SETS = [*vocab_match_sets(WORDS), article_set(WORDS)]
+WORTSCHATZ_SETS = [*vocab_match_sets(WORDS), article_set(WORDS), forward_vocab_set(WORDS)]
 
 UEBUNGEN_SETS = [
     exercise("Wessen Zimmer ist das? (Lesen)", [

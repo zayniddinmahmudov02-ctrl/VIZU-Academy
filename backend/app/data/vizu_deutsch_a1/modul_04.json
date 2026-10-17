@@ -1130,6 +1130,109 @@
       }
      ],
      "instruction": "So'zning artiklini tanlang (kitobdagi lug'at bo'yicha)."
+    },
+    {
+     "title": "Was bedeutet das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „das Schlafzimmer“?",
+       "options": [
+        "balkon",
+        "yotoqxona",
+        "ish xonasi"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „das Badezimmer“?",
+       "options": [
+        "yorug'",
+        "hammom",
+        "katta"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „der Flur“?",
+       "options": [
+        "qulay",
+        "bolalar xonasi",
+        "yo'lak"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „der Garten“?",
+       "options": [
+        "yozuv stoli",
+        "yorug'",
+        "bog'"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „groß“?",
+       "options": [
+        "bolalar xonasi",
+        "katta",
+        "balkon"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „gemütlich“?",
+       "options": [
+        "yorug'",
+        "qulay",
+        "toza"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „das Regal“?",
+       "options": [
+        "katta",
+        "tinch",
+        "javon"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „der Kalender“?",
+       "options": [
+        "chiroyli",
+        "taqvim",
+        "sovrin (kubok)"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zning o'zbekcha tarjimasini tanlang."
     }
    ],
    "auto_practice": false

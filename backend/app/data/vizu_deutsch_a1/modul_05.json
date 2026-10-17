@@ -1566,6 +1566,109 @@
       }
      ],
      "instruction": "So'zning artiklini tanlang (kitobdagi lug'at bo'yicha)."
+    },
+    {
+     "title": "Was bedeutet das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „lernen“?",
+       "options": [
+        "ishlamoq",
+        "ko'cha",
+        "o'rganmoq"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „lesen“?",
+       "options": [
+        "o'rganmoq",
+        "televizor tomosha qilmoq",
+        "o'qimoq"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „morgens“?",
+       "options": [
+        "ertalab",
+        "tushlik qilmoq",
+        "uxlash"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „am Wochenende“?",
+       "options": [
+        "uyda",
+        "hafta oxiri",
+        "qaysi"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „die Bibliothek“?",
+       "options": [
+        "qiziqarli",
+        "kutubxona",
+        "yo'q"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „Abendessen essen“?",
+       "options": [
+        "raqsga tushmoq",
+        "kechki ovqat qilmoq",
+        "yemoq"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „einkaufen gehen“?",
+       "options": [
+        "xaridga bormoq",
+        "tushdan keyin",
+        "qaysi"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „mit wem“?",
+       "options": [
+        "musiqa tinglamoq",
+        "kim bilan",
+        "o'ynamoq"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zning o'zbekcha tarjimasini tanlang."
     }
    ],
    "auto_practice": false
