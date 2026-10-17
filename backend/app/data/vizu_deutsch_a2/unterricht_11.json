@@ -1,0 +1,1392 @@
+{
+ "schema_version": "1.2",
+ "language": "de",
+ "source": "vizu-deutsch-a2-book",
+ "items": [
+  {
+   "content_id": "vizu-a2-l11-kompetenz-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 11,
+   "skill": "kompetenz",
+   "title": "Einführung: A2 11. Unterricht",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 125
+   },
+   "competency": "EINFUEHRUNG",
+   "html": "<h3>A2 11. Unterricht — Umwelt und Verantwortung</h3><p><strong>Mavzu:</strong> Umwelt und Verantwortung · <strong>Grammatik:</strong> Passiv Präsens + man-Strukturen</p><h4>Dars maqsadlari</h4><ul><li>Passiv Präsens: werden + Partizip II — Der Brief wird geschrieben.;</li><li>„man“ bilan shaxssiz gap: Man schreibt einen Brief.;</li><li>A2 imtihon formatida to'rtta ko'nikma bo'yicha mashq qilish.</li></ul><h4>Dars oxirida siz quyidagilarni bajara olasiz</h4><ul><li>atrof-muhit uchun nima qila olishingizni aytasiz;</li><li>gazeta matni, festival dasturi, e-mail va kurs e'lonlarini tushunasiz;</li><li>qisqa matnlar, suhbat va intervyuni tinglab tushunasiz;</li><li>SMS va o'qituvchiga e-mail yozasiz, savol berasiz va uchrashuvni kelishasiz.</li></ul><h4>Darsning tuzilishi</h4><p>Einführung → Wortschatz → Grammatik → Lesen → Hören → Sprechen → Schreiben → Übungen → Abschlusstest → Zusammenfassung</p>"
+  },
+  {
+   "content_id": "vizu-a2-l11-frage-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 11,
+   "skill": "frage",
+   "title": "Frage des Themas: Was kann Einzelne für die Umwelt tun?",
+   "source": "book",
+   "metadata": {
+    "book_page": 126,
+    "book_samples": [
+     "Ich kann Strom sparen, indem ich das Licht ausschalte, wenn ich es nicht brauche. Außerdem trenne ich Müll und benutze wiederverwendbare Taschen beim Einkaufen. Jede kleine Handlung hilft unserer Umwelt.",
+     "Ich fahre mit dem Fahrrad oder gehe zu Fuß, statt das Auto zu benutzen. Das ist gut für die Umwelt und auch für meine Gesundheit. Ich achte auch darauf, weniger Plastik zu verwenden. So kann ich die Natur schützen.",
+     "Ich kann Wasser sparen, indem ich kurz dusche und den Wasserhahn zudrehe. Ich kaufe regionale Produkte und unterstütze umweltfreundliche Unternehmen. Gemeinsam können wir eine bessere Zukunft schaffen."
+    ]
+   },
+   "prompt": "Was kann Einzelne für die Umwelt tun? Sprechen Sie über das Thema in 2–3 Sätzen.",
+   "min_duration": 20,
+   "max_duration": 90
+  },
+  {
+   "content_id": "vizu-a2-l11-grammatik-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 11,
+   "skill": "grammatik",
+   "title": "Grammatik: Passiv Präsens + man-Strukturen",
+   "source": "book",
+   "metadata": {
+    "book_page": "127-128"
+   },
+   "rules": [
+    {
+     "title": "Passiv Präsens + man-Strukturen",
+     "html": "<h3>Passiv Präsens + man-Strukturen</h3><table><thead><tr><th>Passiv Präsens</th><th>Passiv: man</th></tr></thead><tbody><tr><td>Das Passiv benutzt man, wenn die <strong>Handlung</strong> im Fokus steht und <strong>nicht</strong> die Person, die etwas tut.</td><td>Das unpersönliche Pronomen „man“ benutzt man, wenn nicht wichtig ist, von wem etwas getan wird (subjektloser Satz).</td></tr><tr><td><strong>Struktur:</strong> werden + Partizip II (+ von + Person)</td><td><strong>Struktur:</strong> man + Verb (aktiv)</td></tr><tr><td>Der Brief wird geschrieben.<br>Die Küche wird sauber gemacht.<br>Ein Film wird oft gesehen.</td><td>Man schreibt einen Brief.<br>Man macht die Küche sauber.<br>Man sieht oft Filme.</td></tr></tbody></table><p><strong>Vergleich:</strong> Der Brief wird geschrieben. (werden + Partizip II) → Man schreibt einen Brief. (man + Verb)</p><h4>Merke dir</h4><ul><li>Passiv verwendet man, wenn die Handlung wichtiger ist als der Täter.</li><li>Man-Strukturen sind nützlich für allgemeine Aussagen ohne konkrete Person.</li><li>Beide Formen sind im Alltag und in Texten sehr häufig.</li></ul>"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "1. Bilden Sie Sätze im Passiv Präsens (2–15)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "short_answer",
+       "question": "2. Die Schüler machen die Hausaufgaben.",
+       "accepted": [
+        "Die Hausaufgaben werden gemacht.",
+        "Die Hausaufgaben werden gemacht",
+        "Die Hausaufgaben werden von den Schülern gemacht.",
+        "Die Hausaufgaben werden von den Schülern gemacht"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Die Hausaufgaben werden gemacht. (oder: … von den Schülern …)"
+      },
+      {
+       "type": "short_answer",
+       "question": "3. Man baut ein neues Haus.",
+       "accepted": [
+        "Ein neues Haus wird gebaut.",
+        "Ein neues Haus wird gebaut"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Ein neues Haus wird gebaut."
+      },
+      {
+       "type": "short_answer",
+       "question": "4. Die Firma produziert Autos.",
+       "accepted": [
+        "Autos werden produziert.",
+        "Autos werden produziert",
+        "Autos werden von der Firma produziert.",
+        "Autos werden von der Firma produziert"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Autos werden produziert. (oder: … von der Firma …)"
+      },
+      {
+       "type": "short_answer",
+       "question": "5. Der Koch kocht das Essen.",
+       "accepted": [
+        "Das Essen wird gekocht.",
+        "Das Essen wird gekocht",
+        "Das Essen wird vom Koch gekocht.",
+        "Das Essen wird vom Koch gekocht"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Das Essen wird gekocht. (oder: … vom Koch …)"
+      },
+      {
+       "type": "short_answer",
+       "question": "6. Die Polizei kontrolliert die Autos.",
+       "accepted": [
+        "Die Autos werden kontrolliert.",
+        "Die Autos werden kontrolliert",
+        "Die Autos werden von der Polizei kontrolliert.",
+        "Die Autos werden von der Polizei kontrolliert"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Die Autos werden kontrolliert. (oder: … von der Polizei …)"
+      },
+      {
+       "type": "short_answer",
+       "question": "7. Die Mutter wäscht die Kleidung.",
+       "accepted": [
+        "Die Kleidung wird gewaschen.",
+        "Die Kleidung wird gewaschen",
+        "Die Kleidung wird von der Mutter gewaschen.",
+        "Die Kleidung wird von der Mutter gewaschen"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Die Kleidung wird gewaschen. (oder: … von der Mutter …)"
+      },
+      {
+       "type": "short_answer",
+       "question": "8. Die Kinder spielen Fußball.",
+       "accepted": [
+        "Fußball wird gespielt.",
+        "Fußball wird gespielt",
+        "Fußball wird von den Kindern gespielt.",
+        "Fußball wird von den Kindern gespielt"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Fußball wird gespielt. (oder: … von den Kindern …)"
+      },
+      {
+       "type": "short_answer",
+       "question": "9. Der Arzt untersucht den Patienten.",
+       "accepted": [
+        "Der Patient wird untersucht.",
+        "Der Patient wird untersucht",
+        "Der Patient wird vom Arzt untersucht.",
+        "Der Patient wird vom Arzt untersucht"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Der Patient wird untersucht. (oder: … vom Arzt …)"
+      },
+      {
+       "type": "short_answer",
+       "question": "10. Die Verkäuferin verkauft Brot.",
+       "accepted": [
+        "Brot wird verkauft.",
+        "Brot wird verkauft",
+        "Brot wird von der Verkäuferin verkauft.",
+        "Brot wird von der Verkäuferin verkauft"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Brot wird verkauft. (oder: … von der Verkäuferin …)"
+      },
+      {
+       "type": "short_answer",
+       "question": "11. Die Studenten schreiben einen Test.",
+       "accepted": [
+        "Ein Test wird geschrieben.",
+        "Ein Test wird geschrieben",
+        "Ein Test wird von den Studenten geschrieben.",
+        "Ein Test wird von den Studenten geschrieben"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Ein Test wird geschrieben. (oder: … von den Studenten …)"
+      },
+      {
+       "type": "short_answer",
+       "question": "12. Der Mechaniker repariert das Auto.",
+       "accepted": [
+        "Das Auto wird repariert.",
+        "Das Auto wird repariert",
+        "Das Auto wird vom Mechaniker repariert.",
+        "Das Auto wird vom Mechaniker repariert"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Das Auto wird repariert. (oder: … vom Mechaniker …)"
+      },
+      {
+       "type": "short_answer",
+       "question": "13. Die Lehrer korrigieren die Aufgaben.",
+       "accepted": [
+        "Die Aufgaben werden korrigiert.",
+        "Die Aufgaben werden korrigiert",
+        "Die Aufgaben werden von den Lehrern korrigiert.",
+        "Die Aufgaben werden von den Lehrern korrigiert"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Die Aufgaben werden korrigiert. (oder: … von den Lehrern …)"
+      },
+      {
+       "type": "short_answer",
+       "question": "14. Die Firma liefert die Pakete.",
+       "accepted": [
+        "Die Pakete werden geliefert.",
+        "Die Pakete werden geliefert",
+        "Die Pakete werden von der Firma geliefert.",
+        "Die Pakete werden von der Firma geliefert"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Die Pakete werden geliefert. (oder: … von der Firma …)"
+      },
+      {
+       "type": "short_answer",
+       "question": "15. Die Schüler lesen das Buch.",
+       "accepted": [
+        "Das Buch wird gelesen.",
+        "Das Buch wird gelesen",
+        "Das Buch wird von den Schülern gelesen.",
+        "Das Buch wird von den Schülern gelesen"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Das Buch wird gelesen. (oder: … von den Schülern …)"
+      }
+     ],
+     "instruction": "Beispiel: Der Lehrer erklärt die Grammatik. → Die Grammatik wird erklärt."
+    },
+    {
+     "title": "2. Bilden Sie vollständige Sätze mit „man“ (17–30)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "short_answer",
+       "question": "17. (am Abend / fernsehen)",
+       "accepted": [
+        "Am Abend sieht man fern.",
+        "Am Abend sieht man fern",
+        "Man sieht am Abend fern.",
+        "Man sieht am Abend fern"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Am Abend sieht man fern."
+      },
+      {
+       "type": "short_answer",
+       "question": "18. (in Deutschland / Deutsch / sprechen)",
+       "accepted": [
+        "In Deutschland spricht man Deutsch.",
+        "In Deutschland spricht man Deutsch",
+        "Man spricht in Deutschland Deutsch.",
+        "Man spricht in Deutschland Deutsch"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "In Deutschland spricht man Deutsch."
+      },
+      {
+       "type": "short_answer",
+       "question": "19. (im Restaurant / bezahlen / müssen)",
+       "accepted": [
+        "Im Restaurant muss man bezahlen.",
+        "Im Restaurant muss man bezahlen",
+        "Man muss im Restaurant bezahlen.",
+        "Man muss im Restaurant bezahlen"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Im Restaurant muss man bezahlen."
+      },
+      {
+       "type": "short_answer",
+       "question": "20. (im Park / spazieren gehen)",
+       "accepted": [
+        "Im Park geht man spazieren.",
+        "Im Park geht man spazieren",
+        "Man geht im Park spazieren.",
+        "Man geht im Park spazieren"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Im Park geht man spazieren."
+      },
+      {
+       "type": "short_answer",
+       "question": "21. (im Winter / Tee / trinken)",
+       "accepted": [
+        "Im Winter trinkt man Tee.",
+        "Im Winter trinkt man Tee",
+        "Man trinkt im Winter Tee.",
+        "Man trinkt im Winter Tee"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Im Winter trinkt man Tee."
+      },
+      {
+       "type": "short_answer",
+       "question": "22. (im Sommer / schwimmen)",
+       "accepted": [
+        "Im Sommer schwimmt man.",
+        "Im Sommer schwimmt man",
+        "Man schwimmt im Sommer.",
+        "Man schwimmt im Sommer"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Im Sommer schwimmt man."
+      },
+      {
+       "type": "short_answer",
+       "question": "23. (in der Stadt / viele Menschen / sehen)",
+       "accepted": [
+        "In der Stadt sieht man viele Menschen.",
+        "In der Stadt sieht man viele Menschen",
+        "Man sieht in der Stadt viele Menschen.",
+        "Man sieht in der Stadt viele Menschen"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "In der Stadt sieht man viele Menschen."
+      },
+      {
+       "type": "short_answer",
+       "question": "24. (am Morgen / früh / aufstehen)",
+       "accepted": [
+        "Am Morgen steht man früh auf.",
+        "Am Morgen steht man früh auf",
+        "Man steht am Morgen früh auf.",
+        "Man steht am Morgen früh auf"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Am Morgen steht man früh auf."
+      },
+      {
+       "type": "short_answer",
+       "question": "25. (im Büro / arbeiten)",
+       "accepted": [
+        "Im Büro arbeitet man.",
+        "Im Büro arbeitet man",
+        "Man arbeitet im Büro.",
+        "Man arbeitet im Büro"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Im Büro arbeitet man."
+      },
+      {
+       "type": "short_answer",
+       "question": "26. (im Supermarkt / Obst / kaufen)",
+       "accepted": [
+        "Im Supermarkt kauft man Obst.",
+        "Im Supermarkt kauft man Obst",
+        "Man kauft im Supermarkt Obst.",
+        "Man kauft im Supermarkt Obst"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Im Supermarkt kauft man Obst."
+      },
+      {
+       "type": "short_answer",
+       "question": "27. (im Unterricht / gut / zuhören)",
+       "accepted": [
+        "Im Unterricht hört man gut zu.",
+        "Im Unterricht hört man gut zu",
+        "Man hört im Unterricht gut zu.",
+        "Man hört im Unterricht gut zu"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Im Unterricht hört man gut zu."
+      },
+      {
+       "type": "short_answer",
+       "question": "28. (am Wochenende / Freunde / treffen)",
+       "accepted": [
+        "Am Wochenende trifft man Freunde.",
+        "Am Wochenende trifft man Freunde",
+        "Man trifft am Wochenende Freunde.",
+        "Man trifft am Wochenende Freunde"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Am Wochenende trifft man Freunde."
+      },
+      {
+       "type": "short_answer",
+       "question": "29. (in der Bibliothek / ruhig / sein)",
+       "accepted": [
+        "In der Bibliothek ist man ruhig.",
+        "In der Bibliothek ist man ruhig",
+        "Man ist in der Bibliothek ruhig.",
+        "Man ist in der Bibliothek ruhig"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "In der Bibliothek ist man ruhig."
+      },
+      {
+       "type": "short_answer",
+       "question": "30. (im Internet / viele Informationen / finden)",
+       "accepted": [
+        "Im Internet findet man viele Informationen.",
+        "Im Internet findet man viele Informationen",
+        "Man findet im Internet viele Informationen.",
+        "Man findet im Internet viele Informationen"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Im Internet findet man viele Informationen."
+      }
+     ],
+     "instruction": "Beispiel: (in der Schule / viel / lernen) → In der Schule lernt man viel."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l11-lesen-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 11,
+   "skill": "lesen",
+   "title": "Lesen Teil 1: Extremsport für Jugendliche",
+   "source": "book",
+   "metadata": {
+    "book_page": "129-130",
+    "note": "5-savol olinmadi: matnda Bungee-Jumping narxi berilmagan, javobni aniqlab bo'lmaydi."
+   },
+   "instruction": "Du liest in einer Zeitung diesen Text. Wähle a, b oder c.",
+   "passages": [
+    {
+     "title": "Extremsport für Jugendliche",
+     "text": "Zurzeit ist Extremsport sehr beliebt, und nicht nur unter Erwachsenen, denn auch Jugendliche, die noch keine 18 Jahre alt sind, haben die Möglichkeit, Extremsport zu machen. Man sollte aber in diesem Fall auf einige Dinge achten. Wenn man noch nicht erwachsen ist, ist es wichtig, dass die Eltern zustimmen, dass man von einem Arzt untersucht wird und dass man sich darüber informiert, wie viel man für jede Sportart bezahlen muss.\n\nDrei sehr beliebte Arten des Extremsports sind Fallschirmspringen, Tiefseetauchen und Bungee-Jumping. Möchtest du mal in 400 m Höhe aus dem Flugzeug springen und 60 Sekunden frei fliegen? Dann ist Fallschirmspringen genau das Richtige für dich. Mit 14 Jahren kannst du diese Erfahrung schon machen. Aber Vorsicht! Billig ist so ein Sprung nicht! Die Kosten für einen solchen Spaß liegen bei etwa 200 Euro.\n\nOder tauchst du lieber? In den Tauchschulen kannst du das lernen. Du übst zuerst 6–8 Wochen im Schwimmbad und danach kannst du in freien Gewässern in einer Tiefe von 15 m tauchen, natürlich zusammen mit einem Profi. Diese Erfahrung ist nicht billiger. Zwar kostet ein Spaziergang in der Tiefe etwa 150 Euro, Taucherbrille, Schwimmflossen und Schnorchel musst du allerdings extra bezahlen, diese Dinge kosten nochmal 150 Euro. Also dann, viel Spaß!"
+    }
+   ],
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "1 Damit Jugendliche eine Extremsportart ausüben, …",
+     "options": [
+      "müssen sie in einem Sportverein sein.",
+      "brauchen sie die Erlaubnis ihrer Eltern nicht.",
+      "brauchen sie eine Bestätigung von einem Arzt."
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„… dass man von einem Arzt untersucht wird …“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "2 Jugendliche …",
+     "options": [
+      "mögen Bungee-Jumping am liebsten.",
+      "mögen drei Extremsportarten ganz besonders.",
+      "mögen Fallschirmspringen nicht."
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Drei sehr beliebte Arten des Extremsports sind …“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "3 Beim Fallschirmspringen …",
+     "options": [
+      "erlebt man eine Minute lang freies Fliegen.",
+      "zahlt man weniger als 20 Euro für einen Sprung.",
+      "verlässt man das Flugzeug auf viertausend Meter Höhe."
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„… und 60 Sekunden frei fliegen?“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "4 Tauchen lernt man zuerst …",
+     "options": [
+      "im Schwimmbad.",
+      "in 15 m Tiefe.",
+      "in freien Gewässern."
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Du übst zuerst 6–8 Wochen im Schwimmbad …“"
+    }
+   ],
+   "max_score": 4
+  },
+  {
+   "content_id": "vizu-a2-l11-lesen-02",
+   "level": "A2",
+   "module": 1,
+   "lesson": 11,
+   "skill": "lesen",
+   "title": "Lesen Teil 2: Finde den besten Ort! (Straßenfest)",
+   "source": "book",
+   "metadata": {
+    "book_page": "131-133"
+   },
+   "instruction": "Du liest 5 Situationen. Wähle für jede Aufgabe die richtige Lösung a, b oder c.",
+   "passages": [
+    {
+     "title": "Internationales Straßenfest „Sindelfingen“",
+     "text": "Internationales Straßenfest „Sindelfingen“, 22. Juni\n\nBühne 1 – Marktplatz: 12:00 Uhr Spanische Folkloretänze · 12:30 Uhr Hip-Gruppe „JdP-Crew“ · 13:00 Uhr Slowenische Volkstänze\nBühne 3 – Martinskirche: ganztägig Sindelfingens beste Bratwurstkantine · 12:40 Uhr Showtanz-Salsa · 13:15 Uhr BMX-Technik beim Radfahren\nBühne 4 – Schaffhauser Platz: ganztägig Italienische Küchenkultur zum Probieren · 14:30 Uhr Treffen der Bücherfreunde · 15:00 Uhr Kochaktion für Jugendliche\nBühne 5 – Grabenstraße: 16:00 Uhr Spanische Spezialitäten kennenlernen · 16:30 Uhr Sprachschule „London“ · 17:00 Uhr Griechischer Kulturverein Sindelfingen e.V.\nBühne 7 – Rathausvorplatz: 15:00 Uhr Kinderspielecke (ab 3 Jahren) · 16:00 Uhr Kinder-Karaoke (bis 15 Jahre) · 16:45 Uhr Kindertänze einstudieren und vorführen\nBühne 8 – Lange Straße: ganztägig Schokoladenecke · 17:30 Uhr Verband der Tierfreunde „Katz und Hund“ · 18:00 Uhr Europäischer Kulturverein\n\nBeispiel: 0 Du möchtest mit deiner Freundin aus Slowenien Hip-Hop-Musik hören. → a) Bühne 1 – Marktplatz"
+    }
+   ],
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "1 Du kochst sehr gut.",
+     "options": [
+      "Bühne 4 – Schaffhauser Platz",
+      "Bühne 8 – Lange Straße",
+      "anderer Ort"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Bühne 4: 15:00 Uhr Kochaktion für Jugendliche."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "2 Du möchtest Radtricks sehen.",
+     "options": [
+      "Bühne 7 – Rathausvorplatz",
+      "Bühne 4 – Schaffhauser Platz",
+      "anderer Ort"
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1,
+     "explanation": "BMX-Technik beim Radfahren ist auf Bühne 3 → anderer Ort."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "3 Du interessierst dich für griechische Geschichte.",
+     "options": [
+      "Bühne 8 – Lange Straße",
+      "Bühne 5 – Grabenstraße",
+      "anderer Ort"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Bühne 5: Griechischer Kulturverein."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "4 Du möchtest typisch Deutsch essen.",
+     "options": [
+      "Bühne 4 – Schaffhauser Platz",
+      "Bühne 3 – Martinskirche",
+      "anderer Ort"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Bühne 3: Bratwurstkantine."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "5 Deine jüngere Schwester singt sehr gern.",
+     "options": [
+      "Bühne 1 – Marktplatz",
+      "Bühne 3 – Martinskirche",
+      "anderer Ort"
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Kinder-Karaoke ist auf Bühne 7 → anderer Ort."
+    }
+   ],
+   "max_score": 5
+  },
+  {
+   "content_id": "vizu-a2-l11-lesen-03",
+   "level": "A2",
+   "module": 1,
+   "lesson": 11,
+   "skill": "lesen",
+   "title": "Lesen Teil 3: E-Mail von Steffi",
+   "source": "book",
+   "metadata": {
+    "book_page": "134-135"
+   },
+   "instruction": "Du liest eine E-Mail. Wähle für die Aufgaben 11 bis 15 a, b oder c.",
+   "passages": [
+    {
+     "title": "E-Mail: Alles war so schön – damals!",
+     "text": "Von: Steffi · An: Leo · Betreff: Alles war so schön – damals!\n\nHallo Leo,\nwir haben uns lange nicht mehr gesehen, aber ich weiß, wie es dir geht. Auf Facebook schreibst du ja immer alles! Wenn du gerade eine neue Freundin hast, sehe ich dein aktuelles Profilbild, wo ihr zusammen drauf seid. Manchmal sehe ich auch dein WhatsApp-Bild an und freue mich, wenn du darauf blöd aussiehst. Ich weiß, du denkst jetzt, wie böse ich bin. Das bin ich aber gar nicht.\n\nKannst du dich noch an die Zeit unserer Freundschaft erinnern? Das war so schön! Oft frage ich mich, ob du manchmal an unsere gemeinsame Zeit denkst, als wir uns so toll verstanden haben. Wir haben damals so viele Sachen gemeinsam unternommen. Wenn wir uns auf eine Klassenarbeit vorbereiten mussten, dann haben wir stundenlang zusammen gelernt. In unserer Freizeit sind wir Rad gefahren und waren gemeinsam auf Partys.\n\nDann hat sich alles plötzlich geändert! Du hast mir auf einmal erzählt, dass du in Maria verliebt bist. Das konnte ich nicht glauben. Ich wollte, dass wir Freunde bleiben. Du hast mir aber gesagt, du willst das nicht. Ich finde es schade, dass du mich seitdem nie wieder angerufen oder getroffen hast. Ich habe immer geglaubt, dass wir echte Freunde sind. Ich finde es wirklich schade, dass du nicht mehr mit mir über deine Probleme sprechen willst.\n\nRuf doch mal an! Wir sprechen einfach miteinander und es wäre schön, wenn wir wieder Freunde sein könnten.\nBis bald!\nLiebe Grüße\nSteffi"
+    }
+   ],
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "11 Was macht Leo auf Facebook?",
+     "options": [
+      "Er ändert nie sein Profilbild.",
+      "Er schreibt alles über sich.",
+      "Er zeigt Fotos von seinen früheren Freundinnen."
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Auf Facebook schreibst du ja immer alles!“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "12 Wann freut sich Steffi?",
+     "options": [
+      "Wenn Leo auf Fotos nicht gut aussieht.",
+      "Wenn sie ihn mit seiner Freundin auf einem Foto sieht.",
+      "Wenn Leo sein WhatsApp-Bild nicht ändert."
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„… und freue mich, wenn du darauf blöd aussiehst.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "13 Was möchte Steffi von Leo wissen?",
+     "options": [
+      "Ob er mit ihr zusammen für die nächste Klassenarbeit lernen möchte.",
+      "Ob er an die Zeit zurückdenkt, als sie gute Freunde waren.",
+      "Ob er mit ihr Rad fahren möchte."
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Oft frage ich mich, ob du manchmal an unsere gemeinsame Zeit denkst …“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "14 Was passiert in letzter Zeit?",
+     "options": [
+      "Maria hat sich in Leo verliebt.",
+      "Steffi hat Leo nie wieder angerufen.",
+      "Leo wollte sich nicht mehr mit Steffi treffen."
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„… dass du mich seitdem nie wieder angerufen oder getroffen hast.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "15 Steffi …",
+     "options": [
+      "möchte Leo anrufen, wenn sie ein Problem hat.",
+      "findet es nicht gut, dass Leo nicht mehr mit ihr spricht.",
+      "möchte Leo nicht mehr zum Freund haben."
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Ich finde es wirklich schade, dass du nicht mehr mit mir … sprechen willst.“"
+    }
+   ],
+   "max_score": 5
+  },
+  {
+   "content_id": "vizu-a2-l11-lesen-04",
+   "level": "A2",
+   "module": 1,
+   "lesson": 11,
+   "skill": "lesen",
+   "title": "Lesen Teil 4: Kurse aller Art für alle!",
+   "source": "book",
+   "metadata": {
+    "book_page": 136
+   },
+   "instruction": "Sechs Jugendliche suchen im Internet nach Kursen. Welche Anzeige passt zu welcher Person? Für eine Aufgabe gibt es keine Lösung.",
+   "passages": [
+    {
+     "title": "Kurse aller Art für alle!",
+     "text": "Kurse aller Art für alle!\n\na „Lingua-Power“: Unsere Sprachschule im Stadtzentrum (Rheinstraße 8, Ecke Gerberstraße) besteht seit 2012 und beschäftigt internationale Sprachlehrer mit langjähriger Erfahrung. Neben Englisch, Französisch und Italienisch können Sie auch die Kultur jedes Landes kennenlernen.\n\nb Musikschule „Musika“: Bei „Musika“ am Hauptbahnhof können Kinder, Jugendliche und Erwachsene verschiedene Musikinstrumente lernen – in Gruppen oder in einem Einzelkurs. Schneller Erfolg zu sehr niedrigen Preisen. Sonderpreise für Familien! Wir beraten Sie gern beim Kauf Ihres Instruments.\n\nc Nachhilfe: Für alle Klassen und in allen Fächern bieten wir Hilfe an. Der Unterricht findet bei dir zu Hause statt, zu jeder passenden Zeit. Unsere Lehrer sind immer pünktlich, haben viel Erfahrung und garantieren gute Noten. Mit uns macht Schule keine Probleme mehr.\n\nd Fitnessstudio „Total fit“: Bei uns können Sie in kurzer Zeit fit werden. Wenn Sie ein paar Kilos verlieren möchten, geht das mit unseren neuen Methoden ganz schnell. Keine Hungerdiät! Wir verhelfen Ihnen zu einer neuen Figur, die sich lange hält. Tun Sie also etwas für Ihre Gesundheit!\n\ne Informatikkurs: Ohne Computer geht gar nichts, lernen Sie also den richtigen Umgang damit. Unser Angebot ist groß. Bei uns können Sie folgende Kurse besuchen: ECDL, Microsoft Office und ICT-Kurse. Kursbeginn jeden zweiten Montag, Kursdauer zwei bis vier Wochen.\n\nf Karate-Kurs: Das haben Sie wahrscheinlich noch nie erlebt: In unseren Kursen lernt man Karate mit Musik. So ist es einfacher und macht auch viel mehr Spaß. Ideal für Mädchen. Probieren Sie es aus! Sonderangebot bis Ende der Woche: Geschwister und Ehepaare zahlen die Hälfte!\n\nBeispiel: 0 Marlene möchte Englisch lernen, denn sie möchte später in England studieren. → a"
+    }
+   ],
+   "questions": [
+    {
+     "type": "matching",
+     "question": "Welche Anzeige passt zu welcher Person? (Für eine Aufgabe gibt es keine Lösung: X)",
+     "items": [
+      "16 Simon möchte im Internet surfen lernen.",
+      "17 Greta findet sich zu dick.",
+      "18 Sarah möchte in ihrer Freizeit Latein-Tänze lernen.",
+      "19 Erik ist nicht gut in der Schule.",
+      "20 Paula möchte Klavier spielen lernen."
+     ],
+     "targets": [
+      "Anzeige b) Musikschule „Musika“",
+      "Anzeige c) Nachhilfe",
+      "Anzeige d) Fitnessstudio „Total fit“",
+      "Anzeige e) Informatikkurs",
+      "Anzeige f) Karate-Kurs",
+      "X – keine passende Anzeige"
+     ],
+     "pairs": {
+      "1": "D",
+      "2": "C",
+      "3": "F",
+      "4": "B",
+      "5": "A"
+     },
+     "points": 5,
+     "passage": 1,
+     "explanation": "16 → e (Umgang mit dem Computer), 17 → d (Kilos verlieren), 18 → X (Karate mit Musik ist kein Latein-Tanz), 19 → c (Nachhilfe), 20 → b (Musikinstrumente). Anzeige f bleibt übrig."
+    }
+   ],
+   "max_score": 5
+  },
+  {
+   "content_id": "vizu-a2-l11-hoeren-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 11,
+   "skill": "hoeren",
+   "title": "Hören Teil 1: Fünf kurze Texte",
+   "source": "book",
+   "metadata": {
+    "book_page": 137,
+    "note": "Kitobda kalit va transkript yo'q — admin audioni tinglab javoblarni belgilaydi."
+   },
+   "audio_file": "A2 11.Unterricht Teil_1.m4a",
+   "key_pending": true,
+   "instruction": "Du hörst fünf kurze Texte. Du hörst jeden Text zweimal. Wähle a, b oder c.",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "1 Warum muss Lisa aufs Land umziehen?",
+     "options": [
+      "Weil ihr Vater ein neues Haus gekauft hat.",
+      "Weil ihr Vater dort arbeiten wird.",
+      "Weil man auf dem Land gesünder lebt."
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "2 Welche Sehenswürdigkeit möchte Sascha in Berlin besuchen?",
+     "options": [
+      "Er möchte das Brandenburger Tor besuchen.",
+      "Er möchte viele Museen besuchen.",
+      "Er möchte das Olympiastadion besuchen."
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "3 Welche Hausarbeit findet Sabine am langweiligsten?",
+     "options": [
+      "Ihr Zimmer aufräumen.",
+      "Den Müll rausbringen.",
+      "Das Geschirr spülen."
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "4 Warum möchte Sebastian anfangen Sport zu treiben?",
+     "options": [
+      "Weil er fit werden möchte.",
+      "Weil er in einem Verein spielen möchte.",
+      "Weil er stark sein möchte."
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "5 Wie wird das Wetter am Wochenende?",
+     "options": [
+      "Es wird regnen.",
+      "Es wird kalt sein.",
+      "Die Sonne wird scheinen."
+     ],
+     "points": 1
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l11-hoeren-02",
+   "level": "A2",
+   "module": 1,
+   "lesson": 11,
+   "skill": "hoeren",
+   "title": "Hören Teil 2: Wie war Alisas Tag gestern?",
+   "source": "book",
+   "metadata": {
+    "book_page": 138,
+    "note": "Kitobda kalit va transkript yo'q — admin audioni tinglab javoblarni belgilaydi."
+   },
+   "audio_file": "A2 11.Unterricht Teil_2.m4a",
+   "key_pending": true,
+   "instruction": "Du hörst ein Gespräch einmal. Wähle für die Aufgaben 6 bis 10 ein passendes Bild (Bild im Abschnitt). Wähle jeden Buchstaben nur einmal.",
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "Wie war Alisas Tag gestern? Wähle das passende Bild (Beispiel: 0 Alisas Eltern → c Kino).",
+     "text": "6 Alisa: [[1]]",
+     "gaps": {
+      "1": {
+       "accepted": [],
+       "options": [
+        "a) aufwachen / ausschlafen",
+        "b) Party",
+        "d) Hamburger",
+        "e) weinender Junge",
+        "f) Waffeln",
+        "g) Fahrrad fahren",
+        "h) Brettspiel",
+        "i) Frühstück"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wie war Alisas Tag gestern? Wähle das passende Bild (Beispiel: 0 Alisas Eltern → c Kino).",
+     "text": "7 Fabian: [[1]]",
+     "gaps": {
+      "1": {
+       "accepted": [],
+       "options": [
+        "a) aufwachen / ausschlafen",
+        "b) Party",
+        "d) Hamburger",
+        "e) weinender Junge",
+        "f) Waffeln",
+        "g) Fahrrad fahren",
+        "h) Brettspiel",
+        "i) Frühstück"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wie war Alisas Tag gestern? Wähle das passende Bild (Beispiel: 0 Alisas Eltern → c Kino).",
+     "text": "8 Viola: [[1]]",
+     "gaps": {
+      "1": {
+       "accepted": [],
+       "options": [
+        "a) aufwachen / ausschlafen",
+        "b) Party",
+        "d) Hamburger",
+        "e) weinender Junge",
+        "f) Waffeln",
+        "g) Fahrrad fahren",
+        "h) Brettspiel",
+        "i) Frühstück"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wie war Alisas Tag gestern? Wähle das passende Bild (Beispiel: 0 Alisas Eltern → c Kino).",
+     "text": "9 Marie: [[1]]",
+     "gaps": {
+      "1": {
+       "accepted": [],
+       "options": [
+        "a) aufwachen / ausschlafen",
+        "b) Party",
+        "d) Hamburger",
+        "e) weinender Junge",
+        "f) Waffeln",
+        "g) Fahrrad fahren",
+        "h) Brettspiel",
+        "i) Frühstück"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wie war Alisas Tag gestern? Wähle das passende Bild (Beispiel: 0 Alisas Eltern → c Kino).",
+     "text": "10 Jakob: [[1]]",
+     "gaps": {
+      "1": {
+       "accepted": [],
+       "options": [
+        "a) aufwachen / ausschlafen",
+        "b) Party",
+        "d) Hamburger",
+        "e) weinender Junge",
+        "f) Waffeln",
+        "g) Fahrrad fahren",
+        "h) Brettspiel",
+        "i) Frühstück"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l11-hoeren-03",
+   "level": "A2",
+   "module": 1,
+   "lesson": 11,
+   "skill": "hoeren",
+   "title": "Hören Teil 3: Fünf kurze Gespräche",
+   "source": "book",
+   "metadata": {
+    "book_page": 139,
+    "note": "Kitobda kalit va transkript yo'q — admin audioni tinglab javoblarni belgilaydi."
+   },
+   "audio_file": "A2 11.Unterricht Teil_3.m4a",
+   "key_pending": true,
+   "instruction": "Du hörst fünf kurze Gespräche einmal. Wähle a, b oder c (Bilder im Abschnitt).",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "11 Welche Fremdsprache möchte Ilona noch lernen?",
+     "options": [
+      "a) Spanisch",
+      "b) Französisch",
+      "c) Chinesisch"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "12 Was kocht Janine heute Abend?",
+     "options": [
+      "a) Schnitzel",
+      "b) Hähnchen",
+      "c) Fisch"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "13 Warum möchte Emma in den Sommerferien jobben?",
+     "options": [
+      "a) für einen Laptop",
+      "b) für Kleidung",
+      "c) für ein Fahrrad"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "14 Wohin möchten die Jugendlichen nach der Schule gehen?",
+     "options": [
+      "a) ins Schwimmbad",
+      "b) Eis essen",
+      "c) ins Fußballstadion"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "15 Womit wollen die beiden Mädchen auf dem Flohmarkt viel Geld verdienen?",
+     "options": [
+      "a) mit Spielzeug",
+      "b) mit Jeans",
+      "c) mit Büchern"
+     ],
+     "points": 1
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l11-hoeren-04",
+   "level": "A2",
+   "module": 1,
+   "lesson": 11,
+   "skill": "hoeren",
+   "title": "Hören Teil 4: Interview mit Sonja",
+   "source": "book",
+   "metadata": {
+    "book_page": 140,
+    "note": "Kitobda kalit va transkript yo'q — admin audioni tinglab javoblarni belgilaydi."
+   },
+   "audio_file": "A2 11.Unterricht Teil_4.m4a",
+   "key_pending": true,
+   "instruction": "Du hörst ein Interview zweimal. Wähle „Ja“ oder „Nein“. (Beispiel: 0 Sonja hat ein schönes Plakat gemalt. → Ja)",
+   "questions": [
+    {
+     "type": "true_false",
+     "question": "16 Schüler zwischen 11 und 16 Jahren haben an diesem Wettbewerb teilgenommen.",
+     "options": [
+      "Ja",
+      "Nein"
+     ],
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "17 Den Geldpreis bekam nicht der Gewinner des Wettbewerbs, sondern er ging an Kinder in Not.",
+     "options": [
+      "Ja",
+      "Nein"
+     ],
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "18 Sonjas Plakat zeigt Kinder im Meer.",
+     "options": [
+      "Ja",
+      "Nein"
+     ],
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "19 Die Idee hat Sonja aus dem Internet.",
+     "options": [
+      "Ja",
+      "Nein"
+     ],
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "20 Sonja möchte später in Afrika studieren.",
+     "options": [
+      "Ja",
+      "Nein"
+     ],
+     "points": 1,
+     "passage": 1
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l11-schreiben-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 11,
+   "skill": "schreiben",
+   "title": "Schreiben Teil 1: SMS an Sarah",
+   "source": "book",
+   "metadata": {
+    "book_page": 141
+   },
+   "task_type": "message",
+   "prompt": "Du möchtest mit deiner Freundin Sarah Kleidung kaufen gehen und schreibst ihr eine SMS.\n• Schreib, was du einkaufen möchtest.\n• Sag, wie viel Geld du ausgeben kannst.\n• Nenne einen Treffpunkt.\n\nSchreib 20–30 Wörter. Schreib zu allen drei Punkten.\n\nTipps: Lies zuerst die Situation und die drei Leitpunkte. Überlege: An wen schreibst du? Aus welchem Anlass? Was willst du erreichen? Kontrolliere am Ende, was du geschrieben hast.",
+   "audience": "Freundin Sarah (informell)",
+   "min_words": 20,
+   "max_words": 40,
+   "time_limit": 10
+  },
+  {
+   "content_id": "vizu-a2-l11-schreiben-03",
+   "level": "A2",
+   "module": 1,
+   "lesson": 11,
+   "skill": "schreiben",
+   "title": "Schreiben Teil 2: E-Mail an Herrn Stark",
+   "source": "book",
+   "metadata": {
+    "book_page": 142
+   },
+   "task_type": "email",
+   "prompt": "Du kannst morgen nicht zur Schule gehen. Schreib deinem Klassenlehrer, Herrn Stark, eine E-Mail:\n• Entschuldige dich.\n• Schreib, warum du fehlen wirst.\n• Frag nach den Hausaufgaben.\n\nSchreib 30–40 Wörter. Schreib zu allen drei Punkten.",
+   "audience": "Klassenlehrer Herr Stark (formell)",
+   "min_words": 30,
+   "max_words": 50,
+   "time_limit": 15,
+   "support_phrases": [
+    "Sehr geehrter Herr Stark,",
+    "leider kann ich morgen nicht …, weil …",
+    "Können Sie mir bitte sagen, …?",
+    "Mit freundlichen Grüßen"
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l11-schreiben-04",
+   "level": "A2",
+   "module": 1,
+   "lesson": 11,
+   "skill": "schreiben",
+   "title": "Wortschatz-Aufgabe: Wort zu Wort Wortschatzmethode (Umweltschutz)",
+   "source": "book",
+   "metadata": {
+    "book_page": 146
+   },
+   "task_type": "description",
+   "prompt": "Formulieren Sie mit den Wörtern einer Variante einen Text.\n\nVariante 1: die Umwelt, schützen, die Natur, die Erde, der Müll\nVariante 2: recyceln, trennen, der Müllberg, der Müllcontainer, der Abfall\nVariante 3: das Klima, das Wetter, sich verändern, die Klimakatastrophe, die Erderwärmung\nVariante 4: Energiesparen, die Fahrt, zu Fuß, das Fahrrad, die öffentlichen Verkehrsmittel\nVariante 5: erneuerbar, stoßen, der Strom, die Energie, das Wasser",
+   "min_words": 40,
+   "max_words": 200,
+   "time_limit": 25
+  },
+  {
+   "content_id": "vizu-a2-l11-sprechen-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 11,
+   "skill": "sprechen",
+   "title": "Sprechen Teil 1: Fragen zur Person",
+   "source": "book",
+   "metadata": {
+    "book_page": 143
+   },
+   "topic": "Fragen zur Person",
+   "response_type": "dialog",
+   "prompt": "Du nimmst vier Karten und stellst mit diesen Karten vier Fragen. Dein Partner / deine Partnerin antwortet. (ca. 20 Sekunden Vorbereitung)",
+   "questions": [
+    "Kandidat 1: Wohnort?",
+    "Kandidat 1: Frühstück?",
+    "Kandidat 1: Adresse?",
+    "Kandidat 1: Tee?",
+    "Kandidat 2: Schule?",
+    "Kandidat 2: Freizeit?",
+    "Kandidat 2: Butter, Essen?"
+   ],
+   "min_duration": 30,
+   "max_duration": 150,
+   "speech_goal": "Zu jedem Stichwort eine korrekte Frage stellen und beantworten.",
+   "keywords": [
+    "Wo wohnst du",
+    "Was isst du",
+    "Trinkst du",
+    "Was machst du"
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l11-sprechen-02",
+   "level": "A2",
+   "module": 1,
+   "lesson": 11,
+   "skill": "sprechen",
+   "title": "Sprechen Teil 2: Von sich erzählen",
+   "source": "book",
+   "metadata": {
+    "book_page": 144
+   },
+   "topic": "Von sich erzählen",
+   "prompt": "Du bekommst eine Karte und erzählst etwas über dein Leben. Karte A: Wie verbringst du gern deine Freizeit? Karte B: Würdest du gern ins Ausland reisen?",
+   "questions": [
+    "Karte A: Hobby?",
+    "Karte A: zu Hause?",
+    "Karte A: Freunde?",
+    "Karte A: Musik?",
+    "Karte B: Land?",
+    "Karte B: Warum?",
+    "Karte B: Verkehrsmittel?",
+    "Karte B: Mit wem zusammen?"
+   ],
+   "response_type": "monolog",
+   "min_duration": 45,
+   "max_duration": 150,
+   "speech_goal": "Zu einer Aufgabenkarte zusammenhängend von sich erzählen.",
+   "keywords": [
+    "Freizeit",
+    "gern",
+    "reisen",
+    "weil",
+    "mit"
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l11-sprechen-03",
+   "level": "A2",
+   "module": 1,
+   "lesson": 11,
+   "skill": "sprechen",
+   "title": "Sprechen Teil 3: Wann können wir uns treffen?",
+   "source": "book",
+   "metadata": {
+    "book_page": 145
+   },
+   "topic": "Einen Termin finden",
+   "response_type": "dialog",
+   "prompt": "Jeder Kandidat bekommt ein Blatt mit Vorgaben (Kalender für Freitag, 01.11.). Findet zusammen einen Termin, an dem ihr euch treffen könnt.\n\nAufgabenblatt A: 08.00–09.00 länger schlafen · 12.00 mit Mario skaten · 15.00 einkaufen gehen · 18.00 E-Mail an Luise schreiben\nAufgabenblatt B: 10.00 gemütlich frühstücken · 14.00 Bücher in der Bibliothek abgeben · 18.00–19.00 mit Mama das Abendessen kochen · 20.00 mit Freunden ins Kino",
+   "questions": [
+    "Wann hast du Zeit?",
+    "Um … Uhr kann ich nicht, da …",
+    "Geht es um … Uhr?",
+    "Gut, dann treffen wir uns um …"
+   ],
+   "min_duration": 45,
+   "max_duration": 180,
+   "speech_goal": "Mit dem Partner einen gemeinsamen freien Termin aushandeln (Vorschlag, Ablehnung mit Grund, Zustimmung).",
+   "keywords": [
+    "Hast du Zeit",
+    "um … Uhr",
+    "leider",
+    "geht es",
+    "treffen"
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l11-kompetenz-03",
+   "level": "A2",
+   "module": 1,
+   "lesson": 11,
+   "skill": "kompetenz",
+   "title": "Wortschatz: Umweltschutz (Wortschatzmethode)",
+   "source": "book",
+   "metadata": {
+    "book_page": 146,
+    "note": "Kitobda tarjima berilmagan — so'z ro'yxati to'qib chiqarilmadi."
+   },
+   "competency": "WORTSCHATZ",
+   "html": "<h3>Wort zu Wort Wortschatzmethode — Umweltschutz A2</h3><h4>Variante 1</h4><ul><li>die Umwelt</li><li>schützen</li><li>die Natur</li><li>die Erde</li><li>der Müll</li></ul><h4>Variante 2</h4><ul><li>recyceln</li><li>trennen</li><li>der Müllberg</li><li>der Müllcontainer</li><li>der Abfall</li></ul><h4>Variante 3</h4><ul><li>das Klima</li><li>das Wetter</li><li>sich verändern</li><li>die Klimakatastrophe</li><li>die Erderwärmung</li></ul><h4>Variante 4</h4><ul><li>Energiesparen</li><li>die Fahrt</li><li>zu Fuß</li><li>das Fahrrad</li><li>die öffentlichen Verkehrsmittel</li></ul><h4>Variante 5</h4><ul><li>erneuerbar</li><li>stoßen</li><li>der Strom</li><li>die Energie</li><li>das Wasser</li></ul><p>Formulieren Sie einen Text mit den Wörtern einer Variante (Aufgabe im Bereich Schreiben).</p>"
+  },
+  {
+   "content_id": "vizu-a2-l11-yakuniy-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 11,
+   "skill": "yakuniy",
+   "title": "Abschlusstest: A2 11. Unterricht",
+   "source": "vizu",
+   "instruction": "Passiv Präsens, man va dars matnlari bo'yicha yakuniy test (dars materiali asosida).",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Passiv: Der Lehrer erklärt die Grammatik. → Die Grammatik ___ erklärt.",
+     "options": [
+      "wird",
+      "werden",
+      "ist"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Passiv: Die Firma liefert die Pakete. → Die Pakete ___ geliefert.",
+     "options": [
+      "werden",
+      "wird",
+      "sind"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "man: (im Supermarkt / Obst / kaufen) → Im Supermarkt ___ man Obst.",
+     "options": [
+      "kauft",
+      "kaufen",
+      "gekauft"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wann benutzt man das Passiv?",
+     "options": [
+      "wenn die Handlung im Fokus steht",
+      "wenn die Person wichtig ist",
+      "nur in der Vergangenheit"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wie lange fliegt man beim Fallschirmspringen frei?",
+     "options": [
+      "60 Sekunden",
+      "10 Sekunden",
+      "10 Minuten"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Lesen Teil 1."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wo übt man Tauchen zuerst?",
+     "options": [
+      "im Schwimmbad",
+      "im Meer",
+      "in 15 m Tiefe"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Lesen Teil 1."
+    },
+    {
+     "type": "true_false",
+     "question": "Steffi möchte wieder mit Leo befreundet sein.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "Lesen Teil 3."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Der Brief ___ geschrieben.",
+     "options": [
+      "wird",
+      "werden",
+      "wirst"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l11-kompetenz-02",
+   "level": "A2",
+   "module": 1,
+   "lesson": 11,
+   "skill": "kompetenz",
+   "title": "Zusammenfassung: A2 11. Unterricht",
+   "source": "vizu",
+   "competency": "ZUSAMMENFASSUNG",
+   "html": "<h3>A2 11. Unterricht — qisqacha</h3><ul><li><strong>Passiv Präsens:</strong> werden + Partizip II (+ von + Person) — Der Brief wird geschrieben.</li><li><strong>man:</strong> man + Verb (aktiv), wenn nicht wichtig ist, wer etwas tut — Man schreibt einen Brief.</li><li><strong>Merke:</strong> Passiv verwendet man, wenn die Handlung wichtiger ist als der Täter; man-Strukturen für allgemeine Aussagen.</li><li><strong>Kleine Handlungen, große Wirkung:</strong> Strom sparen, Müll trennen, Fahrrad fahren, Wasser sparen.</li></ul><p>Natijalaringiz pastda — tugallanmagan bo'limlarni yakunlang, so'ng keyingi darsga o'ting.</p>"
+  }
+ ]
+}

@@ -1,0 +1,2151 @@
+{
+ "schema_version": "1.2",
+ "language": "de",
+ "source": "vizu-deutsch-a2-book",
+ "items": [
+  {
+   "content_id": "vizu-a2-l06-kompetenz-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 6,
+   "skill": "kompetenz",
+   "title": "Einführung: A2 6. Unterricht",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 63
+   },
+   "competency": "EINFUEHRUNG",
+   "html": "<h3>A2 6. Unterricht — Beziehungen und Kommunikation</h3><p><strong>Mavzu:</strong> Beziehungen und Kommunikation · <strong>Grammatik:</strong> dass-Sätze</p><h4>Dars maqsadlari</h4><ul><li>dass bilan ergash gap tuzish: Ich glaube, dass er heute kommt.;</li><li>ergash gapda fe'lni oxiriga qo'yish va tipik xatolarni tuzatish;</li><li>munosabatlar, do'stlik va muloqot so'zlarini o'rganish.</li></ul><h4>Dars oxirida siz quyidagilarni bajara olasiz</h4><ul><li>muloqotda tushunmovchiliklar nima uchun paydo bo'lishini aytasiz;</li><li>do'stlik va oilaviy munosabatlar haqidagi matnlarni tushunasiz;</li><li>do'stlaringiz haqida matn va Parijdagi singlingizga e-mail yozasiz;</li><li>do'stlar va oila siz uchun nima uchun muhimligini gapirasiz.</li></ul><h4>Darsning tuzilishi</h4><p>Einführung → Wortschatz → Grammatik → Lesen → Hören → Sprechen → Schreiben → Übungen → Abschlusstest → Zusammenfassung</p>"
+  },
+  {
+   "content_id": "vizu-a2-l06-frage-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 6,
+   "skill": "frage",
+   "title": "Frage des Themas: Warum entstehen Missverständnisse in der Kommunikation?",
+   "source": "book",
+   "metadata": {
+    "book_page": 64,
+    "book_points": {
+     "A": [
+      "Jeder Mensch hat seine eigenen Gedanken und Erfahrungen.",
+      "Unsere Gefühle beeinflussen, wie wir etwas verstehen.",
+      "Wörter können für jeden etwas anderes bedeuten.",
+      "Wir hören oft nur das, was wir hören wollen.",
+      "Kulturelle Unterschiede spielen eine große Rolle.",
+      "Deshalb kann die gleiche Nachricht unterschiedlich verstanden werden."
+     ],
+     "B": [
+      "Wenn wir uns unklar ausdrücken, entstehen leicht Fehler.",
+      "Zu viele Informationen verwirren den Gesprächspartner.",
+      "Wir erklären manchmal zu schnell und nicht genau genug.",
+      "Wichtige Details werden oft weggelassen.",
+      "Geschriebene Nachrichten können leicht falsch verstanden werden.",
+      "Deshalb ist es wichtig, klar und einfach zu kommunizieren."
+     ],
+     "C": [
+      "Vorurteile beeinflussen unser Verständnis von anderen.",
+      "Wir denken manchmal, wir wissen schon Bescheid.",
+      "Wenn wir nicht richtig zuhören, verstehen wir nur die Hälfte.",
+      "Wir beurteilen andere, bevor wir alles gehört haben.",
+      "Unsere Annahmen verhindern echtes Verständnis.",
+      "Respektvolles Zuhören hilft, Missverständnisse zu vermeiden."
+     ]
+    }
+   },
+   "prompt": "Warum entstehen Missverständnisse in der Kommunikation? Sprechen Sie über die drei Gründe.",
+   "questions": [
+    "A: Weil wir unterschiedlich denken und fühlen",
+    "B: Wegen schlechter Ausdrucksweise und unklarer Informationen",
+    "C: Durch Vorurteile und fehlendes Zuhören"
+   ],
+   "min_duration": 20,
+   "max_duration": 120
+  },
+  {
+   "content_id": "vizu-a2-l06-grammatik-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 6,
+   "skill": "grammatik",
+   "title": "Grammatik: dass-Sätze",
+   "source": "book",
+   "metadata": {
+    "book_page": "65-66"
+   },
+   "rules": [
+    {
+     "title": "dass-Sätze (A2)",
+     "html": "<h3>dass-Sätze (A2)</h3><h4>1. Was ist ein „dass-Satz“?</h4><ul><li>Ein dass-Satz ist ein <strong>Nebensatz</strong>.</li><li>Er erklärt, was jemand <strong>denkt, sagt, fühlt</strong> oder <strong>meint</strong>.</li></ul><h4>2. Struktur</h4><p><strong>Hauptsatz + dass + Nebensatz</strong> (Verb 2 → Verb Ende)</p><ul><li>Ich glaube, dass er heute <strong>kommt</strong>.</li><li>Sie sagt, dass sie krank <strong>ist</strong>.</li></ul><h4>3. Satzbau (ganz wichtig!)</h4><p>Subjekt + Verb + …, dass + Subjekt + …, Verb</p><h4>4. Wann benutzt man „dass“?</h4><ul><li>Ich hoffe, dass du die Prüfung bestehst.</li><li>Er denkt, dass das Wetter gut ist.</li><li>Wir wissen, dass Deutsch wichtig ist.</li><li>Sie sagt, dass sie morgen arbeitet.</li></ul><h4>5. Unterschied: Hauptsatz vs. dass-Satz</h4><table><tbody><tr><td>Ohne dass:</td><td>Er kommt.</td></tr><tr><td>Mit dass:</td><td>Ich glaube, dass er kommt.</td></tr></tbody></table><h4>6. Beispiele</h4><ul><li>Ich denke, dass Deutsch interessant ist.</li><li>Er sagt, dass er keine Zeit hat.</li><li>Wir hoffen, dass du kommst.</li><li>Sie weiß, dass ich müde bin.</li></ul><h4>7. Typische Fehler</h4><p>Ich denke, ____ er heute kommt. a) das · <strong>b) dass</strong> · c) des</p><h4>8. Mini-Übung</h4><ul><li>dass leitet Nebensätze ein. ✓</li><li>Das Verb steht am Ende. ✓</li></ul>"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "Aufgabe 1: Ergänzen Sie die Sätze mit dass",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze mit dass.",
+       "text": "1. Ich denke, [[1]] du heute kommst.",
+       "gaps": {
+        "1": [
+         "dass"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Ich denke, dass du heute kommst."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze mit dass.",
+       "text": "2. Er sagt, [[1]] er keine Zeit hat.",
+       "gaps": {
+        "1": [
+         "dass"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Er sagt, dass er keine Zeit hat."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze mit dass.",
+       "text": "3. Wir wissen, [[1]] Deutsch wichtig ist.",
+       "gaps": {
+        "1": [
+         "dass"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Wir wissen, dass Deutsch wichtig ist."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze mit dass.",
+       "text": "4. Sie hofft, [[1]] sie die Prüfung besteht.",
+       "gaps": {
+        "1": [
+         "dass"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Sie hofft, dass sie die Prüfung besteht."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze mit dass.",
+       "text": "5. Ich finde, [[1]] der Film interessant ist.",
+       "gaps": {
+        "1": [
+         "dass"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Ich finde, dass der Film interessant ist."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze mit dass.",
+       "text": "6. Er glaubt, [[1]] alles gut wird.",
+       "gaps": {
+        "1": [
+         "dass"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Er glaubt, dass alles gut wird."
+      }
+     ]
+    },
+    {
+     "title": "Aufgabe 2: Bilden Sie Sätze mit dass",
+     "source": "book",
+     "questions": [
+      {
+       "type": "short_answer",
+       "question": "1. Ich weiß. Du bist müde. → mit „dass“",
+       "accepted": [
+        "Ich weiß, dass du müde bist.",
+        "Ich weiß dass du müde bist."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Ich weiß, dass du müde bist."
+      },
+      {
+       "type": "short_answer",
+       "question": "2. Er sagt. Er lernt jeden Tag Deutsch. → mit „dass“",
+       "accepted": [
+        "Er sagt, dass er jeden Tag Deutsch lernt.",
+        "Er sagt dass er jeden Tag Deutsch lernt."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Er sagt, dass er jeden Tag Deutsch lernt."
+      },
+      {
+       "type": "short_answer",
+       "question": "3. Wir hoffen. Wir fahren nach Deutschland. → mit „dass“",
+       "accepted": [
+        "Wir hoffen, dass wir nach Deutschland fahren.",
+        "Wir hoffen dass wir nach Deutschland fahren."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Wir hoffen, dass wir nach Deutschland fahren."
+      },
+      {
+       "type": "short_answer",
+       "question": "4. Sie denkt. Der Test ist schwer. → mit „dass“",
+       "accepted": [
+        "Sie denkt, dass der Test schwer ist.",
+        "Sie denkt dass der Test schwer ist."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Sie denkt, dass der Test schwer ist."
+      },
+      {
+       "type": "short_answer",
+       "question": "5. Ich glaube. Er kommt morgen. → mit „dass“",
+       "accepted": [
+        "Ich glaube, dass er morgen kommt.",
+        "Ich glaube dass er morgen kommt."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Ich glaube, dass er morgen kommt."
+      },
+      {
+       "type": "short_answer",
+       "question": "6. Sie sagt. Sie hat viel Arbeit. → mit „dass“",
+       "accepted": [
+        "Sie sagt, dass sie viel Arbeit hat.",
+        "Sie sagt dass sie viel Arbeit hat."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Sie sagt, dass sie viel Arbeit hat."
+      }
+     ],
+     "instruction": "Verbinden Sie die zwei Sätze mit dass (Verb am Ende)."
+    },
+    {
+     "title": "Aufgabe 3: Formen Sie die Sätze um (dass-Sätze)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "short_answer",
+       "question": "1. Ich glaube: Er ist zu Hause. → dass-Satz",
+       "accepted": [
+        "Ich glaube, dass er zu Hause ist.",
+        "Ich glaube dass er zu Hause ist."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Ich glaube, dass er zu Hause ist."
+      },
+      {
+       "type": "short_answer",
+       "question": "2. Sie sagt: Ich habe keine Zeit. → dass-Satz",
+       "accepted": [
+        "Sie sagt, dass sie keine Zeit hat.",
+        "Sie sagt dass sie keine Zeit hat."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Sie sagt, dass sie keine Zeit hat."
+      },
+      {
+       "type": "short_answer",
+       "question": "3. Wir wissen: Das ist richtig. → dass-Satz",
+       "accepted": [
+        "Wir wissen, dass das richtig ist.",
+        "Wir wissen dass das richtig ist."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Wir wissen, dass das richtig ist."
+      },
+      {
+       "type": "short_answer",
+       "question": "4. Er denkt: Deutsch ist schwer. → dass-Satz",
+       "accepted": [
+        "Er denkt, dass Deutsch schwer ist.",
+        "Er denkt dass Deutsch schwer ist."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Er denkt, dass Deutsch schwer ist."
+      },
+      {
+       "type": "short_answer",
+       "question": "5. Ich hoffe: Alles klappt gut. → dass-Satz",
+       "accepted": [
+        "Ich hoffe, dass alles gut klappt.",
+        "Ich hoffe dass alles gut klappt."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Ich hoffe, dass alles gut klappt."
+      },
+      {
+       "type": "short_answer",
+       "question": "6. Sie weiß: Der Kurs ist interessant. → dass-Satz",
+       "accepted": [
+        "Sie weiß, dass der Kurs interessant ist.",
+        "Sie weiß dass der Kurs interessant ist."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Sie weiß, dass der Kurs interessant ist."
+      }
+     ],
+     "instruction": "Achten Sie auf die Person: Sie sagt: Ich … → Sie sagt, dass sie …"
+    },
+    {
+     "title": "Aufgabe 4: Korrigieren Sie die Fehler",
+     "source": "book",
+     "questions": [
+      {
+       "type": "short_answer",
+       "question": "1. Ich denke, dass er kommt heute. → richtig:",
+       "accepted": [
+        "Ich denke, dass er heute kommt.",
+        "Ich denke dass er heute kommt."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Ich denke, dass er heute kommt."
+      },
+      {
+       "type": "short_answer",
+       "question": "2. Sie sagt, dass sie hat keine Zeit. → richtig:",
+       "accepted": [
+        "Sie sagt, dass sie keine Zeit hat.",
+        "Sie sagt dass sie keine Zeit hat."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Sie sagt, dass sie keine Zeit hat."
+      },
+      {
+       "type": "short_answer",
+       "question": "3. Wir glauben, dass ist das gut. → richtig:",
+       "accepted": [
+        "Wir glauben, dass das gut ist.",
+        "Wir glauben dass das gut ist."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Wir glauben, dass das gut ist."
+      },
+      {
+       "type": "short_answer",
+       "question": "4. Er sagt, dass er keine Zeit hat gestern. → richtig:",
+       "accepted": [
+        "Er sagt, dass er gestern keine Zeit hatte.",
+        "Er sagt dass er gestern keine Zeit hatte.",
+        "Er sagt, dass er gestern keine Zeit hat.",
+        "Er sagt dass er gestern keine Zeit hat."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Er sagt, dass er gestern keine Zeit hatte."
+      },
+      {
+       "type": "short_answer",
+       "question": "5. Ich weiß, dass du bist müde. → richtig:",
+       "accepted": [
+        "Ich weiß, dass du müde bist.",
+        "Ich weiß dass du müde bist."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Ich weiß, dass du müde bist."
+      },
+      {
+       "type": "short_answer",
+       "question": "6. Sie hofft, dass sie bestehen wird die Prüfung. → richtig:",
+       "accepted": [
+        "Sie hofft, dass sie die Prüfung bestehen wird.",
+        "Sie hofft dass sie die Prüfung bestehen wird."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Sie hofft, dass sie die Prüfung bestehen wird."
+      }
+     ],
+     "instruction": "Schreiben Sie den Satz richtig: das Verb steht im dass-Satz am Ende."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l06-lesen-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 6,
+   "skill": "lesen",
+   "title": "Lesen: Freundschaft im Lager / Familiäre Beziehung",
+   "source": "book",
+   "metadata": {
+    "book_page": "67-68",
+    "note": "Javob har bir savol izohida matndan iqtibos bilan. Kitobdagi „Paul bekommt gute Noten in der Schule“ olinmadi — matnda baholar haqida gap yo'q."
+   },
+   "instruction": "Lesen Sie die Texte. Richtig oder Falsch?",
+   "passages": [
+    {
+     "title": "Freundschaft im Lager – Lukas und Jonas",
+     "text": "Lukas und Jonas haben sich vor drei Jahren in einem Sommerlager kennengelernt, und obwohl sie am Anfang völlig fremd waren, haben sie sehr schnell gemerkt, dass sie viele gemeinsame Interessen und ähnliche Charaktereigenschaften haben. Beide spielen gern Fußball, hören moderne Musik und lieben es, neue Dinge auszuprobieren und Abenteuer zu erleben, deshalb haben sie schon in den ersten Tagen viel Zeit miteinander verbracht und eine enge Verbindung aufgebaut. Im Lager haben sie zusammen Sport gemacht, an Wettbewerben teilgenommen, am Abend am Lagerfeuer gesessen und lange, persönliche Gespräche geführt, in denen sie über ihre Träume, Ziele und ihr Leben gesprochen haben. Lukas denkt, dass Jonas ein sehr ehrlicher, zuverlässiger und hilfsbereiter Mensch ist, auf den man sich immer verlassen kann, während Jonas sagt, dass Lukas immer positive Energie bringt, kreative Ideen hat und andere motivieren kann. Nach dem Lager haben sie den Kontakt nicht verloren, sondern schreiben sich regelmäßig Nachrichten, telefonieren oft und erzählen sich alles, was in ihrem Alltag passiert, sodass ihre Freundschaft weiter gewachsen ist. Lukas hofft, dass sie sich bald wiedersehen können, vielleicht im nächsten Sommer, während Jonas glaubt, dass ihre Freundschaft stark genug ist, um auch über große Entfernungen hinweg zu bestehen. Für beide ist diese Freundschaft besonders wichtig, weil sie einander vertrauen, sich gegenseitig unterstützen und wissen, dass sie immer füreinander da sind, egal was passiert."
+    },
+    {
+     "title": "Familiäre Beziehung – Paul und Leon",
+     "text": "Paul und Leon sind Brüder, die sich sehr nahestehen, obwohl sie im Moment nicht zusammenleben, denn Leon ist der ältere Bruder und studiert seit einem Jahr im Ausland in Deutschland, während Paul noch mit den Eltern in ihrer Heimatstadt lebt und zur Schule geht. Am Anfang war es für beide nicht einfach, diese Veränderung zu akzeptieren, weil sie früher viel Zeit miteinander verbracht haben, zusammen gespielt, gelernt und sich gegenseitig geholfen haben, doch jetzt müssen sie sich an die Distanz gewöhnen. Paul sagt oft, dass er seinen Bruder sehr vermisst und dass es zu Hause manchmal ruhiger und langweiliger ist ohne ihn, während Leon schreibt, dass das Leben im Ausland zwar spannend und voller neuer Erfahrungen ist, aber auch Herausforderungen mit sich bringt, zum Beispiel eine neue Sprache, neue Menschen und ein anderes Studiumssystem. Die Brüder schreiben sich regelmäßig E-Mails und Nachrichten, in denen sie über ihren Alltag berichten: Leon erzählt, dass er viele neue Freunde gefunden hat, viel lernt und selbstständiger geworden ist, während Paul berichtet, dass in der Schule alles gut läuft und dass er versucht, genauso fleißig zu sein wie sein Bruder. Paul denkt, dass Leon sehr mutig ist, weil er allein in einem fremden Land lebt und seinen eigenen Weg geht, und Leon sagt, dass Paul immer sein bester Freund und eine wichtige Unterstützung bleibt. Beide hoffen, dass sie sich bald wiedersehen, vielleicht in den Ferien, und dann viel Zeit miteinander verbringen können, um ihre Beziehung noch stärker zu machen. Ihre familiäre Beziehung ist sehr stark, weil sie auf Liebe, Respekt und Vertrauen basiert und weil sie trotz der Entfernung immer in Kontakt bleiben und sich gegenseitig motivieren."
+    }
+   ],
+   "questions": [
+    {
+     "type": "true_false",
+     "question": "Lukas und Jonas haben sich in der Schule kennengelernt.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„… haben sich vor drei Jahren in einem Sommerlager kennengelernt …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Sie haben schnell gemerkt, dass sie ähnliche Interessen haben.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„… haben sie sehr schnell gemerkt, dass sie viele gemeinsame Interessen … haben.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Beide mögen keine Musik.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„Beide spielen gern Fußball, hören moderne Musik …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Sie haben im Lager viel Zeit zusammen verbracht.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„… haben sie schon in den ersten Tagen viel Zeit miteinander verbracht …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Sie haben nie miteinander gesprochen.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„… lange, persönliche Gespräche geführt …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Lukas denkt, dass Jonas ehrlich und hilfsbereit ist.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„Lukas denkt, dass Jonas ein sehr ehrlicher, zuverlässiger und hilfsbereiter Mensch ist …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Jonas findet, dass Lukas negativ ist.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„… Jonas sagt, dass Lukas immer positive Energie bringt …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Nach dem Lager haben sie den Kontakt verloren.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„Nach dem Lager haben sie den Kontakt nicht verloren …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Sie schreiben sich regelmäßig Nachrichten.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„… schreiben sich regelmäßig Nachrichten …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Lukas möchte Jonas bald wiedersehen.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„Lukas hofft, dass sie sich bald wiedersehen können …“ (Unterrichtsblatt)"
+    },
+    {
+     "type": "true_false",
+     "question": "Jonas glaubt, dass ihre Freundschaft schwach ist.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„… Jonas glaubt, dass ihre Freundschaft stark genug ist …“ (Unterrichtsblatt)"
+    },
+    {
+     "type": "true_false",
+     "question": "Ihre Freundschaft basiert auf Vertrauen und Unterstützung.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„… weil sie einander vertrauen, sich gegenseitig unterstützen …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Paul und Leon sind Cousins.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "falsch",
+     "explanation": "„Paul und Leon sind Brüder …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Leon studiert im Ausland in Deutschland.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "richtig",
+     "explanation": "„… studiert seit einem Jahr im Ausland in Deutschland …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Paul lebt allein in einer anderen Stadt.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "falsch",
+     "explanation": "„… während Paul noch mit den Eltern in ihrer Heimatstadt lebt …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Am Anfang war die Situation für beide einfach.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "falsch",
+     "explanation": "„Am Anfang war es für beide nicht einfach …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Paul vermisst seinen Bruder sehr.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "richtig",
+     "explanation": "„Paul sagt oft, dass er seinen Bruder sehr vermisst …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Leon schreibt, dass das Leben im Ausland immer leicht ist.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "falsch",
+     "explanation": "„… zwar spannend … aber auch Herausforderungen mit sich bringt …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Die Brüder schreiben sich regelmäßig E-Mails.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "richtig",
+     "explanation": "„Die Brüder schreiben sich regelmäßig E-Mails und Nachrichten …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Leon hat im Ausland keine neuen Freunde.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "falsch",
+     "explanation": "„Leon erzählt, dass er viele neue Freunde gefunden hat …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Paul denkt, dass Leon mutig ist.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "richtig",
+     "explanation": "„Paul denkt, dass Leon sehr mutig ist …“ (Unterrichtsblatt)"
+    },
+    {
+     "type": "true_false",
+     "question": "Leon sagt, dass Paul ihm nicht wichtig ist.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "falsch",
+     "explanation": "„… Leon sagt, dass Paul immer sein bester Freund und eine wichtige Unterstützung bleibt.“ (Unterrichtsblatt)"
+    },
+    {
+     "type": "true_false",
+     "question": "Ihre Beziehung ist stark trotz der Entfernung.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "richtig",
+     "explanation": "„Ihre familiäre Beziehung ist sehr stark … trotz der Entfernung …“"
+    }
+   ],
+   "max_score": 23
+  },
+  {
+   "content_id": "vizu-a2-l06-hoeren-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 6,
+   "skill": "hoeren",
+   "title": "Hören: Konflikte zwischen Lukas und Jonas / Paul und Leon",
+   "source": "book",
+   "metadata": {
+    "book_page": 69,
+    "note": "Ochiq savollar, kitobda javob ham, transkript ham yo'q — admin audioni tinglab qabul qilinadigan javoblarni kiritadi."
+   },
+   "audio_file": "A2 6.Unterricht.mp3",
+   "key_pending": true,
+   "instruction": "Hören Sie die zwei Texte und beantworten Sie die Fragen kurz.",
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "1. Konflikt (Lukas und Jonas): Wo haben sich Lukas und Jonas kennengelernt?",
+     "text": "Antwort: [[1]]",
+     "gaps": {
+      "1": []
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "1. Konflikt: Was haben sie gern zusammen gemacht?",
+     "text": "Antwort: [[1]]",
+     "gaps": {
+      "1": []
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "1. Konflikt: Was ist beim Fußballspiel passiert?",
+     "text": "Antwort: [[1]]",
+     "gaps": {
+      "1": []
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "1. Konflikt: Wie hat sich Jonas gefühlt?",
+     "text": "Antwort: [[1]]",
+     "gaps": {
+      "1": []
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "1. Konflikt: Was hat Lukas später gemacht?",
+     "text": "Antwort: [[1]]",
+     "gaps": {
+      "1": []
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "1. Konflikt: Was haben sie aus dem Problem gelernt?",
+     "text": "Antwort: [[1]]",
+     "gaps": {
+      "1": []
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "2. Konflikt (Paul und Leon): Wer sind Paul und Leon?",
+     "text": "Antwort: [[1]]",
+     "gaps": {
+      "1": []
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "2. Konflikt: Wo lebt Leon?",
+     "text": "Antwort: [[1]]",
+     "gaps": {
+      "1": []
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "2. Konflikt: Warum hatte Leon oft keine Zeit?",
+     "text": "Antwort: [[1]]",
+     "gaps": {
+      "1": []
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "2. Konflikt: Wie hat sich Paul gefühlt?",
+     "text": "Antwort: [[1]]",
+     "gaps": {
+      "1": []
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "2. Konflikt: Was hat Leon erklärt?",
+     "text": "Antwort: [[1]]",
+     "gaps": {
+      "1": []
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "2. Konflikt: Was haben sie gelernt?",
+     "text": "Antwort: [[1]]",
+     "gaps": {
+      "1": []
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l06-schreiben-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 6,
+   "skill": "schreiben",
+   "title": "Schreiben: Meine Freunde",
+   "source": "book",
+   "metadata": {
+    "book_page": 70
+   },
+   "task_type": "description",
+   "prompt": "Schreiben Sie einen kurzen Text über Ihre Freunde. Schreiben Sie mindestens 80 Wörter.\n\nPunkte:\n• Wie heißen Ihre Freunde? (z.B. Lukas und Jonas)\n• Haben Sie viele Freunde oder nur wenige?\n• Woher kennen Sie Ihre Freunde? (Schule, Nachbarn, Sport …)\n• Was machen Sie gern zusammen? (Unsere Hobbys)\n• Welche lustigen Erlebnisse haben Sie zusammen erlebt? (Unsere Erlebnisse)\n• Was mögen Sie an Ihren Freunden und warum?",
+   "min_words": 80,
+   "max_words": 160,
+   "time_limit": 25
+  },
+  {
+   "content_id": "vizu-a2-l06-schreiben-03",
+   "level": "A2",
+   "module": 1,
+   "lesson": 6,
+   "skill": "schreiben",
+   "title": "Schreiben: E-Mail an meine Schwester in Paris",
+   "source": "book",
+   "metadata": {
+    "book_page": 70
+   },
+   "task_type": "email",
+   "prompt": "Ihre Schwester lebt in Paris. Sie möchten ihr eine E-Mail schreiben. Schreiben Sie mindestens 80 Wörter.\n\nPunkte:\n• Sagen Sie, dass Sie eine E-Mail schreiben.\n• Fragen Sie nach Paris und nach ihrem Leben dort. (Über Paris sprechen)\n• Erzählen Sie, warum Sie Ihre Schwester bald treffen möchten und wie Sie nach Paris kommen.\n• Sprechen Sie über das Wetter, Datum und Ihre Reise. (Mein Besuch in Paris)\n• Fragen Sie, was Sie zusammen machen können.",
+   "audience": "Ihre Schwester (informell)",
+   "min_words": 80,
+   "max_words": 160,
+   "time_limit": 25
+  },
+  {
+   "content_id": "vizu-a2-l06-schreiben-04",
+   "level": "A2",
+   "module": 1,
+   "lesson": 6,
+   "skill": "schreiben",
+   "title": "Wortschatz-Aufgabe: Wichtige Wörter — Bedeutung und Beispiel",
+   "source": "book",
+   "metadata": {
+    "book_page": 72,
+    "note": "Kitobdagi ish varag'i — o'qituvchi tekshiradi."
+   },
+   "task_type": "other",
+   "prompt": "Schreiben Sie die Bedeutung und ein Beispiel.\n\n1. die Beziehung\n2. das Missverständnis\n3. die Freundschaft\n4. zusammenleben\n5. sich verstehen\n6. erklären\n7. hoffen\n8. vermissen\n9. unterstützen\n10. respektieren\n11. ehrlich\n12. schwierig\n13. die Veränderung\n14. sich gewöhnen\n15. die Erfahrungen\n16. im Ausland\n17. das Studium\n18. arbeiten\n19. der Alltag\n20. die Nachricht\n21. die E-Mail\n22. schreiben\n23. antworten\n24. sich treffen\n25. verbringen\n26. allein\n27. zusammen\n28. oft\n29. selten\n30. verstehen",
+   "min_words": 60,
+   "max_words": 500,
+   "time_limit": 40
+  },
+  {
+   "content_id": "vizu-a2-l06-sprechen-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 6,
+   "skill": "sprechen",
+   "title": "Sprechen: Meine Verständnisse in der Beziehungen",
+   "source": "book",
+   "metadata": {
+    "book_page": 71
+   },
+   "topic": "Freunde und Familie",
+   "prompt": "Sprechen Sie über das Thema.",
+   "questions": [
+    "Warum sind Freunde für dich wichtig?",
+    "Was machst du gerne mit deinen Freunden?",
+    "Wie löst du Probleme mit deinen Freunden?",
+    "Was ist schwierig, wenn man weit voneinander entfernt ist?",
+    "Warum ist Familie wichtig für dich?",
+    "Was hast du von deiner Familie gelernt?"
+   ],
+   "response_type": "monolog",
+   "min_duration": 60,
+   "max_duration": 180,
+   "speech_goal": "Über Freundschaft und Familie sprechen, mit dass- und weil-Sätzen begründen.",
+   "keywords": [
+    "Ich denke, dass",
+    "weil",
+    "Freunde",
+    "Familie",
+    "vertrauen"
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l06-wortschatz-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 6,
+   "skill": "wortschatz",
+   "title": "Wortschatz: Beziehungen und Kommunikation",
+   "source": "book",
+   "metadata": {
+    "book_page": 72,
+    "note": "Tarjimalar dars varag'idan (60 so'z)."
+   },
+   "words": [
+    {
+     "word": "Beziehung",
+     "translation": "munosabat",
+     "article": "die",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "Kommunikation",
+     "translation": "muloqot",
+     "article": "die",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "Missverständnis",
+     "translation": "tushunmovchilik",
+     "article": "das",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "Freund",
+     "translation": "do‘st",
+     "article": "der",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "Freundschaft",
+     "translation": "do‘stlik",
+     "article": "die",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "Bruder",
+     "translation": "aka-uka",
+     "article": "der",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "Familie",
+     "translation": "oila",
+     "article": "die",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "zusammenleben",
+     "translation": "birga yashamoq",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "sich verstehen",
+     "translation": "tushunish",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "sprechen",
+     "translation": "gaplashmoq",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "erklären",
+     "translation": "tushuntirmoq",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "erzählen",
+     "translation": "hikoya qilmoq",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "denken",
+     "translation": "o‘ylamoq",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "glauben",
+     "translation": "ishonmoq",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "hoffen",
+     "translation": "umid qilmoq",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "fühlen",
+     "translation": "his qilmoq",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "vermissen",
+     "translation": "sog‘inmoq",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "helfen",
+     "translation": "yordam bermoq",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "unterstützen",
+     "translation": "qo‘llab-quvvatlamoq",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "vertrauen",
+     "translation": "ishonch bildirmoq",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "respektieren",
+     "translation": "hurmat qilmoq",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "wichtig",
+     "translation": "muhim",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "ehrlich",
+     "translation": "halol",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "freundlich",
+     "translation": "mehribon",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "traurig",
+     "translation": "xafa",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "glücklich",
+     "translation": "baxtli",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "wütend",
+     "translation": "jahli chiqqan",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "Streit",
+     "translation": "janjal",
+     "article": "der",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "Lösung",
+     "translation": "yechim",
+     "article": "die",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "akzeptieren",
+     "translation": "qabul qilmoq",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "Entfernung",
+     "translation": "masofa",
+     "article": "die",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "im Ausland",
+     "translation": "chet elda",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "Studium",
+     "translation": "o‘qish",
+     "article": "das",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "lernen",
+     "translation": "o‘rganmoq",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "arbeiten",
+     "translation": "ishlamoq",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "leben",
+     "translation": "yashamoq",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "Alltag",
+     "translation": "kundalik hayot",
+     "article": "der",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "Nachricht",
+     "translation": "xabar",
+     "article": "die",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "E-Mail",
+     "translation": "elektron xat",
+     "article": "die",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "telefonieren",
+     "translation": "telefon qilmoq",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "schreiben",
+     "translation": "yozmoq",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "antworten",
+     "translation": "javob bermoq",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "sich treffen",
+     "translation": "uchrashmoq",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "verbringen",
+     "translation": "vaqt o‘tkazmoq",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "erleben",
+     "translation": "boshdan kechirmoq",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "Erfahrung",
+     "translation": "tajriba",
+     "article": "die",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "Veränderung",
+     "translation": "o‘zgarish",
+     "article": "die",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "sich gewöhnen",
+     "translation": "ko‘nikmoq",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "allein",
+     "translation": "yolg‘iz",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "zusammen",
+     "translation": "birga",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "oft",
+     "translation": "tez-tez",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "selten",
+     "translation": "kamdan-kam",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "immer",
+     "translation": "har doim",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "manchmal",
+     "translation": "ba’zida",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "stark",
+     "translation": "kuchli",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "schwach",
+     "translation": "kuchsiz",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "ruhig",
+     "translation": "tinch",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "Problem",
+     "translation": "muammo",
+     "article": "das",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "sich entschuldigen",
+     "translation": "uzr so‘ramoq",
+     "group": "Beziehungen und Kommunikation"
+    },
+    {
+     "word": "verstehen",
+     "translation": "tushunmoq",
+     "group": "Beziehungen und Kommunikation"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "Zuordnung 1",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Beziehungen und Kommunikation 1)",
+       "items": [
+        "die Beziehung",
+        "die Kommunikation",
+        "das Missverständnis",
+        "der Freund",
+        "die Freundschaft",
+        "der Bruder"
+       ],
+       "targets": [
+        "munosabat",
+        "muloqot",
+        "tushunmovchilik",
+        "do‘st",
+        "do‘stlik",
+        "aka-uka",
+        "oila"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Beziehungen und Kommunikation 2)",
+       "items": [
+        "die Familie",
+        "zusammenleben",
+        "sich verstehen",
+        "sprechen",
+        "erklären",
+        "erzählen"
+       ],
+       "targets": [
+        "oila",
+        "birga yashamoq",
+        "tushunish",
+        "gaplashmoq",
+        "tushuntirmoq",
+        "hikoya qilmoq",
+        "munosabat"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Beziehungen und Kommunikation 3)",
+       "items": [
+        "denken",
+        "glauben",
+        "hoffen",
+        "fühlen",
+        "vermissen",
+        "helfen"
+       ],
+       "targets": [
+        "o‘ylamoq",
+        "ishonmoq",
+        "umid qilmoq",
+        "his qilmoq",
+        "sog‘inmoq",
+        "yordam bermoq",
+        "munosabat"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Zuordnung 2",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Beziehungen und Kommunikation 4)",
+       "items": [
+        "unterstützen",
+        "vertrauen",
+        "respektieren",
+        "wichtig",
+        "ehrlich",
+        "freundlich"
+       ],
+       "targets": [
+        "qo‘llab-quvvatlamoq",
+        "ishonch bildirmoq",
+        "hurmat qilmoq",
+        "muhim",
+        "halol",
+        "mehribon",
+        "munosabat"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Beziehungen und Kommunikation 5)",
+       "items": [
+        "traurig",
+        "glücklich",
+        "wütend",
+        "der Streit",
+        "die Lösung",
+        "akzeptieren"
+       ],
+       "targets": [
+        "xafa",
+        "baxtli",
+        "jahli chiqqan",
+        "janjal",
+        "yechim",
+        "qabul qilmoq",
+        "munosabat"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Beziehungen und Kommunikation 6)",
+       "items": [
+        "die Entfernung",
+        "im Ausland",
+        "das Studium",
+        "lernen",
+        "arbeiten",
+        "leben"
+       ],
+       "targets": [
+        "masofa",
+        "chet elda",
+        "o‘qish",
+        "o‘rganmoq",
+        "ishlamoq",
+        "yashamoq",
+        "munosabat"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Zuordnung 3",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Beziehungen und Kommunikation 7)",
+       "items": [
+        "der Alltag",
+        "die Nachricht",
+        "die E-Mail",
+        "telefonieren",
+        "schreiben",
+        "antworten"
+       ],
+       "targets": [
+        "kundalik hayot",
+        "xabar",
+        "elektron xat",
+        "telefon qilmoq",
+        "yozmoq",
+        "javob bermoq",
+        "munosabat"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Beziehungen und Kommunikation 8)",
+       "items": [
+        "sich treffen",
+        "verbringen",
+        "erleben",
+        "die Erfahrung",
+        "die Veränderung",
+        "sich gewöhnen"
+       ],
+       "targets": [
+        "uchrashmoq",
+        "vaqt o‘tkazmoq",
+        "boshdan kechirmoq",
+        "tajriba",
+        "o‘zgarish",
+        "ko‘nikmoq",
+        "munosabat"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Beziehungen und Kommunikation 9)",
+       "items": [
+        "allein",
+        "zusammen",
+        "oft",
+        "selten",
+        "immer",
+        "manchmal"
+       ],
+       "targets": [
+        "yolg‘iz",
+        "birga",
+        "tez-tez",
+        "kamdan-kam",
+        "har doim",
+        "ba’zida",
+        "munosabat"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Zuordnung 4",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Beziehungen und Kommunikation 10)",
+       "items": [
+        "stark",
+        "schwach",
+        "ruhig",
+        "das Problem",
+        "sich entschuldigen",
+        "verstehen"
+       ],
+       "targets": [
+        "kuchli",
+        "kuchsiz",
+        "tinch",
+        "muammo",
+        "uzr so‘ramoq",
+        "tushunmoq",
+        "munosabat"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Der, die oder das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Beziehung (munosabat)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Kommunikation (muloqot)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Missverständnis (tushunmovchilik)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Freund (do‘st)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Freundschaft (do‘stlik)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Bruder (aka-uka)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Familie (oila)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Streit (janjal)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Lösung (yechim)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Entfernung (masofa)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "So'zning artiklini tanlang (kitobdagi lug'at bo'yicha)."
+    },
+    {
+     "title": "Was bedeutet das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „die Beziehung“?",
+       "options": [
+        "munosabat",
+        "elektron xat",
+        "tez-tez"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „zusammenleben“?",
+       "options": [
+        "his qilmoq",
+        "telefon qilmoq",
+        "birga yashamoq"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „hoffen“?",
+       "options": [
+        "masofa",
+        "umid qilmoq",
+        "yordam bermoq"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „wichtig“?",
+       "options": [
+        "kamdan-kam",
+        "hikoya qilmoq",
+        "muhim"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „die Lösung“?",
+       "options": [
+        "muammo",
+        "yechim",
+        "sog‘inmoq"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „leben“?",
+       "options": [
+        "yashamoq",
+        "tajriba",
+        "munosabat"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „sich treffen“?",
+       "options": [
+        "tushunish",
+        "birga yashamoq",
+        "uchrashmoq"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „zusammen“?",
+       "options": [
+        "xabar",
+        "ishlamoq",
+        "birga"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zning o'zbekcha tarjimasini tanlang."
+    }
+   ],
+   "auto_practice": false
+  },
+  {
+   "content_id": "vizu-a2-l06-uebungen-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 6,
+   "skill": "uebungen",
+   "title": "Übungen: A2 6. Unterricht",
+   "source": "vizu",
+   "exercises": [
+    {
+     "title": "dass-Satz: richtig oder falsch?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Welcher Satz ist richtig?",
+       "options": [
+        "Ich glaube, dass er heute kommt.",
+        "Ich glaube, dass er kommt heute.",
+        "Ich glaube, er dass heute kommt."
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Welcher Satz ist richtig?",
+       "options": [
+        "Sie sagt, dass sie krank ist.",
+        "Sie sagt, dass ist sie krank.",
+        "Sie sagt, dass sie ist krank."
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich denke, ___ er heute kommt.",
+       "options": [
+        "das",
+        "dass",
+        "des"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Kitobdagi „Typische Fehler“: b) dass."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was steht im dass-Satz am Ende?",
+       "options": [
+        "das Verb",
+        "das Subjekt",
+        "dass"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "dass-gap qoidasi (kitob, 65-bet)."
+    },
+    {
+     "title": "Nemischa qanday?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "„muloqot“ — nemischa qanday?",
+       "options": [
+        "die Kommunikation",
+        "die Freundschaft",
+        "das Studium"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„tushunish“ — nemischa qanday?",
+       "options": [
+        "ehrlich",
+        "sich verstehen",
+        "stark"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„his qilmoq“ — nemischa qanday?",
+       "options": [
+        "immer",
+        "schreiben",
+        "fühlen"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„halol“ — nemischa qanday?",
+       "options": [
+        "sich verstehen",
+        "arbeiten",
+        "ehrlich"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„qabul qilmoq“ — nemischa qanday?",
+       "options": [
+        "antworten",
+        "akzeptieren",
+        "respektieren"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„kundalik hayot“ — nemischa qanday?",
+       "options": [
+        "der Alltag",
+        "der Bruder",
+        "die Familie"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„vaqt o‘tkazmoq“ — nemischa qanday?",
+       "options": [
+        "traurig",
+        "verbringen",
+        "fühlen"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„tez-tez“ — nemischa qanday?",
+       "options": [
+        "ruhig",
+        "oft",
+        "antworten"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "O'zbekcha so'zning nemischasini tanlang."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l06-yakuniy-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 6,
+   "skill": "yakuniy",
+   "title": "Abschlusstest: A2 6. Unterricht",
+   "source": "vizu",
+   "instruction": "dass-Sätze va munosabatlar so'zlari bo'yicha yakuniy test (dars materiali asosida).",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Er sagt, dass er keine Zeit ___.",
+     "options": [
+      "hat",
+      "haben",
+      "hat er"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wir hoffen, dass du ___.",
+     "options": [
+      "kommst",
+      "kommen",
+      "du kommst"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Richtig ist:",
+     "options": [
+      "Ich weiß, dass du müde bist.",
+      "Ich weiß, dass du bist müde.",
+      "Ich weiß, du dass müde bist."
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "Leon studiert im Ausland in Deutschland.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "Lesen, Text 2."
+    },
+    {
+     "type": "true_false",
+     "question": "Lukas und Jonas haben sich in der Schule kennengelernt.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "Lesen, Text 1: im Sommerlager."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„vermissen“ — o'zbekchasi?",
+     "options": [
+      "sog'inmoq",
+      "ishonmoq",
+      "hurmat qilmoq"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„das Missverständnis“ — o'zbekchasi?",
+     "options": [
+      "tushunmovchilik",
+      "janjal",
+      "yechim"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„sich entschuldigen“ — o'zbekchasi?",
+     "options": [
+      "uzr so'ramoq",
+      "ko'nikmoq",
+      "uchrashmoq"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„die Entfernung“ — o'zbekchasi?",
+     "options": [
+      "masofa",
+      "o'zgarish",
+      "tajriba"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Sie sagt: „Ich habe keine Zeit.“ → Sie sagt, dass ___ keine Zeit hat.",
+     "options": [
+      "sie",
+      "ich",
+      "er"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l06-kompetenz-02",
+   "level": "A2",
+   "module": 1,
+   "lesson": 6,
+   "skill": "kompetenz",
+   "title": "Zusammenfassung: A2 6. Unterricht",
+   "source": "vizu",
+   "competency": "ZUSAMMENFASSUNG",
+   "html": "<h3>A2 6. Unterricht — qisqacha</h3><ul><li><strong>dass-Satz:</strong> ein Nebensatz — er erklärt, was jemand denkt, sagt, fühlt oder meint.</li><li><strong>Struktur:</strong> Hauptsatz (Verb 2) + dass + Nebensatz (Verb Ende) — Ich glaube, dass er heute kommt.</li><li><strong>Typischer Fehler:</strong> Ich denke, dass er kommt heute. ✗ → Ich denke, dass er heute kommt. ✓</li><li><strong>Wortschatz:</strong> die Beziehung, das Missverständnis, vermissen, vertrauen, die Entfernung, sich gewöhnen, sich entschuldigen.</li></ul><p>Natijalaringiz pastda — tugallanmagan bo'limlarni yakunlang, so'ng keyingi darsga o'ting.</p>"
+  }
+ ]
+}

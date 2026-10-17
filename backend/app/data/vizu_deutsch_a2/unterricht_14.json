@@ -1,0 +1,863 @@
+{
+ "schema_version": "1.2",
+ "language": "de",
+ "source": "vizu-deutsch-a2-book",
+ "items": [
+  {
+   "content_id": "vizu-a2-l14-kompetenz-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 14,
+   "skill": "kompetenz",
+   "title": "Einführung: A2 14. Unterricht",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 1
+   },
+   "competency": "EINFUEHRUNG",
+   "html": "<h3>A2 14. Unterricht — Zukunft, Träume und Lebensplanung</h3><p><strong>Mavzu:</strong> Zukunft, Träume und Lebensplanung · <strong>Grammatik:</strong> Gemeinsame Wiederholung A2 Grammatik</p><h4>Dars maqsadlari</h4><ul><li>A2 grammatikasining 13 mavzusini takrorlash;</li><li>kelajak rejalari va orzular haqida gapirish;</li><li>A2 darajasida mustaqil o'qish, tinglash, yozish va gapirish uchun manbalarni bilish.</li></ul><h4>Dars oxirida siz quyidagilarni bajara olasiz</h4><ul><li>keyingi 5 yilda nimaga erishmoqchi ekaningizni aytasiz;</li><li>har bir grammatik mavzu bo'yicha qisqa mashqlarni bajarasiz;</li><li>A2 imtihoniga mustaqil tayyorlanish rejasini tuzasiz.</li></ul><h4>Darsning tuzilishi</h4><p>Einführung → Wortschatz → Grammatik → Lesen → Hören → Sprechen → Schreiben → Übungen → Abschlusstest → Zusammenfassung</p>"
+  },
+  {
+   "content_id": "vizu-a2-l14-frage-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 14,
+   "skill": "frage",
+   "title": "Frage des Themas: Was möchtest du in den nächsten 5 Jahren erreichen?",
+   "source": "book",
+   "metadata": {
+    "book_page": 2
+   },
+   "prompt": "Was möchtest du in den nächsten 5 Jahren erreichen? Sprich über deine Ziele, Träume und Pläne.",
+   "min_duration": 20,
+   "max_duration": 120
+  },
+  {
+   "content_id": "vizu-a2-l14-grammatik-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 14,
+   "skill": "grammatik",
+   "title": "Grammatik: Gemeinsame Wiederholung A2",
+   "source": "book",
+   "metadata": {
+    "book_page": "3-4 (A2 14.Unterricht.pdf)",
+    "note": "dass-Sätze mashqlari ochiq (bir nechta to'g'ri javob) — kiritilmadi."
+   },
+   "rules": [
+    {
+     "title": "Gemeinsame Wiederholung A2 Grammatik",
+     "html": "<h3>Gemeinsame Wiederholung A2 Grammatik</h3><ol><li><strong>Satzbau + Perfekt vs. Präteritum:</strong> Subjekt + Verb + … — Ich lerne Deutsch.</li><li><strong>wenn-Sätze (Konditionalsätze):</strong> Wenn + Verb am Ende, Hauptsatz — Wenn ich Zeit habe, gehe ich ins Kino.</li><li><strong>Imperativ (du, ihr, Sie):</strong> Geht ins Bett! · Seien Sie ruhig, Herr Müller!</li><li><strong>Infinitiv mit zu + um … zu / ohne … zu:</strong> Ich beginne, Deutsch zu lernen. · Er lernt, um die Prüfung zu bestehen.</li><li><strong>Kausalsätze (weil, denn, deshalb):</strong> …, weil + Satz (Verb am Ende) · …, denn + Hauptsatz · …, deshalb + Hauptsatz (Verb 2).</li><li><strong>dass-Sätze + Satzklammer:</strong> …, dass + Subjekt + … + Verb (am Ende) — Ich hoffe, dass du bald kommst.</li><li><strong>Lokale Präpositionen + Wechselpräpositionen:</strong> auf, an, in, über, vor, unter … — Der Laptop liegt auf dem Tisch.</li><li><strong>trotzdem (Gegensatz) + aber:</strong> …, trotzdem + Verb + Subjekt · …, aber + Hauptsatz.</li><li><strong>Finalsätze (damit / um … zu):</strong> Ich spare Geld, damit ich reisen kann. · Ich spare Geld, um zu reisen.</li><li><strong>Futur I + Modalverben:</strong> Ich werde Urlaub machen. · Du willst mehr lernen.</li><li><strong>Passiv Präsens + man-Strukturen:</strong> werden + Partizip II — Das Auto wird repariert.</li><li><strong>Konjunktiv II (höfliche Bitten):</strong> würde + Infinitiv; starke Verben: hätte, wäre, könnte … — Könnten Sie mir helfen?</li></ol>"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "1–4: Satzbau, wenn-Sätze, Imperativ, Infinitiv mit zu",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (Satzbau + Perfekt)",
+       "text": "Gestern [[1]] ich Deutsch gelernt.",
+       "gaps": {
+        "1": [
+         "habe"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (Satzbau + Perfekt)",
+       "text": "Ich [[1]] heute Deutsch.",
+       "gaps": {
+        "1": [
+         "lerne"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (Satzbau + Perfekt)",
+       "text": "Letzte Woche [[1]] ich viel gelernt.",
+       "gaps": {
+        "1": [
+         "habe"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (wenn-Sätze)",
+       "text": "Wenn ich Zeit habe, [[1]] ich ins Kino.",
+       "gaps": {
+        "1": [
+         "gehe"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (wenn-Sätze)",
+       "text": "Wenn es regnet, [[1]] ich zu Hause.",
+       "gaps": {
+        "1": [
+         "bleibe"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (wenn-Sätze)",
+       "text": "Wenn ich reich wäre, [[1]] ich ein Haus kaufen.",
+       "gaps": {
+        "1": [
+         "würde"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (Imperativ)",
+       "text": "[[1]] (lernen) Sie jeden Tag!",
+       "gaps": {
+        "1": [
+         "Lernen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (Imperativ)",
+       "text": "[[1]] (gehen) ihr bitte leise!",
+       "gaps": {
+        "1": [
+         "Geht"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (Imperativ)",
+       "text": "[[1]] (sein) Sie pünktlich, bitte!",
+       "gaps": {
+        "1": [
+         "Seien"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (Infinitiv mit zu)",
+       "text": "Ich gehe in die Bibliothek, [[1]] lernen.",
+       "gaps": {
+        "1": [
+         "um zu"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (Infinitiv mit zu)",
+       "text": "Er geht früh los, [[1]] den Bus zu bekommen.",
+       "gaps": {
+        "1": [
+         "um"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (Infinitiv mit zu)",
+       "text": "Ich habe keine Zeit, [[1]] kochen.",
+       "gaps": {
+        "1": [
+         "zu"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "Gemeinsame Wiederholung A2 — Ergänzen Sie die Sätze."
+    },
+    {
+     "title": "5–9: Kausalsätze, Präpositionen, trotzdem / aber, Finalsätze",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (Kausalsätze)",
+       "text": "Ich lerne Deutsch, [[1]] ich in Deutschland leben möchte.",
+       "gaps": {
+        "1": [
+         "weil",
+         "da"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (Kausalsätze)",
+       "text": "Er ist müde, [[1]] er lange gearbeitet hat.",
+       "gaps": {
+        "1": [
+         "weil",
+         "da"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (Kausalsätze)",
+       "text": "Es regnet, [[1]] bleiben wir zu Hause.",
+       "gaps": {
+        "1": [
+         "deshalb",
+         "darum",
+         "deswegen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (Präpositionen)",
+       "text": "Das Buch liegt [[1]] dem Tisch.",
+       "gaps": {
+        "1": [
+         "auf",
+         "unter",
+         "neben",
+         "vor",
+         "hinter",
+         "an"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Wo? → Dativ: auf dem Tisch."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (Präpositionen)",
+       "text": "Ich gehe [[1]] die Schule.",
+       "gaps": {
+        "1": [
+         "in",
+         "an",
+         "vor",
+         "hinter"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Wohin? → Akkusativ: in die Schule."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (Präpositionen)",
+       "text": "Wir wohnen [[1]] Berlin.",
+       "gaps": {
+        "1": [
+         "in"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (trotzdem / aber)",
+       "text": "Es regnet, [[1]] ich gehe spazieren.",
+       "gaps": {
+        "1": [
+         "aber"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "„ich gehe“ — Subjekt vor dem Verb → aber (nach trotzdem: gehe ich)."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (trotzdem / aber)",
+       "text": "Ich bin müde, [[1]] ich lerne weiter.",
+       "gaps": {
+        "1": [
+         "aber"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (trotzdem / aber)",
+       "text": "Er hat wenig Geld, [[1]] er kauft ein Auto.",
+       "gaps": {
+        "1": [
+         "aber"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (Finalsätze)",
+       "text": "Ich lerne Deutsch, [[1]] ich besser sprechen kann.",
+       "gaps": {
+        "1": [
+         "damit"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (Finalsätze)",
+       "text": "Sie spart Geld, [[1]] sie reisen kann.",
+       "gaps": {
+        "1": [
+         "damit"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (Finalsätze)",
+       "text": "Er übt jeden Tag, [[1]] die Prüfung zu bestehen.",
+       "gaps": {
+        "1": [
+         "um"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "Gemeinsame Wiederholung A2 — Ergänzen Sie die Sätze."
+    },
+    {
+     "title": "10–13: Futur I + Modalverben, Passiv, Finalsätze, Konjunktiv II",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (Futur I + Modalverben)",
+       "text": "Ich [[1]] morgen kommen.",
+       "gaps": {
+        "1": [
+         "werde",
+         "will",
+         "kann",
+         "muss",
+         "möchte",
+         "soll",
+         "darf"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (Futur I + Modalverben)",
+       "text": "Du [[1]] mehr lernen.",
+       "gaps": {
+        "1": [
+         "wirst",
+         "willst",
+         "kannst",
+         "musst",
+         "möchtest",
+         "sollst",
+         "solltest",
+         "darfst"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (Futur I + Modalverben)",
+       "text": "Wir [[1]] ins Kino gehen.",
+       "gaps": {
+        "1": [
+         "werden",
+         "wollen",
+         "können",
+         "müssen",
+         "möchten",
+         "sollen",
+         "dürfen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (Passiv Präsens)",
+       "text": "Das Auto [[1]] in der Werkstatt repariert.",
+       "gaps": {
+        "1": [
+         "wird"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (Passiv Präsens)",
+       "text": "Hier [[1]] nicht geraucht.",
+       "gaps": {
+        "1": [
+         "wird"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (Passiv Präsens)",
+       "text": "In Deutschland [[1]] Deutsch gesprochen.",
+       "gaps": {
+        "1": [
+         "wird"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (Finalsätze)",
+       "text": "Wir üben viel, [[1]] wir besser spielen.",
+       "gaps": {
+        "1": [
+         "damit"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (Finalsätze)",
+       "text": "Er steht früh auf, [[1]] pünktlich zu sein.",
+       "gaps": {
+        "1": [
+         "um"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (Finalsätze)",
+       "text": "Sie liest Bücher, [[1]] mehr zu lernen.",
+       "gaps": {
+        "1": [
+         "um"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (Konjunktiv II)",
+       "text": "[[1]] Sie mir bitte helfen?",
+       "gaps": {
+        "1": [
+         "Könnten",
+         "Würden"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (Konjunktiv II)",
+       "text": "[[1]] du mir das Buch geben?",
+       "gaps": {
+        "1": [
+         "Könntest",
+         "Würdest"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze. (Konjunktiv II)",
+       "text": "[[1]] Sie bitte langsamer sprechen?",
+       "gaps": {
+        "1": [
+         "Könnten",
+         "Würden"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "Gemeinsame Wiederholung A2 — Ergänzen Sie die Sätze."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l14-kompetenz-03",
+   "level": "A2",
+   "module": 1,
+   "lesson": 14,
+   "skill": "kompetenz",
+   "title": "Wortschatz: Manbalar und Methoden (A2)",
+   "source": "book",
+   "metadata": {
+    "book_page": 9
+   },
+   "competency": "WORTSCHATZ",
+   "html": "<h3>A2 darajada Wortschatz uchun eng yaxshi manbalar</h3><h4>Nima uchun muhim?</h4><ul><li>Gapirish osonlashadi</li><li>O'qish tezlashadi</li><li>Tinglab tushunish yaxshilanadi</li><li>Imtihonda yordam beradi</li></ul><h4>Asosiy platformalar</h4><ul><li>Anki (App) — flashcard tizimi, spaced repetition</li><li>Quizlet (App/Web) — tayyor setlar, o'yin orqali yodlash</li><li>Memrise (App) — audio bilan so'zlar, real talaffuz</li></ul><h4>Online saytlar (kunlik mashq)</h4><ul><li>Lingolia Deutsch (Wortschatz) — kontekst bilan o'rganish</li><li>DW Deutsch Lernen — real nutqda so'zlar</li><li>Goethe Wortliste A2 — kerakli minimum</li></ul><h4>So'z yodlash usullari</h4><ul><li>Flashcard: Wort · Wort + Tarjima · Wort + Gap · Wort + Rasm</li><li>Spaced repetition: 1-kun → 2-kun → 4-kun → 7-kun</li><li>Amaliy ishlatish: gap tuz, dialogda ishlat, ovozing bilan ayt</li><li>Namuna: neu — yangi · Das ist ein neues Buch. (Bu yangi kitob.)</li></ul><h4>A2 uchun strategiya (tez progress)</h4><ol><li>Kuniga 10–15 ta so'z</li><li>Har biriga gap tuz</li><li>3–4 marta takrorla</li><li>Eski so'zlarni qayta ko'r</li><li>Gapirishda ishlat</li></ol><h4>Qo'shimcha maslahatlar</h4><ul><li>So'zni alohida emas — gap bilan yodla</li><li>Sinonim va antonimlarni o'rgan</li><li>Ko'p takrorla = tez eslab qolasan</li><li>Passiv emas — aktiv ishlat</li></ul><h4>Foydali linklar</h4><ul><li>ankiweb.net</li><li>quizlet.com</li><li>memrise.com</li><li>dw.com/deutsch-lernen</li><li>goethe.de</li></ul><p><strong>Esda tuting:</strong> Kichik qadamlar — katta natijalar! Har kuni oz-ozdan o'rgan, so'zlaring seni maqsadingga yetaklaydi.</p>"
+  },
+  {
+   "content_id": "vizu-a2-l14-kompetenz-04",
+   "level": "A2",
+   "module": 1,
+   "lesson": 14,
+   "skill": "kompetenz",
+   "title": "Lesen: Die besten Quellen für A2",
+   "source": "book",
+   "metadata": {
+    "book_page": 5
+   },
+   "competency": "LESEN",
+   "html": "<h3>A2 darajada Lesen (o'qish tushunish) uchun eng yaxshi manbalar</h3><h4>Nima uchun muhim?</h4><ul><li>So'z boyligini oshiradi</li><li>Grammatikani tushunishga yordam beradi</li><li>Imtihonlarga tayyorlaydi</li><li>Fikrni tez tushunish ko'nikmasini rivojlantiradi</li></ul><h4>Jurnallar (A2 uchun mos)</h4><ul><li>Deutsch perfekt — A1–B2 darajalar uchun, har maqolada lug'at izohi, matn + izoh + audio</li><li>Deutsch üben – Lesen & Schreiben (Hueber) — maxsus mashq kitobi, imtihon formatiga yaqin</li><li>Schubert Verlag – Online material — bepul online mashqlar, test formatida</li></ul><h4>Onlayn saytlar (kunlik mashq uchun)</h4><ul><li>DW Deutsch Lernen (Nicos Weg) — video + matn + mashq</li><li>Lingolia Deutsch — qisqa matnlar, grammatikaga bog'langan</li><li>Nachrichtenleicht.de — juda oddiy tilda real yangiliklar</li></ul><h4>Kitoblar (bosqichma-bosqich)</h4><ul><li>Graded Readers (A2 daraja): „Ein neues Leben in Berlin“, „Die verlorene Tasche“, „Ferien am Meer“ — kuniga 10–15 daqiqa</li></ul><h4>A2 uchun strategiya (tez progress)</h4><ol><li>Kuniga 1 matn o'qi (Deutsch perfekt yoki DW)</li><li>Noma'lum so'zlarni yozib bor</li><li>5–6 gapni qayta yoz (paraphrase)</li><li>Oxirida qisqa xulosa qil (3–4 gap)</li></ol><h4>Qo'shimcha maslahatlar</h4><ul><li>O'qishdan zavq olish uchun qiziq mavzuni tanlang</li><li>Noma'lum so'zlarni kontekst orqali aniqlashga harakat qiling</li><li>O'qigan matningizni yuqori ovozda o'qib chiqing</li><li>Kichik yutuqlarni nishonlang</li></ul><h4>Foydali linklar</h4><ul><li>www.deutsch-perfekt.com</li><li>www.hueber.de</li><li>www.schubert-verlag.de</li><li>www.dw.com/deutsch-lernen</li><li>www.lingolia.com</li><li>www.nachrichtenleicht.de</li></ul><p><strong>Esda tuting:</strong> Doimiy o'qish — tilni tushunishning eng kuchli kaliti! Kuniga 15 daqiqa o'qish — katta natijalarga olib keladi.</p>"
+  },
+  {
+   "content_id": "vizu-a2-l14-kompetenz-05",
+   "level": "A2",
+   "module": 1,
+   "lesson": 14,
+   "skill": "kompetenz",
+   "title": "Hören: Die besten Quellen für A2",
+   "source": "book",
+   "metadata": {
+    "book_page": 6
+   },
+   "competency": "HOEREN",
+   "html": "<h3>A2 darajada Hörverstehen uchun eng yaxshi manbalar</h3><h4>Nima uchun muhim?</h4><ul><li>Tinglab tushunish tezligini oshiradi</li><li>Talaffuzni yaxshilaydi</li><li>Real suhbatga tayyorlaydi</li><li>Imtihonda yuqori ball beradi</li></ul><h4>Audio / video platformalar</h4><ul><li>DW Deutsch Lernen (Nicos Weg) — to'liq kurs + subtitr</li><li>Easy German (YouTube) — real nemischa eshitish</li><li>Deutsch lernen durch Hören (YouTube / Podcast) — boshlovchilar uchun ideal</li></ul><h4>Online saytlar (kunlik mashq)</h4><ul><li>Lingolia Deutsch (Hören) — tizimli mashq</li><li>Goethe Institut Übungen — imtihonga tayyorlaydi</li><li>Deutsch Perfekt Audio — real hayot + audio</li></ul><h4>Podcast va audio kitoblar</h4><ul><li>Slow German (Podcast) — tushunish oson</li><li>Coffee Break German — o'qituvchi bilan o'rganish hissi</li></ul><h4>A2 uchun strategiya (tez progress)</h4><ol><li>Kuniga 10–15 daqiqa audio tingla</li><li>Bir audioga kamida 2 marta qayt</li><li>Noma'lum so'zlarni yozib bor</li><li>Eshitganingni 2–3 gap bilan qayta ayt</li><li>Subtitles bilan tekshir</li></ol><h4>Qo'shimcha maslahatlar</h4><ul><li>Avval subtitles bilan, keyin subtitlesiz tingla</li><li>Qisqa audiolardan boshlang</li><li>Bir xil audiolarni takror tinglang</li><li>Passiv emas — faol tinglang (yozib boring)</li></ul><h4>Foydali linklar</h4><ul><li>dw.com/deutsch-lernen</li><li>easygerman.org</li><li>lingolia.com/deutsch</li><li>goethe.de</li><li>deutsch-perfekt.com</li></ul><p><strong>Esda tuting:</strong> Har kuni ozgina, lekin doimiy tinglash — katta natija beradi!</p>"
+  },
+  {
+   "content_id": "vizu-a2-l14-kompetenz-06",
+   "level": "A2",
+   "module": 1,
+   "lesson": 14,
+   "skill": "kompetenz",
+   "title": "Schreiben: Die besten Quellen für A2",
+   "source": "book",
+   "metadata": {
+    "book_page": 7
+   },
+   "competency": "SCHREIBEN",
+   "html": "<h3>A2 darajada Schreiben uchun eng yaxshi manbalar</h3><h4>Nima uchun muhim?</h4><ul><li>Grammatikani mustahkamlaydi</li><li>Fikrni aniq ifodalashni o'rgatadi</li><li>Imtihon uchun asosiy skill</li><li>Gap tuzishni tezlashtiradi</li></ul><h4>Asosiy platformalar</h4><ul><li>Deutsch üben – Schreiben (Hueber) — Schreiben uchun TOP kitob</li><li>Goethe Institut Übungen — imtihonga tayyorlaydi</li><li>DW Deutsch Lernen — tushunarli va bosqichli</li></ul><h4>Online saytlar (kunlik mashq)</h4><ul><li>Lingolia Deutsch (Schreiben) — xatolarni kamaytiradi</li><li>Mein-Deutschbuch.de — bepul va boy resurs</li><li>Deutsch Perfekt — real yozish uslubi</li></ul><h4>Yozish uchun foydali shablonlar</h4><ul><li>E-Mail (A2): Anrede: Liebe/Lieber … · Einleitung: Ich schreibe dir, weil … · Hauptteil: Ich möchte … / Ich habe … · Schluss: Viele Grüße</li><li>Meinung: Ich denke, dass … · Meiner Meinung nach … · Ich finde das gut/schlecht, weil …</li></ul><h4>A2 uchun strategiya (tez progress)</h4><ol><li>Har kuni 5–6 gap yoz</li><li>Tayyor shablonlardan foydalan</li><li>Xatolarni tekshir (Grammatik)</li><li>Yozganingni qayta yoz (improve)</li><li>O'qib chiq (self-check)</li></ol><h4>Qo'shimcha maslahatlar</h4><ul><li>Qisqa gaplardan boshlang</li><li>Murakkab gap shart emas</li><li>Ko'proq yoz — tezroq rivojlan</li><li>Xatodan qo'rqma (practice = progress)</li></ul><h4>Foydali linklar</h4><ul><li>hueber.de</li><li>goethe.de</li><li>dw.com/deutsch-lernen</li><li>lingolia.com</li><li>mein-deutschbuch.de</li></ul><p><strong>Esda tuting:</strong> Yozish ko'nikmasi faqat amaliyot bilan yaxshilanadi. Bugun yoz, ertaga mukammal bo'l!</p>"
+  },
+  {
+   "content_id": "vizu-a2-l14-kompetenz-07",
+   "level": "A2",
+   "module": 1,
+   "lesson": 14,
+   "skill": "kompetenz",
+   "title": "Sprechen: Die besten Quellen für A2",
+   "source": "book",
+   "metadata": {
+    "book_page": 8
+   },
+   "competency": "SPRECHEN",
+   "html": "<h3>A2 darajada Sprechen uchun eng yaxshi manbalar</h3><h4>Nima uchun muhim?</h4><ul><li>Erkin muloqot qilishni o'rgatadi</li><li>Ishonchni oshiradi</li><li>Imtihonda asosiy skill</li><li>Real hayotda eng kerakli</li></ul><h4>Asosiy platformalar</h4><ul><li>DW Deutsch Lernen (Nicos Weg) — gapirish uchun tayyor dialoglar</li><li>Tandem (App) — jonli muloqot</li><li>HelloTalk (App) — feedback olish</li></ul><h4>Online va praktika manbalari</h4><ul><li>Easy German (YouTube) — real nutqni o'rganish</li><li>italki (Platform) — professional practice</li><li>Deutsch mit Marija (YouTube) — A2 uchun tushunarli</li></ul><h4>Sprechen uchun foydali qoliplar</h4><ul><li>Fikr bildirish: Ich denke, dass … · Meiner Meinung nach … · Ich finde das gut/schlecht …</li><li>Savol berish: Was denkst du darüber? · Warum ist das wichtig? · Kannst du das erklären?</li><li>Javob berish: Ich bin damit einverstanden … · Das stimmt, aber … · Ich glaube, dass …</li></ul><h4>A2 uchun strategiya (tez progress)</h4><ol><li>Har kuni 5–10 daqiqa gapir</li><li>O'zing bilan gaplash (self-talk)</li><li>Audio eshitib takrorla (shadowing)</li><li>Oddiy gaplardan boshla</li><li>Xatodan qo'rqma</li></ol><h4>Qo'shimcha maslahatlar</h4><ul><li>Sekin gapir — to'g'ri gapir</li><li>Qisqa gap = yaxshi gap</li><li>Ko'proq practice = tez progress</li><li>Har kuni oz-ozdan gapir</li></ul><h4>Foydali linklar</h4><ul><li>dw.com/deutsch-lernen</li><li>tandem.net</li><li>hellotalk.com</li><li>easygerman.org</li><li>italki.com</li></ul><p><strong>Esda tuting:</strong> Ko'proq gapirish = ko'proq ishonch = yaxshi natija!</p>"
+  },
+  {
+   "content_id": "vizu-a2-l14-schreiben-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 14,
+   "skill": "schreiben",
+   "title": "Schreiben: Meine Ziele für die nächsten 5 Jahre",
+   "source": "vizu",
+   "metadata": {
+    "note": "Darsning savoli asosida VIZU tomonidan tuzilgan yozma topshiriq (PDFda alohida Schreiben topshirig'i yo'q)."
+   },
+   "task_type": "description",
+   "prompt": "Schreiben Sie einen Text über Ihre Zukunft (Thema der Lektion: Was möchtest du in den nächsten 5 Jahren erreichen?).\n• Was möchten Sie in den nächsten 5 Jahren erreichen?\n• Welche Träume haben Sie?\n• Was müssen Sie dafür tun?\n• Wann und wie möchten Sie Ihr Ziel erreichen?\n\nBenutzen Sie Futur I (Ich werde …), wenn-Sätze und um … zu.",
+   "min_words": 60,
+   "max_words": 150,
+   "time_limit": 25
+  },
+  {
+   "content_id": "vizu-a2-l14-sprechen-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 14,
+   "skill": "sprechen",
+   "title": "Sprechen: Meine Zukunft — Träume und Pläne",
+   "source": "vizu",
+   "metadata": {
+    "note": "Darsning savoli asosida VIZU tomonidan tuzilgan."
+   },
+   "topic": "Zukunft, Träume und Lebensplanung",
+   "prompt": "Sprechen Sie über Ihre Zukunft. Benutzen Sie: Ich werde … · Ich möchte … · Wenn ich …, würde ich … · um … zu.",
+   "questions": [
+    "Was möchtest du in den nächsten 5 Jahren erreichen?",
+    "Was ist dein größter Traum?",
+    "Was musst du dafür lernen oder tun?",
+    "Wo möchtest du in 5 Jahren leben und arbeiten?"
+   ],
+   "response_type": "monolog",
+   "min_duration": 60,
+   "max_duration": 180,
+   "speech_goal": "Über Ziele, Träume und Pläne sprechen — mit Futur I, Konjunktiv II und Finalsätzen.",
+   "keywords": [
+    "Ich werde",
+    "Ich möchte",
+    "würde",
+    "um … zu",
+    "in 5 Jahren"
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l14-yakuniy-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 14,
+   "skill": "yakuniy",
+   "title": "Abschlusstest: Wiederholung A2",
+   "source": "vizu",
+   "instruction": "A2 grammatikasi bo'yicha yakuniy test (barcha 13 mavzu).",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Perfekt: Gestern ___ ich nach Berlin gefahren.",
+     "options": [
+      "bin",
+      "habe",
+      "war"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wenn ich Zeit ___, gehe ich ins Kino.",
+     "options": [
+      "habe",
+      "hätte",
+      "hatte ich"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Imperativ (Sie): ___ Sie pünktlich, bitte!",
+     "options": [
+      "Seien",
+      "Sind",
+      "Sein"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Ich beginne, Deutsch ___.",
+     "options": [
+      "zu lernen",
+      "lernen",
+      "gelernt"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Es regnet, ___ bleiben wir zu Hause.",
+     "options": [
+      "deshalb",
+      "weil",
+      "dass"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Ich hoffe, dass du bald ___.",
+     "options": [
+      "kommst",
+      "kommen",
+      "du kommst"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Der Laptop liegt auf ___ Tisch.",
+     "options": [
+      "dem",
+      "den",
+      "der"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Es regnet. Trotzdem ___ spazieren.",
+     "options": [
+      "gehe ich",
+      "ich gehe",
+      "gehen"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Ich spare Geld, ___ ich reisen kann.",
+     "options": [
+      "damit",
+      "um",
+      "weil"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Das Auto ___ repariert.",
+     "options": [
+      "wird",
+      "werden",
+      "ist geworden"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "___ Sie mir helfen? (höflich)",
+     "options": [
+      "Könnten",
+      "Können",
+      "Konnten"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "„Ich werde Urlaub machen.“ ist Futur I.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig"
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l14-kompetenz-02",
+   "level": "A2",
+   "module": 1,
+   "lesson": 14,
+   "skill": "kompetenz",
+   "title": "Zusammenfassung: A2 14. Unterricht",
+   "source": "vizu",
+   "competency": "ZUSAMMENFASSUNG",
+   "html": "<h3>A2 14. Unterricht — qisqacha</h3><ul><li><strong>A2 Grammatik:</strong> Satzbau, Perfekt / Präteritum, wenn-Sätze, Imperativ, Infinitiv mit zu, weil / denn / deshalb, dass-Sätze, Präpositionen, trotzdem / aber, damit / um … zu, Futur I, Passiv, Konjunktiv II.</li><li><strong>Strategie:</strong> jeden Tag ein bisschen — lesen, hören, schreiben und sprechen.</li><li>„Heute ein Leser – morgen ein Gewinner.“</li></ul><p>Natijalaringiz pastda — tugallanmagan bo'limlarni yakunlang, so'ng keyingi darsga o'ting.</p>"
+  }
+ ]
+}

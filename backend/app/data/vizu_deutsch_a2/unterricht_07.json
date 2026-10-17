@@ -1,0 +1,2003 @@
+{
+ "schema_version": "1.2",
+ "language": "de",
+ "source": "vizu-deutsch-a2-book",
+ "items": [
+  {
+   "content_id": "vizu-a2-l07-kompetenz-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 7,
+   "skill": "kompetenz",
+   "title": "Einführung: A2 7. Unterricht",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 73
+   },
+   "competency": "EINFUEHRUNG",
+   "html": "<h3>A2 7. Unterricht — Reisen im Alltag und Mobilität</h3><p><strong>Mavzu:</strong> Reisen im Alltag und Mobilität · <strong>Grammatik:</strong> Präpositionen mit Dativ, Akkusativ und Wechselpräpositionen</p><h4>Dars maqsadlari</h4><ul><li>Dativ (aus, bei, mit, nach, seit, von, zu …) va Akkusativ (für, um, durch, gegen, ohne …) predloglarini bilish;</li><li>Wechselpräpositionen: Wo? → Dativ, Wohin? → Akkusativ;</li><li>transport va sayohat so'zlarini o'rganish.</li></ul><h4>Dars oxirida siz quyidagilarni bajara olasiz</h4><ul><li>qaysi transport bugun eng qulay ekanini aytasiz;</li><li>nemislar qaysi transportdan foydalanishi haqidagi matnni tushunasiz;</li><li>Max va Saraning sayohat hikoyalarini tinglaysiz;</li><li>sayohat agentligiga e-mail yozasiz va oxirgi sayohatingiz haqida gapirasiz.</li></ul><h4>Darsning tuzilishi</h4><p>Einführung → Wortschatz → Grammatik → Lesen → Hören → Sprechen → Schreiben → Übungen → Abschlusstest → Zusammenfassung</p>"
+  },
+  {
+   "content_id": "vizu-a2-l07-frage-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 7,
+   "skill": "frage",
+   "title": "Frage des Themas: Welche Verkehrsmittel sind heute am praktischsten?",
+   "source": "book",
+   "metadata": {
+    "book_page": 74,
+    "book_points": {
+     "A": [
+      "Busse und Bahnen sind in der Stadt leicht verfügbar und günstig.",
+      "Man muss sich keine Gedanken über Parkplatzsuche machen.",
+      "Öffentliche Verkehrsmittel sind umweltfreundlicher als Autos.",
+      "Man kann während der Fahrt lesen, arbeiten oder entspannen.",
+      "Viele Städte verbessern ständig ihr öffentliches Verkehrsnetz.",
+      "Für Schüler, Studenten und Senioren gibt es meist Ermäßigungen."
+     ],
+     "B": [
+      "Mit dem Auto ist man unabhängig und flexibel.",
+      "Man kann jederzeit und überall hinfahren, wo man möchte.",
+      "Für Familien und Reisen ist das Auto sehr praktisch.",
+      "Man kann bequem mit viel Gepäck reisen.",
+      "In ländlichen Gebieten ist das Auto oft die einzige Möglichkeit.",
+      "Moderne Autos bieten Komfort, Sicherheit und viele nützliche Funktionen."
+     ],
+     "C": [
+      "Flugzeuge sind ideal für lange Strecken und internationale Reisen.",
+      "Man spart viel Zeit im Vergleich zu anderen Verkehrsmitteln.",
+      "Moderne Flughäfen bieten viele Services und Komfort.",
+      "Flugreisen verbinden Menschen und Kulturen aus aller Welt.",
+      "Für Geschäftsreisen ist das Flugzeug oft die beste Wahl.",
+      "Mit günstigen Angeboten kann Fliegen auch erschwinglich sein."
+     ]
+    }
+   },
+   "prompt": "Welche Verkehrsmittel sind heute am praktischsten? Wählen Sie und begründen Sie Ihre Meinung.",
+   "questions": [
+    "A) Öffentliche Verkehrsmittel",
+    "B) Eigenes Auto",
+    "C) Flugzeug"
+   ],
+   "min_duration": 20,
+   "max_duration": 120
+  },
+  {
+   "content_id": "vizu-a2-l07-grammatik-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 7,
+   "skill": "grammatik",
+   "title": "Grammatik: Präpositionen",
+   "source": "book",
+   "metadata": {
+    "book_page": "75-77",
+    "not_graded": {
+     "2": "Wir gehen ___ den Bahnhof. (A bei, B zu, C von) — „zu den Bahnhof“ ist falsch (zu + Dativ: zum Bahnhof).",
+     "9": "Ich stelle mein Fahrrad ___ dem Haus. (A bei, B vor, C mit) — stellen fragt „Wohin?“: vor das Haus.",
+     "18": "Der Zug fährt ___ Berlin. (A durch, B nach, C mit) — durch und nach sind beide richtig.",
+     "25": "Ich fahre ___ meinen Freund. (A gegen, B zu, C ohne) — „zu meinen Freund“ ist falsch (zu + Dativ: zu meinem Freund).",
+     "26": "Ich komme ___ dem Zug. (A zu, B mit, C von) — zu, mit und von sind alle möglich."
+    }
+   },
+   "rules": [
+    {
+     "title": "Präpositionen mit Dativ und Akkusativ",
+     "html": "<h3>Präpositionen mit Dativ</h3><table><thead><tr><th>Präposition</th><th>Beispiel (Misol)</th></tr></thead><tbody><tr><td>aus (…dan, ichidan)</td><td>Ich komme aus der Schule.</td></tr><tr><td>bei (yonida, huzurida)</td><td>Ich bin beim Arzt.</td></tr><tr><td>mit (bilan)</td><td>Ich gehe mit meinem Freund.</td></tr><tr><td>nach (…ga, tomon)</td><td>Ich fahre nach Deutschland.</td></tr><tr><td>seit (…dan beri)</td><td>Ich lerne Deutsch seit einem Jahr.</td></tr><tr><td>von (…dan)</td><td>Das Geschenk ist von meiner Mutter.</td></tr><tr><td>zu (…ga, oldiga)</td><td>Ich gehe zum Lehrer.</td></tr><tr><td>außer (…dan tashqari)</td><td>Außer meinem Bruder kommt niemand.</td></tr><tr><td>gegenüber (ro‘parasida)</td><td>Die Bank ist gegenüber dem Hotel.</td></tr><tr><td>entgegen (qarshi tomonga)</td><td>Er läuft dem Hund entgegen.</td></tr><tr><td>ab (…dan boshlab)</td><td>Ab Montag habe ich Unterricht.</td></tr></tbody></table><h3>Präpositionen mit Akkusativ</h3><table><thead><tr><th>Präposition</th><th>Beispiel (Misol)</th></tr></thead><tbody><tr><td>für (…uchun)</td><td>Das Geschenk ist für den Lehrer.</td></tr><tr><td>um (atrofida)</td><td>Wir sitzen um den Tisch.</td></tr><tr><td>durch (…orqali)</td><td>Ich gehe durch den Park.</td></tr><tr><td>gegen (qarshi)</td><td>Er spielt gegen den Freund.</td></tr><tr><td>ohne (…siz)</td><td>Ich komme ohne dich.</td></tr><tr><td>entlang (bo‘ylab)</td><td>Wir gehen den Fluss entlang.</td></tr><tr><td>bis (…gacha)</td><td>Ich bleibe bis nächsten Montag hier.</td></tr></tbody></table><p><strong>Merke dir!</strong> Dativ: Frage mit „Wo?“ · Akkusativ: Frage mit „Wohin?“</p>"
+    },
+    {
+     "title": "Wechselpräpositionen",
+     "html": "<h3>Wo? (Dativ – qayerda?) und Wohin? (Akkusativ – qayerga?)</h3><table><thead><tr><th>Präposition</th><th>WO? (Dativ)</th><th>WOHIN? (Akkusativ)</th></tr></thead><tbody><tr><td>in (ichida / ichiga)</td><td>Ich bin in dem Raum.</td><td>Ich gehe in den Raum.</td></tr><tr><td>auf (ustida / ustiga)</td><td>Das Buch ist auf dem Tisch.</td><td>Ich lege das Buch auf den Tisch.</td></tr><tr><td>über (ustida / ustiga)</td><td>Die Lampe ist über dem Tisch.</td><td>Ich hänge die Lampe über den Tisch.</td></tr><tr><td>neben (yonida / yoniga)</td><td>Ich sitze neben dem Freund.</td><td>Ich setze mich neben den Freund.</td></tr><tr><td>an (yonida / tegib / yoniga)</td><td>Das Bild ist an der Wand.</td><td>Ich hänge das Bild an die Wand.</td></tr><tr><td>hinter (orqasida / orqasiga)</td><td>Der Hund ist hinter dem Haus.</td><td>Der Hund läuft hinter das Haus.</td></tr><tr><td>vor (oldida / oldiga)</td><td>Ich stehe vor dem Haus.</td><td>Ich gehe vor das Haus.</td></tr><tr><td>zwischen (orasida / orasiga)</td><td>Ich sitze zwischen den Freunden.</td><td>Ich setze mich zwischen die Freunde.</td></tr><tr><td>unter (ostida / ostiga)</td><td>Die Katze ist unter dem Tisch.</td><td>Die Katze geht unter den Tisch.</td></tr></tbody></table><h3>Übersicht</h3><table><thead><tr><th>Dativ Präpositionen</th><th>Akkusativ Präpositionen</th><th>Wechselpräpositionen</th></tr></thead><tbody><tr><td>aus, bei, mit, nach, seit, von, zu, außer, gegenüber, entgegen, ab</td><td>für, um, durch, gegen, ohne, entlang, bis</td><td>in, auf, über, neben, an, hinter, vor, zwischen, unter</td></tr></tbody></table><p><strong>Merke dir!</strong> Dativ = Wo? · Akkusativ = Wohin? · Wechselpräpositionen können beides!</p>"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "Wähle die richtige Präposition: A, B oder C (25 von 30)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "1. Ich fahre jeden Tag ___ dem Bus zur Arbeit.",
+       "options": [
+        "mit",
+        "durch",
+        "für"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "mit + Dativ: mit dem Bus."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "3. Ich komme ___ der Arbeit nach Hause.",
+       "options": [
+        "aus",
+        "mit",
+        "für"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "aus + Dativ (kitobdagi variantlardan yagona to'g'risi)."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "4. Er fährt ___ Deutschland.",
+       "options": [
+        "über",
+        "mit",
+        "nach"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Länder / Städte: nach Deutschland."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "5. Ich warte ___ den Zug.",
+       "options": [
+        "mit",
+        "auf",
+        "durch"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "warten auf + Akkusativ."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "6. Wir laufen ___ den Park.",
+       "options": [
+        "zu",
+        "durch",
+        "bei"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "durch + Akkusativ: durch den Park."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "7. Ich gehe ___ meinen Freund zur Uni.",
+       "options": [
+        "gegen",
+        "ohne",
+        "mit"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "ohne + Akkusativ: ohne meinen Freund (mit braucht Dativ: mit meinem)."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "8. Der Bus hält ___ dem Supermarkt.",
+       "options": [
+        "durch",
+        "vor",
+        "für"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Wo? vor + Dativ: vor dem Supermarkt."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "10. Ich gehe ___ das Haus.",
+       "options": [
+        "in",
+        "seit",
+        "bei"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Wohin? in + Akkusativ: in das Haus."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "11. Ich bin schon ___ dem Bus.",
+       "options": [
+        "durch",
+        "in",
+        "für"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Wo? in + Dativ: in dem Bus."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "12. Wir fahren ___ dem Taxi.",
+       "options": [
+        "zu",
+        "von",
+        "mit"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1,
+       "explanation": "mit + Dativ: mit dem Taxi."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "13. Ich komme ___ dir.",
+       "options": [
+        "gegen",
+        "ohne",
+        "mit"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1,
+       "explanation": "mit + Dativ: mit dir (ohne / gegen brauchen Akkusativ: dich)."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "14. Er läuft ___ die Straße.",
+       "options": [
+        "bei",
+        "über",
+        "mit"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Wohin? über + Akkusativ: über die Straße."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "15. Wir gehen ___ die Brücke.",
+       "options": [
+        "zu",
+        "seit",
+        "über"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1,
+       "explanation": "über + Akkusativ: über die Brücke."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "16. Ich sitze ___ meinem Freund im Zug.",
+       "options": [
+        "neben",
+        "durch",
+        "für"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Wo? neben + Dativ: neben meinem Freund."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "17. Ich setze mich ___ meinen Freund.",
+       "options": [
+        "aus",
+        "neben",
+        "seit"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Wohin? neben + Akkusativ: neben meinen Freund."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "19. Ich fahre ___ der Stadt.",
+       "options": [
+        "bei",
+        "durch",
+        "in"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Wo? in + Dativ: in der Stadt (durch braucht Akkusativ)."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "20. Ich fahre ___ die Stadt.",
+       "options": [
+        "in",
+        "von",
+        "seit"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Wohin? in + Akkusativ: in die Stadt."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "21. Der Bus kommt ___ der Haltestelle.",
+       "options": [
+        "mit",
+        "für",
+        "von"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1,
+       "explanation": "von + Dativ: von der Haltestelle."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "22. Ich gehe ___ dem Bahnhof.",
+       "options": [
+        "ohne",
+        "zu",
+        "durch"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "zu + Dativ: zu dem Bahnhof (zum Bahnhof)."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "23. Wir warten ___ den Bus.",
+       "options": [
+        "mit",
+        "auf",
+        "bei"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "warten auf + Akkusativ."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "24. Ich bleibe ___ Montag in der Stadt.",
+       "options": [
+        "seit",
+        "mit",
+        "bis"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1,
+       "explanation": "bis Montag (…gacha)."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "27. Ich gehe ___ dich ins Kino.",
+       "options": [
+        "gegen",
+        "ohne",
+        "mit"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "ohne + Akkusativ: ohne dich (mit braucht Dativ: mit dir)."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "28. Die Haltestelle ist ___ dem Hotel.",
+       "options": [
+        "nach",
+        "gegenüber",
+        "mit"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "gegenüber + Dativ (Kitob: Die Bank ist gegenüber dem Hotel)."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "29. ___ meinem Bruder fahre ich oft.",
+       "options": [
+        "Für",
+        "Mit",
+        "Durch"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "mit + Dativ: mit meinem Bruder."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "30. ___ morgen fahre ich nach Berlin.",
+       "options": [
+        "Bei",
+        "Für",
+        "Ab"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1,
+       "explanation": "ab (…dan boshlab): ab morgen."
+      }
+     ],
+     "instruction": "Kitob, 77-bet. 2, 9, 18, 25, 26-savollar avtomatik baholanmaydi: ularda bitta aniq to'g'ri javob yo'q."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l07-lesen-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 7,
+   "skill": "lesen",
+   "title": "Lesen: Welche Verkehrsmittel benutzen die Deutschen zur Reise?",
+   "source": "book",
+   "metadata": {
+    "book_page": "78-79",
+    "note": "Javob har bir savol izohida matndan iqtibos bilan."
+   },
+   "instruction": "Richtig oder falsch? Lies den Text und entscheide.",
+   "passages": [
+    {
+     "title": "Welche Verkehrsmittel benutzen die Deutschen zur Reise?",
+     "text": "In Deutschland benutzen viele Menschen verschiedene Verkehrsmittel. Sie fahren zur Arbeit, zur Schule oder in den Urlaub. Die wichtigsten Verkehrsmittel sind das Auto, der Bus, der Zug und das Flugzeug. Viele Deutsche fahren mit dem Auto. Besonders in großen Städten wie Berlin, Hamburg und München gibt es sehr viele Autos. Viele Familien haben ein eigenes Auto. Sie fahren am Wochenende oft in die Natur oder besuchen Freunde in anderen Städten. Das Auto ist sehr bequem. Man kann fahren, wann man will und wohin man will. Aber es gibt auch Probleme: In der Stadt gibt es oft Stau, und Parkplätze sind schwer zu finden. Außerdem ist das Auto teuer.\n\nViele Menschen benutzen den Bus im Alltag. In Städten wie Leipzig und Dresden fahren Busse jeden Tag sehr oft. Schüler fahren mit dem Bus zur Schule, und viele Erwachsene fahren zur Arbeit. Der Bus ist nicht teuer und sehr praktisch für kurze Strecken. Auch in kleinen Städten und Dörfern ist der Bus wichtig. Aber Busse sind manchmal langsam, besonders im Verkehr. Oft sind sie auch voll, und man muss auf den Fahrplan warten.\n\nDer Zug ist in Deutschland sehr beliebt. Die Deutsche Bahn verbindet viele große Städte wie Frankfurt am Main, Köln und Stuttgart. Viele Menschen fahren mit dem Zug zur Arbeit oder reisen in andere Städte. Mit schnellen Zügen wie ICE kann man sehr schnell fahren. Zum Beispiel fährt man von Berlin nach München in etwa 4 Stunden. Im Zug kann man lesen, Musik hören oder arbeiten. Das ist sehr angenehm. Aber manchmal sind Züge teuer, und es gibt Verspätungen.\n\nFür lange Reisen benutzen viele Deutsche das Flugzeug. Große Flughäfen gibt es in Frankfurt am Main, Berlin und München. Viele Menschen fliegen in den Urlaub, zum Beispiel nach Spanien, Italien oder in die Türkei. Das Flugzeug ist sehr schnell und gut für lange Strecken. Aber es ist oft teuer. Außerdem muss man am Flughafen lange warten. Fliegen ist auch nicht gut für die Umwelt.\n\nAm Ende kann man sagen: Jedes Verkehrsmittel hat Vorteile und Nachteile. Die Menschen wählen das Verkehrsmittel nach der Situation. Für kurze Strecken benutzen sie oft den Bus oder das Auto. Für lange Reisen nehmen sie den Zug oder das Flugzeug."
+    }
+   ],
+   "questions": [
+    {
+     "type": "true_false",
+     "question": "In Deutschland benutzen viele Menschen verschiedene Verkehrsmittel.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„In Deutschland benutzen viele Menschen verschiedene Verkehrsmittel.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Die Deutschen benutzen nur das Auto im Alltag.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„Die wichtigsten Verkehrsmittel sind das Auto, der Bus, der Zug und das Flugzeug.“"
+    },
+    {
+     "type": "true_false",
+     "question": "In Städten wie Berlin gibt es viele Autos.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„Besonders in großen Städten wie Berlin … gibt es sehr viele Autos.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Das Auto ist unflexibel und unbequem.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„Das Auto ist sehr bequem. Man kann fahren, wann man will und wohin man will.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Busse sind oft günstig und praktisch.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„Der Bus ist nicht teuer und sehr praktisch für kurze Strecken.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Busse fahren nur in großen Städten.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„Auch in kleinen Städten und Dörfern ist der Bus wichtig.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Viele Schüler fahren mit dem Bus zur Schule.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„Schüler fahren mit dem Bus zur Schule …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Der Zug ist in Deutschland sehr unbeliebt.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„Der Zug ist in Deutschland sehr beliebt.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Mit dem Zug kann man lesen oder arbeiten.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„Im Zug kann man lesen, Musik hören oder arbeiten.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Das Flugzeug ist sehr langsam.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„Das Flugzeug ist sehr schnell und gut für lange Strecken.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Viele Deutsche fliegen in den Urlaub.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„Viele Menschen fliegen in den Urlaub …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Menschen wählen das Verkehrsmittel nach der Situation.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„Die Menschen wählen das Verkehrsmittel nach der Situation.“"
+    }
+   ],
+   "max_score": 12
+  },
+  {
+   "content_id": "vizu-a2-l07-hoeren-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 7,
+   "skill": "hoeren",
+   "title": "Hören Test: Reisen (Max und Sara)",
+   "source": "book",
+   "metadata": {
+    "book_page": 80,
+    "note": "Kalit va transkript yo'q — admin tinglab belgilaydi. Kitobda 15-savol yo'q; 7 va 8-savollar bir xil. Audio: Text 1 va Text 2."
+   },
+   "audio_file": "A2 7.Unterricht Text 1 + Text 2.mp3",
+   "key_pending": true,
+   "instruction": "Sie hören 2 Geschichten von Personen. Finden Sie die richtige Antwort! Sie hören jeden Text einmal.",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "1. Wer kommt aus Madrid?",
+     "options": [
+      "Max",
+      "Sara"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "2. Wer ist 35 Jahre alt?",
+     "options": [
+      "Sara",
+      "Max"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "3. Wer reist mit dem Auto?",
+     "options": [
+      "Max",
+      "Sara"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "4. Wer reist mit dem Flugzeug?",
+     "options": [
+      "Max",
+      "Sara"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "5. Wer besucht Berlin?",
+     "options": [
+      "Max",
+      "Sara"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "6. Wer kommt aus München?",
+     "options": [
+      "Max",
+      "Sara"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "7. Wer fährt mit dem Bus?",
+     "options": [
+      "Sara",
+      "Max"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "8. Wer fährt mit dem Bus? (2)",
+     "options": [
+      "Sara",
+      "Max"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "9. Wer reist durch Europa?",
+     "options": [
+      "Max",
+      "Sara"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "10. Wer fliegt nach Rom?",
+     "options": [
+      "Max",
+      "Sara"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "11. Wer sieht den Hafen?",
+     "options": [
+      "Max",
+      "Sara"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "12. Wer besucht Paris?",
+     "options": [
+      "Max",
+      "Sara"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "13. Wer macht eine Reise durch Deutschland?",
+     "options": [
+      "Sara",
+      "Max"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "14. Wer findet den Bus langsam?",
+     "options": [
+      "Sara",
+      "Max"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "16. Wer hört Musik im Zug?",
+     "options": [
+      "Max",
+      "Sara"
+     ],
+     "points": 1
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l07-schreiben-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 7,
+   "skill": "schreiben",
+   "title": "Schreiben: Womit mache ich Reise?",
+   "source": "book",
+   "metadata": {
+    "book_page": 81
+   },
+   "task_type": "description",
+   "prompt": "Text schreiben zum Thema: Womit mache ich Reise? Achte auf die Fragen und schreibe vollständige Sätze!\n• Wohin möchte ich reisen?\n• Warum reise ich? (Arbeit, Urlaub, Familie …)\n• Mit welchem Verkehrsmittel fahre ich gerne?\n• Warum reise ich so und nicht anders?",
+   "min_words": 60,
+   "max_words": 150,
+   "time_limit": 25
+  },
+  {
+   "content_id": "vizu-a2-l07-schreiben-03",
+   "level": "A2",
+   "module": 1,
+   "lesson": 7,
+   "skill": "schreiben",
+   "title": "Schreiben: E-Mail an Reisebüro",
+   "source": "book",
+   "metadata": {
+    "book_page": 81
+   },
+   "task_type": "email",
+   "prompt": "Schreiben Sie eine E-Mail an das Reisebüro (An: info@reisebuero.de, Betreff: Zugfahrt-Buchung).\n• Sagen Sie, dass Sie das Reisebüro schreiben.\n• Erklären Sie, warum Sie Ihre Flugtickets NICHT kaufen.\n• Sagen Sie, dass Sie lieber mit dem Zug fahren möchten.\n• Fragen Sie nach einer Zugfahrt-Buchung.",
+   "audience": "Reisebüro (formell)",
+   "min_words": 50,
+   "max_words": 120,
+   "time_limit": 20,
+   "support_phrases": [
+    "Sehr geehrte Damen und Herren,",
+    "ich schreibe Ihnen, weil …",
+    "Ich möchte lieber mit dem Zug fahren.",
+    "Können Sie mir bitte …?",
+    "Mit freundlichen Grüßen"
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l07-schreiben-04",
+   "level": "A2",
+   "module": 1,
+   "lesson": 7,
+   "skill": "schreiben",
+   "title": "Wortschatz-Aufgabe: 30 schwierige Wörter",
+   "source": "book",
+   "metadata": {
+    "book_page": 83,
+    "note": "Kitobdagi ish varag'i — o'qituvchi tekshiradi."
+   },
+   "task_type": "other",
+   "prompt": "Schreiben Sie die Übersetzung und einen Beispielsatz.\n\n1. der Flughafen\n2. das Ticket\n3. buchen\n4. ankommen\n5. abfahren\n6. warten\n7. der Fahrplan\n8. die Reisezeit\n9. die Unterkunft\n10. das Hotel\n11. reservieren\n12. die Sehenswürdigkeit\n13. das Museum\n14. die Kirche\n15. das Foto\n16. fotografieren\n17. die Kultur\n18. das Essen\n19. probieren\n20. kaufen\n21. die Reisegruppe\n22. allein\n23. zusammen\n24. erleben\n25. das Wetter\n26. schön\n27. interessant\n28. teuer\n29. schnell\n30. bequem",
+   "min_words": 60,
+   "max_words": 500,
+   "time_limit": 40
+  },
+  {
+   "content_id": "vizu-a2-l07-sprechen-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 7,
+   "skill": "sprechen",
+   "title": "Sprechen: Meine letzte Reise (Präsentation)",
+   "source": "book",
+   "metadata": {
+    "book_page": 82
+   },
+   "topic": "Meine letzte Reise",
+   "prompt": "Präsentation machen zum Thema: Meine letzte Reise. Sprecht über eure letzte Reise. Benutzt die Fragen und erzählt ausführlich!",
+   "questions": [
+    "Wann und wohin bin ich gereist?",
+    "Mit wem habe ich die Reise gemacht?",
+    "Wie lange war ich dort?",
+    "Wie bin ich gereist? (Auto, Zug, Flugzeug …)",
+    "Was habe ich in der Stadt gemacht?",
+    "Was hat mir am besten gefallen?"
+   ],
+   "response_type": "monolog",
+   "min_duration": 60,
+   "max_duration": 180,
+   "speech_goal": "Über die letzte Reise im Perfekt erzählen: wann, wohin, mit wem, wie lange, Verkehrsmittel, Erlebnisse.",
+   "keywords": [
+    "bin gereist",
+    "mit dem Zug",
+    "nach",
+    "habe besucht",
+    "hat mir gefallen"
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l07-wortschatz-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 7,
+   "skill": "wortschatz",
+   "title": "Wortschatz: Reisen und Mobilität",
+   "source": "book",
+   "metadata": {
+    "book_page": 83,
+    "note": "Tarjimalar dars varag'idan (50 so'z)."
+   },
+   "words": [
+    {
+     "word": "Reise",
+     "translation": "sayohat",
+     "article": "die",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "reisen",
+     "translation": "sayohat qilmoq",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "Urlaub",
+     "translation": "ta’til",
+     "article": "der",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "fahren",
+     "translation": "bormoq (transportda)",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "fliegen",
+     "translation": "uchmoq",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "Zug",
+     "translation": "poyezd",
+     "article": "der",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "Bus",
+     "translation": "avtobus",
+     "article": "der",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "Auto",
+     "translation": "mashina",
+     "article": "das",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "Flugzeug",
+     "translation": "samolyot",
+     "article": "das",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "Stadt",
+     "translation": "shahar",
+     "article": "die",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "Land",
+     "translation": "qishloq",
+     "article": "das",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "besuchen",
+     "translation": "tashrif buyurmoq",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "sehen",
+     "translation": "ko‘rmoq",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "gehen",
+     "translation": "yurmoq",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "machen",
+     "translation": "qilmoq",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "bleiben",
+     "translation": "qolmoq",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "wohnen",
+     "translation": "yashamoq",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "Wetter",
+     "translation": "ob-havo",
+     "article": "das",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "schön",
+     "translation": "chiroyli",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "interessant",
+     "translation": "qiziqarli",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "teuer",
+     "translation": "qimmat",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "billig",
+     "translation": "arzon",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "schnell",
+     "translation": "tez",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "langsam",
+     "translation": "sekin",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "bequem",
+     "translation": "qulay",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "Flughafen",
+     "translation": "aeroport",
+     "article": "der",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "Ticket",
+     "translation": "chipta",
+     "article": "das",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "buchen",
+     "translation": "bron qilmoq",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "ankommen",
+     "translation": "yetib kelmoq",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "abfahren",
+     "translation": "jo‘nab ketmoq",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "warten",
+     "translation": "kutmoq",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "Fahrplan",
+     "translation": "jadval",
+     "article": "der",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "Reisezeit",
+     "translation": "sayohat vaqti",
+     "article": "die",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "Unterkunft",
+     "translation": "turar joy",
+     "article": "die",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "Hotel",
+     "translation": "mehmonxona",
+     "article": "das",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "Zimmer",
+     "translation": "xona",
+     "article": "das",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "reservieren",
+     "translation": "band qilmoq",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "Sehenswürdigkeit",
+     "translation": "diqqatga sazovor joy",
+     "article": "die",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "Museum",
+     "translation": "muzey",
+     "article": "das",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "Kirche",
+     "translation": "cherkov",
+     "article": "die",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "Foto",
+     "translation": "rasm",
+     "article": "das",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "fotografieren",
+     "translation": "suratga olmoq",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "Kultur",
+     "translation": "madaniyat",
+     "article": "die",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "Essen",
+     "translation": "ovqat",
+     "article": "das",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "probieren",
+     "translation": "sinab ko‘rmoq",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "kaufen",
+     "translation": "sotib olmoq",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "Reisegruppe",
+     "translation": "sayohat guruhi",
+     "article": "die",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "allein",
+     "translation": "yolg‘iz",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "zusammen",
+     "translation": "birga",
+     "group": "Reisen und Mobilität"
+    },
+    {
+     "word": "erleben",
+     "translation": "boshdan kechirmoq",
+     "group": "Reisen und Mobilität"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "Zuordnung 1",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Reisen und Mobilität 1)",
+       "items": [
+        "die Reise",
+        "reisen",
+        "der Urlaub",
+        "fahren",
+        "fliegen",
+        "der Zug"
+       ],
+       "targets": [
+        "sayohat",
+        "sayohat qilmoq",
+        "ta’til",
+        "bormoq (transportda)",
+        "uchmoq",
+        "poyezd",
+        "avtobus"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Reisen und Mobilität 2)",
+       "items": [
+        "der Bus",
+        "das Auto",
+        "das Flugzeug",
+        "die Stadt",
+        "das Land",
+        "besuchen"
+       ],
+       "targets": [
+        "avtobus",
+        "mashina",
+        "samolyot",
+        "shahar",
+        "qishloq",
+        "tashrif buyurmoq",
+        "sayohat"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Reisen und Mobilität 3)",
+       "items": [
+        "sehen",
+        "gehen",
+        "machen",
+        "bleiben",
+        "wohnen",
+        "das Wetter"
+       ],
+       "targets": [
+        "ko‘rmoq",
+        "yurmoq",
+        "qilmoq",
+        "qolmoq",
+        "yashamoq",
+        "ob-havo",
+        "sayohat"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Zuordnung 2",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Reisen und Mobilität 4)",
+       "items": [
+        "schön",
+        "interessant",
+        "teuer",
+        "billig",
+        "schnell",
+        "langsam"
+       ],
+       "targets": [
+        "chiroyli",
+        "qiziqarli",
+        "qimmat",
+        "arzon",
+        "tez",
+        "sekin",
+        "sayohat"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Reisen und Mobilität 5)",
+       "items": [
+        "bequem",
+        "der Flughafen",
+        "das Ticket",
+        "buchen",
+        "ankommen",
+        "abfahren"
+       ],
+       "targets": [
+        "qulay",
+        "aeroport",
+        "chipta",
+        "bron qilmoq",
+        "yetib kelmoq",
+        "jo‘nab ketmoq",
+        "sayohat"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Reisen und Mobilität 6)",
+       "items": [
+        "warten",
+        "der Fahrplan",
+        "die Reisezeit",
+        "die Unterkunft",
+        "das Hotel",
+        "das Zimmer"
+       ],
+       "targets": [
+        "kutmoq",
+        "jadval",
+        "sayohat vaqti",
+        "turar joy",
+        "mehmonxona",
+        "xona",
+        "sayohat"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Zuordnung 3",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Reisen und Mobilität 7)",
+       "items": [
+        "reservieren",
+        "die Sehenswürdigkeit",
+        "das Museum",
+        "die Kirche",
+        "das Foto",
+        "fotografieren"
+       ],
+       "targets": [
+        "band qilmoq",
+        "diqqatga sazovor joy",
+        "muzey",
+        "cherkov",
+        "rasm",
+        "suratga olmoq",
+        "sayohat"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Reisen und Mobilität 8)",
+       "items": [
+        "die Kultur",
+        "das Essen",
+        "probieren",
+        "kaufen",
+        "die Reisegruppe",
+        "allein",
+        "zusammen",
+        "erleben"
+       ],
+       "targets": [
+        "madaniyat",
+        "ovqat",
+        "sinab ko‘rmoq",
+        "sotib olmoq",
+        "sayohat guruhi",
+        "yolg‘iz",
+        "birga",
+        "boshdan kechirmoq",
+        "sayohat"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F",
+        "7": "G",
+        "8": "H"
+       },
+       "points": 8,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Der, die oder das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Reise (sayohat)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Zug (poyezd)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Auto (mashina)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Stadt (shahar)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Wetter (ob-havo)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Ticket (chipta)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Reisezeit (sayohat vaqti)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Hotel (mehmonxona)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Sehenswürdigkeit (diqqatga sazovor joy)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Kirche (cherkov)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "So'zning artiklini tanlang (kitobdagi lug'at bo'yicha)."
+    },
+    {
+     "title": "Was bedeutet das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „die Reise“?",
+       "options": [
+        "arzon",
+        "turar joy",
+        "sayohat"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „der Bus“?",
+       "options": [
+        "avtobus",
+        "birga",
+        "ovqat"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „sehen“?",
+       "options": [
+        "yolg‘iz",
+        "suratga olmoq",
+        "ko‘rmoq"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „schön“?",
+       "options": [
+        "shahar",
+        "chiroyli",
+        "yurmoq"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „bequem“?",
+       "options": [
+        "sayohat qilmoq",
+        "qolmoq",
+        "qulay"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „warten“?",
+       "options": [
+        "chipta",
+        "kutmoq",
+        "sayohat"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „reservieren“?",
+       "options": [
+        "avtobus",
+        "jadval",
+        "band qilmoq"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „die Kultur“?",
+       "options": [
+        "sayohat vaqti",
+        "uchmoq",
+        "madaniyat"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zning o'zbekcha tarjimasini tanlang."
+    }
+   ],
+   "auto_practice": false
+  },
+  {
+   "content_id": "vizu-a2-l07-uebungen-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 7,
+   "skill": "uebungen",
+   "title": "Übungen: A2 7. Unterricht",
+   "source": "vizu",
+   "exercises": [
+    {
+     "title": "Wo? oder Wohin?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Das Buch ist auf ___ Tisch. (Wo?)",
+       "options": [
+        "dem",
+        "den",
+        "der"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Wo? → Dativ."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich lege das Buch auf ___ Tisch. (Wohin?)",
+       "options": [
+        "den",
+        "dem",
+        "des"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Wohin? → Akkusativ."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Das Bild ist an ___ Wand.",
+       "options": [
+        "der",
+        "die",
+        "den"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Wo? → Dativ (die Wand → der Wand)."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich hänge das Bild an ___ Wand.",
+       "options": [
+        "die",
+        "der",
+        "dem"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Wohin? → Akkusativ."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Welche Präposition steht immer mit Akkusativ?",
+       "options": [
+        "durch",
+        "mit",
+        "bei"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Welche Präposition steht immer mit Dativ?",
+       "options": [
+        "seit",
+        "für",
+        "ohne"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "Wechselpräpositionen: Wo? → Dativ, Wohin? → Akkusativ (kitob, 76-bet)."
+    },
+    {
+     "title": "Nemischa qanday?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "„sayohat qilmoq“ — nemischa qanday?",
+       "options": [
+        "reisen",
+        "schnell",
+        "fliegen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„mashina“ — nemischa qanday?",
+       "options": [
+        "das Foto",
+        "die Sehenswürdigkeit",
+        "das Auto"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„yurmoq“ — nemischa qanday?",
+       "options": [
+        "interessant",
+        "langsam",
+        "gehen"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„qiziqarli“ — nemischa qanday?",
+       "options": [
+        "interessant",
+        "fliegen",
+        "allein"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„aeroport“ — nemischa qanday?",
+       "options": [
+        "die Reisezeit",
+        "der Urlaub",
+        "der Flughafen"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„jadval“ — nemischa qanday?",
+       "options": [
+        "das Land",
+        "der Fahrplan",
+        "die Stadt"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„diqqatga sazovor joy“ — nemischa qanday?",
+       "options": [
+        "das Ticket",
+        "der Flughafen",
+        "die Sehenswürdigkeit"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„ovqat“ — nemischa qanday?",
+       "options": [
+        "das Ticket",
+        "der Zug",
+        "das Essen"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "O'zbekcha so'zning nemischasini tanlang."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l07-yakuniy-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 7,
+   "skill": "yakuniy",
+   "title": "Abschlusstest: A2 7. Unterricht",
+   "source": "vizu",
+   "instruction": "Predloglar va sayohat so'zlari bo'yicha yakuniy test (dars materiali asosida).",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Ich fahre ___ dem Zug nach Berlin.",
+     "options": [
+      "mit",
+      "durch",
+      "für"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Das Geschenk ist ___ den Lehrer.",
+     "options": [
+      "für",
+      "mit",
+      "von"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Ich gehe ___ den Raum. (Wohin?)",
+     "options": [
+      "in",
+      "aus",
+      "bei"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Die Katze ist unter ___ Tisch.",
+     "options": [
+      "dem",
+      "den",
+      "das"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Ich lerne Deutsch ___ einem Jahr.",
+     "options": [
+      "seit",
+      "für",
+      "bis"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "Der Zug ist in Deutschland sehr beliebt.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "Lesen."
+    },
+    {
+     "type": "true_false",
+     "question": "Das Flugzeug ist gut für kurze Strecken.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "Lesen: gut für lange Strecken."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„der Flughafen“ — o'zbekchasi?",
+     "options": [
+      "aeroport",
+      "bekat",
+      "vokzal"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„die Unterkunft“ — o'zbekchasi?",
+     "options": [
+      "turar joy",
+      "chipta",
+      "jadval"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„abfahren“ — o'zbekchasi?",
+     "options": [
+      "jo'nab ketmoq",
+      "yetib kelmoq",
+      "kutmoq"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l07-kompetenz-02",
+   "level": "A2",
+   "module": 1,
+   "lesson": 7,
+   "skill": "kompetenz",
+   "title": "Zusammenfassung: A2 7. Unterricht",
+   "source": "vizu",
+   "competency": "ZUSAMMENFASSUNG",
+   "html": "<h3>A2 7. Unterricht — qisqacha</h3><ul><li><strong>Dativ:</strong> aus, bei, mit, nach, seit, von, zu, außer, gegenüber, entgegen, ab — Ich fahre mit dem Bus.</li><li><strong>Akkusativ:</strong> für, um, durch, gegen, ohne, entlang, bis — Ich gehe durch den Park.</li><li><strong>Wechselpräpositionen:</strong> in, auf, über, neben, an, hinter, vor, zwischen, unter — Wo? Dativ (Ich bin in dem Raum.) · Wohin? Akkusativ (Ich gehe in den Raum.)</li><li><strong>Wortschatz:</strong> die Reise, der Flughafen, buchen, ankommen, abfahren, der Fahrplan, die Unterkunft, die Sehenswürdigkeit.</li></ul><p>Natijalaringiz pastda — tugallanmagan bo'limlarni yakunlang, so'ng keyingi darsga o'ting.</p>"
+  }
+ ]
+}

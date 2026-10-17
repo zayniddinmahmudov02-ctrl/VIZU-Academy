@@ -1,0 +1,3184 @@
+{
+ "schema_version": "1.2",
+ "language": "de",
+ "source": "vizu-deutsch-a2-book",
+ "items": [
+  {
+   "content_id": "vizu-a2-l04-kompetenz-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 4,
+   "skill": "kompetenz",
+   "title": "Einführung: A2 4. Unterricht",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 41
+   },
+   "competency": "EINFUEHRUNG",
+   "html": "<h3>A2 4. Unterricht — Tagesablauf und Zeitmanagement</h3><p><strong>Mavzu:</strong> Tagesablauf und Zeitmanagement · <strong>Grammatik:</strong> Infinitiv mit „zu“ (um … zu, ohne … zu, anstatt … zu)</p><h4>Dars maqsadlari</h4><ul><li>„zu + Infinitiv“ ni fe'l, sifat va otdan keyin qo'llash: Ich versuche, Deutsch zu lernen.;</li><li>ajraluvchi fe'llarda zu o'rtada turishini bilish: aufzustehen, einzukaufen;</li><li>modal fe'llardan keyin zu ishlatilmasligini eslab qolish;</li><li>kun tartibi va vaqtni rejalash so'zlarini o'rganish.</li></ul><h4>Dars oxirida siz quyidagilarni bajara olasiz</h4><ul><li>kuningizni qanday rejalashtirishingizni aytasiz;</li><li>Ali, Lena va Martinning kundalik hayoti haqidagi matnlarni tushunasiz;</li><li>bo'sh vaqtingiz haqida matn va dam olish kuniga taklif e-mailini yozasiz;</li><li>dam olish kuningiz haqida gapirasiz.</li></ul><h4>Darsning tuzilishi</h4><p>Einführung → Wortschatz → Grammatik → Lesen → Hören → Sprechen → Schreiben → Übungen → Abschlusstest → Zusammenfassung</p>"
+  },
+  {
+   "content_id": "vizu-a2-l04-frage-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 4,
+   "skill": "frage",
+   "title": "Frage des Themas: Wie planen Sie Ihren Tag?",
+   "source": "book",
+   "metadata": {
+    "book_page": 42,
+    "book_sample": "Ich plane meinen Tag jeden Morgen. Ich stehe um 7:00 Uhr auf, mache Frühstück und gehe zur Arbeit. Ich arbeite von 9:00 bis 17:00 Uhr mit einer Mittagspause. Nach der Arbeit mache ich Sport und verbringe Zeit mit meiner Familie. Abends lerne ich Deutsch und gehe um 23:00 Uhr schlafen."
+   },
+   "prompt": "Wie planen Sie Ihren Tag? Erzählen Sie über Ihren Tagesablauf.\n\nWortschatz: planen — rejalashtirmoq · Tagesablauf — kun tartibi · aufstehen — uyg‘onmoq · Frühstück machen — nonushta qilmoq · arbeiten — ishlamoq · Mittagspause — tushlik tanaffusi · Sport machen — sport bilan shug‘ullanish · Zeit verbringen — vaqt o‘tkazmoq · schlafen gehen — uxlashga ketmoq",
+   "min_duration": 20,
+   "max_duration": 120
+  },
+  {
+   "content_id": "vizu-a2-l04-grammatik-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 4,
+   "skill": "grammatik",
+   "title": "Grammatik: Infinitiv mit „zu“",
+   "source": "book",
+   "metadata": {
+    "book_page": 43
+   },
+   "rules": [
+    {
+     "title": "Infinitiv mit „zu“ – Regeln",
+     "html": "<h3>Infinitiv mit „zu“ – Regeln</h3><h4>1. Zwei Verben im Satz</h4><ul><li>Ich versuche, Deutsch zu lernen.</li><li>Wir hoffen, dich zu sehen.</li><li>Er plant, nach Deutschland zu fahren.</li></ul><h4>2. Nach bestimmten Verben</h4><ul><li>Sie fängt an, Sport zu treiben.</li><li>Er versucht, früher nach Hause zu kommen.</li><li>Wir haben vergessen, das Fenster zu schließen.</li></ul><h4>3. Nach Adjektiven</h4><ul><li>Es ist wichtig, Deutsch zu lernen.</li><li>Es ist schwer, diese Aufgabe zu lösen.</li><li>Es ist interessant, neue Leute kennenzulernen.</li></ul><h4>4. Nach Nomen</h4><ul><li>Ich habe Lust, einen Film zu sehen.</li><li>Wir haben Zeit, dir zu helfen.</li><li>Sie hat die Möglichkeit, im Ausland zu studieren.</li></ul><h4>5. Trennbare Verben</h4><ul><li>Ich plane, morgen einzukaufen.</li><li>Er hat vergessen, das Licht auszumachen.</li><li>Wir versuchen, früh aufzustehen.</li></ul><h4>6. Keine „zu“ bei Modalverben</h4><ul><li>Ich kann gut Deutsch sprechen.</li><li>Wir müssen lange arbeiten.</li><li>Sie will nach Deutschland reisen.</li></ul><p><strong>Merksatz: zu + Infinitiv</strong> — Ich hoffe, die Prüfung zu bestehen.</p>"
+    },
+    {
+     "title": "Infinitivgruppe: um / ohne / anstatt … zu",
+     "html": "<h3>Infinitivgruppe: um … zu, ohne … zu, anstatt … zu (Unterrichtsblatt)</h3><ul><li><strong>um … zu</strong> — maqsad: Ich lerne Deutsch, um in Deutschland arbeiten zu können.</li><li><strong>ohne … zu</strong> — biror ishni qilmasdan: Er geht aus dem Haus, ohne etwas zu sagen.</li><li><strong>anstatt … zu</strong> — o'rniga: Er spielt Fußball, anstatt zu lernen.</li></ul><p>„zu“ steht direkt vor dem Infinitiv am Ende; bei trennbaren Verben in der Mitte: das Licht aus<strong>zu</strong>machen.</p>"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "zu + Infinitiv (1–20)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "1. Ich versuche, Deutsch [[1]]. (lernen)",
+       "gaps": {
+        "1": [
+         "zu lernen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Ich versuche, Deutsch zu lernen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "2. Wir planen, morgen nach Berlin [[1]]. (fahren)",
+       "gaps": {
+        "1": [
+         "zu fahren"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Wir planen, morgen nach Berlin zu fahren."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "3. Sie hofft, bald eine Arbeit [[1]]. (finden)",
+       "gaps": {
+        "1": [
+         "zu finden"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Sie hofft, bald eine Arbeit zu finden."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "4. Er versucht, früher [[1]]. (kommen)",
+       "gaps": {
+        "1": [
+         "zu kommen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Er versucht, früher zu kommen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "5. Ich beginne, ein neues Buch [[1]]. (lesen)",
+       "gaps": {
+        "1": [
+         "zu lesen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Ich beginne, ein neues Buch zu lesen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "6. Wir hoffen, die Prüfung [[1]]. (bestehen)",
+       "gaps": {
+        "1": [
+         "zu bestehen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Wir hoffen, die Prüfung zu bestehen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "7. Ich versuche, mehr Sport [[1]]. (machen)",
+       "gaps": {
+        "1": [
+         "zu machen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Ich versuche, mehr Sport zu machen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "8. Er versucht, seine Freunde [[1]]. (treffen)",
+       "gaps": {
+        "1": [
+         "zu treffen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Er versucht, seine Freunde zu treffen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "9. Wir planen, am Wochenende [[1]]. (reisen)",
+       "gaps": {
+        "1": [
+         "zu reisen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Wir planen, am Wochenende zu reisen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "10. Sie versucht, jeden Tag Deutsch [[1]]. (sprechen)",
+       "gaps": {
+        "1": [
+         "zu sprechen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Sie versucht, jeden Tag Deutsch zu sprechen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "11. Er beginnt, ein Buch [[1]]. (lesen)",
+       "gaps": {
+        "1": [
+         "zu lesen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Er beginnt, ein Buch zu lesen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "12. Ich versuche, mehr Wasser [[1]]. (trinken)",
+       "gaps": {
+        "1": [
+         "zu trinken"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Ich versuche, mehr Wasser zu trinken."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "13. Wir planen, im Sommer nach Italien [[1]]. (reisen)",
+       "gaps": {
+        "1": [
+         "zu reisen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Wir planen, im Sommer nach Italien zu reisen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "14. Sie hofft, ihre Freunde [[1]]. (sehen)",
+       "gaps": {
+        "1": [
+         "zu sehen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Sie hofft, ihre Freunde zu sehen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "15. Ich verspreche, dir morgen [[1]]. (helfen)",
+       "gaps": {
+        "1": [
+         "zu helfen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Ich verspreche, dir morgen zu helfen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "16. Er vergisst, das Fenster [[1]]. (schließen)",
+       "gaps": {
+        "1": [
+         "zu schließen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Er vergisst, das Fenster zu schließen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "17. Wir versuchen, früher [[1]]. (kommen)",
+       "gaps": {
+        "1": [
+         "zu kommen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Wir versuchen, früher zu kommen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "18. Sie beginnt, Deutsch [[1]]. (lernen)",
+       "gaps": {
+        "1": [
+         "zu lernen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Sie beginnt, Deutsch zu lernen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "19. Ich hoffe, bald nach Deutschland [[1]]. (fahren)",
+       "gaps": {
+        "1": [
+         "zu fahren"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Ich hoffe, bald nach Deutschland zu fahren."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "20. Er versucht, eine Lösung [[1]]. (finden)",
+       "gaps": {
+        "1": [
+         "zu finden"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Er versucht, eine Lösung zu finden."
+      }
+     ],
+     "instruction": "Ergänzen Sie die Sätze mit zu + Infinitiv (dars varag'i)."
+    },
+    {
+     "title": "zu + Infinitiv (21–40)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "21. Es ist wichtig, jeden Tag Deutsch [[1]]. (lernen)",
+       "gaps": {
+        "1": [
+         "zu lernen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Es ist wichtig, jeden Tag Deutsch zu lernen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "22. Es ist schwer, diese Aufgabe [[1]]. (lösen)",
+       "gaps": {
+        "1": [
+         "zu lösen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Es ist schwer, diese Aufgabe zu lösen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "23. Es ist interessant, neue Leute [[1]]. (kennenlernen)",
+       "gaps": {
+        "1": [
+         "kennenzulernen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Es ist interessant, neue Leute kennenzulernen. — trennbares Verb: zu steht in der Mitte."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "24. Es ist schön, Zeit mit der Familie [[1]]. (verbringen)",
+       "gaps": {
+        "1": [
+         "zu verbringen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Es ist schön, Zeit mit der Familie zu verbringen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "25. Es ist gesund, viel Wasser [[1]]. (trinken)",
+       "gaps": {
+        "1": [
+         "zu trinken"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Es ist gesund, viel Wasser zu trinken."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "26. Es ist gefährlich, hier [[1]]. (schwimmen)",
+       "gaps": {
+        "1": [
+         "zu schwimmen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Es ist gefährlich, hier zu schwimmen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "27. Es ist einfach, diese Übung [[1]]. (machen)",
+       "gaps": {
+        "1": [
+         "zu machen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Es ist einfach, diese Übung zu machen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "28. Es ist wichtig, pünktlich [[1]]. (sein)",
+       "gaps": {
+        "1": [
+         "zu sein"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Es ist wichtig, pünktlich zu sein."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "29. Es ist schön, Musik [[1]]. (hören)",
+       "gaps": {
+        "1": [
+         "zu hören"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Es ist schön, Musik zu hören."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "30. Es ist schwierig, Deutsch perfekt [[1]]. (sprechen)",
+       "gaps": {
+        "1": [
+         "zu sprechen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Es ist schwierig, Deutsch perfekt zu sprechen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "31. Ich habe Zeit, dir [[1]]. (helfen)",
+       "gaps": {
+        "1": [
+         "zu helfen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Ich habe Zeit, dir zu helfen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "32. Sie hat Lust, einen Film [[1]]. (sehen)",
+       "gaps": {
+        "1": [
+         "zu sehen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Sie hat Lust, einen Film zu sehen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "33. Wir haben die Möglichkeit, im Ausland [[1]]. (studieren)",
+       "gaps": {
+        "1": [
+         "zu studieren"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Wir haben die Möglichkeit, im Ausland zu studieren."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "34. Ich habe keine Zeit, heute [[1]]. (kommen)",
+       "gaps": {
+        "1": [
+         "zu kommen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Ich habe keine Zeit, heute zu kommen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "35. Er hat Angst, einen Fehler [[1]]. (machen)",
+       "gaps": {
+        "1": [
+         "zu machen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Er hat Angst, einen Fehler zu machen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "36. Sie hat den Wunsch, Arzt [[1]]. (werden)",
+       "gaps": {
+        "1": [
+         "zu werden"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Sie hat den Wunsch, Arzt zu werden."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "37. Wir haben die Chance, ein neues Projekt [[1]]. (starten)",
+       "gaps": {
+        "1": [
+         "zu starten"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Wir haben die Chance, ein neues Projekt zu starten."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "38. Ich habe die Hoffnung, bald eine Arbeit [[1]]. (finden)",
+       "gaps": {
+        "1": [
+         "zu finden"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Ich habe die Hoffnung, bald eine Arbeit zu finden."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "39. Sie hat die Idee, ein Buch [[1]]. (schreiben)",
+       "gaps": {
+        "1": [
+         "zu schreiben"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Sie hat die Idee, ein Buch zu schreiben."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "40. Er hat die Möglichkeit, nach Deutschland [[1]]. (reisen)",
+       "gaps": {
+        "1": [
+         "zu reisen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Er hat die Möglichkeit, nach Deutschland zu reisen."
+      }
+     ],
+     "instruction": "Ergänzen Sie die Sätze mit zu + Infinitiv (dars varag'i)."
+    },
+    {
+     "title": "zu + Infinitiv (41–60)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "41. Ich versuche, morgen früh [[1]]. (aufstehen)",
+       "gaps": {
+        "1": [
+         "aufzustehen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Ich versuche, morgen früh aufzustehen. — trennbares Verb: zu steht in der Mitte."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "42. Er hat vergessen, das Licht [[1]]. (ausmachen)",
+       "gaps": {
+        "1": [
+         "auszumachen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Er hat vergessen, das Licht auszumachen. — trennbares Verb: zu steht in der Mitte."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "43. Wir planen, heute Abend [[1]]. (ausgehen)",
+       "gaps": {
+        "1": [
+         "auszugehen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Wir planen, heute Abend auszugehen. — trennbares Verb: zu steht in der Mitte."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "44. Sie versucht, früher [[1]]. (ankommen)",
+       "gaps": {
+        "1": [
+         "anzukommen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Sie versucht, früher anzukommen. — trennbares Verb: zu steht in der Mitte."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "45. Ich hoffe, dich morgen [[1]]. (anrufen)",
+       "gaps": {
+        "1": [
+         "anzurufen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Ich hoffe, dich morgen anzurufen. — trennbares Verb: zu steht in der Mitte."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "46. Er beginnt, sein Zimmer [[1]]. (aufräumen)",
+       "gaps": {
+        "1": [
+         "aufzuräumen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Er beginnt, sein Zimmer aufzuräumen. — trennbares Verb: zu steht in der Mitte."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "47. Wir versuchen, das Fenster [[1]]. (aufmachen)",
+       "gaps": {
+        "1": [
+         "aufzumachen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Wir versuchen, das Fenster aufzumachen. — trennbares Verb: zu steht in der Mitte."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "48. Sie vergisst oft, die Tür [[1]]. (zumachen)",
+       "gaps": {
+        "1": [
+         "zuzumachen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Sie vergisst oft, die Tür zuzumachen. — trennbares Verb: zu steht in der Mitte."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "49. Ich plane, morgen [[1]]. (einkaufen)",
+       "gaps": {
+        "1": [
+         "einzukaufen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Ich plane, morgen einzukaufen. — trennbares Verb: zu steht in der Mitte."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "50. Er versucht, das Radio [[1]]. (anmachen)",
+       "gaps": {
+        "1": [
+         "anzumachen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Er versucht, das Radio anzumachen. — trennbares Verb: zu steht in der Mitte."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "51. Ich hoffe, dich bald [[1]]. (sehen)",
+       "gaps": {
+        "1": [
+         "zu sehen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Ich hoffe, dich bald zu sehen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "52. Wir versuchen, jeden Tag Deutsch [[1]]. (lernen)",
+       "gaps": {
+        "1": [
+         "zu lernen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Wir versuchen, jeden Tag Deutsch zu lernen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "53. Es ist wichtig, gesund [[1]]. (leben)",
+       "gaps": {
+        "1": [
+         "zu leben"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Es ist wichtig, gesund zu leben."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "54. Ich habe Lust, heute ins Kino [[1]]. (gehen)",
+       "gaps": {
+        "1": [
+         "zu gehen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Ich habe Lust, heute ins Kino zu gehen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "55. Er hat vergessen, seine Hausaufgaben [[1]]. (machen)",
+       "gaps": {
+        "1": [
+         "zu machen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Er hat vergessen, seine Hausaufgaben zu machen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "56. Sie beginnt, ein neues Lied [[1]]. (lernen)",
+       "gaps": {
+        "1": [
+         "zu lernen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Sie beginnt, ein neues Lied zu lernen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "57. Wir planen, am Wochenende [[1]]. (reisen)",
+       "gaps": {
+        "1": [
+         "zu reisen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Wir planen, am Wochenende zu reisen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "58. Es ist schön, neue Freunde [[1]]. (finden)",
+       "gaps": {
+        "1": [
+         "zu finden"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Es ist schön, neue Freunde zu finden."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "59. Ich habe Zeit, heute Sport [[1]]. (machen)",
+       "gaps": {
+        "1": [
+         "zu machen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Ich habe Zeit, heute Sport zu machen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit zu + Infinitiv.",
+       "text": "60. Er versucht, früh [[1]]. (aufstehen)",
+       "gaps": {
+        "1": [
+         "aufzustehen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Er versucht, früh aufzustehen. — trennbares Verb: zu steht in der Mitte."
+      }
+     ],
+     "instruction": "Ergänzen Sie die Sätze mit zu + Infinitiv (dars varag'i)."
+    },
+    {
+     "title": "um … zu (können)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit um … zu, ohne … zu oder anstatt … zu.",
+       "text": "1. Ich lerne Deutsch, [[1]] in Deutschland [[2]]. (um / können)",
+       "gaps": {
+        "1": [
+         "um"
+        ],
+        "2": [
+         "arbeiten zu können"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Ich lerne Deutsch, um in Deutschland arbeiten zu können."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit um … zu, ohne … zu oder anstatt … zu.",
+       "text": "2. Er spart Geld, [[1]] ein neues Auto [[2]]. (um / können)",
+       "gaps": {
+        "1": [
+         "um"
+        ],
+        "2": [
+         "kaufen zu können"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Er spart Geld, um ein neues Auto kaufen zu können."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit um … zu, ohne … zu oder anstatt … zu.",
+       "text": "3. Wir gehen früh schlafen, [[1]] morgen fit [[2]]. (um / können)",
+       "gaps": {
+        "1": [
+         "um"
+        ],
+        "2": [
+         "sein zu können"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Wir gehen früh schlafen, um morgen fit sein zu können."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit um … zu, ohne … zu oder anstatt … zu.",
+       "text": "4. Sie trainiert jeden Tag, [[1]] das Spiel [[2]]. (um / können)",
+       "gaps": {
+        "1": [
+         "um"
+        ],
+        "2": [
+         "gewinnen zu können"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Sie trainiert jeden Tag, um das Spiel gewinnen zu können."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit um … zu, ohne … zu oder anstatt … zu.",
+       "text": "5. Ich fahre in die Stadt, [[1]] neue Schuhe [[2]]. (um / können)",
+       "gaps": {
+        "1": [
+         "um"
+        ],
+        "2": [
+         "kaufen zu können"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Ich fahre in die Stadt, um neue Schuhe kaufen zu können."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit um … zu, ohne … zu oder anstatt … zu.",
+       "text": "6. Er liest viele Bücher, [[1]] mehr [[2]]. (um / können)",
+       "gaps": {
+        "1": [
+         "um"
+        ],
+        "2": [
+         "lernen zu können"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Er liest viele Bücher, um mehr lernen zu können."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit um … zu, ohne … zu oder anstatt … zu.",
+       "text": "7. Wir machen eine Pause, [[1]] uns [[2]]. (um / können)",
+       "gaps": {
+        "1": [
+         "um"
+        ],
+        "2": [
+         "ausruhen zu können"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Wir machen eine Pause, um uns ausruhen zu können."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit um … zu, ohne … zu oder anstatt … zu.",
+       "text": "8. Sie geht ins Fitnessstudio, [[1]] gesund [[2]]. (um / können)",
+       "gaps": {
+        "1": [
+         "um"
+        ],
+        "2": [
+         "bleiben zu können"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Sie geht ins Fitnessstudio, um gesund bleiben zu können."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit um … zu, ohne … zu oder anstatt … zu.",
+       "text": "9. Ich kaufe Obst, [[1]] gesund [[2]]. (um / können)",
+       "gaps": {
+        "1": [
+         "um"
+        ],
+        "2": [
+         "essen zu können"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Ich kaufe Obst, um gesund essen zu können."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit um … zu, ohne … zu oder anstatt … zu.",
+       "text": "10. Er fährt nach Deutschland, [[1]] Deutsch [[2]]. (um / können)",
+       "gaps": {
+        "1": [
+         "um"
+        ],
+        "2": [
+         "lernen zu können"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Er fährt nach Deutschland, um Deutsch lernen zu können."
+      }
+     ],
+     "instruction": "Dars varag'i: bog'lovchi va zu-infinitivni yozing."
+    },
+    {
+     "title": "ohne … zu",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit um … zu, ohne … zu oder anstatt … zu.",
+       "text": "11. Er geht aus dem Haus, [[1]] etwas [[2]]. (ohne / zu)",
+       "gaps": {
+        "1": [
+         "ohne"
+        ],
+        "2": [
+         "zu sagen"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Er geht aus dem Haus, ohne etwas zu sagen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit um … zu, ohne … zu oder anstatt … zu.",
+       "text": "12. Sie schläft ein, [[1]] das Licht [[2]]. (ohne / zu)",
+       "gaps": {
+        "1": [
+         "ohne"
+        ],
+        "2": [
+         "auszumachen"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Sie schläft ein, ohne das Licht auszumachen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit um … zu, ohne … zu oder anstatt … zu.",
+       "text": "13. Wir gehen nach Hause, [[1]] etwas [[2]]. (ohne / zu)",
+       "gaps": {
+        "1": [
+         "ohne"
+        ],
+        "2": [
+         "zu essen"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Wir gehen nach Hause, ohne etwas zu essen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit um … zu, ohne … zu oder anstatt … zu.",
+       "text": "14. Er verlässt das Zimmer, [[1]] sich [[2]]. (ohne / zu)",
+       "gaps": {
+        "1": [
+         "ohne"
+        ],
+        "2": [
+         "zu verabschieden"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Er verlässt das Zimmer, ohne sich zu verabschieden."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit um … zu, ohne … zu oder anstatt … zu.",
+       "text": "15. Sie liest das Buch, [[1]] alles [[2]]. (ohne / zu)",
+       "gaps": {
+        "1": [
+         "ohne"
+        ],
+        "2": [
+         "zu verstehen"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Sie liest das Buch, ohne alles zu verstehen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit um … zu, ohne … zu oder anstatt … zu.",
+       "text": "16. Ich gehe ins Bett, [[1]] [[2]]. (ohne / zu)",
+       "gaps": {
+        "1": [
+         "ohne"
+        ],
+        "2": [
+         "fernzusehen"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Ich gehe ins Bett, ohne fernzusehen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit um … zu, ohne … zu oder anstatt … zu.",
+       "text": "17. Wir fahren nach Hause, [[1]] Musik [[2]]. (ohne / zu)",
+       "gaps": {
+        "1": [
+         "ohne"
+        ],
+        "2": [
+         "zu hören"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Wir fahren nach Hause, ohne Musik zu hören."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit um … zu, ohne … zu oder anstatt … zu.",
+       "text": "18. Er geht vorbei, [[1]] mich [[2]]. (ohne / zu)",
+       "gaps": {
+        "1": [
+         "ohne"
+        ],
+        "2": [
+         "zu sehen"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Er geht vorbei, ohne mich zu sehen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit um … zu, ohne … zu oder anstatt … zu.",
+       "text": "19. Sie verlässt das Haus, [[1]] die Tür [[2]]. (ohne / zu)",
+       "gaps": {
+        "1": [
+         "ohne"
+        ],
+        "2": [
+         "zu schließen"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Sie verlässt das Haus, ohne die Tür zu schließen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit um … zu, ohne … zu oder anstatt … zu.",
+       "text": "20. Ich gehe aus, [[1]] meine Freunde [[2]]. (ohne / zu)",
+       "gaps": {
+        "1": [
+         "ohne"
+        ],
+        "2": [
+         "zu informieren"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Ich gehe aus, ohne meine Freunde zu informieren."
+      }
+     ],
+     "instruction": "Dars varag'i: bog'lovchi va zu-infinitivni yozing."
+    },
+    {
+     "title": "anstatt … zu",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit um … zu, ohne … zu oder anstatt … zu.",
+       "text": "21. Er spielt Fußball, [[1]] [[2]]. (anstatt / zu)",
+       "gaps": {
+        "1": [
+         "anstatt"
+        ],
+        "2": [
+         "zu lernen"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Er spielt Fußball, anstatt zu lernen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit um … zu, ohne … zu oder anstatt … zu.",
+       "text": "22. Sie sieht fern, [[1]] Hausaufgaben [[2]]. (anstatt / zu)",
+       "gaps": {
+        "1": [
+         "anstatt"
+        ],
+        "2": [
+         "zu machen"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Sie sieht fern, anstatt Hausaufgaben zu machen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit um … zu, ohne … zu oder anstatt … zu.",
+       "text": "23. Wir gehen spazieren, [[1]] [[2]]. (anstatt / zu)",
+       "gaps": {
+        "1": [
+         "anstatt"
+        ],
+        "2": [
+         "zu arbeiten"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Wir gehen spazieren, anstatt zu arbeiten."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit um … zu, ohne … zu oder anstatt … zu.",
+       "text": "24. Er schläft lange, [[1]] früh [[2]]. (anstatt / zu)",
+       "gaps": {
+        "1": [
+         "anstatt"
+        ],
+        "2": [
+         "aufzustehen"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Er schläft lange, anstatt früh aufzustehen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit um … zu, ohne … zu oder anstatt … zu.",
+       "text": "25. Sie kauft Kleidung, [[1]] Geld [[2]]. (anstatt / zu)",
+       "gaps": {
+        "1": [
+         "anstatt"
+        ],
+        "2": [
+         "zu sparen"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Sie kauft Kleidung, anstatt Geld zu sparen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit um … zu, ohne … zu oder anstatt … zu.",
+       "text": "26. Ich höre Musik, [[1]] [[2]]. (anstatt / zu)",
+       "gaps": {
+        "1": [
+         "anstatt"
+        ],
+        "2": [
+         "zu lernen"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Ich höre Musik, anstatt zu lernen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit um … zu, ohne … zu oder anstatt … zu.",
+       "text": "27. Wir spielen Spiele, [[1]] das Zimmer [[2]]. (anstatt / zu)",
+       "gaps": {
+        "1": [
+         "anstatt"
+        ],
+        "2": [
+         "aufzuräumen"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Wir spielen Spiele, anstatt das Zimmer aufzuräumen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit um … zu, ohne … zu oder anstatt … zu.",
+       "text": "28. Er telefoniert, [[1]] [[2]]. (anstatt / zu)",
+       "gaps": {
+        "1": [
+         "anstatt"
+        ],
+        "2": [
+         "zu arbeiten"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Er telefoniert, anstatt zu arbeiten."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit um … zu, ohne … zu oder anstatt … zu.",
+       "text": "29. Sie geht ins Café, [[1]] zu Hause [[2]]. (anstatt / zu)",
+       "gaps": {
+        "1": [
+         "anstatt"
+        ],
+        "2": [
+         "zu bleiben"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Sie geht ins Café, anstatt zu Hause zu bleiben."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit um … zu, ohne … zu oder anstatt … zu.",
+       "text": "30. Ich sehe einen Film, [[1]] ein Buch [[2]]. (anstatt / zu)",
+       "gaps": {
+        "1": [
+         "anstatt"
+        ],
+        "2": [
+         "zu lesen"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Ich sehe einen Film, anstatt ein Buch zu lesen."
+      }
+     ],
+     "instruction": "Dars varag'i: bog'lovchi va zu-infinitivni yozing."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l04-schreiben-02",
+   "level": "A2",
+   "module": 1,
+   "lesson": 4,
+   "skill": "schreiben",
+   "title": "Grammatik-Aufgabe: Verbinden Sie die zwei Sätze mit „zu“ + Infinitiv",
+   "source": "book",
+   "metadata": {
+    "book_page": "44-45",
+    "note": "Bir nechta to'g'ri variant bor — o'qituvchi tekshiradi."
+   },
+   "task_type": "other",
+   "prompt": "Verbinden Sie die zwei Sätze mit „zu“ + Infinitiv (Aufgabe 1) bzw. mit „um … zu“ (Aufgabe 2). Schreiben Sie alle Sätze vollständig.\n\nAufgabe 1:\n1. Ich habe keine Zeit. + Ich gehe einkaufen.\n2. Er ist zu müde. + Er arbeitet nicht heute Abend.\n3. Wir haben Hunger. + Wir gehen ins Restaurant.\n4. Sie möchte Geld sparen. + Sie kauft ein günstiges Auto.\n5. Ich habe viel Arbeit. + Ich muss heute länger bleiben.\n6. Er hat Kopfschmerzen. + Er nimmt eine Tablette.\n7. Wir wollen fit bleiben. + Wir machen jeden Tag Sport.\n8. Es ist kalt draußen. + Ich ziehe eine Jacke an.\n9. Sie hat keine Erfahrung. + Sie bekommt Hilfe von ihrem Freund.\n10. Ich möchte Deutsch lernen. + Ich suche einen guten Kurs.\n\nAufgabe 2:\n1. Ich möchte früh aufstehen. + Ich will pünktlich zur Arbeit kommen.\n2. Er lernt jeden Tag Deutsch. + Er möchte die Prüfung bestehen.\n3. Wir kaufen ein Ticket. + Wir wollen das Konzert sehen.\n4. Sie geht zum Arzt. + Sie will ihre Gesundheit kontrollieren.\n5. Ich spare Geld. + Ich möchte mir ein neues Handy kaufen.\n6. Er macht Sport. + Er will fit und gesund bleiben.\n7. Wir üben viel. + Wir wollen besser Deutsch sprechen.\n8. Sie fragt nach dem Weg. + Sie will den Bahnhof finden.\n9. Ich lese Bücher. + Ich möchte meinen Wortschatz verbessern.\n10. Sie arbeitet hart. + Sie will Erfolg im Beruf haben.",
+   "min_words": 80,
+   "max_words": 400,
+   "time_limit": 30,
+   "support_phrases": [
+    "Ich habe keine Zeit, einkaufen zu gehen.",
+    "Ich möchte früh aufstehen, um pünktlich zur Arbeit zu kommen."
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l04-lesen-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 4,
+   "skill": "lesen",
+   "title": "Lesen: Tagesablauf von Ali, Lena und Martin (Aufgabe 1-3)",
+   "source": "book",
+   "metadata": {
+    "book_page": "46-48",
+    "note": "Javob har bir savol izohida matndan iqtibos bilan (Vizu-Antworten da kalit yo'q)."
+   },
+   "instruction": "Lesen Sie die Texte. Richtig, falsch oder steht nicht im Text?",
+   "passages": [
+    {
+     "title": "Ein Schultag von Ali (15 Jahre)",
+     "text": "Ali ist 15 Jahre alt und Schüler. Er besucht eine Schule in seiner Stadt. Sein Tag beginnt früh am Morgen.\n\nAli steht jeden Tag um 7 Uhr auf. Zuerst wäscht er sich und putzt seine Zähne. Danach frühstückt er mit seiner Familie. Zum Frühstück isst er oft Brot mit Käse und trinkt Tee oder Milch.\n\nUm 7:30 Uhr geht Ali zur Schule. Die Schule beginnt um 8 Uhr. In der Schule hat er viele Fächer, zum Beispiel Deutsch, Mathematik, Englisch und Geschichte. Er hört den Lehrern zu, macht Übungen und schreibt manchmal Tests.\n\nDer Unterricht endet meistens um 14 Uhr. Danach geht Ali nach Hause. Zu Hause isst er zuerst zu Mittag und ruht sich ein bisschen aus.\n\nAm Nachmittag macht Ali seine Hausaufgaben. Danach hat er Zeit für seine Hobbys. Er spielt sehr gern Fußball mit seinen Freunden im Park. Manchmal hört er auch Musik oder spielt Computerspiele.\n\nAm Abend isst Ali mit seiner Familie zu Abend. Danach spricht er mit seinen Eltern oder sieht ein bisschen fern. Bevor er schlafen geht, bereitet er seine Schultasche für den nächsten Tag vor. Um 22 Uhr geht Ali ins Bett."
+    },
+    {
+     "title": "Der Alltag einer Studentin – Lena (25 Jahre)",
+     "text": "Lena ist 25 Jahre alt und Studentin. Sie studiert an der Universität Kunst und Design, weil sie sehr gern malt und zeichnet.\n\nLena steht meistens um 8 Uhr auf. Danach duscht sie und frühstückt. Zum Frühstück trinkt sie Kaffee und isst Brot oder Joghurt.\n\nUm 9 Uhr fährt Lena mit dem Bus oder mit dem Fahrrad zur Universität. Am Vormittag hat sie Vorlesungen und Seminare. Dort lernt sie viel über Kunst, Farben und verschiedene Zeichentechniken.\n\nNach den Vorlesungen geht Lena oft zu einem Zeichenkurs. Dieser Kurs ist sehr wichtig für sie, weil sie später als Designerin arbeiten möchte. Im Kurs malt sie Bilder, zeichnet Menschen oder Gebäude und lernt neue Techniken.\n\nAm Nachmittag geht sie nach Hause oder in die Bibliothek. Dort macht sie ihre Hausaufgaben oder arbeitet an Projekten für die Universität.\n\nAm Abend hat Lena mehr Freizeit. Manchmal trifft sie ihre Freunde in einem Café oder geht spazieren. Oft hört sie Musik oder liest ein interessantes Buch.\n\nBevor sie schlafen geht, plant Lena ihren nächsten Tag und schreibt ihre Aufgaben auf. Um 23 Uhr geht sie schlafen."
+    },
+    {
+     "title": "Ein Arbeitstag von Martin – Architekt (35 Jahre)",
+     "text": "Martin ist 35 Jahre alt und arbeitet als Architekt. Sein Beruf gefällt ihm sehr, weil er gern Gebäude plant und kreativ arbeitet.\n\nMartin steht jeden Morgen um 6:30 Uhr auf. Danach duscht er und frühstückt. Er trinkt Kaffee und liest kurz die Nachrichten auf seinem Handy.\n\nUm 7:30 Uhr fährt er ins Büro. Seine Arbeit beginnt um 8 Uhr. Im Büro arbeitet Martin an verschiedenen Bauprojekten. Er zeichnet Pläne, arbeitet am Computer und spricht mit seinen Kollegen.\n\nManchmal hat er auch Meetings mit Kunden, um neue Ideen für Gebäude zu besprechen. Er erklärt seine Pläne und hört die Wünsche der Kunden.\n\nUm 13 Uhr macht Martin Mittagspause. Oft geht er mit seinen Kollegen in ein kleines Restaurant in der Nähe. Am Nachmittag arbeitet er weiter an seinen Projekten. Er kontrolliert Baupläne, macht neue Zeichnungen und schreibt E-Mails.\n\nUm 17 Uhr endet seine Arbeit. Danach fährt Martin nach Hause. Am Abend macht er oft Sport oder geht spazieren. Manchmal liest er Bücher über Architektur oder sieht einen Film.\n\nBevor er schlafen geht, bereitet er sich auf den nächsten Arbeitstag vor. Um 22:30 Uhr geht Martin ins Bett."
+    }
+   ],
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Ali ist 15 Jahre alt.",
+     "options": [
+      "Richtig",
+      "Falsch",
+      "Der Text sagt nichts dazu"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Ali ist 15 Jahre alt und Schüler.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Ali steht jeden Tag um 7 Uhr auf.",
+     "options": [
+      "Richtig",
+      "Falsch",
+      "Der Text sagt nichts dazu"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Ali steht jeden Tag um 7 Uhr auf.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Die Schule beginnt um 9 Uhr.",
+     "options": [
+      "Richtig",
+      "Falsch",
+      "Der Text sagt nichts dazu"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Die Schule beginnt um 8 Uhr.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Nach der Schule macht Ali seine Hausaufgaben.",
+     "options": [
+      "Richtig",
+      "Falsch",
+      "Der Text sagt nichts dazu"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Am Nachmittag macht Ali seine Hausaufgaben.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Ali spielt gern Fußball mit seinen Freunden.",
+     "options": [
+      "Richtig",
+      "Falsch",
+      "Der Text sagt nichts dazu"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Er spielt sehr gern Fußball mit seinen Freunden im Park.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Ali geht um 23 Uhr schlafen.",
+     "options": [
+      "Richtig",
+      "Falsch",
+      "Der Text sagt nichts dazu"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Um 22 Uhr geht Ali ins Bett.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Lena ist 25 Jahre alt und Studentin.",
+     "options": [
+      "Richtig",
+      "Falsch",
+      "Der Text sagt nichts dazu"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 2,
+     "explanation": "„Lena ist 25 Jahre alt und Studentin.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Lena studiert Kunst und Design.",
+     "options": [
+      "Richtig",
+      "Falsch",
+      "Der Text sagt nichts dazu"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 2,
+     "explanation": "„Sie studiert an der Universität Kunst und Design …“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Lena steht jeden Tag um 6 Uhr auf.",
+     "options": [
+      "Richtig",
+      "Falsch",
+      "Der Text sagt nichts dazu"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 2,
+     "explanation": "„Lena steht meistens um 8 Uhr auf.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Nach den Vorlesungen geht Lena oft zu einem Zeichenkurs.",
+     "options": [
+      "Richtig",
+      "Falsch",
+      "Der Text sagt nichts dazu"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 2,
+     "explanation": "„Nach den Vorlesungen geht Lena oft zu einem Zeichenkurs.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Am Nachmittag geht Lena manchmal in die Bibliothek.",
+     "options": [
+      "Richtig",
+      "Falsch",
+      "Der Text sagt nichts dazu"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 2,
+     "explanation": "„Am Nachmittag geht sie nach Hause oder in die Bibliothek.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Lena arbeitet als Lehrerin.",
+     "options": [
+      "Richtig",
+      "Falsch",
+      "Der Text sagt nichts dazu"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 2,
+     "explanation": "„Lena ist … Studentin … weil sie später als Designerin arbeiten möchte.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Martin ist Architekt und 35 Jahre alt.",
+     "options": [
+      "Richtig",
+      "Falsch",
+      "Der Text sagt nichts dazu"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 3,
+     "explanation": "„Martin ist 35 Jahre alt und arbeitet als Architekt.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Martin steht jeden Morgen um 6:30 Uhr auf.",
+     "options": [
+      "Richtig",
+      "Falsch",
+      "Der Text sagt nichts dazu"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 3,
+     "explanation": "„Martin steht jeden Morgen um 6:30 Uhr auf.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Martin arbeitet in einem Krankenhaus.",
+     "options": [
+      "Richtig",
+      "Falsch",
+      "Der Text sagt nichts dazu"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 3,
+     "explanation": "„Um 7:30 Uhr fährt er ins Büro.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Im Büro plant Martin neue Gebäude.",
+     "options": [
+      "Richtig",
+      "Falsch",
+      "Der Text sagt nichts dazu"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 3,
+     "explanation": "„Im Büro arbeitet Martin an verschiedenen Bauprojekten. Er zeichnet Pläne …“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Martin macht um 13 Uhr Mittagspause.",
+     "options": [
+      "Richtig",
+      "Falsch",
+      "Der Text sagt nichts dazu"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 3,
+     "explanation": "„Um 13 Uhr macht Martin Mittagspause.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Martin geht um 21 Uhr schlafen.",
+     "options": [
+      "Richtig",
+      "Falsch",
+      "Der Text sagt nichts dazu"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 3,
+     "explanation": "„Um 22:30 Uhr geht Martin ins Bett.“"
+    }
+   ],
+   "max_score": 18
+  },
+  {
+   "content_id": "vizu-a2-l04-hoeren-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 4,
+   "skill": "hoeren",
+   "title": "Hören: Familie Mannsberg",
+   "source": "book",
+   "metadata": {
+    "book_page": 49,
+    "note": "Kitobda transkript ham, javob ham yo'q — admin audioni tinglab javoblarni belgilaydi. Audio: Text 1, 2, 3."
+   },
+   "audio_file": "A2 4.Unterricht Text 1-3.mp3",
+   "key_pending": true,
+   "instruction": "Hören Sie die Texte über Familie Mannsberg und wählen Sie die richtige Person (A, B oder C).",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Wer ist 45 Jahre alt?",
+     "options": [
+      "Johan Mannsberg",
+      "Anna Mannsberg",
+      "Julio Mannsberg"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer bereitet am Wochenende das Frühstück für die Familie vor?",
+     "options": [
+      "Julio Mannsberg",
+      "Anna Mannsberg",
+      "Johan Mannsberg"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer arbeitet manchmal im Garten?",
+     "options": [
+      "Johan Mannsberg",
+      "Julio Mannsberg",
+      "Anna Mannsberg"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer ist 18 Jahre alt?",
+     "options": [
+      "Anna Mannsberg",
+      "Johan Mannsberg",
+      "Julio Mannsberg"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer trifft sich am Wochenende oft mit Freunden?",
+     "options": [
+      "Johan Mannsberg",
+      "Julio Mannsberg",
+      "Anna Mannsberg"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer macht oft Hausarbeit am Vormittag?",
+     "options": [
+      "Anna Mannsberg",
+      "Johan Mannsberg",
+      "Julio Mannsberg"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer geht manchmal ins Kino mit Freunden?",
+     "options": [
+      "Julio Mannsberg",
+      "Anna Mannsberg",
+      "Johan Mannsberg"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer liest am Wochenende manchmal ein Buch?",
+     "options": [
+      "Johan Mannsberg",
+      "Julio Mannsberg",
+      "Anna Mannsberg"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer kocht gern Abendessen für die Familie?",
+     "options": [
+      "Anna Mannsberg",
+      "Julio Mannsberg",
+      "Johan Mannsberg"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer spielt gern Fußball mit Freunden?",
+     "options": [
+      "Johan Mannsberg",
+      "Julio Mannsberg",
+      "Anna Mannsberg"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer besucht am Sonntag manchmal Freunde?",
+     "options": [
+      "Johan Mannsberg",
+      "Anna Mannsberg",
+      "Julio Mannsberg"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer macht manchmal einen Familienausflug am Sonntag?",
+     "options": [
+      "Anna Mannsberg",
+      "Julio Mannsberg",
+      "Johan Mannsberg"
+     ],
+     "points": 1
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l04-schreiben-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 4,
+   "skill": "schreiben",
+   "title": "Schreiben: Wie verbringe ich meine Zeit?",
+   "source": "book",
+   "metadata": {
+    "book_page": 50
+   },
+   "task_type": "description",
+   "prompt": "Schreiben Sie einen kurzen Text über Ihre Freizeit. Gehen Sie auf folgende Punkte ein:\n• Wann haben Sie Freizeit?\n• Was machen Sie am Nachmittag oder am Abend?\n• Welche Hobbys haben Sie?\n• Treffen Sie Freunde oder Familie in Ihrer Freizeit?\n• Was machen Sie am Wochenende?\n• Warum ist Freizeit wichtig für Sie?",
+   "min_words": 60,
+   "max_words": 150,
+   "time_limit": 25
+  },
+  {
+   "content_id": "vizu-a2-l04-schreiben-03",
+   "level": "A2",
+   "module": 1,
+   "lesson": 4,
+   "skill": "schreiben",
+   "title": "Schreiben: Informelle E-Mail – Einladung am Wochenende",
+   "source": "book",
+   "metadata": {
+    "book_page": 50
+   },
+   "task_type": "email",
+   "prompt": "Ihr Freund / Ihre Freundin hat am Wochenende Zeit. Sie möchten ihn / sie zu sich nach Hause einladen. Schreiben Sie eine E-Mail.\n• Begrüßung (z. B. Hallo …)\n• Warum schreiben Sie die E-Mail?\n• Einladung zum Wochenende (Wann?)\n• Was möchten Sie zusammen machen?\n• Was soll Ihr Freund / Ihre Freundin mitbringen?\n• Abschluss und Grüße",
+   "audience": "Freund / Freundin (informell)",
+   "min_words": 40,
+   "max_words": 100,
+   "time_limit": 20,
+   "support_phrases": [
+    "Hallo …,",
+    "Hast du am Samstag Zeit?",
+    "Ich möchte dich zu mir einladen.",
+    "Wir können zusammen …",
+    "Bring bitte … mit.",
+    "Liebe Grüße"
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l04-sprechen-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 4,
+   "skill": "sprechen",
+   "title": "Sprechen: Mein Wochenende",
+   "source": "book",
+   "metadata": {
+    "book_page": 51
+   },
+   "topic": "Mein Wochenende",
+   "prompt": "Sprechen Sie über Ihr Wochenende. Gehen Sie auf folgende Punkte ein:",
+   "questions": [
+    "Wann beginnt Ihr Wochenende?",
+    "Treffen Sie Freunde oder Familie?",
+    "Was machen Sie am Samstag?",
+    "Haben Sie Hobbys am Wochenende?",
+    "Was machen Sie am Sonntag?",
+    "Was machen Sie am Abend?",
+    "Warum mögen Sie das Wochenende?",
+    "Was machen Sie am liebsten?"
+   ],
+   "response_type": "monolog",
+   "min_duration": 60,
+   "max_duration": 180,
+   "speech_goal": "Über das eigene Wochenende sprechen: Zeiten, Aktivitäten, Personen, Gründe.",
+   "keywords": [
+    "am Samstag",
+    "am Sonntag",
+    "am Abend",
+    "Freunde",
+    "Familie",
+    "weil"
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l04-wortschatz-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 4,
+   "skill": "wortschatz",
+   "title": "Wortschatz: Tagesablauf und Zeitmanagement",
+   "source": "book",
+   "metadata": {
+    "book_page": 52
+   },
+   "words": [
+    {
+     "word": "Tagesablauf",
+     "translation": "kun tartibi",
+     "article": "der",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Zeit",
+     "translation": "vaqt",
+     "article": "die",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Morgen",
+     "translation": "tong",
+     "article": "der",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Vormittag",
+     "translation": "tushgacha vaqt",
+     "article": "der",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Nachmittag",
+     "translation": "tushdan keyin",
+     "article": "der",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Abend",
+     "translation": "kechqurun",
+     "article": "der",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Nacht",
+     "translation": "tun",
+     "article": "die",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "aufstehen",
+     "translation": "turmoq",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "frühstücken",
+     "translation": "nonushta qilmoq",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Frühstück",
+     "translation": "nonushta",
+     "article": "das",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "zur Schule gehen",
+     "translation": "maktabga bormoq",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "arbeiten",
+     "translation": "ishlamoq",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "lernen",
+     "translation": "o‘rganmoq",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "studieren",
+     "translation": "universitetda o‘qimoq",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Unterricht",
+     "translation": "dars",
+     "article": "der",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Hausaufgaben",
+     "translation": "uy vazifasi",
+     "article": "die",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Pause",
+     "translation": "tanaffus",
+     "article": "die",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Freizeit",
+     "translation": "bo‘sh vaqt",
+     "article": "die",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Hobby",
+     "translation": "hobbi",
+     "article": "das",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Sport machen",
+     "translation": "sport bilan shug‘ullanish",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "spazieren gehen",
+     "translation": "sayr qilmoq",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Freunde treffen",
+     "translation": "do‘stlar bilan uchrashmoq",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Musik hören",
+     "translation": "musiqa tinglamoq",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "fernsehen",
+     "translation": "televizor ko‘rmoq",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "lesen",
+     "translation": "o‘qimoq",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "schlafen",
+     "translation": "uxlamoq",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "planen",
+     "translation": "rejalashtirmoq",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Plan",
+     "translation": "reja",
+     "article": "der",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "organisieren",
+     "translation": "tashkil qilmoq",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Aufgabe",
+     "translation": "vazifa",
+     "article": "die",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "wichtig",
+     "translation": "muhim",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "pünktlich",
+     "translation": "vaqtida",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Arbeit",
+     "translation": "ish",
+     "article": "die",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Büro",
+     "translation": "ofis",
+     "article": "das",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Student",
+     "translation": "talaba",
+     "article": "der",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Schüler",
+     "translation": "o‘quvchi",
+     "article": "der",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Architekt",
+     "translation": "arxitektor",
+     "article": "der",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Projekt",
+     "translation": "loyiha",
+     "article": "das",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Kunde",
+     "translation": "mijoz",
+     "article": "der",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Termin",
+     "translation": "uchrashuv vaqti",
+     "article": "der",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Kalender",
+     "translation": "kalendar",
+     "article": "der",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Liste",
+     "translation": "ro‘yxat",
+     "article": "die",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Gewohnheit",
+     "translation": "odat",
+     "article": "die",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "produktiv",
+     "translation": "samarali",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "sich ausruhen",
+     "translation": "dam olmoq",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Alltag",
+     "translation": "kundalik hayot",
+     "article": "der",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Familie",
+     "translation": "oila",
+     "article": "die",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Wochenende",
+     "translation": "hafta oxiri",
+     "article": "das",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "einkaufen",
+     "translation": "xarid qilmoq",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "vorbereiten",
+     "translation": "tayyorlamoq",
+     "group": "Tagesablauf"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "Zuordnung 1",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Tagesablauf 1)",
+       "items": [
+        "der Tagesablauf",
+        "die Zeit",
+        "der Morgen",
+        "der Vormittag",
+        "der Nachmittag",
+        "der Abend"
+       ],
+       "targets": [
+        "kun tartibi",
+        "vaqt",
+        "tong",
+        "tushgacha vaqt",
+        "tushdan keyin",
+        "kechqurun",
+        "tun"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Tagesablauf 2)",
+       "items": [
+        "die Nacht",
+        "aufstehen",
+        "frühstücken",
+        "das Frühstück",
+        "zur Schule gehen",
+        "arbeiten"
+       ],
+       "targets": [
+        "tun",
+        "turmoq",
+        "nonushta qilmoq",
+        "nonushta",
+        "maktabga bormoq",
+        "ishlamoq",
+        "kun tartibi"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Tagesablauf 3)",
+       "items": [
+        "lernen",
+        "studieren",
+        "der Unterricht",
+        "die Hausaufgaben",
+        "die Pause",
+        "die Freizeit"
+       ],
+       "targets": [
+        "o‘rganmoq",
+        "universitetda o‘qimoq",
+        "dars",
+        "uy vazifasi",
+        "tanaffus",
+        "bo‘sh vaqt",
+        "kun tartibi"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Zuordnung 2",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Tagesablauf 4)",
+       "items": [
+        "das Hobby",
+        "Sport machen",
+        "spazieren gehen",
+        "Freunde treffen",
+        "Musik hören",
+        "fernsehen"
+       ],
+       "targets": [
+        "hobbi",
+        "sport bilan shug‘ullanish",
+        "sayr qilmoq",
+        "do‘stlar bilan uchrashmoq",
+        "musiqa tinglamoq",
+        "televizor ko‘rmoq",
+        "kun tartibi"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Tagesablauf 5)",
+       "items": [
+        "lesen",
+        "schlafen",
+        "planen",
+        "der Plan",
+        "organisieren",
+        "die Aufgabe"
+       ],
+       "targets": [
+        "o‘qimoq",
+        "uxlamoq",
+        "rejalashtirmoq",
+        "reja",
+        "tashkil qilmoq",
+        "vazifa",
+        "kun tartibi"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Tagesablauf 6)",
+       "items": [
+        "wichtig",
+        "pünktlich",
+        "die Arbeit",
+        "das Büro",
+        "der Student",
+        "der Schüler"
+       ],
+       "targets": [
+        "muhim",
+        "vaqtida",
+        "ish",
+        "ofis",
+        "talaba",
+        "o‘quvchi",
+        "kun tartibi"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Zuordnung 3",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Tagesablauf 7)",
+       "items": [
+        "der Architekt",
+        "das Projekt",
+        "der Kunde",
+        "der Termin",
+        "der Kalender",
+        "die Liste"
+       ],
+       "targets": [
+        "arxitektor",
+        "loyiha",
+        "mijoz",
+        "uchrashuv vaqti",
+        "kalendar",
+        "ro‘yxat",
+        "kun tartibi"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Tagesablauf 8)",
+       "items": [
+        "die Gewohnheit",
+        "produktiv",
+        "sich ausruhen",
+        "der Alltag",
+        "die Familie",
+        "das Wochenende",
+        "einkaufen",
+        "vorbereiten"
+       ],
+       "targets": [
+        "odat",
+        "samarali",
+        "dam olmoq",
+        "kundalik hayot",
+        "oila",
+        "hafta oxiri",
+        "xarid qilmoq",
+        "tayyorlamoq",
+        "kun tartibi"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F",
+        "7": "G",
+        "8": "H"
+       },
+       "points": 8,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Der, die oder das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Tagesablauf (kun tartibi)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Morgen (tong)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Nachmittag (tushdan keyin)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Nacht (tun)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Unterricht (dars)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Pause (tanaffus)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Hobby (hobbi)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Aufgabe (vazifa)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Büro (ofis)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Schüler (o‘quvchi)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "So'zning artiklini tanlang (kitobdagi lug'at bo'yicha)."
+    },
+    {
+     "title": "Was bedeutet das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „der Tagesablauf“?",
+       "options": [
+        "nonushta qilmoq",
+        "kun tartibi",
+        "odat"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „die Nacht“?",
+       "options": [
+        "rejalashtirmoq",
+        "tun",
+        "ofis"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „lernen“?",
+       "options": [
+        "ishlamoq",
+        "xarid qilmoq",
+        "o‘rganmoq"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „das Hobby“?",
+       "options": [
+        "mijoz",
+        "hobbi",
+        "reja"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „lesen“?",
+       "options": [
+        "o‘qimoq",
+        "kalendar",
+        "televizor ko‘rmoq"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „wichtig“?",
+       "options": [
+        "tong",
+        "muhim",
+        "rejalashtirmoq"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „der Architekt“?",
+       "options": [
+        "televizor ko‘rmoq",
+        "arxitektor",
+        "odat"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „die Gewohnheit“?",
+       "options": [
+        "odat",
+        "do‘stlar bilan uchrashmoq",
+        "reja"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zning o'zbekcha tarjimasini tanlang."
+    }
+   ],
+   "auto_practice": false
+  },
+  {
+   "content_id": "vizu-a2-l04-uebungen-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 4,
+   "skill": "uebungen",
+   "title": "Übungen: A2 4. Unterricht",
+   "source": "vizu",
+   "exercises": [
+    {
+     "title": "zu oder kein zu?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Ich kann gut Deutsch ___.",
+       "options": [
+        "sprechen",
+        "zu sprechen",
+        "sprechen zu"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Keine „zu“ bei Modalverben (Regel 6)."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Es ist wichtig, Deutsch ___.",
+       "options": [
+        "zu lernen",
+        "lernen",
+        "lernen zu"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Nach Adjektiven: zu + Infinitiv (Regel 3)."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich plane, morgen ___.",
+       "options": [
+        "einzukaufen",
+        "zu einkaufen",
+        "einkaufen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Trennbares Verb: einzukaufen (Regel 5)."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Wir müssen lange ___.",
+       "options": [
+        "arbeiten",
+        "zu arbeiten",
+        "arbeiten zu"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Modalverb: kein zu."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich habe Lust, einen Film ___.",
+       "options": [
+        "zu sehen",
+        "sehen",
+        "gesehen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Nach Nomen: zu + Infinitiv (Regel 4)."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Wir versuchen, früh ___.",
+       "options": [
+        "aufzustehen",
+        "zu aufstehen",
+        "aufstehen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Trennbares Verb: aufzustehen."
+      }
+     ],
+     "instruction": "Kitobdagi qoidalar bo'yicha to'g'ri shaklni tanlang."
+    },
+    {
+     "title": "Nemischa qanday?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "„vaqt“ — nemischa qanday?",
+       "options": [
+        "die Gewohnheit",
+        "die Zeit",
+        "die Pause"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„turmoq“ — nemischa qanday?",
+       "options": [
+        "aufstehen",
+        "organisieren",
+        "spazieren gehen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„universitetda o‘qimoq“ — nemischa qanday?",
+       "options": [
+        "planen",
+        "fernsehen",
+        "studieren"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„sport bilan shug‘ullanish“ — nemischa qanday?",
+       "options": [
+        "fernsehen",
+        "zur Schule gehen",
+        "Sport machen"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„uxlamoq“ — nemischa qanday?",
+       "options": [
+        "produktiv",
+        "lernen",
+        "schlafen"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„vaqtida“ — nemischa qanday?",
+       "options": [
+        "zur Schule gehen",
+        "pünktlich",
+        "aufstehen"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„loyiha“ — nemischa qanday?",
+       "options": [
+        "der Termin",
+        "das Projekt",
+        "das Hobby"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„samarali“ — nemischa qanday?",
+       "options": [
+        "spazieren gehen",
+        "Sport machen",
+        "produktiv"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "O'zbekcha so'zning nemischasini tanlang."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l04-yakuniy-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 4,
+   "skill": "yakuniy",
+   "title": "Abschlusstest: A2 4. Unterricht",
+   "source": "vizu",
+   "instruction": "Infinitiv mit zu va kun tartibi so'zlari bo'yicha yakuniy test (dars materiali asosida).",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Ich hoffe, die Prüfung ___.",
+     "options": [
+      "zu bestehen",
+      "bestehen",
+      "bestehen zu"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Merksatz der Lektion."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Er hat vergessen, das Licht ___.",
+     "options": [
+      "auszumachen",
+      "zu ausmachen",
+      "ausmachen"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Sie will nach Deutschland ___.",
+     "options": [
+      "reisen",
+      "zu reisen",
+      "reisen zu"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Modalverb: kein zu."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Ich lerne Deutsch, ___ in Deutschland arbeiten zu können.",
+     "options": [
+      "um",
+      "ohne",
+      "anstatt"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Er geht aus dem Haus, ___ etwas zu sagen.",
+     "options": [
+      "ohne",
+      "um",
+      "weil"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Um wie viel Uhr geht Ali ins Bett?",
+     "options": [
+      "Um 22 Uhr",
+      "Um 23 Uhr",
+      "Um 21 Uhr"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Lesen, Aufgabe 1."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was studiert Lena?",
+     "options": [
+      "Kunst und Design",
+      "Medizin",
+      "Architektur"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Lesen, Aufgabe 2."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„der Tagesablauf“ — o'zbekchasi?",
+     "options": [
+      "kun tartibi",
+      "bo'sh vaqt",
+      "hafta oxiri"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„pünktlich“ — o'zbekchasi?",
+     "options": [
+      "vaqtida",
+      "samarali",
+      "muhim"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„der Termin“ — o'zbekchasi?",
+     "options": [
+      "uchrashuv vaqti",
+      "ro'yxat",
+      "reja"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l04-kompetenz-02",
+   "level": "A2",
+   "module": 1,
+   "lesson": 4,
+   "skill": "kompetenz",
+   "title": "Zusammenfassung: A2 4. Unterricht",
+   "source": "vizu",
+   "competency": "ZUSAMMENFASSUNG",
+   "html": "<h3>A2 4. Unterricht — qisqacha</h3><ul><li><strong>Zwei Verben:</strong> Ich versuche, Deutsch zu lernen. · Er plant, nach Deutschland zu fahren.</li><li><strong>Nach Adjektiven / Nomen:</strong> Es ist wichtig, Deutsch zu lernen. · Ich habe Lust, einen Film zu sehen.</li><li><strong>Trennbare Verben:</strong> Ich plane, morgen einzukaufen. · Wir versuchen, früh aufzustehen.</li><li><strong>Keine „zu“ bei Modalverben:</strong> Ich kann gut Deutsch sprechen.</li><li><strong>Merksatz:</strong> Ich hoffe, die Prüfung zu bestehen.</li></ul><p>Natijalaringiz pastda — tugallanmagan bo'limlarni yakunlang, so'ng keyingi darsga o'ting.</p>"
+  }
+ ]
+}
