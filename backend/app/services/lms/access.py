@@ -22,12 +22,13 @@ from app.models.lms import ACCESS_LOCKED, ACCESS_OPEN
 from app.models.module import Module
 from app.models.student_progress import StudentProgress
 from app.models.user import User
-from app.services.vizu_pay.access import can_access_lesson, has_premium_bypass
+from app.services.vizu_pay.access import can_access_lesson, has_premium_bypass, is_level_coming_soon
 
 REASON_DRAFT = "DRAFT"
 REASON_ADMIN = "ADMIN_LOCKED"
 REASON_PREMIUM = "PREMIUM_REQUIRED"
 REASON_SEQUENTIAL = "PREVIOUS_LESSON_NOT_COMPLETED"
+REASON_COMING_SOON = "LEVEL_COMING_SOON"
 
 
 @dataclass(frozen=True)
@@ -38,7 +39,9 @@ class LessonAccess:
 
     @property
     def http_detail(self) -> str:
-        return "PREMIUM_REQUIRED" if self.reason == REASON_PREMIUM else "LESSON_LOCKED"
+        if self.reason in (REASON_PREMIUM, REASON_COMING_SOON):
+            return self.reason
+        return "LESSON_LOCKED"
 
 
 def previous_published_lesson(db: Session, lesson: Lesson) -> Lesson | None:
@@ -71,6 +74,8 @@ def lesson_access(db: Session, user: User | None, lesson: Lesson) -> LessonAcces
         return LessonAccess(visible=False, unlocked=False, reason=REASON_DRAFT)
     if lesson.access_override == ACCESS_LOCKED:
         return LessonAccess(visible=True, unlocked=False, reason=REASON_ADMIN)
+    if is_level_coming_soon(lesson):
+        return LessonAccess(visible=True, unlocked=False, reason=REASON_COMING_SOON)
     if not can_access_lesson(user, lesson):
         return LessonAccess(visible=True, unlocked=False, reason=REASON_PREMIUM)
     if lesson.access_override != ACCESS_OPEN and user is not None and _sequential(db, lesson):

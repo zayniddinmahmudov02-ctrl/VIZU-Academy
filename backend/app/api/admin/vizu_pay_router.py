@@ -28,6 +28,70 @@ def _client_ip(request: Request) -> str | None:
     return request.client.host if request.client else None
 
 
+# ----------------------------------------------------------------------
+# Angebote configuration: prices, sale on / off, package contents, free
+# lessons per course, level availability ("Tez orada"). Stored as admin
+# overrides of the code defaults (app/services/vizu_pay/offers.py); takes
+# effect at once — no deploy, no code change.
+# ----------------------------------------------------------------------
+
+
+@router.get("/angebote-config")
+def get_angebote_config(db: Session = Depends(get_db), current_user: User = Depends(require_super_admin)):
+    from app.services.vizu_pay import offers as offer_config
+
+    eff = offer_config.effective()
+    return {
+        "offers": offer_config.list_offers(),
+        "levels": eff["levels"],
+        "free_lessons": eff["free_lessons"],
+        "defaults": {
+            "offers": {c: {k: cfg[k] for k in offer_config.EDITABLE_OFFER_FIELDS} for c, cfg in offer_config.OFFERS.items()},
+            "levels": offer_config.LEVEL_AVAILABLE_DEFAULT,
+            "free_lessons": offer_config.FREE_LESSONS_PER_COURSE,
+        },
+    }
+
+
+@router.put("/angebote-config")
+def put_angebote_config(
+    payload: dict,
+    request: Request,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_super_admin),
+):
+    """Replaces the overrides with `payload` ({offers: {code: {sale_price,
+    original_price, discount_percent, active, levels}}, levels: {B2: true},
+    free_lessons: 1}). Fields left out fall back to the code defaults.
+    Orders already created keep the amount they were created with."""
+    import json
+
+    from fastapi import HTTPException
+    from sqlalchemy import select
+
+    from app.core.audit import write_audit
+    from app.models.app_setting import AppSetting
+    from app.services.vizu_pay import offers as offer_config
+
+    try:
+        clean = offer_config.validate_overrides(payload or {})
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=f"INVALID_ANGEBOTE_CONFIG: {exc}") from None
+    row = db.scalar(select(AppSetting).where(AppSetting.key == offer_config.SETTINGS_KEY))
+    before = dict(row.value) if row else {}
+    if row is None:
+        row = AppSetting(key=offer_config.SETTINGS_KEY, value=clean, updated_by=current_user.id)
+        db.add(row)
+    else:
+        row.value = clean
+        row.updated_by = current_user.id
+    db.commit()
+    offer_config.invalidate_cache()
+    write_audit(db, str(current_user.id), "angebote_config_updated",
+                details=json.dumps({"before": before, "after": clean}, ensure_ascii=False)[:4000], ip_address=_client_ip(request))
+    return get_angebote_config(db, current_user)
+
+
 @router.get("/orders", response_model=AdminOrderListResponse)
 def list_orders(
     page: int = 1,

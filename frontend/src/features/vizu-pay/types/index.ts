@@ -17,6 +17,10 @@ export interface Offer {
   salePrice: number | null;
   discountPercent: number | null;
   active: boolean;
+  /** server decision: active, priced and (single level) the level is available */
+  purchasable: boolean;
+  /** levels of the offer students can open today ("Tez orada" levels are not) */
+  availableLevels: string[];
   freeLessons: number;
   currency: string;
 }

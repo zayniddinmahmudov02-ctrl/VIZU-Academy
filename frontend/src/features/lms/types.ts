@@ -17,7 +17,31 @@ export type CompetencyKind =
  * the backend overlays: "locked" (lesson locked) and "not_available". */
 export type CompetencyStatus = "not_started" | "in_progress" | "completed" | "locked" | "not_available";
 export type LessonStatus = "not_started" | "in_progress" | "completed" | "locked";
-export type LockReason = "DRAFT" | "ADMIN_LOCKED" | "PREMIUM_REQUIRED" | "PREVIOUS_LESSON_NOT_COMPLETED";
+export type LockReason = "DRAFT" | "ADMIN_LOCKED" | "PREMIUM_REQUIRED" | "PREVIOUS_LESSON_NOT_COMPLETED" | "LEVEL_COMING_SOON";
+
+/** An Angebote offer as the LMS level API describes it (prices from the
+ * backend configuration, Admin -> Angebote). */
+export interface LmsSaleOffer {
+  code: string;
+  kind: "LEVEL" | "PACKAGE";
+  label: string;
+  levels: string[];
+  available_levels: string[];
+  original_price: number | null;
+  sale_price: number | null;
+  discount_percent: number | null;
+  purchasable: boolean;
+  currency: string;
+}
+
+export interface LmsLevelSale {
+  available: boolean;
+  coming_soon: boolean;
+  owned: boolean;
+  free_lessons: number;
+  offer: LmsSaleOffer | null;
+  packages: LmsSaleOffer[];
+}
 
 export interface LmsLevelSummary {
   level: string;
@@ -30,6 +54,7 @@ export interface LmsLevelSummary {
   percent: number;
   last_lesson_id: string | null;
   continue_lesson_id: string | null;
+  sale?: LmsLevelSale;
 }
 
 export interface LmsLevels {

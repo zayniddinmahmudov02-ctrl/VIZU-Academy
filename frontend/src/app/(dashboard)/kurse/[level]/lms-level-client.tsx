@@ -1,8 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, PlayCircle } from "lucide-react";
+import { ArrowLeft, CreditCard, Lock, PlayCircle } from "lucide-react";
 
+import LmsPurchaseModal from "@/components/lms/lms-purchase-modal";
 import LmsSkeleton from "@/components/lms/lms-skeleton";
 import LmsErrorCard from "@/components/lms/lms-error-card";
 import LmsLessonCard from "@/components/lms/lms-lesson-card";
@@ -18,6 +20,9 @@ export default function LmsLevelClient({ level }: { level: string }) {
   const { t } = useTranslation();
   const { data, isLoading, error, refetch } = useLmsLevel(level);
   const code = level.toUpperCase();
+  const [buying, setBuying] = useState(false);
+  const sale = data?.sale;
+  const canBuy = !!sale && !sale.coming_soon && !sale.owned;
 
   return (
     <div className="space-y-6">
@@ -39,12 +44,25 @@ export default function LmsLevelClient({ level }: { level: string }) {
                   {t("lms.levelSummary", { published: data.lessons_published, total: data.lessons_target, done: data.lessons_completed })}
                 </p>
               </div>
-              {data.continue_lesson_id && (
-                <Link href={lessonHref(data.continue_lesson_id)} className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-2.5 text-sm font-semibold text-brand-900 hover:opacity-90">
-                  <PlayCircle size={16} /> {t(data.last_lesson_id ? "lms.continue" : "lms.start")}
-                </Link>
-              )}
+              <div className="flex flex-wrap gap-2">
+                {data.continue_lesson_id && (
+                  <Link href={lessonHref(data.continue_lesson_id)} className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-2.5 text-sm font-semibold text-brand-900 hover:opacity-90">
+                    <PlayCircle size={16} /> {t(data.last_lesson_id ? "lms.continue" : "lms.start")}
+                  </Link>
+                )}
+                {canBuy && sale?.offer?.purchasable && (
+                  <button onClick={() => setBuying(true)} data-testid="lms-level-buy"
+                          className="inline-flex items-center gap-2 rounded-xl bg-white/15 px-5 py-2.5 text-sm font-semibold text-white ring-1 ring-white/40 backdrop-blur hover:bg-white/25">
+                    <CreditCard size={16} /> {t("lms.buyCourse")} · {t("lms.som", { n: (sale.offer.sale_price ?? 0).toLocaleString("ru-RU").replace(/ /g, " ") })}
+                  </button>
+                )}
+              </div>
             </div>
+            {sale?.coming_soon && (
+              <p className="mt-4 inline-flex items-center gap-2 rounded-xl bg-white/15 px-4 py-2 text-sm font-semibold" data-testid="lms-level-coming-soon">
+                <Lock size={15} /> {t("lms.comingSoonHint")}
+              </p>
+            )}
             <div className="mt-5 max-w-md">
               <ProgressBar value={data.percent} trackClassName="h-2 bg-white/20" indicatorClassName="bg-white" />
               <p className="mt-1 text-xs text-white/80">{data.percent}%</p>
@@ -58,10 +76,11 @@ export default function LmsLevelClient({ level }: { level: string }) {
           ) : (
             <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3" data-testid="lms-lessons">
               {data.lessons.map((lesson) => (
-                <LmsLessonCard key={lesson.id} lesson={lesson} />
+                <LmsLessonCard key={lesson.id} lesson={lesson} onBuy={canBuy ? () => setBuying(true) : undefined} />
               ))}
             </div>
           )}
+          <LmsPurchaseModal level={data.level} open={buying} onClose={() => setBuying(false)} />
         </>
       )}
     </div>

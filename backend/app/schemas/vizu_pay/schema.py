@@ -24,6 +24,10 @@ class OfferItem(BaseSchema):
     sale_price: int | None
     discount_percent: int | None
     active: bool
+    # server decision: active, priced and (single level) the level is released
+    purchasable: bool = False
+    # levels of the offer students can open today ("Tez orada" levels are not)
+    available_levels: list[str] = []
     free_lessons: int
     currency: str = "UZS"
 

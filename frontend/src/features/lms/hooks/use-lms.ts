@@ -16,7 +16,7 @@ export function useLmsLevels() {
 }
 
 export function useLmsLevel(level: string) {
-  return useQuery({ queryKey: lmsKeys.level(level), queryFn: () => getLmsLevel(level), retry: retryUnlessClientError, staleTime: 30_000 });
+  return useQuery({ queryKey: lmsKeys.level(level), queryFn: () => getLmsLevel(level), retry: retryUnlessClientError, staleTime: 30_000, enabled: !!level });
 }
 
 /** The lesson state — the backend recomputes and persists the student's

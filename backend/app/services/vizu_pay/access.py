@@ -9,7 +9,7 @@ from app.models.module import Module
 from app.models.subscription_order import SubscriptionOrder
 from app.models.user import User
 
-from .offers import OFFER_CODES, offer_levels
+from .offers import OFFER_CODES, free_lessons, level_available, offer_levels
 from .plans import STATUS_APPROVED
 
 
@@ -43,8 +43,9 @@ def can_access_model_test(model_test, user: User | None) -> bool:
 # ----------------------------------------------------------------------
 # Lessons — Angebote model
 # ----------------------------------------------------------------------
-# Only the FIRST lesson of every course is free (offers.FREE_LESSONS_PER_COURSE
-# = 1). "First" = the course's first lesson in the same order students see
+# Only the FIRST lesson of every course is free (offers.free_lessons(), default
+# 1, set in Admin -> Angebote; a "Tez orada" level has none). "First" = the
+# course's first lesson(s) in the same order students see
 # (Module.order_index, then Lesson.number) — not `Lesson.number == 1`, which
 # repeats per module. Everything else needs one of:
 #   * an APPROVED Angebote order covering the lesson's course level,
@@ -71,34 +72,36 @@ def _course_of(lesson) -> tuple[str | None, str | None]:
     cache = _session_cache(lesson, "module_course")
     key = str(lesson.module_id)
     if key not in cache:
-        module = lesson.module
-        course = module.course if module is not None else None
+        module = getattr(lesson, "module", None)
+        course = getattr(module, "course", None) if module is not None else None
         cache[key] = (str(course.id), course.level) if course is not None else (None, None)
     return cache[key]
 
 
-def _first_lesson_id(lesson, course_id: str) -> str | None:
-    cache = _session_cache(lesson, "first_lesson")
-    if course_id not in cache:
+def _first_lesson_ids(lesson, course_id: str, n: int) -> set[str]:
+    cache = _session_cache(lesson, "first_lessons")
+    key = f"{course_id}:{n}"
+    if key not in cache:
         session = object_session(lesson)
-        first = session.execute(
+        rows = session.execute(
             select(Lesson.id)
             .join(Module, Lesson.module_id == Module.id)
             .where(Module.course_id == course_id)
             .order_by(Module.order_index, Module.number, Lesson.number)
-            .limit(1)
-        ).scalar_one_or_none()
-        cache[course_id] = str(first) if first is not None else None
-    return cache[course_id]
+            .limit(n)
+        ).scalars().all() if n > 0 else []
+        cache[key] = {str(r) for r in rows}
+    return cache[key]
 
 
 def is_free_lesson(lesson) -> bool:
-    """True only for the first lesson of its course. `Lesson.is_free` is no
-    longer an override — "faqat 1-dars bepul" admits no other free lesson."""
-    course_id, _ = _course_of(lesson)
-    if course_id is None:
+    """True for the first `free_lessons` lessons of its course (default 1 —
+    "faqat 1-dars bepul", set in Admin -> Angebote) of an available level.
+    `Lesson.is_free` is no override."""
+    course_id, level = _course_of(lesson)
+    if course_id is None or not level_available(level):
         return False
-    return _first_lesson_id(lesson, course_id) == str(lesson.id)
+    return str(lesson.id) in _first_lesson_ids(lesson, course_id, free_lessons())
 
 
 def owned_levels(user: User | None) -> set[str]:
@@ -130,8 +133,24 @@ def owns_level(user: User | None, level: str | None) -> bool:
     return bool(level) and level in owned_levels(user)
 
 
+def lesson_level(lesson) -> str | None:
+    return _course_of(lesson)[1]
+
+
+def is_level_coming_soon(lesson) -> bool:
+    """The lesson's level is not available yet ("Tez orada", B2 / C1)."""
+    _, level = _course_of(lesson)
+    return level is not None and not level_available(level)
+
+
 def can_access_lesson(user: User | None, lesson) -> bool:
-    if has_premium_bypass(user) or is_user_premium(user):
+    if has_premium_bypass(user):
+        return True
+    # a "Tez orada" level opens for nobody — not with legacy Premium, not with
+    # the A1 → C1 package — until the admin makes it available
+    if is_level_coming_soon(lesson):
+        return False
+    if is_user_premium(user):
         return True
     if is_free_lesson(lesson):
         return True

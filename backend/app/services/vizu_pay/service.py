@@ -363,7 +363,8 @@ class VizuPayService:
             raise VizuPayError("Payment proof file is too large (max 10MB).")
         await proof_file.seek(0)
 
-        base_amount = offer_config.OFFERS[plan]["sale_price"]
+        # the price in force (admin settings over the code defaults) — never from the client
+        base_amount = offer_config.offer(plan)["sale_price"]
         discount_amount = 0
         promo: PromoCode | None = None
 
