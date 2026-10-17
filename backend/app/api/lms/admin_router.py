@@ -27,7 +27,7 @@ from app.models.user import User
 from app.models.video import Video
 from app.models.writing import Writing
 from app.services.lesson_skills import admin as skill_admin
-from app.services.lms import progress, resources, structure
+from app.services.lms import grammar_text_only, progress, resources, structure
 from app.services.video.service import VideoService, stored_file_path
 
 router = APIRouter(prefix="/admin/lms", tags=["Admin - LMS"])
@@ -310,6 +310,7 @@ async def upload_resource(
     user: User = Depends(require_content_editor),
 ):
     lesson = _lesson_or_404(db, lesson_id)
+    grammar_text_only.ensure_resource_allowed(db, lesson, resource_type, competency)
     resource = await resources.create_file_resource(
         db, lesson, resource_type=resource_type, file=file, title=title, competency=competency,
         description=description, duration_seconds=duration_seconds, actor_id=user.id,
@@ -352,7 +353,9 @@ def update_resource(resource_id: UUID, data: ResourceUpdate, request: Request, d
         if field in changes and changes[field] is None:
             raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_CONTENT, detail=f"{field.upper()}_REQUIRED")
     if "competency" in changes:
-        resource.competency = resources.validate_competency(changes["competency"])
+        competency = resources.validate_competency(changes["competency"])
+        grammar_text_only.ensure_resource_allowed(db, db.get(Lesson, resource.lesson_id), resource.resource_type, competency)
+        resource.competency = competency
     if "url" in changes:
         if resource.resource_type != "LINK" or not changes["url"] or not resources.URL_RE.match(changes["url"].strip()):
             raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_CONTENT, detail="INVALID_URL: https:// links only")

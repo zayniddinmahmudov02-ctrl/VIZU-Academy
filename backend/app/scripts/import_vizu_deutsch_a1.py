@@ -26,18 +26,23 @@ Options for rebuilding a lesson from the book (explicit, per module):
   --lesson-meta                 set the lesson title / description from the book
   --images                      attach the book's page images as (draft) image
                                 resources of the matching competencies
+  --remove-grammar-images --archive-dir DIR
+                                only archive + remove the outdated Grammatik
+                                images (image resources, retired book pages,
+                                images in the Grammatik text); nothing else
 
-    python -m app.scripts.import_vizu_deutsch_a1 --dry-run
-    python -m app.scripts.import_vizu_deutsch_a1
-    python -m app.scripts.import_vizu_deutsch_a1 --modules 1 --replace --archive-dir /var/backups/vizu/a1-l1 --lesson-meta --images
-    python -m app.scripts.import_vizu_deutsch_a1 --modules 1 2 --publish
+Without --replace an existing lesson keeps its old content (new items are
+skipped by content_id) — to rebuild lessons from the book always use --replace.
+
+    python -m app.scripts.import_vizu_deutsch_a1 --modules 1 2 3 4 5 6 7 8 9 10 11 12 13 14 --replace \\
+        --archive-dir /var/backups/vizu/a1 --lesson-meta --images --publish --dry-run
+    python -m app.scripts.import_vizu_deutsch_a1 --remove-grammar-images --archive-dir /var/backups/vizu/a1-grammar --dry-run
 """
 
 import argparse
 import asyncio
 import importlib
 import json
-import re
 from datetime import date, datetime, timezone
 from decimal import Decimal
 from pathlib import Path
@@ -56,6 +61,7 @@ from app.models.speaking import Speaking
 from app.models.vocabulary import Vocabulary
 from app.models.writing import Writing
 from app.services.content_import import service as importer
+from app.services.lms import grammar_text_only
 
 DATA_DIR = Path(__file__).resolve().parents[1] / "data" / "vizu_deutsch_a1"
 IMAGE_DIR = DATA_DIR / "images"
@@ -66,17 +72,6 @@ CONTENT = (("readings", Reading), ("listenings", Listening), ("writings", Writin
            ("grammars", Grammar), ("vocabularies", Vocabulary), ("skill_exercises", SkillExercise))
 # rows referencing these are student history: never deleted
 STUDENT_HISTORY = {"lesson_skill_attempts", "student_writings", "student_speakings", "ai_evaluations"}
-# an image embedded in a competency text (admin HTML), with an optional wrapping <figure>/<p>
-_IMG = re.compile(r"<figure\b[^>]*>\s*<img\b[^>]*>.*?</figure>|<img\b[^>]*>", re.IGNORECASE | re.DOTALL)
-
-
-def strip_images(html: str) -> str:
-    """The competency text without its embedded images (and the paragraphs
-    that held nothing but an image)."""
-    out = _IMG.sub("", html)
-    return re.sub(r"<p\b[^>]*>\s*(?:<br\s*/?>\s*)*</p>", "", out, flags=re.IGNORECASE).strip()
-
-
 def load(n: int) -> dict:
     return json.loads((DATA_DIR / f"modul_{n:02d}.json").read_text(encoding="utf-8"))
 
@@ -146,8 +141,20 @@ def replace_plan(db, lesson: Lesson, document: dict, mod=None) -> dict:
     images = [r for r in db.scalars(select(LearningResource).where(LearningResource.lesson_id == lesson.id, LearningResource.resource_type == "IMAGE"))
               if r.competency == "GRAMMATIK" or r.title in retired]
     grammar_texts = [c for c in db.scalars(select(LessonCompetency).where(LessonCompetency.lesson_id == lesson.id, LessonCompetency.kind == "GRAMMATIK"))
-                     if c not in competencies and _IMG.search(c.body or "")]
+                     if c not in competencies and grammar_text_only.has_images(c.body)]
     return {"rows": rows, "competencies": competencies, "images": images, "grammar_texts": grammar_texts}
+
+
+def grammar_image_plan(db, lesson: Lesson, mod=None) -> dict:
+    """--remove-grammar-images: only the outdated images (Grammatik image
+    resources, retired book pages, images in the Grammatik text); the
+    lesson's content stays as it is."""
+    retired = set(getattr(mod, "RETIRED_IMAGE_TITLES", []))
+    images = [r for r in db.scalars(select(LearningResource).where(LearningResource.lesson_id == lesson.id, LearningResource.resource_type == "IMAGE"))
+              if r.competency == "GRAMMATIK" or r.title in retired]
+    grammar_texts = [c for c in db.scalars(select(LessonCompetency).where(LessonCompetency.lesson_id == lesson.id, LessonCompetency.kind == "GRAMMATIK"))
+                     if grammar_text_only.has_images(c.body)]
+    return {"rows": [], "competencies": [], "images": images, "grammar_texts": grammar_texts}
 
 
 def print_replace_plan(plan: dict) -> None:
@@ -196,7 +203,7 @@ def execute_replace(db, plan: dict, archive_dir: Path, stamp: str) -> dict:
     for c in plan["competencies"]:
         c.body = None
     for c in plan.get("grammar_texts", []):
-        c.body = strip_images(c.body or "") or None
+        c.body = grammar_text_only.strip_images(c.body or "") or None
     db.commit()
     images = asyncio.run(_remove_images(db, plan["images"], archive_dir))
     return {"deleted": deleted, "archived": archived, "competency_texts_cleared": len(plan["competencies"]),
@@ -281,9 +288,11 @@ def main() -> int:
     parser.add_argument("--archive-dir", help="where --replace writes the removed content (JSON lines)")
     parser.add_argument("--lesson-meta", action="store_true", help="set the lesson title / description from the book")
     parser.add_argument("--images", action="store_true", help="attach the book's page images as image resources")
+    parser.add_argument("--remove-grammar-images", action="store_true",
+                        help="only archive + remove the outdated Grammatik images (needs --archive-dir; content untouched, nothing imported)")
     args = parser.parse_args()
-    if args.replace and not args.archive_dir:
-        parser.error("--replace needs --archive-dir")
+    if (args.replace or args.remove_grammar_images) and not args.archive_dir:
+        parser.error("--replace / --remove-grammar-images need --archive-dir")
     if (args.replace or args.lesson_meta or args.images) and not args.modules:
         parser.error("--replace / --lesson-meta / --images need explicit --modules")
 
@@ -295,6 +304,21 @@ def main() -> int:
         for n in modules:
             document = load(n)
             mod = book_module(n)
+            if args.remove_grammar_images:
+                lesson = lesson_of(db, n)
+                if lesson is None:
+                    print(f"\nModul {n}: lesson A1 -> module {MODULE} -> lesson {n} does not exist — skipped")
+                    failed += 1
+                    continue
+                plan = grammar_image_plan(db, lesson, mod)
+                print(f"\nModul {n} — lesson {lesson.id} ({lesson.title}): {len(plan['images'])} outdated image(s), "
+                      f"{len(plan['grammar_texts'])} Grammatik text(s) with images")
+                for r in plan["images"]:
+                    print(f"    remove  image ({r.competency or 'Lektion'}) {r.title!s:.60}")
+                if not args.dry_run and (plan["images"] or plan["grammar_texts"]):
+                    result = execute_replace(db, plan, Path(args.archive_dir) / f"modul_{n:02d}", stamp)
+                    print(f"  -> {result}")
+                continue
             lesson = lesson_of(db, n) if (args.replace or args.lesson_meta or args.images) else None
             if (args.replace or args.lesson_meta or args.images) and lesson is None:
                 print(f"\nModul {n}: lesson A1 -> module {MODULE} -> lesson {n} does not exist — skipped")

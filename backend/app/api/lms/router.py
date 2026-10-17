@@ -21,7 +21,7 @@ from app.models.lms import COMPETENCY_ORDER, LearningResource
 from app.models.user import User
 from app.models.video import Video
 from app.models.video_progress import VideoProgress
-from app.services.lms import progress, resources, structure
+from app.services.lms import grammar_text_only, progress, resources, structure
 from app.services.lms.access import lesson_access
 from app.services.video.service import log_missing_file, stored_file_path
 
@@ -107,6 +107,11 @@ def get_lesson(lesson_id: UUID, db: Session = Depends(get_db), user: User = Depe
     if not access.unlocked:
         for c in view["competencies"]:
             c["body"] = None
+    text_only = grammar_text_only.applies(db, lesson)
+    if text_only:
+        for c in view["competencies"]:
+            if c["kind"] == grammar_text_only.GRAMMATIK and grammar_text_only.has_images(c.get("body")):
+                c["body"] = grammar_text_only.strip_images(c["body"]) or None
     return {
         "lesson": {
             "id": lesson.id,
@@ -121,7 +126,10 @@ def get_lesson(lesson_id: UUID, db: Session = Depends(get_db), user: User = Depe
         "competency_order": list(COMPETENCY_ORDER),
         **view,
         "videos": _videos(db, user, lesson.id) if access.unlocked else [],
-        "resources": [_student_resource(r) for r in resources.lesson_resources(db, lesson.id, published_only=True)] if access.unlocked else [],
+        "resources": [
+            _student_resource(r) for r in resources.lesson_resources(db, lesson.id, published_only=True)
+            if not (text_only and grammar_text_only.is_grammar_image(r))
+        ] if access.unlocked else [],
     }
 
 

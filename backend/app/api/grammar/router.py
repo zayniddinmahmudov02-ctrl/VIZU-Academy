@@ -14,6 +14,7 @@ from app.schemas.grammar import (
 )
 
 from app.services.grammar import GrammarService
+from app.services.lms import grammar_text_only
 from app.services.lms.access import ensure_lesson_open
 
 router = APIRouter(
@@ -45,8 +46,19 @@ def get_lesson_grammars(
     A DRAFT grammar item must never reach a student. require_lesson_access
     gates the free-3-lessons-per-level / Premium rule; require_grammar_unlocked
     is a permanent no-op now (sections are no longer sequentially gated)
-    kept only to avoid touching this call site."""
-    return GrammarService(db).get_by_lesson(lesson_id, published_only=True)
+    kept only to avoid touching this call site. Text-only levels (A1) never
+    show images in the rules (app/services/lms/grammar_text_only.py)."""
+    rows = GrammarService(db).get_by_lesson(lesson_id, published_only=True)
+    if not rows or not grammar_text_only.applies(db, db.get(Lesson, rows[0].lesson_id)):
+        return rows
+    return [_text_only(g) for g in rows]
+
+
+def _text_only(grammar) -> GrammarResponse:
+    out = GrammarResponse.model_validate(grammar)
+    if grammar_text_only.has_images(out.content):
+        out = out.model_copy(update={"content": grammar_text_only.strip_images(out.content)})
+    return out
 
 
 @router.post("/lesson/{lesson_id}/complete")
@@ -87,4 +99,4 @@ def get_grammar(
         raise HTTPException(status_code=403, detail="PREMIUM_REQUIRED")
     ensure_lesson_open(db, current_user, lesson)
 
-    return grammar
+    return _text_only(grammar) if grammar_text_only.applies(db, lesson) else grammar

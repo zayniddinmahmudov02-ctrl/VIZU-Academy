@@ -218,13 +218,38 @@ class SchreibenPracticeTests(unittest.TestCase):
 
 class GrammatikTextImageTests(unittest.TestCase):
     def test_strip_images_keeps_the_text(self):
-        from app.scripts.import_vizu_deutsch_a1 import strip_images
+        from app.services.lms.grammar_text_only import strip_images
 
         html = ('<h3>Alphabet</h3><p><img src="/u/poster.png" alt="Poster"></p><p>Text bleibt.</p>'
                 '<figure class="img"><IMG src="a.jpg"><figcaption>Buch S. 5</figcaption></figure><table><tr><td>A</td></tr></table>')
         self.assertEqual(strip_images(html), "<h3>Alphabet</h3><p>Text bleibt.</p><table><tr><td>A</td></tr></table>")
         self.assertEqual(strip_images('<p><img src="x.png"></p>'), "")
         self.assertEqual(strip_images("<pre>kein Bild</pre>"), "<pre>kein Bild</pre>")
+
+    def test_a1_grammatik_refuses_images_other_levels_unchanged(self):
+        from unittest import mock
+
+        from fastapi import HTTPException
+
+        from app.services.lms import grammar_text_only as g
+
+        res = lambda comp, kind: type("R", (), {"competency": comp, "resource_type": kind})()  # noqa: E731
+        self.assertTrue(g.is_grammar_image(res("GRAMMATIK", "IMAGE")))
+        self.assertFalse(g.is_grammar_image(res("GRAMMATIK", "AUDIO")))
+        self.assertFalse(g.is_grammar_image(res("EINFUEHRUNG", "IMAGE")))
+        for level, refused in (("A1", True), ("B1", False)):
+            course = type("C", (), {"level": level})()
+            with self.subTest(level=level), mock.patch.object(g.structure, "lesson_level", return_value=(course, None)):
+                self.assertEqual(g.applies(None, object()), refused)
+                if refused:
+                    with self.assertRaises(HTTPException) as ctx:
+                        g.ensure_resource_allowed(None, object(), "image", "grammatik")
+                    self.assertEqual(ctx.exception.status_code, 422)
+                else:
+                    g.ensure_resource_allowed(None, object(), "IMAGE", "GRAMMATIK")
+                g.ensure_resource_allowed(None, object(), "AUDIO", "GRAMMATIK")
+                g.ensure_resource_allowed(None, object(), "IMAGE", "EINFUEHRUNG")
+        self.assertFalse(g.applies(None, None))
 
 
 if __name__ == "__main__":
