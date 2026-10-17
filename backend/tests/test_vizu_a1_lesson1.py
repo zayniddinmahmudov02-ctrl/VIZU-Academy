@@ -216,5 +216,16 @@ class SchreibenPracticeTests(unittest.TestCase):
         self.assertEqual(merged["status"], results.NOT_STARTED)
 
 
+class GrammatikTextImageTests(unittest.TestCase):
+    def test_strip_images_keeps_the_text(self):
+        from app.scripts.import_vizu_deutsch_a1 import strip_images
+
+        html = ('<h3>Alphabet</h3><p><img src="/u/poster.png" alt="Poster"></p><p>Text bleibt.</p>'
+                '<figure class="img"><IMG src="a.jpg"><figcaption>Buch S. 5</figcaption></figure><table><tr><td>A</td></tr></table>')
+        self.assertEqual(strip_images(html), "<h3>Alphabet</h3><p>Text bleibt.</p><table><tr><td>A</td></tr></table>")
+        self.assertEqual(strip_images('<p><img src="x.png"></p>'), "")
+        self.assertEqual(strip_images("<pre>kein Bild</pre>"), "<pre>kein Bild</pre>")
+
+
 if __name__ == "__main__":
     unittest.main()

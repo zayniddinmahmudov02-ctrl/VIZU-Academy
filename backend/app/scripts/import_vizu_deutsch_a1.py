@@ -37,6 +37,7 @@ import argparse
 import asyncio
 import importlib
 import json
+import re
 from datetime import date, datetime, timezone
 from decimal import Decimal
 from pathlib import Path
@@ -65,6 +66,15 @@ CONTENT = (("readings", Reading), ("listenings", Listening), ("writings", Writin
            ("grammars", Grammar), ("vocabularies", Vocabulary), ("skill_exercises", SkillExercise))
 # rows referencing these are student history: never deleted
 STUDENT_HISTORY = {"lesson_skill_attempts", "student_writings", "student_speakings", "ai_evaluations"}
+# an image embedded in a competency text (admin HTML), with an optional wrapping <figure>/<p>
+_IMG = re.compile(r"<figure\b[^>]*>\s*<img\b[^>]*>.*?</figure>|<img\b[^>]*>", re.IGNORECASE | re.DOTALL)
+
+
+def strip_images(html: str) -> str:
+    """The competency text without its embedded images (and the paragraphs
+    that held nothing but an image)."""
+    out = _IMG.sub("", html)
+    return re.sub(r"<p\b[^>]*>\s*(?:<br\s*/?>\s*)*</p>", "", out, flags=re.IGNORECASE).strip()
 
 
 def load(n: int) -> dict:
@@ -113,7 +123,8 @@ def replace_plan(db, lesson: Lesson, document: dict, mod=None) -> dict:
     (student history), the competency texts the module brings, and the
     lesson's image resources that are outdated: every image of the
     Grammatik competency (grammar is taught as text / tables) and the book
-    page images an earlier import attached that the module retired.
+    page images an earlier import attached that the module retired; images
+    embedded in the Grammatik competency text are stripped from it.
     Videos, audio, PDFs and other resources are never touched."""
     from app.scripts.course_content_audit import fk_edges
     from app.scripts.legacy_content_cleanup import HISTORY_TABLES, cascade
@@ -134,14 +145,17 @@ def replace_plan(db, lesson: Lesson, document: dict, mod=None) -> dict:
     retired = set(getattr(mod, "RETIRED_IMAGE_TITLES", []))
     images = [r for r in db.scalars(select(LearningResource).where(LearningResource.lesson_id == lesson.id, LearningResource.resource_type == "IMAGE"))
               if r.competency == "GRAMMATIK" or r.title in retired]
-    return {"rows": rows, "competencies": competencies, "images": images}
+    grammar_texts = [c for c in db.scalars(select(LessonCompetency).where(LessonCompetency.lesson_id == lesson.id, LessonCompetency.kind == "GRAMMATIK"))
+                     if c not in competencies and _IMG.search(c.body or "")]
+    return {"rows": rows, "competencies": competencies, "images": images, "grammar_texts": grammar_texts}
 
 
 def print_replace_plan(plan: dict) -> None:
     deletes = [r for r in plan["rows"] if r["action"] == "delete"]
     archives = [r for r in plan["rows"] if r["action"] == "archive"]
     print(f"  replace: {len(deletes)} row(s) to delete, {len(archives)} with student history to hide as [Archiv], "
-          f"{len(plan['competencies'])} competency text(s) to clear, {len(plan['images'])} outdated image(s) to remove")
+          f"{len(plan['competencies'])} competency text(s) to clear, {len(plan['images'])} outdated image(s) to remove, "
+          f"{len(plan.get('grammar_texts', []))} Grammatik text(s) with embedded images to strip")
     for r in plan["images"]:
         print(f"    remove  image ({r.competency or 'Lektion'}) {r.title!s:.60}")
     for r in plan["rows"]:
@@ -155,7 +169,7 @@ def execute_replace(db, plan: dict, archive_dir: Path, stamp: str) -> dict:
             for table, ids in r["affected"].items():
                 for row in db.execute(text(f'SELECT * FROM "{table}" WHERE id = ANY(CAST(:v AS uuid[]))'), {"v": ids}).mappings():
                     fh.write(json.dumps({"root": f"{r['table']}:{r['id']}", "table": table, "row": dict(row)}, default=_json_default, ensure_ascii=False) + "\n")
-        for c in plan["competencies"]:
+        for c in [*plan["competencies"], *plan.get("grammar_texts", [])]:
             fh.write(json.dumps({"root": f"lesson_competencies:{c.id}", "table": "lesson_competencies",
                                  "row": {"id": c.id, "lesson_id": c.lesson_id, "kind": c.kind, "body": c.body}}, default=_json_default, ensure_ascii=False) + "\n")
     deleted = archived = 0
@@ -181,9 +195,12 @@ def execute_replace(db, plan: dict, archive_dir: Path, stamp: str) -> dict:
         archived += 1
     for c in plan["competencies"]:
         c.body = None
+    for c in plan.get("grammar_texts", []):
+        c.body = strip_images(c.body or "") or None
     db.commit()
     images = asyncio.run(_remove_images(db, plan["images"], archive_dir))
-    return {"deleted": deleted, "archived": archived, "competency_texts_cleared": len(plan["competencies"]), "images_removed": images}
+    return {"deleted": deleted, "archived": archived, "competency_texts_cleared": len(plan["competencies"]),
+            "grammar_text_images_stripped": len(plan.get("grammar_texts", [])), "images_removed": images}
 
 
 async def _remove_images(db, images: list, archive_dir: Path) -> int:
