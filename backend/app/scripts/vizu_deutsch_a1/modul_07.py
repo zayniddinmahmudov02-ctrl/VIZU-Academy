@@ -111,6 +111,10 @@ LESEN = [
     mc("Was macht sie am Eiffelturm?", ["Sie macht Fotos.", "Sie isst.", "Sie schläft."], "A"),
     mc("Was kauft sie?", ["Bücher", "Souvenirs für Lili", "Kleidung"], "B"),
     mc("Wann war sie im zweiten Brief in Paris?", ["Heute", "Gestern", "Morgen"], "B", "Brief 2: „ich war gestern in Paris.“", passage=2),
+    tf("Brief 2: Das Wetter war schlecht.", False, "Brief 2: „Das Wetter war schön.“", passage=2),
+    mc("Brief 2: „Ich ___ viele schöne Gebäude.“ — welches Wort steht im Brief?", ["sah", "sehe", "sehen"], "A",
+       "Brief 2: „Ich ging spazieren und sah viele schöne Gebäude.“", passage=2),
+    tf("Brief 2: Die Person kaufte Souvenirs für Lili.", True, "Brief 2: „Ich kaufte auch Souvenirs für dich.“", passage=2),
 ]
 
 HOEREN_TEXT = ("Gestern [[1]] ich in Taschkent. Ich [[2]] am Morgen an und das Wetter [[3]] schön. Zuerst [[4]] ich in einem kleinen Café. "
@@ -180,7 +184,7 @@ def items() -> list[dict]:
              metadata={"book_page": "74-75", "note": "Savollar kitobdan (javob variantlari VIZU tomonidan)."},
              passages=[{"title": "Brief 1: Mein erster Tag in Paris", "text": f"{BRIEF_1}\n\nO'zbekcha tarjima: {BRIEF_1_UZ}"},
                        {"title": "Brief 2: Mein Tag in Paris", "text": f"{BRIEF_2}\n\nO'zbekcha tarjima: {BRIEF_2_UZ}"}],
-             questions=LESEN, max_score=len(LESEN)),
+             questions=LESEN, max_score=sum(q["points"] for q in LESEN)),
         base(L, "hoeren", 1, "Hören: Mein Tag in Taschkent", page=76, audio_file="A1-7.mp3",
              instruction="Höre den Text und ergänze die Lücken mit den passenden Wörtern: sah, aß, ging, war, kaufte, probierte, machte, trank, "
                          "frühstückte, besuchte, ruhte, kam, war, ging, aß, ging, war, war.",

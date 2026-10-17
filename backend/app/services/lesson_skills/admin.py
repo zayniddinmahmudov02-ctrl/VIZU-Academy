@@ -39,13 +39,14 @@ from app.services.lesson_skills.results import lesson_skill_results
 
 listening_storage = ProtectedLessonListeningStorage()
 
-MAX_AUDIO_BYTES = 25 * 1024 * 1024
+MAX_AUDIO_BYTES = 100 * 1024 * 1024  # the book audio files reach ~27 MB
 # extension -> (content type, accepted declared types)
 AUDIO_FORMATS = {
     "mp3": ("audio/mpeg", {"audio/mpeg", "audio/mp3"}),
     "wav": ("audio/wav", {"audio/wav", "audio/x-wav", "audio/wave"}),
     "m4a": ("audio/mp4", {"audio/mp4", "audio/x-m4a", "audio/m4a"}),
 }
+ALL_AUDIO_TYPES = set().union(*(types for _, types in AUDIO_FORMATS.values()))
 
 
 def _now() -> datetime:
@@ -220,13 +221,16 @@ async def upload_listening_audio(db: Session, listening_id: UUID, file: UploadFi
     head = await file.read(16)
     await file.seek(0)
     detected = _detect_audio(head)
-    if detected is None or declared not in AUDIO_FORMATS[detected][1]:
+    # the content decides: book files named .mp3 are sometimes WAV (A1-3.mp3, A1-5.mp3) and the
+    # browser declares them audio/mpeg — any declared audio type is fine, the stored type is the detected one
+    declared_ok = detected is not None and (declared in AUDIO_FORMATS[detected][1] or declared in ALL_AUDIO_TYPES)
+    if not declared_ok:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="UNSUPPORTED_AUDIO: allowed are MP3, WAV and M4A files.")
     name = f"{uuid4().hex}.{detected}"
     try:
         await listening_storage.upload(file, name, max_bytes=MAX_AUDIO_BYTES)
     except ValueError:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="AUDIO_TOO_LARGE: max 25 MB.") from None
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="AUDIO_TOO_LARGE: max 100 MB.") from None
     if listening.audio_storage_path:
         await listening_storage.delete(listening.audio_storage_path)
     listening.audio_storage_path = name

@@ -142,10 +142,14 @@ LESEN = [
     tf("Im Winter sind die Tage lang und die Nächte kurz.", False, "„Die Tage sind kurz und die Nächte sind lang.“", passage=1),
     mc("Warum ist Bonn im Frühling schön?", ["Weil es dort viele Feste gibt", "Weil viele Bäume und Blumen blühen", "Weil es dort schneit"], "B", passage=2),
     tf("Freiburg ist sonnig und liegt nah an der Natur.", True, passage=2),
+    tf("Im Frühling regnet es nie.", False, "„Es regnet manchmal, aber die Luft ist frisch und angenehm.“", passage=2),
     mc("Was machen viele Menschen im Sommer?", ["Sie bleiben zu Hause.", "Sie reisen, gehen schwimmen oder sitzen im Café.", "Sie fahren Ski."], "B", passage=3),
     mc("Warum fahren viele Leute im Sommer nach Berlin?", ["Wegen der Feste, Parks und Seen", "Wegen des Weihnachtsmarkts", "Wegen der Berge"], "A", passage=3),
+    mc("Was ist im Sommer sehr beliebt?", ["Parks und Seen", "Weihnachtsmärkte", "Kirschblüten"], "A", "„Parks und Seen sind sehr beliebt.“", passage=3),
     mc("Welche Farben haben die Blätter im Herbst?", ["Grün und blau", "Gelb, rot und braun", "Weiß"], "B", passage=4),
     tf("Weimar ist im Herbst gut zu besuchen, denn es gibt dort viel Kultur und Geschichte.", True, passage=4),
+    mc("Warum kann man im Herbst Heidelberg besuchen?", ["Weil die Stadt ruhig und romantisch ist.", "Weil es dort viele Feste gibt.",
+                                                         "Weil die Stadt einen großen Hafen hat."], "A", "„… weil die Stadt ruhig und romantisch ist.“", passage=4),
     mc("Welche Jahreszeit ist ideal für Weihnachtsmärkte?", ["Der Sommer", "Der Herbst", "Der Winter"], "C", passage=1),
 ]
 
@@ -158,6 +162,8 @@ HOEREN_TEXT = ("Wetterbericht 1: Guten Morgen! Hier ist der Wetterbericht für h
                "Wetter angenehm. In [[11]] steigen die Temperaturen auf [[12]] Grad. Am Abend bleibt es mild. Ein perfekter Tag für einen Spaziergang. "
                "Das war der Wetterbericht. Auf Wiederhören!")
 HOEREN_GAPS = {str(i): [] for i in range(1, 13)}
+HOEREN_TEXT_1, _rest = HOEREN_TEXT.split("\nWetterbericht 2: ")
+HOEREN_TEXT_2 = "Wetterbericht 2: " + _rest
 OLD_SHEET_HINT = ("Eski javoblar varag'i (tekshirilmagan): 1) Berlin 2) 8 3) Hamburg 4) 7 5) Köln 6) 12 7) München 8) 16 9) Stuttgart 10) 17 "
                   "11) Frankfurt 12) 24")
 
@@ -207,12 +213,18 @@ def items() -> list[dict]:
         base(L, "lesen", 1, "Lesen: Die Jahreszeiten in Deutschland", page=121, source="vizu",
              instruction="Lesen Sie die Texte und beantworten Sie die Fragen.",
              metadata={"book_page": 121, "note": "Matnlar kitobdan; savollar VIZU tomonidan matn asosida tuzilgan."},
-             passages=[{"title": t, "text": x} for t, x in TEXTS.items()], questions=LESEN, max_score=len(LESEN)),
-        base(L, "hoeren", 1, "Hören: Wetterberichte", page=122, audio_file="A1-12.1.mp3 / A1-12.2.mp3", key_pending=True,
-             instruction="Hören Sie die Wetterberichte und ergänzen Sie die Städte und die Temperaturen.",
+             passages=[{"title": t, "text": x} for t, x in TEXTS.items()], questions=LESEN, max_score=sum(q["points"] for q in LESEN)),
+        # one task per audio file (A1-12.1.mp3, A1-12.2.mp3): a task holds one audio; gap numbers stay the book's
+        base(L, "hoeren", 1, "Hören: Wetterbericht 1", page=122, audio_file="A1-12.1.mp3", key_pending=True,
+             instruction="Hören Sie den Wetterbericht und ergänzen Sie die Städte und die Temperaturen.",
              metadata={"book_page": 122, "note": "Shahar va haroratlar faqat audiodan aniqlanadi — admin audioni tinglab javoblarni belgilaydi. "
                                                  + OLD_SHEET_HINT},
-             questions=[gap("Wetterbericht — Städte und Temperaturen.", HOEREN_TEXT, HOEREN_GAPS, points=12)]),
+             questions=[gap("Wetterbericht 1 — Städte und Temperaturen.", HOEREN_TEXT_1, {str(i): HOEREN_GAPS[str(i)] for i in range(1, 7)}, points=6)]),
+        base(L, "hoeren", 2, "Hören: Wetterbericht 2", page=122, audio_file="A1-12.2.mp3", key_pending=True,
+             instruction="Hören Sie den Wetterbericht und ergänzen Sie die Städte und die Temperaturen.",
+             metadata={"book_page": 122, "note": "Shahar va haroratlar faqat audiodan aniqlanadi — admin audioni tinglab javoblarni belgilaydi. "
+                                                 + OLD_SHEET_HINT},
+             questions=[gap("Wetterbericht 2 — Städte und Temperaturen.", HOEREN_TEXT_2, {str(i): HOEREN_GAPS[str(i)] for i in range(7, 13)}, points=6)]),
         base(L, "schreiben", 1, "Schreiben: Mein Lieblingswetter", page=123,
              prompt="Was ist dein Lieblingswetter? Warum? Beschreibe das Wetter und was du gern bei diesem Wetter machst. Schreibe 4–5 Sätze.",
              task_type="description", min_words=25, max_words=80, time_limit=10,

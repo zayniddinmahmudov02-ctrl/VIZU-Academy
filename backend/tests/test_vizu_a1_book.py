@@ -63,6 +63,16 @@ class BookModuleStandardTests(unittest.TestCase):
                     seen[key] = item["content_id"]
         self.assertEqual(dups, [])
 
+    def test_every_lesen_text_has_at_least_three_questions(self):
+        for n, _, _, items in self._each():
+            for item in items.values():
+                if item["skill"] != "lesen":
+                    continue
+                per_text = {p: sum(q.get("passage", 1) == p for q in item["questions"]) for p in range(1, len(item["passages"]) + 1)}
+                with self.subTest(modul=n, item=item["content_id"]):
+                    self.assertTrue(all(c >= 3 for c in per_text.values()), per_text)
+                    self.assertEqual(item.get("max_score", sum(q["points"] for q in item["questions"])), sum(q["points"] for q in item["questions"]))
+
     def test_cover_only_and_grammar_as_text(self):
         for n, mod, _, items in self._each():
             with self.subTest(modul=n):

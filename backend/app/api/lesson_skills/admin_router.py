@@ -152,7 +152,7 @@ async def upload_listening_audio(
     db: Session = Depends(get_db),
     _: User = Depends(require_admin_panel_access),
 ):
-    """MP3 / WAV / M4A, max 25 MB; type checked by content, stored privately."""
+    """MP3 / WAV / M4A, max 100 MB; type checked by content, stored privately."""
     return await skill_admin.upload_listening_audio(db, listening_id, file, duration_seconds)
 
 

@@ -20,7 +20,7 @@ import QuestionEditorDialog from "./question-editor-dialog";
 import { ItemCard, PublishBadge, useLessonSkillsOverview } from "./shared";
 
 const EMPTY = { title: "", instruction: "", transcript: "", order_index: 1, is_published: false };
-const MAX_BYTES = 25 * 1024 * 1024;
+const MAX_BYTES = 100 * 1024 * 1024; // the book audio files reach ~27 MB
 const ACCEPT = ".mp3,.wav,.m4a,audio/mpeg,audio/wav,audio/x-wav,audio/mp4,audio/x-m4a";
 
 function formatTime(seconds: number | null): string {
@@ -76,7 +76,7 @@ function AudioPreview({ listeningId, version }: { listeningId: string; version: 
   return <audio key={version} controls src={src} className="w-full max-w-md" />;
 }
 
-/** Hören: tasks with privately stored audio (MP3/WAV/M4A ≤ 25 MB),
+/** Hören: tasks with privately stored audio (MP3/WAV/M4A ≤ 100 MB),
  * transcript (shown to students only after their first attempt) and
  * auto-graded questions. */
 export default function HoerenManager({ lessonId }: { lessonId: string }) {
@@ -159,7 +159,7 @@ export default function HoerenManager({ lessonId }: { lessonId: string }) {
       return;
     }
     if (file.size > MAX_BYTES) {
-      setError("Die Datei ist größer als 25 MB.");
+      setError("Die Datei ist größer als 100 MB.");
       return;
     }
     setUploadingId(id);
@@ -173,7 +173,7 @@ export default function HoerenManager({ lessonId }: { lessonId: string }) {
       <input ref={fileInput} type="file" accept={ACCEPT} className="hidden" onChange={(e) => onFile(e.target.files?.[0])} data-testid="hoeren-file" />
 
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <p className="text-sm text-[var(--admin-text-secondary)]">{tasks.length} Hörtexte · MP3 / WAV / M4A, max. 25 MB, privat gespeichert</p>
+        <p className="text-sm text-[var(--admin-text-secondary)]">{tasks.length} Hörtexte · MP3 / WAV / M4A, max. 100 MB, privat gespeichert</p>
         <AdminButton onClick={openCreate} data-testid="hoeren-new">
           <Plus size={16} /> Neue Höraufgabe
         </AdminButton>

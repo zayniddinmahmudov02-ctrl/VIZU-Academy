@@ -567,14 +567,14 @@
    "module": 1,
    "lesson": 10,
    "skill": "hoeren",
-   "title": "Hören: Im Supermarkt und im Markt",
+   "title": "Hören: Wir sind im Supermarkt (Text 1)",
    "source": "book",
    "metadata": {
     "book_page": "103-104"
    },
-   "audio_file": "A1-10.1.mp3 / A1-10.2.mp3",
-   "instruction": "Hören Sie die zwei Texte und wählen Sie die richtige Antwort (A, B, C).",
-   "transcript": "Text 1 — Wir sind im Supermarkt: Heute sind wir mit unserem Deutschlehrer in den Supermarkt gegangen. Der Lehrer hat uns mitgenommen, um neue Wörter zu lernen. Unsere Aufgabe war, 20 neue Wörter zu schreiben. Wir mussten die Namen von Produkten auf Deutsch und auf Usbekisch aufschreiben, die wir noch nicht kannten. Im Supermarkt haben wir viele neue Sachen gesehen und viel gelernt. Am Ende hat unser Lehrer jedem von uns ein kleines Geschenk gekauft. Wir haben uns sehr gefreut. Heute haben wir 20 neue Wörter gelernt und Geschenke bekommen. Vielen Dank an unseren Lehrer!\n\nO'zbekcha tarjima — Biz supermarketdamiz: Bugun biz nemis tili ustozimiz bilan supermarketga bordik. Ustoz bizni yangi so'zlarni o'rganish uchun olib bordi. Bizning vazifamiz 20 ta yangi so'zni yozish edi. Biz hali bilmagan mahsulotlarning nomlarini nemischa va o'zbekcha qilib yozishimiz kerak edi. Supermarketda biz juda ko'p yangi narsalarni ko'rdik va ko'p bilim oldik. Oxirida ustozimiz har birimizga kichkina sovg'a olib berdi. Biz juda xursand bo'ldik. Bugun biz 20 ta yangi so'z o'rgandik va sovg'alarga ega bo'ldik. Ustozimizga katta rahmat!\n\nText 2 — Wir sind im Markt: Ich heiße Zayd und ich bin 12 Jahre alt. Heute sind wir als Familie in den Markt gegangen. Wir wollten Kleidung für die Schule kaufen. Meine Mutter hat schöne Kleidung für uns Kinder gekauft. Für meine Mutter haben wir auch ein Kopftuch gekauft. Wir waren alle glücklich. Aber mein Vater hat für sich selbst nichts gekauft. Er hat nur auf uns geachtet. Er hat immer gesagt: „Das ist nicht wichtig.“ Als wir nach Hause gekommen sind, habe ich gesehen, dass mein Vater keine neuen Kleider hat. Ich war traurig und habe geweint. Ich habe gesagt: „Papa, du hast für alle Kleidung gekauft, aber für dich nichts.“ Mein Vater hat mich umarmt und gelächelt. Er hat gesagt, dass unsere Freude für ihn das Wichtigste ist. Ich liebe meinen Vater sehr.\n\nO'zbekcha tarjima — Biz bozordamiz: Mening ismim Zayd, men 12 yoshdaman. Bugun biz oilamiz bilan bozorga bordik. Biz maktab uchun kiyim sotib olmoqchi edik. Onam biz bolalar uchun chiroyli kiyimlar oldi. Onam uchun ham bosh kiyim sotib oldik. Biz hammamiz xursand edik. Lekin dadam o'zi uchun hech narsa olmadi. U faqat bizni o'yladi. U doim: «Bu muhim emas», derdi. Uyga qaytganimizda dadamning yangi kiyimi yo'qligini ko'rdim. Men xafa bo'ldim va yig'ladim. Men dedim: «Dada, siz hammaga kiyim oldingiz, lekin o'zingizga hech narsa olmadingiz». Dadam meni quchoqladi va kulib dedi: bizning quvonchimiz u uchun eng muhim narsa ekan. Men dadamni juda yaxshi ko'raman.",
+   "audio_file": "A1-10.1.mp3",
+   "instruction": "Hören Sie Text 1 und wählen Sie die richtige Antwort (A, B, C).",
+   "transcript": "Text 1 — Wir sind im Supermarkt: Heute sind wir mit unserem Deutschlehrer in den Supermarkt gegangen. Der Lehrer hat uns mitgenommen, um neue Wörter zu lernen. Unsere Aufgabe war, 20 neue Wörter zu schreiben. Wir mussten die Namen von Produkten auf Deutsch und auf Usbekisch aufschreiben, die wir noch nicht kannten. Im Supermarkt haben wir viele neue Sachen gesehen und viel gelernt. Am Ende hat unser Lehrer jedem von uns ein kleines Geschenk gekauft. Wir haben uns sehr gefreut. Heute haben wir 20 neue Wörter gelernt und Geschenke bekommen. Vielen Dank an unseren Lehrer!\n\nO'zbekcha tarjima — Biz supermarketdamiz: Bugun biz nemis tili ustozimiz bilan supermarketga bordik. Ustoz bizni yangi so'zlarni o'rganish uchun olib bordi. Bizning vazifamiz 20 ta yangi so'zni yozish edi. Biz hali bilmagan mahsulotlarning nomlarini nemischa va o'zbekcha qilib yozishimiz kerak edi. Supermarketda biz juda ko'p yangi narsalarni ko'rdik va ko'p bilim oldik. Oxirida ustozimiz har birimizga kichkina sovg'a olib berdi. Biz juda xursand bo'ldik. Bugun biz 20 ta yangi so'z o'rgandik va sovg'alarga ega bo'ldik. Ustozimizga katta rahmat!",
    "questions": [
     {
      "type": "multiple_choice",
@@ -647,7 +647,25 @@
      "correct_answer": "C",
      "points": 1,
      "passage": 1
-    },
+    }
+   ],
+   "max_score": 6
+  },
+  {
+   "content_id": "vizu-a1-l10-hoeren-02",
+   "level": "A1",
+   "module": 1,
+   "lesson": 10,
+   "skill": "hoeren",
+   "title": "Hören: Wir sind im Markt (Text 2)",
+   "source": "book",
+   "metadata": {
+    "book_page": "103-104"
+   },
+   "audio_file": "A1-10.2.mp3",
+   "instruction": "Hören Sie Text 2 und wählen Sie die richtige Antwort (A, B, C).",
+   "transcript": "Text 2 — Wir sind im Markt: Ich heiße Zayd und ich bin 12 Jahre alt. Heute sind wir als Familie in den Markt gegangen. Wir wollten Kleidung für die Schule kaufen. Meine Mutter hat schöne Kleidung für uns Kinder gekauft. Für meine Mutter haben wir auch ein Kopftuch gekauft. Wir waren alle glücklich. Aber mein Vater hat für sich selbst nichts gekauft. Er hat nur auf uns geachtet. Er hat immer gesagt: „Das ist nicht wichtig.“ Als wir nach Hause gekommen sind, habe ich gesehen, dass mein Vater keine neuen Kleider hat. Ich war traurig und habe geweint. Ich habe gesagt: „Papa, du hast für alle Kleidung gekauft, aber für dich nichts.“ Mein Vater hat mich umarmt und gelächelt. Er hat gesagt, dass unsere Freude für ihn das Wichtigste ist. Ich liebe meinen Vater sehr.\n\nO'zbekcha tarjima — Biz bozordamiz: Mening ismim Zayd, men 12 yoshdaman. Bugun biz oilamiz bilan bozorga bordik. Biz maktab uchun kiyim sotib olmoqchi edik. Onam biz bolalar uchun chiroyli kiyimlar oldi. Onam uchun ham bosh kiyim sotib oldik. Biz hammamiz xursand edik. Lekin dadam o'zi uchun hech narsa olmadi. U faqat bizni o'yladi. U doim: «Bu muhim emas», derdi. Uyga qaytganimizda dadamning yangi kiyimi yo'qligini ko'rdim. Men xafa bo'ldim va yig'ladim. Men dedim: «Dada, siz hammaga kiyim oldingiz, lekin o'zingizga hech narsa olmadingiz». Dadam meni quchoqladi va kulib dedi: bizning quvonchimiz u uchun eng muhim narsa ekan. Men dadamni juda yaxshi ko'raman.",
+   "questions": [
     {
      "type": "multiple_choice",
      "question": "Text 2: Wie alt ist Zayd?",
@@ -721,7 +739,7 @@
      "passage": 1
     }
    ],
-   "max_score": 12
+   "max_score": 6
   },
   {
    "content_id": "vizu-a1-l10-schreiben-01",

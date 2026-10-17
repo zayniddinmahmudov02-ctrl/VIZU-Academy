@@ -128,6 +128,8 @@ TRANSCRIPT = (
     "yo'qligini ko'rdim. Men xafa bo'ldim va yig'ladim. Men dedim: «Dada, siz hammaga kiyim oldingiz, lekin o'zingizga hech narsa olmadingiz». "
     "Dadam meni quchoqladi va kulib dedi: bizning quvonchimiz u uchun eng muhim narsa ekan. Men dadamni juda yaxshi ko'raman."
 )
+TRANSCRIPT_1, _rest = TRANSCRIPT.split("\n\nText 2 — ")
+TRANSCRIPT_2 = "Text 2 — " + _rest
 HOEREN = [
     mc("Text 1: Wohin sind die Schüler heute gegangen?", ["In die Schule", "In den Supermarkt", "In den Park"], "B"),
     mc("Text 1: Mit wem sind die Schüler in den Supermarkt gegangen?", ["Mit ihren Eltern", "Mit ihrem Freund", "Mit ihrem Deutschlehrer"], "C"),
@@ -186,9 +188,13 @@ def items() -> list[dict]:
              instruction="Lesen Sie die Texte und entscheiden Sie: Richtig oder Falsch?",
              passages=[{"title": "Mein Einkauf im Supermarkt (Familie)", "text": TEXT_1}, {"title": "Mein Einkauf für Wochenende", "text": TEXT_2}],
              questions=LESEN, max_score=len(LESEN)),
-        base(L, "hoeren", 1, "Hören: Im Supermarkt und im Markt", page="103-104", audio_file="A1-10.1.mp3 / A1-10.2.mp3",
-             instruction="Hören Sie die zwei Texte und wählen Sie die richtige Antwort (A, B, C).",
-             transcript=TRANSCRIPT, questions=HOEREN, max_score=len(HOEREN)),
+        # one task per audio file (A1-10.1.mp3, A1-10.2.mp3): a task holds one audio
+        base(L, "hoeren", 1, "Hören: Wir sind im Supermarkt (Text 1)", page="103-104", audio_file="A1-10.1.mp3",
+             instruction="Hören Sie Text 1 und wählen Sie die richtige Antwort (A, B, C).",
+             transcript=TRANSCRIPT_1, questions=HOEREN[:6], max_score=6),
+        base(L, "hoeren", 2, "Hören: Wir sind im Markt (Text 2)", page="103-104", audio_file="A1-10.2.mp3",
+             instruction="Hören Sie Text 2 und wählen Sie die richtige Antwort (A, B, C).",
+             transcript=TRANSCRIPT_2, questions=HOEREN[6:], max_score=6),
         base(L, "schreiben", 1, "Schreiben: Ich gehe einkaufen", page=105,
              prompt="Schreiben Sie einen Text über einen Einkauf:\n1. Matnni boshlash: Ich möchte einkaufen gehen. Heute gehe ich in den Supermarkt.\n"
                     "2. Mit wem? Ich gehe mit meinem Freund einkaufen.\n3. Was möchten Sie kaufen? Ich kaufe Brot, Milch und Obst.\n"

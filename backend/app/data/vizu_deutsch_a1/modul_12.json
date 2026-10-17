@@ -309,6 +309,14 @@
      "correct_answer": "richtig"
     },
     {
+     "type": "true_false",
+     "question": "Im Frühling regnet es nie.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "falsch",
+     "explanation": "„Es regnet manchmal, aber die Luft ist frisch und angenehm.“"
+    },
+    {
      "type": "multiple_choice",
      "question": "Was machen viele Menschen im Sommer?",
      "options": [
@@ -334,6 +342,19 @@
     },
     {
      "type": "multiple_choice",
+     "question": "Was ist im Sommer sehr beliebt?",
+     "options": [
+      "Parks und Seen",
+      "Weihnachtsmärkte",
+      "Kirschblüten"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 3,
+     "explanation": "„Parks und Seen sind sehr beliebt.“"
+    },
+    {
+     "type": "multiple_choice",
      "question": "Welche Farben haben die Blätter im Herbst?",
      "options": [
       "Grün und blau",
@@ -353,6 +374,19 @@
     },
     {
      "type": "multiple_choice",
+     "question": "Warum kann man im Herbst Heidelberg besuchen?",
+     "options": [
+      "Weil die Stadt ruhig und romantisch ist.",
+      "Weil es dort viele Feste gibt.",
+      "Weil die Stadt einen großen Hafen hat."
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 4,
+     "explanation": "„… weil die Stadt ruhig und romantisch ist.“"
+    },
+    {
+     "type": "multiple_choice",
      "question": "Welche Jahreszeit ist ideal für Weihnachtsmärkte?",
      "options": [
       "Der Sommer",
@@ -364,7 +398,7 @@
      "passage": 1
     }
    ],
-   "max_score": 10
+   "max_score": 13
   },
   {
    "content_id": "vizu-a1-l12-hoeren-01",
@@ -372,27 +406,55 @@
    "module": 1,
    "lesson": 12,
    "skill": "hoeren",
-   "title": "Hören: Wetterberichte",
+   "title": "Hören: Wetterbericht 1",
    "source": "book",
    "metadata": {
     "book_page": 122,
     "note": "Shahar va haroratlar faqat audiodan aniqlanadi — admin audioni tinglab javoblarni belgilaydi. Eski javoblar varag'i (tekshirilmagan): 1) Berlin 2) 8 3) Hamburg 4) 7 5) Köln 6) 12 7) München 8) 16 9) Stuttgart 10) 17 11) Frankfurt 12) 24"
    },
-   "audio_file": "A1-12.1.mp3 / A1-12.2.mp3",
+   "audio_file": "A1-12.1.mp3",
    "key_pending": true,
-   "instruction": "Hören Sie die Wetterberichte und ergänzen Sie die Städte und die Temperaturen.",
+   "instruction": "Hören Sie den Wetterbericht und ergänzen Sie die Städte und die Temperaturen.",
    "questions": [
     {
      "type": "gap_fill",
-     "question": "Wetterbericht — Städte und Temperaturen.",
-     "text": "Wetterbericht 1: Guten Morgen! Hier ist der Wetterbericht für heute in Deutschland. Heute ist das Wetter kalt und wechselhaft. Am Morgen ist es bewölkt und es regnet leicht. In [[1]] sind es am Morgen [[2]] Grad. In [[3]] sind es nur [[4]] Grad und es ist windig. Am Mittag steigen die Temperaturen ein bisschen. Am Nachmittag bleibt es kühl. In [[5]] sind es [[6]] Grad und es gibt wenig Regen. Am Abend wird es wieder kälter. Ziehen Sie eine warme Jacke an. Das war der Wetterbericht. Vielen Dank fürs Zuhören.\nWetterbericht 2: Guten Tag! Hier ist der Wetterbericht für morgen in Deutschland. Morgen ist das Wetter sehr schön und sonnig. Am Morgen scheint die Sonne. In [[7]] sind es [[8]] Grad. In [[9]] sind es [[10]] Grad. Am Mittag wird es warm. Am Nachmittag ist das Wetter angenehm. In [[11]] steigen die Temperaturen auf [[12]] Grad. Am Abend bleibt es mild. Ein perfekter Tag für einen Spaziergang. Das war der Wetterbericht. Auf Wiederhören!",
+     "question": "Wetterbericht 1 — Städte und Temperaturen.",
+     "text": "Wetterbericht 1: Guten Morgen! Hier ist der Wetterbericht für heute in Deutschland. Heute ist das Wetter kalt und wechselhaft. Am Morgen ist es bewölkt und es regnet leicht. In [[1]] sind es am Morgen [[2]] Grad. In [[3]] sind es nur [[4]] Grad und es ist windig. Am Mittag steigen die Temperaturen ein bisschen. Am Nachmittag bleibt es kühl. In [[5]] sind es [[6]] Grad und es gibt wenig Regen. Am Abend wird es wieder kälter. Ziehen Sie eine warme Jacke an. Das war der Wetterbericht. Vielen Dank fürs Zuhören.",
      "gaps": {
       "1": [],
       "2": [],
       "3": [],
       "4": [],
       "5": [],
-      "6": [],
+      "6": []
+     },
+     "points": 6,
+     "passage": 1,
+     "case_sensitive": false
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a1-l12-hoeren-02",
+   "level": "A1",
+   "module": 1,
+   "lesson": 12,
+   "skill": "hoeren",
+   "title": "Hören: Wetterbericht 2",
+   "source": "book",
+   "metadata": {
+    "book_page": 122,
+    "note": "Shahar va haroratlar faqat audiodan aniqlanadi — admin audioni tinglab javoblarni belgilaydi. Eski javoblar varag'i (tekshirilmagan): 1) Berlin 2) 8 3) Hamburg 4) 7 5) Köln 6) 12 7) München 8) 16 9) Stuttgart 10) 17 11) Frankfurt 12) 24"
+   },
+   "audio_file": "A1-12.2.mp3",
+   "key_pending": true,
+   "instruction": "Hören Sie den Wetterbericht und ergänzen Sie die Städte und die Temperaturen.",
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "Wetterbericht 2 — Städte und Temperaturen.",
+     "text": "Wetterbericht 2: Guten Tag! Hier ist der Wetterbericht für morgen in Deutschland. Morgen ist das Wetter sehr schön und sonnig. Am Morgen scheint die Sonne. In [[7]] sind es [[8]] Grad. In [[9]] sind es [[10]] Grad. Am Mittag wird es warm. Am Nachmittag ist das Wetter angenehm. In [[11]] steigen die Temperaturen auf [[12]] Grad. Am Abend bleibt es mild. Ein perfekter Tag für einen Spaziergang. Das war der Wetterbericht. Auf Wiederhören!",
+     "gaps": {
       "7": [],
       "8": [],
       "9": [],
@@ -400,7 +462,7 @@
       "11": [],
       "12": []
      },
-     "points": 12,
+     "points": 6,
      "passage": 1,
      "case_sensitive": false
     }

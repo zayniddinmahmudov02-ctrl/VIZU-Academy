@@ -614,9 +614,38 @@
      "points": 1,
      "passage": 2,
      "explanation": "Brief 2: „ich war gestern in Paris.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Brief 2: Das Wetter war schlecht.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "falsch",
+     "explanation": "Brief 2: „Das Wetter war schön.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Brief 2: „Ich ___ viele schöne Gebäude.“ — welches Wort steht im Brief?",
+     "options": [
+      "sah",
+      "sehe",
+      "sehen"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 2,
+     "explanation": "Brief 2: „Ich ging spazieren und sah viele schöne Gebäude.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Brief 2: Die Person kaufte Souvenirs für Lili.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "richtig",
+     "explanation": "Brief 2: „Ich kaufte auch Souvenirs für dich.“"
     }
    ],
-   "max_score": 8
+   "max_score": 11
   },
   {
    "content_id": "vizu-a1-l07-hoeren-01",

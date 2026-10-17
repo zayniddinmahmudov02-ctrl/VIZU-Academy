@@ -302,6 +302,27 @@
      "passage": 1
     },
     {
+     "type": "true_false",
+     "question": "Anna Weber hatte gestern einen Termin in der Praxis von Herrn Becker.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„ich hatte gestern einen Termin in Ihrer Praxis.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Worum bittet Anna Weber?",
+     "options": [
+      "Um einen neuen Termin",
+      "Um ein Rezept",
+      "Um eine Rechnung"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Könnten Sie mir bitte einen neuen Termin geben?“"
+    },
+    {
      "type": "multiple_choice",
      "question": "Warum konnte Julia Fischer nicht zum Termin kommen?",
      "options": [
@@ -314,11 +335,58 @@
      "passage": 2
     },
     {
+     "type": "multiple_choice",
+     "question": "Was möchte Julia Fischer?",
+     "options": [
+      "Einen neuen Termin vereinbaren",
+      "Den Termin absagen",
+      "Herrn Wagner im Büro besuchen"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 2,
+     "explanation": "„Könnten wir bitte einen neuen Termin vereinbaren?“"
+    },
+    {
+     "type": "true_false",
+     "question": "Julia Fischer dankt Herrn Wagner für sein Verständnis.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "richtig",
+     "explanation": "„Vielen Dank für Ihr Verständnis.“"
+    },
+    {
      "type": "true_false",
      "question": "Thomas Schneider und Frau Hoffmann haben über ein neues Projekt gesprochen.",
      "points": 1,
      "passage": 3,
      "correct_answer": "richtig"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wann war das Treffen mit Frau Hoffmann?",
+     "options": [
+      "Letzte Woche",
+      "Gestern",
+      "Am Montag"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 3,
+     "explanation": "„vielen Dank für unser Treffen letzte Woche.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was mussten sie am Ende des Treffens machen?",
+     "options": [
+      "Einen klaren Plan",
+      "Einen neuen Termin",
+      "Eine Pause"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 3,
+     "explanation": "„Am Ende mussten wir einen klaren Plan machen.“"
     },
     {
      "type": "multiple_choice",
@@ -331,9 +399,30 @@
      "correct_answer": "A",
      "points": 1,
      "passage": 4
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wann war das Gespräch von Lukas Müller und Frau Schneider?",
+     "options": [
+      "Am Montag",
+      "Letzte Woche",
+      "Gestern"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 4,
+     "explanation": "„vielen Dank für das Gespräch am Montag.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Lukas Müller hat viele Informationen über die Stelle bekommen.",
+     "points": 1,
+     "passage": 4,
+     "correct_answer": "richtig",
+     "explanation": "„Ich konnte viele Informationen über die Stelle bekommen.“"
     }
    ],
-   "max_score": 8
+   "max_score": 16
   },
   {
    "content_id": "vizu-a1-l13-hoeren-01",

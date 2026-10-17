@@ -106,7 +106,10 @@ async def _store(lesson_id: UUID, resource_type: str, file: UploadFile) -> dict:
     head = await file.read(16)
     await file.seek(0)
     ext = _detect(resource_type, head, file.filename or "")
-    if ext is None or declared not in FORMATS[resource_type][ext][1]:
+    # the content decides the format (a WAV named .mp3 is declared audio/mpeg by the browser); the declared
+    # type only has to belong to the same resource type — the stored type is always the detected one
+    family = set().union(*(types for _, types in FORMATS[resource_type].values()))
+    if ext is None or declared not in family:
         allowed = ", ".join(e.upper() for e in FORMATS[resource_type])
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"UNSUPPORTED_FILE: {resource_type} allows {allowed}")
     key = f"{lesson_id}/{uuid4().hex}.{ext}"
