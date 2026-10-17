@@ -34,6 +34,13 @@ export function kindFromSlug(slug: string): CompetencyKind | null {
   return entry ? (entry[0] as CompetencyKind) : null;
 }
 
+/** Video-Unterricht: shown before Einführung — the lesson's videos (all
+ * competencies) from GET /lms/lessons/{id}. Not a backend competency: it has
+ * no position, progress row or score of its own; watching still reports to
+ * the existing video progress API. */
+export const VIDEO_SLUG = "video-unterricht";
+export const videoHref = (lessonId: string) => `/lektion/${lessonId}/${VIDEO_SLUG}`;
+
 export const lessonHref = (lessonId: string) => `/lektion/${lessonId}`;
 export const competencyHref = (lessonId: string, kind: CompetencyKind) => `/lektion/${lessonId}/${COMPETENCY_META[kind].slug}`;
 export const levelHref = (level: string) => `/kurse/${level.toLowerCase()}`;

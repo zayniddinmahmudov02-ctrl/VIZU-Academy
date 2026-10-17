@@ -112,7 +112,8 @@ export default function LmsCompetencyContent({
 }) {
   const lessonId = data.lesson.id;
   const kind = competency.kind;
-  const videos = data.videos.filter((v) => v.competency === kind);
+  // Einführung videos (the default) are shown in Video-Unterricht before it — not twice
+  const videos = kind === "EINFUEHRUNG" ? [] : data.videos.filter((v) => v.competency === kind);
   const resources = data.resources.filter((r) => r.competency === kind);
 
   let section: ReactNode = null;
