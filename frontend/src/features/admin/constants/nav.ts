@@ -7,6 +7,7 @@ import {
   Crown,
   FlaskConical,
   Layers,
+  KeyRound,
   Globe,
   LayoutDashboard,
   Megaphone,
@@ -24,6 +25,8 @@ export interface AdminNavItem {
   label: string;
   href: string;
   icon: LucideIcon;
+  /** shown indented under the item above it (e.g. Lösung under LMS A1–C1) */
+  child?: boolean;
 }
 
 export interface AdminNavGroup {
@@ -45,6 +48,7 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
       { label: "Languages", href: "/admin/languages", icon: Globe },
       { label: "Kurse (LMS)", href: "/admin/kurse", icon: BookOpenCheck },
       { label: "LMS A1–C1", href: "/admin/lms", icon: Layers },
+      { label: "Lösung", href: "/admin/lms/loesung", icon: KeyRound, child: true },
       { label: "Media Management", href: "/admin/media-management", icon: Clapperboard },
       { label: "Vorbereitung", href: "/admin/mock-exams", icon: ShieldCheck },
       { label: "VIZU-Multilevel", href: "/admin/vizu-multilevel", icon: FlaskConical },

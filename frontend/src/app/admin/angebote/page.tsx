@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Loader2, RotateCcw, Save } from "lucide-react";
@@ -46,7 +46,12 @@ export default function AngebotePage() {
     setLevels({ ...cfg.levels });
     setFree(String(cfg.free_lessons));
   }
-  useEffect(() => { if (data) load(data); }, [data]);
+  // adopt freshly loaded / saved config (state adjusted during render, not in an effect)
+  const [loadedFrom, setLoadedFrom] = useState<AngeboteConfig | null>(null);
+  if (data && data !== loadedFrom) {
+    setLoadedFrom(data);
+    load(data);
+  }
 
   async function save() {
     if (!data) return;

@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import Link from "next/link";
-import { ChevronRight, FileJson } from "lucide-react";
+import { ChevronRight, FileJson, KeyRound } from "lucide-react";
 
 import { AdminButton, AdminPageHeader } from "@/components/admin/admin-ui";
 import { useCrudList } from "@/features/admin/hooks/use-crud";
@@ -32,11 +32,18 @@ export default function LmsPageClient() {
         title="LMS A1–C1"
         description="Kurse nach Niveau: Module, Lektionen und die vier Fertigkeiten Lesen, Hören, Schreiben, Sprechen."
         action={
-          <Link href="/admin/lms/import">
-            <AdminButton data-testid="lms-import-link">
-              <FileJson size={16} /> Inhalte importieren
-            </AdminButton>
-          </Link>
+          <div className="flex flex-wrap gap-2">
+            <Link href="/admin/lms/loesung">
+              <AdminButton variant="secondary" data-testid="lms-loesung-link">
+                <KeyRound size={16} /> Lösung
+              </AdminButton>
+            </Link>
+            <Link href="/admin/lms/import">
+              <AdminButton data-testid="lms-import-link">
+                <FileJson size={16} /> Inhalte importieren
+              </AdminButton>
+            </Link>
+          </div>
         }
       />
 
