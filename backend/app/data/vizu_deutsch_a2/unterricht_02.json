@@ -1,0 +1,1635 @@
+{
+ "schema_version": "1.2",
+ "language": "de",
+ "source": "vizu-deutsch-a2-book",
+ "items": [
+  {
+   "content_id": "vizu-a2-l02-kompetenz-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 2,
+   "skill": "kompetenz",
+   "title": "Einführung: A2 2. Unterricht",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 19
+   },
+   "competency": "EINFUEHRUNG",
+   "html": "<h3>A2 2. Unterricht — Digitaler Alltag und soziale Medien</h3><p><strong>Mavzu:</strong> Digitaler Alltag und soziale Medien · <strong>Grammatik:</strong> Konditionalsätze – wenn</p><h4>Dars maqsadlari</h4><ul><li>„wenn“ bilan shart ergash gapini tuzish: Wenn ich Zeit habe, lerne ich Deutsch.;</li><li>ergash gapda fe'l oxirda turishini qo'llash;</li><li>ijtimoiy tarmoqlar va internet haqidagi so'zlarni o'rganish.</li></ul><h4>Dars oxirida siz quyidagilarni bajara olasiz</h4><ul><li>ijtimoiy tarmoqlardan nima uchun foydalanishingizni aytasiz;</li><li>Lukas, Anna va Thomasning matnlarini o'qib tushunasiz;</li><li>radio-ko'rsatuvni tinglab, kim nima deganini aniqlaysiz;</li><li>do'stingizga o'tkazib yuborilgan qo'ng'iroq haqida e-mail yozasiz.</li></ul><h4>Darsning tuzilishi</h4><p>Einführung → Wortschatz → Grammatik → Lesen → Hören → Sprechen → Schreiben → Übungen → Abschlusstest → Zusammenfassung</p>"
+  },
+  {
+   "content_id": "vizu-a2-l02-frage-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 2,
+   "skill": "frage",
+   "title": "Frage des Themas: Wie beeinflusst das Internet unseren Alltag?",
+   "source": "book",
+   "metadata": {
+    "book_page": 20
+   },
+   "prompt": "Wie beeinflusst das Internet unseren Alltag? Deine Meinung zählt!",
+   "questions": [
+    "Das Internet spart uns Zeit.",
+    "Das Internet verbindet uns mit der Welt.",
+    "Das Internet hilft uns beim Lernen.",
+    "Das Internet macht das Einkaufen leichter."
+   ],
+   "min_duration": 10,
+   "max_duration": 120
+  },
+  {
+   "content_id": "vizu-a2-l02-grammatik-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 2,
+   "skill": "grammatik",
+   "title": "Grammatik: Konditionalsätze mit wenn",
+   "source": "book",
+   "metadata": {
+    "book_page": "21-22"
+   },
+   "rules": [
+    {
+     "title": "Die Konditionalsätze",
+     "html": "<h3>Die Konditionalsätze</h3><h4>Erklärung</h4><p>Konditionalsätze zeigen eine Bedingung. Eine Handlung passiert <strong>nur wenn</strong> etwas passiert.</p><h4>Struktur</h4><ol><li><strong>Wenn + Nebensatz, Hauptsatz</strong> — <em>Wenn</em> ich Zeit <em>habe</em>, <strong>lerne</strong> ich Deutsch.</li><li><strong>Hauptsatz + wenn + Nebensatz</strong> — Ich <strong>lerne</strong> Deutsch, <em>wenn</em> ich Zeit <em>habe</em>.</li></ol><h4>Merke</h4><p>Im Nebensatz (nach „wenn“) steht das <strong>Verb am Ende</strong>.</p><h4>Beispiele</h4><ul><li>Wenn ich Zeit habe, besuche ich meine Freunde.</li><li>Wenn ich Geld hätte, würde ich reisen.</li><li>Wenn das Wetter schön ist, gehe ich spazieren.</li><li>Ich würde mich freuen, wenn du mir hilfst.</li></ul>"
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l02-schreiben-02",
+   "level": "A2",
+   "module": 1,
+   "lesson": 2,
+   "skill": "schreiben",
+   "title": "Grammatik-Aufgabe: Konditionalsatz mit WENN – Lückenübung",
+   "source": "book",
+   "metadata": {
+    "book_page": 22,
+    "note": "Ochiq javobli mashq — Vizu-Antworten: „wird von dem Lehrer korrigiert“."
+   },
+   "task_type": "other",
+   "prompt": "Ergänzen Sie die Sätze mit passenden Enden (Konditionalsatz mit WENN). Schreiben Sie alle 20 Sätze vollständig.\n\n1. Wenn ich Zeit habe, …\n2. Ich gehe spazieren, wenn …\n3. Wenn es regnet, …\n4. Ich trinke Tee, wenn …\n5. Wenn ich müde bin, …\n6. Ich höre Musik, wenn …\n7. Wenn ich Geld habe, …\n8. Ich lerne Deutsch, wenn …\n9. Wenn ich krank bin, …\n10. Ich kaufe Obst, wenn …\n11. Wenn ich frei habe, …\n12. Ich rufe meine Freunde an, wenn …\n13. Wenn ich Hunger habe, …\n14. Ich bleibe zu Hause, wenn …\n15. Wenn ich in den Urlaub fahre, …\n16. Ich spiele Fußball, wenn …\n17. Wenn ich früh aufstehe, …\n18. Ich lese ein Buch, wenn …\n19. Wenn ich im Supermarkt bin, …\n20. Ich sehe fern, wenn …\n\nMerke: Im Nebensatz (nach „wenn“) steht das Verb am Ende. — Wenn ich Zeit habe, lerne ich Deutsch.",
+   "min_words": 60,
+   "max_words": 300,
+   "time_limit": 25,
+   "support_phrases": [
+    "Wenn ich Zeit habe, lerne ich Deutsch.",
+    "Ich gehe spazieren, wenn das Wetter schön ist."
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l02-lesen-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 2,
+   "skill": "lesen",
+   "title": "Lesen: Warum nutze ich soziale Netzwerke? (Aufgabe 1-3)",
+   "source": "book",
+   "metadata": {
+    "book_page": "23-25",
+    "note": "Kitobdagi Richtig/Falsch (javob matndan iqtibos bilan) + dars varag'idagi 12 savol (javob: Vizu-Antworten A2). „hlifreich“ → „hilfreich“ tuzatildi."
+   },
+   "instruction": "Lesen Sie die Texte. Richtig oder Falsch? Danach: Kreuzen Sie die richtige Antwort an (a, b oder c).",
+   "passages": [
+    {
+     "title": "Lukas Schneider (12 Jahre): Warum nutze ich soziale Netzwerke?",
+     "text": "Ich nutze soziale Netzwerke, weil ich dort mit meinen Freunden sprechen kann.\n\nNach der Schule schreibe ich oft Nachrichten oder schicke lustige Bilder.\n\nManchmal spielen wir auch zusammen Online-Spiele.\n\nIch sehe auch kurze Videos über Fußball oder Tiere. Das macht mir Spaß.\n\nMeine Eltern sagen, ich soll nicht zu lange am Handy bleiben. Deshalb nutze ich soziale Netzwerke nur ein bisschen am Abend.\n\nFür mich sind soziale Netzwerke interessant, weil ich dort meine Freunde sehe und neue Dinge lernen kann."
+    },
+    {
+     "title": "Anna Müller (20 Jahre): Warum nutze ich soziale Netzwerke?",
+     "text": "Ich nutze soziale Netzwerke jeden Tag.\nDort kann ich mit meinen Freunden und meiner Familie Kontakt halten.\nViele meiner Freunde wohnen in anderen Städten, deshalb schreiben wir oft Nachrichten oder schicken Fotos.\nAußerdem sehe ich gern Videos über Reisen, Mode oder Essen.\nManchmal bekomme ich dort auch neue Ideen für mein Studium oder meine Freizeit.\n\nSoziale Netzwerke sind für mich praktisch, weil ich schnell Informationen finden und mit vielen Menschen sprechen kann.\nAber ich versuche auch, nicht zu viel Zeit online zu verbringen."
+    },
+    {
+     "title": "Thomas Becker (35 Jahre): Warum nutze ich soziale Netzwerke?",
+     "text": "Ich nutze soziale Netzwerke aus verschiedenen Gründen. Erstens bleibe ich so mit meinen Freunden und Kollegen in Kontakt.\n\nViele Menschen arbeiten heute in verschiedenen Städten, deshalb ist das Internet sehr hilfreich.\n\nZweitens bekomme ich dort Nachrichten und Informationen über Politik, Wirtschaft oder Kultur. Das ist für mich interessant und wichtig.\n\nManchmal teile ich auch Fotos von meiner Familie oder von Reisen. So können meine Freunde sehen, was ich mache.\n\nTrotzdem finde ich, dass man soziale Netzwerke mit Maß nutzen soll, damit man auch genug Zeit für das echte Leben hat."
+    }
+   ],
+   "questions": [
+    {
+     "type": "true_false",
+     "question": "Lukas schreibt nach der Schule oft Nachrichten.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„Nach der Schule schreibe ich oft Nachrichten …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Lukas spielt nie Online-Spiele.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„Manchmal spielen wir auch zusammen Online-Spiele.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Seine Eltern möchten, dass er nicht zu lange am Handy bleibt.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„Meine Eltern sagen, ich soll nicht zu lange am Handy bleiben.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Lukas findet soziale Netzwerke langweilig.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„Für mich sind soziale Netzwerke interessant …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Anna nutzt soziale Netzwerke jeden Tag.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "richtig",
+     "explanation": "„Ich nutze soziale Netzwerke jeden Tag.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Ihre Freunde wohnen alle in derselben Stadt.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "falsch",
+     "explanation": "„Viele meiner Freunde wohnen in anderen Städten …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Anna sieht gern Videos über Reisen und Essen.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "richtig",
+     "explanation": "„Außerdem sehe ich gern Videos über Reisen, Mode oder Essen.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Anna möchte den ganzen Tag online sein.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "falsch",
+     "explanation": "„Aber ich versuche auch, nicht zu viel Zeit online zu verbringen.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Thomas bleibt über soziale Netzwerke mit seinen Kollegen in Kontakt.",
+     "points": 1,
+     "passage": 3,
+     "correct_answer": "richtig",
+     "explanation": "„Erstens bleibe ich so mit meinen Freunden und Kollegen in Kontakt.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Thomas interessiert sich nicht für Nachrichten.",
+     "points": 1,
+     "passage": 3,
+     "correct_answer": "falsch",
+     "explanation": "„… bekomme ich dort Nachrichten und Informationen … Das ist für mich interessant und wichtig.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Manchmal teilt Thomas Fotos von seiner Familie oder von Reisen.",
+     "points": 1,
+     "passage": 3,
+     "correct_answer": "richtig",
+     "explanation": "„Manchmal teile ich auch Fotos von meiner Familie oder von Reisen.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Thomas findet, dass man soziale Netzwerke immer benutzen soll.",
+     "points": 1,
+     "passage": 3,
+     "correct_answer": "falsch",
+     "explanation": "„… dass man soziale Netzwerke mit Maß nutzen soll …“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Lukas nutzt soziale Netzwerke vor allem, um …",
+     "options": [
+      "neue Spiele zu kaufen",
+      "mit seinen Freunden zu kommunizieren",
+      "Schulbücher zu lesen"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Javob: Vizu-Antworten A2 (2. Unterricht, Lesen)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Thomas findet soziale Netzwerke hilfreich, weil …",
+     "options": [
+      "viele Menschen in verschiedenen Städten arbeiten",
+      "dort viele Filme gezeigt werden",
+      "man dort Sport machen kann"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 3,
+     "explanation": "Javob: Vizu-Antworten A2 (2. Unterricht, Lesen)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Anna nutzt soziale Netzwerke auch, weil …",
+     "options": [
+      "sie dort Nachrichten liest",
+      "sie Kontakt mit Familie und Freunden halten kann",
+      "sie dort arbeitet"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 2,
+     "explanation": "Javob: Vizu-Antworten A2 (2. Unterricht, Lesen)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Lukas schaut manchmal Videos im Internet, weil …",
+     "options": [
+      "sie ihm Spaß machen",
+      "seine Lehrer das sagen",
+      "er dafür Geld bekommt"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Javob: Vizu-Antworten A2 (2. Unterricht, Lesen)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Thomas bekommt über soziale Netzwerke oft …",
+     "options": [
+      "Nachrichten über Politik, Wirtschaft oder Kultur",
+      "neue Computerspiele",
+      "Musikunterricht"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 3,
+     "explanation": "Javob: Vizu-Antworten A2 (2. Unterricht, Lesen)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Anna findet soziale Netzwerke praktisch, weil sie …",
+     "options": [
+      "schnell Informationen finden kann",
+      "dort Sport treiben kann",
+      "dort einkaufen muss"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 2,
+     "explanation": "Javob: Vizu-Antworten A2 (2. Unterricht, Lesen)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Lukas nutzt soziale Netzwerke am Abend nur kurz, weil …",
+     "options": [
+      "seine Eltern eine Regel haben",
+      "sein Internet langsam ist",
+      "seine Freunde schlafen"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Javob: Vizu-Antworten A2 (2. Unterricht, Lesen)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Thomas teilt manchmal Fotos, damit …",
+     "options": [
+      "seine Freunde sehen, was er macht",
+      "er Geld verdient",
+      "er berühmt wird"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 3,
+     "explanation": "Javob: Vizu-Antworten A2 (2. Unterricht, Lesen)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Anna bekommt durch soziale Netzwerke manchmal …",
+     "options": [
+      "neue Ideen für Studium oder Freizeit",
+      "neue Arbeit im Ausland",
+      "neue Bücher"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 2,
+     "explanation": "Javob: Vizu-Antworten A2 (2. Unterricht, Lesen)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Lukas kann durch soziale Netzwerke auch …",
+     "options": [
+      "neue Dinge lernen",
+      "eine Wohnung finden",
+      "ein Auto kaufen"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Javob: Vizu-Antworten A2 (2. Unterricht, Lesen)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Thomas denkt, soziale Netzwerke soll man …",
+     "options": [
+      "sehr viel nutzen",
+      "mit Maß nutzen",
+      "gar nicht nutzen"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 3,
+     "explanation": "Javob: Vizu-Antworten A2 (2. Unterricht, Lesen)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Anna sieht online gern Inhalte über …",
+     "options": [
+      "Reisen, Mode oder Essen",
+      "Politik und Geschichte",
+      "Autos und Technik"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 2,
+     "explanation": "Javob: Vizu-Antworten A2 (2. Unterricht, Lesen)."
+    }
+   ],
+   "max_score": 24
+  },
+  {
+   "content_id": "vizu-a2-l02-hoeren-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 2,
+   "skill": "hoeren",
+   "title": "Hören: Sendung „Gemeinschaftskreis“ — soziale Netzwerke",
+   "source": "book",
+   "metadata": {
+    "book_page": 26
+   },
+   "audio_file": "A2 2.Unterricht Hören.mp3",
+   "instruction": "Hören Sie die 12 Fragen. Kreuzen Sie die richtige Antwort an.",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Wer arbeitet an der Universität München?",
+     "options": [
+      "Professor Müller",
+      "Frau Millner",
+      "die Journalistin"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer eröffnet die Sendung „Gemeinschaftskreis“?",
+     "options": [
+      "Frau Millner",
+      "Professor Müller",
+      "die Journalistin"
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer sagt, dass soziale Netzwerke für Studenten und Forscher praktisch sind?",
+     "options": [
+      "die Journalistin",
+      "Professor Müller",
+      "Frau Millner"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer hat zwei Kinder?",
+     "options": [
+      "Frau Millner",
+      "Professor Müller",
+      "die Journalistin"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer sagt, dass manche Menschen zu viel Zeit online verbringen?",
+     "options": [
+      "Frau Millner",
+      "Professor Müller",
+      "die Journalistin"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer bekommt durch soziale Netzwerke Tipps über Schule oder Gesundheit?",
+     "options": [
+      "Professor Müller",
+      "Frau Millner",
+      "die Journalistin"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer stellt die Frage: „Wie beeinflussen soziale Netzwerke unser Leben?“",
+     "options": [
+      "die Journalistin",
+      "Professor Müller",
+      "Frau Millner"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer spricht über Regeln für Kinder zu Hause?",
+     "options": [
+      "Professor Müller",
+      "Frau Millner",
+      "die Journalistin"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer spricht über Informationen und Nachrichten im Internet?",
+     "options": [
+      "Frau Millner",
+      "Professor Müller",
+      "die Journalistin"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer sagt, dass soziale Netzwerke Teil unseres Lebens sind?",
+     "options": [
+      "die Journalistin",
+      "Frau Millner",
+      "Professor Müller"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer spricht über Kommunikation im echten Leben?",
+     "options": [
+      "Frau Millner",
+      "Professor Müller",
+      "die Journalistin"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer moderiert die Sendung im Studio?",
+     "options": [
+      "die Journalistin",
+      "Professor Müller",
+      "Frau Millner"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    }
+   ],
+   "max_score": 12
+  },
+  {
+   "content_id": "vizu-a2-l02-schreiben-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 2,
+   "skill": "schreiben",
+   "title": "Schreiben: Warum nutze ich soziale Netzwerke?",
+   "source": "book",
+   "metadata": {
+    "book_page": 28
+   },
+   "task_type": "description",
+   "prompt": "Warum nutze ich soziale Netzwerke? Schreiben Sie einen kurzen Text über das Thema. Schreiben Sie ca. 30–40 Wörter.\n\nPunkte:\n• Welche sozialen Netzwerke nutzen Sie?\n• Warum nutzen Sie soziale Netzwerke?\n• Was machen Sie dort normalerweise?\n• Wie oft nutzen Sie soziale Netzwerke?",
+   "min_words": 30,
+   "max_words": 60,
+   "time_limit": 15
+  },
+  {
+   "content_id": "vizu-a2-l02-schreiben-03",
+   "level": "A2",
+   "module": 1,
+   "lesson": 2,
+   "skill": "schreiben",
+   "title": "Schreiben: E-Mail — Verpasster Anruf",
+   "source": "book",
+   "metadata": {
+    "book_page": 28
+   },
+   "task_type": "email",
+   "prompt": "Situation: Ihr Freund hat Sie über Skype angerufen. Sie konnten den Videoanruf nicht beantworten. Schreiben Sie Ihrem Freund eine E-Mail.\n\nPunkte:\n• Entschuldigen Sie sich für den verpassten Anruf.\n• Erklären Sie kurz, warum Sie nicht antworten konnten.\n• Fragen Sie, wann Sie wieder telefonieren können.\n• Machen Sie einen Vorschlag für einen neuen Termin.",
+   "audience": "Ihr Freund (informell)",
+   "min_words": 30,
+   "max_words": 80,
+   "time_limit": 20,
+   "support_phrases": [
+    "Hallo …,",
+    "Es tut mir leid, dass …",
+    "Ich konnte nicht antworten, weil …",
+    "Wann können wir wieder telefonieren?",
+    "Hast du am … Zeit?",
+    "Viele Grüße"
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l02-sprechen-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 2,
+   "skill": "sprechen",
+   "title": "Sprechen: Welche Rolle spielt Internet in meinem Leben?",
+   "source": "book",
+   "metadata": {
+    "book_page": 29
+   },
+   "topic": "Internet in meinem Leben",
+   "prompt": "Sprechen Sie über das Thema. Sprechen Sie ca. 1–2 Minuten. Tipps: Sprechen Sie über alle Punkte. Begründen Sie Ihre Meinung.",
+   "questions": [
+    "Wofür verwenden Sie das Internet?",
+    "Wie oft nutzen Sie das Internet?",
+    "Welche Informationen suchen Sie online?",
+    "Gibt es auch Nachteile?"
+   ],
+   "response_type": "monolog",
+   "min_duration": 60,
+   "max_duration": 150,
+   "speech_goal": "Über die eigene Internetnutzung sprechen: wofür, wie oft, welche Informationen, Nachteile — mit Begründung (weil, wenn).",
+   "keywords": [
+    "Internet",
+    "nutzen",
+    "wenn",
+    "weil",
+    "Nachteile"
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l02-wortschatz-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 2,
+   "skill": "wortschatz",
+   "title": "Wortschatz: Internet und soziale Medien",
+   "source": "book",
+   "metadata": {
+    "book_page": 30
+   },
+   "words": [
+    {
+     "word": "soziale Netzwerk",
+     "translation": "ijtimoiy tarmoq",
+     "article": "das",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "Internet",
+     "translation": "internet",
+     "article": "das",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "Nachricht",
+     "translation": "xabar",
+     "article": "die",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "Information",
+     "translation": "ma’lumot",
+     "article": "die",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "Benutzer",
+     "translation": "foydalanuvchi",
+     "article": "der",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "Account",
+     "translation": "akkaunt",
+     "article": "der",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "Profil",
+     "translation": "profil",
+     "article": "das",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "Foto",
+     "translation": "rasm",
+     "article": "das",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "Video",
+     "translation": "video",
+     "article": "das",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "Kommentar",
+     "translation": "izoh",
+     "article": "der",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "posten",
+     "translation": "joylashtirmoq",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "teilen",
+     "translation": "ulashmoq",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "liken",
+     "translation": "layk bosmoq",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "folgen",
+     "translation": "kuzatmoq",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "Freund / die Freundin",
+     "translation": "do‘st",
+     "article": "der",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "Freundschaft",
+     "translation": "do‘stlik",
+     "article": "die",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "Chat",
+     "translation": "chat",
+     "article": "der",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "schreiben",
+     "translation": "yozmoq",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "sprechen",
+     "translation": "gaplashmoq",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "telefonieren",
+     "translation": "telefon qilmoq",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "online",
+     "translation": "onlayn",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "offline",
+     "translation": "oflayn",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "App",
+     "translation": "ilova",
+     "article": "die",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "herunterladen",
+     "translation": "yuklab olmoq",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "hochladen",
+     "translation": "yuklamoq",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "Passwort",
+     "translation": "parol",
+     "article": "das",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "Sicherheit",
+     "translation": "xavfsizlik",
+     "article": "die",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "Zeit",
+     "translation": "vaqt",
+     "article": "die",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "Unterhaltung",
+     "translation": "ko‘ngilocharlik",
+     "article": "die",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "Kommunikation",
+     "translation": "muloqot",
+     "article": "die",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "Gruppe",
+     "translation": "guruh",
+     "article": "die",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "Beitrag",
+     "translation": "post",
+     "article": "der",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "Link",
+     "translation": "havola",
+     "article": "der",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "suchen",
+     "translation": "qidirmoq",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "finden",
+     "translation": "topmoq",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "lernen",
+     "translation": "o‘rganmoq",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "informieren",
+     "translation": "ma’lumot bermoq",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "Problem",
+     "translation": "muammo",
+     "article": "das",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "Vorteil",
+     "translation": "afzallik",
+     "article": "der",
+     "group": "Internet und soziale Medien"
+    },
+    {
+     "word": "Nachteil",
+     "translation": "kamchilik",
+     "article": "der",
+     "group": "Internet und soziale Medien"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "Zuordnung 1",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Internet und soziale Medien 1)",
+       "items": [
+        "das soziale Netzwerk",
+        "das Internet",
+        "die Nachricht",
+        "die Information",
+        "der Benutzer",
+        "der Account"
+       ],
+       "targets": [
+        "ijtimoiy tarmoq",
+        "internet",
+        "xabar",
+        "ma’lumot",
+        "foydalanuvchi",
+        "akkaunt",
+        "profil"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Internet und soziale Medien 2)",
+       "items": [
+        "das Profil",
+        "das Foto",
+        "das Video",
+        "der Kommentar",
+        "posten",
+        "teilen"
+       ],
+       "targets": [
+        "profil",
+        "rasm",
+        "video",
+        "izoh",
+        "joylashtirmoq",
+        "ulashmoq",
+        "ijtimoiy tarmoq"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Internet und soziale Medien 3)",
+       "items": [
+        "liken",
+        "folgen",
+        "der Freund / die Freundin",
+        "die Freundschaft",
+        "der Chat",
+        "schreiben"
+       ],
+       "targets": [
+        "layk bosmoq",
+        "kuzatmoq",
+        "do‘st",
+        "do‘stlik",
+        "chat",
+        "yozmoq",
+        "ijtimoiy tarmoq"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Zuordnung 2",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Internet und soziale Medien 4)",
+       "items": [
+        "sprechen",
+        "telefonieren",
+        "online",
+        "offline",
+        "die App",
+        "herunterladen"
+       ],
+       "targets": [
+        "gaplashmoq",
+        "telefon qilmoq",
+        "onlayn",
+        "oflayn",
+        "ilova",
+        "yuklab olmoq",
+        "ijtimoiy tarmoq"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Internet und soziale Medien 5)",
+       "items": [
+        "hochladen",
+        "das Passwort",
+        "die Sicherheit",
+        "die Zeit",
+        "die Unterhaltung",
+        "die Kommunikation"
+       ],
+       "targets": [
+        "yuklamoq",
+        "parol",
+        "xavfsizlik",
+        "vaqt",
+        "ko‘ngilocharlik",
+        "muloqot",
+        "ijtimoiy tarmoq"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Internet und soziale Medien 6)",
+       "items": [
+        "die Gruppe",
+        "der Beitrag",
+        "der Link",
+        "suchen",
+        "finden",
+        "lernen"
+       ],
+       "targets": [
+        "guruh",
+        "post",
+        "havola",
+        "qidirmoq",
+        "topmoq",
+        "o‘rganmoq",
+        "ijtimoiy tarmoq"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Zuordnung 3",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Internet und soziale Medien 7)",
+       "items": [
+        "informieren",
+        "das Problem",
+        "der Vorteil",
+        "der Nachteil"
+       ],
+       "targets": [
+        "ma’lumot bermoq",
+        "muammo",
+        "afzallik",
+        "kamchilik",
+        "ijtimoiy tarmoq"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D"
+       },
+       "points": 4,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Der, die oder das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] soziale Netzwerk (ijtimoiy tarmoq)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Nachricht (xabar)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Benutzer (foydalanuvchi)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Profil (profil)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Video (video)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Freund / die Freundin (do‘st)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Chat (chat)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Passwort (parol)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Zeit (vaqt)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Wählen Sie das richtige Wort.",
+       "text": "[[1]] Kommunikation (muloqot)",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "So'zning artiklini tanlang (kitobdagi lug'at bo'yicha)."
+    },
+    {
+     "title": "Was bedeutet das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „das soziale Netzwerk“?",
+       "options": [
+        "ijtimoiy tarmoq",
+        "havola",
+        "joylashtirmoq"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „der Account“?",
+       "options": [
+        "xabar",
+        "kuzatmoq",
+        "akkaunt"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „posten“?",
+       "options": [
+        "layk bosmoq",
+        "joylashtirmoq",
+        "ulashmoq"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „die Freundschaft“?",
+       "options": [
+        "profil",
+        "do‘stlik",
+        "qidirmoq"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „online“?",
+       "options": [
+        "onlayn",
+        "profil",
+        "ma’lumot"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „das Passwort“?",
+       "options": [
+        "xavfsizlik",
+        "chat",
+        "parol"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „die Gruppe“?",
+       "options": [
+        "vaqt",
+        "muammo",
+        "guruh"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „lernen“?",
+       "options": [
+        "qidirmoq",
+        "muammo",
+        "o‘rganmoq"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zning o'zbekcha tarjimasini tanlang."
+    }
+   ],
+   "auto_practice": false
+  },
+  {
+   "content_id": "vizu-a2-l02-uebungen-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 2,
+   "skill": "uebungen",
+   "title": "Übungen: A2 2. Unterricht",
+   "source": "vizu",
+   "exercises": [
+    {
+     "title": "Nemischa qanday?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "„internet“ — nemischa qanday?",
+       "options": [
+        "der Nachteil",
+        "das Internet",
+        "der Chat"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„profil“ — nemischa qanday?",
+       "options": [
+        "der Kommentar",
+        "die Information",
+        "das Profil"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„ulashmoq“ — nemischa qanday?",
+       "options": [
+        "finden",
+        "teilen",
+        "herunterladen"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„chat“ — nemischa qanday?",
+       "options": [
+        "die Sicherheit",
+        "der Chat",
+        "die Zeit"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„oflayn“ — nemischa qanday?",
+       "options": [
+        "offline",
+        "online",
+        "herunterladen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„xavfsizlik“ — nemischa qanday?",
+       "options": [
+        "das Internet",
+        "die Sicherheit",
+        "das Profil"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„post“ — nemischa qanday?",
+       "options": [
+        "die Kommunikation",
+        "die App",
+        "der Beitrag"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„ma’lumot bermoq“ — nemischa qanday?",
+       "options": [
+        "schreiben",
+        "informieren",
+        "folgen"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "O'zbekcha so'zning nemischasini tanlang."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l02-yakuniy-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 2,
+   "skill": "yakuniy",
+   "title": "Abschlusstest: A2 2. Unterricht",
+   "source": "vizu",
+   "instruction": "Konditionalsätze va internet so'zlari bo'yicha yakuniy test (dars materiali asosida).",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Wenn ich Zeit ___, lerne ich Deutsch.",
+     "options": [
+      "habe",
+      "hat",
+      "haben"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Welcher Satz ist richtig?",
+     "options": [
+      "Wenn es regnet, ich bleibe zu Hause.",
+      "Wenn es regnet, bleibe ich zu Hause.",
+      "Wenn regnet es, bleibe ich zu Hause."
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Nach dem Nebensatz kommt im Hauptsatz zuerst das Verb."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Ich gehe spazieren, wenn das Wetter schön ___.",
+     "options": [
+      "ist",
+      "sein",
+      "war ist"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Im Nebensatz steht das Verb am Ende."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wo steht das Verb im Nebensatz mit „wenn“?",
+     "options": [
+      "Am Anfang",
+      "Auf Position 2",
+      "Am Ende"
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "Lukas nutzt soziale Netzwerke nur ein bisschen am Abend.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "Lesen, Aufgabe 1."
+    },
+    {
+     "type": "true_false",
+     "question": "Thomas teilt nie Fotos.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "Lesen, Aufgabe 3: „Manchmal teile ich auch Fotos …“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„herunterladen“ — o'zbekchasi?",
+     "options": [
+      "yuklab olmoq",
+      "yuklamoq",
+      "ulashmoq"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„der Nachteil“ — o'zbekchasi?",
+     "options": [
+      "kamchilik",
+      "afzallik",
+      "muammo"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„teilen“ — o'zbekchasi?",
+     "options": [
+      "ulashmoq",
+      "kuzatmoq",
+      "qidirmoq"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Ich rufe dich an, wenn ich nach Hause ___.",
+     "options": [
+      "komme",
+      "kommen",
+      "kam ich"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l02-kompetenz-02",
+   "level": "A2",
+   "module": 1,
+   "lesson": 2,
+   "skill": "kompetenz",
+   "title": "Zusammenfassung: A2 2. Unterricht",
+   "source": "vizu",
+   "competency": "ZUSAMMENFASSUNG",
+   "html": "<h3>A2 2. Unterricht — qisqacha</h3><ul><li><strong>Konditionalsatz:</strong> Wenn + Nebensatz, Hauptsatz — Wenn ich Zeit habe, lerne ich Deutsch.</li><li><strong>Hauptsatz + wenn:</strong> Ich lerne Deutsch, wenn ich Zeit habe.</li><li><strong>Merke:</strong> Im Nebensatz (nach „wenn“) steht das Verb am Ende.</li><li><strong>Wortschatz:</strong> das soziale Netzwerk, posten, teilen, liken, folgen, herunterladen, hochladen, das Passwort, der Vorteil, der Nachteil.</li></ul><p>Natijalaringiz pastda — tugallanmagan bo'limlarni yakunlang, so'ng keyingi darsga o'ting.</p>"
+  }
+ ]
+}

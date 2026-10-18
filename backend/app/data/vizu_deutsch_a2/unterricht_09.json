@@ -1,0 +1,752 @@
+{
+ "schema_version": "1.2",
+ "language": "de",
+ "source": "vizu-deutsch-a2-book",
+ "items": [
+  {
+   "content_id": "vizu-a2-l09-kompetenz-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 9,
+   "skill": "kompetenz",
+   "title": "Einführung: A2 9. Unterricht",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 94
+   },
+   "competency": "EINFUEHRUNG",
+   "html": "<h3>A2 9. Unterricht — Medien, Nachrichten und Meinung</h3><p><strong>Mavzu:</strong> Medien, Nachrichten und Meinung · <strong>Grammatik:</strong> Finalsätze: damit … / um … zu</p><h4>Dars maqsadlari</h4><ul><li>maqsadni damit va um … zu bilan aytish;</li><li>ikki xil ega bo'lsa damit, bir xil ega bo'lsa um … zu ishlatish;</li><li>media, yangiliklar va fikr bildirish so'zlarini o'rganish.</li></ul><h4>Dars oxirida siz quyidagilarni bajara olasiz</h4><ul><li>internetdagi har bir xabarga ishonish mumkinmi — fikringizni aytasiz;</li><li>bugungi kunda qanday ma'lumot olishimiz haqidagi matnni tushunasiz;</li><li>kim qaysi mediadan foydalanishini tinglab moslashtirasiz;</li><li>dugonangizning postiga izoh yozasiz va media odatlaringiz haqida gapirasiz.</li></ul><h4>Darsning tuzilishi</h4><p>Einführung → Wortschatz → Grammatik → Lesen → Hören → Sprechen → Schreiben → Übungen → Abschlusstest → Zusammenfassung</p>"
+  },
+  {
+   "content_id": "vizu-a2-l09-frage-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 9,
+   "skill": "frage",
+   "title": "Frage des Themas: Kann man allen Nachrichten im Internet vertrauen?",
+   "source": "book",
+   "metadata": {
+    "book_page": 95,
+    "book_points": {
+     "ja": [
+      "Viele Nachrichten sind wahr.",
+      "Große Nachrichtenportale prüfen ihre Informationen.",
+      "Journalisten recherchieren und arbeiten professionell.",
+      "Es gibt Fakten und Beweise zu wichtigen Themen.",
+      "Man kann Quellen überprüfen und vergleichen.",
+      "Bildung und Medienkompetenz helfen, Wahres zu erkennen."
+     ],
+     "es_kommt_darauf_an": [
+      "Es hängt von der Quelle ab.",
+      "Nicht alle Seiten sagen die Wahrheit.",
+      "Manche Nachrichten sind voreingenommen.",
+      "Man sollte kritisch lesen und denken.",
+      "Vergleiche helfen, die Wahrheit zu finden.",
+      "Nicht alles ist falsch, aber man muss vorsichtig sein."
+     ],
+     "nein": [
+      "Es gibt viele Fake News im Internet.",
+      "Jeder kann etwas schreiben und veröffentlichen.",
+      "Viele Informationen sind übertrieben oder falsch.",
+      "Es gibt Seiten, die nur Lügen verbreiten.",
+      "Man weiß oft nicht, wer hinter der Nachricht steckt.",
+      "Sensationelle Nachrichten bringen mehr Klicks, auch wenn sie falsch sind."
+     ]
+    }
+   },
+   "prompt": "Kann man allen Nachrichten im Internet vertrauen? Wählen Sie eine Meinung und begründen Sie sie.",
+   "questions": [
+    "Ja, man kann",
+    "Es kommt darauf an",
+    "Nein, man kann nicht"
+   ],
+   "min_duration": 20,
+   "max_duration": 120
+  },
+  {
+   "content_id": "vizu-a2-l09-grammatik-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 9,
+   "skill": "grammatik",
+   "title": "Grammatik: Finalsätze — damit / um … zu",
+   "source": "book",
+   "metadata": {
+    "book_page": "96-97"
+   },
+   "rules": [
+    {
+     "title": "Finalsätze: damit … / um … zu",
+     "html": "<h3>Finalsätze: damit … / um … zu (A2)</h3><h4>Bedeutung</h4><ul><li>„damit“ und „um … zu“ zeigen den <strong>Zweck</strong> einer Handlung.</li><li>Sie antworten auf die Frage: Warum?</li></ul><h4>Zweck: Warum?</h4><p>Ich mache X, <strong>damit</strong> Y passiert. (2 Personen) → <strong>um … zu</strong>: um Y zu tun. (1 Person)</p><h4>Satzbau</h4><ul><li><strong>damit</strong> → Subjekt + Verb …, damit + Subjekt + Verb (Verb am Ende)</li><li><strong>um … zu</strong> → Subjekt + Verb …, um + zu + Verb</li></ul><p>Ich spare Geld, <strong>damit</strong> ich ein Fahrrad kaufen kann. · Ich spare Geld, <strong>um</strong> ein Fahrrad <strong>zu</strong> kaufen.</p><h4>Beispiele: damit (Fokus auf die Absicht von Person A)</h4><ol><li>Sie lernt Deutsch, damit sie in Deutschland studieren kann.</li><li>Ich arbeite hart, damit meine Kinder ein besseres Leben haben.</li><li>Jonas ruft an, damit er mit Anna sprechen kann.</li><li>Lisa geht einkaufen, damit sie Obst hat.</li><li>Tom steht früh auf, damit er den Bus nicht verpasst.</li><li>Paul nimmt einen Regenschirm, damit er nicht nass wird.</li></ol><h4>Beispiele: um … zu (Fokus auf die Handlung von Person B)</h4><ol><li>Sie lernt Deutsch, um in Deutschland zu studieren.</li><li>Ich arbeite viel, um viel Geld zu verdienen.</li><li>Jonas ruft an, um mit Anna zu sprechen.</li><li>Lisa geht einkaufen, um Obst zu kaufen.</li><li>Tom steht früh auf, um den Bus zu nehmen.</li><li>Paul nimmt einen Regenschirm, um nicht nass zu werden.</li></ol><h4>Unterschiede im Vergleich</h4><ul><li>Er übt jeden Tag, damit er besser wird. / um besser zu werden.</li><li>Sie spart Geld, damit sie reisen kann. / um reisen zu können.</li><li>Wir lernen Deutsch, damit wir gute Jobs bekommen. / um gute Jobs zu bekommen.</li><li>Ich lese viel, damit ich mehr weiß. / um mehr zu wissen.</li><li>Er macht Sport, damit er gesund bleibt. / um gesund zu bleiben.</li><li>Sie fragt nach, damit sie alles versteht. / um alles zu verstehen.</li></ul>"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "Um … zu (2–15)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "short_answer",
+       "question": "2. Sie arbeitet viel. Sie will mehr Geld verdienen. → um … zu",
+       "accepted": [
+        "Sie arbeitet viel, um mehr Geld zu verdienen.",
+        "Sie arbeitet viel um mehr Geld zu verdienen."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Sie arbeitet viel, um mehr Geld zu verdienen."
+      },
+      {
+       "type": "short_answer",
+       "question": "3. Wir sparen Geld. Wir wollen ein Auto kaufen. → um … zu",
+       "accepted": [
+        "Wir sparen Geld, um ein Auto zu kaufen.",
+        "Wir sparen Geld um ein Auto zu kaufen."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Wir sparen Geld, um ein Auto zu kaufen."
+      },
+      {
+       "type": "short_answer",
+       "question": "4. Er geht früh schlafen. Er will morgen fit sein. → um … zu",
+       "accepted": [
+        "Er geht früh schlafen, um morgen fit zu sein.",
+        "Er geht früh schlafen um morgen fit zu sein."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Er geht früh schlafen, um morgen fit zu sein."
+      },
+      {
+       "type": "short_answer",
+       "question": "5. Ich kaufe ein Geschenk. Ich will meine Mutter glücklich machen. → um … zu",
+       "accepted": [
+        "Ich kaufe ein Geschenk, um meine Mutter glücklich zu machen.",
+        "Ich kaufe ein Geschenk um meine Mutter glücklich zu machen."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Ich kaufe ein Geschenk, um meine Mutter glücklich zu machen."
+      },
+      {
+       "type": "short_answer",
+       "question": "6. Sie übt jeden Tag. Sie will die Prüfung bestehen. → um … zu",
+       "accepted": [
+        "Sie übt jeden Tag, um die Prüfung zu bestehen.",
+        "Sie übt jeden Tag um die Prüfung zu bestehen."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Sie übt jeden Tag, um die Prüfung zu bestehen."
+      },
+      {
+       "type": "short_answer",
+       "question": "7. Wir fahren langsam. Wir wollen sicher ankommen. → um … zu",
+       "accepted": [
+        "Wir fahren langsam, um sicher anzukommen.",
+        "Wir fahren langsam um sicher anzukommen."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Wir fahren langsam, um sicher anzukommen."
+      },
+      {
+       "type": "short_answer",
+       "question": "8. Er trainiert viel. Er will stärker werden. → um … zu",
+       "accepted": [
+        "Er trainiert viel, um stärker zu werden.",
+        "Er trainiert viel um stärker zu werden."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Er trainiert viel, um stärker zu werden."
+      },
+      {
+       "type": "short_answer",
+       "question": "9. Ich erkläre dir das. Ich will dir helfen. → um … zu",
+       "accepted": [
+        "Ich erkläre dir das, um dir zu helfen.",
+        "Ich erkläre dir das um dir zu helfen."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Ich erkläre dir das, um dir zu helfen."
+      },
+      {
+       "type": "short_answer",
+       "question": "10. Sie nimmt einen Regenschirm. Sie will nicht nass werden. → um … zu",
+       "accepted": [
+        "Sie nimmt einen Regenschirm, um nicht nass zu werden.",
+        "Sie nimmt einen Regenschirm um nicht nass zu werden."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Sie nimmt einen Regenschirm, um nicht nass zu werden."
+      },
+      {
+       "type": "short_answer",
+       "question": "11. Wir lernen Grammatik. Wir wollen besser sprechen. → um … zu",
+       "accepted": [
+        "Wir lernen Grammatik, um besser zu sprechen.",
+        "Wir lernen Grammatik um besser zu sprechen."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Wir lernen Grammatik, um besser zu sprechen."
+      },
+      {
+       "type": "short_answer",
+       "question": "12. Er liest ein Buch. Er will neue Wörter lernen. → um … zu",
+       "accepted": [
+        "Er liest ein Buch, um neue Wörter zu lernen.",
+        "Er liest ein Buch um neue Wörter zu lernen."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Er liest ein Buch, um neue Wörter zu lernen."
+      },
+      {
+       "type": "short_answer",
+       "question": "13. Ich rufe dich an. Ich will alles besprechen. → um … zu",
+       "accepted": [
+        "Ich rufe dich an, um alles zu besprechen.",
+        "Ich rufe dich an um alles zu besprechen."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Ich rufe dich an, um alles zu besprechen."
+      },
+      {
+       "type": "short_answer",
+       "question": "14. Sie kauft Obst. Sie will gesund bleiben. → um … zu",
+       "accepted": [
+        "Sie kauft Obst, um gesund zu bleiben.",
+        "Sie kauft Obst um gesund zu bleiben."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Sie kauft Obst, um gesund zu bleiben."
+      },
+      {
+       "type": "short_answer",
+       "question": "15. Wir wiederholen die Lektion. Wir wollen alles gut verstehen. → um … zu",
+       "accepted": [
+        "Wir wiederholen die Lektion, um alles gut zu verstehen.",
+        "Wir wiederholen die Lektion um alles gut zu verstehen."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Wir wiederholen die Lektion, um alles gut zu verstehen."
+      }
+     ],
+     "instruction": "Verbinden Sie die Sätze mit um … zu. Beispiel 1: Ich lerne Deutsch, um in Deutschland zu studieren."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l09-schreiben-02",
+   "level": "A2",
+   "module": 1,
+   "lesson": 9,
+   "skill": "schreiben",
+   "title": "Grammatik-Aufgabe: Sätze mit damit",
+   "source": "book",
+   "metadata": {
+    "book_page": 97,
+    "note": "damit-ustuni: kutilgan shakl bir ma'noli emas (kitob misolida „will“ saqlanadi) — o'qituvchi tekshiradi."
+   },
+   "task_type": "other",
+   "prompt": "Verbinden Sie die Sätze mit „damit“ (Verb am Ende).\n\n1. Ich lerne Deutsch. Ich will in Deutschland studieren. (Beispiel: …, damit ich in Deutschland studieren will.)\n2. Sie arbeitet viel. Sie will mehr Geld verdienen.\n3. Wir sparen Geld. Wir wollen ein Auto kaufen.\n4. Er geht früh schlafen. Er will morgen fit sein.\n5. Ich kaufe ein Geschenk. Meine Mutter freut sich.\n6. Sie übt jeden Tag. Sie besteht die Prüfung.\n7. Wir fahren langsam. Wir kommen sicher an.\n8. Er trainiert viel. Er wird stärker.\n9. Ich erkläre dir das. Du verstehst es.\n10. Sie nimmt einen Regenschirm. Sie wird nicht nass.\n11. Wir lernen Grammatik. Wir sprechen besser.\n12. Er liest ein Buch. Er lernt neue Wörter.\n13. Ich rufe dich an. Wir besprechen alles.\n14. Sie kauft Obst. Sie bleibt gesund.\n15. Wir wiederholen die Lektion. Wir verstehen alles gut.",
+   "min_words": 60,
+   "max_words": 300,
+   "time_limit": 25,
+   "support_phrases": [
+    "Ich kaufe ein Geschenk, damit meine Mutter sich freut.",
+    "Ich erkläre dir das, damit du es verstehst."
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l09-lesen-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 9,
+   "skill": "lesen",
+   "title": "Lesen: Nachrichten überall – Wie informieren wir uns heute?",
+   "source": "book",
+   "metadata": {
+    "book_page": "98-99"
+   },
+   "instruction": "Lesen Sie den Text. Richtig oder Falsch?",
+   "passages": [
+    {
+     "title": "Nachrichten überall – Wie informieren wir uns heute?",
+     "text": "Heute sind Medien ein wichtiger Teil unseres Lebens. Viele Menschen informieren sich jeden Tag über Nachrichten. Besonders junge Leute benutzen ihr Smartphone. Studien zeigen, dass über 70 % der Menschen Nachrichten online lesen.\n\nEin großer Vorteil ist die Geschwindigkeit. Man bekommt Nachrichten sofort. Zum Beispiel kann man morgens im Bus oder abends zu Hause Nachrichten lesen. Außerdem gibt es viele Themen: Politik, Sport, Musik oder Umwelt. Etwa 60 % der jungen Menschen nutzen soziale Medien wie Telegram oder Instagram, um Nachrichten zu bekommen.\n\nEin weiterer Vorteil ist, dass viele Angebote kostenlos sind. Man braucht nur Internet und ein Smartphone. Deshalb sind Online-Nachrichten sehr beliebt.\n\nAber es gibt auch Nachteile. Nicht alle Informationen im Internet sind richtig. Laut Studien sind fast 30 % der Nachrichten im Internet nicht komplett oder nicht korrekt. Das ist ein Problem. Deshalb ist es wichtig, verschiedene Quellen zu lesen.\n\nViele Menschen schreiben auch ihre Meinung im Internet. Rund 50 % der Nutzer kommentieren Nachrichten oder diskutieren online. Das ist interessant, weil man andere Meinungen sehen kann. Aber manchmal gibt es Streit oder negative Kommentare.\n\nIch denke: Medien sind sehr wichtig und hilfreich. Aber man muss vorsichtig sein. Man soll nicht alles glauben und immer selbst denken."
+    }
+   ],
+   "questions": [
+    {
+     "type": "true_false",
+     "question": "Mehr als die Hälfte der Menschen liest Nachrichten online.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "Javob: Vizu-Antworten A2 (9. Unterricht, Lesen). — „über 70 % der Menschen“."
+    },
+    {
+     "type": "true_false",
+     "question": "Nur ältere Menschen benutzen Smartphones für Nachrichten.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "Javob: Vizu-Antworten A2 (9. Unterricht, Lesen)."
+    },
+    {
+     "type": "true_false",
+     "question": "Man kann Nachrichten nur zu Hause lesen.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "Javob: Vizu-Antworten A2 (9. Unterricht, Lesen). — „morgens im Bus oder abends zu Hause“."
+    },
+    {
+     "type": "true_false",
+     "question": "Soziale Medien sind eine wichtige Quelle für Nachrichten.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "Javob: Vizu-Antworten A2 (9. Unterricht, Lesen)."
+    },
+    {
+     "type": "true_false",
+     "question": "Alle Informationen im Internet sind korrekt.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "Javob: Vizu-Antworten A2 (9. Unterricht, Lesen)."
+    },
+    {
+     "type": "true_false",
+     "question": "Weniger als 30 % der Nachrichten im Internet sind problematisch.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "Javob: Vizu-Antworten A2 (9. Unterricht, Lesen). — „fast 30 %“."
+    },
+    {
+     "type": "true_false",
+     "question": "Viele Menschen schreiben Kommentare im Internet.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "Javob: Vizu-Antworten A2 (9. Unterricht, Lesen)."
+    },
+    {
+     "type": "true_false",
+     "question": "Es ist besser, nur eine Quelle für Nachrichten zu nutzen.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "Javob: Vizu-Antworten A2 (9. Unterricht, Lesen). — „verschiedene Quellen zu lesen“."
+    }
+   ],
+   "max_score": 8
+  },
+  {
+   "content_id": "vizu-a2-l09-hoeren-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 9,
+   "skill": "hoeren",
+   "title": "Hören: Aufgabe zum Hören — Medien zuordnen",
+   "source": "book",
+   "metadata": {
+    "book_page": 100
+   },
+   "audio_file": "A2 9.Unterricht Hören.mp3",
+   "instruction": "Hören Sie die Personen. Ordnen Sie zu: A – F.",
+   "questions": [
+    {
+     "type": "matching",
+     "question": "Ordnen Sie zu: Welches Medium nutzt die Person? (A – F)",
+     "items": [
+      "Person 1",
+      "Person 2",
+      "Person 3",
+      "Person 4",
+      "Person 5",
+      "Person 6"
+     ],
+     "targets": [
+      "Podcast",
+      "Internet / soziale Medien",
+      "Fernsehen",
+      "Radio",
+      "Telefon / Anruf",
+      "Zeitung"
+     ],
+     "pairs": {
+      "1": "F",
+      "2": "A",
+      "3": "D",
+      "4": "B",
+      "5": "C",
+      "6": "E"
+     },
+     "points": 6,
+     "passage": 1,
+     "explanation": "Javob: Vizu-Antworten A2 (9. Unterricht, Hören): 1-F 2-A 3-D 4-B 5-C 6-E."
+    }
+   ],
+   "max_score": 6
+  },
+  {
+   "content_id": "vizu-a2-l09-schreiben-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 9,
+   "skill": "schreiben",
+   "title": "Schreiben: Wie informiere ich mich?",
+   "source": "book",
+   "metadata": {
+    "book_page": 101
+   },
+   "task_type": "description",
+   "prompt": "Schreiben Sie einen kurzen Text über das Thema „Wie informiere ich mich?“. Schreiben Sie mindestens 80 Wörter.\n\nPunkte:\n• Welche Informationsquellen nutzen Sie?\n• Wie oft informieren Sie sich über Nachrichten?\n• Welche Themen interessieren Sie am meisten? (Politik, Sport, Kultur …)\n• Warum ist Information für Sie wichtig?\n• Welche Vorteile und Nachteile haben soziale Medien?\n• Wie überprüfen Sie Informationen im Internet?",
+   "min_words": 80,
+   "max_words": 160,
+   "time_limit": 25
+  },
+  {
+   "content_id": "vizu-a2-l09-schreiben-03",
+   "level": "A2",
+   "module": 1,
+   "lesson": 9,
+   "skill": "schreiben",
+   "title": "Schreiben: Kommentar — Post von meiner Freundin",
+   "source": "book",
+   "metadata": {
+    "book_page": 101
+   },
+   "task_type": "message",
+   "prompt": "Ihre Freundin hat einen Post im Internet geschrieben. Schreiben Sie einen Kommentar dazu. Schreiben Sie mindestens 80 Wörter.\n\nPost von meiner Freundin: „Ich finde, dass soziale Medien heute die beste Informationsquelle sind. Man bekommt schnell alle Nachrichten und kann direkt mit anderen diskutieren.“\n\nPunkte:\n• Reagieren Sie auf den Post (Ihre Meinung).\n• Stimmen Sie zu oder nicht? Warum?\n• Nennen Sie eigene Erfahrungen mit sozialen Medien.\n• Geben Sie Beispiele (positive oder negative).\n• Machen Sie einen Vorschlag oder Tipp.\n• Stellen Sie eine Frage an Ihre Freundin.",
+   "audience": "Ihre Freundin (informell, Kommentar)",
+   "min_words": 80,
+   "max_words": 160,
+   "time_limit": 25
+  },
+  {
+   "content_id": "vizu-a2-l09-schreiben-04",
+   "level": "A2",
+   "module": 1,
+   "lesson": 9,
+   "skill": "schreiben",
+   "title": "Wortschatz-Aufgabe: Wort zu Wort Wortschatzmethode (Medien und Nachrichten)",
+   "source": "book",
+   "metadata": {
+    "book_page": 103
+   },
+   "task_type": "description",
+   "prompt": "Formulieren Sie mit den Wörtern einer Variante einen Text (Variante 2–5).\n\nVariante 1: lesen, die Nachrichten, online, informieren, wichtig, die Information\nVariante 2: die Medien, benutzen, das Smartphone, schnell, modern, die App\nVariante 3: das Fernsehen, sehen, die Sendung, interessant, berichten, die Nachrichten\nVariante 4: hören, das Radio, die Musik, die Information, täglich, unterwegs\nVariante 5: die Meinung, schreiben, kommentieren, diskutieren, das Internet, wichtig\n\nBeispiel (Variante 1) — Überschrift: Nachrichten online lesen ist praktisch. Ich lese jeden Tag Nachrichten online, weil Informationen für mich sehr wichtig sind. Ich informiere mich über verschiedene Themen im Internet. Online kann man schnell aktuelle Nachrichten lesen. Das finde ich sehr praktisch und interessant.",
+   "min_words": 40,
+   "max_words": 200,
+   "time_limit": 25
+  },
+  {
+   "content_id": "vizu-a2-l09-sprechen-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 9,
+   "skill": "sprechen",
+   "title": "Sprechen: Meine Mediennutzung",
+   "source": "book",
+   "metadata": {
+    "book_page": 102
+   },
+   "topic": "Meine Mediennutzung",
+   "prompt": "Sprechen Sie über das Thema.",
+   "questions": [
+    "Welche Medien nutzen Sie am meisten?",
+    "Wann und wie lange nutzen Sie Medien täglich?",
+    "Wofür nutzen Sie Medien? (Information, Unterhaltung, Lernen …)",
+    "Welche sozialen Medien verwenden Sie und warum?",
+    "Was gefällt Ihnen besonders an Medien?",
+    "Gibt es Nachteile von Medien? Welche?"
+   ],
+   "response_type": "monolog",
+   "min_duration": 60,
+   "max_duration": 180,
+   "speech_goal": "Über die eigene Mediennutzung sprechen und den Zweck nennen (um … zu / damit).",
+   "keywords": [
+    "Medien",
+    "um … zu",
+    "damit",
+    "Nachrichten",
+    "soziale Medien"
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l09-wortschatz-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 9,
+   "skill": "wortschatz",
+   "title": "Wortschatz: Wichtige Wörter — Medien",
+   "source": "book",
+   "metadata": {
+    "book_page": 98,
+    "note": "Kitobda faqat nemischa izoh berilgan, o'zbekcha tarjima yo'q — izoh ma'no sifatida ko'rsatiladi."
+   },
+   "words": [
+    {
+     "word": "Medien",
+     "translation": "Zeitungen, Internet, Fernsehen, Radio usw.",
+     "article": "die",
+     "group": "Wichtige Wörter (Bedeutung auf Deutsch)"
+    },
+    {
+     "word": "Nachrichten",
+     "translation": "Informationen über aktuelle Ereignisse",
+     "article": "die",
+     "group": "Wichtige Wörter (Bedeutung auf Deutsch)"
+    },
+    {
+     "word": "Vorteil",
+     "translation": "etwas Gutes, ein positiver Aspekt",
+     "article": "der",
+     "group": "Wichtige Wörter (Bedeutung auf Deutsch)"
+    },
+    {
+     "word": "Nachteil",
+     "translation": "etwas Schlechtes, ein negativer Aspekt",
+     "article": "der",
+     "group": "Wichtige Wörter (Bedeutung auf Deutsch)"
+    },
+    {
+     "word": "Quellen",
+     "translation": "Orte, wo man Informationen findet",
+     "article": "die",
+     "group": "Wichtige Wörter (Bedeutung auf Deutsch)"
+    },
+    {
+     "word": "Meinung",
+     "translation": "das, was man denkt",
+     "article": "die",
+     "group": "Wichtige Wörter (Bedeutung auf Deutsch)"
+    }
+   ],
+   "auto_practice": false
+  },
+  {
+   "content_id": "vizu-a2-l09-uebungen-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 9,
+   "skill": "uebungen",
+   "title": "Übungen: A2 9. Unterricht",
+   "source": "vizu",
+   "exercises": [
+    {
+     "title": "damit oder um … zu?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Ich spare Geld, ___ ein Fahrrad zu kaufen.",
+       "options": [
+        "um",
+        "damit",
+        "weil"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "1 Person + zu: um … zu."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich arbeite hart, ___ meine Kinder ein besseres Leben haben.",
+       "options": [
+        "damit",
+        "um",
+        "dass"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "2 Personen: damit."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Paul nimmt einen Regenschirm, um nicht nass ___.",
+       "options": [
+        "zu werden",
+        "wird",
+        "werden"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Tom steht früh auf, damit er den Bus nicht ___.",
+       "options": [
+        "verpasst",
+        "zu verpassen",
+        "verpassen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "damit: Verb am Ende."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Wann benutzt man „um … zu“?",
+       "options": [
+        "Wenn das Subjekt gleich ist",
+        "Wenn es zwei Personen gibt",
+        "Nur mit Modalverben"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "Finalsätze (kitob, 96-bet)."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l09-yakuniy-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 9,
+   "skill": "yakuniy",
+   "title": "Abschlusstest: A2 9. Unterricht",
+   "source": "vizu",
+   "instruction": "Finalsätze va media so'zlari bo'yicha yakuniy test (dars materiali asosida).",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Sie lernt Deutsch, ___ in Deutschland zu studieren.",
+     "options": [
+      "um",
+      "damit",
+      "dass"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Er übt jeden Tag, damit er besser ___.",
+     "options": [
+      "wird",
+      "werden",
+      "zu werden"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Ich lese viel, um mehr ___.",
+     "options": [
+      "zu wissen",
+      "weiß",
+      "wissen"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wie viele Menschen lesen Nachrichten online?",
+     "options": [
+      "über 70 %",
+      "etwa 30 %",
+      "etwa 50 %"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Lesen."
+    },
+    {
+     "type": "true_false",
+     "question": "Fast 30 % der Nachrichten im Internet sind nicht komplett oder nicht korrekt.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "Lesen."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„die Quellen“ bedeutet …",
+     "options": [
+      "Orte, wo man Informationen findet",
+      "das, was man denkt",
+      "etwas Schlechtes"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„der Nachteil“ bedeutet …",
+     "options": [
+      "etwas Schlechtes, ein negativer Aspekt",
+      "etwas Gutes",
+      "aktuelle Ereignisse"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„die Meinung“ bedeutet …",
+     "options": [
+      "das, was man denkt",
+      "eine Zeitung",
+      "ein Radio"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l09-kompetenz-02",
+   "level": "A2",
+   "module": 1,
+   "lesson": 9,
+   "skill": "kompetenz",
+   "title": "Zusammenfassung: A2 9. Unterricht",
+   "source": "vizu",
+   "competency": "ZUSAMMENFASSUNG",
+   "html": "<h3>A2 9. Unterricht — qisqacha</h3><ul><li><strong>Bedeutung:</strong> „damit“ und „um … zu“ zeigen den Zweck einer Handlung — Frage: Warum? / Wozu?</li><li><strong>damit</strong> (2 Personen): Subjekt + Verb …, damit + Subjekt + … Verb — Ich spare Geld, damit ich ein Fahrrad kaufen kann.</li><li><strong>um … zu</strong> (1 Person): Subjekt + Verb …, um + … zu + Verb — Ich spare Geld, um ein Fahrrad zu kaufen.</li><li><strong>Wortschatz:</strong> die Medien, die Nachrichten, der Vorteil, der Nachteil, die Quellen, die Meinung.</li></ul><p>Natijalaringiz pastda — tugallanmagan bo'limlarni yakunlang, so'ng keyingi darsga o'ting.</p>"
+  }
+ ]
+}

@@ -66,6 +66,18 @@ from app.services.lms import grammar_text_only
 DATA_DIR = Path(__file__).resolve().parents[1] / "data" / "vizu_deutsch_a1"
 IMAGE_DIR = DATA_DIR / "images"
 LEVEL, MODULE = "A1", 1
+# --level A2: the VIZU-DEUTSCH A2 book (app/scripts/vizu_deutsch_a2, files unterricht_NN)
+PACKAGE, FILE_PREFIX = "vizu_deutsch_a1", "modul"
+LEVELS = {"A1": ("vizu_deutsch_a1", "modul"), "A2": ("vizu_deutsch_a2", "unterricht")}
+
+
+def set_level(level: str) -> None:
+    global LEVEL, PACKAGE, FILE_PREFIX, DATA_DIR, IMAGE_DIR
+    LEVEL = level
+    PACKAGE, FILE_PREFIX = LEVELS[level]
+    DATA_DIR = Path(__file__).resolve().parents[1] / "data" / PACKAGE
+    IMAGE_DIR = DATA_DIR / "images"
+
 
 # lesson content replaced by --replace (table, model)
 CONTENT = (("readings", Reading), ("listenings", Listening), ("writings", Writing), ("speakings", Speaking),
@@ -73,11 +85,11 @@ CONTENT = (("readings", Reading), ("listenings", Listening), ("writings", Writin
 # rows referencing these are student history: never deleted
 STUDENT_HISTORY = {"lesson_skill_attempts", "student_writings", "student_speakings", "ai_evaluations"}
 def load(n: int) -> dict:
-    return json.loads((DATA_DIR / f"modul_{n:02d}.json").read_text(encoding="utf-8"))
+    return json.loads((DATA_DIR / f"{FILE_PREFIX}_{n:02d}.json").read_text(encoding="utf-8"))
 
 
 def book_module(n: int):
-    return importlib.import_module(f"app.scripts.vizu_deutsch_a1.modul_{n:02d}")
+    return importlib.import_module(f"app.scripts.{PACKAGE}.{FILE_PREFIX}_{n:02d}")
 
 
 def lesson_of(db, n: int) -> Lesson | None:
@@ -258,13 +270,99 @@ async def attach_images(db, lesson: Lesson, n: int, mod) -> list[str]:
     for filename, competency, title in getattr(mod, "IMAGES", []):
         if title in have:
             continue
-        path = IMAGE_DIR / f"modul_{n:02d}" / filename
+        path = IMAGE_DIR / f"{FILE_PREFIX}_{n:02d}" / filename
         with open(path, "rb") as fh:
             upload = UploadFile(fh, filename=filename, headers=Headers({"content-type": "image/jpeg"}))
             await resources.create_file_resource(db, lesson, resource_type="IMAGE", file=upload, title=title, competency=competency,
-                                                 description="VIZU-DEUTSCH A1", duration_seconds=None, actor_id=None)
+                                                 description=f"VIZU-DEUTSCH {LEVEL}", duration_seconds=None, actor_id=None)
         created.append(title)
     return created
+
+
+def _audio_duration(path: Path) -> int | None:
+    import subprocess
+
+    try:
+        out = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "default=nw=1:nk=1", str(path)],
+                             capture_output=True, text=True, timeout=60)
+        return round(float(out.stdout.strip()))
+    except Exception:  # noqa: BLE001 — duration is optional
+        return None
+
+
+def _concat_audio(paths: list[Path], out: Path) -> None:
+    """Several book tracks of ONE Hören task (Text 1, Text 2 …) -> one MP3,
+    in the given order. The source files stay untouched."""
+    import subprocess
+
+    args = ["ffmpeg", "-y", "-loglevel", "error"]
+    for p in paths:
+        args += ["-i", str(p)]
+    args += ["-filter_complex", f"concat=n={len(paths)}:v=0:a=1", "-c:a", "libmp3lame", "-q:a", "3", str(out)]
+    subprocess.run(args, check=True, timeout=600)
+
+
+def attach_audio(db, lesson: Lesson, mod, audio_dir: Path, publish: bool, dry_run: bool) -> list[str]:
+    """--audio-dir: the module's AUDIO = {content_id: file | [files]} — each
+    file is uploaded to the Hören task with that content_id of THIS lesson
+    through the regular upload (type checked by content, stored privately).
+    A task that already has audio is left alone (re-runnable). With --publish
+    a task is published only when its audio file exists and every question
+    has a key; otherwise it stays a draft."""
+    import tempfile
+
+    from starlette.datastructures import Headers, UploadFile
+
+    from app.services.lesson_skills import admin as skill_admin
+    from app.services.lesson_skills.hoeren_pdf_import import readiness
+
+    import unicodedata
+
+    # file names may be stored decomposed (NFD "ö" from macOS) — match on NFC
+    on_disk = {unicodedata.normalize("NFC", p.name): p for p in audio_dir.iterdir() if p.is_file()} if audio_dir.is_dir() else {}
+    report = []
+    for content_id, files in getattr(mod, "AUDIO", {}).items():
+        listening = db.scalar(select(Listening).where(Listening.lesson_id == lesson.id, Listening.content_id == content_id))
+        if listening is None:
+            report.append(f"{content_id}: Hören-Aufgabe fehlt (erst importieren)")
+            continue
+        names = files if isinstance(files, list) else [files]
+        paths = [on_disk.get(unicodedata.normalize("NFC", n), audio_dir / n) for n in names]
+        missing = [p.name for p in paths if not p.is_file()]
+        if listening.audio_storage_path:
+            state = "hat schon Audio"
+        elif missing:
+            report.append(f"{content_id}: Datei fehlt: {', '.join(missing)}")
+            continue
+        elif dry_run:
+            state = f"würde hochladen: {' + '.join(names)}"
+        else:
+            with tempfile.TemporaryDirectory() as tmp:
+                if len(paths) > 1:
+                    source = Path(tmp) / (Path(names[0]).stem.rsplit(" ", 1)[0] + f" 1-{len(paths)}.mp3")
+                    try:
+                        _concat_audio(paths, source)
+                    except Exception as exc:  # noqa: BLE001 — e.g. ffmpeg not installed: report, do not stop the import
+                        report.append(f"{content_id}: Zusammenfügen fehlgeschlagen ({type(exc).__name__}) — nichts hochgeladen")
+                        continue
+                else:
+                    source = paths[0]
+                ctype = "audio/mp4" if source.suffix.lower() == ".m4a" else "audio/mpeg"
+                with open(source, "rb") as fh:
+                    upload = UploadFile(fh, filename=source.name, headers=Headers({"content-type": ctype}))
+                    asyncio.run(skill_admin.upload_listening_audio(db, listening.id, upload, _audio_duration(source)))
+            db.refresh(listening)
+            state = f"hochgeladen: {listening.audio_original_name}"
+        if publish and not dry_run and not listening.is_published:
+            ready = readiness(db, listening)
+            if ready["ready"]:
+                listening.is_published = True
+                db.commit()
+                state += " · veröffentlicht"
+            else:
+                state += " · Entwurf (" + ", ".join(ready["reasons"]) + ")"
+        report.append(f"{content_id}: {state}")
+    return report
 
 
 def publish_images(db, lesson: Lesson, mod) -> int:
@@ -281,6 +379,7 @@ def publish_images(db, lesson: Lesson, mod) -> int:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("--level", choices=sorted(LEVELS), default="A1", help="which VIZU-DEUTSCH book (default A1)")
     parser.add_argument("--modules", type=int, nargs="*", help="book modules (default: all available)")
     parser.add_argument("--dry-run", action="store_true", help="validate and report only, write nothing")
     parser.add_argument("--publish", action="store_true", help="publish what was created (Hören without audio/key stays hidden)")
@@ -288,15 +387,17 @@ def main() -> int:
     parser.add_argument("--archive-dir", help="where --replace writes the removed content (JSON lines)")
     parser.add_argument("--lesson-meta", action="store_true", help="set the lesson title / description from the book")
     parser.add_argument("--images", action="store_true", help="attach the book's page images as image resources")
+    parser.add_argument("--audio-dir", help="upload the module's AUDIO files from this folder to their Hören tasks (after the import)")
     parser.add_argument("--remove-grammar-images", action="store_true",
                         help="only archive + remove the outdated Grammatik images (needs --archive-dir; content untouched, nothing imported)")
     args = parser.parse_args()
     if (args.replace or args.remove_grammar_images) and not args.archive_dir:
         parser.error("--replace / --remove-grammar-images need --archive-dir")
-    if (args.replace or args.lesson_meta or args.images) and not args.modules:
-        parser.error("--replace / --lesson-meta / --images need explicit --modules")
+    if (args.replace or args.lesson_meta or args.images or args.audio_dir) and not args.modules:
+        parser.error("--replace / --lesson-meta / --images / --audio-dir need explicit --modules")
 
-    modules = args.modules or sorted(int(p.stem.split("_")[1]) for p in DATA_DIR.glob("modul_*.json"))
+    set_level(args.level)
+    modules = args.modules or sorted(int(p.stem.split("_")[1]) for p in DATA_DIR.glob(f"{FILE_PREFIX}_*.json"))
     stamp = datetime.now(timezone.utc).strftime("%Y%m%d%H%M%S")
     failed = 0
     db = SessionLocal()
@@ -307,7 +408,7 @@ def main() -> int:
             if args.remove_grammar_images:
                 lesson = lesson_of(db, n)
                 if lesson is None:
-                    print(f"\nModul {n}: lesson A1 -> module {MODULE} -> lesson {n} does not exist — skipped")
+                    print(f"\nModul {n}: lesson {LEVEL} -> module {MODULE} -> lesson {n} does not exist — skipped")
                     failed += 1
                     continue
                 plan = grammar_image_plan(db, lesson, mod)
@@ -319,9 +420,10 @@ def main() -> int:
                     result = execute_replace(db, plan, Path(args.archive_dir) / f"modul_{n:02d}", stamp)
                     print(f"  -> {result}")
                 continue
-            lesson = lesson_of(db, n) if (args.replace or args.lesson_meta or args.images) else None
-            if (args.replace or args.lesson_meta or args.images) and lesson is None:
-                print(f"\nModul {n}: lesson A1 -> module {MODULE} -> lesson {n} does not exist — skipped")
+            needs_lesson = args.replace or args.lesson_meta or args.images or args.audio_dir
+            lesson = lesson_of(db, n) if needs_lesson else None
+            if needs_lesson and lesson is None:
+                print(f"\nModul {n}: lesson {LEVEL} -> module {MODULE} -> lesson {n} does not exist — skipped")
                 failed += 1
                 continue
             if args.replace:
@@ -337,23 +439,28 @@ def main() -> int:
             print_report(n, report)
             failed += report["invalid"]
             if args.dry_run:
+                if args.audio_dir:
+                    for line in attach_audio(db, lesson, mod, Path(args.audio_dir), args.publish, True):
+                        print(f"  -> audio {line}")
                 continue
             if args.lesson_meta and set_lesson_meta(db, lesson, mod):
                 print(f"  -> lesson title / description set: {lesson.title}")
             if args.images:
                 created = asyncio.run(attach_images(db, lesson, n, mod))
                 print(f"  -> {len(created)} page image(s) attached (draft)")
-            if report["errors"] or not report["valid"]:
-                continue
-            batch = importer.commit_document(db, document, None, f"vizu-deutsch-a1/modul_{n:02d}.json", skip_existing=True)
-            summary = importer.batch_summary(batch)
-            print(f"  -> batch {batch.id}: {summary['created_items']} created, {summary['skipped_items']} skipped, {summary['failed_items']} failed")
-            if args.publish:
-                batch = importer.publish_batch(db, batch.id)
-                waiting = [i for i in batch.items if i.get("publish_problem")]
-                print("  -> published; waiting: " + (", ".join(f"{i['title']} ({i['publish_problem']})" for i in waiting) or "none"))
-                if args.images:
-                    print(f"  -> {publish_images(db, lesson, mod)} page image(s) published")
+            if not (report["errors"] or not report["valid"]):
+                batch = importer.commit_document(db, document, None, f"{PACKAGE.replace('_', '-')}/{FILE_PREFIX}_{n:02d}.json", skip_existing=True)
+                summary = importer.batch_summary(batch)
+                print(f"  -> batch {batch.id}: {summary['created_items']} created, {summary['skipped_items']} skipped, {summary['failed_items']} failed")
+                if args.publish:
+                    batch = importer.publish_batch(db, batch.id)
+                    waiting = [i for i in batch.items if i.get("publish_problem")]
+                    print("  -> published; waiting: " + (", ".join(f"{i['title']} ({i['publish_problem']})" for i in waiting) or "none"))
+                    if args.images:
+                        print(f"  -> {publish_images(db, lesson, mod)} page image(s) published")
+            if args.audio_dir:
+                for line in attach_audio(db, lesson, mod, Path(args.audio_dir), args.publish, args.dry_run):
+                    print(f"  -> audio {line}")
     finally:
         db.close()
     return 1 if failed else 0

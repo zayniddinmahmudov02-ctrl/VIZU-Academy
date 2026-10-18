@@ -1,0 +1,1295 @@
+{
+ "schema_version": "1.2",
+ "language": "de",
+ "source": "vizu-deutsch-a2-book",
+ "items": [
+  {
+   "content_id": "vizu-a2-l12-kompetenz-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 12,
+   "skill": "kompetenz",
+   "title": "Einführung: A2 12. Unterricht",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 147
+   },
+   "competency": "EINFUEHRUNG",
+   "html": "<h3>A2 12. Unterricht — Kultur, Tradition und Gesellschaft</h3><p><strong>Mavzu:</strong> Kultur, Tradition und Gesellschaft · <strong>Grammatik:</strong> Relativsätze</p><h4>Dars maqsadlari</h4><ul><li>nisbiy olmoshlar bilan ergash gap tuzish: Das ist der Mann, der hier arbeitet.;</li><li>der / die / das, den, dem, dessen / deren, denen shakllarini kelishik bo'yicha tanlash;</li><li>predlog + nisbiy olmosh: Das ist der Kollege, mit dem ich zusammenarbeite.</li></ul><h4>Dars oxirida siz quyidagilarni bajara olasiz</h4><ul><li>an'analar jamiyat uchun nima uchun muhimligini aytasiz;</li><li>gazeta matni, TV dasturi, e-mail va sayohat e'lonlarini tushunasiz;</li><li>qisqa matnlar, suhbat va intervyuni tinglab tushunasiz;</li><li>SMS va e-mail yozasiz, savol berasiz va kinoga borish vaqtini kelishasiz.</li></ul><h4>Darsning tuzilishi</h4><p>Einführung → Wortschatz → Grammatik → Lesen → Hören → Sprechen → Schreiben → Übungen → Abschlusstest → Zusammenfassung</p>"
+  },
+  {
+   "content_id": "vizu-a2-l12-frage-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 12,
+   "skill": "frage",
+   "title": "Frage des Themas: Warum sind die Traditionen für eine Gesellschaft wichtig?",
+   "source": "book",
+   "metadata": {
+    "book_page": 148,
+    "book_samples": [
+     "Traditionen verbinden die Menschen miteinander und schaffen ein Gefühl der Zugehörigkeit. Sie bewahren unsere Kultur und Werte und geben sie an die nächste Generation weiter. Ohne Traditionen würden wir unsere Wurzeln verlieren.",
+     "Traditionen geben einer Gesellschaft Stabilität und Orientierung. Sie helfen uns, unsere Geschichte zu verstehen und aus der Vergangenheit zu lernen. Außerdem machen sie Feste und Bräuche zu etwas Besonderem und bereichern unser Leben.",
+     "Ich denke, Traditionen fördern Respekt und Zusammenhalt in der Gesellschaft. Sie zeigen, wer wir sind, und stärken das Gemeinschaftsgefühl. Natürlich können sich Traditionen auch verändern, aber ihr Kern bleibt wichtig."
+    ]
+   },
+   "prompt": "Warum sind die Traditionen für eine Gesellschaft wichtig?",
+   "min_duration": 20,
+   "max_duration": 120
+  },
+  {
+   "content_id": "vizu-a2-l12-grammatik-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 12,
+   "skill": "grammatik",
+   "title": "Grammatik: Relativsätze",
+   "source": "book",
+   "metadata": {
+    "book_page": "149-150",
+    "corrections": [
+     "Relativpronomen-Tabelle korrigiert (Spalten im Buch vertauscht).",
+     "Aufgabe 20 „Das Kind, ___ Ball verloren hat“ — keine richtige Option, nicht übernommen."
+    ]
+   },
+   "rules": [
+    {
+     "title": "Relativsätze (A2)",
+     "html": "<h3>Relativsätze (A2)</h3><h4>Was ist ein Relativsatz?</h4><ul><li>Ein Relativsatz beschreibt ein Nomen näher.</li><li>Er fängt mit einem Relativpronomen an.</li><li>Ein Relativsatz ist ein Nebensatz: Das Verb steht am Ende.</li></ul><h4>Struktur</h4><p>Hauptsatz + …, Relativpronomen + Nebensatz (Verb am Ende)</p><table><thead><tr><th></th><th>Nominativ</th><th>Akkusativ</th><th>Dativ</th><th>Genitiv</th></tr></thead><tbody><tr><td>Maskulin</td><td>der</td><td>den</td><td>dem</td><td>dessen</td></tr><tr><td>Feminin</td><td>die</td><td>die</td><td>der</td><td>deren</td></tr><tr><td>Neutrum</td><td>das</td><td>das</td><td>dem</td><td>dessen</td></tr><tr><td>Plural</td><td>die</td><td>die</td><td>denen</td><td>deren</td></tr></tbody></table><p><em>Hinweis: Die Tabelle im Buch hat die Spalten vertauscht (z. B. Dativ feminin „die“, Genitiv Plural „denen“) — hier die richtigen Formen.</em></p><h4>Fragewörter: wer, wo, wann</h4><ul><li>Ich kenne jemanden, der sehr freundlich ist.</li><li>Sie sucht das Haus, wo sie früher gewohnt hat.</li><li>Ich war zu einer Zeit glücklich, als ich studiert habe.</li></ul><h4>Beispiele</h4><ul><li>Da ist der Hund, den wir gefunden haben.</li><li>Ich kenne das Mädchen, das nebenan wohnt.</li><li>Das ist ein schöner Park, wo du spazieren gehen kannst.</li><li>Das ist der Lehrer, dem ich ein Buch gegeben habe.</li><li>Das ist eine Stadt, die viele Touristen besuchen.</li><li>Meine Schwester, deren Auto kaputt ist, kann nicht kommen.</li><li>Das ist das Restaurant, in dem wir gestern gegessen haben.</li></ul><h4>Weitere Strukturen</h4><ul><li>(Nomen), + Präposition + Relativpronomen + … : Das ist der Kollege, <strong>mit dem</strong> ich zusammenarbeite.</li><li>(Nomen), + Genitiv: Das ist der Kollege, <strong>dessen</strong> Büro sehr groß ist.</li></ul>"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "Grammatik Aufgaben: Relativpronomen (24 von 25)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "1. Das ist der Mann, ___ hier arbeitet.",
+       "options": [
+        "der",
+        "den",
+        "dem"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Nominativ maskulin: der."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "2. Ich habe ein Buch, ___ sehr interessant ist.",
+       "options": [
+        "das",
+        "dem",
+        "den"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Nominativ neutrum: das."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "3. Die Frau, ___ ich gestern gesehen habe, ist meine Lehrerin.",
+       "options": [
+        "die",
+        "der",
+        "den"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Akkusativ feminin: die."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "4. Das Kind, mit ___ ich spiele, ist sehr nett.",
+       "options": [
+        "dem",
+        "den",
+        "das"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "mit + Dativ neutrum: dem."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "5. Der Schüler, ___ Hausaufgaben fehlen, ist krank.",
+       "options": [
+        "dessen",
+        "dem",
+        "den"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Genitiv maskulin: dessen."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "6. Die Tasche, ___ auf dem Tisch liegt, ist neu.",
+       "options": [
+        "die",
+        "der",
+        "das"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Nominativ feminin: die."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "7. Der Lehrer, ___ wir danken, ist sehr freundlich.",
+       "options": [
+        "dem",
+        "den",
+        "der"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "danken + Dativ: dem."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "8. Das ist der Hund, ___ ich jeden Tag sehe.",
+       "options": [
+        "der",
+        "den",
+        "dem"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Akkusativ maskulin: den."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "9. Ich kenne die Frau, ___ Sohn Arzt ist.",
+       "options": [
+        "deren",
+        "die",
+        "den"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Genitiv feminin: deren."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "10. Das Auto, ___ vor dem Haus steht, ist teuer.",
+       "options": [
+        "das",
+        "dem",
+        "den"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Nominativ neutrum: das."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "11. Der Mann, mit ___ ich gesprochen habe, ist nett.",
+       "options": [
+        "dem",
+        "den",
+        "der"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "mit + Dativ maskulin: dem."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "12. Die Kinder, ___ im Garten spielen, sind laut.",
+       "options": [
+        "die",
+        "denen",
+        "den"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Nominativ Plural: die."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "13. Das Mädchen, ___ ich helfe, ist dankbar.",
+       "options": [
+        "dem",
+        "das",
+        "den"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "helfen + Dativ: dem."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "14. Der Kollege, ___ Büro neu ist, kommt aus Spanien.",
+       "options": [
+        "dessen",
+        "dem",
+        "den"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Genitiv maskulin: dessen."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "15. Ich habe einen Freund, ___ ich sehr vertraue.",
+       "options": [
+        "dem",
+        "den",
+        "der"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "vertrauen + Dativ: dem."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "16. Die Stadt, in ___ ich wohne, ist groß.",
+       "options": [
+        "der",
+        "die",
+        "den"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "in (Wo?) + Dativ feminin: der."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "17. Das ist das Haus, ___ Fenster kaputt sind.",
+       "options": [
+        "dessen",
+        "dem",
+        "den"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Genitiv neutrum: dessen."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "18. Der Lehrer, ___ wir sehen, ist streng.",
+       "options": [
+        "den",
+        "dem",
+        "der"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Akkusativ maskulin: den."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "19. Die Frau, ___ ich ein Geschenk gebe, ist meine Mutter.",
+       "options": [
+        "der",
+        "die",
+        "den"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "geben (wem?) + Dativ feminin: der."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "21. Der Student, ___ ich gestern getroffen habe, kommt aus Italien.",
+       "options": [
+        "den",
+        "dem",
+        "der"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Akkusativ maskulin: den."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "22. Die Frau, ___ wir helfen, ist sehr freundlich.",
+       "options": [
+        "der",
+        "die",
+        "den"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "helfen + Dativ feminin: der."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "23. Das Buch, ___ ich lese, ist spannend.",
+       "options": [
+        "das",
+        "dem",
+        "den"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Akkusativ neutrum: das."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "24. Der Mann, ___ Auto vor der Tür steht, ist mein Nachbar.",
+       "options": [
+        "dessen",
+        "dem",
+        "den"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Genitiv maskulin: dessen."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "25. Die Kinder, mit ___ wir spielen, sind sehr aktiv.",
+       "options": [
+        "denen",
+        "die",
+        "den"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "mit + Dativ Plural: denen."
+      }
+     ],
+     "instruction": "Wähle das richtige Relativpronomen. (Aufgabe 20 ist im Buch fehlerhaft und wurde nicht übernommen.)"
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l12-lesen-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 12,
+   "skill": "lesen",
+   "title": "Lesen Teil 1: Computer und Freunde sind mir wichtig",
+   "source": "book",
+   "metadata": {
+    "book_page": 151,
+    "note": "Kitobdagi matn ikki ustun orasida uzilgan — 3 va 4-savollarga javob matnda yo'q, olinmadi."
+   },
+   "instruction": "Du liest einen Zeitungstext. Wähle a, b oder c.",
+   "passages": [
+    {
+     "title": "„Computer und Freunde sind mir wichtig“",
+     "text": "„Computer und Freunde sind mir wichtig“\n\nPeter wohnt in Bremen, ist Schüler und geht in die 7. Klasse des Gymnasiums. Seine Lieblingsfächer sind Mathe und Englisch. Geschwister hat er keine. In seiner Freizeit gefällt es ihm, mit seinen Freunden, aber auch an seinem Computer zu spielen. Er hat nämlich seit der 5. Klasse einen eigenen PC. Das Geld für den Computer hat er selber gespart.\n\nWenn man seine Eltern fragt, dann hört man von ihnen nicht selten, dass sie es lieber sehen, wenn sich ihr Sohn nicht so viel am Computer beschäftigt, denn sie haben große Angst davor, dass er in der Schule schlechter wird. Peter ist aber in der Schule ganz gut und seine Lehrer sagen, dass er im Unterricht immer mitmacht.\n\n[…] natürlich kein Geld dafür ausgeben muss. Außerdem machen das auch meine Freunde!“ meint er.\n\nAls er noch in den Kindergarten ging, wollte er Pilot werden. Peter kann sich jetzt aber gut vorstellen Informatik zu studieren, weil er sehr gern am Computer sitzt und neue Sachen lernt."
+    }
+   ],
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "1 Peter gefällt es, …",
+     "options": [
+      "nur am Computer zu spielen.",
+      "mit seinen Freunden zu spielen.",
+      "sowohl am Computer als auch mit seinen Freunden zu spielen."
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„In seiner Freizeit gefällt es ihm, mit seinen Freunden, aber auch an seinem Computer zu spielen.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "2 Peters Eltern möchten, …",
+     "options": [
+      "dass sich Peter am Computer beschäftigt.",
+      "dass Peter keine Angst vor dem Computer hat.",
+      "dass er nicht zu lange am Computer sitzt."
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„… dass sie es lieber sehen, wenn sich ihr Sohn nicht so viel am Computer beschäftigt …“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "5 Peter möchte …",
+     "options": [
+      "Informatik studieren.",
+      "Pilot werden.",
+      "als Kindergärtner arbeiten."
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Peter kann sich jetzt aber gut vorstellen Informatik zu studieren …“"
+    }
+   ],
+   "max_score": 3
+  },
+  {
+   "content_id": "vizu-a2-l12-lesen-02",
+   "level": "A2",
+   "module": 1,
+   "lesson": 12,
+   "skill": "lesen",
+   "title": "Lesen Teil 2: SAT 1 Abendprogramm",
+   "source": "book",
+   "metadata": {
+    "book_page": 152
+   },
+   "instruction": "Du bist zu Hause und liest das Abendprogramm von SAT 1. Was schaust du dir an? Wähle a, b oder c.",
+   "passages": [
+    {
+     "title": "SAT 1 Abendprogramm",
+     "text": "SAT 1 — Abendprogramm\n\n19:00 Uhr Mit den Noten spielen: Heute sehen Sie, wie man verschiedene Musikinstrumente spielen lernt. Neben Gitarre und Trompete stellen wir Ihnen auch das Klavier vor. Nichts macht mehr Spaß als Musik.\n19:30 Uhr Kein Problem für Flink: In dieser Episode ist Kommissar Flink hinter zwei Personen her, die in einem Park einen Mann überfallen haben. Wird es ihm gelingen, den Fall zu lösen?\n20:00 Uhr Lecker – Schmecker: Heute lernen Sie, wie man in sehr kurzer Zeit ein leckeres Essen kocht und wie man einen Apfelkuchen macht. Alle Rezepte der Sendung können Sie online downloaden.\n20:30 Uhr Der Spaßvogel: Der neue, nette Assistent von Professor Gruber ist immer zu Späßen aufgelegt. Ob das gut gehen wird? Wenn Sie Lust zum Lachen haben, dann müssen Sie sich diese Komödie unbedingt anschauen.\n21:00 Uhr Aktuelles vom Tage: Aktuelle Nachrichten nicht nur aus Deutschland, sondern auch aus dem Ausland. Heute im Studio: Bundesarbeitsminister Schaff im Interview über Maßnahmen zur Bekämpfung der Arbeitslosigkeit und mögliche Änderungen in der Sozialversicherung.\n21:30 Uhr Tor!: In der heutigen Sportschau informieren wir Sie über die Tennis-, Handball- und Fußballergebnisse. Außerdem blenden wir uns live in das Spiel von Borussia Dortmund gegen den Hamburger SV ein."
+    }
+   ],
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "6 Du möchtest mit deinen Freunden einen lustigen Film sehen.",
+     "options": [
+      "Lecker – Schmecker",
+      "Aktuelles vom Tage",
+      "andere Sendung"
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Die Komödie „Der Spaßvogel“ (20:30 Uhr) steht nicht unter a / b → andere Sendung."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "7 Du möchtest wissen, was auf der Welt passiert.",
+     "options": [
+      "Tor!",
+      "Aktuelles vom Tage",
+      "andere Sendung"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Aktuelle Nachrichten … auch aus dem Ausland."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "8 Du möchtest wissen, wie deine Fußballmannschaft gespielt hat.",
+     "options": [
+      "Tor!",
+      "Kein Problem für Flink",
+      "andere Sendung"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Sportschau: Fußballergebnisse."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "9 Du spielst Klavier und möchtest eine passende Sendung sehen.",
+     "options": [
+      "Der Spaßvogel",
+      "Mit den Noten spielen",
+      "andere Sendung"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„… stellen wir Ihnen auch das Klavier vor.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "10 Du möchtest wissen, wie man einen Kuchen backt.",
+     "options": [
+      "Lecker – Schmecker",
+      "Tor!",
+      "andere Sendung"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„… und wie man einen Apfelkuchen macht.“"
+    }
+   ],
+   "max_score": 5
+  },
+  {
+   "content_id": "vizu-a2-l12-lesen-03",
+   "level": "A2",
+   "module": 1,
+   "lesson": 12,
+   "skill": "lesen",
+   "title": "Lesen Teil 3: E-Mail von Nadine",
+   "source": "book",
+   "metadata": {
+    "book_page": 153
+   },
+   "instruction": "Du liest eine E-Mail. Wähle für die Aufgaben 11 bis 15 a, b oder c.",
+   "passages": [
+    {
+     "title": "E-Mail: Sommerferien",
+     "text": "Von: Nadine · An: Claudia · Betreff: Sommerferien\n\nLiebe Claudia,\nentschuldige bitte, dass ich mich erst heute melde, dabei gibt es so viel Interessantes zu berichten.\n\nIch möchte dir so gern über meine letzten Sommerferien erzählen. Jetzt sind wir schon drei Wochen wieder zu Hause und ich denke immer noch an die schöne Zeit, die ich mit meiner Familie in Griechenland verbracht habe.\n\nAm 1. August um 12:30 Uhr sind wir in Athen angekommen. Auf dem Flughafen waren sooo viele Menschen, voll beladen mit Koffern, Taschen, Kameras. Wir hatten zum Glück nicht so viel Gepäck. Mit einem Taxi sind wir ins Hotel gefahren, das außerhalb von Athen lag.\n\nUnser Hotelzimmer war groß, mit herrlichem Blick aufs Meer und auf die Inseln. Gleich am ersten Tag sind wir schwimmen gegangen. Das Wasser war schön warm und wir haben uns ein bisschen in die Sonne gelegt. Als es uns zu heiß wurde, gingen wir ins Hotel zurück.\n\nAn den anderen Tagen haben wir Sehenswürdigkeiten besichtigt und Souvenirs gekauft, jeden Tag was Neues. Für dich habe ich auch ein kleines Souvenir mitgebracht, das dir sicher gut gefallen wird.\n\nNatürlich haben wir auch die griechischen Spezialitäten probiert. Abends haben wir fast immer in Tavernen gegessen. Am besten hat uns „Souvlaki“ geschmeckt. Das ist gegrilltes Fleisch am Spieß. Aber auch die vielen bunten Salate waren lecker und überhaupt nicht teuer.\n\nDas waren fantastische Ferien! Nächstes Jahr wollen wir auf eine der vielen malerischen Inseln fahren.\n\nMelde dich!\nLiebe Grüße\nNadine"
+    }
+   ],
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "11 Nadine erzählt über …",
+     "options": [
+      "die schöne Zeit zu Hause nach den Sommerferien.",
+      "die Sommerferien, die sie letzten Sommer verbracht hat.",
+      "die Sommerferien, die sie jetzt macht."
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Ich möchte dir … über meine letzten Sommerferien erzählen.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "12 Auf dem Flughafen …",
+     "options": [
+      "hatten viele Menschen keine Koffer.",
+      "waren sie kurz vor 12 Uhr.",
+      "hatten sie wenig Gepäck."
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Wir hatten zum Glück nicht so viel Gepäck.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "13 Das Hotelzimmer …",
+     "options": [
+      "war super, aber man konnte nicht aufs Meer sehen.",
+      "hatte Blick aufs Meer.",
+      "war zu heiß."
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„… mit herrlichem Blick aufs Meer und auf die Inseln.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "14 Nadine hat …",
+     "options": [
+      "viele Ausflüge gemacht.",
+      "Sehenswürdigkeiten besichtigt.",
+      "viele Souvenirs für ihre Freundin gekauft."
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„An den anderen Tagen haben wir Sehenswürdigkeiten besichtigt …“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "15 Die Familie hat …",
+     "options": [
+      "nur griechische Spezialitäten probiert.",
+      "gern Souvlaki gegessen.",
+      "immer in derselben Taverne gegessen."
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Am besten hat uns „Souvlaki“ geschmeckt.“"
+    }
+   ],
+   "max_score": 5
+  },
+  {
+   "content_id": "vizu-a2-l12-lesen-04",
+   "level": "A2",
+   "module": 1,
+   "lesson": 12,
+   "skill": "lesen",
+   "title": "Lesen Teil 4: Wir bringen Sie überall hin!",
+   "source": "book",
+   "metadata": {
+    "book_page": 154,
+    "note": "Birgit (Sport) ga ikki e'lon (a va f) mos keladi — bir ma'noli emas, olinmadi."
+   },
+   "instruction": "Sechs Jugendliche suchen im Internet nach Reisen. Welche Anzeige passt zu welcher Person?",
+   "passages": [
+    {
+     "title": "www.weltreisen.de",
+     "text": "www.weltreisen.de — Wir bringen Sie überall hin!\n\na Aktivurlaub in Spanien – mal was anderes. In unserem 5-Sterne-Hotel in der Nähe von Barcelona können Sie einen unvergesslichen Urlaub verbringen, mit Schwimmen im Pool und viel Sport – von Fußball und Basketball bis Tennis oder Golf. Schauen Sie unter www.sportcatal.es nach und nutzen Sie unser Superangebot. Reservieren Sie jetzt!\n\nb Unzählige Sehenswürdigkeiten warten auf Sie. Wenn Sie nicht nur das Colosseum und den Petersdom besuchen wollen, dann kommen Sie zu uns, und wir suchen für Sie das passende Angebot zu einem besonders günstigen Preis aus. Reisebüro der Jugend – Öffnungszeiten: Montag–Freitag: 8:00 - 14:00 Uhr\n\nc Eine Sprachreise nach Deutschland lohnt sich. Wenn Sie ein bisschen Deutsch sprechen und noch besser Deutsch sprechen wollen, dann organisieren wir für Sie eine Sprachreise nach Deutschland. Preiswerte Unterkunft in Pensionen oder Gastfamilien, Unterricht durch muttersprachliche Lehrer.\n\nd Die Natur genießen. Ein sehr schönes Reiseziel sind die Berge. Im Dezember liegt viel Schnee, und Sie können die Alpen aus der Nähe sehen. Rufen Sie uns an! Wir bieten täglich supergünstige Schnäppchen an. Tel.: 0846/84736\n\ne Endloses Baden. Sommerzeit, Badezeit!!! Wollen Sie schwimmen und die Sonne genießen? Dann sollten Sie früh buchen. Wir haben Hotelzimmer und Ferienwohnungen in allen Preisklassen im Angebot. Unsere Adresse lautet: Brandenburger Straße 6, 70173 Stuttgart\n\nf Sport mal anders! Extremsport: der neue Trend, der absolute Liebling – besonders unter jungen Leuten. Probieren Sie in Ihrem Urlaub die eine oder andere Sportart aus, zum Beispiel Bungee-Jumping oder Paragliding. Sie werden nicht allein sein, sondern immer zusammen mit begeisterten Sportfreunden trainieren. Anklicken: www.sportextrem.com"
+    }
+   ],
+   "questions": [
+    {
+     "type": "matching",
+     "question": "Welche Anzeige passt zu welcher Person? (keine passende Anzeige: X)",
+     "items": [
+      "Ulrike möchte im Winter in die Berge fahren.",
+      "Markus möchte mit seiner Familie in den Norden fahren.",
+      "Jörg will dieses Jahr seine Ferien am Meer verbringen.",
+      "Klaus möchte nach Italien fahren und die vielen Sehenswürdigkeiten besichtigen.",
+      "Jasmin möchte in den Ferien ihre Deutschkenntnisse verbessern."
+     ],
+     "targets": [
+      "Anzeige b) Unzählige Sehenswürdigkeiten",
+      "Anzeige c) Sprachreise nach Deutschland",
+      "Anzeige d) Die Natur genießen",
+      "Anzeige e) Endloses Baden",
+      "X – keine passende Anzeige"
+     ],
+     "pairs": {
+      "1": "C",
+      "2": "E",
+      "3": "D",
+      "4": "A",
+      "5": "B"
+     },
+     "points": 5,
+     "passage": 1,
+     "explanation": "Ulrike → d (Berge, Schnee im Dezember), Markus → X (keine Anzeige für den Norden), Jörg → e (Baden), Klaus → b (Colosseum, Petersdom), Jasmin → c (Sprachreise)."
+    }
+   ],
+   "max_score": 5
+  },
+  {
+   "content_id": "vizu-a2-l12-hoeren-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 12,
+   "skill": "hoeren",
+   "title": "Hören Teil 1: Fünf kurze Texte",
+   "source": "book",
+   "metadata": {
+    "book_page": 155,
+    "note": "Kitobda kalit va transkript yo'q — admin audioni tinglab javoblarni belgilaydi."
+   },
+   "audio_file": "A2 12.Unterricht Teil_1.m4a",
+   "key_pending": true,
+   "instruction": "Du hörst fünf kurze Texte. Du hörst jeden Text zweimal. Wähle a, b oder c.",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "1 Wie ist das Zimmer von Anna?",
+     "options": [
+      "Es ist alt und klein.",
+      "Es ist neu und groß.",
+      "Es ist hell und gemütlich."
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "2 Welcher Tag ist heute?",
+     "options": [
+      "Samstag.",
+      "Sonntag.",
+      "Montag."
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "3 Wie viel kostet der Kugelschreiber?",
+     "options": [
+      "2,20 Euro.",
+      "0,90 Euro.",
+      "2,90 Euro."
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "4 Wen soll Markus abholen?",
+     "options": [
+      "Seine Mutti.",
+      "Seinen Bruder.",
+      "Seinen Vater."
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "5 Wie ist das Wetter im Norden?",
+     "options": [
+      "Sonnig und warm.",
+      "Zuerst Regen, dann Sonne.",
+      "Es regnet."
+     ],
+     "points": 1
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l12-hoeren-02",
+   "level": "A2",
+   "module": 1,
+   "lesson": 12,
+   "skill": "hoeren",
+   "title": "Hören Teil 2: Was kommt in den Koffer?",
+   "source": "book",
+   "metadata": {
+    "book_page": 156,
+    "note": "Kitobda kalit va transkript yo'q — admin audioni tinglab javoblarni belgilaydi."
+   },
+   "audio_file": "A2 12.Unterricht Teil_2.m4a",
+   "key_pending": true,
+   "instruction": "Du hörst ein Gespräch einmal. Wähle für die Aufgaben 6 bis 10 ein passendes Bild (Bild im Abschnitt). Wähle jeden Buchstaben nur einmal.",
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "Was kommt in den Koffer? Wähle das passende Bild (Beispiel: 0 Ralf → h kurze Jeans).",
+     "text": "6 Erika: [[1]]",
+     "gaps": {
+      "1": {
+       "accepted": [],
+       "options": [
+        "a) Pullover",
+        "b) Hemd",
+        "c) Bikini",
+        "d) Kleid",
+        "e) Strandtasche",
+        "f) CD",
+        "g) T-Shirts",
+        "i) Flip-Flops"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Was kommt in den Koffer? Wähle das passende Bild (Beispiel: 0 Ralf → h kurze Jeans).",
+     "text": "7 Anna: [[1]]",
+     "gaps": {
+      "1": {
+       "accepted": [],
+       "options": [
+        "a) Pullover",
+        "b) Hemd",
+        "c) Bikini",
+        "d) Kleid",
+        "e) Strandtasche",
+        "f) CD",
+        "g) T-Shirts",
+        "i) Flip-Flops"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Was kommt in den Koffer? Wähle das passende Bild (Beispiel: 0 Ralf → h kurze Jeans).",
+     "text": "8 Markus: [[1]]",
+     "gaps": {
+      "1": {
+       "accepted": [],
+       "options": [
+        "a) Pullover",
+        "b) Hemd",
+        "c) Bikini",
+        "d) Kleid",
+        "e) Strandtasche",
+        "f) CD",
+        "g) T-Shirts",
+        "i) Flip-Flops"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Was kommt in den Koffer? Wähle das passende Bild (Beispiel: 0 Ralf → h kurze Jeans).",
+     "text": "9 Jürgen: [[1]]",
+     "gaps": {
+      "1": {
+       "accepted": [],
+       "options": [
+        "a) Pullover",
+        "b) Hemd",
+        "c) Bikini",
+        "d) Kleid",
+        "e) Strandtasche",
+        "f) CD",
+        "g) T-Shirts",
+        "i) Flip-Flops"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Was kommt in den Koffer? Wähle das passende Bild (Beispiel: 0 Ralf → h kurze Jeans).",
+     "text": "10 Udo: [[1]]",
+     "gaps": {
+      "1": {
+       "accepted": [],
+       "options": [
+        "a) Pullover",
+        "b) Hemd",
+        "c) Bikini",
+        "d) Kleid",
+        "e) Strandtasche",
+        "f) CD",
+        "g) T-Shirts",
+        "i) Flip-Flops"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l12-hoeren-03",
+   "level": "A2",
+   "module": 1,
+   "lesson": 12,
+   "skill": "hoeren",
+   "title": "Hören Teil 3: Fünf kurze Gespräche",
+   "source": "book",
+   "metadata": {
+    "book_page": 157,
+    "note": "Kitobda kalit va transkript yo'q — admin audioni tinglab javoblarni belgilaydi."
+   },
+   "audio_file": "A2 12.Unterricht Teil_3.m4a",
+   "key_pending": true,
+   "instruction": "Du hörst fünf kurze Gespräche einmal. Wähle a, b oder c (Bilder im Abschnitt).",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "11 Was möchte das Mädchen?",
+     "options": [
+      "a) Apfelsaft (rote Flasche)",
+      "b) Orangensaft",
+      "c) Traubensaft"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "12 Wann schreibt Rainer die Mathearbeit?",
+     "options": [
+      "a) Mittwoch, 9.",
+      "b) Donnerstag, 10.",
+      "c) Freitag, 11."
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "13 Was nimmt der Junge?",
+     "options": [
+      "a) Hustensaft",
+      "b) Tee",
+      "c) Tabletten aus dem Medizinschrank"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "14 Um wie viel Uhr gehen sie ins Kino?",
+     "options": [
+      "a) 18:00",
+      "b) 20:00",
+      "c) 20:15"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "15 Was holt sich Hans von der Bäckerei?",
+     "options": [
+      "a) Brötchen",
+      "b) Baguette",
+      "c) Kuchen"
+     ],
+     "points": 1
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l12-hoeren-04",
+   "level": "A2",
+   "module": 1,
+   "lesson": 12,
+   "skill": "hoeren",
+   "title": "Hören Teil 4: Interview mit Sandra",
+   "source": "book",
+   "metadata": {
+    "book_page": 158,
+    "note": "Kitobda kalit va transkript yo'q — admin audioni tinglab javoblarni belgilaydi."
+   },
+   "audio_file": "A2 12.Unterricht Teil_4.m4a",
+   "key_pending": true,
+   "instruction": "Du hörst ein Interview zweimal. Wähle „Ja“ oder „Nein“. (Beispiel: 0 Sandra ist Italienerin. → Nein)",
+   "questions": [
+    {
+     "type": "true_false",
+     "question": "16 Sandra ist seit 12 Monaten in Italien.",
+     "options": [
+      "Ja",
+      "Nein"
+     ],
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "17 Sandra geht jetzt in die 8. Klasse.",
+     "options": [
+      "Ja",
+      "Nein"
+     ],
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "18 In Sandras Schule wird auf Englisch unterrichtet.",
+     "options": [
+      "Ja",
+      "Nein"
+     ],
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "19 Am Anfang hatte Sandra überhaupt keine Freunde.",
+     "options": [
+      "Ja",
+      "Nein"
+     ],
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "20 Das Essen, das Wetter und die Menschen in Italien sind toll, aber Sandras Vater verdient nicht viel.",
+     "options": [
+      "Ja",
+      "Nein"
+     ],
+     "points": 1,
+     "passage": 1
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l12-schreiben-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 12,
+   "skill": "schreiben",
+   "title": "Schreiben Teil 1: SMS an Michael",
+   "source": "book",
+   "metadata": {
+    "book_page": 159
+   },
+   "task_type": "message",
+   "prompt": "Dein Freund Michael sendet dir eine SMS und lädt dich am kommenden Samstag um 10 Uhr zu einem Tennisspiel ein. Antworte Michael mit einer SMS.\n• Entschuldige dich, dass du nicht kommen kannst.\n• Schreib warum.\n• Mach einen neuen Vorschlag (Tag und Uhrzeit) für euer Tennisspiel.\n\nSchreib 20–30 Wörter. Schreib zu allen drei Punkten.",
+   "audience": "Freund Michael (informell)",
+   "min_words": 20,
+   "max_words": 40,
+   "time_limit": 10
+  },
+  {
+   "content_id": "vizu-a2-l12-schreiben-03",
+   "level": "A2",
+   "module": 1,
+   "lesson": 12,
+   "skill": "schreiben",
+   "title": "Schreiben Teil 2: E-Mail an Herrn Stark",
+   "source": "book",
+   "metadata": {
+    "book_page": 159
+   },
+   "task_type": "email",
+   "prompt": "Der Vater von deinem Freund, Herr Stark, hat noch eine Karte für das Rockkonzert am Samstagabend und möchte sie dir schenken. Er weiß nämlich, dass du ein großer Fan von „Rammstein“ bist. Schreib Herrn Stark eine E-Mail:\n• Bedanke dich und sage, dass du mitkommst.\n• Informiere ihn, dass du nicht bis ganz spät auf dem Konzert bleiben kannst.\n• Frage nach der Uhrzeit fürs Treffen vor dem Konzert.\n\nSchreib 30–40 Wörter. Schreib zu allen drei Punkten.",
+   "audience": "Herr Stark (formell)",
+   "min_words": 30,
+   "max_words": 50,
+   "time_limit": 15
+  },
+  {
+   "content_id": "vizu-a2-l12-schreiben-04",
+   "level": "A2",
+   "module": 1,
+   "lesson": 12,
+   "skill": "schreiben",
+   "title": "Wortschatz-Aufgabe: Wort zu Wort Wortschatzmethode (Kultur, Tradition und Gesellschaft)",
+   "source": "book",
+   "metadata": {
+    "book_page": 163
+   },
+   "task_type": "description",
+   "prompt": "Formulieren Sie mit den Wörtern einer Variante einen Text.\n\nVariante 1: das Fest, die Tradition, die Bräuche, die Kultur, die Gesellschaft, die Werte\nVariante 2: feiern, bewahren, weitergeben, teilnehmen, respektieren, verbinden\nVariante 3: die Familie, die Gemeinschaft, die Freundschaft, die Nachbarn, das Zusammenleben, die Hilfe\nVariante 4: die Vielfalt, die Integration, die Sprache, die Identität, die Unterschiede, der Zusammenhalt\nVariante 5: das Ehrenamt, das Engagement, die Verantwortung, die Toleranz, die Gleichberechtigung, die Zukunft",
+   "min_words": 40,
+   "max_words": 200,
+   "time_limit": 25
+  },
+  {
+   "content_id": "vizu-a2-l12-sprechen-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 12,
+   "skill": "sprechen",
+   "title": "Sprechen Teil 1: Fragen zur Person",
+   "source": "book",
+   "metadata": {
+    "book_page": 160
+   },
+   "topic": "Fragen zur Person",
+   "response_type": "dialog",
+   "prompt": "Du nimmst vier Karten und stellst mit diesen Karten vier Fragen. Dein Partner / deine Partnerin antwortet.",
+   "questions": [
+    "Kandidat 1: Geschwister?",
+    "Kandidat 1: Alter?",
+    "Kandidat 1: Klasse?",
+    "Kandidat 1: Fremdsprache?",
+    "Kandidat 2: Hobby?",
+    "Kandidat 2: Lieblingsessen?",
+    "Kandidat 2: Reisen?",
+    "Kandidat 2: Freizeit?"
+   ],
+   "min_duration": 30,
+   "max_duration": 150,
+   "speech_goal": "Zu jedem Stichwort eine korrekte Frage stellen und beantworten.",
+   "keywords": [
+    "Hast du",
+    "Wie alt",
+    "In welche Klasse",
+    "Welche Sprache"
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l12-sprechen-02",
+   "level": "A2",
+   "module": 1,
+   "lesson": 12,
+   "skill": "sprechen",
+   "title": "Sprechen Teil 2: Von sich erzählen",
+   "source": "book",
+   "metadata": {
+    "book_page": 161
+   },
+   "topic": "Von sich erzählen",
+   "prompt": "Du bekommst eine Karte und erzählst etwas über dein Leben. Karte A: Möchtest du später studieren? Karte B: Was für Geschenke machst du?",
+   "questions": [
+    "Karte A: Bessere Chancen?",
+    "Karte A: Was?",
+    "Karte A: Inland oder Ausland?",
+    "Karte A: nach dem Studium?",
+    "Karte B: Preis?",
+    "Karte B: was?",
+    "Karte B: wann?",
+    "Karte B: für wen?"
+   ],
+   "response_type": "monolog",
+   "min_duration": 45,
+   "max_duration": 150,
+   "speech_goal": "Zu einer Aufgabenkarte zusammenhängend von sich erzählen.",
+   "keywords": [
+    "studieren",
+    "weil",
+    "Geschenk",
+    "für"
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l12-sprechen-03",
+   "level": "A2",
+   "module": 1,
+   "lesson": 12,
+   "skill": "sprechen",
+   "title": "Sprechen Teil 3: Ins Kino gehen — einen Termin finden",
+   "source": "book",
+   "metadata": {
+    "book_page": 162
+   },
+   "topic": "Einen Termin finden",
+   "response_type": "dialog",
+   "prompt": "Ihr wollt zusammen ins Kino gehen. Findet einen Termin.\n\nAufgabenblatt A: Mo Nachmittag Basketballtraining · Di Abend Englischunterricht · Mi Abend Lieblingssendung im Fernsehen · Do Nachmittag mit Klaus für den Test lernen · Fr Nachmittag Oma besuchen · Sa Abend Annas Geburtstagsparty · So Abend nichts tun!\nAufgabenblatt B: Mo Abend für den Mathe-Test lernen · Di Nachmittag neue Sportschuhe kaufen · Mi Nachmittag Volleyballtraining · Do Abend Tante Gabi kommt · Fr Abend Marias Party · Sa Nachmittag Fahrrad reparieren · So Abend früh ins Bett!",
+   "questions": [
+    "Hast du am … Zeit?",
+    "Am … kann ich nicht, weil …",
+    "Wie wäre es mit …?",
+    "Gut, dann gehen wir am … ins Kino."
+   ],
+   "min_duration": 45,
+   "max_duration": 180,
+   "speech_goal": "Gemeinsam einen freien Termin aushandeln (Vorschlag, Ablehnung mit Grund, Zustimmung).",
+   "keywords": [
+    "Hast du Zeit",
+    "am Nachmittag",
+    "am Abend",
+    "leider",
+    "ins Kino"
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l12-kompetenz-03",
+   "level": "A2",
+   "module": 1,
+   "lesson": 12,
+   "skill": "kompetenz",
+   "title": "Wortschatz: Kultur, Tradition und Gesellschaft (Wortschatzmethode)",
+   "source": "book",
+   "metadata": {
+    "book_page": 163,
+    "note": "Kitobda tarjima berilmagan — so'z ro'yxati to'qib chiqarilmadi."
+   },
+   "competency": "WORTSCHATZ",
+   "html": "<h3>Wort zu Wort Wortschatzmethode — Kultur, Tradition und Gesellschaft A2</h3><h4>Variante 1</h4><ul><li>das Fest</li><li>die Tradition</li><li>die Bräuche</li><li>die Kultur</li><li>die Gesellschaft</li><li>die Werte</li></ul><h4>Variante 2</h4><ul><li>feiern</li><li>bewahren</li><li>weitergeben</li><li>teilnehmen</li><li>respektieren</li><li>verbinden</li></ul><h4>Variante 3</h4><ul><li>die Familie</li><li>die Gemeinschaft</li><li>die Freundschaft</li><li>die Nachbarn</li><li>das Zusammenleben</li><li>die Hilfe</li></ul><h4>Variante 4</h4><ul><li>die Vielfalt</li><li>die Integration</li><li>die Sprache</li><li>die Identität</li><li>die Unterschiede</li><li>der Zusammenhalt</li></ul><h4>Variante 5</h4><ul><li>das Ehrenamt</li><li>das Engagement</li><li>die Verantwortung</li><li>die Toleranz</li><li>die Gleichberechtigung</li><li>die Zukunft</li></ul><p>Formulieren Sie einen Text mit den Wörtern einer Variante (Aufgabe im Bereich Schreiben).</p>"
+  },
+  {
+   "content_id": "vizu-a2-l12-yakuniy-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 12,
+   "skill": "yakuniy",
+   "title": "Abschlusstest: A2 12. Unterricht",
+   "source": "vizu",
+   "instruction": "Relativsätze va dars matnlari bo'yicha yakuniy test (dars materiali asosida).",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Das ist die Frau, ___ ich geholfen habe.",
+     "options": [
+      "der",
+      "die",
+      "den"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "helfen + Dativ feminin."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Das ist der Film, ___ ich gestern gesehen habe.",
+     "options": [
+      "den",
+      "der",
+      "dem"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Akkusativ maskulin."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Die Kinder, mit ___ ich spiele, sind nett.",
+     "options": [
+      "denen",
+      "die",
+      "deren"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "mit + Dativ Plural."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Ich kenne die Frau, ___ Sohn Arzt ist.",
+     "options": [
+      "deren",
+      "dessen",
+      "die"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wo steht das Verb im Relativsatz?",
+     "options": [
+      "am Ende",
+      "auf Position 2",
+      "am Anfang"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was möchte Peter später studieren?",
+     "options": [
+      "Informatik",
+      "Medizin",
+      "Musik"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Lesen Teil 1."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wo hat Nadine ihre Sommerferien verbracht?",
+     "options": [
+      "in Griechenland",
+      "in Italien",
+      "in Spanien"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Lesen Teil 3."
+    },
+    {
+     "type": "true_false",
+     "question": "Das Hotelzimmer von Nadine hatte Blick aufs Meer.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "Lesen Teil 3."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l12-kompetenz-02",
+   "level": "A2",
+   "module": 1,
+   "lesson": 12,
+   "skill": "kompetenz",
+   "title": "Zusammenfassung: A2 12. Unterricht",
+   "source": "vizu",
+   "competency": "ZUSAMMENFASSUNG",
+   "html": "<h3>A2 12. Unterricht — qisqacha</h3><ul><li><strong>Relativsatz:</strong> beschreibt ein Nomen näher, beginnt mit einem Relativpronomen, ist ein Nebensatz (Verb am Ende).</li><li><strong>Nominativ:</strong> der / die / das / die · <strong>Akkusativ:</strong> den / die / das / die · <strong>Dativ:</strong> dem / der / dem / denen · <strong>Genitiv:</strong> dessen / deren / dessen / deren</li><li><strong>Mit Präposition:</strong> Das ist der Kollege, mit dem ich zusammenarbeite. · Das ist das Restaurant, in dem wir gegessen haben.</li><li><strong>wo / als:</strong> Sie sucht das Haus, wo sie früher gewohnt hat. · Ich war glücklich, als ich studiert habe.</li></ul><p>Natijalaringiz pastda — tugallanmagan bo'limlarni yakunlang, so'ng keyingi darsga o'ting.</p>"
+  }
+ ]
+}

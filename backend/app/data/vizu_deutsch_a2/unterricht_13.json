@@ -1,0 +1,1342 @@
+{
+ "schema_version": "1.2",
+ "language": "de",
+ "source": "vizu-deutsch-a2-book",
+ "items": [
+  {
+   "content_id": "vizu-a2-l13-kompetenz-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 13,
+   "skill": "kompetenz",
+   "title": "Einführung: A2 13. Unterricht",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 164
+   },
+   "competency": "EINFUEHRUNG",
+   "html": "<h3>A2 13. Unterricht — Geld, Finanzen und Alltag</h3><p><strong>Mavzu:</strong> Geld, Finanzen und Alltag · <strong>Grammatik:</strong> Konjunktiv II</p><h4>Dars maqsadlari</h4><ul><li>Konjunktiv II bilan istak, real bo'lmagan holat, xushmuomala iltimos va maslahat aytish;</li><li>würde + Infinitiv va wäre / hätte / könnte / müsste / sollte shakllari;</li><li>Wenn-Sätze: Wenn ich reich wäre, würde ich reisen.</li></ul><h4>Dars oxirida siz quyidagilarni bajara olasiz</h4><ul><li>kundalik hayotda qanday pul tejash mumkinligini aytasiz;</li><li>kasbiy ta'lim, yoshlar dasturi, e-mail va to'garak e'lonlarini tushunasiz;</li><li>SMS va o'qituvchingizga e-mail yozasiz;</li><li>savol berasiz, o'zingiz haqida gapirasiz va dars uchun uchrashuv vaqtini kelishasiz.</li></ul><h4>Darsning tuzilishi</h4><p>Einführung → Wortschatz → Grammatik → Lesen → Hören → Sprechen → Schreiben → Übungen → Abschlusstest → Zusammenfassung</p>"
+  },
+  {
+   "content_id": "vizu-a2-l13-frage-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 13,
+   "skill": "frage",
+   "title": "Frage des Themas: Wie kann man im Alltag Geld sparen?",
+   "source": "book",
+   "metadata": {
+    "book_page": 165,
+    "book_answers": {
+     "Bewusst einkaufen": "Ich mache immer eine Einkaufsliste und kaufe nur das, was ich wirklich brauche. Ich vergleiche Preise und achte auf Angebote. So gebe ich weniger aus und spare Geld.",
+     "Energie sparen": "Ich schalte das Licht aus, wenn ich es nicht brauche. Ich dusche statt zu baden und nutze Energiesparlampen. Das spart nicht nur Geld, sondern schützt auch die Umwelt.",
+     "Geld planen": "Ich plane mein Budget und schreibe meine Ausgaben auf. Ich setze mir Sparziele, z. B. für Reisen oder neue Dinge. So habe ich mehr Kontrolle über mein Geld."
+    }
+   },
+   "prompt": "Wie kann man im Alltag Geld sparen? Sprecht darüber!",
+   "questions": [
+    "1 Bewusst einkaufen",
+    "2 Energie sparen",
+    "3 Geld planen"
+   ],
+   "min_duration": 20,
+   "max_duration": 120
+  },
+  {
+   "content_id": "vizu-a2-l13-grammatik-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 13,
+   "skill": "grammatik",
+   "title": "Grammatik: Konjunktiv II",
+   "source": "book",
+   "metadata": {
+    "book_page": "166-167",
+    "corrections": [
+     "können → könnte, müssen → müsste (Buch: müsste / dürfte — Druckfehler).",
+     "„Ein Relativsatz II“ → „Der Konjunktiv II“."
+    ]
+   },
+   "rules": [
+    {
+     "title": "Konjunktiv II (A2–B1)",
+     "html": "<h3>Konjunktiv II (A2–B1)</h3><h4>1. Was ist Konjunktiv II?</h4><p>Der Konjunktiv II beschreibt: <strong>irreale Situationen</strong> (nicht real), <strong>Wünsche</strong>, <strong>Höflichkeit</strong>.</p><h4>2. Verwendung</h4><ul><li><strong>Wunsch:</strong> Ich hätte gern mehr Zeit. · Ich würde gern in Deutschland leben.</li><li><strong>Irreale Situationen:</strong> Wenn ich reich wäre, würde ich ein Haus kaufen. · Wenn ich Zeit hätte, käme ich mit.</li><li><strong>Höfliche Bitten:</strong> Könnten Sie mir helfen? · Würden Sie bitte langsamer sprechen?</li><li><strong>Ratschläge:</strong> Du solltest mehr lernen. · Du könntest früher schlafen.</li></ul><h4>3. Bildung (Struktur)</h4><p><strong>a) Mit „würde“ + Infinitiv</strong> (am häufigsten): Subjekt + würde + Infinitiv — Ich würde Deutsch lernen. · Wir würden nach Berlin fahren.</p><p><strong>b) Mit starken Verben:</strong> sein → wäre · haben → hätte · können → könnte · müssen → müsste · dürfen → dürfte · sollen → sollte · wollen → wollte</p><p><em>Hinweis: Im Buch steht „können → müsste“ und „müssen → dürfte“ (Druckfehler) — hier die richtigen Formen.</em></p><h4>4. Wenn-Sätze (sehr wichtig)</h4><p>Wenn + Subjekt + Verb (am Ende), würde + Infinitiv — Wenn ich reich wäre, würde ich reisen. · Wenn ich Zeit hätte, würde ich dir helfen.</p><h4>Unterschied: Realität vs. Irrealität</h4><ul><li>Ich habe Zeit → Realität</li><li>Ich hätte Zeit → nicht real / Wunsch</li></ul><h4>5. Mini-Übung</h4><ul><li>✗ Ich würde kann gehen → ✓ Ich könnte gehen</li><li>✗ Wenn ich würde Zeit haben → ✓ wenn ich Zeit hätte</li></ul>"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "1 Wünsche (Lückentext)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit hätte / wäre / würde.",
+       "text": "1. Ich [[1]] gern mehr Zeit.",
+       "gaps": {
+        "1": [
+         "hätte"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit hätte / wäre / würde.",
+       "text": "2. Ich [[1]] nach Deutschland reisen.",
+       "gaps": {
+        "1": [
+         "würde",
+         "würde gern"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit hätte / wäre / würde.",
+       "text": "3. Wenn ich reich [[1]], [[2]] ich ein großes Haus kaufen.",
+       "gaps": {
+        "1": [
+         "wäre"
+        ],
+        "2": [
+         "würde"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit hätte / wäre / würde.",
+       "text": "4. Ich [[1]] gern besser Deutsch sprechen.",
+       "gaps": {
+        "1": [
+         "würde"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit hätte / wäre / würde.",
+       "text": "5. Wenn ich frei [[1]], [[2]] ich dich besuchen.",
+       "gaps": {
+        "1": [
+         "hätte",
+         "wäre"
+        ],
+        "2": [
+         "würde"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "Ergänzen Sie mit hätte / wäre / würde + Infinitiv."
+    },
+    {
+     "title": "2 Irreale Situationen (Wenn-Sätze)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Wenn-Sätze.",
+       "text": "1. Wenn ich mehr Geld [[1]], [[2]] ich ein Auto kaufen.",
+       "gaps": {
+        "1": [
+         "hätte"
+        ],
+        "2": [
+         "würde"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Wenn-Sätze.",
+       "text": "2. Wenn ich in Berlin [[1]], [[2]] ich jeden Tag Deutsch sprechen.",
+       "gaps": {
+        "1": [
+         "wäre",
+         "wohnte",
+         "lebte",
+         "wohnen würde",
+         "leben würde"
+        ],
+        "2": [
+         "würde"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Wenn-Sätze.",
+       "text": "3. Wenn ich Zeit [[1]], [[2]] ich dir helfen.",
+       "gaps": {
+        "1": [
+         "hätte"
+        ],
+        "2": [
+         "würde"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Wenn-Sätze.",
+       "text": "4. Wenn ich ein Lehrer [[1]], [[2]] ich weniger Hausaufgaben geben.",
+       "gaps": {
+        "1": [
+         "wäre"
+        ],
+        "2": [
+         "würde"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Wenn-Sätze.",
+       "text": "5. Wenn ich fliegen [[1]], [[2]] ich um die Welt reisen.",
+       "gaps": {
+        "1": [
+         "könnte"
+        ],
+        "2": [
+         "würde"
+        ]
+       },
+       "points": 2,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "Ergänzen Sie die Sätze."
+    },
+    {
+     "title": "3 Höfliche Bitten (Lückentext)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit könnte / würde.",
+       "text": "1. [[1]] Sie mir bitte helfen?",
+       "gaps": {
+        "1": [
+         "Könnten",
+         "Würden"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit könnte / würde.",
+       "text": "2. [[1]] Sie langsamer sprechen?",
+       "gaps": {
+        "1": [
+         "Könnten",
+         "Würden"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit könnte / würde.",
+       "text": "3. [[1]] ich bitte ein Glas Wasser bekommen?",
+       "gaps": {
+        "1": [
+         "Könnte"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit könnte / würde.",
+       "text": "4. [[1]] Sie das Fenster öffnen?",
+       "gaps": {
+        "1": [
+         "Könnten",
+         "Würden"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit könnte / würde.",
+       "text": "5. [[1]] du mir dein Buch geben?",
+       "gaps": {
+        "1": [
+         "Könntest",
+         "Würdest"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "Ergänzen Sie mit könnte / würde (in der richtigen Form)."
+    },
+    {
+     "title": "4 Ratschläge (Tipps geben)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit sollte / könnte.",
+       "text": "1. Du [[1]] mehr lernen.",
+       "gaps": {
+        "1": [
+         "solltest",
+         "könntest"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit sollte / könnte.",
+       "text": "2. Du [[1]] früher schlafen.",
+       "gaps": {
+        "1": [
+         "solltest",
+         "könntest"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit sollte / könnte.",
+       "text": "3. Du [[1]] mehr Sport machen.",
+       "gaps": {
+        "1": [
+         "solltest",
+         "könntest"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit sollte / könnte.",
+       "text": "4. Du [[1]] weniger am Handy sein.",
+       "gaps": {
+        "1": [
+         "solltest",
+         "könntest"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie mit sollte / könnte.",
+       "text": "5. Du [[1]] mehr Deutsch sprechen.",
+       "gaps": {
+        "1": [
+         "solltest",
+         "könntest"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "Ergänzen Sie mit sollte / könnte (in der richtigen Form)."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l13-lesen-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 13,
+   "skill": "lesen",
+   "title": "Lesen Teil 1: Berufsausbildung in Deutschland",
+   "source": "book",
+   "metadata": {
+    "book_page": "168-169"
+   },
+   "instruction": "Du liest einen Zeitungstext. Wähle a, b oder c.",
+   "passages": [
+    {
+     "title": "Berufsausbildung in Deutschland",
+     "text": "„Berufsausbildung in Deutschland“\n\nDie Wahl des passenden Berufs beschäftigt Kinder und Jugendliche, solange sie noch zur Schule gehen. Familie, Lehrer, Freunde und Bekannte können da sicher helfen, aber die Entscheidung muss von dem Jugendlichen getroffen werden. In Deutschland wollen viele Schüler nach ihrem Schulabschluss nicht auf die Uni gehen, sondern einen Beruf lernen. Wer will, kann daher nach Abschluss der Hauptschule, Realschule oder des Gymnasiums eine Berufsausbildung beginnen. Dazu besucht man eine Berufsschule.\n\nIn den Berufsschulen haben die Jugendlichen zwei- oder dreimal in der Woche Unterricht und an den anderen Tagen arbeiten sie, zum Beispiel bei einem Friseur, bei einer Firma, in einem Büro oder woanders. So können die Jugendlichen den Beruf besser lernen und dabei auch etwas Geld verdienen.\n\nDie Schüler in den Berufsschulen heißen „Azubis“. Das kommt von „Auszubildende“ und bedeutet „Leute, die ausgebildet werden müssen“. Die Azubis besuchen die Berufsschule zwei bis dreieinhalb Jahre lang und bekommen jeden Monat etwa 380 Euro.\n\nDiese Art der Berufsausbildung heißt „duale Ausbildung“, das heißt Ausbildung auf zwei Wegen, denn Jugendliche haben Unterricht und arbeiten, sie machen also beides, eine Kombination von Theorie und Praxis, die für den späteren Beruf sehr nützlich ist.\n\nDie duale Berufsausbildung ist in Deutschland bei den Jugendlichen, die nicht studieren wollen, sehr beliebt. Auf die Frage „Wie findet ihr die duale Ausbildung?“ antworten die meisten: „Ganz toll!“ Es ist aber für die Jugendlichen nicht immer leicht, einen Ausbildungsplatz in ihrem Traumberuf zu finden."
+    }
+   ],
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "1 In Deutschland …",
+     "options": [
+      "wollen alle Schüler nach der Schule studieren.",
+      "wollen die meisten Schüler keinen Beruf lernen.",
+      "kann man nach Abschluss der Schule einen Beruf lernen."
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Wer will, kann daher nach Abschluss der Hauptschule, Realschule oder des Gymnasiums eine Berufsausbildung beginnen.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "2 In der Berufsschule …",
+     "options": [
+      "muss man jeden Tag arbeiten.",
+      "hat man nicht jeden Tag Unterricht.",
+      "muss man für die Teilnahme am Unterricht zahlen."
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„… zwei- oder dreimal in der Woche Unterricht und an den anderen Tagen arbeiten sie …“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "3 Die Schüler …",
+     "options": [
+      "in der Berufsschule nennt man „Azubis“.",
+      "müssen die Berufsschule mindestens drei Jahre lang besuchen.",
+      "bekommen alle zwei Monate etwa 400 Euro."
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Die Schüler in den Berufsschulen heißen „Azubis“.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "4 „Duale Berufsausbildung“ bedeutet:",
+     "options": [
+      "Zwei Berufe zur gleichen Zeit lernen.",
+      "Eine Berufsausbildung gleichzeitig in zwei Firmen machen.",
+      "Unterricht haben und arbeiten."
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„… denn Jugendliche haben Unterricht und arbeiten …“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "5 Die meisten Jugendlichen …",
+     "options": [
+      "finden die duale Ausbildung leicht, aber langweilig.",
+      "sind mit der dualen Ausbildung sehr zufrieden.",
+      "können problemlos einen Ausbildungsplatz finden."
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„… antworten die meisten: „Ganz toll!“"
+    }
+   ],
+   "max_score": 5
+  },
+  {
+   "content_id": "vizu-a2-l13-lesen-02",
+   "level": "A2",
+   "module": 1,
+   "lesson": 13,
+   "skill": "lesen",
+   "title": "Lesen Teil 2: Sommerprogramm des Jugendtreffs Stuttgart",
+   "source": "book",
+   "metadata": {
+    "book_page": "170-171"
+   },
+   "instruction": "Du liest am Jugendtreff das Veranstaltungsprogramm. Welcher Tag ist richtig? Wähle a, b oder c.",
+   "passages": [
+    {
+     "title": "Sommerprogramm des Jugendtreffs Stuttgart",
+     "text": "Sommerprogramm des Jugendtreffs Stuttgart vom 6. bis 11. August\n\nMontag, 6. August: Wir wollen an diesem Tag das Schloss Neuschwanstein besuchen. Es ist nicht sehr weit weg, nur 2 Stunden mit dem Bus. Dieser Ausflug lohnt sich!\nDienstag, 7. August: Wer Lust hat, kann mit anderen Jungen oder Mädchen Fußball spielen. Von 15 Uhr bis 18 Uhr ist das Fußballstadion frei. Meldet euch an!\nMittwoch, 8. August: Da es an diesem Tag sehr warm werden soll, organisieren wir einen Ausflug ins Freibad. Wem es zu warm ist, kann mitkommen!\nDonnerstag, 9. August: Am Abend haben wir vor, einen spannenden Krimi zu zeigen. Es ist der neue James-Bond-Film. Den solltet ihr euch unbedingt ansehen!\nFreitag, 10. August: Wer gern Rad fährt, sollte an dieser Veranstaltung teilnehmen. Wir fahren diesmal ungefähr 10 Kilometer.\nSamstag, 11. August: Party, Beginn 20 Uhr. Ihr seid alle herzlich eingeladen. Es wird etwas zu essen und zu trinken geben. Der Eintritt kostet nur 3 Euro."
+    }
+   ],
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "6 Du möchtest eine Fahrradtour machen.",
+     "options": [
+      "Dienstag, 7. August",
+      "Donnerstag, 9. August",
+      "anderer Tag"
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Radfahren: Freitag, 10. August → anderer Tag."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "7 Du möchtest Sport treiben.",
+     "options": [
+      "Montag, 6. August",
+      "Dienstag, 7. August",
+      "anderer Tag"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Dienstag: Fußball spielen."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "8 Du gehst gern schwimmen.",
+     "options": [
+      "Mittwoch, 8. August",
+      "Freitag, 10. August",
+      "anderer Tag"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Mittwoch: Ausflug ins Freibad."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "9 Du möchtest gern einen Film sehen.",
+     "options": [
+      "Montag, 6. August",
+      "Dienstag, 7. August",
+      "anderer Tag"
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Film: Donnerstag, 9. August → anderer Tag."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "10 Du möchtest einen Ausflug zu einer Sehenswürdigkeit machen.",
+     "options": [
+      "Montag, 6. August",
+      "Mittwoch, 8. August",
+      "anderer Tag"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Montag: Schloss Neuschwanstein."
+    }
+   ],
+   "max_score": 5
+  },
+  {
+   "content_id": "vizu-a2-l13-lesen-03",
+   "level": "A2",
+   "module": 1,
+   "lesson": 13,
+   "skill": "lesen",
+   "title": "Lesen Teil 3: E-Mail von Petra — Prüfungsstress",
+   "source": "book",
+   "metadata": {
+    "book_page": "172-173"
+   },
+   "instruction": "Du liest eine E-Mail. Wähle für die Aufgaben 11 bis 15 a, b oder c.",
+   "passages": [
+    {
+     "title": "E-Mail: Prüfungsstress",
+     "text": "Von: Petra · An: Annette · Betreff: Prüfungsstress\n\nLiebe Annette,\nich kann deinen Prüfungsstress gut verstehen, denn mir ging es früher auch so. Am Tag vor einer Prüfung konnte ich nicht richtig lernen, und gut geschlafen habe ich da auch nicht. Aber du bist nicht die Einzige, die dieses Problem hat.\n\nIn meiner E-Mail möchte ich dir darum ein paar Tipps geben, die gegen diesen Stress helfen. Die Tipps habe ich von meinem Vater bekommen, der, wie du ja weißt, Lehrer ist. In solchen Situationen kann dir ein Lehrer, glaube ich, besser als ein Arzt helfen.\n\nNun zu den Tipps: Du solltest am Abend vor der Prüfung den Stoff noch einmal durchgehen und früh schlafen gehen. Lerne nicht allein, sondern mit deinen Freunden zusammen. Trefft euch regelmäßig vor der Prüfung, denn zusammen macht das Lernen mehr Spaß.\n\nBesonders wichtig ist nicht, wie viele Stunden du lernst, sondern wie du lernst. Warte nicht bis zum letzten Tag vor der Prüfung! Mach dir einen genauen Lernplan und lerne jeden Tag ein bisschen! Unterstreiche mit einem Textmarker, was du dir merken musst.\n\nVergiss außerdem die gesunde Ernährung nicht, iss nicht zu viel Süßes, stattdessen lieber viel Obst und viel Gemüse. Und mach beim Lernen kleine Pausen, fünf Minuten sind meistens genug. Pausen sind wichtig und helfen dir, dich zu konzentrieren.\n\nHoffentlich habe ich dir ein wenig geholfen. Viel Erfolg bei der nächsten Prüfung!\n\nAlles Liebe\ndeine Petra"
+    }
+   ],
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "11 Was sagt Petra zu Beginn?",
+     "options": [
+      "Dass sie gestern gut geschlafen hat.",
+      "Dass sie früher auch Angst vor Prüfungen hatte.",
+      "Dass sie Annettes Ruhe vor Prüfungen toll findet."
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„… denn mir ging es früher auch so.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "12 Wer hat Petra die Tipps gegen Stress gegeben?",
+     "options": [
+      "Ihr Lehrer.",
+      "Ihr Arzt.",
+      "Ihr Vater."
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Die Tipps habe ich von meinem Vater bekommen …“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "13 Was hilft nach Ansicht von Petra beim Lernen vor einer Prüfung?",
+     "options": [
+      "Immer allein lernen.",
+      "Eine Wiederholung am Abend vor der Prüfung.",
+      "Sich am Tag der Prüfung mit Freunden treffen."
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Du solltest am Abend vor der Prüfung den Stoff noch einmal durchgehen …“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "14 Was ist beim Lernen wichtig?",
+     "options": [
+      "Am Tag vor der Prüfung nicht mehr lernen.",
+      "Möglichst viele Stunden lernen.",
+      "Genau planen, wann man was lernt."
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Mach dir einen genauen Lernplan …“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "15 Was soll Annette beim Lernen nicht vergessen?",
+     "options": [
+      "Sich zu konzentrieren.",
+      "Kleine Pausen zu machen.",
+      "Jeden Tag etwas Schokolade zu essen."
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Und mach beim Lernen kleine Pausen …“"
+    }
+   ],
+   "max_score": 5
+  },
+  {
+   "content_id": "vizu-a2-l13-lesen-04",
+   "level": "A2",
+   "module": 1,
+   "lesson": 13,
+   "skill": "lesen",
+   "title": "Lesen Teil 4: Freizeit-AGs am schwarzen Brett",
+   "source": "book",
+   "metadata": {
+    "book_page": 174
+   },
+   "instruction": "Sechs Jugendliche suchen eine passende Freizeit-AG. Welche Anzeige passt zu welcher Person? Für eine Aufgabe gibt es keine Lösung.",
+   "passages": [
+    {
+     "title": "Freizeit-AGs",
+     "text": "Am schwarzen Brett der Schule: Freizeit-AGs\n\na Alles über Haustiere: Bist du tierlieb? Hättest du auch gern ein Haustier? In dieser AG lernt man, wie man sich richtig um sein Haustier kümmern sollte. Man lernt, was ein Haustier frisst und wann man es zum Tierarzt bringen muss.\n\nb Musik, Musik, Musik!: Wer schon immer Musik machen wollte, ist in dieser AG am richtigen Platz. Hier könnt ihr schnell ein Instrument spielen lernen. Wählen könnt ihr zwischen Schlagzeug, Gitarre oder Flöte. Das Tolle dabei: Am Schuljahresende nehmt ihr an einem Konzert teil!\n\nc Fit durch Tanz: Hier könnt ihr zwei Aktivitäten miteinander kombinieren, nämlich Gymnastik und Tanzen. In dieser AG lernt ihr Tänze aus der ganzen Welt, von Tango bis Breakdance. Es gibt eine Gruppe für Anfänger und eine für Fortgeschrittene.\n\nd AG „Botanik“: Wie wäre es mit einem eigenen Apfelbaum im Garten? Oder magst du lieber Tulpen? Egal! Wenn ihr euch für Bäume, Pflanzen und die verschiedenen Blumenarten interessiert, dann warten in der AG „Botanik“ viele interessante Projekte auf euch.\n\ne PC-Freunde: Computer haben zwei Seiten, eine gute und eine gefährliche. Hier lernt ihr, welche Vor- und Nachteile das Surfen im Internet hat. Ihr lernt, wie man das Internet für die Schule nutzen kann und was man auf keinen Fall tun sollte.\n\nf AG „Sport“ – der Klassiker: Sport macht immer Spaß, Sport ist gut für die Gesundheit. In dieser AG können alle mitmachen. Es werden Fußball, Basketball, Handball, Volleyball und auch Tennis angeboten. Neu in diesem Jahr: Fußball für Mädchen. Meldet euch rechtzeitig an!"
+    }
+   ],
+   "questions": [
+    {
+     "type": "matching",
+     "question": "Welche Anzeige passt zu welcher Person? (Für eine Aufgabe gibt es keine Lösung: X)",
+     "items": [
+      "16 Inge hat zum Geburtstag eine Katze geschenkt bekommen.",
+      "17 Rainer möchte Klavier spielen lernen.",
+      "18 Peter arbeitet gern im Garten.",
+      "19 Renate tanzt in ihrer Freizeit sehr gern.",
+      "20 Markus sitzt lange am Computer und surft."
+     ],
+     "targets": [
+      "Anzeige a) Alles über Haustiere",
+      "Anzeige c) Fit durch Tanz",
+      "Anzeige d) AG „Botanik“",
+      "Anzeige e) PC-Freunde",
+      "X – keine passende Anzeige"
+     ],
+     "pairs": {
+      "1": "A",
+      "2": "E",
+      "3": "C",
+      "4": "B",
+      "5": "D"
+     },
+     "points": 5,
+     "passage": 1,
+     "explanation": "16 → a, 17 → X (die Musik-AG bietet Schlagzeug, Gitarre oder Flöte — kein Klavier), 18 → d, 19 → c, 20 → e. Anzeige b und f bleiben übrig."
+    }
+   ],
+   "max_score": 5
+  },
+  {
+   "content_id": "vizu-a2-l13-hoeren-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 13,
+   "skill": "hoeren",
+   "title": "Hören Teil 1: Fünf kurze Texte",
+   "source": "book",
+   "metadata": {
+    "book_page": 175,
+    "note": "AUDIO YO'Q: yetkazilgan „A2 13.Unterricht Teil 1-4“ fayllari 12-darsnikiga aynan bir xil (kitobda 40-52-treklar kerak). To'g'ri audio va kalit admin tomonidan kiritilguncha qoralama."
+   },
+   "key_pending": true,
+   "instruction": "Du hörst fünf kurze Texte zweimal. Wähle a, b oder c. Für eine Aufgabe gibt es keine Lösung: X.",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "1 Was macht Anne?",
+     "options": [
+      "Sie geht gleich zum Obsthändler.",
+      "Sie macht gerade ihre Hausaufgaben.",
+      "Sie hilft Stefanie in Mathe.",
+      "X – keine Lösung"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "2 Warum können die Schüler nach Hause gehen?",
+     "options": [
+      "Weil sie morgen einen Ausflug machen.",
+      "Weil es sehr warm ist.",
+      "Weil auf der Straße zu viel Lärm ist.",
+      "X – keine Lösung"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "3 Wer gewinnt einen Media-Player?",
+     "options": [
+      "Die ersten zehn Personen mit einem lustigen Sport-Foto.",
+      "Wer zehn lustige Sport-Fotos schickt.",
+      "Gruppen von zehn Freunden, die am Wettbewerb teilnehmen.",
+      "X – keine Lösung"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "4 Bärbel ruft an, …",
+     "options": [
+      "weil sie nicht mit Marianne ins Kino gehen möchte.",
+      "weil sie für ihre Oma einkaufen muss.",
+      "weil sie zum Treffen kommen kann.",
+      "X – keine Lösung"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "5 Was sagt der Moderator?",
+     "options": [
+      "Es ist genau zwei Uhr.",
+      "Am Freitag gibt es immer eine Diskussion.",
+      "In der heutigen Sendung geht es um E-Mails.",
+      "X – keine Lösung"
+     ],
+     "points": 1
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l13-hoeren-02",
+   "level": "A2",
+   "module": 1,
+   "lesson": 13,
+   "skill": "hoeren",
+   "title": "Hören Teil 2: Wie war Carmens Geburtstag?",
+   "source": "book",
+   "metadata": {
+    "book_page": 176,
+    "note": "AUDIO YO'Q: yetkazilgan „A2 13.Unterricht Teil 1-4“ fayllari 12-darsnikiga aynan bir xil (kitobda 40-52-treklar kerak). To'g'ri audio va kalit admin tomonidan kiritilguncha qoralama."
+   },
+   "key_pending": true,
+   "instruction": "Du hörst ein Gespräch einmal. Wähle für die Aufgaben 6 bis 10 ein passendes Bild (Bild im Abschnitt). Wähle jeden Buchstaben nur einmal.",
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "Wie war Carmens Geburtstag? Wähle das passende Bild.",
+     "text": "6 Carmen: [[1]]",
+     "gaps": {
+      "1": {
+       "accepted": [],
+       "options": [
+        "a) Fahrrad",
+        "b) Buch lesen",
+        "c) Thermometer (Fieber)",
+        "d) Musik (5 Seconds of Summer)",
+        "e) Tee",
+        "f) tanzen",
+        "g) Getränke",
+        "h) Pizza",
+        "i) Geburtstagstorte"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wie war Carmens Geburtstag? Wähle das passende Bild.",
+     "text": "7 Paul: [[1]]",
+     "gaps": {
+      "1": {
+       "accepted": [],
+       "options": [
+        "a) Fahrrad",
+        "b) Buch lesen",
+        "c) Thermometer (Fieber)",
+        "d) Musik (5 Seconds of Summer)",
+        "e) Tee",
+        "f) tanzen",
+        "g) Getränke",
+        "h) Pizza",
+        "i) Geburtstagstorte"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wie war Carmens Geburtstag? Wähle das passende Bild.",
+     "text": "8 Luisa: [[1]]",
+     "gaps": {
+      "1": {
+       "accepted": [],
+       "options": [
+        "a) Fahrrad",
+        "b) Buch lesen",
+        "c) Thermometer (Fieber)",
+        "d) Musik (5 Seconds of Summer)",
+        "e) Tee",
+        "f) tanzen",
+        "g) Getränke",
+        "h) Pizza",
+        "i) Geburtstagstorte"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wie war Carmens Geburtstag? Wähle das passende Bild.",
+     "text": "9 Nadine: [[1]]",
+     "gaps": {
+      "1": {
+       "accepted": [],
+       "options": [
+        "a) Fahrrad",
+        "b) Buch lesen",
+        "c) Thermometer (Fieber)",
+        "d) Musik (5 Seconds of Summer)",
+        "e) Tee",
+        "f) tanzen",
+        "g) Getränke",
+        "h) Pizza",
+        "i) Geburtstagstorte"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Wie war Carmens Geburtstag? Wähle das passende Bild.",
+     "text": "10 Eltern: [[1]]",
+     "gaps": {
+      "1": {
+       "accepted": [],
+       "options": [
+        "a) Fahrrad",
+        "b) Buch lesen",
+        "c) Thermometer (Fieber)",
+        "d) Musik (5 Seconds of Summer)",
+        "e) Tee",
+        "f) tanzen",
+        "g) Getränke",
+        "h) Pizza",
+        "i) Geburtstagstorte"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l13-hoeren-03",
+   "level": "A2",
+   "module": 1,
+   "lesson": 13,
+   "skill": "hoeren",
+   "title": "Hören Teil 3: Fünf kurze Gespräche",
+   "source": "book",
+   "metadata": {
+    "book_page": 177,
+    "note": "AUDIO YO'Q: yetkazilgan „A2 13.Unterricht Teil 1-4“ fayllari 12-darsnikiga aynan bir xil (kitobda 40-52-treklar kerak). To'g'ri audio va kalit admin tomonidan kiritilguncha qoralama."
+   },
+   "key_pending": true,
+   "instruction": "Du hörst fünf kurze Gespräche einmal. Wähle a, b oder c (Bilder im Abschnitt).",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "11 Was isst das Mädchen zuerst?",
+     "options": [
+      "a) Schnitzel mit Pommes",
+      "b) Eis",
+      "c) Salat"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "12 Was für ein Geschenk kaufen die Mädchen?",
+     "options": [
+      "a) eine Tasche",
+      "b) eine Kette",
+      "c) ein Buch"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "13 Mit welchem Verkehrsmittel reisen die Jugendlichen?",
+     "options": [
+      "a) mit dem Zug",
+      "b) mit dem Flugzeug",
+      "c) mit dem Bus"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "14 Wann kommt Tante Anna zu Besuch?",
+     "options": [
+      "a) Sonntag, 5.",
+      "b) Donnerstag, 9.",
+      "c) Freitag, 7."
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "15 Welches Kleidungsstück kauft das Mädchen?",
+     "options": [
+      "a) einen Pullover",
+      "b) ein T-Shirt",
+      "c) ein Kleid"
+     ],
+     "points": 1
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l13-hoeren-04",
+   "level": "A2",
+   "module": 1,
+   "lesson": 13,
+   "skill": "hoeren",
+   "title": "Hören Teil 4: Interview mit Sebastian",
+   "source": "book",
+   "metadata": {
+    "book_page": 178,
+    "note": "AUDIO YO'Q: yetkazilgan „A2 13.Unterricht Teil 1-4“ fayllari 12-darsnikiga aynan bir xil (kitobda 40-52-treklar kerak). To'g'ri audio va kalit admin tomonidan kiritilguncha qoralama."
+   },
+   "key_pending": true,
+   "instruction": "Du hörst ein Interview zweimal. Wähle „Ja“ oder „Nein“. (Beispiel: 0 Sebastian ist Student. → Ja)",
+   "questions": [
+    {
+     "type": "true_false",
+     "question": "16 Die Abschlussprüfung war schwierig.",
+     "options": [
+      "Ja",
+      "Nein"
+     ],
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "17 Sebastian wollte von Anfang an Medizin studieren.",
+     "options": [
+      "Ja",
+      "Nein"
+     ],
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "18 Nach dem Studium will Sebastian freiwillig in Afrika arbeiten.",
+     "options": [
+      "Ja",
+      "Nein"
+     ],
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "19 Sebastian möchte in der Nähe seines Hauses arbeiten.",
+     "options": [
+      "Ja",
+      "Nein"
+     ],
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "20 Sebastian wartet, bis er eine Stelle im Katharina-Hospital findet.",
+     "options": [
+      "Ja",
+      "Nein"
+     ],
+     "points": 1,
+     "passage": 1
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l13-schreiben-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 13,
+   "skill": "schreiben",
+   "title": "Schreiben Teil 1: SMS an Susanne",
+   "source": "book",
+   "metadata": {
+    "book_page": 179
+   },
+   "task_type": "message",
+   "prompt": "Deine Freundin Susanne schickt dir eine SMS mit einer Einladung zu einer Gartenparty. Antworte Susanne mit einer SMS.\n• Schreib, ob du kommst.\n• Frage, wann die Party stattfindet und wie lange sie dauert.\n• Frage, was du mitbringen sollst.\n\nSchreib 20–30 Wörter. Schreib zu allen drei Punkten.\n\nBeispiel (Buch): Hallo Susanne, vielen Dank für deine Einladung. Ich gehe natürlich zu deiner Party. Aber habe eine Frage. Wann findet die Party statt? Und kannst du noch sagen, wie lange sie dauert? Was kann ich noch für die Party mitbringen? Wenn du möchtest, kann ich einige Getränke mitbringen. Schreib mir bitte deine Antwort. Dein Alex",
+   "audience": "Freundin Susanne (informell)",
+   "min_words": 20,
+   "max_words": 40,
+   "time_limit": 10
+  },
+  {
+   "content_id": "vizu-a2-l13-schreiben-03",
+   "level": "A2",
+   "module": 1,
+   "lesson": 13,
+   "skill": "schreiben",
+   "title": "Schreiben Teil 2: E-Mail an Herrn Häfner",
+   "source": "book",
+   "metadata": {
+    "book_page": 179,
+    "book_sample": "Sehr geehrter Herr Häfner, hoffentlich geht Ihnen gut. Und wünschen wir Ihnen lebenslange Gesundheit. Wir haben mit unseren Mitschülern vor, Sie zu besuchen. Können Sie sagen, wann wir besuchen können? Wir warten auf Ihre Antwort. Mit freundlichen Grüßen Alex, Anna, Markus"
+   },
+   "task_type": "email",
+   "prompt": "Dein Klassenlehrer Herr Häfner hat sein Bein gebrochen und liegt im Krankenhaus. Du und zwei andere Mitschüler wollt ihn besuchen. Schreib Herrn Häfner eine E-Mail:\n• Frage, wie es ihm geht, und wünsch ihm gute Besserung.\n• Informiere ihn über den geplanten Besuch.\n• Frage nach dem passenden Termin (Tag und Uhrzeit).\n\nSchreib 30–40 Wörter. Schreib zu allen drei Punkten.",
+   "audience": "Klassenlehrer Herr Häfner (formell)",
+   "min_words": 30,
+   "max_words": 50,
+   "time_limit": 15,
+   "support_phrases": [
+    "Sehr geehrter Herr Häfner,",
+    "wie geht es Ihnen?",
+    "Wir wünschen Ihnen gute Besserung.",
+    "Wir möchten Sie besuchen.",
+    "Wann passt es Ihnen?",
+    "Mit freundlichen Grüßen"
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l13-schreiben-04",
+   "level": "A2",
+   "module": 1,
+   "lesson": 13,
+   "skill": "schreiben",
+   "title": "Wortschatz-Aufgabe: Geld, Finanzen und Alltag",
+   "source": "book",
+   "metadata": {
+    "book_page": 183
+   },
+   "task_type": "description",
+   "prompt": "Formulieren Sie mit den Wörtern einer Variante einen Text.\n\nVariante 1: das Geld, der Preis, der Einkauf, der Supermarkt, die Rechnung, das Angebot\nVariante 2: bezahlen, sparen, kaufen, verkaufen, kosten, verdienen\nVariante 3: das Konto, die Bank, die Karte, das Bargeld, die Überweisung, der Automat\nVariante 4: das Budget, die Ausgaben, die Einnahmen, die Miete, die Rechnung, die Kosten\nVariante 5: das Einkommen, der Job, das Taschengeld, die Zukunft, die Planung, die Sicherheit",
+   "min_words": 40,
+   "max_words": 200,
+   "time_limit": 25
+  },
+  {
+   "content_id": "vizu-a2-l13-sprechen-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 13,
+   "skill": "sprechen",
+   "title": "Sprechen Teil 1: Fragen zur Person",
+   "source": "book",
+   "metadata": {
+    "book_page": 180
+   },
+   "topic": "Fragen zur Person",
+   "response_type": "dialog",
+   "prompt": "Du nimmst vier Karten und stellst mit diesen Karten vier Fragen. Dein Partner / deine Partnerin antwortet.",
+   "questions": [
+    "Kandidat 1: Sport?",
+    "Kandidat 1: Wohnort?",
+    "Kandidat 1: Lieblingsmusik?",
+    "Kandidat 1: Computerspiele?",
+    "Kandidat 2: Kino?",
+    "Kandidat 2: Lesen?",
+    "Kandidat 2: Haustier?",
+    "Kandidat 2: Theater?"
+   ],
+   "min_duration": 30,
+   "max_duration": 150,
+   "speech_goal": "Zu jedem Stichwort eine korrekte Frage stellen und beantworten.",
+   "keywords": [
+    "Machst du",
+    "Wo wohnst du",
+    "Was hörst du",
+    "Hast du"
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l13-sprechen-02",
+   "level": "A2",
+   "module": 1,
+   "lesson": 13,
+   "skill": "sprechen",
+   "title": "Sprechen Teil 2: Von sich erzählen",
+   "source": "book",
+   "metadata": {
+    "book_page": 181
+   },
+   "topic": "Von sich erzählen",
+   "prompt": "Du bekommst eine Karte und erzählst etwas über dein Leben. Karte A: Wie findest du deine Schule? Karte B: Was machst du nach der Schule?",
+   "questions": [
+    "Karte A: Klassenzimmer?",
+    "Karte A: Computerraum?",
+    "Karte A: Lehrer?",
+    "Karte A: Kantine?",
+    "Karte B: Computer?",
+    "Karte B: draußen spielen?",
+    "Karte B: Fremdsprachen?",
+    "Karte B: Hausaufgaben?"
+   ],
+   "response_type": "monolog",
+   "min_duration": 45,
+   "max_duration": 150,
+   "speech_goal": "Zu einer Aufgabenkarte zusammenhängend von sich erzählen.",
+   "keywords": [
+    "meine Schule",
+    "nach der Schule",
+    "gern",
+    "weil"
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l13-sprechen-03",
+   "level": "A2",
+   "module": 1,
+   "lesson": 13,
+   "skill": "sprechen",
+   "title": "Sprechen Teil 3: Für den Englischtest lernen — wann treffen wir uns?",
+   "source": "book",
+   "metadata": {
+    "book_page": 182
+   },
+   "topic": "Einen Termin finden",
+   "response_type": "dialog",
+   "prompt": "Ihr wollt am Samstag zusammen für den Englischtest am Montag lernen. Wann könnt ihr euch treffen? (Samstag, 08.12.)\n\nAufgabenblatt A: 09.00–10.00 Einkaufen · 11.00 Zimmer aufräumen · 13.00 Mittagessen · 16.00 im Garten arbeiten · 18.00 am Computer spielen\nAufgabenblatt B: 09.00–10.00 Fußball-Training · 11.00–12.00 Zahnarzt · 14.00 in die Stadt gehen · 16.00 Hausaufgaben · 18.00 Paul treffen · 20.00 ins Kino gehen",
+   "questions": [
+    "Hast du um … Uhr Zeit?",
+    "Um … Uhr kann ich nicht, ich muss …",
+    "Wie wäre es um …?",
+    "Gut, dann treffen wir uns um …"
+   ],
+   "min_duration": 45,
+   "max_duration": 180,
+   "speech_goal": "Gemeinsam einen freien Termin aushandeln (Konjunktiv: Wie wäre es …? Könntest du …?).",
+   "keywords": [
+    "Hast du Zeit",
+    "Wie wäre es",
+    "leider",
+    "treffen"
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l13-kompetenz-03",
+   "level": "A2",
+   "module": 1,
+   "lesson": 13,
+   "skill": "kompetenz",
+   "title": "Wortschatz: Geld, Finanzen und Alltag",
+   "source": "book",
+   "metadata": {
+    "book_page": 183,
+    "note": "Kitobda tarjima berilmagan — so'z ro'yxati to'qib chiqarilmadi."
+   },
+   "competency": "WORTSCHATZ",
+   "html": "<h3>Wortschatz A2 — Geld, Finanzen und Alltag</h3><h4>Variante 1</h4><ul><li>das Geld</li><li>der Preis</li><li>der Einkauf</li><li>der Supermarkt</li><li>die Rechnung</li><li>das Angebot</li></ul><h4>Variante 2</h4><ul><li>bezahlen</li><li>sparen</li><li>kaufen</li><li>verkaufen</li><li>kosten</li><li>verdienen</li></ul><h4>Variante 3</h4><ul><li>das Konto</li><li>die Bank</li><li>die Karte</li><li>das Bargeld</li><li>die Überweisung</li><li>der Automat</li></ul><h4>Variante 4</h4><ul><li>das Budget</li><li>die Ausgaben</li><li>die Einnahmen</li><li>die Miete</li><li>die Rechnung</li><li>die Kosten</li></ul><h4>Variante 5</h4><ul><li>das Einkommen</li><li>der Job</li><li>das Taschengeld</li><li>die Zukunft</li><li>die Planung</li><li>die Sicherheit</li></ul><p>Formulieren Sie einen Text mit den Wörtern einer Variante (Aufgabe im Bereich Schreiben).</p>"
+  },
+  {
+   "content_id": "vizu-a2-l13-yakuniy-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 13,
+   "skill": "yakuniy",
+   "title": "Abschlusstest: A2 13. Unterricht",
+   "source": "vizu",
+   "instruction": "Konjunktiv II va dars matnlari bo'yicha yakuniy test (dars materiali asosida).",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Wenn ich reich ___, würde ich reisen.",
+     "options": [
+      "wäre",
+      "bin",
+      "würde"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Ich ___ gern mehr Zeit.",
+     "options": [
+      "hätte",
+      "habe",
+      "würde"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "___ Sie mir bitte helfen?",
+     "options": [
+      "Könnten",
+      "Können",
+      "Konnten"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Höfliche Bitte: Konjunktiv II."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Du ___ mehr lernen. (Ratschlag)",
+     "options": [
+      "solltest",
+      "sollst",
+      "sollen"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Welcher Satz ist richtig?",
+     "options": [
+      "Ich könnte gehen.",
+      "Ich würde kann gehen.",
+      "Ich würde könnte gehen."
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Mini-Übung im Buch."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wie viel Geld bekommen Azubis jeden Monat?",
+     "options": [
+      "etwa 380 Euro",
+      "etwa 400 Euro",
+      "etwa 800 Euro"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Lesen Teil 1."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was ist die „duale Ausbildung“?",
+     "options": [
+      "Unterricht haben und arbeiten",
+      "zwei Berufe lernen",
+      "in zwei Firmen arbeiten"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Lesen Teil 1."
+    },
+    {
+     "type": "true_false",
+     "question": "Petra hat die Tipps von ihrem Vater bekommen.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "Lesen Teil 3."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l13-kompetenz-02",
+   "level": "A2",
+   "module": 1,
+   "lesson": 13,
+   "skill": "kompetenz",
+   "title": "Zusammenfassung: A2 13. Unterricht",
+   "source": "vizu",
+   "competency": "ZUSAMMENFASSUNG",
+   "html": "<h3>A2 13. Unterricht — qisqacha</h3><ul><li><strong>Wunsch:</strong> Ich hätte gern mehr Zeit. · Ich würde gern in Deutschland leben.</li><li><strong>Irreale Situation:</strong> Wenn ich reich wäre, würde ich ein Haus kaufen. · Wenn ich Zeit hätte, käme ich mit.</li><li><strong>Höfliche Bitte:</strong> Könnten Sie mir helfen? · Würden Sie bitte langsamer sprechen?</li><li><strong>Ratschlag:</strong> Du solltest mehr lernen. · Du könntest früher schlafen.</li><li><strong>Geld sparen:</strong> Einkaufsliste, Preise vergleichen, Licht ausschalten, Budget planen.</li></ul><p>Natijalaringiz pastda — tugallanmagan bo'limlarni yakunlang, so'ng keyingi darsga o'ting.</p>"
+  }
+ ]
+}

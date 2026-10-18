@@ -1,0 +1,1111 @@
+{
+ "schema_version": "1.2",
+ "language": "de",
+ "source": "vizu-deutsch-a2-book",
+ "items": [
+  {
+   "content_id": "vizu-a2-l08-kompetenz-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 8,
+   "skill": "kompetenz",
+   "title": "Einführung: A2 8. Unterricht",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 84
+   },
+   "competency": "EINFUEHRUNG",
+   "html": "<h3>A2 8. Unterricht — Konsum, Werbung und Produkte</h3><p><strong>Mavzu:</strong> Konsum, Werbung und Produkte · <strong>Grammatik:</strong> trotzdem (Gegensatz)</p><h4>Dars maqsadlari</h4><ul><li>„trotzdem“ bilan qarama-qarshilik ifodalash: Es regnet. Trotzdem gehen wir spazieren.;</li><li>trotzdem va aber farqini bilish;</li><li>xarid, reklama va iste'mol so'zlarini o'rganish.</li></ul><h4>Dars oxirida siz quyidagilarni bajara olasiz</h4><ul><li>odamlar nima uchun keraksiz narsalar sotib olishini muhokama qilasiz;</li><li>iste'mol, reklama va atrof-muhit haqidagi matnni tushunasiz;</li><li>Susanna va Johannning xaridlari haqidagi audioni tushunasiz;</li><li>onlayn va do'kondan xarid qilish haqida gapirasiz.</li></ul><h4>Darsning tuzilishi</h4><p>Einführung → Wortschatz → Grammatik → Lesen → Hören → Sprechen → Schreiben → Übungen → Abschlusstest → Zusammenfassung</p>"
+  },
+  {
+   "content_id": "vizu-a2-l08-frage-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 8,
+   "skill": "frage",
+   "title": "Frage des Themas: Warum kaufen die Menschen Dinge, die sie nicht wirklich brauchen?",
+   "source": "book",
+   "metadata": {
+    "book_page": 85,
+    "book_points": {
+     "A": [
+      "Werbung macht uns Dinge schmackhaft.",
+      "Modetrends ändern sich schnell.",
+      "Markenprodukte wirken attraktiver.",
+      "Influencer zeigen viele Produkte.",
+      "Rabatte und Sonderangebote locken.",
+      "Wir wollen nicht „out“ sein."
+     ],
+     "B": [
+      "Wir kaufen aus Langeweile.",
+      "Einkaufen verbessert die Stimmung.",
+      "Wir belohnen uns selbst.",
+      "Gewohnheiten sind schwer zu ändern.",
+      "Impulskäufe passieren schnell.",
+      "Wir möchten uns wichtig fühlen."
+     ],
+     "C": [
+      "Wir wollen anderen gefallen.",
+      "Freunde haben ähnliche Dinge.",
+      "Soziale Medien erzeugen Druck.",
+      "Wir vergleichen uns mit anderen.",
+      "Ansehen und Status spielen eine Rolle.",
+      "Wir wollen dazugehören."
+     ]
+    }
+   },
+   "prompt": "Warum kaufen die Menschen Dinge, die sie nicht wirklich brauchen? Sprechen Sie über die drei Gründe.",
+   "questions": [
+    "A: Wegen Werbung und Mode",
+    "B: Aus Emotionen und Gewohnheit",
+    "C: Aus sozialem Druck"
+   ],
+   "min_duration": 20,
+   "max_duration": 120
+  },
+  {
+   "content_id": "vizu-a2-l08-grammatik-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 8,
+   "skill": "grammatik",
+   "title": "Grammatik: trotzdem (Gegensatz)",
+   "source": "book",
+   "metadata": {
+    "book_page": 86
+   },
+   "rules": [
+    {
+     "title": "trotzdem (Gegensatz)",
+     "html": "<h3>trotzdem (Gegensatz)</h3><p>Es regnet. → Trotzdem …</p><h4>Bedeutung</h4><ul><li>„trotzdem“ zeigt einen starken Gegensatz zwischen zwei Aussagen.</li><li>Eine Situation ist negativ oder schwierig, aber das Ergebnis ist anders.</li></ul><h4>Beispiele</h4><ul><li>Ich bin müde. <strong>Trotzdem</strong> lerne ich Deutsch.</li><li>Es regnet. <strong>Trotzdem</strong> gehen wir spazieren.</li><li>Er hat kein Geld. <strong>Trotzdem</strong> kauft er ein Handy.</li><li>Sie hat viel Stress. <strong>Trotzdem</strong> sieht sie gut aus.</li><li>Ich habe keine Zeit. <strong>Trotzdem</strong> komme ich mit.</li><li>Wir sind spät. <strong>Trotzdem</strong> warten sie auf uns.</li><li>Er versteht die Aufgabe nicht. <strong>Trotzdem</strong> macht er weiter.</li><li>Sie ist krank. <strong>Trotzdem</strong> geht sie zur Arbeit.</li><li>Das Wetter ist schlecht. <strong>Trotzdem</strong> fahren wir ans Meer.</li><li>Ich habe Hunger. <strong>Trotzdem</strong> esse ich nichts.</li><li>Er ist sehr alt. <strong>Trotzdem</strong> arbeitet er jeden Tag.</li><li>Wir haben wenig Platz. <strong>Trotzdem</strong> laden wir viele Gäste ein.</li><li>Sie ist nervös. <strong>Trotzdem</strong> spricht sie vor vielen Menschen.</li><li>Er hat keine Lust. <strong>Trotzdem</strong> hilft er uns.</li></ul><h4>Vergleich: aber</h4><ul><li>Ich bin müde, <strong>aber</strong> ich lerne Deutsch.</li><li>Ich bin müde. <strong>Trotzdem</strong> lerne ich Deutsch.</li></ul><p>Nach „trotzdem“ (Position 1) steht das Verb auf Position 2; nach „aber“ bleibt die normale Wortstellung.</p>"
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l08-schreiben-02",
+   "level": "A2",
+   "module": 1,
+   "lesson": 8,
+   "skill": "schreiben",
+   "title": "Grammatik-Aufgaben: Sätze mit „trotzdem“",
+   "source": "book",
+   "metadata": {
+    "book_page": 87,
+    "note": "Ochiq javobli mashqlar — Vizu-Antworten: „wird von dem Lehrer korrigiert“. Kitobdagi A-mashq (bo'sh joylar xato chop etilgan) kiritilmadi."
+   },
+   "task_type": "other",
+   "prompt": "A2 8. Unterricht — Üben · Verstehen · Besser sprechen!\n\nB) Bilde passende Sätze mit „trotzdem“:\n1. Ich / müde sein / lernen / Deutsch\n2. Es / kalt sein / gehen / ich / schwimmen\n3. Sie / Angst haben / sie / sprechen / trotzdem\n4. Wir / kein Geld haben / ein Geschenk / kaufen\n5. Er / krank sein / zur Arbeit / kommen\n6. Ich / wenig Zeit haben / ein Buch / lesen\n7. Du / müde sein / Sport / machen\n8. Sie / viele Aufgaben haben / sich / ausruhen\n9. Wir / Probleme haben / weiterhin / arbeiten\n10. Ich / schlecht fühlen / heute / glücklich sein\n\nC) Fehler finden und korrigieren — schreibe die Sätze mit „trotzdem“:\n1. Ich bin müde, aber ich gehe zur Schule.\n2. Es regnet, aber ich gehe spazieren.\n3. Sie haben viel Geld, trotzdem kaufen sie nichts.\n4. Wir sind spät, aber wir nehmen den Bus.\n5. Er ist krank, aber er geht zur Arbeit.\n6. Ich habe keine Zeit, aber ich lese ein Buch.\n7. Du hast Angst, aber du machst die Prüfung.\n8. Sie ist müde, aber sie fährt mit dem Auto.\n9. Wir haben Hunger, aber wir essen nichts.\n10. Ich bin traurig, aber ich lache.\n\nUnterrichtsblatt — Schreiben Sie 20 Sätze mit „trotzdem“:\n1. Ich bin müde. → Trotzdem … (Beispiel: Ich bin müde, trotzdem gehe ich zur Arbeit.)\n2. Es regnet. → Trotzdem … (Beispiel: Es regnet, trotzdem gehe ich spazieren.)\n3. Ich habe wenig Zeit. → Trotzdem … (Beispiel: Ich habe wenig Zeit, trotzdem mache ich meine Hausaufgaben.)\n4. Er ist krank.\n5. Wir haben kein Geld.\n6. Sie hat viel Stress.\n7. Ich habe Angst.\n8. Es ist sehr kalt.\n9. Ich habe keine Lust.\n10. Er hat wenig gelernt.\n11. Wir sind spät.\n12. Ich verstehe das Thema nicht.\n13. Sie ist traurig.\n14. Ich habe viel Arbeit.\n15. Es ist schwierig.\n16. Ich habe Kopfschmerzen.\n17. Er ist alt.\n18. Wir sind müde.\n19. Ich habe kein Auto.\n20. Sie hat keine Erfahrung.",
+   "min_words": 80,
+   "max_words": 500,
+   "time_limit": 40,
+   "support_phrases": [
+    "Ich bin müde. Trotzdem lerne ich Deutsch.",
+    "Es ist kalt. Trotzdem gehe ich schwimmen."
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l08-lesen-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 8,
+   "skill": "lesen",
+   "title": "Lesen: Konsum, Werbung und Umwelt — Die Realität hinter dem Kauf",
+   "source": "book",
+   "metadata": {
+    "book_page": "88-89"
+   },
+   "instruction": "Lesen Sie den Text und lösen Sie den Test.",
+   "passages": [
+    {
+     "title": "Konsum, Werbung und Umwelt: Die Realität hinter dem Kauf",
+     "text": "Heute leben wir in einer Konsumgesellschaft. Menschen kaufen immer mehr Produkte – besonders online. Studien zeigen, dass Konsum eng mit unserem Einkommen verbunden ist. In vielen entwickelten Ländern geben Menschen einen großen Teil ihres Geldes für Produkte und Dienstleistungen aus.\n\nWerbung hat dabei einen starken Einfluss. Jeden Tag sehen wir Werbung im Internet, auf dem Handy und im Fernsehen. Besonders soziale Medien spielen eine große Rolle. Firmen benutzen Influencer und moderne Marketing-Strategien, um Produkte attraktiver zu machen. Trotzdem kaufen viele Menschen Dinge, die sie nicht wirklich brauchen.\n\nEin großes Problem ist die Umwelt. Laut OECD produziert eine Person im Durchschnitt etwa 552 kg Müll pro Jahr. In der Europäischen Union sind es etwa 500 kg Müll pro Person jährlich.\n\nAuch Plastik ist ein großes Problem. Eine Person produziert ungefähr 36 kg Plastikmüll pro Jahr.\n\nNoch schlimmer ist elektronischer Müll. Im Jahr 2022 wurden weltweit 62 Millionen Tonnen Elektroschrott produziert – und diese Zahl wächst jedes Jahr.\n\nEin weiteres Beispiel ist Lebensmittelverschwendung. Etwa ein Drittel aller Lebensmittel weltweit wird weggeworfen. Das sind ungefähr 931 Millionen Tonnen pro Jahr.\n\nDiese Zahlen zeigen: Zu viel Konsum hat negative Folgen für die Umwelt.\n\nIch denke, wir sollten bewusster leben. Man muss nicht alles kaufen, was man in der Werbung sieht. Es ist besser, weniger zu konsumieren, Produkte länger zu benutzen und auf Qualität zu achten. Außerdem sollten wir mehr recyceln und nachhaltige Produkte wählen.\n\nMerke: Jeder Kauf ist eine Entscheidung – für dich und für unsere Umwelt!"
+    }
+   ],
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Was bedeutet „Konsumgesellschaft“?",
+     "options": [
+      "Menschen arbeiten wenig",
+      "Menschen kaufen viele Produkte",
+      "Menschen reisen viel"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Javob: Vizu-Antworten A2 (8. Unterricht, Lesen)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wo kaufen Menschen heute besonders viele Produkte?",
+     "options": [
+      "im Supermarkt",
+      "online",
+      "in der Schule"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Javob: Vizu-Antworten A2 (8. Unterricht, Lesen)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Womit ist Konsum eng verbunden?",
+     "options": [
+      "mit dem Wetter",
+      "mit dem Einkommen",
+      "mit der Sprache"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Javob: Vizu-Antworten A2 (8. Unterricht, Lesen)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wo sehen wir Werbung jeden Tag?",
+     "options": [
+      "nur im Radio",
+      "nur im Kino",
+      "im Internet, Fernsehen und Handy"
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Javob: Vizu-Antworten A2 (8. Unterricht, Lesen)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer zeigt oft Produkte im Internet?",
+     "options": [
+      "Lehrer",
+      "Influencer",
+      "Ärzte"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Javob: Vizu-Antworten A2 (8. Unterricht, Lesen)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wie viel Müll produziert eine Person laut OECD pro Jahr?",
+     "options": [
+      "200 kg",
+      "552 kg",
+      "1000 kg"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Javob: Vizu-Antworten A2 (8. Unterricht, Lesen)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wie viel Müll produziert eine Person in der EU ungefähr?",
+     "options": [
+      "300 kg",
+      "500 kg",
+      "700 kg"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Javob: Vizu-Antworten A2 (8. Unterricht, Lesen)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wie viel Plastikmüll produziert eine Person pro Jahr?",
+     "options": [
+      "10 kg",
+      "36 kg",
+      "100 kg"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Javob: Vizu-Antworten A2 (8. Unterricht, Lesen)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wie viel Elektroschrott wurde 2022 weltweit produziert?",
+     "options": [
+      "20 Millionen Tonnen",
+      "62 Millionen Tonnen",
+      "100 Millionen Tonnen"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Javob: Vizu-Antworten A2 (8. Unterricht, Lesen)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was ist ein Problem laut Text?",
+     "options": [
+      "zu wenig Werbung",
+      "zu wenig Produkte",
+      "zu viel Konsum"
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Javob: Vizu-Antworten A2 (8. Unterricht, Lesen)."
+    }
+   ],
+   "max_score": 10
+  },
+  {
+   "content_id": "vizu-a2-l08-hoeren-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 8,
+   "skill": "hoeren",
+   "title": "Hören: Einkauf von Susanna und Einkauf von Johann",
+   "source": "book",
+   "metadata": {
+    "book_page": 90
+   },
+   "audio_file": "A2 8.Unterricht.mp3",
+   "instruction": "Multiple-Choice-Test: Hören Sie den Text und wählen Sie die richtige Antwort (A, B oder C).",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Susanna: Wo kauft Susanna oft ein?",
+     "options": [
+      "auf dem Markt",
+      "im Supermarkt oder online",
+      "nur im Dorf"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Javob: Vizu-Antworten A2 (8. Unterricht, Hören)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Susanna: Wie viel Geld gibt sie pro Woche aus?",
+     "options": [
+      "50–60 Euro",
+      "80–100 Euro",
+      "120–150 Euro"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Javob: Vizu-Antworten A2 (8. Unterricht, Hören)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Susanna: Wie viel Milch kauft sie pro Woche?",
+     "options": [
+      "1 Liter",
+      "3 Liter",
+      "2 Liter"
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Javob: Vizu-Antworten A2 (8. Unterricht, Hören)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Susanna: Was trinkt Susanna jeden Tag?",
+     "options": [
+      "Tee",
+      "Kaffee",
+      "Saft"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Javob: Vizu-Antworten A2 (8. Unterricht, Hören)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Susanna: Wie viele Fertiggerichte kauft sie pro Woche?",
+     "options": [
+      "2–3",
+      "keine",
+      "5–6"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Javob: Vizu-Antworten A2 (8. Unterricht, Hören)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Susanna: Was kauft sie manchmal am Wochenende?",
+     "options": [
+      "Gemüse",
+      "Fleisch",
+      "Schokolade"
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Javob: Vizu-Antworten A2 (8. Unterricht, Hören)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Johann: Wo kauft Johann oft ein?",
+     "options": [
+      "im Internet",
+      "auf dem Markt",
+      "im Einkaufszentrum"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Javob: Vizu-Antworten A2 (8. Unterricht, Hören)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Johann: Wie viel Geld gibt er pro Woche aus?",
+     "options": [
+      "60–70 Euro",
+      "90–100 Euro",
+      "30–40 Euro"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Javob: Vizu-Antworten A2 (8. Unterricht, Hören)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Johann: Wie viel Kartoffeln kauft er pro Woche?",
+     "options": [
+      "1 kg",
+      "2 kg",
+      "3 kg"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Javob: Vizu-Antworten A2 (8. Unterricht, Hören)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Johann: Wie viel Fleisch kauft er ungefähr?",
+     "options": [
+      "1 kg",
+      "200 g",
+      "500 g"
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Javob: Vizu-Antworten A2 (8. Unterricht, Hören)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Johann: Was trinkt Johann meistens?",
+     "options": [
+      "Kaffee",
+      "Wasser",
+      "Cola"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Javob: Vizu-Antworten A2 (8. Unterricht, Hören)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Johann: Was macht er am Sonntag?",
+     "options": [
+      "Er arbeitet.",
+      "Er reist.",
+      "Er kauft oder backt Kuchen."
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Javob: Vizu-Antworten A2 (8. Unterricht, Hören)."
+    }
+   ],
+   "max_score": 12
+  },
+  {
+   "content_id": "vizu-a2-l08-schreiben-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 8,
+   "skill": "schreiben",
+   "title": "Schreiben: Was ist wichtig für mich beim Einkaufen?",
+   "source": "book",
+   "metadata": {
+    "book_page": 91
+   },
+   "task_type": "description",
+   "prompt": "Schreiben Sie einen kurzen Text über Ihr Einkaufen. Schreiben Sie mindestens 80 Wörter.\n\nPunkte:\n• Was kaufen Sie oft ein? (Lebensmittel, Kleidung, Technik …)\n• Wo kaufen Sie ein? (Supermarkt, Online, Markt …)\n• Was ist für Sie wichtig beim Einkaufen? (Preis, Qualität, Marke …)\n• Kaufen Sie lieber online oder im Geschäft? Warum?\n• Wie oft gehen Sie einkaufen?\n• Haben Sie ein besonderes Einkaufserlebnis gehabt?",
+   "min_words": 80,
+   "max_words": 160,
+   "time_limit": 25
+  },
+  {
+   "content_id": "vizu-a2-l08-schreiben-03",
+   "level": "A2",
+   "module": 1,
+   "lesson": 8,
+   "skill": "schreiben",
+   "title": "Schreiben: E-Mail an meine Freundin — neuer Laptop",
+   "source": "book",
+   "metadata": {
+    "book_page": 91
+   },
+   "task_type": "email",
+   "prompt": "Info: Sie haben einen Laptop im Internet gekauft. Schreiben Sie eine E-Mail an Ihre Freundin. Schreiben Sie mindestens 80 Wörter.\n\nPunkte:\n• Sagen Sie, dass Sie einen neuen Laptop gekauft haben.\n• Erzählen Sie, wo Sie ihn gekauft haben (Internet / Website).\n• Beschreiben Sie den Preis und die Qualität.\n• Schreiben Sie über die Lieferung (schnell oder langsam?).\n• Sagen Sie, ob Sie zufrieden sind oder nicht.\n• Fragen Sie Ihre Freundin nach ihrer Meinung.",
+   "audience": "Ihre Freundin (informell)",
+   "min_words": 80,
+   "max_words": 160,
+   "time_limit": 25
+  },
+  {
+   "content_id": "vizu-a2-l08-schreiben-04",
+   "level": "A2",
+   "module": 1,
+   "lesson": 8,
+   "skill": "schreiben",
+   "title": "Wortschatz-Aufgabe: Wort zu Wort Wortschatzmethode (Einkaufen A2)",
+   "source": "book",
+   "metadata": {
+    "book_page": 93
+   },
+   "task_type": "description",
+   "prompt": "Formulieren Sie mit den Wörtern einer Variante einen Text (Variante 2–5).\n\nVariante 1: kaufen, der Preis, günstig, vergleichen, online, der Rabatt\nVariante 2: die Werbung, beeinflussen, überzeugen, das Angebot, die Entscheidung, auswählen\nVariante 3: das Geschäft, anprobieren, die Qualität, unterscheiden, sofort, die Erfahrung\nVariante 4: bestellen, die Lieferung, dauern, zurückgeben, erhalten, bequem\nVariante 5: teuer, sparen, das Budget, planen, notwendig, verzichten\n\nBeispiel (Variante 1) — Überschrift: Online einkaufen ist praktisch. Ich kaufe oft Kleidung online, weil der Preis für mich sehr wichtig ist. Ich suche immer günstige Angebote und vergleiche Produkte im Internet. Online kann man viele Optionen finden, und manchmal gibt es Rabatt.",
+   "min_words": 40,
+   "max_words": 200,
+   "time_limit": 25
+  },
+  {
+   "content_id": "vizu-a2-l08-sprechen-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 8,
+   "skill": "sprechen",
+   "title": "Sprechen: Online einkaufen oder im Geschäft kaufen",
+   "source": "book",
+   "metadata": {
+    "book_page": 92
+   },
+   "topic": "Online einkaufen oder im Geschäft",
+   "prompt": "Sprechen Sie über das Thema. Tipps: Sprich über beide Möglichkeiten. Gib Beispiele aus deinem Leben. Vergleiche und begründe. Sage deine Meinung am Ende.",
+   "questions": [
+    "Was ist besser: Online einkaufen oder im Geschäft?",
+    "Was sind die Vorteile vom Online-Einkauf?",
+    "Was sind die Nachteile vom Online-Einkauf?",
+    "Was sind die Vorteile vom Einkaufen im Geschäft?",
+    "Was machst du persönlich lieber und warum?"
+   ],
+   "response_type": "monolog",
+   "min_duration": 60,
+   "max_duration": 180,
+   "speech_goal": "Online- und Geschäftseinkauf vergleichen, Vor- und Nachteile nennen, eigene Meinung begründen.",
+   "keywords": [
+    "Ich finde, dass",
+    "Vorteil",
+    "Nachteil",
+    "weil",
+    "trotzdem"
+   ],
+   "sample_answer": "Ich finde, dass Online-Shopping sehr bequem ist, aber im Geschäft kann man Produkte direkt sehen. Man spart Zeit, hat viele Angebote und kann von zu Hause bestellen. Man kann die Qualität nicht sofort prüfen und manchmal gibt es Lieferprobleme. Im Geschäft kann man Produkte anfassen, ausprobieren und sofort mitnehmen. Ich kaufe lieber online / im Geschäft, weil …"
+  },
+  {
+   "content_id": "vizu-a2-l08-wortschatz-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 8,
+   "skill": "wortschatz",
+   "title": "Wortschatz: Wichtige Begriffe — Konsum und Umwelt",
+   "source": "book",
+   "metadata": {
+    "book_page": "88",
+    "note": "Dars varag'idagi „Wichtige Begriffe“ (tarjima bilan). OECD — xalqaro tashkilot.",
+    "definitions": {
+     "der Konsum": "Das Kaufen und Benutzen von Produkten.",
+     "das Einkommen": "Das Geld, das eine Person verdient.",
+     "die Werbung": "Informationen oder Anzeigen, die Produkte zeigen und verkaufen.",
+     "der Einfluss": "Die Wirkung auf Menschen (z. B. Werbung beeinflusst unsere Entscheidungen).",
+     "der Influencer": "Eine bekannte Person im Internet, die Produkte empfiehlt.",
+     "die Umwelt": "Natur, Luft, Wasser und unsere Umgebung.",
+     "der Müll": "Dinge, die wir wegwerfen.",
+     "der Elektroschrott": "Alte elektronische Geräte wie Handy oder Computer.",
+     "die Lebensmittelverschwendung": "Wenn Essen weggeworfen wird.",
+     "nachhaltig": "Gut für die Umwelt und für die Zukunft.",
+     "die Qualität": "Wie gut ein Produkt ist."
+    }
+   },
+   "words": [
+    {
+     "word": "Konsum",
+     "translation": "iste’mol",
+     "article": "der",
+     "group": "Wichtige Begriffe"
+    },
+    {
+     "word": "Einkommen",
+     "translation": "daromad",
+     "article": "das",
+     "group": "Wichtige Begriffe"
+    },
+    {
+     "word": "Werbung",
+     "translation": "reklama",
+     "article": "die",
+     "group": "Wichtige Begriffe"
+    },
+    {
+     "word": "Einfluss",
+     "translation": "ta’sir",
+     "article": "der",
+     "group": "Wichtige Begriffe"
+    },
+    {
+     "word": "Influencer",
+     "translation": "ijtimoiy tarmoqdagi mashhur shaxs",
+     "article": "der",
+     "group": "Wichtige Begriffe"
+    },
+    {
+     "word": "Umwelt",
+     "translation": "atrof-muhit",
+     "article": "die",
+     "group": "Wichtige Begriffe"
+    },
+    {
+     "word": "Müll",
+     "translation": "chiqindi",
+     "article": "der",
+     "group": "Wichtige Begriffe"
+    },
+    {
+     "word": "Elektroschrott",
+     "translation": "elektron chiqindilar",
+     "article": "der",
+     "group": "Wichtige Begriffe"
+    },
+    {
+     "word": "Lebensmittelverschwendung",
+     "translation": "oziq-ovqat isrofi",
+     "article": "die",
+     "group": "Wichtige Begriffe"
+    },
+    {
+     "word": "nachhaltig",
+     "translation": "barqaror / ekologik",
+     "group": "Wichtige Begriffe"
+    },
+    {
+     "word": "Qualität",
+     "translation": "sifat",
+     "article": "die",
+     "group": "Wichtige Begriffe"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "Zuordnung",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Wichtige Begriffe 1)",
+       "items": [
+        "der Konsum",
+        "das Einkommen",
+        "die Werbung",
+        "der Einfluss",
+        "der Influencer",
+        "die Umwelt"
+       ],
+       "targets": [
+        "iste’mol",
+        "daromad",
+        "reklama",
+        "ta’sir",
+        "ijtimoiy tarmoqdagi mashhur shaxs",
+        "atrof-muhit",
+        "chiqindi"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Wichtige Begriffe 2)",
+       "items": [
+        "der Müll",
+        "der Elektroschrott",
+        "die Lebensmittelverschwendung",
+        "nachhaltig",
+        "die Qualität"
+       ],
+       "targets": [
+        "chiqindi",
+        "elektron chiqindilar",
+        "oziq-ovqat isrofi",
+        "barqaror / ekologik",
+        "sifat",
+        "iste’mol"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E"
+       },
+       "points": 5,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zni tarjimasi bilan moslashtiring."
+    },
+    {
+     "title": "Was bedeutet das?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „der Konsum“?",
+       "options": [
+        "reklama",
+        "barqaror / ekologik",
+        "iste’mol"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „das Einkommen“?",
+       "options": [
+        "daromad",
+        "iste’mol",
+        "ta’sir"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „die Werbung“?",
+       "options": [
+        "chiqindi",
+        "ijtimoiy tarmoqdagi mashhur shaxs",
+        "reklama"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „der Einfluss“?",
+       "options": [
+        "chiqindi",
+        "ta’sir",
+        "reklama"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „der Influencer“?",
+       "options": [
+        "ijtimoiy tarmoqdagi mashhur shaxs",
+        "ta’sir",
+        "sifat"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „die Umwelt“?",
+       "options": [
+        "ta’sir",
+        "atrof-muhit",
+        "ijtimoiy tarmoqdagi mashhur shaxs"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „der Müll“?",
+       "options": [
+        "atrof-muhit",
+        "daromad",
+        "chiqindi"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was bedeutet „der Elektroschrott“?",
+       "options": [
+        "daromad",
+        "elektron chiqindilar",
+        "sifat"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "Nemischa so'zning o'zbekcha tarjimasini tanlang."
+    }
+   ],
+   "auto_practice": false
+  },
+  {
+   "content_id": "vizu-a2-l08-uebungen-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 8,
+   "skill": "uebungen",
+   "title": "Übungen: A2 8. Unterricht",
+   "source": "vizu",
+   "exercises": [
+    {
+     "title": "trotzdem oder aber?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Ich bin müde. ___ lerne ich Deutsch.",
+       "options": [
+        "Trotzdem",
+        "Aber",
+        "Weil"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Kitobdagi misol."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich bin müde, ___ ich lerne Deutsch.",
+       "options": [
+        "aber",
+        "trotzdem",
+        "deshalb"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "aber + normale Wortstellung."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Es regnet. Trotzdem ___ spazieren.",
+       "options": [
+        "gehen wir",
+        "wir gehen",
+        "wir spazieren gehen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1,
+       "explanation": "Nach trotzdem: Verb auf Position 2."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Er hat kein Geld. Trotzdem ___ ein Handy.",
+       "options": [
+        "kauft er",
+        "er kauft",
+        "kaufen er"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Was zeigt „trotzdem“?",
+       "options": [
+        "einen Gegensatz",
+        "einen Grund",
+        "eine Bedingung"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "trotzdem: Verb auf Position 2 (kitob, 86-bet)."
+    },
+    {
+     "title": "Nemischa qanday?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "„daromad“ — nemischa qanday?",
+       "options": [
+        "die Umwelt",
+        "der Einfluss",
+        "das Einkommen"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„reklama“ — nemischa qanday?",
+       "options": [
+        "die Werbung",
+        "die Lebensmittelverschwendung",
+        "der Elektroschrott"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„ta’sir“ — nemischa qanday?",
+       "options": [
+        "der Einfluss",
+        "der Müll",
+        "die Qualität"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„ijtimoiy tarmoqdagi mashhur shaxs“ — nemischa qanday?",
+       "options": [
+        "der Influencer",
+        "das Einkommen",
+        "die Werbung"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„atrof-muhit“ — nemischa qanday?",
+       "options": [
+        "die Werbung",
+        "die Qualität",
+        "die Umwelt"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„chiqindi“ — nemischa qanday?",
+       "options": [
+        "der Einfluss",
+        "die Lebensmittelverschwendung",
+        "der Müll"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„elektron chiqindilar“ — nemischa qanday?",
+       "options": [
+        "die Qualität",
+        "der Einfluss",
+        "der Elektroschrott"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„oziq-ovqat isrofi“ — nemischa qanday?",
+       "options": [
+        "die Werbung",
+        "der Influencer",
+        "die Lebensmittelverschwendung"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "O'zbekcha so'zning nemischasini tanlang."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l08-yakuniy-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 8,
+   "skill": "yakuniy",
+   "title": "Abschlusstest: A2 8. Unterricht",
+   "source": "vizu",
+   "instruction": "trotzdem va iste'mol so'zlari bo'yicha yakuniy test (dars materiali asosida).",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Sie ist krank. Trotzdem ___ sie zur Arbeit.",
+     "options": [
+      "geht",
+      "gehen",
+      "sie geht"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Es ist kalt. ___ gehe ich schwimmen.",
+     "options": [
+      "Trotzdem",
+      "Weil",
+      "Wenn"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wie viel Plastikmüll produziert eine Person pro Jahr?",
+     "options": [
+      "ungefähr 36 kg",
+      "ungefähr 10 kg",
+      "ungefähr 100 kg"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Lesen."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was ist ein Problem laut Text?",
+     "options": [
+      "zu viel Konsum",
+      "zu wenig Werbung",
+      "zu wenig Produkte"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Lesen."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„die Werbung“ — o'zbekchasi?",
+     "options": [
+      "reklama",
+      "daromad",
+      "sifat"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„nachhaltig“ — o'zbekchasi?",
+     "options": [
+      "barqaror / ekologik",
+      "qimmat",
+      "tez"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„der Müll“ — o'zbekchasi?",
+     "options": [
+      "chiqindi",
+      "ta'sir",
+      "iste'mol"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„das Einkommen“ — o'zbekchasi?",
+     "options": [
+      "daromad",
+      "xarajat",
+      "chegirma"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Ich habe keine Zeit. Trotzdem ___ ich mit.",
+     "options": [
+      "komme",
+      "kommen",
+      "kommst"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Welcher Satz ist richtig?",
+     "options": [
+      "Wir sind spät. Trotzdem warten sie auf uns.",
+      "Wir sind spät. Trotzdem sie warten auf uns.",
+      "Wir sind spät, trotzdem sie auf uns warten."
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2-l08-kompetenz-02",
+   "level": "A2",
+   "module": 1,
+   "lesson": 8,
+   "skill": "kompetenz",
+   "title": "Zusammenfassung: A2 8. Unterricht",
+   "source": "vizu",
+   "competency": "ZUSAMMENFASSUNG",
+   "html": "<h3>A2 8. Unterricht — qisqacha</h3><ul><li><strong>trotzdem</strong> zeigt einen starken Gegensatz: Die Situation ist negativ oder schwierig, aber das Ergebnis ist anders.</li><li><strong>Satzbau:</strong> Ich bin müde. Trotzdem lerne ich Deutsch. (trotzdem auf Position 1 → Verb auf Position 2)</li><li><strong>Vergleich:</strong> Ich bin müde, aber ich lerne Deutsch. · Ich bin müde. Trotzdem lerne ich Deutsch.</li><li><strong>Wortschatz:</strong> der Konsum, das Einkommen, die Werbung, der Einfluss, die Umwelt, der Müll, nachhaltig, die Qualität.</li></ul><p>Natijalaringiz pastda — tugallanmagan bo'limlarni yakunlang, so'ng keyingi darsga o'ting.</p>"
+  }
+ ]
+}
