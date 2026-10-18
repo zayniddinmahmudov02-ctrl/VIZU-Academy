@@ -59,6 +59,7 @@ from .lesson_skill import (
 )
 from .content_import import ContentImport
 from .app_setting import AppSetting
+from .answer_key_review import AnswerKeyReview
 from .lms import LearningResource, LessonCompetency, StudentCompetencyProgress
 
 # Certificate

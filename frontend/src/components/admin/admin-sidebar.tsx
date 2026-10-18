@@ -8,9 +8,18 @@ import Logo from "@/components/common/logo";
 import { ADMIN_NAV_GROUPS } from "@/features/admin/constants/nav";
 import { cn } from "@/lib/utils";
 
-function isActive(pathname: string, href: string): boolean {
+function matches(pathname: string, href: string): boolean {
   if (href === "/admin") return pathname === "/admin";
   return pathname === href || pathname.startsWith(`${href}/`);
+}
+
+// only the most specific matching item is active (/admin/lms/loesung marks
+// "Lösung", not also its parent "LMS A1–C1")
+const ALL_HREFS = ADMIN_NAV_GROUPS.flatMap((g) => g.items.map((i) => i.href));
+
+function isActive(pathname: string, href: string): boolean {
+  if (!matches(pathname, href)) return false;
+  return !ALL_HREFS.some((other) => other !== href && other.length > href.length && matches(pathname, other));
 }
 
 export default function AdminSidebar({ className }: { className?: string }) {
@@ -43,6 +52,7 @@ export default function AdminSidebar({ className }: { className?: string }) {
                     href={item.href}
                     className={cn(
                       "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+                      item.child && "ml-6 py-2 text-[13px]",
                       active
                         ? "bg-[var(--admin-primary)]/15 text-[var(--admin-primary)]"
                         : "text-[var(--admin-text-secondary)] hover:bg-[var(--admin-hover)] hover:text-[var(--admin-text-primary)]",
