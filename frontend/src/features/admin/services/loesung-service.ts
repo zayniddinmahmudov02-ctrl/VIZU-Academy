@@ -20,6 +20,9 @@ export interface LoesungItem {
   with_key: number;
   verified: number;
   flagged: number;
+  /** answer fields: one per gap of a Lückentext / item of a Zuordnung, one per other question */
+  answer_fields: number;
+  answer_fields_keyed: number;
   key_status: KeyStatus;
   audio: AudioState;
   is_published: boolean;
@@ -47,7 +50,8 @@ export interface LoesungOverview {
 }
 
 export interface KeyOption {
-  id: string;
+  /** null = a new option (created on save) */
+  id: string | null;
   text: string;
   is_correct: boolean;
 }
@@ -68,6 +72,8 @@ export interface KeyQuestion {
   verification_outdated: boolean;
   note: string | null;
   reviewed_at: string | null;
+  answer_fields: number;
+  answer_fields_keyed: number;
 }
 
 export interface TaskRef {
@@ -111,6 +117,7 @@ export async function getLoesungTask(kind: LoesungKind, id: string): Promise<Loe
 }
 
 export interface SaveKeyInput {
+  question?: string;
   options?: KeyOption[];
   config?: Record<string, unknown> | null;
   explanation?: string | null;
@@ -124,6 +131,10 @@ export async function saveLoesungQuestion(kind: LoesungKind, taskId: string, que
 
 export async function publishLoesungTask(kind: LoesungKind, taskId: string): Promise<LoesungDetail> {
   return (await api.post<LoesungDetail>(`${BASE}/${kind}/${taskId}/publish`)).data;
+}
+
+export async function unpublishLoesungTask(kind: LoesungKind, taskId: string): Promise<LoesungDetail> {
+  return (await api.post<LoesungDetail>(`${BASE}/${kind}/${taskId}/unpublish`)).data;
 }
 
 export function taskHref(kind: LoesungKind, id: string): string {

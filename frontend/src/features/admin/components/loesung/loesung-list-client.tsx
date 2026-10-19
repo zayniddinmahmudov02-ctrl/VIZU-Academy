@@ -138,8 +138,8 @@ function Row({ item: i }: { item: LoesungItem }) {
         {i.import_note && <p className="truncate text-xs text-[var(--admin-warning)]" title={i.import_note}>Hinweis: {i.import_note}</p>}
       </div>
       <div className="text-xs text-[var(--admin-text-secondary)]">
-        <p>{i.questions} Fragen</p>
-        <p>{i.with_key} mit Lösung · {i.verified} geprüft</p>
+        <p>{i.questions} Fragen{i.answer_fields !== i.questions ? ` · ${i.answer_fields} Antwortfelder` : ""}</p>
+        <p>{i.answer_fields_keyed}/{i.answer_fields} mit Lösung · {i.verified} geprüft</p>
       </div>
       <div className="flex flex-wrap gap-1.5">
         <KeyStatusBadge status={i.key_status} />

@@ -21,13 +21,14 @@ Kind = Literal["lesen", "hoeren"]
 
 
 class OptionIn(BaseModel):
-    id: UUID
+    id: UUID | None = None  # null = new option
     text: str = Field(min_length=1, max_length=500)
     is_correct: bool = False
 
 
 class QuestionKeyIn(BaseModel):
-    options: list[OptionIn] | None = None
+    question: str | None = Field(default=None, min_length=1, max_length=2000)
+    options: list[OptionIn] | None = Field(default=None, max_length=6)
     config: dict | None = None
     explanation: str | None = Field(default=None, max_length=2000)
     review: Literal["verified", "needs_review", "unverified"] | None = None
@@ -64,7 +65,9 @@ def save_question(kind: Kind, task_id: UUID, question_id: UUID, payload: Questio
                   user: User = Depends(require_content_editor)):
     data = payload.model_dump(exclude_unset=True)
     if "options" in data and data["options"] is not None:
-        data["options"] = [{"id": str(o["id"]), "text": o["text"], "is_correct": o["is_correct"]} for o in data["options"]]
+        data["options"] = [{"id": str(o["id"]) if o["id"] else None, "text": o["text"], "is_correct": o["is_correct"]} for o in data["options"]]
+    if data.get("question") is None:
+        data.pop("question", None)
     return loesung.save_question(db, kind, task_id, question_id, data, user, _ip(request))
 
 
@@ -73,3 +76,9 @@ def publish(kind: Kind, task_id: UUID, request: Request, db: Session = Depends(g
     """409 NOT_READY_TO_PUBLISH with the list of problems, otherwise the
     existing publish (ReadingService.publish / ListeningService.update)."""
     return loesung.publish(db, kind, task_id, user, _ip(request))
+
+
+@router.post("/{kind}/{task_id}/unpublish")
+def unpublish(kind: Kind, task_id: UUID, request: Request, db: Session = Depends(get_db), user: User = Depends(require_content_editor)):
+    """Back to draft — attempts, scores and keys stay."""
+    return loesung.unpublish(db, kind, task_id, user, _ip(request))
