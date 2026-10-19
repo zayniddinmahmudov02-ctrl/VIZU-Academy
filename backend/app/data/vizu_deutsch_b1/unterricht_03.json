@@ -1,0 +1,1111 @@
+{
+ "schema_version": "1.2",
+ "language": "de",
+ "source": "vizu-deutsch-b1-book",
+ "items": [
+  {
+   "content_id": "vizu-b1-l03-kompetenz-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 3,
+   "skill": "kompetenz",
+   "title": "Einführung: B1 3. Unterricht",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 42
+   },
+   "competency": "EINFUEHRUNG",
+   "html": "<h3>B1 3. Unterricht — Ernährung und Essgewohnheiten</h3><p><strong>Mavzu:</strong> Ernährung und Essgewohnheiten · <strong>Grammatik:</strong> Infinitiv mit zu (um … zu, ohne … zu, statt … zu)</p><h4>Dars maqsadlari</h4><ul><li>Infinitiv mit „zu“ — niyat, reja, istak va maqsadni ifodalash (hoffen, planen, versuchen … + zu + Infinitiv);</li><li>Infinitiv-Gruppen: zu-siz (Modalverben), statt … zu (muqobil), um … zu (maqsad), ohne … zu;</li><li>ovqatlanish odatlari va mehmondorchilik haqida so'zlar.</li></ul><h4>Dars oxirida siz quyidagilarni bajara olasiz</h4><ul><li>ovqatlanish odatlaringiz haqida gapirasiz;</li><li>taklifnoma va o'quvchi xatini o'qib tushunasiz;</li><li>aka-singilning suhbatini tinglab, bo'sh joylarni to'ldirasiz;</li><li>yangi mashinangiz haqida e-mail va dengiz bo'yidagi ta'til haqida fikringizni yozasiz;</li><li>ofisni jihozlash rejasini muhokama qilasiz va televizor haqida taqdimot qilasiz.</li></ul><h4>Darsning tuzilishi</h4><p>Einführung → Wortschatz → Grammatik → Lesen → Hören → Sprechen → Schreiben → Übungen → Abschlusstest → Zusammenfassung</p>"
+  },
+  {
+   "content_id": "vizu-b1-l03-frage-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 3,
+   "skill": "frage",
+   "title": "Frage des Themas: Wie ist Ihre Essgewohnheit?",
+   "source": "book",
+   "metadata": {
+    "book_page": 43,
+    "book_samples": [
+     "Zum Frühstück esse ich meistens Haferflocken mit Obst und trinke eine Tasse Tee oder Kaffee.",
+     "Ich esse jeden Tag Obst und Gemüse, weil sie wichtig für meine Gesundheit sind.",
+     "Ja, ich achte auf eine gesunde Ernährung. Ich vermeide Fast Food und esse lieber frisch gekochtes Essen, weil es mir Energie gibt."
+    ]
+   },
+   "prompt": "Wie ist Ihre Essgewohnheit?",
+   "questions": [
+    "Was essen Sie normalerweise zum Frühstück?",
+    "Wie oft essen Sie Obst und Gemüse?",
+    "Achten Sie auf eine gesunde Ernährung? Warum (nicht)?"
+   ],
+   "min_duration": 30,
+   "max_duration": 120
+  },
+  {
+   "content_id": "vizu-b1-l03-grammatik-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 3,
+   "skill": "grammatik",
+   "title": "Grammatik: Infinitiv mit zu und Infinitiv-Gruppen",
+   "source": "book",
+   "metadata": {
+    "book_page": "44-45"
+   },
+   "rules": [
+    {
+     "title": "Infinitiv mit zu",
+     "html": "<h3>Infinitiv mit zu</h3><p>Der Infinitiv mit „zu“ drückt Absichten, Pläne, Wünsche, Hoffnungen oder Ziele aus.</p><h4>Regeln</h4><ul><li>Der Infinitiv mit „zu“ wird nach bestimmten Verben, Adjektiven und Nomen verwendet.</li><li>„zu“ steht immer direkt vor dem Infinitiv.</li><li>Zwischen „zu“ und Infinitiv stehen keine weiteren Wörter.</li></ul><h4>Struktur</h4><p><strong>Subjekt + Verb/Adjektiv/Nomen + zu + Infinitiv</strong></p><h4>Typische Verben</h4><p>hoffen · planen · versuchen · vergessen · beginnen · lernen · wünschen · entscheiden · versprechen · vorhaben</p><h4>Beispiele</h4><ul><li>Ich hoffe, Deutsch zu lernen.</li><li>Wir planen, im Sommer nach Deutschland zu reisen.</li><li>Er versucht, jeden Tag Sport zu machen.</li><li>Ich habe vergessen, dich anzurufen.</li><li>Sie beginnt, ein neues Buch zu lesen.</li></ul><p><strong>Merke:</strong> Der Infinitiv mit „zu“ steht nach bestimmten Verben, Adjektiven und Nomen und zeigt eine Absicht, einen Plan, Wunsch oder ein Ziel.</p>"
+    },
+    {
+     "title": "Infinitiv-Gruppen: ohne zu, statt zu, um zu",
+     "html": "<h3>Infinitiv-Gruppen: ohne zu, statt zu, um zu …</h3><p>Der Infinitiv kann mit oder ohne „zu“ stehen. Manchmal wird „zu“ weggelassen oder durch andere Wörter ersetzt.</p><table><thead><tr><th>1. Infinitiv-Gruppen ohne „zu“</th><th>2. Infinitiv mit „statt zu“</th><th>3. Infinitiv mit „um zu …“</th></tr></thead><tbody><tr><td><strong>Regeln:</strong> Nach Modalverben und bestimmten Verben steht der Infinitiv ohne „zu“.</td><td><strong>Regeln:</strong> „Statt zu“ bedeutet „anstatt zu“. Es wird benutzt, um eine Alternative auszudrücken.</td><td><strong>Regeln:</strong> „Um zu“ drückt den Zweck oder das Ziel einer Handlung aus.</td></tr><tr><td><strong>Struktur:</strong> Subjekt + Modalverb/Verb + Infinitiv (ohne zu)</td><td><strong>Struktur:</strong> Subjekt + Verb + statt zu + Infinitiv</td><td><strong>Struktur:</strong> Subjekt + Verb + um zu + Infinitiv</td></tr><tr><td>Ich kann Deutsch lernen.<br>Wir wollen nach Berlin fahren.<br>Er muss früh aufstehen.<br>Sie lässt die Kinder spielen.<br><em>Wichtige Verben:</em> können, wollen, müssen, sollen, dürfen, lassen, sehen, hören, fühlen, helfen, machen …</td><td>Ich lerne Deutsch statt zu schlafen.<br>Wir gehen ins Kino statt zu Hause zu bleiben.<br>Er arbeitet hart statt zu faulenzen.<br><em>„Statt zu“ = anstatt zu. Es zeigt eine bessere Alternative.</em></td><td>Ich lerne Deutsch, um besser zu kommunizieren.<br>Wir sparen Geld, um eine Reise zu machen.<br>Sie geht zum Arzt, um gesund zu bleiben.<br><em>„Um zu“ = mit dem Ziel, um den Zweck etwas zu erreichen.</em></td></tr></tbody></table><p><strong>ohne … zu</strong> (Buch S. 49): Ich übersetze den Text, ohne Wörterbuch zu benutzen.</p>"
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l03-schreiben-03",
+   "level": "B1",
+   "module": 1,
+   "lesson": 3,
+   "skill": "schreiben",
+   "title": "Grammatik Aufgabe 1: Infinitiv mit zu",
+   "source": "book",
+   "metadata": {
+    "book_page": 46,
+    "note": "Kitobdagi ochiq topshiriq (gapni mazmunan to'ldirish) — o'qituvchi tekshiradi."
+   },
+   "task_type": "other",
+   "prompt": "Setze die Verben in der richtigen Form mit „zu“ in die Lücken ein. (Wörter im Buch: lernen | reisen | machen | lesen | helfen | anrufen | sparen | essen)\n\n1. Ich habe vor, nächstes Jahr nach Italien …\n2. Er versucht jeden Tag Sport …\n3. Wir planen, im Sommer nach Spanien …\n4. Es ist wichtig, Deutsch gut …\n5. Ich habe vergessen, dich gestern …\n6. Meine Schwester hat versprochen, mir bei den Hausaufgaben …\n7. Ich spare Geld, um ein neues Handy …\n8. Sie beginnt, ein interessantes Buch …",
+   "min_words": 32,
+   "max_words": 200,
+   "time_limit": 15
+  },
+  {
+   "content_id": "vizu-b1-l03-schreiben-04",
+   "level": "B1",
+   "module": 1,
+   "lesson": 3,
+   "skill": "schreiben",
+   "title": "Grammatik Aufgabe 2: Infinitiv mit um zu",
+   "source": "book",
+   "metadata": {
+    "book_page": 47,
+    "note": "Kitobdagi ochiq topshiriq (gapni mazmunan to'ldirish) — o'qituvchi tekshiradi."
+   },
+   "task_type": "other",
+   "prompt": "„Um zu“ drückt den Zweck oder das Ziel einer Handlung aus. Setze die Verben in der richtigen Form mit „um zu“ in die Lücken ein. (besser verstehen | pünktlich sein | gesund bleiben | Geld sparen | Fehler vermeiden | erfolgreich sein | Deutsch verbessern | abnehmen)\n\n1. Ich lerne jeden Tag Vokabeln, …\n2. Ich gehe früh ins Bett, …\n3. Er macht Sport, …\n4. Wir fahren mit dem Bus, …\n5. Sie liest die Anweisungen sorgfältig, …\n6. Ich übe regelmäßig Grammatik, …\n7. Mein Bruder arbeitet nebenbei, …\n8. Ich esse weniger Süßigkeiten, …",
+   "min_words": 32,
+   "max_words": 200,
+   "time_limit": 15
+  },
+  {
+   "content_id": "vizu-b1-l03-schreiben-05",
+   "level": "B1",
+   "module": 1,
+   "lesson": 3,
+   "skill": "schreiben",
+   "title": "Grammatik Aufgabe 3: Infinitiv mit statt zu",
+   "source": "book",
+   "metadata": {
+    "book_page": 48,
+    "note": "Kitobdagi ochiq topshiriq (gapni mazmunan to'ldirish) — o'qituvchi tekshiradi."
+   },
+   "task_type": "other",
+   "prompt": "„Statt zu“ bedeutet „anstatt zu“. Setze die Verben in der richtigen Form mit „statt zu“ in die Lücken ein. Beispiel: Ich bleibe zu Hause, statt auszugehen. (fernsehen | ausgehen | Süßigkeiten essen | zu Hause bleiben | spät schlafen | Fleisch essen | Kaffee trinken | mit dem Auto fahren)\n\n1. Ich lerne heute Abend Deutsch, …\n2. Er geht ins Fitnessstudio, …\n3. Wir nehmen den Zug, …\n4. Sie isst Salat, …\n5. Kinder sollten Obst essen, …\n6. Ich stehe früh auf, …\n7. Er trinkt Tee, …\n8. Wir treffen uns im Café, …",
+   "min_words": 32,
+   "max_words": 200,
+   "time_limit": 15
+  },
+  {
+   "content_id": "vizu-b1-l03-schreiben-06",
+   "level": "B1",
+   "module": 1,
+   "lesson": 3,
+   "skill": "schreiben",
+   "title": "Grammatik Aufgabe 4: Infinitiv ohne … zu",
+   "source": "book",
+   "metadata": {
+    "book_page": 49,
+    "note": "Kitobdagi ochiq topshiriq (gapni mazmunan to'ldirish) — o'qituvchi tekshiradi."
+   },
+   "task_type": "other",
+   "prompt": "Setze die Verben in der richtigen Form in die Lücken ein. Beispiel: Ich übersetze den Text, ohne Wörterbuch zu benutzen. (übersetzen | verstehen | machen | schreiben | hören | entscheiden | verlassen | benutzen)\n\n1. Ich ___ den Text, ohne Wörterbuch zu benutzen. …\n2. Er versteht die Regeln gut, ohne den Lehrer …\n3. Wir machen Sport, ohne ins Fitnessstudio …\n4. Sie schreibt E-Mails, ohne lange …\n5. Ich höre Musik, ohne andere …\n6. Du entscheidest dich schnell, ohne lange …\n7. Wir verlassen das Haus, ohne etwas zu …\n8. Er benutzt das Handy, ohne auf die Uhr …",
+   "min_words": 32,
+   "max_words": 200,
+   "time_limit": 15
+  },
+  {
+   "content_id": "vizu-b1-l03-lesen-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 3,
+   "skill": "lesen",
+   "title": "Lesen Aufgabe 1: Eine Einladung zur Geburtstagsparty",
+   "source": "book",
+   "metadata": {
+    "book_page": 50,
+    "key_source": "vizu",
+    "publish_hold": "Lösung von VIZU aus dem Text abgeleitet (kein offizieller Schlüssel) — in Lösung prüfen und bestätigen",
+    "note": "Buch unvollständig: Punkt 2 und Option c) fehlen; „Termin für Antwort“ hat keine gedruckte Option — Lösung von VIZU aus dem Text, bitte prüfen."
+   },
+   "instruction": "Lesen Sie diesen sehr locker formulierten Einladungstext und ordnen Sie zu.",
+   "passages": [
+    {
+     "title": "Einladung von Hanna",
+     "text": "Hallo Anita und Klaus,\nnächstes Wochenende steigt bei uns eine riesige Geburtstagsparty – wie ihr wisst, wird Oliver, der arme alte Mann, 30 Jahre alt!\nKommt doch am Samstag so um 20 Uhr bei uns vorbei und bringt gutes Wetter mit, wir würden gern im Garten feiern …!\nSupernett wäre es, wenn ihr auch etwas zum Essen machen würdet. Meldet euch doch die nächsten Tage mal bei mir, ob ihr kommen könnt und was ihr mitbringt.\nIch freu mich!\nLiebe Grüße\nHanna\nP.S.: Nehmt euch einen warmen Pulli mit, falls es nachts im Garten kalt wird!"
+    }
+   ],
+   "questions": [
+    {
+     "type": "matching",
+     "question": "Ordnen Sie zu: Was steht in der Einladung?",
+     "items": [
+      "Anlass",
+      "Zeit",
+      "Art der Veranstaltung",
+      "Gastgeber",
+      "Kleiderordnung"
+     ],
+     "targets": [
+      "nächster Samstag, 20 Uhr",
+      "Gartenparty",
+      "30. Geburtstag",
+      "keine, warmen Pulli mitnehmen",
+      "Garten von Hanna und Oliver",
+      "Hanna und Oliver"
+     ],
+     "pairs": {
+      "1": "C",
+      "2": "A",
+      "3": "B",
+      "4": "F",
+      "5": "D"
+     },
+     "points": 5,
+     "passage": 1,
+     "explanation": "Anlass = 30. Geburtstag („wird Oliver … 30 Jahre alt“); Zeit = Samstag 20 Uhr; Art = Gartenparty („im Garten feiern“); Gastgeber = Hanna und Oliver; Kleiderordnung = keine, warmen Pulli mitnehmen („Nehmt euch einen warmen Pulli mit“). „Garten von Hanna und Oliver“ (= Ort, im Buch fehlt Punkt 2) bleibt übrig."
+    },
+    {
+     "type": "short_answer",
+     "question": "Termin für Antwort: Bis wann sollen sich Anita und Klaus melden?",
+     "accepted": [
+      "die nächsten Tage",
+      "in den nächsten Tagen",
+      "nächste Tage"
+     ],
+     "points": 1,
+     "max_length": 200,
+     "passage": 1,
+     "explanation": "„Meldet euch doch die nächsten Tage mal bei mir …“ (im Buch fehlt die passende Option c)."
+    }
+   ],
+   "max_score": 6
+  },
+  {
+   "content_id": "vizu-b1-l03-lesen-02",
+   "level": "B1",
+   "module": 1,
+   "lesson": 3,
+   "skill": "lesen",
+   "title": "Lesen Aufgabe 2: Leserbriefe — meine erste Party in Deutschland",
+   "source": "book",
+   "metadata": {
+    "book_page": 51,
+    "key_source": "vizu",
+    "publish_hold": "Lösung von VIZU aus dem Text abgeleitet (kein offizieller Schlüssel) — in Lösung prüfen und bestätigen",
+    "note": "Die Anweisung nennt Lücken 1–6, gedruckt sind 4; „trinken“ und „Gast“ bleiben übrig. Lösung von VIZU — bitte prüfen."
+   },
+   "instruction": "Lesen Sie den Text und ergänzen Sie die Lücken mit den passenden Wörtern. (Sora Kim, 22, aus Korea)",
+   "passages": [
+    {
+     "title": "Leserbriefe",
+     "text": "Wörter: Kühlschrank • anderen • trinken • Gast • zu Hause • Essen\n\nLetzten Samstag war ich auf meiner ersten Party in Deutschland. Ich war ziemlich spät dran. Viele Leute waren schon da. Maria hat die Tür aufgemacht und mich sehr nett begrüßt. Sie hat gesagt: „Fühl dich wie zu (1)! Wenn du was trinken willst – die Getränke stehen im (2) und das Essen ist auf dem Tisch im Wohnzimmer.“ Dann hat sie mir zwei Freundinnen vorgestellt und ist weggegangen. Maria hat mir kein Getränk angeboten und auch nichts zum (3). Das war nicht besonders höflich, oder? Ich habe mir dann selbst etwas genommen – so wie die (4)."
+    }
+   ],
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "Lesen Sie den Text und ergänzen Sie die Lücken mit den passenden Wörtern.",
+     "text": "Letzten Samstag war ich auf meiner ersten Party in Deutschland. Ich war ziemlich spät dran. Viele Leute waren schon da. Maria hat die Tür aufgemacht und mich sehr nett begrüßt. Sie hat gesagt: „Fühl dich wie zu [[1]]! Wenn du was trinken willst – die Getränke stehen im [[2]] und das Essen ist auf dem Tisch im Wohnzimmer.“ Dann hat sie mir zwei Freundinnen vorgestellt und ist weggegangen. Maria hat mir kein Getränk angeboten und auch nichts zum [[3]]. Das war nicht besonders höflich, oder? Ich habe mir dann selbst etwas genommen – so wie die [[4]].",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "Hause"
+       ],
+       "options": [
+        "Hause",
+        "Gast",
+        "Essen",
+        "trinken"
+       ]
+      },
+      "2": {
+       "accepted": [
+        "Kühlschrank"
+       ],
+       "options": [
+        "Kühlschrank",
+        "anderen",
+        "trinken",
+        "Gast",
+        "zu Hause",
+        "Essen"
+       ]
+      },
+      "3": {
+       "accepted": [
+        "Essen"
+       ],
+       "options": [
+        "Kühlschrank",
+        "anderen",
+        "trinken",
+        "Gast",
+        "zu Hause",
+        "Essen"
+       ]
+      },
+      "4": {
+       "accepted": [
+        "anderen"
+       ],
+       "options": [
+        "Kühlschrank",
+        "anderen",
+        "trinken",
+        "Gast",
+        "zu Hause",
+        "Essen"
+       ]
+      }
+     },
+     "points": 4,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "Fühl dich wie zu Hause · im Kühlschrank · nichts zum Essen · so wie die anderen."
+    }
+   ],
+   "max_score": 4
+  },
+  {
+   "content_id": "vizu-b1-l03-lesen-03",
+   "level": "B1",
+   "module": 1,
+   "lesson": 3,
+   "skill": "lesen",
+   "title": "Lesen Aufgabe 3: Abendessen mit Freunden",
+   "source": "book",
+   "metadata": {
+    "book_page": 52,
+    "key_source": "vizu",
+    "publish_hold": "Lösung von VIZU aus dem Text abgeleitet (kein offizieller Schlüssel) — in Lösung prüfen und bestätigen",
+    "note": "Lösung von VIZU aus dem Text abgeleitet (Zitat in der Erklärung) — bitte prüfen."
+   },
+   "instruction": "Lesen Sie den Text und ergänzen Sie die Lücken mit: um … zu, ohne … zu oder statt … zu.",
+   "passages": [
+    {
+     "title": "Abendessen mit Freunden",
+     "text": "Am Freitag habe ich meine Freunde zum Abendessen eingeladen. Wir haben uns getroffen, (1) zusammen zu kochen und einen schönen Abend zu verbringen. (2) in ein Restaurant (3) gehen, haben wir Pizza und Salat selbst gemacht. Niemand hat sein Handy benutzt, (4) vorher ein Foto vom Essen (5) machen. Während des Essens haben wir viel gelacht und über unsere Zukunft gesprochen. Am Ende waren alle glücklich, (6) sich zu beeilen nach Hause (7) gehen."
+    }
+   ],
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "Ergänzen Sie die Lücken mit: um … zu, ohne … zu oder statt … zu.",
+     "text": "Am Freitag habe ich meine Freunde zum Abendessen eingeladen. Wir haben uns getroffen, [[1]] zusammen zu kochen und einen schönen Abend zu verbringen. [[2]] in ein Restaurant [[3]] gehen, haben wir Pizza und Salat selbst gemacht. Niemand hat sein Handy benutzt, [[4]] vorher ein Foto vom Essen [[5]] machen. Während des Essens haben wir viel gelacht und über unsere Zukunft gesprochen. Am Ende waren alle glücklich, [[6]] sich zu beeilen nach Hause [[7]] gehen.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "um"
+       ],
+       "options": [
+        "um",
+        "ohne",
+        "statt",
+        "zu"
+       ]
+      },
+      "2": {
+       "accepted": [
+        "Statt"
+       ],
+       "options": [
+        "Statt",
+        "Um",
+        "Ohne",
+        "Zu"
+       ]
+      },
+      "3": {
+       "accepted": [
+        "zu"
+       ],
+       "options": [
+        "um",
+        "ohne",
+        "statt",
+        "zu"
+       ]
+      },
+      "4": {
+       "accepted": [
+        "um"
+       ],
+       "options": [
+        "um",
+        "ohne",
+        "statt",
+        "zu"
+       ]
+      },
+      "5": {
+       "accepted": [
+        "zu"
+       ],
+       "options": [
+        "um",
+        "ohne",
+        "statt",
+        "zu"
+       ]
+      },
+      "6": {
+       "accepted": [
+        "ohne"
+       ],
+       "options": [
+        "um",
+        "ohne",
+        "statt",
+        "zu"
+       ]
+      },
+      "7": {
+       "accepted": [
+        "zu"
+       ],
+       "options": [
+        "um",
+        "ohne",
+        "statt",
+        "zu"
+       ]
+      }
+     },
+     "points": 7,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "um zusammen zu kochen · Statt in ein Restaurant zu gehen · um vorher ein Foto vom Essen zu machen · ohne sich zu beeilen, nach Hause zu gehen."
+    }
+   ],
+   "max_score": 7
+  },
+  {
+   "content_id": "vizu-b1-l03-hoeren-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 3,
+   "skill": "hoeren",
+   "title": "Hören Teil 1–3: Ulrich und Ella im Café",
+   "source": "book",
+   "metadata": {
+    "book_page": "53-55",
+    "key_source": "pending",
+    "note": "Lückentext ohne Wörterliste und ohne Lösung im Buch — alle 37 Lücken nach dem Anhören in Lösung festlegen."
+   },
+   "audio_file": "3.Unterricht Teil 1-2-3.mp3",
+   "key_pending": true,
+   "instruction": "Hören Sie den Dialog und ergänzen Sie die Lücken. (Teil 1–3, eine Audiodatei)",
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "Teil 1: Hören Sie den Dialog und ergänzen Sie die Lücken (1–11).",
+     "text": "Ulrich hat von seiner Firma ein gutes Angebot bekommen. Er kann Abteilungsleiter werden, muss aber in einer anderen Stadt arbeiten. Seine Frau Gabi möchte nicht [[1]], weil sie gerade ein Haus gekauft haben und Lilli, ihre Tochter, in die Schule gekommen ist. Außerdem hat Gabi eine gute [[2]] in einer Apotheke. Ulrich weiß nicht, was er tun soll, und trifft sich mit seiner Schwester in einem Café, um vielleicht von ihr einen guten Rat zu [[3]].\nUlrich: Hallo Schwesterchen! Schön, dass du dir Zeit für mich [[4]] hast.\nElla: Ist doch klar, Uli! Da komme ich doch gleich, wenn mein kleiner Bruder ein Problem hat! Trinkst du auch einen Cappuccino?\nUlrich: Ja, einen großen!\nElla: (zur Kellnerin) Zwei große Cappuccini, bitte! (zu Ulrich) So, und jetzt noch mal von vorne, vorhin am Telefon habe ich nicht alles ganz richtig verstanden. [[5]] genau?\nUlrich: Also, mein Chef hat mir letzten Freitag angeboten, die neue Abteilung in Frankfurt als Leiter zu [[6]]. Das wäre genial für meinen [[7]], auch die Aufgabe wäre eine wirklich interessante [[8]]. Und es wird gut bezahlt!\nElla: Super! Gratulation!\nUlrich: (lacht geschmeichelt) Danke! Ich habe mich auch wirklich gefreut. (sorgenvoll) Aber Gabi möchte [[9]] umziehen. Sie liebt ihre Arbeit in der Apotheke und Lilli ist doch auch gerade erst [[10]].\nElla: Das heißt, dass du dir unter der Woche ein Zimmer in Frankfurt [[11]] müsstest.",
+     "gaps": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": [],
+      "5": [],
+      "6": [],
+      "7": [],
+      "8": [],
+      "9": [],
+      "10": [],
+      "11": []
+     },
+     "points": 11,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Teil 2: Hören Sie den Dialog und ergänzen Sie die Lücken (1–13).",
+     "text": "Ulrich: Genau. Die einfache [[1]] von 200 km jeden Tag zu machen, ist unmöglich, das geht [[2]] zeitlich [[3]] finanziell.\nElla: Könntest du denn nicht auch [[4]] arbeiten?\nUlrich: Das hatte ich auch schon [[5]]. Mein Chef war von der Idee nicht begeistert, aber er meinte, den Freitag müsste ich nicht unbedingt im Büro verbringen, wenn nicht gerade wichtige [[6]] stattfinden.\nElla: Aber das wäre doch eine gute [[7]]! Dann bist du immerhin von Donnerstagabend bis Sonntagabend zu Hause!\nUlrich: (unsicher) Na ja, schon, aber ich bekomme nichts mehr vom [[8]] mit. Und Gabi müsste alles alleine machen.\nElla: Aber [[9]], wenn du [[10]] hast, gehst du morgens um halb acht aus dem Haus und kommst auch nicht vor acht Uhr abends nach Hause. Und Lilli muss um die Zeit ins Bett – mehr als ein [[11]] [[12]] ist da nicht drin! (leicht ironisch) Und ich glaube auch nicht, dass du dann noch den Rasen mähst oder den Wasserhahn im Bad reparierst!\nUlrich: (zögernd) Na ja, natürlich nicht. Das macht eigentlich Gabi sowieso alles allein …\nElla: Siehst du? Und wenn du dich mal länger mit Lilli über Skype [[13]], ist das vielleicht mehr wert als ein müdes „Gute Nacht, mein Schatz!“",
+     "gaps": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": [],
+      "5": [],
+      "6": [],
+      "7": [],
+      "8": [],
+      "9": [],
+      "10": [],
+      "11": [],
+      "12": [],
+      "13": []
+     },
+     "points": 13,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Teil 3: Hören Sie den Dialog und ergänzen Sie die Lücken (1–13).",
+     "text": "Ulrich: Aber die [[1]]! Ich [[2]] eine ganze Menge [[3]] und müsste die Miete für ein Zimmer in Frankfurt zahlen!\nElla: Tja, das müsstest du natürlich genau durchrechnen, ob es [[4]]. Aber denkst du nicht, dass du auch einen [[5]] von der Firma bekommen könntest, wenn du ihnen die Situation erklärst? Sie wollen dich doch gern auf der Position haben!\nUlrich: Hm, ja, das könnte ich versuchen. Aber wirklich glücklich bin ich bei dem Gedanken nicht …\nElla: Ach, Uli, du solltest es einfach mal [[6]]. Schau dir das Ganze mal ein Jahr lang an. Dann könnt ihr sehen, was es für [[7]] oder [[8]] hat und wie ihr damit zurechtgekommen seid. Und wer weiß, vielleicht [[9]] ihr euch dann wirklich umzuziehen, oder vielleicht gibt es eine Möglichkeit für dich, wieder hier einen Job zu finden. Aber du bist um eine interessante [[10]] reicher!\nUlrich: Und mein [[11]] auch … Ach, ich glaube, Ella, du hast recht. Ich muss ja nicht mein ganzes Leben in dieser Situation verbringen. Manchmal hat man einfach [[12]] vor etwas Neuem!\nElla: Das denke ich auch. Zahlen wir?\nUlrich: Ja, aber das übernehme ich! Für so einen guten [[13]] sind zwei Cappuccino wirklich nicht zu viel … (lacht)\nElla: (lacht auch) Oh, wie großzügig, Bruderherz!",
+     "gaps": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": [],
+      "5": [],
+      "6": [],
+      "7": [],
+      "8": [],
+      "9": [],
+      "10": [],
+      "11": [],
+      "12": [],
+      "13": []
+     },
+     "points": 13,
+     "passage": 1,
+     "case_sensitive": false
+    }
+   ],
+   "max_score": 37
+  },
+  {
+   "content_id": "vizu-b1-l03-schreiben-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 3,
+   "skill": "schreiben",
+   "title": "Schreiben Teil 1: E-Mail — mein neues Auto",
+   "source": "book",
+   "metadata": {
+    "book_page": 56,
+    "musterloesung": "Lieber Haytam,\nwie geht's dir? Hoffentlich ist alles gut. Mir geht es zurzeit super und ich habe heute einen tollen Grund, dir zu schreiben: Ich habe mir meinen Traum erfüllt und ein neues Auto gekauft!\nEs ist ein Mercedes C63 in der Farbe Weiß. Das Auto ist einfach fantastisch! Es hat einen starken Motor (620 km pro Stunde), ist sehr bequem und sieht dazu noch richtig elegant aus. Besonders mag ich die Ledersitze, die große Sitzplatz und das moderne Display. Außerdem hat es viele Sicherheitsfunktionen und eine Klimaanlage, die bei jedem Wetter perfekt funktioniert.\nIch habe das Auto gekauft, weil mein altes Auto kaputt war und ich jeden Tag zur Arbeit fahren muss. Außerdem wollte ich schon lange etwas Modernes und Sicheres, auf das ich mich verlassen kann.\nIch würde mich sehr freuen, wenn du Zeit hättest, mit mir mein neues Auto auszuprobieren. Lass uns am Wochenende einen Ausflug machen – zum Beispiel an den See oder in die Berge. Dann kannst du das Auto selbst fahren und wir verbringen eine schöne Zeit zusammen.\nLass von dir hören, wann es dir passt!\nLiebe Grüße\nDein Freund"
+   },
+   "task_type": "email",
+   "prompt": "Sie haben ein neues Auto gekauft. Schreiben Sie eine E-Mail an Ihren Freund / Ihre Freundin. Beschreiben Sie, wie das neue Auto ist, warum Sie es gekauft haben, und laden Sie ihn / sie ein, das Auto mit Ihnen auszuprobieren.",
+   "audience": "Ihr Freund / Ihre Freundin (informell)",
+   "min_words": 80,
+   "max_words": 150,
+   "time_limit": 25,
+   "ai_instructions": "Musterlösung aus dem Buch (Referenz):\nLieber Haytam,\nwie geht's dir? Hoffentlich ist alles gut. Mir geht es zurzeit super und ich habe heute einen tollen Grund, dir zu schreiben: Ich habe mir meinen Traum erfüllt und ein neues Auto gekauft!\nEs ist ein Mercedes C63 in der Farbe Weiß. Das Auto ist einfach fantastisch! Es hat einen starken Motor (620 km pro Stunde), ist sehr bequem und sieht dazu noch richtig elegant aus. Besonders mag ich die Ledersitze, die große Sitzplatz und das moderne Display. Außerdem hat es viele Sicherheitsfunktionen und eine Klimaanlage, die bei jedem Wetter perfekt funktioniert.\nIch habe das Auto gekauft, weil mein altes Auto kaputt war und ich jeden Tag zur Arbeit fahren muss. Außerdem wollte ich schon lange etwas Modernes und Sicheres, auf das ich mich verlassen kann.\nIch würde mich sehr freuen, wenn du Zeit hättest, mit mir mein neues Auto auszuprobieren. Lass uns am Wochenende einen Ausflug machen – zum Beispiel an den See oder in die Berge. Dann kannst du das Auto selbst fahren und wir verbringen eine schöne Zeit zusammen.\nLass von dir hören, wann es dir passt!\nLiebe Grüße\nDein Freund"
+  },
+  {
+   "content_id": "vizu-b1-l03-schreiben-02",
+   "level": "B1",
+   "module": 1,
+   "lesson": 3,
+   "skill": "schreiben",
+   "title": "Schreiben Teil 2: Meinung — Urlaub am Strand",
+   "source": "book",
+   "metadata": {
+    "book_page": 57,
+    "musterloesung": "Das Thema Urlaub im Strand halte ich für äußerst interessant daher mochte ich meine Meinung zum Ausdruck bringen.\nNatürlich kann man die frische Luft genießen und im Strand schwimmen aber das ist nicht genug denn man kann viele neuer Dinge verpassen, außerdem entscheiden sich viele für den Strand als Urlaubsort, was den Strand überfüllt macht man soll nicht vergessen, dass die Strack Sonnenlicht der haut schadet und man sich am Strand anstecken kann\nAus dem schon genannten Gründen kann ich sagen, dass man verschiedene urlauborte ausprobieren sollte damit kann man etwas neuer entdecken und neuer Erlebnisse genießen"
+   },
+   "task_type": "opinion",
+   "prompt": "Schreiben Sie Ihre Meinung zum Thema „Urlaub im Strand“.\n1. Beschreiben Sie, warum der Urlaub am Strand interessant ist.\n2. Nennen Sie Vor- und Nachteile des Strandurlaubs.\n3. Geben Sie Ihre Meinung und Empfehlung.",
+   "audience": "Forum / Online-Magazin",
+   "min_words": 80,
+   "max_words": 120,
+   "time_limit": 25,
+   "ai_instructions": "Musterlösung aus dem Buch (Referenz; enthält Fehler):\nDas Thema Urlaub im Strand halte ich für äußerst interessant daher mochte ich meine Meinung zum Ausdruck bringen.\nNatürlich kann man die frische Luft genießen und im Strand schwimmen aber das ist nicht genug denn man kann viele neuer Dinge verpassen, außerdem entscheiden sich viele für den Strand als Urlaubsort, was den Strand überfüllt macht man soll nicht vergessen, dass die Strack Sonnenlicht der haut schadet und man sich am Strand anstecken kann\nAus dem schon genannten Gründen kann ich sagen, dass man verschiedene urlauborte ausprobieren sollte damit kann man etwas neuer entdecken und neuer Erlebnisse genießen"
+  },
+  {
+   "content_id": "vizu-b1-l03-sprechen-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 3,
+   "skill": "sprechen",
+   "title": "Sprechen Teil 1: Gemeinsamer Plan — die Büros neu einrichten",
+   "source": "book",
+   "metadata": {
+    "book_page": 58
+   },
+   "topic": "Die Büros neu einrichten",
+   "prompt": "Sie arbeiten zusammen in einer Firma und haben von Ihrem Chef den Auftrag bekommen, die Büros neu einzurichten. Machen Sie gemeinsam einen Plan und sprechen Sie über die folgenden Punkte.",
+   "questions": [
+    "Welche Möbel? — Welche Möbel brauchen wir?",
+    "Wohin mit den alten Möbeln? — Verkaufen, verschenken oder spenden?",
+    "Was noch brauchen? — Welche Geräte und Dinge fehlen noch?",
+    "Termin für die Präsentation — Wann präsentieren wir unseren Plan dem Chef?"
+   ],
+   "response_type": "dialog",
+   "min_duration": 60,
+   "max_duration": 240,
+   "sample_answer": "Kandidat 1: Also, beginnen wir mit den Möbeln. Ich finde, wir brauchen neue Schreibtische und bequeme Drehstühle.\nKandidat 2: Stimmt, die alten Stühle sind nicht mehr bequem. Was hältst du von höhenverstellbaren Tischen?\nKandidat 1: Gute Idee! Außerdem brauchen wir Regale und Aktenschränke für mehr Stauraum.\nKandidat 2: Einverstanden. Und die Sofas für die Pause-Ecke wären auch schön.\nKandidat 1: Wohin mit den alten Möbeln? Sollen wir sie verkaufen?\nKandidat 2: Ja, auf dem Flohmarkt oder online. Den Erlös können wir für etwas anderes nutzen. Den Rest können wir spenden.\nKandidat 1: Was brauchen wir sonst noch? Eine Kaffeemaschine ist wichtig.\nKandidat 2: Ja, und ein neuer Drucker, ein Projektor für Präsentationen und ein paar Pflanzen für ein besseres Raumklima.\nKandidat 1: Gute Liste! Wann präsentieren wir den Plan unserem Chef?\nKandidat 2: Ich schlage vor, nächsten Montagmorgen. Dann haben wir bis dahin genug Zeit, alles vorzubereiten.\nKandidat 1: Perfekt! Dann machen wir uns an die Arbeit.\n\n(Variante 2) Kandidat 2: Lass uns zuerst überlegen, welche Möbel wir brauchen. — Kandidat 1: Wir brauchen auf jeden Fall neue Schreibtische, bequeme Stühle und Regale. — Kandidat 2: Ich denke auch, ein großer Besprechungstisch wäre sinnvoll. — Kandidat 1: Ja, für Meetings und Teamarbeit. Und vielleicht ein Sofa für die Pause? — Kandidat 2: Gute Idee! Wohin mit den alten Möbeln? — Kandidat 1: Wir können sie verkaufen oder an eine gemeinnützige Organisation spenden. — Kandidat 2: 100% richtig. Was fehlt uns noch? Oh, eine Kaffeemaschine! — Kandidat 1: Und ein neuer Computer für das Büro, ein Drucker und ein Beamer für Präsentationen. — Kandidat 2: Vergiss nicht die Bilder und Pflanzen. Sie machen das Büro gemütlicher. — Kandidat 1: Stimmt! Wann sollen wir unseren Plan präsentieren? — Kandidat 2: Wie wäre es nächsten Montag um 10 Uhr? — Kandidat 1: Passt gut. Dann bereiten wir bis dahin alles vor.",
+   "speech_goal": "Gemeinsam planen: Vorschläge machen, zustimmen, einen Termin vereinbaren.",
+   "keywords": [
+    "Ich finde",
+    "Was hältst du von",
+    "Gute Idee",
+    "Einverstanden",
+    "Ich schlage vor"
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l03-sprechen-02",
+   "level": "B1",
+   "module": 1,
+   "lesson": 3,
+   "skill": "sprechen",
+   "title": "Sprechen Teil 2: Präsentation — Wie viel Fernsehen ist gesund?",
+   "source": "book",
+   "metadata": {
+    "book_page": 59
+   },
+   "topic": "Wie viel Fernsehen ist gesund?",
+   "prompt": "Halten Sie eine Präsentation zum Thema „Wie viel fernsehen ist gesund“. Sprechen Sie 1,5 bis 2 Minuten. Tipps: Sprechen Sie klar und deutlich. Verwenden Sie Beispiele. Nennen Sie Ihre eigene Meinung. Achten Sie auf die Zeit.",
+   "questions": [
+    "Erfahrung",
+    "Situation",
+    "Vorteile",
+    "Nachteile",
+    "Meinung / Fazit"
+   ],
+   "response_type": "monolog",
+   "preparation_time": 300,
+   "min_duration": 90,
+   "max_duration": 120,
+   "sample_answer": "Guten Tag! Heute spreche ich über das Thema „Wie viel fernsehen ist gesund“. Für mich schaue ich selten Fernsehen, weil es mir zu langweilig ist, und ich mache das mit Telefonen und Computern wett.\nHier in Marokko gibt es zwei Kategorien. Die erste Kategorie verbringt Stundenlang vor dem Fernseher, besonders Kinder und ältere Frauen, und die zweite Kategorie sieht kein Fernsehen.\nEs gibt viele Vorteile vom Fernsehen. Man kann viel Informationen von fern bekommen. Man kann viel Spaß haben und den Alltag entkommen. Außerdem kann man von fern Fremdsprachen lernen.\nAber es gibt auch Nachteile. Zu viel Fernsehen ist schlecht für unsere Augen. Man kann viel Zeit verlieren. Für Kinder ist Fernsehen eine Ablenkung von den Hausaufgaben.\nMeiner Meinung nach spielt Fernsehen in unserem Leben eine große Rolle, daher muss es richtig genutzt werden.\nDanke für Ihre Aufmerksamkeit!",
+   "speech_goal": "Präsentation mit Erfahrung, Situation, Vor- und Nachteilen und Fazit.",
+   "keywords": [
+    "Heute spreche ich über",
+    "Vorteile",
+    "Nachteile",
+    "Meiner Meinung nach",
+    "Danke für Ihre Aufmerksamkeit"
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l03-wortschatz-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 3,
+   "skill": "wortschatz",
+   "title": "Wortschatz: Wichtige Redewendungen für Modul 3",
+   "source": "book",
+   "metadata": {
+    "book_page": 60,
+    "note": "Das Buch erklärt die Ausdrücke auf Deutsch (keine Übersetzung)."
+   },
+   "words": [
+    {
+     "word": "etwas in Betracht ziehen",
+     "translation": "etwas als Möglichkeit ernsthaft überlegen",
+     "group": "Wichtige Redewendungen für Modul 3",
+     "example": "Wir ziehen in Betracht, in Zukunft im Ausland zu studieren."
+    },
+    {
+     "word": "zu dem Schluss kommen",
+     "translation": "nach Überlegung eine Entscheidung treffen",
+     "group": "Wichtige Redewendungen für Modul 3",
+     "example": "Nach vielen Gesprächen sind wir zu dem Schluss gekommen, zu reisen."
+    },
+    {
+     "word": "einen Einfluss haben auf",
+     "translation": "etwas bewirken oder verändern",
+     "group": "Wichtige Redewendungen für Modul 3",
+     "example": "Unsere Umgebung hat einen großen Einfluss auf unsere Stimmung."
+    },
+    {
+     "word": "etwas voneinander abhängen",
+     "translation": "zusammenhängen, sich gegenseitig beeinflussen",
+     "group": "Wichtige Redewendungen für Modul 3",
+     "example": "Erfolg und Fleiß hängen eng miteinander zusammen."
+    },
+    {
+     "word": "eine Lösung finden",
+     "translation": "ein Problem erfolgreich bewältigen",
+     "group": "Wichtige Redewendungen für Modul 3",
+     "example": "Wir müssen gemeinsam eine Lösung für dieses Problem finden."
+    },
+    {
+     "word": "Prioritäten setzen",
+     "translation": "wichtige Dinge zuerst behandeln",
+     "group": "Wichtige Redewendungen für Modul 3",
+     "example": "Ich setze meine Prioritäten auf Gesundheit und gute Bildung."
+    },
+    {
+     "word": "Verantwortung übernehmen",
+     "translation": "für etwas die Pflicht akzeptieren",
+     "group": "Wichtige Redewendungen für Modul 3",
+     "example": "Jeder sollte Verantwortung für seine Entscheidungen übernehmen."
+    },
+    {
+     "word": "etwas im Voraus planen",
+     "translation": "vorher vorbereiten und organisieren",
+     "group": "Wichtige Redewendungen für Modul 3",
+     "example": "Eine gute Planung im Voraus spart Zeit und Stress."
+    },
+    {
+     "word": "sich bemühen um",
+     "translation": "sich anstrengen, um etwas zu erreichen",
+     "group": "Wichtige Redewendungen für Modul 3",
+     "example": "Ich bemühe mich um bessere Noten in der Universität."
+    },
+    {
+     "word": "eine Herausforderung meistern",
+     "translation": "eine schwierige Aufgabe erfolgreich bewältigen",
+     "group": "Wichtige Redewendungen für Modul 3",
+     "example": "Jede Herausforderung macht uns stärker und selbstbewusster."
+    }
+   ],
+   "exercises": [
+    {
+     "title": "Zuordnung",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Wichtige Redewendungen für Modul 3 1)",
+       "items": [
+        "etwas in Betracht ziehen",
+        "zu dem Schluss kommen",
+        "einen Einfluss haben auf",
+        "etwas voneinander abhängen",
+        "eine Lösung finden",
+        "Prioritäten setzen"
+       ],
+       "targets": [
+        "etwas als Möglichkeit ernsthaft überlegen",
+        "nach Überlegung eine Entscheidung treffen",
+        "etwas bewirken oder verändern",
+        "zusammenhängen, sich gegenseitig beeinflussen",
+        "ein Problem erfolgreich bewältigen",
+        "wichtige Dinge zuerst behandeln",
+        "für etwas die Pflicht akzeptieren"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Wichtige Redewendungen für Modul 3 2)",
+       "items": [
+        "Verantwortung übernehmen",
+        "etwas im Voraus planen",
+        "sich bemühen um",
+        "eine Herausforderung meistern"
+       ],
+       "targets": [
+        "für etwas die Pflicht akzeptieren",
+        "vorher vorbereiten und organisieren",
+        "sich anstrengen, um etwas zu erreichen",
+        "eine schwierige Aufgabe erfolgreich bewältigen",
+        "etwas als Möglichkeit ernsthaft überlegen"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D"
+       },
+       "points": 4,
+       "passage": 1
+      }
+     ],
+     "instruction": "Ordnen Sie jedem Ausdruck die passende Erklärung aus dem Buch zu."
+    },
+    {
+     "title": "Welcher Ausdruck passt?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "„nach Überlegung eine Entscheidung treffen“ — welcher Ausdruck passt?",
+       "options": [
+        "Prioritäten setzen",
+        "zu dem Schluss kommen",
+        "einen Einfluss haben auf"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„etwas bewirken oder verändern“ — welcher Ausdruck passt?",
+       "options": [
+        "eine Lösung finden",
+        "eine Herausforderung meistern",
+        "einen Einfluss haben auf"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„zusammenhängen, sich gegenseitig beeinflussen“ — welcher Ausdruck passt?",
+       "options": [
+        "etwas voneinander abhängen",
+        "eine Lösung finden",
+        "Prioritäten setzen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„ein Problem erfolgreich bewältigen“ — welcher Ausdruck passt?",
+       "options": [
+        "eine Lösung finden",
+        "Verantwortung übernehmen",
+        "etwas in Betracht ziehen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„wichtige Dinge zuerst behandeln“ — welcher Ausdruck passt?",
+       "options": [
+        "Prioritäten setzen",
+        "sich bemühen um",
+        "etwas im Voraus planen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„für etwas die Pflicht akzeptieren“ — welcher Ausdruck passt?",
+       "options": [
+        "etwas voneinander abhängen",
+        "Prioritäten setzen",
+        "Verantwortung übernehmen"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„vorher vorbereiten und organisieren“ — welcher Ausdruck passt?",
+       "options": [
+        "zu dem Schluss kommen",
+        "einen Einfluss haben auf",
+        "etwas im Voraus planen"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„sich anstrengen, um etwas zu erreichen“ — welcher Ausdruck passt?",
+       "options": [
+        "sich bemühen um",
+        "eine Herausforderung meistern",
+        "etwas voneinander abhängen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "Welcher Ausdruck passt zur Erklärung? (Erklärungen aus dem Buch)"
+    }
+   ],
+   "auto_practice": false
+  },
+  {
+   "content_id": "vizu-b1-l03-uebungen-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 3,
+   "skill": "uebungen",
+   "title": "Übungen: B1 3. Unterricht",
+   "source": "vizu",
+   "exercises": [
+    {
+     "title": "Infinitiv mit oder ohne zu? (Beispielsätze aus dem Buch)",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Ich hoffe, Deutsch ___ lernen.",
+       "options": [
+        "zu",
+        "um",
+        "—"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "hoffen + zu + Infinitiv."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich kann Deutsch ___.",
+       "options": [
+        "lernen",
+        "zu lernen",
+        "um zu lernen"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "Nach Modalverben: Infinitiv ohne zu."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Wir wollen nach Berlin ___.",
+       "options": [
+        "fahren",
+        "zu fahren",
+        "gefahren"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "wollen + Infinitiv ohne zu."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich habe vergessen, dich ___.",
+       "options": [
+        "anzurufen",
+        "zu anrufen",
+        "anrufen"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "Trennbares Verb: an-zu-rufen."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Wir gehen ins Kino, ___ zu Hause zu bleiben.",
+       "options": [
+        "statt",
+        "um",
+        "ohne"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "statt zu = Alternative."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Sie geht zum Arzt, ___ gesund zu bleiben.",
+       "options": [
+        "um",
+        "statt",
+        "ohne"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "um zu = Ziel."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich übersetze den Text, ___ Wörterbuch zu benutzen.",
+       "options": [
+        "ohne",
+        "um",
+        "statt"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "ohne … zu."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Er versucht, jeden Tag Sport zu ___.",
+       "options": [
+        "machen",
+        "gemacht",
+        "macht"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "Wählen Sie die richtige Form (Sätze aus dem Buch, S. 44-45 und 49)."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l03-yakuniy-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 3,
+   "skill": "yakuniy",
+   "title": "Abschlusstest: B1 3. Unterricht",
+   "source": "vizu",
+   "instruction": "Abschlusstest zu Infinitiv mit zu und Redewendungen (alle Sätze aus dem Buch).",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Wo steht „zu“ beim Infinitiv mit zu?",
+     "options": [
+      "Immer direkt vor dem Infinitiv",
+      "Am Satzanfang",
+      "Nach dem Infinitiv"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Buch S. 44."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was bedeutet „statt zu“?",
+     "options": [
+      "anstatt zu — eine Alternative",
+      "mit dem Ziel",
+      "ohne Grund"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Buch S. 45."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wir planen, im Sommer nach Deutschland ___ reisen.",
+     "options": [
+      "zu",
+      "um",
+      "statt"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Er muss früh ___.",
+     "options": [
+      "aufstehen",
+      "aufzustehen",
+      "zu aufstehen"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1,
+     "explanation": "müssen + Infinitiv ohne zu."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Ich lerne Deutsch, ___ besser zu kommunizieren.",
+     "options": [
+      "um",
+      "statt",
+      "ohne"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Er arbeitet hart statt zu ___.",
+     "options": [
+      "faulenzen",
+      "gefaulenzt",
+      "faulenzt"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Jeder sollte Verantwortung für seine Entscheidungen ___.",
+     "options": [
+      "übernehmen",
+      "setzen",
+      "finden"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Ich setze meine ___ auf Gesundheit und gute Bildung.",
+     "options": [
+      "Prioritäten",
+      "Lösungen",
+      "Einflüsse"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Ich bemühe mich ___ bessere Noten in der Universität.",
+     "options": [
+      "um",
+      "für",
+      "auf"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wann soll man laut Einladung zur Party kommen?",
+     "options": [
+      "Am Samstag um 20 Uhr",
+      "Am Sonntag um 18 Uhr",
+      "Am Freitag um 20 Uhr"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Lesen Aufgabe 1: „Kommt doch am Samstag so um 20 Uhr bei uns vorbei …“"
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l03-kompetenz-02",
+   "level": "B1",
+   "module": 1,
+   "lesson": 3,
+   "skill": "kompetenz",
+   "title": "Zusammenfassung: B1 3. Unterricht",
+   "source": "vizu",
+   "competency": "ZUSAMMENFASSUNG",
+   "html": "<h3>B1 3. Unterricht — qisqacha</h3><ul><li><strong>Infinitiv mit zu</strong>: Subjekt + Verb/Adjektiv/Nomen + zu + Infinitiv — Ich hoffe, Deutsch zu lernen. „zu“ steht direkt vor dem Infinitiv.</li><li>Typische Verben: hoffen, planen, versuchen, vergessen, beginnen, lernen, wünschen, entscheiden, versprechen, vorhaben.</li><li><strong>ohne zu</strong> nach Modalverben: Ich kann Deutsch lernen. · <strong>statt zu</strong> = anstatt zu (Alternative): Ich lerne Deutsch statt zu schlafen.</li><li><strong>um zu</strong> (Zweck / Ziel): Ich lerne Deutsch, um besser zu kommunizieren. · <strong>ohne … zu</strong>: Ich übersetze den Text, ohne Wörterbuch zu benutzen.</li><li><strong>Redewendungen:</strong> in Betracht ziehen, zu dem Schluss kommen, einen Einfluss haben auf, voneinander abhängen, eine Lösung finden, Prioritäten setzen, Verantwortung übernehmen, im Voraus planen, sich bemühen um, eine Herausforderung meistern.</li></ul><p>Natijalaringiz pastda — tugallanmagan bo'limlarni yakunlang, so'ng keyingi darsga o'ting.</p>"
+  }
+ ]
+}

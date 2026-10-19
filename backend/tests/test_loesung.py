@@ -92,6 +92,21 @@ class TestValidation(unittest.TestCase):
             self.assertTrue(loesung.validation("hoeren", SimpleNamespace(), st)["ready"])
 
 
+class TestAnswerFields(unittest.TestCase):
+    def test_gap_fill_counts_each_gap(self):
+        q = SimpleNamespace(question_type="GAP_FILL", options=[], config={
+            "text": "Um [[1]] Uhr, um [[2]] Uhr und um [[3]] Uhr.", "gaps": {"1": {"accepted": ["8:00"]}, "2": ["8:30"], "3": {"accepted": []}}})
+        self.assertEqual(loesung.answer_fields(q), (3, 2))
+
+    def test_choice_question_is_one_field(self):
+        self.assertEqual(loesung.answer_fields(mc(1)), (1, 1))
+        self.assertEqual(loesung.answer_fields(mc(None)), (1, 0))
+
+    def test_state_reports_fields(self):
+        st = loesung.question_state(gap(["bin"]), None)
+        self.assertEqual((st["answer_fields"], st["answer_fields_keyed"]), (1, 1))
+
+
 class TestImportNotes(unittest.TestCase):
     def test_a2_lesson5_hoeren_note_is_found(self):
         note = loesung.import_notes().get("vizu-a2-l05-hoeren-01")

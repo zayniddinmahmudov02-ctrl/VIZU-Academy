@@ -497,7 +497,9 @@ def _gap_filled(g) -> bool:
 def readiness(db: Session, listening: Listening) -> dict:
     """Why an A1 Hören task is (not) publishable — the same rules as the
     manual publish (audio + complete answer keys), plus: the audio FILE must
-    really exist on the server."""
+    really exist on the server, and every key must be verified in Lösung
+    (an uploaded audio or a filled key alone never publishes)."""
+    from app.services.lesson_skills import loesung
     from app.services.lesson_skills.admin import listening_audio_path
     from app.services.lesson_skills.exercises import has_key
 
@@ -505,6 +507,9 @@ def readiness(db: Session, listening: Listening) -> dict:
     course, _ = structure.lesson_level(db, lesson) if lesson else (None, None)
     questions = list(listening.questions)
     missing = sum(1 for q in questions if not has_key(q))
+    reviews = loesung._reviews(db, "hoeren", [q.id for q in questions])
+    states = [loesung.question_state(q, reviews.get(q.id)) for q in questions if has_key(q)]
+    unverified = sum(1 for s in states if not s["verified"] or s["needs_review"])
     if not listening.audio_storage_path:
         audio = "none"
     elif listening_audio_path(listening) is None:
@@ -520,11 +525,14 @@ def readiness(db: Session, listening: Listening) -> dict:
         reasons.append("keine Fragen")
     if missing:
         reasons.append(f"{missing} Frage(n) ohne Lösung")
+    if unverified:
+        reasons.append(f"{unverified} Lösung(en) noch nicht geprüft (Lösung-Seite)")
     return {
         "level": course.level if course else None,
         "audio": audio,
         "questions": len(questions),
         "key_missing": missing,
+        "key_unverified": unverified,
         "ready": not reasons,
         "reasons": reasons,
     }

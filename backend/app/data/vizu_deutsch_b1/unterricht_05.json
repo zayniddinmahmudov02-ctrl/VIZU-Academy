@@ -1,0 +1,1584 @@
+{
+ "schema_version": "1.2",
+ "language": "de",
+ "source": "vizu-deutsch-b1-book",
+ "items": [
+  {
+   "content_id": "vizu-b1-l05-kompetenz-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 5,
+   "skill": "kompetenz",
+   "title": "Einführung: B1 5. Unterricht",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 79
+   },
+   "competency": "EINFUEHRUNG",
+   "html": "<h3>B1 5. Unterricht — Im Berufsleben</h3><p><strong>Mavzu:</strong> Im Berufsleben · <strong>Grammatik:</strong> Konjunktiv II</p><h4>Dars maqsadlari</h4><ul><li>Konjunktiv II — istak, orzu, xushmuomala iltimos, real bo'lmagan holat va maslahat: würde + Infinitiv, hätte, wäre;</li><li>modal fe'llar Konjunktiv II da: könnte, müsste, dürfte, sollte, wollte, möchte;</li><li>kasb, ish va ishga joylashish haqida so'zlar.</li></ul><h4>Dars oxirida siz quyidagilarni bajara olasiz</h4><ul><li>kasbingiz va orzuyingizdagi kasb haqida gapirasiz;</li><li>amaliyotchi blogini va kasb hamda salomatlik haqidagi matnni tushunasiz;</li><li>maktab bitiruvchilarining kelajak rejalari haqidagi suhbatni tinglaysiz;</li><li>taklifnoma, fikr va o'qituvchiga uzrnoma yozasiz;</li><li>„Ishlaydigan ota-onalar“ mavzusida taqdimot qilasiz.</li></ul><h4>Darsning tuzilishi</h4><p>Einführung → Wortschatz → Grammatik → Lesen → Hören → Sprechen → Schreiben → Übungen → Abschlusstest → Zusammenfassung</p>"
+  },
+  {
+   "content_id": "vizu-b1-l05-frage-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 5,
+   "skill": "frage",
+   "title": "Frage des Themas: Was machen Sie beruflich? Was ist Ihr Traumberuf?",
+   "source": "book",
+   "metadata": {
+    "book_page": 80,
+    "book_samples": [
+     "Ich arbeite als Softwareentwickler in einem IT-Unternehmen. Ich entwickle Anwendungen und löse technische Probleme. Mein Job macht mir Spaß, weil ich kreativ und herausfordernd ist. Ich arbeite in einem tollen Team und habe flexible Arbeitszeiten. In meiner Freizeit lerne ich neue Technologien und treibe Sport. Ich bin zufrieden mit meinem Beruf und sehe gute Zukunftschancen.",
+     "Mein Traumberuf ist es, als Übersetzerin zu arbeiten. Ich liebe Sprachen und möchte Menschen verbinden. Ich würde gerne für internationale Organisationen arbeiten. Mein Beruf soll sinnvoll sein und mir ermöglichen, zu reisen. Ich möchte jeden Tag dazulernen und neue Kulturen entdecken. Ich bin motiviert und arbeite jeden Tag an meinem Ziel."
+    ]
+   },
+   "prompt": "01 Was machen Sie beruflich? 02 Was ist Ihr Traumberuf?",
+   "questions": [
+    "Was machen Sie beruflich?",
+    "Was ist Ihr Traumberuf?"
+   ],
+   "min_duration": 30,
+   "max_duration": 150
+  },
+  {
+   "content_id": "vizu-b1-l05-grammatik-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 5,
+   "skill": "grammatik",
+   "title": "Grammatik: Konjunktiv II",
+   "source": "book",
+   "metadata": {
+    "book_page": "81-84",
+    "note": "Lösungen von VIZU nach der Grammatik; Buchfehler Aufgabe 1 Satz 9/10 im Hinweis."
+   },
+   "rules": [
+    {
+     "title": "Konjunktiv II: alle Regeln auf einen Blick",
+     "html": "<h3>Konjunktiv II: alle Regeln auf einen Blick</h3><h4>1. Verwendung</h4><p>Konjunktiv II wird verwendet für: Wünsche · Träume · höfliche Bitten · irreale Situationen · Ratschläge</p><h4>2. Bildung — die Hauptformen</h4><p><strong>A) würde + Infinitiv</strong> — Subjekt + würde + Infinitiv</p><ul><li>Ich würde gern nach Deutschland reisen.</li><li>Wir würden mehr Sport machen.</li><li>Er würde ein neues Auto kaufen.</li><li>Sie würde das Problem lösen.</li><li>Ihr würdet viel besser werden.</li></ul><p><strong>B) Modalverben im Konjunktiv II</strong></p><table><thead><tr><th>Infinitiv</th><th>Konjunktiv II</th></tr></thead><tbody><tr><td>können</td><td>könnte</td></tr><tr><td>müssen</td><td>müsste</td></tr><tr><td>dürfen</td><td>dürfte</td></tr><tr><td>sollen</td><td>sollte</td></tr><tr><td>wollen</td><td>wollte</td></tr><tr><td>mögen</td><td>möchte</td></tr></tbody></table><h4>3. Beispiele mit Modalverben</h4><ul><li>Ich könnte heute länger arbeiten.</li><li>Du solltest mehr schlafen.</li><li>Wir müssten pünktlich sein.</li><li>Er dürfte das nicht wissen.</li><li>Ich möchte Arzt werden.</li><li>Sie wollte früher anfangen.</li></ul><h4>4. sein und haben im Konjunktiv II</h4><table><thead><tr><th>Infinitiv</th><th>Konjunktiv II</th><th>Beispiel</th></tr></thead><tbody><tr><td>sein</td><td>wäre</td><td>Ich wäre gern reich.</td></tr><tr><td>haben</td><td>hätte</td><td>Ich hätte mehr Zeit.</td></tr><tr><td>werden</td><td>würde</td><td>Ich würde Lehrer werden.</td></tr><tr><td>wissen</td><td>wüsste</td><td>Ich wüsste die Antwort.</td></tr><tr><td>können</td><td>könnte</td><td>Ich könnte es schaffen.</td></tr></tbody></table><h4>5. Weitere wichtige Strukturen</h4><ul><li>Subjekt + wäre + … → Es wäre schön, mehr Urlaub zu haben.</li><li>Subjekt + hätte + … → Ich hätte gern ein eigenes Büro.</li><li>Wenn ich … hätte, würde ich … → Wenn ich Zeit hätte, würde ich reisen.</li><li>Ich wünschte, … → Ich wünschte, ich könnte fliegen.</li><li>Es ist wichtig, dass … → Es ist wichtig, dass du lernst.</li></ul><h4>6. Wichtige Hinweise</h4><ul><li>Im Alltag benutzt man meistens würde + Infinitiv.</li><li>Konjunktiv II hat keine Vergangenheitsformen.</li><li>Aussprache ist wie im Indikativ.</li><li>Konjunktiv II ist nicht für die Realität, sondern für Möglichkeiten, Wünsche und Höflichkeit.</li></ul><p><strong>Merke:</strong> Konjunktiv II = Wunsch • Traum • Höflichkeit • Irrealität • Ratschlag</p>"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "Aufgabe 1: Konjunktiv II mit „hätte“ oder „wäre“",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "1. Bilde den Satz im Konjunktiv II mit „hätte“ oder „wäre“.",
+       "text": "Wenn ich mehr Zeit (haben) [[1]], würde ich jeden Tag Sport machen.",
+       "gaps": {
+        "1": [
+         "hätte"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "hätte"
+      },
+      {
+       "type": "gap_fill",
+       "question": "2. Bilde den Satz im Konjunktiv II mit „hätte“ oder „wäre“.",
+       "text": "Wenn er reich (sein) [[1]], würde er um die Welt reisen.",
+       "gaps": {
+        "1": [
+         "wäre"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "wäre"
+      },
+      {
+       "type": "gap_fill",
+       "question": "3. Bilde den Satz im Konjunktiv II mit „hätte“ oder „wäre“.",
+       "text": "Wenn wir früher losgefahren (sein) [[1]], hätten wir den Zug nicht verpasst.",
+       "gaps": {
+        "1": [
+         "wären"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "wären"
+      },
+      {
+       "type": "gap_fill",
+       "question": "4. Bilde den Satz im Konjunktiv II mit „hätte“ oder „wäre“.",
+       "text": "Wenn ich du (sein) [[1]], hätte ich das anders gemacht.",
+       "gaps": {
+        "1": [
+         "wäre"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "wäre"
+      },
+      {
+       "type": "gap_fill",
+       "question": "5. Bilde den Satz im Konjunktiv II mit „hätte“ oder „wäre“.",
+       "text": "Wenn sie mehr gelernt (haben) [[1]], hätte sie die Prüfung bestanden.",
+       "gaps": {
+        "1": [
+         "hätte"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "hätte"
+      },
+      {
+       "type": "gap_fill",
+       "question": "6. Bilde den Satz im Konjunktiv II mit „hätte“ oder „wäre“.",
+       "text": "Wenn das Wetter besser (sein) [[1]], wären wir an den See gefahren.",
+       "gaps": {
+        "1": [
+         "wäre",
+         "gewesen wäre"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "wäre / gewesen wäre"
+      },
+      {
+       "type": "gap_fill",
+       "question": "7. Bilde den Satz im Konjunktiv II mit „hätte“ oder „wäre“.",
+       "text": "Wenn ich genug Geld (haben) [[1]], hätte ich ein neues Auto gekauft.",
+       "gaps": {
+        "1": [
+         "hätte",
+         "gehabt hätte"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "hätte / gehabt hätte"
+      },
+      {
+       "type": "gap_fill",
+       "question": "8. Bilde den Satz im Konjunktiv II mit „hätte“ oder „wäre“.",
+       "text": "Wenn du mich gefragt (haben) [[1]], hätte ich dir geholfen.",
+       "gaps": {
+        "1": [
+         "hättest"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "hättest"
+      },
+      {
+       "type": "gap_fill",
+       "question": "9. Bilde den Satz im Konjunktiv II mit „hätte“ oder „wäre“.",
+       "text": "Wenn er sich mehr anstrengen (haben) [[1]], hätte er sein Ziel erreicht.",
+       "gaps": {
+        "1": [
+         "hätte",
+         "angestrengt hätte"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "hätte / angestrengt hätte"
+      }
+     ],
+     "instruction": "Bilde Sätze im Konjunktiv II mit „hätte“ oder „wäre“ (Buch S. 82). Satz 9 im Buch („Wenn wir in einer anderen Stadt wohnen (sein) …, wären die Mieten günstiger.“) lässt sich mit hätte / wäre nicht bilden und wird nicht bewertet; bei Satz 10 zählt „hätte“ und „angestrengt hätte“."
+    },
+    {
+     "title": "Aufgabe 2: Konjunktiv II mit Modalverben",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "1. Ergänze das Modalverb im Konjunktiv II.",
+       "text": "Wenn ich mehr Zeit hätte, (können) [[1]] ich jeden Tag Sport machen.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "könnte"
+         ],
+         "options": [
+          "dürftest",
+          "könnte",
+          "könnten",
+          "möchten",
+          "müsste",
+          "sollte",
+          "sollten",
+          "wollte"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "könnte"
+      },
+      {
+       "type": "gap_fill",
+       "question": "2. Ergänze das Modalverb im Konjunktiv II.",
+       "text": "Wenn er krank wäre, (müssen) [[1]] er zum Arzt gehen.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "müsste"
+         ],
+         "options": [
+          "dürftest",
+          "könnte",
+          "könnten",
+          "möchten",
+          "müsste",
+          "sollte",
+          "sollten",
+          "wollte"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "müsste"
+      },
+      {
+       "type": "gap_fill",
+       "question": "3. Ergänze das Modalverb im Konjunktiv II.",
+       "text": "Wenn wir mehr Geld hätten, (sollen) [[1]] wir sparen.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "sollten"
+         ],
+         "options": [
+          "dürftest",
+          "könnte",
+          "könnten",
+          "möchten",
+          "müsste",
+          "sollte",
+          "sollten",
+          "wollte"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "sollten"
+      },
+      {
+       "type": "gap_fill",
+       "question": "4. Ergänze das Modalverb im Konjunktiv II.",
+       "text": "Wenn du hier wohnen würdest, (dürfen) [[1]] du ein Haustier haben.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "dürftest"
+         ],
+         "options": [
+          "dürftest",
+          "könnte",
+          "könnten",
+          "möchten",
+          "müsste",
+          "sollte",
+          "sollten",
+          "wollte"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "dürftest"
+      },
+      {
+       "type": "gap_fill",
+       "question": "5. Ergänze das Modalverb im Konjunktiv II.",
+       "text": "Wenn ich ihr helfen könnte, (wollen) [[1]] ich sofort kommen.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "wollte"
+         ],
+         "options": [
+          "dürftest",
+          "könnte",
+          "könnten",
+          "möchten",
+          "müsste",
+          "sollte",
+          "sollten",
+          "wollte"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "wollte"
+      },
+      {
+       "type": "gap_fill",
+       "question": "6. Ergänze das Modalverb im Konjunktiv II.",
+       "text": "Wenn ihr morgen Zeit hättet, (möchten) [[1]] wir euch besuchen.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "möchten"
+         ],
+         "options": [
+          "dürftest",
+          "könnte",
+          "könnten",
+          "möchten",
+          "müsste",
+          "sollte",
+          "sollten",
+          "wollte"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "möchten"
+      },
+      {
+       "type": "gap_fill",
+       "question": "7. Ergänze das Modalverb im Konjunktiv II.",
+       "text": "Wenn das Wetter besser wäre, (können) [[1]] wir wandern gehen.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "könnten"
+         ],
+         "options": [
+          "dürftest",
+          "könnte",
+          "könnten",
+          "möchten",
+          "müsste",
+          "sollte",
+          "sollten",
+          "wollte"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "könnten"
+      },
+      {
+       "type": "gap_fill",
+       "question": "8. Ergänze das Modalverb im Konjunktiv II.",
+       "text": "Wenn ich das Buch verstehen würde, (müssen) [[1]] ich es nicht noch einmal lesen.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "müsste"
+         ],
+         "options": [
+          "dürftest",
+          "könnte",
+          "könnten",
+          "möchten",
+          "müsste",
+          "sollte",
+          "sollten",
+          "wollte"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "müsste"
+      },
+      {
+       "type": "gap_fill",
+       "question": "9. Ergänze das Modalverb im Konjunktiv II.",
+       "text": "Wenn er mehr Erfahrung hätte, (sollen) [[1]] er die Leitung übernehmen.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "sollte"
+         ],
+         "options": [
+          "dürftest",
+          "könnte",
+          "könnten",
+          "möchten",
+          "müsste",
+          "sollte",
+          "sollten",
+          "wollte"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "sollte"
+      },
+      {
+       "type": "gap_fill",
+       "question": "10. Ergänze das Modalverb im Konjunktiv II.",
+       "text": "Wenn ich frei hätte, (wollen) [[1]] ich ans Meer fahren.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "wollte"
+         ],
+         "options": [
+          "dürftest",
+          "könnte",
+          "könnten",
+          "möchten",
+          "müsste",
+          "sollte",
+          "sollten",
+          "wollte"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "wollte"
+      }
+     ],
+     "instruction": "Bilde Sätze im Konjunktiv II mit Modalverben: können • müssen • sollen • dürfen • wollen • möchten (Buch S. 83)."
+    },
+    {
+     "title": "Aufgabe 3: Aktiv → Konjunktiv II",
+     "source": "book",
+     "questions": [
+      {
+       "type": "short_answer",
+       "question": "1. Ich habe viel Arbeit. → Konjunktiv II",
+       "accepted": [
+        "Ich hätte viel Arbeit."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Ich hätte viel Arbeit."
+      },
+      {
+       "type": "short_answer",
+       "question": "2. Er versteht die Aufgabe nicht. → Konjunktiv II",
+       "accepted": [
+        "Er würde die Aufgabe nicht verstehen.",
+        "Er verstünde die Aufgabe nicht.",
+        "Er verstände die Aufgabe nicht."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Er würde die Aufgabe nicht verstehen."
+      },
+      {
+       "type": "short_answer",
+       "question": "3. Wir fahren morgen nach Berlin. → Konjunktiv II",
+       "accepted": [
+        "Wir würden morgen nach Berlin fahren.",
+        "Wir führen morgen nach Berlin."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Wir würden morgen nach Berlin fahren."
+      },
+      {
+       "type": "short_answer",
+       "question": "4. Sie hat kein Geld. → Konjunktiv II",
+       "accepted": [
+        "Sie hätte kein Geld."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Sie hätte kein Geld."
+      },
+      {
+       "type": "short_answer",
+       "question": "5. Du bist sehr müde. → Konjunktiv II",
+       "accepted": [
+        "Du wärst sehr müde.",
+        "Du wärest sehr müde."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Du wärst sehr müde."
+      },
+      {
+       "type": "short_answer",
+       "question": "6. Sie kann gut Deutsch sprechen. → Konjunktiv II",
+       "accepted": [
+        "Sie könnte gut Deutsch sprechen."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Sie könnte gut Deutsch sprechen."
+      },
+      {
+       "type": "short_answer",
+       "question": "7. Ich finde das Buch interessant. → Konjunktiv II",
+       "accepted": [
+        "Ich würde das Buch interessant finden.",
+        "Ich fände das Buch interessant."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Ich würde das Buch interessant finden."
+      },
+      {
+       "type": "short_answer",
+       "question": "8. Er macht jeden Tag Sport. → Konjunktiv II",
+       "accepted": [
+        "Er würde jeden Tag Sport machen."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Er würde jeden Tag Sport machen."
+      },
+      {
+       "type": "short_answer",
+       "question": "9. Wir haben ein Auto. → Konjunktiv II",
+       "accepted": [
+        "Wir hätten ein Auto."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Wir hätten ein Auto."
+      },
+      {
+       "type": "short_answer",
+       "question": "10. Du hilfst mir immer. → Konjunktiv II",
+       "accepted": [
+        "Du würdest mir immer helfen."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Du würdest mir immer helfen."
+      }
+     ],
+     "instruction": "Wandle die Sätze vom Aktiv in den Konjunktiv II um (Buch S. 84). Die würde-Form und die Konjunktiv-II-Form des Verbs zählen beide."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l05-lesen-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 5,
+   "skill": "lesen",
+   "title": "Lesen Aufgabe 1: Jörgs Blog — Bericht eines Praktikanten",
+   "source": "book",
+   "metadata": {
+    "book_page": 85,
+    "key_source": "vizu",
+    "publish_hold": "Lösung von VIZU aus dem Text abgeleitet (kein offizieller Schlüssel) — in Lösung prüfen und bestätigen",
+    "note": "Lösung von VIZU aus dem Text abgeleitet (Zitat in der Erklärung) — bitte prüfen."
+   },
+   "instruction": "a) Lesen Sie den folgenden Blogeintrag. b) Was steht im Text? Ist die Aussage richtig oder falsch? Kreuzen Sie an.",
+   "passages": [
+    {
+     "title": "Jörgs Blog: Bericht eines Praktikanten",
+     "text": "Ich bin Journalist und habe in den Niederlanden ein dreimonatiges Praktikum gemacht. Ich wollte wissen, wie die Medien in unserem Nachbarland. Ich habe mich bei mehreren niederländischen Zeitungen um einen Praktikumsplatz beworben, schließlich hat mich eine Zeitung in der Provinz Süd-Holland genommen. Ich habe dann noch einen Niederländischkurs für Fortgeschrittene gemacht, um meine Kenntnisse aufzufrischen und zu erweitern. Das hat mir großen Spaß gemacht, denn ich lerne gerne Fremdsprachen.\n\nIch wusste schon, dass man in den Niederlanden miteinander nicht so formell umgeht wie in Deutschland. Es hat mich trotzdem überrascht, dass mich gleich am ersten Tag alle Leute in der Redaktion geduzt haben. Daran musste ich mich erst einmal gewöhnen.\n\nAußerdem haben niederländische Firmen eine flache Hierarchie. Deshalb wusste ich am Anfang nicht so genau, wer eigentlich der Chef ist, wer die Mitarbeiter und wer die Praktikanten sind. Einmal habe ich einen älteren Herrn um Rat gebeten, weil ich dachte, er ist ein erfahrener Kollege. Aber es stellte sich heraus, dass er „nur“ Praktikant war.\n\nIch habe in der Redaktion gearbeitet, an Sitzungen teilgenommen und Interviews geführt. Besonders gut hat mir gefallen, dass ich von Anfang an selbstständig arbeiten musste. Meine Kollegen haben mir natürlich geholfen, wenn ich Fragen hatte, aber die meisten Lösungen musste ich alleine finden. Ich habe auch ein paar Fehler gemacht, aber niemand fand das schlimm und auf diese Weise konnte ich viel lernen.\n\nIch habe vor, eine Artikelreihe über meine Erfahrungen in den Niederlanden zu schreiben, die ich in diesem Blog veröffentlichen werde."
+    }
+   ],
+   "questions": [
+    {
+     "type": "true_false",
+     "question": "Jörg war drei Monate lang im Ausland.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„… in den Niederlanden ein dreimonatiges Praktikum gemacht.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Er hat bei einer niederländischen Zeitung gearbeitet.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„… schließlich hat mich eine Zeitung in der Provinz Süd-Holland genommen.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Am Anfang des Praktikums konnte er kein Niederländisch.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„… einen Niederländischkurs für Fortgeschrittene gemacht, um meine Kenntnisse aufzufrischen …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Er hat in der Redaktion einige Missverständnisse erlebt.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„Einmal habe ich einen älteren Herrn um Rat gebeten, weil ich dachte, er ist ein erfahrener Kollege. Aber … er „nur“ Praktikant war.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Das Verhältnis zwischen den Kollegen ist formeller als in Deutschland.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„… dass man in den Niederlanden miteinander nicht so formell umgeht wie in Deutschland.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Seine Kollegen wollten ihm nicht helfen.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„Meine Kollegen haben mir natürlich geholfen, wenn ich Fragen hatte …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Er will Texte über seine Erfahrungen publizieren.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„Ich habe vor, eine Artikelreihe über meine Erfahrungen … zu schreiben, die ich in diesem Blog veröffentlichen werde.“"
+    }
+   ],
+   "max_score": 7
+  },
+  {
+   "content_id": "vizu-b1-l05-lesen-02",
+   "level": "B1",
+   "module": 1,
+   "lesson": 5,
+   "skill": "lesen",
+   "title": "Lesen Aufgabe 2: Rätsel — Fremde Länder",
+   "source": "book",
+   "metadata": {
+    "book_page": 86,
+    "key_source": "vizu",
+    "publish_hold": "Lösung von VIZU aus dem Text abgeleitet (kein offizieller Schlüssel) — in Lösung prüfen und bestätigen",
+    "note": "Das Gitter im Buch passt nicht zu den Wörtern (z. B. 15 Kästchen für „Herausforderungen“, 11 für „Pünktlichkeit“); deshalb werden die 9 Nomen abgefragt, das Lösungswort nicht. Lösung von VIZU — bitte prüfen."
+   },
+   "instruction": "Rätsel: Fremde Länder. Ergänzen Sie die Nomen. (Im Buch als Kreuzworträtsel mit Lösungswort.)",
+   "passages": [
+    {
+     "title": "Rätsel: Fremde Länder",
+     "text": "1. Viele junge Leute gehen zum …… in ein fremdes Land.\n2. Das bringt große …… mit sich.\n3. Man sollte auf die kulturellen Gepflogenheiten im …… achten.\n4. Es ist auch wichtig, sich über kulturelle …… zu informieren.\n5. In vielen Ländern legt man auf …… großen Wert.\n6. Mit Respekt und …… kann man nicht viel falsch machen.\n7. Man darf nicht überall seine eigenen …… loben.\n8. Themen wie Politik oder …… sollte man vermeiden.\n9. In Japan gilt enger Körperkontakt bei der …… als unangenehm."
+    }
+   ],
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "1. Ergänzen Sie das Nomen.",
+     "text": "Viele junge Leute gehen zum [[1]] in ein fremdes Land.",
+     "gaps": {
+      "1": [
+       "Studium"
+      ]
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "Lösung (VIZU): Studium"
+    },
+    {
+     "type": "gap_fill",
+     "question": "2. Ergänzen Sie das Nomen.",
+     "text": "Das bringt große [[1]] mit sich.",
+     "gaps": {
+      "1": [
+       "Herausforderungen"
+      ]
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "Lösung (VIZU): Herausforderungen"
+    },
+    {
+     "type": "gap_fill",
+     "question": "3. Ergänzen Sie das Nomen.",
+     "text": "Man sollte auf die kulturellen Gepflogenheiten im [[1]] achten.",
+     "gaps": {
+      "1": [
+       "Gastland"
+      ]
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "Lösung (VIZU): Gastland"
+    },
+    {
+     "type": "gap_fill",
+     "question": "4. Ergänzen Sie das Nomen.",
+     "text": "Es ist auch wichtig, sich über kulturelle [[1]] zu informieren.",
+     "gaps": {
+      "1": [
+       "Unterschiede"
+      ]
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "Lösung (VIZU): Unterschiede"
+    },
+    {
+     "type": "gap_fill",
+     "question": "5. Ergänzen Sie das Nomen.",
+     "text": "In vielen Ländern legt man auf [[1]] großen Wert.",
+     "gaps": {
+      "1": [
+       "Pünktlichkeit",
+       "Puenktlichkeit"
+      ]
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "Lösung (VIZU): Pünktlichkeit"
+    },
+    {
+     "type": "gap_fill",
+     "question": "6. Ergänzen Sie das Nomen.",
+     "text": "Mit Respekt und [[1]] kann man nicht viel falsch machen.",
+     "gaps": {
+      "1": [
+       "Höflichkeit",
+       "Hoeflichkeit"
+      ]
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "Lösung (VIZU): Höflichkeit"
+    },
+    {
+     "type": "gap_fill",
+     "question": "7. Ergänzen Sie das Nomen.",
+     "text": "Man darf nicht überall seine eigenen [[1]] loben.",
+     "gaps": {
+      "1": [
+       "Leistungen"
+      ]
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "Lösung (VIZU): Leistungen"
+    },
+    {
+     "type": "gap_fill",
+     "question": "8. Ergänzen Sie das Nomen.",
+     "text": "Themen wie Politik oder [[1]] sollte man vermeiden.",
+     "gaps": {
+      "1": [
+       "Religion"
+      ]
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "Lösung (VIZU): Religion"
+    },
+    {
+     "type": "gap_fill",
+     "question": "9. Ergänzen Sie das Nomen.",
+     "text": "In Japan gilt enger Körperkontakt bei der [[1]] als unangenehm.",
+     "gaps": {
+      "1": [
+       "Begrüßung",
+       "Begrüssung",
+       "Begruessung"
+      ]
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "Lösung (VIZU): Begrüßung"
+    }
+   ],
+   "max_score": 9
+  },
+  {
+   "content_id": "vizu-b1-l05-lesen-03",
+   "level": "B1",
+   "module": 1,
+   "lesson": 5,
+   "skill": "lesen",
+   "title": "Lesen Aufgabe 3: Beruf und Gesundheit",
+   "source": "book",
+   "metadata": {
+    "book_page": 87,
+    "key_source": "vizu",
+    "publish_hold": "Lösung von VIZU aus dem Text abgeleitet (kein offizieller Schlüssel) — in Lösung prüfen und bestätigen",
+    "note": "Lösung von VIZU aus dem Text abgeleitet (Zitat in der Erklärung) — bitte prüfen."
+   },
+   "instruction": "Lesen Sie den Text und entscheiden Sie: richtig oder falsch?",
+   "passages": [
+    {
+     "title": "Beruf und Gesundheit",
+     "text": "Thomas steht jeden Morgen um 6.23 Uhr auf und arbeitet in einem Büro (wie 33 Prozent der Deutschen). Im Büro erscheint er pünktlich und erledigt seine Arbeit korrekt und zuverlässig. Allerdings ist Thomas nicht immer motiviert und macht oft Dienst nach Vorschrift. Ursprünglich wollte er etwas ganz anderes werden, sein Kindheitstraum war Fußballprofi. Als moderner Büromensch bewegt sich Thomas zu wenig. Er leidet unter Rückenschmerzen. Außerdem hat er Probleme mit den Gelenken und dem Herz-Kreislauf-System."
+    }
+   ],
+   "questions": [
+    {
+     "type": "true_false",
+     "question": "Thomas arbeitet zu Hause.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„… und arbeitet in einem Büro …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Thomas ist immer motiviert.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„Allerdings ist Thomas nicht immer motiviert …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Thomas hat gesundheitliche Probleme.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„Er leidet unter Rückenschmerzen. Außerdem hat er Probleme mit den Gelenken …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Thomas wollte als Kind Fußballprofi werden.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„… sein Kindheitstraum war Fußballprofi.“"
+    }
+   ],
+   "max_score": 4
+  },
+  {
+   "content_id": "vizu-b1-l05-hoeren-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 5,
+   "skill": "hoeren",
+   "title": "Hören Teil 1 + 2: Sabine und Jakob — nach der Schule",
+   "source": "book",
+   "metadata": {
+    "book_page": "88-89",
+    "key_source": "pending",
+    "note": "Lückentext ohne Wörterliste und ohne Lösung im Buch — alle 20 Lücken nach dem Anhören in Lösung festlegen."
+   },
+   "audio_file": "5.Unterricht Hören.mp3",
+   "key_pending": true,
+   "instruction": "Hören (Lückentext): Hören Sie das Gespräch und ergänzen Sie die Lücken. (Eine Audiodatei für Teil 1 und Teil 2.)",
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "Teil 1 – Hören (Lückentext): Ergänzen Sie die Lücken 1–10.",
+     "text": "Sabine: Und Jakob, wie geht's dir mit deinen [[1]]?\nJakob: Es läuft eigentlich ganz gut. Nächste Woche noch zwei, dann habe ich es geschafft. Hoffentlich bekomme ich den [[2]], den ich für die Fachoberschule brauche!\nSabine: Das heißt, du willst jetzt wirklich weitermachen nach der Mittleren Reife?\nJakob: Ja, auf jeden Fall. Ich weiß einfach noch nicht, was für ein [[3]] der richtige für mich ist. Außerdem sind meine Chancen mit Abitur noch besser.\nSabine: Ja, das haben meine Eltern auch immer gesagt, wenn ich mit der Schule aufhören wollte. Wahrscheinlich haben sie ja recht. So kurz vor dem Ziel aufzugeben, wäre wirklich verrückt. In zwei Jahren habe ich's ja auch geschafft! Aber es ist schon [[4]].\nJakob: Das glaube ich dir. Was willst du denn nach dem Abitur machen?\nSabine: Am liebsten würde ich erst einmal ein Jahr ins [[5]] gehen, entweder als Au-pair-Mädchen oder mit dem Programm „Work And Travel“. [[6]] wäre toll, oder Australien …\nJakob: Du hast doch auch Spanisch in der Schule, oder?\nSabine: Ja, letztes Jahr konnte ich endlich [[7]] ablegen und Spanisch nehmen. Eine Freundin meiner Schwester hat in Chile in einem Kinderheim gearbeitet, das war eine tolle [[8]] für sie. Und wenn ich keinen Studienplatz für Medizin bekomme, überlege ich mir, vielleicht [[9]] zu studieren.\nJakob: Das könnte ich mir auch gut für dich vorstellen. Medizin dauert so unglaublich lang! Erst wartest du, wenn du Pech hast, ein paar Jahre auf deinen Studienplatz, dann studierst du fünf oder sechs Jahre, dann die Doktorarbeit und die [[10]] – du bist uralt, bis du fertig bist!",
+     "gaps": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": [],
+      "5": [],
+      "6": [],
+      "7": [],
+      "8": [],
+      "9": [],
+      "10": []
+     },
+     "points": 10,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Teil 2 – Hören (Lückentext): Ergänzen Sie die Lücken 1–10.",
+     "text": "Sabine: Das stimmt schon, aber das ist mein Traum seit meiner Kindheit! Mal sehen … Und du? Was kommt für dich in Frage? Du musst dich doch auf der Fachoberschule auch schon für einen [[1]] entscheiden?\nJakob: Ja, ich überlege noch, ob ich den [[2]] nehmen soll oder den Wirtschaftszweig – beides würde mich interessieren. Mit dem Fachabitur in Wirtschaft könnte ich sicher eine kaufmännische Ausbildung in einer Firma machen und dann vielleicht noch [[3]] studieren, also Betriebswirtschaft.\nSabine: Puh, das klingt verdammt trocken!\nJakob: Ja, aber mir macht es Spaß! Auf der anderen Seite weiß ich, dass ich auch nicht schlecht bin in [[4]] und Design. Das könnte ich mir auch gut vorstellen.\nSabine: Und wenn du erst mal nach der Mittleren Reife ein [[5]] machst?\nJakob: Das hatte ich mir sowieso schon überlegt. Ein Jahr Auszeit mit Praktika oder auch ein [[6]] Soziales Jahr – vielleicht weiß ich danach, was ich will!\nSabine: Warst du schon bei der [[7]]?\nJakob: Noch nicht. Jetzt muss ich erst einmal die [[8]] gut schaffen, dann sehe ich weiter.\nSabine: Also, lern schön – ich drücke dir die [[9]]!\nJakob: Danke! Und nächste Woche, wenn's vorbei ist, gehen wir [[10]], ja?\nSabine: Klar!",
+     "gaps": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": [],
+      "5": [],
+      "6": [],
+      "7": [],
+      "8": [],
+      "9": [],
+      "10": []
+     },
+     "points": 10,
+     "passage": 1,
+     "case_sensitive": false
+    }
+   ],
+   "max_score": 20
+  },
+  {
+   "content_id": "vizu-b1-l05-schreiben-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 5,
+   "skill": "schreiben",
+   "title": "Schreiben Aufgabe 1: Einladung zu einem Ausflug",
+   "source": "book",
+   "metadata": {
+    "book_page": 90
+   },
+   "task_type": "message",
+   "prompt": "Arbeitszeit: 20 Minuten. Sie möchten einen Freund / eine Freundin, der/die Ihnen in einer schwierigen Situation geholfen hat, zu einem Ausflug einladen.\n• Begründen Sie: Warum war seine/ihre Hilfe so wichtig?\n• Beschreiben Sie: Wohin geht der Ausflug und was haben Sie geplant?\n• Erklären Sie, warum er/sie auf keinen Fall ablehnen kann.\n\nSchreiben Sie eine persönliche Nachricht (circa 80 Wörter). Schreiben Sie etwas zu allen drei Punkten. Achten Sie auf den Textaufbau (Anrede, Einleitung, Reihenfolge der Inhaltspunkte, Schluss).",
+   "audience": "Ein Freund / eine Freundin (informell)",
+   "min_words": 70,
+   "max_words": 120,
+   "time_limit": 20
+  },
+  {
+   "content_id": "vizu-b1-l05-schreiben-02",
+   "level": "B1",
+   "module": 1,
+   "lesson": 5,
+   "skill": "schreiben",
+   "title": "Schreiben Aufgabe 2: Meinung — Vegetarische Ernährung",
+   "source": "book",
+   "metadata": {
+    "book_page": 91
+   },
+   "task_type": "opinion",
+   "prompt": "Sie haben im Internet einen Artikel zum Thema „Vegetarische Ernährung“ gelesen. Im Gästebuch der Internetseite (www.meinungsaustausch.de) finden Sie folgende Meinung:\n\nSonntag, 2. Oktober, 19:16 — Lina: Ich habe mich für eine vegetarische Ernährung entschieden, weil mir die Tiere leidtun. Meine Mutter behauptet zwar, dass es ungesund ist, kein Fleisch zu essen. Aber Tiere haben auch das Recht auf Leben.\n\nSchreiben Sie nun Ihre Meinung (circa 80 Wörter).\n• Stimmen Sie Lina zu oder nicht?\n• Begründen Sie Ihre Meinung.\n• Geben Sie Beispiele aus Ihrem Alltag.\n• Schreiben Sie einen gut strukturierten Text.\n\nTipp: Achten Sie auf den Textaufbau: Anrede – Einleitung – Hauptteil – Schluss. Schreiben Sie klar und verständlich.",
+   "audience": "Gästebuch einer Internetseite",
+   "min_words": 70,
+   "max_words": 120,
+   "time_limit": 25
+  },
+  {
+   "content_id": "vizu-b1-l05-schreiben-03",
+   "level": "B1",
+   "module": 1,
+   "lesson": 5,
+   "skill": "schreiben",
+   "title": "Schreiben Aufgabe 3: E-Mail an Herrn Hackl — Entschuldigung",
+   "source": "book",
+   "metadata": {
+    "book_page": 92
+   },
+   "task_type": "email",
+   "prompt": "Ihr Sohn ist krank und die Kinderärztin hat empfohlen, dass er eine Woche zu Hause bleibt. Sie möchten seinem Klassenlehrer, Herrn Hackl, Bescheid geben.\n\nIhre Aufgabe: Schreiben Sie an Herrn Hackl.\n• Entschuldigen Sie höflich das Fehlen Ihres Sohnes.\n• Informieren Sie ihn, wann er wieder zum Unterricht kommen kann.\n• Schreiben Sie eine E-Mail (circa 40 Wörter).\n• Vergessen Sie nicht die Anrede und den Gruß am Schluss.\n\nTipp: Seien Sie höflich und klar. Geben Sie den Grund an. Nennen Sie den Zeitraum. Schließen Sie freundlich ab. Textaufbau einer E-Mail: Anrede → Einleitung (Grund) → Hauptteil (Information) → Schluss (Gruß).",
+   "audience": "Herr Hackl, Klassenlehrer (formell)",
+   "min_words": 35,
+   "max_words": 70,
+   "time_limit": 15
+  },
+  {
+   "content_id": "vizu-b1-l05-sprechen-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 5,
+   "skill": "sprechen",
+   "title": "Sprechen Teil 1: Kinder oder Karriere — Person A und Person B",
+   "source": "book",
+   "metadata": {
+    "book_page": 93
+   },
+   "topic": "Kinder oder Karriere",
+   "prompt": "Sprechen Sie mit Ihrem Partner / Ihrer Partnerin über das Thema „Kinder oder Karriere“. Person A und Person B sprechen nacheinander über die Punkte: Erfahrung, Situation, Vorteile (Kinder / Karriere), Nachteile (Kinder / Karriere), Meinung.",
+   "questions": [
+    "Erfahrung",
+    "Situation",
+    "Vorteile — Kinder und Karriere",
+    "Nachteile — Kinder und Karriere",
+    "Meinung"
+   ],
+   "response_type": "dialog",
+   "min_duration": 90,
+   "max_duration": 240,
+   "sample_answer": "PERSON A — Erfahrung: Ich habe selbst noch keine Kinder. Aber meine ältere Schwester hat eine kleine Tochter und arbeitet trotzdem in Teilzeit. Sie sagt, dass es nicht einfach ist, Familie und Beruf zu verbinden.\nSituation: In meinem Land entscheiden sich viele Frauen zuerst für die Familie. Trotzdem möchten heute immer mehr Frauen auch eine gute Karriere machen. Deshalb ist dieses Thema sehr aktuell.\nVorteile — Kinder: Kinder bringen Freude und Glück in die Familie. Man fühlt sich nicht allein und hat später Unterstützung von den Kindern. Karriere: Mit einer guten Karriere kann man finanziell unabhängig sein. Man kann seine Träume verwirklichen und mehr Erfahrungen sammeln.\nNachteile — Kinder: Kinder kosten viel Zeit und Geld. Man hat oft weniger Freizeit. Karriere: Man hat manchmal viel Stress und wenig Zeit für die Familie. Oft muss man Überstunden machen.\nMeinung: Meiner Meinung nach sollte man zuerst eine stabile Ausbildung oder Karriere aufbauen. Danach kann man leichter eine Familie gründen und den Kindern ein gutes Leben bieten.\n\nPERSON B — Erfahrung: Ich habe keine eigenen Kinder, aber mein Cousin ist Vater von zwei Kindern. Er sagt, dass Kinder zwar viel Verantwortung bedeuten, aber auch das Schönste im Leben sind.\nSituation: In vielen Familien arbeiten heute beide Eltern. Das ist oft notwendig, weil die Lebenshaltungskosten sehr hoch sind. Deshalb müssen Familie und Beruf gut organisiert werden.\nVorteile — Kinder: Kinder machen das Leben interessanter und glücklicher. Sie stärken den Zusammenhalt in der Familie. Karriere: Mit einer guten Arbeit verdient man mehr Geld. Man kann sich ein besseres Leben leisten und seine Familie unterstützen.\nNachteile — Kinder: Kleine Kinder brauchen viel Aufmerksamkeit. Man muss auf viele persönliche Wünsche verzichten. Karriere: Eine Karriere kann sehr anstrengend sein. Manche Menschen haben dadurch weniger Zeit für ihre Kinder.\nMeinung: Ich finde, dass weder Kinder noch Karriere wichtiger sind. Das Wichtigste ist ein gutes Gleichgewicht. Wenn man Familie und Beruf gut plant, kann man beides erfolgreich schaffen.",
+   "speech_goal": "Erfahrung, Situation, Vor- und Nachteile von Kindern und Karriere nennen und die eigene Meinung begründen.",
+   "keywords": [
+    "Erfahrung",
+    "Situation",
+    "Vorteile",
+    "Nachteile",
+    "Meiner Meinung nach",
+    "Ich finde"
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l05-sprechen-02",
+   "level": "B1",
+   "module": 1,
+   "lesson": 5,
+   "skill": "sprechen",
+   "title": "Sprechen Teil 2: Präsentation — Berufstätige Eltern",
+   "source": "book",
+   "metadata": {
+    "book_page": 94
+   },
+   "topic": "Berufstätige Eltern",
+   "prompt": "Halten Sie eine Präsentation zum Thema „Berufstätige Eltern“. Folgen Sie der Musterstruktur: Begrüßung & Thema, eigene Erfahrung, Situation im Heimatland, Vorteile, Nachteile, meine Meinung, Schluss.",
+   "questions": [
+    "Begrüßung & Thema",
+    "Eigene Erfahrung",
+    "Situation im Heimatland",
+    "Vorteile",
+    "Nachteile",
+    "Meine Meinung",
+    "Schluss"
+   ],
+   "response_type": "monolog",
+   "preparation_time": 300,
+   "min_duration": 120,
+   "max_duration": 180,
+   "sample_answer": "1. Begrüßung & Thema: Guten Abend an alle. Jetzt spreche ich zum Thema „Berufstätige Eltern“. Dieses Thema ist heute sehr aktuell und betrifft viele Familien.\n2. Eigene Erfahrung: Zuerst möchte ich über meine eigenen Erfahrungen sprechen. Ich habe selbst wenig Erfahrung mit diesem Thema, aber ich kenne Familien, in denen beide Eltern arbeiten.\n3. Situation im Heimatland: Nun möchte ich die Situation in meinem Heimatland beschreiben. Bei uns sind nicht alle Eltern berufstätig. Wenn beide Eltern arbeiten, kümmern sich oft Großeltern oder Kindergärten um die Kinder.\n4. Vorteile: Ein wichtiger Vorteil ist, dass die Eltern mehr Geld verdienen können. Außerdem können beide Eltern beruflich erfolgreich sein und ihre Karriere entwickeln.\n5. Nachteile: Natürlich gibt es auch einige Nachteile. Die Eltern haben weniger Zeit für ihre Kinder und müssen Beruf und Familie gleichzeitig organisieren. Außerdem können Kindergärten sehr teuer sein.\n6. Meine Meinung: Meiner Meinung nach ist es wichtig, dass Familie und Beruf im Gleichgewicht sind. Ich finde, dass es gut wäre, wenn sich beide Eltern die Verantwortung für die Kinder teilen könnten.\n7. Schluss: Damit bin ich am Ende meiner Präsentation. Vielen Dank für Ihre Aufmerksamkeit. Wenn Sie Fragen haben, beantworte ich sie gerne.",
+   "speech_goal": "Strukturierte Präsentation in 7 Schritten (Musterstruktur des Buches).",
+   "keywords": [
+    "Jetzt spreche ich zum Thema",
+    "Zuerst",
+    "Nun möchte ich",
+    "Ein wichtiger Vorteil",
+    "Natürlich gibt es auch",
+    "Damit bin ich am Ende"
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l05-wortschatz-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 5,
+   "skill": "wortschatz",
+   "title": "Wortschatz: Im Berufsleben",
+   "source": "book",
+   "metadata": {
+    "book_page": 95,
+    "note": "Buch: Redewendung, Bedeutung (Deutsch) und Übersetzung (usbekisch)."
+   },
+   "words": [
+    {
+     "word": "einen Job finden",
+     "translation": "ish topmoq",
+     "example": "Bedeutung: eine Arbeitsstelle bekommen",
+     "group": "Im Berufsleben"
+    },
+    {
+     "word": "sich bewerben",
+     "translation": "ishga ariza topshirmoq",
+     "example": "Bedeutung: eine Bewerbung schicken, um eine Stelle zu bekommen",
+     "group": "Im Berufsleben"
+    },
+    {
+     "word": "ein Vorstellungsgespräch haben",
+     "translation": "suhbatdan o'tmoq",
+     "example": "Bedeutung: mit dem Arbeitgeber sprechen, um den Job zu bekommen",
+     "group": "Im Berufsleben"
+    },
+    {
+     "word": "eingestellt werden",
+     "translation": "ishga qabul qilinmoq",
+     "example": "Bedeutung: den Job bekommen und offiziell anfangen",
+     "group": "Im Berufsleben"
+    },
+    {
+     "word": "befördert werden",
+     "translation": "lavozimga ko'tarilmoq",
+     "example": "Bedeutung: eine höhere Position oder mehr Verantwortung bekommen",
+     "group": "Im Berufsleben"
+    },
+    {
+     "word": "Überstunden machen",
+     "translation": "qo'shimcha ishlamoq",
+     "example": "Bedeutung: länger arbeiten als normal",
+     "group": "Im Berufsleben"
+    },
+    {
+     "word": "Erfahrungen sammeln",
+     "translation": "tajriba to'plamoq",
+     "example": "Bedeutung: durch Arbeit neues Wissen und Fähigkeiten bekommen",
+     "group": "Im Berufsleben"
+    },
+    {
+     "word": "Ziele im Beruf haben",
+     "translation": "kasbiy maqsadlar qo'ymoq",
+     "example": "Bedeutung: klare Pläne für die Karriere haben",
+     "group": "Im Berufsleben"
+    },
+    {
+     "word": "Beruf und Privatleben vereinbaren",
+     "translation": "ish va shaxsiy hayotni muvofiqlashtirmoq",
+     "example": "Bedeutung: Arbeit und Freizeit gut miteinander verbinden",
+     "group": "Im Berufsleben"
+    },
+    {
+     "word": "unter Druck arbeiten",
+     "translation": "bosim ostida ishlamoq",
+     "example": "Bedeutung: wegen Stress und Verantwortung anstrengend arbeiten",
+     "group": "Im Berufsleben"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "Zuordnung",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Im Berufsleben 1)",
+       "items": [
+        "einen Job finden",
+        "sich bewerben",
+        "ein Vorstellungsgespräch haben",
+        "eingestellt werden",
+        "befördert werden",
+        "Überstunden machen"
+       ],
+       "targets": [
+        "ish topmoq",
+        "ishga ariza topshirmoq",
+        "suhbatdan o'tmoq",
+        "ishga qabul qilinmoq",
+        "lavozimga ko'tarilmoq",
+        "qo'shimcha ishlamoq",
+        "tajriba to'plamoq"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Im Berufsleben 2)",
+       "items": [
+        "Erfahrungen sammeln",
+        "Ziele im Beruf haben",
+        "Beruf und Privatleben vereinbaren",
+        "unter Druck arbeiten"
+       ],
+       "targets": [
+        "tajriba to'plamoq",
+        "kasbiy maqsadlar qo'ymoq",
+        "ish va shaxsiy hayotni muvofiqlashtirmoq",
+        "bosim ostida ishlamoq",
+        "ish topmoq"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D"
+       },
+       "points": 4,
+       "passage": 1
+      }
+     ],
+     "instruction": "Ordnen Sie jedem Ausdruck die passende Erklärung aus dem Buch zu."
+    },
+    {
+     "title": "Welcher Ausdruck passt?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "„ishga ariza topshirmoq“ — welcher Ausdruck passt?",
+       "options": [
+        "sich bewerben",
+        "Überstunden machen",
+        "ein Vorstellungsgespräch haben"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„suhbatdan o'tmoq“ — welcher Ausdruck passt?",
+       "options": [
+        "befördert werden",
+        "Überstunden machen",
+        "ein Vorstellungsgespräch haben"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„ishga qabul qilinmoq“ — welcher Ausdruck passt?",
+       "options": [
+        "einen Job finden",
+        "eingestellt werden",
+        "Ziele im Beruf haben"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„lavozimga ko'tarilmoq“ — welcher Ausdruck passt?",
+       "options": [
+        "ein Vorstellungsgespräch haben",
+        "befördert werden",
+        "sich bewerben"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„qo'shimcha ishlamoq“ — welcher Ausdruck passt?",
+       "options": [
+        "Ziele im Beruf haben",
+        "unter Druck arbeiten",
+        "Überstunden machen"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„tajriba to'plamoq“ — welcher Ausdruck passt?",
+       "options": [
+        "Beruf und Privatleben vereinbaren",
+        "unter Druck arbeiten",
+        "Erfahrungen sammeln"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„kasbiy maqsadlar qo'ymoq“ — welcher Ausdruck passt?",
+       "options": [
+        "Überstunden machen",
+        "einen Job finden",
+        "Ziele im Beruf haben"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„ish va shaxsiy hayotni muvofiqlashtirmoq“ — welcher Ausdruck passt?",
+       "options": [
+        "eingestellt werden",
+        "einen Job finden",
+        "Beruf und Privatleben vereinbaren"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "Welcher Ausdruck passt zur Erklärung? (Erklärungen aus dem Buch)"
+    }
+   ],
+   "auto_practice": false
+  },
+  {
+   "content_id": "vizu-b1-l05-schreiben-04",
+   "level": "B1",
+   "module": 1,
+   "lesson": 5,
+   "skill": "schreiben",
+   "title": "Wortschatz-Aufgabe: Im Berufsleben — eigene Sätze",
+   "source": "book",
+   "metadata": {
+    "book_page": 95,
+    "note": "Ish varag'i — o'qituvchi tekshiradi."
+   },
+   "task_type": "other",
+   "prompt": "Hier sind 10 wichtige Redewendungen zum Thema „Im Berufsleben“. Lesen Sie die Redewendungen, ihre Bedeutungen und schreiben Sie eigene Sätze.\n\n1. einen Job finden — eine Arbeitsstelle bekommen\n2. sich bewerben — eine Bewerbung schicken, um eine Stelle zu bekommen\n3. ein Vorstellungsgespräch haben — mit dem Arbeitgeber sprechen, um den Job zu bekommen\n4. eingestellt werden — den Job bekommen und offiziell anfangen\n5. befördert werden — eine höhere Position oder mehr Verantwortung bekommen\n6. Überstunden machen — länger arbeiten als normal\n7. Erfahrungen sammeln — durch Arbeit neues Wissen und Fähigkeiten bekommen\n8. Ziele im Beruf haben — klare Pläne für die Karriere haben\n9. Beruf und Privatleben vereinbaren — Arbeit und Freizeit gut miteinander verbinden\n10. unter Druck arbeiten — wegen Stress und Verantwortung anstrengend arbeiten",
+   "min_words": 40,
+   "max_words": 300,
+   "time_limit": 20
+  },
+  {
+   "content_id": "vizu-b1-l05-uebungen-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 5,
+   "skill": "uebungen",
+   "title": "Übungen: B1 5. Unterricht",
+   "source": "vizu",
+   "exercises": [
+    {
+     "title": "Konjunktiv II — welche Form passt? (Beispiele aus dem Buch)",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Ich ___ gern nach Deutschland reisen.",
+       "options": [
+        "würde",
+        "wäre",
+        "hätte"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "würde + Infinitiv."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich ___ gern reich.",
+       "options": [
+        "wäre",
+        "hätte",
+        "würde"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "sein → wäre."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich ___ mehr Zeit.",
+       "options": [
+        "hätte",
+        "wäre",
+        "würde"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "haben → hätte."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Du ___ mehr schlafen.",
+       "options": [
+        "solltest",
+        "sollst",
+        "solltet"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "Ratschlag: sollte."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Wenn ich Zeit hätte, ___ ich reisen.",
+       "options": [
+        "würde",
+        "werde",
+        "wäre"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich wünschte, ich ___ fliegen.",
+       "options": [
+        "könnte",
+        "kann",
+        "konnte nicht"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich ___ die Antwort.",
+       "options": [
+        "wüsste",
+        "weiß",
+        "würde"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "wissen → wüsste."
+      }
+     ],
+     "instruction": "Wählen Sie die richtige Form (Buch S. 81)."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l05-yakuniy-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 5,
+   "skill": "yakuniy",
+   "title": "Abschlusstest: B1 5. Unterricht",
+   "source": "vizu",
+   "instruction": "Abschlusstest zu Konjunktiv II und Berufsleben (alle Sätze aus dem Buch).",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Wofür verwendet man den Konjunktiv II nicht?",
+     "options": [
+      "Für reale Tatsachen",
+      "Für höfliche Bitten",
+      "Für Wünsche"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Buch S. 81: Konjunktiv II ist nicht für die Realität, sondern für Möglichkeiten, Wünsche und Höflichkeit."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wir ___ pünktlich sein.",
+     "options": [
+      "müssten",
+      "mussten",
+      "müssen"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1,
+     "explanation": "müssen → müsste."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Er ___ das nicht wissen.",
+     "options": [
+      "dürfte",
+      "durfte",
+      "darf"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Es ___ schön, mehr Urlaub zu haben.",
+     "options": [
+      "wäre",
+      "hätte",
+      "würde"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wenn ich du wäre, ___ ich das anders gemacht.",
+     "options": [
+      "hätte",
+      "wäre",
+      "würde"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wenn ich frei hätte, ___ ich ans Meer fahren.",
+     "options": [
+      "wollte",
+      "will",
+      "wollen"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wie lange war Jörg im Ausland?",
+     "options": [
+      "Drei Monate",
+      "Ein Jahr",
+      "Drei Wochen"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Lesen Aufgabe 1: dreimonatiges Praktikum."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„befördert werden“ bedeutet …",
+     "options": [
+      "eine höhere Position oder mehr Verantwortung bekommen",
+      "länger arbeiten als normal",
+      "eine Bewerbung schicken"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Wortschatz Im Berufsleben."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„Überstunden machen“ — o'zbekchasi?",
+     "options": [
+      "qo'shimcha ishlamoq",
+      "ish topmoq",
+      "tajriba to'plamoq"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„sich bewerben“ — o'zbekchasi?",
+     "options": [
+      "ishga ariza topshirmoq",
+      "ishga qabul qilinmoq",
+      "lavozimga ko'tarilmoq"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l05-kompetenz-02",
+   "level": "B1",
+   "module": 1,
+   "lesson": 5,
+   "skill": "kompetenz",
+   "title": "Zusammenfassung: B1 5. Unterricht",
+   "source": "vizu",
+   "competency": "ZUSAMMENFASSUNG",
+   "html": "<h3>B1 5. Unterricht — qisqacha</h3><ul><li>Konjunktiv II = Wunsch • Traum • Höflichkeit • Irrealität • Ratschlag.</li><li><strong>würde + Infinitiv</strong>: Ich würde gern nach Deutschland reisen. (Im Alltag meistens würde + Infinitiv.)</li><li><strong>sein / haben</strong>: wäre, hätte — Ich wäre gern reich. Ich hätte mehr Zeit. Wenn ich Zeit hätte, würde ich reisen.</li><li><strong>Modalverben</strong>: könnte, müsste, dürfte, sollte, wollte, möchte — Du solltest mehr schlafen.</li><li><strong>Im Berufsleben:</strong> sich bewerben, ein Vorstellungsgespräch haben, eingestellt werden, befördert werden, Überstunden machen, Beruf und Privatleben vereinbaren, unter Druck arbeiten.</li></ul><p>Natijalaringiz pastda — tugallanmagan bo'limlarni yakunlang, so'ng keyingi darsga o'ting.</p>"
+  }
+ ]
+}

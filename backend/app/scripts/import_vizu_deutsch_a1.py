@@ -66,9 +66,9 @@ from app.services.lms import grammar_text_only
 DATA_DIR = Path(__file__).resolve().parents[1] / "data" / "vizu_deutsch_a1"
 IMAGE_DIR = DATA_DIR / "images"
 LEVEL, MODULE = "A1", 1
-# --level A2: the VIZU-DEUTSCH A2 book (app/scripts/vizu_deutsch_a2, files unterricht_NN)
+# --level A2 / B1: the VIZU-DEUTSCH A2 / B1 book (app/scripts/vizu_deutsch_a2|b1, files unterricht_NN)
 PACKAGE, FILE_PREFIX = "vizu_deutsch_a1", "modul"
-LEVELS = {"A1": ("vizu_deutsch_a1", "modul"), "A2": ("vizu_deutsch_a2", "unterricht")}
+LEVELS = {"A1": ("vizu_deutsch_a1", "modul"), "A2": ("vizu_deutsch_a2", "unterricht"), "B1": ("vizu_deutsch_b1", "unterricht")}
 
 
 def set_level(level: str) -> None:
@@ -320,6 +320,7 @@ def attach_audio(db, lesson: Lesson, mod, audio_dir: Path, publish: bool, dry_ru
 
     # file names may be stored decomposed (NFD "ö" from macOS) — match on NFC
     on_disk = {unicodedata.normalize("NFC", p.name): p for p in audio_dir.iterdir() if p.is_file()} if audio_dir.is_dir() else {}
+    holds = {i["content_id"]: (i.get("metadata") or {}).get("publish_hold") for i in mod.items()} if hasattr(mod, "items") else {}
     report = []
     for content_id, files in getattr(mod, "AUDIO", {}).items():
         listening = db.scalar(select(Listening).where(Listening.lesson_id == lesson.id, Listening.content_id == content_id))
@@ -353,7 +354,9 @@ def attach_audio(db, lesson: Lesson, mod, audio_dir: Path, publish: bool, dry_ru
                     asyncio.run(skill_admin.upload_listening_audio(db, listening.id, upload, _audio_duration(source)))
             db.refresh(listening)
             state = f"hochgeladen: {listening.audio_original_name}"
-        if publish and not dry_run and not listening.is_published:
+        if publish and not dry_run and not listening.is_published and holds.get(content_id):
+            state += f" · Entwurf (HOLD: {holds[content_id]})"
+        elif publish and not dry_run and not listening.is_published:
             ready = readiness(db, listening)
             if ready["ready"]:
                 listening.is_published = True

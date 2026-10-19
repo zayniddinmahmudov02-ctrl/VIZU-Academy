@@ -3,12 +3,14 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { AlertTriangle, ArrowLeft, ArrowRight, CheckCircle2, ChevronLeft, ChevronRight, Flag, Loader2, RotateCcw, Save, Send } from "lucide-react";
+import {
+  AlertTriangle, ArrowLeft, ArrowRight, CheckCircle2, ChevronLeft, ChevronRight, EyeOff, Flag, Loader2, Plus, RotateCcw, Save, Send, Trash2,
+} from "lucide-react";
 
 import { AdminButton, AdminInput, AdminSelect, AdminTextarea } from "@/components/admin/admin-ui";
 import { apiErrorMessage, getListeningAudioBlobUrl } from "@/features/admin/services/lesson-skills-admin-service";
 import {
-  getLoesungTask, publishLoesungTask, saveLoesungQuestion, taskHref,
+  getLoesungTask, publishLoesungTask, saveLoesungQuestion, taskHref, unpublishLoesungTask,
   type KeyQuestion, type LoesungDetail, type LoesungKind, type SaveKeyInput,
 } from "@/features/admin/services/loesung-service";
 
@@ -18,14 +20,24 @@ const card = "rounded-2xl bg-[var(--admin-card)] p-4 ring-1 ring-[var(--admin-bo
 const GAP_RE = /\[\[([A-Za-z0-9_-]{1,20})\]\]/g;
 
 type Gap = { accepted: string; options: string[] };
+type DraftOption = { id: string | null; key: string; text: string; is_correct: boolean };
 type Draft = {
-  options: { id: string; text: string; is_correct: boolean }[];
+  question: string;
+  options: DraftOption[];
+  text: string; // Lückentext with [[n]] gaps
   gaps: Record<string, Gap>;
   pairs: Record<string, string>;
   accepted: string;
   explanation: string;
   note: string;
 };
+
+/** The gaps of a Lückentext in text order; answers of gaps that still exist are kept. */
+function gapsFor(text: string, known: Record<string, Gap>): Record<string, Gap> {
+  const out: Record<string, Gap> = {};
+  for (const m of text.matchAll(GAP_RE)) out[m[1]] = known[m[1]] ?? { accepted: "", options: [] };
+  return out;
+}
 
 function toDraft(q: KeyQuestion): Draft {
   const cfg = (q.config ?? {}) as Record<string, unknown>;
@@ -39,7 +51,9 @@ function toDraft(q: KeyQuestion): Draft {
     }
   }
   return {
-    options: q.options.map((o) => ({ ...o })),
+    question: q.question,
+    options: q.options.map((o) => ({ ...o, key: o.id ?? "" })),
+    text: String(cfg.text ?? ""),
     gaps,
     pairs: { ...((cfg.pairs ?? {}) as Record<string, string>) },
     accepted: ((cfg.accepted ?? []) as string[]).join(" | "),
@@ -55,10 +69,11 @@ function split(v: string): string[] {
 function toPayload(q: KeyQuestion, d: Draft): SaveKeyInput {
   const cfg = (q.config ?? {}) as Record<string, unknown>;
   const out: SaveKeyInput = { explanation: d.explanation.trim() || null, note: d.note.trim() || null };
-  if (q.question_type === "MULTIPLE_CHOICE" || q.question_type === "TRUE_FALSE") out.options = d.options;
+  if (d.question.trim() !== q.question) out.question = d.question.trim();
+  if (q.question_type === "MULTIPLE_CHOICE" || q.question_type === "TRUE_FALSE") out.options = d.options.map(({ id, text, is_correct }) => ({ id, text, is_correct }));
   else if (q.question_type === "GAP_FILL") {
     out.config = {
-      text: cfg.text, case_sensitive: Boolean(cfg.case_sensitive),
+      text: d.text, case_sensitive: Boolean(cfg.case_sensitive),
       gaps: Object.fromEntries(Object.entries(d.gaps).map(([id, g]) => [id, { accepted: split(g.accepted), ...(g.options.length ? { options: g.options } : {}) }])),
     };
   } else if (q.question_type === "MATCHING") out.config = { items: cfg.items, targets: cfg.targets, pairs: d.pairs };
@@ -90,6 +105,20 @@ export default function LoesungEditorClient({ kind, id }: { kind: LoesungKind; i
     } catch (err) {
       const detail = (err as { response?: { data?: { detail?: { problems?: { message: string }[] } } } })?.response?.data?.detail;
       setMsg({ ok: false, text: detail?.problems ? detail.problems.map((p) => p.message).join(" · ") : apiErrorMessage(err, "Veröffentlichen fehlgeschlagen.") });
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function unpublish() {
+    if (!window.confirm("Aufgabe zurück auf Entwurf setzen? Lernende sehen sie dann nicht mehr; Ergebnisse bleiben erhalten.")) return;
+    setBusy(true);
+    setMsg(null);
+    try {
+      update(await unpublishLoesungTask(kind, id));
+      setMsg({ ok: true, text: "Zurück auf Entwurf gesetzt." });
+    } catch (err) {
+      setMsg({ ok: false, text: apiErrorMessage(err, "Fehlgeschlagen.") });
     } finally {
       setBusy(false);
     }
@@ -127,7 +156,9 @@ export default function LoesungEditorClient({ kind, id }: { kind: LoesungKind; i
           <KeyStatusBadge status={data.key_status} />
           {kind === "hoeren" && <AudioBadge audio={data.audio} />}
           <PublishBadge published={data.is_published} ready={data.ready_to_publish} />
-          <span className="text-xs text-[var(--admin-text-secondary)]">{data.questions.length} Fragen · {data.with_key} mit Lösung · {data.verified} geprüft</span>
+          <span className="text-xs text-[var(--admin-text-secondary)]">
+            {data.questions.length} Fragen · {data.answer_fields} Antwortfelder ({data.answer_fields_keyed} mit Lösung) · {data.verified} Fragen geprüft
+          </span>
         </div>
         {data.import?.note && (
           <p className="mt-3 rounded-xl bg-[var(--admin-warning)]/10 p-3 text-sm text-[var(--admin-warning)]" data-testid="loesung-import-note">
@@ -162,7 +193,7 @@ export default function LoesungEditorClient({ kind, id }: { kind: LoesungKind; i
           </div>
           {q ? (
             // keyed by the saved state: after a save the server-normalised question replaces the draft
-            <QuestionEditor key={`${q.id}:${JSON.stringify([q.options, q.config, q.explanation, q.note, q.verified, q.needs_review])}`} kind={kind} taskId={id} question={q} isLast={isLast} onSaved={update}
+            <QuestionEditor key={`${q.id}:${JSON.stringify([q.question, q.options, q.config, q.explanation, q.note, q.verified, q.needs_review])}`} kind={kind} taskId={id} question={q} isLast={isLast} onSaved={update}
                             onPrev={index > 0 ? () => setIndex(index - 1) : undefined} onNext={!isLast ? () => setIndex(index + 1) : undefined} />
           ) : <p className={card}>Diese Aufgabe hat keine Fragen.</p>}
 
@@ -179,9 +210,13 @@ export default function LoesungEditorClient({ kind, id }: { kind: LoesungKind; i
                 ))}
               </ul>
             )}
-            {!data.is_published && (
+            {!data.is_published ? (
               <AdminButton onClick={publish} disabled={busy || !data.validation.ready} data-testid="loesung-publish">
                 {busy ? <Loader2 size={15} className="animate-spin" /> : <Send size={15} />} Veröffentlichen
+              </AdminButton>
+            ) : (
+              <AdminButton variant="ghost" onClick={unpublish} disabled={busy} data-testid="loesung-unpublish">
+                <EyeOff size={15} /> Auf Entwurf setzen
               </AdminButton>
             )}
             {msg && <p role="status" className={`text-sm ${msg.ok ? "text-[var(--admin-success)]" : "text-[var(--admin-danger)]"}`}>{msg.text}</p>}
@@ -248,34 +283,58 @@ function QuestionEditor({ kind, taskId, question: q, isLast, onSaved, onPrev, on
     }
   }
   function dirtyKey() {
-    return JSON.stringify([d.options, d.gaps, d.pairs, d.accepted]) !== JSON.stringify([initial.options, initial.gaps, initial.pairs, initial.accepted]);
+    return JSON.stringify([d.question, d.options, d.text, d.gaps, d.pairs, d.accepted])
+      !== JSON.stringify([initial.question, initial.options, initial.text, initial.gaps, initial.pairs, initial.accepted]);
+  }
+  const isChoice = q.question_type === "MULTIPLE_CHOICE";
+  function addOption() {
+    setD({ ...d, options: [...d.options, { id: null, key: `new-${Date.now()}`, text: "", is_correct: false }] });
+  }
+  function removeOption(key: string) {
+    setD({ ...d, options: d.options.filter((o) => o.key !== key) });
   }
 
   return (
     <div className={`${card} space-y-4`} data-testid="loesung-question" data-qtype={q.question_type}>
       <div className="flex flex-wrap items-start gap-2">
-        <p className="mr-auto text-sm font-semibold text-[var(--admin-text-primary)]">Frage {q.number}: {q.question}</p>
+        <p className="mr-auto text-sm font-semibold text-[var(--admin-text-primary)]">
+          Frage {q.number}{q.answer_fields > 1 ? ` · ${q.answer_fields} Antwortfelder (${q.answer_fields_keyed} mit Lösung)` : ""}
+        </p>
         {!q.has_key ? <Tag cls="bad">Lösung fehlt</Tag> : q.verified ? <Tag cls="ok">Geprüft</Tag> : q.verification_outdated ? <Tag cls="warn">Nach Prüfung geändert</Tag> : <Tag cls="muted">Nicht geprüft</Tag>}
         {q.needs_review && <Tag cls="warn">Prüfen</Tag>}
       </div>
+      <label className="block text-xs text-[var(--admin-text-muted)]">Fragetext
+        <AdminTextarea rows={2} maxLength={2000} value={d.question} onChange={(e) => setD({ ...d, question: e.target.value })} data-testid="loesung-question-text" />
+      </label>
       {q.key_problem && q.has_key === false && <p className="text-xs text-[var(--admin-danger)]">{q.key_problem}</p>}
 
       {(q.question_type === "MULTIPLE_CHOICE" || q.question_type === "TRUE_FALSE") && (
         <div className="space-y-2">
           {d.options.map((o, i) => (
-            <label key={o.id} className={`flex items-center gap-2 rounded-xl p-2 ring-1 ${o.is_correct ? "bg-[var(--admin-success)]/10 ring-[var(--admin-success)]" : "ring-[var(--admin-border)]"}`}>
-              <input type="radio" name={`q-${q.id}`} checked={o.is_correct} onChange={() => setD({ ...d, options: d.options.map((x) => ({ ...x, is_correct: x.id === o.id })) })}
+            <label key={o.key} className={`flex items-center gap-2 rounded-xl p-2 ring-1 ${o.is_correct ? "bg-[var(--admin-success)]/10 ring-[var(--admin-success)]" : "ring-[var(--admin-border)]"}`}>
+              <input type="radio" name={`q-${q.id}`} checked={o.is_correct} onChange={() => setD({ ...d, options: d.options.map((x) => ({ ...x, is_correct: x.key === o.key })) })}
                      aria-label={`Option ${String.fromCharCode(65 + i)} ist richtig`} />
               <span className="w-5 text-xs font-bold text-[var(--admin-text-muted)]">{String.fromCharCode(65 + i)}</span>
-              <AdminInput value={o.text} maxLength={500} onChange={(e) => setD({ ...d, options: d.options.map((x) => (x.id === o.id ? { ...x, text: e.target.value } : x)) })} />
+              <AdminInput value={o.text} maxLength={500} placeholder="Antwortoption" onChange={(e) => setD({ ...d, options: d.options.map((x) => (x.key === o.key ? { ...x, text: e.target.value } : x)) })} />
+              {isChoice && d.options.length > 2 && (
+                <AdminButton size="sm" variant="ghost" onClick={(e) => { e.preventDefault(); removeOption(o.key); }} aria-label={`Option ${String.fromCharCode(65 + i)} entfernen`}>
+                  <Trash2 size={14} />
+                </AdminButton>
+              )}
             </label>
           ))}
+          {isChoice && d.options.length < 6 && (
+            <AdminButton size="sm" variant="ghost" onClick={addOption} data-testid="loesung-add-option"><Plus size={14} /> Option hinzufügen</AdminButton>
+          )}
         </div>
       )}
 
       {q.question_type === "GAP_FILL" && (
         <div className="space-y-3">
-          <p className="whitespace-pre-line rounded-xl bg-[var(--admin-hover)] p-3 text-sm text-[var(--admin-text-primary)]">{String(cfg.text ?? "")}</p>
+          <label className="block text-xs text-[var(--admin-text-muted)]">Lückentext — jede Lücke als [[Nummer]]
+            <AdminTextarea rows={5} value={d.text} onChange={(e) => setD({ ...d, text: e.target.value, gaps: gapsFor(e.target.value, d.gaps) })} data-testid="loesung-gap-text" />
+          </label>
+          <p className="text-xs text-[var(--admin-text-muted)]">Jede Lücke wird einzeln gespeichert und bewertet. Mehrere richtige Schreibweisen mit „|“ trennen.</p>
           {Object.entries(d.gaps).map(([gid, g]) => (
             <div key={gid} className="flex flex-wrap items-center gap-2">
               <span className="w-14 text-xs font-bold text-[var(--admin-text-muted)]">[[{gid}]]</span>

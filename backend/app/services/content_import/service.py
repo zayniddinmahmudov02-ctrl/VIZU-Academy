@@ -797,6 +797,9 @@ def commit_document(
                 entry["lesson_id"] = target["lesson_id"]
                 if item.skill == "hoeren":
                     entry["audio_hint"] = item.audio_file or item.audio_asset_id
+                hold = (item.metadata or {}).get("publish_hold")
+                if hold:
+                    entry["publish_hold"] = str(hold)[:300]
             except Exception as exc:  # noqa: BLE001 — reported per item, the batch goes on
                 savepoint.rollback()
                 cache.pop((language, item.level, item.module, item.lesson), None)
@@ -840,6 +843,10 @@ def publish_batch(db: Session, batch_id: UUID) -> ContentImport:
             continue
         problems = []
         rows = []
+        if entry.get("publish_hold"):
+            # metadata.publish_hold: e.g. a key VIZU derived itself — an admin
+            # publishes after checking it (Lesen / Hören: LMS -> Lösung)
+            problems.append(f"HOLD: {entry['publish_hold']}")
         for created in entry.get("created", []):
             row = db.get(_KIND_MODEL[created["kind"]], UUID(created["id"]))
             if row is None:

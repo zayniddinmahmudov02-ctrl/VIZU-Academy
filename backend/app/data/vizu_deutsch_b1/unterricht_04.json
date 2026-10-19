@@ -1,0 +1,1809 @@
+{
+ "schema_version": "1.2",
+ "language": "de",
+ "source": "vizu-deutsch-b1-book",
+ "items": [
+  {
+   "content_id": "vizu-b1-l04-kompetenz-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 4,
+   "skill": "kompetenz",
+   "title": "Einführung: B1 4. Unterricht",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 61
+   },
+   "competency": "EINFUEHRUNG",
+   "html": "<h3>B1 4. Unterricht — Entwicklung der Länder</h3><p><strong>Mavzu:</strong> Entwicklung der Länder · <strong>Grammatik:</strong> Passiv-Strukturen (Präsens, Präteritum, Perfekt, Plusquamperfekt, Futur I, Futur II)</p><h4>Dars maqsadlari</h4><ul><li>Passivni barcha zamonlarda tuzish: werden / wurde / ist … worden / war … worden / wird … werden / wird … worden sein;</li><li>Aktiv gapni Passivga o'girish;</li><li>shahar hayoti, shaharlar rivoji va ekologiya haqida so'zlar.</li></ul><h4>Dars oxirida siz quyidagilarni bajara olasiz</h4><ul><li>qaysi mashhur shaharda yashashni xohlashingizni aytasiz;</li><li>Gamburg haqidagi blog va Germaniyaning yashil shaharlari haqidagi matnni tushunasiz;</li><li>shahar va qishloq hayoti haqidagi dialogni tinglab tushunasiz;</li><li>do'stingizning e-mailiga javob va internet haqida forumga maqola yozasiz;</li><li>konsertga borishni rejalashtirasiz va „Qishloqda yoki shaharda hayot“ mavzusida taqdimot qilasiz.</li></ul><h4>Darsning tuzilishi</h4><p>Einführung → Wortschatz → Grammatik → Lesen → Hören → Sprechen → Schreiben → Übungen → Abschlusstest → Zusammenfassung</p>"
+  },
+  {
+   "content_id": "vizu-b1-l04-frage-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 4,
+   "skill": "frage",
+   "title": "Frage des Themas: In welcher bekannten Stadt würden Sie wohnen?",
+   "source": "book",
+   "metadata": {
+    "book_page": 62,
+    "book_samples": [
+     "Wenn es möglich ist, würde ich in Berlin wohnen. Berlin ist eine moderne und kreative Stadt. Hier gibt es viele kulturelle Angebote, Museen, Theater und Konzerte. Die Stadt ist international und man kann Menschen aus der ganzen Welt treffen. Außerdem gibt es viele Grünflächen und Parks, die zum Entspannen einladen. Die Verkehrsanbindung ist sehr gut, und man kommt schnell überall hin. Deshalb wäre Berlin für mich die perfekte Stadt zum Leben."
+    ]
+   },
+   "prompt": "Wenn es möglich ist, in welcher bekannten Stadt würden Sie wohnen? Sprechen Sie über eine bekannte Stadt, in der Sie gerne wohnen würden. Dauer: ca. 2–3 Minuten. Ziel: freies Sprechen über Ideen, Vorteile und persönliche Vorlieben.",
+   "questions": [
+    "Berlin?",
+    "München?",
+    "Köln?"
+   ],
+   "min_duration": 60,
+   "max_duration": 180
+  },
+  {
+   "content_id": "vizu-b1-l04-grammatik-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 4,
+   "skill": "grammatik",
+   "title": "Grammatik: Passiv-Strukturen",
+   "source": "book",
+   "metadata": {
+    "book_page": "63-69",
+    "note": "Lösungen der Umformungen von VIZU (eindeutig nach der Grammatik; „von …“ freiwillig)."
+   },
+   "rules": [
+    {
+     "title": "Passiv-Strukturen",
+     "html": "<h3>Passiv-Strukturen</h3><table><thead><tr><th>Zeitform</th><th>Struktur</th><th>Beispiel</th></tr></thead><tbody><tr><td>Präsens</td><td>werden + Partizip II</td><td>Die Texte werden jeden Tag korrigiert.<br>(Die Texte korrigieren jeden Tag.)</td></tr><tr><td>Präteritum</td><td>wurde + Partizip II</td><td>Die Wohnung wurde gestern gereinigt.<br>(Jemand reinigte gestern die Wohnung.)</td></tr><tr><td>Perfekt</td><td>ist/hat + Partizip II worden</td><td>Die Aufgaben sind schon erledigt worden.<br>(Jemand hat die Aufgaben schon erledigt.)</td></tr><tr><td>Plusquamperfekt</td><td>war/hatte + Partizip II worden</td><td>Die Bücher waren bereits gelesen worden.<br>(Jemand hatte die Bücher bereits gelesen.)</td></tr><tr><td>Futur I</td><td>wird + Partizip II werden</td><td>Das Projekt wird nächste Woche beendet werden.<br>(Jemand wird das Projekt nächste Woche beenden.)</td></tr><tr><td>Futur II</td><td>wird + Partizip II worden sein</td><td>Bis 2030 wird die Brücke gebaut worden sein.<br>(Jemand wird die Brücke bis 2030 gebaut haben.)</td></tr></tbody></table><p><em>Hinweis:</em> Das Passiv-Perfekt und -Plusquamperfekt bildet man mit <strong>sein</strong> (ist / war … worden).</p>"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "Aufgabe 1: Aktiv → Passiv (Präsens)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "short_answer",
+       "question": "1. Der Lehrer erklärt die Grammatik. → Passiv (Präsens)",
+       "accepted": [
+        "Die Grammatik wird vom Lehrer erklärt.",
+        "Die Grammatik wird von dem Lehrer erklärt.",
+        "Die Grammatik wird erklärt."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Die Grammatik wird vom Lehrer erklärt."
+      },
+      {
+       "type": "short_answer",
+       "question": "2. Die Firma produziert neue Autos. → Passiv (Präsens)",
+       "accepted": [
+        "Neue Autos werden von der Firma produziert.",
+        "Neue Autos werden produziert."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Neue Autos werden von der Firma produziert."
+      },
+      {
+       "type": "short_answer",
+       "question": "3. Sie schreibt einen Brief an ihre Freundin. → Passiv (Präsens)",
+       "accepted": [
+        "Ein Brief wird von ihr an ihre Freundin geschrieben.",
+        "Ein Brief wird an ihre Freundin geschrieben.",
+        "Ein Brief an ihre Freundin wird von ihr geschrieben.",
+        "Ein Brief an ihre Freundin wird geschrieben."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Ein Brief wird von ihr an ihre Freundin geschrieben."
+      },
+      {
+       "type": "short_answer",
+       "question": "4. Die Schüler beantworten die Fragen. → Passiv (Präsens)",
+       "accepted": [
+        "Die Fragen werden von den Schülern beantwortet.",
+        "Die Fragen werden beantwortet."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Die Fragen werden von den Schülern beantwortet."
+      },
+      {
+       "type": "short_answer",
+       "question": "5. Mein Vater repariert das Fahrrad. → Passiv (Präsens)",
+       "accepted": [
+        "Das Fahrrad wird von meinem Vater repariert.",
+        "Das Fahrrad wird repariert."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Das Fahrrad wird von meinem Vater repariert."
+      },
+      {
+       "type": "short_answer",
+       "question": "6. Der Chef bespricht das Projekt mit dem Team. → Passiv (Präsens)",
+       "accepted": [
+        "Das Projekt wird vom Chef mit dem Team besprochen.",
+        "Das Projekt wird von dem Chef mit dem Team besprochen.",
+        "Das Projekt wird mit dem Team besprochen."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Das Projekt wird vom Chef mit dem Team besprochen."
+      },
+      {
+       "type": "short_answer",
+       "question": "7. Wir reinigen das Zimmer jeden Tag. → Passiv (Präsens)",
+       "accepted": [
+        "Das Zimmer wird jeden Tag von uns gereinigt.",
+        "Das Zimmer wird jeden Tag gereinigt.",
+        "Das Zimmer wird von uns jeden Tag gereinigt."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Das Zimmer wird jeden Tag von uns gereinigt."
+      },
+      {
+       "type": "short_answer",
+       "question": "8. Die Bäckerei verkauft frisches Brot. → Passiv (Präsens)",
+       "accepted": [
+        "Frisches Brot wird von der Bäckerei verkauft.",
+        "Frisches Brot wird verkauft."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Frisches Brot wird von der Bäckerei verkauft."
+      }
+     ],
+     "instruction": "Wandeln Sie die folgenden Sätze vom Aktiv (Präsens) ins Passiv um. Die Angabe „von …“ ist freiwillig. (Buch S. 64)"
+    },
+    {
+     "title": "Aufgabe 2: Aktiv → Passiv (Präteritum)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "short_answer",
+       "question": "1. Der Lehrer erklärte die Regeln. → Passiv (Präteritum)",
+       "accepted": [
+        "Die Regeln wurden vom Lehrer erklärt.",
+        "Die Regeln wurden von dem Lehrer erklärt.",
+        "Die Regeln wurden erklärt."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Die Regeln wurden vom Lehrer erklärt."
+      },
+      {
+       "type": "short_answer",
+       "question": "2. Die Firma produzierte neue Produkte. → Passiv (Präteritum)",
+       "accepted": [
+        "Neue Produkte wurden von der Firma produziert.",
+        "Neue Produkte wurden produziert."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Neue Produkte wurden von der Firma produziert."
+      },
+      {
+       "type": "short_answer",
+       "question": "3. Sie schrieb einen langen Brief. → Passiv (Präteritum)",
+       "accepted": [
+        "Ein langer Brief wurde von ihr geschrieben.",
+        "Ein langer Brief wurde geschrieben."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Ein langer Brief wurde von ihr geschrieben."
+      },
+      {
+       "type": "short_answer",
+       "question": "4. Die Kinder malten schöne Bilder. → Passiv (Präteritum)",
+       "accepted": [
+        "Schöne Bilder wurden von den Kindern gemalt.",
+        "Schöne Bilder wurden gemalt."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Schöne Bilder wurden von den Kindern gemalt."
+      },
+      {
+       "type": "short_answer",
+       "question": "5. Mein Bruder reparierte das Auto. → Passiv (Präteritum)",
+       "accepted": [
+        "Das Auto wurde von meinem Bruder repariert.",
+        "Das Auto wurde repariert."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Das Auto wurde von meinem Bruder repariert."
+      },
+      {
+       "type": "short_answer",
+       "question": "6. Der Koch bereitete ein leckeres Essen zu. → Passiv (Präteritum)",
+       "accepted": [
+        "Ein leckeres Essen wurde vom Koch zubereitet.",
+        "Ein leckeres Essen wurde von dem Koch zubereitet.",
+        "Ein leckeres Essen wurde zubereitet."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Ein leckeres Essen wurde vom Koch zubereitet."
+      },
+      {
+       "type": "short_answer",
+       "question": "7. Wir besuchten das Museum. → Passiv (Präteritum)",
+       "accepted": [
+        "Das Museum wurde von uns besucht.",
+        "Das Museum wurde besucht."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Das Museum wurde von uns besucht."
+      },
+      {
+       "type": "short_answer",
+       "question": "8. Die Bäckerei verkaufte frische Brötchen. → Passiv (Präteritum)",
+       "accepted": [
+        "Frische Brötchen wurden von der Bäckerei verkauft.",
+        "Frische Brötchen wurden verkauft."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Frische Brötchen wurden von der Bäckerei verkauft."
+      }
+     ],
+     "instruction": "Wandeln Sie die folgenden Sätze vom Aktiv (Präteritum) ins Passiv um. Die Angabe „von …“ ist freiwillig. (Buch S. 65)"
+    },
+    {
+     "title": "Aufgabe 3: Aktiv → Passiv (Perfekt)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "short_answer",
+       "question": "1. Der Lehrer hat die Hausaufgaben korrigiert. → Passiv (Perfekt)",
+       "accepted": [
+        "Die Hausaufgaben sind vom Lehrer korrigiert worden.",
+        "Die Hausaufgaben sind von dem Lehrer korrigiert worden.",
+        "Die Hausaufgaben sind korrigiert worden."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Die Hausaufgaben sind vom Lehrer korrigiert worden."
+      },
+      {
+       "type": "short_answer",
+       "question": "2. Die Firma hat neue Maschinen gekauft. → Passiv (Perfekt)",
+       "accepted": [
+        "Neue Maschinen sind von der Firma gekauft worden.",
+        "Neue Maschinen sind gekauft worden."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Neue Maschinen sind von der Firma gekauft worden."
+      },
+      {
+       "type": "short_answer",
+       "question": "3. Sie hat den Brief an ihre Freundin geschickt. → Passiv (Perfekt)",
+       "accepted": [
+        "Der Brief ist von ihr an ihre Freundin geschickt worden.",
+        "Der Brief ist an ihre Freundin geschickt worden.",
+        "Der Brief an ihre Freundin ist von ihr geschickt worden.",
+        "Der Brief an ihre Freundin ist geschickt worden."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Der Brief ist von ihr an ihre Freundin geschickt worden."
+      },
+      {
+       "type": "short_answer",
+       "question": "4. Die Kinder haben die Fenster geputzt. → Passiv (Perfekt)",
+       "accepted": [
+        "Die Fenster sind von den Kindern geputzt worden.",
+        "Die Fenster sind geputzt worden."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Die Fenster sind von den Kindern geputzt worden."
+      },
+      {
+       "type": "short_answer",
+       "question": "5. Mein Vater hat das Fahrrad repariert. → Passiv (Perfekt)",
+       "accepted": [
+        "Das Fahrrad ist von meinem Vater repariert worden.",
+        "Das Fahrrad ist repariert worden."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Das Fahrrad ist von meinem Vater repariert worden."
+      },
+      {
+       "type": "short_answer",
+       "question": "6. Der Chef hat das Projekt genehmigt. → Passiv (Perfekt)",
+       "accepted": [
+        "Das Projekt ist vom Chef genehmigt worden.",
+        "Das Projekt ist von dem Chef genehmigt worden.",
+        "Das Projekt ist genehmigt worden."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Das Projekt ist vom Chef genehmigt worden."
+      },
+      {
+       "type": "short_answer",
+       "question": "7. Wir haben das Museum besucht. → Passiv (Perfekt)",
+       "accepted": [
+        "Das Museum ist von uns besucht worden.",
+        "Das Museum ist besucht worden."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Das Museum ist von uns besucht worden."
+      },
+      {
+       "type": "short_answer",
+       "question": "8. Die Bäckerei hat frisches Brot verkauft. → Passiv (Perfekt)",
+       "accepted": [
+        "Frisches Brot ist von der Bäckerei verkauft worden.",
+        "Frisches Brot ist verkauft worden."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Frisches Brot ist von der Bäckerei verkauft worden."
+      }
+     ],
+     "instruction": "Wandeln Sie die folgenden Sätze vom Aktiv (Perfekt) ins Passiv um. Die Angabe „von …“ ist freiwillig. (Buch S. 66)"
+    },
+    {
+     "title": "Aufgabe 4: Aktiv → Passiv (Plusquamperfekt)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "short_answer",
+       "question": "1. Der Lehrer hatte die Hausaufgaben korrigiert. → Passiv (Plusquamperfekt)",
+       "accepted": [
+        "Die Hausaufgaben waren vom Lehrer korrigiert worden.",
+        "Die Hausaufgaben waren von dem Lehrer korrigiert worden.",
+        "Die Hausaufgaben waren korrigiert worden."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Die Hausaufgaben waren vom Lehrer korrigiert worden."
+      },
+      {
+       "type": "short_answer",
+       "question": "2. Die Firma hatte neue Produkte entwickelt. → Passiv (Plusquamperfekt)",
+       "accepted": [
+        "Neue Produkte waren von der Firma entwickelt worden.",
+        "Neue Produkte waren entwickelt worden."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Neue Produkte waren von der Firma entwickelt worden."
+      },
+      {
+       "type": "short_answer",
+       "question": "3. Sie hatte den Brief an ihre Freundin geschickt. → Passiv (Plusquamperfekt)",
+       "accepted": [
+        "Der Brief war von ihr an ihre Freundin geschickt worden.",
+        "Der Brief war an ihre Freundin geschickt worden.",
+        "Der Brief an ihre Freundin war von ihr geschickt worden.",
+        "Der Brief an ihre Freundin war geschickt worden."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Der Brief war von ihr an ihre Freundin geschickt worden."
+      },
+      {
+       "type": "short_answer",
+       "question": "4. Die Kinder hatten die Fenster geputzt. → Passiv (Plusquamperfekt)",
+       "accepted": [
+        "Die Fenster waren von den Kindern geputzt worden.",
+        "Die Fenster waren geputzt worden."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Die Fenster waren von den Kindern geputzt worden."
+      },
+      {
+       "type": "short_answer",
+       "question": "5. Mein Vater hatte das Fahrrad repariert. → Passiv (Plusquamperfekt)",
+       "accepted": [
+        "Das Fahrrad war von meinem Vater repariert worden.",
+        "Das Fahrrad war repariert worden."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Das Fahrrad war von meinem Vater repariert worden."
+      },
+      {
+       "type": "short_answer",
+       "question": "6. Der Chef hatte das Projekt genehmigt. → Passiv (Plusquamperfekt)",
+       "accepted": [
+        "Das Projekt war vom Chef genehmigt worden.",
+        "Das Projekt war von dem Chef genehmigt worden.",
+        "Das Projekt war genehmigt worden."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Das Projekt war vom Chef genehmigt worden."
+      },
+      {
+       "type": "short_answer",
+       "question": "7. Wir hatten das Museum besucht. → Passiv (Plusquamperfekt)",
+       "accepted": [
+        "Das Museum war von uns besucht worden.",
+        "Das Museum war besucht worden."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Das Museum war von uns besucht worden."
+      },
+      {
+       "type": "short_answer",
+       "question": "8. Die Bäckerei hatte frisches Brot verkauft. → Passiv (Plusquamperfekt)",
+       "accepted": [
+        "Frisches Brot war von der Bäckerei verkauft worden.",
+        "Frisches Brot war verkauft worden."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Frisches Brot war von der Bäckerei verkauft worden."
+      }
+     ],
+     "instruction": "Wandeln Sie die folgenden Sätze vom Aktiv (Plusquamperfekt) ins Passiv um. Die Angabe „von …“ ist freiwillig. (Buch S. 67)"
+    },
+    {
+     "title": "Aufgabe 5: Passiv Futur I — Wortstellung",
+     "source": "book",
+     "questions": [
+      {
+       "type": "short_answer",
+       "question": "1. fertiggestellt / Das neue Stadion / nächstes Jahr / werden / . → Satz im Passiv (Futur I)",
+       "accepted": [
+        "Das neue Stadion wird nächstes Jahr fertiggestellt werden."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Das neue Stadion wird nächstes Jahr fertiggestellt werden."
+      },
+      {
+       "type": "short_answer",
+       "question": "2. in unserer Stadt / gebaut / Ein neues Einkaufszentrum / werden / . → Satz im Passiv (Futur I)",
+       "accepted": [
+        "Ein neues Einkaufszentrum wird in unserer Stadt gebaut werden."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Ein neues Einkaufszentrum wird in unserer Stadt gebaut werden."
+      },
+      {
+       "type": "short_answer",
+       "question": "3. von einem bekannten Künstler / Das Bild / ausgestellt / wird / . → Satz im Passiv (Futur I)",
+       "accepted": [
+        "Das Bild wird von einem bekannten Künstler ausgestellt werden."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Das Bild wird von einem bekannten Künstler ausgestellt werden."
+      },
+      {
+       "type": "short_answer",
+       "question": "4. die Hausaufgaben / bis morgen / erledigt / werden / . → Satz im Passiv (Futur I)",
+       "accepted": [
+        "Die Hausaufgaben werden bis morgen erledigt werden."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Die Hausaufgaben werden bis morgen erledigt werden."
+      },
+      {
+       "type": "short_answer",
+       "question": "5. nächstes Semester / angeboten / Ein neuer Kurs / wird / . → Satz im Passiv (Futur I)",
+       "accepted": [
+        "Ein neuer Kurs wird nächstes Semester angeboten werden."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Ein neuer Kurs wird nächstes Semester angeboten werden."
+      },
+      {
+       "type": "short_answer",
+       "question": "6. von vielen Touristen / besucht / Die Altstadt / werden / . → Satz im Passiv (Futur I)",
+       "accepted": [
+        "Die Altstadt wird von vielen Touristen besucht werden."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Die Altstadt wird von vielen Touristen besucht werden."
+      },
+      {
+       "type": "short_answer",
+       "question": "7. am Montag / repariert / Mein Fahrrad / wird / . → Satz im Passiv (Futur I)",
+       "accepted": [
+        "Mein Fahrrad wird am Montag repariert werden."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Mein Fahrrad wird am Montag repariert werden."
+      },
+      {
+       "type": "short_answer",
+       "question": "8. im Internet / veröffentlicht / Der Artikel / wird / . → Satz im Passiv (Futur I)",
+       "accepted": [
+        "Der Artikel wird im Internet veröffentlicht werden."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Der Artikel wird im Internet veröffentlicht werden."
+      }
+     ],
+     "instruction": "Bringen Sie die Wörter in die richtige Reihenfolge, um korrekte Sätze im Passiv (Futur I) zu bilden. Futur I im Passiv braucht „werden“ zweimal (wird … werden); die Wortliste im Buch nennt es nur einmal. (Buch S. 68)"
+    },
+    {
+     "title": "Aufgabe 6: Passiv Futur II — Wortstellung",
+     "source": "book",
+     "questions": [
+      {
+       "type": "short_answer",
+       "question": "1. bis nächstes Jahr / fertiggestellt / Das neue Krankenhaus / sein / wird / . → Satz im Passiv (Futur II)",
+       "accepted": [
+        "Das neue Krankenhaus wird bis nächstes Jahr fertiggestellt worden sein."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Das neue Krankenhaus wird bis nächstes Jahr fertiggestellt worden sein."
+      },
+      {
+       "type": "short_answer",
+       "question": "2. in unserer Stadt / eröffnet / Das neue Einkaufszentrum / sein / wird / . → Satz im Passiv (Futur II)",
+       "accepted": [
+        "Das neue Einkaufszentrum wird in unserer Stadt eröffnet worden sein."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Das neue Einkaufszentrum wird in unserer Stadt eröffnet worden sein."
+      },
+      {
+       "type": "short_answer",
+       "question": "3. bis morgen / abgeschlossen / Die Hausaufgaben / sein / werden / . → Satz im Passiv (Futur II)",
+       "accepted": [
+        "Die Hausaufgaben werden bis morgen abgeschlossen worden sein."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Die Hausaufgaben werden bis morgen abgeschlossen worden sein."
+      },
+      {
+       "type": "short_answer",
+       "question": "4. von einem bekannten Autor / geschrieben / Das Buch / sein / wird / . → Satz im Passiv (Futur II)",
+       "accepted": [
+        "Das Buch wird von einem bekannten Autor geschrieben worden sein."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Das Buch wird von einem bekannten Autor geschrieben worden sein."
+      },
+      {
+       "type": "short_answer",
+       "question": "5. bis nächstes Semester / beendet / Der Kurs / sein / wird / . → Satz im Passiv (Futur II)",
+       "accepted": [
+        "Der Kurs wird bis nächstes Semester beendet worden sein."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Der Kurs wird bis nächstes Semester beendet worden sein."
+      },
+      {
+       "type": "short_answer",
+       "question": "6. von vielen Touristen / besucht / Die Altstadt / sein / wird / . → Satz im Passiv (Futur II)",
+       "accepted": [
+        "Die Altstadt wird von vielen Touristen besucht worden sein."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Die Altstadt wird von vielen Touristen besucht worden sein."
+      },
+      {
+       "type": "short_answer",
+       "question": "7. bis Montag / repariert / Mein Fahrrad / sein / wird / . → Satz im Passiv (Futur II)",
+       "accepted": [
+        "Mein Fahrrad wird bis Montag repariert worden sein."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Mein Fahrrad wird bis Montag repariert worden sein."
+      },
+      {
+       "type": "short_answer",
+       "question": "8. bis morgen Abend / veröffentlicht / Der Bericht / sein / wird / . → Satz im Passiv (Futur II)",
+       "accepted": [
+        "Der Bericht wird bis morgen Abend veröffentlicht worden sein."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Der Bericht wird bis morgen Abend veröffentlicht worden sein."
+      }
+     ],
+     "instruction": "Bringen Sie die Wörter in die richtige Reihenfolge, um korrekte Sätze im Passiv (Futur II) zu bilden. (Buch S. 69)"
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l04-lesen-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 4,
+   "skill": "lesen",
+   "title": "Lesen Aufgabe 1: Ein Wochenende in Hamburg",
+   "source": "book",
+   "metadata": {
+    "book_page": 70,
+    "key_source": "vizu",
+    "publish_hold": "Lösung von VIZU aus dem Text abgeleitet (kein offizieller Schlüssel) — in Lösung prüfen und bestätigen",
+    "note": "Verbformen von VIZU nach der Grammatik — bitte prüfen. Seitenkopf im Buch: „B2 4.Unterricht“."
+   },
+   "instruction": "Lesen Sie den Text und ergänzen Sie die Verben im Präteritum oder im Partizip Perfekt.",
+   "passages": [
+    {
+     "title": "Hamburg — Blog",
+     "text": "Letzten Freitag ………… (müssen) ich zu einer Konferenz nach Hamburg fahren. Da ich in Österreich, in Graz, wohne, habe ich mich ………… (entscheiden), nach dem Ende der Konferenz nicht gleich nach Hause zu fliegen. Ich ………… (wollen) das Wochenende in Hamburg verbringen und die Stadt entdecken.\n\nSamstagmorgen habe ich an einer Tour durch den Alten Botanischen Garten ………… (teilnehmen). Dieser Garten ist eine kleine Oase in der Stadtmitte. Ich studiere Biologie, deshalb interessiere ich mich vor allem für Pflanzen und fotografiere sie gern. Ich habe dort einige schöne Fotos ………… (machen).\n\nDanach bin ich in ein Café ………… (gehen), das mir der Rezeptionist im Hotel ………… (empfehlen) hat. Dort habe ich zufällig eine alte Schulfreundin ………… (treffen)! Das ………… (sein) eine Überraschung! Ich ………… (haben) keine Ahnung, dass sie jetzt in Hamburg wohnt.\n\nSie studiert dort Sprachwissenschaft. Sie hat mir ihren Freund ………… (vorstellen), der an der Uni arbeitet. Wir haben uns ein bisschen ………… (unterhalten).\n\nIch habe dann noch das Johannes-Brahms-Museum ………… (besichtigen) und bin auf den Spuren des berühmten Komponisten durch Hamburg ………… (laufen). Dazu habe ich eine App aus dem Internet ………… (herunterladen), die mich durch die Stadt ………… (führen) hat. Ich ………… (finden) das sehr interessant.\n\nAm Abend habe ich meine Schulfreundin und ihren Freund ………… (wiedersehen). Wir haben etwas ………… (essen) und ein Glas Wein ………… (trinken). Der Weg zum Hotel hat etwas länger ………… (dauern) als geplant, ich bin leider in den falschen Bus ………… (einsteigen). Dadurch habe ich Hamburg auch bei Nacht ………… (kennenlernen) und das war eigentlich ganz schön."
+    }
+   ],
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "Ergänzen Sie die Verben im Präteritum oder im Partizip Perfekt (1).",
+     "text": "Letzten Freitag [[1]] (müssen) ich zu einer Konferenz nach Hamburg fahren. Da ich in Österreich, in Graz, wohne, habe ich mich [[2]] (entscheiden), nach dem Ende der Konferenz nicht gleich nach Hause zu fliegen. Ich [[3]] (wollen) das Wochenende in Hamburg verbringen und die Stadt entdecken.",
+     "gaps": {
+      "1": [
+       "musste"
+      ],
+      "2": [
+       "entschieden"
+      ],
+      "3": [
+       "wollte"
+      ]
+     },
+     "points": 3,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "Lösung (VIZU, nach der Grammatik): 1. musste, 2. entschieden, 3. wollte"
+    },
+    {
+     "type": "gap_fill",
+     "question": "Ergänzen Sie die Verben im Präteritum oder im Partizip Perfekt (2).",
+     "text": "Samstagmorgen habe ich an einer Tour durch den Alten Botanischen Garten [[4]] (teilnehmen). Dieser Garten ist eine kleine Oase in der Stadtmitte. Ich studiere Biologie, deshalb interessiere ich mich vor allem für Pflanzen und fotografiere sie gern. Ich habe dort einige schöne Fotos [[5]] (machen).",
+     "gaps": {
+      "4": [
+       "teilgenommen"
+      ],
+      "5": [
+       "gemacht"
+      ]
+     },
+     "points": 2,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "Lösung (VIZU, nach der Grammatik): 4. teilgenommen, 5. gemacht"
+    },
+    {
+     "type": "gap_fill",
+     "question": "Ergänzen Sie die Verben im Präteritum oder im Partizip Perfekt (3).",
+     "text": "Danach bin ich in ein Café [[6]] (gehen), das mir der Rezeptionist im Hotel [[7]] (empfehlen) hat. Dort habe ich zufällig eine alte Schulfreundin [[8]] (treffen)! Das [[9]] (sein) eine Überraschung! Ich [[10]] (haben) keine Ahnung, dass sie jetzt in Hamburg wohnt.",
+     "gaps": {
+      "6": [
+       "gegangen"
+      ],
+      "7": [
+       "empfohlen"
+      ],
+      "8": [
+       "getroffen"
+      ],
+      "9": [
+       "war"
+      ],
+      "10": [
+       "hatte"
+      ]
+     },
+     "points": 5,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "Lösung (VIZU, nach der Grammatik): 6. gegangen, 7. empfohlen, 8. getroffen, 9. war, 10. hatte"
+    },
+    {
+     "type": "gap_fill",
+     "question": "Ergänzen Sie die Verben im Präteritum oder im Partizip Perfekt (4).",
+     "text": "Sie studiert dort Sprachwissenschaft. Sie hat mir ihren Freund [[11]] (vorstellen), der an der Uni arbeitet. Wir haben uns ein bisschen [[12]] (unterhalten).",
+     "gaps": {
+      "11": [
+       "vorgestellt"
+      ],
+      "12": [
+       "unterhalten"
+      ]
+     },
+     "points": 2,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "Lösung (VIZU, nach der Grammatik): 11. vorgestellt, 12. unterhalten"
+    },
+    {
+     "type": "gap_fill",
+     "question": "Ergänzen Sie die Verben im Präteritum oder im Partizip Perfekt (5).",
+     "text": "Ich habe dann noch das Johannes-Brahms-Museum [[13]] (besichtigen) und bin auf den Spuren des berühmten Komponisten durch Hamburg [[14]] (laufen). Dazu habe ich eine App aus dem Internet [[15]] (herunterladen), die mich durch die Stadt [[16]] (führen) hat. Ich [[17]] (finden) das sehr interessant.",
+     "gaps": {
+      "13": [
+       "besichtigt"
+      ],
+      "14": [
+       "gelaufen"
+      ],
+      "15": [
+       "heruntergeladen"
+      ],
+      "16": [
+       "geführt"
+      ],
+      "17": [
+       "fand"
+      ]
+     },
+     "points": 5,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "Lösung (VIZU, nach der Grammatik): 13. besichtigt, 14. gelaufen, 15. heruntergeladen, 16. geführt, 17. fand"
+    },
+    {
+     "type": "gap_fill",
+     "question": "Ergänzen Sie die Verben im Präteritum oder im Partizip Perfekt (6).",
+     "text": "Am Abend habe ich meine Schulfreundin und ihren Freund [[18]] (wiedersehen). Wir haben etwas [[19]] (essen) und ein Glas Wein [[20]] (trinken). Der Weg zum Hotel hat etwas länger [[21]] (dauern) als geplant, ich bin leider in den falschen Bus [[22]] (einsteigen). Dadurch habe ich Hamburg auch bei Nacht [[23]] (kennenlernen) und das war eigentlich ganz schön.",
+     "gaps": {
+      "18": [
+       "wiedergesehen"
+      ],
+      "19": [
+       "gegessen"
+      ],
+      "20": [
+       "getrunken"
+      ],
+      "21": [
+       "gedauert"
+      ],
+      "22": [
+       "eingestiegen"
+      ],
+      "23": [
+       "kennengelernt"
+      ]
+     },
+     "points": 6,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "Lösung (VIZU, nach der Grammatik): 18. wiedergesehen, 19. gegessen, 20. getrunken, 21. gedauert, 22. eingestiegen, 23. kennengelernt"
+    }
+   ],
+   "max_score": 23
+  },
+  {
+   "content_id": "vizu-b1-l04-lesen-02",
+   "level": "B1",
+   "module": 1,
+   "lesson": 4,
+   "skill": "lesen",
+   "title": "Lesen Aufgabe 2: Grüne Großstädte in Deutschland",
+   "source": "book",
+   "metadata": {
+    "book_page": 71,
+    "key_source": "vizu",
+    "publish_hold": "Lösung von VIZU aus dem Text abgeleitet (kein offizieller Schlüssel) — in Lösung prüfen und bestätigen",
+    "note": "Lösung von VIZU aus dem Text abgeleitet (Zitat in der Erklärung) — bitte prüfen."
+   },
+   "instruction": "Lesen Sie den Text und entscheiden Sie: Richtig oder Falsch?",
+   "passages": [
+    {
+     "title": "Grüne Großstädte in Deutschland",
+     "text": "Von den 72 Städten über 100 000 Einwohner, die es in Deutschland gibt, hatten viele gern ein „grünes“ Image. Sie loben ihre Grünflächen und die damit verbundene gute Lebensqualität ihrer Bürger. Allein in Berlin gibt es 2 500 öffentliche Gärten und Parks und die meisten Berliner denken, ihre Stadt ist die „Grünste Stadt Deutschlands“. Auch die Städte Hannover und Halle an der Saale werben mit diesem Titel.\n\nWie es mit der Vegetation in den Städten wirklich aussieht, zeigen jetzt Satellitenfotos aus dem Weltall. Die Zeitung Berliner Morgenpost hat 185 dieser Fotos ausgewertet und die Grünflächen in den Städten gemessen und verglichen. Diese Ergebnisse haben nicht nur die Berliner überrascht, denn Berlin landet im Vergleich der 14 Städte mit mehr als 500 000 Einwohnern nur auf Platz 8, hinter Hannover (Rang 7) und vor Köln (Rang 9).\n\nSpitzenreiter ist Hamburg mit 71 Prozent grünen Flächen, gefolgt von Dortmund mit rund 70 Prozent. Für die meisten Stadtbewohner spielen öffentliche Grünflächen wie Stadtparks oder Wiesen eine immer größere Rolle. Grünanlagen dienen zur Erholung der Menschen und sie sind gut für das Stadtklima. Bäume und Pflanzen nehmen Schadstoffe auf und sorgen auf diese Weise für saubere Luft. Sie wirken außerdem bei hohen Temperaturen abkühlend und helfen, den Straßenlärm zu reduzieren.\n\nDie grünsten Großstädte (ab 500 000 Einwohner), Stand 2011: 1. Hamburg 71,4 % · 2. Dortmund 70,7 % · 3. Stuttgart 69,9 % · 4. Dresden 69,4 % · 5. Bremen 68,2 % · 6. Essen 68 % · 7. Hannover 65,2 % · 8. Berlin 59,0 % · 9. Köln 58,4 % · 10. Frankfurt/Main 58,2 %"
+    }
+   ],
+   "questions": [
+    {
+     "type": "true_false",
+     "question": "In Berlin gibt es 2 500 öffentliche Gärten und Parks.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„Allein in Berlin gibt es 2 500 öffentliche Gärten und Parks …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Berlin ist die grünste Stadt Deutschlands.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "Das denken nur die meisten Berliner — „Spitzenreiter ist Hamburg …“; Berlin liegt auf Platz 8."
+    },
+    {
+     "type": "true_false",
+     "question": "Die Zeitung Berliner Morgenpost hat 185 Satellitenfotos ausgewertet.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„Die Zeitung Berliner Morgenpost hat 185 dieser Fotos ausgewertet …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Berlin liegt im Vergleich der 14 Städte auf Platz 7.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„… nur auf Platz 8, hinter Hannover (Rang 7) …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Hamburg hat den höchsten Anteil an Grünflächen.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„Spitzenreiter ist Hamburg mit 71 Prozent grünen Flächen …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Grünanlagen helfen, die Luft sauber zu halten und den Lärm zu verringern.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„… sorgen auf diese Weise für saubere Luft … und helfen, den Straßenlärm zu reduzieren.“"
+    }
+   ],
+   "max_score": 6
+  },
+  {
+   "content_id": "vizu-b1-l04-hoeren-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 4,
+   "skill": "hoeren",
+   "title": "Hören Aufgabe 1 + 2: Karla und Kurt — Stadt oder Land?",
+   "source": "book",
+   "metadata": {
+    "book_page": "72-73",
+    "key_source": "vizu",
+    "publish_hold": "Lösung von VIZU aus dem Text abgeleitet (kein offizieller Schlüssel) — in Lösung prüfen und bestätigen",
+    "note": "Lösung von VIZU nach dem Kontext (Wörterliste) — nach dem Anhören in Lösung bestätigen. Eine Audiodatei für Aufgabe 1 und 2."
+   },
+   "audio_file": "4.Unterricht Aufgabe 1-2.mp3",
+   "instruction": "Hören Sie den Dialog und ergänzen Sie die passenden Wörter. Sie hören den Text zweimal. Tipps: Hören Sie zuerst die ganze Konversation. Achten Sie auf den Zusammenhang. Es gibt 8 Lücken.",
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "Aufgabe 1: Hören Sie den Dialog und ergänzen Sie die passenden Wörter (1–8).",
+     "text": "Karla: Willst du denn dein ganzes Leben in Städten verbringen? Du musst doch auch mal eine andere Erfahrung machen!\nKurt: Bitte, Karla, was soll ich denn auf dem [[1]]? Alle Wege sind weit, ob du ins Kino gehen oder vielleicht mal ein Theater oder Konzert besuchen willst! Und wann würden wir dann noch unsere Freunde sehen und mit ihnen ausgehen?\nKarla: Das ist doch kein Argument. Wann gehen wir denn schon abends weg? Dazu sind wir doch immer viel zu [[2]]!\nKurt: Aber wir könnten, wenn wir wollten!\nKarla: Ja, aber was meinst du, wie erholsam es wäre, abends einfach bei einem Glas [[3]] in unserem Garten zu sitzen oder noch einen Spaziergang zu machen. Wir könnten einen [[4]] haben und eine Katze und …\nKurt: Meine Liebe, vergiss bitte nicht, dass ich eine [[5]] habe.\nKarla: Ja, ja, ist schon gut … Also kein Hund. Vielleicht [[6]]!\nKurt: Was hast du denn? Hier gibt es schließlich auch [[7]] zum Spazierengehen!\nKarla: Ja, mit Unmengen von anderen Leuten! Wo du auch bist, nie bist du [[8]]!",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "Land"
+       ],
+       "options": [
+        "Land",
+        "müde",
+        "Wein",
+        "Hund",
+        "Tierhaarallergie",
+        "Hühner",
+        "Parks",
+        "allein"
+       ]
+      },
+      "2": {
+       "accepted": [
+        "müde"
+       ],
+       "options": [
+        "Land",
+        "müde",
+        "Wein",
+        "Hund",
+        "Tierhaarallergie",
+        "Hühner",
+        "Parks",
+        "allein"
+       ]
+      },
+      "3": {
+       "accepted": [
+        "Wein"
+       ],
+       "options": [
+        "Land",
+        "müde",
+        "Wein",
+        "Hund",
+        "Tierhaarallergie",
+        "Hühner",
+        "Parks",
+        "allein"
+       ]
+      },
+      "4": {
+       "accepted": [
+        "Hund"
+       ],
+       "options": [
+        "Land",
+        "müde",
+        "Wein",
+        "Hund",
+        "Tierhaarallergie",
+        "Hühner",
+        "Parks",
+        "allein"
+       ]
+      },
+      "5": {
+       "accepted": [
+        "Tierhaarallergie"
+       ],
+       "options": [
+        "Land",
+        "müde",
+        "Wein",
+        "Hund",
+        "Tierhaarallergie",
+        "Hühner",
+        "Parks",
+        "allein"
+       ]
+      },
+      "6": {
+       "accepted": [
+        "Hühner"
+       ],
+       "options": [
+        "Land",
+        "müde",
+        "Wein",
+        "Hund",
+        "Tierhaarallergie",
+        "Hühner",
+        "Parks",
+        "allein"
+       ]
+      },
+      "7": {
+       "accepted": [
+        "Parks"
+       ],
+       "options": [
+        "Land",
+        "müde",
+        "Wein",
+        "Hund",
+        "Tierhaarallergie",
+        "Hühner",
+        "Parks",
+        "allein"
+       ]
+      },
+      "8": {
+       "accepted": [
+        "allein"
+       ],
+       "options": [
+        "Land",
+        "müde",
+        "Wein",
+        "Hund",
+        "Tierhaarallergie",
+        "Hühner",
+        "Parks",
+        "allein"
+       ]
+      }
+     },
+     "points": 8,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "Lösung (VIZU, nach dem Kontext): 1. Land, 2. müde, 3. Wein, 4. Hund, 5. Tierhaarallergie, 6. Hühner, 7. Parks, 8. allein"
+    },
+    {
+     "type": "gap_fill",
+     "question": "Aufgabe 2: Hören Sie den Dialog und ergänzen Sie die passenden Wörter (1–8).",
+     "text": "Kurt: Möglicherweise fühlst du dich auf dem Land sehr schnell zu allein …\nKarla: Und dann die Ruhe! Hier hat man nachts das Gefühl, als würde einem die Straßenbahn über den Bettdecke fahren! Und so ein Häuschen auf dem Land, wo du nur den Wind in den Bäumen rauschen hörst …\nKurt: Karla, du hast vielleicht romantische Vorstellungen! Den Wind hörst du heute nur noch mitten im Wald in den Bäumen rauschen. Und, bei aller Liebe, ich ziehe nicht mit dir mitten in den Wald! Ein bisschen [[1]] hätte ich schon gerne!\nKarla: Das will ich ja auch. Und es sollten natürlich ein paar Geschäfte in der Nähe sein. Aber ich würde auch gern selbst Gemüse im [[2]] anbauen! Und unseren Biomüll könnte ich auf einen [[3]] werfen, und daraus wird dann wieder Erde.\nKurt: Hast du eigentlich eine Ahnung, wie viel Zeit so ein Garten braucht?\nKarla: Klar! Und davon träume ich seit Jahren!\nKurt: Und was machst du, wenn wir in [[4]] fahren? Deine Pflanzen vertrocknen lassen?\nKarla: Da gibt es doch bestimmt nette [[5]], die in dieser Zeit den Garten gießen.\nKurt: Schau doch, jetzt sind wir in einer Viertelstunde im Büro. Wenn wir rausziehen aufs Land, brauchen wir mindestens eine Stunde!\nKarla: Aber dafür zahlen wir viel weniger [[6]]. Und wenn wir unsere Freunde sehen wollen, laden wir sie einfach übers Wochenende zu uns ein.\nKurt: Und all die Einkaufsmöglichkeiten hier? Du bist doch diejenige, die so gern [[7]] geht!\nKarla: Da siehst du mal, wie sparsam wir leben werden! Keine tolle Boutique mehr. Dann bin ich halt leider nicht mehr so schick gekleidet.\nKurt: Oh, ich seh' dich schon nur noch in [[8]] und alten Pullis rumlaufen, mit Erde unter den Fingernägeln.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "Zivilisation"
+       ],
+       "options": [
+        "Komposthaufen",
+        "Urlaub",
+        "Nachbarn",
+        "Miete",
+        "shoppen",
+        "Jeans",
+        "Garten",
+        "Zivilisation"
+       ]
+      },
+      "2": {
+       "accepted": [
+        "Garten"
+       ],
+       "options": [
+        "Komposthaufen",
+        "Urlaub",
+        "Nachbarn",
+        "Miete",
+        "shoppen",
+        "Jeans",
+        "Garten",
+        "Zivilisation"
+       ]
+      },
+      "3": {
+       "accepted": [
+        "Komposthaufen"
+       ],
+       "options": [
+        "Komposthaufen",
+        "Urlaub",
+        "Nachbarn",
+        "Miete",
+        "shoppen",
+        "Jeans",
+        "Garten",
+        "Zivilisation"
+       ]
+      },
+      "4": {
+       "accepted": [
+        "Urlaub"
+       ],
+       "options": [
+        "Komposthaufen",
+        "Urlaub",
+        "Nachbarn",
+        "Miete",
+        "shoppen",
+        "Jeans",
+        "Garten",
+        "Zivilisation"
+       ]
+      },
+      "5": {
+       "accepted": [
+        "Nachbarn"
+       ],
+       "options": [
+        "Komposthaufen",
+        "Urlaub",
+        "Nachbarn",
+        "Miete",
+        "shoppen",
+        "Jeans",
+        "Garten",
+        "Zivilisation"
+       ]
+      },
+      "6": {
+       "accepted": [
+        "Miete"
+       ],
+       "options": [
+        "Komposthaufen",
+        "Urlaub",
+        "Nachbarn",
+        "Miete",
+        "shoppen",
+        "Jeans",
+        "Garten",
+        "Zivilisation"
+       ]
+      },
+      "7": {
+       "accepted": [
+        "shoppen"
+       ],
+       "options": [
+        "Komposthaufen",
+        "Urlaub",
+        "Nachbarn",
+        "Miete",
+        "shoppen",
+        "Jeans",
+        "Garten",
+        "Zivilisation"
+       ]
+      },
+      "8": {
+       "accepted": [
+        "Jeans"
+       ],
+       "options": [
+        "Komposthaufen",
+        "Urlaub",
+        "Nachbarn",
+        "Miete",
+        "shoppen",
+        "Jeans",
+        "Garten",
+        "Zivilisation"
+       ]
+      }
+     },
+     "points": 8,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "Lösung (VIZU, nach dem Kontext): 1. Zivilisation, 2. Garten, 3. Komposthaufen, 4. Urlaub, 5. Nachbarn, 6. Miete, 7. shoppen, 8. Jeans"
+    }
+   ],
+   "max_score": 16
+  },
+  {
+   "content_id": "vizu-b1-l04-schreiben-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 4,
+   "skill": "schreiben",
+   "title": "Schreiben Aufgabe 1: E-Mail — Antwort an Haytam",
+   "source": "book",
+   "metadata": {
+    "book_page": 74,
+    "note": "Die E-Mail von Haytam ist im Buch mit Fehlern gedruckt — so übernommen. Keine Musterlösung im Buch."
+   },
+   "task_type": "email",
+   "prompt": "Sie haben diese E-Mail von Ihrem Freund Haytam bekommen. Schreiben Sie ihm eine E-Mail (ca. 80–100 Wörter) und antworten Sie auf seine Nachricht.\n\nVon: Haytam · An: Mein Freund / Meine Freundin · Betreff: Party\n\nLieber Haytam\nWie geht's es dir? Hoffentlich geht es dir jetzt besser. Mir geht es zurzeit super Schade, dass du nicht dabei warst eigentlich haben wir einen unvergesslichen Abend mit unserem freundkreis verbracht.\nZuerst haben wir Musik gehört dann haben wir viel getanzt, zum Schluss haben wir einen leckeren Kuchen gegessen, die meine Mutter für uns gebacken hat und wir Orangeat getränkt\nIch habe viele Geschenk bekommene aber Abdo hat mir eine Gitarre geschenkt, dieses hat mir besonders gefallen, weil ich für Musik sehr interessier wie Ware es, wenn wir uns zusammen morgen nach der schule bei mir zu haus treffen, so kann ich dir alle Geschenke zeigen.\nLas von dir schnell zu hören\nLiebe Grüße\n\nSchreiben Sie etwas zu den Punkten:\n1. Bedanken Sie sich für die Einladung und sagen Sie, dass Sie gern kommen.\n2. Schreiben Sie, ob Sie auch ein Geschenk für Abdo mitbringen möchten.\n3. Fragen Sie, ob es noch etwas Besonderes auf der Party gibt (Spiele, Fotos …).\n4. Schlagen Sie vor, wann und wo Sie sich treffen können.\n\nTipps: Schreiben Sie freundlich und persönlich. Antworten Sie auf alle vier Punkte. Achten Sie auf die richtige Rechtschreibung und Grammatik.",
+   "audience": "Ihr Freund Haytam (informell)",
+   "min_words": 80,
+   "max_words": 120,
+   "time_limit": 25
+  },
+  {
+   "content_id": "vizu-b1-l04-schreiben-02",
+   "level": "B1",
+   "module": 1,
+   "lesson": 4,
+   "skill": "schreiben",
+   "title": "Schreiben Teil 2: Forumsbeitrag — Vorteile und Nachteile des Internets",
+   "source": "book",
+   "metadata": {
+    "book_page": 75,
+    "musterloesung": "Vorteile und Nachteile des Internets\nDas Thema „Vorteile und Nachteile des Internets“ finde ich sehr interessant. Deshalb möchte ich meine Meinung dazu schreiben.\nMeiner Meinung nach hat das Internet sowohl Vorteile als auch Nachteile. Einerseits können wir schnell Informationen finden, online lernen und mit Familie oder Freunden in Kontakt bleiben. Außerdem erleichtert das Internet den Alltag, weil man viele Dinge bequem von zu Hause aus erledigen kann.\nAndererseits verbringen viele Menschen zu viel Zeit im Internet. Außerdem gibt es Risiken wie Betrug oder Datendiebstahl. Deshalb sollte man vorsichtig sein und persönliche Daten nicht überall eingeben.\nInsgesamt ist das Internet sehr nützlich, wenn man es verantwortungsvoll und bewusst nutzt."
+   },
+   "task_type": "opinion",
+   "prompt": "Sie möchten einen Beitrag für ein Online-Forum schreiben. Lesen Sie den Text und schreiben Sie einen Beitrag (ca. 80–100 Wörter).\n\nSchreiben Sie etwas zu den Punkten:\n1. Nennen Sie Ihre Meinung zum Thema „Vorteile und Nachteile des Internets“.\n2. Beschreiben Sie, wie Sie das Internet im Alltag nutzen.\n3. Geben Sie einen Rat, wie man das Internet sicher und sinnvoll benutzen kann.",
+   "audience": "Online-Forum",
+   "min_words": 80,
+   "max_words": 120,
+   "time_limit": 25,
+   "ai_instructions": "Musterbeitrag aus dem Buch (Referenz):\nVorteile und Nachteile des Internets\nDas Thema „Vorteile und Nachteile des Internets“ finde ich sehr interessant. Deshalb möchte ich meine Meinung dazu schreiben.\nMeiner Meinung nach hat das Internet sowohl Vorteile als auch Nachteile. Einerseits können wir schnell Informationen finden, online lernen und mit Familie oder Freunden in Kontakt bleiben. Außerdem erleichtert das Internet den Alltag, weil man viele Dinge bequem von zu Hause aus erledigen kann.\nAndererseits verbringen viele Menschen zu viel Zeit im Internet. Außerdem gibt es Risiken wie Betrug oder Datendiebstahl. Deshalb sollte man vorsichtig sein und persönliche Daten nicht überall eingeben.\nInsgesamt ist das Internet sehr nützlich, wenn man es verantwortungsvoll und bewusst nutzt."
+  },
+  {
+   "content_id": "vizu-b1-l04-sprechen-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 4,
+   "skill": "sprechen",
+   "title": "Sprechen Teil 1: Gespräch — Konzertbesuch planen",
+   "source": "book",
+   "metadata": {
+    "book_page": 76
+   },
+   "topic": "Konzertbesuch",
+   "prompt": "Sprechen Sie mit Ihrem Partner / Ihrer Partnerin über das Thema „Konzertbesuch“. Planen Sie gemeinsam einen Konzertbesuch. Benutzen Sie die vier Punkte.",
+   "questions": [
+    "Wann? — Wann möchtet ihr das Konzert besuchen?",
+    "Was für ein Konzert? — Welche Musik möchtet ihr hören? (Jazz oder Rock)",
+    "Wo Eintrittskarten kaufen? — Wo könnt ihr die Tickets kaufen?",
+    "Was anziehen? — Was zieht ihr zum Konzert an?"
+   ],
+   "response_type": "dialog",
+   "min_duration": 60,
+   "max_duration": 180,
+   "sample_answer": "Lisa: Hast du Lust, morgen Abend ein Konzert zu besuchen?\nMax: Ja, gern! Wann genau findet es statt?\nLisa: Morgen gibt es viele Konzerte. Die meisten beginnen um 20 Uhr. Wir könnten uns um 18 Uhr treffen und etwas essen.\nMax: Gute Idee! Welche Musik möchtest du hören?\nLisa: Ich interessiere mich für Jazz. Es gibt ein tolles Jazz-Konzert im Stadttheater.\nMax: Perfekt! Wo können wir die Eintrittskarten kaufen?\nLisa: Wir können die Tickets online kaufen, das ist billiger. Alternativ können wir sie auch an der Abendkasse holen.\nMax: Okay, dann kaufen wir sie online. Und was ziehen wir an?\nLisa: Ich denke, wir sollten schicke, aber bequeme Kleidung tragen.\nMax: Einverstanden! Dann sehen wir uns morgen um 18 Uhr.\nLisa: Super! Ich freue mich schon!",
+   "speech_goal": "Gemeinsam einen Konzertbesuch planen: Zeit, Musik, Tickets, Kleidung.",
+   "keywords": [
+    "Hast du Lust",
+    "Wir könnten",
+    "Gute Idee",
+    "Einverstanden",
+    "Ich freue mich"
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l04-sprechen-02",
+   "level": "B1",
+   "module": 1,
+   "lesson": 4,
+   "skill": "sprechen",
+   "title": "Sprechen Teil 2: Präsentation — Das Leben auf dem Land oder in der Stadt",
+   "source": "book",
+   "metadata": {
+    "book_page": 77
+   },
+   "topic": "Das Leben auf dem Land oder in der Stadt",
+   "prompt": "Halten Sie eine Präsentation zum Thema „Das Leben auf dem Land oder in der Stadt“.",
+   "questions": [
+    "Eigene Erfahrungen",
+    "Vorteile und Nachteile",
+    "Eigene Meinung"
+   ],
+   "response_type": "monolog",
+   "preparation_time": 300,
+   "min_duration": 90,
+   "max_duration": 180,
+   "sample_answer": "Guten Tag zusammen. Heute möchte ich über das Thema „Das Leben auf dem Land oder in der Stadt“ sprechen.\nIch bin in einer Stadt aufgewachsen und lebe auch heute dort. Deshalb kenne ich das Stadtleben gut. Trotzdem besuche ich manchmal meine Verwandten auf dem Land. Dort ist es ruhig und die Natur gefällt mir sehr.\nDas Leben in der Stadt hat viele Vorteile. Es gibt gute Schulen, Universitäten, Krankenhäuser und viele Einkaufsmöglichkeiten. Außerdem fahren Busse und Bahnen regelmäßig. Allerdings gibt es auch Nachteile, zum Beispiel viel Verkehr, Lärm und hohe Lebenshaltungskosten.\nAuf dem Land ist die Luft sauber und das Leben ruhiger. Man hat mehr Platz und kann sich besser entspannen. Allerdings gibt es dort weniger öffentliche Verkehrsmittel und nicht so viele Freizeitmöglichkeiten.\nMeiner Meinung nach ist das Leben in der Stadt praktischer. Trotzdem wäre es schön, ein kleines Haus auf dem Land zu haben, um sich am Wochenende zu erholen.\nVielen Dank für Ihre Aufmerksamkeit. Haben Sie Fragen?",
+   "speech_goal": "Präsentation: eigene Erfahrungen, Vor- und Nachteile von Stadt und Land, eigene Meinung.",
+   "keywords": [
+    "Heute möchte ich über",
+    "Vorteile",
+    "Allerdings",
+    "Meiner Meinung nach",
+    "Vielen Dank für Ihre Aufmerksamkeit"
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l04-wortschatz-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 4,
+   "skill": "wortschatz",
+   "title": "Wortschatz: Stadtleben",
+   "source": "book",
+   "metadata": {
+    "book_page": 78,
+    "note": "Buch: Redewendung, Bedeutung (auf Deutsch) und Übersetzung (usbekisch) — die Bedeutung steht beim Beispiel."
+   },
+   "words": [
+    {
+     "word": "mitten im Geschehen sein",
+     "translation": "voqealarning markazida bo'lmoq",
+     "example": "Bedeutung: im Zentrum von wichtigen Ereignissen oder Aktivitäten sein",
+     "group": "Stadtleben"
+    },
+    {
+     "word": "im Stau stehen",
+     "translation": "tirbandlikda qolmoq",
+     "example": "Bedeutung: mit dem Auto nicht vorankommen, weil viel Verkehr ist",
+     "group": "Stadtleben"
+    },
+    {
+     "word": "keine Zeit haben",
+     "translation": "vaqt topa olmaslik",
+     "example": "Bedeutung: sehr beschäftigt sein",
+     "group": "Stadtleben"
+    },
+    {
+     "word": "Kontakte knüpfen",
+     "translation": "aloqalar o'rnatmoq",
+     "example": "Bedeutung: neue Leute kennenlernen und Verbindungen aufbauen",
+     "group": "Stadtleben"
+    },
+    {
+     "word": "einkaufen gehen",
+     "translation": "xarid qilishga chiqmoq",
+     "example": "Bedeutung: in Geschäfte gehen, um Dinge zu kaufen",
+     "group": "Stadtleben"
+    },
+    {
+     "word": "öffentliche Verkehrsmittel nutzen",
+     "translation": "jamoat transportidan foydalanmoq",
+     "example": "Bedeutung: Bus, Bahn usw. benutzen",
+     "group": "Stadtleben"
+    },
+    {
+     "word": "Kulturangebote nutzen",
+     "translation": "madaniy tadbirlardan foydalanmoq",
+     "example": "Bedeutung: z. B. Theater, Kino, Museum besuchen",
+     "group": "Stadtleben"
+    },
+    {
+     "word": "zur Miete wohnen",
+     "translation": "ijarada yashamoq",
+     "example": "Bedeutung: in einer Wohnung leben, die man nicht gekauft hat",
+     "group": "Stadtleben"
+    },
+    {
+     "word": "Hochhäuser prägen das Stadtbild",
+     "translation": "baland binolar shaharga xos ko'rinish beradi",
+     "example": "Bedeutung: viele hohe Gebäude bestimmen das Aussehen einer Stadt",
+     "group": "Stadtleben"
+    },
+    {
+     "word": "in der Menge untergehen",
+     "translation": "odamlar orasida yo'qolib ketmoq",
+     "example": "Bedeutung: in einer großen Menschenmenge nicht auffallen",
+     "group": "Stadtleben"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "Zuordnung",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Stadtleben 1)",
+       "items": [
+        "mitten im Geschehen sein",
+        "im Stau stehen",
+        "keine Zeit haben",
+        "Kontakte knüpfen",
+        "einkaufen gehen",
+        "öffentliche Verkehrsmittel nutzen"
+       ],
+       "targets": [
+        "voqealarning markazida bo'lmoq",
+        "tirbandlikda qolmoq",
+        "vaqt topa olmaslik",
+        "aloqalar o'rnatmoq",
+        "xarid qilishga chiqmoq",
+        "jamoat transportidan foydalanmoq",
+        "madaniy tadbirlardan foydalanmoq"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Stadtleben 2)",
+       "items": [
+        "Kulturangebote nutzen",
+        "zur Miete wohnen",
+        "Hochhäuser prägen das Stadtbild",
+        "in der Menge untergehen"
+       ],
+       "targets": [
+        "madaniy tadbirlardan foydalanmoq",
+        "ijarada yashamoq",
+        "baland binolar shaharga xos ko'rinish beradi",
+        "odamlar orasida yo'qolib ketmoq",
+        "voqealarning markazida bo'lmoq"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D"
+       },
+       "points": 4,
+       "passage": 1
+      }
+     ],
+     "instruction": "Ordnen Sie jedem Ausdruck die passende Erklärung aus dem Buch zu."
+    },
+    {
+     "title": "Welcher Ausdruck passt?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "„tirbandlikda qolmoq“ — welcher Ausdruck passt?",
+       "options": [
+        "in der Menge untergehen",
+        "im Stau stehen",
+        "Kontakte knüpfen"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„vaqt topa olmaslik“ — welcher Ausdruck passt?",
+       "options": [
+        "einkaufen gehen",
+        "keine Zeit haben",
+        "in der Menge untergehen"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„aloqalar o'rnatmoq“ — welcher Ausdruck passt?",
+       "options": [
+        "Kontakte knüpfen",
+        "in der Menge untergehen",
+        "Kulturangebote nutzen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„xarid qilishga chiqmoq“ — welcher Ausdruck passt?",
+       "options": [
+        "Kulturangebote nutzen",
+        "einkaufen gehen",
+        "Hochhäuser prägen das Stadtbild"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„jamoat transportidan foydalanmoq“ — welcher Ausdruck passt?",
+       "options": [
+        "öffentliche Verkehrsmittel nutzen",
+        "keine Zeit haben",
+        "im Stau stehen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„madaniy tadbirlardan foydalanmoq“ — welcher Ausdruck passt?",
+       "options": [
+        "zur Miete wohnen",
+        "Hochhäuser prägen das Stadtbild",
+        "Kulturangebote nutzen"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„ijarada yashamoq“ — welcher Ausdruck passt?",
+       "options": [
+        "zur Miete wohnen",
+        "Hochhäuser prägen das Stadtbild",
+        "in der Menge untergehen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„baland binolar shaharga xos ko'rinish beradi“ — welcher Ausdruck passt?",
+       "options": [
+        "zur Miete wohnen",
+        "Kontakte knüpfen",
+        "Hochhäuser prägen das Stadtbild"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "Welcher Ausdruck passt zur Erklärung? (Erklärungen aus dem Buch)"
+    }
+   ],
+   "auto_practice": false
+  },
+  {
+   "content_id": "vizu-b1-l04-schreiben-03",
+   "level": "B1",
+   "module": 1,
+   "lesson": 4,
+   "skill": "schreiben",
+   "title": "Wortschatz-Aufgabe: Stadtleben — eigene Sätze",
+   "source": "book",
+   "metadata": {
+    "book_page": 78,
+    "note": "Ish varag'i (Beispielsatz — Ihr eigener Satz) — o'qituvchi tekshiradi."
+   },
+   "task_type": "other",
+   "prompt": "Hier sind 10 wichtige Redewendungen zum Thema „Stadtleben“. Lesen Sie die Redewendungen, ihre Bedeutungen und schreiben Sie eigene Sätze.\n\n1. mitten im Geschehen sein — im Zentrum von wichtigen Ereignissen oder Aktivitäten sein\n2. im Stau stehen — mit dem Auto nicht vorankommen, weil viel Verkehr ist\n3. keine Zeit haben — sehr beschäftigt sein\n4. Kontakte knüpfen — neue Leute kennenlernen und Verbindungen aufbauen\n5. einkaufen gehen — in Geschäfte gehen, um Dinge zu kaufen\n6. öffentliche Verkehrsmittel nutzen — Bus, Bahn usw. benutzen\n7. Kulturangebote nutzen — z. B. Theater, Kino, Museum besuchen\n8. zur Miete wohnen — in einer Wohnung leben, die man nicht gekauft hat\n9. Hochhäuser prägen das Stadtbild — viele hohe Gebäude bestimmen das Aussehen einer Stadt\n10. in der Menge untergehen — in einer großen Menschenmenge nicht auffallen",
+   "min_words": 40,
+   "max_words": 300,
+   "time_limit": 20
+  },
+  {
+   "content_id": "vizu-b1-l04-uebungen-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 4,
+   "skill": "uebungen",
+   "title": "Übungen: B1 4. Unterricht",
+   "source": "vizu",
+   "exercises": [
+    {
+     "title": "Welche Passivform ist richtig? (Beispiele aus dem Buch)",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Die Texte ___ jeden Tag korrigiert.",
+       "options": [
+        "werden",
+        "wurden",
+        "sind"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "Präsens: werden + Partizip II."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Die Wohnung ___ gestern gereinigt.",
+       "options": [
+        "wurde",
+        "wird",
+        "ist"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "Präteritum: wurde + Partizip II."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Die Aufgaben sind schon erledigt ___.",
+       "options": [
+        "worden",
+        "geworden",
+        "werden"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "Perfekt: sind + Partizip II + worden."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Die Bücher ___ bereits gelesen worden.",
+       "options": [
+        "waren",
+        "wurden",
+        "sind"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "Plusquamperfekt: waren … worden."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Das Projekt wird nächste Woche beendet ___.",
+       "options": [
+        "werden",
+        "worden",
+        "wurde"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "Futur I: wird … werden."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Bis 2030 wird die Brücke gebaut ___.",
+       "options": [
+        "worden sein",
+        "werden",
+        "geworden"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "Futur II: wird … worden sein."
+      }
+     ],
+     "instruction": "Wählen Sie die richtige Form (Tabelle im Buch, S. 63)."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l04-yakuniy-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 4,
+   "skill": "yakuniy",
+   "title": "Abschlusstest: B1 4. Unterricht",
+   "source": "vizu",
+   "instruction": "Abschlusstest zu Passiv-Strukturen und Stadtleben (alle Sätze aus dem Buch).",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Wie bildet man das Passiv Präteritum?",
+     "options": [
+      "wurde + Partizip II",
+      "werden + Partizip II",
+      "ist + Partizip II + worden"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Buch S. 63."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wie bildet man das Passiv Futur II?",
+     "options": [
+      "wird + Partizip II + worden sein",
+      "wird + Partizip II + werden",
+      "war + Partizip II + worden"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Buch S. 63."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Neue Autos ___ von der Firma produziert.",
+     "options": [
+      "werden",
+      "wird",
+      "wurden"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1,
+     "explanation": "Präsens Plural."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Das Museum ist von uns besucht ___.",
+     "options": [
+      "worden",
+      "geworden",
+      "werden"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Mein Fahrrad wird am Montag repariert ___.",
+     "options": [
+      "werden",
+      "worden",
+      "sein"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Ich habe dort einige schöne Fotos ___.",
+     "options": [
+      "gemacht",
+      "machte",
+      "machen"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1,
+     "explanation": "Lesen Aufgabe 1: Partizip Perfekt."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Das ___ eine Überraschung!",
+     "options": [
+      "war",
+      "ist gewesen",
+      "wurde"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1,
+     "explanation": "Lesen Aufgabe 1: Präteritum von sein."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Welche Stadt hat laut Text den höchsten Anteil an Grünflächen?",
+     "options": [
+      "Hamburg",
+      "Berlin",
+      "Dortmund"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Lesen Aufgabe 2."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„im Stau stehen“ bedeutet …",
+     "options": [
+      "mit dem Auto nicht vorankommen, weil viel Verkehr ist",
+      "sehr beschäftigt sein",
+      "in einer Wohnung leben, die man nicht gekauft hat"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Wortschatz Stadtleben."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„zur Miete wohnen“ — o'zbekchasi?",
+     "options": [
+      "ijarada yashamoq",
+      "aloqalar o'rnatmoq",
+      "xarid qilishga chiqmoq"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Wortschatz Stadtleben."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l04-kompetenz-02",
+   "level": "B1",
+   "module": 1,
+   "lesson": 4,
+   "skill": "kompetenz",
+   "title": "Zusammenfassung: B1 4. Unterricht",
+   "source": "vizu",
+   "competency": "ZUSAMMENFASSUNG",
+   "html": "<h3>B1 4. Unterricht — qisqacha</h3><ul><li><strong>Präsens:</strong> werden + Partizip II — Die Texte werden jeden Tag korrigiert.</li><li><strong>Präteritum:</strong> wurde + Partizip II — Die Wohnung wurde gestern gereinigt.</li><li><strong>Perfekt:</strong> ist + Partizip II + worden — Die Aufgaben sind schon erledigt worden.</li><li><strong>Plusquamperfekt:</strong> war + Partizip II + worden — Die Bücher waren bereits gelesen worden.</li><li><strong>Futur I:</strong> wird + Partizip II + werden — Das Projekt wird nächste Woche beendet werden.</li><li><strong>Futur II:</strong> wird + Partizip II + worden sein — Bis 2030 wird die Brücke gebaut worden sein.</li><li><strong>Stadtleben:</strong> im Stau stehen, Kontakte knüpfen, öffentliche Verkehrsmittel nutzen, zur Miete wohnen, in der Menge untergehen.</li></ul><p>Natijalaringiz pastda — tugallanmagan bo'limlarni yakunlang, so'ng keyingi darsga o'ting.</p>"
+  }
+ ]
+}

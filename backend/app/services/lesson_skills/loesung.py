@@ -12,7 +12,8 @@ One source of truth, reused everywhere:
 New is only the manual verification (answer_key_reviews): a key counts as
 verified while the question + key still hash to the fingerprint stored at
 verification time — editing the key afterwards needs a new verification.
-Saving never publishes; nothing here creates or deletes questions or options."""
+Saving never publishes; questions are never created or deleted here (options
+of a Multiple-Choice question can be added / removed)."""
 
 from __future__ import annotations
 
@@ -83,13 +84,37 @@ def key_valid(q) -> tuple[bool, str | None]:
     return True, None
 
 
+def answer_fields(q) -> tuple[int, int]:
+    """(answer fields, fields with a key): a Lückentext has one field per gap,
+    a Zuordnung one per item, every other question one."""
+    from app.services.lesson_skills.question_types import GAP_PATTERN
+
+    config = q.config or {}
+    if q.question_type == "GAP_FILL":
+        ids = GAP_PATTERN.findall(config.get("text") or "")
+        gaps = config.get("gaps") or {}
+
+        def filled(g) -> bool:
+            acc = g.get("accepted") if isinstance(g, dict) else g
+            return bool(acc) and any(str(a).strip() for a in (acc if isinstance(acc, list) else [acc]))
+
+        return len(ids), sum(filled(gaps.get(i)) for i in ids)
+    if q.question_type == "MATCHING":
+        items = config.get("items") or []
+        pairs = config.get("pairs") or {}
+        return len(items), sum(1 for it in items if pairs.get(str(it.get("id"))))
+    return 1, int(has_key(q))
+
+
 def question_state(q, review: AnswerKeyReview | None) -> dict:
     valid, problem = key_valid(q)
     verified = bool(valid and review and review.status == REVIEW_VERIFIED and review.key_fingerprint == fingerprint(q))
     flagged = bool(review and review.status == REVIEW_NEEDS_REVIEW)
     stale = bool(review and review.status == REVIEW_VERIFIED and not verified)
+    fields, keyed = answer_fields(q)
     return {"has_key": valid, "key_problem": problem, "verified": verified, "needs_review": flagged, "verification_outdated": stale,
-            "note": review.note if review else None, "reviewed_at": review.reviewed_at if review else None}
+            "note": review.note if review else None, "reviewed_at": review.reviewed_at if review else None,
+            "answer_fields": fields, "answer_fields_keyed": keyed}
 
 
 # ============================================================
@@ -112,7 +137,8 @@ def import_notes() -> dict[str, dict]:
                 continue
             meta = item.get("metadata") or {}
             out[item["content_id"]] = {"note": meta.get("note"), "book_page": meta.get("book_page"), "source": item.get("source"),
-                                       "key_pending": bool(item.get("key_pending")), "file": path.parent.name + "/" + path.name}
+                                       "key_pending": bool(item.get("key_pending")), "key_source": meta.get("key_source"),
+                                       "file": path.parent.name + "/" + path.name}
     return out
 
 
@@ -218,6 +244,7 @@ def _summary(kind: str, task, lesson: dict, reviews: dict) -> dict:
     return {
         "kind": kind, "id": task.id, "title": task.title, "order_index": task.order_index, **lesson,
         "questions": n, "with_key": with_key, "verified": verified, "flagged": flagged,
+        "answer_fields": sum(s["answer_fields"] for s in states), "answer_fields_keyed": sum(s["answer_fields_keyed"] for s in states),
         "key_status": key_status, "audio": audio, "is_published": bool(task.is_published),
         "ready_to_publish": bool(not task.is_published and report["ready"]),
         "problems": len(report["problems"]),
@@ -345,11 +372,13 @@ def detail(db: Session, kind: str, task_id: UUID) -> dict:
 
 
 def save_question(db: Session, kind: str, task_id: UUID, question_id: UUID, payload: dict, actor: User, ip: str | None = None) -> dict:
-    """payload: {options: [{id, text, is_correct}], config, explanation,
-    review: "verified" | "needs_review" | "unverified" | null, note}.
-    Question text, type, points and the set of options stay as they are (no
-    option is added or removed). The key is validated with the editor rules;
-    nothing is published. One transaction."""
+    """payload: {question, options: [{id | null, text, is_correct}], config,
+    explanation, review: "verified" | "needs_review" | "unverified" | null, note}.
+    Multiple Choice: options without id are added, existing options missing
+    from the list are removed (student attempts keep their stored answers and
+    scores — no row references an option). Lückentext: the text (gaps) and
+    every gap's accepted answers come with the config. Type and points stay.
+    Validated with the editor rules; nothing is published. One transaction."""
     task = _task(db, kind, task_id)
     q = next((x for x in task.questions if x.id == question_id), None)
     if q is None:
@@ -359,30 +388,44 @@ def save_question(db: Session, kind: str, task_id: UUID, question_id: UUID, payl
     review_req = payload.get("review")
     if review_req not in (None, REVIEW_VERIFIED, REVIEW_NEEDS_REVIEW, REVIEW_UNVERIFIED):
         raise HTTPException(status_code=422, detail="review: verified, needs_review or unverified")
-    key_change = "options" in payload or "config" in payload
-    if key_change:
-        options = payload.get("options")
+    if "options" in payload or "config" in payload or "question" in payload:
+        options = before["options"] if "options" not in payload else payload.get("options")
         if q.question_type in CONFIG_TYPES:
             options = []
-        else:
-            existing = {str(o.id) for o in q.options}
-            given = [str((o or {}).get("id")) for o in (options or [])]
-            if sorted(given) != sorted(existing):
-                raise HTTPException(status_code=422, detail="Die Antwortoptionen müssen dieselben bleiben (keine Option hinzufügen oder entfernen).")
-        item = {"id": str(q.id), "question": q.question, "question_type": q.question_type, "points": q.points,
-                "explanation": payload.get("explanation", q.explanation), "options": options or [],
+        existing = {str(o.id): o for o in q.options}
+        unknown = [o for o in (options or []) if (o or {}).get("id") and str(o["id"]) not in existing]
+        if unknown:
+            raise HTTPException(status_code=422, detail="Unbekannte Antwortoption.")
+        item = {"id": str(q.id), "question": payload.get("question", q.question), "question_type": q.question_type, "points": q.points,
+                "explanation": payload.get("explanation", q.explanation),
+                "options": [{"id": str(o["id"]) if o.get("id") else None, "text": o.get("text"), "is_correct": o.get("is_correct")} for o in (options or [])],
                 "config": payload.get("config", q.config) if q.question_type in CONFIG_TYPES else None}
         clean = validate_questions([item])[0]  # 422 with the reason — e.g. "exactly one option must be correct"
-        by_id = {str(o.id): o for o in q.options}
-        for o in clean["options"]:
-            row = by_id[str(o["id"])]
-            row.option_text = o["text"]
-            row.is_correct = o["is_correct"]
+        q.question = clean["question"]
+        keep = set()
+        option_model = type(q.options[0]) if q.options else None
+        for order, o in enumerate(clean["options"], start=1):
+            row = existing.get(str(o["id"])) if o["id"] else None
+            if row is None:
+                if option_model is None:
+                    from app.models.lesson_skill import ListeningOption
+                    from app.models.reading_option import ReadingOption
+
+                    option_model = ReadingOption if kind == "lesen" else ListeningOption
+                row = option_model(question_id=q.id, option_text=o["text"], is_correct=o["is_correct"], order_index=order)
+                db.add(row)
+                db.flush()
+            row.option_text, row.is_correct, row.order_index = o["text"], o["is_correct"], order
+            keep.add(str(row.id))
+        for oid, row in existing.items():
+            if oid not in keep:
+                db.delete(row)
         q.config = clean["config"]
         q.explanation = clean["explanation"]
     elif "explanation" in payload:
         q.explanation = (str(payload.get("explanation") or "").strip() or None)
     db.flush()
+    db.expire(q, ["options"])
     db.refresh(q)
 
     review = _reviews(db, kind, [q.id]).get(q.id)
@@ -411,7 +454,7 @@ def save_question(db: Session, kind: str, task_id: UUID, question_id: UUID, payl
 
 
 def _key_only(q: dict) -> dict:
-    return {"options": [[o["text"], o["is_correct"]] for o in q["options"]], "config": q["config"]}
+    return {"question": q["question"], "options": [[o["text"], o["is_correct"]] for o in q["options"]], "config": q["config"]}
 
 
 # ============================================================
@@ -439,4 +482,16 @@ def publish(db: Session, kind: str, task_id: UUID, actor: User, ip: str | None =
         ListeningService(db).update(str(task.id), ListeningUpdate(is_published=True))  # its own audio + key checks apply
     write_audit(db, str(actor.id), "answer_key_task_published", details=json.dumps({"kind": kind, "task": str(task.id), "title": task.title}),
                 ip_address=ip)
+    return detail(db, kind, task_id)
+
+
+def unpublish(db: Session, kind: str, task_id: UUID, actor: User, ip: str | None = None) -> dict:
+    """Back to draft: students stop seeing the Aufgabe; attempts, scores,
+    questions and keys stay untouched."""
+    task = _task(db, kind, task_id)
+    if task.is_published:
+        task.is_published = False
+        db.commit()
+        write_audit(db, str(actor.id), "answer_key_task_unpublished", details=json.dumps({"kind": kind, "task": str(task.id), "title": task.title}),
+                    ip_address=ip)
     return detail(db, kind, task_id)

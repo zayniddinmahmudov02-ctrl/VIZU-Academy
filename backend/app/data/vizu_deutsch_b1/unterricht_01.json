@@ -1,0 +1,1332 @@
+{
+ "schema_version": "1.2",
+ "language": "de",
+ "source": "vizu-deutsch-b1-book",
+ "items": [
+  {
+   "content_id": "vizu-b1-l01-kompetenz-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 1,
+   "skill": "kompetenz",
+   "title": "Einführung: B1 1. Unterricht",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 3
+   },
+   "competency": "EINFUEHRUNG",
+   "html": "<h3>B1 1. Unterricht — Meine Freizeitaktivitäten</h3><p><strong>Mavzu:</strong> Meine Freizeitaktivitäten · <strong>Grammatik:</strong> Kausale Angaben (weil, da, denn, deshalb, deswegen, aufgrund + Genitiv)</p><h4>Dars maqsadlari</h4><ul><li>sababni turli bog'lovchilar bilan aytish: weil / da (ergash gap), denn, deshalb / deswegen, aufgrund + Genitiv;</li><li>bo'sh vaqt mashg'ulotlari haqida gapirish va yozish;</li><li>muhim iboralar: sich interessieren für, Angst haben vor, sich kümmern um …</li></ul><h4>Dars oxirida siz quyidagilarni bajara olasiz</h4><ul><li>bo'sh vaqtingizni qanday o'tkazishingizni sababi bilan aytasiz;</li><li>Germaniyadagi kundalik hayotdan qoniqish haqidagi matnni tushunasiz;</li><li>futbolchi bilan intervyu va do'stlar dialogini tinglab tushunasiz;</li><li>do'stingizga e-mail va forumga o'z fikringizni yozasiz;</li><li>sherigingiz bilan taqdimot rejalashtirasiz va mavzu bo'yicha taqdimot qilasiz.</li></ul><h4>Darsning tuzilishi</h4><p>Einführung → Wortschatz → Grammatik → Lesen → Hören → Sprechen → Schreiben → Übungen → Abschlusstest → Zusammenfassung</p>"
+  },
+  {
+   "content_id": "vizu-b1-l01-frage-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 1,
+   "skill": "frage",
+   "title": "Frage des Themas: Meine Freizeitaktivitäten",
+   "source": "book",
+   "metadata": {
+    "book_page": 4
+   },
+   "prompt": "Das Thema: Meine Freizeitaktivitäten. Denke nach, diskutiere und teile deine Meinung!",
+   "questions": [
+    "Welche Freizeitaktivitäten machst du am liebsten?",
+    "Wie verbringst du deine Freizeit meistens?",
+    "Warum ist Freizeit für dich wichtig?"
+   ],
+   "min_duration": 20,
+   "max_duration": 120
+  },
+  {
+   "content_id": "vizu-b1-l01-grammatik-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 1,
+   "skill": "grammatik",
+   "title": "Grammatik: Kausale Angaben",
+   "source": "book",
+   "metadata": {
+    "book_page": "5-7",
+    "note": "S. 6 druckt „Denn leitet einen Nebensatz ein“ — so übernommen; die Beispiele zeigen denn + Hauptsatz."
+   },
+   "rules": [
+    {
+     "title": "Kausale Angaben: weil / da",
+     "html": "<h3>Grammatik: Kausale Angaben — weil / da</h3><table><thead><tr><th>WEIL</th><th>DA</th></tr></thead><tbody><tr><td>Weil leitet einen Nebensatz ein. Der Grund kommt NACH dem Hauptsatz.</td><td>Da leitet einen Nebensatz ein. Der Grund kommt VOR dem Hauptsatz.</td></tr><tr><td><strong>Hauptsatz + weil + Nebensatz</strong></td><td><strong>Da + Nebensatz + Hauptsatz</strong></td></tr><tr><td>01 Ich gehe ins Fitnessstudio, weil ich gesund bleiben möchte.<br>02 Ich lerne Deutsch, weil ich später in Deutschland studieren möchte.<br>03 Ich bin mit dem Fahrrad zur Arbeit gefahren, weil das Wetter schön war.</td><td>01 Da ich morgen früh aufstehe, gehe ich heute früher schlafen.<br>02 Da es regnet, bleiben wir heute zu Hause.<br>03 Da ich viel zu tun habe, kann ich heute nicht mitkommen.</td></tr></tbody></table>"
+    },
+    {
+     "title": "Kausale Angaben: denn / deshalb",
+     "html": "<h3>Grammatik: Kausale Angaben — denn / deshalb</h3><table><thead><tr><th>DENN</th><th>DESHALB</th></tr></thead><tbody><tr><td>Denn leitet einen Nebensatz ein. Der Grund kommt NACH dem Hauptsatz.</td><td>Deshalb leitet einen Hauptsatz ein. Die Folge (Ergebnis) kommt NACH dem Grund.</td></tr><tr><td><strong>Struktur:</strong> Hauptsatz + denn + Nebensatz</td><td><strong>Struktur:</strong> Deshalb + Hauptsatz + Begründung</td></tr><tr><td>01 Ich gehe heute früher schlafen, denn ich bin sehr müde.<br>02 Wir nehmen den Zug, denn es gibt heute Streik.<br>03 Er lernt jeden Tag Deutsch, denn er möchte in Deutschland studieren.</td><td>01 Ich habe viel gearbeitet, deshalb habe ich gute Noten.<br>02 Es hat stark geregnet, deshalb ist das Spiel ausgefallen.<br>03 Ich habe mein Handy zu Hause vergessen, deshalb bin ich ohne Handy zur Schule gegangen.</td></tr></tbody></table><p><em>Hinweis:</em> Nach <strong>denn</strong> steht das Verb auf Position 2 (wie im Hauptsatz): … denn ich <strong>bin</strong> sehr müde. Nach <strong>deshalb</strong> folgt direkt das Verb: deshalb <strong>habe</strong> ich gute Noten.</p>"
+    },
+    {
+     "title": "Kausale Angaben: deswegen / aufgrund + Genitiv",
+     "html": "<h3>Grammatik: Kausale Angaben — deswegen / aufgrund + Genitiv</h3><table><thead><tr><th>DESWEGEN</th><th>AUFGRUND + GENITIV</th></tr></thead><tbody><tr><td>Deswegen leitet einen Hauptsatz ein. Die Folge (Ergebnis) kommt daraus.</td><td>Aufgrund + Genitiv leitet einen Nebensatz ein. Der Grund steht im Vordergrund.</td></tr><tr><td><strong>Struktur:</strong> Deswegen + Hauptsatz</td><td><strong>Struktur:</strong> Aufgrund + Genitiv + Nebensatz</td></tr><tr><td>01 Es hat geregnet, deswegen bleibt das Spiel aus.<br>02 Ich habe viel zu tun, deswegen kann ich heute nicht mitkommen.<br>03 Die Straßen sind voll, deswegen komme ich später nach Hause.</td><td>01 Aufgrund des schlechten Wetters bleiben wir zu Hause.<br>02 Aufgrund der hohen Preise kaufen viele Menschen weniger ein.<br>03 Aufgrund meines vollen Terminkalenders habe ich wenig Zeit für Hobbys.</td></tr></tbody></table>"
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l01-schreiben-03",
+   "level": "B1",
+   "module": 1,
+   "lesson": 1,
+   "skill": "schreiben",
+   "title": "Grammatik Aufgabe 1: denn / deshalb",
+   "source": "book",
+   "metadata": {
+    "book_page": 8,
+    "note": "Kitobdagi ochiq topshiriq (gapni mazmunan to'ldirish) — o'qituvchi tekshiradi."
+   },
+   "task_type": "other",
+   "prompt": "Vervollständige die Sätze sinnvoll (denn / deshalb).\n\n1. Ich lerne jeden Tag Deutsch, denn …\n2. Es regnet heute stark, deshalb …\n3. Meine Freundin ist krank, denn …\n4. Ich habe morgen eine wichtige Prüfung, deshalb …\n5. Wir fahren mit dem Bus, denn …\n6. Mein Handy funktioniert nicht mehr, deshalb …\n7. Ich gehe heute früh schlafen, denn …\n8. Die Straßen sind sehr voll, deshalb …\n9. Sara macht regelmäßig Sport, denn …\n10. Ich habe viel gearbeitet, deshalb …",
+   "min_words": 40,
+   "max_words": 250,
+   "time_limit": 15
+  },
+  {
+   "content_id": "vizu-b1-l01-schreiben-04",
+   "level": "B1",
+   "module": 1,
+   "lesson": 1,
+   "skill": "schreiben",
+   "title": "Grammatik Aufgabe 2: weil / da",
+   "source": "book",
+   "metadata": {
+    "book_page": 9,
+    "note": "Kitobdagi ochiq topshiriq (gapni mazmunan to'ldirish) — o'qituvchi tekshiradi."
+   },
+   "task_type": "other",
+   "prompt": "Vervollständige die Sätze sinnvoll (weil / da).\n\n1. Ich bin heute glücklich, weil …\n2. Da das Wetter schön ist, …\n3. Wir können heute nicht schwimmen gehen, weil …\n4. Da ich morgen früh aufstehen muss, …\n5. Viele Menschen lernen Englisch, weil …\n6. Ich bleibe heute zu Hause, weil …\n7. Da meine Eltern Besuch bekommen, …\n8. Er kauft ein neues Fahrrad, weil …\n9. Da ich keine Zeit habe, …\n10. Wir trinken heute viel Wasser, weil …",
+   "min_words": 40,
+   "max_words": 250,
+   "time_limit": 15
+  },
+  {
+   "content_id": "vizu-b1-l01-schreiben-05",
+   "level": "B1",
+   "module": 1,
+   "lesson": 1,
+   "skill": "schreiben",
+   "title": "Grammatik Aufgabe 3: deswegen / aufgrund + Genitiv",
+   "source": "book",
+   "metadata": {
+    "book_page": 10,
+    "note": "Kitobdagi ochiq topshiriq (gapni mazmunan to'ldirish) — o'qituvchi tekshiradi."
+   },
+   "task_type": "other",
+   "prompt": "Vervollständige die Sätze sinnvoll (deswegen / aufgrund + Genitiv).\n\n1. Ich habe starke Kopfschmerzen, deswegen …\n2. Aufgrund des schlechten Wetters …\n3. Mein Zug hatte Verspätung, deswegen …\n4. Aufgrund der hohen Preise …\n5. Ich habe gestern wenig geschlafen, deswegen …\n6. Aufgrund eines technischen Problems …\n7. Die Prüfung war sehr schwer, deswegen …\n8. Aufgrund des starken Verkehrs …\n9. Mein Laptop ist kaputt, deswegen …\n10. Aufgrund meiner wichtigen Termine …",
+   "min_words": 40,
+   "max_words": 250,
+   "time_limit": 15
+  },
+  {
+   "content_id": "vizu-b1-l01-schreiben-06",
+   "level": "B1",
+   "module": 1,
+   "lesson": 1,
+   "skill": "schreiben",
+   "title": "Grammatik Aufgabe 4: Kausale Konnektoren gemischt",
+   "source": "book",
+   "metadata": {
+    "book_page": 11,
+    "note": "Kitobdagi ochiq topshiriq (gapni mazmunan to'ldirish) — o'qituvchi tekshiradi."
+   },
+   "task_type": "other",
+   "prompt": "Vervollständige die Sätze sinnvoll (kausale Konnektoren gemischt).\n\n1. Ich lerne intensiv Deutsch, weil …\n2. Es regnet heute stark, deshalb …\n3. Aufgrund des vielen Schnees …\n4. Da meine Freundin Geburtstag hat, …\n5. Wir bleiben heute zu Hause, denn …\n6. Ich habe morgen frei, deswegen …\n7. Aufgrund der Prüfung nächste Woche …\n8. Ich trinke viel Wasser, weil …\n9. Die Bahn hatte Verspätung, deshalb …\n10. Da ich am Wochenende Zeit habe, …",
+   "min_words": 40,
+   "max_words": 250,
+   "time_limit": 15
+  },
+  {
+   "content_id": "vizu-b1-l01-lesen-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 1,
+   "skill": "lesen",
+   "title": "Lesen Aufgabe 1: Alltagszufriedenheit in Deutschland",
+   "source": "book",
+   "metadata": {
+    "book_page": 12,
+    "key_source": "vizu",
+    "publish_hold": "Lösung von VIZU aus dem Text abgeleitet (kein offizieller Schlüssel) — in Lösung prüfen und bestätigen",
+    "note": "Lösung von VIZU aus dem Text abgeleitet (Zitat in der Erklärung) — bitte prüfen."
+   },
+   "instruction": "a) Lesen Sie den Text und machen Sie Aufgabe b. b) Was steht im Text? Sind die Aussagen richtig oder falsch? Kreuzen Sie an.",
+   "passages": [
+    {
+     "title": "Alltagszufriedenheit in Deutschland",
+     "text": "Eine Umfrage zur Alltagszufriedenheit in Deutschland ergab, dass 76 Prozent der Deutschen mit ihrem Alltag zufrieden sind. Besonders wichtig fanden die Befragten, dass der Alltag abwechslungsreich ist. Außerdem spielt das Gefühl, sein Leben selbst bestimmen zu können, eine wichtige Rolle. Einen großen Einfluss auf die Zufriedenheit haben auch eine sinnvolle Tätigkeit und die Anerkennung von anderen Menschen. Überraschenderweise liegen materielle Aspekte wie die finanzielle Situation der Umfrageteilnehmer nicht auf den vorderen Plätzen, sie kamen nur auf Platz neun.\n\nZu den Dingen, die die Deutschen im Alltag nerven, gehören ungeliebte Tätigkeiten im Haushalt, Verspätungen bei öffentlichen Verkehrsmitteln und Staus."
+    }
+   ],
+   "questions": [
+    {
+     "type": "true_false",
+     "question": "Etwa drei Viertel der Deutschen sind mit ihrem Alltag zufrieden.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„… dass 76 Prozent der Deutschen mit ihrem Alltag zufrieden sind.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Abwechslung und Selbstbestimmung spielen bei der Zufriedenheit der Menschen eine große Rolle.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„Besonders wichtig fanden die Befragten, dass der Alltag abwechslungsreich ist. Außerdem spielt das Gefühl, sein Leben selbst bestimmen zu können, eine wichtige Rolle.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Nur wenn man viel Geld verdient, ist man glücklich.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„… materielle Aspekte wie die finanzielle Situation … liegen nicht auf den vorderen Plätzen, sie kamen nur auf Platz neun.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Hausarbeit ist für viele Befragte wichtig.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„Zu den Dingen, die die Deutschen im Alltag nerven, gehören ungeliebte Tätigkeiten im Haushalt …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Über Staus und Verspätungen ärgern sich viele.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„… nerven … Verspätungen bei öffentlichen Verkehrsmitteln und Staus.“"
+    }
+   ],
+   "max_score": 5
+  },
+  {
+   "content_id": "vizu-b1-l01-lesen-02",
+   "level": "B1",
+   "module": 1,
+   "lesson": 1,
+   "skill": "lesen",
+   "title": "Lesen Aufgabe 2: Kausale Konnektoren",
+   "source": "book",
+   "metadata": {
+    "book_page": 13,
+    "key_source": "book",
+    "note": "Lösung im Buch gedruckt (S. 13)."
+   },
+   "instruction": "Ergänzen Sie die Sätze mit: weil • da • denn • deshalb • deswegen • aus diesem Grund • aufgrund (+ Genitiv).",
+   "passages": [
+    {
+     "title": "Lesen Aufgabe 2 — Kausale Konnektoren",
+     "text": "weil • da • denn • deshalb • deswegen • aus diesem Grund • aufgrund (+ Genitiv)\n\nLesen Sie die Sätze und ergänzen Sie den passenden Konnektor."
+    }
+   ],
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "1. Ergänzen Sie den passenden Konnektor.",
+     "text": "Ich verbringe meine Freizeit oft draußen. [[1]] ich nach der Arbeit Entspannung brauche, gehe ich im Park spazieren.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "weil"
+       ],
+       "options": [
+        "weil",
+        "da",
+        "denn",
+        "deshalb",
+        "deswegen",
+        "aus diesem Grund",
+        "aufgrund"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "LÖSUNG (Buch): weil"
+    },
+    {
+     "type": "gap_fill",
+     "question": "2. Ergänzen Sie den passenden Konnektor.",
+     "text": "Meine Freunde spielen jedes Wochenende Fußball. Ich spiele auch mit, [[1]] Sport gesund ist und viel Spaß macht.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "denn"
+       ],
+       "options": [
+        "weil",
+        "da",
+        "denn",
+        "deshalb",
+        "deswegen",
+        "aus diesem Grund",
+        "aufgrund"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "LÖSUNG (Buch): denn"
+    },
+    {
+     "type": "gap_fill",
+     "question": "3. Ergänzen Sie den passenden Konnektor.",
+     "text": "Am Samstag hat es den ganzen Tag geregnet. [[1]] konnten wir nicht wandern.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "deshalb"
+       ],
+       "options": [
+        "weil",
+        "da",
+        "denn",
+        "deshalb",
+        "deswegen",
+        "aus diesem Grund",
+        "aufgrund"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "LÖSUNG (Buch): deshalb"
+    },
+    {
+     "type": "gap_fill",
+     "question": "4. Ergänzen Sie den passenden Konnektor.",
+     "text": "[[1]] des schlechten Wetters blieben wir zu Hause und spielten Brettspiele.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "aufgrund"
+       ],
+       "options": [
+        "weil",
+        "da",
+        "denn",
+        "deshalb",
+        "deswegen",
+        "aus diesem Grund",
+        "aufgrund"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "LÖSUNG (Buch): aufgrund"
+    },
+    {
+     "type": "gap_fill",
+     "question": "5. Ergänzen Sie den passenden Konnektor.",
+     "text": "Meine Schwester liest jeden Abend Romane, [[1]] sie spannende Geschichten liebt.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "da"
+       ],
+       "options": [
+        "weil",
+        "da",
+        "denn",
+        "deshalb",
+        "deswegen",
+        "aus diesem Grund",
+        "aufgrund"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "LÖSUNG (Buch): da"
+    },
+    {
+     "type": "gap_fill",
+     "question": "6. Ergänzen Sie den passenden Konnektor.",
+     "text": "Ich wollte gestern schwimmen gehen. Das Schwimmbad war jedoch geschlossen. [[1]] bin ich ins Fitnessstudio gegangen.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "deswegen"
+       ],
+       "options": [
+        "weil",
+        "da",
+        "denn",
+        "deshalb",
+        "deswegen",
+        "aus diesem Grund",
+        "aufgrund"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "LÖSUNG (Buch): deswegen"
+    },
+    {
+     "type": "gap_fill",
+     "question": "7. Ergänzen Sie den passenden Konnektor.",
+     "text": "Viele Menschen verbringen ihre Freizeit aktiv. [[1]] sie regelmäßig Sport treiben, fühlen sie sich gesünder und haben mehr Energie.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "aus diesem Grund"
+       ],
+       "options": [
+        "weil",
+        "da",
+        "denn",
+        "deshalb",
+        "deswegen",
+        "aus diesem Grund",
+        "aufgrund"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "LÖSUNG (Buch): aus diesem Grund"
+    },
+    {
+     "type": "gap_fill",
+     "question": "8. Ergänzen Sie den passenden Konnektor.",
+     "text": "Ich lerne jeden Tag Deutsch, [[1]] ich später in Deutschland studieren möchte.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "weil"
+       ],
+       "options": [
+        "weil",
+        "da",
+        "denn",
+        "deshalb",
+        "deswegen",
+        "aus diesem Grund",
+        "aufgrund"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "LÖSUNG (Buch): weil"
+    },
+    {
+     "type": "gap_fill",
+     "question": "9. Ergänzen Sie den passenden Konnektor.",
+     "text": "[[1]] meines vollen Terminkalenders finde ich am Wochenende trotzdem Zeit für meine Hobbys.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "aufgrund"
+       ],
+       "options": [
+        "weil",
+        "da",
+        "denn",
+        "deshalb",
+        "deswegen",
+        "aus diesem Grund",
+        "aufgrund"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "LÖSUNG (Buch): aufgrund"
+    },
+    {
+     "type": "gap_fill",
+     "question": "10. Ergänzen Sie den passenden Konnektor.",
+     "text": "Am Sonntag hatten wir schönes Wetter. [[1]] machten wir ein Picknick am See.",
+     "gaps": {
+      "1": {
+       "accepted": [
+        "deshalb"
+       ],
+       "options": [
+        "weil",
+        "da",
+        "denn",
+        "deshalb",
+        "deswegen",
+        "aus diesem Grund",
+        "aufgrund"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "LÖSUNG (Buch): deshalb"
+    }
+   ],
+   "max_score": 10
+  },
+  {
+   "content_id": "vizu-b1-l01-lesen-03",
+   "level": "B1",
+   "module": 1,
+   "lesson": 1,
+   "skill": "lesen",
+   "title": "Lesen Aufgabe 3: Am Wochenende",
+   "source": "book",
+   "metadata": {
+    "book_page": 14,
+    "key_source": "vizu",
+    "publish_hold": "Lösung von VIZU aus dem Text abgeleitet (kein offizieller Schlüssel) — in Lösung prüfen und bestätigen",
+    "note": "Lösung von VIZU aus dem Text abgeleitet (Zitat in der Erklärung) — bitte prüfen."
+   },
+   "instruction": "Lesen Sie den Text. Richtig oder Falsch?",
+   "passages": [
+    {
+     "title": "Am Wochenende",
+     "text": "Am Wochenende versuche ich, mich von der stressigen Woche zu erholen. Normalerweise stehe ich nicht so früh auf, weil ich etwas länger schlafen möchte. Nach dem Frühstück räume ich mein Zimmer auf und helfe meinen Eltern im Haushalt.\n\nAm Samstagnachmittag treffe ich mich oft mit meinen Freunden. Manchmal gehen wir ins Kino oder spielen Fußball im Park. Wenn das Wetter schlecht ist, bleiben wir zu Hause und schauen einen Film oder spielen Gesellschaftsspiele.\n\nDer Sonntag ist für mich etwas ruhiger. Ich lese gern Bücher oder lerne Deutsch, weil ich meine Sprachkenntnisse verbessern möchte. Außerdem bereite ich mich auf die neue Woche vor und plane meine wichtigsten Aufgaben. Am Abend verbringe ich noch etwas Zeit mit meiner Familie, bevor ich früh ins Bett gehe."
+    }
+   ],
+   "questions": [
+    {
+     "type": "true_false",
+     "question": "Der Autor steht am Wochenende immer sehr früh auf.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„Normalerweise stehe ich nicht so früh auf …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Am Samstag trifft sich der Autor oft mit seinen Freunden.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„Am Samstagnachmittag treffe ich mich oft mit meinen Freunden.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Bei schlechtem Wetter spielen sie Fußball im Park.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„Wenn das Wetter schlecht ist, bleiben wir zu Hause und schauen einen Film oder spielen Gesellschaftsspiele.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Am Sonntag lernt der Autor Deutsch, um seine Sprachkenntnisse zu verbessern.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„Ich lese gern Bücher oder lerne Deutsch, weil ich meine Sprachkenntnisse verbessern möchte.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Der Autor plant am Sonntag die Aufgaben für die neue Woche.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„… bereite ich mich auf die neue Woche vor und plane meine wichtigsten Aufgaben.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Am Sonntagabend arbeitet der Autor bis spät in die Nacht.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„Am Abend verbringe ich noch etwas Zeit mit meiner Familie, bevor ich früh ins Bett gehe.“"
+    }
+   ],
+   "max_score": 6
+  },
+  {
+   "content_id": "vizu-b1-l01-hoeren-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 1,
+   "skill": "hoeren",
+   "title": "Hören Aufgabe 1: Ein Interview mit einem Fußballspieler",
+   "source": "book",
+   "metadata": {
+    "book_page": 15,
+    "key_source": "pending",
+    "note": "Kein Lösungsschlüssel im Buch — Antworten nach dem Anhören in Lösung festlegen."
+   },
+   "audio_file": "1.Unterricht Aufgabe 1.m4a",
+   "key_pending": true,
+   "instruction": "Hören Sie ein Interview mit dem Fußballspieler Franz Bauer. Stimmen die Aussagen mit dem Text überein? Kreuzen Sie an.",
+   "questions": [
+    {
+     "type": "true_false",
+     "question": "Die Mannschaft von Franz hat heute drei Punkte gewonnen.",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "Franz hat ein kaputtes Bein.",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "Franz war mit der Leistung des Schiedsrichters nicht zufrieden.",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "Franz möchte gern für einen englischen Verein spielen, hat aber noch kein Angebot bekommen.",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "Borussia Dortmund wird in diesem Jahr deutscher Meister.",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "Franz tut etwas für die Jugendarbeit in seiner Heimatstadt.",
+     "points": 1,
+     "passage": 1
+    }
+   ],
+   "max_score": 6
+  },
+  {
+   "content_id": "vizu-b1-l01-hoeren-02",
+   "level": "B1",
+   "module": 1,
+   "lesson": 1,
+   "skill": "hoeren",
+   "title": "Hören Aufgabe 2: Katrin und Ralf in der Kneipe",
+   "source": "book",
+   "metadata": {
+    "book_page": "16-17",
+    "key_source": "book",
+    "note": "Die 12 Lösungswörter stehen im Buch unter dem Text (S. 16-17). Audio-Datei „Aufgabe 2-3“ = Teil 1 + Teil 2."
+   },
+   "audio_file": "1.Unterricht Aufgabe 2-3.m4a",
+   "instruction": "Hören Sie den Dialog und ergänzen Sie den Text. Schreiben Sie die fehlenden Wörter in die Lücken.",
+   "transcript": "Katrin und Ralf haben sich auf einer Geburtstagsparty bei gemeinsamen Freunden kennengelernt. Sie waren sich sehr sympathisch und haben sich für Samstagabend in einer Kneipe verabredet. Ralf sitzt schon an einem Tisch, als Katrin mit kleiner Verspätung eintrifft.\nRalf: Katrin, hier! Hey, da bist du ja! Schön, dich zu sehen!\nKatrin: Oh, tut mir so leid, Ralf! Ich habe ganz knapp meine Trambahn verpasst! Und die nächste kam erst zehn Minuten später.\nRalf: Ach, kein Problem, ich war auch nicht ganz pünktlich. Jetzt entspann dich erst einmal. Möchtest du auch ein Glas Rotwein?\nKatrin: Ja, gerne. Ist deiner gut? Schön trocken?\nRalf: Ja, mir schmeckt er. Da, probier doch mal!\nKatrin: Wenn ich darf? Mmh, lecker. Den nehme ich auch.\nRalf: Noch einen Viertelliter von dem Rotwein, bitte! Super, dass es heute Abend geklappt hat! Letztes Mal hatten wir ja nicht viel Zeit zum Reden.\nKatrin: Klar, das war ja auch Werners Geburtstag. Aber jetzt erzähl mir doch noch mal, was du beruflich machst. Das habe ich auf der Party nicht so richtig verstanden.\nRalf: Ach, das ist nicht so schwierig. Ich bin selbstständig und arbeite als Übersetzer für verschiedene Verlage. Gerade übersetze ich ein Jugendbuch aus dem Englischen.\nKatrin: Du sprichst dann sicher fließend Englisch, oder?\nRalf: Ja, sonst wär's schwierig! Aber Sprachen waren schon immer mein Hobby. Ich kann auch Französisch, Spanisch und Italienisch. Und du?\nKatrin: Oh nein, da bin ich nicht gut. Englisch geht gerade so, aber mein Schulfranzösisch versteht in Frankreich keiner. Meine Leidenschaft ist mehr der Sport!\nRalf: Stimmt, du hast ja erzählt, dass du Physiotherapeutin bist. Was machst du denn am liebsten?\nKatrin: Reiten ist mein Lieblingssport. Wenn das nur nicht so teuer wäre! Aber ich fahre auch gern Rad, schwimme und segle gern und gehe oft zum Joggen. Und im Winter natürlich Skifahren und Langlaufen!\nRalf: Wann hast du denn noch Zeit zum Arbeiten?\nKatrin: Tja, da habe ich wirklich Glück. Ich arbeite in der Praxis meiner Mutter und bin deshalb ein wenig flexibel in meinen Arbeitszeiten. Aber das ist bei dir doch sicher auch so? Du bist doch selbstständig!\nRalf: Na ja schon, aber ich muss rechtzeitig fertig sein, damit ich wieder neue Aufträge bekomme.\nKatrin: Klar, das verstehe ich. Man muss sicherlich sehr diszipliniert sein, wenn man allein zu Hause arbeitet. Du lebst doch allein, oder?\nRalf: Nicht ganz, ich wohne mit meiner kleinen Schwester in einer WG. Sie ist gerade bei meinen Eltern ausgezogen und wollte nicht allein in einer fremden Stadt leben. Ich mag sie sehr – du wirst sie ja bald kennenlernen!\nKatrin: Ach, ja?\nRalf: Äh ja, ich meine, wenn du willst! Du könntest mich ja mal besuchen – ich kann wirklich gut kochen!\nKatrin: Na, das ist doch ein Angebot! Wie wär's mit Samstag in acht Tagen?\nRalf: (etwas überrascht) Okay! Das müsste passen! Was isst du denn gerne? …",
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "Teil 1: Hören Sie den Dialog und ergänzen Sie den Text. Schreiben Sie die fehlenden Wörter in die Lücken.",
+     "text": "Katrin und Ralf haben sich auf einer Geburtstagsparty bei gemeinsamen Freunden kennengelernt. Sie waren sich sehr sympathisch und haben sich für Samstagabend in einer Kneipe verabredet. Ralf sitzt schon an einem Tisch, als Katrin mit kleiner [[1]] eintrifft.\nRalf: Katrin, hier! Hey, da bist du ja! Schön, dich zu sehen!\nKatrin: Oh, tut mir so leid, Ralf! Ich habe ganz knapp meine Trambahn verpasst! Und die nächste kam erst zehn Minuten später.\nRalf: Ach, kein Problem, ich war auch nicht ganz [[2]]. Jetzt entspann dich erst einmal. Möchtest du auch ein Glas Rotwein?\nKatrin: Ja, gerne. Ist deiner gut? Schön trocken?\nRalf: Ja, mir schmeckt er. Da, probier doch mal!\nKatrin: Wenn ich darf? Mmh, lecker. Den nehme ich auch.\nRalf: Noch einen [[3]] von dem Rotwein, bitte! Super, dass es heute Abend geklappt hat! Letztes Mal hatten wir ja nicht viel Zeit zum Reden.\nKatrin: Klar, das war ja auch [[4]]. Aber jetzt erzähl mir doch noch mal, was du beruflich machst. Das habe ich auf der Party nicht so richtig verstanden.\nRalf: Ach, das ist nicht so schwierig. Ich bin selbstständig und arbeite als Übersetzer für verschiedene [[5]]. Gerade übersetze ich ein Jugendbuch aus dem Englischen.\nKatrin: Du sprichst dann sicher fließend Englisch, oder?\nRalf: Ja, sonst wär's schwierig! Aber Sprachen waren schon immer mein [[6]]. Ich kann auch Französisch, Spanisch und Italienisch. Und du?",
+     "gaps": {
+      "1": [
+       "Verspätung"
+      ],
+      "2": [
+       "pünktlich"
+      ],
+      "3": [
+       "Viertelliter"
+      ],
+      "4": [
+       "Werners Geburtstag"
+      ],
+      "5": [
+       "Verlage"
+      ],
+      "6": [
+       "Hobby"
+      ]
+     },
+     "points": 6,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "Lösung (Buch, S. 16): 1. Verspätung, 2. pünktlich, 3. Viertelliter, 4. Werners Geburtstag, 5. Verlage, 6. Hobby"
+    },
+    {
+     "type": "gap_fill",
+     "question": "Teil 2: Hören Sie den Dialog und ergänzen Sie den Text. Schreiben Sie die fehlenden Wörter in die Lücken.",
+     "text": "Katrin: Oh nein, da bin ich nicht gut. Englisch geht gerade so, aber mein Schulfranzösisch versteht in Frankreich keiner. Meine Leidenschaft ist mehr der Sport!\nRalf: Stimmt, du hast ja erzählt, dass du [[7]] bist. Was machst du denn am liebsten?\nKatrin: Reiten ist mein [[8]]. Wenn das nur nicht so teuer wäre! Aber ich fahre auch gern Rad, schwimme und [[9]] gern und gehe oft zum Joggen. Und im Winter natürlich Skifahren und Langlaufen!\nRalf: Wann hast du denn noch Zeit zum Arbeiten?\nKatrin: Tja, da habe ich wirklich Glück. Ich arbeite in der Praxis meiner Mutter und bin deshalb ein wenig [[10]] in meinen Arbeitszeiten. Aber das ist bei dir doch sicher auch so? Du bist doch selbstständig!\nRalf: Na ja schon, aber ich muss rechtzeitig fertig sein, damit ich wieder neue [[11]] bekomme.\nKatrin: Klar, das verstehe ich. Man muss sicherlich sehr diszipliniert sein, wenn man allein zu Hause arbeitet. Du lebst doch allein, oder?\nRalf: Nicht ganz, ich wohne mit meiner kleinen Schwester in einer WG. Sie ist gerade bei meinen Eltern ausgezogen und wollte nicht allein in einer fremden Stadt leben. Ich mag sie sehr – du wirst sie ja bald kennenlernen!\nKatrin: Ach, ja?\nRalf: Äh ja, ich meine, wenn du willst! Du könntest mich ja mal besuchen – ich kann wirklich gut [[12]]!\nKatrin: Na, das ist doch ein Angebot! Wie wär's mit Samstag in acht Tagen?\nRalf: (etwas überrascht) Okay! Das müsste passen! Was isst du denn gerne? …",
+     "gaps": {
+      "7": [
+       "Physiotherapeutin"
+      ],
+      "8": [
+       "Lieblingssport"
+      ],
+      "9": [
+       "segle"
+      ],
+      "10": [
+       "flexibel"
+      ],
+      "11": [
+       "Aufträge"
+      ],
+      "12": [
+       "kochen"
+      ]
+     },
+     "points": 6,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "Lösung (Buch, S. 17): 7. Physiotherapeutin, 8. Lieblingssport, 9. segle, 10. flexibel, 11. Aufträge, 12. kochen"
+    }
+   ],
+   "max_score": 12
+  },
+  {
+   "content_id": "vizu-b1-l01-schreiben-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 1,
+   "skill": "schreiben",
+   "title": "Schreiben Aufgabe 1: E-Mail an Anna — mein neuer Laptop",
+   "source": "book",
+   "metadata": {
+    "book_page": 18,
+    "musterloesung": "Betreff: Mein neuer Laptop\n\nLiebe Anna,\nwie geht es dir? Ich hoffe, dir geht es gut. Mir geht es sehr gut.\nIch möchte dir eine schöne Nachricht erzählen. Ich habe mir einen neuen Laptop gekauft, weil ich ihn für mein Studium und meine Arbeit brauche.\nMein Laptop ist von der Marke HP. Er ist silberfarben, hat einen 15-Zoll-Bildschirm und 500 GB Speicherplatz. Ich finde ihn sehr modern und praktisch. Er wird mir bei meiner Arbeit wirklich helfen und meine Aufgaben schneller und professioneller machen.\nHast du am Freitagabend Zeit? Wir können uns treffen und den neuen Laptop gemeinsam ausprobieren. Ich freue mich schon sehr auf unser Treffen.\nLiebe Grüße\nDein Freund"
+   },
+   "task_type": "email",
+   "prompt": "Sie haben einen neuen Laptop gekauft. Schreiben Sie eine E-Mail an Ihre Freundin Anna.\n\nSchreiben Sie etwas zu den folgenden Punkten:\n1. Warum haben Sie einen neuen Laptop gekauft?\n2. Beschreiben Sie den Laptop.\n3. Laden Sie Anna ein, den Laptop gemeinsam anzuschauen.\n\nSchreiben Sie ca. 80–100 Wörter. Vergessen Sie nicht Anrede und Gruß!",
+   "audience": "Ihre Freundin Anna (informell)",
+   "min_words": 80,
+   "max_words": 110,
+   "time_limit": 20,
+   "ai_instructions": "Musterlösung aus dem Buch (Referenz, nicht wörtlich verlangen):\nBetreff: Mein neuer Laptop\n\nLiebe Anna,\nwie geht es dir? Ich hoffe, dir geht es gut. Mir geht es sehr gut.\nIch möchte dir eine schöne Nachricht erzählen. Ich habe mir einen neuen Laptop gekauft, weil ich ihn für mein Studium und meine Arbeit brauche.\nMein Laptop ist von der Marke HP. Er ist silberfarben, hat einen 15-Zoll-Bildschirm und 500 GB Speicherplatz. Ich finde ihn sehr modern und praktisch. Er wird mir bei meiner Arbeit wirklich helfen und meine Aufgaben schneller und professioneller machen.\nHast du am Freitagabend Zeit? Wir können uns treffen und den neuen Laptop gemeinsam ausprobieren. Ich freue mich schon sehr auf unser Treffen.\nLiebe Grüße\nDein Freund"
+  },
+  {
+   "content_id": "vizu-b1-l01-schreiben-02",
+   "level": "B1",
+   "module": 1,
+   "lesson": 1,
+   "skill": "schreiben",
+   "title": "Schreiben Teil 2: Fremdsprachen im Kindergarten",
+   "source": "book",
+   "metadata": {
+    "book_page": 19,
+    "musterloesung": "Ich stimme Laura größtenteils zu. Fremdsprachen im Kindergarten können Kindern viele Vorteile bringen. In jungen Jahren sind Kinder sehr offen und lernen neue Wörter und Ausdrücke fast spielerisch. Besonders durch Lieder, Spiele und Geschichten macht das Lernen Spaß und bleibt lange im Gedächtnis. Außerdem haben die Kinder später in der Schule weniger Schwierigkeiten und bessere Chancen im Beruf, weil sie mehrsprachig sind.\nTrotzdem sollten wir nicht vergessen, wie wichtig die Muttersprache ist. Kinder müssen ihre eigene Sprache gut beherrschen, um richtig denken, fühlen und sich ausdrücken zu können. Deshalb sollte im Kindergarten ein gutes Gleichgewicht zwischen der Fremdsprache und der Muttersprache gefunden werden.\nZusammenfassend finde ich, dass Fremdsprachen im Kindergarten eine sehr gute Idee sind, wenn sie kindgerecht und in Maßen vermittelt werden."
+   },
+   "task_type": "opinion",
+   "prompt": "Sie haben im Fernsehen eine Diskussionssendung zum Thema „Fremdsprachen im Kindergarten“ gesehen. Im Online-Gästebuch der Sendung finden Sie folgende Meinung:\n\n(12.10. 18:30) Laura: Ich finde es sehr sinnvoll, dass Kinder schon im Kindergarten Fremdsprachen lernen. In diesem Alter lernen sie besonders schnell und haben keine Angst davor, Fehler zu machen. So können sie später leichter weitere Sprachen lernen und bessere Chancen im Beruf haben. Natürlich sollte aber auch genügend Zeit für die Muttersprache bleiben.\n\nSchreiben Sie nun Ihre Meinung (circa 80 Wörter).",
+   "audience": "Online-Gästebuch einer Fernsehsendung",
+   "min_words": 70,
+   "max_words": 120,
+   "time_limit": 25,
+   "ai_instructions": "Musterlösung aus dem Buch (Referenz):\nIch stimme Laura größtenteils zu. Fremdsprachen im Kindergarten können Kindern viele Vorteile bringen. In jungen Jahren sind Kinder sehr offen und lernen neue Wörter und Ausdrücke fast spielerisch. Besonders durch Lieder, Spiele und Geschichten macht das Lernen Spaß und bleibt lange im Gedächtnis. Außerdem haben die Kinder später in der Schule weniger Schwierigkeiten und bessere Chancen im Beruf, weil sie mehrsprachig sind.\nTrotzdem sollten wir nicht vergessen, wie wichtig die Muttersprache ist. Kinder müssen ihre eigene Sprache gut beherrschen, um richtig denken, fühlen und sich ausdrücken zu können. Deshalb sollte im Kindergarten ein gutes Gleichgewicht zwischen der Fremdsprache und der Muttersprache gefunden werden.\nZusammenfassend finde ich, dass Fremdsprachen im Kindergarten eine sehr gute Idee sind, wenn sie kindgerecht und in Maßen vermittelt werden."
+  },
+  {
+   "content_id": "vizu-b1-l01-sprechen-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 1,
+   "skill": "sprechen",
+   "title": "Sprechen Teil 1: Eine Stadt vorstellen — gemeinsam planen",
+   "source": "book",
+   "metadata": {
+    "book_page": "20-21"
+   },
+   "topic": "Eine Stadt in Deutschland oder Österreich vorstellen",
+   "prompt": "Sie sollen in Ihrem Sprachkurs eine Stadt in Deutschland oder in Österreich vorstellen. Planen Sie gemeinsam eine Präsentation und besprechen Sie folgende Punkte.",
+   "questions": [
+    "Welche Stadt? — Entscheiden Sie sich für eine Stadt und nennen Sie ihren Namen.",
+    "Welche Informationen? (Bevölkerung, Wirtschaft …) — Sprechen Sie über wichtige Informationen wie z. B. Einwohnerzahl, Wirtschaft, Arbeitsplätze, Industrie, Tourismus usw.",
+    "Wer macht was? — Sprechen Sie darüber, wer in der Stadt lebt und arbeitet, welche Berufe es gibt und was die Menschen dort machen.",
+    "Materialien? — Überlegen Sie, welche Materialien Sie für Ihre Präsentation verwenden möchten (Bilder, Karten, Diagramme, Texte usw.)."
+   ],
+   "response_type": "dialog",
+   "min_duration": 60,
+   "max_duration": 240,
+   "sample_answer": "1. Welche Stadt? — Kandidat 1: Ich würde gern Berlin präsentieren. Berlin ist die Hauptstadt Deutschlands und eine sehr große und interessante Stadt. Dort gibt es viele Sehenswürdigkeiten, Parks, Museen und kulturelle Veranstaltungen. — Kandidat 2: Ich finde Berlin auch eine gute Wahl. Über Berlin haben wir viel zu berichten. Die Stadt hat eine spannende Geschichte und ist heute ein wichtiges Zentrum für Politik, Kultur, Wissenschaft und Wirtschaft.\n2. Welche Informationen? — Kandidat 1: Ich kenne einen Bekannten, der in Berlin lebt. Er kann uns bestimmt viele Tipps und Informationen geben. Wir können ihn über das Leben in Berlin, die Arbeitsmöglichkeiten und die Freizeitangebote fragen. — Kandidat 2: Außerdem können wir im Internet recherchieren. Dort finden wir viele Informationen über die Bevölkerung, die Wirtschaft, die Geschichte, das Wetter, das Verkehrssystem und vieles mehr.\n3. Wer macht was? — Kandidat 1: Ich glaube, ich kann die Hauptinformationen sammeln und den Text schreiben. Ich kümmere mich um die Fakten über Bevölkerung, Wirtschaft und Sehenswürdigkeiten. — Kandidat 2: Ich kümmere mich um die Bilder. Ich suche schöne Fotos von Berlin herunter, bearbeite sie und füge sie in die Präsentation ein. Außerdem kann ich die Informationen über Geschichte und Kultur vorbereiten.\n4. Welche Materialien? — Kandidat 1: Für unsere Präsentation brauchen wir einen Beamer, einen Lautsprecher, einen Laptop und natürlich eine stabile Internetverbindung. — Kandidat 2: Ja, und wir sollten auch Stifte, Papier und eventuell Karten oder Diagramme vorbereiten. So wird unsere Präsentation anschaulich und interessant.",
+   "speech_goal": "Gemeinsam eine Präsentation planen: Vorschläge machen, auf den Partner reagieren, Aufgaben verteilen.",
+   "keywords": [
+    "Ich würde gern",
+    "Ich finde",
+    "Außerdem",
+    "Ich kümmere mich um",
+    "Wir brauchen"
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l01-sprechen-02",
+   "level": "B1",
+   "module": 1,
+   "lesson": 1,
+   "skill": "sprechen",
+   "title": "Sprechen Teil 2: Präsentation — Mit dem Auto oder mit dem öffentlichen Verkehr",
+   "source": "book",
+   "metadata": {
+    "book_page": "22-23"
+   },
+   "topic": "Mit dem Auto oder mit dem öffentlichen Verkehr",
+   "prompt": "Sie sollen eine Präsentation zu einem Thema halten. Planen Sie Ihre Präsentation und sprechen Sie dann. Ihre Präsentation sollte klar strukturiert sein. Vorbereitungszeit: 5 Minuten · Sprechzeit: ca. 2–3 Minuten.",
+   "questions": [
+    "Erfahrung — Erzählen Sie von Ihren Erfahrungen mit dem Auto und mit öffentlichen Verkehrsmitteln.",
+    "Situation — Beschreiben Sie die Situation in Ihrer Stadt bezüglich der Verkehrsmittel.",
+    "Vorteile — Nennen Sie die Vorteile vom Auto und vom öffentlichen Verkehr.",
+    "Nachteile — Nennen Sie die Nachteile vom Auto und vom öffentlichen Verkehr.",
+    "Meinung — Sagen Sie Ihre Meinung und geben Sie eine Empfehlung."
+   ],
+   "response_type": "monolog",
+   "preparation_time": 300,
+   "min_duration": 120,
+   "max_duration": 180,
+   "sample_answer": "Erfahrung: Ich fahre jeden Tag mit öffentlichen Verkehrsmitteln zur Schule, aber manchmal fährt mich mein Vater mit dem Auto. Mit dem Bus oder der Straßenbahn bin ich meistens schneller im Stadtzentrum, besonders wenn viel Verkehr ist.\nSituation: In meiner Stadt nutzen die meisten Menschen öffentliche Verkehrsmittel wie Bus, Straßenbahn und U-Bahn. Sie sind günstig und praktisch. Trotzdem gibt es auch viele Autos auf den Straßen, besonders zu den Stoßzeiten. Dann gibt es oft Staus und die Luft ist nicht mehr so sauber.\nVorteile: Mit dem Auto kann man die Überfüllung im öffentlichen Verkehr vermeiden. Man ist flexibler und kann sein Ziel schnell erreichen. Im Auto fühlt man sich auch ungestört, man kann Musik hören oder telefonieren. Öffentliche Verkehrsmittel sind dagegen günstiger, umweltfreundlicher und man muss sich keine Sorgen um Parkplätze machen.\nNachteile: Mit dem Auto muss man für Benzin, Reparaturen und Versicherung viel Geld ausgeben. Außerdem stoßen Autos Abgase aus und verursachen Staus. Öffentliche Verkehrsmittel sind manchmal überfüllt, besonders zu den Stoßzeiten, und wenn es Verspätungen gibt, kommt man nicht pünktlich an.\nMeinung: Meiner Meinung nach sind öffentliche Verkehrsmittel in einer Stadt die bessere Wahl, weil sie bequem, sicher und umweltfreundlich sind. Natürlich braucht man manchmal ein Auto, aber man sollte es nur dann benutzen, wenn es wirklich nötig ist.",
+   "speech_goal": "Strukturierte Präsentation: Erfahrung, Situation im Heimatland, Vor- und Nachteile, Meinung mit Begründung.",
+   "keywords": [
+    "Erfahrung",
+    "Vorteile",
+    "Nachteile",
+    "Meiner Meinung nach",
+    "weil",
+    "deshalb"
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l01-wortschatz-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 1,
+   "skill": "wortschatz",
+   "title": "Wortschatz: Wichtige Redewendungen für Modul 1",
+   "source": "book",
+   "metadata": {
+    "book_page": 24,
+    "note": "Das Buch erklärt die Ausdrücke auf Deutsch (keine Übersetzung) — die Erklärung steht als Bedeutung."
+   },
+   "words": [
+    {
+     "word": "einen Wunsch haben",
+     "translation": "eine Sehnsucht oder einen Herzenswunsch haben",
+     "group": "Wichtige Redewendungen für Modul 1",
+     "example": "Ich habe den Wunsch, einmal die Welt zu bereisen."
+    },
+    {
+     "word": "in Anspruch nehmen",
+     "translation": "etwas nutzen oder verwenden",
+     "group": "Wichtige Redewendungen für Modul 1",
+     "example": "Viele Menschen nehmen diese Möglichkeit in Anspruch."
+    },
+    {
+     "word": "zur Verfügung stehen",
+     "translation": "bereit sein, genutzt zu werden",
+     "group": "Wichtige Redewendungen für Modul 1",
+     "example": "Mein Bruder steht mir immer mit Rat und Tat zur Verfügung."
+    },
+    {
+     "word": "Rücksicht nehmen auf + Akk.",
+     "translation": "jemanden oder etwas berücksichtigen",
+     "group": "Wichtige Redewendungen für Modul 1",
+     "example": "Wir sollten mehr Rücksicht auf ältere Menschen nehmen."
+    },
+    {
+     "word": "sich interessieren für + Akk.",
+     "translation": "Interesse an etwas haben",
+     "group": "Wichtige Redewendungen für Modul 1",
+     "example": "Ich interessiere mich sehr für andere Kulturen."
+    },
+    {
+     "word": "sich kümmern um + Akk.",
+     "translation": "sich um jemanden oder etwas sorgen",
+     "group": "Wichtige Redewendungen für Modul 1",
+     "example": "Meine Mutter kümmert sich immer um unsere Familie."
+    },
+    {
+     "word": "Angst haben vor + Dat.",
+     "translation": "Furcht oder Besorgnis haben",
+     "group": "Wichtige Redewendungen für Modul 1",
+     "example": "Ich habe Angst vor Prüfungen."
+    },
+    {
+     "word": "sich vorbereiten auf + Akk.",
+     "translation": "sich im Voraus auf etwas einstellen",
+     "group": "Wichtige Redewendungen für Modul 1",
+     "example": "Ich bereite mich auf die Prüfung gut vor."
+    },
+    {
+     "word": "verantwortlich sein für + Akk.",
+     "translation": "die Verantwortung für etwas haben",
+     "group": "Wichtige Redewendungen für Modul 1",
+     "example": "Er ist verantwortlich für das Projekt."
+    },
+    {
+     "word": "die Möglichkeit haben",
+     "translation": "eine Gelegenheit oder Chance besitzen",
+     "group": "Wichtige Redewendungen für Modul 1",
+     "example": "Wir haben die Möglichkeit, an einem Austauschprogramm teilzunehmen."
+    }
+   ],
+   "exercises": [
+    {
+     "title": "Zuordnung",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Wichtige Redewendungen für Modul 1 1)",
+       "items": [
+        "einen Wunsch haben",
+        "in Anspruch nehmen",
+        "zur Verfügung stehen",
+        "Rücksicht nehmen auf + Akk.",
+        "sich interessieren für + Akk.",
+        "sich kümmern um + Akk."
+       ],
+       "targets": [
+        "eine Sehnsucht oder einen Herzenswunsch haben",
+        "etwas nutzen oder verwenden",
+        "bereit sein, genutzt zu werden",
+        "jemanden oder etwas berücksichtigen",
+        "Interesse an etwas haben",
+        "sich um jemanden oder etwas sorgen",
+        "Furcht oder Besorgnis haben"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Wichtige Redewendungen für Modul 1 2)",
+       "items": [
+        "Angst haben vor + Dat.",
+        "sich vorbereiten auf + Akk.",
+        "verantwortlich sein für + Akk.",
+        "die Möglichkeit haben"
+       ],
+       "targets": [
+        "Furcht oder Besorgnis haben",
+        "sich im Voraus auf etwas einstellen",
+        "die Verantwortung für etwas haben",
+        "eine Gelegenheit oder Chance besitzen",
+        "eine Sehnsucht oder einen Herzenswunsch haben"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D"
+       },
+       "points": 4,
+       "passage": 1
+      }
+     ],
+     "instruction": "Ordnen Sie jedem Ausdruck die passende Erklärung aus dem Buch zu."
+    },
+    {
+     "title": "Welcher Ausdruck passt?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "„etwas nutzen oder verwenden“ — welcher Ausdruck passt?",
+       "options": [
+        "sich interessieren für + Akk.",
+        "in Anspruch nehmen",
+        "die Möglichkeit haben"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„bereit sein, genutzt zu werden“ — welcher Ausdruck passt?",
+       "options": [
+        "zur Verfügung stehen",
+        "einen Wunsch haben",
+        "Angst haben vor + Dat."
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„jemanden oder etwas berücksichtigen“ — welcher Ausdruck passt?",
+       "options": [
+        "sich kümmern um + Akk.",
+        "sich vorbereiten auf + Akk.",
+        "Rücksicht nehmen auf + Akk."
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„Interesse an etwas haben“ — welcher Ausdruck passt?",
+       "options": [
+        "sich interessieren für + Akk.",
+        "sich vorbereiten auf + Akk.",
+        "Angst haben vor + Dat."
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„sich um jemanden oder etwas sorgen“ — welcher Ausdruck passt?",
+       "options": [
+        "sich vorbereiten auf + Akk.",
+        "sich kümmern um + Akk.",
+        "zur Verfügung stehen"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„Furcht oder Besorgnis haben“ — welcher Ausdruck passt?",
+       "options": [
+        "verantwortlich sein für + Akk.",
+        "Angst haben vor + Dat.",
+        "sich kümmern um + Akk."
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„sich im Voraus auf etwas einstellen“ — welcher Ausdruck passt?",
+       "options": [
+        "sich kümmern um + Akk.",
+        "die Möglichkeit haben",
+        "sich vorbereiten auf + Akk."
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„die Verantwortung für etwas haben“ — welcher Ausdruck passt?",
+       "options": [
+        "Angst haben vor + Dat.",
+        "sich vorbereiten auf + Akk.",
+        "verantwortlich sein für + Akk."
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "Welcher Ausdruck passt zur Erklärung? (Erklärungen aus dem Buch)"
+    }
+   ],
+   "auto_practice": false
+  },
+  {
+   "content_id": "vizu-b1-l01-uebungen-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 1,
+   "skill": "uebungen",
+   "title": "Übungen: B1 1. Unterricht",
+   "source": "vizu",
+   "exercises": [
+    {
+     "title": "Welcher Konnektor passt? (Beispielsätze aus dem Buch)",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Ich gehe ins Fitnessstudio, ___ ich gesund bleiben möchte.",
+       "options": [
+        "weil",
+        "deshalb",
+        "denn"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "Verb am Ende (möchte) → weil."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Es hat stark geregnet, ___ ist das Spiel ausgefallen.",
+       "options": [
+        "weil",
+        "deshalb",
+        "denn"
+       ],
+       "correct_answer": 2,
+       "points": 1,
+       "passage": 1,
+       "explanation": "Verb direkt danach (ist) → deshalb."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Wir nehmen den Zug, ___ es gibt heute Streik.",
+       "options": [
+        "weil",
+        "deshalb",
+        "denn"
+       ],
+       "correct_answer": 3,
+       "points": 1,
+       "passage": 1,
+       "explanation": "Verb auf Position 2 nach dem Subjekt (es gibt) → denn."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "___ es regnet, bleiben wir heute zu Hause.",
+       "options": [
+        "Da",
+        "Deshalb",
+        "Denn"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "Da + Nebensatz, Hauptsatz."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "___ des schlechten Wetters bleiben wir zu Hause.",
+       "options": [
+        "Aufgrund",
+        "Weil",
+        "Deswegen"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "aufgrund + Genitiv (des Wetters)."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Die Straßen sind voll, ___ komme ich später nach Hause.",
+       "options": [
+        "deswegen",
+        "weil",
+        "aufgrund"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "deswegen + Verb (komme)."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich lerne Deutsch, ___ ich später in Deutschland studieren möchte.",
+       "options": [
+        "weil",
+        "deshalb",
+        "denn"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich gehe heute früher schlafen, ___ ich bin sehr müde.",
+       "options": [
+        "weil",
+        "deshalb",
+        "denn"
+       ],
+       "correct_answer": 3,
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Aufgrund ___ hohen Preise kaufen viele Menschen weniger ein.",
+       "options": [
+        "der",
+        "die",
+        "den"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "aufgrund + Genitiv Plural: der Preise."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Aufgrund ___ vollen Terminkalenders habe ich wenig Zeit für Hobbys.",
+       "options": [
+        "meines",
+        "meinem",
+        "meinen"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "Genitiv maskulin: meines Terminkalenders."
+      }
+     ],
+     "instruction": "Wählen Sie den passenden Konnektor. Alle Sätze stammen aus der Grammatik des Buches (S. 5-7)."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l01-yakuniy-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 1,
+   "skill": "yakuniy",
+   "title": "Abschlusstest: B1 1. Unterricht",
+   "source": "vizu",
+   "instruction": "Abschlusstest zu Kausale Angaben und Redewendungen (alle Sätze aus dem Buch).",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Ich bin mit dem Fahrrad zur Arbeit gefahren, ___ das Wetter schön war.",
+     "options": [
+      "weil",
+      "deshalb",
+      "denn"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "___ ich viel zu tun habe, kann ich heute nicht mitkommen.",
+     "options": [
+      "Da",
+      "Deshalb",
+      "Denn"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Er lernt jeden Tag Deutsch, ___ er möchte in Deutschland studieren.",
+     "options": [
+      "weil",
+      "deshalb",
+      "denn"
+     ],
+     "correct_answer": 3,
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Ich habe viel gearbeitet, ___ habe ich gute Noten.",
+     "options": [
+      "weil",
+      "deshalb",
+      "denn"
+     ],
+     "correct_answer": 2,
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Ich habe Angst ___ Prüfungen.",
+     "options": [
+      "vor",
+      "für",
+      "auf"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1,
+     "explanation": "Angst haben vor + Dativ."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Ich interessiere mich sehr ___ andere Kulturen.",
+     "options": [
+      "für",
+      "um",
+      "auf"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1,
+     "explanation": "sich interessieren für + Akkusativ."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Meine Mutter kümmert sich immer ___ unsere Familie.",
+     "options": [
+      "um",
+      "für",
+      "vor"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1,
+     "explanation": "sich kümmern um + Akkusativ."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Ich bereite mich ___ die Prüfung gut vor.",
+     "options": [
+      "auf",
+      "für",
+      "um"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1,
+     "explanation": "sich vorbereiten auf + Akkusativ."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wir sollten mehr Rücksicht ___ ältere Menschen nehmen.",
+     "options": [
+      "auf",
+      "für",
+      "vor"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1,
+     "explanation": "Rücksicht nehmen auf + Akkusativ."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wie viel Prozent der Deutschen sind laut Umfrage mit ihrem Alltag zufrieden?",
+     "options": [
+      "76 Prozent",
+      "56 Prozent",
+      "96 Prozent"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Lesen Aufgabe 1: „… dass 76 Prozent der Deutschen mit ihrem Alltag zufrieden sind.“"
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l01-kompetenz-02",
+   "level": "B1",
+   "module": 1,
+   "lesson": 1,
+   "skill": "kompetenz",
+   "title": "Zusammenfassung: B1 1. Unterricht",
+   "source": "vizu",
+   "competency": "ZUSAMMENFASSUNG",
+   "html": "<h3>B1 1. Unterricht — qisqacha</h3><ul><li><strong>weil</strong>: Hauptsatz + weil + Nebensatz (Verb am Ende) — Ich gehe ins Fitnessstudio, weil ich gesund bleiben möchte.</li><li><strong>da</strong>: Da + Nebensatz, Hauptsatz — Da es regnet, bleiben wir heute zu Hause.</li><li><strong>denn</strong>: Hauptsatz + denn + Hauptsatz — Ich gehe heute früher schlafen, denn ich bin sehr müde.</li><li><strong>deshalb / deswegen</strong>: die Folge — Es hat stark geregnet, deshalb ist das Spiel ausgefallen.</li><li><strong>aufgrund + Genitiv</strong>: Aufgrund des schlechten Wetters bleiben wir zu Hause.</li><li><strong>Redewendungen:</strong> einen Wunsch haben, in Anspruch nehmen, zur Verfügung stehen, Rücksicht nehmen auf, sich interessieren für, sich kümmern um, Angst haben vor, sich vorbereiten auf, verantwortlich sein für, die Möglichkeit haben.</li></ul><p>Natijalaringiz pastda — tugallanmagan bo'limlarni yakunlang, so'ng keyingi darsga o'ting.</p>"
+  }
+ ]
+}
