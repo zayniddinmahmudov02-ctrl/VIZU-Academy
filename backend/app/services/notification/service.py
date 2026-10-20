@@ -11,11 +11,12 @@ def create_notification(
     message: str,
     type: str,
     audio_url: str | None = None,
+    link_path: str | None = None,
 ) -> Notification:
     """Plain internal helper — not an HTTP call. Writing/Speaking grading
     completion calls this directly so a notification is created in the
     same transaction as the grading write, rather than round-tripping
-    through this router."""
+    through this router. `link_path` is an in-app page (server-set only)."""
 
     return NotificationRepository(db).create(
         user_id=user_id,
@@ -23,6 +24,7 @@ def create_notification(
         message=message,
         type=type,
         audio_url=audio_url,
+        link_path=link_path,
     )
 
 

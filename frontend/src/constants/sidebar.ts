@@ -5,6 +5,7 @@ import {
   GraduationCap,
   Info,
   LayoutDashboard,
+  LifeBuoy,
   Settings,
   Tag,
   User,
@@ -45,6 +46,11 @@ export const sidebarItems = [
     titleKey: "sidebar.angebote",
     href: "/angebote",
     icon: Tag,
+  },
+  {
+    titleKey: "sidebar.support",
+    href: "/support",
+    icon: LifeBuoy,
   },
   {
     titleKey: "sidebar.profile",

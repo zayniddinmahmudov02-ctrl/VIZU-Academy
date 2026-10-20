@@ -1,5 +1,7 @@
 import {
+  Bell,
   BookOpenCheck,
+  LifeBuoy,
   Award,
   BookOpen,
   Contact,
@@ -46,6 +48,8 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
     items: [
       { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
       { label: "Werbung-Banner", href: "/admin/werbung-banner", icon: Megaphone },
+      { label: "Notifications", href: "/admin/notifications", icon: Bell },
+      { label: "Support / Hilfeanfragen", href: "/admin/support", icon: LifeBuoy },
       { label: "Languages", href: "/admin/languages", icon: Globe },
       { label: "Kurse (LMS)", href: "/admin/kurse", icon: BookOpenCheck },
       { label: "LMS A1–C1", href: "/admin/lms", icon: Layers },

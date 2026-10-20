@@ -8,12 +8,16 @@ type Props = {
   trigger: ReactNode;
   children: ReactNode;
   align?: "start" | "center" | "end";
+  /** optional control (e.g. close after a click inside, refresh on open) */
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  triggerLabel?: string;
 };
 
-export default function Popover({ trigger, children, align = "end" }: Props) {
+export default function Popover({ trigger, children, align = "end", open, onOpenChange, triggerLabel }: Props) {
   return (
-    <PopoverPrimitive.Root>
-      <PopoverPrimitive.Trigger className="rounded-full outline-none focus-visible:ring-2 focus-visible:ring-accent-blue/40">
+    <PopoverPrimitive.Root open={open} onOpenChange={onOpenChange ? (o) => onOpenChange(o) : undefined}>
+      <PopoverPrimitive.Trigger aria-label={triggerLabel} className="rounded-full outline-none focus-visible:ring-2 focus-visible:ring-accent-blue/40">
         {trigger}
       </PopoverPrimitive.Trigger>
       <PopoverPrimitive.Portal>

@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, LifeBuoy, MessageSquare } from "lucide-react";
 
 import Logo from "@/components/common/logo";
 import LanguageSwitcher from "./languages/language-switcher";
@@ -64,6 +65,18 @@ export default function Sidebar() {
           >
             {collapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
           </button>
+
+          {/* Hilfe benötigt? — opens the support form */}
+          {!collapsed && (
+            <div className="relative z-10 mx-3.5 mt-3 rounded-2xl bg-white/[0.06] p-3.5 ring-1 ring-white/10" data-testid="sidebar-help">
+              <p className="flex items-center gap-1.5 text-sm font-bold text-white"><LifeBuoy size={15} className="text-accent-gold" aria-hidden="true" /> {t("support.helpTitle")}</p>
+              <p className="mt-1 text-xs text-sidebar-muted">{t("support.helpBody")}</p>
+              <Link href="/support?new=1" prefetch={false}
+                    className="mt-2.5 flex items-center justify-center gap-1.5 rounded-xl bg-accent-gold px-3 py-2 text-xs font-bold text-brand-900 transition-opacity hover:opacity-90">
+                <MessageSquare size={13} aria-hidden="true" /> {t("support.writeMessage")}
+              </Link>
+            </div>
+          )}
 
           {/* Brand card — mini replica of the header lockup, sits directly below the nav */}
           <div
