@@ -291,6 +291,11 @@ export async function deleteAudioTrack(listeningId: string, trackId: string): Pr
   return (await api.delete<AudioSlot[]>(`${BASE}/listenings/${listeningId}/audio-tracks/${trackId}`)).data;
 }
 
+/** Removes only the file of a track — the labelled slot stays for a new upload. */
+export async function clearAudioTrackFile(listeningId: string, trackId: string): Promise<AudioSlot[]> {
+  return (await api.delete<AudioSlot[]>(`${BASE}/listenings/${listeningId}/audio-tracks/${trackId}/file`)).data;
+}
+
 export async function getAudioTrackBlobUrl(listeningId: string, trackId: string): Promise<string> {
   const path = trackId === "main" ? "audio" : `audio-tracks/${trackId}`;
   const response = await api.get(`${BASE}/listenings/${listeningId}/${path}`, { responseType: "blob" });

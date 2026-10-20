@@ -315,10 +315,24 @@ export default function MediaManagementClient() {
                         {multi && <span className="block text-xs font-semibold text-[var(--admin-primary)]">{slots.length} Audiodateien: {slots.map((s) => s.label ?? "Audio").join(" · ")}</span>}
                       </td>
                       <td className="px-3 py-2.5 text-xs">
-                        <span className="block max-w-[14rem] truncate text-[var(--admin-text-secondary)]" title={i.file_name ?? ""}>{i.file_name ?? "—"}</span>
-                        <span className={hasFile ? "text-[var(--admin-success)]" : "text-[var(--admin-warning)]"}>
-                          {!hasFile && <AlertTriangle size={11} className="mr-1 inline" />}{STATUS_LABEL[i.file_status]}
-                        </span>
+                        {multi ? (
+                          // several independent audio files: one status line per slot, no combined file
+                          slots.map((s) => (
+                            <span key={s.id} className="block max-w-[16rem] truncate" title={s.file_name ?? ""} data-testid="mm-slot-status">
+                              <span className="text-[var(--admin-text-secondary)]">{s.label ?? "Audio"}: </span>
+                              <span className={s.file_status === "ok" ? "text-[var(--admin-success)]" : "text-[var(--admin-warning)]"}>
+                                {s.file_status === "ok" ? s.file_name ?? "Datei vorhanden" : STATUS_LABEL[s.file_status] ?? "Keine Datei"}
+                              </span>
+                            </span>
+                          ))
+                        ) : (
+                          <>
+                            <span className="block max-w-[14rem] truncate text-[var(--admin-text-secondary)]" title={i.file_name ?? ""}>{i.file_name ?? "—"}</span>
+                            <span className={hasFile ? "text-[var(--admin-success)]" : "text-[var(--admin-warning)]"}>
+                              {!hasFile && <AlertTriangle size={11} className="mr-1 inline" />}{STATUS_LABEL[i.file_status]}
+                            </span>
+                          </>
+                        )}
                       </td>
                       <td className="px-3 py-2.5 text-[var(--admin-text-secondary)]">{size(i.size_bytes)}</td>
                       <td className="px-3 py-2.5 text-xs text-[var(--admin-text-secondary)]">{new Date(i.updated_at).toLocaleDateString("de-DE")}</td>
@@ -329,16 +343,21 @@ export default function MediaManagementClient() {
                       </td>
                       <td className="px-3 py-2.5">
                         <div className="flex flex-wrap gap-1.5">
+                          {/* several audio files: upload / listen / remove per slot in the panel below — the row buttons would only reach the first one */}
+                          {!multi && (<>
                           <AdminButton size="sm" variant="secondary" disabled={!hasFile} onClick={() => openPreview(i)} title={i.kind === "VIDEO" ? "Ansehen" : "Anhören"} data-testid="mm-preview"><Play size={13} /></AdminButton>
                           <AdminButton size="sm" variant="secondary" disabled={busyUpload || busyId === i.id} title={hasFile ? "Datei ersetzen" : "Datei hochladen"} data-testid="mm-replace"
                                        onClick={() => { if (i.kind === "VIDEO") { replaceVideoId.current = i.id; replaceVideoLesson.current = i.lesson_id; videoInput.current?.click(); } else pickAudio(i.id); }}>
                             <Upload size={13} />
                           </AdminButton>
+                          </>)}
                           <AdminButton size="sm" variant="secondary" disabled={busyId === i.id} onClick={() => togglePublish(i)} title={i.is_published ? "Auf Entwurf setzen" : "Veröffentlichen"} data-testid="mm-publish">
                             {i.is_published ? <EyeOff size={13} /> : <Eye size={13} />}
                           </AdminButton>
+                          {!multi && (
                           <AdminButton size="sm" variant="danger" disabled={busyId === i.id || (i.kind === "AUDIO" && !hasFile && i.file_status !== "missing")} onClick={() => setDeleting(i)}
                                        title={i.kind === "VIDEO" ? "Video löschen" : "Audio entfernen"} data-testid="mm-delete"><Trash2 size={13} /></AdminButton>
+                          )}
                           {i.kind === "AUDIO" && (
                             <AdminButton size="sm" variant={open ? "primary" : "secondary"} onClick={() => toggleSlots(i.id, open, multi)} title="Audiodateien (Spuren) verwalten"
                                          aria-expanded={open} data-testid="mm-slots"><ListMusic size={13} /></AdminButton>
