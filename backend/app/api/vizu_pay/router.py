@@ -40,6 +40,18 @@ def list_offers(db: Session = Depends(get_db)):
     return VizuPayService(db).list_offers()
 
 
+@router.get("/quote")
+def get_quote(
+    plan: str,
+    promo_code: str | None = None,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """The caller's checkout price for one offer (sale price, promo, medal
+    reward) — computed exactly like POST /orders, which recomputes it again."""
+    return VizuPayService(db).quote(current_user, plan, promo_code)
+
+
 @router.get("/payment-cards", response_model=list[PaymentCardItem])
 def list_payment_cards(db: Session = Depends(get_db)):
     return VizuPayService(db).list_payment_cards()

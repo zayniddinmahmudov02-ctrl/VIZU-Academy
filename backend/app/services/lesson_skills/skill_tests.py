@@ -268,6 +268,10 @@ def submit_attempt(
     attempt.submitted_at = now
     started = attempt.started_at if attempt.started_at.tzinfo else attempt.started_at.replace(tzinfo=timezone.utc)
     attempt.duration_seconds = max(0, int((now - started).total_seconds()))
+    # Lernserie: server start -> submit time of this attempt, capped, credited once
+    from app.services.learning_activity import credit_attempt
+
+    credit_attempt(db, user_id, attempt.id, lesson_id, attempt.duration_seconds, now)
     db.commit()
     db.refresh(attempt)
     return attempt, result

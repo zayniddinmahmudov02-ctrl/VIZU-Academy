@@ -51,6 +51,8 @@ class OrderItem(BaseSchema):
     duration_days: int
     base_amount: int
     discount_amount: int
+    # part of discount_amount from a medal reward (Starter: 5 000 on A1)
+    reward_discount_amount: int = 0
     final_amount: int
     currency: str
     payment_method: str

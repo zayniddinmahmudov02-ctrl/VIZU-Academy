@@ -14,6 +14,7 @@ from app.repositories.video_progress import VideoProgressRepository
 
 from app.services.video.service import VideoService
 from app.services.learning.lesson_progress import refresh_lesson_completion
+from app.services.learning_activity import credit_video
 
 # Matches the spec: watching >=70% of the video (or reaching its end)
 # is what "completed" means.
@@ -132,6 +133,11 @@ class VideoProgressService:
             allowed_position,
             video.duration_seconds,
         )
+
+        # Lernserie: only real playback counts — the stored position must
+        # advance, bounded by the server time since the previous report
+        old_position, last_report_at = progress.last_position, progress.updated_at
+        credit_video(self.db, user.id, video_id, video.lesson_id, old_position, allowed_position, last_report_at)
 
         return self.repository.update(
             progress,

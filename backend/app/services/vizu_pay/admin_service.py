@@ -12,6 +12,7 @@ from app.models.promo_code import PromoCode
 from app.models.promo_code_redemption import PromoCodeRedemption
 from app.models.subscription_order import SubscriptionOrder
 from app.models.user import User
+from app.services import achievements
 
 from . import offers as offer_config
 from . import plans as plan_config
@@ -172,6 +173,7 @@ class AdminVizuPayService:
         order.status = plan_config.STATUS_APPROVED
         order.reviewed_by_id = actor.id
         order.reviewed_at = now
+        achievements.on_order_status(self.db, order)  # a reserved medal reward is now used
 
         self.db.commit()
 
@@ -200,6 +202,7 @@ class AdminVizuPayService:
         order.rejection_reason = reason
         order.reviewed_by_id = actor.id
         order.reviewed_at = _now()
+        achievements.on_order_status(self.db, order)  # the medal reward becomes usable again
 
         if order.promo_code_id:
             redemption = (
@@ -243,6 +246,7 @@ class AdminVizuPayService:
         order.rejection_reason = reason
         order.reviewed_by_id = actor.id
         order.reviewed_at = _now()
+        achievements.on_order_status(self.db, order)  # refunded purchase: the reward can be used again
 
         self.db.commit()
 
