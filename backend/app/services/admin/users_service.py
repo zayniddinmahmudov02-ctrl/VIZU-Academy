@@ -3,7 +3,7 @@ import string
 from datetime import datetime, timedelta, timezone
 from uuid import UUID
 
-from sqlalchemy import func, or_
+from sqlalchemy import exists, func, or_
 from sqlalchemy.orm import Session
 
 from app.core.audit import write_audit
@@ -23,8 +23,7 @@ from app.models.payment.payment import Payment
 from app.models.student_progress import StudentProgress
 from app.models.user import User
 from app.models.user_tag import UserTag
-
-APPROVED = "approved"
+from app.services.vizu_pay import purchases
 
 SORT_COLUMNS = {
     "created_at": User.created_at,
@@ -77,6 +76,8 @@ class AdminUsersService:
         user: User,
         tags: list[dict],
         usage_minutes: int = 0,
+        course_purchases: list[dict] | None = None,
+        pending_orders: int = 0,
     ) -> dict:
         now = _now()
         is_premium = bool(user.premium_until and user.premium_until > now)
@@ -114,6 +115,10 @@ class AdminUsersService:
             "has_password": bool(user.password_hash),
             "created_at": user.created_at,
             "tags": tags,
+            # APPROVED course orders only (purchases.py); pending ones are counted apart
+            "has_course_purchase": bool(course_purchases),
+            "course_purchases": course_purchases or [],
+            "pending_orders": pending_orders,
         }
 
     def _get_user(self, user_id: str) -> User | None:
@@ -156,8 +161,10 @@ class AdminUsersService:
             query = query.filter(User.role.in_(UserRole.ADMIN_PANEL_ROLES))
 
         if tag:
-            query = query.join(UserTag, UserTag.user_id == User.id).filter(
-                UserTag.label == tag
+            # EXISTS instead of a join: no duplicate rows, so no DISTINCT
+            # (which would also forbid ordering by a subquery)
+            query = query.filter(
+                exists().where(UserTag.user_id == User.id, UserTag.label == tag)
             )
 
         now = _now()
@@ -182,10 +189,19 @@ class AdminUsersService:
             )
         elif status == "inactive":
             query = query.filter(User.is_active.is_(False))
+        elif status == "buyer":
+            # bought at least one course (APPROVED order) — pending / rejected never count
+            query = query.filter(purchases.has_course_purchase_clause())
+        elif status == "paying":
+            # Premium-Users page: active legacy Premium OR an approved course purchase
+            query = query.filter(purchases.is_paying_clause(now))
 
-        total = query.distinct().count()
+        total = query.count()
 
-        if sort_by == "name":
+        if sort_by == "last_purchase":
+            last = purchases.last_purchase_at_subquery()
+            order = [(last.desc() if sort_dir == "desc" else last.asc()).nullslast(), User.created_at.desc()]
+        elif sort_by == "name":
             # "Nachname / Vorname" alphabetical ordering — NULLS LAST so
             # users who haven't filled in a name yet don't dominate the
             # front of an ascending sort. Postgres's default collation
@@ -200,19 +216,27 @@ class AdminUsersService:
         page, page_size = clamp_page_params(page, page_size)
 
         users = (
-            query.distinct()
-            .order_by(*order)
+            query.order_by(*order)
             .offset((page - 1) * page_size)
             .limit(page_size)
             .all()
         )
 
+        # one aggregate query each for the page's users, never per row
         user_ids = [u.id for u in users]
         tags_map = self._tags_by_user(user_ids)
         usage_map = self._usage_minutes_by_user(user_ids)
+        purchases_map = purchases.course_purchases_by_user(self.db, user_ids)
+        pending_map = purchases.pending_orders_by_user(self.db, user_ids)
 
         items = [
-            self._serialize_list_item(u, tags_map.get(u.id, []), usage_map.get(u.id, 0))
+            self._serialize_list_item(
+                u,
+                tags_map.get(u.id, []),
+                usage_map.get(u.id, 0),
+                purchases_map.get(u.id, []),
+                pending_map.get(u.id, 0),
+            )
             for u in users
         ]
 
@@ -275,12 +299,11 @@ class AdminUsersService:
         certificates_count = (
             self.db.query(Certificate).filter(Certificate.user_id == user.id).count()
         )
-        payments_total = (
-            self.db.query(func.coalesce(func.sum(Payment.amount), 0))
-            .filter(Payment.user_id == user.id, Payment.status == APPROVED)
-            .scalar()
-            or 0
-        )
+        # VIZU Pay orders under the shared purchase rule (the legacy `payments`
+        # table is never written by the current checkout, so it read 0)
+        payments_total, approved_orders = purchases.revenue_of_user(self.db, user.id)
+        course_purchases = purchases.course_purchases_by_user(self.db, [user.id]).get(user.id, [])
+        pending_orders = purchases.pending_orders_by_user(self.db, [user.id]).get(user.id, 0)
 
         return {
             "id": str(user.id),
@@ -302,7 +325,11 @@ class AdminUsersService:
             "tags": tags,
             "enrollments_count": enrollments_count,
             "certificates_count": certificates_count,
-            "payments_total": int(payments_total),
+            "payments_total": payments_total,
+            "approved_orders": approved_orders,
+            "has_course_purchase": bool(course_purchases),
+            "course_purchases": course_purchases,
+            "pending_orders": pending_orders,
         }
 
     # ------------------------------------------------------------------
@@ -491,22 +518,14 @@ class AdminUsersService:
         now = _now()
         is_premium = bool(user.premium_until and user.premium_until > now)
 
-        totals = (
-            self.db.query(
-                func.coalesce(func.sum(Payment.amount), 0),
-                func.count(Payment.id),
-            )
-            .filter(Payment.user_id == user.id, Payment.status == APPROVED)
-            .first()
-        )
-        total_paid, payments_count = totals if totals else (0, 0)
+        total_paid, payments_count = purchases.revenue_of_user(self.db, user.id)
 
         return {
             "is_premium": is_premium,
             "premium_until": user.premium_until,
             "is_trial": not is_premium,
-            "total_paid": int(total_paid or 0),
-            "payments_count": int(payments_count or 0),
+            "total_paid": total_paid,
+            "payments_count": payments_count,
         }
 
     # ------------------------------------------------------------------

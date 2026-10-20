@@ -11,6 +11,19 @@ class UserTagItem(BaseSchema):
     label: str
 
 
+class CoursePurchaseItem(BaseSchema):
+    """One APPROVED course order (app/services/vizu_pay/purchases.py)."""
+
+    order_id: str
+    plan: str
+    label: str
+    levels: list[str]
+    amount: int
+    currency: str
+    purchased_at: datetime | None  # approval time
+    status: str
+
+
 class UserListItem(BaseSchema):
     id: str
     email: str
@@ -31,6 +44,9 @@ class UserListItem(BaseSchema):
     has_password: bool = True
     created_at: datetime
     tags: list[UserTagItem]
+    has_course_purchase: bool = False
+    course_purchases: list[CoursePurchaseItem] = []
+    pending_orders: int = 0  # waiting for approval — never counted as a purchase
 
 
 class UserListResponse(BaseSchema):
@@ -61,7 +77,11 @@ class UserDetail(BaseSchema):
     tags: list[UserTagItem]
     enrollments_count: int
     certificates_count: int
-    payments_total: int
+    payments_total: int  # approved revenue of this user
+    approved_orders: int = 0
+    has_course_purchase: bool = False
+    course_purchases: list[CoursePurchaseItem] = []
+    pending_orders: int = 0
 
 
 class UserProgressLesson(BaseSchema):

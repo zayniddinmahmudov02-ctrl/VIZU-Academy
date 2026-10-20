@@ -13,9 +13,9 @@ returned as `None` rather than a fake value.
 import os
 import shutil
 import time
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
 
-from sqlalchemy import func, text
+from sqlalchemy import func, literal_column, text
 from sqlalchemy.orm import Session, aliased, joinedload
 
 from app.core.config import settings
@@ -55,6 +55,7 @@ from app.models.writing import Writing
 from app.models.writing_task import WritingTask
 from app.services.certificate import registry as certificate_registry
 from app.services.vizu_pay import plans as plan_config
+from app.services.vizu_pay import purchases
 
 PASS_THRESHOLD = 0.6
 
@@ -63,6 +64,53 @@ FINANCE_ROLES = {"SUPER_ADMIN", "ADMIN", "PAYMENT_MANAGER"}
 SYSTEM_ROLES = {"SUPER_ADMIN", "ADMIN"}
 
 RANGE_DAYS = {"7d": 7, "30d": 30, "90d": 90, "1y": 365}
+
+# Trends buckets (UTC calendar days / ISO weeks starting Monday / months).
+# Only combinations that give a readable number of bars are allowed.
+GRANULARITIES = ("day", "week", "month")
+DEFAULT_GRANULARITY = {"7d": "day", "30d": "day", "90d": "week", "1y": "month"}
+ALLOWED_GRANULARITIES = {
+    "7d": ("day",),
+    "30d": ("day", "week"),
+    "90d": ("day", "week", "month"),
+    "1y": ("week", "month"),
+}
+
+
+def _bucket_start(d: date, granularity: str) -> date:
+    if granularity == "week":
+        return d - timedelta(days=d.weekday())
+    if granularity == "month":
+        return d.replace(day=1)
+    return d
+
+
+def _next_bucket(d: date, granularity: str) -> date:
+    if granularity == "week":
+        return d + timedelta(days=7)
+    if granularity == "month":
+        return (d.replace(day=28) + timedelta(days=4)).replace(day=1)
+    return d + timedelta(days=1)
+
+
+def _bucket_key(d: date, granularity: str) -> str:
+    return d.strftime("%Y-%m") if granularity == "month" else d.isoformat()
+
+
+def trend_buckets(range_key: str, granularity: str, today: date) -> tuple[date, list[str]]:
+    """(first bucket's start, every bucket key up to and including today's)
+    — the full axis, so a day without data is a 0, not a missing bar."""
+    first = _bucket_start(today - timedelta(days=RANGE_DAYS[range_key] - 1), granularity)
+    keys, cur = [], first
+    while cur <= today:
+        keys.append(_bucket_key(cur, granularity))
+        cur = _next_bucket(cur, granularity)
+    return first, keys
+
+
+def resolve_granularity(range_key: str, granularity: str | None) -> str:
+    allowed = ALLOWED_GRANULARITIES[range_key]
+    return granularity if granularity in allowed else DEFAULT_GRANULARITY[range_key]
 
 # Process start time — the only honest way to report "uptime" without an
 # external process supervisor to ask.
@@ -108,10 +156,9 @@ class EnterpriseDashboardService:
         system = role is None or role in SYSTEM_ROLES
 
         kpis = self._kpis()
-        charts = self._charts(range_key)
+        charts = self.get_trends(range_key, None, finance=finance)
         if not finance:
             kpis["total_revenue"] = None
-            charts["revenue"] = []
         activity = self._recent_activity()
         if not finance:
             activity = [a for a in activity if a["type"] != "premium_purchase"]
@@ -138,6 +185,7 @@ class EnterpriseDashboardService:
         now = datetime.now(timezone.utc)
         today_start = now.replace(hour=0, minute=0, second=0, microsecond=0)
         thirty_days_ago = now - timedelta(days=30)
+        _, course_buyers = purchases.course_purchase_totals(self.db)
 
         return {
             "total_users": self.db.query(User).count(),
@@ -149,7 +197,9 @@ class EnterpriseDashboardService:
                 .filter(User.premium_until.isnot(None), User.premium_until > now)
                 .count()
             ),
-            "total_revenue": self._approved_revenue_since(None),
+            # students with >= 1 APPROVED course order (purchases.py — same rule as Users / Analytics)
+            "course_buyers": course_buyers,
+            "total_revenue": purchases.approved_revenue(self.db),
             "active_courses": self.db.query(Course).filter(Course.is_active.is_(True)).count(),
             "total_model_tests": self.db.query(ModelTest).count(),
             # certificate rows + final VIZU-Multilevel results (their certificate is derived from the attempt)
@@ -157,81 +207,69 @@ class EnterpriseDashboardService:
             "todays_registrations": self.db.query(User).filter(User.created_at >= today_start).count(),
         }
 
-    def _approved_revenue_since(self, since: datetime | None) -> int:
-        query = self.db.query(func.coalesce(func.sum(SubscriptionOrder.final_amount), 0)).filter(
-            SubscriptionOrder.status == plan_config.STATUS_APPROVED,
-            SubscriptionOrder.plan.in_(list(plan_config.REVENUE_PLANS)),
+    # ============================================================
+    # Trends (new users / course purchases / revenue / learning progress)
+    # — range + granularity aware, zero-filled, bucketed in UTC
+    # ============================================================
+
+    def get_trends(self, range_key: str, granularity: str | None, finance: bool = True) -> dict:
+        """One grouped query per series. Revenue / purchases use the shared
+        purchase rule (purchases.py) dated by approval (`reviewed_at`), so a
+        bar never holds a pending, rejected or refunded order."""
+        range_key = range_key if range_key in RANGE_DAYS else "30d"
+        granularity = resolve_granularity(range_key, granularity)
+        now = datetime.now(timezone.utc)
+        first, keys = trend_buckets(range_key, granularity, now.date())
+        since_naive = datetime.combine(first, datetime.min.time())
+        since_aware = since_naive.replace(tzinfo=timezone.utc)
+
+        # literals, not bind parameters: the SELECT and GROUP BY expression must
+        # be identical for Postgres (both values come from a fixed whitelist)
+        trunc = literal_column(f"'{granularity}'")
+        fmt = literal_column("'YYYY-MM'" if granularity == "month" else "'YYYY-MM-DD'")
+
+        def series(value_expr, date_col, aware: bool, *conditions) -> list[dict]:
+            utc_col = func.timezone(literal_column("'UTC'"), date_col) if aware else date_col
+            label = func.to_char(func.date_trunc(trunc, utc_col), fmt)
+            rows = (
+                self.db.query(label.label("label"), value_expr)
+                .filter(date_col >= (since_aware if aware else since_naive), *conditions)
+                .group_by(label)
+                .all()
+            )
+            found = {lbl: float(val or 0) for lbl, val in rows}
+            return [{"label": k, "value": found.get(k, 0.0)} for k in keys]
+
+        order = SubscriptionOrder
+        new_users = series(func.count(User.id), User.created_at, True)
+        course_purchases = series(func.count(order.id), order.reviewed_at, False, *purchases.course_purchase_conditions())
+        revenue = (
+            series(func.coalesce(func.sum(order.final_amount), 0), order.reviewed_at, False, *purchases.revenue_conditions())
+            if finance
+            else []
         )
-        if since is not None:
-            query = query.filter(SubscriptionOrder.reviewed_at >= since)
-        return int(query.scalar() or 0)
+        learning = series(
+            func.count(StudentProgress.id), StudentProgress.updated_at, True, StudentProgress.lesson_completed.is_(True)
+        )
 
-    # ============================================================
-    # Charts (revenue / new users / learning progress), range-aware
-    # ============================================================
+        def total(points: list[dict]) -> float:
+            return float(sum(p["value"] for p in points))
 
-    def _range_since(self, range_key: str) -> tuple[datetime, str]:
-        days = RANGE_DAYS[range_key]
-        since = datetime.now(timezone.utc) - timedelta(days=days)
-        granularity = "day" if days <= 90 else "month"
-        return since, granularity
-
-    def _bucket_label(self, date_col, granularity: str):
-        bucket = func.date_trunc(granularity, date_col)
-        fmt = "YYYY-MM-DD" if granularity == "day" else "YYYY-MM"
-        return func.to_char(bucket, fmt)
-
-    def _charts(self, range_key: str) -> dict:
         return {
             "range": range_key,
-            "revenue": self._revenue_chart(range_key),
-            "new_users": self._new_users_chart(range_key),
-            "learning_progress": self._learning_progress_chart(range_key),
+            "granularity": granularity,
+            "allowed_granularities": list(ALLOWED_GRANULARITIES[range_key]),
+            "revenue": revenue,
+            "new_users": new_users,
+            "course_purchases": course_purchases,
+            "learning_progress": learning,
+            "totals": {
+                "revenue": total(revenue) if finance else None,
+                "new_users": total(new_users),
+                "course_purchases": total(course_purchases),
+                "learning_progress": total(learning),
+            },
         }
-
-    def _revenue_chart(self, range_key: str) -> list[dict]:
-        since, granularity = self._range_since(range_key)
-        label = self._bucket_label(SubscriptionOrder.reviewed_at, granularity)
-
-        rows = (
-            self.db.query(label.label("label"), func.coalesce(func.sum(SubscriptionOrder.final_amount), 0))
-            .filter(
-                SubscriptionOrder.status == plan_config.STATUS_APPROVED,
-                SubscriptionOrder.plan.in_(list(plan_config.REVENUE_PLANS)),
-                SubscriptionOrder.reviewed_at >= since,
-            )
-            .group_by(label)
-            .order_by(label)
-            .all()
-        )
-        return [{"label": lbl, "value": float(val)} for lbl, val in rows]
-
-    def _new_users_chart(self, range_key: str) -> list[dict]:
-        since, granularity = self._range_since(range_key)
-        label = self._bucket_label(User.created_at, granularity)
-
-        rows = (
-            self.db.query(label.label("label"), func.count(User.id))
-            .filter(User.created_at >= since)
-            .group_by(label)
-            .order_by(label)
-            .all()
-        )
-        return [{"label": lbl, "value": float(val)} for lbl, val in rows]
-
-    def _learning_progress_chart(self, range_key: str) -> list[dict]:
-        since, granularity = self._range_since(range_key)
-        label = self._bucket_label(StudentProgress.updated_at, granularity)
-
-        rows = (
-            self.db.query(label.label("label"), func.count(StudentProgress.id))
-            .filter(StudentProgress.lesson_completed.is_(True))
-            .filter(StudentProgress.updated_at >= since)
-            .group_by(label)
-            .order_by(label)
-            .all()
-        )
-        return [{"label": lbl, "value": float(val)} for lbl, val in rows]
 
     # ============================================================
     # Learning Analytics
@@ -480,23 +518,16 @@ class EnterpriseDashboardService:
         month_start = today_start.replace(day=1)
 
         return {
-            "today_revenue": self._approved_revenue_since(today_start),
-            "week_revenue": self._approved_revenue_since(week_start),
-            "month_revenue": self._approved_revenue_since(month_start),
+            "today_revenue": purchases.approved_revenue(self.db, today_start),
+            "week_revenue": purchases.approved_revenue(self.db, week_start),
+            "month_revenue": purchases.approved_revenue(self.db, month_start),
             "pending_payments": (
                 self.db.query(SubscriptionOrder).filter(SubscriptionOrder.status == plan_config.STATUS_PENDING).count()
             ),
             "refunds": (
                 self.db.query(SubscriptionOrder).filter(SubscriptionOrder.status == plan_config.STATUS_REFUNDED).count()
             ),
-            "premium_sales": (
-                self.db.query(SubscriptionOrder)
-                .filter(
-                    SubscriptionOrder.status == plan_config.STATUS_APPROVED,
-                    SubscriptionOrder.plan.in_(list(plan_config.REVENUE_PLANS)),
-                )
-                .count()
-            ),
+            "premium_sales": purchases.approved_revenue_orders(self.db),
         }
 
     # ============================================================
@@ -581,10 +612,7 @@ class EnterpriseDashboardService:
         premium_orders = (
             self.db.query(SubscriptionOrder)
             .options(joinedload(SubscriptionOrder.user))
-            .filter(
-                SubscriptionOrder.status == plan_config.STATUS_APPROVED,
-                SubscriptionOrder.plan.in_(list(plan_config.REVENUE_PLANS)),
-            )
+            .filter(*purchases.revenue_conditions())
             .order_by(SubscriptionOrder.reviewed_at.desc())
             .limit(limit)
             .all()

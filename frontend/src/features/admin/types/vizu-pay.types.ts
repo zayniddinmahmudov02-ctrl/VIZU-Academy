@@ -77,6 +77,9 @@ export interface PlanBreakdown {
   label: string;
   orders: number;
   revenue: number;
+  buyers: number;
+  is_course: boolean;
+  levels: string[];
 }
 
 export interface MethodBreakdown {
@@ -96,6 +99,10 @@ export interface RevenueOverview {
   revenue_today: number;
   total_orders: number;
   pending_orders: number;
+  course_purchases: number;
+  course_buyers: number;
+  premium_active: number;
+  paying_users: number;
   monthly_revenue_chart: RevenueChartPoint[];
   plan_breakdown: PlanBreakdown[];
   method_breakdown: MethodBreakdown[];

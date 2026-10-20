@@ -3,6 +3,19 @@ export interface UserTagItem {
   label: string;
 }
 
+/** One APPROVED course order — backend app/services/vizu_pay/purchases.py. */
+export interface CoursePurchaseItem {
+  order_id: string;
+  plan: string;
+  label: string;
+  levels: string[];
+  amount: number;
+  currency: string;
+  /** approval time = purchase date */
+  purchased_at: string | null;
+  status: string;
+}
+
 export interface UserListItem {
   id: string;
   email: string;
@@ -23,6 +36,10 @@ export interface UserListItem {
   has_password: boolean;
   created_at: string;
   tags: UserTagItem[];
+  has_course_purchase: boolean;
+  course_purchases: CoursePurchaseItem[];
+  /** orders still waiting for approval — never a purchase */
+  pending_orders: number;
 }
 
 export interface UserListResponse {
@@ -40,7 +57,9 @@ export interface UserDetail extends UserListItem {
   suspend_reason: string | null;
   enrollments_count: number;
   certificates_count: number;
+  /** approved revenue of this user (UZS) */
   payments_total: number;
+  approved_orders: number;
 }
 
 export const ALL_ROLES = [

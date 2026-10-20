@@ -7,6 +7,8 @@ export interface DashboardKPIs {
   total_users: number;
   active_users_30d: number;
   premium_members: number;
+  /** students with >= 1 APPROVED course order */
+  course_buyers: number;
   /** null = the role may not see revenue */
   total_revenue: number | null;
   active_courses: number;
@@ -20,11 +22,28 @@ export interface DashboardChartPoint {
   value: number;
 }
 
+export const TREND_GRANULARITIES = ["day", "week", "month"] as const;
+export type TrendGranularity = (typeof TREND_GRANULARITIES)[number];
+
+export interface DashboardTrendTotals {
+  /** null = the role may not see revenue */
+  revenue: number | null;
+  new_users: number;
+  course_purchases: number;
+  learning_progress: number;
+}
+
+/** Also GET /admin/dashboard/trends. Zero-filled: one point per bucket,
+ * label YYYY-MM-DD (day / week start, UTC) or YYYY-MM. */
 export interface DashboardCharts {
   range: DashboardRange;
+  granularity: TrendGranularity;
+  allowed_granularities: TrendGranularity[];
   revenue: DashboardChartPoint[];
   new_users: DashboardChartPoint[];
+  course_purchases: DashboardChartPoint[];
   learning_progress: DashboardChartPoint[];
+  totals: DashboardTrendTotals | null;
 }
 
 export interface NamedCount {

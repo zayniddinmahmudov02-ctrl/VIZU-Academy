@@ -6,6 +6,7 @@ import {
   Calendar,
   ClipboardCheck,
   Crown,
+  ShoppingBag,
   UserCheck,
   Users,
   Wallet,
@@ -30,6 +31,7 @@ const KPI_DEFS: KpiDef[] = [
   { key: "total_users", label: "Total Users", icon: Users },
   { key: "active_users_30d", label: "Active Users (30d)", icon: UserCheck },
   { key: "premium_members", label: "Premium Members", icon: Crown },
+  { key: "course_buyers", label: "Kurskäufer (bestätigt)", icon: ShoppingBag },
   { key: "total_revenue", label: "Total Revenue", icon: Wallet, format: formatCurrency },
   { key: "active_courses", label: "Active Courses", icon: BookOpen },
   { key: "total_model_tests", label: "Model Tests", icon: ClipboardCheck },
@@ -39,7 +41,7 @@ const KPI_DEFS: KpiDef[] = [
 
 export function KpiCardsSkeleton() {
   return (
-    <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+    <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
       {KPI_DEFS.map((def) => (
         <AdminCard key={def.key} className="h-[84px] animate-pulse">
           <div className="h-3 w-20 rounded bg-white/5" />
@@ -54,7 +56,7 @@ export default function DashboardKpiCards({ kpis }: { kpis: DashboardKPIs }) {
   // a KPI the role may not see comes back as null — the card is left out
   const defs = KPI_DEFS.filter((def) => kpis[def.key] !== null && kpis[def.key] !== undefined);
   return (
-    <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+    <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
       {defs.map((def) => {
         const Icon = def.icon;
         const raw = kpis[def.key] as number;

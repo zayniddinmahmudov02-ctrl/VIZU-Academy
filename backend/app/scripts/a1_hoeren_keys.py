@@ -100,6 +100,14 @@ def plan_task(lst, spec: dict) -> dict:
                 item["config"] = {**item["config"], "text": target.replace(old, new, 1)}
             else:
                 item["question"] = target.replace(old, new, 1)
+        # `option_fixes`: {n: [(old option text, new option text)]} — a label that contradicts the audio / picture
+        for old, new in spec.get("option_fixes", {}).get(n, []):
+            if any(o["text"] == new for o in item["options"]):
+                continue  # already corrected (re-run)
+            hits = [o for o in item["options"] if o["text"] == old]
+            if len(hits) != 1:
+                raise ValueError(f"Frage {n}: Option „{old}“ nicht gefunden")
+            hits[0]["text"] = new
         if q.question_type in ("MULTIPLE_CHOICE", "TRUE_FALSE"):
             hits = [o for o in item["options"] if o["text"].strip().casefold() == str(key).strip().casefold()]
             if len(hits) != 1:

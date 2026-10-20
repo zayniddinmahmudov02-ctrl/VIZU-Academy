@@ -12,6 +12,7 @@ from app.models.student_writing import (
     STATUS_SUBMITTED,
     StudentWriting,
 )
+from app.models.lesson import Lesson
 from app.models.user import User
 from app.models.writing import Writing
 from app.repositories.student_writing import (
@@ -19,6 +20,7 @@ from app.repositories.student_writing import (
 )
 from app.repositories.teacher_assignment import TeacherAssignmentRepository
 from app.services.learning.lesson_progress import refresh_lesson_completion
+from app.services.lms.access import ensure_lesson_open
 from app.schemas.student_writing import (
     StudentWritingCreate,
     StudentWritingUpdate,
@@ -94,6 +96,9 @@ class StudentWritingService:
         writing = self.db.get(Writing, writing_id)
         if writing is None or not writing.is_published:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Writing task not found")
+        # same lesson rule as reading the task (GET /writings/{id}): a paid or
+        # locked lesson's task cannot be submitted (nor sent to AI evaluation)
+        ensure_lesson_open(self.db, self.db.get(User, user_id), self.db.get(Lesson, writing.lesson_id))
 
         if submit_final:
             words = _word_count(answer_text)

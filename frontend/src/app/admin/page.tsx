@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { AlertTriangle, RefreshCw } from "lucide-react";
 
 import { AdminButton, AdminCard, AdminPageHeader } from "@/components/admin/admin-ui";
@@ -20,14 +19,13 @@ import DashboardOperations, { OperationsSkeleton } from "@/features/admin/compon
 import DashboardQuickActions from "@/features/admin/components/dashboard/dashboard-quick-actions";
 import DashboardVizuMultilevel from "@/features/admin/components/dashboard/dashboard-vizu-multilevel";
 import { getEnterpriseDashboard } from "@/features/admin/services/enterprise-dashboard-service";
-import type { DashboardRange } from "@/features/admin/types/enterprise-dashboard.types";
 
 export default function AdminDashboardPage() {
-  const [range, setRange] = useState<DashboardRange>("30d");
-
+  const queryClient = useQueryClient();
+  // Trends has its own filters + endpoint; this payload always carries the 30-day view
   const { data, isLoading, isError, refetch, isFetching } = useQuery({
-    queryKey: ["admin-enterprise-dashboard", range],
-    queryFn: () => getEnterpriseDashboard(range),
+    queryKey: ["admin-enterprise-dashboard"],
+    queryFn: () => getEnterpriseDashboard("30d"),
     // KPIs/charts/activity change with real usage, not every second —
     // avoid re-fetching the one big payload on every tab focus.
     staleTime: 60 * 1000,
@@ -39,7 +37,15 @@ export default function AdminDashboardPage() {
         title="Dashboard"
         description="Das Kontrollzentrum der gesamten VIZU Academy Plattform."
         action={
-          <AdminButton variant="secondary" size="sm" onClick={() => refetch()} disabled={isFetching}>
+          <AdminButton
+            variant="secondary"
+            size="sm"
+            onClick={() => {
+              refetch();
+              queryClient.invalidateQueries({ queryKey: ["admin-dashboard-trends"] });
+            }}
+            disabled={isFetching}
+          >
             <RefreshCw size={14} className={isFetching ? "animate-spin" : ""} />
             Aktualisieren
           </AdminButton>
@@ -79,7 +85,7 @@ export default function AdminDashboardPage() {
         <div className="space-y-6">
           <DashboardKpiCards kpis={data.kpis} />
 
-          <DashboardCharts charts={data.charts} range={range} onRangeChange={setRange} showRevenue={data.can_see_finance !== false} />
+          <DashboardCharts initialCharts={data.charts} showRevenue={data.can_see_finance !== false} />
 
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             <DashboardLearningAnalytics data={data.learning_analytics} />

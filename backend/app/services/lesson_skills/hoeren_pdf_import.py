@@ -41,6 +41,10 @@ from app.services.lesson_skills.question_types import GAP_PATTERN
 from app.services.lms import structure
 
 LEVEL = "A1"
+# Hören tasks of these levels are published only with every key verified in
+# Lösung (ListeningService.update; Lösung publish checks it for every level).
+# Already published tasks are never unpublished by this rule.
+VERIFIED_KEY_LEVELS = {"A1", "A2"}
 MAX_PDF_BYTES = 20 * 1024 * 1024
 LETTERS = "ABCDEF"
 ARTICLES = ("der", "die", "das", "den", "dem", "des")

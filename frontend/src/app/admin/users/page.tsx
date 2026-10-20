@@ -27,6 +27,7 @@ import {
 import DataTable, { DataTableColumn } from "@/components/admin/data-table";
 import FormDialog from "@/components/admin/form-dialog";
 import Avatar from "@/components/ui/avatar";
+import { CoursePurchaseBadges, formatPurchaseDate } from "@/features/admin/components/course-purchase-badges";
 import { ALL_ROLES, UserListItem } from "@/features/admin/types/user.types";
 import {
   banUser,
@@ -58,17 +59,19 @@ export default function UsersPage() {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [role, setRole] = useState("");
+  const [status, setStatus] = useState("");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
   const [selected, setSelected] = useState<UserListItem | null>(null);
 
   const { data, isLoading } = useQuery({
-    queryKey: ["admin-users", page, search, role, sortDir],
+    queryKey: ["admin-users", page, search, role, status, sortDir],
     queryFn: () =>
       listUsers({
         page,
         page_size: PAGE_SIZE,
         search: search || undefined,
         role: role || undefined,
+        status: status || undefined,
         sort_by: "name",
         sort_dir: sortDir,
       }),
@@ -200,6 +203,7 @@ export default function UsersPage() {
               Premium
             </span>
           )}
+          <CoursePurchaseBadges purchases={item.course_purchases ?? []} pendingOrders={item.pending_orders ?? 0} />
         </div>
       ),
     },
@@ -236,6 +240,19 @@ export default function UsersPage() {
               {r}
             </option>
           ))}
+        </AdminSelect>
+        <AdminSelect
+          value={status}
+          onChange={(e) => {
+            setStatus(e.target.value);
+            setPage(1);
+          }}
+          className="w-52"
+          aria-label="Kaufstatus filtern"
+        >
+          <option value="">Alle Nutzer</option>
+          <option value="buyer">Kurs gekauft (bestätigt)</option>
+          <option value="premium">Premium aktiv</option>
         </AdminSelect>
         <AdminButton
           variant="secondary"
@@ -299,9 +316,9 @@ export default function UsersPage() {
             <div className="grid grid-cols-3 gap-3">
               <AdminCard className="p-3 text-center">
                 <p className="text-lg font-bold text-[var(--admin-text-primary)]">
-                  {detail.enrollments_count}
+                  {(detail.course_purchases ?? []).length}
                 </p>
-                <p className="text-xs text-[var(--admin-text-muted)]">Kurse</p>
+                <p className="text-xs text-[var(--admin-text-muted)]">Gekaufte Kurse</p>
               </AdminCard>
               <AdminCard className="p-3 text-center">
                 <p className="text-lg font-bold text-[var(--admin-text-primary)]">
@@ -311,10 +328,41 @@ export default function UsersPage() {
               </AdminCard>
               <AdminCard className="p-3 text-center">
                 <p className="text-lg font-bold text-[var(--admin-text-primary)]">
-                  {detail.payments_total.toLocaleString()}
+                  {(detail.payments_total ?? 0).toLocaleString("de-DE")}
                 </p>
-                <p className="text-xs text-[var(--admin-text-muted)]">Zahlungen</p>
+                <p className="text-xs text-[var(--admin-text-muted)]">
+                  Bestätigte Zahlungen (UZS, {detail.approved_orders ?? 0})
+                </p>
               </AdminCard>
+            </div>
+
+            <div>
+              <AdminLabel>Gekaufte Kurse</AdminLabel>
+              {(detail.course_purchases ?? []).length > 0 ? (
+                <div className="space-y-1.5">
+                  {detail.course_purchases.map((p) => (
+                    <div
+                      key={p.order_id}
+                      className="flex flex-wrap items-center justify-between gap-2 rounded-lg bg-white/[0.03] px-3 py-2 text-sm ring-1 ring-[var(--admin-border)]"
+                    >
+                      <span className="font-medium text-[var(--admin-text-primary)]">
+                        Kurs {p.label}
+                        <span className="ml-1.5 text-xs text-[var(--admin-text-muted)]">({p.levels.join(", ")})</span>
+                      </span>
+                      <span className="text-xs text-[var(--admin-text-secondary)]">
+                        bestätigt {formatPurchaseDate(p.purchased_at)} · {p.amount.toLocaleString("de-DE")} {p.currency}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-sm text-[var(--admin-text-muted)]">Kein bestätigter Kurskauf.</p>
+              )}
+              {(detail.pending_orders ?? 0) > 0 && (
+                <p className="mt-1.5 text-xs text-[var(--admin-warning)]">
+                  {detail.pending_orders} Bestellung(en) warten auf Bestätigung (zählen nicht als Kauf).
+                </p>
+              )}
             </div>
 
             {tempPassword && (

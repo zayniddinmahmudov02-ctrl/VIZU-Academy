@@ -13,7 +13,7 @@ and speaking audio access, and grade-request score validation.
 
 import unittest
 from datetime import datetime, timezone
-from unittest.mock import MagicMock
+from unittest.mock import AsyncMock, MagicMock, patch
 from uuid import uuid4
 
 from fastapi import HTTPException
@@ -40,6 +40,12 @@ class TestGradeRequestValidation(unittest.TestCase):
 
 
 class TestStudentWritingServiceSubmit(unittest.TestCase):
+    def setUp(self):
+        # the lesson access rule has its own tests (TestSubmissionLessonAccess)
+        patcher = patch("app.services.student_writing.service.ensure_lesson_open", return_value=None)
+        patcher.start()
+        self.addCleanup(patcher.stop)
+
     def _service(self):
         service = StudentWritingService(db=MagicMock())
         service.repository = MagicMock()

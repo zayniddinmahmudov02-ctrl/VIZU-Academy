@@ -856,6 +856,13 @@ def publish_batch(db: Session, batch_id: UUID) -> ContentImport:
                 problems.append("AUDIO_REQUIRED")
             if created["kind"] in ("listening", "exercise") and any(not has_key(q) for q in row.questions):
                 problems.append("KEY_REQUIRED")
+            elif created["kind"] == "listening":
+                # same rule as ListeningService.update: A1 / A2 Hören only with verified keys
+                from app.services.lesson_skills.hoeren_pdf_import import VERIFIED_KEY_LEVELS, readiness
+
+                state = readiness(db, row)
+                if state["level"] in VERIFIED_KEY_LEVELS and state["key_unverified"]:
+                    problems.append("KEY_NOT_VERIFIED")
             rows.append(row)
         if problems:
             entry["publish_problem"] = ", ".join(sorted(set(problems)))

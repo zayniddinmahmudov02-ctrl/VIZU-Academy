@@ -178,6 +178,9 @@ class PlanBreakdown(BaseSchema):
     label: str
     orders: int
     revenue: int
+    buyers: int = 0  # distinct students
+    is_course: bool = False  # an Angebote course offer (vs. legacy Premium plan)
+    levels: list[str] = []
 
 
 class MethodBreakdown(BaseSchema):
@@ -197,6 +200,10 @@ class RevenueOverview(BaseSchema):
     revenue_today: int
     total_orders: int
     pending_orders: int
+    course_purchases: int = 0  # APPROVED course orders
+    course_buyers: int = 0  # distinct students with an APPROVED course order
+    premium_active: int = 0  # legacy time-based Premium still running
+    paying_users: int = 0  # premium_active OR course buyer, each student once
     monthly_revenue_chart: list[RevenueChartPoint]
     plan_breakdown: list[PlanBreakdown]
     method_breakdown: list[MethodBreakdown]

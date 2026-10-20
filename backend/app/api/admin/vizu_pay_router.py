@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Request
+from fastapi import APIRouter, Depends, Query, Request
 from sqlalchemy.orm import Session
 
 from app.api.dependencies.auth import require_super_admin
@@ -107,10 +107,12 @@ def list_orders(
     year: int | None = None,
     month: int | None = None,
     day: int | None = None,
+    kind: str | None = Query(None, pattern="^course$"),
     db: Session = Depends(get_db),
     current_user: User = Depends(require_super_admin),
 ):
     return AdminVizuPayService(db).list_orders(
+        kind=kind,
         page=page,
         page_size=page_size,
         status=status,

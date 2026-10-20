@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta, timezone
 from uuid import UUID
 
-from sqlalchemy import extract, func, or_
+from sqlalchemy import extract, func, literal_column, or_
 from sqlalchemy.orm import Session
 
 from app.core.audit import write_audit
@@ -16,6 +16,7 @@ from app.services import achievements
 
 from . import offers as offer_config
 from . import plans as plan_config
+from . import purchases
 from .service import VizuPayError, VizuPayService
 
 PAYMENT_LOG_ACTIONS = [
@@ -68,6 +69,7 @@ class AdminVizuPayService:
         year: int | None = None,
         month: int | None = None,
         day: int | None = None,
+        kind: str | None = None,
     ) -> dict:
         query = self.db.query(SubscriptionOrder).join(User, SubscriptionOrder.user_id == User.id)
 
@@ -75,6 +77,9 @@ class AdminVizuPayService:
             query = query.filter(SubscriptionOrder.status == status)
         if plan:
             query = query.filter(SubscriptionOrder.plan == plan)
+        if kind == "course":
+            # Angebote course orders only (Analytics -> course purchases)
+            query = query.filter(SubscriptionOrder.plan.in_(list(offer_config.OFFER_CODES)))
         if user_id:
             query = query.filter(SubscriptionOrder.user_id == UUID(user_id))
         if search:
@@ -371,46 +376,27 @@ class AdminVizuPayService:
     # ------------------------------------------------------------------
 
     def revenue_overview(self) -> dict:
+        """Every money figure under the shared purchase rule (purchases.py):
+        APPROVED orders of a real-money plan, dated by approval."""
         now = _now()
         today_start = now.replace(hour=0, minute=0, second=0, microsecond=0)
         month_start = today_start.replace(day=1)
+        approved = purchases.revenue_conditions()
 
-        total_revenue = int(
-            self.db.query(func.coalesce(func.sum(SubscriptionOrder.final_amount), 0))
-            .filter(SubscriptionOrder.status == plan_config.STATUS_APPROVED, SubscriptionOrder.plan.in_(list(plan_config.REVENUE_PLANS)))
-            .scalar()
-            or 0
-        )
-
-        revenue_this_month = int(
-            self.db.query(func.coalesce(func.sum(SubscriptionOrder.final_amount), 0))
-            .filter(
-                SubscriptionOrder.status == plan_config.STATUS_APPROVED,
-                SubscriptionOrder.plan.in_(list(plan_config.REVENUE_PLANS)),
-                SubscriptionOrder.reviewed_at >= month_start,
-            )
-            .scalar()
-            or 0
-        )
-
-        revenue_today = int(
-            self.db.query(func.coalesce(func.sum(SubscriptionOrder.final_amount), 0))
-            .filter(
-                SubscriptionOrder.status == plan_config.STATUS_APPROVED,
-                SubscriptionOrder.plan.in_(list(plan_config.REVENUE_PLANS)),
-                SubscriptionOrder.reviewed_at >= today_start,
-            )
-            .scalar()
-            or 0
-        )
+        total_revenue = purchases.approved_revenue(self.db)
+        revenue_this_month = purchases.approved_revenue(self.db, month_start)
+        revenue_today = purchases.approved_revenue(self.db, today_start)
 
         total_orders = self.db.query(SubscriptionOrder).count()
         pending_orders = self.db.query(SubscriptionOrder).filter(SubscriptionOrder.status == plan_config.STATUS_PENDING).count()
+        course_purchases, course_buyers = purchases.course_purchase_totals(self.db)
+        premium_active = self.db.query(User).filter(User.premium_until.isnot(None), User.premium_until > now).count()
+        paying_users = self.db.query(User).filter(purchases.is_paying_clause(now)).count()
 
-        bucket = func.to_char(SubscriptionOrder.reviewed_at, "YYYY-MM")
+        bucket = func.to_char(SubscriptionOrder.reviewed_at, literal_column("'YYYY-MM'"))
         monthly_rows = (
             self.db.query(bucket.label("label"), func.coalesce(func.sum(SubscriptionOrder.final_amount), 0))
-            .filter(SubscriptionOrder.status == plan_config.STATUS_APPROVED, SubscriptionOrder.plan.in_(list(plan_config.REVENUE_PLANS)))
+            .filter(*approved)
             .group_by(bucket)
             .order_by(bucket)
             .all()
@@ -418,19 +404,33 @@ class AdminVizuPayService:
         monthly_revenue_chart = [{"label": label, "value": int(value)} for label, value in monthly_rows][-12:]
 
         plan_rows = (
-            self.db.query(SubscriptionOrder.plan, func.count(SubscriptionOrder.id), func.coalesce(func.sum(SubscriptionOrder.final_amount), 0))
-            .filter(SubscriptionOrder.status == plan_config.STATUS_APPROVED, SubscriptionOrder.plan.in_(list(plan_config.REVENUE_PLANS)))
+            self.db.query(
+                SubscriptionOrder.plan,
+                func.count(SubscriptionOrder.id),
+                func.coalesce(func.sum(SubscriptionOrder.final_amount), 0),
+                func.count(func.distinct(SubscriptionOrder.user_id)),
+            )
+            .filter(*approved)
             .group_by(SubscriptionOrder.plan)
             .all()
         )
         plan_breakdown = [
-            {"plan": plan, "label": plan_config.plan_label(plan), "orders": int(count), "revenue": int(revenue)}
-            for plan, count, revenue in plan_rows
+            {
+                "plan": plan,
+                "label": plan_config.plan_label(plan),
+                "orders": int(count),
+                "revenue": int(revenue),
+                "buyers": int(buyers),
+                "is_course": offer_config.is_offer(plan),
+                "levels": offer_config.offer_levels(plan),
+            }
+            for plan, count, revenue, buyers in plan_rows
         ]
+        plan_breakdown.sort(key=lambda p: (-p["revenue"], p["label"]))
 
         method_rows = (
             self.db.query(SubscriptionOrder.payment_method, func.count(SubscriptionOrder.id), func.coalesce(func.sum(SubscriptionOrder.final_amount), 0))
-            .filter(SubscriptionOrder.status == plan_config.STATUS_APPROVED, SubscriptionOrder.plan.in_(list(plan_config.REVENUE_PLANS)))
+            .filter(*approved)
             .group_by(SubscriptionOrder.payment_method)
             .all()
         )
@@ -451,6 +451,10 @@ class AdminVizuPayService:
             "revenue_today": revenue_today,
             "total_orders": total_orders,
             "pending_orders": pending_orders,
+            "course_purchases": course_purchases,
+            "course_buyers": course_buyers,
+            "premium_active": premium_active,
+            "paying_users": paying_users,
             "monthly_revenue_chart": monthly_revenue_chart,
             "plan_breakdown": plan_breakdown,
             "method_breakdown": method_breakdown,

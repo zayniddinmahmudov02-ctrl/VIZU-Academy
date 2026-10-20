@@ -16,6 +16,7 @@ class DashboardKPIs(BaseSchema):
     total_users: int
     active_users_30d: int
     premium_members: int
+    course_buyers: int = 0  # students with >= 1 APPROVED course order
     total_revenue: int | None  # None = the caller's role may not see revenue
     active_courses: int
     total_model_tests: int
@@ -28,11 +29,25 @@ class DashboardChartPoint(BaseSchema):
     value: float
 
 
+class DashboardTrendTotals(BaseSchema):
+    revenue: float | None  # None = the caller's role may not see revenue
+    new_users: float
+    course_purchases: float
+    learning_progress: float
+
+
 class DashboardCharts(BaseSchema):
+    """Also the response of GET /admin/dashboard/trends. Every series has one
+    point per bucket (zero-filled), labels YYYY-MM-DD (day / week start) or YYYY-MM."""
+
     range: str
+    granularity: str = "day"
+    allowed_granularities: list[str] = []
     revenue: list[DashboardChartPoint]
     new_users: list[DashboardChartPoint]
+    course_purchases: list[DashboardChartPoint] = []
     learning_progress: list[DashboardChartPoint]
+    totals: DashboardTrendTotals | None = None
 
 
 class NamedCount(BaseSchema):

@@ -51,11 +51,11 @@ class ListeningService:
 
             if any(not has_key(q) for q in listening.questions):
                 raise HTTPException(status_code=409, detail="ANSWER_KEY_REQUIRED_TO_PUBLISH")
-            # A1: a key is published only after it was verified (LMS -> Lösung)
-            from app.services.lesson_skills.hoeren_pdf_import import LEVEL as A1, readiness
+            # A1 / A2: a key is published only after it was verified (LMS -> Lösung)
+            from app.services.lesson_skills.hoeren_pdf_import import VERIFIED_KEY_LEVELS, readiness
 
             state = readiness(self.db, listening)
-            if state["level"] == A1 and state["key_unverified"]:
+            if state["level"] in VERIFIED_KEY_LEVELS and state["key_unverified"]:
                 raise HTTPException(status_code=409, detail="ANSWER_KEY_NOT_VERIFIED")
 
         return self.repository.update(

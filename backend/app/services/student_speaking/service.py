@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 
 from app.core.security.roles import UserRole
 from app.core.storage.protected_local import ProtectedLegacySpeakingStorage
+from app.models.lesson import Lesson
 from app.models.speaking import Speaking
 from app.models.student_speaking import STATUS_EVALUATING, STATUS_SUBMITTED, StudentSpeaking
 from app.models.task_audio import ALL_AUDIO_FORMATS, CONTENT_TYPE_BY_FORMAT
@@ -14,6 +15,7 @@ from app.models.user import User
 from app.repositories.student_speaking import StudentSpeakingRepository
 from app.repositories.teacher_assignment import TeacherAssignmentRepository
 from app.services.learning.lesson_progress import refresh_lesson_completion
+from app.services.lms.access import ensure_lesson_open
 from app.schemas.student_speaking import (
     StudentSpeakingCreate,
     StudentSpeakingUpdate,
@@ -83,6 +85,8 @@ class StudentSpeakingService:
         speaking = self.db.get(Speaking, speaking_id)
         if speaking is None or not speaking.is_published:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Speaking task not found")
+        # a paid or locked lesson's task cannot be submitted (nor sent to AI evaluation)
+        ensure_lesson_open(self.db, self.db.get(User, user_id), self.db.get(Lesson, speaking.lesson_id))
 
         existing = self.repository.get_by_user_and_speaking(user_id, speaking_id)
         if speaking.ai_evaluation_enabled:
