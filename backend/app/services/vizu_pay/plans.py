@@ -39,14 +39,15 @@ PLAN_CONFIG = {
 # Manual bank transfer — authoritative card numbers, the ONLY place they are
 # defined (served by GET /vizu-pay/payment-cards to the checkout). Do not
 # change without explicit instruction; must stay identical to what the
-# Telegram bot shows. 2026-10-20: 9860 3501 4490 7192 -> 9860 0401 1406 3742.
+# Telegram bot shows. 2026-10-20: 9860 3501 4490 7192 -> 9860 0401 1406 3742;
+# the Visa card was removed the same day.
 PAYMENT_CARDS = [
     {"label": "UzCard", "number": "9860040114063742"},
-    {"label": "Visa", "number": "4448844427532174"},
 ]
 
-PAYMENT_METHOD_VISA = "VISA"
-PAYMENT_METHOD_MASTERCARD = "MASTERCARD"
+# Methods a new order may be submitted with. VISA / MASTERCARD are no longer
+# offered; old orders keep those values in payment_method and still display
+# as stored (nothing re-validates them).
 PAYMENT_METHOD_UZCARD = "UZCARD"
 PAYMENT_METHOD_HUMO = "HUMO"
 PAYMENT_METHOD_TELEGRAM = "TELEGRAM"
@@ -54,8 +55,6 @@ PAYMENT_METHOD_TRIAL = "TRIAL"
 PAYMENT_METHOD_PROMO = "PROMO"
 
 PAYMENT_METHODS = {
-    PAYMENT_METHOD_VISA,
-    PAYMENT_METHOD_MASTERCARD,
     PAYMENT_METHOD_UZCARD,
     PAYMENT_METHOD_HUMO,
     PAYMENT_METHOD_TELEGRAM,

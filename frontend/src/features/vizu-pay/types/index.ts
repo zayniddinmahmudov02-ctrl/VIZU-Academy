@@ -83,5 +83,5 @@ export interface PromoValidation {
   message: string | null;
 }
 
-export const PAYMENT_METHODS = ["VISA", "MASTERCARD", "UZCARD", "HUMO", "TELEGRAM"] as const;
+export const PAYMENT_METHODS = ["UZCARD", "HUMO", "TELEGRAM"] as const;
 export type PaymentMethod = (typeof PAYMENT_METHODS)[number];

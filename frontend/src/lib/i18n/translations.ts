@@ -1606,7 +1606,7 @@ export const translations: Record<string, Namespace> = {
     buyUnlocksAll: { de: "Nach dem Kauf: alle Lektionen offen", uz: "Xariddan keyin barcha darslar ochiladi" },
     buyPackagesTitle: { de: "Pakete — günstiger", uz: "Paketlar — arzonroq" },
     buyPackageLevels: { de: "Enthält {levels}", uz: "Tarkibi: {levels}" },
-    buyPayment: { de: "Zahlung per Überweisung (UzCard / Visa) mit Beleg-Upload.", uz: "To'lov: UzCard / Visa kartaga o'tkazma, chekni yuklaysiz." },
+    buyPayment: { de: "Zahlung per Überweisung auf die UzCard mit Beleg-Upload.", uz: "To'lov: UzCard kartaga o'tkazma, chekni yuklaysiz." },
     buyAfter: { de: "Nach der Bestätigung durch die Administration werden die Lektionen automatisch freigeschaltet.", uz: "Administrator to'lovni tasdiqlagach darslar avtomatik ochiladi." },
     buyOwned: { de: "Du hast diesen Kurs bereits.", uz: "Bu kurs sizda bor." },
     buyNotForSale: { de: "Dieser Kurs ist gerade nicht im Verkauf.", uz: "Bu kurs hozircha sotuvda emas." },

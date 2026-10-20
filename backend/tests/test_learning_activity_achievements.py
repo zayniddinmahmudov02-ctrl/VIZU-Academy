@@ -162,6 +162,13 @@ class TestCard(unittest.TestCase):
         self.assertIn("9860040114063742", numbers)
         self.assertNotIn("9860350144907192", numbers)
 
+    def test_visa_mastercard_removed(self):
+        from app.services.vizu_pay import plans
+
+        self.assertEqual([c["label"] for c in plans.PAYMENT_CARDS], ["UzCard"])
+        self.assertNotIn("4448844427532174", [c["number"] for c in plans.PAYMENT_CARDS])
+        self.assertEqual(plans.PAYMENT_METHODS, {"UZCARD", "HUMO", "TELEGRAM"})
+
 
 if __name__ == "__main__":
     unittest.main()
