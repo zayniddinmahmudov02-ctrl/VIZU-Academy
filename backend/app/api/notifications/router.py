@@ -1,3 +1,4 @@
+from datetime import datetime
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException
@@ -14,12 +15,44 @@ from app.schemas.notification import (
     NotificationResponse,
 )
 
-from app.services.notification import NotificationService
+from app.services.notification import NotificationService, feed
 
 router = APIRouter(
     prefix="/notifications",
     tags=["Notifications"],
 )
+
+
+# ---- feed: personal notifications + admin broadcasts (own / visible only) ----
+
+@router.get("/feed")
+def notification_feed(
+    before: datetime | None = None,
+    limit: int = feed.DEFAULT_LIMIT,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Newest first, `limit` (max 50) per page; `next_before` is the cursor of the next page."""
+    return feed.feed(db, current_user, before, limit)
+
+
+@router.get("/unread-count")
+def notification_unread_count(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    return {"unread": feed.unread_count(db, current_user)}
+
+
+@router.post("/feed/read-all")
+def notification_feed_read_all(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    feed.mark_all_read(db, current_user)
+    return {"unread": 0}
+
+
+@router.post("/feed/{item_id}/read")
+def notification_feed_read(item_id: str, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    """`item_id` = "p:<id>" (personal) or "b:<id>" (broadcast) — only the caller's own / visible ones."""
+    if not feed.mark_read(db, current_user, item_id):
+        raise HTTPException(status_code=404, detail="Notification not found")
+    return {"unread": feed.unread_count(db, current_user)}
 
 
 @router.get(

@@ -120,6 +120,11 @@ from app.api.advertisements.router import router as advertisements_router
 from app.api.achievements.router import admin_router as admin_achievements_router
 from app.api.achievements.router import router as achievements_router
 
+# Admin notifications (broadcasts) + Hilfe benötigt / Support
+from app.api.admin.notifications_router import router as admin_notifications_router
+from app.api.support.router import admin_router as admin_support_router
+from app.api.support.router import router as support_router
+
 # Upload
 from app.api.upload import (
     router as upload_router,
@@ -290,6 +295,9 @@ _ALL_ROUTERS = [
     admin_advertisements_router,
     achievements_router,
     admin_achievements_router,
+    admin_notifications_router,
+    support_router,
+    admin_support_router,
     upload_router,
     admin_router,
     admin_users_router,

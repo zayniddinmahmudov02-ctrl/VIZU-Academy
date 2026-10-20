@@ -63,6 +63,8 @@ from .answer_key_review import AnswerKeyReview
 from .listening_audio_track import ListeningAudioTrack
 from .learning_activity import LearningActivity
 from .achievement import Achievement, AchievementCategory, UserAchievement
+from .broadcast_notification import BroadcastNotification, BroadcastNotificationRead
+from .support import SupportMessage, SupportTicket
 from .lms import LearningResource, LessonCompetency, StudentCompetencyProgress
 
 # Certificate

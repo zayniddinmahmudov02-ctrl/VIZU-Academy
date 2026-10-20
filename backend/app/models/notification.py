@@ -33,5 +33,7 @@ class Notification(BaseModel):
     )
     is_read: Mapped[bool] = mapped_column(Boolean, default=False, server_default="false", nullable=False)
     audio_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    # in-app page this notification leads to (set by server code only, e.g. "/support/<ticket id>")
+    link_path: Mapped[str | None] = mapped_column(String(300), nullable=True)
 
     user = relationship("User")

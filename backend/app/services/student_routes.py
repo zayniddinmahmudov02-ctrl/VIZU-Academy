@@ -25,6 +25,7 @@ STUDENT_ROUTES: dict[str, dict] = {
     "informationen": {"group": "Allgemein", "label": "Informationen", "path": "/informationen"},
     "profile": {"group": "Allgemein", "label": "Profil", "path": "/profile"},
     "settings": {"group": "Allgemein", "label": "Einstellungen", "path": "/settings"},
+    "support": {"group": "Allgemein", "label": "Hilfe & Support", "path": "/support"},
     "kurse": {"group": "Kurse", "label": "Alle Kurse (A1–C1)", "path": "/kurse"},
     "kurse_level": {
         "group": "Kurse",

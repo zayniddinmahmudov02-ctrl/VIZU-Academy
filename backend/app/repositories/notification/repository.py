@@ -34,6 +34,7 @@ class NotificationRepository:
         message: str,
         type: str,
         audio_url: str | None = None,
+        link_path: str | None = None,
     ) -> Notification:
         item = Notification(
             user_id=user_id,
@@ -41,6 +42,7 @@ class NotificationRepository:
             message=message,
             type=type,
             audio_url=audio_url,
+            link_path=link_path,
         )
 
         self.db.add(item)
