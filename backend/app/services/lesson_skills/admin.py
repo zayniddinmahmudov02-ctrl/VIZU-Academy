@@ -384,6 +384,33 @@ async def upload_audio_track(db: Session, listening_id: UUID, label: str, file: 
     db.refresh(track)
     if old and old != name:
         await _delete_if_unused(db, old)
+    # A1: every slot filled + complete verified keys -> "Veröffentlicht" (same rule as the main audio)
+    from app.services.lesson_skills.hoeren_pdf_import import auto_publish
+
+    db.refresh(listening)
+    auto_publish(db, listening)
+    return track
+
+
+async def clear_audio_track_file(db: Session, listening_id: UUID, track_id: UUID) -> ListeningAudioTrack:
+    """Removes only the FILE of a track — the slot (label, order) stays, ready
+    for a new upload (A1 L14 „Text von Alisa“ / „Text von Alex“). A task with
+    an empty slot is incomplete, so it is hidden again (questions are kept)."""
+    track = _track(db, listening_id, track_id)
+    if not track.storage_path:
+        raise HTTPException(status_code=404, detail="Audio not found.")
+    old = track.storage_path
+    track.storage_path = None
+    track.content_type = None
+    track.size_bytes = None
+    track.original_name = None
+    track.duration_seconds = None
+    listening = db.get(Listening, listening_id)
+    if listening is not None and not listening.audio_url:
+        listening.is_published = False
+    db.commit()
+    await _delete_if_unused(db, old)
+    db.refresh(track)
     return track
 
 

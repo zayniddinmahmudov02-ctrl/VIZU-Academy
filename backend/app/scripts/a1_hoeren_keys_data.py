@@ -197,8 +197,9 @@ TASKS["vizu-a1-l14-hoeren-01"] = {
                 "A1-14.1.mp3 — die Alex-Fragen waren nicht hörbar; jetzt zwei getrennte Audiodateien („Audio von Alisa“, „Audio von Alex“). "
                 "Das Blatt (ältere Fragenfolge) weicht bei 5–10 ab; das Audio ist eindeutig.",
     "keys": ["Alisa", "Alex", "Alisa", "Alex", "Alisa", "Alex", "Alisa", "Alex", "Alisa", "Alex"],
-    # two separate audio files (2026-10-20): the main audio is Alisa's, Alex is an extra track
+    # two separate audio slots (2026-10-20): the main audio is Alisa's, Alex is an extra track
+    # (slot names as in Admin -> Medienverwaltung, see a1_l14_audio_slots.py)
     "audio_parts": ["A1-14.1.mp3"],
-    "audio_label": "Audio von Alisa",
-    "audio_tracks": [("Audio von Alex", "A1-14.2.mp3")],
+    "audio_label": "Text von Alisa",
+    "audio_tracks": [("Text von Alex", "A1-14.2.mp3")],
 }

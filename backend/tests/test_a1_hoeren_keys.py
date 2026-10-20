@@ -106,7 +106,17 @@ class TestPlan(unittest.TestCase):
     def test_l14_has_two_separate_audios(self):
         spec = TASKS["vizu-a1-l14-hoeren-01"]
         self.assertEqual((spec["audio_parts"], spec["audio_label"], spec["audio_tracks"]),
-                         (["A1-14.1.mp3"], "Audio von Alisa", [("Audio von Alex", "A1-14.2.mp3")]))
+                         (["A1-14.1.mp3"], "Text von Alisa", [("Text von Alex", "A1-14.2.mp3")]))
+
+    def test_l14_slot_script_plan(self):
+        from app.scripts import a1_l14_audio_slots as slots
+
+        old = SimpleNamespace(label="Audio von Alex", order_index=1)
+        lst = SimpleNamespace(audio_label="Audio von Alisa", audio_tracks=[old])
+        self.assertEqual([a for a, _ in slots.plan(lst)], ["label_main", "rename_track"])
+        self.assertEqual([a for a, _ in slots.plan(SimpleNamespace(audio_label=None, audio_tracks=[]))], ["label_main", "create_track"])
+        done = SimpleNamespace(audio_label="Text von Alisa", audio_tracks=[SimpleNamespace(label="Text von Alex", order_index=1)])
+        self.assertEqual(slots.plan(done), [])  # idempotent
 
     def test_audio_name(self):
         self.assertEqual(script.audio_name(["A1-10.2.mp3"]), "A1-10.2.mp3")
