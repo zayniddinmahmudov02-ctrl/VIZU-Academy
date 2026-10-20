@@ -28,6 +28,8 @@ class OfferItem(BaseSchema):
     purchasable: bool = False
     # levels of the offer students can open today ("Tez orada" levels are not)
     available_levels: list[str] = []
+    # levels approved for sale (Admin -> Angebote); the others show "Tez orada"
+    sales_levels: list[str] = []
     free_lessons: int
     currency: str = "UZS"
 
