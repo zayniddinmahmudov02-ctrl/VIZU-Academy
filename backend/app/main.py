@@ -116,6 +116,10 @@ from app.api.vizu_multilevel.router import router as vizu_multilevel_router
 from app.api.advertisements.router import admin_router as admin_advertisements_router
 from app.api.advertisements.router import router as advertisements_router
 
+# Achievements / medals (student view + admin CMS)
+from app.api.achievements.router import admin_router as admin_achievements_router
+from app.api.achievements.router import router as achievements_router
+
 # Upload
 from app.api.upload import (
     router as upload_router,
@@ -284,6 +288,8 @@ _ALL_ROUTERS = [
     vizu_mock_legacy_router,
     advertisements_router,
     admin_advertisements_router,
+    achievements_router,
+    admin_achievements_router,
     upload_router,
     admin_router,
     admin_users_router,

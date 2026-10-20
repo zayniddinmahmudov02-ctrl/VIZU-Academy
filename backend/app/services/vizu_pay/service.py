@@ -16,6 +16,8 @@ from app.models.promo_code_redemption import PromoCodeRedemption
 from app.models.subscription_order import SubscriptionOrder
 from app.models.user import User
 
+from app.services import achievements
+
 from . import offers as offer_config
 from . import plans as plan_config
 from .access import owned_levels
@@ -119,6 +121,7 @@ class VizuPayService:
         )
         for order in expired:
             order.status = plan_config.STATUS_EXPIRED
+            achievements.on_order_status(self.db, order)  # a reserved medal reward becomes usable again
         if expired:
             self.db.commit()
 
@@ -315,6 +318,28 @@ class VizuPayService:
         # payment-proofs/payment-proofs/ nesting on disk.
         return filename, proof_type
 
+    def quote(self, user: User, plan: str, promo_code: str | None) -> dict:
+        """What the checkout will charge — the SAME computation create_order
+        uses (sale price in force, promo, medal reward). Read only; the
+        order itself recomputes everything, nothing here is trusted later."""
+        if not offer_config.is_offer(plan) or not offer_config.is_purchasable(plan):
+            raise HTTPException(status_code=409, detail="OFFER_NOT_AVAILABLE")
+        base_amount = offer_config.offer(plan)["sale_price"]
+        promo_discount, promo_error = 0, None
+        if promo_code:
+            promo = self._find_promo(promo_code)
+            promo_error = self._check_promo(promo, user)
+            if promo_error is None and promo.discount_type == DISCOUNT_TYPE_FREE_DAYS:
+                promo_error = "This code grants Premium directly — use 'Enter promo code', not checkout."
+            if promo_error is None:
+                promo_discount = self._apply_discount(base_amount, promo)
+        priced = achievements.quote(self.db, user.id, plan, base_amount, promo_discount)
+        return {
+            "plan": plan, "currency": "UZS", "original_price": offer_config.offer(plan)["original_price"],
+            "base_amount": base_amount, "promo_discount": promo_discount, "promo_error": promo_error,
+            "reward_discount": priced["reward_discount"], "reward_name": priced["reward_name"], "final_amount": priced["final_amount"],
+        }
+
     def _has_open_order(self, user: User) -> bool:
         return (
             self.db.query(SubscriptionOrder)
@@ -381,7 +406,10 @@ class VizuPayService:
                 raise VizuPayError("This code grants Premium directly — use 'Enter promo code', not checkout.")
             discount_amount = self._apply_discount(base_amount, promo)
 
-        final_amount = max(base_amount - discount_amount, 0)
+        # medal reward (e.g. Starter: -5 000 on A1) — row-locked, one per order, only for its offers
+        priced = achievements.quote(self.db, user.id, plan, base_amount, discount_amount, lock=True)
+        reward, reward_discount = priced["reward"], priced["reward_discount"]
+        final_amount = priced["final_amount"]
 
         order_id = uuid4()
         proof_path, proof_type = self._build_proof_path(order_id, proof_file, contents)
@@ -394,7 +422,8 @@ class VizuPayService:
             plan=plan,
             duration_days=0,  # course access is permanent, not time-based
             base_amount=base_amount,
-            discount_amount=discount_amount,
+            discount_amount=discount_amount + reward_discount,
+            reward_discount_amount=reward_discount,
             final_amount=final_amount,
             currency="UZS",
             payment_method=payment_method,
@@ -411,6 +440,8 @@ class VizuPayService:
         if promo:
             promo.used_count += 1
             self.db.add(PromoCodeRedemption(promo_code_id=promo.id, user_id=user.id, order_id=order_id))
+        if reward is not None and reward_discount > 0:
+            achievements.reserve(reward, order_id)
 
         self.db.commit()
         self.db.refresh(order)
@@ -420,7 +451,8 @@ class VizuPayService:
             actor_id=user.id,
             action="order_created",
             target_user_id=user.id,
-            details=f"{plan} via {payment_method}, final={final_amount} UZS",
+            details=f"{plan} via {payment_method}, final={final_amount} UZS"
+                    + (f", medal reward -{reward_discount} ({reward.achievement.key})" if reward is not None and reward_discount else ""),
             ip_address=ip,
         )
 
@@ -434,6 +466,7 @@ class VizuPayService:
             "duration_days": order.duration_days,
             "base_amount": order.base_amount,
             "discount_amount": order.discount_amount,
+            "reward_discount_amount": order.reward_discount_amount or 0,
             "final_amount": order.final_amount,
             "currency": order.currency,
             "payment_method": order.payment_method,

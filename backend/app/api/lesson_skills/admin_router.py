@@ -245,6 +245,14 @@ async def delete_audio_track(listening_id: UUID, track_id: UUID, db: Session = D
     return skill_admin.audio_tracks_admin(_listening_or_404(db, listening_id))
 
 
+@router.delete("/listenings/{listening_id}/audio-tracks/{track_id}/file")
+async def delete_audio_track_file(listening_id: UUID, track_id: UUID, db: Session = Depends(get_db), user: User = Depends(require_content_editor)):
+    """Removes only the file of a track; the labelled slot stays for a new upload."""
+    await skill_admin.clear_audio_track_file(db, listening_id, track_id)
+    write_audit(db, actor_id=user.id, action="listening_audio_track_file_removed", details=f"listening={listening_id} track={track_id}")
+    return skill_admin.audio_tracks_admin(_listening_or_404(db, listening_id))
+
+
 @router.get("/listenings/{listening_id}/audio-tracks/{track_id}")
 def preview_audio_track(listening_id: UUID, track_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
     track = skill_admin._track(db, listening_id, track_id)

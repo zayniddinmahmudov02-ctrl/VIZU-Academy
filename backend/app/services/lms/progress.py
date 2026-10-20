@@ -365,6 +365,11 @@ def sync_lesson(db: Session, user_id, lesson_id) -> dict | None:
     state = compute(db, user, lesson)
     persist(db, user.id, lesson.id, state)
     db.commit()
+    if state["completed"]:
+        # medals hang on real completion (never on opening a lesson); awarding is idempotent
+        from app.services.achievements import evaluate_safely
+
+        evaluate_safely(db, user.id)
     return state
 
 

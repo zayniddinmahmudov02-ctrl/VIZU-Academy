@@ -36,10 +36,12 @@ PLAN_CONFIG = {
     PLAN_MONTH_12: {"days": 365, "price": 399_000, "label": "12 Months"},
 }
 
-# Manual bank transfer — authoritative card numbers. Do not change without
-# explicit instruction; must stay identical to what the Telegram bot shows.
+# Manual bank transfer — authoritative card numbers, the ONLY place they are
+# defined (served by GET /vizu-pay/payment-cards to the checkout). Do not
+# change without explicit instruction; must stay identical to what the
+# Telegram bot shows. 2026-10-20: 9860 3501 4490 7192 -> 9860 0401 1406 3742.
 PAYMENT_CARDS = [
-    {"label": "UzCard", "number": "9860350144907192"},
+    {"label": "UzCard", "number": "9860040114063742"},
     {"label": "Visa", "number": "4448844427532174"},
 ]
 

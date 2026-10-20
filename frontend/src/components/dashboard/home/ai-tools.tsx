@@ -9,8 +9,10 @@ import { useTranslation } from "@/lib/i18n/use-translation";
 
 const tools = [
   {
+    // "Zertifikatsprüfungen" (formerly "Probeprüfungen") — the exam preparation page
     titleKey: "dashboard.mockExams",
     subtitleKey: "dashboard.mockExamsSubtitle",
+    ariaKey: "dashboard.mockExamsAria",
     href: "/vorbereitung",
     icon: GraduationCap,
     gradient: "from-purple-600 to-accent-purple",
@@ -18,6 +20,7 @@ const tools = [
   {
     titleKey: "dashboard.vizuMultilevelTitle",
     subtitleKey: "dashboard.vizuMultilevelSubtitle",
+    ariaKey: "dashboard.vizuMultilevelAria",
     href: "/vizu-multilevel",
     icon: Gauge,
     gradient: "from-accent-blue to-blue-500",
@@ -25,6 +28,7 @@ const tools = [
   {
     titleKey: "sidebar.dictionary",
     subtitleKey: "dashboard.woerterbuchSubtitle",
+    ariaKey: "dashboard.woerterbuchAria",
     href: "/woerterbuch",
     icon: BookText,
     gradient: "from-emerald-600 to-emerald-400",
@@ -35,8 +39,8 @@ export default function AiTools() {
   const { t } = useTranslation();
 
   return (
-    <section>
-      <h2 className="mb-5 text-base font-bold text-text-primary">
+    <section aria-labelledby="quick-access-title" data-testid="dashboard-quick-access">
+      <h2 id="quick-access-title" className="mb-5 text-base font-bold text-text-primary">
         {t("dashboard.quickAccess")}
       </h2>
 
@@ -66,6 +70,7 @@ export default function AiTools() {
                 // every visit was a measured contributor to excessive
                 // background requests — see nav-item.tsx.
                 prefetch={false}
+                aria-label={t(tool.ariaKey)}
                 className={`group flex h-full min-h-[164px] flex-col overflow-hidden rounded-card bg-gradient-to-br p-5 text-white shadow-[var(--shadow-card)] transition-all duration-300 hover:shadow-[var(--shadow-card-hover)] ${tool.gradient}`}
               >
                 <div className="flex flex-col gap-3">

@@ -1,12 +1,12 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { AlertTriangle, Pencil, Play, Plus, Trash2, Upload } from "lucide-react";
+import { AlertTriangle, Pencil, Play, Plus, Trash2, Upload, X } from "lucide-react";
 
 import { AdminButton, AdminInput } from "@/components/admin/admin-ui";
 import ConfirmDialog from "@/components/admin/confirm-dialog";
 import {
-  addAudioTrack, apiErrorMessage, deleteAudioTrack, deleteListeningAudio, getAudioTrackBlobUrl, setMainAudioLabel, updateAudioTrack,
+  addAudioTrack, apiErrorMessage, clearAudioTrackFile, deleteAudioTrack, deleteListeningAudio, getAudioTrackBlobUrl, setMainAudioLabel, updateAudioTrack,
   uploadListeningAudio, type AudioSlot,
 } from "@/features/admin/services/lesson-skills-admin-service";
 
@@ -33,8 +33,10 @@ function readDuration(file: File): Promise<number | null> {
 }
 
 /** Every audio file of one Hören task as its own slot: the task's main audio
- * and labelled extra tracks (e.g. A1 Lektion 14 „Audio von Alisa“ /
- * „Audio von Alex“). Upload, replace, listen, rename and delete per slot. */
+ * and labelled extra tracks (e.g. A1 Lektion 14 „Text von Alisa“ /
+ * „Text von Alex“). Upload, replace, listen and rename per slot; the trash
+ * button removes only the FILE — the slot stays for a new upload. An empty
+ * extra slot can be removed with ✕. */
 export default function AudioSlotsPanel({ listeningId, slots, onChanged }: { listeningId: string; slots: AudioSlot[]; onChanged: () => void | Promise<unknown> }) {
   const input = useRef<HTMLInputElement>(null);
   const pending = useRef<{ slot: string | null; label: string | null }>({ slot: null, label: null });
@@ -44,7 +46,7 @@ export default function AudioSlotsPanel({ listeningId, slots, onChanged }: { lis
   const [playing, setPlaying] = useState<{ id: string; url: string } | null>(null);
   const [editing, setEditing] = useState<{ id: string; label: string } | null>(null);
   const [adding, setAdding] = useState<string | null>(null);
-  const [deleting, setDeleting] = useState<AudioSlot | null>(null);
+  const [deleting, setDeleting] = useState<{ slot: AudioSlot; mode: "file" | "slot" } | null>(null);
 
   async function run(id: string, action: () => Promise<unknown>, ok: string, fallback: string) {
     setBusy(id);
@@ -132,8 +134,13 @@ export default function AudioSlotsPanel({ listeningId, slots, onChanged }: { lis
                              aria-label={`${s.label ?? "Audio"} ${ok ? "ersetzen" : "hochladen"}`} data-testid="audio-slot-replace"><Upload size={13} /></AdminButton>
                 <AdminButton size="sm" variant="secondary" disabled={busy !== null} onClick={() => setEditing({ id: s.id, label: s.label ?? "" })} title="Bezeichnung ändern"
                              aria-label="Bezeichnung ändern"><Pencil size={13} /></AdminButton>
-                <AdminButton size="sm" variant="danger" disabled={busy !== null || (s.id === "main" && s.file_status === "none")} onClick={() => setDeleting(s)}
-                             title={s.id === "main" ? "Audio entfernen" : "Spur löschen"} aria-label="Löschen" data-testid="audio-slot-delete"><Trash2 size={13} /></AdminButton>
+                <AdminButton size="sm" variant="danger" disabled={busy !== null || s.file_status === "none" || s.file_status === "external"}
+                             onClick={() => setDeleting({ slot: s, mode: "file" })} title="Datei entfernen (Slot bleibt)" aria-label={`${s.label ?? "Audio"}: Datei entfernen`}
+                             data-testid="audio-slot-delete"><Trash2 size={13} /></AdminButton>
+                {s.id !== "main" && s.file_status === "none" && (
+                  <AdminButton size="sm" variant="ghost" disabled={busy !== null} onClick={() => setDeleting({ slot: s, mode: "slot" })} title="Leeren Slot entfernen"
+                               aria-label={`Slot ${s.label ?? ""} entfernen`} data-testid="audio-slot-remove"><X size={13} /></AdminButton>
+                )}
               </span>
             </div>
             {playing?.id === s.id && <audio src={playing.url} controls autoPlay className="mt-2 w-full" />}
@@ -154,15 +161,19 @@ export default function AudioSlotsPanel({ listeningId, slots, onChanged }: { lis
       <ConfirmDialog
         open={!!deleting}
         onOpenChange={(open) => !open && setDeleting(null)}
-        title={deleting?.id === "main" ? "Audio entfernen" : "Audio-Spur löschen"}
-        description={deleting?.id === "main"
-          ? "Die Hauptaudiodatei wird entfernt. Die Aufgabe und ihre Fragen bleiben; ohne Audio ist sie für Lernende nicht sichtbar."
-          : `„${deleting?.label}“ wird mit Datei gelöscht. Die übrigen Audiodateien und die Fragen bleiben.`}
-        isPending={!!deleting && busy === deleting.id}
+        title={deleting?.mode === "slot" ? "Leeren Slot entfernen" : `Datei aus „${deleting?.slot.label ?? "Audio"}“ entfernen`}
+        description={deleting?.mode === "slot"
+          ? `Der leere Slot „${deleting?.slot.label}“ wird entfernt. Die übrigen Audiodateien und die Fragen bleiben.`
+          : `Die Datei von „${deleting?.slot.label ?? "Audio"}“ wird entfernt; der Slot bleibt für eine neue Datei. Fragen und Lösungen bleiben. `
+            + "Solange ein Slot leer ist, ist die Aufgabe für Lernende nicht sichtbar."}
+        isPending={!!deleting && busy === deleting.slot.id}
         onConfirm={async () => {
           const d = deleting;
           if (!d) return;
-          await run(d.id, () => (d.id === "main" ? deleteListeningAudio(listeningId) : deleteAudioTrack(listeningId, d.id)), "Gelöscht.", "Löschen fehlgeschlagen.");
+          const id = d.slot.id;
+          const action = d.mode === "slot" ? () => deleteAudioTrack(listeningId, id)
+            : id === "main" ? () => deleteListeningAudio(listeningId) : () => clearAudioTrackFile(listeningId, id);
+          await run(id, action, d.mode === "slot" ? "Slot entfernt." : "Datei entfernt — Slot bleibt.", "Löschen fehlgeschlagen.");
           setDeleting(null);
         }}
       />

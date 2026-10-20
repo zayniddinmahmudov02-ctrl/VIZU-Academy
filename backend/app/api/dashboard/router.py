@@ -29,6 +29,24 @@ router = APIRouter(
 
 
 # ==================================================
+# Lernserie (own data only — there is no user id in the path)
+# ==================================================
+
+@router.get("/me/learning-activity")
+def my_learning_activity(
+    tz: str | None = None,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Streak, total learning time, last activity and the last 7 days —
+    server-confirmed activity only (app.services.learning_activity). `tz` is
+    the student's IANA time zone (browser); unknown -> Asia/Tashkent."""
+    from app.services import learning_activity
+
+    return learning_activity.summary(db, current_user.id, tz)
+
+
+# ==================================================
 # Dashboard Overview
 # ==================================================
 

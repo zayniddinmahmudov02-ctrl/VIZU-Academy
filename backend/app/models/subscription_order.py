@@ -42,6 +42,14 @@ class SubscriptionOrder(BaseModel):
         nullable=False,
     )
 
+    # part of discount_amount that came from a medal reward (user_achievements.reward_order_id points here)
+    reward_discount_amount: Mapped[int] = mapped_column(
+        Integer,
+        default=0,
+        server_default="0",
+        nullable=False,
+    )
+
     currency: Mapped[str] = mapped_column(
         String(10),
         default="UZS",
