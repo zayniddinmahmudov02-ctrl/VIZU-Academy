@@ -159,6 +159,8 @@ def get_hoeren(lesson_id: UUID, db: Session = Depends(get_db), user: User = Depe
                 "audio_duration_seconds": listening.audio_duration_seconds,
                 # legacy tasks keep their public URL; uploaded audio is streamed via /audio
                 "external_audio_url": None if listening.audio_storage_path else listening.audio_url,
+                # main audio ("main" -> /audio) + labelled extra tracks (-> /audio-tracks/{id}); no storage paths
+                "audio_tracks": skill_admin.audio_tracks_public(listening),
                 "questions": [tests.public_question(q) for q in questions],
                 "transcript": listening.transcript if (not questions or summary["attempts_count"]) else None,
                 "summary": summary,
@@ -175,6 +177,18 @@ def stream_hoeren_audio(lesson_id: UUID, listening_id: UUID, db: Session = Depen
     if path is None:
         raise HTTPException(status_code=404, detail="Audio not found.")
     return FileResponse(path, media_type=listening.audio_content_type or "audio/mpeg", headers={"Cache-Control": "private, no-store"})
+
+
+@router.get("/{lesson_id}/hoeren/{listening_id}/audio-tracks/{track_id}")
+def stream_hoeren_audio_track(lesson_id: UUID, listening_id: UUID, track_id: UUID, db: Session = Depends(get_db),
+                              user: User = Depends(require_lesson_access)):
+    """An extra audio file of a PUBLISHED Hören task of a lesson the student may open (same checks as /audio)."""
+    listening = tests.published_listening(db, lesson_id, listening_id)
+    track = next((t for t in listening.audio_tracks if t.id == track_id), None)
+    path = skill_admin.track_audio_path(track) if track else None
+    if path is None:
+        raise HTTPException(status_code=404, detail="Audio not found.")
+    return FileResponse(path, media_type=track.content_type or "audio/mpeg", headers={"Cache-Control": "private, no-store"})
 
 
 @router.post("/{lesson_id}/hoeren/{listening_id}/start", response_model=AttemptOut)

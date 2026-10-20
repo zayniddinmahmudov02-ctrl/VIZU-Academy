@@ -47,10 +47,12 @@ export default function DashboardCharts({
   charts,
   range,
   onRangeChange,
+  showRevenue = true,
 }: {
   charts: DashboardChartsType;
   range: DashboardRange;
   onRangeChange: (range: DashboardRange) => void;
+  showRevenue?: boolean;
 }) {
   return (
     <div>
@@ -73,8 +75,8 @@ export default function DashboardCharts({
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-        <ChartCard title="Revenue" data={charts.revenue} />
+      <div className={`grid grid-cols-1 gap-6 ${showRevenue ? "lg:grid-cols-3" : "lg:grid-cols-2"}`}>
+        {showRevenue && <ChartCard title="Revenue" data={charts.revenue} />}
         <ChartCard title="New Users" data={charts.new_users} />
         <ChartCard title="Learning Progress" data={charts.learning_progress} />
       </div>

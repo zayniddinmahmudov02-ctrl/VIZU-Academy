@@ -18,6 +18,7 @@ import DashboardMockTestAnalytics, {
 } from "@/features/admin/components/dashboard/dashboard-mock-test-analytics";
 import DashboardOperations, { OperationsSkeleton } from "@/features/admin/components/dashboard/dashboard-operations";
 import DashboardQuickActions from "@/features/admin/components/dashboard/dashboard-quick-actions";
+import DashboardVizuMultilevel from "@/features/admin/components/dashboard/dashboard-vizu-multilevel";
 import { getEnterpriseDashboard } from "@/features/admin/services/enterprise-dashboard-service";
 import type { DashboardRange } from "@/features/admin/types/enterprise-dashboard.types";
 
@@ -78,12 +79,14 @@ export default function AdminDashboardPage() {
         <div className="space-y-6">
           <DashboardKpiCards kpis={data.kpis} />
 
-          <DashboardCharts charts={data.charts} range={range} onRangeChange={setRange} />
+          <DashboardCharts charts={data.charts} range={range} onRangeChange={setRange} showRevenue={data.can_see_finance !== false} />
 
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             <DashboardLearningAnalytics data={data.learning_analytics} />
             <DashboardMockTestAnalytics certificates={data.mock_test_analytics} />
           </div>
+
+          {data.vizu_multilevel && <DashboardVizuMultilevel data={data.vizu_multilevel} />}
 
           <DashboardOperations payments={data.payments} content={data.content} ai={data.ai} />
 

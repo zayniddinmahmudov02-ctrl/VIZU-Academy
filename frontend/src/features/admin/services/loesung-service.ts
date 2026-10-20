@@ -1,4 +1,5 @@
 import { api } from "@/src/services/api";
+import type { AudioSlot } from "@/features/admin/services/lesson-skills-admin-service";
 
 const BASE = "/api/v1/admin/loesung";
 
@@ -90,6 +91,8 @@ export interface LoesungDetail extends Omit<LoesungItem, "questions"> {
   transcript: string | null;
   audio_name: string | null;
   audio_duration: number | null;
+  /** Hören: the main audio ("main") + labelled extra tracks */
+  audio_tracks?: AudioSlot[];
   import: { note: string | null; book_page: string | number | null; source: string | null; key_pending: boolean; file: string } | null;
   questions: KeyQuestion[];
   validation: { ready: boolean; problems: { code: string; question?: number; message: string }[] };

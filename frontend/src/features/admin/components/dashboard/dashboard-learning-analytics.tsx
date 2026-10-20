@@ -65,9 +65,12 @@ export default function DashboardLearningAnalytics({ data }: { data: LearningAna
         <NamedCountRow icon={XCircle} label="Most Failed Quiz" item={data.most_failed_quiz} />
       </div>
       <div className="mt-3 flex gap-3">
-        <CompletionRing label="Course Completion" percent={data.course_completion_percent} />
+        <CompletionRing label="Lesson Completion" percent={data.course_completion_percent} />
         <CompletionRing label="Student Completion" percent={data.student_completion_percent} />
       </div>
+      <p className="mt-3 text-xs text-[var(--admin-text-muted)]">
+        {data.active_learners} Lernende mit Lektionsfortschritt · {data.lessons_completed} abgeschlossene Lektionen
+      </p>
     </AdminCard>
   );
 }

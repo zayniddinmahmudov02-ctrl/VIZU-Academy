@@ -94,6 +94,20 @@ class TestPlan(unittest.TestCase):
         self.assertEqual(first, second)
         self.assertEqual(second.count("In Berlin 11 Grad."), 1)
 
+    def test_track_plan_is_idempotent(self):
+        from unittest.mock import patch
+
+        done = SimpleNamespace(label="Audio von Alex", original_name="A1-14.2.mp3")
+        with patch("app.services.lesson_skills.admin.track_audio_path", return_value="x"):
+            self.assertEqual(script.plan_tracks(SimpleNamespace(audio_tracks=[done]), [("Audio von Alex", "A1-14.2.mp3")]), [])
+            todo = script.plan_tracks(SimpleNamespace(audio_tracks=[]), [("Audio von Alex", "A1-14.2.mp3")])
+        self.assertEqual([(lbl, f) for lbl, f, _ in todo], [("Audio von Alex", "A1-14.2.mp3")])
+
+    def test_l14_has_two_separate_audios(self):
+        spec = TASKS["vizu-a1-l14-hoeren-01"]
+        self.assertEqual((spec["audio_parts"], spec["audio_label"], spec["audio_tracks"]),
+                         (["A1-14.1.mp3"], "Audio von Alisa", [("Audio von Alex", "A1-14.2.mp3")]))
+
     def test_audio_name(self):
         self.assertEqual(script.audio_name(["A1-10.2.mp3"]), "A1-10.2.mp3")
         self.assertEqual(script.audio_name(["A1-14.1.mp3", "A1-14.2.mp3"]), "A1-14.mp3")

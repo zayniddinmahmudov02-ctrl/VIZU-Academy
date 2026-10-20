@@ -186,9 +186,17 @@ def _sorted_questions(task) -> list:
 
 
 def audio_state(listening: Listening) -> str:
+    from app.services.lesson_skills.admin import tracks_state
+
     if listening.audio_storage_path:
-        return "ok" if listening_audio_path(listening) is not None else "file_missing"
+        return "ok" if listening_audio_path(listening) is not None and tracks_state(listening) == "ok" else "file_missing"
     return "external" if listening.audio_url else "none"
+
+
+def _audio_slots(listening: Listening) -> list[dict]:
+    from app.services.lesson_skills.admin import audio_tracks_admin
+
+    return audio_tracks_admin(listening)
 
 
 def _is_archived(task) -> bool:
@@ -350,6 +358,7 @@ def detail(db: Session, kind: str, task_id: UUID) -> dict:
         "transcript": getattr(task, "transcript", None) if kind == "hoeren" else None,
         "audio_name": getattr(task, "audio_original_name", None) if kind == "hoeren" else None,
         "audio_duration": getattr(task, "audio_duration_seconds", None) if kind == "hoeren" else None,
+        "audio_tracks": _audio_slots(task) if kind == "hoeren" else [],
         "import": note,
         "questions": [{**admin_question(q), **st, "number": n} for n, (q, st) in enumerate(zip(questions, states), start=1)],
         "validation": validation(kind, task, states),

@@ -16,7 +16,7 @@ class DashboardKPIs(BaseSchema):
     total_users: int
     active_users_30d: int
     premium_members: int
-    total_revenue: int
+    total_revenue: int | None  # None = the caller's role may not see revenue
     active_courses: int
     total_model_tests: int
     certificates_issued: int
@@ -46,8 +46,10 @@ class LearningAnalytics(BaseSchema):
     most_viewed_lesson: NamedCount | None
     most_solved_quiz: NamedCount | None
     most_failed_quiz: NamedCount | None
-    course_completion_percent: float
-    student_completion_percent: float
+    course_completion_percent: float  # completed lesson-progress rows / all lesson-progress rows
+    student_completion_percent: float  # students with >= 1 completed lesson / students with any progress
+    active_learners: int = 0  # students with lesson progress
+    lessons_completed: int = 0
 
 
 class MockTestSkillAnalytics(BaseSchema):
@@ -123,13 +125,25 @@ class ServerHealth(BaseSchema):
     uptime_seconds: int
 
 
+class VizuMultilevelStats(BaseSchema):
+    attempts: int
+    completed: int
+    final_results: int
+    certificates_issued: int
+    average_result: float | None
+    by_level: dict[str, int]
+
+
 class EnterpriseDashboardResponse(BaseSchema):
     kpis: DashboardKPIs
     charts: DashboardCharts
     learning_analytics: LearningAnalytics
     mock_test_analytics: list[CertificateMockAnalytics]
-    payments: PaymentsSummary
+    vizu_multilevel: VizuMultilevelStats | None = None
+    payments: PaymentsSummary | None  # None = role without payment access
     content: ContentCounts
     ai: AIStats
     recent_activity: list[DashboardActivityItem]
-    server_health: ServerHealth
+    server_health: ServerHealth | None  # None = role without system access
+    can_see_finance: bool = True
+    can_see_system: bool = True

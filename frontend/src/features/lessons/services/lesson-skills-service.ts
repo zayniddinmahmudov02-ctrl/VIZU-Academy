@@ -100,10 +100,18 @@ export interface HoerenTask {
   instruction: string | null;
   audio_duration_seconds: number | null;
   external_audio_url: string | null;
+  /** main audio ("main") first, then labelled extra tracks — e.g. "Audio von Alisa" / "Audio von Alex" */
+  audio_tracks?: HoerenAudioTrack[];
   questions: PublicQuestion[];
   transcript: string | null;
   summary: AttemptSummary;
   attempts: SkillAttempt[];
+}
+
+export interface HoerenAudioTrack {
+  id: string;
+  label: string | null;
+  duration_seconds: number | null;
 }
 
 export type SkillStatus =
@@ -209,8 +217,9 @@ export async function reviewHoeren(lessonId: string, listeningId: string, attemp
 }
 
 /** The audio is never a public URL: fetched with the session, played from memory. */
-export async function getHoerenAudioBlobUrl(lessonId: string, listeningId: string): Promise<string> {
-  const response = await api.get(`${BASE}/${lessonId}/hoeren/${listeningId}/audio`, { responseType: "blob" });
+export async function getHoerenAudioBlobUrl(lessonId: string, listeningId: string, trackId = "main"): Promise<string> {
+  const path = trackId === "main" ? "audio" : `audio-tracks/${trackId}`;
+  const response = await api.get(`${BASE}/${lessonId}/hoeren/${listeningId}/${path}`, { responseType: "blob" });
   return URL.createObjectURL(response.data as Blob);
 }
 

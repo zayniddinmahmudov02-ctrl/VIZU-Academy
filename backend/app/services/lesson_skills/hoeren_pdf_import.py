@@ -500,7 +500,7 @@ def readiness(db: Session, listening: Listening) -> dict:
     really exist on the server, and every key must be verified in Lösung
     (an uploaded audio or a filled key alone never publishes)."""
     from app.services.lesson_skills import loesung
-    from app.services.lesson_skills.admin import listening_audio_path
+    from app.services.lesson_skills.admin import listening_audio_path, tracks_state
     from app.services.lesson_skills.exercises import has_key
 
     lesson = db.get(Lesson, listening.lesson_id)
@@ -512,8 +512,8 @@ def readiness(db: Session, listening: Listening) -> dict:
     unverified = sum(1 for s in states if not s["verified"] or s["needs_review"])
     if not listening.audio_storage_path:
         audio = "none"
-    elif listening_audio_path(listening) is None:
-        audio = "file_missing"
+    elif listening_audio_path(listening) is None or tracks_state(listening) != "ok":
+        audio = "file_missing"  # the main audio or one of the extra tracks
     else:
         audio = "ok"
     reasons = []

@@ -143,6 +143,12 @@ from app.api.admin.hoeren_a1_router import (
 from app.api.admin.loesung_router import (
     router as admin_loesung_router,
 )
+from app.api.admin.zertifikate_router import (
+    router as admin_zertifikate_router,
+)
+from app.api.v1.certificate.me_router import (
+    router as my_certificates_router,
+)
 from app.api.admin.vizu_multilevel_router import (
     router as admin_vizu_multilevel_router,
 )
@@ -286,6 +292,8 @@ _ALL_ROUTERS = [
     admin_media_management_router,
     admin_hoeren_a1_router,
     admin_loesung_router,
+    admin_zertifikate_router,
+    my_certificates_router,
     admin_vizu_multilevel_router,
     admin_books_router,
     admin_teacher_assignments_router,

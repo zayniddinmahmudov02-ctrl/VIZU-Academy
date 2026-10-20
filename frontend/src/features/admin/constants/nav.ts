@@ -56,7 +56,7 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
       { label: "Team", href: "/admin/team", icon: Contact },
       { label: "Lehrer-Zuweisungen", href: "/admin/teacher-assignments", icon: School },
       { label: "Premium-Users", href: "/admin/premium-users", icon: Crown },
-      { label: "Certificate", href: "/admin/certificates", icon: Award },
+      { label: "Zertifikate", href: "/admin/certificates", icon: Award },
       { label: "Bücher", href: "/admin/books", icon: BookOpen },
       { label: "Payments", href: "/admin/payments", icon: CreditCard },
       { label: "Angebote & Preise", href: "/admin/angebote", icon: Tag },
