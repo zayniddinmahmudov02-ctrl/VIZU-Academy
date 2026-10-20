@@ -1,9 +1,7 @@
 import AiTools from "@/components/dashboard/home/ai-tools";
 import ContinueLearning from "@/components/dashboard/home/continue-learning";
 import DashboardMotion from "@/components/dashboard/home/dashboard-motion";
-import DashboardSectionHeading from "@/components/dashboard/home/dashboard-section-heading";
 import AdvertisementBanner from "@/components/dashboard/home/advertisement-banner";
-import StatsRow from "@/components/dashboard/home/stats-row";
 
 // This page's content is 100% client-fetched (React Query) — forcing
 // dynamic rendering just drops the default 1-year static-shell cache
@@ -28,13 +26,7 @@ export default function DashboardPage() {
           {/* 2. Schnellzugriff */}
           <AiTools />
 
-          {/* 3. Statistik */}
-          <section>
-            <DashboardSectionHeading titleKey="dashboard.statistics" />
-            <StatsRow />
-          </section>
-
-          {/* 4. Weiter lernen */}
+          {/* 3. Weiter lernen */}
           <ContinueLearning />
 
           {/* Footer */}

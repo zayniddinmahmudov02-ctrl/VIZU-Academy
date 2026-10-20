@@ -144,13 +144,13 @@ export default function DashboardOperations({
   content,
   ai,
 }: {
-  payments: PaymentsSummary;
+  payments: PaymentsSummary | null;
   content: ContentCounts;
   ai: AIStats;
 }) {
   return (
-    <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-      <PaymentsPanel payments={payments} />
+    <div className={`grid grid-cols-1 gap-6 ${payments ? "lg:grid-cols-3" : "lg:grid-cols-2"}`}>
+      {payments && <PaymentsPanel payments={payments} />}
       <ContentPanel content={content} />
       <AiPanel ai={ai} />
     </div>

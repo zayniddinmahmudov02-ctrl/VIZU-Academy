@@ -29,7 +29,7 @@ from app.models.listening import Listening
 from app.models.module import Module
 from app.models.user import User
 from app.models.video import Video
-from app.services.lesson_skills.admin import listening_storage
+from app.services.lesson_skills.admin import audio_tracks_admin, listening_storage
 from app.services.video.service import stored_file_path, video_media_type
 
 router = APIRouter(prefix="/admin/media-management", tags=["Admin - Media Management"])
@@ -108,6 +108,10 @@ def media_items(language: str = Query("de", max_length=10), db: Session = Depend
             "task": listening.title, "is_published": listening.is_published,
             "has_key": bool(listening.questions) and all(has_key(q) for q in listening.questions),
             "questions": len(listening.questions), "created_at": listening.created_at, "updated_at": listening.updated_at,
+            # main audio + labelled extra tracks (A1 L14: "Audio von Alisa" / "Audio von Alex")
+            "audio_slots": [{**s, "uploaded_at": (listening.updated_at if s["id"] == "main" else
+                                                  next((t.updated_at for t in listening.audio_tracks if str(t.id) == s["id"]), None))}
+                            for s in audio_tracks_admin(listening)],
         })
     return out
 

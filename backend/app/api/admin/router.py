@@ -3,7 +3,7 @@ from fastapi import Depends, Query
 
 from sqlalchemy.orm import Session
 
-from app.api.dependencies.auth import require_super_admin
+from app.api.dependencies.auth import require_admin_panel_access, require_super_admin
 from app.db.session import get_db
 
 from app.models.user import User
@@ -31,14 +31,16 @@ router = APIRouter(
 def dashboard(
     range: str = Query(default="30d", pattern="^(7d|30d|90d|1y)$"),
     db: Session = Depends(get_db),
-    current_user: User = Depends(require_super_admin),
+    current_user: User = Depends(require_admin_panel_access),
 ):
-    """Phase 5 — Enterprise Super Admin Dashboard. One optimized endpoint
-    returning everything the dashboard needs (KPIs, charts, learning
-    analytics, mock test analytics, payments, content counts, AI stats,
-    recent activity, server health) — see EnterpriseDashboardService."""
+    """Enterprise Dashboard. One optimized endpoint returning everything the
+    dashboard needs (KPIs, charts, learning analytics, mock test analytics,
+    VIZU-Multilevel, payments, content counts, AI stats, recent activity,
+    server health) — see EnterpriseDashboardService. Every admin-panel role
+    may open it; revenue / payments and server health are returned only to
+    the roles allowed to see them (FINANCE_ROLES / SYSTEM_ROLES), else null."""
 
-    return EnterpriseDashboardService(db).get_dashboard(range)
+    return EnterpriseDashboardService(db).get_dashboard(range, role=str(current_user.role))
 
 
 @router.get(

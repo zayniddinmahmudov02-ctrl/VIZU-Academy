@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 
 import { AdminButton, AdminInput, AdminSelect, AdminTextarea } from "@/components/admin/admin-ui";
-import { apiErrorMessage, getListeningAudioBlobUrl } from "@/features/admin/services/lesson-skills-admin-service";
+import { apiErrorMessage, getAudioTrackBlobUrl, getListeningAudioBlobUrl } from "@/features/admin/services/lesson-skills-admin-service";
 import {
   getLoesungTask, publishLoesungTask, saveLoesungQuestion, taskHref, unpublishLoesungTask,
   type KeyQuestion, type LoesungDetail, type LoesungKind, type SaveKeyInput,
@@ -227,16 +227,42 @@ export default function LoesungEditorClient({ kind, id }: { kind: LoesungKind; i
   );
 }
 
+function SlotPlayer({ listeningId, slotId, label }: { listeningId: string; slotId: string; label: string }) {
+  const [url, setUrl] = useState<string | null>(null);
+  const [failed, setFailed] = useState(false);
+  useEffect(() => {
+    let created: string | null = null;
+    getAudioTrackBlobUrl(listeningId, slotId).then((u) => { created = u; setUrl(u); }).catch(() => setFailed(true));
+    return () => { if (created) URL.revokeObjectURL(created); };
+  }, [listeningId, slotId]);
+  return (
+    <div className="space-y-1" data-testid="loesung-audio-slot">
+      <p className="text-xs font-semibold text-[var(--admin-text-primary)]">{label}</p>
+      {failed ? <p className="text-sm text-[var(--admin-danger)]">Audio konnte nicht geladen werden.</p>
+        : url ? <audio src={url} controls className="w-full" /> : <Loader2 size={16} className="animate-spin" />}
+    </div>
+  );
+}
+
 function AudioBlock({ detail }: { detail: LoesungDetail }) {
   const [url, setUrl] = useState<string | null>(null);
   const [failed, setFailed] = useState<string | null>(null);
   const playable = detail.audio === "ok";
+  const slots = (detail.audio_tracks ?? []).filter((s) => s.file_status === "ok");
+  const multi = slots.length > 1;
   useEffect(() => {
-    if (!playable) return;
+    if (!playable || multi) return;
     let created: string | null = null;
     getListeningAudioBlobUrl(detail.id).then((u) => { created = u; setUrl(u); }).catch(() => setFailed("Audio konnte nicht geladen werden."));
     return () => { if (created) URL.revokeObjectURL(created); };
-  }, [detail.id, playable]);
+  }, [detail.id, playable, multi]);
+  if (playable && multi) {
+    return (
+      <div className="space-y-3" data-testid="loesung-audio">
+        {slots.map((s) => <SlotPlayer key={s.id} listeningId={detail.id} slotId={s.id} label={s.label ?? "Audio"} />)}
+      </div>
+    );
+  }
   if (!playable) {
     return (
       <p className="rounded-xl bg-[var(--admin-danger)]/10 p-3 text-sm text-[var(--admin-danger)]" data-testid="loesung-audio-missing">

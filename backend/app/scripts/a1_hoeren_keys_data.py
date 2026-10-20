@@ -194,8 +194,11 @@ TASKS["vizu-a1-l14-hoeren-01"] = {
     "evidence": f"Geprüft: {TR}. A1-14.1.mp3 (Alisa): Gymnastik und frische Luft [0:00-0:20], zu Fuß zur Arbeit, Freundin im Park, am Abend Salat "
                 "oder Suppe, vor dem Schlafen ein Buch [0:20-0:48]. A1-14.2.mp3 (Alex): dreimal pro Woche ins Fitnessstudio, eine Stunde, am "
                 "Wochenende Basketball [0:00-0:14], viel Gemüse … Fisch [0:14-0:28], stark und aktiv bleiben [0:28-0:36]. Die Aufgabe hatte nur "
-                "A1-14.1.mp3 — die Alex-Fragen waren nicht hörbar; jetzt beide Dateien nacheinander. Das Blatt (ältere Fragenfolge) weicht bei "
-                "5–10 ab; das Audio ist eindeutig.",
+                "A1-14.1.mp3 — die Alex-Fragen waren nicht hörbar; jetzt zwei getrennte Audiodateien („Audio von Alisa“, „Audio von Alex“). "
+                "Das Blatt (ältere Fragenfolge) weicht bei 5–10 ab; das Audio ist eindeutig.",
     "keys": ["Alisa", "Alex", "Alisa", "Alex", "Alisa", "Alex", "Alisa", "Alex", "Alisa", "Alex"],
-    "audio_parts": ["A1-14.1.mp3", "A1-14.2.mp3"],
+    # two separate audio files (2026-10-20): the main audio is Alisa's, Alex is an extra track
+    "audio_parts": ["A1-14.1.mp3"],
+    "audio_label": "Audio von Alisa",
+    "audio_tracks": [("Audio von Alex", "A1-14.2.mp3")],
 }

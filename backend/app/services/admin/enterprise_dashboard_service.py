@@ -16,14 +16,13 @@ import time
 from datetime import datetime, timedelta, timezone
 
 from sqlalchemy import func, text
-from sqlalchemy.orm import Session, aliased
+from sqlalchemy.orm import Session, aliased, joinedload
 
 from app.core.config import settings
 from app.models.audit_log import AuditLog
 from app.models.certificate import Certificate
 from app.models.certification_provider import CertificationProvider
 from app.models.course import Course
-from app.models.enrollment import Enrollment
 from app.models.grammar import Grammar
 from app.models.homework import Homework
 from app.models.kompetenz import Kompetenz
@@ -54,9 +53,14 @@ from app.models.video_progress import VideoProgress
 from app.models.vocabulary import Vocabulary
 from app.models.writing import Writing
 from app.models.writing_task import WritingTask
+from app.services.certificate import registry as certificate_registry
 from app.services.vizu_pay import plans as plan_config
 
 PASS_THRESHOLD = 0.6
+
+# who sees what on the dashboard (everyone else with admin-panel access sees the rest)
+FINANCE_ROLES = {"SUPER_ADMIN", "ADMIN", "PAYMENT_MANAGER"}
+SYSTEM_ROLES = {"SUPER_ADMIN", "ADMIN"}
 
 RANGE_DAYS = {"7d": 7, "30d": 30, "90d": 90, "1y": 365}
 
@@ -95,19 +99,35 @@ class EnterpriseDashboardService:
     # Top-level assembly
     # ============================================================
 
-    def get_dashboard(self, range_key: str) -> dict:
+    def get_dashboard(self, range_key: str, role: str | None = None) -> dict:
+        """`role` decides the sensitive sections: revenue / payments only for
+        FINANCE_ROLES, server health only for SYSTEM_ROLES (None = everything,
+        the previous SUPER_ADMIN-only behaviour)."""
         range_key = range_key if range_key in RANGE_DAYS else "30d"
+        finance = role is None or role in FINANCE_ROLES
+        system = role is None or role in SYSTEM_ROLES
 
+        kpis = self._kpis()
+        charts = self._charts(range_key)
+        if not finance:
+            kpis["total_revenue"] = None
+            charts["revenue"] = []
+        activity = self._recent_activity()
+        if not finance:
+            activity = [a for a in activity if a["type"] != "premium_purchase"]
         return {
-            "kpis": self._kpis(),
-            "charts": self._charts(range_key),
+            "kpis": kpis,
+            "charts": charts,
             "learning_analytics": self._learning_analytics(),
             "mock_test_analytics": self._mock_test_analytics(),
-            "payments": self._payments(),
+            "vizu_multilevel": self._vizu_multilevel(),
+            "payments": self._payments() if finance else None,
             "content": self._content_counts(),
             "ai": self._ai_stats(),
-            "recent_activity": self._recent_activity(),
-            "server_health": self._server_health(),
+            "recent_activity": activity,
+            "server_health": self._server_health() if system else None,
+            "can_see_finance": finance,
+            "can_see_system": system,
         }
 
     # ============================================================
@@ -132,7 +152,8 @@ class EnterpriseDashboardService:
             "total_revenue": self._approved_revenue_since(None),
             "active_courses": self.db.query(Course).filter(Course.is_active.is_(True)).count(),
             "total_model_tests": self.db.query(ModelTest).count(),
-            "certificates_issued": self.db.query(Certificate).count(),
+            # certificate rows + final VIZU-Multilevel results (their certificate is derived from the attempt)
+            "certificates_issued": certificate_registry.count_all(self.db),
             "todays_registrations": self.db.query(User).filter(User.created_at >= today_start).count(),
         }
 
@@ -217,42 +238,47 @@ class EnterpriseDashboardService:
     # ============================================================
 
     def _learning_analytics(self) -> dict:
+        """From the lesson progress the LMS really writes (student_progress).
+        The old Enrollment table is never filled by the current course flow,
+        so every number based on it was a permanent 0 / "no data"."""
         most_active_course = self._most_active_course()
         most_viewed_lesson = self._most_viewed_lesson()
         most_solved_quiz = self._top_quiz(passed=True)
         most_failed_quiz = self._top_quiz(passed=False)
 
-        total_enrollments = self.db.query(Enrollment).count()
-        completed_enrollments = self.db.query(Enrollment).filter(Enrollment.completed.is_(True)).count()
-        course_completion_percent = _pct(completed_enrollments, total_enrollments)
-
-        total_students_enrolled = self.db.query(Enrollment.user_id).distinct().count()
-        students_who_completed = (
-            self.db.query(Enrollment.user_id).filter(Enrollment.completed.is_(True)).distinct().count()
-        )
-        student_completion_percent = _pct(students_who_completed, total_students_enrolled)
+        total_rows, completed_rows, learners, finishers = self.db.query(
+            func.count(StudentProgress.id),
+            func.count(StudentProgress.id).filter(StudentProgress.lesson_completed.is_(True)),
+            func.count(func.distinct(StudentProgress.user_id)),
+            func.count(func.distinct(StudentProgress.user_id)).filter(StudentProgress.lesson_completed.is_(True)),
+        ).one()
 
         return {
             "most_active_course": most_active_course,
             "most_viewed_lesson": most_viewed_lesson,
             "most_solved_quiz": most_solved_quiz,
             "most_failed_quiz": most_failed_quiz,
-            "course_completion_percent": course_completion_percent,
-            "student_completion_percent": student_completion_percent,
+            "course_completion_percent": _pct(completed_rows, total_rows),
+            "student_completion_percent": _pct(finishers, learners),
+            "active_learners": int(learners or 0),
+            "lessons_completed": int(completed_rows or 0),
         }
 
     def _most_active_course(self) -> dict | None:
+        """The course (level) with the most students who have lesson progress in it."""
         row = (
-            self.db.query(Course, func.count(Enrollment.id).label("count"))
-            .join(Enrollment, Enrollment.course_id == Course.id)
+            self.db.query(Course, func.count(func.distinct(StudentProgress.user_id)).label("count"))
+            .join(Module, Module.course_id == Course.id)
+            .join(Lesson, Lesson.module_id == Module.id)
+            .join(StudentProgress, StudentProgress.lesson_id == Lesson.id)
             .group_by(Course.id)
-            .order_by(func.count(Enrollment.id).desc())
+            .order_by(func.count(func.distinct(StudentProgress.user_id)).desc())
             .first()
         )
         if row is None:
             return None
         course, count = row
-        return {"id": str(course.id), "title": course.title, "count": int(count)}
+        return {"id": str(course.id), "title": f"{course.level} — {course.title}" if course.level else course.title, "count": int(count)}
 
     def _most_viewed_lesson(self) -> dict | None:
         row = (
@@ -289,45 +315,45 @@ class EnterpriseDashboardService:
     # ============================================================
 
     def _mock_test_analytics(self) -> list[dict]:
+        """Per provider and model test — a fixed number of aggregate queries
+        for ALL model tests (before: ~5 queries per model test)."""
         providers = self.db.query(CertificationProvider).order_by(CertificationProvider.sort_order).all()
-        return [self._provider_mock_analytics(p) for p in providers]
+        tests = (
+            self.db.query(ModelTest.id, ModelTest.title, MockExamLevel.provider_id)
+            .join(MockExamLevel, ModelTest.level_id == MockExamLevel.id)
+            .all()
+        )
+        by_provider: dict = {}
+        for test_id, title, provider_id in tests:
+            by_provider.setdefault(provider_id, []).append((test_id, title))
+        attempts: dict = {}
+        for test_id, total, max_score in (
+            self.db.query(MockTestAttempt.model_test_id, MockTestAttempt.total_score, MockTestAttempt.max_score)
+            .filter(MockTestAttempt.status == STATUS_GRADED)
+            .all()
+        ):
+            attempts.setdefault(test_id, []).append((total, max_score))
+        skills = self._all_skill_averages()
+        return [self._provider_mock_analytics(p, by_provider.get(p.id, []), attempts, skills) for p in providers]
 
-    def _provider_mock_analytics(self, provider: CertificationProvider) -> dict:
-        model_test_ids = [
-            row[0]
-            for row in (
-                self.db.query(ModelTest.id)
-                .join(MockExamLevel, ModelTest.level_id == MockExamLevel.id)
-                .filter(MockExamLevel.provider_id == provider.id)
-                .all()
-            )
-        ]
-
+    def _provider_mock_analytics(self, provider: CertificationProvider, tests: list, attempts_by_test: dict, skills_by_test: dict) -> dict:
         model_tests_out = []
         all_scores: list[tuple[int, int]] = []
 
-        for model_test_id in model_test_ids:
-            model_test = self.db.get(ModelTest, model_test_id)
-            attempts = (
-                self.db.query(MockTestAttempt)
-                .filter(
-                    MockTestAttempt.model_test_id == model_test_id,
-                    MockTestAttempt.status == STATUS_GRADED,
-                )
-                .all()
-            )
-            graded = [a for a in attempts if a.total_score is not None and a.max_score]
-            avg = _pct(sum(a.total_score for a in graded), sum(a.max_score for a in graded))
-            passed = sum(1 for a in graded if a.total_score / a.max_score >= PASS_THRESHOLD)
+        for model_test_id, title in tests:
+            attempts = attempts_by_test.get(model_test_id, [])
+            graded = [(s, m) for s, m in attempts if s is not None and m]
+            avg = _pct(sum(s for s, _ in graded), sum(m for _, m in graded))
+            passed = sum(1 for s, m in graded if s / m >= PASS_THRESHOLD)
             pass_rate = _pct(passed, len(graded))
             fail_rate = round(100 - pass_rate, 1) if graded else 0.0
 
-            skills = self._skill_averages(model_test_id)
+            skills = skills_by_test.get(model_test_id, {})
 
             model_tests_out.append(
                 {
                     "model_test_id": model_test_id,
-                    "title": model_test.title,
+                    "title": title,
                     "attempts": len(attempts),
                     "average_score_percent": avg,
                     "pass_rate_percent": pass_rate,
@@ -338,7 +364,7 @@ class EnterpriseDashboardService:
                     "average_speaking_percent": skills.get("SPRECHEN"),
                 }
             )
-            all_scores.extend((a.total_score, a.max_score) for a in graded)
+            all_scores.extend(graded)
 
         provider_avg = _pct(sum(s for s, _ in all_scores), sum(m for _, m in all_scores))
         provider_passed = sum(1 for s, m in all_scores if m and s / m >= PASS_THRESHOLD)
@@ -354,67 +380,94 @@ class EnterpriseDashboardService:
             "model_tests": model_tests_out,
         }
 
-    def _skill_averages(self, model_test_id) -> dict[str, float | None]:
-        """Per-Kompetenz average score, as a percent of points possible.
-        Lesen/Hören are scored via MockQuestionAnswer; Schreiben via
-        MockWritingSubmission (teacher_score overrides ai_score, scaled
-        against the task's configured max_points); Sprechen via
-        MockSpeakingSubmission (already a 0-100 score — no max_points
-        field exists on SpeakingTask, so it's averaged directly)."""
-        result: dict[str, float | None] = {}
-        kompetenzen = self.db.query(Kompetenz).filter(Kompetenz.model_test_id == model_test_id).all()
+    def _all_skill_averages(self) -> dict:
+        """{model_test_id: {LESEN|HOEREN|SCHREIBEN|SPRECHEN: percent | None}} for
+        every model test at once. Same rules as before, per Kompetenz:
+        Lesen/Hören via MockQuestionAnswer (points earned / possible);
+        Schreiben via MockWritingSubmission (teacher_score overrides ai_score,
+        scaled against the task's max_points); Sprechen via
+        MockSpeakingSubmission (already 0-100, averaged directly)."""
+        reading_teil = aliased(Teil)
+        listening_teil = aliased(Teil)
+        kid = func.coalesce(reading_teil.kompetenz_id, listening_teil.kompetenz_id)
+        lh = {
+            k: (e or 0, p or 0)
+            for k, e, p in (
+                self.db.query(kid, func.sum(MockQuestionAnswer.points_earned), func.sum(MockQuestion.points))
+                .join(MockQuestion, MockQuestionAnswer.question_id == MockQuestion.id)
+                .outerjoin(ReadingContent, MockQuestion.reading_content_id == ReadingContent.id)
+                .outerjoin(reading_teil, ReadingContent.teil_id == reading_teil.id)
+                .outerjoin(ListeningContent, MockQuestion.listening_content_id == ListeningContent.id)
+                .outerjoin(listening_teil, ListeningContent.teil_id == listening_teil.id)
+                .group_by(kid)
+                .all()
+            )
+        }
+        writing: dict = {}
+        for k, teacher, ai, max_points in (
+            self.db.query(Teil.kompetenz_id, MockWritingSubmission.teacher_score, MockWritingSubmission.ai_score, WritingTask.max_points)
+            .join(WritingTask, MockWritingSubmission.writing_task_id == WritingTask.id)
+            .join(Teil, WritingTask.teil_id == Teil.id)
+            .all()
+        ):
+            score = teacher if teacher is not None else ai
+            if score is not None and max_points:
+                writing.setdefault(k, []).append((score, max_points))
+        speaking: dict = {}
+        for k, teacher, ai in (
+            self.db.query(Teil.kompetenz_id, MockSpeakingSubmission.teacher_score, MockSpeakingSubmission.ai_score)
+            .join(SpeakingTask, MockSpeakingSubmission.speaking_task_id == SpeakingTask.id)
+            .join(Teil, SpeakingTask.teil_id == Teil.id)
+            .all()
+        ):
+            if teacher is not None or ai is not None:
+                speaking.setdefault(k, []).append(teacher if teacher is not None else ai)
 
-        for kompetenz in kompetenzen:
-            if kompetenz.type in ("LESEN", "HOEREN"):
-                reading_teil = aliased(Teil)
-                listening_teil = aliased(Teil)
-                rows = (
-                    self.db.query(MockQuestionAnswer.points_earned, MockQuestion.points)
-                    .join(MockQuestion, MockQuestionAnswer.question_id == MockQuestion.id)
-                    .outerjoin(ReadingContent, MockQuestion.reading_content_id == ReadingContent.id)
-                    .outerjoin(reading_teil, ReadingContent.teil_id == reading_teil.id)
-                    .outerjoin(ListeningContent, MockQuestion.listening_content_id == ListeningContent.id)
-                    .outerjoin(listening_teil, ListeningContent.teil_id == listening_teil.id)
-                    .filter(func.coalesce(reading_teil.kompetenz_id, listening_teil.kompetenz_id) == kompetenz.id)
-                    .all()
-                )
-                earned = sum(r[0] for r in rows)
-                possible = sum(r[1] for r in rows)
-                result[kompetenz.type] = _pct(earned, possible) if possible else None
+        out: dict = {}
+        for kompetenz_id, model_test_id, ktype in self.db.query(Kompetenz.id, Kompetenz.model_test_id, Kompetenz.type).all():
+            result = out.setdefault(model_test_id, {})
+            if ktype in ("LESEN", "HOEREN"):
+                earned, possible = lh.get(kompetenz_id, (0, 0))
+                result[ktype] = _pct(earned, possible) if possible else None
+            elif ktype == "SCHREIBEN":
+                pairs = writing.get(kompetenz_id, [])
+                possible = sum(m for _, m in pairs)
+                result[ktype] = _pct(sum(s for s, _ in pairs), possible) if possible else None
+            elif ktype == "SPRECHEN":
+                scores = speaking.get(kompetenz_id, [])
+                result[ktype] = round(sum(scores) / len(scores), 1) if scores else None
+        return out
 
-            elif kompetenz.type == "SCHREIBEN":
-                rows = (
-                    self.db.query(MockWritingSubmission, WritingTask.max_points)
-                    .join(WritingTask, MockWritingSubmission.writing_task_id == WritingTask.id)
-                    .join(Teil, WritingTask.teil_id == Teil.id)
-                    .filter(Teil.kompetenz_id == kompetenz.id)
-                    .all()
-                )
-                pairs = [
-                    (submission.teacher_score if submission.teacher_score is not None else submission.ai_score, max_points)
-                    for submission, max_points in rows
-                ]
-                pairs = [(score, max_points) for score, max_points in pairs if score is not None and max_points]
-                earned = sum(score for score, _ in pairs)
-                possible = sum(max_points for _, max_points in pairs)
-                result[kompetenz.type] = _pct(earned, possible) if possible else None
+    # ============================================================
+    # VIZU-Multilevel (the free level check) — from the stored attempt columns
+    # ============================================================
 
-            elif kompetenz.type == "SPRECHEN":
-                submissions = (
-                    self.db.query(MockSpeakingSubmission)
-                    .join(SpeakingTask, MockSpeakingSubmission.speaking_task_id == SpeakingTask.id)
-                    .join(Teil, SpeakingTask.teil_id == Teil.id)
-                    .filter(Teil.kompetenz_id == kompetenz.id)
-                    .all()
-                )
-                scores = [
-                    s.teacher_score if s.teacher_score is not None else s.ai_score
-                    for s in submissions
-                    if s.teacher_score is not None or s.ai_score is not None
-                ]
-                result[kompetenz.type] = round(sum(scores) / len(scores), 1) if scores else None
+    def _vizu_multilevel(self) -> dict:
+        from app.models.vizu_multilevel_attempt import STATUS_COMPLETED, VizuMultilevelAttempt
+        from app.models.vizu_multilevel_discarded import REASON_BELOW_A1
 
-        return result
+        a = VizuMultilevelAttempt
+        total, completed, final, numbered, avg = self.db.query(
+            func.count(a.id),
+            func.count(a.id).filter(a.status == STATUS_COMPLETED),
+            func.count(a.id).filter(a.result_score.is_not(None)),
+            func.count(a.certificate_number),
+            func.avg(a.result_score),
+        ).one()
+        by_level = {}
+        for lvl, reason, n in (
+            self.db.query(a.overall_level, a.discarded_reason, func.count(a.id))
+            .filter(a.result_score.is_not(None))
+            .group_by(a.overall_level, a.discarded_reason)
+            .all()
+        ):
+            key = lvl or ("BELOW_A1" if reason == REASON_BELOW_A1 else "—")
+            by_level[key] = by_level.get(key, 0) + int(n)
+        return {
+            "attempts": int(total or 0), "completed": int(completed or 0), "final_results": int(final or 0),
+            "certificates_issued": int(numbered or 0), "average_result": round(float(avg), 1) if avg is not None else None,
+            "by_level": by_level,
+        }
 
     # ============================================================
     # Payments
@@ -527,6 +580,7 @@ class EnterpriseDashboardService:
 
         premium_orders = (
             self.db.query(SubscriptionOrder)
+            .options(joinedload(SubscriptionOrder.user))
             .filter(
                 SubscriptionOrder.status == plan_config.STATUS_APPROVED,
                 SubscriptionOrder.plan.in_(list(plan_config.REVENUE_PLANS)),
@@ -549,6 +603,7 @@ class EnterpriseDashboardService:
 
         completed = (
             self.db.query(StudentProgress)
+            .options(joinedload(StudentProgress.user), joinedload(StudentProgress.lesson))
             .filter(StudentProgress.lesson_completed.is_(True))
             .order_by(StudentProgress.updated_at.desc())
             .limit(limit)
@@ -574,7 +629,7 @@ class EnterpriseDashboardService:
                 }
             )
 
-        for log in self.db.query(AuditLog).order_by(AuditLog.created_at.desc()).limit(limit).all():
+        for log in self.db.query(AuditLog).options(joinedload(AuditLog.actor)).order_by(AuditLog.created_at.desc()).limit(limit).all():
             actor_email = log.actor.email if log.actor else "An admin"
             events.append(
                 {
@@ -584,13 +639,35 @@ class EnterpriseDashboardService:
                 }
             )
 
-        for certificate in self.db.query(Certificate).order_by(Certificate.issued_at.desc()).limit(limit).all():
+        for certificate in (
+            self.db.query(Certificate).options(joinedload(Certificate.user)).order_by(Certificate.issued_at.desc()).limit(limit).all()
+        ):
             email = certificate.user.email if certificate.user else "Unknown"
             events.append(
                 {
                     "type": "certificate_issued",
                     "title": f"{email} earned a {certificate.level} certificate",
                     "timestamp": _aware_utc(certificate.issued_at),
+                }
+            )
+
+        # VIZU-Multilevel certificates (number issued = the certificate was opened / downloaded)
+        from app.models.vizu_multilevel_attempt import VizuMultilevelAttempt
+
+        for attempt, email in (
+            self.db.query(VizuMultilevelAttempt, User.email)
+            .join(User, User.id == VizuMultilevelAttempt.user_id)
+            .filter(VizuMultilevelAttempt.certificate_number.is_not(None), VizuMultilevelAttempt.completed_at.is_not(None))
+            .order_by(VizuMultilevelAttempt.completed_at.desc())
+            .limit(limit)
+            .all()
+        ):
+            level = attempt.overall_level or "unter A1"
+            events.append(
+                {
+                    "type": "certificate_issued",
+                    "title": f"{email} earned a VIZU-Multilevel {level} certificate",
+                    "timestamp": _aware_utc(attempt.completed_at),
                 }
             )
 

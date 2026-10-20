@@ -224,13 +224,9 @@ class CertificateService:
     # User-centric view (admin Certificate page)
     # ==========================
     #
-    # Every certificate currently in this table is course-issued — the
-    # unified COURSE/VORBEREITUNG/VIZU_MULTILEVEL "source" concept the admin CMS
-    # spec asks for needs a new `source` column (a migration), which is
-    # blocked in this environment (backend/ has no new-file write
-    # permission right now — see final report). `_serialize_grouped`
-    # hardcodes source="COURSE" below as an honest reflection of what
-    # every existing row actually is, not a real per-row field yet.
+    # Rows carry their real `source` (COURSE / VORBEREITUNG / VIZU_MULTILEVEL).
+    # The unified admin / student view that also includes the VIZU-Multilevel
+    # exam certificates (derived from the attempts) is services/certificate/registry.py.
 
     def count_by_user(
         self,
@@ -288,7 +284,7 @@ class CertificateService:
                 "id": str(c.id),
                 "certificate_number": c.certificate_number,
                 "level": c.level,
-                "source": "COURSE",
+                "source": c.source,
                 "score": c.score,
                 "is_valid": c.is_valid,
                 "issued_at": c.issued_at,

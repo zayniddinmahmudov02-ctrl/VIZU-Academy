@@ -44,6 +44,8 @@ class Listening(BaseModel):
     audio_size_bytes: Mapped[int | None] = mapped_column(Integer, nullable=True)
     audio_duration_seconds: Mapped[int | None] = mapped_column(Integer, nullable=True)
     audio_original_name: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    # label of the main audio when the task has several (e.g. "Audio von Alisa"); NULL = plain "Audio"
+    audio_label: Mapped[str | None] = mapped_column(String(120), nullable=True)
 
     transcript: Mapped[str | None] = mapped_column(
         Text,
@@ -80,5 +82,12 @@ class Listening(BaseModel):
         "ListeningQuestion",
         cascade="all, delete-orphan",
         order_by="ListeningQuestion.order_index",
+        lazy="selectin",
+    )
+    # additional labelled audio files (listening_audio_track.py) after the main audio
+    audio_tracks = relationship(
+        "ListeningAudioTrack",
+        cascade="all, delete-orphan",
+        order_by="ListeningAudioTrack.order_index",
         lazy="selectin",
     )

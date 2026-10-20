@@ -7,7 +7,8 @@ export interface DashboardKPIs {
   total_users: number;
   active_users_30d: number;
   premium_members: number;
-  total_revenue: number;
+  /** null = the role may not see revenue */
+  total_revenue: number | null;
   active_courses: number;
   total_model_tests: number;
   certificates_issued: number;
@@ -37,8 +38,21 @@ export interface LearningAnalytics {
   most_viewed_lesson: NamedCount | null;
   most_solved_quiz: NamedCount | null;
   most_failed_quiz: NamedCount | null;
+  /** completed lesson-progress rows / all lesson-progress rows */
   course_completion_percent: number;
+  /** students with >= 1 completed lesson / students with any lesson progress */
   student_completion_percent: number;
+  active_learners: number;
+  lessons_completed: number;
+}
+
+export interface VizuMultilevelStats {
+  attempts: number;
+  completed: number;
+  final_results: number;
+  certificates_issued: number;
+  average_result: number | null;
+  by_level: Record<string, number>;
 }
 
 export interface MockTestSkillAnalytics {
@@ -119,9 +133,14 @@ export interface EnterpriseDashboardResponse {
   charts: DashboardCharts;
   learning_analytics: LearningAnalytics;
   mock_test_analytics: CertificateMockAnalytics[];
-  payments: PaymentsSummary;
+  vizu_multilevel: VizuMultilevelStats | null;
+  /** null = the role may not see payments */
+  payments: PaymentsSummary | null;
   content: ContentCounts;
   ai: AIStats;
   recent_activity: DashboardActivityItem[];
-  server_health: ServerHealth;
+  /** null = the role may not see the server state */
+  server_health: ServerHealth | null;
+  can_see_finance: boolean;
+  can_see_system: boolean;
 }

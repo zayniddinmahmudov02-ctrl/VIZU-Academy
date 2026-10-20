@@ -25,6 +25,7 @@ from app.models.lesson_skill import (
     ListeningQuestion,
 )
 from app.models.listening import Listening
+from app.models.listening_audio_track import ListeningAudioTrack
 from app.models.reading import Reading
 from app.models.reading_option import ReadingOption
 from app.models.reading_question import ReadingQuestion
@@ -218,10 +219,10 @@ def _detect_audio(head: bytes) -> str | None:
     return None
 
 
-async def upload_listening_audio(db: Session, listening_id: UUID, file: UploadFile, duration_seconds: int | None) -> Listening:
-    listening = db.get(Listening, listening_id)
-    if listening is None:
-        raise HTTPException(status_code=404, detail="Listening not found.")
+async def _store_audio(file: UploadFile) -> tuple[str, str]:
+    """Validates and stores one uploaded audio file privately; returns
+    (storage name, detected format). Same rules for the main audio and the
+    extra tracks."""
     declared = (file.content_type or "").split(";")[0].strip().lower()
     head = await file.read(16)
     await file.seek(0)
@@ -236,15 +237,44 @@ async def upload_listening_audio(db: Session, listening_id: UUID, file: UploadFi
         await listening_storage.upload(file, name, max_bytes=MAX_AUDIO_BYTES)
     except ValueError:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="AUDIO_TOO_LARGE: max 100 MB.") from None
-    if listening.audio_storage_path:
-        await listening_storage.delete(listening.audio_storage_path)
+    return name, detected
+
+
+def _duration(seconds: int | None) -> int | None:
+    return seconds if seconds and 0 < seconds < 6 * 3600 else None
+
+
+def file_references(db: Session, storage_path: str) -> int:
+    """How many Hören tasks / tracks point at this stored file."""
+    from sqlalchemy import func
+
+    return int(db.scalar(select(func.count()).select_from(Listening).where(Listening.audio_storage_path == storage_path)) or 0) \
+        + int(db.scalar(select(func.count()).select_from(ListeningAudioTrack).where(ListeningAudioTrack.storage_path == storage_path)) or 0)
+
+
+async def _delete_if_unused(db: Session, storage_path: str | None) -> bool:
+    """Removes a stored audio file only when no task or track references it
+    any more (call after the referencing row was changed and committed)."""
+    if not storage_path or file_references(db, storage_path):
+        return False
+    await listening_storage.delete(storage_path)
+    return True
+
+
+async def upload_listening_audio(db: Session, listening_id: UUID, file: UploadFile, duration_seconds: int | None) -> Listening:
+    listening = db.get(Listening, listening_id)
+    if listening is None:
+        raise HTTPException(status_code=404, detail="Listening not found.")
+    name, detected = await _store_audio(file)
+    old = listening.audio_storage_path
     listening.audio_storage_path = name
     listening.audio_content_type = AUDIO_FORMATS[detected][0]
     listening.audio_size_bytes = (listening_storage.ROOT / name).stat().st_size
     listening.audio_original_name = (file.filename or "")[:255] or None
-    listening.audio_duration_seconds = duration_seconds if duration_seconds and 0 < duration_seconds < 6 * 3600 else None
+    listening.audio_duration_seconds = _duration(duration_seconds)
     db.commit()
     db.refresh(listening)
+    await _delete_if_unused(db, old)  # the replaced file — only if nothing else uses it
     # A1: audio + complete answer keys -> "Veröffentlicht" automatically
     from app.services.lesson_skills.hoeren_pdf_import import auto_publish
 
@@ -270,17 +300,136 @@ async def delete_listening_audio(db: Session, listening_id: UUID) -> Listening:
     if not listening.audio_url:
         listening.is_published = False
     db.commit()
-    await listening_storage.delete(old)
+    await _delete_if_unused(db, old)
     db.refresh(listening)
     return listening
 
 
-def listening_audio_path(listening: Listening) -> Path | None:
-    if not listening.audio_storage_path:
+def _stored(storage_path: str | None) -> Path | None:
+    if not storage_path:
         return None
-    path = (listening_storage.ROOT / listening.audio_storage_path).resolve()
+    path = (listening_storage.ROOT / storage_path).resolve()
     root = listening_storage.ROOT.resolve()
     return path if root in path.parents and path.exists() else None
+
+
+def listening_audio_path(listening: Listening) -> Path | None:
+    return _stored(listening.audio_storage_path)
+
+
+# ============================================================
+# Extra labelled audio tracks (e.g. "Audio von Alisa" / "Audio von Alex")
+# ============================================================
+
+LABEL_MAX = 120
+
+
+def _clean_label(label: str | None) -> str | None:
+    text = " ".join(str(label or "").split())[:LABEL_MAX]
+    return text or None
+
+
+def track_audio_path(track: ListeningAudioTrack) -> Path | None:
+    return _stored(track.storage_path)
+
+
+def tracks_state(listening: Listening) -> str:
+    """ok (every extra track has its file) | file_missing — 'ok' when there are none."""
+    return "ok" if all(track_audio_path(t) is not None for t in listening.audio_tracks) else "file_missing"
+
+
+def _track(db: Session, listening_id: UUID, track_id: UUID) -> ListeningAudioTrack:
+    track = db.get(ListeningAudioTrack, track_id)
+    if track is None or str(track.listening_id) != str(listening_id):
+        raise HTTPException(status_code=404, detail="Audio track not found.")
+    return track
+
+
+def set_audio_label(db: Session, listening_id: UUID, label: str | None) -> Listening:
+    listening = db.get(Listening, listening_id)
+    if listening is None:
+        raise HTTPException(status_code=404, detail="Listening not found.")
+    listening.audio_label = _clean_label(label)
+    db.commit()
+    db.refresh(listening)
+    return listening
+
+
+async def upload_audio_track(db: Session, listening_id: UUID, label: str, file: UploadFile, duration_seconds: int | None,
+                             track_id: UUID | None = None) -> ListeningAudioTrack:
+    """New track (track_id None) or replace the file of an existing one. The
+    old file is removed only after the new one is stored — and only because
+    every track owns its file (copies get their own file, see duplicate)."""
+    listening = db.get(Listening, listening_id)
+    if listening is None:
+        raise HTTPException(status_code=404, detail="Listening not found.")
+    clean = _clean_label(label)
+    track = _track(db, listening_id, track_id) if track_id else None
+    if track is None and not clean:
+        raise HTTPException(status_code=422, detail="LABEL_REQUIRED: e.g. „Audio von Alex“.")
+    name, detected = await _store_audio(file)
+    old = track.storage_path if track else None
+    if track is None:
+        track = ListeningAudioTrack(listening_id=listening.id, label=clean,
+                                    order_index=max([t.order_index for t in listening.audio_tracks] or [0]) + 1)
+        db.add(track)
+    elif clean:
+        track.label = clean
+    track.storage_path = name
+    track.content_type = AUDIO_FORMATS[detected][0]
+    track.size_bytes = (listening_storage.ROOT / name).stat().st_size
+    track.original_name = (file.filename or "")[:255] or None
+    track.duration_seconds = _duration(duration_seconds)
+    db.commit()
+    db.refresh(track)
+    if old and old != name:
+        await _delete_if_unused(db, old)
+    return track
+
+
+def rename_audio_track(db: Session, listening_id: UUID, track_id: UUID, label: str) -> ListeningAudioTrack:
+    track = _track(db, listening_id, track_id)
+    clean = _clean_label(label)
+    if not clean:
+        raise HTTPException(status_code=422, detail="LABEL_REQUIRED")
+    track.label = clean
+    db.commit()
+    db.refresh(track)
+    return track
+
+
+async def delete_audio_track(db: Session, listening_id: UUID, track_id: UUID) -> None:
+    """Removes the track row and its file (unless another task / track uses the same file)."""
+    track = _track(db, listening_id, track_id)
+    old = track.storage_path
+    db.delete(track)
+    db.commit()
+    await _delete_if_unused(db, old)
+
+
+def audio_tracks_public(listening: Listening) -> list[dict]:
+    """The task's audio as an ordered list: the main audio first, then the
+    extra tracks — only entries whose file exists. No storage paths."""
+    out = []
+    if listening_audio_path(listening) is not None:
+        out.append({"id": "main", "label": listening.audio_label, "duration_seconds": listening.audio_duration_seconds})
+    for t in listening.audio_tracks:
+        if track_audio_path(t) is not None:
+            out.append({"id": str(t.id), "label": t.label, "duration_seconds": t.duration_seconds})
+    return out
+
+
+def audio_tracks_admin(listening: Listening) -> list[dict]:
+    """Admin view of every audio slot (also the empty / missing ones)."""
+    main_path = listening_audio_path(listening)
+    out = [{"id": "main", "label": listening.audio_label, "file_name": listening.audio_original_name if listening.audio_storage_path else None,
+            "size_bytes": listening.audio_size_bytes if main_path else None, "duration_seconds": listening.audio_duration_seconds,
+            "file_status": "ok" if main_path else ("missing" if listening.audio_storage_path else ("external" if listening.audio_url else "none"))}]
+    for t in listening.audio_tracks:
+        path = track_audio_path(t)
+        out.append({"id": str(t.id), "label": t.label, "file_name": t.original_name, "size_bytes": t.size_bytes if path else None,
+                    "duration_seconds": t.duration_seconds, "file_status": "ok" if path else ("missing" if t.storage_path else "none")})
+    return out
 
 
 # ============================================================
@@ -320,7 +469,7 @@ def duplicate_listening(db: Session, listening_id: UUID) -> Listening:
         lesson_id=src.lesson_id, title=_copy_title(src.title), audio_url=src.audio_url, transcript=src.transcript,
         instruction=src.instruction, order_index=src.order_index + 1, is_published=False,
         audio_content_type=src.audio_content_type, audio_size_bytes=src.audio_size_bytes,
-        audio_duration_seconds=src.audio_duration_seconds, audio_original_name=src.audio_original_name,
+        audio_duration_seconds=src.audio_duration_seconds, audio_original_name=src.audio_original_name, audio_label=src.audio_label,
     )
     source_path = listening_audio_path(src)
     if source_path is not None:
@@ -329,6 +478,15 @@ def duplicate_listening(db: Session, listening_id: UUID) -> Listening:
         copy.audio_storage_path = name
     db.add(copy)
     db.flush()
+    for t in src.audio_tracks:  # every track of the copy gets its own file
+        path = track_audio_path(t)
+        name = None
+        if path is not None:
+            name = f"{uuid4().hex}{path.suffix}"
+            shutil.copyfile(path, listening_storage.ROOT / name)
+        db.add(ListeningAudioTrack(listening_id=copy.id, label=t.label, order_index=t.order_index, storage_path=name,
+                                   content_type=t.content_type, size_bytes=t.size_bytes, duration_seconds=t.duration_seconds,
+                                   original_name=t.original_name))
     for q in src.questions:
         nq = ListeningQuestion(listening_id=copy.id, question=q.question, question_type=q.question_type, points=q.points,
                                explanation=q.explanation, order_index=q.order_index, config=q.config)

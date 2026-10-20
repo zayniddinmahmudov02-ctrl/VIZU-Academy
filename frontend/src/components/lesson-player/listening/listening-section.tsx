@@ -27,18 +27,18 @@ function formatTime(seconds: number | null): string {
   return `${String(Math.floor(seconds / 60)).padStart(2, "0")}:${String(seconds % 60).padStart(2, "0")}`;
 }
 
-/** Audio of one task: uploaded audio is fetched with the session (never a
- * public URL) and played from memory; legacy tasks keep their URL. */
-function TaskAudio({ lessonId, task }: { lessonId: string; task: HoerenTask }) {
+/** One audio file of a task: uploaded audio is fetched with the session
+ * (never a public URL) and played from memory; legacy tasks keep their URL. */
+function TrackAudio({ lessonId, taskId, trackId, external }: { lessonId: string; taskId: string; trackId: string; external: string | null }) {
   const { t } = useTranslation();
-  const [src, setSrc] = useState<string | null>(task.external_audio_url);
+  const [src, setSrc] = useState<string | null>(external);
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {
-    if (task.external_audio_url) return;
+    if (external) return;
     let url: string | null = null;
     let cancelled = false;
-    getHoerenAudioBlobUrl(lessonId, task.id)
+    getHoerenAudioBlobUrl(lessonId, taskId, trackId)
       .then((u) => {
         url = u;
         if (!cancelled) setSrc(u);
@@ -48,11 +48,32 @@ function TaskAudio({ lessonId, task }: { lessonId: string; task: HoerenTask }) {
       cancelled = true;
       if (url) URL.revokeObjectURL(url);
     };
-  }, [lessonId, task.id, task.external_audio_url]);
+  }, [lessonId, taskId, trackId, external]);
 
   if (failed) return <p className="rounded-xl bg-danger/10 p-4 text-sm text-danger">{t("lessons.hoerenAudioError")}</p>;
-  if (!src) return <p className="text-sm text-text-muted">{t("common.loading")}</p>;
+  if (!src) return <p className="flex min-h-[56px] items-center text-sm text-text-muted">{t("common.loading")}</p>;
   return <ListeningPlayer src={src} />;
+}
+
+/** Every audio file of the task: one player each, labelled when the task has
+ * several (e.g. "Audio von Alisa" / "Audio von Alex"). */
+function TaskAudio({ lessonId, task }: { lessonId: string; task: HoerenTask }) {
+  const tracks = task.external_audio_url ? [] : (task.audio_tracks ?? [{ id: "main", label: null, duration_seconds: null }]);
+  if (task.external_audio_url) return <TrackAudio lessonId={lessonId} taskId={task.id} trackId="main" external={task.external_audio_url} />;
+  if (tracks.length <= 1 && !tracks[0]?.label) return <TrackAudio lessonId={lessonId} taskId={task.id} trackId={tracks[0]?.id ?? "main"} external={null} />;
+  return (
+    <div className="grid gap-4 md:grid-cols-2" data-testid="hoeren-audio-tracks">
+      {tracks.map((track) => (
+        <div key={track.id} className="min-w-0 space-y-2 rounded-xl bg-surface-card p-3 ring-1 ring-surface-border">
+          <p className="text-sm font-semibold text-text-primary">
+            {track.label ?? "Audio"}
+            {track.duration_seconds ? <span className="ml-2 text-xs font-normal text-text-muted">{formatTime(track.duration_seconds)}</span> : null}
+          </p>
+          <TrackAudio lessonId={lessonId} taskId={task.id} trackId={track.id} external={null} />
+        </div>
+      ))}
+    </div>
+  );
 }
 
 function HoerenTaskCard({ lessonId, task }: { lessonId: string; task: HoerenTask }) {

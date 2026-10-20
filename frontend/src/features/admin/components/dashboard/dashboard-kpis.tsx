@@ -51,11 +51,13 @@ export function KpiCardsSkeleton() {
 }
 
 export default function DashboardKpiCards({ kpis }: { kpis: DashboardKPIs }) {
+  // a KPI the role may not see comes back as null — the card is left out
+  const defs = KPI_DEFS.filter((def) => kpis[def.key] !== null && kpis[def.key] !== undefined);
   return (
     <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-      {KPI_DEFS.map((def) => {
+      {defs.map((def) => {
         const Icon = def.icon;
-        const raw = kpis[def.key];
+        const raw = kpis[def.key] as number;
         const value = def.format ? def.format(raw) : raw.toLocaleString("de-DE");
         return (
           <AdminCard

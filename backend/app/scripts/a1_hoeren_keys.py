@@ -186,6 +186,39 @@ def replace_audio(db, lst, parts: list[Path]) -> str:
     return lst.audio_original_name
 
 
+def plan_tracks(lst, tracks: list[tuple[str, str]]) -> list[tuple]:
+    """(label, file, existing track or None) for every extra track that is
+    missing or has another file; an existing track with the same label and
+    file (present on disk) is left alone."""
+    from app.services.lesson_skills.admin import track_audio_path
+
+    out = []
+    for label, file_name in tracks:
+        existing = next((t for t in lst.audio_tracks if t.label == label), None)
+        if existing and existing.original_name == file_name and track_audio_path(existing) is not None:
+            continue
+        out.append((label, file_name, existing))
+    return out
+
+
+def upload_track(db, lst, label: str, path: Path, existing) -> str:
+    """Through the regular track upload (type check, private storage)."""
+    import asyncio
+
+    from starlette.datastructures import Headers, UploadFile
+
+    from app.scripts.import_vizu_deutsch_a1 import _audio_duration
+    from app.services.lesson_skills import admin as skill_admin
+
+    ctype = "audio/mp4" if path.suffix.lower() == ".m4a" else "audio/mpeg"
+    with open(path, "rb") as fh:
+        upload = UploadFile(fh, filename=path.name, headers=Headers({"content-type": ctype}))
+        track = asyncio.run(skill_admin.upload_audio_track(db, lst.id, label, upload, _audio_duration(path),
+                                                           track_id=existing.id if existing else None))
+    db.refresh(lst)
+    return f"{track.original_name} ({'ersetzt' if existing else 'neu'})"
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--apply", action="store_true", help="write (default: dry run)")
@@ -221,8 +254,19 @@ def main() -> int:
             parts = spec.get("audio_parts")
             if parts and lst.audio_original_name == audio_name(parts) and listening_audio_path(lst) is not None:
                 parts = None  # already done
+            # every planned audio change needs its files — checked before anything is written
+            if args.apply and (parts or plan_tracks(lst, spec.get("audio_tracks", []))) and not args.audio_dir:
+                print("  FEHLER: --audio-dir fehlt — nichts geändert")
+                failed += 1
+                continue
             if parts:
                 print(f"  Ä Audio: {' + '.join(parts)}  (bisher {lst.audio_original_name})")
+            label = spec.get("audio_label")
+            if label and label != lst.audio_label:
+                print(f"  Ä Audio-Bezeichnung: {label}  (bisher {lst.audio_label})")
+            track_plan = plan_tracks(lst, spec.get("audio_tracks", []))
+            for t_label, t_file, existing in track_plan:
+                print(f"  Ä Audio-Spur „{t_label}“: {t_file}" + (f"  (ersetzt {existing.original_name})" if existing else "  (neu)"))
             if not args.apply:
                 continue
             before_task = {"instruction": lst.instruction, "audio": lst.audio_original_name, "published": lst.is_published}
@@ -243,6 +287,16 @@ def main() -> int:
                         failed += 1
                     else:
                         print(f"  -> Audio ersetzt: {replace_audio(db, lst, paths)}")
+            if label and label != lst.audio_label:
+                lst.audio_label = label
+                db.commit()
+            for t_label, t_file, existing in track_plan:
+                path = Path(args.audio_dir or "") / t_file
+                if not args.audio_dir or not path.is_file():
+                    print(f"  Audio-Spur „{t_label}“ NICHT hochgeladen: Datei fehlt ({t_file})")
+                    failed += 1
+                    continue
+                print(f"  -> Audio-Spur „{t_label}“: {upload_track(db, lst, t_label, path, existing)}")
             db.refresh(lst)
             state = a1.readiness(db, lst)
             if not args.no_publish:

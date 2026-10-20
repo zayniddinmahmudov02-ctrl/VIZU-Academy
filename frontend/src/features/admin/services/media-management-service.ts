@@ -1,4 +1,5 @@
 import { api } from "@/src/services/api";
+import type { AudioSlot } from "@/features/admin/services/lesson-skills-admin-service";
 
 const BASE = "/api/v1/admin/media-management";
 
@@ -28,6 +29,8 @@ export interface MediaItem {
   /** audio only: every question has an answer key */
   has_key: boolean | null;
   questions?: number;
+  /** audio only: the main audio + labelled extra tracks (e.g. "Audio von Alisa" / "Audio von Alex") */
+  audio_slots?: AudioSlot[];
   created_at: string;
   updated_at: string;
 }

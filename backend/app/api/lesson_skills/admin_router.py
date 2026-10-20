@@ -173,6 +173,87 @@ def preview_listening_audio(listening_id: UUID, db: Session = Depends(get_db), _
     return FileResponse(path, media_type=listening.audio_content_type or "audio/mpeg", headers={"Cache-Control": "private, no-store"})
 
 
+# ---- several labelled audio files per Hören task (main audio + extra tracks) ----
+
+
+class AudioLabelIn(BaseModel):
+    label: str | None = Field(default=None, max_length=120)
+
+
+def _listening_or_404(db: Session, listening_id: UUID) -> Listening:
+    listening = db.get(Listening, listening_id)
+    if listening is None:
+        raise HTTPException(status_code=404, detail="Listening not found.")
+    return listening
+
+
+@router.get("/listenings/{listening_id}/audio-slots")
+def audio_slots(listening_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+    """Every audio slot of the task: the main audio first, then the extra tracks (also empty / missing ones)."""
+    return skill_admin.audio_tracks_admin(_listening_or_404(db, listening_id))
+
+
+@router.put("/listenings/{listening_id}/audio-label")
+def put_audio_label(listening_id: UUID, data: AudioLabelIn, db: Session = Depends(get_db), user: User = Depends(require_content_editor)):
+    listening = skill_admin.set_audio_label(db, listening_id, data.label)
+    write_audit(db, actor_id=user.id, action="listening_audio_label_set", details=f"listening={listening_id} label={listening.audio_label}")
+    return skill_admin.audio_tracks_admin(listening)
+
+
+@router.post("/listenings/{listening_id}/audio-tracks")
+async def create_audio_track(
+    listening_id: UUID,
+    label: str = Form(..., max_length=120),
+    file: UploadFile = File(...),
+    duration_seconds: int | None = Form(None),
+    db: Session = Depends(get_db),
+    user: User = Depends(require_content_editor),
+):
+    """An additional labelled audio file (MP3 / WAV / M4A, max 100 MB, checked by content, stored privately)."""
+    track = await skill_admin.upload_audio_track(db, listening_id, label, file, duration_seconds)
+    write_audit(db, actor_id=user.id, action="listening_audio_track_added", details=f"listening={listening_id} track={track.id} label={track.label}")
+    return skill_admin.audio_tracks_admin(_listening_or_404(db, listening_id))
+
+
+@router.put("/listenings/{listening_id}/audio-tracks/{track_id}")
+async def update_audio_track(
+    listening_id: UUID,
+    track_id: UUID,
+    label: str | None = Form(None, max_length=120),
+    file: UploadFile | None = File(None),
+    duration_seconds: int | None = Form(None),
+    db: Session = Depends(get_db),
+    user: User = Depends(require_content_editor),
+):
+    """Replace the file (and / or rename the track)."""
+    if file is not None:
+        await skill_admin.upload_audio_track(db, listening_id, label or "", file, duration_seconds, track_id=track_id)
+        action = "listening_audio_track_replaced"
+    elif label:
+        skill_admin.rename_audio_track(db, listening_id, track_id, label)
+        action = "listening_audio_track_renamed"
+    else:
+        raise HTTPException(status_code=422, detail="file or label required")
+    write_audit(db, actor_id=user.id, action=action, details=f"listening={listening_id} track={track_id}")
+    return skill_admin.audio_tracks_admin(_listening_or_404(db, listening_id))
+
+
+@router.delete("/listenings/{listening_id}/audio-tracks/{track_id}")
+async def delete_audio_track(listening_id: UUID, track_id: UUID, db: Session = Depends(get_db), user: User = Depends(require_content_editor)):
+    await skill_admin.delete_audio_track(db, listening_id, track_id)
+    write_audit(db, actor_id=user.id, action="listening_audio_track_deleted", details=f"listening={listening_id} track={track_id}")
+    return skill_admin.audio_tracks_admin(_listening_or_404(db, listening_id))
+
+
+@router.get("/listenings/{listening_id}/audio-tracks/{track_id}")
+def preview_audio_track(listening_id: UUID, track_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+    track = skill_admin._track(db, listening_id, track_id)
+    path = skill_admin.track_audio_path(track)
+    if path is None:
+        raise HTTPException(status_code=404, detail="Audio not found.")
+    return FileResponse(path, media_type=track.content_type or "audio/mpeg", headers={"Cache-Control": "private, no-store"})
+
+
 # ============================================================
 # Duplicate (copies are unpublished)
 # ============================================================

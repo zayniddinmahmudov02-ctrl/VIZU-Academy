@@ -169,12 +169,13 @@ export default function DashboardActivityHealth({
   health,
 }: {
   activity: DashboardActivityItem[];
-  health: ServerHealthType;
+  /** null = the role may not see the server state */
+  health: ServerHealthType | null;
 }) {
   return (
-    <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+    <div className={`grid grid-cols-1 gap-6 ${health ? "lg:grid-cols-2" : ""}`}>
       <RecentActivity items={activity} />
-      <ServerHealth health={health} />
+      {health && <ServerHealth health={health} />}
     </div>
   );
 }

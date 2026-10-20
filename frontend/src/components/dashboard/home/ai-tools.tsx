@@ -44,9 +44,9 @@ export default function AiTools() {
         variants={staggerContainer}
         initial="hidden"
         animate="show"
-        className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3"
+        className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3"
       >
-        {tools.map((tool) => {
+        {tools.map((tool, index) => {
           const Icon = tool.icon;
 
           return (
@@ -55,7 +55,8 @@ export default function AiTools() {
               variants={cardEntrance}
               whileHover={{ y: -4, scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="h-full"
+              // 3 cards in a 2-column row: the last one takes the full width instead of leaving a gap
+              className={`h-full ${index === tools.length - 1 && tools.length % 2 === 1 ? "sm:col-span-2 lg:col-span-1" : ""}`}
             >
               <Link
                 href={tool.href}

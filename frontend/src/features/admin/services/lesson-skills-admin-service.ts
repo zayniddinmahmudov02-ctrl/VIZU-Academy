@@ -241,6 +241,62 @@ export async function getListeningAudioBlobUrl(listeningId: string): Promise<str
   return URL.createObjectURL(response.data as Blob);
 }
 
+// ---- several labelled audio files per Hören task: "main" = the task's audio, others = extra tracks
+
+export interface AudioSlot {
+  id: string; // "main" or the track id
+  label: string | null;
+  file_name: string | null;
+  size_bytes: number | null;
+  duration_seconds: number | null;
+  file_status: "ok" | "missing" | "external" | "none";
+  uploaded_at?: string | null;
+}
+
+export async function getAudioSlots(listeningId: string): Promise<AudioSlot[]> {
+  return (await api.get<AudioSlot[]>(`${BASE}/listenings/${listeningId}/audio-slots`)).data;
+}
+
+export async function setMainAudioLabel(listeningId: string, label: string | null): Promise<AudioSlot[]> {
+  return (await api.put<AudioSlot[]>(`${BASE}/listenings/${listeningId}/audio-label`, { label })).data;
+}
+
+function trackForm(file: File | null, label: string | null, durationSeconds: number | null) {
+  const form = new FormData();
+  if (file) form.append("file", file);
+  if (label) form.append("label", label);
+  if (durationSeconds) form.append("duration_seconds", String(Math.round(durationSeconds)));
+  return form;
+}
+
+export async function addAudioTrack(listeningId: string, label: string, file: File, durationSeconds: number | null,
+                                    onProgress?: (percent: number) => void): Promise<AudioSlot[]> {
+  return (await api.post<AudioSlot[]>(`${BASE}/listenings/${listeningId}/audio-tracks`, trackForm(file, label, durationSeconds), {
+    headers: { "Content-Type": "multipart/form-data" },
+    onUploadProgress: onProgress ? (e) => e.total && onProgress(Math.round((e.loaded / e.total) * 100)) : undefined,
+  })).data;
+}
+
+/** Replace the file and / or rename an extra track. */
+export async function updateAudioTrack(listeningId: string, trackId: string, input: { file?: File; label?: string; durationSeconds?: number | null },
+                                       onProgress?: (percent: number) => void): Promise<AudioSlot[]> {
+  return (await api.put<AudioSlot[]>(`${BASE}/listenings/${listeningId}/audio-tracks/${trackId}`,
+    trackForm(input.file ?? null, input.label ?? null, input.durationSeconds ?? null), {
+      headers: { "Content-Type": "multipart/form-data" },
+      onUploadProgress: onProgress ? (e) => e.total && onProgress(Math.round((e.loaded / e.total) * 100)) : undefined,
+    })).data;
+}
+
+export async function deleteAudioTrack(listeningId: string, trackId: string): Promise<AudioSlot[]> {
+  return (await api.delete<AudioSlot[]>(`${BASE}/listenings/${listeningId}/audio-tracks/${trackId}`)).data;
+}
+
+export async function getAudioTrackBlobUrl(listeningId: string, trackId: string): Promise<string> {
+  const path = trackId === "main" ? "audio" : `audio-tracks/${trackId}`;
+  const response = await api.get(`${BASE}/listenings/${listeningId}/${path}`, { responseType: "blob" });
+  return URL.createObjectURL(response.data as Blob);
+}
+
 export async function duplicateItem(kind: "readings" | "listenings" | "writings" | "speakings" | "exercises", id: string) {
   return (await api.post<{ id: string }>(`${BASE}/${kind}/${id}/duplicate`)).data;
 }

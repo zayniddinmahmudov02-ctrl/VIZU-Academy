@@ -29,6 +29,59 @@ export async function getUserCertificateProfile(userId: string): Promise<UserCer
   return ensureArray<UserCertificateEntry>(response.data);
 }
 
+// ---- unified view: certificate rows + VIZU-Multilevel exam certificates (GET /admin/zertifikate)
+
+export type ZertifikatSource = "COURSE" | "VORBEREITUNG" | "VIZU_MULTILEVEL";
+export type ZertifikatStatus = "valid" | "revoked" | "issued" | "available";
+
+export interface ZertifikatItem {
+  id: string; // "c:<certificate id>" | "ml:<attempt id>"
+  source: ZertifikatSource;
+  type_label: string;
+  level: string | null;
+  level_label: string | null;
+  certificate_number: string | null;
+  issued_at: string | null;
+  status: ZertifikatStatus;
+  score: number | null;
+  course: { id: string; title: string; level: string } | null;
+  user?: { id: string; name: string; email: string; username: string } | null;
+  pdf_available: boolean;
+  attempt_id: string | null;
+  attempt_number?: number;
+}
+
+export interface ZertifikatFilters {
+  q?: string;
+  level?: string;
+  source?: string;
+  status?: string;
+  date_from?: string;
+  date_to?: string;
+  user_id?: string;
+  page?: number;
+  page_size?: number;
+}
+
+export interface ZertifikatList {
+  items: ZertifikatItem[];
+  total: number;
+  page: number;
+  page_size: number;
+  total_pages: number;
+  stats: { total: number; by_source: Record<string, number>; by_level: Record<string, number> };
+}
+
+export async function listZertifikate(filters: ZertifikatFilters): Promise<ZertifikatList> {
+  const params = Object.fromEntries(Object.entries(filters).filter(([, v]) => v !== undefined && v !== ""));
+  return (await api.get<ZertifikatList>("/api/v1/admin/zertifikate", { params })).data;
+}
+
+/** The PDF through the authenticated client (no public file URL). */
+export async function fetchZertifikatPdf(itemId: string): Promise<Blob> {
+  return (await api.get(`/api/v1/admin/zertifikate/${encodeURIComponent(itemId)}/pdf`, { responseType: "blob" })).data as Blob;
+}
+
 // A plain <a href> can't carry the Bearer auth header this backend requires
 // (no cookie-based session exists) — the PDF has to be fetched through the
 // authenticated axios client and turned into a local blob URL to trigger

@@ -30,7 +30,7 @@ const LEVEL_STYLE = new Map<string, (typeof germanLevels)[number]>(
 
 export default function ContinueLearning() {
   const { t } = useTranslation();
-  const { data: courses } = useCoursesWithLessonCounts();
+  const { data: courses, isLoading } = useCoursesWithLessonCounts();
   const { data: dashboard } = useDashboard();
   const current = courses?.[0];
 
@@ -45,6 +45,18 @@ export default function ContinueLearning() {
       ? `/kurse/${current.level.toLowerCase()}`
       : undefined;
 
+  // keep the section's space while loading, so the page does not jump when the data arrives
+  if (isLoading) {
+    return (
+      <section aria-busy="true" aria-label={t("dashboard.continueLearning")} data-testid="continue-learning-skeleton">
+        <div className="mb-6 h-6 w-48 animate-pulse rounded-lg bg-surface-hover" />
+        <div className="h-[220px] animate-pulse rounded-card bg-surface-hover sm:h-[168px]" />
+        <div className="mt-6 grid grid-cols-2 gap-5 sm:grid-cols-3 xl:grid-cols-5">
+          {[0, 1, 2, 3, 4].map((i) => <div key={i} className="h-[108px] animate-pulse rounded-2xl bg-surface-hover" />)}
+        </div>
+      </section>
+    );
+  }
   if (!current) return null;
 
   const currentStyle = LEVEL_STYLE.get(current.level);
@@ -141,10 +153,11 @@ export default function ContinueLearning() {
               variants={cardEntrance}
               whileHover={{ scale: 1.03, y: -3 }}
               transition={{ duration: 0.2 }}
+              className="h-full"
             >
               <Link
                 href={`/kurse/${course.level.toLowerCase()}`}
-                className={`block rounded-2xl p-5 shadow-[var(--shadow-card)] transition-all duration-300 hover:shadow-[var(--shadow-card-hover)] ${
+                className={`block h-full rounded-2xl p-5 shadow-[var(--shadow-card)] transition-all duration-300 hover:shadow-[var(--shadow-card-hover)] ${
                   courseStyle?.chip ?? "bg-surface-hover text-text-primary ring-1 ring-surface-border"
                 }`}
               >

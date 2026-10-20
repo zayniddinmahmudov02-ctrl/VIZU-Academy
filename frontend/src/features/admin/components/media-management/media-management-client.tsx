@@ -1,9 +1,11 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { Fragment, useMemo, useRef, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
-import { AlertTriangle, Eye, EyeOff, FileText, Film, Music, Play, RefreshCw, Search, Trash2, Upload, X } from "lucide-react";
+import { AlertTriangle, Eye, EyeOff, FileText, Film, ListMusic, Music, Play, RefreshCw, Search, Trash2, Upload, X } from "lucide-react";
+
+import AudioSlotsPanel from "./audio-slots-panel";
 
 import { AdminButton, AdminCheckbox, AdminInput, AdminPageHeader, AdminSelect } from "@/components/admin/admin-ui";
 import ConfirmDialog from "@/components/admin/confirm-dialog";
@@ -155,6 +157,20 @@ export default function MediaManagementClient() {
   }
   const [deleting, setDeleting] = useState<MediaItem | null>(null);
 
+  // ---- audio slots (main audio + labelled tracks): open by default for tasks with several files
+  const [expanded, setExpanded] = useState<Set<string>>(new Set());
+  const [collapsed, setCollapsed] = useState<Set<string>>(new Set());
+  function toggleSlots(id: string, open: boolean, multi: boolean) {
+    const without = (s: Set<string>) => { const n = new Set(s); n.delete(id); return n; };
+    if (open) {
+      setExpanded(without);
+      if (multi) setCollapsed((s) => new Set(s).add(id));
+    } else {
+      setCollapsed(without);
+      setExpanded((s) => new Set(s).add(id));
+    }
+  }
+
   function togglePublish(item: MediaItem) {
     const next = !item.is_published;
     return run(item.id, () => (item.kind === "VIDEO" ? updateVideo(item.id, { is_published: next }) : listeningApi.update(item.id, { is_published: next })),
@@ -284,14 +300,19 @@ export default function MediaManagementClient() {
               <tbody>
                 {rows.map((i) => {
                   const hasFile = i.file_status === "ok";
+                  const slots = i.audio_slots ?? [];
+                  const multi = slots.length > 1;
+                  const open = i.kind === "AUDIO" && (expanded.has(i.id) || (multi && !collapsed.has(i.id)));
                   return (
-                    <tr key={`${i.kind}-${i.id}`} className="border-t border-[var(--admin-border)] align-top" data-testid="mm-row" data-kind={i.kind} data-file={i.file_status}>
+                    <Fragment key={`${i.kind}-${i.id}`}>
+                    <tr className="border-t border-[var(--admin-border)] align-top" data-testid="mm-row" data-kind={i.kind} data-file={i.file_status}>
                       <td className="px-3 py-2.5 font-semibold text-[var(--admin-text-primary)]">{i.level}</td>
                       <td className="px-3 py-2.5 text-[var(--admin-text-secondary)]">{i.lesson_number}. {i.lesson_title}</td>
                       <td className="px-3 py-2.5">{i.kind === "VIDEO" ? <span className="inline-flex items-center gap-1"><Film size={14} /> Video</span> : <span className="inline-flex items-center gap-1"><Music size={14} /> Audio</span>}</td>
                       <td className="px-3 py-2.5 text-[var(--admin-text-primary)]">
                         {i.title}
                         <span className="block text-xs text-[var(--admin-text-muted)]">{i.kind === "VIDEO" ? `Bereich: ${i.task === "EINFUEHRUNG" ? "Video-Unterricht" : i.task}` : `${i.questions ?? 0} Fragen · ${i.has_key ? "Lösungen vollständig" : "Lösungen fehlen"}`}</span>
+                        {multi && <span className="block text-xs font-semibold text-[var(--admin-primary)]">{slots.length} Audiodateien: {slots.map((s) => s.label ?? "Audio").join(" · ")}</span>}
                       </td>
                       <td className="px-3 py-2.5 text-xs">
                         <span className="block max-w-[14rem] truncate text-[var(--admin-text-secondary)]" title={i.file_name ?? ""}>{i.file_name ?? "—"}</span>
@@ -318,9 +339,21 @@ export default function MediaManagementClient() {
                           </AdminButton>
                           <AdminButton size="sm" variant="danger" disabled={busyId === i.id || (i.kind === "AUDIO" && !hasFile && i.file_status !== "missing")} onClick={() => setDeleting(i)}
                                        title={i.kind === "VIDEO" ? "Video löschen" : "Audio entfernen"} data-testid="mm-delete"><Trash2 size={13} /></AdminButton>
+                          {i.kind === "AUDIO" && (
+                            <AdminButton size="sm" variant={open ? "primary" : "secondary"} onClick={() => toggleSlots(i.id, open, multi)} title="Audiodateien (Spuren) verwalten"
+                                         aria-expanded={open} data-testid="mm-slots"><ListMusic size={13} /></AdminButton>
+                          )}
                         </div>
                       </td>
                     </tr>
+                    {open && (
+                      <tr className="bg-[var(--admin-card)]" data-testid="mm-slots-row">
+                        <td colSpan={9} className="px-3 pb-3">
+                          <AudioSlotsPanel listeningId={i.id} slots={slots} onChanged={refresh} />
+                        </td>
+                      </tr>
+                    )}
+                    </Fragment>
                   );
                 })}
               </tbody>
