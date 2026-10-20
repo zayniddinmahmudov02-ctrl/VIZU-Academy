@@ -22,7 +22,9 @@ export default function LmsLevelClient({ level }: { level: string }) {
   const code = level.toUpperCase();
   const [buying, setBuying] = useState(false);
   const sale = data?.sale;
-  const canBuy = !!sale && !sale.coming_soon && !sale.owned;
+  // sales_enabled: only a level the admin approved for sale can be bought
+  const canBuy = !!sale && !sale.coming_soon && !!sale.sales_enabled && !sale.owned;
+  const salesClosed = !!sale?.sales_closed && !sale.owned;
 
   return (
     <div className="space-y-6">
@@ -61,6 +63,11 @@ export default function LmsLevelClient({ level }: { level: string }) {
             {sale?.coming_soon && (
               <p className="mt-4 inline-flex items-center gap-2 rounded-xl bg-white/15 px-4 py-2 text-sm font-semibold" data-testid="lms-level-coming-soon">
                 <Lock size={15} /> {t("lms.comingSoonHint")}
+              </p>
+            )}
+            {salesClosed && (
+              <p className="mt-4 inline-flex items-center gap-2 rounded-xl bg-white/15 px-4 py-2 text-sm font-semibold" data-testid="lms-level-sales-closed">
+                <Lock size={15} /> {t("lms.salesClosedHint")}
               </p>
             )}
             <div className="mt-5 max-w-md">

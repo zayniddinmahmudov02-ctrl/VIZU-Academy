@@ -18,10 +18,13 @@ export default function LmsLessonLock({ data }: { data: LmsLesson }) {
   const reason = data.access.reason;
   const level = data.lesson.level ?? "";
   const premium = reason === "PREMIUM_REQUIRED";
-  const soon = reason === "LEVEL_COMING_SOON";
+  const salesClosed = reason === "LEVEL_SALES_CLOSED";
+  const soon = reason === "LEVEL_COMING_SOON" || salesClosed;
   const previous = data.navigation.previous;
   const [title, hint] = premium
     ? [t("lms.lockPremiumTitle"), t("lms.lockBuyHint", { level })]
+    : salesClosed
+      ? [t("lms.lockComingSoonTitle"), t("lms.salesClosedHint")]
     : soon
       ? [t("lms.lockComingSoonTitle"), t("lms.lockComingSoonHint")]
       : reason === "PREVIOUS_LESSON_NOT_COMPLETED"

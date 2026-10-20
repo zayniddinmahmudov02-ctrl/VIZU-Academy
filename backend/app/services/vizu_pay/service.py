@@ -347,6 +347,10 @@ class VizuPayService:
                 detail="PAYMENT_REQUEST_BLOCKED",
             )
 
+        # serialize this user's checkouts (row lock until commit): a double
+        # submit must not pass the open-order check twice -> two orders
+        self.db.query(User.id).filter(User.id == user.id).with_for_update().first()
+
         if self._has_open_order(user):
             raise HTTPException(
                 status_code=409,

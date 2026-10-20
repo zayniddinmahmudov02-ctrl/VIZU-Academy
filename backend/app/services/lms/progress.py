@@ -487,16 +487,22 @@ def level_sale(user: User, level: str) -> dict:
     from app.services.vizu_pay.access import has_premium_bypass, is_user_premium, owns_level
 
     available = offer_config.level_available(level)
+    sales = offer_config.level_sales_enabled(level)
     listed = {o["code"]: o for o in offer_config.list_offers()}
 
     def brief(o: dict) -> dict:
-        return {k: o[k] for k in ("code", "kind", "label", "levels", "available_levels", "original_price", "sale_price", "discount_percent",
-                                  "purchasable", "currency")}
+        return {k: o[k] for k in ("code", "kind", "label", "levels", "available_levels", "sales_levels", "original_price", "sale_price",
+                                  "discount_percent", "purchasable", "currency")}
 
+    # legacy Premium opens a level only once it is approved for sale (see access.can_access_lesson)
+    premium_counts = sales and is_user_premium(user)
     return {
         "available": available,
         "coming_soon": not available,
-        "owned": bool(has_premium_bypass(user) or (available and (is_user_premium(user) or owns_level(user, level)))),
+        # available (free lessons open) but not approved for sale yet: buying shows "Tez orada"
+        "sales_enabled": bool(available and sales),
+        "sales_closed": bool(available and not sales),
+        "owned": bool(has_premium_bypass(user) or (available and (premium_counts or owns_level(user, level)))),
         "free_lessons": offer_config.free_lessons() if available else 0,
         "offer": brief(listed[level]) if level in listed else None,
         "packages": [brief(o) for o in listed.values() if o["kind"] == offer_config.KIND_PACKAGE and level in o["levels"] and o["purchasable"]],

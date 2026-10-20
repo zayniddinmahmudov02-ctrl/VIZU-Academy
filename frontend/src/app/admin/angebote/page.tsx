@@ -34,6 +34,7 @@ export default function AngebotePage() {
   const { data, isLoading, error } = useQuery({ queryKey: ["admin", "angebote-config"], queryFn: getAngeboteConfig });
   const [rows, setRows] = useState<Record<string, Row>>({});
   const [levels, setLevels] = useState<Record<string, boolean>>({});
+  const [sales, setSales] = useState<Record<string, boolean>>({});
   const [free, setFree] = useState("1");
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<{ ok: boolean; text: string } | null>(null);
@@ -44,6 +45,7 @@ export default function AngebotePage() {
       discount_percent: o.discount_percent?.toString() ?? "", active: o.active, levels: [...o.levels],
     }])));
     setLevels({ ...cfg.levels });
+    setSales({ ...(cfg.sales ?? {}) });
     setFree(String(cfg.free_lessons));
   }
   // adopt freshly loaded / saved config (state adjusted during render, not in an effect)
@@ -73,8 +75,15 @@ export default function AngebotePage() {
       if (Object.keys(diff).length) offers[o.code] = diff;
     }
     const levelDiff = Object.fromEntries(LEVELS.filter((lv) => levels[lv] !== data.defaults.levels[lv]).map((lv) => [lv, levels[lv]]));
+    const salesDiff = Object.fromEntries(LEVELS.filter((lv) => !!sales[lv] !== !!data.defaults.sales?.[lv]).map((lv) => [lv, !!sales[lv]]));
+    // releasing a level for sale opens its checkout and paid lessons: ask once
+    const released = LEVELS.filter((lv) => sales[lv] && !data.sales?.[lv]);
+    if (released.length && !window.confirm(`Verkauf freigeben für ${released.join(", ")}? Studenten können den Kurs dann kaufen; Lektionen öffnen nach „Approve“ der Zahlung.`)) {
+      setSaving(false);
+      return;
+    }
     try {
-      const saved = await saveAngeboteConfig({ offers, levels: levelDiff, free_lessons: Number(free) });
+      const saved = await saveAngeboteConfig({ offers, levels: levelDiff, sales: salesDiff, free_lessons: Number(free) });
       queryClient.setQueryData(["admin", "angebote-config"], saved);
       setMessage({ ok: true, text: "Gespeichert — gilt sofort für das Studentenpanel und neue Bestellungen." });
     } catch (err) {
@@ -107,6 +116,21 @@ export default function AngebotePage() {
               ))}
             </div>
             <p className="mt-2 text-xs text-[var(--admin-text-muted)]">Ein gesperrtes Niveau ist für Studenten sichtbar, aber ohne Zugang — auch nicht mit dem A1 → C1 Paket oder Premium.</p>
+
+            <h2 className="mb-3 mt-5 text-sm font-bold uppercase tracking-wide text-[var(--admin-text-muted)]">Verkauf freigegeben</h2>
+            <div className="flex flex-wrap gap-4">
+              {LEVELS.map((lv) => (
+                <label key={lv} className="flex items-center gap-2 text-sm text-[var(--admin-text-primary)]" data-testid={`angebote-sales-${lv}`}>
+                  <AdminCheckbox checked={!!sales[lv]} onCheckedChange={(v) => setSales((p) => ({ ...p, [lv]: Boolean(v) }))} />
+                  <span className="font-semibold">{lv}</span>
+                  <span className="text-xs text-[var(--admin-text-muted)]">{sales[lv] ? "im Verkauf" : "nicht freigegeben"}</span>
+                </label>
+              ))}
+            </div>
+            <p className="mt-2 text-xs text-[var(--admin-text-muted)]">
+              Unabhängig von „Kurs aktiv / veröffentlicht“. Ohne Freigabe: kein Kauf (auch nicht als Paket), bezahlte Lektionen geschlossen —
+              kostenlose Lektionen bleiben offen, frühere Käufe dieses Niveaus behalten ihren Zugang. Nichts wird gelöscht; jede Änderung steht im Audit-Log.
+            </p>
             <div className="mt-4 flex items-center gap-3">
               <span className="text-sm text-[var(--admin-text-primary)]">Kostenlose Lektionen pro Kurs</span>
               <AdminInput className="w-20" type="number" min={0} max={5} value={free} onChange={(e) => setFree(e.target.value)} data-testid="angebote-free" />
@@ -143,6 +167,9 @@ export default function AngebotePage() {
                         {o.purchasable ? <span className="text-[var(--admin-success)]">verkäuflich</span> : <span className="text-[var(--admin-text-muted)]">nicht im Verkauf</span>}
                         {o.kind === "PACKAGE" && o.available_levels.length < o.levels.length && (
                           <span className="block text-[var(--admin-text-muted)]">öffnet jetzt: {o.available_levels.join(", ") || "—"}</span>
+                        )}
+                        {o.sales_levels && o.sales_levels.length < o.levels.length && (
+                          <span className="block text-[var(--admin-text-muted)]">Verkauf nicht freigegeben: {o.levels.filter((lv) => !o.sales_levels?.includes(lv)).join(", ")}</span>
                         )}
                       </td>
                     </tr>

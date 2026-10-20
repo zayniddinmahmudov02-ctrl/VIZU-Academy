@@ -8,7 +8,7 @@ Security-critical: get_downloadable_book() is the ONLY way to resolve a
 Book's PDF path, and it's the sole gate — 404 for missing/unpublished
 (never reveals draft existence, same principle as
 audio_service.authorize_audio_access), then requires
-is_user_premium(user) or has_premium_bypass(user), else
+vizu_pay.access.can_access_level_content(user, book.level), else
 403 PREMIUM_REQUIRED. The API layer never resolves a storage path any
 other way."""
 
@@ -21,7 +21,7 @@ from sqlalchemy.orm import Session
 from app.core.storage.protected_local import ProtectedBookStorage
 from app.models.book import Book
 from app.models.user import User
-from app.services.vizu_pay.access import has_premium_bypass, is_user_premium, owns_level
+from app.services.vizu_pay.access import can_access_level_content
 
 storage = ProtectedBookStorage()
 
@@ -132,8 +132,8 @@ class BookService:
             raise HTTPException(status_code=404, detail="Book not found")
 
         # Legacy Premium, staff, or a purchased Angebote level that covers
-        # this book's level.
-        if not (is_user_premium(user) or has_premium_bypass(user) or owns_level(user, book.level)):
+        # this book's level (a level not approved for sale: order only).
+        if not can_access_level_content(user, book.level):
             raise HTTPException(status_code=403, detail="PREMIUM_REQUIRED")
 
         return book

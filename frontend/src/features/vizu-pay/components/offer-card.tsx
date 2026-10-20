@@ -18,8 +18,9 @@ export function formatSom(value: number): string {
  * the course cards, so a price is rendered the same way everywhere. */
 export function OfferPrice({ offer, size = "lg" }: { offer: Offer; size?: "lg" | "md" }) {
   const { t } = useTranslation();
-  if (!offer.active || offer.salePrice == null) {
-    return <p className="text-sm font-semibold text-text-muted">{t("angebote.notAvailable")}</p>;
+  // not sold (inactive, not priced or not approved for sale): no price is advertised
+  if (!offer.purchasable || offer.salePrice == null) {
+    return <p className="text-sm font-semibold text-text-muted">{t("lms.comingSoon")}</p>;
   }
   return (
     <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5">
@@ -40,12 +41,12 @@ export function OfferBadges({ offer }: { offer: Offer }) {
   const { t } = useTranslation();
   return (
     <div className="flex flex-wrap gap-1.5">
-      {offer.active && offer.discountPercent != null && (
+      {offer.purchasable && offer.discountPercent != null && (
         <span className="rounded-full bg-orange-500 px-2.5 py-1 text-[11px] font-extrabold uppercase tracking-wide text-white shadow-sm">
           {t("angebote.discountBadge", { percent: offer.discountPercent })}
         </span>
       )}
-      {offer.active && (
+      {offer.purchasable && (
         <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/12 px-2.5 py-1 text-[11px] font-bold text-emerald-600 ring-1 ring-emerald-500/25 dark:text-emerald-400">
           <Gift size={11} />
           {t("angebote.freeLessonBadge")}
@@ -104,7 +105,7 @@ export default function OfferCard({ offer, state, highlighted = false, compact =
       {offer.kind === "PACKAGE" && (
         <div className="mt-3 flex flex-wrap gap-1.5">
           {offer.levels.map((level) =>
-            offer.availableLevels.includes(level) ? (
+            offer.availableLevels.includes(level) && offer.salesLevels.includes(level) ? (
               <span key={level} className="rounded-lg bg-accent-blue/10 px-2.5 py-1 text-xs font-bold text-accent-blue">
                 {level}
               </span>
@@ -126,7 +127,7 @@ export default function OfferCard({ offer, state, highlighted = false, compact =
         {inactive ? (
           <p className="flex items-center gap-1.5 text-sm font-semibold text-text-muted">
             <Lock size={14} />
-            {t("angebote.notAvailable")}
+            {t("lms.comingSoon")}
           </p>
         ) : (
           <OfferPrice offer={offer} size={compact ? "md" : "lg"} />

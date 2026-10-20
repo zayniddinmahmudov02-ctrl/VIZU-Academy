@@ -21,6 +21,8 @@ export interface Offer {
   purchasable: boolean;
   /** levels of the offer students can open today ("Tez orada" levels are not) */
   availableLevels: string[];
+  /** levels approved for sale (Admin -> Angebote); the others show "Tez orada" */
+  salesLevels: string[];
   freeLessons: number;
   currency: string;
 }

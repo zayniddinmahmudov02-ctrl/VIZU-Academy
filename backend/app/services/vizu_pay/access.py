@@ -9,7 +9,7 @@ from app.models.module import Module
 from app.models.subscription_order import SubscriptionOrder
 from app.models.user import User
 
-from .offers import OFFER_CODES, free_lessons, level_available, offer_levels
+from .offers import OFFER_CODES, free_lessons, level_available, level_sales_enabled, offer_levels
 from .plans import STATUS_APPROVED
 
 
@@ -143,6 +143,23 @@ def is_level_coming_soon(lesson) -> bool:
     return level is not None and not level_available(level)
 
 
+def is_level_sales_closed(lesson) -> bool:
+    """The lesson's level is available but not approved for sale yet."""
+    _, level = _course_of(lesson)
+    return level is not None and level_available(level) and not level_sales_enabled(level)
+
+
+def can_access_level_content(user: User | None, level: str | None) -> bool:
+    """Paid content of a whole level (book PDFs, ...) — same rule as a paid
+    lesson in can_access_lesson: staff; a level not approved for sale only
+    for an APPROVED order naming it; otherwise legacy Premium or an order."""
+    if has_premium_bypass(user):
+        return True
+    if level and not level_sales_enabled(level):
+        return owns_level(user, level)
+    return is_user_premium(user) or owns_level(user, level)
+
+
 def can_access_lesson(user: User | None, lesson) -> bool:
     if has_premium_bypass(user):
         return True
@@ -150,9 +167,15 @@ def can_access_lesson(user: User | None, lesson) -> bool:
     # the A1 → C1 package — until the admin makes it available
     if is_level_coming_soon(lesson):
         return False
-    if is_user_premium(user):
-        return True
     if is_free_lesson(lesson):
         return True
     _, level = _course_of(lesson)
+    # a level not approved for sale: its paid lessons open only for an APPROVED
+    # order that names the level (bought before the freeze) — legacy Premium
+    # (all-access subscription) does not open them; re-approving the level
+    # restores every access at once, nothing is deleted
+    if not level_sales_enabled(level):
+        return owns_level(user, level)
+    if is_user_premium(user):
+        return True
     return owns_level(user, level)

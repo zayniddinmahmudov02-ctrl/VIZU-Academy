@@ -8,8 +8,12 @@ from uuid import UUID
 from sqlalchemy import and_, case, func, or_, select
 from sqlalchemy.orm import Session
 
-from app.models.advertisement import EVENT_CLICK, EVENT_IMPRESSION, Advertisement, AdvertisementEvent
+from app.models.advertisement import EVENT_CLICK, EVENT_IMPRESSION, LINK_EXTERNAL, LINK_INTERNAL, Advertisement, AdvertisementEvent
+from app.schemas.advertisement import apply_link_rules
+from app.services import student_routes
 from app.services.advertisement_validation import ctr
+
+LINK_FIELDS = ("link_type", "target_url", "internal_route", "internal_params")
 
 # A student who keeps the dashboard open / navigates back and forth is
 # counted at most once per window; a click is counted at most once per
@@ -72,7 +76,16 @@ def is_eligible(ad: Advertisement, now: datetime | None = None) -> bool:
     )
 
 
+def internal_link(ad: Advertisement) -> tuple[str | None, bool]:
+    """(student page path, still valid) of an INTERNAL ad; (None, True) for
+    an external one. A removed route resolves to the safe fallback page."""
+    if ad.link_type != LINK_INTERNAL:
+        return None, True
+    return student_routes.resolve(ad.internal_route, ad.internal_params)
+
+
 def to_public(ad: Advertisement) -> dict:
+    path, _ = internal_link(ad)
     return {
         "id": ad.id,
         "title": ad.title,
@@ -80,6 +93,8 @@ def to_public(ad: Advertisement) -> dict:
         "image_url": ad.image_url,
         "cta_text": ad.cta_text,
         "click_path": f"/api/v1/advertisements/{ad.id}/click",
+        "link_type": ad.link_type or LINK_EXTERNAL,
+        "internal_path": path,
     }
 
 
@@ -154,12 +169,18 @@ def _counts(db: Session, ad_ids: list[UUID]) -> dict[UUID, tuple[int, int]]:
 
 def _to_admin(ad: Advertisement, counts: tuple[int, int], current_id: UUID | None) -> dict:
     impressions, clicks = counts
+    path, valid = internal_link(ad)
     return {
         "id": ad.id,
         "title": ad.title,
         "description": ad.description,
         "image_url": ad.image_url,
+        "link_type": ad.link_type or LINK_EXTERNAL,
         "target_url": ad.target_url,
+        "internal_route": ad.internal_route,
+        "internal_params": ad.internal_params,
+        "internal_path": path,
+        "link_valid": valid,
         "cta_text": ad.cta_text,
         "is_active": ad.is_active,
         "priority": ad.priority,
@@ -209,8 +230,16 @@ def update(db: Session, ad_id: UUID, data) -> dict | None:
     ends = updates.get("ends_at", ad.ends_at)
     if starts and ends and ends <= starts:
         raise ValueError("Enddatum muss nach dem Startdatum liegen.")
+    if any(f in updates for f in LINK_FIELDS):
+        # the link as a whole (stored values + changes) must stay consistent
+        link = {f: getattr(ad, f) for f in LINK_FIELDS}
+        link.update({f: updates.pop(f) for f in LINK_FIELDS if f in updates})
+        link["link_type"] = link["link_type"] or LINK_EXTERNAL
+        apply_link_rules(link)
+        for field, value in link.items():
+            setattr(ad, field, value)
     for field, value in updates.items():
-        if field in ("title", "target_url", "cta_text") and value is None:
+        if field in ("title", "cta_text") and value is None:
             continue  # required fields cannot be cleared
         setattr(ad, field, value)
     db.commit()

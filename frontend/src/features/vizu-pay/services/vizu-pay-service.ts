@@ -49,6 +49,7 @@ interface OfferPayload {
   active: boolean;
   purchasable?: boolean;
   available_levels?: string[];
+  sales_levels?: string[];
   free_lessons: number;
   currency: string;
 }
@@ -64,8 +65,10 @@ export async function getOffers(): Promise<Offer[]> {
     salePrice: o.sale_price,
     discountPercent: o.discount_percent,
     active: !!o.active,
-    purchasable: o.purchasable ?? (!!o.active && o.sale_price != null),
+    // the server decides; an older backend without the field: nothing is sold
+    purchasable: !!o.purchasable,
     availableLevels: o.available_levels ?? o.levels ?? [],
+    salesLevels: o.sales_levels ?? [],
     freeLessons: o.free_lessons,
     currency: o.currency,
   }));

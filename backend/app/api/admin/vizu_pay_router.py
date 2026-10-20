@@ -44,10 +44,13 @@ def get_angebote_config(db: Session = Depends(get_db), current_user: User = Depe
     return {
         "offers": offer_config.list_offers(),
         "levels": eff["levels"],
+        # sales approval per level (separate from "available" and from the course's active flag)
+        "sales": eff["sales"],
         "free_lessons": eff["free_lessons"],
         "defaults": {
             "offers": {c: {k: cfg[k] for k in offer_config.EDITABLE_OFFER_FIELDS} for c, cfg in offer_config.OFFERS.items()},
             "levels": offer_config.LEVEL_AVAILABLE_DEFAULT,
+            "sales": offer_config.LEVEL_SALES_DEFAULT,
             "free_lessons": offer_config.FREE_LESSONS_PER_COURSE,
         },
     }
@@ -62,8 +65,9 @@ def put_angebote_config(
 ):
     """Replaces the overrides with `payload` ({offers: {code: {sale_price,
     original_price, discount_percent, active, levels}}, levels: {B2: true},
-    free_lessons: 1}). Fields left out fall back to the code defaults.
-    Orders already created keep the amount they were created with."""
+    sales: {A2: true}, free_lessons: 1}). Fields left out fall back to the
+    code defaults. Orders already created keep the amount they were created
+    with; closing a level for sale never deletes orders or progress."""
     import json
 
     from fastapi import HTTPException

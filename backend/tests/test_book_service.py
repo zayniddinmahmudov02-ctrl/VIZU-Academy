@@ -27,9 +27,10 @@ def make_user(*, premium: bool, role: str = "STUDENT") -> MagicMock:
     return user
 
 
-def make_book(*, is_published: bool, storage_key: str | None = "abc.pdf") -> MagicMock:
+def make_book(*, is_published: bool, storage_key: str | None = "abc.pdf", level: str = "A1") -> MagicMock:
     book = MagicMock()
     book.id = uuid4()
+    book.level = level
     book.is_published = is_published
     book.storage_key = storage_key
     book.original_filename = "book.pdf"
@@ -76,11 +77,28 @@ class TestGetDownloadableBook(unittest.TestCase):
         self.assertEqual(ctx.exception.detail, "PREMIUM_REQUIRED")
 
     def test_published_book_premium_user_is_allowed(self):
+        from unittest.mock import patch
+
+        from app.services.vizu_pay import offers
+
         book = make_book(is_published=True)
         service = self._service_with(book)
         user = make_user(premium=True)
-        result = service.get_downloadable_book(book.id, user)
+        with patch.object(offers, "_read_overrides", return_value={}):
+            result = service.get_downloadable_book(book.id, user)
         self.assertIs(result, book)
+
+    def test_level_not_approved_for_sale_blocks_legacy_premium(self):
+        from unittest.mock import patch
+
+        from app.services.vizu_pay import offers
+
+        book = make_book(is_published=True, level="B1")
+        service = self._service_with(book)
+        user = make_user(premium=True)
+        with patch.object(offers, "_read_overrides", return_value={}), self.assertRaises(HTTPException) as ctx:
+            service.get_downloadable_book(book.id, user)
+        self.assertEqual(ctx.exception.status_code, 403)
 
     def test_published_book_admin_bypass_allowed_even_without_premium(self):
         book = make_book(is_published=True)

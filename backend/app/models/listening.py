@@ -84,18 +84,11 @@ class Listening(BaseModel):
         order_by="ListeningQuestion.order_index",
         lazy="selectin",
     )
-<<<<<<< HEAD
 
-=======
->>>>>>> 54f0ae8763bfd535c11d4afa8a0bb428a98e7a90
     # additional labelled audio files (listening_audio_track.py) after the main audio
     audio_tracks = relationship(
         "ListeningAudioTrack",
         cascade="all, delete-orphan",
         order_by="ListeningAudioTrack.order_index",
         lazy="selectin",
-<<<<<<< HEAD
     )
-=======
-    )
->>>>>>> 54f0ae8763bfd535c11d4afa8a0bb428a98e7a90

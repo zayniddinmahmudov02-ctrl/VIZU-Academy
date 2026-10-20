@@ -29,6 +29,8 @@ export function describeLmsError(err: unknown): LmsErrorInfo {
     const code = message(err);
     if (code === "PREMIUM_REQUIRED") return { ...base, premium: true, titleKey: "lms.lockPremiumTitle", hintKey: "lms.lockPremiumHint" };
     if (code === "LESSON_LOCKED") return { ...base, titleKey: "lms.lockLockedTitle", hintKey: "lms.lockLockedHint" };
+    if (code === "LEVEL_SALES_CLOSED") return { ...base, titleKey: "lms.lockComingSoonTitle", hintKey: "lms.salesClosedHint" };
+    if (code === "LEVEL_COMING_SOON") return { ...base, titleKey: "lms.lockComingSoonTitle", hintKey: "lms.lockComingSoonHint" };
     return { ...base, titleKey: "lms.errorForbiddenTitle", hintKey: "lms.errorForbiddenHint" };
   }
   if (err.status === 404) return { ...base, titleKey: "lms.errorNotFoundTitle", hintKey: "lms.errorNotFoundHint" };

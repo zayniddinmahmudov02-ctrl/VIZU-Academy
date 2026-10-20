@@ -65,6 +65,10 @@ export default function LmsLevelCard({ level }: { level: LmsLevelSummary }) {
             <span className="shrink-0 rounded-full bg-accent-blue/10 px-2.5 py-1 text-xs font-bold text-accent-blue" data-testid="lms-level-price">
               {t("lms.som", { n: sale.offer.sale_price.toLocaleString("ru-RU").replace(/ /g, " ") })}
             </span>
+          ) : sale?.sales_closed ? (
+            <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-surface-hover px-2.5 py-1 text-xs font-bold text-text-muted" data-testid="lms-level-sales-closed">
+              <Lock size={11} /> {t("lms.comingSoon")}
+            </span>
           ) : null}
         </div>
         {sale && !sale.owned && sale.free_lessons > 0 && <p className="-mt-2 text-xs text-text-muted">{t("lms.buyFree")}</p>}

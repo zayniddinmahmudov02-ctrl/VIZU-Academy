@@ -14,6 +14,7 @@ import LmsStatusBadge from "./lms-status-badge";
 const LOCK_HINT: Record<string, string> = {
   PREMIUM_REQUIRED: "lms.lockPremiumShort",
   LEVEL_COMING_SOON: "lms.comingSoonHint",
+  LEVEL_SALES_CLOSED: "lms.salesClosedShort",
   PREVIOUS_LESSON_NOT_COMPLETED: "lms.lockSequentialShort",
   ADMIN_LOCKED: "lms.lockAdminShort",
 };

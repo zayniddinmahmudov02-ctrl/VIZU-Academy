@@ -8,8 +8,23 @@ export interface ActiveAdvertisement {
   description: string | null;
   image_url: string | null;
   cta_text: string;
-  /** Tracking redirect: registers the click, then 302s to the real link. */
+  /** EXTERNAL: tracking redirect (registers the click, then 302s to the real
+   * link). INTERNAL: POST here reports the click. */
   click_path: string;
+  link_type?: "EXTERNAL" | "INTERNAL";
+  /** INTERNAL: a whitelisted student page resolved by the server
+   * ("/kurse/a1"); a removed page arrives as the safe fallback. */
+  internal_path?: string | null;
+}
+
+/** In-app path of an internal ad — only a same-site absolute path is used. */
+export function advertisementInternalPath(ad: ActiveAdvertisement): string | null {
+  const path = ad.link_type === "INTERNAL" ? ad.internal_path : null;
+  return path && path.startsWith("/") && !path.startsWith("//") ? path : null;
+}
+
+export async function trackAdvertisementClick(id: string): Promise<void> {
+  await api.post(`/api/v1/advertisements/${id}/click`);
 }
 
 export async function getActiveAdvertisement(): Promise<ActiveAdvertisement | null> {

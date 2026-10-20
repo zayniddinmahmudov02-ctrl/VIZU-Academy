@@ -24,12 +24,14 @@ import {
   deleteAdvertisement,
   getAdvertisementAnalytics,
   listAdvertisements,
+  listInternalRoutes,
   setAdvertisementActive,
   parseAdvertisementApiError,
   updateAdvertisement,
   type AdminAdvertisement,
   type AdvertisementFieldError,
 } from "./advertisement-admin-service";
+import InternalRoutePicker from "./internal-route-picker";
 import {
   ADVERTISEMENT_FIELD_LABELS,
   EMPTY_ADVERTISEMENT_FORM,
@@ -72,6 +74,7 @@ const numberFmt = new Intl.NumberFormat("de-DE");
 export default function WerbungBannerManager() {
   const queryClient = useQueryClient();
   const { data: ads, isLoading, isError } = useQuery({ queryKey: QUERY_KEY, queryFn: listAdvertisements, retry: false });
+  const { data: routes = [] } = useQuery({ queryKey: ["admin-advertisement-routes"], queryFn: listInternalRoutes, retry: false, staleTime: 300_000 });
 
   const [editing, setEditing] = useState<AdminAdvertisement | "new" | null>(null);
   const [form, setForm] = useState<AdvertisementFormState>(EMPTY_ADVERTISEMENT_FORM);
@@ -106,7 +109,7 @@ export default function WerbungBannerManager() {
   });
 
   function save() {
-    const result = buildAdvertisementPayload(form);
+    const result = buildAdvertisementPayload(form, routes);
     if (!result.ok) {
       setErrors(result.errors);
       return;
@@ -127,7 +130,10 @@ export default function WerbungBannerManager() {
       title: ad.title,
       description: ad.description ?? "",
       image_url: ad.image_url,
-      target_url: ad.target_url,
+      link_type: ad.link_type ?? "EXTERNAL",
+      target_url: ad.target_url ?? "",
+      internal_route: ad.internal_route ?? "",
+      internal_params: ad.internal_params ?? {},
       cta_text: ad.cta_text,
       is_active: ad.is_active,
       priority: ad.priority,
@@ -196,7 +202,36 @@ export default function WerbungBannerManager() {
                       Bild entfernen
                     </button>
                   )}
-                  <div className="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <AdminLabel>Link-Typ</AdminLabel>
+                    <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Link-Typ">
+                      {([["EXTERNAL", "Externer Link"], ["INTERNAL", "Seite im Studentenpanel"]] as const).map(([type, label]) => (
+                        <button
+                          key={type}
+                          type="button"
+                          role="radio"
+                          aria-checked={form.link_type === type}
+                          onClick={() => setForm({ ...form, link_type: type })}
+                          data-testid={`ad-link-type-${type}`}
+                          className={`rounded-lg px-3 py-2 text-sm font-semibold ring-1 transition ${
+                            form.link_type === type
+                              ? "bg-[var(--admin-primary)] text-white ring-[var(--admin-primary)]"
+                              : "text-[var(--admin-text-secondary)] ring-[var(--admin-border-strong)] hover:bg-white/5"
+                          }`}
+                        >
+                          {label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  {form.link_type === "INTERNAL" ? (
+                    <InternalRoutePicker
+                      routes={routes}
+                      value={form.internal_route}
+                      params={form.internal_params}
+                      onChange={(route, params) => setForm({ ...form, internal_route: route, internal_params: params })}
+                    />
+                  ) : (
                     <div>
                       <AdminLabel>Link (https://…)</AdminLabel>
                       <AdminInput
@@ -204,12 +239,13 @@ export default function WerbungBannerManager() {
                         placeholder="https://"
                         value={form.target_url}
                         onChange={(e) => setForm({ ...form, target_url: e.target.value })}
+                        data-testid="ad-target-url"
                       />
                     </div>
-                    <div>
-                      <AdminLabel>CTA-Text</AdminLabel>
-                      <AdminInput value={form.cta_text} maxLength={60} onChange={(e) => setForm({ ...form, cta_text: e.target.value })} />
-                    </div>
+                  )}
+                  <div>
+                    <AdminLabel>Button-Text</AdminLabel>
+                    <AdminInput value={form.cta_text} maxLength={60} onChange={(e) => setForm({ ...form, cta_text: e.target.value })} />
                   </div>
                   <div className="grid gap-4 sm:grid-cols-3">
                     <div>
@@ -254,7 +290,11 @@ export default function WerbungBannerManager() {
                   <div className="flex gap-2">
                     <AdminButton
                       onClick={save}
-                      disabled={saveMutation.isPending || !form.title.trim() || !form.target_url.trim()}
+                      disabled={
+                        saveMutation.isPending ||
+                        !form.title.trim() ||
+                        (form.link_type === "INTERNAL" ? !form.internal_route : !form.target_url.trim())
+                      }
                     >
                       {saveMutation.isPending ? "Wird gespeichert..." : "Speichern"}
                     </AdminButton>
@@ -275,7 +315,12 @@ export default function WerbungBannerManager() {
                       href={undefined}
                     />
                   </motion.div>
-                  <p className="mt-2 truncate text-xs text-[var(--admin-text-muted)]">Link: {form.target_url || "—"}</p>
+                  <p className="mt-2 truncate text-xs text-[var(--admin-text-muted)]">
+                    Link:{" "}
+                    {form.link_type === "INTERNAL"
+                      ? routes.find((r) => r.key === form.internal_route)?.label ?? "—"
+                      : form.target_url || "—"}
+                  </p>
                 </div>
               </div>
             </AdminCard>
@@ -323,6 +368,14 @@ export default function WerbungBannerManager() {
                   <td className="max-w-[220px] px-4 py-3">
                     <p className="truncate font-semibold text-[var(--admin-text-primary)]">{ad.title}</p>
                     <p className="text-xs text-[var(--admin-text-muted)]">Priorität {ad.priority}</p>
+                    <p className="truncate text-xs text-[var(--admin-text-secondary)]" title={ad.internal_path ?? ad.target_url ?? ""}>
+                      {ad.link_type === "INTERNAL" ? `Seite: ${ad.internal_path ?? "—"}` : `Extern: ${ad.target_url ?? "—"}`}
+                    </p>
+                    {!ad.link_valid && (
+                      <p className="text-xs font-semibold text-[var(--admin-danger)]" data-testid="ad-link-invalid">
+                        Seite nicht mehr verfügbar — Studenten landen auf dem Dashboard. Bitte neu wählen.
+                      </p>
+                    )}
                   </td>
                   <td className="px-4 py-3">
                     <span

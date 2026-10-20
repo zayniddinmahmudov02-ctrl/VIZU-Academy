@@ -3,12 +3,36 @@ import { ensureArray } from "@/lib/ensure-array";
 
 const BASE = "/api/v1/admin/advertisements";
 
+export type AdvertisementLinkType = "EXTERNAL" | "INTERNAL";
+
+/** A student page an internal link may point to — the server's whitelist
+ * (backend app/services/student_routes.py), never a free path. */
+export interface InternalRoute {
+  key: string;
+  group: string;
+  label: string;
+  path: string;
+  params: { name: string; choices: string[] }[];
+}
+
+export async function listInternalRoutes(): Promise<InternalRoute[]> {
+  const response = await api.get<InternalRoute[]>(`${BASE}/internal-routes`);
+  return ensureArray<InternalRoute>(response.data);
+}
+
 export interface AdminAdvertisement {
   id: string;
   title: string;
   description: string | null;
   image_url: string | null;
-  target_url: string;
+  link_type: AdvertisementLinkType;
+  target_url: string | null;
+  internal_route: string | null;
+  internal_params: Record<string, string> | null;
+  /** resolved student page of an internal link */
+  internal_path: string | null;
+  /** false: the chosen student page no longer exists — students get the fallback page */
+  link_valid: boolean;
   cta_text: string;
   is_active: boolean;
   priority: number;
@@ -32,8 +56,12 @@ export interface CreateAdvertisementPayload {
   description: string | null;
   /** The stored upload path ("/uploads/images/...") or an https URL — never the preview URL. */
   image_url: string | null;
-  /** Absolute http(s) URL. */
-  target_url: string;
+  link_type: AdvertisementLinkType;
+  /** EXTERNAL: absolute http(s) URL; INTERNAL: null. */
+  target_url: string | null;
+  /** INTERNAL: a key from GET internal-routes + its allowed params; EXTERNAL: null. */
+  internal_route: string | null;
+  internal_params: Record<string, string> | null;
   cta_text: string;
   is_active: boolean;
   /** Integer. */

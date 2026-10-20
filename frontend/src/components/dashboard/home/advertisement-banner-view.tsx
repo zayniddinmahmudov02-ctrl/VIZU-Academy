@@ -19,6 +19,8 @@ interface Props {
   /** Slide-in on mount (default). The carousel turns it off for slides it
    * reveals itself and for the static shard copies of the glass effect. */
   animateIn?: boolean;
+  /** Internal links: in-app navigation + click tracking. */
+  onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
 }
 
 /** The dashboard "Werbung-Banner" — used by the real dashboard AND by the
@@ -27,7 +29,7 @@ interface Props {
  * flame-orange accents) so it renders identically inside the admin shell.
  * The whole banner is one link; reduced motion disables the slide-in. */
 const AdvertisementBannerView = forwardRef<HTMLAnchorElement, Props>(function AdvertisementBannerView(
-  { title, description, imageUrl, ctaText, href, external = false, badge, animateIn = true },
+  { title, description, imageUrl, ctaText, href, external = false, badge, animateIn = true, onClick },
   ref,
 ) {
   const reduce = useReducedMotion();
@@ -37,6 +39,7 @@ const AdvertisementBannerView = forwardRef<HTMLAnchorElement, Props>(function Ad
     <motion.a
       ref={ref}
       href={href || undefined}
+      onClick={onClick}
       target={external ? "_blank" : undefined}
       rel={external ? "noopener noreferrer sponsored" : undefined}
       initial={!animateIn ? false : reduce ? { opacity: 0 } : { opacity: 0, y: 14 }}

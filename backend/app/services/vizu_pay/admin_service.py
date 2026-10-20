@@ -228,7 +228,8 @@ class AdminVizuPayService:
         return self._serialize_admin_order(order)
 
     def refund_order(self, order_id: str, reason: str | None, actor: User, ip: str | None) -> dict:
-        order = self._get_order(order_id)
+        # row-locked like approve/reject: a double click must not refund twice
+        order = self._get_order_for_review(order_id)
         if order.status != plan_config.STATUS_APPROVED:
             raise VizuPayError(f"Only approved orders can be refunded (current status: {order.status}).")
 

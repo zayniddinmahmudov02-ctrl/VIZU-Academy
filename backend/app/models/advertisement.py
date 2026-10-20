@@ -1,10 +1,14 @@
 from datetime import datetime
 
 from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, String, Text
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.models.base import BaseModel
+
+LINK_EXTERNAL = "EXTERNAL"
+LINK_INTERNAL = "INTERNAL"
+LINK_TYPES = (LINK_EXTERNAL, LINK_INTERNAL)
 
 EVENT_IMPRESSION = "impression"
 EVENT_CLICK = "click"
@@ -24,7 +28,12 @@ class Advertisement(BaseModel):
     title: Mapped[str] = mapped_column(String(160), nullable=False)
     description: Mapped[str | None] = mapped_column(Text, nullable=True)
     image_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
-    target_url: Mapped[str] = mapped_column(String(1000), nullable=False)
+    # EXTERNAL: target_url (validated http(s)); INTERNAL: a student page from
+    # app.services.student_routes (key + whitelisted params), no target_url
+    link_type: Mapped[str] = mapped_column(String(20), nullable=False, default=LINK_EXTERNAL, server_default=LINK_EXTERNAL)
+    target_url: Mapped[str | None] = mapped_column(String(1000), nullable=True)
+    internal_route: Mapped[str | None] = mapped_column(String(60), nullable=True)
+    internal_params: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
     cta_text: Mapped[str] = mapped_column(String(60), nullable=False, default="Mehr erfahren", server_default="Mehr erfahren")
     is_active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default="false", index=True)
     priority: Mapped[int] = mapped_column(Integer, nullable=False, default=0, server_default="0")

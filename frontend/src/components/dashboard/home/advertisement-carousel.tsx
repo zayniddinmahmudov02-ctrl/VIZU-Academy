@@ -1,12 +1,15 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { useReducedMotion } from "framer-motion";
 import { Pause, Play } from "lucide-react";
 
 import { useTranslation } from "@/lib/i18n/use-translation";
 import {
   advertisementClickUrl,
+  advertisementInternalPath,
+  trackAdvertisementClick,
   trackAdvertisementImpression,
   type ActiveAdvertisement,
 } from "@/features/advertisements/advertisement";
@@ -29,6 +32,29 @@ interface Leaving {
 }
 
 function Slide({ ad, animateIn = false }: { ad: ActiveAdvertisement; animateIn?: boolean }) {
+  const router = useRouter();
+  const internal = advertisementInternalPath(ad);
+  if (internal) {
+    // a student page: navigate in the app, count the click on the side
+    return (
+      <AdvertisementBannerView
+        title={ad.title}
+        description={ad.description}
+        imageUrl={ad.image_url}
+        ctaText={ad.cta_text}
+        href={internal}
+        animateIn={animateIn}
+        onClick={(e) => {
+          if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return; // new tab: browser default
+          e.preventDefault();
+          void trackAdvertisementClick(ad.id).catch(() => {
+            /* analytics must never block the navigation */
+          });
+          router.push(internal);
+        }}
+      />
+    );
+  }
   return (
     <AdvertisementBannerView
       title={ad.title}

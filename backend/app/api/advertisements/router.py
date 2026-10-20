@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 from app.api.dependencies.auth import get_current_user
 from app.core.security.roles import UserRole
 from app.db.session import get_db
+from app.models.advertisement import LINK_INTERNAL
 from app.models.user import User
 from app.schemas.advertisement import (
     AdvertisementAdmin,
@@ -14,9 +15,12 @@ from app.schemas.advertisement import (
     AdvertisementCreate,
     AdvertisementPublic,
     AdvertisementUpdate,
+    ClickResult,
     ImpressionResult,
+    InternalRoute,
 )
 from app.services import advertisement_service as service
+from app.services import student_routes
 
 # ============================================================
 # Student-facing (dashboard)
@@ -73,12 +77,33 @@ def track_click_and_redirect(
     validated destination. Only for an advertisement that is currently
     eligible — an expired/inactive one is a 404, never a redirect."""
     ad = service.get(db, advertisement_id)
+    # an internal-page ad never redirects from here (the API host is not the
+    # app's) — the dashboard navigates in the app and reports via POST
+    if ad is None or not service.is_eligible(ad) or ad.link_type == LINK_INTERNAL or not ad.target_url:
+        raise HTTPException(status_code=404, detail="Advertisement not found.")
+    service.record_click(db, ad, _client(request))
+    return RedirectResponse(url=ad.target_url, status_code=302, headers={"Cache-Control": "no-store"})
+
+
+@router.post("/{advertisement_id}/click", response_model=ClickResult)
+def track_internal_click(
+    advertisement_id: UUID,
+    request: Request,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Click on an internal-page ad: counted (same de-duplication as the
+    redirect); the dashboard then navigates to the ad's `internal_path`."""
+    ad = service.get(db, advertisement_id)
     if ad is None or not service.is_eligible(ad):
         raise HTTPException(status_code=404, detail="Advertisement not found.")
+    return {"counted": service.record_click(db, ad, _client(request))}
+
+
+def _client(request: Request) -> str:
     forwarded = request.headers.get("x-forwarded-for", "")
     ip = forwarded.split(",")[0].strip() or (request.client.host if request.client else "")
-    service.record_click(db, ad, service.client_hash(ip, request.headers.get("user-agent")))
-    return RedirectResponse(url=ad.target_url, status_code=302, headers={"Cache-Control": "no-store"})
+    return service.client_hash(ip, request.headers.get("user-agent"))
 
 
 # ============================================================
@@ -106,6 +131,13 @@ def list_advertisements(
     current_user: User = Depends(require_advertisement_manager),
 ):
     return service.list_admin(db)
+
+
+@admin_router.get("/internal-routes", response_model=list[InternalRoute])
+def list_internal_routes(current_user: User = Depends(require_advertisement_manager)):
+    """The student pages an internal link may point to (grouped, with the
+    allowed parameter values) — the registry app.services.student_routes."""
+    return student_routes.catalogue()
 
 
 @admin_router.post("", response_model=AdvertisementAdmin, status_code=201)

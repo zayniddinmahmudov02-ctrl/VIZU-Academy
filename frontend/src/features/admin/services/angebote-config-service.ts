@@ -7,6 +7,7 @@ export interface AngeboteOffer {
   label: string;
   levels: string[];
   available_levels: string[];
+  sales_levels?: string[];
   original_price: number | null;
   sale_price: number | null;
   discount_percent: number | null;
@@ -27,13 +28,16 @@ export interface OfferOverride {
 export interface AngeboteConfig {
   offers: AngeboteOffer[];
   levels: Record<string, boolean>;
+  /** level approved for sale (separate from "available" and from the course's active flag) */
+  sales: Record<string, boolean>;
   free_lessons: number;
-  defaults: { offers: Record<string, OfferOverride>; levels: Record<string, boolean>; free_lessons: number };
+  defaults: { offers: Record<string, OfferOverride>; levels: Record<string, boolean>; sales: Record<string, boolean>; free_lessons: number };
 }
 
 export interface AngeboteConfigInput {
   offers: Record<string, OfferOverride>;
   levels: Record<string, boolean>;
+  sales: Record<string, boolean>;
   free_lessons: number;
 }
 

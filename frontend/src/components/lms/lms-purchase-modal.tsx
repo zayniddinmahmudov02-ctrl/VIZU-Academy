@@ -44,6 +44,10 @@ export default function LmsPurchaseModal({ level, open, onClose }: { level: stri
           <p className="rounded-xl bg-surface-hover p-4 text-sm text-text-secondary"><Lock size={14} className="mr-1 inline" />{t("lms.comingSoonHint")}</p>
         ) : sale?.owned ? (
           <p className="rounded-xl bg-success/10 p-4 text-sm font-medium text-success"><Check size={14} className="mr-1 inline" />{t("lms.buyOwned")}</p>
+        ) : !sale?.sales_enabled ? (
+          <p className="rounded-xl bg-surface-hover p-4 text-sm text-text-secondary" data-testid="lms-purchase-sales-closed">
+            <Lock size={14} className="mr-1 inline" />{t("lms.salesClosedHint")}
+          </p>
         ) : (
           <div className="space-y-5">
             <ul className="space-y-2 text-sm text-text-secondary">
@@ -79,7 +83,7 @@ export default function LmsPurchaseModal({ level, open, onClose }: { level: stri
                     <div className="min-w-0 flex-1">
                       <p className="font-semibold text-text-primary">{p.label} · {price(t, p.sale_price)}</p>
                       <p className="text-xs text-text-muted">
-                        {t("lms.buyPackageLevels", { levels: p.levels.map((lv) => (p.available_levels.includes(lv) ? lv : `${lv} (${t("lms.comingSoon")})`)).join(", ") })}
+                        {t("lms.buyPackageLevels", { levels: p.levels.map((lv) => (p.available_levels.includes(lv) && (p.sales_levels ?? []).includes(lv) ? lv : `${lv} (${t("lms.comingSoon")})`)).join(", ") })}
                       </p>
                     </div>
                     <Link href={buyHref(p)} className="rounded-xl px-3 py-2 text-xs font-semibold text-accent-blue ring-1 ring-accent-blue/30 hover:bg-accent-blue/10">

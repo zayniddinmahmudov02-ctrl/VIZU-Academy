@@ -30,8 +30,9 @@ OFFERS: dict[str, dict] = {
         "kind": KIND_LEVEL,
         "label": "A1",
         "levels": ["A1"],
+        # 2026-10-20: 100 000 so'm, 50% CHEGIRMA -> 50 000 (was 49 000 from the first sales spec)
         "original_price": 100_000,
-        "sale_price": 49_000,
+        "sale_price": 50_000,
         "discount_percent": 50,
         "active": True,
     },
@@ -100,6 +101,16 @@ ALL_LEVELS = ("A1", "A2", "B1", "B2", "C1")
 # the admin makes them available.
 LEVEL_AVAILABLE_DEFAULT = {"A1": True, "A2": True, "B1": True, "B2": False, "C1": False}
 
+# Sales approval per level — a separate decision from "available" (students
+# see the level and its free lessons) and from Course.is_active (catalogue):
+# a level is sold, and its paid lessons open, only when an admin approved it
+# for sale. Safe default: only A1. Without approval the level shows
+# "Tez orada" for buying, no order (single level or package containing it)
+# is accepted, and its paid lessons stay closed — except for students with an
+# APPROVED order that names the level (bought before the freeze) and staff.
+# Closing a level never deletes orders, payments, progress or results.
+LEVEL_SALES_DEFAULT = {"A1": True, "A2": False, "B1": False, "B2": False, "C1": False}
+
 # ----------------------------------------------------------------------
 # Admin overrides (app_settings key "angebote", Admin -> Angebote). The
 # defaults above stay the source of truth for everything the admin did not
@@ -151,8 +162,11 @@ def effective() -> dict:
         offers[code] = merged
     levels = dict(LEVEL_AVAILABLE_DEFAULT)
     levels.update({k: bool(v) for k, v in (overrides.get("levels") or {}).items() if k in levels})
+    sales = dict(LEVEL_SALES_DEFAULT)
+    sales.update({k: bool(v) for k, v in (overrides.get("sales") or {}).items() if k in sales})
     free = overrides.get("free_lessons", FREE_LESSONS_PER_COURSE)
-    return {"offers": offers, "free_lessons": int(free) if isinstance(free, int) else FREE_LESSONS_PER_COURSE, "levels": levels}
+    return {"offers": offers, "free_lessons": int(free) if isinstance(free, int) else FREE_LESSONS_PER_COURSE, "levels": levels,
+            "sales": sales}
 
 
 def offer(code: str) -> dict | None:
@@ -167,6 +181,11 @@ def level_available(level: str | None) -> bool:
     return bool(level) and effective()["levels"].get(level, False)
 
 
+def level_sales_enabled(level: str | None) -> bool:
+    """The admin approved the level for sale (Admin -> Angebote, "Verkauf")."""
+    return bool(level) and effective()["sales"].get(level, False)
+
+
 def is_offer(code: str) -> bool:
     return code in OFFERS
 
@@ -175,7 +194,11 @@ def is_purchasable(code: str) -> bool:
     cfg = offer(code)
     if not (cfg and cfg["active"] and cfg["sale_price"]):
         return False
-    # a single level is sold only when it is available ("Tez orada" is not for sale)
+    # sold only when EVERY level it unlocks is approved for sale — a package
+    # must never open a level the admin has not released (A1 -> B1 waits for
+    # A2 and B1) — and a single level must also be available ("Tez orada").
+    if not all(level_sales_enabled(lv) for lv in cfg["levels"]):
+        return False
     return cfg["kind"] != KIND_LEVEL or all(level_available(lv) for lv in cfg["levels"])
 
 
@@ -199,6 +222,8 @@ def list_offers() -> list[dict]:
             "levels": list(cfg["levels"]),
             # levels of the package students can open today (B2 / C1 "Tez orada" are not)
             "available_levels": [lv for lv in cfg["levels"] if eff["levels"].get(lv)],
+            # levels approved for sale (a not approved level shows "Tez orada" for buying)
+            "sales_levels": [lv for lv in cfg["levels"] if eff["sales"].get(lv)],
             "original_price": cfg["original_price"],
             "sale_price": cfg["sale_price"],
             "discount_percent": cfg["discount_percent"],
@@ -244,6 +269,12 @@ def validate_overrides(value: dict) -> dict:
         if level not in ALL_LEVELS or not isinstance(available, bool):
             raise ValueError(f"levels.{level}: true / false")
         out["levels"][level] = available
+    if "sales" in value:
+        out["sales"] = {}
+        for level, enabled in (value.get("sales") or {}).items():
+            if level not in ALL_LEVELS or not isinstance(enabled, bool):
+                raise ValueError(f"sales.{level}: true / false")
+            out["sales"][level] = enabled
     if "free_lessons" in value:
         free = value["free_lessons"]
         if not isinstance(free, int) or isinstance(free, bool) or not 0 <= free <= 5:
