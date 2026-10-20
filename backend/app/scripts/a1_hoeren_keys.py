@@ -123,6 +123,10 @@ def plan_task(lst, spec: dict) -> dict:
             for gid in ids:
                 g = gaps.get(gid)
                 g = dict(g) if isinstance(g, dict) else {}
+                # `gap_option_renames`: [(old, new)] for the choice list of every gap of the task
+                for old, new in spec.get("gap_option_renames", []):
+                    if g.get("options") and old in g["options"] and new not in g["options"]:
+                        g["options"] = [new if o == old else o for o in g["options"]]
                 g["accepted"] = expand(key[gid])
                 if g.get("options") and not any(a.casefold() == o.casefold() for a in g["accepted"] for o in g["options"]):
                     raise ValueError(f"Frage {n}, Lücke {gid}: „{g['accepted'][0]}“ ist keine der Auswahloptionen")

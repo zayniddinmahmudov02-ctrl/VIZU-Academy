@@ -202,5 +202,44 @@ class TestStudentSpeakingAudioAuthorization(unittest.TestCase):
         self.assertEqual(ctx.exception.status_code, 404)
 
 
+class TestSubmissionLessonAccess(unittest.TestCase):
+    """A Schreiben / Sprechen task of a paid or locked lesson cannot be
+    submitted (nor sent to the AI evaluation) — the same rule as reading the
+    task (GET /writings/{id}): app.services.lms.access.ensure_lesson_open."""
+
+    LOCKED = HTTPException(status_code=403, detail="LEVEL_SALES_CLOSED")
+
+    def test_writing_submit_checks_the_lesson_before_anything_is_stored(self):
+        service = StudentWritingService(db=MagicMock())
+        service.repository = MagicMock()
+        writing = MagicMock(is_published=True, min_words=0, max_words=1000, ai_evaluation_enabled=False, lesson_id=uuid4())
+        lesson, user = MagicMock(), MagicMock()
+        service.db.get.side_effect = lambda model, _id: {"Writing": writing, "Lesson": lesson, "User": user}[model.__name__]
+        with patch("app.services.student_writing.service.ensure_lesson_open", side_effect=self.LOCKED) as gate:
+            with self.assertRaises(HTTPException) as ctx:
+                service.submit(uuid4(), uuid4(), "Ein Text", submit_final=True)
+        self.assertEqual((ctx.exception.status_code, ctx.exception.detail), (403, "LEVEL_SALES_CLOSED"))
+        gate.assert_called_once_with(service.db, user, lesson)
+        service.repository.get_by_user_and_writing.assert_not_called()
+        service.db.add.assert_not_called()
+
+    def test_speaking_upload_checks_the_lesson_before_reading_the_file(self):
+        import asyncio
+
+        service = StudentSpeakingService(db=MagicMock())
+        service.repository = MagicMock()
+        speaking = MagicMock(is_published=True, ai_evaluation_enabled=False, lesson_id=uuid4())
+        lesson, user = MagicMock(), MagicMock()
+        service.db.get.side_effect = lambda model, _id: {"Speaking": speaking, "Lesson": lesson, "User": user}[model.__name__]
+        upload = MagicMock(read=AsyncMock(return_value=b"x"))
+        with patch("app.services.student_speaking.service.ensure_lesson_open", side_effect=self.LOCKED) as gate:
+            with self.assertRaises(HTTPException) as ctx:
+                asyncio.run(service.upload_recording(uuid4(), uuid4(), upload, 30))
+        self.assertEqual(ctx.exception.status_code, 403)
+        gate.assert_called_once_with(service.db, user, lesson)
+        upload.read.assert_not_called()
+        service.db.add.assert_not_called()
+
+
 if __name__ == "__main__":
     unittest.main()
