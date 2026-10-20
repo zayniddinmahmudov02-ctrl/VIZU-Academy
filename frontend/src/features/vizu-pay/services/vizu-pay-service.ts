@@ -74,6 +74,26 @@ export async function getOffers(): Promise<Offer[]> {
   }));
 }
 
+/** The caller's checkout price (sale price, promo, medal reward) — computed
+ * by the server exactly like the order itself; only displayed here. */
+export interface CheckoutQuote {
+  plan: string;
+  currency: string;
+  original_price: number | null;
+  base_amount: number;
+  promo_discount: number;
+  promo_error: string | null;
+  reward_discount: number;
+  reward_name: { de: string; uz: string } | null;
+  final_amount: number;
+}
+
+export async function getCheckoutQuote(plan: string, promoCode?: string): Promise<CheckoutQuote> {
+  const params: Record<string, string> = { plan };
+  if (promoCode) params.promo_code = promoCode;
+  return (await api.get<CheckoutQuote>("/api/v1/vizu-pay/quote", { params })).data;
+}
+
 export async function getPaymentCards(): Promise<PaymentCard[]> {
   const response = await api.get<PaymentCard[]>("/api/v1/vizu-pay/payment-cards");
   return response.data.map((c) => ({ label: c.label, number: c.number }));

@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Dialog } from "@base-ui/react/dialog";
 import { Check, Copy, Loader2, UploadCloud, X } from "lucide-react";
 
 import { useCurrentUser } from "@/features/auth/hooks/use-current-user";
 import { updateProfile } from "@/features/profile/services/profile-service";
 import { useTranslation } from "@/lib/i18n/use-translation";
-import { validatePromo } from "../services/vizu-pay-service";
+import { getCheckoutQuote, validatePromo } from "../services/vizu-pay-service";
 import { PAYMENT_METHODS } from "../types";
 import type { PaymentCard, PlanOption } from "../types";
 
@@ -36,7 +37,8 @@ function CardRow({ card }: { card: PaymentCard }) {
     <div className="flex items-center justify-between gap-2 rounded-xl bg-surface-hover px-3.5 py-2.5">
       <div>
         <p className="text-[11px] font-semibold uppercase tracking-wide text-text-muted">{card.label}</p>
-        <p className="font-mono text-sm font-semibold text-text-primary">{card.number}</p>
+        {/* shown in groups of four, copied as plain digits */}
+        <p className="font-mono text-sm font-semibold text-text-primary">{card.number.replace(/\s/g, "").replace(/(\d{4})(?=\d)/g, "$1 ")}</p>
       </div>
       <button
         type="button"
@@ -51,7 +53,7 @@ function CardRow({ card }: { card: PaymentCard }) {
 }
 
 export default function CheckoutModal({ plan, paymentCards, onClose, onSubmit }: Props) {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
   const { user } = useCurrentUser();
 
   const [paymentMethod, setPaymentMethod] = useState<string>(PAYMENT_METHODS[0]);
@@ -78,14 +80,22 @@ export default function CheckoutModal({ plan, paymentCards, onClose, onSubmit }:
     }
   }, [plan, user]);
 
+  // the price is the server's (sale price, promo, medal reward) — the order recomputes it again
+  const appliedPromo = promoResult?.valid ? promoCode.trim() : "";
+  const { data: quote } = useQuery({
+    queryKey: ["vizu-pay", "quote", plan?.plan, appliedPromo],
+    queryFn: () => getCheckoutQuote(plan!.plan, appliedPromo || undefined),
+    enabled: !!plan,
+    staleTime: 0,
+  });
+
   if (!plan) return null;
 
-  const discount = promoResult?.valid
-    ? promoResult.discountType === "PERCENT"
-      ? Math.round((plan.price * (promoResult.discountValue ?? 0)) / 100)
-      : Math.min(promoResult.discountValue ?? 0, plan.price)
-    : 0;
-  const finalPrice = Math.max(plan.price - discount, 0);
+  const subtotal = quote?.base_amount ?? plan.price;
+  const discount = quote?.promo_discount ?? 0;
+  const rewardDiscount = quote?.reward_discount ?? 0;
+  const rewardName = quote?.reward_name ? (language === "uz" ? quote.reward_name.uz : quote.reward_name.de) : "";
+  const finalPrice = quote?.final_amount ?? plan.price;
 
   async function handleCheckPromo() {
     if (!promoCode.trim()) return;
@@ -253,14 +263,20 @@ export default function CheckoutModal({ plan, paymentCards, onClose, onSubmit }:
             <div className="rounded-xl bg-surface-hover p-4">
               <div className="flex items-center justify-between text-sm">
                 <span className="text-text-secondary">{t("vizuPay.checkoutSubtotal")}</span>
-                <span className={discount > 0 ? "text-text-muted line-through" : "text-text-primary"}>
-                  {new Intl.NumberFormat("de-DE").format(plan.price)} UZS
+                <span className={discount + rewardDiscount > 0 ? "text-text-muted line-through" : "text-text-primary"}>
+                  {new Intl.NumberFormat("de-DE").format(subtotal)} UZS
                 </span>
               </div>
               {discount > 0 && (
                 <div className="mt-1 flex items-center justify-between text-sm text-success">
                   <span>{t("vizuPay.checkoutDiscount")}</span>
                   <span>-{new Intl.NumberFormat("de-DE").format(discount)} UZS</span>
+                </div>
+              )}
+              {rewardDiscount > 0 && (
+                <div className="mt-1 flex items-center justify-between text-sm text-success" data-testid="checkout-reward">
+                  <span>{t("vizuPay.checkoutRewardDiscount", { name: rewardName })}</span>
+                  <span>-{new Intl.NumberFormat("de-DE").format(rewardDiscount)} UZS</span>
                 </div>
               )}
               <div className="mt-2 flex items-center justify-between border-t border-surface-border pt-2 text-base font-bold text-text-primary">

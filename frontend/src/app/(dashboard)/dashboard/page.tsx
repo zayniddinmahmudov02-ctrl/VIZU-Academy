@@ -1,7 +1,10 @@
 import AiTools from "@/components/dashboard/home/ai-tools";
-import ContinueLearning from "@/components/dashboard/home/continue-learning";
-import DashboardMotion from "@/components/dashboard/home/dashboard-motion";
+import AchievementsCard from "@/components/dashboard/home/achievements-card";
 import AdvertisementBanner from "@/components/dashboard/home/advertisement-banner";
+import CertificatesCard from "@/components/dashboard/home/certificates-card";
+import DashboardCourses from "@/components/dashboard/home/dashboard-courses";
+import DashboardMotion from "@/components/dashboard/home/dashboard-motion";
+import LearningStreakCard from "@/components/dashboard/home/learning-streak-card";
 
 // This page's content is 100% client-fetched (React Query) — forcing
 // dynamic rendering just drops the default 1-year static-shell cache
@@ -23,11 +26,20 @@ export default function DashboardPage() {
           {/* 1. Werbung-Banner (admin-managed) */}
           <AdvertisementBanner />
 
-          {/* 2. Schnellzugriff */}
-          <AiTools />
+          {/* 2. Kurse A1–C1 */}
+          <DashboardCourses />
 
-          {/* 3. Weiter lernen */}
-          <ContinueLearning />
+          {/* 3. Lernserie · Zertifikate · Erfolge */}
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3" data-testid="dashboard-gadgets">
+            <LearningStreakCard />
+            <CertificatesCard />
+            <div className="md:col-span-2 xl:col-span-1">
+              <AchievementsCard />
+            </div>
+          </div>
+
+          {/* 4. Schnellzugriff: Zertifikatsprüfungen, VIZU-Multilevel, Wörterbuch */}
+          <AiTools />
 
           {/* Footer */}
           <footer className="border-t border-surface-border pt-8 pb-4 text-center">
