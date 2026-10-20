@@ -1,75 +1,64 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { NOTIFICATIONS_API_ENABLED } from "@/constants/feature-flags";
-import {
-  getNotifications,
-  markAllNotificationsRead,
-  markNotificationRead,
-} from "../services/notification-service";
-import type { Notification } from "../types/notification";
+import { getNotificationFeed, getUnreadCount, markFeedAllRead, markFeedItemRead } from "../services/notification-service";
+import type { FeedPage } from "../types/notification";
 
-interface UseNotificationsResult {
-  notifications: Notification[];
-  unreadCount: number;
-  loading: boolean;
-  markRead: (notificationId: string) => Promise<void>;
-  markAllRead: () => Promise<void>;
+export const notificationKeys = {
+  unread: ["notifications", "unread"] as const,
+  feed: (limit: number) => ["notifications", "feed", limit] as const,
+};
+
+/** Badge count — one cheap COUNT request, refreshed when the window regains
+ * focus or after reading; no interval polling. */
+export function useUnreadCount() {
+  return useQuery({
+    queryKey: notificationKeys.unread,
+    queryFn: getUnreadCount,
+    enabled: NOTIFICATIONS_API_ENABLED,
+    staleTime: 60_000,
+    retry: false,
+  });
 }
 
-export function useNotifications(): UseNotificationsResult {
-  const [notifications, setNotifications] = useState<Notification[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+/** Feed pages (cursor paging). `enabled` lets the bell load only when opened. */
+export function useNotificationFeed(limit = 20, enabled = true) {
+  return useInfiniteQuery({
+    queryKey: notificationKeys.feed(limit),
+    queryFn: ({ pageParam }) => getNotificationFeed(pageParam, limit),
+    initialPageParam: null as string | null,
+    getNextPageParam: (last: FeedPage) => last.next_before,
+    enabled: NOTIFICATIONS_API_ENABLED && enabled,
+    staleTime: 30_000,
+    retry: false,
+  });
+}
 
-  const load = useCallback(async () => {
-    if (!NOTIFICATIONS_API_ENABLED) {
-      setNotifications([]);
-      setLoading(false);
-      return;
-    }
+function setRead(qc: ReturnType<typeof useQueryClient>, id: string | null) {
+  qc.setQueriesData<{ pages: FeedPage[]; pageParams: unknown[] }>({ queryKey: ["notifications", "feed"] }, (old) =>
+    old ? { ...old, pages: old.pages.map((p) => ({ ...p, items: p.items.map((i) => (id === null || i.id === id ? { ...i, is_read: true } : i)) })) } : old,
+  );
+}
 
-    try {
-      setLoading(true);
-      const data = await getNotifications();
-      setNotifications([...data].sort((a, b) => b.createdAt.localeCompare(a.createdAt)));
-    } catch (err) {
-      // Backend not deployed yet or genuinely no notifications — either way,
-      // the dropdown just shows its empty state rather than an error.
-      console.warn("Failed to load notifications:", err);
-      setNotifications([]);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+export function useMarkRead() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (id: string) => markFeedItemRead(id),
+    onMutate: (id) => setRead(qc, id),
+    onSuccess: (unread) => qc.setQueryData(notificationKeys.unread, unread),
+  });
+}
 
-  useEffect(() => {
-    load();
-  }, [load]);
-
-  async function markRead(notificationId: string) {
-    setNotifications((prev) =>
-      prev.map((n) => (n.id === notificationId ? { ...n, isRead: true } : n)),
-    );
-
-    try {
-      await markNotificationRead(notificationId);
-    } catch (err) {
-      console.warn("Failed to mark notification as read:", err);
-    }
-  }
-
-  async function markAllRead() {
-    setNotifications((prev) => prev.map((n) => ({ ...n, isRead: true })));
-
-    try {
-      await markAllNotificationsRead();
-    } catch (err) {
-      console.warn("Failed to mark all notifications as read:", err);
-    }
-  }
-
-  const unreadCount = notifications.filter((n) => !n.isRead).length;
-
-  return { notifications, unreadCount, loading, markRead, markAllRead };
+export function useMarkAllRead() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: markFeedAllRead,
+    onMutate: () => {
+      setRead(qc, null);
+      qc.setQueryData(notificationKeys.unread, 0);
+    },
+    onSettled: () => qc.invalidateQueries({ queryKey: notificationKeys.unread }),
+  });
 }
