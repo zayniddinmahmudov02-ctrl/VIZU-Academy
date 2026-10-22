@@ -150,10 +150,24 @@ async def upload_listening_audio(
     file: UploadFile = File(...),
     duration_seconds: int | None = Form(None),
     db: Session = Depends(get_db),
-    _: User = Depends(require_admin_panel_access),
+    user: User = Depends(require_admin_panel_access),
 ):
     """MP3 / WAV / M4A, max 100 MB; type checked by content, stored privately."""
-    return await skill_admin.upload_listening_audio(db, listening_id, file, duration_seconds)
+    listening = await skill_admin.upload_listening_audio(
+        db,
+        listening_id,
+        file,
+        duration_seconds,
+        replaced_by_id=user.id,
+    )
+    if listening.a2_material_key:
+        write_audit(
+            db,
+            actor_id=str(user.id),
+            action="a2_audio_replaced",
+            details=f"key={listening.a2_material_key}; task={listening_id}; original_name={(file.filename or '')[:255]}",
+        )
+    return listening
 
 
 @router.delete("/listenings/{listening_id}/audio", response_model=ListeningResponse)

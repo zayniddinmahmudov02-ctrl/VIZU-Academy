@@ -25,6 +25,7 @@ from app.models.lesson_skill import (
     ListeningQuestion,
 )
 from app.models.listening import Listening
+from app.models.listening_audio_archive import ListeningAudioArchive
 from app.models.listening_audio_track import ListeningAudioTrack
 from app.models.reading import Reading
 from app.models.reading_option import ReadingOption
@@ -219,7 +220,7 @@ def _detect_audio(head: bytes) -> str | None:
     return None
 
 
-async def _store_audio(file: UploadFile) -> tuple[str, str]:
+async def _store_audio(file: UploadFile, expected_format: str | None = None) -> tuple[str, str]:
     """Validates and stores one uploaded audio file privately; returns
     (storage name, detected format). Same rules for the main audio and the
     extra tracks."""
@@ -227,6 +228,11 @@ async def _store_audio(file: UploadFile) -> tuple[str, str]:
     head = await file.read(16)
     await file.seek(0)
     detected = _detect_audio(head)
+    if expected_format and detected != expected_format.lower():
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"A2 material requires {expected_format.upper()} audio.",
+        )
     # the content decides: book files named .mp3 are sometimes WAV (A1-3.mp3, A1-5.mp3) and the
     # browser declares them audio/mpeg — any declared audio type is fine, the stored type is the detected one
     declared_ok = detected is not None and (declared in AUDIO_FORMATS[detected][1] or declared in ALL_AUDIO_TYPES)
@@ -261,12 +267,46 @@ async def _delete_if_unused(db: Session, storage_path: str | None) -> bool:
     return True
 
 
-async def upload_listening_audio(db: Session, listening_id: UUID, file: UploadFile, duration_seconds: int | None) -> Listening:
+async def upload_listening_audio(
+    db: Session,
+    listening_id: UUID,
+    file: UploadFile,
+    duration_seconds: int | None,
+    *,
+    preserve_previous: bool = False,
+    replaced_by_id: UUID | None = None,
+    allow_auto_publish: bool = True,
+    expected_format: str | None = None,
+) -> Listening:
     listening = db.get(Listening, listening_id)
     if listening is None:
         raise HTTPException(status_code=404, detail="Listening not found.")
-    name, detected = await _store_audio(file)
+    if listening.a2_material_key:
+        from app.services.lesson_skills.a2_audio_manifest import A2_AUDIO_MATERIALS
+
+        material = next((item for item in A2_AUDIO_MATERIALS if item.key == listening.a2_material_key), None)
+        if material is None:
+            raise HTTPException(status_code=409, detail="Unknown A2 material mapping; audio was not replaced.")
+        preserve_previous = True
+        allow_auto_publish = False
+        expected_format = material.extension
+    name, detected = await _store_audio(file, expected_format)
+    if listening.a2_material_key:
+        listening.is_published = False
     old = listening.audio_storage_path
+    if preserve_previous and old:
+        db.add(
+            ListeningAudioArchive(
+                listening_id=listening.id,
+                storage_path=old,
+                original_name=listening.audio_original_name,
+                content_type=listening.audio_content_type,
+                size_bytes=listening.audio_size_bytes,
+                duration_seconds=listening.audio_duration_seconds,
+                replaced_by_id=replaced_by_id,
+                archived_at=_now(),
+            )
+        )
     listening.audio_storage_path = name
     listening.audio_content_type = AUDIO_FORMATS[detected][0]
     listening.audio_size_bytes = (listening_storage.ROOT / name).stat().st_size
@@ -274,12 +314,14 @@ async def upload_listening_audio(db: Session, listening_id: UUID, file: UploadFi
     listening.audio_duration_seconds = _duration(duration_seconds)
     db.commit()
     db.refresh(listening)
-    await _delete_if_unused(db, old)  # the replaced file — only if nothing else uses it
+    if not preserve_previous:
+        await _delete_if_unused(db, old)  # the replaced file — only if nothing else uses it
     # A1: audio + complete answer keys -> "Veröffentlicht" automatically
-    from app.services.lesson_skills.hoeren_pdf_import import auto_publish
+    if allow_auto_publish:
+        from app.services.lesson_skills.hoeren_pdf_import import auto_publish
 
-    if auto_publish(db, listening) == "published":
-        db.refresh(listening)
+        if auto_publish(db, listening) == "published":
+            db.refresh(listening)
     return listening
 
 
@@ -289,6 +331,11 @@ async def delete_listening_audio(db: Session, listening_id: UUID) -> Listening:
     listening = db.get(Listening, listening_id)
     if listening is None:
         raise HTTPException(status_code=404, detail="Listening not found.")
+    if listening.a2_material_key:
+        raise HTTPException(
+            status_code=409,
+            detail="A2 material audio cannot be removed; replace it to preserve its archive history.",
+        )
     if not listening.audio_storage_path:
         raise HTTPException(status_code=404, detail="Audio not found.")
     old = listening.audio_storage_path
@@ -329,6 +376,17 @@ def _clean_label(label: str | None) -> str | None:
     return text or None
 
 
+def _reject_a2_extra_track_edit(db: Session, listening_id: UUID) -> None:
+    listening = db.get(Listening, listening_id)
+    if listening is None:
+        raise HTTPException(status_code=404, detail="Listening not found.")
+    if listening.a2_material_key:
+        raise HTTPException(
+            status_code=409,
+            detail="Each A2 audio material has its own task; manage its main audio in A2 Audio.",
+        )
+
+
 def track_audio_path(track: ListeningAudioTrack) -> Path | None:
     return _stored(track.storage_path)
 
@@ -363,6 +421,7 @@ async def upload_audio_track(db: Session, listening_id: UUID, label: str, file: 
     listening = db.get(Listening, listening_id)
     if listening is None:
         raise HTTPException(status_code=404, detail="Listening not found.")
+    _reject_a2_extra_track_edit(db, listening_id)
     clean = _clean_label(label)
     track = _track(db, listening_id, track_id) if track_id else None
     if track is None and not clean:
@@ -396,6 +455,7 @@ async def clear_audio_track_file(db: Session, listening_id: UUID, track_id: UUID
     """Removes only the FILE of a track — the slot (label, order) stays, ready
     for a new upload (A1 L14 „Text von Alisa“ / „Text von Alex“). A task with
     an empty slot is incomplete, so it is hidden again (questions are kept)."""
+    _reject_a2_extra_track_edit(db, listening_id)
     track = _track(db, listening_id, track_id)
     if not track.storage_path:
         raise HTTPException(status_code=404, detail="Audio not found.")
@@ -415,6 +475,7 @@ async def clear_audio_track_file(db: Session, listening_id: UUID, track_id: UUID
 
 
 def rename_audio_track(db: Session, listening_id: UUID, track_id: UUID, label: str) -> ListeningAudioTrack:
+    _reject_a2_extra_track_edit(db, listening_id)
     track = _track(db, listening_id, track_id)
     clean = _clean_label(label)
     if not clean:
@@ -427,6 +488,7 @@ def rename_audio_track(db: Session, listening_id: UUID, track_id: UUID, label: s
 
 async def delete_audio_track(db: Session, listening_id: UUID, track_id: UUID) -> None:
     """Removes the track row and its file (unless another task / track uses the same file)."""
+    _reject_a2_extra_track_edit(db, listening_id)
     track = _track(db, listening_id, track_id)
     old = track.storage_path
     db.delete(track)
