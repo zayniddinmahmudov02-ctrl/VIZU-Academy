@@ -1,0 +1,1056 @@
+{
+ "schema_version": "1.2",
+ "language": "de",
+ "source": "vizu-deutsch-b1-book",
+ "items": [
+  {
+   "content_id": "vizu-b1-l08-kompetenz-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 8,
+   "skill": "kompetenz",
+   "title": "Einführung: B1 8. Unterricht",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 129
+   },
+   "competency": "EINFUEHRUNG",
+   "html": "<h3>B1 8. Unterricht — Gesundheit und Fitness</h3><p><strong>Mavzu:</strong> Gesundheit und Fitness · <strong>Grammatik:</strong> Konditionale Sätze (wenn / falls)</p><h4>Dars maqsadlari</h4><ul><li>shart ergash gaplari: wenn (ehtimolliroq) va falls (rasmiyroq) — Nebensatz + Hauptsatz;</li><li>sog'liq, sport va tana a'zolari haqida so'zlar;</li><li>maslahat berish: Du solltest …, Es wäre gut, wenn …</li></ul><h4>Dars oxirida siz quyidagilarni bajara olasiz</h4><ul><li>sog'lig'ingiz uchun nima qilishingiz haqida gapirasiz;</li><li>rahbarlarning sog'lig'i haqidagi so'rovnoma va inson tanasi haqidagi testni tushunasiz;</li><li>sport va sog'lom turmush haqidagi matnni tinglaysiz;</li><li>tushlikdagi uyqu haqida fikr yozasiz va ofis kasalliklari bo'yicha maslahat dialoglarini yozasiz;</li><li>sog'lom kun tartibi haqida gapirasiz.</li></ul><h4>Darsning tuzilishi</h4><p>Einführung → Wortschatz → Grammatik → Lesen → Hören → Sprechen → Schreiben → Übungen → Abschlusstest → Zusammenfassung</p>"
+  },
+  {
+   "content_id": "vizu-b1-l08-frage-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 8,
+   "skill": "frage",
+   "title": "Frage des Themas: Was tun Sie für Ihre Gesundheit und Körper?",
+   "source": "book",
+   "metadata": {
+    "book_page": 130,
+    "book_samples": [
+     "Ich treibe regelmäßig Sport. Ich jogge, gehe ins Fitnessstudio oder mache Yoga.",
+     "Ich esse gesund. Ich achte auf eine ausgewogene Ernährung und esse viel Obst und Gemüse.",
+     "Ich schlafe genug. Ich gehe früh ins Bett und schlafe 7-8 Stunden pro Nacht.",
+     "Ich entspanne mich. Ich nehme mir Zeit für mich, meditiere oder lese ein gutes Buch."
+    ]
+   },
+   "prompt": "Was tun Sie für Ihre Gesundheit und Körper?",
+   "questions": [
+    "Ich treibe regelmäßig Sport.",
+    "Ich esse gesund.",
+    "Ich schlafe genug.",
+    "Ich entspanne mich."
+   ],
+   "min_duration": 30,
+   "max_duration": 150
+  },
+  {
+   "content_id": "vizu-b1-l08-grammatik-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 8,
+   "skill": "grammatik",
+   "title": "Grammatik: Konditionalsätze — wenn und falls",
+   "source": "book",
+   "metadata": {
+    "book_page": 131
+   },
+   "rules": [
+    {
+     "title": "Konditionalsätze: wenn und falls",
+     "html": "<h3>Konditionalsätze: wenn und falls</h3><h4>Regel</h4><p>Konditionalsätze drücken eine <strong>Bedingung</strong> oder <strong>Voraussetzung</strong> aus. Es gibt zwei mögliche Einleiter:</p><ul><li><strong>wenn</strong> (wahrscheinlicher)</li><li><strong>falls</strong> (formeller)</li></ul><h4>Struktur</h4><p><strong>Wenn</strong> + Nebensatz (Bedingung), Hauptsatz (Ergebnis) — z. B. Wenn es regnet, bleibe ich zu Hause.</p><p><strong>Falls</strong> + Nebensatz (Bedingung), Hauptsatz (Ergebnis) — z. B. Falls du Zeit hast, ruf mich bitte an.</p><h4>Beispiele</h4><ul><li><strong>Wenn</strong> es regnet, nehme ich den Regenschirm.</li><li><strong>Wenn</strong> du früh aufstehst, hast du mehr Zeit.</li><li><strong>Falls</strong> du kommst, bringe ich dir ein Geschenk mit.</li><li><strong>Falls</strong> ich viel lerne, bestehe ich die Prüfung.</li></ul><p><strong>Wichtig!</strong> Der Nebensatz mit wenn oder falls steht immer an erster Stelle, der Hauptsatz an zweiter Stelle.</p>"
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l08-schreiben-03",
+   "level": "B1",
+   "module": 1,
+   "lesson": 8,
+   "skill": "schreiben",
+   "title": "Grammatik Aufgabe 1: Sätze mit „wenn“",
+   "source": "book",
+   "metadata": {
+    "book_page": 132,
+    "note": "Kitobdagi ochiq topshiriq (gapni mazmunan to'ldirish) — o'qituvchi tekshiradi."
+   },
+   "task_type": "other",
+   "prompt": "Ergänze die Sätze mit einem passenden Hauptsatz. Beginne mit „wenn“.\n\n1. Wenn ich Zeit habe, …\n2. Wenn es morgen sonnig ist, …\n3. Wenn ich müde bin, …\n4. Wenn du Hilfe brauchst, …\n5. Wenn wir früh aufstehen, …\n6. Wenn das Wetter schlecht ist, …\n7. Wenn ich viel lerne, …\n8. Wenn du krank bist, …\n9. Wenn ich reich wäre, …\n10. Wenn wir Urlaub haben, …\n11. Wenn du mich anrufst, …\n12. Wenn ich Hunger habe, …\n13. Wenn mein Bus zu spät kommt, …\n14. Wenn ich Deutsch spreche, …\n15. Wenn du fleißig bist, …",
+   "min_words": 60,
+   "max_words": 375,
+   "time_limit": 15
+  },
+  {
+   "content_id": "vizu-b1-l08-schreiben-04",
+   "level": "B1",
+   "module": 1,
+   "lesson": 8,
+   "skill": "schreiben",
+   "title": "Grammatik Aufgabe 2: Sätze mit „falls“",
+   "source": "book",
+   "metadata": {
+    "book_page": 132,
+    "note": "Kitobdagi ochiq topshiriq (gapni mazmunan to'ldirish) — o'qituvchi tekshiradi."
+   },
+   "task_type": "other",
+   "prompt": "Ergänze die Sätze mit einem passenden Hauptsatz. Beginne mit „falls“.\n\n1. Falls es regnet, …\n2. Falls du Fragen hast, …\n3. Falls ich gewinne, …\n4. Falls du keine Zeit hast, …\n5. Falls wir zu spät kommen, …\n6. Falls du Lust hast, …\n7. Falls er krank ist, …\n8. Falls ich Geld habe, …\n9. Falls die Prüfung schwer ist, …\n10. Falls du nach Hause kommst, …\n11. Falls sie mich besucht, …\n12. Falls ich früh fertig bin, …\n13. Falls du mich brauchst, …\n14. Falls das Restaurant voll ist, …\n15. Falls ich einen Fehler mache, …",
+   "min_words": 60,
+   "max_words": 375,
+   "time_limit": 15
+  },
+  {
+   "content_id": "vizu-b1-l08-lesen-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 8,
+   "skill": "lesen",
+   "title": "Lesen Teil 1: Führungskräfte und ihre Gesundheit",
+   "source": "book",
+   "metadata": {
+    "book_page": 133,
+    "key_source": "vizu",
+    "publish_hold": "Lösung von VIZU aus dem Text abgeleitet (kein offizieller Schlüssel) — in Lösung prüfen und bestätigen",
+    "note": "Lösung von VIZU aus dem Text abgeleitet (Zitat in der Erklärung) — bitte prüfen."
+   },
+   "instruction": "Lesen Sie den Text. Richtig oder Falsch?",
+   "passages": [
+    {
+     "title": "Führungskräfte und ihre Gesundheit",
+     "text": "Eine aktuelle Umfrage zeigt, wie wichtig Führungskräfte ihre Gesundheit einschätzen und welche Maßnahmen sie dafür ergreifen. 90 % der Befragten rauchen nicht. Das ist ein sehr hoher Wert und zeigt ein starkes Bewusstsein für die eigene Gesundheit. 65 % essen weniger Fleisch, um sich ausgewogen zu ernähren und etwas für die Umwelt zu tun. 64 % treiben regelmäßig Sport, zum Beispiel durch Laufen oder Radfahren. Das hilft, fit und leistungsfähig zu bleiben. 31 % machen ab und zu ein Mittagsschläfchen. Kurze Pausen können die Konzentration und das Wohlbefinden verbessern. 27 % nehmen Nahrungsergänzungsmittel wie Vitaminpillen. Ebenfalls 27 % wenden Entspannungstechniken an, zum Beispiel Meditation. Das hilft, Stress abzubauen und ruhiger zu werden. 11 % besuchen regelmäßig die Sauna, um sich zu entspannen und das Immunsystem zu stärken. Nur 8 % leben vegetarisch. Das ist der niedrigste Wert in der Umfrage. Insgesamt zeigen die Ergebnisse, dass viele Führungskräfte auf ihre Gesundheit achten und verschiedene Wege nutzen, um gesund zu bleiben.\n\nDiagramm „Das tun Führungskräfte für ihre Gesundheit“ (Wirtschaftswoche, 2017): rauchen nicht 90 % · essen weniger Fleisch 65 % · treiben regelmäßig Sport (z. B. Laufen, Radfahren) 64 % · machen ab und zu ein Mittagsschläfchen 31 % · nehmen Nahrungsergänzungsmittel (z. B. Vitaminpillen) 27 % · wenden Entspannungstechniken (z. B. Meditation) an 27 % · besuchen regelmäßig die Sauna 11 % · leben vegetarisch 8 %"
+    }
+   ],
+   "questions": [
+    {
+     "type": "true_false",
+     "question": "90 % der Führungskräfte rauchen.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„90 % der Befragten rauchen nicht.“"
+    },
+    {
+     "type": "true_false",
+     "question": "65 % der Befragten essen mehr Fleisch.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„65 % essen weniger Fleisch …“"
+    },
+    {
+     "type": "true_false",
+     "question": "64 % treiben regelmäßig Sport.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„64 % treiben regelmäßig Sport …“"
+    },
+    {
+     "type": "true_false",
+     "question": "31 % machen jeden Tag ein Mittagsschläfchen.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„31 % machen ab und zu ein Mittagsschläfchen.“"
+    },
+    {
+     "type": "true_false",
+     "question": "27 % nehmen Vitaminpillen.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„27 % nehmen Nahrungsergänzungsmittel wie Vitaminpillen.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Nur 8 % leben vegetarisch.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„Nur 8 % leben vegetarisch.“"
+    }
+   ],
+   "max_score": 6
+  },
+  {
+   "content_id": "vizu-b1-l08-lesen-02",
+   "level": "B1",
+   "module": 1,
+   "lesson": 8,
+   "skill": "lesen",
+   "title": "Lesen Teil 2: Der menschliche Körper",
+   "source": "book",
+   "metadata": {
+    "book_page": 134,
+    "key_source": "vizu",
+    "publish_hold": "Lösung von VIZU aus dem Text abgeleitet (kein offizieller Schlüssel) — in Lösung prüfen und bestätigen",
+    "note": "Wissensquiz ohne Text und ohne Lösung im Buch — Lösung von VIZU (Allgemeinwissen), bitte prüfen."
+   },
+   "instruction": "Lies die Fragen und kreuze die richtige Antwort (a, b oder c) an! Frage 1 hat 2 richtige Antworten — sie wird hier für jede Antwort einzeln gefragt (richtig / falsch).",
+   "passages": [
+    {
+     "title": "Der menschliche Körper — Quiz",
+     "text": "1 Welche Körperteile / Sinnesorgane wachsen ein Leben lang? (2 richtige Antworten) a) die Nase b) die Hände c) die Ohren\n2 Was gehört nicht zu den Sinnesorganen? a) die Augen b) die Haare c) die Haut\n3 Welches Organ verarbeitet Informationen? a) das Gehirn b) der Magen c) die Lunge\n4 Wie viele Knochen hat ein erwachsener Mensch? a) 52 bis 56 b) 206 bis 212 c) 900 bis 1 000\n5 Was ist am härtesten? a) ein Knochen b) ein Zahn c) ein Fingernagel\n6 Wo befindet sich der größte Knochen? a) im Rücken b) im Oberarm c) im Oberschenkel\n7 Was ist das größte Organ des Körpers? a) das Herz b) die Haut c) der Darm"
+    }
+   ],
+   "questions": [
+    {
+     "type": "true_false",
+     "question": "1a) Die Nase wächst ein Leben lang.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "Nase und Ohren (Knorpel) wachsen ein Leben lang (Allgemeinwissen)."
+    },
+    {
+     "type": "true_false",
+     "question": "1b) Die Hände wachsen ein Leben lang.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "Die Hände wachsen nach der Pubertät nicht mehr."
+    },
+    {
+     "type": "true_false",
+     "question": "1c) Die Ohren wachsen ein Leben lang.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "Nase und Ohren (Knorpel) wachsen ein Leben lang."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "2. Was gehört nicht zu den Sinnesorganen?",
+     "options": [
+      "die Augen",
+      "die Haare",
+      "die Haut"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Augen und Haut sind Sinnesorgane, Haare nicht."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "3. Welches Organ verarbeitet Informationen?",
+     "options": [
+      "das Gehirn",
+      "der Magen",
+      "die Lunge"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "4. Wie viele Knochen hat ein erwachsener Mensch?",
+     "options": [
+      "52 bis 56",
+      "206 bis 212",
+      "900 bis 1 000"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "5. Was ist am härtesten?",
+     "options": [
+      "ein Knochen",
+      "ein Zahn",
+      "ein Fingernagel"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Der Zahnschmelz ist die härteste Substanz im Körper."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "6. Wo befindet sich der größte Knochen?",
+     "options": [
+      "im Rücken",
+      "im Oberarm",
+      "im Oberschenkel"
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Der Oberschenkelknochen ist der größte Knochen."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "7. Was ist das größte Organ des Körpers?",
+     "options": [
+      "das Herz",
+      "die Haut",
+      "der Darm"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    }
+   ],
+   "max_score": 9
+  },
+  {
+   "content_id": "vizu-b1-l08-lesen-03",
+   "level": "B1",
+   "module": 1,
+   "lesson": 8,
+   "skill": "lesen",
+   "title": "Lesen Teil 3: Der menschliche Körper — Organe zuordnen",
+   "source": "book",
+   "metadata": {
+    "book_page": 135,
+    "key_source": "vizu",
+    "publish_hold": "Lösung von VIZU aus dem Text abgeleitet (kein offizieller Schlüssel) — in Lösung prüfen und bestätigen",
+    "note": "Nur das Beispiel steht im Buch; die übrigen Zuordnungen sind Assoziationen (z. T. mehrere sinnvoll) — Lösung von VIZU, bitte prüfen."
+   },
+   "instruction": "b) Welches Organ / welche Körperteile assoziieren Sie mit der folgenden Situation? (Beispiel: 1 Ich habe zu lange in der Sonne gelegen und einen Sonnenbrand bekommen. → die Haut)",
+   "passages": [
+    {
+     "title": "Organe / Körperteile",
+     "text": "die Lunge • das Gehirn • die Knochen • die Haut • die Hand • der Magen • das Herz • die Augen • die Nase • das Ohr"
+    }
+   ],
+   "questions": [
+    {
+     "type": "matching",
+     "question": "Welches Organ / welche Körperteile assoziieren Sie mit der folgenden Situation? Ordnen Sie zu (Situationen 2–9).",
+     "items": [
+      "2. Ich habe eine Prüfung und muss viel lernen.",
+      "3. Ich leide unter Übelkeit.",
+      "4. Ich bin total verliebt.",
+      "5. Ich gehe ins Konzert.",
+      "6. Ich suche ein neues Parfüm.",
+      "7. Ich spiele Fußball und werde gefoult.",
+      "8. Ich lese ein Buch.",
+      "9. Ich besuche Wien und schreibe viele Postkarten an Freunde und Verwandte."
+     ],
+     "targets": [
+      "die Lunge",
+      "das Gehirn",
+      "die Knochen",
+      "die Haut",
+      "die Hand",
+      "der Magen",
+      "das Herz",
+      "die Augen",
+      "die Nase",
+      "das Ohr"
+     ],
+     "pairs": {
+      "1": "B",
+      "2": "F",
+      "3": "G",
+      "4": "J",
+      "5": "I",
+      "6": "C",
+      "7": "H",
+      "8": "E"
+     },
+     "points": 8,
+     "passage": 1,
+     "explanation": "Lösung (VIZU): 2 das Gehirn · 3 der Magen · 4 das Herz · 5 das Ohr · 6 die Nase · 7 die Knochen · 8 die Augen · 9 die Hand"
+    }
+   ],
+   "max_score": 8
+  },
+  {
+   "content_id": "vizu-b1-l08-hoeren-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 8,
+   "skill": "hoeren",
+   "title": "Hören Teil 1: Florian macht Sport",
+   "source": "book",
+   "metadata": {
+    "book_page": 136,
+    "key_source": "pending",
+    "note": "Keine Lösung im Buch — nach dem Anhören in Lösung festlegen."
+   },
+   "audio_file": "8.Unterricht Aufgabe 1.mp3",
+   "key_pending": true,
+   "instruction": "a) Hören Sie den Text. Sind die Aussagen richtig oder falsch? Kreuzen Sie an.",
+   "questions": [
+    {
+     "type": "true_false",
+     "question": "Florian hat schon immer viel Sport gemacht.",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "Florian hatte in letzter Zeit Gesundheitsprobleme.",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "Florian geht nicht jeden Tag ins Fitnessstudio.",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "Florian trainiert in der Regel mit einem persönlichen Trainer.",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "Florians Freundin will den Halbmarathon laufen.",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "Laura möchte auch am Halbmarathon teilnehmen.",
+     "points": 1,
+     "passage": 1
+    }
+   ],
+   "max_score": 6
+  },
+  {
+   "content_id": "vizu-b1-l08-hoeren-02",
+   "level": "B1",
+   "module": 1,
+   "lesson": 8,
+   "skill": "hoeren",
+   "title": "Hören Teil 2: Hören und ergänzen — Anika, Eva, Christian, Lucie",
+   "source": "book",
+   "metadata": {
+    "book_page": 137,
+    "key_source": "pending",
+    "note": "Keine Lösung im Buch — nach dem Anhören in Lösung festlegen."
+   },
+   "audio_file": "8.Unterricht Aufgabe 2.mp3",
+   "key_pending": true,
+   "instruction": "b) Hören Sie den Text noch einmal und ergänzen Sie die Informationen. (Beispiel: Anika a) ist Studentin.)",
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "Anika: Hören Sie den Text noch einmal und ergänzen Sie die Informationen.",
+     "text": "a) ist Studentin (Beispiel). b) macht für ihre Gesundheit [[1]]. c) [[2]] freitags und samstags [[3]].",
+     "gaps": {
+      "1": [],
+      "2": [],
+      "3": []
+     },
+     "points": 3,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Eva: Hören Sie den Text noch einmal und ergänzen Sie die Informationen.",
+     "text": "a) arbeitet als Assistentin und fühlt sich manchmal [[1]]. b) macht Yoga. Das hilft ihr, sich zu [[2]]. Es tut ihr [[3]]. c) ernährt sich [[4]].",
+     "gaps": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": []
+     },
+     "points": 4,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Christian: Hören Sie den Text noch einmal und ergänzen Sie die Informationen.",
+     "text": "a) macht gerade [[1]] beim Fernsehen. b) benutzt eine [[2]], die ihm genau sagt, wie viel er sich [[3]] hat. c) kauft sich oft [[4]] zum Aufwärmen in der Mikrowelle.",
+     "gaps": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": []
+     },
+     "points": 4,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Lucie: Hören Sie den Text noch einmal und ergänzen Sie die Informationen.",
+     "text": "a) [[1]] viel am Computer oder in Meetings. b) achtet sehr auf [[2]]. c) geht samstags eine Stunde [[3]].",
+     "gaps": {
+      "1": [],
+      "2": [],
+      "3": []
+     },
+     "points": 3,
+     "passage": 1,
+     "case_sensitive": false
+    }
+   ],
+   "max_score": 14
+  },
+  {
+   "content_id": "vizu-b1-l08-schreiben-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 8,
+   "skill": "schreiben",
+   "title": "Schreiben Teil 1: Ihre Meinung bitte! — Mittagsschlaf im Büro",
+   "source": "book",
+   "metadata": {
+    "book_page": 138
+   },
+   "task_type": "opinion",
+   "prompt": "Lesen Sie den Text und antworten Sie. Schreiben Sie etwa 80 Wörter.\n\nSie haben im Fernsehen eine Talkshow zum Thema Mittagsschlaf gesehen. Im Online-Gästebuch der Sendung lesen Sie die folgende Meldung:\n\nDaniela aus Köln schrieb am 8.8. um 11:30 Uhr: Meiner Meinung nach sollte man den Mittagsschlaf im Büro fördern. Der Mittagsschlaf ist gesünder als die vielen Tassen Kaffee, die Mitarbeiter normalerweise trinken, um wach zu bleiben. Nach einem Power-Nap kann man sich z. B. viel besser konzentrieren.\n\nSchreiben Sie Ihre Meinung:\n• Was halten Sie von Danielas Meinung?\n• Finden Sie den Mittagsschlaf im Büro eine gute Idee?\n• Welche Vorteile oder Nachteile hat er Ihrer Meinung nach?\n• Wie oft machen Sie selbst Mittagsschlaf?\n• Was machen Sie stattdessen, wenn Sie müde sind?\n\nTipp: Geben Sie Beispiele und erklären Sie Ihre Meinung.",
+   "audience": "Online-Gästebuch einer Fernsehsendung",
+   "min_words": 70,
+   "max_words": 120,
+   "time_limit": 25
+  },
+  {
+   "content_id": "vizu-b1-l08-schreiben-02",
+   "level": "B1",
+   "module": 1,
+   "lesson": 8,
+   "skill": "schreiben",
+   "title": "Schreiben Teil 2: Bürokrankheiten und was Sie dagegen tun können — 6 Dialoge",
+   "source": "book",
+   "metadata": {
+    "book_page": 139,
+    "note": "Im Buch steht „Strukturen aus Aufgabe 8“ — gemeint sind die auf der Seite gedruckten Strukturen."
+   },
+   "task_type": "other",
+   "prompt": "Formulieren Sie Ratschläge und spielen Sie einen Dialog. Nutzen Sie verschiedene Strukturen: Du solltest … · Du müsstest … · Es wäre gut, wenn … · Ich würde …\n\nBeispiel — A: Rückenschmerzen. Ich habe oft Rückenschmerzen. B: Tipps: sich einen ergonomischen Bürostuhl kaufen, öfter aufstehen. → 1. B: Du solltest dir einen ergonomischen Bürostuhl kaufen. 2. B: Und es wäre gut, wenn du öfter aufstehen würdest.\n\n1. Schmerzen im Schulterbereich — Tipps: langes Sitzen vermeiden, öfter eine Pause machen\n2. Schmerzen in den Armen, Händen oder Fingern — Tipps: mit einer ergonomischen Maus und Tastatur arbeiten, die Hände regelmäßig bewegen, die Maus mit beiden Händen bedienen\n3. Probleme mit den Augen — Tipps: nicht immer auf den Bildschirm sehen, manchmal Augenübungen machen\n4. Kopfschmerzen und Konzentrationsprobleme — Tipps: für gute Beleuchtung am Arbeitsplatz sorgen, regelmäßig das Fenster öffnen, einfache und effektive Entspannungsübungen machen, ein kurzes Mittagsschläfchen machen\n5. Sie sind nervös und fühlen sich gestresst. — Tipps: sich ein gutes Hobby suchen, regelmäßig Sport treiben, lernen, Nein zu sagen\n6. Probleme mit Herz und Kreislauf — Tipps: sich viel bewegen, auf eine gesunde Ernährung achten\n\nSchreiben Sie 6 Dialoge (ca. 80–100 Wörter). Verwenden Sie verschiedene Strukturen und geben Sie konkrete Tipps. Tipp: Höflich bleiben, begründen, konkrete Tipps geben, verschiedene Strukturen verwenden.",
+   "min_words": 80,
+   "max_words": 200,
+   "time_limit": 25
+  },
+  {
+   "content_id": "vizu-b1-l08-sprechen-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 8,
+   "skill": "sprechen",
+   "title": "Sprechen Teil 1: Interview — Mittagsruhe",
+   "source": "book",
+   "metadata": {
+    "book_page": 140
+   },
+   "topic": "Mittagsruhe",
+   "prompt": "Einige Führungskräfte gaben in der Umfrage an, dass sie ein kurzes Mittagsschläfchen machen. Führen Sie ein Interview mit zwei Kursteilnehmern. Geben Sie danach die interessantesten Informationen wieder.\nTipps für das Interview: Stellen Sie alle Fragen. Hören Sie aufmerksam zu. Stellen Sie Nachfragen. Notieren Sie wichtige Informationen.",
+   "questions": [
+    "Wann beginnt in Ihrem Heimatland ein normaler Büro-Arbeitstag und wann endet er? Wann sind die Hauptverkehrszeiten?",
+    "Zu welcher Tageszeit fühlen Sie sich müde oder unkonzentriert?",
+    "Machen Sie mittags ein Schläfchen oder eine Ruhepause? Wenn ja, wie lange?",
+    "Gibt es in Ihrem Heimatland traditionell eine Mittagsruhe?"
+   ],
+   "response_type": "dialog",
+   "min_duration": 60,
+   "max_duration": 240,
+   "speech_goal": "Interview führen, nachfragen und die interessantesten Informationen wiedergeben.",
+   "keywords": [
+    "Wann beginnt …?",
+    "Zu welcher Tageszeit …?",
+    "Er / Sie hat gesagt, dass …",
+    "Interessant fand ich …"
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l08-sprechen-02",
+   "level": "B1",
+   "module": 1,
+   "lesson": 8,
+   "skill": "sprechen",
+   "title": "Sprechen Teil 2: Wie sieht ein gesunder Tagesablauf aus?",
+   "source": "book",
+   "metadata": {
+    "book_page": 141,
+    "note": "Titel im Buch: „Wie sieht eine gesunde Tagesablauf?“ (Druckfehler)."
+   },
+   "topic": "Ein gesunder Tagesablauf",
+   "prompt": "Sprechen Sie über einen gesunden Tagesablauf. Gehen Sie auf die sechs Punkte ein und geben Sie eigene Beispiele.\n\n1. Regelmäßig aufstehen und früh beginnen: Früh aufzustehen gibt mehr Energie für den Tag. Ein fester Rhythmus stabilisiert den Körper. Der Morgen ist ideal für wichtige Aufgaben.\n2. Gesundes Frühstück und ausgewogene Ernährung: Frühstück liefert Energie und verbessert die Konzentration. Mehr Obst, Gemüse und Vollkornprodukte essen. Weniger Zucker, Fett und Fast Food.\n3. Regelmäßige Bewegung und Aktivität: Sport stärkt Herz, Muskeln und Immunsystem. Bewegung reduziert Stress und macht glücklich. 30 Minuten am Tag reichen schon aus.\n4. Effektiv arbeiten und Pausen machen: Planung hilft, produktiv zu bleiben. Kurze Pausen steigern die Leistung und Kreativität. Die Pomodoro-Methode ist sehr effektiv.\n5. Ausreichend Schlaf und Erholung: 7–8 Stunden Schlaf sind ideal für Erwachsene. Guter Schlaf verbessert Gedächtnis und Stimmung. Vor dem Schlafen: kein Handy, entspannen.\n6. Positive Gedanken und soziale Kontakte: Positive Einstellung reduziert Stress. Zeit mit Familie und Freunden macht glücklich. Dankbarkeit und Optimismus verbessern die Lebensqualität.\n\nMerke dir! Ein gesunder Tagesablauf bringt mehr Energie, bessere Leistung und ein glücklicheres Leben!",
+   "questions": [
+    "Regelmäßig aufstehen und früh beginnen",
+    "Gesundes Frühstück und ausgewogene Ernährung",
+    "Regelmäßige Bewegung und Aktivität",
+    "Effektiv arbeiten und Pausen machen",
+    "Ausreichend Schlaf und Erholung",
+    "Positive Gedanken und soziale Kontakte"
+   ],
+   "response_type": "monolog",
+   "preparation_time": 180,
+   "min_duration": 90,
+   "max_duration": 180,
+   "speech_goal": "Einen gesunden Tagesablauf in sechs Punkten beschreiben und mit eigenen Beispielen begründen.",
+   "keywords": [
+    "Zuerst",
+    "Außerdem",
+    "Wenn man …, …",
+    "Es ist wichtig, …",
+    "Meiner Meinung nach"
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l08-wortschatz-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 8,
+   "skill": "wortschatz",
+   "title": "Wortschatz: Gesundheit und Fitness — 15 Redewendungen (Nomen + Verb)",
+   "source": "book",
+   "metadata": {
+    "book_page": 142,
+    "note": "Das Buch gibt zu jeder Redewendung einen Beispielsatz (keine Erklärung, keine Übersetzung)."
+   },
+   "words": [
+    {
+     "word": "Schlaf bekommen",
+     "translation": "Ich muss heute früh Schlaf bekommen.",
+     "example": "Ich muss heute früh Schlaf bekommen.",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Wasser trinken",
+     "translation": "Es ist wichtig, genug Wasser zu trinken.",
+     "example": "Es ist wichtig, genug Wasser zu trinken.",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Sport treiben",
+     "translation": "Ich treibe dreimal pro Woche Sport.",
+     "example": "Ich treibe dreimal pro Woche Sport.",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "sich gesund ernähren",
+     "translation": "Ich achte darauf, mich gesund zu ernähren.",
+     "example": "Ich achte darauf, mich gesund zu ernähren.",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Gewicht verlieren",
+     "translation": "Ich möchte ein paar Kilo Gewicht verlieren.",
+     "example": "Ich möchte ein paar Kilo Gewicht verlieren.",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "sich dehnen",
+     "translation": "Vor dem Training dehne ich mich immer.",
+     "example": "Vor dem Training dehne ich mich immer.",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "zum Arzt gehen",
+     "translation": "Ich gehe heute zum Arzt, um mich durchchecken zu lassen.",
+     "example": "Ich gehe heute zum Arzt, um mich durchchecken zu lassen.",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Vitamine nehmen",
+     "translation": "Ich nehme jeden Morgen Vitamine.",
+     "example": "Ich nehme jeden Morgen Vitamine.",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Stress abbauen",
+     "translation": "Yoga hilft mir, Stress abzubauen.",
+     "example": "Yoga hilft mir, Stress abzubauen.",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Fahrrad fahren",
+     "translation": "Am Wochenende fahre ich oft Fahrrad.",
+     "example": "Am Wochenende fahre ich oft Fahrrad.",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "tief durchatmen",
+     "translation": "Bei Anspannung atme ich tief durch.",
+     "example": "Bei Anspannung atme ich tief durch.",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Muskeln aufbauen",
+     "translation": "Krafttraining hilft, Muskeln aufzubauen.",
+     "example": "Krafttraining hilft, Muskeln aufzubauen.",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "mit dem Rauchen aufhören",
+     "translation": "Ich möchte mit dem Rauchen aufhören.",
+     "example": "Ich möchte mit dem Rauchen aufhören.",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "einen Trainingsplan erstellen",
+     "translation": "Ich habe mir einen neuen Trainingsplan erstellt.",
+     "example": "Ich habe mir einen neuen Trainingsplan erstellt.",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "auf seine Gesundheit achten",
+     "translation": "Wir sollten jeden Tag auf unsere Gesundheit achten.",
+     "example": "Wir sollten jeden Tag auf unsere Gesundheit achten.",
+     "group": "Gesundheit und Fitness"
+    }
+   ],
+   "auto_practice": false
+  },
+  {
+   "content_id": "vizu-b1-l08-uebungen-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 8,
+   "skill": "uebungen",
+   "title": "Übungen: B1 8. Unterricht",
+   "source": "vizu",
+   "exercises": [
+    {
+     "title": "wenn oder falls? — Satzbau (Beispiele aus dem Buch)",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Wenn es regnet, ___ ich den Regenschirm.",
+       "options": [
+        "nehme",
+        "ich nehme",
+        "nehmen"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "Hauptsatz an zweiter Stelle: Verb zuerst."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Wenn du früh aufstehst, ___ du mehr Zeit.",
+       "options": [
+        "hast",
+        "du hast",
+        "haben"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Falls du ___, bringe ich dir ein Geschenk mit.",
+       "options": [
+        "kommst",
+        "kommen",
+        "du kommst"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "Im Nebensatz steht das Verb am Ende."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Falls ich viel lerne, ___ ich die Prüfung.",
+       "options": [
+        "bestehe",
+        "ich bestehe",
+        "bestehen"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "___ du Zeit hast, ruf mich bitte an.",
+       "options": [
+        "Falls",
+        "Dass",
+        "Ob"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "Bedingung: falls / wenn."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Wenn es regnet, ___ ich zu Hause.",
+       "options": [
+        "bleibe",
+        "ich bleibe",
+        "bleiben"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "Wählen Sie die richtige Form (Buch S. 131)."
+    },
+    {
+     "title": "Gesundheit und Fitness — Redewendungen",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Ich treibe dreimal pro Woche ___.",
+       "options": [
+        "Sport",
+        "Stress",
+        "Gewicht"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "Sport treiben."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Yoga hilft mir, ___ abzubauen.",
+       "options": [
+        "Stress",
+        "Muskeln",
+        "Schlaf"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "Stress abbauen."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Krafttraining hilft, ___ aufzubauen.",
+       "options": [
+        "Muskeln",
+        "Vitamine",
+        "Wasser"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "Muskeln aufbauen."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich möchte ein paar Kilo ___ verlieren.",
+       "options": [
+        "Gewicht",
+        "Sport",
+        "Stress"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "Gewicht verlieren."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Bei Anspannung atme ich tief ___.",
+       "options": [
+        "durch",
+        "auf",
+        "ab"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "tief durchatmen."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich möchte mit dem Rauchen ___.",
+       "options": [
+        "aufhören",
+        "abbauen",
+        "erstellen"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "mit dem Rauchen aufhören."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Vor dem Training ___ ich mich immer.",
+       "options": [
+        "dehne",
+        "ernähre",
+        "achte"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "sich dehnen."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Wir sollten jeden Tag ___ unsere Gesundheit achten.",
+       "options": [
+        "auf",
+        "an",
+        "für"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "auf seine Gesundheit achten."
+      }
+     ],
+     "instruction": "Wählen Sie das passende Wort (Wortschatz S. 142)."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l08-yakuniy-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 8,
+   "skill": "yakuniy",
+   "title": "Abschlusstest: B1 8. Unterricht",
+   "source": "vizu",
+   "instruction": "Abschlusstest zu Konditionalsätzen, Lesen, Sprechen und Wortschatz (alle Sätze aus dem Buch).",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Was drücken Konditionalsätze aus?",
+     "options": [
+      "Eine Bedingung oder Voraussetzung",
+      "Einen Grund",
+      "Ein Ziel"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Buch S. 131."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Welcher Einleiter ist formeller?",
+     "options": [
+      "falls",
+      "wenn",
+      "weil"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Buch S. 131: wenn (wahrscheinlicher), falls (formeller)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wo steht der Nebensatz mit wenn / falls laut Buch?",
+     "options": [
+      "An erster Stelle",
+      "An zweiter Stelle",
+      "In der Mitte"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Buch S. 131: „Wichtig!“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wenn du früh aufstehst, hast du mehr ___.",
+     "options": [
+      "Zeit",
+      "Geld",
+      "Hunger"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wie viel Prozent der Führungskräfte treiben regelmäßig Sport?",
+     "options": [
+      "64 %",
+      "90 %",
+      "8 %"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Lesen Teil 1."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was ist das größte Organ des Körpers?",
+     "options": [
+      "die Haut",
+      "das Herz",
+      "der Darm"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Lesen Teil 2."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wie viele Stunden Schlaf sind laut Buch ideal für Erwachsene?",
+     "options": [
+      "7–8 Stunden",
+      "4–5 Stunden",
+      "10–12 Stunden"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Sprechen Teil 2."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Es ist wichtig, genug ___ zu trinken.",
+     "options": [
+      "Wasser",
+      "Kaffee",
+      "Vitamine"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1,
+     "explanation": "Wasser trinken."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Du ___ dir einen ergonomischen Bürostuhl kaufen.",
+     "options": [
+      "solltest",
+      "sollst",
+      "sollte"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1,
+     "explanation": "Ratschlag (Schreiben Teil 2)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Es wäre gut, wenn du öfter aufstehen ___.",
+     "options": [
+      "würdest",
+      "wirst",
+      "würde"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1,
+     "explanation": "Schreiben Teil 2, Beispiel."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l08-kompetenz-02",
+   "level": "B1",
+   "module": 1,
+   "lesson": 8,
+   "skill": "kompetenz",
+   "title": "Zusammenfassung: B1 8. Unterricht",
+   "source": "vizu",
+   "competency": "ZUSAMMENFASSUNG",
+   "html": "<h3>B1 8. Unterricht — qisqacha</h3><ul><li>Konditionalsätze drücken eine Bedingung oder Voraussetzung aus: <strong>wenn</strong> (wahrscheinlicher), <strong>falls</strong> (formeller).</li><li>Struktur: Wenn / Falls + Nebensatz (Bedingung), Hauptsatz (Ergebnis) — Wenn es regnet, bleibe ich zu Hause.</li><li>Der Nebensatz mit wenn oder falls steht an erster Stelle, der Hauptsatz an zweiter Stelle (Verb zuerst: …, nehme ich den Regenschirm).</li><li>Ratschläge: Du solltest … · Du müsstest … · Es wäre gut, wenn … · Ich würde …</li><li><strong>Gesundheit und Fitness:</strong> Sport treiben, sich gesund ernähren, Stress abbauen, sich dehnen, auf seine Gesundheit achten.</li></ul><p>Natijalaringiz pastda — tugallanmagan bo'limlarni yakunlang, so'ng keyingi darsga o'ting.</p>"
+  }
+ ]
+}

@@ -1,0 +1,2160 @@
+{
+ "schema_version": "1.2",
+ "language": "de",
+ "source": "vizu-deutsch-b1-book",
+ "items": [
+  {
+   "content_id": "vizu-b1-l07-kompetenz-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 7,
+   "skill": "kompetenz",
+   "title": "Einführung: B1 7. Unterricht",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 111
+   },
+   "competency": "EINFUEHRUNG",
+   "html": "<h3>B1 7. Unterricht — Medien im Alltag</h3><p><strong>Mavzu:</strong> Medien im Alltag · <strong>Grammatik:</strong> Relativsätze</p><h4>Dars maqsadlari</h4><ul><li>nisbiy ergash gaplar: Relativpronomen Nominativ, Akkusativ, Dativ va predlog bilan;</li><li>so'roq so'zlari nisbiy olmosh sifatida: wer, wen, wem, was;</li><li>ommaviy axborot vositalari va kundalik hayot haqida so'zlar.</li></ul><h4>Dars oxirida siz quyidagilarni bajara olasiz</h4><ul><li>qanday ma'lumot olishingiz haqida gapirasiz;</li><li>kitobxonlar haqidagi matn, media statistikasi va diagrammani tushunasiz;</li><li>televizion dastur va kitob o'qish haqidagi radio suhbatini tinglaysiz;</li><li>do'stingizga Germaniyadagi media haqida xat yozasiz;</li><li>„Ijtimoiy tarmoqlar — yangiliklar manbai“ mavzusida taqdimot qilasiz.</li></ul><h4>Darsning tuzilishi</h4><p>Einführung → Wortschatz → Grammatik → Lesen → Hören → Sprechen → Schreiben → Übungen → Abschlusstest → Zusammenfassung</p>"
+  },
+  {
+   "content_id": "vizu-b1-l07-frage-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 7,
+   "skill": "frage",
+   "title": "Frage des Themas: Wie informieren Sie sich?",
+   "source": "book",
+   "metadata": {
+    "book_page": 112,
+    "book_samples": [
+     "Ich lese jeden Morgen die Nachrichten online. Ich informiere mich über aktuelle Themen aus der Welt, Politik und Wirtschaft.",
+     "Ich nutze soziale Medien wie Instagram und Facebook. Dort sehe ich, was meine Freunde teilen, und bleibe über wichtige Ereignisse auf dem Laufenden.",
+     "Ich schaue abends die Tagesschau im Fernsehen oder höre Radio. Das ist für mich eine zuverlässige Informationsquelle."
+    ],
+    "tipp": "Es gibt viele Möglichkeiten, sich zu informieren. Wichtig ist, dass die Informationen seriös und aktuell sind."
+   },
+   "prompt": "Wie informieren Sie sich? Sprechen Sie über Ihre Gewohnheiten.",
+   "questions": [
+    "Online-Nachrichten",
+    "Soziale Medien",
+    "Fernsehen und Radio"
+   ],
+   "min_duration": 30,
+   "max_duration": 150
+  },
+  {
+   "content_id": "vizu-b1-l07-grammatik-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 7,
+   "skill": "grammatik",
+   "title": "Grammatik: Relativsätze",
+   "source": "book",
+   "metadata": {
+    "book_page": "113-118",
+    "note": "Lösungen von VIZU nach der Grammatik; Buchfehler (fehlende Auswahl / Präposition) im Hinweis der Aufgabe und der Frage."
+   },
+   "rules": [
+    {
+     "title": "Relativsätze (Teil 1–3)",
+     "html": "<h3>Relativsätze</h3><p>Relativsätze geben uns mehr Informationen über Personen, Dinge oder Sachverhalte. Sie werden mit Relativpronomen eingeleitet: der, die, das, die, welcher, welche, welches, deren.</p><h4>Teil 1: Relativpronomen im Nominativ</h4><p>Ein Relativsatz gibt <strong>zusätzliche Informationen</strong> über eine Person oder eine Sache. Er beginnt meistens mit einem <strong>Relativpronomen</strong> und steht direkt nach dem Nomen, auf das er sich bezieht.</p><table><thead><tr><th>Artikel</th><th>Relativpronomen</th></tr></thead><tbody><tr><td>der</td><td>der</td></tr><tr><td>die</td><td>die</td></tr><tr><td>das</td><td>das</td></tr><tr><td>die (Plural)</td><td>die</td></tr></tbody></table><ul><li>Das ist der Mann. Der Mann arbeitet hier. → Das ist der Mann, <strong>der</strong> hier arbeitet.</li><li>Das ist die Frau. Die Frau spricht Deutsch. → Das ist die Frau, <strong>die</strong> Deutsch spricht.</li><li>Das ist das Buch. Das Buch ist interessant. → Das ist das Buch, <strong>das</strong> interessant ist.</li><li>Das sind die Studenten. Die Studenten lernen Deutsch. → Das sind die Studenten, <strong>die</strong> Deutsch lernen.</li></ul><p><strong>Merke:</strong> Im Relativsatz steht das Relativpronomen anstelle des Nomens. Das Verb steht am Ende des Relativsatzes. (Nomen → Relativpronomen → … → Verb am Ende)</p><h4>Teil 2: Relativpronomen in anderen Kasus + Präpositionen</h4><table><thead><tr><th>Artikel</th><th>Nominativ</th><th>Akkusativ</th><th>Dativ</th></tr></thead><tbody><tr><td>der</td><td>der</td><td>den</td><td>dem</td></tr><tr><td>die</td><td>die</td><td>die</td><td>der</td></tr><tr><td>das</td><td>das</td><td>das</td><td>dem</td></tr><tr><td>die (Plural)</td><td>die</td><td>die</td><td>denen</td></tr></tbody></table><ul><li><strong>Akkusativ:</strong> Das ist der Mann. Ich kenne den Mann. → Das ist der Mann, <strong>den</strong> ich kenne.</li><li><strong>Dativ:</strong> Das ist der Mann. Ich helfe dem Mann. → Das ist der Mann, <strong>dem</strong> ich helfe.</li><li>Das ist die Frau. Ich spreche mit der Frau. → Das ist die Frau, <strong>mit der</strong> ich spreche.</li></ul><p><strong>Merke:</strong> Das Relativpronomen richtet sich beim Genus und Numerus nach dem Bezugswort. Der Kasus hängt aber von seiner Funktion im Relativsatz ab.</p><p><strong>Präposition + Relativpronomen</strong> — die Präposition bleibt vor dem Relativpronomen:</p><ul><li>Das ist der Freund, <strong>auf den</strong> ich warte.</li><li>Das ist die Kollegin, <strong>mit der</strong> ich arbeite.</li><li>Das ist das Thema, <strong>über das</strong> wir sprechen.</li></ul><p>Präposition + Relativpronomen + Satz … → Verb am Ende.</p><h4>Teil 3: Fragewörter als Relativpronomen</h4><p>Nicht nur der, die, das, die können Relativsätze einleiten. Auch bestimmte Fragewörter können als Relativpronomen verwendet werden: <strong>wer – wen – wem – was</strong>.</p><p><strong>wer – wen – wem (für Personen):</strong> Wer viel lernt, macht Fortschritte. · Wer Deutsch spricht, kann viele Menschen verstehen. · Wem ich vertraue, dem erzähle ich mein Geheimnis. · Wen du einlädst, das musst du selbst entscheiden.</p><p><strong>was (für Sachen / Dinge / ganze Aussagen):</strong> Alles, was du lernst, ist wichtig. · Das ist etwas, was ich nicht verstehe. · Ich erzähle dir, was passiert ist. · Das ist das Beste, was ich bisher gesehen habe.</p><p><strong>Merke:</strong> Nach Wörtern wie alles, etwas, nichts, das Beste, das Einzige verwendet man häufig <strong>was</strong>.</p>"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "Aufgabe 1: Relativpronomen im Nominativ",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "1. Setze das passende Relativpronomen ein.",
+       "text": "Das ist der Mann, [[1]] jeden Morgen hier arbeitet.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das",
+          "den"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "der"
+      },
+      {
+       "type": "gap_fill",
+       "question": "2. Setze das passende Relativpronomen ein.",
+       "text": "Ich kenne eine Frau, [[1]] sehr gut Deutsch spricht.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das",
+          "den"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "die"
+      },
+      {
+       "type": "gap_fill",
+       "question": "3. Setze das passende Relativpronomen ein.",
+       "text": "Das ist das Buch, [[1]] auf dem Tisch liegt.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das",
+          "den"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "das"
+      },
+      {
+       "type": "gap_fill",
+       "question": "4. Setze das passende Relativpronomen ein.",
+       "text": "Das sind die Studenten, [[1]] heute Deutsch lernen.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das",
+          "den"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "die"
+      },
+      {
+       "type": "gap_fill",
+       "question": "5. Setze das passende Relativpronomen ein.",
+       "text": "Der Lehrer, [[1]] uns Deutsch unterrichtet, ist sehr freundlich.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das",
+          "den"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "der"
+      },
+      {
+       "type": "gap_fill",
+       "question": "6. Setze das passende Relativpronomen ein.",
+       "text": "Die Stadt, [[1]] am Rhein liegt, ist sehr schön.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das",
+          "den"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "die"
+      },
+      {
+       "type": "gap_fill",
+       "question": "7. Setze das passende Relativpronomen ein.",
+       "text": "Das Kind, [[1]] dort spielt, ist mein Bruder.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das",
+          "den"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "das"
+      },
+      {
+       "type": "gap_fill",
+       "question": "8. Setze das passende Relativpronomen ein.",
+       "text": "Die Menschen, [[1]] hier wohnen, sind sehr nett.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das",
+          "den"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "die"
+      },
+      {
+       "type": "gap_fill",
+       "question": "9. Setze das passende Relativpronomen ein.",
+       "text": "Ich habe einen Freund, [[1]] in Berlin lebt.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das",
+          "den"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "der"
+      },
+      {
+       "type": "gap_fill",
+       "question": "10. Setze das passende Relativpronomen ein.",
+       "text": "Das ist die Schule, [[1]] viele internationale Schüler besucht.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das",
+          "den"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "die"
+      },
+      {
+       "type": "gap_fill",
+       "question": "11. Setze das passende Relativpronomen ein.",
+       "text": "Der Hund, [[1]] im Garten schläft, gehört meinem Nachbarn.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das",
+          "den"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "der"
+      },
+      {
+       "type": "gap_fill",
+       "question": "12. Setze das passende Relativpronomen ein.",
+       "text": "Die Frau, [[1]] du gestern getroffen hast, ist meine Tante.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das",
+          "den"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "die"
+      },
+      {
+       "type": "gap_fill",
+       "question": "13. Setze das passende Relativpronomen ein.",
+       "text": "Das Auto, [[1]] vor dem Haus steht, ist neu.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das",
+          "den"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "das"
+      },
+      {
+       "type": "gap_fill",
+       "question": "14. Setze das passende Relativpronomen ein.",
+       "text": "Die Kinder, [[1]] im Park Fußball spielen, sind meine Freunde.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das",
+          "den"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "die"
+      },
+      {
+       "type": "gap_fill",
+       "question": "15. Setze das passende Relativpronomen ein.",
+       "text": "Das ist der Film, [[1]] wir gestern im Kino gesehen haben.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "den"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das",
+          "den"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Akkusativ (wir haben den Film gesehen / ich besuche den Kurs) → den. Im Buch stehen nur der – die – das – die zur Auswahl."
+      },
+      {
+       "type": "gap_fill",
+       "question": "16. Setze das passende Relativpronomen ein.",
+       "text": "Der Student, [[1]] immer fleißig lernt, hat gute Noten.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "der"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das",
+          "den"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "der"
+      },
+      {
+       "type": "gap_fill",
+       "question": "17. Setze das passende Relativpronomen ein.",
+       "text": "Das Haus, [[1]] neben der Schule steht, ist sehr alt.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "das"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das",
+          "den"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "das"
+      },
+      {
+       "type": "gap_fill",
+       "question": "18. Setze das passende Relativpronomen ein.",
+       "text": "Die Sängerin, [[1]] heute im Konzert auftritt, ist bekannt.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das",
+          "den"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "die"
+      },
+      {
+       "type": "gap_fill",
+       "question": "19. Setze das passende Relativpronomen ein.",
+       "text": "Der Kurs, [[1]] ich besuche, ist sehr interessant.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "den"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das",
+          "den"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Akkusativ (wir haben den Film gesehen / ich besuche den Kurs) → den. Im Buch stehen nur der – die – das – die zur Auswahl."
+      },
+      {
+       "type": "gap_fill",
+       "question": "20. Setze das passende Relativpronomen ein.",
+       "text": "Das sind die Bücher, [[1]] ich für das Projekt brauche.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "die"
+         ],
+         "options": [
+          "der",
+          "die",
+          "das",
+          "den"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "die"
+      }
+     ],
+     "instruction": "Setze das passende Relativpronomen ein. Wähle aus: der – die – das – die (Buch S. 116). Satz 15 und 19 brauchen „den“ (Akkusativ) — deshalb steht „den“ mit in der Auswahl."
+    },
+    {
+     "title": "Aufgabe 2: Relativpronomen in anderen Kasus + Präpositionen",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "1. Setze das passende Relativpronomen ein.",
+       "text": "Das ist der Mann, [[1]] ich gestern gesehen habe.",
+       "gaps": {
+        "1": [
+         "den"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "den"
+      },
+      {
+       "type": "gap_fill",
+       "question": "2. Setze das passende Relativpronomen ein.",
+       "text": "Die Frau, [[1]] ich geholfen habe, ist meine Nachbarin.",
+       "gaps": {
+        "1": [
+         "der"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "der"
+      },
+      {
+       "type": "gap_fill",
+       "question": "3. Setze das passende Relativpronomen ein.",
+       "text": "Das ist der Freund, [[1]] ich immer warte. (auf)",
+       "gaps": {
+        "1": [
+         "auf den"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "auf den"
+      },
+      {
+       "type": "gap_fill",
+       "question": "4. Setze das passende Relativpronomen ein.",
+       "text": "Das ist die Kollegin, [[1]] ich jeden Tag spreche. (mit)",
+       "gaps": {
+        "1": [
+         "mit der"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "mit der"
+      },
+      {
+       "type": "gap_fill",
+       "question": "5. Setze das passende Relativpronomen ein.",
+       "text": "Das ist das Buch, [[1]] ich gerade lese.",
+       "gaps": {
+        "1": [
+         "das"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "das"
+      },
+      {
+       "type": "gap_fill",
+       "question": "6. Setze das passende Relativpronomen ein.",
+       "text": "Der Student, [[1]] der Lehrer eine Frage gestellt hat, antwortet.",
+       "gaps": {
+        "1": [
+         "dem"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "dem"
+      },
+      {
+       "type": "gap_fill",
+       "question": "7. Setze das passende Relativpronomen ein.",
+       "text": "Das ist die Stadt, [[1]] ich schon lange träume. (von)",
+       "gaps": {
+        "1": [
+         "von der"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "von der"
+      },
+      {
+       "type": "gap_fill",
+       "question": "8. Setze das passende Relativpronomen ein.",
+       "text": "Die Kinder, [[1]] wir geholfen haben, kommen aus Deutschland.",
+       "gaps": {
+        "1": [
+         "denen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "denen"
+      },
+      {
+       "type": "gap_fill",
+       "question": "9. Setze das passende Relativpronomen ein.",
+       "text": "Das ist der Film, [[1]] wir gestern gesprochen haben. (über)",
+       "gaps": {
+        "1": [
+         "über den"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "über den"
+      },
+      {
+       "type": "gap_fill",
+       "question": "10. Setze das passende Relativpronomen ein.",
+       "text": "Das ist das Thema, [[1]] wir heute diskutieren. (über)",
+       "gaps": {
+        "1": [
+         "über das"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "über das"
+      },
+      {
+       "type": "gap_fill",
+       "question": "11. Setze das passende Relativpronomen ein.",
+       "text": "Der Mann, [[1]] ich das Auto gekauft habe, ist mein Onkel.",
+       "gaps": {
+        "1": [
+         "von dem",
+         "dem"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "jemandem etwas abkaufen / etwas von jemandem kaufen → „von dem“ (auch „dem“ akzeptiert)."
+      },
+      {
+       "type": "gap_fill",
+       "question": "12. Setze das passende Relativpronomen ein.",
+       "text": "Das Mädchen, [[1]] du gestern ein Geschenk gegeben hast, hat sich sehr gefreut.",
+       "gaps": {
+        "1": [
+         "dem"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "dem"
+      },
+      {
+       "type": "gap_fill",
+       "question": "13. Setze das passende Relativpronomen ein.",
+       "text": "Das ist das Restaurant, [[1]] wir oft essen gehen. (in)",
+       "gaps": {
+        "1": [
+         "in dem",
+         "wo"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "in dem"
+      },
+      {
+       "type": "gap_fill",
+       "question": "14. Setze das passende Relativpronomen ein.",
+       "text": "Die Schule, [[1]] ich früher gelernt habe, ist sehr modern.",
+       "gaps": {
+        "1": [
+         "an der",
+         "in der",
+         "wo"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Im Buch ohne Präposition: lernen an / in der Schule → „an der“ oder „in der“ (auch „wo“)."
+      },
+      {
+       "type": "gap_fill",
+       "question": "15. Setze das passende Relativpronomen ein.",
+       "text": "Das ist der Lehrer, [[1]] die Schüler viel lernen. (bei)",
+       "gaps": {
+        "1": [
+         "bei dem"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "bei dem"
+      },
+      {
+       "type": "gap_fill",
+       "question": "16. Setze das passende Relativpronomen ein.",
+       "text": "Der Brief, [[1]] ich morgen antworte, ist sehr wichtig.",
+       "gaps": {
+        "1": [
+         "auf den"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Im Buch ohne Präposition: antworten auf → „auf den“."
+      },
+      {
+       "type": "gap_fill",
+       "question": "17. Setze das passende Relativpronomen ein.",
+       "text": "Das Haus, [[1]] meine Eltern wohnen, ist sehr groß.",
+       "gaps": {
+        "1": [
+         "in dem",
+         "wo"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "wohnen in → „in dem“ (auch „wo“)."
+      },
+      {
+       "type": "gap_fill",
+       "question": "18. Setze das passende Relativpronomen ein.",
+       "text": "Die Firma, [[1]] mein Bruder arbeitet, ist international.",
+       "gaps": {
+        "1": [
+         "bei der",
+         "für die",
+         "in der",
+         "wo"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Im Buch ohne Präposition: arbeiten bei / für / in → „bei der“, „für die“, „in der“."
+      },
+      {
+       "type": "gap_fill",
+       "question": "19. Setze das passende Relativpronomen ein.",
+       "text": "Das ist der Park, [[1]] wir im Sommer spazieren gehen. (in)",
+       "gaps": {
+        "1": [
+         "in dem",
+         "wo"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "in dem"
+      },
+      {
+       "type": "gap_fill",
+       "question": "20. Setze das passende Relativpronomen ein.",
+       "text": "Der Kurs, [[1]] ich mich angemeldet habe, ist sehr interessant.",
+       "gaps": {
+        "1": [
+         "zu dem",
+         "für den",
+         "bei dem"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Im Buch ohne Präposition: sich anmelden zu / für → „zu dem“, „für den“ (auch „bei dem“)."
+      }
+     ],
+     "instruction": "Setze das passende Relativpronomen oder die passende Präposition + Relativpronomen ein. Achte auf den richtigen Kasus! Akkusativ: den – die – das – die · Dativ: dem – der – dem – denen · Präpositionen: mit der – auf den – über das – von dem – in der – bei dem … (Buch S. 117)"
+    },
+    {
+     "title": "Aufgabe 3: Fragewörter als Relativpronomen",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "1. Setze das passende Relativpronomen ein.",
+       "text": "[[1]] viel lernt, macht gute Fortschritte.",
+       "gaps": {
+        "1": [
+         "Wer"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Wer"
+      },
+      {
+       "type": "gap_fill",
+       "question": "2. Setze das passende Relativpronomen ein.",
+       "text": "[[1]] Deutsch spricht, kann viele Menschen verstehen.",
+       "gaps": {
+        "1": [
+         "Wer"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Wer"
+      },
+      {
+       "type": "gap_fill",
+       "question": "3. Setze das passende Relativpronomen ein.",
+       "text": "[[1]] du einlädst, musst du selbst entscheiden.",
+       "gaps": {
+        "1": [
+         "Wen"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Wen"
+      },
+      {
+       "type": "gap_fill",
+       "question": "4. Setze das passende Relativpronomen ein.",
+       "text": "[[1]] ich vertraue, dem erzähle ich mein Geheimnis.",
+       "gaps": {
+        "1": [
+         "Wem"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Wem"
+      },
+      {
+       "type": "gap_fill",
+       "question": "5. Setze das passende Relativpronomen ein.",
+       "text": "Alles, [[1]] du heute lernst, ist wichtig.",
+       "gaps": {
+        "1": [
+         "was"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "was"
+      },
+      {
+       "type": "gap_fill",
+       "question": "6. Setze das passende Relativpronomen ein.",
+       "text": "Das ist etwas, [[1]] ich nicht verstehe.",
+       "gaps": {
+        "1": [
+         "was"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "was"
+      },
+      {
+       "type": "gap_fill",
+       "question": "7. Setze das passende Relativpronomen ein.",
+       "text": "Ich weiß nicht, [[1]] passiert ist.",
+       "gaps": {
+        "1": [
+         "was"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "was"
+      },
+      {
+       "type": "gap_fill",
+       "question": "8. Setze das passende Relativpronomen ein.",
+       "text": "Das ist das Beste, [[1]] ich bisher gesehen habe.",
+       "gaps": {
+        "1": [
+         "was"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "was"
+      },
+      {
+       "type": "gap_fill",
+       "question": "9. Setze das passende Relativpronomen ein.",
+       "text": "[[1]] anderen hilft, bekommt auch Hilfe.",
+       "gaps": {
+        "1": [
+         "Wer"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Wer"
+      },
+      {
+       "type": "gap_fill",
+       "question": "10. Setze das passende Relativpronomen ein.",
+       "text": "Alles, [[1]] er gesagt hat, war interessant.",
+       "gaps": {
+        "1": [
+         "was"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "was"
+      },
+      {
+       "type": "gap_fill",
+       "question": "11. Setze das passende Relativpronomen ein.",
+       "text": "[[1]] du tust, tue es mit Herz.",
+       "gaps": {
+        "1": [
+         "Was"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Was"
+      },
+      {
+       "type": "gap_fill",
+       "question": "12. Setze das passende Relativpronomen ein.",
+       "text": "Ich suche jemanden, [[1]] mir bei der Arbeit helfen kann.",
+       "gaps": {
+        "1": [
+         "der"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "„jemanden, der …“ — nach einem Nomen / Pronomen steht der (im Buch nur wer – wen – wem – was zur Auswahl)."
+      },
+      {
+       "type": "gap_fill",
+       "question": "13. Setze das passende Relativpronomen ein.",
+       "text": "[[1]] wir gestern getroffen haben, ist mein alter Freund.",
+       "gaps": {
+        "1": [
+         "Wen",
+         "Der",
+         "Den"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "„Wen wir gestern getroffen haben, (der) ist …“ — auch „Der / Den …“ akzeptiert."
+      },
+      {
+       "type": "gap_fill",
+       "question": "14. Setze das passende Relativpronomen ein.",
+       "text": "Kannst du mir sagen, [[1]] dir dieses Buch empfohlen hat?",
+       "gaps": {
+        "1": [
+         "wer"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "wer"
+      },
+      {
+       "type": "gap_fill",
+       "question": "15. Setze das passende Relativpronomen ein.",
+       "text": "Das ist der Grund, [[1]] ich heute nicht kommen konnte.",
+       "gaps": {
+        "1": [
+         "warum",
+         "weshalb",
+         "wieso"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "„der Grund, warum …“ (kein wer / wen / wem / was)."
+      },
+      {
+       "type": "gap_fill",
+       "question": "16. Setze das passende Relativpronomen ein.",
+       "text": "[[1]] keinen Plan hat, sollte nicht der Chef sein.",
+       "gaps": {
+        "1": [
+         "Wer"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Wer"
+      },
+      {
+       "type": "gap_fill",
+       "question": "17. Setze das passende Relativpronomen ein.",
+       "text": "Das ist die Idee, [[1]] wir lange diskutiert haben.",
+       "gaps": {
+        "1": [
+         "die",
+         "über die"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "„die Idee, die wir diskutiert haben“ (auch „über die“)."
+      },
+      {
+       "type": "gap_fill",
+       "question": "18. Setze das passende Relativpronomen ein.",
+       "text": "[[1]] in der Gruppe arbeitet, lernt besser.",
+       "gaps": {
+        "1": [
+         "Wer"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Wer"
+      },
+      {
+       "type": "gap_fill",
+       "question": "19. Setze das passende Relativpronomen ein.",
+       "text": "Ich erinnere mich an den Tag, [[1]] wir uns kennengelernt haben.",
+       "gaps": {
+        "1": [
+         "an dem",
+         "als"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "„der Tag, an dem …“ (auch „als“)."
+      },
+      {
+       "type": "gap_fill",
+       "question": "20. Setze das passende Relativpronomen ein.",
+       "text": "Das ist alles, [[1]] ich dir sagen wollte.",
+       "gaps": {
+        "1": [
+         "was"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "was"
+      }
+     ],
+     "instruction": "Setze das passende Relativpronomen ein. Wähle aus: wer – wen – wem – was (Buch S. 118). Einige Sätze im Buch brauchen ein anderes Wort (der, warum, die, an dem) — jede richtige Form zählt."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l07-lesen-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 7,
+   "skill": "lesen",
+   "title": "Lesen Aufgabe 1: Leser und Nichtleser",
+   "source": "book",
+   "metadata": {
+    "book_page": 119,
+    "key_source": "vizu",
+    "publish_hold": "Lösung von VIZU aus dem Text abgeleitet (kein offizieller Schlüssel) — in Lösung prüfen und bestätigen",
+    "note": "Lösung von VIZU aus dem Text abgeleitet (Zitat in der Erklärung) — bitte prüfen."
+   },
+   "instruction": "a) Welche Erklärungen passen zu den unterstrichenen Wendungen im Text? Ordnen Sie zu.",
+   "passages": [
+    {
+     "title": "Leser und Nichtleser",
+     "text": "Im Land der Dichter und Denker scheiden sich die Geister*: Die einen kommen nicht ohne Bücher aus, die anderen brauchen überhaupt keine Bücher zum Leben. Neun Prozent der Bundesbürger, davon mehr als die Hälfte Männer, sind „buchresistent“: Wenn es um Bücher geht, werden sie zu „Totalverweigerern“. Statt Bücher zu lesen, greifen sie lieber zur TV-Fernbedienung oder surfen durchs Internet. Die größte Gruppe sind mit rund 40 Prozent die „Wenigleser“. Sie konsumieren bis zu neun Bücher im Jahr.\n\nEin Viertel der Bevölkerung zählt als „Normalleser“ und kommt auf 10 bis 18 Bücher im Jahr. Echte Bücherwürmer und Leseratten sind 27 Prozent der Deutschen. Sie verschlingen jährlich mindestens 19 Bücher. Dabei leihen gerade Vielleser viele Bücher bei Freunden oder in der Bibliothek aus, statt sie selbst neu zu kaufen. Sehr klein und sehr skurril ist die Gruppe der „Bücher kaufenden Nichtleser“: Sieben Prozent der Bundesbürger kaufen zwar regelmäßig Bücher, lesen sie aber kaum. Die Werke werden verschenkt oder als Dekoration ins Regal gestellt. 40 Prozent der Bundesbürger haben in ihrem Regal 50 bis 200 Bücher stehen. Jeder Vierte verfügt über 200 bis 500 Exemplare. Und bei 14 Prozent gibt es sogar mehr als 500 Bücher im Schrank.\n\n* Es scheiden sich die Geister. = Es gibt unterschiedliche Meinungen."
+    }
+   ],
+   "questions": [
+    {
+     "type": "matching",
+     "question": "Welche Erklärungen passen zu den unterstrichenen Wendungen im Text? Ordnen Sie zu.",
+     "items": [
+      "kommen nicht ohne (Bücher) aus",
+      "Totalverweigerer",
+      "Leseratte/Bücherwurm",
+      "(buch)resistent sein",
+      "ein Buch verschlingen",
+      "skurril",
+      "verfügt über"
+     ],
+     "targets": [
+      "Person, die gern und viel liest",
+      "schnell und mit Spannung lesen",
+      "hat",
+      "können ohne (Bücher) nicht leben",
+      "sich nicht verführen lassen",
+      "Person, die etwas prinzipiell ablehnt",
+      "seltsam"
+     ],
+     "pairs": {
+      "1": "D",
+      "2": "F",
+      "3": "A",
+      "4": "E",
+      "5": "B",
+      "6": "G",
+      "7": "C"
+     },
+     "points": 7,
+     "passage": 1,
+     "explanation": "1 D · 2 F · 3 A · 4 E · 5 B · 6 G · 7 C"
+    }
+   ],
+   "max_score": 7
+  },
+  {
+   "content_id": "vizu-b1-l07-lesen-02",
+   "level": "B1",
+   "module": 1,
+   "lesson": 7,
+   "skill": "lesen",
+   "title": "Lesen Aufgabe 2: Mediennutzung in Deutschland",
+   "source": "book",
+   "metadata": {
+    "book_page": 120,
+    "key_source": "vizu",
+    "publish_hold": "Lösung von VIZU aus dem Text abgeleitet (kein offizieller Schlüssel) — in Lösung prüfen und bestätigen",
+    "note": "Lösung von VIZU aus dem Text abgeleitet (Zitat in der Erklärung) — bitte prüfen."
+   },
+   "instruction": "Setze die passenden Verben aus der Liste in der richtigen Form ein. Verben: ergeben • anführen • steigen • bestimmen • zählen • bleiben • liegen • verzeichnen • benutzen",
+   "passages": [
+    {
+     "title": "Mediennutzung in Deutschland",
+     "text": "Smartphone, Fernseher, Laptop und Tablet bestimmen unseren Alltag. Nach einer neuen Studie zum Thema Mediennutzung (1) …… der Fernseher mit 92 Prozent das meistgenutzte Gerät, gefolgt von dem Smartphone und dem PC/Laptop mit jeweils 87 Prozent. Auf Platz vier (2) …… das Radio mit 73 Prozent. Die Untersuchung (3) …… außerdem, dass die Smartphonenutzung in den letzten drei Jahren um 11 Prozent (4) …… ist. Ein weiteres Ergebnis der Studie ist, dass jeder zweite Umfrageteilnehmer täglich mehrere Bildschirme gleichzeitig (5) ……. Spitzenreiter ist hier die Kombination von Smartphone und Fernseher.\nZu den meistgenutzten Diensten im Internet (6) …… die E-Mail (83 Prozent) und die sozialen Netzwerke mit 74 Prozent. Die Hitliste bei den Social-Media-Plattformen wird zurzeit von WhatsApp (82 Prozent) und YouTube (81 Prozent) (7) ……. Facebook (8) …… als einziges Social-Media-Netzwerk eine sinkende Nutzung von minus 10 Prozent."
+    }
+   ],
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "Setze die passenden Verben in der richtigen Form ein.",
+     "text": "Smartphone, Fernseher, Laptop und Tablet bestimmen unseren Alltag. Nach einer neuen Studie zum Thema Mediennutzung [[1]] der Fernseher mit 92 Prozent das meistgenutzte Gerät, gefolgt von dem Smartphone und dem PC/Laptop mit jeweils 87 Prozent. Auf Platz vier [[2]] das Radio mit 73 Prozent. Die Untersuchung [[3]] außerdem, dass die Smartphonenutzung in den letzten drei Jahren um 11 Prozent [[4]] ist. Ein weiteres Ergebnis der Studie ist, dass jeder zweite Umfrageteilnehmer täglich mehrere Bildschirme gleichzeitig [[5]]. Spitzenreiter ist hier die Kombination von Smartphone und Fernseher.\nZu den meistgenutzten Diensten im Internet [[6]] die E-Mail (83 Prozent) und die sozialen Netzwerke mit 74 Prozent. Die Hitliste bei den Social-Media-Plattformen wird zurzeit von WhatsApp (82 Prozent) und YouTube (81 Prozent) [[7]]. Facebook [[8]] als einziges Social-Media-Netzwerk eine sinkende Nutzung von minus 10 Prozent.",
+     "gaps": {
+      "1": [
+       "bleibt"
+      ],
+      "2": [
+       "liegt"
+      ],
+      "3": [
+       "ergab",
+       "ergibt"
+      ],
+      "4": [
+       "gestiegen"
+      ],
+      "5": [
+       "benutzt",
+       "nutzt"
+      ],
+      "6": [
+       "zählen"
+      ],
+      "7": [
+       "angeführt"
+      ],
+      "8": [
+       "verzeichnet"
+      ]
+     },
+     "points": 8,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "1 bleibt · 2 liegt · 3 ergab · 4 gestiegen · 5 benutzt · 6 zählen · 7 angeführt · 8 verzeichnet („bestimmen“ ist das Beispiel im ersten Satz)"
+    }
+   ],
+   "max_score": 8
+  },
+  {
+   "content_id": "vizu-b1-l07-lesen-03",
+   "level": "B1",
+   "module": 1,
+   "lesson": 7,
+   "skill": "lesen",
+   "title": "Lesen Aufgabe 3: Die beliebtesten Fernsehformate in Deutschland",
+   "source": "book",
+   "metadata": {
+    "book_page": 121,
+    "key_source": "vizu",
+    "publish_hold": "Lösung von VIZU aus dem Text abgeleitet (kein offizieller Schlüssel) — in Lösung prüfen und bestätigen",
+    "note": "Lösung aus den Zahlen des Diagramms — bitte prüfen."
+   },
+   "instruction": "Lies das Diagramm und entscheide, ob die Aussagen richtig oder falsch sind. Tipp: Vergleiche die Prozentzahlen im Diagramm. Merke: 45 % = fast die Hälfte, 25 % = ein Viertel.",
+   "passages": [
+    {
+     "title": "Die beliebtesten Fernsehformate in Deutschland (Auswahl, Quelle: Statista)",
+     "text": "Nachrichten: 45 %\nKrimiserien und Kriminalfilme: 27,7 %\nSportübertragungen (live) und Sportsendungen: 26,8 %\nRegionale Informationen, Nachrichten, Beiträge: 25,9 %\nTier- und Natursendungen: 25,6 %\nReisemagazine, Sendungen über fremde Länder und Kulturen: 22,6 %\nQuizsendungen, Rateshows: 19,8 %\nSerien und Filme aus den Bereichen Action, Abenteuer, Thriller, Horror: 19 %\nPolitische Magazine, Reportagen: 18,1 %\nComedy-Serien und Komödien: 16,6 %\nRatgebersendungen zu Gesundheit, Verkehr und Technik: 15,3 %\nFilme aus den Bereichen Science Fiction und Fantasy: 15,2 %\nSendungen zur Geschichte: 13,5 %\nFamilienserien und Arztserien: 11,8 %\nPolitische Talkshows: 11,6 %\nTalentshows: 10,4 %\nTägliche Serien, Soaps: 10,3 %\nKochshows: 9,8 %\nHeimatfilme und Volksmusiksendungen: 8,5 %\nKunst- und Kultursendungen: 7 %"
+    }
+   ],
+   "questions": [
+    {
+     "type": "true_false",
+     "question": "Nachrichten sind das beliebteste Fernsehformat.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "Nachrichten 45 % — Platz 1."
+    },
+    {
+     "type": "true_false",
+     "question": "Krimiserien und Kriminalfilme sind beliebter als Sportübertragungen (live).",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "27,7 % > 26,8 %."
+    },
+    {
+     "type": "true_false",
+     "question": "Comedy-Serien und Komödien sind beliebter als politische Magazine.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "16,6 % < 18,1 %."
+    },
+    {
+     "type": "true_false",
+     "question": "Sendungen zur Geschichte sind seltener beliebt als Kochshows.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "Geschichte 13,5 % > Kochshows 9,8 %."
+    },
+    {
+     "type": "true_false",
+     "question": "Heimatfilme und Volksmusiksendungen sind beliebter als Kunst- und Kultursendungen.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "8,5 % > 7 %."
+    },
+    {
+     "type": "true_false",
+     "question": "Serien und Filme aus den Bereichen Action, Abenteuer, Thriller, Horror sind beliebter als Quizsendungen, Rateshows.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "19 % < 19,8 %."
+    }
+   ],
+   "max_score": 6
+  },
+  {
+   "content_id": "vizu-b1-l07-hoeren-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 7,
+   "skill": "hoeren",
+   "title": "Hören Aufgabe 1: Wer bestimmt eigentlich das Fernsehprogramm?",
+   "source": "book",
+   "metadata": {
+    "book_page": 122,
+    "key_source": "pending",
+    "note": "Lücken nach dem Anhören in Lösung festlegen (Wörterliste im Buch, keine Lösung)."
+   },
+   "audio_file": "7.Unterricht Aufgabe 1.mp3",
+   "key_pending": true,
+   "instruction": "Höre den Text und setze die richtigen Wörter in die Lücken (1–10) ein. Achtung: Es gibt mehr Wörter als du brauchst. Wörter: Kindern • regelmäßig • Quizshows • ziemlich genau • wissen • beliebt • ältere • die • vergleichen • Spätabend • laufen",
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "Hören Sie den Text und setzen Sie die richtigen Wörter in die Lücken (1–4) ein.",
+     "text": "Ein einfaches Beispiel: Kindersendungen laufen natürlich dann, wenn Kinder [[1]], also vor bzw. in den frühen Abend. Und so funktioniert es auch für alle anderen Zielgruppen, denn nach vielen Untersuchungen wissen die Experten sehr [[2]] die Sehgewohnheiten der Deutschen: Viele ältere Menschen sehen gern täglich [[3]], außerdem interessiert sie vor allem Doku-Soaps oder [[4]] gezeigt.",
+     "gaps": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": []
+     },
+     "points": 4,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Hören Sie den Text und setzen Sie die richtigen Wörter in die Lücken (5–7) ein.",
+     "text": "Täglich sehen wir die Zeiten, [[5]] oder Krimis laufen. Jugendprogramme laufen in manchen „Morgengelände“ und 20.00 Uhr und höhere wird am regelmäßigsten und [[6]] geklickt. Zwischen 20.30 Uhr beginnt der harte Kampf um die Einschaltquoten und die Programmgestalter arbeiten ganz genau darauf, was die anderen Programme machen. Läuft zum Beispiel am Sonntagabend eine von allen Zielgruppen geliebte Unterhaltungsshow, sorgen die anderen Sender nur Spielfilme/weitbindungen. Oder: Läuft in einem Programm ein Fußballländerspiel, versuchen andere Programme nichts, einen Box-Welt-Titelkampf zu zeigen. [[7]] beide Sendungen die gleiche Zielgruppe haben: Männer zwischen 18 und 49.",
+     "gaps": {
+      "5": [],
+      "6": [],
+      "7": []
+     },
+     "points": 3,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Hören Sie den Text und setzen Sie die richtigen Wörter in die Lücken (8–9) ein.",
+     "text": "Spätestens kommen die Politik-Talkshows für politisch interessierte Menschen und ab Mitternacht denken die Programmgestalter verstärkt an [[8]] Herren. Man kann also sagen: Jeder Sender versucht, die [[9]] Zielgruppen zu bedienen, und berechnet dabei die anderen Sender ganz genau.",
+     "gaps": {
+      "8": [],
+      "9": []
+     },
+     "points": 2,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Hören Sie den Text und setzen Sie die richtigen Wörter in die Lücken (10–10) ein.",
+     "text": "Und [[10]] du eigentlich, was du siehst?",
+     "gaps": {
+      "10": []
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    }
+   ],
+   "max_score": 10
+  },
+  {
+   "content_id": "vizu-b1-l07-hoeren-02",
+   "level": "B1",
+   "module": 1,
+   "lesson": 7,
+   "skill": "hoeren",
+   "title": "Hören Aufgabe 2: Wer liest denn heute noch Bücher?",
+   "source": "book",
+   "metadata": {
+    "book_page": 123,
+    "key_source": "pending",
+    "note": "Keine Lösung im Buch — nach dem Anhören in Lösung festlegen."
+   },
+   "audio_file": "7.Unterricht Aufgabe 2.mp3",
+   "key_pending": true,
+   "instruction": "Sie hören jetzt ein Gespräch im Radio zum Thema Lesen. Ordnen Sie die Aussagen zu: Wer sagt was? Lesen Sie zuerst die Aussagen.",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "1. Laut einer aktuellen Studie werden immer weniger Bücher gelesen.",
+     "options": [
+      "Moderator",
+      "Frau Baumgart",
+      "Frau Kuhn"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "2. Der Online-Buchhandel ist eine große Konkurrenz für Buchhändler.",
+     "options": [
+      "Moderator",
+      "Frau Baumgart",
+      "Frau Kuhn"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "3. Viele Kunden lassen sich nicht mehr in Geschäften beraten.",
+     "options": [
+      "Moderator",
+      "Frau Baumgart",
+      "Frau Kuhn"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "4. Bei der Entwicklung spielen E-Books eine große Rolle.",
+     "options": [
+      "Moderator",
+      "Frau Baumgart",
+      "Frau Kuhn"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "5. Der Kundenkontakt ist intensiver geworden.",
+     "options": [
+      "Moderator",
+      "Frau Baumgart",
+      "Frau Kuhn"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "6. Wer in der Jugend nicht liest, wird auch später nicht gern lesen.",
+     "options": [
+      "Moderator",
+      "Frau Baumgart",
+      "Frau Kuhn"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "7. Lesen soll in erster Linie Spaß machen.",
+     "options": [
+      "Moderator",
+      "Frau Baumgart",
+      "Frau Kuhn"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "8. Man sollte einfach mal wieder ein Buch in die Hand nehmen und lesen.",
+     "options": [
+      "Moderator",
+      "Frau Baumgart",
+      "Frau Kuhn"
+     ],
+     "points": 1
+    }
+   ],
+   "max_score": 8
+  },
+  {
+   "content_id": "vizu-b1-l07-uebungen-02",
+   "level": "B1",
+   "module": 1,
+   "lesson": 7,
+   "skill": "uebungen",
+   "title": "Schreiben Aufgabe 1: E-Books und E-Reader in Österreich",
+   "source": "book",
+   "metadata": {
+    "book_page": 124,
+    "note": "Prüfung nötig: Satz 1 ist im Buch verkürzt („52 Prozent der Österreicher (1) eine repräsentative Umfrage“) — akzeptiert werden „ergab“ und „lesen“. Lösung von VIZU.",
+    "publish_hold": "Satz 1 im Buch verkürzt — Lösung in der Übung prüfen"
+   },
+   "exercises": [
+    {
+     "title": "Schreiben Aufgabe 1: E-Books und E-Reader in Österreich",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Verben in der richtigen Form.",
+       "text": "52 Prozent der Österreicher [[1]] eine repräsentative Umfrage, die das Marktforschungsinstitut MindTake Research unter 600 Personen [[2]] hat. Zum Lesen ihrer E-Books [[3]] die Österreicher am liebsten E-Book-Reader. Das Tablet [[4]] auf Platz zwei vor dem Smartphone. Beim Kauf von Lesegeräten und E-Books [[5]] die Konsumenten sehr auf den Preis. Als besonders positiv wird [[6]], dass man mehrere Bücher auf einem Gerät hat. Das [[7]] auf Reisen klare Vorteile. Außerdem [[8]] E-Books zu Hause keinen Platz im Bücherregal [[9]].",
+       "gaps": {
+        "1": [
+         "ergab",
+         "lesen"
+        ],
+        "2": [
+         "durchgeführt"
+        ],
+        "3": [
+         "nutzen",
+         "lesen"
+        ],
+        "4": [
+         "liegt"
+        ],
+        "5": [
+         "achten"
+        ],
+        "6": [
+         "hervorgehoben"
+        ],
+        "7": [
+         "bietet"
+        ],
+        "8": [
+         "nehmen"
+        ],
+        "9": [
+         "ein"
+        ]
+       },
+       "points": 9,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "1 ergab (Satz im Buch verkürzt) · 2 durchgeführt · 3 nutzen · 4 liegt · 5 achten · 6 hervorgehoben · 7 bietet · 8 nehmen … 9 ein"
+      }
+     ],
+     "instruction": "Ergänzen Sie die Verben in der richtigen Form (Buch S. 124). Verben: liegen • achten • lesen • durchführen • hervorheben • einnehmen • ergeben • nutzen • bieten. Im Buch hat die Lücke vor „E-Books“ keine Nummer — hier Lücke 8, die Nummer (8) im Buch ist hier Lücke 9."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l07-schreiben-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 7,
+   "skill": "schreiben",
+   "title": "Schreiben Aufgabe 2: Eine E-Mail an einen Freund",
+   "source": "book",
+   "metadata": {
+    "book_page": 125,
+    "note": "„Orientieren Sie sich an A20“ verweist auf eine Seite, die es im Buch nicht gibt — die Fernsehformate von Lesen Aufgabe 3 helfen."
+   },
+   "task_type": "email",
+   "prompt": "Sie wohnen seit einiger Zeit in Deutschland. Schreiben Sie eine E-Mail an eine Freundin / einen Freund.\n\nBeschreiben Sie kurz,\n• wie es Ihnen geht und was Sie machen,\n• welche Medien Sie wie oft nutzen,\n• welche deutschen Fernsehsendungen Sie sehen (Orientieren Sie sich an A20),\n• welche Fernsehsendungen aus Ihrem Heimatland Sie sich übers Internet ansehen bzw. welche Sendungen Sie in Deutschland vermissen.\n\nTipps für Ihre E-Mail: Beginnen Sie mit einer freundlichen Anrede. Schreiben Sie in kurzen Absätzen. Vergessen Sie nicht den Gruß am Schluss.\nNützliche Ausdrücke: Mir geht es gut / nicht so gut, aber … · In meiner Freizeit … · Ich schaue gerne … / Ich interessiere mich für … · Am liebsten nutze ich … · Ich vermisse besonders … · Schreibe mir bald wieder!\nDenken Sie daran: auf die vier Punkte einzugehen, Relativsätze zu verwenden, einen passenden Betreff zu wählen, mindestens 80–100 Wörter zu schreiben.",
+   "audience": "Ein Freund / eine Freundin (informell)",
+   "min_words": 80,
+   "max_words": 150,
+   "time_limit": 25
+  },
+  {
+   "content_id": "vizu-b1-l07-sprechen-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 7,
+   "skill": "sprechen",
+   "title": "Sprechen Teil 1: Sprechen Sie zum Thema!",
+   "source": "book",
+   "metadata": {
+    "book_page": 126
+   },
+   "topic": "Nachrichten und Medien",
+   "prompt": "Antworten Sie auf die Fragen. Sprechen Sie mit Ihrem Partner / Ihrer Partnerin.\n1. Worüber möchten Sie in den Nachrichten informiert werden? (Weltgeschehen, politische Entwicklungen in Ihrem Heimatland, Neues aus der Wirtschaft oder der Wissenschaft, Verbrechen, Leben von Prominenten, Wetter, Sportwettkämpfe …)\n2. Wie informieren Sie sich über aktuelle Politik? (im Fernsehen, im Radio, in Zeitungen oder Zeitschriften, online (Nachrichtenportale), über soziale Medien, im Gespräch mit anderen …)\n3. Haben Sie eine Lieblingsnachrichtensendung oder gibt es eine Nachrichtensprecherin / einen Nachrichtensprecher, die / den Sie besonders mögen?\n4. Welche Themen beherrschen in Ihrem Heimatland die Nachrichtensendungen?\n\nTipp: Geben Sie Beispiele, erklären Sie kurz und begründen Sie Ihre Meinung. Hören Sie aufmerksam zu und stellen Sie Rückfragen!",
+   "questions": [
+    "Worüber möchten Sie in den Nachrichten informiert werden?",
+    "Wie informieren Sie sich über aktuelle Politik?",
+    "Haben Sie eine Lieblingsnachrichtensendung oder eine Nachrichtensprecherin / einen Nachrichtensprecher, die / den Sie besonders mögen?",
+    "Welche Themen beherrschen in Ihrem Heimatland die Nachrichtensendungen?"
+   ],
+   "response_type": "dialog",
+   "min_duration": 60,
+   "max_duration": 240,
+   "speech_goal": "Über Nachrichten und Mediengewohnheiten sprechen, Beispiele geben, Meinung begründen, Rückfragen stellen.",
+   "keywords": [
+    "Ich informiere mich …",
+    "Am liebsten …",
+    "In meinem Heimatland …",
+    "Was meinst du?"
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l07-sprechen-02",
+   "level": "B1",
+   "module": 1,
+   "lesson": 7,
+   "skill": "sprechen",
+   "title": "Sprechen Teil 2: Präsentation — Soziale Netzwerke als Nachrichtenquelle",
+   "source": "book",
+   "metadata": {
+    "book_page": 127
+   },
+   "topic": "Soziale Netzwerke als Nachrichtenquelle",
+   "prompt": "Halten Sie eine Präsentation zum Thema „Soziale Netzwerke als Nachrichtenquelle“.\n1. Stellen Sie Ihr Thema vor. Erklären Sie den Inhalt und die Struktur Ihrer Präsentation. (Worum geht es? Wie ist Ihre Präsentation aufgebaut? Warum ist das Thema wichtig?)\n2. Berichten Sie von Ihrer Situation oder einem Erlebnis im Zusammenhang mit dem Thema. (Welche Erfahrungen haben Sie gemacht? Wie hat sich die Situation auf Sie ausgewirkt? Was haben Sie daraus gelernt?)\n3. Berichten Sie von der Situation in Ihrem Heimatland und geben Sie Beispiele. (Wie ist die Nutzung von sozialen Netzwerken in Ihrem Heimatland? Welche Plattformen sind besonders beliebt? Geben Sie konkrete Beispiele.)\n4. Nennen Sie Vor- und Nachteile und äußern Sie Ihre Meinung zum Thema. (Welche Vorteile sehen Sie in sozialen Netzwerken als Nachrichtenquelle? Welche Nachteile gibt es? Wie ist Ihre persönliche Meinung? Begründen Sie diese.)\n5. Beenden Sie Ihre Präsentation und bedanken Sie sich bei den Zuhörern. (Fassen Sie die wichtigsten Punkte kurz zusammen. Bedanken Sie sich für die Aufmerksamkeit und öffnen Sie die Runde für Fragen.)",
+   "questions": [
+    "Thema vorstellen",
+    "Eigene Situation / Erlebnis",
+    "Situation im Heimatland mit Beispielen",
+    "Vor- und Nachteile, eigene Meinung",
+    "Abschluss und Dank"
+   ],
+   "response_type": "monolog",
+   "preparation_time": 300,
+   "min_duration": 120,
+   "max_duration": 180,
+   "speech_goal": "Strukturierte Präsentation in 5 Schritten (Buch S. 127).",
+   "keywords": [
+    "Mein Thema ist",
+    "Ich habe die Erfahrung gemacht",
+    "In meinem Heimatland",
+    "Ein Vorteil ist",
+    "Danke für Ihre Aufmerksamkeit!"
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l07-wortschatz-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 7,
+   "skill": "wortschatz",
+   "title": "Wortschatz: Medien und Alltag",
+   "source": "book",
+   "metadata": {
+    "book_page": 128,
+    "note": "Das Buch erklärt die Wörter auf Deutsch (keine Übersetzung)."
+   },
+   "words": [
+    {
+     "word": "Smartphone",
+     "article": "das",
+     "translation": "ein Handy, mit dem man telefonieren, schreiben und ins Internet gehen kann",
+     "group": "Medien und Alltag"
+    },
+    {
+     "word": "Nachricht",
+     "article": "die",
+     "translation": "eine Information, die man jemandem schreibt oder erhält",
+     "group": "Medien und Alltag"
+    },
+    {
+     "word": "Internet",
+     "article": "das",
+     "translation": "ein weltweites Netzwerk für Informationen und Kommunikation",
+     "group": "Medien und Alltag"
+    },
+    {
+     "word": "Fernsehen",
+     "article": "das",
+     "translation": "ein Medium, über das man Sendungen sehen kann",
+     "group": "Medien und Alltag"
+    },
+    {
+     "word": "Musik streamen",
+     "article": "die",
+     "translation": "Musik online hören, ohne sie herunterzuladen",
+     "group": "Medien und Alltag"
+    },
+    {
+     "word": "Zeitung",
+     "article": "die",
+     "translation": "ein gedrucktes oder digitales Medium mit Nachrichten",
+     "group": "Medien und Alltag"
+    },
+    {
+     "word": "die sozialen Medien",
+     "translation": "Plattformen wie Facebook, Instagram oder TikTok",
+     "group": "Medien und Alltag"
+    },
+    {
+     "word": "E-Mail",
+     "article": "die",
+     "translation": "eine elektronische Nachricht",
+     "group": "Medien und Alltag"
+    },
+    {
+     "word": "herunterladen",
+     "translation": "Daten aus dem Internet auf ein Gerät kopieren",
+     "group": "Medien und Alltag"
+    },
+    {
+     "word": "Privatsphäre",
+     "article": "die",
+     "translation": "der persönliche Bereich, der geschützt werden soll",
+     "group": "Medien und Alltag"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "Zuordnung",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Medien und Alltag 1)",
+       "items": [
+        "das Smartphone",
+        "die Nachricht",
+        "das Internet",
+        "das Fernsehen",
+        "die Musik streamen",
+        "die Zeitung"
+       ],
+       "targets": [
+        "ein Handy, mit dem man telefonieren, schreiben und ins Internet gehen kann",
+        "eine Information, die man jemandem schreibt oder erhält",
+        "ein weltweites Netzwerk für Informationen und Kommunikation",
+        "ein Medium, über das man Sendungen sehen kann",
+        "Musik online hören, ohne sie herunterzuladen",
+        "ein gedrucktes oder digitales Medium mit Nachrichten",
+        "Plattformen wie Facebook, Instagram oder TikTok"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Medien und Alltag 2)",
+       "items": [
+        "die sozialen Medien",
+        "die E-Mail",
+        "herunterladen",
+        "die Privatsphäre"
+       ],
+       "targets": [
+        "Plattformen wie Facebook, Instagram oder TikTok",
+        "eine elektronische Nachricht",
+        "Daten aus dem Internet auf ein Gerät kopieren",
+        "der persönliche Bereich, der geschützt werden soll",
+        "ein Handy, mit dem man telefonieren, schreiben und ins Internet gehen kann"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D"
+       },
+       "points": 4,
+       "passage": 1
+      }
+     ],
+     "instruction": "Ordnen Sie jedem Ausdruck die passende Erklärung aus dem Buch zu."
+    },
+    {
+     "title": "Welcher Ausdruck passt?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "„eine Information, die man jemandem schreibt oder erhält“ — welcher Ausdruck passt?",
+       "options": [
+        "die E-Mail",
+        "die Nachricht",
+        "das Fernsehen"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„ein weltweites Netzwerk für Informationen und Kommunikation“ — welcher Ausdruck passt?",
+       "options": [
+        "das Internet",
+        "das Fernsehen",
+        "die Nachricht"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„ein Medium, über das man Sendungen sehen kann“ — welcher Ausdruck passt?",
+       "options": [
+        "die Zeitung",
+        "das Fernsehen",
+        "die Privatsphäre"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„Musik online hören, ohne sie herunterzuladen“ — welcher Ausdruck passt?",
+       "options": [
+        "die E-Mail",
+        "die Musik streamen",
+        "das Fernsehen"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„ein gedrucktes oder digitales Medium mit Nachrichten“ — welcher Ausdruck passt?",
+       "options": [
+        "die Zeitung",
+        "die E-Mail",
+        "das Smartphone"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„Plattformen wie Facebook, Instagram oder TikTok“ — welcher Ausdruck passt?",
+       "options": [
+        "die sozialen Medien",
+        "das Smartphone",
+        "das Fernsehen"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„eine elektronische Nachricht“ — welcher Ausdruck passt?",
+       "options": [
+        "das Fernsehen",
+        "die Nachricht",
+        "die E-Mail"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„Daten aus dem Internet auf ein Gerät kopieren“ — welcher Ausdruck passt?",
+       "options": [
+        "herunterladen",
+        "die Musik streamen",
+        "das Smartphone"
+       ],
+       "correct_answer": "A",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "Welcher Ausdruck passt zur Erklärung? (Erklärungen aus dem Buch)"
+    }
+   ],
+   "auto_practice": false
+  },
+  {
+   "content_id": "vizu-b1-l07-schreiben-02",
+   "level": "B1",
+   "module": 1,
+   "lesson": 7,
+   "skill": "schreiben",
+   "title": "Wortschatz-Aufgabe: Medien und Alltag — eigene Beispielsätze",
+   "source": "book",
+   "metadata": {
+    "book_page": 128,
+    "note": "Ish varag'i — o'qituvchi tekshiradi."
+   },
+   "task_type": "other",
+   "prompt": "Hier sind 10 wichtige Wörter und Ausdrücke zum Thema „Medien und Alltag“. Lesen Sie die Wörter, ihre Bedeutungen und schreiben Sie eigene Beispielsätze.\n\n1. das Smartphone — ein Handy, mit dem man telefonieren, schreiben und ins Internet gehen kann\n2. die Nachricht — eine Information, die man jemandem schreibt oder erhält\n3. das Internet — ein weltweites Netzwerk für Informationen und Kommunikation\n4. das Fernsehen — ein Medium, über das man Sendungen sehen kann\n5. die Musik streamen — Musik online hören, ohne sie herunterzuladen\n6. die Zeitung — ein gedrucktes oder digitales Medium mit Nachrichten\n7. die sozialen Medien — Plattformen wie Facebook, Instagram oder TikTok\n8. die E-Mail — eine elektronische Nachricht\n9. herunterladen — Daten aus dem Internet auf ein Gerät kopieren\n10. die Privatsphäre — der persönliche Bereich, der geschützt werden soll",
+   "min_words": 40,
+   "max_words": 300,
+   "time_limit": 20
+  },
+  {
+   "content_id": "vizu-b1-l07-uebungen-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 7,
+   "skill": "uebungen",
+   "title": "Übungen: B1 7. Unterricht",
+   "source": "vizu",
+   "exercises": [
+    {
+     "title": "Relativsätze — Beispiele aus dem Buch",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Das ist der Mann, ___ hier arbeitet.",
+       "options": [
+        "der",
+        "den",
+        "dem"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "Nominativ."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Das ist der Mann, ___ ich kenne.",
+       "options": [
+        "den",
+        "der",
+        "dem"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "Akkusativ: Ich kenne den Mann."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Das ist der Mann, ___ ich helfe.",
+       "options": [
+        "dem",
+        "den",
+        "der"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "Dativ: Ich helfe dem Mann."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Das ist die Frau, mit ___ ich spreche.",
+       "options": [
+        "der",
+        "die",
+        "dem"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "mit + Dativ → der."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Das ist der Freund, ___ den ich warte.",
+       "options": [
+        "auf",
+        "über",
+        "mit"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "warten auf."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Das ist das Thema, über ___ wir sprechen.",
+       "options": [
+        "das",
+        "dem",
+        "den"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "über + Akkusativ → das."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Alles, ___ du lernst, ist wichtig.",
+       "options": [
+        "was",
+        "das",
+        "wer"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "Nach alles → was."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "___ viel lernt, macht Fortschritte.",
+       "options": [
+        "Wer",
+        "Was",
+        "Wen"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "Person, Nominativ → wer."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "___ ich vertraue, dem erzähle ich mein Geheimnis.",
+       "options": [
+        "Wem",
+        "Wen",
+        "Wer"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "vertrauen + Dativ → wem."
+      }
+     ],
+     "instruction": "Wählen Sie die richtige Form (Buch S. 113–115)."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l07-yakuniy-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 7,
+   "skill": "yakuniy",
+   "title": "Abschlusstest: B1 7. Unterricht",
+   "source": "vizu",
+   "instruction": "Abschlusstest zu Relativsätzen, Lesen und Wortschatz (alle Sätze aus dem Buch).",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Wo steht das Verb im Relativsatz?",
+     "options": [
+      "Am Ende",
+      "Auf Position 2",
+      "Am Anfang"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Buch S. 113: Das Verb steht am Ende des Relativsatzes."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wonach richtet sich der Kasus des Relativpronomens?",
+     "options": [
+      "Nach seiner Funktion im Relativsatz",
+      "Nach dem Bezugswort",
+      "Nach dem Verb im Hauptsatz"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Buch S. 114: Genus und Numerus nach dem Bezugswort, der Kasus nach der Funktion im Relativsatz."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Die Kinder, ___ wir geholfen haben, kommen aus Deutschland.",
+     "options": [
+      "denen",
+      "die",
+      "dem"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1,
+     "explanation": "Dativ Plural → denen."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Das ist die Stadt, von ___ ich schon lange träume.",
+     "options": [
+      "der",
+      "die",
+      "dem"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Das ist das Beste, ___ ich bisher gesehen habe.",
+     "options": [
+      "was",
+      "das",
+      "wer"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "___ anderen hilft, bekommt auch Hilfe.",
+     "options": [
+      "Wer",
+      "Wen",
+      "Was"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wie viele Bücher lesen „Leseratten“ laut Text mindestens im Jahr?",
+     "options": [
+      "19",
+      "9",
+      "500"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Lesen Aufgabe 1: „Sie verschlingen jährlich mindestens 19 Bücher.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Welches Fernsehformat ist am beliebtesten?",
+     "options": [
+      "Nachrichten",
+      "Kochshows",
+      "Talentshows"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Lesen Aufgabe 3: Nachrichten 45 %."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„herunterladen“ bedeutet …",
+     "options": [
+      "Daten aus dem Internet auf ein Gerät kopieren",
+      "Musik online hören",
+      "eine elektronische Nachricht"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Wortschatz S. 128."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„die Privatsphäre“ ist …",
+     "options": [
+      "der persönliche Bereich, der geschützt werden soll",
+      "ein gedrucktes Medium",
+      "ein weltweites Netzwerk"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Wortschatz S. 128."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l07-kompetenz-02",
+   "level": "B1",
+   "module": 1,
+   "lesson": 7,
+   "skill": "kompetenz",
+   "title": "Zusammenfassung: B1 7. Unterricht",
+   "source": "vizu",
+   "competency": "ZUSAMMENFASSUNG",
+   "html": "<h3>B1 7. Unterricht — qisqacha</h3><ul><li>Ein Relativsatz gibt zusätzliche Informationen über eine Person oder eine Sache — Das ist der Mann, der hier arbeitet.</li><li>Relativpronomen: Nominativ der/die/das/die · Akkusativ den/die/das/die · Dativ dem/der/dem/denen.</li><li>Genus und Numerus nach dem Bezugswort, Kasus nach der Funktion im Relativsatz. Präposition + Relativpronomen: der Freund, auf den ich warte.</li><li>wer / wen / wem für Personen, was für Sachen und ganze Aussagen; nach alles, etwas, nichts, das Beste → was.</li><li>Das Verb steht am Ende des Relativsatzes.</li><li><strong>Medien und Alltag:</strong> das Smartphone, die Nachricht, die sozialen Medien, herunterladen, die Privatsphäre.</li></ul><p>Natijalaringiz pastda — tugallanmagan bo'limlarni yakunlang, so'ng keyingi darsga o'ting.</p>"
+  }
+ ]
+}

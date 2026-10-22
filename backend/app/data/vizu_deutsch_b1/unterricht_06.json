@@ -1,0 +1,2008 @@
+{
+ "schema_version": "1.2",
+ "language": "de",
+ "source": "vizu-deutsch-b1-book",
+ "items": [
+  {
+   "content_id": "vizu-b1-l06-kompetenz-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 6,
+   "skill": "kompetenz",
+   "title": "Einführung: B1 6. Unterricht",
+   "source": "vizu",
+   "metadata": {
+    "book_page": 96
+   },
+   "competency": "EINFUEHRUNG",
+   "html": "<h3>B1 6. Unterricht — Lernen und Weiterbildung</h3><p><strong>Mavzu:</strong> Lernen und Weiterbildung · <strong>Grammatik:</strong> Reflexive Verben und reflexive Pronomen</p><h4>Dars maqsadlari</h4><ul><li>refleksiv fe'llar — ega harakatni o'ziga qaratadi: Ich wasche mich.</li><li>refleksiv olmoshlar Akkusativ (mich, dich, sich, uns, euch) va Dativ (mir, dir, sich, uns, euch) da;</li><li>predlogli refleksiv fe'llar: sich freuen auf / über, sich interessieren für, sich erinnern an, sich vorbereiten auf;</li><li>o'qish, kurslar va malaka oshirish haqida so'zlar.</li></ul><h4>Dars oxirida siz quyidagilarni bajara olasiz</h4><ul><li>Germaniyada o'qish imkoniyatlari haqida gapirasiz;</li><li>sayohatdagi telefon voqeasi haqidagi matnni va qisqa tarjimai holni tushunasiz;</li><li>kasb haqidagi suhbat va telefon xabarlarini tinglaysiz;</li><li>gaplarni damit, deshalb, weil, um … zu bilan bog'laysiz va xat yozasiz;</li><li>kurs ishtirokchilaridan o'qish haqida intervyu olasiz.</li></ul><h4>Darsning tuzilishi</h4><p>Einführung → Wortschatz → Grammatik → Lesen → Hören → Sprechen → Schreiben → Übungen → Abschlusstest → Zusammenfassung</p>"
+  },
+  {
+   "content_id": "vizu-b1-l06-frage-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 6,
+   "skill": "frage",
+   "title": "Frage des Themas: Wie sind die Möglichkeiten zum Studium in Deutschland?",
+   "source": "book",
+   "metadata": {
+    "book_page": 97,
+    "book_sample": {
+     "Einleitung": "Deutschland ist ein beliebtes Land für Studierende aus der ganzen Welt. Viele junge Menschen möchten hier studieren, weil die Bildung sehr gut ist und es viele Möglichkeiten gibt. In meinem Beitrag spreche ich darüber, wie die Möglichkeiten zum Studium in Deutschland sind.",
+     "Hauptteil": "Es gibt viele Universitäten, Fachhochschulen und private Hochschulen. Die meisten öffentlichen Universitäten sind kostenlos oder haben nur einen geringen Semesterbeitrag. Studierende können aus vielen Fachrichtungen wählen, zum Beispiel Ingenieurwissenschaften, Wirtschaft, Medizin oder Sprachen. Außerdem gibt es verschiedene Studiengänge auf Deutsch und Englisch. Es gibt auch Stipendien und Austauschprogramme für internationale Studierende.",
+     "Schluss": "Zusammenfassend kann man sagen, dass Deutschland sehr gute Möglichkeiten zum Studium bietet. Wichtig sind gute Sprachkenntnisse und eine gute Vorbereitung. Ich finde, dass ein Studium in Deutschland eine gute Investition in die Zukunft ist."
+    }
+   },
+   "prompt": "Wie sind die Möglichkeiten zum Studium in Deutschland? Sprechen Sie mit Einleitung, Hauptteil und Schluss.",
+   "questions": [
+    "Einleitung",
+    "Hauptteil",
+    "Schluss"
+   ],
+   "min_duration": 30,
+   "max_duration": 150
+  },
+  {
+   "content_id": "vizu-b1-l06-grammatik-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 6,
+   "skill": "grammatik",
+   "title": "Grammatik: Reflexive Verben und reflexive Pronomen",
+   "source": "book",
+   "metadata": {
+    "book_page": "98-100",
+    "note": "Lösungen von VIZU nach der Regel (Tabelle S. 98 / Tipp S. 100)."
+   },
+   "rules": [
+    {
+     "title": "Reflexive Verben und reflexive Pronomen",
+     "html": "<h3>Reflexive Verben und reflexive Pronomen</h3><h4>1. Was sind reflexive Verben?</h4><p>Reflexive Verben sind Verben, bei denen das Subjekt die Handlung <strong>an sich selbst</strong> ausführt.</p><ul><li>Ich wasche <strong>mich</strong>.</li><li>Sie interessiert <strong>sich</strong> für Deutsch.</li></ul><p><strong>Struktur:</strong> Subjekt + Verb + reflexives Pronomen + …</p><h4>2. Reflexive Pronomen</h4><table><thead><tr><th>Person</th><th>Akkusativ</th><th>Dativ</th></tr></thead><tbody><tr><td>ich</td><td>mich</td><td>mir</td></tr><tr><td>du</td><td>dich</td><td>dir</td></tr><tr><td>er/sie/es</td><td>sich</td><td>sich</td></tr><tr><td>wir</td><td>uns</td><td>uns</td></tr><tr><td>ihr</td><td>euch</td><td>euch</td></tr><tr><td>sie/Sie</td><td>sich</td><td>sich</td></tr></tbody></table><p>Akkusativ-Objekt vorhanden → reflexives Pronomen im Dativ.</p><h4>3. Wichtige reflexive Verben</h4><ul><li>sich waschen</li><li>sich duschen</li><li>sich anziehen</li><li>sich ausziehen</li><li>sich treffen</li><li>sich beeilen</li><li>sich entschuldigen</li></ul><p><strong>Beispiele:</strong> Ich dusche <strong>mich</strong> jeden Morgen. · Wir treffen <strong>uns</strong> am Wochenende. · Beeil <strong>dich</strong> bitte!</p><h4>4. Verben mit Präpositionen</h4><ul><li><strong>sich freuen auf</strong> — Ich freue mich auf das Wochenende.</li><li><strong>sich freuen über</strong> — Ich freue mich über das Geschenk.</li><li><strong>sich interessieren für</strong> — Ich interessiere mich für deutsche Kultur.</li><li><strong>sich erinnern an</strong> — Ich erinnere mich an meine Schulzeit.</li><li><strong>sich vorbereiten auf</strong> — Ich bereite mich auf die Prüfung vor.</li></ul><h4>5. Satzstrukturen</h4><ul><li><strong>Präsens:</strong> Subjekt + Reflexivverb + Reflexivpronomen + Ergänzung</li><li><strong>Perfekt:</strong> Subjekt + haben + Reflexivpronomen + Partizip II</li><li><strong>Modalverben:</strong> Subjekt + Modalverb + Reflexivpronomen + Infinitiv</li></ul>"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "Aufgabe: sich richtig einfügen (1–15)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das passende reflexive Personalpronomen ein.",
+       "text": "1. Ich wasche [[1]] jeden Morgen.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "mich"
+         ],
+         "options": [
+          "mich",
+          "mir",
+          "dich",
+          "dir",
+          "sich",
+          "uns",
+          "euch"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das passende reflexive Personalpronomen ein.",
+       "text": "2. Du solltest [[1]] mehr Zeit nehmen.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "dir"
+         ],
+         "options": [
+          "mich",
+          "mir",
+          "dich",
+          "dir",
+          "sich",
+          "uns",
+          "euch"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Mit Akkusativ-Objekt → Dativ (z. B. „Du solltest dir mehr Zeit nehmen.“)."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das passende reflexive Personalpronomen ein.",
+       "text": "3. Er rasiert [[1]] jeden Tag.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "sich"
+         ],
+         "options": [
+          "mich",
+          "mir",
+          "dich",
+          "dir",
+          "sich",
+          "uns",
+          "euch"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das passende reflexive Personalpronomen ein.",
+       "text": "4. Sie schminkt [[1]] vor dem Spiegel.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "sich"
+         ],
+         "options": [
+          "mich",
+          "mir",
+          "dich",
+          "dir",
+          "sich",
+          "uns",
+          "euch"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das passende reflexive Personalpronomen ein.",
+       "text": "5. Wir freuen [[1]] auf den Urlaub.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "uns"
+         ],
+         "options": [
+          "mich",
+          "mir",
+          "dich",
+          "dir",
+          "sich",
+          "uns",
+          "euch"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das passende reflexive Personalpronomen ein.",
+       "text": "6. Ihr trefft [[1]] heute um 18 Uhr.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "euch"
+         ],
+         "options": [
+          "mich",
+          "mir",
+          "dich",
+          "dir",
+          "sich",
+          "uns",
+          "euch"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das passende reflexive Personalpronomen ein.",
+       "text": "7. Ich muss [[1]] beeilen.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "mich"
+         ],
+         "options": [
+          "mich",
+          "mir",
+          "dich",
+          "dir",
+          "sich",
+          "uns",
+          "euch"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das passende reflexive Personalpronomen ein.",
+       "text": "8. Du erinnerst [[1]] an alles.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "dich"
+         ],
+         "options": [
+          "mich",
+          "mir",
+          "dich",
+          "dir",
+          "sich",
+          "uns",
+          "euch"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das passende reflexive Personalpronomen ein.",
+       "text": "9. Er zieht [[1]] schnell an.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "sich"
+         ],
+         "options": [
+          "mich",
+          "mir",
+          "dich",
+          "dir",
+          "sich",
+          "uns",
+          "euch"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das passende reflexive Personalpronomen ein.",
+       "text": "10. Sie kümmert [[1]] um ihre Kinder.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "sich"
+         ],
+         "options": [
+          "mich",
+          "mir",
+          "dich",
+          "dir",
+          "sich",
+          "uns",
+          "euch"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das passende reflexive Personalpronomen ein.",
+       "text": "11. Wir interessieren [[1]] für Musik.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "uns"
+         ],
+         "options": [
+          "mich",
+          "mir",
+          "dich",
+          "dir",
+          "sich",
+          "uns",
+          "euch"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das passende reflexive Personalpronomen ein.",
+       "text": "12. Ihr beschwert [[1]] immer.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "euch"
+         ],
+         "options": [
+          "mich",
+          "mir",
+          "dich",
+          "dir",
+          "sich",
+          "uns",
+          "euch"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das passende reflexive Personalpronomen ein.",
+       "text": "13. Ich lege [[1]] kurz hin.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "mich"
+         ],
+         "options": [
+          "mich",
+          "mir",
+          "dich",
+          "dir",
+          "sich",
+          "uns",
+          "euch"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das passende reflexive Personalpronomen ein.",
+       "text": "14. Du setzt [[1]] neben mich.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "dich"
+         ],
+         "options": [
+          "mich",
+          "mir",
+          "dich",
+          "dir",
+          "sich",
+          "uns",
+          "euch"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das passende reflexive Personalpronomen ein.",
+       "text": "15. Er gewöhnt [[1]] an die neue Arbeit.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "sich"
+         ],
+         "options": [
+          "mich",
+          "mir",
+          "dich",
+          "dir",
+          "sich",
+          "uns",
+          "euch"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "Setzen Sie das passende reflexive Personalpronomen ein. Achten Sie auf Dativ (mir, dir, sich, uns, euch) und Akkusativ (mich, dich, sich, uns, euch). (Buch S. 100)"
+    },
+    {
+     "title": "Aufgabe: sich richtig einfügen (16–30)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das passende reflexive Personalpronomen ein.",
+       "text": "16. Sie bedankt [[1]] herzlich.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "sich"
+         ],
+         "options": [
+          "mich",
+          "mir",
+          "dich",
+          "dir",
+          "sich",
+          "uns",
+          "euch"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das passende reflexive Personalpronomen ein.",
+       "text": "17. Wir waschen [[1]] die Hände.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "uns"
+         ],
+         "options": [
+          "mich",
+          "mir",
+          "dich",
+          "dir",
+          "sich",
+          "uns",
+          "euch"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das passende reflexive Personalpronomen ein.",
+       "text": "18. Ihr erinnert [[1]] oft an die Termine.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "euch"
+         ],
+         "options": [
+          "mich",
+          "mir",
+          "dich",
+          "dir",
+          "sich",
+          "uns",
+          "euch"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das passende reflexive Personalpronomen ein.",
+       "text": "19. Er konzentriert [[1]] auf die Prüfung.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "sich"
+         ],
+         "options": [
+          "mich",
+          "mir",
+          "dich",
+          "dir",
+          "sich",
+          "uns",
+          "euch"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das passende reflexive Personalpronomen ein.",
+       "text": "20. Sie freut [[1]] über das Geschenk.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "sich"
+         ],
+         "options": [
+          "mich",
+          "mir",
+          "dich",
+          "dir",
+          "sich",
+          "uns",
+          "euch"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das passende reflexive Personalpronomen ein.",
+       "text": "21. Ich melde [[1]] krank.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "mich"
+         ],
+         "options": [
+          "mich",
+          "mir",
+          "dich",
+          "dir",
+          "sich",
+          "uns",
+          "euch"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das passende reflexive Personalpronomen ein.",
+       "text": "22. Du verletzt [[1]] nicht.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "dich"
+         ],
+         "options": [
+          "mich",
+          "mir",
+          "dich",
+          "dir",
+          "sich",
+          "uns",
+          "euch"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das passende reflexive Personalpronomen ein.",
+       "text": "23. Wir verabschieden [[1]] von unseren Freunden.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "uns"
+         ],
+         "options": [
+          "mich",
+          "mir",
+          "dich",
+          "dir",
+          "sich",
+          "uns",
+          "euch"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das passende reflexive Personalpronomen ein.",
+       "text": "24. Ihr kümmert [[1]] gut darum.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "euch"
+         ],
+         "options": [
+          "mich",
+          "mir",
+          "dich",
+          "dir",
+          "sich",
+          "uns",
+          "euch"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das passende reflexive Personalpronomen ein.",
+       "text": "25. Er entscheidet [[1]] für diesen Kurs.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "sich"
+         ],
+         "options": [
+          "mich",
+          "mir",
+          "dich",
+          "dir",
+          "sich",
+          "uns",
+          "euch"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das passende reflexive Personalpronomen ein.",
+       "text": "26. Sie stellt [[1]] eine Frage.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "sich"
+         ],
+         "options": [
+          "mich",
+          "mir",
+          "dich",
+          "dir",
+          "sich",
+          "uns",
+          "euch"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das passende reflexive Personalpronomen ein.",
+       "text": "27. Ich bereite [[1]] auf den Test vor.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "mich"
+         ],
+         "options": [
+          "mich",
+          "mir",
+          "dich",
+          "dir",
+          "sich",
+          "uns",
+          "euch"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das passende reflexive Personalpronomen ein.",
+       "text": "28. Du hilfst [[1]] immer.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "dir"
+         ],
+         "options": [
+          "mich",
+          "mir",
+          "dich",
+          "dir",
+          "sich",
+          "uns",
+          "euch"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Mit Akkusativ-Objekt → Dativ (z. B. „Du hilfst dir immer.“ — helfen + Dativ)."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das passende reflexive Personalpronomen ein.",
+       "text": "29. Wir sehen [[1]] morgen.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "uns"
+         ],
+         "options": [
+          "mich",
+          "mir",
+          "dich",
+          "dir",
+          "sich",
+          "uns",
+          "euch"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      },
+      {
+       "type": "gap_fill",
+       "question": "Setzen Sie das passende reflexive Personalpronomen ein.",
+       "text": "30. Sie ärgert [[1]] über die Situation.",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "sich"
+         ],
+         "options": [
+          "mich",
+          "mir",
+          "dich",
+          "dir",
+          "sich",
+          "uns",
+          "euch"
+         ]
+        }
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false
+      }
+     ],
+     "instruction": "Setzen Sie das passende reflexive Personalpronomen ein. Tipp: Ohne Objekt → Akkusativ (Ich wasche mich.), mit Akkusativ-Objekt → Dativ (Ich wasche mir die Hände.). (Buch S. 100)"
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l06-wortschatz-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 6,
+   "skill": "wortschatz",
+   "title": "Wortschatz: 30 wichtigste sich-Verben",
+   "source": "book",
+   "metadata": {
+    "book_page": 99,
+    "note": "Buch S. 99 (Überschrift „A2 – Die häufigsten Verben mit „sich““); „sich verabschieden“ steht zweimal (Nr. 10 und 25)."
+   },
+   "words": [
+    {
+     "word": "sich waschen",
+     "translation": "o'zini yuvmoq",
+     "group": "30 wichtigste sich-Verben"
+    },
+    {
+     "word": "sich duschen",
+     "translation": "dush qabul qilmoq",
+     "group": "30 wichtigste sich-Verben"
+    },
+    {
+     "word": "sich kämmen",
+     "translation": "sochini taramoq",
+     "group": "30 wichtigste sich-Verben"
+    },
+    {
+     "word": "sich anziehen",
+     "translation": "kiyinmoq",
+     "group": "30 wichtigste sich-Verben"
+    },
+    {
+     "word": "sich ausziehen",
+     "translation": "yechinmoq",
+     "group": "30 wichtigste sich-Verben"
+    },
+    {
+     "word": "sich die Zähne putzen",
+     "translation": "tishini tozalamoq",
+     "group": "30 wichtigste sich-Verben"
+    },
+    {
+     "word": "sich das Gesicht waschen",
+     "translation": "yuzini yuvmoq",
+     "group": "30 wichtigste sich-Verben"
+    },
+    {
+     "word": "sich hinlegen",
+     "translation": "yotmoq",
+     "group": "30 wichtigste sich-Verben"
+    },
+    {
+     "word": "sich hinsetzen",
+     "translation": "o'tirmoq",
+     "group": "30 wichtigste sich-Verben"
+    },
+    {
+     "word": "sich verabschieden",
+     "translation": "xayrlashmoq",
+     "group": "30 wichtigste sich-Verben"
+    },
+    {
+     "word": "sich begrüßen",
+     "translation": "salomlashmoq",
+     "group": "30 wichtigste sich-Verben"
+    },
+    {
+     "word": "sich treffen",
+     "translation": "uchrashmoq",
+     "group": "30 wichtigste sich-Verben"
+    },
+    {
+     "word": "sich umarmen",
+     "translation": "quchoqlashmoq",
+     "group": "30 wichtigste sich-Verben"
+    },
+    {
+     "word": "sich bedanken",
+     "translation": "rahmat aytmoq",
+     "group": "30 wichtigste sich-Verben"
+    },
+    {
+     "word": "sich freuen",
+     "translation": "quvonmoq",
+     "group": "30 wichtigste sich-Verben"
+    },
+    {
+     "word": "sich ärgern",
+     "translation": "g'azablanmoq",
+     "group": "30 wichtigste sich-Verben"
+    },
+    {
+     "word": "sich schämen",
+     "translation": "uyalmoq",
+     "group": "30 wichtigste sich-Verben"
+    },
+    {
+     "word": "sich wundern",
+     "translation": "hayron bo'lmoq",
+     "group": "30 wichtigste sich-Verben"
+    },
+    {
+     "word": "sich entspannen",
+     "translation": "dam olmoq, bo'shashmoq",
+     "group": "30 wichtigste sich-Verben"
+    },
+    {
+     "word": "sich beeilen",
+     "translation": "shoshilmoq",
+     "group": "30 wichtigste sich-Verben"
+    },
+    {
+     "word": "sich verlieben",
+     "translation": "sevib qolmoq",
+     "group": "30 wichtigste sich-Verben"
+    },
+    {
+     "word": "sich erinnern",
+     "translation": "eslamoq",
+     "group": "30 wichtigste sich-Verben"
+    },
+    {
+     "word": "sich vorstellen",
+     "translation": "o'zini tanishtirmoq",
+     "group": "30 wichtigste sich-Verben"
+    },
+    {
+     "word": "sich melden",
+     "translation": "xabar bermoq",
+     "group": "30 wichtigste sich-Verben"
+    },
+    {
+     "word": "sich helfen",
+     "translation": "yordam bermoq",
+     "group": "30 wichtigste sich-Verben"
+    },
+    {
+     "word": "sich konzentrieren",
+     "translation": "diqqatini jamlamoq",
+     "group": "30 wichtigste sich-Verben"
+    },
+    {
+     "word": "sich sorgen",
+     "translation": "tashvishlanmoq",
+     "group": "30 wichtigste sich-Verben"
+    },
+    {
+     "word": "sich verletzen",
+     "translation": "o'zini jarohatlamoq",
+     "group": "30 wichtigste sich-Verben"
+    },
+    {
+     "word": "sich fühlen (krank)",
+     "translation": "o'zini (kasal) his qilmoq",
+     "group": "30 wichtigste sich-Verben"
+    }
+   ],
+   "auto_practice": true
+  },
+  {
+   "content_id": "vizu-b1-l06-lesen-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 6,
+   "skill": "lesen",
+   "title": "Lesen Teil 1: Meine Erlebnisse",
+   "source": "book",
+   "metadata": {
+    "book_page": "101-102",
+    "key_source": "vizu",
+    "publish_hold": "Lösung von VIZU aus dem Text abgeleitet (kein offizieller Schlüssel) — in Lösung prüfen und bestätigen",
+    "note": "Lösung von VIZU aus dem Text (Zitat in der Erklärung). Im Buch heißt die Person in den Aufgaben „Sven“, der Text ist von „Marie-Charlotte Maas“ (ich) — Aufgaben wie gedruckt. Bitte prüfen."
+   },
+   "instruction": "Lesen Sie den Text und die Aufgaben 1 bis 6 dazu. Wählen Sie: Sind die Aussagen richtig oder falsch? (Arbeitszeit: 10 Minuten)",
+   "passages": [
+    {
+     "title": "Meine Erlebnisse",
+     "text": "25. August\n\nMein Handy-Unfall ereignete sich im Sommerurlaub in Griechenland. Ich hatte das Handy in der Tasche meiner Badehose und bin damit ins Meer gelaufen. Dort habe ich natürlich relativ schnell festgestellt, dass mein Handy noch in der Tasche ist. Leider stand ich schon hüfttief im Wasser.\n\nIch bin sofort zurück an den Strand gelaufen und habe das Handy aus meiner Tasche geholt. Meine erste Reaktion war, das Handy mit dem Handtuch trocken zu wischen. Danach habe ich es auseinandergebaut und die einzelnen Teile ebenfalls mit dem Handtuch getrocknet.\n\nDoch bereits da wurde mir klar, dass mein Handy nur eine geringe Überlebenschance hatte. Ich habe es dann für den Rest des Strandtages in die Sonne gelegt. Im Hotel angekommen habe ich das Handy trocken geföhnt, doch auch das sollte nicht helfen. Es ging zwar an, aber der Bildschirm hat nur wirre Pixel angezeigt. Ich hatte keinen Zugriff aufs Menü und konnte weder telefonieren noch SMS schreiben. Auf einer Online-Plattform erfuhr ich, das Beste sei es, das Handy ein paar Tage ausgeschaltet zu lassen. Ein nicht ganz leicht zu befolgender Hinweis, wenn man im Urlaub ist. Schließlich wollte ich Kontakt zu meiner Familie und meinen Freunden aufnehmen.\n\nEs war der erste Urlaubstag, somit war es doppelt ärgerlich. Aber einen guten Aspekt hatte es dann doch. Ich habe Geld gespart, da teure Auslandsgespräche und SMS aus dem Ausland nicht mehr möglich waren.\n\nZu Hause kam dann die große Erleichterung: Die SIM-Karte war glücklicherweise noch zu gebrauchen und so hatte ich weder Nummern noch Nachrichten verloren. Hätte ich ein neueres Modell gehabt, wären die wohl weg gewesen, denn da speichert sich fast alles auf dem Mobilfunkgerät selber und nicht auf der SIM-Karte. Finanziell hielt sich der Schaden in Grenzen, da es kein ganz neues Handymodell war. Leider konnte ich keine Garantieansprüche geltend machen. Ein Wasserschaden läuft nämlich nie auf Garantie. Aber ich habe das Handy meiner Oma bekommen, das war das gleiche Modell.\n\nNoch einmal wird mir so etwas nicht passieren. Ich ziehe nur noch Badehosen ohne Taschen an, damit ich gar nicht erst auf die Idee komme, mein Handy in die Hosentasche zu stecken.\n\nMarie-Charlotte Maas"
+    }
+   ],
+   "questions": [
+    {
+     "type": "true_false",
+     "question": "Svens Handy ging kaputt, als er es mit dem Handtuch zu trocknen versuchte.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "Das Handy war schon im Meer nass geworden: „… und bin damit ins Meer gelaufen … Leider stand ich schon hüfttief im Wasser.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Den Rest des Tages verbrachte Sven am Strand in der Sonne.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "Nicht die Person, sondern das Handy lag in der Sonne: „Ich habe es dann für den Rest des Strandtages in die Sonne gelegt.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Sven informierte sich im Internet darüber, was er tun sollte.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„Auf einer Online-Plattform erfuhr ich, das Beste sei es, das Handy ein paar Tage ausgeschaltet zu lassen.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Sven ärgerte sich zwar sehr, doch er konnte Geld sparen.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„… somit war es doppelt ärgerlich. Aber einen guten Aspekt hatte es dann doch. Ich habe Geld gespart …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Weil die SIM-Karte in Ordnung war, blieben sowohl Nummern als auch Nachrichten gespeichert.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„Die SIM-Karte war glücklicherweise noch zu gebrauchen und so hatte ich weder Nummern noch Nachrichten verloren.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Sven hat sich das gleiche Modell wie seine Oma angeschafft.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "Er hat das Handy der Oma bekommen, nicht gekauft: „Aber ich habe das Handy meiner Oma bekommen, das war das gleiche Modell.“"
+    }
+   ],
+   "max_score": 6
+  },
+  {
+   "content_id": "vizu-b1-l06-lesen-02",
+   "level": "B1",
+   "module": 1,
+   "lesson": 6,
+   "skill": "lesen",
+   "title": "Lesen Aufgabe 2: E-Mail an Sara — Verben im Perfekt",
+   "source": "book",
+   "metadata": {
+    "book_page": 103,
+    "key_source": "vizu",
+    "publish_hold": "Lösung von VIZU aus dem Text abgeleitet (kein offizieller Schlüssel) — in Lösung prüfen und bestätigen",
+    "note": "Partizip II nach Wörterliste und Kontext (jedes Verb einmal; „verbringen“ steht im Buch zweimal, „fahren“ ist schon bei Lücke 4) — bitte prüfen."
+   },
+   "instruction": "Setzen Sie die passenden Verben in die richtige Form ein. Verben: verbringen • fahren • erholen • passieren • lesen • fliegen • verbringen • bestehen • machen • besichtigen • segeln",
+   "passages": [
+    {
+     "title": "E-Mail von Anna",
+     "text": "Liebe Sara,\nich muss dir unbedingt berichten, was in den letzten Wochen (1) …… ist. Du weißt ja, dass ich meine Abschlussprüfung (2) …… habe. Und dann haben Dani und ich eine große Reise (3) …….\nZuerst sind wir mit dem Zug nach Kroatien (4) …… und dort sind wir zwei Wochen lang vor der Küste mit einem Schiff (5) ……. Das war wirklich traumhaft! Dann haben wir zwei Wochen auf einer griechischen Insel (6) ……. Wir haben uns so richtig (7) …… und viele Bücher (8) …….\nDanach hatten wir wieder genug Energie für Istanbul! Eine Woche nur Kultur und gutes Essen! Ich glaube, wir haben alle Sehenswürdigkeiten (9) ……, die es in Istanbul gibt. Als wir dann nach Hause (10) …… sind, waren wir müde, aber glücklich.\nEin richtiger Traumurlaub! Und wie war dein Sommer? Melde dich bald und erzähl mir alles!\nLiebe Grüße\nAnna"
+    }
+   ],
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "Setzen Sie die passenden Verben in die richtige Form ein.",
+     "text": "Liebe Sara,\nich muss dir unbedingt berichten, was in den letzten Wochen [[1]] ist. Du weißt ja, dass ich meine Abschlussprüfung [[2]] habe. Und dann haben Dani und ich eine große Reise [[3]].\nZuerst sind wir mit dem Zug nach Kroatien [[4]] und dort sind wir zwei Wochen lang vor der Küste mit einem Schiff [[5]]. Das war wirklich traumhaft! Dann haben wir zwei Wochen auf einer griechischen Insel [[6]]. Wir haben uns so richtig [[7]] und viele Bücher [[8]].\nDanach hatten wir wieder genug Energie für Istanbul! Eine Woche nur Kultur und gutes Essen! Ich glaube, wir haben alle Sehenswürdigkeiten [[9]], die es in Istanbul gibt. Als wir dann nach Hause [[10]] sind, waren wir müde, aber glücklich.\nEin richtiger Traumurlaub! Und wie war dein Sommer? Melde dich bald und erzähl mir alles!\nLiebe Grüße\nAnna",
+     "gaps": {
+      "1": [
+       "passiert"
+      ],
+      "2": [
+       "bestanden"
+      ],
+      "3": [
+       "gemacht"
+      ],
+      "4": [
+       "gefahren"
+      ],
+      "5": [
+       "gesegelt"
+      ],
+      "6": [
+       "verbracht"
+      ],
+      "7": [
+       "erholt"
+      ],
+      "8": [
+       "gelesen"
+      ],
+      "9": [
+       "besichtigt"
+      ],
+      "10": [
+       "geflogen"
+      ]
+     },
+     "points": 10,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "1 passiert · 2 bestanden · 3 gemacht · 4 gefahren · 5 gesegelt · 6 verbracht · 7 erholt · 8 gelesen · 9 besichtigt · 10 geflogen"
+    }
+   ],
+   "max_score": 10
+  },
+  {
+   "content_id": "vizu-b1-l06-lesen-03",
+   "level": "B1",
+   "module": 1,
+   "lesson": 6,
+   "skill": "lesen",
+   "title": "Lesen Aufgabe 3: Traumberuf Schauspieler/in — Christiane Paul",
+   "source": "book",
+   "metadata": {
+    "book_page": 104,
+    "key_source": "vizu",
+    "publish_hold": "Lösung von VIZU aus dem Text abgeleitet (kein offizieller Schlüssel) — in Lösung prüfen und bestätigen",
+    "note": "Präteritum nach Wörterliste; trennbare Verben stehen in zwei Lücken (nahm … teil, gab … auf). Im Buch steht bei Lücke 10 zusätzlich „sie promovieren, auf-“ (Druckfehler) — bereinigt. Bitte prüfen."
+   },
+   "instruction": "Traumberuf Schauspieler/in. Ergänzen Sie in der Kurzbiografie die Verben im Präteritum. Verben: kommen • sein • teilnehmen • jobben • beginnen • spielen • studieren • promovieren • aufgeben • geben • engagieren • leben",
+   "passages": [
+    {
+     "title": "Christiane Paul",
+     "text": "Christiane Paul (1) …… 1974 in Ost-Berlin zur Welt. Ihre Eltern (2) …… beide Ärzte. Mit 16 Jahren (3) …… sie an einem Modelwettbewerb (4) …… und (5) …… in der Folgezeit als Model für Teenie-Zeitschriften. 1991 (6) …… ihre Schauspielkarriere mit dem Film „Deutschfieber“. Seitdem (7) …… sie in zahlreichen Filmen. Außerdem (8) …… Christiane Medizin und (9) …… 2002. Den Arztberuf (10) …… sie allerdings für die Schauspielerei (11) ……. Christiane Paul engagiert sich für viele soziale Projekte und lebt mit ihren Kindern in Berlin."
+    }
+   ],
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "Ergänzen Sie die Verben im Präteritum.",
+     "text": "Christiane Paul [[1]] 1974 in Ost-Berlin zur Welt. Ihre Eltern [[2]] beide Ärzte. Mit 16 Jahren [[3]] sie an einem Modelwettbewerb [[4]] und [[5]] in der Folgezeit als Model für Teenie-Zeitschriften. 1991 [[6]] ihre Schauspielkarriere mit dem Film „Deutschfieber“. Seitdem [[7]] sie in zahlreichen Filmen. Außerdem [[8]] Christiane Medizin und [[9]] 2002. Den Arztberuf [[10]] sie allerdings für die Schauspielerei [[11]]. Christiane Paul engagiert sich für viele soziale Projekte und lebt mit ihren Kindern in Berlin.",
+     "gaps": {
+      "1": [
+       "kam"
+      ],
+      "2": [
+       "waren"
+      ],
+      "3": [
+       "nahm"
+      ],
+      "4": [
+       "teil"
+      ],
+      "5": [
+       "jobbte"
+      ],
+      "6": [
+       "begann"
+      ],
+      "7": [
+       "spielte"
+      ],
+      "8": [
+       "studierte"
+      ],
+      "9": [
+       "promovierte"
+      ],
+      "10": [
+       "gab"
+      ],
+      "11": [
+       "auf"
+      ]
+     },
+     "points": 11,
+     "passage": 1,
+     "case_sensitive": false,
+     "explanation": "1 kam · 2 waren · 3 nahm · 4 teil · 5 jobbte · 6 begann · 7 spielte · 8 studierte · 9 promovierte · 10 gab · 11 auf"
+    }
+   ],
+   "max_score": 11
+  },
+  {
+   "content_id": "vizu-b1-l06-hoeren-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 6,
+   "skill": "hoeren",
+   "title": "Hören Aufgabe 1: Interview — Tätigkeiten im Beruf",
+   "source": "book",
+   "metadata": {
+    "book_page": 105,
+    "key_source": "pending",
+    "note": "Keine Lösung im Buch — nach dem Anhören in Lösung festlegen."
+   },
+   "audio_file": "6.Unterricht Aufgabe 1.mp3",
+   "key_pending": true,
+   "instruction": "Hören Sie ein Gespräch auf der Straße. Sind die Aussagen richtig oder falsch? Kreuzen Sie an.",
+   "questions": [
+    {
+     "type": "true_false",
+     "question": "Ute macht die neue Arbeit Spaß.",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "Bei ihrer alten Stelle hat sie mehr verdient.",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "Ute hat schon oft Produkte auf Englisch präsentiert.",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "Conrad findet, dass Geschäftsreisen nichts mit Urlaub zu tun haben.",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "Ute muss für ihren Englischkurs nicht bezahlen.",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "Conrad muss in Besprechungen mehrere Sprachen sprechen.",
+     "points": 1,
+     "passage": 1
+    }
+   ],
+   "max_score": 6
+  },
+  {
+   "content_id": "vizu-b1-l06-hoeren-02",
+   "level": "B1",
+   "module": 1,
+   "lesson": 6,
+   "skill": "hoeren",
+   "title": "Hören Aufgabe 2: Nachrichten auf der Mailbox",
+   "source": "book",
+   "metadata": {
+    "book_page": 106,
+    "key_source": "pending",
+    "note": "4 Nachrichten, 10 Lücken, keine Lösung im Buch — nach dem Anhören in Lösung festlegen."
+   },
+   "audio_file": "6.Unterricht Aufgabe 2.mp3",
+   "key_pending": true,
+   "instruction": "Hören Sie die Nachrichten und ergänzen Sie die Informationen.",
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "Nachricht 1: Ergänzen Sie die Informationen.",
+     "text": "Hallo Herr Neumann, hier ist Petra Bleibtreu von der Firma BNO. Wir haben Ihre [[1]] bekommen, aber es fehlt eine offizielle [[2]] Ihrer Englischkenntnisse. Könnten Sie uns das Dokument so schnell wie möglich [[3]] zuschicken? Vielen Dank. Auf Wiederhören.",
+     "gaps": {
+      "1": [],
+      "2": [],
+      "3": []
+     },
+     "points": 3,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Nachricht 2: Ergänzen Sie die Informationen.",
+     "text": "Salü Jens, hier ist Barbara. Du, [[1]] geht wieder nicht. Könntest du mal vorbeikommen und den reparieren? Ich warte auf dich in [[2]]. Vielen Dank! Adieu!",
+     "gaps": {
+      "1": [],
+      "2": []
+     },
+     "points": 2,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Nachricht 3: Ergänzen Sie die Informationen.",
+     "text": "Guten Tag, Frau Heinrich, hier ist Nina Esser von der Firma Braun & Co. Ich habe gerade festgestellt, dass Ihre Firma [[1]] von uns noch nicht bezahlt hat. Die [[2]] lautet 3545, das [[3]] ist der 14. März. Könnten Sie das bitte kontrollieren und mich zurückrufen? Vielen Dank. Auf Wiederhören.",
+     "gaps": {
+      "1": [],
+      "2": [],
+      "3": []
+     },
+     "points": 3,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Nachricht 4: Ergänzen Sie die Informationen.",
+     "text": "Servus Thomas, hier Niko. Ich habe mehrmals versucht, dich [[1]], aber es hat nicht geklappt. Wo bist du denn? Könntest du mich zurückrufen, wenn du wieder da bist? Ich muss [[2]]. Danke.",
+     "gaps": {
+      "1": [],
+      "2": []
+     },
+     "points": 2,
+     "passage": 1,
+     "case_sensitive": false
+    }
+   ],
+   "max_score": 10
+  },
+  {
+   "content_id": "vizu-b1-l06-schreiben-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 6,
+   "skill": "schreiben",
+   "title": "Schreiben Aufgabe 1: So lerne ich eine Fremdsprache — Sätze verbinden",
+   "source": "book",
+   "metadata": {
+    "book_page": 107,
+    "note": "Kitobdagi ochiq topshiriq — har bir juft gapni bir nechta bog'lovchi bilan to'g'ri bog'lash mumkin, o'qituvchi tekshiradi."
+   },
+   "task_type": "other",
+   "prompt": "Verbinden Sie die Sätze mit damit, deshalb, weil und um … zu. Achten Sie auf die richtige Bedeutung.\n\n1. Ich besuche einen Sprachkurs. Ich kann die Sprache zusammen mit anderen Menschen üben.\n2. Ich lerne Deutsch. Ich kann mich an einer deutschen Universität bewerben.\n3. Ich will die Krimis von Agatha Christie in der Originalsprache lesen. Ich lerne Englisch.\n4. Ich wiederhole die Wörter regelmäßig. Ich vergesse sie nicht.\n5. Ich habe mich zu einem Italienischkurs angemeldet. Ich möchte mit meinen italienischen Kollegen kurze Gespräche führen.\n6. Ich nehme Privatstunden. Ich kann mehr in der Fremdsprache kommunizieren.\n7. Margit besucht einen Englischkurs in London. Sie kann auch außerhalb des Kurses Englisch sprechen.\n8. Ich habe einen Online-Kurs gebucht. Ich kann meine Lernzeit selbst einteilen.\n9. Ich habe von dem guten Preis-Leistungs-Verhältnis gehört. Ich lerne an der Volkshochschule kochen.",
+   "min_words": 60,
+   "max_words": 250,
+   "time_limit": 20
+  },
+  {
+   "content_id": "vizu-b1-l06-uebungen-02",
+   "level": "B1",
+   "module": 1,
+   "lesson": 6,
+   "skill": "uebungen",
+   "title": "Schreiben Aufgabe 2: Mein Griechischkurs — Lösungswörter",
+   "source": "book",
+   "metadata": {
+    "book_page": 108,
+    "note": "Im Buch eine Schreiben-Seite mit Auswahl je Lücke — als automatisch bewertete Übung; Lösung von VIZU nach der Grammatik."
+   },
+   "exercises": [
+    {
+     "title": "Schreiben Aufgabe 2: Mein Griechischkurs",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Lesen Sie die E-Mail von Anita und ergänzen Sie die richtige Lösung.",
+       "text": "Ich lerne jetzt Griechisch\n\nLiebe Laura,\nich habe mich bei dir lange nicht gemeldet. Ich [[1]] in den letzten Wochen sehr wenig Zeit. Im Auftrag meines Chefs lerne ich nun Griechisch, [[2]] wir neue Geschäftspartner aus Griechenland haben.\nIch habe mich für einen Kurs an der Volkshochschule [[3]]. [[4]] ich bezahle hier für 50 Unterrichtsstunden nur 250 Euro. Die Hälfte der Kursgebühr [[5]] ich selbst zahlen, die andere Hälfte zahlt mein [[6]].\nDer Kurs findet zweimal in der Woche statt, von 19.00 bis 21.00 Uhr. Danach bin ich immer sehr müde. Wir mussten in den ersten Stunden erst mal das griechische [[7]] lernen, [[8]] fand ich den Anfang sehr schwer. Jetzt geht es besser, ich [[9]] schon einige Sätze sprechen.\nIch hoffe, dass es [[10]] gut geht. Hast du auch eine neue Fremdsprache gelernt? Wenn du mal Griechisch lernen willst, kann ich dir vielleicht helfen.\nLiebe Grüße und bis bald\nAnita",
+       "gaps": {
+        "1": {
+         "accepted": [
+          "hatte"
+         ],
+         "options": [
+          "hatte",
+          "habe"
+         ]
+        },
+        "2": {
+         "accepted": [
+          "weil"
+         ],
+         "options": [
+          "weil",
+          "denn"
+         ]
+        },
+        "3": {
+         "accepted": [
+          "entschieden"
+         ],
+         "options": [
+          "gewählt",
+          "entschieden"
+         ]
+        },
+        "4": {
+         "accepted": [
+          "Denn"
+         ],
+         "options": [
+          "Denn",
+          "Deshalb"
+         ]
+        },
+        "5": {
+         "accepted": [
+          "muss"
+         ],
+         "options": [
+          "muss",
+          "darf"
+         ]
+        },
+        "6": {
+         "accepted": [
+          "Arbeitgeber"
+         ],
+         "options": [
+          "Arbeitgeber",
+          "Arbeitnehmer"
+         ]
+        },
+        "7": {
+         "accepted": [
+          "Alphabet"
+         ],
+         "options": [
+          "Alphabet",
+          "Schrift"
+         ]
+        },
+        "8": {
+         "accepted": [
+          "deshalb"
+         ],
+         "options": [
+          "deshalb",
+          "denn"
+         ]
+        },
+        "9": {
+         "accepted": [
+          "kann"
+         ],
+         "options": [
+          "kann",
+          "will"
+         ]
+        },
+        "10": {
+         "accepted": [
+          "dir"
+         ],
+         "options": [
+          "dich",
+          "dir"
+         ]
+        }
+       },
+       "points": 10,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "1 hatte (Präteritum: „Ich hatte … sehr wenig Zeit.“ (Ich habe … Zeit = Präsens passt nicht zu „in den letzten Wochen“.)) · 2 weil (Verb am Ende („… haben“) → weil.) · 3 entschieden (sich für etwas entscheiden.) · 4 Denn (Grund: Der Kurs ist billig → denn (Verb an Position 2 nach „denn“ + Subjekt: „Denn ich bezahle …“).) · 5 muss (Pflicht: Die Hälfte muss ich selbst zahlen.) · 6 Arbeitgeber (Der Chef / die Firma = Arbeitgeber.) · 7 Alphabet („das griechische Alphabet“ (die Schrift = feminin).) · 8 deshalb (Folge + Verb an Position 2 („deshalb fand ich …“).) · 9 kann (Fähigkeit: Ich kann schon einige Sätze sprechen.) · 10 dir (es geht + Dativ: Wie geht es dir?)"
+      }
+     ],
+     "instruction": "Lesen Sie die E-Mail von Anita und ergänzen Sie die richtige Lösung (Buch S. 108, Lösungswörter: hatte/habe, weil/denn, gewählt/entschieden, denn/deshalb, muss/darf, Arbeitgeber/Arbeitnehmer, Alphabet/Schrift, deshalb/denn, kann/will, dich/dir)."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l06-sprechen-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 6,
+   "skill": "sprechen",
+   "title": "Sprechen Aufgabe 1: Interview — Lernen",
+   "source": "book",
+   "metadata": {
+    "book_page": 109
+   },
+   "topic": "Lernen",
+   "prompt": "Fragen Sie zwei Kursteilnehmer und notieren Sie die Antworten. Fassen Sie die interessantesten Informationen zusammen und berichten Sie.",
+   "questions": [
+    "Sind Sie gern zur Schule gegangen? Welche Fächer mochten Sie besonders?",
+    "Was war früher Ihr Traumberuf?",
+    "Lernen Sie gern? Was lernen Sie gerade und was möchten Sie später noch lernen?",
+    "Welche Sprachen haben Sie in der Schule / an der Universität gelernt? Hat Ihnen der Sprachunterricht Spaß gemacht?",
+    "Bis zu welchem Alter kann ein Mensch etwas lernen? Was meinen Sie?"
+   ],
+   "response_type": "dialog",
+   "min_duration": 60,
+   "max_duration": 240,
+   "speech_goal": "Interview führen, Antworten notieren und die interessantesten Informationen zusammenfassen.",
+   "keywords": [
+    "Sind Sie gern …?",
+    "Was war früher …?",
+    "Er / Sie hat gesagt, dass …",
+    "Am interessantesten fand ich …"
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l06-wortschatz-02",
+   "level": "B1",
+   "module": 1,
+   "lesson": 6,
+   "skill": "wortschatz",
+   "title": "Wortschatz: Lernen und Weiterbildung",
+   "source": "book",
+   "metadata": {
+    "book_page": 110,
+    "note": "Das Buch erklärt die Wörter auf Deutsch (keine Übersetzung)."
+   },
+   "words": [
+    {
+     "word": "lernen",
+     "translation": "Wissen oder Fähigkeiten durch Übung oder Unterricht erwerben",
+     "group": "Lernen und Weiterbildung"
+    },
+    {
+     "word": "studieren",
+     "translation": "an einer Hochschule lernen, ein Fach wissenschaftlich bearbeiten",
+     "group": "Lernen und Weiterbildung"
+    },
+    {
+     "word": "Kurs",
+     "article": "der",
+     "translation": "Unterrichtseinheit zu einem bestimmten Thema",
+     "group": "Lernen und Weiterbildung"
+    },
+    {
+     "word": "Zertifikat",
+     "article": "das",
+     "translation": "offizieller Nachweis über den erfolgreichen Abschluss eines Kurses",
+     "group": "Lernen und Weiterbildung"
+    },
+    {
+     "word": "Online-Schulung",
+     "article": "die",
+     "translation": "Lernen über das Internet, meist flexibel und ortsunabhängig",
+     "group": "Lernen und Weiterbildung"
+    },
+    {
+     "word": "sich weiterbilden",
+     "translation": "neue Kenntnisse erwerben, um beruflich besser zu werden",
+     "group": "Lernen und Weiterbildung"
+    },
+    {
+     "word": "Fähigkeit",
+     "article": "die",
+     "translation": "etwas gut können; eine Kompetenz",
+     "group": "Lernen und Weiterbildung"
+    },
+    {
+     "word": "Ziel",
+     "article": "das",
+     "translation": "etwas, das man erreichen möchte",
+     "group": "Lernen und Weiterbildung"
+    },
+    {
+     "word": "Fortbildung",
+     "article": "die",
+     "translation": "zusätzliche Weiterbildung nach einer Ausbildung oder im Beruf",
+     "group": "Lernen und Weiterbildung"
+    },
+    {
+     "word": "üben",
+     "translation": "etwas regelmäßig machen, um besser darin zu werden",
+     "group": "Lernen und Weiterbildung"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "Zuordnung",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Lernen und Weiterbildung 1)",
+       "items": [
+        "lernen",
+        "studieren",
+        "der Kurs",
+        "das Zertifikat",
+        "die Online-Schulung",
+        "sich weiterbilden"
+       ],
+       "targets": [
+        "Wissen oder Fähigkeiten durch Übung oder Unterricht erwerben",
+        "an einer Hochschule lernen, ein Fach wissenschaftlich bearbeiten",
+        "Unterrichtseinheit zu einem bestimmten Thema",
+        "offizieller Nachweis über den erfolgreichen Abschluss eines Kurses",
+        "Lernen über das Internet, meist flexibel und ortsunabhängig",
+        "neue Kenntnisse erwerben, um beruflich besser zu werden",
+        "etwas gut können; eine Kompetenz"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F"
+       },
+       "points": 6,
+       "passage": 1
+      },
+      {
+       "type": "matching",
+       "question": "Was passt zusammen? (Lernen und Weiterbildung 2)",
+       "items": [
+        "die Fähigkeit",
+        "das Ziel",
+        "die Fortbildung",
+        "üben"
+       ],
+       "targets": [
+        "etwas gut können; eine Kompetenz",
+        "etwas, das man erreichen möchte",
+        "zusätzliche Weiterbildung nach einer Ausbildung oder im Beruf",
+        "etwas regelmäßig machen, um besser darin zu werden",
+        "Wissen oder Fähigkeiten durch Übung oder Unterricht erwerben"
+       ],
+       "pairs": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D"
+       },
+       "points": 4,
+       "passage": 1
+      }
+     ],
+     "instruction": "Ordnen Sie jedem Ausdruck die passende Erklärung aus dem Buch zu."
+    },
+    {
+     "title": "Welcher Ausdruck passt?",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "„an einer Hochschule lernen, ein Fach wissenschaftlich bearbeiten“ — welcher Ausdruck passt?",
+       "options": [
+        "sich weiterbilden",
+        "studieren",
+        "üben"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„Unterrichtseinheit zu einem bestimmten Thema“ — welcher Ausdruck passt?",
+       "options": [
+        "das Zertifikat",
+        "der Kurs",
+        "die Online-Schulung"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„offizieller Nachweis über den erfolgreichen Abschluss eines Kurses“ — welcher Ausdruck passt?",
+       "options": [
+        "der Kurs",
+        "die Fortbildung",
+        "das Zertifikat"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„Lernen über das Internet, meist flexibel und ortsunabhängig“ — welcher Ausdruck passt?",
+       "options": [
+        "die Fähigkeit",
+        "der Kurs",
+        "die Online-Schulung"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„neue Kenntnisse erwerben, um beruflich besser zu werden“ — welcher Ausdruck passt?",
+       "options": [
+        "studieren",
+        "üben",
+        "sich weiterbilden"
+       ],
+       "correct_answer": "C",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„etwas gut können; eine Kompetenz“ — welcher Ausdruck passt?",
+       "options": [
+        "der Kurs",
+        "die Fähigkeit",
+        "die Online-Schulung"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„etwas, das man erreichen möchte“ — welcher Ausdruck passt?",
+       "options": [
+        "die Fähigkeit",
+        "das Ziel",
+        "die Online-Schulung"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "„zusätzliche Weiterbildung nach einer Ausbildung oder im Beruf“ — welcher Ausdruck passt?",
+       "options": [
+        "das Ziel",
+        "die Fortbildung",
+        "die Fähigkeit"
+       ],
+       "correct_answer": "B",
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "Welcher Ausdruck passt zur Erklärung? (Erklärungen aus dem Buch)"
+    }
+   ],
+   "auto_practice": false
+  },
+  {
+   "content_id": "vizu-b1-l06-schreiben-02",
+   "level": "B1",
+   "module": 1,
+   "lesson": 6,
+   "skill": "schreiben",
+   "title": "Wortschatz-Aufgabe: Lernen und Weiterbildung — eigene Beispielsätze",
+   "source": "book",
+   "metadata": {
+    "book_page": 110,
+    "note": "Ish varag'i — o'qituvchi tekshiradi."
+   },
+   "task_type": "other",
+   "prompt": "Hier sind 10 wichtige Wörter und Ausdrücke zum Thema „Lernen und Weiterbildung“. Lesen Sie die Wörter, ihre Bedeutungen und schreiben Sie eigene Beispielsätze.\n\n1. lernen — Wissen oder Fähigkeiten durch Übung oder Unterricht erwerben\n2. studieren — an einer Hochschule lernen, ein Fach wissenschaftlich bearbeiten\n3. der Kurs — Unterrichtseinheit zu einem bestimmten Thema\n4. das Zertifikat — offizieller Nachweis über den erfolgreichen Abschluss eines Kurses\n5. die Online-Schulung — Lernen über das Internet, meist flexibel und ortsunabhängig\n6. sich weiterbilden — neue Kenntnisse erwerben, um beruflich besser zu werden\n7. die Fähigkeit — etwas gut können; eine Kompetenz\n8. das Ziel — etwas, das man erreichen möchte\n9. die Fortbildung — zusätzliche Weiterbildung nach einer Ausbildung oder im Beruf\n10. üben — etwas regelmäßig machen, um besser darin zu werden",
+   "min_words": 40,
+   "max_words": 300,
+   "time_limit": 20
+  },
+  {
+   "content_id": "vizu-b1-l06-uebungen-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 6,
+   "skill": "uebungen",
+   "title": "Übungen: B1 6. Unterricht",
+   "source": "vizu",
+   "exercises": [
+    {
+     "title": "Reflexive Verben — Regeln und Beispiele aus dem Buch",
+     "source": "vizu",
+     "questions": [
+      {
+       "type": "multiple_choice",
+       "question": "Ich dusche ___ jeden Morgen.",
+       "options": [
+        "mich",
+        "mir",
+        "sich"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "Ohne Objekt → Akkusativ."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich wasche ___ die Hände.",
+       "options": [
+        "mir",
+        "mich",
+        "sich"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "Mit Akkusativ-Objekt (die Hände) → Dativ."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Wir treffen ___ am Wochenende.",
+       "options": [
+        "uns",
+        "euch",
+        "sich"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Beeil ___ bitte!",
+       "options": [
+        "dich",
+        "dir",
+        "sich"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich freue mich ___ das Wochenende.",
+       "options": [
+        "auf",
+        "über",
+        "für"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "sich freuen auf = etwas kommt noch."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich freue mich ___ das Geschenk.",
+       "options": [
+        "über",
+        "auf",
+        "an"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1,
+       "explanation": "sich freuen über = etwas ist schon da."
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich interessiere mich ___ deutsche Kultur.",
+       "options": [
+        "für",
+        "an",
+        "auf"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich erinnere mich ___ meine Schulzeit.",
+       "options": [
+        "an",
+        "für",
+        "über"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1
+      },
+      {
+       "type": "multiple_choice",
+       "question": "Ich bereite mich ___ die Prüfung vor.",
+       "options": [
+        "auf",
+        "an",
+        "für"
+       ],
+       "correct_answer": 1,
+       "points": 1,
+       "passage": 1
+      }
+     ],
+     "instruction": "Wählen Sie die richtige Form (Buch S. 98)."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l06-yakuniy-01",
+   "level": "B1",
+   "module": 1,
+   "lesson": 6,
+   "skill": "yakuniy",
+   "title": "Abschlusstest: B1 6. Unterricht",
+   "source": "vizu",
+   "instruction": "Abschlusstest zu reflexiven Verben, Lesen und Wortschatz (alle Sätze aus dem Buch).",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Was sind reflexive Verben?",
+     "options": [
+      "Verben, bei denen das Subjekt die Handlung an sich selbst ausführt",
+      "Verben ohne Subjekt",
+      "Verben, die nur im Perfekt stehen"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Buch S. 98."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Welche Form steht mit Akkusativ-Objekt?",
+     "options": [
+      "Dativ (mir, dir …)",
+      "Akkusativ (mich, dich …)",
+      "Nominativ"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Buch S. 98/100: Mit Akkusativ-Objekt → reflexives Pronomen im Dativ."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Du solltest ___ mehr Zeit nehmen.",
+     "options": [
+      "dir",
+      "dich",
+      "sich"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Ihr trefft ___ heute um 18 Uhr.",
+     "options": [
+      "euch",
+      "uns",
+      "sich"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Er konzentriert sich ___ die Prüfung.",
+     "options": [
+      "auf",
+      "an",
+      "für"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Christiane Paul ___ 1974 in Ost-Berlin zur Welt.",
+     "options": [
+      "kam",
+      "kommt",
+      "ist gekommen"
+     ],
+     "correct_answer": 1,
+     "points": 1,
+     "passage": 1,
+     "explanation": "Lesen Aufgabe 3: Präteritum."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„sich weiterbilden“ bedeutet …",
+     "options": [
+      "neue Kenntnisse erwerben, um beruflich besser zu werden",
+      "an einer Hochschule lernen",
+      "etwas regelmäßig machen"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Wortschatz S. 110."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„das Zertifikat“ ist …",
+     "options": [
+      "ein offizieller Nachweis über den erfolgreichen Abschluss eines Kurses",
+      "eine Unterrichtseinheit",
+      "etwas, das man erreichen möchte"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Wortschatz S. 110."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "„sich beeilen“ — o'zbekchasi?",
+     "options": [
+      "shoshilmoq",
+      "uyalmoq",
+      "eslamoq"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Buch S. 99."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Warum hatte die Autorin von „Meine Erlebnisse“ am Ende kein neues Handy gekauft?",
+     "options": [
+      "Sie hat das Handy ihrer Oma bekommen",
+      "Die Garantie hat alles bezahlt",
+      "Das Handy ging wieder"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Lesen Teil 1: „… ich habe das Handy meiner Oma bekommen …“"
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-b1-l06-kompetenz-02",
+   "level": "B1",
+   "module": 1,
+   "lesson": 6,
+   "skill": "kompetenz",
+   "title": "Zusammenfassung: B1 6. Unterricht",
+   "source": "vizu",
+   "competency": "ZUSAMMENFASSUNG",
+   "html": "<h3>B1 6. Unterricht — qisqacha</h3><ul><li>Reflexive Verben: Das Subjekt führt die Handlung an sich selbst aus — Ich wasche mich. Sie interessiert sich für Deutsch.</li><li>Reflexivpronomen: ich mich/mir · du dich/dir · er/sie/es sich · wir uns · ihr euch · sie/Sie sich.</li><li>Ohne Akkusativ-Objekt → Akkusativ (Ich wasche mich.) · mit Akkusativ-Objekt → Dativ (Ich wasche mir die Hände.).</li><li>Mit Präposition: sich freuen auf / über, sich interessieren für, sich erinnern an, sich vorbereiten auf.</li><li>Satzstrukturen: Präsens Subjekt + Verb + Pronomen · Perfekt Subjekt + haben + Pronomen + Partizip II · Modalverb + Pronomen + Infinitiv.</li><li><strong>Lernen und Weiterbildung:</strong> der Kurs, das Zertifikat, die Online-Schulung, sich weiterbilden, die Fortbildung, die Fähigkeit.</li></ul><p>Natijalaringiz pastda — tugallanmagan bo'limlarni yakunlang, so'ng keyingi darsga o'ting.</p>"
+  }
+ ]
+}
