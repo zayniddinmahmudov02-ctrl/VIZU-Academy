@@ -6,6 +6,7 @@ import Link from "next/link";
 import { AlertTriangle, Eye, EyeOff, FileText, Film, ListMusic, Music, Play, RefreshCw, Search, Trash2, Upload, X } from "lucide-react";
 
 import AudioSlotsPanel from "./audio-slots-panel";
+import A2ListeningSlots from "./a2-listening-slots";
 
 import { AdminButton, AdminCheckbox, AdminInput, AdminPageHeader, AdminSelect } from "@/components/admin/admin-ui";
 import ConfirmDialog from "@/components/admin/confirm-dialog";
@@ -270,6 +271,14 @@ export default function MediaManagementClient() {
           </div>
         )}
       </section>
+
+      {level === "A2" && lessonNode && (
+        <A2ListeningSlots
+          lessonNumber={lessonNode.number}
+          lessonTasks={lessonTasks}
+          onTaskSelected={setAudioTask}
+        />
+      )}
 
       {message && (
         <p role="status" data-testid="mm-message"

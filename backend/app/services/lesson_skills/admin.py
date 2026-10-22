@@ -383,7 +383,7 @@ def _reject_a2_extra_track_edit(db: Session, listening_id: UUID) -> None:
     if listening.a2_material_key:
         raise HTTPException(
             status_code=409,
-            detail="Each A2 audio material has its own task; manage its main audio in A2 Audio.",
+            detail="Each A2 audio material has its own task; manage its main audio in Media Management.",
         )
 
 
