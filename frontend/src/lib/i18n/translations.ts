@@ -1344,6 +1344,7 @@ export const translations: Record<string, Namespace> = {
     inactive: { de: "Bald verfügbar", uz: "Tez orada" },
     notAvailable: { de: "Derzeit nicht verfügbar", uz: "Hozircha mavjud emas" },
     featureContents: { de: "Enthält: {levels}", uz: "Tarkibi: {levels}" },
+    featureDuration: { de: "Zugang für {months} Kalendermonate", uz: "{months} kalendar oyi foydalanish muddati" },
     featureFree: { de: "Nur die 1. Lektion ist kostenlos", uz: "Faqat 1-dars bepul" },
     featureRest: {
       de: "Alle weiteren Lektionen nach der Zahlung",
@@ -1354,6 +1355,14 @@ export const translations: Record<string, Namespace> = {
       de: "Noch kein Kurs freigeschaltet. Die 1. Lektion jedes Kurses ist kostenlos.",
       uz: "Hali kurs sotib olinmagan. Har bir kursning 1-darsi bepul.",
     },
+    accessTitle: { de: "Käufe und Zugangsfristen", uz: "Xaridlar va foydalanish muddatlari" },
+    accessStart: { de: "Beginn", uz: "Boshlanishi" },
+    accessEnd: { de: "Ende", uz: "Tugashi" },
+    accessRemaining: { de: "Verbleibend", uz: "Qolgan vaqt" },
+    accessExpired: { de: "Abgelaufen", uz: "Muddati tugagan" },
+    accessDays: { de: "{days} Tage", uz: "{days} kun" },
+    accessHours: { de: "{hours} Std.", uz: "{hours} soat" },
+    accessMinutes: { de: "{minutes} Min.", uz: "{minutes} daqiqa" },
   },
 
   vizuPay: {

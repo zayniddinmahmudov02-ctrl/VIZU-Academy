@@ -107,6 +107,21 @@ class SubscriptionOrder(BaseModel):
         nullable=True,
     )
 
+    purchase_date: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True),
+        nullable=True,
+    )
+
+    access_start_date: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True),
+        nullable=True,
+    )
+
+    access_end_date: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True),
+        nullable=True,
+    )
+
     rejection_reason: Mapped[str | None] = mapped_column(
         Text,
         nullable=True,

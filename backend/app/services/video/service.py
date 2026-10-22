@@ -19,6 +19,7 @@ from app.core.storage.protected_local import (
 )
 
 from app.models.user import User
+from app.models.course import Course
 from app.models.video import Video
 from app.models.video_upload_session import VideoUploadSession
 
@@ -26,6 +27,7 @@ from app.repositories.enrollment import EnrollmentRepository
 from app.repositories.lesson import LessonRepository
 from app.repositories.video import VideoRepository
 from app.services.vizu_pay.access import has_premium_bypass, is_user_premium
+from app.services.vizu_pay import offers as offer_config
 from app.services.lms.access import REASON_PREMIUM, lesson_access
 
 VIDEO_MEDIA_TYPES = {".mp4": "video/mp4", ".m4v": "video/mp4", ".webm": "video/webm", ".mov": "video/quicktime"}
@@ -392,7 +394,7 @@ class VideoService:
 
         playable = self.get_playable_video(video.id, user)
 
-        return playable, self._stream_url(playable.id)
+        return playable, self._stream_url(playable.id, str(user.id))
 
     def generate_streaming_url(
         self,
@@ -410,10 +412,10 @@ class VideoService:
 
         video = self.get_playable_video(video_id, user)
 
-        return video, self._stream_url(video.id)
+        return video, self._stream_url(video.id, str(user.id))
 
-    def _stream_url(self, video_id: "UUID | str") -> str:
-        token = create_video_stream_token(str(video_id))
+    def _stream_url(self, video_id: "UUID | str", user_id: str | None = None) -> str:
+        token = create_video_stream_token(str(video_id), user_id)
         return f"/api/v1/videos/{video_id}/stream?token={token}"
 
     def get_playable_video(
@@ -464,9 +466,11 @@ class VideoService:
 
         course_id = self.repository.get_course_id(video.id)
 
-        if course_id and self.enrollments.has_active_enrollment(
-            str(user.id),
-            str(course_id),
+        course = self.db.query(Course).filter(Course.id == course_id).first() if course_id else None
+        if (
+            course_id
+            and (course is None or course.level not in offer_config.ALL_LEVELS)
+            and self.enrollments.has_active_enrollment(str(user.id), str(course_id))
         ):
             return
 

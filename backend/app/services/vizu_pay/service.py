@@ -21,6 +21,7 @@ from app.services import achievements
 from . import offers as offer_config
 from . import plans as plan_config
 from .access import owned_levels
+from .purchases import course_access_is_active
 
 DISCOUNT_TYPES_AT_CHECKOUT = {"PERCENT", "FIXED"}
 DISCOUNT_TYPE_FREE_DAYS = "FREE_DAYS"
@@ -161,6 +162,7 @@ class VizuPayService:
             "is_premium": is_premium,
             "premium_until": user.premium_until,
             "owned_levels": sorted(owned_levels(user)),
+            "course_accesses": self._course_accesses(user, now),
             "has_pending_order": has_pending_order,
             "rejection_count": rejection_count,
             "is_blocked": rejection_count >= plan_config.MAX_REJECTIONS,
@@ -168,6 +170,37 @@ class VizuPayService:
                 latest_rejected.rejection_reason if latest_rejected and not has_pending_order else None
             ),
         }
+
+    def _course_accesses(self, user: User, now: datetime) -> list[dict]:
+        orders = (
+            self.db.query(SubscriptionOrder)
+            .filter(
+                SubscriptionOrder.user_id == user.id,
+                SubscriptionOrder.status == plan_config.STATUS_APPROVED,
+                SubscriptionOrder.plan.in_(list(offer_config.OFFER_CODES)),
+            )
+            .order_by(SubscriptionOrder.access_start_date.desc().nullslast())
+            .all()
+        )
+        accesses = []
+        for order in orders:
+            active = course_access_is_active(order, now.replace(tzinfo=timezone.utc))
+            end = order.access_end_date
+            remaining = max(0, int((end - now.replace(tzinfo=timezone.utc)).total_seconds())) if active and end else 0
+            accesses.append(
+                {
+                    "order_id": order.id,
+                    "plan": order.plan,
+                    "plan_label": plan_config.plan_label(order.plan),
+                    "levels": offer_config.offer_levels(order.plan),
+                    "purchase_date": order.purchase_date,
+                    "access_start_date": order.access_start_date,
+                    "access_end_date": end,
+                    "status": "ACTIVE" if active else "EXPIRED",
+                    "remaining_seconds": remaining,
+                }
+            )
+        return accesses
 
     # ------------------------------------------------------------------
     # Promo validation
@@ -420,7 +453,7 @@ class VizuPayService:
             id=order_id,
             user_id=user.id,
             plan=plan,
-            duration_days=0,  # course access is permanent, not time-based
+            duration_days=0,  # retained for compatibility with legacy Premium orders
             base_amount=base_amount,
             discount_amount=discount_amount + reward_discount,
             reward_discount_amount=reward_discount,
@@ -477,6 +510,9 @@ class VizuPayService:
             "rejection_reason": order.rejection_reason,
             "expires_at": order.expires_at,
             "reviewed_at": order.reviewed_at,
+            "purchase_date": order.purchase_date,
+            "access_start_date": order.access_start_date,
+            "access_end_date": order.access_end_date,
             "created_at": order.created_at,
         }
 

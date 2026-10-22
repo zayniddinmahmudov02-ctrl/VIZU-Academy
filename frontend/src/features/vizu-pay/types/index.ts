@@ -23,6 +23,7 @@ export interface Offer {
   availableLevels: string[];
   /** levels approved for sale (Admin -> Angebote); the others show "Tez orada" */
   salesLevels: string[];
+  durationMonths: number;
   freeLessons: number;
   currency: string;
 }
@@ -36,6 +37,19 @@ export interface SubscriptionStatus {
   rejectionCount: number;
   isBlocked: boolean;
   latestRejectionReason: string | null;
+  courseAccesses: CourseAccess[];
+}
+
+export interface CourseAccess {
+  orderId: string;
+  plan: string;
+  planLabel: string;
+  levels: string[];
+  purchaseDate: string | null;
+  accessStartDate: string | null;
+  accessEndDate: string | null;
+  status: "ACTIVE" | "EXPIRED";
+  remainingSeconds: number;
 }
 
 export interface PaymentCard {
@@ -65,6 +79,9 @@ export interface OrderItem {
   rejectionReason: string | null;
   expiresAt: string | null;
   reviewedAt: string | null;
+  purchaseDate: string | null;
+  accessStartDate: string | null;
+  accessEndDate: string | null;
   createdAt: string;
 }
 

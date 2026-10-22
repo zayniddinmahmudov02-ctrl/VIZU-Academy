@@ -81,20 +81,18 @@ def decode_access_token(token: str) -> dict:
     )
 
 
-def create_video_stream_token(video_id: str) -> str:
+def create_video_stream_token(video_id: str, user_id: str | None = None) -> str:
     """A short-lived, single-video-scoped credential embedded in the
     playback URL itself. Native <video> elements can't send an
-    Authorization header, so the usual Bearer-token check can't gate
-    GET /videos/{id}/stream — this token is issued once, at the moment
-    VideoService.get_playable_video() already confirmed the requesting
-    user has real access (free preview, Premium, or enrollment), and the
-    stream endpoint trusts it exactly like an S3/CloudFront presigned URL:
-    the signature is the authorization, valid until it expires."""
+    Authorization header, so the stream endpoint uses this signed token
+    to identify the requester and rechecks their current course access."""
 
     payload = {
         "sub": str(video_id),
         "purpose": VIDEO_STREAM_PURPOSE,
     }
+    if user_id is not None:
+        payload["user_id"] = str(user_id)
 
     return create_access_token(
         payload,
@@ -115,17 +113,28 @@ def decode_video_stream_token(token: str) -> str:
     return payload["sub"]
 
 
+def decode_video_stream_claims(token: str) -> tuple[str, str]:
+    """Decode a user-scoped stream grant so access can be rechecked per request."""
+    payload = decode_access_token(token)
+    if payload.get("purpose") != VIDEO_STREAM_PURPOSE:
+        raise ValueError("Not a video-stream token")
+    video_id, user_id = payload.get("sub"), payload.get("user_id")
+    if not isinstance(video_id, str) or not isinstance(user_id, str):
+        raise ValueError("Stream token is not scoped to a user")
+    return video_id, user_id
+
+
 LMS_RESOURCE_PURPOSE = "lms_resource"
 
 
-def create_resource_token(resource_id: str) -> str:
+def create_resource_token(resource_id: str, user_id: str) -> str:
     """Same idea as create_video_stream_token for VIZU LMS resource files
     (<audio>, PDF viewer, <img> can't send a Bearer header): issued only by
     GET /lms/lessons/{id} after the lesson access check, scoped to one
-    resource, short-lived."""
+    resource. Owner and current access are rechecked when bytes are requested."""
 
     return create_access_token(
-        {"sub": str(resource_id), "purpose": LMS_RESOURCE_PURPOSE},
+        {"sub": str(resource_id), "purpose": LMS_RESOURCE_PURPOSE, "user_id": str(user_id)},
         expires_minutes=settings.VIDEO_STREAM_TOKEN_EXPIRE_MINUTES,
     )
 
@@ -137,6 +146,16 @@ def decode_resource_token(token: str) -> str:
         raise ValueError("Not an LMS resource token")
 
     return payload["sub"]
+
+
+def decode_resource_token_claims(token: str) -> tuple[str, str]:
+    payload = decode_access_token(token)
+    if payload.get("purpose") != LMS_RESOURCE_PURPOSE:
+        raise ValueError("Not an LMS resource token")
+    resource_id, user_id = payload.get("sub"), payload.get("user_id")
+    if not isinstance(resource_id, str) or not isinstance(user_id, str):
+        raise ValueError("Resource token is not scoped to a user")
+    return resource_id, user_id
 
 
 ADMIN_VIDEO_PREVIEW_PURPOSE = "admin_video_preview"

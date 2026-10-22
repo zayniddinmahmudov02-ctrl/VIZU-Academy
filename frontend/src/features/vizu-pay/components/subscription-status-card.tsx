@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { isAxiosError } from "axios";
 import { AlertTriangle, CheckCircle2, Crown, Loader2, Lock, Ticket } from "lucide-react";
 
 import { useTranslation } from "@/lib/i18n/use-translation";
@@ -8,7 +9,14 @@ import type { PromoRedeemResult, SubscriptionStatus } from "../types";
 
 function formatDate(value: string | null): string {
   if (!value) return "—";
-  return new Intl.DateTimeFormat("de-DE", { day: "2-digit", month: "long", year: "numeric" }).format(new Date(value));
+  return `${new Intl.DateTimeFormat("de-DE", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "UTC",
+  }).format(new Date(value))} UTC`;
 }
 
 interface Props {
@@ -30,8 +38,9 @@ function PromoRedeemBlock({ onRedeemPromo }: { onRedeemPromo: (code: string) => 
       await onRedeemPromo(code.trim());
       setResult({ ok: true, message: t("vizuPay.promoRedeemSuccess") });
       setCode("");
-    } catch (err: any) {
-      setResult({ ok: false, message: err?.response?.data?.message ?? t("vizuPay.promoRedeemError") });
+    } catch (err: unknown) {
+      const message = isAxiosError<{ message?: string }>(err) ? err.response?.data?.message : undefined;
+      setResult({ ok: false, message: message ?? t("vizuPay.promoRedeemError") });
     } finally {
       setPending(false);
     }
@@ -72,71 +81,110 @@ function PromoRedeemBlock({ onRedeemPromo }: { onRedeemPromo: (code: string) => 
 
 export default function SubscriptionStatusCard({ status, onRedeemPromo }: Props) {
   const { t } = useTranslation();
+  const [now, setNow] = useState(() => Date.now());
 
-  if (status.isPremium) {
-    return (
-      <div className="rounded-card bg-gradient-to-br from-accent-blue to-purple-600 p-6 text-white shadow-[var(--shadow-md)]">
-        <div className="flex items-center gap-2">
-          <Crown size={20} />
-          <span className="text-sm font-bold uppercase tracking-wide">{t("vizuPay.statusPremium")}</span>
-        </div>
-        <p className="mt-2 text-sm text-white/85">
-          {t("vizuPay.statusValidUntil", { date: formatDate(status.premiumUntil) })}
-        </p>
-      </div>
-    );
-  }
-
-  // Blocked (3 rejected payment requests) only stops receipt-based
-  // submission — a legitimate promo code is a different trust path and
-  // stays available, so the redeem block is still shown below.
-  if (status.isBlocked) {
-    return (
-      <div className="rounded-card bg-danger/10 p-6 ring-1 ring-danger/20">
-        <div className="flex items-center gap-2 text-danger">
-          <Lock size={20} />
-          <span className="text-sm font-bold uppercase tracking-wide">{t("vizuPay.statusBlockedTitle")}</span>
-        </div>
-        <p className="mt-2 text-sm text-text-secondary">{t("vizuPay.statusBlockedBody")}</p>
-        <PromoRedeemBlock onRedeemPromo={onRedeemPromo} />
-      </div>
-    );
-  }
+  useEffect(() => {
+    const timer = window.setInterval(() => setNow(Date.now()), 60_000);
+    return () => window.clearInterval(timer);
+  }, []);
 
   return (
-    <div className="rounded-card bg-surface-card p-6 shadow-[var(--shadow-md)] ring-1 ring-surface-border">
-      {status.ownedLevels.length > 0 ? (
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="flex items-center gap-1.5 text-sm font-bold text-success">
-            <CheckCircle2 size={16} />
-            {t("angebote.ownedTitle")}
-          </span>
-          {status.ownedLevels.map((level) => (
-            <span key={level} className="rounded-lg bg-accent-blue/10 px-2.5 py-1 text-xs font-bold text-accent-blue">
-              {level}
-            </span>
-          ))}
-        </div>
-      ) : (
-        <p className="text-sm text-text-secondary">{t("angebote.noneOwned")}</p>
-      )}
-
-      {!status.hasPendingOrder && status.latestRejectionReason && (
-        <div className="mt-3 rounded-xl bg-danger/10 p-3.5">
-          <p className="flex items-center gap-1.5 text-sm font-semibold text-danger">
-            <AlertTriangle size={14} />
-            {t("vizuPay.statusRejectedTitle")}
-          </p>
-          <p className="mt-1 text-xs text-text-secondary">
-            {t("vizuPay.rejectionReasonLabel")}: {status.latestRejectionReason}
-          </p>
-          <p className="mt-1 text-xs text-text-muted">
-            {t("vizuPay.rejectionAttemptsLabel")}: {status.rejectionCount}/3
+    <div className="space-y-4">
+      {status.isPremium && (
+        <div className="rounded-card bg-gradient-to-br from-accent-blue to-purple-600 p-6 text-white shadow-[var(--shadow-md)]">
+          <div className="flex items-center gap-2">
+            <Crown size={20} />
+            <span className="text-sm font-bold uppercase tracking-wide">{t("vizuPay.statusPremium")}</span>
+          </div>
+          <p className="mt-2 text-sm text-white/85">
+            {t("vizuPay.statusValidUntil", { date: formatDate(status.premiumUntil) })}
           </p>
         </div>
       )}
 
-      <PromoRedeemBlock onRedeemPromo={onRedeemPromo} />
+      <div className="rounded-card bg-surface-card p-6 shadow-[var(--shadow-md)] ring-1 ring-surface-border">
+        {status.isBlocked && (
+          <div className="mb-4 rounded-xl bg-danger/10 p-3.5">
+            <p className="flex items-center gap-1.5 text-sm font-bold text-danger">
+              <Lock size={16} />
+              {t("vizuPay.statusBlockedTitle")}
+            </p>
+            <p className="mt-2 text-sm text-text-secondary">{t("vizuPay.statusBlockedBody")}</p>
+          </div>
+        )}
+
+        {!status.isPremium && (
+          status.ownedLevels.length > 0 ? (
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="flex items-center gap-1.5 text-sm font-bold text-success">
+                <CheckCircle2 size={16} />
+                {t("angebote.ownedTitle")}
+              </span>
+              {status.ownedLevels.map((level) => (
+                <span key={level} className="rounded-lg bg-accent-blue/10 px-2.5 py-1 text-xs font-bold text-accent-blue">
+                  {level}
+                </span>
+              ))}
+            </div>
+          ) : (
+            <p className="text-sm text-text-secondary">{t("angebote.noneOwned")}</p>
+          )
+        )}
+
+        {status.courseAccesses.length > 0 && (
+          <section className="mt-4 border-t border-surface-border pt-4">
+            <h3 className="mb-3 text-sm font-bold text-text-primary">{t("angebote.accessTitle")}</h3>
+            <ul className="space-y-3">
+              {status.courseAccesses.map((access) => {
+                const end = access.accessEndDate ? new Date(access.accessEndDate).getTime() : 0;
+                const seconds = access.status === "ACTIVE"
+                  ? Math.max(0, Math.floor((end - now) / 1000))
+                  : 0;
+                const days = Math.floor(seconds / 86_400);
+                const remaining = access.status === "EXPIRED" || seconds === 0
+                  ? t("angebote.accessExpired")
+                  : days > 0
+                    ? t("angebote.accessDays", { days })
+                    : seconds >= 3_600
+                      ? t("angebote.accessHours", { hours: Math.ceil(seconds / 3_600) })
+                      : t("angebote.accessMinutes", { minutes: Math.ceil(seconds / 60) });
+                return (
+                  <li key={access.orderId} className="rounded-xl bg-surface-hover p-3.5">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <p className="font-semibold text-text-primary">{access.planLabel}</p>
+                      <span className={`text-xs font-bold ${access.status === "ACTIVE" ? "text-success" : "text-danger"}`}>
+                        {remaining}
+                      </span>
+                    </div>
+                    <p className="mt-1 text-xs text-text-secondary">{access.levels.join(" · ")}</p>
+                    <div className="mt-2 grid gap-1 text-xs text-text-muted sm:grid-cols-2">
+                      <span>{t("angebote.accessStart")}: {formatDate(access.accessStartDate)}</span>
+                      <span>{t("angebote.accessEnd")}: {formatDate(access.accessEndDate)}</span>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        )}
+
+        {!status.hasPendingOrder && status.latestRejectionReason && (
+          <div className="mt-3 rounded-xl bg-danger/10 p-3.5">
+            <p className="flex items-center gap-1.5 text-sm font-semibold text-danger">
+              <AlertTriangle size={14} />
+              {t("vizuPay.statusRejectedTitle")}
+            </p>
+            <p className="mt-1 text-xs text-text-secondary">
+              {t("vizuPay.rejectionReasonLabel")}: {status.latestRejectionReason}
+            </p>
+            <p className="mt-1 text-xs text-text-muted">
+              {t("vizuPay.rejectionAttemptsLabel")}: {status.rejectionCount}/3
+            </p>
+          </div>
+        )}
+
+        <PromoRedeemBlock onRedeemPromo={onRedeemPromo} />
+      </div>
     </div>
   );
 }

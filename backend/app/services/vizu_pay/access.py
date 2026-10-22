@@ -105,8 +105,7 @@ def is_free_lesson(lesson) -> bool:
 
 
 def owned_levels(user: User | None) -> set[str]:
-    """CEFR levels unlocked by the user's APPROVED Angebote orders. A
-    refunded/rejected/pending order unlocks nothing."""
+    """CEFR levels unlocked by currently active, approved course orders."""
     if user is None:
         return set()
     cache = _session_cache(user, "owned_levels")
@@ -115,11 +114,14 @@ def owned_levels(user: User | None) -> set[str]:
         session = object_session(user)
         if session is None:
             return set()
+        now = datetime.now(timezone.utc)
         plans = session.scalars(
             select(SubscriptionOrder.plan).where(
                 SubscriptionOrder.user_id == user.id,
                 SubscriptionOrder.status == STATUS_APPROVED,
                 SubscriptionOrder.plan.in_(list(OFFER_CODES)),
+                SubscriptionOrder.access_start_date <= now,
+                SubscriptionOrder.access_end_date > now,
             )
         ).all()
         levels: set[str] = set()

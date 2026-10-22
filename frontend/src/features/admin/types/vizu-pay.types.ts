@@ -15,6 +15,9 @@ export interface AdminOrderItem {
   rejection_reason: string | null;
   expires_at: string | null;
   reviewed_at: string | null;
+  purchase_date: string | null;
+  access_start_date: string | null;
+  access_end_date: string | null;
   created_at: string;
   user_id: string;
   user_email: string;

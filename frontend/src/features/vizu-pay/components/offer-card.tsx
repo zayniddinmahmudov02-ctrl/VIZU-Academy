@@ -138,6 +138,7 @@ export default function OfferCard({ offer, state, highlighted = false, compact =
         <ul className="mt-5 flex-1 space-y-2 text-sm text-text-secondary">
           {[
             t("angebote.featureContents", { levels: offer.levels.join(" + ") }),
+            t("angebote.featureDuration", { months: offer.durationMonths }),
             t("angebote.featureFree"),
             t("angebote.featureRest"),
           ].map((feature) => (

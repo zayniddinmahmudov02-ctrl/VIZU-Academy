@@ -70,6 +70,14 @@ export async function refundOrder(id: string, reason?: string): Promise<AdminOrd
   return response.data;
 }
 
+export async function extendOrderAccess(id: string, months: number, reason: string): Promise<AdminOrderItem> {
+  const response = await api.post<AdminOrderItem>(`${ADMIN_ENDPOINTS.adminVizuPay}/orders/${id}/extend`, {
+    months,
+    reason,
+  });
+  return response.data;
+}
+
 export async function listPromoCodes(): Promise<PromoCodeItem[]> {
   const response = await api.get<PromoCodeItem[]>(`${ADMIN_ENDPOINTS.adminVizuPay}/promo-codes`);
   return ensureArray<PromoCodeItem>(response.data);

@@ -155,3 +155,12 @@ Bitta additive migration (`down_revision = d7a3c9e1f5b2`) va to'liq `downgrade`.
 - **Mavjud darslar:** 10 tadan kompetenz qatori yaratiladi, `is_published = true`, shunda hozirgi kontent ko'rinib turaveradi.
 - **Mavjud videolar:** `competency = NULL`, ya'ni Einführung'ga tegishli deb hisoblanadi.
 - **`UNIQUE(lesson_id, number)`:** mavjud ma'lumotda takrorlanuvchi raqamlar bo'lsa, migration index yaratmaydi va ogohlantirish chiqaradi; service darajasidagi tekshiruv baribir ishlaydi. Shuning uchun prodda avval dry-run qilinadi.
+
+## 10. Kurs xaridi va foydalanish muddati
+
+- Angebote xaridlari `subscription_orders` jadvalidagi alohida order sifatida qoladi. Har bir tasdiqlangan kurs yoki paket orderi `purchase_date`, `access_start_date` va `access_end_date` orqali mustaqil muddatga ega; `plan` kurs yoki paket identifikatoridir, summa va `user_id` esa mavjud order ustunlarida saqlanadi.
+- Muddatlar `app/services/vizu_pay/offers.py` dagi `OFFER_ACCESS_MONTHS` konfiguratsiyasidan olinadi. Paketning kurslari `offer_levels(plan)`/Admin Angebote konfiguratsiyasidan aniqlanadi, orderlar bir-birining muddatini o'zgartirmaydi.
+- Tasdiq va LMS materiallariga ruxsat yagona `APPROVED` statusiga bog'langan. Vaqtlar UTC, ruxsat oralig'i `[access_start_date, access_end_date)` va oy oxiriga tushganda kalendar oyining mavjud oxirgi kuni ishlatiladi.
+- `GET /vizu-pay/status` xarid nomi, darajalari, boshlanish/tugash va qolgan soniyalarni qaytaradi. `POST /admin/vizu-pay/orders/{id}/extend` faqat tasdiqlangan kurs/paket orderini 1–120 kalendar oyga uzaytiradi; majburiy sabab va oldingi/yangi tugash vaqti `audit_logs` ga yoziladi.
+- LMS dars, video stream/subtitle va imzolangan resurs-fayl so'rovlari ishlatilayotgan vaqtda order muddatini serverda qayta tekshiradi. Tugagan yoki qaytarilgan order kirishni ochmaydi; bepul preview va alohida Premium qoidalari avvalgidek qoladi.
+- `ac72e1f9b503` migratsiyasi oldingi tasdiqlangan kurs xaridlariga `reviewed_at` (bo'lmasa `created_at`)dan muddat hisoblaydi. Pending, rad etilgan va qaytarilgan orderlarga kirish muddati berilmaydi.

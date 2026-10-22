@@ -14,7 +14,7 @@ from sqlalchemy.orm import Session
 
 from app.api.dependencies.auth import get_current_user
 from app.api.dependencies.progress import require_lesson_access
-from app.core.security.jwt import create_resource_token, create_video_stream_token, decode_resource_token
+from app.core.security.jwt import create_resource_token, create_video_stream_token, decode_resource_token_claims
 from app.db.session import get_db
 from app.models.lesson import Lesson
 from app.models.lms import COMPETENCY_ORDER, LearningResource
@@ -22,7 +22,7 @@ from app.models.user import User
 from app.models.video import Video
 from app.models.video_progress import VideoProgress
 from app.services.lms import grammar_text_only, progress, resources, structure
-from app.services.lms.access import lesson_access
+from app.services.lms.access import ensure_lesson_open, lesson_access
 from app.services.video.service import log_missing_file, stored_file_path
 
 router = APIRouter(prefix="/lms", tags=["LMS"])
@@ -71,7 +71,7 @@ def _videos(db: Session, user: User, lesson_id: UUID) -> list[dict]:
         if stored_file_path(v.storage_key) is None:
             log_missing_file(v)
             continue
-        token = create_video_stream_token(str(v.id))
+        token = create_video_stream_token(str(v.id), str(user.id))
         p = prog.get(v.id)
         out.append(
             {
@@ -127,16 +127,16 @@ def get_lesson(lesson_id: UUID, db: Session = Depends(get_db), user: User = Depe
         **view,
         "videos": _videos(db, user, lesson.id) if access.unlocked else [],
         "resources": [
-            _student_resource(r) for r in resources.lesson_resources(db, lesson.id, published_only=True)
+            _student_resource(r, user) for r in resources.lesson_resources(db, lesson.id, published_only=True)
             if not (text_only and grammar_text_only.is_grammar_image(r))
         ] if access.unlocked else [],
     }
 
 
-def _student_resource(resource: LearningResource) -> dict:
+def _student_resource(resource: LearningResource, user: User) -> dict:
     out = resources.serialize(resource)
     if out["file_url"]:
-        out["file_url"] = f"{out['file_url']}?token={create_resource_token(str(resource.id))}"
+        out["file_url"] = f"{out['file_url']}?token={create_resource_token(str(resource.id), str(user.id))}"
     return out
 
 
@@ -162,7 +162,7 @@ def resource_file(resource_id: UUID, token: str = Query(..., min_length=10), db:
     (issued only after the lesson access check) is the authorization.
     Range requests are answered (audio seeking)."""
     try:
-        token_resource_id = decode_resource_token(token)
+        token_resource_id, token_user_id = decode_resource_token_claims(token)
     except (JWTError, ValueError):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid or expired resource token") from None
     if token_resource_id != str(resource_id):
@@ -173,6 +173,13 @@ def resource_file(resource_id: UUID, token: str = Query(..., min_length=10), db:
     lesson = db.get(Lesson, resource.lesson_id)
     if lesson is None or not lesson.is_published:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Resource not found")
+    try:
+        token_user = db.get(User, UUID(token_user_id))
+    except ValueError:
+        token_user = None
+    if token_user is None:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Resource token user no longer exists")
+    ensure_lesson_open(db, token_user, lesson)
     path = resources.file_path(resource)
     if path is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="RESOURCE_FILE_MISSING")

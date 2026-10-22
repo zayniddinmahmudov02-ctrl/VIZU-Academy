@@ -25,6 +25,18 @@ OFFER_A1_C1 = "A1_C1"
 
 FREE_LESSONS_PER_COURSE = 1
 
+# Access terms are attached to an individual approved order, not to a level:
+# overlapping course and package purchases therefore expire independently.
+OFFER_ACCESS_MONTHS = {
+    OFFER_A1: 1,
+    OFFER_A2: 1,
+    OFFER_B1: 2,
+    OFFER_B2: 3,
+    OFFER_C1: 2,
+    OFFER_A1_B1: 4,
+    OFFER_A1_C1: 9,
+}
+
 OFFERS: dict[str, dict] = {
     OFFER_A1: {
         "kind": KIND_LEVEL,
@@ -212,6 +224,13 @@ def offer_label(code: str) -> str | None:
     return cfg["label"] if cfg else None
 
 
+def access_duration_months(code: str) -> int:
+    try:
+        return OFFER_ACCESS_MONTHS[code]
+    except KeyError:
+        raise ValueError(f"Offer {code!r} has no configured access duration") from None
+
+
 def list_offers() -> list[dict]:
     eff = effective()
     return [
@@ -228,6 +247,7 @@ def list_offers() -> list[dict]:
             "sale_price": cfg["sale_price"],
             "discount_percent": cfg["discount_percent"],
             "active": cfg["active"],
+            "duration_months": access_duration_months(code),
             "purchasable": is_purchasable(code),
             "free_lessons": eff["free_lessons"],
             "currency": "UZS",

@@ -169,9 +169,9 @@ class AdminVizuPayService:
         now = _now()
         user = order.user
 
-        # Angebote orders unlock their course levels through the APPROVED
-        # order itself (access.owned_levels) — no time-based Premium.
-        if not offer_config.is_offer(order.plan):
+        if offer_config.is_offer(order.plan):
+            purchases.activate_course_access(order, now.replace(tzinfo=timezone.utc))
+        else:
             base = user.premium_until if (user.premium_until and user.premium_until > now) else now
             user.premium_until = base + timedelta(days=order.duration_days)
 
@@ -195,6 +195,31 @@ class AdminVizuPayService:
             ip_address=ip,
         )
 
+        self.db.refresh(order)
+        return self._serialize_admin_order(order)
+
+    def extend_order_access(self, order_id: str, months: int, reason: str, actor: User, ip: str | None) -> dict:
+        order = self._get_order_for_review(order_id)
+        if order.status != plan_config.STATUS_APPROVED or not offer_config.is_offer(order.plan):
+            raise VizuPayError("Only approved course or package orders can be extended.")
+
+        now = datetime.now(timezone.utc)
+        current_end = order.access_end_date
+        purchases.extend_course_access(order, months, now)
+        self.db.add(
+            AuditLog(
+                actor_id=str(actor.id),
+                action="course_access_extended",
+                target_user_id=str(order.user_id),
+                details=(
+                    f"order={order.id}, plan={order.plan}, months=+{months}, "
+                    f"old_end={current_end.isoformat() if current_end else None}, "
+                    f"new_end={order.access_end_date.isoformat()}, reason={reason.strip()}"
+                ),
+                ip_address=ip,
+            )
+        )
+        self.db.commit()
         self.db.refresh(order)
         return self._serialize_admin_order(order)
 

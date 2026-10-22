@@ -10,7 +10,7 @@ from app.api.dependencies.auth import (
     require_admin_panel_access,
 )
 from app.core.audit import write_audit
-from app.core.security.jwt import decode_video_stream_token
+from app.core.security.jwt import decode_video_stream_claims
 from app.db.session import get_db
 
 from app.models.user import User
@@ -95,7 +95,7 @@ def stream_video(
     handles Range/206 requests natively, so seeking keeps working."""
 
     try:
-        token_video_id = decode_video_stream_token(token)
+        token_video_id, token_user_id = decode_video_stream_claims(token)
     except (JWTError, ValueError):
         raise HTTPException(status_code=401, detail="Invalid or expired stream token")
 
@@ -107,6 +107,14 @@ def stream_video(
 
     if video is None or not video.is_published or not video.storage_key:
         raise HTTPException(status_code=404, detail="Video not found")
+    if not video.is_preview:
+        try:
+            token_user = db.get(User, UUID(token_user_id))
+        except ValueError:
+            token_user = None
+        if token_user is None:
+            raise HTTPException(status_code=401, detail="Stream token user no longer exists")
+        service._require_access(video, token_user)
 
     path = service.resolve_video_path(video)
 
@@ -327,7 +335,7 @@ def stream_subtitles(video_id: UUID, token: str, db: Session = Depends(get_db)):
     """Same signed stream token as GET /{video_id}/stream (a <track> element
     can't send a Bearer header either)."""
     try:
-        token_video_id = decode_video_stream_token(token)
+        token_video_id, token_user_id = decode_video_stream_claims(token)
     except (JWTError, ValueError):
         raise HTTPException(status_code=401, detail="Invalid or expired stream token")
     if token_video_id != str(video_id):
@@ -336,6 +344,14 @@ def stream_subtitles(video_id: UUID, token: str, db: Session = Depends(get_db)):
     video = service.get(video_id)
     if video is None or not video.is_published or not video.subtitle_key:
         raise HTTPException(status_code=404, detail="Subtitles not found")
+    if not video.is_preview:
+        try:
+            token_user = db.get(User, UUID(token_user_id))
+        except ValueError:
+            token_user = None
+        if token_user is None:
+            raise HTTPException(status_code=401, detail="Stream token user no longer exists")
+        service._require_access(video, token_user)
     path = stored_file_path(video.subtitle_key)
     if path is None:
         raise HTTPException(status_code=404, detail="Subtitles file missing on disk")

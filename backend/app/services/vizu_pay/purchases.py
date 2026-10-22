@@ -13,6 +13,7 @@ Users, Users and the Dashboard so the four never disagree.
   through a join that could repeat an order, so an order counts exactly once.
 """
 
+from calendar import monthrange
 from datetime import datetime, timezone
 from uuid import UUID
 
@@ -24,6 +25,54 @@ from app.models.user import User
 
 from . import offers as offer_config
 from . import plans as plan_config
+
+
+def add_calendar_months(value: datetime, months: int) -> datetime:
+    """Add calendar months, clamping month-end dates (Jan 31 -> Feb 28/29)."""
+    if months < 1:
+        raise ValueError("months must be positive")
+    month_index = value.month - 1 + months
+    year = value.year + month_index // 12
+    month = month_index % 12 + 1
+    day = min(value.day, monthrange(year, month)[1])
+    return value.replace(year=year, month=month, day=day)
+
+
+def activate_course_access(order, activated_at: datetime) -> None:
+    """Start this order's independent access window after payment approval."""
+    if activated_at.tzinfo is None:
+        activated_at = activated_at.replace(tzinfo=timezone.utc)
+    activated_at = activated_at.astimezone(timezone.utc)
+    months = offer_config.access_duration_months(order.plan)
+    order.purchase_date = activated_at
+    order.access_start_date = activated_at
+    order.access_end_date = add_calendar_months(activated_at, months)
+
+
+def course_access_is_active(order, now: datetime) -> bool:
+    if now.tzinfo is None:
+        now = now.replace(tzinfo=timezone.utc)
+    return bool(
+        order.status == plan_config.STATUS_APPROVED
+        and order.access_start_date is not None
+        and order.access_end_date is not None
+        and order.access_start_date <= now
+        and now < order.access_end_date
+    )
+
+
+def extend_course_access(order, months: int, now: datetime) -> None:
+    if order.status != plan_config.STATUS_APPROVED:
+        raise ValueError("Only approved orders can be extended")
+    if now.tzinfo is None:
+        now = now.replace(tzinfo=timezone.utc)
+    now = now.astimezone(timezone.utc)
+    if order.access_start_date is None:
+        order.access_start_date = now
+    if order.purchase_date is None:
+        order.purchase_date = order.access_start_date
+    current_end = order.access_end_date
+    order.access_end_date = add_calendar_months(max(current_end, now) if current_end else now, months)
 
 
 def _naive_utc(dt: datetime | None) -> datetime | None:

@@ -1,5 +1,51 @@
 import { api } from "@/services/api";
 
+interface OrderPayload {
+  id: string;
+  plan: string;
+  plan_label: string;
+  duration_days: number;
+  base_amount: number;
+  discount_amount: number;
+  final_amount: number;
+  currency: string;
+  payment_method: string;
+  status: string;
+  has_proof: boolean;
+  proof_download_url: string | null;
+  promo_code: string | null;
+  rejection_reason: string | null;
+  expires_at: string | null;
+  reviewed_at: string | null;
+  purchase_date: string | null;
+  access_start_date: string | null;
+  access_end_date: string | null;
+  created_at: string;
+}
+
+interface CourseAccessPayload {
+  order_id: string;
+  plan: string;
+  plan_label: string;
+  levels: string[];
+  purchase_date: string | null;
+  access_start_date: string | null;
+  access_end_date: string | null;
+  status: "ACTIVE" | "EXPIRED";
+  remaining_seconds: number;
+}
+
+interface SubscriptionStatusPayload {
+  is_premium: boolean;
+  premium_until: string | null;
+  owned_levels: string[];
+  has_pending_order: boolean;
+  rejection_count: number;
+  is_blocked: boolean;
+  latest_rejection_reason: string | null;
+  course_accesses?: CourseAccessPayload[];
+}
+
 import type {
   Offer,
   OrderItem,
@@ -11,7 +57,7 @@ import type {
   SubscriptionStatus,
 } from "../types";
 
-function mapOrder(raw: any): OrderItem {
+function mapOrder(raw: OrderPayload): OrderItem {
   return {
     id: raw.id,
     plan: raw.plan,
@@ -29,6 +75,9 @@ function mapOrder(raw: any): OrderItem {
     rejectionReason: raw.rejection_reason,
     expiresAt: raw.expires_at,
     reviewedAt: raw.reviewed_at,
+    purchaseDate: raw.purchase_date,
+    accessStartDate: raw.access_start_date,
+    accessEndDate: raw.access_end_date,
     createdAt: raw.created_at,
   };
 }
@@ -50,6 +99,7 @@ interface OfferPayload {
   purchasable?: boolean;
   available_levels?: string[];
   sales_levels?: string[];
+  duration_months: number;
   free_lessons: number;
   currency: string;
 }
@@ -69,6 +119,7 @@ export async function getOffers(): Promise<Offer[]> {
     purchasable: !!o.purchasable,
     availableLevels: o.available_levels ?? o.levels ?? [],
     salesLevels: o.sales_levels ?? [],
+    durationMonths: o.duration_months,
     freeLessons: o.free_lessons,
     currency: o.currency,
   }));
@@ -100,7 +151,7 @@ export async function getPaymentCards(): Promise<PaymentCard[]> {
 }
 
 export async function getStatus(): Promise<SubscriptionStatus> {
-  const response = await api.get("/api/v1/vizu-pay/status");
+  const response = await api.get<SubscriptionStatusPayload>("/api/v1/vizu-pay/status");
   const data = response.data;
   return {
     isPremium: data.is_premium,
@@ -110,6 +161,19 @@ export async function getStatus(): Promise<SubscriptionStatus> {
     rejectionCount: data.rejection_count,
     isBlocked: data.is_blocked,
     latestRejectionReason: data.latest_rejection_reason,
+    courseAccesses: Array.isArray(data.course_accesses)
+      ? data.course_accesses.map((item) => ({
+          orderId: item.order_id,
+          plan: item.plan,
+          planLabel: item.plan_label,
+          levels: item.levels,
+          purchaseDate: item.purchase_date,
+          accessStartDate: item.access_start_date,
+          accessEndDate: item.access_end_date,
+          status: item.status,
+          remainingSeconds: item.remaining_seconds,
+        }))
+      : [],
   };
 }
 

@@ -1,6 +1,8 @@
 from datetime import datetime
 from uuid import UUID
 
+from pydantic import Field, field_validator
+
 from app.schemas.base import BaseSchema
 
 
@@ -31,7 +33,20 @@ class OfferItem(BaseSchema):
     # levels approved for sale (Admin -> Angebote); the others show "Tez orada"
     sales_levels: list[str] = []
     free_lessons: int
+    duration_months: int
     currency: str = "UZS"
+
+
+class CourseAccessItem(BaseSchema):
+    order_id: UUID
+    plan: str
+    plan_label: str
+    levels: list[str]
+    purchase_date: datetime | None
+    access_start_date: datetime | None
+    access_end_date: datetime | None
+    status: str
+    remaining_seconds: int
 
 
 class MySubscriptionStatus(BaseSchema):
@@ -42,6 +57,7 @@ class MySubscriptionStatus(BaseSchema):
     rejection_count: int
     is_blocked: bool
     latest_rejection_reason: str | None
+    course_accesses: list[CourseAccessItem] = []
 
 
 class OrderItem(BaseSchema):
@@ -63,6 +79,9 @@ class OrderItem(BaseSchema):
     rejection_reason: str | None
     expires_at: datetime | None
     reviewed_at: datetime | None
+    purchase_date: datetime | None = None
+    access_start_date: datetime | None = None
+    access_end_date: datetime | None = None
     created_at: datetime
 
 
@@ -123,6 +142,19 @@ class BlockedUserItem(BaseSchema):
 
 class RejectOrderRequest(BaseSchema):
     reason: str
+
+
+class ExtendOrderAccessRequest(BaseSchema):
+    months: int = Field(ge=1, le=120)
+    reason: str = Field(min_length=3, max_length=500)
+
+    @field_validator("reason")
+    @classmethod
+    def strip_and_validate_reason(cls, value: str) -> str:
+        value = value.strip()
+        if len(value) < 3:
+            raise ValueError("reason must contain at least 3 non-whitespace characters")
+        return value
 
 
 class RefundOrderRequest(BaseSchema):

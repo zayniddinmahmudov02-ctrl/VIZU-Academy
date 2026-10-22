@@ -9,6 +9,7 @@ from app.schemas.vizu_pay import (
     AdminOrderItem,
     AdminOrderListResponse,
     BlockedUserItem,
+    ExtendOrderAccessRequest,
     PromoCodeCreateRequest,
     PromoCodeItem,
     PromoCodeUpdateRequest,
@@ -167,6 +168,19 @@ def refund_order(
     current_user: User = Depends(require_super_admin),
 ):
     return AdminVizuPayService(db).refund_order(order_id, data.reason, current_user, _client_ip(request))
+
+
+@router.post("/orders/{order_id}/extend", response_model=AdminOrderItem)
+def extend_order_access(
+    order_id: str,
+    data: ExtendOrderAccessRequest,
+    request: Request,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_super_admin),
+):
+    return AdminVizuPayService(db).extend_order_access(
+        order_id, data.months, data.reason, current_user, _client_ip(request)
+    )
 
 
 @router.get("/promo-codes", response_model=list[PromoCodeItem])

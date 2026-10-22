@@ -1,5 +1,6 @@
 "use client";
 
+import { isAxiosError } from "axios";
 import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Calendar, Loader2, Plus, Trash2 } from "lucide-react";
@@ -17,6 +18,7 @@ import {
   approveOrder,
   createPromoCode,
   deletePromoCode,
+  extendOrderAccess,
   listBlockedUsers,
   listOrders,
   listPromoCodes,
@@ -101,6 +103,11 @@ const BUYER_SUB_TABS = [
 
 type BuyerSubTab = (typeof BUYER_SUB_TABS)[number]["value"];
 
+function actionErrorMessage(error: unknown, fallback: string): string {
+  if (!isAxiosError<{ message?: string; detail?: string }>(error)) return fallback;
+  return error.response?.data?.message ?? error.response?.data?.detail ?? fallback;
+}
+
 function BlockedUserCard({ user, onViewHistory }: { user: BlockedUserItem; onViewHistory: () => void }) {
   const name = [user.user_first_name, user.user_last_name].filter(Boolean).join(" ") || user.user_username;
 
@@ -163,7 +170,7 @@ function NewBuyersSection({ dateFilter }: { dateFilter: DateFilter }) {
   const approveMutation = useMutation({
     mutationFn: approveOrder,
     onSuccess: invalidate,
-    onError: (err: any) => setActionError(err?.response?.data?.message ?? "Genehmigung fehlgeschlagen."),
+    onError: (err: unknown) => setActionError(actionErrorMessage(err, "Genehmigung fehlgeschlagen.")),
   });
 
   const rejectMutation = useMutation({
@@ -172,7 +179,14 @@ function NewBuyersSection({ dateFilter }: { dateFilter: DateFilter }) {
       invalidate();
       setRejectingOrder(null);
     },
-    onError: (err: any) => setActionError(err?.response?.data?.message ?? "Ablehnung fehlgeschlagen."),
+    onError: (err: unknown) => setActionError(actionErrorMessage(err, "Ablehnung fehlgeschlagen.")),
+  });
+
+  const extendMutation = useMutation({
+    mutationFn: ({ order, months, reason }: { order: AdminOrderItem; months: number; reason: string }) =>
+      extendOrderAccess(order.id, months, reason),
+    onSuccess: invalidate,
+    onError: (err: unknown) => setActionError(actionErrorMessage(err, "Verlängerung fehlgeschlagen.")),
   });
 
   function buyerNameFor(order: AdminOrderItem) {
@@ -232,7 +246,12 @@ function NewBuyersSection({ dateFilter }: { dateFilter: DateFilter }) {
                   setRejectingOrder(o);
                 }}
                 onViewHistory={(o) => setHistoryTarget({ userId: o.user_id, userName: buyerNameFor(o) })}
+                onExtend={(order, months, reason) => {
+                  setActionError(null);
+                  extendMutation.mutate({ order, months, reason });
+                }}
                 approvePending={approveMutation.isPending}
+                extendPending={extendMutation.isPending}
               />
             ))}
           </div>
