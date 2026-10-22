@@ -175,6 +175,7 @@ class PromoCodeItem(BaseSchema):
     applicable_package_codes: list[str]
     successful_uses: int
     successful_discount_amount: int
+    successful_revenue_amount: int = 0
     remaining_uses: int | None
     status: str
     successful_products: list[dict]
@@ -198,6 +199,7 @@ class PromoCodeCreateRequest(BaseSchema):
     max_uses: int | None = Field(default=None, ge=1)
     max_uses_per_user: int = Field(default=1, ge=1, le=1000)
     expires_at: datetime | None = None
+    is_active: bool = True
 
 
 class PromoCodeUpdateRequest(BaseSchema):

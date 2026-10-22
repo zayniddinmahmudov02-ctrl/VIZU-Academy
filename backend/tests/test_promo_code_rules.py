@@ -200,7 +200,7 @@ class TestPromoAdminValidation(unittest.TestCase):
 
     def test_admin_statistics_include_only_approved_orders(self):
         db = MagicMock()
-        db.query.return_value.filter.return_value.group_by.return_value.all.return_value = [("A1", 2, 12_000)]
+        db.query.return_value.filter.return_value.group_by.return_value.all.return_value = [("A1", 2, 12_000, 48_000)]
         service = AdminVizuPayService(db)
         promo = SimpleNamespace(
             id="promo",
@@ -221,8 +221,42 @@ class TestPromoAdminValidation(unittest.TestCase):
         result = service._serialize_promo(promo)
         self.assertEqual(result["successful_uses"], 2)
         self.assertEqual(result["successful_discount_amount"], 12_000)
+        self.assertEqual(result["successful_revenue_amount"], 48_000)
         self.assertEqual(result["successful_products"][0]["product_code"], "A1")
         self.assertEqual(result["remaining_uses"], 7)
+
+    def test_admin_promo_order_history_keeps_order_price_snapshots(self):
+        promo_id = "a56f2f5d-4091-4d5e-bc4d-beb2eab490ee"
+        promo = SimpleNamespace(id=promo_id)
+        created_at = datetime.now(timezone.utc)
+        order = SimpleNamespace(
+            id="order",
+            promo_code_snapshot="SAVE20",
+            plan="A1",
+            base_amount=100_000,
+            promo_discount_amount=20_000,
+            final_amount=80_000,
+            status="approved",
+            user_id="student",
+            created_at=created_at,
+            reviewed_at=created_at,
+        )
+        user = SimpleNamespace(email="student@example.test", first_name="Test", last_name="Student", username="student")
+        query = MagicMock()
+        query.join.return_value.filter.return_value = query
+        query.count.return_value = 1
+        query.order_by.return_value.offset.return_value.limit.return_value.all.return_value = [(order, user)]
+        db = MagicMock()
+        db.get.return_value = promo
+        db.query.return_value = query
+
+        result = AdminVizuPayService(db).list_promo_orders(promo_id, page=1, page_size=20)
+
+        self.assertEqual(result["total"], 1)
+        self.assertEqual(result["items"][0]["promo_code"], "SAVE20")
+        self.assertEqual(result["items"][0]["base_amount"], 100_000)
+        self.assertEqual(result["items"][0]["discount_amount"], 20_000)
+        self.assertEqual(result["items"][0]["final_amount"], 80_000)
 
 
 class TestPromoOrderReservation(unittest.IsolatedAsyncioTestCase):

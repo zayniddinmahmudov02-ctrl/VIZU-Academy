@@ -64,10 +64,36 @@ export interface PromoCodeItem {
   successful_discount_amount: number;
   remaining_uses: number | null;
   status: string;
-  successful_products: { product_code: string; product_name: string; orders: number; discount_amount: number }[];
+  successful_products: { product_code: string; product_name: string; orders: number; discount_amount: number; revenue_amount: number }[];
+  /** Revenue from APPROVED orders only; refunded and pending orders excluded. */
+  successful_revenue_amount: number;
   expires_at: string | null;
   is_active: boolean;
   created_at: string;
+}
+
+export interface PromoCodeOrder {
+  id: string;
+  promo_code: string;
+  product_code: string;
+  product_name: string;
+  base_amount: number;
+  discount_amount: number;
+  final_amount: number;
+  status: string;
+  user_id: string;
+  user_email: string;
+  user_name: string;
+  created_at: string;
+  reviewed_at: string | null;
+}
+
+export interface PromoCodeOrderList {
+  items: PromoCodeOrder[];
+  total: number;
+  page: number;
+  page_size: number;
+  total_pages: number;
 }
 
 export interface PromoCodeCreateRequest {
@@ -81,6 +107,7 @@ export interface PromoCodeCreateRequest {
   max_uses?: number | null;
   max_uses_per_user: number;
   expires_at?: string | null;
+  is_active?: boolean;
 }
 
 export interface PromoCodeUpdateRequest extends Partial<PromoCodeCreateRequest> {

@@ -85,7 +85,7 @@ function CheckoutModalContent({ plan, paymentCards, onClose, onSubmit, user }: P
   // the price is the server's (sale price, promo, medal reward) — the order recomputes it again
   const promoIsForSelectedPlan = promoResult?.plan === plan?.plan;
   const appliedPromo = promoResult?.valid && promoIsForSelectedPlan ? promoCode.trim() : "";
-  const { data: quote } = useQuery({
+  const { data: quote, isFetching: quoteLoading, isError: quoteError } = useQuery({
     queryKey: ["vizu-pay", "quote", plan?.plan, appliedPromo],
     queryFn: () => getCheckoutQuote(plan!.plan, appliedPromo || undefined),
     enabled: !!plan,
@@ -228,6 +228,7 @@ function CheckoutModalContent({ plan, paymentCards, onClose, onSubmit, user }: P
               <label className="mb-1.5 block text-xs font-semibold text-text-secondary">{t("vizuPay.checkoutPromoCode")}</label>
               <div className="flex gap-2">
                 <input
+                  aria-label={t("vizuPay.checkoutPromoCode")}
                   value={promoCode}
                   onChange={(e) => {
                     setPromoCode(e.target.value.toUpperCase());
@@ -236,15 +237,27 @@ function CheckoutModalContent({ plan, paymentCards, onClose, onSubmit, user }: P
                   placeholder={t("vizuPay.checkoutPromoPlaceholder")}
                   className="w-full rounded-xl border border-surface-border bg-surface-hover p-3 text-sm text-text-primary outline-none focus:border-accent-blue/60"
                 />
+                {promoResult?.valid && promoIsForSelectedPlan && (
+                  <button
+                    type="button"
+                    onClick={() => { setPromoCode(""); setPromoResult(null); }}
+                    className="shrink-0 rounded-xl border border-surface-border px-3 text-xs font-semibold text-text-secondary transition-colors hover:bg-surface-hover"
+                    aria-label={language === "uz" ? "Promokodni olib tashlash" : "Gutscheincode entfernen"}
+                  >
+                    <X size={14} />
+                  </button>
+                )}
                 <button
                   type="button"
                   onClick={handleCheckPromo}
-                  disabled={!promoCode.trim() || checkingPromo}
+                  disabled={!promoCode.trim() || checkingPromo || quoteLoading}
                   className="shrink-0 rounded-xl border border-surface-border px-3 text-xs font-semibold text-text-secondary transition-colors hover:bg-surface-hover disabled:opacity-40"
                 >
-                  {checkingPromo ? <Loader2 size={14} className="animate-spin" /> : t("vizuPay.checkoutApply")}
+                  {checkingPromo || quoteLoading ? <Loader2 size={14} className="animate-spin" /> : t("vizuPay.checkoutApply")}
                 </button>
               </div>
+              {quoteLoading && <p className="mt-1.5 text-xs text-text-muted" role="status">{language === "uz" ? "Narx tekshirilmoqda…" : "Preis wird geprüft…"}</p>}
+              {quoteError && <p className="mt-1.5 text-xs text-danger" role="alert">{language === "uz" ? "Server narxini olish amalga oshmadi. Qayta urinib ko‘ring." : "Serverpreis konnte nicht geladen werden. Bitte erneut versuchen."}</p>}
               {promoResult && promoIsForSelectedPlan && (
                 <p className={`mt-1.5 text-xs ${promoResult.valid ? "text-success" : "text-danger"}`}>
                   {promoResult.valid && !quote?.promo_error
@@ -317,7 +330,7 @@ function CheckoutModalContent({ plan, paymentCards, onClose, onSubmit, user }: P
             <button
               type="button"
               onClick={handleSubmit}
-              disabled={submitting}
+              disabled={submitting || quoteLoading || quoteError || !quote}
               className="flex w-full items-center justify-center gap-2 rounded-xl bg-accent-blue py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-50"
             >
               {submitting ? <Loader2 size={16} className="animate-spin" /> : null}

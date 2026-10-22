@@ -319,6 +319,7 @@ class AdminVizuPayService:
                 SubscriptionOrder.plan,
                 func.count(SubscriptionOrder.id),
                 func.coalesce(func.sum(SubscriptionOrder.promo_discount_amount), 0),
+                func.coalesce(func.sum(SubscriptionOrder.final_amount), 0),
             )
             .filter(
                 SubscriptionOrder.promo_code_id == promo.id,
@@ -350,8 +351,9 @@ class AdminVizuPayService:
             "max_uses_per_user": promo.max_uses_per_user,
             "applicable_course_ids": applicable_course_ids,
             "applicable_package_codes": applicable_package_codes,
-            "successful_uses": sum(int(count) for _, count, _ in approved),
-            "successful_discount_amount": sum(int(discount) for _, _, discount in approved),
+            "successful_uses": sum(int(row[1]) for row in approved),
+            "successful_discount_amount": sum(int(row[2]) for row in approved),
+            "successful_revenue_amount": sum(int(row[3]) for row in approved),
             "remaining_uses": max(0, promo.max_uses - promo.used_count) if promo.max_uses is not None else None,
             "status": status,
             "successful_products": [
@@ -360,8 +362,9 @@ class AdminVizuPayService:
                     "product_name": plan_config.plan_label(plan),
                     "orders": int(count),
                     "discount_amount": int(discount),
+                    "revenue_amount": int(revenue),
                 }
-                for plan, count, discount in approved
+                for plan, count, discount, revenue in approved
             ],
             "expires_at": promo.expires_at,
             "is_active": promo.is_active,
@@ -371,6 +374,51 @@ class AdminVizuPayService:
     def list_promos(self) -> list[dict]:
         rows = self.db.query(PromoCode).order_by(PromoCode.created_at.desc()).all()
         return [self._serialize_promo(p) for p in rows]
+
+    def list_promo_orders(self, promo_id: str, page: int = 1, page_size: int = 20) -> dict:
+        try:
+            promo_uuid = UUID(promo_id)
+        except (ValueError, TypeError, AttributeError):
+            raise NotFoundError("Promo code not found") from None
+        if self.db.get(PromoCode, promo_uuid) is None:
+            raise NotFoundError("Promo code not found")
+
+        query = (
+            self.db.query(SubscriptionOrder, User)
+            .join(User, SubscriptionOrder.user_id == User.id)
+            .filter(SubscriptionOrder.promo_code_id == promo_uuid)
+        )
+        total = query.count()
+        page, page_size = clamp_page_params(page, page_size)
+        rows = (
+            query.order_by(SubscriptionOrder.created_at.desc())
+            .offset((page - 1) * page_size)
+            .limit(page_size)
+            .all()
+        )
+        return paginated_response(
+            [
+                {
+                    "id": str(order.id),
+                    "promo_code": order.promo_code_snapshot or "",
+                    "product_code": order.plan,
+                    "product_name": plan_config.plan_label(order.plan),
+                    "base_amount": order.base_amount,
+                    "discount_amount": order.promo_discount_amount,
+                    "final_amount": order.final_amount,
+                    "status": order.status,
+                    "user_id": str(order.user_id),
+                    "user_email": user.email,
+                    "user_name": " ".join(filter(None, [user.first_name, user.last_name])) or user.username,
+                    "created_at": order.created_at,
+                    "reviewed_at": order.reviewed_at,
+                }
+                for order, user in rows
+            ],
+            total,
+            page,
+            page_size,
+        )
 
     def promo_products(self) -> dict:
         level_codes = [
@@ -483,6 +531,7 @@ class AdminVizuPayService:
         max_uses_per_user: int,
         expires_at: datetime | None,
         actor: User,
+        is_active: bool = True,
     ) -> dict:
         code = code.strip().upper()
         if not code or len(code) > 40 or not all(char.isalnum() or char in "-_" for char in code):
@@ -511,6 +560,7 @@ class AdminVizuPayService:
             max_uses=max_uses,
             max_uses_per_user=max_uses_per_user,
             expires_at=expires_at,
+            is_active=is_active,
             created_by_id=actor.id,
         )
         self.db.add(promo)

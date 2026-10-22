@@ -191,6 +191,17 @@ def list_promo_codes(
     return AdminVizuPayService(db).list_promos()
 
 
+@router.get("/promo-codes/{promo_id}/orders")
+def list_promo_code_orders(
+    promo_id: str,
+    page: int = Query(default=1, ge=1),
+    page_size: int = Query(default=20, ge=1, le=100),
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_super_admin),
+):
+    return AdminVizuPayService(db).list_promo_orders(promo_id, page, page_size)
+
+
 @router.get("/promo-products")
 def list_promo_products(
     db: Session = Depends(get_db),
@@ -216,6 +227,7 @@ def create_promo_code(
         max_uses=data.max_uses,
         max_uses_per_user=data.max_uses_per_user,
         expires_at=data.expires_at,
+        is_active=data.is_active,
         actor=current_user,
     )
 
