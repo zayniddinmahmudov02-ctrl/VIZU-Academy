@@ -13,6 +13,7 @@ from app.core.security.roles import UserRole
 from app.core.storage.protected_local import ProtectedPaymentProofStorage
 from app.models.promo_code import PromoCode
 from app.models.promo_code_redemption import PromoCodeRedemption
+from app.models.course import Course
 from app.models.subscription_order import SubscriptionOrder
 from app.models.user import User
 
@@ -23,7 +24,7 @@ from . import plans as plan_config
 from .access import owned_levels
 from .purchases import course_access_is_active
 
-DISCOUNT_TYPES_AT_CHECKOUT = {"PERCENT", "FIXED"}
+DISCOUNT_TYPES_AT_CHECKOUT = {"PERCENT", "FIXED", "SPECIAL_PRICE"}
 DISCOUNT_TYPE_FREE_DAYS = "FREE_DAYS"
 ALL_DISCOUNT_TYPES = DISCOUNT_TYPES_AT_CHECKOUT | {DISCOUNT_TYPE_FREE_DAYS}
 
@@ -123,6 +124,7 @@ class VizuPayService:
         for order in expired:
             order.status = plan_config.STATUS_EXPIRED
             achievements.on_order_status(self.db, order)  # a reserved medal reward becomes usable again
+            self.release_promo_reservation(order)
         if expired:
             self.db.commit()
 
@@ -213,34 +215,62 @@ class VizuPayService:
             .first()
         )
 
-    def _check_promo(self, promo: PromoCode | None, user: User) -> str | None:
+    def _check_promo(self, promo: PromoCode | None, user: User, plan: str | None = None) -> str | None:
         """Returns an error message if the promo can't be applied, else None.
         Shared by checkout-discount validation and direct FREE_DAYS
-        redemption — every rule here (active, expiry, usage limit,
-        one-per-user) applies identically to both."""
+        redemption."""
         if promo is None:
             return "Promo code not found."
         if not promo.is_active:
             return "Promo code is no longer active."
-        if promo.expires_at and promo.expires_at <= _now():
+        now = _now()
+        if promo.starts_at and promo.starts_at > now:
+            return "Promo code is not active yet."
+        if promo.expires_at and promo.expires_at <= now:
             return "Promo code has expired."
         if promo.max_uses is not None and promo.used_count >= promo.max_uses:
             return "Promo code usage limit reached."
-        already_redeemed = (
+        user_uses = (
             self.db.query(PromoCodeRedemption)
             .filter(PromoCodeRedemption.promo_code_id == promo.id, PromoCodeRedemption.user_id == user.id)
-            .first()
+            .count()
         )
-        if already_redeemed:
-            return "You have already used this promo code."
+        if user_uses >= promo.max_uses_per_user:
+            return "You have reached this promo code's per-user usage limit."
+        if plan and (promo.applicable_course_ids or promo.applicable_package_codes):
+            if not self._promo_applies_to_plan(promo, plan):
+                return "This promo code does not apply to the selected course or package."
+        if plan and promo.discount_type == "SPECIAL_PRICE":
+            sale_price = offer_config.offer(plan)["sale_price"]
+            if sale_price is None or promo.discount_value > sale_price:
+                return "The promo's special price exceeds the current offer price."
         return None
 
-    def validate_promo(self, code: str, user: User) -> dict:
+    def _promo_applies_to_plan(self, promo: PromoCode, plan: str) -> bool:
+        if not offer_config.is_offer(plan):
+            return False
+        offer = offer_config.offer(plan)
+        if offer["kind"] == offer_config.KIND_PACKAGE:
+            return plan in (promo.applicable_package_codes or [])
+        level = offer_config.offer_levels(plan)[0]
+        level_course_ids = {
+            str(course_id)
+            for (course_id,) in self.db.query(Course.id)
+            .filter(
+                Course.level == level,
+                Course.is_active.is_(True),
+            )
+            .all()
+        }
+        selected_course_ids = set(promo.applicable_course_ids or [])
+        return bool(level_course_ids) and level_course_ids.issubset(selected_course_ids)
+
+    def validate_promo(self, code: str, user: User, plan: str | None = None) -> dict:
         """Checkout-time preview only — for FREE_DAYS codes (which grant
         Premium directly and never apply to a paid order) this always
         reports invalid with a message pointing at the redeem flow."""
         promo = self._find_promo(code)
-        error = self._check_promo(promo, user)
+        error = self._check_promo(promo, user, plan)
         if error:
             return {"valid": False, "discount_type": None, "discount_value": None, "message": error}
         if promo.discount_type == DISCOUNT_TYPE_FREE_DAYS:
@@ -250,23 +280,56 @@ class VizuPayService:
                 "discount_value": promo.discount_value,
                 "message": "This code grants Premium directly — use 'Enter promo code', not checkout.",
             }
-        return {"valid": True, "discount_type": promo.discount_type, "discount_value": promo.discount_value, "message": None}
+        discount_amount = None
+        final_amount = None
+        if plan and offer_config.is_offer(plan) and offer_config.is_purchasable(plan):
+            base_amount = offer_config.offer(plan)["sale_price"]
+            discount_amount = self._apply_discount(base_amount, promo)
+            final_amount = max(base_amount - discount_amount, 0)
+        return {
+            "valid": True,
+            "discount_type": promo.discount_type,
+            "discount_value": promo.discount_value,
+            "message": None,
+            "discount_amount": discount_amount,
+            "final_amount": final_amount,
+        }
 
     def _apply_discount(self, base_amount: int, promo: PromoCode) -> int:
         if promo.discount_type == "PERCENT":
             return min(base_amount * promo.discount_value // 100, base_amount)
+        if promo.discount_type == "SPECIAL_PRICE":
+            if promo.discount_value > base_amount:
+                raise VizuPayError("The promo's special price exceeds the current offer price.")
+            return base_amount - promo.discount_value
         return min(promo.discount_value, base_amount)
+
+    def release_promo_reservation(self, order: SubscriptionOrder) -> None:
+        if not order.promo_code_id:
+            return
+        redemption = (
+            self.db.query(PromoCodeRedemption)
+            .filter(PromoCodeRedemption.order_id == order.id)
+            .first()
+        )
+        if redemption is None:
+            return
+        promo = (
+            self.db.query(PromoCode)
+            .filter(PromoCode.id == order.promo_code_id)
+            .with_for_update()
+            .first()
+        )
+        self.db.delete(redemption)
+        if promo and promo.used_count > 0:
+            promo.used_count -= 1
 
     # ------------------------------------------------------------------
     # Promo — direct redemption (grants Premium, no payment)
     # ------------------------------------------------------------------
 
     def redeem_promo(self, code: str, user: User, ip: str | None) -> dict:
-        """FREE_DAYS codes only. Row-locks the PromoCode for the duration
-        of the check-then-increment so two simultaneous redemptions of a
-        near-exhausted code can't both succeed (the DB-level unique
-        constraint on (promo_code_id, user_id) is the backstop for the
-        one-user-one-use rule, in case app logic is ever bypassed)."""
+        """FREE_DAYS codes only. The promo row serializes limit checks."""
         promo = (
             self.db.query(PromoCode)
             .filter(PromoCode.code == code.strip().upper())
@@ -299,6 +362,7 @@ class VizuPayService:
             payment_method=plan_config.PAYMENT_METHOD_PROMO,
             status=plan_config.STATUS_APPROVED,
             promo_code_id=promo.id,
+            promo_code_snapshot=promo.code,
             gateway="promo",
             reviewed_at=now,
         )
@@ -361,7 +425,7 @@ class VizuPayService:
         promo_discount, promo_error = 0, None
         if promo_code:
             promo = self._find_promo(promo_code)
-            promo_error = self._check_promo(promo, user)
+            promo_error = self._check_promo(promo, user, plan)
             if promo_error is None and promo.discount_type == DISCOUNT_TYPE_FREE_DAYS:
                 promo_error = "This code grants Premium directly — use 'Enter promo code', not checkout."
             if promo_error is None:
@@ -431,8 +495,13 @@ class VizuPayService:
         promo: PromoCode | None = None
 
         if promo_code:
-            promo = self._find_promo(promo_code)
-            error = self._check_promo(promo, user)
+            promo = (
+                self.db.query(PromoCode)
+                .filter(PromoCode.code == promo_code.strip().upper())
+                .with_for_update()
+                .first()
+            )
+            error = self._check_promo(promo, user, plan)
             if error:
                 raise VizuPayError(error)
             if promo.discount_type == DISCOUNT_TYPE_FREE_DAYS:
@@ -456,6 +525,7 @@ class VizuPayService:
             duration_days=0,  # retained for compatibility with legacy Premium orders
             base_amount=base_amount,
             discount_amount=discount_amount + reward_discount,
+            promo_discount_amount=discount_amount,
             reward_discount_amount=reward_discount,
             final_amount=final_amount,
             currency="UZS",
@@ -464,6 +534,7 @@ class VizuPayService:
             proof_url=proof_path,
             proof_type=proof_type,
             promo_code_id=promo.id if promo else None,
+            promo_code_snapshot=promo.code if promo else None,
             gateway="manual",
             expires_at=_now() + timedelta(days=plan_config.ORDER_REVIEW_WINDOW_DAYS),
         )
@@ -506,7 +577,7 @@ class VizuPayService:
             "status": order.status,
             "has_proof": order.proof_url is not None,
             "proof_download_url": f"/api/v1/vizu-pay/orders/{order.id}/proof" if order.proof_url else None,
-            "promo_code": order.promo_code.code if order.promo_code else None,
+            "promo_code": order.promo_code_snapshot or (order.promo_code.code if order.promo_code else None),
             "rejection_reason": order.rejection_reason,
             "expires_at": order.expires_at,
             "reviewed_at": order.reviewed_at,

@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { isAxiosError } from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { Dialog } from "@base-ui/react/dialog";
 import { Check, Copy, Loader2, UploadCloud, X } from "lucide-react";
@@ -52,36 +53,38 @@ function CardRow({ card }: { card: PaymentCard }) {
   );
 }
 
-export default function CheckoutModal({ plan, paymentCards, onClose, onSubmit }: Props) {
-  const { t, language } = useTranslation();
+type CheckoutUser = ReturnType<typeof useCurrentUser>["user"];
+
+export default function CheckoutModal(props: Props) {
   const { user } = useCurrentUser();
+  const profileKey = [user?.id, user?.firstName, user?.lastName, user?.phoneNumber].join(":");
+  return <CheckoutModalContent key={`${props.plan?.plan ?? "closed"}:${profileKey}`} {...props} user={user} />;
+}
+
+function CheckoutModalContent({ plan, paymentCards, onClose, onSubmit, user }: Props & { user: CheckoutUser }) {
+  const { t, language } = useTranslation();
 
   const [paymentMethod, setPaymentMethod] = useState<string>(PAYMENT_METHODS[0]);
   const [promoCode, setPromoCode] = useState("");
-  const [promoResult, setPromoResult] = useState<{ valid: boolean; message: string | null; discountType: string | null; discountValue: number | null } | null>(null);
+  const [promoResult, setPromoResult] = useState<{
+    valid: boolean;
+    message: string | null;
+    discountType: string | null;
+    discountValue: number | null;
+    plan: string;
+  } | null>(null);
   const [checkingPromo, setCheckingPromo] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-
-  // Prefill from the existing profile whenever a plan is selected (modal
-  // opens) — the admin's "New Buyers" list reads these same profile
-  // fields live off the user, so keeping them current here is what makes
-  // that list accurate.
-  useEffect(() => {
-    if (plan && user) {
-      setFirstName(user.firstName ?? "");
-      setLastName(user.lastName ?? "");
-      setPhoneNumber(user.phoneNumber ?? "");
-    }
-  }, [plan, user]);
+  const [firstName, setFirstName] = useState(user?.firstName ?? "");
+  const [lastName, setLastName] = useState(user?.lastName ?? "");
+  const [phoneNumber, setPhoneNumber] = useState(user?.phoneNumber ?? "");
 
   // the price is the server's (sale price, promo, medal reward) — the order recomputes it again
-  const appliedPromo = promoResult?.valid ? promoCode.trim() : "";
+  const promoIsForSelectedPlan = promoResult?.plan === plan?.plan;
+  const appliedPromo = promoResult?.valid && promoIsForSelectedPlan ? promoCode.trim() : "";
   const { data: quote } = useQuery({
     queryKey: ["vizu-pay", "quote", plan?.plan, appliedPromo],
     queryFn: () => getCheckoutQuote(plan!.plan, appliedPromo || undefined),
@@ -101,8 +104,16 @@ export default function CheckoutModal({ plan, paymentCards, onClose, onSubmit }:
     if (!promoCode.trim()) return;
     setCheckingPromo(true);
     try {
-      const result = await validatePromo(promoCode.trim());
-      setPromoResult(result);
+      const result = await validatePromo(promoCode.trim(), plan!.plan);
+      setPromoResult({ ...result, plan: plan!.plan });
+    } catch {
+      setPromoResult({
+        valid: false,
+        message: t("vizuPay.checkoutSubmitError"),
+        discountType: null,
+        discountValue: null,
+        plan: plan!.plan,
+      });
     } finally {
       setCheckingPromo(false);
     }
@@ -124,10 +135,16 @@ export default function CheckoutModal({ plan, paymentCards, onClose, onSubmit }:
       if (changed) {
         await updateProfile({ firstName, lastName, phoneNumber });
       }
-      await onSubmit(paymentMethod, promoResult?.valid ? promoCode.trim() : undefined, file);
+      await onSubmit(
+        paymentMethod,
+        promoResult?.valid && promoIsForSelectedPlan ? promoCode.trim() : undefined,
+        file,
+      );
       onClose();
-    } catch (err: any) {
-      const code = err?.response?.data?.message;
+    } catch (err: unknown) {
+      const code = isAxiosError<{ message?: string; detail?: string }>(err)
+        ? err.response?.data?.message ?? err.response?.data?.detail
+        : undefined;
       if (code === "PAYMENT_REQUEST_BLOCKED") {
         setError(t("vizuPay.checkoutBlockedError"));
       } else if (code === "PAYMENT_REQUEST_ALREADY_PENDING") {
@@ -228,9 +245,11 @@ export default function CheckoutModal({ plan, paymentCards, onClose, onSubmit }:
                   {checkingPromo ? <Loader2 size={14} className="animate-spin" /> : t("vizuPay.checkoutApply")}
                 </button>
               </div>
-              {promoResult && (
+              {promoResult && promoIsForSelectedPlan && (
                 <p className={`mt-1.5 text-xs ${promoResult.valid ? "text-success" : "text-danger"}`}>
-                  {promoResult.valid ? t("vizuPay.checkoutPromoApplied") : promoResult.message}
+                  {promoResult.valid && !quote?.promo_error
+                    ? t("vizuPay.checkoutPromoApplied")
+                    : quote?.promo_error ?? promoResult.message}
                 </p>
               )}
             </div>
@@ -261,6 +280,14 @@ export default function CheckoutModal({ plan, paymentCards, onClose, onSubmit }:
             </div>
 
             <div className="rounded-xl bg-surface-hover p-4">
+              {quote?.original_price != null && quote.original_price > subtotal && (
+                <div className="mb-1 flex items-center justify-between text-sm">
+                  <span className="text-text-secondary">{t("vizuPay.checkoutOriginalPrice")}</span>
+                  <span className="text-text-muted line-through">
+                    {new Intl.NumberFormat("de-DE").format(quote.original_price)} UZS
+                  </span>
+                </div>
+              )}
               <div className="flex items-center justify-between text-sm">
                 <span className="text-text-secondary">{t("vizuPay.checkoutSubtotal")}</span>
                 <span className={discount + rewardDiscount > 0 ? "text-text-muted line-through" : "text-text-primary"}>

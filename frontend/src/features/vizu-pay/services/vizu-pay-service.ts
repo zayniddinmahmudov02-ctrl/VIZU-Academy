@@ -177,14 +177,16 @@ export async function getStatus(): Promise<SubscriptionStatus> {
   };
 }
 
-export async function validatePromo(code: string): Promise<PromoValidation> {
-  const response = await api.get("/api/v1/vizu-pay/promo/validate", { params: { code } });
+export async function validatePromo(code: string, plan: string): Promise<PromoValidation> {
+  const response = await api.get("/api/v1/vizu-pay/promo/validate", { params: { code, plan } });
   const data = response.data;
   return {
     valid: data.valid,
     discountType: data.discount_type,
     discountValue: data.discount_value,
     message: data.message,
+    discountAmount: data.discount_amount,
+    finalAmount: data.final_amount,
   };
 }
 

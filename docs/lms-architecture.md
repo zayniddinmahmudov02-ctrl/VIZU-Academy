@@ -164,3 +164,12 @@ Bitta additive migration (`down_revision = d7a3c9e1f5b2`) va to'liq `downgrade`.
 - `GET /vizu-pay/status` xarid nomi, darajalari, boshlanish/tugash va qolgan soniyalarni qaytaradi. `POST /admin/vizu-pay/orders/{id}/extend` faqat tasdiqlangan kurs/paket orderini 1–120 kalendar oyga uzaytiradi; majburiy sabab va oldingi/yangi tugash vaqti `audit_logs` ga yoziladi.
 - LMS dars, video stream/subtitle va imzolangan resurs-fayl so'rovlari ishlatilayotgan vaqtda order muddatini serverda qayta tekshiradi. Tugagan yoki qaytarilgan order kirishni ochmaydi; bepul preview va alohida Premium qoidalari avvalgidek qoladi.
 - `ac72e1f9b503` migratsiyasi oldingi tasdiqlangan kurs xaridlariga `reviewed_at` (bo'lmasa `created_at`)dan muddat hisoblaydi. Pending, rad etilgan va qaytarilgan orderlarga kirish muddati berilmaydi.
+
+## 11. Promo kodlar va to'lov narxi
+
+- `promo_codes` chegirma turini, amal qilish oynasini, umumiy va foydalanuvchi limitlarini, tanlangan `courses.id` hamda paket kodlarini saqlaydi. Kurs identifikatorlari va paket identifikatorlari alohida maydonlarda turadi.
+- VIZU Pay `LEVEL` orderi darajadagi barcha faol kurslarga ruxsat bergani sabab, daraja uchun kurs promosi faqat shu darajadagi barcha faol `courses.id` lar tanlangan bo'lsa mos keladi; bitta kurs tanlovi boshqa shu darajadagi kurslarni bilvosita qamrab olmaydi.
+- Checkout uchun `PERCENT`, oldingi tizim bilan mos `FIXED` chegirmasi va yakuniy qiymatni belgilovchi `SPECIAL_PRICE` ishlatiladi. Narx `GET /vizu-pay/quote` va order yaratilganda backenddagi joriy Angebote narxlaridan qayta hisoblanadi; brauzer yuborgan summa ishonchli emas.
+- `promo_code_redemptions` order bo'yicha limit zaxirasi hisoblanadi. Promo qatori `FOR UPDATE` bilan qulflanib, umumiy va foydalanuvchi limitlari atomar tekshiriladi. Tasdiqlangan order foydalanishni saqlab qoladi; rad etilgan, muddati o'tgan yoki qaytarilgan order zaxirani bo'shatadi.
+- Buyurtmada promocode snapshot kodi, promo chegirma summasi, umumiy chegirma va yakuniy summa saqlanadi. Promo tahriri tarixiy buyurtma qiymatlarini o'zgartirmaydi. Admin statistikasi faqat `APPROVED` buyurtmalardan hisoblanadi; admin o'zgarishlari `audit_logs` ga yoziladi.
+- `b7d91a2f0c64` migratsiyasi ushbu maydonlarni qo'shadi va foydalanuvchi-promo unique cheklovini order unique chekloviga almashtiradi; mavjud promo kodlar va orderlar saqlanadi.

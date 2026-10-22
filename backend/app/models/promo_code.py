@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, String
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models.base import BaseModel
@@ -22,7 +23,7 @@ class PromoCode(BaseModel):
     )
 
     discount_type: Mapped[str] = mapped_column(
-        String(10),
+        String(20),
         nullable=False,
     )
 
@@ -47,6 +48,19 @@ class PromoCode(BaseModel):
         DateTime,
         nullable=True,
     )
+
+    starts_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+
+    max_uses_per_user: Mapped[int] = mapped_column(
+        Integer,
+        default=1,
+        server_default="1",
+        nullable=False,
+    )
+
+    applicable_course_ids: Mapped[list] = mapped_column(JSONB, default=list, server_default="[]", nullable=False)
+
+    applicable_package_codes: Mapped[list] = mapped_column(JSONB, default=list, server_default="[]", nullable=False)
 
     is_active: Mapped[bool] = mapped_column(
         Boolean,

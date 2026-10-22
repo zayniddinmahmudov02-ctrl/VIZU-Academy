@@ -8,11 +8,12 @@ from app.core.audit import write_audit
 from app.core.exceptions import NotFoundError
 from app.core.pagination import clamp_page_params, paginated_response
 from app.models.audit_log import AuditLog
+from app.models.course import Course
 from app.models.promo_code import PromoCode
-from app.models.promo_code_redemption import PromoCodeRedemption
 from app.models.subscription_order import SubscriptionOrder
 from app.models.user import User
 from app.services import achievements
+from sqlalchemy.exc import IntegrityError
 
 from . import offers as offer_config
 from . import plans as plan_config
@@ -31,6 +32,12 @@ PAYMENT_LOG_ACTIONS = [
 
 def _now() -> datetime:
     return datetime.now(timezone.utc).replace(tzinfo=None)
+
+
+def _utc_naive(value: datetime | None) -> datetime | None:
+    if value is not None and value.tzinfo is not None:
+        return value.astimezone(timezone.utc).replace(tzinfo=None)
+    return value
 
 
 class AdminVizuPayService:
@@ -235,16 +242,7 @@ class AdminVizuPayService:
         achievements.on_order_status(self.db, order)  # the medal reward becomes usable again
 
         if order.promo_code_id:
-            redemption = (
-                self.db.query(PromoCodeRedemption)
-                .filter(PromoCodeRedemption.order_id == order.id)
-                .first()
-            )
-            if redemption:
-                self.db.delete(redemption)
-            promo = self.db.get(PromoCode, order.promo_code_id)
-            if promo and promo.used_count > 0:
-                promo.used_count -= 1
+            self.pay.release_promo_reservation(order)
 
         self.db.commit()
 
@@ -277,6 +275,7 @@ class AdminVizuPayService:
         order.reviewed_by_id = actor.id
         order.reviewed_at = _now()
         achievements.on_order_status(self.db, order)  # refunded purchase: the reward can be used again
+        self.pay.release_promo_reservation(order)
 
         self.db.commit()
 
@@ -297,14 +296,73 @@ class AdminVizuPayService:
     # ------------------------------------------------------------------
 
     def _serialize_promo(self, promo: PromoCode) -> dict:
+        applicable_course_ids = promo.applicable_course_ids or []
+        applicable_package_codes = promo.applicable_package_codes or []
+        if promo.discount_type != "FREE_DAYS" and not applicable_course_ids and not applicable_package_codes:
+            applicable_course_ids = [
+                str(course_id)
+                for (course_id,) in self.db.query(Course.id)
+                .filter(
+                    Course.is_active.is_(True),
+                    Course.level.in_(
+                        [code for code, config in offer_config.OFFERS.items() if config["kind"] == offer_config.KIND_LEVEL]
+                    ),
+                )
+                .all()
+            ]
+            applicable_package_codes = [
+                code for code, config in offer_config.OFFERS.items()
+                if config["kind"] == offer_config.KIND_PACKAGE
+            ]
+        approved = (
+            self.db.query(
+                SubscriptionOrder.plan,
+                func.count(SubscriptionOrder.id),
+                func.coalesce(func.sum(SubscriptionOrder.promo_discount_amount), 0),
+            )
+            .filter(
+                SubscriptionOrder.promo_code_id == promo.id,
+                SubscriptionOrder.status == plan_config.STATUS_APPROVED,
+            )
+            .group_by(SubscriptionOrder.plan)
+            .all()
+        )
+        now = _now()
+        if not promo.is_active:
+            status = "INACTIVE"
+        elif promo.starts_at and promo.starts_at > now:
+            status = "SCHEDULED"
+        elif promo.expires_at and promo.expires_at <= now:
+            status = "EXPIRED"
+        elif promo.max_uses is not None and promo.used_count >= promo.max_uses:
+            status = "EXHAUSTED"
+        else:
+            status = "ACTIVE"
         return {
             "id": str(promo.id),
             "code": promo.code,
             "campaign": promo.campaign,
             "discount_type": promo.discount_type,
             "discount_value": promo.discount_value,
+            "starts_at": promo.starts_at,
             "max_uses": promo.max_uses,
             "used_count": promo.used_count,
+            "max_uses_per_user": promo.max_uses_per_user,
+            "applicable_course_ids": applicable_course_ids,
+            "applicable_package_codes": applicable_package_codes,
+            "successful_uses": sum(int(count) for _, count, _ in approved),
+            "successful_discount_amount": sum(int(discount) for _, _, discount in approved),
+            "remaining_uses": max(0, promo.max_uses - promo.used_count) if promo.max_uses is not None else None,
+            "status": status,
+            "successful_products": [
+                {
+                    "product_code": plan,
+                    "product_name": plan_config.plan_label(plan),
+                    "orders": int(count),
+                    "discount_amount": int(discount),
+                }
+                for plan, count, discount in approved
+            ],
             "expires_at": promo.expires_at,
             "is_active": promo.is_active,
             "created_at": promo.created_at,
@@ -314,27 +372,129 @@ class AdminVizuPayService:
         rows = self.db.query(PromoCode).order_by(PromoCode.created_at.desc()).all()
         return [self._serialize_promo(p) for p in rows]
 
+    def promo_products(self) -> dict:
+        level_codes = [
+            code for code, cfg in offer_config.OFFERS.items()
+            if cfg["kind"] == offer_config.KIND_LEVEL
+        ]
+        courses = (
+            self.db.query(Course)
+            .filter(Course.is_active.is_(True), Course.level.in_(level_codes))
+            .order_by(Course.level, Course.title)
+            .all()
+        )
+        packages = [
+            {"code": offer["code"], "label": offer["label"]}
+            for offer in offer_config.list_offers()
+            if offer["kind"] == offer_config.KIND_PACKAGE
+        ]
+        return {
+            "courses": [
+                {"id": str(course.id), "title": course.title, "level": course.level}
+                for course in courses
+            ],
+            "packages": packages,
+        }
+
+    def _validate_promo_fields(
+        self,
+        discount_type: str,
+        discount_value: int,
+        course_ids: list[str],
+        package_codes: list[str],
+        max_uses: int | None,
+        max_uses_per_user: int,
+        starts_at: datetime | None,
+        expires_at: datetime | None,
+        allow_unscoped: bool = False,
+    ) -> tuple[list[str], list[str]]:
+        starts_at = _utc_naive(starts_at)
+        expires_at = _utc_naive(expires_at)
+        if discount_type not in {"PERCENT", "FIXED", "SPECIAL_PRICE", "FREE_DAYS"}:
+            raise VizuPayError("Invalid promo pricing type.")
+        if discount_value < 0 or (discount_type != "SPECIAL_PRICE" and discount_value == 0):
+            raise VizuPayError("Promo value must be positive (special price may be zero).")
+        if discount_type == "PERCENT" and discount_value > 100:
+            raise VizuPayError("Percent discount cannot exceed 100.")
+        if discount_type == "FREE_DAYS" and discount_value > 365:
+            raise VizuPayError("A promo code can't grant more than 365 days at once.")
+        if max_uses is not None and max_uses < 1:
+            raise VizuPayError("Maximum uses must be positive.")
+        if max_uses_per_user < 1:
+            raise VizuPayError("Per-user maximum uses must be positive.")
+        if starts_at and expires_at and starts_at >= expires_at:
+            raise VizuPayError("Promo start date must be before its expiry date.")
+
+        valid_packages = {
+            code for code, cfg in offer_config.OFFERS.items()
+            if cfg["kind"] == offer_config.KIND_PACKAGE
+        }
+        if len(set(package_codes)) != len(package_codes) or any(code not in valid_packages for code in package_codes):
+            raise VizuPayError("One or more package identifiers are invalid.")
+
+        try:
+            normalized_ids = [str(UUID(course_id)) for course_id in course_ids]
+        except (ValueError, TypeError, AttributeError):
+            raise VizuPayError("One or more course identifiers are invalid.") from None
+        if len(set(normalized_ids)) != len(normalized_ids):
+            raise VizuPayError("Course identifiers must be unique.")
+        selected_levels = set()
+        if normalized_ids:
+            allowed_levels = {
+                code for code, config in offer_config.OFFERS.items()
+                if config["kind"] == offer_config.KIND_LEVEL
+            }
+            selected_courses = (
+                self.db.query(Course.id, Course.level)
+                .filter(
+                    Course.id.in_(normalized_ids),
+                    Course.is_active.is_(True),
+                    Course.level.in_(allowed_levels),
+                )
+                .all()
+            )
+            found = {str(course_id) for course_id, _ in selected_courses}
+            if found != set(normalized_ids):
+                raise VizuPayError("Select active courses from the current catalog.")
+            selected_levels = {level for _, level in selected_courses}
+        if discount_type == "FREE_DAYS":
+            if normalized_ids or package_codes:
+                raise VizuPayError("Premium-day codes cannot have course or package targets.")
+        elif not normalized_ids and not package_codes and not allow_unscoped:
+            raise VizuPayError("Select at least one course or package.")
+        if discount_type == "SPECIAL_PRICE":
+            for product_code in selected_levels | set(package_codes):
+                product = offer_config.offer(product_code)
+                reference_price = product["sale_price"] or product["original_price"]
+                if reference_price is not None and discount_value > reference_price:
+                    raise VizuPayError(f"Special price cannot exceed {product_code}'s current configured price.")
+        return normalized_ids, package_codes
+
     def create_promo(
         self,
         code: str,
         campaign: str | None,
         discount_type: str,
         discount_value: int,
+        applicable_course_ids: list[str],
+        applicable_package_codes: list[str],
+        starts_at: datetime | None,
         max_uses: int | None,
+        max_uses_per_user: int,
         expires_at: datetime | None,
         actor: User,
     ) -> dict:
         code = code.strip().upper()
-        if not code:
-            raise VizuPayError("Code cannot be empty.")
-        if discount_type not in {"PERCENT", "FIXED", "FREE_DAYS"}:
-            raise VizuPayError("discount_type must be PERCENT, FIXED, or FREE_DAYS.")
-        if discount_value <= 0:
-            raise VizuPayError("discount_value must be positive.")
-        if discount_type == "PERCENT" and discount_value > 100:
-            raise VizuPayError("Percent discount cannot exceed 100.")
-        if discount_type == "FREE_DAYS" and discount_value > 365:
-            raise VizuPayError("A promo code can't grant more than 365 days at once.")
+        if not code or len(code) > 40 or not all(char.isalnum() or char in "-_" for char in code):
+            raise VizuPayError("Code must contain only letters, numbers, hyphens, or underscores (max 40).")
+        if campaign and len(campaign) > 120:
+            raise VizuPayError("Campaign name is too long.")
+        course_ids, package_codes = self._validate_promo_fields(
+            discount_type, discount_value, applicable_course_ids, applicable_package_codes,
+            max_uses, max_uses_per_user, starts_at, expires_at,
+        )
+        starts_at = _utc_naive(starts_at)
+        expires_at = _utc_naive(expires_at)
 
         existing = self.db.query(PromoCode).filter(PromoCode.code == code).first()
         if existing:
@@ -345,12 +505,20 @@ class AdminVizuPayService:
             campaign=campaign,
             discount_type=discount_type,
             discount_value=discount_value,
+            applicable_course_ids=course_ids,
+            applicable_package_codes=package_codes,
+            starts_at=starts_at,
             max_uses=max_uses,
+            max_uses_per_user=max_uses_per_user,
             expires_at=expires_at,
             created_by_id=actor.id,
         )
         self.db.add(promo)
-        self.db.commit()
+        try:
+            self.db.commit()
+        except IntegrityError:
+            self.db.rollback()
+            raise VizuPayError("A promo code with this code already exists.") from None
         self.db.refresh(promo)
 
         write_audit(self.db, actor_id=actor.id, action="promo_code_created", details=code)
@@ -360,26 +528,85 @@ class AdminVizuPayService:
     def update_promo(
         self,
         promo_id: str,
-        campaign: str | None,
-        is_active: bool | None,
-        expires_at: datetime | None,
+        changes: dict,
         actor: User,
     ) -> dict:
-        promo = self.db.get(PromoCode, UUID(promo_id))
+        try:
+            promo_uuid = UUID(promo_id)
+        except ValueError:
+            raise NotFoundError("Promo code not found") from None
+        promo = self.db.query(PromoCode).filter(PromoCode.id == promo_uuid).with_for_update().first()
         if promo is None:
             raise NotFoundError("Promo code not found")
+        for required_field in (
+            "code",
+            "discount_type",
+            "discount_value",
+            "applicable_course_ids",
+            "applicable_package_codes",
+            "max_uses_per_user",
+        ):
+            if required_field in changes and changes[required_field] is None:
+                raise VizuPayError(f"{required_field} cannot be null.")
 
-        if campaign is not None:
-            promo.campaign = campaign
-        if is_active is not None:
-            promo.is_active = is_active
-        if expires_at is not None:
-            promo.expires_at = expires_at
+        updated_type = changes.get("discount_type", promo.discount_type)
+        updated_value = changes.get("discount_value", promo.discount_value)
+        course_ids = changes.get("applicable_course_ids", promo.applicable_course_ids or [])
+        package_codes = changes.get("applicable_package_codes", promo.applicable_package_codes or [])
+        starts_at = changes.get("starts_at", promo.starts_at)
+        expires_at = changes.get("expires_at", promo.expires_at)
+        max_uses = changes.get("max_uses", promo.max_uses)
+        max_uses_per_user = changes.get("max_uses_per_user", promo.max_uses_per_user)
+        safe_legacy_edit = (
+            not course_ids
+            and not package_codes
+            and "applicable_course_ids" not in changes
+            and "applicable_package_codes" not in changes
+            and set(changes).issubset(
+                {"code", "campaign", "starts_at", "expires_at", "max_uses", "max_uses_per_user", "is_active"}
+            )
+        )
+        course_ids, package_codes = self._validate_promo_fields(
+            updated_type, updated_value, course_ids, package_codes,
+            max_uses, max_uses_per_user, starts_at, expires_at, allow_unscoped=safe_legacy_edit,
+        )
+        starts_at = _utc_naive(starts_at)
+        expires_at = _utc_naive(expires_at)
+        if max_uses is not None and max_uses < promo.used_count:
+            raise VizuPayError("Maximum uses cannot be lower than existing uses or pending reservations.")
 
-        self.db.commit()
+        code = changes.get("code", promo.code)
+        code = code.strip().upper()
+        if not code or len(code) > 40 or not all(char.isalnum() or char in "-_" for char in code):
+            raise VizuPayError("Code must contain only letters, numbers, hyphens, or underscores (max 40).")
+        campaign = changes.get("campaign", promo.campaign)
+        if campaign and len(campaign) > 120:
+            raise VizuPayError("Campaign name is too long.")
+
+        promo.code = code
+        promo.campaign = campaign
+        promo.discount_type = updated_type
+        promo.discount_value = updated_value
+        promo.applicable_course_ids = course_ids
+        promo.applicable_package_codes = package_codes
+        promo.starts_at = starts_at
+        promo.expires_at = expires_at
+        promo.max_uses = max_uses
+        promo.max_uses_per_user = max_uses_per_user
+        if "is_active" in changes:
+            promo.is_active = changes["is_active"]
+
+        try:
+            self.db.commit()
+        except IntegrityError:
+            self.db.rollback()
+            raise VizuPayError("A promo code with this code already exists.") from None
         self.db.refresh(promo)
 
-        write_audit(self.db, actor_id=actor.id, action="promo_code_updated", details=promo.code)
+        write_audit(
+            self.db, actor_id=actor.id, action="promo_code_updated",
+            details=f"{promo.code}; fields={','.join(sorted(changes))}",
+        )
 
         return self._serialize_promo(promo)
 

@@ -6,9 +6,7 @@ from app.models.base import BaseModel
 
 class PromoCodeRedemption(BaseModel):
     __tablename__ = "promo_code_redemptions"
-    __table_args__ = (
-        UniqueConstraint("promo_code_id", "user_id", name="uq_promo_redemption_user"),
-    )
+    __table_args__ = (UniqueConstraint("order_id", name="uq_promo_redemption_order"),)
 
     promo_code_id: Mapped[str] = mapped_column(
         ForeignKey("promo_codes.id", ondelete="CASCADE"),

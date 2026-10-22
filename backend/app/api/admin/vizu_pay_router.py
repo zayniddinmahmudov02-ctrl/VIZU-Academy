@@ -191,6 +191,14 @@ def list_promo_codes(
     return AdminVizuPayService(db).list_promos()
 
 
+@router.get("/promo-products")
+def list_promo_products(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_super_admin),
+):
+    return AdminVizuPayService(db).promo_products()
+
+
 @router.post("/promo-codes", response_model=PromoCodeItem)
 def create_promo_code(
     data: PromoCodeCreateRequest,
@@ -202,7 +210,11 @@ def create_promo_code(
         campaign=data.campaign,
         discount_type=data.discount_type,
         discount_value=data.discount_value,
+        applicable_course_ids=data.applicable_course_ids,
+        applicable_package_codes=data.applicable_package_codes,
+        starts_at=data.starts_at,
         max_uses=data.max_uses,
+        max_uses_per_user=data.max_uses_per_user,
         expires_at=data.expires_at,
         actor=current_user,
     )
@@ -217,9 +229,7 @@ def update_promo_code(
 ):
     return AdminVizuPayService(db).update_promo(
         promo_id,
-        campaign=data.campaign,
-        is_active=data.is_active,
-        expires_at=data.expires_at,
+        changes=data.model_dump(exclude_unset=True),
         actor=current_user,
     )
 

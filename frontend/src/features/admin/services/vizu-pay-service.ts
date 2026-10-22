@@ -9,6 +9,8 @@ import type {
   PlanBreakdown,
   PromoCodeCreateRequest,
   PromoCodeItem,
+  PromoCodeUpdateRequest,
+  PromoProductCatalog,
   RevenueChartPoint,
   RevenueOverview,
   StatusBreakdown,
@@ -83,8 +85,18 @@ export async function listPromoCodes(): Promise<PromoCodeItem[]> {
   return ensureArray<PromoCodeItem>(response.data);
 }
 
+export async function getPromoProducts(): Promise<PromoProductCatalog> {
+  const response = await api.get<PromoProductCatalog>(`${ADMIN_ENDPOINTS.adminVizuPay}/promo-products`);
+  return response.data;
+}
+
 export async function createPromoCode(data: PromoCodeCreateRequest): Promise<PromoCodeItem> {
   const response = await api.post<PromoCodeItem>(`${ADMIN_ENDPOINTS.adminVizuPay}/promo-codes`, data);
+  return response.data;
+}
+
+export async function updatePromoCode(id: string, data: PromoCodeUpdateRequest): Promise<PromoCodeItem> {
+  const response = await api.patch<PromoCodeItem>(`${ADMIN_ENDPOINTS.adminVizuPay}/promo-codes/${id}`, data);
   return response.data;
 }
 

@@ -54,8 +54,17 @@ export interface PromoCodeItem {
   campaign: string | null;
   discount_type: string;
   discount_value: number;
+  starts_at: string | null;
   max_uses: number | null;
   used_count: number;
+  max_uses_per_user: number;
+  applicable_course_ids: string[];
+  applicable_package_codes: string[];
+  successful_uses: number;
+  successful_discount_amount: number;
+  remaining_uses: number | null;
+  status: string;
+  successful_products: { product_code: string; product_name: string; orders: number; discount_amount: number }[];
   expires_at: string | null;
   is_active: boolean;
   created_at: string;
@@ -66,8 +75,21 @@ export interface PromoCodeCreateRequest {
   campaign?: string | null;
   discount_type: string;
   discount_value: number;
+  applicable_course_ids: string[];
+  applicable_package_codes: string[];
+  starts_at?: string | null;
   max_uses?: number | null;
+  max_uses_per_user: number;
   expires_at?: string | null;
+}
+
+export interface PromoCodeUpdateRequest extends Partial<PromoCodeCreateRequest> {
+  is_active?: boolean;
+}
+
+export interface PromoProductCatalog {
+  courses: { id: string; title: string; level: string }[];
+  packages: { code: string; label: string }[];
 }
 
 export interface RevenueChartPoint {

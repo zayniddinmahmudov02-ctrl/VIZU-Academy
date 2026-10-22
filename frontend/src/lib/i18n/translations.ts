@@ -1449,6 +1449,7 @@ export const translations: Record<string, Namespace> = {
       uz: "Fayl hajmi juda katta (maks. 10 MB).",
     },
     checkoutSubtotal: { de: "Zwischensumme", uz: "Oraliq summa" },
+    checkoutOriginalPrice: { de: "Standardpreis", uz: "Standart narx" },
     checkoutDiscount: { de: "Rabatt", uz: "Chegirma" },
     checkoutRewardDiscount: { de: "Medaillen-Belohnung „{name}“", uz: "„{name}“ medali mukofoti" },
     checkoutTotal: { de: "Gesamt", uz: "Jami" },

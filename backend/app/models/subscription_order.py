@@ -85,6 +85,15 @@ class SubscriptionOrder(BaseModel):
         nullable=True,
     )
 
+    promo_code_snapshot: Mapped[str | None] = mapped_column(String(40), nullable=True)
+
+    promo_discount_amount: Mapped[int] = mapped_column(
+        Integer,
+        default=0,
+        server_default="0",
+        nullable=False,
+    )
+
     gateway: Mapped[str] = mapped_column(
         String(20),
         default="manual",

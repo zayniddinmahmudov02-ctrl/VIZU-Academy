@@ -3,7 +3,7 @@
 import { isAxiosError } from "axios";
 import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Calendar, Loader2, Plus, Trash2 } from "lucide-react";
+import { Calendar, Loader2, Pencil, Plus, Trash2 } from "lucide-react";
 
 import { AdminButton, AdminInput, AdminLabel, AdminPageHeader, AdminSelect } from "@/components/admin/admin-ui";
 import AdminTabs from "@/components/admin/admin-tabs";
@@ -19,13 +19,20 @@ import {
   createPromoCode,
   deletePromoCode,
   extendOrderAccess,
+  getPromoProducts,
   listBlockedUsers,
   listOrders,
   listPromoCodes,
   rejectOrder,
   togglePromoCode,
+  updatePromoCode,
 } from "@/features/admin/services/vizu-pay-service";
-import type { AdminOrderItem, BlockedUserItem, PromoCodeItem } from "@/features/admin/types/vizu-pay.types";
+import type {
+  AdminOrderItem,
+  BlockedUserItem,
+  PromoCodeCreateRequest,
+  PromoCodeItem,
+} from "@/features/admin/types/vizu-pay.types";
 
 const STATUS_STYLE: Record<string, string> = {
   pending: "bg-[var(--admin-warning)]/15 text-[var(--admin-warning)]",
@@ -400,33 +407,48 @@ function TelegramTab({ dateFilter }: { dateFilter: DateFilter }) {
 function PromoCodesTab() {
   const queryClient = useQueryClient();
   const { data, isLoading } = useQuery({ queryKey: ["promo-codes"], queryFn: listPromoCodes });
+  const { data: products } = useQuery({ queryKey: ["promo-products"], queryFn: getPromoProducts });
 
   const [dialogOpen, setDialogOpen] = useState(false);
-  const EMPTY_FORM = {
+  type PromoForm = PromoCodeCreateRequest & { campaign: string; starts_at: string; expires_at: string; max_uses: number | null };
+  const EMPTY_FORM: PromoForm = {
     code: "",
     campaign: "",
-    discount_type: "FREE_DAYS",
-    discount_value: 7,
+    discount_type: "PERCENT",
+    discount_value: 20,
+    applicable_course_ids: [],
+    applicable_package_codes: [],
+    starts_at: "",
     max_uses: 100,
+    max_uses_per_user: 1,
     expires_at: "",
   };
   const [form, setForm] = useState(EMPTY_FORM);
+  const [editing, setEditing] = useState<PromoCodeItem | null>(null);
 
   function invalidate() {
     queryClient.invalidateQueries({ queryKey: ["promo-codes"] });
   }
 
-  const createMutation = useMutation({
-    mutationFn: () =>
-      createPromoCode({
-        ...form,
-        max_uses: form.max_uses || null,
-        expires_at: form.expires_at ? new Date(form.expires_at).toISOString() : null,
-      }),
+  function toPayload(): PromoCodeCreateRequest {
+    return {
+      ...form,
+      campaign: form.campaign.trim() || null,
+      starts_at: form.starts_at ? new Date(`${form.starts_at}T00:00:00.000Z`).toISOString() : null,
+      max_uses: form.max_uses || null,
+      expires_at: form.expires_at ? new Date(`${form.expires_at}T23:59:59.999Z`).toISOString() : null,
+    };
+  }
+
+  const saveMutation = useMutation({
+    mutationFn: () => editing
+      ? updatePromoCode(editing.id, toPayload())
+      : createPromoCode(toPayload()),
     onSuccess: () => {
       invalidate();
       setDialogOpen(false);
       setForm(EMPTY_FORM);
+      setEditing(null);
     },
   });
   const toggleMutation = useMutation({
@@ -435,6 +457,35 @@ function PromoCodesTab() {
   });
   const deleteMutation = useMutation({ mutationFn: deletePromoCode, onSuccess: invalidate });
 
+  function beginCreate() {
+    setEditing(null);
+    setForm(EMPTY_FORM);
+    setDialogOpen(true);
+  }
+
+  function beginEdit(item: PromoCodeItem) {
+    setEditing(item);
+    setForm({
+      code: item.code,
+      campaign: item.campaign ?? "",
+      discount_type: item.discount_type,
+      discount_value: item.discount_value,
+      applicable_course_ids: item.applicable_course_ids,
+      applicable_package_codes: item.applicable_package_codes,
+      starts_at: item.starts_at ? new Date(item.starts_at).toISOString().slice(0, 10) : "",
+      max_uses: item.max_uses,
+      max_uses_per_user: item.max_uses_per_user,
+      expires_at: item.expires_at ? new Date(item.expires_at).toISOString().slice(0, 10) : "",
+    });
+    setDialogOpen(true);
+  }
+
+  function toggleProduct(key: "applicable_course_ids" | "applicable_package_codes", value: string) {
+    const current = form[key];
+    setForm({ ...form, [key]: current.includes(value) ? current.filter((entry) => entry !== value) : [...current, value] });
+  }
+
+  const money = (value: number) => `${new Intl.NumberFormat("de-DE").format(value)} UZS`;
   const columns: DataTableColumn<PromoCodeItem>[] = [
     { key: "code", header: "Code", render: (item) => <span className="font-mono">{item.code}</span> },
     { key: "campaign", header: "Kampagne", render: (item) => item.campaign ?? "—" },
@@ -446,13 +497,44 @@ function PromoCodesTab() {
           ? `${item.discount_value}% Rabatt`
           : item.discount_type === "FIXED"
             ? `${item.discount_value} Rabatt`
-            : `+${item.discount_value} Tage Premium`,
+            : item.discount_type === "SPECIAL_PRICE"
+              ? `Sonderpreis ${money(item.discount_value)}`
+              : `+${item.discount_value} Tage Premium`,
     },
-    { key: "used", header: "Genutzt", render: (item) => `${item.used_count}${item.max_uses ? `/${item.max_uses}` : ""}` },
+    {
+      key: "used",
+      header: "Nutzung",
+      render: (item) => (
+        <span title={`Erfolgreich: ${item.successful_uses}; Rabatt: ${money(item.successful_discount_amount)}`}>
+          {item.successful_uses} erfolgreich / {item.used_count} insgesamt
+          {item.max_uses ? ` von ${item.max_uses}` : ""}
+          {item.remaining_uses != null ? ` · ${item.remaining_uses} übrig` : " · unbegrenzt"}
+        </span>
+      ),
+    },
+    {
+      key: "products",
+      header: "Produkte",
+      render: (item) => (
+        <span title={item.successful_products.map((product) => `${product.product_name}: ${product.orders}`).join(", ")}>
+          {item.applicable_course_ids.length} Kurse / {item.applicable_package_codes.length} Pakete
+        </span>
+      ),
+    },
+    {     key: "successful_products",
+    header: "Verkaufte Produkte",
+    render: (item) => item.successful_products.length
+      ? item.successful_products.map((product) => `${product.product_name} (${product.orders})`).join(", ")
+      : "—",
+    },
+    {
+    key: "discount_total", header: "Rabatte", render: (item) => money(item.successful_discount_amount) },
     {
       key: "expires",
-      header: "Läuft ab",
-      render: (item) => (item.expires_at ? new Date(item.expires_at).toLocaleDateString("de-DE") : "—"),
+      header: "Gültigkeit",
+      render: (item) => (
+        <span>{item.status}{item.expires_at ? ` · bis ${new Date(item.expires_at).toLocaleDateString("de-DE")}` : ""}</span>
+      ),
     },
     {
       key: "is_active",
@@ -467,6 +549,19 @@ function PromoCodesTab() {
           }`}
         >
           {item.is_active ? "Aktiv" : "Inaktiv"}
+        </button>
+      ),
+    },
+    {
+      key: "edit",
+      header: "",
+      render: (item) => (
+        <button
+          onClick={() => beginEdit(item)}
+          aria-label={`Edit ${item.code}`}
+          className="flex h-7 w-7 items-center justify-center rounded-md text-[var(--admin-text-secondary)] hover:bg-white/5"
+        >
+          <Pencil size={13} />
         </button>
       ),
     },
@@ -487,7 +582,7 @@ function PromoCodesTab() {
   return (
     <div>
       <div className="mb-4 flex justify-end">
-        <AdminButton onClick={() => setDialogOpen(true)}>
+        <AdminButton onClick={beginCreate}>
           <Plus size={16} />
           Neuer Code
         </AdminButton>
@@ -504,17 +599,17 @@ function PromoCodesTab() {
       <FormDialog
         open={dialogOpen}
         onOpenChange={setDialogOpen}
-        title="Neuer Promo-Code"
+        title={editing ? "Promo-Code bearbeiten" : "Neuer Promo-Code"}
         footer={
           <>
             <AdminButton variant="ghost" onClick={() => setDialogOpen(false)}>
               Abbrechen
             </AdminButton>
             <AdminButton
-              onClick={() => createMutation.mutate()}
-              disabled={createMutation.isPending || !form.code}
+              onClick={() => saveMutation.mutate()}
+              disabled={saveMutation.isPending || !form.code}
             >
-              Erstellen
+              {editing ? "Speichern" : "Erstellen"}
             </AdminButton>
           </>
         }
@@ -522,11 +617,7 @@ function PromoCodesTab() {
         <div className="space-y-4">
           <div>
             <AdminLabel>Code</AdminLabel>
-            <AdminInput
-              value={form.code}
-              onChange={(e) => setForm({ ...form, code: e.target.value.toUpperCase() })}
-              placeholder="SOMMER2026"
-            />
+            <AdminInput value={form.code} onChange={(e) => setForm({ ...form, code: e.target.value.toUpperCase() })} placeholder="SOMMER2026" />
           </div>
           <div>
             <AdminLabel>Kampagne (optional)</AdminLabel>
@@ -544,13 +635,16 @@ function PromoCodesTab() {
               >
                 <option value="FREE_DAYS">Premium freischalten (Tage)</option>
                 <option value="PERCENT">Rabatt — Prozent</option>
-                <option value="FIXED">Rabatt — Fixbetrag</option>
+                <option value="SPECIAL_PRICE">Sonderpreis (UZS)</option>
+                <option value="FIXED">Rabatt — Fixbetrag (UZS)</option>
               </AdminSelect>
             </div>
             <div>
-              <AdminLabel>{form.discount_type === "FREE_DAYS" ? "Dauer (Tage)" : "Wert"}</AdminLabel>
+              <AdminLabel>{form.discount_type === "FREE_DAYS" ? "Dauer (Tage)" : form.discount_type === "PERCENT" ? "Rabatt (%)" : "Preis / Betrag (UZS)"}</AdminLabel>
               <AdminInput
                 type="number"
+                min={form.discount_type === "SPECIAL_PRICE" ? 0 : 1}
+                max={form.discount_type === "PERCENT" ? 100 : undefined}
                 value={form.discount_value}
                 onChange={(e) => setForm({ ...form, discount_value: Number(e.target.value) })}
               />
@@ -576,18 +670,71 @@ function PromoCodesTab() {
             </div>
           )}
 
+          {form.discount_type !== "FREE_DAYS" && (
+            <div className="space-y-3">
+              <div>
+                <AdminLabel>Geltende Kurse (aus dem aktiven Kurskatalog)</AdminLabel>
+                <div className="mt-1 max-h-36 space-y-1 overflow-y-auto rounded-lg border border-[var(--admin-border)] p-2">
+                  {(products?.courses ?? []).map((course) => (
+                    <label key={course.id} className="flex items-center gap-2 text-sm">
+                      <input
+                        type="checkbox"
+                        checked={form.applicable_course_ids.includes(course.id)}
+                        onChange={() => toggleProduct("applicable_course_ids", course.id)}
+                      />
+                      <span>{course.title} ({course.level})</span>
+                    </label>
+                  ))}
+                  {products?.courses.length === 0 && <p className="text-xs text-[var(--admin-text-muted)]">Keine aktiven passenden Kurse gefunden.</p>}
+                </div>
+              </div>
+              <div>
+                <AdminLabel>Geltende Pakete</AdminLabel>
+                <div className="mt-1 flex flex-wrap gap-3">
+                  {(products?.packages ?? []).map((product) => (
+                    <label key={product.code} className="flex items-center gap-2 text-sm">
+                      <input
+                        type="checkbox"
+                        checked={form.applicable_package_codes.includes(product.code)}
+                        onChange={() => toggleProduct("applicable_package_codes", product.code)}
+                      />
+                      <span>{product.label}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <AdminLabel>Maximale Nutzer</AdminLabel>
+              <AdminLabel>Gesamtlimit (leer = unbegrenzt)</AdminLabel>
               <AdminInput
                 type="number"
-                value={form.max_uses}
-                onChange={(e) => setForm({ ...form, max_uses: Number(e.target.value) })}
+                value={form.max_uses ?? ""}
+                onChange={(e) => setForm({ ...form, max_uses: e.target.value ? Number(e.target.value) : null })}
                 placeholder="100"
               />
             </div>
             <div>
-              <AdminLabel>Gültig bis (optional)</AdminLabel>
+              <AdminLabel>Max. pro Nutzer</AdminLabel>
+              <AdminInput
+                type="number"
+                min={1}
+                value={form.max_uses_per_user}
+                onChange={(e) => setForm({ ...form, max_uses_per_user: Number(e.target.value) })}
+              />
+            </div>
+            <div>
+              <AdminLabel>Gültig ab (optional, UTC)</AdminLabel>
+              <AdminInput
+                type="date"
+                value={form.starts_at}
+                onChange={(e) => setForm({ ...form, starts_at: e.target.value })}
+              />
+            </div>
+            <div>
+              <AdminLabel>Gültig bis (einschließlich, UTC)</AdminLabel>
               <AdminInput
                 type="date"
                 value={form.expires_at}
@@ -595,6 +742,7 @@ function PromoCodesTab() {
               />
             </div>
           </div>
+          {saveMutation.isError && <p className="text-sm text-[var(--admin-danger)]">Promo-Code konnte nicht gespeichert werden. Bitte Eingaben und Gültigkeit prüfen.</p>}
         </div>
       </FormDialog>
     </div>

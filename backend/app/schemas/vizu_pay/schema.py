@@ -167,8 +167,17 @@ class PromoCodeItem(BaseSchema):
     campaign: str | None
     discount_type: str
     discount_value: int
+    starts_at: datetime | None = None
     max_uses: int | None
     used_count: int
+    max_uses_per_user: int
+    applicable_course_ids: list[str]
+    applicable_package_codes: list[str]
+    successful_uses: int
+    successful_discount_amount: int
+    remaining_uses: int | None
+    status: str
+    successful_products: list[dict]
     expires_at: datetime | None
     is_active: bool
     created_at: datetime
@@ -179,16 +188,28 @@ class PromoCodeListResponse(BaseSchema):
 
 
 class PromoCodeCreateRequest(BaseSchema):
-    code: str
-    campaign: str | None = None
+    code: str = Field(min_length=1, max_length=40)
+    campaign: str | None = Field(default=None, max_length=120)
     discount_type: str
-    discount_value: int
-    max_uses: int | None = None
+    discount_value: int = Field(ge=0, le=100_000_000)
+    applicable_course_ids: list[str] = Field(default_factory=list)
+    applicable_package_codes: list[str] = Field(default_factory=list)
+    starts_at: datetime | None = None
+    max_uses: int | None = Field(default=None, ge=1)
+    max_uses_per_user: int = Field(default=1, ge=1, le=1000)
     expires_at: datetime | None = None
 
 
 class PromoCodeUpdateRequest(BaseSchema):
-    campaign: str | None = None
+    code: str | None = Field(default=None, min_length=1, max_length=40)
+    campaign: str | None = Field(default=None, max_length=120)
+    discount_type: str | None = None
+    discount_value: int | None = Field(default=None, ge=0, le=100_000_000)
+    applicable_course_ids: list[str] | None = None
+    applicable_package_codes: list[str] | None = None
+    starts_at: datetime | None = None
+    max_uses: int | None = Field(default=None, ge=1)
+    max_uses_per_user: int | None = Field(default=None, ge=1, le=1000)
     is_active: bool | None = None
     expires_at: datetime | None = None
 
@@ -198,6 +219,8 @@ class PromoValidateResponse(BaseSchema):
     discount_type: str | None = None
     discount_value: int | None = None
     message: str | None = None
+    discount_amount: int | None = None
+    final_amount: int | None = None
 
 
 class RevenueChartPoint(BaseSchema):

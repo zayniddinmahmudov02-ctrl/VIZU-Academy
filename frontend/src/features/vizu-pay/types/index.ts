@@ -95,9 +95,11 @@ export interface OrderListResponse {
 
 export interface PromoValidation {
   valid: boolean;
-  discountType: "PERCENT" | "FIXED" | null;
+  discountType: "PERCENT" | "FIXED" | "SPECIAL_PRICE" | null;
   discountValue: number | null;
   message: string | null;
+  discountAmount?: number | null;
+  finalAmount?: number | null;
 }
 
 export const PAYMENT_METHODS = ["UZCARD", "HUMO", "TELEGRAM"] as const;

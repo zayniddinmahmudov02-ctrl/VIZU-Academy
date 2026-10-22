@@ -68,10 +68,11 @@ def get_status(
 @router.get("/promo/validate", response_model=PromoValidateResponse)
 def validate_promo(
     code: str,
+    plan: str | None = None,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-    return VizuPayService(db).validate_promo(code, current_user)
+    return VizuPayService(db).validate_promo(code, current_user, plan)
 
 
 @router.post("/promo/redeem", response_model=PromoRedeemResponse)
