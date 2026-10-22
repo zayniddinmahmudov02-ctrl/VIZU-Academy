@@ -2,7 +2,8 @@
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
-from unittest.mock import AsyncMock, patch
+from types import SimpleNamespace
+from unittest.mock import AsyncMock, MagicMock, patch
 from uuid import uuid4
 
 from fastapi import HTTPException
@@ -74,17 +75,53 @@ class TestA2AudioReplacement(unittest.IsolatedAsyncioTestCase):
         store_mock.assert_awaited_once()
         self.assertIsNone(store_mock.await_args.args[1])
 
-    async def test_mapped_a2_audio_cannot_be_physically_deleted(self):
-        task = type(
-            "ListeningStub",
-            (),
-            {"id": uuid4(), "a2_material_key": "a2-l01-audio-01", "audio_storage_path": "old-audio.mp3"},
-        )()
-        db = type("DatabaseStub", (), {"get": lambda self, model, item_id: task})()
-        with self.assertRaises(HTTPException) as error:
-            await skill_admin.delete_listening_audio(db, task.id)
-        self.assertEqual(error.exception.status_code, 409)
+    def _delete_fixture(self, counts):
+        task = SimpleNamespace(
+            id=uuid4(), a2_material_key="a2-l01-audio-01", audio_storage_path="old.m4a", audio_content_type="audio/mp4",
+            audio_size_bytes=5, audio_original_name="A2 1.Unterricht Hören.m4a", audio_duration_seconds=3,
+            audio_url=None, is_published=True, questions=[object()],
+        )
+        db = MagicMock()
+        db.get.return_value = task
+        db.scalar.side_effect = counts  # listening refs, track refs, archive ref
+        return task, db
 
+    async def test_delete_removes_file_then_clears_record_and_keeps_questions(self):
+        task, db = self._delete_fixture([1, 0, None])
+        with patch.object(skill_admin.listening_storage, "delete", new=AsyncMock()) as delete:
+            await skill_admin.delete_listening_audio(db, task.id)
+        delete.assert_awaited_once_with("old.m4a")
+        self.assertIsNone(task.audio_storage_path)
+        self.assertFalse(task.is_published)
+        self.assertEqual(len(task.questions), 1)
+        db.commit.assert_called_once()
+
+    async def test_failed_file_deletion_changes_nothing_and_reports_error(self):
+        task, db = self._delete_fixture([1, 0, None])
+        with patch.object(skill_admin.listening_storage, "delete", new=AsyncMock(side_effect=OSError("busy"))):
+            with self.assertRaises(HTTPException) as error:
+                await skill_admin.delete_listening_audio(db, task.id)
+        self.assertEqual(error.exception.status_code, 500)
+        self.assertEqual(task.audio_storage_path, "old.m4a")
+        db.commit.assert_not_called()
+
+    async def test_file_shared_with_another_record_is_kept(self):
+        task, db = self._delete_fixture([2, 0, None])
+        with patch.object(skill_admin.listening_storage, "delete", new=AsyncMock()) as delete:
+            await skill_admin.delete_listening_audio(db, task.id)
+        delete.assert_not_awaited()
+        self.assertIsNone(task.audio_storage_path)
+
+    def test_student_gets_no_player_for_a_record_whose_file_is_gone(self):
+        from app.services.lesson_skills import skill_tests
+
+        gone = SimpleNamespace(audio_storage_path="missing.m4a", audio_url=None)
+        external = SimpleNamespace(audio_storage_path=None, audio_url="https://example.test/a.mp3")
+        with patch.object(skill_admin, "listening_audio_path", return_value=None):
+            self.assertFalse(skill_tests.has_audio(gone))
+        with patch.object(skill_admin, "listening_audio_path", return_value=Path("x.m4a")):
+            self.assertTrue(skill_tests.has_audio(gone))
+        self.assertTrue(skill_tests.has_audio(external))
     async def test_a2_material_rejects_extra_track_upload(self):
         task = type(
             "ListeningStub",

@@ -27,6 +27,7 @@ from app.models.language import Language
 from app.models.lesson import Lesson
 from app.models.listening import Listening
 from app.models.listening_audio_archive import ListeningAudioArchive
+from app.models.listening_audio_track import ListeningAudioTrack
 from app.models.module import Module
 from app.models.user import User
 from app.models.video import Video
@@ -211,6 +212,9 @@ def a2_audio_overview(
                 "lesson_title": lesson.title,
                 "tasks": items,
                 "task_count": len(items),
+                # real files on disk: main audio + extra tracks (not the same number as the tasks)
+                "media_file_count": sum(1 for item in items for slot in item["audio_slots"] if slot["file_status"] == "ok"),
+                "question_count": sum(item["question_count"] for item in items),
                 "uploaded_count": sum(1 for item in items if item["file_status"] == "ok"),
                 "missing_count": sum(1 for item in items if item["file_status"] in ("none", "missing")),
             }
@@ -223,5 +227,24 @@ def a2_audio_overview(
         "uploaded_audio_count": sum(item["uploaded_count"] for item in lesson_payload),
         "missing_audio_count": sum(item["missing_count"] for item in lesson_payload),
         "format_error_count": sum(1 for lesson in lesson_payload for item in lesson["tasks"] if item["format_error"]),
+        # DB says a file exists, storage has none (cleaned by hand): shown, and removable with the normal delete
+        "stale_record_count": sum(1 for lesson in lesson_payload for item in lesson["tasks"] if item["file_status"] == "missing"),
+        "unreferenced_files": _unreferenced_audio_files(db),
         "lessons": lesson_payload,
     }
+
+
+def _unreferenced_audio_files(db: Session) -> list[dict]:
+    """Stored audio files no Hören task, extra track or archived version of ANY
+    level points at. Report only — nothing is deleted automatically."""
+    root = listening_storage.ROOT.resolve()
+    if not root.is_dir():
+        return []
+    referenced: set[str] = set()
+    for column in (Listening.audio_storage_path, ListeningAudioTrack.storage_path, ListeningAudioArchive.storage_path):
+        referenced.update(str((root / path).resolve()) for path in db.scalars(select(column).where(column.is_not(None))))
+    return [
+        {"file_name": f.name, "size_bytes": f.stat().st_size}
+        for f in sorted(root.rglob("*"))
+        if f.is_file() and str(f.resolve()) not in referenced
+    ]

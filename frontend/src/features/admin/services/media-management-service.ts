@@ -59,6 +59,8 @@ export interface A2AudioLesson {
   lesson_title: string;
   tasks: A2AudioTask[];
   task_count: number;
+  media_file_count: number;
+  question_count: number;
   uploaded_count: number;
   missing_count: number;
 }
@@ -73,6 +75,10 @@ export interface A2AudioOverview {
   uploaded_audio_count: number;
   missing_audio_count: number;
   format_error_count: number;
+  /** DB points at a file that no longer exists in storage */
+  stale_record_count: number;
+  /** stored files no task/track/archive of any level references (report only) */
+  unreferenced_files: { file_name: string; size_bytes: number }[];
   lessons: A2AudioLesson[];
 }
 

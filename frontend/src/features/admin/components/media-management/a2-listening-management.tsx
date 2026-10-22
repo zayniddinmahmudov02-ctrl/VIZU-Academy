@@ -1,13 +1,14 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { AlertTriangle, FileAudio2, LoaderCircle, Play, RefreshCw, Upload } from "lucide-react";
+import { AlertTriangle, FileAudio2, LoaderCircle, Play, RefreshCw, Trash2, Upload } from "lucide-react";
 
 import { AdminButton } from "@/components/admin/admin-ui";
 import { getA2AudioOverview, type A2AudioTask } from "@/features/admin/services/media-management-service";
 import {
   apiErrorMessage,
+  deleteListeningAudio,
   getListeningAudioBlobUrl,
   uploadListeningAudio,
 } from "@/features/admin/services/lesson-skills-admin-service";
@@ -37,7 +38,25 @@ function TaskCard({ task, onChanged }: { task: A2AudioTask; onChanged: () => Pro
   const [error, setError] = useState<string | null>(null);
   const [done, setDone] = useState(false);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [confirmDelete, setConfirmDelete] = useState(false);
   const ok = task.file_status === "ok";
+  const stale = task.file_status === "missing";
+
+  async function removeAudio() {
+    setBusy(true);
+    setError(null);
+    setDone(false);
+    try {
+      await deleteListeningAudio(task.id);
+      closePreview();
+      setConfirmDelete(false);
+      await onChanged();
+    } catch (cause) {
+      setError(apiErrorMessage(cause, "Die Audiodatei konnte nicht gelöscht werden. Es wurde nichts geändert."));
+    } finally {
+      setBusy(false);
+    }
+  }
 
   useEffect(() => () => {
     if (previewUrl) URL.revokeObjectURL(previewUrl);
@@ -157,8 +176,36 @@ function TaskCard({ task, onChanged }: { task: A2AudioTask; onChanged: () => Pro
           {busy && progress !== null ? <LoaderCircle size={14} className="animate-spin" /> : <Upload size={14} />}
           {ok ? "Audio ersetzen" : "Audio hochladen"}
         </AdminButton>
+        {(ok || stale) && (
+          <AdminButton size="sm" variant="secondary" disabled={busy} onClick={() => setConfirmDelete(true)}>
+            <Trash2 size={14} />
+            {stale ? "Eintrag bereinigen" : "Audio löschen"}
+          </AdminButton>
+        )}
         <span className="text-xs text-[var(--admin-text-muted)]">MP3 oder M4A · max. 100 MB</span>
       </div>
+      {stale && (
+        <p role="status" className="text-xs font-medium text-[var(--admin-warning)]">
+          Die Datei ist im Speicher nicht mehr vorhanden, der Eintrag steht aber noch in der Datenbank. Schüler sehen dafür keinen Player.
+        </p>
+      )}
+      {confirmDelete && (
+        <div role="alertdialog" aria-label="Löschen bestätigen" className="space-y-2 rounded-lg border border-[var(--admin-danger)] p-3 text-sm">
+          <p>
+            {stale
+              ? "Den Datenbankeintrag ohne Datei entfernen?"
+              : `Die Audiodatei „${task.audio_original_name ?? task.title}“ endgültig löschen?`}{" "}
+            Aufgabe, Fragen, Antwortschlüssel und Schülerergebnisse bleiben erhalten; die Aufgabe wird als Entwurf versteckt, bis neues Audio hochgeladen ist.
+          </p>
+          <div className="flex gap-2">
+            <AdminButton size="sm" disabled={busy} onClick={() => void removeAudio()}>
+              {busy ? <LoaderCircle size={14} className="animate-spin" /> : <Trash2 size={14} />}
+              Ja, löschen
+            </AdminButton>
+            <AdminButton size="sm" variant="secondary" disabled={busy} onClick={() => setConfirmDelete(false)}>Abbrechen</AdminButton>
+          </div>
+        </div>
+      )}
       {progress !== null && (
         <div role="status" className="space-y-1">
           <p className="text-xs text-[var(--admin-text-muted)]">Upload läuft … {progress}%</p>
@@ -217,6 +264,7 @@ export default function A2ListeningManagement() {
                 ["Audio hochgeladen", data.uploaded_audio_count],
                 ["Audio fehlt", data.missing_audio_count],
                 ["Formatfehler", data.format_error_count],
+                ["Einträge ohne Datei", data.stale_record_count],
               ].map(([label, value]) => (
                 <div key={label} className="rounded-xl border border-[var(--admin-border)] p-3">
                   <dt className="text-xs text-[var(--admin-text-muted)]">{label}</dt>
@@ -230,6 +278,18 @@ export default function A2ListeningManagement() {
                 <p>Das A2-Buch liegt dem System nicht vor: Slots und Zuordnungen sind nicht anhand des Buches bestätigt. Angezeigt wird nur, was im LMS und im Speicher tatsächlich existiert.</p>
               </div>
             )}
+            {data.unreferenced_files.length > 0 && (
+              <details className="mt-4 rounded-xl border border-[var(--admin-border)] p-3 text-sm" data-testid="unreferenced-files">
+                <summary className="cursor-pointer font-medium text-[var(--admin-text-primary)]">
+                  {data.unreferenced_files.length} Datei(en) im Speicher ohne Datenbankeintrag (alle Niveaus, werden nicht automatisch gelöscht)
+                </summary>
+                <ul className="mt-2 space-y-0.5 text-xs text-[var(--admin-text-secondary)]">
+                  {data.unreferenced_files.map((file) => (
+                    <li key={file.file_name} className="break-all">{file.file_name} · {formatBytes(file.size_bytes)}</li>
+                  ))}
+                </ul>
+              </details>
+            )}
           </>
         )}
       </div>
@@ -238,10 +298,10 @@ export default function A2ListeningManagement() {
         <section key={lesson.lesson_id} className={`${card} space-y-4`} data-testid={`a2-lesson-${lesson.lesson_number}`}>
           <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-[var(--admin-border)] pb-3">
             <h3 className="text-base font-bold text-[var(--admin-text-primary)]">
-              Lektion {lesson.lesson_number} · {lesson.lesson_title}
+              {lesson.lesson_number}. Unterricht · {lesson.lesson_title}
             </h3>
             <span className="text-xs text-[var(--admin-text-muted)]">
-              {lesson.task_count} Hören-Aufgabe(n) · {lesson.uploaded_count} mit Audio
+              Aufgaben: {lesson.task_count} · Mediendateien: {lesson.media_file_count} · Fragen: {lesson.question_count}
             </span>
           </div>
           {lesson.tasks.length === 0 ? (

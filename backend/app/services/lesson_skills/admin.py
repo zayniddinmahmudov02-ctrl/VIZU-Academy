@@ -258,6 +258,10 @@ def file_references(db: Session, storage_path: str) -> int:
         + int(db.scalar(select(func.count()).select_from(ListeningAudioTrack).where(ListeningAudioTrack.storage_path == storage_path)) or 0)
 
 
+def _archived_reference(db: Session, storage_path: str) -> bool:
+    return db.scalar(select(ListeningAudioArchive.id).where(ListeningAudioArchive.storage_path == storage_path).limit(1)) is not None
+
+
 async def _delete_if_unused(db: Session, storage_path: str | None) -> bool:
     """Removes a stored audio file only when no task or track references it
     any more (call after the referencing row was changed and committed)."""
@@ -326,14 +330,17 @@ async def delete_listening_audio(db: Session, listening_id: UUID) -> Listening:
     listening = db.get(Listening, listening_id)
     if listening is None:
         raise HTTPException(status_code=404, detail="Listening not found.")
-    if listening.a2_material_key:
-        raise HTTPException(
-            status_code=409,
-            detail="A2 material audio cannot be removed; replace it to preserve its archive history.",
-        )
     if not listening.audio_storage_path:
         raise HTTPException(status_code=404, detail="Audio not found.")
     old = listening.audio_storage_path
+    # The file goes first: if it cannot be removed the record stays and the
+    # caller gets an error (never "deleted" while the file is still there).
+    # A file another task/track/archive still references is kept.
+    if file_references(db, old) <= 1 and not _archived_reference(db, old):
+        try:
+            await listening_storage.delete(old)
+        except OSError:
+            raise HTTPException(status_code=500, detail="AUDIO_FILE_DELETE_FAILED: the file could not be removed; nothing was changed.") from None
     listening.audio_storage_path = None
     listening.audio_content_type = None
     listening.audio_size_bytes = None
@@ -342,7 +349,6 @@ async def delete_listening_audio(db: Session, listening_id: UUID) -> Listening:
     if not listening.audio_url:
         listening.is_published = False
     db.commit()
-    await _delete_if_unused(db, old)
     db.refresh(listening)
     return listening
 

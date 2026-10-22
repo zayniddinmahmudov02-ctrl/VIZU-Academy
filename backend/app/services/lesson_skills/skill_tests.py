@@ -80,7 +80,14 @@ def lesson_listenings(db: Session, lesson_id: UUID) -> list[Listening]:
 
 
 def has_audio(listening: Listening) -> bool:
-    return bool(listening.audio_storage_path or listening.audio_url)
+    """A student only gets a player for audio that can really be played: an
+    uploaded file must exist in storage (a DB path whose file is gone — e.g.
+    cleared by hand — is treated as no audio), else a legacy external URL."""
+    if listening.audio_storage_path:
+        from app.services.lesson_skills.admin import listening_audio_path
+
+        return listening_audio_path(listening) is not None
+    return bool(listening.audio_url)
 
 
 def public_question(question) -> dict:
