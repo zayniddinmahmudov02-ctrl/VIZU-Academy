@@ -31,7 +31,6 @@ from app.models.module import Module
 from app.models.user import User
 from app.models.video import Video
 from app.services.lesson_skills import exercises as skill_exercises
-from app.services.lesson_skills.a2_audio_manifest import A2_AUDIO_MATERIALS
 from app.services.lesson_skills.admin import audio_tracks_admin, listening_storage
 from app.services.lms import structure as lms_structure
 from app.services.video.service import stored_file_path, video_media_type
@@ -177,12 +176,10 @@ def a2_audio_overview(
         else []
     )
     tasks = [task for task in tasks if not (task.title or "").startswith("[Archiv]")]
-    hints = {item.key: item for item in A2_AUDIO_MATERIALS}
     by_lesson: dict[str, list[dict]] = {str(lesson.id): [] for lesson in lessons}
     for task in tasks:
         path = _audio_path(task)
         suffix = Path(task.audio_storage_path or "").suffix.lstrip(".").lower()
-        hint = hints.get(task.a2_material_key or "")
         by_lesson[str(task.lesson_id)].append(
             {
                 "id": str(task.id),
@@ -199,7 +196,6 @@ def a2_audio_overview(
                 "key_missing": sum(1 for question in task.questions if not skill_exercises.has_key(question)),
                 "audio_slots": audio_tracks_admin(task),
                 "material_key": task.a2_material_key,
-                "unverified_source_hint": hint.source_name if hint else None,
                 "archived_versions": db.scalar(
                     select(func.count()).select_from(ListeningAudioArchive).where(ListeningAudioArchive.listening_id == task.id)
                 ),

@@ -1,5 +1,4 @@
-﻿from collections import Counter
-from io import BytesIO
+﻿from io import BytesIO
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
@@ -11,39 +10,6 @@ from starlette.datastructures import Headers, UploadFile
 
 from app.models.listening_audio_archive import ListeningAudioArchive
 from app.services.lesson_skills import admin as skill_admin
-from app.services.lesson_skills.a2_audio_manifest import A2_AUDIO_MATERIALS, audit_audio_files
-
-
-class TestA2AudioManifest(unittest.TestCase):
-    def test_legacy_hint_list_is_unchanged_and_unverified(self):
-        counts = Counter(item.lesson_number for item in A2_AUDIO_MATERIALS)
-        self.assertEqual(len(counts), 13)
-        self.assertEqual(len(A2_AUDIO_MATERIALS), 28)
-        self.assertEqual(
-            counts,
-            Counter({**{lesson: 1 for lesson in (1, 2, 3, 5, 6, 8, 9)}, 4: 3, 7: 2, 10: 4, 11: 4, 12: 4, 13: 4}),
-        )
-
-    def test_inventory_accepts_exact_expected_files(self):
-        files = [Path(f"{item.source_name}.{item.extension}") for item in A2_AUDIO_MATERIALS]
-        result = audit_audio_files(files)
-        self.assertTrue(result["ok"])
-        self.assertEqual((result["discovered_count"], result["matched_count"]), (28, 28))
-
-    def test_inventory_reports_missing_wrong_format_extra_and_ambiguous(self):
-        files = [Path(f"{item.source_name}.{item.extension}") for item in A2_AUDIO_MATERIALS]
-        files.remove(files[0])
-        files.remove(Path(f"{A2_AUDIO_MATERIALS[2].source_name}.{A2_AUDIO_MATERIALS[2].extension}"))
-        files.append(Path(f"{A2_AUDIO_MATERIALS[0].source_name}.mp3"))
-        files.append(Path(f"{A2_AUDIO_MATERIALS[1].source_name}.mp3"))
-        files.append(Path(f"{A2_AUDIO_MATERIALS[1].source_name}.MP3"))
-        files.append(Path("unlisted audio.mp3"))
-        result = audit_audio_files(files)
-        self.assertFalse(result["ok"])
-        self.assertTrue(result["missing"])
-        self.assertTrue(result["wrong_format"])
-        self.assertTrue(result["ambiguous"])
-        self.assertEqual([path.name for path in result["unexpected"]], ["unlisted audio.mp3"])
 
 
 class TestA2AudioReplacement(unittest.IsolatedAsyncioTestCase):
@@ -106,7 +72,7 @@ class TestA2AudioReplacement(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(db.added.replaced_by_id, actor_id)
         delete_old.assert_not_awaited()
         store_mock.assert_awaited_once()
-        self.assertEqual(store_mock.await_args.args[1], "m4a")
+        self.assertIsNone(store_mock.await_args.args[1])
 
     async def test_mapped_a2_audio_cannot_be_physically_deleted(self):
         task = type(

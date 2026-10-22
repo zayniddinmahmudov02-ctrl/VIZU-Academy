@@ -282,14 +282,9 @@ async def upload_listening_audio(
     if listening is None:
         raise HTTPException(status_code=404, detail="Listening not found.")
     if listening.a2_material_key:
-        from app.services.lesson_skills.a2_audio_manifest import A2_AUDIO_MATERIALS
-
-        material = next((item for item in A2_AUDIO_MATERIALS if item.key == listening.a2_material_key), None)
-        if material is None:
-            raise HTTPException(status_code=409, detail="Unknown A2 material mapping; audio was not replaced.")
+        # legacy A2-mapped task: replacing keeps the old file (archived) and never auto-publishes
         preserve_previous = True
         allow_auto_publish = False
-        expected_format = material.extension
     name, detected = await _store_audio(file, expected_format)
     if listening.a2_material_key:
         listening.is_published = False

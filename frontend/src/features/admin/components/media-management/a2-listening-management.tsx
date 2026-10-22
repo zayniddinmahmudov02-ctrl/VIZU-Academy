@@ -133,7 +133,7 @@ function TaskCard({ task, onChanged }: { task: A2AudioTask; onChanged: () => Pro
       )}
       {task.material_key && (
         <p className="text-xs text-[var(--admin-text-muted)]">
-          Ältere Zuordnung {task.material_key}{task.unverified_source_hint ? ` („${task.unverified_source_hint}“)` : ""} — nicht anhand des Buches bestätigt.
+          Ältere Zuordnung {task.material_key} — nicht anhand des Buches bestätigt.
         </p>
       )}
       {extraTracks.length > 0 && (

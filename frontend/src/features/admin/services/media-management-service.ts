@@ -50,7 +50,6 @@ export interface A2AudioTask {
   key_missing: number;
   audio_slots: AudioSlot[];
   material_key: string | null;
-  unverified_source_hint: string | null;
   archived_versions: number;
 }
 
