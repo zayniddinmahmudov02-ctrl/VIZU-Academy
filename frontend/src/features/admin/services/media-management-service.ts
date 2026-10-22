@@ -64,15 +64,18 @@ export interface A2ListeningLesson {
   lesson_title: string | null;
   lesson_exists: boolean;
   expected_materials: A2ListeningMaterial[];
+  other_tasks: A2ListeningSlotTask[];
 }
 
 export interface A2ListeningOverview {
   expected_lesson_count: number;
   actual_lesson_count: number;
+  lesson_count_matches: boolean;
   expected_audio_count: number;
   mapped_audio_count: number;
   uploaded_audio_count: number;
   format_mismatch_count: number;
+  audio_count_matches: boolean;
   lessons: A2ListeningLesson[];
 }
 

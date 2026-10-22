@@ -6,7 +6,7 @@ import Link from "next/link";
 import { AlertTriangle, Eye, EyeOff, FileText, Film, ListMusic, Music, Play, RefreshCw, Search, Trash2, Upload, X } from "lucide-react";
 
 import AudioSlotsPanel from "./audio-slots-panel";
-import A2ListeningSlots from "./a2-listening-slots";
+import A2ListeningManagement from "./a2-listening-management";
 
 import { AdminButton, AdminCheckbox, AdminInput, AdminPageHeader, AdminSelect } from "@/components/admin/admin-ui";
 import ConfirmDialog from "@/components/admin/confirm-dialog";
@@ -224,10 +224,12 @@ export default function MediaManagementClient() {
         </div>
       </section>
 
+      {level === "A2" && <A2ListeningManagement mediaItems={items.data ?? []} />}
+
       {/* 2. upload */}
       <section className={`${card} space-y-5`}>
         <h2 className="text-sm font-bold uppercase tracking-wide text-[var(--admin-text-muted)]">
-          2. Hochladen {lessonNode && <>— {level} · Lektion {lessonNode.number}: {lessonNode.title}{level === "A2" && items.isSuccess ? ` · ${lessonTasks.length} Hören-Aufgaben` : ""}</>}
+          2. Medien hochladen {lessonNode && <>— {level} · Lektion {lessonNode.number}: {lessonNode.title}{level === "A2" && items.isSuccess ? ` · ${lessonTasks.length} Hören-Aufgaben` : ""}</>}
         </h2>
         {!lessonNode ? (
           <p className="text-sm text-[var(--admin-text-muted)]">Zuerst eine Lektion wählen.</p>
@@ -271,14 +273,6 @@ export default function MediaManagementClient() {
           </div>
         )}
       </section>
-
-      {level === "A2" && lessonNode && (
-        <A2ListeningSlots
-          lessonNumber={lessonNode.number}
-          lessonTasks={lessonTasks}
-          onTaskSelected={setAudioTask}
-        />
-      )}
 
       {message && (
         <p role="status" data-testid="mm-message"
