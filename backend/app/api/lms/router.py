@@ -92,7 +92,7 @@ def _videos(db: Session, user: User, lesson_id: UUID) -> list[dict]:
 
 @router.get("/lessons/{lesson_id}")
 def get_lesson(lesson_id: UUID, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
-    """Lesson, its ten competencies (state per competency), videos and
+    """Lesson, its course-visible competencies (state per competency), videos and
     resources. A locked lesson is still described (title, lock reason,
     competency list) but without content; a draft is 404 for students."""
     lesson = db.get(Lesson, lesson_id)
@@ -123,7 +123,7 @@ def get_lesson(lesson_id: UUID, db: Session = Depends(get_db), user: User = Depe
             "course_id": course.id if course else None,
         },
         "navigation": _neighbours(db, lesson),
-        "competency_order": list(COMPETENCY_ORDER),
+        "competency_order": state["competency_order"],
         **view,
         "videos": _videos(db, user, lesson.id) if access.unlocked else [],
         "resources": [
@@ -149,6 +149,9 @@ def visit_competency(lesson_id: UUID, kind: str, db: Session = Depends(get_db), 
     if kind not in COMPETENCY_ORDER:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="UNKNOWN_COMPETENCY")
     lesson = db.get(Lesson, lesson_id)
+    course, _ = structure.lesson_level(db, lesson)
+    if kind not in progress.competency_order_for_level(course.level if course else None):
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="UNKNOWN_COMPETENCY")
     state = progress.record_visit(db, user, lesson, kind)
     view = progress.present(state, lesson_access(db, user, lesson))
     return {k: view[k] for k in ("lesson_id", "status", "completed", "percent", "competencies_total", "competencies_completed", "competencies")}

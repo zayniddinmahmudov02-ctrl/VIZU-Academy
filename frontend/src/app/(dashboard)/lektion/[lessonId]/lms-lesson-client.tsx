@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
 import { ArrowLeft, ArrowRight, ChevronRight, Clock, PlayCircle, Video } from "lucide-react";
 
@@ -128,11 +129,12 @@ function LessonHeader({ data }: { data: LmsLesson }) {
   );
 }
 
-/** VIZU LMS lesson page — the lesson overview (ten competencies as cards)
+/** VIZU LMS lesson page — the lesson overview (course competencies as cards)
  * or, with `kompetenz`, one competency with the navigation beside it. All
  * states come from GET /lms/lessons/{id}. */
 export default function LmsLessonClient({ lessonId, kompetenz }: { lessonId: string; kompetenz?: string }) {
   const { t } = useTranslation();
+  const router = useRouter();
   const queryClient = useQueryClient();
   const { data, isLoading, error, refetch } = useLmsLesson(lessonId);
   useLmsLessonSync(lessonId);
@@ -140,7 +142,12 @@ export default function LmsLessonClient({ lessonId, kompetenz }: { lessonId: str
   const videoPage = kompetenz?.toLowerCase() === VIDEO_SLUG;
   const kind = kompetenz && !videoPage ? kindFromSlug(kompetenz) : null;
   const competency = data && kind ? data.competencies.find((c) => c.kind === kind) : undefined;
+  const removedA1Introduction = data?.lesson.level?.toUpperCase() === "A1" && kind === "EINFUEHRUNG";
   const visitable = Boolean(data?.access.unlocked && competency?.available);
+
+  useEffect(() => {
+    if (removedA1Introduction) router.replace(lessonHref(lessonId));
+  }, [lessonId, removedA1Introduction, router]);
 
   // Opening a competency is recorded on the server (completes only text /
   // resource competencies there); the answer is the server's new state.
@@ -167,6 +174,7 @@ export default function LmsLessonClient({ lessonId, kompetenz }: { lessonId: str
 
   if (isLoading) return <LmsSkeleton variant="lesson" />;
   if (error || !data) return <LmsErrorCard error={error} onRetry={() => refetch()} backHref="/kurse" backLabelKey="lms.levelsTitle" />;
+  if (removedA1Introduction) return <LmsSkeleton variant="lesson" />;
 
   const ordered = [...data.competencies].sort((a, b) => a.position - b.position);
   const reachable = ordered.filter((c) => c.status !== "not_available");

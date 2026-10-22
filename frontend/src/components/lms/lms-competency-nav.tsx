@@ -59,7 +59,14 @@ export default function LmsCompetencyNav({ lessonId, competencies, current, vide
               {disabled ? (
                 <span className={cls} aria-disabled="true" title={t("lms.statusNotAvailable")}>{inner}</span>
               ) : (
-                <Link href={competencyHref(lessonId, c.kind)} aria-current={active ? "page" : undefined} className={cls}>{inner}</Link>
+                <Link
+                  href={competencyHref(lessonId, c.kind)}
+                  aria-current={active ? "page" : undefined}
+                  aria-label={c.status === "completed" ? `${meta.name}: ${t("lms.statusCompleted")}` : undefined}
+                  className={cls}
+                >
+                  {inner}
+                </Link>
               )}
             </li>
           );

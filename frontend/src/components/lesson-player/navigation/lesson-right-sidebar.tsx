@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { Check, ChevronDown, Lock } from "lucide-react";
@@ -47,10 +47,13 @@ export default function LessonRightSidebar({ lessonId, currentSlug, onNavigate }
   const currentCourse = courses?.find((c) => c.id === currentModule?.course_id);
   const currentLevel = currentCourse?.level;
 
-  const [openLevel, setOpenLevel] = useState<string | null>(null);
-  useEffect(() => {
-    if (currentLevel) setOpenLevel(currentLevel);
-  }, [currentLevel]);
+  const [openLevelOverride, setOpenLevelOverride] = useState<{
+    forLevel: string | undefined;
+    selected: string | null;
+  } | null>(null);
+  const openLevel = openLevelOverride && openLevelOverride.forLevel === currentLevel
+    ? openLevelOverride.selected
+    : currentLevel;
 
   const progress = computeSectionProgress(gate);
 
@@ -93,7 +96,7 @@ export default function LessonRightSidebar({ lessonId, currentSlug, onNavigate }
             <div key={levelInfo.code} className="overflow-hidden rounded-xl ring-1 ring-surface-border">
               <button
                 type="button"
-                onClick={() => setOpenLevel(isOpen ? null : levelInfo.code)}
+                onClick={() => setOpenLevelOverride({ forLevel: currentLevel, selected: isOpen ? null : levelInfo.code })}
                 aria-expanded={isOpen}
                 className="flex min-h-11 w-full items-center justify-between gap-2 bg-surface-hover/60 px-3.5 py-3 text-left text-sm font-bold text-text-primary transition-colors hover:bg-surface-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-blue/50"
               >
@@ -187,6 +190,7 @@ function LessonAccordionItem({
                 key={section.slug}
                 href={`/lessons/${lesson.id}/${section.slug}`}
                 aria-current={active ? "page" : undefined}
+                aria-label={done ? `${t(section.titleKey)}: ${t("lms.statusCompleted")}` : undefined}
                 onClick={onNavigate}
                 className={cn(
                   "flex min-h-11 items-center gap-2 rounded-md px-2.5 py-2 text-[13px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-blue/50",

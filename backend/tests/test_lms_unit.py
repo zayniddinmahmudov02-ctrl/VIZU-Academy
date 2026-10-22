@@ -53,6 +53,17 @@ class TestAggregate(unittest.TestCase):
         self.assertEqual(progress._frage_part({"available": True, "submitted": True, "status": "pending_evaluation"})["status"], "completed")
         self.assertEqual(progress._frage_part({"available": True, "submitted": False, "status": "not_started"})["status"], "not_started")
 
+    def test_a1_student_competency_order_omits_only_einfuehrung(self):
+        self.assertEqual(
+            progress.competency_order_for_level("A1"),
+            ("WORTSCHATZ", "GRAMMATIK", "LESEN", "HOEREN", "SPRECHEN", "SCHREIBEN", "UEBUNGEN", "ABSCHLUSSTEST", "ZUSAMMENFASSUNG"),
+        )
+
+    def test_other_levels_keep_the_shared_competency_order(self):
+        for level in ("A2", "B1", "B2", "C1", None):
+            with self.subTest(level=level):
+                self.assertEqual(progress.competency_order_for_level(level), COMPETENCY_ORDER)
+
 
 class TestResourceDetection(unittest.TestCase):
     def test_magic_bytes(self):

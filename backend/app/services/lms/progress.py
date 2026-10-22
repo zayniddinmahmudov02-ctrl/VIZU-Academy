@@ -35,6 +35,7 @@ from app.models.lesson import Lesson
 from app.models.listening import Listening
 from app.models.lms import (
     COMPETENCY_ORDER,
+    COMPETENCY_ORDER,
     PROGRESS_COMPLETED,
     PROGRESS_IN_PROGRESS,
     PROGRESS_NOT_STARTED,
@@ -67,6 +68,14 @@ SKILL_OF = {
     "ABSCHLUSSTEST": "yakuniy",
 }
 LEGACY_QUIZ_OF = {"WORTSCHATZ": QUIZ_TYPE_VOCABULARY, "ABSCHLUSSTEST": QUIZ_TYPE_LESSON}
+
+
+def competency_order_for_level(level: str | None) -> tuple[str, ...]:
+    """A1 omits the introduction from the student course flow without
+    changing its shared competency model or any stored lesson content."""
+    if (level or "").strip().upper() == "A1":
+        return tuple(kind for kind in COMPETENCY_ORDER if kind != "EINFUEHRUNG")
+    return COMPETENCY_ORDER
 
 
 def _now() -> datetime:
@@ -174,7 +183,10 @@ def snapshot_rows(db: Session, user_id, lesson_id) -> dict[str, StudentCompetenc
 def compute(db: Session, user: User, lesson: Lesson) -> dict:
     """The real per-competency state of one lesson for one student — every
     competency, hidden ones included, no lock overlay (see present())."""
-    comps = structure.ensure_competencies(db, lesson)
+    course, _ = structure.lesson_level(db, lesson)
+    competency_order = competency_order_for_level(course.level if course else None)
+    stored_comps = {comp.kind: comp for comp in structure.ensure_competencies(db, lesson)}
+    comps = [stored_comps[kind] for kind in competency_order]
     skills = skill_results.lesson_skill_results(db, user.id, lesson.id)["skills"]
     videos = published_videos(db, lesson.id)
     all_video_ids = [v.id for vs in videos.values() for v in vs]
@@ -230,7 +242,7 @@ def compute(db: Session, user: User, lesson: Lesson) -> dict:
         items.append(
             {
                 "kind": kind,
-                "position": comp.position,
+                "position": len(items) + 1,
                 "is_published": comp.is_published,
                 "body": comp.body,
                 "available": available,
@@ -268,6 +280,7 @@ def compute(db: Session, user: User, lesson: Lesson) -> dict:
         "competencies_total": len(counted),
         "competencies_completed": done,
         "percent": round(100 * done / len(counted)) if counted else 0,
+        "competency_order": list(competency_order),
         "competencies": items,
     }
 
@@ -424,14 +437,19 @@ def level_overview(db: Session, user: User, level: str, *, include_drafts: bool 
     for lesson in lessons:
         access = lesson_access(db, user, lesson)
         row = progress.get(lesson.id)
-        completed = bool(row and row.lesson_completed)
-        started = completed or comp_started.get(lesson.id, 0) > 0
+        needs_state = (level == "A1" and row is not None) or (detail and (row is None or row.competencies_total is None))
+        state = compute(db, user, lesson) if needs_state else None
+        completed = state["completed"] if state is not None else bool(row and row.lesson_completed)
+        started = (
+            state["progress_status"] != PROGRESS_NOT_STARTED
+            if state is not None
+            else completed or comp_started.get(lesson.id, 0) > 0
+        )
         status = STATUS_LOCKED if not access.unlocked else (PROGRESS_COMPLETED if completed else (PROGRESS_IN_PROGRESS if started else PROGRESS_NOT_STARTED))
-        if row is not None and row.competencies_total is not None:
-            comp_total, comp_completed = row.competencies_total, row.competencies_completed or 0
-        elif detail:
-            state = compute(db, user, lesson)
+        if state is not None:
             comp_total, comp_completed = state["competencies_total"], state["competencies_completed"]
+        elif row is not None and row.competencies_total is not None:
+            comp_total, comp_completed = row.competencies_total, row.competencies_completed or 0
         else:
             comp_total, comp_completed = None, None
         if completed:

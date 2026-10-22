@@ -99,7 +99,6 @@ export default function SkillTest({ sections, summary, attempts, start, submit, 
       setAttemptId(null);
       onResult?.(graded);
       for (const key of invalidate) await queryClient.invalidateQueries({ queryKey: key });
-      window.scrollTo({ top: 0, behavior: "smooth" });
     } catch {
       setError(t("lessons.loadError"));
     } finally {
