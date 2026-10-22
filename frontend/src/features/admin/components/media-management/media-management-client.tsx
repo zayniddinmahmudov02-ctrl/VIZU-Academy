@@ -59,6 +59,13 @@ export default function MediaManagementClient() {
   const moduleNode = levelNode?.modules.find((m) => m.id === moduleId) ?? (levelNode?.modules.length === 1 ? levelNode.modules[0] : undefined);
   const lessonNode = moduleNode?.lessons.find((l) => l.id === lessonId);
   const lessonTasks = (items.data ?? []).filter((i) => i.kind === "AUDIO" && i.lesson_id === lessonId);
+  const audioTaskCounts = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const item of items.data ?? []) {
+      if (item.kind === "AUDIO") counts.set(item.lesson_id, (counts.get(item.lesson_id) ?? 0) + 1);
+    }
+    return counts;
+  }, [items.data]);
 
   // ---- filters
   const [fKind, setFKind] = useState("");
@@ -206,14 +213,21 @@ export default function MediaManagementClient() {
           </AdminSelect>
           <AdminSelect value={lessonId} onChange={(e) => setLessonId(e.target.value)} disabled={!moduleNode} aria-label="Lektion" data-testid="mm-lesson">
             <option value="">Lektion wählen</option>
-            {moduleNode?.lessons.map((l) => <option key={l.id} value={l.id}>{l.number}. {l.title}</option>)}
+            {moduleNode?.lessons.map((l) => (
+              <option key={l.id} value={l.id}>
+                {l.number}. {l.title}
+                {level === "A2" && items.isSuccess ? ` · ${audioTaskCounts.get(l.id) ?? 0} Aufgabe(n)` : ""}
+              </option>
+            ))}
           </AdminSelect>
         </div>
       </section>
 
       {/* 2. upload */}
       <section className={`${card} space-y-5`}>
-        <h2 className="text-sm font-bold uppercase tracking-wide text-[var(--admin-text-muted)]">2. Hochladen {lessonNode && <>— {level} · Lektion {lessonNode.number}: {lessonNode.title}</>}</h2>
+        <h2 className="text-sm font-bold uppercase tracking-wide text-[var(--admin-text-muted)]">
+          2. Hochladen {lessonNode && <>— {level} · Lektion {lessonNode.number}: {lessonNode.title}{level === "A2" && items.isSuccess ? ` · ${lessonTasks.length} Hören-Aufgaben` : ""}</>}
+        </h2>
         {!lessonNode ? (
           <p className="text-sm text-[var(--admin-text-muted)]">Zuerst eine Lektion wählen.</p>
         ) : (
