@@ -2,16 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { AlertTriangle, Check, FileAudio2, Link2, LoaderCircle, Play, RefreshCw, Upload } from "lucide-react";
+import { AlertTriangle, FileAudio2, LoaderCircle, Play, RefreshCw, Upload } from "lucide-react";
 
-import { AdminButton, AdminSelect } from "@/components/admin/admin-ui";
-import {
-  assignA2ListeningSlotTask,
-  createA2ListeningSlotTask,
-  getA2ListeningOverview,
-  type A2ListeningMaterial,
-  type MediaItem,
-} from "@/features/admin/services/media-management-service";
+import { AdminButton } from "@/components/admin/admin-ui";
+import { getA2AudioOverview, type A2AudioTask } from "@/features/admin/services/media-management-service";
 import {
   apiErrorMessage,
   getListeningAudioBlobUrl,
@@ -22,74 +16,43 @@ const MAX_AUDIO_BYTES = 100 * 1024 * 1024;
 const AUDIO_ACCEPT = ".mp3,.m4a,audio/mpeg,audio/mp4,audio/x-m4a";
 const card = "rounded-2xl bg-[var(--admin-card)] p-4 ring-1 ring-[var(--admin-border)] sm:p-5";
 
-interface Props {
-  mediaItems: MediaItem[];
-}
-
 function formatBytes(bytes: number | null) {
   if (!bytes) return "—";
   return bytes >= 1024 * 1024 ? `${(bytes / 1024 / 1024).toFixed(1)} MB` : `${Math.max(1, Math.round(bytes / 1024))} KB`;
 }
 
-function SlotCard({
-  lessonNumber,
-  material,
-  lessonTasks,
-  onChanged,
-}: {
-  lessonNumber: number;
-  material: A2ListeningMaterial;
-  lessonTasks: MediaItem[];
-  onChanged: () => Promise<void>;
-}) {
+const STATUS_LABEL: Record<string, string> = {
+  ok: "Audio vorhanden",
+  external: "Externe Audioquelle",
+  missing: "Datei fehlt",
+  none: "Nicht hochgeladen",
+};
+
+/** One existing Hören task of a real A2 lesson. Replacing the audio keeps the
+ * task, its questions and answer keys (the server archives the old file). */
+function TaskCard({ task, onChanged }: { task: A2AudioTask; onChanged: () => Promise<void> }) {
   const fileInput = useRef<HTMLInputElement>(null);
-  const [selectedTask, setSelectedTask] = useState("");
   const [busy, setBusy] = useState(false);
   const [progress, setProgress] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [done, setDone] = useState(false);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const task = material.listening;
-  const status = task?.file_status ?? "none";
-  const availableTasks = lessonTasks.filter((item) => material.available_task_ids.includes(item.id));
+  const ok = task.file_status === "ok";
 
   useEffect(() => () => {
     if (previewUrl) URL.revokeObjectURL(previewUrl);
   }, [previewUrl]);
 
-  async function attachTask() {
-    if (!selectedTask) return;
-    setBusy(true);
-    setError(null);
-    try {
-      await assignA2ListeningSlotTask(material.key, selectedTask);
-      setSelectedTask("");
-      await onChanged();
-    } catch (cause) {
-      setError(apiErrorMessage(cause, "Die vorhandene Aufgabe konnte nicht zugeordnet werden."));
-    } finally {
-      setBusy(false);
-    }
-  }
-
-  async function createTask() {
-    setBusy(true);
-    setError(null);
-    try {
-      await createA2ListeningSlotTask(lessonNumber, material.key);
-      await onChanged();
-    } catch (cause) {
-      setError(apiErrorMessage(cause, "Die leere Hören-Aufgabe konnte nicht angelegt werden."));
-    } finally {
-      setBusy(false);
-    }
+  function closePreview() {
+    if (previewUrl) URL.revokeObjectURL(previewUrl);
+    setPreviewUrl(null);
   }
 
   async function uploadFile(file: File | undefined) {
     if (fileInput.current) fileInput.current.value = "";
-    if (!file || !task) return;
-    const expectedExtension = material.expected_format.toLowerCase();
-    if (file.name.split(".").pop()?.toLowerCase() !== expectedExtension) {
-      setError(`Für dieses Material ist nur ${material.expected_format} zulässig.`);
+    if (!file) return;
+    if (!/\.(mp3|m4a)$/i.test(file.name)) {
+      setError("Nur MP3 oder M4A ist zulässig.");
       return;
     }
     if (file.size > MAX_AUDIO_BYTES) {
@@ -99,13 +62,12 @@ function SlotCard({
     setBusy(true);
     setProgress(0);
     setError(null);
+    setDone(false);
     try {
       await uploadListeningAudio(task.id, file, null, setProgress);
-      if (previewUrl) {
-        URL.revokeObjectURL(previewUrl);
-        setPreviewUrl(null);
-      }
+      closePreview();
       await onChanged();
+      setDone(true);
     } catch (cause) {
       setError(apiErrorMessage(cause, "Die Audiodatei konnte nicht hochgeladen werden."));
     } finally {
@@ -115,12 +77,7 @@ function SlotCard({
   }
 
   async function togglePreview() {
-    if (previewUrl) {
-      URL.revokeObjectURL(previewUrl);
-      setPreviewUrl(null);
-      return;
-    }
-    if (!task) return;
+    if (previewUrl) return closePreview();
     setBusy(true);
     setError(null);
     try {
@@ -132,109 +89,93 @@ function SlotCard({
     }
   }
 
+  const extraTracks = task.audio_slots.filter((slot) => slot.id !== "main");
+
   return (
-    <article className="space-y-3 rounded-xl border border-[var(--admin-border)] p-3 sm:p-4" data-testid="a2-audio-slot">
+    <article className="space-y-3 rounded-xl border border-[var(--admin-border)] p-3 sm:p-4" data-testid="a2-audio-task">
       <input
         ref={fileInput}
         type="file"
         accept={AUDIO_ACCEPT}
         className="hidden"
-        aria-label={`Audiodatei für ${material.source_name} auswählen`}
+        aria-label={`Audiodatei für ${task.title} auswählen`}
         onChange={(event) => void uploadFile(event.target.files?.[0])}
       />
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">
           <h4 className="flex items-center gap-2 text-sm font-semibold text-[var(--admin-text-primary)]">
             <FileAudio2 size={16} className="shrink-0 text-[var(--admin-primary)]" />
-            <span>Audio {material.slot_number}: {material.source_name}</span>
+            <span>Hören-Aufgabe {task.order_index}: {task.title}</span>
           </h4>
-          <p className="mt-1 text-xs text-[var(--admin-text-muted)]">
-            {task
-              ? `Hören-Aufgabe: ${task.title} · ${task.question_count} Fragen${task.key_missing ? ` · ${task.key_missing} Antwortschlüssel fehlen` : ""}`
-              : "Noch keiner Hören-Aufgabe zugeordnet"}
+          <p className="mt-1 break-all text-xs text-[var(--admin-text-muted)]">
+            ID {task.id} · {task.question_count} Fragen
+            {task.key_missing ? ` · ${task.key_missing} Antwortschlüssel fehlen` : ""}
+            {task.is_published ? " · veröffentlicht" : " · Entwurf"}
           </p>
         </div>
-        <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${status === "ok" ? "bg-[var(--admin-success)]/10 text-[var(--admin-success)]" : "bg-[var(--admin-warning)]/10 text-[var(--admin-warning)]"}`}>
-          {status === "ok" ? "Audio vorhanden" : status === "external" ? "Externe Audioquelle" : task?.file_status === "missing" ? "Datei fehlt" : "Nicht hochgeladen"}
+        <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${ok ? "bg-[var(--admin-success)]/10 text-[var(--admin-success)]" : "bg-[var(--admin-warning)]/10 text-[var(--admin-warning)]"}`}>
+          {STATUS_LABEL[task.file_status] ?? task.file_status}
         </span>
       </div>
 
-      {material.format_matches === false && (
-        <p role="status" className="text-xs font-medium text-[var(--admin-warning)]">
-          Gespeichertes Audioformat entspricht nicht dem Sollformat {material.expected_format}.
-        </p>
-      )}
-
-      {task?.audio_original_name && (
+      {task.audio_original_name && (
         <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-[var(--admin-text-secondary)]">
           <span className="break-all">Datei: {task.audio_original_name}</span>
-          <span>Format: {task.audio_format ?? material.expected_format}</span>
-          <span>Größe: {formatBytes(lessonTasks.find((item) => item.id === task.id)?.size_bytes ?? null)}</span>
+          <span>Format: {task.audio_format ?? "—"}</span>
+          <span>Größe: {formatBytes(task.audio_size_bytes)}</span>
+          {task.archived_versions > 0 && <span>{task.archived_versions} frühere Version(en) archiviert</span>}
         </div>
       )}
-
-      {previewUrl && (
-        <audio controls preload="none" src={previewUrl} className="w-full" aria-label={`Audio ${material.slot_number} anhören`} />
+      {task.format_error && (
+        <p role="status" className="text-xs font-medium text-[var(--admin-warning)]">
+          Format {task.audio_format} wird nicht unterstützt (erlaubt: MP3, M4A).
+        </p>
+      )}
+      {task.material_key && (
+        <p className="text-xs text-[var(--admin-text-muted)]">
+          Ältere Zuordnung {task.material_key}{task.unverified_source_hint ? ` („${task.unverified_source_hint}“)` : ""} — nicht anhand des Buches bestätigt.
+        </p>
+      )}
+      {extraTracks.length > 0 && (
+        <ul className="space-y-0.5 text-xs text-[var(--admin-text-secondary)]">
+          {extraTracks.map((slot) => (
+            <li key={slot.id} className="break-all">
+              Zusatz-Audio {slot.label ?? ""}: {slot.file_name ?? "—"} · {STATUS_LABEL[slot.file_status] ?? slot.file_status}
+            </li>
+          ))}
+        </ul>
       )}
 
-      {!task ? (
-        <div className="flex flex-wrap gap-2">
-          {availableTasks.length > 0 && (
-            <>
-              <AdminSelect
-                value={selectedTask}
-                onChange={(event) => setSelectedTask(event.target.value)}
-                aria-label={`Hören-Aufgabe für Audio ${material.slot_number} auswählen`}
-                className="min-w-52"
-              >
-                <option value="">Vorhandene Aufgabe wählen</option>
-                {availableTasks.map((item) => <option key={item.id} value={item.id}>{item.title}</option>)}
-              </AdminSelect>
-              <AdminButton size="sm" variant="secondary" disabled={!selectedTask || busy} onClick={() => void attachTask()}>
-                {busy ? <LoaderCircle size={14} className="animate-spin" /> : <Link2 size={14} />}
-                Aufgabe verbinden
-              </AdminButton>
-            </>
-          )}
-          <AdminButton size="sm" disabled={busy} onClick={() => void createTask()}>
-            {busy ? <LoaderCircle size={14} className="animate-spin" /> : <Check size={14} />}
-            Leere Aufgabe anlegen
-          </AdminButton>
-        </div>
-      ) : (
-        <div className="space-y-2">
-          <div className="flex flex-wrap gap-2">
-            <AdminButton size="sm" variant="secondary" disabled={busy || status !== "ok"} onClick={() => void togglePreview()}>
-              {busy && !progress ? <LoaderCircle size={14} className="animate-spin" /> : <Play size={14} />}
-              {previewUrl ? "Player schließen" : "Audio anhören"}
-            </AdminButton>
-            <AdminButton size="sm" disabled={busy} onClick={() => fileInput.current?.click()}>
-              {busy && progress !== null ? <LoaderCircle size={14} className="animate-spin" /> : <Upload size={14} />}
-              {status === "ok" ? "Audio ersetzen" : "Audio hochladen"}
-            </AdminButton>
-            <span className="self-center text-xs text-[var(--admin-text-muted)]">Sollformat: {material.expected_format} · max. 100 MB</span>
+      {previewUrl && <audio controls preload="none" src={previewUrl} className="w-full" aria-label={`${task.title} anhören`} />}
+
+      <div className="flex flex-wrap items-center gap-2">
+        <AdminButton size="sm" variant="secondary" disabled={busy || !ok} onClick={() => void togglePreview()}>
+          {busy && progress === null ? <LoaderCircle size={14} className="animate-spin" /> : <Play size={14} />}
+          {previewUrl ? "Player schließen" : "Audio anhören"}
+        </AdminButton>
+        <AdminButton size="sm" disabled={busy} onClick={() => fileInput.current?.click()}>
+          {busy && progress !== null ? <LoaderCircle size={14} className="animate-spin" /> : <Upload size={14} />}
+          {ok ? "Audio ersetzen" : "Audio hochladen"}
+        </AdminButton>
+        <span className="text-xs text-[var(--admin-text-muted)]">MP3 oder M4A · max. 100 MB</span>
+      </div>
+      {progress !== null && (
+        <div role="status" className="space-y-1">
+          <p className="text-xs text-[var(--admin-text-muted)]">Upload läuft … {progress}%</p>
+          <div className="h-1.5 overflow-hidden rounded-full bg-[var(--admin-border)]">
+            <div className="h-full bg-[var(--admin-primary)]" style={{ width: `${progress}%` }} />
           </div>
-          {progress !== null && (
-            <div role="status" className="space-y-1">
-              <p className="text-xs text-[var(--admin-text-muted)]">Upload läuft … {progress}%</p>
-              <div className="h-1.5 overflow-hidden rounded-full bg-[var(--admin-border)]">
-                <div className="h-full bg-[var(--admin-primary)]" style={{ width: `${progress}%` }} />
-              </div>
-            </div>
-          )}
         </div>
       )}
+      {done && <p role="status" className="text-xs text-[var(--admin-success)]">Gespeichert. Aufgabe, Fragen und Antworten bleiben unverändert.</p>}
       {error && <p role="alert" className="text-sm text-[var(--admin-danger)]">{error}</p>}
     </article>
   );
 }
 
-export default function A2ListeningManagement({ mediaItems }: Props) {
+export default function A2ListeningManagement() {
   const queryClient = useQueryClient();
-  const overview = useQuery({
-    queryKey: ["media-mgmt", "a2-listening"],
-    queryFn: getA2ListeningOverview,
-  });
+  const overview = useQuery({ queryKey: ["media-mgmt", "a2-listening"], queryFn: getA2AudioOverview });
 
   async function refresh() {
     await Promise.all([
@@ -244,31 +185,19 @@ export default function A2ListeningManagement({ mediaItems }: Props) {
   }
 
   const data = overview.data;
-  const lessons = [...(data?.lessons ?? [])].sort((left, right) => left.lesson_number - right.lesson_number);
-  const unassignedCount = lessons.reduce(
-    (count, lesson) => count + lesson.expected_materials.filter((material) => !material.listening).length,
-    0,
-  );
-  const lessonMismatch = Boolean(data && (data.actual_lesson_count !== data.expected_lesson_count || lessons.some((lesson) => !lesson.lesson_exists)));
-  const extraTaskCount = lessons.reduce((count, lesson) => count + (lesson.other_tasks?.length ?? 0), 0);
+  const lessons = [...(data?.lessons ?? [])].sort((a, b) => a.lesson_number - b.lesson_number);
 
   return (
     <section className="space-y-5" data-testid="a2-listening-management">
       <div className={card}>
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
-            <h2 className="text-base font-bold text-[var(--admin-text-primary)]">Niveau A2 · Hören</h2>
-            <p className="mt-1 text-sm text-[var(--admin-text-secondary)]">Unterricht 1–13 · Audiodateien und ihre Hören-Aufgaben verwalten.</p>
+            <h2 className="text-base font-bold text-[var(--admin-text-primary)]">Niveau A2 · Lektionen · Audio</h2>
+            <p className="mt-1 text-sm text-[var(--admin-text-secondary)]">
+              Lektionen und Hören-Aufgaben stammen aus dem LMS. Es werden keine Audio-Slots erfunden.
+            </p>
           </div>
-          <AdminButton
-            variant="secondary"
-            size="sm"
-            disabled={overview.isFetching}
-            onClick={() => void Promise.all([
-              overview.refetch(),
-              queryClient.refetchQueries({ queryKey: ["media-mgmt", "items"] }),
-            ])}
-          >
+          <AdminButton variant="secondary" size="sm" disabled={overview.isFetching} onClick={() => void refresh()}>
             {overview.isFetching ? <LoaderCircle size={15} className="animate-spin" /> : <RefreshCw size={15} />}
             Aktualisieren
           </AdminButton>
@@ -280,13 +209,14 @@ export default function A2ListeningManagement({ mediaItems }: Props) {
           <p role="alert" className="mt-4 text-sm text-[var(--admin-danger)]">A2-Daten konnten nicht geladen werden. Bitte erneut versuchen.</p>
         ) : data && (
           <>
-            <dl className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-5">
+            <dl className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-6">
               {[
-                ["Lektionen", `${data.actual_lesson_count} / ${data.expected_lesson_count}`],
-                ["Audio-Slots", data.expected_audio_count],
-                ["Aufgabe zugeordnet", data.mapped_audio_count],
+                ["Lektionen (LMS)", data.lesson_count],
+                ["Erwartete Audio-Slots", data.expected_audio_slots ?? "unbekannt"],
+                ["Hören-Aufgaben", data.task_count],
                 ["Audio hochgeladen", data.uploaded_audio_count],
-                ["Formatfehler", data.format_mismatch_count],
+                ["Audio fehlt", data.missing_audio_count],
+                ["Formatfehler", data.format_error_count],
               ].map(([label, value]) => (
                 <div key={label} className="rounded-xl border border-[var(--admin-border)] p-3">
                   <dt className="text-xs text-[var(--admin-text-muted)]">{label}</dt>
@@ -294,53 +224,33 @@ export default function A2ListeningManagement({ mediaItems }: Props) {
                 </div>
               ))}
             </dl>
-            {(lessonMismatch || unassignedCount > 0 || extraTaskCount > 0 || data.format_mismatch_count > 0) && (
+            {!data.book_confirmed && (
               <div role="status" className="mt-4 flex items-start gap-2 rounded-xl bg-[var(--admin-warning)]/10 p-3 text-sm text-[var(--admin-warning)]">
                 <AlertTriangle size={16} className="mt-0.5 shrink-0" />
-                <p>
-                  Konfiguration und LMS-Daten weichen voneinander ab
-                  {lessonMismatch ? "; eine oder mehrere A2-Lektionen fehlen" : ""}
-                  {unassignedCount ? `; ${unassignedCount} Audio-Slot(s) haben noch keine Aufgabe` : ""}
-                  {extraTaskCount ? `; ${extraTaskCount} weitere Hören-Aufgabe(n) bleiben unverändert erhalten` : ""}
-                  {data.format_mismatch_count ? `; ${data.format_mismatch_count} Formatfehler` : ""}.
-                  {" "}Es wurden keine vorhandenen Aufgaben oder Dateien entfernt.
-                </p>
+                <p>Das A2-Buch liegt dem System nicht vor: Slots und Zuordnungen sind nicht anhand des Buches bestätigt. Angezeigt wird nur, was im LMS und im Speicher tatsächlich existiert.</p>
               </div>
             )}
           </>
         )}
       </div>
 
-      {overview.isSuccess && lessons.map((lesson) => {
-        const lessonTasks = mediaItems.filter((item) => item.kind === "AUDIO" && item.lesson_id === lesson.lesson_id);
-        return (
-          <section key={lesson.lesson_number} className={`${card} space-y-4`} data-testid={`a2-lesson-${lesson.lesson_number}`}>
-            <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-[var(--admin-border)] pb-3">
-              <h3 className="text-base font-bold text-[var(--admin-text-primary)]">
-                Unterricht {lesson.lesson_number}{lesson.lesson_title ? ` · ${lesson.lesson_title}` : ""}
-              </h3>
-              <span className="text-xs text-[var(--admin-text-muted)]">
-                {lesson.expected_materials.length} Audio-Slot(s)
-              </span>
-            </div>
-            {!lesson.lesson_exists && (
-              <p role="status" className="text-sm text-[var(--admin-warning)]">Lektion fehlt in der LMS-Kursstruktur; es wurde nichts angelegt.</p>
-            )}
-            {lesson.expected_materials.map((material) => (
-              <SlotCard
-                key={material.key}
-                lessonNumber={lesson.lesson_number}
-                material={material}
-                lessonTasks={lessonTasks}
-                onChanged={refresh}
-              />
-            ))}
-            {lesson.expected_materials.length === 0 && (
-              <p className="text-sm text-[var(--admin-text-muted)]">Für diese Lektion sind keine Audio-Slots konfiguriert.</p>
-            )}
-          </section>
-        );
-      })}
+      {overview.isSuccess && lessons.map((lesson) => (
+        <section key={lesson.lesson_id} className={`${card} space-y-4`} data-testid={`a2-lesson-${lesson.lesson_number}`}>
+          <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-[var(--admin-border)] pb-3">
+            <h3 className="text-base font-bold text-[var(--admin-text-primary)]">
+              Lektion {lesson.lesson_number} · {lesson.lesson_title}
+            </h3>
+            <span className="text-xs text-[var(--admin-text-muted)]">
+              {lesson.task_count} Hören-Aufgabe(n) · {lesson.uploaded_count} mit Audio
+            </span>
+          </div>
+          {lesson.tasks.length === 0 ? (
+            <p className="text-sm text-[var(--admin-text-muted)]">Keine Hören-Aufgabe in dieser Lektion.</p>
+          ) : (
+            lesson.tasks.map((task) => <TaskCard key={task.id} task={task} onChanged={refresh} />)
+          )}
+        </section>
+      ))}
     </section>
   );
 }

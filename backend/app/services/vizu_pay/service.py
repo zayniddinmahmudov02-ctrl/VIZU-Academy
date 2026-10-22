@@ -22,11 +22,14 @@ from app.services import achievements
 from . import offers as offer_config
 from . import plans as plan_config
 from .access import owned_levels
+from . import purchases
 from .purchases import course_access_is_active
 
 DISCOUNT_TYPES_AT_CHECKOUT = {"PERCENT", "FIXED", "SPECIAL_PRICE"}
 DISCOUNT_TYPE_FREE_DAYS = "FREE_DAYS"
-ALL_DISCOUNT_TYPES = DISCOUNT_TYPES_AT_CHECKOUT | {DISCOUNT_TYPE_FREE_DAYS}
+DISCOUNT_TYPE_FREE_ACCESS = "FREE_ACCESS"  # free course/package access, redeemed directly (no payment)
+DIRECT_REDEEM_TYPES = {DISCOUNT_TYPE_FREE_DAYS, DISCOUNT_TYPE_FREE_ACCESS}
+ALL_DISCOUNT_TYPES = DISCOUNT_TYPES_AT_CHECKOUT | DIRECT_REDEEM_TYPES
 
 _PROOF_CONTENT_TYPE = {
     ".jpg": "image/jpeg",
@@ -273,12 +276,12 @@ class VizuPayService:
         error = self._check_promo(promo, user, plan)
         if error:
             return {"valid": False, "discount_type": None, "discount_value": None, "message": error}
-        if promo.discount_type == DISCOUNT_TYPE_FREE_DAYS:
+        if promo.discount_type in DIRECT_REDEEM_TYPES:
             return {
                 "valid": False,
                 "discount_type": promo.discount_type,
                 "discount_value": promo.discount_value,
-                "message": "This code grants Premium directly — use 'Enter promo code', not checkout.",
+                "message": "This code grants access directly — use 'Enter promo code', not checkout.",
             }
         discount_amount = None
         final_amount = None
@@ -341,8 +344,11 @@ class VizuPayService:
         if error:
             raise VizuPayError(error)
 
-        if promo.discount_type != DISCOUNT_TYPE_FREE_DAYS:
+        if promo.discount_type not in DIRECT_REDEEM_TYPES:
             raise VizuPayError("This code is a checkout discount — apply it at checkout instead.")
+
+        if promo.discount_type == DISCOUNT_TYPE_FREE_ACCESS:
+            return self._redeem_free_access(promo, user, ip)
 
         days = promo.discount_value
         now = _now()
@@ -389,6 +395,87 @@ class VizuPayService:
 
         return {"premium_until": user.premium_until, "days_granted": days}
 
+    def _free_access_targets(self, promo: PromoCode, user: User) -> list[str]:
+        """Offer codes this FREE_ACCESS promo unlocks for the user, resolved
+        on the server from the promo's own scope (never from the client)."""
+        plans = [code for code in (promo.applicable_package_codes or []) if offer_config.is_offer(code)]
+        course_ids = list(promo.applicable_course_ids or [])
+        levels = (
+            {level for (level,) in self.db.query(Course.level).filter(Course.id.in_(course_ids), Course.is_active.is_(True)).all()}
+            if course_ids
+            else set()
+        )
+        level_offer = {
+            cfg["levels"][0]: code
+            for code, cfg in offer_config.OFFERS.items()
+            if cfg["kind"] == offer_config.KIND_LEVEL
+        }
+        covered = {lv for code in plans for lv in offer_config.offer_levels(code)}
+        plans += [level_offer[lv] for lv in sorted(levels) if lv in level_offer and lv not in covered]
+        owned = owned_levels(user)
+        return [code for code in plans if not set(offer_config.offer_levels(code)) <= owned]
+
+    def _redeem_free_access(self, promo: PromoCode, user: User, ip: str | None) -> dict:
+        """Grants course/package access through the normal order mechanism: an
+        APPROVED zero-amount order (method PROMO, gateway "promo") whose access
+        window comes from activate_course_access - the same fields lesson
+        access reads. No payment record is faked; the order shows the base
+        price, the full promo discount and final_amount 0."""
+        if not (promo.applicable_course_ids or promo.applicable_package_codes):
+            raise VizuPayError("This promo code has no course or package assigned.")
+        targets = self._free_access_targets(promo, user)
+        if not targets:
+            raise VizuPayError("You already have access to everything this code unlocks.")
+        for code in targets:
+            if not all(offer_config.level_available(lv) for lv in offer_config.offer_levels(code)):
+                raise VizuPayError("This course is not available yet.")
+
+        now = _now()
+        first_order_id = None
+        for code in targets:
+            cfg = offer_config.offer(code)
+            base = cfg["sale_price"] or cfg["original_price"] or 0
+            order = SubscriptionOrder(
+                id=uuid4(),
+                user_id=user.id,
+                plan=code,
+                duration_days=0,
+                base_amount=base,
+                discount_amount=base,
+                promo_discount_amount=base,
+                final_amount=0,
+                currency="UZS",
+                payment_method=plan_config.PAYMENT_METHOD_PROMO,
+                status=plan_config.STATUS_APPROVED,
+                promo_code_id=promo.id,
+                promo_code_snapshot=promo.code,
+                gateway="promo",
+                reviewed_at=now,
+            )
+            purchases.activate_course_access(order, now.replace(tzinfo=timezone.utc))
+            self.db.add(order)
+            self.db.flush()
+            first_order_id = first_order_id or order.id
+
+        promo.used_count += 1
+        # one redemption row per use of the code (unique on order_id): tied to the first order
+        self.db.add(PromoCodeRedemption(promo_code_id=promo.id, user_id=user.id, order_id=first_order_id))
+        try:
+            self.db.commit()
+        except IntegrityError:
+            self.db.rollback()
+            raise VizuPayError("You have already used this promo code.")
+
+        write_audit(
+            self.db,
+            actor_id=user.id,
+            action="promo_free_access_redeemed",
+            target_user_id=user.id,
+            details=f"{promo.code} -> {', '.join(targets)}",
+            ip_address=ip,
+        )
+        return {"premium_until": user.premium_until, "days_granted": 0, "granted_offers": targets}
+
     # ------------------------------------------------------------------
     # Orders
     # ------------------------------------------------------------------
@@ -426,8 +513,8 @@ class VizuPayService:
         if promo_code:
             promo = self._find_promo(promo_code)
             promo_error = self._check_promo(promo, user, plan)
-            if promo_error is None and promo.discount_type == DISCOUNT_TYPE_FREE_DAYS:
-                promo_error = "This code grants Premium directly — use 'Enter promo code', not checkout."
+            if promo_error is None and promo.discount_type in DIRECT_REDEEM_TYPES:
+                promo_error = "This code grants access directly — use 'Enter promo code', not checkout."
             if promo_error is None:
                 promo_discount = self._apply_discount(base_amount, promo)
         priced = achievements.quote(self.db, user.id, plan, base_amount, promo_discount)
@@ -504,8 +591,8 @@ class VizuPayService:
             error = self._check_promo(promo, user, plan)
             if error:
                 raise VizuPayError(error)
-            if promo.discount_type == DISCOUNT_TYPE_FREE_DAYS:
-                raise VizuPayError("This code grants Premium directly — use 'Enter promo code', not checkout.")
+            if promo.discount_type in DIRECT_REDEEM_TYPES:
+                raise VizuPayError("This code grants access directly — use 'Enter promo code', not checkout.")
             discount_amount = self._apply_discount(base_amount, promo)
 
         # medal reward (e.g. Starter: -5 000 on A1) — row-locked, one per order, only for its offers

@@ -565,13 +565,15 @@ function PromoCodesTab() {
   const currentPage = Math.min(page, pageCount);
   const visiblePromos = filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize);
   const hasProducts = form.discount_type !== "FREE_DAYS";
+  const isFreeAccess = form.discount_type === "FREE_ACCESS";
   const selectedTargets = form.applicable_course_ids.length + form.applicable_package_codes.length;
 
   function validateForm(): Partial<Record<PromoFormField, string>> {
     const errors: Partial<Record<PromoFormField, string>> = {};
     const code = form.code.trim();
     if (!/^[a-z0-9_-]{1,40}$/i.test(code)) errors.code = "Kod harf, raqam, tire yoki pastki chiziqdan iborat bo‘lsin (maks. 40 belgi).";
-    if (!Number.isInteger(form.discount_value) || form.discount_value <= 0) errors.discount_value = "Qiymat 0 dan katta butun son bo‘lishi kerak.";
+    if (isFreeAccess) { /* no value: the server stores a full waiver */ }
+    else if (!Number.isInteger(form.discount_value) || form.discount_value <= 0) errors.discount_value = "Qiymat 0 dan katta butun son bo‘lishi kerak.";
     else if (form.discount_type === "PERCENT" && form.discount_value > 100) errors.discount_value = "Foiz 100 dan oshmasligi kerak.";
     if (hasProducts && selectedTargets === 0) errors.scope = "Kamida bitta kurs yoki paketni aniq tanlang.";
     if (form.max_uses !== null && (!Number.isInteger(form.max_uses) || form.max_uses < 1)) errors.max_uses = "Kamida 1 bo‘lsin yoki maydonni bo‘sh qoldiring.";
@@ -631,7 +633,8 @@ function PromoCodesTab() {
           {item.discount_type === "PERCENT" ? <>{item.discount_value}% · Foiz</>
             : item.discount_type === "SPECIAL_PRICE" ? <>Maxsus narx · {money(item.discount_value)}</>
               : item.discount_type === "FIXED" ? <>{money(item.discount_value)} chegirma</>
-                : <>Premium · {item.discount_value} kun</>}
+                : item.discount_type === "FREE_ACCESS" ? <>Bepul kirish · Free Access</>
+                  : <>Premium · {item.discount_value} kun</>}
         </span>
       ),
     },
@@ -735,7 +738,7 @@ function PromoCodesTab() {
             <option value="ALL">Barcha holatlar</option><option value="ACTIVE">Faol</option><option value="SCHEDULED">Rejalashtirilgan</option><option value="EXPIRED">Muddati tugagan</option><option value="INACTIVE">Nofaol</option><option value="EXHAUSTED">Limit tugagan</option>
           </AdminSelect>
           <AdminSelect aria-label="Chegirma turi" value={typeFilter} onChange={(event) => { setTypeFilter(event.target.value); setPage(1); }}>
-            <option value="ALL">Barcha chegirmalar</option><option value="PERCENT">Foizli chegirma</option><option value="SPECIAL_PRICE">Maxsus narx</option><option value="FIXED">Belgilangan summa</option><option value="FREE_DAYS">Premium kunlari</option>
+            <option value="ALL">Barcha chegirmalar</option><option value="PERCENT">Foizli chegirma</option><option value="SPECIAL_PRICE">Maxsus narx</option><option value="FIXED">Belgilangan summa</option><option value="FREE_DAYS">Premium kunlari</option><option value="FREE_ACCESS">Bepul taqdim etish</option>
           </AdminSelect>
           <AdminSelect aria-label="Kurs yoki paket" value={productFilter} onChange={(event) => { setProductFilter(event.target.value); setPage(1); }}>
             <option value="ALL">Barcha mahsulotlar</option>
@@ -819,14 +822,20 @@ function PromoCodesTab() {
               <AdminSelect
                 id="promo-type"
                 value={form.discount_type}
-                onChange={(e) => setForm({ ...form, discount_type: e.target.value, applicable_course_ids: e.target.value === "FREE_DAYS" ? [] : form.applicable_course_ids, applicable_package_codes: e.target.value === "FREE_DAYS" ? [] : form.applicable_package_codes })}
+                onChange={(e) => setForm({ ...form, discount_type: e.target.value, discount_value: e.target.value === "FREE_ACCESS" ? 100 : form.discount_type === "FREE_ACCESS" ? 1 : form.discount_value, applicable_course_ids: e.target.value === "FREE_DAYS" ? [] : form.applicable_course_ids, applicable_package_codes: e.target.value === "FREE_DAYS" ? [] : form.applicable_package_codes })}
               >
                 <option value="PERCENT">Foizli chegirma</option>
                 <option value="SPECIAL_PRICE">Yakuniy maxsus narx</option>
                 <option value="FIXED">Belgilangan summa chegirmasi</option>
                 <option value="FREE_DAYS">Premium kunlari</option>
+                <option value="FREE_ACCESS">Bepul taqdim etish (Free Access)</option>
               </AdminSelect>
             </div>
+            {isFreeAccess ? (
+              <p className="self-end rounded-lg bg-[var(--admin-primary)]/10 p-2 text-xs text-[var(--admin-text-secondary)]" data-testid="free-access-note">
+                Bu promo kod tegishli kursga bepul kirish beradi. To‘lov summasi 0 bo‘ladi; chegirma qiymati kerak emas.
+              </p>
+            ) : (
             <div>
               <AdminLabel htmlFor="promo-value">{form.discount_type === "PERCENT" ? "Chegirma foizi" : form.discount_type === "FREE_DAYS" ? "Premium kunlari" : form.discount_type === "SPECIAL_PRICE" ? "Yakuniy narx (UZS)" : "Chegirma summasi (UZS)"}</AdminLabel>
               <AdminInput
@@ -840,6 +849,7 @@ function PromoCodesTab() {
               />
               {fieldErrors.discount_value && <p className="mt-1 text-xs text-[var(--admin-danger)]" role="alert">{fieldErrors.discount_value}</p>}
             </div>
+            )}
           </div>
           </section>
 

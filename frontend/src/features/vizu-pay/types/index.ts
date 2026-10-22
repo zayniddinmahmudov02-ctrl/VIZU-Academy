@@ -58,8 +58,10 @@ export interface PaymentCard {
 }
 
 export interface PromoRedeemResult {
-  premiumUntil: string;
+  premiumUntil: string | null;
   daysGranted: number;
+  /** FREE_ACCESS codes: the course / package offers that were unlocked */
+  grantedOffers: string[];
 }
 
 export interface OrderItem {

@@ -224,7 +224,7 @@ export default function MediaManagementClient({ initialLevel = "" }: { initialLe
         </div>
       </section>
 
-      {level === "A2" && <A2ListeningManagement mediaItems={items.data ?? []} />}
+      {level === "A2" && <A2ListeningManagement />}
 
       {/* 2. upload */}
       <section className={`${card} space-y-5`}>

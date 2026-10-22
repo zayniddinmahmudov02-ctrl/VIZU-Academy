@@ -1,4 +1,4 @@
-import { api } from "@/src/services/api";
+﻿import { api } from "@/src/services/api";
 import type { AudioSlot } from "@/features/admin/services/lesson-skills-admin-service";
 
 const BASE = "/api/v1/admin/media-management";
@@ -35,48 +35,46 @@ export interface MediaItem {
   updated_at: string;
 }
 
-export interface A2ListeningSlotTask {
+export interface A2AudioTask {
   id: string;
   title: string;
   order_index: number;
   is_published: boolean;
   audio_original_name: string | null;
   audio_format: string | null;
+  audio_size_bytes: number | null;
   audio_duration_seconds: number | null;
   file_status: MediaFileStatus;
+  format_error: boolean;
   question_count: number;
   key_missing: number;
+  audio_slots: AudioSlot[];
+  material_key: string | null;
+  unverified_source_hint: string | null;
+  archived_versions: number;
 }
 
-export interface A2ListeningMaterial {
-  key: string;
-  slot_number: number;
-  source_name: string;
-  expected_format: string;
-  format_matches: boolean | null;
-  listening: A2ListeningSlotTask | null;
-  available_task_ids: string[];
-}
-
-export interface A2ListeningLesson {
+export interface A2AudioLesson {
+  lesson_id: string;
   lesson_number: number;
-  lesson_id: string | null;
-  lesson_title: string | null;
-  lesson_exists: boolean;
-  expected_materials: A2ListeningMaterial[];
-  other_tasks: A2ListeningSlotTask[];
+  lesson_title: string;
+  tasks: A2AudioTask[];
+  task_count: number;
+  uploaded_count: number;
+  missing_count: number;
 }
 
-export interface A2ListeningOverview {
-  expected_lesson_count: number;
-  actual_lesson_count: number;
-  lesson_count_matches: boolean;
-  expected_audio_count: number;
-  mapped_audio_count: number;
+export interface A2AudioOverview {
+  /** false: the A2 book is not available, so nothing is confirmed against it */
+  book_confirmed: boolean;
+  lesson_count: number;
+  /** null while the book is unconfirmed */
+  expected_audio_slots: number | null;
+  task_count: number;
   uploaded_audio_count: number;
-  format_mismatch_count: number;
-  audio_count_matches: boolean;
-  lessons: A2ListeningLesson[];
+  missing_audio_count: number;
+  format_error_count: number;
+  lessons: A2AudioLesson[];
 }
 
 export async function getMediaTree(): Promise<MediaTreeLevel[]> {
@@ -93,14 +91,6 @@ export async function getVideoPreviewUrl(videoId: string): Promise<string> {
   return (await api.get<{ url: string }>(`${BASE}/videos/${videoId}/preview`)).data.url;
 }
 
-export async function getA2ListeningOverview(): Promise<A2ListeningOverview> {
-  return (await api.get<A2ListeningOverview>(`${BASE}/a2-audio`)).data;
-}
-
-export async function createA2ListeningSlotTask(lessonNumber: number, materialKey: string): Promise<A2ListeningSlotTask> {
-  return (await api.post<A2ListeningSlotTask>(`${BASE}/a2-audio/lessons/${lessonNumber}/materials`, { material_key: materialKey })).data;
-}
-
-export async function assignA2ListeningSlotTask(materialKey: string, listeningId: string): Promise<A2ListeningSlotTask> {
-  return (await api.put<A2ListeningSlotTask>(`${BASE}/a2-audio/materials/${materialKey}/assign`, { listening_id: listeningId })).data;
+export async function getA2AudioOverview(): Promise<A2AudioOverview> {
+  return (await api.get<A2AudioOverview>(`${BASE}/a2-audio`)).data;
 }

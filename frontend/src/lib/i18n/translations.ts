@@ -1402,6 +1402,10 @@ export const translations: Record<string, Namespace> = {
       de: "Promo-Code eingelöst — Premium ist jetzt aktiv.",
       uz: "Promokod faollashtirildi — Premium endi yoqilgan.",
     },
+    promoRedeemFreeAccessSuccess: {
+      de: "Promo-Code eingelöst — der Kurs ist jetzt freigeschaltet.",
+      uz: "Promokod faollashtirildi — kursga bepul kirish ochildi.",
+    },
     promoRedeemError: {
       de: "Promo-Code konnte nicht eingelöst werden.",
       uz: "Promokodni faollashtirib bo'lmadi.",

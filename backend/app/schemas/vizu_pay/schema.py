@@ -103,8 +103,9 @@ class PromoRedeemRequest(BaseSchema):
 
 
 class PromoRedeemResponse(BaseSchema):
-    premium_until: datetime
-    days_granted: int
+    premium_until: datetime | None = None
+    days_granted: int = 0
+    granted_offers: list[str] = []
 
 
 class AdminOrderItem(OrderItem):

@@ -1,4 +1,4 @@
-"""Declared A2 audio assets for Unterricht 1–13.
+﻿"""Declared A2 audio assets for Unterricht 1–13.
 
 This manifest describes expected source files only. It never creates lessons,
 tasks, questions, answer keys, or audio records.

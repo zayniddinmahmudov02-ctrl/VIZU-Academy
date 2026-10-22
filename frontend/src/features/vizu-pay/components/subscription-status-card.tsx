@@ -35,8 +35,11 @@ function PromoRedeemBlock({ onRedeemPromo }: { onRedeemPromo: (code: string) => 
     setPending(true);
     setResult(null);
     try {
-      await onRedeemPromo(code.trim());
-      setResult({ ok: true, message: t("vizuPay.promoRedeemSuccess") });
+      const redeemed = await onRedeemPromo(code.trim());
+      setResult({
+        ok: true,
+        message: redeemed.grantedOffers.length > 0 ? t("vizuPay.promoRedeemFreeAccessSuccess") : t("vizuPay.promoRedeemSuccess"),
+      });
       setCode("");
     } catch (err: unknown) {
       const message = isAxiosError<{ message?: string }>(err) ? err.response?.data?.message : undefined;

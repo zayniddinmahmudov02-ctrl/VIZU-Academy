@@ -192,7 +192,8 @@ export async function validatePromo(code: string, plan: string): Promise<PromoVa
 
 export async function redeemPromo(code: string): Promise<PromoRedeemResult> {
   const response = await api.post("/api/v1/vizu-pay/promo/redeem", { code });
-  return { premiumUntil: response.data.premium_until, daysGranted: response.data.days_granted };
+  const grantedOffers: string[] = Array.isArray(response.data.granted_offers) ? response.data.granted_offers : [];
+  return { premiumUntil: response.data.premium_until ?? null, daysGranted: response.data.days_granted ?? 0, grantedOffers };
 }
 
 export interface CreateOrderInput {

@@ -1,4 +1,4 @@
-from collections import Counter
+﻿from collections import Counter
 from io import BytesIO
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -15,7 +15,7 @@ from app.services.lesson_skills.a2_audio_manifest import A2_AUDIO_MATERIALS, aud
 
 
 class TestA2AudioManifest(unittest.TestCase):
-    def test_manifest_declares_exactly_thirteen_lessons_and_twenty_eight_files(self):
+    def test_legacy_hint_list_is_unchanged_and_unverified(self):
         counts = Counter(item.lesson_number for item in A2_AUDIO_MATERIALS)
         self.assertEqual(len(counts), 13)
         self.assertEqual(len(A2_AUDIO_MATERIALS), 28)

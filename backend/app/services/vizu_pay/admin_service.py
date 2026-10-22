@@ -458,7 +458,7 @@ class AdminVizuPayService:
     ) -> tuple[list[str], list[str]]:
         starts_at = _utc_naive(starts_at)
         expires_at = _utc_naive(expires_at)
-        if discount_type not in {"PERCENT", "FIXED", "SPECIAL_PRICE", "FREE_DAYS"}:
+        if discount_type not in {"PERCENT", "FIXED", "SPECIAL_PRICE", "FREE_DAYS", "FREE_ACCESS"}:
             raise VizuPayError("Invalid promo pricing type.")
         if discount_value < 0 or (discount_type != "SPECIAL_PRICE" and discount_value == 0):
             raise VizuPayError("Promo value must be positive (special price may be zero).")
@@ -508,7 +508,7 @@ class AdminVizuPayService:
         if discount_type == "FREE_DAYS":
             if normalized_ids or package_codes:
                 raise VizuPayError("Premium-day codes cannot have course or package targets.")
-        elif not normalized_ids and not package_codes and not allow_unscoped:
+        elif not normalized_ids and not package_codes and (not allow_unscoped or discount_type == "FREE_ACCESS"):
             raise VizuPayError("Select at least one course or package.")
         if discount_type == "SPECIAL_PRICE":
             for product_code in selected_levels | set(package_codes):
@@ -544,8 +544,10 @@ class AdminVizuPayService:
         )
         starts_at = _utc_naive(starts_at)
         expires_at = _utc_naive(expires_at)
+        if discount_type == "FREE_ACCESS":
+            discount_value = 100  # full waiver; the stored value is not client-controlled
 
-        existing = self.db.query(PromoCode).filter(PromoCode.code == code).first()
+        existing =self.db.query(PromoCode).filter(PromoCode.code == code).first()
         if existing:
             raise VizuPayError("A promo code with this code already exists.")
 
@@ -622,6 +624,8 @@ class AdminVizuPayService:
         )
         starts_at = _utc_naive(starts_at)
         expires_at = _utc_naive(expires_at)
+        if updated_type == "FREE_ACCESS":
+            updated_value = 100
         if max_uses is not None and max_uses < promo.used_count:
             raise VizuPayError("Maximum uses cannot be lower than existing uses or pending reservations.")
 
