@@ -46,14 +46,14 @@ const STATUS_LABEL: Record<MediaItem["file_status"], string> = { ok: "Datei vorh
 /** Media Management: videos and Hören audio of every lesson (A1–C1) in one
  * place. Uses the existing upload / replace / publish / delete endpoints;
  * the overview comes from GET /admin/media-management/items. */
-export default function MediaManagementClient() {
+export default function MediaManagementClient({ initialLevel = "" }: { initialLevel?: string }) {
   const queryClient = useQueryClient();
   const tree = useQuery({ queryKey: ["media-mgmt", "tree"], queryFn: getMediaTree });
   const items = useQuery({ queryKey: ["media-mgmt", "items"], queryFn: getMediaItems });
   const refresh = () => queryClient.invalidateQueries({ queryKey: ["media-mgmt", "items"] });
 
   // ---- selection: level -> module -> lesson
-  const [level, setLevel] = useState("");
+  const [level, setLevel] = useState(initialLevel);
   const [moduleId, setModuleId] = useState("");
   const [lessonId, setLessonId] = useState("");
   const levelNode = tree.data?.find((l) => l.level === level);

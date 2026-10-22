@@ -43,6 +43,8 @@ const nextConfig: NextConfig = {
       { source: "/admin/courses", destination: "/admin/kurse", permanent: false },
       { source: "/admin/courses/:courseId", destination: "/admin/kurse", permanent: false },
       { source: "/admin/videos", destination: "/admin/kurse", permanent: false },
+      // Legacy A2 Audio bookmarks now open the A2 controls in Media Management.
+      { source: "/admin/media-management/a2-audio", destination: "/admin/media-management?level=A2", permanent: false },
     ];
   },
   turbopack: {
