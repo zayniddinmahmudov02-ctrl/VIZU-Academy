@@ -15,6 +15,7 @@ import {
   Medal,
   Megaphone,
   Clapperboard,
+  PanelsTopLeft,
   School,
   Settings,
   ShieldCheck,
@@ -68,6 +69,7 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
       { label: "Angebote & Preise", href: "/admin/angebote", icon: Tag },
       { label: "Analytics", href: "/admin/analytics", icon: TrendingUp },
       { label: "Settings", href: "/admin/settings", icon: Settings },
+      { label: "Page Management", href: "/admin/page-management", icon: PanelsTopLeft },
     ],
   },
 ];

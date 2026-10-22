@@ -3,9 +3,11 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ShieldCheck } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
 
 import Logo from "@/components/common/logo";
 import { ADMIN_NAV_GROUPS } from "@/features/admin/constants/nav";
+import { getManagedPageNavigation } from "@/features/admin/services/page-management-service";
 import { cn } from "@/lib/utils";
 
 function matches(pathname: string, href: string): boolean {
@@ -24,6 +26,15 @@ function isActive(pathname: string, href: string): boolean {
 
 export default function AdminSidebar({ className }: { className?: string }) {
   const pathname = usePathname();
+  const navigation = useQuery({
+    queryKey: ["admin-managed-page-navigation"],
+    queryFn: getManagedPageNavigation,
+    staleTime: 30_000,
+  });
+  const navGroups = ADMIN_NAV_GROUPS.map((group) => ({
+    ...group,
+    items: group.items.filter((item) => navigation.data?.[item.href] !== false),
+  })).filter((group) => group.items.length > 0);
 
   return (
     <aside className={cn("flex h-full w-[270px] flex-col bg-[var(--admin-card)]", className)}>
@@ -41,7 +52,12 @@ export default function AdminSidebar({ className }: { className?: string }) {
       </div>
 
       <nav className="flex-1 space-y-5 overflow-y-auto px-3 py-5">
-        {ADMIN_NAV_GROUPS.map((group, i) => (
+        {navigation.isError && (
+          <p role="status" className="px-3 text-xs text-[var(--admin-warning)]">
+            Menüstatus konnte nicht geladen werden; Standardmenü wird angezeigt.
+          </p>
+        )}
+        {navGroups.map((group, i) => (
           <div key={i} className={i > 0 ? "border-t border-[var(--admin-border)] pt-4" : ""}>
             <div className="space-y-0.5">
               {group.items.map((item) => {

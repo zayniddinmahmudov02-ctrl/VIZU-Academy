@@ -167,6 +167,9 @@ from app.api.admin.books_router import (
 from app.api.admin.teacher_assignments_router import (
     router as admin_teacher_assignments_router,
 )
+from app.api.admin.page_management_router import (
+    router as admin_page_management_router,
+)
 
 # Teacher Panel
 from app.api.teacher import router as teacher_router
@@ -311,6 +314,7 @@ _ALL_ROUTERS = [
     admin_vizu_multilevel_router,
     admin_books_router,
     admin_teacher_assignments_router,
+    admin_page_management_router,
     teacher_router,
     vizu_pay_router,
     assessment_engine_router,

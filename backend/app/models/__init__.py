@@ -86,6 +86,7 @@ from .payment.payment import Payment
 from .user_tag import UserTag
 from .login_history import LoginHistory
 from .audit_log import AuditLog
+from .managed_page import ManagedPage, ManagedPageAudit
 
 # VIZU Pay
 from .promo_code import PromoCode
@@ -191,6 +192,8 @@ __all__ = [
     "UserTag",
     "LoginHistory",
     "AuditLog",
+    "ManagedPage",
+    "ManagedPageAudit",
 
     # VIZU Pay
     "PromoCode",
