@@ -101,6 +101,18 @@ class TestEdition(unittest.TestCase):
         martin = [q["question"] for q in items["vizu-a2buch-l04-lesen-01"]["questions"] if q.get("passage") == 3]
         self.assertEqual([m.split(".")[0] for m in martin], ["19", "20", "21", "23", "24"])
 
+    def test_editorial_corrections_keep_the_book_wording(self):
+        items = {i["content_id"]: i for d in self.docs.values() for i in d["items"]}
+        for cid in ("vizu-a2buch-l03-grammatik-01", "vizu-a2buch-l08-grammatik-01", "vizu-a2buch-l10-grammatik-01",
+                    "vizu-a2buch-l12-grammatik-01", "vizu-a2buch-l13-grammatik-01", "vizu-a2buch-l09-schreiben-02",
+                    "vizu-a2buch-l13-schreiben-01", "vizu-a2buch-l13-schreiben-03"):
+            with self.subTest(item=cid):
+                self.assertTrue(items[cid]["metadata"]["book_original"])
+                shown = json.dumps(items[cid].get("rules") or items[cid].get("prompt"), ensure_ascii=False)
+                self.assertRegex(shown, r"Redaktioneller Hinweis|Hinweis: (Die Tabelle|Im Buch steht)")
+        self.assertIn("Verbstamm + e/Ø", items["vizu-a2buch-l03-grammatik-01"]["rules"][0]["html"])
+        self.assertIn("Der Konjunktiv II", items["vizu-a2buch-l13-grammatik-01"]["rules"][0]["html"])
+
     def test_lesson_14(self):
         self.assertEqual(book.items(14), [])
         self.assertEqual(book.lesson_title(14), "Wiederholung")
@@ -151,6 +163,46 @@ class TestOptionalWordLimits(unittest.TestCase):
         with patch.object(svc, "ensure_lesson_open"), self.assertRaises(HTTPException) as ctx:
             s.submit("u", "w", "zu kurz", submit_final=True)
         self.assertEqual(ctx.exception.status_code, 400)
+
+
+class TestRenameVideos(unittest.TestCase):
+    """Only the "[Archiv] IMG_…" title changes; the old title is archived first."""
+
+    def setUp(self):
+        import tempfile
+        from pathlib import Path
+
+        from app.models.video import Video
+
+        self.tmp = tempfile.TemporaryDirectory()
+        self.archive = Path(self.tmp.name) / "a2buch_competency_texts.jsonl"
+        self.video = Video(id=__import__("uuid").uuid4(), lesson_id="l", title="[Archiv] IMG_0321", storage_key="videos/l/a.mp4",
+                           duration_seconds=60, order_index=0, is_preview=False, is_published=True)
+        self.addCleanup(self.tmp.cleanup)
+
+    def _run(self, dry_run: bool):
+        from unittest.mock import MagicMock
+
+        from app.scripts import import_vizu_deutsch_a2_buch as cli
+
+        db = MagicMock()
+        db.scalars.return_value = [self.video]
+        return db, cli.rename_videos(db, SimpleNamespace(id="l"), "Reisen", self.archive, dry_run)
+
+    def test_dry_run_writes_nothing(self):
+        db, out = self._run(dry_run=True)
+        self.assertEqual(out, ["„[Archiv] IMG_0321“ -> „Video: Reisen“"])
+        self.assertEqual(self.video.title, "[Archiv] IMG_0321")
+        db.commit.assert_not_called()
+        self.assertFalse(self.archive.with_name("a2buch_video_titles.jsonl").exists())
+
+    def test_rename_keeps_everything_else_and_archives_the_old_title(self):
+        db, _ = self._run(dry_run=False)
+        self.assertEqual((self.video.title, self.video.storage_key, self.video.is_published), ("Video: Reisen", "videos/l/a.mp4", True))
+        saved = json.loads(self.archive.with_name("a2buch_video_titles.jsonl").read_text(encoding="utf-8"))
+        self.assertEqual((saved["id"], saved["title"]), (str(self.video.id), "[Archiv] IMG_0321"))
+        _, again = self._run(dry_run=False)  # re-run: the title no longer starts with [Archiv]
+        self.assertEqual(again, [])
 
 
 if __name__ == "__main__":

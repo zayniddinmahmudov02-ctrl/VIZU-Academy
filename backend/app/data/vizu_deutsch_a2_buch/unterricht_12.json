@@ -38,9 +38,11 @@
      "Relativpronomen-Tabelle korrigiert (Spalten im Buch vertauscht).",
      "Aufgabe 20 „Das Kind, ___ Ball verloren hat“ — keine richtige Option, nicht übernommen."
     ],
+    "book_original": [
+     "S. 149 Relativpronomen-Tabelle: Spalten vertauscht (z. B. Dativ feminin „die“, Genitiv Plural „denen“; Nominativ/Akkusativ fehlen)."
+    ],
     "needs_review": [
-     "S. 149 Relativpronomen-Tabelle im Buch fehlerhaft — hier korrigiert; Korrektur bestätigen.",
-     "S. 150 Aufgabe 20 ohne richtige Option."
+     "S. 150 Aufgabe 20 ohne richtige Option (nicht automatisch bewertet)."
     ],
     "key_source": "grammar_rule",
     "edition": "buch-2026-10-27"

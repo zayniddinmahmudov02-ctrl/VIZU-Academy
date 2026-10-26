@@ -40,15 +40,15 @@
    "metadata": {
     "book_page": "106-107",
     "key_source": "grammar_rule",
-    "needs_review": [
-     "S. 106 Futur-I-Beispiel „Lisa wird wohl schon geschlafen haben“ ist Futur II (wie im Buch)."
+    "book_original": [
+     "S. 106, Spalte Futur I: „Lisa wird wohl schon geschlafen haben.“"
     ],
     "edition": "buch-2026-10-27"
    },
    "rules": [
     {
      "title": "Futur I und Futur II",
-     "html": "<h3>Futur I und Futur II (A2–B1)</h3><table><thead><tr><th>Futur I</th><th>Futur II</th></tr></thead><tbody><tr><td>Futur I wird für Pläne, Prognosen und Vermutungen in der Zukunft benutzt.</td><td>Futur II wird für abgeschlossene Ereignisse in der Zukunft benutzt.</td></tr><tr><td><strong>Vorform:</strong> werden + Infinitiv</td><td><strong>Vorform:</strong> werden + Partizip II + haben / sein</td></tr><tr><td>Ich <strong>werde</strong> dich morgen anrufen.<br>Wir <strong>werden</strong> bald nach Spanien fliegen.<br>Lisa <strong>wird</strong> wohl schon geschlafen haben.</td><td>Ich <strong>werde</strong> die Aufgabe bis morgen <strong>erledigt haben</strong>.<br>David <strong>wird</strong> um 23 Uhr zu Hause <strong>angekommen sein</strong>.<br>Lisa <strong>wird</strong> schon <strong>geschlafen haben</strong>, wenn du anrufst.</td></tr></tbody></table><h4>Unterschied</h4><ul><li><strong>Futur I:</strong> Handlung liegt in der Zukunft.</li><li><strong>Futur II:</strong> Handlung wird in der Zukunft abgeschlossen sein.</li></ul>"
+     "html": "<h3>Futur I und Futur II (A2–B1)</h3><table><thead><tr><th>Futur I</th><th>Futur II</th></tr></thead><tbody><tr><td>Futur I wird für Pläne, Prognosen und Vermutungen in der Zukunft benutzt.</td><td>Futur II wird für abgeschlossene Ereignisse in der Zukunft benutzt.</td></tr><tr><td><strong>Vorform:</strong> werden + Infinitiv</td><td><strong>Vorform:</strong> werden + Partizip II + haben / sein</td></tr><tr><td>Ich <strong>werde</strong> dich morgen anrufen.<br>Wir <strong>werden</strong> bald nach Spanien fliegen.<br>Lisa <strong>wird</strong> wohl schon geschlafen haben.</td><td>Ich <strong>werde</strong> die Aufgabe bis morgen <strong>erledigt haben</strong>.<br>David <strong>wird</strong> um 23 Uhr zu Hause <strong>angekommen sein</strong>.<br>Lisa <strong>wird</strong> schon <strong>geschlafen haben</strong>, wenn du anrufst.</td></tr></tbody></table><h4>Unterschied</h4><ul><li><strong>Futur I:</strong> Handlung liegt in der Zukunft.</li><li><strong>Futur II:</strong> Handlung wird in der Zukunft abgeschlossen sein.</li></ul><p><em><strong>Redaktioneller Hinweis:</strong> „Lisa wird wohl schon geschlafen haben.“ steht im Buch unter Futur I, ist aber Futur II (werden + Partizip II + haben).</em></p>"
     }
    ],
    "exercises": [

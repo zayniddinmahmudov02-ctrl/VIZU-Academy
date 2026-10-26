@@ -115,6 +115,18 @@ def _key_source(item: dict, source: str) -> None:
     item.setdefault("metadata", {})["key_source"] = source
 
 
+def _editorial(item: dict, book_text: str, note_html: str, rule: int = 0) -> None:
+    """An editorial correction of a book error: the book's own wording stays
+    in metadata.book_original, the student sees a marked note — never a
+    silent change."""
+    item.setdefault("metadata", {}).setdefault("book_original", []).append(book_text)
+    rules = item.get("rules")
+    if rules:
+        rules[rule]["html"] += f"<p><em><strong>Redaktioneller Hinweis:</strong> {note_html}</em></p>"
+    else:
+        item["prompt"] += f"\n\nRedaktioneller Hinweis: {note_html}"
+
+
 # ============================================================
 # per-lesson fixes (docs/a2-book-content-audit.md)
 # ============================================================
@@ -191,7 +203,9 @@ def _fix_03(items: dict) -> None:
     rule = items["vizu-a2-l03-grammatik-01"]["rules"][0]
     rule["html"] = re.sub(r"<h4>Beispiel \(Unterrichtsblatt\)</h4><ul>.*?</ul>", "", rule["html"])
     assert "Unterrichtsblatt" not in rule["html"]
-    _review(items["vizu-a2-l03-grammatik-01"], "S. 33 Imperativ mit du: Buch „Verbstamm + t/Ø“ (sprachlich falsch), hier „e/Ø“ — bitte bestätigen.")
+    _editorial(items["vizu-a2-l03-grammatik-01"], "S. 33, du: „Verbstamm + t/Ø“",
+               "Im Buch steht beim Imperativ mit „du“ „Verbstamm + t/Ø“ (Druckfehler). Richtig ist Verbstamm + e/Ø — "
+               "wie die Beispiele im Buch zeigen: Lerne Deutsch! · Komm! · Mach die Hausaufgabe!")
     task = items["vizu-a2-l03-schreiben-02"]
     task["prompt"] = _replace(
         task["prompt"],
@@ -310,7 +324,10 @@ def _fix_08(items: dict) -> None:
              "<li>Sie hat Angst, <strong>aber</strong> sie fährt allein.</li><li>Er hat wenig Erfahrung. <strong>Trotzdem</strong> bekommt er den Job.</li>"
              "<li>Ich bin krank, <strong>aber</strong> ich gehe zur Schule.</li><li>Er hat wenig Erfahrung. <strong>Trotzdem</strong> bekommt er den Job.</li></ul>")
     gram["rules"][0]["html"] = html
-    _review(gram, "S. 86 „Vergleich + mehr Beispiele“ / Mini-Übungen enthalten inhaltliche Fehler des Buches (wie im Buch übernommen).")
+    _editorial(gram, "S. 86: „Ich habe Hunger, aber sie fährt nicht allein.“ · „Es ist kalt, Trotzdem gehe ich zur Schule.“",
+               "„Ich habe Hunger, aber sie fährt nicht allein.“ zeigt keinen Gegensatz (zwei verschiedene Personen, kein Zusammenhang). "
+               "„Es ist kalt, Trotzdem gehe ich zur Schule.“ — nach einem Komma klein: „Es ist kalt, trotzdem gehe ich zur Schule.“ "
+               "(oder mit Punkt: „Es ist kalt. Trotzdem gehe ich zur Schule.“).")
 
     task = items["vizu-a2-l08-schreiben-02"]
     task["title"] = "Grammatik-Aufgaben: A, B, C (trotzdem)"
@@ -342,14 +359,18 @@ def _fix_09(items: dict) -> None:
     _key_source(items["vizu-a2-l09-grammatik-01"], "grammar_rule")
     lesen = items["vizu-a2-l09-lesen-01"]
     _key_source(lesen, "vizu-antworten")  # checked against the text
-    _review(lesen, "S. 99 Aussage 6 „Weniger als 30 %“ vs. Text „fast 30 %“ — Schlüssel „richtig“ bestätigen.")
-    _review(items["vizu-a2-l09-schreiben-02"], "S. 97 Buchbeispiel „…, damit ich in Deutschland studieren will.“ (wie im Buch).")
+    # "fast 30 %" means just under 30 % — the key "richtig" follows from the text
+    lesen["metadata"]["key_decision"] = "S. 99 Aussage 6 „Weniger als 30 %“: Text „fast 30 %“ → richtig."
+    _editorial(items["vizu-a2-l09-schreiben-02"], "S. 97 Beispiel: „…, damit ich in Deutschland studieren will.“",
+               "Im Beispiel des Buches richtig: „…, damit ich in Deutschland studieren kann.“ (nach „damit“ kein „wollen“ — "
+               "der Wunsch steckt schon in „damit“).")
     _key_source(items["vizu-a2-l09-hoeren-01"], "vizu-antworten")
 
 
 def _fix_10(items: dict) -> None:
     _key_source(items["vizu-a2-l10-grammatik-01"], "grammar_rule")
-    _review(items["vizu-a2-l10-grammatik-01"], "S. 106 Futur-I-Beispiel „Lisa wird wohl schon geschlafen haben“ ist Futur II (wie im Buch).")
+    _editorial(items["vizu-a2-l10-grammatik-01"], "S. 106, Spalte Futur I: „Lisa wird wohl schon geschlafen haben.“",
+               "„Lisa wird wohl schon geschlafen haben.“ steht im Buch unter Futur I, ist aber Futur II (werden + Partizip II + haben).")
     kadewe = items["vizu-a2-l10-lesen-02"]["passages"][0]
     kadewe["text"] = re.sub(r"\nErdgeschoss: [^\n]*", "", kadewe["text"])
     assert "Erdgeschoss:" not in kadewe["text"]
@@ -385,8 +406,11 @@ def _fix_12(items: dict) -> None:
     ex["title"] = "Grammatik Aufgaben: Relativpronomen"
     ex["instruction"] = ("Wähle das richtige Relativpronomen.\n\nNicht automatisch bewertet: Aufgabe 20 „Das Kind, ___ Ball verloren hat, "
                          "weint. (dessen / dem / den)“ — keine der Optionen ist richtig.")
-    _review(gram, "S. 149 Relativpronomen-Tabelle im Buch fehlerhaft — hier korrigiert; Korrektur bestätigen.",
-            "S. 150 Aufgabe 20 ohne richtige Option.")
+    # the corrected table carries a visible "Hinweis" (first edition); the
+    # book's wording is kept here, the correction is standard grammar
+    gram["metadata"]["book_original"] = ["S. 149 Relativpronomen-Tabelle: Spalten vertauscht (z. B. Dativ feminin „die“, "
+                                         "Genitiv Plural „denen“; Nominativ/Akkusativ fehlen)."]
+    _review(gram, "S. 150 Aufgabe 20 ohne richtige Option (nicht automatisch bewertet).")
     _key_source(gram, "grammar_rule")
 
     teil1 = items["vizu-a2-l12-lesen-01"]
@@ -407,14 +431,21 @@ def _fix_12(items: dict) -> None:
 
 def _fix_13(items: dict) -> None:
     gram = items["vizu-a2-l13-grammatik-01"]
-    _review(gram, "S. 166 Buch: „können → müsste, müssen → dürfte“ und „Ein Relativsatz II“ — hier korrigiert; Korrektur bestätigen.")
+    gram["metadata"]["book_original"] = ["S. 166: „können → müsste, müssen → dürfte“", "S. 166: „Ein Relativsatz II. beschreibt …“"]
+    gram["rules"][0]["html"] = _replace(
+        gram["rules"][0]["html"], "(Druckfehler) — hier die richtigen Formen.",
+        "(Druckfehler) — hier die richtigen Formen. Ebenso steht im Buch „Ein Relativsatz II“ statt „Der Konjunktiv II“.")
     _key_source(gram, "grammar_rule")
     for n in (1, 2, 3, 4):
         _key_source(items[f"vizu-a2-l13-lesen-0{n}"], "text")
     email = items["vizu-a2-l13-schreiben-03"]
     sample = email["metadata"].pop("book_sample")
     email["prompt"] += f"\n\nBeispiel (Buch): {sample}"
-    _review(email, "S. 179 Beispieltexte enthalten Fehler des Buches („Aber habe eine Frage“, „hoffentlich geht Ihnen gut“).")
+    _editorial(email, "S. 179 Beispiel: „hoffentlich geht Ihnen gut. Und wünschen wir Ihnen …“ · „wann wir besuchen können?“",
+               "Im Beispiel des Buches richtig: „hoffentlich geht es Ihnen gut. Wir wünschen Ihnen …“ und "
+               "„Können Sie sagen, wann wir Sie besuchen können?“")
+    _editorial(items["vizu-a2-l13-schreiben-01"], "S. 179 Beispiel: „Aber habe eine Frage.“",
+               "Im Beispiel des Buches richtig: „Aber ich habe eine Frage.“")
 
 
 FIXES = {1: _fix_01, 2: _fix_02, 3: _fix_03, 4: _fix_04, 5: _fix_05, 6: _fix_06, 7: _fix_07, 8: _fix_08, 9: _fix_09,

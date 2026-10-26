@@ -16,7 +16,8 @@ Per lesson:
    (skip_existing: re-running never duplicates; archived rows keep their own
    content ids "vizu-a2-…" and "[Archiv] …" titles and are not touched);
 4. book page images (lesson 1: S. 15) attached as draft resources;
-5. the book's track numbers set as the audio label of the Hören tasks.
+5. the book's track numbers set as the audio label of the Hören tasks;
+6. the lesson videos lose their "[Archiv] IMG_…" title (see rename_videos).
 
 --publish additionally publishes what the import created (Hören only with
 audio + key, so every keyless Hören stays a draft), the page images, the
@@ -37,6 +38,7 @@ from sqlalchemy import select
 from app.db.session import SessionLocal
 from app.models.content_import import ContentImport
 from app.models.listening import Listening
+from app.models.video import Video
 from app.scripts import import_vizu_deutsch_a1 as base
 from app.scripts import vizu_deutsch_a2_buch as book
 from app.services.content_import import service as importer
@@ -111,6 +113,31 @@ def set_audio_labels(db, lesson, dry_run: bool) -> list[str]:
     return out
 
 
+def rename_videos(db, lesson, title: str, archive: Path, dry_run: bool) -> list[str]:
+    """The lesson videos were renamed "[Archiv] IMG_…" when the first edition
+    was archived — but a video belongs to the lesson, not to an edition (one
+    row per file: uq_videos_storage_key), so it gets a lesson title back:
+    "Video: <book lesson title>". Only the title changes — same row, file,
+    publish state and video_progress; the old title is written to the
+    archive file first (rollback = set it back)."""
+    rows = [v for v in db.scalars(select(Video).where(Video.lesson_id == lesson.id).order_by(Video.order_index, Video.created_at))
+            if (v.title or "").startswith("[Archiv]")]
+    out = []
+    for k, video in enumerate(rows, 1):
+        new_title = f"Video: {title}" + (f" (Teil {k})" if len(rows) > 1 else "")
+        out.append(f"„{video.title}“ -> „{new_title}“")
+        if dry_run:
+            continue
+        archive.parent.mkdir(parents=True, exist_ok=True)
+        with open(archive.with_name("a2buch_video_titles.jsonl"), "a", encoding="utf-8") as fh:
+            fh.write(json.dumps({"table": "videos", "id": video.id, "lesson_id": video.lesson_id, "title": video.title,
+                                 "archived_at": datetime.now(timezone.utc)}, default=_json_default, ensure_ascii=False) + "\n")
+        video.title = new_title
+    if not dry_run:
+        db.commit()
+    return out
+
+
 def publish_structure(db, lesson) -> list[str]:
     lesson.is_published = True
     shown = []
@@ -147,6 +174,8 @@ def main() -> int:
                 base.set_lesson_meta(db, lesson, mod)
             cleared = clear_vizu_texts(db, lesson, archive, args.dry_run)
             print(f"  VIZU competency texts {'to clear' if args.dry_run else 'archived + cleared'}: {cleared}")
+            videos = rename_videos(db, lesson, mod.LESSON_TITLE, archive, args.dry_run)
+            print(f"  videos {'to rename' if args.dry_run else 'renamed'}: {'; '.join(videos) or 'none'}")
             if n == 14:
                 print("  no book pages — no content; stays unpublished")
                 continue
