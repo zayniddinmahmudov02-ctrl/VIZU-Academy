@@ -106,8 +106,9 @@ class SchreibenItem(_ItemBase):
     prompt: str = Field(min_length=1, max_length=5000, description="Task text shown to the student")
     task_type: TextType = "other"
     audience: str | None = Field(default=None, max_length=1000, description="Addressee / communicative situation")
-    min_words: int = Field(ge=1, le=2000)
-    max_words: int = Field(ge=1, le=3000)
+    # None = the source states no limit: nothing is invented, shown or enforced
+    min_words: int | None = Field(default=None, ge=1, le=2000)
+    max_words: int | None = Field(default=None, ge=1, le=3000)
     time_limit: int | None = Field(default=None, ge=1, le=240, description="Recommended time in minutes")
     support_phrases: list[str] | None = Field(default=None, max_length=40)
     image_url: str | None = Field(default=None, max_length=500)

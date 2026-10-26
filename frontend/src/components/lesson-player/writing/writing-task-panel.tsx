@@ -5,7 +5,7 @@ import { flushSync } from "react-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { CheckCircle2, Clock, RotateCcw } from "lucide-react";
 
-import type { LessonWriting } from "@/features/lessons/services/writing-service";
+import { wordRange, type LessonWriting } from "@/features/lessons/services/writing-service";
 import {
   getMyWritingSubmission,
   retryWritingEvaluation,
@@ -63,8 +63,9 @@ export default function WritingTaskPanel({ writing }: { writing: LessonWriting }
 
   const words = countWords(text);
   const chars = text.length;
-  const belowMin = words < writing.min_words;
-  const aboveMax = words > writing.max_words;
+  const belowMin = writing.min_words !== null && words < writing.min_words;
+  const aboveMax = writing.max_words !== null && words > writing.max_words;
+  const range = wordRange(writing.min_words, writing.max_words);
   const status = existing?.status;
   const attemptsUsed = existing?.attempt_count ?? 0;
   const maxAttempts = writing.max_attempts ?? 1;
@@ -249,7 +250,7 @@ export default function WritingTaskPanel({ writing }: { writing: LessonWriting }
 
       <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-text-muted">
         <span className={aboveMax ? "font-semibold text-danger" : ""}>
-          Wörter: {words} ({writing.min_words}–{writing.max_words})
+          Wörter: {words}{range ? ` (${range})` : ""}
         </span>
         <span>Zeichen: {chars}</span>
         {canEdit && belowMin && <span className="text-warning">Mindestens {writing.min_words} Wörter erforderlich.</span>}

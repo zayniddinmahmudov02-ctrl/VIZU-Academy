@@ -3,7 +3,7 @@
 import { PenSquare } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 
-import { getLessonWritings } from "@/features/lessons/services/writing-service";
+import { getLessonWritings, wordRange } from "@/features/lessons/services/writing-service";
 import { useTranslation } from "@/lib/i18n/use-translation";
 
 import LessonSection from "../common/lesson-section";
@@ -56,9 +56,11 @@ export default function WritingSection({ lessonId }: Props) {
                   {t("lessons.writingAudience")}: {item.audience}
                 </span>
               )}
-              <span className="rounded-full bg-surface-card px-2.5 py-1 ring-1 ring-surface-border">
-                {t("lessons.writingWordRange", { min: item.min_words, max: item.max_words })}
-              </span>
+              {wordRange(item.min_words, item.max_words) && (
+                <span className="rounded-full bg-surface-card px-2.5 py-1 ring-1 ring-surface-border">
+                  {t("lessons.writingWordsRange", { range: wordRange(item.min_words, item.max_words) ?? "" })}
+                </span>
+              )}
               {item.time_limit_minutes && (
                 <span className="rounded-full bg-surface-card px-2.5 py-1 ring-1 ring-surface-border">
                   {t("lessons.writingTimeLimit", { n: item.time_limit_minutes })}

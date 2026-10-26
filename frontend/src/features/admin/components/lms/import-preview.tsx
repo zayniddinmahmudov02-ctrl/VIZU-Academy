@@ -5,6 +5,7 @@ import Link from "next/link";
 import { AlertTriangle, CheckCircle2, ChevronDown, XCircle } from "lucide-react";
 
 import type { AdminQuestion } from "@/features/admin/services/lesson-skills-admin-service";
+import { wordRange } from "@/features/lessons/services/writing-service";
 import { SKILL_LABELS, type ImportItemReport, type ImportPreview, type SkillKey } from "@/features/admin/services/lms-service";
 
 const TYPE_LABEL: Record<string, string> = {
@@ -107,7 +108,8 @@ function Preview({ skill, p }: { skill: string | null; p: ImportPreview }) {
       {p.prompt && <p className="whitespace-pre-line"><b>Aufgabe:</b> {p.prompt}</p>}
       {skill === "schreiben" && (
         <p className={row}>
-          Textsorte: {p.task_type} · {p.min_words}–{p.max_words} Wörter{p.time_limit ? ` · ${p.time_limit} Min.` : ""}
+          Textsorte: {p.task_type} · {wordRange(p.min_words, p.max_words) ?? "ohne Wortgrenze"}
+          {wordRange(p.min_words, p.max_words) ? " Wörter" : ""}{p.time_limit ? ` · ${p.time_limit} Min.` : ""}
           {p.audience ? ` · An: ${p.audience}` : ""}
           {p.support_phrases?.length ? ` · Redemittel: ${p.support_phrases.join(" / ")}` : ""}
         </p>

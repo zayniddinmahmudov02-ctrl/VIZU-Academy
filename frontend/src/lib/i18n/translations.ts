@@ -1094,6 +1094,7 @@ export const translations: Record<string, Namespace> = {
     testPoints: { de: "{points} von {max} Punkten", uz: "{max} balldan {points}" },
     writingAudience: { de: "An", uz: "Kimga" },
     writingWordRange: { de: "{min}–{max} Wörter", uz: "{min}–{max} so'z" },
+    writingWordsRange: { de: "{range} Wörter", uz: "{range} so'z" },
     writingTimeLimit: { de: "Empfohlene Zeit: {n} Min.", uz: "Tavsiya etilgan vaqt: {n} daq." },
     textType_message: { de: "Nachricht", uz: "Xabar" },
     textType_email: { de: "E-Mail", uz: "E-mail" },

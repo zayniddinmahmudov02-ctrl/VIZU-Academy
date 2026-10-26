@@ -1,0 +1,825 @@
+{
+ "schema_version": "1.2",
+ "language": "de",
+ "source": "vizu-deutsch-a2-buch",
+ "items": [
+  {
+   "content_id": "vizu-a2buch-l04-frage-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 4,
+   "skill": "frage",
+   "title": "Frage des Themas: Wie planen Sie Ihren Tag?",
+   "source": "book",
+   "metadata": {
+    "book_page": 42,
+    "book_sample": "Ich plane meinen Tag jeden Morgen. Ich stehe um 7:00 Uhr auf, mache Frühstück und gehe zur Arbeit. Ich arbeite von 9:00 bis 17:00 Uhr mit einer Mittagspause. Nach der Arbeit mache ich Sport und verbringe Zeit mit meiner Familie. Abends lerne ich Deutsch und gehe um 23:00 Uhr schlafen.",
+    "edition": "buch-2026-10-27"
+   },
+   "prompt": "Wie planen Sie Ihren Tag?\n\nWortschatz: planen — rejalashtirmoq · Tagesablauf — kun tartibi · aufstehen — uyg‘onmoq · Frühstück machen — nonushta qilmoq · arbeiten — ishlamoq · Mittagspause — tushlik tanaffusi · Sport machen — sport bilan shug‘ullanish · Zeit verbringen — vaqt o‘tkazmoq · schlafen gehen — uxlashga ketmoq\n\nBeispiel-Tagesablauf: 07:00 Aufstehen · 07:30 Frühstück machen · 09:00–17:00 Arbeiten · 13:00–14:00 Mittagspause · 18:00 Sport machen · 20:00 Deutsch lernen · 21:00 Zeit mit der Familie · 23:00 Schlafen gehen",
+   "min_duration": 0,
+   "max_duration": 300
+  },
+  {
+   "content_id": "vizu-a2buch-l04-grammatik-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 4,
+   "skill": "grammatik",
+   "title": "Grammatik: Infinitiv mit „zu“",
+   "source": "book",
+   "metadata": {
+    "book_page": 43,
+    "edition": "buch-2026-10-27"
+   },
+   "rules": [
+    {
+     "title": "Infinitiv mit „zu“ – Regeln",
+     "html": "<h3>Infinitiv mit „zu“ – Regeln</h3><h4>1. Zwei Verben im Satz</h4><ul><li>Ich versuche, Deutsch zu lernen.</li><li>Wir hoffen, dich zu sehen.</li><li>Er plant, nach Deutschland zu fahren.</li></ul><h4>2. Nach bestimmten Verben</h4><ul><li>Sie fängt an, Sport zu treiben.</li><li>Er versucht, früher nach Hause zu kommen.</li><li>Wir haben vergessen, das Fenster zu schließen.</li></ul><h4>3. Nach Adjektiven</h4><ul><li>Es ist wichtig, Deutsch zu lernen.</li><li>Es ist schwer, diese Aufgabe zu lösen.</li><li>Es ist interessant, neue Leute kennenzulernen.</li></ul><h4>4. Nach Nomen</h4><ul><li>Ich habe Lust, einen Film zu sehen.</li><li>Wir haben Zeit, dir zu helfen.</li><li>Sie hat die Möglichkeit, im Ausland zu studieren.</li></ul><h4>5. Trennbare Verben</h4><ul><li>Ich plane, morgen einzukaufen.</li><li>Er hat vergessen, das Licht auszumachen.</li><li>Wir versuchen, früh aufzustehen.</li></ul><h4>6. Keine „zu“ bei Modalverben</h4><ul><li>Ich kann gut Deutsch sprechen.</li><li>Wir müssen lange arbeiten.</li><li>Sie will nach Deutschland reisen.</li></ul><p><strong>Merksatz: zu + Infinitiv</strong> — Ich hoffe, die Prüfung zu bestehen.</p>"
+    }
+   ],
+   "exercises": []
+  },
+  {
+   "content_id": "vizu-a2buch-l04-schreiben-02",
+   "level": "A2",
+   "module": 1,
+   "lesson": 4,
+   "skill": "schreiben",
+   "title": "Grammatik-Aufgabe: Verbinden Sie die zwei Sätze mit „zu“ + Infinitiv",
+   "source": "book",
+   "metadata": {
+    "book_page": "44-45",
+    "note": "Bir nechta to'g'ri variant bor — o'qituvchi tekshiradi.",
+    "edition": "buch-2026-10-27"
+   },
+   "task_type": "other",
+   "prompt": "Verbinden Sie die zwei Sätze mit „zu“ + Infinitiv (Aufgabe 1 und Aufgabe 2). Schreiben Sie alle Sätze vollständig.\n\nAufgabe 1:\n1. Ich habe keine Zeit. + Ich gehe einkaufen.\n2. Er ist zu müde. + Er arbeitet nicht heute Abend.\n3. Wir haben Hunger. + Wir gehen ins Restaurant.\n4. Sie möchte Geld sparen. + Sie kauft ein günstiges Auto.\n5. Ich habe viel Arbeit. + Ich muss heute länger bleiben.\n6. Er hat Kopfschmerzen. + Er nimmt eine Tablette.\n7. Wir wollen fit bleiben. + Wir machen jeden Tag Sport.\n8. Es ist kalt draußen. + Ich ziehe eine Jacke an.\n9. Sie hat keine Erfahrung. + Sie bekommt Hilfe von ihrem Freund.\n10. Ich möchte Deutsch lernen. + Ich suche einen guten Kurs.\n\nAufgabe 2:\n1. Ich möchte früh aufstehen. + Ich will pünktlich zur Arbeit kommen.\n2. Er lernt jeden Tag Deutsch. + Er möchte die Prüfung bestehen.\n3. Wir kaufen ein Ticket. + Wir wollen das Konzert sehen.\n4. Sie geht zum Arzt. + Sie will ihre Gesundheit kontrollieren.\n5. Ich spare Geld. + Ich möchte mir ein neues Handy kaufen.\n6. Er macht Sport. + Er will fit und gesund bleiben.\n7. Wir üben viel. + Wir wollen besser Deutsch sprechen.\n8. Sie fragt nach dem Weg. + Sie will den Bahnhof finden.\n9. Ich lese Bücher. + Ich möchte meinen Wortschatz verbessern.\n10. Sie arbeitet hart. + Sie will Erfolg im Beruf haben.",
+   "min_words": null,
+   "max_words": null
+  },
+  {
+   "content_id": "vizu-a2buch-l04-lesen-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 4,
+   "skill": "lesen",
+   "title": "Lesen: Tagesablauf von Ali, Lena und Martin (Aufgabe 1-3)",
+   "source": "book",
+   "metadata": {
+    "book_page": "46-48",
+    "needs_review": [
+     "S. 48 Aufgabe 22: „oft“ vs. „manchmal“ — Lösung festlegen."
+    ],
+    "key_source": "text",
+    "edition": "buch-2026-10-27"
+   },
+   "instruction": "Lesen Sie die Texte. Richtig, falsch oder steht nicht im Text?\n\nHinweis: Aufgabe 22 „Martin hat oft Meetings mit Kunden.“ wird nicht automatisch bewertet (im Text steht „Manchmal …“ — im Buch keine eindeutige Lösung). Die Nummern 13–18 fehlen im Buch.",
+   "passages": [
+    {
+     "title": "Ein Schultag von Ali (15 Jahre)",
+     "text": "Ali ist 15 Jahre alt und Schüler. Er besucht eine Schule in seiner Stadt. Sein Tag beginnt früh am Morgen.\n\nAli steht jeden Tag um 7 Uhr auf. Zuerst wäscht er sich und putzt seine Zähne. Danach frühstückt er mit seiner Familie. Zum Frühstück isst er oft Brot mit Käse und trinkt Tee oder Milch.\n\nUm 7:30 Uhr geht Ali zur Schule. Die Schule beginnt um 8 Uhr. In der Schule hat er viele Fächer, zum Beispiel Deutsch, Mathematik, Englisch und Geschichte. Er hört den Lehrern zu, macht Übungen und schreibt manchmal Tests.\n\nDer Unterricht endet meistens um 14 Uhr. Danach geht Ali nach Hause. Zu Hause isst er zuerst zu Mittag und ruht sich ein bisschen aus.\n\nAm Nachmittag macht Ali seine Hausaufgaben. Danach hat er Zeit für seine Hobbys. Er spielt sehr gern Fußball mit seinen Freunden im Park. Manchmal hört er auch Musik oder spielt Computerspiele.\n\nAm Abend isst Ali mit seiner Familie zu Abend. Danach spricht er mit seinen Eltern oder sieht ein bisschen fern. Bevor er schlafen geht, bereitet er seine Schultasche für den nächsten Tag vor. Um 22 Uhr geht Ali ins Bett."
+    },
+    {
+     "title": "Der Alltag einer Studentin – Lena (25 Jahre)",
+     "text": "Lena ist 25 Jahre alt und Studentin. Sie studiert an der Universität Kunst und Design, weil sie sehr gern malt und zeichnet.\n\nLena steht meistens um 8 Uhr auf. Danach duscht sie und frühstückt. Zum Frühstück trinkt sie Kaffee und isst Brot oder Joghurt.\n\nUm 9 Uhr fährt Lena mit dem Bus oder mit dem Fahrrad zur Universität. Am Vormittag hat sie Vorlesungen und Seminare. Dort lernt sie viel über Kunst, Farben und verschiedene Zeichentechniken.\n\nNach den Vorlesungen geht Lena oft zu einem Zeichenkurs. Dieser Kurs ist sehr wichtig für sie, weil sie später als Designerin arbeiten möchte. Im Kurs malt sie Bilder, zeichnet Menschen oder Gebäude und lernt neue Techniken.\n\nAm Nachmittag geht sie nach Hause oder in die Bibliothek. Dort macht sie ihre Hausaufgaben oder arbeitet an Projekten für die Universität.\n\nAm Abend hat Lena mehr Freizeit. Manchmal trifft sie ihre Freunde in einem Café oder geht spazieren. Oft hört sie Musik oder liest ein interessantes Buch.\n\nBevor sie schlafen geht, plant Lena ihren nächsten Tag und schreibt ihre Aufgaben auf. Um 23 Uhr geht sie schlafen."
+    },
+    {
+     "title": "Ein Arbeitstag von Martin – Architekt (35 Jahre)",
+     "text": "Martin ist 35 Jahre alt und arbeitet als Architekt. Sein Beruf gefällt ihm sehr, weil er gern Gebäude plant und kreativ arbeitet.\n\nMartin steht jeden Morgen um 6:30 Uhr auf. Danach duscht er und frühstückt. Er trinkt Kaffee und liest kurz die Nachrichten auf seinem Handy.\n\nUm 7:30 Uhr fährt er ins Büro. Seine Arbeit beginnt um 8 Uhr. Im Büro arbeitet Martin an verschiedenen Bauprojekten. Er zeichnet Pläne, arbeitet am Computer und spricht mit seinen Kollegen.\n\nManchmal hat er auch Meetings mit Kunden, um neue Ideen für Gebäude zu besprechen. Er erklärt seine Pläne und hört die Wünsche der Kunden.\n\nUm 13 Uhr macht Martin Mittagspause. Oft geht er mit seinen Kollegen in ein kleines Restaurant in der Nähe. Am Nachmittag arbeitet er weiter an seinen Projekten. Er kontrolliert Baupläne, macht neue Zeichnungen und schreibt E-Mails.\n\nUm 17 Uhr endet seine Arbeit. Danach fährt Martin nach Hause. Am Abend macht er oft Sport oder geht spazieren. Manchmal liest er Bücher über Architektur oder sieht einen Film.\n\nBevor er schlafen geht, bereitet er sich auf den nächsten Arbeitstag vor. Um 22:30 Uhr geht Martin ins Bett."
+    }
+   ],
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Ali ist 15 Jahre alt.",
+     "options": [
+      "Richtig",
+      "Falsch",
+      "Der Text sagt nichts dazu"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Ali ist 15 Jahre alt und Schüler.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Ali steht jeden Tag um 7 Uhr auf.",
+     "options": [
+      "Richtig",
+      "Falsch",
+      "Der Text sagt nichts dazu"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Ali steht jeden Tag um 7 Uhr auf.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Die Schule beginnt um 9 Uhr.",
+     "options": [
+      "Richtig",
+      "Falsch",
+      "Der Text sagt nichts dazu"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Die Schule beginnt um 8 Uhr.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Nach der Schule macht Ali seine Hausaufgaben.",
+     "options": [
+      "Richtig",
+      "Falsch",
+      "Der Text sagt nichts dazu"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Am Nachmittag macht Ali seine Hausaufgaben.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Ali spielt gern Fußball mit seinen Freunden.",
+     "options": [
+      "Richtig",
+      "Falsch",
+      "Der Text sagt nichts dazu"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Er spielt sehr gern Fußball mit seinen Freunden im Park.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Ali geht um 23 Uhr schlafen.",
+     "options": [
+      "Richtig",
+      "Falsch",
+      "Der Text sagt nichts dazu"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Um 22 Uhr geht Ali ins Bett.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Lena ist 25 Jahre alt und Studentin.",
+     "options": [
+      "Richtig",
+      "Falsch",
+      "Der Text sagt nichts dazu"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 2,
+     "explanation": "„Lena ist 25 Jahre alt und Studentin.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Lena studiert Kunst und Design.",
+     "options": [
+      "Richtig",
+      "Falsch",
+      "Der Text sagt nichts dazu"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 2,
+     "explanation": "„Sie studiert an der Universität Kunst und Design …“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Lena steht jeden Tag um 6 Uhr auf.",
+     "options": [
+      "Richtig",
+      "Falsch",
+      "Der Text sagt nichts dazu"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 2,
+     "explanation": "„Lena steht meistens um 8 Uhr auf.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Nach den Vorlesungen geht Lena oft zu einem Zeichenkurs.",
+     "options": [
+      "Richtig",
+      "Falsch",
+      "Der Text sagt nichts dazu"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 2,
+     "explanation": "„Nach den Vorlesungen geht Lena oft zu einem Zeichenkurs.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Am Nachmittag geht Lena manchmal in die Bibliothek.",
+     "options": [
+      "Richtig",
+      "Falsch",
+      "Der Text sagt nichts dazu"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 2,
+     "explanation": "„Am Nachmittag geht sie nach Hause oder in die Bibliothek.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Lena arbeitet als Lehrerin.",
+     "options": [
+      "Richtig",
+      "Falsch",
+      "Der Text sagt nichts dazu"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 2,
+     "explanation": "„Lena ist … Studentin … weil sie später als Designerin arbeiten möchte.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "19. Martin steht jeden Morgen um 7 Uhr auf.",
+     "options": [
+      "Richtig",
+      "Falsch",
+      "Der Text sagt nichts dazu"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 3,
+     "explanation": "„Martin steht jeden Morgen um 6:30 Uhr auf.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "20. Martin fährt mit dem Fahrrad zur Arbeit.",
+     "options": [
+      "Richtig",
+      "Falsch",
+      "Der Text sagt nichts dazu"
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 3,
+     "explanation": "Der Text sagt nur: „Um 7:30 Uhr fährt er ins Büro.“ — womit, steht nicht im Text."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "21. Martin arbeitet nur am Computer.",
+     "options": [
+      "Richtig",
+      "Falsch",
+      "Der Text sagt nichts dazu"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 3,
+     "explanation": "„Er zeichnet Pläne, arbeitet am Computer und spricht mit seinen Kollegen.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "23. Martin geht zum Mittagessen nach Hause.",
+     "options": [
+      "Richtig",
+      "Falsch",
+      "Der Text sagt nichts dazu"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 3,
+     "explanation": "„Oft geht er mit seinen Kollegen in ein kleines Restaurant in der Nähe.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "24. Martin treibt am Abend oft Sport.",
+     "options": [
+      "Richtig",
+      "Falsch",
+      "Der Text sagt nichts dazu"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 3,
+     "explanation": "„Am Abend macht er oft Sport oder geht spazieren.“"
+    }
+   ],
+   "max_score": 17
+  },
+  {
+   "content_id": "vizu-a2buch-l04-hoeren-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 4,
+   "skill": "hoeren",
+   "title": "Hören: Familie Mannsberg",
+   "source": "book",
+   "metadata": {
+    "book_page": 49,
+    "note": "Kitobda transkript ham, javob ham yo'q — admin audioni tinglab javoblarni belgilaydi. Audio: Text 1, 2, 3.",
+    "edition": "buch-2026-10-27"
+   },
+   "audio_file": "A2 4.Unterricht Text 1-3.mp3",
+   "key_pending": true,
+   "instruction": "Hören Sie die Texte über Familie Mannsberg und wählen Sie die richtige Person (A, B oder C).",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Wer ist 45 Jahre alt?",
+     "options": [
+      "Johan Mannsberg",
+      "Anna Mannsberg",
+      "Julio Mannsberg"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer bereitet am Wochenende das Frühstück für die Familie vor?",
+     "options": [
+      "Julio Mannsberg",
+      "Anna Mannsberg",
+      "Johan Mannsberg"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer arbeitet manchmal im Garten?",
+     "options": [
+      "Johan Mannsberg",
+      "Julio Mannsberg",
+      "Anna Mannsberg"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer ist 18 Jahre alt?",
+     "options": [
+      "Anna Mannsberg",
+      "Johan Mannsberg",
+      "Julio Mannsberg"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer trifft sich am Wochenende oft mit Freunden?",
+     "options": [
+      "Johan Mannsberg",
+      "Julio Mannsberg",
+      "Anna Mannsberg"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer macht oft Hausarbeit am Vormittag?",
+     "options": [
+      "Anna Mannsberg",
+      "Johan Mannsberg",
+      "Julio Mannsberg"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer geht manchmal ins Kino mit Freunden?",
+     "options": [
+      "Julio Mannsberg",
+      "Anna Mannsberg",
+      "Johan Mannsberg"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer liest am Wochenende manchmal ein Buch?",
+     "options": [
+      "Johan Mannsberg",
+      "Julio Mannsberg",
+      "Anna Mannsberg"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer kocht gern Abendessen für die Familie?",
+     "options": [
+      "Anna Mannsberg",
+      "Julio Mannsberg",
+      "Johan Mannsberg"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer spielt gern Fußball mit Freunden?",
+     "options": [
+      "Johan Mannsberg",
+      "Julio Mannsberg",
+      "Anna Mannsberg"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer besucht am Sonntag manchmal Freunde?",
+     "options": [
+      "Johan Mannsberg",
+      "Anna Mannsberg",
+      "Julio Mannsberg"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wer macht manchmal einen Familienausflug am Sonntag?",
+     "options": [
+      "Anna Mannsberg",
+      "Julio Mannsberg",
+      "Johan Mannsberg"
+     ],
+     "points": 1
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2buch-l04-schreiben-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 4,
+   "skill": "schreiben",
+   "title": "Schreiben: Wie verbringe ich meine Zeit?",
+   "source": "book",
+   "metadata": {
+    "book_page": 50,
+    "edition": "buch-2026-10-27"
+   },
+   "task_type": "description",
+   "prompt": "Schreiben Sie einen kurzen Text über Ihre Freizeit. Gehen Sie auf folgende Punkte ein:\n• Wann haben Sie Freizeit?\n• Was machen Sie am Nachmittag oder am Abend?\n• Welche Hobbys haben Sie?\n• Treffen Sie Freunde oder Familie in Ihrer Freizeit?\n• Was machen Sie am Wochenende?\n• Warum ist Freizeit wichtig für Sie?",
+   "min_words": null,
+   "max_words": null
+  },
+  {
+   "content_id": "vizu-a2buch-l04-schreiben-03",
+   "level": "A2",
+   "module": 1,
+   "lesson": 4,
+   "skill": "schreiben",
+   "title": "Schreiben: Informelle E-Mail – Einladung am Wochenende",
+   "source": "book",
+   "metadata": {
+    "book_page": 50,
+    "edition": "buch-2026-10-27"
+   },
+   "task_type": "email",
+   "prompt": "Ihr Freund / Ihre Freundin hat am Wochenende Zeit. Sie möchten ihn / sie zu sich nach Hause einladen. Schreiben Sie eine E-Mail.\n• Begrüßung (z. B. Hallo …)\n• Warum schreiben Sie die E-Mail?\n• Einladung zum Wochenende (Wann?)\n• Was möchten Sie zusammen machen?\n• Was soll Ihr Freund / Ihre Freundin mitbringen?\n• Abschluss und Grüße",
+   "audience": "Freund / Freundin (informell)",
+   "min_words": null,
+   "max_words": null
+  },
+  {
+   "content_id": "vizu-a2buch-l04-sprechen-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 4,
+   "skill": "sprechen",
+   "title": "Sprechen: Mein Wochenende",
+   "source": "book",
+   "metadata": {
+    "book_page": 51,
+    "edition": "buch-2026-10-27"
+   },
+   "topic": "Mein Wochenende",
+   "prompt": "Sprechen Sie über Ihr Wochenende. Gehen Sie auf folgende Punkte ein:",
+   "questions": [
+    "Wann beginnt Ihr Wochenende?",
+    "Treffen Sie Freunde oder Familie?",
+    "Was machen Sie am Samstag?",
+    "Haben Sie Hobbys am Wochenende?",
+    "Was machen Sie am Sonntag?",
+    "Was machen Sie am Abend?",
+    "Warum mögen Sie das Wochenende?",
+    "Was machen Sie am liebsten?"
+   ],
+   "response_type": "monolog",
+   "min_duration": 0,
+   "max_duration": 300,
+   "speech_goal": "Über das eigene Wochenende sprechen: Zeiten, Aktivitäten, Personen, Gründe.",
+   "keywords": [
+    "am Samstag",
+    "am Sonntag",
+    "am Abend",
+    "Freunde",
+    "Familie",
+    "weil"
+   ]
+  },
+  {
+   "content_id": "vizu-a2buch-l04-wortschatz-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 4,
+   "skill": "wortschatz",
+   "title": "Wortschatz: Tagesablauf und Zeitmanagement",
+   "source": "book",
+   "metadata": {
+    "book_page": 52,
+    "edition": "buch-2026-10-27"
+   },
+   "words": [
+    {
+     "word": "Tagesablauf",
+     "translation": "kun tartibi",
+     "article": "der",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Zeit",
+     "translation": "vaqt",
+     "article": "die",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Morgen",
+     "translation": "tong",
+     "article": "der",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Vormittag",
+     "translation": "tushgacha vaqt",
+     "article": "der",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Nachmittag",
+     "translation": "tushdan keyin",
+     "article": "der",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Abend",
+     "translation": "kechqurun",
+     "article": "der",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Nacht",
+     "translation": "tun",
+     "article": "die",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "aufstehen",
+     "translation": "turmoq",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "frühstücken",
+     "translation": "nonushta qilmoq",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Frühstück",
+     "translation": "nonushta",
+     "article": "das",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "zur Schule gehen",
+     "translation": "maktabga bormoq",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "arbeiten",
+     "translation": "ishlamoq",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "lernen",
+     "translation": "o‘rganmoq",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "studieren",
+     "translation": "universitetda o‘qimoq",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Unterricht",
+     "translation": "dars",
+     "article": "der",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Hausaufgaben",
+     "translation": "uy vazifasi",
+     "article": "die",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Pause",
+     "translation": "tanaffus",
+     "article": "die",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Freizeit",
+     "translation": "bo‘sh vaqt",
+     "article": "die",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Hobby",
+     "translation": "hobbi",
+     "article": "das",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Sport machen",
+     "translation": "sport bilan shug‘ullanish",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "spazieren gehen",
+     "translation": "sayr qilmoq",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Freunde treffen",
+     "translation": "do‘stlar bilan uchrashmoq",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Musik hören",
+     "translation": "musiqa tinglamoq",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "fernsehen",
+     "translation": "televizor ko‘rmoq",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "lesen",
+     "translation": "o‘qimoq",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "schlafen",
+     "translation": "uxlamoq",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "planen",
+     "translation": "rejalashtirmoq",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Plan",
+     "translation": "reja",
+     "article": "der",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "organisieren",
+     "translation": "tashkil qilmoq",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Aufgabe",
+     "translation": "vazifa",
+     "article": "die",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "wichtig",
+     "translation": "muhim",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "pünktlich",
+     "translation": "vaqtida",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Arbeit",
+     "translation": "ish",
+     "article": "die",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Büro",
+     "translation": "ofis",
+     "article": "das",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Student",
+     "translation": "talaba",
+     "article": "der",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Schüler",
+     "translation": "o‘quvchi",
+     "article": "der",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Architekt",
+     "translation": "arxitektor",
+     "article": "der",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Projekt",
+     "translation": "loyiha",
+     "article": "das",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Kunde",
+     "translation": "mijoz",
+     "article": "der",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Termin",
+     "translation": "uchrashuv vaqti",
+     "article": "der",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Kalender",
+     "translation": "kalendar",
+     "article": "der",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Liste",
+     "translation": "ro‘yxat",
+     "article": "die",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Gewohnheit",
+     "translation": "odat",
+     "article": "die",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "produktiv",
+     "translation": "samarali",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "sich ausruhen",
+     "translation": "dam olmoq",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Alltag",
+     "translation": "kundalik hayot",
+     "article": "der",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Familie",
+     "translation": "oila",
+     "article": "die",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "Wochenende",
+     "translation": "hafta oxiri",
+     "article": "das",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "einkaufen",
+     "translation": "xarid qilmoq",
+     "group": "Tagesablauf"
+    },
+    {
+     "word": "vorbereiten",
+     "translation": "tayyorlamoq",
+     "group": "Tagesablauf"
+    }
+   ],
+   "exercises": [],
+   "auto_practice": false
+  }
+ ]
+}

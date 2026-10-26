@@ -105,8 +105,8 @@ export interface ImportPreview {
   prompt?: string;
   task_type?: string;
   audience?: string | null;
-  min_words?: number;
-  max_words?: number;
+  min_words?: number | null;
+  max_words?: number | null;
   time_limit?: number | null;
   support_phrases?: string[] | null;
   topic?: string | null;

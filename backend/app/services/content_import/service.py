@@ -23,7 +23,7 @@ from uuid import UUID
 
 from fastapi import HTTPException
 from pydantic import TypeAdapter, ValidationError
-from sqlalchemy import func, select
+from sqlalchemy import func, or_, select
 from sqlalchemy.orm import Session
 
 from app.core.utils.safe_html import sanitize_html
@@ -365,14 +365,24 @@ def _existing_words(db: Session, lesson_id: UUID) -> set[str]:
     return {_word_key(w, t) for w, t in rows}
 
 
+# Content ids of an archived, superseded edition (e.g. "vizu-a2-" while the A2
+# book edition "vizu-a2buch-" is imported): its words are hidden archive rows
+# and must not count as "already present". Empty = every row counts.
+ARCHIVED_CONTENT_PREFIXES: tuple[str, ...] = ()
+
+
 def _new_words(db: Session, lesson_id: UUID, words: list) -> list:
     """The words of an import the lesson does not have yet. A word counts as
     present when the lesson has it with the same meaning — or, spelling only,
     as often as the book lists it (an admin may have shortened a translation;
-    'sie' = u / ular stays two entries)."""
+    'sie' = u / ular stays two entries). Rows of an archived edition
+    (ARCHIVED_CONTENT_PREFIXES) do not count."""
     from collections import Counter
 
-    rows = db.execute(select(Vocabulary.german_word, Vocabulary.translation).where(Vocabulary.lesson_id == lesson_id)).all()
+    query = select(Vocabulary.german_word, Vocabulary.translation).where(Vocabulary.lesson_id == lesson_id)
+    for prefix in ARCHIVED_CONTENT_PREFIXES:
+        query = query.where(or_(Vocabulary.content_id.is_(None), ~Vocabulary.content_id.startswith(prefix)))
+    rows = db.execute(query).all()
     exact = {_word_key(w, t) for w, t in rows}
     spelled = Counter(_norm(w) for w, _ in rows)
     seen: Counter = Counter()
@@ -463,12 +473,14 @@ def _validate_item(db: Session, raw, index: int, language: str, create_missing: 
             if not item.transcript:
                 warnings.append("Kein Transkript angegeben.")
     elif item.skill == "schreiben":
-        if item.min_words > item.max_words:
+        if item.min_words is not None and item.max_words is not None and item.min_words > item.max_words:
             errors.append("min_words > max_words")
         rubric = _check_rubric(item, errors, levels.writing_rubric(item.level))
         lo, hi = guide["writing_words"]
-        if item.max_words < lo * 0.5 or item.min_words > hi * 1.5:
-            warnings.append(f"Wortgrenze {item.min_words}-{item.max_words} — für {item.level} üblich {lo}-{hi}.")
+        if item.min_words is None and item.max_words is None:
+            warnings.append("Keine Wortgrenze — es wird keine angezeigt oder geprüft.")
+        elif (item.max_words is not None and item.max_words < lo * 0.5) or (item.min_words is not None and item.min_words > hi * 1.5):
+            warnings.append(f"Wortgrenze {item.min_words or '–'}-{item.max_words or '–'} — für {item.level} üblich {lo}-{hi}.")
         if item.task_type not in guide["text_types"]:
             warnings.append(f"Textsorte '{item.task_type}' ist für {item.level} unüblich ({', '.join(guide['text_types'])}).")
         preview.update(prompt=item.prompt, task_type=item.task_type, audience=item.audience, min_words=item.min_words,

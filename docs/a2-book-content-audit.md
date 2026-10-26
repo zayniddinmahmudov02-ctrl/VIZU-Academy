@@ -215,3 +215,156 @@ Qarorlar (foydalanuvchi, 2026-10-26): kitobda yo'q VIZU mashqlari kiritilmaydi �
 | — | Abschlusstest / Zusammenfassung | yo'q | Abschlusstest 8 | **VIZU** → chiqariladi |
 
 **10-dars natija:** 21/21 sahifa. Kitob topshiriqlari: Frage 1, Grammatik 1 qoida + 2 mashq (30), Lesen Teil 1–4 (20 savol), Hören Teil 1–4 (20, kalitsiz), Schreiben Teil 1–2, Sprechen Teil 1–2, Wortschatz-Aufgabe 1.
+
+## 11-dars — Umwelt und Verantwortung (p.125–146) — Goethe A2 formati
+
+| Sahifa | Bo'lim | Kitob | Kod | Holat |
+|---|---|---|---|---|
+| 125 | Video-darslar muqovasi (Umweltschutz, video 19) | — | — | video slot |
+| 126 | Frage des Themas | savol + "in 2–3 Sätzen" + 3 Variante | aynan | OK; 20–90 s olib tashlanadi |
+| 127 | Grammatik Passiv Präsens + man | 2 ustun, Vergleich, Merke dir | aynan | OK |
+| 128 | Aufgaben 1–2 | 15 + 15 (1 va 16 namuna) | 14 + 14 short_answer | OK; kalit grammatik qoida bo'yicha (`key_source=computed`) |
+| 129 | Lesen Teil 1 matni | Extremsport für Jugendliche | aynan | OK; kitobda "Tiefseetauchen" imlo xatosi |
+| 130 | Lesen Teil 1 Aufgaben | 0 + **1–5** | 1–4 (5 olib tashlangan) | **FIX**: 5-savol ("Tauchen lernen … Bungee-Jumping") qaytariladi, ko'rsatiladi, baholanmaydi — **NEEDS_REVIEW** (matnda Bungee narxi yo'q, kitobda kalit yo'q); 1–4 kalit matndan (C, B, A, A) |
+| 131 | Lesen Teil 2 Aufgaben | 0 + 1–5 | aynan | OK; kitobda "Radricks" → "Radtricks"; kalit matndan (A, C, B, B, C) |
+| 132 | Lesen Teil 2 Programm | 6 sahna jadvali | aynan | OK |
+| 133 | Lesen Teil 3 E-Mail | Steffi → Leo | aynan | OK |
+| 134 | Lesen Teil 3 Aufgaben | 11–15 | aynan | OK; kalit matndan (B, A, B, C, B) |
+| 135 | Lesen Teil 4 Personen | 0 + 16–20 | aynan | OK |
+| 136 | Lesen Teil 4 Anzeigen | a–f | aynan | OK; kitobda "Französsich"; kalit matndan (16e, 17d, 18X, 19c, 20b) |
+| 137 | Hören Teil 1 | 1–5 | aynan | OK; kalitsiz (kitobda yo'q); trek raqami yo'q |
+| 138 | Hören Teil 2 | 0 + 6–10, rasmlar a–i | aynan | OK; kalitsiz |
+| 139 | Hören Teil 3 | 11–15 rasmli | aynan | OK; kalitsiz |
+| 140 | Hören Teil 4 | 0 + 5 Ja/Nein (kitob jadvalda 1–5, ko'rsatmada 16–20) | 16–20 | OK; kalitsiz |
+| 141 | Schreiben Teil 1 SMS | Format & Tipps, 3 Leitpunkt, 20–30 Wörter | aynan; 20–40 / 10 daq | **FIX**: 20–30; vaqt olib tashlanadi |
+| 142 | Schreiben Teil 2 E-Mail | Format & Tipps, 3 Leitpunkt, 30–40 Wörter | aynan; 30–50 / 15 daq + support_phrases | **FIX**: 30–40; Format & Tipps qo'shiladi; vaqt va support_phrases (VIZU) olib tashlanadi |
+| 143 | Sprechen Teil 1 | Kandidat 1: 4 karta; Kandidat 2: Schule?, Freizeit?, **Schule?**, Butter/Essen? | Kandidat 2 da 3 karta (takror olib tashlangan) | **FIX**: kitobdagi 4 karta; **NEEDS_REVIEW** takroriy "Schule?" (kitob xatosi bo'lishi mumkin); 30–150 s olib tashlanadi |
+| 144 | Sprechen Teil 2 | Karte A / B × 4 | aynan | OK; 45–150 s olib tashlanadi |
+| 145 | Sprechen Teil 3 | 2 kalendar (Freitag 01.11.) | aynan (topshiriq to'g'ri) | OK; **NEEDS_REVIEW**: kitobda Teil 3 ko'rsatmasi Teil 2 dan nusxa ("Kandidat 1 stellt seinen Vortrag", "erzählst etwas über dein Leben") |
+| 146 | Wort zu Wort Wortschatzmethode | 5 × 5 so'z | aynan | OK; 40–200 / 25 daq olib tashlanadi |
+| — | Abschlusstest / Zusammenfassung | yo'q | Abschlusstest 8 | **VIZU** → chiqariladi |
+
+**11-dars natija:** 22/22 sahifa. Kitob topshiriqlari: Frage 1, Grammatik 1 qoida + 2 mashq (28), Lesen Teil 1–4 (20 savol; 1 tasi baholanmaydi), Hören Teil 1–4 (20, kalitsiz), Schreiben Teil 1–2, Sprechen Teil 1–3, Wortschatz-Aufgabe 1, video 1.
+
+## 12-dars — Kultur, Tradition und Gesellschaft (p.147–163) — Goethe A2 formati
+
+| Sahifa | Bo'lim | Kitob | Kod | Holat |
+|---|---|---|---|---|
+| 147 | Video-darslar muqovasi ("A2 12-Dars") | — | — | video slot |
+| 148 | Frage des Themas | savol + 3 Musterantwort | aynan | OK; 20–120 s olib tashlanadi |
+| 149 | Grammatik Relativsätze | qoidalar, jadval, Fragewörter, 7 Beispiel, Weitere Strukturen | aynan; **jadval tuzatilgan** | **NEEDS_REVIEW**: kitob jadvali noto'g'ri (ustunlar aralash: Dativ fem. "die", Genitiv pl. "denen", Nom./Akk. yo'q). Kodda to'g'ri jadval + "kitobda xato" izohi — foydalanuvchi tasdig'i kerak. Kitob misoli "Ich war … glücklich, als ich studiert habe" (Fragewörter: wer, wo, wann — "als" emas) kitobdagidek |
+| 150 | Grammatik Aufgaben | 25 MC | 24 MC (20 olib tashlangan) | **FIX**: 20-savol ko'rsatiladi, baholanmaydi — **NEEDS_REVIEW** ("Das Kind, ___ Ball verloren hat" — dessen/dem/den, hech biri to'g'ri emas); qolganlari kalit grammatik qoida bo'yicha |
+| 151 | Lesen Teil 1 | 0 + 1–5; matn ikki ustun orasida **uzilgan** | 1, 2, 5 (3–4 olib tashlangan); matnda "[…]" | **FIX**: 3–4 ko'rsatiladi, baholanmaydi — **NEEDS_REVIEW** (javobi uzilgan qismda); matndagi bo'shliq kitobdagidek; kitobda "zuru studieren" → "zu studieren" |
+| 152 | Lesen Teil 2 SAT 1 | 6 ko'rsatuv + 6–10 | aynan | OK; kalit matndan (C, B, A, B, A) |
+| 153 | Lesen Teil 3 E-Mail | Nadine → Claudia + 11–15 | aynan | OK; kalit matndan (B, C, B, B, B) |
+| 154 | Lesen Teil 4 | a–f + 16–20 (kitobda 20 va Jasmin bitta katakda — 6 shaxs, 5 raqam) | 5 shaxs (Birgit olib tashlangan) | **FIX/NEEDS_REVIEW**: kitobda 6 shaxs (Ulrike, Markus, Jörg, Birgit, Klaus, Jasmin) — Birgit (Sport) uchun a va f ikkalasi mos, kitob maketida raqam xatosi. Birgit baholanmaydi; qolgan 5 ta kalit matndan (d, X, e, b, c) |
+| 155 | Hören Teil 1 | 1–5, **Track 27–31** | aynan | OK; kalitsiz; trek metadata'ga qo'shiladi |
+| 156 | Hören Teil 2 | 0 + 6–10, rasmlar a–i, **Track 32** | aynan | OK; kalitsiz; trek |
+| 157 | Hören Teil 3 | 11–15 rasmli, **Track 33–37** | aynan | OK; kalitsiz; trek |
+| 158 | Hören Teil 4 | 0 + 16–20 Ja/Nein, **Track 38–39** | aynan | OK; kalitsiz; trek |
+| 159 | Schreiben Teil 1 SMS / Teil 2 E-Mail | 20–30 / 30–40 Wörter (sahifada xato "Track 38-39" yorlig'i) | 20–40 / 10; 30–50 / 15 | **FIX**: 20–30 va 30–40; vaqt olib tashlanadi |
+| 160 | Sprechen Teil 1 | 2 × 4 karta | aynan | OK; 30–150 s olib tashlanadi |
+| 161 | Sprechen Teil 2 | Karte A / B × 4 | aynan | OK; 45–150 s olib tashlanadi |
+| 162 | Sprechen Teil 3 | 2 haftalik kalendar (Nachmittag / Abend) | aynan (kitobda "nichts fun!" → "nichts tun!") | OK; 45–180 s olib tashlanadi |
+| 163 | Wort zu Wort Wortschatzmethode | 5 × 6 so'z | aynan | OK; 40–200 / 25 daq olib tashlanadi |
+| — | Abschlusstest / Zusammenfassung | yo'q | Abschlusstest 8 | **VIZU** → chiqariladi |
+
+**12-dars natija:** 17/17 sahifa. Kitob topshiriqlari: Frage 1, Grammatik 1 qoida + 25 MC (24 baholanadi), Lesen Teil 1–4 (21 savol; 3 tasi baholanmaydi), Hören Teil 1–4 (20, kalitsiz, Track 27–39), Schreiben Teil 1–2, Sprechen Teil 1–3, Wortschatz-Aufgabe 1, video 1.
+
+## 13-dars — Geld, Finanzen und Alltag (p.164–183) — Goethe A2 formati
+
+| Sahifa | Bo'lim | Kitob | Kod | Holat |
+|---|---|---|---|---|
+| 164 | Video-darslar muqovasi ("A2 13-Dars") | — | — | video slot |
+| 165 | Frage des Themas | savol + 3 javob + Tipp | aynan | OK; 20–120 s olib tashlanadi |
+| 166 | Grammatik Konjunktiv II | 5 blok | aynan, 2 tuzatish bilan | **NEEDS_REVIEW**: kitobda "können → müsste, müssen → dürfte" (dürfen yo'q) va "Ein Relativsatz II. beschreibt" — kodda to'g'rilangan + "Druckfehler" izohi; foydalanuvchi tasdig'i kerak |
+| 167 | Grammatik Aufgaben 1–4 | 4 × 5 | 4 × 5 gap_fill | OK; kalit grammatik qoida bo'yicha (`key_source=computed`), bir nechta to'g'ri variant qabul qilinadi |
+| 168 | Lesen Teil 1 matni | Berufsausbildung in Deutschland | aynan (kitobda "bilatidet" → "ausgebildet") | OK |
+| 169 | Lesen Teil 1 Aufgaben | 0 + 1–5 | aynan | OK; kalit matndan (C, B, A, C, B) |
+| 170 | Lesen Teil 2 Programm | 6 kun | aynan | OK |
+| 171 | Lesen Teil 2 Aufgaben | 6–10 | aynan | OK; kalit matndan (C, B, A, C, A) |
+| 172 | Lesen Teil 3 E-Mail | Petra → Annette | aynan | OK |
+| 173 | Lesen Teil 3 Aufgaben | 11–15 | aynan | OK; kalit matndan (B, C, B, C, B) |
+| 174 | Lesen Teil 4 | a–f + 16–20 | aynan | OK; kalit matndan (16a, 17X, 18d, 19c, 20e) |
+| 175 | Hören Teil 1 | 1–5 + "X" varianti, **Track 40–44** | aynan | OK; kalitsiz; trek |
+| 176 | Hören Teil 2 | 6–10 rasm a–i, **Track 45** | aynan | OK; kalitsiz; trek |
+| 177 | Hören Teil 3 | 11–15 rasmli, **Track 46–50** | aynan | OK; kalitsiz; trek |
+| 178 | Hören Teil 4 | 0 + 16–20, **Track 51–52** | aynan | OK; kalitsiz; trek |
+| 179 | Schreiben Teil 1 + 2 (namuna matnlari bilan) | 20–30 / 30–40 Wörter + 2 namuna | aynan; 20–40 / 10; 30–50 / 15 + support_phrases | **FIX**: 20–30 / 30–40; vaqt va support_phrases (VIZU) olib tashlanadi; Teil 2 namunasi ko'rsatiladi. **NEEDS_REVIEW**: namunalarda grammatik xatolar ("Aber habe eine Frage", "hoffentlich geht Ihnen gut") — kitobdagidek |
+| 180 | Sprechen Teil 1 | 2 × 4 karta | aynan | OK; 30–150 s olib tashlanadi |
+| 181 | Sprechen Teil 2 | Karte A / B × 4 | aynan | OK; 45–150 s olib tashlanadi |
+| 182 | Sprechen Teil 3 | 2 kunlik kalendar (Samstag 08.12.) | aynan | OK; 45–180 s olib tashlanadi |
+| 183 | Wortschatz A2 (5 × 6) | — | aynan | OK; 40–200 / 25 daq olib tashlanadi |
+| — | Abschlusstest / Zusammenfassung | yo'q | Abschlusstest 8 | **VIZU** → chiqariladi |
+
+**13-dars natija:** 20/20 sahifa. Kitob topshiriqlari: Frage 1, Grammatik 1 qoida + 4 mashq (20), Lesen Teil 1–4 (20), Hören Teil 1–4 (20, kalitsiz, Track 40–52), Schreiben Teil 1–2, Sprechen Teil 1–3, Wortschatz-Aufgabe 1, video 1. **Audio:** avval yetkazilgan "13.Unterricht" fayllari 12-darsnikiga bayt-ma-bayt teng → slotlar bo'sh qoladi.
+
+## 14-dars — Wiederholung
+
+Mundarijada bor, kitobda sahifasi yo'q. Qaror: dars nomi "Wiederholung", kontentsiz, nashrsiz. Arxivdagi "Zukunft, Träume und Lebensplanung" kontenti arxivda qoladi.
+
+---
+
+## Umumiy xulosa
+
+| Ko'rsatkich | Qiymat |
+|---|---|
+| PDF sahifalari | 183 |
+| Tekshirilgan sahifalar | **183 / 183** (sahifa rasmi to'liq o'lchamda, kod bilan so'zma-so'z) |
+| Kitob darslari (mundarija) | 14 (13 ta sahifali + 14 "Wiederholung" sahifasiz) |
+| Dars nomlari va tartibi | 13/13 mos; 14 → "Wiederholung" |
+
+### Kompetensiyalar bo'yicha (kitob = yangi LMS)
+
+Sonlar yangi nashr fayllaridan hisoblangan (`app/data/vizu_deutsch_a2_buch`, `tests/test_a2_buch_edition.py` bilan qotirilgan) va staging'da DB'ga yozilgani tasdiqlangan.
+
+| Kompetensiya | Kitob (1–13-darslar) | LMS yozuvlari |
+|---|---|---|
+| Frage des Themas | 13 | 13 `speakings` (task_kind=FRAGE) |
+| Grammatik qoida bloklari | 16 (1-dars 3 ta, 7-dars 2 ta, qolganlari 1 tadan) | 16 `grammars` |
+| Grammatik avtomatik mashqlari | 205 savol (1: 12 · 5: 28 · 6: 24 · 7: 25 · 9: 14 · 10: 30 · 11: 28 · 12: 24 · 13: 20) + 6 baholanmaydigan (7: 5, 12: 1) | 19 `skill_exercises` |
+| Grammatik yozma mashqlari | 2: 20 · 3: 10 · 4: 20 · 8: 30 · 9: 15 (damit) | `writings` ichida |
+| Lesen | 201 avtomatik baholanadigan savol (Teil 4 Zuordnung = 5 band) + 6 baholanmaydigan (4: 22 · 6: 9 · 11: 5 · 12: 3, 4, Birgit) + 5-dars 5 ochiq savol | 33 `readings` (matnlar) |
+| Hören | 25 vazifa, 179 savol/band | 25 `listenings` (draft, audio kutilmoqda) |
+| Schreiben (barchasi) | 40 topshiriq; kitobda so'z soni bor: 17, yo'q: 23 | 40 `writings` |
+| Sprechen | 20 | 20 `speakings` |
+| Wortschatz (tarjimali) | 216 so'z (1: 60 · 2: 40 · 3: 60 · 4: 50 · 9: 6) | 216 `vocabularies` |
+| Wortschatz ish varaqlari | 5, 6, 7 (30 so'z, tarjimasiz) · 8–13 (5 variant) | `writings` ichida; 10–13 matni WORTSCHATZ kompetensiyasida |
+| Sahifa rasmi | 1-dars S. 15 "Musik Zeit" | 1 `learning_resources` (IMAGE) |
+| Video slotlari | 13 (har dars 1) | mavjud 14 `videos` yozuvi (fayl yo'q), import tegmaydi |
+
+### Javob kalitlari
+
+| Turi | Soni | Manba |
+|---|---|---|
+| Lesen | 201 band | kitobda kalit yo'q. 3, 8, 9-darslar: "Vizu-Antworten A2" (`key_source=vizu-antworten`), matn bilan solishtirilgan; qolganlari matndan iqtibos bilan (`key_source=text`) |
+| Hören (kalitli) | 1, 2, 3, 8, 9-darslar (5 vazifa, 50 band) | "Vizu-Antworten A2" (kitob emas). Audio + Lösung'da tasdiq bo'lmaguncha nashr qilinmaydi (`KEY_NOT_VERIFIED`) |
+| Hören (kalitsiz) | 4, 5, 6, 7, 10–13-darslar (20 vazifa) | qaror: kalitsiz; draft qoladi (`KEY_REQUIRED`). 5-darsda 8/10 kalit bor, lekin vazifa `key_pending` |
+| Grammatik | 205 savol | grammatik qoida bo'yicha (`key_source=grammar_rule`), kitobda kalit yo'q |
+| Ochiq / yozma topshiriqlar | 40 Schreiben | o'qituvchi yoki AI tekshiradi |
+
+### NEEDS_REVIEW (kitobning o'zida noaniq/xato — foydalanuvchi qarori kerak)
+
+1. **p.33** Imperativ du: "Verbstamm + t/Ø" (kitob) vs "e/Ø" (kod).
+2. **p.48** 4-dars Lesen 22-savol: matnda "manchmal", savolda "oft".
+3. **p.59** 5-dars Hören 4- va 5-savol kalitlari.
+4. **p.68** 6-dars Lesen 9-savol "Paul bekommt gute Noten" — matnda aniq javob yo'q.
+5. **p.77** 7-dars Grammatik 2, 9, 18, 25, 26-savollar — aniq bitta to'g'ri javob yo'q (baholanmaydi).
+6. **p.86** trotzdem misollarida mazmuniy xatolar (kitobdagidek qoldirilgan).
+7. **p.97** damit namunasi "… studieren will".
+8. **p.99** 9-dars Lesen 6-savol ("weniger als 30 %" vs "fast 30 %").
+9. **p.106** Futur I misoli aslida Futur II.
+10. **p.118–119** 10-dars Hören Teil 3 va 4 ikkalasida "Track 7-11".
+11. **p.130** 11-dars Lesen 5-savol — matnda javob yo'q (baholanmaydi).
+12. **p.143** 11-dars Sprechen Kandidat 2 da takroriy "Schule?".
+13. **p.145** 11-dars Sprechen Teil 3 ko'rsatmasi Teil 2 dan nusxa.
+14. **p.149** Relativpronomen jadvali kitobda noto'g'ri — kodda tuzatilgan (tasdiq kerak).
+15. **p.150** 12-dars Grammatik 20-savol — to'g'ri variant yo'q (baholanmaydi).
+16. **p.151** 12-dars Lesen Teil 1 matni uzilgan → 3–4-savollar baholanmaydi.
+17. **p.154** 12-dars Lesen Teil 4: 6 shaxs, 5 raqam; Birgit uchun a va f mos (baholanmaydi).
+18. **p.166** Konjunktiv II jadvali (müsste/dürfte) va "Ein Relativsatz II" — kodda tuzatilgan (tasdiq kerak).
+19. **p.179** Schreiben namunalaridagi grammatik xatolar.
+
+### Kitobda yo'q, yangi kursdan chiqariladigan (arxivda qoladi)
+
+Har dars: VIZU "Einführung" va "Zusammenfassung" matnlari, Abschlusstest, "Nemischa qanday?", "Zuordnung", "Der/die/das?", "Was bedeutet das?", "… oder …?" mashqlari; 1–4-darslardagi "dars varag'i" savollari (L1 Lesen +17, L2 Lesen +12 MC, L4 60+30 gap_fill); 5–8-darslardagi dars varag'idan olingan tarjimali so'z ro'yxatlari (50/60/50/11); 3-darsdagi "Unterrichtsblatt" Imperativ misollari, 8-darsdagi "20 Sätze". Barcha `min/max_words` (kitobda ko'rsatilganidan tashqari), `time_limit`, `min/max_duration` va `support_phrases` qiymatlari.

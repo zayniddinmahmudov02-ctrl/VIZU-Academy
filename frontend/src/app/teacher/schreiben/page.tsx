@@ -23,6 +23,7 @@ import type {
   VizuMultilevelTeacherWritingDetail,
   VizuMultilevelTeacherWritingListItem,
 } from "@/features/teacher/types";
+import { wordRange } from "@/features/lessons/services/writing-service";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { cn } from "@/lib/utils";
 
@@ -284,7 +285,8 @@ function LegacyWritingGradeCard({
 
       <div className="rounded-xl bg-surface-hover p-4 text-sm text-text-secondary">{item.answer_text}</div>
       <p className="text-xs text-text-muted">
-        {item.answer_text.split(/\s+/).filter(Boolean).length} Wörter ({item.min_words}–{item.max_words})
+        {item.answer_text.split(/\s+/).filter(Boolean).length} Wörter
+        {wordRange(item.min_words, item.max_words) ? ` (${wordRange(item.min_words, item.max_words)})` : ""}
       </p>
 
       {item.status === "GRADED" ? (

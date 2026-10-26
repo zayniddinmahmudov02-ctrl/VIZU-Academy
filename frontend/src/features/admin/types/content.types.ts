@@ -332,8 +332,9 @@ export interface Writing {
   lesson_id: string;
   title: string;
   instruction: string;
-  min_words: number;
-  max_words: number;
+  /** null = no word limit */
+  min_words: number | null;
+  max_words: number | null;
   order_index: number;
   is_published: boolean;
 }
@@ -341,8 +342,8 @@ export interface WritingCreate {
   lesson_id: string;
   title: string;
   instruction: string;
-  min_words?: number;
-  max_words?: number;
+  min_words?: number | null;
+  max_words?: number | null;
   order_index?: number;
   is_published?: boolean;
   ai_evaluation_enabled?: boolean;

@@ -5,8 +5,9 @@ export interface LessonWriting {
   lesson_id: string;
   title: string;
   instruction: string;
-  min_words: number;
-  max_words: number;
+  /** null = the task states no word limit: nothing shown or enforced */
+  min_words: number | null;
+  max_words: number | null;
   order_index: number;
   ai_evaluation_enabled?: boolean;
   max_attempts?: number;
@@ -18,6 +19,14 @@ export interface LessonWriting {
   text_type?: "message" | "email" | "letter" | "description" | "opinion" | "essay" | "report" | "other" | null;
   audience?: string | null;
   time_limit_minutes?: number | null;
+}
+
+/** "50–150", "≥ 80", "≤ 40" — or null when the task has no word limit. */
+export function wordRange(min: number | null | undefined, max: number | null | undefined): string | null {
+  if (min != null && max != null) return `${min}–${max}`;
+  if (min != null) return `≥ ${min}`;
+  if (max != null) return `≤ ${max}`;
+  return null;
 }
 
 // Public, published-only — Schreiben's source of truth (see

@@ -100,8 +100,8 @@ class TeacherWritingItem(BaseSchema):
     lesson_title: str
     lesson_number: int
     writing_title: str
-    min_words: int
-    max_words: int
+    min_words: int | None
+    max_words: int | None
     answer_text: str
     status: str
     submitted_at: datetime | None

@@ -35,8 +35,9 @@ export interface TeacherLegacyWritingItem {
   lesson_title: string;
   lesson_number: number;
   writing_title: string;
-  min_words: number;
-  max_words: number;
+  /** null = no word limit */
+  min_words: number | null;
+  max_words: number | null;
   answer_text: string;
   status: "SUBMITTED" | "GRADED" | "NEEDS_REVISION";
   submitted_at: string | null;

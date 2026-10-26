@@ -16,6 +16,7 @@ import {
   type WritingTextType,
 } from "@/features/admin/services/lesson-skills-admin-service";
 import { writingApi } from "@/features/admin/services/writing-service";
+import { wordRange } from "@/features/lessons/services/writing-service";
 
 import AiTaskFields, { aiFormFrom, aiPayload, DEFAULT_WRITING_RUBRIC, EMPTY_AI_FORM, rubricProblem } from "../lesson-skills/ai-task-fields";
 import { useLevelDefaultRubric } from "../lesson-skills/shared";
@@ -51,8 +52,9 @@ const EMPTY_FORM = {
   lesson_id: "",
   title: "",
   instruction: "",
-  min_words: 30,
-  max_words: 150,
+  // null = no limit (book task without a word count) — leave the field empty
+  min_words: 30 as number | null,
+  max_words: 150 as number | null,
   order_index: 1,
   is_published: false,
   text_type: "" as WritingTextType | "",
@@ -121,7 +123,7 @@ export default function WritingManager({ lessonId }: { lessonId?: string }) {
       setError(problem);
       return;
     }
-    if (form.min_words > form.max_words) {
+    if (form.min_words !== null && form.max_words !== null && form.min_words > form.max_words) {
       setError("Min. Wörter darf nicht größer als Max. Wörter sein.");
       return;
     }
@@ -165,7 +167,7 @@ export default function WritingManager({ lessonId }: { lessonId?: string }) {
     {
       key: "words",
       header: "Wortanzahl",
-      render: (item) => `${item.min_words}–${item.max_words}`,
+      render: (item) => wordRange(item.min_words, item.max_words) ?? "ohne Grenze",
     },
     {
       key: "ai",
@@ -289,8 +291,9 @@ export default function WritingManager({ lessonId }: { lessonId?: string }) {
               </label>
               <AdminInput
                 type="number"
-                value={form.min_words}
-                onChange={(e) => setForm({ ...form, min_words: Number(e.target.value) })}
+                value={form.min_words ?? ""}
+                placeholder="ohne Grenze"
+                onChange={(e) => setForm({ ...form, min_words: e.target.value === "" ? null : Number(e.target.value) })}
               />
             </div>
             <div>
@@ -299,8 +302,9 @@ export default function WritingManager({ lessonId }: { lessonId?: string }) {
               </label>
               <AdminInput
                 type="number"
-                value={form.max_words}
-                onChange={(e) => setForm({ ...form, max_words: Number(e.target.value) })}
+                value={form.max_words ?? ""}
+                placeholder="ohne Grenze"
+                onChange={(e) => setForm({ ...form, max_words: e.target.value === "" ? null : Number(e.target.value) })}
               />
             </div>
           </div>

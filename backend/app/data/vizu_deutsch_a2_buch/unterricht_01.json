@@ -1,0 +1,1065 @@
+{
+ "schema_version": "1.2",
+ "language": "de",
+ "source": "vizu-deutsch-a2-buch",
+ "items": [
+  {
+   "content_id": "vizu-a2buch-l01-frage-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 1,
+   "skill": "frage",
+   "title": "Frage des Themas: Wie ist die Berufswahl in Deutschland?",
+   "source": "book",
+   "metadata": {
+    "book_page": 4,
+    "book_answers": [
+     "Die Berufswahl ist wichtig, weil sie unsere Zukunft beeinflusst und über unseren Erfolg und unsere Zufriedenheit entscheidet.",
+     "Interessen, Fähigkeiten, Schulbildung, Erfahrungen, Arbeitsmarkt und persönliche Ziele beeinflussen die Berufswahl.",
+     "In Deutschland gibt es Ausbildung, Studium, duale Ausbildung, Weiterbildung und viele Karrierechancen in verschiedenen Branchen."
+    ],
+    "book_quote": "Eine gute Berufswahl ist der erste Schritt zu einer erfolgreichen Zukunft!",
+    "edition": "buch-2026-10-27"
+   },
+   "prompt": "Wie ist die Berufswahl in Deutschland? Sprechen Sie über die drei Fragen.",
+   "questions": [
+    "Warum ist die Berufswahl wichtig?",
+    "Welche Faktoren beeinflussen die Berufswahl?",
+    "Welche Möglichkeiten gibt es in Deutschland?"
+   ],
+   "min_duration": 0,
+   "max_duration": 300
+  },
+  {
+   "content_id": "vizu-a2buch-l01-grammatik-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 1,
+   "skill": "grammatik",
+   "title": "Grammatik: Präsens, Präteritum und Perfekt",
+   "source": "book",
+   "metadata": {
+    "book_page": "5-9",
+    "key_source": "grammar_rule",
+    "edition": "buch-2026-10-27"
+   },
+   "rules": [
+    {
+     "title": "1. Präsens",
+     "html": "<table><thead><tr><th>Zamon</th><th>Strukturasi</th><th>Gap turi</th><th>Misol (Deutsch)</th><th>Tarjimasi (O‘zbekcha)</th></tr></thead><tbody><tr><td>Präsens</td><td>Subj + Verb + Obj</td><td>Aussagesatz</td><td>Ich <strong>lerne</strong> Deutsch.</td><td>Men nemis tilini o‘rganyapman.</td></tr><tr><td>Präsens</td><td>Subj + Modalverb + Obj + Verb</td><td>Aussagesatz mit Modalverb</td><td>Ich <strong>muss</strong> Deutsch lernen.</td><td>Men nemis tilini o‘rganishim kerak.</td></tr><tr><td>Präsens</td><td>Verb + Subj + Obj?</td><td>Fragesatz ohne Fragewort</td><td><strong>Lernst</strong> du Deutsch?</td><td>Sen nemis tilini o‘rganyapsanmi?</td></tr><tr><td>Präsens</td><td>Fragewort + Verb + Subj + Obj?</td><td>Fragesatz mit Fragewort</td><td>Warum <strong>lernst</strong> du Deutsch?</td><td>Nega sen nemis tilini o‘rganyapsan?</td></tr><tr><td>Präsens</td><td>Modalverb + Subj + Obj + Verb?</td><td>Fragesatz mit Modalverb (ohne FW)</td><td><strong>Musst</strong> du Deutsch lernen?</td><td>Sen nemis tilini o‘rganishing kerakmi?</td></tr><tr><td>Präsens</td><td>Fragewort + Modalverb + Subj + Obj + Verb?</td><td>Fragesatz mit Modalverb (mit FW)</td><td>Warum <strong>musst</strong> du Deutsch lernen?</td><td>Nega sen nemis tilini o‘rganishing kerak?</td></tr></tbody></table><p><strong>Präsens – hozirgi zamon.</strong> Bu zamonda hozir sodir bo‘layotgan ishlar, odatlar, harakatlar va umumiy haqiqatlar ifodalanadi.</p>"
+    },
+    {
+     "title": "2. Präteritum",
+     "html": "<table><thead><tr><th>Zamon</th><th>Strukturasi</th><th>Gap turi</th><th>Misol (Deutsch)</th><th>Tarjimasi (O‘zbekcha)</th></tr></thead><tbody><tr><td>Präteritum</td><td>Subj + Verb + Obj</td><td>Aussagesatz</td><td>Ich <strong>lernte</strong> Deutsch.</td><td>Men nemis tilini o‘rgandim.</td></tr><tr><td>Präteritum</td><td>Subj + Modalverb + Obj + Verb</td><td>Aussagesatz mit Modalverb</td><td>Ich <strong>musste</strong> Deutsch lernen.</td><td>Men nemis tilini o‘rganishim kerak edi.</td></tr><tr><td>Präteritum</td><td>Verb + Subj + Obj?</td><td>Fragesatz ohne Fragewort</td><td><strong>Lerntest</strong> du Deutsch?</td><td>Sen nemis tilini o‘rgandingmi?</td></tr><tr><td>Präteritum</td><td>Fragewort + Verb + Subj + Obj?</td><td>Fragesatz mit Fragewort</td><td>Warum <strong>lerntest</strong> du Deutsch?</td><td>Nega sen nemis tilini o‘rganding?</td></tr><tr><td>Präteritum</td><td>Modalverb + Subj + Obj + Verb?</td><td>Fragesatz mit Modalverb (ohne FW)</td><td><strong>Musstest</strong> du Deutsch lernen?</td><td>Sen nemis tilini o‘rganishing kerak edimi?</td></tr><tr><td>Präteritum</td><td>Fragewort + Modalverb + Subj + Obj + Verb?</td><td>Fragesatz mit Modalverb (mit FW)</td><td>Warum <strong>musstest</strong> du Deutsch lernen?</td><td>Nega sen nemis tilini o‘rganishing kerak edi?</td></tr></tbody></table><p><strong>Präteritum – o‘tgan zamon.</strong> O‘tgan dagi voqealar, holatlar va harakatlar uchun ishlatiladi.</p>"
+    },
+    {
+     "title": "3. Perfekt",
+     "html": "<table><thead><tr><th>Zamon</th><th>Strukturasi</th><th>Gap turi</th><th>Misol (Deutsch)</th><th>Tarjimasi (O‘zbekcha)</th></tr></thead><tbody><tr><td>Perfekt</td><td>Subj + haben/sein + Obj + Partizip II</td><td>Aussagesatz</td><td>Ich <strong>habe</strong> Deutsch <strong>gelernt</strong>.</td><td>Men nemis tilini o‘rgandim.</td></tr><tr><td>Perfekt</td><td>Subj + haben + Obj + Verb + Modalverb (Inf.)</td><td>Aussagesatz mit Modalverb</td><td>Ich <strong>habe</strong> Deutsch lernen <strong>müssen</strong>.</td><td>Men nemis tilini o‘rganishimga to‘g‘ri keldi.</td></tr><tr><td>Perfekt</td><td>Haben/sein + Subj + Obj + Partizip II?</td><td>Fragesatz ohne Fragewort</td><td><strong>Hast</strong> du Deutsch gelernt?</td><td>Sen nemis tilini o‘rgandingmi?</td></tr><tr><td>Perfekt</td><td>Fragewort + haben/sein + Subj + Obj + Partizip II?</td><td>Fragesatz mit Fragewort</td><td>Warum <strong>hast</strong> du Deutsch gelernt?</td><td>Nega sen nemis tilini o‘rganding?</td></tr><tr><td>Perfekt</td><td>Haben + Subj + Obj + Verb + Modalverb (Inf.)?</td><td>Fragesatz mit Modalverb (ohne FW)</td><td><strong>Hast</strong> du Deutsch lernen <strong>müssen</strong>?</td><td>Sen nemis tilini o‘rganishga majbur bo‘ldingmi?</td></tr><tr><td>Perfekt</td><td>Fragewort + haben + Subj + Obj + Verb + Modalverb (Inf.)?</td><td>Fragesatz mit Modalverb (mit FW)</td><td>Warum <strong>hast</strong> du Deutsch lernen <strong>müssen</strong>?</td><td>Nega sen nemis tilini o‘rganishga majbur bo‘lding?</td></tr></tbody></table><p><strong>Perfekt</strong> – o‘tgan zamonning hozirgi natijasi bilan bog‘liq shakli. O‘tgandagi voqealar hozirgi holatimizga ta’sir qiladi.</p>"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "Aufgabe 1: Präteritum und Perfekt",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Schreiben Sie den Satz im Präteritum und Perfekt.",
+       "text": "Ich lerne Deutsch.\nPrät.: Ich [[1]] Deutsch. (lernte)\nPerf.: Ich [[2]] Deutsch [[3]]. (gelernt – haben)",
+       "gaps": {
+        "1": [
+         "lernte"
+        ],
+        "2": [
+         "habe"
+        ],
+        "3": [
+         "gelernt"
+        ]
+       },
+       "points": 3,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Prät.: Ich lernte Deutsch. · Perf.: Ich habe Deutsch gelernt."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Schreiben Sie den Satz im Präteritum und Perfekt.",
+       "text": "Wir besuchen unsere Großeltern.\nPrät.: Wir [[1]] unsere Großeltern. (besuchten)\nPerf.: Wir [[2]] unsere Großeltern [[3]]. (besucht – haben)",
+       "gaps": {
+        "1": [
+         "besuchten"
+        ],
+        "2": [
+         "haben"
+        ],
+        "3": [
+         "besucht"
+        ]
+       },
+       "points": 3,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Prät.: Wir besuchten unsere Großeltern. · Perf.: Wir haben unsere Großeltern besucht."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Schreiben Sie den Satz im Präteritum und Perfekt.",
+       "text": "Er kauft ein neues Auto.\nPrät.: Er [[1]] ein neues Auto. (kaufte)\nPerf.: Er [[2]] ein neues Auto [[3]]. (gekauft – haben)",
+       "gaps": {
+        "1": [
+         "kaufte"
+        ],
+        "2": [
+         "hat"
+        ],
+        "3": [
+         "gekauft"
+        ]
+       },
+       "points": 3,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Prät.: Er kaufte ein neues Auto. · Perf.: Er hat ein neues Auto gekauft."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Schreiben Sie den Satz im Präteritum und Perfekt.",
+       "text": "Sie fährt nach Berlin.\nPrät.: Sie [[1]] nach Berlin. (fuhr)\nPerf.: Sie [[2]] nach Berlin [[3]]. (gefahren – sein)",
+       "gaps": {
+        "1": [
+         "fuhr"
+        ],
+        "2": [
+         "ist"
+        ],
+        "3": [
+         "gefahren"
+        ]
+       },
+       "points": 3,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Prät.: Sie fuhr nach Berlin. · Perf.: Sie ist nach Berlin gefahren (fahren → sein)."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Schreiben Sie den Satz im Präteritum und Perfekt.",
+       "text": "Ich lese ein interessantes Buch.\nPrät.: Ich [[1]] ein interessantes Buch. (las)\nPerf.: Ich [[2]] ein interessantes Buch [[3]]. (gelesen – haben)",
+       "gaps": {
+        "1": [
+         "las"
+        ],
+        "2": [
+         "habe"
+        ],
+        "3": [
+         "gelesen"
+        ]
+       },
+       "points": 3,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Prät.: Ich las ein interessantes Buch. · Perf.: Ich habe ein interessantes Buch gelesen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Schreiben Sie den Satz im Präteritum und Perfekt.",
+       "text": "Er schreibt eine E-Mail.\nPrät.: Er [[1]] eine E-Mail. (schrieb)\nPerf.: Er [[2]] eine E-Mail [[3]]. (geschrieben – haben)",
+       "gaps": {
+        "1": [
+         "schrieb"
+        ],
+        "2": [
+         "hat"
+        ],
+        "3": [
+         "geschrieben"
+        ]
+       },
+       "points": 3,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Prät.: Er schrieb eine E-Mail. · Perf.: Er hat eine E-Mail geschrieben."
+      }
+     ],
+     "instruction": "Schreiben Sie die Sätze im Präteritum und Perfekt (kitob, 8-bet)."
+    },
+    {
+     "title": "Aufgabe 2: Präteritum und Perfekt",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Schreiben Sie den Satz im Präteritum und Perfekt.",
+       "text": "Macht ihr heute Sport?\nPrät.: [[1]] ihr heute Sport? (machtet)\nPerf.: [[2]] ihr heute Sport [[3]]? (gemacht – haben)",
+       "gaps": {
+        "1": [
+         "Machtet"
+        ],
+        "2": [
+         "Habt"
+        ],
+        "3": [
+         "gemacht"
+        ]
+       },
+       "points": 3,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitobda: (machtet) · (gemacht – haben) → Machtet ihr heute Sport? · Habt ihr heute Sport gemacht?"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Schreiben Sie den Satz im Präteritum und Perfekt.",
+       "text": "Wo wohnst du?\nPrät.: Wo [[1]] du? (wohnte)\nPerf.: Wo [[2]] du [[3]]? (gewohnt – haben)",
+       "gaps": {
+        "1": [
+         "wohntest"
+        ],
+        "2": [
+         "hast"
+        ],
+        "3": [
+         "gewohnt"
+        ]
+       },
+       "points": 3,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitobda: (wohnte) · (gewohnt – haben); du → wohntest: Wo wohntest du? · Wo hast du gewohnt?"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Schreiben Sie den Satz im Präteritum und Perfekt.",
+       "text": "Gehst du oft spazieren?\nPrät.: [[1]] du oft spazieren? (gingst)\nPerf.: [[2]] du oft spazieren [[3]]? (gegangen – sein)",
+       "gaps": {
+        "1": [
+         "Gingst"
+        ],
+        "2": [
+         "Bist"
+        ],
+        "3": [
+         "gegangen"
+        ]
+       },
+       "points": 3,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitobda: (gingst) · (gegangen – sein) → Gingst du oft spazieren? · Bist du oft spazieren gegangen?"
+      },
+      {
+       "type": "gap_fill",
+       "question": "Schreiben Sie den Satz im Präteritum und Perfekt.",
+       "text": "Sie arbeitet im Büro.\nPrät.: Sie [[1]] im Büro. (arbeitete)\nPerf.: Sie [[2]] im Büro [[3]]. (gearbeitet – haben)",
+       "gaps": {
+        "1": [
+         "arbeitete"
+        ],
+        "2": [
+         "hat"
+        ],
+        "3": [
+         "gearbeitet"
+        ]
+       },
+       "points": 3,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitobda: (arbeitete) · (gearbeitet – haben) → Sie arbeitete im Büro. · Sie hat im Büro gearbeitet."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Schreiben Sie den Satz im Präteritum und Perfekt.",
+       "text": "Wir essen zusammen zu Abend.\nPrät.: Wir [[1]] zusammen zu Abend. (aßen)\nPerf.: Wir [[2]] zusammen zu Abend [[3]]. (gegessen – haben)",
+       "gaps": {
+        "1": [
+         "aßen"
+        ],
+        "2": [
+         "haben"
+        ],
+        "3": [
+         "gegessen"
+        ]
+       },
+       "points": 3,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitobda: (aßen) · (gegessen – haben) → Wir aßen zusammen zu Abend. · Wir haben zusammen zu Abend gegessen."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Schreiben Sie den Satz im Präteritum und Perfekt.",
+       "text": "Er kommt um acht Uhr.\nPrät.: Er [[1]] um acht Uhr. (kam)\nPerf.: Er [[2]] um acht Uhr [[3]]. (gekommen – sein)",
+       "gaps": {
+        "1": [
+         "kam"
+        ],
+        "2": [
+         "ist"
+        ],
+        "3": [
+         "gekommen"
+        ]
+       },
+       "points": 3,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Kitobda: (kam) · (gekommen – sein) → Er kam um acht Uhr. · Er ist um acht Uhr gekommen."
+      }
+     ],
+     "instruction": "Schreiben Sie die Sätze im Präteritum und Perfekt (kitob, 9-bet)."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2buch-l01-lesen-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 1,
+   "skill": "lesen",
+   "title": "Lesen: Mein Beruf — Mein Leben (Aufgabe 1-3)",
+   "source": "book",
+   "metadata": {
+    "book_page": "10-12",
+    "key_source": "text",
+    "edition": "buch-2026-10-27"
+   },
+   "instruction": "Lesen Sie die Texte und entscheiden Sie: Richtig oder Falsch?",
+   "passages": [
+    {
+     "title": "Mein Beruf — Mein Leben: Interview mit dem Koch Frederich Schuman (Präsens)",
+     "text": "Interviewerin: Guten Tag, Herr Schuman. Was sind Sie von Beruf?\nFrederich Schuman: Guten Tag. Ich bin Koch. Ich arbeite in einem italienischen Restaurant und koche jeden Tag frische Gerichte.\n\nInterviewerin: Was machen Sie gerade in der Küche?\nFrederich Schuman: Im Moment backe ich eine Pizza. Ich bereite den Teig vor, schneide frisches Gemüse und lege Käse darauf. Die Pizza kommt gleich in den Ofen.\n\nInterviewerin: Haben Sie ein Geheimnis beim Kochen?\nFrederich Schuman: Ja, natürlich. Jede gute Pizza hat ein kleines Geheimnis. Ich benutze besondere Gewürze und sehr frische Zutaten. Das macht den Geschmack besser.\n\nInterviewerin: Warum mögen Sie Ihren Beruf?\nFrederich Schuman: Ich liebe meinen Beruf, weil ich kreativ sein kann. Ich koche gern für Menschen und sehe, wie sie mein Essen genießen. Das macht mich glücklich.\n\nInterviewerin: Ist Kochen schwer oder leicht?\nFrederich Schuman: Kochen ist manchmal schwer, weil die Küche stressig ist. Aber ich lerne jeden Tag etwas Neues und werde immer besser."
+    },
+    {
+     "title": "Ich will auch Koch werden: Interview mit Markus Schuman (Präsens + Futur I)",
+     "text": "Interviewerin: Markus, was machst du im Moment?\nMarkus: Ich gehe noch zur Schule, aber ich helfe meinem Vater oft im Restaurant. In der Küche schneide ich Gemüse und bereite Zutaten vor.\n\nInterviewerin: Warum willst du Koch werden?\nMarkus: Kochen macht mir Spaß, und ich finde den Beruf interessant. Ich sehe jeden Tag, wie mein Vater arbeitet, und ich lerne viel von ihm.\n\nInterviewerin: Was wirst du nach der Schule machen?\nMarkus: Ich werde eine Kochschule besuchen und professionell kochen lernen. Danach werde ich im Restaurant meines Vaters arbeiten.\n\nInterviewerin: Welche Ziele hast du für die Zukunft?\nMarkus: Ich werde neue Gerichte entwickeln und viel Erfahrung sammeln. Vielleicht werde ich später mein eigenes Restaurant haben.\n\nInterviewerin: Glaubst du, dass du ein guter Koch wirst?\nMarkus: Ja, ich bin fleißig und motiviert. Ich werde viel üben und jeden Tag besser werden."
+    },
+    {
+     "title": "Ich hatte auch meinen Beruf geliebt: Interview mit Michael Schuman (Präteritum + Perfekt)",
+     "text": "Interviewerin: Herr Schuman, wo haben Sie früher gearbeitet?\nMichael: Ich arbeitete viele Jahre auf einem Kreuzfahrtschiff als Koch. Dort kochte ich für Hunderte von Gästen aus verschiedenen Ländern.\n\nInterviewerin: Wie war diese Arbeit für Sie?\nMichael: Die Arbeit war anstrengend, aber sehr interessant. Ich habe viele Länder gesehen und neue Küchen kennengelernt.\n\nInterviewerin: Haben Sie besondere Erinnerungen aus dieser Zeit?\nMichael: Ja, einmal haben wir ein großes Fest organisiert, und ich habe ein besonderes Menü vorbereitet. Die Gäste waren sehr zufrieden, und ich habe viel Lob bekommen.\n\nInterviewerin: Was haben Sie nach dieser Zeit gemacht?\nMichael: Später habe ich an Land gearbeitet und junge Köche ausgebildet. Ich habe mein Wissen weitergegeben und viele Schüler unterstützt.\n\nInterviewerin: Vermissen Sie Ihren Beruf heute?\nMichael: Ja, manchmal vermisse ich die Küche und die Atmosphäre. Aber ich habe meinen Beruf lange ausgeübt und bin zufrieden mit meinem Leben."
+    }
+   ],
+   "questions": [
+    {
+     "type": "true_false",
+     "question": "Frederich Schuman arbeitet in einem deutschen Restaurant.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„Ich arbeite in einem italienischen Restaurant …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Er bereitet gerade eine Pizza zu.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„Im Moment backe ich eine Pizza. Ich bereite den Teig vor …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Er benutzt keine Gewürze beim Kochen.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„Ich benutze besondere Gewürze und sehr frische Zutaten.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Er liebt seinen Beruf, weil er kreativ sein kann.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„Ich liebe meinen Beruf, weil ich kreativ sein kann.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Er findet Kochen immer leicht.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„Kochen ist manchmal schwer, weil die Küche stressig ist.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Er lernt jeden Tag etwas Neues und wird immer besser.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„… ich lerne jeden Tag etwas Neues und werde immer besser.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Markus arbeitet im Moment in einem deutschen Restaurant.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "falsch",
+     "explanation": "„Ich gehe noch zur Schule, aber ich helfe meinem Vater oft im Restaurant.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Markus möchte Koch werden, weil er Kochen langweilig findet.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "falsch",
+     "explanation": "„Kochen macht mir Spaß, und ich finde den Beruf interessant.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Nach der Schule wird Markus eine Kochschule besuchen.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "richtig",
+     "explanation": "„Ich werde eine Kochschule besuchen und professionell kochen lernen.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Markus möchte später sein eigenes Restaurant eröffnen.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "richtig",
+     "explanation": "„Vielleicht werde ich später mein eigenes Restaurant haben.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Markus glaubt nicht, dass er ein guter Koch werden kann.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "falsch",
+     "explanation": "„Ja, ich bin fleißig und motiviert. Ich werde … jeden Tag besser werden.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Markus will jeden Tag üben und besser werden.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "richtig",
+     "explanation": "„Ich werde viel üben und jeden Tag besser werden.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Michael Schuman arbeitete früher als Koch auf einem Kreuzfahrtschiff.",
+     "points": 1,
+     "passage": 3,
+     "correct_answer": "richtig",
+     "explanation": "„Ich arbeitete viele Jahre auf einem Kreuzfahrtschiff als Koch.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Er fand seine Arbeit langweilig und anstrengend.",
+     "points": 1,
+     "passage": 3,
+     "correct_answer": "falsch",
+     "explanation": "„Die Arbeit war anstrengend, aber sehr interessant.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Einmal hat Michael ein besonderes Menü für ein großes Fest vorbereitet.",
+     "points": 1,
+     "passage": 3,
+     "correct_answer": "richtig",
+     "explanation": "„… einmal haben wir ein großes Fest organisiert, und ich habe ein besonderes Menü vorbereitet.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Nach dieser Zeit hat er nur in Restaurants gearbeitet.",
+     "points": 1,
+     "passage": 3,
+     "correct_answer": "falsch",
+     "explanation": "„Später habe ich an Land gearbeitet und junge Köche ausgebildet.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Er hat sein Wissen an junge Köche weitergegeben.",
+     "points": 1,
+     "passage": 3,
+     "correct_answer": "richtig",
+     "explanation": "„Ich habe mein Wissen weitergegeben und viele Schüler unterstützt.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Michael vermisst seinen Beruf heute überhaupt nicht.",
+     "points": 1,
+     "passage": 3,
+     "correct_answer": "falsch",
+     "explanation": "„Ja, manchmal vermisse ich die Küche und die Atmosphäre.“"
+    }
+   ],
+   "max_score": 18
+  },
+  {
+   "content_id": "vizu-a2buch-l01-hoeren-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 1,
+   "skill": "hoeren",
+   "title": "Hören: Warum haben Sie Ihren Beruf gewählt?",
+   "source": "book",
+   "metadata": {
+    "book_page": "13-14",
+    "needs_review": [
+     "Transkript S. 14 wie im Buch („mit ihm gezeichnet und Häuser gezeichnet“) — mit dem Audio abgleichen."
+    ],
+    "key_source": "vizu-antworten",
+    "edition": "buch-2026-10-27"
+   },
+   "audio_file": "A2 1.Unterricht Hören.m4a",
+   "instruction": "Hören Sie den Dialog. Wählen Sie die richtige Antwort (a, b oder c).",
+   "transcript": "Journalist: Hallo, ich bin Alexis Schumann. Heute stelle ich Ihnen eine Frage: Warum haben Sie Ihren jetzigen Beruf gewählt?\n\nJohann: Hallo, mein Name ist Johann. Mein Beruf ist Architekt, weil mein Vater auch Architekt ist. Als Kind habe ich oft mit ihm gezeichnet und Häuser gezeichnet. Das hat mir viel Spaß gemacht. Später habe ich Architektur studiert und mein Studium erfolgreich beendet. Jetzt plane ich moderne Gebäude und arbeite an interessanten Projekten.\n\nJulia: Hallo, mein Name ist Julia. Mein Beruf ist Ärztin, weil ich schon als Kind Menschen helfen wollte. Früher habe ich meine Puppen behandelt und kleine Verbände gemacht. In der Schule habe ich Biologie sehr gemocht. Danach habe ich Medizin studiert und viel gelernt. Jetzt arbeite ich im Krankenhaus und habe viele Patienten behandelt.\n\nMikey: Hallo, mein Name ist Mikey. Mein Beruf ist noch Schüler, aber ich möchte Fußballspieler werden. Als Kind habe ich jeden Tag Fußball gespielt und viele Tore geschossen. Ich habe Cristiano Ronaldo immer bewundert. Letztes Jahr habe ich in einer Mannschaft trainiert. Jetzt trainiere ich hart und werde in Zukunft professionell Fußball spielen.",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Warum hat Johann seinen Beruf gewählt?",
+     "options": [
+      "Weil sein Vater Architekt war",
+      "Weil er Arzt werden wollte",
+      "Weil er Fußball liebt"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wen bewundert Mikey?",
+     "options": [
+      "Seinen Vater",
+      "Cristiano Ronaldo",
+      "Einen Lehrer"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wo arbeitet Julia jetzt?",
+     "options": [
+      "In einem Restaurant",
+      "In einem Krankenhaus",
+      "In einer Schule"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was hat Johann als Kind oft gemacht?",
+     "options": [
+      "Er hat Häuser gezeichnet",
+      "Er hat Puppen behandelt",
+      "Er hat im Krankenhaus gearbeitet"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was wollte Julia schon als Kind?",
+     "options": [
+      "Menschen helfen",
+      "Architektin werden",
+      "Lehrerin werden"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was wird Mikey in Zukunft machen?",
+     "options": [
+      "Er wird Arzt",
+      "Er wird Lehrer",
+      "Er wird professionell Fußball spielen"
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was hat Julia in der Schule besonders gemocht?",
+     "options": [
+      "Sport",
+      "Biologie",
+      "Geschichte"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was macht Johann jetzt?",
+     "options": [
+      "Er plant moderne Gebäude",
+      "Er spielt Fußball",
+      "Er trainiert Kinder"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was hat Mikey letztes Jahr gemacht?",
+     "options": [
+      "Er hat Medizin studiert",
+      "Er hat in einer Mannschaft trainiert",
+      "Er hat Architektur studiert"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Warum wollte Julia Ärztin werden?",
+     "options": [
+      "Weil sie reich werden wollte",
+      "Weil sie schon als Kind helfen wollte",
+      "Weil ihr Vater Arzt war"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was ist Johann von Beruf?",
+     "options": [
+      "Arzt",
+      "Architekt",
+      "Fußballspieler"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was macht Mikey jetzt?",
+     "options": [
+      "Er trainiert hart",
+      "Er arbeitet im Krankenhaus",
+      "Er studiert Architektur"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1
+    }
+   ],
+   "max_score": 12
+  },
+  {
+   "content_id": "vizu-a2buch-l01-schreiben-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 1,
+   "skill": "schreiben",
+   "title": "Schreiben: Mein Traumberuf",
+   "source": "book",
+   "metadata": {
+    "book_page": 16,
+    "edition": "buch-2026-10-27"
+   },
+   "prompt": "Mein Traumberuf – Schritt für Schritt\n\nSchritt 1: Einleitung — Zuerst schreibst du, was dein Traumberuf ist. Antworte auf die Frage: Was ist dein Traumberuf?\nDu kannst so beginnen: • Mein Traumberuf ist … • Ich möchte … werden.\nBeispiel: Mein Traumberuf ist Architekt. Ich möchte später Ärztin werden.\n\nSchritt 2: Begründung — Danach erklärst du, warum du diesen Beruf möchtest. Benutze „weil“.\nStruktur: • Ich möchte … werden, weil … • Dieser Beruf ist interessant, weil …\nBeispiel: Ich möchte Arzt werden, weil ich Menschen helfen will. Ich möchte Fußballspieler werden, weil ich Sport liebe.\n\nSchritt 3: Vergangenheit — Jetzt schreibst du etwas über deine Kindheit oder deine Erfahrungen. Benutze Perfekt oder Präteritum.\nMögliche Anfänge: • Als Kind habe ich … • Früher wollte ich … • Ich habe schon …\nBeispiel: Als Kind habe ich oft Fußball gespielt. Ich habe viele Bücher über Medizin gelesen.\n\nSchritt 4: Zukunft — Schreibe über deine Pläne. Benutze Futur I oder Präsens mit Zukunftsbedeutung.\nStruktur: • Ich werde … • In Zukunft werde ich …\nBeispiel: Ich werde Medizin studieren. Ich werde hart arbeiten und viel lernen.\n\nSchritt 5: Schluss — Am Ende schreibst du einen positiven Satz über deinen Traum.\nBeispiel: • Ich hoffe, dass ich erfolgreich werde. • Ich bin motiviert und glaube an meinen Traum.\n\nKompletter Beispieltext (A2): Mein Traumberuf ist Arzt. Ich möchte Arzt werden, weil ich Menschen helfen will. Als Kind habe ich gern mit meinen Puppen gespielt und sie behandelt. In der Schule habe ich Biologie besonders gemocht. Ich habe viel über den menschlichen Körper gelernt. In Zukunft werde ich Medizin studieren und hart arbeiten. Ich hoffe, dass ich ein guter Arzt werde.",
+   "task_type": "description",
+   "min_words": null,
+   "max_words": null
+  },
+  {
+   "content_id": "vizu-a2buch-l01-sprechen-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 1,
+   "skill": "sprechen",
+   "title": "Sprechen: Ich möchte … werden",
+   "source": "book",
+   "metadata": {
+    "book_page": 17,
+    "edition": "buch-2026-10-27"
+   },
+   "topic": "Mein Zukunftsberuf",
+   "prompt": "Sprich über deinen Zukunftsberuf. Benutze den Satz: Ich möchte … werden. Tipp: Benutze den Satzanfang „Ich möchte … werden, weil …“",
+   "questions": [
+    "Was möchtest du werden? Warum?",
+    "Welche Ausbildung oder welches Studium brauchst du?",
+    "Was musst du dafür lernen? Welche Fächer sind wichtig?",
+    "Was möchtest du in der Zukunft machen? Welche Pläne hast du?"
+   ],
+   "response_type": "monolog",
+   "min_duration": 0,
+   "max_duration": 300,
+   "speech_goal": "Über den Zukunftsberuf sprechen: Beruf + Grund (weil), Ausbildung/Studium, wichtige Fächer, Zukunftspläne.",
+   "keywords": [
+    "Ich möchte",
+    "werden",
+    "weil",
+    "studieren",
+    "Ausbildung",
+    "in der Zukunft"
+   ],
+   "sample_answer": "Ich möchte Arzt werden, weil ich Menschen helfen möchte. Ich muss Medizin studieren. Das Studium dauert viele Jahre. Ich muss viel lernen. Biologie, Chemie und Deutsch sind wichtig. In der Zukunft möchte ich in einem Krankenhaus arbeiten und vielen Menschen helfen."
+  },
+  {
+   "content_id": "vizu-a2buch-l01-wortschatz-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 1,
+   "skill": "wortschatz",
+   "title": "Wortschatz: Berufe, Personen und wichtige Verben",
+   "source": "book",
+   "metadata": {
+    "book_page": 18,
+    "edition": "buch-2026-10-27"
+   },
+   "words": [
+    {
+     "word": "Architekt",
+     "translation": "arxitektor",
+     "article": "der",
+     "group": "Berufe und Personen"
+    },
+    {
+     "word": "Ärztin",
+     "translation": "shifokor (ayol)",
+     "article": "die",
+     "group": "Berufe und Personen"
+    },
+    {
+     "word": "Arzt",
+     "translation": "shifokor",
+     "article": "der",
+     "group": "Berufe und Personen"
+    },
+    {
+     "word": "Lehrer",
+     "translation": "o‘qituvchi",
+     "article": "der",
+     "group": "Berufe und Personen"
+    },
+    {
+     "word": "Lehrerin",
+     "translation": "o‘qituvchi (ayol)",
+     "article": "die",
+     "group": "Berufe und Personen"
+    },
+    {
+     "word": "Ingenieur",
+     "translation": "muhandis",
+     "article": "der",
+     "group": "Berufe und Personen"
+    },
+    {
+     "word": "Koch",
+     "translation": "oshpaz",
+     "article": "der",
+     "group": "Berufe und Personen"
+    },
+    {
+     "word": "Köchin",
+     "translation": "oshpaz (ayol)",
+     "article": "die",
+     "group": "Berufe und Personen"
+    },
+    {
+     "word": "Fußballspieler",
+     "translation": "futbolchi",
+     "article": "der",
+     "group": "Berufe und Personen"
+    },
+    {
+     "word": "Polizist",
+     "translation": "politsiyachi",
+     "article": "der",
+     "group": "Berufe und Personen"
+    },
+    {
+     "word": "Polizistin",
+     "translation": "politsiyachi (ayol)",
+     "article": "die",
+     "group": "Berufe und Personen"
+    },
+    {
+     "word": "Journalist",
+     "translation": "jurnalist",
+     "article": "der",
+     "group": "Berufe und Personen"
+    },
+    {
+     "word": "Journalistin",
+     "translation": "jurnalist (ayol)",
+     "article": "die",
+     "group": "Berufe und Personen"
+    },
+    {
+     "word": "Fahrer",
+     "translation": "haydovchi",
+     "article": "der",
+     "group": "Berufe und Personen"
+    },
+    {
+     "word": "Verkäufer",
+     "translation": "sotuvchi",
+     "article": "der",
+     "group": "Berufe und Personen"
+    },
+    {
+     "word": "Verkäuferin",
+     "translation": "sotuvchi (ayol)",
+     "article": "die",
+     "group": "Berufe und Personen"
+    },
+    {
+     "word": "Manager",
+     "translation": "menejer",
+     "article": "der",
+     "group": "Berufe und Personen"
+    },
+    {
+     "word": "Student",
+     "translation": "talaba",
+     "article": "der",
+     "group": "Berufe und Personen"
+    },
+    {
+     "word": "Studentin",
+     "translation": "talaba (ayol)",
+     "article": "die",
+     "group": "Berufe und Personen"
+    },
+    {
+     "word": "Pilot",
+     "translation": "uchuvchi",
+     "article": "der",
+     "group": "Berufe und Personen"
+    },
+    {
+     "word": "Mechaniker",
+     "translation": "mexanik",
+     "article": "der",
+     "group": "Berufe und Personen"
+    },
+    {
+     "word": "Krankenschwester",
+     "translation": "hamshira",
+     "article": "die",
+     "group": "Berufe und Personen"
+    },
+    {
+     "word": "Zahnarzt",
+     "translation": "tish shifokori",
+     "article": "der",
+     "group": "Berufe und Personen"
+    },
+    {
+     "word": "Schauspieler",
+     "translation": "aktyor",
+     "article": "der",
+     "group": "Berufe und Personen"
+    },
+    {
+     "word": "Schauspielerin",
+     "translation": "aktrisa",
+     "article": "die",
+     "group": "Berufe und Personen"
+    },
+    {
+     "word": "Programmierer",
+     "translation": "dasturchi",
+     "article": "der",
+     "group": "Berufe und Personen"
+    },
+    {
+     "word": "Bäcker",
+     "translation": "novvoy",
+     "article": "der",
+     "group": "Berufe und Personen"
+    },
+    {
+     "word": "Friseur",
+     "translation": "sartarosh",
+     "article": "der",
+     "group": "Berufe und Personen"
+    },
+    {
+     "word": "Fotograf",
+     "translation": "fotograf",
+     "article": "der",
+     "group": "Berufe und Personen"
+    },
+    {
+     "word": "Elektriker",
+     "translation": "elektrik",
+     "article": "der",
+     "group": "Berufe und Personen"
+    },
+    {
+     "word": "Berufswahl",
+     "translation": "kasb tanlash",
+     "article": "die",
+     "group": "Karriere und wichtige Verben"
+    },
+    {
+     "word": "Erfahrung",
+     "translation": "tajriba",
+     "article": "die",
+     "group": "Karriere und wichtige Verben"
+    },
+    {
+     "word": "erfolgreich",
+     "translation": "muvaffaqiyatli",
+     "group": "Karriere und wichtige Verben"
+    },
+    {
+     "word": "motiviert",
+     "translation": "motivatsiyali",
+     "group": "Karriere und wichtige Verben"
+    },
+    {
+     "word": "unterstützen",
+     "translation": "qo‘llab-quvvatlamoq",
+     "group": "Karriere und wichtige Verben"
+    },
+    {
+     "word": "planen",
+     "translation": "rejalashtirmoq",
+     "group": "Karriere und wichtige Verben"
+    },
+    {
+     "word": "entwickeln",
+     "translation": "rivojlantirmoq",
+     "group": "Karriere und wichtige Verben"
+    },
+    {
+     "word": "Zukunft",
+     "translation": "kelajak",
+     "article": "die",
+     "group": "Karriere und wichtige Verben"
+    },
+    {
+     "word": "Projekt",
+     "translation": "loyiha",
+     "article": "das",
+     "group": "Karriere und wichtige Verben"
+    },
+    {
+     "word": "Studium",
+     "translation": "oliy ta’lim",
+     "article": "das",
+     "group": "Karriere und wichtige Verben"
+    },
+    {
+     "word": "abschließen",
+     "translation": "tugatmoq",
+     "group": "Karriere und wichtige Verben"
+    },
+    {
+     "word": "teilnehmen",
+     "translation": "qatnashmoq",
+     "group": "Karriere und wichtige Verben"
+    },
+    {
+     "word": "Mannschaft",
+     "translation": "jamoa",
+     "article": "die",
+     "group": "Karriere und wichtige Verben"
+    },
+    {
+     "word": "trainieren",
+     "translation": "mashq qilmoq",
+     "group": "Karriere und wichtige Verben"
+    },
+    {
+     "word": "bewundern",
+     "translation": "hayratlanmoq",
+     "group": "Karriere und wichtige Verben"
+    },
+    {
+     "word": "behandeln",
+     "translation": "davolamoq",
+     "group": "Karriere und wichtige Verben"
+    },
+    {
+     "word": "zeichnen",
+     "translation": "chizmoq",
+     "group": "Karriere und wichtige Verben"
+    },
+    {
+     "word": "beenden",
+     "translation": "tugatmoq",
+     "group": "Karriere und wichtige Verben"
+    },
+    {
+     "word": "interessant",
+     "translation": "qiziqarli",
+     "group": "Karriere und wichtige Verben"
+    },
+    {
+     "word": "schwierig",
+     "translation": "qiyin",
+     "group": "Karriere und wichtige Verben"
+    },
+    {
+     "word": "helfen",
+     "translation": "yordam bermoq",
+     "group": "Karriere und wichtige Verben"
+    },
+    {
+     "word": "arbeiten",
+     "translation": "ishlamoq",
+     "group": "Karriere und wichtige Verben"
+    },
+    {
+     "word": "lernen",
+     "translation": "o‘rganmoq",
+     "group": "Karriere und wichtige Verben"
+    },
+    {
+     "word": "studieren",
+     "translation": "o‘qimoq (oliy)",
+     "group": "Karriere und wichtige Verben"
+    },
+    {
+     "word": "verdienen",
+     "translation": "pul topmoq",
+     "group": "Karriere und wichtige Verben"
+    },
+    {
+     "word": "empfehlen",
+     "translation": "tavsiya qilmoq",
+     "group": "Karriere und wichtige Verben"
+    },
+    {
+     "word": "entscheiden",
+     "translation": "qaror qilmoq",
+     "group": "Karriere und wichtige Verben"
+    },
+    {
+     "word": "vielleicht",
+     "translation": "balki",
+     "group": "Karriere und wichtige Verben"
+    },
+    {
+     "word": "früher",
+     "translation": "ilgari",
+     "group": "Karriere und wichtige Verben"
+    },
+    {
+     "word": "heutzutage",
+     "translation": "hozirgi kunda",
+     "group": "Karriere und wichtige Verben"
+    }
+   ],
+   "exercises": [],
+   "auto_practice": false
+  }
+ ]
+}

@@ -1,0 +1,1251 @@
+{
+ "schema_version": "1.2",
+ "language": "de",
+ "source": "vizu-deutsch-a2-buch",
+ "items": [
+  {
+   "content_id": "vizu-a2buch-l10-frage-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 10,
+   "skill": "frage",
+   "title": "Frage des Themas: Welche Möglichkeiten gibt es in Deutschland zum Studium?",
+   "source": "book",
+   "metadata": {
+    "book_page": 105,
+    "book_answers": [
+     "Man kann an einer Universität studieren. Dort gibt es viele Studiengänge und man kann einen Bachelor oder Master machen.",
+     "Man kann an einer Fachhochschule studieren. Dort ist das Studium praxisnah und bereitet gut auf den Beruf vor.",
+     "Man kann ein duales Studium machen. Dabei verbindet man das Studium an einer Hochschule mit einer Ausbildung in einem Unternehmen."
+    ],
+    "edition": "buch-2026-10-27"
+   },
+   "prompt": "Welche Möglichkeiten gibt es in Deutschland zum Studium?",
+   "questions": [
+    "Universität",
+    "Fachhochschule",
+    "Duales Studium"
+   ],
+   "min_duration": 0,
+   "max_duration": 300
+  },
+  {
+   "content_id": "vizu-a2buch-l10-grammatik-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 10,
+   "skill": "grammatik",
+   "title": "Grammatik: Futur I und Futur II",
+   "source": "book",
+   "metadata": {
+    "book_page": "106-107",
+    "key_source": "grammar_rule",
+    "needs_review": [
+     "S. 106 Futur-I-Beispiel „Lisa wird wohl schon geschlafen haben“ ist Futur II (wie im Buch)."
+    ],
+    "edition": "buch-2026-10-27"
+   },
+   "rules": [
+    {
+     "title": "Futur I und Futur II",
+     "html": "<h3>Futur I und Futur II (A2–B1)</h3><table><thead><tr><th>Futur I</th><th>Futur II</th></tr></thead><tbody><tr><td>Futur I wird für Pläne, Prognosen und Vermutungen in der Zukunft benutzt.</td><td>Futur II wird für abgeschlossene Ereignisse in der Zukunft benutzt.</td></tr><tr><td><strong>Vorform:</strong> werden + Infinitiv</td><td><strong>Vorform:</strong> werden + Partizip II + haben / sein</td></tr><tr><td>Ich <strong>werde</strong> dich morgen anrufen.<br>Wir <strong>werden</strong> bald nach Spanien fliegen.<br>Lisa <strong>wird</strong> wohl schon geschlafen haben.</td><td>Ich <strong>werde</strong> die Aufgabe bis morgen <strong>erledigt haben</strong>.<br>David <strong>wird</strong> um 23 Uhr zu Hause <strong>angekommen sein</strong>.<br>Lisa <strong>wird</strong> schon <strong>geschlafen haben</strong>, wenn du anrufst.</td></tr></tbody></table><h4>Unterschied</h4><ul><li><strong>Futur I:</strong> Handlung liegt in der Zukunft.</li><li><strong>Futur II:</strong> Handlung wird in der Zukunft abgeschlossen sein.</li></ul>"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "Futur I: Ordne die Wörter und bilde Sätze",
+     "source": "book",
+     "questions": [
+      {
+       "type": "short_answer",
+       "question": "1. ich | morgen | arbeiten | werde | viel",
+       "accepted": [
+        "Ich werde morgen viel arbeiten.",
+        "Ich werde morgen viel arbeiten",
+        "Morgen werde ich viel arbeiten.",
+        "Morgen werde ich viel arbeiten"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Ich werde morgen viel arbeiten."
+      },
+      {
+       "type": "short_answer",
+       "question": "2. wir | später | werden | ins Kino | gehen",
+       "accepted": [
+        "Wir werden später ins Kino gehen.",
+        "Wir werden später ins Kino gehen",
+        "Später werden wir ins Kino gehen.",
+        "Später werden wir ins Kino gehen"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Wir werden später ins Kino gehen."
+      },
+      {
+       "type": "short_answer",
+       "question": "3. du | das Buch | lesen | wirst",
+       "accepted": [
+        "Du wirst das Buch lesen.",
+        "Du wirst das Buch lesen"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Du wirst das Buch lesen."
+      },
+      {
+       "type": "short_answer",
+       "question": "4. sie | in Berlin | werden | leben",
+       "accepted": [
+        "Sie werden in Berlin leben.",
+        "Sie werden in Berlin leben",
+        "In Berlin werden sie leben.",
+        "In Berlin werden sie leben"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Sie werden in Berlin leben."
+      },
+      {
+       "type": "short_answer",
+       "question": "5. ich | dich | anrufen | werde | heute",
+       "accepted": [
+        "Ich werde dich heute anrufen.",
+        "Ich werde dich heute anrufen",
+        "Heute werde ich dich anrufen.",
+        "Heute werde ich dich anrufen"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Ich werde dich heute anrufen."
+      },
+      {
+       "type": "short_answer",
+       "question": "6. er | schnell | laufen | wird",
+       "accepted": [
+        "Er wird schnell laufen.",
+        "Er wird schnell laufen"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Er wird schnell laufen."
+      },
+      {
+       "type": "short_answer",
+       "question": "7. wir | Deutsch | lernen | werden",
+       "accepted": [
+        "Wir werden Deutsch lernen.",
+        "Wir werden Deutsch lernen"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Wir werden Deutsch lernen."
+      },
+      {
+       "type": "short_answer",
+       "question": "8. ihr | die Aufgabe | lösen | werdet",
+       "accepted": [
+        "Ihr werdet die Aufgabe lösen.",
+        "Ihr werdet die Aufgabe lösen"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Ihr werdet die Aufgabe lösen."
+      },
+      {
+       "type": "short_answer",
+       "question": "9. sie | morgen | kommen | werden",
+       "accepted": [
+        "Sie werden morgen kommen.",
+        "Sie werden morgen kommen",
+        "Morgen werden sie kommen.",
+        "Morgen werden sie kommen"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Sie werden morgen kommen."
+      },
+      {
+       "type": "short_answer",
+       "question": "10. ich | ein Auto | kaufen | werde",
+       "accepted": [
+        "Ich werde ein Auto kaufen.",
+        "Ich werde ein Auto kaufen"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Ich werde ein Auto kaufen."
+      },
+      {
+       "type": "short_answer",
+       "question": "11. du | deine Hausaufgaben | machen | wirst",
+       "accepted": [
+        "Du wirst deine Hausaufgaben machen.",
+        "Du wirst deine Hausaufgaben machen"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Du wirst deine Hausaufgaben machen."
+      },
+      {
+       "type": "short_answer",
+       "question": "12. wir | im Sommer | reisen | werden",
+       "accepted": [
+        "Wir werden im Sommer reisen.",
+        "Wir werden im Sommer reisen",
+        "Im Sommer werden wir reisen.",
+        "Im Sommer werden wir reisen"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Wir werden im Sommer reisen."
+      },
+      {
+       "type": "short_answer",
+       "question": "13. er | das Problem | verstehen | wird",
+       "accepted": [
+        "Er wird das Problem verstehen.",
+        "Er wird das Problem verstehen"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Er wird das Problem verstehen."
+      },
+      {
+       "type": "short_answer",
+       "question": "14. sie | ein Geschenk | bekommen | wird",
+       "accepted": [
+        "Sie wird ein Geschenk bekommen.",
+        "Sie wird ein Geschenk bekommen"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Sie wird ein Geschenk bekommen."
+      },
+      {
+       "type": "short_answer",
+       "question": "15. ich | früh | aufstehen | werde",
+       "accepted": [
+        "Ich werde früh aufstehen.",
+        "Ich werde früh aufstehen"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Ich werde früh aufstehen."
+      }
+     ],
+     "instruction": "Ordne die Wörter und bilde Sätze im Futur I."
+    },
+    {
+     "title": "Futur II: Ordne die Wörter und bilde Sätze",
+     "source": "book",
+     "questions": [
+      {
+       "type": "short_answer",
+       "question": "1. ich | die Arbeit | gemacht | haben | werde",
+       "accepted": [
+        "Ich werde die Arbeit gemacht haben.",
+        "Ich werde die Arbeit gemacht haben"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Ich werde die Arbeit gemacht haben."
+      },
+      {
+       "type": "short_answer",
+       "question": "2. wir | das Projekt | beendet | haben | werden",
+       "accepted": [
+        "Wir werden das Projekt beendet haben.",
+        "Wir werden das Projekt beendet haben"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Wir werden das Projekt beendet haben."
+      },
+      {
+       "type": "short_answer",
+       "question": "3. du | dein Ziel | erreicht | haben | wirst",
+       "accepted": [
+        "Du wirst dein Ziel erreicht haben.",
+        "Du wirst dein Ziel erreicht haben"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Du wirst dein Ziel erreicht haben."
+      },
+      {
+       "type": "short_answer",
+       "question": "4. sie | den Text | gelesen | haben | wird",
+       "accepted": [
+        "Sie wird den Text gelesen haben.",
+        "Sie wird den Text gelesen haben"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Sie wird den Text gelesen haben."
+      },
+      {
+       "type": "short_answer",
+       "question": "5. er | nach Hause | gegangen | sein | wird",
+       "accepted": [
+        "Er wird nach Hause gegangen sein.",
+        "Er wird nach Hause gegangen sein"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Er wird nach Hause gegangen sein."
+      },
+      {
+       "type": "short_answer",
+       "question": "6. ich | alles | vorbereitet | haben | werde",
+       "accepted": [
+        "Ich werde alles vorbereitet haben.",
+        "Ich werde alles vorbereitet haben"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Ich werde alles vorbereitet haben."
+      },
+      {
+       "type": "short_answer",
+       "question": "7. wir | das Essen | gekocht | haben | werden",
+       "accepted": [
+        "Wir werden das Essen gekocht haben.",
+        "Wir werden das Essen gekocht haben"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Wir werden das Essen gekocht haben."
+      },
+      {
+       "type": "short_answer",
+       "question": "8. ihr | die Prüfung | bestanden | haben | werdet",
+       "accepted": [
+        "Ihr werdet die Prüfung bestanden haben.",
+        "Ihr werdet die Prüfung bestanden haben"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Ihr werdet die Prüfung bestanden haben."
+      },
+      {
+       "type": "short_answer",
+       "question": "9. sie | die Aufgabe | gelöst | haben | wird",
+       "accepted": [
+        "Sie wird die Aufgabe gelöst haben.",
+        "Sie wird die Aufgabe gelöst haben"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Sie wird die Aufgabe gelöst haben."
+      },
+      {
+       "type": "short_answer",
+       "question": "10. ich | das Buch | geschrieben | haben | werde",
+       "accepted": [
+        "Ich werde das Buch geschrieben haben.",
+        "Ich werde das Buch geschrieben haben"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Ich werde das Buch geschrieben haben."
+      },
+      {
+       "type": "short_answer",
+       "question": "11. du | die Regeln | gelernt | haben | wirst",
+       "accepted": [
+        "Du wirst die Regeln gelernt haben.",
+        "Du wirst die Regeln gelernt haben"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Du wirst die Regeln gelernt haben."
+      },
+      {
+       "type": "short_answer",
+       "question": "12. wir | das Haus | gebaut | haben | werden",
+       "accepted": [
+        "Wir werden das Haus gebaut haben.",
+        "Wir werden das Haus gebaut haben"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Wir werden das Haus gebaut haben."
+      },
+      {
+       "type": "short_answer",
+       "question": "13. er | die Antwort | gefunden | haben | wird",
+       "accepted": [
+        "Er wird die Antwort gefunden haben.",
+        "Er wird die Antwort gefunden haben"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Er wird die Antwort gefunden haben."
+      },
+      {
+       "type": "short_answer",
+       "question": "14. sie | die Reise | gemacht | haben | wird",
+       "accepted": [
+        "Sie wird die Reise gemacht haben.",
+        "Sie wird die Reise gemacht haben"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Sie wird die Reise gemacht haben."
+      },
+      {
+       "type": "short_answer",
+       "question": "15. ich | die Nachricht | bekommen | haben | werde",
+       "accepted": [
+        "Ich werde die Nachricht bekommen haben.",
+        "Ich werde die Nachricht bekommen haben"
+       ],
+       "points": 1,
+       "max_length": 150,
+       "passage": 1,
+       "explanation": "Ich werde die Nachricht bekommen haben."
+      }
+     ],
+     "instruction": "Ordne die Wörter und bilde Sätze im Futur II."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2buch-l10-lesen-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 10,
+   "skill": "lesen",
+   "title": "Lesen Teil 1: Tolle Sehenswürdigkeiten",
+   "source": "book",
+   "metadata": {
+    "book_page": "108-109",
+    "key_source": "text",
+    "edition": "buch-2026-10-27"
+   },
+   "instruction": "Du liest in einer Zeitung diesen Text. Wähle für die Aufgaben 1 bis 5 die richtige Lösung a, b oder c. (7–8 Minuten)",
+   "passages": [
+    {
+     "title": "Tolle Sehenswürdigkeiten",
+     "text": "Tolle Sehenswürdigkeiten\n\nDas Brandenburger Tor, die Akropolis, der schiefe Turm von Pisa oder der Big Ben. Sehenswürdigkeiten gibt es viele auf der Welt. Fotografiere sie und gewinne tolle Preise!\n\nUnter dem Motto „Mein Denkmal“ startet der Jugendfotowettbewerb „Enjoy-Denkmäler“. Nimm deine Kamera oder dein Handy und fotografiere Sehenswürdigkeiten, Häuser oder Gebäude.\n\nDeine Aufgabe ist es, etwas zu fotografieren, was du für eine tolle Sehenswürdigkeit hältst. Du sollst aber auch etwas darüber schreiben, was dir an dieser Sehenswürdigkeit gefällt. Die Größe? Die Farbe? Die Architektur? Schreib das Wichtigste!\n\nBei diesem Wettbewerb kann jeder mitmachen. Die Teilnehmer dürfen aber höchstens 18 Jahre alt sein. Natürlich kannst du auch mit deiner Schulklasse oder mit deinen Freunden als Gruppe teilnehmen. Was du für eine Kamera oder was für ein Handy ihr benutzt, das ist egal.\n\nWo du deine Fotos machen kannst? Natürlich überall! In deiner Stadt, auf einem Ausflug mit deinen Eltern, Freunden, mit deiner Schulklasse, im Inland oder auch im Ausland. Es spielt überhaupt keine Rolle, wo du wohnst. Zu gewinnen gibt es tolle Geldpreise: Der Sieger bekommt 300, der zweite 200 und der dritte 100 Euro. Wir vergeben also insgesamt 600 Euro!\n\nDu schickst deine Fotos spätestens bis zum 10. September (bitte keinen Tag später!) an folgende E-Mail-Adresse: fotowettbewerb@yahoo.de Also dann viel Spaß und viel Erfolg!"
+    }
+   ],
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "1 Wer bei „Enjoy-Denkmal“ mitmacht, …",
+     "options": [
+      "muss Sehenswürdigkeiten, aber keine Häuser fotografieren.",
+      "muss angeben, von welchem Architekten diese Sehenswürdigkeit stammt.",
+      "muss auch begründen, warum er diese Sehenswürdigkeit gewählt hat."
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Du sollst aber auch etwas darüber schreiben, was dir an dieser Sehenswürdigkeit gefällt.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "2 Personen …",
+     "options": [
+      "bis zu 18 Jahren dürfen beim Wettbewerb mitmachen.",
+      "über 18 dürfen auch am Wettbewerb teilnehmen.",
+      "unter 18 dürfen nicht am Wettbewerb teilnehmen."
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Die Teilnehmer dürfen aber höchstens 18 Jahre alt sein.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "3 Die Fotos …",
+     "options": [
+      "darf man nur mit einer Handy-Kamera machen.",
+      "kann man an jedem möglichen Ort machen.",
+      "soll man nur an seinem Wohnort machen."
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Wo du deine Fotos machen kannst? Natürlich überall!“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "4 Wer das beste Foto macht, bekommt …",
+     "options": [
+      "dreihundert Euro.",
+      "eine goldene Kamera.",
+      "insgesamt sechshundert Euro."
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Der Sieger bekommt 300 … Euro.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "5 Die Fotos …",
+     "options": [
+      "sollen bis Ende September geschickt werden.",
+      "sollen alle am 10. September geschickt werden.",
+      "sollen nicht später als am 10. September geschickt werden."
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„… spätestens bis zum 10. September (bitte keinen Tag später!)“"
+    }
+   ],
+   "max_score": 5
+  },
+  {
+   "content_id": "vizu-a2buch-l10-lesen-02",
+   "level": "A2",
+   "module": 1,
+   "lesson": 10,
+   "skill": "lesen",
+   "title": "Lesen Teil 2: Informationstafel im „KaDeWe“",
+   "source": "book",
+   "metadata": {
+    "book_page": "110-111",
+    "key_source": "text",
+    "edition": "buch-2026-10-27"
+   },
+   "instruction": "Du bist im Einkaufszentrum „KaDeWe“ in Berlin. In welchen Stock musst du gehen? Wähle a, b oder c. (Beispiel: Hemd für den Vater → 2. Stock)",
+   "passages": [
+    {
+     "title": "Im „KaDeWe“ finden Sie alles, was Sie brauchen!",
+     "text": "Im „KaDeWe“ finden Sie alles, was Sie brauchen!\n\n1. Stock: Lederwaren, Regenschirme, Reisegepäck, Schreibwaren, Bücher, Musikinstrumente, alles fürs Hobby, alles fürs Haustier\n2. Stock: Babymode, Kindermode, Herrenjeans, Herrenmode, Herrenschuhe, Sonnenbrillen, Sportartikel\n3. Stock: Uhren & Schmuck, Parfümerie und Kosmetik, Blusen, Damentaschen, Kleider & Röcke, Damenschuhe, Haarpflege\n4. Stock: Licht und Wohnen, WC und Bad, Fernseher, Mobiltelefone, Rechner und Tablets, Radios, Lautsprecher, Car Hi-Fi, Autozubehör, PC-Spiele, Batterien, Drucker, Kameras, CDs, DVDs\n5. Stock: Alkohol und Getränke, Chips, Bäckerei, Konditorei, Fisch und Fleisch, Obst und Gemüse, Süßigkeiten, Cafeteria, Pizzeria, Fundbüro"
+    }
+   ],
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "6 Du interessierst dich für die neuen Handy-Modelle.",
+     "options": [
+      "4. Stock",
+      "1. Stock",
+      "anderer Stock"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "4. Stock: Mobiltelefone."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "7 Deine Mutter liest gern und du möchtest ihr etwas Passendes kaufen.",
+     "options": [
+      "3. Stock",
+      "1. Stock",
+      "anderer Stock"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "1. Stock: Bücher."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "8 Du suchst einen guten Rotwein für deinen Onkel.",
+     "options": [
+      "3. Stock",
+      "4. Stock",
+      "anderer Stock"
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1,
+     "explanation": "5. Stock: Alkohol und Getränke → anderer Stock."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "9 Du interessierst dich für Computerspiele.",
+     "options": [
+      "5. Stock",
+      "4. Stock",
+      "anderer Stock"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "4. Stock: PC-Spiele."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "10 Tante Luise hat nächste Woche Geburtstag und du möchtest ihr ein Parfüm schenken.",
+     "options": [
+      "Erdgeschoss",
+      "3. Stock",
+      "anderer Stock"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "3. Stock: Parfümerie und Kosmetik."
+    }
+   ],
+   "max_score": 5
+  },
+  {
+   "content_id": "vizu-a2buch-l10-lesen-03",
+   "level": "A2",
+   "module": 1,
+   "lesson": 10,
+   "skill": "lesen",
+   "title": "Lesen Teil 3: E-Mail von Inge",
+   "source": "book",
+   "metadata": {
+    "book_page": "112-113",
+    "key_source": "text",
+    "edition": "buch-2026-10-27"
+   },
+   "instruction": "Du liest eine E-Mail. Wähle für die Aufgaben 11 bis 15 die richtige Lösung a, b oder c.",
+   "passages": [
+    {
+     "title": "E-Mail: Motorroller",
+     "text": "Von: Inge · An: Matilda · Betreff: Motorroller\n\nHi Matilda,\nwie geht es dir? Mir geht es eigentlich ganz gut. In der Schule bekomme ich in letzter Zeit sehr gute Noten. Das freut mich natürlich sehr. In der letzten Mathearbeit habe ich sogar eine Eins bekommen! Du kannst dir vorstellen, dass mich das total glücklich gemacht hat.\n\nWas gibt es Neues bei dir? Geht es jetzt besser in Englisch, oder hast du immer noch Schwierigkeiten? Bei mir ist alles wie immer. Außer, dass ich einen Motorroller kaufen möchte. Du fragst dich sicher, wie ich das machen werde. Nun, ich spare schon seit zwei Jahren mein Taschengeld. Jetzt habe ich schon 1.500 Euro zusammen. Das reicht zwar für einen Motorroller, aber meine Eltern erlauben es mir leider nicht. Sie sagen die ganze Zeit: „Das ist zu gefährlich“ oder „Du bist noch zu jung dafür!“ Ich bin schon sechzehn und gefährlich ist es für die, die zu schnell oder unvorsichtig fahren. Ich bin doch immer vorsichtig! Mama und Papa können mich einfach nicht verstehen.\n\nEs wäre so praktisch für mich, damit zur Schule zu fahren. Dann müsste ich nicht jeden Morgen den Bus nehmen oder gefahren werden. Deshalb streiten wir uns zuletzt ziemlich oft. Wozu rätst du mir? Was soll ich tun? Ich hab doch das Geld und werde vorsichtig fahren. Aber „NEIN“, sie wollen mich einfach nicht verstehen!\n\nSchreib mir bitte bald!\nViele Grüße\nInge"
+    }
+   ],
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "11 Warum ist Inge froh?",
+     "options": [
+      "Es geht ihr wieder besser.",
+      "Sie bekommt in Mathematik immer die beste Note.",
+      "Sie hat neulich im Mathe-Test eine „sehr gut“ bekommen."
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„In der letzten Mathearbeit habe ich sogar eine Eins bekommen!“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "12 Was wünscht sich Inge?",
+     "options": [
+      "Gute Noten auch in Englisch.",
+      "Einen Motorroller.",
+      "Mehr Taschengeld."
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„… dass ich einen Motorroller kaufen möchte.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "13 Was sagen die Eltern zu dem Wunsch von Inge?",
+     "options": [
+      "Sie finden ihn gut.",
+      "Sie finden ihn nicht gut.",
+      "Die Eltern erlauben ihr alles."
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„… aber meine Eltern erlauben es mir leider nicht.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "14 Wie geht Inge zur Schule?",
+     "options": [
+      "Sie fährt mit dem Bus oder ihre Eltern bringen sie hin.",
+      "Sie fährt mit dem Fahrrad.",
+      "Sie geht immer zu Fuß."
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Dann müsste ich nicht jeden Morgen den Bus nehmen oder gefahren werden.“"
+    },
+    {
+     "type": "multiple_choice",
+     "question": "15 Was passiert in letzter Zeit?",
+     "options": [
+      "Inge streitet sich mit ihren Eltern.",
+      "Inge ist sehr vorsichtig, wenn sie mit ihren Eltern spricht.",
+      "Inge bekommt kein Taschengeld mehr."
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "„Deshalb streiten wir uns zuletzt ziemlich oft.“"
+    }
+   ],
+   "max_score": 5
+  },
+  {
+   "content_id": "vizu-a2buch-l10-lesen-04",
+   "level": "A2",
+   "module": 1,
+   "lesson": 10,
+   "skill": "lesen",
+   "title": "Lesen Teil 4: Elektronik für jeden Zweck",
+   "source": "book",
+   "metadata": {
+    "book_page": "114-115",
+    "key_source": "text",
+    "edition": "buch-2026-10-27"
+   },
+   "instruction": "Sechs Jugendliche suchen im Internet nach Multimedia-Geräten. Welche Anzeige passt zu welcher Person? Für eine Aufgabe gibt es keine Lösung.",
+   "passages": [
+    {
+     "title": "Elektronik für jeden Zweck – Alles, was du brauchst!",
+     "text": "Elektronik für jeden Zweck – Alles, was du brauchst!\n\na) Auf dem Sofa bequem liegen … und fernsehen, allein, mit der Familie oder mit Freunden. Nichts macht mehr Spaß. Wir bieten alles rund um TV-Geräte: 3D-Fernseher, LED- & LCD-Fernseher, Curved-TVs, Plasma-Fernseher. Das Angebot ist riesig, die Preise sind niedrig.\n\nb) Haushalt & Wohnen: Waschmaschinen, Geschirrspüler, Staubsauger, Küchenmaschinen, Mikrowellen, Kaffeevollautomaten. Hier gibt es einfach alles für den Haushalt. Was Sie bei uns kaufen, liefern wir Ihnen kostenlos nach Hause. Geöffnet jeden Tag von 9 bis 21 Uhr, auch samstags.\n\nc) PCs und Zubehör: Einen Computer fürs Büro oder für zu Hause? Kein Problem, schaut einfach bei uns rein. Und aufgepasst! Diese Woche gibt es ganz tolle Sonderangebote. Erstklassige Geräte um 30% reduziert. PCs, Apple Mac, Mini-PCs, alles, was die Arbeit leichter macht.\n\nd) Für kleine und große Kinder: Von Sport über Strategie bis Action, von der Sony Playstation bis hin zur Microsoft Xbox, mit dem richtigen Gerät macht Spielen viel mehr Spaß. Bei uns findest du, was du brauchst – und alles mit Zwei-Jahres-Garantie.\n\ne) Mobiltelefone: Willst du dir die neuesten Modelle ansehen? Oder suchst du vielleicht ein billiges gebrauchtes Gerät? Bei uns findest du alle Marken und alle Modelle, egal ob Smartphones, Apple iPhones oder Seniorenhandys. Günstige Tarife für unbegrenztes Telefonieren, Fotografieren und Simsen.\n\nf) Super klein, super leicht, super gut! Wenn du deinen Rechner überall mitnehmen willst, wenn du nicht so viel Platz in deiner Tasche hast, dann solltest du keinen PC kaufen, sondern einen Laptop oder ein Tablet. Wir haben alle Marken, die keine Wünsche offen lassen.\n\nBeispiel: 0 Luisa sieht zu Haus sehr gern fern. → a"
+    }
+   ],
+   "questions": [
+    {
+     "type": "matching",
+     "question": "Welche Anzeige passt zu welcher Person? (Für eine Aufgabe gibt es keine Lösung: X)",
+     "items": [
+      "16 Max möchte ein neues Handy kaufen.",
+      "17 Helena hört gern Musik, wenn sie joggt.",
+      "18 Theo möchte ein Tablet kaufen.",
+      "19 Victoria möchte einen Heimcomputer kaufen.",
+      "20 Rafael möchte eine Spielkonsole für seinen jüngeren Bruder kaufen."
+     ],
+     "targets": [
+      "Anzeige b) Haushalt & Wohnen",
+      "Anzeige c) PCs und Zubehör",
+      "Anzeige d) Für kleine und große Kinder",
+      "Anzeige e) Mobiltelefone",
+      "Anzeige f) Super klein, super leicht, super gut!",
+      "X – keine passende Anzeige"
+     ],
+     "pairs": {
+      "1": "D",
+      "2": "F",
+      "3": "E",
+      "4": "B",
+      "5": "C"
+     },
+     "points": 5,
+     "passage": 1,
+     "explanation": "16 → e (Mobiltelefone), 17 → X (keine Anzeige für Musik beim Joggen), 18 → f (Laptop oder Tablet), 19 → c (Computer für zu Hause), 20 → d (Playstation, Xbox). Anzeige b bleibt übrig."
+    }
+   ],
+   "max_score": 5
+  },
+  {
+   "content_id": "vizu-a2buch-l10-hoeren-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 10,
+   "skill": "hoeren",
+   "title": "Hören Teil 1: Fünf kurze Texte",
+   "source": "book",
+   "metadata": {
+    "book_page": 116,
+    "note": "Kitobda kalit va transkript yo'q — admin audioni tinglab javoblarni belgilaydi.",
+    "edition": "buch-2026-10-27"
+   },
+   "audio_file": "A2 10.Unterricht Teil 1.m4a",
+   "key_pending": true,
+   "instruction": "Du hörst fünf kurze Texte. Du hörst jeden Text zweimal. Wähle für die Aufgaben 1 bis 5 a, b oder c.",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "1 Was für eine Frisur hätte Werner gern?",
+     "options": [
+      "Eine Langhaarfrisur.",
+      "Eine Kurzhaarfrisur.",
+      "Eine mittellange Frisur."
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "2 Mit welchem Familienmitglied versteht sich Karolin am besten?",
+     "options": [
+      "Mit ihrem Vater.",
+      "Mit ihrer Mutter.",
+      "Mit ihren Geschwistern."
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "3 Welche Jahreszeit findet Kerstin sehr angenehm?",
+     "options": [
+      "Den Sommer.",
+      "Den Frühling.",
+      "Den Winter."
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "4 Wie hat Bayern München gegen Atletico Madrid gespielt?",
+     "options": [
+      "Bayern München hat 1:2 verloren.",
+      "Bayern München hat 1:0 gewonnen.",
+      "Bayern München hat 2:1 gewonnen."
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "5 Wie viel kosten heute die Jeanshosen?",
+     "options": [
+      "70 Euro.",
+      "17 Euro.",
+      "25 Euro."
+     ],
+     "points": 1
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2buch-l10-hoeren-02",
+   "level": "A2",
+   "module": 1,
+   "lesson": 10,
+   "skill": "hoeren",
+   "title": "Hören Teil 2: Flohmarkt",
+   "source": "book",
+   "metadata": {
+    "book_page": 117,
+    "note": "Kitobda kalit va transkript yo'q — admin audioni tinglab javoblarni belgilaydi.",
+    "edition": "buch-2026-10-27"
+   },
+   "audio_file": "A2 10.Unterricht Teil 2.m4a",
+   "key_pending": true,
+   "instruction": "Du hörst ein Gespräch einmal. Wähle für die Aufgaben 6 bis 10 ein passendes Bild aus a bis i (Bild im Abschnitt). Wähle jeden Buchstaben nur einmal. Ein Bild bleibt übrig.",
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "Was hat die Person auf dem Flohmarkt mitgebracht und verkauft? (Beispiel: 0 Anton → a)",
+     "text": "6 Anne: [[1]]",
+     "gaps": {
+      "1": {
+       "accepted": [],
+       "options": [
+        "b) Spielzeugsoldaten",
+        "c) Tischdecke",
+        "d) Bausteine (Lego)",
+        "e) Mofa",
+        "f) Puppen",
+        "g) Fahrrad",
+        "h) Ananas",
+        "i) Kiste mit Äpfeln"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Was hat die Person auf dem Flohmarkt mitgebracht und verkauft? (Beispiel: 0 Anton → a)",
+     "text": "7 Olaf: [[1]]",
+     "gaps": {
+      "1": {
+       "accepted": [],
+       "options": [
+        "b) Spielzeugsoldaten",
+        "c) Tischdecke",
+        "d) Bausteine (Lego)",
+        "e) Mofa",
+        "f) Puppen",
+        "g) Fahrrad",
+        "h) Ananas",
+        "i) Kiste mit Äpfeln"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Was hat die Person auf dem Flohmarkt mitgebracht und verkauft? (Beispiel: 0 Anton → a)",
+     "text": "8 Harry: [[1]]",
+     "gaps": {
+      "1": {
+       "accepted": [],
+       "options": [
+        "b) Spielzeugsoldaten",
+        "c) Tischdecke",
+        "d) Bausteine (Lego)",
+        "e) Mofa",
+        "f) Puppen",
+        "g) Fahrrad",
+        "h) Ananas",
+        "i) Kiste mit Äpfeln"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Was hat die Person auf dem Flohmarkt mitgebracht und verkauft? (Beispiel: 0 Anton → a)",
+     "text": "9 Nicki: [[1]]",
+     "gaps": {
+      "1": {
+       "accepted": [],
+       "options": [
+        "b) Spielzeugsoldaten",
+        "c) Tischdecke",
+        "d) Bausteine (Lego)",
+        "e) Mofa",
+        "f) Puppen",
+        "g) Fahrrad",
+        "h) Ananas",
+        "i) Kiste mit Äpfeln"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "Was hat die Person auf dem Flohmarkt mitgebracht und verkauft? (Beispiel: 0 Anton → a)",
+     "text": "10 Martin: [[1]]",
+     "gaps": {
+      "1": {
+       "accepted": [],
+       "options": [
+        "b) Spielzeugsoldaten",
+        "c) Tischdecke",
+        "d) Bausteine (Lego)",
+        "e) Mofa",
+        "f) Puppen",
+        "g) Fahrrad",
+        "h) Ananas",
+        "i) Kiste mit Äpfeln"
+       ]
+      }
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2buch-l10-hoeren-03",
+   "level": "A2",
+   "module": 1,
+   "lesson": 10,
+   "skill": "hoeren",
+   "title": "Hören Teil 3: Fünf kurze Gespräche",
+   "source": "book",
+   "metadata": {
+    "book_page": 118,
+    "note": "Kitobda kalit va transkript yo'q — admin audioni tinglab javoblarni belgilaydi.",
+    "needs_review": [
+     "S. 118/119: Teil 3 und Teil 4 tragen beide „Track 7–11“ — Trackangabe prüfen."
+    ],
+    "edition": "buch-2026-10-27"
+   },
+   "audio_file": "A2 10.Unterricht Teil 3.m4a",
+   "key_pending": true,
+   "instruction": "Du hörst fünf kurze Gespräche. Du hörst jeden Text einmal. Wähle für die Aufgaben 11 bis 15 a, b oder c (Bilder im Abschnitt).",
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "11 Mit wem hat sich Lisa gestritten?",
+     "options": [
+      "a) mit der Frau (Bild a)",
+      "b) mit dem Mann im gelben T-Shirt (Bild b)",
+      "c) mit dem Jungen im grünen T-Shirt (Bild c)"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "12 Was möchte Lothar kaufen?",
+     "options": [
+      "a) Tennisschuhe",
+      "b) einen Tennisschläger",
+      "c) Tennisbälle"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "13 Was zieht Eva zu der Jeanshose an?",
+     "options": [
+      "a) ein T-Shirt",
+      "b) eine Bluse",
+      "c) ein Top"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "14 Was für ein Geburtstagsgeschenk bekommt Mark von Ivonne?",
+     "options": [
+      "a) einen Basketball",
+      "b) ein Computerspiel",
+      "c) ein Buch"
+     ],
+     "points": 1
+    },
+    {
+     "type": "multiple_choice",
+     "question": "15 Wie verkleidet sich Rolf zum Karneval?",
+     "options": [
+      "a) als Cowboy",
+      "b) als Arzt",
+      "c) als Pirat"
+     ],
+     "points": 1
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2buch-l10-hoeren-04",
+   "level": "A2",
+   "module": 1,
+   "lesson": 10,
+   "skill": "hoeren",
+   "title": "Hören Teil 4: Interview — Europa-Camp",
+   "source": "book",
+   "metadata": {
+    "book_page": 119,
+    "note": "Kitobda kalit va transkript yo'q — admin audioni tinglab javoblarni belgilaydi.",
+    "needs_review": [
+     "S. 118/119: Teil 3 und Teil 4 tragen beide „Track 7–11“ — Trackangabe prüfen."
+    ],
+    "edition": "buch-2026-10-27"
+   },
+   "audio_file": "A2 10.Unterricht Teil 4.m4a",
+   "key_pending": true,
+   "instruction": "Du hörst ein Interview. Du hörst den Text zweimal. Wähle für die Aufgaben 16 bis 20 „Ja“ oder „Nein“.",
+   "questions": [
+    {
+     "type": "true_false",
+     "question": "16 Am „Europa-Camp“ können Jugendliche teilnehmen, die 14 Jahre oder älter sind.",
+     "options": [
+      "Ja",
+      "Nein"
+     ],
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "17 Ralf hat Ferien im „Europa-Camp“ in Spanien gemacht.",
+     "options": [
+      "Ja",
+      "Nein"
+     ],
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "18 Jeden Tag hatte er zwei Stunden Unterricht.",
+     "options": [
+      "Ja",
+      "Nein"
+     ],
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "19 Feriencamps gibt es in den Monaten Juni und Juli.",
+     "options": [
+      "Ja",
+      "Nein"
+     ],
+     "points": 1,
+     "passage": 1
+    },
+    {
+     "type": "true_false",
+     "question": "20 Für die Arbeit im Feriencamp bekommt man ein kleines Taschengeld.",
+     "options": [
+      "Ja",
+      "Nein"
+     ],
+     "points": 1,
+     "passage": 1
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2buch-l10-schreiben-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 10,
+   "skill": "schreiben",
+   "title": "Schreiben Teil 1: SMS an Marko",
+   "source": "book",
+   "metadata": {
+    "book_page": 120,
+    "edition": "buch-2026-10-27"
+   },
+   "task_type": "message",
+   "prompt": "Du bist auf dem Fußballplatz und schreibst deinem Freund Marko eine SMS.\n• Erzähl ihm, wo du bist.\n• Schreib ihm, mit wem du bist.\n• Sag ihm, was ihr heute macht.\n• Schreib, warum Fußball deine Lieblingssportart ist.\n\nWichtig: Schreib 20–30 Wörter. Schreib eine SMS / informellen Text. Vergiss nicht: Anrede und Gruß.",
+   "audience": "Freund Marko (informell)",
+   "min_words": 20,
+   "max_words": 30
+  },
+  {
+   "content_id": "vizu-a2buch-l10-schreiben-03",
+   "level": "A2",
+   "module": 1,
+   "lesson": 10,
+   "skill": "schreiben",
+   "title": "Schreiben Teil 2: E-Mail an Herrn Müller",
+   "source": "book",
+   "metadata": {
+    "book_page": 121,
+    "edition": "buch-2026-10-27"
+   },
+   "task_type": "email",
+   "prompt": "Dein Nachbar, Herr Müller, lädt dich am Samstag zu seinem Geburtstag ein. Schreib Herrn Müller eine E-Mail.\n• Bedanke dich und sage zu.\n• Frage nach der Uhrzeit.\n• Sage, was du mitbringen könntest.\n\nWichtig: Schreib 30–40 Wörter. Schreib zu allen drei Punkten. Schreib deutlich und freundlich. Achte auf die Reihenfolge. Überprüfe deine E-Mail am Ende.",
+   "audience": "Nachbar Herr Müller (formell)",
+   "min_words": 30,
+   "max_words": 40
+  },
+  {
+   "content_id": "vizu-a2buch-l10-schreiben-04",
+   "level": "A2",
+   "module": 1,
+   "lesson": 10,
+   "skill": "schreiben",
+   "title": "Wortschatz-Aufgabe: Wort zu Wort Wortschatzmethode (Lernen und Weiterbildung)",
+   "source": "book",
+   "metadata": {
+    "book_page": 124,
+    "edition": "buch-2026-10-27"
+   },
+   "task_type": "description",
+   "prompt": "Formulieren Sie mit den Wörtern einer Variante einen Text.\n\nVariante 1: lernen, der Kurs, die Aufgabe, das Lehrbuch, der Test, die Hausaufgaben\nVariante 2: der Lehrer, erklären, sich erinnern, die Sprache, das Wörterbuch, verbessern\nVariante 3: die Schule, die Prüfung, die Note, die Klassenarbeit, die Wiederholung, bestehen\nVariante 4: die Weiterbildung, der Kursleiter, das Seminar, teilnehmen, sich anmelden, das Zertifikat\nVariante 5: die Universität, die Ausbildung, das Praktikum, die Prüfung bestehen, der Beruf, die Karriere",
+   "min_words": null,
+   "max_words": null
+  },
+  {
+   "content_id": "vizu-a2buch-l10-sprechen-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 10,
+   "skill": "sprechen",
+   "title": "Sprechen Teil 1: Fragen zur Person",
+   "source": "book",
+   "metadata": {
+    "book_page": 122,
+    "edition": "buch-2026-10-27"
+   },
+   "topic": "Fragen zur Person",
+   "response_type": "dialog",
+   "prompt": "Du nimmst vier Karten und stellst mit diesen Karten vier Fragen. Dein Partner / deine Partnerin antwortet. Stelle die vier Fragen und beantworte sie auch selbst.",
+   "questions": [
+    "Kandidat 1: Alter?",
+    "Kandidat 1: Großeltern?",
+    "Kandidat 1: Lieblingsfach?",
+    "Kandidat 1: Tanzen?",
+    "Kandidat 2: Geschwister?",
+    "Kandidat 2: Schwimmen?",
+    "Kandidat 2: Mathematik oder Sprachen?",
+    "Kandidat 2: Geburtstag?"
+   ],
+   "min_duration": 0,
+   "max_duration": 300,
+   "speech_goal": "Zu jedem Stichwort eine korrekte Frage stellen und beantworten (Wie alt …? Hast du …?).",
+   "keywords": [
+    "Wie alt",
+    "Hast du",
+    "Was ist dein",
+    "Wann"
+   ]
+  },
+  {
+   "content_id": "vizu-a2buch-l10-sprechen-02",
+   "level": "A2",
+   "module": 1,
+   "lesson": 10,
+   "skill": "sprechen",
+   "title": "Sprechen Teil 2: Von sich erzählen",
+   "source": "book",
+   "metadata": {
+    "book_page": 123,
+    "edition": "buch-2026-10-27"
+   },
+   "topic": "Von sich erzählen",
+   "prompt": "Du bekommst eine Karte und erzählst etwas über dein Leben. Aufgabenkarte A: Was machst du oft abends? Aufgabenkarte B: Was ist dein Lieblingsessen?",
+   "questions": [
+    "Karte A: Abendessen?",
+    "Karte A: mit Freunden ausgehen?",
+    "Karte A: fernsehen, diskutieren?",
+    "Karte A: Computer?",
+    "Karte B: Welches, warum?",
+    "Karte B: Was isst du auch gern?",
+    "Karte B: Wer kocht es, wie oft?",
+    "Karte B: Restaurant?"
+   ],
+   "response_type": "monolog",
+   "min_duration": 0,
+   "max_duration": 300,
+   "speech_goal": "Zu einer Aufgabenkarte zusammenhängend von sich erzählen.",
+   "keywords": [
+    "abends",
+    "oft",
+    "gern",
+    "Lieblingsessen",
+    "weil"
+   ]
+  },
+  {
+   "content_id": "vizu-a2buch-l10-kompetenz-03",
+   "level": "A2",
+   "module": 1,
+   "lesson": 10,
+   "skill": "kompetenz",
+   "title": "Wortschatz: Lernen und Weiterbildung (Wortschatzmethode)",
+   "source": "book",
+   "metadata": {
+    "book_page": 124,
+    "note": "Kitobda tarjima berilmagan — so'z ro'yxati to'qib chiqarilmadi, matn sifatida ko'rsatiladi.",
+    "edition": "buch-2026-10-27"
+   },
+   "competency": "WORTSCHATZ",
+   "html": "<h3>Wort zu Wort Wortschatzmethode — Lernen und Weiterbildung A2</h3><h4>Variante 1</h4><ul><li>lernen</li><li>der Kurs</li><li>die Aufgabe</li><li>das Lehrbuch</li><li>der Test</li><li>die Hausaufgaben</li></ul><h4>Variante 2</h4><ul><li>der Lehrer</li><li>erklären</li><li>sich erinnern</li><li>die Sprache</li><li>das Wörterbuch</li><li>verbessern</li></ul><h4>Variante 3</h4><ul><li>die Schule</li><li>die Prüfung</li><li>die Note</li><li>die Klassenarbeit</li><li>die Wiederholung</li><li>bestehen</li></ul><h4>Variante 4</h4><ul><li>die Weiterbildung</li><li>der Kursleiter</li><li>das Seminar</li><li>teilnehmen</li><li>sich anmelden</li><li>das Zertifikat</li></ul><h4>Variante 5</h4><ul><li>die Universität</li><li>die Ausbildung</li><li>das Praktikum</li><li>die Prüfung bestehen</li><li>der Beruf</li><li>die Karriere</li></ul><p>Formulieren Sie einen Text mit den Wörtern einer Variante (Aufgabe im Bereich Schreiben).</p>"
+  }
+ ]
+}

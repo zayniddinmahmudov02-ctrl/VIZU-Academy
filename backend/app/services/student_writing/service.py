@@ -102,12 +102,12 @@ class StudentWritingService:
 
         if submit_final:
             words = _word_count(answer_text)
-            if words < writing.min_words:
+            if writing.min_words is not None and words < writing.min_words:
                 raise HTTPException(
                     status_code=status.HTTP_400_BAD_REQUEST,
                     detail=f"Mindestens {writing.min_words} Wörter erforderlich (aktuell: {words}).",
                 )
-            if words > writing.max_words:
+            if writing.max_words is not None and words > writing.max_words:
                 raise HTTPException(
                     status_code=status.HTTP_400_BAD_REQUEST,
                     detail=f"Maximal {writing.max_words} Wörter erlaubt (aktuell: {words}).",

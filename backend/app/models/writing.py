@@ -39,14 +39,18 @@ class Writing(BaseModel):
         nullable=False,
     )
 
-    min_words: Mapped[int] = mapped_column(
+    # NULL = no word limit (e.g. a book task that states none): nothing is
+    # shown or enforced for that bound (migration a7c2e9f4b1d6). No column
+    # default — it would silently turn an intended NULL into a limit; the
+    # admin form's defaults (30 / 150) live in WritingBase.
+    min_words: Mapped[int | None] = mapped_column(
         Integer,
-        default=30,
+        nullable=True,
     )
 
-    max_words: Mapped[int] = mapped_column(
+    max_words: Mapped[int | None] = mapped_column(
         Integer,
-        default=150,
+        nullable=True,
     )
 
     order_index: Mapped[int] = mapped_column(

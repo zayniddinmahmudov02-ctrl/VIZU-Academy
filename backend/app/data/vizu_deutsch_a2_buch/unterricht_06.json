@@ -1,0 +1,826 @@
+{
+ "schema_version": "1.2",
+ "language": "de",
+ "source": "vizu-deutsch-a2-buch",
+ "items": [
+  {
+   "content_id": "vizu-a2buch-l06-frage-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 6,
+   "skill": "frage",
+   "title": "Frage des Themas: Warum entstehen Missverständnisse in der Kommunikation?",
+   "source": "book",
+   "metadata": {
+    "book_page": 64,
+    "book_points": {
+     "A": [
+      "Jeder Mensch hat seine eigenen Gedanken und Erfahrungen.",
+      "Unsere Gefühle beeinflussen, wie wir etwas verstehen.",
+      "Wörter können für jeden etwas anderes bedeuten.",
+      "Wir hören oft nur das, was wir hören wollen.",
+      "Kulturelle Unterschiede spielen eine große Rolle.",
+      "Deshalb kann die gleiche Nachricht unterschiedlich verstanden werden."
+     ],
+     "B": [
+      "Wenn wir uns unklar ausdrücken, entstehen leicht Fehler.",
+      "Zu viele Informationen verwirren den Gesprächspartner.",
+      "Wir erklären manchmal zu schnell und nicht genau genug.",
+      "Wichtige Details werden oft weggelassen.",
+      "Geschriebene Nachrichten können leicht falsch verstanden werden.",
+      "Deshalb ist es wichtig, klar und einfach zu kommunizieren."
+     ],
+     "C": [
+      "Vorurteile beeinflussen unser Verständnis von anderen.",
+      "Wir denken manchmal, wir wissen schon Bescheid.",
+      "Wenn wir nicht richtig zuhören, verstehen wir nur die Hälfte.",
+      "Wir beurteilen andere, bevor wir alles gehört haben.",
+      "Unsere Annahmen verhindern echtes Verständnis.",
+      "Respektvolles Zuhören hilft, Missverständnisse zu vermeiden."
+     ]
+    },
+    "edition": "buch-2026-10-27"
+   },
+   "prompt": "Warum entstehen Missverständnisse in der Kommunikation? Sprechen Sie über die drei Gründe.",
+   "questions": [
+    "A: Weil wir unterschiedlich denken und fühlen",
+    "B: Wegen schlechter Ausdrucksweise und unklarer Informationen",
+    "C: Durch Vorurteile und fehlendes Zuhören"
+   ],
+   "min_duration": 0,
+   "max_duration": 300
+  },
+  {
+   "content_id": "vizu-a2buch-l06-grammatik-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 6,
+   "skill": "grammatik",
+   "title": "Grammatik: dass-Sätze",
+   "source": "book",
+   "metadata": {
+    "book_page": "65-66",
+    "key_source": "grammar_rule",
+    "edition": "buch-2026-10-27"
+   },
+   "rules": [
+    {
+     "title": "dass-Sätze (A2)",
+     "html": "<h3>dass-Sätze (A2)</h3><h4>1. Was ist ein „dass-Satz“?</h4><ul><li>Ein dass-Satz ist ein <strong>Nebensatz</strong>.</li><li>Er erklärt, was jemand <strong>denkt, sagt, fühlt</strong> oder <strong>meint</strong>.</li></ul><h4>2. Struktur</h4><p><strong>Hauptsatz + dass + Nebensatz</strong> (Verb 2 → Verb Ende)</p><ul><li>Ich glaube, dass er heute <strong>kommt</strong>.</li><li>Sie sagt, dass sie krank <strong>ist</strong>.</li></ul><h4>3. Satzbau (ganz wichtig!)</h4><p>Subjekt + Verb + …, dass + Subjekt + …, Verb</p><h4>4. Wann benutzt man „dass“?</h4><ul><li>Ich hoffe, dass du die Prüfung bestehst.</li><li>Er denkt, dass das Wetter gut ist.</li><li>Wir wissen, dass Deutsch wichtig ist.</li><li>Sie sagt, dass sie morgen arbeitet.</li></ul><h4>5. Unterschied: Hauptsatz vs. dass-Satz</h4><table><tbody><tr><td>Ohne dass:</td><td>Er kommt.</td></tr><tr><td>Mit dass:</td><td>Ich glaube, dass er kommt.</td></tr></tbody></table><h4>6. Beispiele</h4><ul><li>Ich denke, dass Deutsch interessant ist.</li><li>Er sagt, dass er keine Zeit hat.</li><li>Wir hoffen, dass du kommst.</li><li>Sie weiß, dass ich müde bin.</li></ul><h4>7. Typische Fehler</h4><p>Ich denke, ____ er heute kommt. a) das · <strong>b) dass</strong> · c) des</p><h4>8. Mini-Übung</h4><ul><li>dass leitet Nebensätze ein. ✓</li><li>Das Verb steht am Ende. ✓</li></ul>"
+    }
+   ],
+   "exercises": [
+    {
+     "title": "Aufgabe 1: Ergänzen Sie die Sätze mit dass",
+     "source": "book",
+     "questions": [
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze mit dass.",
+       "text": "1. Ich denke, [[1]] du heute kommst.",
+       "gaps": {
+        "1": [
+         "dass"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Ich denke, dass du heute kommst."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze mit dass.",
+       "text": "2. Er sagt, [[1]] er keine Zeit hat.",
+       "gaps": {
+        "1": [
+         "dass"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Er sagt, dass er keine Zeit hat."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze mit dass.",
+       "text": "3. Wir wissen, [[1]] Deutsch wichtig ist.",
+       "gaps": {
+        "1": [
+         "dass"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Wir wissen, dass Deutsch wichtig ist."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze mit dass.",
+       "text": "4. Sie hofft, [[1]] sie die Prüfung besteht.",
+       "gaps": {
+        "1": [
+         "dass"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Sie hofft, dass sie die Prüfung besteht."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze mit dass.",
+       "text": "5. Ich finde, [[1]] der Film interessant ist.",
+       "gaps": {
+        "1": [
+         "dass"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Ich finde, dass der Film interessant ist."
+      },
+      {
+       "type": "gap_fill",
+       "question": "Ergänzen Sie die Sätze mit dass.",
+       "text": "6. Er glaubt, [[1]] alles gut wird.",
+       "gaps": {
+        "1": [
+         "dass"
+        ]
+       },
+       "points": 1,
+       "passage": 1,
+       "case_sensitive": false,
+       "explanation": "Er glaubt, dass alles gut wird."
+      }
+     ]
+    },
+    {
+     "title": "Aufgabe 2: Bilden Sie Sätze mit dass",
+     "source": "book",
+     "questions": [
+      {
+       "type": "short_answer",
+       "question": "1. Ich weiß. Du bist müde. → mit „dass“",
+       "accepted": [
+        "Ich weiß, dass du müde bist.",
+        "Ich weiß dass du müde bist."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Ich weiß, dass du müde bist."
+      },
+      {
+       "type": "short_answer",
+       "question": "2. Er sagt. Er lernt jeden Tag Deutsch. → mit „dass“",
+       "accepted": [
+        "Er sagt, dass er jeden Tag Deutsch lernt.",
+        "Er sagt dass er jeden Tag Deutsch lernt."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Er sagt, dass er jeden Tag Deutsch lernt."
+      },
+      {
+       "type": "short_answer",
+       "question": "3. Wir hoffen. Wir fahren nach Deutschland. → mit „dass“",
+       "accepted": [
+        "Wir hoffen, dass wir nach Deutschland fahren.",
+        "Wir hoffen dass wir nach Deutschland fahren."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Wir hoffen, dass wir nach Deutschland fahren."
+      },
+      {
+       "type": "short_answer",
+       "question": "4. Sie denkt. Der Test ist schwer. → mit „dass“",
+       "accepted": [
+        "Sie denkt, dass der Test schwer ist.",
+        "Sie denkt dass der Test schwer ist."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Sie denkt, dass der Test schwer ist."
+      },
+      {
+       "type": "short_answer",
+       "question": "5. Ich glaube. Er kommt morgen. → mit „dass“",
+       "accepted": [
+        "Ich glaube, dass er morgen kommt.",
+        "Ich glaube dass er morgen kommt."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Ich glaube, dass er morgen kommt."
+      },
+      {
+       "type": "short_answer",
+       "question": "6. Sie sagt. Sie hat viel Arbeit. → mit „dass“",
+       "accepted": [
+        "Sie sagt, dass sie viel Arbeit hat.",
+        "Sie sagt dass sie viel Arbeit hat."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Sie sagt, dass sie viel Arbeit hat."
+      }
+     ],
+     "instruction": "Verbinden Sie die zwei Sätze mit dass (Verb am Ende)."
+    },
+    {
+     "title": "Aufgabe 3: Formen Sie die Sätze um (dass-Sätze)",
+     "source": "book",
+     "questions": [
+      {
+       "type": "short_answer",
+       "question": "1. Ich glaube: Er ist zu Hause. → dass-Satz",
+       "accepted": [
+        "Ich glaube, dass er zu Hause ist.",
+        "Ich glaube dass er zu Hause ist."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Ich glaube, dass er zu Hause ist."
+      },
+      {
+       "type": "short_answer",
+       "question": "2. Sie sagt: Ich habe keine Zeit. → dass-Satz",
+       "accepted": [
+        "Sie sagt, dass sie keine Zeit hat.",
+        "Sie sagt dass sie keine Zeit hat."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Sie sagt, dass sie keine Zeit hat."
+      },
+      {
+       "type": "short_answer",
+       "question": "3. Wir wissen: Das ist richtig. → dass-Satz",
+       "accepted": [
+        "Wir wissen, dass das richtig ist.",
+        "Wir wissen dass das richtig ist."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Wir wissen, dass das richtig ist."
+      },
+      {
+       "type": "short_answer",
+       "question": "4. Er denkt: Deutsch ist schwer. → dass-Satz",
+       "accepted": [
+        "Er denkt, dass Deutsch schwer ist.",
+        "Er denkt dass Deutsch schwer ist."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Er denkt, dass Deutsch schwer ist."
+      },
+      {
+       "type": "short_answer",
+       "question": "5. Ich hoffe: Alles klappt gut. → dass-Satz",
+       "accepted": [
+        "Ich hoffe, dass alles gut klappt.",
+        "Ich hoffe dass alles gut klappt."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Ich hoffe, dass alles gut klappt."
+      },
+      {
+       "type": "short_answer",
+       "question": "6. Sie weiß: Der Kurs ist interessant. → dass-Satz",
+       "accepted": [
+        "Sie weiß, dass der Kurs interessant ist.",
+        "Sie weiß dass der Kurs interessant ist."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Sie weiß, dass der Kurs interessant ist."
+      }
+     ],
+     "instruction": "Achten Sie auf die Person: Sie sagt: Ich … → Sie sagt, dass sie …"
+    },
+    {
+     "title": "Aufgabe 4: Korrigieren Sie die Fehler",
+     "source": "book",
+     "questions": [
+      {
+       "type": "short_answer",
+       "question": "1. Ich denke, dass er kommt heute. → richtig:",
+       "accepted": [
+        "Ich denke, dass er heute kommt.",
+        "Ich denke dass er heute kommt."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Ich denke, dass er heute kommt."
+      },
+      {
+       "type": "short_answer",
+       "question": "2. Sie sagt, dass sie hat keine Zeit. → richtig:",
+       "accepted": [
+        "Sie sagt, dass sie keine Zeit hat.",
+        "Sie sagt dass sie keine Zeit hat."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Sie sagt, dass sie keine Zeit hat."
+      },
+      {
+       "type": "short_answer",
+       "question": "3. Wir glauben, dass ist das gut. → richtig:",
+       "accepted": [
+        "Wir glauben, dass das gut ist.",
+        "Wir glauben dass das gut ist."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Wir glauben, dass das gut ist."
+      },
+      {
+       "type": "short_answer",
+       "question": "4. Er sagt, dass er keine Zeit hat gestern. → richtig:",
+       "accepted": [
+        "Er sagt, dass er gestern keine Zeit hatte.",
+        "Er sagt dass er gestern keine Zeit hatte.",
+        "Er sagt, dass er gestern keine Zeit hat.",
+        "Er sagt dass er gestern keine Zeit hat."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Er sagt, dass er gestern keine Zeit hatte."
+      },
+      {
+       "type": "short_answer",
+       "question": "5. Ich weiß, dass du bist müde. → richtig:",
+       "accepted": [
+        "Ich weiß, dass du müde bist.",
+        "Ich weiß dass du müde bist."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Ich weiß, dass du müde bist."
+      },
+      {
+       "type": "short_answer",
+       "question": "6. Sie hofft, dass sie bestehen wird die Prüfung. → richtig:",
+       "accepted": [
+        "Sie hofft, dass sie die Prüfung bestehen wird.",
+        "Sie hofft dass sie die Prüfung bestehen wird."
+       ],
+       "points": 1,
+       "max_length": 200,
+       "passage": 1,
+       "explanation": "Sie hofft, dass sie die Prüfung bestehen wird."
+      }
+     ],
+     "instruction": "Schreiben Sie den Satz richtig: das Verb steht im dass-Satz am Ende."
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2buch-l06-lesen-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 6,
+   "skill": "lesen",
+   "title": "Lesen: Freundschaft im Lager / Familiäre Beziehung",
+   "source": "book",
+   "metadata": {
+    "book_page": "67-68",
+    "needs_review": [
+     "S. 68 Aussage 9 (Noten) — Lösung festlegen."
+    ],
+    "key_source": "text",
+    "edition": "buch-2026-10-27"
+   },
+   "instruction": "Lesen Sie die Texte. Richtig oder Falsch?\n\nHinweis: Paul und Leon, Aussage 9 „Paul bekommt gute Noten in der Schule.“ wird nicht automatisch bewertet (im Text steht nur, dass in der Schule „alles gut läuft“).",
+   "passages": [
+    {
+     "title": "Freundschaft im Lager – Lukas und Jonas",
+     "text": "Lukas und Jonas haben sich vor drei Jahren in einem Sommerlager kennengelernt, und obwohl sie am Anfang völlig fremd waren, haben sie sehr schnell gemerkt, dass sie viele gemeinsame Interessen und ähnliche Charaktereigenschaften haben. Beide spielen gern Fußball, hören moderne Musik und lieben es, neue Dinge auszuprobieren und Abenteuer zu erleben, deshalb haben sie schon in den ersten Tagen viel Zeit miteinander verbracht und eine enge Verbindung aufgebaut. Im Lager haben sie zusammen Sport gemacht, an Wettbewerben teilgenommen, am Abend am Lagerfeuer gesessen und lange, persönliche Gespräche geführt, in denen sie über ihre Träume, Ziele und ihr Leben gesprochen haben. Lukas denkt, dass Jonas ein sehr ehrlicher, zuverlässiger und hilfsbereiter Mensch ist, auf den man sich immer verlassen kann, während Jonas sagt, dass Lukas immer positive Energie bringt, kreative Ideen hat und andere motivieren kann. Nach dem Lager haben sie den Kontakt nicht verloren, sondern schreiben sich regelmäßig Nachrichten, telefonieren oft und erzählen sich alles, was in ihrem Alltag passiert, sodass ihre Freundschaft weiter gewachsen ist. Lukas hofft, dass sie sich bald wiedersehen können, vielleicht im nächsten Sommer, während Jonas glaubt, dass ihre Freundschaft stark genug ist, um auch über große Entfernungen hinweg zu bestehen. Für beide ist diese Freundschaft besonders wichtig, weil sie einander vertrauen, sich gegenseitig unterstützen und wissen, dass sie immer füreinander da sind, egal was passiert."
+    },
+    {
+     "title": "Familiäre Beziehung – Paul und Leon",
+     "text": "Paul und Leon sind Brüder, die sich sehr nahestehen, obwohl sie im Moment nicht zusammenleben, denn Leon ist der ältere Bruder und studiert seit einem Jahr im Ausland in Deutschland, während Paul noch mit den Eltern in ihrer Heimatstadt lebt und zur Schule geht. Am Anfang war es für beide nicht einfach, diese Veränderung zu akzeptieren, weil sie früher viel Zeit miteinander verbracht haben, zusammen gespielt, gelernt und sich gegenseitig geholfen haben, doch jetzt müssen sie sich an die Distanz gewöhnen. Paul sagt oft, dass er seinen Bruder sehr vermisst und dass es zu Hause manchmal ruhiger und langweiliger ist ohne ihn, während Leon schreibt, dass das Leben im Ausland zwar spannend und voller neuer Erfahrungen ist, aber auch Herausforderungen mit sich bringt, zum Beispiel eine neue Sprache, neue Menschen und ein anderes Studiumssystem. Die Brüder schreiben sich regelmäßig E-Mails und Nachrichten, in denen sie über ihren Alltag berichten: Leon erzählt, dass er viele neue Freunde gefunden hat, viel lernt und selbstständiger geworden ist, während Paul berichtet, dass in der Schule alles gut läuft und dass er versucht, genauso fleißig zu sein wie sein Bruder. Paul denkt, dass Leon sehr mutig ist, weil er allein in einem fremden Land lebt und seinen eigenen Weg geht, und Leon sagt, dass Paul immer sein bester Freund und eine wichtige Unterstützung bleibt. Beide hoffen, dass sie sich bald wiedersehen, vielleicht in den Ferien, und dann viel Zeit miteinander verbringen können, um ihre Beziehung noch stärker zu machen. Ihre familiäre Beziehung ist sehr stark, weil sie auf Liebe, Respekt und Vertrauen basiert und weil sie trotz der Entfernung immer in Kontakt bleiben und sich gegenseitig motivieren."
+    }
+   ],
+   "questions": [
+    {
+     "type": "true_false",
+     "question": "Lukas und Jonas haben sich in der Schule kennengelernt.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„… haben sich vor drei Jahren in einem Sommerlager kennengelernt …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Sie haben schnell gemerkt, dass sie ähnliche Interessen haben.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„… haben sie sehr schnell gemerkt, dass sie viele gemeinsame Interessen … haben.“"
+    },
+    {
+     "type": "true_false",
+     "question": "Beide mögen keine Musik.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„Beide spielen gern Fußball, hören moderne Musik …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Sie haben im Lager viel Zeit zusammen verbracht.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„… haben sie schon in den ersten Tagen viel Zeit miteinander verbracht …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Sie haben nie miteinander gesprochen.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„… lange, persönliche Gespräche geführt …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Lukas denkt, dass Jonas ehrlich und hilfsbereit ist.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„Lukas denkt, dass Jonas ein sehr ehrlicher, zuverlässiger und hilfsbereiter Mensch ist …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Jonas findet, dass Lukas negativ ist.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„… Jonas sagt, dass Lukas immer positive Energie bringt …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Nach dem Lager haben sie den Kontakt verloren.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch",
+     "explanation": "„Nach dem Lager haben sie den Kontakt nicht verloren …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Sie schreiben sich regelmäßig Nachrichten.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„… schreiben sich regelmäßig Nachrichten …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Ihre Freundschaft basiert auf Vertrauen und Unterstützung.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig",
+     "explanation": "„… weil sie einander vertrauen, sich gegenseitig unterstützen …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Paul und Leon sind Cousins.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "falsch",
+     "explanation": "„Paul und Leon sind Brüder …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Leon studiert im Ausland in Deutschland.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "richtig",
+     "explanation": "„… studiert seit einem Jahr im Ausland in Deutschland …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Paul lebt allein in einer anderen Stadt.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "falsch",
+     "explanation": "„… während Paul noch mit den Eltern in ihrer Heimatstadt lebt …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Am Anfang war die Situation für beide einfach.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "falsch",
+     "explanation": "„Am Anfang war es für beide nicht einfach …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Paul vermisst seinen Bruder sehr.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "richtig",
+     "explanation": "„Paul sagt oft, dass er seinen Bruder sehr vermisst …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Leon schreibt, dass das Leben im Ausland immer leicht ist.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "falsch",
+     "explanation": "„… zwar spannend … aber auch Herausforderungen mit sich bringt …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Die Brüder schreiben sich regelmäßig E-Mails.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "richtig",
+     "explanation": "„Die Brüder schreiben sich regelmäßig E-Mails und Nachrichten …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Leon hat im Ausland keine neuen Freunde.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "falsch",
+     "explanation": "„Leon erzählt, dass er viele neue Freunde gefunden hat …“"
+    },
+    {
+     "type": "true_false",
+     "question": "Ihre Beziehung ist stark trotz der Entfernung.",
+     "points": 1,
+     "passage": 2,
+     "correct_answer": "richtig",
+     "explanation": "„Ihre familiäre Beziehung ist sehr stark … trotz der Entfernung …“"
+    }
+   ],
+   "max_score": 19
+  },
+  {
+   "content_id": "vizu-a2buch-l06-hoeren-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 6,
+   "skill": "hoeren",
+   "title": "Hören: Konflikte zwischen Lukas und Jonas / Paul und Leon",
+   "source": "book",
+   "metadata": {
+    "book_page": 69,
+    "note": "Ochiq savollar, kitobda javob ham, transkript ham yo'q — admin audioni tinglab qabul qilinadigan javoblarni kiritadi.",
+    "edition": "buch-2026-10-27"
+   },
+   "audio_file": "A2 6.Unterricht.mp3",
+   "key_pending": true,
+   "instruction": "Hören Sie die zwei Texte und beantworten Sie die Fragen kurz.",
+   "questions": [
+    {
+     "type": "gap_fill",
+     "question": "1. Konflikt (Lukas und Jonas): Wo haben sich Lukas und Jonas kennengelernt?",
+     "text": "Antwort: [[1]]",
+     "gaps": {
+      "1": []
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "1. Konflikt: Was haben sie gern zusammen gemacht?",
+     "text": "Antwort: [[1]]",
+     "gaps": {
+      "1": []
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "1. Konflikt: Was ist beim Fußballspiel passiert?",
+     "text": "Antwort: [[1]]",
+     "gaps": {
+      "1": []
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "1. Konflikt: Wie hat sich Jonas gefühlt?",
+     "text": "Antwort: [[1]]",
+     "gaps": {
+      "1": []
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "1. Konflikt: Was hat Lukas später gemacht?",
+     "text": "Antwort: [[1]]",
+     "gaps": {
+      "1": []
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "1. Konflikt: Was haben sie aus dem Problem gelernt?",
+     "text": "Antwort: [[1]]",
+     "gaps": {
+      "1": []
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "2. Konflikt (Paul und Leon): Wer sind Paul und Leon?",
+     "text": "Antwort: [[1]]",
+     "gaps": {
+      "1": []
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "2. Konflikt: Wo lebt Leon?",
+     "text": "Antwort: [[1]]",
+     "gaps": {
+      "1": []
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "2. Konflikt: Warum hatte Leon oft keine Zeit?",
+     "text": "Antwort: [[1]]",
+     "gaps": {
+      "1": []
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "2. Konflikt: Wie hat sich Paul gefühlt?",
+     "text": "Antwort: [[1]]",
+     "gaps": {
+      "1": []
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "2. Konflikt: Was hat Leon erklärt?",
+     "text": "Antwort: [[1]]",
+     "gaps": {
+      "1": []
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    },
+    {
+     "type": "gap_fill",
+     "question": "2. Konflikt: Was haben sie gelernt?",
+     "text": "Antwort: [[1]]",
+     "gaps": {
+      "1": []
+     },
+     "points": 1,
+     "passage": 1,
+     "case_sensitive": false
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2buch-l06-schreiben-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 6,
+   "skill": "schreiben",
+   "title": "Schreiben: Meine Freunde",
+   "source": "book",
+   "metadata": {
+    "book_page": 70,
+    "edition": "buch-2026-10-27"
+   },
+   "task_type": "description",
+   "prompt": "Schreiben Sie einen kurzen Text über Ihre Freunde. Schreiben Sie mindestens 80 Wörter.\n\nPunkte:\n• Wie heißen Ihre Freunde? (z.B. Lukas und Jonas)\n• Haben Sie viele Freunde oder nur wenige?\n• Woher kennen Sie Ihre Freunde? (Schule, Nachbarn, Sport …)\n• Was machen Sie gern zusammen? (Unsere Hobbys)\n• Welche lustigen Erlebnisse haben Sie zusammen erlebt? (Unsere Erlebnisse)\n• Was mögen Sie an Ihren Freunden und warum?",
+   "min_words": 80,
+   "max_words": null
+  },
+  {
+   "content_id": "vizu-a2buch-l06-schreiben-03",
+   "level": "A2",
+   "module": 1,
+   "lesson": 6,
+   "skill": "schreiben",
+   "title": "Schreiben: E-Mail an meine Schwester in Paris",
+   "source": "book",
+   "metadata": {
+    "book_page": 70,
+    "edition": "buch-2026-10-27"
+   },
+   "task_type": "email",
+   "prompt": "Ihre Schwester lebt in Paris. Sie möchten ihr eine E-Mail schreiben. Schreiben Sie mindestens 80 Wörter.\n\nPunkte:\n• Sagen Sie, dass Sie eine E-Mail schreiben.\n• Fragen Sie nach Paris und nach ihrem Leben dort. (Über Paris sprechen)\n• Erzählen Sie, warum Sie Ihre Schwester bald treffen möchten und wie Sie nach Paris kommen.\n• Sprechen Sie über das Wetter, Datum und Ihre Reise. (Mein Besuch in Paris)\n• Fragen Sie, was Sie zusammen machen können.",
+   "audience": "Ihre Schwester (informell)",
+   "min_words": 80,
+   "max_words": null
+  },
+  {
+   "content_id": "vizu-a2buch-l06-schreiben-04",
+   "level": "A2",
+   "module": 1,
+   "lesson": 6,
+   "skill": "schreiben",
+   "title": "Wortschatz-Aufgabe: Wichtige Wörter — Bedeutung und Beispiel",
+   "source": "book",
+   "metadata": {
+    "book_page": 72,
+    "note": "Kitobdagi ish varag'i — o'qituvchi tekshiradi.",
+    "edition": "buch-2026-10-27"
+   },
+   "task_type": "other",
+   "prompt": "Schreiben Sie die Bedeutung und ein Beispiel.\n\n1. die Beziehung\n2. das Missverständnis\n3. die Freundschaft\n4. zusammenleben\n5. sich verstehen\n6. erklären\n7. hoffen\n8. vermissen\n9. unterstützen\n10. respektieren\n11. ehrlich\n12. schwierig\n13. die Veränderung\n14. sich gewöhnen\n15. die Erfahrungen\n16. im Ausland\n17. das Studium\n18. arbeiten\n19. der Alltag\n20. die Nachricht\n21. die E-Mail\n22. schreiben\n23. antworten\n24. sich treffen\n25. verbringen\n26. allein\n27. zusammen\n28. oft\n29. selten\n30. verstehen",
+   "min_words": null,
+   "max_words": null
+  },
+  {
+   "content_id": "vizu-a2buch-l06-sprechen-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 6,
+   "skill": "sprechen",
+   "title": "Sprechen: Meine Verständnisse in der Beziehungen",
+   "source": "book",
+   "metadata": {
+    "book_page": 71,
+    "edition": "buch-2026-10-27"
+   },
+   "topic": "Freunde und Familie",
+   "prompt": "Sprechen Sie über das Thema.",
+   "questions": [
+    "Warum sind Freunde für dich wichtig?",
+    "Was machst du gerne mit deinen Freunden?",
+    "Wie löst du Probleme mit deinen Freunden?",
+    "Was ist schwierig, wenn man weit voneinander entfernt ist?",
+    "Warum ist Familie wichtig für dich?",
+    "Was hast du von deiner Familie gelernt?"
+   ],
+   "response_type": "monolog",
+   "min_duration": 0,
+   "max_duration": 300,
+   "speech_goal": "Über Freundschaft und Familie sprechen, mit dass- und weil-Sätzen begründen.",
+   "keywords": [
+    "Ich denke, dass",
+    "weil",
+    "Freunde",
+    "Familie",
+    "vertrauen"
+   ]
+  }
+ ]
+}

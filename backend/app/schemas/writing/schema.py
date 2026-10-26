@@ -25,8 +25,9 @@ class WritingBase(BaseSchema):
     lesson_id: UUID
     title: str
     instruction: str
-    min_words: int = 30
-    max_words: int = 150
+    # None = no limit (book task without a word count)
+    min_words: int | None = 30
+    max_words: int | None = 150
     order_index: int = 1
     is_published: bool = False
     # AI evaluation (A1 rubric by default — see services/lesson_skills/ai_evaluation.py)

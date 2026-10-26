@@ -1,0 +1,752 @@
+{
+ "schema_version": "1.2",
+ "language": "de",
+ "source": "vizu-deutsch-a2-buch",
+ "items": [
+  {
+   "content_id": "vizu-a2buch-l03-frage-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 3,
+   "skill": "frage",
+   "title": "Frage des Themas: Was machen Sie für Ihre Gesundheit?",
+   "source": "book",
+   "metadata": {
+    "book_page": 32,
+    "book_sample": "Ich treibe Sport drei Mal pro Woche. Ich gehe ins Fitnessstudio und gehe auch gern spazieren. Ich ernähre mich gesund. Ich esse viel Obst, Gemüse und trinke viel Wasser. Schlaf und Erholung sind für mich sehr wichtig. Ich schlafe mindestens 7-8 Stunden pro Nacht und mache am Wochenende Pausen.",
+    "edition": "buch-2026-10-27"
+   },
+   "prompt": "Was machen Sie für Ihre Gesundheit? Machen Sie eine kleine Präsentation.",
+   "questions": [
+    "Wie oft treiben Sie Sport?",
+    "Wie ernähren Sie sich?",
+    "Wie wichtig ist Ihnen Schlaf und Erholung?"
+   ],
+   "min_duration": 0,
+   "max_duration": 300
+  },
+  {
+   "content_id": "vizu-a2buch-l03-grammatik-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 3,
+   "skill": "grammatik",
+   "title": "Grammatik: Imperativ (Aufforderung)",
+   "source": "book",
+   "metadata": {
+    "book_page": 33,
+    "needs_review": [
+     "S. 33 Imperativ mit du: Buch „Verbstamm + t/Ø“ (sprachlich falsch), hier „e/Ø“ — bitte bestätigen."
+    ],
+    "edition": "buch-2026-10-27"
+   },
+   "rules": [
+    {
+     "title": "Imperativ",
+     "html": "<h3>Imperativ (Aufforderung)</h3><p>Der Imperativ wird benutzt, um jemanden zu etwas <strong>aufzufordern</strong>, <strong>zu bitten</strong> oder zu einem <strong>Verhalten</strong> zu bewegen.</p><table><thead><tr><th></th><th>1. Imperativ mit du</th><th>2. Imperativ mit ihr</th><th>3. Imperativ mit Sie</th></tr></thead><tbody><tr><td>Struktur</td><td>Du lernst Deutsch. → <strong>Lerne Deutsch!</strong></td><td>Ihr lernt Deutsch. → <strong>Lernt Deutsch!</strong></td><td>Sie lernen Deutsch. → <strong>Lernen Sie Deutsch!</strong></td></tr><tr><td>Regel</td><td>Subjekt „du“ fällt weg · Endung -st fällt weg · Verbstamm + e/Ø</td><td>Subjekt „ihr“ fällt weg · Endung -t bleibt · Verbstamm + t</td><td>Verb steht am Anfang · Sie bleibt im Satz · Endung -en bleibt</td></tr><tr><td>Beispiele</td><td>Komm hier! · Mach die Hausaufgabe! · Lies das Buch! · Lerne Deutsch!</td><td>Kommt hier! · Macht die Hausaufgabe! · Lest das Buch! · Lernt Deutsch!</td><td>Kommen Sie bitte hier! · Machen Sie die Hausaufgabe! · Lesen Sie das Buch! · Lernen Sie Deutsch!</td></tr></tbody></table><p><strong>Merke:</strong> Der Imperativ ist kurz und direkt. Achte auf die richtige Form! Höflich mit „Sie“, freundlich mit „du“ und „ihr“.</p>"
+    }
+   ]
+  },
+  {
+   "content_id": "vizu-a2buch-l03-schreiben-02",
+   "level": "A2",
+   "module": 1,
+   "lesson": 3,
+   "skill": "schreiben",
+   "title": "Grammatik-Aufgabe: Imperativ – Übung (du / ihr / Sie)",
+   "source": "book",
+   "metadata": {
+    "book_page": 34,
+    "note": "Ochiq javobli mashq — Vizu-Antworten: „wird von dem Lehrer korrigiert“.",
+    "edition": "buch-2026-10-27"
+   },
+   "task_type": "other",
+   "prompt": "Bilde den Imperativ im Singular (du), im Plural (ihr) und in der höflichen Form (Sie). Gib zu jedem Satz einen Rat in allen drei Formen. Tipp: Achte auf die richtige Form!\n\n1. Ich habe Kopfschmerzen.\n2. Ich fühle mich sehr müde.\n3. Ich habe Halsschmerzen.\n4. Ich habe Fieber.\n5. Ich habe Rückenschmerzen.\n6. Ich bin erkältet.\n7. Ich habe Husten.\n8. Ich habe Stress.\n9. Ich fühle mich schwach.\n10. Mir ist kalt.",
+   "min_words": null,
+   "max_words": null
+  },
+  {
+   "content_id": "vizu-a2buch-l03-lesen-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 3,
+   "skill": "lesen",
+   "title": "Lesen: Gesund bleiben im Alltag / Was kann man tun, wenn man krank ist?",
+   "source": "book",
+   "metadata": {
+    "book_page": "35-36",
+    "key_source": "vizu-antworten",
+    "edition": "buch-2026-10-27"
+   },
+   "instruction": "Lesen Sie die Texte. Wählen Sie die richtige Antwort!",
+   "passages": [
+    {
+     "title": "Gesund bleiben im Alltag",
+     "text": "Viele Menschen möchten gesund bleiben. Gesundheit ist sehr wichtig für ein gutes Leben. Wenn wir gesund sind, fühlen wir uns stark und haben mehr Energie im Alltag. Aber manchmal arbeiten Menschen viel und haben wenig Zeit für ihre Gesundheit. Trotzdem kann man jeden Tag kleine Dinge machen, um gesund zu bleiben.\n\nEin wichtiger Punkt ist gesunde Ernährung. Es ist gut, jeden Tag Obst und Gemüse zu essen. Zum Beispiel Äpfel, Bananen, Tomaten oder Karotten. Diese Lebensmittel haben viele Vitamine und sind gut für den Körper. Man sollte auch genug Wasser trinken, ungefähr zwei Liter am Tag. Zu viel Fast Food, Zucker oder Cola ist nicht gut für die Gesundheit.\n\nAuch Bewegung ist sehr wichtig. Man muss nicht jeden Tag intensiven Sport machen. Ein Spaziergang, Radfahren oder ein bisschen Gymnastik zu Hause ist schon sehr gut. Bewegung hilft dem Körper und macht auch gute Laune.\n\nAußerdem braucht der Körper genug Schlaf. Erwachsene schlafen am besten sieben oder acht Stunden pro Nacht. Wenn man gut schläft, ist man am nächsten Tag konzentriert und aktiv. Kleine gesunde Gewohnheiten können also unser Leben deutlich verbessern."
+    },
+    {
+     "title": "Was kann man tun, wenn man krank ist?",
+     "text": "Manchmal werden Menschen krank. Das ist ganz normal. Viele Menschen bekommen zum Beispiel eine Erkältung, Husten, Kopfschmerzen oder Fieber. Wenn man krank ist, fühlt man sich oft schwach und müde. In dieser Situation ist es wichtig, gut auf den eigenen Körper zu achten.\n\nZuerst sollte man sich ausruhen. Der Körper braucht Zeit, um wieder gesund zu werden. Deshalb ist es besser, zu Hause zu bleiben und viel zu schlafen. Ruhe hilft dem Körper, schneller gesund zu werden.\n\nAuch viel trinken ist sehr wichtig. Wasser, Tee oder warme Suppe sind gut für den Körper. Besonders Tee mit Honig und Zitrone hilft oft bei Halsschmerzen und Husten. Viele Menschen trinken auch Ingwertee, weil er den Körper wärmt.\n\nManchmal braucht man auch Medikamente. In der Apotheke kann man Tabletten gegen Schmerzen oder Fieber kaufen. Man sollte aber immer die Informationen lesen und die richtige Menge nehmen.\n\nWenn man nach einigen Tagen nicht besser wird, sollte man zum Arzt gehen. Der Arzt untersucht den Patienten und gibt eine passende Behandlung. Mit Ruhe, gesunder Nahrung und genug Flüssigkeit wird man meistens bald wieder gesund."
+    }
+   ],
+   "questions": [
+    {
+     "type": "multiple_choice",
+     "question": "Warum ist Gesundheit wichtig?",
+     "options": [
+      "Weil man dann mehr Energie hat",
+      "Weil man mehr Geld verdient",
+      "Weil man mehr arbeitet"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Javob: Vizu-Antworten A2 (3. Unterricht, Lesen)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was möchten viele Menschen?",
+     "options": [
+      "Viel reisen",
+      "Gesund bleiben",
+      "Mehr schlafen"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Javob: Vizu-Antworten A2 (3. Unterricht, Lesen)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was soll man jeden Tag essen?",
+     "options": [
+      "Fast Food",
+      "Obst und Gemüse",
+      "Nur Fleisch"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Javob: Vizu-Antworten A2 (3. Unterricht, Lesen)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wie viel Wasser soll man ungefähr am Tag trinken?",
+     "options": [
+      "Ein Glas",
+      "Zwei Liter",
+      "Fünf Liter"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Javob: Vizu-Antworten A2 (3. Unterricht, Lesen)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Welche Bewegung wird im Text genannt?",
+     "options": [
+      "Spaziergang oder Radfahren",
+      "Tanzen im Club",
+      "Basketball spielen"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Javob: Vizu-Antworten A2 (3. Unterricht, Lesen)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wie viele Stunden sollen Erwachsene ungefähr schlafen?",
+     "options": [
+      "3–4 Stunden",
+      "5–6 Stunden",
+      "7–8 Stunden"
+     ],
+     "correct_answer": "C",
+     "points": 1,
+     "passage": 1,
+     "explanation": "Javob: Vizu-Antworten A2 (3. Unterricht, Lesen)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wie fühlen sich viele Menschen, wenn sie krank sind?",
+     "options": [
+      "Stark und aktiv",
+      "Schwach und müde",
+      "Sehr glücklich"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 2,
+     "explanation": "Javob: Vizu-Antworten A2 (3. Unterricht, Lesen)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was soll man zuerst machen, wenn man krank ist?",
+     "options": [
+      "Viel arbeiten",
+      "Sich ausruhen",
+      "Sport machen"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 2,
+     "explanation": "Javob: Vizu-Antworten A2 (3. Unterricht, Lesen)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was soll man trinken?",
+     "options": [
+      "Wasser oder Tee",
+      "Cola",
+      "Nur Kaffee"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 2,
+     "explanation": "Javob: Vizu-Antworten A2 (3. Unterricht, Lesen)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Was hilft oft bei Halsschmerzen?",
+     "options": [
+      "Kaltes Wasser",
+      "Tee mit Honig und Zitrone",
+      "Eis"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 2,
+     "explanation": "Javob: Vizu-Antworten A2 (3. Unterricht, Lesen)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wo kann man Medikamente kaufen?",
+     "options": [
+      "In der Apotheke",
+      "In der Schule",
+      "In der Bank"
+     ],
+     "correct_answer": "A",
+     "points": 1,
+     "passage": 2,
+     "explanation": "Javob: Vizu-Antworten A2 (3. Unterricht, Lesen)."
+    },
+    {
+     "type": "multiple_choice",
+     "question": "Wann soll man zum Arzt gehen?",
+     "options": [
+      "Wenn man gesund ist",
+      "Wenn es nach einigen Tagen nicht besser wird",
+      "Wenn man Hunger hat"
+     ],
+     "correct_answer": "B",
+     "points": 1,
+     "passage": 2,
+     "explanation": "Javob: Vizu-Antworten A2 (3. Unterricht, Lesen)."
+    }
+   ],
+   "max_score": 12
+  },
+  {
+   "content_id": "vizu-a2buch-l03-hoeren-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 3,
+   "skill": "hoeren",
+   "title": "Hören: Die Empfehlungen eines Arztes",
+   "source": "book",
+   "metadata": {
+    "book_page": 37,
+    "key_source": "vizu-antworten",
+    "edition": "buch-2026-10-27"
+   },
+   "audio_file": "A2.  3.Unterricht Hören.mp3",
+   "instruction": "Sie hören die Empfehlungen eines Arztes. Finden Sie bitte, welche Aussagen richtig oder falsch sind.",
+   "questions": [
+    {
+     "type": "true_false",
+     "question": "Der Arzt stellt sich am Anfang des Vortrags vor.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "true_false",
+     "question": "Wenn man krank ist, soll man viel arbeiten.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch"
+    },
+    {
+     "type": "true_false",
+     "question": "Der Arzt sagt, dass Ruhe für den Körper wichtig ist.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "true_false",
+     "question": "Man soll Wasser oder warmen Tee trinken.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "true_false",
+     "question": "Der Arzt empfiehlt ungesunde und schwere Nahrung.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "falsch"
+    },
+    {
+     "type": "true_false",
+     "question": "Frische Luft und ein Spaziergang können helfen.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "true_false",
+     "question": "Man soll Stress vermeiden und sich entspannen.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig"
+    },
+    {
+     "type": "true_false",
+     "question": "Wenn man nach einigen Tagen nicht besser wird, soll man zum Arzt gehen.",
+     "points": 1,
+     "passage": 1,
+     "correct_answer": "richtig"
+    }
+   ],
+   "max_score": 8
+  },
+  {
+   "content_id": "vizu-a2buch-l03-schreiben-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 3,
+   "skill": "schreiben",
+   "title": "Schreiben: Was tun Sie für Ihre Gesundheit?",
+   "source": "book",
+   "metadata": {
+    "book_page": 38,
+    "edition": "buch-2026-10-27"
+   },
+   "task_type": "description",
+   "prompt": "Was tun Sie für Ihre Gesundheit? Schreiben Sie einen kurzen Text über das Thema. Schreiben Sie mindestens 80 Wörter.\n\nPunkte:\n• Was machen Sie, um gesund zu bleiben?\n• Treiben Sie Sport oder bewegen Sie sich regelmäßig?\n• Was essen oder trinken Sie für Ihre Gesundheit?\n• Wie wichtig ist Gesundheit für Sie?",
+   "min_words": 80,
+   "max_words": null
+  },
+  {
+   "content_id": "vizu-a2buch-l03-schreiben-03",
+   "level": "A2",
+   "module": 1,
+   "lesson": 3,
+   "skill": "schreiben",
+   "title": "Schreiben: E-Mail an Alex — Besuch im Krankenhaus",
+   "source": "book",
+   "metadata": {
+    "book_page": 38,
+    "edition": "buch-2026-10-27"
+   },
+   "task_type": "email",
+   "prompt": "Situation: Ihre Freundin ist im Krankenhaus. Sie möchten sie besuchen und schreiben Ihrem Freund Alex eine E-Mail.\n\nPunkte:\n• Fragen Sie Alex, wie es Ihrer Freundin geht.\n• Fragen Sie, wann Sie sie besuchen können.\n• Machen Sie einen Vorschlag für einen Besuchstermin.\n• Schreiben Sie, was Sie für Ihre Freundin mitbringen können.",
+   "audience": "Ihr Freund Alex (informell)",
+   "min_words": null,
+   "max_words": null
+  },
+  {
+   "content_id": "vizu-a2buch-l03-sprechen-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 3,
+   "skill": "sprechen",
+   "title": "Sprechen: Was tun Sie für Ihre Gesundheit?",
+   "source": "book",
+   "metadata": {
+    "book_page": 39,
+    "edition": "buch-2026-10-27"
+   },
+   "topic": "Gesundheit",
+   "prompt": "Sprechen Sie über das Thema.",
+   "questions": [
+    "Treiben Sie Sport?",
+    "Essen Sie gesund?",
+    "Schlafen Sie genug?",
+    "Was machen Sie für Ihre Körperpflege?"
+   ],
+   "response_type": "monolog",
+   "min_duration": 0,
+   "max_duration": 300,
+   "speech_goal": "Über die eigene Gesundheit sprechen: Sport, Ernährung, Schlaf, Körperpflege.",
+   "keywords": [
+    "Sport",
+    "gesund",
+    "schlafen",
+    "Obst",
+    "Gemüse",
+    "Wasser"
+   ]
+  },
+  {
+   "content_id": "vizu-a2buch-l03-wortschatz-01",
+   "level": "A2",
+   "module": 1,
+   "lesson": 3,
+   "skill": "wortschatz",
+   "title": "Wortschatz: Gesundheit und Fitness",
+   "source": "book",
+   "metadata": {
+    "book_page": 40,
+    "edition": "buch-2026-10-27"
+   },
+   "words": [
+    {
+     "word": "Gesundheit",
+     "translation": "sog‘liq",
+     "article": "die",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "gesund",
+     "translation": "sog‘lom",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "krank",
+     "translation": "kasal",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Körper",
+     "translation": "tana",
+     "article": "der",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Energie",
+     "translation": "energiya",
+     "article": "die",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Gewohnheit",
+     "translation": "odat",
+     "article": "die",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Ernährung",
+     "translation": "ovqatlanish",
+     "article": "die",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Lebensmittel",
+     "translation": "oziq-ovqat",
+     "article": "das",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Obst",
+     "translation": "meva",
+     "article": "das",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Gemüse",
+     "translation": "sabzavot",
+     "article": "das",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Vitamine",
+     "translation": "vitaminlar",
+     "article": "die",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Zucker",
+     "translation": "shakar",
+     "article": "der",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Fast Food",
+     "translation": "tez tayyor ovqat",
+     "article": "das",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Wasser",
+     "translation": "suv",
+     "article": "das",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Bewegung",
+     "translation": "harakat",
+     "article": "die",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Spaziergang",
+     "translation": "sayr",
+     "article": "der",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Radfahren",
+     "translation": "velosiped haydash",
+     "article": "das",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Gymnastik",
+     "translation": "gimnastika",
+     "article": "die",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Schlaf",
+     "translation": "uyqu",
+     "article": "der",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Ruhe",
+     "translation": "dam olish",
+     "article": "die",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Erkältung",
+     "translation": "shamollash",
+     "article": "die",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Husten",
+     "translation": "yo‘tal",
+     "article": "der",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Fieber",
+     "translation": "isitma",
+     "article": "das",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Kopfschmerzen",
+     "translation": "bosh og‘rig‘i",
+     "article": "die",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Halsschmerzen",
+     "translation": "tomoq og‘rig‘i",
+     "article": "die",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Rückenschmerzen",
+     "translation": "bel og‘rig‘i",
+     "article": "die",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Tablette",
+     "translation": "tabletka",
+     "article": "die",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Medikament",
+     "translation": "dori",
+     "article": "das",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Apotheke",
+     "translation": "dorixona",
+     "article": "die",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Arzt",
+     "translation": "shifokor",
+     "article": "der",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Patient",
+     "translation": "bemor",
+     "article": "der",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Untersuchung",
+     "translation": "tekshiruv",
+     "article": "die",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Behandlung",
+     "translation": "davolash",
+     "article": "die",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Krankheit",
+     "translation": "kasallik",
+     "article": "die",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Flüssigkeit",
+     "translation": "suyuqlik",
+     "article": "die",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Ingwer",
+     "translation": "zanjabil",
+     "article": "der",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Honig",
+     "translation": "asal",
+     "article": "der",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Zitrone",
+     "translation": "limon",
+     "article": "die",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Suppe",
+     "translation": "sho‘rva",
+     "article": "die",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Tee",
+     "translation": "choy",
+     "article": "der",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "Stress",
+     "translation": "stress",
+     "article": "der",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "sich entspannen",
+     "translation": "dam olmoq",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "sich ausruhen",
+     "translation": "hordiq chiqarmoq",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "vermeiden",
+     "translation": "oldini olmoq",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "verbessern",
+     "translation": "yaxshilamoq",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "achten auf",
+     "translation": "e’tibor bermoq",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "konzentriert",
+     "translation": "diqqatli",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "aktiv",
+     "translation": "faol",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "stark",
+     "translation": "kuchli",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "gesund bleiben",
+     "translation": "sog‘lom qolmoq",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "genug",
+     "translation": "yetarli",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "täglich",
+     "translation": "har kuni",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "wichtig",
+     "translation": "muhim",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "helfen",
+     "translation": "yordam bermoq",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "trinken",
+     "translation": "ichmoq",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "essen",
+     "translation": "yemoq",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "schlafen",
+     "translation": "uxlamoq",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "laufen",
+     "translation": "yugurmoq",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "trainieren",
+     "translation": "mashq qilmoq",
+     "group": "Gesundheit und Fitness"
+    },
+    {
+     "word": "fit bleiben",
+     "translation": "formani saqlamoq",
+     "group": "Gesundheit und Fitness"
+    }
+   ],
+   "exercises": [],
+   "auto_practice": false
+  }
+ ]
+}

@@ -203,6 +203,18 @@ def validate_result(raw, rubric: list[dict], source_text: str, assessed_keys: se
 # ============================================================
 
 
+def word_range_text(min_words: int | None, max_words: int | None) -> str:
+    """The word-count line of the prompt; empty when the task has no limit
+    (NULL bounds) — no range is invented for the evaluator."""
+    if min_words is not None and max_words is not None:
+        return f"So'zlar soni: {min_words}-{max_words}."
+    if min_words is not None:
+        return f"So'zlar soni: kamida {min_words}."
+    if max_words is not None:
+        return f"So'zlar soni: ko'pi bilan {max_words}."
+    return "So'zlar soni topshiriqda belgilanmagan."
+
+
 def _rubric_lines(rubric: list[dict], assessed: set[str]) -> str:
     return "\n".join(f'- "{c["key"]}" — {c["name"]}: 0-{c["max"]} ball' for c in rubric if c["key"] in assessed)
 
@@ -216,11 +228,12 @@ def writing_prompt(task: Writing, text_value: str, rubric: list[dict], level: st
     text_type = getattr(task, "text_type", None)
     kind = f"\nMatn turi: {TEXT_TYPE_NAMES.get(text_type, text_type)}." if text_type else ""
     audience = f"\nAuditoriya / vaziyat: {task.audience.strip()}" if getattr(task, "audience", None) else ""
+    words = word_range_text(task.min_words, task.max_words)
     return f"""Sen nemis tili o'qituvchisisan va {level} darajadagi o'quvchining yozma ishini baholaysan.
 
 TOPSHIRIQ: {task.title}
 {task.instruction}{kind}{audience}
-So'zlar soni: {task.min_words}-{task.max_words}.{helper}{extra}
+{words}{helper}{extra}
 
 BAHOLASH MEZONLARI (butun sonlar):
 {_rubric_lines(rubric, assessed)}
