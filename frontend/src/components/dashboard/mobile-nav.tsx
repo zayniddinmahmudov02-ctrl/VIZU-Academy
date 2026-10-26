@@ -1,10 +1,11 @@
 "use client";
 
-import { X } from "lucide-react";
+import { LogOut, X } from "lucide-react";
 
 import Drawer from "@/components/ui/drawer";
 import Logo from "@/components/common/logo";
 import { sidebarItems } from "@/constants/sidebar";
+import { useLogout } from "@/features/auth/hooks/use-logout";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import NavItem from "../navigation/nav-item";
 
@@ -15,6 +16,7 @@ type Props = {
 
 export default function MobileNav({ open, onOpenChange }: Props) {
   const { t } = useTranslation();
+  const logout = useLogout();
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange} side="left">
@@ -35,6 +37,21 @@ export default function MobileNav({ open, onOpenChange }: Props) {
             <NavItem key={item.href} {...item} />
           ))}
         </nav>
+
+        <div className="border-t border-white/10 p-3">
+          <button
+            type="button"
+            onClick={() => {
+              onOpenChange(false);
+              logout();
+            }}
+            data-testid="mobile-logout"
+            className="flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold text-red-300 transition-colors hover:bg-white/[0.08] hover:text-red-200"
+          >
+            <LogOut size={18} aria-hidden="true" />
+            {t("header.logout")}
+          </button>
+        </div>
       </div>
     </Drawer>
   );

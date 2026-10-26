@@ -1,7 +1,6 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useQueryClient } from "@tanstack/react-query";
 import { Crown, LogOut, Menu, Search, Settings } from "lucide-react";
 
 import Avatar from "@/components/ui/avatar";
@@ -9,12 +8,10 @@ import DropdownMenu from "@/components/ui/dropdown-menu";
 import ThemeToggle from "@/components/ui/theme-toggle";
 import InstallAppButton from "@/components/pwa/install-app-button";
 import CalendarDropdown from "@/features/calendar/components/calendar-dropdown";
-import { logoutService } from "@/features/auth/services/auth.service";
-import { CURRENT_USER_QUERY_KEY } from "@/features/auth/hooks/use-current-user";
+import { useLogout } from "@/features/auth/hooks/use-logout";
 import { usePanelSwitcher } from "@/features/auth/hooks/use-panel-switcher";
 import NotificationDropdown from "@/features/notifications/components/notification-dropdown";
 import { useTranslation } from "@/lib/i18n/use-translation";
-import { getRefreshToken, removeRefreshToken, removeToken } from "@/lib/token";
 
 type Props = {
   onMenuClick?: () => void;
@@ -23,30 +20,13 @@ type Props = {
 export default function Header({ onMenuClick }: Props) {
   const router = useRouter();
   const { t } = useTranslation();
-  const queryClient = useQueryClient();
   // Same shared hook Admin/Teacher headers use (panel-switcher-menu.tsx)
   // — a plain STUDENT gets an empty `options` array here, so no extra
   // items are added and the dropdown is completely unchanged for them.
   const { options: panelOptions, visible: panelSwitcherVisible, current: currentPanel, go: goToPanel } =
     usePanelSwitcher();
 
-  async function handleLogout() {
-    const refreshToken = getRefreshToken();
-
-    removeToken();
-    removeRefreshToken();
-    queryClient.removeQueries({ queryKey: CURRENT_USER_QUERY_KEY });
-    router.push("/login");
-
-    if (refreshToken) {
-      try {
-        await logoutService(refreshToken);
-      } catch {
-        // Local session is already cleared either way — this best-effort
-        // call just also invalidates the refresh token server-side.
-      }
-    }
-  }
+  const handleLogout = useLogout();
 
   return (
     <header className="sticky top-4 z-20 mx-4 mt-4 flex h-16 items-center justify-between gap-3 rounded-card px-4 glass shadow-[var(--shadow-card)] ring-1 ring-surface-border sm:px-5">

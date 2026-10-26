@@ -1,0 +1,11 @@
+{
+  "name": "vizu-e2e",
+  "private": true,
+  "description": "Browser tests for the auth / student-panel flows. Separate from frontend/ so the production install (npm ci) is unaffected. Uses the system Chrome (channel: chrome), no browser download.",
+  "scripts": {
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1"
+  }
+}

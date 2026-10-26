@@ -85,11 +85,9 @@ export default function HelpDialog({ topic }: Props) {
             </ol>
 
             {topic === "login" && (
-              <Link
-                href="/forgot-password"
-                className="mt-5 inline-block text-sm font-medium text-accent-blue hover:text-accent-blue-hover"
-              >
-                {t("auth.helpSupportLink")}
+              <Link href="/forgot-password" className="mt-5 inline-block text-sm font-medium">
+                {/* colour on the child: `a { color: inherit }` beats utilities on the link */}
+                <span className="text-accent-blue hover:text-accent-blue-hover">{t("auth.helpSupportLink")}</span>
               </Link>
             )}
           </div>
