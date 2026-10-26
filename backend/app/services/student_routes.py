@@ -23,7 +23,9 @@ FALLBACK_PATH = "/dashboard"
 STUDENT_ROUTES: dict[str, dict] = {
     "dashboard": {"group": "Allgemein", "label": "Dashboard", "path": "/dashboard"},
     "informationen": {"group": "Allgemein", "label": "Informationen", "path": "/informationen"},
-    "profile": {"group": "Allgemein", "label": "Profil", "path": "/profile"},
+    # the Profile page was merged into Settings; the key stays so stored
+    # banners linking to "profile" keep opening the profile data
+    "profile": {"group": "Allgemein", "label": "Profil (in Einstellungen)", "path": "/settings"},
     "settings": {"group": "Allgemein", "label": "Einstellungen", "path": "/settings"},
     "support": {"group": "Allgemein", "label": "Hilfe & Support", "path": "/support"},
     "kurse": {"group": "Kurse", "label": "Alle Kurse (A1–C1)", "path": "/kurse"},
