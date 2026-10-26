@@ -1520,6 +1520,50 @@ export const translations: Record<string, Namespace> = {
     adminConfirm: { de: "Bestätigen", uz: "Tasdiqlash" },
     backToLogin: { de: "Zurück zur Anmeldung", uz: "Kirish sahifasiga qaytish" },
 
+    // Welcome (first page for signed-out visitors)
+    welcomeTitle: { de: "Willkommen bei VIZU-DEUTSCH", uz: "VIZU-DEUTSCH'ga xush kelibsiz" },
+    welcomeSubtitle: {
+      de: "Lerne Deutsch mit unserem digitalen Lernsystem.",
+      uz: "Nemis tilini raqamli o'quv tizimimiz bilan o'rganing.",
+    },
+    welcomeHaveAccount: { de: "Ich habe bereits ein Konto", uz: "Avvaldan akkauntingiz bormi?" },
+    welcomeHaveAccountHint: { de: "Mit deinem Konto anmelden", uz: "Mavjud akkaunt bilan kirish" },
+    welcomeHaveAccountCta: { de: "Anmelden", uz: "Kirish" },
+    welcomeNew: { de: "Ich bin neu hier", uz: "Birinchi marta kiryapsizmi?" },
+    welcomeNewHint: { de: "Neues Konto erstellen", uz: "Yangi akkaunt yaratish" },
+    welcomeNewCta: { de: "Registrieren", uz: "Ro'yxatdan o'tish" },
+
+    // Help dialog (login + register)
+    helpButton: { de: "Hilfe", uz: "Yordam" },
+    helpClose: { de: "Schließen", uz: "Yopish" },
+    helpSupportLink: { de: "Passwort vergessen? Zur Wiederherstellung", uz: "Parolni tiklash" },
+    helpLoginTitle: { de: "So meldest du dich an", uz: "Qanday qilib akkauntga kirasiz?" },
+    helpLoginStep1: { de: "Öffne die Login-Seite.", uz: "Kirish sahifasini oching." },
+    helpLoginStep2: {
+      de: "Gib deine registrierte E-Mail-Adresse oder deinen Benutzernamen ein.",
+      uz: "Ro'yxatdan o'tgan e-mail yoki username'ingizni kiriting.",
+    },
+    helpLoginStep3: { de: "Gib dein Passwort ein.", uz: "Parolingizni kiriting." },
+    helpLoginStep4: {
+      de: "Aktiviere bei Bedarf „Angemeldet bleiben“.",
+      uz: "Xohlasangiz, „Eslab qolish“ tugmasini belgilang.",
+    },
+    helpLoginStep5: { de: "Klicke auf „Anmelden“.", uz: "„Kirish“ tugmasini bosing." },
+    helpLoginStep6: {
+      de: "Bei Problemen nutze die Passwort-Wiederherstellung oder den Support.",
+      uz: "Muammo bo'lsa, parolni tiklash yoki yordam xizmatidan foydalaning.",
+    },
+    helpRegisterTitle: { de: "So registrierst du dich", uz: "Qanday qilib ro'yxatdan o'tasiz?" },
+    helpRegisterStep1: { de: "Öffne die Registrierungsseite.", uz: "Ro'yxatdan o'tish sahifasini oching." },
+    helpRegisterStep2: { de: "Fülle die erforderlichen Felder aus.", uz: "Kerakli maydonlarni to'ldiring." },
+    helpRegisterStep3: { de: "Erstelle ein sicheres Passwort.", uz: "Xavfsiz parol yarating." },
+    helpRegisterStep4: { de: "Prüfe deine Angaben.", uz: "Ma'lumotlaringizni tekshiring." },
+    helpRegisterStep5: { de: "Klicke auf „Registrieren“.", uz: "„Ro'yxatdan o'tish“ tugmasini bosing." },
+    helpRegisterStep6: {
+      de: "Folge den Anweisungen zur Bestätigung deines Kontos, falls erforderlich.",
+      uz: "Agar talab qilinsa, akkauntingizni tasdiqlash bo'yicha ko'rsatmalarga amal qiling.",
+    },
+
     // Validation
     errPasswordMin: { de: "Das Passwort muss mindestens 6 Zeichen lang sein.", uz: "Parol kamida 6 ta belgidan iborat bo'lishi kerak." },
     errPasswordMismatch: { de: "Die Passwörter stimmen nicht überein.", uz: "Parollar bir-biriga mos kelmaydi." },

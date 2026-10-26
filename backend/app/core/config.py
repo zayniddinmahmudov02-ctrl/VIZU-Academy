@@ -146,6 +146,8 @@ class Settings(BaseSettings):
 
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
     REFRESH_TOKEN_EXPIRE_DAYS: int = 30
+    # Login without "remember me": short, non-sliding refresh lifetime.
+    REFRESH_TOKEN_SESSION_EXPIRE_HOURS: int = 24
 
     # Stateless password-reset JWTs (see core/security/jwt.py) live this
     # long before they're rejected regardless of use.

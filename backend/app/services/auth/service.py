@@ -238,16 +238,24 @@ def get_user_by_email(
 def issue_refresh_token(
     db: Session,
     user: User,
+    remember: bool = True,
+    expires_at: datetime | None = None,
 ) -> str:
     """Generates a new opaque refresh token, persists it, and returns the
     raw value to hand back to the client. Storing the raw token (not a
     hash) matches the existing `refresh_tokens` table shape — see
-    RefreshToken model."""
+    RefreshToken model. `remember=False` issues the short session
+    lifetime; an explicit `expires_at` (used when rotating a short
+    session) pins the absolute expiry."""
 
     token = secrets.token_urlsafe(48)
-    expires_at = datetime.now(UTC).replace(tzinfo=None) + timedelta(
-        days=settings.REFRESH_TOKEN_EXPIRE_DAYS,
-    )
+    if expires_at is None:
+        now = datetime.now(UTC).replace(tzinfo=None)
+        expires_at = now + (
+            timedelta(days=settings.REFRESH_TOKEN_EXPIRE_DAYS)
+            if remember
+            else timedelta(hours=settings.REFRESH_TOKEN_SESSION_EXPIRE_HOURS)
+        )
 
     RefreshTokenRepository(db).issue(
         user_id=str(user.id),
@@ -261,10 +269,12 @@ def issue_refresh_token(
 def issue_token_pair(
     db: Session,
     user: User,
+    remember: bool = True,
+    expires_at: datetime | None = None,
 ) -> Token:
     return Token(
         access_token=create_user_token(user),
-        refresh_token=issue_refresh_token(db, user),
+        refresh_token=issue_refresh_token(db, user, remember, expires_at),
         token_type="bearer",
     )
 
@@ -296,9 +306,15 @@ def refresh_access_token(
     # Rotate: the old token is single-use — deleting it here means a
     # stolen-and-replayed refresh token stops working the moment the
     # legitimate client refreshes first.
+    # A short (non-remembered) session keeps its original absolute expiry,
+    # so refreshing can never extend it into a "remembered" one. Anything
+    # with more than the short window left is a remembered session (sliding).
+    now = datetime.now(UTC).replace(tzinfo=None)
+    short_window = timedelta(hours=settings.REFRESH_TOKEN_SESSION_EXPIRE_HOURS)
+    pinned = stored.expires_at if stored.expires_at - now <= short_window else None
     repository.delete(stored)
 
-    return issue_token_pair(db, user)
+    return issue_token_pair(db, user, expires_at=pinned)
 
 
 def revoke_refresh_token(

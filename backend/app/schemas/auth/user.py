@@ -47,6 +47,9 @@ class UserLogin(BaseModel):
     identifier: str | None = Field(default=None, max_length=255)
     email: str | None = Field(default=None, max_length=255)
     password: str = Field(max_length=PASSWORD_MAX_LENGTH)
+    # "Angemeldet bleiben": True = long refresh lifetime (30 days, sliding);
+    # False = short one (24 h, not extended by refreshes). Default keeps old clients unchanged.
+    remember_me: bool = True
 
     @model_validator(mode="after")
     def _check(self):

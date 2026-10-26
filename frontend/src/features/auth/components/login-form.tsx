@@ -54,7 +54,7 @@ export default function LoginForm() {
     setFormError(null);
 
     try {
-      const response = await loginMutation.mutateAsync(data);
+      const response = await loginMutation.mutateAsync({ ...data, remember_me: rememberMe });
 
       saveToken(response.access_token, rememberMe);
       saveRefreshToken(response.refresh_token, rememberMe);

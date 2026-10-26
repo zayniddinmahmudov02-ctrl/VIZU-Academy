@@ -177,7 +177,7 @@ def login(
     user.last_login = datetime.now(timezone.utc).replace(tzinfo=None)
     db.commit()
 
-    return issue_token_pair(db, user)
+    return issue_token_pair(db, user, remember=data.remember_me)
 
 
 @router.post(

@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
-import { Crown, LogOut, Menu, Search, Settings, User } from "lucide-react";
+import { Crown, LogOut, Menu, Search, Settings } from "lucide-react";
 
 import Avatar from "@/components/ui/avatar";
 import DropdownMenu from "@/components/ui/dropdown-menu";
@@ -100,7 +100,6 @@ export default function Header({ onMenuClick }: Props) {
             </span>
           }
           items={[
-            { label: t("sidebar.profile"), icon: User, onClick: () => router.push("/profile") },
             { label: t("sidebar.settings"), icon: Settings, onClick: () => router.push("/settings") },
             ...(panelSwitcherVisible
               ? panelOptions.map((option) => ({

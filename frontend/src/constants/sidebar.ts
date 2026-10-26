@@ -8,7 +8,6 @@ import {
   LifeBuoy,
   Settings,
   Tag,
-  User,
 } from "lucide-react";
 
 export const sidebarItems = [
@@ -51,11 +50,6 @@ export const sidebarItems = [
     titleKey: "sidebar.support",
     href: "/support",
     icon: LifeBuoy,
-  },
-  {
-    titleKey: "sidebar.profile",
-    href: "/profile",
-    icon: User,
   },
   {
     titleKey: "sidebar.settings",

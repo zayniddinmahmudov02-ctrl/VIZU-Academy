@@ -5,6 +5,7 @@ import Link from "next/link";
 import Logo from "@/components/common/logo";
 import LanguageSwitcher from "@/components/dashboard/languages/language-switcher";
 import { useTranslation } from "@/lib/i18n/use-translation";
+import HelpDialog from "./help-dialog";
 import RegisterForm from "./register-form";
 
 export default function RegisterCard() {
@@ -15,7 +16,8 @@ export default function RegisterCard() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--accent-purple)_0%,transparent_60%)] opacity-[0.05]" />
 
       <div className="relative">
-        <div className="mb-2 flex justify-end">
+        <div className="mb-2 flex items-center justify-between gap-2">
+          <HelpDialog topic="register" />
           <LanguageSwitcher variant="segmented" />
         </div>
         <div className="mb-8 flex flex-col items-center">

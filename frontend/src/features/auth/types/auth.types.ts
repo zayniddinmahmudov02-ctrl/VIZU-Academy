@@ -2,6 +2,8 @@
 export interface LoginRequest {
   identifier: string;
   password: string;
+  /** "Angemeldet bleiben": long (30 d) vs short (24 h) server session. */
+  remember_me?: boolean;
 }
 
 export interface RegisterRequest {
