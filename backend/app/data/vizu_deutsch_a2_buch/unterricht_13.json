@@ -43,8 +43,9 @@
      "können → könnte, müssen → müsste (Buch: müsste / dürfte — Druckfehler).",
      "„Ein Relativsatz II“ → „Der Konjunktiv II“."
     ],
-    "needs_review": [
-     "S. 166 Buch: „können → müsste, müssen → dürfte“ und „Ein Relativsatz II“ — hier korrigiert; Korrektur bestätigen."
+    "book_original": [
+     "S. 166: „können → müsste, müssen → dürfte“",
+     "S. 166: „Ein Relativsatz II. beschreibt …“"
     ],
     "key_source": "grammar_rule",
     "edition": "buch-2026-10-27"
@@ -52,7 +53,7 @@
    "rules": [
     {
      "title": "Konjunktiv II (A2–B1)",
-     "html": "<h3>Konjunktiv II (A2–B1)</h3><h4>1. Was ist Konjunktiv II?</h4><p>Der Konjunktiv II beschreibt: <strong>irreale Situationen</strong> (nicht real), <strong>Wünsche</strong>, <strong>Höflichkeit</strong>.</p><h4>2. Verwendung</h4><ul><li><strong>Wunsch:</strong> Ich hätte gern mehr Zeit. · Ich würde gern in Deutschland leben.</li><li><strong>Irreale Situationen:</strong> Wenn ich reich wäre, würde ich ein Haus kaufen. · Wenn ich Zeit hätte, käme ich mit.</li><li><strong>Höfliche Bitten:</strong> Könnten Sie mir helfen? · Würden Sie bitte langsamer sprechen?</li><li><strong>Ratschläge:</strong> Du solltest mehr lernen. · Du könntest früher schlafen.</li></ul><h4>3. Bildung (Struktur)</h4><p><strong>a) Mit „würde“ + Infinitiv</strong> (am häufigsten): Subjekt + würde + Infinitiv — Ich würde Deutsch lernen. · Wir würden nach Berlin fahren.</p><p><strong>b) Mit starken Verben:</strong> sein → wäre · haben → hätte · können → könnte · müssen → müsste · dürfen → dürfte · sollen → sollte · wollen → wollte</p><p><em>Hinweis: Im Buch steht „können → müsste“ und „müssen → dürfte“ (Druckfehler) — hier die richtigen Formen.</em></p><h4>4. Wenn-Sätze (sehr wichtig)</h4><p>Wenn + Subjekt + Verb (am Ende), würde + Infinitiv — Wenn ich reich wäre, würde ich reisen. · Wenn ich Zeit hätte, würde ich dir helfen.</p><h4>Unterschied: Realität vs. Irrealität</h4><ul><li>Ich habe Zeit → Realität</li><li>Ich hätte Zeit → nicht real / Wunsch</li></ul><h4>5. Mini-Übung</h4><ul><li>✗ Ich würde kann gehen → ✓ Ich könnte gehen</li><li>✗ Wenn ich würde Zeit haben → ✓ wenn ich Zeit hätte</li></ul>"
+     "html": "<h3>Konjunktiv II (A2–B1)</h3><h4>1. Was ist Konjunktiv II?</h4><p>Der Konjunktiv II beschreibt: <strong>irreale Situationen</strong> (nicht real), <strong>Wünsche</strong>, <strong>Höflichkeit</strong>.</p><h4>2. Verwendung</h4><ul><li><strong>Wunsch:</strong> Ich hätte gern mehr Zeit. · Ich würde gern in Deutschland leben.</li><li><strong>Irreale Situationen:</strong> Wenn ich reich wäre, würde ich ein Haus kaufen. · Wenn ich Zeit hätte, käme ich mit.</li><li><strong>Höfliche Bitten:</strong> Könnten Sie mir helfen? · Würden Sie bitte langsamer sprechen?</li><li><strong>Ratschläge:</strong> Du solltest mehr lernen. · Du könntest früher schlafen.</li></ul><h4>3. Bildung (Struktur)</h4><p><strong>a) Mit „würde“ + Infinitiv</strong> (am häufigsten): Subjekt + würde + Infinitiv — Ich würde Deutsch lernen. · Wir würden nach Berlin fahren.</p><p><strong>b) Mit starken Verben:</strong> sein → wäre · haben → hätte · können → könnte · müssen → müsste · dürfen → dürfte · sollen → sollte · wollen → wollte</p><p><em>Hinweis: Im Buch steht „können → müsste“ und „müssen → dürfte“ (Druckfehler) — hier die richtigen Formen. Ebenso steht im Buch „Ein Relativsatz II“ statt „Der Konjunktiv II“.</em></p><h4>4. Wenn-Sätze (sehr wichtig)</h4><p>Wenn + Subjekt + Verb (am Ende), würde + Infinitiv — Wenn ich reich wäre, würde ich reisen. · Wenn ich Zeit hätte, würde ich dir helfen.</p><h4>Unterschied: Realität vs. Irrealität</h4><ul><li>Ich habe Zeit → Realität</li><li>Ich hätte Zeit → nicht real / Wunsch</li></ul><h4>5. Mini-Übung</h4><ul><li>✗ Ich würde kann gehen → ✓ Ich könnte gehen</li><li>✗ Wenn ich würde Zeit haben → ✓ wenn ich Zeit hätte</li></ul>"
     }
    ],
    "exercises": [
@@ -1058,10 +1059,13 @@
    "source": "book",
    "metadata": {
     "book_page": 179,
+    "book_original": [
+     "S. 179 Beispiel: „Aber habe eine Frage.“"
+    ],
     "edition": "buch-2026-10-27"
    },
    "task_type": "message",
-   "prompt": "Deine Freundin Susanne schickt dir eine SMS mit einer Einladung zu einer Gartenparty. Antworte Susanne mit einer SMS.\n• Schreib, ob du kommst.\n• Frage, wann die Party stattfindet und wie lange sie dauert.\n• Frage, was du mitbringen sollst.\n\nSchreib 20–30 Wörter. Schreib zu allen drei Punkten.\n\nBeispiel (Buch): Hallo Susanne, vielen Dank für deine Einladung. Ich gehe natürlich zu deiner Party. Aber habe eine Frage. Wann findet die Party statt? Und kannst du noch sagen, wie lange sie dauert? Was kann ich noch für die Party mitbringen? Wenn du möchtest, kann ich einige Getränke mitbringen. Schreib mir bitte deine Antwort. Dein Alex",
+   "prompt": "Deine Freundin Susanne schickt dir eine SMS mit einer Einladung zu einer Gartenparty. Antworte Susanne mit einer SMS.\n• Schreib, ob du kommst.\n• Frage, wann die Party stattfindet und wie lange sie dauert.\n• Frage, was du mitbringen sollst.\n\nSchreib 20–30 Wörter. Schreib zu allen drei Punkten.\n\nBeispiel (Buch): Hallo Susanne, vielen Dank für deine Einladung. Ich gehe natürlich zu deiner Party. Aber habe eine Frage. Wann findet die Party statt? Und kannst du noch sagen, wie lange sie dauert? Was kann ich noch für die Party mitbringen? Wenn du möchtest, kann ich einige Getränke mitbringen. Schreib mir bitte deine Antwort. Dein Alex\n\nRedaktioneller Hinweis: Im Beispiel des Buches richtig: „Aber ich habe eine Frage.“",
    "audience": "Freundin Susanne (informell)",
    "min_words": 20,
    "max_words": 30
@@ -1076,13 +1080,13 @@
    "source": "book",
    "metadata": {
     "book_page": 179,
-    "needs_review": [
-     "S. 179 Beispieltexte enthalten Fehler des Buches („Aber habe eine Frage“, „hoffentlich geht Ihnen gut“)."
+    "book_original": [
+     "S. 179 Beispiel: „hoffentlich geht Ihnen gut. Und wünschen wir Ihnen …“ · „wann wir besuchen können?“"
     ],
     "edition": "buch-2026-10-27"
    },
    "task_type": "email",
-   "prompt": "Dein Klassenlehrer Herr Häfner hat sein Bein gebrochen und liegt im Krankenhaus. Du und zwei andere Mitschüler wollt ihn besuchen. Schreib Herrn Häfner eine E-Mail:\n• Frage, wie es ihm geht, und wünsch ihm gute Besserung.\n• Informiere ihn über den geplanten Besuch.\n• Frage nach dem passenden Termin (Tag und Uhrzeit).\n\nSchreib 30–40 Wörter. Schreib zu allen drei Punkten.\n\nBeispiel (Buch): Sehr geehrter Herr Häfner, hoffentlich geht Ihnen gut. Und wünschen wir Ihnen lebenslange Gesundheit. Wir haben mit unseren Mitschülern vor, Sie zu besuchen. Können Sie sagen, wann wir besuchen können? Wir warten auf Ihre Antwort. Mit freundlichen Grüßen Alex, Anna, Markus",
+   "prompt": "Dein Klassenlehrer Herr Häfner hat sein Bein gebrochen und liegt im Krankenhaus. Du und zwei andere Mitschüler wollt ihn besuchen. Schreib Herrn Häfner eine E-Mail:\n• Frage, wie es ihm geht, und wünsch ihm gute Besserung.\n• Informiere ihn über den geplanten Besuch.\n• Frage nach dem passenden Termin (Tag und Uhrzeit).\n\nSchreib 30–40 Wörter. Schreib zu allen drei Punkten.\n\nBeispiel (Buch): Sehr geehrter Herr Häfner, hoffentlich geht Ihnen gut. Und wünschen wir Ihnen lebenslange Gesundheit. Wir haben mit unseren Mitschülern vor, Sie zu besuchen. Können Sie sagen, wann wir besuchen können? Wir warten auf Ihre Antwort. Mit freundlichen Grüßen Alex, Anna, Markus\n\nRedaktioneller Hinweis: Im Beispiel des Buches richtig: „hoffentlich geht es Ihnen gut. Wir wünschen Ihnen …“ und „Können Sie sagen, wann wir Sie besuchen können?“",
    "audience": "Klassenlehrer Herr Häfner (formell)",
    "min_words": 30,
    "max_words": 40

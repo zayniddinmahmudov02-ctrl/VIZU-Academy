@@ -258,13 +258,13 @@
    "metadata": {
     "book_page": 97,
     "note": "damit-ustuni: kutilgan shakl bir ma'noli emas (kitob misolida „will“ saqlanadi) — o'qituvchi tekshiradi.",
-    "needs_review": [
-     "S. 97 Buchbeispiel „…, damit ich in Deutschland studieren will.“ (wie im Buch)."
+    "book_original": [
+     "S. 97 Beispiel: „…, damit ich in Deutschland studieren will.“"
     ],
     "edition": "buch-2026-10-27"
    },
    "task_type": "other",
-   "prompt": "Verbinden Sie die Sätze mit „damit“ (Verb am Ende).\n\n1. Ich lerne Deutsch. Ich will in Deutschland studieren. (Beispiel: …, damit ich in Deutschland studieren will.)\n2. Sie arbeitet viel. Sie will mehr Geld verdienen.\n3. Wir sparen Geld. Wir wollen ein Auto kaufen.\n4. Er geht früh schlafen. Er will morgen fit sein.\n5. Ich kaufe ein Geschenk. Meine Mutter freut sich.\n6. Sie übt jeden Tag. Sie besteht die Prüfung.\n7. Wir fahren langsam. Wir kommen sicher an.\n8. Er trainiert viel. Er wird stärker.\n9. Ich erkläre dir das. Du verstehst es.\n10. Sie nimmt einen Regenschirm. Sie wird nicht nass.\n11. Wir lernen Grammatik. Wir sprechen besser.\n12. Er liest ein Buch. Er lernt neue Wörter.\n13. Ich rufe dich an. Wir besprechen alles.\n14. Sie kauft Obst. Sie bleibt gesund.\n15. Wir wiederholen die Lektion. Wir verstehen alles gut.",
+   "prompt": "Verbinden Sie die Sätze mit „damit“ (Verb am Ende).\n\n1. Ich lerne Deutsch. Ich will in Deutschland studieren. (Beispiel: …, damit ich in Deutschland studieren will.)\n2. Sie arbeitet viel. Sie will mehr Geld verdienen.\n3. Wir sparen Geld. Wir wollen ein Auto kaufen.\n4. Er geht früh schlafen. Er will morgen fit sein.\n5. Ich kaufe ein Geschenk. Meine Mutter freut sich.\n6. Sie übt jeden Tag. Sie besteht die Prüfung.\n7. Wir fahren langsam. Wir kommen sicher an.\n8. Er trainiert viel. Er wird stärker.\n9. Ich erkläre dir das. Du verstehst es.\n10. Sie nimmt einen Regenschirm. Sie wird nicht nass.\n11. Wir lernen Grammatik. Wir sprechen besser.\n12. Er liest ein Buch. Er lernt neue Wörter.\n13. Ich rufe dich an. Wir besprechen alles.\n14. Sie kauft Obst. Sie bleibt gesund.\n15. Wir wiederholen die Lektion. Wir verstehen alles gut.\n\nRedaktioneller Hinweis: Im Beispiel des Buches richtig: „…, damit ich in Deutschland studieren kann.“ (nach „damit“ kein „wollen“ — der Wunsch steckt schon in „damit“).",
    "min_words": null,
    "max_words": null
   },
@@ -279,9 +279,7 @@
    "metadata": {
     "book_page": "98-99",
     "key_source": "vizu-antworten",
-    "needs_review": [
-     "S. 99 Aussage 6 „Weniger als 30 %“ vs. Text „fast 30 %“ — Schlüssel „richtig“ bestätigen."
-    ],
+    "key_decision": "S. 99 Aussage 6 „Weniger als 30 %“: Text „fast 30 %“ → richtig.",
     "edition": "buch-2026-10-27"
    },
    "instruction": "Lesen Sie den Text. Richtig oder Falsch?",

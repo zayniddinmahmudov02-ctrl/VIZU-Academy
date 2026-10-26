@@ -365,6 +365,34 @@ Sonlar yangi nashr fayllaridan hisoblangan (`app/data/vizu_deutsch_a2_buch`, `te
 18. **p.166** Konjunktiv II jadvali (müsste/dürfte) va "Ein Relativsatz II" — kodda tuzatilgan (tasdiq kerak).
 19. **p.179** Schreiben namunalaridagi grammatik xatolar.
 
+### NEEDS_REVIEW qarorlari (2026-10-27, PDF + audit dalillari asosida)
+
+Qoida: kitobning asl matni `metadata.book_original` da saqlanadi, o'quvchi tuzatishni faqat belgilangan "Redaktioneller Hinweis" / "Hinweis" orqali ko'radi — hech narsa jimgina o'zgartirilmagan. Dalil yetarli bo'lmasa: baholanmaydi yoki draft.
+
+| # | Qaror | Holat |
+|---|---|---|
+| 1 p.33 | Kitobning o'z misollari (Lerne! Komm! Mach!) "e/Ø" ni tasdiqlaydi → "e/Ø" + Redaktioneller Hinweis | RESOLVED |
+| 2 p.48 | Q22 baholanmaydi (ko'rsatmada izoh) | NEEDS_REVIEW, baholanmaydi |
+| 3 p.59 | Hören 5 — kalitsiz/`key_pending`, audio yo'q → draft | NEEDS_REVIEW, nashr qilinmaydi |
+| 4 p.68 | Paul Q9 baholanmaydi | NEEDS_REVIEW, baholanmaydi |
+| 5 p.77 | 2, 9, 18, 25, 26 baholanmaydi | NEEDS_REVIEW, baholanmaydi |
+| 6 p.86 | Ikki xato misol ko'rsatiladi + Redaktioneller Hinweis (to'g'ri shakli bilan) | RESOLVED |
+| 7 p.97 | Namuna + Hinweis: "damit … studieren kann" | RESOLVED |
+| 8 p.99 | "fast 30 %" = 30 % dan biroz kam → "richtig" baholanadi (`metadata.key_decision`) | RESOLVED |
+| 9 p.106 | Misol qoldi + Hinweis: bu Futur II | RESOLVED |
+| 10 p.118–119 | Hören 10 Teil 3/4 — audio yo'q → draft; trek raqamlari audio yuklanganda aniqlanadi | NEEDS_REVIEW, nashr qilinmaydi |
+| 11 p.130 | Q5 baholanmaydi | NEEDS_REVIEW, baholanmaydi |
+| 12 p.143 | Kitobdagidek ("Schule?" ikki marta) — zararsiz, baholanmaydigan Sprechen | qoldirildi |
+| 13 p.145 | Kitobdagidek — zararsiz | qoldirildi |
+| 14 p.149 | Tuzatilgan jadval + ko'rinadigan Hinweis; kitob varianti `book_original` da | RESOLVED |
+| 15 p.150 | Q20 baholanmaydi | NEEDS_REVIEW, baholanmaydi |
+| 16 p.151 | Matn kitobdagidek (uzilgan) + Hinweis; Q3/Q4 baholanmaydi | NEEDS_REVIEW, baholanmaydi |
+| 17 p.154 | Birgit baholanmaydi | NEEDS_REVIEW, baholanmaydi |
+| 18 p.166 | Tuzatilgan jadval + Hinweis (müsste/dürfte va "Ein Relativsatz II"); kitob varianti `book_original` da | RESOLVED |
+| 19 p.179 | Namunalar kitobdagidek + Redaktioneller Hinweis (SMS va E-Mail) | RESOLVED |
+
+Video: birinchi nashrning 14 ta video yozuvi "[Archiv] IMG_…" nomi bilan arxivda qoladi (nomi, fayli va `video_progress` o'zgarmaydi). Yangi nashr shu fayllarga o'z yozuvini oladi ("Video: {dars nomi}"); `--publish` da yangisi ko'rsatiladi, arxiv yozuvida faqat `is_published=false` qilinadi. Fayl o'chirish endi umumiy fayllarni himoya qiladi (`VideoService.key_shared`).
+
 ### Kitobda yo'q, yangi kursdan chiqariladigan (arxivda qoladi)
 
 Har dars: VIZU "Einführung" va "Zusammenfassung" matnlari, Abschlusstest, "Nemischa qanday?", "Zuordnung", "Der/die/das?", "Was bedeutet das?", "… oder …?" mashqlari; 1–4-darslardagi "dars varag'i" savollari (L1 Lesen +17, L2 Lesen +12 MC, L4 60+30 gap_fill); 5–8-darslardagi dars varag'idan olingan tarjimali so'z ro'yxatlari (50/60/50/11); 3-darsdagi "Unterrichtsblatt" Imperativ misollari, 8-darsdagi "20 Sätze". Barcha `min/max_words` (kitobda ko'rsatilganidan tashqari), `time_limit`, `min/max_duration` va `support_phrases` qiymatlari.

@@ -35,15 +35,15 @@
    "source": "book",
    "metadata": {
     "book_page": 33,
-    "needs_review": [
-     "S. 33 Imperativ mit du: Buch „Verbstamm + t/Ø“ (sprachlich falsch), hier „e/Ø“ — bitte bestätigen."
+    "book_original": [
+     "S. 33, du: „Verbstamm + t/Ø“"
     ],
     "edition": "buch-2026-10-27"
    },
    "rules": [
     {
      "title": "Imperativ",
-     "html": "<h3>Imperativ (Aufforderung)</h3><p>Der Imperativ wird benutzt, um jemanden zu etwas <strong>aufzufordern</strong>, <strong>zu bitten</strong> oder zu einem <strong>Verhalten</strong> zu bewegen.</p><table><thead><tr><th></th><th>1. Imperativ mit du</th><th>2. Imperativ mit ihr</th><th>3. Imperativ mit Sie</th></tr></thead><tbody><tr><td>Struktur</td><td>Du lernst Deutsch. → <strong>Lerne Deutsch!</strong></td><td>Ihr lernt Deutsch. → <strong>Lernt Deutsch!</strong></td><td>Sie lernen Deutsch. → <strong>Lernen Sie Deutsch!</strong></td></tr><tr><td>Regel</td><td>Subjekt „du“ fällt weg · Endung -st fällt weg · Verbstamm + e/Ø</td><td>Subjekt „ihr“ fällt weg · Endung -t bleibt · Verbstamm + t</td><td>Verb steht am Anfang · Sie bleibt im Satz · Endung -en bleibt</td></tr><tr><td>Beispiele</td><td>Komm hier! · Mach die Hausaufgabe! · Lies das Buch! · Lerne Deutsch!</td><td>Kommt hier! · Macht die Hausaufgabe! · Lest das Buch! · Lernt Deutsch!</td><td>Kommen Sie bitte hier! · Machen Sie die Hausaufgabe! · Lesen Sie das Buch! · Lernen Sie Deutsch!</td></tr></tbody></table><p><strong>Merke:</strong> Der Imperativ ist kurz und direkt. Achte auf die richtige Form! Höflich mit „Sie“, freundlich mit „du“ und „ihr“.</p>"
+     "html": "<h3>Imperativ (Aufforderung)</h3><p>Der Imperativ wird benutzt, um jemanden zu etwas <strong>aufzufordern</strong>, <strong>zu bitten</strong> oder zu einem <strong>Verhalten</strong> zu bewegen.</p><table><thead><tr><th></th><th>1. Imperativ mit du</th><th>2. Imperativ mit ihr</th><th>3. Imperativ mit Sie</th></tr></thead><tbody><tr><td>Struktur</td><td>Du lernst Deutsch. → <strong>Lerne Deutsch!</strong></td><td>Ihr lernt Deutsch. → <strong>Lernt Deutsch!</strong></td><td>Sie lernen Deutsch. → <strong>Lernen Sie Deutsch!</strong></td></tr><tr><td>Regel</td><td>Subjekt „du“ fällt weg · Endung -st fällt weg · Verbstamm + e/Ø</td><td>Subjekt „ihr“ fällt weg · Endung -t bleibt · Verbstamm + t</td><td>Verb steht am Anfang · Sie bleibt im Satz · Endung -en bleibt</td></tr><tr><td>Beispiele</td><td>Komm hier! · Mach die Hausaufgabe! · Lies das Buch! · Lerne Deutsch!</td><td>Kommt hier! · Macht die Hausaufgabe! · Lest das Buch! · Lernt Deutsch!</td><td>Kommen Sie bitte hier! · Machen Sie die Hausaufgabe! · Lesen Sie das Buch! · Lernen Sie Deutsch!</td></tr></tbody></table><p><strong>Merke:</strong> Der Imperativ ist kurz und direkt. Achte auf die richtige Form! Höflich mit „Sie“, freundlich mit „du“ und „ihr“.</p><p><em><strong>Redaktioneller Hinweis:</strong> Im Buch steht beim Imperativ mit „du“ „Verbstamm + t/Ø“ (Druckfehler). Richtig ist Verbstamm + e/Ø — wie die Beispiele im Buch zeigen: Lerne Deutsch! · Komm! · Mach die Hausaufgabe!</em></p>"
     }
    ]
   },
