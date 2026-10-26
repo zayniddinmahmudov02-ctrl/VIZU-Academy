@@ -1,7 +1,7 @@
 import re
 import secrets
 from datetime import UTC, datetime, timedelta
-from uuid import UUID
+from uuid import UUID, uuid4
 
 from fastapi import HTTPException
 
@@ -240,13 +240,15 @@ def issue_refresh_token(
     user: User,
     remember: bool = True,
     expires_at: datetime | None = None,
+    session_id: UUID | None = None,
 ) -> str:
     """Generates a new opaque refresh token, persists it, and returns the
     raw value to hand back to the client. Storing the raw token (not a
     hash) matches the existing `refresh_tokens` table shape — see
     RefreshToken model. `remember=False` issues the short session
     lifetime; an explicit `expires_at` (used when rotating a short
-    session) pins the absolute expiry."""
+    session) pins the absolute expiry. `session_id` ties the row to its
+    login session (the access token's `sid`)."""
 
     token = secrets.token_urlsafe(48)
     if expires_at is None:
@@ -261,6 +263,7 @@ def issue_refresh_token(
         user_id=str(user.id),
         token=token,
         expires_at=expires_at,
+        session_id=session_id,
     )
 
     return token
@@ -271,10 +274,17 @@ def issue_token_pair(
     user: User,
     remember: bool = True,
     expires_at: datetime | None = None,
+    session_id: UUID | None = None,
 ) -> Token:
+    """Access + refresh token of one session. A new login (password or
+    Telegram) gets a new session id; a refresh passes the existing one, so
+    access tokens issued before the rotation stay valid (no race between
+    parallel requests) until the session is logged out."""
+
+    session_id = session_id or uuid4()
     return Token(
-        access_token=create_user_token(user),
-        refresh_token=issue_refresh_token(db, user, remember, expires_at),
+        access_token=create_user_token(user, extra_claims={"sid": str(session_id)}),
+        refresh_token=issue_refresh_token(db, user, remember, expires_at, session_id),
         token_type="bearer",
     )
 
@@ -312,22 +322,30 @@ def refresh_access_token(
     now = datetime.now(UTC).replace(tzinfo=None)
     short_window = timedelta(hours=settings.REFRESH_TOKEN_SESSION_EXPIRE_HOURS)
     pinned = stored.expires_at if stored.expires_at - now <= short_window else None
+    # rows from before session ids existed start a session on their first rotation
+    session_id = getattr(stored, "session_id", None) or uuid4()
     repository.delete(stored)
 
-    return issue_token_pair(db, user, expires_at=pinned)
+    return issue_token_pair(db, user, expires_at=pinned, session_id=session_id)
 
 
 def revoke_refresh_token(
     db: Session,
     refresh_token: str,
 ) -> None:
-    """Logout. Deleting an unknown token is a no-op, not an error —
-    logout should always succeed from the client's point of view."""
+    """Logout. Ends the whole session: its refresh tokens are deleted, so
+    access tokens carrying its `sid` are refused from the next request on
+    (get_current_user). Deleting an unknown token is a no-op, not an
+    error — logout should always succeed from the client's point of view."""
 
     repository = RefreshTokenRepository(db)
     stored = repository.get_by_token(refresh_token)
 
-    if stored is not None:
+    if stored is None:
+        return
+    if stored.session_id is not None:
+        repository.delete_session(stored.session_id)
+    else:
         repository.delete(stored)
 
 
@@ -358,11 +376,9 @@ def change_password(
 ) -> bool:
     """Returns False if the current password is wrong. On success, revokes
     every outstanding refresh token for this user — other sessions can no
-    longer silently refresh with the old credential's trust; the access
-    token they're still holding expires naturally within
-    ACCESS_TOKEN_EXPIRE_MINUTES, same as every other standing-change in
-    this codebase (ban/suspend re-checked per-request, not via a JWT
-    blacklist)."""
+    longer refresh, and their access tokens (which carry a `sid`) are
+    refused from the next request on, the current session included (the
+    client logs out after a password change)."""
 
     if not verify_password(current_password, user.password_hash):
         return False

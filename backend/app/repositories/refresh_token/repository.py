@@ -1,4 +1,5 @@
 from datetime import datetime
+from uuid import UUID
 
 from sqlalchemy import select
 from sqlalchemy.orm import Session
@@ -36,12 +37,14 @@ class RefreshTokenRepository(BaseRepository[RefreshToken]):
         user_id: str,
         token: str,
         expires_at: datetime,
+        session_id: UUID | None = None,
     ) -> RefreshToken:
 
         refresh_token = RefreshToken(
             user_id=user_id,
             token=token,
             expires_at=expires_at,
+            session_id=session_id,
         )
 
         self.db.add(refresh_token)
@@ -49,6 +52,35 @@ class RefreshTokenRepository(BaseRepository[RefreshToken]):
         self.db.refresh(refresh_token)
 
         return refresh_token
+
+    def session_is_active(
+        self,
+        session_id: UUID,
+        now: datetime,
+    ) -> bool:
+        """True while the session still has an unexpired refresh token —
+        the per-request check behind access-token revocation."""
+
+        result = self.db.execute(
+            select(RefreshToken.id).where(
+                RefreshToken.session_id == session_id,
+                RefreshToken.expires_at > now,
+            ).limit(1)
+        )
+
+        return result.first() is not None
+
+    def delete_session(
+        self,
+        session_id: UUID,
+    ) -> None:
+        """Logout: removes every refresh token of one login session."""
+
+        self.db.query(RefreshToken).filter(
+            RefreshToken.session_id == session_id,
+        ).delete()
+
+        self.db.commit()
 
     def delete_all_for_user(
         self,

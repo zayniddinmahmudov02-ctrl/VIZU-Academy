@@ -30,12 +30,9 @@ flow), `use-current-user.ts`, `use-bfcache-auth-recheck.ts`,
    feature (lesson content, admin rich text, ads). Mitigations in place:
    server-side HTML sanitising (`core/utils/safe_html.py`), React escaping.
    A strict CSP is **not** in place.
-2. **Logout does not end the current access token.** `POST /auth/logout`
-   deletes the refresh row. An access JWT that was already issued keeps
-   working until `exp`, up to 60 minutes, because `get_current_user` does
-   not check a session id. The browser forgets the token immediately, but a
-   copied token keeps working. (Verified: `tests/test_auth_session_flow.py`
-   covers refresh revocation; access-token revocation is the gap.)
+2. ~~**Logout does not end the current access token.**~~ Fixed by
+   per-session revocation (below). Before that fix, a copied access JWT kept
+   working up to 60 minutes after logout.
 3. **Shared devices.** A remembered refresh token stays in `localStorage`
    until logout or expiry.
 4. **Rate-limit IP comes from client headers.** `_client_ip()` trusts
@@ -44,19 +41,29 @@ flow), `use-current-user.ts`, `use-bfcache-auth-recheck.ts`,
    traffic. Check the nginx config. Out of scope for the token move, but
    related.
 
-## Quick win, independent of cookies: per-session access revocation (fixes risk 2)
+## Per-session access revocation (fixes risk 2) — implemented, migration e5b1c7d9a3f2
 
-- Add claim `sid` = `refresh_tokens.id` to the access token in
-  `issue_token_pair`.
-- `get_current_user`: if `sid` is present, require that row to exist (one
-  primary-key lookup per request; the user row is already loaded).
-- Rotation deletes the old row. In-flight requests with the old access token
-  get 401 and the existing interceptor refreshes again. To avoid a refresh
-  storm, keep the replaced row for a short grace period (e.g. 30 s,
-  `replaced_at` column) instead of deleting it right away. That needs a
-  migration.
-- Tests: logout → `/users/me` with the old access token → 401; refresh →
-  old access token accepted only within the grace period.
+- `refresh_tokens.session_id` (nullable, indexed). Every login (password or
+  Telegram) starts a session. Rotation keeps the id, so access tokens issued
+  before a refresh stay valid and parallel requests have no race.
+- The access token carries the session as claim `sid`. `get_current_user`
+  (the only place that reads a Bearer token; every `require_*` gate goes
+  through it) refuses a `sid` that no longer has an unexpired refresh token,
+  with 401 "Session ended". That is one indexed lookup per request.
+- `POST /auth/logout` deletes every row of the session. A password change
+  deletes every row of the user. Both now end the matching access tokens on
+  the next request, not only after `exp`.
+- Purpose-scoped tokens (video stream, LMS resource, admin preview) are no
+  longer accepted as a login token (they are signed with the same key).
+- Still accepted with only their plain expiry: tokens without `sid`. These
+  are tokens issued before the deploy (gone ≤ 60 min after it) and admin
+  impersonation tokens (30 min, no session).
+- Not covered: the short-lived signed stream/resource URLs already handed
+  out (≤ `VIDEO_STREAM_TOKEN_EXPIRE_MINUTES`; they recheck the user's
+  access, not the session).
+- Tests: `tests/test_session_revocation.py` (unit) and
+  `tests/test_auth_session_flow.py` (real HTTP + PostgreSQL: logout, second
+  device, refresh, expired session, password change, Telegram, every gate).
 
 ## Target: HttpOnly cookies (fixes risks 1 and 3 for the refresh token)
 

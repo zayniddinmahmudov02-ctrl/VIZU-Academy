@@ -1,4 +1,5 @@
 from datetime import datetime, timezone
+from uuid import UUID
 
 from fastapi import (
     Depends,
@@ -20,6 +21,7 @@ from app.core.security.roles import UserRole
 from app.db.session import get_db
 
 from app.models.user import User
+from app.repositories.refresh_token import RefreshTokenRepository
 
 from app.services.auth.service import (
     get_user_by_id,
@@ -66,11 +68,32 @@ async def get_current_user(
 
     user_id = payload.get("sub")
 
-    if not user_id:
+    # purpose-scoped grants (video stream, LMS resource, admin preview) are
+    # signed with the same key but are never a login credential
+    if not user_id or payload.get("purpose") is not None:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid token",
         )
+
+    # Logout / password change revoke the session server-side: an access
+    # token of a session without a live refresh token is refused at once,
+    # not only when it expires. Tokens without `sid` (issued before session
+    # ids existed, or admin impersonation) keep their plain expiry.
+    session_id = payload.get("sid")
+    if session_id is not None:
+        try:
+            sid = UUID(str(session_id))
+        except ValueError:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid token",
+            )
+        if not RefreshTokenRepository(db).session_is_active(sid, datetime.now(timezone.utc).replace(tzinfo=None)):
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Session ended",
+            )
 
     try:
         user = get_user_by_id(
