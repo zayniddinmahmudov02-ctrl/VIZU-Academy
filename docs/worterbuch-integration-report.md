@@ -172,9 +172,43 @@ Barcha endpointlar `get_current_user` talab qiladi. Foydalanuvchi har doim token
 5. Frontend'ni bo‘sh slotga build qilish.
 6. Smoke test: `/woerterbuch`.
 
-## 11. Qolgan masalalar
+## 11. Ko‘rib chiqish va tuzatish (2026-10-28, Claude)
 
-- 5600 qatorning hammasi `needs_review`. O‘qituvchi tekshiruvi uchun admin sahifa yo‘q; tuzatishlar CSV'ni tahrirlab, qayta import qilish orqali kiritiladi.
+Loyiha egasining topshirig‘iga ko‘ra o‘qituvchi tekshiruvi o‘tkazilmaydi. Barcha 3389 so‘zni (tarjima, so‘z turkumi, grammatika, takrorlar) Claude ko‘rib chiqdi. Shuning uchun `verified` = **Claude ko‘rib chiqqan va tuzatgan**, o‘qituvchi tasdig‘i emas.
+
+- **Qanday qo‘llanadi:**
+  - tuzatishlar `backend/app/data/woerterbuch/review_2026-10-28.json` faylida;
+  - `python -m app.scripts.woerterbuch.apply_review` ularni `docs/` ga yozadi;
+  - har bir o‘zgarish `docs/worterbuch-review-log.csv` da qayd etiladi (daraja, id, maydon, eski, yangi, sabab);
+  - ikkinchi marta ishga tushirilganda hech narsa o‘zgarmaydi (test bilan tekshiriladi).
+- **Tarjimalar:**
+  - ~80 ta xato yoki noaniq tarjima tuzatildi. Masalan: `der Wolkenkratzer` („skyscraper“ → osmono‘par bino), `das Betriebssystem` (→ operatsion tizim), `das Vorurteil` („xurofot“ → bir yoqlama qarash), `zuversichtlich` („ishonchli“ → umidvor), `hilfsbereit` („yordamchi“ → yordamga tayyor), `der Antrag` („so‘rovnoma“ → ariza), `misslingen`, `gleichsam`, `enden`, `meinen`, `heilen`;
+  - har bir so‘zga barcha darajalarda bitta asosiy tarjima beriladi, qolgan to‘g‘ri ma’nolar „boshqa ma’nolar“ ro‘yxatiga o‘tadi.
+- **So‘zlar (lemma):**
+  - 14 ta noto‘g‘ri yoki xato yozilgan so‘z tuzatildi: `die Sicherheitlücke` → `die Sicherheitslücke`, `gemütvoll` → `gemütlich`, `-stöckig` → `mehrstöckig`, `möglich qilmoq` → `möglich machen` va boshqalar;
+  - 7 ta iboraning yozilishi yoki so‘z tartibi tuzatildi (`leichtfallen`, `einen Termin vereinbaren`, `sich beschäftigen mit` …);
+  - `das Krankenhausticket` (nemis tilida bunday so‘z yo‘q) o‘chirildi.
+- **Grammatika:**
+  - `sich bewegen` → bewegte/bewegt;
+  - `die Bank` (bank) → Banken;
+  - Dativ bilan ishlatiladigan refleksiv fe’llar: `sich merken` → merke mir, `sich verschaffen` → verschaffe mir;
+  - ikkala yordamchi fe’l (haben/sein) berilgan 20 ta fe’lda bittasi tanlandi;
+  - shakllari bo‘lmagan 20 ta fe’l iborasi va so‘z turkumi aniqlanmagan 24 ta so‘z to‘ldirildi;
+  - sanalmaydigan ~60 ta otdagi sun’iy ko‘plik olib tashlandi;
+  - `-ern` bilan tugaydigan fe’llarning ich-shakli standart ko‘rinishga keltirildi (wandere).
+- **Takrorlar:**
+  - bir daraja ichidagi 1705 ta takror qator birlashtirildi;
+  - `docs/worterbuch-merges.csv` qaysi qator qaysiga birlashganini ko‘rsatadi;
+  - `import_woerterbuch --prune` talabalarning saqlangan so‘zlarini saqlab qolingan qatorga ko‘chiradi, keyin takrorni o‘chiradi;
+  - turli darajalardagi bir xil so‘z ataylab saqlanadi (kartochkada „B1 ro‘yxatida ham“ deb ko‘rsatiladi).
+- **Natija:** 3893 qator (A1 738, A2 631, B1 246, B2 1236, C1 1042). `verified` 3883 ta, `needs_review` 10 ta:
+  - nemis tilida g‘ayritabiiy qo‘shma so‘zlar: Mannschaftskarte, Einkaufsparty, Kreditrechnung, Formularblatt, Inhaltspunkt, Kaufzentrum, Angebotssystem, Naturproblem, Fortschrittstest;
+  - `E-Health` — artikli aniq emas.
+- **Zaxira nusxa:** ko‘rib chiqishdan oldingi fayllar `docs/backup/woerterbuch-csv-before-review-20261028/` (lokal) va git tarixida (8f9e982) saqlangan.
+
+## 12. Qolgan masalalar
+
+- 10 ta qator `needs_review` (11-bo‘lim). Admin tahrirlash sahifasi yo‘q; tuzatishlar CSV yoki review fayli orqali kiritiladi, keyin qayta import qilinadi.
 - Brauzerda qo‘lda UI sinovi qilinmagan (desktop va mobil).
 - `docs/` dagi CSV endi manba. `export_csv.py --force` ularni qayta yozib, qo‘lda kiritilgan tuzatishlarni o‘chirib yuboradi; uni faqat ataylab ishlatish kerak.
 - „ging“ kabi so‘zlar topilmaydi, agar ularning lemmasi (gehen) ro‘yxatda bo‘lmasa. Qidiruv faqat CSV'dagi shakllar bo‘yicha ishlaydi.
