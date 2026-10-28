@@ -157,6 +157,9 @@ class TestDataFile(unittest.TestCase):
         self.assertEqual(by["die Entscheidung"]["grammar"]["plural"], "die Entscheidungen")
         self.assertEqual(by["berücksichtigen"]["grammar"]["perfekt"], "hat berücksichtigt")
         self.assertEqual(by["praktisch"]["grammar"]["superlativ"], "am praktischsten")
+        # homonyms with other forms: the meaning decides, so a person must
+        for german in ("sich bewegen", "die Bank", "die Mutter", "übersetzen"):
+            self.assertEqual(by[german]["grammar_status"], "needs_review", german)
 
     def test_review_flags_reach_the_entries(self):
         by = {e["german"]: e for e in DATA["entries"]}
@@ -173,11 +176,73 @@ class TestDataFile(unittest.TestCase):
         self.assertTrue(by["die Entscheidung"]["is_published"])
 
 
+class TestCsvExport(unittest.TestCase):
+    """docs/{A1..C1}-words.csv in the 22-column format (export_csv.py)."""
+
+    @classmethod
+    def setUpClass(cls):
+        import csv
+
+        from app.scripts.woerterbuch import export_csv
+
+        cls.export_csv = export_csv
+        cls.files = {}
+        for level in source.LEVELS:
+            with (export_csv.DOCS / f"{level}-words.csv").open(encoding="utf-8", newline="") as f:
+                cls.files[level] = list(csv.reader(f))
+
+    def test_same_header_rows_ids_and_order_as_the_originals(self):
+        for level, rows in self.files.items():
+            with self.subTest(level=level):
+                self.assertEqual(tuple(rows[0]), self.export_csv.COLUMNS)
+                self.assertTrue(all(len(r) == 22 for r in rows))
+                original = source.read_rows(level)
+                self.assertEqual([int(r[0]) for r in rows[1:]], [r.row_id for r in original])
+                self.assertTrue(all(r[1] == level for r in rows[1:]))
+
+    def test_grammar_columns_only_for_their_word_type(self):
+        col = {c: i for i, c in enumerate(self.export_csv.COLUMNS)}
+        verb = [c for c in self.export_csv.COLUMNS if c.startswith(("verb_", "presens_"))]
+        for rows in self.files.values():
+            for r in rows[1:]:
+                with self.subTest(row=r[:3]):
+                    if r[col["word_type"]] != "Nomen":
+                        self.assertEqual(r[col["article"]] + r[col["plural"]], "")
+                    if r[col["word_type"]] != "Verb":
+                        self.assertEqual("".join(r[col[c]] for c in verb), "")
+                    if r[col["word_type"]] != "Adjektiv":
+                        self.assertEqual(r[col["adjective_komparativ"]] + r[col["adjective_superlativ"]], "")
+                    self.assertIn(r[col["status"]], ("verified", "needs_review"))
+                    self.assertFalse({"NULL", "None", "N/A"} & set(r))
+
+    def test_nothing_is_verified_before_a_teacher_review(self):
+        self.assertEqual(sum(r[-1] == "verified" for rows in self.files.values() for r in rows[1:]), 0)
+
+    def test_docs_validate_and_every_extra_row_is_linked(self):
+        from app.scripts.woerterbuch import docs_csv
+
+        loaded = docs_csv.load()
+        self.assertEqual((loaded.errors, loaded.warnings), ([], []))
+        self.assertEqual(len(loaded.rows), 5600)
+        self.assertTrue(all(r.extra.get("quiz_distractors") for r in loaded.rows))
+        self.assertTrue(all(r.review for r in loaded.rows if r.values["status"] == "needs_review"))
+
+    def test_known_rows(self):
+        rows = {(r[1], r[2]): dict(zip(self.export_csv.COLUMNS, r)) for rows in self.files.values() for r in rows[1:]}
+        apfel = rows[("A1", "Apfel")]
+        self.assertEqual((apfel["article"], apfel["plural"], apfel["audio_text"]), ("der", "Äpfel", "der Apfel"))
+        anrufen = rows[("A1", "anrufen")]
+        self.assertEqual((anrufen["verb_praeteritum"], anrufen["verb_auxiliary"], anrufen["presens_du"]), ("rief an", "haben", "rufst an"))
+        self.assertEqual(rows[("A2", "lärmlich")]["audio_text"], "")  # not a German word: nothing for TTS
+
+
 DB_URL = os.environ.get("VIZU_WB_TEST_DB_URL")
 
 
 @unittest.skipUnless(DB_URL, "integration test: set VIZU_WB_TEST_DB_URL to a migrated test database")
 class TestDatabase(unittest.TestCase):
+    """docs/ CSVs -> import -> search, card, Random 5, saved words (PostgreSQL)."""
+
     @classmethod
     def setUpClass(cls):
         from sqlalchemy import create_engine
@@ -189,7 +254,7 @@ class TestDatabase(unittest.TestCase):
         cls.engine = create_engine(DB_URL)
         cls.Session = sessionmaker(bind=cls.engine)
         db = cls.Session()
-        import_woerterbuch.run(db, DATA["entries"], dry_run=False)
+        import_woerterbuch.run(db)
         cls.users = []
         for _ in range(2):
             u = User(email=f"wb-{uuid.uuid4().hex[:8]}@test.local", username=f"wb_{uuid.uuid4().hex[:8]}", password_hash="x",
@@ -209,81 +274,163 @@ class TestDatabase(unittest.TestCase):
     def tearDown(self):
         self.db.close()
 
-    def test_import_is_idempotent(self):
+    def _count(self, *where):
+        from sqlalchemy import func, select
+
+        from app.models.dictionary import DictionaryEntry
+
+        return self.db.scalar(select(func.count()).select_from(DictionaryEntry).where(*where))
+
+    def test_every_csv_row_imported_with_its_id_level_and_extra_data(self):
+        from sqlalchemy import select
+
+        from app.models.dictionary import DictionaryEntry as E
         from app.scripts import import_woerterbuch
 
-        stats = import_woerterbuch.run(self.db, DATA["entries"], dry_run=True)
-        self.assertEqual((stats["create"], stats["update"], stats["unchanged"]), (0, 0, len(DATA["entries"])))
+        self.assertEqual({lv: self._count(E.level == lv) for lv in source.LEVELS}, {"A1": 1000, "A2": 1000, "B1": 1000, "B2": 1500, "C1": 1100})
+        apfel = self.db.scalar(select(E).where(E.level == "A1", E.source_id == 1))
+        self.assertEqual((apfel.lemma, apfel.article, apfel.plural, apfel.translation), ("Apfel", "der", "Äpfel", "olma"))
+        self.assertEqual(len(apfel.extra["quiz_distractors"]), 2)
+        # nothing is promoted to verified; repeats are kept, not deleted
+        self.assertEqual(self._count(E.status == "verified"), 0)
+        self.assertEqual(self._count(E.is_primary.is_(False)), 262 + 366 + 753 + 264 + 57)
+        stats = import_woerterbuch.run(self.db, dry_run=True)
+        self.assertEqual(sum(s.get("unchanged", 0) for s in stats["levels"].values()), 5600)
+        self.assertEqual(sum(s.get("created", 0) + s.get("updated", 0) for s in stats["levels"].values()), 0)
 
-    def test_search_ranks_exact_then_prefix(self):
+    def test_search_prefix_first_then_contains(self):
         from app.services import dictionary as svc
 
-        res = svc.search(self.db, "Entscheidung")
-        self.assertEqual(res["items"][0]["german"], "die Entscheidung")
-        self.assertEqual(svc.search(self.db, "die entscheidung")["items"][0]["german"], "die Entscheidung")
-        self.assertEqual(svc.search(self.db, "ueberzeugen")["items"][0]["lemma"][:6], "überze")
+        res = svc.search(self.db, self.user, "Haus", page_size=20)
+        lemmas = [i["lemma"] for i in res["items"]]
+        self.assertEqual(lemmas[0], "Haus")
+        starts = [source.search_key(x).startswith("haus") for x in lemmas]
+        self.assertEqual(starts, sorted(starts, reverse=True))  # every prefix match before any other match
+        self.assertGreater(sum(starts), 1)
+        self.assertEqual(svc.search(self.db, self.user, "haus")["items"][0]["lemma"], "Haus")
 
-    def test_search_by_uzbek_and_filters(self):
+    def test_search_uzbek_umlauts_forms_and_filters(self):
         from app.services import dictionary as svc
 
-        res = svc.search(self.db, "olma")
-        self.assertEqual(res["items"][0]["german"], "der Apfel")
-        a1 = svc.search(self.db, "e", level="A1", page_size=50)
-        self.assertTrue(all("A1" in i["levels"] for i in a1["items"]))
-        verbs = svc.search(self.db, "en", pos="Verb", page_size=50)
-        self.assertTrue(verbs["items"] and all(i["part_of_speech"] == "Verb" for i in verbs["items"]))
-        self.assertEqual(svc.search(self.db, "%")["total"], 0)  # LIKE wildcards are literal
-        self.assertEqual(svc.search(self.db, "   ")["total"], 0)
+        top = lambda q, **kw: [i["lemma"] for i in svc.search(self.db, self.user, q, **kw)["items"]]  # noqa: E731
+        self.assertIn("Haus", top("uy")[:3])
+        self.assertEqual(top("Äpfel")[0], "Apfel")  # plural form
+        self.assertEqual(top("aepfel")[0], "Apfel")
+        self.assertEqual(top("Strasse"), top("Straße"))
+        self.assertIn("laufen", top("läuft"))  # Präsens form
+        self.assertTrue(all(i["level"] == "B2" for i in svc.search(self.db, self.user, "e", level="B2", page_size=50)["items"]))
+        verbs = svc.search(self.db, self.user, "en", word_type="Verb", page_size=50)["items"]
+        self.assertTrue(verbs and all(i["word_type"] == "Verb" for i in verbs))
+        self.assertEqual(svc.search(self.db, self.user, "%")["total"], 0)  # LIKE wildcards are literal
+        self.assertEqual(svc.search(self.db, self.user, "  ")["total"], 0)
+        # a repeated row is offered once per level
+        items = svc.search(self.db, self.user, "zuverlässig", page_size=50)["items"]
+        pairs = [(i["level"], i["lemma"]) for i in items]
+        self.assertEqual(len(pairs), len(set(pairs)))
 
-    def test_random_five_distinct_unseen_first_then_refill(self):
+    def test_card_by_word_type_and_hidden_rows(self):
+        from fastapi import HTTPException
+        from sqlalchemy import select
+
+        from app.models.dictionary import DictionaryEntry as E
         from app.services import dictionary as svc
 
-        pool = svc.meta(self.db)["levels"]["B1"]
-        seen = []
-        for _ in range(pool // 5):
-            batch = svc.random_five(self.db, self.user, "B1")
-            ids = [i["id"] for i in batch["items"]]
-            self.assertEqual(len(ids), len(set(ids)))
-            self.assertEqual(len(ids), 5)
-            self.assertTrue(set(ids).isdisjoint(seen))  # no word twice while unseen ones remain
-            self.assertTrue(all("B1" in i["levels"] for i in batch["items"]))
-            seen += ids
-        batch = svc.random_five(self.db, self.user, "B1")  # pool nearly exhausted: refill, still 5 distinct
-        ids = [i["id"] for i in batch["items"]]
-        self.assertEqual(len(set(ids)), 5)
-        self.assertEqual(batch["unseen_before"], pool - len(seen))
-        # another student is not affected
-        self.assertEqual(svc.random_five(self.db, self.other, "B1")["unseen_before"], pool)
-
-    def test_mark_saved_and_my_words_are_per_user(self):
-        from app.services import dictionary as svc
-
-        sid = svc.search(self.db, "Apfel")["items"][0]["id"]
-        svc.set_saved(self.db, self.user, sid, True)
-        card = svc.mark(self.db, self.user, sid, "unknown")
-        self.assertEqual((card["me"]["saved"], card["me"]["status"]), (True, "unknown"))
-        card = svc.mark(self.db, self.user, sid, "known")
-        self.assertEqual(card["me"]["status"], "known")
-        mine = svc.my_words(self.db, self.user, "saved")
-        self.assertIn(sid, [i["id"] for i in mine["items"]])
-        self.assertNotIn(sid, [i["id"] for i in svc.my_words(self.db, self.other, "saved")["items"]])
-        self.assertFalse(svc.entry_card(self.db, self.other, sid)["me"]["saved"])
-
-    def test_card_hides_audit_data(self):
-        from app.services import dictionary as svc
-
-        card = svc.entry_card(self.db, self.user, svc.search(self.db, "berücksichtigen")["items"][0]["id"])
-        self.assertNotIn("sources", card)
-        self.assertNotIn("review_notes", card)
-        self.assertEqual(card["grammar"]["praeteritum"], "berücksichtigte")
+        anrufen = svc.search(self.db, self.user, "anrufen")["items"][0]
+        card = svc.entry_card(self.db, self.user, anrufen["id"])
+        self.assertEqual((card["verb"]["praeteritum"], card["verb"]["auxiliary"]), ("rief an", "haben"))
+        self.assertEqual([p["person"] for p in card["verb"]["praesens"]], ["ich", "du", "er/sie/es", "wir", "ihr", "sie/Sie"])
+        self.assertIsNone(card["adjective"])
+        self.assertNotIn("quiz_distractors", card["details"])
+        self.assertNotIn("review", card)
+        self.assertEqual(card["status"], "needs_review")
         self.assertEqual(card["attribution"]["license"], "CC BY-SA 4.0")
+        zuv = svc.entry_card(self.db, self.user, svc.search(self.db, self.user, "zuverlässig", level="A2")["items"][0]["id"])
+        self.assertEqual(zuv["adjective"]["komparativ"], "zuverlässiger")
+        self.assertIn("B1", zuv["also_in"])
+        hidden = self.db.scalar(select(E).where(E.is_published.is_(False)).limit(1))
+        with self.assertRaises(HTTPException):
+            svc.entry_card(self.db, self.user, hidden.word_id)
+        self.assertEqual(svc.search(self.db, self.user, "Sicherheitlücke")["total"], 0)
+        with self.assertRaises(HTTPException):
+            svc.entry_card(self.db, self.user, "X9-1")
 
-    def test_flagged_headwords_are_not_served(self):
+    def test_random_five_distinct_mixed_levels_and_fresh(self):
         from app.services import dictionary as svc
 
-        self.assertEqual([i["german"] for i in svc.search(self.db, "Sicherheitlücke")["items"]], [])
-        self.assertNotIn("die Sicherheitlücke", [i["german"] for i in svc.search(self.db, "Sicherheit")["items"]])
-        self.assertIn("der Sicherheitsgurt", [i["german"] for i in svc.search(self.db, "Sicherheit")["items"]])
+        previous: set[str] = set()
+        for _ in range(8):
+            draw = svc.random_five(self.db, self.user)
+            ids = [i["id"] for i in draw["items"]]
+            self.assertEqual(len(ids), 5)
+            self.assertEqual(len(set(ids)), 5)
+            self.assertEqual(len({source.search_key(i["lemma"]) for i in draw["items"]}), 5)  # never the same German word twice
+            self.assertEqual(sorted(i["level"] for i in draw["items"]), list(source.LEVELS))  # one per level
+            self.assertTrue(previous.isdisjoint(ids))  # "Yana 5 ta": just-seen words do not come back
+            previous = set(ids)
+        b1 = svc.random_five(self.db, self.user, "B1")
+        self.assertTrue(all(i["level"] == "B1" for i in b1["items"]))
+        self.assertEqual(len({i["id"] for i in b1["items"]}), 5)
+
+    def test_star_is_per_user_idempotent_and_in_sync(self):
+        from sqlalchemy import func, select
+
+        from app.models.dictionary import DictionaryUserWord as W
+        from app.services import dictionary as svc
+
+        word = svc.search(self.db, self.user, "Apfel")["items"][0]
+        for _ in range(2):  # saving twice keeps one row
+            svc.set_saved(self.db, self.user, word["id"], True)
+        rows = self.db.scalar(select(func.count()).select_from(W).where(W.user_id == self.user.id, W.saved.is_(True)))
+        self.assertEqual(rows, 1)
+        self.assertTrue(svc.search(self.db, self.user, "Apfel")["items"][0]["saved"])
+        self.assertTrue(svc.entry_card(self.db, self.user, word["id"])["saved"])
+        mine = svc.saved_words(self.db, self.user)
+        self.assertEqual([i["id"] for i in mine["items"]], [word["id"]])
+        self.assertEqual(mine["by_level"]["A1"], 1)
+        self.assertEqual(svc.saved_words(self.db, self.user, q="olma")["total"], 1)
+        self.assertEqual(svc.saved_words(self.db, self.user, level="C1")["total"], 0)
+        # another student sees nothing of it
+        self.assertEqual(svc.saved_words(self.db, self.other)["total"], 0)
+        self.assertFalse(svc.search(self.db, self.other, "Apfel")["items"][0]["saved"])
+        svc.set_saved(self.db, self.user, word["id"], False)
+        self.assertEqual(svc.saved_words(self.db, self.user)["total"], 0)
+        self.assertFalse(svc.entry_card(self.db, self.user, word["id"])["saved"])
+
+
+class TestApi(unittest.TestCase):
+    def test_every_dictionary_route_requires_a_logged_in_user(self):
+        from app.api.dependencies.auth import get_current_user
+        from app.api.dictionary.router import router
+
+        for route in router.routes:
+            with self.subTest(route=route.path):
+                self.assertIn(get_current_user, [d.call for d in route.dependant.dependencies])
+
+    def test_import_rejects_broken_files_without_writing(self):
+        import shutil
+        import tempfile
+
+        from app.scripts import import_woerterbuch
+        from app.scripts.woerterbuch import docs_csv
+
+        with tempfile.TemporaryDirectory() as tmp:
+            for p in docs_csv.DOCS_DIR.glob("*.csv"):
+                shutil.copy(p, tmp)
+            a1 = Path(tmp) / "A1-words.csv"
+            lines = a1.read_text(encoding="utf-8").splitlines()
+            lines[3] = lines[2]  # duplicate id
+            lines[4] = lines[4].replace("needs_review", "checked")  # unknown status
+            a1.write_text("\n".join(lines), encoding="utf-8")
+
+            class NoDb:
+                def scalars(self, *_):
+                    raise AssertionError("the database must not be touched")
+
+            with self.assertRaises(import_woerterbuch.ImportRejected) as ctx:
+                import_woerterbuch.run(NoDb(), Path(tmp))
+            text = " ".join(ctx.exception.errors)
+            self.assertIn("duplicate id", text)
+            self.assertIn("status", text)
 
 
 if __name__ == "__main__":

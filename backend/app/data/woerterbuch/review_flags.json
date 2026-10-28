@@ -27,5 +27,6 @@
 "das Vorurteil": {"kind": "translation", "note": "„xurofot“ noto‘g‘ri; to‘g‘risi: bir yoqlama qarash / noxolis fikr"},
 "folglich argumentieren": {"kind": "unidiomatic", "note": "keine feste Wendung (folglich = Konnektor)"},
 "folglich betrachtet": {"kind": "unidiomatic", "note": "keine feste Wendung (folglich = Konnektor)"},
-"folglich interpretiert": {"kind": "unidiomatic", "note": "keine feste Wendung (folglich = Konnektor)"}
+"folglich interpretiert": {"kind": "unidiomatic", "note": "keine feste Wendung (folglich = Konnektor)"},
+"während": {"kind": "pos", "note": "Tarjima „holbuki“ va misol Konjunktion ma’nosida; Präposition (+ Genitiv) emas"}
 }

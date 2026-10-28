@@ -917,7 +917,9 @@
 },
 "ipa": "[ˈʁaɪ̯zn̩]",
 "pos": "Verb",
-"reasons": [],
+"reasons": [
+"grammar:verb_homonym_forms_differ"
+],
 "source": "wiktionary"
 },
 "wb-02ebe193bc90": {
@@ -3121,7 +3123,9 @@
 },
 "ipa": "/ˈʊmˌbaʊ̯ən/",
 "pos": "Verb",
-"reasons": [],
+"reasons": [
+"grammar:verb_homonym_forms_differ"
+],
 "source": "wiktionary"
 },
 "wb-09610954f8de": {
@@ -6994,7 +6998,9 @@
 },
 "ipa": "/ˌviːdɐˈhoːlən/",
 "pos": "Verb",
-"reasons": [],
+"reasons": [
+"grammar:verb_homonym_forms_differ"
+],
 "source": "wiktionary"
 },
 "wb-188beb87fd6e": {
@@ -11482,7 +11488,9 @@
 },
 "ipa": "/ʁeˈɡaːl/",
 "pos": "Nomen",
-"reasons": [],
+"reasons": [
+"grammar:noun_homonym_forms_differ"
+],
 "source": "wiktionary"
 },
 "wb-2bf762ac2b5d": {
@@ -17867,7 +17875,9 @@
 },
 "ipa": "/pʁomoˈtsi̯oːn/",
 "pos": "Nomen",
-"reasons": [],
+"reasons": [
+"grammar:noun_homonym_forms_differ"
+],
 "source": "wiktionary"
 },
 "wb-42eb0c3fac02": {
@@ -20815,7 +20825,9 @@
 },
 "ipa": "/ˈfʊtər/",
 "pos": "Nomen",
-"reasons": [],
+"reasons": [
+"grammar:noun_homonym_forms_differ"
+],
 "source": "wiktionary"
 },
 "wb-4c1a8d3af2ec": {
@@ -21555,7 +21567,8 @@
 "ipa": "/ˈdʊrçˌzɛtsən/",
 "pos": "Verb",
 "reasons": [
-"grammar:reflexive_pronoun_accusative_assumed"
+"grammar:reflexive_pronoun_accusative_assumed",
+"grammar:verb_homonym_forms_differ"
 ],
 "source": "wiktionary"
 },
@@ -22231,7 +22244,9 @@
 },
 "ipa": "/t͡sɔl/",
 "pos": "Nomen",
-"reasons": [],
+"reasons": [
+"grammar:noun_homonym_forms_differ"
+],
 "source": "wiktionary"
 },
 "wb-50ed2077fdfa": {
@@ -28164,7 +28179,9 @@
 },
 "ipa": "/dʊʁçˈdɛŋkn̩/",
 "pos": "Verb",
-"reasons": [],
+"reasons": [
+"grammar:verb_homonym_forms_differ"
+],
 "source": "wiktionary"
 },
 "wb-680a83935d85": {
@@ -29496,7 +29513,9 @@
 },
 "ipa": "/ˈvaksn̩/",
 "pos": "Verb",
-"reasons": [],
+"reasons": [
+"grammar:verb_homonym_forms_differ"
+],
 "source": "wiktionary"
 },
 "wb-6dd3f1e8e7c3": {
@@ -32814,7 +32833,9 @@
 },
 "ipa": "/ˌyːbərˈzɛtsən/",
 "pos": "Verb",
-"reasons": [],
+"reasons": [
+"grammar:verb_homonym_forms_differ"
+],
 "source": "wiktionary"
 },
 "wb-7a2811bb12c0": {
@@ -33910,7 +33931,9 @@
 },
 "ipa": "/ˈliːt/",
 "pos": "Nomen",
-"reasons": [],
+"reasons": [
+"grammar:noun_homonym_forms_differ"
+],
 "source": "wiktionary"
 },
 "wb-7de01da0df6d": {
@@ -36217,7 +36240,9 @@
 },
 "ipa": "[ˈʔaʊ̯sdʁʊk]",
 "pos": "Nomen",
-"reasons": [],
+"reasons": [
+"grammar:noun_homonym_forms_differ"
+],
 "source": "wiktionary"
 },
 "wb-85a5a94ebc61": {
@@ -37310,7 +37335,9 @@
 },
 "ipa": "/baŋk/",
 "pos": "Nomen",
-"reasons": [],
+"reasons": [
+"grammar:noun_homonym_forms_differ"
+],
 "source": "wiktionary"
 },
 "wb-89ac82b45800": {
@@ -43649,7 +43676,9 @@
 },
 "ipa": "[ˌʊn.tɐˈʃʁaɪ̯.bn̩]",
 "pos": "Verb",
-"reasons": [],
+"reasons": [
+"grammar:verb_homonym_forms_differ"
+],
 "source": "wiktionary"
 },
 "wb-a165ad2c2036": {
@@ -61276,7 +61305,9 @@
 },
 "ipa": "/ɡlaːs/",
 "pos": "Nomen",
-"reasons": [],
+"reasons": [
+"grammar:noun_homonym_forms_differ"
+],
 "source": "wiktionary"
 },
 "wb-e2ea778c7825": {
@@ -65620,7 +65651,8 @@
 "ipa": "/bəˈveːɡən/",
 "pos": "Verb",
 "reasons": [
-"grammar:reflexive_pronoun_accusative_assumed"
+"grammar:reflexive_pronoun_accusative_assumed",
+"grammar:verb_homonym_forms_differ"
 ],
 "source": "wiktionary"
 },
@@ -68641,7 +68673,9 @@
 },
 "ipa": "/ˈmʊtər/",
 "pos": "Nomen",
-"reasons": [],
+"reasons": [
+"grammar:noun_homonym_forms_differ"
+],
 "source": "wiktionary"
 },
 "wb-fff475af16f3": {

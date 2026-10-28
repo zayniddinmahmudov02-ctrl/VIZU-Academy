@@ -1,8 +1,13 @@
-"""Wörterbuch: dictionary entries, per-student word state, Random 5 draws.
+"""Wörterbuch: dictionary entries (one per docs/*-words.csv row) and the
+student's word state (saved star, seen in Random 5).
 
-Additive only — three new tables, nothing existing is touched. Downgrade
-drops exactly these three tables (students' saved words and Random 5
-history are lost with them; the dictionary itself is re-importable).
+Additive only — two new tables, nothing existing is touched. Downgrade
+drops exactly these two tables (students' saved words are lost with them;
+the dictionary itself is re-importable from docs/).
+
+Never applied outside local test databases before 2026-10-28, so this
+revision was rewritten for the CSV-based schema instead of being followed
+by a drop-and-recreate revision.
 
 Revision ID: d4b8e2f6a9c1
 Revises: a7c2e9f4b1d6
@@ -29,42 +34,51 @@ def _base() -> list[sa.Column]:
     ]
 
 
+def _form(name: str) -> sa.Column:
+    return sa.Column(name, sa.String(120), nullable=True)
+
+
 def upgrade() -> None:
     op.create_table(
         "dictionary_entries",
         *_base(),
-        sa.Column("stable_id", sa.String(20), nullable=False, unique=True),
-        sa.Column("german", sa.String(255), nullable=False),
+        sa.Column("level", sa.String(2), nullable=False),
+        sa.Column("source_id", sa.Integer(), nullable=False),
         sa.Column("lemma", sa.String(255), nullable=False),
+        sa.Column("word_type", sa.String(30), nullable=True),
         sa.Column("article", sa.String(3), nullable=True),
-        sa.Column("reflexive", sa.Boolean(), nullable=False, server_default="false"),
-        sa.Column("part_of_speech", sa.String(30), nullable=True),
-        sa.Column("cefr_level", sa.String(2), nullable=False),
-        sa.Column("levels", postgresql.ARRAY(sa.String(2)), nullable=False),
-        sa.Column("translation", sa.String(255), nullable=False),
-        sa.Column("translations_extra", postgresql.JSONB(), nullable=False, server_default="[]"),
-        sa.Column("definition_de", sa.Text(), nullable=True),
-        sa.Column("grammar", postgresql.JSONB(), nullable=True),
-        sa.Column("grammar_source", sa.String(30), nullable=False, server_default="none"),
-        sa.Column("ipa", sa.String(120), nullable=True),
+        sa.Column("plural", sa.String(255), nullable=True),
+        sa.Column("translation", sa.Text(), nullable=False),
+        _form("verb_praeteritum"),
+        _form("verb_partizip_ii"),
+        sa.Column("verb_auxiliary", sa.String(20), nullable=True),
+        _form("presens_ich"),
+        _form("presens_du"),
+        _form("presens_er_sie_es"),
+        _form("presens_wir"),
+        _form("presens_ihr"),
+        _form("presens_sie_sie"),
+        _form("adjective_komparativ"),
+        _form("adjective_superlativ"),
         sa.Column("example_de", sa.Text(), nullable=True),
         sa.Column("example_uz", sa.Text(), nullable=True),
-        sa.Column("audio_url", sa.Text(), nullable=True),
-        sa.Column("translation_status", sa.String(20), nullable=False),
-        sa.Column("grammar_status", sa.String(20), nullable=False),
-        sa.Column("example_status", sa.String(20), nullable=False),
-        sa.Column("review_notes", postgresql.JSONB(), nullable=False, server_default="[]"),
-        sa.Column("sources", postgresql.JSONB(), nullable=False, server_default="[]"),
-        sa.Column("search_de", sa.String(255), nullable=False),
-        sa.Column("search_uz", sa.String(1000), nullable=False),
-        sa.Column("content_hash", sa.String(64), nullable=False),
+        sa.Column("audio_text", sa.String(255), nullable=True),
+        sa.Column("status", sa.String(20), nullable=False),
+        sa.Column("extra", postgresql.JSONB(), nullable=False, server_default="{}"),
+        sa.Column("review", postgresql.JSONB(), nullable=True),
+        sa.Column("group_key", sa.String(300), nullable=False),
+        sa.Column("is_primary", sa.Boolean(), nullable=False, server_default="true"),
         sa.Column("is_published", sa.Boolean(), nullable=False, server_default="true"),
+        sa.Column("search_de", sa.String(255), nullable=False),
+        sa.Column("search_uz", sa.Text(), nullable=False),
+        sa.Column("search_forms", sa.Text(), nullable=False, server_default=""),
+        sa.Column("content_hash", sa.String(64), nullable=False),
+        sa.UniqueConstraint("level", "source_id", name="uq_dictionary_entry_level_source_id"),
     )
-    op.create_index("ix_dictionary_entries_part_of_speech", "dictionary_entries", ["part_of_speech"])
-    op.create_index("ix_dictionary_entries_cefr_level", "dictionary_entries", ["cefr_level"])
+    op.create_index("ix_dictionary_entries_word_type", "dictionary_entries", ["word_type"])
     op.create_index("ix_dictionary_entries_search_de", "dictionary_entries", ["search_de"], postgresql_ops={"search_de": "text_pattern_ops"})
-    op.create_index("ix_dictionary_entries_search_uz", "dictionary_entries", ["search_uz"], postgresql_ops={"search_uz": "text_pattern_ops"})
-    op.create_index("ix_dictionary_entries_levels", "dictionary_entries", ["levels"], postgresql_using="gin")
+    op.create_index("ix_dictionary_entries_visible", "dictionary_entries", ["is_published", "is_primary", "level"])
+    op.create_index("ix_dictionary_entries_group", "dictionary_entries", ["level", "group_key"])
 
     op.create_table(
         "dictionary_user_words",
@@ -72,30 +86,16 @@ def upgrade() -> None:
         sa.Column("user_id", postgresql.UUID(as_uuid=True), sa.ForeignKey("users.id", ondelete="CASCADE"), nullable=False),
         sa.Column("entry_id", postgresql.UUID(as_uuid=True), sa.ForeignKey("dictionary_entries.id", ondelete="CASCADE"), nullable=False),
         sa.Column("saved", sa.Boolean(), nullable=False, server_default="false"),
-        sa.Column("status", sa.String(10), nullable=True),
+        sa.Column("saved_at", sa.DateTime(timezone=True), nullable=True),
         sa.Column("seen_count", sa.Integer(), nullable=False, server_default="0"),
-        sa.Column("known_count", sa.Integer(), nullable=False, server_default="0"),
-        sa.Column("unknown_count", sa.Integer(), nullable=False, server_default="0"),
         sa.Column("last_seen_at", sa.DateTime(timezone=True), nullable=True),
-        sa.Column("last_marked_at", sa.DateTime(timezone=True), nullable=True),
         sa.UniqueConstraint("user_id", "entry_id", name="uq_dictionary_user_word"),
     )
     op.create_index("ix_dictionary_user_words_user_id", "dictionary_user_words", ["user_id"])
+    op.create_index("ix_dictionary_user_words_entry_id", "dictionary_user_words", ["entry_id"])
     op.create_index("ix_dictionary_user_words_user_saved", "dictionary_user_words", ["user_id", "saved"])
-
-    op.create_table(
-        "dictionary_random_sessions",
-        *_base(),
-        sa.Column("user_id", postgresql.UUID(as_uuid=True), sa.ForeignKey("users.id", ondelete="CASCADE"), nullable=False),
-        sa.Column("level", sa.String(3), nullable=False),
-        sa.Column("entry_ids", postgresql.JSONB(), nullable=False),
-        sa.Column("pool_size", sa.Integer(), nullable=False),
-        sa.Column("unseen_before", sa.Integer(), nullable=False),
-    )
-    op.create_index("ix_dictionary_random_sessions_user_created", "dictionary_random_sessions", ["user_id", "created_at"])
 
 
 def downgrade() -> None:
-    op.drop_table("dictionary_random_sessions")
     op.drop_table("dictionary_user_words")
     op.drop_table("dictionary_entries")

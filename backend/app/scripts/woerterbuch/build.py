@@ -1,6 +1,6 @@
 """Builds app/data/woerterbuch/dictionary.json from
 
-  * docs/{A1..C1}-words.csv            (headwords, Uzbek answers, levels — source.py)
+  * source/{A1..C1}-words.csv          (original word lists, frozen: headwords, Uzbek answers, levels — source.py)
   * wiktionary_grammar.json            (resolved grammar, CC BY-SA 4.0 — wiktionary.py)
   * examples/{A1..C1}-n.json           (example sentences written for VIZU, all needs_review)
   * review_flags.json                  (source problems found by hand; become review notes)
@@ -9,12 +9,12 @@
     python -m app.scripts.woerterbuch.build --wiktionary SUBSET   # re-resolve grammar first
     python -m app.scripts.woerterbuch.build --report              # print the audit numbers
 
-The CSV files are only read; a byte copy of each is kept in data/woerterbuch/source/."""
+The original CSV files are only read. docs/{A1..C1}-words.csv are the converted
+22-column lists written from dictionary.json by export_csv.py."""
 
 import argparse
 import hashlib
 import json
-import shutil
 from collections import Counter
 from pathlib import Path
 
@@ -59,15 +59,9 @@ def load_review_flags(known: set[str]) -> dict[str, dict]:
     return flags
 
 
-def backup_sources() -> list[dict]:
-    target = DATA / "source"
-    target.mkdir(parents=True, exist_ok=True)
-    files = []
-    for level in source.LEVELS:
-        src = source.DOCS_DIR / f"{level}-words.csv"
-        shutil.copyfile(src, target / src.name)
-        files.append({"file": src.name, "sha256": hashlib.sha256(src.read_bytes()).hexdigest()})
-    return files
+def source_files() -> list[dict]:
+    return [{"file": p.name, "sha256": hashlib.sha256(p.read_bytes()).hexdigest()}
+            for p in (source.SOURCE_DIR / f"{level}-words.csv" for level in source.LEVELS)]
 
 
 def build() -> dict:
@@ -88,6 +82,8 @@ def build() -> dict:
                 reasons.append("translation:flagged")
             if flag["kind"] in LEMMA_PROBLEMS:
                 reasons.append("grammar:lemma_flagged")
+            if flag["kind"] == "pos":
+                reasons.append("pos:flagged")
         entries.append({
             "stable_id": e.stable_id,
             "german": e.german,
@@ -115,7 +111,7 @@ def build() -> dict:
             "sources": [{"level": r.level, "row": r.row_id, "german": r.german, "answer": r.correct,
                          "distractors": list(r.wrong), "repaired": r.repaired} for r in e.rows],
         })
-    return {"attribution": ATTRIBUTION, "source_files": backup_sources(), "entries": entries}
+    return {"attribution": ATTRIBUTION, "source_files": source_files(), "entries": entries}
 
 
 def report(doc: dict) -> None:

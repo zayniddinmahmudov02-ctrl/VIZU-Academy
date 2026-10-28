@@ -67,7 +67,7 @@ from .achievement import Achievement, AchievementCategory, UserAchievement
 from .broadcast_notification import BroadcastNotification, BroadcastNotificationRead
 from .support import SupportMessage, SupportTicket
 from .lms import LearningResource, LessonCompetency, StudentCompetencyProgress
-from .dictionary import DictionaryEntry, DictionaryRandomSession, DictionaryUserWord
+from .dictionary import DictionaryEntry, DictionaryUserWord
 
 # Certificate
 from .certificate import Certificate

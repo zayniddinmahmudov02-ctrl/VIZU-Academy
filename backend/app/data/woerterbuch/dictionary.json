@@ -245,9 +245,11 @@
    "example_de": "Meine Mutter arbeitet in einem Krankenhaus.",
    "example_uz": "Onam kasalxonada ishlaydi.",
    "translation_status": "source",
-   "grammar_status": "sourced",
+   "grammar_status": "needs_review",
    "example_status": "needs_review",
-   "review_notes": [],
+   "review_notes": [
+    "grammar:noun_homonym_forms_differ"
+   ],
    "is_published": true,
    "sources": [
     {
@@ -9056,9 +9058,11 @@
    "example_de": "Das Glas ist leer.",
    "example_uz": "Stakan bo‘sh.",
    "translation_status": "source",
-   "grammar_status": "sourced",
+   "grammar_status": "needs_review",
    "example_status": "needs_review",
-   "review_notes": [],
+   "review_notes": [
+    "grammar:noun_homonym_forms_differ"
+   ],
    "is_published": true,
    "sources": [
     {
@@ -9851,9 +9855,11 @@
    "example_de": "Die Bank ist heute geschlossen.",
    "example_uz": "Bank bugun yopiq.",
    "translation_status": "source",
-   "grammar_status": "sourced",
+   "grammar_status": "needs_review",
    "example_status": "needs_review",
-   "review_notes": [],
+   "review_notes": [
+    "grammar:noun_homonym_forms_differ"
+   ],
    "is_published": true,
    "sources": [
     {
@@ -13023,9 +13029,11 @@
    "example_de": "Wir reisen gern.",
    "example_uz": "Biz sayohat qilishni yaxshi ko‘ramiz.",
    "translation_status": "source",
-   "grammar_status": "sourced",
+   "grammar_status": "needs_review",
    "example_status": "needs_review",
-   "review_notes": [],
+   "review_notes": [
+    "grammar:verb_homonym_forms_differ"
+   ],
    "is_published": true,
    "sources": [
     {
@@ -13069,9 +13077,11 @@
    "example_de": "Das Lied ist sehr schön.",
    "example_uz": "Bu qo‘shiq juda chiroyli.",
    "translation_status": "source",
-   "grammar_status": "sourced",
+   "grammar_status": "needs_review",
    "example_status": "needs_review",
-   "review_notes": [],
+   "review_notes": [
+    "grammar:noun_homonym_forms_differ"
+   ],
    "is_published": true,
    "sources": [
     {
@@ -14712,9 +14722,11 @@
    "example_de": "Die Bücher stehen im Regal.",
    "example_uz": "Kitoblar javonda turibdi.",
    "translation_status": "source",
-   "grammar_status": "sourced",
+   "grammar_status": "needs_review",
    "example_status": "needs_review",
-   "review_notes": [],
+   "review_notes": [
+    "grammar:noun_homonym_forms_differ"
+   ],
    "is_published": true,
    "sources": [
     {
@@ -33838,9 +33850,11 @@
    "example_de": "Können Sie das bitte wiederholen?",
    "example_uz": "Iltimos, buni takrorlay olasizmi?",
    "translation_status": "source",
-   "grammar_status": "sourced",
+   "grammar_status": "needs_review",
    "example_status": "needs_review",
-   "review_notes": [],
+   "review_notes": [
+    "grammar:verb_homonym_forms_differ"
+   ],
    "is_published": true,
    "sources": [
     {
@@ -34387,11 +34401,12 @@
    "example_de": "Bitte unterschreiben Sie hier.",
    "example_uz": "Iltimos, shu yerga imzo qo‘ying.",
    "translation_status": "needs_review",
-   "grammar_status": "sourced",
+   "grammar_status": "needs_review",
    "example_status": "needs_review",
    "review_notes": [
     "translation:variants",
-    "level:listed_in_A1+A2+B2"
+    "level:listed_in_A1+A2+B2",
+    "grammar:verb_homonym_forms_differ"
    ],
    "is_published": true,
    "sources": [
@@ -43855,10 +43870,11 @@
    "example_de": "Kannst du den Satz übersetzen?",
    "example_uz": "Bu gapni tarjima qila olasanmi?",
    "translation_status": "source",
-   "grammar_status": "sourced",
+   "grammar_status": "needs_review",
    "example_status": "needs_review",
    "review_notes": [
-    "level:listed_in_A1+B2"
+    "level:listed_in_A1+B2",
+    "grammar:verb_homonym_forms_differ"
    ],
    "is_published": true,
    "sources": [
@@ -45396,9 +45412,11 @@
    "example_de": "Die Blumen wachsen schnell.",
    "example_uz": "Gullar tez o‘sadi.",
    "translation_status": "source",
-   "grammar_status": "sourced",
+   "grammar_status": "needs_review",
    "example_status": "needs_review",
-   "review_notes": [],
+   "review_notes": [
+    "grammar:verb_homonym_forms_differ"
+   ],
    "is_published": true,
    "sources": [
     {
@@ -92864,7 +92882,8 @@
    "review_notes": [
     "translation:variants",
     "level:listed_in_B1+B2",
-    "grammar:reflexive_pronoun_accusative_assumed"
+    "grammar:reflexive_pronoun_accusative_assumed",
+    "grammar:verb_homonym_forms_differ"
    ],
    "is_published": true,
    "sources": [
@@ -94488,9 +94507,11 @@
    "example_de": "Ich muss den Plan noch einmal gründlich durchdenken.",
    "example_uz": "Men rejani yana bir bor yaxshilab o‘ylab chiqishim kerak.",
    "translation_status": "source",
-   "grammar_status": "sourced",
+   "grammar_status": "needs_review",
    "example_status": "needs_review",
-   "review_notes": [],
+   "review_notes": [
+    "grammar:verb_homonym_forms_differ"
+   ],
    "is_published": true,
    "sources": [
     {
@@ -95124,7 +95145,8 @@
    "grammar_status": "needs_review",
    "example_status": "needs_review",
    "review_notes": [
-    "grammar:reflexive_pronoun_accusative_assumed"
+    "grammar:reflexive_pronoun_accusative_assumed",
+    "grammar:verb_homonym_forms_differ"
    ],
    "is_published": true,
    "sources": [
@@ -108400,9 +108422,11 @@
    "example_de": "Wir bauen die alte Fabrik zu Wohnungen um.",
    "example_uz": "Biz eski fabrikani turar joylarga qayta quryapmiz.",
    "translation_status": "source",
-   "grammar_status": "sourced",
+   "grammar_status": "needs_review",
    "example_status": "needs_review",
-   "review_notes": [],
+   "review_notes": [
+    "grammar:verb_homonym_forms_differ"
+   ],
    "is_published": true,
    "sources": [
     {
@@ -113901,9 +113925,11 @@
    "example_de": "Hast du der Katze schon Futter gegeben?",
    "example_uz": "Mushukka yem berdingmi?",
    "translation_status": "source",
-   "grammar_status": "sourced",
+   "grammar_status": "needs_review",
    "example_status": "needs_review",
-   "review_notes": [],
+   "review_notes": [
+    "grammar:noun_homonym_forms_differ"
+   ],
    "is_published": true,
    "sources": [
     {
@@ -115721,9 +115747,11 @@
    "example_de": "Das Paket liegt noch beim Zoll.",
    "example_uz": "Posilka hali bojxonada turibdi.",
    "translation_status": "source",
-   "grammar_status": "sourced",
+   "grammar_status": "needs_review",
    "example_status": "needs_review",
-   "review_notes": [],
+   "review_notes": [
+    "grammar:noun_homonym_forms_differ"
+   ],
    "is_published": true,
    "sources": [
     {
@@ -133127,7 +133155,9 @@
    "example_status": "needs_review",
    "review_notes": [
     "pos:alternatives_prep+conj",
-    "grammar:case_government_not_found"
+    "grammar:case_government_not_found",
+    "pos:Tarjima „holbuki“ va misol Konjunktion ma’nosida; Präposition (+ Genitiv) emas",
+    "pos:flagged"
    ],
    "is_published": true,
    "sources": [
@@ -135194,9 +135224,11 @@
    "example_de": "Nach der Promotion arbeitet sie an der Universität.",
    "example_uz": "Doktorlik dissertatsiyasini himoya qilgach, u universitetda ishlaydi.",
    "translation_status": "source",
-   "grammar_status": "sourced",
+   "grammar_status": "needs_review",
    "example_status": "needs_review",
-   "review_notes": [],
+   "review_notes": [
+    "grammar:noun_homonym_forms_differ"
+   ],
    "is_published": true,
    "sources": [
     {
@@ -143074,9 +143106,11 @@
    "example_de": "Diesen Ausdruck kenne ich nicht.",
    "example_uz": "Men bu iborani bilmayman.",
    "translation_status": "source",
-   "grammar_status": "sourced",
+   "grammar_status": "needs_review",
    "example_status": "needs_review",
-   "review_notes": [],
+   "review_notes": [
+    "grammar:noun_homonym_forms_differ"
+   ],
    "is_published": true,
    "sources": [
     {
