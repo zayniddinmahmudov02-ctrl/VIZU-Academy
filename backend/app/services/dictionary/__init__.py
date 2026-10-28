@@ -1,26 +1,41 @@
-"""Wörterbuch: search, word card, Random 5 and the student's own word state.
+"""Wörterbuch: search (autocomplete), word card, Random 5 and saved words.
 
-Search runs in the database on normalized keys (case, umlauts, ß and Uzbek
-apostrophes folded the same way for the stored text and the query), ranked
-exact > prefix > contains, paginated — the client never downloads the list.
-Random 5 always returns distinct words, unseen ones first; once a pool is
-exhausted the least recently seen words come back."""
+Search runs in the database on folded keys (case, umlauts, ß and Uzbek
+apostrophes folded the same way for the stored text and the query), over
+the German lemma, the Uzbek translations and the grammatical forms, ranked
+exact > prefix > contains — the client never downloads the list. Only the
+first row of a same-word group per level (is_primary) and only published
+rows are offered.
 
-from datetime import datetime, timezone
+Random 5 returns five different words, one per level where it can, words
+seen in the last days only when nothing else is left."""
+
+import random
+from datetime import datetime, timedelta, timezone
 
 from fastapi import HTTPException
 from sqlalchemy import case, func, or_, select
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.orm import Session
 
-from app.models.dictionary import STATUS_KNOWN, STATUS_UNKNOWN, DictionaryEntry, DictionaryRandomSession, DictionaryUserWord
+from app.models.dictionary import DictionaryEntry, DictionaryUserWord
 from app.models.user import User
 from app.scripts.woerterbuch.source import ARTICLES, LEVELS, canonical_uz, search_key
 
 RANDOM_SIZE = 5
 ALL_LEVELS = "ALL"
 MAX_PAGE_SIZE = 50
+# a word seen in Random 5 within this window comes back only when nothing unseen is left
+RECENT = timedelta(days=7)
+# candidates read per level for one draw
+RANDOM_CANDIDATES = 12
 ATTRIBUTION = {"name": "Wiktionary", "license": "CC BY-SA 4.0", "url": "https://kaikki.org/dictionary/German/"}
+PERSONS = (("ich", "presens_ich"), ("du", "presens_du"), ("er/sie/es", "presens_er_sie_es"), ("wir", "presens_wir"),
+           ("ihr", "presens_ihr"), ("sie/Sie", "presens_sie_Sie"))
+# extra-data kinds shown on the card (quiz distractors are not meanings and are never shown)
+CARD_EXTRA = ("noun_genitive", "noun_plural_variants", "verb_perfekt", "verb_separable", "verb_conjugation_type",
+              "conjunction_word_order", "preposition_cases", "grammar_note", "ipa")
+GRAMMAR_FROM_WIKTIONARY = ("Nomen", "Verb", "Adjektiv", "Praeposition")
 
 
 def _now() -> datetime:
@@ -40,35 +55,11 @@ def query_keys(q: str) -> tuple[str, str]:
     return search_key(de), search_key(canonical_uz(q))
 
 
-def brief(entry: DictionaryEntry) -> dict:
-    return {"id": entry.stable_id, "german": entry.german, "lemma": entry.lemma, "article": entry.article,
-            "part_of_speech": entry.part_of_speech, "cefr_level": entry.cefr_level, "levels": entry.levels,
-            "translation": entry.translation}
-
-
-def card(entry: DictionaryEntry, state: DictionaryUserWord | None = None) -> dict:
-    grammar = dict(entry.grammar or {})
-    grammar.pop("gloss_en", None)
-    return {
-        **brief(entry),
-        "reflexive": entry.reflexive,
-        "translations_extra": entry.translations_extra,
-        "definition_de": entry.definition_de,
-        "grammar": grammar or None,
-        "grammar_source": entry.grammar_source,
-        "ipa": entry.ipa,
-        "example_de": entry.example_de,
-        "example_uz": entry.example_uz,
-        "audio_url": entry.audio_url,
-        "status": {"translation": entry.translation_status, "grammar": entry.grammar_status, "example": entry.example_status},
-        "attribution": ATTRIBUTION if entry.grammar_source.startswith("wiktionary") else None,
-        "me": {"saved": bool(state and state.saved), "status": state.status if state else None,
-               "seen_count": state.seen_count if state else 0},
-    }
-
-
-def _published():
-    return select(DictionaryEntry).where(DictionaryEntry.is_published.is_(True))
+def parse_word_id(word_id: str) -> tuple[str, int]:
+    level, _, sid = (word_id or "").partition("-")
+    if level not in LEVELS or not sid.isdigit():
+        raise HTTPException(status_code=404, detail="Word not found")
+    return level, int(sid)
 
 
 def _check_level(level: str | None) -> str | None:
@@ -79,139 +70,213 @@ def _check_level(level: str | None) -> str | None:
     return level
 
 
-def search(db: Session, q: str, level: str | None = None, pos: str | None = None, page: int = 1, page_size: int = 20) -> dict:
+def _visible():
+    E = DictionaryEntry
+    return select(E).where(E.is_published.is_(True), E.is_primary.is_(True))
+
+
+def brief(e: DictionaryEntry, saved: bool = False) -> dict:
+    return {"id": e.word_id, "level": e.level, "lemma": e.lemma, "article": e.article, "word_type": e.word_type,
+            "translation": e.translation, "status": e.status, "saved": saved}
+
+
+def card(e: DictionaryEntry, saved: bool = False, also_in: list[str] | None = None) -> dict:
+    extra = e.extra or {}
+    verb = None
+    if e.word_type == "Verb":
+        verb = {"infinitive": e.lemma, "praeteritum": e.verb_praeteritum, "partizip_ii": e.verb_partizip_ii,
+                "auxiliary": e.verb_auxiliary,
+                "praesens": [{"person": p, "form": getattr(e, col)} for p, col in PERSONS if getattr(e, col)] or None}
+    adjective = None
+    if e.word_type == "Adjektiv":
+        adjective = {"positiv": e.lemma, "komparativ": e.adjective_komparativ, "superlativ": e.adjective_superlativ}
+    return {
+        **brief(e, saved),
+        "plural": e.plural,
+        "other_translations": extra.get("other_translation", []),
+        "verb": verb,
+        "adjective": adjective,
+        "details": {k: extra[k] for k in CARD_EXTRA if extra.get(k) not in (None, "", [])},
+        "example_de": e.example_de,
+        "example_uz": e.example_uz,
+        "audio_text": e.audio_text,
+        "review_note": (e.review or {}).get("suggestion"),
+        "also_in": also_in or [],
+        "attribution": ATTRIBUTION if e.word_type in GRAMMAR_FROM_WIKTIONARY else None,
+    }
+
+
+def saved_ids(db: Session, user: User, entry_ids: list) -> set:
+    if not entry_ids:
+        return set()
+    W = DictionaryUserWord
+    return set(db.scalars(select(W.entry_id).where(W.user_id == user.id, W.saved.is_(True), W.entry_id.in_(entry_ids))))
+
+
+def _rank_and_match(q: str):
+    de, uz = query_keys(q)
+    de_e, uz_e = _escape_like(de), _escape_like(uz)
+    E = DictionaryEntry
+    match = or_(E.search_de.like(f"%{de_e}%", escape="\\"), E.search_uz.like(f"%{uz_e}%", escape="\\"),
+                E.search_forms.like(f"%{de_e}%", escape="\\"))
+    rank = case(
+        (E.search_de == de, 0),
+        (E.search_de.like(f"{de_e}%", escape="\\"), 1),
+        (E.search_uz.like(f"%|{uz_e}|%", escape="\\"), 2),
+        (E.search_forms.like(f"%|{de_e}|%", escape="\\"), 3),
+        (or_(E.search_uz.like(f"%|{uz_e}%", escape="\\"), E.search_uz.like(f"% {uz_e}%", escape="\\")), 4),
+        (E.search_forms.like(f"%|{de_e}%", escape="\\"), 5),
+        (E.search_de.like(f"%{de_e}%", escape="\\"), 6),
+        else_=7,
+    )
+    return match, rank
+
+
+def _page(page: int, page_size: int) -> tuple[int, int]:
+    return max(page, 1), min(max(page_size, 1), MAX_PAGE_SIZE)
+
+
+def search(db: Session, user: User, q: str, level: str | None = None, word_type: str | None = None,
+           page: int = 1, page_size: int = 10) -> dict:
     q = (q or "").strip()
+    page, page_size = _page(page, page_size)
     if not q:
         return {"items": [], "total": 0, "page": 1, "page_size": page_size}
     if len(q) > 80:
         raise HTTPException(status_code=422, detail="query too long")
-    page, page_size = max(page, 1), min(max(page_size, 1), MAX_PAGE_SIZE)
-    de, uz = query_keys(q)
-    de_e, uz_e = _escape_like(de), _escape_like(uz)
     E = DictionaryEntry
-    match = or_(E.search_de.like(f"%{de_e}%", escape="\\"), E.search_uz.like(f"%{uz_e}%", escape="\\"))
-    stmt = _published().where(match)
-    if (level := _check_level(level)):
-        stmt = stmt.where(E.levels.contains([level]))
-    if pos:
-        stmt = stmt.where(E.part_of_speech == pos)
-    rank = case(
-        (E.search_de == de, 0),
-        (E.search_de.like(f"{de_e}%", escape="\\"), 1),
-        (or_(E.search_uz == uz, E.search_uz.like(f"{uz_e}|%", escape="\\"), E.search_uz.like(f"%|{uz_e}|%", escape="\\"),
-             E.search_uz.like(f"%|{uz_e}", escape="\\")), 2),
-        (or_(E.search_uz.like(f"{uz_e}%", escape="\\"), E.search_uz.like(f"%|{uz_e}%", escape="\\")), 3),
-        else_=4,
-    )
+    match, rank = _rank_and_match(q)
+    stmt = _visible().where(match)
+    if (lv := _check_level(level)):
+        stmt = stmt.where(E.level == lv)
+    if word_type:
+        stmt = stmt.where(E.word_type == word_type)
     total = db.scalar(select(func.count()).select_from(stmt.subquery()))
-    rows = db.scalars(stmt.order_by(rank, func.length(E.lemma), E.lemma).offset((page - 1) * page_size).limit(page_size))
-    return {"items": [brief(e) for e in rows], "total": total, "page": page, "page_size": page_size}
+    rows = list(db.scalars(stmt.order_by(rank, func.length(E.lemma), E.lemma, E.level, E.source_id)
+                           .offset((page - 1) * page_size).limit(page_size)))
+    saved = saved_ids(db, user, [e.id for e in rows])
+    return {"items": [brief(e, e.id in saved) for e in rows], "total": total, "page": page, "page_size": page_size}
 
 
-def get_entry(db: Session, stable_id: str) -> DictionaryEntry:
-    entry = db.scalar(_published().where(DictionaryEntry.stable_id == stable_id))
+def get_entry(db: Session, word_id: str) -> DictionaryEntry:
+    level, sid = parse_word_id(word_id)
+    E = DictionaryEntry
+    entry = db.scalar(select(E).where(E.level == level, E.source_id == sid, E.is_published.is_(True)))
     if entry is None:
         raise HTTPException(status_code=404, detail="Word not found")
     return entry
 
 
-def user_state(db: Session, user: User, entry_ids: list) -> dict:
-    if not entry_ids:
-        return {}
-    rows = db.scalars(select(DictionaryUserWord).where(DictionaryUserWord.user_id == user.id, DictionaryUserWord.entry_id.in_(entry_ids)))
-    return {r.entry_id: r for r in rows}
+def _also_in(db: Session, entry: DictionaryEntry) -> list[str]:
+    E = DictionaryEntry
+    levels = db.scalars(select(E.level).where(E.group_key == entry.group_key, E.level != entry.level,
+                                              E.is_published.is_(True)).distinct())
+    return sorted(levels, key=LEVELS.index)
 
 
-def entry_card(db: Session, user: User, stable_id: str) -> dict:
-    entry = get_entry(db, stable_id)
-    return card(entry, user_state(db, user, [entry.id]).get(entry.id))
+def entry_card(db: Session, user: User, word_id: str) -> dict:
+    entry = get_entry(db, word_id)
+    return card(entry, entry.id in saved_ids(db, user, [entry.id]), _also_in(db, entry))
 
 
 def meta(db: Session) -> dict:
     E = DictionaryEntry
-    levels = {lv: db.scalar(select(func.count()).select_from(E).where(E.is_published.is_(True), E.levels.contains([lv]))) for lv in LEVELS}
-    pos = [p for (p,) in db.execute(select(E.part_of_speech).where(E.is_published.is_(True), E.part_of_speech.is_not(None))
-                                     .group_by(E.part_of_speech).order_by(func.count().desc()))]
-    total = db.scalar(select(func.count()).select_from(E).where(E.is_published.is_(True)))
-    return {"total": total, "levels": levels, "parts_of_speech": pos, "attribution": ATTRIBUTION}
+    rows = dict(db.execute(select(E.level, func.count()).group_by(E.level)).all())
+    words = dict(db.execute(select(E.level, func.count()).where(E.is_published.is_(True), E.is_primary.is_(True)).group_by(E.level)).all())
+    types = [t for (t,) in db.execute(select(E.word_type).where(E.is_published.is_(True), E.is_primary.is_(True), E.word_type.is_not(None))
+                                       .group_by(E.word_type).order_by(func.count().desc()))]
+    return {"rows": {lv: rows.get(lv, 0) for lv in LEVELS}, "levels": {lv: words.get(lv, 0) for lv in LEVELS},
+            "total": sum(words.values()), "word_types": types, "attribution": ATTRIBUTION}
 
 
-def _upsert_state(db: Session, user: User, entry_id, **values) -> None:
-    """Insert-or-update one (user, word) row — safe under parallel requests."""
+def _upsert_state(db: Session, user: User, entry_id, seen: bool = False, **sets) -> None:
+    """Insert-or-update one (user, word) row — one row per pair, safe under parallel requests."""
     now = _now()
-    increments = {k: v for k, v in values.items() if k.endswith("_count")}
-    sets = {k: v for k, v in values.items() if not k.endswith("_count")}
-    stmt = insert(DictionaryUserWord).values(user_id=user.id, entry_id=entry_id, created_at=now, updated_at=now,
-                                             **sets, **{k: v for k, v in increments.items()})
-    T = DictionaryUserWord.__table__.c
-    stmt = stmt.on_conflict_do_update(
-        constraint="uq_dictionary_user_word",
-        set_={**sets, "updated_at": now, **{k: getattr(T, k) + v for k, v in increments.items()}},
-    )
-    db.execute(stmt)
+    W = DictionaryUserWord
+    stmt = insert(W).values(user_id=user.id, entry_id=entry_id, created_at=now, updated_at=now,
+                            seen_count=1 if seen else 0, **sets)
+    update = {**sets, "updated_at": now}
+    if seen:
+        update["seen_count"] = W.__table__.c.seen_count + 1
+    db.execute(stmt.on_conflict_do_update(constraint="uq_dictionary_user_word", set_=update))
 
 
-def random_five(db: Session, user: User, level: str | None) -> dict:
+def random_five(db: Session, user: User, level: str | None = None) -> dict:
     lv = _check_level(level)
     E, W = DictionaryEntry, DictionaryUserWord
-    pool = select(E.id).where(E.is_published.is_(True))
-    if lv:
-        pool = pool.where(E.levels.contains([lv]))
-    seen = select(W.entry_id).where(W.user_id == user.id, W.seen_count > 0)
-    pool_size = db.scalar(select(func.count()).select_from(pool.subquery()))
-    unseen_before = db.scalar(select(func.count()).select_from(pool.where(E.id.not_in(seen)).subquery()))
-    chosen = list(db.scalars(pool.where(E.id.not_in(seen)).order_by(func.random()).limit(RANDOM_SIZE)))
-    if len(chosen) < RANDOM_SIZE:
-        # pool exhausted: refill with the least recently seen words, never one twice
-        refill = db.scalars(
-            select(W.entry_id).join(E, E.id == W.entry_id)
-            .where(W.user_id == user.id, W.seen_count > 0, E.id.in_(pool), W.entry_id.not_in(chosen or [None]))
-            .order_by(W.last_seen_at.asc().nulls_first(), func.random()).limit(RANDOM_SIZE - len(chosen)))
-        chosen += [i for i in refill if i not in chosen]
-    entries = {e.id: e for e in db.scalars(select(E).where(E.id.in_(chosen)))} if chosen else {}
+    recent = case((W.last_seen_at > _now() - RECENT, 1), else_=0)
+    ranked = (
+        select(E.id.label("id"), E.level.label("level"), E.search_de.label("key"), recent.label("recent"),
+               func.row_number().over(partition_by=E.level, order_by=(recent, func.random())).label("rn"))
+        .select_from(E)
+        .outerjoin(W, (W.entry_id == E.id) & (W.user_id == user.id))
+        .where(E.is_published.is_(True), E.is_primary.is_(True), *([E.level == lv] if lv else []))
+        .subquery()
+    )
+    limit = RANDOM_SIZE * 3 if lv else RANDOM_CANDIDATES
+    candidates = db.execute(select(ranked).where(ranked.c.rn <= limit).order_by(ranked.c.level, ranked.c.rn)).all()
+    by_level: dict[str, list] = {}
+    for c in candidates:
+        by_level.setdefault(c.level, []).append(c)
+
+    chosen, keys = [], set()
+
+    def take(c) -> bool:
+        if c.id in {x.id for x in chosen} or c.key in keys or len(chosen) >= RANDOM_SIZE:
+            return False
+        chosen.append(c)
+        keys.add(c.key)
+        return True
+
+    levels = list(by_level)
+    random.shuffle(levels)
+    # one word per level first (the same German word never twice in a set) …
+    for level_name in levels:
+        for c in by_level[level_name]:
+            if take(c):
+                break
+    # … then fill from all levels, not recently seen words first
+    rest = [c for cs in by_level.values() for c in cs]
+    random.shuffle(rest)
+    for c in sorted(rest, key=lambda c: c.recent):
+        take(c)
+
+    random.shuffle(chosen)
+    ids = [c.id for c in chosen]
     now = _now()
-    for entry_id in chosen:
-        _upsert_state(db, user, entry_id, last_seen_at=now, seen_count=1)
-    db.add(DictionaryRandomSession(user_id=user.id, level=lv or ALL_LEVELS, entry_ids=[entries[i].stable_id for i in chosen],
-                                   pool_size=pool_size, unseen_before=unseen_before))
+    for entry_id in ids:
+        _upsert_state(db, user, entry_id, seen=True, last_seen_at=now)
     db.commit()
-    states = user_state(db, user, chosen)
-    return {"level": lv or ALL_LEVELS, "pool_size": pool_size, "unseen_before": unseen_before,
-            "complete": len(chosen) == RANDOM_SIZE, "items": [card(entries[i], states.get(i)) for i in chosen]}
+    entries = {e.id: e for e in db.scalars(select(E).where(E.id.in_(ids)))} if ids else {}
+    saved = saved_ids(db, user, ids)
+    return {"level": lv or ALL_LEVELS, "complete": len(ids) == RANDOM_SIZE,
+            "items": [card(entries[i], i in saved) for i in ids]}
 
 
-def mark(db: Session, user: User, stable_id: str, status: str) -> dict:
-    if status not in (STATUS_KNOWN, STATUS_UNKNOWN):
-        raise HTTPException(status_code=422, detail="status: known or unknown")
-    entry = get_entry(db, stable_id)
-    _upsert_state(db, user, entry.id, status=status, last_marked_at=_now(),
-                  **{"known_count" if status == STATUS_KNOWN else "unknown_count": 1})
+def set_saved(db: Session, user: User, word_id: str, saved: bool) -> dict:
+    entry = get_entry(db, word_id)
+    _upsert_state(db, user, entry.id, saved=bool(saved), saved_at=_now() if saved else None)
     db.commit()
-    return card(entry, user_state(db, user, [entry.id]).get(entry.id))
+    return {"id": entry.word_id, "saved": bool(saved)}
 
 
-def set_saved(db: Session, user: User, stable_id: str, saved: bool) -> dict:
-    entry = get_entry(db, stable_id)
-    _upsert_state(db, user, entry.id, saved=bool(saved))
-    db.commit()
-    return card(entry, user_state(db, user, [entry.id]).get(entry.id))
-
-
-def my_words(db: Session, user: User, kind: str, page: int = 1, page_size: int = 20) -> dict:
+def saved_words(db: Session, user: User, q: str = "", level: str | None = None, page: int = 1, page_size: int = 20) -> dict:
     E, W = DictionaryEntry, DictionaryUserWord
-    stmt = select(W).join(E, E.id == W.entry_id).where(W.user_id == user.id, E.is_published.is_(True))
-    if kind == "saved":
-        stmt = stmt.where(W.saved.is_(True))
-    elif kind in (STATUS_KNOWN, STATUS_UNKNOWN):
-        stmt = stmt.where(W.status == kind)
-    else:
-        raise HTTPException(status_code=422, detail="kind: saved, known or unknown")
-    page, page_size = max(page, 1), min(max(page_size, 1), MAX_PAGE_SIZE)
+    page, page_size = _page(page, page_size)
+    stmt = (select(E, W.saved_at).join(W, W.entry_id == E.id)
+            .where(W.user_id == user.id, W.saved.is_(True), E.is_published.is_(True)))
+    if (lv := _check_level(level)):
+        stmt = stmt.where(E.level == lv)
+    order = [W.saved_at.desc().nulls_last(), E.lemma]
+    if (q := (q or "").strip()):
+        if len(q) > 80:
+            raise HTTPException(status_code=422, detail="query too long")
+        match, rank = _rank_and_match(q)
+        stmt = stmt.where(match)
+        order = [rank, *order]
     total = db.scalar(select(func.count()).select_from(stmt.subquery()))
-    rows = db.scalars(stmt.order_by(W.updated_at.desc()).offset((page - 1) * page_size).limit(page_size)).unique()
-    counts = dict(db.execute(select(W.status, func.count()).where(W.user_id == user.id, W.status.is_not(None)).group_by(W.status)).all())
-    return {"items": [{**brief(r.entry), "me": {"saved": r.saved, "status": r.status, "seen_count": r.seen_count}} for r in rows],
-            "total": total, "page": page, "page_size": page_size,
-            "summary": {"saved": db.scalar(select(func.count()).select_from(W).where(W.user_id == user.id, W.saved.is_(True))),
-                        "known": counts.get(STATUS_KNOWN, 0), "unknown": counts.get(STATUS_UNKNOWN, 0),
-                        "seen": db.scalar(select(func.count()).select_from(W).where(W.user_id == user.id, W.seen_count > 0))}}
+    rows = db.execute(stmt.order_by(*order).offset((page - 1) * page_size).limit(page_size)).all()
+    counts = dict(db.execute(select(E.level, func.count()).join(W, W.entry_id == E.id)
+                             .where(W.user_id == user.id, W.saved.is_(True), E.is_published.is_(True)).group_by(E.level)).all())
+    return {"items": [brief(e, True) for e, _ in rows], "total": total, "page": page, "page_size": page_size,
+            "by_level": {lv: counts.get(lv, 0) for lv in LEVELS}}

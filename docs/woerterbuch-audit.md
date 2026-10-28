@@ -4,6 +4,8 @@ Sana: 2026-10-28 · Holat: **lokal, deploy qilinmagan** (migratsiya `d4b8e2f6a9c
 
 ## 1. Manba CSV fayllar
 
+> 2026-10-28 dan keyin: `docs/*-words.csv` yangi 22 ustunli formatda. Quyidagi jadval asl fayllar haqida; ular `docs/backup/woerterbuch-csv-original-20261028/` va `backend/app/data/woerterbuch/source/` da saqlanadi. Batafsil: [worterbuch-csv-migration-report.md](worterbuch-csv-migration-report.md).
+
 | Fayl | Qatorlar | Ustunlar | Asosiy daraja bo‘yicha yozuvlar | Fayldagi bor so‘zlar |
 |---|---|---|---|---|
 | docs/A1-words.csv | 1000 | 5 | 738 | 738 |
@@ -40,7 +42,7 @@ Sana: 2026-10-28 · Holat: **lokal, deploy qilinmagan** (migratsiya `d4b8e2f6a9c
 | Maydon | Qiymatlar |
 |---|---|
 | translation_status | source 3224 · **needs_review 165** |
-| grammar_status | sourced 2011 · **needs_review 588** · none 790 |
+| grammar_status | sourced 1995 · **needs_review 604** · none 790 (omonim himoyasidan keyin) |
 | grammar_source | wiktionary 2104 · wiktionary_compound 381 · none 904 |
 | example_status | **needs_review 3373** · none 16 |
 | is_published | true 3375 · **false 14** |

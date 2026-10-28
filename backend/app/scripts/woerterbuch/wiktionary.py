@@ -255,6 +255,34 @@ def compound_noun(entry: Entry, nouns: dict) -> tuple[dict, str] | None:
     return None
 
 
+def _principal_forms(c: dict) -> tuple:
+    if c["pos"] == "verb":
+        return (next(iter(_forms(c, "preterite", "third-person", "singular", "indicative")), None),
+                next(iter(_forms(c, "participle", "past")), None))
+    if c["pos"] == "noun":
+        plural = [f["form"] for f in c["forms"] if f["tags"] == ["plural"]] \
+            or _forms(c, "plural", "nominative", exclude=("definite", "indefinite"))
+        return (_gender(c), plural[0] if plural else None)
+    return ()
+
+
+def _homonym_reasons(chosen: dict, candidates: list[dict], entry: Entry) -> list[str]:
+    """'sich bewegen' (bewegte) vs 'bewegen' (bewog), 'Bank' (Bänke / Banken):
+    Wiktionary lists homonyms with other forms — the meaning decides, so a person must."""
+    if chosen["pos"] not in ("verb", "noun") or "form-of" in chosen["sense_tags"]:
+        return []
+    mine = _principal_forms(chosen)
+    for c in candidates:
+        if c is chosen or c["pos"] != chosen["pos"] or "form-of" in c["sense_tags"] or "alt-of" in c["sense_tags"]:
+            continue
+        other = _principal_forms(c)
+        if chosen["pos"] == "noun" and entry.article and GENDER_ARTICLE.get(other[0]) != entry.article:
+            continue  # "der See" / "die See": the article already tells them apart
+        if all(other) and other != mine:
+            return [f"grammar:{chosen['pos']}_homonym_forms_differ"]
+    return []
+
+
 def resolve(entry: Entry, subset: dict, nouns: dict | None = None) -> tuple[str | None, dict | None, str | None, str, list[str]]:
     """-> (part_of_speech label, grammar, ipa, grammar_source, reasons)"""
     reasons: list[str] = []
@@ -312,6 +340,7 @@ def resolve(entry: Entry, subset: dict, nouns: dict | None = None) -> tuple[str 
         grammar = _prep(chosen, reasons)
     else:
         grammar = {}
+    reasons += _homonym_reasons(chosen, candidates, entry)
     label = POS_LABEL.get(pos, pos)
     if rule and pos in ("conj", "adv"):
         grammar["conjunction"] = rule

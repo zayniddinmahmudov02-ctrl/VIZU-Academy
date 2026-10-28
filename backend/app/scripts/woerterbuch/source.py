@@ -1,6 +1,8 @@
-"""Reads docs/{A1,A2,B1,B2,C1}-words.csv without changing them.
+"""Reads the original word lists {A1,A2,B1,B2,C1}-words.csv without changing them.
 
-The files have no header; every row is
+They are frozen byte copies in app/data/woerterbuch/source/ (docs/ now holds
+the converted 22-column files written by export_csv.py; the originals are
+also in docs/backup/). The files have no header; every row is
     id, German, correct Uzbek answer, wrong answer 1, wrong answer 2
 — the last two are the word game's distractors, NOT translations. They are
 kept per source row for the audit trail and never shown as a meaning.
@@ -22,7 +24,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 LEVELS = ("A1", "A2", "B1", "B2", "C1")
-DOCS_DIR = Path(__file__).resolve().parents[4] / "docs"
+SOURCE_DIR = Path(__file__).resolve().parents[2] / "data" / "woerterbuch" / "source"
 ARTICLES = ("der", "die", "das")
 
 # Malformed rows (wrong column count), repaired explicitly — every repair is
@@ -135,7 +137,7 @@ class Entry:
 
 
 def read_rows(level: str, path: Path | None = None) -> list[SourceRow]:
-    path = path or DOCS_DIR / f"{level}-words.csv"
+    path = path or SOURCE_DIR / f"{level}-words.csv"
     rows = []
     for raw in csv.reader(io.StringIO(path.read_bytes().decode("utf-8"))):
         if not raw:

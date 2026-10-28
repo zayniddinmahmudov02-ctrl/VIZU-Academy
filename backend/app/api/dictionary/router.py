@@ -1,8 +1,6 @@
 """Wörterbuch API — logged-in students; every word state belongs to the
 requesting user (never taken from the request body)."""
 
-from typing import Literal
-
 from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
@@ -19,10 +17,6 @@ class RandomIn(BaseModel):
     level: str = service.ALL_LEVELS
 
 
-class MarkIn(BaseModel):
-    status: Literal["known", "unknown"]
-
-
 class SavedIn(BaseModel):
     saved: bool
 
@@ -36,18 +30,18 @@ def dictionary_meta(db: Session = Depends(get_db), user: User = Depends(get_curr
 def search(
     q: str = Query("", max_length=80),
     level: str | None = None,
-    pos: str | None = Query(None, max_length=30),
+    word_type: str | None = Query(None, max_length=30),
     page: int = Query(1, ge=1),
-    page_size: int = Query(20, ge=1, le=service.MAX_PAGE_SIZE),
+    page_size: int = Query(10, ge=1, le=service.MAX_PAGE_SIZE),
     db: Session = Depends(get_db),
     user: User = Depends(get_current_user),
 ):
-    return service.search(db, q, level, pos, page, page_size)
+    return service.search(db, user, q, level, word_type, page, page_size)
 
 
-@router.get("/entries/{stable_id}")
-def entry(stable_id: str, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
-    return service.entry_card(db, user, stable_id)
+@router.get("/entries/{word_id}")
+def entry(word_id: str, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    return service.entry_card(db, user, word_id)
 
 
 @router.post("/random")
@@ -55,22 +49,18 @@ def random_five(data: RandomIn, db: Session = Depends(get_db), user: User = Depe
     return service.random_five(db, user, data.level)
 
 
-@router.post("/entries/{stable_id}/mark")
-def mark(stable_id: str, data: MarkIn, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
-    return service.mark(db, user, stable_id, data.status)
+@router.put("/entries/{word_id}/saved")
+def saved(word_id: str, data: SavedIn, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    return service.set_saved(db, user, word_id, data.saved)
 
 
-@router.put("/entries/{stable_id}/saved")
-def saved(stable_id: str, data: SavedIn, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
-    return service.set_saved(db, user, stable_id, data.saved)
-
-
-@router.get("/my")
-def my_words(
-    kind: Literal["saved", "known", "unknown"] = "saved",
+@router.get("/saved")
+def saved_words(
+    q: str = Query("", max_length=80),
+    level: str | None = None,
     page: int = Query(1, ge=1),
     page_size: int = Query(20, ge=1, le=service.MAX_PAGE_SIZE),
     db: Session = Depends(get_db),
     user: User = Depends(get_current_user),
 ):
-    return service.my_words(db, user, kind, page, page_size)
+    return service.saved_words(db, user, q, level, page, page_size)

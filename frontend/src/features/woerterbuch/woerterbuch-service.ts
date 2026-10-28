@@ -4,18 +4,19 @@ const BASE = "/api/v1/dictionary";
 
 export const CEFR_LEVELS = ["A1", "A2", "B1", "B2", "C1"] as const;
 export type CefrLevel = (typeof CEFR_LEVELS)[number];
-export type ContentStatus = "source" | "sourced" | "needs_review" | "reviewed" | "none";
-export type WordStatus = "known" | "unknown";
+/** The CSV's own status — "verified" only after a teacher's review. */
+export type WordStatus = "verified" | "needs_review";
 
+/** One word as a list item. `id` = "<level>-<id in the level's CSV>", e.g. "A1-2". */
 export interface WordBrief {
   id: string;
-  german: string;
+  level: CefrLevel;
   lemma: string;
   article: "der" | "die" | "das" | null;
-  part_of_speech: string | null;
-  cefr_level: CefrLevel;
-  levels: CefrLevel[];
+  word_type: string | null;
   translation: string;
+  status: WordStatus;
+  saved: boolean;
 }
 
 export interface PresentForm {
@@ -23,52 +24,26 @@ export interface PresentForm {
   form: string;
 }
 
-/** Grammar as stored per part of speech (backend services/dictionary, from Wiktionary). */
-export interface WordGrammar {
-  // Nomen
-  article?: string | null;
-  gender?: string | null;
-  singular?: string | null;
-  plural?: string | null;
-  plural_variants?: string[];
-  plural_note?: string | null;
-  number?: "Plural" | "Pluraletantum";
-  compound_head?: string | null;
-  // Verb
-  infinitive?: string;
-  reflexive?: boolean;
-  conjugation_type?: string | null;
-  separable?: boolean | null;
-  praeteritum?: string | null;
-  partizip_ii?: string | null;
-  auxiliary?: string[] | null;
-  perfekt?: string | null;
-  praesens?: PresentForm[] | null;
-  // Adjektiv
-  positiv?: string;
-  komparativ?: string | null;
-  superlativ?: string | null;
-  partizip_ii_von?: string;
-  note?: string | null;
-  // Präposition / Konjunktion
-  cases?: string[] | null;
-  wechselpraeposition?: boolean | null;
-  conjunction?: { type: string; word_order: string };
-}
-
 export interface WordCard extends WordBrief {
-  reflexive: boolean;
-  translations_extra: string[];
-  definition_de: string | null;
-  grammar: WordGrammar | null;
-  grammar_source: string;
-  ipa: string | null;
+  plural: string | null;
+  other_translations: string[];
+  verb: {
+    infinitive: string;
+    praeteritum: string | null;
+    partizip_ii: string | null;
+    auxiliary: string | null;
+    praesens: PresentForm[] | null;
+  } | null;
+  adjective: { positiv: string; komparativ: string | null; superlativ: string | null } | null;
+  /** worterbuch-extra-data.csv: noun_genitive, verb_perfekt, ipa, conjunction_word_order … */
+  details: Record<string, unknown>;
   example_de: string | null;
   example_uz: string | null;
-  audio_url: string | null;
-  status: { translation: ContentStatus; grammar: ContentStatus; example: ContentStatus };
+  /** text for the browser's TTS; null = nothing to pronounce */
+  audio_text: string | null;
+  review_note: string | null;
+  also_in: CefrLevel[];
   attribution: { name: string; license: string; url: string } | null;
-  me: { saved: boolean; status: WordStatus | null; seen_count: number };
 }
 
 export interface Paged<T> {
@@ -78,43 +53,38 @@ export interface Paged<T> {
   page_size: number;
 }
 
+export interface SavedWords extends Paged<WordBrief> {
+  by_level: Record<CefrLevel, number>;
+}
+
 export interface DictionaryMeta {
   total: number;
+  rows: Record<CefrLevel, number>;
   levels: Record<CefrLevel, number>;
-  parts_of_speech: string[];
+  word_types: string[];
   attribution: { name: string; license: string; url: string };
 }
 
 export interface RandomFive {
   level: CefrLevel | "ALL";
-  pool_size: number;
-  unseen_before: number;
   complete: boolean;
   items: WordCard[];
-}
-
-export interface MyWordItem extends WordBrief {
-  me: { saved: boolean; status: WordStatus | null; seen_count: number };
-}
-
-export interface MyWords extends Paged<MyWordItem> {
-  summary: { saved: number; known: number; unknown: number; seen: number };
 }
 
 export interface SearchFilters {
   q: string;
   level?: CefrLevel | "";
-  pos?: string;
+  word_type?: string;
   page?: number;
 }
 
 const items = <T,>(data: { items?: T[] } | undefined): T[] => (Array.isArray(data?.items) ? data!.items! : []);
+const clean = (params: Record<string, unknown>) => Object.fromEntries(Object.entries(params).filter(([, v]) => v !== undefined && v !== ""));
 
 export const getDictionaryMeta = async () => (await api.get<DictionaryMeta>(`${BASE}/meta`)).data;
 
-export const searchWords = async ({ q, level, pos, page = 1 }: SearchFilters, signal?: AbortSignal) => {
-  const params = Object.fromEntries(Object.entries({ q, level, pos, page, page_size: 20 }).filter(([, v]) => v !== undefined && v !== ""));
-  const data = (await api.get<Paged<WordBrief>>(`${BASE}/search`, { params, signal })).data;
+export const searchWords = async ({ q, level, word_type, page = 1 }: SearchFilters, signal?: AbortSignal) => {
+  const data = (await api.get<Paged<WordBrief>>(`${BASE}/search`, { params: clean({ q, level, word_type, page, page_size: 10 }), signal })).data;
   return { ...data, items: items(data) };
 };
 
@@ -125,13 +95,10 @@ export const drawRandomFive = async (level: CefrLevel | "ALL") => {
   return { ...data, items: items(data) };
 };
 
-export const markWord = async (id: string, status: WordStatus) =>
-  (await api.post<WordCard>(`${BASE}/entries/${encodeURIComponent(id)}/mark`, { status })).data;
+export const setWordSaved = async (id: string, saved: boolean) =>
+  (await api.put<{ id: string; saved: boolean }>(`${BASE}/entries/${encodeURIComponent(id)}/saved`, { saved })).data;
 
-export const saveWord = async (id: string, saved: boolean) =>
-  (await api.put<WordCard>(`${BASE}/entries/${encodeURIComponent(id)}/saved`, { saved })).data;
-
-export const getMyWords = async (kind: "saved" | "known" | "unknown", page = 1) => {
-  const data = (await api.get<MyWords>(`${BASE}/my`, { params: { kind, page } })).data;
+export const getSavedWords = async ({ q, level, page = 1 }: SearchFilters, signal?: AbortSignal) => {
+  const data = (await api.get<SavedWords>(`${BASE}/saved`, { params: clean({ q, level, page, page_size: 20 }), signal })).data;
   return { ...data, items: items(data) };
 };

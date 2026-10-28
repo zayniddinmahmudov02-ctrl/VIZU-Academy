@@ -1,1000 +1,1001 @@
-1,der Apfel,olma,mashina,telefon
-2,das Haus,uy,telefon,stul
-3,die Schule,maktab,oyna,sumka
-4,der Lehrer,o'qituvchi,daryo,oy
-5,die Mutter,ona,stul,qalam
-6,der Vater,ota,sumka,muz
-7,das Buch,kitob,muz,telefon
-8,die Tasche,sumka,oy,gul
-9,der Tisch,stol,telefon,daryo
-10,das Wasser,suv,gul,stakan
-11,die Tür,eshik,non,oyna
-12,der Hund,it,oyna,sumka
-13,die Katze,mushuk,qalam,telefon
-14,das Auto,mashina,stakan,muz
-15,der Freund,do'st,muzlatgich,oy
-16,die Freundin,dugona,dengiz,stul
-17,das Handy,telefon,stul,sumka
-18,der Stuhl,stul,oy,gul
-19,die Blume,gul,maktab,telefon
-20,das Fenster,oyna,sumka,muz
-21,freundlich,mehribon,qo'pol,sovuq
-22,laufen,yugurmoq,uxlamoq,o'tirmoq
-23,langsam,sekin,tez,baland
-24,helfen,yordam bermoq,unutmoq,sotmoq
-25,interessant,qiziqarli,zerikarli,sovuq
-26,fragen,so'ramoq,uxlamoq,o'qimoq
-27,sauber,toza,iflos,qattiq
-28,bezahlen,to'lamoq,qochmoq,sakrash
-29,heute,bugun,ertaga,kecha
-30,stark,kuchli,kuchsiz,nam
-31,der Bruder,aka uka,telefon,stakan
-32,die Schwester,opa singil,daryo,oy
-33,das Brot,non,muz,qalam
-34,der Bleistift,qalam,stul,sumka
-35,die Lampe,chiroq,eshik,telefon
-36,das Bett,karavot,sumka,mashina
-37,der Arzt,shifokor,oy,gul
-38,die Stadt,shahar,telefon,stul
-39,das Land,davlat,gul,oyna
-40,der Student,talaba,mashina,sumka
-41,arbeiten,ishlamoq,uxlamoq,sakrash
-42,schnell,tez,sekin,baland
-43,glücklich,baxtli,xafa,issiq
-44,lernen,o'rganmoq,unutmoq,yashirmoq
-45,oft,tez-tez,kamdan-kam,erta
-46,klein,kichik,katta,sovuq
-47,wohnen,yashamoq,qochmoq,o'tirmoq
-48,morgen,ertaga,kecha,bugun
-49,müde,charchagan,dam olgan,faol
-50,kochen,pishirmoq,haydash,suzmoq
-51,die Arbeit,ish,telefon,qalam
-52,das Essen,ovqat,stol,muz
-53,der Kaffee,qahva,sumka,oy
-54,die Zeitung,gazeta,oyna,gul
-55,das Kind,bola,muz,telefon
-56,der Zug,poyezd,telefon,stakan
-57,die Frage,savol,stul,sumka
-58,das Bild,rasm,sumka,oy
-59,der Ball,to'p,oy,muz
-60,die Antwort,javob,gul,qalam
-61,trinken,ichmoq,sakrash,uxlamoq
-62,schön,chiroyli,xunuk,zerikarli
-63,verstehen,tushunmoq,unutmoq,qochmoq
-64,gern,jon deb,majburan,sekin
-65,lesen,o'qimoq,sotmoq,haydash
-66,laut,baland,past,zerikarli
-67,schreiben,yozmoq,uxlamoq,suzmoq
-68,kalt,sovuq,issiq,quruq
-69,spielen,o'ynamoq,yig'lamoq,qochmoq
-70,zusammen,birga,yolg'iz,erta
-71,das Zimmer,xona,telefon,oyna
-72,der Computer,kompyuter,daryo,sumka
-73,die Musik,musiqa,stol,telefon
-74,das Fahrrad,velosiped,muz,gul
-75,der Park,park,sumka,stakan
-76,die Familie,oila,telefon,oy
-77,das Spiel,o'yin,oyna,qalam
-78,der Abend,kechqurun,gul,muz
-79,die Uhr,soat,stul,telefon
-80,das Meer,dengiz,sumka,oyna
-81,schlafen,uxlamoq,yugurmoq,o'qimoq
-82,alt,qari,yosh,tez
-83,kaufen,sotib olmoq,sotmoq,unutmoq
-84,dort,u yerda,bu yerda,erta
-85,neu,yangi,eski,quruq
-86,bringen,olib kelmoq,tashlab ketmoq,qochmoq
-87,wichtig,muhim,keraksiz,oddiy
-88,immer,har doim,hech qachon,sekin
-89,öffnen,ochmoq,yopmoq,sakrash
-90,ruhig,tinch,shovqinli,baland
-91,der Morgen,ertalab,telefon,mashina
-92,die Nacht,tun,muz,stul
-93,das Wetter,ob-havo,stol,qalam
-94,der Sommer,yoz,daryo,gul
-95,die Sonne,quyosh,sumka,telefon
-96,das Jahr,yil,telefon,oy
-97,der Winter,qish,oyna,muz
-98,die Woche,hafta,stul,sumka
-99,das Wochenende,hafta oxiri,muz,telefon
-100,der Monat,oy,telefon,gul
-101,die Minute,daqiqa,sumka,stakan
-102,das Problem,muammo,stol,oyna
-103,der Name,ism,gul,muz
-104,die Sprache,til,oyna,telefon
-105,das Foto,rasm,telefon,sumka
-106,der Kuchen,tort,muz,oy
-107,die Suppe,sho'rva,stul,qalam
-108,das Ei,tuxum,sumka,telefon
-109,der Fisch,baliq,telefon,muz
-110,die Banane,banan,oyna,gul
-111,essen,yemoq,uxlamoq,qochmoq
-112,freundlich,mehribon,qo'pol,sovuq
-113,kommen,kelmoq,ketmoq,sakrash
-114,später,keyinroq,hozir,erta
-115,groß,katta,kichik,past
-116,nehmen,olmoq,bermoq,qochmoq
-117,früh,erta,kech,sekin
-118,teuer,qimmat,arzon,oddiy
-119,zeigen,ko'rsatmoq,yashirmoq,unutmoq
-120,draußen,tashqarida,ichkarida,kecha
-121,das Fleisch,go'sht,muz,stakan
-122,der Saft,sharbat,telefon,sumka
-123,die Orange,apelsin,stol,oy
-124,das Gemüse,sabzavot,sumka,mashina
-125,der Markt,bozor,gul,telefon
-126,die Reise,sayohat,oyna,muz
-127,das Ticket,chipta,telefon,stul
-128,der Flughafen,aeroport,muz,sumka
-129,die Straße,ko'cha,stul,qalam
-130,das Hotel,mehmonxona,sumka,telefon
-131,fahren,bormoq,minmoq,uxlamoq
-132,langweilig,zerikarli,qiziqarli,faol
-133,treffen,uchrashmoq,qochmoq,sakrash
-134,meistens,ko'pincha,hech qachon,erta
-135,leicht,oson,qiyin,og'ir
-136,suchen,qidirmoq,yashirmoq,unutmoq
-137,links,chapda,o'ngda,tepada
-138,schwer,qiyin,oson,engil
-139,finden,topmoq,yo'qotmoq,sotmoq
-140,unten,pastda,tepada,ichkarida
-141,der Chef,rahbar,telefon,gul
-142,die Küche,oshxona,oyna,muz
-143,das Messer,pichoq,muz,oy
-144,der Löffel,qoshiq,stul,telefon
-145,die Gabel,sanchqi,sumka,stakan
-146,das Glas,stakan,telefon,gul
-147,der Teller,tarelka,gul,mashina
-148,die Kleidung,kiyim,oyna,sumka
-149,das Hemd,ko'ylak,muz,qalam
-150,der Schuh,oyoq kiyim,telefon,oy
-151,tragen,kiymoq,tashlamoq,qochmoq
-152,sauber,toza,iflos,qattiq
-153,verkaufen,sotmoq,sotib olmoq,bermoq
-154,gestern,kecha,bugun,ertaga
-155,alt,qari,yosh,tez
-156,bezahlen,to'lamoq,olmoq,qochmoq
-157,oben,tepada,pastda,ichkarida
-158,jung,yosh,qari,sekin
-159,öffnen,ochmoq,yopmoq,unutmoq
-160,drinnen,ichkarida,tashqarida,erta
-161,die Jacke,kurtka,sumka,muz
-162,das Geld,pul,oyna,telefon
-163,der Preis,narx,telefon,stul
-164,die Bank,bank,stol,gul
-165,das Geschäft,do'kon,muz,sumka
-166,der Beruf,kasb,sumka,oyna
-167,die Universität,universitet,telefon,qalam
-168,das Krankenhaus,kasalxona,oyna,muz
-169,der Urlaub,ta'til,gul,telefon
-170,die Nachricht,xabar,stul,oyna
-171,arbeiten,ishlamoq,uxlamoq,sakrash
-172,warm,iliq,sovuq,quruq
-173,anrufen,qo'ng'iroq qilmoq,uxlamoq,qochmoq
-174,manchmal,ba'zida,har doim,erta
-175,krank,kasal,sog'lom,faol
-176,lernen,o'rganmoq,unutmoq,yashirmoq
-177,rechts,o'ngda,chapda,pastda
-178,gesund,sog'lom,kasal,zerikarli
-179,antworten,javob bermoq,savol bermoq,sotmoq
-180,überall,hamma yerda,hech qayerda,ichkarida
-181,der Baum,daraxt,telefon,stakan
-182,die Wolke,bulut,mashina,qalam
-183,das Dorf,qishloq,oy,sumka
-184,der Regen,yomg'ir,telefon,muz
-185,die Insel,orol,stol,gul
-186,das Radio,radio,daryo,oyna
-187,der Vogel,qush,sumka,non
-188,die Wüste,sahro,telefon,stakan
-189,das Feuer,olov,muz,qalam
-190,der Berg,tog',oyna,stul
-191,regnen,yomg'ir yog'moq,porlamoq,qochmoq
-192,sonnig,quyoshli,bulutli,qorong'i
-193,schwimmen,suzmoq,uxlamoq,sakrash
-194,selten,kamdan-kam,tez-tez,doimo
-195,dunkel,qorong'i,yorug',issiq
-196,warten,kutmoq,qochmoq,unutmoq
-197,hinten,orqada,oldinda,tepada
-198,hell,yorug',qorong'i,sovuq
-199,besuchen,ziyorat qilmoq,qochmoq,sotmoq
-200,nirgendwo,hech qayerda emas,hamma yerda,ichkarida
-201,die Karte,xarita,telefon,sumka
-202,das Licht,yorug'lik,gul,mashina
-203,der Fluss,daryo,oy,muz
-204,die Brücke,ko'prik,stakan,telefon
-205,das Papier,qog'oz,sumka,stol
-206,der Himmel,osmon,muzlatgich,oyna
-207,die Königin,qirolicha,telefon,non
-208,das Theater,teatr,mashina,stul
-209,der Sänger,qo'shiqchi,sumka,gul
-210,die Sängerin,ayol qo'shiqchi,oy,qalam
-211,singen,qo'shiq aytmoq,yig'lamoq,qochmoq
-212,berühmt,mashhur,noma'lum,zerikarli
-213,tanzen,raqs tushmoq,uxlamoq,suzmoq
-214,oft,tez-tez,kamdan-kam,erta
-215,traurig,xafa,xursand,faol
-216,erzählen,hikoya qilmoq,unutmoq,qochmoq
-217,vorne,oldinda,orqada,tepada
-218,fröhlich,xursand,g'amgin,sovuq
-219,reisen,sayohat qilmoq,uxlamoq,sotmoq
-220,dort,u yerda,bu yerda,ichkarida
-221,das Lied,qo'shiq,telefon,oyna
-222,der Film,film,muz,stakan
-223,die Kamera,kamera,stol,daryo
-224,das Museum,muzey,sumka,telefon
-225,der Pilot,uchuvchi,gul,mashina
-226,die Polizei,politsiya,oyna,non
-227,das Flugzeug,samolyot,stul,muz
-228,der Hafen,bandargoh,telefon,qalam
-229,die Farm,ferma,oy,sumka
-230,das Tier,hayvon,mashina,gul
-231,fliegen,uchmoq,suzmoq,qochmoq
-232,gefährlich,xavfli,xavfsiz,oddiy
-233,helfen,yordam bermoq,unutmoq,sakrash
-234,heute,bugun,ertaga,kecha
-235,ruhig,tinch,shovqinli,baland
-236,arbeiten,ishlamoq,uxlamoq,o'ynamoq
-237,drüben,narigi tomonda,bu yerda,tepada
-238,laut,baland,past,zerikarli
-239,beginnen,boshlamoq,tugatmoq,sotmoq
-240,bald,tez orada,keyinroq,erta
-241,der Löwe,sher,stakan,oyna
-242,die Maus,sichqon,telefon,muz
-243,das Schaf,qo'y,stol,qalam
-244,der Käse,pishloq,sumka,daryo
-245,die Butter,sariyog',telefon,oy
-246,das Salz,tuz,muz,stakan
-247,der Zucker,shakar,gul,oyna
-248,die Erdbeere,qulupnay,telefon,stul
-249,das Huhn,tovuq,sumka,mashina
-250,der Reis,guruch,qalam,muz
-251,essen,yemoq,uxlamoq,qochmoq
-252,süß,shirin,achchiq,nordon
-253,kochen,pishirmoq,suzmoq,sakrash
-254,zusammen,birga,yolg'iz,erta
-255,sauer,nordon,shirin,issiq
-256,bringen,olib kelmoq,tashlab ketmoq,qochmoq
-257,hungrig,och,to'q,charchagan
-258,gern,jon deb,majburan,sekin
-259,trinken,ichmoq,yemoq,uxlamoq
-260,draußen,tashqarida,ichkarida,erta
-261,die Kartoffel,kartoshka,oyna,telefon
-262,das Öl,yog',stol,gul
-263,der Bäcker,nonvoy,mashina,sumka
-264,die Verkäuferin,sotuvchi ayol,muz,oy
-265,das Regal,javon,telefon,stakan
-266,der Kunde,mijoz,gul,oyna
-267,die Rechnung,hisob-faktura,stul,sumka
-268,das Büro,ofis,telefon,muz
-269,der Kalender,taqvim,mashina,qalam
-270,die Email,elektron pochta,oyna,gul
-271,verkaufen,sotmoq,sotib olmoq,bermoq
-272,freundlich,mehribon,qo'pol,sovuq
-273,kaufen,sotib olmoq,sotmoq,qochmoq
-274,manchmal,ba'zida,har doim,erta
-275,billig,arzon,qimmat,katta
-276,zeigen,ko'rsatmoq,yashirmoq,unutmoq
-277,spät,kech,erta,tez
-278,teuer,qimmat,arzon,oddiy
-279,fragen,so'ramoq,javob bermoq,sakrash
-280,unten,pastda,tepada,ichkarida
-281,das Passwort,maxfiy kod,telefon,stul
-282,der Drucker,printer,sumka,muz
-283,die Datei,fayl,daryo,oy
-284,das Internet,internet,stakan,telefon
-285,der Bildschirm,monitor,mashina,gul
-286,die Tastatur,klaviatura,oyna,stul
-287,das Programm,dastur,telefon,sumka
-288,der Akku,batareya,muz,qalam
-289,die Batterie,element,oy,gul
-290,das Kabel,sim,telefon,stakan
-291,schreiben,yozmoq,uxlamoq,suzmoq
-292,modern,zamonaviy,eskicha,qadimiy
-293,lernen,o'rganmoq,unutmoq,qochmoq
-294,online,onlayn,oflayn,erta
-295,wichtig,muhim,keraksiz,oddiy
-296,öffnen,ochmoq,yopmoq,sotmoq
-297,schnell,tez,sekin,past
-298,schließen,yopmoq,ochmoq,sakrash
-299,einfach,oson,qiyin,murakkab
-300,drinnen,ichkarida,tashqarida,tepada
-301,der Knopf,tugma,sumka,oyna
-302,die Farbe,rang,mashina,muz
-303,das Holz,yog'och,stol,telefon
-304,der Stein,tosh,gul,qalam
-305,die Erde,yer,oyna,sumka
-306,das Metall,metall,muz,telefon
-307,der Wind,shamol,stakan,mashina
-308,die Temperatur,harorat,oy,gul
-309,das Geräusch,shovqin,telefon,stul
-310,der Traum,tush,sumka,muz
-311,träumen,orzu qilmoq,unutmoq,qochmoq
-312,laut,baland,past,sokin
-313,hören,eshitmoq,ko'rmoq,sakrash
-314,manchmal,ba'zida,har doim,erta
-315,hart,qattiq,yumshoq,engil
-316,fühlen,his qilmoq,unutmoq,sotmoq
-317,weich,yumshoq,qattiq,baland
-318,oben,tepada,pastda,ichkarida
-319,denken,o'ylamoq,sakrash,uxlamoq
-320,langsam,sekin,tez,baland
-321,die Hoffnung,umid,qalam,oyna
-322,das Glück,baxt,telefon,stakan
-323,der Fehler,xato,mashina,gul
-324,die Idee,g'oya,stul,sumka
-325,das Ziel,maqsad,oy,muz
-326,der Plan,reja,telefon,qalam
-327,die Chance,imkoniyat,oyna,gul
-328,das Ergebnis,natija,sumka,stakan
-329,der Anfang,boshlanish,muz,telefon
-330,die Mitte,o'rta,mashina,stol
-331,beginnen,boshlamoq,tugatmoq,qochmoq
-332,glücklich,baxtli,xafa,sovuq
-333,enden,tugatmoq,boshlamoq,sotmoq
-334,bald,tez orada,keyinroq,erta
-335,richtig,to'g'ri,noto'g'ri,oddiy
-336,planen,rejalashtirmoq,unutmoq,suzmoq
-337,bereit,tayyor,tayyor emas,charchagan
-338,dann,keyin,avval,kecha
-339,gewinnen,yutmoq,yutqazmoq,qochmoq
-340,fast,deyarli,sekin,erta
-341,das Ende,tugash,gul,oyna
-342,der Besucher,mehmon,telefon,sumka
-343,die Einladung,taklifnoma,stul,muz
-344,das Geschenk,sovg'a,oy,qalam
-345,der Geburtstag,tug'ilgan kun,telefon,gul
-346,die Hochzeit,to'y,mashina,oyna
-347,das Fest,bayram,sumka,stakan
-348,der Tanz,raqs,muz,telefon
-349,die Melodie,kuy,stul,gul
-350,das Abenteuer,sarguzasht,oyna,qalam
-351,feiern,nishonlamoq,uxlamoq,sakrash
-352,fröhlich,xursand,g'amgin,sovuq
-353,einladen,taklif qilmoq,qochmoq,unutmoq
-354,heute,bugun,kecha,ertaga
-355,spannend,qiziqarli,zerikarli,oddiy
-356,lachen,kulmoq,yig'lamoq,sotmoq
-357,gemeinsam,birgalikda,yolg'iz,erta
-358,traurig,xafa,xursand,faol
-359,tanzen,raqs tushmoq,uxlamoq,suzmoq
-360,draußen,tashqarida,ichkarida,tepada
-361,der Sport,sport,telefon,sumka
-362,die Mannschaft,jamoa,mashina,muz
-363,das Training,mashg'ulot,gul,oy
-364,der Sieger,g'olib,stakan,telefon
-365,die Medaille,medal,sumka,oyna
-366,das Turnier,turnir,muz,qalam
-367,der Zuschauer,tomoshabin,telefon,stul
-368,die Bühne,sahna,gul,mashina
-369,das Orchester,orkestr,oyna,sumka
-370,der Schauspieler,aktyor,muz,telefon
-371,rennen,yugurmoq,uxlamoq,suzmoq
-372,stark,kuchli,kuchsiz,nam
-373,verlieren,yutqazmoq,yutmoq,sakrash
-374,zusammen,birga,yolg'iz,kecha
-375,fit,sog'lom,kasal,charchagan
-376,trainieren,mashq qilmoq,unutmoq,sotmoq
-377,schwach,kuchsiz,kuchli,baland
-378,oft,tez-tez,kamdan-kam,erta
-379,werfen,uloqtirmoq,ushlamoq,qochmoq
-380,schnell,tez,sekin,past
-381,die Bibliothek,kutubxona,telefon,muz
-382,die Bushaltestelle,avtobus bekati,sumka,oyna
-383,das Einkaufszentrum,savdo markazi,stul,qalam
-384,der Spaziergang,sayr,gul,telefon
-385,die Unterkunft,turar joy,muz,stakan
-386,das Formular,anketa,mashina,sumka
-387,der Ausweis,guvohnoma,oyna,gul
-388,die Gardine,parda,telefon,muz
-389,das Wohnzimmer,mehmonxona,stul,qalam
-390,der Kühlschrank,muzlatgich,sumka,oy
-391,wohnen,yashamoq,qochmoq,sakrash
-392,bequem,qulay,noqulay,qattiq
-393,ausfüllen,to'ldirmoq,bo'shatmoq,unutmoq
-394,drinnen,ichkarida,tashqarida,tepada
-395,gemütlich,shinam,noqulay,sovuq
-396,öffnen,ochmoq,yopmoq,sotmoq
-397,leer,bo'sh,to'la,baland
-398,dort,u yerda,bu yerda,ichkarida
-399,schließen,yopmoq,ochmoq,qochmoq
-400,ruhig,tinch,shovqinli,tez
-401,die Waschmaschine,kir yuvish mashinasi,mashina,telefon
-402,das Kopfkissen,yostiq,stul,gul
-403,der Kleiderschrank,kiyim shkafi,oyna,sumka
-404,die Seife,sovun,muz,stakan
-405,das Handtuch,sochiq,qalam,telefon
-406,der Spiegel,oyna,gul,mashina
-407,die Zahnbürste,tish cho'tkasi,telefon,oy
-408,das Shampoo,shampun,sumka,muz
-409,der Föhn,soch quritgich,stul,qalam
-410,die Zahnpasta,tish pastasi,oyna,telefon
-411,waschen,yuvmoq,quritmoq,sakrash
-412,sauber,toza,iflos,qattiq
-413,kämmen,taramoq,unutmoq,sotmoq
-414,morgens,ertalab,kechqurun,kecha
-415,nass,ho'l,quruq,issiq
-416,trocknen,quritmoq,ho'llamoq,qochmoq
-417,frisch,yangi,sifatsiz,zerikarli
-418,später,keyinroq,hozir,erta
-419,duften,xushbo'y hid taratmoq,suzmoq,uxlamoq
-420,lang,weich,yumshoq,qattiq,baland
-421,das Wörterbuch,lug'at,telefon,sumka
-422,der Kugelschreiber,ruchka,muz,oyna
-423,die Kreide,bo'r,stul,qalam
-424,das Lineal,chizg'ich,gul,telefon
-425,der Radiergummi,o'chirg'ich,oy,muz
-426,die Pause,tanaffus,sumka,stakan
-427,das Gymnasium,gimnaziya,qalam,telefon
-428,der Direktor,direktor,mashina,gul
-429,die Sekretärin,kotiba,oyna,sumka
-430,das Praktikum,amaliyot,muz,telefon
-431,lernen,o'rganmoq,unutmoq,qochmoq
-432,interessant,qiziqarli,zerikarli,sovuq
-433,erklären,tushuntirmoq,yashirmoq,sakrash
-434,heute,bugun,kecha,ertaga
-435,schwierig,qiyin,oson,engil
-436,antworten,javob bermoq,savol bermoq,sotmoq
-437,klug,aqlli,ahmoq,oddiy
-438,dort,u yerda,bu yerda,ichkarida
-439,üben,mashq qilmoq,uxlamoq,suzmoq
-440,ruhig,tinch,shovqinli,baland
-441,der Ingenieur,muhandis,gul,mashina
-442,die Krankenschwester,hamshira,telefon,oyna
-443,das Labor,laboratoriya,sumka,muz
-444,der Mechaniker,mexanik,stul,qalam
-445,die Bäckerei,nonvoyxona,oy,telefon
-446,das Menü,menyu,muz,gul
-447,der Kellner,ofitsiant,sumka,stakan
-448,die Bestellung,buyurtma,qalam,telefon
-449,das Trinkgeld,choychaqa,mashina,oyna
-450,der Lastwagen,yuk mashinasi,gul,sumka
-451,reparieren,ta'mirlamoq,buzmoq,qochmoq
-452,fleißig,mehnatkash,dangasa,zerikarli
-453,bedienen,xizmat qilmoq,unutmoq,sotmoq
-454,manchmal,ba'zida,har doim,erta
-455,beschäftigt,band,bo'sh,sovuq
-456,tragen,tashimoq,tashlab yubormoq,sakrash
-457,pünktlich,o'z vaqtida,kechikkan,oddiy
-458,drinnen,ichkarida,tashqarida,tepada
-459,verdienen,pul ishlamoq,yo'qotmoq,uxlamoq
-460,schnell,tez,sekin,past
-461,die Kreuzung,chorraha,telefon,muz
-462,das Motorrad,mototsikl,sumka,oyna
-463,der Fußgänger,piyoda,stul,qalam
-464,die Ampel,svetofor,gul,telefon
-465,das Nummernschild,avtomobil raqami,oy,muz
-466,der Fahrradhelm,veloshlem,sumka,stakan
-467,die Landschaft,manzara,qalam,telefon
-468,das Gebirge,tog' tizmasi,mashina,gul
-469,der Wasserfall,sharshara,oyna,sumka
-470,die Sehenswürdigkeit,diqqatga sazovor joy,muz,telefon
-471,fahren,minmoq,uxlamoq,qochmoq
-472,vorsichtig,ehtiyotkor,shoshqaloq,baland
-473,abbiegen,burilmoq,to'xtamoq,sotmoq
-474,draußen,tashqarida,ichkarida,tepada
-475,gefährlich,xavfli,xavfsiz,oddiy
-476,anhalten,to'xtamoq,yurmoq,sakrash
-477,weit,uzoq,yaqin,sovuq
-478,gerade,to'g'ri,egri,zerikarli
-479,überqueren,kesib o'tmoq,qochmoq,unutmoq
-480,links,chapda,o'ngda,tepada
-481,das Schloss,saroy,telefon,oyna
-482,der Tempel,ibodatxona,sumka,muz
-483,die Hauptstadt,poytaxt,stul,qalam
-484,das Ausland,chet el,gul,telefon
-485,der Tourist,sayyoh,oy,mashina
-486,die Reisegruppe,sayohat guruhi,muz,sumka
-487,das Musikinstrument,musiqa asbobi,telefon,stakan
-488,der Gitarrist,gitarachi,qalam,gul
-489,die Trommel,baraban,oyna,telefon
-490,das Klavier,pianino,sumka,muz
-491,besuchen,ziyorat qilmoq,qochmoq,sotmoq
-492,berühmt,mashhur,noma'lum,oddiy
-493,fotografieren,rasmga olmoq,unutmoq,sakrash
-494,überall,hamma yerda,hech qayerda,ichkarida
-495,international,xalqaro,mahalliy,sovuq
-496,staunen,hayratlanmoq,uxlamoq,qochmoq
-497,alt,qadimiy,yangi,tez
-498,gemeinsam,birga,yolg'iz,erta
-499,entdecken,kashf qilmoq,yashirmoq,sotmoq
-500,freundlich,mehribon,qo'pol,sovuq 
-501,der Termin,uchrashuv vaqti,telefon,sumka
-502,die Wohnung,xonadon,muz,oyna
-503,das Hobby,xobbi,stul,qalam
-504,der Nachbar,qo'shni,gul,telefon
-505,die Freizeit,bo'sh vaqt,oy,mashina
-506,das Konzert,konsert,muz,sumka
-507,der Fernseher,televizor,telefon,stakan
-508,die Dusche,dush,qalam,gul
-509,das Regal,javon,oyna,telefon
-510,der Schirm,soyabon,sumka,muz
-511,brauchen,kerak bo'lmoq,qochmoq,sakrash
-512,frei,bo'sh,band,zerikarli
-513,vergessen,unutmoq,eslamoq,sotmoq
-514,leider,afsuski,xursandchilik bilan,erta
-515,kaputt,buzilgan,yangi,sovuq
-516,erklären,tushuntirmoq,yashirmoq,unutmoq
-517,leer,bo'sh,to'la,baland
-518,vielleicht,balki,aniq,kecha
-519,wünschen,tilamoq,qochmoq,suzmoq
-520,nett,yoqimli,qo'pol,past
-521,die Telefonnummer,telefon raqami,telefon,muz
-522,das Radio,radio,sumka,oyna
-523,der Supermarkt,supermarket,stul,qalam
-524,die Brille,ko'zoynak,gul,telefon
-525,das Fahrrad,velosiped,oy,mashina
-526,der Fahrplan,qatnov jadvali,muz,sumka
-527,die Ferien,ta'til,telefon,stakan
-528,das Sofa,divan,qalam,gul
-529,der Koffer,chamadon,oyna,telefon
-530,die Post,pochta,sumka,muz
-531,reservieren,band qilmoq,qochmoq,sakrash
-532,bequem,qulay,noqulay,oddiy
-533,mitkommen,birga kelmoq,ketib qolmoq,sotmoq
-534,zuerst,avval,keyin,erta
-535,voll,to'la,bo'sh,sovuq
-536,wechseln,almashtirmoq,saqlamoq,unutmoq
-537,traurig,xafa,xursand,baland
-538,deshalb,shuning uchun,bekordan-bekorga,kecha
-539,lächeln,jilmaymoq,yig'lamoq,suzmoq
-540,fertig,tayyor,tayyor emas,past
-541,der Flughafen,aeroport,telefon,sumka
-542,die Straßenbahn,tramvay,muz,oyna
-543,das Ticket,chipta,stul,qalam
-544,der Bahnhof,vokzal,gul,telefon
-545,die U-Bahn,metro,oy,mashina
-546,das Café,kafe,muz,sumka
-547,der Urlaub,ta'til,telefon,stakan
-548,die Einladung,taklifnoma,qalam,gul
-549,das Hotelzimmer,mehmonxona xonasi,oyna,telefon
-550,der Reisepass,pasport,sumka,muz
-551,packen,joylamoq,qochmoq,sakrash
-552,pünktlich,o'z vaqtida,kechikkan,oddiy
-553,ankommen,yetib kelmoq,ketib qolmoq,sotmoq
-554,danach,keyin,avval,erta
-555,durstig,chanqagan,to'q,sovuq
-556,aussteigen,tushmoq,minmoq,unutmoq
-557,freundlich,mehribon,qo'pol,baland
-558,endlich,nihoyat,hech qachon,kecha
-559,einsteigen,minmoq,tushmoq,suzmoq
-560,satt,to'q,och,past
-561,der Kühlschrank,muzlatgich,telefon,sumka
-562,die Batterie,batareya,muz,oyna
-563,das Handy,telefon,stul,qalam
-564,der Computer,kompyuter,gul,telefon
-565,die Zeitung,gazeta,oy,mashina
-566,das Foto,rasm,muz,sumka
-567,der Schlüssel,kalit,telefon,stakan
-568,die Tasche,sumka,qalam,gul
-569,das Fenster,oyna,oyna,telefon
-570,der Kalender,kalendar,sumka,muz
-571,abschließen,qulflamoq,qochmoq,sakrash
-572,praktisch,qulay,noqulay,oddiy
-573,mitnehmen,o'zi bilan olmoq,tashlab ketmoq,sotmoq
-574,natürlich,albatta,hech qachon,erta
-575,trocken,quruq,ho'l,sovuq
-576,zumachen,yopmoq,ochmoq,unutmoq
-577,böse,jahldor,mehribon,baland
-578,trotzdem,shunga qaramay,bekordan-bekorga,kecha
-579,gehören,tegishli bo'lmoq,yo'qotmoq,suzmoq
-580,richtig,to'g'ri,noto'g'ri,past
-581,der Fernsehabend,televizor oqshomi,telefon,sumka
-582,die Geburtstagsparty,tug'ilgan kun bazmi,muz,oyna
-583,das Lieblingslied,sevimli qo'shiq,stul,qalam
-584,der Sportplatz,sport maydoni,gul,telefon
-585,die Musikgruppe,musiqa guruhi,oy,mashina
-586,das Schwimmbad,basseyn,muz,sumka
-587,der Stadtpark,shahar bog'i,telefon,stakan
-588,die Bäckerei,nonvoyxona,qalam,gul
-589,das Mittagessen,tushlik,oyna,telefon
-590,der Wochenmarkt,haftalik bozor,sumka,muz
-591,gratulieren,tabriklamoq,qochmoq,sakrash
-592,beliebt,mashhur,noma'lum,oddiy
-593,telefonieren,telefonlashmoq,unutmoq,sotmoq
-594,plötzlich,to'satdan,sekin,erta
-595,hungrig,och,to'q,sovuq
-596,rauchen,chekmoq,suzmoq,unutmoq
-597,hilfsbereit,yordamchi,qo'pol,baland
-598,besonders,ayniqsa,oddiy,kecha
-599,stoppen,to'xtatmoq,yurgizmoq,qochmoq
-600,wirklich,haqiqatan,balki,past
-601,der Terminplan,reja jadvali,telefon,sumka
-602,die Frühstückspause,nonushta tanaffusi,muz,oyna
-603,das Lieblingsessen,sevimli ovqat,stul,qalam
-604,der Sprachkurs,til kursi,gul,telefon
-605,die Hausaufgabe,uy vazifasi,oy,mashina
-606,das Wörterbuch,lug'at,muz,sumka
-607,der Fahrstuhl,lift,telefon,stakan
-608,die Haltestelle,bekat,qalam,gul
-609,das Kaufhaus,savdo markazi,oyna,telefon
-610,der Fußballverein,futbol klubi,sumka,muz
-611,abholen,olib ketmoq,qochmoq,sakrash
-612,nervös,asabiy,xotirjam,oddiy
-613,ausfüllen,to'ldirmoq,bo'shatmoq,sotmoq
-614,zuerst,avval,keyin,erta
-615,gemütlich,shinam,noqulay,sovuq
-616,duschen,dush qabul qilmoq,uxlamoq,suzmoq
-617,peinlich,noqulay,qulay,baland
-618,danach,keyin,avval,kecha
-619,grillen,grilda pishirmoq,unutmoq,qochmoq
-620,toll,zo'r,yomon,past
-621,der Nebenjob,qo'shimcha ish,telefon,sumka
-622,die Speisekarte,menyu,muz,oyna
-623,das Kaufzentrum,savdo markazi,stul,qalam
-624,der Reiseführer,sayyoh qo'llanmasi,gul,telefon
-625,die Zimmernummer,xona raqami,oy,mashina
-626,das Schwimmbad,basseyn,muz,sumka
-627,der Laptop,noutbuk,telefon,stakan
-628,die Lieblingsfarbe,sevimli rang,qalam,gul
-629,das Grillfest,gril bayrami,oyna,telefon
-630,der Fernseher,televizor,sumka,muz
-631,empfehlen,tavsiya qilmoq,qochmoq,sakrash
-632,prima,ajoyib,yomon,oddiy
-633,mitbringen,o'zi bilan olib kelmoq,unutmoq,sotmoq
-634,besonders,ayniqsa,oddiy,erta
-635,dumm,ahmoq,aqlli,sovuq
-636,frühstücken,nonushta qilmoq,uxlamoq,suzmoq
-637,kaputt,buzilgan,yangi,baland
-638,endlich,nihoyat,hech qachon,kecha
-639,lächeln,jilmaymoq,yig'lamoq,qochmoq
-640,nett,yoqimli,qo'pol,past
-641,der Supermarkt,supermarket,telefon,sumka
-642,die Geburtstagseinladung,tug'ilgan kun taklifi,muz,oyna
-643,das Handyfoto,telefon rasmi,stul,qalam
-644,der Kühlschrank,muzlatgich,gul,telefon
-645,die Fernbedienung,pult,oy,mashina
-646,das Sofa,yumshoq mebel,muz,sumka
-647,der Schreibtisch,yozuv stoli,telefon,stakan
-648,die Freizeitgruppe,bo'sh vaqt guruhi,qalam,gul
-649,das Lieblingsbuch,sevimli kitob,oyna,telefon
-650,der Regenschirm,soyabon,sumka,muz
-651,putzen,tozalamoq,qochmoq,sakrash
-652,sauber,toza,iflos,oddiy
-653,wechseln,almashtirmoq,saqlamoq,sotmoq
-654,vielleicht,balki,aniq,erta
-655,eng,tor,keng,sovuq
-656,sparen,tejamoq,isrof qilmoq,suzmoq
-657,traurig,xafa,xursand,baland
-658,trotzdem,shunga qaramay,bekordan-bekorga,kecha
-659,wiederholen,takrorlamoq,unutmoq,qochmoq
-660,fertig,tayyor,tayyor emas,past
-661,der Ausflug,sayohat,telefon,sumka
-662,die Musiksendung,musiqa dasturi,muz,oyna
-663,das Theaterstück,sahna asari,stul,qalam
-664,der Sprachpartner,til sherigi,gul,telefon
-665,die Klassenfahrt,sinf sayohati,oy,mashina
-666,das Fahrradschloss,velosiped qulfi,muz,sumka
-667,der Reisekoffer,sayohat chamadoni,telefon,stakan
-668,die Wetterkarte,ob-havo xaritasi,qalam,gul
-669,das Fotoalbum,foto albom,oyna,telefon
-670,der Stadtplan,shahar xaritasi,sumka,muz
-671,unterschreiben,imzo qo'ymoq,qochmoq,sakrash
-672,falsch,noto'g'ri,to'g'ri,oddiy
-673,gehören,tegishli bo'lmoq,yo'qotmoq,sotmoq
-674,natürlich,albatta,hech qachon,erta
-675,trocken,quruq,ho'l,sovuq
-676,reparieren,ta'mirlamoq,buzmoq,suzmoq
-677,hilfsbereit,yordamchi,qo'pol,baland
-678,plötzlich,to'satdan,sekin,kecha
-679,meinen,fikr bildirmoq,unutmoq,qochmoq
-680,richtig,to'g'ri,noto'g'ri,past
-681,der Freizeitpark,attraksion bog'i,telefon,sumka
-682,die Lieblingsmusik,sevimli musiqa,muz,oyna
-683,das Stadtzentrum,shahar markazi,stul,qalam
-684,der Campingplatz,kemping joyi,gul,telefon
-685,die Einkaufsliste,xarid ro'yxati,oy,mashina
-686,das Wochenendticket,hafta oxiri chiptasi,muz,sumka
-687,der Getränkemarkt,ichimlik bozori,telefon,stakan
-688,die Badehose,cho'milish shortigi,qalam,gul
-689,das Vogelhaus,qush uyi,oyna,telefon
-690,der Sonnenaufgang,quyosh chiqishi,sumka,muz
-691,passen,mos kelmoq,qochmoq,sakrash
-692,beliebt,mashhur,noma'lum,oddiy
-693,telefonieren,telefonlashmoq,unutmoq,sotmoq
-694,wirklich,haqiqatan,balki,erta
-695,hungrig,och,to'q,sovuq
-696,lachen,kulmoq,yig'lamoq,suzmoq
-697,ruhig,tinch,shovqinli,baland
-698,deshalb,shuning uchun,bekordan-bekorga,kecha
-699,wünschen,tilamoq,yashirmoq,qochmoq
-700,voll,to'la,bo'sh,past
-701,der Busfahrer,avtobus haydovchisi,telefon,sumka
-702,die Einkaufstasche,xarid sumkasi,muz,oyna
-703,das Lieblingsfach,sevimli fan,stul,qalam
-704,der Reisepartner,sayohat sherigi,gul,telefon
-705,die Sporttasche,sport sumkasi,oy,mashina
-706,das Badezimmer,hammom,muz,sumka
-707,der Wecker,budilnik,telefon,stakan
-708,die Zeitungskiosk,gazeta kioski,qalam,gul
-709,das Frühstück,nonushta,oyna,telefon
-710,der Stadtbus,shahar avtobusi,sumka,muz
-711,aufstehen,o'rnidan turmoq,qochmoq,sakrash
-712,müde,charchagan,faol,oddiy
-713,einkaufen,xarid qilmoq,unutmoq,sotmoq
-714,danach,keyin,avval,erta
-715,freundlich,mehribon,qo'pol,sovuq
-716,mithelfen,yordam bermoq,uxlamoq,suzmoq
-717,langweilig,zerikarli,qiziqarli,baland
-718,manchmal,ba'zida,har doim,kecha
-719,anprobieren,kiyib ko'rmoq,yashirmoq,qochmoq
-720,bequem,qulay,noqulay,past
-721,der Fahrkartenautomat,chipta apparati,telefon,sumka
-722,die Lieblingsserie,sevimli serial,muz,oyna
-723,das Sportfest,sport bayrami,stul,qalam
-724,der Kuchenverkauf,tort savdosi,gul,telefon
-725,die Schulbibliothek,maktab kutubxonasi,oy,mashina
-726,das Gartenfest,bog' bayrami,muz,sumka
-727,der Mitschüler,sinfdoshi,telefon,stakan
-728,die Computermaus,kompyuter sichqonchasi,qalam,gul
-729,das Picknick,piknik,oyna,telefon
-730,der Spielplatz,o'yin maydonchasi,sumka,muz
-731,mitspielen,birga o'ynamoq,qochmoq,sakrash
-732,lustig,kulgili,jiddiy,oddiy
-733,backen,pishirmoq,unutmoq,sotmoq
-734,zusammen,birga,yolg'iz,erta
-735,durstig,chanqagan,to'q,sovuq
-736,aufpassen,diqqat qilmoq,uxlamoq,suzmoq
-737,kompliziert,murakkab,oson,baland
-738,trotzdem,shunga qaramay,bekordan-bekorga,kecha
-739,abwaschen,idish yuvmoq,yashirmoq,qochmoq
-740,fleißig,mehnatkash,dangasa,past
-741,der Schuhkarton,oyoq kiyim qutisi,telefon,sumka
-742,die Lieblingssendung,sevimli ko'rsatuv,muz,oyna
-743,das Fahrradlicht,velosiped chirog'i,stul,qalam
-744,der Ferienplan,ta'til rejasi,gul,telefon
-745,die Musikschule,musiqa maktabi,oy,mashina
-746,das Wohnzimmer,mehmonxona,muz,sumka
-747,der Obstsalat,mevali salat,telefon,stakan
-748,die Einkaufsliste,xarid ro'yxati,qalam,gul
-749,das Handyspiel,telefon o'yini,oyna,telefon
-750,der Stadtpark,shahar bog'i,sumka,muz
-751,mitfahren,birga bormoq,qochmoq,sakrash
-752,praktisch,qulay,noqulay,oddiy
-753,fernsehen,televizor ko'rmoq,unutmoq,sotmoq
-754,plötzlich,to'satdan,sekin,erta
-755,nervös,asabiy,xotirjam,sovuq
-756,aufräumen,yig'ishtirmoq,uxlamoq,suzmoq
-757,prima,ajoyib,yomon,baland
-758,wirklich,haqiqatan,balki,kecha
-759,vergessen,unutmoq,yodlamoq,qochmoq
-760,leer,bo'sh,to'la,past
-761,der Sportlehrer,sport o'qituvchisi,telefon,sumka
-762,die Klassenarbeit,sinf ishi,muz,oyna
-763,das Lieblingsobst,sevimli meva,stul,qalam
-764,der Fernsehabend,televizor oqshomi,gul,telefon
-765,die Bushaltestelle,avtobus bekati,oy,mashina
-766,das Kinderzimmer,bolalar xonasi,muz,sumka
-767,der Geburtstagskuchen,tug'ilgan kun torti,telefon,stakan
-768,die Reisetasche,sayohat sumkasi,qalam,gul
-769,das Wochenende,hafta oxiri,oyna,telefon
-770,der Supermarkt,supermarket,sumka,muz
-771,mitnehmen,o'zi bilan olmoq,qochmoq,sakrash
-772,traurig,xafa,xursand,oddiy
-773,frühstücken,nonushta qilmoq,unutmoq,sotmoq
-774,endlich,nihoyat,hech qachon,erta
-775,kaputt,buzilgan,yangi,sovuq
-776,gratulieren,tabriklamoq,uxlamoq,suzmoq
-777,interessant,qiziqarli,zerikarli,baland
-778,vielleicht,balki,aniq,kecha
-779,sammeln,to'plamoq,yashirmoq,qochmoq
-780,nett,yoqimli,qo'pol,past
-781,der Reisefilm,sayohat filmi,telefon,sumka
-782,die Wettervorhersage,ob-havo prognozi,muz,oyna
-783,das Lieblingshobby,sevimli mashg'ulot,stul,qalam
-784,der Fahrradfahrer,velosipedchi,gul,telefon
-785,die Einkaufsparty,xarid bazmi,oy,mashina
-786,das Jugendhotel,yoshlar mehmonxonasi,muz,sumka
-787,der Sprachtest,til testi,telefon,stakan
-788,die Badezeit,cho'milish vaqti,qalam,gul
-789,das Sommerfest,yozgi bayram,oyna,telefon
-790,der Spielabend,o'yin oqshomi,sumka,muz
-791,mitkommen,birga kelmoq,qochmoq,sakrash
-792,hilfsbereit,yordamchi,qo'pol,oddiy
-793,telefonieren,telefonlashmoq,unutmoq,sotmoq
-794,natürlich,albatta,hech qachon,erta
-795,eng,tor,keng,sovuq
-796,lächeln,jilmaymoq,uxlamoq,suzmoq
-797,pünktlich,o'z vaqtida,kechikkan,baland
-798,besonders,ayniqsa,oddiy,kecha
-799,erreichen,erishmoq,yashirmoq,qochmoq
-800,fertig,tayyor,tayyor emas,past
-801,der Fahrgast,yo'lovchi,telefon,sumka
-802,die Fahrkarte,yo'l chiptasi,muz,oyna
-803,das Reisebüro,sayohat agentligi,stul,qalam
-804,der Bahnsteig,platforma,gul,telefon
-805,die Ankunft,kelish,oy,mashina
-806,das Abteil,vagon bo'limi,muz,sumka
-807,der Kiosk,kiosk,telefon,stakan
-808,die Tageszeitung,kunlik gazeta,qalam,gul
-809,das Frühstücksei,nonushta tuxumi,oyna,telefon
-810,der Stadtteil,shahar tumani,sumka,muz
-811,abfahren,jo'nab ketmoq,qochmoq,sakrash
-812,pünktlich,o'z vaqtida,kechikkan,oddiy
-813,anmelden,ro'yxatdan o'tmoq,unutmoq,sotmoq
-814,zufällig,tasodifan,ataylab,erta
-815,nass,ho'l,quruq,sovuq
-816,ausruhen,dam olmoq,ishlamoq,suzmoq
-817,lustig,kulgili,jiddiy,baland
-818,daneben,yonida,uzoqda,kecha
-819,zuhören,tinglamoq,yashirmoq,qochmoq
-820,müde,charchagan,faol,past
-821,der Sitzplatz,o'tirish joyi,telefon,sumka
-822,die Abfahrt,jo'nash,muz,oyna
-823,das Wartezimmer,kutish xonasi,stul,qalam
-824,der Reiseführer,sayyoh qo'llanmasi,gul,telefon
-825,die Jugendherberge,yoshlar yotoqxonasi,oy,mashina
-826,das Mineralwasser,mineral suv,muz,sumka
-827,der Orangensaft,apelsin sharbati,telefon,stakan
-828,die Speisekarte,menyu,qalam,gul
-829,das Mittagessen,tushlik,oyna,telefon
-830,der Nachtisch,desert,sumka,muz
-831,bestellen,buyurtma bermoq,qochmoq,sakrash
-832,satt,to'q,och,oddiy
-833,servieren,xizmat qilmoq,unutmoq,sotmoq
-834,zusätzlich,qo'shimcha,asosiy,erta
-835,sauer,nordon,shirin,sovuq
-836,schmecken,ta'm bermoq,uxlamoq,suzmoq
-837,höflich,xushmuomala,qo'pol,baland
-838,drinnen,ichkarida,tashqarida,kecha
-839,bezahlen,to'lamoq,yashirmoq,qochmoq
-840,leer,bo'sh,to'la,past
-841,der Kühlschrank,muzlatgich,telefon,sumka
-842,die Waschmaschine,kir yuvish mashinasi,muz,oyna
-843,das Bügeleisen,dazmol,stul,qalam
-844,der Staubsauger,changyutgich,gul,telefon
-845,die Zahnpasta,tish pastasi,oy,mashina
-846,das Handtuch,sochiq,muz,sumka
-847,der Badeanzug,cho'milish kiyimi,telefon,stakan
-848,die Sonnenbrille,quyosh ko'zoynagi,qalam,gul
-849,das Kopfkissen,yostiq,oyna,telefon
-850,der Wecker,budilnik,sumka,muz
-851,einschalten,yoqmoq,qochmoq,sakrash
-852,praktisch,qulay,noqulay,oddiy
-853,ausschalten,o'chirmoq,unutmoq,sotmoq
-854,plötzlich,to'satdan,sekin,erta
-855,trocken,quruq,ho'l,sovuq
-856,wecken,uyg'otmoq,uxlatmoq,suzmoq
-857,bequem,qulay,noqulay,baland
-858,oben,tepada,pastda,kecha
-859,putzen,tozalamoq,yashirmoq,qochmoq
-860,fertig,tayyor,tayyor emas,past
-861,der Fußballplatz,futbol maydoni,telefon,sumka
-862,die Mannschaftskarte,jamoa kartasi,muz,oyna
-863,das Hallenbad,yopiq basseyn,stul,qalam
-864,der Tennisspieler,tennischi,gul,telefon
-865,die Medaille,medal,oy,mashina
-866,das Sportprogramm,sport dasturi,muz,sumka
-867,der Wanderweg,sayr yo'li,telefon,stakan
-868,die Fahrradtour,velosayohat,qalam,gul
-869,das Picknickbrot,piknik noni,oyna,telefon
-870,der Regenmantel,yomg'ir plashi,sumka,muz
-871,trainieren,mashq qilmoq,qochmoq,sakrash
-872,fit,sog'lom,kasal,oddiy
-873,mitmachen,qatnashmoq,unutmoq,sotmoq
-874,unterwegs,yo'lda,uyda,erta
-875,windig,shamolli,sokin,sovuq
-876,gratulieren,tabriklamoq,uxlamoq,suzmoq
-877,fröhlich,xursand,xafa,baland
-878,draußen,tashqarida,ichkarida,kecha
-879,wandern,sayr qilmoq,yashirmoq,qochmoq
-880,gesund,sog'lom,kasal,past
-881,der Geburtstagsgast,tug'ilgan kun mehmoni,telefon,sumka
-882,die Einladungskarte,taklifnoma kartasi,muz,oyna
-883,das Familienfoto,oilaviy rasm,stul,qalam
-884,der Hochzeitstag,to'y kuni,gul,telefon
-885,die Musikgruppe,musiqa guruhi,oy,mashina
-886,das Festessen,bayram ovqati,muz,sumka
-887,der Blumenladen,gul do'koni,telefon,stakan
-888,die Postkarte,pochta kartasi,qalam,gul
-889,das Geschenkpapier,sovg'a qog'ozi,oyna,telefon
-890,der Ferienort,dam olish joyi,sumka,muz
-891,feiern,nishonlamoq,qochmoq,sakrash
-892,beliebt,mashhur,noma'lum,oddiy
-893,einladen,taklif qilmoq,unutmoq,sotmoq
-894,wirklich,haqiqatan,balki,erta
-895,traurig,xafa,xursand,sovuq
-896,lachen,kulmoq,uxlamoq,suzmoq
-897,hilfsbereit,yordamchi,qo'pol,baland
-898,zusammen,birga,yolg'iz,kecha
-899,passieren,sodir bo'lmoq,yashirmoq,qochmoq
-900,glücklich,baxtli,xafa,past
-901,der Mietvertrag,ijara shartnomasi,telefon,sumka
-902,die Wohnungstür,xonadon eshigi,muz,oyna
-903,das Treppenhaus,zina yo'lagi,stul,qalam
-904,der Hausmeister,uy nazoratchisi,gul,telefon
-905,die Nachbarschaft,qo'shnichilik,oy,mashina
-906,das Wohnzimmerfenster,mehmonxona oynasi,muz,sumka
-907,der Esstisch,ovqat stoli,telefon,stakan
-908,die Kaffeemaschine,qahva mashinasi,qalam,gul
-909,das Schlafzimmer,yotoqxona,oyna,telefon
-910,der Gartenstuhl,bog' stuli,sumka,muz
-911,mieten,ijaraga olmoq,qochmoq,sakrash
-912,ruhig,tinch,shovqinli,oddiy
-913,umziehen,ko'chmoq,unutmoq,sotmoq
-914,nebenan,qo'shni joyda,uzoqda,erta
-915,laut,baland,sokin,sovuq
-916,wohnen,yashamoq,uxlamoq,suzmoq
-917,sauber,toza,iflos,baland
-918,dort,u yerda,bu yerda,kecha
-919,reinigen,tozalamoq,yashirmoq,qochmoq
-920,gemütlich,shinam,noqulay,past
-921,der Sprachschüler,til o'quvchisi,telefon,sumka
-922,die Prüfungsvorbereitung,imtihon tayyorligi,muz,oyna
-923,das Kursbuch,darslik,stul,qalam
-924,der Stundenplan,dars jadvali,gul,telefon
-925,die Gruppenarbeit,guruh ishi,oy,mashina
-926,das Whiteboard,oq doska,muz,sumka
-927,der Kugelschreiber,ruchka,telefon,stakan
-928,die Notizseite,eslatma sahifasi,qalam,gul
-929,das Wörterspiel,so'z o'yini,oyna,telefon
-930,der Lernpartner,o'qish sherigi,sumka,muz
-931,erklären,tushuntirmoq,qochmoq,sakrash
-932,intelligent,aqlli,ahmoq,oddiy
-933,korrigieren,to'g'rilamoq,unutmoq,sotmoq
-934,manchmal,ba'zida,har doim,erta
-935,fleißig,mehnatkash,dangasa,sovuq
-936,wiederholen,takrorlamoq,uxlamoq,suzmoq
-937,interessiert,qiziqqan,beparvo,baland
-938,gemeinsam,birga,yolg'iz,kecha
-939,übersetzen,tarjima qilmoq,yashirmoq,qochmoq
-940,einfach,oson,qiyin,past
-941,der Fahrradreifen,velosiped shinasi,telefon,sumka
-942,die Tankstelle,yoqilg'i quyish shoxobchasi,muz,oyna
-943,das Verkehrsschild,yo'l belgisi,stul,qalam
-944,der Sicherheitsgurt,xavfsizlik kamari,gul,telefon
-945,die Autotür,avtomobil eshigi,oy,mashina
-946,das Navigationsgerät,navigator,muz,sumka
-947,der Parkplatz,avtoturargoh,telefon,stakan
-948,die Kreuzung,chorraha,qalam,gul
-949,das Motorrad,mototsikl,oyna,telefon
-950,der Fußweg,piyodalar yo'li,sumka,muz
-951,bremsen,tormoz bermoq,qochmoq,sakrash
-952,gefährlich,xavfli,xavfsiz,oddiy
-953,tanken,yoqilg'i quymoq,unutmoq,sotmoq
-954,unterwegs,yo'lda,uyda,erta
-955,vorsichtig,ehtiyotkor,shoshqaloq,sovuq
-956,abbiegen,burilmoq,uxlamoq,suzmoq
-957,frei,bo'sh,band,baland
-958,gerade,to'g'ri,egri,kecha
-959,überholen,o'zib ketmoq,yashirmoq,qochmoq
-960,langsam,sekin,tez,past
-961,der Wetterbericht,ob-havo hisoboti,telefon,sumka
-962,die Schneeballschlacht,qor jangi,muz,oyna
-963,das Herbstblatt,kuz bargi,stul,qalam
-964,der Sommerurlaub,yozgi ta'til,gul,telefon
-965,die Frühlingsblume,bahor guli,oy,mashina
-966,das Winterwetter,qish ob-havosi,muz,sumka
-967,der Regenschauer,qisqa yomg'ir,telefon,stakan
-968,die Sonnencreme,quyosh kremi,qalam,gul
-969,das Picknicktuch,piknik yopinchig'i,oyna,telefon
-970,der Badesee,cho'milish ko'li,sumka,muz
-971,regnen,yomg'ir yog'moq,qochmoq,sakrash
-972,heiß,issiq,sovuq,oddiy
-973,schneien,qor yog'moq,unutmoq,sotmoq
-974,draußen,tashqarida,ichkarida,erta
-975,bewölkt,bulutli,ochiq,sovuq
-976,sonnenbaden,toblanmoq,uxlamoq,suzmoq
-977,kühl,salqin,issiq,baland
-978,plötzlich,to'satdan,sekin,kecha
-979,wachsen,o'smoq,yashirmoq,qochmoq
-980,natürlich,tabiiy,sun'iy,past
-981,der Lieblingslehrer,sevimli o'qituvchi,telefon,sumka
-982,die Freundschaft,do'stlik,muz,oyna
-983,das Kinderlied,bolalar qo'shig'i,stul,qalam
-984,der Familienname,familya,gul,telefon
-985,die Geburtstagstorte,tug'ilgan kun torti,oy,mashina
-986,das Haustier,uy hayvoni,muz,sumka
-987,der Wochenendausflug,hafta oxiri sayohati,telefon,stakan
-988,die Lieblingsband,sevimli musiqa guruhi,qalam,gul
-989,das Kinoticket,kino chiptasi,oyna,telefon
-990,der Spielzeugladen,o'yinchoq do'koni,sumka,muz
-991,feiern,nishonlamoq,qochmoq,sakrash
-992,fröhlich,xursand,xafa,oddiy
-993,besuchen,ziyorat qilmoq,unutmoq,sotmoq
-994,wirklich,haqiqatan,balki,erta
-995,glücklich,baxtli,xafa,sovuq
-996,telefonieren,telefonlashmoq,uxlamoq,suzmoq
-997,hilfsbereit,yordamchi,qo'pol,baland
-998,zusammen,birga,yolg'iz,kecha
-999,passen,mos kelmoq,yashirmoq,qochmoq
-1000,bereit,tayyor,tayyor emas,past
+id,level,lemma,word_type,article,plural,translation,verb_praeteritum,verb_partizip_ii,verb_auxiliary,presens_ich,presens_du,presens_er_sie_es,presens_wir,presens_ihr,presens_sie_Sie,adjective_komparativ,adjective_superlativ,example_de,example_uz,audio_text,status
+1,A1,Apfel,Nomen,der,Äpfel,olma,,,,,,,,,,,,Ich esse jeden Morgen einen Apfel.,Men har kuni ertalab bitta olma yeyman.,der Apfel,needs_review
+2,A1,Haus,Nomen,das,Häuser,uy,,,,,,,,,,,,Unser Haus hat einen kleinen Garten.,Bizning uyimizning kichkina bog‘i bor.,das Haus,needs_review
+3,A1,Schule,Nomen,die,Schulen,maktab,,,,,,,,,,,,Die Schule beginnt um acht Uhr.,Maktab soat sakkizda boshlanadi.,die Schule,needs_review
+4,A1,Lehrer,Nomen,der,Lehrer,o‘qituvchi,,,,,,,,,,,,Der Lehrer erklärt die Aufgabe noch einmal.,O‘qituvchi topshiriqni yana bir marta tushuntiradi.,der Lehrer,needs_review
+5,A1,Mutter,Nomen,die,Mütter,ona,,,,,,,,,,,,Meine Mutter arbeitet in einem Krankenhaus.,Onam kasalxonada ishlaydi.,die Mutter,needs_review
+6,A1,Vater,Nomen,der,Väter,ota,,,,,,,,,,,,Mein Vater fährt jeden Tag mit dem Bus.,Otam har kuni avtobusda yuradi.,der Vater,needs_review
+7,A1,Buch,Nomen,das,Bücher,kitob,,,,,,,,,,,,Das Buch liegt auf dem Tisch.,Kitob stol ustida turibdi.,das Buch,needs_review
+8,A1,Tasche,Nomen,die,Taschen,sumka,,,,,,,,,,,,Meine Tasche ist sehr schwer.,Sumkam juda og‘ir.,die Tasche,needs_review
+9,A1,Tisch,Nomen,der,Tische,stol,,,,,,,,,,,,Wir essen am Tisch in der Küche.,Biz oshxonadagi stolda ovqatlanamiz.,der Tisch,needs_review
+10,A1,Wasser,Nomen,das,Wasser,suv,,,,,,,,,,,,Kann ich bitte ein Glas Wasser haben?,"Iltimos, bir stakan suv bera olasizmi?",das Wasser,needs_review
+11,A1,Tür,Nomen,die,Türen,eshik,,,,,,,,,,,,Bitte mach die Tür zu.,"Iltimos, eshikni yop.",die Tür,needs_review
+12,A1,Hund,Nomen,der,Hunde,it,,,,,,,,,,,,Der Hund spielt im Garten.,It bog‘da o‘ynayapti.,der Hund,needs_review
+13,A1,Katze,Nomen,die,Katzen,mushuk,,,,,,,,,,,,Die Katze schläft auf dem Sofa.,Mushuk divanda uxlayapti.,die Katze,needs_review
+14,A1,Auto,Nomen,das,Autos,mashina,,,,,,,,,,,,Das Auto ist neu und rot.,Mashina yangi va qizil.,das Auto,needs_review
+15,A1,Freund,Nomen,der,Freunde,do‘st,,,,,,,,,,,,Mein Freund wohnt in Berlin.,Do‘stim Berlinda yashaydi.,der Freund,needs_review
+16,A1,Freundin,Nomen,die,Freundinnen,dugona,,,,,,,,,,,,Meine Freundin kommt heute zu Besuch.,Dugonam bugun mehmonga keladi.,die Freundin,needs_review
+17,A1,Handy,Nomen,das,Handys,telefon,,,,,,,,,,,,Mein Handy liegt in der Tasche.,Telefonim sumkada.,das Handy,needs_review
+18,A1,Stuhl,Nomen,der,Stühle,stul,,,,,,,,,,,,Der Stuhl steht neben dem Fenster.,Stul derazaning yonida turibdi.,der Stuhl,needs_review
+19,A1,Blume,Nomen,die,Blumen,gul,,,,,,,,,,,,Die Blume ist gelb.,Gul sariq rangda.,die Blume,needs_review
+20,A1,Fenster,Nomen,das,Fenster,oyna,,,,,,,,,,,,Kannst du bitte das Fenster öffnen?,"Iltimos, derazani ocha olasanmi?",das Fenster,needs_review
+21,A1,freundlich,Adjektiv,,,mehribon,,,,,,,,,,freundlicher,am freundlichsten,Die Verkäuferin ist sehr freundlich.,Sotuvchi ayol juda xushmuomala.,freundlich,needs_review
+22,A1,laufen,Verb,,,yugurmoq,lief,gelaufen,sein,laufe,läufst,läuft,laufen,lauft,laufen,,,Am Sonntag laufe ich im Park.,Yakshanba kuni men parkda yuguraman.,laufen,needs_review
+23,A1,langsam,Adjektiv,,,sekin,,,,,,,,,,langsamer,am langsamsten,Bitte sprechen Sie langsam.,"Iltimos, sekin gapiring.",langsam,needs_review
+24,A1,helfen,Verb,,,yordam bermoq,half,geholfen,haben,helfe,hilfst,hilft,helfen,helft,helfen,,,Kannst du mir bitte helfen?,Menga yordam bera olasanmi?,helfen,needs_review
+25,A1,interessant,Adjektiv,,,qiziqarli,,,,,,,,,,interessanter,am interessantesten,Der Film ist sehr interessant.,Film juda qiziqarli.,interessant,needs_review
+26,A1,fragen,Verb,,,so‘ramoq,fragte,gefragt,haben,frage,fragst,fragt,fragen,fragt,fragen,,,Ich frage den Lehrer nach dem Wort.,Men o‘qituvchidan so‘zni so‘rayman.,fragen,needs_review
+27,A1,sauber,Adjektiv,,,toza,,,,,,,,,,sauberer,am saubersten,Das Zimmer ist jetzt sauber.,Xona endi toza.,sauber,needs_review
+28,A1,bezahlen,Verb,,,to‘lamoq,bezahlte,bezahlt,haben,bezahle,bezahlst,bezahlt,bezahlen,bezahlt,bezahlen,,,Ich möchte mit Karte bezahlen.,Men karta bilan to‘lamoqchiman.,bezahlen,needs_review
+29,A1,heute,Adverb,,,bugun,,,,,,,,,,,,Heute habe ich keine Zeit.,Bugun mening vaqtim yo‘q.,heute,needs_review
+30,A1,stark,Adjektiv,,,kuchli,,,,,,,,,,stärker,am stärksten,Mein Bruder ist sehr stark.,Akam juda kuchli.,stark,needs_review
+31,A1,Bruder,Nomen,der,Brüder,aka uka,,,,,,,,,,,,Mein Bruder ist zehn Jahre alt.,Ukam o‘n yoshda.,der Bruder,needs_review
+32,A1,Schwester,Nomen,die,Schwestern,opa singil,,,,,,,,,,,,Meine Schwester studiert in Taschkent.,Opam Toshkentda o‘qiydi.,die Schwester,needs_review
+33,A1,Brot,Nomen,das,Brote,non,,,,,,,,,,,,Wir kaufen frisches Brot beim Bäcker.,Biz nonvoydan yangi non sotib olamiz.,das Brot,needs_review
+34,A1,Bleistift,Nomen,der,Bleistifte,qalam,,,,,,,,,,,,Hast du einen Bleistift für mich?,Menga qalaming bormi?,der Bleistift,needs_review
+35,A1,Lampe,Nomen,die,Lampen,chiroq,,,,,,,,,,,,Die Lampe auf dem Schreibtisch ist kaputt.,Yozuv stolidagi chiroq buzilgan.,die Lampe,needs_review
+36,A1,Bett,Nomen,das,Betten,karavot,,,,,,,,,,,,Das Bett ist sehr bequem.,Karavot juda qulay.,das Bett,needs_review
+37,A1,Arzt,Nomen,der,Ärzte,shifokor,,,,,,,,,,,,Ich gehe heute zum Arzt.,Men bugun shifokorga boraman.,der Arzt,needs_review
+38,A1,Stadt,Nomen,die,Städte,shahar,,,,,,,,,,,,Die Stadt ist groß und schön.,Shahar katta va chiroyli.,die Stadt,needs_review
+39,A1,Land,Nomen,das,Länder,davlat,,,,,,,,,,,,Deutschland ist ein großes Land.,Germaniya katta davlat.,das Land,needs_review
+40,A1,Student,Nomen,der,Studenten,talaba,,,,,,,,,,,,Der Student lernt jeden Tag Deutsch.,Talaba har kuni nemis tilini o‘rganadi.,der Student,needs_review
+41,A1,arbeiten,Verb,,,ishlamoq,arbeitete,gearbeitet,haben,arbeite,arbeitest,arbeitet,arbeiten,arbeitet,arbeiten,,,Ich arbeite von Montag bis Freitag.,Men dushanbadan jumagacha ishlayman.,arbeiten,needs_review
+42,A1,schnell,Adjektiv,,,tez,,,,,,,,,,schneller,am schnellsten,Der Zug fährt sehr schnell.,Poyezd juda tez yuradi.,schnell,needs_review
+43,A1,glücklich,Adjektiv,,,baxtli,,,,,,,,,,glücklicher,am glücklichsten,Die Kinder sind heute sehr glücklich.,Bolalar bugun juda baxtli.,glücklich,needs_review
+44,A1,lernen,Verb,,,o‘rganmoq,lernte,gelernt,haben,lerne,lernst,lernt,lernen,lernt,lernen,,,Wir lernen zusammen für den Test.,Biz test uchun birga o‘qiymiz.,lernen,needs_review
+45,A1,oft,Adverb,,,tez-tez,,,,,,,,,,,,Ich trinke oft Tee.,Men tez-tez choy ichaman.,oft,needs_review
+46,A1,klein,Adjektiv,,,kichik,,,,,,,,,,kleiner,am kleinsten,"Unsere Wohnung ist klein, aber gemütlich.","Bizning kvartiramiz kichik, lekin shinam.",klein,needs_review
+47,A1,wohnen,Verb,,,yashamoq,wohnte,gewohnt,haben,wohne,wohnst,wohnt,wohnen,wohnt,wohnen,,,Wo wohnst du?,Sen qayerda yashaysan?,wohnen,needs_review
+48,A1,morgen,Adverb,,,ertaga,,,,,,,,,,,,Morgen gehen wir ins Kino.,Ertaga biz kinoga boramiz.,morgen,needs_review
+49,A1,müde,Adjektiv,,,charchagan,,,,,,,,,,müder,am müdesten,Nach der Arbeit bin ich müde.,Ishdan keyin men charchagan bo‘laman.,müde,needs_review
+50,A1,kochen,Verb,,,pishirmoq,kochte,gekocht,haben,koche,kochst,kocht,kochen,kocht,kochen,,,Am Abend koche ich Suppe.,Kechqurun men sho‘rva pishiraman.,kochen,needs_review
+51,A1,Arbeit,Nomen,die,Arbeiten,ish,,,,,,,,,,,,Die Arbeit beginnt um neun Uhr.,Ish soat to‘qqizda boshlanadi.,die Arbeit,needs_review
+52,A1,Essen,Nomen,das,Essen,ovqat,,,,,,,,,,,,Das Essen ist sehr lecker.,Ovqat juda mazali.,das Essen,needs_review
+53,A1,Kaffee,Nomen,der,Kaffees,qahva,,,,,,,,,,,,Möchtest du einen Kaffee?,Qahva ichasanmi?,der Kaffee,needs_review
+54,A1,Zeitung,Nomen,die,Zeitungen,gazeta,,,,,,,,,,,,Mein Opa liest jeden Morgen die Zeitung.,Bobom har kuni ertalab gazeta o‘qiydi.,die Zeitung,needs_review
+55,A1,Kind,Nomen,das,Kinder,bola,,,,,,,,,,,,Das Kind spielt mit dem Ball.,Bola to‘p bilan o‘ynayapti.,das Kind,needs_review
+56,A1,Zug,Nomen,der,Züge,poyezd,,,,,,,,,,,,Der Zug kommt um zehn Uhr an.,Poyezd soat o‘nda yetib keladi.,der Zug,needs_review
+57,A1,Frage,Nomen,die,Fragen,savol,,,,,,,,,,,,Ich habe eine Frage.,Mening bitta savolim bor.,die Frage,needs_review
+58,A1,Bild,Nomen,das,Bilder,rasm,,,,,,,,,,,,Das Bild hängt an der Wand.,Rasm devorda osilib turibdi.,das Bild,needs_review
+59,A1,Ball,Nomen,der,Bälle,to‘p,,,,,,,,,,,,Der Ball ist unter dem Auto.,To‘p mashinaning tagida.,der Ball,needs_review
+60,A1,Antwort,Nomen,die,Antworten,javob,,,,,,,,,,,,Die Antwort ist richtig.,Javob to‘g‘ri.,die Antwort,needs_review
+61,A1,trinken,Verb,,,ichmoq,trank,getrunken,haben,trinke,trinkst,trinkt,trinken,trinkt,trinken,,,Ich trinke morgens Tee.,Men ertalab choy ichaman.,trinken,needs_review
+62,A1,schön,Adjektiv,,,chiroyli,,,,,,,,,,schöner,am schönsten,Das Wetter ist heute schön.,Bugun havo yaxshi.,schön,needs_review
+63,A1,verstehen,Verb,,,tushunmoq,verstand,verstanden,haben,verstehe,verstehst,versteht,verstehen,versteht,verstehen,,,Ich verstehe das Wort nicht.,Men bu so‘zni tushunmayapman.,verstehen,needs_review
+64,A1,gern,Adverb,,,jon deb,,,,,,,,,,,,Ich spiele gern Fußball.,Men futbol o‘ynashni yaxshi ko‘raman.,gern,needs_review
+65,A1,lesen,Verb,,,o‘qimoq,las,gelesen,haben,lese,liest,liest,lesen,lest,lesen,,,Am Abend lese ich ein Buch.,Kechqurun men kitob o‘qiyman.,lesen,needs_review
+66,A1,laut,Adjektiv,,,baland,,,,,,,,,,lauter,am lautesten,Die Musik ist zu laut.,Musiqa juda baland.,laut,needs_review
+67,A1,schreiben,Verb,,,yozmoq,schrieb,geschrieben,haben,schreibe,schreibst,schreibt,schreiben,schreibt,schreiben,,,Ich schreibe meiner Oma eine Karte.,Men buvimga otkritka yozaman.,schreiben,needs_review
+68,A1,kalt,Adjektiv,,,sovuq,,,,,,,,,,kälter,am kältesten,Im Winter ist es hier sehr kalt.,Qishda bu yerda juda sovuq bo‘ladi.,kalt,needs_review
+69,A1,spielen,Verb,,,o‘ynamoq,spielte,gespielt,haben,spiele,spielst,spielt,spielen,spielt,spielen,,,Die Kinder spielen im Park.,Bolalar parkda o‘ynayapti.,spielen,needs_review
+70,A1,zusammen,Adjektiv,,,birga,,,,,,,,,,,,Wir kochen heute zusammen.,Bugun biz birga ovqat pishiramiz.,zusammen,needs_review
+71,A1,Zimmer,Nomen,das,Zimmer,xona,,,,,,,,,,,,Mein Zimmer ist hell und groß.,Mening xonam yorug‘ va katta.,das Zimmer,needs_review
+72,A1,Computer,Nomen,der,Computer,kompyuter,,,,,,,,,,,,Der Computer ist sehr langsam.,Kompyuter juda sekin ishlaydi.,der Computer,needs_review
+73,A1,Musik,Nomen,die,Musiken,musiqa,,,,,,,,,,,,Ich höre gern Musik.,Men musiqa tinglashni yaxshi ko‘raman.,die Musik,needs_review
+74,A1,Fahrrad,Nomen,das,Fahrräder,velosiped,,,,,,,,,,,,Ich fahre mit dem Fahrrad zur Schule.,Men maktabga velosipedda boraman.,das Fahrrad,needs_review
+75,A1,Park,Nomen,der,Parks,park,,,,,,,,,,,,Der Park ist neben unserem Haus.,Park uyimizning yonida.,der Park,needs_review
+76,A1,Familie,Nomen,die,Familien,oila,,,,,,,,,,,,Meine Familie ist groß.,Mening oilam katta.,die Familie,needs_review
+77,A1,Spiel,Nomen,das,Spiele,o‘yin,,,,,,,,,,,,Das Spiel beginnt um drei Uhr.,O‘yin soat uchda boshlanadi.,das Spiel,needs_review
+78,A1,Abend,Nomen,der,Abende,kechqurun,,,,,,,,,,,,Am Abend sehen wir fern.,Kechqurun biz televizor ko‘ramiz.,der Abend,needs_review
+79,A1,Uhr,Nomen,die,Uhren,soat,,,,,,,,,,,,Die Uhr an der Wand geht falsch.,Devordagi soat noto‘g‘ri ko‘rsatyapti.,die Uhr,needs_review
+80,A1,Meer,Nomen,das,Meere,dengiz,,,,,,,,,,,,Im Sommer fahren wir ans Meer.,Yozda biz dengizga boramiz.,das Meer,needs_review
+81,A1,schlafen,Verb,,,uxlamoq,schlief,geschlafen,haben,schlafe,schläfst,schläft,schlafen,schlaft,schlafen,,,Das Baby schläft schon.,Chaqaloq allaqachon uxlayapti.,schlafen,needs_review
+82,A1,alt,Adjektiv,,,qari,,,,,,,,,,älter,am ältesten,Mein Großvater ist achtzig Jahre alt.,Bobom sakson yoshda.,alt,needs_review
+83,A1,kaufen,Verb,,,sotib olmoq,kaufte,gekauft,haben,kaufe,kaufst,kauft,kaufen,kauft,kaufen,,,Ich kaufe Milch und Brot.,Men sut va non sotib olaman.,kaufen,needs_review
+84,A1,dort,Adverb,,,u yerda,,,,,,,,,,,,Dort ist der Bahnhof.,Vokzal u yerda.,dort,needs_review
+85,A1,neu,Adjektiv,,,yangi,,,,,,,,,,neuer,am neuesten,Ich habe ein neues Handy.,Mening yangi telefonim bor.,neu,needs_review
+86,A1,bringen,Verb,,,olib kelmoq,brachte,gebracht,haben,bringe,bringst,bringt,bringen,bringt,bringen,,,Kannst du mir bitte das Buch bringen?,Menga kitobni olib kela olasanmi?,bringen,needs_review
+87,A1,wichtig,Adjektiv,,,muhim,,,,,,,,,,wichtiger,am wichtigsten,Das Gespräch ist sehr wichtig.,Bu suhbat juda muhim.,wichtig,needs_review
+88,A1,immer,Adverb,,,har doim,,,,,,,,,,,,Er kommt immer pünktlich.,U har doim o‘z vaqtida keladi.,immer,needs_review
+89,A1,öffnen,Verb,,,ochmoq,öffnete,geöffnet,haben,öffne,öffnest,öffnet,öffnen,öffnet,öffnen,,,Der Laden öffnet um acht Uhr.,Do‘kon soat sakkizda ochiladi.,öffnen,needs_review
+90,A1,ruhig,Adjektiv,,,tinch,,,,,,,,,,ruhiger,am ruhigsten,Unsere Straße ist sehr ruhig.,Bizning ko‘chamiz juda tinch.,ruhig,needs_review
+91,A1,Morgen,Nomen,der,Morgen,ertalab,,,,,,,,,,,,Am Morgen trinke ich Kaffee.,Ertalab men qahva ichaman.,der Morgen,needs_review
+92,A1,Nacht,Nomen,die,Nächte,tun,,,,,,,,,,,,In der Nacht ist es dunkel.,Tunda qorong‘i bo‘ladi.,die Nacht,needs_review
+93,A1,Wetter,Nomen,das,Wetter,ob-havo,,,,,,,,,,,,Wie ist das Wetter heute?,Bugun ob-havo qanday?,das Wetter,needs_review
+94,A1,Sommer,Nomen,der,Sommer,yoz,,,,,,,,,,,,Im Sommer ist es heiß.,Yozda issiq bo‘ladi.,der Sommer,needs_review
+95,A1,Sonne,Nomen,die,Sonnen,quyosh,,,,,,,,,,,,Die Sonne scheint.,Quyosh charaqlab turibdi.,die Sonne,needs_review
+96,A1,Jahr,Nomen,das,Jahre,yil,,,,,,,,,,,,Das Jahr hat zwölf Monate.,Yilda o‘n ikki oy bor.,das Jahr,needs_review
+97,A1,Winter,Nomen,der,Winter,qish,,,,,,,,,,,,Im Winter fahren wir Ski.,Qishda biz chang‘i uchamiz.,der Winter,needs_review
+98,A1,Woche,Nomen,die,Wochen,hafta,,,,,,,,,,,,Nächste Woche habe ich Urlaub.,Kelasi hafta mening ta’tilim bor.,die Woche,needs_review
+99,A1,Wochenende,Nomen,das,Wochenenden,hafta oxiri,,,,,,,,,,,,Am Wochenende besuche ich meine Eltern.,Hafta oxirida men ota-onamnikiga boraman.,das Wochenende,needs_review
+100,A1,Monat,Nomen,der,Monate,oy,,,,,,,,,,,,Der Kurs dauert einen Monat.,Kurs bir oy davom etadi.,der Monat,needs_review
+101,A1,Minute,Nomen,die,Minuten,daqiqa,,,,,,,,,,,,Der Bus kommt in fünf Minuten.,Avtobus besh daqiqada keladi.,die Minute,needs_review
+102,A1,Problem,Nomen,das,Probleme,muammo,,,,,,,,,,,,Das ist kein Problem.,Bu muammo emas.,das Problem,needs_review
+103,A1,Name,Nomen,der,Namen,ism,,,,,,,,,,,,Wie ist Ihr Name?,Ismingiz nima?,der Name,needs_review
+104,A1,Sprache,Nomen,die,Sprachen,til,,,,,,,,,,,,Deutsch ist eine schöne Sprache.,Nemis tili chiroyli til.,die Sprache,needs_review
+105,A1,Foto,Nomen,das,Fotos,rasm,,,,,,,,,,,,Das Foto ist aus dem Urlaub.,Bu rasm ta’tildan.,das Foto,needs_review
+106,A1,Kuchen,Nomen,der,Kuchen,tort,,,,,,,,,,,,Meine Oma backt einen Kuchen.,Buvim tort pishiryapti.,der Kuchen,needs_review
+107,A1,Suppe,Nomen,die,Suppen,sho‘rva,,,,,,,,,,,,Die Suppe ist noch heiß.,Sho‘rva hali issiq.,die Suppe,needs_review
+108,A1,Ei,Nomen,das,Eier,tuxum,,,,,,,,,,,,Zum Frühstück esse ich ein Ei.,Nonushtada men bitta tuxum yeyman.,das Ei,needs_review
+109,A1,Fisch,Nomen,der,Fische,baliq,,,,,,,,,,,,Heute gibt es Fisch mit Reis.,Bugun guruch bilan baliq bor.,der Fisch,needs_review
+110,A1,Banane,Nomen,die,Bananen,banan,,,,,,,,,,,,Die Banane ist gelb.,Banan sariq rangda.,die Banane,needs_review
+111,A1,essen,Verb,,,yemoq,aß,gegessen,haben,esse,isst,isst,essen,esst,essen,,,Wir essen um ein Uhr zu Mittag.,Biz soat birda tushlik qilamiz.,essen,needs_review
+112,A1,freundlich,Adjektiv,,,mehribon,,,,,,,,,,freundlicher,am freundlichsten,Die Verkäuferin ist sehr freundlich.,Sotuvchi ayol juda xushmuomala.,freundlich,needs_review
+113,A1,kommen,Verb,,,kelmoq,kam,gekommen,sein,komme,kommst,kommt,kommen,kommt,kommen,,,Ich komme aus Usbekistan.,Men O‘zbekistondanman.,kommen,needs_review
+114,A1,später,Adverb,,,keyinroq,,,,,,,,,,,,Ich rufe dich später an.,Men senga keyinroq qo‘ng‘iroq qilaman.,später,needs_review
+115,A1,groß,Adjektiv,,,katta,,,,,,,,,,größer,am größten,Der Hund ist sehr groß.,It juda katta.,groß,needs_review
+116,A1,nehmen,Verb,,,olmoq,nahm,genommen,haben,nehme,nimmst,nimmt,nehmen,nehmt,nehmen,,,Ich nehme den Bus.,Men avtobusga chiqaman.,nehmen,needs_review
+117,A1,früh,Adjektiv,,,erta,,,,,,,,,,früher,am frühesten,Ich stehe früh auf.,Men erta turaman.,früh,needs_review
+118,A1,teuer,Adjektiv,,,qimmat,,,,,,,,,,teurer,am teuersten,Das Hotel ist zu teuer.,Mehmonxona juda qimmat.,teuer,needs_review
+119,A1,zeigen,Verb,,,ko‘rsatmoq,zeigte,gezeigt,haben,zeige,zeigst,zeigt,zeigen,zeigt,zeigen,,,Kannst du mir den Weg zeigen?,Menga yo‘lni ko‘rsata olasanmi?,zeigen,needs_review
+120,A1,draußen,Adverb,,,tashqarida,,,,,,,,,,,,Die Kinder spielen draußen.,Bolalar tashqarida o‘ynayapti.,draußen,needs_review
+121,A1,Fleisch,Nomen,das,,go‘sht,,,,,,,,,,,,Ich esse kein Fleisch.,Men go‘sht yemayman.,das Fleisch,needs_review
+122,A1,Saft,Nomen,der,Säfte,sharbat,,,,,,,,,,,,Der Saft ist kalt.,Sharbat sovuq.,der Saft,needs_review
+123,A1,Orange,Nomen,die,Orangen,apelsin,,,,,,,,,,,,Die Orange ist süß.,Apelsin shirin.,die Orange,needs_review
+124,A1,Gemüse,Nomen,das,Gemüse,sabzavot,,,,,,,,,,,,Gemüse ist gesund.,Sabzavot foydali.,das Gemüse,needs_review
+125,A1,Markt,Nomen,der,Märkte,bozor,,,,,,,,,,,,Am Samstag gehen wir auf den Markt.,Shanba kuni biz bozorga boramiz.,der Markt,needs_review
+126,A1,Reise,Nomen,die,Reisen,sayohat,,,,,,,,,,,,Die Reise nach Berlin war schön.,Berlinga sayohat yaxshi o‘tdi.,die Reise,needs_review
+127,A1,Ticket,Nomen,das,Tickets,chipta,,,,,,,,,,,,Ich brauche ein Ticket für den Zug.,Menga poyezd uchun chipta kerak.,das Ticket,needs_review
+128,A1,Flughafen,Nomen,der,Flughäfen,aeroport,,,,,,,,,,,,Der Flughafen ist weit weg.,Aeroport juda uzoqda.,der Flughafen,needs_review
+129,A1,Straße,Nomen,die,Straßen,ko‘cha,,,,,,,,,,,,Die Straße ist sehr lang.,Ko‘cha juda uzun.,die Straße,needs_review
+130,A1,Hotel,Nomen,das,Hotels,mehmonxona,,,,,,,,,,,,Das Hotel liegt im Zentrum.,Mehmonxona markazda joylashgan.,das Hotel,needs_review
+131,A1,fahren,Verb,,,bormoq,fuhr,gefahren,haben/sein,fahre,fährst,fährt,fahren,fahrt,fahren,,,Wir fahren morgen nach München.,Ertaga biz Myunxenga boramiz.,fahren,needs_review
+132,A1,langweilig,Adjektiv,,,zerikarli,,,,,,,,,,langweiliger,am langweiligsten,Der Film ist langweilig.,Film zerikarli.,langweilig,needs_review
+133,A1,treffen,Verb,,,uchrashmoq,traf,getroffen,haben,treffe,triffst,trifft,treffen,trefft,treffen,,,Ich treffe meine Freunde im Café.,Men do‘stlarim bilan kafeda uchrashaman.,treffen,needs_review
+134,A1,meistens,Adverb,,,ko‘pincha,,,,,,,,,,,,Ich fahre meistens mit dem Bus.,Men ko‘pincha avtobusda yuraman.,meistens,needs_review
+135,A1,leicht,Adjektiv,,,oson,,,,,,,,,,leichter,am leichtesten,Die Übung ist leicht.,Mashq oson.,leicht,needs_review
+136,A1,suchen,Verb,,,qidirmoq,suchte,gesucht,haben,suche,suchst,sucht,suchen,sucht,suchen,,,Ich suche meinen Schlüssel.,Men kalitimni qidiryapman.,suchen,needs_review
+137,A1,links,Adverb,,,chapda,,,,,,,,,,,,Die Bank ist links.,Bank chap tomonda.,links,needs_review
+138,A1,schwer,Adjektiv,,,qiyin,,,,,,,,,,schwerer,am schwersten,Die Prüfung war schwer.,Imtihon qiyin bo‘ldi.,schwer,needs_review
+139,A1,finden,Verb,,,topmoq,fand,gefunden,haben,finde,findest,findet,finden,findet,finden,,,Ich finde mein Handy nicht.,Men telefonimni topa olmayapman.,finden,needs_review
+140,A1,unten,Adverb,,,pastda,,,,,,,,,,,,Die Küche ist unten.,Oshxona pastda.,unten,needs_review
+141,A1,Chef,Nomen,der,Chefs,rahbar,,,,,,,,,,,,Der Chef ist heute nicht im Büro.,Rahbar bugun ofisda emas.,der Chef,needs_review
+142,A1,Küche,Nomen,die,Küchen,oshxona,,,,,,,,,,,,Die Küche ist klein.,Oshxona kichik.,die Küche,needs_review
+143,A1,Messer,Nomen,das,Messer,pichoq,,,,,,,,,,,,Das Messer ist sehr scharf.,Pichoq juda o‘tkir.,das Messer,needs_review
+144,A1,Löffel,Nomen,der,Löffel,qoshiq,,,,,,,,,,,,Ich brauche einen Löffel für die Suppe.,Sho‘rva uchun menga qoshiq kerak.,der Löffel,needs_review
+145,A1,Gabel,Nomen,die,Gabeln,sanchqi,,,,,,,,,,,,Die Gabel liegt neben dem Teller.,Sanchqi tarelkaning yonida.,die Gabel,needs_review
+146,A1,Glas,Nomen,das,Gläser,stakan,,,,,,,,,,,,Das Glas ist leer.,Stakan bo‘sh.,das Glas,needs_review
+147,A1,Teller,Nomen,der,Teller,tarelka,,,,,,,,,,,,Der Teller ist voll.,Tarelka to‘la.,der Teller,needs_review
+148,A1,Kleidung,Nomen,die,Kleidungen,kiyim,,,,,,,,,,,,Im Winter brauchen wir warme Kleidung.,Qishda bizga issiq kiyim kerak.,die Kleidung,needs_review
+149,A1,Hemd,Nomen,das,Hemden,ko‘ylak,,,,,,,,,,,,Das Hemd ist weiß.,Ko‘ylak oq rangda.,das Hemd,needs_review
+150,A1,Schuh,Nomen,der,Schuhe,oyoq kiyim,,,,,,,,,,,,Der linke Schuh ist zu klein.,Chap oyoq kiyim juda kichik.,der Schuh,needs_review
+151,A1,tragen,Verb,,,kiymoq,trug,getragen,haben,trage,trägst,trägt,tragen,tragt,tragen,,,Ich trage heute eine Jacke.,Bugun men kurtka kiyganman.,tragen,needs_review
+152,A1,sauber,Adjektiv,,,toza,,,,,,,,,,sauberer,am saubersten,Das Zimmer ist jetzt sauber.,Xona endi toza.,sauber,needs_review
+153,A1,verkaufen,Verb,,,sotmoq,verkaufte,verkauft,haben,verkaufe,verkaufst,verkauft,verkaufen,verkauft,verkaufen,,,Wir verkaufen unser altes Auto.,Biz eski mashinamizni sotyapmiz.,verkaufen,needs_review
+154,A1,gestern,Adverb,,,kecha,,,,,,,,,,,,Gestern war ich im Kino.,Kecha men kinoda edim.,gestern,needs_review
+155,A1,alt,Adjektiv,,,qari,,,,,,,,,,älter,am ältesten,Mein Großvater ist achtzig Jahre alt.,Bobom sakson yoshda.,alt,needs_review
+156,A1,bezahlen,Verb,,,to‘lamoq,bezahlte,bezahlt,haben,bezahle,bezahlst,bezahlt,bezahlen,bezahlt,bezahlen,,,Ich möchte mit Karte bezahlen.,Men karta bilan to‘lamoqchiman.,bezahlen,needs_review
+157,A1,oben,Adverb,,,tepada,,,,,,,,,,,,Das Schlafzimmer ist oben.,Yotoqxona tepada.,oben,needs_review
+158,A1,jung,Adjektiv,,,yosh,,,,,,,,,,jünger,am jüngsten,Unsere Lehrerin ist noch jung.,O‘qituvchimiz hali yosh.,jung,needs_review
+159,A1,öffnen,Verb,,,ochmoq,öffnete,geöffnet,haben,öffne,öffnest,öffnet,öffnen,öffnet,öffnen,,,Der Laden öffnet um acht Uhr.,Do‘kon soat sakkizda ochiladi.,öffnen,needs_review
+160,A1,drinnen,Adverb,,,ichkarida,,,,,,,,,,,,"Es regnet, wir bleiben drinnen.","Yomg‘ir yog‘yapti, biz ichkarida qolamiz.",drinnen,needs_review
+161,A1,Jacke,Nomen,die,Jacken,kurtka,,,,,,,,,,,,Die Jacke ist warm.,Kurtka issiq.,die Jacke,needs_review
+162,A1,Geld,Nomen,das,Gelder,pul,,,,,,,,,,,,Ich habe nicht genug Geld.,Menda yetarli pul yo‘q.,das Geld,needs_review
+163,A1,Preis,Nomen,der,Preise,narx,,,,,,,,,,,,Der Preis ist gut.,Narx yaxshi.,der Preis,needs_review
+164,A1,Bank,Nomen,die,Bänke,bank,,,,,,,,,,,,Die Bank ist heute geschlossen.,Bank bugun yopiq.,die Bank,needs_review
+165,A1,Geschäft,Nomen,das,Geschäfte,do‘kon,,,,,,,,,,,,Das Geschäft öffnet um neun Uhr.,Do‘kon soat to‘qqizda ochiladi.,das Geschäft,needs_review
+166,A1,Beruf,Nomen,der,Berufe,kasb,,,,,,,,,,,,Was sind Sie von Beruf?,Kasbingiz nima?,der Beruf,needs_review
+167,A1,Universität,Nomen,die,Universitäten,universitet,,,,,,,,,,,,Meine Schwester studiert an der Universität.,Opam universitetda o‘qiydi.,die Universität,needs_review
+168,A1,Krankenhaus,Nomen,das,Krankenhäuser,kasalxona,,,,,,,,,,,,Das Krankenhaus ist in der Nähe.,Kasalxona yaqin joyda.,das Krankenhaus,needs_review
+169,A1,Urlaub,Nomen,der,Urlaube,ta’til,,,,,,,,,,,,Im August haben wir Urlaub.,Avgustda bizning ta’tilimiz bor.,der Urlaub,needs_review
+170,A1,Nachricht,Nomen,die,Nachrichten,xabar,,,,,,,,,,,,Ich schreibe dir eine Nachricht.,Men senga xabar yozaman.,die Nachricht,needs_review
+171,A1,arbeiten,Verb,,,ishlamoq,arbeitete,gearbeitet,haben,arbeite,arbeitest,arbeitet,arbeiten,arbeitet,arbeiten,,,Ich arbeite von Montag bis Freitag.,Men dushanbadan jumagacha ishlayman.,arbeiten,needs_review
+172,A1,warm,Adjektiv,,,iliq,,,,,,,,,,wärmer,am wärmsten,Heute ist es warm.,Bugun havo iliq.,warm,needs_review
+173,A1,anrufen,Verb,,,qo‘ng‘iroq qilmoq,rief an,angerufen,haben,rufe an,rufst an,ruft an,rufen an,ruft an,rufen an,,,Ich rufe meine Mutter an.,Men onamga qo‘ng‘iroq qilaman.,anrufen,needs_review
+174,A1,manchmal,Adverb,,,ba’zida,,,,,,,,,,,,Manchmal gehe ich zu Fuß.,Ba’zida men piyoda yuraman.,manchmal,needs_review
+175,A1,krank,Adjektiv,,,kasal,,,,,,,,,,kränker,am kränksten,Ich bin heute krank.,Men bugun kasalman.,krank,needs_review
+176,A1,lernen,Verb,,,o‘rganmoq,lernte,gelernt,haben,lerne,lernst,lernt,lernen,lernt,lernen,,,Wir lernen zusammen für den Test.,Biz test uchun birga o‘qiymiz.,lernen,needs_review
+177,A1,rechts,Adverb,,,o‘ngda,,,,,,,,,,,,Das Café ist rechts.,Kafe o‘ng tomonda.,rechts,needs_review
+178,A1,gesund,Adjektiv,,,sog‘lom,,,,,,,,,,gesünder,am gesündesten,Obst ist gesund.,Meva sog‘liq uchun foydali.,gesund,needs_review
+179,A1,antworten,Verb,,,javob bermoq,antwortete,geantwortet,haben,antworte,antwortest,antwortet,antworten,antwortet,antworten,,,Bitte antworten Sie auf Deutsch.,"Iltimos, nemis tilida javob bering.",antworten,needs_review
+180,A1,überall,Adverb,,,hamma yerda,,,,,,,,,,,,Im Herbst liegen überall Blätter.,Kuzda hamma yerda barglar yotadi.,überall,needs_review
+181,A1,Baum,Nomen,der,Bäume,daraxt,,,,,,,,,,,,Der Baum ist sehr hoch.,Daraxt juda baland.,der Baum,needs_review
+182,A1,Wolke,Nomen,die,Wolken,bulut,,,,,,,,,,,,Am Himmel ist keine Wolke.,Osmonda birorta ham bulut yo‘q.,die Wolke,needs_review
+183,A1,Dorf,Nomen,das,Dörfer,qishloq,,,,,,,,,,,,Meine Großeltern wohnen in einem Dorf.,Bobom va buvim qishloqda yashaydi.,das Dorf,needs_review
+184,A1,Regen,Nomen,der,Regen,yomg‘ir,,,,,,,,,,,,Der Regen hört bald auf.,Yomg‘ir tez orada to‘xtaydi.,der Regen,needs_review
+185,A1,Insel,Nomen,die,Inseln,orol,,,,,,,,,,,,Die Insel ist klein.,Orol kichik.,die Insel,needs_review
+186,A1,Radio,Nomen,das,Radios,radio,,,,,,,,,,,,Im Auto hören wir Radio.,Mashinada biz radio tinglaymiz.,das Radio,needs_review
+187,A1,Vogel,Nomen,der,Vögel,qush,,,,,,,,,,,,Der Vogel sitzt auf dem Baum.,Qush daraxtda o‘tiribdi.,der Vogel,needs_review
+188,A1,Wüste,Nomen,die,Wüsten,sahro,,,,,,,,,,,,In der Wüste ist es sehr heiß.,Sahroda juda issiq bo‘ladi.,die Wüste,needs_review
+189,A1,Feuer,Nomen,das,Feuer,olov,,,,,,,,,,,,Das Feuer ist warm.,Olov issiq.,das Feuer,needs_review
+190,A1,Berg,Nomen,der,Berge,tog‘,,,,,,,,,,,,Der Berg ist sehr hoch.,Tog‘ juda baland.,der Berg,needs_review
+191,A1,regnen,Verb,,,yomg‘ir yog‘moq,regnete,geregnet,haben,regne,regnest,regnet,regnen,regnet,regnen,,,Es regnet den ganzen Tag.,Kun bo‘yi yomg‘ir yog‘yapti.,regnen,needs_review
+192,A1,sonnig,Adjektiv,,,quyoshli,,,,,,,,,,sonniger,am sonnigsten,Morgen wird es sonnig.,Ertaga havo quyoshli bo‘ladi.,sonnig,needs_review
+193,A1,schwimmen,Verb,,,suzmoq,schwamm,geschwommen,sein/haben,schwimme,schwimmst,schwimmt,schwimmen,schwimmt,schwimmen,,,Im Sommer schwimmen wir im See.,Yozda biz ko‘lda suzamiz.,schwimmen,needs_review
+194,A1,selten,Adjektiv,,,kamdan-kam,,,,,,,,,,,,Ich esse selten Fleisch.,Men kamdan-kam go‘sht yeyman.,selten,needs_review
+195,A1,dunkel,Adjektiv,,,qorong‘i,,,,,,,,,,dunkler,am dunkelsten,Im Winter wird es früh dunkel.,Qishda erta qorong‘i tushadi.,dunkel,needs_review
+196,A1,warten,Verb,,,kutmoq,wartete,gewartet,haben,warte,wartest,wartet,warten,wartet,warten,,,Ich warte auf den Bus.,Men avtobusni kutyapman.,warten,needs_review
+197,A1,hinten,Adverb,,,orqada,,,,,,,,,,,,Wir sitzen hinten im Bus.,Biz avtobusning orqasida o‘tiramiz.,hinten,needs_review
+198,A1,hell,Adjektiv,,,yorug‘,,,,,,,,,,heller,am hellsten,Das Zimmer ist sehr hell.,Xona juda yorug‘.,hell,needs_review
+199,A1,besuchen,Verb,,,ziyorat qilmoq,besuchte,besucht,haben,besuche,besuchst,besucht,besuchen,besucht,besuchen,,,Am Sonntag besuchen wir unsere Oma.,Yakshanba kuni biz buvimizni ko‘rgani boramiz.,besuchen,needs_review
+200,A1,nirgendwo,Adverb,,,hech qayerda emas,,,,,,,,,,,,Ich finde meine Brille nirgendwo.,Ko‘zoynagimni hech qayerdan topa olmayapman.,nirgendwo,needs_review
+201,A1,Karte,Nomen,die,Karten,xarita,,,,,,,,,,,,Wir brauchen eine Karte von der Stadt.,Bizga shahar xaritasi kerak.,die Karte,needs_review
+202,A1,Licht,Nomen,das,Lichter,yorug‘lik,,,,,,,,,,,,Mach bitte das Licht an.,"Iltimos, chiroqni yoq.",das Licht,needs_review
+203,A1,Fluss,Nomen,der,Flüsse,daryo,,,,,,,,,,,,Der Fluss ist sehr breit.,Daryo juda keng.,der Fluss,needs_review
+204,A1,Brücke,Nomen,die,Brücken,ko‘prik,,,,,,,,,,,,Die Brücke ist alt.,Ko‘prik eski.,die Brücke,needs_review
+205,A1,Papier,Nomen,das,Papiere,qog‘oz,,,,,,,,,,,,Ich brauche ein Blatt Papier.,Menga bir varaq qog‘oz kerak.,das Papier,needs_review
+206,A1,Himmel,Nomen,der,Himmel,osmon,,,,,,,,,,,,Der Himmel ist blau.,Osmon moviy.,der Himmel,needs_review
+207,A1,Königin,Nomen,die,Königinnen,qirolicha,,,,,,,,,,,,Die Königin wohnt in einem Schloss.,Qirolicha qasrda yashaydi.,die Königin,needs_review
+208,A1,Theater,Nomen,das,Theater,teatr,,,,,,,,,,,,Heute Abend gehen wir ins Theater.,Bugun kechqurun biz teatrga boramiz.,das Theater,needs_review
+209,A1,Sänger,Nomen,der,Sänger,qo‘shiqchi,,,,,,,,,,,,Der Sänger singt sehr schön.,Qo‘shiqchi juda chiroyli kuylaydi.,der Sänger,needs_review
+210,A1,Sängerin,Nomen,die,Sängerinnen,ayol qo‘shiqchi,,,,,,,,,,,,Die Sängerin ist sehr bekannt.,Bu xonanda ayol juda mashhur.,die Sängerin,needs_review
+211,A1,singen,Verb,,,qo‘shiq aytmoq,sang,gesungen,haben,singe,singst,singt,singen,singt,singen,,,Die Kinder singen ein Lied.,Bolalar qo‘shiq aytyapti.,singen,needs_review
+212,A1,berühmt,Adjektiv,,,mashhur,,,,,,,,,,berühmter,am berühmtesten,Der Schauspieler ist sehr berühmt.,Bu aktyor juda mashhur.,berühmt,needs_review
+213,A1,tanzen,Verb,,,raqs tushmoq,tanzte,getanzt,haben/sein,tanze,tanzt,tanzt,tanzen,tanzt,tanzen,,,Auf der Party tanzen alle.,Ziyofatda hamma raqs tushyapti.,tanzen,needs_review
+214,A1,oft,Adverb,,,tez-tez,,,,,,,,,,,,Ich trinke oft Tee.,Men tez-tez choy ichaman.,oft,needs_review
+215,A1,traurig,Adjektiv,,,xafa,,,,,,,,,,trauriger,am traurigsten,Warum bist du traurig?,Nega xafasan?,traurig,needs_review
+216,A1,erzählen,Verb,,,hikoya qilmoq,erzählte,erzählt,haben,erzähle,erzählst,erzählt,erzählen,erzählt,erzählen,,,Opa erzählt eine Geschichte.,Bobom hikoya aytib beryapti.,erzählen,needs_review
+217,A1,vorne,Adverb,,,oldinda,,,,,,,,,,,,Ich sitze gern vorne.,Men oldinda o‘tirishni yaxshi ko‘raman.,vorne,needs_review
+218,A1,fröhlich,Adjektiv,,,xursand,,,,,,,,,,fröhlicher,am fröhlichsten,Die Kinder sind fröhlich.,Bolalar xursand.,fröhlich,needs_review
+219,A1,reisen,Verb,,,sayohat qilmoq,reiste,gereist,sein,reise,reist,reist,reisen,reist,reisen,,,Wir reisen gern.,Biz sayohat qilishni yaxshi ko‘ramiz.,reisen,needs_review
+220,A1,dort,Adverb,,,u yerda,,,,,,,,,,,,Dort ist der Bahnhof.,Vokzal u yerda.,dort,needs_review
+221,A1,Lied,Nomen,das,Lieder,qo‘shiq,,,,,,,,,,,,Das Lied ist sehr schön.,Bu qo‘shiq juda chiroyli.,das Lied,needs_review
+222,A1,Film,Nomen,der,Filme,film,,,,,,,,,,,,Der Film beginnt um acht Uhr.,Film soat sakkizda boshlanadi.,der Film,needs_review
+223,A1,Kamera,Nomen,die,Kameras,kamera,,,,,,,,,,,,Die Kamera ist neu.,Kamera yangi.,die Kamera,needs_review
+224,A1,Museum,Nomen,das,Museen,muzey,,,,,,,,,,,,Das Museum ist am Montag geschlossen.,Muzey dushanba kuni yopiq.,das Museum,needs_review
+225,A1,Pilot,Nomen,der,Piloten,uchuvchi,,,,,,,,,,,,Der Pilot fliegt nach Istanbul.,Uchuvchi Istanbulga uchyapti.,der Pilot,needs_review
+226,A1,Polizei,Nomen,die,Polizeien,politsiya,,,,,,,,,,,,Ruf bitte die Polizei!,"Iltimos, politsiyani chaqir!",die Polizei,needs_review
+227,A1,Flugzeug,Nomen,das,Flugzeuge,samolyot,,,,,,,,,,,,Das Flugzeug landet pünktlich.,Samolyot o‘z vaqtida qo‘nadi.,das Flugzeug,needs_review
+228,A1,Hafen,Nomen,der,Häfen,bandargoh,,,,,,,,,,,,Im Hafen liegen viele Schiffe.,Bandargohda ko‘p kemalar turibdi.,der Hafen,needs_review
+229,A1,Farm,Nomen,die,Farmen,ferma,,,,,,,,,,,,Auf der Farm gibt es Kühe.,Fermada sigirlar bor.,die Farm,needs_review
+230,A1,Tier,Nomen,das,Tiere,hayvon,,,,,,,,,,,,Der Hund ist mein Lieblingstier.,It mening eng sevimli hayvonim.,das Tier,needs_review
+231,A1,fliegen,Verb,,,uchmoq,flog,geflogen,haben/sein,fliege,fliegst,fliegt,fliegen,fliegt,fliegen,,,Wir fliegen morgen nach Berlin.,Ertaga biz Berlinga uchamiz.,fliegen,needs_review
+232,A1,gefährlich,Adjektiv,,,xavfli,,,,,,,,,,gefährlicher,am gefährlichsten,Die Straße ist gefährlich.,Bu ko‘cha xavfli.,gefährlich,needs_review
+233,A1,helfen,Verb,,,yordam bermoq,half,geholfen,haben,helfe,hilfst,hilft,helfen,helft,helfen,,,Kannst du mir bitte helfen?,Menga yordam bera olasanmi?,helfen,needs_review
+234,A1,heute,Adverb,,,bugun,,,,,,,,,,,,Heute habe ich keine Zeit.,Bugun mening vaqtim yo‘q.,heute,needs_review
+235,A1,ruhig,Adjektiv,,,tinch,,,,,,,,,,ruhiger,am ruhigsten,Unsere Straße ist sehr ruhig.,Bizning ko‘chamiz juda tinch.,ruhig,needs_review
+236,A1,arbeiten,Verb,,,ishlamoq,arbeitete,gearbeitet,haben,arbeite,arbeitest,arbeitet,arbeiten,arbeitet,arbeiten,,,Ich arbeite von Montag bis Freitag.,Men dushanbadan jumagacha ishlayman.,arbeiten,needs_review
+237,A1,drüben,Adverb,,,narigi tomonda,,,,,,,,,,,,Die Apotheke ist dort drüben.,Dorixona ana u narigi tomonda.,drüben,needs_review
+238,A1,laut,Adjektiv,,,baland,,,,,,,,,,lauter,am lautesten,Die Musik ist zu laut.,Musiqa juda baland.,laut,needs_review
+239,A1,beginnen,Verb,,,boshlamoq,begann,begonnen,haben,beginne,beginnst,beginnt,beginnen,beginnt,beginnen,,,Der Unterricht beginnt um neun.,Dars soat to‘qqizda boshlanadi.,beginnen,needs_review
+240,A1,bald,Adverb,,,tez orada,,,,,,,,,,,,Wir sehen uns bald.,Tez orada ko‘rishamiz.,bald,needs_review
+241,A1,Löwe,Nomen,der,Löwen,sher,,,,,,,,,,,,Der Löwe ist im Zoo.,Sher hayvonot bog‘ida.,der Löwe,needs_review
+242,A1,Maus,Nomen,die,Mäuse,sichqon,,,,,,,,,,,,Die Katze fängt eine Maus.,Mushuk sichqon tutyapti.,die Maus,needs_review
+243,A1,Schaf,Nomen,das,Schafe,qo‘y,,,,,,,,,,,,Das Schaf ist weiß.,Qo‘y oq rangda.,das Schaf,needs_review
+244,A1,Käse,Nomen,der,Käse,pishloq,,,,,,,,,,,,Ich esse gern Käse.,Men pishloq yeyishni yaxshi ko‘raman.,der Käse,needs_review
+245,A1,Butter,Nomen,die,,sariyog‘,,,,,,,,,,,,Die Butter ist im Kühlschrank.,Sariyog‘ muzlatgichda.,die Butter,needs_review
+246,A1,Salz,Nomen,das,Salze,tuz,,,,,,,,,,,,Die Suppe braucht noch Salz.,Sho‘rvaga yana tuz kerak.,das Salz,needs_review
+247,A1,Zucker,Nomen,der,Zucker,shakar,,,,,,,,,,,,Ich trinke Tee ohne Zucker.,Men choyni shakarsiz ichaman.,der Zucker,needs_review
+248,A1,Erdbeere,Nomen,die,Erdbeeren,qulupnay,,,,,,,,,,,,Die Erdbeere ist rot und süß.,Qulupnay qizil va shirin.,die Erdbeere,needs_review
+249,A1,Huhn,Nomen,das,Hühner,tovuq,,,,,,,,,,,,Das Huhn läuft im Garten.,Tovuq bog‘da yuribdi.,das Huhn,needs_review
+250,A1,Reis,Nomen,der,Reise,guruch,,,,,,,,,,,,Wir kochen Reis mit Gemüse.,Biz sabzavotli guruch pishiramiz.,der Reis,needs_review
+251,A1,essen,Verb,,,yemoq,aß,gegessen,haben,esse,isst,isst,essen,esst,essen,,,Wir essen um ein Uhr zu Mittag.,Biz soat birda tushlik qilamiz.,essen,needs_review
+252,A1,süß,Adjektiv,,,shirin,,,,,,,,,,süßer,am süßesten,Der Kuchen ist sehr süß.,Tort juda shirin.,süß,needs_review
+253,A1,kochen,Verb,,,pishirmoq,kochte,gekocht,haben,koche,kochst,kocht,kochen,kocht,kochen,,,Am Abend koche ich Suppe.,Kechqurun men sho‘rva pishiraman.,kochen,needs_review
+254,A1,zusammen,Adjektiv,,,birga,,,,,,,,,,,,Wir kochen heute zusammen.,Bugun biz birga ovqat pishiramiz.,zusammen,needs_review
+255,A1,sauer,Adjektiv,,,nordon,,,,,,,,,,,,Die Zitrone ist sauer.,Limon nordon.,sauer,needs_review
+256,A1,bringen,Verb,,,olib kelmoq,brachte,gebracht,haben,bringe,bringst,bringt,bringen,bringt,bringen,,,Kannst du mir bitte das Buch bringen?,Menga kitobni olib kela olasanmi?,bringen,needs_review
+257,A1,hungrig,Adjektiv,,,och,,,,,,,,,,hungriger,am hungrigsten,Ich bin sehr hungrig.,Men juda ochman.,hungrig,needs_review
+258,A1,gern,Adverb,,,jon deb,,,,,,,,,,,,Ich spiele gern Fußball.,Men futbol o‘ynashni yaxshi ko‘raman.,gern,needs_review
+259,A1,trinken,Verb,,,ichmoq,trank,getrunken,haben,trinke,trinkst,trinkt,trinken,trinkt,trinken,,,Ich trinke morgens Tee.,Men ertalab choy ichaman.,trinken,needs_review
+260,A1,draußen,Adverb,,,tashqarida,,,,,,,,,,,,Die Kinder spielen draußen.,Bolalar tashqarida o‘ynayapti.,draußen,needs_review
+261,A1,Kartoffel,Nomen,die,Kartoffeln,kartoshka,,,,,,,,,,,,Die Kartoffel ist noch hart.,Kartoshka hali qattiq.,die Kartoffel,needs_review
+262,A1,Öl,Nomen,das,Öle,yog‘,,,,,,,,,,,,Für den Salat brauche ich Öl.,Salat uchun menga yog‘ kerak.,das Öl,needs_review
+263,A1,Bäcker,Nomen,der,Bäcker,nonvoy,,,,,,,,,,,,Der Bäcker backt frisches Brot.,Nonvoy yangi non yopadi.,der Bäcker,needs_review
+264,A1,Verkäuferin,Nomen,die,Verkäuferinnen,sotuvchi ayol,,,,,,,,,,,,Die Verkäuferin hilft mir.,Sotuvchi ayol menga yordam beryapti.,die Verkäuferin,needs_review
+265,A1,Regal,Nomen,das,Regale,javon,,,,,,,,,,,,Die Bücher stehen im Regal.,Kitoblar javonda turibdi.,das Regal,needs_review
+266,A1,Kunde,Nomen,der,Kunden,mijoz,,,,,,,,,,,,Der Kunde möchte bezahlen.,Mijoz to‘lamoqchi.,der Kunde,needs_review
+267,A1,Rechnung,Nomen,die,Rechnungen,hisob-faktura,,,,,,,,,,,,"Die Rechnung, bitte!","Hisobni bering, iltimos!",die Rechnung,needs_review
+268,A1,Büro,Nomen,das,Büros,ofis,,,,,,,,,,,,Mein Büro ist im dritten Stock.,Mening ofisim uchinchi qavatda.,das Büro,needs_review
+269,A1,Kalender,Nomen,der,Kalender,taqvim,,,,,,,,,,,,Der Termin steht im Kalender.,Uchrashuv kalendarda yozilgan.,der Kalender,needs_review
+270,A1,Email,Nomen,die,Emails,elektron pochta,,,,,,,,,,,,Ich schicke dir eine Email.,Men senga elektron xat yuboraman.,die Email,needs_review
+271,A1,verkaufen,Verb,,,sotmoq,verkaufte,verkauft,haben,verkaufe,verkaufst,verkauft,verkaufen,verkauft,verkaufen,,,Wir verkaufen unser altes Auto.,Biz eski mashinamizni sotyapmiz.,verkaufen,needs_review
+272,A1,freundlich,Adjektiv,,,mehribon,,,,,,,,,,freundlicher,am freundlichsten,Die Verkäuferin ist sehr freundlich.,Sotuvchi ayol juda xushmuomala.,freundlich,needs_review
+273,A1,kaufen,Verb,,,sotib olmoq,kaufte,gekauft,haben,kaufe,kaufst,kauft,kaufen,kauft,kaufen,,,Ich kaufe Milch und Brot.,Men sut va non sotib olaman.,kaufen,needs_review
+274,A1,manchmal,Adverb,,,ba’zida,,,,,,,,,,,,Manchmal gehe ich zu Fuß.,Ba’zida men piyoda yuraman.,manchmal,needs_review
+275,A1,billig,Adjektiv,,,arzon,,,,,,,,,,billiger,am billigsten,Das T-Shirt ist billig.,Futbolka arzon.,billig,needs_review
+276,A1,zeigen,Verb,,,ko‘rsatmoq,zeigte,gezeigt,haben,zeige,zeigst,zeigt,zeigen,zeigt,zeigen,,,Kannst du mir den Weg zeigen?,Menga yo‘lni ko‘rsata olasanmi?,zeigen,needs_review
+277,A1,spät,Adjektiv,,,kech,,,,,,,,,,später,am spätesten,"Es ist schon spät, ich gehe nach Hause.","Allaqachon kech bo‘ldi, men uyga ketyapman.",spät,needs_review
+278,A1,teuer,Adjektiv,,,qimmat,,,,,,,,,,teurer,am teuersten,Das Hotel ist zu teuer.,Mehmonxona juda qimmat.,teuer,needs_review
+279,A1,fragen,Verb,,,so‘ramoq,fragte,gefragt,haben,frage,fragst,fragt,fragen,fragt,fragen,,,Ich frage den Lehrer nach dem Wort.,Men o‘qituvchidan so‘zni so‘rayman.,fragen,needs_review
+280,A1,unten,Adverb,,,pastda,,,,,,,,,,,,Die Küche ist unten.,Oshxona pastda.,unten,needs_review
+281,A1,Passwort,Nomen,das,Passwörter,maxfiy kod,,,,,,,,,,,,Ich habe mein Passwort vergessen.,Men parolimni unutib qo‘ydim.,das Passwort,needs_review
+282,A1,Drucker,Nomen,der,Drucker,printer,,,,,,,,,,,,Der Drucker hat kein Papier mehr.,Printerda qog‘oz qolmadi.,der Drucker,needs_review
+283,A1,Datei,Nomen,die,Dateien,fayl,,,,,,,,,,,,Ich schicke dir die Datei per E-Mail.,Men senga faylni elektron pochta orqali yuboraman.,die Datei,needs_review
+284,A1,Internet,Nomen,das,,internet,,,,,,,,,,,,Das Internet ist heute sehr langsam.,Bugun internet juda sekin.,das Internet,needs_review
+285,A1,Bildschirm,Nomen,der,Bildschirme,monitor,,,,,,,,,,,,Der Bildschirm ist zu dunkel.,Monitor juda qorong‘i.,der Bildschirm,needs_review
+286,A1,Tastatur,Nomen,die,Tastaturen,klaviatura,,,,,,,,,,,,Die Tastatur ist neu.,Klaviatura yangi.,die Tastatur,needs_review
+287,A1,Programm,Nomen,das,Programme,dastur,,,,,,,,,,,,Das Programm ist einfach.,Bu dastur oddiy.,das Programm,needs_review
+288,A1,Akku,Nomen,der,Akkus,batareya,,,,,,,,,,,,Der Akku von meinem Handy ist leer.,Telefonimning batareyasi tugadi.,der Akku,needs_review
+289,A1,Batterie,Nomen,die,Batterien,element,,,,,,,,,,,,Die Uhr braucht eine neue Batterie.,Soatga yangi batareya kerak.,die Batterie,needs_review
+290,A1,Kabel,Nomen,das,Kabel,sim,,,,,,,,,,,,Wo ist das Kabel für den Computer?,Kompyuterning kabeli qayerda?,das Kabel,needs_review
+291,A1,schreiben,Verb,,,yozmoq,schrieb,geschrieben,haben,schreibe,schreibst,schreibt,schreiben,schreibt,schreiben,,,Ich schreibe meiner Oma eine Karte.,Men buvimga otkritka yozaman.,schreiben,needs_review
+292,A1,modern,Adjektiv,,,zamonaviy,,,,,,,,,,moderner,am modernsten,Die Wohnung ist sehr modern.,Kvartira juda zamonaviy.,modern,needs_review
+293,A1,lernen,Verb,,,o‘rganmoq,lernte,gelernt,haben,lerne,lernst,lernt,lernen,lernt,lernen,,,Wir lernen zusammen für den Test.,Biz test uchun birga o‘qiymiz.,lernen,needs_review
+294,A1,online,Adjektiv,,,onlayn,,,,,,,,,,,,Ich kaufe meine Bücher online.,Men kitoblarimni onlayn sotib olaman.,online,needs_review
+295,A1,wichtig,Adjektiv,,,muhim,,,,,,,,,,wichtiger,am wichtigsten,Das Gespräch ist sehr wichtig.,Bu suhbat juda muhim.,wichtig,needs_review
+296,A1,öffnen,Verb,,,ochmoq,öffnete,geöffnet,haben,öffne,öffnest,öffnet,öffnen,öffnet,öffnen,,,Der Laden öffnet um acht Uhr.,Do‘kon soat sakkizda ochiladi.,öffnen,needs_review
+297,A1,schnell,Adjektiv,,,tez,,,,,,,,,,schneller,am schnellsten,Der Zug fährt sehr schnell.,Poyezd juda tez yuradi.,schnell,needs_review
+298,A1,schließen,Verb,,,yopmoq,schloss,geschlossen,haben,schließe,schließt,schließt,schließen,schließt,schließen,,,Bitte schließen Sie das Fenster.,"Iltimos, derazani yoping.",schließen,needs_review
+299,A1,einfach,Adjektiv,,,oson,,,,,,,,,,einfacher,am einfachsten,Die Aufgabe ist ganz einfach.,Topshiriq juda oson.,einfach,needs_review
+300,A1,drinnen,Adverb,,,ichkarida,,,,,,,,,,,,"Es regnet, wir bleiben drinnen.","Yomg‘ir yog‘yapti, biz ichkarida qolamiz.",drinnen,needs_review
+301,A1,Knopf,Nomen,der,Knöpfe,tugma,,,,,,,,,,,,Drück auf den roten Knopf.,Qizil tugmani bos.,der Knopf,needs_review
+302,A1,Farbe,Nomen,die,Farben,rang,,,,,,,,,,,,Meine Lieblingsfarbe ist Blau.,Mening sevimli rangim ko‘k.,die Farbe,needs_review
+303,A1,Holz,Nomen,das,Hölzer,yog‘och,,,,,,,,,,,,Der Tisch ist aus Holz.,Stol yog‘ochdan yasalgan.,das Holz,needs_review
+304,A1,Stein,Nomen,der,Steine,tosh,,,,,,,,,,,,Das Kind wirft einen Stein ins Wasser.,Bola suvga tosh otyapti.,der Stein,needs_review
+305,A1,Erde,Nomen,die,Erden,yer,,,,,,,,,,,,Die Erde ist rund.,Yer yumaloq.,die Erde,needs_review
+306,A1,Metall,Nomen,das,Metalle,metall,,,,,,,,,,,,Die Tür ist aus Metall.,Eshik metalldan.,das Metall,needs_review
+307,A1,Wind,Nomen,der,Winde,shamol,,,,,,,,,,,,Heute ist der Wind sehr stark.,Bugun shamol juda kuchli.,der Wind,needs_review
+308,A1,Temperatur,Nomen,die,Temperaturen,harorat,,,,,,,,,,,,Die Temperatur ist heute zwanzig Grad.,Bugun harorat yigirma daraja.,die Temperatur,needs_review
+309,A1,Geräusch,Nomen,das,Geräusche,shovqin,,,,,,,,,,,,Ich höre ein komisches Geräusch.,Men g‘alati shovqin eshityapman.,das Geräusch,needs_review
+310,A1,Traum,Nomen,der,Träume,tush,,,,,,,,,,,,Heute Nacht hatte ich einen schönen Traum.,Bu kecha men chiroyli tush ko‘rdim.,der Traum,needs_review
+311,A1,träumen,Verb,,,orzu qilmoq,träumte,geträumt,haben,träume,träumst,träumt,träumen,träumt,träumen,,,Ich träume von einer Reise nach Japan.,Men Yaponiyaga sayohat qilishni orzu qilaman.,träumen,needs_review
+312,A1,laut,Adjektiv,,,baland,,,,,,,,,,lauter,am lautesten,Die Musik ist zu laut.,Musiqa juda baland.,laut,needs_review
+313,A1,hören,Verb,,,eshitmoq,hörte,gehört,haben,höre,hörst,hört,hören,hört,hören,,,Ich höre dich nicht gut.,Men seni yaxshi eshitmayapman.,hören,needs_review
+314,A1,manchmal,Adverb,,,ba’zida,,,,,,,,,,,,Manchmal gehe ich zu Fuß.,Ba’zida men piyoda yuraman.,manchmal,needs_review
+315,A1,hart,Adjektiv,,,qattiq,,,,,,,,,,härter,am härtesten,Das Brot ist hart.,Non qattiq.,hart,needs_review
+316,A1,fühlen,Verb,,,his qilmoq,fühlte,gefühlt,haben,fühle,fühlst,fühlt,fühlen,fühlt,fühlen,,,Ich fühle mich heute gut.,Bugun o‘zimni yaxshi his qilyapman.,fühlen,needs_review
+317,A1,weich,Adjektiv,,,yumshoq,,,,,,,,,,weicher,am weichsten,Das Kissen ist sehr weich.,Yostiq juda yumshoq.,weich,needs_review
+318,A1,oben,Adverb,,,tepada,,,,,,,,,,,,Das Schlafzimmer ist oben.,Yotoqxona tepada.,oben,needs_review
+319,A1,denken,Verb,,,o‘ylamoq,dachte,gedacht,haben,denke,denkst,denkt,denken,denkt,denken,,,Ich denke oft an meine Familie.,Men oilam haqida tez-tez o‘ylayman.,denken,needs_review
+320,A1,langsam,Adjektiv,,,sekin,,,,,,,,,,langsamer,am langsamsten,Bitte sprechen Sie langsam.,"Iltimos, sekin gapiring.",langsam,needs_review
+321,A1,Hoffnung,Nomen,die,Hoffnungen,umid,,,,,,,,,,,,Wir haben noch Hoffnung.,Bizda hali umid bor.,die Hoffnung,needs_review
+322,A1,Glück,Nomen,das,,baxt,,,,,,,,,,,,Viel Glück bei der Prüfung!,Imtihonda omad tilayman!,das Glück,needs_review
+323,A1,Fehler,Nomen,der,Fehler,xato,,,,,,,,,,,,Im Text ist ein Fehler.,Matnda bitta xato bor.,der Fehler,needs_review
+324,A1,Idee,Nomen,die,Ideen,g‘oya,,,,,,,,,,,,Das ist eine gute Idee!,Bu yaxshi g‘oya!,die Idee,needs_review
+325,A1,Ziel,Nomen,das,Ziele,maqsad,,,,,,,,,,,,Mein Ziel ist ein Studium in Deutschland.,Mening maqsadim Germaniyada o‘qish.,das Ziel,needs_review
+326,A1,Plan,Nomen,der,Pläne,reja,,,,,,,,,,,,Was ist dein Plan für das Wochenende?,Hafta oxiriga rejang qanday?,der Plan,needs_review
+327,A1,Chance,Nomen,die,Chancen,imkoniyat,,,,,,,,,,,,Das ist eine gute Chance für dich.,Bu sen uchun yaxshi imkoniyat.,die Chance,needs_review
+328,A1,Ergebnis,Nomen,das,Ergebnisse,natija,,,,,,,,,,,,Das Ergebnis ist sehr gut.,Natija juda yaxshi.,das Ergebnis,needs_review
+329,A1,Anfang,Nomen,der,Anfänge,boshlanish,,,,,,,,,,,,Am Anfang war alles schwer.,Boshida hammasi qiyin edi.,der Anfang,needs_review
+330,A1,Mitte,Nomen,die,Mitten,o‘rta,,,,,,,,,,,,Der Tisch steht in der Mitte.,Stol o‘rtada turibdi.,die Mitte,needs_review
+331,A1,beginnen,Verb,,,boshlamoq,begann,begonnen,haben,beginne,beginnst,beginnt,beginnen,beginnt,beginnen,,,Der Unterricht beginnt um neun.,Dars soat to‘qqizda boshlanadi.,beginnen,needs_review
+332,A1,glücklich,Adjektiv,,,baxtli,,,,,,,,,,glücklicher,am glücklichsten,Die Kinder sind heute sehr glücklich.,Bolalar bugun juda baxtli.,glücklich,needs_review
+333,A1,enden,Verb,,,tugatmoq,endete,geendet,haben,ende,endest,endet,enden,endet,enden,,,Der Film endet um zehn Uhr.,Film soat o‘nda tugaydi.,enden,needs_review
+334,A1,bald,Adverb,,,tez orada,,,,,,,,,,,,Wir sehen uns bald.,Tez orada ko‘rishamiz.,bald,needs_review
+335,A1,richtig,Adjektiv,,,to‘g‘ri,,,,,,,,,,richtiger,am richtigsten,Deine Antwort ist richtig.,Javobing to‘g‘ri.,richtig,needs_review
+336,A1,planen,Verb,,,rejalashtirmoq,plante,geplant,haben,plane,planst,plant,planen,plant,planen,,,Wir planen eine Reise nach Samarkand.,Biz Samarqandga sayohatni rejalashtiryapmiz.,planen,needs_review
+337,A1,bereit,Adjektiv,,,tayyor,,,,,,,,,,bereiter,am bereitesten,Ich bin bereit.,Men tayyorman.,bereit,needs_review
+338,A1,dann,Adverb,,,keyin,,,,,,,,,,,,"Zuerst essen wir, dann gehen wir spazieren.","Avval ovqatlanamiz, keyin sayrga chiqamiz.",dann,needs_review
+339,A1,gewinnen,Verb,,,yutmoq,gewann,gewonnen,haben,gewinne,gewinnst,gewinnt,gewinnen,gewinnt,gewinnen,,,Unsere Mannschaft gewinnt das Spiel.,Bizning jamoamiz o‘yinda yutadi.,gewinnen,needs_review
+340,A1,fast,Adverb,,,deyarli,,,,,,,,,,,,Ich bin fast fertig.,Men deyarli tayyorman.,fast,needs_review
+341,A1,Ende,Nomen,das,Enden,tugash,,,,,,,,,,,,Das Ende des Films ist traurig.,Filmning yakuni qayg‘uli.,das Ende,needs_review
+342,A1,Besucher,Nomen,der,Besucher,mehmon,,,,,,,,,,,,Das Museum hat heute viele Besucher.,Bugun muzeyda tashrif buyuruvchilar ko‘p.,der Besucher,needs_review
+343,A1,Einladung,Nomen,die,Einladungen,taklifnoma,,,,,,,,,,,,Danke für die Einladung!,Taklif uchun rahmat!,die Einladung,needs_review
+344,A1,Geschenk,Nomen,das,Geschenke,sovg‘a,,,,,,,,,,,,Das Geschenk ist für dich.,Bu sovg‘a sen uchun.,das Geschenk,needs_review
+345,A1,Geburtstag,Nomen,der,Geburtstage,tug‘ilgan kun,,,,,,,,,,,,Wann hast du Geburtstag?,Tug‘ilgan kuning qachon?,der Geburtstag,needs_review
+346,A1,Hochzeit,Nomen,die,Hochzeiten,to‘y,,,,,,,,,,,,Die Hochzeit ist im Juni.,To‘y iyunda bo‘ladi.,die Hochzeit,needs_review
+347,A1,Fest,Nomen,das,Feste,bayram,,,,,,,,,,,,Das Fest war sehr schön.,Bayram juda yaxshi o‘tdi.,das Fest,needs_review
+348,A1,Tanz,Nomen,der,Tänze,raqs,,,,,,,,,,,,Darf ich um diesen Tanz bitten?,Sizni raqsga taklif qilsam bo‘ladimi?,der Tanz,needs_review
+349,A1,Melodie,Nomen,die,Melodien,kuy,,,,,,,,,,,,Die Melodie ist sehr schön.,Kuy juda chiroyli.,die Melodie,needs_review
+350,A1,Abenteuer,Nomen,das,Abenteuer,sarguzasht,,,,,,,,,,,,Die Reise war ein großes Abenteuer.,Sayohat katta sarguzasht bo‘ldi.,das Abenteuer,needs_review
+351,A1,feiern,Verb,,,nishonlamoq,feierte,gefeiert,haben,feire,feierst,feiert,feiern,feiert,feiern,,,Am Samstag feiern wir meinen Geburtstag.,Shanba kuni biz mening tug‘ilgan kunimni nishonlaymiz.,feiern,needs_review
+352,A1,fröhlich,Adjektiv,,,xursand,,,,,,,,,,fröhlicher,am fröhlichsten,Die Kinder sind fröhlich.,Bolalar xursand.,fröhlich,needs_review
+353,A1,einladen,Verb,,,taklif qilmoq,lud ein,eingeladen,haben,lade ein,lädst ein,lädt ein,laden ein,ladet ein,laden ein,,,Ich lade dich zum Essen ein.,Men seni ovqatga taklif qilaman.,einladen,needs_review
+354,A1,heute,Adverb,,,bugun,,,,,,,,,,,,Heute habe ich keine Zeit.,Bugun mening vaqtim yo‘q.,heute,needs_review
+355,A1,spannend,Adjektiv,,,qiziqarli,,,,,,,,,,spannender,am spannendsten,Das Buch ist sehr spannend.,Kitob juda qiziqarli.,spannend,needs_review
+356,A1,lachen,Verb,,,kulmoq,lachte,gelacht,haben,lache,lachst,lacht,lachen,lacht,lachen,,,Die Kinder lachen viel.,Bolalar ko‘p kuladi.,lachen,needs_review
+357,A1,gemeinsam,Adjektiv,,,birgalikda,,,,,,,,,,,,Wir machen die Aufgabe gemeinsam.,Biz topshiriqni birgalikda bajaramiz.,gemeinsam,needs_review
+358,A1,traurig,Adjektiv,,,xafa,,,,,,,,,,trauriger,am traurigsten,Warum bist du traurig?,Nega xafasan?,traurig,needs_review
+359,A1,tanzen,Verb,,,raqs tushmoq,tanzte,getanzt,haben/sein,tanze,tanzt,tanzt,tanzen,tanzt,tanzen,,,Auf der Party tanzen alle.,Ziyofatda hamma raqs tushyapti.,tanzen,needs_review
+360,A1,draußen,Adverb,,,tashqarida,,,,,,,,,,,,Die Kinder spielen draußen.,Bolalar tashqarida o‘ynayapti.,draußen,needs_review
+361,A1,Sport,Nomen,der,,sport,,,,,,,,,,,,Sport macht mir Spaß.,Sport menga yoqadi.,der Sport,needs_review
+362,A1,Mannschaft,Nomen,die,Mannschaften,jamoa,,,,,,,,,,,,Die Mannschaft spielt heute gut.,Jamoa bugun yaxshi o‘ynayapti.,die Mannschaft,needs_review
+363,A1,Training,Nomen,das,Trainings,mashg‘ulot,,,,,,,,,,,,Das Training beginnt um sechs Uhr.,Mashg‘ulot soat oltida boshlanadi.,das Training,needs_review
+364,A1,Sieger,Nomen,der,Sieger,g‘olib,,,,,,,,,,,,Der Sieger bekommt einen Pokal.,G‘olib kubok oladi.,der Sieger,needs_review
+365,A1,Medaille,Nomen,die,Medaillen,medal,,,,,,,,,,,,Sie hat eine goldene Medaille gewonnen.,U oltin medal yutib oldi.,die Medaille,needs_review
+366,A1,Turnier,Nomen,das,Turniere,turnir,,,,,,,,,,,,Das Turnier dauert drei Tage.,Turnir uch kun davom etadi.,das Turnier,needs_review
+367,A1,Zuschauer,Nomen,der,Zuschauer,tomoshabin,,,,,,,,,,,,Die Zuschauer klatschen laut.,Tomoshabinlar baland qarsak chalishyapti.,der Zuschauer,needs_review
+368,A1,Bühne,Nomen,die,Bühnen,sahna,,,,,,,,,,,,Die Sängerin steht auf der Bühne.,Xonanda ayol sahnada turibdi.,die Bühne,needs_review
+369,A1,Orchester,Nomen,das,Orchester,orkestr,,,,,,,,,,,,Das Orchester spielt heute Abend.,Orkestr bugun kechqurun chiqadi.,das Orchester,needs_review
+370,A1,Schauspieler,Nomen,der,Schauspieler,aktyor,,,,,,,,,,,,Der Schauspieler ist sehr bekannt.,Aktyor juda taniqli.,der Schauspieler,needs_review
+371,A1,rennen,Verb,,,yugurmoq,rannte,gerannt,haben/sein,renne,rennst,rennt,rennen,rennt,rennen,,,Die Kinder rennen zum Spielplatz.,Bolalar o‘yin maydonchasiga yugurib ketyapti.,rennen,needs_review
+372,A1,stark,Adjektiv,,,kuchli,,,,,,,,,,stärker,am stärksten,Mein Bruder ist sehr stark.,Akam juda kuchli.,stark,needs_review
+373,A1,verlieren,Verb,,,yutqazmoq,verlor,verloren,haben,verliere,verlierst,verliert,verlieren,verliert,verlieren,,,Leider verlieren wir das Spiel.,"Afsuski, biz o‘yinda yutqazyapmiz.",verlieren,needs_review
+374,A1,zusammen,Adjektiv,,,birga,,,,,,,,,,,,Wir kochen heute zusammen.,Bugun biz birga ovqat pishiramiz.,zusammen,needs_review
+375,A1,fit,Adjektiv,,,sog‘lom,,,,,,,,,,fitter,am fittesten,Ich mache Sport und bin fit.,Men sport bilan shug‘ullanaman va sog‘lomman.,fit,needs_review
+376,A1,trainieren,Verb,,,mashq qilmoq,trainierte,trainiert,haben,trainiere,trainierst,trainiert,trainieren,trainiert,trainieren,,,Wir trainieren dreimal pro Woche.,Biz haftasiga uch marta mashq qilamiz.,trainieren,needs_review
+377,A1,schwach,Adjektiv,,,kuchsiz,,,,,,,,,,schwächer,am schwächsten,Nach der Krankheit bin ich noch schwach.,Kasallikdan keyin men hali kuchsizman.,schwach,needs_review
+378,A1,oft,Adverb,,,tez-tez,,,,,,,,,,,,Ich trinke oft Tee.,Men tez-tez choy ichaman.,oft,needs_review
+379,A1,werfen,Verb,,,uloqtirmoq,warf,geworfen,haben,werfe,wirfst,wirft,werfen,werft,werfen,,,Wirf mir bitte den Ball!,"Iltimos, to‘pni menga ot!",werfen,needs_review
+380,A1,schnell,Adjektiv,,,tez,,,,,,,,,,schneller,am schnellsten,Der Zug fährt sehr schnell.,Poyezd juda tez yuradi.,schnell,needs_review
+381,A1,Bibliothek,Nomen,die,Bibliotheken,kutubxona,,,,,,,,,,,,Ich lerne oft in der Bibliothek.,Men ko‘pincha kutubxonada o‘qiyman.,die Bibliothek,needs_review
+382,A1,Bushaltestelle,Nomen,die,Bushaltestellen,avtobus bekati,,,,,,,,,,,,Die Bushaltestelle ist vor dem Haus.,Avtobus bekati uyning oldida.,die Bushaltestelle,needs_review
+383,A1,Einkaufszentrum,Nomen,das,Einkaufszentren,savdo markazi,,,,,,,,,,,,Das Einkaufszentrum ist am Sonntag geschlossen.,Savdo markazi yakshanba kuni yopiq.,das Einkaufszentrum,needs_review
+384,A1,Spaziergang,Nomen,der,Spaziergänge,sayr,,,,,,,,,,,,Nach dem Essen machen wir einen Spaziergang.,Ovqatdan keyin biz sayr qilamiz.,der Spaziergang,needs_review
+385,A1,Unterkunft,Nomen,die,Unterkünfte,turar joy,,,,,,,,,,,,Wir suchen eine billige Unterkunft.,Biz arzon turar joy qidiryapmiz.,die Unterkunft,needs_review
+386,A1,Formular,Nomen,das,Formulare,anketa,,,,,,,,,,,,Bitte füllen Sie das Formular aus.,"Iltimos, anketani to‘ldiring.",das Formular,needs_review
+387,A1,Ausweis,Nomen,der,Ausweise,guvohnoma,,,,,,,,,,,,Zeigen Sie bitte Ihren Ausweis.,"Iltimos, guvohnomangizni ko‘rsating.",der Ausweis,needs_review
+388,A1,Gardine,Nomen,die,Gardinen,parda,,,,,,,,,,,,Die Gardine ist weiß.,Parda oq rangda.,die Gardine,needs_review
+389,A1,Wohnzimmer,Nomen,das,Wohnzimmer,mehmonxona,,,,,,,,,,,,Wir sitzen im Wohnzimmer.,Biz mehmonxonada o‘tiribmiz.,das Wohnzimmer,needs_review
+390,A1,Kühlschrank,Nomen,der,Kühlschränke,muzlatgich,,,,,,,,,,,,Die Milch ist im Kühlschrank.,Sut muzlatgichda.,der Kühlschrank,needs_review
+391,A1,wohnen,Verb,,,yashamoq,wohnte,gewohnt,haben,wohne,wohnst,wohnt,wohnen,wohnt,wohnen,,,Wo wohnst du?,Sen qayerda yashaysan?,wohnen,needs_review
+392,A1,bequem,Adjektiv,,,qulay,,,,,,,,,,bequemer,am bequemsten,Die Schuhe sind sehr bequem.,Bu oyoq kiyim juda qulay.,bequem,needs_review
+393,A1,ausfüllen,Verb,,,to‘ldirmoq,füllte aus,ausgefüllt,haben,fülle aus,füllst aus,füllt aus,füllen aus,füllt aus,füllen aus,,,Ich fülle das Formular aus.,Men anketani to‘ldiryapman.,ausfüllen,needs_review
+394,A1,drinnen,Adverb,,,ichkarida,,,,,,,,,,,,"Es regnet, wir bleiben drinnen.","Yomg‘ir yog‘yapti, biz ichkarida qolamiz.",drinnen,needs_review
+395,A1,gemütlich,Adjektiv,,,shinam,,,,,,,,,,gemütlicher,am gemütlichsten,Das Café ist klein und gemütlich.,Kafe kichik va shinam.,gemütlich,needs_review
+396,A1,öffnen,Verb,,,ochmoq,öffnete,geöffnet,haben,öffne,öffnest,öffnet,öffnen,öffnet,öffnen,,,Der Laden öffnet um acht Uhr.,Do‘kon soat sakkizda ochiladi.,öffnen,needs_review
+397,A1,leer,Adjektiv,,,bo‘sh,,,,,,,,,,leerer,am leersten,Der Kühlschrank ist leer.,Muzlatgich bo‘sh.,leer,needs_review
+398,A1,dort,Adverb,,,u yerda,,,,,,,,,,,,Dort ist der Bahnhof.,Vokzal u yerda.,dort,needs_review
+399,A1,schließen,Verb,,,yopmoq,schloss,geschlossen,haben,schließe,schließt,schließt,schließen,schließt,schließen,,,Bitte schließen Sie das Fenster.,"Iltimos, derazani yoping.",schließen,needs_review
+400,A1,ruhig,Adjektiv,,,tinch,,,,,,,,,,ruhiger,am ruhigsten,Unsere Straße ist sehr ruhig.,Bizning ko‘chamiz juda tinch.,ruhig,needs_review
+401,A1,Waschmaschine,Nomen,die,Waschmaschinen,kir yuvish mashinasi,,,,,,,,,,,,Die Waschmaschine ist im Bad.,Kir yuvish mashinasi vannaxonada.,die Waschmaschine,needs_review
+402,A1,Kopfkissen,Nomen,das,Kopfkissen,yostiq,,,,,,,,,,,,Das Kopfkissen ist weich.,Yostiq yumshoq.,das Kopfkissen,needs_review
+403,A1,Kleiderschrank,Nomen,der,Kleiderschränke,kiyim shkafi,,,,,,,,,,,,Meine Hemden hängen im Kleiderschrank.,Ko‘ylaklarim kiyim shkafida osilib turibdi.,der Kleiderschrank,needs_review
+404,A1,Seife,Nomen,die,Seifen,sovun,,,,,,,,,,,,Wasch dir die Hände mit Seife.,Qo‘lingni sovun bilan yuv.,die Seife,needs_review
+405,A1,Handtuch,Nomen,das,Handtücher,sochiq,,,,,,,,,,,,Das Handtuch ist nass.,Sochiq ho‘l.,das Handtuch,needs_review
+406,A1,Spiegel,Nomen,der,Spiegel,oyna,,,,,,,,,,,,Der Spiegel hängt im Bad.,Oyna vannaxonada osilgan.,der Spiegel,needs_review
+407,A1,Zahnbürste,Nomen,die,Zahnbürsten,tish cho‘tkasi,,,,,,,,,,,,Ich brauche eine neue Zahnbürste.,Menga yangi tish cho‘tkasi kerak.,die Zahnbürste,needs_review
+408,A1,Shampoo,Nomen,das,Shampoos,shampun,,,,,,,,,,,,Das Shampoo riecht gut.,Shampunning hidi yoqimli.,das Shampoo,needs_review
+409,A1,Föhn,Nomen,der,Föhne,soch quritgich,,,,,,,,,,,,Der Föhn ist kaputt.,Soch quritgich buzilgan.,der Föhn,needs_review
+410,A1,Zahnpasta,Nomen,die,,tish pastasi,,,,,,,,,,,,Die Zahnpasta ist fast leer.,Tish pastasi deyarli tugadi.,die Zahnpasta,needs_review
+411,A1,waschen,Verb,,,yuvmoq,wusch,gewaschen,haben,wasche,wäschst,wäscht,waschen,wascht,waschen,,,Ich wasche jeden Tag meine Hände.,Men har kuni qo‘llarimni yuvaman.,waschen,needs_review
+412,A1,sauber,Adjektiv,,,toza,,,,,,,,,,sauberer,am saubersten,Das Zimmer ist jetzt sauber.,Xona endi toza.,sauber,needs_review
+413,A1,kämmen,Verb,,,taramoq,kämmte,gekämmt,haben,kämme,kämmst,kämmt,kämmen,kämmt,kämmen,,,Das Mädchen kämmt seine Haare.,Qizcha sochini tarayapti.,kämmen,needs_review
+414,A1,morgens,Adverb,,,ertalab,,,,,,,,,,,,Morgens trinke ich Tee.,Ertalab men choy ichaman.,morgens,needs_review
+415,A1,nass,Adjektiv,,,ho‘l,,,,,,,,,,nasser,am nassesten,Meine Schuhe sind nass.,Oyoq kiyimim ho‘l.,nass,needs_review
+416,A1,trocknen,Verb,,,quritmoq,trocknete,getrocknet,haben/sein,trockne,trocknest,trocknet,trocknen,trocknet,trocknen,,,Die Wäsche trocknet in der Sonne.,Kir quyoshda quriyapti.,trocknen,needs_review
+417,A1,frisch,Adjektiv,,,yangi,,,,,,,,,,frischer,am frischesten,Das Brot ist frisch.,Non yangi.,frisch,needs_review
+418,A1,später,Adverb,,,keyinroq,,,,,,,,,,,,Ich rufe dich später an.,Men senga keyinroq qo‘ng‘iroq qilaman.,später,needs_review
+419,A1,duften,Verb,,,xushbo‘y hid taratmoq,duftete,geduftet,haben,dufte,duftest,duftet,duften,duftet,duften,,,Die Blumen duften schön.,Gullar yoqimli hid taratadi.,duften,needs_review
+420,A1,weich,Adjektiv,,,yumshoq,,,,,,,,,,weicher,am weichsten,Das Kissen ist sehr weich.,Yostiq juda yumshoq.,weich,needs_review
+421,A1,Wörterbuch,Nomen,das,Wörterbücher,lug‘at,,,,,,,,,,,,Ich suche das Wort im Wörterbuch.,Men so‘zni lug‘atdan qidiryapman.,das Wörterbuch,needs_review
+422,A1,Kugelschreiber,Nomen,der,Kugelschreiber,ruchka,,,,,,,,,,,,Hast du einen Kugelschreiber?,Ruchkang bormi?,der Kugelschreiber,needs_review
+423,A1,Kreide,Nomen,die,Kreiden,bo‘r,,,,,,,,,,,,Der Lehrer schreibt mit Kreide an die Tafel.,O‘qituvchi doskaga bo‘r bilan yozadi.,die Kreide,needs_review
+424,A1,Lineal,Nomen,das,Lineale,chizg‘ich,,,,,,,,,,,,Ich brauche ein Lineal.,Menga chizg‘ich kerak.,das Lineal,needs_review
+425,A1,Radiergummi,Nomen,der,Radiergummis,o‘chirg‘ich,,,,,,,,,,,,Kann ich deinen Radiergummi haben?,O‘chirg‘ichingni olsam bo‘ladimi?,der Radiergummi,needs_review
+426,A1,Pause,Nomen,die,Pausen,tanaffus,,,,,,,,,,,,Die Pause dauert zehn Minuten.,Tanaffus o‘n daqiqa davom etadi.,die Pause,needs_review
+427,A1,Gymnasium,Nomen,das,Gymnasien,gimnaziya,,,,,,,,,,,,Mein Bruder geht aufs Gymnasium.,Ukam gimnaziyada o‘qiydi.,das Gymnasium,needs_review
+428,A1,Direktor,Nomen,der,Direktoren,direktor,,,,,,,,,,,,Der Direktor spricht mit den Eltern.,Direktor ota-onalar bilan gaplashyapti.,der Direktor,needs_review
+429,A1,Sekretärin,Nomen,die,Sekretärinnen,kotiba,,,,,,,,,,,,Die Sekretärin beantwortet das Telefon.,Kotiba telefonga javob beryapti.,die Sekretärin,needs_review
+430,A1,Praktikum,Nomen,das,Praktika,amaliyot,,,,,,,,,,,,Im Sommer mache ich ein Praktikum.,Yozda men amaliyot o‘tayman.,das Praktikum,needs_review
+431,A1,lernen,Verb,,,o‘rganmoq,lernte,gelernt,haben,lerne,lernst,lernt,lernen,lernt,lernen,,,Wir lernen zusammen für den Test.,Biz test uchun birga o‘qiymiz.,lernen,needs_review
+432,A1,interessant,Adjektiv,,,qiziqarli,,,,,,,,,,interessanter,am interessantesten,Der Film ist sehr interessant.,Film juda qiziqarli.,interessant,needs_review
+433,A1,erklären,Verb,,,tushuntirmoq,erklärte,erklärt,haben,erkläre,erklärst,erklärt,erklären,erklärt,erklären,,,Kannst du mir das bitte erklären?,Menga buni tushuntirib bera olasanmi?,erklären,needs_review
+434,A1,heute,Adverb,,,bugun,,,,,,,,,,,,Heute habe ich keine Zeit.,Bugun mening vaqtim yo‘q.,heute,needs_review
+435,A1,schwierig,Adjektiv,,,qiyin,,,,,,,,,,schwieriger,am schwierigsten,Die Grammatik ist schwierig.,Grammatika qiyin.,schwierig,needs_review
+436,A1,antworten,Verb,,,javob bermoq,antwortete,geantwortet,haben,antworte,antwortest,antwortet,antworten,antwortet,antworten,,,Bitte antworten Sie auf Deutsch.,"Iltimos, nemis tilida javob bering.",antworten,needs_review
+437,A1,klug,Adjektiv,,,aqlli,,,,,,,,,,klüger,am klügsten,Das Mädchen ist sehr klug.,Qizcha juda aqlli.,klug,needs_review
+438,A1,dort,Adverb,,,u yerda,,,,,,,,,,,,Dort ist der Bahnhof.,Vokzal u yerda.,dort,needs_review
+439,A1,üben,Verb,,,mashq qilmoq,übte,geübt,haben,übe,übst,übt,üben,übt,üben,,,Ich übe jeden Tag Deutsch.,Men har kuni nemis tilida mashq qilaman.,üben,needs_review
+440,A1,ruhig,Adjektiv,,,tinch,,,,,,,,,,ruhiger,am ruhigsten,Unsere Straße ist sehr ruhig.,Bizning ko‘chamiz juda tinch.,ruhig,needs_review
+441,A1,Ingenieur,Nomen,der,Ingenieure,muhandis,,,,,,,,,,,,Mein Onkel ist Ingenieur.,Amakim muhandis.,der Ingenieur,needs_review
+442,A1,Krankenschwester,Nomen,die,Krankenschwestern,hamshira,,,,,,,,,,,,Die Krankenschwester ist sehr nett.,Hamshira juda yoqimli.,die Krankenschwester,needs_review
+443,A1,Labor,Nomen,das,Labors,laboratoriya,,,,,,,,,,,,Die Studenten arbeiten im Labor.,Talabalar laboratoriyada ishlaydi.,das Labor,needs_review
+444,A1,Mechaniker,Nomen,der,Mechaniker,mexanik,,,,,,,,,,,,Der Mechaniker repariert das Auto.,Mexanik mashinani ta’mirlayapti.,der Mechaniker,needs_review
+445,A1,Bäckerei,Nomen,die,Bäckereien,nonvoyxona,,,,,,,,,,,,Die Bäckerei öffnet sehr früh.,Nonvoyxona juda erta ochiladi.,die Bäckerei,needs_review
+446,A1,Menü,Nomen,das,Menüs,menyu,,,,,,,,,,,,Kann ich bitte das Menü haben?,"Menyuni bera olasizmi, iltimos?",das Menü,needs_review
+447,A1,Kellner,Nomen,der,Kellner,ofitsiant,,,,,,,,,,,,Der Kellner bringt die Getränke.,Ofitsiant ichimliklarni olib kelyapti.,der Kellner,needs_review
+448,A1,Bestellung,Nomen,die,Bestellungen,buyurtma,,,,,,,,,,,,Ihre Bestellung kommt sofort.,Buyurtmangiz hozir keladi.,die Bestellung,needs_review
+449,A1,Trinkgeld,Nomen,das,Trinkgelder,choychaqa,,,,,,,,,,,,Wir geben dem Kellner Trinkgeld.,Biz ofitsiantga choychaqa beramiz.,das Trinkgeld,needs_review
+450,A1,Lastwagen,Nomen,der,Lastwagen,yuk mashinasi,,,,,,,,,,,,Der Lastwagen ist sehr groß.,Yuk mashinasi juda katta.,der Lastwagen,needs_review
+451,A1,reparieren,Verb,,,ta’mirlamoq,reparierte,repariert,haben,repariere,reparierst,repariert,reparieren,repariert,reparieren,,,Mein Vater repariert das Fahrrad.,Otam velosipedni ta’mirlayapti.,reparieren,needs_review
+452,A1,fleißig,Adjektiv,,,mehnatkash,,,,,,,,,,fleißiger,am fleißigsten,Die Studentin ist sehr fleißig.,Talaba qiz juda tirishqoq.,fleißig,needs_review
+453,A1,bedienen,Verb,,,xizmat qilmoq,bediente,bedient,haben,bediene,bedienst,bedient,bedienen,bedient,bedienen,,,Der Kellner bedient die Gäste.,Ofitsiant mehmonlarga xizmat qiladi.,bedienen,needs_review
+454,A1,manchmal,Adverb,,,ba’zida,,,,,,,,,,,,Manchmal gehe ich zu Fuß.,Ba’zida men piyoda yuraman.,manchmal,needs_review
+455,A1,beschäftigt,Adjektiv,,,band,,,,,,,,,,beschäftigter,am beschäftigtsten,Ich bin heute sehr beschäftigt.,Bugun men juda bandman.,beschäftigt,needs_review
+456,A1,tragen,Verb,,,tashimoq,trug,getragen,haben,trage,trägst,trägt,tragen,tragt,tragen,,,Ich trage heute eine Jacke.,Bugun men kurtka kiyganman.,tragen,needs_review
+457,A1,pünktlich,Adjektiv,,,o‘z vaqtida,,,,,,,,,,pünktlicher,am pünktlichsten,Der Zug ist pünktlich.,Poyezd o‘z vaqtida keldi.,pünktlich,needs_review
+458,A1,drinnen,Adverb,,,ichkarida,,,,,,,,,,,,"Es regnet, wir bleiben drinnen.","Yomg‘ir yog‘yapti, biz ichkarida qolamiz.",drinnen,needs_review
+459,A1,verdienen,Verb,,,pul ishlamoq,verdiente,verdient,haben,verdiene,verdienst,verdient,verdienen,verdient,verdienen,,,Er verdient gut.,U yaxshi pul ishlaydi.,verdienen,needs_review
+460,A1,schnell,Adjektiv,,,tez,,,,,,,,,,schneller,am schnellsten,Der Zug fährt sehr schnell.,Poyezd juda tez yuradi.,schnell,needs_review
+461,A1,Kreuzung,Nomen,die,Kreuzungen,chorraha,,,,,,,,,,,,An der Kreuzung gehen Sie links.,Chorrahada chapga buriling.,die Kreuzung,needs_review
+462,A1,Motorrad,Nomen,das,Motorräder,mototsikl,,,,,,,,,,,,Mein Onkel fährt Motorrad.,Amakim mototsikl haydaydi.,das Motorrad,needs_review
+463,A1,Fußgänger,Nomen,der,Fußgänger,piyoda,,,,,,,,,,,,Der Fußgänger wartet an der Ampel.,Piyoda svetofor oldida kutyapti.,der Fußgänger,needs_review
+464,A1,Ampel,Nomen,die,Ampeln,svetofor,,,,,,,,,,,,Die Ampel ist rot.,Svetoforda qizil chiroq yonib turibdi.,die Ampel,needs_review
+465,A1,Nummernschild,Nomen,das,Nummernschilder,avtomobil raqami,,,,,,,,,,,,Das Auto hat ein deutsches Nummernschild.,Mashinada nemis raqami bor.,das Nummernschild,needs_review
+466,A1,Fahrradhelm,Nomen,der,Fahrradhelme,veloshlem,,,,,,,,,,,,Trag beim Radfahren immer einen Fahrradhelm.,Velosipedda yurganda doim veloshlem kiy.,der Fahrradhelm,needs_review
+467,A1,Landschaft,Nomen,die,Landschaften,manzara,,,,,,,,,,,,Die Landschaft hier ist wunderschön.,Bu yerdagi manzara juda chiroyli.,die Landschaft,needs_review
+468,A1,Gebirge,Nomen,das,Gebirge,tog‘ tizmasi,,,,,,,,,,,,Im Winter fahren wir ins Gebirge.,Qishda biz tog‘larga boramiz.,das Gebirge,needs_review
+469,A1,Wasserfall,Nomen,der,Wasserfälle,sharshara,,,,,,,,,,,,Der Wasserfall ist sehr hoch.,Sharshara juda baland.,der Wasserfall,needs_review
+470,A1,Sehenswürdigkeit,Nomen,die,Sehenswürdigkeiten,diqqatga sazovor joy,,,,,,,,,,,,Das Registan ist eine berühmte Sehenswürdigkeit.,Registon mashhur diqqatga sazovor joy.,die Sehenswürdigkeit,needs_review
+471,A1,fahren,Verb,,,minmoq,fuhr,gefahren,haben/sein,fahre,fährst,fährt,fahren,fahrt,fahren,,,Wir fahren morgen nach München.,Ertaga biz Myunxenga boramiz.,fahren,needs_review
+472,A1,vorsichtig,Adjektiv,,,ehtiyotkor,,,,,,,,,,vorsichtiger,am vorsichtigsten,"Sei vorsichtig, die Straße ist nass.","Ehtiyot bo‘l, yo‘l ho‘l.",vorsichtig,needs_review
+473,A1,abbiegen,Verb,,,burilmoq,bog ab,abgebogen,haben/sein,biege ab,biegst ab,biegt ab,biegen ab,biegt ab,biegen ab,,,An der Ampel biegen Sie rechts ab.,Svetoforda o‘ngga buriling.,abbiegen,needs_review
+474,A1,draußen,Adverb,,,tashqarida,,,,,,,,,,,,Die Kinder spielen draußen.,Bolalar tashqarida o‘ynayapti.,draußen,needs_review
+475,A1,gefährlich,Adjektiv,,,xavfli,,,,,,,,,,gefährlicher,am gefährlichsten,Die Straße ist gefährlich.,Bu ko‘cha xavfli.,gefährlich,needs_review
+476,A1,anhalten,Verb,,,to‘xtamoq,hielt an,angehalten,haben,halte an,hältst an,hält an,halten an,haltet an,halten an,,,Der Bus hält hier an.,Avtobus shu yerda to‘xtaydi.,anhalten,needs_review
+477,A1,weit,Adjektiv,,,uzoq,,,,,,,,,,weiter,am weitesten,Der Bahnhof ist nicht weit.,Vokzal uzoq emas.,weit,needs_review
+478,A1,gerade,Adjektiv,,,to‘g‘ri,,,,,,,,,,,,Die Straße ist ganz gerade.,Ko‘cha butunlay to‘g‘ri.,gerade,needs_review
+479,A1,überqueren,Verb,,,kesib o‘tmoq,überquerte,überquert,haben,überquere,überquerst,überquert,überqueren,überquert,überqueren,,,Wir überqueren die Straße an der Ampel.,Biz ko‘chani svetofordan kesib o‘tamiz.,überqueren,needs_review
+480,A1,links,Adverb,,,chapda,,,,,,,,,,,,Die Bank ist links.,Bank chap tomonda.,links,needs_review
+481,A1,Schloss,Nomen,das,Schlösser,saroy,,,,,,,,,,,,Das Schloss ist sehr alt.,Saroy juda qadimiy.,das Schloss,needs_review
+482,A1,Tempel,Nomen,der,Tempel,ibodatxona,,,,,,,,,,,,Wir besuchen einen alten Tempel.,Biz qadimiy ibodatxonani ziyorat qilamiz.,der Tempel,needs_review
+483,A1,Hauptstadt,Nomen,die,Hauptstädte,poytaxt,,,,,,,,,,,,Die Hauptstadt von Deutschland ist Berlin.,Germaniyaning poytaxti Berlin.,die Hauptstadt,needs_review
+484,A1,Ausland,Nomen,das,,chet el,,,,,,,,,,,,Mein Bruder arbeitet im Ausland.,Akam chet elda ishlaydi.,das Ausland,needs_review
+485,A1,Tourist,Nomen,der,Touristen,sayyoh,,,,,,,,,,,,Der Tourist fotografiert die Moschee.,Sayyoh masjidni suratga olyapti.,der Tourist,needs_review
+486,A1,Reisegruppe,Nomen,die,Reisegruppen,sayohat guruhi,,,,,,,,,,,,Unsere Reisegruppe ist sehr groß.,Bizning sayohat guruhimiz juda katta.,die Reisegruppe,needs_review
+487,A1,Musikinstrument,Nomen,das,Musikinstrumente,musiqa asbobi,,,,,,,,,,,,Spielst du ein Musikinstrument?,Biror musiqa asbobini chalasanmi?,das Musikinstrument,needs_review
+488,A1,Gitarrist,Nomen,der,Gitarristen,gitarachi,,,,,,,,,,,,Der Gitarrist spielt sehr gut.,Gitarachi juda yaxshi chaladi.,der Gitarrist,needs_review
+489,A1,Trommel,Nomen,die,Trommeln,baraban,,,,,,,,,,,,Das Kind spielt auf der Trommel.,Bola baraban chalyapti.,die Trommel,needs_review
+490,A1,Klavier,Nomen,das,Klaviere,pianino,,,,,,,,,,,,Meine Schwester spielt Klavier.,Singlim pianino chaladi.,das Klavier,needs_review
+491,A1,besuchen,Verb,,,ziyorat qilmoq,besuchte,besucht,haben,besuche,besuchst,besucht,besuchen,besucht,besuchen,,,Am Sonntag besuchen wir unsere Oma.,Yakshanba kuni biz buvimizni ko‘rgani boramiz.,besuchen,needs_review
+492,A1,berühmt,Adjektiv,,,mashhur,,,,,,,,,,berühmter,am berühmtesten,Der Schauspieler ist sehr berühmt.,Bu aktyor juda mashhur.,berühmt,needs_review
+493,A1,fotografieren,Verb,,,rasmga olmoq,fotografierte,fotografiert,haben,fotografiere,fotografierst,fotografiert,fotografieren,fotografiert,fotografieren,,,Ich fotografiere gern Blumen.,Men gullarni rasmga olishni yaxshi ko‘raman.,fotografieren,needs_review
+494,A1,überall,Adverb,,,hamma yerda,,,,,,,,,,,,Im Herbst liegen überall Blätter.,Kuzda hamma yerda barglar yotadi.,überall,needs_review
+495,A1,international,Adjektiv,,,xalqaro,,,,,,,,,,,,Das ist eine internationale Schule.,Bu xalqaro maktab.,international,needs_review
+496,A1,staunen,Verb,,,hayratlanmoq,staunte,gestaunt,haben,staune,staunst,staunt,staunen,staunt,staunen,,,Die Kinder staunen über den Zauberer.,Bolalar sehrgardan hayratlanyapti.,staunen,needs_review
+497,A1,alt,Adjektiv,,,qadimiy,,,,,,,,,,älter,am ältesten,Mein Großvater ist achtzig Jahre alt.,Bobom sakson yoshda.,alt,needs_review
+498,A1,gemeinsam,Adjektiv,,,birga,,,,,,,,,,,,Wir machen die Aufgabe gemeinsam.,Biz topshiriqni birgalikda bajaramiz.,gemeinsam,needs_review
+499,A1,entdecken,Verb,,,kashf qilmoq,entdeckte,entdeckt,haben,entdecke,entdeckst,entdeckt,entdecken,entdeckt,entdecken,,,Im Urlaub entdecken wir die Stadt.,Ta’tilda biz shaharni kashf qilamiz.,entdecken,needs_review
+500,A1,freundlich,Adjektiv,,,mehribon,,,,,,,,,,freundlicher,am freundlichsten,Die Verkäuferin ist sehr freundlich.,Sotuvchi ayol juda xushmuomala.,freundlich,needs_review
+501,A1,Termin,Nomen,der,Termine,uchrashuv vaqti,,,,,,,,,,,,Ich habe morgen einen Termin beim Arzt.,Ertaga shifokor qabulida uchrashuvim bor.,der Termin,needs_review
+502,A1,Wohnung,Nomen,die,Wohnungen,xonadon,,,,,,,,,,,,Die Wohnung hat drei Zimmer.,Xonadonda uchta xona bor.,die Wohnung,needs_review
+503,A1,Hobby,Nomen,das,Hobbys,xobbi,,,,,,,,,,,,Mein Hobby ist Lesen.,Mening xobbim — kitob o‘qish.,das Hobby,needs_review
+504,A1,Nachbar,Nomen,der,Nachbarn,qo‘shni,,,,,,,,,,,,Unser Nachbar ist sehr freundlich.,Qo‘shnimiz juda xushmuomala.,der Nachbar,needs_review
+505,A1,Freizeit,Nomen,die,Freizeiten,bo‘sh vaqt,,,,,,,,,,,,In der Freizeit spiele ich Fußball.,Bo‘sh vaqtimda men futbol o‘ynayman.,die Freizeit,needs_review
+506,A1,Konzert,Nomen,das,Konzerte,konsert,,,,,,,,,,,,Das Konzert beginnt um acht Uhr.,Konsert soat sakkizda boshlanadi.,das Konzert,needs_review
+507,A1,Fernseher,Nomen,der,Fernseher,televizor,,,,,,,,,,,,Der Fernseher ist im Wohnzimmer.,Televizor mehmonxonada.,der Fernseher,needs_review
+508,A1,Dusche,Nomen,die,Duschen,dush,,,,,,,,,,,,Ich gehe unter die Dusche.,Men dush qabul qilgani ketyapman.,die Dusche,needs_review
+509,A1,Regal,Nomen,das,Regale,javon,,,,,,,,,,,,Die Bücher stehen im Regal.,Kitoblar javonda turibdi.,das Regal,needs_review
+510,A1,Schirm,Nomen,der,Schirme,soyabon,,,,,,,,,,,,"Nimm einen Schirm mit, es regnet.","Soyabon olib ol, yomg‘ir yog‘yapti.",der Schirm,needs_review
+511,A1,brauchen,Verb,,,kerak bo‘lmoq,brauchte,gebraucht,haben,brauche,brauchst,braucht,brauchen,braucht,brauchen,,,Ich brauche deine Hilfe.,Menga sening yordaming kerak.,brauchen,needs_review
+512,A1,frei,Adjektiv,,,bo‘sh,,,,,,,,,,freier,am freiesten,Ist der Platz hier frei?,Bu joy bo‘shmi?,frei,needs_review
+513,A1,vergessen,Verb,,,unutmoq,vergaß,vergessen,haben,vergesse,vergisst,vergisst,vergessen,vergesst,vergessen,,,Ich vergesse oft meinen Schlüssel.,Men kalitimni tez-tez unutaman.,vergessen,needs_review
+514,A1,leider,Adverb,,,afsuski,,,,,,,,,,,,Leider habe ich keine Zeit.,"Afsuski, vaqtim yo‘q.",leider,needs_review
+515,A1,kaputt,Adjektiv,,,buzilgan,,,,,,,,,,kaputter,am kaputtesten,Mein Handy ist kaputt.,Telefonim buzilgan.,kaputt,needs_review
+516,A1,erklären,Verb,,,tushuntirmoq,erklärte,erklärt,haben,erkläre,erklärst,erklärt,erklären,erklärt,erklären,,,Kannst du mir das bitte erklären?,Menga buni tushuntirib bera olasanmi?,erklären,needs_review
+517,A1,leer,Adjektiv,,,bo‘sh,,,,,,,,,,leerer,am leersten,Der Kühlschrank ist leer.,Muzlatgich bo‘sh.,leer,needs_review
+518,A1,vielleicht,Adverb,,,balki,,,,,,,,,,,,Vielleicht komme ich morgen.,Balki ertaga kelarman.,vielleicht,needs_review
+519,A1,wünschen,Verb,,,tilamoq,wünschte,gewünscht,haben,wünsche,wünschst,wünscht,wünschen,wünscht,wünschen,,,Ich wünsche dir alles Gute.,Senga barcha yaxshiliklarni tilayman.,wünschen,needs_review
+520,A1,nett,Adjektiv,,,yoqimli,,,,,,,,,,netter,am nettesten,Deine Schwester ist sehr nett.,Opang juda yoqimli.,nett,needs_review
+521,A1,Telefonnummer,Nomen,die,Telefonnummern,telefon raqami,,,,,,,,,,,,Wie ist deine Telefonnummer?,Telefon raqaming qanday?,die Telefonnummer,needs_review
+522,A1,Radio,Nomen,das,Radios,radio,,,,,,,,,,,,Im Auto hören wir Radio.,Mashinada biz radio tinglaymiz.,das Radio,needs_review
+523,A1,Supermarkt,Nomen,der,Supermärkte,supermarket,,,,,,,,,,,,Der Supermarkt ist bis zehn Uhr offen.,Supermarket soat o‘ngacha ochiq.,der Supermarkt,needs_review
+524,A1,Brille,Nomen,die,Brillen,ko‘zoynak,,,,,,,,,,,,Ohne Brille sehe ich nicht gut.,Ko‘zoynaksiz men yaxshi ko‘rmayman.,die Brille,needs_review
+525,A1,Fahrrad,Nomen,das,Fahrräder,velosiped,,,,,,,,,,,,Ich fahre mit dem Fahrrad zur Schule.,Men maktabga velosipedda boraman.,das Fahrrad,needs_review
+526,A1,Fahrplan,Nomen,der,Fahrpläne,qatnov jadvali,,,,,,,,,,,,Der Fahrplan hängt an der Haltestelle.,Qatnov jadvali bekatda osilib turibdi.,der Fahrplan,needs_review
+527,A1,Ferien,Nomen,die,Ferien,ta’til,,,,,,,,,,,,In den Ferien fahren wir zu Oma.,Ta’tilda biz buvimiznikiga boramiz.,die Ferien,needs_review
+528,A1,Sofa,Nomen,das,Sofas,divan,,,,,,,,,,,,Die Katze liegt auf dem Sofa.,Mushuk divanda yotibdi.,das Sofa,needs_review
+529,A1,Koffer,Nomen,der,Koffer,chamadon,,,,,,,,,,,,Mein Koffer ist zu schwer.,Chamadonim juda og‘ir.,der Koffer,needs_review
+530,A1,Post,Nomen,die,,pochta,,,,,,,,,,,,Ich gehe zur Post.,Men pochtaga ketyapman.,die Post,needs_review
+531,A1,reservieren,Verb,,,band qilmoq,reservierte,reserviert,haben,reserviere,reservierst,reserviert,reservieren,reserviert,reservieren,,,Ich möchte einen Tisch für zwei Personen reservieren.,Men ikki kishilik stolni band qilmoqchiman.,reservieren,needs_review
+532,A1,bequem,Adjektiv,,,qulay,,,,,,,,,,bequemer,am bequemsten,Die Schuhe sind sehr bequem.,Bu oyoq kiyim juda qulay.,bequem,needs_review
+533,A1,mitkommen,Verb,,,birga kelmoq,kam mit,mitgekommen,sein,komme mit,kommst mit,kommt mit,kommen mit,kommt mit,kommen mit,,,Kommst du mit ins Kino?,Kinoga birga borasanmi?,mitkommen,needs_review
+534,A1,zuerst,Adverb,,,avval,,,,,,,,,,,,Zuerst lese ich den Text.,Avval men matnni o‘qiyman.,zuerst,needs_review
+535,A1,voll,Adjektiv,,,to‘la,,,,,,,,,,voller,am vollsten,Der Bus ist voll.,Avtobus to‘la.,voll,needs_review
+536,A1,wechseln,Verb,,,almashtirmoq,wechselte,gewechselt,haben,wechsle,wechselst,wechselt,wechseln,wechselt,wechseln,,,Ich möchte Geld wechseln.,Men pul almashtirmoqchiman.,wechseln,needs_review
+537,A1,traurig,Adjektiv,,,xafa,,,,,,,,,,trauriger,am traurigsten,Warum bist du traurig?,Nega xafasan?,traurig,needs_review
+538,A1,deshalb,Adverb,,,shuning uchun,,,,,,,,,,,,"Ich bin krank, deshalb bleibe ich zu Hause.","Men kasalman, shuning uchun uyda qolaman.",deshalb,needs_review
+539,A1,lächeln,Verb,,,jilmaymoq,lächelte,gelächelt,haben,lächle,lächelst,lächelt,lächeln,lächelt,lächeln,,,Das Baby lächelt.,Chaqaloq jilmayyapti.,lächeln,needs_review
+540,A1,fertig,Adjektiv,,,tayyor,,,,,,,,,,fertiger,am fertigsten,Das Essen ist fertig.,Ovqat tayyor.,fertig,needs_review
+541,A1,Flughafen,Nomen,der,Flughäfen,aeroport,,,,,,,,,,,,Der Flughafen ist weit weg.,Aeroport juda uzoqda.,der Flughafen,needs_review
+542,A1,Straßenbahn,Nomen,die,Straßenbahnen,tramvay,,,,,,,,,,,,Ich fahre mit der Straßenbahn zur Arbeit.,Men ishga tramvayda boraman.,die Straßenbahn,needs_review
+543,A1,Ticket,Nomen,das,Tickets,chipta,,,,,,,,,,,,Ich brauche ein Ticket für den Zug.,Menga poyezd uchun chipta kerak.,das Ticket,needs_review
+544,A1,Bahnhof,Nomen,der,Bahnhöfe,vokzal,,,,,,,,,,,,Wo ist der Bahnhof?,Vokzal qayerda?,der Bahnhof,needs_review
+545,A1,U-Bahn,Nomen,die,U-Bahnen,metro,,,,,,,,,,,,Die U-Bahn ist schnell.,Metro tez.,die U-Bahn,needs_review
+546,A1,Café,Nomen,das,Cafés,kafe,,,,,,,,,,,,Wir treffen uns im Café.,Biz kafeda uchrashamiz.,das Café,needs_review
+547,A1,Urlaub,Nomen,der,Urlaube,ta’til,,,,,,,,,,,,Im August haben wir Urlaub.,Avgustda bizning ta’tilimiz bor.,der Urlaub,needs_review
+548,A1,Einladung,Nomen,die,Einladungen,taklifnoma,,,,,,,,,,,,Danke für die Einladung!,Taklif uchun rahmat!,die Einladung,needs_review
+549,A1,Hotelzimmer,Nomen,das,Hotelzimmer,mehmonxona xonasi,,,,,,,,,,,,Das Hotelzimmer ist sauber.,Mehmonxona xonasi toza.,das Hotelzimmer,needs_review
+550,A1,Reisepass,Nomen,der,Reisepässe,pasport,,,,,,,,,,,,Ich brauche einen neuen Reisepass.,Menga yangi pasport kerak.,der Reisepass,needs_review
+551,A1,packen,Verb,,,joylamoq,packte,gepackt,haben,packe,packst,packt,packen,packt,packen,,,Ich packe meinen Koffer.,Men chamadonimga narsalarimni joylayapman.,packen,needs_review
+552,A1,pünktlich,Adjektiv,,,o‘z vaqtida,,,,,,,,,,pünktlicher,am pünktlichsten,Der Zug ist pünktlich.,Poyezd o‘z vaqtida keldi.,pünktlich,needs_review
+553,A1,ankommen,Verb,,,yetib kelmoq,kam an,angekommen,sein,komme an,kommst an,kommt an,kommen an,kommt an,kommen an,,,Wann kommt der Zug an?,Poyezd qachon yetib keladi?,ankommen,needs_review
+554,A1,danach,Adverb,,,keyin,,,,,,,,,,,,Wir essen und danach gehen wir ins Kino.,"Biz ovqatlanamiz, keyin kinoga boramiz.",danach,needs_review
+555,A1,durstig,Adjektiv,,,chanqagan,,,,,,,,,,durstiger,am durstigsten,Ich bin durstig.,Men chanqadim.,durstig,needs_review
+556,A1,aussteigen,Verb,,,tushmoq,stieg aus,ausgestiegen,sein,steige aus,steigst aus,steigt aus,steigen aus,steigt aus,steigen aus,,,Wir steigen an der nächsten Haltestelle aus.,Biz keyingi bekatda tushamiz.,aussteigen,needs_review
+557,A1,freundlich,Adjektiv,,,mehribon,,,,,,,,,,freundlicher,am freundlichsten,Die Verkäuferin ist sehr freundlich.,Sotuvchi ayol juda xushmuomala.,freundlich,needs_review
+558,A1,endlich,Adjektiv,,,nihoyat,,,,,,,,,,,,Endlich ist der Sommer da!,Nihoyat yoz keldi!,endlich,needs_review
+559,A1,einsteigen,Verb,,,minmoq,stieg ein,eingestiegen,sein,steige ein,steigst ein,steigt ein,steigen ein,steigt ein,steigen ein,,,Bitte steigen Sie schnell ein.,"Iltimos, tezroq chiqing.",einsteigen,needs_review
+560,A1,satt,Adjektiv,,,to‘q,,,,,,,,,,satter,am sattesten,"Danke, ich bin satt.","Rahmat, men to‘qman.",satt,needs_review
+561,A1,Kühlschrank,Nomen,der,Kühlschränke,muzlatgich,,,,,,,,,,,,Die Milch ist im Kühlschrank.,Sut muzlatgichda.,der Kühlschrank,needs_review
+562,A1,Batterie,Nomen,die,Batterien,batareya,,,,,,,,,,,,Die Uhr braucht eine neue Batterie.,Soatga yangi batareya kerak.,die Batterie,needs_review
+563,A1,Handy,Nomen,das,Handys,telefon,,,,,,,,,,,,Mein Handy liegt in der Tasche.,Telefonim sumkada.,das Handy,needs_review
+564,A1,Computer,Nomen,der,Computer,kompyuter,,,,,,,,,,,,Der Computer ist sehr langsam.,Kompyuter juda sekin ishlaydi.,der Computer,needs_review
+565,A1,Zeitung,Nomen,die,Zeitungen,gazeta,,,,,,,,,,,,Mein Opa liest jeden Morgen die Zeitung.,Bobom har kuni ertalab gazeta o‘qiydi.,die Zeitung,needs_review
+566,A1,Foto,Nomen,das,Fotos,rasm,,,,,,,,,,,,Das Foto ist aus dem Urlaub.,Bu rasm ta’tildan.,das Foto,needs_review
+567,A1,Schlüssel,Nomen,der,Schlüssel,kalit,,,,,,,,,,,,Der Schlüssel liegt auf dem Tisch.,Kalit stol ustida.,der Schlüssel,needs_review
+568,A1,Tasche,Nomen,die,Taschen,sumka,,,,,,,,,,,,Meine Tasche ist sehr schwer.,Sumkam juda og‘ir.,die Tasche,needs_review
+569,A1,Fenster,Nomen,das,Fenster,oyna,,,,,,,,,,,,Kannst du bitte das Fenster öffnen?,"Iltimos, derazani ocha olasanmi?",das Fenster,needs_review
+570,A1,Kalender,Nomen,der,Kalender,kalendar,,,,,,,,,,,,Der Termin steht im Kalender.,Uchrashuv kalendarda yozilgan.,der Kalender,needs_review
+571,A1,abschließen,Verb,,,qulflamoq,schloss ab,abgeschlossen,haben,schließe ab,schließt ab,schließt ab,schließen ab,schließt ab,schließen ab,,,"Vergiss nicht, die Tür abzuschließen.",Eshikni qulflashni unutma.,abschließen,needs_review
+572,A1,praktisch,Adjektiv,,,qulay,,,,,,,,,,praktischer,am praktischsten,Die Tasche ist sehr praktisch.,Bu sumka juda qulay.,praktisch,needs_review
+573,A1,mitnehmen,Verb,,,o‘zi bilan olmoq,nahm mit,mitgenommen,haben,nehme mit,nimmst mit,nimmt mit,nehmen mit,nehmt mit,nehmen mit,,,Ich nehme einen Regenschirm mit.,Men o‘zim bilan soyabon olaman.,mitnehmen,needs_review
+574,A1,natürlich,Adjektiv,,,albatta,,,,,,,,,,natürlicher,am natürlichsten,Natürlich helfe ich dir.,"Albatta, senga yordam beraman.",natürlich,needs_review
+575,A1,trocken,Adjektiv,,,quruq,,,,,,,,,,trockener,am trockensten,Die Wäsche ist schon trocken.,Kir allaqachon quridi.,trocken,needs_review
+576,A1,zumachen,Verb,,,yopmoq,machte zu,zugemacht,haben,mache zu,machst zu,macht zu,machen zu,macht zu,machen zu,,,Mach bitte das Fenster zu.,"Iltimos, derazani yop.",zumachen,needs_review
+577,A1,böse,Adjektiv,,,jahldor,,,,,,,,,,böser,am bösesten,Bist du böse auf mich?,Mendan jahling chiqdimi?,böse,needs_review
+578,A1,trotzdem,Adverb,,,shunga qaramay,,,,,,,,,,,,"Es regnet, trotzdem gehen wir spazieren.","Yomg‘ir yog‘yapti, shunga qaramay biz sayrga chiqamiz.",trotzdem,needs_review
+579,A1,gehören,Verb,,,tegishli bo‘lmoq,gehörte,gehört,haben,gehöre,gehörst,gehört,gehören,gehört,gehören,,,Das Buch gehört mir.,Bu kitob menga tegishli.,gehören,needs_review
+580,A1,richtig,Adjektiv,,,to‘g‘ri,,,,,,,,,,richtiger,am richtigsten,Deine Antwort ist richtig.,Javobing to‘g‘ri.,richtig,needs_review
+581,A1,Fernsehabend,Nomen,der,Fernsehabende,televizor oqshomi,,,,,,,,,,,,Am Freitag machen wir einen Fernsehabend.,Juma kuni biz uyda televizor tomosha qilish kechasini o‘tkazamiz.,der Fernsehabend,needs_review
+582,A1,Geburtstagsparty,Nomen,die,Geburtstagspartys,tug‘ilgan kun bazmi,,,,,,,,,,,,Kommst du zu meiner Geburtstagsparty?,Mening tug‘ilgan kun bazmimga kelasanmi?,die Geburtstagsparty,needs_review
+583,A1,Lieblingslied,Nomen,das,Lieblingslieder,sevimli qo‘shiq,,,,,,,,,,,,Das ist mein Lieblingslied.,Bu mening sevimli qo‘shig‘im.,das Lieblingslied,needs_review
+584,A1,Sportplatz,Nomen,der,Sportplätze,sport maydoni,,,,,,,,,,,,Nach der Schule gehen wir auf den Sportplatz.,Maktabdan keyin biz sport maydoniga boramiz.,der Sportplatz,needs_review
+585,A1,Musikgruppe,Nomen,die,Musikgruppen,musiqa guruhi,,,,,,,,,,,,Die Musikgruppe spielt heute im Park.,Musiqa guruhi bugun parkda chiqish qiladi.,die Musikgruppe,needs_review
+586,A1,Schwimmbad,Nomen,das,Schwimmbäder,basseyn,,,,,,,,,,,,Im Sommer gehen wir oft ins Schwimmbad.,Yozda biz tez-tez basseynga boramiz.,das Schwimmbad,needs_review
+587,A1,Stadtpark,Nomen,der,Stadtparks,shahar bog‘i,,,,,,,,,,,,Der Stadtpark ist sehr grün.,Shahar bog‘i juda yashil.,der Stadtpark,needs_review
+588,A1,Bäckerei,Nomen,die,Bäckereien,nonvoyxona,,,,,,,,,,,,Die Bäckerei öffnet sehr früh.,Nonvoyxona juda erta ochiladi.,die Bäckerei,needs_review
+589,A1,Mittagessen,Nomen,das,Mittagessen,tushlik,,,,,,,,,,,,Das Mittagessen ist um ein Uhr.,Tushlik soat birda.,das Mittagessen,needs_review
+590,A1,Wochenmarkt,Nomen,der,Wochenmärkte,haftalik bozor,,,,,,,,,,,,Auf dem Wochenmarkt kaufe ich Obst.,Haftalik bozordan men meva sotib olaman.,der Wochenmarkt,needs_review
+591,A1,gratulieren,Verb,,,tabriklamoq,gratulierte,gratuliert,haben,gratuliere,gratulierst,gratuliert,gratulieren,gratuliert,gratulieren,,,Ich gratuliere dir zum Geburtstag!,Seni tug‘ilgan kuning bilan tabriklayman!,gratulieren,needs_review
+592,A1,beliebt,Adjektiv,,,mashhur,,,,,,,,,,beliebter,am beliebtesten,Dieses Café ist sehr beliebt.,Bu kafe juda mashhur.,beliebt,needs_review
+593,A1,telefonieren,Verb,,,telefonlashmoq,telefonierte,telefoniert,haben,telefoniere,telefonierst,telefoniert,telefonieren,telefoniert,telefonieren,,,Ich telefoniere jeden Tag mit meiner Mutter.,Men har kuni onam bilan telefonda gaplashaman.,telefonieren,needs_review
+594,A1,plötzlich,Adjektiv,,,to‘satdan,,,,,,,,,,,,Plötzlich fängt es an zu regnen.,To‘satdan yomg‘ir yog‘a boshlaydi.,plötzlich,needs_review
+595,A1,hungrig,Adjektiv,,,och,,,,,,,,,,hungriger,am hungrigsten,Ich bin sehr hungrig.,Men juda ochman.,hungrig,needs_review
+596,A1,rauchen,Verb,,,chekmoq,rauchte,geraucht,haben,rauche,rauchst,raucht,rauchen,raucht,rauchen,,,Hier darf man nicht rauchen.,Bu yerda chekish mumkin emas.,rauchen,needs_review
+597,A1,hilfsbereit,Adjektiv,,,yordamchi,,,,,,,,,,hilfsbereiter,am hilfsbereitesten,Unsere Nachbarin ist sehr hilfsbereit.,Qo‘shni ayolimiz doim yordam berishga tayyor.,hilfsbereit,needs_review
+598,A1,besonders,Adverb,,,ayniqsa,,,,,,,,,,,,Ich mag besonders den Sommer.,Menga ayniqsa yoz yoqadi.,besonders,needs_review
+599,A1,stoppen,Verb,,,to‘xtatmoq,stoppte,gestoppt,haben,stoppe,stoppst,stoppt,stoppen,stoppt,stoppen,,,Der Polizist stoppt das Auto.,Politsiyachi mashinani to‘xtatadi.,stoppen,needs_review
+600,A1,wirklich,Adjektiv,,,haqiqatan,,,,,,,,,,wirklicher,am wirklichsten,Das ist wirklich schön.,Bu haqiqatan ham chiroyli.,wirklich,needs_review
+601,A1,Terminplan,Nomen,der,Terminpläne,reja jadvali,,,,,,,,,,,,Mein Terminplan für die Woche ist voll.,Haftalik reja jadvalim to‘la.,der Terminplan,needs_review
+602,A1,Frühstückspause,Nomen,die,Frühstückspausen,nonushta tanaffusi,,,,,,,,,,,,In der Frühstückspause esse ich ein Brot.,Nonushta tanaffusida men bitta buterbrod yeyman.,die Frühstückspause,needs_review
+603,A1,Lieblingsessen,Nomen,das,Lieblingsessen,sevimli ovqat,,,,,,,,,,,,Plov ist mein Lieblingsessen.,Palov — mening sevimli ovqatim.,das Lieblingsessen,needs_review
+604,A1,Sprachkurs,Nomen,der,Sprachkurse,til kursi,,,,,,,,,,,,Der Sprachkurs beginnt im September.,Til kursi sentabrda boshlanadi.,der Sprachkurs,needs_review
+605,A1,Hausaufgabe,Nomen,die,Hausaufgaben,uy vazifasi,,,,,,,,,,,,Ich mache jetzt meine Hausaufgabe.,Men hozir uy vazifamni bajaryapman.,die Hausaufgabe,needs_review
+606,A1,Wörterbuch,Nomen,das,Wörterbücher,lug‘at,,,,,,,,,,,,Ich suche das Wort im Wörterbuch.,Men so‘zni lug‘atdan qidiryapman.,das Wörterbuch,needs_review
+607,A1,Fahrstuhl,Nomen,der,Fahrstühle,lift,,,,,,,,,,,,Der Fahrstuhl ist leider kaputt.,"Afsuski, lift buzilgan.",der Fahrstuhl,needs_review
+608,A1,Haltestelle,Nomen,die,Haltestellen,bekat,,,,,,,,,,,,Die Haltestelle ist direkt vor der Schule.,Bekat to‘g‘ri maktab oldida.,die Haltestelle,needs_review
+609,A1,Kaufhaus,Nomen,das,Kaufhäuser,savdo markazi,,,,,,,,,,,,Im Kaufhaus gibt es heute Rabatt.,Bugun savdo markazida chegirma bor.,das Kaufhaus,needs_review
+610,A1,Fußballverein,Nomen,der,Fußballvereine,futbol klubi,,,,,,,,,,,,Mein Sohn spielt in einem Fußballverein.,O‘g‘lim futbol klubida o‘ynaydi.,der Fußballverein,needs_review
+611,A1,abholen,Verb,,,olib ketmoq,holte ab,abgeholt,haben,hole ab,holst ab,holt ab,holen ab,holt ab,holen ab,,,Ich hole dich um sieben Uhr ab.,Men seni soat yettida olib ketaman.,abholen,needs_review
+612,A1,nervös,Adjektiv,,,asabiy,,,,,,,,,,nervöser,am nervösesten,Vor der Prüfung bin ich nervös.,Imtihon oldidan men hayajonlanaman.,nervös,needs_review
+613,A1,ausfüllen,Verb,,,to‘ldirmoq,füllte aus,ausgefüllt,haben,fülle aus,füllst aus,füllt aus,füllen aus,füllt aus,füllen aus,,,Ich fülle das Formular aus.,Men anketani to‘ldiryapman.,ausfüllen,needs_review
+614,A1,zuerst,Adverb,,,avval,,,,,,,,,,,,Zuerst lese ich den Text.,Avval men matnni o‘qiyman.,zuerst,needs_review
+615,A1,gemütlich,Adjektiv,,,shinam,,,,,,,,,,gemütlicher,am gemütlichsten,Das Café ist klein und gemütlich.,Kafe kichik va shinam.,gemütlich,needs_review
+616,A1,duschen,Verb,,,dush qabul qilmoq,duschte,geduscht,haben,dusche,duschst,duscht,duschen,duscht,duschen,,,Ich dusche jeden Morgen.,Men har kuni ertalab dush qabul qilaman.,duschen,needs_review
+617,A1,peinlich,Adjektiv,,,noqulay,,,,,,,,,,peinlicher,am peinlichsten,Das war mir sehr peinlich.,Bu men uchun juda noqulay bo‘ldi.,peinlich,needs_review
+618,A1,danach,Adverb,,,keyin,,,,,,,,,,,,Wir essen und danach gehen wir ins Kino.,"Biz ovqatlanamiz, keyin kinoga boramiz.",danach,needs_review
+619,A1,grillen,Verb,,,grilda pishirmoq,grillte,gegrillt,haben,grille,grillst,grillt,grillen,grillt,grillen,,,Am Wochenende grillen wir im Garten.,Hafta oxirida biz bog‘da grilda go‘sht pishiramiz.,grillen,needs_review
+620,A1,toll,Adjektiv,,,zo‘r,,,,,,,,,,toller,am tollsten,Das Konzert war toll!,Konsert zo‘r bo‘ldi!,toll,needs_review
+621,A1,Nebenjob,Nomen,der,Nebenjobs,qo‘shimcha ish,,,,,,,,,,,,Viele Studenten haben einen Nebenjob.,Ko‘p talabalarning qo‘shimcha ishi bor.,der Nebenjob,needs_review
+622,A1,Speisekarte,Nomen,die,Speisekarten,menyu,,,,,,,,,,,,Die Speisekarte gibt es auch auf Englisch.,Menyu ingliz tilida ham bor.,die Speisekarte,needs_review
+623,A1,Kaufzentrum,Nomen,das,Kaufzentren,savdo markazi,,,,,,,,,,,,Das Kaufzentrum hat viele Geschäfte.,Savdo markazida ko‘p do‘konlar bor.,das Kaufzentrum,needs_review
+624,A1,Reiseführer,Nomen,der,Reiseführer,sayyoh qo‘llanmasi,,,,,,,,,,,,Im Reiseführer stehen viele gute Tipps.,Sayohat qo‘llanmasida ko‘p foydali maslahatlar bor.,der Reiseführer,needs_review
+625,A1,Zimmernummer,Nomen,die,Zimmernummern,xona raqami,,,,,,,,,,,,Meine Zimmernummer ist 214.,Mening xona raqamim 214.,die Zimmernummer,needs_review
+626,A1,Schwimmbad,Nomen,das,Schwimmbäder,basseyn,,,,,,,,,,,,Im Sommer gehen wir oft ins Schwimmbad.,Yozda biz tez-tez basseynga boramiz.,das Schwimmbad,needs_review
+627,A1,Laptop,Nomen,der,Laptops,noutbuk,,,,,,,,,,,,Ich arbeite mit meinem Laptop.,Men noutbukimda ishlayman.,der Laptop,needs_review
+628,A1,Lieblingsfarbe,Nomen,die,Lieblingsfarben,sevimli rang,,,,,,,,,,,,Was ist deine Lieblingsfarbe?,Sevimli ranging qaysi?,die Lieblingsfarbe,needs_review
+629,A1,Grillfest,Nomen,das,Grillfeste,gril bayrami,,,,,,,,,,,,Zum Grillfest kommen alle Nachbarn.,Gril bayramiga hamma qo‘shnilar keladi.,das Grillfest,needs_review
+630,A1,Fernseher,Nomen,der,Fernseher,televizor,,,,,,,,,,,,Der Fernseher ist im Wohnzimmer.,Televizor mehmonxonada.,der Fernseher,needs_review
+631,A1,empfehlen,Verb,,,tavsiya qilmoq,empfahl,empfohlen,haben,empfehle,empfiehlst,empfiehlt,empfehlen,empfehlt,empfehlen,,,Können Sie mir ein Restaurant empfehlen?,Menga biror restoran tavsiya qila olasizmi?,empfehlen,needs_review
+632,A1,prima,Adjektiv,,,ajoyib,,,,,,,,,,,,Das Essen war prima.,Ovqat ajoyib edi.,prima,needs_review
+633,A1,mitbringen,Verb,,,o‘zi bilan olib kelmoq,brachte mit,mitgebracht,haben,bringe mit,bringst mit,bringt mit,bringen mit,bringt mit,bringen mit,,,Kannst du einen Kuchen mitbringen?,Tort olib kela olasanmi?,mitbringen,needs_review
+634,A1,besonders,Adverb,,,ayniqsa,,,,,,,,,,,,Ich mag besonders den Sommer.,Menga ayniqsa yoz yoqadi.,besonders,needs_review
+635,A1,dumm,Adjektiv,,,ahmoq,,,,,,,,,,dümmer,am dümmsten,Das war eine dumme Idee.,Bu ahmoqona fikr edi.,dumm,needs_review
+636,A1,frühstücken,Verb,,,nonushta qilmoq,frühstückte,gefrühstückt,haben,frühstücke,frühstückst,frühstückt,frühstücken,frühstückt,frühstücken,,,Wir frühstücken um sieben Uhr.,Biz soat yettida nonushta qilamiz.,frühstücken,needs_review
+637,A1,kaputt,Adjektiv,,,buzilgan,,,,,,,,,,kaputter,am kaputtesten,Mein Handy ist kaputt.,Telefonim buzilgan.,kaputt,needs_review
+638,A1,endlich,Adjektiv,,,nihoyat,,,,,,,,,,,,Endlich ist der Sommer da!,Nihoyat yoz keldi!,endlich,needs_review
+639,A1,lächeln,Verb,,,jilmaymoq,lächelte,gelächelt,haben,lächle,lächelst,lächelt,lächeln,lächelt,lächeln,,,Das Baby lächelt.,Chaqaloq jilmayyapti.,lächeln,needs_review
+640,A1,nett,Adjektiv,,,yoqimli,,,,,,,,,,netter,am nettesten,Deine Schwester ist sehr nett.,Opang juda yoqimli.,nett,needs_review
+641,A1,Supermarkt,Nomen,der,Supermärkte,supermarket,,,,,,,,,,,,Der Supermarkt ist bis zehn Uhr offen.,Supermarket soat o‘ngacha ochiq.,der Supermarkt,needs_review
+642,A1,Geburtstagseinladung,Nomen,die,Geburtstagseinladungen,tug‘ilgan kun taklifi,,,,,,,,,,,,Ich habe eine Geburtstagseinladung bekommen.,Men tug‘ilgan kunga taklif oldim.,die Geburtstagseinladung,needs_review
+643,A1,Handyfoto,Nomen,das,Handyfotos,telefon rasmi,,,,,,,,,,,,Das Handyfoto ist sehr schön geworden.,Telefonda olingan rasm juda chiroyli chiqdi.,das Handyfoto,needs_review
+644,A1,Kühlschrank,Nomen,der,Kühlschränke,muzlatgich,,,,,,,,,,,,Die Milch ist im Kühlschrank.,Sut muzlatgichda.,der Kühlschrank,needs_review
+645,A1,Fernbedienung,Nomen,die,Fernbedienungen,pult,,,,,,,,,,,,Wo ist die Fernbedienung?,Pult qayerda?,die Fernbedienung,needs_review
+646,A1,Sofa,Nomen,das,Sofas,yumshoq mebel,,,,,,,,,,,,Die Katze liegt auf dem Sofa.,Mushuk divanda yotibdi.,das Sofa,needs_review
+647,A1,Schreibtisch,Nomen,der,Schreibtische,yozuv stoli,,,,,,,,,,,,Der Laptop liegt auf dem Schreibtisch.,Noutbuk yozuv stoli ustida turibdi.,der Schreibtisch,needs_review
+648,A1,Freizeitgruppe,Nomen,die,Freizeitgruppen,bo‘sh vaqt guruhi,,,,,,,,,,,,In unserer Freizeitgruppe spielen wir Schach.,Bo‘sh vaqt guruhimizda biz shaxmat o‘ynaymiz.,die Freizeitgruppe,needs_review
+649,A1,Lieblingsbuch,Nomen,das,Lieblingsbücher,sevimli kitob,,,,,,,,,,,,Das ist mein Lieblingsbuch.,Bu mening sevimli kitobim.,das Lieblingsbuch,needs_review
+650,A1,Regenschirm,Nomen,der,Regenschirme,soyabon,,,,,,,,,,,,Ich habe meinen Regenschirm vergessen.,Men soyabonimni unutib qo‘ydim.,der Regenschirm,needs_review
+651,A1,putzen,Verb,,,tozalamoq,putzte,geputzt,haben,putze,putzt,putzt,putzen,putzt,putzen,,,Am Samstag putzen wir die Wohnung.,Shanba kuni biz uyni tozalaymiz.,putzen,needs_review
+652,A1,sauber,Adjektiv,,,toza,,,,,,,,,,sauberer,am saubersten,Das Zimmer ist jetzt sauber.,Xona endi toza.,sauber,needs_review
+653,A1,wechseln,Verb,,,almashtirmoq,wechselte,gewechselt,haben,wechsle,wechselst,wechselt,wechseln,wechselt,wechseln,,,Ich möchte Geld wechseln.,Men pul almashtirmoqchiman.,wechseln,needs_review
+654,A1,vielleicht,Adverb,,,balki,,,,,,,,,,,,Vielleicht komme ich morgen.,Balki ertaga kelarman.,vielleicht,needs_review
+655,A1,eng,Adjektiv,,,tor,,,,,,,,,,enger,am engsten,Die Hose ist zu eng.,Shim juda tor.,eng,needs_review
+656,A1,sparen,Verb,,,tejamoq,sparte,gespart,haben,spare,sparst,spart,sparen,spart,sparen,,,Ich spare Geld für eine Reise.,Men sayohat uchun pul tejayapman.,sparen,needs_review
+657,A1,traurig,Adjektiv,,,xafa,,,,,,,,,,trauriger,am traurigsten,Warum bist du traurig?,Nega xafasan?,traurig,needs_review
+658,A1,trotzdem,Adverb,,,shunga qaramay,,,,,,,,,,,,"Es regnet, trotzdem gehen wir spazieren.","Yomg‘ir yog‘yapti, shunga qaramay biz sayrga chiqamiz.",trotzdem,needs_review
+659,A1,wiederholen,Verb,,,takrorlamoq,wiederholte,wiederholt,haben,wiederhole,wiederholst,wiederholt,wiederholen,wiederholt,wiederholen,,,Können Sie das bitte wiederholen?,"Iltimos, buni takrorlay olasizmi?",wiederholen,needs_review
+660,A1,fertig,Adjektiv,,,tayyor,,,,,,,,,,fertiger,am fertigsten,Das Essen ist fertig.,Ovqat tayyor.,fertig,needs_review
+661,A1,Ausflug,Nomen,der,Ausflüge,sayohat,,,,,,,,,,,,Am Sonntag machen wir einen Ausflug.,Yakshanba kuni biz sayohatga chiqamiz.,der Ausflug,needs_review
+662,A1,Musiksendung,Nomen,die,Musiksendungen,musiqa dasturi,,,,,,,,,,,,Die Musiksendung kommt am Freitag.,Musiqa dasturi juma kuni efirga chiqadi.,die Musiksendung,needs_review
+663,A1,Theaterstück,Nomen,das,Theaterstücke,sahna asari,,,,,,,,,,,,Das Theaterstück war sehr lustig.,Sahna asari juda kulgili edi.,das Theaterstück,needs_review
+664,A1,Sprachpartner,Nomen,der,Sprachpartner,til sherigi,,,,,,,,,,,,Mein Sprachpartner kommt aus Hamburg.,Til sherigim Gamburgdan.,der Sprachpartner,needs_review
+665,A1,Klassenfahrt,Nomen,die,Klassenfahrten,sinf sayohati,,,,,,,,,,,,Die Klassenfahrt geht nach Buchara.,Sinf sayohati Buxoroga bo‘ladi.,die Klassenfahrt,needs_review
+666,A1,Fahrradschloss,Nomen,das,Fahrradschlösser,velosiped qulfi,,,,,,,,,,,,Ich brauche ein neues Fahrradschloss.,Menga yangi velosiped qulfi kerak.,das Fahrradschloss,needs_review
+667,A1,Reisekoffer,Nomen,der,Reisekoffer,sayohat chamadoni,,,,,,,,,,,,Der Reisekoffer steht schon an der Tür.,Sayohat chamadoni allaqachon eshik oldida turibdi.,der Reisekoffer,needs_review
+668,A1,Wetterkarte,Nomen,die,Wetterkarten,ob-havo xaritasi,,,,,,,,,,,,Auf der Wetterkarte sieht man Regen.,Ob-havo xaritasida yomg‘ir ko‘rinyapti.,die Wetterkarte,needs_review
+669,A1,Fotoalbum,Nomen,das,Fotoalben,foto albom,,,,,,,,,,,,Oma zeigt uns das alte Fotoalbum.,Buvim bizga eski foto albomni ko‘rsatyapti.,das Fotoalbum,needs_review
+670,A1,Stadtplan,Nomen,der,Stadtpläne,shahar xaritasi,,,,,,,,,,,,Hast du einen Stadtplan von Wien?,Senda Vena shahar xaritasi bormi?,der Stadtplan,needs_review
+671,A1,unterschreiben,Verb,,,imzo qo‘ymoq,unterschrieb,unterschrieben,haben,unterschreibe,unterschreibst,unterschreibt,unterschreiben,unterschreibt,unterschreiben,,,Bitte unterschreiben Sie hier.,"Iltimos, shu yerga imzo qo‘ying.",unterschreiben,needs_review
+672,A1,falsch,Adjektiv,,,noto‘g‘ri,,,,,,,,,,falscher,am falschesten,Die Antwort ist leider falsch.,"Afsuski, javob noto‘g‘ri.",falsch,needs_review
+673,A1,gehören,Verb,,,tegishli bo‘lmoq,gehörte,gehört,haben,gehöre,gehörst,gehört,gehören,gehört,gehören,,,Das Buch gehört mir.,Bu kitob menga tegishli.,gehören,needs_review
+674,A1,natürlich,Adjektiv,,,albatta,,,,,,,,,,natürlicher,am natürlichsten,Natürlich helfe ich dir.,"Albatta, senga yordam beraman.",natürlich,needs_review
+675,A1,trocken,Adjektiv,,,quruq,,,,,,,,,,trockener,am trockensten,Die Wäsche ist schon trocken.,Kir allaqachon quridi.,trocken,needs_review
+676,A1,reparieren,Verb,,,ta’mirlamoq,reparierte,repariert,haben,repariere,reparierst,repariert,reparieren,repariert,reparieren,,,Mein Vater repariert das Fahrrad.,Otam velosipedni ta’mirlayapti.,reparieren,needs_review
+677,A1,hilfsbereit,Adjektiv,,,yordamchi,,,,,,,,,,hilfsbereiter,am hilfsbereitesten,Unsere Nachbarin ist sehr hilfsbereit.,Qo‘shni ayolimiz doim yordam berishga tayyor.,hilfsbereit,needs_review
+678,A1,plötzlich,Adjektiv,,,to‘satdan,,,,,,,,,,,,Plötzlich fängt es an zu regnen.,To‘satdan yomg‘ir yog‘a boshlaydi.,plötzlich,needs_review
+679,A1,meinen,Verb,,,fikr bildirmoq,meinte,gemeint,haben,meine,meinst,meint,meinen,meint,meinen,,,Was meinst du dazu?,Bu haqda nima deb o‘ylaysan?,meinen,needs_review
+680,A1,richtig,Adjektiv,,,to‘g‘ri,,,,,,,,,,richtiger,am richtigsten,Deine Antwort ist richtig.,Javobing to‘g‘ri.,richtig,needs_review
+681,A1,Freizeitpark,Nomen,der,Freizeitparks,attraksion bog‘i,,,,,,,,,,,,Im Freizeitpark gibt es viele Attraktionen.,Attraksion bog‘ida ko‘p attraksionlar bor.,der Freizeitpark,needs_review
+682,A1,Lieblingsmusik,Nomen,die,Lieblingsmusiken,sevimli musiqa,,,,,,,,,,,,Meine Lieblingsmusik ist Pop.,Mening sevimli musiqam — pop.,die Lieblingsmusik,needs_review
+683,A1,Stadtzentrum,Nomen,das,Stadtzentren,shahar markazi,,,,,,,,,,,,Das Hotel liegt im Stadtzentrum.,Mehmonxona shahar markazida joylashgan.,das Stadtzentrum,needs_review
+684,A1,Campingplatz,Nomen,der,Campingplätze,kemping joyi,,,,,,,,,,,,Der Campingplatz liegt am See.,Kemping joyi ko‘l bo‘yida.,der Campingplatz,needs_review
+685,A1,Einkaufsliste,Nomen,die,Einkaufslisten,xarid ro‘yxati,,,,,,,,,,,,Ich schreibe eine Einkaufsliste.,Men xarid ro‘yxatini yozyapman.,die Einkaufsliste,needs_review
+686,A1,Wochenendticket,Nomen,das,Wochenendtickets,hafta oxiri chiptasi,,,,,,,,,,,,Mit dem Wochenendticket fahren wir billig.,Hafta oxiri chiptasi bilan biz arzon yuramiz.,das Wochenendticket,needs_review
+687,A1,Getränkemarkt,Nomen,der,Getränkemärkte,ichimlik bozori,,,,,,,,,,,,Wir kaufen Wasser im Getränkemarkt.,Biz suvni ichimliklar do‘konidan sotib olamiz.,der Getränkemarkt,needs_review
+688,A1,Badehose,Nomen,die,Badehosen,cho‘milish shortigi,,,,,,,,,,,,Vergiss deine Badehose nicht!,Cho‘milish shortingni unutma!,die Badehose,needs_review
+689,A1,Vogelhaus,Nomen,das,Vogelhäuser,qush uyi,,,,,,,,,,,,Im Garten steht ein kleines Vogelhaus.,Bog‘da kichkina qush uychasi bor.,das Vogelhaus,needs_review
+690,A1,Sonnenaufgang,Nomen,der,Sonnenaufgänge,quyosh chiqishi,,,,,,,,,,,,Wir sehen den Sonnenaufgang am Meer.,Biz dengiz bo‘yida quyosh chiqishini tomosha qilamiz.,der Sonnenaufgang,needs_review
+691,A1,passen,Verb,,,mos kelmoq,passte,gepasst,haben,passe,passt,passt,passen,passt,passen,,,Die Schuhe passen mir gut.,Oyoq kiyim menga yaxshi to‘g‘ri keladi.,passen,needs_review
+692,A1,beliebt,Adjektiv,,,mashhur,,,,,,,,,,beliebter,am beliebtesten,Dieses Café ist sehr beliebt.,Bu kafe juda mashhur.,beliebt,needs_review
+693,A1,telefonieren,Verb,,,telefonlashmoq,telefonierte,telefoniert,haben,telefoniere,telefonierst,telefoniert,telefonieren,telefoniert,telefonieren,,,Ich telefoniere jeden Tag mit meiner Mutter.,Men har kuni onam bilan telefonda gaplashaman.,telefonieren,needs_review
+694,A1,wirklich,Adjektiv,,,haqiqatan,,,,,,,,,,wirklicher,am wirklichsten,Das ist wirklich schön.,Bu haqiqatan ham chiroyli.,wirklich,needs_review
+695,A1,hungrig,Adjektiv,,,och,,,,,,,,,,hungriger,am hungrigsten,Ich bin sehr hungrig.,Men juda ochman.,hungrig,needs_review
+696,A1,lachen,Verb,,,kulmoq,lachte,gelacht,haben,lache,lachst,lacht,lachen,lacht,lachen,,,Die Kinder lachen viel.,Bolalar ko‘p kuladi.,lachen,needs_review
+697,A1,ruhig,Adjektiv,,,tinch,,,,,,,,,,ruhiger,am ruhigsten,Unsere Straße ist sehr ruhig.,Bizning ko‘chamiz juda tinch.,ruhig,needs_review
+698,A1,deshalb,Adverb,,,shuning uchun,,,,,,,,,,,,"Ich bin krank, deshalb bleibe ich zu Hause.","Men kasalman, shuning uchun uyda qolaman.",deshalb,needs_review
+699,A1,wünschen,Verb,,,tilamoq,wünschte,gewünscht,haben,wünsche,wünschst,wünscht,wünschen,wünscht,wünschen,,,Ich wünsche dir alles Gute.,Senga barcha yaxshiliklarni tilayman.,wünschen,needs_review
+700,A1,voll,Adjektiv,,,to‘la,,,,,,,,,,voller,am vollsten,Der Bus ist voll.,Avtobus to‘la.,voll,needs_review
+701,A1,Busfahrer,Nomen,der,Busfahrer,avtobus haydovchisi,,,,,,,,,,,,Der Busfahrer ist sehr freundlich.,Avtobus haydovchisi juda xushmuomala.,der Busfahrer,needs_review
+702,A1,Einkaufstasche,Nomen,die,Einkaufstaschen,xarid sumkasi,,,,,,,,,,,,Die Einkaufstasche ist voll.,Xarid sumkasi to‘la.,die Einkaufstasche,needs_review
+703,A1,Lieblingsfach,Nomen,das,Lieblingsfächer,sevimli fan,,,,,,,,,,,,Mein Lieblingsfach ist Mathe.,Mening sevimli fanim — matematika.,das Lieblingsfach,needs_review
+704,A1,Reisepartner,Nomen,der,Reisepartner,sayohat sherigi,,,,,,,,,,,,Ich suche einen Reisepartner für den Sommer.,Men yoz uchun sayohat sherigi qidiryapman.,der Reisepartner,needs_review
+705,A1,Sporttasche,Nomen,die,Sporttaschen,sport sumkasi,,,,,,,,,,,,Die Sporttasche ist im Auto.,Sport sumkasi mashinada.,die Sporttasche,needs_review
+706,A1,Badezimmer,Nomen,das,Badezimmer,hammom,,,,,,,,,,,,Das Badezimmer ist rechts.,Hammom o‘ng tomonda.,das Badezimmer,needs_review
+707,A1,Wecker,Nomen,der,Wecker,budilnik,,,,,,,,,,,,Mein Wecker klingelt um sechs Uhr.,Budilnigim soat oltida jiringlaydi.,der Wecker,needs_review
+708,A1,Zeitungskiosk,Nomen,die,,gazeta kioski,,,,,,,,,,,,Am Zeitungskiosk kaufe ich eine Zeitung.,Men gazeta kioskidan gazeta sotib olaman.,,needs_review
+709,A1,Frühstück,Nomen,das,Frühstücke,nonushta,,,,,,,,,,,,Das Frühstück ist fertig.,Nonushta tayyor.,das Frühstück,needs_review
+710,A1,Stadtbus,Nomen,der,Stadtbusse,shahar avtobusi,,,,,,,,,,,,Der Stadtbus fährt alle zehn Minuten.,Shahar avtobusi har o‘n daqiqada qatnaydi.,der Stadtbus,needs_review
+711,A1,aufstehen,Verb,,,o‘rnidan turmoq,stand auf,aufgestanden,haben/sein,stehe auf,stehst auf,steht auf,stehen auf,steht auf,stehen auf,,,Ich stehe jeden Tag um sechs Uhr auf.,Men har kuni soat oltida o‘rnimdan turaman.,aufstehen,needs_review
+712,A1,müde,Adjektiv,,,charchagan,,,,,,,,,,müder,am müdesten,Nach der Arbeit bin ich müde.,Ishdan keyin men charchagan bo‘laman.,müde,needs_review
+713,A1,einkaufen,Verb,,,xarid qilmoq,kaufte ein,eingekauft,haben,kaufe ein,kaufst ein,kauft ein,kaufen ein,kauft ein,kaufen ein,,,Nach der Arbeit kaufe ich ein.,Ishdan keyin men xarid qilaman.,einkaufen,needs_review
+714,A1,danach,Adverb,,,keyin,,,,,,,,,,,,Wir essen und danach gehen wir ins Kino.,"Biz ovqatlanamiz, keyin kinoga boramiz.",danach,needs_review
+715,A1,freundlich,Adjektiv,,,mehribon,,,,,,,,,,freundlicher,am freundlichsten,Die Verkäuferin ist sehr freundlich.,Sotuvchi ayol juda xushmuomala.,freundlich,needs_review
+716,A1,mithelfen,Verb,,,yordam bermoq,half mit,mitgeholfen,haben,helfe mit,hilfst mit,hilft mit,helfen mit,helft mit,helfen mit,,,Die Kinder helfen in der Küche mit.,Bolalar oshxonada yordam beryapti.,mithelfen,needs_review
+717,A1,langweilig,Adjektiv,,,zerikarli,,,,,,,,,,langweiliger,am langweiligsten,Der Film ist langweilig.,Film zerikarli.,langweilig,needs_review
+718,A1,manchmal,Adverb,,,ba’zida,,,,,,,,,,,,Manchmal gehe ich zu Fuß.,Ba’zida men piyoda yuraman.,manchmal,needs_review
+719,A1,anprobieren,Verb,,,kiyib ko‘rmoq,probierte an,anprobiert,haben,probiere an,probierst an,probiert an,probieren an,probiert an,probieren an,,,Kann ich die Jacke anprobieren?,Kurtkani kiyib ko‘rsam bo‘ladimi?,anprobieren,needs_review
+720,A1,bequem,Adjektiv,,,qulay,,,,,,,,,,bequemer,am bequemsten,Die Schuhe sind sehr bequem.,Bu oyoq kiyim juda qulay.,bequem,needs_review
+721,A1,Fahrkartenautomat,Nomen,der,Fahrkartenautomaten,chipta apparati,,,,,,,,,,,,Der Fahrkartenautomat nimmt auch Karten.,Chipta apparati karta ham qabul qiladi.,der Fahrkartenautomat,needs_review
+722,A1,Lieblingsserie,Nomen,die,Lieblingsserien,sevimli serial,,,,,,,,,,,,Am Abend sehe ich meine Lieblingsserie.,Kechqurun men sevimli serialimni ko‘raman.,die Lieblingsserie,needs_review
+723,A1,Sportfest,Nomen,das,Sportfeste,sport bayrami,,,,,,,,,,,,Das Sportfest ist am Freitag.,Sport bayrami juma kuni bo‘ladi.,das Sportfest,needs_review
+724,A1,Kuchenverkauf,Nomen,der,Kuchenverkäufe,tort savdosi,,,,,,,,,,,,Der Kuchenverkauf ist für die Klassenfahrt.,Tort savdosi sinf sayohati uchun o‘tkazilyapti.,der Kuchenverkauf,needs_review
+725,A1,Schulbibliothek,Nomen,die,Schulbibliotheken,maktab kutubxonasi,,,,,,,,,,,,Ich leihe das Buch in der Schulbibliothek aus.,Men kitobni maktab kutubxonasidan olaman.,die Schulbibliothek,needs_review
+726,A1,Gartenfest,Nomen,das,Gartenfeste,bog‘ bayrami,,,,,,,,,,,,Zum Gartenfest backe ich einen Kuchen.,Bog‘ bayramiga men tort pishiraman.,das Gartenfest,needs_review
+727,A1,Mitschüler,Nomen,der,Mitschüler,sinfdoshi,,,,,,,,,,,,Mein Mitschüler hilft mir bei den Hausaufgaben.,Sinfdoshim menga uy vazifalarida yordam beradi.,der Mitschüler,needs_review
+728,A1,Computermaus,Nomen,die,Computermäuse,kompyuter sichqonchasi,,,,,,,,,,,,Die Computermaus funktioniert nicht.,Kompyuter sichqonchasi ishlamayapti.,die Computermaus,needs_review
+729,A1,Picknick,Nomen,das,Picknicke,piknik,,,,,,,,,,,,Am Sonntag machen wir ein Picknick im Park.,Yakshanba kuni biz parkda piknik qilamiz.,das Picknick,needs_review
+730,A1,Spielplatz,Nomen,der,Spielplätze,o‘yin maydonchasi,,,,,,,,,,,,Die Kinder spielen auf dem Spielplatz.,Bolalar o‘yin maydonchasida o‘ynayapti.,der Spielplatz,needs_review
+731,A1,mitspielen,Verb,,,birga o‘ynamoq,spielte mit,mitgespielt,haben,spiele mit,spielst mit,spielt mit,spielen mit,spielt mit,spielen mit,,,Darf ich mitspielen?,Men ham birga o‘ynasam bo‘ladimi?,mitspielen,needs_review
+732,A1,lustig,Adjektiv,,,kulgili,,,,,,,,,,lustiger,am lustigsten,Der Clown ist sehr lustig.,Masxaraboz juda kulgili.,lustig,needs_review
+733,A1,backen,Verb,,,pishirmoq,backte,gebacken,haben,backe,backst,backt,backen,backt,backen,,,Wir backen heute Kekse.,Biz bugun pechenye pishiramiz.,backen,needs_review
+734,A1,zusammen,Adjektiv,,,birga,,,,,,,,,,,,Wir kochen heute zusammen.,Bugun biz birga ovqat pishiramiz.,zusammen,needs_review
+735,A1,durstig,Adjektiv,,,chanqagan,,,,,,,,,,durstiger,am durstigsten,Ich bin durstig.,Men chanqadim.,durstig,needs_review
+736,A1,aufpassen,Verb,,,diqqat qilmoq,passte auf,aufgepasst,haben,passe auf,passt auf,passt auf,passen auf,passt auf,passen auf,,,"Pass auf, das Auto kommt!","Ehtiyot bo‘l, mashina kelyapti!",aufpassen,needs_review
+737,A1,kompliziert,Adjektiv,,,murakkab,,,,,,,,,,komplizierter,am kompliziertesten,Die Aufgabe ist kompliziert.,Topshiriq murakkab.,kompliziert,needs_review
+738,A1,trotzdem,Adverb,,,shunga qaramay,,,,,,,,,,,,"Es regnet, trotzdem gehen wir spazieren.","Yomg‘ir yog‘yapti, shunga qaramay biz sayrga chiqamiz.",trotzdem,needs_review
+739,A1,abwaschen,Verb,,,idish yuvmoq,wusch ab,abgewaschen,haben,wasche ab,wäschst ab,wäscht ab,waschen ab,wascht ab,waschen ab,,,Nach dem Essen wasche ich ab.,Ovqatdan keyin men idish yuvaman.,abwaschen,needs_review
+740,A1,fleißig,Adjektiv,,,mehnatkash,,,,,,,,,,fleißiger,am fleißigsten,Die Studentin ist sehr fleißig.,Talaba qiz juda tirishqoq.,fleißig,needs_review
+741,A1,Schuhkarton,Nomen,der,Schuhkartons,oyoq kiyim qutisi,,,,,,,,,,,,Die Fotos sind in einem Schuhkarton.,Rasmlar oyoq kiyim qutisida.,der Schuhkarton,needs_review
+742,A1,Lieblingssendung,Nomen,die,Lieblingssendungen,sevimli ko‘rsatuv,,,,,,,,,,,,Meine Lieblingssendung kommt um acht.,Sevimli ko‘rsatuvim soat sakkizda boshlanadi.,die Lieblingssendung,needs_review
+743,A1,Fahrradlicht,Nomen,das,Fahrradlichter,velosiped chirog‘i,,,,,,,,,,,,Das Fahrradlicht ist kaputt.,Velosiped chirog‘i buzilgan.,das Fahrradlicht,needs_review
+744,A1,Ferienplan,Nomen,der,Ferienpläne,ta’til rejasi,,,,,,,,,,,,Unser Ferienplan ist schon fertig.,Ta’til rejamiz allaqachon tayyor.,der Ferienplan,needs_review
+745,A1,Musikschule,Nomen,die,Musikschulen,musiqa maktabi,,,,,,,,,,,,Meine Tochter geht in die Musikschule.,Qizim musiqa maktabiga qatnaydi.,die Musikschule,needs_review
+746,A1,Wohnzimmer,Nomen,das,Wohnzimmer,mehmonxona,,,,,,,,,,,,Wir sitzen im Wohnzimmer.,Biz mehmonxonada o‘tiribmiz.,das Wohnzimmer,needs_review
+747,A1,Obstsalat,Nomen,der,Obstsalate,mevali salat,,,,,,,,,,,,Zum Nachtisch gibt es Obstsalat.,Desertga mevali salat bor.,der Obstsalat,needs_review
+748,A1,Einkaufsliste,Nomen,die,Einkaufslisten,xarid ro‘yxati,,,,,,,,,,,,Ich schreibe eine Einkaufsliste.,Men xarid ro‘yxatini yozyapman.,die Einkaufsliste,needs_review
+749,A1,Handyspiel,Nomen,das,Handyspiele,telefon o‘yini,,,,,,,,,,,,Das Handyspiel macht viel Spaß.,Bu telefon o‘yini juda qiziqarli.,das Handyspiel,needs_review
+750,A1,Stadtpark,Nomen,der,Stadtparks,shahar bog‘i,,,,,,,,,,,,Der Stadtpark ist sehr grün.,Shahar bog‘i juda yashil.,der Stadtpark,needs_review
+751,A1,mitfahren,Verb,,,birga bormoq,fuhr mit,mitgefahren,haben/sein,fahre mit,fährst mit,fährt mit,fahren mit,fahrt mit,fahren mit,,,Kann ich bei dir mitfahren?,Sen bilan birga borsam bo‘ladimi?,mitfahren,needs_review
+752,A1,praktisch,Adjektiv,,,qulay,,,,,,,,,,praktischer,am praktischsten,Die Tasche ist sehr praktisch.,Bu sumka juda qulay.,praktisch,needs_review
+753,A1,fernsehen,Verb,,,televizor ko‘rmoq,sah fern,ferngesehen,haben,sehe fern,siehst fern,sieht fern,sehen fern,seht fern,sehen fern,,,Am Abend sehen wir fern.,Kechqurun biz televizor ko‘ramiz.,fernsehen,needs_review
+754,A1,plötzlich,Adjektiv,,,to‘satdan,,,,,,,,,,,,Plötzlich fängt es an zu regnen.,To‘satdan yomg‘ir yog‘a boshlaydi.,plötzlich,needs_review
+755,A1,nervös,Adjektiv,,,asabiy,,,,,,,,,,nervöser,am nervösesten,Vor der Prüfung bin ich nervös.,Imtihon oldidan men hayajonlanaman.,nervös,needs_review
+756,A1,aufräumen,Verb,,,yig‘ishtirmoq,räumte auf,aufgeräumt,haben,räume auf,räumst auf,räumt auf,räumen auf,räumt auf,räumen auf,,,Ich räume mein Zimmer auf.,Men xonamni yig‘ishtiryapman.,aufräumen,needs_review
+757,A1,prima,Adjektiv,,,ajoyib,,,,,,,,,,,,Das Essen war prima.,Ovqat ajoyib edi.,prima,needs_review
+758,A1,wirklich,Adjektiv,,,haqiqatan,,,,,,,,,,wirklicher,am wirklichsten,Das ist wirklich schön.,Bu haqiqatan ham chiroyli.,wirklich,needs_review
+759,A1,vergessen,Verb,,,unutmoq,vergaß,vergessen,haben,vergesse,vergisst,vergisst,vergessen,vergesst,vergessen,,,Ich vergesse oft meinen Schlüssel.,Men kalitimni tez-tez unutaman.,vergessen,needs_review
+760,A1,leer,Adjektiv,,,bo‘sh,,,,,,,,,,leerer,am leersten,Der Kühlschrank ist leer.,Muzlatgich bo‘sh.,leer,needs_review
+761,A1,Sportlehrer,Nomen,der,Sportlehrer,sport o‘qituvchisi,,,,,,,,,,,,Der Sportlehrer ist sehr streng.,Sport o‘qituvchisi juda talabchan.,der Sportlehrer,needs_review
+762,A1,Klassenarbeit,Nomen,die,Klassenarbeiten,sinf ishi,,,,,,,,,,,,Morgen schreiben wir eine Klassenarbeit.,Ertaga biz sinf ishini yozamiz.,die Klassenarbeit,needs_review
+763,A1,Lieblingsobst,Nomen,das,,sevimli meva,,,,,,,,,,,,Mein Lieblingsobst sind Äpfel.,Mening sevimli mevam — olma.,das Lieblingsobst,needs_review
+764,A1,Fernsehabend,Nomen,der,Fernsehabende,televizor oqshomi,,,,,,,,,,,,Am Freitag machen wir einen Fernsehabend.,Juma kuni biz uyda televizor tomosha qilish kechasini o‘tkazamiz.,der Fernsehabend,needs_review
+765,A1,Bushaltestelle,Nomen,die,Bushaltestellen,avtobus bekati,,,,,,,,,,,,Die Bushaltestelle ist vor dem Haus.,Avtobus bekati uyning oldida.,die Bushaltestelle,needs_review
+766,A1,Kinderzimmer,Nomen,das,Kinderzimmer,bolalar xonasi,,,,,,,,,,,,Das Kinderzimmer ist bunt.,Bolalar xonasi rang-barang.,das Kinderzimmer,needs_review
+767,A1,Geburtstagskuchen,Nomen,der,Geburtstagskuchen,tug‘ilgan kun torti,,,,,,,,,,,,Der Geburtstagskuchen hat zehn Kerzen.,Tug‘ilgan kun tortida o‘nta sham bor.,der Geburtstagskuchen,needs_review
+768,A1,Reisetasche,Nomen,die,Reisetaschen,sayohat sumkasi,,,,,,,,,,,,"Die Reisetasche ist klein, aber praktisch.","Sayohat sumkasi kichik, lekin qulay.",die Reisetasche,needs_review
+769,A1,Wochenende,Nomen,das,Wochenenden,hafta oxiri,,,,,,,,,,,,Am Wochenende besuche ich meine Eltern.,Hafta oxirida men ota-onamnikiga boraman.,das Wochenende,needs_review
+770,A1,Supermarkt,Nomen,der,Supermärkte,supermarket,,,,,,,,,,,,Der Supermarkt ist bis zehn Uhr offen.,Supermarket soat o‘ngacha ochiq.,der Supermarkt,needs_review
+771,A1,mitnehmen,Verb,,,o‘zi bilan olmoq,nahm mit,mitgenommen,haben,nehme mit,nimmst mit,nimmt mit,nehmen mit,nehmt mit,nehmen mit,,,Ich nehme einen Regenschirm mit.,Men o‘zim bilan soyabon olaman.,mitnehmen,needs_review
+772,A1,traurig,Adjektiv,,,xafa,,,,,,,,,,trauriger,am traurigsten,Warum bist du traurig?,Nega xafasan?,traurig,needs_review
+773,A1,frühstücken,Verb,,,nonushta qilmoq,frühstückte,gefrühstückt,haben,frühstücke,frühstückst,frühstückt,frühstücken,frühstückt,frühstücken,,,Wir frühstücken um sieben Uhr.,Biz soat yettida nonushta qilamiz.,frühstücken,needs_review
+774,A1,endlich,Adjektiv,,,nihoyat,,,,,,,,,,,,Endlich ist der Sommer da!,Nihoyat yoz keldi!,endlich,needs_review
+775,A1,kaputt,Adjektiv,,,buzilgan,,,,,,,,,,kaputter,am kaputtesten,Mein Handy ist kaputt.,Telefonim buzilgan.,kaputt,needs_review
+776,A1,gratulieren,Verb,,,tabriklamoq,gratulierte,gratuliert,haben,gratuliere,gratulierst,gratuliert,gratulieren,gratuliert,gratulieren,,,Ich gratuliere dir zum Geburtstag!,Seni tug‘ilgan kuning bilan tabriklayman!,gratulieren,needs_review
+777,A1,interessant,Adjektiv,,,qiziqarli,,,,,,,,,,interessanter,am interessantesten,Der Film ist sehr interessant.,Film juda qiziqarli.,interessant,needs_review
+778,A1,vielleicht,Adverb,,,balki,,,,,,,,,,,,Vielleicht komme ich morgen.,Balki ertaga kelarman.,vielleicht,needs_review
+779,A1,sammeln,Verb,,,to‘plamoq,sammelte,gesammelt,haben,sammle,sammelst,sammelt,sammeln,sammelt,sammeln,,,Mein Bruder sammelt Briefmarken.,Ukam marka to‘playdi.,sammeln,needs_review
+780,A1,nett,Adjektiv,,,yoqimli,,,,,,,,,,netter,am nettesten,Deine Schwester ist sehr nett.,Opang juda yoqimli.,nett,needs_review
+781,A1,Reisefilm,Nomen,der,Reisefilme,sayohat filmi,,,,,,,,,,,,Wir sehen einen Reisefilm über Italien.,Biz Italiya haqidagi sayohat filmini ko‘ryapmiz.,der Reisefilm,needs_review
+782,A1,Wettervorhersage,Nomen,die,Wettervorhersagen,ob-havo prognozi,,,,,,,,,,,,Die Wettervorhersage sagt Regen.,Ob-havo prognozi yomg‘ir bo‘lishini aytyapti.,die Wettervorhersage,needs_review
+783,A1,Lieblingshobby,Nomen,das,Lieblingshobbys,sevimli mashg‘ulot,,,,,,,,,,,,Mein Lieblingshobby ist Zeichnen.,Mening sevimli mashg‘ulotim — rasm chizish.,das Lieblingshobby,needs_review
+784,A1,Fahrradfahrer,Nomen,der,Fahrradfahrer,velosipedchi,,,,,,,,,,,,Der Fahrradfahrer fährt sehr schnell.,Velosipedchi juda tez haydayapti.,der Fahrradfahrer,needs_review
+785,A1,Einkaufsparty,Nomen,die,Einkaufspartys,xarid bazmi,,,,,,,,,,,,Die Einkaufsparty im Kaufhaus beginnt um sechs.,Savdo markazidagi xarid bazmi soat oltida boshlanadi.,die Einkaufsparty,needs_review
+786,A1,Jugendhotel,Nomen,das,Jugendhotels,yoshlar mehmonxonasi,,,,,,,,,,,,Das Jugendhotel ist billig und sauber.,Yoshlar mehmonxonasi arzon va toza.,das Jugendhotel,needs_review
+787,A1,Sprachtest,Nomen,der,Sprachtests,til testi,,,,,,,,,,,,Der Sprachtest ist am Montag.,Til testi dushanba kuni bo‘ladi.,der Sprachtest,needs_review
+788,A1,Badezeit,Nomen,die,Badezeiten,cho‘milish vaqti,,,,,,,,,,,,Die Badezeit im See ist von Juni bis August.,Ko‘lda cho‘milish vaqti iyundan avgustgacha.,die Badezeit,needs_review
+789,A1,Sommerfest,Nomen,das,Sommerfeste,yozgi bayram,,,,,,,,,,,,Das Sommerfest findet im Park statt.,Yozgi bayram parkda o‘tkaziladi.,das Sommerfest,needs_review
+790,A1,Spielabend,Nomen,der,Spielabende,o‘yin oqshomi,,,,,,,,,,,,Am Freitag machen wir einen Spielabend.,Juma kuni biz o‘yin oqshomi o‘tkazamiz.,der Spielabend,needs_review
+791,A1,mitkommen,Verb,,,birga kelmoq,kam mit,mitgekommen,sein,komme mit,kommst mit,kommt mit,kommen mit,kommt mit,kommen mit,,,Kommst du mit ins Kino?,Kinoga birga borasanmi?,mitkommen,needs_review
+792,A1,hilfsbereit,Adjektiv,,,yordamchi,,,,,,,,,,hilfsbereiter,am hilfsbereitesten,Unsere Nachbarin ist sehr hilfsbereit.,Qo‘shni ayolimiz doim yordam berishga tayyor.,hilfsbereit,needs_review
+793,A1,telefonieren,Verb,,,telefonlashmoq,telefonierte,telefoniert,haben,telefoniere,telefonierst,telefoniert,telefonieren,telefoniert,telefonieren,,,Ich telefoniere jeden Tag mit meiner Mutter.,Men har kuni onam bilan telefonda gaplashaman.,telefonieren,needs_review
+794,A1,natürlich,Adjektiv,,,albatta,,,,,,,,,,natürlicher,am natürlichsten,Natürlich helfe ich dir.,"Albatta, senga yordam beraman.",natürlich,needs_review
+795,A1,eng,Adjektiv,,,tor,,,,,,,,,,enger,am engsten,Die Hose ist zu eng.,Shim juda tor.,eng,needs_review
+796,A1,lächeln,Verb,,,jilmaymoq,lächelte,gelächelt,haben,lächle,lächelst,lächelt,lächeln,lächelt,lächeln,,,Das Baby lächelt.,Chaqaloq jilmayyapti.,lächeln,needs_review
+797,A1,pünktlich,Adjektiv,,,o‘z vaqtida,,,,,,,,,,pünktlicher,am pünktlichsten,Der Zug ist pünktlich.,Poyezd o‘z vaqtida keldi.,pünktlich,needs_review
+798,A1,besonders,Adverb,,,ayniqsa,,,,,,,,,,,,Ich mag besonders den Sommer.,Menga ayniqsa yoz yoqadi.,besonders,needs_review
+799,A1,erreichen,Verb,,,erishmoq,erreichte,erreicht,haben,erreiche,erreichst,erreicht,erreichen,erreicht,erreichen,,,Wir erreichen den Zug noch.,Biz poyezdga hali ulguramiz.,erreichen,needs_review
+800,A1,fertig,Adjektiv,,,tayyor,,,,,,,,,,fertiger,am fertigsten,Das Essen ist fertig.,Ovqat tayyor.,fertig,needs_review
+801,A1,Fahrgast,Nomen,der,Fahrgäste,yo‘lovchi,,,,,,,,,,,,Der Fahrgast hat kein Ticket.,Yo‘lovchida chipta yo‘q.,der Fahrgast,needs_review
+802,A1,Fahrkarte,Nomen,die,Fahrkarten,yo‘l chiptasi,,,,,,,,,,,,Ich kaufe eine Fahrkarte nach Hamburg.,Men Gamburgga yo‘l chiptasi sotib olaman.,die Fahrkarte,needs_review
+803,A1,Reisebüro,Nomen,das,Reisebüros,sayohat agentligi,,,,,,,,,,,,Im Reisebüro buchen wir die Reise.,Biz sayohatni sayohat agentligida band qilamiz.,das Reisebüro,needs_review
+804,A1,Bahnsteig,Nomen,der,Bahnsteige,platforma,,,,,,,,,,,,Der Zug fährt von Bahnsteig drei ab.,Poyezd uchinchi platformadan jo‘naydi.,der Bahnsteig,needs_review
+805,A1,Ankunft,Nomen,die,Ankünfte,kelish,,,,,,,,,,,,Die Ankunft ist um zehn Uhr.,Yetib kelish soat o‘nda.,die Ankunft,needs_review
+806,A1,Abteil,Nomen,das,Abteile,vagon bo‘limi,,,,,,,,,,,,Das Abteil ist leer.,Vagon bo‘limi bo‘sh.,das Abteil,needs_review
+807,A1,Kiosk,Nomen,der,Kioske,kiosk,,,,,,,,,,,,Am Kiosk gibt es Zeitungen und Getränke.,Kioskda gazeta va ichimliklar bor.,der Kiosk,needs_review
+808,A1,Tageszeitung,Nomen,die,Tageszeitungen,kunlik gazeta,,,,,,,,,,,,Mein Vater liest die Tageszeitung.,Otam kundalik gazetani o‘qiydi.,die Tageszeitung,needs_review
+809,A1,Frühstücksei,Nomen,das,,nonushta tuxumi,,,,,,,,,,,,Das Frühstücksei ist zu hart.,Nonushtadagi tuxum juda qattiq qaynab ketibdi.,das Frühstücksei,needs_review
+810,A1,Stadtteil,Nomen,der,Stadtteile,shahar tumani,,,,,,,,,,,,In diesem Stadtteil gibt es viele Parks.,Bu tumanda ko‘p parklar bor.,der Stadtteil,needs_review
+811,A1,abfahren,Verb,,,jo‘nab ketmoq,fuhr ab,abgefahren,haben/sein,fahre ab,fährst ab,fährt ab,fahren ab,fahrt ab,fahren ab,,,Der Bus fährt um acht Uhr ab.,Avtobus soat sakkizda jo‘naydi.,abfahren,needs_review
+812,A1,pünktlich,Adjektiv,,,o‘z vaqtida,,,,,,,,,,pünktlicher,am pünktlichsten,Der Zug ist pünktlich.,Poyezd o‘z vaqtida keldi.,pünktlich,needs_review
+813,A1,anmelden,Verb,,,ro‘yxatdan o‘tmoq,meldete an,angemeldet,haben,melde an,meldest an,meldet an,melden an,meldet an,melden an,,,Ich melde mich für den Kurs an.,Men kursga ro‘yxatdan o‘taman.,anmelden,needs_review
+814,A1,zufällig,Adjektiv,,,tasodifan,,,,,,,,,,,,Ich habe ihn zufällig getroffen.,Men uni tasodifan uchratib qoldim.,zufällig,needs_review
+815,A1,nass,Adjektiv,,,ho‘l,,,,,,,,,,nasser,am nassesten,Meine Schuhe sind nass.,Oyoq kiyimim ho‘l.,nass,needs_review
+816,A1,ausruhen,Verb,,,dam olmoq,ruhte aus,ausgeruht,haben,ruhe aus,ruhst aus,ruht aus,ruhen aus,ruht aus,ruhen aus,,,Nach der Arbeit ruhe ich mich aus.,Ishdan keyin men dam olaman.,ausruhen,needs_review
+817,A1,lustig,Adjektiv,,,kulgili,,,,,,,,,,lustiger,am lustigsten,Der Clown ist sehr lustig.,Masxaraboz juda kulgili.,lustig,needs_review
+818,A1,daneben,Adverb,,,yonida,,,,,,,,,,,,"Das ist die Bank, daneben ist die Post.","Bu bank, yonida pochta.",daneben,needs_review
+819,A1,zuhören,Verb,,,tinglamoq,hörte zu,zugehört,haben,höre zu,hörst zu,hört zu,hören zu,hört zu,hören zu,,,Bitte hör mir zu!,"Iltimos, meni tingla!",zuhören,needs_review
+820,A1,müde,Adjektiv,,,charchagan,,,,,,,,,,müder,am müdesten,Nach der Arbeit bin ich müde.,Ishdan keyin men charchagan bo‘laman.,müde,needs_review
+821,A1,Sitzplatz,Nomen,der,Sitzplätze,o‘tirish joyi,,,,,,,,,,,,Im Zug gibt es keinen Sitzplatz mehr.,Poyezdda bo‘sh o‘rindiq qolmadi.,der Sitzplatz,needs_review
+822,A1,Abfahrt,Nomen,die,Abfahrten,jo‘nash,,,,,,,,,,,,Die Abfahrt ist um neun Uhr.,Jo‘nash soat to‘qqizda.,die Abfahrt,needs_review
+823,A1,Wartezimmer,Nomen,das,Wartezimmer,kutish xonasi,,,,,,,,,,,,Im Wartezimmer sitzen drei Patienten.,Kutish xonasida uchta bemor o‘tiribdi.,das Wartezimmer,needs_review
+824,A1,Reiseführer,Nomen,der,Reiseführer,sayyoh qo‘llanmasi,,,,,,,,,,,,Im Reiseführer stehen viele gute Tipps.,Sayohat qo‘llanmasida ko‘p foydali maslahatlar bor.,der Reiseführer,needs_review
+825,A1,Jugendherberge,Nomen,die,Jugendherbergen,yoshlar yotoqxonasi,,,,,,,,,,,,Wir übernachten in der Jugendherberge.,Biz yoshlar yotoqxonasida tunaymiz.,die Jugendherberge,needs_review
+826,A1,Mineralwasser,Nomen,das,Mineralwässer,mineral suv,,,,,,,,,,,,Ich nehme ein Mineralwasser.,Men bitta mineral suv olaman.,das Mineralwasser,needs_review
+827,A1,Orangensaft,Nomen,der,Orangensäfte,apelsin sharbati,,,,,,,,,,,,Zum Frühstück trinke ich Orangensaft.,Nonushtada men apelsin sharbati ichaman.,der Orangensaft,needs_review
+828,A1,Speisekarte,Nomen,die,Speisekarten,menyu,,,,,,,,,,,,Die Speisekarte gibt es auch auf Englisch.,Menyu ingliz tilida ham bor.,die Speisekarte,needs_review
+829,A1,Mittagessen,Nomen,das,Mittagessen,tushlik,,,,,,,,,,,,Das Mittagessen ist um ein Uhr.,Tushlik soat birda.,das Mittagessen,needs_review
+830,A1,Nachtisch,Nomen,der,Nachtische,desert,,,,,,,,,,,,Was gibt es zum Nachtisch?,Desertga nima bor?,der Nachtisch,needs_review
+831,A1,bestellen,Verb,,,buyurtma bermoq,bestellte,bestellt,haben,bestelle,bestellst,bestellt,bestellen,bestellt,bestellen,,,Ich bestelle eine Pizza.,Men pitsa buyurtma qilaman.,bestellen,needs_review
+832,A1,satt,Adjektiv,,,to‘q,,,,,,,,,,satter,am sattesten,"Danke, ich bin satt.","Rahmat, men to‘qman.",satt,needs_review
+833,A1,servieren,Verb,,,xizmat qilmoq,servierte,serviert,haben,serviere,servierst,serviert,servieren,serviert,servieren,,,Das Essen wird um acht Uhr serviert.,Ovqat soat sakkizda tortiladi.,servieren,needs_review
+834,A1,zusätzlich,Adjektiv,,,qo‘shimcha,,,,,,,,,,,,Für das Frühstück zahlen Sie zusätzlich.,Nonushta uchun qo‘shimcha to‘laysiz.,zusätzlich,needs_review
+835,A1,sauer,Adjektiv,,,nordon,,,,,,,,,,,,Die Zitrone ist sauer.,Limon nordon.,sauer,needs_review
+836,A1,schmecken,Verb,,,ta’m bermoq,schmeckte,geschmeckt,haben,schmecke,schmeckst,schmeckt,schmecken,schmeckt,schmecken,,,Die Suppe schmeckt sehr gut.,Sho‘rvaning ta’mi juda yaxshi.,schmecken,needs_review
+837,A1,höflich,Adjektiv,,,xushmuomala,,,,,,,,,,höflicher,am höflichsten,Er ist immer sehr höflich.,U doim juda xushmuomala.,höflich,needs_review
+838,A1,drinnen,Adverb,,,ichkarida,,,,,,,,,,,,"Es regnet, wir bleiben drinnen.","Yomg‘ir yog‘yapti, biz ichkarida qolamiz.",drinnen,needs_review
+839,A1,bezahlen,Verb,,,to‘lamoq,bezahlte,bezahlt,haben,bezahle,bezahlst,bezahlt,bezahlen,bezahlt,bezahlen,,,Ich möchte mit Karte bezahlen.,Men karta bilan to‘lamoqchiman.,bezahlen,needs_review
+840,A1,leer,Adjektiv,,,bo‘sh,,,,,,,,,,leerer,am leersten,Der Kühlschrank ist leer.,Muzlatgich bo‘sh.,leer,needs_review
+841,A1,Kühlschrank,Nomen,der,Kühlschränke,muzlatgich,,,,,,,,,,,,Die Milch ist im Kühlschrank.,Sut muzlatgichda.,der Kühlschrank,needs_review
+842,A1,Waschmaschine,Nomen,die,Waschmaschinen,kir yuvish mashinasi,,,,,,,,,,,,Die Waschmaschine ist im Bad.,Kir yuvish mashinasi vannaxonada.,die Waschmaschine,needs_review
+843,A1,Bügeleisen,Nomen,das,Bügeleisen,dazmol,,,,,,,,,,,,Das Bügeleisen ist heiß.,Dazmol issiq.,das Bügeleisen,needs_review
+844,A1,Staubsauger,Nomen,der,Staubsauger,changyutgich,,,,,,,,,,,,Der Staubsauger ist sehr laut.,Changyutgich juda shovqinli.,der Staubsauger,needs_review
+845,A1,Zahnpasta,Nomen,die,,tish pastasi,,,,,,,,,,,,Die Zahnpasta ist fast leer.,Tish pastasi deyarli tugadi.,die Zahnpasta,needs_review
+846,A1,Handtuch,Nomen,das,Handtücher,sochiq,,,,,,,,,,,,Das Handtuch ist nass.,Sochiq ho‘l.,das Handtuch,needs_review
+847,A1,Badeanzug,Nomen,der,Badeanzüge,cho‘milish kiyimi,,,,,,,,,,,,Ich brauche einen neuen Badeanzug.,Menga yangi cho‘milish kiyimi kerak.,der Badeanzug,needs_review
+848,A1,Sonnenbrille,Nomen,die,Sonnenbrillen,quyosh ko‘zoynagi,,,,,,,,,,,,Im Sommer trage ich eine Sonnenbrille.,Yozda men quyosh ko‘zoynagi taqaman.,die Sonnenbrille,needs_review
+849,A1,Kopfkissen,Nomen,das,Kopfkissen,yostiq,,,,,,,,,,,,Das Kopfkissen ist weich.,Yostiq yumshoq.,das Kopfkissen,needs_review
+850,A1,Wecker,Nomen,der,Wecker,budilnik,,,,,,,,,,,,Mein Wecker klingelt um sechs Uhr.,Budilnigim soat oltida jiringlaydi.,der Wecker,needs_review
+851,A1,einschalten,Verb,,,yoqmoq,schaltete ein,eingeschaltet,haben,schalte ein,schaltest ein,schaltet ein,schalten ein,schaltet ein,schalten ein,,,Kannst du bitte das Licht einschalten?,"Iltimos, chiroqni yoqib qo‘ya olasanmi?",einschalten,needs_review
+852,A1,praktisch,Adjektiv,,,qulay,,,,,,,,,,praktischer,am praktischsten,Die Tasche ist sehr praktisch.,Bu sumka juda qulay.,praktisch,needs_review
+853,A1,ausschalten,Verb,,,o‘chirmoq,schaltete aus,ausgeschaltet,haben,schalte aus,schaltest aus,schaltet aus,schalten aus,schaltet aus,schalten aus,,,Schalte bitte den Fernseher aus.,"Iltimos, televizorni o‘chir.",ausschalten,needs_review
+854,A1,plötzlich,Adjektiv,,,to‘satdan,,,,,,,,,,,,Plötzlich fängt es an zu regnen.,To‘satdan yomg‘ir yog‘a boshlaydi.,plötzlich,needs_review
+855,A1,trocken,Adjektiv,,,quruq,,,,,,,,,,trockener,am trockensten,Die Wäsche ist schon trocken.,Kir allaqachon quridi.,trocken,needs_review
+856,A1,wecken,Verb,,,uyg‘otmoq,weckte,geweckt,haben,wecke,weckst,weckt,wecken,weckt,wecken,,,Bitte weck mich um sieben Uhr.,"Iltimos, meni soat yettida uyg‘ot.",wecken,needs_review
+857,A1,bequem,Adjektiv,,,qulay,,,,,,,,,,bequemer,am bequemsten,Die Schuhe sind sehr bequem.,Bu oyoq kiyim juda qulay.,bequem,needs_review
+858,A1,oben,Adverb,,,tepada,,,,,,,,,,,,Das Schlafzimmer ist oben.,Yotoqxona tepada.,oben,needs_review
+859,A1,putzen,Verb,,,tozalamoq,putzte,geputzt,haben,putze,putzt,putzt,putzen,putzt,putzen,,,Am Samstag putzen wir die Wohnung.,Shanba kuni biz uyni tozalaymiz.,putzen,needs_review
+860,A1,fertig,Adjektiv,,,tayyor,,,,,,,,,,fertiger,am fertigsten,Das Essen ist fertig.,Ovqat tayyor.,fertig,needs_review
+861,A1,Fußballplatz,Nomen,der,Fußballplätze,futbol maydoni,,,,,,,,,,,,Der Fußballplatz ist hinter der Schule.,Futbol maydoni maktab orqasida.,der Fußballplatz,needs_review
+862,A1,Mannschaftskarte,Nomen,die,Mannschaftskarten,jamoa kartasi,,,,,,,,,,,,Jeder Spieler bekommt eine Mannschaftskarte.,Har bir o‘yinchi jamoa kartasini oladi.,die Mannschaftskarte,needs_review
+863,A1,Hallenbad,Nomen,das,Hallenbäder,yopiq basseyn,,,,,,,,,,,,Im Winter schwimmen wir im Hallenbad.,Qishda biz yopiq basseynda suzamiz.,das Hallenbad,needs_review
+864,A1,Tennisspieler,Nomen,der,Tennisspieler,tennischi,,,,,,,,,,,,Der Tennisspieler gewinnt das Spiel.,Tennischi o‘yinda g‘alaba qozonadi.,der Tennisspieler,needs_review
+865,A1,Medaille,Nomen,die,Medaillen,medal,,,,,,,,,,,,Sie hat eine goldene Medaille gewonnen.,U oltin medal yutib oldi.,die Medaille,needs_review
+866,A1,Sportprogramm,Nomen,das,Sportprogramme,sport dasturi,,,,,,,,,,,,Das Hotel hat ein tolles Sportprogramm.,Mehmonxonada zo‘r sport dasturi bor.,das Sportprogramm,needs_review
+867,A1,Wanderweg,Nomen,der,Wanderwege,sayr yo‘li,,,,,,,,,,,,Der Wanderweg geht durch den Wald.,Sayr yo‘li o‘rmon orqali o‘tadi.,der Wanderweg,needs_review
+868,A1,Fahrradtour,Nomen,die,Fahrradtouren,velosayohat,,,,,,,,,,,,Am Samstag machen wir eine Fahrradtour.,Shanba kuni biz velosayohat qilamiz.,die Fahrradtour,needs_review
+869,A1,Picknickbrot,Nomen,das,Picknickbrote,piknik noni,,,,,,,,,,,,Ich mache ein Picknickbrot mit Käse.,Men piknik uchun pishloqli buterbrod tayyorlayman.,das Picknickbrot,needs_review
+870,A1,Regenmantel,Nomen,der,Regenmäntel,yomg‘ir plashi,,,,,,,,,,,,Zieh deinen Regenmantel an!,Yomg‘ir plashingni kiy!,der Regenmantel,needs_review
+871,A1,trainieren,Verb,,,mashq qilmoq,trainierte,trainiert,haben,trainiere,trainierst,trainiert,trainieren,trainiert,trainieren,,,Wir trainieren dreimal pro Woche.,Biz haftasiga uch marta mashq qilamiz.,trainieren,needs_review
+872,A1,fit,Adjektiv,,,sog‘lom,,,,,,,,,,fitter,am fittesten,Ich mache Sport und bin fit.,Men sport bilan shug‘ullanaman va sog‘lomman.,fit,needs_review
+873,A1,mitmachen,Verb,,,qatnashmoq,machte mit,mitgemacht,haben,mache mit,machst mit,macht mit,machen mit,macht mit,machen mit,,,Möchtest du bei dem Spiel mitmachen?,Bu o‘yinda qatnashishni xohlaysanmi?,mitmachen,needs_review
+874,A1,unterwegs,Adverb,,,yo‘lda,,,,,,,,,,,,Ich bin gerade unterwegs.,Men hozir yo‘ldaman.,unterwegs,needs_review
+875,A1,windig,Adjektiv,,,shamolli,,,,,,,,,,windiger,am windigsten,Heute ist es sehr windig.,Bugun havo juda shamolli.,windig,needs_review
+876,A1,gratulieren,Verb,,,tabriklamoq,gratulierte,gratuliert,haben,gratuliere,gratulierst,gratuliert,gratulieren,gratuliert,gratulieren,,,Ich gratuliere dir zum Geburtstag!,Seni tug‘ilgan kuning bilan tabriklayman!,gratulieren,needs_review
+877,A1,fröhlich,Adjektiv,,,xursand,,,,,,,,,,fröhlicher,am fröhlichsten,Die Kinder sind fröhlich.,Bolalar xursand.,fröhlich,needs_review
+878,A1,draußen,Adverb,,,tashqarida,,,,,,,,,,,,Die Kinder spielen draußen.,Bolalar tashqarida o‘ynayapti.,draußen,needs_review
+879,A1,wandern,Verb,,,sayr qilmoq,wanderte,gewandert,sein/haben,wandre,wanderst,wandert,wandern,wandert,wandern,,,Am Wochenende wandern wir in den Bergen.,Hafta oxirida biz tog‘larda piyoda sayr qilamiz.,wandern,needs_review
+880,A1,gesund,Adjektiv,,,sog‘lom,,,,,,,,,,gesünder,am gesündesten,Obst ist gesund.,Meva sog‘liq uchun foydali.,gesund,needs_review
+881,A1,Geburtstagsgast,Nomen,der,Geburtstagsgäste,tug‘ilgan kun mehmoni,,,,,,,,,,,,Jeder Geburtstagsgast bringt ein Geschenk mit.,Har bir tug‘ilgan kun mehmoni sovg‘a olib keladi.,der Geburtstagsgast,needs_review
+882,A1,Einladungskarte,Nomen,die,Einladungskarten,taklifnoma kartasi,,,,,,,,,,,,Ich schreibe die Einladungskarten für die Party.,Men bazm uchun taklifnoma kartalarini yozyapman.,die Einladungskarte,needs_review
+883,A1,Familienfoto,Nomen,das,Familienfotos,oilaviy rasm,,,,,,,,,,,,Das Familienfoto hängt im Wohnzimmer.,Oilaviy rasm mehmonxonada osilib turibdi.,das Familienfoto,needs_review
+884,A1,Hochzeitstag,Nomen,der,Hochzeitstage,to‘y kuni,,,,,,,,,,,,Heute ist der Hochzeitstag meiner Eltern.,Bugun ota-onamning to‘y kuni.,der Hochzeitstag,needs_review
+885,A1,Musikgruppe,Nomen,die,Musikgruppen,musiqa guruhi,,,,,,,,,,,,Die Musikgruppe spielt heute im Park.,Musiqa guruhi bugun parkda chiqish qiladi.,die Musikgruppe,needs_review
+886,A1,Festessen,Nomen,das,Festessen,bayram ovqati,,,,,,,,,,,,Zum Festessen kommt die ganze Familie.,Bayram ovqatiga butun oila keladi.,das Festessen,needs_review
+887,A1,Blumenladen,Nomen,der,Blumenläden,gul do‘koni,,,,,,,,,,,,Im Blumenladen kaufe ich Rosen.,Gul do‘konidan men atirgul sotib olaman.,der Blumenladen,needs_review
+888,A1,Postkarte,Nomen,die,Postkarten,pochta kartasi,,,,,,,,,,,,Ich schreibe eine Postkarte aus dem Urlaub.,Men ta’tildan otkritka yozaman.,die Postkarte,needs_review
+889,A1,Geschenkpapier,Nomen,das,Geschenkpapiere,sovg‘a qog‘ozi,,,,,,,,,,,,Das Geschenkpapier ist rot.,Sovg‘a qog‘ozi qizil rangda.,das Geschenkpapier,needs_review
+890,A1,Ferienort,Nomen,der,Ferienorte,dam olish joyi,,,,,,,,,,,,Unser Ferienort liegt am Meer.,Dam olish joyimiz dengiz bo‘yida.,der Ferienort,needs_review
+891,A1,feiern,Verb,,,nishonlamoq,feierte,gefeiert,haben,feire,feierst,feiert,feiern,feiert,feiern,,,Am Samstag feiern wir meinen Geburtstag.,Shanba kuni biz mening tug‘ilgan kunimni nishonlaymiz.,feiern,needs_review
+892,A1,beliebt,Adjektiv,,,mashhur,,,,,,,,,,beliebter,am beliebtesten,Dieses Café ist sehr beliebt.,Bu kafe juda mashhur.,beliebt,needs_review
+893,A1,einladen,Verb,,,taklif qilmoq,lud ein,eingeladen,haben,lade ein,lädst ein,lädt ein,laden ein,ladet ein,laden ein,,,Ich lade dich zum Essen ein.,Men seni ovqatga taklif qilaman.,einladen,needs_review
+894,A1,wirklich,Adjektiv,,,haqiqatan,,,,,,,,,,wirklicher,am wirklichsten,Das ist wirklich schön.,Bu haqiqatan ham chiroyli.,wirklich,needs_review
+895,A1,traurig,Adjektiv,,,xafa,,,,,,,,,,trauriger,am traurigsten,Warum bist du traurig?,Nega xafasan?,traurig,needs_review
+896,A1,lachen,Verb,,,kulmoq,lachte,gelacht,haben,lache,lachst,lacht,lachen,lacht,lachen,,,Die Kinder lachen viel.,Bolalar ko‘p kuladi.,lachen,needs_review
+897,A1,hilfsbereit,Adjektiv,,,yordamchi,,,,,,,,,,hilfsbereiter,am hilfsbereitesten,Unsere Nachbarin ist sehr hilfsbereit.,Qo‘shni ayolimiz doim yordam berishga tayyor.,hilfsbereit,needs_review
+898,A1,zusammen,Adjektiv,,,birga,,,,,,,,,,,,Wir kochen heute zusammen.,Bugun biz birga ovqat pishiramiz.,zusammen,needs_review
+899,A1,passieren,Verb,,,sodir bo‘lmoq,passierte,passiert,haben/sein,passiere,passierst,passiert,passieren,passiert,passieren,,,Was ist passiert?,Nima bo‘ldi?,passieren,needs_review
+900,A1,glücklich,Adjektiv,,,baxtli,,,,,,,,,,glücklicher,am glücklichsten,Die Kinder sind heute sehr glücklich.,Bolalar bugun juda baxtli.,glücklich,needs_review
+901,A1,Mietvertrag,Nomen,der,Mietverträge,ijara shartnomasi,,,,,,,,,,,,Ich unterschreibe den Mietvertrag.,Men ijara shartnomasini imzolayapman.,der Mietvertrag,needs_review
+902,A1,Wohnungstür,Nomen,die,Wohnungstüren,xonadon eshigi,,,,,,,,,,,,Die Wohnungstür ist offen.,Xonadon eshigi ochiq.,die Wohnungstür,needs_review
+903,A1,Treppenhaus,Nomen,das,Treppenhäuser,zina yo‘lagi,,,,,,,,,,,,Im Treppenhaus ist es dunkel.,Zina yo‘lagida qorong‘i.,das Treppenhaus,needs_review
+904,A1,Hausmeister,Nomen,der,Hausmeister,uy nazoratchisi,,,,,,,,,,,,Der Hausmeister repariert die Heizung.,Bino nazoratchisi isitish tizimini ta’mirlayapti.,der Hausmeister,needs_review
+905,A1,Nachbarschaft,Nomen,die,Nachbarschaften,qo‘shnichilik,,,,,,,,,,,,In unserer Nachbarschaft wohnen viele Familien.,Mahallamizda ko‘p oilalar yashaydi.,die Nachbarschaft,needs_review
+906,A1,Wohnzimmerfenster,Nomen,das,Wohnzimmerfenster,mehmonxona oynasi,,,,,,,,,,,,Das Wohnzimmerfenster ist sehr groß.,Mehmonxona derazasi juda katta.,das Wohnzimmerfenster,needs_review
+907,A1,Esstisch,Nomen,der,Esstische,ovqat stoli,,,,,,,,,,,,Der Esstisch ist für sechs Personen.,Ovqat stoli olti kishilik.,der Esstisch,needs_review
+908,A1,Kaffeemaschine,Nomen,die,Kaffeemaschinen,qahva mashinasi,,,,,,,,,,,,Die Kaffeemaschine ist neu.,Qahva mashinasi yangi.,die Kaffeemaschine,needs_review
+909,A1,Schlafzimmer,Nomen,das,Schlafzimmer,yotoqxona,,,,,,,,,,,,Das Schlafzimmer ist ruhig.,Yotoqxona tinch.,das Schlafzimmer,needs_review
+910,A1,Gartenstuhl,Nomen,der,Gartenstühle,bog‘ stuli,,,,,,,,,,,,Opa sitzt auf dem Gartenstuhl.,Bobom bog‘ stulida o‘tiribdi.,der Gartenstuhl,needs_review
+911,A1,mieten,Verb,,,ijaraga olmoq,mietete,gemietet,haben,miete,mietest,mietet,mieten,mietet,mieten,,,Wir mieten eine Wohnung im Zentrum.,Biz markazdan kvartira ijaraga olamiz.,mieten,needs_review
+912,A1,ruhig,Adjektiv,,,tinch,,,,,,,,,,ruhiger,am ruhigsten,Unsere Straße ist sehr ruhig.,Bizning ko‘chamiz juda tinch.,ruhig,needs_review
+913,A1,umziehen,Verb,,,ko‘chmoq,zog um,umgezogen,haben/sein,ziehe um,ziehst um,zieht um,ziehen um,zieht um,ziehen um,,,Nächsten Monat ziehen wir nach Köln um.,Kelasi oy biz Kyolnga ko‘chib o‘tamiz.,umziehen,needs_review
+914,A1,nebenan,Adverb,,,qo‘shni joyda,,,,,,,,,,,,Nebenan wohnt eine nette Familie.,Qo‘shni xonadonda yoqimli oila yashaydi.,nebenan,needs_review
+915,A1,laut,Adjektiv,,,baland,,,,,,,,,,lauter,am lautesten,Die Musik ist zu laut.,Musiqa juda baland.,laut,needs_review
+916,A1,wohnen,Verb,,,yashamoq,wohnte,gewohnt,haben,wohne,wohnst,wohnt,wohnen,wohnt,wohnen,,,Wo wohnst du?,Sen qayerda yashaysan?,wohnen,needs_review
+917,A1,sauber,Adjektiv,,,toza,,,,,,,,,,sauberer,am saubersten,Das Zimmer ist jetzt sauber.,Xona endi toza.,sauber,needs_review
+918,A1,dort,Adverb,,,u yerda,,,,,,,,,,,,Dort ist der Bahnhof.,Vokzal u yerda.,dort,needs_review
+919,A1,reinigen,Verb,,,tozalamoq,reinigte,gereinigt,haben,reinige,reinigst,reinigt,reinigen,reinigt,reinigen,,,Wir reinigen den Teppich.,Biz gilamni tozalayapmiz.,reinigen,needs_review
+920,A1,gemütlich,Adjektiv,,,shinam,,,,,,,,,,gemütlicher,am gemütlichsten,Das Café ist klein und gemütlich.,Kafe kichik va shinam.,gemütlich,needs_review
+921,A1,Sprachschüler,Nomen,der,Sprachschüler,til o‘quvchisi,,,,,,,,,,,,Der Sprachschüler lernt schnell.,Til o‘quvchisi tez o‘rganadi.,der Sprachschüler,needs_review
+922,A1,Prüfungsvorbereitung,Nomen,die,Prüfungsvorbereitungen,imtihon tayyorligi,,,,,,,,,,,,Die Prüfungsvorbereitung dauert zwei Monate.,Imtihonga tayyorgarlik ikki oy davom etadi.,die Prüfungsvorbereitung,needs_review
+923,A1,Kursbuch,Nomen,das,Kursbücher,darslik,,,,,,,,,,,,Öffnet bitte das Kursbuch auf Seite zehn.,"Iltimos, darslikni o‘ninchi betdan oching.",das Kursbuch,needs_review
+924,A1,Stundenplan,Nomen,der,Stundenpläne,dars jadvali,,,,,,,,,,,,Am Montag habe ich laut Stundenplan Deutsch.,Dars jadvaliga ko‘ra dushanba kuni mening nemis tili darsim bor.,der Stundenplan,needs_review
+925,A1,Gruppenarbeit,Nomen,die,Gruppenarbeiten,guruh ishi,,,,,,,,,,,,Wir machen jetzt eine Gruppenarbeit.,Endi biz guruh ishini bajaramiz.,die Gruppenarbeit,needs_review
+926,A1,Whiteboard,Nomen,das,Whiteboards,oq doska,,,,,,,,,,,,Die Lehrerin schreibt an das Whiteboard.,O‘qituvchi oq doskaga yozyapti.,das Whiteboard,needs_review
+927,A1,Kugelschreiber,Nomen,der,Kugelschreiber,ruchka,,,,,,,,,,,,Hast du einen Kugelschreiber?,Ruchkang bormi?,der Kugelschreiber,needs_review
+928,A1,Notizseite,Nomen,die,Notizseiten,eslatma sahifasi,,,,,,,,,,,,Die neuen Wörter stehen auf der Notizseite.,Yangi so‘zlar eslatma sahifasida yozilgan.,die Notizseite,needs_review
+929,A1,Wörterspiel,Nomen,das,Wörterspiele,so‘z o‘yini,,,,,,,,,,,,Das Wörterspiel macht uns viel Spaß.,So‘z o‘yini bizga juda yoqadi.,das Wörterspiel,needs_review
+930,A1,Lernpartner,Nomen,der,Lernpartner,o‘qish sherigi,,,,,,,,,,,,Mit meinem Lernpartner übe ich jeden Tag.,Men o‘qish sherigim bilan har kuni mashq qilaman.,der Lernpartner,needs_review
+931,A1,erklären,Verb,,,tushuntirmoq,erklärte,erklärt,haben,erkläre,erklärst,erklärt,erklären,erklärt,erklären,,,Kannst du mir das bitte erklären?,Menga buni tushuntirib bera olasanmi?,erklären,needs_review
+932,A1,intelligent,Adjektiv,,,aqlli,,,,,,,,,,intelligenter,am intelligentesten,Der Hund ist sehr intelligent.,It juda aqlli.,intelligent,needs_review
+933,A1,korrigieren,Verb,,,to‘g‘rilamoq,korrigierte,korrigiert,haben,korrigiere,korrigierst,korrigiert,korrigieren,korrigiert,korrigieren,,,Die Lehrerin korrigiert die Tests.,O‘qituvchi testlarni tekshiryapti.,korrigieren,needs_review
+934,A1,manchmal,Adverb,,,ba’zida,,,,,,,,,,,,Manchmal gehe ich zu Fuß.,Ba’zida men piyoda yuraman.,manchmal,needs_review
+935,A1,fleißig,Adjektiv,,,mehnatkash,,,,,,,,,,fleißiger,am fleißigsten,Die Studentin ist sehr fleißig.,Talaba qiz juda tirishqoq.,fleißig,needs_review
+936,A1,wiederholen,Verb,,,takrorlamoq,wiederholte,wiederholt,haben,wiederhole,wiederholst,wiederholt,wiederholen,wiederholt,wiederholen,,,Können Sie das bitte wiederholen?,"Iltimos, buni takrorlay olasizmi?",wiederholen,needs_review
+937,A1,interessiert,Adjektiv,,,qiziqqan,,,,,,,,,,interessierter,am interessiertesten,Ich bin an Musik sehr interessiert.,Men musiqaga juda qiziqaman.,interessiert,needs_review
+938,A1,gemeinsam,Adjektiv,,,birga,,,,,,,,,,,,Wir machen die Aufgabe gemeinsam.,Biz topshiriqni birgalikda bajaramiz.,gemeinsam,needs_review
+939,A1,übersetzen,Verb,,,tarjima qilmoq,übersetzte,übersetzt,haben,übersetze,übersetzt,übersetzt,übersetzen,übersetzt,übersetzen,,,Kannst du den Satz übersetzen?,Bu gapni tarjima qila olasanmi?,übersetzen,needs_review
+940,A1,einfach,Adjektiv,,,oson,,,,,,,,,,einfacher,am einfachsten,Die Aufgabe ist ganz einfach.,Topshiriq juda oson.,einfach,needs_review
+941,A1,Fahrradreifen,Nomen,der,Fahrradreifen,velosiped shinasi,,,,,,,,,,,,Der Fahrradreifen hat ein Loch.,Velosiped shinasi teshilgan.,der Fahrradreifen,needs_review
+942,A1,Tankstelle,Nomen,die,Tankstellen,yoqilg‘i quyish shoxobchasi,,,,,,,,,,,,Die nächste Tankstelle ist zwei Kilometer weit.,Eng yaqin yoqilg‘i quyish shoxobchasi ikki kilometr uzoqlikda.,die Tankstelle,needs_review
+943,A1,Verkehrsschild,Nomen,das,Verkehrsschilder,yo‘l belgisi,,,,,,,,,,,,Das Verkehrsschild zeigt den Weg zum Bahnhof.,Yo‘l belgisi vokzalga yo‘lni ko‘rsatadi.,das Verkehrsschild,needs_review
+944,A1,Sicherheitsgurt,Nomen,der,Sicherheitsgurte,xavfsizlik kamari,,,,,,,,,,,,Bitte schnallen Sie den Sicherheitsgurt an.,"Iltimos, xavfsizlik kamarini taqing.",der Sicherheitsgurt,needs_review
+945,A1,Autotür,Nomen,die,Autotüren,avtomobil eshigi,,,,,,,,,,,,Mach die Autotür vorsichtig auf.,Mashina eshigini ehtiyotkorlik bilan och.,die Autotür,needs_review
+946,A1,Navigationsgerät,Nomen,das,Navigationsgeräte,navigator,,,,,,,,,,,,Das Navigationsgerät zeigt den Weg.,Navigator yo‘lni ko‘rsatadi.,das Navigationsgerät,needs_review
+947,A1,Parkplatz,Nomen,der,Parkplätze,avtoturargoh,,,,,,,,,,,,Ich finde keinen Parkplatz.,Men mashina qo‘yadigan joy topa olmayapman.,der Parkplatz,needs_review
+948,A1,Kreuzung,Nomen,die,Kreuzungen,chorraha,,,,,,,,,,,,An der Kreuzung gehen Sie links.,Chorrahada chapga buriling.,die Kreuzung,needs_review
+949,A1,Motorrad,Nomen,das,Motorräder,mototsikl,,,,,,,,,,,,Mein Onkel fährt Motorrad.,Amakim mototsikl haydaydi.,das Motorrad,needs_review
+950,A1,Fußweg,Nomen,der,Fußwege,piyodalar yo‘li,,,,,,,,,,,,Der Fußweg zum Park dauert zehn Minuten.,Parkka piyoda yo‘l o‘n daqiqa davom etadi.,der Fußweg,needs_review
+951,A1,bremsen,Verb,,,tormoz bermoq,bremste,gebremst,haben,bremse,bremst,bremst,bremsen,bremst,bremsen,,,Das Auto bremst plötzlich.,Mashina birdan tormoz berdi.,bremsen,needs_review
+952,A1,gefährlich,Adjektiv,,,xavfli,,,,,,,,,,gefährlicher,am gefährlichsten,Die Straße ist gefährlich.,Bu ko‘cha xavfli.,gefährlich,needs_review
+953,A1,tanken,Verb,,,yoqilg‘i quymoq,tankte,getankt,haben,tanke,tankst,tankt,tanken,tankt,tanken,,,Wir müssen noch tanken.,Biz yana yoqilg‘i quyishimiz kerak.,tanken,needs_review
+954,A1,unterwegs,Adverb,,,yo‘lda,,,,,,,,,,,,Ich bin gerade unterwegs.,Men hozir yo‘ldaman.,unterwegs,needs_review
+955,A1,vorsichtig,Adjektiv,,,ehtiyotkor,,,,,,,,,,vorsichtiger,am vorsichtigsten,"Sei vorsichtig, die Straße ist nass.","Ehtiyot bo‘l, yo‘l ho‘l.",vorsichtig,needs_review
+956,A1,abbiegen,Verb,,,burilmoq,bog ab,abgebogen,haben/sein,biege ab,biegst ab,biegt ab,biegen ab,biegt ab,biegen ab,,,An der Ampel biegen Sie rechts ab.,Svetoforda o‘ngga buriling.,abbiegen,needs_review
+957,A1,frei,Adjektiv,,,bo‘sh,,,,,,,,,,freier,am freiesten,Ist der Platz hier frei?,Bu joy bo‘shmi?,frei,needs_review
+958,A1,gerade,Adjektiv,,,to‘g‘ri,,,,,,,,,,,,Die Straße ist ganz gerade.,Ko‘cha butunlay to‘g‘ri.,gerade,needs_review
+959,A1,überholen,Verb,,,o‘zib ketmoq,überholte,überholt,haben,überhole,überholst,überholt,überholen,überholt,überholen,,,Der Lastwagen überholt uns.,Yuk mashinasi bizdan o‘zib ketyapti.,überholen,needs_review
+960,A1,langsam,Adjektiv,,,sekin,,,,,,,,,,langsamer,am langsamsten,Bitte sprechen Sie langsam.,"Iltimos, sekin gapiring.",langsam,needs_review
+961,A1,Wetterbericht,Nomen,der,Wetterberichte,ob-havo hisoboti,,,,,,,,,,,,Laut Wetterbericht wird es morgen warm.,Ob-havo hisobotiga ko‘ra ertaga havo iliq bo‘ladi.,der Wetterbericht,needs_review
+962,A1,Schneeballschlacht,Nomen,die,Schneeballschlachten,qor jangi,,,,,,,,,,,,Die Kinder machen eine Schneeballschlacht.,Bolalar qor o‘ynashyapti.,die Schneeballschlacht,needs_review
+963,A1,Herbstblatt,Nomen,das,Herbstblätter,kuz bargi,,,,,,,,,,,,Das Herbstblatt ist gelb und rot.,Kuz bargi sariq va qizil rangda.,das Herbstblatt,needs_review
+964,A1,Sommerurlaub,Nomen,der,Sommerurlaube,yozgi ta’til,,,,,,,,,,,,Den Sommerurlaub verbringen wir am Meer.,Yozgi ta’tilni biz dengiz bo‘yida o‘tkazamiz.,der Sommerurlaub,needs_review
+965,A1,Frühlingsblume,Nomen,die,Frühlingsblumen,bahor guli,,,,,,,,,,,,Die Tulpe ist eine Frühlingsblume.,Lola — bahor guli.,die Frühlingsblume,needs_review
+966,A1,Winterwetter,Nomen,das,,qish ob-havosi,,,,,,,,,,,,Das Winterwetter ist kalt und grau.,Qish havosi sovuq va bulutli.,das Winterwetter,needs_review
+967,A1,Regenschauer,Nomen,der,Regenschauer,qisqa yomg‘ir,,,,,,,,,,,,Am Nachmittag gibt es einen Regenschauer.,Tushdan keyin qisqa yomg‘ir yog‘adi.,der Regenschauer,needs_review
+968,A1,Sonnencreme,Nomen,die,Sonnencremes,quyosh kremi,,,,,,,,,,,,Vergiss die Sonnencreme nicht!,Quyosh kremini unutma!,die Sonnencreme,needs_review
+969,A1,Picknicktuch,Nomen,das,Picknicktücher,piknik yopinchig‘i,,,,,,,,,,,,Wir sitzen auf dem Picknicktuch.,Biz piknik yopinchig‘i ustida o‘tiribmiz.,das Picknicktuch,needs_review
+970,A1,Badesee,Nomen,der,Badeseen,cho‘milish ko‘li,,,,,,,,,,,,Der Badesee ist nicht weit von hier.,Cho‘milish ko‘li bu yerdan uzoq emas.,der Badesee,needs_review
+971,A1,regnen,Verb,,,yomg‘ir yog‘moq,regnete,geregnet,haben,regne,regnest,regnet,regnen,regnet,regnen,,,Es regnet den ganzen Tag.,Kun bo‘yi yomg‘ir yog‘yapti.,regnen,needs_review
+972,A1,heiß,Adjektiv,,,issiq,,,,,,,,,,heißer,am heißesten,Im Juli ist es sehr heiß.,Iyulda havo juda issiq bo‘ladi.,heiß,needs_review
+973,A1,schneien,Verb,,,qor yog‘moq,schneite,geschneit,haben/sein,schneie,schneist,schneit,schneien,schneit,schneien,,,Es schneit seit gestern.,Kechadan beri qor yog‘yapti.,schneien,needs_review
+974,A1,draußen,Adverb,,,tashqarida,,,,,,,,,,,,Die Kinder spielen draußen.,Bolalar tashqarida o‘ynayapti.,draußen,needs_review
+975,A1,bewölkt,Adjektiv,,,bulutli,,,,,,,,,,,,Heute ist der Himmel bewölkt.,Bugun osmon bulutli.,bewölkt,needs_review
+976,A1,sonnenbaden,Verb,,,toblanmoq,sonnenbadete,gesonnenbadet,haben,sonnenbade,sonnenbadest,sonnenbadet,sonnenbaden,sonnenbadet,sonnenbaden,,,Am Strand kann man gut sonnenbaden.,Plyajda yaxshi toblanish mumkin.,sonnenbaden,needs_review
+977,A1,kühl,Adjektiv,,,salqin,,,,,,,,,,kühler,am kühlsten,Am Abend wird es kühl.,Kechqurun havo salqin bo‘ladi.,kühl,needs_review
+978,A1,plötzlich,Adjektiv,,,to‘satdan,,,,,,,,,,,,Plötzlich fängt es an zu regnen.,To‘satdan yomg‘ir yog‘a boshlaydi.,plötzlich,needs_review
+979,A1,wachsen,Verb,,,o‘smoq,wuchs,gewachsen,sein,wachse,wächst,wächst,wachsen,wachst,wachsen,,,Die Blumen wachsen schnell.,Gullar tez o‘sadi.,wachsen,needs_review
+980,A1,natürlich,Adjektiv,,,tabiiy,,,,,,,,,,natürlicher,am natürlichsten,Natürlich helfe ich dir.,"Albatta, senga yordam beraman.",natürlich,needs_review
+981,A1,Lieblingslehrer,Nomen,der,Lieblingslehrer,sevimli o‘qituvchi,,,,,,,,,,,,Herr Müller ist mein Lieblingslehrer.,Myuller janoblari — mening sevimli o‘qituvchim.,der Lieblingslehrer,needs_review
+982,A1,Freundschaft,Nomen,die,Freundschaften,do‘stlik,,,,,,,,,,,,Unsere Freundschaft ist sehr wichtig für mich.,Do‘stligimiz men uchun juda muhim.,die Freundschaft,needs_review
+983,A1,Kinderlied,Nomen,das,Kinderlieder,bolalar qo‘shig‘i,,,,,,,,,,,,Die Kinder singen ein Kinderlied.,Bolalar bolalar qo‘shig‘ini aytyapti.,das Kinderlied,needs_review
+984,A1,Familienname,Nomen,der,Familiennamen,familya,,,,,,,,,,,,Wie ist Ihr Familienname?,Familiyangiz nima?,der Familienname,needs_review
+985,A1,Geburtstagstorte,Nomen,die,Geburtstagstorten,tug‘ilgan kun torti,,,,,,,,,,,,Die Geburtstagstorte ist mit Schokolade.,Tug‘ilgan kun torti shokoladli.,die Geburtstagstorte,needs_review
+986,A1,Haustier,Nomen,das,Haustiere,uy hayvoni,,,,,,,,,,,,Hast du ein Haustier?,Senda uy hayvoni bormi?,das Haustier,needs_review
+987,A1,Wochenendausflug,Nomen,der,Wochenendausflüge,hafta oxiri sayohati,,,,,,,,,,,,Der Wochenendausflug geht in die Berge.,Hafta oxiri sayohati tog‘larga bo‘ladi.,der Wochenendausflug,needs_review
+988,A1,Lieblingsband,Nomen,die,,sevimli musiqa guruhi,,,,,,,,,,,,Meine Lieblingsband spielt morgen in Berlin.,Sevimli musiqa guruhim ertaga Berlinda chiqish qiladi.,die Lieblingsband,needs_review
+989,A1,Kinoticket,Nomen,das,Kinotickets,kino chiptasi,,,,,,,,,,,,Das Kinoticket kostet zehn Euro.,Kino chiptasi o‘n yevro turadi.,das Kinoticket,needs_review
+990,A1,Spielzeugladen,Nomen,der,Spielzeugläden,o‘yinchoq do‘koni,,,,,,,,,,,,Im Spielzeugladen gibt es viele Puppen.,O‘yinchoq do‘konida ko‘p qo‘g‘irchoqlar bor.,der Spielzeugladen,needs_review
+991,A1,feiern,Verb,,,nishonlamoq,feierte,gefeiert,haben,feire,feierst,feiert,feiern,feiert,feiern,,,Am Samstag feiern wir meinen Geburtstag.,Shanba kuni biz mening tug‘ilgan kunimni nishonlaymiz.,feiern,needs_review
+992,A1,fröhlich,Adjektiv,,,xursand,,,,,,,,,,fröhlicher,am fröhlichsten,Die Kinder sind fröhlich.,Bolalar xursand.,fröhlich,needs_review
+993,A1,besuchen,Verb,,,ziyorat qilmoq,besuchte,besucht,haben,besuche,besuchst,besucht,besuchen,besucht,besuchen,,,Am Sonntag besuchen wir unsere Oma.,Yakshanba kuni biz buvimizni ko‘rgani boramiz.,besuchen,needs_review
+994,A1,wirklich,Adjektiv,,,haqiqatan,,,,,,,,,,wirklicher,am wirklichsten,Das ist wirklich schön.,Bu haqiqatan ham chiroyli.,wirklich,needs_review
+995,A1,glücklich,Adjektiv,,,baxtli,,,,,,,,,,glücklicher,am glücklichsten,Die Kinder sind heute sehr glücklich.,Bolalar bugun juda baxtli.,glücklich,needs_review
+996,A1,telefonieren,Verb,,,telefonlashmoq,telefonierte,telefoniert,haben,telefoniere,telefonierst,telefoniert,telefonieren,telefoniert,telefonieren,,,Ich telefoniere jeden Tag mit meiner Mutter.,Men har kuni onam bilan telefonda gaplashaman.,telefonieren,needs_review
+997,A1,hilfsbereit,Adjektiv,,,yordamchi,,,,,,,,,,hilfsbereiter,am hilfsbereitesten,Unsere Nachbarin ist sehr hilfsbereit.,Qo‘shni ayolimiz doim yordam berishga tayyor.,hilfsbereit,needs_review
+998,A1,zusammen,Adjektiv,,,birga,,,,,,,,,,,,Wir kochen heute zusammen.,Bugun biz birga ovqat pishiramiz.,zusammen,needs_review
+999,A1,passen,Verb,,,mos kelmoq,passte,gepasst,haben,passe,passt,passt,passen,passt,passen,,,Die Schuhe passen mir gut.,Oyoq kiyim menga yaxshi to‘g‘ri keladi.,passen,needs_review
+1000,A1,bereit,Adjektiv,,,tayyor,,,,,,,,,,bereiter,am bereitesten,Ich bin bereit.,Men tayyorman.,bereit,needs_review

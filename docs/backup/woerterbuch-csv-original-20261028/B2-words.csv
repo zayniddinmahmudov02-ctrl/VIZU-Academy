@@ -1,0 +1,1500 @@
+1,der Stoff,o‘quv materiali,kasb,mashina
+2,durchdenken,o‘ylab chiqmoq,sotib olmoq,unutmoq
+3,zusammenfassen,xulosa qilmoq,bo‘yamoq,yashirmoq
+4,sich auf etwas konzentrieren,diqqatni jamlamoq,uxlamoq,qochmoq
+5,ordnen,tartiblamoq,buzmoq,sakramoq
+6,aufschreiben,yozib olmoq,o‘chirib tashlamoq,tinglamoq
+7,auf etwas achten,e'tibor bermoq,yopmoq,yo‘qotmoq
+8,aufnehmen,qabul qilmoq,rad etmoq,sindirmoq
+9,nachsprechen,takrorlamoq,sotmoq,tozalamoq
+10,anwenden,qo‘llamoq,unutmoq,yashirmoq
+11,sich bewegen,harakat qilmoq,o‘tirmoq,muzlamoq
+12,die Sprachkenntnisse,til bilimi,uy vazifasi,imtihon
+13,erwerben,egallamoq,yo‘qotmoq,sindirmoq
+14,die Aussage,bayonot,ovqat,telefon
+15,begründen,asoslamoq,inkor qilmoq,yopmoq
+16,zustimmen,rozi bo‘lmoq,qarshi chiqmoq,qochmoq
+17,der Widerspruch,e'tiroz,sovg‘a,daromad
+18,ausdrücken,ifoda etmoq,yashirmoq,unutmoq
+19,die Ansicht,nuqtai nazar,ko‘cha,daftar
+20,der Ansicht sein,fikrda bo‘lmoq,qochib ketmoq,sotib olmoq
+21,das Forum,forum,kasalxona,aeroport
+22,der Beitrag,hissa,jarima,yo‘l
+23,die Vorbereitung,tayyorgarlik,ta'til,shovqin
+24,der Vorschlag,taklif,muammo,jarohat
+25,die Alternative,muqobil variant,majburiyat,kasallik
+26,die Lerntechnik,o‘rganish usuli,transport,talaba
+27,die Lernmethode,o‘rganish metodi,ovqatlanish,ta'til
+28,die Lerngruppe,o‘quv guruhi,kasalxona,bank
+29,der Lernplan,o‘quv reja,chipta,telefon
+30,der Lernstil,o‘rganish uslubi,yoqilg‘i,kiyim
+31,der Lerntipp,o‘rganish bo‘yicha maslahat,jarima,shartnoma
+32,die Lernerfahrung,o‘quv tajribasi,tezlik,manzil
+33,der Lerntyp,o‘quvchi turi,haydovchi,mehmon
+34,der Methodenmix,metodlar kombinatsiyasi,yoqilg‘i,baliq
+35,auditiv,eshitish orqali,sovuq,achchiq
+36,visuell,ko‘rish orqali,baland,qimmat
+37,veraltet,eskirgan,zamonaviy,yangi
+38,die Studie,tadqiqot,oshxona,chipta
+39,auf Basis von,asosida,tashqarisida,qarshisida
+40,die Rangfolge,reyting,tomosha,sarguzasht
+41,bewerten,baholamoq,unutmoq,sindirib yubormoq
+42,abschneiden,natija ko‘rsatmoq,qochib ketmoq,yashirmoq
+43,überprüfen,tekshirmoq,sotmoq,to‘xtatmoq
+44,empfehlenswert,tavsiya etiladigan,xavfli,keraksiz
+45,hilfreich,foydali,zararli,zerikarli
+46,effektiv,samarali,sekin,befoyda
+47,optimal,eng maqbul,noto‘g‘ri,ortiqcha
+48,gegenteilig,qarama-qarshi,o‘xshash,bir xil
+49,hervorheben,ta'kidlamoq,yashirmoq,o‘chirib tashlamoq
+50,markieren,belgilamoq,tozalamoq,bekor qilmoq
+51,unterstreichen,tagini chizmoq,yirtmoq,yashirmoq
+52,das Vorwissen,avvalgi bilim,qarz,jarima
+53,einsteigen,boshlamoq,tugatmoq,uxlamoq
+54,der Überblick,umumiy tasavvur,muammo,jarohat
+55,überfliegen,tez ko‘z yugurtirmoq,yodlamoq,to‘xtab qolmoq
+56,global,umumiy,mahalliy,tor
+57,selektiv,tanlab,majburiy,tasodifiy
+58,die Kerninformation,asosiy ma'lumot,bezak,rasm
+59,nachdenken über,o‘ylamoq,kulmoq,yugurmoq
+60,der Zusammenhang,bog‘liqlik,ajralish,jarima
+61,wiedergeben,qayta bayon qilmoq,yashirmoq,o‘chirib yubormoq
+62,abfragen,bilimni tekshirmoq,sotib olmoq,ta'mirlamoq
+63,behalten,esda saqlamoq,unutmoq,yo‘qotmoq
+64,das Gedächtnis,xotira,transport,ovqat
+65,das Langzeitgedächtnis,uzoq muddatli xotira,tezlik,telefon
+66,das Sinnesorgan,sezgi organi,dvigatel,kompyuter
+67,verknüpfen,bog‘lamoq,ajratmoq,buzmoq
+68,aufteilen,taqsimlamoq,yig‘moq,yashirmoq
+69,regelmäßig,muntazam,tasodifiy,kamdan-kam
+70,abhaken,bajarildi deb belgilamoq,bekor qilmoq,sotmoq
+71,das Erfolgserlebnis,muvaffaqiyat hissi,qo‘rquv,jarima
+72,beherrschen,mukammal bilmoq,unutmoq,qochmoq
+73,aufschieben,keyinga qoldirmoq,darhol bajarish,sotib olish
+74,ängstlich,xavotirli,xotirjam,jasur
+75,leicht fallen,oson bo‘lmoq,qiyin bo‘lmoq,imkonsiz bo‘lmoq
+76,schwer fallen,qiyin bo‘lmoq,oson bo‘lmoq,qulay bo‘lmoq
+77,die Behauptung,da'vo,sovg‘a,ovqat
+78,das Zeitalter,davr,stul,ko‘prik
+79,die Forschung,tadqiqot,sayohat,konsert
+80,die Neurowissenschaft,neyrofan,iqtisodiyot,adabiyot
+81,der Rückgang,pasayish,o‘sish,sakrash
+82,die Ergonomie,ergonomika,biologiya,kimyo
+83,die Motorik,motorika,siyosat,moliya
+84,die Schrift,yozuv,qo‘shiq,film
+85,die Druckschrift,bosma yozuv,qo‘l yozuvi,ovoz
+86,die Schreibschrift,qo‘l yozuvi,bosma yozuv,rasm
+87,die Handschrift,qo‘l yozuvi,gazeta,ekran
+88,schriftlich,yozma ravishda,og‘zaki,telefon orqali
+89,handschriftlich,qo‘lda yozilgan,chop etilgan,elektron
+90,benötigen,kerak bo‘lmoq,rad etmoq,yo‘qotmoq
+91,lehren,o‘rgatmoq,o‘rganmoq,unutmoq
+92,das Erlernen,o‘rganish,sotib olish,yo‘qotish
+93,die Abschaffung,bekor qilish,joriy etish,qo‘llab-quvvatlash
+94,abschaffen,bekor qilmoq,saqlab qolmoq,yaratmoq
+95,die Tastatur,klaviatura,sichqoncha,monitor
+96,tippen,klaviaturada yozmoq,bo‘yamoq,yugurmoq
+97,die Wirkung,ta'sir,shakl,rang
+98,das Gehirn,miya,yurak,o‘pka
+99,die Gehirnaktivität,miya faolligi,mushak og‘rig‘i,qon bosimi
+100,das Gehirnareal,miya hududi,shahar markazi,o‘rmon
+101,der Bereich,soha,banan,ko‘ylak
+102,aktivieren,faollashtirmoq,o‘chirmoq,yashirmoq
+103,wiedererkennen,tanib olmoq,unutib yubormoq,sindirmoq
+104,sich an etwas erinnern,eslamoq,yashirmoq,yo‘qotmoq
+105,die Verknüpfung,bog‘lanish,ajrashish,jarima
+106,die Verbindung,aloqa,devor,mashina
+107,der Speicher,xotira qurilmasi,oyna,stul
+108,extern,tashqi,ichki,mahalliy
+109,verarbeiten,qayta ishlamoq,yo‘qotmoq,berkitmoq
+110,das Gehörte,eshitilgan narsa,yozilgan matn,rasm
+111,sich merken,esda saqlamoq,unutmoq,qochmoq
+112,die Notiz,qayd,velosiped,telefon
+113,Notizen machen,qaydlar yozmoq,uxlamoq,yugurmoq
+114,der Notizblock,bloknot,televizor,eshik
+115,notieren,qayd etmoq,o‘chirib tashlamoq,sotmoq
+116,die Vorlesung,ma'ruza,konsert,film
+117,mitschreiben,birga yozib bormoq,o‘qib bermoq,yashirmoq
+118,protokollieren,protokol tuzmoq,unutmoq,ta'mirlamoq
+119,das Ergebnis,natija,stol,qalam
+120,ergeben,natija bermoq,yashirmoq,qochmoq
+121,der Inhalt,mazmun,quti,ko‘cha
+122,intensiv,jadal,yuzaki,sekin
+123,dauerhaft,doimiy,vaqtinchalik,tasodifiy
+124,die Ausführung,bajarish,ta'til,ovqat
+125,das Wissen,bilim,mashina,kasallik
+126,das Grundwissen,asosiy bilim,telefon,chipta
+127,das Faktenwissen,faktlarga asoslangan bilim,kiyim,yoqilg‘i
+128,sich Wissen erarbeiten,bilim hosil qilmoq,yo‘qotmoq,sotmoq
+129,Wissen vertiefen,bilimni chuqurlashtirmoq,unutmoq,qisqartirmoq
+130,der Fakt,fakt,afsona,orzu
+131,die Grundlage,asos,poydevor,tomosha
+132,beitragen zu,hissa qo‘shmoq,to‘sqinlik qilmoq,qochmoq
+133,die Diskussion,munozara,uyqu,sayohat
+134,fleißig,tirishqoq,dangasalik qiluvchi,beparvo
+135,faul,dangasa,tirishqoq,faol
+136,die Kommunikationsfähigkeit,muloqot qobiliyati,haydovchilik guvohnomasi,jarima
+137,die Arbeitsweise,ish usuli,dam olish kuni,chipta
+138,das Zeitmanagement,vaqtni boshqarish,musiqa,ob-havo
+139,die Einzelarbeit,yakka tartibdagi ish,guruh sayohati,bayram
+140,die Gruppenarbeit,guruh ishi,jarima,to‘lov
+141,ermöglichen,imkon yaratmoq,taqiqlamoq,yashirmoq
+142,die Stellungnahme,munosabat bildirish,ovqatlanish,ko‘ylak
+143,die Einleitung,kirish qismi,xulosa,misol
+144,der Hauptteil,asosiy qism,sarlavha,ilova
+145,der Schluss,xulosa,boshlanish,muqova
+146,das Fazit,yakuniy xulosa,savol,izoh
+147,das Argument,dalil,shubha,taxmin
+148,die These,tezis,retsept,chipta
+149,der Vorteil,afzallik,kamchilik,jarima
+150,der Nachteil,kamchilik,afzallik,mukofot
+151,die Architektur,arxitektura,biologiya,kimyo
+152,der Architekt,arxitektor,shifokor,haydovchi
+153,die Architektin,ayol arxitektor,o‘qituvchi,sotuvchi
+154,die Stadtplanung,shahar rejalashtirish,sport,adabiyot
+155,das Hochhaus,osmono‘par bino,qishloq uy,chodir
+156,der Wolkenkratzer,skyscraper,ferma,ko‘prik
+157,die Skyline,shahar panoramasi,o‘rmon,cho‘l
+158,die Altstadt,eski shahar,yangi tuman,sanoat zonasi
+159,historisch,tarixiy,zamonaviy,kelajakdagi
+160,modern,zamonaviy,tarixiy,eskirgan
+161,der Run,katta qiziqish,befarqlik,dam olish
+162,die Verstädterung,urbanizatsiya,dehqonchilik,ko‘chmanchilik
+163,die Landflucht,qishloqdan shaharga ko‘chish,ta'til,sayohat
+164,die Prognose,bashorat,hisobot,shikoyat
+165,prognostizieren,bashorat qilmoq,inkor qilmoq,yashirmoq
+166,weltweit,butun dunyo bo‘ylab,mahalliy,shaxsiy
+167,der Anteil,ulush,jarima,yoqilg‘i
+168,verdoppeln,ikki baravar qilmoq,yarmiga kamaytirmoq,to‘xtatmoq
+169,die Attraktivität,jozibadorlik,xavf,sovuqlik
+170,attraktiv,jozibali,xunuk,zerikarli
+171,anregend,qiziqarli,zerikarli,befoyda
+172,das Image,imij,jarima,chipta
+173,cool,zamonaviy,qadimiy,zerikarli
+174,die Bildungseinrichtung,ta'lim muassasasi,zavod,mehmonxona
+175,die Arbeitsstelle,ish joyi,dam olish maskani,stadion
+176,das Startup,startap,kasalxona,maktab
+177,ein Startup gründen,startap tashkil qilmoq,sotib yubormoq,yopmoq
+178,die Umfrage,so‘rovnoma,hisob-faktura,shartnoma
+179,der Faktor,omil,ko‘cha,telefon
+180,der Stressfaktor,stress omili,mukofot,dam olish
+181,der Lärm,shovqin,sukunat,osoyishtalik
+182,der Verkehrslärm,transport shovqini,musiqa,qushlar ovozi
+183,die Verschmutzung,ifloslanish,tozalik,qulaylik
+184,die Umweltverschmutzung,atrof-muhit ifloslanishi,ekologik himoya,bog‘dorchilik
+185,der Smog,smog,toza havo,shabada
+186,das Abgas,chiqindi gaz,toza suv,oziq-ovqat
+187,schädigen,zarar yetkazmoq,foyda keltirmoq,himoya qilmoq
+188,die Gesundheit schädigen,sog‘liqqa zarar yetkazmoq,davolamoq,chiniqtirmoq
+189,das Viertel,tuman,viloyat,mamlakat
+190,das Stadtviertel,shahar tumani,qishloq,xonadon
+191,blicken,nazar tashlamoq,yashirmoq,qochmoq
+192,in die Zukunft blicken,kelajakka nazar tashlamoq,o‘tmishni unutmoq,dam olmoq
+193,die Technologie,texnologiya,san'at,musiqa
+194,die Technologiefirma,texnologik kompaniya,restoran,kasalxona
+195,die Digitalisierung,raqamlashtirish,qishloqlashtirish,soddalashtirish
+196,digital,raqamli,analog,qog‘ozli
+197,vernetzen,bog‘lamoq,ajratmoq,to‘xtatmoq
+198,der Workshop,seminar,konsert,sayohat
+199,innovativ,innovatsion,eskirgan,oddiy
+200,lebenswert,yashash uchun qulay,noqulay,xavfli
+201,das Konzept,konsept,mashina,daraxt
+202,ein Konzept erarbeiten,konsept ishlab chiqmoq,uxlamoq,yugurmoq
+203,gründen,tashkil qilmoq,yopmoq,unutmoq
+204,anbauen,ekmoq,buzmoq,sotmoq
+205,der Anbau,ekin yetishtirish,jarima,ta'til
+206,versorgen,ta'minlamoq,yashirmoq,yo‘qotmoq
+207,die Landschaft,landshaft,zavod,telefon
+208,die Landwirtschaft,qishloq xo‘jaligi,bank,sinema
+209,landwirtschaftlich,qishloq xo‘jaligiga oid,sanoatga oid,sportga oid
+210,vertikal,tik,gorizontal,egri
+211,beitragen,hissa qo‘shmoq,to‘sqinlik qilmoq,qochmoq
+212,die Etage,qavat,ko‘cha,eshik
+213,-stöckig,qavatli,yog‘ochli,temirli
+214,preisgünstig,arzon,qimmat,bepul
+215,die Fläche,maydon,telefon,stul
+216,das Fußballfeld,futbol maydoni,sinfxona,oshxona
+217,der Ersatz,o‘rinbosar,muammo,jarima
+218,das Sonnenlicht,quyosh nuri,yomg‘ir,sovuqlik
+219,beleuchten,yoritmoq,qoraytirmoq,yashirmoq
+220,die Beleuchtung,yoritish,jarima,ta'til
+221,urban,shaharga oid,qishloqqa oid,o‘rmonga oid
+222,der Trend,tendensiya,to‘xtash,orqaga qaytish
+223,sich einem Trend anschließen,trendga qo‘shilmoq,qochmoq,unutmoq
+224,gärtnern,bog‘dorchilik qilmoq,suzmoq,haydamoq
+225,begrünen,ko‘kalamzorlashtirmoq,quritmoq,buzmoq
+226,pflanzen,ekmoq,yulib tashlamoq,sotmoq
+227,die Pflanze,o‘simlik,mashina,uy
+228,säen,urug‘ sepmoq,tozalamoq,yo‘qotmoq
+229,der Samen,urug‘,telefon,daftar
+230,die Ernte,hosil,jarima,chipta
+231,ernten,hosil yig‘moq,ekmoq,yashirmoq
+232,gießen,sug‘ormoq,yoqmoq,sindirmoq
+233,genießen,rohatlanmoq,nafratlanmoq,qochmoq
+234,das Wachstum,o‘sish,pasayish,to‘xtash
+235,die Parkgarage,parkovka garaji,oshxona,sinfxona
+236,die Dachterrasse,tom terassasi,podval,garaj
+237,der Innenhof,ichki hovli,ko‘cha,o‘rmon
+238,trist,zerikarli,qiziqarli,jozibali
+239,die Biene,asalari,sigir,mushuk
+240,Bienen halten,asalari boqmoq,baliq tutmoq,daraxt kesmoq
+241,der Vordergrund,oldingi o‘rin,orqa tomon,chekka
+242,im Vordergrund stehen,markazda bo‘lmoq,yashirin bo‘lmoq,yo‘qolib ketmoq
+243,es geht um,bilan bog‘liq bo‘lmoq,qarshi chiqmoq,to‘xtatmoq
+244,brachliegen,bo‘sh yotmoq,ishlamoq,o‘smoq
+245,brachliegende Fläche,bo‘sh maydon,o‘rmonli maydon,sport maydoni
+246,bearbeiten,qayta ishlamoq,yashirmoq,yo‘qotmoq
+247,nutzen,foydalanmoq,rad etmoq,bekor qilmoq
+248,erwerben,sotib olmoq,yo‘qotmoq,sindirmoq
+249,die Bewirtschaftung,boshqarish,jarima,sayohat
+250,verwalten,boshqarmoq,buzmoq,qochmoq
+251,jährlich,har yili,har oy,har kuni
+252,der Betrag,summa,ko‘cha,telefon
+253,sich austauschen,fikr almashmoq,janjallashmoq,qochmoq
+254,gegenseitig helfen,bir-biriga yordam bermoq,to‘sqinlik qilmoq,aldamoq
+255,anonym,anonim,ochiq,rasmiy
+256,die Anonymität,anonimlik,mashhurlik,ochiqlik
+257,das Mittel,vosita,muammo,jarima
+258,die Nachbarschaft,qo‘shnichilik,kasallik,sayohat
+259,aufbauen,qurmoq,buzmoq,yopmoq
+260,gute Beziehungen aufbauen,yaxshi munosabatlar qurmoq,aloqani uzmoq,janjallashmoq
+261,verringern,kamaytirmoq,oshirmoq,kuchaytirmoq
+262,wirken,ta'sir qilmoq,yashirmoq,qochmoq
+263,altmodisch,eskicha,zamonaviy,innovatsion
+264,verschlossen,yopiq,ochiq,shaffof
+265,das Gebäude,bino,daraxt,mashina
+266,abreißen,buzib tashlamoq,qurmoq,ta'mirlamoq
+267,der Abriss,buzish,qurilish,ta'mirlash
+268,der Quadratmeter,kvadrat metr,litr,kilogramm
+269,umweltschonend,ekologik xavfsiz,zararli,xavfli
+270,umbauen,qayta qurmoq,buzmoq,yopmoq
+271,der Umbau,qayta qurish,jarima,sayohat
+272,komplett,to‘liq,qisman,noto‘liq
+273,die Fassade,fasad,pol,tom
+274,die Ebene,daraja,jarima,telefon
+275,horizontal,gorizontal,vertikal,egri
+276,das Panorama,panorama,xona,yo‘lak
+277,sich wohlfühlen,o‘zini yaxshi his qilmoq,xafa bo‘lmoq,qo‘rqmoq
+278,die Entwicklung,rivojlanish,pasayish,to‘xtash
+279,die Stadtentwicklung,shahar rivojlanishi,qishloq xo‘jaligi,sayohat
+280,der Überblick,umumiy tasavvur,jarima,muammo
+281,eingehen auf,batafsil to‘xtalmoq,e'tiborsiz qoldirmoq,rad etmoq
+282,kommen zu,xulosaga kelmoq,qochib ketmoq,unutmoq
+283,die Lüge,yolg‘on,haqiqat,dalil
+284,die Notlüge,oq yolg‘on,rasmiy hujjat,mukofot
+285,der Betrug,firibgarlik,yordam,hamkorlik
+286,der Selbstbetrug,o‘zini aldash,o‘zini rivojlantirish,o‘zini himoya qilish
+287,betrügen,aldamoq,yordam bermoq,qo‘llab-quvvatlamoq
+288,flunkern,yolg‘on gapirmoq,haqiqatni aytmoq,eslatmoq
+289,schwindeln,yolg‘on gapirmoq,tushuntirmoq,himoya qilmoq
+290,schummeln,aldamoq,halol ishlamoq,o‘rganmoq
+291,tricksen,hiyla ishlatmoq,yordam bermoq,kelishmoq
+292,die Irreführung,chalg‘itish,tushuntirish,dalillash
+293,die Täuschung,aldov,hamkorlik,yordam
+294,täuschen,aldamoq,qo‘llab-quvvatlamoq,eslatmoq
+295,die Fake News,soxta yangiliklar,ilmiy maqolalar,darsliklar
+296,manipulieren,manipulyatsiya qilmoq,himoya qilmoq,eslatmoq
+297,fälschen,qalbakilashtirmoq,tasdiqlamoq,yaratmoq
+298,das Plagiat,plagiat,innovatsiya,tadqiqot
+299,das Doping,doping,sog‘lom turmush,parhez
+300,die Halbwahrheit,yarim haqiqat,to‘liq haqiqat,dalil
+301,die Beschönigung,go‘zallashtirib ko‘rsatish,tanqid,haqiqat
+302,schönreden,yaxshi qilib ko‘rsatmoq,qoralamoq,inkor qilmoq
+303,die faule Ausrede,bema'ni bahona,dalil,haqiqat
+304,die Erwartung,kutilma,tasodif,xotira
+305,eine Erwartung wecken,umid uyg‘otmoq,xafa qilmoq,unutmoq
+306,in Wahrheit,aslida,taxminan,balki
+307,das Motiv,sabab,jarima,sovg‘a
+308,prosozial,ijtimoiy foydali,xavfli,befarq
+309,selbstsüchtig,xudbin,saxiy,yordamchi
+310,egoistisch,xudbin,mehribon,hamkor
+311,die Strategie,strategiya,tasodif,baxt
+312,die Überlebensstrategie,omon qolish strategiyasi,ta'til rejasi,ovqatlanish
+313,dienen zu,xizmat qilmoq,to‘sqinlik qilmoq,yashirmoq
+314,Beziehungen erhalten,munosabatlarni saqlamoq,buzmoq,uzmoq
+315,erleichtern,osonlashtirmoq,qiyinlashtirmoq,to‘xtatmoq
+316,sich positiv auswirken,ijobiy ta'sir qilmoq,zarar yetkazmoq,yo‘qotmoq
+317,das Zusammenleben,birga yashash,yolg‘izlik,sayohat
+318,das Miteinander,hamjihatlik,nizo,ajralish
+319,die Interaktion,o‘zaro ta'sir,yolg‘izlik,sukunat
+320,die Harmonie,uyg‘unlik,tartibsizlik,nizo
+321,zwischenmenschlich,insonlararo,texnik,sanoat
+322,zurechtkommen mit,eplamoq,mag‘lub bo‘lmoq,unutmoq
+323,sich verschaffen,qo‘lga kiritmoq,yo‘qotmoq,sotmoq
+324,sich einen Vorteil verschaffen,ustunlikka ega bo‘lmoq,mag‘lub bo‘lmoq,qochmoq
+325,anrichten,yetkazmoq,tuzatmoq,qurmoq
+326,Schaden anrichten,zarar yetkazmoq,yordam bermoq,himoya qilmoq
+327,verheimlichen,yashirmoq,oshkor qilmoq,tushuntirmoq
+328,die Schwäche,zaiflik,kuch,iste'dod
+329,abschwächen,susaytirmoq,kuchaytirmoq,oshirmoq
+330,sich darstellen,o‘zini ko‘rsatmoq,yashirmoq,qochmoq
+331,der Status,maqom,jarima,chipta
+332,sich auf etwas beschränken,cheklanmoq,kengaymoq,ko‘paymoq
+333,das Phänomen,hodisa,muammo,jarima
+334,das Tierreich,hayvonot dunyosi,o‘simliklar dunyosi,sanoat
+335,das Bemühen,sa'y-harakat,befarqlik,dangasalik
+336,verbreitet sein,keng tarqalgan bo‘lmoq,noyob bo‘lmoq,yo‘qolmoq
+337,das Übel,yomonlik,yaxshilik,mukofot
+338,lebensnotwendig,hayotiy zarur,ortiqcha,zararsiz
+339,der Forscher,tadqiqotchi,sotuvchi,haydovchi
+340,der Psychologe,psixolog,muhandis,oshpaz
+341,sehen in,deb bilmoq,rad etmoq,unutmoq
+342,verstehen unter,tushunmoq,inkor qilmoq,yashirmoq
+343,begeistert sein von,hayratda bo‘lmoq,befarq bo‘lmoq,xafa bo‘lmoq
+344,der Trick,hiyla,haqiqat,yordam
+345,einen Trick beherrschen,hiylani bilmoq,unutmoq,qochmoq
+346,die Trickserei,hiylakorlik,halollik,yordam
+347,vortäuschen,soxta ko‘rsatmoq,oshkor qilmoq,tasdiqlamoq
+348,sich tot stellen,o‘zini o‘likka solmoq,yugurib ketmoq,yashirinmoq
+349,anlocken,o‘ziga jalb qilmoq,qochirmoq,rad etmoq
+350,weglocken,olib ketmoq,qaytarib yubormoq,yashirmoq
+351,sich in Gefahr bringen,xavfga qo‘ymoq,himoya qilmoq,saqlab qolmoq
+352,der Wissenschaftler,olim,sotuvchi,haydovchi
+353,der Biologe,biolog,iqtisodchi,huquqshunos
+354,sich einig sein,kelishgan bo‘lmoq,bahs qilmoq,qarshi chiqmoq
+355,bewusst,ongli,beparvo,uyqusiragan
+356,der Beweggrund,sabab,jarima,sovg‘a
+357,die Tendenz,tendensiya,to‘xtash,teskari harakat
+358,die Grundtendenz,asosiy tendensiya,tasodif,hodisa
+359,betrachten,ko‘rib chiqmoq,unutmoq,yashirmoq
+360,sich schützen vor,himoyalanmoq,zarar yetkazmoq,to‘sqinlik qilmoq
+361,der Schutz,himoya,xavf,muammo
+362,der Selbstschutz,o‘zini himoya qilish,o‘zini ayblash,o‘zini yo‘qotish
+363,der Nachwuchs,avlod,nabira,qo‘shni
+364,der Nachkomme,avlod,viloyat,hamkasb
+365,materiell,moddiy,ma'naviy,rasmiy
+366,fördern,rag‘batlantirmoq,to‘xtatmoq,taqiqlamoq
+367,die Karriere,karera,ta'til,sayohat
+368,das Gen,gen,mushak,suyak
+369,die Fortpflanzung,ko‘payish,yo‘qolish,qurilish
+370,das Nest,uya,garaj,podval
+371,die Beute,o‘lja,sovg‘a,mukofot
+372,das Säugetier,sutemizuvchi,baliq,qush
+373,das Raubtier,yirtqich hayvon,uy hayvoni,qush
+374,der Hahn,xo‘roz,ot,sigir
+375,die Henne,tovuq,mushuk,it
+376,das Futter,yem,o‘yinchoq,kiyim
+377,fressen,yemoq,ichmoq,uxlamoq
+378,der Feind,dushman,do‘st,hamkor
+379,der Fressfeind,yirtqich dushman,yordamchi,qo‘shni
+380,leblos,jonsiz,tirik,faol
+381,das Revier,hudud,telefon,chipta
+382,verteidigen,himoya qilmoq,hujum qilmoq,yashirmoq
+383,das Geschrei,qichqiriq,sukunat,musiqa
+384,das Gebrüll,o‘kirish,pichirlash,suhbat
+385,abschrecken,qo‘rqitmoq,rag‘batlantirmoq,yordam bermoq
+386,die Abschreckung,qo‘rqitish,rag‘bat,mukofot
+387,sich verbergen,yashirinmoq,ko‘rinmoq,qatnashmoq
+388,die Beschwerde,shikoyat,minnatdorchilik,tabrik
+389,die Werbeanzeige,reklama e'loni,hisobot,shikoyat
+390,der Lieferumfang,yetkazib berish tarkibi,jarima,to‘lov
+391,der Adapter,adapter,batareya,monitor
+392,die Anleitung,qo‘llanma,jarima,hisobot
+393,die Bedienungsanleitung,foydalanish qo‘llanmasi,reklama,chipta
+394,das Kabel,kabel,quvur,arqon
+395,das Objektiv,obyektiv,mikrofon,monitor
+396,die Ausstattung,jihozlar,jarima,sovg‘a
+397,das Zubehör,aksessuarlar,chiqindi,qog‘oz
+398,fehlend,etishmayotgan,mavjud,to‘liq
+399,die Kreativität,ijodkorlik,befarqlik,dangasalik
+400,die Bestätigung,tasdiq,inkor,shubha
+401,die Bestellbestätigung,buyurtma tasdig‘i,reklama,jarima
+402,eintreffen bei,yetib kelmoq,yo‘qolib ketmoq,qaytib ketmoq
+403,zur Verfügung stellen,taqdim etmoq,yashirmoq,taqiqlamoq
+404,beifügen,ilova qilmoq,olib tashlamoq,yo‘qotmoq
+405,zusenden,yubormoq,saqlab qo‘ymoq,rad etmoq
+406,portofrei,pochta to‘lovisiz,pullik,kechiktirilgan
+407,einer Forderung nachkommen,talabni bajar moq,rad etmoq,unutmoq
+408,widerrufen,bekor qilmoq,tasdiqlamoq,yaratmoq
+409,der Widerruf,bekor qilish,tasdiqlash,mukofot
+410,der Betrag,summa,manzil,ko‘cha
+411,zurückbuchen,qaytarib o‘tkazmoq,to‘lab yubormoq,yashirmoq
+412,die Rücksendung,qaytarib yuborish,sotib olish,ta'mirlash
+413,der Zoll,bojxona,maktab,kasalxona
+414,die Zusatzkosten,qo‘shimcha xarajatlar,daromad,mukofot
+415,das Schaubild,diagramma,roman,qo‘shiq
+416,die Grafik,grafik,film,surat
+417,auswerten,tahlil qilmoq,yo‘qotmoq,yashirmoq
+418,betrachten,ko‘rib chiqmoq,unutmoq,qochmoq
+419,die Umfrage,so‘rovnoma,shikoyat,jarima
+420,repräsentativ,vakillik qiluvchi,tasodifiy,maxfiy
+421,auffällig,ko‘zga tashlanadigan,yashirin,oddiy
+422,der Proband,sinov ishtirokchisi,o‘qituvchi,haydovchi
+423,befragen,so‘roq qilmoq,sukut saqlamoq,inkor qilmoq
+424,die Ehrlichkeit,halollik,yolg‘onchilik,befarqlik
+425,ehrlich,halol,yolg‘onchi,makkor
+426,unehrlich,nohalol,halol,ochiq
+427,übertreiben,oshirib yubormoq,kamaytirmoq,aniqlashtirmoq
+428,aufmuntern,ruhlantirmoq,xafa qilmoq,qo‘rqitmoq
+429,Freude bereiten,xursand qilmoq,xafa qilmoq,aldamoq
+430,der Fleiß,tirishqoqlik,dangasalik,befarqlik
+431,das Engagement,faollik,befarqlik,zaiflik
+432,vermeiden,qochmoq,amalga oshirmoq,qo‘llab-quvvatlamoq
+433,in Ruhe lassen,tinch qo‘ymoq,bezovta qilmoq,ta'qib qilmoq
+434,Trost spenden,tasalli bermoq,qo‘rqitmoq,tanqid qilmoq
+435,ausgeben als,o‘zini deb ko‘rsatmoq,inkor qilmoq,yashirmoq
+436,die Lebenslüge,hayotiy yolg‘on,haqiqat,muvaffaqiyat
+437,bestehen,mavjud bo‘lmoq,yo‘qolmoq,to‘xtamoq
+438,der Bekanntenkreis,tanishlar doirasi,dushmanlar,qo‘shnilar
+439,die Körpersprache,tana tili,yozma nutq,telefon suhbati
+440,eine Rolle spielen,muhim rol o‘ynamoq,befarq bo‘lmoq,yashirinmoq
+441,digital,raqamli,analog,qog‘ozli
+442,die Digitalisierung,raqamlashtirish,eskilashtirish,qishloqlashtirish
+443,der Aspekt,jihat,jarima,manzil
+444,die Beratung,maslahat,xato,jarohat
+445,sich Beratung holen,maslahat olmoq,rad etmoq,qochmoq
+446,die Kreativität,ijodkorlik,dangasalik,befarqlik
+447,der Komfort,qulaylik,noqulaylik,xavf
+448,die Isolation,izolyatsiya,hamkorlik,muloqot
+449,die Verfügbarkeit,mavjudlik,tanqislik,yo‘qolish
+450,die Serie,serial,maqola,hisobot
+451,online,onlayn,oflayn,qog‘ozli
+452,das Online-Banking,onlayn bank xizmati,pochta xizmati,sug‘urta
+453,bloggen,blog yuritmoq,telefon qilmoq,suratga olmoq
+454,chatten,chatlashmoq,sukut saqlamoq,uxlamoq
+455,posten,post joylamoq,o‘chirib tashlamoq,yashirmoq
+456,simsen,SMS yozmoq,qo‘ng‘iroq qilmoq,uchrashmoq
+457,skypen,Skype orqali gaplashmoq,xat yozmoq,kitob o‘qimoq
+458,streamen,jonli uzatmoq,to‘xtatmoq,yashirmoq
+459,twittern,tvit yozmoq,qo‘ng‘iroq qilmoq,taqdimot qilmoq
+460,whatsappen,WhatsApp yozishmoq,xat yubormoq,surat chizmoq
+461,die App,ilova,dasturxat,shartnoma
+462,die Telemedizin,telemeditsina,stomatologiya,jarrohlik
+463,Telemedizin einsetzen,telemeditsinadan foydalanmoq,taqiqlamoq,yashirmoq
+464,E-Health,elektron sog‘liqni saqlash,qishloq xo‘jaligi,ta'lim
+465,die Technologie,texnologiya,san'at,musiqa
+466,die Telekommunikation,telekommunikatsiya,dehqonchilik,me'morchilik
+467,die Vernetzung,tarmoqlanish,ajralish,to‘xtash
+468,der Austausch,almashinuv,yolg‘izlik,sukunat
+469,der Datenaustausch,ma'lumot almashinuvi,kitob o‘qish,sayohat
+470,die Datenübermittlung,ma'lumot uzatish,yashirish,o‘chirish
+471,der Videochat,videochat,xat,maqola
+472,mobil,mobil,statsionar,doimiy
+473,der Nutzen,foyda,zarar,xavf
+474,der Einsatz,qo‘llanish,bekor qilish,to‘xtatish
+475,die Anwendung,qo‘llanilish,taqiq,rad etish
+476,der Bereich,soha,ko‘cha,telefon
+477,die Erkrankung,kasallik,sog‘liq,mukofot
+478,die Beschwerde,shikoyat,minnatdorchilik,tabrik
+479,das Symptom,alomat,davo,mukofot
+480,die Diagnose,diagnoz,davolash,jarrohlik
+481,die Diagnostik,diagnostika,sport,musiqa
+482,die Einschätzung,baholash,taxminiy manzil,sovg‘a
+483,einschätzen,baholamoq,yashirmoq,unutmoq
+484,die Therapie,terapiya,kasallik,simptom
+485,die Behandlung,davolash,jarima,ta'til
+486,räumlich getrennt,makon jihatdan ajratilgan,bir joyda,to‘plangan
+487,zeitlich versetzt,vaqt jihatdan farqli,bir vaqtda,darhol
+488,die Distanz,masofa,yaqinlik,aloqa
+489,die Zweitmeinung,ikkinchi mutaxassis fikri,birinchi urinish,qaror
+490,eine Zweitmeinung einholen,ikkinchi fikr olmoq,inkor qilmoq,rad etmoq
+491,der Spezialist,mutaxassis,havaskor,talaba
+492,einen Spezialisten hinzuziehen,mutaxassis jalb qilmoq,haydab yubormoq,rad etmoq
+493,ärztlich,shifokorga oid,sportga oid,sanoatga oid
+494,niedergelassen,amaliyot yurituvchi,nafaqadagi,ishsiz
+495,der niedergelassene Arzt,xususiy amaliyotdagi shifokor,talaba,o‘qituvchi
+496,aufsuchen,borib ko‘rmoq,qochmoq,yashirinmoq
+497,einen Arzt aufsuchen,shifokorga murojaat qilmoq,shifokordan qochmoq,uyda qolmoq
+498,konsultieren,maslahatlashmoq,inkor qilmoq,taqiqlamoq
+499,einen Arzt konsultieren,shifokor bilan maslahatlashmoq,aldamoq,yashirmoq
+500,ersetzen,almashtirmoq,saqlab qolmoq,yo‘qotmoq
+501,reduzieren,kamaytirmoq,oshirmoq,kuchaytirmoq
+502,ländlich,qishloqqa oid,shaharga oid,sanoatga oid
+503,der Notfall,shoshilinch holat,rejalashtirilgan tekshiruv,oddiy murojaat
+504,der Rettungswagen,tez yordam mashinasi,yong‘in mashinasi,jamoat transporti
+505,die Ambulanz,ambulatoriya,jarrohlik bo‘limi,reabilitatsiya markazi
+506,der Wartebereich,kutish zonasi,qabul xonasi,davolash xonasi
+507,die Wartezeit,kutish vaqti,ish vaqti,davolanish muddati
+508,überlaufen sein,haddan tashqari band bo‘lmoq,bo‘sh turmoq,yopiq bo‘lmoq
+509,gesetzlich,qonuniy,ixtiyoriy,norasmiy
+510,aufheben,bekor qilmoq,joriy qilmoq,kuchaytirmoq
+511,die Privatsphäre,shaxsiy hayot daxlsizligi,ommaviy oshkoralik,jamoat nazorati
+512,die Infrastruktur,infratuzilma,boshqaruv tizimi,huquqiy tartib
+513,vertrauen auf,ishonmoq,shubha qilmoq,rad etmoq
+514,die Akte,hujjatlar papkasi,hisobot,bayonot
+515,die Finanzen,moliya,aloqa tizimi,ishlab chiqarish
+516,der Diebstahl,o‘g‘rilik,talonchilik,firibgarlik
+517,die Manipulation,manipulyatsiya,xolislik,mustaqillik
+518,der Missbrauch,suiiste'mol,to‘g‘ri foydalanish,himoya qilish
+519,der Befragte,so‘rov ishtirokchisi,tadqiqotchi,kuzatuvchi
+520,kritisieren,tanqid qilmoq,maqtamoq,oqlamoq
+521,verloren gehen,yo‘qolib ketmoq,topilmoq,saqlanib qolmoq
+522,auf der Hand liegen,yaqqol bo‘lmoq,bahsli bo‘lmoq,noaniq bo‘lmoq
+523,sich beziehen auf,tegishli bo‘lmoq,chetga chiqmoq,bog‘liq bo‘lmaslik
+524,sich aussprechen für,qo‘llab-quvvatlamoq,qarshi chiqmoq,taqiqlashni talab qilmoq
+525,einführen,joriy qilmoq,bekor qilmoq,to‘xtatmoq
+526,sinnvoll,mazmunli,bema'ni,ortiqcha
+527,mithilfe von,yordamida,qaramay,o‘rniga
+528,allerdings,biroq,shuning uchun,natijada
+529,die Plattform,platforma,filial,yo‘nalish
+530,die Internetplattform,internet platforma,axborot markazi,ijtimoiy tarmoq
+531,das Event,tadbir,hodisa,jarayon
+532,die Veranstaltung,tadbir,yig‘ilish,marosim
+533,die Tagung,konferensiya,seminar,forum
+534,das Meeting,uchrashuv,muzokara,majlis
+535,die Location,tadbir o‘tkaziladigan joy,manzil,hudud
+536,die Eventlocation,tadbir maydoni,konferensiya markazi,ko‘rgazma zali
+537,die Buchung,bron qilish,ro‘yxatdan o‘tish,buyurtma berish
+538,die Messe,ko‘rgazma,yarmarka,taqdimot
+539,die Recruiting-Messe,ish yarmarkasi,ta'lim ko‘rgazmasi,biznes forumi
+540,die Präsentation,taqdimot,hisobot,ma'ruza
+541,präsentieren,taqdim qilmoq,namoyish qilmoq,tushuntirmoq
+542,die Geschäftsidee,biznes g‘oya,loyiha,reja
+543,der Hintergrund,asosiy sabab,sharoit,omil
+544,die Gründung,tashkil etish,boshlanish,rivojlanish
+545,der Gründer,asoschi,rahbar,tashkilotchi
+546,die Ausstattung,jihozlanish,ta'minot,infratuzilma
+547,die Bewirtung,mehmon qilish,xizmat ko‘rsatish,tashkillashtirish
+548,benötigen,kerak bo‘lmoq,talab qilmoq,ehtiyoj sezmoq
+549,recherchieren,tadqiq qilmoq,izlanmoq,ma'lumot to‘plamoq
+550,zeitintensiv,ko‘p vaqt talab qiluvchi,mehnat talab qiluvchi,murakkab
+551,das Konzept,konsept,reja,strategiya
+552,der Service,xizmat,qo‘llab-quvvatlash,yordam
+553,der Zusatzservice,qo‘shimcha xizmat,qo‘shimcha imkoniyat,qo‘shimcha taklif
+554,nutzen,foydalanmoq,qo‘llamoq,ishlatmoq
+555,auswählen,tanlamoq,saralamoq,ajratib olmoq
+556,passend,mos,munosib,to‘g‘ri keladigan
+557,die Privatperson,jismoniy shaxs,foydalanuvchi,mijoz
+558,die Entwicklung,rivojlanish,o‘zgarish,takomillashuv
+559,sich weiterentwickeln,rivojlanishda davom etmoq,takomillashmoq,o‘sib bormoq
+560,erweitern,kengaytirmoq,to‘ldirmoq,rivojlantirmoq
+561,das Angebot erweitern,taklifni kengaytirmoq,xizmatlarni ko‘paytirmoq,imkoniyatlarni oshirmoq
+562,ausweiten,ko‘lamini kengaytirmoq,keng yoymoq,rivojlantirmoq
+563,ausbauen,rivojlantirmoq,mustahkamlamoq,kengaytirmoq
+564,der Ausbau,kengaytirish,rivojlantirish,takomillashtirish
+565,ins Programm aufnehmen,dasturga kiritmoq,qo‘shmoq,jalb qilmoq
+566,expandieren,kengaymoq,o‘smoq,rivojlanmoq
+567,das Catering,katering,ovqat xizmati,ta'minot xizmati
+568,der Dienstleister,xizmat ko‘rsatuvchi,hamkor,ta'minotchi
+569,die Suche,qidiruv,izlanish,tekshiruv
+570,engagiert,faol,mas'uliyatli,tashabbuskor
+571,das Wachstum,o‘sish,rivojlanish,yuksalish
+572,mitgestalten,shakllantirishda qatnashmoq,ta'sir ko‘rsatmoq,ishtirok etmoq
+573,das Sales-Team,savdo jamoasi,sotuv bo‘limi,marketing guruhi
+574,der Bestandskunde,mavjud mijoz,doimiy mijoz,sodiq mijoz
+575,Bestandskunden pflegen,mijozlarni saqlab qolmoq,mijozlar bilan ishlamoq,mijozlarni qo‘llab-quvvatlamoq
+576,das Marketing,marketing,reklama faoliyati,bozor strategiyasi
+577,die Bekanntheit,taniqlilik,mashhurlik,obro‘
+578,die Internetpräsenz,internetdagi mavjudlik,onlayn faoliyat,raqamli imij
+579,die Zielgruppe,maqsadli auditoriya,mijozlar guruhi,foydalanuvchilar qatlami
+580,aus einer Hand,bir manbadan,kompleks tarzda,markazlashgan holda
+581,motivieren,motivatsiya bermoq,rag‘batlantirmoq,ilhomlantirmoq
+582,erfolgreich,muvaffaqiyatli,samarali,natijali
+583,das Smart Home,aqlli uy,avtomatlashtirilgan uy,raqamli boshqaruvli uy
+584,smart,aqlli,innovatsion,zamonaviy
+585,das Smartphone,smartfon,mobil qurilma,raqamli aloqa vositasi
+586,steuern,boshqarmoq,nazorat qilmoq,yo‘naltirmoq
+587,kontrollieren,nazorat qilmoq,tekshirmoq,kuzatmoq
+588,überwachen,kuzatib turmoq,nazorat ostida ushlamoq,monitoring qilmoq
+589,die Überwachung,nazorat,monitoring,kuzatuv
+590,der Sensor,sensor,o‘lchov qurilmasi,aniqlovchi moslama
+591,der Verbrauch,iste'mol,sarf-xarajat,foydalanish darajasi
+592,die Einsparung,tejash,xarajatni kamaytirish,resurslarni asrash
+593,der Einbruch,o‘g‘irlik bilan kirish,noqonuniy kirish,bostirib kirish
+594,der Einbrecher,o‘g‘ri,jinoyatchi,qaroqchi
+595,der Brand,yong‘in,olov hodisasi,yonish
+596,die Nutzung,foydalanish,qo‘llanish,ishlatish
+597,hinterlassen,qoldirmoq,iz qoldirmoq,meros qoldirmoq
+598,hacken,xakerlik qilmoq,tizimga noqonuniy kirish,xavfsizlikni buzmoq
+599,missbrauchen,suiiste'mol qilmoq,noto‘g‘ri foydalanmoq,maqsaddan tashqari ishlatmoq
+600,die Anschaffung,xarid qilish,sotib olish,qo‘lga kiritish
+601,die Datensicherheit,ma'lumotlar xavfsizligi,maxfiylik siyosati,axborot almashinuvi
+602,der Datenschutz,ma'lumotlarni himoya qilish,foydalanish huquqi,ommaviy foydalanish
+603,die Verschlüsselung,shifrlash,kodlash tizimi,ma'lumot uzatish
+604,verschlüsseln,shifrlamoq,kodlamoq,himoyalamoq
+605,die Sicherheitlücke,xavfsizlikdagi zaiflik,tizim yangilanishi,dastur xatosi
+606,der Zugriff,kirish huquqi,foydalanish imkoniyati,boshqaruv tizimi
+607,zugreifen auf,kirish imkoniga ega bo‘lmoq,foydalanmoq,boshqarmoq
+608,die Berechtigung,ruxsat,vakolat,huquq
+609,freigeben,ruxsat bermoq,tasdiqlamoq,faollashtirmoq
+610,sperren,bloklamoq,cheklamoq,taqiqlamoq
+611,die Sperre,bloklash,cheklov,taqiq
+612,die Benutzeroberfläche,foydalanuvchi interfeysi,boshqaruv paneli,dastur muhiti
+613,anwenderfreundlich,foydalanuvchi uchun qulay,amaliy,zamonaviy
+614,kompliziert,murakkab,serqatlam,qiyin
+615,vereinfachen,soddalashtirmoq,yengillashtirmoq,optimizatsiya qilmoq
+616,die Funktion,funksiya,vazifa,imkoniyat
+617,die Anwendungsmöglichkeit,qo‘llash imkoniyati,foydalanish sohasi,amaliyot turi
+618,effizient,samarali,unumdor,ta'sirchan
+619,die Effizienz,samaradorlik,unumdorlik,natijadorlik
+620,optimieren,optimizatsiya qilmoq,takomillashtirmoq,yaxshilamoq
+621,die Optimierung,takomillashtirish,rivojlantirish,yaxshilash
+622,automatisch,avtomatik,mustaqil,raqamli
+623,automatisieren,avtomatlashtirmoq,raqamlashtirmoq,boshqarmoq
+624,die Automatisierung,avtomatlashtirish,raqamlashtirish,takomillashtirish
+625,die Innovation,innovatsiya,yangilik,rivojlanish
+626,innovativ,innovatsion,zamonaviy,ilg‘or
+627,fortschrittlich,ilg‘or,zamonaviy,rivojlangan
+628,der Fortschritt,taraqqiyot,rivojlanish,yuksalish
+629,sich verbessern,yaxshilanmoq,rivojlanmoq,takomillashmoq
+630,die Verbesserung,yaxshilanish,takomillashuv,rivojlanish
+631,die Möglichkeit,imkoniyat,variant,yechim
+632,möglich qilmoq,imkon yaratmoq,ta'minlamoq,amalga oshirmoq
+633,realisieren,amalga oshirmoq,ro‘yobga chiqarmoq,bajarib qo‘ymoq
+634,die Umsetzung,amalga oshirish,joriy etish,bajarish
+635,einsetzen,qo‘llamoq,ishlatmoq,joriy qilmoq
+636,der Einsatz,qo‘llash,foydalanish,joriy etish
+637,verfügbar,mavjud,foydalanish mumkin,ochiq
+638,die Verfügbarkeit,mavjudlik,ochiqlik,foydalanish imkoniyati
+639,zugänglich,kirish mumkin,ochiq,erishish mumkin
+640,die Zugänglichkeit,kirish imkoniyati,foydalanish qulayligi,ochiqlik
+641,die Herausforderung,qiyinchilik,muammo,sinov
+642,herausfordernd,murakkab,talabchan,qiyin
+643,bewältigen,eplamoq,bartaraf etmoq,yengib o‘tmoq
+644,die Lösung,yechim,chora,variant
+645,lösen,hal qilmoq,bartaraf etmoq,yechmoq
+646,die Strategie,strategiya,reja,yondashuv
+647,strategisch,strategik,rejalashtirilgan,maqsadli
+648,die Planung,rejalashtirish,loyihalash,tashkillashtirish
+649,planen,rejalashtirmoq,ko‘zda tutmoq,tashkil qilmoq
+650,langfristig,uzoq muddatli,barqaror,kelajakka qaratilgan
+651,kurzfristig,qisqa muddatli,tezkor,vaqtinchalik
+652,nachhaltig,barqaror,uzoq muddatli,ekologik
+653,die Nachhaltigkeit,barqarorlik,uzoq muddatlilik,ekologik yondashuv
+654,die Ressource,resurs,manba,zaxira
+655,Ressourcen sparen,resurslarni tejamoq,xarajatlarni kamaytirmoq,samaradorlikni oshirmoq
+656,der Verbrauch,sarf,iste'mol,foydalanish
+657,verbrauchen,sarflamoq,iste'mol qilmoq,ishlatmoq
+658,die Umwelt,atrof-muhit,tabiat,ekotizim
+659,umweltfreundlich,ekologik xavfsiz,tabiatga zarar yetkazmaydigan,barqaror
+660,die Umweltbelastung,atrof-muhitga zarar,ekologik muammo,ifloslanish
+661,verursachen,sabab bo‘lmoq,keltirib chiqarmoq,yuzaga keltirmoq
+662,die Ursache,sabab,omil,manba
+663,die Folge,oqibat,natija,ta'sir
+664,auswirken ta'sir qilmoq,natija bermoq,aks etmoq
+665,der Einfluss,ta'sir,ta'sir kuchi,omil
+666,beeinflussen,ta'sir qilmoq,o‘zgartirmoq,yo‘naltirmoq
+667,verändern,o‘zgartirmoq,moslashtirmoq,takomillashtirmoq
+668,die Veränderung,o‘zgarish,takomillashuv,rivojlanish
+669,sich anpassen,moslashmoq,ko‘nikmoq,uyg‘unlashmoq
+670,die Anpassung,moslashuv,uyg‘unlashuv,o‘zlashtirish
+671,flexibel,moslashuvchan,egiluvchan,qulay
+672,die Flexibilität,moslashuvchanlik,erkinlik,qulaylik
+673,die Voraussetzung,shart,talab,asos
+674,voraussetzen,talab qilmoq,shart qilib qo‘ymoq,nazarda tutmoq
+675,erforderlich,zarur,kerakli,majburiy
+676,notwendig,zarur,muhim,kerakli
+677,die Bedingung,shart,talab,mezon
+678,abhängig von,bog‘liq,ta'sir ostida,aloqador
+679,unabhängig,mustaqil,erkin,avtonom
+680,die Unabhängigkeit,mustaqillik,erkinlik,avtonomiya
+681,verantwortlich,mas'ul,javobgar,vakolatli
+682,die Verantwortung,mas'uliyat,javobgarlik,vakolat
+683,übernehmen,qabul qilmoq,zimmasiga olmoq,bajarishni boshlamoq
+684,entscheiden,qaror qilmoq,tanlamoq,xulosa qilmoq
+685,die Entscheidung,qaror,tanlov,xulosa
+686,entschlossen,qat'iyatli,ishonchli,barqaror
+687,die Erfahrung,tajriba,amaliy bilim,ko‘nikma
+688,erfahren,tajriba orttirmoq,bilib olmoq,his qilmoq
+689,kompetent,malakali,bilimli,tajribali
+690,die Kompetenz,kompetensiya,malaka,salohiyat
+691,qualifiziert,malakali,tayyorlangan,mutaxassis
+692,die Qualifikation,malaka,salohiyat,tayyorgarlik
+693,die Fähigkeit,qobiliyat,ko‘nikma,salohiyat
+694,fähig sein,qodir bo‘lmoq,eplay olmoq,bajara olmoq
+695,entwickeln,rivojlantirmoq,takomillashtirmoq,shakllantirmoq
+696,fördern,qo‘llab-quvvatlamoq,rag‘batlantirmoq,rivojlantirmoq
+697,unterstützen,yordam bermoq,qo‘llab-quvvatlamoq,ko‘maklashmoq
+698,ermöglichen,imkon yaratmoq,ta'minlamoq,yo‘l ochib bermoq
+699,erreichen,erishmoq,qo‘lga kiritmoq,amalga oshirmoq
+700,das Ziel,maqsad,vazifa,mo‘ljal
+701,die Zielsetzung,maqsadni belgilash,rejalashtirish,nazorat
+702,festlegen,belgilamoq,tekshirmoq,baholamoq
+703,vereinbaren,kelishib olmoq,rad etmoq,to‘xtatmoq
+704,die Vereinbarung,kelishuv,shikoyat,hisobot
+705,berücksichtigen,hisobga olmoq,inkor qilmoq,chetlab o‘tmoq
+706,beachten,e'tibor bermoq,unutmoq,rad etmoq
+707,vernachlässigen,e'tiborsiz qoldirmoq,qo‘llab-quvvatlamoq,rag‘batlantirmoq
+708,betreffen,taalluqli bo‘lmoq,istisno qilmoq,rad etmoq
+709,die Beteiligung,ishtirok,cheklov,nazorat
+710,beteiligen sich,ishtirok etmoq,voz kechmoq,to‘xtatmoq
+711,die Zusammenarbeit,hamkorlik,raqobat,qarama-qarshilik
+712,kooperieren,hamkorlik qilmoq,bahs yuritmoq,rad etmoq
+713,abstimmen,kelishmoq,inkor qilmoq,kechiktirmoq
+714,die Abstimmung,muvofiqlashtirish,taqiq,nazorat
+715,austauschen,fikr almashmoq,yashirmoq,to‘xtatmoq
+716,die Kommunikation,muloqot,izolyatsiya,sukut
+717,kommunizieren,muloqot qilmoq,yashirinmoq,rad etmoq
+718,überzeugen,ishontirmoq,chalg‘itmoq,inkor qilmoq
+719,die Überzeugung,ishonch,shubha,ikkilanish
+720,glaubwürdig,ishonchli,shubhali,noma'lum
+721,die Glaubwürdigkeit,ishonchlilik,shubha,noaniqlik
+722,behaupten,ta'kidlamoq,inkor qilmoq,yashirmoq
+723,die Behauptung,da'vo,inkor,shubha
+724,nachweisen,isbotlamoq,taxmin qilmoq,inkor qilmoq
+725,der Nachweis,isbot,dalil taxmini,shubha
+726,belegen,dalillamoq,yashirmoq,to‘xtatmoq
+727,das Argument,dalil,taxmin,his-tuyg‘u
+728,argumentieren,dalil keltirmoq,inkor qilmoq,chalg‘itmoq
+729,die Begründung,asoslash,rad etish,taxmin
+730,begründen,asoslamoq,inkor qilmoq,yashirmoq
+731,die Meinung,fikr,dalil,isbot
+732,vertreten,himoya qilmoq,rad etmoq,yashirmoq
+733,der Standpunkt,nuqtai nazar,qarama-qarshilik,taqiq
+734,die Perspektive,qarash burchagi,to‘siq,cheklov
+735,betonen,ta'kidlamoq,yashirmoq,pasaytirmoq
+736,hervorheben,alohida ta'kidlamoq,inkor qilmoq,kamaytirmoq
+737,deutlich machen,aniq ko‘rsatmoq,chalg‘itmoq,yashirmoq
+738,verdeutlichen,aniqlashtirmoq,murakkablashtirmoq,yashirmoq
+739,erklären,tushuntirmoq,inkor qilmoq,to‘xtatmoq
+740,die Erklärung,tushuntirish,shikoyat,taqiq
+741,beschreiben,tavsiflamoq,inkor qilmoq,yashirmoq
+742,die Beschreibung,tavsif,taqiq,hisobot
+743,darstellen,ko‘rsatmoq,yashirmoq,rad etmoq
+744,die Darstellung,tasvir,taxmin,shubha
+745,vergleichen,taqqoslamoq,ajratmoq,yashirmoq
+746,der Vergleich,taqqoslash,izolyatsiya,taqiq
+747,unterscheiden,farqlamoq,birlashtirmoq,aralashtirmoq
+748,der Unterschied,farq,o‘xshashlik,tenglik
+749,ähnlich,o‘xshash,qarama-qarshi,mos emas
+750,die Gemeinsamkeit,umumiylik,farq,qarama-qarshilik
+751,die Eigenschaft,xususiyat,muammo,to‘siq
+752,charakteristisch,xos bo‘lgan,tasodifiy,noma'lum
+753,typisch,xos,istisno,noyob
+754,auffallen,ko‘zga tashlanmoq,yashirin qolmoq,yo‘qolmoq
+755,bemerken,sezmoq,e'tiborsiz qoldirmoq,unutmoq
+756,beobachten,kuzatmoq,inkor qilmoq,yashirmoq
+757,die Beobachtung,kuzatish,taxmin,shubha
+758,feststellen,aniqlamoq,taxmin qilmoq,yashirmoq
+759,die Feststellung,aniqlash,inkor,taxmin
+760,erkennen,anglamoq,yashirmoq,unutmoq
+761,die Erkenntnis,xulosa,shubha,inkor
+762,untersuchen,tadqiq qilmoq,yashirmoq,to‘xtatmoq
+763,die Untersuchung,tadqiqot,taqiq,shikoyat
+764,erforschen,o‘rganmoq,inkor qilmoq,yashirmoq
+765,die Forschung,ilmiy tadqiqot,nazorat,taqiq
+766,analysieren,tahlil qilmoq,taxmin qilmoq,yashirmoq
+767,die Analyse,tahlil,shubha,his-tuyg‘u
+768,bewerten,baholamoq,inkor qilmoq,chetlab o‘tmoq
+769,die Bewertung,baholash,taqiq,shubha
+770,beurteilen,xulosa bermoq,yashirmoq,rad etmoq
+771,die Beurteilung,baho,xato taxmin,shubha
+772,einschätzen,baholamoq,inkor qilmoq,to‘xtatmoq
+773,die Einschätzung,baholash,taxmin,shikoyat
+774,kritisieren,tanqid qilmoq,maqtamoq,oqlamoq
+775,die Kritik,tanqid,maqtov,oqlash
+776,loben,maqtamoq,tanqid qilmoq,inkor qilmoq
+777,die Anerkennung,e'tirof,rad etish,taqiq
+778,würdigen,qadrlamoq,pasaytirmoq,inkor qilmoq
+779,respektieren,hurmat qilmoq,kamsitmoq,inkor qilmoq
+780,der Respekt,hurmat,kamsitish,befarqlik
+781,tolerieren,bag‘rikenglik qilmoq,taqiqlamoq,rad etmoq
+782,die Toleranz,bag‘rikenglik,murosasizlik,qarshilik
+783,akzeptieren,qabul qilmoq,inkor qilmoq,taqiqlamoq
+784,die Akzeptanz,qabul qilish,rad etish,qarshilik
+785,ablehnen,rad etmoq,qabul qilmoq,qo‘llab-quvvatlamoq
+786,die Ablehnung,rad etish,qabul qilish,rozilik
+787,zustimmen,rozi bo‘lmoq,qarshi chiqmoq,inkor qilmoq
+788,die Zustimmung,rozilik,qarshilik,taqiq
+789,widersprechen,qarshi chiqmoq,qo‘llab-quvvatlamoq,tasdiqlamoq
+790,der Widerspruch,qarama-qarshilik,rozilik,kelishuv
+791,diskutieren,muhokama qilmoq,yashirmoq,inkor qilmoq
+792,die Diskussion,muhokama,sukut,izolyatsiya
+793,sich einigen,kelishmoq,bahsni davom ettirmoq,rad etmoq
+794,die Einigung,kelishuv,nizo,qarama-qarshilik
+795,verhandeln,muzokara olib bormoq,taqiqlamoq,inkor qilmoq
+796,die Verhandlung,muzokara,taqiq,shikoyat
+797,der Kompromiss,murosa,qarama-qarshilik,taqiq
+798,einen Kompromiss eingehen,murosaga kelmoq,qarshi chiqmoq,rad etmoq
+799,die Lösung,yechim,to‘siq,muammo
+800,das Ergebnis,natija,sabab,taxmin
+801,erzielen,erishmoq,yo‘qotmoq,kechiktirmoq
+802,der Erfolg,muvaffaqiyat,mag‘lubiyat,to‘siq
+803,erfolgreich sein,muvaffaqiyatga erishmoq,muvaffaqiyatsiz bo‘lmoq,rad etilmoq
+804,scheitern,muvaffaqiyatsizlikka uchramoq,muvaffaqiyat qozonmoq,amalga oshirmoq
+805,das Scheitern,muvaffaqiyatsizlik,yutuq,imkoniyat
+806,verhindern,oldini olmoq,rag‘batlantirmoq,qabul qilmoq
+807,die Verhinderung,oldini olish,rivojlantirish,qo‘llab-quvvatlash
+808,ermöglichen,imkon yaratmoq,to‘sqinlik qilmoq,taqiqlamoq
+809,die Möglichkeit,imkoniyat,to‘siq,cheklov
+810,nutzen,foydalanmoq,rad etmoq,chetlab o‘tmoq
+811,der Nutzen,foyda,zarar,kamchilik
+812,vorteilhaft,foydali,zararli,noqulay
+813,der Vorteil,afzallik,kamchilik,to‘siq
+814,nachteilig,salbiy,foydali,qulay
+815,der Nachteil,kamchilik,afzallik,yutuq
+816,profitieren von,foyda ko‘rmoq,zarar ko‘rmoq,voz kechmoq
+817,der Profit,foyda,zarar,xarajat
+818,schaden,zarar yetkazmoq,yordam bermoq,qo‘llab-quvvatlamoq
+819,der Schaden,zarar,foyda,yutuq
+820,schädlich,zararli,foydali,xavfsiz
+821,nützlich,foydali,zararli,ortiqcha
+822,überflüssig,ortiqcha,zarur,muhim
+823,wichtig,muhim,ahamiyatsiz,keraksiz
+824,bedeutsam,ahamiyatli,mayda,noma'lum
+825,die Bedeutung,ahamiyat,befoydalik,cheklov
+826,bedeuten,anglatmoq,inkor qilmoq,yashirmoq
+827,entscheidend,hal qiluvchi,ikkinchi darajali,ahamiyatsiz
+828,maßgeblich,asosiy ta'sir ko‘rsatuvchi,cheklangan,befoyda
+829,relevant,muhim,aloqasiz,ortiqcha
+830,irrelevant,aloqasiz,muhim,asosiy
+831,wesentlich,muhim,ikkinchi darajali,keraksiz
+832,unwesentlich,ahamiyatsiz,muhim,hal qiluvchi
+833,die Ursache,sabab,oqibat,natija
+834,verursachen,sabab bo‘lmoq,bartaraf etmoq,oldini olmoq
+835,auslösen,keltirib chiqarmoq,to‘xtatmoq,kamaytirmoq
+836,die Auswirkung,ta'sir,sabab,sharoit
+837,die Folge,oqibat,sabab,imkoniyat
+838,folgen aus,natijasi bo‘lmoq,oldini olmoq,inkor qilmoq
+839,führen zu,olib kelmoq,to‘sqinlik qilmoq,bekor qilmoq
+840,daher,shu sababli,bunga qaramay,biroq
+841,deshalb,shuning uchun,aksincha,ammo
+842,folglich,natijada,taxminan,balki
+843,demzufolge,shundan kelib chiqib,unga qaramay,aks holda
+844,trotzdem,shunga qaramay,shuning uchun,natijada
+845,dennoch,baribir,natijada,shu sababli
+846,jedoch,biroq,shuning uchun,demak
+847,hingegen,aksincha,shuningdek,natijada
+848,während,holbuki,shuning uchun,demak
+849,einerseits,bir tomondan,aksincha,natijada
+850,andererseits,boshqa tomondan,shuningdek,shuning uchun
+851,zusätzlich,qo‘shimcha ravishda,buning o‘rniga,aks holda
+852,darüber hinaus,bundan tashqari,buning natijasida,shunga qaramay
+853,außerdem,undan tashqari,aksincha,baribir
+854,ergänzen,to‘ldirmoq,qisqartirmoq,inkor qilmoq
+855,die Ergänzung,to‘ldirish,qisqartirish,taqiq
+856,erweitern,kengaytirmoq,toraytirmoq,cheklamoq
+857,die Erweiterung,kengaytirish,cheklash,qisqartirish
+858,vergrößern,kattalashtirmoq,kichraytirmoq,kamaytirmoq
+859,verkleinern,kichraytirmoq,kattalashtirmoq,kuchaytirmoq
+860,steigern,oshirmoq,kamaytirmoq,pasaytirmoq
+861,die Steigerung,o‘sish,pasayish,qisqarish
+862,erhöhen,ko‘tarmoq,kamaytirmoq,cheklamoq
+863,senken,pasaytirmoq,oshirmoq,kuchaytirmoq
+864,abnehmen,kamaymoq,ko‘paymoq,oshmoq
+865,zunehmen,ortmoq,kamaymoq,pasaymoq
+866,die Zunahme,o‘sish,kamayish,to‘xtash
+867,der Rückgang,pasayish,o‘sish,yuksalish
+868,verringern,kamaytirmoq,ko‘paytirmoq,kengaytirmoq
+869,die Verringerung,kamayish,o‘sish,kengayish
+870,verbessern,yaxshilamoq,yomonlashtirmoq,cheklamoq
+871,die Verbesserung,yaxshilanish,yomonlashish,to‘xtash
+872,verschlechtern,yomonlashtirmoq,yaxshilamoq,rivojlantirmoq
+873,die Verschlechterung,yomonlashish,yaxshilanish,o‘sish
+874,entwickeln,rivojlantirmoq,to‘xtatmoq,cheklamoq
+875,die Entwicklung,rivojlanish,turg‘unlik,pasayish
+876,fortsetzen,davom ettirmoq,to‘xtatmoq,bekor qilmoq
+877,unterbrechen,to‘xtatib qo‘ymoq,davom ettirmoq,qo‘llab-quvvatlamoq
+878,beenden,yakunlamoq,boshlamoq,davom ettirmoq
+879,abschließen,yakunlamoq,to‘xtatib qo‘ymoq,kechiktirmoq
+880,das Ende,yakun,boshlanish,jarayon
+881,der Anfang,boshlanish,yakun,oqibat
+882,beginnen,boshlamoq,yakunlamoq,to‘xtatmoq
+883,starten,boshlamoq,to‘xtatmoq,bekor qilmoq
+884,fortfahren,davom ettirmoq,yakunlamoq,rad etmoq
+885,weiterführen,davom ettirmoq,to‘xtatmoq,bekor qilmoq
+886,erreichen,erishmoq,yo‘qotmoq,kechiktirmoq
+887,das Ziel,maqsad,to‘siq,cheklov
+888,anstreben,intilmoq,voz kechmoq,rad etmoq
+889,verwirklichen,ro‘yobga chiqarmoq,to‘xtatmoq,inkor qilmoq
+890,realisieren,amalga oshirmoq,kechiktirmoq,bekor qilmoq
+891,die Verwirklichung,ro‘yobga chiqarish,bekor qilish,cheklash
+892,der Fortschritt,taraqqiyot,turg‘unlik,pasayish
+893,fortschrittlich,ilg‘or,eskirgan,orqada qolgan
+894,modern,zamonaviy,eskicha,qadimiy
+895,zeitgemäß,zamonga mos,eskirgan,nomaqbul
+896,veraltet,eskirgan,zamonaviy,ilg‘or
+897,traditionell,an'anaviy,zamonaviy,innovatsion
+898,innovativ,innovatsion,eskirgan,an'anaviy
+899,die Innovation,innovatsiya,an'ana,odat
+900,erneuern,yangilamoq,eskirtirmoq,cheklamoq
+901,die Staatsbürgerschaft,fuqarolik,yashash ruxsati,viza
+902,eingebürgert werden,fuqarolik olmoq,mamlakatni tark etmoq,viza uzaytirmoq
+903,die Schullaufbahn,ta'lim yo‘li,kasbiy faoliyat,sayohat rejasi
+904,der Schulabschluss,maktab diplomi,ish shartnomasi,ro‘yxatdan o‘tish
+905,die Berufsausbildung,kasb-hunar ta'limi,oliy tadqiqot,malaka oshirish kursi
+906,das Abitur,abitur attestati,kasb guvohnomasi,til sertifikati
+907,das Diplom,diplom,ariza,hisobot
+908,die Promotion,doktorlik,stajirovka,kasbiy tayyorgarlik
+909,die Habilitation,habilitatsiya,attestatsiya,amaliyot
+910,die Partnersuche,sherik izlash,ish qidirish,uy qidirish
+911,der Ehepartner,turmush o‘rtog‘i,hamkasb,qo‘shni
+912,die Scheidung,ajrashish,nikoh,unashtirish
+913,geschieden,ajrashgan,turmush qurgan,bo‘ydoq
+914,verwitwet,beva qolgan,ajrashgan,unashtirilgan
+915,ehrgeizig,maqsadga intiluvchi,befarq,ikkilanuvchi
+916,die Theorie,nazariya,amaliyot,xulosa
+917,entdecken,kashf etmoq,yashirmoq,inkor qilmoq
+918,gründen,asos solmoq,yopmoq,tarqatib yubormoq
+919,übersetzen,tarjima qilmoq,qisqartirmoq,tahrir qilmoq
+920,sorgen für,ta'minlamoq,to‘sqinlik qilmoq,rad etmoq
+921,die Innenstadt,shahar markazi,sanoat hududi,chekka qishloq
+922,die Wohngegend,yashash hududi,ish joyi,savdo markazi
+923,die Miete,ijara haqi,mulk solig‘i,kommunal to‘lov
+924,großzügig,keng va qulay,tor va noqulay,eskirgan
+925,die Wohnfläche,yashash maydoni,ishlab chiqarish maydoni,park hududi
+926,die Unterkunft,turar joy,ish joyi,dam olish maskani
+927,buchen,bron qilmoq,bekor qilmoq,qaytarib bermoq
+928,die Reisevorbereitung,sayohatga tayyorgarlik,xizmat ko‘rsatish,hisobot tayyorlash
+929,der Reisende,sayyoh,mehmonxona egasi,gid
+930,die Pauschalreise,paket sayohat,xizmat safari,bir kunlik ekskursiya
+931,stornieren,bekor qilmoq,tasdiqlamoq,uzaytirmoq
+932,die Reservierung,bron qilish,buyurtmani bekor qilish,hisob-kitob
+933,die Unterkunftskosten,turar joy xarajatlari,transport xarajatlari,sug‘urta badali
+934,der Hotelgast,mehmonxona mijozi,mehmonxona egasi,xodim
+935,die Rezeption,resepshn,qabul komissiyasi,ma'lumot markazi
+936,einchecken,ro‘yxatdan o‘tmoq,chiqib ketmoq,rezervatsiyani bekor qilmoq
+937,auschecken,mehmonxonadan chiqmoq,ro‘yxatdan o‘tmoq,joy band qilmoq
+938,die Sehenswürdigkeit,diqqatga sazovor joy,sanoat korxonasi,turar joy
+939,besichtigen,tomosha qilmoq,sotib olmoq,ta'mirlamoq
+940,die Küste,sohil,tog‘ tizmasi,o‘rmon hududi
+941,die Insel,orol,yarimorol,ko‘rfaz
+942,die Bevölkerung,aholi,sayyohlar,ishchilar
+943,der Ausländer,chet ellik,mahalliy fuqaro,qochoq
+944,die Integration,integratsiya,ajralish,izolyatsiya
+945,sich integrieren,jamiyatga moslashmoq,ajralib qolmoq,rad etilmoq
+946,die Gewohnheit,odat,majburiyat,qoida
+947,sich gewöhnen an,ko‘nikmoq,qarshi chiqmoq,voz kechmoq
+948,die Herausforderung,sinov,qulaylik,imkoniyat
+949,bewältigen,yengib o‘tmoq,kechiktirmoq,to‘xtatmoq
+950,die Kultur,madaniyat,qonunchilik,sanoat
+951,der Brauch,urf-odat,rasmiy hujjat,majburiyat
+952,die Tradition,an'ana,innovatsiya,eksperiment
+953,traditionell,an'anaviy,zamonaviy,inqilobiy
+954,die Sitte,urf-odat,taqiq,ruxsatnoma
+955,respektvoll,hurmat bilan,befarq,takabbur
+956,die Begegnung,uchrashuv,ajrashish,kelishmovchilik
+957,pflegen (Kontakt),aloqani saqlamoq,uzib qo‘ymoq,chetlab o‘tmoq
+958,die Fremdsprache,chet tili,ona tili,lahja
+959,mehrsprachig,ko‘p tilli,bir tilli,savodsiz
+960,die Muttersprache,ona tili,chet tili,rasmiy til
+961,der Dialekt,lahja,adabiy til,rasmiy uslub
+962,die Herkunft,kelib chiqish,kelajak rejasi,tajriba
+963,stammen aus,kelib chiqmoq,ko‘chib ketmoq,voz kechmoq
+964,die Identität,shaxsiyat,o‘xshashlik,qaramlik
+965,bewahren,saqlab qolmoq,yo‘qotmoq,bekor qilmoq
+966,aufgeben,voz kechmoq,saqlab qolmoq,rivojlantirmoq
+967,die Anpassung,moslashuv,qarshilik,ajralish
+968,sich anpassen,moslashmoq,inkor qilmoq,ajralib chiqmoq
+969,die Vielfalt,xilma-xillik,bir xillik,cheklanish
+970,vielfältig,xilma-xil,bir xil,tor doirali
+971,die Herkunftskultur,kelib chiqish madaniyati,ish madaniyati,siyosiy tizim
+972,die Lebensweise,turmush tarzi,ish tartibi,sayohat rejasi
+973,die Gemeinschaft,jamoa,yolg‘izlik,qarama-qarshilik
+974,dazugehören,bir qismi bo‘lmoq,chetlatilmoq,rad etilmoq
+975,die Zugehörigkeit,mansublik,begonalik,izolyatsiya
+976,sich wohlfühlen,o‘zini yaxshi his qilmoq,xavotirlanmoq,qiynalmoq
+977,die Heimat,vatan,chet el,sayohat manzili
+978,heimisch,mahalliy,begona,chet ellik
+979,sich niederlassen,doimiy yashab qolmoq,ko‘chib ketmoq,sayohat qilmoq
+980,der Wohnsitz,yashash manzili,ish joyi,dam olish maskani
+981,umziehen,ko‘chib o‘tmoq,qaytib kelmoq,sayohat qilmoq
+982,die Umgebung,atrof-muhit,ichki tuzilma,markaz
+983,vertraut,tanish,begona,noma'lum
+984,fremd,begona,tanish,mahalliy
+985,die Orientierung,yo‘nalishni aniqlash,izolyatsiya,qarama-qarshilik
+986,sich orientieren,yo‘l topmoq,adashib qolmoq,voz kechmoq
+987,die Erfahrung,tajriba,nazariya,taxmin
+988,Erfahrungen sammeln,tajriba orttirmoq,xatolarni takrorlamoq,voz kechmoq
+989,die Erinnerung,xotira,reja,taxmin
+990,sich erinnern an,eslamoq,unutmoq,inkor qilmoq
+991,prägen,shakllantirmoq,yo‘q qilmoq,bekor qilmoq
+992,der Einfluss,ta'sir,cheklov,to‘siq
+993,beeinflussen,ta'sir qilmoq,e'tiborsiz qoldirmoq,rad etmoq
+994,die Einstellung,munosabat,majburiyat,shart
+995,offen sein für,ochiq bo‘lmoq,qarshi chiqmoq,inkor qilmoq
+996,tolerant,bag‘rikeng,murosasiz,talabchan
+997,die Toleranz,bag‘rikenglik,qarshilik,taqiq
+998,akzeptieren,qabul qilmoq,rad etmoq,taqiqlamoq
+999,die Akzeptanz,qabul qilish,inkor etish,qarshilik
+1000,sich einleben,moslashib ketmoq,ajralib qolmoq,voz kechmoq
+1001,die Überstunde,qo‘shimcha ish soati,ta'til kuni,sinov muddati
+1002,Überstunden machen,qo‘shimcha ishlamoq,erta ketmoq,ta'til olmoq
+1003,der Freizeitausgleich,qo‘shimcha ish uchun dam olish kompensatsiyasi,maosh oshirilishi,lavozim ko‘tarilishi
+1004,die Arbeitszeit,ish vaqti,ta'til davri,sinov muddati
+1005,die Teilzeit,qisman bandlik,to‘liq bandlik,vaqtinchalik ish
+1006,die Vollzeit,to‘liq bandlik,qisman bandlik,mavsumiy ish
+1007,die Schichtarbeit,smenali ish,masofaviy ish,ko‘ngilli faoliyat
+1008,der Feierabend,ishdan keyingi bo‘sh vaqt,qo‘shimcha ish,sinov muddati
+1009,in Rente gehen,nafaqaga chiqmoq,ishga kirishmoq,lavozim oshirmoq
+1010,die Rente,nafaqa,stipendiya,mukofot
+1011,der Rentner,nafaqaxo‘r,stajyor,amaliyotchi
+1012,die Bewerbung,ish arizasi,hisobot,shikoyat
+1013,sich bewerben um,ariza topshirmoq,rad etmoq,bekor qilmoq
+1014,der Bewerber,nomzod,rahbar,mijoz
+1015,die Stellenausschreibung,bo‘sh ish o‘rni e'loni,shartnoma,hisobot
+1016,die Qualifikation,malaka,tajriba xotirasi,ta'til rejasi
+1017,qualifiziert,malakali,tajribasiz,vaqtinchalik
+1018,die Berufserfahrung,ish tajribasi,nazariy bilim,ta'til tarixi
+1019,der Lebenslauf,rezyume,hisobot,bayonot
+1020,das Vorstellungsgespräch,ish suhbatı,konferensiya,seminar
+1021,einstellen,ishga olmoq,bo‘shatmoq,rad etmoq
+1022,der Arbeitgeber,ish beruvchi,xodim,mijoz
+1023,der Arbeitnehmer,xodim,rahbar,ish beruvchi
+1024,die Kündigung,ishdan bo‘shash/bo‘shatish,buyurtma,rezervatsiya
+1025,kündigen,bo‘shamoq,boshlamoq,uzaytirmoq
+1026,der Vertrag,shartnoma,bayonot,ariza
+1027,unterschreiben,imzolamoq,bekor qilmoq,tasdiqlamaslik
+1028,die Abteilung,bo‘lim,filial,koridor
+1029,der Kollege,hamkasb,mijoz,rahbar
+1030,das Team,jamoa,raqobatchi,komissiya
+1031,die Besprechung,yig‘ilish,ta'til,sayohat
+1032,teilnehmen an,qatnashmoq,voz kechmoq,rad etmoq
+1033,die Tagesordnung,kun tartibi,hisobot,rezervatsiya
+1034,der Tagesordnungspunkt,kun tartibidagi masala,shikoyat,ariza
+1035,die Entscheidung,qaror,shubha,taxmin
+1036,treffen (eine Entscheidung),qaror qabul qilmoq,kechiktirmoq,inkor qilmoq
+1037,die Verantwortung,mas'uliyat,imtiyoz,ta'til
+1038,verantwortlich sein,mas'ul bo‘lmoq,befarq bo‘lmoq,qarshi chiqmoq
+1039,die Zusammenarbeit,hamkorlik,raqobat,nizo
+1040,zusammenarbeiten,hamkorlik qilmoq,to‘sqinlik qilmoq,rad etmoq
+1041,die Arbeitsatmosphäre,ish muhiti,bozor sharoiti,siyosiy vaziyat
+1042,hilfsbereit,yordamga tayyor,befarq,talabchan
+1043,zuverlässig,ishonchli,beqaror,mas'uliyatsiz
+1044,pünktlich,vaqtida keladigan,kechikuvchi,befarq
+1045,die Kritik,tanqid,maqtov,mukofot
+1046,kritisieren,tanqid qilmoq,maqtamoq,oqlamoq
+1047,das Kompliment,maqtov,tanqid,shikoyat
+1048,loben,maqtamoq,tanqid qilmoq,rad etmoq
+1049,die Diskussion,munozara,sukut,izolyatsiya
+1050,diskutieren,muhokama qilmoq,inkor qilmoq,yashirmoq
+1051,die Meinung,fikr,dalil,qoida
+1052,äußern,bildirmoq,yashirmoq,inkor qilmoq
+1053,zustimmen,rozi bo‘lmoq,qarshi chiqmoq,rad etmoq
+1054,widersprechen,qarshi chiqmoq,tasdiqlamoq,qo‘llab-quvvatlamoq
+1055,der Vorschlag,taklif,buyruq,taqiq
+1056,vorschlagen,taklif qilmoq,taqiqlamoq,bekor qilmoq
+1057,vereinbaren,kelishib olmoq,rad etmoq,kechiktirmoq
+1058,die Vereinbarung,kelishuv,nizo,qarama-qarshilik
+1059,verschieben,kechiktirmoq,tezlashtirmoq,bekor qilmoq
+1060,absagen,bekor qilmoq,tasdiqlamoq,uzaytirmoq
+1061,der Termin,uchrashuv vaqti,ta'til kuni,hisobot
+1062,vereinbaren einen Termin,uchrashuv belgilamoq,bekor qilmoq,rad etmoq
+1063,der Kalender,kalendar,hisobot,ro‘yxat
+1064,eintragen,kiritmoq,o‘chirib tashlamoq,rad etmoq
+1065,die E-Mail,elektron xat,hisobot,shartnoma
+1066,der Anhang,ilova,qo‘shimcha xarajat,taqiq
+1067,beifügen,ilova qilmoq,olib tashlamoq,bekor qilmoq
+1068,weiterleiten,yo‘naltirmoq,yashirmoq,kechiktirmoq
+1069,die Anfrage,so‘rov,shikoyat,taqiq
+1070,anfragen,so‘ramoq,rad etmoq,bekor qilmoq
+1071,das Angebot,taklif,xarajat,jarima
+1072,anbieten,taklif qilmoq,taqiqlamoq,bekor qilmoq
+1073,die Bestellung,buyurtma,shikoyat,ariza
+1074,bestellen,buyurtma bermoq,qaytarib bermoq,bekor qilmoq
+1075,die Lieferung,yetkazib berish,to‘lov,rezervatsiya
+1076,liefern,yetkazib bermoq,yashirmoq,kechiktirmoq
+1077,die Rechnung,hisob-faktura,shartnoma,ariza
+1078,bezahlen,to‘lamoq,qarz olmoq,bekor qilmoq
+1079,die Zahlung,to‘lov,qarz,jarima
+1080,fällig sein,muddati kelgan bo‘lmoq,bekor qilingan bo‘lmoq,uzaytirilgan bo‘lmoq
+1081,der Kunde,mijoz,xodim,rahbar
+1082,die Kundin,ayol mijoz,xodim,hamkasb
+1083,der Auftrag,buyurtma,vakolat,taqiq
+1084,beauftragen,vazifa yuklamoq,rad etmoq,bekor qilmoq
+1085,erledigen,bajarmoq,kechiktirmoq,inkor qilmoq
+1086,die Erledigung,bajarish,bekor qilish,kechiktirish
+1087,fristgerecht,muddatida,o‘z vaqtida emas,kechikkan
+1088,die Frist,muddat,ta'til,smena
+1089,verlängern,uzaytirmoq,qisqartirmoq,bekor qilmoq
+1090,verkürzen,qisqartirmoq,uzaytirmoq,kengaytirmoq
+1091,die Hochschule,oliy o‘quv yurti,maktab,litsey
+1092,der Studiengang,o‘quv yo‘nalishi,ish joyi,sayohat marshruti
+1093,immatrikulieren,o‘qishga qabul qilmoq,haydab chiqarmoq,bekor qilmoq
+1094,das Stipendium,stipendiya,jarima,qarz
+1095,sich einschreiben,ro‘yxatdan o‘tmoq,chiqib ketmoq,bekor qilmoq
+1096,die Vorlesung,ma'ruza,munozara,taqdimot
+1097,das Seminar,seminar,imtihon,stajirovka
+1098,die Prüfung,imtihon,ta'til,uchrashuv
+1099,bestehen (Prüfung),imtihondan o‘tmoq,yiqilmoq,kechiktirmoq
+1100,durchfallen (bei einer Prüfung),imtihondan yiqilmoq,o‘tmoq,mukofot olmoq
+1101,die Freizeit,bo‘sh vaqt,ish vaqti,majburiyat
+1102,sich entspannen,dam olmoq,zo‘riqmoq,shoshilmoq
+1103,die Erholung,dam olish,charchoq,stress
+1104,sich erholen,kuch yig‘moq,charchamoq,bezovta bo‘lmoq
+1105,die Gewohnheit,odat,istisno,tasodif
+1106,gewöhnlich,odatdagi,g‘ayrioddiy,noyob
+1107,die Tätigkeit,faoliyat,ta'til,dam olish
+1108,beschäftigen sich mit,shug‘ullanmoq,voz kechmoq,taqiqlamoq
+1109,die Beschäftigung,mashg‘ulot,ishsizlik,befaollik
+1110,die Unterhaltung,ko‘ngilochar faoliyat,majburiyat,imtihon
+1111,unterhaltsam,qiziqarli,zerikarli,murakkab
+1112,die Veranstaltung,tadbir,taqiq,shikoyat
+1113,besuchen,qatnashmoq,rad etmoq,bekor qilmoq
+1114,die Vorstellung,tomosha,hisobot,seminar
+1115,aufführen,sahnalashtirmoq,bekor qilmoq,yashirmoq
+1116,die Aufführung,spektakl,imtihon,konferensiya
+1117,das Publikum,tomoshabinlar,jurnalistlar,ishtirokchilar
+1118,begeistern,hayratlantirmoq,xafa qilmoq,zeriktirmoq
+1119,begeistert sein,hayratda bo‘lmoq,befarq bo‘lmoq,xafa bo‘lmoq
+1120,die Begeisterung,hayrat,qo‘rquv,befarqlik
+1121,die Kulturveranstaltung,madaniy tadbir,sport musobaqasi,ish uchrashuvi
+1122,die Ausstellung,ko‘rgazma,konferensiya,seminar
+1123,ausstellen,namoyish qilmoq,yashirmoq,bekor qilmoq
+1124,der Künstler,san'atkor,sportchi,olim
+1125,die Künstlerin,ayol san'atkor,jurnalist,o‘qituvchi
+1126,das Kunstwerk,san'at asari,ilmiy maqola,hisobot
+1127,die Literatur,adabiyot,siyosat,iqtisodiyot
+1128,der Roman,roman,maqola,hisobot
+1129,die Erzählung,hikoya,shartnoma,ariza
+1130,der Autor,muallif,o‘quvchi,noshir
+1131,die Autorin,ayol muallif,tarjimon,muharrir
+1132,veröffentlichen,nashr qilmoq,yashirmoq,bekor qilmoq
+1133,die Veröffentlichung,nashr,bekor qilish,taqiq
+1134,der Verlag,nashriyot,kutubxona,matbaa uskunasi
+1135,die Zeitschrift,jurnal,gazeta,darslik
+1136,die Ausgabe,son,nashr,xarajat
+1137,erscheinen,nashr etilmoq,yo‘qolmoq,bekor qilinmoq
+1138,der Leser,o‘quvchi,muallif,muharrir
+1139,die Leserin,ayol o‘quvchi,noshir,tarjimon
+1140,das Kapitel,bob,ilova,sarlavha
+1141,der Inhalt,mazmun,muqova,rasm
+1142,zusammenfassen,xulosa qilmoq,uzaytirmoq,murakkablashtirmoq
+1143,der Inhaltspunkt,asosiy mazmuniy nuqta,izoh,ilova
+1144,interpretieren,talqin qilmoq,yodlamoq,nusxa ko‘chirmoq
+1145,die Interpretation,talqin,ko‘chirma,hisobot
+1146,die Aussage,bayonot,shubha,sukut
+1147,aussagen,ifoda etmoq,yashirmoq,rad etmoq
+1148,die Botschaft,xabar,taqiq,jarima
+1149,vermitteln,yetkazmoq,yashirmoq,inkor qilmoq
+1150,die Bedeutung,ahamiyat,befoydalik,cheklov
+1151,bedeutsam,ahamiyatli,ahamiyatsiz,oddiy
+1152,das Gedicht,she'r,roman,hisobot
+1153,der Vers,misra,paragraf,izoh
+1154,die Metapher,metafora,fakt,dalil
+1155,bildlich,majoziy,so‘zma-so‘z,rasmiy
+1156,der Ausdruck,ifoda,taqiq,cheklov
+1157,sich ausdrücken,o‘z fikrini ifodalamoq,yashirmoq,inkor qilmoq
+1158,die Sprache,til,lahja,ovoz
+1159,sprachlich,tilga oid,iqtisodiy,siyosiy
+1160,der Wortschatz,lug‘at boyligi,grammatika,talaffuz
+1161,erweitern,kengaytirmoq,toraytirmoq,qisqartirmoq
+1162,die Formulierung,ifodalash usuli,talaffuz,xato
+1163,formulieren,ifodalamoq,yashirmoq,bekor qilmoq
+1164,präzise,aniq,noaniq,mubham
+1165,missverständlich,noto‘g‘ri tushuniladigan,aniq,ravshan
+1166,deutlich,aniq,noaniq,mavhum
+1167,verständlich,tushunarli,murakkab,noaniq
+1168,missverstehen,noto‘g‘ri tushunmoq,to‘g‘ri tushunmoq,izohlamoq
+1169,die Kommunikation,muloqot,sukut,izolyatsiya
+1170,kommunikativ,muloqotga moyil,yopiq,befarq
+1171,die Diskussion,munozara,sukut,taqiq
+1172,argumentieren,dalil keltirmoq,inkor qilmoq,yashirmoq
+1173,die Argumentation,dalillash,shubha,sukut
+1174,überzeugen,ishontirmoq,chalg‘itmoq,rad etmoq
+1175,die Überzeugung,ishonch,shubha,ikkilanish
+1176,die Medien,ommaviy axborot vositalari,sanoat,tibbiyot
+1177,die Berichterstattung,xabar berish,maxfiylashtirish,taqiq
+1178,berichten,xabar bermoq,yashirmoq,inkor qilmoq
+1179,die Nachricht,xabar,taxmin,shubha
+1180,informieren,xabardor qilmoq,chalg‘itmoq,yashirmoq
+1181,die Information,ma'lumot,mish-mish,shubha
+1182,die Quelle,manba,natija,xulosa
+1183,zuverlässig,ishonchli,noma'lum,shubhali
+1184,glaubwürdig,ishonchli,soxta,mubham
+1185,die Glaubwürdigkeit,ishonchlilik,shubha,noma'lumlik
+1186,die Öffentlichkeit,jamoatchilik,maxfiylik,izolyatsiya
+1187,öffentlich,ommaviy,maxfiy,shaxsiy
+1188,verbreiten,tarqatmoq,yashirmoq,to‘xtatmoq
+1189,die Verbreitung,tarqalish,cheklanish,taqiq
+1190,die Meinung,fikr,dalil,qoida
+1191,die öffentliche Meinung,jamoatchilik fikri,shaxsiy qarash,ilmiy xulosa
+1192,beeinflussen,ta'sir qilmoq,e'tiborsiz qoldirmoq,inkor qilmoq
+1193,der Einfluss,ta'sir,cheklov,to‘siq
+1194,die Wirkung,ta'sir,sabab,sharoit
+1195,wirken,ta'sir qilmoq,yashirmoq,to‘xtatmoq
+1196,die Reaktion,reaksiya,befarqlik,sukut
+1197,reagieren,javob qaytarmoq,e'tiborsiz qoldirmoq,yashirmoq
+1198,die Aufmerksamkeit,e'tibor,befarqlik,unutuvchanlik
+1199,aufmerksam,e'tiborli,befarq,beparvo
+1200,wahrnehmen,sezmoq,e'tiborsiz qoldirmoq,inkor qilmoq
+1201,die Gesundheit,sog‘liq,kasallik,jarohat
+1202,gesund,sog‘lom,bemor,zaif
+1203,die Krankheit,kasallik,sog‘liq,quvvat
+1204,erkranken,kasal bo‘lmoq,sog‘aymoq,chiniqmoq
+1205,die Behandlung,davolash,tashxis,profilaktika
+1206,behandeln,davolamoq,oldini olmoq,tekshirmoq
+1207,die Therapie,terapiya,tashxis,tekshiruv
+1208,therapieren,terapiya bilan davolamoq,jarrohlik qilmoq,tekshirmoq
+1209,die Vorsorge,profilaktika,davolash,reabilitatsiya
+1210,vorsorgen,oldini olmoq,davolamoq,kechiktirmoq
+1211,die Untersuchung,tekshiruv,davolash,operatsiya
+1212,untersuchen,tekshirmoq,davolamoq,emlamoq
+1213,die Diagnose,tashxis,davo,profilaktika
+1214,diagnostizieren,tashxis qo‘ymoq,davolamoq,emlamoq
+1215,die Beschwerden,shikoyatlar,yechimlar,tavsiyalar
+1216,beschwerdefrei,shikoyatsiz,kasal,og‘riqli
+1217,das Symptom,alomat,davo,profilaktika
+1218,auftreten,yuzaga kelmoq,yo‘qolmoq,kamaymoq
+1219,die Erkältung,shamollash,allergiya,jarohat
+1220,sich erkälten,shamollamoq,sog‘aymoq,chiniqmoq
+1221,die Grippe,gripp,allergiya,infeksiya
+1222,die Infektion,infeksiya,immunitet,profilaktika
+1223,sich anstecken,kasallik yuqtirmoq,sog‘aymoq,himoyalanmoq
+1224,ansteckend,yuqumli,xavfsiz,sog‘lom
+1225,das Immunsystem,immun tizim,asab tizimi,ovqat hazm qilish tizimi
+1226,stärken,mustahkamlamoq,zaiflashtirmoq,kamaytirmoq
+1227,schwächen,zaiflashtirmoq,mustahkamlamoq,kuchaytirmoq
+1228,die Ernährung,ovqatlanish,sport,tibbiyot
+1229,ausgewogen,teng muvozanatli,bir tomonlama,zararli
+1230,die Nährstoffe,oziq moddalar,dorilar,vitamin yetishmovchiligi
+1231,die Vitamine,vitaminlar,oqsillar,dorilar
+1232,der Mineralstoff,mineral modda,vitamin,dori
+1233,sich ernähren,ovqatlanmoq,dam olmoq,mashq qilmoq
+1234,ungesund,nosog‘lom,sog‘lom,foydali
+1235,die Bewegung,jismoniy harakat,dam olish,uyqu
+1236,sich bewegen,harakat qilmoq,o‘tirmoq,uxlamoq
+1237,die Fitness,jismoniy tayyorgarlik,charchoq,kasallik
+1238,fit,sog‘lom va chiniqqan,holdan toygan,bemor
+1239,trainieren,mashq qilmoq,dam olmoq,kechiktirmoq
+1240,das Training,mashg‘ulot,dam olish,ta'til
+1241,die Belastung,zo‘riqish,yengillik,davolash
+1242,belasten,zo‘riqtirmoq,yengillashtirmoq,dam oldirmoq
+1243,der Stress,stress,xotirjamlik,dam olish
+1244,gestresst,stress holatida,xotirjam,sog‘lom
+1245,abbauen (Stress),stressni kamaytirmoq,kuchaytirmoq,yig‘moq
+1246,entspannen,dam olmoq,zo‘riqmoq,shoshilmoq
+1247,die Entspannung,dam olish,charchoq,zo‘riqish
+1248,die Schlafstörung,uyqu buzilishi,dam olish,uyg‘oqlik
+1249,schlafen,uxlamoq,uyg‘onmoq,mashq qilmoq
+1250,der Schlaf,uyqu,uyg‘oqlik,charchoq
+1251,einschlafen,uxlab qolmoq,uyg‘onmoq,turib ketmoq
+1252,aufwachen,uyg‘onmoq,uxlab qolmoq,dam olmoq
+1253,müde,charchagan,tetik,sog‘lom
+1254,erschöpft,juda charchagan,tetik,faol
+1255,sich erholen,tiklanmoq,charchamoq,zo‘riqmoq
+1256,die Erholung,tiklanish,zo‘riqish,kasallik
+1257,die Umwelt,atrof-muhit,sanoat,tibbiyot
+1258,die Umweltverschmutzung,atrof-muhit ifloslanishi,tozalik,barqarorlik
+1259,verschmutzen,ifloslantirmoq,tozalamoq,himoya qilmoq
+1260,die Luftverschmutzung,havo ifloslanishi,suv ta'minoti,energiya sarfi
+1261,der Klimawandel,iqlim o‘zgarishi,sanoatlashuv,urbanizatsiya
+1262,die Erderwärmung,global isish,sovuqlashish,muzlash
+1263,das Klima,iqlim,ob-havo prognozi,mavsum
+1264,die Natur,tabiat,sanoat,texnologiya
+1265,natürlich,tabiiy,sun'iy,texnik
+1266,schützen,himoya qilmoq,zarar yetkazmoq,cheklamoq
+1267,der Schutz,himoya,xavf,zarar
+1268,die Ressource,resurs,chiqindi,ifloslanish
+1269,erneuerbar,qayta tiklanuvchi,cheklangan,tugaydigan
+1270,die Energie,energiya,chiqindi,ifloslanish
+1271,Energie sparen,energiya tejamoq,isrof qilmoq,ko‘paytirmoq
+1272,verbrauchen,sarflamoq,tejamoq,saqlamoq
+1273,der Verbrauch,iste'mol,tejash,himoya
+1274,recyceln,qayta ishlamoq,tashlab yubormoq,yo‘q qilmoq
+1275,das Recycling,qayta ishlash,chiqindilarni yig‘ish,yo‘q qilish
+1276,der Müll,axlat,xomashyo,resurs
+1277,Müll trennen,axlatni saralamoq,yoqib yubormoq,aralashtirmoq
+1278,vermeiden,oldini olmoq,keltirib chiqarmoq,kuchaytirmoq
+1279,die Maßnahme,chora-tadbir,muammo,oqibat
+1280,ergreifen (Maßnahmen),choralar ko‘rmoq,rad etmoq,bekor qilmoq
+1281,die Verantwortung,mas'uliyat,imtiyoz,foyda
+1282,verantwortungsbewusst,mas'uliyatli,befarq,e'tiborsiz
+1283,die Zukunft,kelajak,o‘tmish,hozirgi holat
+1284,zukünftig,kelajakdagi,o‘tmishdagi,avvalgi
+1285,die Entwicklung,rivojlanish,pasayish,to‘xtash
+1286,sich entwickeln,rivojlanmoq,tanazzulga uchramoq,to‘xtab qolmoq
+1287,der Fortschritt,taraqqiyot,turg‘unlik,orqaga ketish
+1288,fortschrittlich,ilg‘or,eskirgan,qoloq
+1289,die Innovation,innovatsiya,an'ana,odat
+1290,innovativ,innovatsion,eskirgan,an'anaviy
+1291,die Technologie,texnologiya,san'at,adabiyot
+1292,technologisch,texnologik,madaniy,ijtimoiy
+1293,der Trend,tendensiya,to‘xtash,pasayish
+1294,im Trend liegen,urfda bo‘lmoq,eskirib qolmoq,yo‘qolib ketmoq
+1295,modern,zamonaviy,eskicha,qadimiy
+1296,zeitgemäß,zamonga mos,eskirgan,nomaqbul
+1297,veraltet,eskirgan,zamonaviy,ilg‘or
+1298,sich durchsetzen,o‘z o‘rnini topmoq,muvaffaqiyatsiz bo‘lmoq,rad etilmoq
+1299,die Veränderung,o‘zgarish,turg‘unlik,bir xillik
+1300,verändern,o‘zgartirmoq,saqlab qolmoq,to‘xtatmoq
+1301,die Gesellschaft,jamiyat,guruh,korxona
+1302,gesellschaftlich,ijtimoiy,xususiy,shaxsiy
+1303,die Generation,avlod,oilaviy guruh,jamoa
+1304,der Generationskonflikt,avlodlar ziddiyati,ishdagi nizo,siyosiy bahs
+1305,die Rolle,rol,vazifa,lavozim
+1306,eine Rolle spielen,muhim rol o‘ynamoq,to‘sqinlik qilmoq,chetda qolmoq
+1307,die Gleichberechtigung,teng huquqlilik,imtiyoz,qaramlik
+1308,gleichberechtigt,teng huquqli,qaram,cheklangan
+1309,die Chancengleichheit,teng imkoniyatlar,imtiyozli holat,raqobatsizlik
+1310,die Diskriminierung,kamsitish,qo‘llab-quvvatlash,himoya
+1311,diskriminieren,kamsitmoq,rag‘batlantirmoq,himoya qilmoq
+1312,die Integration,integratsiya,ajralish,izolyatsiya
+1313,integrieren,qo‘shmoq,ajratmoq,chetlatmoq
+1314,die Ausgrenzung,chetlatish,qo‘shilish,hamkorlik
+1315,ausgrenzen,chetlatmoq,qabul qilmoq,jalb qilmoq
+1316,die Toleranz,bag‘rikenglik,murosasizlik,qarshilik
+1317,tolerant,bag‘rikeng,talabchan,murosasiz
+1318,die Vorurteile,xurofotlar,xolis qarashlar,dalillar
+1319,das Vorurteil,xurofot,xolis baho,haqiqat
+1320,vorurteilsfrei,xurofotsiz,biryoqlama,kamsituvchi
+1321,die Minderheit,ozchilik,ko‘pchilik,jamoatchilik
+1322,die Mehrheit,ko‘pchilik,ozchilik,alohida guruh
+1323,vertreten sein,vakillik qilmoq,chetlatilgan bo‘lmoq,yashirin qolmoq
+1324,die Vertretung,vakillik,nazorat,cheklov
+1325,engagieren sich,faol ishtirok etmoq,chetga chiqmoq,voz kechmoq
+1326,das Ehrenamt,ko‘ngilli faoliyat,kasbiy ish,majburiy xizmat
+1327,ehrenamtlich,ko‘ngilli asosda,pullik tarzda,majburiy ravishda
+1328,die Hilfsorganisation,yordam tashkiloti,tijorat korxonasi,siyosiy partiya
+1329,spenden,xayriya qilmoq,sotib olmoq,qarz bermoq
+1330,die Spende,xayriya ehsoni,jarima,to‘lov
+1331,unterstützen,qo‘llab-quvvatlamoq,to‘sqinlik qilmoq,inkor qilmoq
+1332,die Unterstützung,ko‘mak,to‘siq,qarshilik
+1333,bedürftig,yordamga muhtoj,ta'minlangan,imtiyozli
+1334,die Armut,qashshoqlik,farovonlik,barqarorlik
+1335,arm,qashshoq,boy,ta'minlangan
+1336,wohlhabend,badavlat,qashshoq,qarzdor
+1337,der Wohlstand,farovonlik,qashshoqlik,tanazzul
+1338,die Lebensqualität,hayot sifati,turmush xarajati,mehnat unumdorligi
+1339,verbessern,yaxshilamoq,yomonlashtirmoq,cheklamoq
+1340,verschlechtern,yomonlashtirmoq,yaxshilamoq,rivojlantirmoq
+1341,die Gerechtigkeit,adolat,tengsizlik,imtiyoz
+1342,gerecht,adolatli,biryoqlama,nohaq
+1343,ungerecht,nohaq,adolatli,xolis
+1344,die Ungleichheit,tengsizlik,tenglik,hamkorlik
+1345,die Rechte,huquqlar,majburiyatlar,cheklovlar
+1346,das Menschenrecht,inson huquqi,fuqarolik majburiyati,imtiyoz
+1347,die Freiheit,erkinlik,qaramlik,cheklanish
+1348,frei,erkin,qaram,majbur
+1349,die Verantwortung,mas'uliyat,imtiyoz,foyda
+1350,verantwortungsvoll,mas'uliyatli,befarq,beparvo
+1351,die Pflicht,majburiyat,imkoniyat,imtiyoz
+1352,verpflichtet sein,majbur bo‘lmoq,ozod bo‘lmoq,voz kechmoq
+1353,die Vorschrift,qoida,imkoniyat,tavsiya
+1354,einhalten,amal qilmoq,buzmoq,inkor qilmoq
+1355,verstoßen gegen,buzmoq,amal qilmoq,qo‘llab-quvvatlamoq
+1356,das Gesetz,qonun,tavsiya,odat
+1357,gesetzlich,qonuniy,ixtiyoriy,norasmiy
+1358,verboten,taqiqlangan,ruxsat etilgan,majburiy
+1359,erlaubt,ruxsat etilgan,taqiqlangan,majburiy
+1360,die Erlaubnis,ruxsat,taqiq,jarima
+1361,beantragen,ariza bermoq,rad etmoq,bekor qilmoq
+1362,der Antrag,ariza,hisobot,shikoyat
+1363,die Behörde,davlat idorasi,xususiy korxona,jamoa
+1364,amtlich,rasmiy,norasmiy,shaxsiy
+1365,die Verwaltung,ma'muriyat,ishlab chiqarish,savdo
+1366,verwalten,boshqarmoq,tarqatmoq,bekor qilmoq
+1367,die Bürokratie,byurokratiya,innovatsiya,hamkorlik
+1368,das Formular,blanka,shartnoma,hisobot
+1369,ausfüllen,to‘ldirmoq,o‘chirib tashlamoq,bekor qilmoq
+1370,beglaubigen,tasdiqlatmoq,inkor qilmoq,rad etmoq
+1371,die Bescheinigung,ma'lumotnoma,shikoyat,bayonot
+1372,nachweisen,isbotlamoq,inkor qilmoq,yashirmoq
+1373,der Nachweis,dalil,isbot,taxmin
+1374,die Staatsangehörigkeit,fuqarolik,yashash manzili,viza
+1375,der Bürger,fuqaro,sayyoh,mehmon
+1376,bürgerlich,fuqarolikka oid,xususiy,sanoatga oid
+1377,die Wahl,saylov,tayinlov,ro‘yxatga olish
+1378,wählen,saylamoq,tayinlamoq,rad etmoq
+1379,die Stimme,ovoz,sukut,qaror
+1380,abstimmen,ovoz bermoq,inkor qilmoq,to‘xtatmoq
+1381,die Abstimmung,ovoz berish jarayoni,taqiq,shikoyat
+1382,die Demokratie,demokratiya,diktatura,monarxiya
+1383,demokratisch,demokratik,avtoritar,majburiy
+1384,die Regierung,hukumat,muxolifat,jamoa
+1385,regieren,boshqarmoq,qarshi chiqmoq,bo‘ysunmoq
+1386,die Politik,siyosat,texnologiya,adabiyot
+1387,politisch,siyosiy,madaniy,iqtisodiy
+1388,die Partei,partiya,jamiyat,idoralar
+1389,der Politiker,siyosatchi,tadbirkor,olim
+1390,die Wähler,saylovchilar,nomzodlar,kuzatuvchilar
+1391,die Öffentlichkeit,jamoatchilik,maxfiylik,izolyatsiya
+1392,öffentlich,ommaviy,maxfiy,shaxsiy
+1393,die Debatte,bahs-munozara,sukut,taqiq
+1394,debattieren,bahs yuritmoq,inkor qilmoq,yashirmoq
+1395,die Meinung,fikr,dalil,qoida
+1396,Meinung äußern,fikr bildirmoq,sukut saqlamoq,rad etmoq
+1397,überzeugen,ishontirmoq,chalg‘itmoq,inkor qilmoq
+1398,die Überzeugung,ishonch,shubha,ikkilanish
+1399,zustimmen,rozi bo‘lmoq,qarshi chiqmoq,rad etmoq
+1400,widersprechen,qarshi chiqmoq,tasdiqlamoq,qo‘llab-quvvatlamoq
+1401,die Neurowissenschaft,neyrofan,siyosat,iqtisodiyot
+1402,die Gehirnaktivität,miya faolligi,mushak og‘rig‘i,qon bosimi
+1403,das Gehirnareal,miya hududi,shahar markazi,o‘rmon
+1404,das Langzeitgedächtnis,uzoq muddatli xotira,qisqa muddatli reja,telefon
+1405,das Sinnesorgan,sezgi organi,dvigatel,monitor
+1406,verknüpfen,bog‘lamoq,ajratmoq,buzmoq
+1407,das Gehörte,eshitilgan ma'lumot,yozilgan matn,rasm
+1408,mitschreiben,birga yozib bormoq,o‘qib bermoq,yashirmoq
+1409,protokollieren,protokol tuzmoq,unutmoq,ta'mirlamoq
+1410,das Faktenwissen,faktlarga asoslangan bilim,taxminiy bilim,xotira
+1411,die Lerntechnik,o‘rganish usuli,transport vositasi,ta'til
+1412,die Lernerfahrung,o‘quv tajribasi,manzil,jarima
+1413,der Lerntyp,o‘quvchi turi,haydovchi,mehmon
+1414,auditiv,eshitish orqali o‘rganadigan,sovuq,achchiq
+1415,visuell,ko‘rish orqali o‘rganadigan,baland,qimmat
+1416,der Methodenmix,metodlar kombinatsiyasi,yoqilg‘i,baliq
+1417,überfliegen,tez ko‘z yugurtirmoq,yodlamoq,to‘xtab qolmoq
+1418,die Kerninformation,asosiy ma'lumot,bezak,rasm
+1419,abfragen,bilimni tekshirmoq,sotib olmoq,ta'mirlamoq
+1420,das Erfolgserlebnis,muvaffaqiyat hissi,qo‘rquv,jarima
+1421,beherrschen,mukammal bilmoq,unutmoq,qochmoq
+1422,aufschieben,keyinga qoldirmoq,darhol bajarish,sotib olish
+1423,ängstlich,xavotirli,xotirjam,jasur
+1424,die Ergonomie,ergonomika,biologiya,kimyo
+1425,die Motorik,motorika,siyosat,moliya
+1426,die Druckschrift,bosma yozuv,qo‘l yozuvi,ovoz
+1427,die Schreibschrift,qo‘l yozuvi,bosma yozuv,rasm
+1428,handschriftlich,qo‘lda yozilgan,chop etilgan,elektron
+1429,tippen,klaviaturada yozmoq,bo‘yamoq,yugurmoq
+1430,wiedererkennen,tanib olmoq,unutib yubormoq,sindirmoq
+1431,die Verknüpfung,bog‘lanish,ajrashish,jarima
+1432,der Speicher,xotira qurilmasi,oyna,stul
+1433,extern,tashqi,ichki,mahalliy
+1434,verarbeiten,qayta ishlamoq,yo‘qotmoq,berkitmoq
+1435,die Notiz,qayd,velosiped,telefon
+1436,der Notizblock,bloknot,televizor,eshik
+1437,notieren,qayd etmoq,o‘chirib tashlamoq,sotmoq
+1438,das Grundwissen,asosiy bilim,telefon,chipta
+1439,sich Wissen erarbeiten,bilim hosil qilmoq,yo‘qotmoq,sotmoq
+1440,Wissen vertiefen,bilimni chuqurlashtirmoq,unutmoq,qisqartirmoq
+1441,die Kommunikationsfähigkeit,muloqot qobiliyati,haydovchilik guvohnomasi,jarima
+1442,das Zeitmanagement,vaqtni boshqarish,musiqa,ob-havo
+1443,die Einzelarbeit,yakka tartibdagi ish,guruh sayohati,bayram
+1444,die Gruppenarbeit,guruh ishi,jarima,to‘lov
+1445,die Stellungnahme,munosabat bildirish,ovqatlanish,ko‘ylak
+1446,die These,tezis,retsept,chipta
+1447,die Verstädterung,urbanizatsiya,dehqonchilik,ko‘chmanchilik
+1448,die Landflucht,qishloqdan shaharga ko‘chish,ta'til,sayohat
+1449,prognostizieren,bashorat qilmoq,inkor qilmoq,yashirmoq
+1450,die Attraktivität,jozibadorlik,xavf,sovuqlik
+1451,anregend,qiziqarli,zerikarli,befoyda
+1452,die Bildungseinrichtung,ta'lim muassasasi,zavod,mehmonxona
+1453,die Technologiefirma,texnologik kompaniya,restoran,kasalxona
+1454,vertikal,tik,gorizontal,egri
+1455,preisgünstig,arzon,qimmat,bepul
+1456,das Sonnenlicht,quyosh nuri,yomg‘ir,sovuqlik
+1457,beleuchten,yoritmoq,qoraytirmoq,yashirmoq
+1458,die Beleuchtung,yoritish,jarima,ta'til
+1459,gärtnern,bog‘dorchilik qilmoq,suzmoq,haydamoq
+1460,begrünen,ko‘kalamzorlashtirmoq,quritmoq,buzmoq
+1461,säen,urug‘ sepmoq,tozalamoq,yo‘qotmoq
+1462,der Samen,urug‘,telefon,daftar
+1463,die Ernte,hosil,jarima,chipta
+1464,ernten,hosil yig‘moq,ekmoq,yashirmoq
+1465,gießen,sug‘ormoq,yoqmoq,sindirmoq
+1466,die Dachterrasse,tom terassasi,podval,garaj
+1467,der Innenhof,ichki hovli,ko‘cha,o‘rmon
+1468,trist,zerikarli,qiziqarli,jozibali
+1469,die Biene,asalari,sigir,mushuk
+1470,Bienen halten,asalari boqmoq,baliq tutmoq,daraxt kesmoq
+1471,brachliegen,bo‘sh yotmoq,ishlamoq,o‘smoq
+1472,die Bewirtschaftung,boshqarish,jarima,sayohat
+1473,gegenseitig helfen,bir-biriga yordam bermoq,to‘sqinlik qilmoq,aldamoq
+1474,die Anonymität,anonimlik,mashhurlik,ochiqlik
+1475,altmodisch,eskicha,zamonaviy,innovatsion
+1476,verschlossen,yopiq,ochiq,shaffof
+1477,abreißen,buzib tashlamoq,qurmoq,ta'mirlamoq
+1478,der Abriss,buzish,qurilish,ta'mirlash
+1479,umweltschonend,ekologik xavfsiz,zararli,xavfli
+1480,umbauen,qayta qurmoq,buzmoq,yopmoq
+1481,der Umbau,qayta qurish,jarima,sayohat
+1482,die Fassade,fasad,pol,tom
+1483,das Panorama,panorama,xona,yo‘lak
+1484,die Stadtentwicklung,shahar rivojlanishi,qishloq xo‘jaligi,sayohat
+1485,die Notlüge,oq yolg‘on,rasmiy hujjat,mukofot
+1486,der Selbstbetrug,o‘zini aldash,o‘zini rivojlantirish,o‘zini himoya qilish
+1487,die Irreführung,chalg‘itish,tushuntirish,dalillash
+1488,die Täuschung,aldov,hamkorlik,yordam
+1489,fälschen,qalbakilashtirmoq,tasdiqlamoq,yaratmoq
+1490,das Plagiat,plagiat,innovatsiya,tadqiqot
+1491,das Doping,doping,sog‘lom turmush,parhez
+1492,die Halbwahrheit,yarim haqiqat,to‘liq haqiqat,dalil
+1493,die Beschönigung,go‘zallashtirib ko‘rsatish,tanqid,haqiqat
+1494,schönreden,yaxshi qilib ko‘rsatmoq,qoralamoq,inkor qilmoq
+1495,die faule Ausrede,bema'ni bahona,dalil,haqiqat
+1496,prosozial,ijtimoiy foydali,xavfli,befarq
+1497,selbstsüchtig,xudbin,saxiy,yordamchi
+1498,die Überlebensstrategie,omon qolish strategiyasi,ta'til rejasi,ovqatlanish
+1499,das Zusammenleben,birga yashash,yolg‘izlik,sayohat
+1500,die Harmonie,uyg‘unlik,tartibsizlik,nizo

@@ -2,19 +2,20 @@
 
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { BookText, Bookmark, Search, Shuffle } from "lucide-react";
+import { BookText, Search, Shuffle, Star } from "lucide-react";
 
 import PageHeader from "@/components/dashboard/page-header";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { getDictionaryMeta } from "../woerterbuch-service";
-import MyWords from "./my-words";
 import RandomFive from "./random-five";
+import SavedWords from "./saved-words";
 import SearchPanel from "./search-panel";
+import StatusToast from "./status-toast";
 
 const TABS = [
   { id: "search", icon: Search, key: "woerterbuch.tabSearch" },
   { id: "random", icon: Shuffle, key: "woerterbuch.tabRandom" },
-  { id: "my", icon: Bookmark, key: "woerterbuch.tabMine" },
+  { id: "saved", icon: Star, key: "woerterbuch.tabSaved" },
 ] as const;
 
 type Tab = (typeof TABS)[number]["id"];
@@ -31,7 +32,7 @@ export default function WoerterbuchView() {
       <div role="tablist" aria-label={t("woerterbuch.title")} className="flex gap-1 overflow-x-auto rounded-card bg-surface-card p-1 ring-1 ring-surface-border">
         {TABS.map(({ id, icon: Icon, key }) => (
           <button key={id} type="button" role="tab" aria-selected={tab === id} onClick={() => setTab(id)} data-testid={`wb-tab-${id}`}
-                  className={`inline-flex flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-xl px-4 py-2.5 text-sm font-semibold transition ${
+                  className={`inline-flex flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-xl px-3 py-2.5 text-sm font-semibold transition ${
                     tab === id ? "bg-brand-800 text-white shadow" : "text-text-secondary hover:bg-brand-50 hover:text-brand-800 dark:hover:bg-brand-900/30"}`}>
             <Icon size={16} /> {t(key)}
           </button>
@@ -41,7 +42,7 @@ export default function WoerterbuchView() {
       <div role="tabpanel">
         {tab === "search" && <SearchPanel meta={meta.data} />}
         {tab === "random" && <RandomFive />}
-        {tab === "my" && <MyWords />}
+        {tab === "saved" && <SavedWords />}
       </div>
 
       {meta.data && (
@@ -52,6 +53,7 @@ export default function WoerterbuchView() {
           </a>
         </p>
       )}
+      <StatusToast />
     </div>
   );
 }
