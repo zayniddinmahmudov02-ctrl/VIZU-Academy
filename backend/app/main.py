@@ -124,6 +124,7 @@ from app.api.achievements.router import router as achievements_router
 from app.api.admin.notifications_router import router as admin_notifications_router
 from app.api.support.router import admin_router as admin_support_router
 from app.api.support.router import router as support_router
+from app.api.dictionary import router as dictionary_router
 
 # Upload
 from app.api.upload import (
@@ -301,6 +302,7 @@ _ALL_ROUTERS = [
     admin_notifications_router,
     support_router,
     admin_support_router,
+    dictionary_router,
     upload_router,
     admin_router,
     admin_users_router,

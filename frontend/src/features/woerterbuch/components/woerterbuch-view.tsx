@@ -1,96 +1,57 @@
 "use client";
 
-import { BookText, Search } from "lucide-react";
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { BookText, Bookmark, Search, Shuffle } from "lucide-react";
 
-import { useWoerterbuch } from "../hooks/use-woerterbuch";
 import PageHeader from "@/components/dashboard/page-header";
 import { useTranslation } from "@/lib/i18n/use-translation";
+import { getDictionaryMeta } from "../woerterbuch-service";
+import MyWords from "./my-words";
+import RandomFive from "./random-five";
+import SearchPanel from "./search-panel";
+
+const TABS = [
+  { id: "search", icon: Search, key: "woerterbuch.tabSearch" },
+  { id: "random", icon: Shuffle, key: "woerterbuch.tabRandom" },
+  { id: "my", icon: Bookmark, key: "woerterbuch.tabMine" },
+] as const;
+
+type Tab = (typeof TABS)[number]["id"];
 
 export default function WoerterbuchView() {
   const { t } = useTranslation();
-  const { query, setQuery, result, search } = useWoerterbuch();
+  const [tab, setTab] = useState<Tab>("search");
+  const meta = useQuery({ queryKey: ["dictionary", "meta"], queryFn: getDictionaryMeta, staleTime: 10 * 60_000 });
 
   return (
-    <div className="space-y-8">
-      <PageHeader
-        icon={BookText}
-        titleKey="woerterbuch.title"
-        subtitleKey="woerterbuch.subtitle"
-        gradient="from-emerald-600 to-emerald-400"
-      />
+    <div className="space-y-6">
+      <PageHeader icon={BookText} titleKey="woerterbuch.title" subtitleKey="woerterbuch.subtitle" gradient="from-brand-900 to-brand-600" />
 
-      {/* Search bar */}
-      <div className="mx-auto flex w-full items-center gap-2 rounded-card bg-surface-card p-2 shadow-[var(--shadow-md)] ring-1 ring-surface-border sm:w-[65%]">
-        <input
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && search()}
-          type="text"
-          placeholder={t("woerterbuch.placeholder")}
-          className="w-full bg-transparent px-4 py-3 text-lg text-text-primary outline-none placeholder:text-text-muted"
-        />
-        <button
-          type="button"
-          onClick={search}
-          disabled={!query.trim()}
-          className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-button bg-gradient-to-r from-emerald-600 to-emerald-400 px-6 py-3 text-sm font-semibold text-white shadow-md shadow-emerald-600/25 transition enabled:hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          <Search size={16} />
-          {t("woerterbuch.search")}
-        </button>
+      <div role="tablist" aria-label={t("woerterbuch.title")} className="flex gap-1 overflow-x-auto rounded-card bg-surface-card p-1 ring-1 ring-surface-border">
+        {TABS.map(({ id, icon: Icon, key }) => (
+          <button key={id} type="button" role="tab" aria-selected={tab === id} onClick={() => setTab(id)} data-testid={`wb-tab-${id}`}
+                  className={`inline-flex flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-xl px-4 py-2.5 text-sm font-semibold transition ${
+                    tab === id ? "bg-brand-800 text-white shadow" : "text-text-secondary hover:bg-brand-50 hover:text-brand-800 dark:hover:bg-brand-900/30"}`}>
+            <Icon size={16} /> {t(key)}
+          </button>
+        ))}
       </div>
 
-      {/* Result card */}
-      <div className="rounded-card bg-surface-card p-6 shadow-[var(--shadow-md)] ring-1 ring-surface-border">
-        {result ? (
-          <div className="space-y-4">
-            <div className="flex items-baseline gap-2 border-b border-surface-border pb-4">
-              {result.article && (
-                <span className="text-lg font-medium text-text-secondary">{result.article}</span>
-              )}
-              <h2 className="text-2xl font-bold text-text-primary">{result.word}</h2>
-            </div>
-
-            <dl className="grid gap-4 sm:grid-cols-2">
-              <div>
-                <dt className="text-xs font-semibold uppercase tracking-wide text-text-muted">
-                  {t("woerterbuch.plural")}
-                </dt>
-                <dd className="mt-1 text-text-primary">{result.plural ?? "—"}</dd>
-              </div>
-              <div>
-                <dt className="text-xs font-semibold uppercase tracking-wide text-text-muted">
-                  {t("woerterbuch.translation")}
-                </dt>
-                <dd className="mt-1 text-text-primary">{result.translation}</dd>
-              </div>
-              <div>
-                <dt className="text-xs font-semibold uppercase tracking-wide text-text-muted">
-                  {t("woerterbuch.partOfSpeech")}
-                </dt>
-                <dd className="mt-1 text-text-primary">{result.partOfSpeech}</dd>
-              </div>
-              <div>
-                <dt className="text-xs font-semibold uppercase tracking-wide text-text-muted">
-                  {t("woerterbuch.level")}
-                </dt>
-                <dd className="mt-1 text-text-primary">{result.cefrLevel}</dd>
-              </div>
-            </dl>
-
-            {result.exampleSentence && (
-              <div className="border-t border-surface-border pt-4">
-                <dt className="text-xs font-semibold uppercase tracking-wide text-text-muted">
-                  {t("woerterbuch.example")}
-                </dt>
-                <dd className="mt-1 text-text-primary italic">{result.exampleSentence}</dd>
-              </div>
-            )}
-          </div>
-        ) : (
-          <p className="text-text-muted">{t("woerterbuch.emptyState")}</p>
-        )}
+      <div role="tabpanel">
+        {tab === "search" && <SearchPanel meta={meta.data} />}
+        {tab === "random" && <RandomFive />}
+        {tab === "my" && <MyWords />}
       </div>
+
+      {meta.data && (
+        <p className="text-center text-[11px] text-text-muted">
+          {t("woerterbuch.footer", { total: meta.data.total })}{" "}
+          <a href={meta.data.attribution.url} target="_blank" rel="noopener noreferrer" className="underline-offset-2 hover:underline">
+            {meta.data.attribution.name} ({meta.data.attribution.license})
+          </a>
+        </p>
+      )}
     </div>
   );
 }
