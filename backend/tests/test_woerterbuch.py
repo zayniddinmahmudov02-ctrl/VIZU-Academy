@@ -191,13 +191,15 @@ class TestCsvExport(unittest.TestCase):
             with (export_csv.DOCS / f"{level}-words.csv").open(encoding="utf-8", newline="") as f:
                 cls.files[level] = list(csv.reader(f))
 
-    def test_same_header_rows_ids_and_order_as_the_originals(self):
+    def test_same_header_original_ids_in_order(self):
         for level, rows in self.files.items():
             with self.subTest(level=level):
                 self.assertEqual(tuple(rows[0]), self.export_csv.COLUMNS)
                 self.assertTrue(all(len(r) == 22 for r in rows))
-                original = source.read_rows(level)
-                self.assertEqual([int(r[0]) for r in rows[1:]], [r.row_id for r in original])
+                ids = [int(r[0]) for r in rows[1:]]
+                # repeats were merged, so ids are the originals' ids with gaps, still in order
+                self.assertEqual(ids, sorted(ids))
+                self.assertTrue(set(ids) <= {r.row_id for r in source.read_rows(level)})
                 self.assertTrue(all(r[1] == level for r in rows[1:]))
 
     def test_grammar_columns_only_for_their_word_type(self):
@@ -215,25 +217,51 @@ class TestCsvExport(unittest.TestCase):
                     self.assertIn(r[col["status"]], ("verified", "needs_review"))
                     self.assertFalse({"NULL", "None", "N/A"} & set(r))
 
-    def test_nothing_is_verified_before_a_teacher_review(self):
-        self.assertEqual(sum(r[-1] == "verified" for rows in self.files.values() for r in rows[1:]), 0)
+    def test_verified_rows_are_complete_and_open_rows_say_why(self):
+        from app.scripts.woerterbuch import docs_csv
 
-    def test_docs_validate_and_every_extra_row_is_linked(self):
+        loaded = docs_csv.load()
+        for r in loaded.rows:
+            with self.subTest(row=r.key):
+                if r.values["status"] == "verified":
+                    self.assertTrue(r.values["translation"] and r.values["example_de"] and r.values["example_uz"] and r.values["audio_text"])
+                else:
+                    self.assertTrue(r.review and r.review["reasons"])
+
+    def test_docs_validate_link_and_hold_no_repeats(self):
+        from collections import Counter
+
         from app.scripts.woerterbuch import docs_csv
 
         loaded = docs_csv.load()
         self.assertEqual((loaded.errors, loaded.warnings), ([], []))
-        self.assertEqual(len(loaded.rows), 5600)
         self.assertTrue(all(r.extra.get("quiz_distractors") for r in loaded.rows))
-        self.assertTrue(all(r.review for r in loaded.rows if r.values["status"] == "needs_review"))
+        repeats = Counter((r.level, r.group_key) for r in loaded.rows)
+        self.assertEqual([k for k, n in repeats.items() if n > 1], [])
+        self.assertFalse(any(r.hidden for r in loaded.rows))
 
-    def test_known_rows(self):
+    def test_review_is_applied_and_reapplying_changes_nothing(self):
+        import tempfile, shutil
+
+        from app.scripts.woerterbuch import apply_review
+
         rows = {(r[1], r[2]): dict(zip(self.export_csv.COLUMNS, r)) for rows in self.files.values() for r in rows[1:]}
         apfel = rows[("A1", "Apfel")]
         self.assertEqual((apfel["article"], apfel["plural"], apfel["audio_text"]), ("der", "Äpfel", "der Apfel"))
         anrufen = rows[("A1", "anrufen")]
         self.assertEqual((anrufen["verb_praeteritum"], anrufen["verb_auxiliary"], anrufen["presens_du"]), ("rief an", "haben", "rufst an"))
-        self.assertEqual(rows[("A2", "lärmlich")]["audio_text"], "")  # not a German word: nothing for TTS
+        self.assertEqual(rows[("A2", "lärmend")]["audio_text"], "lärmend")  # was „lärmlich“
+        self.assertEqual(rows[("B2", "Sicherheitslücke")]["plural"], "Sicherheitslücken")
+        self.assertEqual(rows[("B2", "sich bewegen")]["verb_praeteritum"], "bewegte")
+        self.assertEqual(rows[("B2", "sich merken")]["presens_ich"], "merke mir")
+        self.assertEqual(rows[("B2", "während")]["word_type"], "Konjunktion")
+        self.assertEqual(rows[("A1", "hilfsbereit")]["translation"], "yordamga tayyor")
+        self.assertNotIn(("A2", "Krankenhausticket"), rows)
+        with tempfile.TemporaryDirectory() as tmp:
+            for p in self.export_csv.DOCS.glob("*.csv"):
+                shutil.copy(p, tmp)
+            stats = apply_review.apply(Path(tmp), dry_run=True, allow_unused=True)
+        self.assertEqual((stats["changes_logged"], stats["rows_merged"], stats["rows_deleted"]), (0, 0, 0))
 
 
 DB_URL = os.environ.get("VIZU_WB_TEST_DB_URL")
@@ -254,7 +282,7 @@ class TestDatabase(unittest.TestCase):
         cls.engine = create_engine(DB_URL)
         cls.Session = sessionmaker(bind=cls.engine)
         db = cls.Session()
-        import_woerterbuch.run(db)
+        import_woerterbuch.run(db, prune_missing=True)
         cls.users = []
         for _ in range(2):
             u = User(email=f"wb-{uuid.uuid4().hex[:8]}@test.local", username=f"wb_{uuid.uuid4().hex[:8]}", password_hash="x",
@@ -287,16 +315,51 @@ class TestDatabase(unittest.TestCase):
         from app.models.dictionary import DictionaryEntry as E
         from app.scripts import import_woerterbuch
 
-        self.assertEqual({lv: self._count(E.level == lv) for lv in source.LEVELS}, {"A1": 1000, "A2": 1000, "B1": 1000, "B2": 1500, "C1": 1100})
+        from app.scripts.woerterbuch import docs_csv
+
+        loaded = docs_csv.load()
+        expected = {lv: sum(r.level == lv for r in loaded.rows) for lv in source.LEVELS}
+        self.assertEqual({lv: self._count(E.level == lv) for lv in source.LEVELS}, expected)
         apfel = self.db.scalar(select(E).where(E.level == "A1", E.source_id == 1))
         self.assertEqual((apfel.lemma, apfel.article, apfel.plural, apfel.translation), ("Apfel", "der", "Äpfel", "olma"))
         self.assertEqual(len(apfel.extra["quiz_distractors"]), 2)
-        # nothing is promoted to verified; repeats are kept, not deleted
-        self.assertEqual(self._count(E.status == "verified"), 0)
-        self.assertEqual(self._count(E.is_primary.is_(False)), 262 + 366 + 753 + 264 + 57)
+        # the CSV status is taken as it is
+        self.assertEqual(self._count(E.status == "verified"), sum(r.values["status"] == "verified" for r in loaded.rows))
+        self.assertEqual(self._count(E.is_primary.is_(False)), 0)
         stats = import_woerterbuch.run(self.db, dry_run=True)
-        self.assertEqual(sum(s.get("unchanged", 0) for s in stats["levels"].values()), 5600)
+        self.assertEqual(sum(s.get("unchanged", 0) for s in stats["levels"].values()), len(loaded.rows))
         self.assertEqual(sum(s.get("created", 0) + s.get("updated", 0) for s in stats["levels"].values()), 0)
+
+    def test_prune_moves_saved_words_to_the_kept_row(self):
+        import shutil
+        import tempfile
+
+        from sqlalchemy import select
+
+        from app.models.dictionary import DictionaryEntry as E, DictionaryUserWord as W
+        from app.scripts import import_woerterbuch
+
+        apfel = self.db.scalar(select(E).where(E.level == "A1", E.source_id == 1))
+        from sqlalchemy import inspect
+
+        gone = E(**{a.key: getattr(apfel, a.key) for a in inspect(E).column_attrs if a.key not in ("id", "created_at", "updated_at")})
+        gone.source_id, gone.content_hash = 99999, "x"
+        self.db.add(gone)
+        self.db.flush()
+        self.db.add(W(user_id=self.other.id, entry_id=gone.id, saved=True, seen_count=2))
+        self.db.commit()
+        with tempfile.TemporaryDirectory() as tmp:
+            for p in import_woerterbuch.docs_csv.DOCS_DIR.glob("*.csv"):
+                shutil.copy(p, tmp)
+            with (Path(tmp) / "worterbuch-merges.csv").open("a", encoding="utf-8", newline="") as f:
+                f.write("A1,99999,A1,1,der Apfel\r\n")
+            stats = import_woerterbuch.run(self.db, Path(tmp), prune_missing=True)
+        self.assertEqual((stats["pruned"], stats["moved_user_words"]), (1, 1))
+        self.assertIsNone(self.db.scalar(select(E).where(E.level == "A1", E.source_id == 99999)))
+        moved = self.db.scalar(select(W).where(W.user_id == self.other.id, W.entry_id == apfel.id))
+        self.assertTrue(moved.saved)
+        self.db.delete(moved)
+        self.db.commit()
 
     def test_search_prefix_first_then_contains(self):
         from app.services import dictionary as svc
@@ -342,15 +405,13 @@ class TestDatabase(unittest.TestCase):
         self.assertIsNone(card["adjective"])
         self.assertNotIn("quiz_distractors", card["details"])
         self.assertNotIn("review", card)
-        self.assertEqual(card["status"], "needs_review")
+        self.assertEqual(card["status"], "verified")
         self.assertEqual(card["attribution"]["license"], "CC BY-SA 4.0")
         zuv = svc.entry_card(self.db, self.user, svc.search(self.db, self.user, "zuverlässig", level="A2")["items"][0]["id"])
         self.assertEqual(zuv["adjective"]["komparativ"], "zuverlässiger")
         self.assertIn("B1", zuv["also_in"])
-        hidden = self.db.scalar(select(E).where(E.is_published.is_(False)).limit(1))
-        with self.assertRaises(HTTPException):
-            svc.entry_card(self.db, self.user, hidden.word_id)
-        self.assertEqual(svc.search(self.db, self.user, "Sicherheitlücke")["total"], 0)
+        self.assertEqual(self.db.scalar(select(E).where(E.is_published.is_(False)).limit(1)), None)
+        self.assertEqual(svc.search(self.db, self.user, "Sicherheitslücke")["items"][0]["lemma"], "Sicherheitslücke")
         with self.assertRaises(HTTPException):
             svc.entry_card(self.db, self.user, "X9-1")
 
@@ -419,7 +480,7 @@ class TestApi(unittest.TestCase):
             a1 = Path(tmp) / "A1-words.csv"
             lines = a1.read_text(encoding="utf-8").splitlines()
             lines[3] = lines[2]  # duplicate id
-            lines[4] = lines[4].replace("needs_review", "checked")  # unknown status
+            lines[4] = lines[4].rsplit(",", 1)[0] + ",checked"  # unknown status
             a1.write_text("\n".join(lines), encoding="utf-8")
 
             class NoDb:

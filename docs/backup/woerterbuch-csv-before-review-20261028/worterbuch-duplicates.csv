@@ -1,0 +1,3081 @@
+group,headword,level,id,translation,duplicate_kind,answers_in_group,group_size,action
+D0001,die Tasche,A1,8,sumka,same_level,same,2,kept
+D0001,die Tasche,A1,568,sumka,same_level,same,2,kept
+D0002,das Handy,A1,17,telefon,same_level,same,2,kept
+D0002,das Handy,A1,563,telefon,same_level,same,2,kept
+D0003,das Fenster,A1,20,oyna,same_level,same,2,kept
+D0003,das Fenster,A1,569,oyna,same_level,same,2,kept
+D0004,freundlich,A1,21,mehribon,same_level,different,18,kept
+D0004,freundlich,A1,112,mehribon,same_level,different,18,kept
+D0004,freundlich,A1,272,mehribon,same_level,different,18,kept
+D0004,freundlich,A1,500,mehribon,same_level,different,18,kept
+D0004,freundlich,A1,557,mehribon,same_level,different,18,kept
+D0004,freundlich,A1,715,mehribon,same_level,different,18,kept
+D0004,freundlich,A2,647,xushmuomala,same_level,different,18,kept
+D0004,freundlich,A2,867,xushmuomala,same_level,different,18,kept
+D0004,freundlich,B1,30,xushmuomala,same_level,different,18,kept
+D0004,freundlich,B1,145,xushmuomala,same_level,different,18,kept
+D0004,freundlich,B1,262,xushmuomala,same_level,different,18,kept
+D0004,freundlich,B1,398,xushmuomala,same_level,different,18,kept
+D0004,freundlich,B1,470,xushmuomala,same_level,different,18,kept
+D0004,freundlich,B1,553,xushmuomala,same_level,different,18,kept
+D0004,freundlich,B1,670,xushmuomala,same_level,different,18,kept
+D0004,freundlich,B1,751,xushmuomala,same_level,different,18,kept
+D0004,freundlich,B1,870,xushmuomala,same_level,different,18,kept
+D0004,freundlich,B1,951,xushmuomala,same_level,different,18,kept
+D0005,langsam,A1,23,sekin,same_level,same,3,kept
+D0005,langsam,A1,320,sekin,same_level,same,3,kept
+D0005,langsam,A1,960,sekin,same_level,same,3,kept
+D0006,helfen,A1,24,yordam bermoq,same_level,same,2,kept
+D0006,helfen,A1,233,yordam bermoq,same_level,same,2,kept
+D0007,interessant,A1,25,qiziqarli,same_level,same,12,kept
+D0007,interessant,A1,432,qiziqarli,same_level,same,12,kept
+D0007,interessant,A1,777,qiziqarli,same_level,same,12,kept
+D0007,interessant,A2,570,qiziqarli,cross_level,same,12,kept
+D0007,interessant,B1,65,qiziqarli,same_level,same,12,kept
+D0007,interessant,B1,314,qiziqarli,same_level,same,12,kept
+D0007,interessant,B1,474,qiziqarli,same_level,same,12,kept
+D0007,interessant,B1,589,qiziqarli,same_level,same,12,kept
+D0007,interessant,B1,673,qiziqarli,same_level,same,12,kept
+D0007,interessant,B1,787,qiziqarli,same_level,same,12,kept
+D0007,interessant,B1,873,qiziqarli,same_level,same,12,kept
+D0007,interessant,B1,987,qiziqarli,same_level,same,12,kept
+D0008,fragen,A1,26,so‘ramoq,same_level,same,2,kept
+D0008,fragen,A1,279,so‘ramoq,same_level,same,2,kept
+D0009,sauber,A1,27,toza,same_level,same,5,kept
+D0009,sauber,A1,152,toza,same_level,same,5,kept
+D0009,sauber,A1,412,toza,same_level,same,5,kept
+D0009,sauber,A1,652,toza,same_level,same,5,kept
+D0009,sauber,A1,917,toza,same_level,same,5,kept
+D0010,bezahlen,A1,28,to‘lamoq,same_level,same,4,kept
+D0010,bezahlen,A1,156,to‘lamoq,same_level,same,4,kept
+D0010,bezahlen,A1,839,to‘lamoq,same_level,same,4,kept
+D0010,bezahlen,B2,1078,to‘lamoq,cross_level,same,4,kept
+D0011,heute,A1,29,bugun,same_level,same,4,kept
+D0011,heute,A1,234,bugun,same_level,same,4,kept
+D0011,heute,A1,354,bugun,same_level,same,4,kept
+D0011,heute,A1,434,bugun,same_level,same,4,kept
+D0012,stark,A1,30,kuchli,same_level,same,2,kept
+D0012,stark,A1,372,kuchli,same_level,same,2,kept
+D0013,arbeiten,A1,41,ishlamoq,same_level,same,3,kept
+D0013,arbeiten,A1,171,ishlamoq,same_level,same,3,kept
+D0013,arbeiten,A1,236,ishlamoq,same_level,same,3,kept
+D0014,schnell,A1,42,tez,same_level,same,4,kept
+D0014,schnell,A1,297,tez,same_level,same,4,kept
+D0014,schnell,A1,380,tez,same_level,same,4,kept
+D0014,schnell,A1,460,tez,same_level,same,4,kept
+D0015,glücklich,A1,43,baxtli,same_level,same,10,kept
+D0015,glücklich,A1,332,baxtli,same_level,same,10,kept
+D0015,glücklich,A1,900,baxtli,same_level,same,10,kept
+D0015,glücklich,A1,995,baxtli,same_level,same,10,kept
+D0015,glücklich,A2,522,baxtli,same_level,same,10,kept
+D0015,glücklich,A2,762,baxtli,same_level,same,10,kept
+D0015,glücklich,A2,862,baxtli,same_level,same,10,kept
+D0015,glücklich,B1,46,baxtli,same_level,same,10,kept
+D0015,glücklich,B1,153,baxtli,same_level,same,10,kept
+D0015,glücklich,B1,322,baxtli,same_level,same,10,kept
+D0016,lernen,A1,44,o‘rganmoq,same_level,same,4,kept
+D0016,lernen,A1,176,o‘rganmoq,same_level,same,4,kept
+D0016,lernen,A1,293,o‘rganmoq,same_level,same,4,kept
+D0016,lernen,A1,431,o‘rganmoq,same_level,same,4,kept
+D0017,oft,A1,45,tez-tez,same_level,same,3,kept
+D0017,oft,A1,214,tez-tez,same_level,same,3,kept
+D0017,oft,A1,378,tez-tez,same_level,same,3,kept
+D0018,wohnen,A1,47,yashamoq,same_level,same,3,kept
+D0018,wohnen,A1,391,yashamoq,same_level,same,3,kept
+D0018,wohnen,A1,916,yashamoq,same_level,same,3,kept
+D0019,müde,A1,49,charchagan,same_level,same,4,kept
+D0019,müde,A1,712,charchagan,same_level,same,4,kept
+D0019,müde,A1,820,charchagan,same_level,same,4,kept
+D0019,müde,B2,1253,charchagan,cross_level,same,4,kept
+D0020,kochen,A1,50,pishirmoq,same_level,same,2,kept
+D0020,kochen,A1,253,pishirmoq,same_level,same,2,kept
+D0021,die Zeitung,A1,54,gazeta,same_level,same,2,kept
+D0021,die Zeitung,A1,565,gazeta,same_level,same,2,kept
+D0022,trinken,A1,61,ichmoq,same_level,same,2,kept
+D0022,trinken,A1,259,ichmoq,same_level,same,2,kept
+D0023,gern,A1,64,jon deb,same_level,same,2,kept
+D0023,gern,A1,258,jon deb,same_level,same,2,kept
+D0024,laut,A1,66,baland,same_level,same,4,kept
+D0024,laut,A1,238,baland,same_level,same,4,kept
+D0024,laut,A1,312,baland,same_level,same,4,kept
+D0024,laut,A1,915,baland,same_level,same,4,kept
+D0025,schreiben,A1,67,yozmoq,same_level,same,2,kept
+D0025,schreiben,A1,291,yozmoq,same_level,same,2,kept
+D0026,zusammen,A1,70,birga,same_level,same,6,kept
+D0026,zusammen,A1,254,birga,same_level,same,6,kept
+D0026,zusammen,A1,374,birga,same_level,same,6,kept
+D0026,zusammen,A1,734,birga,same_level,same,6,kept
+D0026,zusammen,A1,898,birga,same_level,same,6,kept
+D0026,zusammen,A1,998,birga,same_level,same,6,kept
+D0027,der Computer,A1,72,kompyuter,same_level,same,2,kept
+D0027,der Computer,A1,564,kompyuter,same_level,same,2,kept
+D0028,das Fahrrad,A1,74,velosiped,same_level,same,2,kept
+D0028,das Fahrrad,A1,525,velosiped,same_level,same,2,kept
+D0029,schlafen,A1,81,uxlamoq,cross_level,same,2,kept
+D0029,schlafen,B2,1249,uxlamoq,cross_level,same,2,kept
+D0030,alt,A1,82,qari,same_level,different,3,kept
+D0030,alt,A1,155,qari,same_level,different,3,kept
+D0030,alt,A1,497,qadimiy,same_level,different,3,kept
+D0031,kaufen,A1,83,sotib olmoq,same_level,same,2,kept
+D0031,kaufen,A1,273,sotib olmoq,same_level,same,2,kept
+D0032,dort,A1,84,u yerda,same_level,same,5,kept
+D0032,dort,A1,220,u yerda,same_level,same,5,kept
+D0032,dort,A1,398,u yerda,same_level,same,5,kept
+D0032,dort,A1,438,u yerda,same_level,same,5,kept
+D0032,dort,A1,918,u yerda,same_level,same,5,kept
+D0033,bringen,A1,86,olib kelmoq,same_level,same,2,kept
+D0033,bringen,A1,256,olib kelmoq,same_level,same,2,kept
+D0034,wichtig,A1,87,muhim,same_level,same,3,kept
+D0034,wichtig,A1,295,muhim,same_level,same,3,kept
+D0034,wichtig,B2,823,muhim,cross_level,same,3,kept
+D0035,öffnen,A1,89,ochmoq,same_level,same,4,kept
+D0035,öffnen,A1,159,ochmoq,same_level,same,4,kept
+D0035,öffnen,A1,296,ochmoq,same_level,same,4,kept
+D0035,öffnen,A1,396,ochmoq,same_level,same,4,kept
+D0036,ruhig,A1,90,tinch,same_level,same,12,kept
+D0036,ruhig,A1,235,tinch,same_level,same,12,kept
+D0036,ruhig,A1,400,tinch,same_level,same,12,kept
+D0036,ruhig,A1,440,tinch,same_level,same,12,kept
+D0036,ruhig,A1,697,tinch,same_level,same,12,kept
+D0036,ruhig,A1,912,tinch,same_level,same,12,kept
+D0036,ruhig,A2,507,tinch,same_level,same,12,kept
+D0036,ruhig,A2,687,tinch,same_level,same,12,kept
+D0036,ruhig,A2,987,tinch,same_level,same,12,kept
+D0036,ruhig,B1,61,tinch,same_level,same,12,kept
+D0036,ruhig,B1,193,tinch,same_level,same,12,kept
+D0036,ruhig,B1,286,tinch,same_level,same,12,kept
+D0037,das Wochenende,A1,99,hafta oxiri,same_level,same,2,kept
+D0037,das Wochenende,A1,769,hafta oxiri,same_level,same,2,kept
+D0038,die Sprache,A1,104,til,cross_level,same,2,kept
+D0038,die Sprache,B2,1158,til,cross_level,same,2,kept
+D0039,das Foto,A1,105,rasm,same_level,same,2,kept
+D0039,das Foto,A1,566,rasm,same_level,same,2,kept
+D0040,essen,A1,111,yemoq,same_level,same,2,kept
+D0040,essen,A1,251,yemoq,same_level,same,2,kept
+D0041,später,A1,114,keyinroq,same_level,same,2,kept
+D0041,später,A1,418,keyinroq,same_level,same,2,kept
+D0042,teuer,A1,118,qimmat,same_level,same,2,kept
+D0042,teuer,A1,278,qimmat,same_level,same,2,kept
+D0043,zeigen,A1,119,ko‘rsatmoq,same_level,same,2,kept
+D0043,zeigen,A1,276,ko‘rsatmoq,same_level,same,2,kept
+D0044,draußen,A1,120,tashqarida,same_level,same,6,kept
+D0044,draußen,A1,260,tashqarida,same_level,same,6,kept
+D0044,draußen,A1,360,tashqarida,same_level,same,6,kept
+D0044,draußen,A1,474,tashqarida,same_level,same,6,kept
+D0044,draußen,A1,878,tashqarida,same_level,same,6,kept
+D0044,draußen,A1,974,tashqarida,same_level,same,6,kept
+D0045,das Ticket,A1,127,chipta,same_level,same,2,kept
+D0045,das Ticket,A1,543,chipta,same_level,same,2,kept
+D0046,der Flughafen,A1,128,aeroport,same_level,same,2,kept
+D0046,der Flughafen,A1,541,aeroport,same_level,same,2,kept
+D0047,fahren,A1,131,bormoq,same_level,different,2,kept
+D0047,fahren,A1,471,minmoq,same_level,different,2,kept
+D0048,langweilig,A1,132,zerikarli,same_level,same,3,kept
+D0048,langweilig,A1,717,zerikarli,same_level,same,3,kept
+D0048,langweilig,A2,175,zerikarli,cross_level,same,3,kept
+D0049,meistens,A1,134,ko‘pincha,cross_level,same,3,kept
+D0049,meistens,A2,584,ko‘pincha,cross_level,same,3,kept
+D0049,meistens,B1,220,ko‘pincha,cross_level,same,3,kept
+D0050,links,A1,137,chapda,same_level,same,2,kept
+D0050,links,A1,480,chapda,same_level,same,2,kept
+D0051,unten,A1,140,pastda,same_level,same,2,kept
+D0051,unten,A1,280,pastda,same_level,same,2,kept
+D0052,tragen,A1,151,kiymoq,same_level,different,2,kept
+D0052,tragen,A1,456,tashimoq,same_level,different,2,kept
+D0053,verkaufen,A1,153,sotmoq,same_level,same,2,kept
+D0053,verkaufen,A1,271,sotmoq,same_level,same,2,kept
+D0054,oben,A1,157,tepada,same_level,same,3,kept
+D0054,oben,A1,318,tepada,same_level,same,3,kept
+D0054,oben,A1,858,tepada,same_level,same,3,kept
+D0055,drinnen,A1,160,ichkarida,same_level,same,5,kept
+D0055,drinnen,A1,300,ichkarida,same_level,same,5,kept
+D0055,drinnen,A1,394,ichkarida,same_level,same,5,kept
+D0055,drinnen,A1,458,ichkarida,same_level,same,5,kept
+D0055,drinnen,A1,838,ichkarida,same_level,same,5,kept
+D0056,der Urlaub,A1,169,ta’til,same_level,same,2,kept
+D0056,der Urlaub,A1,547,ta’til,same_level,same,2,kept
+D0057,die Nachricht,A1,170,xabar,cross_level,same,2,kept
+D0057,die Nachricht,B2,1179,xabar,cross_level,same,2,kept
+D0058,anrufen,A1,173,qo‘ng‘iroq qilmoq,cross_level,same,4,kept
+D0058,anrufen,A2,469,qo‘ng‘iroq qilmoq,same_level,same,4,kept
+D0058,anrufen,A2,749,qo‘ng‘iroq qilmoq,same_level,same,4,kept
+D0058,anrufen,A2,881,qo‘ng‘iroq qilmoq,same_level,same,4,kept
+D0059,manchmal,A1,174,ba’zida,same_level,same,13,kept
+D0059,manchmal,A1,274,ba’zida,same_level,same,13,kept
+D0059,manchmal,A1,314,ba’zida,same_level,same,13,kept
+D0059,manchmal,A1,454,ba’zida,same_level,same,13,kept
+D0059,manchmal,A1,718,ba’zida,same_level,same,13,kept
+D0059,manchmal,A1,934,ba’zida,same_level,same,13,kept
+D0059,manchmal,A2,424,ba’zida,same_level,same,13,kept
+D0059,manchmal,A2,724,ba’zida,same_level,same,13,kept
+D0059,manchmal,A2,844,ba’zida,same_level,same,13,kept
+D0059,manchmal,B1,40,ba’zida,same_level,same,13,kept
+D0059,manchmal,B1,119,ba’zida,same_level,same,13,kept
+D0059,manchmal,B1,183,ba’zida,same_level,same,13,kept
+D0059,manchmal,B1,284,ba’zida,same_level,same,13,kept
+D0060,gesund,A1,178,sog‘lom,same_level,same,3,kept
+D0060,gesund,A1,880,sog‘lom,same_level,same,3,kept
+D0060,gesund,B2,1202,sog‘lom,cross_level,same,3,kept
+D0061,antworten,A1,179,javob bermoq,same_level,same,2,kept
+D0061,antworten,A1,436,javob bermoq,same_level,same,2,kept
+D0062,überall,A1,180,hamma yerda,same_level,same,2,kept
+D0062,überall,A1,494,hamma yerda,same_level,same,2,kept
+D0063,die Insel,A1,185,orol,cross_level,same,2,kept
+D0063,die Insel,B2,941,orol,cross_level,same,2,kept
+D0064,das Radio,A1,186,radio,same_level,same,2,kept
+D0064,das Radio,A1,522,radio,same_level,same,2,kept
+D0065,regnen,A1,191,yomg‘ir yog‘moq,same_level,same,2,kept
+D0065,regnen,A1,971,yomg‘ir yog‘moq,same_level,same,2,kept
+D0066,besuchen,A1,199,ziyorat qilmoq,same_level,different,4,kept
+D0066,besuchen,A1,491,ziyorat qilmoq,same_level,different,4,kept
+D0066,besuchen,A1,993,ziyorat qilmoq,same_level,different,4,kept
+D0066,besuchen,B2,1113,qatnashmoq,cross_level,different,4,kept
+D0067,der Sänger,A1,209,qo‘shiqchi,cross_level,different,2,kept
+D0067,der Sänger,A2,169,xonanda,cross_level,different,2,kept
+D0068,berühmt,A1,212,mashhur,same_level,same,2,kept
+D0068,berühmt,A1,492,mashhur,same_level,same,2,kept
+D0069,tanzen,A1,213,raqs tushmoq,same_level,same,2,kept
+D0069,tanzen,A1,359,raqs tushmoq,same_level,same,2,kept
+D0070,traurig,A1,215,xafa,same_level,same,6,kept
+D0070,traurig,A1,358,xafa,same_level,same,6,kept
+D0070,traurig,A1,537,xafa,same_level,same,6,kept
+D0070,traurig,A1,657,xafa,same_level,same,6,kept
+D0070,traurig,A1,772,xafa,same_level,same,6,kept
+D0070,traurig,A1,895,xafa,same_level,same,6,kept
+D0071,fröhlich,A1,218,xursand,same_level,same,4,kept
+D0071,fröhlich,A1,352,xursand,same_level,same,4,kept
+D0071,fröhlich,A1,877,xursand,same_level,same,4,kept
+D0071,fröhlich,A1,992,xursand,same_level,same,4,kept
+D0072,gefährlich,A1,232,xavfli,same_level,same,3,kept
+D0072,gefährlich,A1,475,xavfli,same_level,same,3,kept
+D0072,gefährlich,A1,952,xavfli,same_level,same,3,kept
+D0073,beginnen,A1,239,boshlamoq,same_level,same,3,kept
+D0073,beginnen,A1,331,boshlamoq,same_level,same,3,kept
+D0073,beginnen,B2,882,boshlamoq,cross_level,same,3,kept
+D0074,bald,A1,240,tez orada,same_level,same,2,kept
+D0074,bald,A1,334,tez orada,same_level,same,2,kept
+D0075,sauer,A1,255,nordon,same_level,same,2,kept
+D0075,sauer,A1,835,nordon,same_level,same,2,kept
+D0076,hungrig,A1,257,och,same_level,same,3,kept
+D0076,hungrig,A1,595,och,same_level,same,3,kept
+D0076,hungrig,A1,695,och,same_level,same,3,kept
+D0077,das Regal,A1,265,javon,same_level,same,2,kept
+D0077,das Regal,A1,509,javon,same_level,same,2,kept
+D0078,der Kunde,A1,266,mijoz,cross_level,same,2,kept
+D0078,der Kunde,B2,1081,mijoz,cross_level,same,2,kept
+D0079,die Rechnung,A1,267,hisob-faktura,cross_level,same,2,kept
+D0079,die Rechnung,B2,1077,hisob-faktura,cross_level,same,2,kept
+D0080,der Kalender,A1,269,taqvim,same_level,different,3,kept
+D0080,der Kalender,A1,570,kalendar,same_level,different,3,kept
+D0080,der Kalender,B2,1063,kalendar,cross_level,different,3,kept
+D0081,die Tastatur,A1,286,klaviatura,cross_level,same,2,kept
+D0081,die Tastatur,B2,95,klaviatura,cross_level,same,2,kept
+D0082,die Batterie,A1,289,element,same_level,different,2,kept
+D0082,die Batterie,A1,562,batareya,same_level,different,2,kept
+D0083,das Kabel,A1,290,sim,cross_level,different,2,kept
+D0083,das Kabel,B2,394,kabel,cross_level,different,2,kept
+D0084,modern,A1,292,zamonaviy,cross_level,same,4,kept
+D0084,modern,B2,160,zamonaviy,same_level,same,4,kept
+D0084,modern,B2,894,zamonaviy,same_level,same,4,kept
+D0084,modern,B2,1295,zamonaviy,same_level,same,4,kept
+D0085,online,A1,294,onlayn,cross_level,same,2,kept
+D0085,online,B2,451,onlayn,cross_level,same,2,kept
+D0086,schließen,A1,298,yopmoq,same_level,same,2,kept
+D0086,schließen,A1,399,yopmoq,same_level,same,2,kept
+D0087,einfach,A1,299,oson,same_level,same,2,kept
+D0087,einfach,A1,940,oson,same_level,same,2,kept
+D0088,weich,A1,317,yumshoq,same_level,same,2,kept
+D0088,weich,A1,420,yumshoq,same_level,same,2,kept
+D0089,das Ziel,A1,325,maqsad,cross_level,same,3,kept
+D0089,das Ziel,B2,700,maqsad,same_level,same,3,kept
+D0089,das Ziel,B2,887,maqsad,same_level,same,3,kept
+D0090,das Ergebnis,A1,328,natija,cross_level,same,3,kept
+D0090,das Ergebnis,B2,119,natija,same_level,same,3,kept
+D0090,das Ergebnis,B2,800,natija,same_level,same,3,kept
+D0091,der Anfang,A1,329,boshlanish,cross_level,same,2,kept
+D0091,der Anfang,B2,881,boshlanish,cross_level,same,2,kept
+D0092,richtig,A1,335,to‘g‘ri,same_level,same,3,kept
+D0092,richtig,A1,580,to‘g‘ri,same_level,same,3,kept
+D0092,richtig,A1,680,to‘g‘ri,same_level,same,3,kept
+D0093,planen,A1,336,rejalashtirmoq,cross_level,same,2,kept
+D0093,planen,B2,649,rejalashtirmoq,cross_level,same,2,kept
+D0094,bereit,A1,337,tayyor,same_level,same,2,kept
+D0094,bereit,A1,1000,tayyor,same_level,same,2,kept
+D0095,das Ende,A1,341,tugash,cross_level,different,2,kept
+D0095,das Ende,B2,880,yakun,cross_level,different,2,kept
+D0096,die Einladung,A1,343,taklifnoma,same_level,same,2,kept
+D0096,die Einladung,A1,548,taklifnoma,same_level,same,2,kept
+D0097,feiern,A1,351,nishonlamoq,same_level,same,3,kept
+D0097,feiern,A1,891,nishonlamoq,same_level,same,3,kept
+D0097,feiern,A1,991,nishonlamoq,same_level,same,3,kept
+D0098,einladen,A1,353,taklif qilmoq,same_level,same,5,kept
+D0098,einladen,A1,893,taklif qilmoq,same_level,same,5,kept
+D0098,einladen,A2,489,taklif qilmoq,same_level,same,5,kept
+D0098,einladen,A2,709,taklif qilmoq,same_level,same,5,kept
+D0098,einladen,A2,909,taklif qilmoq,same_level,same,5,kept
+D0099,lachen,A1,356,kulmoq,same_level,same,3,kept
+D0099,lachen,A1,696,kulmoq,same_level,same,3,kept
+D0099,lachen,A1,896,kulmoq,same_level,same,3,kept
+D0100,gemeinsam,A1,357,birgalikda,same_level,different,3,kept
+D0100,gemeinsam,A1,498,birga,same_level,different,3,kept
+D0100,gemeinsam,A1,938,birga,same_level,different,3,kept
+D0101,das Training,A1,363,mashg‘ulot,cross_level,same,2,kept
+D0101,das Training,B2,1240,mashg‘ulot,cross_level,same,2,kept
+D0102,die Medaille,A1,365,medal,same_level,same,2,kept
+D0102,die Medaille,A1,865,medal,same_level,same,2,kept
+D0103,der Zuschauer,A1,367,tomoshabin,cross_level,same,2,kept
+D0103,der Zuschauer,A2,163,tomoshabin,cross_level,same,2,kept
+D0104,die Bühne,A1,368,sahna,cross_level,same,2,kept
+D0104,die Bühne,A2,170,sahna,cross_level,same,2,kept
+D0105,fit,A1,375,sog‘lom,same_level,different,3,kept
+D0105,fit,A1,872,sog‘lom,same_level,different,3,kept
+D0105,fit,B2,1238,sog‘lom va chiniqqan,cross_level,different,3,kept
+D0106,trainieren,A1,376,mashq qilmoq,same_level,same,3,kept
+D0106,trainieren,A1,871,mashq qilmoq,same_level,same,3,kept
+D0106,trainieren,B2,1239,mashq qilmoq,cross_level,same,3,kept
+D0107,die Bushaltestelle,A1,382,avtobus bekati,same_level,same,2,kept
+D0107,die Bushaltestelle,A1,765,avtobus bekati,same_level,same,2,kept
+D0108,das Einkaufszentrum,A1,383,savdo markazi,cross_level,same,2,kept
+D0108,das Einkaufszentrum,A2,632,savdo markazi,cross_level,same,2,kept
+D0109,die Unterkunft,A1,385,turar joy,cross_level,same,5,kept
+D0109,die Unterkunft,A2,104,turar joy,same_level,same,5,kept
+D0109,die Unterkunft,A2,880,turar joy,same_level,same,5,kept
+D0109,die Unterkunft,B1,27,turar joy,cross_level,same,5,kept
+D0109,die Unterkunft,B2,926,turar joy,cross_level,same,5,kept
+D0110,das Formular,A1,386,anketa,cross_level,different,3,kept
+D0110,das Formular,A2,82,forma,cross_level,different,3,kept
+D0110,das Formular,B2,1368,blanka,cross_level,different,3,kept
+D0111,das Wohnzimmer,A1,389,mehmonxona,same_level,same,2,kept
+D0111,das Wohnzimmer,A1,746,mehmonxona,same_level,same,2,kept
+D0112,der Kühlschrank,A1,390,muzlatgich,same_level,same,4,kept
+D0112,der Kühlschrank,A1,561,muzlatgich,same_level,same,4,kept
+D0112,der Kühlschrank,A1,644,muzlatgich,same_level,same,4,kept
+D0112,der Kühlschrank,A1,841,muzlatgich,same_level,same,4,kept
+D0113,bequem,A1,392,qulay,same_level,same,13,kept
+D0113,bequem,A1,532,qulay,same_level,same,13,kept
+D0113,bequem,A1,720,qulay,same_level,same,13,kept
+D0113,bequem,A1,857,qulay,same_level,same,13,kept
+D0113,bequem,A2,445,qulay,same_level,same,13,kept
+D0113,bequem,A2,785,qulay,same_level,same,13,kept
+D0113,bequem,A2,925,qulay,same_level,same,13,kept
+D0113,bequem,B1,42,qulay,same_level,same,13,kept
+D0113,bequem,B1,165,qulay,same_level,same,13,kept
+D0113,bequem,B1,318,qulay,same_level,same,13,kept
+D0113,bequem,B1,494,qulay,same_level,same,13,kept
+D0113,bequem,B1,693,qulay,same_level,same,13,kept
+D0113,bequem,B1,893,qulay,same_level,same,13,kept
+D0114,ausfüllen,A1,393,to‘ldirmoq,same_level,same,4,kept
+D0114,ausfüllen,A1,613,to‘ldirmoq,same_level,same,4,kept
+D0114,ausfüllen,A2,586,to‘ldirmoq,cross_level,same,4,kept
+D0114,ausfüllen,B2,1369,to‘ldirmoq,cross_level,same,4,kept
+D0115,gemütlich,A1,395,shinam,same_level,same,3,kept
+D0115,gemütlich,A1,615,shinam,same_level,same,3,kept
+D0115,gemütlich,A1,920,shinam,same_level,same,3,kept
+D0116,leer,A1,397,bo‘sh,same_level,same,4,kept
+D0116,leer,A1,517,bo‘sh,same_level,same,4,kept
+D0116,leer,A1,760,bo‘sh,same_level,same,4,kept
+D0116,leer,A1,840,bo‘sh,same_level,same,4,kept
+D0117,die Waschmaschine,A1,401,kir yuvish mashinasi,same_level,same,2,kept
+D0117,die Waschmaschine,A1,842,kir yuvish mashinasi,same_level,same,2,kept
+D0118,das Kopfkissen,A1,402,yostiq,same_level,same,2,kept
+D0118,das Kopfkissen,A1,849,yostiq,same_level,same,2,kept
+D0119,das Handtuch,A1,405,sochiq,same_level,same,2,kept
+D0119,das Handtuch,A1,846,sochiq,same_level,same,2,kept
+D0120,die Zahnpasta,A1,410,tish pastasi,same_level,same,2,kept
+D0120,die Zahnpasta,A1,845,tish pastasi,same_level,same,2,kept
+D0121,nass,A1,415,ho‘l,same_level,same,2,kept
+D0121,nass,A1,815,ho‘l,same_level,same,2,kept
+D0122,das Wörterbuch,A1,421,lug‘at,same_level,same,2,kept
+D0122,das Wörterbuch,A1,606,lug‘at,same_level,same,2,kept
+D0123,der Kugelschreiber,A1,422,ruchka,same_level,same,2,kept
+D0123,der Kugelschreiber,A1,927,ruchka,same_level,same,2,kept
+D0124,das Praktikum,A1,430,amaliyot,cross_level,same,2,kept
+D0124,das Praktikum,A2,148,amaliyot,cross_level,same,2,kept
+D0125,erklären,A1,433,tushuntirmoq,same_level,same,9,kept
+D0125,erklären,A1,516,tushuntirmoq,same_level,same,9,kept
+D0125,erklären,A1,931,tushuntirmoq,same_level,same,9,kept
+D0125,erklären,B1,76,tushuntirmoq,same_level,same,9,kept
+D0125,erklären,B1,345,tushuntirmoq,same_level,same,9,kept
+D0125,erklären,B1,548,tushuntirmoq,same_level,same,9,kept
+D0125,erklären,B1,746,tushuntirmoq,same_level,same,9,kept
+D0125,erklären,B1,946,tushuntirmoq,same_level,same,9,kept
+D0125,erklären,B2,739,tushuntirmoq,cross_level,same,9,kept
+D0126,schwierig,A1,435,qiyin,cross_level,same,4,kept
+D0126,schwierig,A2,470,qiyin,same_level,same,4,kept
+D0126,schwierig,A2,710,qiyin,same_level,same,4,kept
+D0126,schwierig,A2,930,qiyin,same_level,same,4,kept
+D0127,die Bäckerei,A1,445,nonvoyxona,same_level,same,2,kept
+D0127,die Bäckerei,A1,588,nonvoyxona,same_level,same,2,kept
+D0128,die Bestellung,A1,448,buyurtma,cross_level,same,2,kept
+D0128,die Bestellung,B2,1073,buyurtma,cross_level,same,2,kept
+D0129,reparieren,A1,451,ta’mirlamoq,same_level,same,5,kept
+D0129,reparieren,A1,676,ta’mirlamoq,same_level,same,5,kept
+D0129,reparieren,A2,466,ta’mirlamoq,same_level,same,5,kept
+D0129,reparieren,A2,746,ta’mirlamoq,same_level,same,5,kept
+D0129,reparieren,A2,906,ta’mirlamoq,same_level,same,5,kept
+D0130,fleißig,A1,452,mehnatkash,same_level,different,4,kept
+D0130,fleißig,A1,740,mehnatkash,same_level,different,4,kept
+D0130,fleißig,A1,935,mehnatkash,same_level,different,4,kept
+D0130,fleißig,B2,134,tirishqoq,cross_level,different,4,kept
+D0131,beschäftigt,A1,455,band,cross_level,same,5,kept
+D0131,beschäftigt,A2,545,band,same_level,same,5,kept
+D0131,beschäftigt,A2,665,band,same_level,same,5,kept
+D0131,beschäftigt,A2,885,band,same_level,same,5,kept
+D0131,beschäftigt,B1,89,band,cross_level,same,5,kept
+D0132,pünktlich,A1,457,o‘z vaqtida,same_level,different,6,kept
+D0132,pünktlich,A1,552,o‘z vaqtida,same_level,different,6,kept
+D0132,pünktlich,A1,797,o‘z vaqtida,same_level,different,6,kept
+D0132,pünktlich,A1,812,o‘z vaqtida,same_level,different,6,kept
+D0132,pünktlich,A2,97,o‘z vaqtida,cross_level,different,6,kept
+D0132,pünktlich,B2,1044,vaqtida keladigan,cross_level,different,6,kept
+D0133,verdienen,A1,459,pul ishlamoq,cross_level,same,2,kept
+D0133,verdienen,A2,159,pul ishlamoq,cross_level,same,2,kept
+D0134,die Kreuzung,A1,461,chorraha,same_level,same,2,kept
+D0134,die Kreuzung,A1,948,chorraha,same_level,same,2,kept
+D0135,das Motorrad,A1,462,mototsikl,same_level,same,2,kept
+D0135,das Motorrad,A1,949,mototsikl,same_level,same,2,kept
+D0136,der Fahrradhelm,A1,466,veloshlem,cross_level,different,3,kept
+D0136,der Fahrradhelm,A2,593,velosiped shlemi,same_level,different,3,kept
+D0136,der Fahrradhelm,A2,853,velosiped shlemi,same_level,different,3,kept
+D0137,die Landschaft,A1,467,manzara,cross_level,different,2,kept
+D0137,die Landschaft,B2,207,landshaft,cross_level,different,2,kept
+D0138,die Sehenswürdigkeit,A1,470,diqqatga sazovor joy,cross_level,same,3,kept
+D0138,die Sehenswürdigkeit,A2,281,diqqatga sazovor joy,cross_level,same,3,kept
+D0138,die Sehenswürdigkeit,B2,938,diqqatga sazovor joy,cross_level,same,3,kept
+D0139,vorsichtig,A1,472,ehtiyotkor,same_level,same,14,kept
+D0139,vorsichtig,A1,955,ehtiyotkor,same_level,same,14,kept
+D0139,vorsichtig,A2,392,ehtiyotkor,same_level,same,14,kept
+D0139,vorsichtig,A2,467,ehtiyotkor,same_level,same,14,kept
+D0139,vorsichtig,A2,707,ehtiyotkor,same_level,same,14,kept
+D0139,vorsichtig,A2,907,ehtiyotkor,same_level,same,14,kept
+D0139,vorsichtig,B1,129,ehtiyotkor,same_level,same,14,kept
+D0139,vorsichtig,B1,298,ehtiyotkor,same_level,same,14,kept
+D0139,vorsichtig,B1,466,ehtiyotkor,same_level,same,14,kept
+D0139,vorsichtig,B1,577,ehtiyotkor,same_level,same,14,kept
+D0139,vorsichtig,B1,666,ehtiyotkor,same_level,same,14,kept
+D0139,vorsichtig,B1,775,ehtiyotkor,same_level,same,14,kept
+D0139,vorsichtig,B1,866,ehtiyotkor,same_level,same,14,kept
+D0139,vorsichtig,B1,975,ehtiyotkor,same_level,same,14,kept
+D0140,abbiegen,A1,473,burilmoq,same_level,same,3,kept
+D0140,abbiegen,A1,956,burilmoq,same_level,same,3,kept
+D0140,abbiegen,A2,393,burilmoq,cross_level,same,3,kept
+D0141,gerade,A1,478,to‘g‘ri,same_level,same,2,kept
+D0141,gerade,A1,958,to‘g‘ri,same_level,same,2,kept
+D0142,die Reisegruppe,A1,486,sayohat guruhi,cross_level,same,4,kept
+D0142,die Reisegruppe,A2,477,sayohat guruhi,same_level,same,4,kept
+D0142,die Reisegruppe,A2,737,sayohat guruhi,same_level,same,4,kept
+D0142,die Reisegruppe,A2,897,sayohat guruhi,same_level,same,4,kept
+D0143,entdecken,A1,499,kashf qilmoq,cross_level,different,2,kept
+D0143,entdecken,B2,917,kashf etmoq,cross_level,different,2,kept
+D0144,der Termin,A1,501,uchrashuv vaqti,cross_level,same,2,kept
+D0144,der Termin,B2,1061,uchrashuv vaqti,cross_level,same,2,kept
+D0145,die Freizeit,A1,505,bo‘sh vaqt,cross_level,same,2,kept
+D0145,die Freizeit,B2,1101,bo‘sh vaqt,cross_level,same,2,kept
+D0146,der Fernseher,A1,507,televizor,same_level,same,2,kept
+D0146,der Fernseher,A1,630,televizor,same_level,same,2,kept
+D0147,frei,A1,512,bo‘sh,same_level,different,3,kept
+D0147,frei,A1,957,bo‘sh,same_level,different,3,kept
+D0147,frei,B2,1348,erkin,cross_level,different,3,kept
+D0148,vergessen,A1,513,unutmoq,same_level,same,2,kept
+D0148,vergessen,A1,759,unutmoq,same_level,same,2,kept
+D0149,kaputt,A1,515,buzilgan,same_level,same,3,kept
+D0149,kaputt,A1,637,buzilgan,same_level,same,3,kept
+D0149,kaputt,A1,775,buzilgan,same_level,same,3,kept
+D0150,vielleicht,A1,518,balki,same_level,same,3,kept
+D0150,vielleicht,A1,654,balki,same_level,same,3,kept
+D0150,vielleicht,A1,778,balki,same_level,same,3,kept
+D0151,wünschen,A1,519,tilamoq,same_level,same,2,kept
+D0151,wünschen,A1,699,tilamoq,same_level,same,2,kept
+D0152,nett,A1,520,yoqimli,same_level,same,3,kept
+D0152,nett,A1,640,yoqimli,same_level,same,3,kept
+D0152,nett,A1,780,yoqimli,same_level,same,3,kept
+D0153,der Supermarkt,A1,523,supermarket,same_level,same,3,kept
+D0153,der Supermarkt,A1,641,supermarket,same_level,same,3,kept
+D0153,der Supermarkt,A1,770,supermarket,same_level,same,3,kept
+D0154,das Sofa,A1,528,divan,same_level,different,2,kept
+D0154,das Sofa,A1,646,yumshoq mebel,same_level,different,2,kept
+D0155,reservieren,A1,531,band qilmoq,cross_level,same,2,kept
+D0155,reservieren,A2,111,band qilmoq,cross_level,same,2,kept
+D0156,mitkommen,A1,533,birga kelmoq,same_level,same,5,kept
+D0156,mitkommen,A1,791,birga kelmoq,same_level,same,5,kept
+D0156,mitkommen,A2,541,birga kelmoq,same_level,same,5,kept
+D0156,mitkommen,A2,921,birga kelmoq,same_level,same,5,kept
+D0156,mitkommen,B1,200,birga kelmoq,cross_level,same,5,kept
+D0157,zuerst,A1,534,avval,same_level,same,2,kept
+D0157,zuerst,A1,614,avval,same_level,same,2,kept
+D0158,voll,A1,535,to‘la,same_level,same,2,kept
+D0158,voll,A1,700,to‘la,same_level,same,2,kept
+D0159,wechseln,A1,536,almashtirmoq,same_level,same,2,kept
+D0159,wechseln,A1,653,almashtirmoq,same_level,same,2,kept
+D0160,deshalb,A1,538,shuning uchun,same_level,different,17,kept
+D0160,deshalb,A1,698,shuning uchun,same_level,different,17,kept
+D0160,deshalb,A2,258,shu sababli,same_level,different,17,kept
+D0160,deshalb,A2,548,shu sababli,same_level,different,17,kept
+D0160,deshalb,A2,668,shu sababli,same_level,different,17,kept
+D0160,deshalb,A2,868,shu sababli,same_level,different,17,kept
+D0160,deshalb,B1,12,shu sababli,same_level,different,17,kept
+D0160,deshalb,B1,123,shu sababli,same_level,different,17,kept
+D0160,deshalb,B1,280,shu sababli,same_level,different,17,kept
+D0160,deshalb,B1,360,shu sababli,same_level,different,17,kept
+D0160,deshalb,B1,504,shu sababli,same_level,different,17,kept
+D0160,deshalb,B1,567,shu sababli,same_level,different,17,kept
+D0160,deshalb,B1,703,shu sababli,same_level,different,17,kept
+D0160,deshalb,B1,765,shu sababli,same_level,different,17,kept
+D0160,deshalb,B1,903,shu sababli,same_level,different,17,kept
+D0160,deshalb,B1,965,shu sababli,same_level,different,17,kept
+D0160,deshalb,B2,841,shuning uchun,cross_level,different,17,kept
+D0161,lächeln,A1,539,jilmaymoq,same_level,same,3,kept
+D0161,lächeln,A1,639,jilmaymoq,same_level,same,3,kept
+D0161,lächeln,A1,796,jilmaymoq,same_level,same,3,kept
+D0162,fertig,A1,540,tayyor,same_level,same,4,kept
+D0162,fertig,A1,660,tayyor,same_level,same,4,kept
+D0162,fertig,A1,800,tayyor,same_level,same,4,kept
+D0162,fertig,A1,860,tayyor,same_level,same,4,kept
+D0163,das Hotelzimmer,A1,549,mehmonxona xonasi,cross_level,same,2,kept
+D0163,das Hotelzimmer,A2,855,mehmonxona xonasi,cross_level,same,2,kept
+D0164,danach,A1,554,keyin,same_level,same,3,kept
+D0164,danach,A1,618,keyin,same_level,same,3,kept
+D0164,danach,A1,714,keyin,same_level,same,3,kept
+D0165,durstig,A1,555,chanqagan,same_level,same,2,kept
+D0165,durstig,A1,735,chanqagan,same_level,same,2,kept
+D0166,endlich,A1,558,nihoyat,same_level,same,3,kept
+D0166,endlich,A1,638,nihoyat,same_level,same,3,kept
+D0166,endlich,A1,774,nihoyat,same_level,same,3,kept
+D0167,einsteigen,A1,559,minmoq,cross_level,different,3,kept
+D0167,einsteigen,A2,569,transportga chiqmoq,cross_level,different,3,kept
+D0167,einsteigen,B2,53,boshlamoq,cross_level,different,3,kept
+D0168,satt,A1,560,to‘q,same_level,same,2,kept
+D0168,satt,A1,832,to‘q,same_level,same,2,kept
+D0169,abschließen,A1,571,qulflamoq,cross_level,different,3,kept
+D0169,abschließen,A2,589,yakunlamoq,cross_level,different,3,kept
+D0169,abschließen,B2,879,yakunlamoq,cross_level,different,3,kept
+D0170,praktisch,A1,572,qulay,same_level,same,9,kept
+D0170,praktisch,A1,752,qulay,same_level,same,9,kept
+D0170,praktisch,A1,852,qulay,same_level,same,9,kept
+D0170,praktisch,A2,567,qulay,same_level,same,9,kept
+D0170,praktisch,A2,670,qulay,same_level,same,9,kept
+D0170,praktisch,A2,950,qulay,same_level,same,9,kept
+D0170,praktisch,B1,14,qulay,same_level,same,9,kept
+D0170,praktisch,B1,137,qulay,same_level,same,9,kept
+D0170,praktisch,B1,161,qulay,same_level,same,9,kept
+D0171,mitnehmen,A1,573,o‘zi bilan olmoq,same_level,same,4,kept
+D0171,mitnehmen,A1,771,o‘zi bilan olmoq,same_level,same,4,kept
+D0171,mitnehmen,A2,423,o‘zi bilan olmoq,same_level,same,4,kept
+D0171,mitnehmen,A2,843,o‘zi bilan olmoq,same_level,same,4,kept
+D0172,natürlich,A1,574,albatta,same_level,different,5,kept
+D0172,natürlich,A1,674,albatta,same_level,different,5,kept
+D0172,natürlich,A1,794,albatta,same_level,different,5,kept
+D0172,natürlich,A1,980,tabiiy,same_level,different,5,kept
+D0172,natürlich,B2,1265,tabiiy,cross_level,different,5,kept
+D0173,trocken,A1,575,quruq,same_level,same,3,kept
+D0173,trocken,A1,675,quruq,same_level,same,3,kept
+D0173,trocken,A1,855,quruq,same_level,same,3,kept
+D0174,trotzdem,A1,578,shunga qaramay,same_level,same,19,kept
+D0174,trotzdem,A1,658,shunga qaramay,same_level,same,19,kept
+D0174,trotzdem,A1,738,shunga qaramay,same_level,same,19,kept
+D0174,trotzdem,A2,78,shunga qaramay,same_level,same,19,kept
+D0174,trotzdem,A2,318,shunga qaramay,same_level,same,19,kept
+D0174,trotzdem,A2,408,shunga qaramay,same_level,same,19,kept
+D0174,trotzdem,A2,688,shunga qaramay,same_level,same,19,kept
+D0174,trotzdem,A2,848,shunga qaramay,same_level,same,19,kept
+D0174,trotzdem,B1,4,shunga qaramay,same_level,same,19,kept
+D0174,trotzdem,B1,99,shunga qaramay,same_level,same,19,kept
+D0174,trotzdem,B1,264,shunga qaramay,same_level,same,19,kept
+D0174,trotzdem,B1,384,shunga qaramay,same_level,same,19,kept
+D0174,trotzdem,B1,427,shunga qaramay,same_level,same,19,kept
+D0174,trotzdem,B1,571,shunga qaramay,same_level,same,19,kept
+D0174,trotzdem,B1,627,shunga qaramay,same_level,same,19,kept
+D0174,trotzdem,B1,769,shunga qaramay,same_level,same,19,kept
+D0174,trotzdem,B1,827,shunga qaramay,same_level,same,19,kept
+D0174,trotzdem,B1,969,shunga qaramay,same_level,same,19,kept
+D0174,trotzdem,B2,844,shunga qaramay,cross_level,same,19,kept
+D0175,gehören,A1,579,tegishli bo‘lmoq,same_level,same,2,kept
+D0175,gehören,A1,673,tegishli bo‘lmoq,same_level,same,2,kept
+D0176,der Fernsehabend,A1,581,televizor oqshomi,same_level,same,2,kept
+D0176,der Fernsehabend,A1,764,televizor oqshomi,same_level,same,2,kept
+D0177,das Lieblingslied,A1,583,sevimli qo‘shiq,cross_level,same,2,kept
+D0177,das Lieblingslied,A2,438,sevimli qo‘shiq,cross_level,same,2,kept
+D0178,die Musikgruppe,A1,585,musiqa guruhi,same_level,same,2,kept
+D0178,die Musikgruppe,A1,885,musiqa guruhi,same_level,same,2,kept
+D0179,das Schwimmbad,A1,586,basseyn,same_level,same,2,kept
+D0179,das Schwimmbad,A1,626,basseyn,same_level,same,2,kept
+D0180,der Stadtpark,A1,587,shahar bog‘i,same_level,same,2,kept
+D0180,der Stadtpark,A1,750,shahar bog‘i,same_level,same,2,kept
+D0181,das Mittagessen,A1,589,tushlik,same_level,same,2,kept
+D0181,das Mittagessen,A1,829,tushlik,same_level,same,2,kept
+D0182,gratulieren,A1,591,tabriklamoq,same_level,same,3,kept
+D0182,gratulieren,A1,776,tabriklamoq,same_level,same,3,kept
+D0182,gratulieren,A1,876,tabriklamoq,same_level,same,3,kept
+D0183,beliebt,A1,592,mashhur,same_level,same,3,kept
+D0183,beliebt,A1,692,mashhur,same_level,same,3,kept
+D0183,beliebt,A1,892,mashhur,same_level,same,3,kept
+D0184,telefonieren,A1,593,telefonlashmoq,same_level,same,4,kept
+D0184,telefonieren,A1,693,telefonlashmoq,same_level,same,4,kept
+D0184,telefonieren,A1,793,telefonlashmoq,same_level,same,4,kept
+D0184,telefonieren,A1,996,telefonlashmoq,same_level,same,4,kept
+D0185,plötzlich,A1,594,to‘satdan,same_level,same,14,kept
+D0185,plötzlich,A1,678,to‘satdan,same_level,same,14,kept
+D0185,plötzlich,A1,754,to‘satdan,same_level,same,14,kept
+D0185,plötzlich,A1,854,to‘satdan,same_level,same,14,kept
+D0185,plötzlich,A1,978,to‘satdan,same_level,same,14,kept
+D0185,plötzlich,A2,394,to‘satdan,same_level,same,14,kept
+D0185,plötzlich,A2,504,to‘satdan,same_level,same,14,kept
+D0185,plötzlich,A2,664,to‘satdan,same_level,same,14,kept
+D0185,plötzlich,A2,984,to‘satdan,same_level,same,14,kept
+D0185,plötzlich,B1,44,to‘satdan,same_level,same,14,kept
+D0185,plötzlich,B1,91,to‘satdan,same_level,same,14,kept
+D0185,plötzlich,B1,147,to‘satdan,same_level,same,14,kept
+D0185,plötzlich,B1,300,to‘satdan,same_level,same,14,kept
+D0185,plötzlich,B1,400,to‘satdan,same_level,same,14,kept
+D0186,hilfsbereit,A1,597,yordamchi,same_level,different,13,kept
+D0186,hilfsbereit,A1,677,yordamchi,same_level,different,13,kept
+D0186,hilfsbereit,A1,792,yordamchi,same_level,different,13,kept
+D0186,hilfsbereit,A1,897,yordamchi,same_level,different,13,kept
+D0186,hilfsbereit,A1,997,yordamchi,same_level,different,13,kept
+D0186,hilfsbereit,A2,622,yordam beruvchi,same_level,different,13,kept
+D0186,hilfsbereit,A2,822,yordamchi,same_level,different,13,kept
+D0186,hilfsbereit,B1,81,yordamchi,same_level,different,13,kept
+D0186,hilfsbereit,B1,306,yordamchi,same_level,different,13,kept
+D0186,hilfsbereit,B1,498,yordamchi,same_level,different,13,kept
+D0186,hilfsbereit,B1,697,yordamchi,same_level,different,13,kept
+D0186,hilfsbereit,B1,897,yordamchi,same_level,different,13,kept
+D0186,hilfsbereit,B2,1042,yordamga tayyor,cross_level,different,13,kept
+D0187,besonders,A1,598,ayniqsa,same_level,same,9,kept
+D0187,besonders,A1,634,ayniqsa,same_level,same,9,kept
+D0187,besonders,A1,798,ayniqsa,same_level,same,9,kept
+D0187,besonders,A2,524,ayniqsa,same_level,same,9,kept
+D0187,besonders,A2,764,ayniqsa,same_level,same,9,kept
+D0187,besonders,A2,924,ayniqsa,same_level,same,9,kept
+D0187,besonders,B1,103,ayniqsa,same_level,same,9,kept
+D0187,besonders,B1,276,ayniqsa,same_level,same,9,kept
+D0187,besonders,B1,340,ayniqsa,same_level,same,9,kept
+D0188,wirklich,A1,600,haqiqatan,same_level,same,5,kept
+D0188,wirklich,A1,694,haqiqatan,same_level,same,5,kept
+D0188,wirklich,A1,758,haqiqatan,same_level,same,5,kept
+D0188,wirklich,A1,894,haqiqatan,same_level,same,5,kept
+D0188,wirklich,A1,994,haqiqatan,same_level,same,5,kept
+D0189,der Terminplan,A1,601,reja jadvali,cross_level,same,2,kept
+D0189,der Terminplan,A2,86,reja jadvali,cross_level,same,2,kept
+D0190,das Lieblingsessen,A1,603,sevimli ovqat,cross_level,same,2,kept
+D0190,das Lieblingsessen,A2,858,sevimli ovqat,cross_level,same,2,kept
+D0191,der Sprachkurs,A1,604,til kursi,cross_level,same,4,kept
+D0191,der Sprachkurs,A2,559,til kursi,same_level,same,4,kept
+D0191,der Sprachkurs,A2,739,til kursi,same_level,same,4,kept
+D0191,der Sprachkurs,A2,919,til kursi,same_level,same,4,kept
+D0192,abholen,A1,611,olib ketmoq,cross_level,same,5,kept
+D0192,abholen,A2,449,olib ketmoq,same_level,same,5,kept
+D0192,abholen,A2,689,olib ketmoq,same_level,same,5,kept
+D0192,abholen,A2,969,olib ketmoq,same_level,same,5,kept
+D0192,abholen,B1,164,olib ketmoq,cross_level,same,5,kept
+D0193,nervös,A1,612,asabiy,same_level,same,2,kept
+D0193,nervös,A1,755,asabiy,same_level,same,2,kept
+D0194,der Nebenjob,A1,621,qo‘shimcha ish,cross_level,same,3,kept
+D0194,der Nebenjob,A2,819,qo‘shimcha ish,cross_level,same,3,kept
+D0194,der Nebenjob,B1,43,qo‘shimcha ish,cross_level,same,3,kept
+D0195,die Speisekarte,A1,622,menyu,same_level,same,3,kept
+D0195,die Speisekarte,A1,828,menyu,same_level,same,3,kept
+D0195,die Speisekarte,A2,840,menyu,cross_level,same,3,kept
+D0196,der Reiseführer,A1,624,sayyoh qo‘llanmasi,same_level,different,4,kept
+D0196,der Reiseführer,A1,824,sayyoh qo‘llanmasi,same_level,different,4,kept
+D0196,der Reiseführer,A2,459,sayohat qo‘llanmasi,same_level,different,4,kept
+D0196,der Reiseführer,A2,859,sayohat qo‘llanmasi,same_level,different,4,kept
+D0197,empfehlen,A1,631,tavsiya qilmoq,cross_level,same,6,kept
+D0197,empfehlen,A2,133,tavsiya qilmoq,same_level,same,6,kept
+D0197,empfehlen,A2,581,tavsiya qilmoq,same_level,same,6,kept
+D0197,empfehlen,A2,661,tavsiya qilmoq,same_level,same,6,kept
+D0197,empfehlen,B1,45,tavsiya qilmoq,same_level,same,6,kept
+D0197,empfehlen,B1,301,tavsiya qilmoq,same_level,same,6,kept
+D0198,prima,A1,632,ajoyib,same_level,same,2,kept
+D0198,prima,A1,757,ajoyib,same_level,same,2,kept
+D0199,mitbringen,A1,633,o‘zi bilan olib kelmoq,cross_level,different,5,kept
+D0199,mitbringen,A2,521,olib kelmoq,same_level,different,5,kept
+D0199,mitbringen,A2,669,olib kelmoq,same_level,different,5,kept
+D0199,mitbringen,A2,949,olib kelmoq,same_level,different,5,kept
+D0199,mitbringen,B1,168,olib kelmoq,cross_level,different,5,kept
+D0200,frühstücken,A1,636,nonushta qilmoq,same_level,same,2,kept
+D0200,frühstücken,A1,773,nonushta qilmoq,same_level,same,2,kept
+D0201,die Freizeitgruppe,A1,648,bo‘sh vaqt guruhi,cross_level,same,2,kept
+D0201,die Freizeitgruppe,A2,854,bo‘sh vaqt guruhi,cross_level,same,2,kept
+D0202,der Regenschirm,A1,650,soyabon,cross_level,different,2,kept
+D0202,der Regenschirm,A2,839,yomg‘ir soyaboni,cross_level,different,2,kept
+D0203,putzen,A1,651,tozalamoq,same_level,same,2,kept
+D0203,putzen,A1,859,tozalamoq,same_level,same,2,kept
+D0204,eng,A1,655,tor,same_level,same,2,kept
+D0204,eng,A1,795,tor,same_level,same,2,kept
+D0205,sparen,A1,656,tejamoq,cross_level,same,4,kept
+D0205,sparen,A2,529,tejamoq,same_level,same,4,kept
+D0205,sparen,A2,761,tejamoq,same_level,same,4,kept
+D0205,sparen,A2,941,tejamoq,same_level,same,4,kept
+D0206,wiederholen,A1,659,takrorlamoq,same_level,same,2,kept
+D0206,wiederholen,A1,936,takrorlamoq,same_level,same,2,kept
+D0207,unterschreiben,A1,671,imzo qo‘ymoq,cross_level,different,3,kept
+D0207,unterschreiben,A2,93,imzolamoq,cross_level,different,3,kept
+D0207,unterschreiben,B2,1027,imzolamoq,cross_level,different,3,kept
+D0208,der Campingplatz,A1,684,kemping joyi,cross_level,same,4,kept
+D0208,der Campingplatz,A2,413,kemping joyi,same_level,same,4,kept
+D0208,der Campingplatz,A2,553,kemping joyi,same_level,same,4,kept
+D0208,der Campingplatz,B1,174,kemping joyi,cross_level,same,4,kept
+D0209,die Einkaufsliste,A1,685,xarid ro‘yxati,same_level,same,2,kept
+D0209,die Einkaufsliste,A1,748,xarid ro‘yxati,same_level,same,2,kept
+D0210,passen,A1,691,mos kelmoq,same_level,same,2,kept
+D0210,passen,A1,999,mos kelmoq,same_level,same,2,kept
+D0211,das Lieblingsfach,A1,703,sevimli fan,cross_level,same,2,kept
+D0211,das Lieblingsfach,A2,818,sevimli fan,cross_level,same,2,kept
+D0212,der Wecker,A1,707,budilnik,same_level,same,2,kept
+D0212,der Wecker,A1,850,budilnik,same_level,same,2,kept
+D0213,anprobieren,A1,719,kiyib ko‘rmoq,cross_level,same,2,kept
+D0213,anprobieren,A2,869,kiyib ko‘rmoq,cross_level,same,2,kept
+D0214,der Fahrkartenautomat,A1,721,chipta apparati,cross_level,different,2,kept
+D0214,der Fahrkartenautomat,A2,433,bilet apparati,cross_level,different,2,kept
+D0215,lustig,A1,732,kulgili,same_level,same,2,kept
+D0215,lustig,A1,817,kulgili,same_level,same,2,kept
+D0216,kompliziert,A1,737,murakkab,cross_level,same,16,kept
+D0216,kompliziert,A2,35,murakkab,same_level,same,16,kept
+D0216,kompliziert,A2,410,murakkab,same_level,same,16,kept
+D0216,kompliziert,A2,750,murakkab,same_level,same,16,kept
+D0216,kompliziert,A2,890,murakkab,same_level,same,16,kept
+D0216,kompliziert,B1,34,murakkab,same_level,same,16,kept
+D0216,kompliziert,B1,149,murakkab,same_level,same,16,kept
+D0216,kompliziert,B1,234,murakkab,same_level,same,16,kept
+D0216,kompliziert,B1,310,murakkab,same_level,same,16,kept
+D0216,kompliziert,B1,457,murakkab,same_level,same,16,kept
+D0216,kompliziert,B1,557,murakkab,same_level,same,16,kept
+D0216,kompliziert,B1,657,murakkab,same_level,same,16,kept
+D0216,kompliziert,B1,755,murakkab,same_level,same,16,kept
+D0216,kompliziert,B1,857,murakkab,same_level,same,16,kept
+D0216,kompliziert,B1,955,murakkab,same_level,same,16,kept
+D0216,kompliziert,B2,614,murakkab,cross_level,same,16,kept
+D0217,die Wettervorhersage,A1,782,ob-havo prognozi,cross_level,same,5,kept
+D0217,die Wettervorhersage,A2,480,ob-havo prognozi,same_level,same,5,kept
+D0217,die Wettervorhersage,A2,680,ob-havo prognozi,same_level,same,5,kept
+D0217,die Wettervorhersage,A2,900,ob-havo prognozi,same_level,same,5,kept
+D0217,die Wettervorhersage,B1,122,ob-havo prognozi,cross_level,same,5,kept
+D0218,der Fahrradfahrer,A1,784,velosipedchi,cross_level,same,5,kept
+D0218,der Fahrradfahrer,A2,473,velosipedchi,same_level,same,5,kept
+D0218,der Fahrradfahrer,A2,793,velosipedchi,same_level,same,5,kept
+D0218,der Fahrradfahrer,A2,933,velosipedchi,same_level,same,5,kept
+D0218,der Fahrradfahrer,B1,166,velosipedchi,cross_level,same,5,kept
+D0219,erreichen,A1,799,erishmoq,cross_level,same,13,kept
+D0219,erreichen,A2,723,erishmoq,same_level,same,13,kept
+D0219,erreichen,A2,923,erishmoq,same_level,same,13,kept
+D0219,erreichen,B1,261,erishmoq,same_level,same,13,kept
+D0219,erreichen,B1,385,erishmoq,same_level,same,13,kept
+D0219,erreichen,B1,489,erishmoq,same_level,same,13,kept
+D0219,erreichen,B1,576,erishmoq,same_level,same,13,kept
+D0219,erreichen,B1,688,erishmoq,same_level,same,13,kept
+D0219,erreichen,B1,774,erishmoq,same_level,same,13,kept
+D0219,erreichen,B1,888,erishmoq,same_level,same,13,kept
+D0219,erreichen,B1,974,erishmoq,same_level,same,13,kept
+D0219,erreichen,B2,699,erishmoq,same_level,same,13,kept
+D0219,erreichen,B2,886,erishmoq,same_level,same,13,kept
+D0220,der Fahrgast,A1,801,yo‘lovchi,cross_level,same,4,kept
+D0220,der Fahrgast,A2,106,yo‘lovchi,same_level,same,4,kept
+D0220,der Fahrgast,A2,733,yo‘lovchi,same_level,same,4,kept
+D0220,der Fahrgast,A2,893,yo‘lovchi,same_level,same,4,kept
+D0221,die Fahrkarte,A1,802,yo‘l chiptasi,cross_level,same,3,kept
+D0221,die Fahrkarte,A2,574,yo‘l chiptasi,same_level,same,3,kept
+D0221,die Fahrkarte,A2,674,yo‘l chiptasi,same_level,same,3,kept
+D0222,das Reisebüro,A1,803,sayohat agentligi,cross_level,same,4,kept
+D0222,das Reisebüro,A2,598,sayohat agentligi,same_level,same,4,kept
+D0222,das Reisebüro,A2,918,sayohat agentligi,same_level,same,4,kept
+D0222,das Reisebüro,B1,106,sayohat agentligi,cross_level,same,4,kept
+D0223,zufällig,A1,814,tasodifan,cross_level,same,4,kept
+D0223,zufällig,A2,542,tasodifan,same_level,same,4,kept
+D0223,zufällig,A2,782,tasodifan,same_level,same,4,kept
+D0223,zufällig,A2,942,tasodifan,same_level,same,4,kept
+D0224,die Abfahrt,A1,822,jo‘nash,cross_level,same,2,kept
+D0224,die Abfahrt,A2,107,jo‘nash,cross_level,same,2,kept
+D0225,die Jugendherberge,A1,825,yoshlar yotoqxonasi,cross_level,different,2,kept
+D0225,die Jugendherberge,A2,817,yoshlar mehmonxonasi,cross_level,different,2,kept
+D0226,bestellen,A1,831,buyurtma bermoq,cross_level,same,5,kept
+D0226,bestellen,A2,463,buyurtma bermoq,same_level,same,5,kept
+D0226,bestellen,A2,743,buyurtma bermoq,same_level,same,5,kept
+D0226,bestellen,A2,903,buyurtma bermoq,same_level,same,5,kept
+D0226,bestellen,B2,1074,buyurtma bermoq,cross_level,same,5,kept
+D0227,zusätzlich,A1,834,qo‘shimcha,cross_level,different,3,kept
+D0227,zusätzlich,A2,238,qo‘shimcha,cross_level,different,3,kept
+D0227,zusätzlich,B2,851,qo‘shimcha ravishda,cross_level,different,3,kept
+D0228,höflich,A1,837,xushmuomala,cross_level,same,5,kept
+D0228,höflich,A2,427,xushmuomala,same_level,same,5,kept
+D0228,höflich,A2,847,xushmuomala,same_level,same,5,kept
+D0228,höflich,B1,10,xushmuomala,same_level,same,5,kept
+D0228,höflich,B1,181,xushmuomala,same_level,same,5,kept
+D0229,das Sportprogramm,A1,866,sport dasturi,cross_level,same,3,kept
+D0229,das Sportprogramm,A2,478,sport dasturi,same_level,same,3,kept
+D0229,das Sportprogramm,A2,898,sport dasturi,same_level,same,3,kept
+D0230,mitmachen,A1,873,qatnashmoq,cross_level,same,2,kept
+D0230,mitmachen,A2,681,qatnashmoq,cross_level,same,2,kept
+D0231,unterwegs,A1,874,yo‘lda,same_level,same,4,kept
+D0231,unterwegs,A1,954,yo‘lda,same_level,same,4,kept
+D0231,unterwegs,A2,114,yo‘lda,same_level,same,4,kept
+D0231,unterwegs,A2,294,yo‘lda,same_level,same,4,kept
+D0232,der Ferienort,A1,890,dam olish joyi,cross_level,same,3,kept
+D0232,der Ferienort,A2,416,dam olish joyi,cross_level,same,3,kept
+D0232,der Ferienort,B1,186,dam olish joyi,cross_level,same,3,kept
+D0233,der Mietvertrag,A1,901,ijara shartnomasi,cross_level,same,3,kept
+D0233,der Mietvertrag,A2,596,ijara shartnomasi,same_level,same,3,kept
+D0233,der Mietvertrag,A2,916,ijara shartnomasi,same_level,same,3,kept
+D0234,der Hausmeister,A1,904,uy nazoratchisi,cross_level,different,2,kept
+D0234,der Hausmeister,A2,576,bino nazoratchisi,cross_level,different,2,kept
+D0235,die Nachbarschaft,A1,905,qo‘shnichilik,cross_level,different,3,kept
+D0235,die Nachbarschaft,A2,181,mahalla,cross_level,different,3,kept
+D0235,die Nachbarschaft,B2,258,qo‘shnichilik,cross_level,different,3,kept
+D0236,mieten,A1,911,ijaraga olmoq,cross_level,same,2,kept
+D0236,mieten,A2,191,ijaraga olmoq,cross_level,same,2,kept
+D0237,umziehen,A1,913,ko‘chmoq,cross_level,different,5,kept
+D0237,umziehen,A2,196,ko‘chmoq,same_level,different,5,kept
+D0237,umziehen,A2,566,ko‘chmoq,same_level,different,5,kept
+D0237,umziehen,A2,666,ko‘chmoq,same_level,different,5,kept
+D0237,umziehen,B2,981,ko‘chib o‘tmoq,cross_level,different,5,kept
+D0238,die Gruppenarbeit,A1,925,guruh ishi,cross_level,same,3,kept
+D0238,die Gruppenarbeit,B2,140,guruh ishi,same_level,same,3,kept
+D0238,die Gruppenarbeit,B2,1444,guruh ishi,same_level,same,3,kept
+D0239,interessiert,A1,937,qiziqqan,cross_level,same,13,kept
+D0239,interessiert,A2,442,qiziqqan,same_level,same,13,kept
+D0239,interessiert,A2,722,qiziqqan,same_level,same,13,kept
+D0239,interessiert,A2,922,qiziqqan,same_level,same,13,kept
+D0239,interessiert,B1,6,qiziqqan,same_level,same,13,kept
+D0239,interessiert,B1,173,qiziqqan,same_level,same,13,kept
+D0239,interessiert,B1,254,qiziqqan,same_level,same,13,kept
+D0239,interessiert,B1,429,qiziqqan,same_level,same,13,kept
+D0239,interessiert,B1,549,qiziqqan,same_level,same,13,kept
+D0239,interessiert,B1,629,qiziqqan,same_level,same,13,kept
+D0239,interessiert,B1,747,qiziqqan,same_level,same,13,kept
+D0239,interessiert,B1,829,qiziqqan,same_level,same,13,kept
+D0239,interessiert,B1,947,qiziqqan,same_level,same,13,kept
+D0240,übersetzen,A1,939,tarjima qilmoq,cross_level,same,2,kept
+D0240,übersetzen,B2,919,tarjima qilmoq,cross_level,same,2,kept
+D0241,der Parkplatz,A1,947,avtoturargoh,cross_level,different,2,kept
+D0241,der Parkplatz,A2,439,parkovka joyi,cross_level,different,2,kept
+D0242,bremsen,A1,951,tormoz bermoq,cross_level,same,2,kept
+D0242,bremsen,A2,399,tormoz bermoq,cross_level,same,2,kept
+D0243,überholen,A1,959,o‘zib ketmoq,cross_level,same,3,kept
+D0243,überholen,A2,391,o‘zib ketmoq,same_level,same,3,kept
+D0243,überholen,A2,841,o‘zib ketmoq,same_level,same,3,kept
+D0244,der Wetterbericht,A1,961,ob-havo hisoboti,cross_level,same,4,kept
+D0244,der Wetterbericht,A2,539,ob-havo hisoboti,same_level,same,4,kept
+D0244,der Wetterbericht,A2,779,ob-havo hisoboti,same_level,same,4,kept
+D0244,der Wetterbericht,A2,959,ob-havo hisoboti,same_level,same,4,kept
+D0245,die Bewerbung,A2,1,mappe ariza,cross_level,different,4,kept
+D0245,die Bewerbung,B1,39,ariza,same_level,different,4,kept
+D0245,die Bewerbung,B1,303,ariza,same_level,different,4,kept
+D0245,die Bewerbung,B2,1012,ish arizasi,cross_level,different,4,kept
+D0246,die Erfahrung,A2,4,tajriba,cross_level,same,12,kept
+D0246,die Erfahrung,B1,15,tajriba,same_level,same,12,kept
+D0246,die Erfahrung,B1,227,tajriba,same_level,same,12,kept
+D0246,die Erfahrung,B1,343,tajriba,same_level,same,12,kept
+D0246,die Erfahrung,B1,479,tajriba,same_level,same,12,kept
+D0246,die Erfahrung,B1,586,tajriba,same_level,same,12,kept
+D0246,die Erfahrung,B1,678,tajriba,same_level,same,12,kept
+D0246,die Erfahrung,B1,784,tajriba,same_level,same,12,kept
+D0246,die Erfahrung,B1,878,tajriba,same_level,same,12,kept
+D0246,die Erfahrung,B1,984,tajriba,same_level,same,12,kept
+D0246,die Erfahrung,B2,687,tajriba,same_level,same,12,kept
+D0246,die Erfahrung,B2,987,tajriba,same_level,same,12,kept
+D0247,der Kollege,A2,6,hamkasb,cross_level,same,2,kept
+D0247,der Kollege,B2,1029,hamkasb,cross_level,same,2,kept
+D0248,die Verantwortung,A2,7,mas’uliyat,cross_level,same,14,kept
+D0248,die Verantwortung,B1,7,mas’uliyat,same_level,same,14,kept
+D0248,die Verantwortung,B1,255,mas’uliyat,same_level,same,14,kept
+D0248,die Verantwortung,B1,367,mas’uliyat,same_level,same,14,kept
+D0248,die Verantwortung,B1,430,mas’uliyat,same_level,same,14,kept
+D0248,die Verantwortung,B1,546,mas’uliyat,same_level,same,14,kept
+D0248,die Verantwortung,B1,630,mas’uliyat,same_level,same,14,kept
+D0248,die Verantwortung,B1,744,mas’uliyat,same_level,same,14,kept
+D0248,die Verantwortung,B1,830,mas’uliyat,same_level,same,14,kept
+D0248,die Verantwortung,B1,944,mas’uliyat,same_level,same,14,kept
+D0248,die Verantwortung,B2,682,mas’uliyat,same_level,same,14,kept
+D0248,die Verantwortung,B2,1037,mas’uliyat,same_level,same,14,kept
+D0248,die Verantwortung,B2,1281,mas’uliyat,same_level,same,14,kept
+D0248,die Verantwortung,B2,1349,mas’uliyat,same_level,same,14,kept
+D0249,der Einfluss,A2,9,ta’sir,cross_level,same,15,kept
+D0249,der Einfluss,B1,231,ta’sir,same_level,same,15,kept
+D0249,der Einfluss,B1,355,ta’sir,same_level,same,15,kept
+D0249,der Einfluss,B1,418,ta’sir,same_level,same,15,kept
+D0249,der Einfluss,B1,499,ta’sir,same_level,same,15,kept
+D0249,der Einfluss,B1,582,ta’sir,same_level,same,15,kept
+D0249,der Einfluss,B1,618,ta’sir,same_level,same,15,kept
+D0249,der Einfluss,B1,698,ta’sir,same_level,same,15,kept
+D0249,der Einfluss,B1,780,ta’sir,same_level,same,15,kept
+D0249,der Einfluss,B1,818,ta’sir,same_level,same,15,kept
+D0249,der Einfluss,B1,898,ta’sir,same_level,same,15,kept
+D0249,der Einfluss,B1,980,ta’sir,same_level,same,15,kept
+D0249,der Einfluss,B2,665,ta’sir,same_level,same,15,kept
+D0249,der Einfluss,B2,992,ta’sir,same_level,same,15,kept
+D0249,der Einfluss,B2,1193,ta’sir,same_level,same,15,kept
+D0250,die Herausforderung,A2,10,qiyinchilik,cross_level,different,5,kept
+D0250,die Herausforderung,B1,23,qiyinchilik,same_level,different,5,kept
+D0250,die Herausforderung,B1,279,qiyinchilik,same_level,different,5,kept
+D0250,die Herausforderung,B2,641,qiyinchilik,same_level,different,5,kept
+D0250,die Herausforderung,B2,948,sinov,same_level,different,5,kept
+D0251,zuverlässig,A2,12,ishonchli,cross_level,same,12,kept
+D0251,zuverlässig,B1,2,ishonchli,same_level,same,12,kept
+D0251,zuverlässig,B1,105,ishonchli,same_level,same,12,kept
+D0251,zuverlässig,B1,226,ishonchli,same_level,same,12,kept
+D0251,zuverlässig,B1,449,ishonchli,same_level,same,12,kept
+D0251,zuverlässig,B1,585,ishonchli,same_level,same,12,kept
+D0251,zuverlässig,B1,649,ishonchli,same_level,same,12,kept
+D0251,zuverlässig,B1,783,ishonchli,same_level,same,12,kept
+D0251,zuverlässig,B1,849,ishonchli,same_level,same,12,kept
+D0251,zuverlässig,B1,983,ishonchli,same_level,same,12,kept
+D0251,zuverlässig,B2,1043,ishonchli,same_level,same,12,kept
+D0251,zuverlässig,B2,1183,ishonchli,same_level,same,12,kept
+D0252,diskutieren,A2,13,muhokama qilmoq,same_level,same,15,kept
+D0252,diskutieren,A2,546,muhokama qilmoq,same_level,same,15,kept
+D0252,diskutieren,A2,786,muhokama qilmoq,same_level,same,15,kept
+D0252,diskutieren,A2,926,muhokama qilmoq,same_level,same,15,kept
+D0252,diskutieren,B1,188,muhokama qilmoq,same_level,same,15,kept
+D0252,diskutieren,B1,281,muhokama qilmoq,same_level,same,15,kept
+D0252,diskutieren,B1,357,muhokama qilmoq,same_level,same,15,kept
+D0252,diskutieren,B1,448,muhokama qilmoq,same_level,same,15,kept
+D0252,diskutieren,B1,520,muhokama qilmoq,same_level,same,15,kept
+D0252,diskutieren,B1,648,muhokama qilmoq,same_level,same,15,kept
+D0252,diskutieren,B1,719,muhokama qilmoq,same_level,same,15,kept
+D0252,diskutieren,B1,848,muhokama qilmoq,same_level,same,15,kept
+D0252,diskutieren,B1,919,muhokama qilmoq,same_level,same,15,kept
+D0252,diskutieren,B2,791,muhokama qilmoq,same_level,same,15,kept
+D0252,diskutieren,B2,1050,muhokama qilmoq,same_level,same,15,kept
+D0253,mittlerweile,A2,14,shu paytgacha,same_level,different,13,kept
+D0253,mittlerweile,A2,158,shu vaqtgacha,same_level,different,13,kept
+D0253,mittlerweile,A2,218,hozirgacha,same_level,different,13,kept
+D0253,mittlerweile,A2,314,shu vaqtgacha,same_level,different,13,kept
+D0253,mittlerweile,A2,404,shu vaqtgacha,same_level,different,13,kept
+D0253,mittlerweile,B1,55,hozirgacha,same_level,different,13,kept
+D0253,mittlerweile,B1,135,hozirgacha,same_level,different,13,kept
+D0253,mittlerweile,B1,167,hozirgacha,same_level,different,13,kept
+D0253,mittlerweile,B1,272,hozirgacha,same_level,different,13,kept
+D0253,mittlerweile,B1,435,hozirgacha,same_level,different,13,kept
+D0253,mittlerweile,B1,559,hozirgacha,same_level,different,13,kept
+D0253,mittlerweile,B1,635,hozirgacha,same_level,different,13,kept
+D0253,mittlerweile,B1,835,hozirgacha,same_level,different,13,kept
+D0254,selbstständig,A2,15,mustaqil,cross_level,same,9,kept
+D0254,selbstständig,B1,121,mustaqil,same_level,same,9,kept
+D0254,selbstständig,B1,218,mustaqil,same_level,same,9,kept
+D0254,selbstständig,B1,425,mustaqil,same_level,same,9,kept
+D0254,selbstständig,B1,537,mustaqil,same_level,same,9,kept
+D0254,selbstständig,B1,625,mustaqil,same_level,same,9,kept
+D0254,selbstständig,B1,735,mustaqil,same_level,same,9,kept
+D0254,selbstständig,B1,825,mustaqil,same_level,same,9,kept
+D0254,selbstständig,B1,935,mustaqil,same_level,same,9,kept
+D0255,beobachten,A2,16,kuzatmoq,cross_level,same,3,kept
+D0255,beobachten,B1,152,kuzatmoq,cross_level,same,3,kept
+D0255,beobachten,B2,756,kuzatmoq,cross_level,same,3,kept
+D0256,kritisch,A2,17,tanqidiy,cross_level,same,7,kept
+D0256,kritisch,B1,266,tanqidiy,same_level,same,7,kept
+D0256,kritisch,B1,362,tanqidiy,same_level,same,7,kept
+D0256,kritisch,B1,413,tanqidiy,same_level,same,7,kept
+D0256,kritisch,B1,513,tanqidiy,same_level,same,7,kept
+D0256,kritisch,B1,712,tanqidiy,same_level,same,7,kept
+D0256,kritisch,B1,912,tanqidiy,same_level,same,7,kept
+D0257,dennoch,A2,18,shunga qaramay,same_level,different,4,kept
+D0257,dennoch,A2,278,shunga qaramay,same_level,different,4,kept
+D0257,dennoch,B1,216,shunga qaramay,cross_level,different,4,kept
+D0257,dennoch,B2,845,baribir,cross_level,different,4,kept
+D0258,beweisen,A2,19,isbotlamoq,cross_level,same,7,kept
+D0258,beweisen,B1,424,isbotlamoq,same_level,same,7,kept
+D0258,beweisen,B1,536,isbotlamoq,same_level,same,7,kept
+D0258,beweisen,B1,624,isbotlamoq,same_level,same,7,kept
+D0258,beweisen,B1,734,isbotlamoq,same_level,same,7,kept
+D0258,beweisen,B1,824,isbotlamoq,same_level,same,7,kept
+D0258,beweisen,B1,934,isbotlamoq,same_level,same,7,kept
+D0259,deutlich,A2,20,aniq,cross_level,same,2,kept
+D0259,deutlich,B2,1166,aniq,cross_level,same,2,kept
+D0260,die Vorlesung,A2,24,ma’ruza,cross_level,same,3,kept
+D0260,die Vorlesung,B2,116,ma’ruza,same_level,same,3,kept
+D0260,die Vorlesung,B2,1096,ma’ruza,same_level,same,3,kept
+D0261,die Diskussion,A2,27,munozara,cross_level,different,5,kept
+D0261,die Diskussion,B2,133,munozara,same_level,different,5,kept
+D0261,die Diskussion,B2,792,muhokama,same_level,different,5,kept
+D0261,die Diskussion,B2,1049,munozara,same_level,different,5,kept
+D0261,die Diskussion,B2,1171,munozara,same_level,different,5,kept
+D0262,das Argument,A2,28,dalil,cross_level,same,3,kept
+D0262,das Argument,B2,147,dalil,same_level,same,3,kept
+D0262,das Argument,B2,727,dalil,same_level,same,3,kept
+D0263,die Forschung,A2,30,tadqiqot,cross_level,different,3,kept
+D0263,die Forschung,B2,79,tadqiqot,same_level,different,3,kept
+D0263,die Forschung,B2,765,ilmiy tadqiqot,same_level,different,3,kept
+D0264,analysieren,A2,31,tahlil qilmoq,cross_level,different,3,kept
+D0264,analysieren,B2,766,tahlil qilmoq,cross_level,different,3,kept
+D0264,analysieren,C1,21,tarkibiy qismlarga ajratib o‘rganmoq,cross_level,different,3,kept
+D0265,beschreiben,A2,33,tasvirlamoq,cross_level,different,3,kept
+D0265,beschreiben,B1,41,tavsiflamoq,cross_level,different,3,kept
+D0265,beschreiben,B2,741,tavsiflamoq,cross_level,different,3,kept
+D0266,wahrscheinlich,A2,34,ehtimol,cross_level,same,8,kept
+D0266,wahrscheinlich,B1,236,ehtimol,same_level,same,8,kept
+D0266,wahrscheinlich,B1,443,ehtimol,same_level,same,8,kept
+D0266,wahrscheinlich,B1,539,ehtimol,same_level,same,8,kept
+D0266,wahrscheinlich,B1,643,ehtimol,same_level,same,8,kept
+D0266,wahrscheinlich,B1,737,ehtimol,same_level,same,8,kept
+D0266,wahrscheinlich,B1,843,ehtimol,same_level,same,8,kept
+D0266,wahrscheinlich,B1,937,ehtimol,same_level,same,8,kept
+D0267,bewerten,A2,36,baholamoq,cross_level,same,3,kept
+D0267,bewerten,B2,41,baholamoq,same_level,same,3,kept
+D0267,bewerten,B2,768,baholamoq,same_level,same,3,kept
+D0268,neugierig,A2,37,qiziquvchan,same_level,same,3,kept
+D0268,neugierig,A2,422,qiziquvchan,same_level,same,3,kept
+D0268,neugierig,A2,842,qiziquvchan,same_level,same,3,kept
+D0269,verständlich,A2,40,tushunarli,same_level,same,3,kept
+D0269,verständlich,A2,320,tushunarli,same_level,same,3,kept
+D0269,verständlich,B2,1167,tushunarli,cross_level,same,3,kept
+D0270,die Beziehung,A2,41,munosabat,cross_level,same,9,kept
+D0270,die Beziehung,B1,263,munosabat,same_level,same,9,kept
+D0270,die Beziehung,B1,375,munosabat,same_level,same,9,kept
+D0270,die Beziehung,B1,446,munosabat,same_level,same,9,kept
+D0270,die Beziehung,B1,514,munosabat,same_level,same,9,kept
+D0270,die Beziehung,B1,646,munosabat,same_level,same,9,kept
+D0270,die Beziehung,B1,713,munosabat,same_level,same,9,kept
+D0270,die Beziehung,B1,846,munosabat,same_level,same,9,kept
+D0270,die Beziehung,B1,913,munosabat,same_level,same,9,kept
+D0271,die Kommunikation,A2,44,muloqot,cross_level,same,3,kept
+D0271,die Kommunikation,B2,716,muloqot,same_level,same,3,kept
+D0271,die Kommunikation,B2,1169,muloqot,same_level,same,3,kept
+D0272,das Missverständnis,A2,45,tushunmovchilik,same_level,same,2,kept
+D0272,das Missverständnis,A2,225,tushunmovchilik,same_level,same,2,kept
+D0273,die Meinung,A2,50,fikr,cross_level,same,14,kept
+D0273,die Meinung,B1,295,fikr,same_level,same,14,kept
+D0273,die Meinung,B1,391,fikr,same_level,same,14,kept
+D0273,die Meinung,B1,463,fikr,same_level,same,14,kept
+D0273,die Meinung,B1,522,fikr,same_level,same,14,kept
+D0273,die Meinung,B1,594,fikr,same_level,same,14,kept
+D0273,die Meinung,B1,663,fikr,same_level,same,14,kept
+D0273,die Meinung,B1,792,fikr,same_level,same,14,kept
+D0273,die Meinung,B1,863,fikr,same_level,same,14,kept
+D0273,die Meinung,B1,992,fikr,same_level,same,14,kept
+D0273,die Meinung,B2,731,fikr,same_level,same,14,kept
+D0273,die Meinung,B2,1051,fikr,same_level,same,14,kept
+D0273,die Meinung,B2,1190,fikr,same_level,same,14,kept
+D0273,die Meinung,B2,1395,fikr,same_level,same,14,kept
+D0274,akzeptieren,A2,51,qabul qilmoq,same_level,same,4,kept
+D0274,akzeptieren,A2,401,qabul qilmoq,same_level,same,4,kept
+D0274,akzeptieren,B2,783,qabul qilmoq,same_level,same,4,kept
+D0274,akzeptieren,B2,998,qabul qilmoq,same_level,same,4,kept
+D0275,ehrlich,A2,52,halol,cross_level,same,2,kept
+D0275,ehrlich,B2,425,halol,cross_level,same,2,kept
+D0276,reagieren,A2,53,reaksiya bildirmoq,cross_level,different,2,kept
+D0276,reagieren,B2,1197,javob qaytarmoq,cross_level,different,2,kept
+D0277,tatsächlich,A2,54,haqiqatda,same_level,same,8,kept
+D0277,tatsächlich,A2,588,haqiqatda,same_level,same,8,kept
+D0277,tatsächlich,B1,51,haqiqatda,same_level,same,8,kept
+D0277,tatsächlich,B1,228,haqiqatda,same_level,same,8,kept
+D0277,tatsächlich,B1,316,haqiqatda,same_level,same,8,kept
+D0277,tatsächlich,B1,500,haqiqatda,same_level,same,8,kept
+D0277,tatsächlich,B1,699,haqiqatda,same_level,same,8,kept
+D0277,tatsächlich,B1,899,haqiqatda,same_level,same,8,kept
+D0278,enttäuscht,A2,55,xafa,same_level,different,3,kept
+D0278,enttäuscht,A2,402,hafsalasi pir bo‘lgan,same_level,different,3,kept
+D0278,enttäuscht,A2,625,hafsalasi pir bo‘lgan,same_level,different,3,kept
+D0279,respektieren,A2,56,hurmat qilmoq,cross_level,same,2,kept
+D0279,respektieren,B2,779,hurmat qilmoq,cross_level,same,2,kept
+D0280,respektvoll,A2,57,hurmatli,cross_level,different,2,kept
+D0280,respektvoll,B2,955,hurmat bilan,cross_level,different,2,kept
+D0281,allerdings,A2,58,biroq,cross_level,same,13,kept
+D0281,allerdings,B1,224,biroq,same_level,same,13,kept
+D0281,allerdings,B1,364,biroq,same_level,same,13,kept
+D0281,allerdings,B1,423,biroq,same_level,same,13,kept
+D0281,allerdings,B1,515,biroq,same_level,same,13,kept
+D0281,allerdings,B1,591,biroq,same_level,same,13,kept
+D0281,allerdings,B1,623,biroq,same_level,same,13,kept
+D0281,allerdings,B1,714,biroq,same_level,same,13,kept
+D0281,allerdings,B1,785,biroq,same_level,same,13,kept
+D0281,allerdings,B1,823,biroq,same_level,same,13,kept
+D0281,allerdings,B1,914,biroq,same_level,same,13,kept
+D0281,allerdings,B1,985,biroq,same_level,same,13,kept
+D0281,allerdings,B2,528,biroq,cross_level,same,13,kept
+D0282,die Umweltverschmutzung,A2,61,atrof-muhit ifloslanishi,cross_level,same,3,kept
+D0282,die Umweltverschmutzung,B2,184,atrof-muhit ifloslanishi,same_level,same,3,kept
+D0282,die Umweltverschmutzung,B2,1258,atrof-muhit ifloslanishi,same_level,same,3,kept
+D0283,die Lebensweise,A2,70,hayot tarzi,cross_level,different,2,kept
+D0283,die Lebensweise,B2,972,turmush tarzi,cross_level,different,2,kept
+D0284,reduzieren,A2,71,kamaytirmoq,cross_level,same,2,kept
+D0284,reduzieren,B2,501,kamaytirmoq,cross_level,same,2,kept
+D0285,umweltfreundlich,A2,72,ekologik toza,cross_level,different,2,kept
+D0285,umweltfreundlich,B2,659,ekologik xavfsiz,cross_level,different,2,kept
+D0286,unterstützen,A2,73,qo‘llab-quvvatlamoq,cross_level,different,9,kept
+D0286,unterstützen,B1,17,qo‘llab-quvvatlamoq,same_level,different,9,kept
+D0286,unterstützen,B1,237,qo‘llab-quvvatlamoq,same_level,different,9,kept
+D0286,unterstützen,B1,416,qo‘llab-quvvatlamoq,same_level,different,9,kept
+D0286,unterstützen,B1,544,qo‘llab-quvvatlamoq,same_level,different,9,kept
+D0286,unterstützen,B1,742,qo‘llab-quvvatlamoq,same_level,different,9,kept
+D0286,unterstützen,B1,942,qo‘llab-quvvatlamoq,same_level,different,9,kept
+D0286,unterstützen,B2,697,yordam bermoq,same_level,different,9,kept
+D0286,unterstützen,B2,1331,qo‘llab-quvvatlamoq,same_level,different,9,kept
+D0287,inzwischen,A2,74,bu orada,same_level,different,7,kept
+D0287,inzwischen,A2,484,shu orada,same_level,different,7,kept
+D0287,inzwischen,A2,704,shu orada,same_level,different,7,kept
+D0287,inzwischen,A2,864,shu orada,same_level,different,7,kept
+D0287,inzwischen,B1,16,shu orada,same_level,different,7,kept
+D0287,inzwischen,B1,127,shu orada,same_level,different,7,kept
+D0287,inzwischen,B1,260,shu orada,same_level,different,7,kept
+D0288,gefährdet,A2,75,xavf ostida,same_level,same,2,kept
+D0288,gefährdet,A2,395,xavf ostida,same_level,same,2,kept
+D0289,verbrauchen,A2,76,iste’mol qilmoq,same_level,different,4,kept
+D0289,verbrauchen,A2,273,iste’mol qilmoq,same_level,different,4,kept
+D0289,verbrauchen,B2,657,sarflamoq,same_level,different,4,kept
+D0289,verbrauchen,B2,1272,sarflamoq,same_level,different,4,kept
+D0290,sinnvoll,A2,77,mazmunli,cross_level,same,2,kept
+D0290,sinnvoll,B2,526,mazmunli,cross_level,same,2,kept
+D0291,schützen,A2,79,himoya qilmoq,cross_level,same,2,kept
+D0291,schützen,B2,1266,himoya qilmoq,cross_level,same,2,kept
+D0292,verantwortlich,A2,80,mas’uliyatli,same_level,different,9,kept
+D0292,verantwortlich,A2,485,mas’uliyatli,same_level,different,9,kept
+D0292,verantwortlich,A2,745,mas’uliyatli,same_level,different,9,kept
+D0292,verantwortlich,A2,965,mas’uliyatli,same_level,different,9,kept
+D0292,verantwortlich,B1,294,mas’uliyatli,same_level,different,9,kept
+D0292,verantwortlich,B1,510,mas’uliyatli,same_level,different,9,kept
+D0292,verantwortlich,B1,709,mas’uliyatli,same_level,different,9,kept
+D0292,verantwortlich,B1,909,mas’uliyatli,same_level,different,9,kept
+D0292,verantwortlich,B2,681,mas’ul,cross_level,different,9,kept
+D0293,die Anmeldung,A2,84,ro‘yxatdan o‘tish,same_level,same,5,kept
+D0293,die Anmeldung,A2,431,ro‘yxatdan o‘tish,same_level,same,5,kept
+D0293,die Anmeldung,A2,671,ro‘yxatdan o‘tish,same_level,same,5,kept
+D0293,die Anmeldung,A2,891,ro‘yxatdan o‘tish,same_level,same,5,kept
+D0293,die Anmeldung,B1,35,ro‘yxatdan o‘tish,cross_level,same,5,kept
+D0294,das Bürgeramt,A2,85,fuqarolar idorasi,same_level,same,2,kept
+D0294,das Bürgeramt,A2,892,fuqarolar idorasi,same_level,same,2,kept
+D0295,der Antrag,A2,89,so‘rovnoma,cross_level,different,2,kept
+D0295,der Antrag,B2,1362,ariza,cross_level,different,2,kept
+D0296,die Verwaltung,A2,90,boshqaruv,cross_level,different,2,kept
+D0296,die Verwaltung,B2,1365,ma’muriyat,cross_level,different,2,kept
+D0297,beantragen,A2,91,ariza topshirmoq,same_level,different,11,kept
+D0297,beantragen,A2,333,ariza bermoq,same_level,different,11,kept
+D0297,beantragen,A2,421,ariza topshirmoq,same_level,different,11,kept
+D0297,beantragen,A2,629,ariza topshirmoq,same_level,different,11,kept
+D0297,beantragen,A2,846,ariza topshirmoq,same_level,different,11,kept
+D0297,beantragen,B1,25,ariza topshirmoq,same_level,different,11,kept
+D0297,beantragen,B1,257,ariza topshirmoq,same_level,different,11,kept
+D0297,beantragen,B1,505,ariza topshirmoq,same_level,different,11,kept
+D0297,beantragen,B1,704,ariza topshirmoq,same_level,different,11,kept
+D0297,beantragen,B1,904,ariza topshirmoq,same_level,different,11,kept
+D0297,beantragen,B2,1361,ariza bermoq,cross_level,different,11,kept
+D0298,kürzlich,A2,94,yaqinda,same_level,same,2,kept
+D0298,kürzlich,A2,194,yaqinda,same_level,same,2,kept
+D0299,verschieben,A2,96,keyinga surmoq,same_level,different,6,kept
+D0299,verschieben,A2,549,keyinga surmoq,same_level,different,6,kept
+D0299,verschieben,A2,789,keyinga surmoq,same_level,different,6,kept
+D0299,verschieben,A2,929,keyinga surmoq,same_level,different,6,kept
+D0299,verschieben,B1,112,keyinga surmoq,cross_level,different,6,kept
+D0299,verschieben,B2,1059,kechiktirmoq,cross_level,different,6,kept
+D0300,andernfalls,A2,98,aks holda,same_level,same,11,kept
+D0300,andernfalls,A2,338,aks holda,same_level,same,11,kept
+D0300,andernfalls,B1,204,aks holda,same_level,same,11,kept
+D0300,andernfalls,B1,320,aks holda,same_level,same,11,kept
+D0300,andernfalls,B1,388,aks holda,same_level,same,11,kept
+D0300,andernfalls,B1,408,aks holda,same_level,same,11,kept
+D0300,andernfalls,B1,531,aks holda,same_level,same,11,kept
+D0300,andernfalls,B1,608,aks holda,same_level,same,11,kept
+D0300,andernfalls,B1,729,aks holda,same_level,same,11,kept
+D0300,andernfalls,B1,808,aks holda,same_level,same,11,kept
+D0300,andernfalls,B1,929,aks holda,same_level,same,11,kept
+D0301,dringend,A2,100,shoshilinch,same_level,same,2,kept
+D0301,dringend,A2,340,shoshilinch,same_level,same,2,kept
+D0302,das Stadtviertel,A2,102,shahar hududi,cross_level,different,2,kept
+D0302,das Stadtviertel,B2,190,shahar tumani,cross_level,different,2,kept
+D0303,der Reisende,A2,103,sayyoh,cross_level,same,2,kept
+D0303,der Reisende,B2,929,sayyoh,cross_level,same,2,kept
+D0304,begeistert,A2,112,juda xursand,same_level,same,11,kept
+D0304,begeistert,A2,482,juda xursand,same_level,same,11,kept
+D0304,begeistert,A2,702,juda xursand,same_level,same,11,kept
+D0304,begeistert,A2,882,juda xursand,same_level,same,11,kept
+D0304,begeistert,B1,125,juda xursand,same_level,same,11,kept
+D0304,begeistert,B1,478,juda xursand,same_level,same,11,kept
+D0304,begeistert,B1,593,juda xursand,same_level,same,11,kept
+D0304,begeistert,B1,677,juda xursand,same_level,same,11,kept
+D0304,begeistert,B1,791,juda xursand,same_level,same,11,kept
+D0304,begeistert,B1,877,juda xursand,same_level,same,11,kept
+D0304,begeistert,B1,991,juda xursand,same_level,same,11,kept
+D0305,umbuchen,A2,113,qayta bron qilmoq,same_level,same,2,kept
+D0305,umbuchen,A2,291,qayta bron qilmoq,same_level,same,2,kept
+D0306,genervt,A2,115,jahli chiqqan,same_level,same,10,kept
+D0306,genervt,A2,585,jahli chiqqan,same_level,same,10,kept
+D0306,genervt,B1,69,jahli chiqqan,same_level,same,10,kept
+D0306,genervt,B1,326,jahli chiqqan,same_level,same,10,kept
+D0306,genervt,B1,486,jahli chiqqan,same_level,same,10,kept
+D0306,genervt,B1,545,jahli chiqqan,same_level,same,10,kept
+D0306,genervt,B1,685,jahli chiqqan,same_level,same,10,kept
+D0306,genervt,B1,743,jahli chiqqan,same_level,same,10,kept
+D0306,genervt,B1,885,jahli chiqqan,same_level,same,10,kept
+D0306,genervt,B1,943,jahli chiqqan,same_level,same,10,kept
+D0307,ankündigen,A2,116,e’lon qilmoq,same_level,same,3,kept
+D0307,ankündigen,A2,339,e’lon qilmoq,same_level,same,3,kept
+D0307,ankündigen,B1,116,e’lon qilmoq,cross_level,same,3,kept
+D0308,beeindruckend,A2,117,ta’sirli,same_level,same,3,kept
+D0308,beeindruckend,A2,235,ta’sirli,same_level,same,3,kept
+D0308,beeindruckend,A2,810,ta’sirli,same_level,same,3,kept
+D0309,infolgedessen,A2,118,natijada,same_level,different,10,kept
+D0309,infolgedessen,A2,378,natijada,same_level,different,10,kept
+D0309,infolgedessen,B1,480,natijada,same_level,different,10,kept
+D0309,infolgedessen,B1,604,natijada,same_level,different,10,kept
+D0309,infolgedessen,B1,679,natijada,same_level,different,10,kept
+D0309,infolgedessen,B1,804,natijada,same_level,different,10,kept
+D0309,infolgedessen,B1,879,natijada,same_level,different,10,kept
+D0309,infolgedessen,C1,24,bevosita oqibat sifatida,same_level,different,10,kept
+D0309,infolgedessen,C1,100,natijada,same_level,different,10,kept
+D0309,infolgedessen,C1,610,natijada,same_level,different,10,kept
+D0310,stornieren,A2,119,bekor qilmoq,cross_level,same,2,kept
+D0310,stornieren,B2,931,bekor qilmoq,cross_level,same,2,kept
+D0311,ungewöhnlich,A2,120,g‘ayrioddiy,same_level,same,4,kept
+D0311,ungewöhnlich,A2,300,g‘ayrioddiy,same_level,same,4,kept
+D0311,ungewöhnlich,A2,430,g‘ayrioddiy,same_level,same,4,kept
+D0311,ungewöhnlich,A2,850,g‘ayrioddiy,same_level,same,4,kept
+D0312,die Ernährung,A2,121,ovqatlanish,cross_level,same,2,kept
+D0312,die Ernährung,B2,1228,ovqatlanish,cross_level,same,2,kept
+D0313,der Notfall,A2,123,shoshilinch holat,cross_level,same,2,kept
+D0313,der Notfall,B2,503,shoshilinch holat,cross_level,same,2,kept
+D0314,die Behandlung,A2,124,davolash,cross_level,same,3,kept
+D0314,die Behandlung,B2,485,davolash,same_level,same,3,kept
+D0314,die Behandlung,B2,1205,davolash,same_level,same,3,kept
+D0315,das Symptom,A2,125,alomat,cross_level,same,3,kept
+D0315,das Symptom,B2,479,alomat,same_level,same,3,kept
+D0315,das Symptom,B2,1217,alomat,same_level,same,3,kept
+D0316,die Untersuchung,A2,127,tekshiruv,cross_level,different,3,kept
+D0316,die Untersuchung,B2,763,tadqiqot,same_level,different,3,kept
+D0316,die Untersuchung,B2,1211,tekshiruv,same_level,different,3,kept
+D0317,das Fitnessstudio,A2,128,sport zali,same_level,same,2,kept
+D0317,das Fitnessstudio,A2,875,sport zali,same_level,same,2,kept
+D0318,behandeln,A2,131,davolamoq,cross_level,different,3,kept
+D0318,behandeln,B1,206,munosabatda bo‘lmoq,cross_level,different,3,kept
+D0318,behandeln,B2,1206,davolamoq,cross_level,different,3,kept
+D0319,erschöpft,A2,132,juda charchagan,same_level,different,3,kept
+D0319,erschöpft,A2,272,charchagan,same_level,different,3,kept
+D0319,erschöpft,B2,1254,juda charchagan,cross_level,different,3,kept
+D0320,regelmäßig,A2,134,muntazam,same_level,same,3,kept
+D0320,regelmäßig,A2,274,muntazam,same_level,same,3,kept
+D0320,regelmäßig,B2,69,muntazam,cross_level,same,3,kept
+D0321,ansteckend,A2,135,yuqumli,cross_level,same,2,kept
+D0321,ansteckend,B2,1224,yuqumli,cross_level,same,2,kept
+D0322,untersuchen,A2,136,tekshirmoq,cross_level,different,3,kept
+D0322,untersuchen,B2,762,tadqiq qilmoq,same_level,different,3,kept
+D0322,untersuchen,B2,1212,tekshirmoq,same_level,different,3,kept
+D0323,empfindlich,A2,140,sezgir,same_level,same,2,kept
+D0323,empfindlich,A2,277,sezgir,same_level,same,2,kept
+D0324,der Arbeitgeber,A2,143,ish beruvchi,cross_level,same,2,kept
+D0324,der Arbeitgeber,B2,1022,ish beruvchi,cross_level,same,2,kept
+D0325,die Arbeitsstelle,A2,144,ish joyi,same_level,same,4,kept
+D0325,die Arbeitsstelle,A2,571,ish joyi,same_level,same,4,kept
+D0325,die Arbeitsstelle,A2,651,ish joyi,same_level,same,4,kept
+D0325,die Arbeitsstelle,B2,175,ish joyi,cross_level,same,4,kept
+D0326,das Vorstellungsgespräch,A2,145,suhbat,cross_level,different,2,kept
+D0326,das Vorstellungsgespräch,B2,1020,ish suhbatı,cross_level,different,2,kept
+D0327,die Arbeitszeit,A2,147,ish vaqti,same_level,same,3,kept
+D0327,die Arbeitszeit,A2,851,ish vaqti,same_level,same,3,kept
+D0327,die Arbeitszeit,B2,1004,ish vaqti,cross_level,same,3,kept
+D0328,der Lebenslauf,A2,149,rezyume,cross_level,same,2,kept
+D0328,der Lebenslauf,B2,1019,rezyume,cross_level,same,2,kept
+D0329,die Kündigung,A2,150,ishdan bo‘shatish,cross_level,different,2,kept
+D0329,die Kündigung,B2,1024,ishdan bo‘shash/bo‘shatish,cross_level,different,2,kept
+D0330,einstellen,A2,151,ishga olmoq,cross_level,same,2,kept
+D0330,einstellen,B2,1021,ishga olmoq,cross_level,same,2,kept
+D0331,mittags,A2,154,tush payti,same_level,same,4,kept
+D0331,mittags,A2,784,tush payti,same_level,same,4,kept
+D0331,mittags,A2,904,tush payti,same_level,same,4,kept
+D0331,mittags,B1,344,tush payti,cross_level,same,4,kept
+D0332,überfordert,A2,155,qiynalgan,cross_level,different,3,kept
+D0332,überfordert,B1,602,o‘ta charchagan,same_level,different,3,kept
+D0332,überfordert,B1,802,o‘ta charchagan,same_level,different,3,kept
+D0333,kündigen,A2,156,ishdan ketmoq,cross_level,different,2,kept
+D0333,kündigen,B2,1025,bo‘shamoq,cross_level,different,2,kept
+D0334,belastend,A2,157,og‘ir,same_level,same,2,kept
+D0334,belastend,A2,335,og‘ir,same_level,same,2,kept
+D0335,flexibel,A2,160,moslashuvchan,cross_level,same,2,kept
+D0335,flexibel,B2,671,moslashuvchan,cross_level,same,2,kept
+D0336,die Unterhaltung,A2,161,ko‘ngilochar suhbat,cross_level,different,2,kept
+D0336,die Unterhaltung,B2,1110,ko‘ngilochar faoliyat,cross_level,different,2,kept
+D0337,das Publikum,A2,162,tomoshabinlar,cross_level,same,2,kept
+D0337,das Publikum,B2,1117,tomoshabinlar,cross_level,same,2,kept
+D0338,die Veranstaltung,A2,164,tadbir,cross_level,same,3,kept
+D0338,die Veranstaltung,B2,532,tadbir,same_level,same,3,kept
+D0338,die Veranstaltung,B2,1112,tadbir,same_level,same,3,kept
+D0339,der Künstler,A2,166,san’atkor,cross_level,same,2,kept
+D0339,der Künstler,B2,1124,san’atkor,cross_level,same,2,kept
+D0340,die Ausstellung,A2,167,ko‘rgazma,cross_level,same,2,kept
+D0340,die Ausstellung,B2,1122,ko‘rgazma,cross_level,same,2,kept
+D0341,auftreten,A2,171,sahnaga chiqmoq,cross_level,different,2,kept
+D0341,auftreten,B2,1218,yuzaga kelmoq,cross_level,different,2,kept
+D0342,unterhaltsam,A2,172,qiziqarli,cross_level,same,2,kept
+D0342,unterhaltsam,B2,1111,qiziqarli,cross_level,same,2,kept
+D0343,besichtigen,A2,176,tomosha qilmoq,same_level,same,3,kept
+D0343,besichtigen,A2,296,tomosha qilmoq,same_level,same,3,kept
+D0343,besichtigen,B2,939,tomosha qilmoq,cross_level,same,3,kept
+D0344,vorstellen,A2,179,taqdim qilmoq,same_level,different,3,kept
+D0344,vorstellen,A2,443,tanishtirmoq,same_level,different,3,kept
+D0344,vorstellen,A2,683,tanishtirmoq,same_level,different,3,kept
+D0345,die Miete,A2,184,ijara,cross_level,different,2,kept
+D0345,die Miete,B2,923,ijara haqi,cross_level,different,2,kept
+D0346,chaotisch,A2,197,tartibsiz,same_level,same,3,kept
+D0346,chaotisch,A2,590,tartibsiz,same_level,same,3,kept
+D0346,chaotisch,B1,77,tartibsiz,cross_level,same,3,kept
+D0347,sich beschweren,A2,199,shikoyat qilmoq,cross_level,same,8,kept
+D0347,sich beschweren,B1,305,shikoyat qilmoq,same_level,same,8,kept
+D0347,sich beschweren,B1,428,shikoyat qilmoq,same_level,same,8,kept
+D0347,sich beschweren,B1,552,shikoyat qilmoq,same_level,same,8,kept
+D0347,sich beschweren,B1,628,shikoyat qilmoq,same_level,same,8,kept
+D0347,sich beschweren,B1,750,shikoyat qilmoq,same_level,same,8,kept
+D0347,sich beschweren,B1,828,shikoyat qilmoq,same_level,same,8,kept
+D0347,sich beschweren,B1,950,shikoyat qilmoq,same_level,same,8,kept
+D0348,zufrieden,A2,200,mamnun,same_level,same,3,kept
+D0348,zufrieden,A2,725,mamnun,same_level,same,3,kept
+D0348,zufrieden,B1,366,mamnun,cross_level,same,3,kept
+D0349,die Voraussetzung,A2,201,shart,same_level,different,13,kept
+D0349,die Voraussetzung,A2,230,asos,same_level,different,13,kept
+D0349,die Voraussetzung,B1,3,shart,same_level,different,13,kept
+D0349,die Voraussetzung,B1,211,shart,same_level,different,13,kept
+D0349,die Voraussetzung,B1,319,shart,same_level,different,13,kept
+D0349,die Voraussetzung,B1,403,shart,same_level,different,13,kept
+D0349,die Voraussetzung,B1,503,shart,same_level,different,13,kept
+D0349,die Voraussetzung,B1,603,shart,same_level,different,13,kept
+D0349,die Voraussetzung,B1,702,shart,same_level,different,13,kept
+D0349,die Voraussetzung,B1,803,shart,same_level,different,13,kept
+D0349,die Voraussetzung,B1,902,shart,same_level,different,13,kept
+D0349,die Voraussetzung,B2,673,shart,cross_level,different,13,kept
+D0349,die Voraussetzung,C1,14,asosiy zarur shart,cross_level,different,13,kept
+D0350,die Berufserfahrung,A2,210,ish tajribasi,cross_level,same,2,kept
+D0350,die Berufserfahrung,B2,1018,ish tajribasi,cross_level,same,2,kept
+D0351,sich vorbereiten,A2,211,tayyorlanmoq,cross_level,same,12,kept
+D0351,sich vorbereiten,B1,265,tayyorlanmoq,same_level,same,12,kept
+D0351,sich vorbereiten,B1,389,tayyorlanmoq,same_level,same,12,kept
+D0351,sich vorbereiten,B1,440,tayyorlanmoq,same_level,same,12,kept
+D0351,sich vorbereiten,B1,516,tayyorlanmoq,same_level,same,12,kept
+D0351,sich vorbereiten,B1,600,tayyorlanmoq,same_level,same,12,kept
+D0351,sich vorbereiten,B1,640,tayyorlanmoq,same_level,same,12,kept
+D0351,sich vorbereiten,B1,715,tayyorlanmoq,same_level,same,12,kept
+D0351,sich vorbereiten,B1,798,tayyorlanmoq,same_level,same,12,kept
+D0351,sich vorbereiten,B1,840,tayyorlanmoq,same_level,same,12,kept
+D0351,sich vorbereiten,B1,915,tayyorlanmoq,same_level,same,12,kept
+D0351,sich vorbereiten,B1,998,tayyorlanmoq,same_level,same,12,kept
+D0352,engagiert,A2,212,faol,cross_level,same,2,kept
+D0352,engagiert,B2,570,faol,cross_level,same,2,kept
+D0353,überzeugen,A2,213,ishontirmoq,cross_level,different,5,kept
+D0353,überzeugen,B2,718,ishontirmoq,same_level,different,5,kept
+D0353,überzeugen,B2,1174,ishontirmoq,same_level,different,5,kept
+D0353,überzeugen,B2,1397,ishontirmoq,same_level,different,5,kept
+D0353,überzeugen,C1,69,mantiqan ishontirmoq,cross_level,different,5,kept
+D0354,gelegentlich,A2,214,ba’zida,same_level,same,16,kept
+D0354,gelegentlich,A2,354,ba’zida,same_level,same,16,kept
+D0354,gelegentlich,A2,824,ba’zida,same_level,same,16,kept
+D0354,gelegentlich,B1,8,ba’zida,same_level,same,16,kept
+D0354,gelegentlich,B1,79,ba’zida,same_level,same,16,kept
+D0354,gelegentlich,B1,107,ba’zida,same_level,same,16,kept
+D0354,gelegentlich,B1,155,ba’zida,same_level,same,16,kept
+D0354,gelegentlich,B1,179,ba’zida,same_level,same,16,kept
+D0354,gelegentlich,B1,248,ba’zida,same_level,same,16,kept
+D0354,gelegentlich,B1,332,ba’zida,same_level,same,16,kept
+D0354,gelegentlich,B1,464,ba’zida,same_level,same,16,kept
+D0354,gelegentlich,B1,519,ba’zida,same_level,same,16,kept
+D0354,gelegentlich,B1,664,ba’zida,same_level,same,16,kept
+D0354,gelegentlich,B1,718,ba’zida,same_level,same,16,kept
+D0354,gelegentlich,B1,864,ba’zida,same_level,same,16,kept
+D0354,gelegentlich,B1,918,ba’zida,same_level,same,16,kept
+D0355,fortsetzen,A2,216,davom ettirmoq,cross_level,same,2,kept
+D0355,fortsetzen,B2,876,davom ettirmoq,cross_level,same,2,kept
+D0356,seltsam,A2,217,g‘alati,same_level,same,9,kept
+D0356,seltsam,A2,490,g‘alati,same_level,same,9,kept
+D0356,seltsam,A2,690,g‘alati,same_level,same,9,kept
+D0356,seltsam,A2,970,g‘alati,same_level,same,9,kept
+D0356,seltsam,B1,113,g‘alati,same_level,same,9,kept
+D0356,seltsam,B1,270,g‘alati,same_level,same,9,kept
+D0356,seltsam,B1,506,g‘alati,same_level,same,9,kept
+D0356,seltsam,B1,705,g‘alati,same_level,same,9,kept
+D0356,seltsam,B1,905,g‘alati,same_level,same,9,kept
+D0357,sich entwickeln,A2,219,rivojlanmoq,cross_level,same,2,kept
+D0357,sich entwickeln,B2,1286,rivojlanmoq,cross_level,same,2,kept
+D0358,die Verpflichtung,A2,221,majburiyat,cross_level,same,11,kept
+D0358,die Verpflichtung,B1,219,majburiyat,same_level,same,11,kept
+D0358,die Verpflichtung,B1,383,majburiyat,same_level,same,11,kept
+D0358,die Verpflichtung,B1,414,majburiyat,same_level,same,11,kept
+D0358,die Verpflichtung,B1,495,majburiyat,same_level,same,11,kept
+D0358,die Verpflichtung,B1,614,majburiyat,same_level,same,11,kept
+D0358,die Verpflichtung,B1,694,majburiyat,same_level,same,11,kept
+D0358,die Verpflichtung,B1,800,majburiyat,same_level,same,11,kept
+D0358,die Verpflichtung,B1,814,majburiyat,same_level,same,11,kept
+D0358,die Verpflichtung,B1,894,majburiyat,same_level,same,11,kept
+D0358,die Verpflichtung,B1,1000,majburiyat,same_level,same,11,kept
+D0359,die Fähigkeit,A2,224,qobiliyat,cross_level,same,9,kept
+D0359,die Fähigkeit,B1,203,qobiliyat,same_level,same,9,kept
+D0359,die Fähigkeit,B1,487,qobiliyat,same_level,same,9,kept
+D0359,die Fähigkeit,B1,578,qobiliyat,same_level,same,9,kept
+D0359,die Fähigkeit,B1,686,qobiliyat,same_level,same,9,kept
+D0359,die Fähigkeit,B1,776,qobiliyat,same_level,same,9,kept
+D0359,die Fähigkeit,B1,886,qobiliyat,same_level,same,9,kept
+D0359,die Fähigkeit,B1,976,qobiliyat,same_level,same,9,kept
+D0359,die Fähigkeit,B2,693,qobiliyat,cross_level,same,9,kept
+D0360,der Zusammenhang,A2,229,bog‘liqlik,cross_level,same,13,kept
+D0360,der Zusammenhang,B1,207,bog‘liqlik,same_level,same,13,kept
+D0360,der Zusammenhang,B1,315,bog‘liqlik,same_level,same,13,kept
+D0360,der Zusammenhang,B1,407,bog‘liqlik,same_level,same,13,kept
+D0360,der Zusammenhang,B1,491,bog‘liqlik,same_level,same,13,kept
+D0360,der Zusammenhang,B1,574,bog‘liqlik,same_level,same,13,kept
+D0360,der Zusammenhang,B1,607,bog‘liqlik,same_level,same,13,kept
+D0360,der Zusammenhang,B1,690,bog‘liqlik,same_level,same,13,kept
+D0360,der Zusammenhang,B1,772,bog‘liqlik,same_level,same,13,kept
+D0360,der Zusammenhang,B1,807,bog‘liqlik,same_level,same,13,kept
+D0360,der Zusammenhang,B1,890,bog‘liqlik,same_level,same,13,kept
+D0360,der Zusammenhang,B1,972,bog‘liqlik,same_level,same,13,kept
+D0360,der Zusammenhang,B2,60,bog‘liqlik,cross_level,same,13,kept
+D0361,sich bemühen,A2,231,harakat qilmoq,cross_level,same,10,kept
+D0361,sich bemühen,B1,5,harakat qilmoq,same_level,same,10,kept
+D0361,sich bemühen,B1,233,harakat qilmoq,same_level,same,10,kept
+D0361,sich bemühen,B1,377,harakat qilmoq,same_level,same,10,kept
+D0361,sich bemühen,B1,485,harakat qilmoq,same_level,same,10,kept
+D0361,sich bemühen,B1,592,harakat qilmoq,same_level,same,10,kept
+D0361,sich bemühen,B1,684,harakat qilmoq,same_level,same,10,kept
+D0361,sich bemühen,B1,790,harakat qilmoq,same_level,same,10,kept
+D0361,sich bemühen,B1,884,harakat qilmoq,same_level,same,10,kept
+D0361,sich bemühen,B1,990,harakat qilmoq,same_level,same,10,kept
+D0362,unsicher,A2,232,ishonchsiz,same_level,same,2,kept
+D0362,unsicher,A2,642,ishonchsiz,same_level,same,2,kept
+D0363,beeinflussen,A2,233,ta’sir qilmoq,same_level,same,7,kept
+D0363,beeinflussen,A2,359,ta’sir qilmoq,same_level,same,7,kept
+D0363,beeinflussen,B1,13,ta’sir qilmoq,same_level,same,7,kept
+D0363,beeinflussen,B1,213,ta’sir qilmoq,same_level,same,7,kept
+D0363,beeinflussen,B2,666,ta’sir qilmoq,same_level,same,7,kept
+D0363,beeinflussen,B2,993,ta’sir qilmoq,same_level,same,7,kept
+D0363,beeinflussen,B2,1192,ta’sir qilmoq,same_level,same,7,kept
+D0364,allmählich,A2,234,asta-sekin,same_level,same,11,kept
+D0364,allmählich,A2,358,asta-sekin,same_level,same,11,kept
+D0364,allmählich,B1,468,asta-sekin,same_level,same,11,kept
+D0364,allmählich,B1,535,asta-sekin,same_level,same,11,kept
+D0364,allmählich,B1,595,asta-sekin,same_level,same,11,kept
+D0364,allmählich,B1,668,asta-sekin,same_level,same,11,kept
+D0364,allmählich,B1,733,asta-sekin,same_level,same,11,kept
+D0364,allmählich,B1,793,asta-sekin,same_level,same,11,kept
+D0364,allmählich,B1,868,asta-sekin,same_level,same,11,kept
+D0364,allmählich,B1,933,asta-sekin,same_level,same,11,kept
+D0364,allmählich,B1,993,asta-sekin,same_level,same,11,kept
+D0365,feststellen,A2,236,aniqlamoq,cross_level,same,3,kept
+D0365,feststellen,B1,88,aniqlamoq,cross_level,same,3,kept
+D0365,feststellen,B2,758,aniqlamoq,cross_level,same,3,kept
+D0366,vernünftig,A2,237,oqilona,same_level,same,2,kept
+D0366,vernünftig,A2,630,oqilona,same_level,same,2,kept
+D0367,wesentlich,A2,240,muhim,cross_level,different,3,kept
+D0367,wesentlich,B2,831,muhim,cross_level,different,3,kept
+D0367,wesentlich,C1,47,asosiy ahamiyatga ega,cross_level,different,3,kept
+D0368,die Arbeitsbedingung,A2,247,ish sharoiti,same_level,same,3,kept
+D0368,die Arbeitsbedingung,A2,771,ish sharoiti,same_level,same,3,kept
+D0368,die Arbeitsbedingung,A2,931,ish sharoiti,same_level,same,3,kept
+D0369,die Zielsetzung,A2,250,maqsad qo‘yish,cross_level,different,3,kept
+D0369,die Zielsetzung,B2,701,maqsadni belgilash,cross_level,different,3,kept
+D0369,die Zielsetzung,C1,50,strategik maqsad,cross_level,different,3,kept
+D0370,verantwortungsvoll,A2,252,mas’uliyatli,cross_level,same,2,kept
+D0370,verantwortungsvoll,B2,1350,mas’uliyatli,cross_level,same,2,kept
+D0371,beanstanden,A2,253,tanqid qilmoq,cross_level,different,9,kept
+D0371,beanstanden,B1,124,e’tiroz bildirmoq,same_level,different,9,kept
+D0371,beanstanden,B1,373,e’tiroz bildirmoq,same_level,different,9,kept
+D0371,beanstanden,B1,436,e’tiroz bildirmoq,same_level,different,9,kept
+D0371,beanstanden,B1,572,e’tiroz bildirmoq,same_level,different,9,kept
+D0371,beanstanden,B1,636,e’tiroz bildirmoq,same_level,different,9,kept
+D0371,beanstanden,B1,770,e’tiroz bildirmoq,same_level,different,9,kept
+D0371,beanstanden,B1,836,e’tiroz bildirmoq,same_level,different,9,kept
+D0371,beanstanden,B1,970,e’tiroz bildirmoq,same_level,different,9,kept
+D0372,herausfordernd,A2,255,qiyin,cross_level,different,2,kept
+D0372,herausfordernd,B2,642,murakkab,cross_level,different,2,kept
+D0373,erledigen,A2,256,bajarmoq,same_level,same,5,kept
+D0373,erledigen,A2,623,bajarmoq,same_level,same,5,kept
+D0373,erledigen,B1,96,bajarmoq,same_level,same,5,kept
+D0373,erledigen,B1,353,bajarmoq,same_level,same,5,kept
+D0373,erledigen,B2,1085,bajarmoq,cross_level,same,5,kept
+D0374,auffällig,A2,257,ajralib turuvchi,same_level,different,12,kept
+D0374,auffällig,A2,550,ajralib turuvchi,same_level,different,12,kept
+D0374,auffällig,A2,790,ajralib turuvchi,same_level,different,12,kept
+D0374,auffällig,A2,870,ajralib turuvchi,same_level,different,12,kept
+D0374,auffällig,B1,350,ajralib turuvchi,same_level,different,12,kept
+D0374,auffällig,B1,445,ajralib turuvchi,same_level,different,12,kept
+D0374,auffällig,B1,525,ajralib turuvchi,same_level,different,12,kept
+D0374,auffällig,B1,645,ajralib turuvchi,same_level,different,12,kept
+D0374,auffällig,B1,723,ajralib turuvchi,same_level,different,12,kept
+D0374,auffällig,B1,845,ajralib turuvchi,same_level,different,12,kept
+D0374,auffällig,B1,923,ajralib turuvchi,same_level,different,12,kept
+D0374,auffällig,B2,421,ko‘zga tashlanadigan,cross_level,different,12,kept
+D0375,sich anpassen,A2,259,moslashmoq,cross_level,same,10,kept
+D0375,sich anpassen,B1,349,moslashmoq,same_level,same,10,kept
+D0375,sich anpassen,B1,452,moslashmoq,same_level,same,10,kept
+D0375,sich anpassen,B1,568,moslashmoq,same_level,same,10,kept
+D0375,sich anpassen,B1,652,moslashmoq,same_level,same,10,kept
+D0375,sich anpassen,B1,766,moslashmoq,same_level,same,10,kept
+D0375,sich anpassen,B1,852,moslashmoq,same_level,same,10,kept
+D0375,sich anpassen,B1,966,moslashmoq,same_level,same,10,kept
+D0375,sich anpassen,B2,669,moslashmoq,same_level,same,10,kept
+D0375,sich anpassen,B2,968,moslashmoq,same_level,same,10,kept
+D0376,die Lebensqualität,A2,264,hayot sifati,cross_level,same,2,kept
+D0376,die Lebensqualität,B2,1338,hayot sifati,cross_level,same,2,kept
+D0377,sich erholen,A2,271,dam olmoq,cross_level,different,3,kept
+D0377,sich erholen,B2,1104,kuch yig‘moq,same_level,different,3,kept
+D0377,sich erholen,B2,1255,tiklanmoq,same_level,different,3,kept
+D0378,der Reiseveranstalter,A2,283,sayohat tashkilotchisi,same_level,same,4,kept
+D0378,der Reiseveranstalter,A2,516,sayohat tashkilotchisi,same_level,same,4,kept
+D0378,der Reiseveranstalter,A2,796,sayohat tashkilotchisi,same_level,same,4,kept
+D0378,der Reiseveranstalter,A2,996,sayohat tashkilotchisi,same_level,same,4,kept
+D0379,die Unterkunftsmöglichkeit,A2,284,turar joy imkoniyati,same_level,same,3,kept
+D0379,die Unterkunftsmöglichkeit,A2,560,turar joy imkoniyati,same_level,same,3,kept
+D0379,die Unterkunftsmöglichkeit,A2,740,turar joy imkoniyati,same_level,same,3,kept
+D0380,das Verkehrsmittel,A2,288,transport vositasi,same_level,same,5,kept
+D0380,das Verkehrsmittel,A2,518,transport vositasi,same_level,same,5,kept
+D0380,das Verkehrsmittel,A2,778,transport vositasi,same_level,same,5,kept
+D0380,das Verkehrsmittel,A2,998,transport vositasi,same_level,same,5,kept
+D0380,das Verkehrsmittel,B1,78,transport vositasi,cross_level,same,5,kept
+D0381,die Reisevorbereitung,A2,290,sayohat tayyorgarligi,same_level,different,3,kept
+D0381,die Reisevorbereitung,A2,440,sayohat tayyorgarligi,same_level,different,3,kept
+D0381,die Reisevorbereitung,B2,928,sayohatga tayyorgarlik,cross_level,different,3,kept
+D0382,bequemlich,A2,292,qulay,same_level,same,2,kept
+D0382,bequemlich,A2,582,qulay,same_level,same,2,kept
+D0383,hilfreich,A2,297,yordam beruvchi,same_level,different,12,kept
+D0383,hilfreich,A2,565,yordam beruvchi,same_level,different,12,kept
+D0383,hilfreich,B1,117,yordam beruvchi,same_level,different,12,kept
+D0383,hilfreich,B1,282,yordam beruvchi,same_level,different,12,kept
+D0383,hilfreich,B1,390,yordam beruvchi,same_level,different,12,kept
+D0383,hilfreich,B1,421,yordam beruvchi,same_level,different,12,kept
+D0383,hilfreich,B1,569,yordam beruvchi,same_level,different,12,kept
+D0383,hilfreich,B1,621,yordam beruvchi,same_level,different,12,kept
+D0383,hilfreich,B1,767,yordam beruvchi,same_level,different,12,kept
+D0383,hilfreich,B1,821,yordam beruvchi,same_level,different,12,kept
+D0383,hilfreich,B1,967,yordam beruvchi,same_level,different,12,kept
+D0383,hilfreich,B2,45,foydali,cross_level,different,12,kept
+D0384,gleichzeitig,A2,298,bir vaqtning o‘zida,cross_level,different,3,kept
+D0384,gleichzeitig,C1,118,shu bilan bir vaqtda,same_level,different,3,kept
+D0384,gleichzeitig,C1,702,shu bilan bir vaqtda,same_level,different,3,kept
+D0385,der Datenschutz,A2,306,ma’lumot himoyasi,cross_level,different,2,kept
+D0385,der Datenschutz,B2,602,ma’lumotlarni himoya qilish,cross_level,different,2,kept
+D0386,digital,A2,312,raqamli,cross_level,same,3,kept
+D0386,digital,B2,196,raqamli,same_level,same,3,kept
+D0386,digital,B2,441,raqamli,same_level,same,3,kept
+D0387,weiterleiten,A2,313,uzatmoq,cross_level,different,2,kept
+D0387,weiterleiten,B2,1068,yo‘naltirmoq,cross_level,different,2,kept
+D0388,veröffentlichen,A2,316,e’lon qilmoq,cross_level,different,2,kept
+D0388,veröffentlichen,B2,1132,nashr qilmoq,cross_level,different,2,kept
+D0389,nützlich,A2,317,foydali,same_level,same,15,kept
+D0389,nützlich,A2,465,foydali,same_level,same,15,kept
+D0389,nützlich,A2,705,foydali,same_level,same,15,kept
+D0389,nützlich,A2,905,foydali,same_level,same,15,kept
+D0389,nützlich,B1,57,foydali,same_level,same,15,kept
+D0389,nützlich,B1,189,foydali,same_level,same,15,kept
+D0389,nützlich,B1,258,foydali,same_level,same,15,kept
+D0389,nützlich,B1,378,foydali,same_level,same,15,kept
+D0389,nützlich,B1,441,foydali,same_level,same,15,kept
+D0389,nützlich,B1,533,foydali,same_level,same,15,kept
+D0389,nützlich,B1,641,foydali,same_level,same,15,kept
+D0389,nützlich,B1,731,foydali,same_level,same,15,kept
+D0389,nützlich,B1,841,foydali,same_level,same,15,kept
+D0389,nützlich,B1,931,foydali,same_level,same,15,kept
+D0389,nützlich,B2,821,foydali,cross_level,same,15,kept
+D0390,das Berufsleben,A2,322,ish hayoti,same_level,same,2,kept
+D0390,das Berufsleben,A2,832,ish hayoti,same_level,same,2,kept
+D0391,die Arbeitsplatzsuche,A2,324,ish qidirish,same_level,same,4,kept
+D0391,die Arbeitsplatzsuche,A2,531,ish qidirish,same_level,same,4,kept
+D0391,die Arbeitsplatzsuche,A2,751,ish qidirish,same_level,same,4,kept
+D0391,die Arbeitsplatzsuche,A2,951,ish qidirish,same_level,same,4,kept
+D0392,beruflich,A2,332,kasbiy,cross_level,same,2,kept
+D0392,beruflich,B1,201,kasbiy,cross_level,same,2,kept
+D0393,übernehmen,A2,336,o‘z zimmasiga olmoq,cross_level,different,3,kept
+D0393,übernehmen,B1,84,o‘z zimmasiga olmoq,cross_level,different,3,kept
+D0393,übernehmen,B2,683,qabul qilmoq,cross_level,different,3,kept
+D0394,zuversichtlich,A2,337,ishonchli,cross_level,same,5,kept
+D0394,zuversichtlich,B1,205,ishonchli,same_level,same,5,kept
+D0394,zuversichtlich,B1,517,ishonchli,same_level,same,5,kept
+D0394,zuversichtlich,B1,716,ishonchli,same_level,same,5,kept
+D0394,zuversichtlich,B1,916,ishonchli,same_level,same,5,kept
+D0395,das Zusammenleben,A2,345,birga yashash,cross_level,same,3,kept
+D0395,das Zusammenleben,B2,317,birga yashash,same_level,same,3,kept
+D0395,das Zusammenleben,B2,1499,birga yashash,same_level,same,3,kept
+D0396,der Bekanntenkreis,A2,349,tanishlar doirasi,cross_level,same,2,kept
+D0396,der Bekanntenkreis,B2,438,tanishlar doirasi,cross_level,same,2,kept
+D0397,tolerant,A2,352,bag‘rikeng,cross_level,same,3,kept
+D0397,tolerant,B2,996,bag‘rikeng,same_level,same,3,kept
+D0397,tolerant,B2,1317,bag‘rikeng,same_level,same,3,kept
+D0398,missverstehen,A2,353,noto‘g‘ri tushunmoq,cross_level,same,2,kept
+D0398,missverstehen,B2,1168,noto‘g‘ri tushunmoq,cross_level,same,2,kept
+D0399,selbstbewusst,A2,355,o‘ziga ishongan,same_level,same,10,kept
+D0399,selbstbewusst,A2,562,o‘ziga ishongan,same_level,same,10,kept
+D0399,selbstbewusst,A2,747,o‘ziga ishongan,same_level,same,10,kept
+D0399,selbstbewusst,A2,807,o‘ziga ishongan,same_level,same,10,kept
+D0399,selbstbewusst,B1,18,o‘ziga ishongan,same_level,same,10,kept
+D0399,selbstbewusst,B1,185,o‘ziga ishongan,same_level,same,10,kept
+D0399,selbstbewusst,B1,302,o‘ziga ishongan,same_level,same,10,kept
+D0399,selbstbewusst,B1,437,o‘ziga ishongan,same_level,same,10,kept
+D0399,selbstbewusst,B1,637,o‘ziga ishongan,same_level,same,10,kept
+D0399,selbstbewusst,B1,837,o‘ziga ishongan,same_level,same,10,kept
+D0400,verbieten,A2,356,taqiqlamoq,same_level,same,4,kept
+D0400,verbieten,A2,643,taqiqlamoq,same_level,same,4,kept
+D0400,verbieten,B1,136,taqiqlamoq,same_level,same,4,kept
+D0400,verbieten,B1,337,taqiqlamoq,same_level,same,4,kept
+D0401,verantwortungsbewusst,A2,360,mas’uliyatli,cross_level,same,6,kept
+D0401,verantwortungsbewusst,B1,209,mas’uliyatli,same_level,same,6,kept
+D0401,verantwortungsbewusst,B1,406,mas’uliyatli,same_level,same,6,kept
+D0401,verantwortungsbewusst,B1,606,mas’uliyatli,same_level,same,6,kept
+D0401,verantwortungsbewusst,B1,806,mas’uliyatli,same_level,same,6,kept
+D0401,verantwortungsbewusst,B2,1282,mas’uliyatli,cross_level,same,6,kept
+D0402,die Luftverschmutzung,A2,364,havo ifloslanishi,cross_level,same,2,kept
+D0402,die Luftverschmutzung,B2,1260,havo ifloslanishi,cross_level,same,2,kept
+D0403,recyceln,A2,371,qayta ishlamoq,cross_level,same,2,kept
+D0403,recyceln,B2,1274,qayta ishlamoq,cross_level,same,2,kept
+D0404,vermeiden,A2,373,oldini olmoq,same_level,different,9,kept
+D0404,vermeiden,A2,726,oldini olmoq,same_level,different,9,kept
+D0404,vermeiden,B1,9,oldini olmoq,same_level,different,9,kept
+D0404,vermeiden,B1,225,oldini olmoq,same_level,different,9,kept
+D0404,vermeiden,B1,481,oldini olmoq,same_level,different,9,kept
+D0404,vermeiden,B1,680,oldini olmoq,same_level,different,9,kept
+D0404,vermeiden,B1,880,oldini olmoq,same_level,different,9,kept
+D0404,vermeiden,B2,432,qochmoq,same_level,different,9,kept
+D0404,vermeiden,B2,1278,oldini olmoq,same_level,different,9,kept
+D0405,weltweit,A2,374,butun dunyo bo‘ylab,cross_level,same,2,kept
+D0405,weltweit,B2,166,butun dunyo bo‘ylab,cross_level,same,2,kept
+D0406,nachhaltig,A2,375,barqaror,cross_level,different,3,kept
+D0406,nachhaltig,B2,652,barqaror,cross_level,different,3,kept
+D0406,nachhaltig,C1,67,uzoq muddatli ta’sirga ega,cross_level,different,3,kept
+D0407,schaden,A2,376,zarar yetkazmoq,cross_level,same,2,kept
+D0407,schaden,B2,818,zarar yetkazmoq,cross_level,same,2,kept
+D0408,bewusst,A2,377,ongli,cross_level,same,2,kept
+D0408,bewusst,B2,355,ongli,cross_level,same,2,kept
+D0409,verschmutzen,A2,379,ifloslantirmoq,cross_level,same,2,kept
+D0409,verschmutzen,B2,1259,ifloslantirmoq,cross_level,same,2,kept
+D0410,langfristig,A2,380,uzoq muddatli,cross_level,same,2,kept
+D0410,langfristig,B2,650,uzoq muddatli,cross_level,same,2,kept
+D0411,die Sicherheitskontrolle,A2,381,xavfsizlik nazorati,same_level,same,3,kept
+D0411,die Sicherheitskontrolle,A2,797,xavfsizlik nazorati,same_level,same,3,kept
+D0411,die Sicherheitskontrolle,A2,937,xavfsizlik nazorati,same_level,same,3,kept
+D0412,der Unfallbericht,A2,383,baxtsiz hodisa hisoboti,same_level,same,4,kept
+D0412,der Unfallbericht,A2,519,baxtsiz hodisa hisoboti,same_level,same,4,kept
+D0412,der Unfallbericht,A2,759,baxtsiz hodisa hisoboti,same_level,same,4,kept
+D0412,der Unfallbericht,A2,999,baxtsiz hodisa hisoboti,same_level,same,4,kept
+D0413,aufmerksam,A2,400,e’tiborli,same_level,same,6,kept
+D0413,aufmerksam,A2,607,e’tiborli,same_level,same,6,kept
+D0413,aufmerksam,B1,109,e’tiborli,same_level,same,6,kept
+D0413,aufmerksam,B1,242,e’tiborli,same_level,same,6,kept
+D0413,aufmerksam,B1,394,e’tiborli,same_level,same,6,kept
+D0413,aufmerksam,B2,1199,e’tiborli,cross_level,same,6,kept
+D0414,geduldig,A2,407,sabrli,same_level,same,6,kept
+D0414,geduldig,A2,662,sabrli,same_level,same,6,kept
+D0414,geduldig,A2,827,sabrli,same_level,same,6,kept
+D0414,geduldig,B1,22,sabrli,same_level,same,6,kept
+D0414,geduldig,B1,230,sabrli,same_level,same,6,kept
+D0414,geduldig,B1,346,sabrli,same_level,same,6,kept
+D0415,nachdenken,A2,409,o‘ylab ko‘rmoq,cross_level,same,3,kept
+D0415,nachdenken,B1,184,o‘ylab ko‘rmoq,same_level,same,3,kept
+D0415,nachdenken,B1,361,o‘ylab ko‘rmoq,same_level,same,3,kept
+D0416,das Bahnhofsgebäude,A2,412,vokzal binosi,cross_level,same,2,kept
+D0416,das Bahnhofsgebäude,B1,170,vokzal binosi,cross_level,same,2,kept
+D0417,die Dienstleistung,A2,414,xizmat,cross_level,same,2,kept
+D0417,die Dienstleistung,B1,178,xizmat,cross_level,same,2,kept
+D0418,das Einkaufserlebnis,A2,415,xarid tajribasi,cross_level,same,2,kept
+D0418,das Einkaufserlebnis,B1,182,xarid tajribasi,cross_level,same,2,kept
+D0419,die Gepäckaufbewahrung,A2,417,yuk saqlash joyi,cross_level,same,2,kept
+D0419,die Gepäckaufbewahrung,B1,190,yuk saqlash joyi,cross_level,same,2,kept
+D0420,das Haushaltsgerät,A2,418,uy jihozi,cross_level,same,2,kept
+D0420,das Haushaltsgerät,B1,194,uy jihozi,cross_level,same,2,kept
+D0421,der Kinobesuch,A2,419,kino tashrifi,cross_level,same,2,kept
+D0421,der Kinobesuch,B1,198,kino tashrifi,cross_level,same,2,kept
+D0422,anstrengend,A2,425,mashaqqatli,same_level,same,9,kept
+D0422,anstrengend,A2,865,mashaqqatli,same_level,same,9,kept
+D0422,anstrengend,B1,26,mashaqqatli,same_level,same,9,kept
+D0422,anstrengend,B1,157,mashaqqatli,same_level,same,9,kept
+D0422,anstrengend,B1,250,mashaqqatli,same_level,same,9,kept
+D0422,anstrengend,B1,374,mashaqqatli,same_level,same,9,kept
+D0422,anstrengend,B1,502,mashaqqatli,same_level,same,9,kept
+D0422,anstrengend,B1,701,mashaqqatli,same_level,same,9,kept
+D0422,anstrengend,B1,901,mashaqqatli,same_level,same,9,kept
+D0423,weiterhelfen,A2,426,yordam bermoq,same_level,same,2,kept
+D0423,weiterhelfen,A2,883,yordam bermoq,same_level,same,2,kept
+D0424,deswegen,A2,428,shu sababli,same_level,same,11,kept
+D0424,deswegen,A2,568,shu sababli,same_level,same,11,kept
+D0424,deswegen,A2,768,shu sababli,same_level,same,11,kept
+D0424,deswegen,A2,928,shu sababli,same_level,same,11,kept
+D0424,deswegen,B1,171,shu sababli,same_level,same,11,kept
+D0424,deswegen,B1,244,shu sababli,same_level,same,11,kept
+D0424,deswegen,B1,328,shu sababli,same_level,same,11,kept
+D0424,deswegen,B1,455,shu sababli,same_level,same,11,kept
+D0424,deswegen,B1,523,shu sababli,same_level,same,11,kept
+D0424,deswegen,B1,655,shu sababli,same_level,same,11,kept
+D0424,deswegen,B1,855,shu sababli,same_level,same,11,kept
+D0425,einpacken,A2,429,o‘rab joylamoq,same_level,same,2,kept
+D0425,einpacken,A2,829,o‘rab joylamoq,same_level,same,2,kept
+D0426,die Freizeitbeschäftigung,A2,434,bo‘sh vaqt mashg‘uloti,same_level,same,2,kept
+D0426,die Freizeitbeschäftigung,A2,774,bo‘sh vaqt mashg‘uloti,same_level,same,2,kept
+D0427,umtauschen,A2,441,almashtirmoq,same_level,same,4,kept
+D0427,umtauschen,A2,609,almashtirmoq,same_level,same,4,kept
+D0427,umtauschen,A2,821,almashtirmoq,same_level,same,4,kept
+D0427,umtauschen,B1,108,almashtirmoq,cross_level,same,4,kept
+D0428,normalerweise,A2,444,odatda,same_level,same,8,kept
+D0428,normalerweise,A2,744,odatda,same_level,same,8,kept
+D0428,normalerweise,A2,884,odatda,same_level,same,8,kept
+D0428,normalerweise,B1,24,odatda,same_level,same,8,kept
+D0428,normalerweise,B1,87,odatda,same_level,same,8,kept
+D0428,normalerweise,B1,175,odatda,same_level,same,8,kept
+D0428,normalerweise,B1,256,odatda,same_level,same,8,kept
+D0428,normalerweise,B1,368,odatda,same_level,same,8,kept
+D0429,mitarbeiten,A2,446,hamkorlik qilmoq,same_level,same,5,kept
+D0429,mitarbeiten,A2,781,hamkorlik qilmoq,same_level,same,5,kept
+D0429,mitarbeiten,A2,861,hamkorlik qilmoq,same_level,same,5,kept
+D0429,mitarbeiten,B1,192,hamkorlik qilmoq,same_level,same,5,kept
+D0429,mitarbeiten,B1,325,hamkorlik qilmoq,same_level,same,5,kept
+D0430,persönlich,A2,447,shaxsiy,same_level,same,4,kept
+D0430,persönlich,A2,667,shaxsiy,same_level,same,4,kept
+D0430,persönlich,A2,887,shaxsiy,same_level,same,4,kept
+D0430,persönlich,B1,85,shaxsiy,cross_level,same,4,kept
+D0431,außerdem,A2,448,bundan tashqari,same_level,different,8,kept
+D0431,außerdem,A2,708,bundan tashqari,same_level,different,8,kept
+D0431,außerdem,A2,828,bundan tashqari,same_level,different,8,kept
+D0431,außerdem,B1,20,bundan tashqari,same_level,different,8,kept
+D0431,außerdem,B1,139,bundan tashqari,same_level,different,8,kept
+D0431,außerdem,B1,187,bundan tashqari,same_level,different,8,kept
+D0431,außerdem,B1,232,bundan tashqari,same_level,different,8,kept
+D0431,außerdem,B2,853,undan tashqari,cross_level,different,8,kept
+D0432,merkwürdig,A2,450,g‘alati,same_level,same,4,kept
+D0432,merkwürdig,A2,730,g‘alati,same_level,same,4,kept
+D0432,merkwürdig,A2,830,g‘alati,same_level,same,4,kept
+D0432,merkwürdig,B1,93,g‘alati,cross_level,same,4,kept
+D0433,die Arbeitslosigkeit,A2,451,ishsizlik,same_level,same,3,kept
+D0433,die Arbeitslosigkeit,A2,711,ishsizlik,same_level,same,3,kept
+D0433,die Arbeitslosigkeit,B1,114,ishsizlik,cross_level,same,3,kept
+D0434,das Bahnticket,A2,452,poyezd bileti,same_level,same,4,kept
+D0434,das Bahnticket,A2,712,poyezd bileti,same_level,same,4,kept
+D0434,das Bahnticket,A2,872,poyezd bileti,same_level,same,4,kept
+D0434,das Bahnticket,B1,138,poyezd bileti,cross_level,same,4,kept
+D0435,der Einkaufswagen,A2,453,xarid aravachasi,same_level,same,4,kept
+D0435,der Einkaufswagen,A2,753,xarid aravachasi,same_level,same,4,kept
+D0435,der Einkaufswagen,A2,913,xarid aravachasi,same_level,same,4,kept
+D0435,der Einkaufswagen,B1,134,xarid aravachasi,cross_level,same,4,kept
+D0436,die Familienfeier,A2,454,oilaviy bayram,same_level,same,4,kept
+D0436,die Familienfeier,A2,754,oilaviy bayram,same_level,same,4,kept
+D0436,die Familienfeier,A2,914,oilaviy bayram,same_level,same,4,kept
+D0436,die Familienfeier,B1,130,oilaviy bayram,cross_level,same,4,kept
+D0437,das Gesundheitszentrum,A2,455,sog‘liq markazi,same_level,same,3,kept
+D0437,das Gesundheitszentrum,A2,715,sog‘liq markazi,same_level,same,3,kept
+D0437,das Gesundheitszentrum,B1,142,sog‘liq markazi,cross_level,same,3,kept
+D0438,der Kassenzettel,A2,456,chek,same_level,same,2,kept
+D0438,der Kassenzettel,A2,856,chek,same_level,same,2,kept
+D0439,die Lieferzeit,A2,457,yetkazish vaqti,same_level,different,3,kept
+D0439,die Lieferzeit,A2,717,yetkazib berish vaqti,same_level,different,3,kept
+D0439,die Lieferzeit,A2,994,yetkazish vaqti,same_level,different,3,kept
+D0440,das Onlineformular,A2,458,onlayn forma,same_level,same,4,kept
+D0440,das Onlineformular,A2,718,onlayn forma,same_level,same,4,kept
+D0440,das Onlineformular,A2,995,onlayn forma,same_level,same,4,kept
+D0440,das Onlineformular,B1,86,onlayn forma,cross_level,same,4,kept
+D0441,die Wartezeit,A2,460,kutish vaqti,same_level,same,3,kept
+D0441,die Wartezeit,A2,860,kutish vaqti,same_level,same,3,kept
+D0441,die Wartezeit,B2,507,kutish vaqti,cross_level,same,3,kept
+D0442,vergleichen,A2,461,taqqoslamoq,same_level,same,17,kept
+D0442,vergleichen,A2,721,taqqoslamoq,same_level,same,17,kept
+D0442,vergleichen,A2,863,taqqoslamoq,same_level,same,17,kept
+D0442,vergleichen,B1,37,taqqoslamoq,same_level,same,17,kept
+D0442,vergleichen,B1,196,taqqoslamoq,same_level,same,17,kept
+D0442,vergleichen,B1,249,taqqoslamoq,same_level,same,17,kept
+D0442,vergleichen,B1,381,taqqoslamoq,same_level,same,17,kept
+D0442,vergleichen,B1,465,taqqoslamoq,same_level,same,17,kept
+D0442,vergleichen,B1,528,taqqoslamoq,same_level,same,17,kept
+D0442,vergleichen,B1,596,taqqoslamoq,same_level,same,17,kept
+D0442,vergleichen,B1,665,taqqoslamoq,same_level,same,17,kept
+D0442,vergleichen,B1,726,taqqoslamoq,same_level,same,17,kept
+D0442,vergleichen,B1,794,taqqoslamoq,same_level,same,17,kept
+D0442,vergleichen,B1,865,taqqoslamoq,same_level,same,17,kept
+D0442,vergleichen,B1,926,taqqoslamoq,same_level,same,17,kept
+D0442,vergleichen,B1,994,taqqoslamoq,same_level,same,17,kept
+D0442,vergleichen,B2,745,taqqoslamoq,cross_level,same,17,kept
+D0443,erschrocken,A2,462,qo‘rqib ketgan,same_level,same,3,kept
+D0443,erschrocken,A2,845,qo‘rqib ketgan,same_level,same,3,kept
+D0443,erschrocken,A2,982,qo‘rqib ketgan,same_level,same,3,kept
+D0444,täglich,A2,464,har kuni,same_level,same,7,kept
+D0444,täglich,A2,684,har kuni,same_level,same,7,kept
+D0444,täglich,A2,964,har kuni,same_level,same,7,kept
+D0444,täglich,B1,32,har kuni,same_level,same,7,kept
+D0444,täglich,B1,115,har kuni,same_level,same,7,kept
+D0444,täglich,B1,199,har kuni,same_level,same,7,kept
+D0444,täglich,B1,304,har kuni,same_level,same,7,kept
+D0445,daher,A2,468,shu sababli,same_level,same,18,kept
+D0445,daher,A2,788,shu sababli,same_level,same,18,kept
+D0445,daher,A2,908,shu sababli,same_level,same,18,kept
+D0445,daher,B1,48,shu sababli,same_level,same,18,kept
+D0445,daher,B1,111,shu sababli,same_level,same,18,kept
+D0445,daher,B1,143,shu sababli,same_level,same,18,kept
+D0445,daher,B1,191,shu sababli,same_level,same,18,kept
+D0445,daher,B1,252,shu sababli,same_level,same,18,kept
+D0445,daher,B1,336,shu sababli,same_level,same,18,kept
+D0445,daher,B1,380,shu sababli,same_level,same,18,kept
+D0445,daher,B1,472,shu sababli,same_level,same,18,kept
+D0445,daher,B1,555,shu sababli,same_level,same,18,kept
+D0445,daher,B1,599,shu sababli,same_level,same,18,kept
+D0445,daher,B1,753,shu sababli,same_level,same,18,kept
+D0445,daher,B1,797,shu sababli,same_level,same,18,kept
+D0445,daher,B1,953,shu sababli,same_level,same,18,kept
+D0445,daher,B1,997,shu sababli,same_level,same,18,kept
+D0445,daher,B2,840,shu sababli,cross_level,same,18,kept
+D0446,die Aufenthaltserlaubnis,A2,471,yashash ruxsati,same_level,same,4,kept
+D0446,die Aufenthaltserlaubnis,A2,731,yashash ruxsati,same_level,same,4,kept
+D0446,die Aufenthaltserlaubnis,A2,911,yashash ruxsati,same_level,same,4,kept
+D0446,die Aufenthaltserlaubnis,B1,58,yashash ruxsati,cross_level,same,4,kept
+D0447,das Bildungszentrum,A2,472,ta’lim markazi,same_level,same,3,kept
+D0447,das Bildungszentrum,A2,912,ta’lim markazi,same_level,same,3,kept
+D0447,das Bildungszentrum,B1,82,ta’lim markazi,cross_level,same,3,kept
+D0448,die Gesundheitskarte,A2,474,sog‘liq kartasi,same_level,same,3,kept
+D0448,die Gesundheitskarte,A2,794,sog‘liq kartasi,same_level,same,3,kept
+D0448,die Gesundheitskarte,A2,934,sog‘liq kartasi,same_level,same,3,kept
+D0449,das Kulturzentrum,A2,475,madaniyat markazi,same_level,same,4,kept
+D0449,das Kulturzentrum,A2,795,madaniyat markazi,same_level,same,4,kept
+D0449,das Kulturzentrum,A2,935,madaniyat markazi,same_level,same,4,kept
+D0449,das Kulturzentrum,B1,94,madaniyat markazi,cross_level,same,4,kept
+D0450,der Lieferservice,A2,476,yetkazib berish xizmati,same_level,same,2,kept
+D0450,der Lieferservice,A2,896,yetkazib berish xizmati,same_level,same,2,kept
+D0451,der Terminkalender,A2,479,uchrashuv kalendari,same_level,same,3,kept
+D0451,der Terminkalender,A2,799,uchrashuv kalendari,same_level,same,3,kept
+D0451,der Terminkalender,A2,899,uchrashuv kalendari,same_level,same,3,kept
+D0452,vorschlagen,A2,481,taklif qilmoq,same_level,same,4,kept
+D0452,vorschlagen,A2,701,taklif qilmoq,same_level,same,4,kept
+D0452,vorschlagen,A2,961,taklif qilmoq,same_level,same,4,kept
+D0452,vorschlagen,B2,1056,taklif qilmoq,cross_level,same,4,kept
+D0453,zurückgeben,A2,483,qaytarib bermoq,same_level,same,3,kept
+D0453,zurückgeben,A2,703,qaytarib bermoq,same_level,same,3,kept
+D0453,zurückgeben,A2,886,qaytarib bermoq,same_level,same,3,kept
+D0454,verbessern,A2,486,yaxshilamoq,same_level,same,10,kept
+D0454,verbessern,A2,706,yaxshilamoq,same_level,same,10,kept
+D0454,verbessern,A2,966,yaxshilamoq,same_level,same,10,kept
+D0454,verbessern,B1,52,yaxshilamoq,same_level,same,10,kept
+D0454,verbessern,B1,273,yaxshilamoq,same_level,same,10,kept
+D0454,verbessern,B1,556,yaxshilamoq,same_level,same,10,kept
+D0454,verbessern,B1,754,yaxshilamoq,same_level,same,10,kept
+D0454,verbessern,B1,954,yaxshilamoq,same_level,same,10,kept
+D0454,verbessern,B2,870,yaxshilamoq,same_level,same,10,kept
+D0454,verbessern,B2,1339,yaxshilamoq,same_level,same,10,kept
+D0455,aktiv,A2,487,faol,same_level,same,13,kept
+D0455,aktiv,A2,727,faol,same_level,same,13,kept
+D0455,aktiv,A2,967,faol,same_level,same,13,kept
+D0455,aktiv,B1,38,faol,same_level,same,13,kept
+D0455,aktiv,B1,177,faol,same_level,same,13,kept
+D0455,aktiv,B1,274,faol,same_level,same,13,kept
+D0455,aktiv,B1,386,faol,same_level,same,13,kept
+D0455,aktiv,B1,453,faol,same_level,same,13,kept
+D0455,aktiv,B1,565,faol,same_level,same,13,kept
+D0455,aktiv,B1,653,faol,same_level,same,13,kept
+D0455,aktiv,B1,763,faol,same_level,same,13,kept
+D0455,aktiv,B1,853,faol,same_level,same,13,kept
+D0455,aktiv,B1,963,faol,same_level,same,13,kept
+D0456,immerhin,A2,488,hech bo‘lmasa,same_level,same,5,kept
+D0456,immerhin,A2,604,hech bo‘lmasa,same_level,same,5,kept
+D0456,immerhin,A2,968,hech bo‘lmasa,same_level,same,5,kept
+D0456,immerhin,B1,28,hech bo‘lmasa,same_level,same,5,kept
+D0456,immerhin,B1,151,hech bo‘lmasa,same_level,same,5,kept
+D0457,die Berufswahl,A2,491,kasb tanlash,same_level,same,3,kept
+D0457,die Berufswahl,A2,691,kasb tanlash,same_level,same,3,kept
+D0457,die Berufswahl,A2,971,kasb tanlash,same_level,same,3,kept
+D0458,das Fitnessprogramm,A2,492,fitness dasturi,same_level,same,4,kept
+D0458,das Fitnessprogramm,A2,692,fitness dasturi,same_level,same,4,kept
+D0458,das Fitnessprogramm,A2,972,fitness dasturi,same_level,same,4,kept
+D0458,das Fitnessprogramm,B1,90,fitness dasturi,cross_level,same,4,kept
+D0459,der Handyvertrag,A2,493,telefon shartnomasi,same_level,same,2,kept
+D0459,der Handyvertrag,A2,973,telefon shartnomasi,same_level,same,2,kept
+D0460,die Informationsseite,A2,494,ma’lumot sahifasi,same_level,same,4,kept
+D0460,die Informationsseite,A2,694,ma’lumot sahifasi,same_level,same,4,kept
+D0460,die Informationsseite,A2,974,ma’lumot sahifasi,same_level,same,4,kept
+D0460,die Informationsseite,B1,126,ma’lumot sahifasi,cross_level,same,4,kept
+D0461,das Lebensmittelgeschäft,A2,495,oziq-ovqat do‘koni,same_level,same,4,kept
+D0461,das Lebensmittelgeschäft,A2,695,oziq-ovqat do‘koni,same_level,same,4,kept
+D0461,das Lebensmittelgeschäft,A2,975,oziq-ovqat do‘koni,same_level,same,4,kept
+D0461,das Lebensmittelgeschäft,B1,146,oziq-ovqat do‘koni,cross_level,same,4,kept
+D0462,der Mietpreis,A2,496,ijara narxi,same_level,same,3,kept
+D0462,der Mietpreis,A2,696,ijara narxi,same_level,same,3,kept
+D0462,der Mietpreis,A2,976,ijara narxi,same_level,same,3,kept
+D0463,die Notaufnahme,A2,497,tez yordam bo‘limi,same_level,same,3,kept
+D0463,die Notaufnahme,A2,697,tez yordam bo‘limi,same_level,same,3,kept
+D0463,die Notaufnahme,A2,977,tez yordam bo‘limi,same_level,same,3,kept
+D0464,das Umweltproblem,A2,498,ekologik muammo,same_level,same,4,kept
+D0464,das Umweltproblem,A2,698,ekologik muammo,same_level,same,4,kept
+D0464,das Umweltproblem,A2,978,ekologik muammo,same_level,same,4,kept
+D0464,das Umweltproblem,B1,74,ekologik muammo,cross_level,same,4,kept
+D0465,der Reisebericht,A2,499,sayohat hisoboti,same_level,same,3,kept
+D0465,der Reisebericht,A2,719,sayohat hisoboti,same_level,same,3,kept
+D0465,der Reisebericht,A2,979,sayohat hisoboti,same_level,same,3,kept
+D0466,die Zahlungsmethode,A2,500,to‘lov usuli,same_level,same,4,kept
+D0466,die Zahlungsmethode,A2,700,to‘lov usuli,same_level,same,4,kept
+D0466,die Zahlungsmethode,A2,980,to‘lov usuli,same_level,same,4,kept
+D0466,die Zahlungsmethode,B1,47,to‘lov usuli,cross_level,same,4,kept
+D0467,teilnehmen,A2,501,qatnashmoq,same_level,same,5,kept
+D0467,teilnehmen,A2,649,qatnashmoq,same_level,same,5,kept
+D0467,teilnehmen,A2,981,qatnashmoq,same_level,same,5,kept
+D0467,teilnehmen,B1,29,qatnashmoq,same_level,same,5,kept
+D0467,teilnehmen,B1,321,qatnashmoq,same_level,same,5,kept
+D0468,ängstlich,A2,502,qo‘rqoq,same_level,different,7,kept
+D0468,ängstlich,A2,742,qo‘rqoq,same_level,different,7,kept
+D0468,ängstlich,A2,902,qo‘rqoq,same_level,different,7,kept
+D0468,ängstlich,B1,53,qo‘rqoq,same_level,different,7,kept
+D0468,ängstlich,B1,197,qo‘rqoq,same_level,different,7,kept
+D0468,ängstlich,B2,74,xavotirli,same_level,different,7,kept
+D0468,ängstlich,B2,1423,xavotirli,same_level,different,7,kept
+D0469,erlauben,A2,503,ruxsat bermoq,same_level,same,4,kept
+D0469,erlauben,A2,663,ruxsat bermoq,same_level,same,4,kept
+D0469,erlauben,A2,983,ruxsat bermoq,same_level,same,4,kept
+D0469,erlauben,B1,132,ruxsat bermoq,cross_level,same,4,kept
+D0470,genügend,A2,505,yetarli,same_level,same,4,kept
+D0470,genügend,A2,645,yetarli,same_level,same,4,kept
+D0470,genügend,A2,985,yetarli,same_level,same,4,kept
+D0470,genügend,B1,97,yetarli,cross_level,same,4,kept
+D0471,besprechen,A2,506,muhokama qilmoq,same_level,same,4,kept
+D0471,besprechen,A2,646,muhokama qilmoq,same_level,same,4,kept
+D0471,besprechen,A2,986,muhokama qilmoq,same_level,same,4,kept
+D0471,besprechen,B1,68,muhokama qilmoq,cross_level,same,4,kept
+D0472,anders,A2,508,boshqacha,same_level,same,15,kept
+D0472,anders,A2,648,boshqacha,same_level,same,15,kept
+D0472,anders,A2,988,boshqacha,same_level,same,15,kept
+D0472,anders,B1,63,boshqacha,same_level,same,15,kept
+D0472,anders,B1,83,boshqacha,same_level,same,15,kept
+D0472,anders,B1,131,boshqacha,same_level,same,15,kept
+D0472,anders,B1,163,boshqacha,same_level,same,15,kept
+D0472,anders,B1,308,boshqacha,same_level,same,15,kept
+D0472,anders,B1,372,boshqacha,same_level,same,15,kept
+D0472,anders,B1,451,boshqacha,same_level,same,15,kept
+D0472,anders,B1,579,boshqacha,same_level,same,15,kept
+D0472,anders,B1,651,boshqacha,same_level,same,15,kept
+D0472,anders,B1,777,boshqacha,same_level,same,15,kept
+D0472,anders,B1,851,boshqacha,same_level,same,15,kept
+D0472,anders,B1,977,boshqacha,same_level,same,15,kept
+D0473,nachfragen,A2,509,qayta so‘ramoq,same_level,same,4,kept
+D0473,nachfragen,A2,686,qayta so‘ramoq,same_level,same,4,kept
+D0473,nachfragen,A2,989,qayta so‘ramoq,same_level,same,4,kept
+D0473,nachfragen,B1,120,qayta so‘ramoq,cross_level,same,4,kept
+D0474,unmöglich,A2,510,imkonsiz,same_level,same,4,kept
+D0474,unmöglich,A2,685,imkonsiz,same_level,same,4,kept
+D0474,unmöglich,A2,990,imkonsiz,same_level,same,4,kept
+D0474,unmöglich,B1,133,imkonsiz,cross_level,same,4,kept
+D0475,die Berufsausbildung,A2,511,kasbiy ta’lim,same_level,different,4,kept
+D0475,die Berufsausbildung,A2,991,kasbiy ta’lim,same_level,different,4,kept
+D0475,die Berufsausbildung,B1,62,kasbiy ta’lim,cross_level,different,4,kept
+D0475,die Berufsausbildung,B2,905,kasb-hunar ta’limi,cross_level,different,4,kept
+D0476,das Computergeschäft,A2,512,kompyuter do‘koni,same_level,same,3,kept
+D0476,das Computergeschäft,A2,992,kompyuter do‘koni,same_level,same,3,kept
+D0476,das Computergeschäft,B1,110,kompyuter do‘koni,cross_level,same,3,kept
+D0477,der Hausbesitzer,A2,513,uy egasi,same_level,same,3,kept
+D0477,der Hausbesitzer,A2,656,uy egasi,same_level,same,3,kept
+D0477,der Hausbesitzer,A2,993,uy egasi,same_level,same,3,kept
+D0478,die Lieferadresse,A2,514,yetkazib berish manzili,same_level,different,2,kept
+D0478,die Lieferadresse,A2,837,yetkazish manzili,same_level,different,2,kept
+D0479,die Sprachprüfung,A2,517,til imtihoni,same_level,same,3,kept
+D0479,die Sprachprüfung,A2,777,til imtihoni,same_level,same,3,kept
+D0479,die Sprachprüfung,A2,997,til imtihoni,same_level,same,3,kept
+D0480,die Tagesordnung,A2,520,kun tartibi,same_level,same,4,kept
+D0480,die Tagesordnung,A2,720,kun tartibi,same_level,same,4,kept
+D0480,die Tagesordnung,A2,1000,kun tartibi,same_level,same,4,kept
+D0480,die Tagesordnung,B2,1033,kun tartibi,cross_level,same,4,kept
+D0481,entscheiden,A2,523,qaror qilmoq,same_level,same,4,kept
+D0481,entscheiden,A2,763,qaror qilmoq,same_level,same,4,kept
+D0481,entscheiden,B1,33,qaror qilmoq,cross_level,same,4,kept
+D0481,entscheiden,B2,684,qaror qilmoq,cross_level,same,4,kept
+D0482,streng,A2,525,qattiqqo‘l,same_level,same,5,kept
+D0482,streng,A2,765,qattiqqo‘l,same_level,same,5,kept
+D0482,streng,A2,945,qattiqqo‘l,same_level,same,5,kept
+D0482,streng,B1,141,qattiqqo‘l,same_level,same,5,kept
+D0482,streng,B1,330,qattiqqo‘l,same_level,same,5,kept
+D0483,klären,A2,526,aniqlashtirmoq,same_level,same,3,kept
+D0483,klären,A2,766,aniqlashtirmoq,same_level,same,3,kept
+D0483,klären,A2,946,aniqlashtirmoq,same_level,same,3,kept
+D0484,humorvoll,A2,527,hazilkash,same_level,same,14,kept
+D0484,humorvoll,A2,767,hazilkash,same_level,same,14,kept
+D0484,humorvoll,A2,947,hazilkash,same_level,same,14,kept
+D0484,humorvoll,B1,101,hazilkash,same_level,same,14,kept
+D0484,humorvoll,B1,338,hazilkash,same_level,same,14,kept
+D0484,humorvoll,B1,433,hazilkash,same_level,same,14,kept
+D0484,humorvoll,B1,521,hazilkash,same_level,same,14,kept
+D0484,humorvoll,B1,581,hazilkash,same_level,same,14,kept
+D0484,humorvoll,B1,633,hazilkash,same_level,same,14,kept
+D0484,humorvoll,B1,720,hazilkash,same_level,same,14,kept
+D0484,humorvoll,B1,779,hazilkash,same_level,same,14,kept
+D0484,humorvoll,B1,833,hazilkash,same_level,same,14,kept
+D0484,humorvoll,B1,920,hazilkash,same_level,same,14,kept
+D0484,humorvoll,B1,979,hazilkash,same_level,same,14,kept
+D0485,nämlich,A2,528,ya’ni,same_level,same,4,kept
+D0485,nämlich,A2,748,ya’ni,same_level,same,4,kept
+D0485,nämlich,A2,948,ya’ni,same_level,same,4,kept
+D0485,nämlich,B1,67,ya’ni,cross_level,same,4,kept
+D0486,unangenehm,A2,530,noqulay,same_level,same,3,kept
+D0486,unangenehm,A2,770,noqulay,same_level,same,3,kept
+D0486,unangenehm,A2,910,noqulay,same_level,same,3,kept
+D0487,das Bürgerbüro,A2,532,fuqarolar byurosi,same_level,different,4,kept
+D0487,das Bürgerbüro,A2,752,fuqarolar idorasi,same_level,different,4,kept
+D0487,das Bürgerbüro,A2,952,fuqarolar byurosi,same_level,different,4,kept
+D0487,das Bürgerbüro,B1,102,fuqarolar byurosi,cross_level,different,4,kept
+D0488,der Energiedrink,A2,533,energetik ichimlik,same_level,same,3,kept
+D0488,der Energiedrink,A2,713,energetik ichimlik,same_level,same,3,kept
+D0488,der Energiedrink,A2,953,energetik ichimlik,same_level,same,3,kept
+D0489,die Freizeitaktivität,A2,534,bo‘sh vaqt mashg‘uloti,same_level,same,4,kept
+D0489,die Freizeitaktivität,A2,714,bo‘sh vaqt mashg‘uloti,same_level,same,4,kept
+D0489,die Freizeitaktivität,A2,954,bo‘sh vaqt mashg‘uloti,same_level,same,4,kept
+D0489,die Freizeitaktivität,B1,66,bo‘sh vaqt mashg‘uloti,cross_level,same,4,kept
+D0490,das Krankenhauszimmer,A2,535,kasalxona xonasi,same_level,same,3,kept
+D0490,das Krankenhauszimmer,A2,955,kasalxona xonasi,same_level,same,3,kept
+D0490,das Krankenhauszimmer,B1,98,kasalxona xonasi,cross_level,same,3,kept
+D0491,der Kontostand,A2,536,hisob balansi,same_level,same,4,kept
+D0491,der Kontostand,A2,756,hisob balansi,same_level,same,4,kept
+D0491,der Kontostand,A2,956,hisob balansi,same_level,same,4,kept
+D0491,der Kontostand,B1,70,hisob balansi,cross_level,same,4,kept
+D0492,die Reiseversicherung,A2,537,sayohat sug‘urtasi,same_level,same,4,kept
+D0492,die Reiseversicherung,A2,757,sayohat sug‘urtasi,same_level,same,4,kept
+D0492,die Reiseversicherung,A2,957,sayohat sug‘urtasi,same_level,same,4,kept
+D0492,die Reiseversicherung,B1,118,sayohat sug‘urtasi,cross_level,same,4,kept
+D0493,das Sportereignis,A2,538,sport hodisasi,same_level,same,3,kept
+D0493,das Sportereignis,A2,758,sport hodisasi,same_level,same,3,kept
+D0493,das Sportereignis,A2,958,sport hodisasi,same_level,same,3,kept
+D0494,die Wohngegend,A2,540,turar joy hududi,same_level,different,4,kept
+D0494,die Wohngegend,A2,760,turar joy hududi,same_level,different,4,kept
+D0494,die Wohngegend,A2,960,turar joy hududi,same_level,different,4,kept
+D0494,die Wohngegend,B2,922,yashash hududi,cross_level,different,4,kept
+D0495,beantworten,A2,543,javob bermoq,same_level,same,3,kept
+D0495,beantworten,A2,783,javob bermoq,same_level,same,3,kept
+D0495,beantworten,A2,943,javob bermoq,same_level,same,3,kept
+D0496,übrigens,A2,544,aytgancha,same_level,same,11,kept
+D0496,übrigens,A2,944,aytgancha,same_level,same,11,kept
+D0496,übrigens,B1,36,aytgancha,same_level,same,11,kept
+D0496,übrigens,B1,95,aytgancha,same_level,same,11,kept
+D0496,übrigens,B1,159,aytgancha,same_level,same,11,kept
+D0496,übrigens,B1,195,aytgancha,same_level,same,11,kept
+D0496,übrigens,B1,268,aytgancha,same_level,same,11,kept
+D0496,übrigens,B1,356,aytgancha,same_level,same,11,kept
+D0496,übrigens,B1,496,aytgancha,same_level,same,11,kept
+D0496,übrigens,B1,695,aytgancha,same_level,same,11,kept
+D0496,übrigens,B1,895,aytgancha,same_level,same,11,kept
+D0497,fair,A2,547,adolatli,same_level,same,6,kept
+D0497,fair,A2,787,adolatli,same_level,same,6,kept
+D0497,fair,A2,927,adolatli,same_level,same,6,kept
+D0497,fair,B1,50,adolatli,same_level,same,6,kept
+D0497,fair,B1,169,adolatli,same_level,same,6,kept
+D0497,fair,B1,246,adolatli,same_level,same,6,kept
+D0498,die Aufenthaltsdauer,A2,551,qolish muddati,same_level,same,3,kept
+D0498,die Aufenthaltsdauer,A2,791,qolish muddati,same_level,same,3,kept
+D0498,die Aufenthaltsdauer,A2,871,qolish muddati,same_level,same,3,kept
+D0499,das Bewerbungsgespräch,A2,552,ishga suhbat,same_level,same,2,kept
+D0499,das Bewerbungsgespräch,A2,792,ishga suhbat,same_level,same,2,kept
+D0500,die Dienstreise,A2,554,xizmat safari,same_level,same,2,kept
+D0500,die Dienstreise,A2,654,xizmat safari,same_level,same,2,kept
+D0501,das Formularblatt,A2,555,forma varag‘i,same_level,same,2,kept
+D0501,das Formularblatt,A2,655,forma varag‘i,same_level,same,2,kept
+D0502,der Konzertbesuch,A2,556,konsert tashrifi,same_level,same,2,kept
+D0502,der Konzertbesuch,A2,676,konsert tashrifi,same_level,same,2,kept
+D0503,die Mahlzeit,A2,557,ovqatlanish,same_level,same,2,kept
+D0503,die Mahlzeit,A2,677,ovqatlanish,same_level,same,2,kept
+D0504,das Parkplatzproblem,A2,558,parkovka muammosi,same_level,same,2,kept
+D0504,das Parkplatzproblem,A2,678,parkovka muammosi,same_level,same,2,kept
+D0505,überraschen,A2,561,hayratlantirmoq,same_level,same,3,kept
+D0505,überraschen,A2,741,hayratlantirmoq,same_level,same,3,kept
+D0505,überraschen,B1,180,hayratlantirmoq,cross_level,same,3,kept
+D0506,weitergeben,A2,563,uzatib yubormoq,cross_level,different,2,kept
+D0506,weitergeben,B1,172,uzatmoq,cross_level,different,2,kept
+D0507,gewöhnlich,A2,564,odatdagi,cross_level,same,3,kept
+D0507,gewöhnlich,B1,71,odatdagi,cross_level,same,3,kept
+D0507,gewöhnlich,B2,1106,odatdagi,cross_level,same,3,kept
+D0508,das Badeverbot,A2,572,cho‘milish taqiqi,same_level,same,2,kept
+D0508,das Badeverbot,A2,672,cho‘milish taqiqi,same_level,same,2,kept
+D0509,der Briefkasten,A2,573,xat qutisi,same_level,same,3,kept
+D0509,der Briefkasten,A2,673,xat qutisi,same_level,same,3,kept
+D0509,der Briefkasten,A2,873,xat qutisi,same_level,same,3,kept
+D0510,das Gepäckstück,A2,575,yuk bo‘lagi,same_level,same,2,kept
+D0510,das Gepäckstück,A2,675,yuk bo‘lagi,same_level,same,2,kept
+D0511,die Jahreszeit,A2,577,yil fasli,same_level,same,2,kept
+D0511,die Jahreszeit,A2,657,yil fasli,same_level,same,2,kept
+D0512,das Kundengespräch,A2,578,mijoz bilan suhbat,same_level,same,2,kept
+D0512,das Kundengespräch,A2,658,mijoz bilan suhbat,same_level,same,2,kept
+D0513,der Lieferdienst,A2,579,yetkazib berish xizmati,same_level,same,2,kept
+D0513,der Lieferdienst,A2,659,yetkazib berish xizmati,same_level,same,2,kept
+D0514,die Sprachschule,A2,580,til maktabi,same_level,same,2,kept
+D0514,die Sprachschule,A2,660,til maktabi,same_level,same,2,kept
+D0515,offen,A2,587,ochiq,cross_level,same,10,kept
+D0515,offen,B1,73,ochiq,same_level,same,10,kept
+D0515,offen,B1,238,ochiq,same_level,same,10,kept
+D0515,offen,B1,370,ochiq,same_level,same,10,kept
+D0515,offen,B1,482,ochiq,same_level,same,10,kept
+D0515,offen,B1,541,ochiq,same_level,same,10,kept
+D0515,offen,B1,681,ochiq,same_level,same,10,kept
+D0515,offen,B1,739,ochiq,same_level,same,10,kept
+D0515,offen,B1,881,ochiq,same_level,same,10,kept
+D0515,offen,B1,939,ochiq,same_level,same,10,kept
+D0516,die Onlinebestellung,A2,597,onlayn buyurtma,same_level,same,2,kept
+D0516,die Onlinebestellung,A2,917,onlayn buyurtma,same_level,same,2,kept
+D0517,die Wohnungsanzeige,A2,600,uy e’loni,same_level,same,3,kept
+D0517,die Wohnungsanzeige,A2,780,uy e’loni,same_level,same,3,kept
+D0517,die Wohnungsanzeige,A2,920,uy e’loni,same_level,same,3,kept
+D0518,ablehnen,A2,601,rad etmoq,cross_level,same,2,kept
+D0518,ablehnen,B2,785,rad etmoq,cross_level,same,2,kept
+D0519,erleichtert,A2,602,yengil tortgan,same_level,same,2,kept
+D0519,erleichtert,A2,802,yengil tortgan,same_level,same,2,kept
+D0520,zustimmen,A2,603,rozi bo‘lmoq,cross_level,same,5,kept
+D0520,zustimmen,B2,16,rozi bo‘lmoq,same_level,same,5,kept
+D0520,zustimmen,B2,787,rozi bo‘lmoq,same_level,same,5,kept
+D0520,zustimmen,B2,1053,rozi bo‘lmoq,same_level,same,5,kept
+D0520,zustimmen,B2,1399,rozi bo‘lmoq,same_level,same,5,kept
+D0521,beunruhigt,A2,605,xavotirlangan,cross_level,same,7,kept
+D0521,beunruhigt,B1,410,xavotirlangan,same_level,same,7,kept
+D0521,beunruhigt,B1,561,xavotirlangan,same_level,same,7,kept
+D0521,beunruhigt,B1,610,xavotirlangan,same_level,same,7,kept
+D0521,beunruhigt,B1,759,xavotirlangan,same_level,same,7,kept
+D0521,beunruhigt,B1,810,xavotirlangan,same_level,same,7,kept
+D0521,beunruhigt,B1,959,xavotirlangan,same_level,same,7,kept
+D0522,mitteilen,A2,606,xabar bermoq,same_level,same,12,kept
+D0522,mitteilen,A2,769,xabar bermoq,same_level,same,12,kept
+D0522,mitteilen,A2,889,xabar bermoq,same_level,same,12,kept
+D0522,mitteilen,B1,21,xabar bermoq,same_level,same,12,kept
+D0522,mitteilen,B1,241,xabar bermoq,same_level,same,12,kept
+D0522,mitteilen,B1,393,xabar bermoq,same_level,same,12,kept
+D0522,mitteilen,B1,493,xabar bermoq,same_level,same,12,kept
+D0522,mitteilen,B1,584,xabar bermoq,same_level,same,12,kept
+D0522,mitteilen,B1,692,xabar bermoq,same_level,same,12,kept
+D0522,mitteilen,B1,782,xabar bermoq,same_level,same,12,kept
+D0522,mitteilen,B1,892,xabar bermoq,same_level,same,12,kept
+D0522,mitteilen,B1,982,xabar bermoq,same_level,same,12,kept
+D0523,einerseits,A2,608,bir tomondan,cross_level,same,3,kept
+D0523,einerseits,B1,212,bir tomondan,cross_level,same,3,kept
+D0523,einerseits,B2,849,bir tomondan,cross_level,same,3,kept
+D0524,der Ansprechpartner,A2,613,aloqa shaxsi,cross_level,same,2,kept
+D0524,der Ansprechpartner,B1,54,aloqa shaxsi,cross_level,same,2,kept
+D0525,das Sprachzertifikat,A2,618,til sertifikati,cross_level,same,2,kept
+D0525,das Sprachzertifikat,B1,154,til sertifikati,cross_level,same,2,kept
+D0526,vorhaben,A2,621,rejalashtirmoq,cross_level,same,2,kept
+D0526,vorhaben,B1,176,rejalashtirmoq,cross_level,same,2,kept
+D0527,auswählen,A2,626,tanlamoq,cross_level,same,2,kept
+D0527,auswählen,B2,555,tanlamoq,cross_level,same,2,kept
+D0528,ehrgeizig,A2,627,intiluvchan,cross_level,different,2,kept
+D0528,ehrgeizig,B2,915,maqsadga intiluvchi,cross_level,different,2,kept
+D0529,andererseits,A2,628,boshqa tomondan,cross_level,same,8,kept
+D0529,andererseits,B1,288,boshqa tomondan,same_level,same,8,kept
+D0529,andererseits,B1,543,boshqa tomondan,same_level,same,8,kept
+D0529,andererseits,B1,639,boshqa tomondan,same_level,same,8,kept
+D0529,andererseits,B1,683,boshqa tomondan,same_level,same,8,kept
+D0529,andererseits,B1,839,boshqa tomondan,same_level,same,8,kept
+D0529,andererseits,B1,883,boshqa tomondan,same_level,same,8,kept
+D0529,andererseits,B2,850,boshqa tomondan,cross_level,same,8,kept
+D0530,die Besprechung,A2,631,uchrashuv,cross_level,different,3,kept
+D0530,die Besprechung,B1,162,uchrashuv,cross_level,different,3,kept
+D0530,die Besprechung,B2,1031,yig‘ilish,cross_level,different,3,kept
+D0531,die Kreditkarte,A2,637,kredit karta,same_level,same,2,kept
+D0531,die Kreditkarte,A2,857,kredit karta,same_level,same,2,kept
+D0532,die Reiseplanung,A2,640,sayohat rejasi,cross_level,same,2,kept
+D0532,die Reiseplanung,B1,158,sayohat rejasi,cross_level,same,2,kept
+D0533,vorbereiten,A2,641,tayyorlamoq,same_level,same,3,kept
+D0533,vorbereiten,A2,866,tayyorlamoq,same_level,same,3,kept
+D0533,vorbereiten,B1,128,tayyorlamoq,cross_level,same,3,kept
+D0534,wenigstens,A2,644,hech bo‘lmasa,cross_level,same,4,kept
+D0534,wenigstens,B1,59,hech bo‘lmasa,same_level,same,4,kept
+D0534,wenigstens,B1,312,hech bo‘lmasa,same_level,same,4,kept
+D0534,wenigstens,B1,376,hech bo‘lmasa,same_level,same,4,kept
+D0535,der Sprachfehler,A2,679,til xatosi,same_level,same,2,kept
+D0535,der Sprachfehler,A2,879,til xatosi,same_level,same,2,kept
+D0536,erstaunt,A2,682,hayratlangan,same_level,same,2,kept
+D0536,erstaunt,A2,962,hayratlangan,same_level,same,2,kept
+D0537,der Verkehrsunfall,A2,699,yo‘l halokati,same_level,same,2,kept
+D0537,der Verkehrsunfall,A2,939,yo‘l halokati,same_level,same,2,kept
+D0538,denn,A2,728,chunki,same_level,same,2,kept
+D0538,denn,A2,888,chunki,same_level,same,2,kept
+D0539,absagen,A2,729,bekor qilmoq,same_level,same,3,kept
+D0539,absagen,A2,901,bekor qilmoq,same_level,same,3,kept
+D0539,absagen,B2,1060,bekor qilmoq,cross_level,same,3,kept
+D0540,das Kulturprogramm,A2,735,madaniy dastur,same_level,same,2,kept
+D0540,das Kulturprogramm,A2,878,madaniy dastur,same_level,same,2,kept
+D0541,der Paketdienst,A2,736,posilka xizmati,same_level,same,2,kept
+D0541,der Paketdienst,A2,936,posilka xizmati,same_level,same,2,kept
+D0542,der Einkaufszettel,A2,773,xarid ro‘yxati,same_level,same,2,kept
+D0542,der Einkaufszettel,A2,833,xarid ro‘yxati,same_level,same,2,kept
+D0543,das Krankenhausticket,A2,775,kasalxona taloni,same_level,same,2,kept
+D0543,das Krankenhausticket,A2,895,kasalxona taloni,same_level,same,2,kept
+D0544,das Sprachverständnis,A2,798,til tushunchasi,same_level,same,2,kept
+D0544,das Sprachverständnis,A2,938,til tushunchasi,same_level,same,2,kept
+D0545,die Zahlungsmöglichkeit,A2,800,to‘lov imkoniyati,same_level,same,2,kept
+D0545,die Zahlungsmöglichkeit,A2,940,to‘lov imkoniyati,same_level,same,2,kept
+D0546,üblicherweise,A2,804,odatda,cross_level,same,6,kept
+D0546,üblicherweise,B1,324,odatda,same_level,same,6,kept
+D0546,üblicherweise,B1,396,odatda,same_level,same,6,kept
+D0546,üblicherweise,B1,415,odatda,same_level,same,6,kept
+D0546,üblicherweise,B1,615,odatda,same_level,same,6,kept
+D0546,üblicherweise,B1,815,odatda,same_level,same,6,kept
+D0547,folglich,A2,808,natijada,cross_level,different,13,kept
+D0547,folglich,B1,75,natijada,same_level,different,13,kept
+D0547,folglich,B1,208,natijada,same_level,different,13,kept
+D0547,folglich,B1,292,natijada,same_level,different,13,kept
+D0547,folglich,B1,348,natijada,same_level,different,13,kept
+D0547,folglich,B1,404,natijada,same_level,different,13,kept
+D0547,folglich,B1,488,natijada,same_level,different,13,kept
+D0547,folglich,B1,583,natijada,same_level,different,13,kept
+D0547,folglich,B1,687,natijada,same_level,different,13,kept
+D0547,folglich,B1,887,natijada,same_level,different,13,kept
+D0547,folglich,B2,842,natijada,cross_level,different,13,kept
+D0547,folglich,C1,4,mantiqiy natija sifatida,same_level,different,13,kept
+D0547,folglich,C1,622,mantiqiy natija sifatida,same_level,different,13,kept
+D0548,die Abteilung,A2,811,bo‘lim,cross_level,same,2,kept
+D0548,die Abteilung,B2,1028,bo‘lim,cross_level,same,2,kept
+D0549,die Reservierung,A2,820,bron,cross_level,different,2,kept
+D0549,die Reservierung,B2,932,bron qilish,cross_level,different,2,kept
+D0550,aufheben,A2,823,saqlab qo‘ymoq,cross_level,different,2,kept
+D0550,aufheben,B2,510,bekor qilmoq,cross_level,different,2,kept
+D0551,berücksichtigen,B1,1,hisobga olmoq,same_level,same,3,kept
+D0551,berücksichtigen,B1,217,hisobga olmoq,same_level,same,3,kept
+D0551,berücksichtigen,B2,705,hisobga olmoq,cross_level,same,3,kept
+D0552,die Entscheidung,B1,11,qaror,same_level,same,4,kept
+D0552,die Entscheidung,B1,351,qaror,same_level,same,4,kept
+D0552,die Entscheidung,B2,685,qaror,same_level,same,4,kept
+D0552,die Entscheidung,B2,1035,qaror,same_level,same,4,kept
+D0553,die Möglichkeit,B1,19,imkoniyat,same_level,same,4,kept
+D0553,die Möglichkeit,B1,247,imkoniyat,same_level,same,4,kept
+D0553,die Möglichkeit,B2,631,imkoniyat,same_level,same,4,kept
+D0553,die Möglichkeit,B2,809,imkoniyat,same_level,same,4,kept
+D0554,der Fortschritt,B1,31,rivojlanish,same_level,different,12,kept
+D0554,der Fortschritt,B1,223,rivojlanish,same_level,different,12,kept
+D0554,der Fortschritt,B1,323,rivojlanish,same_level,different,12,kept
+D0554,der Fortschritt,B1,458,rivojlanish,same_level,different,12,kept
+D0554,der Fortschritt,B1,518,rivojlanish,same_level,different,12,kept
+D0554,der Fortschritt,B1,658,rivojlanish,same_level,different,12,kept
+D0554,der Fortschritt,B1,717,rivojlanish,same_level,different,12,kept
+D0554,der Fortschritt,B1,858,rivojlanish,same_level,different,12,kept
+D0554,der Fortschritt,B1,917,rivojlanish,same_level,different,12,kept
+D0554,der Fortschritt,B2,628,taraqqiyot,same_level,different,12,kept
+D0554,der Fortschritt,B2,892,taraqqiyot,same_level,different,12,kept
+D0554,der Fortschritt,B2,1287,taraqqiyot,same_level,different,12,kept
+D0555,begründen,B1,49,asoslamoq,same_level,same,4,kept
+D0555,begründen,B1,293,asoslamoq,same_level,same,4,kept
+D0555,begründen,B2,15,asoslamoq,same_level,same,4,kept
+D0555,begründen,B2,730,asoslamoq,same_level,same,4,kept
+D0556,überprüfen,B1,56,tekshirmoq,same_level,same,6,kept
+D0556,überprüfen,B1,317,tekshirmoq,same_level,same,6,kept
+D0556,überprüfen,B1,473,tekshirmoq,same_level,same,6,kept
+D0556,überprüfen,B1,672,tekshirmoq,same_level,same,6,kept
+D0556,überprüfen,B1,872,tekshirmoq,same_level,same,6,kept
+D0556,überprüfen,B2,43,tekshirmoq,cross_level,same,6,kept
+D0557,verändern,B1,60,o‘zgartirmoq,same_level,same,10,kept
+D0557,verändern,B1,269,o‘zgartirmoq,same_level,same,10,kept
+D0557,verändern,B1,444,o‘zgartirmoq,same_level,same,10,kept
+D0557,verändern,B1,588,o‘zgartirmoq,same_level,same,10,kept
+D0557,verändern,B1,644,o‘zgartirmoq,same_level,same,10,kept
+D0557,verändern,B1,786,o‘zgartirmoq,same_level,same,10,kept
+D0557,verändern,B1,844,o‘zgartirmoq,same_level,same,10,kept
+D0557,verändern,B1,986,o‘zgartirmoq,same_level,same,10,kept
+D0557,verändern,B2,667,o‘zgartirmoq,same_level,same,10,kept
+D0557,verändern,B2,1300,o‘zgartirmoq,same_level,same,10,kept
+D0558,anerkennen,B1,64,tan olmoq,same_level,same,8,kept
+D0558,anerkennen,B1,309,tan olmoq,same_level,same,8,kept
+D0558,anerkennen,B1,456,tan olmoq,same_level,same,8,kept
+D0558,anerkennen,B1,564,tan olmoq,same_level,same,8,kept
+D0558,anerkennen,B1,656,tan olmoq,same_level,same,8,kept
+D0558,anerkennen,B1,762,tan olmoq,same_level,same,8,kept
+D0558,anerkennen,B1,856,tan olmoq,same_level,same,8,kept
+D0558,anerkennen,B1,962,tan olmoq,same_level,same,8,kept
+D0559,entwickeln,B1,72,rivojlantirmoq,same_level,same,11,kept
+D0559,entwickeln,B1,253,rivojlantirmoq,same_level,same,11,kept
+D0559,entwickeln,B1,397,rivojlantirmoq,same_level,same,11,kept
+D0559,entwickeln,B1,432,rivojlantirmoq,same_level,same,11,kept
+D0559,entwickeln,B1,524,rivojlantirmoq,same_level,same,11,kept
+D0559,entwickeln,B1,632,rivojlantirmoq,same_level,same,11,kept
+D0559,entwickeln,B1,722,rivojlantirmoq,same_level,same,11,kept
+D0559,entwickeln,B1,832,rivojlantirmoq,same_level,same,11,kept
+D0559,entwickeln,B1,922,rivojlantirmoq,same_level,same,11,kept
+D0559,entwickeln,B2,695,rivojlantirmoq,same_level,same,11,kept
+D0559,entwickeln,B2,874,rivojlantirmoq,same_level,same,11,kept
+D0560,informieren,B1,80,ma’lumot bermoq,cross_level,different,2,kept
+D0560,informieren,B2,1180,xabardor qilmoq,cross_level,different,2,kept
+D0561,verzichten,B1,92,voz kechmoq,same_level,same,2,kept
+D0561,verzichten,B1,285,voz kechmoq,same_level,same,2,kept
+D0562,vereinbaren,B1,100,kelishib olmoq,cross_level,same,3,kept
+D0562,vereinbaren,B2,703,kelishib olmoq,same_level,same,3,kept
+D0562,vereinbaren,B2,1057,kelishib olmoq,same_level,same,3,kept
+D0563,anbieten,B1,104,taklif qilmoq,cross_level,same,2,kept
+D0563,anbieten,B2,1072,taklif qilmoq,cross_level,same,2,kept
+D0564,erwarten,B1,140,kutmoq,same_level,same,2,kept
+D0564,erwarten,B1,277,kutmoq,same_level,same,2,kept
+D0565,vermitteln,B1,144,vositachilik qilmoq,same_level,different,10,kept
+D0565,vermitteln,B1,329,vositachilik qilmoq,same_level,different,10,kept
+D0565,vermitteln,B1,409,vositachilik qilmoq,same_level,different,10,kept
+D0565,vermitteln,B1,512,vositachilik qilmoq,same_level,different,10,kept
+D0565,vermitteln,B1,612,vositachilik qilmoq,same_level,different,10,kept
+D0565,vermitteln,B1,711,vositachilik qilmoq,same_level,different,10,kept
+D0565,vermitteln,B1,812,vositachilik qilmoq,same_level,different,10,kept
+D0565,vermitteln,B1,911,vositachilik qilmoq,same_level,different,10,kept
+D0565,vermitteln,B2,1149,yetkazmoq,cross_level,different,10,kept
+D0565,vermitteln,C1,119,tushunchani yetkazmoq,cross_level,different,10,kept
+D0566,unterbrechen,B1,148,bo‘lmoq,same_level,different,6,kept
+D0566,unterbrechen,B1,369,bo‘lmoq,same_level,different,6,kept
+D0566,unterbrechen,B1,497,bo‘lmoq,same_level,different,6,kept
+D0566,unterbrechen,B1,696,bo‘lmoq,same_level,different,6,kept
+D0566,unterbrechen,B1,896,bo‘lmoq,same_level,different,6,kept
+D0566,unterbrechen,B2,877,to‘xtatib qo‘ymoq,cross_level,different,6,kept
+D0567,begegnen,B1,160,uchratmoq,same_level,same,2,kept
+D0567,begegnen,B1,365,uchratmoq,same_level,same,2,kept
+D0568,sich verhalten,B1,202,o‘zini tutmoq,same_level,same,7,kept
+D0568,sich verhalten,B1,477,o‘zini tutmoq,same_level,same,7,kept
+D0568,sich verhalten,B1,580,o‘zini tutmoq,same_level,same,7,kept
+D0568,sich verhalten,B1,676,o‘zini tutmoq,same_level,same,7,kept
+D0568,sich verhalten,B1,778,o‘zini tutmoq,same_level,same,7,kept
+D0568,sich verhalten,B1,876,o‘zini tutmoq,same_level,same,7,kept
+D0568,sich verhalten,B1,978,o‘zini tutmoq,same_level,same,7,kept
+D0569,sich einigen,B1,210,kelishmoq,same_level,same,8,kept
+D0569,sich einigen,B1,469,kelishmoq,same_level,same,8,kept
+D0569,sich einigen,B1,560,kelishmoq,same_level,same,8,kept
+D0569,sich einigen,B1,669,kelishmoq,same_level,same,8,kept
+D0569,sich einigen,B1,758,kelishmoq,same_level,same,8,kept
+D0569,sich einigen,B1,869,kelishmoq,same_level,same,8,kept
+D0569,sich einigen,B1,958,kelishmoq,same_level,same,8,kept
+D0569,sich einigen,B2,793,kelishmoq,cross_level,same,8,kept
+D0570,entspannt,B1,214,xotirjam,same_level,same,6,kept
+D0570,entspannt,B1,382,xotirjam,same_level,same,6,kept
+D0570,entspannt,B1,417,xotirjam,same_level,same,6,kept
+D0570,entspannt,B1,529,xotirjam,same_level,same,6,kept
+D0570,entspannt,B1,727,xotirjam,same_level,same,6,kept
+D0570,entspannt,B1,927,xotirjam,same_level,same,6,kept
+D0571,der Nachteil,B1,215,kamchilik,same_level,same,7,kept
+D0571,der Nachteil,B1,339,kamchilik,same_level,same,7,kept
+D0571,der Nachteil,B1,450,kamchilik,same_level,same,7,kept
+D0571,der Nachteil,B1,650,kamchilik,same_level,same,7,kept
+D0571,der Nachteil,B1,850,kamchilik,same_level,same,7,kept
+D0571,der Nachteil,B2,150,kamchilik,same_level,same,7,kept
+D0571,der Nachteil,B2,815,kamchilik,same_level,same,7,kept
+D0572,sich beschäftigen,B1,221,shug‘ullanmoq,same_level,same,7,kept
+D0572,sich beschäftigen,B1,460,shug‘ullanmoq,same_level,same,7,kept
+D0572,sich beschäftigen,B1,540,shug‘ullanmoq,same_level,same,7,kept
+D0572,sich beschäftigen,B1,660,shug‘ullanmoq,same_level,same,7,kept
+D0572,sich beschäftigen,B1,738,shug‘ullanmoq,same_level,same,7,kept
+D0572,sich beschäftigen,B1,860,shug‘ullanmoq,same_level,same,7,kept
+D0572,sich beschäftigen,B1,938,shug‘ullanmoq,same_level,same,7,kept
+D0573,die Umgebung,B1,235,atrof-muhit,same_level,same,3,kept
+D0573,die Umgebung,B1,359,atrof-muhit,same_level,same,3,kept
+D0573,die Umgebung,B2,982,atrof-muhit,cross_level,same,3,kept
+D0574,die Entwicklung,B1,239,rivojlanish,same_level,different,8,kept
+D0574,die Entwicklung,B1,570,rivojlanish,same_level,different,8,kept
+D0574,die Entwicklung,B1,768,rivojlantirish,same_level,different,8,kept
+D0574,die Entwicklung,B1,968,rivojlantirish,same_level,different,8,kept
+D0574,die Entwicklung,B2,278,rivojlanish,same_level,different,8,kept
+D0574,die Entwicklung,B2,558,rivojlanish,same_level,different,8,kept
+D0574,die Entwicklung,B2,875,rivojlanish,same_level,different,8,kept
+D0574,die Entwicklung,B2,1285,rivojlanish,same_level,different,8,kept
+D0575,anderserseits,B1,240,boshqa tomondan,same_level,same,4,kept
+D0575,anderserseits,B1,352,boshqa tomondan,same_level,same,4,kept
+D0575,anderserseits,B1,439,boshqa tomondan,same_level,same,4,kept
+D0575,anderserseits,B1,484,boshqa tomondan,same_level,same,4,kept
+D0576,der Vorteil,B1,243,afzallik,same_level,same,7,kept
+D0576,der Vorteil,B1,371,afzallik,same_level,same,7,kept
+D0576,der Vorteil,B1,507,afzallik,same_level,same,7,kept
+D0576,der Vorteil,B1,706,afzallik,same_level,same,7,kept
+D0576,der Vorteil,B1,906,afzallik,same_level,same,7,kept
+D0576,der Vorteil,B2,149,afzallik,same_level,same,7,kept
+D0576,der Vorteil,B2,813,afzallik,same_level,same,7,kept
+D0577,sich entscheiden,B1,245,qaror qilmoq,same_level,same,4,kept
+D0577,sich entscheiden,B1,501,qaror qilmoq,same_level,same,4,kept
+D0577,sich entscheiden,B1,700,qaror qilmoq,same_level,same,4,kept
+D0577,sich entscheiden,B1,900,qaror qilmoq,same_level,same,4,kept
+D0578,der Bereich,B1,251,soha,same_level,same,13,kept
+D0578,der Bereich,B1,387,soha,same_level,same,13,kept
+D0578,der Bereich,B1,434,soha,same_level,same,13,kept
+D0578,der Bereich,B1,526,soha,same_level,same,13,kept
+D0578,der Bereich,B1,590,soha,same_level,same,13,kept
+D0578,der Bereich,B1,634,soha,same_level,same,13,kept
+D0578,der Bereich,B1,724,soha,same_level,same,13,kept
+D0578,der Bereich,B1,788,soha,same_level,same,13,kept
+D0578,der Bereich,B1,834,soha,same_level,same,13,kept
+D0578,der Bereich,B1,924,soha,same_level,same,13,kept
+D0578,der Bereich,B1,988,soha,same_level,same,13,kept
+D0578,der Bereich,B2,101,soha,same_level,same,13,kept
+D0578,der Bereich,B2,476,soha,same_level,same,13,kept
+D0579,der Vergleich,B1,259,taqqoslash,cross_level,same,2,kept
+D0579,der Vergleich,B2,746,taqqoslash,cross_level,same,2,kept
+D0580,der Unterschied,B1,267,farq,same_level,same,9,kept
+D0580,der Unterschied,B1,395,farq,same_level,same,9,kept
+D0580,der Unterschied,B1,426,farq,same_level,same,9,kept
+D0580,der Unterschied,B1,534,farq,same_level,same,9,kept
+D0580,der Unterschied,B1,626,farq,same_level,same,9,kept
+D0580,der Unterschied,B1,732,farq,same_level,same,9,kept
+D0580,der Unterschied,B1,826,farq,same_level,same,9,kept
+D0580,der Unterschied,B1,932,farq,same_level,same,9,kept
+D0580,der Unterschied,B2,748,farq,cross_level,same,9,kept
+D0581,die Gelegenheit,B1,271,imkoniyat,same_level,same,8,kept
+D0581,die Gelegenheit,B1,399,imkoniyat,same_level,same,8,kept
+D0581,die Gelegenheit,B1,422,imkoniyat,same_level,same,8,kept
+D0581,die Gelegenheit,B1,530,imkoniyat,same_level,same,8,kept
+D0581,die Gelegenheit,B1,622,imkoniyat,same_level,same,8,kept
+D0581,die Gelegenheit,B1,728,imkoniyat,same_level,same,8,kept
+D0581,die Gelegenheit,B1,822,imkoniyat,same_level,same,8,kept
+D0581,die Gelegenheit,B1,928,imkoniyat,same_level,same,8,kept
+D0582,der Zustand,B1,275,holat,same_level,same,8,kept
+D0582,der Zustand,B1,363,holat,same_level,same,8,kept
+D0582,der Zustand,B1,467,holat,same_level,same,8,kept
+D0582,der Zustand,B1,558,holat,same_level,same,8,kept
+D0582,der Zustand,B1,667,holat,same_level,same,8,kept
+D0582,der Zustand,B1,756,holat,same_level,same,8,kept
+D0582,der Zustand,B1,867,holat,same_level,same,8,kept
+D0582,der Zustand,B1,956,holat,same_level,same,8,kept
+D0583,entschlossen,B1,278,qat’iyatli,same_level,same,8,kept
+D0583,entschlossen,B1,490,qat’iyatli,same_level,same,8,kept
+D0583,entschlossen,B1,597,qat’iyatli,same_level,same,8,kept
+D0583,entschlossen,B1,689,qat’iyatli,same_level,same,8,kept
+D0583,entschlossen,B1,795,qat’iyatli,same_level,same,8,kept
+D0583,entschlossen,B1,889,qat’iyatli,same_level,same,8,kept
+D0583,entschlossen,B1,995,qat’iyatli,same_level,same,8,kept
+D0583,entschlossen,B2,686,qat’iyatli,cross_level,same,8,kept
+D0584,der Eindruck,B1,283,taassurot,same_level,same,8,kept
+D0584,der Eindruck,B1,347,taassurot,same_level,same,8,kept
+D0584,der Eindruck,B1,442,taassurot,same_level,same,8,kept
+D0584,der Eindruck,B1,542,taassurot,same_level,same,8,kept
+D0584,der Eindruck,B1,642,taassurot,same_level,same,8,kept
+D0584,der Eindruck,B1,740,taassurot,same_level,same,8,kept
+D0584,der Eindruck,B1,842,taassurot,same_level,same,8,kept
+D0584,der Eindruck,B1,940,taassurot,same_level,same,8,kept
+D0585,die Auswahl,B1,287,tanlov,same_level,same,7,kept
+D0585,die Auswahl,B1,438,tanlov,same_level,same,7,kept
+D0585,die Auswahl,B1,562,tanlov,same_level,same,7,kept
+D0585,die Auswahl,B1,638,tanlov,same_level,same,7,kept
+D0585,die Auswahl,B1,760,tanlov,same_level,same,7,kept
+D0585,die Auswahl,B1,838,tanlov,same_level,same,7,kept
+D0585,die Auswahl,B1,960,tanlov,same_level,same,7,kept
+D0586,sich konzentrieren,B1,289,diqqatni jamlamoq,same_level,same,7,kept
+D0586,sich konzentrieren,B1,420,diqqatni jamlamoq,same_level,same,7,kept
+D0586,sich konzentrieren,B1,509,diqqatni jamlamoq,same_level,same,7,kept
+D0586,sich konzentrieren,B1,616,diqqatni jamlamoq,same_level,same,7,kept
+D0586,sich konzentrieren,B1,708,diqqatni jamlamoq,same_level,same,7,kept
+D0586,sich konzentrieren,B1,816,diqqatni jamlamoq,same_level,same,7,kept
+D0586,sich konzentrieren,B1,908,diqqatni jamlamoq,same_level,same,7,kept
+D0587,erfolgreich,B1,290,muvaffaqiyatli,same_level,same,5,kept
+D0587,erfolgreich,B1,462,muvaffaqiyatli,same_level,same,5,kept
+D0587,erfolgreich,B1,662,muvaffaqiyatli,same_level,same,5,kept
+D0587,erfolgreich,B1,862,muvaffaqiyatli,same_level,same,5,kept
+D0587,erfolgreich,B2,582,muvaffaqiyatli,cross_level,same,5,kept
+D0588,der Vorschlag,B1,291,taklif,same_level,same,10,kept
+D0588,der Vorschlag,B1,379,taklif,same_level,same,10,kept
+D0588,der Vorschlag,B1,475,taklif,same_level,same,10,kept
+D0588,der Vorschlag,B1,566,taklif,same_level,same,10,kept
+D0588,der Vorschlag,B1,674,taklif,same_level,same,10,kept
+D0588,der Vorschlag,B1,764,taklif,same_level,same,10,kept
+D0588,der Vorschlag,B1,874,taklif,same_level,same,10,kept
+D0588,der Vorschlag,B1,964,taklif,same_level,same,10,kept
+D0588,der Vorschlag,B2,24,taklif,same_level,same,10,kept
+D0588,der Vorschlag,B2,1055,taklif,same_level,same,10,kept
+D0589,beispielsweise,B1,296,masalan,same_level,same,9,kept
+D0589,beispielsweise,B1,392,masalan,same_level,same,9,kept
+D0589,beispielsweise,B1,419,masalan,same_level,same,9,kept
+D0589,beispielsweise,B1,508,masalan,same_level,same,9,kept
+D0589,beispielsweise,B1,575,masalan,same_level,same,9,kept
+D0589,beispielsweise,B1,619,masalan,same_level,same,9,kept
+D0589,beispielsweise,B1,707,masalan,same_level,same,9,kept
+D0589,beispielsweise,B1,819,masalan,same_level,same,9,kept
+D0589,beispielsweise,B1,907,masalan,same_level,same,9,kept
+D0590,der Nachweis,B1,299,isbot,same_level,different,6,kept
+D0590,der Nachweis,B1,550,isbot,same_level,different,6,kept
+D0590,der Nachweis,B1,748,isbot,same_level,different,6,kept
+D0590,der Nachweis,B1,948,isbot,same_level,different,6,kept
+D0590,der Nachweis,B2,725,isbot,same_level,different,6,kept
+D0590,der Nachweis,B2,1373,dalil,same_level,different,6,kept
+D0591,die Wirkung,B1,311,ta’sir,same_level,same,9,kept
+D0591,die Wirkung,B1,454,ta’sir,same_level,same,9,kept
+D0591,die Wirkung,B1,554,ta’sir,same_level,same,9,kept
+D0591,die Wirkung,B1,654,ta’sir,same_level,same,9,kept
+D0591,die Wirkung,B1,752,ta’sir,same_level,same,9,kept
+D0591,die Wirkung,B1,854,ta’sir,same_level,same,9,kept
+D0591,die Wirkung,B1,952,ta’sir,same_level,same,9,kept
+D0591,die Wirkung,B2,97,ta’sir,same_level,same,9,kept
+D0591,die Wirkung,B2,1194,ta’sir,same_level,same,9,kept
+D0592,die Unterstützung,B1,327,yordam,same_level,different,6,kept
+D0592,die Unterstützung,B1,471,yordam,same_level,different,6,kept
+D0592,die Unterstützung,B1,538,yordam,same_level,different,6,kept
+D0592,die Unterstützung,B1,736,yordam,same_level,different,6,kept
+D0592,die Unterstützung,B1,936,yordam,same_level,different,6,kept
+D0592,die Unterstützung,B2,1332,ko‘mak,cross_level,different,6,kept
+D0593,der Anlass,B1,331,sabab,same_level,same,7,kept
+D0593,der Anlass,B1,483,sabab,same_level,same,7,kept
+D0593,der Anlass,B1,598,sabab,same_level,same,7,kept
+D0593,der Anlass,B1,682,sabab,same_level,same,7,kept
+D0593,der Anlass,B1,796,sabab,same_level,same,7,kept
+D0593,der Anlass,B1,882,sabab,same_level,same,7,kept
+D0593,der Anlass,B1,996,sabab,same_level,same,7,kept
+D0594,sich äußern,B1,333,fikr bildirmoq,same_level,same,5,kept
+D0594,sich äußern,B1,412,fikr bildirmoq,same_level,same,5,kept
+D0594,sich äußern,B1,532,fikr bildirmoq,same_level,same,5,kept
+D0594,sich äußern,B1,730,fikr bildirmoq,same_level,same,5,kept
+D0594,sich äußern,B1,930,fikr bildirmoq,same_level,same,5,kept
+D0595,die Veränderung,B1,335,o‘zgarish,cross_level,same,3,kept
+D0595,die Veränderung,B2,668,o‘zgarish,same_level,same,3,kept
+D0595,die Veränderung,B2,1299,o‘zgarish,same_level,same,3,kept
+D0596,sich verbessern,B1,341,yaxshilanmoq,cross_level,same,2,kept
+D0596,sich verbessern,B2,629,yaxshilanmoq,cross_level,same,2,kept
+D0597,überzeugend,B1,342,ishonarli,same_level,same,4,kept
+D0597,überzeugend,B1,402,ishonarli,same_level,same,4,kept
+D0597,überzeugend,B1,799,ishonarli,same_level,same,4,kept
+D0597,überzeugend,B1,999,ishonarli,same_level,same,4,kept
+D0598,verlässlich,B1,358,ishonchli,same_level,same,4,kept
+D0598,verlässlich,B1,573,ishonchli,same_level,same,4,kept
+D0598,verlässlich,B1,771,ishonchli,same_level,same,4,kept
+D0598,verlässlich,B1,971,ishonchli,same_level,same,4,kept
+D0599,beitragen,B1,401,hissa qo‘shmoq,same_level,same,4,kept
+D0599,beitragen,B1,605,hissa qo‘shmoq,same_level,same,4,kept
+D0599,beitragen,B1,805,hissa qo‘shmoq,same_level,same,4,kept
+D0599,beitragen,B2,211,hissa qo‘shmoq,cross_level,same,4,kept
+D0600,sich durchsetzen,B1,405,o‘z fikrini o‘tkazmoq,same_level,different,4,kept
+D0600,sich durchsetzen,B1,601,o‘z fikrini o‘tkazmoq,same_level,different,4,kept
+D0600,sich durchsetzen,B1,801,o‘z fikrini o‘tkazmoq,same_level,different,4,kept
+D0600,sich durchsetzen,B2,1298,o‘z o‘rnini topmoq,cross_level,different,4,kept
+D0601,Erfahrung sammeln,B1,431,tajriba orttirmoq,same_level,same,3,kept
+D0601,Erfahrung sammeln,B1,631,tajriba orttirmoq,same_level,same,3,kept
+D0601,Erfahrung sammeln,B1,831,tajriba orttirmoq,same_level,same,3,kept
+D0602,zur Verfügung stehen,B1,447,ixtiyorda bo‘lmoq,same_level,same,3,kept
+D0602,zur Verfügung stehen,B1,647,ixtiyorda bo‘lmoq,same_level,same,3,kept
+D0602,zur Verfügung stehen,B1,847,ixtiyorda bo‘lmoq,same_level,same,3,kept
+D0603,beziehungsweise,B1,459,yoki,same_level,same,6,kept
+D0603,beziehungsweise,B1,551,yoki,same_level,same,6,kept
+D0603,beziehungsweise,B1,659,yoki,same_level,same,6,kept
+D0603,beziehungsweise,B1,749,yoki,same_level,same,6,kept
+D0603,beziehungsweise,B1,859,yoki,same_level,same,6,kept
+D0603,beziehungsweise,B1,949,yoki,same_level,same,6,kept
+D0604,zur Verfügung stellen,B1,461,taqdim etmoq,same_level,same,5,kept
+D0604,zur Verfügung stellen,B1,587,taqdim etmoq,same_level,same,5,kept
+D0604,zur Verfügung stellen,B1,757,taqdim etmoq,same_level,same,5,kept
+D0604,zur Verfügung stellen,B1,957,taqdim etmoq,same_level,same,5,kept
+D0604,zur Verfügung stellen,B2,403,taqdim etmoq,cross_level,same,5,kept
+D0605,einen Beitrag leisten,B1,476,hissa qo‘shmoq,same_level,same,5,kept
+D0605,einen Beitrag leisten,B1,611,hissa qo‘shmoq,same_level,same,5,kept
+D0605,einen Beitrag leisten,B1,761,hissa qo‘shmoq,same_level,same,5,kept
+D0605,einen Beitrag leisten,B1,811,hissa qo‘shmoq,same_level,same,5,kept
+D0605,einen Beitrag leisten,B1,961,hissa qo‘shmoq,same_level,same,5,kept
+D0606,zur Kenntnis nehmen,B1,492,ma’lumot sifatida qabul qilmoq,same_level,same,3,kept
+D0606,zur Kenntnis nehmen,B1,661,ma’lumot sifatida qabul qilmoq,same_level,same,3,kept
+D0606,zur Kenntnis nehmen,B1,861,ma’lumot sifatida qabul qilmoq,same_level,same,3,kept
+D0607,einen Eindruck machen,B1,511,taassurot qoldirmoq,same_level,same,3,kept
+D0607,einen Eindruck machen,B1,710,taassurot qoldirmoq,same_level,same,3,kept
+D0607,einen Eindruck machen,B1,910,taassurot qoldirmoq,same_level,same,3,kept
+D0608,in Betracht ziehen,B1,527,ko‘rib chiqmoq,same_level,same,3,kept
+D0608,in Betracht ziehen,B1,675,ko‘rib chiqmoq,same_level,same,3,kept
+D0608,in Betracht ziehen,B1,875,ko‘rib chiqmoq,same_level,same,3,kept
+D0609,Kritik üben,B1,547,tanqid bildirmoq,same_level,same,5,kept
+D0609,Kritik üben,B1,671,tanqid bildirmoq,same_level,same,5,kept
+D0609,Kritik üben,B1,773,tanqid bildirmoq,same_level,same,5,kept
+D0609,Kritik üben,B1,871,tanqid bildirmoq,same_level,same,5,kept
+D0609,Kritik üben,B1,973,tanqid bildirmoq,same_level,same,5,kept
+D0610,Erfahrung austauschen,B1,563,tajriba almashmoq,same_level,same,3,kept
+D0610,Erfahrung austauschen,B1,741,tajriba almashmoq,same_level,same,3,kept
+D0610,Erfahrung austauschen,B1,941,tajriba almashmoq,same_level,same,3,kept
+D0611,sich engagieren,B1,609,faol qatnashmoq,same_level,same,2,kept
+D0611,sich engagieren,B1,809,faol qatnashmoq,same_level,same,2,kept
+D0612,kritikfähig,B1,613,tanqidni qabul qila oladigan,same_level,same,2,kept
+D0612,kritikfähig,B1,813,tanqidni qabul qila oladigan,same_level,same,2,kept
+D0613,zuvorkommend,B1,617,xushmuomala,same_level,same,2,kept
+D0613,zuvorkommend,B1,817,xushmuomala,same_level,same,2,kept
+D0614,sich weiterentwickeln,B1,620,o‘zini rivojlantirmoq,same_level,different,3,kept
+D0614,sich weiterentwickeln,B1,820,o‘zini rivojlantirmoq,same_level,different,3,kept
+D0614,sich weiterentwickeln,B2,559,rivojlanishda davom etmoq,cross_level,different,3,kept
+D0615,eine Stellung nehmen,B1,691,pozitsiya bildirmoq,same_level,same,2,kept
+D0615,eine Stellung nehmen,B1,891,pozitsiya bildirmoq,same_level,same,2,kept
+D0616,eine Verantwortung übernehmen,B1,721,mas’uliyatni o‘z zimmasiga olmoq,same_level,same,2,kept
+D0616,eine Verantwortung übernehmen,B1,921,mas’uliyatni o‘z zimmasiga olmoq,same_level,same,2,kept
+D0617,unter Druck stehen,B1,725,bosim ostida bo‘lmoq,same_level,same,2,kept
+D0617,unter Druck stehen,B1,925,bosim ostida bo‘lmoq,same_level,same,2,kept
+D0618,zur Diskussion stehen,B1,745,muhokamada bo‘lmoq,same_level,same,2,kept
+D0618,zur Diskussion stehen,B1,945,muhokamada bo‘lmoq,same_level,same,2,kept
+D0619,in Kontakt bleiben,B1,781,aloqada qolmoq,same_level,same,2,kept
+D0619,in Kontakt bleiben,B1,981,aloqada qolmoq,same_level,same,2,kept
+D0620,eine Rolle spielen,B1,789,muhim rol o‘ynamoq,same_level,same,4,kept
+D0620,eine Rolle spielen,B1,989,muhim rol o‘ynamoq,same_level,same,4,kept
+D0620,eine Rolle spielen,B2,440,muhim rol o‘ynamoq,same_level,same,4,kept
+D0620,eine Rolle spielen,B2,1306,muhim rol o‘ynamoq,same_level,same,4,kept
+D0621,zusammenfassen,B2,3,xulosa qilmoq,same_level,same,2,kept
+D0621,zusammenfassen,B2,1142,xulosa qilmoq,same_level,same,2,kept
+D0622,sich bewegen,B2,11,harakat qilmoq,same_level,same,2,kept
+D0622,sich bewegen,B2,1236,harakat qilmoq,same_level,same,2,kept
+D0623,erwerben,B2,13,egallamoq,same_level,different,2,kept
+D0623,erwerben,B2,248,sotib olmoq,same_level,different,2,kept
+D0624,die Aussage,B2,14,bayonot,same_level,same,2,kept
+D0624,die Aussage,B2,1146,bayonot,same_level,same,2,kept
+D0625,der Widerspruch,B2,17,e’tiroz,same_level,different,2,kept
+D0625,der Widerspruch,B2,790,qarama-qarshilik,same_level,different,2,kept
+D0626,die Lerntechnik,B2,26,o‘rganish usuli,same_level,same,2,kept
+D0626,die Lerntechnik,B2,1411,o‘rganish usuli,same_level,same,2,kept
+D0627,die Lernerfahrung,B2,32,o‘quv tajribasi,same_level,same,2,kept
+D0627,die Lernerfahrung,B2,1412,o‘quv tajribasi,same_level,same,2,kept
+D0628,der Lerntyp,B2,33,o‘quvchi turi,same_level,same,2,kept
+D0628,der Lerntyp,B2,1413,o‘quvchi turi,same_level,same,2,kept
+D0629,der Methodenmix,B2,34,metodlar kombinatsiyasi,same_level,same,2,kept
+D0629,der Methodenmix,B2,1416,metodlar kombinatsiyasi,same_level,same,2,kept
+D0630,auditiv,B2,35,eshitish orqali,same_level,different,2,kept
+D0630,auditiv,B2,1414,eshitish orqali o‘rganadigan,same_level,different,2,kept
+D0631,visuell,B2,36,ko‘rish orqali,same_level,different,2,kept
+D0631,visuell,B2,1415,ko‘rish orqali o‘rganadigan,same_level,different,2,kept
+D0632,veraltet,B2,37,eskirgan,same_level,same,3,kept
+D0632,veraltet,B2,896,eskirgan,same_level,same,3,kept
+D0632,veraltet,B2,1297,eskirgan,same_level,same,3,kept
+D0633,hervorheben,B2,49,ta’kidlamoq,same_level,different,3,kept
+D0633,hervorheben,B2,736,alohida ta’kidlamoq,same_level,different,3,kept
+D0633,hervorheben,C1,49,alohida ta’kidlamoq,cross_level,different,3,kept
+D0634,unterstreichen,B2,51,tagini chizmoq,cross_level,different,2,kept
+D0634,unterstreichen,C1,130,alohida ta’kidlamoq,cross_level,different,2,kept
+D0635,der Überblick,B2,54,umumiy tasavvur,same_level,same,2,kept
+D0635,der Überblick,B2,280,umumiy tasavvur,same_level,same,2,kept
+D0636,überfliegen,B2,55,tez ko‘z yugurtirmoq,same_level,same,2,kept
+D0636,überfliegen,B2,1417,tez ko‘z yugurtirmoq,same_level,same,2,kept
+D0637,die Kerninformation,B2,58,asosiy ma’lumot,same_level,same,2,kept
+D0637,die Kerninformation,B2,1418,asosiy ma’lumot,same_level,same,2,kept
+D0638,abfragen,B2,62,bilimni tekshirmoq,same_level,same,2,kept
+D0638,abfragen,B2,1419,bilimni tekshirmoq,same_level,same,2,kept
+D0639,das Langzeitgedächtnis,B2,65,uzoq muddatli xotira,same_level,same,2,kept
+D0639,das Langzeitgedächtnis,B2,1404,uzoq muddatli xotira,same_level,same,2,kept
+D0640,das Sinnesorgan,B2,66,sezgi organi,same_level,same,2,kept
+D0640,das Sinnesorgan,B2,1405,sezgi organi,same_level,same,2,kept
+D0641,verknüpfen,B2,67,bog‘lamoq,same_level,same,2,kept
+D0641,verknüpfen,B2,1406,bog‘lamoq,same_level,same,2,kept
+D0642,das Erfolgserlebnis,B2,71,muvaffaqiyat hissi,same_level,same,2,kept
+D0642,das Erfolgserlebnis,B2,1420,muvaffaqiyat hissi,same_level,same,2,kept
+D0643,beherrschen,B2,72,mukammal bilmoq,same_level,same,2,kept
+D0643,beherrschen,B2,1421,mukammal bilmoq,same_level,same,2,kept
+D0644,aufschieben,B2,73,keyinga qoldirmoq,same_level,same,2,kept
+D0644,aufschieben,B2,1422,keyinga qoldirmoq,same_level,same,2,kept
+D0645,die Behauptung,B2,77,da’vo,same_level,same,2,kept
+D0645,die Behauptung,B2,723,da’vo,same_level,same,2,kept
+D0646,die Neurowissenschaft,B2,80,neyrofan,same_level,same,2,kept
+D0646,die Neurowissenschaft,B2,1401,neyrofan,same_level,same,2,kept
+D0647,der Rückgang,B2,81,pasayish,same_level,same,2,kept
+D0647,der Rückgang,B2,867,pasayish,same_level,same,2,kept
+D0648,die Ergonomie,B2,82,ergonomika,same_level,same,2,kept
+D0648,die Ergonomie,B2,1424,ergonomika,same_level,same,2,kept
+D0649,die Motorik,B2,83,motorika,same_level,same,2,kept
+D0649,die Motorik,B2,1425,motorika,same_level,same,2,kept
+D0650,die Druckschrift,B2,85,bosma yozuv,same_level,same,2,kept
+D0650,die Druckschrift,B2,1426,bosma yozuv,same_level,same,2,kept
+D0651,die Schreibschrift,B2,86,qo‘l yozuvi,same_level,same,2,kept
+D0651,die Schreibschrift,B2,1427,qo‘l yozuvi,same_level,same,2,kept
+D0652,handschriftlich,B2,89,qo‘lda yozilgan,same_level,same,2,kept
+D0652,handschriftlich,B2,1428,qo‘lda yozilgan,same_level,same,2,kept
+D0653,benötigen,B2,90,kerak bo‘lmoq,same_level,same,2,kept
+D0653,benötigen,B2,548,kerak bo‘lmoq,same_level,same,2,kept
+D0654,tippen,B2,96,klaviaturada yozmoq,same_level,same,2,kept
+D0654,tippen,B2,1429,klaviaturada yozmoq,same_level,same,2,kept
+D0655,die Gehirnaktivität,B2,99,miya faolligi,same_level,same,2,kept
+D0655,die Gehirnaktivität,B2,1402,miya faolligi,same_level,same,2,kept
+D0656,das Gehirnareal,B2,100,miya hududi,same_level,same,2,kept
+D0656,das Gehirnareal,B2,1403,miya hududi,same_level,same,2,kept
+D0657,wiedererkennen,B2,103,tanib olmoq,same_level,same,2,kept
+D0657,wiedererkennen,B2,1430,tanib olmoq,same_level,same,2,kept
+D0658,die Verknüpfung,B2,105,bog‘lanish,same_level,same,2,kept
+D0658,die Verknüpfung,B2,1431,bog‘lanish,same_level,same,2,kept
+D0659,der Speicher,B2,107,xotira qurilmasi,same_level,same,2,kept
+D0659,der Speicher,B2,1432,xotira qurilmasi,same_level,same,2,kept
+D0660,extern,B2,108,tashqi,same_level,same,2,kept
+D0660,extern,B2,1433,tashqi,same_level,same,2,kept
+D0661,verarbeiten,B2,109,qayta ishlamoq,same_level,same,2,kept
+D0661,verarbeiten,B2,1434,qayta ishlamoq,same_level,same,2,kept
+D0662,das Gehörte,B2,110,eshitilgan narsa,same_level,different,2,kept
+D0662,das Gehörte,B2,1407,eshitilgan ma’lumot,same_level,different,2,kept
+D0663,die Notiz,B2,112,qayd,same_level,same,2,kept
+D0663,die Notiz,B2,1435,qayd,same_level,same,2,kept
+D0664,der Notizblock,B2,114,bloknot,same_level,same,2,kept
+D0664,der Notizblock,B2,1436,bloknot,same_level,same,2,kept
+D0665,notieren,B2,115,qayd etmoq,same_level,same,2,kept
+D0665,notieren,B2,1437,qayd etmoq,same_level,same,2,kept
+D0666,mitschreiben,B2,117,birga yozib bormoq,same_level,same,2,kept
+D0666,mitschreiben,B2,1408,birga yozib bormoq,same_level,same,2,kept
+D0667,protokollieren,B2,118,protokol tuzmoq,same_level,same,2,kept
+D0667,protokollieren,B2,1409,protokol tuzmoq,same_level,same,2,kept
+D0668,der Inhalt,B2,121,mazmun,same_level,same,2,kept
+D0668,der Inhalt,B2,1141,mazmun,same_level,same,2,kept
+D0669,das Grundwissen,B2,126,asosiy bilim,same_level,same,2,kept
+D0669,das Grundwissen,B2,1438,asosiy bilim,same_level,same,2,kept
+D0670,das Faktenwissen,B2,127,faktlarga asoslangan bilim,same_level,same,2,kept
+D0670,das Faktenwissen,B2,1410,faktlarga asoslangan bilim,same_level,same,2,kept
+D0671,sich Wissen erarbeiten,B2,128,bilim hosil qilmoq,same_level,same,2,kept
+D0671,sich Wissen erarbeiten,B2,1439,bilim hosil qilmoq,same_level,same,2,kept
+D0672,Wissen vertiefen,B2,129,bilimni chuqurlashtirmoq,same_level,same,2,kept
+D0672,Wissen vertiefen,B2,1440,bilimni chuqurlashtirmoq,same_level,same,2,kept
+D0673,die Kommunikationsfähigkeit,B2,136,muloqot qobiliyati,same_level,same,3,kept
+D0673,die Kommunikationsfähigkeit,B2,1441,muloqot qobiliyati,same_level,same,3,kept
+D0673,die Kommunikationsfähigkeit,C1,146,muloqot qobiliyati,cross_level,same,3,kept
+D0674,das Zeitmanagement,B2,138,vaqtni boshqarish,same_level,same,2,kept
+D0674,das Zeitmanagement,B2,1442,vaqtni boshqarish,same_level,same,2,kept
+D0675,die Einzelarbeit,B2,139,yakka tartibdagi ish,same_level,same,2,kept
+D0675,die Einzelarbeit,B2,1443,yakka tartibdagi ish,same_level,same,2,kept
+D0676,ermöglichen,B2,141,imkon yaratmoq,same_level,same,3,kept
+D0676,ermöglichen,B2,698,imkon yaratmoq,same_level,same,3,kept
+D0676,ermöglichen,B2,808,imkon yaratmoq,same_level,same,3,kept
+D0677,die Stellungnahme,B2,142,munosabat bildirish,same_level,same,2,kept
+D0677,die Stellungnahme,B2,1445,munosabat bildirish,same_level,same,2,kept
+D0678,die These,B2,148,tezis,same_level,same,2,kept
+D0678,die These,B2,1446,tezis,same_level,same,2,kept
+D0679,die Verstädterung,B2,162,urbanizatsiya,same_level,same,2,kept
+D0679,die Verstädterung,B2,1447,urbanizatsiya,same_level,same,2,kept
+D0680,die Landflucht,B2,163,qishloqdan shaharga ko‘chish,same_level,same,2,kept
+D0680,die Landflucht,B2,1448,qishloqdan shaharga ko‘chish,same_level,same,2,kept
+D0681,prognostizieren,B2,165,bashorat qilmoq,same_level,same,2,kept
+D0681,prognostizieren,B2,1449,bashorat qilmoq,same_level,same,2,kept
+D0682,die Attraktivität,B2,169,jozibadorlik,same_level,same,2,kept
+D0682,die Attraktivität,B2,1450,jozibadorlik,same_level,same,2,kept
+D0683,anregend,B2,171,qiziqarli,same_level,same,2,kept
+D0683,anregend,B2,1451,qiziqarli,same_level,same,2,kept
+D0684,die Bildungseinrichtung,B2,174,ta’lim muassasasi,same_level,same,2,kept
+D0684,die Bildungseinrichtung,B2,1452,ta’lim muassasasi,same_level,same,2,kept
+D0685,die Umfrage,B2,178,so‘rovnoma,same_level,same,2,kept
+D0685,die Umfrage,B2,419,so‘rovnoma,same_level,same,2,kept
+D0686,die Technologie,B2,193,texnologiya,same_level,same,3,kept
+D0686,die Technologie,B2,465,texnologiya,same_level,same,3,kept
+D0686,die Technologie,B2,1291,texnologiya,same_level,same,3,kept
+D0687,die Technologiefirma,B2,194,texnologik kompaniya,same_level,same,2,kept
+D0687,die Technologiefirma,B2,1453,texnologik kompaniya,same_level,same,2,kept
+D0688,die Digitalisierung,B2,195,raqamlashtirish,same_level,same,2,kept
+D0688,die Digitalisierung,B2,442,raqamlashtirish,same_level,same,2,kept
+D0689,innovativ,B2,199,innovatsion,same_level,same,4,kept
+D0689,innovativ,B2,626,innovatsion,same_level,same,4,kept
+D0689,innovativ,B2,898,innovatsion,same_level,same,4,kept
+D0689,innovativ,B2,1290,innovatsion,same_level,same,4,kept
+D0690,das Konzept,B2,201,konsept,same_level,same,2,kept
+D0690,das Konzept,B2,551,konsept,same_level,same,2,kept
+D0691,gründen,B2,203,tashkil qilmoq,same_level,different,2,kept
+D0691,gründen,B2,918,asos solmoq,same_level,different,2,kept
+D0692,vertikal,B2,210,tik,same_level,same,2,kept
+D0692,vertikal,B2,1454,tik,same_level,same,2,kept
+D0693,preisgünstig,B2,214,arzon,same_level,same,2,kept
+D0693,preisgünstig,B2,1455,arzon,same_level,same,2,kept
+D0694,das Sonnenlicht,B2,218,quyosh nuri,same_level,same,2,kept
+D0694,das Sonnenlicht,B2,1456,quyosh nuri,same_level,same,2,kept
+D0695,beleuchten,B2,219,yoritmoq,same_level,same,2,kept
+D0695,beleuchten,B2,1457,yoritmoq,same_level,same,2,kept
+D0696,die Beleuchtung,B2,220,yoritish,same_level,same,2,kept
+D0696,die Beleuchtung,B2,1458,yoritish,same_level,same,2,kept
+D0697,der Trend,B2,222,tendensiya,same_level,same,2,kept
+D0697,der Trend,B2,1293,tendensiya,same_level,same,2,kept
+D0698,gärtnern,B2,224,bog‘dorchilik qilmoq,same_level,same,2,kept
+D0698,gärtnern,B2,1459,bog‘dorchilik qilmoq,same_level,same,2,kept
+D0699,begrünen,B2,225,ko‘kalamzorlashtirmoq,same_level,same,2,kept
+D0699,begrünen,B2,1460,ko‘kalamzorlashtirmoq,same_level,same,2,kept
+D0700,säen,B2,228,urug‘ sepmoq,same_level,same,2,kept
+D0700,säen,B2,1461,urug‘ sepmoq,same_level,same,2,kept
+D0701,der Samen,B2,229,urug‘,same_level,same,2,kept
+D0701,der Samen,B2,1462,urug‘,same_level,same,2,kept
+D0702,die Ernte,B2,230,hosil,same_level,same,2,kept
+D0702,die Ernte,B2,1463,hosil,same_level,same,2,kept
+D0703,ernten,B2,231,hosil yig‘moq,same_level,same,2,kept
+D0703,ernten,B2,1464,hosil yig‘moq,same_level,same,2,kept
+D0704,gießen,B2,232,sug‘ormoq,same_level,same,2,kept
+D0704,gießen,B2,1465,sug‘ormoq,same_level,same,2,kept
+D0705,das Wachstum,B2,234,o‘sish,same_level,same,2,kept
+D0705,das Wachstum,B2,571,o‘sish,same_level,same,2,kept
+D0706,die Dachterrasse,B2,236,tom terassasi,same_level,same,2,kept
+D0706,die Dachterrasse,B2,1466,tom terassasi,same_level,same,2,kept
+D0707,der Innenhof,B2,237,ichki hovli,same_level,same,2,kept
+D0707,der Innenhof,B2,1467,ichki hovli,same_level,same,2,kept
+D0708,trist,B2,238,zerikarli,same_level,same,2,kept
+D0708,trist,B2,1468,zerikarli,same_level,same,2,kept
+D0709,die Biene,B2,239,asalari,same_level,same,2,kept
+D0709,die Biene,B2,1469,asalari,same_level,same,2,kept
+D0710,Bienen halten,B2,240,asalari boqmoq,same_level,same,2,kept
+D0710,Bienen halten,B2,1470,asalari boqmoq,same_level,same,2,kept
+D0711,brachliegen,B2,244,bo‘sh yotmoq,same_level,same,2,kept
+D0711,brachliegen,B2,1471,bo‘sh yotmoq,same_level,same,2,kept
+D0712,nutzen,B2,247,foydalanmoq,same_level,same,3,kept
+D0712,nutzen,B2,554,foydalanmoq,same_level,same,3,kept
+D0712,nutzen,B2,810,foydalanmoq,same_level,same,3,kept
+D0713,die Bewirtschaftung,B2,249,boshqarish,same_level,same,2,kept
+D0713,die Bewirtschaftung,B2,1472,boshqarish,same_level,same,2,kept
+D0714,verwalten,B2,250,boshqarmoq,same_level,same,2,kept
+D0714,verwalten,B2,1366,boshqarmoq,same_level,same,2,kept
+D0715,der Betrag,B2,252,summa,same_level,same,2,kept
+D0715,der Betrag,B2,410,summa,same_level,same,2,kept
+D0716,gegenseitig helfen,B2,254,bir-biriga yordam bermoq,same_level,same,2,kept
+D0716,gegenseitig helfen,B2,1473,bir-biriga yordam bermoq,same_level,same,2,kept
+D0717,die Anonymität,B2,256,anonimlik,same_level,same,2,kept
+D0717,die Anonymität,B2,1474,anonimlik,same_level,same,2,kept
+D0718,verringern,B2,261,kamaytirmoq,same_level,same,2,kept
+D0718,verringern,B2,868,kamaytirmoq,same_level,same,2,kept
+D0719,wirken,B2,262,ta’sir qilmoq,same_level,same,2,kept
+D0719,wirken,B2,1195,ta’sir qilmoq,same_level,same,2,kept
+D0720,altmodisch,B2,263,eskicha,same_level,same,2,kept
+D0720,altmodisch,B2,1475,eskicha,same_level,same,2,kept
+D0721,verschlossen,B2,264,yopiq,same_level,same,2,kept
+D0721,verschlossen,B2,1476,yopiq,same_level,same,2,kept
+D0722,abreißen,B2,266,buzib tashlamoq,same_level,same,2,kept
+D0722,abreißen,B2,1477,buzib tashlamoq,same_level,same,2,kept
+D0723,der Abriss,B2,267,buzish,same_level,same,2,kept
+D0723,der Abriss,B2,1478,buzish,same_level,same,2,kept
+D0724,umweltschonend,B2,269,ekologik xavfsiz,same_level,same,2,kept
+D0724,umweltschonend,B2,1479,ekologik xavfsiz,same_level,same,2,kept
+D0725,umbauen,B2,270,qayta qurmoq,same_level,same,2,kept
+D0725,umbauen,B2,1480,qayta qurmoq,same_level,same,2,kept
+D0726,der Umbau,B2,271,qayta qurish,same_level,same,2,kept
+D0726,der Umbau,B2,1481,qayta qurish,same_level,same,2,kept
+D0727,die Fassade,B2,273,fasad,same_level,same,2,kept
+D0727,die Fassade,B2,1482,fasad,same_level,same,2,kept
+D0728,das Panorama,B2,276,panorama,same_level,same,2,kept
+D0728,das Panorama,B2,1483,panorama,same_level,same,2,kept
+D0729,sich wohlfühlen,B2,277,o‘zini yaxshi his qilmoq,same_level,same,2,kept
+D0729,sich wohlfühlen,B2,976,o‘zini yaxshi his qilmoq,same_level,same,2,kept
+D0730,die Stadtentwicklung,B2,279,shahar rivojlanishi,same_level,same,2,kept
+D0730,die Stadtentwicklung,B2,1484,shahar rivojlanishi,same_level,same,2,kept
+D0731,die Notlüge,B2,284,oq yolg‘on,same_level,same,2,kept
+D0731,die Notlüge,B2,1485,oq yolg‘on,same_level,same,2,kept
+D0732,der Selbstbetrug,B2,286,o‘zini aldash,same_level,same,2,kept
+D0732,der Selbstbetrug,B2,1486,o‘zini aldash,same_level,same,2,kept
+D0733,die Irreführung,B2,292,chalg‘itish,same_level,same,2,kept
+D0733,die Irreführung,B2,1487,chalg‘itish,same_level,same,2,kept
+D0734,die Täuschung,B2,293,aldov,same_level,same,2,kept
+D0734,die Täuschung,B2,1488,aldov,same_level,same,2,kept
+D0735,fälschen,B2,297,qalbakilashtirmoq,same_level,same,2,kept
+D0735,fälschen,B2,1489,qalbakilashtirmoq,same_level,same,2,kept
+D0736,das Plagiat,B2,298,plagiat,same_level,same,2,kept
+D0736,das Plagiat,B2,1490,plagiat,same_level,same,2,kept
+D0737,das Doping,B2,299,doping,same_level,same,2,kept
+D0737,das Doping,B2,1491,doping,same_level,same,2,kept
+D0738,die Halbwahrheit,B2,300,yarim haqiqat,same_level,same,2,kept
+D0738,die Halbwahrheit,B2,1492,yarim haqiqat,same_level,same,2,kept
+D0739,die Beschönigung,B2,301,go‘zallashtirib ko‘rsatish,same_level,same,2,kept
+D0739,die Beschönigung,B2,1493,go‘zallashtirib ko‘rsatish,same_level,same,2,kept
+D0740,schönreden,B2,302,yaxshi qilib ko‘rsatmoq,same_level,same,2,kept
+D0740,schönreden,B2,1494,yaxshi qilib ko‘rsatmoq,same_level,same,2,kept
+D0741,die faule Ausrede,B2,303,bema’ni bahona,same_level,same,2,kept
+D0741,die faule Ausrede,B2,1495,bema’ni bahona,same_level,same,2,kept
+D0742,prosozial,B2,308,ijtimoiy foydali,same_level,same,2,kept
+D0742,prosozial,B2,1496,ijtimoiy foydali,same_level,same,2,kept
+D0743,selbstsüchtig,B2,309,xudbin,same_level,same,2,kept
+D0743,selbstsüchtig,B2,1497,xudbin,same_level,same,2,kept
+D0744,die Strategie,B2,311,strategiya,same_level,same,2,kept
+D0744,die Strategie,B2,646,strategiya,same_level,same,2,kept
+D0745,die Überlebensstrategie,B2,312,omon qolish strategiyasi,same_level,same,2,kept
+D0745,die Überlebensstrategie,B2,1498,omon qolish strategiyasi,same_level,same,2,kept
+D0746,die Harmonie,B2,320,uyg‘unlik,same_level,same,2,kept
+D0746,die Harmonie,B2,1500,uyg‘unlik,same_level,same,2,kept
+D0747,betrachten,B2,359,ko‘rib chiqmoq,same_level,same,2,kept
+D0747,betrachten,B2,418,ko‘rib chiqmoq,same_level,same,2,kept
+D0748,der Schutz,B2,361,himoya,same_level,same,2,kept
+D0748,der Schutz,B2,1267,himoya,same_level,same,2,kept
+D0749,fördern,B2,366,rag‘batlantirmoq,same_level,different,2,kept
+D0749,fördern,B2,696,qo‘llab-quvvatlamoq,same_level,different,2,kept
+D0750,die Beschwerde,B2,388,shikoyat,same_level,same,2,kept
+D0750,die Beschwerde,B2,478,shikoyat,same_level,same,2,kept
+D0751,die Ausstattung,B2,396,jihozlar,same_level,different,2,kept
+D0751,die Ausstattung,B2,546,jihozlanish,same_level,different,2,kept
+D0752,die Kreativität,B2,399,ijodkorlik,same_level,same,2,kept
+D0752,die Kreativität,B2,446,ijodkorlik,same_level,same,2,kept
+D0753,beifügen,B2,404,ilova qilmoq,same_level,same,2,kept
+D0753,beifügen,B2,1067,ilova qilmoq,same_level,same,2,kept
+D0754,die Verfügbarkeit,B2,449,mavjudlik,same_level,same,2,kept
+D0754,die Verfügbarkeit,B2,638,mavjudlik,same_level,same,2,kept
+D0755,der Nutzen,B2,473,foyda,same_level,same,2,kept
+D0755,der Nutzen,B2,811,foyda,same_level,same,2,kept
+D0756,der Einsatz,B2,474,qo‘llanish,same_level,different,2,kept
+D0756,der Einsatz,B2,636,qo‘llash,same_level,different,2,kept
+D0757,die Diagnose,B2,480,diagnoz,same_level,different,2,kept
+D0757,die Diagnose,B2,1213,tashxis,same_level,different,2,kept
+D0758,die Einschätzung,B2,482,baholash,same_level,same,2,kept
+D0758,die Einschätzung,B2,773,baholash,same_level,same,2,kept
+D0759,einschätzen,B2,483,baholamoq,same_level,same,2,kept
+D0759,einschätzen,B2,772,baholamoq,same_level,same,2,kept
+D0760,die Therapie,B2,484,terapiya,same_level,same,2,kept
+D0760,die Therapie,B2,1207,terapiya,same_level,same,2,kept
+D0761,gesetzlich,B2,509,qonuniy,same_level,same,2,kept
+D0761,gesetzlich,B2,1357,qonuniy,same_level,same,2,kept
+D0762,die Manipulation,B2,517,manipulyatsiya,cross_level,different,2,kept
+D0762,die Manipulation,C1,223,ongli aldov,cross_level,different,2,kept
+D0763,kritisieren,B2,520,tanqid qilmoq,same_level,same,3,kept
+D0763,kritisieren,B2,774,tanqid qilmoq,same_level,same,3,kept
+D0763,kritisieren,B2,1046,tanqid qilmoq,same_level,same,3,kept
+D0764,erweitern,B2,560,kengaytirmoq,same_level,same,3,kept
+D0764,erweitern,B2,856,kengaytirmoq,same_level,same,3,kept
+D0764,erweitern,B2,1161,kengaytirmoq,same_level,same,3,kept
+D0765,der Verbrauch,B2,591,iste’mol,same_level,different,3,kept
+D0765,der Verbrauch,B2,656,sarf,same_level,different,3,kept
+D0765,der Verbrauch,B2,1273,iste’mol,same_level,different,3,kept
+D0766,die Innovation,B2,625,innovatsiya,same_level,same,3,kept
+D0766,die Innovation,B2,899,innovatsiya,same_level,same,3,kept
+D0766,die Innovation,B2,1289,innovatsiya,same_level,same,3,kept
+D0767,fortschrittlich,B2,627,ilg‘or,same_level,same,3,kept
+D0767,fortschrittlich,B2,893,ilg‘or,same_level,same,3,kept
+D0767,fortschrittlich,B2,1288,ilg‘or,same_level,same,3,kept
+D0768,die Verbesserung,B2,630,yaxshilanish,same_level,same,2,kept
+D0768,die Verbesserung,B2,871,yaxshilanish,same_level,same,2,kept
+D0769,realisieren,B2,633,amalga oshirmoq,same_level,same,2,kept
+D0769,realisieren,B2,890,amalga oshirmoq,same_level,same,2,kept
+D0770,bewältigen,B2,643,eplamoq,same_level,different,2,kept
+D0770,bewältigen,B2,949,yengib o‘tmoq,same_level,different,2,kept
+D0771,die Lösung,B2,644,yechim,same_level,same,2,kept
+D0771,die Lösung,B2,799,yechim,same_level,same,2,kept
+D0772,die Ressource,B2,654,resurs,same_level,same,2,kept
+D0772,die Ressource,B2,1268,resurs,same_level,same,2,kept
+D0773,die Umwelt,B2,658,atrof-muhit,same_level,same,2,kept
+D0773,die Umwelt,B2,1257,atrof-muhit,same_level,same,2,kept
+D0774,verursachen,B2,661,sabab bo‘lmoq,same_level,same,2,kept
+D0774,verursachen,B2,834,sabab bo‘lmoq,same_level,same,2,kept
+D0775,die Ursache,B2,662,sabab,same_level,same,2,kept
+D0775,die Ursache,B2,833,sabab,same_level,same,2,kept
+D0776,die Folge,B2,663,oqibat,same_level,same,2,kept
+D0776,die Folge,B2,837,oqibat,same_level,same,2,kept
+D0777,die Anpassung,B2,670,moslashuv,same_level,same,2,kept
+D0777,die Anpassung,B2,967,moslashuv,same_level,same,2,kept
+D0778,voraussetzen,B2,674,talab qilmoq,cross_level,different,2,kept
+D0778,voraussetzen,C1,93,oldindan talab qilmoq,cross_level,different,2,kept
+D0779,qualifiziert,B2,691,malakali,same_level,same,2,kept
+D0779,qualifiziert,B2,1017,malakali,same_level,same,2,kept
+D0780,die Qualifikation,B2,692,malaka,same_level,same,2,kept
+D0780,die Qualifikation,B2,1016,malaka,same_level,same,2,kept
+D0781,die Vereinbarung,B2,704,kelishuv,same_level,same,2,kept
+D0781,die Vereinbarung,B2,1058,kelishuv,same_level,same,2,kept
+D0782,die Zusammenarbeit,B2,711,hamkorlik,same_level,same,2,kept
+D0782,die Zusammenarbeit,B2,1039,hamkorlik,same_level,same,2,kept
+D0783,abstimmen,B2,713,kelishmoq,same_level,different,2,kept
+D0783,abstimmen,B2,1380,ovoz bermoq,same_level,different,2,kept
+D0784,die Abstimmung,B2,714,muvofiqlashtirish,same_level,different,2,kept
+D0784,die Abstimmung,B2,1381,ovoz berish jarayoni,same_level,different,2,kept
+D0785,die Überzeugung,B2,719,ishonch,same_level,same,3,kept
+D0785,die Überzeugung,B2,1175,ishonch,same_level,same,3,kept
+D0785,die Überzeugung,B2,1398,ishonch,same_level,same,3,kept
+D0786,glaubwürdig,B2,720,ishonchli,same_level,same,2,kept
+D0786,glaubwürdig,B2,1184,ishonchli,same_level,same,2,kept
+D0787,die Glaubwürdigkeit,B2,721,ishonchlilik,same_level,same,3,kept
+D0787,die Glaubwürdigkeit,B2,1185,ishonchlilik,same_level,same,3,kept
+D0787,die Glaubwürdigkeit,C1,221,ishonchlilik,cross_level,same,3,kept
+D0788,nachweisen,B2,724,isbotlamoq,same_level,different,3,kept
+D0788,nachweisen,B2,1372,isbotlamoq,same_level,different,3,kept
+D0788,nachweisen,C1,57,dalillar bilan isbotlamoq,cross_level,different,3,kept
+D0789,argumentieren,B2,728,dalil keltirmoq,same_level,same,2,kept
+D0789,argumentieren,B2,1172,dalil keltirmoq,same_level,same,2,kept
+D0790,die Perspektive,B2,734,qarash burchagi,cross_level,different,2,kept
+D0790,die Perspektive,C1,54,qarash nuqtasi,cross_level,different,2,kept
+D0791,verdeutlichen,B2,738,aniqlashtirmoq,cross_level,different,2,kept
+D0791,verdeutlichen,C1,37,aniqroq qilib ko‘rsatmoq,cross_level,different,2,kept
+D0792,die Darstellung,B2,744,tasvir,cross_level,different,2,kept
+D0792,die Darstellung,C1,219,ifodalash shakli,cross_level,different,2,kept
+D0793,die Erkenntnis,B2,761,xulosa,cross_level,different,2,kept
+D0793,die Erkenntnis,C1,26,chuqur anglash,cross_level,different,2,kept
+D0794,beurteilen,B2,770,xulosa bermoq,cross_level,different,2,kept
+D0794,beurteilen,C1,41,mezon asosida baholamoq,cross_level,different,2,kept
+D0795,die Kritik,B2,775,tanqid,same_level,same,2,kept
+D0795,die Kritik,B2,1045,tanqid,same_level,same,2,kept
+D0796,loben,B2,776,maqtamoq,same_level,same,2,kept
+D0796,loben,B2,1048,maqtamoq,same_level,same,2,kept
+D0797,die Toleranz,B2,782,bag‘rikenglik,same_level,same,3,kept
+D0797,die Toleranz,B2,997,bag‘rikenglik,same_level,same,3,kept
+D0797,die Toleranz,B2,1316,bag‘rikenglik,same_level,same,3,kept
+D0798,die Akzeptanz,B2,784,qabul qilish,same_level,same,2,kept
+D0798,die Akzeptanz,B2,999,qabul qilish,same_level,same,2,kept
+D0799,widersprechen,B2,789,qarshi chiqmoq,same_level,same,3,kept
+D0799,widersprechen,B2,1054,qarshi chiqmoq,same_level,same,3,kept
+D0799,widersprechen,B2,1400,qarshi chiqmoq,same_level,same,3,kept
+D0800,bedeutsam,B2,824,ahamiyatli,same_level,same,2,kept
+D0800,bedeutsam,B2,1151,ahamiyatli,same_level,same,2,kept
+D0801,die Bedeutung,B2,825,ahamiyat,same_level,same,2,kept
+D0801,die Bedeutung,B2,1150,ahamiyat,same_level,same,2,kept
+D0802,maßgeblich,B2,828,asosiy ta’sir ko‘rsatuvchi,cross_level,different,2,kept
+D0802,maßgeblich,C1,63,hal qiluvchi ahamiyatga ega,cross_level,different,2,kept
+D0803,relevant,B2,829,muhim,cross_level,different,2,kept
+D0803,relevant,C1,39,mavzuga bevosita daxldor,cross_level,different,2,kept
+D0804,demzufolge,B2,843,shundan kelib chiqib,cross_level,different,3,kept
+D0804,demzufolge,C1,36,mantiqiy natija sifatida,same_level,different,3,kept
+D0804,demzufolge,C1,694,mantiqiy natija sifatida,same_level,different,3,kept
+D0805,hingegen,B2,847,aksincha,cross_level,different,3,kept
+D0805,hingegen,C1,20,bunga qarama-qarshi ravishda,same_level,different,3,kept
+D0805,hingegen,C1,614,bunga qarama-qarshi ravishda,same_level,different,3,kept
+D0806,verschlechtern,B2,872,yomonlashtirmoq,same_level,same,2,kept
+D0806,verschlechtern,B2,1340,yomonlashtirmoq,same_level,same,2,kept
+D0807,zeitgemäß,B2,895,zamonga mos,same_level,same,2,kept
+D0807,zeitgemäß,B2,1296,zamonga mos,same_level,same,2,kept
+D0808,traditionell,B2,897,an’anaviy,same_level,same,2,kept
+D0808,traditionell,B2,953,an’anaviy,same_level,same,2,kept
+D0809,die Integration,B2,944,integratsiya,same_level,same,2,kept
+D0809,die Integration,B2,1312,integratsiya,same_level,same,2,kept
+D0810,die Gewohnheit,B2,946,odat,same_level,same,2,kept
+D0810,die Gewohnheit,B2,1105,odat,same_level,same,2,kept
+D0811,prägen,B2,991,shakllantirmoq,cross_level,different,2,kept
+D0811,prägen,C1,45,uzoq muddatli ta’sir ko‘rsatmoq,cross_level,different,2,kept
+D0812,die Erholung,B2,1103,dam olish,same_level,different,2,kept
+D0812,die Erholung,B2,1256,tiklanish,same_level,different,2,kept
+D0813,interpretieren,B2,1144,talqin qilmoq,cross_level,different,2,kept
+D0813,interpretieren,C1,25,ma’nosini sharhlamoq,cross_level,different,2,kept
+D0814,die Interpretation,B2,1145,talqin,cross_level,different,2,kept
+D0814,die Interpretation,C1,74,mazmuniy sharh,cross_level,different,2,kept
+D0815,die Argumentation,B2,1173,dalillash,cross_level,different,2,kept
+D0815,die Argumentation,C1,46,mantiqiy dalillash tizimi,cross_level,different,2,kept
+D0816,die Berichterstattung,B2,1177,xabar berish,cross_level,different,2,kept
+D0816,die Berichterstattung,C1,203,axborot yoritilishi,cross_level,different,2,kept
+D0817,die Öffentlichkeit,B2,1186,jamoatchilik,same_level,same,3,kept
+D0817,die Öffentlichkeit,B2,1391,jamoatchilik,same_level,same,3,kept
+D0817,die Öffentlichkeit,C1,209,jamoatchilik,cross_level,same,3,kept
+D0818,öffentlich,B2,1187,ommaviy,same_level,same,2,kept
+D0818,öffentlich,B2,1392,ommaviy,same_level,same,2,kept
+D0819,die öffentliche Meinung,B2,1191,jamoatchilik fikri,cross_level,same,2,kept
+D0819,die öffentliche Meinung,C1,247,jamoatchilik fikri,cross_level,same,2,kept
+D0820,nichtsdestotrotz,C1,8,shunga qaramay,same_level,same,2,kept
+D0820,nichtsdestotrotz,C1,710,shunga qaramay,same_level,same,2,kept
+D0821,dementsprechend,C1,16,mos ravishda,same_level,different,2,kept
+D0821,dementsprechend,C1,602,shunga muvofiq ravishda,same_level,different,2,kept
+D0822,die Einflussnahme,C1,18,ongli ta’sir o‘tkazish,same_level,different,2,kept
+D0822,die Einflussnahme,C1,207,ongli ta’sir ko‘rsatish,same_level,different,2,kept
+D0823,wohingegen,C1,40,aksincha bo‘lgan holda,same_level,same,2,kept
+D0823,wohingegen,C1,662,aksincha bo‘lgan holda,same_level,same,2,kept
+D0824,demnach,C1,56,mantiqiy tarzda kelib chiqib,same_level,different,2,kept
+D0824,demnach,C1,646,shu asosda,same_level,different,2,kept
+D0825,unter anderem,C1,60,jumladan,same_level,same,2,kept
+D0825,unter anderem,C1,626,jumladan,same_level,same,2,kept
+D0826,die Hypothese,C1,62,ilmiy taxmin,same_level,same,2,kept
+D0826,die Hypothese,C1,401,ilmiy taxmin,same_level,same,2,kept
+D0827,in Anbetracht dessen,C1,64,shu holatni hisobga olib,same_level,same,2,kept
+D0827,in Anbetracht dessen,C1,650,shu holatni hisobga olib,same_level,same,2,kept
+D0828,unter Umständen,C1,72,ma’lum sharoitlarda,same_level,different,2,kept
+D0828,unter Umständen,C1,726,ba’zi holatlarda,same_level,different,2,kept
+D0829,in diesem Zusammenhang,C1,76,shu bog‘liqlik doirasida,same_level,same,2,kept
+D0829,in diesem Zusammenhang,C1,618,shu bog‘liqlik doirasida,same_level,same,2,kept
+D0830,gleichwohl,C1,80,shunga qaramay,same_level,same,2,kept
+D0830,gleichwohl,C1,638,shunga qaramay,same_level,same,2,kept
+D0831,in erster Linie,C1,84,avvalo,same_level,same,2,kept
+D0831,in erster Linie,C1,698,avvalo,same_level,same,2,kept
+D0832,unter Berücksichtigung,C1,88,hisobga olgan holda,same_level,same,2,kept
+D0832,unter Berücksichtigung,C1,690,hisobga olgan holda,same_level,same,2,kept
+D0833,demgegenüber,C1,96,bunga qarama-qarshi ravishda,same_level,different,2,kept
+D0833,demgegenüber,C1,630,bunga nisbatan qaraganda,same_level,different,2,kept
+D0834,die Einflussmöglichkeit,C1,102,ta’sir ko‘rsatish imkoniyati,same_level,same,2,kept
+D0834,die Einflussmöglichkeit,C1,249,ta’sir ko‘rsatish imkoniyati,same_level,same,2,kept
+D0835,nicht zuletzt,C1,104,eng kamida emas,same_level,different,2,kept
+D0835,nicht zuletzt,C1,654,ayniqsa,same_level,different,2,kept
+D0836,in vielerlei Hinsicht,C1,108,ko‘p jihatdan,same_level,same,2,kept
+D0836,in vielerlei Hinsicht,C1,658,ko‘p jihatdan,same_level,same,2,kept
+D0837,kontrovers diskutieren,C1,115,bahsli tarzda muhokama qilmoq,same_level,different,2,kept
+D0837,kontrovers diskutieren,C1,208,keskin bahs yuritmoq,same_level,different,2,kept
+D0838,subjektiv geprägt,C1,117,subyektiv qarash bilan shakllangan,same_level,different,2,kept
+D0838,subjektiv geprägt,C1,214,shaxsiy qarash ta’sirida shakllangan,same_level,different,2,kept
+D0839,folglich argumentieren,C1,122,mantiqiy tarzda dalillamoq,same_level,same,2,kept
+D0839,folglich argumentieren,C1,802,mantiqiy tarzda dalillamoq,same_level,same,2,kept
+D0840,insofern,C1,126,shu jihatdan qaraganda,same_level,same,2,kept
+D0840,insofern,C1,642,shu jihatdan qaraganda,same_level,same,2,kept
+D0841,in gewisser Hinsicht,C1,134,ma’lum jihatdan,same_level,same,2,kept
+D0841,in gewisser Hinsicht,C1,634,ma’lum jihatdan,same_level,same,2,kept
+D0842,folglich betrachtet,C1,144,mantiqan qaralganda,same_level,same,2,kept
+D0842,folglich betrachtet,C1,730,mantiqan qaralganda,same_level,same,2,kept
+D0843,unter bestimmten Umständen,C1,148,ma’lum sharoitlarda,same_level,same,2,kept
+D0843,unter bestimmten Umständen,C1,670,ma’lum sharoitlarda,same_level,same,2,kept
+D0844,kritisch hinterfragen,C1,149,tanqidiy qayta ko‘rib chiqmoq,same_level,same,2,kept
+D0844,kritisch hinterfragen,C1,274,tanqidiy qayta ko‘rib chiqmoq,same_level,same,2,kept
+D0845,nicht zwangsläufig,C1,160,majburiy ravishda emas,same_level,different,2,kept
+D0845,nicht zwangsläufig,C1,682,har doim ham emas,same_level,different,2,kept
+D0846,in dieser Hinsicht,C1,168,shu jihatdan qaraganda,same_level,same,2,kept
+D0846,in dieser Hinsicht,C1,706,shu jihatdan qaraganda,same_level,same,2,kept
+D0847,in diesem Fall,C1,172,bu holatda,same_level,same,2,kept
+D0847,in diesem Fall,C1,714,bu holatda,same_level,same,2,kept
+D0848,im Vergleich dazu,C1,180,bunga nisbatan,same_level,same,2,kept
+D0848,im Vergleich dazu,C1,686,bunga nisbatan,same_level,same,2,kept
+D0849,infolgedessen entstehen,C1,184,natijada yuzaga kelmoq,same_level,same,2,kept
+D0849,infolgedessen entstehen,C1,718,natijada yuzaga kelmoq,same_level,same,2,kept
+D0850,die Schlussfolgerung ziehen,C1,186,xulosa chiqarmoq,same_level,different,2,kept
+D0850,die Schlussfolgerung ziehen,C1,427,mantiqiy xulosa chiqarmoq,same_level,different,2,kept
+D0851,in theoretischer Hinsicht,C1,188,nazariy jihatdan,same_level,same,3,kept
+D0851,in theoretischer Hinsicht,C1,678,nazariy jihatdan,same_level,same,3,kept
+D0851,in theoretischer Hinsicht,C1,742,nazariy jihatdan,same_level,same,3,kept
+D0852,in Bezug auf,C1,196,ga nisbatan,same_level,same,2,kept
+D0852,in Bezug auf,C1,666,ga nisbatan,same_level,same,2,kept
+D0853,folgenschwer,C1,204,jiddiy oqibatlarga olib keluvchi,same_level,same,2,kept
+D0853,folgenschwer,C1,674,jiddiy oqibatlarga olib keluvchi,same_level,same,2,kept
+D0854,nicht eindeutig interpretierbar,C1,226,bir ma’noli sharhlab bo‘lmaydigan,same_level,same,2,kept
+D0854,nicht eindeutig interpretierbar,C1,898,bir ma’noli sharhlab bo‘lmaydigan,same_level,same,2,kept
+D0855,medial präsent sein,C1,244,media maydonida faol ko‘rinmoq,same_level,same,2,kept
+D0855,medial präsent sein,C1,362,media maydonida faol ko‘rinmoq,same_level,same,2,kept
+D0856,politische Einflussnahme,C1,280,siyosiy ta’sir o‘tkazish,same_level,same,2,kept
+D0856,politische Einflussnahme,C1,640,siyosiy ta’sir o‘tkazish,same_level,same,2,kept
+D0857,die gesellschaftliche Wahrnehmung,C1,285,jamiyatdagi idrok,same_level,same,2,kept
+D0857,die gesellschaftliche Wahrnehmung,C1,711,jamiyatdagi idrok,same_level,same,2,kept
+D0858,die gesellschaftliche Veränderung,C1,293,ijtimoiy o‘zgarish,same_level,different,2,kept
+D0858,die gesellschaftliche Veränderung,C1,675,jamiyatdagi o‘zgarish,same_level,different,2,kept
+D0859,die gesellschaftliche Verantwortungslosigkeit,C1,299,ijtimoiy mas’uliyatsizlik,same_level,same,2,kept
+D0859,die gesellschaftliche Verantwortungslosigkeit,C1,655,ijtimoiy mas’uliyatsizlik,same_level,same,2,kept
+D0860,die gesellschaftliche Orientierung,C1,305,jamiyatdagi yo‘nalish,same_level,same,2,kept
+D0860,die gesellschaftliche Orientierung,C1,659,jamiyatdagi yo‘nalish,same_level,same,2,kept
+D0861,die gesellschaftliche Dynamik,C1,311,jamiyatdagi harakat jarayoni,same_level,same,2,kept
+D0861,die gesellschaftliche Dynamik,C1,667,jamiyatdagi harakat jarayoni,same_level,same,2,kept
+D0862,die gesellschaftliche Spaltung,C1,325,jamiyatning bo‘linishi,same_level,same,2,kept
+D0862,die gesellschaftliche Spaltung,C1,691,jamiyatning bo‘linishi,same_level,same,2,kept
+D0863,die gesellschaftliche Akzeptanz erhöhen,C1,378,jamiyatdagi qabul qilinishni oshirmoq,same_level,same,2,kept
+D0863,die gesellschaftliche Akzeptanz erhöhen,C1,641,jamiyatdagi qabul qilinishni oshirmoq,same_level,same,2,kept
+D0864,die gesellschaftliche Verantwortung stärken,C1,651,ijtimoiy mas’uliyatni kuchaytirmoq,same_level,same,2,kept
+D0864,die gesellschaftliche Verantwortung stärken,C1,739,ijtimoiy mas’uliyatni kuchaytirmoq,same_level,same,2,kept
+D0865,insofern betrachtet,C1,746,shu jihatdan qaralganda,same_level,same,2,kept
+D0865,insofern betrachtet,C1,810,shu jihatdan qaralganda,same_level,same,2,kept
+D0866,folglich interpretiert,C1,774,mantiqan sharhlanganda,same_level,same,2,kept
+D0866,folglich interpretiert,C1,818,mantiqan sharhlanganda,same_level,same,2,kept
+D0867,die Interpretationskompetenz,C1,851,talqin qilish qobiliyati,same_level,different,2,kept
+D0867,die Interpretationskompetenz,C1,1086,talqin kompetensiyasi,same_level,different,2,kept
+D0868,die Diskursanalyse,C1,857,diskurs tahlili,same_level,same,2,kept
+D0868,die Diskursanalyse,C1,1066,diskurs tahlili,same_level,same,2,kept
+D0869,die Interpretationsstrategie,C1,935,talqin strategiyasi,same_level,same,2,kept
+D0869,die Interpretationsstrategie,C1,1092,talqin strategiyasi,same_level,same,2,kept
