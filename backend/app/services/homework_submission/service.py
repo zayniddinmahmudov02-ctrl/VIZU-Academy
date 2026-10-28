@@ -43,7 +43,11 @@ class HomeworkSubmissionService:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Homework not found")
 
         item = self.repository.upsert(student_id, homework_id, text_content)
-        return HomeworkSubmissionResponse.model_validate(item)
+        response = HomeworkSubmissionResponse.model_validate(item)
+        from app.services.study_groups.scope import after_submission
+
+        after_submission(self.db, student_id, homework.lesson_id, f"Hausaufgabe topshirildi: {homework.title}")
+        return response
 
     def get_own(self, student_id: UUID, homework_id: UUID) -> HomeworkSubmissionResponse | None:
         item = self.repository.get_by_student_and_homework(student_id, homework_id)
@@ -99,6 +103,11 @@ class HomeworkSubmissionService:
         course_ids = [str(c) for c in self.assignments.course_ids_for_teacher(teacher_id)]
         row = self.repository.get_for_teacher(course_ids, submission_id)
         if row is None:
+            # the teacher of a group the student is in (app/services/study_groups/scope.py)
+            from app.services.study_groups.scope import scoped_row
+
+            row = scoped_row(self.db, self.repository, teacher_id, submission_id)
+        if row is None:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Submission not found")
         return self._to_teacher_schema(row)
 
@@ -117,6 +126,9 @@ class HomeworkSubmissionService:
 
         item = self.repository.get(submission_id)
         graded = self.repository.grade(item, teacher_id, score, feedback, new_status)
+        from app.services.study_groups.scope import after_grading
+
+        after_grading(self.db, graded.student_id, graded.homework.title, graded.status, graded.score)
         return self._to_teacher_schema(
             (
                 graded,

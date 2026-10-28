@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
-import { GraduationCap, LayoutDashboard, LogOut, Mic, PenLine, Users } from "lucide-react";
+import { GraduationCap, LayoutDashboard, LogOut, Mic, PenLine, UsersRound, Users } from "lucide-react";
 
 import Logo from "@/components/common/logo";
 import Avatar from "@/components/ui/avatar";
@@ -19,6 +19,7 @@ import TeacherGuard from "./teacher-guard";
 
 const NAV = [
   { href: "/teacher", labelKey: "teacher.overviewTitle", icon: LayoutDashboard },
+  { href: "/teacher/groups", labelKey: "teacher.navGroups", icon: UsersRound },
   { href: "/teacher/students", labelKey: "teacher.navStudents", icon: Users },
   { href: "/teacher/schreiben", labelKey: "teacher.navSchreiben", icon: PenLine },
   { href: "/teacher/sprechen", labelKey: "teacher.navSprechen", icon: Mic },

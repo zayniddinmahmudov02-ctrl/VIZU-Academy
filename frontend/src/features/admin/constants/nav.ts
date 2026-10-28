@@ -22,6 +22,7 @@ import {
   Tag,
   TrendingUp,
   Users,
+  UsersRound,
   type LucideIcon,
 } from "lucide-react";
 
@@ -61,6 +62,7 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
       { label: "Users", href: "/admin/users", icon: Users },
       { label: "Team", href: "/admin/team", icon: Contact },
       { label: "Lehrer-Zuweisungen", href: "/admin/teacher-assignments", icon: School },
+      { label: "Gruppen / Guruhlar", href: "/admin/groups", icon: UsersRound },
       { label: "Premium-Users", href: "/admin/premium-users", icon: Crown },
       { label: "Zertifikate", href: "/admin/certificates", icon: Award },
       { label: "Achievements / Medals", href: "/admin/achievements", icon: Medal },

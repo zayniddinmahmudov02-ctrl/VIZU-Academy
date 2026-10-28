@@ -68,6 +68,16 @@ from .broadcast_notification import BroadcastNotification, BroadcastNotification
 from .support import SupportMessage, SupportTicket
 from .lms import LearningResource, LessonCompetency, StudentCompetencyProgress
 from .dictionary import DictionaryEntry, DictionaryUserWord
+from .study_group import (
+    StudyGroup,
+    StudyGroupAnnouncement,
+    StudyGroupAuditLog,
+    StudyGroupCourse,
+    StudyGroupJoinCode,
+    StudyGroupMember,
+    StudyGroupMessage,
+    StudyGroupTask,
+)
 
 # Certificate
 from .certificate import Certificate

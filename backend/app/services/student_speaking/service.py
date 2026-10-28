@@ -82,6 +82,15 @@ class StudentSpeakingService:
     async def upload_recording(
         self, user_id: UUID, speaking_id: UUID, file: UploadFile, duration_seconds: int | None
     ) -> StudentSpeaking:
+        item = await self._upload_recording(user_id, speaking_id, file, duration_seconds)
+        from app.services.study_groups.scope import after_submission
+
+        after_submission(self.db, user_id, item.speaking.lesson_id, f"Sprechen topshirildi: {item.speaking.title}")
+        return item
+
+    async def _upload_recording(
+        self, user_id: UUID, speaking_id: UUID, file: UploadFile, duration_seconds: int | None
+    ) -> StudentSpeaking:
         speaking = self.db.get(Speaking, speaking_id)
         if speaking is None or not speaking.is_published:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Speaking task not found")
@@ -199,6 +208,10 @@ class StudentSpeakingService:
         if user.role == UserRole.TEACHER:
             course_ids = [str(c) for c in self.assignments.course_ids_for_teacher(user.id)]
             row = self.repository.get_for_teacher(course_ids, submission_id)
+            if row is None:
+                from app.services.study_groups.scope import scoped_row
+
+                row = scoped_row(self.db, self.repository, user.id, submission_id)
             if row is not None:
                 return item
         elif user.role in UserRole.ADMIN_PANEL_ROLES:
@@ -249,6 +262,11 @@ class StudentSpeakingService:
         course_ids = [str(c) for c in self.assignments.course_ids_for_teacher(teacher_id)]
         row = self.repository.get_for_teacher(course_ids, submission_id)
         if row is None:
+            # the teacher of a group the student is in (app/services/study_groups/scope.py)
+            from app.services.study_groups.scope import scoped_row
+
+            row = scoped_row(self.db, self.repository, teacher_id, submission_id)
+        if row is None:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Submission not found")
         return self._to_teacher_item(row)
 
@@ -272,6 +290,9 @@ class StudentSpeakingService:
 
         # Grading is what makes Schreiben/Sprechen count as completed.
         refresh_lesson_completion(self.db, item.user_id, item.speaking.lesson_id)
+        from app.services.study_groups.scope import after_grading
+
+        after_grading(self.db, item.user_id, item.speaking.title, item.status, item.score)
 
         return self._to_teacher_item(
             (item, item.speaking, item.speaking.lesson, item.speaking.lesson.module, item.speaking.lesson.module.course, item.user)

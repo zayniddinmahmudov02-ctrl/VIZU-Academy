@@ -93,6 +93,14 @@ class StudentWritingService:
     # ==========================
 
     def submit(self, user_id: UUID, writing_id: UUID, answer_text: str, submit_final: bool) -> StudentWriting:
+        item = self._submit(user_id, writing_id, answer_text, submit_final)
+        if submit_final and item.status == STATUS_SUBMITTED:
+            from app.services.study_groups.scope import after_submission
+
+            after_submission(self.db, user_id, item.writing.lesson_id, f"Schreiben topshirildi: {item.writing.title}")
+        return item
+
+    def _submit(self, user_id: UUID, writing_id: UUID, answer_text: str, submit_final: bool) -> StudentWriting:
         writing = self.db.get(Writing, writing_id)
         if writing is None or not writing.is_published:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Writing task not found")
@@ -215,6 +223,11 @@ class StudentWritingService:
         course_ids = [str(c) for c in self.assignments.course_ids_for_teacher(teacher_id)]
         row = self.repository.get_for_teacher(course_ids, submission_id)
         if row is None:
+            # the teacher of a group the student is in (app/services/study_groups/scope.py)
+            from app.services.study_groups.scope import scoped_row
+
+            row = scoped_row(self.db, self.repository, teacher_id, submission_id)
+        if row is None:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Submission not found")
         return self._to_teacher_item(row)
 
@@ -241,6 +254,9 @@ class StudentWritingService:
 
         # Grading is what makes Schreiben/Sprechen count as completed.
         refresh_lesson_completion(self.db, item.user_id, item.writing.lesson_id)
+        from app.services.study_groups.scope import after_grading
+
+        after_grading(self.db, item.user_id, item.writing.title, item.status, item.score)
 
         return self._to_teacher_item(
             (item, item.writing, item.writing.lesson, item.writing.lesson.module, item.writing.lesson.module.course, item.user)
