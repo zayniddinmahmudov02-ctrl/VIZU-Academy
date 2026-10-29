@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import GlobalChatWidget from "@/features/global-chat/components/global-chat-widget";
+
 import AdminGuard from "./admin-guard";
 import AdminHeader from "./admin-header";
 import AdminMobileNav from "./admin-mobile-nav";
@@ -21,8 +23,9 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
 
         <div className="flex min-w-0 flex-1 flex-col">
           <AdminHeader onMenuClick={() => setMobileNavOpen(true)} />
-          <main className="flex-1 p-4 sm:p-6 lg:p-8">{children}</main>
+          <main className="flex-1 p-4 pb-24 sm:p-6 sm:pb-24 lg:p-8 lg:pb-24">{children}</main>
         </div>
+        <GlobalChatWidget />
       </div>
     </AdminGuard>
   );

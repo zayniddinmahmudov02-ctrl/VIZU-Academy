@@ -78,6 +78,13 @@ from .study_group import (
     StudyGroupMessage,
     StudyGroupTask,
 )
+from .global_chat import (
+    GlobalChatMessage,
+    GlobalChatMessageEdit,
+    GlobalChatModerationAction,
+    GlobalChatRead,
+    GlobalChatRestriction,
+)
 
 # Certificate
 from .certificate import Certificate

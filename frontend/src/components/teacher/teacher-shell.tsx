@@ -11,6 +11,7 @@ import Avatar from "@/components/ui/avatar";
 import { logoutService } from "@/features/auth/services/auth.service";
 import { CURRENT_USER_QUERY_KEY, useCurrentUser } from "@/features/auth/hooks/use-current-user";
 import PanelSwitcherMenu from "@/features/auth/components/panel-switcher-menu";
+import GlobalChatWidget from "@/features/global-chat/components/global-chat-widget";
 import { getRefreshToken, removeRefreshToken, removeToken } from "@/lib/token";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { cn } from "@/lib/utils";
@@ -131,7 +132,8 @@ export default function TeacherShell({ children }: { children: React.ReactNode }
           })}
         </nav>
 
-        <main className="safe-bottom mx-auto max-w-5xl px-4 py-8 sm:px-6">{children}</main>
+        <main className="safe-bottom mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-6">{children}</main>
+        <GlobalChatWidget />
       </div>
     </TeacherGuard>
   );
