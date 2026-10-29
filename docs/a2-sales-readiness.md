@@ -1,6 +1,24 @@
 # A2 kursi — sotuvga tayyorlik
 
-Sana: 2026-10-30. **Joriy baho: A2 sotuvga tayyor EMAS.** Kutilayotgan holat: `NEEDS_CONTENT` (haqiqiy audio fayllar yo‘q). Aniq holatni production’dagi indikator ko‘rsatadi (deploy’dan keyin). Sotuv yoqilmadi, narx o‘zgartirilmadi.
+Sana: 2026-10-30. **Production indikatori (deploy’dan keyin, 2026-10-29 22:0x UTC): `NEEDS_CONTENT`. A2 kontent jihatidan sotuvga tayyor EMAS.**
+
+> ⚠ **Diqqat:** production’da A2 sotuvi **allaqachon yoqilgan** — SUPER_ADMIN 2026-10-28 19:32 da Admin → Angebote orqali `sales.A2 = true` qilgan (audit log: `angebote_config_updated`). A2 taklifi `purchasable: true`, narx 99 000 UZS. Hozircha A2 buyurtmalari yo‘q (0). Bu biznes qarori bo‘lgani uchun men uni o‘zgartirmadim. Tavsiya: audio va kalitlar tayyor bo‘lguncha sotuvni yopish yoki o‘quvchilarga “audio hali yuklanmagan” holatini ochiq aytish — qaror sizda.
+
+Production’dagi tekshiruvlar:
+
+| Tekshiruv | Holat | Tafsilot |
+|---|---|---|
+| `price` | OK | 99 000 UZS (200 000 dan), aktiv |
+| `lessons` | OK | 14 tadan 13 ta dars nashr qilingan (14 — “Wiederholung”, ataylab nashrsiz) |
+| `description` | OK | kurs tavsifi bor |
+| `manifest` | — | kutubxonada 0 fayl |
+| `audio_complete` | — | 25 tadan 3 ta Hören vazifasida audio |
+| `audio_verified` | — | bog‘langan fayl yo‘q |
+| `links` | — | 0 bog‘lanish |
+| `payment_tested`, `access_tested`, `responsive_tested`, `tests_passed` | ochiq | qo‘lda tasdiqlanmagan |
+| “Noch auszufüllen” | 20 | kaliti yo‘q Hören vazifalari |
+
+Sotuvni men yoqmadim va narxni o‘zgartirmadim.
 
 ## 1. Mavjud sotuv tizimi (audit, o‘zgartirilmagan qismlar)
 

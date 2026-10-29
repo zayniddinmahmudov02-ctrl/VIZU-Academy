@@ -1,6 +1,6 @@
 # Eski A2 audio arxivini tozalash rejasi
 
-Sana: 2026-10-30. Holat: **reja va vositalar tayyor. Production’da hech narsa ko‘chirilmagan va o‘chirilmagan.** Har bir bosqich alohida tasdiq bilan bajariladi.
+Sana: 2026-10-30. Holat: **vositalar production’ga deploy qilingan; production’da faqat `plan` (o‘qish) bajarilgan — 4-bo‘lim. Hech narsa ko‘chirilmagan va o‘chirilmagan.** Har bir keyingi bosqich alohida tasdiq bilan bajariladi.
 
 ## 1. Eski A2 audio arxivi aniq nima va qayerda
 
@@ -16,7 +16,7 @@ Production bazasiga bu ishda ulanilmadi (lokal muhit, `/opt/vizu` ga kirish yo�
 
 Oldingi auditdan ma’lum: 2026-10-22 dagi backup `/var/backups/vizu/a2-reset-20261022-185358/`; 13-dars uchun yetkazilgan fayllar 12-darsnikiga bayt-ma-bayt teng bo‘lgan (yangi A2 Audio Manager buni SHA-256 orqali dublikat deb rad etadi).
 
-**Necha fayl va yozuv borligi hozircha noma’lum** — bu faqat serverda `plan` ishga tushirilganda ma’lum bo‘ladi. Taxminiy son yozilmadi.
+Production’dagi aniq sonlar — 4-bo‘limda (2026-10-29 dagi `plan`).
 
 ## 2. Nima “eski A2 audio” hisoblanadi, nima tegilmaydi
 
@@ -53,27 +53,38 @@ RESTORE_CHECK=1 bash scripts/backup-course-content.sh
 # natija shu hujjatning 4-bo'limiga qo'shiladi va ko'rib chiqiladi
 ```
 
-## 4. Manifest (serverdagi `plan` natijasi bilan to‘ldiriladi)
+## 4. Manifest — production `plan` natijasi (2026-10-29 22:02 UTC, faqat o‘qish)
+
+Buyruq: `python -m app.scripts.a2_audio_cleanup plan --json … --md …`. Natija fayllari: `/var/backups/vizu/pre-gcr-a2-20261029-224405/a2-cleanup-plan.{json,md}`. `app/protected_storage` dagi fayllar soni plan’dan oldin va keyin: 178 / 178.
 
 | Ko‘rsatkich | Qiymat |
 |---|---|
-| A2 bilan bog‘liq fayllar | _server `plan` dan keyin_ |
-| Tozalashga tayyor | _—_ |
-| Saqlanadi (sababi bilan) | _—_ |
-| DB’da bor, diskda yo‘q | _—_ |
-| Eski DB qatorlari (o‘zgartirilmaydi) | _—_ |
-| Hech narsa ishora qilmaydigan fayllar (tegilmaydi) | _—_ |
-| `plan id` | _—_ |
+| A2 bilan bog‘liq fayllar | **9** |
+| Tozalashga tayyor (barcha ishoralar eski A2) | **6** (7 303 655 bayt) |
+| Saqlanadi | **3** — joriy A2 Hören vazifasi ishlatadi |
+| Boshqa daraja bilan umumiy | 0 |
+| DB’da bor, diskda yo‘q | 0 |
+| Eski DB qatorlari (o‘zgartirilmaydi) | 6 (`task_audio` 6, `task_track` 0, `archived_version` 0) |
+| Hech narsa ishora qilmaydigan fayllar | 0 |
+| `plan id` | `18b3ca387a20` |
 
-Lokal test bazasidagi namunaviy chiqish formati (haqiqiy ma’lumot emas):
+| Fayl | Hajm | Holat | Ishora |
+|---|---|---|---|
+| `38e4f28a2cb44c1cb72ce8c1cd423c29.mp3` | 627 069 | tayyor | `[Archiv] Hören: Steigende Mieten in Deutschland!` (A2/5) |
+| `42acd4c7ab6a43d2a52167e9cd5a8c95.m4a` | 2 345 068 | tayyor | `[Archiv] A2 1.Unterricht Hören`, key `a2-l01-audio-01` (A2/1) |
+| `473564fa4a104d358c1b574f9eacbc39.m4a` | 2 345 068 | tayyor | `[Archiv] Hören: Warum haben Sie Ihren Beruf gewählt?` (A2/1) |
+| `900fe1ccb29c4b84877291b439fd52a3.mp3` | 747 741 | tayyor | `[Archiv] Hören: Die Empfehlungen eines Arztes` (A2/3) |
+| `e80e1092cd47415b937ac684fe085a5b.mp3` | 940 104 | tayyor | `[Archiv] Hören: Sendung „Gemeinschaftskreis“ …` (A2/2) |
+| `f8c9ac4a9a504a479e1cf7dd41e76782.mp3` | 298 605 | tayyor | `[Archiv] Hören: Familie Mannsberg` (A2/4) |
+| `c99dbc8947c74b20828ee611927161c9.m4a` | 2 345 068 | **saqlanadi** | joriy `Hören: Warum haben Sie Ihren Beruf gewählt?` (A2/1) |
+| `8b6dda12f90d4e008997584421658a77.mp3` | 940 104 | **saqlanadi** | joriy `Hören: Sendung „Gemeinschaftskreis“ …` (A2/2) |
+| `138b761dd0a041d3be7422c4dc3a2aa9.mp3` | 747 741 | **saqlanadi** | joriy `Hören: Die Empfehlungen eines Arztes` (A2/3) |
 
-```
-| A2-linked files | 2 |
-| ready to clean (all references old A2) | 0 (0 bytes) |
-| kept (blocked) | 2 |
-...
-| `a2-audio/a08f….m4a` | 2816 | kept: used by the A2 Audio Manager | a2_audio_manager A2/2 'A2 2.Unterricht Hören' |
-```
+DB tomonda (A2 darslari): 25 ta `[Archiv]` Hören vazifasi (5 tasida audio), 25 ta joriy vazifa (3 tasida audio), 1 ta legacy `a2_material_key` vazifasi (audio bilan); arxivlangan versiyalar 0, qo‘shimcha treklar 0. A1 ning 16 ta audio fayli qamrovda emas va tegilmagan.
+
+Kuzatuv: 1–3-darslarda `[Archiv]` va joriy vazifa fayllari bir xil hajmda — birinchi nashrdan nusxa olingan bo‘lishi mumkin. Joriy vazifalar o‘z nusxasini ishlatgani uchun `[Archiv]` nusxalarini karantinga olish ularga ta’sir qilmaydi (plan buni ishoralar bo‘yicha tekshirgan).
+
+**Karantin, purge va DB o‘zgarishi bajarilmagan.** Keyingi qadam (alohida tasdiq): `quarantine --confirm 18b3ca387a20` (plan o‘zgargan bo‘lsa, buyruq o‘zi rad etadi).
 
 ## 5. Nima o‘zgartirilmadi
 

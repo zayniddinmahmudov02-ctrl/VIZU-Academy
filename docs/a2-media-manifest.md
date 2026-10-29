@@ -45,13 +45,16 @@ Bu jadval fayllar sonini belgilamaydi. Haqiqiy son yuklashdan keyin manifestda c
 - Bog‘langan vazifa qoralamaga o‘tadi; admin audio va savollarni tekshirib nashr qiladi. Vazifaning oldingi audiosi `listening_audio_archives` ga o‘tadi (o‘chirilmaydi).
 - Faqat joriy A2 Hören vazifalari maqsad bo‘la oladi; `[Archiv]`, `a2_material_key` va boshqa darajalar vazifalari rad etiladi.
 
-## 4. Hozirgi holat
+## 4. Hozirgi holat — production (2026-10-29 22:02 UTC, A2 Audio Manager deploy qilingandan keyin)
+
+Manba: `python -m app.scripts.a2_audio_manifest` (faqat o‘qiydi) → `/var/backups/vizu/pre-gcr-a2-20261029-224405/a2-media-manifest.md`.
 
 | | |
 |---|---|
-| Kutubxonadagi fayllar (production) | **noma’lum / 0 deb hisoblanadi** — A2 Audio Manager hali deploy qilinmagan |
-| Haqiqiy fayllar bu ishda yuklanganmi | **yo‘q** |
-| Hören vazifalari (oldingi audit, 2026-10-27) | 25 ta joriy vazifa (1–9-darslar 1 tadan, 10–13-darslar 4 tadan), hammasi qoralama, audio kutilmoqda |
-| Yetishmayotgan audio | deploy’dan keyin manifestdagi “Audio fehlt” ro‘yxati; hozircha 25 ta vazifaning barchasi |
+| A2 Audio Manager kutubxonasidagi fayllar | **0** — haqiqiy fayllar hali yuklanmagan; test fayllari production’ga yuklanmadi |
+| Joriy A2 Hören vazifalari | **25** |
+| Audio bor (eski per-vazifa upload orqali) | **3** — 1-dars “Warum haben Sie Ihren Beruf gewählt?”, 2-dars “Sendung „Gemeinschaftskreis“ …”, 3-dars “Die Empfehlungen eines Arztes” |
+| Audio yo‘q | **22** — Admin → Media Management → A2 dagi “Audio fehlt” ro‘yxati |
+| Eski arxiv (`[Archiv]` / legacy) | 6 fayl, faqat eski vazifalarga tegishli — `docs/a2-media-cleanup-plan.md` 4-bo‘lim |
 
-Deploy’dan va fayllar yuklangandan keyin serverda: `python -m app.scripts.a2_audio_manifest > /root/a2-media-manifest.md` va natijani shu bo‘limga qo‘shish.
+Fayllar yuklangandan keyin manifestni shu buyruq bilan qayta chiqarib, bu bo‘limni yangilash kerak.

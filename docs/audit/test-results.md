@@ -1,6 +1,10 @@
 # Test natijalari
 
-## 2026-10-30 — Global Chat reply + A2 Audio Manager
+## 2026-10-29 (server vaqti) — production deploy va smoke testlar
+
+Batafsil: `docs/audit/production-deploy-2026-10-29.md`. Serverda: o‘zgargan backend modullari 122 test OK (56 DB-integratsiya skip), frontend `tsc` OK, unit 19/19, build OK (2-urinishda), smoke testlar — HTTP 200, anonim 401 (11/11), READ ONLY servis tekshiruvlari OK. Brauzer orqali login qilingan smoke test bajarilmadi (production parollari yo‘q).
+
+## 2026-10-30 — Global Chat reply + A2 Audio Manager (lokal)
 
 Har bir raqam haqiqiy buyruq chiqishidan olingan. Loglar: `D:\vz_tmp\gcr_*.log`. Production’da hech qanday test bajarilmadi.
 
