@@ -66,6 +66,54 @@ class TestApiContract(unittest.TestCase):
         with self.assertRaises(ValidationError):
             RestrictionIn(user_id=uuid.uuid4(), kind="ban", duration="1y", reason="spam", created_by=uuid.uuid4())
 
+    def test_reply_body_carries_only_an_id(self):
+        from app.api.global_chat.router import MessageIn, SendIn
+
+        target = uuid.uuid4()
+        self.assertEqual(SendIn(body="hi", reply_to_id=str(target)).reply_to_id, target)
+        self.assertIsNone(SendIn(body="hi").reply_to_id)  # old clients: no reply
+        with self.assertRaises(ValidationError):
+            SendIn(body="hi", reply_to_id="not-a-uuid")
+        # the quote is never taken from the client
+        for extra in ({"reply_to_body": "fake"}, {"reply_to_sender": "Admin"}, {"sender_id": str(uuid.uuid4())}):
+            with self.subTest(extra=extra), self.assertRaises(ValidationError):
+                SendIn(body="hi", reply_to_id=str(target), **extra)
+        # editing cannot move a reply to another message
+        with self.assertRaises(ValidationError):
+            MessageIn(body="neu", reply_to_id=str(target))
+
+    def test_reply_preview_is_built_from_the_target(self):
+        from types import SimpleNamespace
+
+        from app.services.global_chat.messages import REPLY_EXCERPT, reply_preview
+
+        viewer = SimpleNamespace(id=uuid.uuid4(), role="STUDENT")
+        author = SimpleNamespace(id=uuid.uuid4(), first_name="Aziz", last_name="", username="aziz", role="STUDENT")
+
+        def msg(**kw):
+            base = {"reply_to_id": None, "reply_to": None, "status": "visible", "sender_id": author.id, "sender": author, "body": "x"}
+            return SimpleNamespace(**{**base, **kw})
+
+        self.assertIsNone(reply_preview(msg(), viewer))
+        long_text = "Hallo  👋\n" + "ä" * 400
+        target = msg(id=uuid.uuid4(), body=long_text)
+        p = reply_preview(msg(reply_to_id=target.id, reply_to=target), viewer)
+        self.assertTrue(p["available"])
+        self.assertEqual(p["sender"]["name"], "Aziz")
+        self.assertLessEqual(len(p["excerpt"]), REPLY_EXCERPT)
+        self.assertTrue(p["excerpt"].startswith("Hallo 👋 ä"))  # whitespace collapsed, emoji kept
+        self.assertTrue(p["excerpt"].endswith("…"))
+        for status in ("deleted", "hidden"):
+            with self.subTest(status=status):
+                gone = msg(id=uuid.uuid4(), status=status, body="geheim")
+                p = reply_preview(msg(reply_to_id=gone.id, reply_to=gone), viewer)
+                self.assertEqual(p, {"id": gone.id, "available": False, "sender": None, "excerpt": None})
+        # someone else's held message stays unknown; one's own held message is quoted to oneself
+        held = msg(id=uuid.uuid4(), status="pending", body="wartet")
+        self.assertFalse(reply_preview(msg(reply_to_id=held.id, reply_to=held), viewer)["available"])
+        own_held = msg(id=uuid.uuid4(), status="pending", sender_id=viewer.id, body="meins")
+        self.assertTrue(reply_preview(msg(reply_to_id=own_held.id, reply_to=own_held), viewer)["available"])
+
     def test_message_length_and_content(self):
         from app.api.global_chat.router import MessageIn
         from app.services.global_chat.messages import MAX_LENGTH, clean_text
@@ -744,6 +792,142 @@ class TestGlobalChat(unittest.TestCase):
         for i in range(messages.MAX_EDITS_PER_MINUTE):
             messages.edit_own(self.db, self.user["student"], m["id"], f"v{i + 1}")
         self.assertEqual(self._status(messages.edit_own, self.db, self.user["student"], m["id"], "zu viel"), (429, "too_many_edits"))
+
+    # replies
+
+    def _reply(self, who, target_id, body=None):
+        from app.services.global_chat import messages
+
+        return messages.post(self.db, self.user[who], body or f"Antwort {uuid.uuid4().hex[:8]}", target_id)
+
+    def test_reply_links_to_the_original(self):
+        from app.models.global_chat import GlobalChatMessage
+        from app.services.global_chat import messages
+
+        original = self._post("teacher", "Wer hat Aufgabe 3 gelöst?")
+        reply = self._reply("student", original["id"], "Ich! 🙋 Lösung: B")
+        self.assertEqual(self.db.get(GlobalChatMessage, reply["id"]).reply_to_id, original["id"])
+        self.assertEqual(reply["reply_to"], {"id": original["id"], "available": True, "excerpt": "Wer hat Aufgabe 3 gelöst?",
+                                             "sender": {"id": self.ids["teacher"], "name": "teacher"}})
+        for viewer in ("student2", "admin"):
+            with self.subTest(viewer=viewer):
+                item = next(m for m in messages.page(self.db, self.user[viewer])["items"] if m["id"] == reply["id"])
+                self.assertEqual(item["reply_to"]["id"], original["id"])
+                self.assertTrue(item["reply_to"]["available"])
+        # the original itself is no reply; a reply to a reply works too
+        self.assertIsNone(next(m for m in messages.page(self.db, self.user["student2"])["items"] if m["id"] == original["id"])["reply_to"])
+        time.sleep(messages.MIN_INTERVAL.total_seconds() + 0.1)
+        nested = self._reply("teacher", reply["id"], "Richtig!")
+        self.assertEqual(nested["reply_to"]["sender"]["name"], "student")
+        # polling delivers the reply with its quote
+        sync = messages.page(self.db, self.user["student2"])["sync"]
+        time.sleep(messages.MIN_INTERVAL.total_seconds() + 0.1)
+        late = self._reply("student", original["id"], "Ich auch")
+        upd = next(m for m in messages.updates(self.db, self.user["student2"], sync)["items"] if m["id"] == late["id"])
+        self.assertEqual(upd["reply_to"]["id"], original["id"])
+
+    def test_reply_to_unknown_or_foreign_message_is_refused(self):
+        from app.models.global_chat import GlobalChatMessage
+        from app.models.study_group import StudyGroupMessage
+        from app.services.global_chat import messages
+        from app.services.study_groups import chat, groups
+        from app.services.study_groups.access import require_view
+
+        self.assertEqual(self._status(self._reply, "student", uuid.uuid4()), (422, "reply_not_found"))
+        # a group-chat message id is not a Global Chat message
+        group, code = groups.create(self.db, self.user["teacher"], {"name": f"GR {uuid.uuid4().hex[:4]}", "level": "A1", "course_ids": []})
+        groups.join(self.db, self.user["student"], code, "10.0.0.9")
+        g, member = require_view(self.db, self.user["student"], group["id"])
+        chat.post_message(self.db, self.user["student"], g, member, "nur in der Gruppe")
+        group_msg = self.db.query(StudyGroupMessage).filter_by(group_id=group["id"]).order_by(StudyGroupMessage.created_at.desc()).first()
+        self.assertEqual(self._status(self._reply, "student", group_msg.id), (422, "reply_not_found"))
+        # someone else's held message and a hidden one: not visible -> same answer, existence not confirmed
+        held = self._post("student2", "du Hurensohn")
+        self.assertEqual(held["status"], "pending")
+        self.assertEqual(self._status(self._reply, "student", held["id"]), (422, "reply_not_found"))
+        hidden = self._post("teacher", "off-topic")
+        messages.moderate(self.db, self.user["admin"], hidden["id"], "hide", "x")
+        self.assertEqual(self._status(self._reply, "student", hidden["id"]), (422, "reply_not_found"))
+        # nothing was stored by the refused attempts
+        self.assertEqual(self.db.query(GlobalChatMessage).filter(GlobalChatMessage.reply_to_id.is_not(None)).count(), 0)
+
+    def test_reply_to_deleted_message(self):
+        from app.services.global_chat import messages
+
+        original = self._post("student2", "Tippfehler")
+        time.sleep(messages.MIN_INTERVAL.total_seconds() + 0.1)
+        reply = self._reply("student", original["id"], "Was meinst du?")
+        messages.delete_own(self.db, self.user["student2"], original["id"])
+        # the reply stays and shows the fallback, no text of the deleted message
+        for viewer in ("student", "teacher", "admin"):
+            with self.subTest(viewer=viewer):
+                item = next(m for m in messages.page(self.db, self.user[viewer])["items"] if m["id"] == reply["id"])
+                self.assertEqual(item["reply_to"], {"id": original["id"], "available": False, "sender": None, "excerpt": None})
+        # and nobody can reply to it any more
+        self.assertEqual(self._status(self._reply, "teacher", original["id"]), (422, "reply_not_found"))
+
+    def test_reply_respects_mute_ban_and_rate_limit(self):
+        from app.services.global_chat import messages
+
+        original = self._post("teacher", "Frage an alle")
+        r = self._restrict("mute", "1h")
+        self.assertEqual(self._status(self._reply, "student", original["id"]), (403, "chat_muted"))
+        # the restriction answers first: an invalid target does not tell a muted user anything else
+        self.assertEqual(self._status(self._reply, "student", uuid.uuid4()), (403, "chat_muted"))
+        from app.services.global_chat import restrictions
+
+        restrictions.revoke(self.db, self.user["admin"], r["id"], None)
+        self._restrict("ban", "1y")
+        self.assertEqual(self._status(self._reply, "student", original["id"]), (403, "chat_banned"))
+        # rate limit: replies count like messages
+        self._reply("student2", original["id"], "eins")
+        self.assertEqual(self._status(self._reply, "student2", original["id"], "zwei"), (429, "too_fast"))
+        base = _now() - timedelta(seconds=50)
+        for i in range(messages.MAX_PER_MINUTE):
+            self._insert("teacher", f"spam {i}", base + timedelta(seconds=i))
+        self.assertEqual(self._status(self._reply, "teacher", original["id"]), (429, "too_many_messages"))
+        # the word filter holds a reply like any message
+        time.sleep(messages.MIN_INTERVAL.total_seconds() + 0.1)
+        held = self._reply("student2", original["id"], "du Hurensohn")
+        self.assertEqual(held["status"], "pending")
+        self.assertNotIn(held["id"], [m["id"] for m in messages.page(self.db, self.user["teacher"])["items"]])
+
+    def test_old_messages_without_reply_still_work(self):
+        from app.services.global_chat import messages
+
+        old = self._insert("teacher", "vor dem Update", _now() - timedelta(days=2))
+        page = messages.page(self.db, self.user["student"])
+        self.assertIsNone(page["items"][0]["reply_to"])
+        self.assertEqual(self._reply("student", old.id, "alte Nachricht")["reply_to"]["excerpt"], "vor dem Update")
+        # an old message's id still works as a cursor, unread counting is unchanged
+        self.assertEqual(messages.page(self.db, self.user["student"], before=page["items"][0]["id"])["items"], [])
+
+    def test_reply_with_edit_and_delete(self):
+        from app.services.global_chat import messages
+
+        original = self._post("teacher", "Termin: Montag")
+        time.sleep(messages.MIN_INTERVAL.total_seconds() + 0.1)
+        reply = self._reply("student", original["id"], "Danke")
+        # the original is edited: the quote follows the current text
+        messages.edit_own(self.db, self.user["teacher"], original["id"], "Termin: Dienstag")
+        self.db.expire_all()
+        item = next(m for m in messages.page(self.db, self.user["student2"])["items"] if m["id"] == reply["id"])
+        self.assertEqual(item["reply_to"]["excerpt"], "Termin: Dienstag")
+        # the reply is edited: its link stays
+        edited = messages.edit_own(self.db, self.user["student"], reply["id"], "Danke, notiert")
+        self.assertEqual((edited["body"], edited["reply_to"]["id"]), ("Danke, notiert", original["id"]))
+        # the reply is deleted: the original is untouched, still quotable
+        messages.delete_own(self.db, self.user["student"], reply["id"])
+        self.assertEqual([m["id"] for m in messages.page(self.db, self.user["student2"])["items"]], [original["id"]])
+        time.sleep(messages.MIN_INTERVAL.total_seconds() + 0.1)
+        self.assertTrue(self._reply("student2", original["id"])["reply_to"]["available"])
+        # a hidden original: users get the fallback, moderators still see the quote
+        messages.moderate(self.db, self.user["admin"], original["id"], "hide", "x")
+        self.db.expire_all()
+        user_view = messages.page(self.db, self.user["student"])["items"]
+        self.assertFalse(next(m for m in user_view if m["reply_to"])["reply_to"]["available"])
+        mod_view = [m for m in messages.page(self.db, self.user["admin"])["items"] if m["reply_to"]]
+        self.assertTrue(all(m["reply_to"]["available"] for m in mod_view if m["status"] != "deleted"))
 
     def _actions(self):
         from app.services.global_chat import restrictions

@@ -1,4 +1,4 @@
-﻿"""Media Management — one admin overview of the lesson videos and Hören
+"""Media Management — one admin overview of the lesson videos and Hören
 audio of every level (A1-C1).
 
 Read-only on purpose: uploading, replacing, publishing and deleting go
@@ -8,20 +8,28 @@ POST|DELETE /admin/lesson-skills/listenings/{id}/audio, PUT /listenings/{id})
 so storage, validation, publish rules (Hören: audio + answer key) and audit
 stay in one place. No storage paths are returned — only file names, sizes
 and whether the file is on disk.
+
+Exception: the A2 Audio Manager (/a2-audio/...) — the A2 audio library
+with batch upload, manifest, explicit linking to Hören tasks and the A2
+sales readiness (app/services/a2_audio). Reads need admin-panel access,
+changes a content editor, confirming a manual sales check a SUPER_ADMIN.
 """
 
 from pathlib import Path
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, UploadFile, status
 from fastapi.responses import FileResponse
 from jose import JWTError
+from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
-from app.api.dependencies.auth import require_admin_panel_access
+from app.api.dependencies.auth import require_admin_panel_access, require_content_editor, require_super_admin
+from app.core.audit import write_audit
 from app.core.security.jwt import create_admin_video_preview_token, decode_admin_video_preview_token
 from app.db.session import get_db
+from app.models.a2_audio_asset import A2AudioAsset
 from app.models.course import Course
 from app.models.language import Language
 from app.models.lesson import Lesson
@@ -31,6 +39,8 @@ from app.models.listening_audio_track import ListeningAudioTrack
 from app.models.module import Module
 from app.models.user import User
 from app.models.video import Video
+from app.services.a2_audio import assets as a2_assets
+from app.services.a2_audio import readiness as a2_readiness
 from app.services.lesson_skills import exercises as skill_exercises
 from app.services.lesson_skills.admin import audio_tracks_admin, listening_storage
 from app.services.lms import structure as lms_structure
@@ -241,10 +251,144 @@ def _unreferenced_audio_files(db: Session) -> list[dict]:
     if not root.is_dir():
         return []
     referenced: set[str] = set()
-    for column in (Listening.audio_storage_path, ListeningAudioTrack.storage_path, ListeningAudioArchive.storage_path):
+    for column in (Listening.audio_storage_path, ListeningAudioTrack.storage_path, ListeningAudioArchive.storage_path, A2AudioAsset.storage_path):
         referenced.update(str((root / path).resolve()) for path in db.scalars(select(column).where(column.is_not(None))))
     return [
         {"file_name": f.name, "size_bytes": f.stat().st_size}
         for f in sorted(root.rglob("*"))
         if f.is_file() and str(f.resolve()) not in referenced
     ]
+
+
+# ============================================================
+# A2 Audio Manager
+# ============================================================
+
+class _In(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+
+class A2AssetUpdate(_In):
+    unterricht: int | None = Field(None, ge=1, le=99)
+    audio_kind: str | None = Field(None, max_length=20)
+    part: int | None = Field(None, ge=1, le=99)
+    title: str | None = Field(None, max_length=255)
+    sort_order: int | None = Field(None, ge=0, le=10_000)
+    duration_seconds: int | None = Field(None, ge=1)
+
+
+class A2Verify(_In):
+    state: str = Field(pattern="^(verified|problem|pending)$")
+    note: str | None = Field(None, max_length=1000)
+
+
+class A2Link(_In):
+    listening_id: UUID
+
+
+class A2ReadinessCheck(_In):
+    key: str = Field(max_length=40)
+    done: bool
+    note: str | None = Field(None, max_length=500)
+
+
+@router.get("/a2-audio/assets")
+def a2_audio_assets(db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+    """The A2 audio library (no storage paths), with link suggestions from the file names."""
+    return a2_assets.list_assets(db)
+
+
+@router.get("/a2-audio/manifest")
+def a2_audio_manifest(db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+    """Manifest from the real data: files per Unterricht, every current Hören task and its audio state."""
+    return a2_assets.manifest(db)
+
+
+@router.get("/a2-audio/targets")
+def a2_audio_targets(db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+    """Current Hören tasks of the A2 lessons — the only valid link targets."""
+    linked = {a.listening_id: a.id for a in db.scalars(select(a2_assets.A2AudioAsset).where(a2_assets.A2AudioAsset.listening_id.is_not(None)))}
+    return [{"listening_id": t.id, "lesson_number": lesson.number, "lesson_title": lesson.title, "title": t.title, "order_index": t.order_index,
+             "content_id": t.content_id, "is_published": t.is_published, "has_audio": bool(t.audio_storage_path or t.audio_url),
+             "asset_id": linked.get(t.id)} for t, lesson in a2_assets.a2_tasks(db)]
+
+
+@router.post("/a2-audio/assets", status_code=201)
+async def a2_audio_upload(
+    file: UploadFile = File(...),
+    unterricht: int | None = Form(None),
+    audio_kind: str | None = Form(None),
+    part: int | None = Form(None),
+    title: str | None = Form(None),
+    duration_seconds: int | None = Form(None),
+    db: Session = Depends(get_db),
+    user: User = Depends(require_content_editor),
+):
+    """One file per request (the batch upload sends them one after another, each with its own progress).
+    409 DUPLICATE if the same content is already in the library. Nothing is linked here."""
+    fields = {k: v for k, v in {"unterricht": unterricht, "audio_kind": audio_kind, "part": part, "title": title,
+                                "duration_seconds": duration_seconds}.items() if v not in (None, "")}
+    asset = await a2_assets.upload(db, user, file, fields)
+    write_audit(db, actor_id=str(user.id), action="a2_audio_uploaded",
+                details=f"asset={asset['id']}; original_name={asset['original_filename']}; sha256={asset['sha256'][:16]}")
+    return asset
+
+
+@router.patch("/a2-audio/assets/{asset_id}")
+def a2_audio_update(asset_id: UUID, data: A2AssetUpdate, db: Session = Depends(get_db), _: User = Depends(require_content_editor)):
+    """Admin corrections: Unterricht, kind, part, title, order, duration."""
+    return a2_assets.update(db, asset_id, data.model_dump(exclude_unset=True))
+
+
+@router.post("/a2-audio/assets/{asset_id}/verify")
+def a2_audio_verify(asset_id: UUID, data: A2Verify, db: Session = Depends(get_db), user: User = Depends(require_content_editor)):
+    """An admin listened: verified, or a problem (with a note), or back to pending."""
+    return a2_assets.verify(db, user, asset_id, data.state, data.note)
+
+
+@router.post("/a2-audio/assets/{asset_id}/link")
+def a2_audio_link(asset_id: UUID, data: A2Link, db: Session = Depends(get_db), user: User = Depends(require_content_editor)):
+    """Explicit link to a current A2 Hören task. The task's earlier audio is archived, the task becomes a draft."""
+    asset = a2_assets.link(db, user, asset_id, data.listening_id)
+    write_audit(db, actor_id=str(user.id), action="a2_audio_linked", details=f"asset={asset_id}; listening={data.listening_id}")
+    return asset
+
+
+@router.post("/a2-audio/assets/{asset_id}/unlink")
+def a2_audio_unlink(asset_id: UUID, db: Session = Depends(get_db), user: User = Depends(require_content_editor)):
+    asset = a2_assets.unlink(db, asset_id)
+    write_audit(db, actor_id=str(user.id), action="a2_audio_unlinked", details=f"asset={asset_id}")
+    return asset
+
+
+@router.delete("/a2-audio/assets/{asset_id}")
+async def a2_audio_delete(asset_id: UUID, delete_file: bool = Query(False), db: Session = Depends(get_db),
+                          user: User = Depends(require_content_editor)):
+    """Removes the library entry; the physical file only with delete_file=true and only if nothing else uses it."""
+    result = await a2_assets.remove(db, asset_id, delete_file)
+    write_audit(db, actor_id=str(user.id), action="a2_audio_deleted", details=f"asset={asset_id}; file_deleted={result['file_deleted']}")
+    return result
+
+
+@router.get("/a2-audio/assets/{asset_id}/audio")
+def a2_audio_preview(asset_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+    """Admin preview player (Bearer auth, fetched as a blob — never a public URL)."""
+    asset = a2_assets.get(db, asset_id)
+    path = a2_assets.stored_path(asset)
+    if path is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Audio not found.")
+    return FileResponse(path, media_type=asset.content_type, headers={"Cache-Control": "private, no-store"})
+
+
+@router.get("/a2-readiness")
+def a2_sales_readiness(db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+    """A2 sales readiness: READY / NEEDS_CONTENT / NEEDS_CONFIGURATION / NEEDS_TESTING with every check."""
+    return a2_readiness.compute(db)
+
+
+@router.post("/a2-readiness/checks")
+def a2_sales_readiness_confirm(data: A2ReadinessCheck, db: Session = Depends(get_db), user: User = Depends(require_super_admin)):
+    """A person confirms (or reopens) a manual check — payment test, access test, mobile/desktop, tests."""
+    result = a2_readiness.confirm(db, user, data.key, data.done, data.note)
+    write_audit(db, actor_id=str(user.id), action="a2_readiness_check", details=f"{data.key}={data.done}")
+    return result

@@ -40,6 +40,7 @@ class TestA2AudioReplacement(unittest.IsolatedAsyncioTestCase):
                 "add": lambda self, item: setattr(self, "added", item),
                 "commit": lambda self: None,
                 "refresh": lambda self, item: None,
+                "scalars": lambda self, query: [],  # no A2 library entry linked to this task
             },
         )()
         actor_id = uuid4()
@@ -83,11 +84,12 @@ class TestA2AudioReplacement(unittest.IsolatedAsyncioTestCase):
         )
         db = MagicMock()
         db.get.return_value = task
-        db.scalar.side_effect = counts  # listening refs, track refs, archive ref
+        db.scalar.side_effect = counts  # listening refs, track refs, A2 library refs, archive ref
+        db.scalars.return_value = []
         return task, db
 
     async def test_delete_removes_file_then_clears_record_and_keeps_questions(self):
-        task, db = self._delete_fixture([1, 0, None])
+        task, db = self._delete_fixture([1, 0, 0, None])
         with patch.object(skill_admin.listening_storage, "delete", new=AsyncMock()) as delete:
             await skill_admin.delete_listening_audio(db, task.id)
         delete.assert_awaited_once_with("old.m4a")
@@ -97,7 +99,7 @@ class TestA2AudioReplacement(unittest.IsolatedAsyncioTestCase):
         db.commit.assert_called_once()
 
     async def test_failed_file_deletion_changes_nothing_and_reports_error(self):
-        task, db = self._delete_fixture([1, 0, None])
+        task, db = self._delete_fixture([1, 0, 0, None])
         with patch.object(skill_admin.listening_storage, "delete", new=AsyncMock(side_effect=OSError("busy"))):
             with self.assertRaises(HTTPException) as error:
                 await skill_admin.delete_listening_audio(db, task.id)
@@ -106,11 +108,21 @@ class TestA2AudioReplacement(unittest.IsolatedAsyncioTestCase):
         db.commit.assert_not_called()
 
     async def test_file_shared_with_another_record_is_kept(self):
-        task, db = self._delete_fixture([2, 0, None])
+        task, db = self._delete_fixture([2, 0, 0, None])
         with patch.object(skill_admin.listening_storage, "delete", new=AsyncMock()) as delete:
             await skill_admin.delete_listening_audio(db, task.id)
         delete.assert_not_awaited()
         self.assertIsNone(task.audio_storage_path)
+
+    async def test_file_kept_in_the_a2_library_is_not_deleted_with_the_task_audio(self):
+        task, db = self._delete_fixture([1, 0, 1, None])  # the task and one A2 Audio Manager entry
+        library_entry = SimpleNamespace(listening_id=task.id, linked_at=object(), linked_by=object())
+        db.scalars.return_value = [library_entry]
+        with patch.object(skill_admin.listening_storage, "delete", new=AsyncMock()) as delete:
+            await skill_admin.delete_listening_audio(db, task.id)
+        delete.assert_not_awaited()
+        self.assertIsNone(task.audio_storage_path)
+        self.assertIsNone(library_entry.listening_id)  # entry stays in the library, only unlinked
 
     def test_student_gets_no_player_for_a_record_whose_file_is_gone(self):
         from app.services.lesson_skills import skill_tests

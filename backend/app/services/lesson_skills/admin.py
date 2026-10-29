@@ -251,11 +251,21 @@ def _duration(seconds: int | None) -> int | None:
 
 
 def file_references(db: Session, storage_path: str) -> int:
-    """How many Hören tasks / tracks point at this stored file."""
+    """How many Hören tasks / tracks / A2 library entries point at this stored file."""
     from sqlalchemy import func
 
+    from app.models.a2_audio_asset import A2AudioAsset
+
     return int(db.scalar(select(func.count()).select_from(Listening).where(Listening.audio_storage_path == storage_path)) or 0) \
-        + int(db.scalar(select(func.count()).select_from(ListeningAudioTrack).where(ListeningAudioTrack.storage_path == storage_path)) or 0)
+        + int(db.scalar(select(func.count()).select_from(ListeningAudioTrack).where(ListeningAudioTrack.storage_path == storage_path)) or 0) \
+        + int(db.scalar(select(func.count()).select_from(A2AudioAsset).where(A2AudioAsset.storage_path == storage_path)) or 0)
+
+
+def _release_a2_library_link(db: Session, listening: Listening) -> None:
+    """The task gets other audio / none: an A2 library file linked to it stays in the library, unlinked."""
+    from app.services.a2_audio.assets import release_task
+
+    release_task(db, listening)
 
 
 def _archived_reference(db: Session, storage_path: str) -> bool:
@@ -306,6 +316,7 @@ async def upload_listening_audio(
                 archived_at=_now(),
             )
         )
+    _release_a2_library_link(db, listening)
     listening.audio_storage_path = name
     listening.audio_content_type = AUDIO_FORMATS[detected][0]
     listening.audio_size_bytes = (listening_storage.ROOT / name).stat().st_size
@@ -341,6 +352,7 @@ async def delete_listening_audio(db: Session, listening_id: UUID) -> Listening:
             await listening_storage.delete(old)
         except OSError:
             raise HTTPException(status_code=500, detail="AUDIO_FILE_DELETE_FAILED: the file could not be removed; nothing was changed.") from None
+    _release_a2_library_link(db, listening)
     listening.audio_storage_path = None
     listening.audio_content_type = None
     listening.audio_size_bytes = None

@@ -150,6 +150,12 @@ class TestAdminOverrides(unittest.TestCase):
             with self.subTest(bad=bad), self.assertRaises(ValueError):
                 offers.validate_overrides(bad)
         self.assertEqual(offers.validate_overrides({"sales": {"A2": True}})["sales"], {"A2": True})
+        # no sale without a price: B2 / C1 have none in the code defaults
+        for bad in ({"sales": {"B2": True}}, {"sales": {"A2": True}, "offers": {"A2": {"sale_price": None}}}):
+            with self.subTest(bad=bad), self.assertRaises(ValueError):
+                offers.validate_overrides(bad)
+        self.assertEqual(offers.validate_overrides({"sales": {"B2": True}, "offers": {"B2": {"sale_price": 149_000}}})["sales"], {"B2": True})
+        self.assertEqual(offers.validate_overrides({"sales": {"C1": False}})["sales"], {"C1": False})  # closing never needs a price
         self.assertNotIn("sales", offers.validate_overrides({"levels": {"B2": True}}))
 
 

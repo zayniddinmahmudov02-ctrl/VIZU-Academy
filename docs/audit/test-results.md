@@ -1,4 +1,71 @@
-# Test natijalari (2026-10-29)
+# Test natijalari
+
+## 2026-10-30 — Global Chat reply + A2 Audio Manager
+
+Har bir raqam haqiqiy buyruq chiqishidan olingan. Loglar: `D:\vz_tmp\gcr_*.log`. Production’da hech qanday test bajarilmadi.
+
+**Muhit:** lokal Windows, git yo‘q. Python 3.13, yangi venv (scratchpad, `requirements.txt` + `pytest`; `reportlab`, `qrcode[pil]`, `httpx` qo‘shimcha o‘rnatildi — 1-izoh). Node 24.18. Test PostgreSQL 18 (`127.0.0.1:54329`, `D:\vz_tmp\pgtest2`), yangi bazalar: `vizu_gcr_test` (unit/integratsiya), `vizu_gcr_mig` (migratsiya), `vizu_gcr_e2e` (Playwright). Bazalar saqlab qolindi, klaster ish oxirida to‘xtatildi.
+
+### Backend (`python -m unittest discover -s tests`, `VIZU_WB_TEST_DB_URL` + `VIZU_MIGRATION_TEST_DB_URL`)
+
+| Bosqich | Ran | Fail | Error | Skip |
+|---|---|---|---|---|
+| Baseline, o‘zgarishlardan oldin | 836 | 0 | 11 | 17 |
+| **Yakuniy** | **917** | **0** | **0** | **17** |
+
+- Baseline’dagi 11 error — hammasi `ModuleNotFoundError: reportlab` (keyin `qrcode`): paketlar kod ishlatadi, lekin `requirements.txt` da yo‘q. O‘rnatilgandan keyin bu modullar yuklandi — yakuniy sondagi farqning bir qismi shu.
+- 17 skip — `test_auth_session_flow` (ishlab turgan backend talab qiladi), avvalgidek.
+- Yangi testlar: `test_global_chat` +8 (2 kontrakt/unit, 6 integratsiya), `test_global_chat_reply_migration` 1, `test_a2_audio_manager` 19, `test_a2_audio_management` +1, `test_angebote` (narx qoidasi subtestlari).
+- Ish davomida yiqilgan va tuzatilganlar: karantin papka nomi to‘qnashuvi (kod), migration testi Alembic’ni umumiy test bazasiga yo‘naltirib, `fileConfig` bilan logger’larni o‘chirgani (`test_request_id` yiqildi — test kodi). Tuzatishdan keyin to‘liq yugurish OK.
+
+### Migratsiyalar (`vizu_gcr_mig`)
+
+| Tekshiruv | Natija |
+|---|---|
+| `alembic upgrade head` | OK, head `a6d2f9c4e8b1` (yagona) |
+| `alembic downgrade base` | OK, faqat `alembic_version` qoladi |
+| qayta `upgrade head` | OK |
+| Reply: ma’lumotli `upgrade → downgrade e9b4c2f7a3d1 → upgrade` | OK (xabarlar saqlanadi, FK va partial index bor) |
+| `alembic check` | 1 farq — avvaldan ma’lum `student_speakings.user_id`; yangi modellar migratsiyalarga mos |
+
+### Frontend
+
+| Tekshiruv | Natija |
+|---|---|
+| `tsc --noEmit` | exit 0 |
+| `eslint src next.config.ts tests` | 9 error, 8 warning — avvalgi audit bilan bir xil, hammasi o‘zgartirilmagan fayllarda; yangi/o‘zgargan fayllarda 0 |
+| `npm run test:unit` (yangi, `node --test`, dependency qo‘shilmagan) | 19/19 (swipe 9, iqtibos 6, A2 import 4) |
+| `next build` (`NEXT_DIST_DIR=.next-e2e`, `.next-a`/`.next-b` tegilmadi) | exit 0, “Compiled successfully”; `tsconfig.json` build’dan keyin tiklandi, `.next-e2e` o‘chirildi |
+
+### E2E (Playwright, Chrome; desktop + Pixel 7; lokal uvicorn `:8000` + `next start` `:3000`)
+
+| Yugurish | Passed | Failed | Skipped |
+|---|---|---|---|
+| Yangi spec’lar, 1-yugurish | 5 | 5 | 4 |
+| Yangi spec’lar, tuzatishdan keyin | 10 | 0 | 4 |
+| **To‘liq suite (yangi + eski)** | **66** | **0** | **14** |
+
+- 1-yugurishdagi 5 fail: 3 tasi test kodi (iqtibos matni asl xabar lokatoriga ham mos kelgan; mobil yugurishda bir xil matn 60 s ichida qayta yuborilib server to‘g‘ri `429 duplicate_message` qaytargan), 1 tasi mening seed’im (A2 kompetensiyalari qoralama qolgan), 1 tasi **haqiqiy xato** — swipe’da `setPointerCapture` exception (tuzatildi).
+- 14 skip: avvalgi 10 ta + yangi 4 ta ataylab (swipe testi faqat mobile, A2 admin oqimi faqat desktop).
+- Qamrov: reply (tugma, klaviatura, Escape/X, iqtibos → asl xabarga scroll, o‘chirilgan asl xabar fallback’i, API: 422/forged maydon), mobil swipe (chapga — javob; vertikal, o‘ngga, qisqa — javob emas; `touch-action: pan-y`; gorizontal scroll yo‘q; tugma hover’siz ko‘rinadi), A2 (o‘quvchi/anonim 401/403, batch upload hisobot bilan, WAV va kengaytma/mazmun nomuvofiqligi xatolari, dublikat, taklif + tasdiqli bog‘lash, tekshiruv, nashrdan keyin 1-darsda o‘quvchi pleeri, 2-dars 403, `private, no-store`, sotuv yopiq — narx backend’dan, `purchasable: false`).
+- To‘lov oqimi (buyurtma → rad → yangi buyurtma → tasdiq → takroriy tasdiq rad → `OFFER_ALREADY_OWNED` → refund) **faqat backend integratsiya testida**, servis funksiyalari orqali (`test_a2_purchase_flow_and_access`). UI orqali to‘lov va real to‘lov tizimi sinalmadi — ManualGateway, avtomatik gateway yo‘q.
+
+### Bajarilmagan (NOT RUN)
+
+- Production’da har qanday test, deploy, migratsiya.
+- Haqiqiy A2 audio fayllari bilan test (fayllar mavjud emas; testlarda kichik generatsiya qilingan MP3/M4A sarlavhalari ishlatildi).
+- Haqiqiy brauzerda haqiqiy barmoq bilan swipe (E2E pointer hodisalarini emulyatsiya qiladi).
+- Qo‘lda accessibility / screen reader auditi, yuklama testlari.
+
+### Tozalash
+
+- uvicorn va `next start` to‘xtatildi; `:8000`, `:3000` bo‘sh. Test PostgreSQL klasteri to‘xtatildi (ish boshida ham to‘xtagan edi).
+- E2E backend yaratgan `backend/app/protected_storage/` (faqat 2 ta generatsiya qilingan test fayli; papka avval yo‘q edi) va bo‘sh `backend/uploads/` o‘chirildi. `frontend/.next-e2e` o‘chirildi.
+- `frontend/node_modules`, `e2e/node_modules` (gitignore’da) qoldirildi.
+
+---
+
+## 2026-10-29
 
 Har bir raqam haqiqiy buyruq chiqishidan olingan. Loglar: `D:\vz_tmp\audit_*.log`.
 

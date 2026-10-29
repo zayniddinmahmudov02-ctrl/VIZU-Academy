@@ -7,6 +7,7 @@ study-group chats (own tables, own API, nothing shared with study_group_*).
   messages; the earlier text goes to global_chat_message_edits. A message the word filter flagged is held ("pending") —
   only its sender and the moderators see it until a moderator approves or
   hides it. Pins live on the message (pinned_at/pinned_by); hiding unpins.
+  A message may answer another Global Chat message (reply_to_id).
 * global_chat_restrictions — mute / ban for the Global Chat only (never the
   account, the LMS or group chats). Active = not revoked, started and not
   yet ended; an expired row simply stops counting, no job needed. At most
@@ -50,6 +51,7 @@ class GlobalChatMessage(BaseModel):
         Index("ix_global_chat_messages_pinned", "pinned_at", postgresql_where=text("pinned_at IS NOT NULL")),
         Index("ix_global_chat_messages_status_created", "status", "created_at",
               postgresql_where=text("status <> 'visible'")),
+        Index("ix_global_chat_messages_reply_to", "reply_to_id", postgresql_where=text("reply_to_id IS NOT NULL")),
     )
 
     sender_id: Mapped[UUID | None] = mapped_column(PGUUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
@@ -67,8 +69,13 @@ class GlobalChatMessage(BaseModel):
     # only the author edits / deletes, so no edited_by / deleted_by column
     edited_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     deleted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    # the Global Chat message this one answers (NULL: no reply; older messages). The FK only allows
+    # rows of this table, so a group-chat message can never be the target.
+    reply_to_id: Mapped[UUID | None] = mapped_column(PGUUID(as_uuid=True), ForeignKey("global_chat_messages.id", ondelete="SET NULL"),
+                                                     nullable=True)
 
     sender = relationship("User", foreign_keys=[sender_id], lazy="joined")
+    reply_to = relationship("GlobalChatMessage", remote_side="GlobalChatMessage.id", foreign_keys=[reply_to_id], lazy="selectin")
 
 
 class GlobalChatMessageEdit(BaseModel):

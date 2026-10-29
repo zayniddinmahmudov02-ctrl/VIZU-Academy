@@ -195,8 +195,13 @@ export async function reviewLesen(lessonId: string, attemptId: string): Promise<
 }
 
 export async function getHoerenTasks(lessonId: string): Promise<HoerenTask[]> {
-  const data = (await api.get<{ tasks: HoerenTask[] }>(`${BASE}/${lessonId}/hoeren`)).data;
-  return Array.isArray(data?.tasks) ? data.tasks : [];
+  return (await getHoerenSection(lessonId)).tasks;
+}
+
+/** Tasks with audio, plus how many published tasks still wait for their audio (shown as "not uploaded yet", never as a broken player). */
+export async function getHoerenSection(lessonId: string): Promise<{ tasks: HoerenTask[]; audioPending: number }> {
+  const data = (await api.get<{ tasks: HoerenTask[]; audio_pending?: number }>(`${BASE}/${lessonId}/hoeren`)).data;
+  return { tasks: Array.isArray(data?.tasks) ? data.tasks : [], audioPending: data?.audio_pending ?? 0 };
 }
 
 export async function startHoeren(lessonId: string, listeningId: string): Promise<SkillAttempt> {

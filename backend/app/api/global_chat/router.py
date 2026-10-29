@@ -1,6 +1,7 @@
 """Global Chat API — one chat for every logged-in user, separate from the
 group chats (/groups/{id}/messages). Authors edit (PATCH) and delete (DELETE)
-their own messages under /global-chat/messages/{id}.
+their own messages under /global-chat/messages/{id}; a new message may reply
+to another Global Chat message (POST body reply_to_id).
 
 User routes need a logged-in user; the caller is always the token's user,
 request bodies never carry a user id or role for the caller (extra fields
@@ -34,6 +35,12 @@ class MessageIn(_In):
     body: str = Field(min_length=1, max_length=messages.MAX_LENGTH)
 
 
+class SendIn(MessageIn):
+    """A new message; reply_to_id is only an id — the server checks it and builds the quote itself.
+    Editing (PATCH) keeps MessageIn, so a reply target cannot be changed afterwards."""
+    reply_to_id: UUID | None = None
+
+
 class ReadIn(_In):
     until_id: UUID | None = None
 
@@ -52,8 +59,9 @@ def updates(since: datetime, db: Session = Depends(get_db), user: User = Depends
 
 
 @router.post("/messages", status_code=201)
-def send(data: MessageIn, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
-    return messages.post(db, user, data.body)
+def send(data: SendIn, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    """A message, optionally answering another Global Chat message (422 reply_not_found if it isn't one the caller can see)."""
+    return messages.post(db, user, data.body, data.reply_to_id)
 
 
 @router.patch("/messages/{message_id}")

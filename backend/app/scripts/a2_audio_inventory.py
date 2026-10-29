@@ -21,6 +21,7 @@ from pathlib import Path
 from sqlalchemy import select
 
 from app.db.session import SessionLocal
+from app.models.a2_audio_asset import A2AudioAsset
 from app.models.course import Course
 from app.models.language import Language
 from app.models.lesson import Lesson
@@ -80,6 +81,9 @@ def build_report(db) -> dict:
         level, num = where(parent.lesson_id) if parent else (None, None)
         refs[a.storage_path].append({"kind": "archive", "id": str(a.id), "task": parent.title if parent else None,
                                      "level": level, "lesson": num, "material_key": None})
+    for asset in db.scalars(select(A2AudioAsset)):  # A2 Audio Manager library
+        refs[asset.storage_path].append({"kind": "a2_library", "id": str(asset.id), "task": asset.title,
+                                         "level": "A2", "lesson": asset.unterricht, "material_key": None})
 
     a2_files = []
     for path, rows in sorted(refs.items()):

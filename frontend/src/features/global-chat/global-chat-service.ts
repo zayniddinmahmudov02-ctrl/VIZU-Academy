@@ -1,5 +1,7 @@
 import { api } from "@/services/api";
 
+import type { ReplyRef } from "./reply-preview";
+
 const BASE = "/api/v1/global-chat";
 const ADMIN = "/api/v1/admin/global-chat";
 
@@ -23,6 +25,8 @@ export interface ChatMessage {
   mine: boolean;
   is_pinned: boolean;
   pinned_at: string | null;
+  /** the message this one answers — built by the server (null: no reply) */
+  reply_to?: ReplyRef | null;
   // moderators only
   flagged_words?: string[];
   hidden_reason?: string | null;
@@ -140,7 +144,9 @@ const clean = (p: Record<string, unknown>) => Object.fromEntries(Object.entries(
 export const getHistory = async (before?: string) =>
   (await api.get<HistoryPage>(`${BASE}/messages`, { params: clean({ before }) })).data;
 export const getUpdates = async (since: string) => (await api.get<Updates>(`${BASE}/updates`, { params: { since } })).data;
-export const sendMessage = async (body: string) => (await api.post<ChatMessage>(`${BASE}/messages`, { body })).data;
+/** replyToId: only the id — the server checks it and builds the quote */
+export const sendMessage = async (body: string, replyToId?: string | null) =>
+  (await api.post<ChatMessage>(`${BASE}/messages`, clean({ body, reply_to_id: replyToId }))).data;
 export const editMessage = async (id: string, body: string) => (await api.patch<ChatMessage>(`${BASE}/messages/${id}`, { body })).data;
 export const deleteMessage = async (id: string) => api.delete(`${BASE}/messages/${id}`);
 export const getUnreadCount = async () => (await api.get<{ unread: number }>(`${BASE}/unread-count`)).data?.unread ?? 0;

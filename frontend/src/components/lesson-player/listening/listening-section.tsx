@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import {
   getHoerenAudioBlobUrl,
-  getHoerenTasks,
+  getHoerenSection,
   reviewHoeren,
   startHoeren,
   submitHoeren,
@@ -117,22 +117,31 @@ function HoerenTaskCard({ lessonId, task }: { lessonId: string; task: HoerenTask
 }
 
 /** Hören: published tasks with audio; questions are graded on the server,
- * the transcript is revealed only after the first submitted attempt. */
+ * the transcript is revealed only after the first submitted attempt. A
+ * published task whose audio is not uploaded (yet) gets no player — the
+ * section says "audio not uploaded yet" instead. */
 export default function ListeningSection({ lessonId }: Props) {
   const { t } = useTranslation();
-  const { data: tasks, isLoading, isError } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["hoeren-tasks", lessonId],
-    queryFn: () => getHoerenTasks(lessonId),
+    queryFn: () => getHoerenSection(lessonId),
   });
+  const tasks = data?.tasks;
+  const pending = data?.audioPending ?? 0;
 
   return (
     <LessonSection title={t("lessons.sectionListening")} description={t("lessons.listeningDescription")} icon={Headphones}>
       {isLoading && <p className="text-sm text-text-muted">{t("common.loading")}</p>}
       {isError && <p className="text-sm text-danger">{t("lessons.loadError")}</p>}
       {!isLoading && !isError && (tasks?.length ?? 0) === 0 && (
-        <div className="rounded-2xl bg-surface-hover/60 p-6 text-center ring-1 ring-surface-border sm:p-8">
-          <p className="text-text-secondary">{t("lessons.hoerenEmpty")}</p>
+        <div className="rounded-2xl bg-surface-hover/60 p-6 text-center ring-1 ring-surface-border sm:p-8" data-testid="hoeren-empty">
+          <p className="text-text-secondary">{pending > 0 ? t("lessons.hoerenAudioPending") : t("lessons.hoerenEmpty")}</p>
         </div>
+      )}
+      {!isLoading && !isError && (tasks?.length ?? 0) > 0 && pending > 0 && (
+        <p className="mb-4 rounded-xl bg-surface-hover/60 px-4 py-2 text-sm text-text-secondary ring-1 ring-surface-border" data-testid="hoeren-audio-pending">
+          {t("lessons.hoerenAudioPendingMore", { n: pending })}
+        </p>
       )}
       <div className="space-y-6">
         {tasks?.map((task) => (

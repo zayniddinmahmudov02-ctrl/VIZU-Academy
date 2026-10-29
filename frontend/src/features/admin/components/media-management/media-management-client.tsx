@@ -6,6 +6,7 @@ import Link from "next/link";
 import { AlertTriangle, Eye, EyeOff, FileText, Film, ListMusic, Music, Play, RefreshCw, Search, Trash2, Upload, X } from "lucide-react";
 
 import AudioSlotsPanel from "./audio-slots-panel";
+import A2AudioManager from "./a2-audio-manager";
 import A2ListeningManagement from "./a2-listening-management";
 
 import { AdminButton, AdminCheckbox, AdminInput, AdminPageHeader, AdminSelect } from "@/components/admin/admin-ui";
@@ -224,7 +225,12 @@ export default function MediaManagementClient({ initialLevel = "" }: { initialLe
         </div>
       </section>
 
-      {level === "A2" && <A2ListeningManagement />}
+      {level === "A2" && (
+        <>
+          <A2AudioManager />
+          <A2ListeningManagement />
+        </>
+      )}
 
       {/* 2. upload */}
       <section className={`${card} space-y-5`}>

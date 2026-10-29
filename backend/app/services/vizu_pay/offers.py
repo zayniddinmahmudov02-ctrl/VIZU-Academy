@@ -294,6 +294,11 @@ def validate_overrides(value: dict) -> dict:
         for level, enabled in (value.get("sales") or {}).items():
             if level not in ALL_LEVELS or not isinstance(enabled, bool):
                 raise ValueError(f"sales.{level}: true / false")
+            # a level is only opened for sale with a price for it (this document's value, else the code default)
+            own = out["offers"].get(level, {})
+            price = own["sale_price"] if "sale_price" in own else OFFERS[level]["sale_price"]
+            if enabled and not price:
+                raise ValueError(f"sales.{level}: set a sale price for {level} before opening it for sale")
             out["sales"][level] = enabled
     if "free_lessons" in value:
         free = value["free_lessons"]

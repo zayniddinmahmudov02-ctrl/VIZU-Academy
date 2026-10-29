@@ -1,7 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
-import { ArrowDown, Ban, Check, ChevronDown, Eye, EyeOff, Loader2, MessagesSquare, Pin, PinOff, Send, ShieldAlert, VolumeX, WifiOff, X } from "lucide-react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { ArrowDown, Ban, Check, ChevronDown, Eye, EyeOff, Loader2, MessagesSquare, Pin, PinOff, Reply, Send, ShieldAlert, VolumeX, WifiOff, X } from "lucide-react";
 
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { cn } from "@/lib/utils";
@@ -24,12 +24,21 @@ import {
   type RestrictionKind,
   type ViewerStatus,
 } from "../global-chat-service";
+import { resolveReply } from "../reply-preview";
 import { ConfirmDeleteDialog, EditMessageForm, OwnMessageMenu } from "./own-message-actions";
+import { ReplyComposerPreview, ReplyQuote, SwipeToReply } from "./reply-ui";
 import RestrictDialog from "./restrict-dialog";
 
 const POLL_MS = 4000;
 const NEAR_BOTTOM_PX = 80;
 const NEAR_TOP_PX = 80;
+const HIGHLIGHT_MS = 1600;
+const JUMP_MAX_PAGES = 5; // older pages loaded at most to find a quoted original
+
+/** A reply may answer what the viewer can see and is still in the chat. */
+function canReplyTo(m: ChatMessage): boolean {
+  return m.body !== null && (m.status === "visible" || (m.status === "pending" && m.mine));
+}
 
 function sortMessages(list: ChatMessage[]): ChatMessage[] {
   return list.sort((a, b) => a.created_at.localeCompare(b.created_at) || a.id.localeCompare(b.id));
@@ -45,7 +54,9 @@ function merge(current: ChatMessage[], incoming: ChatMessage[]): ChatMessage[] {
  *  the top, new/changed messages by polling /updates. Message text is
  *  rendered as React text (never as HTML). Moderation buttons only appear
  *  for moderators, Edit / Delete ("…" menu) only on the caller's own
- *  messages — the server checks every action again. */
+ *  messages — the server checks every action again. Any message can be
+ *  answered (Reply button, or swipe left on touch screens); the quote links
+ *  back to the original. */
 export default function ChatPanel({ onClose, onUnread, isSuperAdmin }: { onClose: () => void; onUnread: (n: number) => void; isSuperAdmin: boolean }) {
   const { t } = useTranslation();
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -68,16 +79,27 @@ export default function ChatPanel({ onClose, onUnread, isSuperAdmin }: { onClose
   const [done, setDone] = useState<string | null>(null);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [deleting, setDeleting] = useState<ChatMessage | null>(null);
+  const [replyTo, setReplyTo] = useState<ChatMessage | null>(null);
+  const [highlightId, setHighlightId] = useState<string | null>(null);
+  // ids polling removed from this window (deleted / hidden): their quotes show "not available"
+  const [removedIds, setRemovedIds] = useState<ReadonlySet<string>>(() => new Set());
 
   const listRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const syncRef = useRef<string | null>(null);
   const atBottomRef = useRef(true);
   const messagesRef = useRef<ChatMessage[]>([]);
+  const replyToRef = useRef<ChatMessage | null>(null);
 
   useEffect(() => {
     messagesRef.current = messages;
   }, [messages]);
+
+  useEffect(() => {
+    replyToRef.current = replyTo;
+  }, [replyTo]);
+
+  const byId = useMemo(() => new Map(messages.map((m) => [m.id, m])), [messages]);
 
   const errorText = useCallback((err: unknown) => {
     const code = errorCode(err);
@@ -156,6 +178,13 @@ export default function ChatPanel({ onClose, onUnread, isSuperAdmin }: { onClose
         const incoming = upd.items.filter((m) => known.has(m.id) || !oldest || m.created_at >= oldest);
         const removed = new Set(upd.removed_ids);
         setMessages((cur) => merge(cur.filter((m) => !removed.has(m.id)), incoming));
+        if (removed.size) {
+          setRemovedIds((cur) => new Set([...cur, ...removed]));
+          if (replyToRef.current && removed.has(replyToRef.current.id)) {
+            setReplyTo(null);
+            setNotice(t("globalChat.err_reply_not_found"));
+          }
+        }
         const fresh = incoming.filter((m) => !known.has(m.id) && !m.mine).length;
         if (fresh > 0) {
           if (atBottomRef.current) {
@@ -181,16 +210,24 @@ export default function ChatPanel({ onClose, onUnread, isSuperAdmin }: { onClose
       document.removeEventListener("visibilitychange", onVisible);
       window.removeEventListener("online", tick);
     };
-  }, [loaded, loadLatest, onUnread, readUpTo, scrollToBottom]);
+  }, [loaded, loadLatest, onUnread, readUpTo, scrollToBottom, t]);
 
-  // Escape closes (unless a dialog is open)
+  // Escape cancels a reply first, then closes (unless a dialog is open)
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && !restrict && !editingId && !deleting) onClose();
+      if (e.key !== "Escape" || restrict || editingId || deleting) return;
+      if (replyTo) setReplyTo(null);
+      else onClose();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [onClose, restrict, editingId, deleting]);
+  }, [onClose, restrict, editingId, deleting, replyTo]);
+
+  useEffect(() => {
+    if (!highlightId) return;
+    const timer = setTimeout(() => setHighlightId(null), HIGHLIGHT_MS);
+    return () => clearTimeout(timer);
+  }, [highlightId]);
 
   const loadOlder = useCallback(async () => {
     const first = messagesRef.current[0];
@@ -231,15 +268,17 @@ export default function ChatPanel({ onClose, onUnread, isSuperAdmin }: { onClose
     setSending(true);
     setSendError(null);
     try {
-      const m = await sendMessage(body);
+      const m = await sendMessage(body, replyTo?.id);
       setMessages((cur) => merge(cur, [m]));
       setDraft("");
+      setReplyTo(null);
       atBottomRef.current = true;
       scrollToBottom();
       inputRef.current?.focus();
     } catch (err) {
       setSendError(errorText(err));
       const code = errorCode(err);
+      if (code === "reply_not_found") setReplyTo(null);  // the original is gone; the draft stays
       if (code === "chat_muted" || code === "chat_banned") {
         // the server knows best: refresh the status shown above the input
         getUpdates(syncRef.current ?? new Date().toISOString()).then((u) => setMe(u.me)).catch(() => undefined);
@@ -247,6 +286,44 @@ export default function ChatPanel({ onClose, onUnread, isSuperAdmin }: { onClose
     } finally {
       setSending(false);
     }
+  }
+
+  function startReply(m: ChatMessage) {
+    setEditingId(null);
+    setReplyTo(m);
+    setSendError(null);
+    requestAnimationFrame(() => inputRef.current?.focus());
+  }
+
+  const messageElement = (id: string) =>
+    listRef.current?.querySelector<HTMLElement>(`[data-message-id="${CSS.escape(id)}"]`) ?? null;
+
+  /** Scroll to the quoted original and flash it; older pages are loaded if needed. */
+  async function jumpTo(id: string) {
+    let el = messageElement(id);
+    for (let page = 0; !el && page < JUMP_MAX_PAGES; page++) {
+      const first = messagesRef.current[0];
+      if (!first) break;
+      try {
+        const older = await getHistory(first.id);
+        const merged = merge([...messagesRef.current], older.items);
+        messagesRef.current = merged;
+        setMessages(merged);
+        setHasMore(older.has_more);
+        await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+        el = messageElement(id);
+        if (!older.has_more) break;
+      } catch {
+        break;
+      }
+    }
+    if (!el) {
+      setNotice(t("globalChat.replyNotLoaded"));
+      return;
+    }
+    el.scrollIntoView({ block: "center", behavior: "smooth" });
+    el.focus({ preventScroll: true });
+    setHighlightId(id);
   }
 
   async function saveEdit(m: ChatMessage, body: string) {
@@ -272,7 +349,9 @@ export default function ChatPanel({ onClose, onUnread, isSuperAdmin }: { onClose
     }
     setMessages((cur) => (isModerator ? cur.map((x) => (x.id === m.id ? { ...x, status: "deleted" as const, is_pinned: false } : x)) : cur.filter((x) => x.id !== m.id)));
     setPinned((cur) => cur.filter((p) => p.id !== m.id));
+    setRemovedIds((cur) => new Set([...cur, m.id]));
     if (editingId === m.id) setEditingId(null);
+    if (replyTo?.id === m.id) setReplyTo(null);
     setDeleting(null);
   }
 
@@ -379,9 +458,15 @@ export default function ChatPanel({ onClose, onUnread, isSuperAdmin }: { onClose
         {messages.map((m) => {
           const editing = editingId === m.id;
           const light = m.mine && m.status === "visible" && !editing;  // white text on the blue own bubble
+          const replyable = !!me?.can_post && !editing && canReplyTo(m);
+          const quote = resolveReply(m.reply_to, byId, removedIds);
           return (
-          <article key={m.id} data-testid="global-chat-message" data-status={m.status} className={cn("group flex", m.mine ? "justify-end" : "justify-start")}>
-            <div className={cn("max-w-[85%] rounded-2xl px-3 py-2",
+          <article key={m.id} data-testid="global-chat-message" data-status={m.status} data-message-id={m.id} tabIndex={-1}
+                   className={cn("group flex rounded-2xl outline-none transition-colors duration-500", m.mine ? "justify-end" : "justify-start",
+                     highlightId === m.id && "bg-accent-blue/15")}
+                   data-highlighted={highlightId === m.id || undefined}>
+            <SwipeToReply enabled={replyable} onReply={() => startReply(m)} className={cn(editing && "w-full")}>
+            <div className={cn("rounded-2xl px-3 py-2",
               m.status === "hidden" || m.status === "deleted" ? "border border-dashed border-danger/40 bg-danger/5 opacity-80"
                 : editing ? "w-full bg-surface-hover ring-1 ring-accent-blue/40"
                 : m.status === "pending" ? "bg-amber-500/10 ring-1 ring-amber-500/40"
@@ -392,6 +477,7 @@ export default function ChatPanel({ onClose, onUnread, isSuperAdmin }: { onClose
                   {m.sender?.badge && <span className="rounded bg-amber-500/20 px-1 text-[10px] font-semibold">{t(`globalChat.badge_${m.sender.badge}`)}</span>}
                 </p>
               )}
+              {quote && !editing && <ReplyQuote reply={quote} light={light} onJump={(id) => void jumpTo(id)} />}
               {editing ? (
                 <EditMessageForm message={m} onSave={(body) => saveEdit(m, body)} onCancel={() => setEditingId(null)} />
               ) : m.body !== null && (
@@ -413,6 +499,15 @@ export default function ChatPanel({ onClose, onUnread, isSuperAdmin }: { onClose
                 {m.is_pinned && <Pin size={10} aria-label={t("globalChat.pinned")} />}
                 {m.edited_at && <span data-testid="global-chat-edited" title={fmtDateTime(m.edited_at)}>{t("globalChat.edited")}</span>}
                 <time dateTime={m.created_at} title={fmtDateTime(m.created_at)}>{fmtMessageTime(m.created_at)}</time>
+                {replyable && (
+                  // hover / keyboard focus on desktop, always visible on touch screens (swipe is not for everyone)
+                  <button type="button" onClick={() => startReply(m)} aria-label={t("globalChat.reply")} title={t("globalChat.reply")}
+                          data-testid="global-chat-reply"
+                          className={cn("flex h-6 w-6 items-center justify-center rounded-md opacity-0 transition-opacity group-hover:opacity-100 focus-visible:opacity-100 [@media(hover:none)]:opacity-100",
+                            light ? "text-white/80 hover:bg-white/15" : "text-text-muted hover:bg-surface-card")}>
+                    <Reply size={14} />
+                  </button>
+                )}
                 {m.mine && (
                   <OwnMessageMenu canEdit={canEditOwn(m)} canDelete={canDeleteOwn(m)} boundary={listRef} light={light}
                                   onEdit={() => setEditingId(m.id)} onDelete={() => setDeleting(m)} />
@@ -437,6 +532,7 @@ export default function ChatPanel({ onClose, onUnread, isSuperAdmin }: { onClose
                 </div>
               )}
             </div>
+            </SwipeToReply>
           </article>
           );
         })}
@@ -467,6 +563,8 @@ export default function ChatPanel({ onClose, onUnread, isSuperAdmin }: { onClose
             <p className="mt-1 text-text-secondary">{t("globalChat.readOnlyNote")}</p>
           </div>
         ) : (
+          <>
+          {replyTo && <ReplyComposerPreview message={replyTo} onCancel={() => { setReplyTo(null); inputRef.current?.focus(); }} />}
           <form className="flex items-end gap-2" onSubmit={(e) => { e.preventDefault(); send(); }}>
             <div className="relative flex-1">
               <textarea ref={inputRef} value={draft} rows={1} maxLength={MAX_LENGTH} disabled={!loaded || !me?.can_post}
@@ -483,6 +581,7 @@ export default function ChatPanel({ onClose, onUnread, isSuperAdmin }: { onClose
               {sending ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
             </button>
           </form>
+          </>
         )}
         {sendError && <p role="alert" className="mt-1.5 text-xs text-danger" data-testid="global-chat-send-error">{sendError}</p>}
         {!restriction && <p id="gc-hint" className="mt-1 hidden text-[10px] text-text-muted sm:block">{t("globalChat.hint")}</p>}

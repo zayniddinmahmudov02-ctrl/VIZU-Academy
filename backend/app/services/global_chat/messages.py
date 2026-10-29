@@ -27,7 +27,17 @@ Sending (server-side, nothing trusts the client): an active ban or mute → 403,
 more than MAX_PER_MINUTE messages a minute, a message within MIN_INTERVAL of
 the previous one, or the same text twice within DUPLICATE_WINDOW → 429.
 The checks run under a per-user advisory lock, so parallel requests cannot
-slip past them."""
+slip past them.
+
+Replies: a message may answer one Global Chat message (reply_to_id). The
+client sends only the id; the target must be a message of this chat the
+sender can currently see (not deleted, not someone else's held/hidden one),
+otherwise 422 reply_not_found — the same answer for "does not exist", "is a
+group-chat id" and "not visible", so nothing leaks. A reply is a normal
+message: mute / ban, rate limit and word filter apply unchanged. The quoted
+author and excerpt are built here from the target row, never taken from the
+client; when the target later disappears for a viewer the preview says
+"available: false" without its text."""
 
 import re
 import uuid
@@ -64,6 +74,7 @@ SYNC_OVERLAP = timedelta(seconds=15)
 SYNC_MAX_AGE = timedelta(minutes=10)  # older → the client reloads the newest page
 SYNC_LIMIT = 200
 MAX_EDITS_PER_MINUTE = 10
+REPLY_EXCERPT = 140
 _CONTROL = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
 
 
@@ -87,12 +98,31 @@ def _can_see(m: GlobalChatMessage, viewer: User) -> bool:
     return is_moderator(viewer) or m.status == MESSAGE_VISIBLE or (m.status == MESSAGE_PENDING and m.sender_id == viewer.id)
 
 
+def _excerpt(text: str) -> str:
+    line = " ".join(text.split())
+    return line if len(line) <= REPLY_EXCERPT else line[:REPLY_EXCERPT - 1].rstrip() + "…"
+
+
+def reply_preview(m: GlobalChatMessage, viewer: User) -> dict | None:
+    """What a reply shows of the message it answers — built from the target
+    row for this viewer. A deleted target, or one the viewer cannot see, is
+    "not available" (id only, no author or text)."""
+    if m.reply_to_id is None:
+        return None
+    target = m.reply_to
+    if target is None or target.status == MESSAGE_DELETED or not _can_see(target, viewer):
+        return {"id": m.reply_to_id, "available": False, "sender": None, "excerpt": None}
+    return {"id": target.id, "available": True, "excerpt": _excerpt(target.body),
+            "sender": None if target.sender_id is None else {"id": target.sender_id, "name": display_name(target.sender)}}
+
+
 def serialize(m: GlobalChatMessage, viewer: User, staff: bool = False) -> dict:
     mod = is_moderator(viewer)
     shown = m.status in (MESSAGE_VISIBLE, MESSAGE_PENDING) or mod
     out = {"id": m.id, "body": m.body if shown else None, "status": m.status, "created_at": m.created_at, "edited_at": m.edited_at,
            "sender": None if m.sender_id is None else {"id": m.sender_id, "name": display_name(m.sender), "badge": badge(m.sender)},
-           "mine": m.sender_id == viewer.id, "is_pinned": m.pinned_at is not None, "pinned_at": m.pinned_at}
+           "mine": m.sender_id == viewer.id, "is_pinned": m.pinned_at is not None, "pinned_at": m.pinned_at,
+           "reply_to": reply_preview(m, viewer) if shown else None}
     if mod:
         out.update({"flagged_words": m.flagged_words or [], "hidden_reason": m.hidden_reason, "hidden_at": m.hidden_at, "deleted_at": m.deleted_at,
                     "can_restrict": m.sender is not None and m.sender_id != viewer.id and not is_moderator(m.sender)})
@@ -172,16 +202,24 @@ def _rate_limit(db: Session, viewer: User, text: str) -> None:
         raise HTTPException(status_code=status.HTTP_429_TOO_MANY_REQUESTS, detail="duplicate_message")
 
 
-def post(db: Session, viewer: User, body: str) -> dict:
+def _reply_target(db: Session, viewer: User, reply_to_id: UUID) -> GlobalChatMessage:
+    target = db.get(GlobalChatMessage, reply_to_id)
+    if target is None or target.status == MESSAGE_DELETED or not _can_see(target, viewer):
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="reply_not_found")
+    return target
+
+
+def post(db: Session, viewer: User, body: str, reply_to_id: UUID | None = None) -> dict:
     text = clean_text(body)
     me = restrictions.viewer_status(db, viewer)
     if not me["can_post"]:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN,
                             detail="chat_banned" if me["restriction"]["kind"] == "ban" else "chat_muted")
+    target = _reply_target(db, viewer, reply_to_id) if reply_to_id is not None else None
     _rate_limit(db, viewer, text)
     hits = [] if is_moderator(viewer) else word_filter.check(db, text)
     m = GlobalChatMessage(id=uuid.uuid4(), sender_id=viewer.id, body=text, status=MESSAGE_PENDING if hits else MESSAGE_VISIBLE,
-                          flagged_words=hits or None)
+                          flagged_words=hits or None, reply_to_id=target.id if target else None)
     db.add(m)
     db.flush()
     if hits:

@@ -99,3 +99,123 @@ export async function getVideoPreviewUrl(videoId: string): Promise<string> {
 export async function getA2AudioOverview(): Promise<A2AudioOverview> {
   return (await api.get<A2AudioOverview>(`${BASE}/a2-audio`)).data;
 }
+
+// ---------- A2 Audio Manager (library, manifest, links, readiness) ----------
+
+export type A2AudioKind = "HOEREN" | "TEXT" | "UNTERRICHT" | "OTHER";
+export type A2Verification = "pending" | "verified" | "problem";
+
+export interface A2Asset {
+  id: string;
+  unterricht: number | null;
+  audio_kind: A2AudioKind | null;
+  part: number | null;
+  title: string;
+  original_filename: string;
+  /** what the file name parser read */
+  parsed: { recognized: boolean; unterricht: number | null; audio_kind: A2AudioKind | null; part: number | null } | null;
+  audio_format: string;
+  size_bytes: number;
+  sha256: string;
+  duration_seconds: number | null;
+  sort_order: number;
+  file_status: "ok" | "missing";
+  verification: A2Verification;
+  verification_note: string | null;
+  verified_at: string | null;
+  linked: { listening_id: string; title: string; lesson_number: number | null; is_published: boolean; in_sync: boolean } | null;
+  link_mismatch: boolean;
+  /** what the file name suggests — only applied when the admin confirms it */
+  suggestion: { listening_id: string; title: string; lesson_number: number; reason: string } | null;
+  created_at: string;
+}
+
+export interface A2Target {
+  listening_id: string;
+  lesson_number: number;
+  lesson_title: string;
+  title: string;
+  order_index: number;
+  content_id: string | null;
+  is_published: boolean;
+  has_audio: boolean;
+  asset_id: string | null;
+}
+
+export interface A2ManifestTask { listening_id: string; lesson_number: number; title: string; has_audio: boolean; asset_id: string | null }
+
+export interface A2Manifest {
+  counts: {
+    files: number; size_bytes: number; by_format: Record<string, number>; by_kind: Record<string, number>;
+    verified: number; problem: number; pending: number; linked: number; unlinked: number; missing_file: number; no_unterricht: number;
+    tasks: number; tasks_with_audio: number; tasks_without_audio: number;
+  };
+  missing_audio: A2ManifestTask[];
+}
+
+export interface A2ReadinessCheck { key: string; group: string; ok: boolean; label: string; detail: string | null; items: string[]; manual?: boolean }
+
+export interface A2Readiness {
+  status: "READY" | "NEEDS_CONTENT" | "NEEDS_CONFIGURATION" | "NEEDS_TESTING";
+  sales_enabled: boolean;
+  checks: A2ReadinessCheck[];
+  content_gaps: string[];
+}
+
+export interface A2AssetFields { unterricht?: number | null; audio_kind?: A2AudioKind | null; part?: number | null; title?: string; sort_order?: number }
+
+export async function getA2Assets(): Promise<A2Asset[]> {
+  return (await api.get<A2Asset[]>(`${BASE}/a2-audio/assets`)).data ?? [];
+}
+
+export async function getA2Targets(): Promise<A2Target[]> {
+  return (await api.get<A2Target[]>(`${BASE}/a2-audio/targets`)).data ?? [];
+}
+
+export async function getA2Manifest(): Promise<A2Manifest> {
+  return (await api.get<A2Manifest>(`${BASE}/a2-audio/manifest`)).data;
+}
+
+export async function getA2Readiness(): Promise<A2Readiness> {
+  return (await api.get<A2Readiness>(`${BASE}/a2-readiness`)).data;
+}
+
+export async function confirmA2ReadinessCheck(key: string, done: boolean, note?: string): Promise<A2Readiness> {
+  return (await api.post<A2Readiness>(`${BASE}/a2-readiness/checks`, { key, done, note: note || null })).data;
+}
+
+/** One file per request; the batch upload calls this file after file. */
+export async function uploadA2Asset(file: File, durationSeconds: number | null, onProgress?: (percent: number) => void): Promise<A2Asset> {
+  const form = new FormData();
+  form.append("file", file);
+  if (durationSeconds) form.append("duration_seconds", String(Math.round(durationSeconds)));
+  return (await api.post<A2Asset>(`${BASE}/a2-audio/assets`, form, {
+    headers: { "Content-Type": "multipart/form-data" },
+    onUploadProgress: onProgress ? (e) => e.total && onProgress(Math.round((e.loaded / e.total) * 100)) : undefined,
+  })).data;
+}
+
+export async function updateA2Asset(id: string, fields: A2AssetFields): Promise<A2Asset> {
+  return (await api.patch<A2Asset>(`${BASE}/a2-audio/assets/${id}`, fields)).data;
+}
+
+export async function verifyA2Asset(id: string, state: A2Verification, note?: string): Promise<A2Asset> {
+  return (await api.post<A2Asset>(`${BASE}/a2-audio/assets/${id}/verify`, { state, note: note || null })).data;
+}
+
+export async function linkA2Asset(id: string, listeningId: string): Promise<A2Asset> {
+  return (await api.post<A2Asset>(`${BASE}/a2-audio/assets/${id}/link`, { listening_id: listeningId })).data;
+}
+
+export async function unlinkA2Asset(id: string): Promise<A2Asset> {
+  return (await api.post<A2Asset>(`${BASE}/a2-audio/assets/${id}/unlink`)).data;
+}
+
+export async function deleteA2Asset(id: string, deleteFile: boolean): Promise<{ file_deleted: boolean }> {
+  return (await api.delete(`${BASE}/a2-audio/assets/${id}`, { params: { delete_file: deleteFile } })).data;
+}
+
+export async function getA2AssetBlobUrl(id: string): Promise<string> {
+  const response = await api.get(`${BASE}/a2-audio/assets/${id}/audio`, { responseType: "blob" });
+  return URL.createObjectURL(response.data as Blob);
+}

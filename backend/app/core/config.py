@@ -143,6 +143,12 @@ class Settings(BaseSettings):
     # plural/translation/example sentence, reusing GEMINI_API_KEY.
     # No vocabulary pronunciation-audio feature exists currently.
 
+    # A2 Audio Manager (Admin -> Media Management, app/services/a2_audio):
+    # the largest accepted file and the accepted formats (checked by file
+    # content, not only by name). Same 100 MB as the Hören upload.
+    A2_AUDIO_MAX_BYTES: int = 100 * 1024 * 1024
+    A2_AUDIO_FORMATS: str = "mp3,m4a"
+
     # ==================================================
     # SECURITY
     # ==================================================

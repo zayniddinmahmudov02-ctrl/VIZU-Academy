@@ -145,8 +145,10 @@ def get_hoeren(lesson_id: UUID, db: Session = Depends(get_db), user: User = Depe
     """Published Hören tasks that have audio. The transcript is only shown
     after the caller has submitted the task's test at least once."""
     tasks = []
+    audio_pending = 0  # published tasks whose audio is not (or no longer) in storage: no player, the UI says so
     for listening in tests.lesson_listenings(db, lesson_id):
         if not tests.has_audio(listening):
+            audio_pending += 1
             continue
         rows = tests.attempts(db, user.id, lesson_id, SKILL_HOEREN, listening.id)
         summary = tests.summary(rows)
@@ -167,7 +169,7 @@ def get_hoeren(lesson_id: UUID, db: Session = Depends(get_db), user: User = Depe
                 "attempts": [tests.attempt_item(a) for a in rows],
             }
         )
-    return {"lesson_id": lesson_id, "tasks": tasks}
+    return {"lesson_id": lesson_id, "tasks": tasks, "audio_pending": audio_pending}
 
 
 @router.get("/{lesson_id}/hoeren/{listening_id}/audio")

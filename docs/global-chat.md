@@ -7,7 +7,7 @@ Barcha login qilgan foydalanuvchilar (student, teacher, admin) uchun bitta umumi
 | Qism | Fayl |
 |---|---|
 | Model | `backend/app/models/global_chat.py` |
-| Migration | `backend/alembic/versions/c8f2a6d4e1b9_global_chat.py` (`b7e3d9a2c5f1` dan keyin), `e9b4c2f7a3d1_global_chat_edit_delete.py` (tahrirlash/o‘chirish) |
+| Migration | `backend/alembic/versions/c8f2a6d4e1b9_global_chat.py` (`b7e3d9a2c5f1` dan keyin), `e9b4c2f7a3d1_global_chat_edit_delete.py` (tahrirlash/o‘chirish), `f3a8c1d5e7b2_global_chat_reply.py` (javob berish) |
 | Servislar | `backend/app/services/global_chat/` — `access.py`, `messages.py`, `restrictions.py`, `word_filter.py` |
 | API | `backend/app/api/global_chat/router.py` |
 | Testlar | `backend/tests/test_global_chat.py`, `e2e/tests/global-chat.spec.ts` |
@@ -20,7 +20,7 @@ Barcha login qilgan foydalanuvchilar (student, teacher, admin) uchun bitta umumi
 
 | Jadval | Vazifasi |
 |---|---|
-| `global_chat_messages` | Xabarlar. `status`: `visible` / `pending` (so‘z filtri ushlab qoldi) / `hidden` (moderator yashirdi) / `deleted` (muallif o‘chirgan). Pin shu jadvalda saqlanadi (`pinned_at`, `pinned_by`). Tahrir va o‘chirish vaqti `edited_at`, `deleted_at` ustunlarida. |
+| `global_chat_messages` | Xabarlar. `status`: `visible` / `pending` (so‘z filtri ushlab qoldi) / `hidden` (moderator yashirdi) / `deleted` (muallif o‘chirgan). Pin shu jadvalda saqlanadi (`pinned_at`, `pinned_by`). Tahrir va o‘chirish vaqti `edited_at`, `deleted_at` ustunlarida. `reply_to_id` — javob berilgan xabar (FK shu jadvalning o‘ziga, `ON DELETE SET NULL`, partial index); eski xabarlarda `NULL`. |
 | `global_chat_message_edits` | Har bir tahrirdan oldingi matn va holat. Faqat moderatorlar ko‘radi. |
 | `global_chat_restrictions` | Mute va ban. `kind`, `starts_at`, `ends_at` (NULL = doimiy ban), ichki `reason`, foydalanuvchiga ko‘rinadigan `public_note`, `created_by`, `revoked_*`. |
 | `global_chat_moderation_actions` | Audit jurnali: kim, nima, qachon, nega. Bu jadvalga token, parol yoki boshqa secret yozilmaydi. |
@@ -68,6 +68,14 @@ O‘z xabaringizdagi `…` menyusida “Tahrirlash / Bearbeiten” va “O‘chi
 - Muallif `pending` xabarini o‘chirsa, u tekshiruv navbatidan chiqadi.
 
 Avvalgi moderatsiya yozuvlari (pin, hide, mute, ban, filtr) o‘zgarmaydi. Tahrirlash yoki o‘chirish ular ustidan yozmaydi.
+
+## Xabarga javob berish (Reply)
+
+- **Qanday:** xabar yonidagi ↩ “Antworten / Javob berish” tugmasi (desktopda hover yoki klaviatura fokusi bilan ko‘rinadi, sensorli ekranda doim ko‘rinadi) yoki mobil qurilmada xabarni **chapga surish**. Yozish maydoni tepasida muallif nomi va matndan parcha chiqadi; X yoki Escape javobni bekor qiladi (chat yopilmaydi).
+- **Swipe qoidalari** (`reply-swipe.ts`, unit testlari bor): faqat aniq gorizontal, chapga harakat; o‘q 10 px dan keyin bir marta aniqlanadi. Vertikal yoki diagonal harakat — oddiy scroll (`touch-action: pan-y`), o‘ngga harakat (tizimning “orqaga” imo-ishorasi) — hech qachon javob emas. Uzoq bosib turish yoki matn tanlangan bo‘lsa swipe bekor qilinadi. Javob barmoq qo‘yib yuborilganda 64 px dan keyin ishlaydi, qaytarib tortilsa bekor bo‘ladi.
+- **Chatda:** javob ichida asl xabar iqtibosi (muallif + 140 belgigacha parcha). Iqtibosga bosilsa asl xabarga scroll qilinadi va 1,6 s ajratib ko‘rsatiladi; kerak bo‘lsa eski sahifalar (ko‘pi bilan 5 ta) yuklanadi, topilmasa “Asl xabar tarixda topilmadi” xabari chiqadi.
+- **Asl xabar o‘chirilgan / yashirilgan:** javob qoladi, iqtibos o‘rnida “Xabar mavjud emas / Nachricht nicht mehr verfügbar”. Matn va muallif bunday holatda hech kimga (moderator yashirgan xabar uchun — oddiy userlarga) yuborilmaydi.
+- **Server qoidalari:** client faqat `reply_to_id` yuboradi; iqtibos matni va muallif serverda asl qatordan quriladi (body’da boshqa maydon → 422). Maqsad xabar Global Chat xabari bo‘lishi va yuboruvchiga ko‘rinishi shart (o‘chirilgan, boshqa userning `pending`/`hidden` xabari, guruh chati xabari yoki mavjud bo‘lmagan id → bir xil `422 reply_not_found`, mavjudligi oshkor qilinmaydi). Javob oddiy xabar: mute/ban (`403` — avval tekshiriladi), rate limit, dublikat va so‘z filtri o‘zgarmagan holda ishlaydi. Tahrirlash (PATCH) `reply_to_id` ni qabul qilmaydi — javob boshqa xabarga ko‘chirilmaydi.
 
 **Cheklovlar** quyidagi qoidalar bo‘yicha ishlaydi:
 
@@ -130,7 +138,7 @@ Foydalanuvchi uchun (login talab qilinadi):
 |---|---|---|
 | GET | `/global-chat/messages?before=<id>&limit=` | Eng yangi sahifa yoki `before` dan oldingi xabarlar. Javobda `pinned`, `me`, `unread`, `sync` ham bor. |
 | GET | `/global-chat/updates?since=<sync>` | Polling: `since` dan keyin o‘zgargan xabarlar (`items`, `removed_ids`) va `reset`. |
-| POST | `/global-chat/messages` `{body}` | Xabar yuborish. |
+| POST | `/global-chat/messages` `{body, reply_to_id?}` | Xabar yuborish; `reply_to_id` bilan — javob. Har bir xabarda `reply_to: {id, available, sender, excerpt} \| null`. |
 | PATCH | `/global-chat/messages/{id}` `{body}` | O‘z xabarini tahrirlash. |
 | DELETE | `/global-chat/messages/{id}` | O‘z xabarini o‘chirish (`204`). |
 | GET | `/global-chat/pinned` | Qadalgan xabarlar. |
@@ -177,6 +185,7 @@ Kelajakda WebSocket qo‘shiladigan bo‘lsa, `/updates` mantiqi xuddi shunday q
 2. Backend’ni qayta ishga tushiring, frontend’ni slot orqali deploy qiling (`.next-a` / `.next-b`).
 3. Rollback:
    - frontend’ni oldingi slotga qaytaring;
+   - faqat javob berish funksiyasini olib tashlash uchun `alembic downgrade e9b4c2f7a3d1` bajaring: `reply_to_id` ustuni va indeksi o‘chadi, javoblar oddiy xabar bo‘lib qoladi (matnlar saqlanadi). Bu keyingi `a6d2f9c4e8b1` (A2 Audio Manager jadvali) ni ham olib tashlaydi;
    - faqat tahrirlash/o‘chirish funksiyasini olib tashlash uchun `alembic downgrade c8f2a6d4e1b9` bajaring. U `global_chat_message_edits` jadvalini va 2 ta ustunni o‘chiradi. `deleted` holatidagi xabarlar `hidden` holatiga o‘tkaziladi (sababi: “deleted by author”), shuning uchun ular userlarga qayta ko‘rinib qolmaydi.
    - butun Global Chatni olib tashlash uchun `alembic downgrade b7e3d9a2c5f1` bajaring — u faqat `global_chat_*` jadvallarini o‘chiradi.
 
