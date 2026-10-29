@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, String, Text
+from sqlalchemy import Boolean, DateTime, ForeignKey, Index, Integer, String, Text
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -48,6 +48,7 @@ class AdvertisementEvent(BaseModel):
     hash of IP + user agent — no raw personal data) for de-duplication."""
 
     __tablename__ = "advertisement_events"
+    __table_args__ = (Index("ix_advertisement_events_created_at", "created_at"),)
 
     advertisement_id: Mapped[UUID] = mapped_column(
         UUID(as_uuid=True), ForeignKey("advertisements.id", ondelete="CASCADE"), nullable=False, index=True

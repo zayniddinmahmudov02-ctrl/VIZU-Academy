@@ -11,6 +11,7 @@ from fastapi import (
 from sqlalchemy.orm import Session
 
 from app.api.dependencies.auth import require_super_admin
+from app.core.client_ip import client_ip
 from app.core.config import settings
 from app.core.utils import parse_user_agent
 
@@ -54,8 +55,7 @@ router = APIRouter(
 
 def _client_ip(request: Request) -> str | None:
     """Real client IP behind Cloudflare / nginx (used for rate limiting only)."""
-    forwarded = request.headers.get("cf-connecting-ip") or request.headers.get("x-forwarded-for", "").split(",")[0]
-    return forwarded.strip() or (request.client.host if request.client else None)
+    return client_ip(request)
 
 
 def _rate_limited(exc: RateLimited) -> HTTPException:

@@ -74,7 +74,7 @@ class UserAchievement(BaseModel):
     reward_value: Mapped[int] = mapped_column(Integer, nullable=False, default=0, server_default="0")
     reward_offers: Mapped[list] = mapped_column(JSONB, nullable=False, default=list, server_default="[]")
     reward_status: Mapped[str] = mapped_column(String(20), nullable=False, default=REWARD_STATUS_NONE, server_default=REWARD_STATUS_NONE)
-    reward_order_id: Mapped[UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("subscription_orders.id", ondelete="SET NULL"), nullable=True)
+    reward_order_id: Mapped[UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("subscription_orders.id", ondelete="SET NULL"), nullable=True, index=True)
     reward_used_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
     achievement = relationship("Achievement", lazy="joined")

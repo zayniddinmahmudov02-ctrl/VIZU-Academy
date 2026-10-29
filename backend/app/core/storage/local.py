@@ -10,6 +10,14 @@ class LocalStorage(BaseStorage):
 
     CHUNK_SIZE = 1024 * 1024  # 1 MB — bounds peak RAM regardless of file size
 
+    def _inside_root(self, path: str) -> Path:
+        """ROOT / path, refusing anything that resolves outside ROOT ("../")."""
+        root = self.ROOT.resolve()
+        target = (self.ROOT / path).resolve()
+        if target != root and root not in target.parents:
+            raise ValueError("Storage path escapes the upload directory")
+        return self.ROOT / path
+
     async def upload(
         self,
         file,
@@ -17,7 +25,7 @@ class LocalStorage(BaseStorage):
         max_bytes: int | None = None,
     ):
 
-        destination = self.ROOT / path
+        destination = self._inside_root(path)
 
         destination.parent.mkdir(
             parents=True,
@@ -58,7 +66,7 @@ class LocalStorage(BaseStorage):
         path: str,
     ):
 
-        target = self.ROOT / path
+        target = self._inside_root(path)
 
         if target.exists():
             target.unlink()

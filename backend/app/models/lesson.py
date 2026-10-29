@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, ForeignKey, Integer, String, Text
+from sqlalchemy import Boolean, ForeignKey, Index, Integer, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models.base import BaseModel
@@ -6,6 +6,7 @@ from app.models.base import BaseModel
 
 class Lesson(BaseModel):
     __tablename__ = "lessons"
+    __table_args__ = (Index("uq_lessons_module_number", "module_id", "number", unique=True),)
 
     module_id: Mapped[str] = mapped_column(
         ForeignKey("modules.id", ondelete="CASCADE"),

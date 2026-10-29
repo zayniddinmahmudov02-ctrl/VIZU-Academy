@@ -5,6 +5,7 @@ from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
 
 from app.api.dependencies.auth import get_current_user
+from app.core.client_ip import client_ip
 from app.core.security.roles import UserRole
 from app.db.session import get_db
 from app.models.advertisement import LINK_INTERNAL
@@ -101,9 +102,7 @@ def track_internal_click(
 
 
 def _client(request: Request) -> str:
-    forwarded = request.headers.get("x-forwarded-for", "")
-    ip = forwarded.split(",")[0].strip() or (request.client.host if request.client else "")
-    return service.client_hash(ip, request.headers.get("user-agent"))
+    return service.client_hash(client_ip(request) or "", request.headers.get("user-agent"))
 
 
 # ============================================================

@@ -11,7 +11,12 @@ class Settings(BaseSettings):
     # Off unless explicitly enabled (DEBUG=true in a development .env).
     # A missing value never turns debug mode / SQL echo on.
     DEBUG: bool = False
-    
+    # Peers whose forwarding headers are believed (see app/core/client_ip.py).
+    TRUSTED_PROXY_IPS: str = "127.0.0.1,::1"
+    # Swagger UI (/docs) and /openapi.json map all ~1000 endpoints for anyone.
+    # Unset = on everywhere except APP_ENV=production; API_DOCS_ENABLED=true forces it on.
+    API_DOCS_ENABLED: bool | None = None
+
     # ==================================================
     # Storage
     # ==================================================
@@ -192,6 +197,12 @@ class Settings(BaseSettings):
         """SQL statement logging (incl. bound parameters): only with DEBUG
         explicitly on, and never in production."""
         return self.DEBUG and self.APP_ENV in ("development", "test")
+
+    @property
+    def API_DOCS(self) -> bool:
+        if self.API_DOCS_ENABLED is not None:
+            return self.API_DOCS_ENABLED
+        return self.APP_ENV != "production"
 
     model_config = SettingsConfigDict(
         env_file=".env",

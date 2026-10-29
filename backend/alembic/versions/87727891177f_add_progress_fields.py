@@ -46,7 +46,8 @@ def downgrade() -> None:
     op.drop_column('student_progress', 'unlocked')
     op.drop_column('student_progress', 'course_completed')
     op.drop_column('student_progress', 'module_completed')
-    op.drop_constraint(None, 'payments', type_='unique')
+    # upgrade created it unnamed; PostgreSQL named it <table>_<column>_key
+    op.drop_constraint('payments_transaction_id_key', 'payments', type_='unique')
     op.drop_column('payments', 'receipt_url')
     op.drop_column('certificates', 'issued_at')
     op.drop_column('certificates', 'sprechen_score')

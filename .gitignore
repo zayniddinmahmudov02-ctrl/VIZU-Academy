@@ -72,6 +72,8 @@ Desktop.ini
 # ==========================
 uploads/
 media/
+# ...but not the Next.js route /admin/media (source code, not uploaded media)
+!frontend/src/app/admin/media/
 
 /storage/
 !backend/app/core/storage/

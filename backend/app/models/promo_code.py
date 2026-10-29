@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, String
+from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, String, UniqueConstraint
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -9,6 +9,7 @@ from app.models.base import BaseModel
 
 class PromoCode(BaseModel):
     __tablename__ = "promo_codes"
+    __table_args__ = (UniqueConstraint("code", name="uq_promo_codes_code"),)
 
     code: Mapped[str] = mapped_column(
         String(40),

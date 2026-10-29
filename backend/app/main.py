@@ -203,6 +203,10 @@ from app.api.health import (
 app = FastAPI(
     title=settings.APP_NAME,
     version=settings.APP_VERSION,
+    # off in production unless API_DOCS_ENABLED=true (see Settings.API_DOCS)
+    docs_url="/docs" if settings.API_DOCS else None,
+    redoc_url="/redoc" if settings.API_DOCS else None,
+    openapi_url="/openapi.json" if settings.API_DOCS else None,
 )
 
 register_exception_handlers(app)

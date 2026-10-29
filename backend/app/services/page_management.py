@@ -75,6 +75,7 @@ _ROUTES = (
     ("/admin/speaking", "Speaking", "LMS content", "LMS_PAGE", "lms", False, False),
     ("/admin/notifications", "Notifications", "Notifications", "ADMIN_PAGE", "notifications", True, False),
     ("/admin/global-chat", "Global Chat", "Community", "ADMIN_PAGE", "global_chat", True, False),
+    ("/admin/groups", "Gruppen / Guruhlar", "Community", "ADMIN_PAGE", "groups", True, False),
 )
 
 _DOMAIN_TABLES: dict[str, tuple[tuple[str, str], ...]] = {
@@ -88,6 +89,10 @@ _DOMAIN_TABLES: dict[str, tuple[tuple[str, str], ...]] = {
     "global_chat": (
         ("Global chat messages", "global_chat_messages"), ("Mutes / bans", "global_chat_restrictions"),
         ("Moderation log", "global_chat_moderation_actions"),
+    ),
+    "groups": (
+        ("Study groups", "study_groups"), ("Group members", "study_group_members"),
+        ("Group messages", "study_group_messages"), ("Group audit log", "study_group_audit_logs"),
     ),
     "languages": (("Languages", "languages"), ("User language enrollments", "user_languages"), ("Language settings", "language_settings")),
     "lms": (

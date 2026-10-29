@@ -6,7 +6,7 @@ from fastapi import (
 
 from sqlalchemy.orm import Session
 
-from app.api.dependencies.auth import get_current_user
+from app.api.dependencies.auth import get_current_user, require_admin_panel_access
 
 from app.core.security.roles import UserRole
 
@@ -34,8 +34,9 @@ def _ensure_owner_or_admin(
     item_user_id: str,
     current_user: User,
 ):
+    # the column holds a UUID; compare as text on both sides
     if (
-        item_user_id != str(current_user.id)
+        str(item_user_id) != str(current_user.id)
         and current_user.role not in UserRole.ADMIN_PANEL_ROLES
     ):
         raise HTTPException(
@@ -60,7 +61,7 @@ def get_all(
     return [
         item
         for item in items
-        if item.user_id == str(current_user.id)
+        if str(item.user_id) == str(current_user.id)
     ]
 
 
@@ -93,10 +94,11 @@ def get_one(
 def create(
     data: StudentQuizCreate,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(require_admin_panel_access),
 ):
-    _ensure_owner_or_admin(data.user_id, current_user)
-
+    # Staff corrections only. Students get StudentQuiz rows exclusively from the
+    # server-graded quiz submit (app.services.quiz.grading_service): the rows feed
+    # section gating and the lesson score, so a student must not write a score.
     return StudentQuizService(db).create(data)
 
 
@@ -108,7 +110,7 @@ def update(
     item_id: str,
     data: StudentQuizUpdate,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     existing = StudentQuizService(db).get(item_id)
 
@@ -138,7 +140,7 @@ def update(
 def delete(
     item_id: str,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(require_admin_panel_access),
 ):
     existing = StudentQuizService(db).get(item_id)
 

@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, ForeignKey, String
+from sqlalchemy import Boolean, ForeignKey, Index, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models.base import BaseModel
@@ -6,6 +6,7 @@ from app.models.base import BaseModel
 
 class LoginHistory(BaseModel):
     __tablename__ = "login_history"
+    __table_args__ = (Index("ix_login_history_created_at", "created_at"),)
 
     user_id: Mapped[str] = mapped_column(
         ForeignKey("users.id", ondelete="CASCADE"),

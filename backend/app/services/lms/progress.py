@@ -317,6 +317,14 @@ def is_lesson_completed(db: Session, user_id, lesson_id) -> bool:
     return compute(db, user, lesson)["completed"]
 
 
+def _lock_lesson(db: Session, user_id, lesson_id) -> None:
+    """Serialises snapshot writes of one student's lesson until commit:
+    every writer reads "no row yet" and inserts, so two concurrent requests
+    (two competencies opened at once, a visit during a quiz submit) would
+    both insert and one would die on the unique constraint."""
+    db.execute(select(func.pg_advisory_xact_lock(func.hashtext(f"lms_progress:{user_id}:{lesson_id}"))))
+
+
 def _progress_row(db: Session, user_id, lesson_id) -> StudentProgress:
     row = db.scalar(select(StudentProgress).where(StudentProgress.user_id == user_id, StudentProgress.lesson_id == lesson_id))
     if row is None:
@@ -375,6 +383,7 @@ def sync_lesson(db: Session, user_id, lesson_id) -> dict | None:
     lesson = db.get(Lesson, lesson_id)
     if user is None or lesson is None:
         return None
+    _lock_lesson(db, user.id, lesson.id)
     state = compute(db, user, lesson)
     persist(db, user.id, lesson.id, state)
     db.commit()
@@ -389,6 +398,7 @@ def sync_lesson(db: Session, user_id, lesson_id) -> dict | None:
 def record_visit(db: Session, user: User, lesson: Lesson, kind: str) -> dict:
     """The student opened a competency: visited_at (first time) — completes
     only untracked text/resource competencies, never a lesson by itself."""
+    _lock_lesson(db, user.id, lesson.id)
     now = _now()
     row = snapshot_rows(db, user.id, lesson.id).get(kind)
     if row is None:

@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import DateTime, ForeignKey, Integer, String, Text
+from sqlalchemy import DateTime, ForeignKey, Index, Integer, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models.base import BaseModel
@@ -8,6 +8,10 @@ from app.models.base import BaseModel
 
 class SubscriptionOrder(BaseModel):
     __tablename__ = "subscription_orders"
+    __table_args__ = (
+        Index("ix_subscription_orders_created_at", "created_at"),
+        Index("ix_subscription_orders_access_window", "user_id", "access_start_date", "access_end_date"),
+    )
 
     user_id: Mapped[str] = mapped_column(
         ForeignKey("users.id", ondelete="CASCADE"),

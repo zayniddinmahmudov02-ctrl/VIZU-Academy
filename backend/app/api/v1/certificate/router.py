@@ -32,6 +32,12 @@ router = APIRouter(
     tags=["Certificates"],
 )
 
+PUBLIC_VERIFY_FIELDS = (
+    "certificate_number", "verification_code", "provider", "level", "source",
+    "lesen_score", "hoeren_score", "schreiben_score", "sprechen_score", "score",
+    "issued_at", "is_valid",
+)
+
 
 # ==================================================
 # GET ALL CERTIFICATES
@@ -195,7 +201,8 @@ def verify_certificate(
             detail="Certificate not found",
         )
 
-    return certificate
+    # public endpoint: what a verifier needs, not the internal user id or file paths
+    return {field: getattr(certificate, field) for field in PUBLIC_VERIFY_FIELDS}
 
 
 # ==================================================

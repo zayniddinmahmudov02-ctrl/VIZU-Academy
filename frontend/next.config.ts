@@ -49,6 +49,22 @@ const nextConfig: NextConfig = {
       { source: "/admin/media-management/a2-audio", destination: "/admin/media-management?level=A2", permanent: false },
     ];
   },
+  // Baseline security headers (nothing set them before: neither nginx nor
+  // Cloudflare). Deliberately NOT X-Frame-Options / CSP frame-ancestors:
+  // Telegram Web opens the Mini App (/auth/telegram) inside an iframe, and
+  // NOT Permissions-Policy: Sprechen records from the microphone.
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "Strict-Transport-Security", value: "max-age=31536000" },
+        ],
+      },
+    ];
+  },
   turbopack: {
     root: projectRoot,
   },

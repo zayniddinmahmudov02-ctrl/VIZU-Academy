@@ -106,7 +106,7 @@ def downgrade() -> None:
     op.drop_column('readings', 'updated_at')
     op.drop_column('readings', 'created_at')
     op.add_column('lessons', sa.Column('course_id', sa.UUID(), autoincrement=False, nullable=False))
-    op.drop_constraint(None, 'lessons', type_='foreignkey')
+    # the unnamed lessons.module_id FK goes with drop_column('lessons', 'module_id') below
     op.create_foreign_key(op.f('lessons_course_id_fkey'), 'lessons', 'courses', ['course_id'], ['id'])
     op.drop_index(op.f('ix_lessons_module_id'), table_name='lessons')
     op.create_index(op.f('ix_lessons_course_id'), 'lessons', ['course_id'], unique=False)
@@ -115,7 +115,7 @@ def downgrade() -> None:
     op.add_column('courses', sa.Column('language', sa.VARCHAR(length=10), autoincrement=False, nullable=False))
     op.add_column('courses', sa.Column('modules_count', sa.INTEGER(), autoincrement=False, nullable=False))
     op.add_column('courses', sa.Column('code', sa.VARCHAR(length=20), autoincrement=False, nullable=False))
-    op.drop_constraint(None, 'courses', type_='foreignkey')
+    # the unnamed courses.language_id FK goes with drop_column('courses', 'language_id') below
     op.drop_index(op.f('ix_courses_language_id'), table_name='courses')
     op.create_unique_constraint(op.f('courses_code_key'), 'courses', ['code'], postgresql_nulls_not_distinct=False)
     op.alter_column('courses', 'level',

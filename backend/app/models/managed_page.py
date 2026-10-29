@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from sqlalchemy import Boolean, ForeignKey, String, Text
+from sqlalchemy import Boolean, ForeignKey, String, Text, UniqueConstraint
 from sqlalchemy.dialects.postgresql import JSONB, UUID as PGUUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -9,8 +9,10 @@ from app.models.base import BaseModel
 
 class ManagedPage(BaseModel):
     __tablename__ = "managed_pages"
+    # as migrated: a UNIQUE constraint plus a separate plain index
+    __table_args__ = (UniqueConstraint("route", name="managed_pages_route_key"),)
 
-    route: Mapped[str] = mapped_column(String(255), unique=True, nullable=False, index=True)
+    route: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
     navigation_enabled: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True, server_default="true")
     is_hidden: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default="false")
     is_archived: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default="false")

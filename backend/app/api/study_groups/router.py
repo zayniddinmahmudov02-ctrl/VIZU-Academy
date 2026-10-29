@@ -15,6 +15,7 @@ from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy.orm import Session
 
 from app.api.dependencies.auth import get_current_user
+from app.core.client_ip import client_ip
 from app.db.session import get_db
 from app.models.study_group import CHAT_MODES, MODES
 from app.models.user import User
@@ -114,8 +115,7 @@ class TaskIn(_In):
 
 
 def _ip(request: Request) -> str | None:
-    forwarded = request.headers.get("cf-connecting-ip") or request.headers.get("x-forwarded-for", "").split(",")[0]
-    return forwarded.strip() or (request.client.host if request.client else None)
+    return client_ip(request)
 
 
 def _fields(model: BaseModel) -> dict:
