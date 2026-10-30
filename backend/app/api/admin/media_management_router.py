@@ -43,6 +43,7 @@ from app.models.user import User
 from app.models.video import Video
 from app.services.a2_audio import assets as a2_assets
 from app.services.a2_audio import lesson4_hoeren as a2_l04
+from app.services.a2_audio import processing as a2_processing
 from app.services.a2_audio import readiness as a2_readiness
 from app.services.lesson_skills import exercises as skill_exercises
 from app.services.lesson_skills.admin import audio_tracks_admin, listening_storage
@@ -305,6 +306,12 @@ def a2_audio_assets(db: Session = Depends(get_db), _: User = Depends(require_adm
 def a2_audio_manifest(db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
     """Manifest from the real data: files per Unterricht, every current Hören task and its audio state."""
     return a2_assets.manifest(db)
+
+
+@router.get("/a2-audio/processing")
+def a2_audio_processing(db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+    """Lessons 1-13: per Hören task its audio, transcript, match, questions with keys and the pipeline status."""
+    return a2_processing.overview(db)
 
 
 @router.get("/a2-audio/targets")

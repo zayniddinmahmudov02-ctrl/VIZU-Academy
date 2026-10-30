@@ -7,6 +7,7 @@ import { AlertTriangle, Eye, EyeOff, FileText, Film, ListMusic, Music, Play, Ref
 
 import AudioSlotsPanel from "./audio-slots-panel";
 import A2AudioManager from "./a2-audio-manager";
+import A2AudioProcessing from "./a2-audio-processing";
 import A2ListeningManagement from "./a2-listening-management";
 
 import { AdminButton, AdminCheckbox, AdminInput, AdminPageHeader, AdminSelect } from "@/components/admin/admin-ui";
@@ -231,6 +232,7 @@ export default function MediaManagementClient({ initialLevel = "" }: { initialLe
                 className={`${card} flex flex-wrap items-center gap-2 text-sm font-semibold text-[var(--admin-primary)] hover:bg-[var(--admin-hover)]`}>
             <FileText size={15} /> A2 → 4. Unterricht → Hören: Text 1, Text 2, Text 3 verwalten
           </Link>
+          <A2AudioProcessing />
           <A2AudioManager />
           <A2ListeningManagement />
         </>

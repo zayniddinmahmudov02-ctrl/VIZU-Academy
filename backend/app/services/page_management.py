@@ -49,6 +49,7 @@ _ROUTES = (
     ("/admin/listening", "Listening", "LMS content", "LMS_PAGE", "lms", False, False),
     ("/admin/media-management", "Media Management", "Media", "ADMIN_PAGE", "media", True, False),
     ("/admin/media-management/hoeren-a1", "A1 Hören", "Media", "LMS_PAGE", "media", False, False),
+    ("/admin/media-management/a2/lesson-4/hoeren", "A2 4. Unterricht Hören", "Media", "LMS_PAGE", "media", False, False),
     ("/admin/mock-exams", "Vorbereitung", "Mock exams", "ADMIN_PAGE", "mock_exams", True, False),
     ("/admin/mock-exams/[providerId]", "Mock exam provider", "Mock exams", "ADMIN_PAGE", "mock_exams", False, False),
     ("/admin/mock-exams/[providerId]/[levelId]", "Mock exam level", "Mock exams", "ADMIN_PAGE", "mock_exams", False, False),

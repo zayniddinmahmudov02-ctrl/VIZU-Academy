@@ -220,6 +220,72 @@ export async function getA2AssetBlobUrl(id: string): Promise<string> {
   return URL.createObjectURL(response.data as Blob);
 }
 
+// ---------- A2 audio processing (lessons 1-13): transcript, match, keys, publish ----------
+
+export type A2PipelineStatus =
+  | "UPLOADED" | "TRANSCRIBING" | "TRANSCRIBED" | "MATCHED" | "ANSWER_KEY_VERIFIED" | "PUBLISHED" | "NEEDS_REVIEW" | "FAILED";
+
+export interface A2TranscriptSegment { start: number; end: number; text: string }
+
+export interface A2ProcessingFile {
+  slot: string;
+  label: string | null;
+  name: string | null;
+  size_bytes: number | null;
+  duration_seconds: number | null;
+  on_disk: boolean;
+  transcript: {
+    sha256: string;
+    status: "TRANSCRIBING" | "TRANSCRIBED" | "NEEDS_REVIEW" | "FAILED";
+    model: string | null;
+    text: string | null;
+    segments: A2TranscriptSegment[] | null;
+    quality: { agreement?: number | null; second_model?: string; low_confidence_words?: number; words?: number; uncertain?: { at: number; heard: string }[] } | null;
+    review_note: string | null;
+    duration_seconds: number | null;
+  } | null;
+}
+
+export interface A2ProcessingQuestion {
+  number: number;
+  question: string;
+  type: string;
+  options: { text: string; is_correct: boolean }[];
+  config: { text?: string; gaps?: Record<string, { accepted?: string[]; options?: string[] }>; pairs?: Record<string, string>; items?: { id: string; text: string }[]; targets?: { id: string; text: string }[] } | null;
+  has_key: boolean;
+  verified: boolean;
+  needs_review: boolean;
+  note: string | null;
+}
+
+export interface A2ProcessingTask {
+  listening_id: string;
+  title: string;
+  content_id: string | null;
+  task_key: string | null;
+  is_published: boolean;
+  status: A2PipelineStatus;
+  problems: string[];
+  match: { status: "MATCHED" | "NEEDS_REVIEW" | "MISMATCH"; note?: string } | null;
+  keys: { total: number; verified: number; needs_review: number; missing: number };
+  questions: A2ProcessingQuestion[];
+  student_transcript: boolean;
+  library_verification: A2Verification | null;
+  files: A2ProcessingFile[];
+}
+
+export interface A2Processing {
+  summary: {
+    tasks: number; published: number; percent_published: number; by_status: Record<A2PipelineStatus, number>;
+    audio_files: number; transcribed: number; unique_contents: number; matched: number; keys_verified: number;
+  };
+  lessons: { number: number; title: string | null; is_published: boolean; tasks: A2ProcessingTask[]; task_count: number; published_tasks: number }[];
+}
+
+export async function getA2Processing(): Promise<A2Processing> {
+  return (await api.get<A2Processing>(`${BASE}/a2-audio/processing`)).data;
+}
+
 // ---------- A2 → 4. Unterricht → Hören: Text 1 / 2 / 3 ----------
 
 export type A2TextSlotNumber = 1 | 2 | 3;

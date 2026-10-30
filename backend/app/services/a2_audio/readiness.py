@@ -107,6 +107,17 @@ def compute(db: Session) -> dict:
                          [f"{a['original_filename']}: {'Aufgabe spielt eine andere Datei' if not a['linked']['in_sync'] else 'Unterricht passt nicht zur Lektion'}"
                           for a in bad_links]))
 
+    # every Hören task of lessons 1-13 transcribed, matched, keys verified and published (processing.py)
+    from app.services.a2_audio import processing
+
+    pipeline = processing.overview(db)
+    waiting = [t for lesson in pipeline["lessons"] for t in lesson["tasks"] if t["status"] != processing.PUBLISHED]
+    checks.append(_check("hoeren_published", CONTENT, pipeline["summary"]["tasks"] > 0 and not waiting,
+                         "Hören-Aufgaben 1–13 transkribiert, zugeordnet, Lösungen geprüft und veröffentlicht",
+                         f"{pipeline['summary']['published']} von {pipeline['summary']['tasks']} veröffentlicht",
+                         [f"{lesson['number']}. Unterricht · {t['title']}: {t['status']}" + (f" — {t['problems'][0]}" if t["problems"] else "")
+                          for lesson in pipeline["lessons"] for t in lesson["tasks"] if t["status"] != processing.PUBLISHED]))
+
     # --- content gaps per lesson (what an admin still has to fill in) ---
     gaps = []
     for t, lesson in a2_assets.a2_tasks(db, lessons):

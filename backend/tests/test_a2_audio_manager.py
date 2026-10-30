@@ -599,6 +599,17 @@ class TestA2AudioManager(unittest.TestCase):
         course.description = "Goethe A2: 13 Unterrichte mit Hören, Lesen, Schreiben, Sprechen."
         self.db.commit()
         r = readiness.compute(self.db)
+        self.assertEqual({c["key"] for c in r["checks"] if not c["ok"] and c["group"] == "content"}, {"hoeren_published"})
+        # transcribed, matched and published (app/scripts/a2_audio_processing.py)
+        from app.models.a2_audio_transcript import A2AudioTranscript
+
+        for n, (asset, task) in enumerate(((a, t1), (b, t2))):
+            self.db.refresh(task)
+            self.db.add(A2AudioTranscript(sha256=asset["sha256"], original_name=asset["original_filename"], status="TRANSCRIBED", text=f"Text {n}",
+                                          storage_paths=[task.audio_storage_path], matches={str(task.id): {"status": "MATCHED"}}))
+            task.is_published = True
+        self.db.commit()
+        r = readiness.compute(self.db)
         self.assertEqual(r["status"], "NEEDS_TESTING")
         for key in readiness.MANUAL_CHECKS:
             r = readiness.confirm(self.db, self.user["super"], key, True, "Sandbox" if key == "payment_tested" else None)

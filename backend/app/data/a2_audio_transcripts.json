@@ -1,0 +1,4728 @@
+{
+ "source": "VIZU A2 book audio, transcribed 2026-10-21/30",
+ "records": [
+  {
+   "sha256": "80f8bbef82da66ca9c93c50e15f3dc90c5f75c5d984b064af47a79d12c15a5d8",
+   "original_name": "A2 1.Unterricht Hören.m4a",
+   "size_bytes": 2345068,
+   "duration_seconds": 95.4,
+   "status": "TRANSCRIBED",
+   "model": "faster-whisper large-v3 (CPU, int8, de)",
+   "text": "Hallo, ich bin Alexis Schumann.\nHeute stelle ich Ihnen eine Frage, warum haben Sie Ihren jetzigen Beruf gewählt?\nHallo, mein Name ist Johann.\nMein Beruf ist Architekt, weil mein Vater auch Architekt war.\nAls Kind habe ich oft mit ihm gearbeitet und Häuser gezeichnet.\nDas hat mir viel Spaß gemacht.\nSpäter habe ich Architektur studiert und mein Studium erfolgreich beendet.\nJetzt plane ich moderne Gebäude und arbeite an interessanten Projekten.\nHallo, ich bin Alexis Schumann.\nHeute stelle ich Ihnen eine Frage, warum haben Sie Ihren jetzigen Beruf gewählt?\nHallo, mein Name ist Julia.\nMein Beruf ist Ärztin, weil ich schon als Kind Menschen helfen wollte.\nFrüher habe ich meine Puppen behandelt und kleine Verbände gemacht.\nIn der Schule habe ich Biologie sehr gemocht.\nDanach habe ich Medizin studiert und viel gelernt.\nJetzt arbeite ich im Krankenhaus und habe viele Patienten behandelt.\nHallo, ich bin Alexis Schumann.\nHeute stelle ich Ihnen eine Frage, warum haben Sie Ihren jetzigen Beruf gewählt?\nHallo, mein Name ist Mikey, mein Beruf ist noch Schüler, aber ich möchte Fußballspieler werden.\nAls Kind habe ich jeden Tag Fußball gespielt und viele Tore geschossen.\nIch habe Cristiano Ronaldo immer bewundert. Letztes Jahr habe ich in einer Mannschaft trainiert.\nJetzt trainiere ich hart und werde in Zukunft professionell Fußball spielen.",
+   "segments": [
+    {
+     "start": 0.0,
+     "end": 1.8,
+     "text": "Hallo, ich bin Alexis Schumann."
+    },
+    {
+     "start": 2.5,
+     "end": 7.0,
+     "text": "Heute stelle ich Ihnen eine Frage, warum haben Sie Ihren jetzigen Beruf gewählt?"
+    },
+    {
+     "start": 7.9,
+     "end": 9.7,
+     "text": "Hallo, mein Name ist Johann."
+    },
+    {
+     "start": 11.0,
+     "end": 14.2,
+     "text": "Mein Beruf ist Architekt, weil mein Vater auch Architekt war."
+    },
+    {
+     "start": 14.9,
+     "end": 18.7,
+     "text": "Als Kind habe ich oft mit ihm gearbeitet und Häuser gezeichnet."
+    },
+    {
+     "start": 19.3,
+     "end": 21.1,
+     "text": "Das hat mir viel Spaß gemacht."
+    },
+    {
+     "start": 22.2,
+     "end": 26.6,
+     "text": "Später habe ich Architektur studiert und mein Studium erfolgreich beendet."
+    },
+    {
+     "start": 26.6,
+     "end": 31.8,
+     "text": "Jetzt plane ich moderne Gebäude und arbeite an interessanten Projekten."
+    },
+    {
+     "start": 32.4,
+     "end": 34.6,
+     "text": "Hallo, ich bin Alexis Schumann."
+    },
+    {
+     "start": 35.8,
+     "end": 39.8,
+     "text": "Heute stelle ich Ihnen eine Frage, warum haben Sie Ihren jetzigen Beruf gewählt?"
+    },
+    {
+     "start": 40.8,
+     "end": 43.0,
+     "text": "Hallo, mein Name ist Julia."
+    },
+    {
+     "start": 44.3,
+     "end": 47.9,
+     "text": "Mein Beruf ist Ärztin, weil ich schon als Kind Menschen helfen wollte."
+    },
+    {
+     "start": 48.8,
+     "end": 52.7,
+     "text": "Früher habe ich meine Puppen behandelt und kleine Verbände gemacht."
+    },
+    {
+     "start": 53.3,
+     "end": 56.5,
+     "text": "In der Schule habe ich Biologie sehr gemocht."
+    },
+    {
+     "start": 57.4,
+     "end": 60.5,
+     "text": "Danach habe ich Medizin studiert und viel gelernt."
+    },
+    {
+     "start": 61.2,
+     "end": 65.7,
+     "text": "Jetzt arbeite ich im Krankenhaus und habe viele Patienten behandelt."
+    },
+    {
+     "start": 66.4,
+     "end": 68.5,
+     "text": "Hallo, ich bin Alexis Schumann."
+    },
+    {
+     "start": 69.2,
+     "end": 73.7,
+     "text": "Heute stelle ich Ihnen eine Frage, warum haben Sie Ihren jetzigen Beruf gewählt?"
+    },
+    {
+     "start": 74.6,
+     "end": 80.6,
+     "text": "Hallo, mein Name ist Mikey, mein Beruf ist noch Schüler, aber ich möchte Fußballspieler werden."
+    },
+    {
+     "start": 80.8,
+     "end": 85.2,
+     "text": "Als Kind habe ich jeden Tag Fußball gespielt und viele Tore geschossen."
+    },
+    {
+     "start": 85.2,
+     "end": 90.5,
+     "text": "Ich habe Cristiano Ronaldo immer bewundert. Letztes Jahr habe ich in einer Mannschaft trainiert."
+    },
+    {
+     "start": 90.5,
+     "end": 94.9,
+     "text": "Jetzt trainiere ich hart und werde in Zukunft professionell Fußball spielen."
+    }
+   ],
+   "quality": {
+    "second_model": "faster-whisper medium",
+    "agreement": 0.998,
+    "words": 211,
+    "low_confidence_words": 0,
+    "uncertain": []
+   },
+   "review_note": null
+  },
+  {
+   "sha256": "d5f8da8de4c7e787a9bc68154c37dee1e607454d2853f4abbfc3796587973053",
+   "original_name": "A2 10.Unterricht Teil 1.m4a",
+   "size_bytes": 6432720,
+   "duration_seconds": 397.5,
+   "status": "TRANSCRIBED",
+   "model": "faster-whisper large-v3 (CPU, int8, de)",
+   "text": "Arena A2\nEin Lehrwerk zur Vorbereitung auf die Prüfung\nGoethe-Zertifikat A2 Fit in Deutsch\nPraxis Spezialverlag Deutsch als Fremdsprache\nAthen\nTest 1\nTeil 1\nDu hörst 5 kurze Texte.\nDu hörst jeden Text zweimal.\nWähle bei den Aufgaben 1 bis 5 die richtige Lösung\nA, B oder C.\nLies jetzt die Aufgabe 1.\nAufgabe 1\nDiese langen Haarfrisuren sind doch nichts für Jungs. Aber auch die Kurzhaarfrisuren finde ich out.\nBisher hatte ich lange Haare, aber ich habe diese Frisur satt.\nIch lasse mir mittellange Haare schneiden, wie Justin Bieber.\nDann bin ich voll in.\nWas meinst du? Was passt mir besser? Kurz, mittel oder lang?\nDu hörst die Aufgabe noch einmal.\nDiese langen Haarfrisuren sind doch nichts für Jungs.\nAber auch die Kurzhaarfrisuren finde ich out.\nBisher hatte ich lange Haare, aber ich habe diese Frisur satt.\nIch lasse mir mittellange Haare schneiden, wie Justin Bieber.\nDann bin ich voll in. Was meinst du? Was passt mir besser? Kurz, mittel oder lang?\nLies jetzt die Aufgabe 2.\nAufgabe 2\nIch muss schon sagen, dass ich mich mit meinen Geschwistern überhaupt nicht gut verstehe.\nWir streiten uns jeden Tag über Kleinigkeiten.\nMit meiner Mutter ist das genauso.\nIch muss immer tun, was sie will.\nNur mein Vater versteht mich.\nMit ihm kann ich über alles reden und er tut nicht so, als würde er alles besser wissen.\nDu hörst die Aufgabe noch einmal.\nIch muss schon sagen, dass ich mich mit meinen Geschwistern überhaupt nicht gut verstehe.\nWir streiten uns jeden Tag über Kleinigkeiten.\nMit meiner Mutter ist das genauso.\nIch muss immer tun, was sie will.\nNur mein Vater versteht mich.\nMit ihm kann ich über alles reden und er tut nicht so, als würde er alles besser wissen.\nLies jetzt die Aufgabe 3.\nAufgabe 3\nAlso, ich muss zugeben, dass ich auf keinen Fall ein Wintertyp bin.\nKälte mag ich gar nicht. Skilaufen schon gar nicht.\nIch mag aber auch keine allzu hohen Temperaturen, wie zum Beispiel im Sommer, obwohl ich sehr gerne schwimme.\nIch finde, am besten passt mir der Frühling.\nDa kann man so viele verschiedene Sachen machen, vor allem wandern, weil es weder kalt noch zu warm ist.\nDu hörst die Aufgabe noch einmal.\nAlso ich muss zugeben, dass ich auf keinen Fall ein Wintertyp bin.\nKälte mag ich gar nicht, Skilaufen schon gar nicht.\nIch mag aber auch keine allzu hohen Temperaturen, wie zum Beispiel im Sommer, obwohl ich sehr gerne schwimme.\nIch finde, am besten passt mir der Frühling.\nDa kann man so viele verschiedene Sachen machen, vor allem wandern, weil es weder kalt noch zu warm ist.\nAufgabe 4\n1 zu 0. Es folgt nun die Wettervorhersage für morgen Donnerstag. Du hörst die Aufgabe noch\neinmal. Kultur. In einer Woche ist es soweit. Die Berlinale, das Fest der Filmfreunde beginnt. Und\nnun zum Sport. Hier die Ergebnisse der deutschen Klubs in den Europapokalen. Real Madrid verliert\ngegen Schalke 1 zu 2. Bayern München gewinnt gegen Atletico Madrid 2 zu 1 und Bayer Leverkusen schlägt\nLazio 1 zu 0. Es folgt nun die Wettervorhersage für morgen Donnerstag.\nLies jetzt die Aufgabe 5.\nAufgabe 5\nLiebe Kundinnen und Kunden, herzlich willkommen bei Rentschler, dem größten Kaufhaus der Stadt.\nHier gleich unsere heutigen Angebote.\nDamenblusen in allen Größen und Farben für nur 15 Euro.\nJeanshosen beste Qualität nur 17 Euro und Herrenschuhe schon ab 25 Euro, damit das Laufen wieder Spaß macht.\nDiese Angebote dürfen Sie sich nicht entgehen lassen. Greifen Sie zu.\nDu hörst die Aufgabe noch einmal.\n[unverständlich]. Liebe Kundinnen und Kunden, herzlich willkommen bei Rentschler, dem größten Kaufhaus\nder Stadt. Hier gleich unsere heutigen Angebote. Damenblusen in allen Größen und Farben für nur\n15 Euro, Jeanshosen beste Qualität nur 17 Euro und Herrenschuhe schon ab 25 Euro, damit das Laufen\nwieder spaß macht diese angebote dürfen sie sich nicht entgehen lassen greifen sie zu ende von teil 1",
+   "segments": [
+    {
+     "start": 1.4,
+     "end": 2.7,
+     "text": "Arena A2"
+    },
+    {
+     "start": 2.7,
+     "end": 5.9,
+     "text": "Ein Lehrwerk zur Vorbereitung auf die Prüfung"
+    },
+    {
+     "start": 5.9,
+     "end": 8.6,
+     "text": "Goethe-Zertifikat A2 Fit in Deutsch"
+    },
+    {
+     "start": 8.6,
+     "end": 12.1,
+     "text": "Praxis Spezialverlag Deutsch als Fremdsprache"
+    },
+    {
+     "start": 12.1,
+     "end": 13.1,
+     "text": "Athen"
+    },
+    {
+     "start": 13.1,
+     "end": 15.1,
+     "text": "Test 1"
+    },
+    {
+     "start": 15.1,
+     "end": 16.4,
+     "text": "Teil 1"
+    },
+    {
+     "start": 16.4,
+     "end": 19.4,
+     "text": "Du hörst 5 kurze Texte."
+    },
+    {
+     "start": 19.4,
+     "end": 21.5,
+     "text": "Du hörst jeden Text zweimal."
+    },
+    {
+     "start": 22.8,
+     "end": 25.7,
+     "text": "Wähle bei den Aufgaben 1 bis 5 die richtige Lösung"
+    },
+    {
+     "start": 25.7,
+     "end": 27.7,
+     "text": "A, B oder C."
+    },
+    {
+     "start": 29.0,
+     "end": 30.6,
+     "text": "Lies jetzt die Aufgabe 1."
+    },
+    {
+     "start": 49.2,
+     "end": 50.2,
+     "text": "Aufgabe 1"
+    },
+    {
+     "start": 51.2,
+     "end": 57.0,
+     "text": "Diese langen Haarfrisuren sind doch nichts für Jungs. Aber auch die Kurzhaarfrisuren finde ich out."
+    },
+    {
+     "start": 57.7,
+     "end": 61.0,
+     "text": "Bisher hatte ich lange Haare, aber ich habe diese Frisur satt."
+    },
+    {
+     "start": 61.1,
+     "end": 64.3,
+     "text": "Ich lasse mir mittellange Haare schneiden, wie Justin Bieber."
+    },
+    {
+     "start": 64.5,
+     "end": 66.0,
+     "text": "Dann bin ich voll in."
+    },
+    {
+     "start": 66.6,
+     "end": 71.1,
+     "text": "Was meinst du? Was passt mir besser? Kurz, mittel oder lang?"
+    },
+    {
+     "start": 71.8,
+     "end": 73.5,
+     "text": "Du hörst die Aufgabe noch einmal."
+    },
+    {
+     "start": 74.3,
+     "end": 76.9,
+     "text": "Diese langen Haarfrisuren sind doch nichts für Jungs."
+    },
+    {
+     "start": 77.3,
+     "end": 80.0,
+     "text": "Aber auch die Kurzhaarfrisuren finde ich out."
+    },
+    {
+     "start": 80.6,
+     "end": 84.1,
+     "text": "Bisher hatte ich lange Haare, aber ich habe diese Frisur satt."
+    },
+    {
+     "start": 84.1,
+     "end": 87.4,
+     "text": "Ich lasse mir mittellange Haare schneiden, wie Justin Bieber."
+    },
+    {
+     "start": 87.7,
+     "end": 94.2,
+     "text": "Dann bin ich voll in. Was meinst du? Was passt mir besser? Kurz, mittel oder lang?"
+    },
+    {
+     "start": 99.7,
+     "end": 101.4,
+     "text": "Lies jetzt die Aufgabe 2."
+    },
+    {
+     "start": 116.7,
+     "end": 117.6,
+     "text": "Aufgabe 2"
+    },
+    {
+     "start": 118.5,
+     "end": 122.3,
+     "text": "Ich muss schon sagen, dass ich mich mit meinen Geschwistern überhaupt nicht gut verstehe."
+    },
+    {
+     "start": 122.7,
+     "end": 124.8,
+     "text": "Wir streiten uns jeden Tag über Kleinigkeiten."
+    },
+    {
+     "start": 125.2,
+     "end": 126.8,
+     "text": "Mit meiner Mutter ist das genauso."
+    },
+    {
+     "start": 127.2,
+     "end": 128.8,
+     "text": "Ich muss immer tun, was sie will."
+    },
+    {
+     "start": 129.3,
+     "end": 130.9,
+     "text": "Nur mein Vater versteht mich."
+    },
+    {
+     "start": 131.4,
+     "end": 135.4,
+     "text": "Mit ihm kann ich über alles reden und er tut nicht so, als würde er alles besser wissen."
+    },
+    {
+     "start": 136.5,
+     "end": 138.2,
+     "text": "Du hörst die Aufgabe noch einmal."
+    },
+    {
+     "start": 139.4,
+     "end": 143.1,
+     "text": "Ich muss schon sagen, dass ich mich mit meinen Geschwistern überhaupt nicht gut verstehe."
+    },
+    {
+     "start": 143.6,
+     "end": 145.6,
+     "text": "Wir streiten uns jeden Tag über Kleinigkeiten."
+    },
+    {
+     "start": 146.1,
+     "end": 147.6,
+     "text": "Mit meiner Mutter ist das genauso."
+    },
+    {
+     "start": 148.1,
+     "end": 149.6,
+     "text": "Ich muss immer tun, was sie will."
+    },
+    {
+     "start": 150.2,
+     "end": 151.7,
+     "text": "Nur mein Vater versteht mich."
+    },
+    {
+     "start": 152.0,
+     "end": 156.1,
+     "text": "Mit ihm kann ich über alles reden und er tut nicht so, als würde er alles besser wissen."
+    },
+    {
+     "start": 161.9,
+     "end": 163.6,
+     "text": "Lies jetzt die Aufgabe 3."
+    },
+    {
+     "start": 178.7,
+     "end": 179.7,
+     "text": "Aufgabe 3"
+    },
+    {
+     "start": 180.5,
+     "end": 184.0,
+     "text": "Also, ich muss zugeben, dass ich auf keinen Fall ein Wintertyp bin."
+    },
+    {
+     "start": 184.5,
+     "end": 187.1,
+     "text": "Kälte mag ich gar nicht. Skilaufen schon gar nicht."
+    },
+    {
+     "start": 187.7,
+     "end": 193.0,
+     "text": "Ich mag aber auch keine allzu hohen Temperaturen, wie zum Beispiel im Sommer, obwohl ich sehr gerne schwimme."
+    },
+    {
+     "start": 193.8,
+     "end": 195.9,
+     "text": "Ich finde, am besten passt mir der Frühling."
+    },
+    {
+     "start": 196.0,
+     "end": 201.6,
+     "text": "Da kann man so viele verschiedene Sachen machen, vor allem wandern, weil es weder kalt noch zu warm ist."
+    },
+    {
+     "start": 202.5,
+     "end": 204.2,
+     "text": "Du hörst die Aufgabe noch einmal."
+    },
+    {
+     "start": 205.2,
+     "end": 208.7,
+     "text": "Also ich muss zugeben, dass ich auf keinen Fall ein Wintertyp bin."
+    },
+    {
+     "start": 209.2,
+     "end": 211.8,
+     "text": "Kälte mag ich gar nicht, Skilaufen schon gar nicht."
+    },
+    {
+     "start": 211.8,
+     "end": 217.7,
+     "text": "Ich mag aber auch keine allzu hohen Temperaturen, wie zum Beispiel im Sommer, obwohl ich sehr gerne schwimme."
+    },
+    {
+     "start": 218.5,
+     "end": 220.5,
+     "text": "Ich finde, am besten passt mir der Frühling."
+    },
+    {
+     "start": 220.7,
+     "end": 226.3,
+     "text": "Da kann man so viele verschiedene Sachen machen, vor allem wandern, weil es weder kalt noch zu warm ist."
+    },
+    {
+     "start": 248.5,
+     "end": 250.1,
+     "text": "Aufgabe 4"
+    },
+    {
+     "start": 271.8,
+     "end": 278.9,
+     "text": "1 zu 0. Es folgt nun die Wettervorhersage für morgen Donnerstag. Du hörst die Aufgabe noch"
+    },
+    {
+     "start": 278.9,
+     "end": 287.4,
+     "text": "einmal. Kultur. In einer Woche ist es soweit. Die Berlinale, das Fest der Filmfreunde beginnt. Und"
+    },
+    {
+     "start": 287.4,
+     "end": 293.4,
+     "text": "nun zum Sport. Hier die Ergebnisse der deutschen Klubs in den Europapokalen. Real Madrid verliert"
+    },
+    {
+     "start": 293.4,
+     "end": 300.8,
+     "text": "gegen Schalke 1 zu 2. Bayern München gewinnt gegen Atletico Madrid 2 zu 1 und Bayer Leverkusen schlägt"
+    },
+    {
+     "start": 300.8,
+     "end": 305.9,
+     "text": "Lazio 1 zu 0. Es folgt nun die Wettervorhersage für morgen Donnerstag."
+    },
+    {
+     "start": 311.8,
+     "end": 313.6,
+     "text": "Lies jetzt die Aufgabe 5."
+    },
+    {
+     "start": 328.6,
+     "end": 329.8,
+     "text": "Aufgabe 5"
+    },
+    {
+     "start": 331.0,
+     "end": 336.9,
+     "text": "Liebe Kundinnen und Kunden, herzlich willkommen bei Rentschler, dem größten Kaufhaus der Stadt."
+    },
+    {
+     "start": 336.9,
+     "end": 340.2,
+     "text": "Hier gleich unsere heutigen Angebote."
+    },
+    {
+     "start": 341.0,
+     "end": 344.7,
+     "text": "Damenblusen in allen Größen und Farben für nur 15 Euro."
+    },
+    {
+     "start": 345.7,
+     "end": 354.2,
+     "text": "Jeanshosen beste Qualität nur 17 Euro und Herrenschuhe schon ab 25 Euro, damit das Laufen wieder Spaß macht."
+    },
+    {
+     "start": 355.4,
+     "end": 359.1,
+     "text": "Diese Angebote dürfen Sie sich nicht entgehen lassen. Greifen Sie zu."
+    },
+    {
+     "start": 361.7,
+     "end": 363.8,
+     "text": "Du hörst die Aufgabe noch einmal."
+    },
+    {
+     "start": 363.8,
+     "end": 371.0,
+     "text": "[unverständlich]. Liebe Kundinnen und Kunden, herzlich willkommen bei Rentschler, dem größten Kaufhaus"
+    },
+    {
+     "start": 371.0,
+     "end": 378.4,
+     "text": "der Stadt. Hier gleich unsere heutigen Angebote. Damenblusen in allen Größen und Farben für nur"
+    },
+    {
+     "start": 378.4,
+     "end": 387.8,
+     "text": "15 Euro, Jeanshosen beste Qualität nur 17 Euro und Herrenschuhe schon ab 25 Euro, damit das Laufen"
+    },
+    {
+     "start": 387.8,
+     "end": 396.9,
+     "text": "wieder spaß macht diese angebote dürfen sie sich nicht entgehen lassen greifen sie zu ende von teil 1"
+    }
+   ],
+   "quality": {
+    "second_model": "faster-whisper medium",
+    "agreement": 0.92,
+    "words": 647,
+    "low_confidence_words": 17,
+    "uncertain": [
+     {
+      "at": 363.8,
+      "heard": "mal.",
+      "probability": 0.15
+     }
+    ]
+   },
+   "review_note": "Unverständliche Stellen (nicht geraten): [364s] „mal.“"
+  },
+  {
+   "sha256": "b10d922d77bddbdfacfeda6d6a19684153df3c59c8b2ef3d2d4f00bda8143941",
+   "original_name": "A2 10.Unterricht Teil 2.m4a",
+   "size_bytes": 2230780,
+   "duration_seconds": 137.8,
+   "status": "TRANSCRIBED",
+   "model": "faster-whisper large-v3 (CPU, int8, de)",
+   "text": "Arena A2\nEin Lehrwerk zur Vorbereitung auf die Prüfung\nGoethe-Zertifikat A2 Fit in Deutsch\nPraxis Spezialverlag Deutsch als Fremdsprache\nAthen\nTest 1\nTeil 2\nDu hörst ein Gespräch.\nDu hörst den Text einmal.\nWas haben Lauras und Martins Freunde auf dem Flohmarkt am Sonntag mitgebracht und verkauft?\nWähle für die Aufgaben 6 bis 10 ein passendes Bild aus A bis I.\nWähle jeden Buchstaben nur einmal.\nSieh dir jetzt die Bilder an.\nLies jetzt die Aufgaben 6 bis 10.\nHallo Martin.\nHallo Laura.\nAlso, wie war es am Sonntag auf dem Flohmarkt? Komm, erzähl.\nNun, ich habe mich schon um 7 Uhr...\nWas? So früh schon?\nMit Anton und Anne am Marktplatz vor der Kirche getroffen, damit wir unseren Stand an einem guten Platz aufstellen.\nHat Anton das große, bunte Poster mitgebracht, das er die ganze Woche gemalt hat?\nKlar, das Poster war super.\nUnd Anne hat sicher, wie versprochen, eine karierte Tischdecke für den Stand mitgebracht.\nGenau, von ihrer Mutter.\nUnd was habt ihr so verkauft?\nAlles Mögliche, sogar frisches Obst.\nWirklich?\nJa. Olafs Eltern haben einen riesengroßen Garten. Und Olaf hat eine große Kiste Äpfel mitgebracht.\nHarry hat seine ganzen Legos mitgebracht, die er nicht mehr haben wollte.\nUnd Niki ihre alten Puppen, mit denen sie nicht mehr spielen mag. Und ein paar Bücher.\nNicht schlecht. Und was hast du hergegeben?\nDu wirst es nicht glauben. Mein Rad. Ich habe ja zum Geburtstag ein Moped geschenkt bekommen.\nToll, bravo.\nEnde von Teil 2\n[unverständlich].",
+   "segments": [
+    {
+     "start": 1.3,
+     "end": 2.7,
+     "text": "Arena A2"
+    },
+    {
+     "start": 2.7,
+     "end": 5.9,
+     "text": "Ein Lehrwerk zur Vorbereitung auf die Prüfung"
+    },
+    {
+     "start": 5.9,
+     "end": 8.6,
+     "text": "Goethe-Zertifikat A2 Fit in Deutsch"
+    },
+    {
+     "start": 8.6,
+     "end": 12.1,
+     "text": "Praxis Spezialverlag Deutsch als Fremdsprache"
+    },
+    {
+     "start": 12.1,
+     "end": 13.1,
+     "text": "Athen"
+    },
+    {
+     "start": 13.1,
+     "end": 15.2,
+     "text": "Test 1"
+    },
+    {
+     "start": 15.2,
+     "end": 16.8,
+     "text": "Teil 2"
+    },
+    {
+     "start": 18.1,
+     "end": 20.0,
+     "text": "Du hörst ein Gespräch."
+    },
+    {
+     "start": 20.1,
+     "end": 21.9,
+     "text": "Du hörst den Text einmal."
+    },
+    {
+     "start": 23.4,
+     "end": 28.0,
+     "text": "Was haben Lauras und Martins Freunde auf dem Flohmarkt am Sonntag mitgebracht und verkauft?"
+    },
+    {
+     "start": 29.0,
+     "end": 33.8,
+     "text": "Wähle für die Aufgaben 6 bis 10 ein passendes Bild aus A bis I."
+    },
+    {
+     "start": 34.7,
+     "end": 36.6,
+     "text": "Wähle jeden Buchstaben nur einmal."
+    },
+    {
+     "start": 38.5,
+     "end": 39.6,
+     "text": "Sieh dir jetzt die Bilder an."
+    },
+    {
+     "start": 40.6,
+     "end": 42.4,
+     "text": "Lies jetzt die Aufgaben 6 bis 10."
+    },
+    {
+     "start": 72.2,
+     "end": 73.2,
+     "text": "Hallo Martin."
+    },
+    {
+     "start": 73.5,
+     "end": 74.3,
+     "text": "Hallo Laura."
+    },
+    {
+     "start": 74.8,
+     "end": 78.5,
+     "text": "Also, wie war es am Sonntag auf dem Flohmarkt? Komm, erzähl."
+    },
+    {
+     "start": 78.8,
+     "end": 81.0,
+     "text": "Nun, ich habe mich schon um 7 Uhr..."
+    },
+    {
+     "start": 81.0,
+     "end": 82.5,
+     "text": "Was? So früh schon?"
+    },
+    {
+     "start": 82.5,
+     "end": 89.2,
+     "text": "Mit Anton und Anne am Marktplatz vor der Kirche getroffen, damit wir unseren Stand an einem guten Platz aufstellen."
+    },
+    {
+     "start": 89.5,
+     "end": 93.7,
+     "text": "Hat Anton das große, bunte Poster mitgebracht, das er die ganze Woche gemalt hat?"
+    },
+    {
+     "start": 94.0,
+     "end": 95.9,
+     "text": "Klar, das Poster war super."
+    },
+    {
+     "start": 96.3,
+     "end": 100.5,
+     "text": "Und Anne hat sicher, wie versprochen, eine karierte Tischdecke für den Stand mitgebracht."
+    },
+    {
+     "start": 100.8,
+     "end": 102.7,
+     "text": "Genau, von ihrer Mutter."
+    },
+    {
+     "start": 103.0,
+     "end": 104.5,
+     "text": "Und was habt ihr so verkauft?"
+    },
+    {
+     "start": 104.7,
+     "end": 107.3,
+     "text": "Alles Mögliche, sogar frisches Obst."
+    },
+    {
+     "start": 107.5,
+     "end": 108.0,
+     "text": "Wirklich?"
+    },
+    {
+     "start": 108.0,
+     "end": 114.6,
+     "text": "Ja. Olafs Eltern haben einen riesengroßen Garten. Und Olaf hat eine große Kiste Äpfel mitgebracht."
+    },
+    {
+     "start": 115.0,
+     "end": 118.6,
+     "text": "Harry hat seine ganzen Legos mitgebracht, die er nicht mehr haben wollte."
+    },
+    {
+     "start": 118.8,
+     "end": 123.9,
+     "text": "Und Niki ihre alten Puppen, mit denen sie nicht mehr spielen mag. Und ein paar Bücher."
+    },
+    {
+     "start": 124.3,
+     "end": 127.0,
+     "text": "Nicht schlecht. Und was hast du hergegeben?"
+    },
+    {
+     "start": 127.2,
+     "end": 132.8,
+     "text": "Du wirst es nicht glauben. Mein Rad. Ich habe ja zum Geburtstag ein Moped geschenkt bekommen."
+    },
+    {
+     "start": 133.4,
+     "end": 134.4,
+     "text": "Toll, bravo."
+    },
+    {
+     "start": 136.1,
+     "end": 137.4,
+     "text": "Ende von Teil 2"
+    },
+    {
+     "start": 137.4,
+     "end": 137.6,
+     "text": "[unverständlich]."
+    }
+   ],
+   "quality": {
+    "second_model": "faster-whisper medium",
+    "agreement": 0.848,
+    "words": 247,
+    "low_confidence_words": 4,
+    "uncertain": [
+     {
+      "at": 137.4,
+      "heard": "Bye.",
+      "probability": 0.29
+     }
+    ]
+   },
+   "review_note": "Unverständliche Stellen (nicht geraten): [137s] „Bye.“"
+  },
+  {
+   "sha256": "b9a90683a18a480a36d18f305aa5082f90e807f267137ebf7d0e67e36feece41",
+   "original_name": "A2 10.Unterricht Teil 3.m4a",
+   "size_bytes": 4812281,
+   "duration_seconds": 297.4,
+   "status": "TRANSCRIBED",
+   "model": "faster-whisper large-v3 (CPU, int8, de)",
+   "text": "Arena A2\nEin Lehrwerk zur Vorbereitung auf die Prüfung\nGoethe-Zertifikat A2 fit in Deutsch\nPraxis Spezialverlag Deutsch als Fremdsprache\nAthen\nTest 1 Teil 3\nDu hörst 5 kurze Gespräche\nDu hörst jeden Text einmal\nWähle bei den Aufgaben 11 bis 15\ndie richtige Lösung A, B oder C\nLies jetzt die Aufgabe 11.\nAufgabe 11\nWas ist denn los, Lisa? Wieder Streit mit deinem Vater?\nDiesmal habe ich mich mit meiner Mutter gestritten.\nSie war ganz böse und hat gesagt, schau mal, dein Bruder ist immer so ordentlich und bei dir im Zimmer ist alles so unordentlich.\nJa, und dann haben wir uns gestritten.\nKomm, beruhige dich. Morgen hast du es wieder vergessen.\nLies jetzt die Aufgabe 12.\nAufgabe 12\nGuten Tag. Was kann ich für dich tun?\nIch spiele morgen zum ersten Mal Tennis und da brauche ich natürlich geeignete Tennisschuhe.\nDas ist kein Problem. Wir haben hier eine sehr große Auswahl. Brauchst du vielleicht auch einen Tennisschläger?\nNein, danke. Einen Tennisschläger habe ich schon von meinem Freund Peter.\nEr hat zwei und hat mir den einen geschenkt und ein paar Tennisbälle dazu.\nDas finde ich aber nett von deinem Freund. So, dann schauen wir mal. Welche Größe trägst du denn?\nLies jetzt die Aufgabe 13.\nAufgabe 13\nDu Eva, sag mal, kommst du mit zum Konzert?\nAber klar doch, ich weiß nur nicht, was ich anziehen soll. Was ziehst du denn an, Heike?\nIch ziehe eine Jeanshose an und dazu ein T-Shirt.\nIch ziehe auch eine Jeans an, aber dazu trage ich lieber ein Top. Oder soll ich lieber eine schicke Bluse anziehen?\nSchicke Bluse? Du, das ist ein Rockkonzert.\nDann doch lieber das Top, oder?\nAber klar, bitte nicht die Bluse.\nließ jetzt die aufgabe 14\naufgabe 14 hallo ich suche ein geburtstagsgeschenk für meinen freund mark er wird 15 aha ich\nIch verstehe. Ich habe hier verschiedene Sachen, die passen. Computerspiele, Bücher, Sportartikel.\nAlso, Marc ist auf keinen Fall sportlich. Ich würde sagen, dass er lieber am PC sitzt und spielt.\nUnd was das Lesen angeht, so habe ich hier nie ein Buch lesen sehen.\nDann glaube ich, dass ein Computerspiel genau das Richtige für ihn ist.\nJa, da hast du wahrscheinlich recht. Vielleicht das hier. Das ist ganz neu.\nließ jetzt die aufgabe 15\naufgabe 15 hallo rolf kommst du morgen zur karnevals party aber klar doch als was\nverkleidest du dich denn als katze ich hab mir schon ein kostüm gekauft und du\nich habe noch keine ahnung peter hat gesagt dass er sich als cowboy\nverkleidet das finde ich langweilig und klaus hat vor sich als pirat zu\nverkleiden das geht ja noch ich möchte etwas\nlustiges ja ich hab's was meinst du wenn ich mich als krankenschwester verkleide\nDas wird doch super lustig, oder?\nOh ja!",
+   "segments": [
+    {
+     "start": 1.4,
+     "end": 2.7,
+     "text": "Arena A2"
+    },
+    {
+     "start": 2.7,
+     "end": 6.0,
+     "text": "Ein Lehrwerk zur Vorbereitung auf die Prüfung"
+    },
+    {
+     "start": 6.0,
+     "end": 8.6,
+     "text": "Goethe-Zertifikat A2 fit in Deutsch"
+    },
+    {
+     "start": 8.6,
+     "end": 12.1,
+     "text": "Praxis Spezialverlag Deutsch als Fremdsprache"
+    },
+    {
+     "start": 12.1,
+     "end": 13.1,
+     "text": "Athen"
+    },
+    {
+     "start": 13.1,
+     "end": 16.3,
+     "text": "Test 1 Teil 3"
+    },
+    {
+     "start": 17.6,
+     "end": 20.0,
+     "text": "Du hörst 5 kurze Gespräche"
+    },
+    {
+     "start": 20.0,
+     "end": 22.1,
+     "text": "Du hörst jeden Text einmal"
+    },
+    {
+     "start": 23.3,
+     "end": 26.0,
+     "text": "Wähle bei den Aufgaben 11 bis 15"
+    },
+    {
+     "start": 26.0,
+     "end": 29.2,
+     "text": "die richtige Lösung A, B oder C"
+    },
+    {
+     "start": 30.4,
+     "end": 32.0,
+     "text": "Lies jetzt die Aufgabe 11."
+    },
+    {
+     "start": 51.2,
+     "end": 52.1,
+     "text": "Aufgabe 11"
+    },
+    {
+     "start": 53.1,
+     "end": 56.0,
+     "text": "Was ist denn los, Lisa? Wieder Streit mit deinem Vater?"
+    },
+    {
+     "start": 56.6,
+     "end": 58.8,
+     "text": "Diesmal habe ich mich mit meiner Mutter gestritten."
+    },
+    {
+     "start": 59.2,
+     "end": 66.1,
+     "text": "Sie war ganz böse und hat gesagt, schau mal, dein Bruder ist immer so ordentlich und bei dir im Zimmer ist alles so unordentlich."
+    },
+    {
+     "start": 66.3,
+     "end": 68.0,
+     "text": "Ja, und dann haben wir uns gestritten."
+    },
+    {
+     "start": 68.3,
+     "end": 71.2,
+     "text": "Komm, beruhige dich. Morgen hast du es wieder vergessen."
+    },
+    {
+     "start": 77.0,
+     "end": 78.6,
+     "text": "Lies jetzt die Aufgabe 12."
+    },
+    {
+     "start": 93.8,
+     "end": 94.7,
+     "text": "Aufgabe 12"
+    },
+    {
+     "start": 95.4,
+     "end": 98.0,
+     "text": "Guten Tag. Was kann ich für dich tun?"
+    },
+    {
+     "start": 98.4,
+     "end": 102.7,
+     "text": "Ich spiele morgen zum ersten Mal Tennis und da brauche ich natürlich geeignete Tennisschuhe."
+    },
+    {
+     "start": 102.9,
+     "end": 109.8,
+     "text": "Das ist kein Problem. Wir haben hier eine sehr große Auswahl. Brauchst du vielleicht auch einen Tennisschläger?"
+    },
+    {
+     "start": 110.0,
+     "end": 113.1,
+     "text": "Nein, danke. Einen Tennisschläger habe ich schon von meinem Freund Peter."
+    },
+    {
+     "start": 113.5,
+     "end": 116.9,
+     "text": "Er hat zwei und hat mir den einen geschenkt und ein paar Tennisbälle dazu."
+    },
+    {
+     "start": 116.9,
+     "end": 123.6,
+     "text": "Das finde ich aber nett von deinem Freund. So, dann schauen wir mal. Welche Größe trägst du denn?"
+    },
+    {
+     "start": 129.9,
+     "end": 131.5,
+     "text": "Lies jetzt die Aufgabe 13."
+    },
+    {
+     "start": 147.1,
+     "end": 147.9,
+     "text": "Aufgabe 13"
+    },
+    {
+     "start": 148.8,
+     "end": 151.5,
+     "text": "Du Eva, sag mal, kommst du mit zum Konzert?"
+    },
+    {
+     "start": 151.8,
+     "end": 156.5,
+     "text": "Aber klar doch, ich weiß nur nicht, was ich anziehen soll. Was ziehst du denn an, Heike?"
+    },
+    {
+     "start": 156.8,
+     "end": 159.3,
+     "text": "Ich ziehe eine Jeanshose an und dazu ein T-Shirt."
+    },
+    {
+     "start": 159.5,
+     "end": 166.0,
+     "text": "Ich ziehe auch eine Jeans an, aber dazu trage ich lieber ein Top. Oder soll ich lieber eine schicke Bluse anziehen?"
+    },
+    {
+     "start": 166.4,
+     "end": 168.9,
+     "text": "Schicke Bluse? Du, das ist ein Rockkonzert."
+    },
+    {
+     "start": 169.2,
+     "end": 171.2,
+     "text": "Dann doch lieber das Top, oder?"
+    },
+    {
+     "start": 171.4,
+     "end": 173.3,
+     "text": "Aber klar, bitte nicht die Bluse."
+    },
+    {
+     "start": 179.5,
+     "end": 181.4,
+     "text": "ließ jetzt die aufgabe 14"
+    },
+    {
+     "start": 196.7,
+     "end": 205.2,
+     "text": "aufgabe 14 hallo ich suche ein geburtstagsgeschenk für meinen freund mark er wird 15 aha ich"
+    },
+    {
+     "start": 205.2,
+     "end": 211.5,
+     "text": "Ich verstehe. Ich habe hier verschiedene Sachen, die passen. Computerspiele, Bücher, Sportartikel."
+    },
+    {
+     "start": 211.7,
+     "end": 218.0,
+     "text": "Also, Marc ist auf keinen Fall sportlich. Ich würde sagen, dass er lieber am PC sitzt und spielt."
+    },
+    {
+     "start": 218.5,
+     "end": 222.5,
+     "text": "Und was das Lesen angeht, so habe ich hier nie ein Buch lesen sehen."
+    },
+    {
+     "start": 223.2,
+     "end": 226.9,
+     "text": "Dann glaube ich, dass ein Computerspiel genau das Richtige für ihn ist."
+    },
+    {
+     "start": 227.1,
+     "end": 231.7,
+     "text": "Ja, da hast du wahrscheinlich recht. Vielleicht das hier. Das ist ganz neu."
+    },
+    {
+     "start": 237.4,
+     "end": 239.3,
+     "text": "ließ jetzt die aufgabe 15"
+    },
+    {
+     "start": 254.6,
+     "end": 262.4,
+     "text": "aufgabe 15 hallo rolf kommst du morgen zur karnevals party aber klar doch als was"
+    },
+    {
+     "start": 262.4,
+     "end": 267.5,
+     "text": "verkleidest du dich denn als katze ich hab mir schon ein kostüm gekauft und du"
+    },
+    {
+     "start": 267.5,
+     "end": 272.0,
+     "text": "ich habe noch keine ahnung peter hat gesagt dass er sich als cowboy"
+    },
+    {
+     "start": 272.0,
+     "end": 278.2,
+     "text": "verkleidet das finde ich langweilig und klaus hat vor sich als pirat zu"
+    },
+    {
+     "start": 278.2,
+     "end": 281.8,
+     "text": "verkleiden das geht ja noch ich möchte etwas"
+    },
+    {
+     "start": 281.8,
+     "end": 289.6,
+     "text": "lustiges ja ich hab's was meinst du wenn ich mich als krankenschwester verkleide"
+    },
+    {
+     "start": 289.6,
+     "end": 292.3,
+     "text": "Das wird doch super lustig, oder?"
+    },
+    {
+     "start": 293.1,
+     "end": 293.6,
+     "text": "Oh ja!"
+    }
+   ],
+   "quality": {
+    "second_model": "faster-whisper medium",
+    "agreement": 0.957,
+    "words": 467,
+    "low_confidence_words": 12,
+    "uncertain": []
+   },
+   "review_note": null
+  },
+  {
+   "sha256": "d6a1216b45c9c3e3bca90a9fe3fc6e9a6f87b97c1ea152565c490109d288d53e",
+   "original_name": "A2 10.Unterricht Teil 4.m4a",
+   "size_bytes": 4749913,
+   "duration_seconds": 293.5,
+   "status": "TRANSCRIBED",
+   "model": "faster-whisper large-v3 (CPU, int8, de)",
+   "text": "Arena A2\nEin Lehrwerk zur Vorbereitung auf die Prüfung\nGoethe-Zertifikat A2 Fit in Deutsch\nPraxis Spezialverlag Deutsch als Fremdsprache\nAthen\nTest 1, Teil 4\nDu hörst ein Interview.\nDu hörst den Text zweimal.\nWähle für die Aufgaben 16 bis 20 Ja oder Nein.\nLies jetzt die Aufgaben 16 bis 20.\nHallo liebe Freunde, hier ist eure beliebte Sendung Jugendspaß.\nUnser Thema heute ist Fremdsprachen lernen und Ferien machen.\nDa gibt es interessante Möglichkeiten, gerade für Jugendliche.\nZuerst aber ein paar Takte Musik.\nIm Studio habe ich Ralf bei mir. Er hat im letzten Sommer die Erfahrung mit Europacamp gemacht.\nErzähl mal, Ralf, was ist eigentlich ein Europacamp?\nEuropacamp. So heißen Feriencamps für Jugendliche ab 14.\nDort kann man eine Fremdsprache lernen, aber gleichzeitig auch Ferien machen.\nMan muss dafür nur ein bisschen im Camp arbeiten.\nLass uns das mal genau erklären. Wie verbringen die Jugendlichen ihre Zeit dort?\nBei mir war das so. Diese Feriencamps sind in Italien, Österreich und Spanien. Ich war im Feriencamp in Italien. Dort hatte ich jeden Vormittag von 10 bis 12 einen Sprachkurs auf Italienisch. Mittags von 14 bis 16 Uhr musste ich mit den Kindern im Camp spielen und an ihren Aktivitäten teilnehmen. Dann hatte ich frei.\nUnd mit den Kindern hast du Italienisch gesprochen?\nJa, ich hab's zumindest versucht. Wenn es nicht ging, habe ich eben mit Händen und Füßen gesprochen.\nDas geht ja auch. Wann finden denn diese Feriencamps statt?\nIm Juli und August. Das Wetter ist dann meistens schön und man kann auch Ausflüge machen und das\nLand kennenlernen. Das finde ich am interessantesten. Und was kostet so ein Feriencamp?\nDas kostet so gut wie nichts. Man bezahlt nur sein Ticket, um in das Land zu reisen,\nwo das Feriencamp ist. Natürlich braucht man auch etwas Taschengeld. Essen und Wohnen kosten\naber nichts. Und die Ausflüge? Die kosten auch nichts. Ralf, herzlichen Dank für die Informationen.\nDu hörst die Aufgabe noch einmal. Im Studio habe ich Ralf bei mir. Er hat im letzten Sommer die\nErfahrung mit Europacamp gemacht. Erzähl mal, Ralf, was ist eigentlich ein Europacamp? Europacamp. So\nSo heißen Feriencamps für Jugendliche ab 14.\nDort kann man eine Fremdsprache lernen, aber gleichzeitig auch Ferien machen.\nMan muss dafür nur ein bisschen im Camp arbeiten.\nLass uns das mal genau erklären.\nWie verbringen die Jugendlichen ihre Zeit dort?\nBei mir war das so.\nDiese Feriencamps sind in Italien, Österreich und Spanien.\nIch war im Feriencamp in Italien.\nDort hatte ich jeden Vormittag von 10 bis 12 einen Sprachkurs auf Italienisch.\nMittags von 14 bis 16 Uhr musste ich mit den Kindern im Camp spielen und an ihren Aktivitäten teilnehmen.\nDann hatte ich frei.\nUnd mit den Kindern hast du Italienisch gesprochen?\nJa, ich habe es zumindest versucht.\nWenn es nicht ging, habe ich eben mit Händen und Füßen gesprochen.\nDas geht ja auch.\nWann finden denn diese Feriencamps statt?\nIm Juli und August. Das Wetter ist dann meistens schön und man kann auch Ausflüge machen und das Land kennenlernen.\nDas finde ich am interessantesten.\nUnd was kostet so ein Feriencamp?\nDas kostet so gut wie nichts. Man bezahlt nur sein Ticket, um in das Land zu reisen, wo das Feriencamp ist.\nNatürlich braucht man auch etwas Taschengeld. Essen und Wohnen kosten aber nichts.\nUnd die Ausflüge?\nDie kosten auch nichts.\nRalf, herzlichen Dank für die Informationen.\nEnde von Teil 4\nDu hast jetzt 3 Minuten Zeit, um deine Ergebnisse auf den Antwortbogen zu übertragen.\nEnde des Hörverstehens\nTest 1",
+   "segments": [
+    {
+     "start": 1.4,
+     "end": 2.7,
+     "text": "Arena A2"
+    },
+    {
+     "start": 2.7,
+     "end": 6.0,
+     "text": "Ein Lehrwerk zur Vorbereitung auf die Prüfung"
+    },
+    {
+     "start": 6.0,
+     "end": 8.6,
+     "text": "Goethe-Zertifikat A2 Fit in Deutsch"
+    },
+    {
+     "start": 8.6,
+     "end": 12.1,
+     "text": "Praxis Spezialverlag Deutsch als Fremdsprache"
+    },
+    {
+     "start": 12.1,
+     "end": 13.1,
+     "text": "Athen"
+    },
+    {
+     "start": 14.1,
+     "end": 16.6,
+     "text": "Test 1, Teil 4"
+    },
+    {
+     "start": 17.7,
+     "end": 19.3,
+     "text": "Du hörst ein Interview."
+    },
+    {
+     "start": 20.5,
+     "end": 21.7,
+     "text": "Du hörst den Text zweimal."
+    },
+    {
+     "start": 23.5,
+     "end": 27.0,
+     "text": "Wähle für die Aufgaben 16 bis 20 Ja oder Nein."
+    },
+    {
+     "start": 28.1,
+     "end": 30.9,
+     "text": "Lies jetzt die Aufgaben 16 bis 20."
+    },
+    {
+     "start": 60.5,
+     "end": 65.0,
+     "text": "Hallo liebe Freunde, hier ist eure beliebte Sendung Jugendspaß."
+    },
+    {
+     "start": 65.7,
+     "end": 69.3,
+     "text": "Unser Thema heute ist Fremdsprachen lernen und Ferien machen."
+    },
+    {
+     "start": 70.1,
+     "end": 73.3,
+     "text": "Da gibt es interessante Möglichkeiten, gerade für Jugendliche."
+    },
+    {
+     "start": 73.7,
+     "end": 75.7,
+     "text": "Zuerst aber ein paar Takte Musik."
+    },
+    {
+     "start": 87.1,
+     "end": 92.7,
+     "text": "Im Studio habe ich Ralf bei mir. Er hat im letzten Sommer die Erfahrung mit Europacamp gemacht."
+    },
+    {
+     "start": 93.1,
+     "end": 96.4,
+     "text": "Erzähl mal, Ralf, was ist eigentlich ein Europacamp?"
+    },
+    {
+     "start": 97.4,
+     "end": 101.5,
+     "text": "Europacamp. So heißen Feriencamps für Jugendliche ab 14."
+    },
+    {
+     "start": 102.1,
+     "end": 106.4,
+     "text": "Dort kann man eine Fremdsprache lernen, aber gleichzeitig auch Ferien machen."
+    },
+    {
+     "start": 107.3,
+     "end": 109.5,
+     "text": "Man muss dafür nur ein bisschen im Camp arbeiten."
+    },
+    {
+     "start": 109.8,
+     "end": 114.7,
+     "text": "Lass uns das mal genau erklären. Wie verbringen die Jugendlichen ihre Zeit dort?"
+    },
+    {
+     "start": 114.7,
+     "end": 138.0,
+     "text": "Bei mir war das so. Diese Feriencamps sind in Italien, Österreich und Spanien. Ich war im Feriencamp in Italien. Dort hatte ich jeden Vormittag von 10 bis 12 einen Sprachkurs auf Italienisch. Mittags von 14 bis 16 Uhr musste ich mit den Kindern im Camp spielen und an ihren Aktivitäten teilnehmen. Dann hatte ich frei."
+    },
+    {
+     "start": 138.6,
+     "end": 140.6,
+     "text": "Und mit den Kindern hast du Italienisch gesprochen?"
+    },
+    {
+     "start": 140.6,
+     "end": 147.2,
+     "text": "Ja, ich hab's zumindest versucht. Wenn es nicht ging, habe ich eben mit Händen und Füßen gesprochen."
+    },
+    {
+     "start": 147.5,
+     "end": 151.8,
+     "text": "Das geht ja auch. Wann finden denn diese Feriencamps statt?"
+    },
+    {
+     "start": 152.3,
+     "end": 158.1,
+     "text": "Im Juli und August. Das Wetter ist dann meistens schön und man kann auch Ausflüge machen und das"
+    },
+    {
+     "start": 158.1,
+     "end": 163.5,
+     "text": "Land kennenlernen. Das finde ich am interessantesten. Und was kostet so ein Feriencamp?"
+    },
+    {
+     "start": 163.9,
+     "end": 168.5,
+     "text": "Das kostet so gut wie nichts. Man bezahlt nur sein Ticket, um in das Land zu reisen,"
+    },
+    {
+     "start": 168.5,
+     "end": 174.2,
+     "text": "wo das Feriencamp ist. Natürlich braucht man auch etwas Taschengeld. Essen und Wohnen kosten"
+    },
+    {
+     "start": 174.2,
+     "end": 181.3,
+     "text": "aber nichts. Und die Ausflüge? Die kosten auch nichts. Ralf, herzlichen Dank für die Informationen."
+    },
+    {
+     "start": 182.7,
+     "end": 188.6,
+     "text": "Du hörst die Aufgabe noch einmal. Im Studio habe ich Ralf bei mir. Er hat im letzten Sommer die"
+    },
+    {
+     "start": 188.6,
+     "end": 196.3,
+     "text": "Erfahrung mit Europacamp gemacht. Erzähl mal, Ralf, was ist eigentlich ein Europacamp? Europacamp. So"
+    },
+    {
+     "start": 196.3,
+     "end": 199.1,
+     "text": "So heißen Feriencamps für Jugendliche ab 14."
+    },
+    {
+     "start": 199.8,
+     "end": 204.1,
+     "text": "Dort kann man eine Fremdsprache lernen, aber gleichzeitig auch Ferien machen."
+    },
+    {
+     "start": 205.0,
+     "end": 207.2,
+     "text": "Man muss dafür nur ein bisschen im Camp arbeiten."
+    },
+    {
+     "start": 207.6,
+     "end": 209.4,
+     "text": "Lass uns das mal genau erklären."
+    },
+    {
+     "start": 210.3,
+     "end": 212.4,
+     "text": "Wie verbringen die Jugendlichen ihre Zeit dort?"
+    },
+    {
+     "start": 212.7,
+     "end": 213.9,
+     "text": "Bei mir war das so."
+    },
+    {
+     "start": 214.2,
+     "end": 218.5,
+     "text": "Diese Feriencamps sind in Italien, Österreich und Spanien."
+    },
+    {
+     "start": 218.7,
+     "end": 221.1,
+     "text": "Ich war im Feriencamp in Italien."
+    },
+    {
+     "start": 221.1,
+     "end": 227.1,
+     "text": "Dort hatte ich jeden Vormittag von 10 bis 12 einen Sprachkurs auf Italienisch."
+    },
+    {
+     "start": 227.7,
+     "end": 234.3,
+     "text": "Mittags von 14 bis 16 Uhr musste ich mit den Kindern im Camp spielen und an ihren Aktivitäten teilnehmen."
+    },
+    {
+     "start": 234.5,
+     "end": 235.7,
+     "text": "Dann hatte ich frei."
+    },
+    {
+     "start": 236.3,
+     "end": 238.3,
+     "text": "Und mit den Kindern hast du Italienisch gesprochen?"
+    },
+    {
+     "start": 238.8,
+     "end": 240.8,
+     "text": "Ja, ich habe es zumindest versucht."
+    },
+    {
+     "start": 241.8,
+     "end": 244.8,
+     "text": "Wenn es nicht ging, habe ich eben mit Händen und Füßen gesprochen."
+    },
+    {
+     "start": 245.2,
+     "end": 246.2,
+     "text": "Das geht ja auch."
+    },
+    {
+     "start": 247.0,
+     "end": 249.6,
+     "text": "Wann finden denn diese Feriencamps statt?"
+    },
+    {
+     "start": 250.3,
+     "end": 256.6,
+     "text": "Im Juli und August. Das Wetter ist dann meistens schön und man kann auch Ausflüge machen und das Land kennenlernen."
+    },
+    {
+     "start": 257.0,
+     "end": 258.8,
+     "text": "Das finde ich am interessantesten."
+    },
+    {
+     "start": 259.1,
+     "end": 261.1,
+     "text": "Und was kostet so ein Feriencamp?"
+    },
+    {
+     "start": 261.6,
+     "end": 267.5,
+     "text": "Das kostet so gut wie nichts. Man bezahlt nur sein Ticket, um in das Land zu reisen, wo das Feriencamp ist."
+    },
+    {
+     "start": 268.0,
+     "end": 272.5,
+     "text": "Natürlich braucht man auch etwas Taschengeld. Essen und Wohnen kosten aber nichts."
+    },
+    {
+     "start": 272.9,
+     "end": 274.3,
+     "text": "Und die Ausflüge?"
+    },
+    {
+     "start": 274.5,
+     "end": 275.9,
+     "text": "Die kosten auch nichts."
+    },
+    {
+     "start": 276.5,
+     "end": 278.9,
+     "text": "Ralf, herzlichen Dank für die Informationen."
+    },
+    {
+     "start": 281.3,
+     "end": 282.7,
+     "text": "Ende von Teil 4"
+    },
+    {
+     "start": 283.4,
+     "end": 288.6,
+     "text": "Du hast jetzt 3 Minuten Zeit, um deine Ergebnisse auf den Antwortbogen zu übertragen."
+    },
+    {
+     "start": 290.8,
+     "end": 291.8,
+     "text": "Ende des Hörverstehens"
+    },
+    {
+     "start": 291.8,
+     "end": 292.6,
+     "text": "Test 1"
+    }
+   ],
+   "quality": {
+    "second_model": "faster-whisper medium",
+    "agreement": 0.983,
+    "words": 581,
+    "low_confidence_words": 7,
+    "uncertain": []
+   },
+   "review_note": null
+  },
+  {
+   "sha256": "890f6e12bd6a8d1fd45610a200e7130cea5b526f6a655d60ddf6e6460b6d25a9",
+   "original_name": "A2 11.Unterricht Teil_1.m4a",
+   "size_bytes": 6815191,
+   "duration_seconds": 421.1,
+   "status": "TRANSCRIBED",
+   "model": "faster-whisper large-v3 (CPU, int8, de)",
+   "text": "Arena A2\nEin Lehrwerk zur Vorbereitung auf die Prüfung\nGoethe-Zertifikat A2 Fit in Deutsch\nPraxis Spezialverlag Deutsch als Fremdsprache\nAthen\nTest 2\nTeil 1\nDu hörst 5 kurze Texte\nDu hörst jeden Text zweimal\nWähle bei den Aufgaben 1 bis 5\ndie richtige Lösung\nA, B oder C\nLies jetzt die Aufgabe 1.\nAufgabe 1\nHallo Petra. Ich rufe dich an, weil ich dir etwas Schlimmes mitteilen muss.\nIch bin sehr traurig. Wir müssen nämlich umziehen.\nMein Vater hat eine neue Arbeit bekommen, deshalb müssen wir jetzt aus Land umziehen.\nMeine Eltern haben schon ein neues Haus gekauft.\nMeine Mutter sagt auch, dass das Leben auf dem Land viel gesünder ist.\nDas interessiert mich aber nicht. Ich möchte nicht umziehen.\nDu hörst die Aufgabe noch einmal.\nHallo Petra. Ich rufe dich an, weil ich dir etwas Schlimmes mitteilen muss.\nIch bin sehr traurig. Wir müssen nämlich umziehen.\nMein Vater hat eine neue Arbeit bekommen. Deshalb müssen wir jetzt aufs Land umziehen.\nMeine Eltern haben schon ein neues Haus gekauft.\nMeine Mutter sagt auch, dass das Leben auf dem Land viel gesünder ist.\nDas interessiert mich aber nicht. Ich möchte nicht umziehen.\nLies jetzt die Aufgabe 2.\nAufgabe 2\nnämlich sehr für Fußball und Sport im Allgemeinen. Und bitte keine Museen.\nDu hörst die Aufgabe noch einmal.\nWir machen für drei Tage eine Klassenfahrt nach Berlin. Natürlich werden wir auch die\ninteressantesten Sehenswürdigkeiten besuchen. Ich war schon vor vier Jahren in Berlin und\nhabe schon das Brandenburger Tor und den Alexanderplatz gesehen. Das war wirklich toll. Diesmal möchte\nmöchte ich unbedingt das Olympiastadion besuchen.\nIch interessiere mich nämlich sehr für Fußball und Sport im Allgemeinen.\nUnd bitte keine Museen!\nAufgabe 3\nDas ist ungerecht. Ich muss jeden Tag im Haushalt helfen.\nImmer muss ich das Geschirr spülen. Das macht mir überhaupt keinen Spaß.\nMein Bruder muss nur sein Zimmer aufräumen oder höchstens mal den Müll rausbringen.\nDas ist dann alles und das ist doch nicht so schlimm.\nIch habe fast das Gefühl, meine Eltern lieben meinen Bruder mehr als mich.\nDu hörst die Aufgabe noch einmal.\nmal. Das ist ungerecht. Ich muss jeden Tag im Haushalt helfen. Immer muss ich das Geschirr\nspülen. Das macht mir überhaupt keinen Spaß. Mein Bruder muss nur sein Zimmer aufräumen oder\nhöchstens mal den Müll rausbringen. Das ist dann alles und das ist doch nicht so schlimm. Ich habe\nfast das Gefühl, meine Eltern lieben meinen Bruder mehr als mich.\nLies jetzt die Aufgabe 4.\nAufgabe 4\nAlle meine Freunde treiben Sport. Die meisten spielen in einem Verein Fußball, manche auch Handball.\nSie sehen gut aus und sind sehr stark. Das interessiert mich aber nicht.\nZu viel Sport mag ich nämlich nicht. Ich möchte nur ein bisschen Sport machen, weil ich nicht so fit bin. Mehr nicht.\nDeshalb fange ich morgen mit Federball an. Zweimal in der Woche je eine Stunde. Das reicht.\nDu hörst die Aufgabe noch einmal.\nAlle meine Freunde treiben Sport. Die meisten spielen in einem Verein Fußball. Manche auch Handball.\nSie sehen gut aus und sind sehr stark. Das interessiert mich aber nicht.\nZu viel Sport mag ich nämlich nicht. Ich möchte nur ein bisschen Sport machen,\nweil ich nicht so fit bin. Mehr nicht. Deshalb fange ich morgen mit Federball an.\nZweimal in der Woche je eine Stunde, das reicht.\nLies jetzt die Aufgabe 5.\nAufgabe 5\nUnd nun zum Wetter.\nDie Aussichten für die nächsten Tage.\nAm Donnerstag wird es regnen und es wird kalt sein.\nTemperaturen um 7 Grad.\nAm Freitag ist das Wetter dann freundlicher.\nEs wird trocken bleiben und die Temperaturen werden auf über 10 Grad steigen.\nUnd fürs Wochenende kann man schon einen Ausflug ins Grüne planen, denn es wird sonnig und schön warm sein.\nAb Montag gibt es dann aber wieder Regen.\nDu hörst die Aufgabe noch einmal.\nUnd nun zum Wetter.\nDie Aussichten für die nächsten Tage.\nAm Donnerstag wird es regnen und es wird kalt sein.\nTemperaturen um 7 Grad.\nAm Freitag ist das Wetter dann freundlicher.\nEs wird trocken bleiben und die Temperaturen werden auf über 10 Grad steigen.\nUnd fürs Wochenende kann man schon einen Ausflug ins Grüne planen, denn es wird sonnig und schön warm sein.\nAb Montag gibt es dann aber wieder Regen.",
+   "segments": [
+    {
+     "start": 1.2,
+     "end": 2.7,
+     "text": "Arena A2"
+    },
+    {
+     "start": 2.7,
+     "end": 5.9,
+     "text": "Ein Lehrwerk zur Vorbereitung auf die Prüfung"
+    },
+    {
+     "start": 5.9,
+     "end": 8.6,
+     "text": "Goethe-Zertifikat A2 Fit in Deutsch"
+    },
+    {
+     "start": 8.6,
+     "end": 12.1,
+     "text": "Praxis Spezialverlag Deutsch als Fremdsprache"
+    },
+    {
+     "start": 12.1,
+     "end": 13.1,
+     "text": "Athen"
+    },
+    {
+     "start": 13.1,
+     "end": 14.9,
+     "text": "Test 2"
+    },
+    {
+     "start": 14.9,
+     "end": 16.4,
+     "text": "Teil 1"
+    },
+    {
+     "start": 16.4,
+     "end": 19.2,
+     "text": "Du hörst 5 kurze Texte"
+    },
+    {
+     "start": 19.2,
+     "end": 21.6,
+     "text": "Du hörst jeden Text zweimal"
+    },
+    {
+     "start": 22.7,
+     "end": 25.2,
+     "text": "Wähle bei den Aufgaben 1 bis 5"
+    },
+    {
+     "start": 25.2,
+     "end": 26.7,
+     "text": "die richtige Lösung"
+    },
+    {
+     "start": 26.7,
+     "end": 28.6,
+     "text": "A, B oder C"
+    },
+    {
+     "start": 29.8,
+     "end": 31.5,
+     "text": "Lies jetzt die Aufgabe 1."
+    },
+    {
+     "start": 51.3,
+     "end": 52.5,
+     "text": "Aufgabe 1"
+    },
+    {
+     "start": 53.2,
+     "end": 57.8,
+     "text": "Hallo Petra. Ich rufe dich an, weil ich dir etwas Schlimmes mitteilen muss."
+    },
+    {
+     "start": 58.6,
+     "end": 61.4,
+     "text": "Ich bin sehr traurig. Wir müssen nämlich umziehen."
+    },
+    {
+     "start": 61.9,
+     "end": 66.0,
+     "text": "Mein Vater hat eine neue Arbeit bekommen, deshalb müssen wir jetzt aus Land umziehen."
+    },
+    {
+     "start": 66.4,
+     "end": 68.7,
+     "text": "Meine Eltern haben schon ein neues Haus gekauft."
+    },
+    {
+     "start": 69.0,
+     "end": 72.8,
+     "text": "Meine Mutter sagt auch, dass das Leben auf dem Land viel gesünder ist."
+    },
+    {
+     "start": 73.0,
+     "end": 76.2,
+     "text": "Das interessiert mich aber nicht. Ich möchte nicht umziehen."
+    },
+    {
+     "start": 77.0,
+     "end": 78.8,
+     "text": "Du hörst die Aufgabe noch einmal."
+    },
+    {
+     "start": 79.7,
+     "end": 84.1,
+     "text": "Hallo Petra. Ich rufe dich an, weil ich dir etwas Schlimmes mitteilen muss."
+    },
+    {
+     "start": 84.6,
+     "end": 87.8,
+     "text": "Ich bin sehr traurig. Wir müssen nämlich umziehen."
+    },
+    {
+     "start": 88.6,
+     "end": 92.3,
+     "text": "Mein Vater hat eine neue Arbeit bekommen. Deshalb müssen wir jetzt aufs Land umziehen."
+    },
+    {
+     "start": 92.7,
+     "end": 95.0,
+     "text": "Meine Eltern haben schon ein neues Haus gekauft."
+    },
+    {
+     "start": 95.3,
+     "end": 99.1,
+     "text": "Meine Mutter sagt auch, dass das Leben auf dem Land viel gesünder ist."
+    },
+    {
+     "start": 99.3,
+     "end": 102.5,
+     "text": "Das interessiert mich aber nicht. Ich möchte nicht umziehen."
+    },
+    {
+     "start": 108.9,
+     "end": 110.6,
+     "text": "Lies jetzt die Aufgabe 2."
+    },
+    {
+     "start": 125.2,
+     "end": 127.0,
+     "text": "Aufgabe 2"
+    },
+    {
+     "start": 148.6,
+     "end": 153.2,
+     "text": "nämlich sehr für Fußball und Sport im Allgemeinen. Und bitte keine Museen."
+    },
+    {
+     "start": 154.6,
+     "end": 156.0,
+     "text": "Du hörst die Aufgabe noch einmal."
+    },
+    {
+     "start": 157.6,
+     "end": 162.4,
+     "text": "Wir machen für drei Tage eine Klassenfahrt nach Berlin. Natürlich werden wir auch die"
+    },
+    {
+     "start": 162.4,
+     "end": 167.3,
+     "text": "interessantesten Sehenswürdigkeiten besuchen. Ich war schon vor vier Jahren in Berlin und"
+    },
+    {
+     "start": 167.3,
+     "end": 173.8,
+     "text": "habe schon das Brandenburger Tor und den Alexanderplatz gesehen. Das war wirklich toll. Diesmal möchte"
+    },
+    {
+     "start": 173.8,
+     "end": 176.1,
+     "text": "möchte ich unbedingt das Olympiastadion besuchen."
+    },
+    {
+     "start": 177.0,
+     "end": 180.3,
+     "text": "Ich interessiere mich nämlich sehr für Fußball und Sport im Allgemeinen."
+    },
+    {
+     "start": 181.0,
+     "end": 182.5,
+     "text": "Und bitte keine Museen!"
+    },
+    {
+     "start": 205.0,
+     "end": 206.0,
+     "text": "Aufgabe 3"
+    },
+    {
+     "start": 206.0,
+     "end": 210.6,
+     "text": "Das ist ungerecht. Ich muss jeden Tag im Haushalt helfen."
+    },
+    {
+     "start": 210.9,
+     "end": 215.3,
+     "text": "Immer muss ich das Geschirr spülen. Das macht mir überhaupt keinen Spaß."
+    },
+    {
+     "start": 216.6,
+     "end": 221.1,
+     "text": "Mein Bruder muss nur sein Zimmer aufräumen oder höchstens mal den Müll rausbringen."
+    },
+    {
+     "start": 221.9,
+     "end": 224.4,
+     "text": "Das ist dann alles und das ist doch nicht so schlimm."
+    },
+    {
+     "start": 224.7,
+     "end": 229.4,
+     "text": "Ich habe fast das Gefühl, meine Eltern lieben meinen Bruder mehr als mich."
+    },
+    {
+     "start": 230.3,
+     "end": 232.2,
+     "text": "Du hörst die Aufgabe noch einmal."
+    },
+    {
+     "start": 232.2,
+     "end": 239.6,
+     "text": "mal. Das ist ungerecht. Ich muss jeden Tag im Haushalt helfen. Immer muss ich das Geschirr"
+    },
+    {
+     "start": 239.6,
+     "end": 245.9,
+     "text": "spülen. Das macht mir überhaupt keinen Spaß. Mein Bruder muss nur sein Zimmer aufräumen oder"
+    },
+    {
+     "start": 245.9,
+     "end": 252.2,
+     "text": "höchstens mal den Müll rausbringen. Das ist dann alles und das ist doch nicht so schlimm. Ich habe"
+    },
+    {
+     "start": 252.2,
+     "end": 256.1,
+     "text": "fast das Gefühl, meine Eltern lieben meinen Bruder mehr als mich."
+    },
+    {
+     "start": 262.8,
+     "end": 264.5,
+     "text": "Lies jetzt die Aufgabe 4."
+    },
+    {
+     "start": 280.1,
+     "end": 281.1,
+     "text": "Aufgabe 4"
+    },
+    {
+     "start": 281.8,
+     "end": 287.2,
+     "text": "Alle meine Freunde treiben Sport. Die meisten spielen in einem Verein Fußball, manche auch Handball."
+    },
+    {
+     "start": 288.3,
+     "end": 291.8,
+     "text": "Sie sehen gut aus und sind sehr stark. Das interessiert mich aber nicht."
+    },
+    {
+     "start": 292.3,
+     "end": 298.4,
+     "text": "Zu viel Sport mag ich nämlich nicht. Ich möchte nur ein bisschen Sport machen, weil ich nicht so fit bin. Mehr nicht."
+    },
+    {
+     "start": 299.1,
+     "end": 303.9,
+     "text": "Deshalb fange ich morgen mit Federball an. Zweimal in der Woche je eine Stunde. Das reicht."
+    },
+    {
+     "start": 304.6,
+     "end": 306.2,
+     "text": "Du hörst die Aufgabe noch einmal."
+    },
+    {
+     "start": 307.0,
+     "end": 312.3,
+     "text": "Alle meine Freunde treiben Sport. Die meisten spielen in einem Verein Fußball. Manche auch Handball."
+    },
+    {
+     "start": 312.9,
+     "end": 316.9,
+     "text": "Sie sehen gut aus und sind sehr stark. Das interessiert mich aber nicht."
+    },
+    {
+     "start": 316.9,
+     "end": 321.6,
+     "text": "Zu viel Sport mag ich nämlich nicht. Ich möchte nur ein bisschen Sport machen,"
+    },
+    {
+     "start": 321.7,
+     "end": 326.0,
+     "text": "weil ich nicht so fit bin. Mehr nicht. Deshalb fange ich morgen mit Federball an."
+    },
+    {
+     "start": 326.6,
+     "end": 329.0,
+     "text": "Zweimal in der Woche je eine Stunde, das reicht."
+    },
+    {
+     "start": 334.8,
+     "end": 336.3,
+     "text": "Lies jetzt die Aufgabe 5."
+    },
+    {
+     "start": 351.8,
+     "end": 352.9,
+     "text": "Aufgabe 5"
+    },
+    {
+     "start": 354.2,
+     "end": 355.8,
+     "text": "Und nun zum Wetter."
+    },
+    {
+     "start": 356.8,
+     "end": 358.5,
+     "text": "Die Aussichten für die nächsten Tage."
+    },
+    {
+     "start": 358.8,
+     "end": 362.0,
+     "text": "Am Donnerstag wird es regnen und es wird kalt sein."
+    },
+    {
+     "start": 363.6,
+     "end": 364.9,
+     "text": "Temperaturen um 7 Grad."
+    },
+    {
+     "start": 365.6,
+     "end": 368.2,
+     "text": "Am Freitag ist das Wetter dann freundlicher."
+    },
+    {
+     "start": 369.1,
+     "end": 373.6,
+     "text": "Es wird trocken bleiben und die Temperaturen werden auf über 10 Grad steigen."
+    },
+    {
+     "start": 374.2,
+     "end": 380.2,
+     "text": "Und fürs Wochenende kann man schon einen Ausflug ins Grüne planen, denn es wird sonnig und schön warm sein."
+    },
+    {
+     "start": 381.5,
+     "end": 383.6,
+     "text": "Ab Montag gibt es dann aber wieder Regen."
+    },
+    {
+     "start": 384.8,
+     "end": 386.5,
+     "text": "Du hörst die Aufgabe noch einmal."
+    },
+    {
+     "start": 388.1,
+     "end": 389.5,
+     "text": "Und nun zum Wetter."
+    },
+    {
+     "start": 390.1,
+     "end": 392.3,
+     "text": "Die Aussichten für die nächsten Tage."
+    },
+    {
+     "start": 392.7,
+     "end": 395.8,
+     "text": "Am Donnerstag wird es regnen und es wird kalt sein."
+    },
+    {
+     "start": 397.5,
+     "end": 398.8,
+     "text": "Temperaturen um 7 Grad."
+    },
+    {
+     "start": 399.5,
+     "end": 402.0,
+     "text": "Am Freitag ist das Wetter dann freundlicher."
+    },
+    {
+     "start": 402.0,
+     "end": 407.4,
+     "text": "Es wird trocken bleiben und die Temperaturen werden auf über 10 Grad steigen."
+    },
+    {
+     "start": 408.1,
+     "end": 414.0,
+     "text": "Und fürs Wochenende kann man schon einen Ausflug ins Grüne planen, denn es wird sonnig und schön warm sein."
+    },
+    {
+     "start": 414.9,
+     "end": 417.4,
+     "text": "Ab Montag gibt es dann aber wieder Regen."
+    }
+   ],
+   "quality": {
+    "second_model": "faster-whisper medium",
+    "agreement": 0.848,
+    "words": 706,
+    "low_confidence_words": 14,
+    "uncertain": []
+   },
+   "review_note": null
+  },
+  {
+   "sha256": "950a59b01ab5a92f353a190fe8d9f2d7b5c22259087dfde399e8ef815e12b75f",
+   "original_name": "A2 11.Unterricht Teil_2.m4a",
+   "size_bytes": 2297659,
+   "duration_seconds": 141.9,
+   "status": "TRANSCRIBED",
+   "model": "faster-whisper large-v3 (CPU, int8, de)",
+   "text": "Arena A2\nEin Lehrwerk zur Vorbereitung auf die Prüfung\nGoethe-Zertifikat A2 Fit in Deutsch\nPraxis Spezialverlag Deutsch als Fremdsprache\nAthen\nTest 2\nTeil 2\nDu hörst ein Gespräch.\nDu hörst den Text nur einmal.\nWie war Alisas Tag gestern?\nWähle für die Aufgaben 6 bis 10\nein passendes Bild aus A bis I aus.\nWähle jeden Buchstaben nur einmal.\nSieh dir jetzt die Bilder an.\nLies jetzt die Aufgaben 6 bis 10.\nHallo, Alisa. Wo warst du denn gestern? Ich habe dich gar nicht gesehen.\nHallo, David. Ich war nicht da, denn ich musste auf meine Geschwister aufpassen.\nMeine Eltern waren nämlich den ganzen Tag auf einem Computerseminar.\nAch so, verstehe.\nUm sieben Uhr klingelte also der Wecker und ich bin aufgestanden.\nMein jüngster Bruder Fabian hörte den Wecker und fing gleich an zu weinen.\nViola ist dann auch aufgewacht.\nDas hört sich ja ganz schön stressig an. Und weiter?\nIch beruhigte Fabian und Viola hat Frühstück gemacht.\nGleich nach dem Frühstück haben Viola und ich Fabian in den Kindergarten gebracht und sind dann zur Schule gegangen.\nUnd nach der Schule?\nAm Mittag besuchte uns meine Freundin Marie und hat uns leckere Burger gebracht.\ndas war ein tolles mittagessen so echt nett von deiner freundin weißt du wer uns noch besucht\nhat jakob der junge von gegenüber seine mutter hat kuchen gebacken und er hat uns\nwelchen gebracht du glückliche dann musstest du ja gar nicht fürs essen sorgen ja da hatte\nich wirklich glück ich kann nämlich gar nicht gut kochen ende von teil 2",
+   "segments": [
+    {
+     "start": 1.4,
+     "end": 2.7,
+     "text": "Arena A2"
+    },
+    {
+     "start": 2.7,
+     "end": 6.0,
+     "text": "Ein Lehrwerk zur Vorbereitung auf die Prüfung"
+    },
+    {
+     "start": 6.0,
+     "end": 8.6,
+     "text": "Goethe-Zertifikat A2 Fit in Deutsch"
+    },
+    {
+     "start": 8.6,
+     "end": 12.1,
+     "text": "Praxis Spezialverlag Deutsch als Fremdsprache"
+    },
+    {
+     "start": 12.1,
+     "end": 13.1,
+     "text": "Athen"
+    },
+    {
+     "start": 13.1,
+     "end": 14.7,
+     "text": "Test 2"
+    },
+    {
+     "start": 14.7,
+     "end": 16.4,
+     "text": "Teil 2"
+    },
+    {
+     "start": 16.4,
+     "end": 19.1,
+     "text": "Du hörst ein Gespräch."
+    },
+    {
+     "start": 19.4,
+     "end": 21.3,
+     "text": "Du hörst den Text nur einmal."
+    },
+    {
+     "start": 22.6,
+     "end": 24.8,
+     "text": "Wie war Alisas Tag gestern?"
+    },
+    {
+     "start": 26.8,
+     "end": 28.5,
+     "text": "Wähle für die Aufgaben 6 bis 10"
+    },
+    {
+     "start": 28.5,
+     "end": 32.1,
+     "text": "ein passendes Bild aus A bis I aus."
+    },
+    {
+     "start": 34.2,
+     "end": 35.7,
+     "text": "Wähle jeden Buchstaben nur einmal."
+    },
+    {
+     "start": 37.5,
+     "end": 38.5,
+     "text": "Sieh dir jetzt die Bilder an."
+    },
+    {
+     "start": 40.7,
+     "end": 42.6,
+     "text": "Lies jetzt die Aufgaben 6 bis 10."
+    },
+    {
+     "start": 72.8,
+     "end": 77.0,
+     "text": "Hallo, Alisa. Wo warst du denn gestern? Ich habe dich gar nicht gesehen."
+    },
+    {
+     "start": 77.4,
+     "end": 81.3,
+     "text": "Hallo, David. Ich war nicht da, denn ich musste auf meine Geschwister aufpassen."
+    },
+    {
+     "start": 81.5,
+     "end": 85.1,
+     "text": "Meine Eltern waren nämlich den ganzen Tag auf einem Computerseminar."
+    },
+    {
+     "start": 85.4,
+     "end": 86.6,
+     "text": "Ach so, verstehe."
+    },
+    {
+     "start": 86.6,
+     "end": 90.2,
+     "text": "Um sieben Uhr klingelte also der Wecker und ich bin aufgestanden."
+    },
+    {
+     "start": 90.5,
+     "end": 94.6,
+     "text": "Mein jüngster Bruder Fabian hörte den Wecker und fing gleich an zu weinen."
+    },
+    {
+     "start": 95.1,
+     "end": 96.7,
+     "text": "Viola ist dann auch aufgewacht."
+    },
+    {
+     "start": 96.9,
+     "end": 99.8,
+     "text": "Das hört sich ja ganz schön stressig an. Und weiter?"
+    },
+    {
+     "start": 100.2,
+     "end": 103.2,
+     "text": "Ich beruhigte Fabian und Viola hat Frühstück gemacht."
+    },
+    {
+     "start": 103.6,
+     "end": 109.5,
+     "text": "Gleich nach dem Frühstück haben Viola und ich Fabian in den Kindergarten gebracht und sind dann zur Schule gegangen."
+    },
+    {
+     "start": 109.9,
+     "end": 111.0,
+     "text": "Und nach der Schule?"
+    },
+    {
+     "start": 111.4,
+     "end": 115.8,
+     "text": "Am Mittag besuchte uns meine Freundin Marie und hat uns leckere Burger gebracht."
+    },
+    {
+     "start": 115.8,
+     "end": 123.4,
+     "text": "das war ein tolles mittagessen so echt nett von deiner freundin weißt du wer uns noch besucht"
+    },
+    {
+     "start": 123.4,
+     "end": 128.7,
+     "text": "hat jakob der junge von gegenüber seine mutter hat kuchen gebacken und er hat uns"
+    },
+    {
+     "start": 128.7,
+     "end": 134.7,
+     "text": "welchen gebracht du glückliche dann musstest du ja gar nicht fürs essen sorgen ja da hatte"
+    },
+    {
+     "start": 134.7,
+     "end": 140.8,
+     "text": "ich wirklich glück ich kann nämlich gar nicht gut kochen ende von teil 2"
+    }
+   ],
+   "quality": {
+    "second_model": "faster-whisper medium",
+    "agreement": 0.98,
+    "words": 257,
+    "low_confidence_words": 4,
+    "uncertain": []
+   },
+   "review_note": null
+  },
+  {
+   "sha256": "3cce75900566ea381676a9c217714d4b1b0ddee15b98c569e7c7ce52c270b265",
+   "original_name": "A2 11.Unterricht Teil_3.m4a",
+   "size_bytes": 4757052,
+   "duration_seconds": 293.9,
+   "status": "TRANSCRIBED",
+   "model": "faster-whisper large-v3 (CPU, int8, de)",
+   "text": "Arena A2 – ein Lehrwerk zur Vorbereitung auf die Prüfung, Goethe-Zertifikat A2 fit in Deutsch.\nPraxis Spezialverlag Deutsch als Fremdsprache, Athen.\nTest 2 – Teil 3\nDu hörst fünf kurze Gespräche.\nDu hörst jeden Text einmal.\nEinmal. Wähle bei den Aufgaben 11 bis 15 die richtige Lösung A, B oder C.\nLies jetzt die Aufgabe 11.\nIch möchte auf jeden Fall etwas studieren, das mit Fremdsprachen zu tun hat.\nIch kann schon Englisch und Französisch recht gut.\nJa, aber zwei Fremdsprachen sind in diesem Fall zu wenig, Ilona.\nDu musst noch mindestens eine dritte Fremdsprache lernen, vielleicht Chinesisch.\nOh Gott, viel zu schwer.\nDa lerne ich lieber Spanisch.\nDas ist einfacher und als Sprache auch sehr wichtig.\nDa hast du recht.\nChinesisch ist wohl schwer.\nließ jetzt die aufgabe 12\naufgabe 12 leon möchtest du dass wir heute abend zusammen essen ich werde\n[unverständlich] etwas kochen. Janine, das finde ich nett von dir. Was gibt's denn Gutes? Schnitzel mit Pommes\nund ein Salat dazu. Oder ein Hähnchen? Also, eigentlich esse ich kein Fleisch. Oh, Entschuldigung,\ndas habe ich vergessen. Wie wäre es mit Fisch? Was hältst du davon? Das ist super. Ich komme dann\nso gegen 20 Uhr. Ich bringe etwas Süßes für nachher mit. Einen Käsekuchen, bitte.\nLies jetzt die Aufgabe 13.\nAufgabe 13 Weißt du, Ben, ich möchte in den Sommerferien\njobben wieso denn bekommst du kein taschengeld mehr oder brauchst du wieder neue kleider nein\nnein ich bekomme genug taschengeld aber ich möchte mir einen laptop kaufen das taschengeld\nreicht da nicht aus das ist keine schlechte idee aber ich würde lieber ein fahrrad kaufen\ndu hast ja keins ja schon aber ich brauche den laptop für die schule wie soll ich denn\ndie ganzen hausarbeiten machen darin habe ich nicht gedacht ließ jetzt die aufgabe 14\nAufgabe 14\nGanz schön warm heute.\nStimmt. Hast du nach der Schule Lust auf ein Eis?\nIch habe eine bessere Idee. Warum gehen wir nicht ins Schwimmbad? Da können wir auch Eis essen.\nKlasse Idee, Niklas. Vielleicht spielen wir auch Fußball. Da gibt es doch auch einen kleinen Fußballplatz, oder?\nDann laden wir auch Leo und Max ein. Was meinst du?\nJa, dann haben wir mehr Spaß.\nLies jetzt die Aufgabe 15.\nAufgabe 15\nDu, Lilly, diesen Samstag ist wieder Flohmarkt. Wollen wir auch etwas verkaufen?\nPrima Idee, Johanna. Ich habe sehr viele alte Sachen, die wir verkaufen können.\nAlte Spielzeug und auch sehr viele alte Bücher, die ich nicht mehr brauche.\nIch habe viele alte Jeans. Ich glaube, dass viele Leute gern Jeans kaufen, gerade alte Jeans.\nKlar, ich habe auch welche zu Hause, die ich nicht mehr trage.\nUnd für das Spielzeug und die Bücher bekommen wir ja sowieso nicht so viel Geld.\nAlso dann, bis Samstag.\nEnde von Teil 3",
+   "segments": [
+    {
+     "start": 1.4,
+     "end": 8.6,
+     "text": "Arena A2 – ein Lehrwerk zur Vorbereitung auf die Prüfung, Goethe-Zertifikat A2 fit in Deutsch."
+    },
+    {
+     "start": 9.3,
+     "end": 13.1,
+     "text": "Praxis Spezialverlag Deutsch als Fremdsprache, Athen."
+    },
+    {
+     "start": 14.8,
+     "end": 17.0,
+     "text": "Test 2 – Teil 3"
+    },
+    {
+     "start": 18.4,
+     "end": 20.8,
+     "text": "Du hörst fünf kurze Gespräche."
+    },
+    {
+     "start": 22.2,
+     "end": 23.5,
+     "text": "Du hörst jeden Text einmal."
+    },
+    {
+     "start": 23.5,
+     "end": 31.3,
+     "text": "Einmal. Wähle bei den Aufgaben 11 bis 15 die richtige Lösung A, B oder C."
+    },
+    {
+     "start": 33.4,
+     "end": 34.7,
+     "text": "Lies jetzt die Aufgabe 11."
+    },
+    {
+     "start": 56.4,
+     "end": 60.1,
+     "text": "Ich möchte auf jeden Fall etwas studieren, das mit Fremdsprachen zu tun hat."
+    },
+    {
+     "start": 60.3,
+     "end": 62.7,
+     "text": "Ich kann schon Englisch und Französisch recht gut."
+    },
+    {
+     "start": 63.0,
+     "end": 66.8,
+     "text": "Ja, aber zwei Fremdsprachen sind in diesem Fall zu wenig, Ilona."
+    },
+    {
+     "start": 67.5,
+     "end": 71.7,
+     "text": "Du musst noch mindestens eine dritte Fremdsprache lernen, vielleicht Chinesisch."
+    },
+    {
+     "start": 71.9,
+     "end": 73.5,
+     "text": "Oh Gott, viel zu schwer."
+    },
+    {
+     "start": 73.9,
+     "end": 75.5,
+     "text": "Da lerne ich lieber Spanisch."
+    },
+    {
+     "start": 75.6,
+     "end": 78.2,
+     "text": "Das ist einfacher und als Sprache auch sehr wichtig."
+    },
+    {
+     "start": 78.6,
+     "end": 79.4,
+     "text": "Da hast du recht."
+    },
+    {
+     "start": 79.9,
+     "end": 80.9,
+     "text": "Chinesisch ist wohl schwer."
+    },
+    {
+     "start": 86.5,
+     "end": 88.1,
+     "text": "ließ jetzt die aufgabe 12"
+    },
+    {
+     "start": 104.1,
+     "end": 110.3,
+     "text": "aufgabe 12 leon möchtest du dass wir heute abend zusammen essen ich werde"
+    },
+    {
+     "start": 110.3,
+     "end": 115.4,
+     "text": "[unverständlich] etwas kochen. Janine, das finde ich nett von dir. Was gibt's denn Gutes? Schnitzel mit Pommes"
+    },
+    {
+     "start": 115.4,
+     "end": 121.7,
+     "text": "und ein Salat dazu. Oder ein Hähnchen? Also, eigentlich esse ich kein Fleisch. Oh, Entschuldigung,"
+    },
+    {
+     "start": 121.7,
+     "end": 127.5,
+     "text": "das habe ich vergessen. Wie wäre es mit Fisch? Was hältst du davon? Das ist super. Ich komme dann"
+    },
+    {
+     "start": 127.5,
+     "end": 132.0,
+     "text": "so gegen 20 Uhr. Ich bringe etwas Süßes für nachher mit. Einen Käsekuchen, bitte."
+    },
+    {
+     "start": 137.6,
+     "end": 139.1,
+     "text": "Lies jetzt die Aufgabe 13."
+    },
+    {
+     "start": 155.0,
+     "end": 159.5,
+     "text": "Aufgabe 13 Weißt du, Ben, ich möchte in den Sommerferien"
+    },
+    {
+     "start": 159.5,
+     "end": 165.4,
+     "text": "jobben wieso denn bekommst du kein taschengeld mehr oder brauchst du wieder neue kleider nein"
+    },
+    {
+     "start": 165.4,
+     "end": 170.6,
+     "text": "nein ich bekomme genug taschengeld aber ich möchte mir einen laptop kaufen das taschengeld"
+    },
+    {
+     "start": 170.6,
+     "end": 175.3,
+     "text": "reicht da nicht aus das ist keine schlechte idee aber ich würde lieber ein fahrrad kaufen"
+    },
+    {
+     "start": 175.3,
+     "end": 180.8,
+     "text": "du hast ja keins ja schon aber ich brauche den laptop für die schule wie soll ich denn"
+    },
+    {
+     "start": 180.8,
+     "end": 192.5,
+     "text": "die ganzen hausarbeiten machen darin habe ich nicht gedacht ließ jetzt die aufgabe 14"
+    },
+    {
+     "start": 209.3,
+     "end": 210.3,
+     "text": "Aufgabe 14"
+    },
+    {
+     "start": 211.4,
+     "end": 213.1,
+     "text": "Ganz schön warm heute."
+    },
+    {
+     "start": 213.4,
+     "end": 216.0,
+     "text": "Stimmt. Hast du nach der Schule Lust auf ein Eis?"
+    },
+    {
+     "start": 216.2,
+     "end": 222.4,
+     "text": "Ich habe eine bessere Idee. Warum gehen wir nicht ins Schwimmbad? Da können wir auch Eis essen."
+    },
+    {
+     "start": 222.8,
+     "end": 228.6,
+     "text": "Klasse Idee, Niklas. Vielleicht spielen wir auch Fußball. Da gibt es doch auch einen kleinen Fußballplatz, oder?"
+    },
+    {
+     "start": 228.9,
+     "end": 232.5,
+     "text": "Dann laden wir auch Leo und Max ein. Was meinst du?"
+    },
+    {
+     "start": 232.8,
+     "end": 234.7,
+     "text": "Ja, dann haben wir mehr Spaß."
+    },
+    {
+     "start": 241.3,
+     "end": 242.8,
+     "text": "Lies jetzt die Aufgabe 15."
+    },
+    {
+     "start": 258.7,
+     "end": 259.7,
+     "text": "Aufgabe 15"
+    },
+    {
+     "start": 260.8,
+     "end": 265.6,
+     "text": "Du, Lilly, diesen Samstag ist wieder Flohmarkt. Wollen wir auch etwas verkaufen?"
+    },
+    {
+     "start": 266.3,
+     "end": 270.4,
+     "text": "Prima Idee, Johanna. Ich habe sehr viele alte Sachen, die wir verkaufen können."
+    },
+    {
+     "start": 270.8,
+     "end": 274.3,
+     "text": "Alte Spielzeug und auch sehr viele alte Bücher, die ich nicht mehr brauche."
+    },
+    {
+     "start": 274.7,
+     "end": 280.7,
+     "text": "Ich habe viele alte Jeans. Ich glaube, dass viele Leute gern Jeans kaufen, gerade alte Jeans."
+    },
+    {
+     "start": 280.7,
+     "end": 284.2,
+     "text": "Klar, ich habe auch welche zu Hause, die ich nicht mehr trage."
+    },
+    {
+     "start": 284.4,
+     "end": 287.9,
+     "text": "Und für das Spielzeug und die Bücher bekommen wir ja sowieso nicht so viel Geld."
+    },
+    {
+     "start": 288.2,
+     "end": 289.8,
+     "text": "Also dann, bis Samstag."
+    },
+    {
+     "start": 291.9,
+     "end": 293.1,
+     "text": "Ende von Teil 3"
+    }
+   ],
+   "quality": {
+    "second_model": "faster-whisper medium",
+    "agreement": 0.951,
+    "words": 463,
+    "low_confidence_words": 13,
+    "uncertain": [
+     {
+      "at": 110.3,
+      "heard": "gerne",
+      "probability": 0.13
+     }
+    ]
+   },
+   "review_note": "Unverständliche Stellen (nicht geraten): [110s] „gerne“"
+  },
+  {
+   "sha256": "1f879d929e136846f20e342bc466fb2e59b9df231edbeef1ae4bc8b4fac3a033",
+   "original_name": "A2 11.Unterricht Teil_4.m4a",
+   "size_bytes": 4208142,
+   "duration_seconds": 260.0,
+   "status": "TRANSCRIBED",
+   "model": "faster-whisper large-v3 (CPU, int8, de)",
+   "text": "Arena A2 Ein Lehrwerk zur Vorbereitung auf die Prüfung\nGoethe-Zertifikat A2 Fit in Deutsch Praxis Spezialverlag Deutsch als Fremdsprache\nAthen Test 2 Teil 4\nDu hörst ein Interview.\nDu hörst den Text zweimal.\nWähle für die Aufgaben 16 bis 20 Ja oder Nein.\nLies jetzt die Aufgaben 16 bis 20.\nSonja, herzliche Gratulation! Du hast am Wettbewerb\n»Schützt unseren Planeten« teilgenommen, das schönste Plakat zum Thema gemalt und\nbist somit Gewinnerin des Wettbewerbs. Danke!\nErzähl mal, was war das für ein Wettbewerb? Das war ein europäischer Wettbewerb für\nSchülerinnen und Schüler von 12 bis 16 Jahren, die sich für die Probleme unserer Umwelt\ninteressieren. Und gab es da etwas Besonderes zu gewinnen? Der Preis des Gewinners waren\nHilfeleistungen im Wert von 1.000 Euro an Kinder, die in Not sind, zum Beispiel in Afrika. Das finde\nich sehr schön. Und was genau war eure Aufgabe? Jeder Schüler sollte ein Element der Umwelt malen,\nalso kreativ ausdrücken und dazu einen Titel oder ein Wort, einfach etwas dazu schreiben. Und wie\nWie sah dein Plakat aus?\nIch habe lachende Kinder im Regen gemalt, die mit einem Ball spielen.\nUnd dazu geschrieben, Wasser ist Leben.\nWie bist du denn auf diese Idee gekommen?\nIch hatte vor Tagen im Netz gesurft und in einem Blog gelesen,\ndass viele Kinder täglich an verschmutztem Wasser sterben.\nIch finde, Wasser ist eines der wichtigsten Elemente für die Menschen.\nSag mal, Sonja, was für Pläne hast du für die Zukunft?\nWenn ich später mal studiere, ich möchte nämlich Ärztin werden,\nda möchte ich für ein paar Jahre in Afrika arbeiten und Kindern helfen.\nSonja, vielen Dank! Und nochmals Gratulation für deine tolle Leistung!\nDu hörst die Aufgabe noch einmal.\nSonja, herzliche Gratulation! Du hast am Wettbewerb\n»Schützt unseren Planeten« teilgenommen, das schönste Plakat zum Thema gemalt und\nbist somit Gewinnerin des Wettbewerbs. Danke!\nDanke!\nErzähl mal, was war das für ein Wettbewerb?\nDas war ein europäischer Wettbewerb für Schülerinnen und Schüler von 12 bis 16 Jahren,\ndie sich für die Probleme unserer Umwelt interessieren.\nUnd gab es da etwas Besonderes zu gewinnen?\nDer Preis des Gewinners waren Hilfeleistungen im Wert von 1.000 Euro an Kinder, die in Not\nsind, zum Beispiel in Afrika.\nDas finde ich sehr schön.\nUnd was genau war eure Aufgabe?\nJeder Schüler sollte ein Element der Umwelt malen, also kreativ ausdrücken und dazu einen Titel oder ein Wort, einfach etwas dazu schreiben.\nUnd wie sah dein Plakat aus?\nIch habe lachende Kinder im Regen gemalt, die mit einem Ball spielen. Und dazu geschrieben, Wasser ist Leben.\nWie bist du denn auf diese Idee gekommen?\nIch hatte vor Tagen im Netz gesurft und in einem Blog gelesen, dass viele Kinder täglich an verschmutztem Wasser sterben.\nIch finde, Wasser ist eines der wichtigsten Elemente für die Menschen.\nSag mal, Sonja, was für Pläne hast du für die Zukunft?\nWenn ich später mal studiere, ich möchte nämlich Ärztin werden,\ndann möchte ich für ein paar Jahre in Afrika arbeiten und Kindern helfen.\nSonja, vielen Dank und nochmals Gratulation für deine tolle Leistung.\nEnde von Teil 4\nDu hast jetzt drei Minuten Zeit, um deine Ergebnisse auf den Antwortbogen zu übertragen.\nEnde des Hörverstehens. Test 2.",
+   "segments": [
+    {
+     "start": 1.3,
+     "end": 6.0,
+     "text": "Arena A2 Ein Lehrwerk zur Vorbereitung auf die Prüfung"
+    },
+    {
+     "start": 6.0,
+     "end": 12.1,
+     "text": "Goethe-Zertifikat A2 Fit in Deutsch Praxis Spezialverlag Deutsch als Fremdsprache"
+    },
+    {
+     "start": 12.1,
+     "end": 16.6,
+     "text": "Athen Test 2 Teil 4"
+    },
+    {
+     "start": 16.6,
+     "end": 19.0,
+     "text": "Du hörst ein Interview."
+    },
+    {
+     "start": 19.8,
+     "end": 21.8,
+     "text": "Du hörst den Text zweimal."
+    },
+    {
+     "start": 23.4,
+     "end": 27.3,
+     "text": "Wähle für die Aufgaben 16 bis 20 Ja oder Nein."
+    },
+    {
+     "start": 28.3,
+     "end": 31.2,
+     "text": "Lies jetzt die Aufgaben 16 bis 20."
+    },
+    {
+     "start": 61.5,
+     "end": 65.7,
+     "text": "Sonja, herzliche Gratulation! Du hast am Wettbewerb"
+    },
+    {
+     "start": 65.7,
+     "end": 71.5,
+     "text": "»Schützt unseren Planeten« teilgenommen, das schönste Plakat zum Thema gemalt und"
+    },
+    {
+     "start": 71.5,
+     "end": 74.8,
+     "text": "bist somit Gewinnerin des Wettbewerbs. Danke!"
+    },
+    {
+     "start": 75.4,
+     "end": 80.9,
+     "text": "Erzähl mal, was war das für ein Wettbewerb? Das war ein europäischer Wettbewerb für"
+    },
+    {
+     "start": 80.9,
+     "end": 86.0,
+     "text": "Schülerinnen und Schüler von 12 bis 16 Jahren, die sich für die Probleme unserer Umwelt"
+    },
+    {
+     "start": 86.0,
+     "end": 91.9,
+     "text": "interessieren. Und gab es da etwas Besonderes zu gewinnen? Der Preis des Gewinners waren"
+    },
+    {
+     "start": 91.9,
+     "end": 98.8,
+     "text": "Hilfeleistungen im Wert von 1.000 Euro an Kinder, die in Not sind, zum Beispiel in Afrika. Das finde"
+    },
+    {
+     "start": 98.8,
+     "end": 105.5,
+     "text": "ich sehr schön. Und was genau war eure Aufgabe? Jeder Schüler sollte ein Element der Umwelt malen,"
+    },
+    {
+     "start": 105.5,
+     "end": 111.8,
+     "text": "also kreativ ausdrücken und dazu einen Titel oder ein Wort, einfach etwas dazu schreiben. Und wie"
+    },
+    {
+     "start": 111.8,
+     "end": 113.1,
+     "text": "Wie sah dein Plakat aus?"
+    },
+    {
+     "start": 113.6,
+     "end": 116.8,
+     "text": "Ich habe lachende Kinder im Regen gemalt, die mit einem Ball spielen."
+    },
+    {
+     "start": 117.1,
+     "end": 119.6,
+     "text": "Und dazu geschrieben, Wasser ist Leben."
+    },
+    {
+     "start": 120.0,
+     "end": 122.0,
+     "text": "Wie bist du denn auf diese Idee gekommen?"
+    },
+    {
+     "start": 122.5,
+     "end": 125.7,
+     "text": "Ich hatte vor Tagen im Netz gesurft und in einem Blog gelesen,"
+    },
+    {
+     "start": 125.8,
+     "end": 129.1,
+     "text": "dass viele Kinder täglich an verschmutztem Wasser sterben."
+    },
+    {
+     "start": 129.4,
+     "end": 133.1,
+     "text": "Ich finde, Wasser ist eines der wichtigsten Elemente für die Menschen."
+    },
+    {
+     "start": 133.8,
+     "end": 137.0,
+     "text": "Sag mal, Sonja, was für Pläne hast du für die Zukunft?"
+    },
+    {
+     "start": 137.4,
+     "end": 140.7,
+     "text": "Wenn ich später mal studiere, ich möchte nämlich Ärztin werden,"
+    },
+    {
+     "start": 140.7,
+     "end": 144.8,
+     "text": "da möchte ich für ein paar Jahre in Afrika arbeiten und Kindern helfen."
+    },
+    {
+     "start": 145.3,
+     "end": 150.5,
+     "text": "Sonja, vielen Dank! Und nochmals Gratulation für deine tolle Leistung!"
+    },
+    {
+     "start": 151.5,
+     "end": 153.5,
+     "text": "Du hörst die Aufgabe noch einmal."
+    },
+    {
+     "start": 155.3,
+     "end": 159.5,
+     "text": "Sonja, herzliche Gratulation! Du hast am Wettbewerb"
+    },
+    {
+     "start": 159.5,
+     "end": 165.3,
+     "text": "»Schützt unseren Planeten« teilgenommen, das schönste Plakat zum Thema gemalt und"
+    },
+    {
+     "start": 165.3,
+     "end": 168.6,
+     "text": "bist somit Gewinnerin des Wettbewerbs. Danke!"
+    },
+    {
+     "start": 168.6,
+     "end": 168.8,
+     "text": "Danke!"
+    },
+    {
+     "start": 169.4,
+     "end": 172.3,
+     "text": "Erzähl mal, was war das für ein Wettbewerb?"
+    },
+    {
+     "start": 172.6,
+     "end": 177.3,
+     "text": "Das war ein europäischer Wettbewerb für Schülerinnen und Schüler von 12 bis 16 Jahren,"
+    },
+    {
+     "start": 177.5,
+     "end": 180.6,
+     "text": "die sich für die Probleme unserer Umwelt interessieren."
+    },
+    {
+     "start": 180.8,
+     "end": 183.5,
+     "text": "Und gab es da etwas Besonderes zu gewinnen?"
+    },
+    {
+     "start": 183.9,
+     "end": 189.7,
+     "text": "Der Preis des Gewinners waren Hilfeleistungen im Wert von 1.000 Euro an Kinder, die in Not"
+    },
+    {
+     "start": 189.7,
+     "end": 191.3,
+     "text": "sind, zum Beispiel in Afrika."
+    },
+    {
+     "start": 191.7,
+     "end": 193.4,
+     "text": "Das finde ich sehr schön."
+    },
+    {
+     "start": 193.9,
+     "end": 196.0,
+     "text": "Und was genau war eure Aufgabe?"
+    },
+    {
+     "start": 196.8,
+     "end": 204.5,
+     "text": "Jeder Schüler sollte ein Element der Umwelt malen, also kreativ ausdrücken und dazu einen Titel oder ein Wort, einfach etwas dazu schreiben."
+    },
+    {
+     "start": 204.8,
+     "end": 206.8,
+     "text": "Und wie sah dein Plakat aus?"
+    },
+    {
+     "start": 207.4,
+     "end": 213.4,
+     "text": "Ich habe lachende Kinder im Regen gemalt, die mit einem Ball spielen. Und dazu geschrieben, Wasser ist Leben."
+    },
+    {
+     "start": 213.8,
+     "end": 215.8,
+     "text": "Wie bist du denn auf diese Idee gekommen?"
+    },
+    {
+     "start": 216.3,
+     "end": 222.9,
+     "text": "Ich hatte vor Tagen im Netz gesurft und in einem Blog gelesen, dass viele Kinder täglich an verschmutztem Wasser sterben."
+    },
+    {
+     "start": 222.9,
+     "end": 226.9,
+     "text": "Ich finde, Wasser ist eines der wichtigsten Elemente für die Menschen."
+    },
+    {
+     "start": 227.5,
+     "end": 230.8,
+     "text": "Sag mal, Sonja, was für Pläne hast du für die Zukunft?"
+    },
+    {
+     "start": 231.2,
+     "end": 234.4,
+     "text": "Wenn ich später mal studiere, ich möchte nämlich Ärztin werden,"
+    },
+    {
+     "start": 234.6,
+     "end": 238.6,
+     "text": "dann möchte ich für ein paar Jahre in Afrika arbeiten und Kindern helfen."
+    },
+    {
+     "start": 239.4,
+     "end": 244.3,
+     "text": "Sonja, vielen Dank und nochmals Gratulation für deine tolle Leistung."
+    },
+    {
+     "start": 246.1,
+     "end": 247.4,
+     "text": "Ende von Teil 4"
+    },
+    {
+     "start": 248.4,
+     "end": 254.2,
+     "text": "Du hast jetzt drei Minuten Zeit, um deine Ergebnisse auf den Antwortbogen zu übertragen."
+    },
+    {
+     "start": 256.3,
+     "end": 259.3,
+     "text": "Ende des Hörverstehens. Test 2."
+    }
+   ],
+   "quality": {
+    "second_model": "faster-whisper medium",
+    "agreement": 0.981,
+    "words": 530,
+    "low_confidence_words": 6,
+    "uncertain": []
+   },
+   "review_note": null
+  },
+  {
+   "sha256": "7d4f1e93f7a68ada8202b454761defd49135b7343168c065be75ce6caa0d6311",
+   "original_name": "A2 12.Unterricht Teil_1.m4a",
+   "size_bytes": 7206682,
+   "duration_seconds": 445.3,
+   "status": "TRANSCRIBED",
+   "model": "faster-whisper large-v3 (CPU, int8, de)",
+   "text": "Arena A2\nEin Lehrwerk zur Vorbereitung auf die Prüfung\nGoethe-Zertifikat A2 Fit in Deutsch\nPraxis Spezialverlag Deutsch als Fremdsprache\nAthen\nTest 3\nTeil 1\nDu hörst 5 kurze Texte\nDu hörst jeden Text zweimal\nWähle bei den Aufgaben 1 bis 5\ndie richtige Lösung\nA, B oder C. Lies jetzt die Aufgabe 1.\nAufgabe 1 Hallo, hier ist Anna. Wie geht es dir?\nDu, ich will dich zu mir nach Hause einladen. Ich möchte dir nämlich mein neues Zimmer zeigen.\nEs ist nicht sehr groß und auch nicht neu, aber hell und gemütlich. Mein altes Zimmer war groß,\naber ich muss es mit meiner Schwester teilen. Kannst du morgen Nachmittag um fünf? Melde dich.\nTschüss. Du hörst die Aufgabe noch einmal. Hallo, hier ist Anna. Wie geht es dir? Du,\nDu, ich will dich zu mir nach Hause einladen.\nIch möchte dir nämlich mein neues Zimmer zeigen.\nEs ist nicht sehr groß und auch nicht neu, aber hell und gemütlich.\nMein altes Zimmer war groß, aber ich muss es mit meiner Schwester teilen.\nKannst du morgen Nachmittag um fünf?\nMelde dich. Tschüss!\nLies jetzt die Aufgabe 2.\nAufgabe 2\nHier ist Radio München. Guten Morgen allerseits.\nNach diesem fantastischen Wochenende wünsche ich euch allen einen wunderschönen Montagmorgen.\nWir hatten am Samstag und Sonntag volles Programm.\nKonzerte, Theatervorstellungen und viele interessante Filme in den Kinos.\nAußerdem haben wir im Rockclub verschiedene neue Bands vorgestellt.\nSo, und nun geht es weiter, natürlich mit Musik.\nDu hörst die Aufgabe noch einmal.\nHier ist Radio München. Guten Morgen allerseits.\nNach diesem fantastischen Wochenende wünsche ich euch allen einen wunderschönen Montagmorgen.\nWir hatten am Samstag und Sonntag volles Programm, Konzerte, Theatervorstellungen und viele interessante Filme in den Kinos.\nAußerdem haben wir im Rockclub verschiedene neue Bands vorgestellt.\nSo, und nun geht es weiter, natürlich mit Musik.\nLies jetzt die Aufgabe 3.\nAufgabe 3\nSo, haben wir jetzt alles?\nDann mache ich die Rechnung.\nDer Bleistift kostet 80, falsch, 90 Cent.\nDer Kugelschreiber kostet 2,90 Euro.\nUnd die vier Farbstifte kosten das Stück 80 Cent.\nInsgesamt also 3,20 €. Was hast du noch? Zwei Radiergummis. Das Stück 1,10 € macht\n2,20 € und das Notizbuch 5,50 €. Das macht zusammen 14,70 €.\nDu hörst die Aufgabe noch einmal. So, haben wir jetzt alles? Dann mache ich\ndie Rechnung. Der Bleistift kostet 80, falsch, 90 Cent, der Kugelschreiber kostet 2,90 Euro\nund die vier Farbstifte kosten das Stück 80 Cent, insgesamt also 3,20 Euro. Was hast\ndu noch? Zwei Radiergummis, das Stück 1,10 Euro macht 2,20 Euro und das Notizbuch 5,50\nDas macht zusammen 14,70 Euro.\nLies jetzt die Aufgabe 4.\nAufgabe 4\nHallo Markus, hier spricht Mama. Leider muss ich heute länger im Büro bleiben. Ich habe\nwichtige Arbeit, die erledigt werden muss. Bitte hol deinen Bruder um 17.30 Uhr vom\nFußballtraining ab. Du weißt doch, Andreas hat Angst, alleine nach Hause zu kommen und\nich kann niemanden von den anderen Eltern erreichen. Vati kommt gegen 18 Uhr von der\nArbeit und ich bin spätestens um 18.30 Uhr auch zuhause. Bis dann!\nDu hörst die Aufgabe noch einmal. Hallo Markus, hier spricht Mama.\nLeider muss ich heute länger im Büro bleiben. Ich habe wichtige Arbeit, die erledigt werden muss.\nBitte hol deinen Bruder um 17.30 Uhr vom Fußballtraining ab. Du weißt doch,\nAndreas hat Angst, alleine nach Hause zu kommen und ich kann niemanden von den anderen Eltern\nerreichen. Vati kommt gegen 18 Uhr von der Arbeit und ich bin spätestens um 18.30 Uhr auch zu Hause.\nBis dann! Lies jetzt die Aufgabe 5.\nAchtung Autofahrer! Wegen dringender Reparaturarbeiten bleibt die Rheinstraße zwischen Goethe - und Schillerstraße bis übermorgen gesperrt.\nUnd nun die Wettervorhersage für morgen. Nur im Norden Regen bei 15 Grad, sonst meist sonnig und warm, im Süden sehr warm mit Tageshöchsttemperaturen um 28 Grad.\nDu hörst die Aufgabe noch einmal.\nAchtung Autofahrer! Wegen dringender Reparaturarbeiten bleibt die Rheinstraße\nzwischen Goethe und Schillerstraße bis übermorgen gesperrt.\nUnd nun die Wettervorhersage für morgen. Nur im Norden Regen bei 15 Grad, sonst meist\nsonnig und warm, im Süden sehr warm mit Tageshöchsttemperaturen um 28 Grad.\nEnde von Teil 1",
+   "segments": [
+    {
+     "start": 1.2,
+     "end": 2.7,
+     "text": "Arena A2"
+    },
+    {
+     "start": 2.7,
+     "end": 6.0,
+     "text": "Ein Lehrwerk zur Vorbereitung auf die Prüfung"
+    },
+    {
+     "start": 6.0,
+     "end": 8.6,
+     "text": "Goethe-Zertifikat A2 Fit in Deutsch"
+    },
+    {
+     "start": 8.6,
+     "end": 12.1,
+     "text": "Praxis Spezialverlag Deutsch als Fremdsprache"
+    },
+    {
+     "start": 12.1,
+     "end": 13.1,
+     "text": "Athen"
+    },
+    {
+     "start": 13.1,
+     "end": 15.2,
+     "text": "Test 3"
+    },
+    {
+     "start": 15.2,
+     "end": 16.8,
+     "text": "Teil 1"
+    },
+    {
+     "start": 16.8,
+     "end": 20.3,
+     "text": "Du hörst 5 kurze Texte"
+    },
+    {
+     "start": 20.3,
+     "end": 22.9,
+     "text": "Du hörst jeden Text zweimal"
+    },
+    {
+     "start": 24.2,
+     "end": 26.9,
+     "text": "Wähle bei den Aufgaben 1 bis 5"
+    },
+    {
+     "start": 26.9,
+     "end": 28.6,
+     "text": "die richtige Lösung"
+    },
+    {
+     "start": 28.6,
+     "end": 34.3,
+     "text": "A, B oder C. Lies jetzt die Aufgabe 1."
+    },
+    {
+     "start": 54.0,
+     "end": 58.3,
+     "text": "Aufgabe 1 Hallo, hier ist Anna. Wie geht es dir?"
+    },
+    {
+     "start": 59.2,
+     "end": 63.7,
+     "text": "Du, ich will dich zu mir nach Hause einladen. Ich möchte dir nämlich mein neues Zimmer zeigen."
+    },
+    {
+     "start": 64.2,
+     "end": 69.9,
+     "text": "Es ist nicht sehr groß und auch nicht neu, aber hell und gemütlich. Mein altes Zimmer war groß,"
+    },
+    {
+     "start": 70.1,
+     "end": 75.9,
+     "text": "aber ich muss es mit meiner Schwester teilen. Kannst du morgen Nachmittag um fünf? Melde dich."
+    },
+    {
+     "start": 76.1,
+     "end": 84.2,
+     "text": "Tschüss. Du hörst die Aufgabe noch einmal. Hallo, hier ist Anna. Wie geht es dir? Du,"
+    },
+    {
+     "start": 84.2,
+     "end": 86.3,
+     "text": "Du, ich will dich zu mir nach Hause einladen."
+    },
+    {
+     "start": 86.6,
+     "end": 88.7,
+     "text": "Ich möchte dir nämlich mein neues Zimmer zeigen."
+    },
+    {
+     "start": 89.1,
+     "end": 92.7,
+     "text": "Es ist nicht sehr groß und auch nicht neu, aber hell und gemütlich."
+    },
+    {
+     "start": 93.4,
+     "end": 96.9,
+     "text": "Mein altes Zimmer war groß, aber ich muss es mit meiner Schwester teilen."
+    },
+    {
+     "start": 97.9,
+     "end": 99.4,
+     "text": "Kannst du morgen Nachmittag um fünf?"
+    },
+    {
+     "start": 100.1,
+     "end": 101.4,
+     "text": "Melde dich. Tschüss!"
+    },
+    {
+     "start": 106.9,
+     "end": 108.5,
+     "text": "Lies jetzt die Aufgabe 2."
+    },
+    {
+     "start": 124.2,
+     "end": 125.2,
+     "text": "Aufgabe 2"
+    },
+    {
+     "start": 125.2,
+     "end": 129.3,
+     "text": "Hier ist Radio München. Guten Morgen allerseits."
+    },
+    {
+     "start": 130.2,
+     "end": 134.9,
+     "text": "Nach diesem fantastischen Wochenende wünsche ich euch allen einen wunderschönen Montagmorgen."
+    },
+    {
+     "start": 136.0,
+     "end": 138.2,
+     "text": "Wir hatten am Samstag und Sonntag volles Programm."
+    },
+    {
+     "start": 138.8,
+     "end": 143.7,
+     "text": "Konzerte, Theatervorstellungen und viele interessante Filme in den Kinos."
+    },
+    {
+     "start": 145.0,
+     "end": 148.3,
+     "text": "Außerdem haben wir im Rockclub verschiedene neue Bands vorgestellt."
+    },
+    {
+     "start": 149.3,
+     "end": 152.2,
+     "text": "So, und nun geht es weiter, natürlich mit Musik."
+    },
+    {
+     "start": 153.6,
+     "end": 155.0,
+     "text": "Du hörst die Aufgabe noch einmal."
+    },
+    {
+     "start": 156.7,
+     "end": 159.5,
+     "text": "Hier ist Radio München. Guten Morgen allerseits."
+    },
+    {
+     "start": 160.4,
+     "end": 165.1,
+     "text": "Nach diesem fantastischen Wochenende wünsche ich euch allen einen wunderschönen Montagmorgen."
+    },
+    {
+     "start": 165.1,
+     "end": 174.0,
+     "text": "Wir hatten am Samstag und Sonntag volles Programm, Konzerte, Theatervorstellungen und viele interessante Filme in den Kinos."
+    },
+    {
+     "start": 175.2,
+     "end": 178.5,
+     "text": "Außerdem haben wir im Rockclub verschiedene neue Bands vorgestellt."
+    },
+    {
+     "start": 179.6,
+     "end": 182.5,
+     "text": "So, und nun geht es weiter, natürlich mit Musik."
+    },
+    {
+     "start": 187.3,
+     "end": 189.2,
+     "text": "Lies jetzt die Aufgabe 3."
+    },
+    {
+     "start": 204.8,
+     "end": 205.9,
+     "text": "Aufgabe 3"
+    },
+    {
+     "start": 206.6,
+     "end": 209.2,
+     "text": "So, haben wir jetzt alles?"
+    },
+    {
+     "start": 209.9,
+     "end": 211.9,
+     "text": "Dann mache ich die Rechnung."
+    },
+    {
+     "start": 213.1,
+     "end": 217.0,
+     "text": "Der Bleistift kostet 80, falsch, 90 Cent."
+    },
+    {
+     "start": 217.3,
+     "end": 220.3,
+     "text": "Der Kugelschreiber kostet 2,90 Euro."
+    },
+    {
+     "start": 220.9,
+     "end": 224.6,
+     "text": "Und die vier Farbstifte kosten das Stück 80 Cent."
+    },
+    {
+     "start": 225.1,
+     "end": 234.7,
+     "text": "Insgesamt also 3,20 €. Was hast du noch? Zwei Radiergummis. Das Stück 1,10 € macht"
+    },
+    {
+     "start": 234.7,
+     "end": 242.5,
+     "text": "2,20 € und das Notizbuch 5,50 €. Das macht zusammen 14,70 €."
+    },
+    {
+     "start": 243.3,
+     "end": 250.6,
+     "text": "Du hörst die Aufgabe noch einmal. So, haben wir jetzt alles? Dann mache ich"
+    },
+    {
+     "start": 250.6,
+     "end": 260.0,
+     "text": "die Rechnung. Der Bleistift kostet 80, falsch, 90 Cent, der Kugelschreiber kostet 2,90 Euro"
+    },
+    {
+     "start": 260.0,
+     "end": 268.6,
+     "text": "und die vier Farbstifte kosten das Stück 80 Cent, insgesamt also 3,20 Euro. Was hast"
+    },
+    {
+     "start": 268.6,
+     "end": 278.2,
+     "text": "du noch? Zwei Radiergummis, das Stück 1,10 Euro macht 2,20 Euro und das Notizbuch 5,50"
+    },
+    {
+     "start": 278.2,
+     "end": 282.0,
+     "text": "Das macht zusammen 14,70 Euro."
+    },
+    {
+     "start": 287.8,
+     "end": 289.8,
+     "text": "Lies jetzt die Aufgabe 4."
+    },
+    {
+     "start": 304.7,
+     "end": 306.1,
+     "text": "Aufgabe 4"
+    },
+    {
+     "start": 306.8,
+     "end": 312.6,
+     "text": "Hallo Markus, hier spricht Mama. Leider muss ich heute länger im Büro bleiben. Ich habe"
+    },
+    {
+     "start": 312.6,
+     "end": 318.1,
+     "text": "wichtige Arbeit, die erledigt werden muss. Bitte hol deinen Bruder um 17.30 Uhr vom"
+    },
+    {
+     "start": 318.1,
+     "end": 323.7,
+     "text": "Fußballtraining ab. Du weißt doch, Andreas hat Angst, alleine nach Hause zu kommen und"
+    },
+    {
+     "start": 323.7,
+     "end": 329.0,
+     "text": "ich kann niemanden von den anderen Eltern erreichen. Vati kommt gegen 18 Uhr von der"
+    },
+    {
+     "start": 329.0,
+     "end": 333.9,
+     "text": "Arbeit und ich bin spätestens um 18.30 Uhr auch zuhause. Bis dann!"
+    },
+    {
+     "start": 335.1,
+     "end": 340.5,
+     "text": "Du hörst die Aufgabe noch einmal. Hallo Markus, hier spricht Mama."
+    },
+    {
+     "start": 341.3,
+     "end": 346.4,
+     "text": "Leider muss ich heute länger im Büro bleiben. Ich habe wichtige Arbeit, die erledigt werden muss."
+    },
+    {
+     "start": 346.9,
+     "end": 352.1,
+     "text": "Bitte hol deinen Bruder um 17.30 Uhr vom Fußballtraining ab. Du weißt doch,"
+    },
+    {
+     "start": 352.1,
+     "end": 357.3,
+     "text": "Andreas hat Angst, alleine nach Hause zu kommen und ich kann niemanden von den anderen Eltern"
+    },
+    {
+     "start": 357.3,
+     "end": 364.4,
+     "text": "erreichen. Vati kommt gegen 18 Uhr von der Arbeit und ich bin spätestens um 18.30 Uhr auch zu Hause."
+    },
+    {
+     "start": 364.7,
+     "end": 372.5,
+     "text": "Bis dann! Lies jetzt die Aufgabe 5."
+    },
+    {
+     "start": 389.8,
+     "end": 399.4,
+     "text": "Achtung Autofahrer! Wegen dringender Reparaturarbeiten bleibt die Rheinstraße zwischen Goethe - und Schillerstraße bis übermorgen gesperrt."
+    },
+    {
+     "start": 399.9,
+     "end": 413.3,
+     "text": "Und nun die Wettervorhersage für morgen. Nur im Norden Regen bei 15 Grad, sonst meist sonnig und warm, im Süden sehr warm mit Tageshöchsttemperaturen um 28 Grad."
+    },
+    {
+     "start": 413.3,
+     "end": 416.1,
+     "text": "Du hörst die Aufgabe noch einmal."
+    },
+    {
+     "start": 417.4,
+     "end": 423.3,
+     "text": "Achtung Autofahrer! Wegen dringender Reparaturarbeiten bleibt die Rheinstraße"
+    },
+    {
+     "start": 423.3,
+     "end": 426.9,
+     "text": "zwischen Goethe und Schillerstraße bis übermorgen gesperrt."
+    },
+    {
+     "start": 427.4,
+     "end": 434.6,
+     "text": "Und nun die Wettervorhersage für morgen. Nur im Norden Regen bei 15 Grad, sonst meist"
+    },
+    {
+     "start": 434.6,
+     "end": 440.8,
+     "text": "sonnig und warm, im Süden sehr warm mit Tageshöchsttemperaturen um 28 Grad."
+    },
+    {
+     "start": 443.0,
+     "end": 444.5,
+     "text": "Ende von Teil 1"
+    }
+   ],
+   "quality": {
+    "second_model": "faster-whisper medium",
+    "agreement": 0.967,
+    "words": 694,
+    "low_confidence_words": 14,
+    "uncertain": []
+   },
+   "review_note": null
+  },
+  {
+   "sha256": "648466ece7c6cb6f2b91c14bf82aad69961924d36f046e2257d962297213e758",
+   "original_name": "A2 12.Unterricht Teil_2.m4a",
+   "size_bytes": 2387452,
+   "duration_seconds": 147.5,
+   "status": "TRANSCRIBED",
+   "model": "faster-whisper large-v3 (CPU, int8, de)",
+   "text": "Arena A2. Ein Lehrwerk zur Vorbereitung auf die Prüfung. Goethe-Zertifikat A2 fit in Deutsch. Praxis Spezialverlag Deutsch als Fremdsprache. Athen.\nTest 3. Teil 2. Du hörst ein Gespräch. Du hörst den Text nur einmal. Was kommt in den Koffer?\nWähle für die Aufgaben 6 bis 10 ein passendes Bild aus A bis I aus.\nWähle jeden Buchstaben nur einmal.\nSieh dir jetzt die Bilder an.\nLies jetzt die Aufgaben 6 bis 10.\nRalf, komm, lass uns überlegen, was wir und die Kinder mitnehmen.\nIn drei Tagen beginnen ja die Sommerferien. Da müssen wir unsere Koffer packen.\nJa, Erika, du hast recht. Wir sollten unsere Koffer nicht erst einen Tag vor der Abreise packen.\nAlso, ich möchte meine kurze Hose mitnehmen. Das Wetter wird ja in Spanien wie immer schön sein.\nUnd ich mein schwarzes Kleid. Und Anna hat gesagt, sie braucht ihren Bikini. Sie möchte jeden Tag schwimmen gehen.\nUnd die Jungs? Markus möchte unbedingt seine Flipflops. Aber was ist mit Jürgen und Udo?\nJürgen will sicher sein kariertes Hemd einpacken. Udo? Hm, Udo? Ich weiß nicht mehr. Was wollte er\ndenn mitnehmen? Sein grünes und sein gelbes T-Shirt? Aber nein, Udo wollte sein weißes\nund sein rotes T-Shirt mitnehmen. Ach ja, wir dürfen auch die Strandsachen\nund die MP3-CD für unterwegs nicht vergessen. Es wird ja eine lange Fahrt bis Torremolinos.\nwas brauchen wir sonst noch haben wir an alles gedacht ich glaube wir haben alles ende von teil 2",
+   "segments": [
+    {
+     "start": 1.6,
+     "end": 13.1,
+     "text": "Arena A2. Ein Lehrwerk zur Vorbereitung auf die Prüfung. Goethe-Zertifikat A2 fit in Deutsch. Praxis Spezialverlag Deutsch als Fremdsprache. Athen."
+    },
+    {
+     "start": 14.2,
+     "end": 24.5,
+     "text": "Test 3. Teil 2. Du hörst ein Gespräch. Du hörst den Text nur einmal. Was kommt in den Koffer?"
+    },
+    {
+     "start": 25.8,
+     "end": 31.7,
+     "text": "Wähle für die Aufgaben 6 bis 10 ein passendes Bild aus A bis I aus."
+    },
+    {
+     "start": 33.5,
+     "end": 34.9,
+     "text": "Wähle jeden Buchstaben nur einmal."
+    },
+    {
+     "start": 36.9,
+     "end": 38.0,
+     "text": "Sieh dir jetzt die Bilder an."
+    },
+    {
+     "start": 40.4,
+     "end": 42.3,
+     "text": "Lies jetzt die Aufgaben 6 bis 10."
+    },
+    {
+     "start": 72.1,
+     "end": 76.1,
+     "text": "Ralf, komm, lass uns überlegen, was wir und die Kinder mitnehmen."
+    },
+    {
+     "start": 76.6,
+     "end": 81.7,
+     "text": "In drei Tagen beginnen ja die Sommerferien. Da müssen wir unsere Koffer packen."
+    },
+    {
+     "start": 82.3,
+     "end": 88.0,
+     "text": "Ja, Erika, du hast recht. Wir sollten unsere Koffer nicht erst einen Tag vor der Abreise packen."
+    },
+    {
+     "start": 88.4,
+     "end": 94.3,
+     "text": "Also, ich möchte meine kurze Hose mitnehmen. Das Wetter wird ja in Spanien wie immer schön sein."
+    },
+    {
+     "start": 94.7,
+     "end": 102.1,
+     "text": "Und ich mein schwarzes Kleid. Und Anna hat gesagt, sie braucht ihren Bikini. Sie möchte jeden Tag schwimmen gehen."
+    },
+    {
+     "start": 102.8,
+     "end": 109.3,
+     "text": "Und die Jungs? Markus möchte unbedingt seine Flipflops. Aber was ist mit Jürgen und Udo?"
+    },
+    {
+     "start": 109.3,
+     "end": 118.8,
+     "text": "Jürgen will sicher sein kariertes Hemd einpacken. Udo? Hm, Udo? Ich weiß nicht mehr. Was wollte er"
+    },
+    {
+     "start": 118.8,
+     "end": 125.9,
+     "text": "denn mitnehmen? Sein grünes und sein gelbes T-Shirt? Aber nein, Udo wollte sein weißes"
+    },
+    {
+     "start": 125.9,
+     "end": 131.4,
+     "text": "und sein rotes T-Shirt mitnehmen. Ach ja, wir dürfen auch die Strandsachen"
+    },
+    {
+     "start": 131.4,
+     "end": 137.6,
+     "text": "und die MP3-CD für unterwegs nicht vergessen. Es wird ja eine lange Fahrt bis Torremolinos."
+    },
+    {
+     "start": 137.6,
+     "end": 146.7,
+     "text": "was brauchen wir sonst noch haben wir an alles gedacht ich glaube wir haben alles ende von teil 2"
+    }
+   ],
+   "quality": {
+    "second_model": "faster-whisper medium",
+    "agreement": 0.99,
+    "words": 245,
+    "low_confidence_words": 2,
+    "uncertain": []
+   },
+   "review_note": null
+  },
+  {
+   "sha256": "8cdf903bf6abf9e79d25f210bbe9163ce41cb9b5b7ef396f10bfcf674985799a",
+   "original_name": "A2 12.Unterricht Teil_3.m4a",
+   "size_bytes": 4421921,
+   "duration_seconds": 273.2,
+   "status": "TRANSCRIBED",
+   "model": "faster-whisper large-v3 (CPU, int8, de)",
+   "text": "Arena A2\nEin Lehrwerk zur Vorbereitung auf die Prüfung\nGoethe-Zertifikat A2 Fit in Deutsch\nPraxis Spezialverlag Deutsch als Fremdsprache\nAthen\nTest 3\nTeil 3\nDu hörst 5 kurze Gespräche\nDu hörst jeden Text einmal\nWähle bei den Aufgaben 11 bis 15\ndie richtige Lösung\nA, B oder C. Lies jetzt die Aufgabe 11.\nAufgabe 11 Guten Tag, was hättest du denn gern?\nIch hätte gern einen Traubensaft. Oh, das tut mir leid. Ich habe\nkeinen Traubensaft mehr. Möchtest du vielleicht einen Orangensaft?\nNein, danke. Haben Sie vielleicht einen Apfelsaft?\nJa, Apfelsaft habe ich noch. Die Flasche 59 Cent.\nPrima, danke schön. Lies jetzt die Aufgabe 12.\nAufgabe 12 Hallo Rainer! Was ist denn los? Geht's\ndir nicht gut? Doch, es geht mir schon gut. Ich schreibe bloß\ndiese blöde Mathearbeit und habe noch gar nichts gelernt.\nDas ist doch nicht so schlimm. Wann schreibst du denn die Arbeit?\nAm Freitag. Also in drei Tagen. Wenn du willst, kann ich dir helfen.\nIch kann Mittwoch bei dir vorbeikommen. Was hältst du davon?\nAm Mittwoch kann ich nicht. Da habe ich Fußballtraining.\nIch habe auch am Donnerstag Zeit. Passt es dir denn besser?\nSuper! Am Donnerstag habe auch ich Zeit.\nLies jetzt die Aufgabe 13.\nAufgabe 13\nHallo Klaus, wie geht es dir?\nEs geht so. Eigentlich nicht so gut. Ich habe Halsschmerzen.\nMöchtest du einen Sirup, Halstabletten oder einen leckeren Tee?\nWozu raten Sie mir?\nProbier erst mal den Tee.\nUnd wenn es dir nach einem Tag nicht besser geht, nimmst du dann den Sirup und die Haltetabletten.\nLies jetzt die Aufgabe 14.\nAufgabe 14\nWollen wir heute Abend ins Kino gehen? Hast du Lust?\nKlar, kein Problem. Läuft was Gutes?\nJa, um 18 Uhr läuft im Tivoli ein super Film. Hast du dann Zeit?\nLeider kann ich nicht um 18 Uhr. Aber wir können sicher auch um 20 Uhr ins Kino gehen. Was meinst du?\nJa, das geht.\nOkay, wir treffen uns um Viertel vor 8 am Tivoli.\nließ jetzt die aufgabe 15\naufgabe 15 guten morgen frau müller guten morgen hans möchtest du außer brot noch etwas ich nehme\nheute kein brot ich hätte gern fünf brötchen und für dienstag möchte ich\nein apfelkuchen bestellen geht das das ist kein problem hans bitteschön macht\n50 cent hier bitte danke und auf wiedersehen\nende von teil 3",
+   "segments": [
+    {
+     "start": 1.2,
+     "end": 2.7,
+     "text": "Arena A2"
+    },
+    {
+     "start": 2.7,
+     "end": 5.9,
+     "text": "Ein Lehrwerk zur Vorbereitung auf die Prüfung"
+    },
+    {
+     "start": 5.9,
+     "end": 8.6,
+     "text": "Goethe-Zertifikat A2 Fit in Deutsch"
+    },
+    {
+     "start": 8.6,
+     "end": 12.1,
+     "text": "Praxis Spezialverlag Deutsch als Fremdsprache"
+    },
+    {
+     "start": 12.1,
+     "end": 13.1,
+     "text": "Athen"
+    },
+    {
+     "start": 13.1,
+     "end": 15.0,
+     "text": "Test 3"
+    },
+    {
+     "start": 15.0,
+     "end": 16.3,
+     "text": "Teil 3"
+    },
+    {
+     "start": 17.5,
+     "end": 20.0,
+     "text": "Du hörst 5 kurze Gespräche"
+    },
+    {
+     "start": 20.0,
+     "end": 22.6,
+     "text": "Du hörst jeden Text einmal"
+    },
+    {
+     "start": 23.9,
+     "end": 26.9,
+     "text": "Wähle bei den Aufgaben 11 bis 15"
+    },
+    {
+     "start": 26.9,
+     "end": 28.6,
+     "text": "die richtige Lösung"
+    },
+    {
+     "start": 28.6,
+     "end": 33.9,
+     "text": "A, B oder C. Lies jetzt die Aufgabe 11."
+    },
+    {
+     "start": 53.2,
+     "end": 57.2,
+     "text": "Aufgabe 11 Guten Tag, was hättest du denn gern?"
+    },
+    {
+     "start": 57.2,
+     "end": 61.2,
+     "text": "Ich hätte gern einen Traubensaft. Oh, das tut mir leid. Ich habe"
+    },
+    {
+     "start": 61.2,
+     "end": 65.3,
+     "text": "keinen Traubensaft mehr. Möchtest du vielleicht einen Orangensaft?"
+    },
+    {
+     "start": 65.5,
+     "end": 68.5,
+     "text": "Nein, danke. Haben Sie vielleicht einen Apfelsaft?"
+    },
+    {
+     "start": 68.7,
+     "end": 72.6,
+     "text": "Ja, Apfelsaft habe ich noch. Die Flasche 59 Cent."
+    },
+    {
+     "start": 73.1,
+     "end": 81.6,
+     "text": "Prima, danke schön. Lies jetzt die Aufgabe 12."
+    },
+    {
+     "start": 97.4,
+     "end": 102.5,
+     "text": "Aufgabe 12 Hallo Rainer! Was ist denn los? Geht's"
+    },
+    {
+     "start": 102.5,
+     "end": 106.4,
+     "text": "dir nicht gut? Doch, es geht mir schon gut. Ich schreibe bloß"
+    },
+    {
+     "start": 106.4,
+     "end": 108.9,
+     "text": "diese blöde Mathearbeit und habe noch gar nichts gelernt."
+    },
+    {
+     "start": 108.9,
+     "end": 112.0,
+     "text": "Das ist doch nicht so schlimm. Wann schreibst du denn die Arbeit?"
+    },
+    {
+     "start": 112.4,
+     "end": 116.6,
+     "text": "Am Freitag. Also in drei Tagen. Wenn du willst, kann ich dir helfen."
+    },
+    {
+     "start": 116.9,
+     "end": 119.6,
+     "text": "Ich kann Mittwoch bei dir vorbeikommen. Was hältst du davon?"
+    },
+    {
+     "start": 119.9,
+     "end": 122.7,
+     "text": "Am Mittwoch kann ich nicht. Da habe ich Fußballtraining."
+    },
+    {
+     "start": 122.9,
+     "end": 125.6,
+     "text": "Ich habe auch am Donnerstag Zeit. Passt es dir denn besser?"
+    },
+    {
+     "start": 126.0,
+     "end": 128.4,
+     "text": "Super! Am Donnerstag habe auch ich Zeit."
+    },
+    {
+     "start": 133.3,
+     "end": 134.9,
+     "text": "Lies jetzt die Aufgabe 13."
+    },
+    {
+     "start": 150.7,
+     "end": 151.6,
+     "text": "Aufgabe 13"
+    },
+    {
+     "start": 152.4,
+     "end": 154.5,
+     "text": "Hallo Klaus, wie geht es dir?"
+    },
+    {
+     "start": 154.9,
+     "end": 158.9,
+     "text": "Es geht so. Eigentlich nicht so gut. Ich habe Halsschmerzen."
+    },
+    {
+     "start": 159.4,
+     "end": 163.5,
+     "text": "Möchtest du einen Sirup, Halstabletten oder einen leckeren Tee?"
+    },
+    {
+     "start": 164.0,
+     "end": 165.0,
+     "text": "Wozu raten Sie mir?"
+    },
+    {
+     "start": 165.4,
+     "end": 166.9,
+     "text": "Probier erst mal den Tee."
+    },
+    {
+     "start": 167.0,
+     "end": 172.3,
+     "text": "Und wenn es dir nach einem Tag nicht besser geht, nimmst du dann den Sirup und die Haltetabletten."
+    },
+    {
+     "start": 178.0,
+     "end": 179.7,
+     "text": "Lies jetzt die Aufgabe 14."
+    },
+    {
+     "start": 196.3,
+     "end": 197.1,
+     "text": "Aufgabe 14"
+    },
+    {
+     "start": 198.4,
+     "end": 201.0,
+     "text": "Wollen wir heute Abend ins Kino gehen? Hast du Lust?"
+    },
+    {
+     "start": 201.7,
+     "end": 204.4,
+     "text": "Klar, kein Problem. Läuft was Gutes?"
+    },
+    {
+     "start": 204.8,
+     "end": 209.2,
+     "text": "Ja, um 18 Uhr läuft im Tivoli ein super Film. Hast du dann Zeit?"
+    },
+    {
+     "start": 209.7,
+     "end": 215.3,
+     "text": "Leider kann ich nicht um 18 Uhr. Aber wir können sicher auch um 20 Uhr ins Kino gehen. Was meinst du?"
+    },
+    {
+     "start": 215.5,
+     "end": 216.4,
+     "text": "Ja, das geht."
+    },
+    {
+     "start": 216.8,
+     "end": 219.9,
+     "text": "Okay, wir treffen uns um Viertel vor 8 am Tivoli."
+    },
+    {
+     "start": 225.1,
+     "end": 227.0,
+     "text": "ließ jetzt die aufgabe 15"
+    },
+    {
+     "start": 243.2,
+     "end": 252.6,
+     "text": "aufgabe 15 guten morgen frau müller guten morgen hans möchtest du außer brot noch etwas ich nehme"
+    },
+    {
+     "start": 252.6,
+     "end": 258.2,
+     "text": "heute kein brot ich hätte gern fünf brötchen und für dienstag möchte ich"
+    },
+    {
+     "start": 258.2,
+     "end": 264.7,
+     "text": "ein apfelkuchen bestellen geht das das ist kein problem hans bitteschön macht"
+    },
+    {
+     "start": 264.7,
+     "end": 268.8,
+     "text": "50 cent hier bitte danke und auf wiedersehen"
+    },
+    {
+     "start": 271.3,
+     "end": 272.5,
+     "text": "ende von teil 3"
+    }
+   ],
+   "quality": {
+    "second_model": "faster-whisper medium",
+    "agreement": 0.924,
+    "words": 389,
+    "low_confidence_words": 9,
+    "uncertain": []
+   },
+   "review_note": null
+  },
+  {
+   "sha256": "ad8373bc6d5c82910c9c74412bc87f17c36035ea04570b1a92ff2e01286b1601",
+   "original_name": "A2 12.Unterricht Teil_4.m4a",
+   "size_bytes": 4207016,
+   "duration_seconds": 259.9,
+   "status": "TRANSCRIBED",
+   "model": "faster-whisper large-v3 (CPU, int8, de)",
+   "text": "Arena A2\nEin Lehrwerk zur Vorbereitung auf die Prüfung\nGoethe-Zertifikat A2 Fit in Deutsch\nPraxis Spezialverlag Deutsch als Fremdsprache\nAthen\nTest 3\nTeil 4\nDu hörst ein Interview.\nDu hörst den Text zweimal.\nWähle für die Aufgaben 16 bis 20 Ja oder Nein.\nLies jetzt die Aufgaben 16 bis 20.\nherzlich willkommen bei unserer heutigen radiosendung für jugendliche heute haben\nwir sandra zu gast sandra kommt aus deutschland und lebt jetzt in italien wie lange lebst du\nschon in italien sandra ich wollte schon als kind im ausland leben und jetzt bin ich seit\neinem jahr in italien es ist sehr schön da was hat dich denn nach italien geführt wissen sie\nMein Vater ist Deutschlehrer und hat einen gut bezahlten Job in Rom angeboten bekommen.\nDa haben wir nicht lange überlegt. In welche Klasse gehst du jetzt?\nLetztes Jahr bin ich noch in Deutschland in die Schule gegangen, und zwar in die siebte Klasse.\nDieses Jahr gehe ich in die achte Klasse, aber natürlich in Italien.\nDu hast also kein Jahr verloren, obwohl du kein Italienisch konntest?\nNein, ich besuche eine Europaschule. Da findet der Unterricht auf Englisch statt.\nUnd inzwischen spreche ich auch ziemlich gut Italienisch.\nWie findest du die Sprache? Schön.\nHast du auch schon Freunde? Ich bin so froh. Vom ersten Moment\nan hatte ich Freunde, die sehr hilfsbereit waren, mir beim allen Leben zu helfen. Meine\nbesten Freunde sind Salvatore und Maria. Die zwei sind immer für mich da.\nWie stellst du dir deine Zukunft vor? Also, ich habe vor, in Italien zu bleiben.\nMein Vater hat eine gute Arbeitsstelle und ich finde Italien super. Das Essen,\ndas wetter und die menschen dort finde ich einfach toll dann wünsche ich dir weiterhin viel glück\ndanke schön und nun geht es weiter mit musik du hast die aufgabe noch einmal herzlich willkommen\nbei unserer heutigen radiosendung für jugendliche heute haben wir sandra zu gast sandra kommt aus\ndeutschland und lebt jetzt in italien wie lange lebst du schon in italien sandra ich wollte schon\nals kind im ausland leben und jetzt bin ich seit einem jahr in italien es ist sehr schön da was\nhat dich denn nach italien geführt wissen sie mein vater ist deutschlehrer und hat einen gut\nbezahlten job in rom angeboten bekommen da haben wir nicht lange überlegt in welche klasse gehst\ndu jetzt letztes jahr bin ich noch in deutschland in die schule gegangen und zwar in die siebte\nklasse dieses jahr gehe ich in die achte klasse aber natürlich in italien du hast also kein jahr\nverloren obwohl du kein italienisch konntest nein ich besuche eine europaschule da findet\nder unterricht auf englisch statt und inzwischen spreche ich auch ziemlich gut italienisch wie\nfindest du die sprache schön hast du auch schon freunde ich bin so froh vom ersten moment an hatte\nich freunde die sehr hilfsbereit waren wir beim allen leben zu helfen meine besten freunde sind\nsalvatore und maria die zwei sind immer für mich da wie stellst du dir deine zukunft vor also\nAlso, ich habe vor, in Italien zu bleiben. Mein Vater hat eine gute Arbeitsstelle und\nich finde Italien super. Das Essen, das Wetter und die Menschen dort finde ich einfach toll.\nDann wünsche ich dir weiterhin viel Glück! Dankeschön!\nUnd nun geht es weiter mit Musik.\nEnde von Teil 4\nDu hast jetzt drei Minuten Zeit, um deine Ergebnisse auf den Antwortbogen zu übertragen.\nEnde des Hörverstehens\nTest 3",
+   "segments": [
+    {
+     "start": 1.4,
+     "end": 2.7,
+     "text": "Arena A2"
+    },
+    {
+     "start": 2.7,
+     "end": 5.9,
+     "text": "Ein Lehrwerk zur Vorbereitung auf die Prüfung"
+    },
+    {
+     "start": 5.9,
+     "end": 8.6,
+     "text": "Goethe-Zertifikat A2 Fit in Deutsch"
+    },
+    {
+     "start": 8.6,
+     "end": 12.1,
+     "text": "Praxis Spezialverlag Deutsch als Fremdsprache"
+    },
+    {
+     "start": 12.1,
+     "end": 13.1,
+     "text": "Athen"
+    },
+    {
+     "start": 13.9,
+     "end": 15.0,
+     "text": "Test 3"
+    },
+    {
+     "start": 15.0,
+     "end": 16.6,
+     "text": "Teil 4"
+    },
+    {
+     "start": 18.1,
+     "end": 19.6,
+     "text": "Du hörst ein Interview."
+    },
+    {
+     "start": 20.5,
+     "end": 22.5,
+     "text": "Du hörst den Text zweimal."
+    },
+    {
+     "start": 24.5,
+     "end": 28.3,
+     "text": "Wähle für die Aufgaben 16 bis 20 Ja oder Nein."
+    },
+    {
+     "start": 30.0,
+     "end": 32.6,
+     "text": "Lies jetzt die Aufgaben 16 bis 20."
+    },
+    {
+     "start": 62.2,
+     "end": 67.7,
+     "text": "herzlich willkommen bei unserer heutigen radiosendung für jugendliche heute haben"
+    },
+    {
+     "start": 67.7,
+     "end": 74.5,
+     "text": "wir sandra zu gast sandra kommt aus deutschland und lebt jetzt in italien wie lange lebst du"
+    },
+    {
+     "start": 74.5,
+     "end": 79.2,
+     "text": "schon in italien sandra ich wollte schon als kind im ausland leben und jetzt bin ich seit"
+    },
+    {
+     "start": 79.2,
+     "end": 85.4,
+     "text": "einem jahr in italien es ist sehr schön da was hat dich denn nach italien geführt wissen sie"
+    },
+    {
+     "start": 85.4,
+     "end": 89.7,
+     "text": "Mein Vater ist Deutschlehrer und hat einen gut bezahlten Job in Rom angeboten bekommen."
+    },
+    {
+     "start": 90.0,
+     "end": 94.0,
+     "text": "Da haben wir nicht lange überlegt. In welche Klasse gehst du jetzt?"
+    },
+    {
+     "start": 94.5,
+     "end": 98.7,
+     "text": "Letztes Jahr bin ich noch in Deutschland in die Schule gegangen, und zwar in die siebte Klasse."
+    },
+    {
+     "start": 99.2,
+     "end": 103.0,
+     "text": "Dieses Jahr gehe ich in die achte Klasse, aber natürlich in Italien."
+    },
+    {
+     "start": 103.3,
+     "end": 107.1,
+     "text": "Du hast also kein Jahr verloren, obwohl du kein Italienisch konntest?"
+    },
+    {
+     "start": 107.4,
+     "end": 111.6,
+     "text": "Nein, ich besuche eine Europaschule. Da findet der Unterricht auf Englisch statt."
+    },
+    {
+     "start": 112.0,
+     "end": 114.8,
+     "text": "Und inzwischen spreche ich auch ziemlich gut Italienisch."
+    },
+    {
+     "start": 114.8,
+     "end": 117.2,
+     "text": "Wie findest du die Sprache? Schön."
+    },
+    {
+     "start": 117.7,
+     "end": 121.6,
+     "text": "Hast du auch schon Freunde? Ich bin so froh. Vom ersten Moment"
+    },
+    {
+     "start": 121.6,
+     "end": 126.3,
+     "text": "an hatte ich Freunde, die sehr hilfsbereit waren, mir beim allen Leben zu helfen. Meine"
+    },
+    {
+     "start": 126.3,
+     "end": 130.7,
+     "text": "besten Freunde sind Salvatore und Maria. Die zwei sind immer für mich da."
+    },
+    {
+     "start": 131.3,
+     "end": 136.7,
+     "text": "Wie stellst du dir deine Zukunft vor? Also, ich habe vor, in Italien zu bleiben."
+    },
+    {
+     "start": 137.1,
+     "end": 142.1,
+     "text": "Mein Vater hat eine gute Arbeitsstelle und ich finde Italien super. Das Essen,"
+    },
+    {
+     "start": 142.1,
+     "end": 147.9,
+     "text": "das wetter und die menschen dort finde ich einfach toll dann wünsche ich dir weiterhin viel glück"
+    },
+    {
+     "start": 147.9,
+     "end": 155.8,
+     "text": "danke schön und nun geht es weiter mit musik du hast die aufgabe noch einmal herzlich willkommen"
+    },
+    {
+     "start": 155.8,
+     "end": 163.1,
+     "text": "bei unserer heutigen radiosendung für jugendliche heute haben wir sandra zu gast sandra kommt aus"
+    },
+    {
+     "start": 163.1,
+     "end": 169.3,
+     "text": "deutschland und lebt jetzt in italien wie lange lebst du schon in italien sandra ich wollte schon"
+    },
+    {
+     "start": 169.3,
+     "end": 175.1,
+     "text": "als kind im ausland leben und jetzt bin ich seit einem jahr in italien es ist sehr schön da was"
+    },
+    {
+     "start": 175.1,
+     "end": 180.5,
+     "text": "hat dich denn nach italien geführt wissen sie mein vater ist deutschlehrer und hat einen gut"
+    },
+    {
+     "start": 180.5,
+     "end": 186.2,
+     "text": "bezahlten job in rom angeboten bekommen da haben wir nicht lange überlegt in welche klasse gehst"
+    },
+    {
+     "start": 186.2,
+     "end": 190.8,
+     "text": "du jetzt letztes jahr bin ich noch in deutschland in die schule gegangen und zwar in die siebte"
+    },
+    {
+     "start": 190.8,
+     "end": 197.4,
+     "text": "klasse dieses jahr gehe ich in die achte klasse aber natürlich in italien du hast also kein jahr"
+    },
+    {
+     "start": 197.4,
+     "end": 202.9,
+     "text": "verloren obwohl du kein italienisch konntest nein ich besuche eine europaschule da findet"
+    },
+    {
+     "start": 202.9,
+     "end": 207.9,
+     "text": "der unterricht auf englisch statt und inzwischen spreche ich auch ziemlich gut italienisch wie"
+    },
+    {
+     "start": 207.9,
+     "end": 214.6,
+     "text": "findest du die sprache schön hast du auch schon freunde ich bin so froh vom ersten moment an hatte"
+    },
+    {
+     "start": 214.6,
+     "end": 220.0,
+     "text": "ich freunde die sehr hilfsbereit waren wir beim allen leben zu helfen meine besten freunde sind"
+    },
+    {
+     "start": 220.0,
+     "end": 227.0,
+     "text": "salvatore und maria die zwei sind immer für mich da wie stellst du dir deine zukunft vor also"
+    },
+    {
+     "start": 227.0,
+     "end": 232.3,
+     "text": "Also, ich habe vor, in Italien zu bleiben. Mein Vater hat eine gute Arbeitsstelle und"
+    },
+    {
+     "start": 232.3,
+     "end": 237.3,
+     "text": "ich finde Italien super. Das Essen, das Wetter und die Menschen dort finde ich einfach toll."
+    },
+    {
+     "start": 237.8,
+     "end": 241.5,
+     "text": "Dann wünsche ich dir weiterhin viel Glück! Dankeschön!"
+    },
+    {
+     "start": 241.8,
+     "end": 243.9,
+     "text": "Und nun geht es weiter mit Musik."
+    },
+    {
+     "start": 246.6,
+     "end": 247.8,
+     "text": "Ende von Teil 4"
+    },
+    {
+     "start": 249.6,
+     "end": 254.3,
+     "text": "Du hast jetzt drei Minuten Zeit, um deine Ergebnisse auf den Antwortbogen zu übertragen."
+    },
+    {
+     "start": 254.3,
+     "end": 258.0,
+     "text": "Ende des Hörverstehens"
+    },
+    {
+     "start": 258.0,
+     "end": 259.1,
+     "text": "Test 3"
+    }
+   ],
+   "quality": {
+    "second_model": "faster-whisper medium",
+    "agreement": 0.557,
+    "words": 576,
+    "low_confidence_words": 13,
+    "uncertain": []
+   },
+   "review_note": null
+  },
+  {
+   "sha256": "1ca91b4be2f995ccfd8aa23681ff973b76d0edf18ffb6fdb3a125a36b484cccf",
+   "original_name": "A2 2.Unterricht Hören.mp3",
+   "size_bytes": 940104,
+   "duration_seconds": 125.5,
+   "status": "TRANSCRIBED",
+   "model": "faster-whisper large-v3 (CPU, int8, de)",
+   "text": "Guten Abend, liebe Zuschauerinnen und Zuschauer.\nWillkommen zur Sendung Gemeinschaftskreis auf TV Berlin 120.\nHeute sprechen wir über ein aktuelles Thema, soziale Netzwerke.\nBei uns im Studio sind zwei Gäste.\nDer erste Gast ist Professor Müller.\nEr arbeitet an der Universität München und beschäftigt sich mit Medien und Gesellschaft.\nUnser zweiter Gast ist Frau Milner. Sie ist Mutter von zwei Kindern und nutzt soziale Netzwerke im Alltag mit ihrer Familie.\nMeine Frage an beide Gäste ist, wie beeinflussen soziale Netzwerke unser Leben?\nVielen Dank für die Einladung. Ich denke, soziale Netzwerke haben einen großen [unverständlich] auf unser Leben.\nViele Menschen bekommen dort schnell Informationen und Nachrichten.\nFür Studenten und Forscher ist das auch praktisch, weil man Ideen und Wissen teilen kann.\nAber es gibt auch Probleme.\nManche Menschen verbringen zu viel Zeit online und sprechen weniger miteinander im echten Leben.\nDeshalb ist es wichtig, soziale Netzwerke bewusst und nicht zu oft zu nutzen.\nHallo an alle!\nFür mich als Mutter sind soziale Netzwerke sowohl hilfreich als auch schwierig.\nEinerseits kann ich mit Freunden und Familie in Kontakt bleiben.\nIch bekomme auch Tipps über Schule, Gesundheit oder Freizeit für Kinder.\nAndererseits sehe ich, dass Kinder und Jugendliche oft sehr viel Zeit am Handy verbringen.\nDeshalb versuche ich zu Hause klare Regeln zu machen.\nMeine Kinder dürfen soziale Netzwerke nur eine bestimmte Zeit benutzen.\nVielen Dank für Ihre interessanten Meinungen.\nSoziale Netzwerke sind heute ein wichtiger Teil unseres Lebens.\nAber wir müssen lernen, sie richtig zu nutzen.\nDamit sind wir am Ende unserer Sendung Gemeinschaftskreis auf TV Berlin 120.\nVielen Dank fürs Zuschauen und einen schönen Abend.",
+   "segments": [
+    {
+     "start": 0.0,
+     "end": 3.3,
+     "text": "Guten Abend, liebe Zuschauerinnen und Zuschauer."
+    },
+    {
+     "start": 4.0,
+     "end": 8.6,
+     "text": "Willkommen zur Sendung Gemeinschaftskreis auf TV Berlin 120."
+    },
+    {
+     "start": 10.4,
+     "end": 14.6,
+     "text": "Heute sprechen wir über ein aktuelles Thema, soziale Netzwerke."
+    },
+    {
+     "start": 15.7,
+     "end": 17.8,
+     "text": "Bei uns im Studio sind zwei Gäste."
+    },
+    {
+     "start": 19.0,
+     "end": 21.0,
+     "text": "Der erste Gast ist Professor Müller."
+    },
+    {
+     "start": 22.0,
+     "end": 26.7,
+     "text": "Er arbeitet an der Universität München und beschäftigt sich mit Medien und Gesellschaft."
+    },
+    {
+     "start": 27.5,
+     "end": 36.0,
+     "text": "Unser zweiter Gast ist Frau Milner. Sie ist Mutter von zwei Kindern und nutzt soziale Netzwerke im Alltag mit ihrer Familie."
+    },
+    {
+     "start": 37.4,
+     "end": 42.3,
+     "text": "Meine Frage an beide Gäste ist, wie beeinflussen soziale Netzwerke unser Leben?"
+    },
+    {
+     "start": 42.7,
+     "end": 49.1,
+     "text": "Vielen Dank für die Einladung. Ich denke, soziale Netzwerke haben einen großen [unverständlich] auf unser Leben."
+    },
+    {
+     "start": 49.1,
+     "end": 52.8,
+     "text": "Viele Menschen bekommen dort schnell Informationen und Nachrichten."
+    },
+    {
+     "start": 52.8,
+     "end": 58.1,
+     "text": "Für Studenten und Forscher ist das auch praktisch, weil man Ideen und Wissen teilen kann."
+    },
+    {
+     "start": 58.3,
+     "end": 59.7,
+     "text": "Aber es gibt auch Probleme."
+    },
+    {
+     "start": 59.9,
+     "end": 65.2,
+     "text": "Manche Menschen verbringen zu viel Zeit online und sprechen weniger miteinander im echten Leben."
+    },
+    {
+     "start": 65.4,
+     "end": 70.1,
+     "text": "Deshalb ist es wichtig, soziale Netzwerke bewusst und nicht zu oft zu nutzen."
+    },
+    {
+     "start": 70.4,
+     "end": 71.2,
+     "text": "Hallo an alle!"
+    },
+    {
+     "start": 72.5,
+     "end": 76.3,
+     "text": "Für mich als Mutter sind soziale Netzwerke sowohl hilfreich als auch schwierig."
+    },
+    {
+     "start": 77.3,
+     "end": 80.8,
+     "text": "Einerseits kann ich mit Freunden und Familie in Kontakt bleiben."
+    },
+    {
+     "start": 81.4,
+     "end": 85.9,
+     "text": "Ich bekomme auch Tipps über Schule, Gesundheit oder Freizeit für Kinder."
+    },
+    {
+     "start": 87.0,
+     "end": 92.2,
+     "text": "Andererseits sehe ich, dass Kinder und Jugendliche oft sehr viel Zeit am Handy verbringen."
+    },
+    {
+     "start": 92.9,
+     "end": 96.0,
+     "text": "Deshalb versuche ich zu Hause klare Regeln zu machen."
+    },
+    {
+     "start": 96.7,
+     "end": 101.2,
+     "text": "Meine Kinder dürfen soziale Netzwerke nur eine bestimmte Zeit benutzen."
+    },
+    {
+     "start": 102.4,
+     "end": 105.2,
+     "text": "Vielen Dank für Ihre interessanten Meinungen."
+    },
+    {
+     "start": 105.7,
+     "end": 109.4,
+     "text": "Soziale Netzwerke sind heute ein wichtiger Teil unseres Lebens."
+    },
+    {
+     "start": 110.7,
+     "end": 113.2,
+     "text": "Aber wir müssen lernen, sie richtig zu nutzen."
+    },
+    {
+     "start": 113.9,
+     "end": 119.7,
+     "text": "Damit sind wir am Ende unserer Sendung Gemeinschaftskreis auf TV Berlin 120."
+    },
+    {
+     "start": 121.1,
+     "end": 124.4,
+     "text": "Vielen Dank fürs Zuschauen und einen schönen Abend."
+    }
+   ],
+   "quality": {
+    "second_model": "faster-whisper medium",
+    "agreement": 0.992,
+    "words": 265,
+    "low_confidence_words": 1,
+    "uncertain": [
+     {
+      "at": 42.7,
+      "heard": "Weitungs",
+      "probability": null
+     }
+    ]
+   },
+   "review_note": "Unverständliche Stellen (nicht geraten): [43s] „Weitungs“"
+  },
+  {
+   "sha256": "032a9dacdf02284f537b802af8fd6ed75ce5830eddf7a379c8afd8ec81851d18",
+   "original_name": "A2 4.Unterricht Text 1.mp3",
+   "size_bytes": 298605,
+   "duration_seconds": 49.7,
+   "status": "TRANSCRIBED",
+   "model": "faster-whisper large-v3 (CPU, int8, de)",
+   "text": "Mein Name ist Johann Mansberg und ich bin 45 Jahre alt.\nAm Wochenende habe ich mehr Zeit für meine Familie und für meine Hobbys.\nAm Samstag stehe ich normalerweise um 8 Uhr auf.\nDanach frühstücke ich mit meiner Familie.\nZum Frühstück trinken wir Kaffee und essen Brot mit Käse.\nAm Vormittag arbeite ich manchmal im Garten.\nIch pflanze Blumen oder mähe den Rasen.\nDas macht mir Spaß und ich kann mich entspannen.\nAm Nachmittag gehe ich oft einkaufen oder erledige einige Aufgaben im Haus.\nManchmal fahre ich auch Fahrrad oder gehe spazieren.\nAm Abend essen wir zusammen zu Abend, danach sehen wir manchmal einen Film oder sprechen über unsere Woche.\nAm Sonntag besuche ich oft meine Freunde oder lese ein Buch.",
+   "segments": [
+    {
+     "start": 0.0,
+     "end": 3.6,
+     "text": "Mein Name ist Johann Mansberg und ich bin 45 Jahre alt."
+    },
+    {
+     "start": 4.2,
+     "end": 8.3,
+     "text": "Am Wochenende habe ich mehr Zeit für meine Familie und für meine Hobbys."
+    },
+    {
+     "start": 9.4,
+     "end": 12.1,
+     "text": "Am Samstag stehe ich normalerweise um 8 Uhr auf."
+    },
+    {
+     "start": 13.0,
+     "end": 14.9,
+     "text": "Danach frühstücke ich mit meiner Familie."
+    },
+    {
+     "start": 16.3,
+     "end": 19.1,
+     "text": "Zum Frühstück trinken wir Kaffee und essen Brot mit Käse."
+    },
+    {
+     "start": 20.3,
+     "end": 22.6,
+     "text": "Am Vormittag arbeite ich manchmal im Garten."
+    },
+    {
+     "start": 23.8,
+     "end": 25.6,
+     "text": "Ich pflanze Blumen oder mähe den Rasen."
+    },
+    {
+     "start": 26.2,
+     "end": 28.8,
+     "text": "Das macht mir Spaß und ich kann mich entspannen."
+    },
+    {
+     "start": 30.0,
+     "end": 33.9,
+     "text": "Am Nachmittag gehe ich oft einkaufen oder erledige einige Aufgaben im Haus."
+    },
+    {
+     "start": 34.9,
+     "end": 37.8,
+     "text": "Manchmal fahre ich auch Fahrrad oder gehe spazieren."
+    },
+    {
+     "start": 38.5,
+     "end": 44.3,
+     "text": "Am Abend essen wir zusammen zu Abend, danach sehen wir manchmal einen Film oder sprechen über unsere Woche."
+    },
+    {
+     "start": 45.6,
+     "end": 48.7,
+     "text": "Am Sonntag besuche ich oft meine Freunde oder lese ein Buch."
+    }
+   ],
+   "quality": {
+    "second_model": "faster-whisper medium",
+    "agreement": 0.992,
+    "words": 121,
+    "low_confidence_words": 0,
+    "uncertain": []
+   },
+   "review_note": null
+  },
+  {
+   "sha256": "503aefe34b4c675e2f84f608e6e71511759f88851491b83027ede6810ebf007a",
+   "original_name": "A2 4.Unterricht Text 2.mp3",
+   "size_bytes": 304416,
+   "duration_seconds": 50.7,
+   "status": "TRANSCRIBED",
+   "model": "faster-whisper large-v3 (CPU, int8, de)",
+   "text": "Mein Name ist Anna Mansberg, und ich bin 40 Jahre alt, am Wochenende verbringe ich gern Zeit mit meiner Familie, am Samstag stehe ich gegen 8.30 Uhr auf, danach bereite ich das Frühstück für meine Familie vor.\nWir sitzen zusammen am Tisch und sprechen über unsere Pläne für das Wochenende, am Vormittag mache ich oft Hausarbeit, ich räume die Wohnung auf oder gehe einkaufen, am Nachmittag treffe ich manchmal meine Freundinnen.\nWir gehen zusammen spazieren oder trinken Kaffee in einem [unverständlich], am Abend koche ich gern ein leckeres Abendessen für meine Familie, danach sehen wir manchmal fern oder spielen ein Spiel zusammen.\nAm Sonntag machen wir oft einen Familienausflug in den Park oder wir besuchen Verwandte.",
+   "segments": [
+    {
+     "start": 0.0,
+     "end": 15.1,
+     "text": "Mein Name ist Anna Mansberg, und ich bin 40 Jahre alt, am Wochenende verbringe ich gern Zeit mit meiner Familie, am Samstag stehe ich gegen 8.30 Uhr auf, danach bereite ich das Frühstück für meine Familie vor."
+    },
+    {
+     "start": 15.1,
+     "end": 30.4,
+     "text": "Wir sitzen zusammen am Tisch und sprechen über unsere Pläne für das Wochenende, am Vormittag mache ich oft Hausarbeit, ich räume die Wohnung auf oder gehe einkaufen, am Nachmittag treffe ich manchmal meine Freundinnen."
+    },
+    {
+     "start": 30.7,
+     "end": 44.2,
+     "text": "Wir gehen zusammen spazieren oder trinken Kaffee in einem [unverständlich], am Abend koche ich gern ein leckeres Abendessen für meine Familie, danach sehen wir manchmal fern oder spielen ein Spiel zusammen."
+    },
+    {
+     "start": 44.2,
+     "end": 50.6,
+     "text": "Am Sonntag machen wir oft einen Familienausflug in den Park oder wir besuchen Verwandte."
+    }
+   ],
+   "quality": {
+    "second_model": "faster-whisper medium",
+    "agreement": 0.996,
+    "words": 117,
+    "low_confidence_words": 0,
+    "uncertain": [
+     {
+      "at": 30.7,
+      "heard": "ZRF",
+      "probability": null
+     }
+    ]
+   },
+   "review_note": "Unverständliche Stellen (nicht geraten): [31s] „ZRF“"
+  },
+  {
+   "sha256": "50ab5e4dde14ce35d8f5e553c3c099a6ae40feb7598ee3a88035f6a5bdf6510d",
+   "original_name": "A2 4.Unterricht Text 3.mp3",
+   "size_bytes": 208368,
+   "duration_seconds": 34.7,
+   "status": "TRANSCRIBED",
+   "model": "faster-whisper large-v3 (CPU, int8, de)",
+   "text": "Ich heiße Julio Mansberg und bin 18 Jahre alt. Am Wochenende habe ich viel Freizeit, am Samstag stehe ich meistens um 9 Uhr auf, danach frühstücke ich mit meinen Eltern, am Vormittag treffe ich oft meine Freunde, wir spielen Fußball oder gehen in die Stadt.\nAm Nachmittag höre ich gern Musik, spiele Videospiele oder sehe Filme, manchmal lerne ich auch ein bisschen für die Schule oder für meine Prüfungen, am Abend gehe ich manchmal mit meinen Freunden ins Kino oder wir treffen uns in einem [unverständlich].\nAm Sonntag verbringe ich oft Zeit mit meiner Familie und entspanne mich zu Hause.",
+   "segments": [
+    {
+     "start": 0.0,
+     "end": 15.7,
+     "text": "Ich heiße Julio Mansberg und bin 18 Jahre alt. Am Wochenende habe ich viel Freizeit, am Samstag stehe ich meistens um 9 Uhr auf, danach frühstücke ich mit meinen Eltern, am Vormittag treffe ich oft meine Freunde, wir spielen Fußball oder gehen in die Stadt."
+    },
+    {
+     "start": 15.9,
+     "end": 29.7,
+     "text": "Am Nachmittag höre ich gern Musik, spiele Videospiele oder sehe Filme, manchmal lerne ich auch ein bisschen für die Schule oder für meine Prüfungen, am Abend gehe ich manchmal mit meinen Freunden ins Kino oder wir treffen uns in einem [unverständlich]."
+    },
+    {
+     "start": 30.0,
+     "end": 34.4,
+     "text": "Am Sonntag verbringe ich oft Zeit mit meiner Familie und entspanne mich zu Hause."
+    }
+   ],
+   "quality": {
+    "second_model": "faster-whisper medium",
+    "agreement": 0.93,
+    "words": 100,
+    "low_confidence_words": 0,
+    "uncertain": [
+     {
+      "at": 15.9,
+      "heard": "ZRF",
+      "probability": null
+     }
+    ]
+   },
+   "review_note": "Unverständliche Stellen (nicht geraten): [16s] „ZRF“"
+  },
+  {
+   "sha256": "c2939a12408264282c85c67a930b4b695dea99a739ba4b2a4443e2acccbc82f2",
+   "original_name": "A2 5.Unterricht Hören.mp3",
+   "size_bytes": 627069,
+   "duration_seconds": 104.5,
+   "status": "TRANSCRIBED",
+   "model": "faster-whisper large-v3 (CPU, int8, de)",
+   "text": "Guten Tag, liebe Hörerinnen und Hörer!\nHeute sprechen wir über ein wichtiges Thema, die steigenden Mieten in Deutschland.\nIn den letzten Jahren sind die Mieten in vielen deutschen Städten stark gestiegen.\nBesonders in großen Städten wie Berlin, Hamburg, München und Frankfurt am Main ist das Wohnen sehr teuer geworden.\nDie teuerste Stadt ist München.\nDort kostet eine kleine Wohnung im Zentrum oft zwischen 1.500 und 2.100 Euro pro Monat.\nAuch Frankfurt und Hamburg sind sehr teuer.\nIn Frankfurt zahlt man im Durchschnitt über 1.200 Euro für eine kleine Wohnung.\nIn Berlin sind die Mieten auch hoch, etwa 1.000 bis 1.200 Euro im Monat, aber etwas günstiger als in München.\nWarum steigen die Mieten?\nEin Grund ist, dass viele Menschen in die Städte ziehen.\nEs gibt aber nicht genug Wohnungen.\nDeshalb werden die Preise immer höher.\nAuch neue Wohnungen sind oft teuer.\nIn kleineren Städten ist das Leben günstiger.\nZum Beispiel in Leipzig oder Chemnitz.\nDort kostet eine Wohnung oft nur 450 bis 700 Euro im Monat.\nDas ist ein großer Unterschied.\nIn großen Städten kann die Miete zwei - oder dreimal höher sein als in kleinen Städten.\nViele Menschen haben deshalb Probleme, eine Wohnung zu finden.\nBesonders Studenten und junge Leute suchen lange nach einer Wohnung.\nZusammenfassend kann man sagen, die Mieten in Deutschland steigen weiter.\nGroße Städte sind sehr teuer, aber kleinere Städte bleiben günstiger.\nVielen Dank fürs Zuhören.\nKopfhörer",
+   "segments": [
+    {
+     "start": 0.0,
+     "end": 2.4,
+     "text": "Guten Tag, liebe Hörerinnen und Hörer!"
+    },
+    {
+     "start": 3.1,
+     "end": 7.5,
+     "text": "Heute sprechen wir über ein wichtiges Thema, die steigenden Mieten in Deutschland."
+    },
+    {
+     "start": 8.8,
+     "end": 12.7,
+     "text": "In den letzten Jahren sind die Mieten in vielen deutschen Städten stark gestiegen."
+    },
+    {
+     "start": 13.6,
+     "end": 19.8,
+     "text": "Besonders in großen Städten wie Berlin, Hamburg, München und Frankfurt am Main ist das Wohnen sehr teuer geworden."
+    },
+    {
+     "start": 21.1,
+     "end": 22.5,
+     "text": "Die teuerste Stadt ist München."
+    },
+    {
+     "start": 22.5,
+     "end": 30.2,
+     "text": "Dort kostet eine kleine Wohnung im Zentrum oft zwischen 1.500 und 2.100 Euro pro Monat."
+    },
+    {
+     "start": 31.3,
+     "end": 33.4,
+     "text": "Auch Frankfurt und Hamburg sind sehr teuer."
+    },
+    {
+     "start": 33.9,
+     "end": 39.2,
+     "text": "In Frankfurt zahlt man im Durchschnitt über 1.200 Euro für eine kleine Wohnung."
+    },
+    {
+     "start": 39.4,
+     "end": 46.7,
+     "text": "In Berlin sind die Mieten auch hoch, etwa 1.000 bis 1.200 Euro im Monat, aber etwas günstiger als in München."
+    },
+    {
+     "start": 47.5,
+     "end": 49.2,
+     "text": "Warum steigen die Mieten?"
+    },
+    {
+     "start": 49.2,
+     "end": 53.0,
+     "text": "Ein Grund ist, dass viele Menschen in die Städte ziehen."
+    },
+    {
+     "start": 54.2,
+     "end": 55.7,
+     "text": "Es gibt aber nicht genug Wohnungen."
+    },
+    {
+     "start": 56.4,
+     "end": 58.5,
+     "text": "Deshalb werden die Preise immer höher."
+    },
+    {
+     "start": 59.7,
+     "end": 61.4,
+     "text": "Auch neue Wohnungen sind oft teuer."
+    },
+    {
+     "start": 62.6,
+     "end": 64.8,
+     "text": "In kleineren Städten ist das Leben günstiger."
+    },
+    {
+     "start": 66.0,
+     "end": 67.9,
+     "text": "Zum Beispiel in Leipzig oder Chemnitz."
+    },
+    {
+     "start": 69.1,
+     "end": 73.5,
+     "text": "Dort kostet eine Wohnung oft nur 450 bis 700 Euro im Monat."
+    },
+    {
+     "start": 74.5,
+     "end": 75.8,
+     "text": "Das ist ein großer Unterschied."
+    },
+    {
+     "start": 75.8,
+     "end": 81.6,
+     "text": "In großen Städten kann die Miete zwei - oder dreimal höher sein als in kleinen Städten."
+    },
+    {
+     "start": 81.7,
+     "end": 85.1,
+     "text": "Viele Menschen haben deshalb Probleme, eine Wohnung zu finden."
+    },
+    {
+     "start": 86.1,
+     "end": 89.4,
+     "text": "Besonders Studenten und junge Leute suchen lange nach einer Wohnung."
+    },
+    {
+     "start": 90.8,
+     "end": 94.2,
+     "text": "Zusammenfassend kann man sagen, die Mieten in Deutschland steigen weiter."
+    },
+    {
+     "start": 95.0,
+     "end": 99.2,
+     "text": "Große Städte sind sehr teuer, aber kleinere Städte bleiben günstiger."
+    },
+    {
+     "start": 99.9,
+     "end": 101.7,
+     "text": "Vielen Dank fürs Zuhören."
+    },
+    {
+     "start": 102.7,
+     "end": 103.4,
+     "text": "Kopfhörer"
+    }
+   ],
+   "quality": {
+    "second_model": "faster-whisper medium",
+    "agreement": 1.0,
+    "words": 235,
+    "low_confidence_words": 1,
+    "uncertain": []
+   },
+   "review_note": null
+  },
+  {
+   "sha256": "a667535ff10bf0e93e1b6687d0fa45a43e660a820a6fe67c3a8f397614e43ff9",
+   "original_name": "A2 6.Unterricht.mp3",
+   "size_bytes": 704685,
+   "duration_seconds": 117.4,
+   "status": "TRANSCRIBED",
+   "model": "faster-whisper large-v3 (CPU, int8, de)",
+   "text": "Text 1 Konflikte zwischen Lukas und Jonas\nEines Tages gab es ein Problem zwischen Lukas und Jonas im Sommerlager.\nSie waren gute Freunde und haben immer zusammengespielt, besonders Fußball.\nAn diesem Tag haben sie wieder Fußball gespielt.\nLukas wollte unbedingt gewinnen.\nAls Jonas einen Fehler gemacht hat, wurde Lukas wütend und hat gesagt, dass Jonas schlecht spielt.\nJonas war traurig, weil er dachte, dass Lukas ihn nicht respektiert.\nNach dem Spiel haben sie nicht mehr miteinander gesprochen.\nBeide waren traurig.\nLukas hat später verstanden, dass er falsch war.\nEr ist zu Jonas gegangen und hat gesagt, es tut mir leid.\nJonas hat gesagt, dass er die Entschuldigung akzeptiert.\nDanach haben sie wieder zusammen gespielt.\nSie haben gelernt, dass Respekt in einer Freundschaft sehr wichtig ist.\nText 2\nKonflikte zwischen Paul und Leon\nIn letzter Zeit hatten Paul und Leon ein Problem.\nSie sind Brüder.\nLeon studiert im Ausland in Deutschland, und Paul lebt zu Hause.\nLeon hatte oft keine Zeit, weil er viel lernen musste.\nDeshalb hat er selten geschrieben oder angerufen.\nPaul war traurig und dachte, dass sein Bruder ihn vergessen hat.\nEines Tages hat Paul eine Nachricht geschrieben.\nEr hat gesagt, dass er sich allein fühlt.\nLeon war überrascht und hat erklärt, dass er viel Stress im Studium hat, aber dass Paul ihm sehr wichtig ist.\nDanach haben sie ruhig miteinander gesprochen.\nPaul hat verstanden, dass Leon viel zu tun hat.\nLeon hat versprochen, sich öfter zu melden.\nJetzt ist ihre Beziehung wieder gut.\nSie haben gelernt, dass man immer miteinander sprechen muss, besonders wenn es ein Problem gibt.",
+   "segments": [
+    {
+     "start": 0.0,
+     "end": 3.5,
+     "text": "Text 1 Konflikte zwischen Lukas und Jonas"
+    },
+    {
+     "start": 4.3,
+     "end": 8.7,
+     "text": "Eines Tages gab es ein Problem zwischen Lukas und Jonas im Sommerlager."
+    },
+    {
+     "start": 9.2,
+     "end": 13.9,
+     "text": "Sie waren gute Freunde und haben immer zusammengespielt, besonders Fußball."
+    },
+    {
+     "start": 15.1,
+     "end": 17.3,
+     "text": "An diesem Tag haben sie wieder Fußball gespielt."
+    },
+    {
+     "start": 18.1,
+     "end": 20.1,
+     "text": "Lukas wollte unbedingt gewinnen."
+    },
+    {
+     "start": 21.3,
+     "end": 26.7,
+     "text": "Als Jonas einen Fehler gemacht hat, wurde Lukas wütend und hat gesagt, dass Jonas schlecht spielt."
+    },
+    {
+     "start": 27.6,
+     "end": 32.0,
+     "text": "Jonas war traurig, weil er dachte, dass Lukas ihn nicht respektiert."
+    },
+    {
+     "start": 32.6,
+     "end": 35.5,
+     "text": "Nach dem Spiel haben sie nicht mehr miteinander gesprochen."
+    },
+    {
+     "start": 36.5,
+     "end": 38.0,
+     "text": "Beide waren traurig."
+    },
+    {
+     "start": 38.9,
+     "end": 41.7,
+     "text": "Lukas hat später verstanden, dass er falsch war."
+    },
+    {
+     "start": 41.8,
+     "end": 45.3,
+     "text": "Er ist zu Jonas gegangen und hat gesagt, es tut mir leid."
+    },
+    {
+     "start": 46.1,
+     "end": 49.4,
+     "text": "Jonas hat gesagt, dass er die Entschuldigung akzeptiert."
+    },
+    {
+     "start": 50.2,
+     "end": 52.2,
+     "text": "Danach haben sie wieder zusammen gespielt."
+    },
+    {
+     "start": 52.9,
+     "end": 57.2,
+     "text": "Sie haben gelernt, dass Respekt in einer Freundschaft sehr wichtig ist."
+    },
+    {
+     "start": 58.0,
+     "end": 58.7,
+     "text": "Text 2"
+    },
+    {
+     "start": 59.7,
+     "end": 61.5,
+     "text": "Konflikte zwischen Paul und Leon"
+    },
+    {
+     "start": 62.1,
+     "end": 65.1,
+     "text": "In letzter Zeit hatten Paul und Leon ein Problem."
+    },
+    {
+     "start": 65.9,
+     "end": 67.1,
+     "text": "Sie sind Brüder."
+    },
+    {
+     "start": 67.9,
+     "end": 71.6,
+     "text": "Leon studiert im Ausland in Deutschland, und Paul lebt zu Hause."
+    },
+    {
+     "start": 72.5,
+     "end": 75.8,
+     "text": "Leon hatte oft keine Zeit, weil er viel lernen musste."
+    },
+    {
+     "start": 76.6,
+     "end": 79.3,
+     "text": "Deshalb hat er selten geschrieben oder angerufen."
+    },
+    {
+     "start": 80.0,
+     "end": 83.6,
+     "text": "Paul war traurig und dachte, dass sein Bruder ihn vergessen hat."
+    },
+    {
+     "start": 83.8,
+     "end": 86.3,
+     "text": "Eines Tages hat Paul eine Nachricht geschrieben."
+    },
+    {
+     "start": 87.7,
+     "end": 89.8,
+     "text": "Er hat gesagt, dass er sich allein fühlt."
+    },
+    {
+     "start": 90.5,
+     "end": 96.9,
+     "text": "Leon war überrascht und hat erklärt, dass er viel Stress im Studium hat, aber dass Paul ihm sehr wichtig ist."
+    },
+    {
+     "start": 97.7,
+     "end": 99.8,
+     "text": "Danach haben sie ruhig miteinander gesprochen."
+    },
+    {
+     "start": 100.8,
+     "end": 103.9,
+     "text": "Paul hat verstanden, dass Leon viel zu tun hat."
+    },
+    {
+     "start": 104.7,
+     "end": 107.3,
+     "text": "Leon hat versprochen, sich öfter zu melden."
+    },
+    {
+     "start": 108.1,
+     "end": 110.1,
+     "text": "Jetzt ist ihre Beziehung wieder gut."
+    },
+    {
+     "start": 111.4,
+     "end": 116.3,
+     "text": "Sie haben gelernt, dass man immer miteinander sprechen muss, besonders wenn es ein Problem gibt."
+    }
+   ],
+   "quality": {
+    "second_model": "faster-whisper medium",
+    "agreement": 0.99,
+    "words": 261,
+    "low_confidence_words": 3,
+    "uncertain": []
+   },
+   "review_note": null
+  },
+  {
+   "sha256": "7ecc292a919126f92c779ad428bc3665a418b53df46b0a2aca8e065cd4d75078",
+   "original_name": "A2 7.Unterricht Text 1.mp3",
+   "size_bytes": 469101,
+   "duration_seconds": 78.1,
+   "status": "TRANSCRIBED",
+   "model": "faster-whisper large-v3 (CPU, int8, de)",
+   "text": "Text 1 Meine Reise nach Deutschland\nHallo, ich heiße Max Johann Berg.\nIch bin 25 Jahre alt und komme aus Madrid in Spanien.\nIch reise sehr gern und wollte Deutschland sehen.\nIch habe meine Reise mit dem Auto begonnen.\nIch bin von Madrid nach Frankreich gefahren und dann weiter nach Deutschland.\nDie Fahrt war lang, aber ich habe viele schöne Orte gesehen.\nManchmal habe ich Pause gemacht und Fotos gemacht.\n[unverständlich]. Mein erstes Ziel war Berlin. Berlin ist eine große Stadt. Dort habe ich das Brandenburger\nTor gesehen und durch die Stadt spaziert. Ich habe auch viele Menschen aus verschiedenen Ländern\ngetroffen. Danach bin ich mit dem Bus nach Hamburg gefahren. Der Bus war nicht teuer,\naber die Reise war etwas lang. In Hamburg habe ich den Hafen gesehen und bin am Wasser spazieren\ngegangen. Später bin ich nach München gefahren. München ist sehr schön. Dort habe ich deutsches\nEssen probiert und neue Freunde kennengelernt. Ich finde, das Auto ist gut, weil man flexibel ist.\nAber die Reise ist manchmal anstrengend. Der Bus ist günstig, aber langsam. Meine Reise war sehr\nsehr schön und interessant.",
+   "segments": [
+    {
+     "start": 0.0,
+     "end": 2.1,
+     "text": "Text 1 Meine Reise nach Deutschland"
+    },
+    {
+     "start": 3.0,
+     "end": 5.2,
+     "text": "Hallo, ich heiße Max Johann Berg."
+    },
+    {
+     "start": 5.8,
+     "end": 9.9,
+     "text": "Ich bin 25 Jahre alt und komme aus Madrid in Spanien."
+    },
+    {
+     "start": 10.6,
+     "end": 13.1,
+     "text": "Ich reise sehr gern und wollte Deutschland sehen."
+    },
+    {
+     "start": 13.8,
+     "end": 16.1,
+     "text": "Ich habe meine Reise mit dem Auto begonnen."
+    },
+    {
+     "start": 17.3,
+     "end": 20.7,
+     "text": "Ich bin von Madrid nach Frankreich gefahren und dann weiter nach Deutschland."
+    },
+    {
+     "start": 21.4,
+     "end": 24.8,
+     "text": "Die Fahrt war lang, aber ich habe viele schöne Orte gesehen."
+    },
+    {
+     "start": 25.8,
+     "end": 28.5,
+     "text": "Manchmal habe ich Pause gemacht und Fotos gemacht."
+    },
+    {
+     "start": 28.5,
+     "end": 36.1,
+     "text": "[unverständlich]. Mein erstes Ziel war Berlin. Berlin ist eine große Stadt. Dort habe ich das Brandenburger"
+    },
+    {
+     "start": 36.1,
+     "end": 40.9,
+     "text": "Tor gesehen und durch die Stadt spaziert. Ich habe auch viele Menschen aus verschiedenen Ländern"
+    },
+    {
+     "start": 40.9,
+     "end": 47.0,
+     "text": "getroffen. Danach bin ich mit dem Bus nach Hamburg gefahren. Der Bus war nicht teuer,"
+    },
+    {
+     "start": 47.1,
+     "end": 53.2,
+     "text": "aber die Reise war etwas lang. In Hamburg habe ich den Hafen gesehen und bin am Wasser spazieren"
+    },
+    {
+     "start": 53.2,
+     "end": 60.9,
+     "text": "gegangen. Später bin ich nach München gefahren. München ist sehr schön. Dort habe ich deutsches"
+    },
+    {
+     "start": 60.9,
+     "end": 67.7,
+     "text": "Essen probiert und neue Freunde kennengelernt. Ich finde, das Auto ist gut, weil man flexibel ist."
+    },
+    {
+     "start": 68.3,
+     "end": 75.9,
+     "text": "Aber die Reise ist manchmal anstrengend. Der Bus ist günstig, aber langsam. Meine Reise war sehr"
+    },
+    {
+     "start": 75.9,
+     "end": 76.8,
+     "text": "sehr schön und interessant."
+    }
+   ],
+   "quality": {
+    "second_model": "faster-whisper medium",
+    "agreement": 0.995,
+    "words": 185,
+    "low_confidence_words": 5,
+    "uncertain": [
+     {
+      "at": 28.5,
+      "heard": "Nacht.",
+      "probability": 0.15
+     }
+    ]
+   },
+   "review_note": "Unverständliche Stellen (nicht geraten): [28s] „Nacht.“"
+  },
+  {
+   "sha256": "76e8dea217efe0763f7154b421c5e40c11b9988b0953a6669ff67286d62fe6c1",
+   "original_name": "A2 7.Unterricht Text 2.mp3",
+   "size_bytes": 461469,
+   "duration_seconds": 76.9,
+   "status": "TRANSCRIBED",
+   "model": "faster-whisper large-v3 (CPU, int8, de)",
+   "text": "Text 2\nMeine Reise durch Europa\nHallo, ich heiße Sarah Bergmann.\nIch bin 35 Jahre alt und komme aus München.\nIch liebe Reisen und andere Kulturen.\nLetzten Sommer habe ich eine Reise durch Europa gemacht.\nIch bin zuerst mit dem Zug nach Wien gefahren.\nDie Fahrt war ruhig und bequem.\nIch habe im Zug Musik gehört und aus dem Fenster geschaut.\nDann bin ich nach Paris gefahren.\nParis ist eine sehr schöne Stadt.\nIch habe den Eiffelturm gesehen und viele Fotos gemacht.\nIch habe auch ein Café besucht.\nDanach bin ich mit dem Flugzeug nach Rom geflogen.\nDas Flugzeug war sehr schnell.\nIn Rom habe ich alte Gebäude gesehen und viel gelernt.\nAm Ende bin ich nach Barcelona gereist. Dort habe ich am Meer gesessen und mich entspannt. Das Wetter war sehr gut. Ich finde, der Zug ist sehr bequem und ruhig. Das Flugzeug ist schnell, aber teuer. Meine Reise war sehr schön und ich möchte wieder reisen.",
+   "segments": [
+    {
+     "start": 0.0,
+     "end": 0.8,
+     "text": "Text 2"
+    },
+    {
+     "start": 0.8,
+     "end": 3.4,
+     "text": "Meine Reise durch Europa"
+    },
+    {
+     "start": 3.4,
+     "end": 6.9,
+     "text": "Hallo, ich heiße Sarah Bergmann."
+    },
+    {
+     "start": 7.3,
+     "end": 11.1,
+     "text": "Ich bin 35 Jahre alt und komme aus München."
+    },
+    {
+     "start": 12.2,
+     "end": 14.9,
+     "text": "Ich liebe Reisen und andere Kulturen."
+    },
+    {
+     "start": 15.5,
+     "end": 18.8,
+     "text": "Letzten Sommer habe ich eine Reise durch Europa gemacht."
+    },
+    {
+     "start": 20.1,
+     "end": 22.5,
+     "text": "Ich bin zuerst mit dem Zug nach Wien gefahren."
+    },
+    {
+     "start": 23.7,
+     "end": 25.6,
+     "text": "Die Fahrt war ruhig und bequem."
+    },
+    {
+     "start": 25.6,
+     "end": 30.1,
+     "text": "Ich habe im Zug Musik gehört und aus dem Fenster geschaut."
+    },
+    {
+     "start": 31.2,
+     "end": 32.8,
+     "text": "Dann bin ich nach Paris gefahren."
+    },
+    {
+     "start": 33.6,
+     "end": 36.1,
+     "text": "Paris ist eine sehr schöne Stadt."
+    },
+    {
+     "start": 37.2,
+     "end": 40.4,
+     "text": "Ich habe den Eiffelturm gesehen und viele Fotos gemacht."
+    },
+    {
+     "start": 41.7,
+     "end": 43.6,
+     "text": "Ich habe auch ein Café besucht."
+    },
+    {
+     "start": 44.5,
+     "end": 47.4,
+     "text": "Danach bin ich mit dem Flugzeug nach Rom geflogen."
+    },
+    {
+     "start": 48.6,
+     "end": 50.2,
+     "text": "Das Flugzeug war sehr schnell."
+    },
+    {
+     "start": 50.3,
+     "end": 53.9,
+     "text": "In Rom habe ich alte Gebäude gesehen und viel gelernt."
+    },
+    {
+     "start": 53.9,
+     "end": 75.8,
+     "text": "Am Ende bin ich nach Barcelona gereist. Dort habe ich am Meer gesessen und mich entspannt. Das Wetter war sehr gut. Ich finde, der Zug ist sehr bequem und ruhig. Das Flugzeug ist schnell, aber teuer. Meine Reise war sehr schön und ich möchte wieder reisen."
+    }
+   ],
+   "quality": {
+    "second_model": "faster-whisper medium",
+    "agreement": 0.974,
+    "words": 158,
+    "low_confidence_words": 1,
+    "uncertain": []
+   },
+   "review_note": null
+  },
+  {
+   "sha256": "cf51ff0b967f3616adc43155c1e51d294bb725d3d10dec49f45d02861affc7f0",
+   "original_name": "A2 8.Unterricht.mp3",
+   "size_bytes": 884829,
+   "duration_seconds": 147.4,
+   "status": "TRANSCRIBED",
+   "model": "faster-whisper large-v3 (CPU, int8, de)",
+   "text": "Text Erster Einkauf von Susanna, Stadtleben\nSusanna lebt in einer großen Stadt und arbeitet im Büro.\nSie hat wenig Zeit, deshalb plant sie ihren Einkauf für eine Woche und kauft oft im Supermarkt oder online ein.\nIn einer Woche gibt sie ungefähr 80 bis 100 Euro für Lebensmittel aus.\nSie kauft zwei Liter Milch, ein Brot, zehn Eier, 500 g Käse, ein Kilogramm Reis und ein Kilogramm Nudeln.\nAußerdem kauft sie ein Kilogramm Tomaten, ein Kilogramm Äpfel und 500 G-Gurken.\nFür das Frühstück isst sie oft Joghurt.\nDeshalb kauft sie vier bis fünf Becher Joghurt pro Woche.\nJeden Tag trinkt sie zwei bis drei Tassen Kaffee, deshalb kauft sie jede Woche eine Packung Kaffee, 250 G.\nSusanna arbeitet viel und hat oft Stress.\nDeshalb kauft sie manchmal auch Fertigprodukte wie Pizza oder Snacks.\nSie kauft etwa zwei bis drei Fertiggerichte pro Woche.\nSie möchte gesund leben, aber manchmal kauft sie auch Süßigkeiten.\nZum Beispiel kauft sie 1-2 Tafeln Schokolade pro Woche.\nTrotzdem versucht sie, weniger Müll zu machen und nimmt oft ihre eigene Tasche mit.\nText 2\nEinkauf von Johann, Landleben\nJohann lebt auf dem Land und hat mehr Zeit zum Einkaufen.\nEr geht gern auf den Markt und kauft frische Produkte direkt von Bauern.\nIn einer Woche gibt er etwa 60 bis 70 Euro für Lebensmittel aus.\nEr kauft 2 Kilogramm Kartoffeln, 1 Kilogramm Karotten, 500 g Zwiebeln und ein Brot.\nAußerdem kauft er 2 Liter Milch und 10 bis 12 Eier.\nJohann kocht jeden Tag zu Hause.\nEr kauft auch Fleisch, etwa 500 g Fleisch pro Woche und manchmal 300 g Fisch.\nAuf dem Markt kauft er saisonales Gemüse, zum Beispiel im Sommer Tomaten und im Winter Kohl.\nEr trinkt hauptsächlich Wasser und kauft etwa 5 Liter Wasser pro Woche.\nManchmal kauft er auch ein Liter Saft.\nJohann kauft fast keine Fertigprodukte.\nEr produziert auch weniger Müll als Susanna, weil er oft ohne Plastik einkauft.\nAm Sonntag kauft er für seine Familie ein Kuchen oder backt selbst.\nEr denkt, dass lokale Produkte besser für die Umwelt sind.\nDeshalb kauft er lieber regional und saisonal.",
+   "segments": [
+    {
+     "start": 0.0,
+     "end": 2.6,
+     "text": "Text Erster Einkauf von Susanna, Stadtleben"
+    },
+    {
+     "start": 3.4,
+     "end": 6.8,
+     "text": "Susanna lebt in einer großen Stadt und arbeitet im Büro."
+    },
+    {
+     "start": 7.4,
+     "end": 14.2,
+     "text": "Sie hat wenig Zeit, deshalb plant sie ihren Einkauf für eine Woche und kauft oft im Supermarkt oder online ein."
+    },
+    {
+     "start": 14.7,
+     "end": 19.5,
+     "text": "In einer Woche gibt sie ungefähr 80 bis 100 Euro für Lebensmittel aus."
+    },
+    {
+     "start": 20.6,
+     "end": 27.6,
+     "text": "Sie kauft zwei Liter Milch, ein Brot, zehn Eier, 500 g Käse, ein Kilogramm Reis und ein Kilogramm Nudeln."
+    },
+    {
+     "start": 28.3,
+     "end": 33.5,
+     "text": "Außerdem kauft sie ein Kilogramm Tomaten, ein Kilogramm Äpfel und 500 G-Gurken."
+    },
+    {
+     "start": 34.8,
+     "end": 36.5,
+     "text": "Für das Frühstück isst sie oft Joghurt."
+    },
+    {
+     "start": 37.1,
+     "end": 40.2,
+     "text": "Deshalb kauft sie vier bis fünf Becher Joghurt pro Woche."
+    },
+    {
+     "start": 40.3,
+     "end": 47.4,
+     "text": "Jeden Tag trinkt sie zwei bis drei Tassen Kaffee, deshalb kauft sie jede Woche eine Packung Kaffee, 250 G."
+    },
+    {
+     "start": 48.4,
+     "end": 50.9,
+     "text": "Susanna arbeitet viel und hat oft Stress."
+    },
+    {
+     "start": 51.6,
+     "end": 55.7,
+     "text": "Deshalb kauft sie manchmal auch Fertigprodukte wie Pizza oder Snacks."
+    },
+    {
+     "start": 55.7,
+     "end": 59.4,
+     "text": "Sie kauft etwa zwei bis drei Fertiggerichte pro Woche."
+    },
+    {
+     "start": 60.6,
+     "end": 64.1,
+     "text": "Sie möchte gesund leben, aber manchmal kauft sie auch Süßigkeiten."
+    },
+    {
+     "start": 65.4,
+     "end": 68.4,
+     "text": "Zum Beispiel kauft sie 1-2 Tafeln Schokolade pro Woche."
+    },
+    {
+     "start": 69.3,
+     "end": 74.0,
+     "text": "Trotzdem versucht sie, weniger Müll zu machen und nimmt oft ihre eigene Tasche mit."
+    },
+    {
+     "start": 74.8,
+     "end": 75.6,
+     "text": "Text 2"
+    },
+    {
+     "start": 76.6,
+     "end": 78.6,
+     "text": "Einkauf von Johann, Landleben"
+    },
+    {
+     "start": 79.3,
+     "end": 82.8,
+     "text": "Johann lebt auf dem Land und hat mehr Zeit zum Einkaufen."
+    },
+    {
+     "start": 82.8,
+     "end": 86.9,
+     "text": "Er geht gern auf den Markt und kauft frische Produkte direkt von Bauern."
+    },
+    {
+     "start": 87.9,
+     "end": 91.7,
+     "text": "In einer Woche gibt er etwa 60 bis 70 Euro für Lebensmittel aus."
+    },
+    {
+     "start": 92.3,
+     "end": 98.6,
+     "text": "Er kauft 2 Kilogramm Kartoffeln, 1 Kilogramm Karotten, 500 g Zwiebeln und ein Brot."
+    },
+    {
+     "start": 99.2,
+     "end": 102.8,
+     "text": "Außerdem kauft er 2 Liter Milch und 10 bis 12 Eier."
+    },
+    {
+     "start": 103.6,
+     "end": 105.6,
+     "text": "Johann kocht jeden Tag zu Hause."
+    },
+    {
+     "start": 106.2,
+     "end": 111.8,
+     "text": "Er kauft auch Fleisch, etwa 500 g Fleisch pro Woche und manchmal 300 g Fisch."
+    },
+    {
+     "start": 111.8,
+     "end": 118.0,
+     "text": "Auf dem Markt kauft er saisonales Gemüse, zum Beispiel im Sommer Tomaten und im Winter Kohl."
+    },
+    {
+     "start": 119.1,
+     "end": 122.6,
+     "text": "Er trinkt hauptsächlich Wasser und kauft etwa 5 Liter Wasser pro Woche."
+    },
+    {
+     "start": 123.5,
+     "end": 125.9,
+     "text": "Manchmal kauft er auch ein Liter Saft."
+    },
+    {
+     "start": 125.9,
+     "end": 128.5,
+     "text": "Johann kauft fast keine Fertigprodukte."
+    },
+    {
+     "start": 129.7,
+     "end": 134.0,
+     "text": "Er produziert auch weniger Müll als Susanna, weil er oft ohne Plastik einkauft."
+    },
+    {
+     "start": 134.5,
+     "end": 138.5,
+     "text": "Am Sonntag kauft er für seine Familie ein Kuchen oder backt selbst."
+    },
+    {
+     "start": 139.1,
+     "end": 142.8,
+     "text": "Er denkt, dass lokale Produkte besser für die Umwelt sind."
+    },
+    {
+     "start": 143.6,
+     "end": 146.4,
+     "text": "Deshalb kauft er lieber regional und saisonal."
+    }
+   ],
+   "quality": {
+    "second_model": "faster-whisper medium",
+    "agreement": 0.942,
+    "words": 348,
+    "low_confidence_words": 8,
+    "uncertain": []
+   },
+   "review_note": null
+  },
+  {
+   "sha256": "3fb99700698c6c55253a196f55d707d0aa96cd16abc458ac00ac92969a118b7d",
+   "original_name": "A2 9.Unterricht Hören.mp3",
+   "size_bytes": 547869,
+   "duration_seconds": 91.3,
+   "status": "TRANSCRIBED",
+   "model": "faster-whisper large-v3 (CPU, int8, de)",
+   "text": "Finden Sie passende Medienart.\nText 1\nDieses Medium ist aus Papier.\nMan kann viele Artikel und Interviews lesen.\nEs gibt Themen wie Politik, Kultur und Sport.\nViele Menschen lesen es jeden Morgen.\nText 2\nDieses Medium kann man hören.\nMenschen sprechen über verschiedene Themen.\nMan kann es zu Hause oder unterwegs hören. Es ist oft wie ein Gespräch.\nText 3 Dieses Medium hat nur Ton. Es gibt Musik, Nachrichten und Informationen.\nViele Menschen hören es im Auto. Es ist sehr praktisch im Alltag.\nText 4 Dieses Medium ist online. Man kann kurze Texte und Kommentare lesen.\nviele Menschen schreiben ihre Meinung. Es ist schnell und modern. Text 5. Dieses Medium zeigt\nBilder und Videos. Man kann Nachrichten und Filme sehen. Viele Menschen schauen es am Abend.\nFamilien nutzen es zusammen. Text 6. Mit diesem Medium kann man direkt sprechen. Zwei Personen\nPersonen können miteinander reden. Man kann es überall benutzen. Es ist sehr praktisch.",
+   "segments": [
+    {
+     "start": 0.0,
+     "end": 2.0,
+     "text": "Finden Sie passende Medienart."
+    },
+    {
+     "start": 3.2,
+     "end": 3.7,
+     "text": "Text 1"
+    },
+    {
+     "start": 3.7,
+     "end": 6.9,
+     "text": "Dieses Medium ist aus Papier."
+    },
+    {
+     "start": 7.9,
+     "end": 10.7,
+     "text": "Man kann viele Artikel und Interviews lesen."
+    },
+    {
+     "start": 11.7,
+     "end": 14.8,
+     "text": "Es gibt Themen wie Politik, Kultur und Sport."
+    },
+    {
+     "start": 16.2,
+     "end": 18.0,
+     "text": "Viele Menschen lesen es jeden Morgen."
+    },
+    {
+     "start": 19.2,
+     "end": 19.8,
+     "text": "Text 2"
+    },
+    {
+     "start": 19.8,
+     "end": 22.8,
+     "text": "Dieses Medium kann man hören."
+    },
+    {
+     "start": 24.1,
+     "end": 26.3,
+     "text": "Menschen sprechen über verschiedene Themen."
+    },
+    {
+     "start": 26.3,
+     "end": 33.1,
+     "text": "Man kann es zu Hause oder unterwegs hören. Es ist oft wie ein Gespräch."
+    },
+    {
+     "start": 34.1,
+     "end": 41.3,
+     "text": "Text 3 Dieses Medium hat nur Ton. Es gibt Musik, Nachrichten und Informationen."
+    },
+    {
+     "start": 42.9,
+     "end": 47.6,
+     "text": "Viele Menschen hören es im Auto. Es ist sehr praktisch im Alltag."
+    },
+    {
+     "start": 48.2,
+     "end": 56.2,
+     "text": "Text 4 Dieses Medium ist online. Man kann kurze Texte und Kommentare lesen."
+    },
+    {
+     "start": 56.3,
+     "end": 65.3,
+     "text": "viele Menschen schreiben ihre Meinung. Es ist schnell und modern. Text 5. Dieses Medium zeigt"
+    },
+    {
+     "start": 65.3,
+     "end": 73.0,
+     "text": "Bilder und Videos. Man kann Nachrichten und Filme sehen. Viele Menschen schauen es am Abend."
+    },
+    {
+     "start": 74.2,
+     "end": 83.4,
+     "text": "Familien nutzen es zusammen. Text 6. Mit diesem Medium kann man direkt sprechen. Zwei Personen"
+    },
+    {
+     "start": 83.4,
+     "end": 90.3,
+     "text": "Personen können miteinander reden. Man kann es überall benutzen. Es ist sehr praktisch."
+    }
+   ],
+   "quality": {
+    "second_model": "faster-whisper medium",
+    "agreement": 0.997,
+    "words": 154,
+    "low_confidence_words": 2,
+    "uncertain": []
+   },
+   "review_note": null
+  },
+  {
+   "sha256": "1a4b66a81993dd238e64e24cf06953e53e7fb837eaa49e21bf34241edc549a8a",
+   "original_name": "A2.  3.Unterricht Hören.mp3",
+   "size_bytes": 747741,
+   "duration_seconds": 124.6,
+   "status": "TRANSCRIBED",
+   "model": "faster-whisper large-v3 (CPU, int8, de)",
+   "text": "Sie hören die Empfehlungen eines Arztes.\nFinden Sie bitte, welche Aussagen richtig oder falsch sind.\nGuten Tag, liebe Patientinnen und Patienten.\nMein Name ist Dr. Martin Weber.\nIch bin Arzt und arbeite seit vielen Jahren in einer Klinik.\nJeden Tag kommen viele Menschen zu mir, weil sie gesundheitliche Probleme haben.\nManche haben Husten oder Fieber, andere haben Kopfschmerzen oder fühlen sich sehr müde.\nHeute möchte ich Ihnen einige einfache Tipps geben, damit Sie schneller gesund werden und sich besser fühlen.\nWenn Sie krank sind, bleiben Sie zuerst zu Hause und ruhen Sie sich aus.\nIhr Körper braucht Zeit, um wieder stark zu werden.\nSchlafen Sie genug, besonders in der Nacht.\nGute Ruhe ist sehr wichtig für die Gesundheit.\nEin weiterer wichtiger Punkt ist viel trinken.\nTrinken Sie Wasser oder warmen Tee.\nTee mit Honig und Zitrone hilft oft bei Halsschmerzen und Husten.\nEssen Sie leichte und gesunde Nahrung, zum Beispiel Suppe, Obst und Gemüse.\nDiese Lebensmittel geben Ihrem Körper Energie und Vitamine.\nWenn Sie Fieber oder Schmerzen haben, nehmen Sie Medikamente.\nLesen Sie die Informationen auf der Packung und nehmen Sie die Tabletten richtig.\nWenn Sie unsicher sind, fragen Sie Ihren Arzt oder Apotheker.\nAuch frische Luft und leichte Bewegung können helfen.\nGehen Sie langsam spazieren und atmen Sie tief ein.\nAber übertreiben Sie nicht und hören Sie auf Ihren Körper.\nAußerdem ist es wichtig, Stress zu vermeiden.\nEntspannen Sie sich, hören Sie Musik, sehen Sie fern oder lesen Sie ein Buch.\nEine positive Stimmung hilft dem Körper, schneller gesund zu werden.\nWenn Sie sich nach einigen Tagen nicht besser fühlen, gehen Sie zum Arzt.\nErklären Sie Ihre Symptome genau und folgen Sie den Empfehlungen des Arztes.\nPassen Sie gut auf Ihre Gesundheit auf und bleiben Sie gesund.\nVielen Dank für Ihre Aufmerksamkeit.",
+   "segments": [
+    {
+     "start": 0.0,
+     "end": 2.2,
+     "text": "Sie hören die Empfehlungen eines Arztes."
+    },
+    {
+     "start": 2.8,
+     "end": 6.3,
+     "text": "Finden Sie bitte, welche Aussagen richtig oder falsch sind."
+    },
+    {
+     "start": 7.0,
+     "end": 9.8,
+     "text": "Guten Tag, liebe Patientinnen und Patienten."
+    },
+    {
+     "start": 11.2,
+     "end": 12.9,
+     "text": "Mein Name ist Dr. Martin Weber."
+    },
+    {
+     "start": 14.1,
+     "end": 17.3,
+     "text": "Ich bin Arzt und arbeite seit vielen Jahren in einer Klinik."
+    },
+    {
+     "start": 18.0,
+     "end": 22.5,
+     "text": "Jeden Tag kommen viele Menschen zu mir, weil sie gesundheitliche Probleme haben."
+    },
+    {
+     "start": 23.4,
+     "end": 28.3,
+     "text": "Manche haben Husten oder Fieber, andere haben Kopfschmerzen oder fühlen sich sehr müde."
+    },
+    {
+     "start": 29.0,
+     "end": 34.9,
+     "text": "Heute möchte ich Ihnen einige einfache Tipps geben, damit Sie schneller gesund werden und sich besser fühlen."
+    },
+    {
+     "start": 35.6,
+     "end": 39.8,
+     "text": "Wenn Sie krank sind, bleiben Sie zuerst zu Hause und ruhen Sie sich aus."
+    },
+    {
+     "start": 40.0,
+     "end": 42.6,
+     "text": "Ihr Körper braucht Zeit, um wieder stark zu werden."
+    },
+    {
+     "start": 43.6,
+     "end": 46.1,
+     "text": "Schlafen Sie genug, besonders in der Nacht."
+    },
+    {
+     "start": 46.8,
+     "end": 49.4,
+     "text": "Gute Ruhe ist sehr wichtig für die Gesundheit."
+    },
+    {
+     "start": 50.5,
+     "end": 52.8,
+     "text": "Ein weiterer wichtiger Punkt ist viel trinken."
+    },
+    {
+     "start": 53.6,
+     "end": 55.7,
+     "text": "Trinken Sie Wasser oder warmen Tee."
+    },
+    {
+     "start": 55.7,
+     "end": 60.5,
+     "text": "Tee mit Honig und Zitrone hilft oft bei Halsschmerzen und Husten."
+    },
+    {
+     "start": 61.6,
+     "end": 65.7,
+     "text": "Essen Sie leichte und gesunde Nahrung, zum Beispiel Suppe, Obst und Gemüse."
+    },
+    {
+     "start": 66.9,
+     "end": 70.0,
+     "text": "Diese Lebensmittel geben Ihrem Körper Energie und Vitamine."
+    },
+    {
+     "start": 71.2,
+     "end": 74.1,
+     "text": "Wenn Sie Fieber oder Schmerzen haben, nehmen Sie Medikamente."
+    },
+    {
+     "start": 75.0,
+     "end": 79.1,
+     "text": "Lesen Sie die Informationen auf der Packung und nehmen Sie die Tabletten richtig."
+    },
+    {
+     "start": 79.4,
+     "end": 83.0,
+     "text": "Wenn Sie unsicher sind, fragen Sie Ihren Arzt oder Apotheker."
+    },
+    {
+     "start": 83.6,
+     "end": 86.6,
+     "text": "Auch frische Luft und leichte Bewegung können helfen."
+    },
+    {
+     "start": 87.5,
+     "end": 90.5,
+     "text": "Gehen Sie langsam spazieren und atmen Sie tief ein."
+    },
+    {
+     "start": 91.3,
+     "end": 94.3,
+     "text": "Aber übertreiben Sie nicht und hören Sie auf Ihren Körper."
+    },
+    {
+     "start": 95.3,
+     "end": 97.9,
+     "text": "Außerdem ist es wichtig, Stress zu vermeiden."
+    },
+    {
+     "start": 98.8,
+     "end": 102.9,
+     "text": "Entspannen Sie sich, hören Sie Musik, sehen Sie fern oder lesen Sie ein Buch."
+    },
+    {
+     "start": 103.7,
+     "end": 107.5,
+     "text": "Eine positive Stimmung hilft dem Körper, schneller gesund zu werden."
+    },
+    {
+     "start": 108.3,
+     "end": 112.3,
+     "text": "Wenn Sie sich nach einigen Tagen nicht besser fühlen, gehen Sie zum Arzt."
+    },
+    {
+     "start": 113.3,
+     "end": 117.3,
+     "text": "Erklären Sie Ihre Symptome genau und folgen Sie den Empfehlungen des Arztes."
+    },
+    {
+     "start": 117.4,
+     "end": 120.5,
+     "text": "Passen Sie gut auf Ihre Gesundheit auf und bleiben Sie gesund."
+    },
+    {
+     "start": 121.4,
+     "end": 123.6,
+     "text": "Vielen Dank für Ihre Aufmerksamkeit."
+    }
+   ],
+   "quality": {
+    "second_model": "faster-whisper medium",
+    "agreement": 0.997,
+    "words": 293,
+    "low_confidence_words": 0,
+    "uncertain": []
+   },
+   "review_note": null
+  }
+ ]
+}

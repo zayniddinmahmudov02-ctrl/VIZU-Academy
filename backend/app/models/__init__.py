@@ -63,6 +63,7 @@ from .answer_key_review import AnswerKeyReview
 from .listening_audio_track import ListeningAudioTrack
 from .listening_audio_archive import ListeningAudioArchive
 from .a2_audio_asset import A2AudioAsset
+from .a2_audio_transcript import A2AudioTranscript
 from .learning_activity import LearningActivity
 from .achievement import Achievement, AchievementCategory, UserAchievement
 from .broadcast_notification import BroadcastNotification, BroadcastNotificationRead
