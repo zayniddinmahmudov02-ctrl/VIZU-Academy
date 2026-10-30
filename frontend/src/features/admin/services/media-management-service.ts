@@ -219,3 +219,77 @@ export async function getA2AssetBlobUrl(id: string): Promise<string> {
   const response = await api.get(`${BASE}/a2-audio/assets/${id}/audio`, { responseType: "blob" });
   return URL.createObjectURL(response.data as Blob);
 }
+
+// ---------- A2 → 4. Unterricht → Hören: Text 1 / 2 / 3 ----------
+
+export type A2TextSlotNumber = 1 | 2 | 3;
+
+export interface A2TextSlot {
+  slot: A2TextSlotNumber;
+  label: string;
+  task_key: string;
+  exists: boolean;
+  listening_id?: string;
+  title?: string;
+  is_published?: boolean;
+  question_count?: number;
+  audio?: {
+    status: "none" | "ok" | "missing";
+    file_name: string | null;
+    size_bytes: number | null;
+    duration_seconds: number | null;
+    format: string | null;
+    source: "library" | "task" | null;
+  };
+  asset?: { id: string; verification: A2Verification; verification_note: string | null; verified_at: string | null; sha256: string; uploaded_at: string } | null;
+  verified?: boolean;
+  can_activate?: boolean;
+  activate_blocker?: string | null;
+  reused?: boolean;
+}
+
+export interface A2Lesson4Hoeren {
+  lesson_id: string;
+  lesson_number: number;
+  lesson_title: string;
+  set_up: boolean;
+  slots: A2TextSlot[];
+  legacy_tasks: { listening_id: string; title: string; is_published: boolean }[];
+}
+
+const L4 = `${BASE}/a2/lesson-4/hoeren`;
+
+export async function getA2Lesson4Hoeren(): Promise<A2Lesson4Hoeren> {
+  return (await api.get<A2Lesson4Hoeren>(L4)).data;
+}
+
+export async function setupA2Lesson4Hoeren(): Promise<A2Lesson4Hoeren> {
+  return (await api.post<A2Lesson4Hoeren>(`${L4}/setup`)).data;
+}
+
+export async function uploadA2TextAudio(slot: A2TextSlotNumber, file: File, durationSeconds: number | null, onProgress?: (percent: number) => void): Promise<A2TextSlot> {
+  const form = new FormData();
+  form.append("file", file);
+  if (durationSeconds) form.append("duration_seconds", String(Math.round(durationSeconds)));
+  return (await api.post<A2TextSlot>(`${L4}/${slot}/audio`, form, {
+    headers: { "Content-Type": "multipart/form-data" },
+    onUploadProgress: onProgress ? (e) => e.total && onProgress(Math.round((e.loaded / e.total) * 100)) : undefined,
+  })).data;
+}
+
+export async function deleteA2TextAudio(slot: A2TextSlotNumber): Promise<A2TextSlot & { file_deleted: boolean }> {
+  return (await api.delete(`${L4}/${slot}/audio`)).data;
+}
+
+export async function verifyA2TextAudio(slot: A2TextSlotNumber, state: A2Verification, note?: string): Promise<A2TextSlot> {
+  return (await api.post<A2TextSlot>(`${L4}/${slot}/verify`, { state, note: note || null })).data;
+}
+
+export async function setA2TextActive(slot: A2TextSlotNumber, active: boolean): Promise<A2TextSlot> {
+  return (await api.post<A2TextSlot>(`${L4}/${slot}/active`, { active })).data;
+}
+
+export async function getA2TextAudioBlobUrl(slot: A2TextSlotNumber): Promise<string> {
+  const response = await api.get(`${L4}/${slot}/audio`, { responseType: "blob" });
+  return URL.createObjectURL(response.data as Blob);
+}

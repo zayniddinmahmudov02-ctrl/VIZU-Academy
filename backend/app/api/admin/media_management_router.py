@@ -11,8 +11,10 @@ and whether the file is on disk.
 
 Exception: the A2 Audio Manager (/a2-audio/...) — the A2 audio library
 with batch upload, manifest, explicit linking to Hören tasks and the A2
-sales readiness (app/services/a2_audio). Reads need admin-panel access,
-changes a content editor, confirming a manual sales check a SUPER_ADMIN.
+sales readiness (app/services/a2_audio), and the A2 4. Unterricht Hören
+page (/a2/lesson-4/hoeren: Text 1-3, lesson4_hoeren.py) built on it. Reads
+need admin-panel access, changes a content editor, confirming a manual
+sales check a SUPER_ADMIN.
 """
 
 from pathlib import Path
@@ -40,6 +42,7 @@ from app.models.module import Module
 from app.models.user import User
 from app.models.video import Video
 from app.services.a2_audio import assets as a2_assets
+from app.services.a2_audio import lesson4_hoeren as a2_l04
 from app.services.a2_audio import readiness as a2_readiness
 from app.services.lesson_skills import exercises as skill_exercises
 from app.services.lesson_skills.admin import audio_tracks_admin, listening_storage
@@ -378,6 +381,58 @@ def a2_audio_preview(asset_id: UUID, db: Session = Depends(get_db), _: User = De
     if path is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Audio not found.")
     return FileResponse(path, media_type=asset.content_type, headers={"Cache-Control": "private, no-store"})
+
+
+# ============================================================
+# A2 → 4. Unterricht → Hören: Text 1 / Text 2 / Text 3
+# ============================================================
+
+class A2SlotActive(_In):
+    active: bool
+
+
+@router.get("/a2/lesson-4/hoeren")
+def a2_l04_hoeren(db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+    """The three Text tasks of A2 lesson 4 with their audio, verification and active state."""
+    return a2_l04.overview(db)
+
+
+@router.post("/a2/lesson-4/hoeren/setup")
+def a2_l04_hoeren_setup(db: Session = Depends(get_db), user: User = Depends(require_content_editor)):
+    """Creates missing Text tasks (drafts without audio or questions). Idempotent."""
+    a2_l04.ensure_slots(db, user)
+    return a2_l04.overview(db)
+
+
+@router.post("/a2/lesson-4/hoeren/{slot}/audio")
+async def a2_l04_hoeren_upload(slot: int, file: UploadFile = File(...), duration_seconds: int | None = Form(None),
+                               db: Session = Depends(get_db), user: User = Depends(require_content_editor)):
+    """Upload or replace the audio of one Text (MP3 / M4A, checked like every A2 audio; duplicates detected).
+    The Text becomes inactive until its new audio is verified and it is switched on again."""
+    return await a2_l04.upload(db, user, slot, file, duration_seconds)
+
+
+@router.delete("/a2/lesson-4/hoeren/{slot}/audio")
+async def a2_l04_hoeren_delete(slot: int, db: Session = Depends(get_db), user: User = Depends(require_content_editor)):
+    return await a2_l04.remove_audio(db, user, slot)
+
+
+@router.post("/a2/lesson-4/hoeren/{slot}/verify")
+def a2_l04_hoeren_verify(slot: int, data: A2Verify, db: Session = Depends(get_db), user: User = Depends(require_content_editor)):
+    return a2_l04.verify(db, user, slot, data.state, data.note)
+
+
+@router.post("/a2/lesson-4/hoeren/{slot}/active")
+def a2_l04_hoeren_active(slot: int, data: A2SlotActive, db: Session = Depends(get_db), user: User = Depends(require_content_editor)):
+    """Show / hide the Text for students; showing needs audio on the server that was verified."""
+    return a2_l04.set_active(db, user, slot, data.active)
+
+
+@router.get("/a2/lesson-4/hoeren/{slot}/audio")
+def a2_l04_hoeren_preview(slot: int, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+    """Admin preview player (Bearer auth, fetched as a blob — never a public URL)."""
+    path, media_type = a2_l04.audio_path(db, slot)
+    return FileResponse(path, media_type=media_type, headers={"Cache-Control": "private, no-store"})
 
 
 @router.get("/a2-readiness")

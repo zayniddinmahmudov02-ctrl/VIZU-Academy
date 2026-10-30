@@ -12,9 +12,10 @@ from app.scripts.vizu_deutsch_a2_buch import build
 from app.services.content_import.schema import ContentDocument, SchreibenItem
 from app.services.lesson_skills.ai_evaluation import word_range_text
 
-# lesson -> (Lesen questions, Hören tasks, Hören questions, Schreiben, Sprechen, words) — audit, 2026-10-27
+# lesson -> (Lesen questions, Hören tasks, Hören questions, Schreiben, Sprechen, words) — audit, 2026-10-27;
+# lesson 4 Hören ("Familie Mannsberg") replaced by Text 1-3 outside the import on 2026-10-30
 EXPECTED = {
-    1: (18, 1, 12, 1, 1, 60), 2: (12, 1, 12, 3, 1, 40), 3: (12, 1, 8, 3, 1, 60), 4: (17, 1, 12, 3, 1, 50),
+    1: (18, 1, 12, 1, 1, 60), 2: (12, 1, 12, 3, 1, 40), 3: (12, 1, 8, 3, 1, 60), 4: (17, 0, 0, 3, 1, 50),
     5: (16, 1, 10, 4, 1, 0), 6: (19, 1, 12, 3, 1, 0), 7: (12, 1, 15, 3, 1, 0), 8: (10, 1, 12, 4, 1, 0),
     9: (8, 1, 1, 4, 1, 6), 10: (16, 4, 20, 3, 2, 0), 11: (15, 4, 20, 3, 3, 0), 12: (14, 4, 20, 3, 3, 0),
     13: (16, 4, 20, 3, 3, 0),
@@ -86,8 +87,14 @@ class TestEdition(unittest.TestCase):
 
     def test_keyless_hoeren_stays_pending(self):
         items = {i["content_id"]: i for d in self.docs.values() for i in d["items"] if i["skill"] == "hoeren"}
-        for cid in ("vizu-a2buch-l04-hoeren-01", "vizu-a2buch-l06-hoeren-01", "vizu-a2buch-l07-hoeren-01", "vizu-a2buch-l13-hoeren-01"):
+        for cid in ("vizu-a2buch-l06-hoeren-01", "vizu-a2buch-l07-hoeren-01", "vizu-a2buch-l13-hoeren-01"):
             self.assertTrue(items[cid].get("key_pending"), cid)
+
+    def test_lesson_4_familie_mannsberg_is_not_imported_again(self):
+        # replaced by Text 1 / 2 / 3 (services/a2_audio/lesson4_hoeren.py, docs/a2-lesson-4-hoeren-update.md)
+        lesson4 = [i for i in self.docs[4]["items"] if i["skill"] == "hoeren"]
+        self.assertEqual(lesson4, [])
+        self.assertNotIn("Mannsberg", json.dumps(self.docs[4], ensure_ascii=False))
 
     def test_fixes(self):
         items = {i["content_id"]: i for d in self.docs.values() for i in d["items"]}

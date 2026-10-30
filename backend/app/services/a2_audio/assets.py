@@ -178,10 +178,14 @@ def _task_lesson(db: Session, listening: Listening) -> Lesson | None:
 def suggestion(asset: A2AudioAsset, tasks: list[tuple[Listening, Lesson]], linked_ids: set) -> dict | None:
     """A link the file name suggests — only when exactly one task fits. The
     admin still has to confirm it (link)."""
-    if asset.listening_id is not None or asset.unterricht is None or asset.audio_kind == KIND_TEXT:
-        return None  # "Text 1/2/3" are not Hören parts of the book: never guessed
+    if asset.listening_id is not None or asset.unterricht is None:
+        return None
     in_lesson = [(t, lesson) for t, lesson in tasks if lesson.number == asset.unterricht and t.id not in linked_ids]
-    if asset.part is not None:
+    if asset.audio_kind == KIND_TEXT:
+        # "Text N" only fits a task that is explicitly Text N (task_key, A2 4. Unterricht — lesson4_hoeren.py); never guessed otherwise
+        fits = [(t, lesson) for t, lesson in in_lesson if asset.part is not None and (t.task_key or "").endswith(f"-text-{asset.part}")]
+        reason = f"Dateiname: {asset.unterricht}. Unterricht, Text {asset.part}"
+    elif asset.part is not None:
         fits = [(t, lesson) for t, lesson in in_lesson if (t.content_id or "").endswith(f"-hoeren-{asset.part:02d}")]
         reason = f"Dateiname: {asset.unterricht}. Unterricht, Teil {asset.part}"
     elif asset.audio_kind in (KIND_HOEREN, KIND_UNTERRICHT):

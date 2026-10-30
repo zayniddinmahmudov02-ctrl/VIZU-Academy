@@ -1,5 +1,16 @@
 # Test natijalari
 
+## 2026-10-30 — A2 4. Unterricht Hören: Text 1–3 (lokal + production)
+
+Batafsil: `docs/a2-lesson-4-hoeren-update.md` 7-bo‘lim.
+
+- **Lokal backend:** to‘liq to‘plam **907 passed, 17 skipped**; yangi `test_a2_lesson4_hoeren` 5/5; migratsiya testlari 2/2 (`b8e3d1a7c5f2` upgrade → downgrade → upgrade).
+- **Lokal frontend:** `tsc` 0 xato; ESLint — yangi/o‘zgargan fayllarda 0, butun frontendda 9 error / 10 warning, hammasi o‘zgartirilmagan fayllarda; unit 19/19; build OK.
+- **E2E** `a2-lesson4-hoeren.spec.ts` (desktop + Pixel 7): 7 passed, 1 skipped (upload faqat desktop’da).
+- **Server:** tegishli modullar — Ran 124, OK (skipped 61).
+- **Production smoke:** sahifalar 200; anonim 401 (8/8); backend va frontend xato 0.
+- **NOT RUN:** production’da tizimga kirgan brauzer testi — parollar yo‘q; sun’iy audio yuklanmadi.
+
 ## 2026-10-29 (server vaqti) — production deploy va smoke testlar
 
 Batafsil: `docs/audit/production-deploy-2026-10-29.md`. Serverda: o‘zgargan backend modullari 122 test OK (56 DB-integratsiya skip), frontend `tsc` OK, unit 19/19, build OK (2-urinishda), smoke testlar — HTTP 200, anonim 401 (11/11), READ ONLY servis tekshiruvlari OK. Brauzer orqali login qilingan smoke test bajarilmadi (production parollari yo‘q).

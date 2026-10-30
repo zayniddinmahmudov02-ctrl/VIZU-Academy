@@ -1,9 +1,11 @@
 from sqlalchemy import (
     Boolean,
     ForeignKey,
+    Index,
     Integer,
     String,
     Text,
+    text,
 )
 
 from sqlalchemy.orm import (
@@ -18,6 +20,9 @@ from app.models.base import BaseModel
 class Listening(BaseModel):
 
     __tablename__ = "listenings"
+    __table_args__ = (
+        Index("uq_listenings_task_key", "task_key", unique=True, postgresql_where=text("task_key IS NOT NULL")),
+    )
 
     lesson_id: Mapped[str] = mapped_column(
         ForeignKey("lessons.id", ondelete="CASCADE"),
@@ -66,6 +71,10 @@ class Listening(BaseModel):
     content_id: Mapped[str | None] = mapped_column(String(120), nullable=True, index=True)
 
     a2_material_key: Mapped[str | None] = mapped_column(String(50), nullable=True, unique=True)
+
+    # stable key of a task a dedicated admin page manages (A2 4. Unterricht "Text 1-3",
+    # services/a2_audio/lesson4_hoeren.py); unique where set (uq_listenings_task_key)
+    task_key: Mapped[str | None] = mapped_column(String(80), nullable=True)
 
     lesson = relationship(
         "Lesson",

@@ -227,6 +227,10 @@ export default function MediaManagementClient({ initialLevel = "" }: { initialLe
 
       {level === "A2" && (
         <>
+          <Link href="/admin/media-management/a2/lesson-4/hoeren" data-testid="mm-a2-lesson4-hoeren-link"
+                className={`${card} flex flex-wrap items-center gap-2 text-sm font-semibold text-[var(--admin-primary)] hover:bg-[var(--admin-hover)]`}>
+            <FileText size={15} /> A2 → 4. Unterricht → Hören: Text 1, Text 2, Text 3 verwalten
+          </Link>
           <A2AudioManager />
           <A2ListeningManagement />
         </>

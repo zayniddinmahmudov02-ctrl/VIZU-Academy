@@ -53,6 +53,8 @@ RESTORE_CHECK=1 bash scripts/backup-course-content.sh
 # natija shu hujjatning 4-bo'limiga qo'shiladi va ko'rib chiqiladi
 ```
 
+> **Yangilanish (2026-10-30 00:22 UTC):** A2 4. Unterricht’dagi ikkala „Familie Mannsberg“ vazifasi va ularning audiolari (shu jumladan quyidagi `f8c9ac4a….mp3`) backup bilan olib tashlandi — `docs/a2-lesson-4-hoeren-update.md`. Shu sababli pastdagi plan id `18b3ca387a20` endi yaroqsiz. Yangi `plan` (faqat o‘qish): A2 bilan bog‘liq 29 fayl, tozalashga tayyor **5** (7 005 050 bayt), saqlanadi 24, umumiy/yo‘q/ishorasiz 0, **plan id `552c5c27371e`** (`/var/backups/vizu/pre-a2l4-20261030-011331/a2-cleanup-plan.{json,md}`). Karantin hali bajarilmagan.
+
 ## 4. Manifest — production `plan` natijasi (2026-10-29 22:02 UTC, faqat o‘qish)
 
 Buyruq: `python -m app.scripts.a2_audio_cleanup plan --json … --md …`. Natija fayllari: `/var/backups/vizu/pre-gcr-a2-20261029-224405/a2-cleanup-plan.{json,md}`. `app/protected_storage` dagi fayllar soni plan’dan oldin va keyin: 178 / 178.

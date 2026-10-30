@@ -84,6 +84,9 @@ DROP = {
     "vizu-a2-l01-uebungen-01",  # Unterrichtsblatt + VIZU practice
     "vizu-a2-l05-wortschatz-01", "vizu-a2-l06-wortschatz-01",  # word lists from handouts;
     "vizu-a2-l07-wortschatz-01", "vizu-a2-l08-wortschatz-01",  # the book page is a task without translations
+    # 4. Unterricht "Hören: Familie Mannsberg" replaced by the tasks Text 1 / 2 / 3 (2026-10-30),
+    # managed in Media Management (services/a2_audio/lesson4_hoeren.py) — not imported again
+    "vizu-a2-l04-hoeren-01",
 }
 
 

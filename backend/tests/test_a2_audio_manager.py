@@ -248,9 +248,13 @@ class TestA2AudioManager(unittest.TestCase):
         self.assertEqual((other["unterricht"], other["audio_kind"], other["title"]), (3, "HOEREN", "Hörtext Lektion 3"))
         self.assertFalse(other["parsed"]["recognized"])
         self.assertIsNone(other["suggestion"])
-        # "Text" files are never guessed into a Hören task
-        self._task(4, "Hören", content_id="vizu-a2buch-l04-hoeren-01")
+        # "Text" files are never guessed into an ordinary Hören task — only into the task that is Text N
+        plain = self._task(4, "Hören", content_id="vizu-a2buch-l04-hoeren-01")
         self.assertIsNone(self._upload("A2 4.Unterricht Text 1.mp3", mp3())["suggestion"])
+        plain.task_key = "a2-u04-hoeren-text-2"
+        self.db.commit()
+        self.assertEqual(self._upload("A2 4.Unterricht Text 2.mp3", mp3())["suggestion"]["listening_id"], plain.id)
+        self.assertIsNone(self._upload("A2 7.Unterricht Text 2.mp3", mp3())["suggestion"])
 
     def test_duplicate_is_refused_and_leaves_no_file(self):
         data = mp3("same")
