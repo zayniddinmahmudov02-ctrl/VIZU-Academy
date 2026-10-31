@@ -1,6 +1,6 @@
 # Module registry
 
-Updated 2026-10-31 · repo `cf1d287` (local `main`) · server `e414b68` + overlay (see `current-state.md`).
+Updated 2026-10-31 · checked against repo `cf1d287` (= production code; see `current-state.md`).
 Sources: directory listings of `backend/app/{api,services,models}`, `frontend/src/{app,features,components}`,
 `backend/tests`, `app/main.py`, `core/security/roles.py`, and the files named below.
 `(?)` = not checked in code yet — verify before relying on it. Paths: `be/` = `backend/app/`, `fe/` = `frontend/src/`.

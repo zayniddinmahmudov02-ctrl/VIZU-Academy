@@ -5,8 +5,8 @@ Updated 2026-10-31.
 ## Revisions
 | Where | Revision | Note |
 |---|---|---|
-| Local `main` | `cf1d287` | committed by the owner (GitHub Desktop) — includes the A2 processing work |
-| Server checkout | `e414b68` + overlay of the A2 processing files (same content as `cf1d287`, not yet pulled) | next deploy: compare, reset the identical files, `git pull --ff-only` |
+| Local `main` = `origin/main` | `b353512` + this doc update | knowledge system; `cf1d287` = A2 processing work |
+| Server checkout | `origin/main` via `git pull --ff-only` (2026-10-31), no overlay left | untracked leftovers `frontend/package-lock.json` (M), `package-lock.json`, `"hlarni xavfsiz saqlash"` — pre-existing, not ours |
 | DB (local test + production) | Alembic `c4f7a9e2d6b3` | |
 | Frontend production slot | `.next-b`, deployment `e414b68-20261030024115` | `.next-a` = previous |
 
