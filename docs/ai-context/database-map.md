@@ -1,0 +1,44 @@
+# Database map
+
+Updated 2026-10-31 · source: `backend/app/models/*.py` (`__tablename__`), `backend/alembic/versions/` (106 files).
+PostgreSQL; connection from settings `DATABASE_HOST/PORT/NAME/USER/PASSWORD` (names only).
+
+## Migrations
+- Linear history, one head. **Head = `c4f7a9e2d6b3`** (local and production, 2026-10-30).
+- Latest: `e9b4c2f7a3d1` → `f3a8c1d5e7b2` Global Chat `reply_to_id` → `a6d2f9c4e8b1` `a2_audio_assets` →
+  `b8e3d1a7c5f2` `listenings.task_key` → `c4f7a9e2d6b3` `a2_audio_transcripts`.
+- Migration tests (upgrade → downgrade → upgrade): `test_global_chat_reply_migration`,
+  `test_listening_task_key_migration`, `test_a2_audio_transcripts_migration`. Rules: `.claude/rules/database.md`.
+
+## Tables by area (model file in parentheses when it differs)
+- **Users/auth:** users, refresh_tokens, login_history, auth_rate_limit_events, user_languages, user_tags, audit_logs, app_settings
+- **Course structure:** languages, language_settings, courses, modules, lessons, kompetenzen,
+  lesson_competencies, learning_resources, student_competency_progress (lms), content_imports, managed_pages, managed_page_audits
+- **Lesson content:** videos, video_upload_sessions, video_progress, vocabularies, grammars, readings, reading_questions,
+  reading_options, reading_contents, listenings, listening_questions, listening_options, listening_audio_tracks,
+  listening_audio_archives, listening_contents, skill_exercises, skill_exercise_questions, skill_exercise_options (lesson_skill),
+  writings, speakings, media_assets, a2_audio_assets, a2_audio_transcripts, books
+- **Learner activity:** lesson_skill_attempts, ai_evaluations, answer_key_reviews, student_progress, student_writings,
+  student_speakings, student_quizzes, learning_activity, homeworks, homework_submissions, enrollments, certificates
+- **Quiz/legacy exams:** quizzes, quiz_questions, quiz_options, answers, exams, exam_parts, exam_providers, exam_sessions,
+  certification_providers
+- **Assessment engine:** assessments, assessment_sections, assessment_tasks, assessment_attempts, assessment_results,
+  section_results, task_attempts, task_questions, task_options, task_audio, teile, writing_tasks, writing_submissions,
+  writing_evaluations, writing_rubric_criteria, speaking_tasks, speaking_submissions, speaking_evaluations
+- **Vorbereitung (mock exams):** mock_exam_levels, model_tests, mock_questions, mock_question_options, mock_question_answers,
+  mock_test_attempts, mock_writing_submissions, mock_speaking_submissions
+- **VIZU-Multilevel:** vizu_mock_attempts, vizu_mock_audios, vizu_mock_tasks, vizu_mock_questions, vizu_mock_options,
+  vizu_mock_answers, vizu_mock_writing_tasks, vizu_mock_writing_rubric_criteria, vizu_mock_writing_submissions,
+  vizu_mock_writing_criterion_scores, vizu_multilevel_speaking_tasks, vizu_multilevel_speaking_submissions,
+  vizu_multilevel_discarded_attempts
+- **Payments:** subscription_orders, promo_codes, promo_code_redemptions
+- **Community:** global_chat_messages, global_chat_message_edits, global_chat_restrictions, global_chat_moderation_actions,
+  global_chat_reads, study_groups, study_group_courses, study_group_members, study_group_join_codes, study_group_messages,
+  study_group_announcements, study_group_tasks, study_group_audit_logs, teacher_assignments
+- **Engagement/ops:** notifications, broadcast_notifications, broadcast_notification_reads, support_tickets, support_messages,
+  advertisements, advertisement_events, achievement_categories, achievements, user_achievements, dictionary_entries,
+  dictionary_user_words
+
+## Cascades that matter
+- `listenings` → questions, options, tracks, **`lesson_skill_attempts` (CASCADE)**; `listening_audio_archives` is RESTRICT.
+- `a2_audio_assets.listening_id` SET NULL. `global_chat_messages.reply_to_id` SET NULL.

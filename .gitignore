@@ -103,7 +103,10 @@ media/
 # ==========================
 # Claude
 # ==========================
-.claude/
+# shared project knowledge (rules, skills) is versioned; personal settings are not
+.claude/*
+!.claude/rules/
+!.claude/skills/
 # Development email outbox (EMAIL_PROVIDER=outbox) — may contain one-time codes
 backend/var/
 
