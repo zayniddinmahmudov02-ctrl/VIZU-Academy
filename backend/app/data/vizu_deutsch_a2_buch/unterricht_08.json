@@ -87,7 +87,8 @@
    "task_type": "other",
    "prompt": "A2 8. Unterricht — Üben · Verstehen · Besser sprechen!\n\nA) Wort in der richtigen Form — Setze das passende Wort in der richtigen Form ein.\n1. Ich bin müde, ___ (trotzdem) gehe ich zur Arbeit.\n2. Es regnet, ___ (trotzdem) gehe ich spazieren.\n3. Ich habe wenig Zeit, ___ (mache) ich meine Hausaufgaben.\n4. Er ist krank, ___ (trotzdem) kommt er zur Schule.\n5. Wir haben kein Geld, ___ (trotzdem) kaufen wir das Buch.\n6. Sie hat viel Stress, ___ (trotzdem) hilft sie mir.\n7. Ich habe Angst, ___ (trotzdem) gehe ich ins Kino.\n8. Es ist sehr kalt, ___ (trotzdem) mache ich Sport.\n9. Ich habe keine Lust, ___ (trotzdem) arbeite ich.\n10. Wir sind spät, ___ (trotzdem) nehmen wir den Bus.\n\nB) Bilde passende Sätze mit „trotzdem“:\n1. Ich / müde sein / lernen / Deutsch\n2. Es / kalt sein / gehen / ich / schwimmen\n3. Sie / Angst haben / sie / sprechen / trotzdem\n4. Wir / kein Geld haben / ein Geschenk / kaufen\n5. Er / krank sein / zur Arbeit / kommen\n6. Ich / wenig Zeit haben / ein Buch / lesen\n7. Du / müde sein / Sport / machen\n8. Sie / viele Aufgaben haben / sich / ausruhen\n9. Wir / Probleme haben / weiterhin / arbeiten\n10. Ich / schlecht fühlen / heute / glücklich sein\n\nC) Fehler finden und korrigieren — Finde die Fehler im Satz und korrigiere sie.\n1. Ich bin müde, aber ich gehe zur Schule.\n2. Es regnet, aber ich gehe spazieren.\n3. Sie haben viel Geld, trotzdem kaufen sie nichts.\n4. Wir sind spät, aber wir nehmen den Bus.\n5. Er ist krank, aber er geht zur Arbeit.\n6. Ich habe keine Zeit, aber ich lese ein Buch.\n7. Du hast Angst, aber du machst die Prüfung.\n8. Sie ist müde, aber sie fährt mit dem Auto.\n9. Wir haben Hunger, aber wir essen nichts.\n10. Ich bin traurig, aber ich lache.",
    "min_words": null,
-   "max_words": null
+   "max_words": null,
+   "competency": "GRAMMATIK"
   },
   {
    "content_id": "vizu-a2buch-l08-lesen-01",
@@ -468,7 +469,8 @@
    "task_type": "description",
    "prompt": "Formulieren Sie mit den Wörtern einer Variante einen Text (Variante 2–5).\n\nVariante 1: kaufen, der Preis, günstig, vergleichen, online, der Rabatt\nVariante 2: die Werbung, beeinflussen, überzeugen, das Angebot, die Entscheidung, auswählen\nVariante 3: das Geschäft, anprobieren, die Qualität, unterscheiden, sofort, die Erfahrung\nVariante 4: bestellen, die Lieferung, dauern, zurückgeben, erhalten, bequem\nVariante 5: teuer, sparen, das Budget, planen, notwendig, verzichten\n\nBeispiel (Variante 1) — Überschrift: Online einkaufen ist praktisch. Ich kaufe oft Kleidung online, weil der Preis für mich sehr wichtig ist. Ich suche immer günstige Angebote und vergleiche Produkte im Internet. Online kann man viele Optionen finden, und manchmal gibt es Rabatt.",
    "min_words": null,
-   "max_words": null
+   "max_words": null,
+   "competency": "WORTSCHATZ"
   },
   {
    "content_id": "vizu-a2buch-l08-sprechen-01",

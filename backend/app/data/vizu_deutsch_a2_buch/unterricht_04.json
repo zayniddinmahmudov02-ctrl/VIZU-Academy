@@ -56,7 +56,8 @@
    "task_type": "other",
    "prompt": "Verbinden Sie die zwei Sätze mit „zu“ + Infinitiv (Aufgabe 1 und Aufgabe 2). Schreiben Sie alle Sätze vollständig.\n\nAufgabe 1:\n1. Ich habe keine Zeit. + Ich gehe einkaufen.\n2. Er ist zu müde. + Er arbeitet nicht heute Abend.\n3. Wir haben Hunger. + Wir gehen ins Restaurant.\n4. Sie möchte Geld sparen. + Sie kauft ein günstiges Auto.\n5. Ich habe viel Arbeit. + Ich muss heute länger bleiben.\n6. Er hat Kopfschmerzen. + Er nimmt eine Tablette.\n7. Wir wollen fit bleiben. + Wir machen jeden Tag Sport.\n8. Es ist kalt draußen. + Ich ziehe eine Jacke an.\n9. Sie hat keine Erfahrung. + Sie bekommt Hilfe von ihrem Freund.\n10. Ich möchte Deutsch lernen. + Ich suche einen guten Kurs.\n\nAufgabe 2:\n1. Ich möchte früh aufstehen. + Ich will pünktlich zur Arbeit kommen.\n2. Er lernt jeden Tag Deutsch. + Er möchte die Prüfung bestehen.\n3. Wir kaufen ein Ticket. + Wir wollen das Konzert sehen.\n4. Sie geht zum Arzt. + Sie will ihre Gesundheit kontrollieren.\n5. Ich spare Geld. + Ich möchte mir ein neues Handy kaufen.\n6. Er macht Sport. + Er will fit und gesund bleiben.\n7. Wir üben viel. + Wir wollen besser Deutsch sprechen.\n8. Sie fragt nach dem Weg. + Sie will den Bahnhof finden.\n9. Ich lese Bücher. + Ich möchte meinen Wortschatz verbessern.\n10. Sie arbeitet hart. + Sie will Erfolg im Beruf haben.",
    "min_words": null,
-   "max_words": null
+   "max_words": null,
+   "competency": "GRAMMATIK"
   },
   {
    "content_id": "vizu-a2buch-l04-lesen-01",

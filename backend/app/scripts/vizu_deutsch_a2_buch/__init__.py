@@ -79,6 +79,16 @@ BOOK_DURATIONS = {
     "vizu-a2-l05-sprechen-01": (60, RECORDER_CAP_SECONDS),  # "mindestens 1–2 Minuten"
 }
 
+# Written tasks that are not Schreiben (docs/a2-module-separation-report.md): the book's
+# Grammatik written exercises, Wortschatz worksheets and the open questions on the L5 text
+# are answered in writing but belong to their own competency — content_id (old) -> competency.
+WRITING_COMPETENCY = {
+    **{f"vizu-a2-l{n:02d}-schreiben-02": "GRAMMATIK" for n in (2, 3, 4, 8, 9)},
+    **{f"vizu-a2-l{n:02d}-schreiben-04": "WORTSCHATZ" for n in range(5, 14)},
+    "vizu-a2-l05-schreiben-05": "LESEN",
+}
+WRITING_TITLE_PREFIX = {"GRAMMATIK": "Grammatik-Aufgabe", "WORTSCHATZ": "Wortschatz-Aufgabe", "LESEN": "Lesen:"}
+
 # Items dropped as a whole (handout / VIZU material labelled "book" in the first edition).
 DROP = {
     "vizu-a2-l01-uebungen-01",  # Unterrichtsblatt + VIZU practice
@@ -472,6 +482,10 @@ def _normalise(item: dict, old_id: str) -> dict:
         item.pop("support_phrases", None)
         lo, hi = BOOK_WORDS.get(old_id, (None, None))
         item["min_words"], item["max_words"] = lo, hi
+        competency = WRITING_COMPETENCY.get(old_id)
+        if competency:
+            assert item["title"].startswith(WRITING_TITLE_PREFIX[competency]), (old_id, item["title"])
+            item["competency"] = competency
     elif skill in ("sprechen", "frage"):
         lo, hi = BOOK_DURATIONS.get(old_id, (0, RECORDER_CAP_SECONDS))
         item["min_duration"], item["max_duration"] = lo, hi

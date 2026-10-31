@@ -786,7 +786,8 @@
    "task_type": "other",
    "prompt": "Schreiben Sie die Bedeutung und ein Beispiel.\n\n1. die Beziehung\n2. das Missverständnis\n3. die Freundschaft\n4. zusammenleben\n5. sich verstehen\n6. erklären\n7. hoffen\n8. vermissen\n9. unterstützen\n10. respektieren\n11. ehrlich\n12. schwierig\n13. die Veränderung\n14. sich gewöhnen\n15. die Erfahrungen\n16. im Ausland\n17. das Studium\n18. arbeiten\n19. der Alltag\n20. die Nachricht\n21. die E-Mail\n22. schreiben\n23. antworten\n24. sich treffen\n25. verbringen\n26. allein\n27. zusammen\n28. oft\n29. selten\n30. verstehen",
    "min_words": null,
-   "max_words": null
+   "max_words": null,
+   "competency": "WORTSCHATZ"
   },
   {
    "content_id": "vizu-a2buch-l06-sprechen-01",

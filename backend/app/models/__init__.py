@@ -13,7 +13,7 @@ from .lesson import Lesson
 from .video import Video
 from .video_progress import VideoProgress
 from .video_upload_session import VideoUploadSession
-from .vocabulary import Vocabulary
+from .vocabulary import Vocabulary, VocabularyUserWord
 from .grammar import Grammar
 from .reading import Reading
 from .reading_question import ReadingQuestion
@@ -31,7 +31,7 @@ from .book import Book
 # Student
 from .student_progress import StudentProgress
 from .student_quiz import StudentQuiz
-from .student_writing import StudentWriting
+from .student_writing import StudentWriting, StudentWritingVersion
 from .student_speaking import StudentSpeaking
 from .enrollment import Enrollment
 from .teacher_assignment import TeacherAssignment
@@ -172,6 +172,7 @@ __all__ = [
     "VideoProgress",
     "VideoUploadSession",
     "Vocabulary",
+    "VocabularyUserWord",
     "Grammar",
     "Reading",
     "ReadingQuestion",
@@ -191,6 +192,7 @@ __all__ = [
     "StudentProgress",
     "StudentQuiz",
     "StudentWriting",
+    "StudentWritingVersion",
     "StudentSpeaking",
     "Enrollment",
     "TeacherAssignment",

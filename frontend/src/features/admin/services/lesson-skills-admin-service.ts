@@ -103,6 +103,15 @@ export interface AdminWord {
   translation: string;
   example_sentence: string | null;
   example_translation: string | null;
+  word_type: string | null;
+  verb_praeteritum: string | null;
+  verb_partizip_ii: string | null;
+  verb_auxiliary: string | null;
+  audio_url: string | null;
+  /** where a field came from: "book:article", "woerterbuch:A2-12", "admin" */
+  sources: Record<string, string>;
+  /** fields still to fill in (never guessed by the system) */
+  missing: string[];
   order_index: number;
   is_published: boolean;
   content_id: string | null;
@@ -388,6 +397,11 @@ export interface WordInput {
   plural: string | null;
   example_sentence: string | null;
   example_translation: string | null;
+  word_type?: string | null;
+  verb_praeteritum?: string | null;
+  verb_partizip_ii?: string | null;
+  verb_auxiliary?: string | null;
+  audio_url?: string | null;
   order_index?: number | null;
   is_published: boolean;
 }
@@ -400,4 +414,29 @@ export async function saveWord(lessonId: string, data: WordInput, id?: string) {
 
 export async function deleteWord(id: string) {
   return (await api.delete(`${BASE}/words/${id}`)).data;
+}
+
+/** The lesson's words as CSV (UTF-8 with BOM) — downloaded with the session, never a public link. */
+export async function downloadWordsCsv(lessonId: string): Promise<Blob> {
+  return (await api.get(`${BASE}/lessons/${lessonId}/words.csv`, { responseType: "blob" })).data as Blob;
+}
+
+export interface WordImportReport {
+  rows: number;
+  created: number;
+  updated: number;
+  unchanged: number;
+  errors: string[];
+  applied: boolean;
+  items: { line: number; action: "create" | "update" | "unchanged"; id: string | null; word: string; changed: string[] }[];
+}
+
+/** CSV import: apply=false is a preview (nothing written); any error and nothing is written. */
+export async function importWordsCsv(lessonId: string, file: File, apply: boolean): Promise<WordImportReport> {
+  const body = new FormData();
+  body.append("file", file);
+  body.append("apply", apply ? "true" : "false");
+  return (await api.post<WordImportReport>(`${BASE}/lessons/${lessonId}/words/import`, body, {
+    headers: { "Content-Type": "multipart/form-data" },
+  })).data;
 }

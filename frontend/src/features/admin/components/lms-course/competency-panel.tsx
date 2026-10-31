@@ -73,12 +73,37 @@ function ContentManager({ lessonId, kind }: { lessonId: string; kind: Competency
           </section>
         </div>
       );
+    // written tasks are shown in the competency they belong to (writings.competency)
     case "WORTSCHATZ":
-      return <WordManager lessonId={lessonId} />;
+      return (
+        <div className="space-y-6">
+          <WordManager lessonId={lessonId} />
+          <section>
+            <h4 className="mb-3 text-sm font-bold uppercase tracking-wide text-[var(--admin-text-muted)]">Wortschatz-Aufgaben (schriftlich, Lehrer / KI bewertet)</h4>
+            <WritingManager lessonId={lessonId} competency="WORTSCHATZ" />
+          </section>
+        </div>
+      );
     case "GRAMMATIK":
-      return <GrammarManager lessonId={lessonId} />;
+      return (
+        <div className="space-y-6">
+          <GrammarManager lessonId={lessonId} />
+          <section>
+            <h4 className="mb-3 text-sm font-bold uppercase tracking-wide text-[var(--admin-text-muted)]">Grammatik-Aufgaben (schriftlich, Lehrer / KI bewertet)</h4>
+            <WritingManager lessonId={lessonId} competency="GRAMMATIK" />
+          </section>
+        </div>
+      );
     case "LESEN":
-      return <LesenManager lessonId={lessonId} />;
+      return (
+        <div className="space-y-6">
+          <LesenManager lessonId={lessonId} />
+          <section>
+            <h4 className="mb-3 text-sm font-bold uppercase tracking-wide text-[var(--admin-text-muted)]">Fragen zum Text (offene Antworten, Lehrer / KI bewertet)</h4>
+            <WritingManager lessonId={lessonId} competency="LESEN" />
+          </section>
+        </div>
+      );
     case "HOEREN":
       return <HoerenManager lessonId={lessonId} />;
     case "SPRECHEN":
@@ -92,7 +117,7 @@ function ContentManager({ lessonId, kind }: { lessonId: string; kind: Competency
           </section>
           <section>
             <h4 className="mb-3 text-sm font-bold uppercase tracking-wide text-[var(--admin-text-muted)]">Freie Schreibaufgaben (Lehrer / KI bewertet)</h4>
-            <WritingManager lessonId={lessonId} />
+            <WritingManager lessonId={lessonId} competency="SCHREIBEN" />
           </section>
         </div>
       );

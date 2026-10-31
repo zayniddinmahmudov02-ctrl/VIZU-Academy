@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { CheckCircle2, PenLine, RotateCcw, Sparkles } from "lucide-react";
 
+import AiEvaluationCard from "@/components/lesson-player/common/ai-evaluation-card";
 import PageHeader from "@/components/dashboard/page-header";
 import LevelFilter, { ALL_LEVELS, levelSortKey } from "@/components/teacher/level-filter";
 import {
@@ -28,6 +29,9 @@ import { useTranslation } from "@/lib/i18n/use-translation";
 import { cn } from "@/lib/utils";
 
 type Source = "LEKTIONEN" | "VORBEREITUNG" | "VIZU_MULTILEVEL";
+
+// Lesson writing tasks belong to a competency (backend writings.competency)
+const COMPETENCY_LABEL: Record<string, string> = { SCHREIBEN: "Schreiben", WORTSCHATZ: "Wortschatz", GRAMMATIK: "Grammatik", LESEN: "Lesen" };
 
 const COURSE_LEVELS = ["A1", "A2", "B1", "B2", "C1"] as const;
 const EXAM_LEVELS = [...COURSE_LEVELS, "Multilevel"] as const;
@@ -276,14 +280,22 @@ function LegacyWritingGradeCard({
   return (
     <div className="space-y-4 rounded-card bg-surface-card p-6 shadow-[var(--shadow-md)] ring-1 ring-surface-border">
       <div>
-        <h3 className="text-base font-bold text-text-primary">{item.writing_title}</h3>
+        <h3 className="flex flex-wrap items-center gap-2 text-base font-bold text-text-primary">
+          {item.writing_title}
+          <span className="rounded-full bg-accent-blue/10 px-2.5 py-0.5 text-xs font-semibold text-accent-blue" data-testid="teacher-writing-competency">
+            {COMPETENCY_LABEL[item.competency ?? "SCHREIBEN"]}
+          </span>
+        </h3>
         <p className="text-xs text-text-muted">
           {item.student_name} ({item.student_email}) · {item.course_title} ({item.course_level}) · Lektion{" "}
           {item.lesson_number}: {item.lesson_title}
         </p>
       </div>
 
-      <div className="rounded-xl bg-surface-hover p-4 text-sm text-text-secondary">{item.answer_text}</div>
+      <div className="whitespace-pre-line break-words rounded-xl bg-surface-hover p-4 text-sm text-text-secondary">{item.answer_text}</div>
+      {item.ai_evaluation?.criteria && (
+        <AiEvaluationCard status="GRADED" score={item.ai_score ?? null} aiScore={item.ai_score ?? null} evaluation={item.ai_evaluation} />
+      )}
       <p className="text-xs text-text-muted">
         {item.answer_text.split(/\s+/).filter(Boolean).length} Wörter
         {wordRange(item.min_words, item.max_words) ? ` (${wordRange(item.min_words, item.max_words)})` : ""}

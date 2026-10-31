@@ -1,15 +1,17 @@
 from uuid import UUID
 
-from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 
-from app.api.dependencies.auth import get_current_user, require_admin_panel_access
+from app.api.dependencies.auth import get_current_user, require_admin_panel_access, require_content_editor
 from app.api.dependencies.progress import require_lesson_access
 from app.db.session import get_db
 
 from app.models.lesson import Lesson
 from app.models.user import User
+from app.models.writing import WRITING_COMPETENCY_SCHREIBEN
 
+from app.schemas.writing.schema import COMPETENCY_PATTERN
 from app.schemas.writing import (
     WritingCreate,
     WritingUpdate,
@@ -41,13 +43,15 @@ def get_writings(
 @router.get("/lesson/{lesson_id}", response_model=list[WritingResponse])
 def get_lesson_writings(
     lesson_id: str,
+    competency: str = Query(default=WRITING_COMPETENCY_SCHREIBEN, pattern=COMPETENCY_PATTERN),
     db: Session = Depends(get_db),
     __: User = Depends(require_lesson_access),
 ):
-    """Student-facing, published-only — Schreiben's source of truth (the
-    Assessment Engine's Schreiben implementation is no longer used by the
-    student frontend; see lesson-sections.ts)."""
-    return WritingService(db).get_by_lesson(lesson_id, published_only=True)
+    """Student-facing, published-only written tasks of ONE competency —
+    Schreiben by default; a Wortschatz worksheet, a Grammatik written exercise
+    or the open questions on a Lesen text are listed only under their own
+    competency (writings.competency), never in Schreiben."""
+    return WritingService(db).get_by_lesson(lesson_id, published_only=True, competency=competency)
 
 
 @router.get("/{writing_id}", response_model=WritingResponse)
@@ -77,7 +81,7 @@ def get_writing(
 def create_writing(
     data: WritingCreate,
     db: Session = Depends(get_db),
-    current_user: User = Depends(require_admin_panel_access),
+    current_user: User = Depends(require_content_editor),
 ):
     return WritingService(db).create(data)
 
@@ -87,7 +91,7 @@ def update_writing(
     writing_id: str,
     data: WritingUpdate,
     db: Session = Depends(get_db),
-    current_user: User = Depends(require_admin_panel_access),
+    current_user: User = Depends(require_content_editor),
 ):
     writing = WritingService(db).update(
         writing_id,
@@ -107,7 +111,7 @@ def update_writing(
 def delete_writing(
     writing_id: str,
     db: Session = Depends(get_db),
-    current_user: User = Depends(require_admin_panel_access),
+    current_user: User = Depends(require_content_editor),
 ):
     deleted = WritingService(db).delete(writing_id)
 
@@ -172,3 +176,14 @@ def get_my_writing_submission(
     current_user: User = Depends(get_current_user),
 ):
     return StudentWritingService(db).get_own(current_user.id, writing_id)
+
+
+@router.get("/{writing_id}/submissions/me/history")
+def get_my_writing_history(
+    writing_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Every version the caller submitted (exact text) with each analysis run
+    and teacher decision — the caller's own submission only."""
+    return {"versions": StudentWritingService(db).own_history(current_user.id, writing_id)}

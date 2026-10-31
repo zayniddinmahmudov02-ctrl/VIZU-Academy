@@ -34,7 +34,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from uuid import UUID
 
-from sqlalchemy import text
+from sqlalchemy import func, select, text
 from sqlalchemy.orm import Session
 
 from app.core.config import settings
@@ -50,8 +50,8 @@ from app.models.lesson_skill import (
 )
 from app.models.speaking import Speaking
 from app.models.student_speaking import StudentSpeaking
-from app.models.student_writing import StudentWriting
-from app.models.writing import Writing
+from app.models.student_writing import StudentWriting, StudentWritingVersion
+from app.models.writing import WRITING_COMPETENCY_SCHREIBEN, Writing
 from app.services.lesson_skills import levels
 from app.services.mock_exam.ai_service import GEMINI_ENDPOINT, AIServiceError, _extract_json, _require_api_key
 
@@ -141,7 +141,9 @@ def effective_rubric(task, default: list[dict]) -> list[dict]:
 # ============================================================
 
 
-def verify_errors(source_text: str, raw_errors) -> list[dict]:
+def verify_errors(source_text: str, raw_errors, criteria_keys: set[str] | None = None) -> list[dict]:
+    """Only errors whose quoted part literally occurs in the student's text;
+    `criterion` is kept when it names a criterion of the rubric."""
     haystack = _normalise(source_text)
     out, seen = [], set()
     for item in raw_errors if isinstance(raw_errors, list) else []:
@@ -152,10 +154,18 @@ def verify_errors(source_text: str, raw_errors) -> list[dict]:
         if not original or not correction or original == correction or original not in haystack or original in seen:
             continue
         seen.add(original)
-        out.append({"original": original[:200], "correction": correction[:200], "explanation": str(item.get("explanation", "")).strip()[:400]})
+        error = {"original": original[:200], "correction": correction[:200], "explanation": str(item.get("explanation", "")).strip()[:400]}
+        criterion = str(item.get("criterion") or "").strip().lower()
+        if criteria_keys is not None:
+            error["criterion"] = criterion if criterion in criteria_keys else None
+        out.append(error)
         if len(out) >= MAX_ERRORS:
             break
     return out
+
+
+def _texts(values, limit: int, count: int) -> list[str]:
+    return [str(s).strip()[:limit] for s in (values if isinstance(values, list) else []) if str(s).strip()][:count]
 
 
 def validate_result(raw, rubric: list[dict], source_text: str, assessed_keys: set[str], language: str = "uz") -> dict:
@@ -181,18 +191,22 @@ def validate_result(raw, rubric: list[dict], source_text: str, assessed_keys: se
         score = max(0, min(c["max"], int(value)))
         total += score
         maximum += c["max"]
-        criteria.append({**c, "score": score, "status": "assessed", "comment": str(item.get("comment", "")).strip()[:600]})
+        criteria.append({**c, "score": score, "status": "assessed", "comment": str(item.get("comment", "")).strip()[:600],
+                         "tip": str(item.get("tip", "")).strip()[:400]})
     if maximum == 0:
         raise InvalidAIResult("nothing assessed")
-    strengths = [str(s).strip()[:300] for s in (raw.get("strengths") or []) if str(s).strip()][:5]
     return {
         "criteria": criteria,
         "points": total,
         "max_points": maximum,
         "score": max(0, min(100, round_half_up(total / maximum * 100))),
-        "strengths": strengths,
-        "errors": verify_errors(source_text, raw.get("errors")),
+        "strengths": _texts(raw.get("strengths"), 300, 5),
+        "weaknesses": _texts(raw.get("weaknesses"), 300, 5),
+        "errors": verify_errors(source_text, raw.get("errors"), {c["key"] for c in rubric}),
+        # a corrected version written by the AI — shown as such, never as the student's text
+        "improved_text": str(raw.get("improved_text", "")).strip()[:4000],
         "recommendation": str(raw.get("recommendation", "")).strip()[:800],
+        "next_practice": str(raw.get("next_practice", "")).strip()[:600],
         "summary": str(raw.get("summary", "")).strip()[:1200],
         "limitations": [NOT_ASSESSED_NOTE.get(language, NOT_ASSESSED_NOTE["uz"])] if len(assessed_keys) < len(rubric) else [],
     }
@@ -219,37 +233,70 @@ def _rubric_lines(rubric: list[dict], assessed: set[str]) -> str:
     return "\n".join(f'- "{c["key"]}" — {c["name"]}: 0-{c["max"]} ball' for c in rubric if c["key"] in assessed)
 
 
-def writing_prompt(task: Writing, text_value: str, rubric: list[dict], level: str = "A1") -> str:
+def writing_prompt(task: Writing, text_value: str, rubric: list[dict], level: str = "A1", source_text: str | None = None) -> str:
+    """`source_text`: the lesson's reading texts, for the open questions of a
+    Lesen task (writings.competency LESEN) — the answers are checked against
+    them, not against Schreiben criteria."""
     level = levels.normalise_level(level)
     lang = LANGUAGE_NAMES.get(task.feedback_language, task.feedback_language)
     assessed = {c["key"] for c in rubric}
+    competency = getattr(task, "competency", None) or WRITING_COMPETENCY_SCHREIBEN
     extra = f"\nO'qituvchining qo'shimcha ko'rsatmasi: {task.ai_instructions.strip()}" if task.ai_instructions else ""
     helper = f"\nYordamchi iboralar: {task.helper_words.strip()}" if task.helper_words else ""
     text_type = getattr(task, "text_type", None)
-    kind = f"\nMatn turi: {TEXT_TYPE_NAMES.get(text_type, text_type)}." if text_type else ""
+    kind = f"\nMatn turi: {TEXT_TYPE_NAMES.get(text_type, text_type)}." if text_type and competency == WRITING_COMPETENCY_SCHREIBEN else ""
     audience = f"\nAuditoriya / vaziyat: {task.audience.strip()}" if getattr(task, "audience", None) else ""
     words = word_range_text(task.min_words, task.max_words)
-    return f"""Sen nemis tili o'qituvchisisan va {level} darajadagi o'quvchining yozma ishini baholaysan.
+    if competency == WRITING_COMPETENCY_SCHREIBEN:
+        intro = f"Sen nemis tili o'qituvchisisan va {level} darajadagi o'quvchining yozma ishini (Schreiben) tahlil qilasan."
+        focus = levels.WRITING_EXPECTATIONS[level]
+    else:
+        intro = f"Sen nemis tili o'qituvchisisan va {level} darajadagi o'quvchining javobini tekshirasan."
+        focus = f"{levels.COMPETENCY_TASKS[competency]} {levels.WRITING_EXPECTATIONS[level]}"
+    reading = f"\n\nO'QISH MATNI (javoblar shu matn bo'yicha tekshiriladi):\n\"\"\"{source_text.strip()[:12000]}\"\"\"" if source_text else ""
+    return f"""{intro}
 
 TOPSHIRIQ: {task.title}
 {task.instruction}{kind}{audience}
-{words}{helper}{extra}
+{words}{helper}{extra}{reading}
 
 BAHOLASH MEZONLARI (butun sonlar):
 {_rubric_lines(rubric, assessed)}
 
 Qoidalar:
-- {levels.WRITING_EXPECTATIONS[level]}
+- {focus}
 - Faqat matnda haqiqatan bor narsani bahola. Matnda yo'q xatoni o'ylab topma.
-- "errors": har bir xato uchun "original" — o'quvchi matnidan AYNAN ko'chirilgan qism, "correction" — to'g'ri nemischa variant, "explanation" — qisqa izoh.
-- Barcha izohlar (comment, strengths, explanation, recommendation, summary) {lang} tilida bo'lsin; nemischa misollar va tuzatishlar nemis tilida qolsin.
+- Har bir mezon uchun: "score", "comment" (nima yaxshi / nima xato) va "tip" (shu mezon bo'yicha bitta aniq yaxshilash tavsiyasi).
+- "errors": har bir xato uchun "original" — o'quvchi matnidan AYNAN ko'chirilgan qism, "correction" — to'g'ri nemischa variant, "explanation" — qisqa izoh, "criterion" — xato tegishli mezon kaliti.
+- "strengths" — kuchli tomonlar, "weaknesses" — kamchiliklar (har biri qisqa).
+- "improved_text" — o'quvchi matnining {level} darajasiga mos tuzatilgan varianti (o'quvchi fikrini saqla, yangi mazmun qo'shma).
+- "next_practice" — keyingi mashq uchun bitta aniq tavsiya.
+- Barcha izohlar (comment, tip, strengths, weaknesses, explanation, recommendation, next_practice, summary) {lang} tilida bo'lsin; nemischa misollar, tuzatishlar va improved_text nemis tilida qolsin.
 - Umumiy ballni hisoblama — faqat har bir mezon balli.
 
 O'QUVCHI MATNI:
 \"\"\"{text_value}\"\"\"
 
 Faqat JSON qaytar:
-{{"criteria": [{{"key": "<mezon kaliti>", "score": <butun son>, "comment": "..."}}], "strengths": ["..."], "errors": [{{"original": "...", "correction": "...", "explanation": "..."}}], "recommendation": "...", "summary": "..."}}"""
+{{"criteria": [{{"key": "<mezon kaliti>", "score": <butun son>, "comment": "...", "tip": "..."}}], "strengths": ["..."], "weaknesses": ["..."], "errors": [{{"original": "...", "correction": "...", "explanation": "...", "criterion": "<mezon kaliti>"}}], "improved_text": "...", "recommendation": "...", "next_practice": "...", "summary": "..."}}"""
+
+
+def task_rubric(db: Session, task: Writing) -> list[dict]:
+    """The task's own rubric, else the default of its competency / level."""
+    return effective_rubric(task, levels.competency_rubric(getattr(task, "competency", None), levels.lesson_level(db, task.lesson_id)))
+
+
+def lesen_source_text(db: Session, task: Writing) -> str | None:
+    """Published reading texts of the task's lesson (Lesen open questions)."""
+    if getattr(task, "competency", None) != "LESEN":
+        return None
+    from app.models.reading import Reading
+
+    texts = db.scalars(
+        select(Reading.content).where(Reading.lesson_id == task.lesson_id, Reading.is_published.is_(True)).order_by(Reading.order_index)
+    )
+    joined = "\n\n".join(t.strip() for t in texts if t and t.strip())
+    return joined or None
 
 
 def speaking_prompt(
@@ -350,11 +397,20 @@ def _claim(db: Session, table: str, submission_id: UUID) -> bool:
     return row is not None
 
 
+def _attempt(kind: str, sub) -> int | None:
+    """Schreiben: the submission version (student_writing_versions) a run belongs to."""
+    if kind != EVAL_KIND_WRITING:
+        return None
+    db = Session.object_session(sub)
+    return db.scalar(select(func.max(StudentWritingVersion.attempt_number)).where(StudentWritingVersion.student_writing_id == sub.id)) if db else None
+
+
 def _fail(db: Session, kind: str, sub, reason: str, model: str | None = None) -> None:
     sub.status = STATUS_EVALUATION_FAILED
     sub.evaluation_error = reason[:500]
     sub.evaluation_runs = (sub.evaluation_runs or 0) + 1
-    db.add(AiEvaluation(kind=kind, submission_id=sub.id, user_id=sub.user_id, source=EVAL_SOURCE_AI, status=EVAL_FAILED, error=reason[:500], model=model))
+    db.add(AiEvaluation(kind=kind, submission_id=sub.id, user_id=sub.user_id, source=EVAL_SOURCE_AI, status=EVAL_FAILED, error=reason[:500], model=model,
+                        attempt_number=_attempt(kind, sub)))
     db.commit()
     logger.warning("AI evaluation failed: kind=%s submission=%s reason=%s", kind, sub.id, reason[:120])
 
@@ -371,7 +427,8 @@ def _succeed(db: Session, kind: str, sub, result: dict, model: str | None) -> No
     sub.evaluation_runs = (sub.evaluation_runs or 0) + 1
     sub.reviewed_by_id = None
     sub.reviewed_at = None
-    db.add(AiEvaluation(kind=kind, submission_id=sub.id, user_id=sub.user_id, source=EVAL_SOURCE_AI, status=EVAL_SUCCEEDED, score=result["score"], result=result, model=model))
+    db.add(AiEvaluation(kind=kind, submission_id=sub.id, user_id=sub.user_id, source=EVAL_SOURCE_AI, status=EVAL_SUCCEEDED, score=result["score"], result=result, model=model,
+                        attempt_number=_attempt(kind, sub)))
     db.commit()
     # a graded Schreiben/Sprechen task counts towards lesson completion (same as teacher grading)
     from app.services.learning import refresh_lesson_completion
@@ -393,10 +450,10 @@ def evaluate_writing(db: Session, submission_id: UUID) -> None:
         db.commit()
         return
     level = levels.lesson_level(db, task.lesson_id)
-    rubric = effective_rubric(task, levels.writing_rubric(level))
+    rubric = task_rubric(db, task)
     model = None
     try:
-        raw, model = call_gemini_json(writing_prompt(task, sub.answer_text, rubric, level))
+        raw, model = call_gemini_json(writing_prompt(task, sub.answer_text, rubric, level, lesen_source_text(db, task)))
         result = validate_result(raw, rubric, sub.answer_text, {c["key"] for c in rubric}, task.feedback_language)
     except (AIServiceError, InvalidAIResult) as exc:
         _fail(db, EVAL_KIND_WRITING, sub, f"{type(exc).__name__}: {exc}", model)
@@ -494,5 +551,6 @@ def record_override(db: Session, kind: str, sub, actor_id: UUID, new_score: int,
             score=new_score,
             result={"previous_score": sub.score, "ai_score": sub.ai_score, "reason": (reason or "")[:1000]},
             actor_id=actor_id,
+            attempt_number=_attempt(kind, sub),
         )
     )

@@ -337,6 +337,8 @@ export interface Writing {
   max_words: number | null;
   order_index: number;
   is_published: boolean;
+  /** null = Schreiben; a Wortschatz / Grammatik / Lesen written task otherwise */
+  competency?: "SCHREIBEN" | "GRAMMATIK" | "WORTSCHATZ" | "LESEN" | null;
 }
 export interface WritingCreate {
   lesson_id: string;
@@ -358,6 +360,8 @@ export interface WritingCreate {
   text_type?: string | null;
   audience?: string | null;
   time_limit_minutes?: number | null;
+  /** null = Schreiben; a Wortschatz / Grammatik / Lesen written task otherwise */
+  competency?: "SCHREIBEN" | "GRAMMATIK" | "WORTSCHATZ" | "LESEN" | null;
 }
 export type WritingUpdate = Partial<Omit<WritingCreate, "lesson_id">>;
 

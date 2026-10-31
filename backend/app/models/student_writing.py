@@ -6,6 +6,7 @@ from sqlalchemy import (
     Integer,
     String,
     Text,
+    UniqueConstraint,
 )
 
 from sqlalchemy.dialects.postgresql import JSONB, UUID
@@ -132,3 +133,28 @@ class StudentWriting(BaseModel):
     )
 
     reviewed_by = relationship("User", foreign_keys=[reviewed_by_id])
+
+    @property
+    def teacher_reviewed(self) -> bool:
+        """A teacher / admin confirmed or corrected the result (an AI run clears it)."""
+        return self.reviewed_by_id is not None
+
+
+class StudentWritingVersion(BaseModel):
+    """The exact text of every final submission (migration d7e2b4f8a1c6).
+    StudentWriting keeps only the latest text; a re-submission must never
+    lose an earlier version — each analysis (ai_evaluations.attempt_number)
+    points at the version it evaluated. Append-only."""
+
+    __tablename__ = "student_writing_versions"
+    __table_args__ = (UniqueConstraint("student_writing_id", "attempt_number", name="uq_student_writing_version"),)
+
+    student_writing_id: Mapped[UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("student_writings.id", ondelete="CASCADE"), nullable=False, index=True
+    )
+    user_id: Mapped[UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    writing_id: Mapped[UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("writings.id", ondelete="CASCADE"), nullable=False)
+    attempt_number: Mapped[int] = mapped_column(Integer, nullable=False)
+    answer_text: Mapped[str] = mapped_column(Text, nullable=False)
+    word_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    submitted_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)

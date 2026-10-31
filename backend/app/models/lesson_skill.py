@@ -194,3 +194,5 @@ class AiEvaluation(BaseModel):
     error: Mapped[str | None] = mapped_column(String(500), nullable=True)
     model: Mapped[str | None] = mapped_column(String(100), nullable=True)
     actor_id: Mapped[UUID | None] = mapped_column(PGUUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
+    # Schreiben: the submission version (student_writing_versions) this run evaluated
+    attempt_number: Mapped[int | None] = mapped_column(Integer, nullable=True)

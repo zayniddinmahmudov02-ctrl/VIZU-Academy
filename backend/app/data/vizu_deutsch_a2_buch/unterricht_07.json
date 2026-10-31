@@ -737,7 +737,8 @@
    "task_type": "other",
    "prompt": "Schreiben Sie die Übersetzung und einen Beispielsatz.\n\n1. der Flughafen\n2. das Ticket\n3. buchen\n4. ankommen\n5. abfahren\n6. warten\n7. der Fahrplan\n8. die Reisezeit\n9. die Unterkunft\n10. das Hotel\n11. reservieren\n12. die Sehenswürdigkeit\n13. das Museum\n14. die Kirche\n15. das Foto\n16. fotografieren\n17. die Kultur\n18. das Essen\n19. probieren\n20. kaufen\n21. die Reisegruppe\n22. allein\n23. zusammen\n24. erleben\n25. das Wetter\n26. schön\n27. interessant\n28. teuer\n29. schnell\n30. bequem",
    "min_words": null,
-   "max_words": null
+   "max_words": null,
+   "competency": "WORTSCHATZ"
   },
   {
    "content_id": "vizu-a2buch-l07-sprechen-01",

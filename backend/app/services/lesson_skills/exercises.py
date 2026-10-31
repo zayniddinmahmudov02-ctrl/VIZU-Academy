@@ -267,12 +267,20 @@ def save_grammar(db: Session, lesson_id: UUID | None, data: dict, grammar_id: UU
 
 
 def admin_word(v: Vocabulary) -> dict:
+    from app.services.lesson_skills.wortschatz import missing_fields
+
     return {"id": v.id, "lesson_id": v.lesson_id, "german_word": v.german_word, "article": v.article, "plural": v.plural,
             "translation": v.translation, "example_sentence": v.example_sentence, "example_translation": v.example_translation,
+            "word_type": v.word_type, "verb_praeteritum": v.verb_praeteritum, "verb_partizip_ii": v.verb_partizip_ii,
+            "verb_auxiliary": v.verb_auxiliary, "audio_url": v.audio_url, "sources": v.data_sources or {}, "missing": missing_fields(v),
             "order_index": v.order_index, "is_published": bool(v.is_published), "content_id": v.content_id}
 
 
 ARTICLES = {"der", "die", "das", None}
+WORD_TYPES = {"Nomen", "Verb", "Adjektiv", "Adverb", "Konjunktion", "Präposition", "Pronomen", "Wendung", "Numerale", "Partikel", None}
+AUXILIARIES = {"haben", "sein", None}
+# optional grammar fields: changed only when sent (an older client never resets them)
+WORD_DETAIL_FIELDS = {"word_type": 30, "verb_praeteritum": 120, "verb_partizip_ii": 120, "verb_auxiliary": 20, "audio_url": 1000}
 
 
 def _word_fields(data: dict) -> dict:
@@ -288,12 +296,24 @@ def _word_fields(data: dict) -> dict:
         value = str(data.get(key) or "").strip()
         return value[:limit] or None
 
-    return {"german_word": word, "translation": translation, "article": article, "plural": opt("plural", 255),
-            "example_sentence": opt("example_sentence", 1000), "example_translation": opt("example_translation", 1000),
-            "order_index": int(data.get("order_index") or 1), "is_published": bool(data.get("is_published", True))}
+    fields = {"german_word": word, "translation": translation, "article": article, "plural": opt("plural", 255),
+              "example_sentence": opt("example_sentence", 1000), "example_translation": opt("example_translation", 1000),
+              "order_index": int(data.get("order_index") or 1), "is_published": bool(data.get("is_published", True))}
+    for key, limit in WORD_DETAIL_FIELDS.items():
+        if key in data:
+            fields[key] = opt(key, limit)
+    if fields.get("word_type") not in WORD_TYPES:
+        raise HTTPException(status_code=422, detail="Unknown word type.")
+    if fields.get("verb_auxiliary") not in AUXILIARIES:
+        raise HTTPException(status_code=422, detail="Hilfsverb must be haben or sein.")
+    if fields.get("audio_url") and not str(fields["audio_url"]).startswith(("/", "https://")):
+        raise HTTPException(status_code=422, detail="Audio URL must be a site path or https.")
+    return fields
 
 
-def save_word(db: Session, lesson_id: UUID | None, data: dict, word_id: UUID | None = None) -> Vocabulary:
+def save_word(db: Session, lesson_id: UUID | None, data: dict, word_id: UUID | None = None, commit: bool = True) -> Vocabulary:
+    """Create / update a lesson word. A field an admin changes is marked
+    "admin" in data_sources (it no longer comes from the book / Wörterbuch)."""
     fields = _word_fields(data)
     if word_id is None:
         if not data.get("order_index"):
@@ -304,8 +324,15 @@ def save_word(db: Session, lesson_id: UUID | None, data: dict, word_id: UUID | N
         v = db.get(Vocabulary, word_id)
         if v is None:
             raise HTTPException(status_code=404, detail="Word not found.")
+        from app.services.lesson_skills.wortschatz import ENTRY_FIELDS
+
+        sources = dict(v.data_sources or {})
         for k, val in fields.items():
+            if (k in sources or k in ENTRY_FIELDS) and val and getattr(v, k) != val:
+                sources[k] = "admin"
             setattr(v, k, val)
-    db.commit()
-    db.refresh(v)
+        v.data_sources = sources or None
+    if commit:
+        db.commit()
+        db.refresh(v)
     return v

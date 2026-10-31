@@ -1,3 +1,5 @@
+import type { AiEvaluationResult } from "@/components/lesson-player/common/ai-evaluation-card";
+
 export interface TeacherOverview {
   assigned_course_count: number;
   student_count: number;
@@ -35,10 +37,14 @@ export interface TeacherLegacyWritingItem {
   lesson_title: string;
   lesson_number: number;
   writing_title: string;
+  /** SCHREIBEN | GRAMMATIK | WORTSCHATZ | LESEN — the module of the task */
+  competency?: "SCHREIBEN" | "GRAMMATIK" | "WORTSCHATZ" | "LESEN";
   /** null = no word limit */
   min_words: number | null;
   max_words: number | null;
   answer_text: string;
+  ai_score?: number | null;
+  ai_evaluation?: AiEvaluationResult | null;
   status: "SUBMITTED" | "GRADED" | "NEEDS_REVISION";
   submitted_at: string | null;
   score: number | null;

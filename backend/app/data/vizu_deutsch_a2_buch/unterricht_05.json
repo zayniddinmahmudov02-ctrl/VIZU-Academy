@@ -841,7 +841,8 @@
    "task_type": "other",
    "prompt": "Schreiben Sie die Übersetzung und ein Beispiel mit jedem Wort.\n\n1. wohnen\n2. die Wohnung\n3. das Haus\n4. das Zimmer\n5. die Miete\n6. der Vermieter\n7. der Nachbar\n8. die Stadt\n9. das Dorf\n10. auf dem Land\n11. die Natur\n12. ruhig\n13. laut\n14. modern\n15. groß\n16. klein\n17. sauber\n18. gemütlich\n19. teuer\n20. günstig\n21. die Familie\n22. die Freunde\n23. zusammen leben\n24. der Verkehr\n25. die U-Bahn\n26. der Bus\n27. die Schule\n28. das Krankenhaus\n29. ich möchte leben\n30. der Lebensstil\n\nTipp: Lernen Sie die Wörter regelmäßig und verwenden Sie sie in Sätzen!",
    "min_words": null,
-   "max_words": null
+   "max_words": null,
+   "competency": "WORTSCHATZ"
   },
   {
    "content_id": "vizu-a2buch-l05-sprechen-01",
@@ -894,7 +895,8 @@
    "task_type": "other",
    "prompt": "Lesen Sie den Text „Wie ist der Lebensstil der Deutschen?“ und beantworten Sie die Fragen.\n\n1. In welchen Städten leben viele Menschen?\n2. Wann beginnt die Arbeit?\n3. Was machen die Deutschen in ihrer Freizeit?\n4. Was essen die Deutschen zum Frühstück?\n5. Was ist den Deutschen wichtig?",
    "min_words": null,
-   "max_words": null
+   "max_words": null,
+   "competency": "LESEN"
   }
  ]
 }

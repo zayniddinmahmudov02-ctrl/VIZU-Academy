@@ -65,9 +65,24 @@ const EMPTY_FORM = {
   opens_at: "",
   closes_at: "",
   ai: EMPTY_AI_FORM,
+  competency: "" as WritingCompetency | "",
 };
 
-export default function WritingManager({ lessonId }: { lessonId?: string }) {
+type WritingCompetency = "GRAMMATIK" | "WORTSCHATZ" | "LESEN";
+// "" = Schreiben. A written task of another competency is shown, counted and
+// analysed only there (backend writings.competency) — never under Schreiben.
+const COMPETENCIES: { value: WritingCompetency | ""; label: string }[] = [
+  { value: "", label: "Schreiben" },
+  { value: "WORTSCHATZ", label: "Wortschatz (Wortschatz-Aufgabe)" },
+  { value: "GRAMMATIK", label: "Grammatik (schriftliche Übung)" },
+  { value: "LESEN", label: "Lesen (Fragen zum Text)" },
+];
+const COMPETENCY_LABEL: Record<string, string> = { SCHREIBEN: "Schreiben", WORTSCHATZ: "Wortschatz", GRAMMATIK: "Grammatik", LESEN: "Lesen" };
+
+/** `competency` (LMS competency panel): only that competency's written tasks,
+ * and a new task is created in it. Without it (lesson page / global list):
+ * every task, with its competency in the table. */
+export default function WritingManager({ lessonId, competency }: { lessonId?: string; competency?: "SCHREIBEN" | WritingCompetency }) {
   const queryClient = useQueryClient();
   const { data: rawAll, isLoading } = useCrudList("writings", writingApi);
   const all = rawAll as Writing[] | undefined;
@@ -75,8 +90,11 @@ export default function WritingManager({ lessonId }: { lessonId?: string }) {
   const [duplicating, setDuplicating] = useState<string | null>(null);
 
   const data = useMemo(
-    () => (lessonId ? (all ?? []).filter((w) => w.lesson_id === lessonId) : all),
-    [all, lessonId],
+    () =>
+      (lessonId ? (all ?? []).filter((w) => w.lesson_id === lessonId) : all)?.filter(
+        (w) => !competency || (w.competency ?? "SCHREIBEN") === competency,
+      ),
+    [all, lessonId, competency],
   );
 
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -88,7 +106,7 @@ export default function WritingManager({ lessonId }: { lessonId?: string }) {
 
   function openCreate() {
     setEditing(null);
-    setForm({ ...EMPTY_FORM, lesson_id: lessonId ?? "" });
+    setForm({ ...EMPTY_FORM, lesson_id: lessonId ?? "", competency: competency && competency !== "SCHREIBEN" ? competency : "" });
     setError(null);
     setDialogOpen(true);
   }
@@ -111,6 +129,7 @@ export default function WritingManager({ lessonId }: { lessonId?: string }) {
       opens_at: toLocalInput(item.opens_at),
       closes_at: toLocalInput(item.closes_at),
       ai: aiFormFrom(item),
+      competency: item.competency && item.competency !== "SCHREIBEN" ? item.competency : "",
     });
     setError(null);
     setDialogOpen(true);
@@ -127,9 +146,10 @@ export default function WritingManager({ lessonId }: { lessonId?: string }) {
       setError("Min. Wörter darf nicht größer als Max. Wörter sein.");
       return;
     }
-    const { lesson_id, ai, helper_words, image_url, opens_at, closes_at, text_type, audience, time_limit_minutes, ...rest } = form;
+    const { lesson_id, ai, helper_words, image_url, opens_at, closes_at, text_type, audience, time_limit_minutes, competency, ...rest } = form;
     const payload = {
       ...rest,
+      competency: competency || null,
       text_type: text_type || null,
       audience: audience.trim() || null,
       time_limit_minutes: time_limit_minutes === "" ? null : time_limit_minutes,
@@ -164,6 +184,15 @@ export default function WritingManager({ lessonId }: { lessonId?: string }) {
 
   const columns: DataTableColumn<Writing>[] = [
     { key: "title", header: "Thema", render: (item) => item.title },
+    {
+      key: "competency",
+      header: "Kompetenz",
+      render: (item) => (
+        <span className="text-xs font-semibold text-[var(--admin-text-secondary)]" data-testid="writing-competency">
+          {COMPETENCY_LABEL[item.competency ?? "SCHREIBEN"]}
+        </span>
+      ),
+    },
     {
       key: "words",
       header: "Wortanzahl",
@@ -270,6 +299,23 @@ export default function WritingManager({ lessonId }: { lessonId?: string }) {
               onChange={(e) => setForm({ ...form, title: e.target.value })}
               placeholder="Schreib einen Brief an einen Freund"
             />
+          </div>
+
+          <div>
+            <label className="mb-1.5 block text-sm font-medium text-[var(--admin-text-primary)]">Kompetenz</label>
+            <AdminSelect
+              value={form.competency}
+              onChange={(e) => setForm({ ...form, competency: e.target.value as WritingCompetency | "" })}
+              aria-label="Kompetenz"
+              data-testid="writing-competency-select"
+            >
+              {COMPETENCIES.map((c) => (
+                <option key={c.value} value={c.value}>{c.label}</option>
+              ))}
+            </AdminSelect>
+            <p className="mt-1 text-xs text-[var(--admin-text-muted)]">
+              Erscheint nur in dieser Kompetenz. Bewertung: Schreiben mit dem Schreiben-Raster des Niveaus, sonst mit dem Raster der Kompetenz.
+            </p>
           </div>
 
           <div>

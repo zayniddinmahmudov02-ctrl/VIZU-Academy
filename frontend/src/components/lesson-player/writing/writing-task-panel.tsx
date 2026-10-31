@@ -13,6 +13,7 @@ import {
 } from "@/features/lessons/services/writing-submission-service";
 
 import AiEvaluationCard from "../common/ai-evaluation-card";
+import WritingHistory from "./writing-history";
 import { ApiError } from "@/lib/api";
 import { useTranslation } from "@/lib/i18n/use-translation";
 
@@ -168,6 +169,7 @@ export default function WritingTaskPanel({ writing }: { writing: LessonWriting }
           evaluation={existing?.ai_evaluation ?? null}
           onRetry={retry}
           retrying={retrying}
+          teacherReviewed={!!existing?.teacher_reviewed}
         />
       )}
 
@@ -203,7 +205,10 @@ export default function WritingTaskPanel({ writing }: { writing: LessonWriting }
 
       {!ai && existing?.status === "GRADED" && (
         <div className="rounded-xl bg-surface-hover p-4 ring-1 ring-surface-border">
-          <p className="text-sm font-bold text-text-primary">Bewertet: {existing.score}/100 Punkte</p>
+          <p className="flex flex-wrap items-center gap-2 text-sm font-bold text-text-primary">
+            Bewertet: {existing.score}/100 Punkte
+            <span className="rounded-full bg-success/10 px-2.5 py-0.5 text-xs font-semibold text-success">{t("lessons.evalTeacher")}</span>
+          </p>
           {existing.feedback && <p className="mt-2 text-sm text-text-secondary">{existing.feedback}</p>}
         </div>
       )}
@@ -280,6 +285,8 @@ export default function WritingTaskPanel({ writing }: { writing: LessonWriting }
           </button>
         </div>
       )}
+
+      {existing?.submitted_at && <WritingHistory writingId={writing.id} refreshKey={`${existing.status}:${existing.attempt_count ?? 0}`} />}
 
       {canEdit && confirming && (
         <div className="flex flex-col gap-3 rounded-xl bg-accent-blue/5 p-4 ring-1 ring-accent-blue/20 sm:flex-row sm:items-center sm:justify-between" role="alertdialog">

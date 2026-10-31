@@ -60,7 +60,8 @@
    "task_type": "other",
    "prompt": "Ergänzen Sie die Sätze mit passenden Enden (Konditionalsatz mit WENN). Schreiben Sie alle 20 Sätze vollständig.\n\n1. Wenn ich Zeit habe, …\n2. Ich gehe spazieren, wenn …\n3. Wenn es regnet, …\n4. Ich trinke Tee, wenn …\n5. Wenn ich müde bin, …\n6. Ich höre Musik, wenn …\n7. Wenn ich Geld habe, …\n8. Ich lerne Deutsch, wenn …\n9. Wenn ich krank bin, …\n10. Ich kaufe Obst, wenn …\n11. Wenn ich frei habe, …\n12. Ich rufe meine Freunde an, wenn …\n13. Wenn ich Hunger habe, …\n14. Ich bleibe zu Hause, wenn …\n15. Wenn ich in den Urlaub fahre, …\n16. Ich spiele Fußball, wenn …\n17. Wenn ich früh aufstehe, …\n18. Ich lese ein Buch, wenn …\n19. Wenn ich im Supermarkt bin, …\n20. Ich sehe fern, wenn …\n\nMerke: Im Nebensatz (nach „wenn“) steht das Verb am Ende. — Wenn ich Zeit habe, lerne ich Deutsch.",
    "min_words": null,
-   "max_words": null
+   "max_words": null,
+   "competency": "GRAMMATIK"
   },
   {
    "content_id": "vizu-a2buch-l02-lesen-01",

@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from app.models.writing import Writing
+from app.models.writing import Writing, writing_competency_filter
 from app.schemas.writing import (
     WritingCreate,
     WritingUpdate,
@@ -26,10 +26,12 @@ class WritingRepository:
             .first()
         )
 
-    def get_by_lesson(self, lesson_id, published_only: bool = False):
+    def get_by_lesson(self, lesson_id, published_only: bool = False, competency: str | None = None):
         query = self.db.query(Writing).filter(Writing.lesson_id == lesson_id)
         if published_only:
             query = query.filter(Writing.is_published.is_(True))
+        if competency:
+            query = query.filter(writing_competency_filter(competency))
         return query.order_by(Writing.order_index).all()
 
     def create(self, data: WritingCreate):

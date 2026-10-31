@@ -475,7 +475,8 @@ def _validate_item(db: Session, raw, index: int, language: str, create_missing: 
     elif item.skill == "schreiben":
         if item.min_words is not None and item.max_words is not None and item.min_words > item.max_words:
             errors.append("min_words > max_words")
-        rubric = _check_rubric(item, errors, levels.writing_rubric(item.level))
+        default_rubric = levels.competency_rubric(item.competency, item.level)
+        rubric = _check_rubric(item, errors, default_rubric)
         lo, hi = guide["writing_words"]
         if item.min_words is None and item.max_words is None:
             warnings.append("Keine Wortgrenze — es wird keine angezeigt oder geprüft.")
@@ -485,7 +486,7 @@ def _validate_item(db: Session, raw, index: int, language: str, create_missing: 
             warnings.append(f"Textsorte '{item.task_type}' ist für {item.level} unüblich ({', '.join(guide['text_types'])}).")
         preview.update(prompt=item.prompt, task_type=item.task_type, audience=item.audience, min_words=item.min_words,
                        max_words=item.max_words, time_limit=item.time_limit, support_phrases=item.support_phrases,
-                       rubric=rubric or levels.writing_rubric(item.level), rubric_is_default=not rubric)
+                       rubric=rubric or default_rubric, rubric_is_default=not rubric, competency=item.competency or "SCHREIBEN")
     elif item.skill == "sprechen":
         if item.min_duration > item.max_duration:
             errors.append("min_duration > max_duration")
@@ -695,6 +696,7 @@ def _create(db: Session, item, report: dict, target: dict, skip_existing: bool =
             max_score=item.max_score or sum(c["max"] for c in preview["rubric"]), rubric=rubric, max_attempts=item.max_attempts,
             helper_words=", ".join(item.support_phrases) if item.support_phrases else None, image_url=item.image_url,
             text_type=item.task_type, audience=item.audience, time_limit_minutes=item.time_limit, content_id=item.content_id,
+            competency=item.competency,
         )
         db.add(writing)
         db.flush()

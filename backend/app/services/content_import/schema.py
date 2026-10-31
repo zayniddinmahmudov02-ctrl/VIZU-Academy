@@ -116,6 +116,9 @@ class SchreibenItem(_ItemBase):
     ai_instructions: str | None = Field(default=None, max_length=5000, description="Server-side only")
     feedback_language: str = Field(default="uz", pattern=r"^[a-z]{2}$")
     max_attempts: int = Field(default=3, ge=1, le=20)
+    competency: Literal["SCHREIBEN", "GRAMMATIK", "WORTSCHATZ", "LESEN"] | None = Field(
+        default=None, description="Competency of the written task; None = Schreiben (a Wortschatz worksheet is WORTSCHATZ)"
+    )
 
 
 class SprechenItem(_ItemBase):

@@ -33,12 +33,15 @@ WRITING_RUBRICS: dict[str, list[dict]] = {
         {"key": "coherence", "name": _W["coherence"], "max": 15},
         {"key": "spelling", "name": _W["spelling"], "max": 15},
     ],
+    # A2 Schreiben analysis: the seven criteria of the VIZU A2 course (2026-11-01)
     "A2": [
-        {"key": "task", "name": _W["task"], "max": 25},
-        {"key": "grammar", "name": _W["grammar"], "max": 25},
-        {"key": "vocabulary", "name": _W["vocabulary_a"], "max": 20},
-        {"key": "coherence", "name": _W["coherence"], "max": 15},
-        {"key": "spelling", "name": _W["spelling"], "max": 15},
+        {"key": "task", "name": "Aufgabenbewältigung — topshiriqni bajarish", "max": 20},
+        {"key": "grammar", "name": "Grammatik — grammatik to'g'rilik", "max": 15},
+        {"key": "vocabulary", "name": "Wortschatz — so'z boyligi va qo'llash", "max": 15},
+        {"key": "sentence", "name": "Satzbau — gap tuzilishi", "max": 15},
+        {"key": "spelling", "name": "Rechtschreibung — imlo", "max": 10},
+        {"key": "coherence", "name": "Kohärenz — matn izchilligi", "max": 15},
+        {"key": "structure", "name": "Textstruktur — matn tuzilishi", "max": 10},
     ],
     "B1": [
         {"key": "task", "name": _W["task"], "max": 25},
@@ -119,7 +122,7 @@ SPEAKING_RUBRICS: dict[str, list[dict]] = {
 # What a learner at the level is expected to produce (used in AI prompts, Uzbek)
 WRITING_EXPECTATIONS = {
     "A1": "A1 darajasi: juda qisqa, oddiy gaplar (Ich heiße…, Ich wohne in…). Kundalik so'zlar. Murakkab ergash gaplar talab qilinmaydi. Avvalo topshiriq talabi va mazmun bajarilganini bahola; B1+ talablarini qo'llama.",
-    "A2": "A2 darajasi: qisqa bog'langan gaplar (und, aber, weil, dann), oddiy o'tgan zamon (Perfekt), kundalik vaziyatlar (xabar, qisqa e-mail). Yuqori daraja uslub talablarini qo'llama.",
+    "A2": "A2 darajasi: qisqa bog'langan gaplar (und, aber, weil, dann), oddiy o'tgan zamon (Perfekt), kundalik vaziyatlar (xabar, qisqa e-mail). Fe'l ikkinchi o'rinda, weil/dass dan keyin fe'l oxirida bo'lishi kutiladi; murakkab ergash gaplar, Konjunktiv, nominal uslub va rasmiy registr TALAB QILINMAYDI. Tushunishga xalaqit bermaydigan kichik xatolarni qattiq jazolama. B1/B2/C1 talablarini qo'llama.",
     "B1": "B1 darajasi: bog'langan, mantiqiy tuzilgan matn; fikrni asoslash, ergash gaplar (weil, dass, obwohl), Präteritum/Perfekt, mos murojaat va xayrlashuv shakllari (xat, e-mail, forum). Kichik xatolar tushunishga xalaqit bermasa, qattiq jazolama.",
     "B2": "B2 darajasi: aniq va batafsil matn, argumentlar va qarama-qarshi fikrlar, turli bog'lovchilar, Konjunktiv II va Passiv, rasmiy/norasmiy registrni to'g'ri tanlash. Grammatik aniqlik va matn tuzilishi muhim.",
     "C1": "C1 darajasi: murakkab, yaxshi tuzilgan, uslubiy jihatdan mos matn; nozik ma'no farqlari, idiomatik ifodalar, nominal uslub, registrni izchil saqlash, xulosalar va yashirin ma'nolarni ifodalash. Talablar yuqori, lekin topshiriq turiga mos baholansin.",
@@ -132,6 +135,40 @@ SPEAKING_EXPECTATIONS = {
     "B2": "B2 darajasi: aniq, batafsil va ravon nutq, fikrni dalillar bilan himoya qilish, afzallik/kamchiliklarni solishtirish, suhbatda faol ishtirok.",
     "C1": "C1 darajasi: ravon, spontan va yaxshi tuzilgan nutq; murakkab mavzular, nozik fikrlar, idiomatik ifodalar, registrni moslash.",
 }
+
+
+# Written tasks that are NOT Schreiben (writings.competency): what they check.
+# Their own rubric — a Wortschatz worksheet is never scored with Schreiben criteria.
+COMPETENCY_RUBRICS: dict[str, list[dict]] = {
+    "WORTSCHATZ": [
+        {"key": "meaning", "name": "So'z ma'nosi va tarjima", "max": 40},
+        {"key": "usage", "name": "So'zni gapda to'g'ri qo'llash", "max": 40},
+        {"key": "form", "name": "Shakl: artikl, ko'plik, imlo", "max": 20},
+    ],
+    "GRAMMATIK": [
+        {"key": "target", "name": "Mavzudagi grammatik struktura", "max": 60},
+        {"key": "accuracy", "name": "Umumiy grammatik to'g'rilik", "max": 25},
+        {"key": "spelling", "name": "Imlo", "max": 15},
+    ],
+    "LESEN": [
+        {"key": "comprehension", "name": "Matnni tushunish: javoblar to'g'riligi", "max": 80},
+        {"key": "answer", "name": "Javobning aniqligi va tili", "max": 20},
+    ],
+}
+
+COMPETENCY_TASKS = {
+    "WORTSCHATZ": "Bu Schreiben (yozma ish) EMAS, balki Wortschatz (lug'at) topshirig'i: so'zlarning ma'nosi, tarjimasi va gapda to'g'ri qo'llanishini tekshir. Matn tuzilishi, uslub yoki izchillikni baholama.",
+    "GRAMMATIK": "Bu Schreiben (yozma ish) EMAS, balki Grammatik mashqi: avvalo topshiriqdagi grammatik struktura to'g'ri qo'llanganini tekshir. Mazmun, uslub va matn tuzilishini baholama.",
+    "LESEN": "Bu Schreiben (yozma ish) EMAS, balki Lesen (o'qish) topshirig'ining ochiq savollari: javob quyidagi matnga muvofiqmi — faqat shuni tekshir. Til xatolari javob ma'nosini buzmasa, kam ball ayirma. Matnda yo'q ma'lumotni to'g'ri javob deb hisoblama.",
+}
+
+
+def competency_rubric(competency: str | None, level: str | None) -> list[dict]:
+    """The default rubric of a written task: the level's Schreiben rubric, or
+    the rubric of the competency the task belongs to."""
+    if competency in COMPETENCY_RUBRICS:
+        return [dict(c) for c in COMPETENCY_RUBRICS[competency]]
+    return writing_rubric(level)
 
 
 def normalise_level(level: str | None) -> str:

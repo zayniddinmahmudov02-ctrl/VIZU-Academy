@@ -1,5 +1,6 @@
 from sqlalchemy import (
     Boolean,
+    CheckConstraint,
     ForeignKey,
     Integer,
     String,
@@ -8,7 +9,7 @@ from sqlalchemy import (
 
 from datetime import datetime
 
-from sqlalchemy import DateTime
+from sqlalchemy import DateTime, or_
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import (
     Mapped,
@@ -18,10 +19,21 @@ from sqlalchemy.orm import (
 
 from app.models.base import BaseModel
 
+# The competency a written task belongs to (migration d7e2b4f8a1c6). NULL =
+# SCHREIBEN, so every task that existed before stays a Schreiben task. A
+# Wortschatz worksheet, a Grammatik written exercise or the open questions on a
+# Lesen text are answered in writing too, but they belong to — and are shown,
+# counted and evaluated in — their own competency, never in Schreiben.
+WRITING_COMPETENCY_SCHREIBEN = "SCHREIBEN"
+WRITING_COMPETENCIES = ("SCHREIBEN", "GRAMMATIK", "WORTSCHATZ", "LESEN")
+
 
 class Writing(BaseModel):
 
     __tablename__ = "writings"
+    __table_args__ = (
+        CheckConstraint("competency IS NULL OR competency IN ('SCHREIBEN', 'GRAMMATIK', 'WORTSCHATZ', 'LESEN')", name="ck_writings_competency"),
+    )
 
     lesson_id: Mapped[str] = mapped_column(
         ForeignKey("lessons.id", ondelete="CASCADE"),
@@ -86,8 +98,20 @@ class Writing(BaseModel):
     time_limit_minutes: Mapped[int | None] = mapped_column(Integer, nullable=True)  # recommended time
     # stable id of imported (Claude JSON) content — duplicate detection
     content_id: Mapped[str | None] = mapped_column(String(120), nullable=True, index=True)
+    competency: Mapped[str | None] = mapped_column(String(20), nullable=True)
+
+    @property
+    def competency_kind(self) -> str:
+        return self.competency or WRITING_COMPETENCY_SCHREIBEN
 
     lesson = relationship(
         "Lesson",
         back_populates="writings",
     )
+
+
+def writing_competency_filter(competency: str):
+    """SQL condition: the written tasks of one competency (NULL = Schreiben)."""
+    if competency == WRITING_COMPETENCY_SCHREIBEN:
+        return or_(Writing.competency.is_(None), Writing.competency == WRITING_COMPETENCY_SCHREIBEN)
+    return Writing.competency == competency

@@ -12,14 +12,13 @@ import ReadingSection from "@/components/lesson-player/reading/reading-section";
 import SkillResultsPanel from "@/components/lesson-player/results/skill-results-panel";
 import ExerciseSets, { useExercises } from "@/components/lesson-player/skill-test/exercise-sets";
 import SpeakingSection from "@/components/lesson-player/speaking/speaking-section";
-import VocabularySection from "@/components/lesson-player/vocabulary/vocabulary-section";
+import WortschatzSection from "@/components/lesson-player/vocabulary/wortschatz-section";
 import WritingSection from "@/components/lesson-player/writing/writing-section";
 import { getLessonSpeakings } from "@/features/lessons/services/speaking-service";
 import { COMPETENCY_META, competencyHref } from "@/features/lms/competencies";
 import type { LmsCompetency, LmsLesson, LmsResource, LmsVideo } from "@/features/lms/types";
 import { useTranslation } from "@/lib/i18n/use-translation";
 
-import LmsFlashcards from "./lms-flashcards";
 import LmsResourceList from "./lms-resource-list";
 import LmsVideos from "./lms-video";
 
@@ -121,19 +120,31 @@ export default function LmsCompetencyContent({
     case "EINFUEHRUNG":
       section = <FrageIfAny lessonId={lessonId} />;
       break;
+    // Each competency shows only its own tasks: written tasks are listed by
+    // their writings.competency, so no Wortschatz / Lesen / Grammatik task
+    // ever appears under Schreiben.
     case "WORTSCHATZ":
+      section = <WortschatzSection lessonId={lessonId} />;
+      break;
+    case "GRAMMATIK":
       section = (
-        <div className="space-y-8">
-          <LmsFlashcards lessonId={lessonId} />
-          <VocabularySection lessonId={lessonId} />
+        <div className="space-y-10">
+          <GrammarSection lessonId={lessonId} />
+          <div className="lms-paper" data-testid="lms-paper">
+            <WritingSection lessonId={lessonId} competency="GRAMMATIK" />
+          </div>
         </div>
       );
       break;
-    case "GRAMMATIK":
-      section = <GrammarSection lessonId={lessonId} />;
-      break;
     case "LESEN":
-      section = <ReadingSection lessonId={lessonId} />;
+      section = (
+        <div className="space-y-10">
+          <ReadingSection lessonId={lessonId} />
+          <div className="lms-paper" data-testid="lms-paper">
+            <WritingSection lessonId={lessonId} competency="LESEN" />
+          </div>
+        </div>
+      );
       break;
     case "HOEREN":
       section = <ListeningSection lessonId={lessonId} />;

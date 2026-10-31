@@ -1,16 +1,21 @@
 # Database map
 
-Updated 2026-10-31 · source: `backend/app/models/*.py` (`__tablename__`), `backend/alembic/versions/` (106 files).
+Updated 2026-11-01 · source: `backend/app/models/*.py` (`__tablename__`), `backend/alembic/versions/` (107 files).
 PostgreSQL; connection from settings `DATABASE_HOST/PORT/NAME/USER/PASSWORD` (names only).
 
 ## Migrations
-- Linear history, one head. **Head = `c4f7a9e2d6b3`** (local and production, 2026-10-30).
-- Latest: `e9b4c2f7a3d1` → `f3a8c1d5e7b2` Global Chat `reply_to_id` → `a6d2f9c4e8b1` `a2_audio_assets` →
-  `b8e3d1a7c5f2` `listenings.task_key` → `c4f7a9e2d6b3` `a2_audio_transcripts`.
+
+- Linear history, one head. **Head = `d7e2b4f8a1c6`** (see `current-state.md` for production).
+- Latest: `f3a8c1d5e7b2` Global Chat `reply_to_id` → `a6d2f9c4e8b1` `a2_audio_assets` → `b8e3d1a7c5f2` `listenings.task_key` →
+  `c4f7a9e2d6b3` `a2_audio_transcripts` → `d7e2b4f8a1c6` A2 module separation (`writings.competency` + CHECK, vocabularies
+  grammar fields + `dictionary_entry_id` + `data_sources`, `vocabulary_user_words`, `student_writing_versions`,
+  `ai_evaluations.attempt_number`).
 - Migration tests (upgrade → downgrade → upgrade): `test_global_chat_reply_migration`,
-  `test_listening_task_key_migration`, `test_a2_audio_transcripts_migration`. Rules: `.claude/rules/database.md`.
+  `test_listening_task_key_migration`, `test_a2_audio_transcripts_migration`, `test_a2_module_separation`
+  (`TestModuleSeparationMigration`). Rules: `.claude/rules/database.md`.
 
 ## Tables by area (model file in parentheses when it differs)
+
 - **Users/auth:** users, refresh_tokens, login_history, auth_rate_limit_events, user_languages, user_tags, audit_logs, app_settings
 - **Course structure:** languages, language_settings, courses, modules, lessons, kompetenzen,
   lesson_competencies, learning_resources, student_competency_progress (lms), content_imports, managed_pages, managed_page_audits
@@ -19,7 +24,10 @@ PostgreSQL; connection from settings `DATABASE_HOST/PORT/NAME/USER/PASSWORD` (na
   listening_audio_archives, listening_contents, skill_exercises, skill_exercise_questions, skill_exercise_options (lesson_skill),
   writings, speakings, media_assets, a2_audio_assets, a2_audio_transcripts, books
 - **Learner activity:** lesson_skill_attempts, ai_evaluations, answer_key_reviews, student_progress, student_writings,
-  student_speakings, student_quizzes, learning_activity, homeworks, homework_submissions, enrollments, certificates
+  student_writing_versions (student_writing), vocabulary_user_words (vocabulary), student_speakings, student_quizzes,
+  learning_activity, homeworks, homework_submissions, enrollments, certificates
+- **Competency of a written task:** `writings.competency` NULL/SCHREIBEN · GRAMMATIK · WORTSCHATZ · LESEN
+  (`models/writing.py:writing_competency_filter`).
 - **Quiz/legacy exams:** quizzes, quiz_questions, quiz_options, answers, exams, exam_parts, exam_providers, exam_sessions,
   certification_providers
 - **Assessment engine:** assessments, assessment_sections, assessment_tasks, assessment_attempts, assessment_results,
@@ -40,5 +48,8 @@ PostgreSQL; connection from settings `DATABASE_HOST/PORT/NAME/USER/PASSWORD` (na
   dictionary_user_words
 
 ## Cascades that matter
+
 - `listenings` → questions, options, tracks, **`lesson_skill_attempts` (CASCADE)**; `listening_audio_archives` is RESTRICT.
 - `a2_audio_assets.listening_id` SET NULL. `global_chat_messages.reply_to_id` SET NULL.
+- `student_writing_versions` CASCADE from `student_writings` / `writings`; `vocabulary_user_words` CASCADE from
+  `vocabularies`; `vocabularies.dictionary_entry_id` SET NULL.

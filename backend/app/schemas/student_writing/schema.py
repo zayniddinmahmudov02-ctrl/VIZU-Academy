@@ -71,6 +71,9 @@ class StudentWritingOwnResponse(BaseSchema):
     score: int | None
     feedback: str | None
     reviewed_at: datetime | None
+    # set when a teacher / admin confirmed or corrected the result — the student
+    # sees "teacher confirmed" vs. "automatic analysis" from this
+    teacher_reviewed: bool = False
 
     # AI evaluation (tasks with ai_evaluation_enabled)
     attempt_count: int = 0
@@ -100,9 +103,13 @@ class TeacherWritingItem(BaseSchema):
     lesson_title: str
     lesson_number: int
     writing_title: str
+    # SCHREIBEN | GRAMMATIK | WORTSCHATZ | LESEN — the competency of the task
+    competency: str = "SCHREIBEN"
     min_words: int | None
     max_words: int | None
     answer_text: str
+    ai_score: int | None = None
+    ai_evaluation: dict | None = None
     status: str
     submitted_at: datetime | None
     score: int | None

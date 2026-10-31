@@ -266,7 +266,8 @@
    "task_type": "other",
    "prompt": "Verbinden Sie die Sätze mit „damit“ (Verb am Ende).\n\n1. Ich lerne Deutsch. Ich will in Deutschland studieren. (Beispiel: …, damit ich in Deutschland studieren will.)\n2. Sie arbeitet viel. Sie will mehr Geld verdienen.\n3. Wir sparen Geld. Wir wollen ein Auto kaufen.\n4. Er geht früh schlafen. Er will morgen fit sein.\n5. Ich kaufe ein Geschenk. Meine Mutter freut sich.\n6. Sie übt jeden Tag. Sie besteht die Prüfung.\n7. Wir fahren langsam. Wir kommen sicher an.\n8. Er trainiert viel. Er wird stärker.\n9. Ich erkläre dir das. Du verstehst es.\n10. Sie nimmt einen Regenschirm. Sie wird nicht nass.\n11. Wir lernen Grammatik. Wir sprechen besser.\n12. Er liest ein Buch. Er lernt neue Wörter.\n13. Ich rufe dich an. Wir besprechen alles.\n14. Sie kauft Obst. Sie bleibt gesund.\n15. Wir wiederholen die Lektion. Wir verstehen alles gut.\n\nRedaktioneller Hinweis: Im Beispiel des Buches richtig: „…, damit ich in Deutschland studieren kann.“ (nach „damit“ kein „wollen“ — der Wunsch steckt schon in „damit“).",
    "min_words": null,
-   "max_words": null
+   "max_words": null,
+   "competency": "GRAMMATIK"
   },
   {
    "content_id": "vizu-a2buch-l09-lesen-01",
@@ -457,7 +458,8 @@
    "task_type": "description",
    "prompt": "Formulieren Sie mit den Wörtern einer Variante einen Text (Variante 2–5).\n\nVariante 1: lesen, die Nachrichten, online, informieren, wichtig, die Information\nVariante 2: die Medien, benutzen, das Smartphone, schnell, modern, die App\nVariante 3: das Fernsehen, sehen, die Sendung, interessant, berichten, die Nachrichten\nVariante 4: hören, das Radio, die Musik, die Information, täglich, unterwegs\nVariante 5: die Meinung, schreiben, kommentieren, diskutieren, das Internet, wichtig\n\nBeispiel (Variante 1) — Überschrift: Nachrichten online lesen ist praktisch. Ich lese jeden Tag Nachrichten online, weil Informationen für mich sehr wichtig sind. Ich informiere mich über verschiedene Themen im Internet. Online kann man schnell aktuelle Nachrichten lesen. Das finde ich sehr praktisch und interessant.",
    "min_words": null,
-   "max_words": null
+   "max_words": null,
+   "competency": "WORTSCHATZ"
   },
   {
    "content_id": "vizu-a2buch-l09-sprechen-01",

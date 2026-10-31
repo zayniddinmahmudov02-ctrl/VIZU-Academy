@@ -14,6 +14,32 @@ export interface WritingOwnSubmission {
   ai_score?: number | null;
   evaluated_at?: string | null;
   ai_evaluation?: AiEvaluationResult | null;
+  /** a teacher / admin confirmed or corrected the result */
+  teacher_reviewed?: boolean;
+}
+
+export interface WritingEvaluationRun {
+  id: string;
+  source: "AI" | "MANUAL_OVERRIDE";
+  status: "SUCCEEDED" | "FAILED";
+  score: number | null;
+  result: AiEvaluationResult | null;
+  reason: string | null;
+  error: string | null;
+  created_at: string;
+}
+
+export interface WritingVersion {
+  attempt_number: number;
+  answer_text: string;
+  word_count: number;
+  submitted_at: string;
+  evaluations: WritingEvaluationRun[];
+}
+
+/** Every version the student submitted (exact text), newest first, with each analysis / teacher decision. */
+export async function getMyWritingHistory(writingId: string): Promise<{ versions: WritingVersion[] }> {
+  return api<{ versions: WritingVersion[] }>(`/api/v1/writings/${writingId}/submissions/me/history`);
 }
 
 export async function getMyWritingSubmission(writingId: string): Promise<WritingOwnSubmission | null> {

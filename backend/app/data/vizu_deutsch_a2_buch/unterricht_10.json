@@ -1158,7 +1158,8 @@
    "task_type": "description",
    "prompt": "Formulieren Sie mit den Wörtern einer Variante einen Text.\n\nVariante 1: lernen, der Kurs, die Aufgabe, das Lehrbuch, der Test, die Hausaufgaben\nVariante 2: der Lehrer, erklären, sich erinnern, die Sprache, das Wörterbuch, verbessern\nVariante 3: die Schule, die Prüfung, die Note, die Klassenarbeit, die Wiederholung, bestehen\nVariante 4: die Weiterbildung, der Kursleiter, das Seminar, teilnehmen, sich anmelden, das Zertifikat\nVariante 5: die Universität, die Ausbildung, das Praktikum, die Prüfung bestehen, der Beruf, die Karriere",
    "min_words": null,
-   "max_words": null
+   "max_words": null,
+   "competency": "WORTSCHATZ"
   },
   {
    "content_id": "vizu-a2buch-l10-sprechen-01",

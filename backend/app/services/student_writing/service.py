@@ -2,8 +2,10 @@ from datetime import datetime, timezone
 from uuid import UUID
 
 from fastapi import HTTPException, status
+from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
+from app.models.lesson_skill import EVAL_KIND_WRITING, AiEvaluation
 from app.models.student_writing import (
     STATUS_DRAFT,
     STATUS_EVALUATING,
@@ -11,6 +13,7 @@ from app.models.student_writing import (
     STATUS_GRADED,
     STATUS_SUBMITTED,
     StudentWriting,
+    StudentWritingVersion,
 )
 from app.models.lesson import Lesson
 from app.models.user import User
@@ -35,6 +38,53 @@ def _display_name(user: User) -> str:
 
 def _word_count(text: str) -> int:
     return len([w for w in text.split() if w])
+
+
+def submission_history(db: Session, item: StudentWriting) -> list[dict]:
+    """Versions of one submission (newest first) with their evaluations:
+    AI runs (succeeded / failed) and manual decisions (teacher / admin). A run
+    recorded before versions existed has no attempt_number and is listed
+    under the latest version as `legacy`."""
+    versions = list(
+        db.scalars(
+            select(StudentWritingVersion)
+            .where(StudentWritingVersion.student_writing_id == item.id, StudentWritingVersion.user_id == item.user_id)
+            .order_by(StudentWritingVersion.attempt_number.desc())
+        )
+    )
+    runs = list(
+        db.scalars(
+            select(AiEvaluation)
+            .where(AiEvaluation.kind == EVAL_KIND_WRITING, AiEvaluation.submission_id == item.id)
+            .order_by(AiEvaluation.created_at)
+        )
+    )
+    latest = versions[0].attempt_number if versions else None
+    by_version: dict = {}
+    for run in runs:
+        by_version.setdefault(run.attempt_number if run.attempt_number is not None else latest, []).append(
+            {
+                "id": run.id,
+                "source": run.source,
+                "status": run.status,
+                "score": run.score,
+                "result": run.result if run.source != "MANUAL_OVERRIDE" else None,
+                "reason": (run.result or {}).get("reason") if run.source == "MANUAL_OVERRIDE" else None,
+                "error": "AI_UNAVAILABLE" if run.error else None,
+                "created_at": run.created_at,
+                "legacy": run.attempt_number is None,
+            }
+        )
+    return [
+        {
+            "attempt_number": v.attempt_number,
+            "answer_text": v.answer_text,
+            "word_count": v.word_count,
+            "submitted_at": v.submitted_at,
+            "evaluations": by_version.get(v.attempt_number, []),
+        }
+        for v in versions
+    ]
 
 
 class StudentWritingService:
@@ -158,6 +208,7 @@ class StudentWritingService:
                 existing.submitted_at = datetime.now(timezone.utc)
                 existing.attempt_count = (existing.attempt_count or 0) + 1
                 existing.evaluation_error = None
+                self._keep_version(existing)
             self.db.commit()
             self.db.refresh(existing)
             return existing
@@ -171,12 +222,39 @@ class StudentWritingService:
             attempt_count=1 if submit_final else 0,
         )
         self.db.add(item)
+        if submit_final:
+            self.db.flush()
+            self._keep_version(item)
         self.db.commit()
         self.db.refresh(item)
         return item
 
+    def _keep_version(self, item: StudentWriting) -> None:
+        """The submitted text, exactly as sent — later versions never replace it.
+        A teacher-reopened task (NEEDS_REVISION) is submitted again without
+        counting an AI attempt: it still gets its own next version number."""
+        last = self.db.scalar(
+            select(func.max(StudentWritingVersion.attempt_number)).where(StudentWritingVersion.student_writing_id == item.id)
+        ) or 0
+        number = max(last + 1, item.attempt_count or 1)
+        self.db.add(
+            StudentWritingVersion(
+                student_writing_id=item.id, user_id=item.user_id, writing_id=item.writing_id, attempt_number=number,
+                answer_text=item.answer_text, word_count=_word_count(item.answer_text), submitted_at=item.submitted_at,
+            )
+        )
+
     def get_own(self, user_id: UUID, writing_id: UUID) -> StudentWriting | None:
         return self.repository.get_by_user_and_writing(user_id, writing_id)
+
+    def own_history(self, user_id: UUID, writing_id: UUID) -> list[dict]:
+        """The student's own submitted versions, newest first, each with every
+        analysis run / teacher decision recorded for it. Only the caller's rows
+        (user_id is part of every query)."""
+        item = self.repository.get_by_user_and_writing(user_id, writing_id)
+        if item is None:
+            return []
+        return submission_history(self.db, item)
 
     # ==========================
     # Teacher grading (IDOR-scoped via TeacherAssignment)
@@ -194,9 +272,12 @@ class StudentWritingService:
             lesson_title=lesson.title,
             lesson_number=lesson.number,
             writing_title=writing.title,
+            competency=writing.competency_kind,
             min_words=writing.min_words,
             max_words=writing.max_words,
             answer_text=submission.answer_text,
+            ai_score=submission.ai_score,
+            ai_evaluation=submission.ai_evaluation,
             status=submission.status,
             submitted_at=submission.submitted_at,
             score=submission.score,
@@ -238,12 +319,11 @@ class StudentWritingService:
         self.get_for_teacher(teacher_id, submission_id)
 
         item = self.repository.get(str(submission_id))
-        if item.ai_score is not None:
-            # overriding an AI result: keep the original in the audit history
-            from app.models.lesson_skill import EVAL_KIND_WRITING
-            from app.services.lesson_skills.ai_evaluation import record_override
+        # every teacher decision is kept in the history next to the AI runs
+        # (the original AI result is never overwritten there)
+        from app.services.lesson_skills.ai_evaluation import record_override
 
-            record_override(self.db, EVAL_KIND_WRITING, item, teacher_id, score, "teacher review")
+        record_override(self.db, EVAL_KIND_WRITING, item, teacher_id, score, "teacher review")
         item.score = score
         item.feedback = feedback
         item.status = new_status

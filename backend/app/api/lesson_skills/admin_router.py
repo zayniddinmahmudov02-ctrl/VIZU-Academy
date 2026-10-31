@@ -29,6 +29,7 @@ from app.services.lesson_skills import exercises as ex_service
 from app.services.lesson_skills import skill_tests as tests
 from app.services.lesson_skills import levels
 from app.services.lesson_skills import results as skill_results
+from app.services.lesson_skills import word_csv
 from app.services.lesson_skills.ai_evaluation import run_speaking_evaluation, run_writing_evaluation
 
 router = APIRouter(prefix="/admin/lesson-skills", tags=["Admin - Lesson skills"])
@@ -90,6 +91,8 @@ def lesson_overview(lesson_id: UUID, db: Session = Depends(get_db), _: User = De
     return {
         "lesson": {"id": lesson.id, "title": lesson.title, "number": lesson.number, "level": level},
         "default_rubrics": {"writing": levels.writing_rubric(level), "speaking": levels.speaking_rubric(level)},
+        # rubric of a written task that is not Schreiben (writings.competency)
+        "competency_rubrics": levels.COMPETENCY_RUBRICS,
         "lesen": [
             {
                 "id": r.id,
@@ -476,6 +479,11 @@ class WordIn(BaseModel):
     plural: str | None = Field(default=None, max_length=255)
     example_sentence: str | None = Field(default=None, max_length=1000)
     example_translation: str | None = Field(default=None, max_length=1000)
+    word_type: str | None = Field(default=None, max_length=30)
+    verb_praeteritum: str | None = Field(default=None, max_length=120)
+    verb_partizip_ii: str | None = Field(default=None, max_length=120)
+    verb_auxiliary: str | None = Field(default=None, max_length=20)
+    audio_url: str | None = Field(default=None, max_length=1000)
     order_index: int | None = Field(default=None, ge=1, le=10000)
     is_published: bool = True
 
@@ -529,18 +537,48 @@ def delete_grammar(grammar_id: UUID, db: Session = Depends(get_db), _: User = De
 
 
 @router.post("/lessons/{lesson_id}/words")
-def create_word(lesson_id: UUID, data: WordIn, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+def create_word(lesson_id: UUID, data: WordIn, db: Session = Depends(get_db), _: User = Depends(require_content_editor)):
     _lesson_or_404(db, lesson_id)
-    return ex_service.admin_word(ex_service.save_word(db, lesson_id, data.model_dump()))
+    return ex_service.admin_word(ex_service.save_word(db, lesson_id, data.model_dump(exclude_unset=True)))
 
 
 @router.put("/words/{word_id}")
-def update_word(word_id: UUID, data: WordIn, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
-    return ex_service.admin_word(ex_service.save_word(db, None, data.model_dump(), word_id))
+def update_word(word_id: UUID, data: WordIn, db: Session = Depends(get_db), _: User = Depends(require_content_editor)):
+    return ex_service.admin_word(ex_service.save_word(db, None, data.model_dump(exclude_unset=True), word_id))
+
+
+@router.get("/lessons/{lesson_id}/words.csv")
+def export_words(lesson_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+    """The lesson's words as CSV (UTF-8 with BOM for Excel) — `missing` lists
+    what is still to be filled in."""
+    from fastapi.responses import Response
+
+    lesson = _lesson_or_404(db, lesson_id)
+    body = word_csv.export_csv(db, lesson_id)
+    return Response(content=body, media_type="text/csv; charset=utf-8",
+                    headers={"Content-Disposition": f'attachment; filename="lektion-{lesson.number}-wortschatz.csv"', "Cache-Control": "no-store"})
+
+
+@router.post("/lessons/{lesson_id}/words/import")
+async def import_words(
+    lesson_id: UUID, file: UploadFile = File(...), apply: bool = Form(False), db: Session = Depends(get_db),
+    actor: User = Depends(require_content_editor),
+):
+    """CSV import into one lesson: preview (apply=false, nothing written) or
+    apply. Rows with an `id` of this lesson update that word, rows without
+    create one; nothing is ever deleted. Every row goes through the editor's
+    validation; any error and nothing is written."""
+    _lesson_or_404(db, lesson_id)
+    raw = await word_csv.read_upload(file)
+    report = word_csv.import_csv(db, lesson_id, raw, apply=apply)
+    if apply:
+        write_audit(db, actor_id=str(actor.id), action="lesson_words_csv_import",
+                    details=f"lesson={lesson_id}; created={report['created']}; updated={report['updated']}; file_sha256={report['sha256']}")
+    return report
 
 
 @router.delete("/words/{word_id}")
-def delete_word(word_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+def delete_word(word_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_content_editor)):
     word = db.get(Vocabulary, word_id)
     if word is None:
         raise HTTPException(status_code=404, detail="Word not found.")

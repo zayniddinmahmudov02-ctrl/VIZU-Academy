@@ -678,7 +678,12 @@ def _submission_item(db: Session, kind: str, sub, task) -> dict:
         "history": _history(db, kind, sub.id),
     }
     if kind == EVAL_KIND_WRITING:
+        from app.services.student_writing.service import submission_history
+
         item["answer_text"] = sub.answer_text
+        item["competency"] = task.competency_kind
+        item["teacher_reviewed"] = sub.teacher_reviewed
+        item["versions"] = submission_history(db, sub)
     else:
         item["transcript"] = sub.transcript
         item["duration_seconds"] = sub.duration_seconds
@@ -717,6 +722,10 @@ def override_score(db: Session, kind: str, submission_id: UUID, actor: User, sco
     sub.reviewed_at = _now()
     db.commit()
     db.refresh(sub)
+    # a confirmed / corrected grade counts for the competency like a teacher grade
+    from app.services.learning import refresh_lesson_completion
+
+    refresh_lesson_completion(db, sub.user_id, task.lesson_id)
     return _submission_item(db, kind, sub, task)
 
 

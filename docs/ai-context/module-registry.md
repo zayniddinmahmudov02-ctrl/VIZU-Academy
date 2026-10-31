@@ -1,6 +1,6 @@
 # Module registry
 
-Updated 2026-10-31 · checked against repo `cf1d287` (= production code; see `current-state.md`).
+Updated 2026-11-01 · checked against the repo (Wortschatz / Lesen / Schreiben: A2 module separation; see `current-state.md`).
 Sources: directory listings of `backend/app/{api,services,models}`, `frontend/src/{app,features,components}`,
 `backend/tests`, `app/main.py`, `core/security/roles.py`, and the files named below.
 `(?)` = not checked in code yet — verify before relying on it. Paths: `be/` = `backend/app/`, `fe/` = `frontend/src/`.
@@ -74,10 +74,21 @@ API prefixes are listed without `/api/v1` (every router is mounted bare and unde
   Lesson words API `be/api/vocabularies/router.py` (`/vocabularies`, `be/services/vocabulary/service.py`); Wörterbuch
   (dictionary) `be/api/dictionary/router.py` (`/dictionary`, tables `dictionary_entries`, `dictionary_user_words`),
   import `be/scripts/import_woerterbuch.py`, CSVs `docs/*-words.csv`, audits `docs/woerterbuch-*.md`.
-- **Frontend:** `fe/components/lesson-player/vocabulary/`, `fe/components/lms/lms-flashcards.tsx`,
-  `fe/app/(dashboard)/woerterbuch`, `fe/features/woerterbuch/`; admin `lesson-skills/word-manager.tsx`.
-- **Tests:** `test_woerterbuch`.
-- **A2:** Wortschatz competency published in lessons 1–13 (production check 2026-10-30).
+- **Student dictionary + tests (2026-11-01):** `be/services/lesson_skills/wortschatz.py` (lesson words as dictionary,
+  enrichment from VERIFIED Wörterbuch entries with the same article + lemma, `missing_fields`, saved/learned in
+  `vocabulary_user_words`), `GET /lesson-skills/{lesson}/wortschatz/words[?scope=level]`, `PUT …/words/{id}/state`;
+  tests generator `be/services/lesson_skills/wortschatz_tests.py` (7 types → WORTSCHATZ `skill_exercises`, source `vizu`,
+  content_id `vizu-a2buch-lNN-wortschatz-test-<type>`); admin CSV `be/services/lesson_skills/word_csv.py`
+  (`GET /admin/lesson-skills/lessons/{id}/words.csv`, `POST …/words/import`). Data step: `be/scripts/a2_module_separation.py`.
+- **Frontend:** LMS page `fe/components/lesson-player/vocabulary/wortschatz-section.tsx` (tabs Wörterbuch / Übungen / Tests),
+  `word-dictionary.tsx`, filter `fe/features/lessons/utils/wortschatz-filter.ts`, service `wortschatz-service.ts`; legacy route
+  still `vocabulary-section.tsx`; `fe/components/lms/lms-flashcards.tsx`, `fe/app/(dashboard)/woerterbuch`, `fe/features/woerterbuch/`;
+  admin `lesson-skills/word-manager.tsx` (fields, missing, CSV) + Wortschatz-Aufgaben via `WritingManager competency`.
+- **Tests:** `test_woerterbuch`, `test_a2_module_separation`; unit `wortschatz-filter.test.mjs`; E2E `a2-module-separation.spec.ts`.
+- **Rules:** never overwrite the book's word / article / translation; never use a `needs_review` entry; "die" + plural == word
+  = plural form (no Artikel / Plural question). Written Wortschatz worksheets are `writings.competency = WORTSCHATZ`.
+- **A2:** words L1 60 · L2 40 · L3 60 · L4 50 · L9 6 (L5–8, L10–13: book page has no translated list); L9 "translations" are
+  German explanations (book).
 
 ## 6. Lesen
 
@@ -85,7 +96,9 @@ API prefixes are listed without `/api/v1` (every router is mounted bare and unde
   `/reading-options`); student test `be/api/lesson_skills/router.py` `GET/POST /lesson-skills/{lesson}/lesen…`,
   grading `be/services/lesson_skills/skill_tests.py`; keys reviewed in Lösung.
 - **Frontend:** `fe/components/lesson-player/reading/`, `skill-test/`; admin `lesson-skills/lesen-manager.tsx`.
-- **Rules:** one Lesen test per lesson (all published texts); key in `reading_options.is_correct`.
+- **Rules:** one Lesen test per lesson (all published texts); key in `reading_options.is_correct`. Open questions on a text =
+  `writings.competency = LESEN` (shown on the Lesen page, counted in `lesen`, AI checks them against the lesson's reading texts,
+  `ai_evaluation.lesen_source_text`), never in Schreiben.
 
 ## 7. Hören
 
@@ -108,8 +121,18 @@ API prefixes are listed without `/api/v1` (every router is mounted bare and unde
   practice = `skill_exercises` skill SCHREIBEN; teacher review via `/teacher`. Exam-style writing tables
   (`writing_tasks`, `writing_submissions`, `writing_evaluations`, `writing_rubric_criteria`) belong to the
   assessment engine (?).
-- **Frontend:** `fe/components/lesson-player/writing/`, teacher `fe/app/teacher/schreiben`, admin `fe/app/admin/writing`.
-- **Tests:** `test_writing_speaking_submission_rbac_and_idor`, `test_vizu_mock_schreiben_*`.
+- **Competency of a writing (2026-11-01):** `writings.competency` NULL/SCHREIBEN · GRAMMATIK · WORTSCHATZ · LESEN
+  (`models/writing.py:writing_competency_filter`); `GET /writings/lesson/{id}?competency=` defaults to Schreiben;
+  `results.py` counts each task in its own competency; legacy `section_gate` / `lesson_scoring` count Schreiben only.
+- **Analysis:** A2 rubric = 7 criteria (`levels.py` WRITING_RUBRICS A2: task, grammar, vocabulary, sentence, spelling,
+  coherence, structure); other competencies use `levels.COMPETENCY_RUBRICS`; result has per-criterion `tip`, errors with
+  `criterion`, `weaknesses`, `improved_text` (AI-written, labelled), `next_practice`. Every final submission's text is kept in
+  `student_writing_versions`; every run / teacher decision in `ai_evaluations` (with `attempt_number`); student history
+  `GET /writings/{id}/submissions/me/history`; `teacher_reviewed` = AI vs teacher badge. AI failure → EVALUATION_FAILED, no score.
+- **Frontend:** `fe/components/lesson-player/writing/` (`writing-section.tsx` `competency` prop, `writing-history.tsx`),
+  `common/ai-evaluation-card.tsx`, teacher `fe/app/teacher/schreiben`, admin `fe/app/admin/writing`, `managers/writing-manager.tsx`
+  (Kompetenz select / column / `competency` filter in the LMS competency panel).
+- **Tests:** `test_writing_speaking_submission_rbac_and_idor`, `test_vizu_mock_schreiben_*`, `test_a2_module_separation`.
 
 ## 9. Sprechen
 

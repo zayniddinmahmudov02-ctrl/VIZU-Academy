@@ -5,6 +5,7 @@ from pydantic import ConfigDict, Field, field_validator
 
 from app.schemas.base import BaseSchema
 
+COMPETENCY_PATTERN = r"^(SCHREIBEN|GRAMMATIK|WORTSCHATZ|LESEN)$"
 
 class RubricCriterion(BaseSchema):
     key: str = Field(min_length=1, max_length=40)
@@ -45,6 +46,8 @@ class WritingBase(BaseSchema):
     audience: str | None = Field(default=None, max_length=1000)
     time_limit_minutes: int | None = Field(default=None, ge=1, le=240)
     content_id: str | None = Field(default=None, max_length=120)
+    # competency the task belongs to; None = Schreiben (models/writing.py)
+    competency: str | None = Field(default=None, pattern=COMPETENCY_PATTERN)
 
     _rubric_ok = field_validator("rubric")(classmethod(lambda cls, v: _check_rubric(v)))
 
@@ -74,6 +77,7 @@ class WritingUpdate(BaseSchema):
     text_type: str | None = Field(default=None, pattern=r"^(message|email|letter|description|opinion|essay|report|other)$")
     audience: str | None = Field(default=None, max_length=1000)
     time_limit_minutes: int | None = Field(default=None, ge=1, le=240)
+    competency: str | None = Field(default=None, pattern=COMPETENCY_PATTERN)
 
     _rubric_ok = field_validator("rubric")(classmethod(lambda cls, v: _check_rubric(v)))
 

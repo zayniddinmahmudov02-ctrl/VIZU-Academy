@@ -90,7 +90,7 @@ from app.models.task_attempt import TaskAttempt
 from app.models.task_question import TaskQuestion
 from app.models.video import Video
 from app.models.vocabulary import Vocabulary
-from app.models.writing import Writing
+from app.models.writing import WRITING_COMPETENCY_SCHREIBEN, Writing, writing_competency_filter
 
 # Student-facing order first (Video, Lesen, Hören, Schreiben, Sprechen,
 # Wortschatz Test, Yakuniy Test); the last three keys are no longer part
@@ -222,7 +222,7 @@ class SectionGateService:
         task_ids = [
             str(row[0])
             for row in self.db.query(Writing.id)
-            .filter(Writing.lesson_id == str(lesson_id), Writing.is_published.is_(True))
+            .filter(Writing.lesson_id == str(lesson_id), Writing.is_published.is_(True), writing_competency_filter(WRITING_COMPETENCY_SCHREIBEN))
             .all()
         ]
         if not task_ids:
@@ -317,7 +317,7 @@ class SectionGateService:
         # it must neither show a nav tab nor block lesson completion.
         return (
             self.db.query(Writing)
-            .filter(Writing.lesson_id == str(lesson_id), Writing.is_published.is_(True))
+            .filter(Writing.lesson_id == str(lesson_id), Writing.is_published.is_(True), writing_competency_filter(WRITING_COMPETENCY_SCHREIBEN))
             .first()
             is not None
         )

@@ -8,7 +8,7 @@ attempts."""
 from datetime import datetime
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
@@ -16,9 +16,10 @@ from sqlalchemy.orm import Session
 from app.api.dependencies.auth import get_current_user
 from app.api.dependencies.progress import require_lesson_access
 from app.db.session import get_db
+from app.models.lesson import Lesson
 from app.models.lesson_skill import SKILL_HOEREN, SKILL_LESEN, LessonSkillAttempt
 from app.models.user import User
-from app.services.lesson_skills import exercises
+from app.services.lesson_skills import exercises, wortschatz
 from app.services.lesson_skills import admin as skill_admin
 from app.services.lesson_skills import skill_tests as tests
 from app.services.learning.lesson_progress import refresh_lesson_completion
@@ -310,6 +311,45 @@ def submit_exercise(
     )
     refresh_lesson_completion(db, user.id, lesson_id)
     return _result(attempt, graded)
+
+
+# ============================================================
+# Wortschatz: the lesson's words as a dictionary (saved / learned per student)
+# ============================================================
+
+
+class WordStateIn(BaseModel):
+    saved: bool | None = None
+    learned: bool | None = None
+
+    model_config = {"extra": "forbid"}
+
+
+@router.get("/{lesson_id}/wortschatz/words")
+def get_wortschatz_words(
+    lesson_id: UUID, scope: str = Query(default="lesson", pattern="^(lesson|level)$"), db: Session = Depends(get_db),
+    user: User = Depends(require_lesson_access),
+):
+    """The lesson's published words with their grammar data, missing fields
+    and the caller's saved / learned state. scope=level: the words of every
+    lesson ("topic") of the level that is open for the caller."""
+    lesson = db.get(Lesson, lesson_id)
+    lessons = wortschatz.level_topics(db, user, lesson) if scope == "level" else [lesson]
+    return {
+        "lesson_id": lesson_id,
+        "scope": scope,
+        "topics": [{"lesson_id": lsn.id, "number": lsn.number, "title": lsn.title} for lsn in lessons],
+        "words": wortschatz.words_of_lessons(db, user, lessons),
+    }
+
+
+@router.put("/{lesson_id}/wortschatz/words/{word_id}/state")
+def set_wortschatz_word_state(
+    lesson_id: UUID, word_id: UUID, data: WordStateIn, db: Session = Depends(get_db), user: User = Depends(require_lesson_access)
+):
+    """Saved ("Meine Wörter") / learned — only the caller's own row; the word's
+    lesson must be open for the caller (checked in the service)."""
+    return wortschatz.set_state(db, user, word_id, data.saved, data.learned)
 
 
 @router.get("/{lesson_id}/exercises/{skill_slug}/{exercise_id}/attempts/{attempt_id}", response_model=AttemptResult)

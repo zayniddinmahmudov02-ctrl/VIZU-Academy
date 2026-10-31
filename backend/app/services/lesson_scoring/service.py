@@ -48,7 +48,7 @@ from app.models.student_writing import (
     STATUS_SUBMITTED as WRITING_STATUS_SUBMITTED,
     StudentWriting,
 )
-from app.models.writing import Writing
+from app.models.writing import WRITING_COMPETENCY_SCHREIBEN, Writing, writing_competency_filter
 from app.repositories.student_progress import StudentProgressRepository
 
 MAX_VIDEO = 10
@@ -187,7 +187,7 @@ class LessonScoringService:
         task_ids = [
             str(row[0])
             for row in self.db.query(Writing.id)
-            .filter(Writing.lesson_id == str(lesson_id), Writing.is_published.is_(True))
+            .filter(Writing.lesson_id == str(lesson_id), Writing.is_published.is_(True), writing_competency_filter(WRITING_COMPETENCY_SCHREIBEN))
             .all()
         ]
         if not task_ids:

@@ -63,7 +63,8 @@
    "task_type": "other",
    "prompt": "Bilde den Imperativ im Singular (du), im Plural (ihr) und in der höflichen Form (Sie). Gib zu jedem Satz einen Rat in allen drei Formen. Tipp: Achte auf die richtige Form!\n\n1. Ich habe Kopfschmerzen.\n2. Ich fühle mich sehr müde.\n3. Ich habe Halsschmerzen.\n4. Ich habe Fieber.\n5. Ich habe Rückenschmerzen.\n6. Ich bin erkältet.\n7. Ich habe Husten.\n8. Ich habe Stress.\n9. Ich fühle mich schwach.\n10. Mir ist kalt.",
    "min_words": null,
-   "max_words": null
+   "max_words": null,
+   "competency": "GRAMMATIK"
   },
   {
    "content_id": "vizu-a2buch-l03-lesen-01",

@@ -1152,7 +1152,8 @@
    "task_type": "description",
    "prompt": "Formulieren Sie mit den Wörtern einer Variante einen Text.\n\nVariante 1: die Umwelt, schützen, die Natur, die Erde, der Müll\nVariante 2: recyceln, trennen, der Müllberg, der Müllcontainer, der Abfall\nVariante 3: das Klima, das Wetter, sich verändern, die Klimakatastrophe, die Erderwärmung\nVariante 4: Energiesparen, die Fahrt, zu Fuß, das Fahrrad, die öffentlichen Verkehrsmittel\nVariante 5: erneuerbar, stoßen, der Strom, die Energie, das Wasser",
    "min_words": null,
-   "max_words": null
+   "max_words": null,
+   "competency": "WORTSCHATZ"
   },
   {
    "content_id": "vizu-a2buch-l11-sprechen-01",

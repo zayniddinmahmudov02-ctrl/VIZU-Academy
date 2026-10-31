@@ -19,7 +19,11 @@ export interface LessonWriting {
   text_type?: "message" | "email" | "letter" | "description" | "opinion" | "essay" | "report" | "other" | null;
   audience?: string | null;
   time_limit_minutes?: number | null;
+  /** null = Schreiben; a Wortschatz / Grammatik / Lesen written task otherwise */
+  competency?: WritingCompetency | null;
 }
+
+export type WritingCompetency = "SCHREIBEN" | "GRAMMATIK" | "WORTSCHATZ" | "LESEN";
 
 /** "50–150", "≥ 80", "≤ 40" — or null when the task has no word limit. */
 export function wordRange(min: number | null | undefined, max: number | null | undefined): string | null {
@@ -29,9 +33,9 @@ export function wordRange(min: number | null | undefined, max: number | null | u
   return null;
 }
 
-// Public, published-only — Schreiben's source of truth (see
-// backend/app/services/lesson_progress/section_gate.py's module
-// docstring: the Assessment Engine is no longer used for this skill).
-export async function getLessonWritings(lessonId: string): Promise<LessonWriting[]> {
-  return api<LessonWriting[]>(`/api/v1/writings/lesson/${lessonId}`);
+// Public, published-only written tasks of ONE competency (Schreiben by
+// default) — a Wortschatz worksheet or the open questions of a Lesen text are
+// listed only under their own competency, never in Schreiben.
+export async function getLessonWritings(lessonId: string, competency: WritingCompetency = "SCHREIBEN"): Promise<LessonWriting[]> {
+  return api<LessonWriting[]>(`/api/v1/writings/lesson/${lessonId}?competency=${competency}`);
 }

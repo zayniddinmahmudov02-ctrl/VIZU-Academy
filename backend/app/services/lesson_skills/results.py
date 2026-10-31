@@ -31,7 +31,7 @@ from app.models.lesson_skill import (
 from app.models.speaking import Speaking
 from app.models.student_speaking import StudentSpeaking
 from app.models.student_writing import StudentWriting
-from app.models.writing import Writing
+from app.models.writing import WRITING_COMPETENCY_SCHREIBEN, Writing, writing_competency_filter
 from app.services.lesson_skills import skill_tests as tests
 
 NOT_AVAILABLE = "not_available"
@@ -199,16 +199,28 @@ def _graded_tasks(task_rows, subs_by_task: dict) -> dict:
     }
 
 
-def _schreiben(db: Session, user_id: UUID, lesson_id: UUID) -> dict:
-    """Free writing tasks (teacher / AI graded) plus the auto-graded Schreiben
-    practice sets (word bank, gap texts). With both, Schreiben is completed
-    when both parts are, and its score is the mean of the two parts."""
-    rows = list(db.scalars(select(Writing).where(Writing.lesson_id == lesson_id, Writing.is_published.is_(True)).order_by(Writing.order_index)))
+def _writing_tasks(db: Session, user_id: UUID, lesson_id: UUID, competency: str) -> dict:
+    rows = list(
+        db.scalars(
+            select(Writing)
+            .where(Writing.lesson_id == lesson_id, Writing.is_published.is_(True), writing_competency_filter(competency))
+            .order_by(Writing.order_index)
+        )
+    )
     subs = {
         str(s.writing_id): s
         for s in db.scalars(select(StudentWriting).where(StudentWriting.user_id == user_id, StudentWriting.writing_id.in_([w.id for w in rows])))
     } if rows else {}
-    return _merge_parts(_graded_tasks(rows, subs), _exercise_skill(db, user_id, lesson_id, SKILL_SCHREIBEN))
+    return _graded_tasks(rows, subs)
+
+
+def _schreiben(db: Session, user_id: UUID, lesson_id: UUID) -> dict:
+    """Free writing tasks of the Schreiben competency (teacher / AI graded)
+    plus the auto-graded Schreiben practice sets (word bank, gap texts). With
+    both, Schreiben is completed when both parts are, and its score is the
+    mean of the two parts. Written tasks of Grammatik / Wortschatz / Lesen
+    (writings.competency) count there, never here."""
+    return _merge_parts(_writing_tasks(db, user_id, lesson_id, WRITING_COMPETENCY_SCHREIBEN), _exercise_skill(db, user_id, lesson_id, SKILL_SCHREIBEN))
 
 
 def _merge_parts(a: dict, b: dict) -> dict:
@@ -236,7 +248,7 @@ def _merge_parts(a: dict, b: dict) -> dict:
         "interim": status != COMPLETED and bool(scores),
         "attempts": (a.get("attempts") or 0) + (b.get("attempts") or 0),
         "submitted_at": max(times) if times else None,
-        "evaluated_at": a.get("evaluated_at"),
+        "evaluated_at": a.get("evaluated_at") or b.get("evaluated_at"),
         "tasks": [*a.get("tasks", []), *b.get("tasks", [])],
         "can_retry": bool(a.get("can_retry") or b.get("can_retry")),
     }
@@ -344,14 +356,15 @@ def overall(skills: dict, config: dict | None = None) -> dict:
 
 
 def lesson_skill_results(db: Session, user_id: UUID, lesson_id: UUID) -> dict:
+    # each competency counts its own written tasks (writings.competency) next to its graded sets
     skills = {
         "frage": _frage(db, user_id, lesson_id),
-        "grammatik": _exercise_skill(db, user_id, lesson_id, SKILL_GRAMMATIK),
-        "lesen": _lesen(db, user_id, lesson_id),
+        "grammatik": _merge_parts(_exercise_skill(db, user_id, lesson_id, SKILL_GRAMMATIK), _writing_tasks(db, user_id, lesson_id, "GRAMMATIK")),
+        "lesen": _merge_parts(_lesen(db, user_id, lesson_id), _writing_tasks(db, user_id, lesson_id, "LESEN")),
         "hoeren": _hoeren(db, user_id, lesson_id),
         "schreiben": _schreiben(db, user_id, lesson_id),
         "sprechen": _sprechen(db, user_id, lesson_id),
-        "wortschatz": _exercise_skill(db, user_id, lesson_id, SKILL_WORTSCHATZ),
+        "wortschatz": _merge_parts(_exercise_skill(db, user_id, lesson_id, SKILL_WORTSCHATZ), _writing_tasks(db, user_id, lesson_id, "WORTSCHATZ")),
         "uebungen": _exercise_skill(db, user_id, lesson_id, SKILL_UEBUNGEN),
         "yakuniy": _exercise_skill(db, user_id, lesson_id, SKILL_YAKUNIY),
     }
