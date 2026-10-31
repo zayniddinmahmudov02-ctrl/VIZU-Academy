@@ -1,6 +1,6 @@
 # Known issues
 
-Updated 2026-10-31. Remove an entry when it is fixed (and note it in `recent-changes.md`).
+Updated 2026-11-01. Remove an entry when it is fixed (and note it in `recent-changes.md`).
 
 | # | Area | Issue | Since | Next step |
 |---|---|---|---|---|
@@ -16,3 +16,6 @@ Updated 2026-10-31. Remove an entry when it is fixed (and note it in `recent-cha
 | 10 | Local env | C: drive is full; Claude's temp dir is on C: (outputs may be cut) | 2026-10-31 | free space or set `CLAUDE_CODE_TMPDIR` to D: |
 | 11 | Docs | some docstrings say "first 3 lessons free"; code: only lesson 1 (`offers.free_lessons()`) | — | fix when touching those files |
 | 12 | Groups | `docs/groups-classroom.md` (2026-10-28) said not on production; current production state not re-checked | — | verify on next groups task |
+| 13 | A2 Wortschatz | 86 of 216 lesson words have no Wörterbuch entry: Wortart (non-nouns), Plural, examples missing (`missing`) | 2026-11-01 | admin fills them (LMS → Wortschatz → "nur unvollständige" / CSV) |
+| 14 | Security | other write endpoints of `/admin/lesson-skills` (questions, exercises, grammars, audio) still use `require_admin_panel_access` (SUPPORT / PAYMENT_MANAGER can write) | ≤ 2026-11-01 | switch to `require_content_editor` + 403 tests |
+| 15 | E2E env | `a2-audio-manager.spec.ts` expects the seed task "E2E Hören Lektion 1"; `vizu_gcr_e2e` holds the real A2 edition since the 2026-10-30 rehearsal | 2026-11-01 | reseed a fresh e2e DB for that spec |
