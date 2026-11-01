@@ -94,7 +94,19 @@ Soni (production apply):
 
 | Dars | To'plam | Savol |
 |---|---|---|
-| __PROD_TESTS__ |
+| 1 | 7 | 103 |
+| 2 | 7 | 81 |
+| 3 | 7 | 99 |
+| 4 | 7 | 94 |
+| 9 | 4 (Bedeutung, Übersetzung, Artikel, Plural) | 14 |
+| **Jami** | **32** | **391** |
+
+Lug'at maydonlari (191 so'z o'zgardi):
+
+- Wortart — 191;
+- Plural — 71;
+- misol gap va uning tarjimasi — 130;
+- Präteritum, Partizip II, Hilfsverb — 42.
 
 ### 3.3. Admin
 
@@ -219,7 +231,41 @@ Testlar quyidagilarni qamraydi:
 
 ## 9. Production
 
-__PROD__
+**Revision:** `7749ea4` (server: `git pull --ff-only` from `91a5e70`) · **Alembic:** `c4f7a9e2d6b3` → `d7e2b4f8a1c6` · **Frontend:** slot `.next-a`, deployment `7749ea4-20261031214051`.
+
+| Bosqich | Natija |
+|---|---|
+| Pre-check | SUCCESS. Upstream fayllarda serverda lokal o'zgarish yo'q; revision kutilgandek; servislar `active`; diskda 221 GB bo'sh joy |
+| Backup | SUCCESS. `/var/backups/vizu/pre-a2modsep-20261031-213415`: `pg_dump` + scratch DB'ga to'liq tiklash, **135 jadval, 0 farq**; `lesson-listening.tar` (50 fayl); `SHA256SUMS` OK. Xato bilan ikkinchi nusxa ham olindi: `…-213514` |
+| Kod | SUCCESS. `git pull --ff-only`; `requirements.txt` o'zgarmagan, paket o'rnatilmadi |
+| Server testlari | SUCCESS. `unittest` 109 OK (15 skipped: DB va httpx testlari serverda o'tkazib yuboriladi) |
+| Migratsiya | SUCCESS. Avval SQL preview tekshirildi (faqat ADD COLUMN, CREATE TABLE/INDEX, CHECK, FK), keyin `alembic upgrade head` |
+| Backend | SUCCESS. Restart qilindi, health 11 soniyada 200 qaytardi, yangi xato yo'q |
+| Ma'lumot qadami | SUCCESS. Plan `fe38129864b9` → apply: 15 topshiriq ko'chirildi, 191 so'z to'ldirildi, 32 test yaratildi. Takroriy plan bo'sh chiqdi; 3 ta audit yozuvi bor; zaxira va hisobot `…-213415/a2-module-separation-20261031-204014-fe38129864b9/` papkasida |
+| Frontend | SUCCESS. `deploy-frontend.sh` orqali `.next-b` → `.next-a` almashtirildi. Rollback uchun `.next-b` saqlangan |
+| Smoke | SUCCESS (batafsil quyida) |
+
+Smoke tekshiruvi natijalari:
+
+- `/`, `/login`, `/kurse`, `/kurse/A2`, `/woerterbuch`, `/admin/lms` → 200.
+- Yangi API'lar tizimga kirmagan foydalanuvchiga 401 qaytaradi: `wortschatz/words`, `writings/lesson?competency`, `submissions/me/history`, `words.csv`.
+- Natijalar faqat o'z modulida hisoblanadi:
+  - L2: Schreiben'da 2 topshiriq, Grammatik yozma mashqi Grammatik'da;
+  - L5: Schreiben'da 2 topshiriq, Wortschatz 1, Lesen 1;
+  - L7: Schreiben'da 2 topshiriq, Wortschatz 1.
+- Boshqa darajalardagi `vocabularies` / `writings` yozuvlarining birortasi o'zgarmagan.
+- Yangi UI matnlari `.next-a` ichida bor.
+- Backend log'larida xato yo'q (faqat ma'lum `SUPER_ADMIN_VERIFICATION` xabari).
+- Frontend log'ida 3 ta `Failed to find Server Action "x"` bor. Bu tashqi so'rovlar: xuddi shu xabar deploy'dan oldin, eski jarayonda ham bor edi.
+- `nano_bot` va `telegram-cours2026` ishlab turibdi; ularga tegilmagan.
+
+Production'da test foydalanuvchi, token, to'lov yoki audio yaratilmadi.
+
+Rollback (kerak bo'lsa):
+
+- frontend: `cp frontend/.deploy/active.env.prev frontend/.deploy/active.env && systemctl restart vizu-frontend`;
+- ma'lumot qadami: `backup.json` ichidagi qatorlar (faqat so'rov bo'yicha);
+- migratsiya avtomatik downgrade qilinmaydi.
 
 ## 10. Qolgan kamchiliklar
 
