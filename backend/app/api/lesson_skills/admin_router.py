@@ -136,13 +136,13 @@ def lesson_overview(lesson_id: UUID, db: Session = Depends(get_db), _: User = De
 
 
 @router.put("/readings/{reading_id}/questions")
-def put_reading_questions(reading_id: UUID, data: QuestionsIn, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+def put_reading_questions(reading_id: UUID, data: QuestionsIn, db: Session = Depends(get_db), _: User = Depends(require_content_editor)):
     reading = skill_admin.replace_reading_questions(db, reading_id, _payload(data))
     return {"id": reading.id, "questions": [skill_admin.admin_question(q) for q in sorted(reading.questions, key=lambda q: q.order_index)]}
 
 
 @router.put("/listenings/{listening_id}/questions")
-def put_listening_questions(listening_id: UUID, data: QuestionsIn, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+def put_listening_questions(listening_id: UUID, data: QuestionsIn, db: Session = Depends(get_db), _: User = Depends(require_content_editor)):
     listening = skill_admin.replace_listening_questions(db, listening_id, _payload(data))
     return {"id": listening.id, "questions": [skill_admin.admin_question(q) for q in sorted(listening.questions, key=lambda q: q.order_index)]}
 
@@ -153,7 +153,7 @@ async def upload_listening_audio(
     file: UploadFile = File(...),
     duration_seconds: int | None = Form(None),
     db: Session = Depends(get_db),
-    user: User = Depends(require_admin_panel_access),
+    user: User = Depends(require_content_editor),
 ):
     """MP3 / WAV / M4A, max 100 MB; type checked by content, stored privately."""
     listening = await skill_admin.upload_listening_audio(
@@ -285,22 +285,22 @@ def preview_audio_track(listening_id: UUID, track_id: UUID, db: Session = Depend
 
 
 @router.post("/readings/{reading_id}/duplicate")
-def duplicate_reading(reading_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+def duplicate_reading(reading_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_content_editor)):
     return {"id": skill_admin.duplicate_reading(db, reading_id).id}
 
 
 @router.post("/listenings/{listening_id}/duplicate")
-def duplicate_listening(listening_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+def duplicate_listening(listening_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_content_editor)):
     return {"id": skill_admin.duplicate_listening(db, listening_id).id}
 
 
 @router.post("/writings/{writing_id}/duplicate", response_model=WritingAdminResponse)
-def duplicate_writing(writing_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+def duplicate_writing(writing_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_content_editor)):
     return skill_admin.duplicate_task(db, Writing, writing_id)
 
 
 @router.post("/speakings/{speaking_id}/duplicate", response_model=SpeakingAdminResponse)
-def duplicate_speaking(speaking_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+def duplicate_speaking(speaking_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_content_editor)):
     return skill_admin.duplicate_task(db, Speaking, speaking_id)
 
 
@@ -424,7 +424,7 @@ def course_structure(course_id: UUID, db: Session = Depends(get_db), _: User = D
 
 
 @router.put("/courses/{course_id}/result-config")
-def put_result_config(course_id: UUID, data: ResultConfigIn, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+def put_result_config(course_id: UUID, data: ResultConfigIn, db: Session = Depends(get_db), _: User = Depends(require_content_editor)):
     """Weights and required skills of the lesson overall result for this level."""
     course = _course_or_404(db, course_id)
     try:
@@ -437,7 +437,7 @@ def put_result_config(course_id: UUID, data: ResultConfigIn, db: Session = Depen
 
 
 @router.delete("/courses/{course_id}/result-config")
-def reset_result_config(course_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+def reset_result_config(course_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_content_editor)):
     course = _course_or_404(db, course_id)
     course.result_config = None
     db.commit()
@@ -489,45 +489,45 @@ class WordIn(BaseModel):
 
 
 @router.post("/lessons/{lesson_id}/exercises")
-def create_exercise(lesson_id: UUID, data: ExerciseIn, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+def create_exercise(lesson_id: UUID, data: ExerciseIn, db: Session = Depends(get_db), _: User = Depends(require_content_editor)):
     _lesson_or_404(db, lesson_id)
     return ex_service.admin_exercise(ex_service.create_exercise(db, lesson_id, data.model_dump()))
 
 
 @router.put("/exercises/{exercise_id}")
-def update_exercise(exercise_id: UUID, data: ExerciseIn, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+def update_exercise(exercise_id: UUID, data: ExerciseIn, db: Session = Depends(get_db), _: User = Depends(require_content_editor)):
     return ex_service.admin_exercise(ex_service.update_exercise(db, exercise_id, data.model_dump(exclude={"skill"})))
 
 
 @router.delete("/exercises/{exercise_id}")
-def delete_exercise(exercise_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+def delete_exercise(exercise_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_content_editor)):
     ex_service.delete_exercise(db, exercise_id)
     return {"deleted": True}
 
 
 @router.put("/exercises/{exercise_id}/questions")
-def put_exercise_questions(exercise_id: UUID, data: QuestionsIn, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+def put_exercise_questions(exercise_id: UUID, data: QuestionsIn, db: Session = Depends(get_db), _: User = Depends(require_content_editor)):
     return ex_service.admin_exercise(ex_service.replace_exercise_questions(db, exercise_id, _payload(data)))
 
 
 @router.post("/exercises/{exercise_id}/duplicate")
-def duplicate_exercise(exercise_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+def duplicate_exercise(exercise_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_content_editor)):
     return ex_service.admin_exercise(ex_service.duplicate_exercise(db, exercise_id))
 
 
 @router.post("/lessons/{lesson_id}/grammars")
-def create_grammar(lesson_id: UUID, data: GrammarIn, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+def create_grammar(lesson_id: UUID, data: GrammarIn, db: Session = Depends(get_db), _: User = Depends(require_content_editor)):
     _lesson_or_404(db, lesson_id)
     return ex_service.admin_grammar(ex_service.save_grammar(db, lesson_id, data.model_dump()))
 
 
 @router.put("/grammars/{grammar_id}")
-def update_grammar(grammar_id: UUID, data: GrammarIn, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+def update_grammar(grammar_id: UUID, data: GrammarIn, db: Session = Depends(get_db), _: User = Depends(require_content_editor)):
     return ex_service.admin_grammar(ex_service.save_grammar(db, None, data.model_dump(), grammar_id))
 
 
 @router.delete("/grammars/{grammar_id}")
-def delete_grammar(grammar_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+def delete_grammar(grammar_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_content_editor)):
     grammar = db.get(Grammar, grammar_id)
     if grammar is None:
         raise HTTPException(status_code=404, detail="Grammar not found.")

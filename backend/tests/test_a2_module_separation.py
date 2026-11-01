@@ -244,6 +244,22 @@ class TestA2BookEditionCompetencies(unittest.TestCase):
             self.assertTrue(title.startswith("Schreiben"), title)
 
 
+class TestA2GrammarData(unittest.TestCase):
+    def test_grammar_data_is_complete_and_only_fills_empty_fields(self):
+        from app.scripts import a2_wortschatz_grammar as g
+        from app.scripts import a2_wortschatz_grammar_data as data
+
+        for verb, forms in data.VERBS.items():
+            self.assertEqual(len(forms), 3, verb)
+            self.assertIn(forms[2], ("haben", "sein"), verb)
+            self.assertEqual(data.WORD_TYPE[verb], "Verb")
+        self.assertTrue(all(v.strip() for v in data.PLURAL.values()))
+        book = SimpleNamespace(german_word="Koch", word_type="Nomen", plural="Köche (Buch)", verb_praeteritum=None, verb_partizip_ii=None, verb_auxiliary=None)
+        self.assertEqual(g.fills(book), {})  # an existing value is never replaced
+        verb = SimpleNamespace(german_word="folgen", word_type=None, plural=None, verb_praeteritum=None, verb_partizip_ii=None, verb_auxiliary=None)
+        self.assertEqual(g.fills(verb), {"word_type": "Verb", "verb_praeteritum": "folgte", "verb_partizip_ii": "gefolgt", "verb_auxiliary": "sein"})
+
+
 class TestWordCsvPure(unittest.TestCase):
     def test_formula_cells_are_neutralised_and_restored(self):
         from app.services.lesson_skills import word_csv
@@ -598,6 +614,26 @@ class TestA2ModuleSeparationDB(unittest.TestCase):
         export = self._client("support").get(f"/api/v1/admin/lesson-skills/lessons/{lesson.id}/words.csv")
         self.assertEqual(export.status_code, 200)
         self.assertIn("Haus", export.content.decode("utf-8-sig"))
+
+    @unittest.skipUnless(HAS_HTTPX, "HTTP part needs httpx")
+    def test_lesson_skill_content_writes_need_a_content_editor(self):
+        lesson = self.lessons[1]
+        support, editor = self._client("support"), None
+        rid = uuid.uuid4()
+        for method, url, body in (
+            ("post", f"/api/v1/admin/lesson-skills/lessons/{lesson.id}/grammars", {"title": "T", "content": "x"}),
+            ("post", f"/api/v1/admin/lesson-skills/lessons/{lesson.id}/exercises", {"skill": "GRAMMATIK", "title": "T"}),
+            ("put", f"/api/v1/admin/lesson-skills/readings/{rid}/questions", {"questions": []}),
+            ("put", f"/api/v1/admin/lesson-skills/exercises/{rid}", {"title": "T"}),
+            ("delete", f"/api/v1/admin/lesson-skills/grammars/{rid}", None),
+        ):
+            res = getattr(support, method)(url, **({"json": body} if body is not None else {}))
+            self.assertEqual(res.status_code, 403, f"{method} {url}")
+        self.assertEqual(support.get(f"/api/v1/admin/lesson-skills/lessons/{lesson.id}").status_code, 200)  # reading stays open to staff
+        editor = self._client("editor")
+        created = editor.post(f"/api/v1/admin/lesson-skills/lessons/{lesson.id}/grammars", json={"title": "Test-Regel", "content": "x"})
+        self.assertEqual(created.status_code, 200, created.text)
+        self.assertEqual(editor.delete(f"/api/v1/admin/lesson-skills/grammars/{created.json()['id']}").status_code, 200)
 
     # ---------- the data step ----------
 

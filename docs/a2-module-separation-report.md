@@ -267,11 +267,20 @@ Rollback (kerak bo'lsa):
 - ma'lumot qadami: `backup.json` ichidagi qatorlar (faqat so'rov bo'yicha);
 - migratsiya avtomatik downgrade qilinmaydi.
 
+### 9.1. Qo'shimcha deploy (2026-11-01): grammatika to'ldirildi, admin huquqlari tuzatildi
+
+- **Grammatika.** Egasining qarori: "Grammatikani to'ldir". Wörterbuch'da yo'q **89** ta so'z yozuvining grammatikasi standart nemis grammatikasi (Duden shakllari) bo'yicha to'ldirildi: Plural 64, Wortart 25, Präteritum / Partizip II / Hilfsverb 12. Manba `vizu-grammatik` deb yozilgan.
+  - Ma'lumotlar `app/scripts/a2_wortschatz_grammar_data.py` faylida, qo'llash `python -m app.scripts.a2_wortschatz_grammar` (plan → apply, zaxira, audit).
+  - Faqat bo'sh maydonlar to'ldirildi; kitob qiymati yoki admin kiritgan qiymat o'zgarmadi.
+  - Ko'pligi yo'q otlar uchun "–" yozildi. Faqat ko'plikda ishlatiladigan shakllar (die Kopfschmerzen) o'z shaklida qoldi.
+  - Misol gaplar yozilmadi.
+- **Admin huquqlari.** `/admin/lesson-skills` dagi 17 ta kontent yozish endpointi endi `require_content_editor` talab qiladi: savollar, Hören audio, nusxalash, mashqlar, grammatika, natija sozlamasi. Ball tuzatish va qayta baholash avvalgidek qoldi. 403 testi qo'shildi.
+
 ## 10. Qolgan kamchiliklar
 
-1. 86 ta dars so'zi Wörterbuch'da yo'q: Wortart (otlardan boshqa so'zlar), Plural, misol gap kabi maydonlar admin tomonidan to'ldirilishi kerak (admin → Wortschatz → "nur unvollständige").
+1. Misol gap (Beispielsatz + tarjima) Wörterbuch'da yo'q so'zlar uchun hali kiritilmagan. Ular kerak bo'lsa, admin yozadi yoki alohida topshiriq bo'ladi. Grammatika to'ldirilgan (9.1).
 2. Kontekst testlarida chalg'ituvchi variantlar shu darsning boshqa so'zlaridan olinadi. Gap tarjimasi yordamchi bo'lgani uchun javob bir ma'noli, lekin ba'zi variantlar grammatik jihatdan o'z-o'zidan mos kelmaydi. Admin tahrirlashi mumkin.
 3. L5–8 va L10–13 darslarida tarjimali so'z ro'yxati yo'q (kitobda ham yo'q), shuning uchun ularda Wortschatz testi ham yo'q. Bu darslarda faqat ish varag'i (yozma topshiriq) bor.
-4. `/admin/lesson-skills` dagi boshqa yozish endpointlari (savollar, mashqlar, grammatika) hali `require_admin_panel_access` bilan himoyalangan. Bu ish doirasidan tashqari, `known-issues.md` ga yozildi.
+4. Wortschatz testlari birinchi apply paytidagi ma'lumotlardan tuzilgan. Yangi to'ldirilgan Plural va fe'l shakllari mavjud testlarga avtomatik qo'shilmaydi: o'quvchilar urinishlari bo'lgan to'plamlar o'zgartirilmaydi. Lug'atda ular ko'rinadi.
 5. Talaffuz uchun audio fayllar yo'q: faqat brauzer TTS ishlaydi, sifati qurilmaga bog'liq.
 6. Haqiqiy o'quvchi akkaunti bilan production'da yozma ish topshirilmadi va AI tahlili ishga tushirilmadi (test ma'lumoti yaratmaslik qoidasi). AI qismi lokal sinovlarda mock bilan tekshirilgan.
