@@ -41,7 +41,10 @@ def fills(v: Vocabulary) -> dict[str, str]:
 
 def plan(db) -> dict:
     lessons = _lessons(db)
-    rows = db.scalars(select(Vocabulary).where(Vocabulary.lesson_id.in_([lsn.id for lsn in lessons])).order_by(Vocabulary.id))
+    # published words only: the hidden first-edition ("[Archiv]") rows are never touched
+    rows = db.scalars(
+        select(Vocabulary).where(Vocabulary.lesson_id.in_([lsn.id for lsn in lessons]), Vocabulary.is_published.is_(True)).order_by(Vocabulary.id)
+    )
     items = [{"id": str(v.id), "word": v.german_word, "fill": f} for v in rows if (f := fills(v))]
     digest = hashlib.sha256(json.dumps(items, sort_keys=True, ensure_ascii=False).encode()).hexdigest()[:12]
     counts: dict[str, int] = {}
