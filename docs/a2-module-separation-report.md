@@ -1,6 +1,6 @@
 # A2: Wortschatz, Lesen va Schreiben modullarini ajratish — hisobot
 
-Sana: 2026-11-01 · Commit: `7749ea4` · Migratsiya: `d7e2b4f8a1c6` · Ma'lumot qadami: `python -m app.scripts.a2_module_separation`
+Sana: 2026-11-01 · Commit: `7749ea4`, qo'shimcha `9c59037` + `1f111db` (§9.1) · Migratsiya: `d7e2b4f8a1c6` · Ma'lumot qadami: `python -m app.scripts.a2_module_separation`
 
 ## 1. Topilgan muammo (audit)
 

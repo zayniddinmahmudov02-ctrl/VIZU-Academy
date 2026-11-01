@@ -6,17 +6,17 @@ Updated 2026-11-01.
 
 | Where | Revision | Note |
 | --- | --- | --- |
-| Local `main` = `origin/main` | `7749ea4` (A2 module separation) + doc update | |
-| Server checkout | `7749ea4` via `git pull --ff-only` (2026-11-01) | untracked leftovers `frontend/package-lock.json` (M), `package-lock.json`, `"hlarni xavfsiz saqlash"` — pre-existing, not ours |
+| Local `main` = `origin/main` | `1f111db` (A2 module separation + grammar fill + admin RBAC) | |
+| Server checkout | `1f111db` via `git pull --ff-only` (2026-11-01) | untracked leftovers `frontend/package-lock.json` (M), `package-lock.json`, `"hlarni xavfsiz saqlash"` — pre-existing, not ours |
 | DB (local test + production) | Alembic `d7e2b4f8a1c6` | |
 | Frontend production slot | `.next-a`, deployment `7749ea4-20261031214051` | `.next-b` = previous (rollback) |
-| Last backup | `/var/backups/vizu/pre-a2modsep-20261031-213415` (restore check 135 tables, 0 differing) | also `…-213514` (second copy) |
+| Last backup | `/var/backups/vizu/pre-a2gram-20261101-045927` (137 tables, 0 differing) | before: `pre-a2modsep-20261031-213415` (+ copy `…-213514`) |
 
 ## Content (production, 2026-11-01)
 
 - A2: lessons 1–13 published (14 "Wiederholung" draft); Hören 22/27 published (L6 + L13 open, see known-issues).
 - A2 written tasks: Schreiben 25 · Grammatik 5 · Wortschatz 9 · Lesen 1 (`writings.competency`).
-- A2 Wortschatz: 216 words (130 enriched from verified Wörterbuch entries), 32 published test sets (L1–4: 7 each, L9: 4).
+- A2 Wortschatz: 216 words (130 enriched from verified Wörterbuch entries, 86 grammar from `vizu-grammatik`; examples missing for 86), 32 published test sets (L1–4: 7 each, L9: 4).
 - A2 readiness: `NEEDS_CONTENT` (only `hoeren_published` + the 4 manual checks open); sales enabled.
 
 ## Last verification
