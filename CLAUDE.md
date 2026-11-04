@@ -79,6 +79,8 @@ bots (`nano_bot`, `telegram-cours2026`), their code, DBs or services.
 ## Git
 `git` is not on PATH; use GitHub Desktop's bundled one in the newest `app-*` folder (it changes on updates),
 2026-11-05: `C:\Users\user\AppData\Local\GitHubDesktop\app-3.6.10\resources\app\git\cmd\git.exe`.
+`push` from Claude works only with the older `app-3.6.7` git (3.6.10's credential manager fails non-interactively,
+exit 128); if that folder is gone, the owner pushes once from GitHub Desktop.
 Temp / caches live on D: (user env `CLAUDE_CODE_TMPDIR`, `TEMP`, `TMP`, `PIP_CACHE_DIR`, `PLAYWRIGHT_BROWSERS_PATH`,
 npm `cache` → `D:\vz_tmp\…`); write large outputs to `D:\vz_tmp\work\`.
 Repo files use CRLF; some files have a UTF-8 BOM: keep each file's style. The server checkout uses LF.
