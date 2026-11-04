@@ -13,7 +13,7 @@ Updated 2026-11-01. Remove an entry when it is fixed (and note it in `recent-cha
 | 7 | Config | `SUPER_ADMIN_VERIFICATION_PASSWORD` not set on production (logged at every start) | ≤ 2026-10-20 | owner sets it in `.env` |
 | 8 | Deps | `openpyxl` not installed on production → `/admin/users/export.xlsx` fails | ≤ 2026-10-29 | add to requirements + install (approval) |
 | 9 | Frontend lint | full `npx eslint .`: 9 errors / 10 warnings in untouched files | — | separate cleanup |
-| 10 | Local env | C: drive is full; Claude's temp dir is on C: (outputs may be cut) | 2026-10-31 | free space or set `CLAUDE_CODE_TMPDIR` to D: |
+| 10 | Local env | resolved 2026-11-05: temp + npm/pip/Playwright caches moved to `D:\vz_tmp\` (user env vars); C: 0 → 5.5 GB free. Takes effect for Claude Code after a VS Code restart | 2026-10-31 | — |
 | 11 | Docs | some docstrings say "first 3 lessons free"; code: only lesson 1 (`offers.free_lessons()`) | — | fix when touching those files |
 | 12 | Groups | `docs/groups-classroom.md` (2026-10-28) said not on production; current production state not re-checked | — | verify on next groups task |
 | 13 | A2 Wortschatz | words without a Wörterbuch entry have grammar (`vizu-grammatik`, 2026-11-01) but no example sentence; tests do not include the newly filled forms | 2026-11-01 | examples by admin / separate task if wanted |
