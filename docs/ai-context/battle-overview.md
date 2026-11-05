@@ -1,32 +1,37 @@
 # VIZU DEUTSCH BATTLE — overview and decisions
 
-Status 2026-11-05: **not started (Phase 1 audit only).** Spec: the owner's master prompt "VIZU DEUTSCH BATTLE"
-(2026-11-05) — 2-player real-time picture-vocabulary battle, Battle Points, CEFR ranks A1…C1+, admin Game Management.
+Status 2026-11-05: **built + design "Futuristic German Experience"** (spec: owner's master prompt + Phase 2 design prompt,
+2026-11-05). 2-player picture-vocabulary battle, Battle Points, ranks A1…C1+, admin Game Management. One doc instead of the
+planned `battle-*` set (paths and decisions only).
 
 ## Owner decisions (2026-11-05)
 
 | Topic | Decision |
 |---|---|
-| Vocabulary source | Verified `dictionary_entries` (Wörterbuch A1–C1: word, article, plural, translation, example). Claude assigns semantic categories for the distractor engine. C1+ has no source → stays empty until the owner supplies words. Nothing invented. |
-| Images | Wikimedia Commons API (no key) with per-file licence + attribution stored; Claude checks every imported image visually and only then marks it Verified. Start: A1 (~200), other levels in later phases. Manual upload + Image Library always work without any API key. Unsplash/Pexels: no key on the server (2026-11-05). |
-| Local environment | C: was full (0 MB); owner restarts Claude Code with `CLAUDE_CODE_TMPDIR=D:\vz_tmp\claude-tmp`. Helper scripts: `D:\vz_tmp\work\srv\` (`remote.ps1`, `u2_backup.sh`, `k1_sync.sh`, `env.ps1`). |
+| Vocabulary | Only VERIFIED Wörterbuch rows (`dictionary_entries`), copied into `battle_words` (lemma, article, translation) + a category. C1+ has no source. Nothing invented. |
+| Images | Wikimedia Commons (no key), licence CC0 / PD / CC BY / CC BY-SA, author + licence + page stored; checked visually before Published. Manual upload always possible. |
+| Real-time | **Polling, not WebSocket**: production = 1 uvicorn worker, no `websockets` lib, nginx without upgrade headers. State in PostgreSQL, server clock, ~0.7 s polls. |
+| 3D | No three.js / R3F (bundle + phones): layered SVG avatars with gradients, rim light, CSS 3D tilt/float, parallax backgrounds; `bt-lowfx` fallback (<40 fps, reduced motion, data saver). |
 
-## Audit facts (2026-11-05)
+## Where things are
 
-- Backend has no WebSocket code yet; frontend has no three.js / R3F (only `framer-motion`).
-- Still to check on the server (script did not run, disk full): nginx WebSocket upgrade headers for `/api`,
-  uvicorn worker count (in-memory state only works with 1 worker; otherwise PostgreSQL-backed state), Redis (assume none).
+- **Backend:** `be/api/battle/router.py` (`/battle`, `/admin/battle`), `be/services/battle/` — `config` (stages, ranks 150 BP each,
+  timing 12 s + 3 s reveal, scoring 100 + ≤50 speed, points win +25 / draw +5 / loss −15 ± strength, avatars, achievements),
+  `engine` (matchmaking, clock `tick`, answers, AFK 20 s, forfeit, ledger), `questions` (pool + distractors), `media` (WebP
+  re-encode, signed 90 s round URLs), `themes` (draft → publish), `admin`, `commons`, `profiles`, `home`, `seed`.
+- **Data:** `be/data/battle/words.json` (89 A1 words, 11 categories, conflict pairs), `images.json` + `images/*.webp`
+  (checked pictures with attribution), `themes.json` (6 stages). Seed: `python -m app.scripts.battle_seed plan|apply --confirm <id>`.
+- **Files:** pictures `app/protected_storage/battle-images`, admin backgrounds `app/protected_storage/battle-themes`;
+  default backgrounds `fe/public/battle/themes/<city>-{desktop,mobile}.webp`.
+- **Frontend:** route group `fe/app/(battle)/battle/{page,match/[matchId],rangliste,erfolge}` (own shell + nav, no dashboard
+  sidebar), `fe/features/battle/{components,hooks,lib,admin}`, CSS `fe/features/battle/battle.css`, strings
+  `fe/lib/i18n/battle-translations.ts`, variant `landscape-short:` in `globals.css`. Admin `fe/app/admin/battle`.
+- **Tests:** `test_battle` (unit + DB), `test_battle_migration`, unit `battle-utils.test.mjs`, E2E `battle.spec.ts`.
 
-## Phase plan (spec §21)
+## Rules
 
-1. Audit + architecture (server checks above; decide WS vs. polling fallback).
-2. DB + backend core: `battle_*` tables (one migration, additive), profiles, ranks/levels config, points ledger (idempotent).
-3. Vocabulary import from Wörterbuch + categories + distractor engine (same category / word type / CEFR, no ambiguity, balanced answer position).
-4. Image Library (Wikimedia search/import, upload with validation, statuses Draft→Verified→Published) + Admin Game Management.
-5. Matchmaking (same CEFR, ±10→±25 points by wait time, private room code, bot practice without rating) + WebSocket server-authoritative matches (timer, answers, reconnection 20 s, AFK).
-6. 3D arena (React Three Fiber) with mobile/low-end 2D fallback.
-7. Dashboard card, profile, leaderboard, achievements.
-8. Security / anti-cheat review. 9. Tests (backend, unit, E2E desktop + Pixel 7). 10. Production deploy (backup, migration preview, slots).
-
-Docs to create as the work proceeds: `battle-architecture`, `battle-database`, `battle-api`, `battle-matchmaking`,
-`battle-vocabulary`, `battle-image-management`, `battle-admin`, `battle-deployment`, `battle-known-issues` (all in this folder).
+- The client never sends score, time or correctness; the correct option leaves the server only after the round ends.
+- Stages: A1 Berlin · A2 München · B1 Hamburg · B2 Köln · C1 Frankfurt · C1+ Neuschwanstein. A stage without ≥14 playable words
+  plays with the words of the stages below.
+- Ranked = same stage, points window ±10 → ±25 → any (by waiting time). Private room and bot practice give no Battle Points.
+- A theme / picture is published only with author + licence; the photo credit is shown on every Battle page.

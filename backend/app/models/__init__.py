@@ -87,6 +87,15 @@ from .global_chat import (
     GlobalChatRead,
     GlobalChatRestriction,
 )
+from .battle import (
+    BattleAnswer,
+    BattleImage,
+    BattleMatch,
+    BattlePointsLedger,
+    BattleProfile,
+    BattleTheme,
+    BattleWord,
+)
 
 # Certificate
 from .certificate import Certificate

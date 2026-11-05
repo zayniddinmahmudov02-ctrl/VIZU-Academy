@@ -4,6 +4,9 @@
    instead of the default `prefers-color-scheme` media query. */
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Phones held sideways (Battle arena gets its own two-column layout) */
+@custom-variant landscape-short (@media (orientation: landscape) and (max-height: 520px));
+
 /* ------------------------------------------------------------------
    VIZU Academy — Design Tokens
    Premium minimal SaaS system (Linear / Stripe / Notion / Apple)

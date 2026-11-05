@@ -1,0 +1,113 @@
+{
+ "version": 1,
+ "themes": [
+  {
+   "stage": "A1",
+   "city": "Berlin",
+   "title": "Brandenburger Tor",
+   "subtitle": "Der Anfang — Sieh das Bild. Finde das Wort.",
+   "desktop_image": "static:/battle/themes/berlin-desktop.webp",
+   "mobile_image": "static:/battle/themes/berlin-mobile.webp",
+   "accent": "#3984E8",
+   "overlay": 52,
+   "is_active": true,
+   "attribution": {
+    "title": "File:Brandenburger Tor nachts.jpg",
+    "author": "Thomas Wolf, www.foto-tw.de",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Brandenburger_Tor_nachts.jpg"
+   }
+  },
+  {
+   "stage": "A2",
+   "city": "München",
+   "title": "Marienplatz",
+   "subtitle": "Der Aufstieg — neue Wörter, neue Wege.",
+   "desktop_image": "static:/battle/themes/muenchen-desktop.webp",
+   "mobile_image": "static:/battle/themes/muenchen-mobile.webp",
+   "accent": "#4E8FF0",
+   "overlay": 55,
+   "is_active": true,
+   "attribution": {
+    "title": "File:Munich Neues Rathaus on an evening in July 2024.jpg",
+    "author": "Srihari Thalla",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Munich_Neues_Rathaus_on_an_evening_in_July_2024.jpg"
+   }
+  },
+  {
+   "stage": "B1",
+   "city": "Hamburg",
+   "title": "Elbphilharmonie",
+   "subtitle": "Die Freiheit — der Hafen ruft.",
+   "desktop_image": "static:/battle/themes/hamburg-desktop.webp",
+   "mobile_image": "static:/battle/themes/hamburg-mobile.webp",
+   "accent": "#2FB4D6",
+   "overlay": 50,
+   "is_active": true,
+   "attribution": {
+    "title": "File:\"Cap San Diego\" & Elbphilharmonie (Hamburg, 2019).jpg",
+    "author": "JoachimKohler-HB",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:%22Cap_San_Diego%22_%26_Elbphilharmonie_(Hamburg,_2019).jpg"
+   }
+  },
+  {
+   "stage": "B2",
+   "city": "Köln",
+   "title": "Kölner Dom",
+   "subtitle": "Die Stärke — am Rhein wird gekämpft.",
+   "desktop_image": "static:/battle/themes/koeln-desktop.webp",
+   "mobile_image": "static:/battle/themes/koeln-mobile.webp",
+   "accent": "#D83B43",
+   "overlay": 55,
+   "is_active": true,
+   "attribution": {
+    "title": "File:Cologne Cathedral and the Hohenzollern Bridge1.jpg",
+    "author": "Jiuguang Wang",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Cologne_Cathedral_and_the_Hohenzollern_Bridge1.jpg"
+   }
+  },
+  {
+   "stage": "C1",
+   "city": "Frankfurt",
+   "title": "Skyline am Main",
+   "subtitle": "Die Meisterschaft — Sprache auf Profi-Niveau.",
+   "desktop_image": "static:/battle/themes/frankfurt-desktop.webp",
+   "mobile_image": "static:/battle/themes/frankfurt-mobile.webp",
+   "accent": "#F2C45B",
+   "overlay": 58,
+   "is_active": true,
+   "attribution": {
+    "title": "File:Skyline Frankfurt 2011-01.jpg",
+    "author": "Thomas Wolf (Der Wolf im Wald)",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Skyline_Frankfurt_2011-01.jpg"
+   }
+  },
+  {
+   "stage": "C1+",
+   "city": "Neuschwanstein",
+   "title": "Legendäre Arena",
+   "subtitle": "Die Legende — nur die Besten erreichen das Schloss.",
+   "desktop_image": "static:/battle/themes/neuschwanstein-desktop.webp",
+   "mobile_image": "static:/battle/themes/neuschwanstein-mobile.webp",
+   "accent": "#F2C45B",
+   "overlay": 48,
+   "is_active": true,
+   "attribution": {
+    "title": "File:Schloss Neuschwanstein 2013.jpg",
+    "author": "Thomas Wolf, www.foto-tw.de",
+    "license": "CC BY-SA 3.0 de",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Schloss_Neuschwanstein_2013.jpg"
+   }
+  }
+ ]
+}

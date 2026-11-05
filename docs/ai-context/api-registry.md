@@ -21,6 +21,8 @@ Endpoint details: open the router file. Auth deps: `backend/app/api/dependencies
 | `/payments` | `payment/router.py` (legacy) | — |
 | `/groups` | `study_groups/router.py` | members / teachers |
 | `/global-chat` | `global_chat/router.py` | `get_current_user` |
+| `/battle` (home, themes, leaderboard, profile/avatar, queue, practice, rooms, matches/{id}[/answer,/leave]) | `battle/router.py` | `get_current_user` (match routes: players only, else 404); public: `GET /battle/media/{token}` (HMAC, 90 s), `GET /battle/themes/assets/{name}` |
+| `/admin/battle` (overview, words, images, commons, themes) | `battle/router.py` | read `require_admin_panel_access`, write + Commons search `require_content_editor` |
 | `/vizu-multilevel` (alias `/vizu-mock`) | `vizu_multilevel/router.py` | `get_current_user` |
 | `/mock-exam`, `/mock-exam/public` | `mock_exam/*_router.py` | mixed |
 | `/certificates` (only `/api/v1`), `/my-certificates` | `v1/certificate/` | public verify / own |

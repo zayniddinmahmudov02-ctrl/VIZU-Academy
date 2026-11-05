@@ -1,0 +1,267 @@
+/* VIZU DEUTSCH BATTLE — "Futuristic German Experience" design tokens and effects.
+   Scoped to .battle-root; .bt-lowfx (slow device / reduced motion) turns off blur, particles and drift. */
+
+.battle-root {
+  --bt-navy: #101d35;
+  --bt-dark: #172a46;
+  --bt-blue: #3984e8;
+  --bt-gold: #f2c45b;
+  --bt-red: #d83b43;
+  --bt-white: #ffffff;
+  --bt-light: #f4f6fa;
+  --bt-accent: var(--bt-blue);
+  --bt-glass: rgba(16, 29, 53, 0.58);
+  --bt-glass-strong: rgba(16, 29, 53, 0.78);
+  --bt-line: rgba(255, 255, 255, 0.12);
+  --bt-glow-blue: 0 0 0 1px rgba(57, 132, 232, 0.45), 0 10px 40px -10px rgba(57, 132, 232, 0.75);
+  --bt-glow-red: 0 0 0 1px rgba(216, 59, 67, 0.45), 0 10px 40px -10px rgba(216, 59, 67, 0.7);
+  --bt-glow-gold: 0 0 0 1px rgba(242, 196, 91, 0.5), 0 10px 44px -8px rgba(242, 196, 91, 0.65);
+  color: var(--bt-white);
+  background: var(--bt-navy);
+  min-height: 100dvh;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.bt-display {
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 0.95;
+}
+
+.bt-gold-text {
+  background: linear-gradient(180deg, #fff6d8 0%, #f2c45b 45%, #c8901f 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.bt-glass {
+  background: var(--bt-glass);
+  border: 1px solid var(--bt-line);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 20px 50px -25px rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+}
+
+.bt-glass-strong {
+  background: var(--bt-glass-strong);
+  border: 1px solid var(--bt-line);
+  backdrop-filter: blur(22px) saturate(150%);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+}
+
+.bt-card-light {
+  background: linear-gradient(180deg, #ffffff 0%, #f4f6fa 100%);
+  color: var(--bt-navy);
+  box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.6), inset 0 -3px 0 rgba(16, 29, 53, 0.06);
+}
+
+/* German flag hairline (black · red · gold) */
+.bt-flag-line {
+  background: linear-gradient(90deg, #111 0 33.3%, var(--bt-red) 33.3% 66.6%, var(--bt-gold) 66.6% 100%);
+}
+
+/* Scene */
+.bt-scene-img {
+  transform: translate3d(var(--bt-px, 0px), var(--bt-py, 0px), 0) scale(1.08);
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+  animation: bt-drift 38s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes bt-drift {
+  from { transform: translate3d(var(--bt-px, 0px), var(--bt-py, 0px), 0) scale(1.08); }
+  to { transform: translate3d(calc(var(--bt-px, 0px) - 18px), calc(var(--bt-py, 0px) - 8px), 0) scale(1.12); }
+}
+
+.bt-grid-floor {
+  background-image:
+    linear-gradient(rgba(57, 132, 232, 0.35) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(57, 132, 232, 0.35) 1px, transparent 1px);
+  background-size: 64px 64px;
+  transform: perspective(520px) rotateX(62deg);
+  transform-origin: bottom;
+  mask-image: linear-gradient(to top, black 10%, transparent 85%);
+  -webkit-mask-image: linear-gradient(to top, black 10%, transparent 85%);
+  animation: bt-grid 6s linear infinite;
+}
+@keyframes bt-grid {
+  to { background-position: 0 64px, 0 0; }
+}
+
+.bt-beam {
+  background: linear-gradient(180deg, rgba(57, 132, 232, 0) 0%, rgba(57, 132, 232, 0.22) 50%, rgba(57, 132, 232, 0) 100%);
+  filter: blur(18px);
+  animation: bt-beam 9s ease-in-out infinite;
+}
+@keyframes bt-beam {
+  0%, 100% { opacity: 0.25; transform: translateX(-10%) rotate(14deg); }
+  50% { opacity: 0.7; transform: translateX(10%) rotate(14deg); }
+}
+
+.bt-particle {
+  position: absolute;
+  bottom: -12px;
+  width: 4px;
+  height: 4px;
+  border-radius: 9999px;
+  background: var(--bt-gold);
+  box-shadow: 0 0 10px 2px rgba(242, 196, 91, 0.7);
+  animation: bt-rise var(--d, 9s) linear infinite;
+  animation-delay: var(--delay, 0s);
+  opacity: 0;
+}
+@keyframes bt-rise {
+  0% { transform: translate3d(0, 0, 0); opacity: 0; }
+  10% { opacity: 0.9; }
+  100% { transform: translate3d(var(--x, 20px), -105vh, 0); opacity: 0; }
+}
+
+/* Avatars */
+.bt-avatar {
+  transform-style: preserve-3d;
+  animation: bt-float 5.5s ease-in-out infinite;
+}
+.bt-avatar-tilt {
+  transition: transform 0.35s ease;
+}
+.bt-avatar-tilt:hover {
+  transform: perspective(600px) rotateY(-12deg) rotateX(4deg);
+}
+@keyframes bt-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.bt-holo-ring {
+  animation: bt-spin 12s linear infinite;
+}
+@keyframes bt-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Buttons */
+.bt-btn-start {
+  position: relative;
+  background: linear-gradient(180deg, #ffd977 0%, #f2c45b 45%, #d79a2b 100%);
+  color: var(--bt-navy);
+  box-shadow: var(--bt-glow-gold), inset 0 2px 0 rgba(255, 255, 255, 0.6), inset 0 -4px 0 rgba(120, 70, 0, 0.35);
+  overflow: hidden;
+}
+.bt-btn-start::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.65) 50%, transparent 70%);
+  transform: translateX(-120%);
+  animation: bt-shine 3.2s ease-in-out infinite;
+}
+@keyframes bt-shine {
+  60%, 100% { transform: translateX(120%); }
+}
+
+/* Answers */
+.bt-option {
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.2s ease, opacity 0.2s ease;
+}
+.bt-option:not(:disabled):hover {
+  transform: translateY(-2px);
+}
+.bt-option:not(:disabled):active {
+  transform: translateY(1px) scale(0.99);
+}
+.bt-shake {
+  animation: bt-shake 0.45s ease;
+}
+@keyframes bt-shake {
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+.bt-pop {
+  animation: bt-pop 0.5s cubic-bezier(0.2, 1.4, 0.4, 1);
+}
+@keyframes bt-pop {
+  0% { transform: scale(0.85); }
+  100% { transform: scale(1); }
+}
+.bt-float-up {
+  animation: bt-float-up 1.2s ease-out forwards;
+}
+@keyframes bt-float-up {
+  0% { opacity: 0; transform: translateY(8px) scale(0.9); }
+  20% { opacity: 1; transform: translateY(0) scale(1.05); }
+  100% { opacity: 0; transform: translateY(-40px) scale(1); }
+}
+
+.bt-scan {
+  background: linear-gradient(180deg, transparent, rgba(216, 59, 67, 0.55), transparent);
+  animation: bt-scan 1.8s ease-in-out infinite;
+}
+@keyframes bt-scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+.bt-pulse-ring {
+  animation: bt-pulse 1.8s ease-out infinite;
+}
+@keyframes bt-pulse {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+.bt-badge-spin {
+  animation: bt-badge 2.4s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  transform-style: preserve-3d;
+}
+@keyframes bt-badge {
+  0% { transform: perspective(800px) rotateY(-540deg) scale(0.3); opacity: 0; }
+  60% { opacity: 1; }
+  100% { transform: perspective(800px) rotateY(0) scale(1); opacity: 1; }
+}
+@keyframes bt-in-left {
+  from { opacity: 0; transform: translateX(-60px) scale(0.92); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes bt-in-right {
+  from { opacity: 0; transform: translateX(60px) scale(0.92); }
+  to { opacity: 1; transform: none; }
+}
+.bt-skeleton {
+  background: linear-gradient(90deg, rgba(16, 29, 53, 0.06) 25%, rgba(16, 29, 53, 0.12) 50%, rgba(16, 29, 53, 0.06) 75%);
+  background-size: 200% 100%;
+  animation: bt-skel 1.2s linear infinite;
+}
+@keyframes bt-skel {
+  to { background-position: -200% 0; }
+}
+
+/* Low-power fallback + reduced motion */
+.bt-lowfx .bt-glass,
+.bt-lowfx .bt-glass-strong {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: rgba(16, 29, 53, 0.9);
+}
+.bt-lowfx .bt-scene-img,
+.bt-lowfx .bt-avatar,
+.bt-lowfx .bt-holo-ring,
+.bt-lowfx .bt-grid-floor,
+.bt-lowfx .bt-beam,
+.bt-lowfx .bt-btn-start::after {
+  animation: none !important;
+}
+.bt-lowfx .bt-particle,
+.bt-lowfx .bt-beam {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .battle-root *,
+  .battle-root *::before,
+  .battle-root *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .battle-root .bt-particle {
+    display: none;
+  }
+}

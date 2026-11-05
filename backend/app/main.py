@@ -194,6 +194,10 @@ from app.api.content_import import router as content_import_router
 from app.api.lms import admin_router as admin_lms_router
 from app.api.lms import router as lms_router
 
+# VIZU DEUTSCH BATTLE (picture-vocabulary battles) + Game Management admin
+from app.api.battle import admin_router as admin_battle_router
+from app.api.battle import router as battle_router
+
 # Health
 from app.api.health import (
     router as health_router,
@@ -335,6 +339,8 @@ _ALL_ROUTERS = [
     content_import_router,
     lms_router,
     admin_lms_router,
+    battle_router,
+    admin_battle_router,
     health_router,
 ]
 

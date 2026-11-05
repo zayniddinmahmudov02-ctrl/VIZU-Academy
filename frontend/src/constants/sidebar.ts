@@ -7,6 +7,7 @@ import {
   LayoutDashboard,
   LifeBuoy,
   Settings,
+  Swords,
   Tag,
   Users,
 } from "lucide-react";
@@ -41,6 +42,11 @@ export const sidebarItems = [
     titleKey: "sidebar.dictionary",
     href: "/woerterbuch",
     icon: BookText,
+  },
+  {
+    titleKey: "sidebar.battle",
+    href: "/battle",
+    icon: Swords,
   },
   {
     titleKey: "sidebar.informationen",

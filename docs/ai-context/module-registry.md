@@ -233,6 +233,16 @@ See `frontend-map.md` and `.claude/rules/frontend.md`. PWA: `fe/features/pwa`, `
 
 See `deployment-map.md`, skill `vizu-deploy`, `docs/deploy-frontend.md`, `docs/lms-deploy-runbook.md`.
 
+## 20. VIZU DEUTSCH BATTLE
+
+- **Backend:** `be/api/battle/router.py` (`/battle`, `/admin/battle`), `be/services/battle/*` (engine, questions, media,
+  themes, admin, commons, seed). Tables `battle_profiles`, `battle_words`, `battle_images`, `battle_matches`,
+  `battle_answers`, `battle_points_ledger`, `battle_themes`. Seed `be/scripts/battle_seed.py` + `be/data/battle/`.
+- **Frontend:** `fe/app/(battle)/battle/*`, `fe/features/battle/*`, admin `fe/app/admin/battle` (Übersicht, Wörter & Bilder,
+  Design & Themes); entry points: sidebar "Battle", dashboard quick-access card.
+- **Tests:** `test_battle`, `test_battle_migration`, unit `battle-utils.test.mjs`, E2E `battle.spec.ts`.
+- **Details / decisions:** `docs/ai-context/battle-overview.md`.
+
 ## Other mounted modules (not in the list above)
 
 VIZU-Multilevel level test (`/vizu-multilevel`, legacy alias `/vizu-mock`, `be/services/vizu_multilevel/`,

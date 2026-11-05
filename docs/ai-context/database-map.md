@@ -5,14 +5,15 @@ PostgreSQL; connection from settings `DATABASE_HOST/PORT/NAME/USER/PASSWORD` (na
 
 ## Migrations
 
-- Linear history, one head. **Head = `d7e2b4f8a1c6`** (see `current-state.md` for production).
+- Linear history, one head. **Head = `e5a9c3f1b7d2`** (see `current-state.md` for production).
 - Latest: `f3a8c1d5e7b2` Global Chat `reply_to_id` → `a6d2f9c4e8b1` `a2_audio_assets` → `b8e3d1a7c5f2` `listenings.task_key` →
   `c4f7a9e2d6b3` `a2_audio_transcripts` → `d7e2b4f8a1c6` A2 module separation (`writings.competency` + CHECK, vocabularies
   grammar fields + `dictionary_entry_id` + `data_sources`, `vocabulary_user_words`, `student_writing_versions`,
-  `ai_evaluations.attempt_number`).
+  `ai_evaluations.attempt_number`) → `e5a9c3f1b7d2` Battle: 7 new `battle_*` tables (additive; `battle_words.entry_id` →
+  `dictionary_entries` ON DELETE SET NULL).
 - Migration tests (upgrade → downgrade → upgrade): `test_global_chat_reply_migration`,
   `test_listening_task_key_migration`, `test_a2_audio_transcripts_migration`, `test_a2_module_separation`
-  (`TestModuleSeparationMigration`). Rules: `.claude/rules/database.md`.
+  (`TestModuleSeparationMigration`), `test_battle_migration`. Rules: `.claude/rules/database.md`.
 
 ## Tables by area (model file in parentheses when it differs)
 

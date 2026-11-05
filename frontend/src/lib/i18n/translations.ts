@@ -1,3 +1,5 @@
+import { battleTranslations } from "./battle-translations";
+
 interface Entry {
   de: string;
   uz: string;
@@ -12,6 +14,7 @@ export const translations: Record<string, Namespace> = {
     vorbereitung: { de: "Vorbereitung", uz: "Tayyorgarlik" },
     certificates: { de: "Zertifikate", uz: "Sertifikatlar" },
     dictionary: { de: "Wörterbuch", uz: "Lug'at" },
+    battle: { de: "Battle", uz: "Battle" },
     groups: { de: "Gruppen", uz: "Guruhlar" },
     informationen: { de: "Informationen", uz: "Ma'lumot" },
     angebote: { de: "Angebote", uz: "Angebote" },
@@ -2163,4 +2166,5 @@ export const translations: Record<string, Namespace> = {
     errorNetworkTitle: { de: "Keine Verbindung", uz: "Aloqa yo'q" },
     errorNetworkHint: { de: "Prüfe deine Internetverbindung und versuche es erneut.", uz: "Internet aloqasini tekshirib, qayta urinib ko'ring." },
   },
+  battle: battleTranslations,
 };

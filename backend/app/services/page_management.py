@@ -77,6 +77,7 @@ _ROUTES = (
     ("/admin/notifications", "Notifications", "Notifications", "ADMIN_PAGE", "notifications", True, False),
     ("/admin/global-chat", "Global Chat", "Community", "ADMIN_PAGE", "global_chat", True, False),
     ("/admin/groups", "Gruppen / Guruhlar", "Community", "ADMIN_PAGE", "groups", True, False),
+    ("/admin/battle", "Battle (Game Management)", "Games", "ADMIN_PAGE", "battle", True, False),
 )
 
 _DOMAIN_TABLES: dict[str, tuple[tuple[str, str], ...]] = {
@@ -126,6 +127,10 @@ _DOMAIN_TABLES: dict[str, tuple[tuple[str, str], ...]] = {
         ("Orders", "subscription_orders"), ("Exam attempts", "assessment_attempts"),
     ),
     "settings": (("Application settings", "app_settings"),),
+    "battle": (
+        ("Battle words", "battle_words"), ("Battle images", "battle_images"), ("Battle matches", "battle_matches"),
+        ("Battle profiles", "battle_profiles"), ("Battle themes", "battle_themes"),
+    ),
 }
 
 PAGE_CATALOG = tuple(

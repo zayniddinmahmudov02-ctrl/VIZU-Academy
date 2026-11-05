@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, BookText, Gauge, GraduationCap } from "lucide-react";
+import { ArrowRight, BookText, Gauge, GraduationCap, Swords } from "lucide-react";
 
 import { cardEntrance, staggerContainer } from "@/lib/motion";
 import { useTranslation } from "@/lib/i18n/use-translation";
@@ -33,6 +33,14 @@ const tools = [
     icon: BookText,
     gradient: "from-emerald-600 to-emerald-400",
   },
+  {
+    titleKey: "sidebar.battle",
+    subtitleKey: "battle.dashSubtitle",
+    ariaKey: "battle.dashAria",
+    href: "/battle",
+    icon: Swords,
+    gradient: "from-[#101D35] via-[#1f4e9a] to-[#D83B43]",
+  },
 ];
 
 export default function AiTools() {
@@ -48,7 +56,7 @@ export default function AiTools() {
         variants={staggerContainer}
         initial="hidden"
         animate="show"
-        className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3"
+        className="grid gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4"
       >
         {tools.map((tool, index) => {
           const Icon = tool.icon;
@@ -60,7 +68,7 @@ export default function AiTools() {
               whileHover={{ y: -4, scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               // 3 cards in a 2-column row: the last one takes the full width instead of leaving a gap
-              className={`h-full ${index === tools.length - 1 && tools.length % 2 === 1 ? "sm:col-span-2 lg:col-span-1" : ""}`}
+              className={`h-full ${index === tools.length - 1 && tools.length % 2 === 1 ? "sm:col-span-2 xl:col-span-1" : ""}`}
             >
               <Link
                 href={tool.href}
