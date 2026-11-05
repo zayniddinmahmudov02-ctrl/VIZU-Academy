@@ -1,30 +1,31 @@
 # Current state
 
-Updated 2026-11-01.
+Updated 2026-11-05.
 
 ## Revisions
 
 | Where | Revision | Note |
 | --- | --- | --- |
-| Local `main` = `origin/main` | `1f111db` (A2 module separation + grammar fill + admin RBAC) | |
-| Server checkout | `1f111db` via `git pull --ff-only` (2026-11-01) | untracked leftovers `frontend/package-lock.json` (M), `package-lock.json`, `"hlarni xavfsiz saqlash"` — pre-existing, not ours |
-| DB (local test + production) | Alembic `d7e2b4f8a1c6` | |
-| Frontend production slot | `.next-a`, deployment `7749ea4-20261031214051` | `.next-b` = previous (rollback) |
-| Last backup | `/var/backups/vizu/pre-a2gram-20261101-045927` (137 tables, 0 differing) | before: `pre-a2modsep-20261031-213415` (+ copy `…-213514`) |
+| Local `main` = `origin/main` | `99390cd` (VIZU DEUTSCH BATTLE) + docs | |
+| Server checkout | `99390cd` via `git pull --ff-only` (2026-11-05) | untracked leftovers `frontend/package-lock.json` (M), `package-lock.json`, `"hlarni xavfsiz saqlash"` — pre-existing, not ours |
+| DB (local test + production) | Alembic `e5a9c3f1b7d2` | |
+| Frontend production slot | `.next-b`, deployment `99390cd-20261105011349` | `.next-a` = previous (rollback) |
+| Last backup | `/var/backups/vizu/pre-battle-20261105-010814` (137 tables, 0 differing; migration SQL + seed plan/apply JSON inside) | before: `pre-a2gram-20261101-045927` |
 
-## Content (production, 2026-11-01)
+## Content (production)
 
+- Battle (2026-11-05): 89 published A1 picture words + 89 published pictures, 6 published themes; all stages playable (A2+ use A1 words).
 - A2: lessons 1–13 published (14 "Wiederholung" draft); Hören 22/27 published (L6 + L13 open, see known-issues).
 - A2 written tasks: Schreiben 25 · Grammatik 5 · Wortschatz 9 · Lesen 1 (`writings.competency`).
-- A2 Wortschatz: 216 words (130 enriched from verified Wörterbuch entries, 86 grammar from `vizu-grammatik`; examples missing for 86), 32 published test sets (L1–4: 7 each, L9: 4).
-- A2 readiness: `NEEDS_CONTENT` (only `hoeren_published` + the 4 manual checks open); sales enabled.
+- A2 Wortschatz: 216 words, 32 published test sets. A2 readiness `NEEDS_CONTENT`; sales enabled.
 
-## Last verification
+## Last verification (2026-11-05)
 
-- Local backend 949 passed / 17 skipped; frontend unit 23/23; E2E `a2-module-separation` 11 passed, 1 skipped.
-- Server unittest 109 OK (15 skipped). Production smoke 2026-11-01: pages 200, new APIs anonymous 401, Schreiben counts only
-  Schreiben tasks, other levels unchanged, backend errors 0, bots active.
+- Local backend 980 passed / 17 skipped; frontend unit 28/28; E2E `battle` 8 passed (+2 skipped by design), `admin`,
+  `auth`, `student-panel` 40 passed.
+- Server unittest (battle, migration, route protection, page management) 43 OK (13 DB skips). Production smoke: pages 200,
+  Battle APIs anonymous 401, forged media token 404, other tables unchanged vs backup, backend errors 0, bots active.
 
 ## Open decisions for the owner
 
-See `known-issues.md` #1–#8, #13.
+See `known-issues.md` #1–#8, #13, #15–#17.
