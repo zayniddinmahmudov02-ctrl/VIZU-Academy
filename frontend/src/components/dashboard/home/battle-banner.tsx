@@ -68,15 +68,16 @@ export default function BattleBanner() {
           <div className="h-full rounded-full bg-gradient-to-r from-[#c8901f] via-[#F2C45B] to-[#fff2c4] transition-[width] duration-700" style={{ width: `${pct}%` }} />
         </div>
 
-        <div className="flex items-center justify-between gap-2">
+        {/* wraps on narrow phone tiles: the CTA keeps its full text, "Rangliste" moves below */}
+        <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1">
           <Link
             href={href}
             prefetch={false}
             data-testid="battle-banner-cta"
-            className="bt-btn-start inline-flex min-h-10 min-w-0 items-center gap-1.5 rounded-xl px-3 text-[11px] font-black uppercase tracking-wide"
+            className="bt-btn-start inline-flex min-h-10 items-center gap-1.5 whitespace-nowrap rounded-xl px-3 text-[11px] font-black uppercase tracking-wide"
           >
             <Play size={14} aria-hidden="true" className="shrink-0 fill-current" />
-            <span className="truncate">{data?.open_match_id ? t("battle.resume") : t("battle.bannerCta")}</span>
+            <span>{data?.open_match_id ? t("battle.resume") : t("battle.bannerCta")}</span>
           </Link>
           <Link href="/battle/rangliste" prefetch={false} className="inline-flex shrink-0 items-center gap-0.5 text-[10px] font-bold text-[#F2C45B] hover:underline">
             {t("battle.navLeaderboard")} <ChevronRight size={12} aria-hidden="true" />

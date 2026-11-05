@@ -86,6 +86,13 @@ for (const vp of [
     await expect(page.getByTestId("dashboard-courses-toggle")).toBeVisible();
     const tb = (await page.getByTestId("dashboard-courses-toggle").boundingBox())!;
     expect(tb.height).toBeGreaterThanOrEqual(44); // easy to tap
+    // no clipped button text (Battle CTA, banner CTA)
+    for (const id of ["battle-banner-cta"]) {
+      const clipped = await page.getByTestId(id).evaluate((el) => el.scrollWidth > el.clientWidth + 1);
+      expect(clipped, `${id} text clipped`).toBe(false);
+    }
+    const adBox = (await page.getByTestId("dashboard-ad").boundingBox())!;
+    expect(adBox.height).toBeLessThanOrEqual(vp.width < 640 ? 190 : 175);
     if (process.env.E2E_SHOTS) await page.screenshot({ path: `${process.env.E2E_SHOTS}/dashboard-${vp.width}.png`, fullPage: true });
   });
 }

@@ -1,6 +1,6 @@
 1:"$Sreact.fragment"
-3:I[897367,["/_next/static/chunks/2cy6t2gfx4zvj.js","/_next/static/chunks/2mcfr8ws0l1u2.js","/_next/static/chunks/2_yz8q5okxt0z.js","/_next/static/chunks/0-t3elk4ay427.js","/_next/static/chunks/0ojnzkssegzgm.js","/_next/static/chunks/0_2f5ahyimbmm.js","/_next/static/chunks/04-lot8mibnty.js"],"OutletBoundary"]
+3:I[897367,["/_next/static/chunks/2cy6t2gfx4zvj.js","/_next/static/chunks/2mcfr8ws0l1u2.js","/_next/static/chunks/2_yz8q5okxt0z.js","/_next/static/chunks/0-t3elk4ay427.js","/_next/static/chunks/00ttjuu3p7xxs.js","/_next/static/chunks/0_2f5ahyimbmm.js","/_next/static/chunks/04-lot8mibnty.js"],"OutletBoundary"]
 4:"$Sreact.suspense"
-0:{"rsc":["$","$1","c",{"children":["$L2",null,["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"HgVhe0aFjdaOMvsqycOwh"}
+0:{"rsc":["$","$1","c",{"children":["$L2",null,["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"8PWaJEeXKOyLBfr0In37s"}
 5:null
 2:E{"digest":"NEXT_REDIRECT;replace;/forgot-password;307;"}

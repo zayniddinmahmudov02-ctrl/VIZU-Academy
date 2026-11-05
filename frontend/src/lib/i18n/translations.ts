@@ -97,7 +97,8 @@ export const translations: Record<string, Namespace> = {
     adSlide: { de: "Werbung {n} von {total}", uz: "{total} tadan {n}-reklama" },
     adPause: { de: "Automatischen Wechsel anhalten", uz: "Avtomatik almashishni to'xtatish" },
     adPlay: { de: "Automatischen Wechsel fortsetzen", uz: "Avtomatik almashishni davom ettirish" },
-    mockExams: { de: "Zertifikatsprüfungen", uz: "Sertifikat imtihonlari" },
+    // ­ = soft hyphen: on narrow phone tiles it breaks as "Zertifikats-prüfungen", never "…prü / en"
+    mockExams: { de: "Zertifikats­prüfungen", uz: "Sertifikat imtihonlari" },
     mockExamsSubtitle: { de: "Bereite dich auf deine Deutschprüfung vor.", uz: "Nemis tili imtihoniga tayyorlaning." },
     mockExamsAria: { de: "Zertifikatsprüfungen öffnen", uz: "Sertifikat imtihonlarini ochish" },
     mockExamsCta: { de: "Jetzt vorbereiten", uz: "Hozir tayyorlanish" },
