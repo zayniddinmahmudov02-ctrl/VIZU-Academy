@@ -33,29 +33,29 @@ function CourseCard({ level }: { level: LmsLevelSummary }) {
 
   return (
     <article
-      className={`flex h-full flex-col overflow-hidden rounded-card bg-surface-card shadow-[var(--shadow-card)] ring-1 ring-surface-border ${soon ? "opacity-80" : ""}`}
+      className={`flex h-full min-h-[190px] min-w-0 flex-col overflow-hidden rounded-card bg-surface-card shadow-[var(--shadow-card)] ring-1 ring-surface-border ${soon ? "opacity-80" : ""}`}
       data-testid="dashboard-course" data-level={level.level} data-coming-soon={soon || undefined}
     >
       {soon ? (
-        <div className={`flex h-20 items-center justify-between bg-gradient-to-br px-5 text-white grayscale-[40%] ${style?.gradient ?? "from-brand-600 to-accent-blue"}`}>
-          <span className="text-3xl font-bold">{level.level}</span>
+        <div className={`flex h-14 items-center justify-between bg-gradient-to-br px-3 text-white grayscale-[40%] ${style?.gradient ?? "from-brand-600 to-accent-blue"}`}>
+          <span className="text-2xl font-bold">{level.level}</span>
           <Lock size={18} aria-hidden="true" />
         </div>
       ) : (
         <Link href={levelHref(level.level)} prefetch={false} aria-label={t("dashboard.courseOpenAria", { level: level.level })}
-              className={`flex h-20 items-center justify-between bg-gradient-to-br px-5 text-white transition-opacity hover:opacity-95 ${style?.gradient ?? "from-brand-600 to-accent-blue"}`}>
-          <span className="text-3xl font-bold">{level.level}</span>
+              className={`flex h-14 items-center justify-between bg-gradient-to-br px-3 text-white transition-opacity hover:opacity-95 ${style?.gradient ?? "from-brand-600 to-accent-blue"}`}>
+          <span className="text-2xl font-bold">{level.level}</span>
           <BookOpen size={18} aria-hidden="true" />
         </Link>
       )}
 
-      <div className="flex flex-1 flex-col gap-2.5 p-4">
+      <div className="flex flex-1 flex-col gap-2 p-3">
         <div>
-          <h3 className="font-semibold leading-snug text-text-primary">{name}</h3>
+          <h3 className="min-h-10 font-semibold leading-snug text-text-primary">{name}</h3>
           <p className="text-xs text-text-muted">{t("dashboard.courseLessons", { count: level.lessons_target })}</p>
         </div>
         {status && (
-          <span className={`w-fit rounded-full px-2.5 py-1 text-[11px] font-semibold ${owned ? "bg-success/15 text-success" : "bg-surface-hover text-text-secondary"}`}>
+          <span className={`w-fit max-w-full rounded-full px-2 py-1 text-[10px] font-semibold leading-snug ${owned ? "bg-success/15 text-success" : "bg-surface-hover text-text-secondary"}`}>
             {status}
           </span>
         )}
@@ -70,17 +70,17 @@ function CourseCard({ level }: { level: LmsLevelSummary }) {
 
         <div className="mt-auto pt-1">
           {soon ? (
-            <span className="flex w-full items-center justify-center gap-1.5 rounded-xl bg-surface-hover px-3 py-2 text-sm font-semibold text-text-muted" aria-disabled="true">
+            <span className="flex min-h-10 w-full items-center justify-center gap-1.5 rounded-xl bg-surface-hover px-2 py-2 text-xs font-semibold text-text-muted" aria-disabled="true">
               <Lock size={14} aria-hidden="true" /> {t("dashboard.ctaSoon")}
             </span>
           ) : learnHref ? (
             <Link href={learnHref} prefetch={false} data-testid="dashboard-course-learn"
-                  className="flex w-full items-center justify-center gap-1.5 rounded-xl bg-accent-blue px-3 py-2 text-sm font-semibold text-white transition-opacity hover:opacity-90">
+                  className="flex min-h-10 w-full items-center justify-center gap-1 rounded-xl bg-accent-blue px-2 py-2 text-xs font-semibold text-white transition-opacity hover:opacity-90">
               <PlayCircle size={15} aria-hidden="true" /> {t("dashboard.ctaLearn")}
             </Link>
           ) : (
             <Link href={levelHref(level.level)} prefetch={false} data-testid="dashboard-course-open"
-                  className="flex w-full items-center justify-center gap-1.5 rounded-xl px-3 py-2 text-sm font-semibold text-accent-blue ring-1 ring-accent-blue/30 transition-colors hover:bg-accent-blue/10">
+                  className="flex min-h-10 w-full items-center justify-center gap-1 rounded-xl px-2 py-2 text-xs font-semibold text-accent-blue ring-1 ring-accent-blue/30 transition-colors hover:bg-accent-blue/10">
               {t("dashboard.ctaOpen")} <ArrowRight size={14} aria-hidden="true" />
             </Link>
           )}
@@ -90,22 +90,22 @@ function CourseCard({ level }: { level: LmsLevelSummary }) {
   );
 }
 
-/** Dashboard: A1–C1 directly under the Werbung banner. */
+/** Dashboard: the five existing A1–C1 course summaries and their access-aware links. */
 export default function DashboardCourses() {
   const { t } = useTranslation();
   const { data, isLoading, isError, refetch } = useLmsLevels();
 
   return (
     <section aria-labelledby="dashboard-courses-title" data-testid="dashboard-courses">
-      <div className="mb-4 flex items-center justify-between">
+      <div className="mb-3 flex items-center justify-between">
         <h2 id="dashboard-courses-title" className="text-base font-bold text-text-primary">{t("dashboard.coursesTitle")}</h2>
         <Link href="/kurse" prefetch={false} className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent-blue hover:text-accent-blue-hover">
           {t("dashboard.allCourses")} <ArrowRight size={15} aria-hidden="true" />
         </Link>
       </div>
       {isLoading ? (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5" aria-busy="true" aria-label={t("dashboard.loading")}>
-          {[0, 1, 2, 3, 4].map((i) => <div key={i} className="h-[220px] animate-pulse rounded-card bg-surface-hover" />)}
+        <div className="grid auto-rows-fr grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-5" aria-busy="true" aria-label={t("dashboard.loading")}>
+          {[0, 1, 2, 3, 4].map((i) => <div key={i} className="min-h-[190px] animate-pulse rounded-card bg-surface-hover" />)}
         </div>
       ) : isError || !data ? (
         <p className="rounded-card bg-surface-card p-5 text-sm text-text-secondary ring-1 ring-surface-border">
@@ -113,7 +113,7 @@ export default function DashboardCourses() {
           <button type="button" onClick={() => refetch()} className="font-semibold text-accent-blue hover:underline">{t("dashboard.retry")}</button>
         </p>
       ) : (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        <div className="grid auto-rows-fr grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-5">
           {data.levels.map((level) => <CourseCard key={level.level} level={level} />)}
         </div>
       )}

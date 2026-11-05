@@ -11,10 +11,7 @@ import { useTranslation } from "@/lib/i18n/use-translation";
 
 import "@/features/battle/battle.css";
 
-/**
- * Top-of-dashboard VIZU DEUTSCH BATTLE banner (every logged-in user — no course or premium condition).
- * Without data (loading / error) it still shows the call to action.
- */
+/** Compact Battle tile for all logged-in dashboard users. */
 export default function BattleBanner() {
   const { t } = useTranslation();
   const { data } = useQuery({ queryKey: ["battle-summary"], queryFn: getBattleSummary, staleTime: 30_000, retry: 1 });
@@ -23,8 +20,12 @@ export default function BattleBanner() {
   const pct = Math.round((rank?.progress ?? 0) * 100);
 
   return (
-    <section className="battle-root relative isolate overflow-hidden rounded-card text-white shadow-[0_24px_60px_-28px_rgba(16,29,53,0.9)] ring-1 ring-[#F2C45B]/30"
-             style={{ minHeight: 0 }} aria-labelledby="battle-banner-title" data-testid="dashboard-battle-banner">
+    <article
+      className="battle-root relative isolate flex h-full min-h-[204px] flex-col overflow-hidden rounded-card text-white shadow-[0_20px_44px_-24px_rgba(16,29,53,0.9)] ring-1 ring-[#F2C45B]/30"
+      style={{ minHeight: "204px" }}
+      aria-labelledby="battle-banner-title"
+      data-testid="dashboard-battle-banner"
+    >
       <picture>
         <source media="(max-width: 767px)" srcSet="/battle/themes/berlin-mobile.webp" />
         <img src="/battle/themes/berlin-desktop.webp" alt="" decoding="async" className="bt-scene-img absolute inset-0 -z-10 h-full w-full object-cover object-[50%_40%]" />
@@ -33,59 +34,55 @@ export default function BattleBanner() {
       <div aria-hidden="true" className="bt-flag-line absolute inset-x-0 top-0 h-1" />
       <div aria-hidden="true" className="bt-beam absolute -top-1/3 right-[22%] h-[170%] w-24" />
 
-      <div className="relative grid gap-5 p-5 sm:p-7 md:grid-cols-[1.2fr_0.8fr] md:items-center lg:p-8">
-        <div>
-          <div className="flex items-center gap-3">
-            <BattleIcon size={56} className="drop-shadow-[0_8px_20px_rgba(242,196,91,0.45)]" />
-            <div>
-              <p className="text-[11px] font-extrabold uppercase tracking-[0.25em] text-[#F2C45B]">1 vs 1 · A1 → C1+</p>
-              <h2 id="battle-banner-title" className="bt-display text-2xl sm:text-4xl">
-                VIZU <span className="text-[#3984E8]">DEUTSCH</span> <span className="bt-gold-text">BATTLE</span>
-              </h2>
-            </div>
+      <div className="relative flex h-full flex-1 flex-col gap-2.5 p-3.5 sm:p-4">
+        <div className="flex items-center gap-2">
+          <BattleIcon size={34} className="shrink-0 drop-shadow-[0_5px_12px_rgba(242,196,91,0.45)]" />
+          <div className="min-w-0">
+            <p className="text-[9px] font-extrabold uppercase tracking-[0.15em] text-[#F2C45B]">1 vs 1 · A1 → C1+</p>
+            <h2 id="battle-banner-title" className="bt-display text-base leading-tight sm:text-lg">
+              VIZU <span className="text-[#3984E8]">DEUTSCH</span> <span className="bt-gold-text">BATTLE</span>
+            </h2>
           </div>
-          <p className="mt-3 max-w-xl text-base font-bold sm:text-lg">{t("battle.bannerSlogan")}</p>
-          {!data?.played && <p className="mt-1 text-sm font-semibold text-[#F2C45B]" data-testid="battle-banner-first">{t("battle.bannerFirst")}</p>}
-          <Link href={href} prefetch={false} data-testid="battle-banner-cta"
-                className="bt-btn-start mt-5 inline-flex h-14 items-center gap-3 rounded-2xl px-7 text-base font-black uppercase tracking-wider sm:text-lg">
-            <Play size={20} aria-hidden="true" className="fill-current" /> {data?.open_match_id ? t("battle.resume") : t("battle.bannerCta")}
-          </Link>
+        </div>
+        <p className="text-xs font-bold leading-snug text-white/90">{t("battle.bannerSlogan")}</p>
+        {!data?.played && <p className="text-[11px] font-semibold leading-snug text-[#F2C45B]" data-testid="battle-banner-first">{t("battle.bannerFirst")}</p>}
+
+        <div className="mt-auto flex min-w-0 items-center gap-2" data-testid="battle-banner-stats">
+          {data ? (
+            <span className="grid h-8 w-8 shrink-0 place-items-center overflow-hidden rounded-full bg-[#172A46] ring-1 ring-[#3984E8]">
+              <PlayerAvatar player={data.player} size={32} round />
+            </span>
+          ) : <span className="h-8 w-8 shrink-0 animate-pulse rounded-full bg-white/10" />}
+          <div className="min-w-0 flex-1">
+            <p className="text-[9px] font-bold uppercase tracking-wider text-white/60">{t("battle.currentRank")}</p>
+            <p className="break-words text-xs font-black leading-tight" data-testid="battle-banner-rank">{rank?.title ?? "A1-Einsteiger"}</p>
+            <p className="truncate text-[9px] font-semibold text-white/70">
+              <Coins size={10} aria-hidden="true" className="mr-0.5 inline" />{data?.player.points ?? 0}
+              <span className="px-1">·</span>
+              <Trophy size={10} aria-hidden="true" className="mr-0.5 inline" />{data?.wins ?? 0} {t("battle.wins")}
+            </p>
+          </div>
         </div>
 
-        <div className="bt-glass rounded-3xl p-4 sm:p-5" data-testid="battle-banner-stats">
-          <div className="flex items-center gap-3">
-            {data ? (
-              <span className="grid h-14 w-14 shrink-0 place-items-center overflow-hidden rounded-full bg-[#172A46] ring-2 ring-[#3984E8]">
-                <PlayerAvatar player={data.player} size={56} round />
-              </span>
-            ) : <span className="h-14 w-14 shrink-0 animate-pulse rounded-full bg-white/10" />}
-            <div className="min-w-0 flex-1">
-              <p className="text-[11px] font-bold uppercase tracking-wider text-white/60">{t("battle.currentRank")}</p>
-              <p className="truncate text-lg font-black" data-testid="battle-banner-rank">{rank?.title ?? "A1-Einsteiger"}</p>
-            </div>
-          </div>
-          <div className="mt-4 grid grid-cols-2 gap-2 text-center">
-            <div className="rounded-2xl bg-white/5 py-2 ring-1 ring-white/10">
-              <p className="flex items-center justify-center gap-1 text-xl font-black text-[#F2C45B]"><Coins size={16} aria-hidden="true" />{data?.player.points ?? 0}</p>
-              <p className="text-[10px] font-bold uppercase tracking-wide text-white/60">Battle Points</p>
-            </div>
-            <div className="rounded-2xl bg-white/5 py-2 ring-1 ring-white/10">
-              <p className="flex items-center justify-center gap-1 text-xl font-black text-[#3984E8]"><Trophy size={16} aria-hidden="true" />{data?.wins ?? 0}</p>
-              <p className="text-[10px] font-bold uppercase tracking-wide text-white/60">{t("battle.wins")}</p>
-            </div>
-          </div>
-          <div className="mt-4 h-2.5 overflow-hidden rounded-full bg-white/10" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} aria-label={t("battle.nextRank")}>
-            <div className="h-full rounded-full bg-gradient-to-r from-[#c8901f] via-[#F2C45B] to-[#fff2c4] transition-[width] duration-700" style={{ width: `${pct}%` }} />
-          </div>
-          <p className="mt-1.5 flex items-center justify-between gap-2 text-[11px] font-semibold text-white/70">
-            <span>{rank?.next_title ? `${t("battle.nextRank")}: ${rank.next_title}` : t("battle.maxRank")}</span>
-            {rank?.remaining != null && <span className="shrink-0">{t("battle.remaining", { n: rank.remaining })}</span>}
-          </p>
-          <Link href="/battle/rangliste" prefetch={false} className="mt-3 flex items-center justify-end text-xs font-bold text-[#F2C45B] hover:underline">
-            {t("battle.navLeaderboard")} <ChevronRight size={14} aria-hidden="true" />
+        <div className="h-1.5 overflow-hidden rounded-full bg-white/10" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} aria-label={t("battle.nextRank")}>
+          <div className="h-full rounded-full bg-gradient-to-r from-[#c8901f] via-[#F2C45B] to-[#fff2c4] transition-[width] duration-700" style={{ width: `${pct}%` }} />
+        </div>
+
+        <div className="flex items-center justify-between gap-2">
+          <Link
+            href={href}
+            prefetch={false}
+            data-testid="battle-banner-cta"
+            className="bt-btn-start inline-flex min-h-10 min-w-0 items-center gap-1.5 rounded-xl px-3 text-[11px] font-black uppercase tracking-wide"
+          >
+            <Play size={14} aria-hidden="true" className="shrink-0 fill-current" />
+            <span className="truncate">{data?.open_match_id ? t("battle.resume") : t("battle.bannerCta")}</span>
+          </Link>
+          <Link href="/battle/rangliste" prefetch={false} className="inline-flex shrink-0 items-center gap-0.5 text-[10px] font-bold text-[#F2C45B] hover:underline">
+            {t("battle.navLeaderboard")} <ChevronRight size={12} aria-hidden="true" />
           </Link>
         </div>
       </div>
-    </section>
+    </article>
   );
 }

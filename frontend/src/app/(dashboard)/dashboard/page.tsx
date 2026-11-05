@@ -1,10 +1,8 @@
-import AiTools from "@/components/dashboard/home/ai-tools";
-import AchievementsCard from "@/components/dashboard/home/achievements-card";
 import AdvertisementBanner from "@/components/dashboard/home/advertisement-banner";
-import BattleBanner from "@/components/dashboard/home/battle-banner";
-import CertificatesCard from "@/components/dashboard/home/certificates-card";
 import DashboardCourses from "@/components/dashboard/home/dashboard-courses";
 import DashboardMotion from "@/components/dashboard/home/dashboard-motion";
+import DashboardWelcome from "@/components/dashboard/home/dashboard-welcome";
+import LearningTools from "@/components/dashboard/home/learning-tools";
 import LearningStreakCard from "@/components/dashboard/home/learning-streak-card";
 
 // This page's content is 100% client-fetched (React Query) — forcing
@@ -23,27 +21,20 @@ export default function DashboardPage() {
       />
 
       <DashboardMotion>
-        <div className="space-y-8 lg:space-y-10">
-          {/* 1. VIZU DEUTSCH BATTLE — open to every logged-in user */}
-          <BattleBanner />
+        <div className="space-y-6 lg:space-y-8">
+          <DashboardWelcome />
+
+          {/* Battle and the three core learning links are grouped together. */}
+          <LearningTools />
+
+          <DashboardCourses />
+
+          <div data-testid="dashboard-stats">
+            <LearningStreakCard />
+          </div>
 
           {/* Werbung-Banner (admin-managed) */}
           <AdvertisementBanner />
-
-          {/* 2. Kurse A1–C1 */}
-          <DashboardCourses />
-
-          {/* 3. Lernserie · Zertifikate · Erfolge */}
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3" data-testid="dashboard-gadgets">
-            <LearningStreakCard />
-            <CertificatesCard />
-            <div className="md:col-span-2 xl:col-span-1">
-              <AchievementsCard />
-            </div>
-          </div>
-
-          {/* 4. Schnellzugriff: Zertifikatsprüfungen, VIZU-Multilevel, Wörterbuch */}
-          <AiTools />
 
           {/* Footer */}
           <footer className="border-t border-surface-border pt-8 pb-4 text-center">

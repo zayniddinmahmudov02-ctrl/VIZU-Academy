@@ -64,12 +64,32 @@ test("anonymous visitors are sent to the login page", async ({ page }) => {
 test("dashboard: Battle banner on top for a new student without any course, icon in the navigation", async ({ page, isMobile }) => {
   await login(page);
   const banner = page.getByTestId("dashboard-battle-banner");
+  const tools = page.getByTestId("dashboard-learning-tools");
   await expect(banner).toBeVisible();
   await expect(banner).toContainText("VIZU DEUTSCH BATTLE");
   await expect(banner).toContainText("Fordere andere Spieler heraus und verbessere dein Deutsch!");
   await expect(page.getByTestId("battle-banner-first")).toHaveText("Starte deine erste Battle!");
   await expect(page.getByTestId("battle-banner-rank")).toHaveText("A1-Einsteiger");
   await expect(banner.locator('svg[data-icon="battle"]')).toHaveCount(1);
+  await expect(tools.getByRole("heading", { name: "Lernwerkzeuge" })).toBeVisible();
+  await expect(tools.getByRole("link", { name: "Stufe Bestimmung öffnen" })).toBeVisible();
+  await expect(tools.getByRole("link", { name: "Wortschatz öffnen" })).toHaveAttribute("href", "/woerterbuch");
+  await expect(tools.getByRole("link", { name: "Zertifikatsprüfungen öffnen" })).toHaveAttribute("href", "/vorbereitung");
+  await expect(page.getByRole("heading", { name: "A1–C1 Kurse" })).toBeVisible();
+  await expect(page.getByTestId("dashboard-course")).toHaveCount(5);
+  await expect(page.getByTestId("dashboard-stats")).toBeVisible();
+  await expect(page.getByTestId("dashboard-achievements")).toHaveCount(0);
+  await expect(page.getByTestId("dashboard-certificates")).toHaveCount(0);
+
+  await tools.getByRole("link", { name: "Stufe Bestimmung öffnen" }).click();
+  await expect(page).toHaveURL(/\/vizu-multilevel$/);
+  await expect(page.getByRole("heading", { name: "Stufe Bestimmung" })).toBeVisible();
+  await expect(page.getByText("Bestimme dein aktuelles Deutschniveau.")).toBeVisible();
+  await page.goto("/dashboard");
+  await page.getByTestId("dashboard-learning-tools").getByRole("link", { name: "Wortschatz öffnen" }).click();
+  await expect(page).toHaveURL(/\/woerterbuch$/);
+  await page.goto("/dashboard");
+
   const bannerBox = await banner.boundingBox();
   const courseBox = await page.getByTestId("dashboard-course").first().boundingBox();
   expect(bannerBox!.y).toBeLessThan(courseBox!.y);

@@ -61,7 +61,7 @@ export const translations: Record<string, Namespace> = {
   },
 
   dashboard: {
-    welcomeBack: { de: "Willkommen zurück,", uz: "Xush kelibsiz," },
+    welcomeBack: { de: "Willkommen zurück!", uz: "Xush kelibsiz!" },
     heroSubtitle: {
       de: "Setze deinen Lernfortschritt fort und erreiche deine Ziele.",
       uz: "O'quv jarayoningizni davom eting va maqsadlaringizga erishing.",
@@ -84,6 +84,7 @@ export const translations: Record<string, Namespace> = {
     jetztStarten: { de: "Jetzt starten", uz: "Hozir boshlash" },
     lessonsCount: { de: "{count} Unterricht", uz: "{count} ta dars" },
     quickAccess: { de: "Schnellzugriff", uz: "Tezkor kirish" },
+    learningTools: { de: "Lernwerkzeuge", uz: "O'quv vositalari" },
     statistics: { de: "Statistik", uz: "Statistika" },
     adFallbackTitle: { de: "VIZU Academy", uz: "VIZU Academy" },
     adFallbackBody: {
@@ -96,21 +97,28 @@ export const translations: Record<string, Namespace> = {
     adPause: { de: "Automatischen Wechsel anhalten", uz: "Avtomatik almashishni to'xtatish" },
     adPlay: { de: "Automatischen Wechsel fortsetzen", uz: "Avtomatik almashishni davom ettirish" },
     mockExams: { de: "Zertifikatsprüfungen", uz: "Sertifikat imtihonlari" },
-    mockExamsSubtitle: { de: "Bereite dich auf deine Zertifikatsprüfung vor", uz: "Sertifikat imtihoniga tayyorlaning" },
+    mockExamsSubtitle: { de: "Bereite dich auf deine Deutschprüfung vor.", uz: "Nemis tili imtihoniga tayyorlaning." },
     mockExamsAria: { de: "Zertifikatsprüfungen öffnen", uz: "Sertifikat imtihonlarini ochish" },
-    woerterbuchSubtitle: { de: "Vokabeln nachschlagen", uz: "So'zlarni qidirish" },
-    woerterbuchAria: { de: "Wörterbuch öffnen", uz: "Lug'atni ochish" },
-    vizuMultilevelTitle: { de: "VIZU-Multilevel", uz: "VIZU-Multilevel" },
-    vizuMultilevelSubtitle: {
-      de: "Teste dein Deutschniveau kostenlos",
-      uz: "Darajangizni bepul sinab oling",
+    mockExamsCta: { de: "Jetzt vorbereiten", uz: "Hozir tayyorlanish" },
+    woerterbuchTitle: { de: "Wortschatz", uz: "Wortschatz" },
+    woerterbuchSubtitle: {
+      de: "Entdecke neue Wörter und erweitere deinen Wortschatz.",
+      uz: "Yangi so'zlarni kashf eting va lug'at boyligingizni kengaytiring.",
     },
-    vizuMultilevelAria: { de: "VIZU-Multilevel öffnen", uz: "VIZU-Multilevelni ochish" },
+    woerterbuchAria: { de: "Wortschatz öffnen", uz: "Wortschatzni ochish" },
+    woerterbuchCta: { de: "Wörter entdecken", uz: "So'zlarni o'rganish" },
+    vizuMultilevelTitle: { de: "Stufe Bestimmung", uz: "Stufe Bestimmung" },
+    vizuMultilevelSubtitle: {
+      de: "Bestimme dein aktuelles Deutschniveau.",
+      uz: "Nemis tili darajangizni aniqlang.",
+    },
+    vizuMultilevelAria: { de: "Stufe Bestimmung öffnen", uz: "Stufe Bestimmung sahifasini ochish" },
+    vizuMultilevelCta: { de: "Jetzt testen", uz: "Hozir sinab ko'rish" },
     loading: { de: "Wird geladen …", uz: "Yuklanmoqda …" },
     loadError: { de: "Konnte nicht geladen werden.", uz: "Yuklab bo'lmadi." },
     retry: { de: "Erneut versuchen", uz: "Qayta urinish" },
     // course cards
-    coursesTitle: { de: "Kurse", uz: "Kurslar" },
+    coursesTitle: { de: "A1–C1 Kurse", uz: "A1–C1 Kurslar" },
     courseLessons: { de: "{count} Lektionen", uz: "{count} ta dars" },
     courseProgress: { de: "{done} von {total} Lektionen · {percent}%", uz: "{total} tadan {done} ta dars · {percent}%" },
     courseOwned: { de: "Freigeschaltet", uz: "Ochiq" },
@@ -123,6 +131,8 @@ export const translations: Record<string, Namespace> = {
     courseOpenAria: { de: "Kurs {level} öffnen", uz: "{level} kursini ochish" },
     // Lernserie
     streakTitle: { de: "Lernserie", uz: "O'quv seriyasi" },
+    streakCurrent: { de: "Aktuelle Serie", uz: "Joriy seriya" },
+    streakActiveDays: { de: "Lerntage (letzte 7 Tage)", uz: "O'quv kunlari (oxirgi 7 kun)" },
     streakDays: { de: "{n} Tage", uz: "{n} kun" },
     streakDay: { de: "1 Tag", uz: "1 kun" },
     streakInARow: { de: "in Folge", uz: "ketma-ket" },
@@ -232,8 +242,11 @@ export const translations: Record<string, Namespace> = {
   // VIZU-Multilevel — standalone free level check (A1–C1): Lesen, Hören,
   // Schreiben, Sprechen. Reuses the same i18n system, no new mechanism.
   vizuMultilevel: {
-    title: { de: "VIZU-Multilevel", uz: "VIZU-Multilevel" },
-    subtitle: { de: "Kostenloser Einstufungstest", uz: "Bepul daraja aniqlash testi" },
+    title: { de: "Stufe Bestimmung", uz: "Stufe Bestimmung" },
+    subtitle: {
+      de: "Bestimme dein aktuelles Deutschniveau.",
+      uz: "Nemis tili darajangizni aniqlang.",
+    },
     levelRange: { de: "A1–C1", uz: "A1–C1" },
     heroTitle: { de: "Teste dein Deutschniveau kostenlos", uz: "Darajangizni bepul sinab oling" },
     heroBody: {
@@ -407,7 +420,7 @@ export const translations: Record<string, Namespace> = {
       uz: "Mikrofon mavjud emas. Iltimos, mikrofonga ruxsat bering.",
     },
     // Results (Ergebnis)
-    resultsTitle: { de: "VIZU-Multilevel Ergebnisse", uz: "VIZU-Multilevel Natijalari" },
+    resultsTitle: { de: "Stufe Bestimmung – Ergebnisse", uz: "Stufe Bestimmung natijalari" },
     resultsOverall: { de: "Dein Niveau", uz: "Sizning darajangiz" },
     resultsPending: { de: "Noch nicht abgeschlossen", uz: "Hali yakunlanmagan" },
     resultsPendingNote: {
@@ -427,7 +440,7 @@ export const translations: Record<string, Namespace> = {
     belowA1: { de: "unter A1", uz: "A1 dan past" },
     certDownload: { de: "Zertifikat herunterladen", uz: "Sertifikatni yuklab olish" },
     certGenerating: { de: "Zertifikat wird erstellt...", uz: "Sertifikat tayyorlanmoqda..." },
-    certSubtitle: { de: "Offizielles VIZU-Multilevel-Zertifikat als PDF", uz: "Rasmiy VIZU-Multilevel sertifikati (PDF)" },
+    certSubtitle: { de: "Offizielles Zertifikat zur Stufe Bestimmung als PDF", uz: "Stufe Bestimmung natijalari bo'yicha rasmiy sertifikat (PDF)" },
     certLevel: { de: "Niveau {level}", uz: "Niveau {level}" },
     certError: {
       de: "Das Zertifikat konnte nicht erstellt werden. Bitte versuchen Sie es erneut.",
@@ -675,7 +688,7 @@ export const translations: Record<string, Namespace> = {
     overallGood: { de: "Stärken", uz: "Kuchli tomonlar" },
     overallImprove: { de: "Entwicklungsmöglichkeiten", uz: "Rivojlanish imkoniyatlari" },
     overallNext: { de: "Konkrete nächste Schritte", uz: "Aniq keyingi qadamlar" },
-    backToHub: { de: "Zurück zu VIZU-Multilevel", uz: "VIZU-Multilevel ga qaytish" },
+    backToHub: { de: "Zurück zu Stufe Bestimmung", uz: "Stufe Bestimmung sahifasiga qaytish" },
     historyTitle: { de: "Frühere Versuche", uz: "Oldingi urinishlar" },
     historyEmpty: { de: "Du hast noch keinen Versuch gestartet.", uz: "Siz hali birorta urinish boshlamadingiz." },
     statusInProgress: { de: "Läuft", uz: "Davom etmoqda" },
