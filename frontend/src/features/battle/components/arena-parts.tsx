@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Check, Clock3, ImageOff, X } from "lucide-react";
 
 import { API_URL } from "@/constants/api";
-import BattleAvatar from "@/features/battle/components/battle-avatar";
+import PlayerAvatar from "@/features/battle/components/player-avatar";
 import { GermanFlag, PointsChip } from "@/features/battle/components/battle-ui";
 import { apiAsset, optionState, type OptionState } from "@/features/battle/lib/battle-utils";
 import type { MatchPlayer, MatchState, RoundView } from "@/features/battle/services/battle-service";
@@ -19,7 +19,7 @@ export function PlayerPanel({ player, side, compact = false, answered }: { playe
     return (
       <div className={cn("flex min-w-0 items-center gap-2", !blue && "flex-row-reverse text-right")} data-testid={`arena-${side}`}>
         <span className={cn("relative grid h-11 w-11 shrink-0 place-items-center overflow-hidden rounded-full bg-[var(--bt-dark)] ring-2", ring)}>
-          {player && <BattleAvatar avatar={player.avatar} size={50} animated={false} portrait />}
+          {player && <PlayerAvatar player={player} size={44} round />}
           {answered && <span className="absolute inset-0 grid place-items-center bg-black/40"><Check size={18} className="text-[var(--bt-gold)]" /></span>}
         </span>
         <span className="min-w-0">
@@ -32,7 +32,7 @@ export function PlayerPanel({ player, side, compact = false, answered }: { playe
   return (
     <div className={cn("bt-glass relative flex flex-col items-center rounded-3xl p-4 text-center", blue ? "shadow-[var(--bt-glow-blue)]" : "shadow-[var(--bt-glow-red)]")} data-testid={`arena-${side}`}>
       <span className={cn("absolute inset-x-6 top-0 h-1 rounded-b-full", blue ? "bg-[var(--bt-blue)]" : "bg-[var(--bt-red)]")} aria-hidden="true" />
-      {player ? <BattleAvatar avatar={player.avatar} size={150} accent={blue ? "#3984E8" : "#D83B43"} title={player.name} /> : <div className="h-[165px]" />}
+      {player ? <PlayerAvatar player={player} size={150} accent={blue ? "#3984E8" : "#D83B43"} /> : <div className="h-[165px]" />}
       <p className="mt-1 flex max-w-full items-center gap-2 truncate text-base font-black"><GermanFlag size={18} />{player?.name ?? "…"}</p>
       <p className="text-xs font-bold text-[var(--bt-gold)]">{player?.rank}</p>
       {player && !player.is_bot && <PointsChip points={player.points} className="mt-2" />}

@@ -14,15 +14,18 @@ import {
   Play,
   Settings as SettingsIcon,
   Sparkles,
-  type LucideIcon,
+
 } from "lucide-react";
 
+import type { ComponentType } from "react";
+
+import BattleIcon from "@/components/icons/battle-icon";
 import { api } from "@/services/api";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { formatRelativeTime } from "../utils/format-relative-time";
 import type { FeedItem } from "../types/notification";
 
-const ICON: Record<string, [LucideIcon, string]> = {
+const ICON: Record<string, [ComponentType<{ size?: number; className?: string }>, string]> = {
   INFO: [Info, "bg-accent-blue/10 text-accent-blue"],
   SUCCESS: [CheckCircle2, "bg-success/10 text-success"],
   WARNING: [AlertTriangle, "bg-warning/10 text-warning"],
@@ -32,6 +35,7 @@ const ICON: Record<string, [LucideIcon, string]> = {
   exam: [GraduationCap, "bg-warning/10 text-warning"],
   course: [BookOpen, "bg-success/10 text-success"],
   system: [SettingsIcon, "bg-text-muted/10 text-text-muted"],
+  battle: [BattleIcon, "bg-[#101D35]/10"],
 };
 
 /** Title / text of the active UI language (broadcasts carry both). */

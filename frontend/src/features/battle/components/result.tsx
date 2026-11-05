@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Crown, Home, RotateCcw } from "lucide-react";
 
 import { API_URL } from "@/constants/api";
-import BattleAvatar from "@/features/battle/components/battle-avatar";
+import PlayerAvatar from "@/features/battle/components/player-avatar";
 import { GlassPanel, ProgressBar, RankBadge } from "@/features/battle/components/battle-ui";
 import { resolveThemeImage } from "@/features/battle/lib/battle-utils";
 import type { MatchState, Theme } from "@/features/battle/services/battle-service";
@@ -43,13 +43,13 @@ export function MatchResult({ match, onAgain, busy }: { match: MatchState; onAga
 
         <div className="mt-6 grid grid-cols-[1fr_auto_1fr] items-center gap-3">
           <div className="flex flex-col items-center">
-            <BattleAvatar avatar={match.me.avatar} size={120} accent="#3984E8" />
+            <PlayerAvatar player={match.me} size={120} accent="#3984E8" />
             <p className="mt-1 truncate text-sm font-black">{t("battle.you")}</p>
             <p className="text-4xl font-black tabular-nums text-[var(--bt-blue)]">{match.me.score}</p>
           </div>
           <p className="bt-display text-3xl text-white/50">:</p>
           <div className="flex flex-col items-center">
-            <BattleAvatar avatar={match.opponent?.avatar ?? "bot"} size={120} accent="#D83B43" />
+            <PlayerAvatar player={match.opponent ?? { avatar: "bot" }} size={120} accent="#D83B43" />
             <p className="mt-1 max-w-full truncate text-sm font-black">{match.opponent?.name}</p>
             <p className="text-4xl font-black tabular-nums text-[var(--bt-red)]">{match.opponent?.score ?? 0}</p>
           </div>
@@ -129,7 +129,7 @@ export function RankUpOverlay({ match, theme, onClose }: { match: MatchState; th
           </>
         )}
         <div className="mt-5 flex items-center gap-3">
-          <BattleAvatar avatar={match.me.avatar} size={84} accent="#F2C45B" />
+          <PlayerAvatar player={match.me} size={84} accent="#F2C45B" />
           <p className="text-3xl font-black tabular-nums text-[var(--bt-gold)]">{points} BP</p>
         </div>
         {r.rank_after.next_title && (

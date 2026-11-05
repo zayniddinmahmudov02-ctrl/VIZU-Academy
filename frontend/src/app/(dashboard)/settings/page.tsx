@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { AlertCircle, Bell, Globe, Settings as SettingsIcon } from "lucide-react";
 
 import PageHeader from "@/components/dashboard/page-header";
@@ -19,6 +19,7 @@ import {
   ALLOWED_PHOTO_TYPES,
   MAX_PHOTO_SIZE_BYTES,
 } from "@/features/profile/validation/profile.schema";
+import type { Crop } from "@/features/profile/utils/photo-crop";
 import { useTranslation } from "@/lib/i18n/use-translation";
 
 export default function SettingsPage() {
@@ -31,6 +32,8 @@ export default function SettingsPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<{ file: File; url: string } | null>(null);
   const [photoError, setPhotoError] = useState<string | null>(null);
+  const [crop, setCrop] = useState<Crop | null>(null);
+  const onCrop = useCallback((c: Crop) => setCrop(c), []);
 
   const uploadPhoto = useUploadProfilePhoto();
   const removePhoto = useRemoveProfilePhoto();
@@ -68,12 +71,15 @@ export default function SettingsPage() {
   function confirmPhotoUpload() {
     if (!preview) return;
 
-    uploadPhoto.mutate(preview.file, {
+    uploadPhoto.mutate({ file: preview.file, crop }, {
       onSuccess: () => {
         URL.revokeObjectURL(preview.url);
         setPreview(null);
       },
-      onError: () => setPhotoError(t("profile.saveError")),
+      onError: (err) => {
+        const status = (err as { response?: { status?: number } })?.response?.status;
+        setPhotoError(t(status === 400 ? "profile.photoRejected" : "profile.saveError"));
+      },
     });
   }
 
@@ -104,6 +110,7 @@ export default function SettingsPage() {
         type="file"
         accept={ALLOWED_PHOTO_TYPES.join(",")}
         className="hidden"
+        data-testid="profile-photo-input"
         onChange={onFileChange}
       />
 
@@ -137,6 +144,7 @@ export default function SettingsPage() {
                 onConfirm={confirmPhotoUpload}
                 onCancelPreview={cancelPreview}
                 onRemove={handleRemovePhoto}
+                onCrop={onCrop}
               />
             </div>
 

@@ -7,10 +7,11 @@ import {
   LayoutDashboard,
   LifeBuoy,
   Settings,
-  Swords,
   Tag,
   Users,
 } from "lucide-react";
+
+import BattleIcon from "@/components/icons/battle-icon";
 
 export const sidebarItems = [
   {
@@ -46,7 +47,7 @@ export const sidebarItems = [
   {
     titleKey: "sidebar.battle",
     href: "/battle",
-    icon: Swords,
+    icon: BattleIcon,
   },
   {
     titleKey: "sidebar.informationen",

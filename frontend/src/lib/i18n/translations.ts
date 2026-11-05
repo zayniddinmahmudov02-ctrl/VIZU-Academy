@@ -1127,8 +1127,14 @@ export const translations: Record<string, Namespace> = {
     replacePhoto: { de: "Ersetzen", uz: "Almashtirish" },
     removePhoto: { de: "Entfernen", uz: "O'chirish" },
     photoHint: {
-      de: "JPG, PNG oder WEBP, maximal 5 MB.",
-      uz: "JPG, PNG yoki WEBP, maksimal 5 MB.",
+      de: "JPG, PNG oder WEBP, maximal 5 MB, mindestens 96×96 px. Wird quadratisch zugeschnitten.",
+      uz: "JPG, PNG yoki WEBP, maksimal 5 MB, kamida 96×96 px. Kvadrat shaklda qirqiladi.",
+    },
+    cropHint: { de: "Ziehen zum Verschieben, Regler zum Zoomen", uz: "Surish uchun torting, kattalashtirish uchun slayder" },
+    cropZoom: { de: "Zoom", uz: "Kattalashtirish" },
+    photoRejected: {
+      de: "Diese Datei ist kein gültiges Bild (JPG, PNG, WEBP) oder zu klein.",
+      uz: "Bu fayl yaroqli rasm emas (JPG, PNG, WEBP) yoki juda kichik.",
     },
     photoInvalidType: {
       de: "Bitte wähle ein JPG-, PNG- oder WEBP-Bild.",

@@ -15,9 +15,12 @@ API prefixes are listed without `/api/v1` (every router is mounted bare and unde
   deps `be/api/dependencies/auth.py`; roles `be/core/security/roles.py`.
 - **Tables:** `users`, `refresh_tokens`, `login_history`, `auth_rate_limit_events`, `user_languages`, `user_tags`.
 - **Frontend:** `fe/app/(auth)/{login,register,forgot-password,reset-password}`, `fe/features/auth/`,
-  `fe/features/profile/`, settings `fe/app/(dashboard)/settings`.
+  `fe/features/profile/`, settings `fe/app/(dashboard)/settings`. Profile photo: `POST /users/me/photo` (+ optional square crop `crop_x/y/size`)
+  → `be/services/profile_photo.py` (Pillow decode, type = declared MIME, ≥96 px, EXIF orientation, 512×512 WebP, random name in
+  `uploads/avatars/`); browser cropper `fe/features/profile/{components/photo-cropper.tsx,utils/photo-crop.ts}`; `DELETE /users/me/photo`.
+  The same photo is the Battle player picture.
 - **Tests:** `test_auth*`, `test_remember_me`, `test_session_revocation`, `test_login_email_case_insensitive`,
-  `test_telegram_login`, `test_telegram_init_data_validation`, `test_route_protection`, `test_security_hardening`.
+  `test_telegram_login`, `test_telegram_init_data_validation`, `test_route_protection`, `test_security_hardening`, `test_profile_photo`.
 - **Rules:** admin panel login needs the second factor `SUPER_ADMIN_VERIFICATION_PASSWORD`
   (`docs/super-admin-verification-secret.md`); token storage plan `docs/auth-token-storage-plan.md`.
 - **Issues:** `SUPER_ADMIN_VERIFICATION_PASSWORD` not set on production (see known-issues).
@@ -239,8 +242,9 @@ See `deployment-map.md`, skill `vizu-deploy`, `docs/deploy-frontend.md`, `docs/l
   themes, admin, commons, seed). Tables `battle_profiles`, `battle_words`, `battle_images`, `battle_matches`,
   `battle_answers`, `battle_points_ledger`, `battle_themes`. Seed `be/scripts/battle_seed.py` + `be/data/battle/`.
 - **Frontend:** `fe/app/(battle)/battle/*`, `fe/features/battle/*`, admin `fe/app/admin/battle` (Übersicht, Wörter & Bilder,
-  Design & Themes); entry points: sidebar "Battle", dashboard quick-access card.
-- **Tests:** `test_battle`, `test_battle_migration`, unit `battle-utils.test.mjs`, E2E `battle.spec.ts`.
+  Design & Themes); entry points: dashboard top banner `fe/components/dashboard/home/battle-banner.tsx` (`GET /battle/summary`),
+  sidebar + mobile nav with the custom icon `fe/components/icons/battle-icon.tsx` (favicon `fe/public/battle/battle-icon.svg`).
+- **Tests:** `test_battle`, `test_battle_migration`, unit `battle-utils.test.mjs`, E2E `battle.spec.ts`, `battle-dashboard.spec.ts`.
 - **Details / decisions:** `docs/ai-context/battle-overview.md`.
 
 ## Other mounted modules (not in the list above)

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { Crown } from "lucide-react";
 
-import BattleAvatar from "@/features/battle/components/battle-avatar";
+import PlayerAvatar from "@/features/battle/components/player-avatar";
 import BattleScene from "@/features/battle/components/battle-scene";
 import { useBattleLowFx } from "@/features/battle/components/battle-shell";
 import { ErrorState, GermanFlag, GlassPanel, LoadingState, PointsChip, RankBadge } from "@/features/battle/components/battle-ui";
@@ -45,7 +45,7 @@ export default function LeaderboardView() {
                 {[podium[1], podium[0], podium[2]].map((p, i) => p && (
                   <GlassPanel key={p.position} className={cn("flex flex-col items-center p-3 text-center sm:p-4", i === 1 && "pb-6 shadow-[var(--bt-glow-gold)]")}>
                     {p.position === 1 && <Crown className="text-[var(--bt-gold)]" size={22} aria-hidden="true" />}
-                    <BattleAvatar avatar={p.avatar} size={i === 1 ? 120 : 90} accent={i === 1 ? "#F2C45B" : "#3984E8"} animated={i === 1} />
+                    <PlayerAvatar player={p} size={i === 1 ? 120 : 90} accent={i === 1 ? "#F2C45B" : "#3984E8"} animated={i === 1} />
                     <p className="mt-1 max-w-full truncate text-sm font-black">{p.name}</p>
                     <p className="text-2xl font-black text-[var(--bt-gold)]">#{p.position}</p>
                     <p className="text-xs font-bold text-white/70">{p.points} BP</p>
@@ -61,7 +61,7 @@ export default function LeaderboardView() {
                     <li key={`${row.position}-${row.name}`} className={cn("flex items-center gap-3 border-b border-white/5 px-3 py-2.5 sm:px-5", row.me && "bg-[var(--bt-blue)]/20")}>
                       <span className={cn("w-8 text-center text-base font-black", row.position <= 3 ? "text-[var(--bt-gold)]" : "text-white/60")}>{row.position}</span>
                       <span className="grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-full bg-[var(--bt-dark)] ring-1 ring-white/15">
-                        <BattleAvatar avatar={row.avatar} size={44} animated={false} portrait />
+                        <PlayerAvatar player={row} size={40} round />
                       </span>
                       <span className="min-w-0 flex-1">
                         <span className="flex items-center gap-1.5 truncate text-sm font-black"><GermanFlag size={14} />{row.name}</span>

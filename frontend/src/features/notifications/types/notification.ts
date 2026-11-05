@@ -1,4 +1,4 @@
-export type NotificationType = "information" | "update" | "exam" | "course" | "system";
+export type NotificationType = "information" | "update" | "exam" | "course" | "system" | "battle";
 
 export interface Notification {
   id: string;

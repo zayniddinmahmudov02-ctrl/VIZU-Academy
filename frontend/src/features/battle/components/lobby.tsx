@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Bot, Copy, Radar, X } from "lucide-react";
 
-import BattleAvatar from "@/features/battle/components/battle-avatar";
+import PlayerAvatar from "@/features/battle/components/player-avatar";
 import { GermanFlag, GlassPanel, PointsChip, StageChip } from "@/features/battle/components/battle-ui";
 import { msUntil } from "@/features/battle/lib/battle-utils";
 import type { MatchPlayer, MatchState } from "@/features/battle/services/battle-service";
@@ -23,7 +23,7 @@ function Fighter({ player, side, searching = false }: { player: MatchPlayer | nu
             <span aria-hidden="true" className="bt-pulse-ring absolute h-24 w-24 rounded-full border-2 border-[var(--bt-red)]" />
           </div>
         ) : (
-          <BattleAvatar avatar={player?.avatar ?? "student"} size={190} accent={blue ? "#3984E8" : "#D83B43"} className="relative max-sm:!w-[150px] max-sm:!h-[165px]" title={player?.name} />
+          <PlayerAvatar player={player ?? { avatar: "student" }} size={190} accent={blue ? "#3984E8" : "#D83B43"} className="relative max-sm:!w-[150px] max-sm:!h-[165px]" />
         )}
       </div>
       <p className="mt-2 flex items-center gap-2 text-lg font-black"><GermanFlag size={18} />{searching ? "???" : player?.name}</p>

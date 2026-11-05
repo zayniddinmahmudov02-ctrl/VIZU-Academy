@@ -1,6 +1,7 @@
 import AiTools from "@/components/dashboard/home/ai-tools";
 import AchievementsCard from "@/components/dashboard/home/achievements-card";
 import AdvertisementBanner from "@/components/dashboard/home/advertisement-banner";
+import BattleBanner from "@/components/dashboard/home/battle-banner";
 import CertificatesCard from "@/components/dashboard/home/certificates-card";
 import DashboardCourses from "@/components/dashboard/home/dashboard-courses";
 import DashboardMotion from "@/components/dashboard/home/dashboard-motion";
@@ -23,7 +24,10 @@ export default function DashboardPage() {
 
       <DashboardMotion>
         <div className="space-y-8 lg:space-y-10">
-          {/* 1. Werbung-Banner (admin-managed) */}
+          {/* 1. VIZU DEUTSCH BATTLE — open to every logged-in user */}
+          <BattleBanner />
+
+          {/* Werbung-Banner (admin-managed) */}
           <AdvertisementBanner />
 
           {/* 2. Kurse A1–C1 */}

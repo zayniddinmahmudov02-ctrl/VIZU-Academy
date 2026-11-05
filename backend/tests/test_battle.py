@@ -177,6 +177,17 @@ class TestApiContract(unittest.TestCase):
                 else:
                     self.assertIn(require_admin_panel_access, calls)
 
+    def test_open_to_every_logged_in_user(self):
+        """Battle is a free gamification module: no course, lesson, premium or staff dependency on student routes."""
+        from app.api.battle.router import router
+        from app.api.dependencies.auth import get_current_user
+        from app.db.session import get_db
+
+        for r in router.routes:
+            with self.subTest(route=r.path):
+                self.assertLessEqual({d.call for d in r.dependant.dependencies}, {get_db, get_current_user})
+        self.assertIn("/battle/summary", {r.path for r in router.routes})
+
     def test_bodies_cannot_carry_scores_or_users(self):
         from app.api.battle.router import AnswerIn, ThemeDraftIn
 
@@ -499,6 +510,36 @@ class TestBattleDb(unittest.TestCase):
         for bad in ({"desktop_image": "https://evil.example/x.jpg"}, {"accent": "red"}, {"overlay": 95}, {"title": ""}):
             with self.subTest(bad=bad):
                 self.assertEqual(self._status(themes.save_draft, self.db, editor, "A1", bad)[0], 422)
+
+    def test_rank_up_notifies_and_photo_reaches_every_card(self):
+        from app.models.notification import Notification
+        from app.services.battle import engine, home, profiles
+
+        anna = self.user["anna"]
+        anna.profile_image = "/uploads/avatars/" + "a" * 32 + ".webp"
+        for who in ("anna", "bek"):
+            profiles.get_profile(self.db, self.ids[who]).points = 440
+        self.db.commit()
+        mid = self._pair()
+        with self._at(6):
+            self.assertEqual(engine.state(self.db, mid, self.user["bek"])["opponent"]["photo"], anna.profile_image)
+            engine.leave(self.db, self.user["bek"], uuid.UUID(mid))
+            s = engine.state(self.db, mid, anna)
+        self.assertTrue(s["result"]["stage_up"])
+        self.assertEqual(s["me"]["photo"], anna.profile_image)
+        notes = self.db.query(Notification).filter_by(user_id=self.ids["anna"], type="battle").all()
+        self.assertEqual(len(notes), 1)
+        self.assertIn("A2-Einsteiger", notes[0].title)
+        self.assertEqual(notes[0].link_path, "/battle")
+        self.assertEqual(self.db.query(Notification).filter_by(user_id=self.ids["bek"], type="battle").count(), 0)
+        board = profiles.leaderboard(self.db, self.user["bek"])
+        self.assertEqual(board["items"][0]["photo"], anna.profile_image)
+        self.assertEqual(profiles.recent_matches(self.db, self.user["bek"])[0]["opponent_photo"], anna.profile_image)
+        sm = home.summary(self.db, anna)
+        self.assertEqual((sm["played"], sm["wins"], sm["rank"]["stage"]), (True, 1, "A2"))
+        self.db.query(Notification).filter(Notification.user_id.in_(list(self.ids.values()))).delete(synchronize_session=False)
+        anna.profile_image = None
+        self.db.commit()
 
     def test_leaderboard_and_avatars(self):
         from app.services.battle import profiles

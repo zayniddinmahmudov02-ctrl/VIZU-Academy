@@ -9,6 +9,8 @@ TYPE_UPDATE = "update"
 TYPE_EXAM = "exam"
 TYPE_COURSE = "course"
 TYPE_SYSTEM = "system"
+# server-created only (Battle rank-up); not offered for admin broadcasts
+TYPE_BATTLE = "battle"
 ALL_NOTIFICATION_TYPES = {
     TYPE_INFORMATION,
     TYPE_UPDATE,

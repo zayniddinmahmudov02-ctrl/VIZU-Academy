@@ -21,6 +21,8 @@ export interface RankInfo {
 export interface PlayerCard {
   name: string;
   avatar: string;
+  /** uploaded profile photo (users.profile_image) — shown instead of the game avatar */
+  photo: string | null;
   points: number;
   rank: string;
   stage: Stage;
@@ -86,6 +88,7 @@ export interface RecentMatch {
   opponent_score: number;
   points_delta: number;
   opponent: string;
+  opponent_photo: string | null;
   finished_at: string | null;
 }
 
@@ -177,6 +180,17 @@ export interface MatchState {
 }
 
 export const getBattleHome = async () => (await api.get<BattleHome>(`${BASE}/home`)).data;
+
+export interface BattleSummary {
+  player: PlayerCard;
+  rank: RankInfo;
+  wins: number;
+  matches: number;
+  played: boolean;
+  open_match_id: string | null;
+}
+
+export const getBattleSummary = async () => (await api.get<BattleSummary>(`${BASE}/summary`)).data;
 
 export const getLeaderboard = async (stage: Stage | "", page = 1) =>
   (await api.get<Leaderboard>(`${BASE}/leaderboard`, { params: { ...(stage ? { stage } : {}), page } })).data;

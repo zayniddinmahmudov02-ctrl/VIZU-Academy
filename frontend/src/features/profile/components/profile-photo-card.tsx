@@ -3,6 +3,8 @@
 import { ImageIcon, Trash2, Upload } from "lucide-react";
 
 import Avatar from "@/components/ui/avatar";
+import PhotoCropper from "@/features/profile/components/photo-cropper";
+import type { Crop } from "@/features/profile/utils/photo-crop";
 import Button from "@/components/ui/button";
 import { useTranslation } from "@/lib/i18n/use-translation";
 
@@ -17,6 +19,7 @@ interface Props {
   onConfirm: () => void;
   onCancelPreview: () => void;
   onRemove: () => void;
+  onCrop: (crop: Crop) => void;
 }
 
 export default function ProfilePhotoCard({
@@ -30,11 +33,12 @@ export default function ProfilePhotoCard({
   onConfirm,
   onCancelPreview,
   onRemove,
+  onCrop,
 }: Props) {
   const { t } = useTranslation();
 
   return (
-    <section className="rounded-card bg-surface-card p-7 shadow-[var(--shadow-md)] ring-1 ring-surface-border">
+    <section className="rounded-card bg-surface-card p-5 shadow-[var(--shadow-md)] ring-1 ring-surface-border sm:p-7" data-testid="profile-photo-card">
       <h2 className="flex items-center gap-2 text-lg font-bold text-text-primary">
         <ImageIcon size={18} className="text-accent-blue" />
         {t("profile.photo")}
@@ -42,21 +46,17 @@ export default function ProfilePhotoCard({
 
       <div className="mt-5 flex flex-wrap items-center gap-5">
         {previewUrl ? (
-          <img
-            src={previewUrl}
-            alt={name}
-            className="h-20 w-20 rounded-full object-cover ring-2 ring-accent-blue/40"
-          />
+          <PhotoCropper src={previewUrl} onChange={onCrop} />
         ) : (
           <Avatar src={currentImage ?? undefined} name={name} size={80} />
         )}
 
         <div className="flex flex-1 flex-col gap-3">
-          {error && <p className="text-sm text-danger">{error}</p>}
+          {error && <p role="alert" className="text-sm text-danger" data-testid="profile-photo-error">{error}</p>}
 
           {previewUrl ? (
             <div className="flex flex-wrap gap-3">
-              <Button size="sm" onClick={onConfirm} disabled={uploading}>
+              <Button size="sm" onClick={onConfirm} disabled={uploading} data-testid="profile-photo-save">
                 <Upload size={15} />
                 {uploading ? t("profile.saving") : t("profile.save")}
               </Button>
@@ -66,12 +66,12 @@ export default function ProfilePhotoCard({
             </div>
           ) : (
             <div className="flex flex-wrap gap-3">
-              <Button size="sm" variant="secondary" onClick={onPick}>
+              <Button size="sm" variant="secondary" onClick={onPick} data-testid="profile-photo-pick">
                 <Upload size={15} />
                 {currentImage ? t("profile.replacePhoto") : t("profile.uploadPhoto")}
               </Button>
               {currentImage && (
-                <Button size="sm" variant="ghost" onClick={onRemove} disabled={removing}>
+                <Button size="sm" variant="ghost" onClick={onRemove} disabled={removing} data-testid="profile-photo-remove">
                   <Trash2 size={15} />
                   {removing ? t("profile.saving") : t("profile.removePhoto")}
                 </Button>

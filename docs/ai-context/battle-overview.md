@@ -35,3 +35,6 @@ planned `battle-*` set (paths and decisions only).
   plays with the words of the stages below.
 - Ranked = same stage, points window ±10 → ±25 → any (by waiting time). Private room and bot practice give no Battle Points.
 - A theme / picture is published only with author + licence; the photo credit is shown on every Battle page.
+- Open to every logged-in user (student routes depend only on `get_current_user`; no course / premium / LMS check).
+- Player picture = uploaded profile photo (`users.profile_image`), else the game avatar; ranked rank-ups create a
+  notification (type `battle`, link `/battle`). Dashboard: top banner; icon: `fe/components/icons/battle-icon.tsx`.

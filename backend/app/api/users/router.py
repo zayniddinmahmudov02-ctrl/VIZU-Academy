@@ -1,9 +1,8 @@
-from uuid import uuid4
-
 from fastapi import (
     APIRouter,
     Depends,
     File,
+    Form,
     HTTPException,
     UploadFile,
 )
@@ -28,6 +27,7 @@ from app.services.auth.service import (
     update_preferred_language,
     update_profile,
 )
+from app.services import profile_photo
 from app.services.upload import UploadService
 
 router = APIRouter(
@@ -38,7 +38,7 @@ router = APIRouter(
 # Avatar-specific limits — kept local to this router (same pattern as the
 # vizu_pay proof-of-payment upload) rather than a new global config knob.
 ALLOWED_IMAGE_CONTENT_TYPES = {"image/jpeg", "image/png", "image/webp"}
-MAX_IMAGE_SIZE_BYTES = 5 * 1024 * 1024
+MAX_IMAGE_SIZE_BYTES = profile_photo.MAX_BYTES
 
 
 @router.get("/me", response_model=UserResponse)
@@ -91,9 +91,15 @@ async def update_my_language(
 @router.post("/me/photo", response_model=UserResponse)
 async def upload_my_photo(
     file: UploadFile = File(...),
+    crop_x: float | None = Form(None, ge=0, le=1),
+    crop_y: float | None = Form(None, ge=0, le=1),
+    crop_size: float | None = Form(None, gt=0, le=1),
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
+    """JPG / PNG / WebP up to 5 MB. Optional square crop (fractions, see
+    app.services.profile_photo.crop_box); the server decodes, checks and
+    re-encodes it as a 512×512 WebP under a random name."""
     if file.content_type not in ALLOWED_IMAGE_CONTENT_TYPES:
         raise HTTPException(
             status_code=400,
@@ -103,30 +109,12 @@ async def upload_my_photo(
             ),
         )
 
-    contents = await file.read()
-
-    if len(contents) > MAX_IMAGE_SIZE_BYTES:
-        raise HTTPException(
-            status_code=400,
-            detail=f"Image exceeds the maximum upload size of {MAX_IMAGE_SIZE_BYTES // (1024 * 1024)}MB",
-        )
-
-    await file.seek(0)
-
-    extension = {
-        "image/jpeg": "jpg",
-        "image/png": "png",
-        "image/webp": "webp",
-    }[file.content_type]
-
-    # Unique per-upload filename — avatars share one folder across every
-    # user, so reusing the client's original filename risks two users'
-    # photos colliding on disk.
-    file.filename = f"{uuid4().hex}.{extension}"
+    contents = await file.read(MAX_IMAGE_SIZE_BYTES + 1)
+    webp = profile_photo.process(contents, file.filename, file.content_type, crop_x, crop_y, crop_size)
 
     old_image = current_user.profile_image
 
-    result = await UploadService().upload(file, "avatars")
+    result = await UploadService().upload(profile_photo.as_upload(webp), profile_photo.FOLDER)
 
     user = set_profile_image(db, current_user, result["url"])
 

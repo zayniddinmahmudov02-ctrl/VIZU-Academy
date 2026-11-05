@@ -1,5 +1,6 @@
 """Battle profiles: created on first use, the caller is always the token's user. Public player data is
-the display name (first name, else username), avatar, rank and Battle Points — never e-mail or phone."""
+the display name (first name, else username), the uploaded profile photo (`users.profile_image`, else the
+chosen game avatar), rank and Battle Points — never e-mail or phone."""
 
 from fastapi import HTTPException
 from sqlalchemy import func, or_, select
@@ -31,7 +32,7 @@ def player_card(user: User | None, profile: BattleProfile | None) -> dict:
     points = profile.points if profile else 0
     rank = config.rank_info(points)
     return {
-        "name": display_name(user), "avatar": profile.avatar if profile else "professor", "points": points,
+        "name": display_name(user), "avatar": profile.avatar if profile else "bot", "photo": user.profile_image if user else None, "points": points,
         "rank": rank["title"], "stage": rank["stage"], "is_bot": user is None,
     }
 
@@ -116,6 +117,7 @@ def recent_matches(db: Session, user: User, limit: int = 8) -> list[dict]:
             "id": str(m.id), "mode": m.mode, "stage": m.level, "result": result, "finish_reason": m.finish_reason,
             "my_score": m.p1_score if slot == 1 else m.p2_score, "opponent_score": m.p2_score if slot == 1 else m.p1_score,
             "points_delta": m.p1_delta if slot == 1 else m.p2_delta, "opponent": display_name(users.get(opp_id)) if opp_id else config.BOT_NAME,
+            "opponent_photo": users[opp_id].profile_image if opp_id in users else None,
             "finished_at": m.finished_at.isoformat() if m.finished_at else None,
         })
     return out

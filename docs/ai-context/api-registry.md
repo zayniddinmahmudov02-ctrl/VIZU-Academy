@@ -7,7 +7,7 @@ Endpoint details: open the router file. Auth deps: `backend/app/api/dependencies
 | Prefix | Router file (`backend/app/api/…`) | Typical dependency |
 |---|---|---|
 | `/auth` | `auth/router.py` | public / `get_current_user` |
-| `/users` | `users/router.py` | `get_current_user` |
+| `/users` (me, password, language, `POST/DELETE /me/photo` with optional `crop_x/crop_y/crop_size`) | `users/router.py` | `get_current_user` |
 | `/lms` | `lms/router.py` | `require_lesson_access` for lesson content |
 | `/lesson-skills` | `lesson_skills/router.py` (Lesen, Hören, exercises, results, level progress, `/{lesson}/wortschatz/words` (+`?scope=level`) and `…/words/{id}/state` saved/learned) | `require_lesson_access` |
 | `/courses` `/modules` `/lessons` `/languages` | legacy CRUD | mixed |
@@ -21,7 +21,7 @@ Endpoint details: open the router file. Auth deps: `backend/app/api/dependencies
 | `/payments` | `payment/router.py` (legacy) | — |
 | `/groups` | `study_groups/router.py` | members / teachers |
 | `/global-chat` | `global_chat/router.py` | `get_current_user` |
-| `/battle` (home, themes, leaderboard, profile/avatar, queue, practice, rooms, matches/{id}[/answer,/leave]) | `battle/router.py` | `get_current_user` (match routes: players only, else 404); public: `GET /battle/media/{token}` (HMAC, 90 s), `GET /battle/themes/assets/{name}` |
+| `/battle` (home, summary, themes, leaderboard, profile/avatar, queue, practice, rooms, matches/{id}[/answer,/leave]) | `battle/router.py` | `get_current_user` (match routes: players only, else 404); public: `GET /battle/media/{token}` (HMAC, 90 s), `GET /battle/themes/assets/{name}` |
 | `/admin/battle` (overview, words, images, commons, themes) | `battle/router.py` | read `require_admin_panel_access`, write + Commons search `require_content_editor` |
 | `/vizu-multilevel` (alias `/vizu-mock`) | `vizu_multilevel/router.py` | `get_current_user` |
 | `/mock-exam`, `/mock-exam/public` | `mock_exam/*_router.py` | mixed |

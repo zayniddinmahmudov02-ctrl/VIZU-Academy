@@ -23,6 +23,7 @@ from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.orm import Session
 
 from app.models.battle import BattleAnswer, BattleMatch, BattlePointsLedger, BattleWord
+from app.models.notification import TYPE_BATTLE, Notification
 from app.models.user import User
 from app.services.battle import config, media, profiles, questions
 
@@ -288,8 +289,20 @@ def _finish(db: Session, m: BattleMatch, now: datetime, reason: str, winner_slot
             .on_conflict_do_nothing(constraint="uq_battle_points_ledger_event").returning(BattlePointsLedger.id)
         ).first()
         if inserted is not None:
+            before = config.rank_index(p.points)
             p.points = target
             setattr(m, f"p{slot}_delta", delta)
+            if config.rank_index(target) > before:
+                _notify_rank_up(db, user_id, before, config.rank_index(target))
+
+
+def _notify_rank_up(db: Session, user_id, before: int, after: int) -> None:
+    title = config.rank_title(after)
+    stage_up = after // 3 > before // 3
+    message = (f"{config.STAGES[after // 3]} — {config.STAGE_SUBTITLES[config.STAGES[after // 3]]}. " if stage_up else "") + \
+        f"Glückwunsch! Du bist jetzt {title}. / Tabriklaymiz! Yangi darajangiz: {title}."
+    # added to the match transaction (the notification repository would commit half-way through _finish)
+    db.add(Notification(user_id=user_id, title=f"Neuer Battle-Rang: {title}", message=message, type=TYPE_BATTLE, link_path="/battle"))
 
 
 # ── player actions ───────────────────────────────────────────────────────────

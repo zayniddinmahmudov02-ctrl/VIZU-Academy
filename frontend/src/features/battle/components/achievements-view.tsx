@@ -1,6 +1,8 @@
 "use client";
 
-import { Lock, Sparkles } from "lucide-react";
+import { Lock } from "lucide-react";
+
+import BattleIcon from "@/components/icons/battle-icon";
 
 import BattleScene from "@/features/battle/components/battle-scene";
 import { useBattleLowFx } from "@/features/battle/components/battle-shell";
@@ -30,8 +32,8 @@ export default function AchievementsView() {
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
           {data.achievements.map((a) => (
             <GlassPanel key={a.key} className={cn("p-4", a.unlocked && "shadow-[var(--bt-glow-gold)]")} data-testid={`achievement-${a.key}`}>
-              <span className={cn("grid h-12 w-12 place-items-center rounded-2xl", a.unlocked ? "bg-gradient-to-b from-[#fff2c4] to-[#c8901f] text-[var(--bt-navy)]" : "bg-white/10 text-white/50")}>
-                {a.unlocked ? <Sparkles size={22} /> : <Lock size={20} />}
+              <span className={cn("grid h-12 w-12 place-items-center rounded-2xl", a.unlocked ? "bg-gradient-to-b from-[#fff2c4]/30 to-[#c8901f]/30 ring-1 ring-[var(--bt-gold)]/60" : "bg-white/10 text-white/50")}>
+                {a.unlocked ? <BattleIcon size={34} /> : <Lock size={20} />}
               </span>
               <p className="mt-3 text-sm font-black">{language === "uz" ? a.title_uz : a.title_de}</p>
               <ProgressBar value={a.progress / a.goal} className="mt-2 h-2" />

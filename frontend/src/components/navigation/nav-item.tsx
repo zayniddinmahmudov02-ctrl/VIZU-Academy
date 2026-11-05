@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import type { LucideIcon } from "lucide-react";
+import type { ComponentType } from "react";
 import { ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -12,7 +12,7 @@ import { useTranslation } from "@/lib/i18n/use-translation";
 interface Props {
   titleKey: string;
   href: string;
-  icon: LucideIcon;
+  icon: ComponentType<{ size?: number; strokeWidth?: number; className?: string }>;
   collapsed?: boolean;
 }
 

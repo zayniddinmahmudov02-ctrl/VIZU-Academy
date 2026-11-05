@@ -1,3 +1,4 @@
+import type { Crop } from "@/features/profile/utils/photo-crop";
 import { api } from "@/services/api";
 
 import {
@@ -46,9 +47,15 @@ export async function updateLanguage(language: "de" | "uz"): Promise<CurrentUser
   return mapCurrentUser(response.data);
 }
 
-export async function uploadProfilePhoto(file: File): Promise<CurrentUser> {
+/** The server re-encodes the photo; crop = square in fractions (see features/profile/utils/photo-crop.ts). */
+export async function uploadProfilePhoto({ file, crop }: { file: File; crop?: Crop | null }): Promise<CurrentUser> {
   const formData = new FormData();
   formData.append("file", file);
+  if (crop) {
+    formData.append("crop_x", String(crop.x));
+    formData.append("crop_y", String(crop.y));
+    formData.append("crop_size", String(crop.size));
+  }
 
   const response = await api.post<CurrentUserPayload>("/api/v1/users/me/photo", formData, {
     headers: { "Content-Type": "multipart/form-data" },

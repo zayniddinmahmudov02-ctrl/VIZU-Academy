@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bell, BookOpen, LayoutDashboard, Medal, Swords, Trophy } from "lucide-react";
+import { Bell, BookOpen, LayoutDashboard, Medal, Trophy } from "lucide-react";
 
-import Logo from "@/components/common/logo";
-import BattleAvatar from "@/features/battle/components/battle-avatar";
+import BattleIcon from "@/components/icons/battle-icon";
+import PlayerAvatar from "@/features/battle/components/player-avatar";
 import { PointsChip, StageChip } from "@/features/battle/components/battle-ui";
 import { useBattleHome } from "@/features/battle/hooks/use-battle-home";
 import { useTranslation } from "@/lib/i18n/use-translation";
@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 const ITEMS = [
   { href: "/dashboard", key: "navDashboard", icon: LayoutDashboard, exact: true },
   { href: "/kurse", key: "navLearn", icon: BookOpen, exact: false },
-  { href: "/battle", key: "navBattle", icon: Swords, exact: true },
+  { href: "/battle", key: "navBattle", icon: BattleIcon, exact: true },
   { href: "/battle/rangliste", key: "navLeaderboard", icon: Trophy, exact: false },
   { href: "/battle/erfolge", key: "navAchievements", icon: Medal, exact: false },
 ];
@@ -37,7 +37,7 @@ export default function BattleNav() {
       <header className={cn("sticky top-0 z-40 px-3 pt-3 sm:px-5", inMatch && "max-md:hidden landscape-short:hidden")} data-testid="battle-nav">
         <div className="bt-glass-strong mx-auto flex h-14 max-w-[1440px] items-center gap-3 rounded-2xl px-3 sm:h-16 sm:px-4">
           <Link href="/battle" prefetch={false} className="flex shrink-0 items-center gap-2" aria-label="VIZU DEUTSCH Battle">
-            <Logo size={30} showText={false} />
+            <BattleIcon size={32} title="VIZU DEUTSCH BATTLE" />
             <span className="hidden text-sm font-black leading-none tracking-wider sm:block">
               VIZU <span className="text-[var(--bt-gold)]">DEUTSCH</span>
             </span>
@@ -69,7 +69,7 @@ export default function BattleNav() {
             {player && (
               <Link href="/battle?avatar=1" prefetch={false} className="flex items-center gap-2 rounded-xl py-1 pl-1 pr-2 hover:bg-white/10" aria-label={t("battle.changeAvatar")} data-testid="battle-nav-profile">
                 <span className="grid h-9 w-9 place-items-center overflow-hidden rounded-full bg-[var(--bt-dark)] ring-2 ring-[var(--bt-blue)]">
-                  <BattleAvatar avatar={player.avatar} size={36} animated={false} portrait />
+                  <PlayerAvatar player={player} size={36} round />
                 </span>
                 <span className="hidden max-w-[120px] truncate text-sm font-bold lg:block">{player.name}</span>
               </Link>

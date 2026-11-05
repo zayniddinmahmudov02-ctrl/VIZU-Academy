@@ -6,6 +6,15 @@ from app.models.user import User
 from app.services.battle import config, engine, profiles, questions, themes
 
 
+def summary(db: Session, user: User) -> dict:
+    """The dashboard banner: player card, rank progress, wins — open to every logged-in user (no course or premium check)."""
+    p = profiles.get_profile(db, user.id)
+    db.commit()
+    stats = profiles.stats(p)
+    return {"player": profiles.player_card(user, p), "rank": config.rank_info(p.points), "wins": stats["wins"], "matches": stats["matches"],
+            "played": stats["matches"] > 0, "open_match_id": str(m.id) if (m := engine.open_match(db, user.id)) else None}
+
+
 def home(db: Session, user: User) -> dict:
     p = profiles.get_profile(db, user.id)
     db.commit()

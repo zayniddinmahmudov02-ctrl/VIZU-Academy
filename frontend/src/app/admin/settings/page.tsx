@@ -88,7 +88,7 @@ function AvatarCard({ user }: { user: ReturnType<typeof useCurrentUser>["user"] 
 
   function confirmUpload() {
     if (!preview) return;
-    uploadPhoto.mutate(preview.file, {
+    uploadPhoto.mutate({ file: preview.file }, {
       onSuccess: () => {
         URL.revokeObjectURL(preview.url);
         setPreview(null);

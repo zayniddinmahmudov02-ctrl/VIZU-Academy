@@ -4,11 +4,13 @@ import { useEffect, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
-import { Bot, ChevronRight, DoorOpen, Flame, Lock, Minus, Play, Sparkles, Swords, Trophy, UserRound, X as XIcon } from "lucide-react";
+import { Bot, ChevronRight, DoorOpen, Flame, Lock, Minus, Play, Trophy, UserRound, X as XIcon } from "lucide-react";
+
+import BattleIcon from "@/components/icons/battle-icon";
 
 import { API_URL } from "@/constants/api";
 import AvatarPicker from "@/features/battle/components/avatar-picker";
-import BattleAvatar from "@/features/battle/components/battle-avatar";
+import PlayerAvatar from "@/features/battle/components/player-avatar";
 import BattleScene from "@/features/battle/components/battle-scene";
 import { useBattleLowFx } from "@/features/battle/components/battle-shell";
 import { ErrorState, FlagStripe, GermanFlag, GlassPanel, LoadingState, PointsChip, ProgressBar, RankBadge, SectionTitle, StageChip } from "@/features/battle/components/battle-ui";
@@ -105,7 +107,7 @@ export default function BattleHome() {
               ) : (
                 <button type="button" disabled={busy || !data.playable} onClick={() => { setError(null); queue.mutate(); }} data-testid="battle-start"
                         className="bt-btn-start inline-flex h-16 items-center justify-center gap-3 rounded-2xl px-8 text-lg font-black uppercase tracking-wider disabled:cursor-not-allowed disabled:opacity-60">
-                  <Swords size={24} aria-hidden="true" /> {t("battle.start")}
+                  <BattleIcon size={30} /> {t("battle.start")}
                 </button>
               )}
               <button type="button" disabled={busy || !data.playable || !!data.open_match_id} onClick={() => { setError(null); practice.mutate(); }} data-testid="battle-practice"
@@ -120,7 +122,7 @@ export default function BattleHome() {
             <div className="relative grid place-items-center">
               <div aria-hidden="true" className="bt-holo-ring absolute h-[250px] w-[250px] rounded-full border-2 border-dashed border-[var(--bt-blue)]/50 sm:h-[330px] sm:w-[330px]" />
               <div aria-hidden="true" className="absolute h-[200px] w-[200px] rounded-full bg-[var(--bt-blue)]/25 blur-3xl sm:h-[280px] sm:w-[280px]" />
-              <BattleAvatar avatar={player.avatar} size={lowFx ? 190 : 240} accent={theme.accent} title={player.name} className="relative sm:scale-110" />
+              <PlayerAvatar player={player} size={lowFx ? 190 : 240} accent={theme.accent} className="relative sm:scale-110" />
               <div className="absolute -bottom-2 -right-6 sm:-right-10"><RankBadge stage={rank.stage} tier={rank.tier} size={70} /></div>
             </div>
             <p className="mt-4 text-lg font-black">{player.name}</p>
@@ -184,7 +186,7 @@ export default function BattleHome() {
               {data.leaderboard.items.map((row) => (
                 <li key={`${row.position}-${row.name}`} className={cn("flex items-center gap-3 rounded-xl px-2 py-1.5", row.me && "bg-[var(--bt-blue)]/20 ring-1 ring-[var(--bt-blue)]/50")}>
                   <span className={cn("w-6 text-center text-sm font-black", row.position <= 3 ? "text-[var(--bt-gold)]" : "text-white/60")}>{row.position}</span>
-                  <span className="grid h-8 w-8 shrink-0 place-items-center overflow-hidden rounded-full bg-[var(--bt-dark)]"><BattleAvatar avatar={row.avatar} size={36} animated={false} portrait /></span>
+                  <span className="grid h-8 w-8 shrink-0 place-items-center overflow-hidden rounded-full bg-[var(--bt-dark)]"><PlayerAvatar player={row} size={32} round /></span>
                   <span className="min-w-0 flex-1 truncate text-sm font-bold">{row.name}</span>
                   <span className="text-xs font-black text-[var(--bt-gold)]">{row.points}</span>
                 </li>
@@ -203,6 +205,7 @@ export default function BattleHome() {
                       m.result === "win" ? "bg-[var(--bt-blue)]/30 text-[var(--bt-blue)]" : m.result === "loss" ? "bg-[var(--bt-red)]/25 text-[var(--bt-red)]" : "bg-white/10 text-white")}>
                       {m.result === "win" ? <Trophy size={15} /> : m.result === "loss" ? <XIcon size={15} /> : <Minus size={15} />}
                     </span>
+                    <PlayerAvatar player={{ avatar: m.mode === "bot" ? "bot" : "student", photo: m.opponent_photo, name: m.opponent }} size={28} round />
                     <span className="min-w-0 flex-1">
                       <span className="block truncate text-sm font-bold">{t("battle.vs")} {m.opponent}</span>
                       <span className="text-[11px] text-white/55">{m.stage} · {m.mode === "ranked" ? "Ranked" : m.mode === "bot" ? "Training" : t("battle.privateRoom")}</span>
@@ -242,8 +245,8 @@ export default function BattleHome() {
           <div className="flex gap-3 overflow-x-auto pb-1 [scrollbar-width:thin]">
             {data.achievements.map((a) => (
               <div key={a.key} className={cn("flex w-32 shrink-0 flex-col items-center rounded-2xl p-3 text-center ring-1", a.unlocked ? "bg-[var(--bt-gold)]/10 ring-[var(--bt-gold)]/40" : "bg-white/5 ring-white/10 opacity-70")}>
-                <span className={cn("grid h-11 w-11 place-items-center rounded-full", a.unlocked ? "bg-gradient-to-b from-[#fff2c4] to-[#c8901f] text-[var(--bt-navy)] shadow-[var(--bt-glow-gold)]" : "bg-white/10 text-white/50")}>
-                  {a.unlocked ? <Sparkles size={18} /> : <Lock size={16} />}
+                <span className={cn("grid h-11 w-11 place-items-center rounded-full", a.unlocked ? "shadow-[var(--bt-glow-gold)]" : "bg-white/10 text-white/50")}>
+                  {a.unlocked ? <BattleIcon size={30} /> : <Lock size={16} />}
                 </span>
                 <span className="mt-2 text-xs font-black leading-tight">{language === "uz" ? a.title_uz : a.title_de}</span>
                 <span className="mt-1 text-[10px] text-white/55">{a.progress}/{a.goal}</span>
@@ -254,7 +257,7 @@ export default function BattleHome() {
 
         <StageRoad data={data} />
       </div>
-      {showPicker && <AvatarPicker avatars={data.avatars} accent={theme.accent} onClose={closePicker} />}
+      {showPicker && <AvatarPicker avatars={data.avatars} accent={theme.accent} player={player} onClose={closePicker} />}
     </>
   );
 }

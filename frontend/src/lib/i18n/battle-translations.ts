@@ -1,7 +1,8 @@
 /** VIZU DEUTSCH BATTLE strings (namespace "battle"). Game terms stay German on purpose. */
 export const battleTranslations: Record<string, { de: string; uz: string }> = {
-  dashSubtitle: { de: "Bild sehen, Wort finden — 1 gegen 1", uz: "Rasmni ko‘ring, so‘zni toping — 1 ga 1" },
-  dashAria: { de: "VIZU DEUTSCH BATTLE öffnen", uz: "VIZU DEUTSCH BATTLE ni ochish" },
+  bannerSlogan: { de: "Fordere andere Spieler heraus und verbessere dein Deutsch!", uz: "Boshqa o‘yinchilarga qarshi chiqing va nemis tilingizni yaxshilang!" },
+  bannerFirst: { de: "Starte deine erste Battle!", uz: "Birinchi Battle'ingizni boshlang!" },
+  bannerCta: { de: "Jetzt spielen", uz: "Hozir o‘ynash" },
   navDashboard: { de: "Dashboard", uz: "Dashboard" },
   navLearn: { de: "Lernen", uz: "O‘rganish" },
   navBattle: { de: "Battle", uz: "Battle" },
@@ -53,7 +54,10 @@ export const battleTranslations: Record<string, { de: string; uz: string }> = {
   loss: { de: "Niederlage", uz: "Mag‘lubiyat" },
   draw: { de: "Unentschieden", uz: "Durang" },
   vs: { de: "gegen", uz: "qarshi" },
-  changeAvatar: { de: "Avatar wählen", uz: "Avatar tanlash" },
+  changeAvatar: { de: "Avatar & Profilfoto", uz: "Avatar va profil rasmi" },
+  profilePhoto: { de: "Profilfoto", uz: "Profil rasmi" },
+  profilePhotoHint: { de: "Dein Foto ersetzt in Battle, Rangliste und Profil den 3D-Avatar. Gleiches Foto wie in den Einstellungen.", uz: "Rasmingiz Battle, reyting va profilda 3D avatar o‘rnida ko‘rinadi. Sozlamalardagi rasm bilan bir xil." },
+  gameAvatars: { de: "3D-Avatare", uz: "3D avatarlar" },
   avatarLocked: { de: "ab {rank}", uz: "{rank} dan ochiladi" },
   close: { de: "Schließen", uz: "Yopish" },
   searching: { de: "Gegner wird gesucht…", uz: "Raqib qidirilmoqda…" },

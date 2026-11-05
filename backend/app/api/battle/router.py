@@ -50,6 +50,12 @@ def battle_home(db: Session = Depends(get_db), user: User = Depends(get_current_
     return home.home(db, user)
 
 
+@router.get("/summary")
+def battle_summary(db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    """Dashboard banner data (rank, Battle Points, wins, progress)."""
+    return home.summary(db, user)
+
+
 @router.get("/themes")
 def battle_themes(db: Session = Depends(get_db), user: User = Depends(get_current_user)):
     return {"items": themes.public_list(db)}
