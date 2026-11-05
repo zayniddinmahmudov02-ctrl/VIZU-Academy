@@ -6,6 +6,7 @@ import { AdminButton, AdminInput, AdminLabel } from "@/components/admin/admin-ui
 import RichTextEditor from "@/components/admin/rich-text-editor";
 import {
   getListeningContentByTeil,
+  getReadingContentByTeil,
   getSpeakingTaskByTeil,
   getWritingTaskByTeil,
   mockExamListeningContentApi,
@@ -15,30 +16,53 @@ import {
 import type { KompetenzType } from "@/features/admin/types/mock-exam.types";
 
 import MediaUploadButton from "./media-upload-button";
+import QuestionKeyEditor from "./question-key-editor";
 
 export default function TeilContentEditor({
   teilId,
   kompetenzType,
+  modelTestId,
 }: {
   teilId: string;
   kompetenzType: KompetenzType;
+  modelTestId: string;
 }) {
-  if (kompetenzType === "LESEN") return <ReadingTeilContent />;
-  if (kompetenzType === "HOEREN") return <ListeningTeilContent teilId={teilId} />;
+  if (kompetenzType === "LESEN") return <ReadingTeilContent teilId={teilId} modelTestId={modelTestId} />;
+  if (kompetenzType === "HOEREN") return <ListeningTeilContent teilId={teilId} modelTestId={modelTestId} />;
   if (kompetenzType === "SCHREIBEN") return <WritingTeilContent teilId={teilId} />;
   return <SpeakingTeilContent teilId={teilId} />;
 }
 
 // ============================================================
-// Lesen — no in-app editor: reading passages and their questions are
-// produced externally and imported straight into the database.
+// Lesen — passages and questions are imported (app/scripts/multilevel_import.py); here: read-only text plus
+// question texts and answer keys (QuestionKeyEditor).
 // ============================================================
 
-function ReadingTeilContent() {
+function ReadingTeilContent({ teilId, modelTestId }: { teilId: string; modelTestId: string }) {
+  const { data: content, isLoading } = useQuery({
+    queryKey: ["mock-exam-reading-content", teilId],
+    queryFn: () => getReadingContentByTeil(teilId),
+  });
+  if (isLoading) return <p className="text-xs text-[var(--admin-text-muted)]">Wird geladen...</p>;
+  if (!content) {
+    return (
+      <p className="rounded-lg bg-white/[0.02] p-3 text-xs text-[var(--admin-text-muted)] ring-1 ring-[var(--admin-border)]">
+        Lesen-Inhalte werden nicht im Admin-Panel erstellt, sondern extern vorbereitet und direkt importiert.
+      </p>
+    );
+  }
   return (
-    <p className="rounded-lg bg-white/[0.02] p-3 text-xs text-[var(--admin-text-muted)] ring-1 ring-[var(--admin-border)]">
-      Lesen-Inhalte werden nicht im Admin-Panel erstellt, sondern extern vorbereitet und direkt importiert.
-    </p>
+    <div className="space-y-4">
+      {content.text && (
+        <details className="rounded-lg p-3 ring-1 ring-[var(--admin-border)]">
+          <summary className="cursor-pointer text-xs font-semibold text-[var(--admin-text-primary)]">Lesetext anzeigen</summary>
+          <div className="mt-2 max-h-96 overflow-y-auto whitespace-pre-line break-words text-sm text-[var(--admin-text-secondary,var(--admin-text-muted))]">
+            {content.text}
+          </div>
+        </details>
+      )}
+      <QuestionKeyEditor readingContentId={content.id} modelTestId={modelTestId} />
+    </div>
   );
 }
 
@@ -48,7 +72,7 @@ function ReadingTeilContent() {
 // editor.tsx's removal — exam questions are now produced externally)
 // ============================================================
 
-function ListeningTeilContent({ teilId }: { teilId: string }) {
+function ListeningTeilContent({ teilId, modelTestId }: { teilId: string; modelTestId: string }) {
   const queryClient = useQueryClient();
   const queryKey = ["mock-exam-listening-content", teilId];
   const { data: content, isLoading } = useQuery({
@@ -108,6 +132,8 @@ function ListeningTeilContent({ teilId }: { teilId: string }) {
           placeholder="Transkript des Audios..."
         />
       </div>
+
+      <QuestionKeyEditor listeningContentId={content.id} modelTestId={modelTestId} />
     </div>
   );
 }

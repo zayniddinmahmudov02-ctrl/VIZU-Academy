@@ -67,11 +67,53 @@ export default function PublicKompetenzPage() {
   );
 }
 
+// Imported Modelltests store plain text (line breaks matter); editor content is HTML.
+function isHtml(value: string): boolean {
+  return /<\/?[a-z][^>]*>/i.test(value);
+}
+
+function TaskText({ value, className = "" }: { value: string; className?: string }) {
+  if (isHtml(value)) {
+    return <div className={`prose-editor text-text-secondary ${className}`} dangerouslySetInnerHTML={{ __html: value }} />;
+  }
+  return <div className={`whitespace-pre-line break-words text-text-secondary ${className}`}>{value}</div>;
+}
+
+const OPTION_LETTERS = "ABCDEFGHIJ";
+
+function TeilQuestions({ teil }: { teil: PublicTeilContent }) {
+  // ORDERING items are bare slots ("A1"…"A5") for the parts already in the text — nothing to show
+  const questions = (teil.questions ?? []).filter((q) => q.question_type !== "ORDERING");
+  if (questions.length === 0) return null;
+  // MATCHING shares one letter list (headings A–J in the text): show it once, not per item
+  const shared = questions.every((q) => q.question_type === "MATCHING");
+  return (
+    <ol className="mt-5 space-y-4" data-testid="teil-questions">
+      {questions.map((q) => (
+        <li key={q.id} className="rounded-xl bg-surface-hover/60 p-4 ring-1 ring-surface-border">
+          <p className="whitespace-pre-line break-words text-sm font-medium text-text-primary">{q.question_text}</p>
+          {!shared && q.options.length > 0 && (
+            <ul className="mt-2 space-y-1">
+              {q.options.map((o, i) => (
+                <li key={o.id} className="flex gap-2 text-sm text-text-secondary">
+                  <span className="font-semibold text-text-muted">{OPTION_LETTERS[i] ?? i + 1})</span>
+                  <span className="break-words">{o.option_text}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </li>
+      ))}
+    </ol>
+  );
+}
+
 function TeilContent({ teil }: { teil: PublicTeilContent }) {
   return (
-    <div className="rounded-2xl bg-surface-card p-6 shadow-[var(--shadow-sm)] ring-1 ring-surface-border">
+    <div className="rounded-2xl bg-surface-card p-4 shadow-[var(--shadow-sm)] ring-1 ring-surface-border sm:p-6">
       <h2 className="text-lg font-bold text-text-primary">{teil.title}</h2>
-      {teil.instructions && <p className="mt-1 text-sm text-text-secondary">{teil.instructions}</p>}
+      {teil.instructions && <p className="mt-1 whitespace-pre-line text-sm text-text-secondary">{teil.instructions}</p>}
+      {teil.description && <TaskText value={teil.description} className="mt-3 text-sm" />}
 
       {teil.reading_content && (
         <div className="mt-4">
@@ -84,16 +126,20 @@ function TeilContent({ teil }: { teil: PublicTeilContent }) {
             />
           )}
           {teil.reading_content.text && teil.reading_content.content_type !== "IMAGE" && (
-            <div className="prose-editor text-text-secondary" dangerouslySetInnerHTML={{ __html: teil.reading_content.text }} />
+            <TaskText value={teil.reading_content.text} />
           )}
         </div>
       )}
 
       {teil.listening_content && (
         <div className="mt-4 space-y-3">
-          <audio controls src={teil.listening_content.audio_url} className="w-full">
-            <track kind="captions" />
-          </audio>
+          {teil.listening_content.audio_url ? (
+            <audio controls src={teil.listening_content.audio_url} className="w-full">
+              <track kind="captions" />
+            </audio>
+          ) : (
+            <p className="rounded-xl bg-surface-hover px-4 py-3 text-sm text-text-muted">Audio noch nicht verfügbar.</p>
+          )}
           {teil.listening_content.image_url && (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -107,10 +153,7 @@ function TeilContent({ teil }: { teil: PublicTeilContent }) {
 
       {teil.writing_task && (
         <div className="mt-4 space-y-3">
-          <div
-            className="prose-editor text-text-secondary"
-            dangerouslySetInnerHTML={{ __html: teil.writing_task.task_text }}
-          />
+          <TaskText value={teil.writing_task.task_text} />
           {teil.writing_task.image_url && (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -136,10 +179,7 @@ function TeilContent({ teil }: { teil: PublicTeilContent }) {
 
       {teil.speaking_task && (
         <div className="mt-4 space-y-3">
-          <div
-            className="prose-editor text-text-secondary"
-            dangerouslySetInnerHTML={{ __html: teil.speaking_task.task_text }}
-          />
+          <TaskText value={teil.speaking_task.task_text} />
           {teil.speaking_task.image_url && (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -158,6 +198,8 @@ function TeilContent({ teil }: { teil: PublicTeilContent }) {
           </div>
         </div>
       )}
+
+      <TeilQuestions teil={teil} />
     </div>
   );
 }

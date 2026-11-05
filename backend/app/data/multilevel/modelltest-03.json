@@ -1,0 +1,1724 @@
+{
+ "number": 3,
+ "content_id": "vizu-multilevel-mt03",
+ "title": "Modelltest 3",
+ "origin": "pdf",
+ "source_pdf": "Multilevel Mock Variant 3.pdf",
+ "description": "Multilevel Modelltest 3 — aus „Multilevel Mock Variant 3.pdf“ (Der Deutschlehrer: Zayniddinkhuja Makhmudov).",
+ "kompetenzen": [
+  {
+   "type": "LESEN",
+   "teile": [
+    {
+     "title": "Teil 1",
+     "pages": [
+      2
+     ],
+     "instructions": "Aufgabe\nBringen Sie die Textteile A–E in eine sinnvolle Reihenfolge.\nIhre Lösung:\nThema: Medien und Nachrichten",
+     "text": "A. Viele Menschen informieren sich heute über Nachrichten im Internet, weil es schnell, einfach und jederzeit möglich ist, aktuelle Informationen zu bekommen.\n\nB. Nachrichten sind sehr wichtig, damit wir wissen, was in der Welt passiert und aktuelle Ereignisse besser verstehen können.\n\nC. Einige Leute lesen auch noch Zeitungen oder schauen Nachrichten im Fernsehen, obwohl Online-Medien immer beliebter werden und oft schneller sind.\n\nD. Es ist wichtig, verschiedene Quellen zu nutzen, damit man unterschiedliche Meinungen kennenlernt und die Informationen besser vergleichen kann.\n\nE. Mit einem bewussten Umgang mit Medien kann man sich gut informieren, Zeit sparen und gleichzeitig falsche Informationen vermeiden.",
+     "words": null,
+     "same_situation": false,
+     "questions": [
+      {
+       "no": "A1",
+       "type": "ORDERING",
+       "text": "A1",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A2",
+       "type": "ORDERING",
+       "text": "A2",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A3",
+       "type": "ORDERING",
+       "text": "A3",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A4",
+       "type": "ORDERING",
+       "text": "A4",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A5",
+       "type": "ORDERING",
+       "text": "A5",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "text_words": 100
+    },
+    {
+     "title": "Teil 2",
+     "pages": [
+      3,
+      4
+     ],
+     "instructions": "",
+     "text": "Thema: Gesunde Ernährung und Lebensstil\n\nIn den letzten Jahren achten immer mehr Menschen auf eine gesunde Ernährung und einen bewussten Lebensstil. Viele wissen, dass Essen einen großen Einfluss auf die Gesundheit hat. Frisches Obst, Gemüse und natürliche Produkte sind deshalb sehr beliebt geworden. Trotzdem essen einige Menschen immer noch zu viel Fast Food und Fertigprodukte.\n\nBesonders junge Menschen haben oft einen unregelmäßigen Essrhythmus. Sie überspringen Mahlzeiten oder essen spät am Abend. Das kann negative Auswirkungen auf den Körper haben und zu Problemen wie Müdigkeit oder Konzentrationsschwierigkeiten führen.\n\nEin wichtiger Teil eines gesunden Lebens ist auch das Trinken von genug Wasser. Viele Menschen trinken jedoch zu wenig und greifen stattdessen zu süßen Getränken. Wasser hilft dem Körper, richtig zu funktionieren und sich besser zu fühlen.\n\nAuch Bewegung spielt eine große Rolle für die Gesundheit. Sport und regelmäßige Aktivitäten stärken den Körper und verbessern das Wohlbefinden. Schon kleine Dinge wie Spazierengehen oder Radfahren können helfen, fit zu bleiben.\n\nIm Alltag ist es manchmal schwierig, immer gesund zu leben. Stress und Zeitmangel führen oft dazu, dass Menschen schnelle und ungesunde Entscheidungen treffen. Trotzdem kann man mit kleinen Veränderungen viel erreichen.\n\nEin bewusster Umgang mit Ernährung und Bewegung kann viele Vorteile bringen. Wer gesund isst und aktiv bleibt, hat mehr Energie und fühlt sich besser. Außerdem kann man so langfristig Krankheiten vermeiden.\n\nAm Ende ist es wichtig, ein Gleichgewicht zu finden. Eine gesunde Ernährung und ein aktiver Lebensstil helfen dabei, ein glückliches und gesundes Leben zu führen.\n\nFragen",
+     "words": null,
+     "same_situation": false,
+     "questions": [
+      {
+       "no": "A6",
+       "type": "SINGLE_CHOICE",
+       "text": "Warum achten heute mehr Menschen auf gesunde Ernährung?",
+       "options": [
+        {
+         "text": "Weil sie keine anderen Hobbys haben.",
+         "correct": null
+        },
+        {
+         "text": "Weil Ernährung die Gesundheit beeinflusst.",
+         "correct": null
+        },
+        {
+         "text": "Weil Essen immer teuer ist.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A7",
+       "type": "SINGLE_CHOICE",
+       "text": "Warum ist ein unregelmäßiger Essrhythmus problematisch?",
+       "options": [
+        {
+         "text": "Weil man mehr Sport macht.",
+         "correct": null
+        },
+        {
+         "text": "Weil er zu Müdigkeit und Konzentrationsproblemen führen kann.",
+         "correct": null
+        },
+        {
+         "text": "Weil man mehr Wasser trinkt.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A8",
+       "type": "SINGLE_CHOICE",
+       "text": "Was ist ein Vorteil von genug Wasser trinken?",
+       "options": [
+        {
+         "text": "Man wird schneller müde.",
+         "correct": null
+        },
+        {
+         "text": "Der Körper funktioniert besser.",
+         "correct": null
+        },
+        {
+         "text": "Man braucht keine Nahrung mehr.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A9",
+       "type": "SINGLE_CHOICE",
+       "text": "Warum ist Bewegung wichtig?",
+       "options": [
+        {
+         "text": "Weil sie Zeit kostet.",
+         "correct": null
+        },
+        {
+         "text": "Weil sie den Körper stärkt und das Wohlbefinden verbessert.",
+         "correct": null
+        },
+        {
+         "text": "Weil sie nur für Kinder ist.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A10",
+       "type": "SINGLE_CHOICE",
+       "text": "Wovon hängt ein gesunder Lebensstil ab?",
+       "options": [
+        {
+         "text": "Von teurem Essen.",
+         "correct": null
+        },
+        {
+         "text": "Von Glück.",
+         "correct": null
+        },
+        {
+         "text": "Von bewusster Ernährung und regelmäßiger Bewegung.",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "text_words": 244
+    },
+    {
+     "title": "Teil 3",
+     "pages": [
+      5,
+      6,
+      7
+     ],
+     "instructions": "Aufgabe\nIhre Lösungen:",
+     "text": "Überschriften\nA. Immer mehr Menschen lernen online\nB. Digitale Geräte im Unterricht nehmen zu\nC. Kritik an zu viel Bildschirmzeit\nD. Online-Kurse werden weltweit populär\nE. Neue Lernmethoden entstehen\nF. Konzentrationsprobleme bei Schülern steigen\nG. Studenten protestieren gegen Studienkosten\nH. Zusammenarbeit zwischen Lehrern und Schülern wächst\nI. Bildung wird für junge Menschen wichtiger\nJ. Schulen investieren in moderne Technik",
+     "words": null,
+     "same_situation": false,
+     "questions": [
+      {
+       "no": "A11",
+       "type": "MATCHING",
+       "text": "In den letzten Jahren hat Bildung für viele junge Menschen stark an Bedeutung gewonnen. Laut einem Bericht der UNESCO besuchen weltweit über 90 % der Kinder im Grundschulalter eine Schule. Auch Jugendliche interessieren sich immer mehr für ihre Zukunft und Ausbildung. Experten sagen, dass gute Bildung die Chancen auf einen besseren Beruf deutlich erhöht.",
+       "options": [
+        {
+         "text": "Immer mehr Menschen lernen online",
+         "correct": null
+        },
+        {
+         "text": "Digitale Geräte im Unterricht nehmen zu",
+         "correct": null
+        },
+        {
+         "text": "Kritik an zu viel Bildschirmzeit",
+         "correct": null
+        },
+        {
+         "text": "Online-Kurse werden weltweit populär",
+         "correct": null
+        },
+        {
+         "text": "Neue Lernmethoden entstehen",
+         "correct": null
+        },
+        {
+         "text": "Konzentrationsprobleme bei Schülern steigen",
+         "correct": null
+        },
+        {
+         "text": "Studenten protestieren gegen Studienkosten",
+         "correct": null
+        },
+        {
+         "text": "Zusammenarbeit zwischen Lehrern und Schülern wächst",
+         "correct": null
+        },
+        {
+         "text": "Bildung wird für junge Menschen wichtiger",
+         "correct": null
+        },
+        {
+         "text": "Schulen investieren in moderne Technik",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A12",
+       "type": "MATCHING",
+       "text": "Immer mehr Menschen lernen heute online. Plattformen wie Coursera oder Udemy haben weltweit Millionen Nutzer. Laut Statistiken nahmen im Jahr 2023 über 220 Millionen Menschen an Online-Kursen teil. Viele schätzen die Flexibilität, da sie jederzeit und von überall lernen können.",
+       "options": [
+        {
+         "text": "Immer mehr Menschen lernen online",
+         "correct": null
+        },
+        {
+         "text": "Digitale Geräte im Unterricht nehmen zu",
+         "correct": null
+        },
+        {
+         "text": "Kritik an zu viel Bildschirmzeit",
+         "correct": null
+        },
+        {
+         "text": "Online-Kurse werden weltweit populär",
+         "correct": null
+        },
+        {
+         "text": "Neue Lernmethoden entstehen",
+         "correct": null
+        },
+        {
+         "text": "Konzentrationsprobleme bei Schülern steigen",
+         "correct": null
+        },
+        {
+         "text": "Studenten protestieren gegen Studienkosten",
+         "correct": null
+        },
+        {
+         "text": "Zusammenarbeit zwischen Lehrern und Schülern wächst",
+         "correct": null
+        },
+        {
+         "text": "Bildung wird für junge Menschen wichtiger",
+         "correct": null
+        },
+        {
+         "text": "Schulen investieren in moderne Technik",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A13",
+       "type": "MATCHING",
+       "text": "Gleichzeitig gibt es Kritik an der zunehmenden Bildschirmzeit. Studien zeigen, dass Jugendliche durchschnittlich mehr als 7 Stunden pro Tag vor Bildschirmen verbringen. Experten warnen, dass dies zu Konzentrationsproblemen und Schlafstörungen führen kann. Deshalb empfehlen viele Lehrer, digitale Medien bewusst zu nutzen.",
+       "options": [
+        {
+         "text": "Immer mehr Menschen lernen online",
+         "correct": null
+        },
+        {
+         "text": "Digitale Geräte im Unterricht nehmen zu",
+         "correct": null
+        },
+        {
+         "text": "Kritik an zu viel Bildschirmzeit",
+         "correct": null
+        },
+        {
+         "text": "Online-Kurse werden weltweit populär",
+         "correct": null
+        },
+        {
+         "text": "Neue Lernmethoden entstehen",
+         "correct": null
+        },
+        {
+         "text": "Konzentrationsprobleme bei Schülern steigen",
+         "correct": null
+        },
+        {
+         "text": "Studenten protestieren gegen Studienkosten",
+         "correct": null
+        },
+        {
+         "text": "Zusammenarbeit zwischen Lehrern und Schülern wächst",
+         "correct": null
+        },
+        {
+         "text": "Bildung wird für junge Menschen wichtiger",
+         "correct": null
+        },
+        {
+         "text": "Schulen investieren in moderne Technik",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A14",
+       "type": "MATCHING",
+       "text": "Digitale Geräte werden im Unterricht immer wichtiger. In vielen Ländern nutzen bereits über 70 % der Schulen Tablets oder Computer im Unterricht. Besonders während der Pandemie hat sich digitales Lernen stark entwickelt. Lehrer verwenden Präsentationen, Videos und interaktive Programme, um den Unterricht interessanter zu gestalten.",
+       "options": [
+        {
+         "text": "Immer mehr Menschen lernen online",
+         "correct": null
+        },
+        {
+         "text": "Digitale Geräte im Unterricht nehmen zu",
+         "correct": null
+        },
+        {
+         "text": "Kritik an zu viel Bildschirmzeit",
+         "correct": null
+        },
+        {
+         "text": "Online-Kurse werden weltweit populär",
+         "correct": null
+        },
+        {
+         "text": "Neue Lernmethoden entstehen",
+         "correct": null
+        },
+        {
+         "text": "Konzentrationsprobleme bei Schülern steigen",
+         "correct": null
+        },
+        {
+         "text": "Studenten protestieren gegen Studienkosten",
+         "correct": null
+        },
+        {
+         "text": "Zusammenarbeit zwischen Lehrern und Schülern wächst",
+         "correct": null
+        },
+        {
+         "text": "Bildung wird für junge Menschen wichtiger",
+         "correct": null
+        },
+        {
+         "text": "Schulen investieren in moderne Technik",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A15",
+       "type": "MATCHING",
+       "text": "Ein Problem ist, dass viele Schüler Schwierigkeiten haben, sich lange zu konzentrieren. Laut Studien berichten etwa 35 % der Lehrer von zunehmenden Konzentrationsproblemen im Unterricht. Gründe dafür sind oft Stress, soziale Medien und fehlende Pausen. Experten empfehlen deshalb regelmäßige Bewegung und klare Lernzeiten.",
+       "options": [
+        {
+         "text": "Immer mehr Menschen lernen online",
+         "correct": null
+        },
+        {
+         "text": "Digitale Geräte im Unterricht nehmen zu",
+         "correct": null
+        },
+        {
+         "text": "Kritik an zu viel Bildschirmzeit",
+         "correct": null
+        },
+        {
+         "text": "Online-Kurse werden weltweit populär",
+         "correct": null
+        },
+        {
+         "text": "Neue Lernmethoden entstehen",
+         "correct": null
+        },
+        {
+         "text": "Konzentrationsprobleme bei Schülern steigen",
+         "correct": null
+        },
+        {
+         "text": "Studenten protestieren gegen Studienkosten",
+         "correct": null
+        },
+        {
+         "text": "Zusammenarbeit zwischen Lehrern und Schülern wächst",
+         "correct": null
+        },
+        {
+         "text": "Bildung wird für junge Menschen wichtiger",
+         "correct": null
+        },
+        {
+         "text": "Schulen investieren in moderne Technik",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A16",
+       "type": "MATCHING",
+       "text": "Viele Schulen investieren heute in moderne Technik. Laut Berichten aus Europa wurden allein zwischen 2020 und 2024 Milliarden Euro in digitale Bildung investiert. Neue Computer, schnelles Internet und digitale Tafeln gehören inzwischen zum Alltag. Ziel ist es, Schüler besser auf die Zukunft vorzubereiten.",
+       "options": [
+        {
+         "text": "Immer mehr Menschen lernen online",
+         "correct": null
+        },
+        {
+         "text": "Digitale Geräte im Unterricht nehmen zu",
+         "correct": null
+        },
+        {
+         "text": "Kritik an zu viel Bildschirmzeit",
+         "correct": null
+        },
+        {
+         "text": "Online-Kurse werden weltweit populär",
+         "correct": null
+        },
+        {
+         "text": "Neue Lernmethoden entstehen",
+         "correct": null
+        },
+        {
+         "text": "Konzentrationsprobleme bei Schülern steigen",
+         "correct": null
+        },
+        {
+         "text": "Studenten protestieren gegen Studienkosten",
+         "correct": null
+        },
+        {
+         "text": "Zusammenarbeit zwischen Lehrern und Schülern wächst",
+         "correct": null
+        },
+        {
+         "text": "Bildung wird für junge Menschen wichtiger",
+         "correct": null
+        },
+        {
+         "text": "Schulen investieren in moderne Technik",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A17",
+       "type": "MATCHING",
+       "text": "Auch neue Lernmethoden werden immer wichtiger. Gruppenarbeit, Projekte und interaktive Aufgaben fördern die Zusammenarbeit zwischen Lehrern und Schülern. Studien zeigen, dass Schüler durch aktive Teilnahme bis zu 30 % mehr lernen können. Gleichzeitig wird aber diskutiert, dass persönliche Betreuung oft zu kurz kommt.\n\nOrdnen Sie die Überschriften A–J den Texten A11–A17 zu.",
+       "options": [
+        {
+         "text": "Immer mehr Menschen lernen online",
+         "correct": null
+        },
+        {
+         "text": "Digitale Geräte im Unterricht nehmen zu",
+         "correct": null
+        },
+        {
+         "text": "Kritik an zu viel Bildschirmzeit",
+         "correct": null
+        },
+        {
+         "text": "Online-Kurse werden weltweit populär",
+         "correct": null
+        },
+        {
+         "text": "Neue Lernmethoden entstehen",
+         "correct": null
+        },
+        {
+         "text": "Konzentrationsprobleme bei Schülern steigen",
+         "correct": null
+        },
+        {
+         "text": "Studenten protestieren gegen Studienkosten",
+         "correct": null
+        },
+        {
+         "text": "Zusammenarbeit zwischen Lehrern und Schülern wächst",
+         "correct": null
+        },
+        {
+         "text": "Bildung wird für junge Menschen wichtiger",
+         "correct": null
+        },
+        {
+         "text": "Schulen investieren in moderne Technik",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "text_words": 59
+    },
+    {
+     "title": "Teil 4",
+     "pages": [
+      7,
+      8,
+      9
+     ],
+     "instructions": "Lesen Sie den Text „Digitalisierung im Bildungswesen“ und lösen Sie dazu die Aufgaben A18–A26.\nWelche der Aussagen sind Richtig (A), Falsch (B) oder gar nicht im Text enthalten (C)?\nEs gibt jeweils nur eine richtige Lösung.",
+     "text": "Text: Digitalisierung im Bildungswesen\n\nIn den letzten Jahren hat die Digitalisierung das Bildungswesen stark verändert. Immer mehr Schulen und Universitäten setzen auf digitale Technologien, um den Unterricht moderner und effizienter zu gestalten. Laut internationalen Studien nutzen heute über 75 % der Bildungseinrichtungen weltweit digitale Lernplattformen.\n\nEin großer Vorteil digitaler Bildung liegt im einfachen Zugang zu Informationen. Schüler und Studierende können jederzeit auf Lernmaterialien zugreifen und selbstständig lernen. Untersuchungen zeigen, dass etwa 60 % der Lernenden digitale Inhalte regelmäßig nutzen, um sich auf Prüfungen vorzubereiten.\n\nGleichzeitig gibt es jedoch auch Herausforderungen. Viele Lehrer berichten, dass Schüler durch digitale Geräte leichter abgelenkt werden. Studien zeigen, dass Jugendliche im Durchschnitt mehr als 6 Stunden täglich online verbringen, was sich negativ auf die Konzentration auswirken kann.\n\nEin weiterer wichtiger Punkt ist die Chancengleichheit. Nicht alle Schüler haben Zugang zu Computern oder stabilem Internet. Laut Berichten haben weltweit etwa 30 % der Haushalte keinen zuverlässigen Internetzugang.\n\nDies kann zu Bildungsunterschieden führen.\n\nAuch die Rolle der Lehrer verändert sich. Sie sind nicht mehr nur Wissensvermittler, sondern auch Lernbegleiter. Viele Lehrer nehmen regelmäßig an Weiterbildungen teil, um digitale Kompetenzen zu verbessern. In Europa haben bereits über 50 % der Lehrkräfte an digitalen Trainingsprogrammen teilgenommen.\n\nDarüber hinaus entstehen neue Lernformen, wie hybrider Unterricht und Online-Kurse. Diese bieten Flexibilität, erfordern aber auch mehr Selbstdisziplin von den Lernenden. Experten betonen, dass eine Kombination aus digitalen und traditionellen Methoden am effektivsten ist.\n\nLangfristig wird erwartet, dass die Digitalisierung das Bildungssystem weiter verändern wird. Sie bietet viele Chancen, bringt aber auch neue Herausforderungen mit sich. Entscheidend ist, wie Schulen, Lehrer und Schüler mit diesen Veränderungen umgehen.\n\nAussagen",
+     "words": null,
+     "same_situation": false,
+     "questions": [
+      {
+       "no": "A18",
+       "type": "TRUE_FALSE",
+       "text": "Digitale Technologien werden heute in vielen Bildungseinrichtungen genutzt.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A19",
+       "type": "TRUE_FALSE",
+       "text": "Nur wenige Schüler nutzen digitale Inhalte zum Lernen.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A20",
+       "type": "TRUE_FALSE",
+       "text": "Digitale Geräte können zu Ablenkung führen.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A21",
+       "type": "TRUE_FALSE",
+       "text": "Alle Haushalte weltweit haben Zugang zum Internet.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A22",
+       "type": "TRUE_FALSE",
+       "text": "Lehrer nehmen an Weiterbildungen teil, um digitale Kompetenzen zu verbessern.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A23",
+       "type": "TRUE_FALSE",
+       "text": "Digitale Bildung hat nur Vorteile und keine Nachteile.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A24",
+       "type": "TRUE_FALSE",
+       "text": "Hybrider Unterricht ist eine neue Lernform.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A25",
+       "type": "TRUE_FALSE",
+       "text": "Digitalisierung wird das Bildungssystem auch in Zukunft verändern.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A26",
+       "type": "TRUE_FALSE",
+       "text": "Der Text erklärt genau, wie viel jeder Schüler täglich lernen muss.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "text_words": 261
+    },
+    {
+     "title": "Teil 5",
+     "pages": [
+      10,
+      11,
+      12
+     ],
+     "instructions": "Lesen Sie den Text und dazu die Aufgaben A27–A35. Entscheiden Sie, welche der Antworten A, B oder C\nrichtig ist. Zu jeder Aufgabe gibt es jeweils nur eine richtige Lösung.",
+     "text": "Text: Digitalisierung und ihre Auswirkungen auf die Gesellschaft\n\nKaum ein Thema hat in den letzten Jahrzehnten die Gesellschaft so stark verändert wie die Digitalisierung.\n\nWährend einige Experten darin eine große Chance für Fortschritt und Innovation sehen, warnen andere vor möglichen Risiken, insbesondere im Bereich Datenschutz und sozialer Beziehungen. Die Diskussion darüber ist vielfältig und wird in Politik, Wirtschaft und Wissenschaft intensiv geführt.\n\nIn der Theorie ermöglicht die Digitalisierung einen schnellen Zugang zu Informationen und erleichtert viele Prozesse im Alltag. Kommunikation ist heute einfacher und schneller als je zuvor. In der Praxis führt dies jedoch auch dazu, dass Menschen immer mehr Zeit online verbringen und persönliche Kontakte teilweise abnehmen.\n\nEin weiterer wichtiger Aspekt ist die Veränderung der Arbeitswelt. Viele Tätigkeiten werden automatisiert oder digital organisiert. Einerseits entstehen neue Berufe im IT-Bereich, andererseits verschwinden traditionelle Arbeitsplätze. Dadurch müssen sich viele Arbeitnehmer an neue Anforderungen anpassen.\n\nAuch im Bildungsbereich hat die Digitalisierung große Auswirkungen. Online-Lernen und digitale Plattformen bieten neue Möglichkeiten, Wissen zu erwerben. Gleichzeitig stellt sich jedoch die Frage, ob alle Menschen den gleichen Zugang zu diesen Technologien haben.\n\nDarüber hinaus spielt der Datenschutz eine immer größere Rolle. Viele Nutzer sind sich nicht bewusst, wie viele persönliche Informationen sie im Internet preisgeben. Unternehmen sammeln und analysieren große Datenmengen, was sowohl Vorteile als auch Risiken mit sich bringt.\n\nSoziale Beziehungen verändern sich ebenfalls durch digitale Medien. Während es einfacher geworden ist, mit Menschen weltweit in Kontakt zu bleiben, klagen einige darüber, dass echte zwischenmenschliche Kommunikation darunter leidet.\n\nPolitische Maßnahmen versuchen, klare Regeln für den Umgang mit digitalen Technologien zu schaffen.\n\nGesetze zum Datenschutz und zur Datensicherheit werden ständig weiterentwickelt. Dennoch bleibt die Umsetzung eine Herausforderung.\n\nLetztlich bleibt die Frage offen, ob die Digitalisierung langfristig mehr Vorteile oder Nachteile bringt. Klar ist jedoch, dass sie unser Leben grundlegend verändert hat und auch in Zukunft weiter verändern wird.\n\nFragen",
+     "words": null,
+     "same_situation": false,
+     "questions": [
+      {
+       "no": "A27",
+       "type": "SINGLE_CHOICE",
+       "text": "Die Digitalisierung wird im Text dargestellt als ...",
+       "options": [
+        {
+         "text": "ausschließlich positiv bewertet",
+         "correct": null
+        },
+        {
+         "text": "einseitig kritisiert",
+         "correct": null
+        },
+        {
+         "text": "ein komplexes Thema mit unterschiedlichen Meinungen",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A28",
+       "type": "SINGLE_CHOICE",
+       "text": "Ein Problem der Digitalisierung ist ...",
+       "options": [
+        {
+         "text": "dass Kommunikation unmöglich wird",
+         "correct": null
+        },
+        {
+         "text": "dass persönliche Kontakte abnehmen können",
+         "correct": null
+        },
+        {
+         "text": "dass Menschen keine Informationen bekommen",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A29",
+       "type": "SINGLE_CHOICE",
+       "text": "Veränderungen in der Arbeitswelt bedeuten oft ...",
+       "options": [
+        {
+         "text": "nur Arbeitsplatzverlust",
+         "correct": null
+        },
+        {
+         "text": "keine Veränderungen",
+         "correct": null
+        },
+        {
+         "text": "neue Berufe entstehen, aber andere verschwinden",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A30",
+       "type": "SINGLE_CHOICE",
+       "text": "Im Bildungsbereich führt Digitalisierung dazu, dass ...",
+       "options": [
+        {
+         "text": "niemand mehr lernen muss",
+         "correct": null
+        },
+        {
+         "text": "alle Menschen gleiche Chancen haben",
+         "correct": null
+        },
+        {
+         "text": "neue Lernmöglichkeiten entstehen",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A31",
+       "type": "SINGLE_CHOICE",
+       "text": "Beim Datenschutz geht es darum, dass ...",
+       "options": [
+        {
+         "text": "keine Daten mehr existieren",
+         "correct": null
+        },
+        {
+         "text": "persönliche Informationen geschützt werden",
+         "correct": null
+        },
+        {
+         "text": "nur Unternehmen Daten nutzen dürfen",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A32",
+       "type": "SINGLE_CHOICE",
+       "text": "Soziale Beziehungen verändern sich, weil ...",
+       "options": [
+        {
+         "text": "Menschen gar nicht mehr kommunizieren",
+         "correct": null
+        },
+        {
+         "text": "digitale Kommunikation zunimmt",
+         "correct": null
+        },
+        {
+         "text": "alle nur noch persönlich sprechen",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A33",
+       "type": "SINGLE_CHOICE",
+       "text": "Politische Maßnahmen ...",
+       "options": [
+        {
+         "text": "sind unnötig",
+         "correct": null
+        },
+        {
+         "text": "sollen Regeln für digitale Technologien schaffen",
+         "correct": null
+        },
+        {
+         "text": "verbieten das Internet",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A34",
+       "type": "SINGLE_CHOICE",
+       "text": "In der Praxis bedeutet Digitalisierung oft, dass ...",
+       "options": [
+        {
+         "text": "Menschen weniger online sind",
+         "correct": null
+        },
+        {
+         "text": "Prozesse einfacher und schneller werden",
+         "correct": null
+        },
+        {
+         "text": "Technik keine Rolle spielt",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A35",
+       "type": "SINGLE_CHOICE",
+       "text": "Am Ende stellt der Autor die Frage, ob ...",
+       "options": [
+        {
+         "text": "Digitalisierung bald endet",
+         "correct": null
+        },
+        {
+         "text": "Digitalisierung nur Nachteile hat",
+         "correct": null
+        },
+        {
+         "text": "Digitalisierung langfristig mehr Vorteile oder Nachteile bringt",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "text_words": 304
+    }
+   ],
+   "title": "Lesen",
+   "duration_minutes": 60,
+   "total_points": 35
+  },
+  {
+   "type": "HOEREN",
+   "teile": [
+    {
+     "title": "Teil 1",
+     "instructions": "Sie hören fünf Gespräche und Äußerungen.\nSie hören jeden Text einmal. Zu jedem Text lösen Sie zwei Aufgaben. Wählen Sie bei jeder Aufgabe die richtige Lösung. Lesen Sie jetzt das Beispiel. Dazu haben Sie 15 Sekunden Zeit.",
+     "text": "Beispiel\n01 Zwei Jugendliche sprechen über ein Problem mit Tieren. (Richtig / Falsch)\n02 Warum muss der Gartenzaun zwei Meter tief in die Erde reichen? a) Weil das vom Tierschutzverein so empfohlen wird. b) Weil man so Wildschweine einfangen kann. c) Weil die Wildschweine nicht so tief graben.",
+     "questions": [
+      {
+       "no": "1",
+       "type": "TRUE_FALSE",
+       "text": "Ein junger Mann spricht über seine Bank.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "2",
+       "type": "SINGLE_CHOICE",
+       "text": "Die Bank wird …",
+       "options": [
+        {
+         "text": "ihm seine Bankautomatenkarte zurückgeben.",
+         "correct": null
+        },
+        {
+         "text": "den Geldautomaten reparieren.",
+         "correct": null
+        },
+        {
+         "text": "den Geldautomaten überprüfen.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "3",
+       "type": "TRUE_FALSE",
+       "text": "Man hört einen Tipp für England-Reisende.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "4",
+       "type": "SINGLE_CHOICE",
+       "text": "Was für Zimmer bietet das Hotel „Green Rooms“?",
+       "options": [
+        {
+         "text": "Großräumige Suiten.",
+         "correct": null
+        },
+        {
+         "text": "Preisgünstige Zimmer ohne eigenes Bad.",
+         "correct": null
+        },
+        {
+         "text": "Zimmer, in denen Kunst entsteht.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "5",
+       "type": "TRUE_FALSE",
+       "text": "Die beiden Männer sprechen über ein Ereignis in der vergangenen Nacht.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "6",
+       "type": "SINGLE_CHOICE",
+       "text": "Was hat die Polizei kontrolliert?",
+       "options": [
+        {
+         "text": "Wem das Auto gehört.",
+         "correct": null
+        },
+        {
+         "text": "Ob man die Verkehrsregeln beachtet.",
+         "correct": null
+        },
+        {
+         "text": "Ob man Alkohol getrunken hat.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "7",
+       "type": "TRUE_FALSE",
+       "text": "Eine Frau möchte eine Stadt kennenlernen.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "8",
+       "type": "SINGLE_CHOICE",
+       "text": "Was wollen sich die Personen ansehen?",
+       "options": [
+        {
+         "text": "Eine ruhig gelegene Wohnung.",
+         "correct": null
+        },
+        {
+         "text": "Eine verkehrsberuhigte Zone.",
+         "correct": null
+        },
+        {
+         "text": "Ein zentral gelegenes Stadtviertel.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "9",
+       "type": "TRUE_FALSE",
+       "text": "Die Personen sprechen über eine Feier.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "10",
+       "type": "SINGLE_CHOICE",
+       "text": "Welches Problem gab es mit dem Geschirr?",
+       "options": [
+        {
+         "text": "Das Geschirr hat den Gästen nicht gefallen.",
+         "correct": null
+        },
+        {
+         "text": "Das Geschirr hat nicht für alle Gäste gereicht.",
+         "correct": null
+        },
+        {
+         "text": "Es gab keine zusätzlichen Teller.",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [
+      13,
+      14
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 47
+    },
+    {
+     "title": "Teil 2",
+     "instructions": "Sie hören im Radio ein Interview mit einer Persönlichkeit aus der Wissenschaft.\nSie hören den Text zweimal. Wählen Sie bei jeder Aufgabe die richtige Lösung.\nLesen Sie jetzt die Aufgaben 11 bis 16. Dazu haben Sie 90 Sekunden Zeit.",
+     "text": "",
+     "questions": [
+      {
+       "no": "11",
+       "type": "SINGLE_CHOICE",
+       "text": "Konflikte zwischen Geschwistern treten …",
+       "options": [
+        {
+         "text": "unabhängig vom Alter auf",
+         "correct": null
+        },
+        {
+         "text": "immer bei Geburt eines neuen Geschwisterchens auf",
+         "correct": null
+        },
+        {
+         "text": "ausschließlich bei Kleinkindern auf",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "12",
+       "type": "SINGLE_CHOICE",
+       "text": "Warum verstehen sich Jugendliche oft nicht gut mit ihren Geschwistern?",
+       "options": [
+        {
+         "text": "Weil sie kein Interesse an ihrer Familie haben",
+         "correct": null
+        },
+        {
+         "text": "Weil sie sich in einer schwierigen Lebensphase befinden",
+         "correct": null
+        },
+        {
+         "text": "Weil sie sich mit ihren Geschwistern vergleichen",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "13",
+       "type": "SINGLE_CHOICE",
+       "text": "Zwei Brüder können Probleme miteinander haben, wenn …",
+       "options": [
+        {
+         "text": "ein Bruder ernster als der andere ist",
+         "correct": null
+        },
+        {
+         "text": "sie sich in dasselbe Mädchen verlieben",
+         "correct": null
+        },
+        {
+         "text": "sie auch eine Schwester haben",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "14",
+       "type": "SINGLE_CHOICE",
+       "text": "Was passiert, wenn Geschwister nicht mehr zusammen wohnen?",
+       "options": [
+        {
+         "text": "Dann verstehen sie sich in der Regel besser",
+         "correct": null
+        },
+        {
+         "text": "Dann haben sie andere Konflikte als vorher",
+         "correct": null
+        },
+        {
+         "text": "Dann ändert sich ihr Charakter",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "15",
+       "type": "SINGLE_CHOICE",
+       "text": "Um sich mit seinen Geschwistern gut zu verstehen, sollte man …",
+       "options": [
+        {
+         "text": "einige zwischenmenschliche Regeln beachten",
+         "correct": null
+        },
+        {
+         "text": "sie bevormunden",
+         "correct": null
+        },
+        {
+         "text": "sich vorbehaltlos lieben",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "16",
+       "type": "SINGLE_CHOICE",
+       "text": "Das mittlere von drei Kindern hat es oft schwer, weil …",
+       "options": [
+        {
+         "text": "es häufig das jüngste ins Bett bringen muss",
+         "correct": null
+        },
+        {
+         "text": "es mehr helfen muss als das jüngste",
+         "correct": null
+        },
+        {
+         "text": "es das ältere beneidet",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [
+      15,
+      16
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 0
+    },
+    {
+     "title": "Teil 3",
+     "instructions": "Sie hören im Radio ein Gespräch mit mehreren Personen.\nDie Personen sprechen über die Verschönerung von Stadtvierteln.\nSie hören den Text einmal. Wählen Sie bei jeder Aufgabe: Wer sagt das?\nLesen Sie jetzt die Aufgaben 17 bis 22. Dazu haben Sie 60 Sekunden Zeit.",
+     "text": "Beispiel: 0 Allen Menschen gefällt es, in einem schönen Wohngebiet zu leben.",
+     "questions": [
+      {
+       "no": "17",
+       "type": "MATCHING",
+       "text": "Ein Amt sollte private Initiativen zur Verschönerung der Stadt genehmigen.",
+       "options": [
+        {
+         "text": "Moderator",
+         "correct": null
+        },
+        {
+         "text": "Frau",
+         "correct": null
+        },
+        {
+         "text": "Mann",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "18",
+       "type": "MATCHING",
+       "text": "Das für Grünanlagen zuständige Amt im Bezirk arbeitet viel zu langsam.",
+       "options": [
+        {
+         "text": "Moderator",
+         "correct": null
+        },
+        {
+         "text": "Frau",
+         "correct": null
+        },
+        {
+         "text": "Mann",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "19",
+       "type": "MATCHING",
+       "text": "Baumpaten müssen sich mit ihren Gärtnerarbeiten an Regeln halten.",
+       "options": [
+        {
+         "text": "Moderator",
+         "correct": null
+        },
+        {
+         "text": "Frau",
+         "correct": null
+        },
+        {
+         "text": "Mann",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "20",
+       "type": "MATCHING",
+       "text": "Wenn die Straßen bunter werden, verschönert sich das Wohnviertel.",
+       "options": [
+        {
+         "text": "Moderator",
+         "correct": null
+        },
+        {
+         "text": "Frau",
+         "correct": null
+        },
+        {
+         "text": "Mann",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "21",
+       "type": "MATCHING",
+       "text": "Die Antwort auf einen Antrag zur Bemalung von Stromkästen steht noch aus.",
+       "options": [
+        {
+         "text": "Moderator",
+         "correct": null
+        },
+        {
+         "text": "Frau",
+         "correct": null
+        },
+        {
+         "text": "Mann",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "22",
+       "type": "MATCHING",
+       "text": "Bekannt werden Verschönerungspläne zum Beispiel durch das Radio.",
+       "options": [
+        {
+         "text": "Moderator",
+         "correct": null
+        },
+        {
+         "text": "Frau",
+         "correct": null
+        },
+        {
+         "text": "Mann",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [
+      16,
+      17
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 12
+    },
+    {
+     "title": "Teil 4",
+     "instructions": "Sie hören einen kurzen Vortrag. Die Rednerin spricht über das Thema „Bedrohung der Meerestiere“.\nSie hören den Text zweimal. Wählen Sie bei jeder Aufgabe die richtige Lösung.\nLesen Sie jetzt die Aufgaben 23 bis 30. Dazu haben Sie 90 Sekunden Zeit.",
+     "text": "",
+     "questions": [
+      {
+       "no": "23",
+       "type": "SINGLE_CHOICE",
+       "text": "Was hat der „Census of Marine Life“ gemacht?",
+       "options": [
+        {
+         "text": "Er hat die Lebewesen im Meer registriert",
+         "correct": null
+        },
+        {
+         "text": "Er hat festgestellt, welche Fische bald aussterben werden",
+         "correct": null
+        },
+        {
+         "text": "Er hat sich für den Meeresschutz eingesetzt",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "24",
+       "type": "SINGLE_CHOICE",
+       "text": "Die unbekannten Arten …",
+       "options": [
+        {
+         "text": "leben vorwiegend im Meer",
+         "correct": null
+        },
+        {
+         "text": "sind zur Hälfte Wassertiere",
+         "correct": null
+        },
+        {
+         "text": "können alle aussterben",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "25",
+       "type": "SINGLE_CHOICE",
+       "text": "Eine höhere Wassertemperatur im Meer führt dazu, dass …",
+       "options": [
+        {
+         "text": "sich das Klima ändert",
+         "correct": null
+        },
+        {
+         "text": "Fische sterben oder sich einen anderen Lebensraum suchen",
+         "correct": null
+        },
+        {
+         "text": "Fische sich nicht mehr fortpflanzen können",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "26",
+       "type": "SINGLE_CHOICE",
+       "text": "Wenn Fischer Grundschleppnetze verwenden, …",
+       "options": [
+        {
+         "text": "verstoßen sie damit gegen die Fangquoten",
+         "correct": null
+        },
+        {
+         "text": "fangen sie die Fische mithilfe von Dynamit",
+         "correct": null
+        },
+        {
+         "text": "zerstören sie das Leben auf dem Meeresgrund",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "27",
+       "type": "SINGLE_CHOICE",
+       "text": "Beim Ressourcenabbau …",
+       "options": [
+        {
+         "text": "geht man immer besonders vorsichtig vor",
+         "correct": null
+        },
+        {
+         "text": "entstehen Metalle",
+         "correct": null
+        },
+        {
+         "text": "gewinnt man Rohstoffe",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "28",
+       "type": "SINGLE_CHOICE",
+       "text": "Für elektronische Geräte benötigt man …",
+       "options": [
+        {
+         "text": "recycelte Rohstoffe",
+         "correct": null
+        },
+        {
+         "text": "einige wertvolle Metalle",
+         "correct": null
+        },
+        {
+         "text": "Tiefseeschlamm",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "29",
+       "type": "SINGLE_CHOICE",
+       "text": "Warum darf der Tiefseeschlamm nicht entfernt werden?",
+       "options": [
+        {
+         "text": "Weil er eine Ressource ist",
+         "correct": null
+        },
+        {
+         "text": "Weil das Meer die Metalle benötigt",
+         "correct": null
+        },
+        {
+         "text": "Weil sich darin Lebewesen aufhalten",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "30",
+       "type": "SINGLE_CHOICE",
+       "text": "Welche Maßnahme kann zum Meeresschutz beitragen?",
+       "options": [
+        {
+         "text": "Geringerer Energieverbrauch",
+         "correct": null
+        },
+        {
+         "text": "Verzicht auf Elektrizität",
+         "correct": null
+        },
+        {
+         "text": "Vorträge der Wissenschaftler",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [
+      18,
+      19
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 0
+    }
+   ],
+   "title": "Hören",
+   "duration_minutes": 40,
+   "total_points": 30
+  },
+  {
+   "type": "SCHREIBEN",
+   "teile": [
+    {
+     "title": "Teil 1.1",
+     "instructions": "",
+     "text": "Sie sind Student an einer Universität in Ihrer Stadt.\nSie haben eine E-Mail von der Universitätsleitung erhalten:\nLiebe Studierende,\nwir möchten Sie darüber informieren, dass unsere Universität im nächsten Semester mehr Online-Kurse anbieten wird. Einige Präsenzveranstaltungen werden reduziert. Ziel ist es, flexiblere Lernmöglichkeiten und moderne Studienbedingungen zu schaffen.\nWir würden gerne Ihre Meinung hören: Welche Kurse wünschen Sie sich? Haben Sie Ideen zur Verbesserung des Studiums oder der Lernmethoden?\nVielen Dank für Ihre Vorschläge.\nMit freundlichen Grüßen\nDie Universitätsleitung\n\nSchreiben Sie einen kurzen Brief an Ihre Freundin / Ihren Freund, der auch an der Universität studiert.\nSchreiben Sie über Ihre Gefühle und Ihre Meinung zu dieser Situation.\nSchreiben Sie ca. 50 Wörter.",
+     "questions": [],
+     "pages": [
+      20
+     ],
+     "words": 50,
+     "same_situation": false,
+     "text_words": 111
+    },
+    {
+     "title": "Teil 1.2",
+     "instructions": "",
+     "text": "Schreiben Sie eine E-Mail an die Universitätsleitung.\nBeschreiben Sie Ihre Meinung zu den Online-Kursen und machen Sie Vorschläge für neue Angebote oder Verbesserungen.\nSchreiben Sie ca. 120–150 Wörter.",
+     "questions": [],
+     "pages": [
+      20
+     ],
+     "words": 150,
+     "same_situation": true,
+     "text_words": 29
+    },
+    {
+     "title": "Teil 2",
+     "instructions": "",
+     "text": "Die Frage lautet:\n„Sollten Online-Kurse den Präsenzunterricht ersetzen?“\nPosten Sie Ihre Meinung in einem Diskussionsbeitrag.\nBegründen Sie Ihre Meinung und nennen Sie Beispiele.\nSchreiben Sie 180–200 Wörter.",
+     "questions": [],
+     "pages": [
+      21
+     ],
+     "words": 200,
+     "same_situation": false,
+     "text_words": 28
+    }
+   ],
+   "title": "Schreiben",
+   "duration_minutes": 60,
+   "total_points": 0
+  },
+  {
+   "type": "SPRECHEN",
+   "teile": [
+    {
+     "title": "Teil 1.1",
+     "instructions": "",
+     "text": "• Treffen Sie sich oft mit Ihren Freunden?\n• Wo treffen Sie sich mit Ihrem normalerweise?\n• Welche Beziehung haben Sie zu Ihrem Verwandten und Freunden?",
+     "questions": [],
+     "pages": [
+      22
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 23
+    },
+    {
+     "title": "Teil 1.2",
+     "instructions": "",
+     "text": "Fragen:\n1. Was ist auf den Bildern zu sehen?\n2. Nutzen Sie für Ihren Arbeitsweg lieber öffentliche oder private Verkehrsmittel?\n3. Wie können Staus gelöst werden?",
+     "questions": [],
+     "pages": [
+      22
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 26,
+     "image": "mt03-1.jpg"
+    },
+    {
+     "title": "Teil 2",
+     "instructions": "",
+     "text": "Erzählen Sie über \"regionale Gerichte\", die Sie wirklich mögen.\nSie sollten sagen:\n• Was zur Vorbereitung benötigt wird; Welche?\n• Was sind die Vorteile?\n• Wie schnell Sie mit Ihrer Familie kochen.",
+     "questions": [],
+     "pages": [
+      23
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 29
+    },
+    {
+     "title": "Teil 3",
+     "instructions": "",
+     "text": "Online-Bildung ist genauso effektiv wie traditionelles Lernen im Klassenzimmer\nPro: Bietet Flexibilität bei Zeitplanung und Erreichbarkeit · Ermöglicht Zugang zu vielfältigen Lernressourcen und individuelles Lerntempo · Reduziert Kosten für Pendeln\nContra: Eingeschränkte persönliche Interaktion und weniger soziale Entwicklung · Unterschiedliche Qualität der Online-Kurse und Glaubwürdigkeit · Ablenkung und fehlende Motivation",
+     "questions": [],
+     "pages": [
+      23
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 46
+    }
+   ],
+   "title": "Sprechen",
+   "duration_minutes": 15,
+   "total_points": 0
+  }
+ ],
+ "review": [
+  {
+   "where": "allgemein",
+   "note": "Im PDF gibt es keine Lösungen: alle Antwortschlüssel fehlen und müssen im Admin-Panel eingetragen werden."
+  },
+  {
+   "where": "allgemein",
+   "note": "Zeiten (Lesen 60, Hören 40, Schreiben 60, Sprechen 15 Min.) und Bewertungskriterien stehen nicht im PDF — Standardwerte, bitte prüfen."
+  },
+  {
+   "where": "Sprechen Teil 1.1",
+   "note": "Sprechen Teil 1.1 (S. 22): Originaltext enthält Grammatikfehler („mit Ihrem normalerweise“, „zu Ihrem Verwandten“) — unverändert übernommen, ggf. korrigieren."
+  },
+  {
+   "where": "Sprechen Teil 3",
+   "note": "Sprechen Teil 3 (S. 23): Pro/Contra-Tabelle zweispaltig; Spalten zeilenweise getrennt — prüfen."
+  }
+ ]
+}

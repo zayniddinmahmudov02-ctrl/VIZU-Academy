@@ -1,0 +1,1746 @@
+{
+ "number": 6,
+ "content_id": "vizu-multilevel-mt06",
+ "title": "Modelltest 6",
+ "origin": "pdf",
+ "source_pdf": "Multilevel Mock Variant 6.pdf",
+ "description": "Multilevel Modelltest 6 — aus „Multilevel Mock Variant 6.pdf“ (Der Deutschlehrer: Zayniddinkhuja Makhmudov).",
+ "kompetenzen": [
+  {
+   "type": "LESEN",
+   "teile": [
+    {
+     "title": "Teil 1",
+     "instructions": "Lesen Sie die Textteile von A bis E und bringen Sie den Text in die richtige Reihenfolge A1–A5.",
+     "text": "Thema: Mein letzter Urlaub\nA. Ich erinnere mich noch gut an meinen letzten Urlaub. Vor zwei Monaten reiste ich mit meinen Freunden in die Berge. Wir wollten uns entspannen und die Natur genießen.\nB. Am ersten Tag wanderten wir durch den Wald und machten viele Fotos. Die Landschaft war wunderschön, und die Luft war sehr frisch.\nC. Am zweiten Tag hatten wir etwas Pech, weil es stark regnete. Deshalb blieben wir im Hotel, spielten Spiele und unterhielten uns lange.\nD. Am letzten Abend machten wir ein kleines Lagerfeuer. Wir sangen Lieder, erzählten Geschichten und lachten viel zusammen.\nE. Nach dem Urlaub fühlte ich mich erholt und glücklich. Ich werde diese Reise nie vergessen.",
+     "questions": [
+      {
+       "no": "A1",
+       "type": "ORDERING",
+       "text": "A1",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A2",
+       "type": "ORDERING",
+       "text": "A2",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A3",
+       "type": "ORDERING",
+       "text": "A3",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A4",
+       "type": "ORDERING",
+       "text": "A4",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A5",
+       "type": "ORDERING",
+       "text": "A5",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [
+      2
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 113
+    },
+    {
+     "title": "Teil 2",
+     "instructions": "Wählen Sie die richtige Antwort (A, B oder C).",
+     "text": "Thema: Ein internationales Studentenprojekt\nEs war ein spannendes Projekt für eine Gruppe von Studierenden aus verschiedenen Ländern. Sie trafen sich an der Universität in Hamburg, um gemeinsam an einer Idee zum Thema Umweltschutz zu arbeiten. Die Gruppe bestand aus Teilnehmern aus Deutschland, Usbekistan, Spanien und Japan.\nDie Vorbereitung begann schon einige Wochen vor dem Treffen. Alle Teilnehmer sammelten Ideen und tauschten sich online aus. Jeder brachte eigene Erfahrungen und Perspektiven mit, was die Zusammenarbeit besonders interessant machte.\nAm ersten Tag präsentierten die Studierenden ihre Vorschläge. Danach bildeten sie kleine Teams, um konkrete Projekte zu planen. Einige wollten eine App entwickeln, andere planten Kampagnen für soziale Medien.\nWährend der Projektwoche arbeiteten die Teams intensiv zusammen. Es gab Diskussionen, kreative Ideen und manchmal auch kleine Meinungsverschiedenheiten. Trotzdem fanden sie immer eine Lösung und lernten viel voneinander.\nEin Highlight war die Abschlusspräsentation. Jedes Team stellte sein Projekt vor, und eine Jury bewertete die Ergebnisse. Das beste Projekt war eine App, die Menschen dabei helfen soll, ihren Energieverbrauch zu reduzieren.\nNeben der Arbeit hatten die Studierenden auch Zeit, die Stadt zu erkunden. Sie besuchten Sehenswürdigkeiten, probierten lokale Spezialitäten und lernten die Kultur besser kennen.\nAm Ende waren sich alle einig: Das Projekt war nicht nur lehrreich, sondern auch eine wertvolle Erfahrung. Viele Teilnehmer blieben in Kontakt und planten bereits neue gemeinsame Projekte.",
+     "questions": [
+      {
+       "no": "A6",
+       "type": "SINGLE_CHOICE",
+       "text": "Wo trafen sich die Studierenden für das Projekt?",
+       "options": [
+        {
+         "text": "In Berlin",
+         "correct": null
+        },
+        {
+         "text": "In Hamburg",
+         "correct": null
+        },
+        {
+         "text": "In Tokio",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A7",
+       "type": "SINGLE_CHOICE",
+       "text": "Wann begann die Vorbereitung?",
+       "options": [
+        {
+         "text": "Erst am ersten Tag",
+         "correct": null
+        },
+        {
+         "text": "Einige Wochen vorher",
+         "correct": null
+        },
+        {
+         "text": "Nach der Präsentation",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A8",
+       "type": "SINGLE_CHOICE",
+       "text": "Was machten die Studierenden am ersten Tag?",
+       "options": [
+        {
+         "text": "Sie machten einen Ausflug",
+         "correct": null
+        },
+        {
+         "text": "Sie präsentierten ihre Ideen",
+         "correct": null
+        },
+        {
+         "text": "Sie besuchten Museen",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A9",
+       "type": "SINGLE_CHOICE",
+       "text": "Was war das beste Projekt?",
+       "options": [
+        {
+         "text": "Eine Kampagne im Fernsehen",
+         "correct": null
+        },
+        {
+         "text": "Ein Umweltfilm",
+         "correct": null
+        },
+        {
+         "text": "Eine App zur Reduzierung des Energieverbrauchs",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A10",
+       "type": "SINGLE_CHOICE",
+       "text": "Was machten die Studierenden in ihrer Freizeit?",
+       "options": [
+        {
+         "text": "Sie arbeiteten nur im Team",
+         "correct": null
+        },
+        {
+         "text": "Sie reisten in andere Länder",
+         "correct": null
+        },
+        {
+         "text": "Sie erkundeten die Stadt und lernten die Kultur kennen",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [
+      3,
+      4
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 218
+    },
+    {
+     "title": "Teil 3",
+     "instructions": "Lesen Sie die Texte (11–17) und ordnen Sie die Überschriften (A–J) zu. Drei Überschriften passen nicht.",
+     "text": "Überschriften (A–J):\nA. Vorteile von Online-Lernen\nB. Stress im Berufsleben\nC. Gesunde Ernährung im Alltag\nD. Sport als Ausgleich\nE. Schlaf und seine Bedeutung\nF. Zeitmanagement lernen\nG. Digitale Ablenkungen reduzieren\nH. Motivation im Studium\nI. Die Rolle von Freunden\nJ. Lernen in Gruppen oder allein",
+     "questions": [
+      {
+       "no": "A11",
+       "type": "MATCHING",
+       "text": "Viele Studierende haben Schwierigkeiten, ihren Alltag zu organisieren. Zwischen Vorlesungen, Nebenjob und Freizeit fehlt oft die Struktur. Wer jedoch lernt, Prioritäten zu setzen und realistische Pläne zu machen, kann seine Zeit effizient nutzen.",
+       "options": [
+        {
+         "text": "Vorteile von Online-Lernen",
+         "correct": null
+        },
+        {
+         "text": "Stress im Berufsleben",
+         "correct": null
+        },
+        {
+         "text": "Gesunde Ernährung im Alltag",
+         "correct": null
+        },
+        {
+         "text": "Sport als Ausgleich",
+         "correct": null
+        },
+        {
+         "text": "Schlaf und seine Bedeutung",
+         "correct": null
+        },
+        {
+         "text": "Zeitmanagement lernen",
+         "correct": null
+        },
+        {
+         "text": "Digitale Ablenkungen reduzieren",
+         "correct": null
+        },
+        {
+         "text": "Motivation im Studium",
+         "correct": null
+        },
+        {
+         "text": "Die Rolle von Freunden",
+         "correct": null
+        },
+        {
+         "text": "Lernen in Gruppen oder allein",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A12",
+       "type": "MATCHING",
+       "text": "Online-Lernen wird immer beliebter. Studierende können flexibel lernen und auf viele Materialien zugreifen. Allerdings fehlt oft der direkte Austausch mit anderen, was für manche ein Nachteil ist.",
+       "options": [
+        {
+         "text": "Vorteile von Online-Lernen",
+         "correct": null
+        },
+        {
+         "text": "Stress im Berufsleben",
+         "correct": null
+        },
+        {
+         "text": "Gesunde Ernährung im Alltag",
+         "correct": null
+        },
+        {
+         "text": "Sport als Ausgleich",
+         "correct": null
+        },
+        {
+         "text": "Schlaf und seine Bedeutung",
+         "correct": null
+        },
+        {
+         "text": "Zeitmanagement lernen",
+         "correct": null
+        },
+        {
+         "text": "Digitale Ablenkungen reduzieren",
+         "correct": null
+        },
+        {
+         "text": "Motivation im Studium",
+         "correct": null
+        },
+        {
+         "text": "Die Rolle von Freunden",
+         "correct": null
+        },
+        {
+         "text": "Lernen in Gruppen oder allein",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A13",
+       "type": "MATCHING",
+       "text": "Eine ausgewogene Ernährung ist wichtig für die Konzentration. Obst, Gemüse und genügend Wasser helfen dem Körper und dem Gehirn. Wer sich ungesund ernährt, fühlt sich oft müde und unmotiviert.",
+       "options": [
+        {
+         "text": "Vorteile von Online-Lernen",
+         "correct": null
+        },
+        {
+         "text": "Stress im Berufsleben",
+         "correct": null
+        },
+        {
+         "text": "Gesunde Ernährung im Alltag",
+         "correct": null
+        },
+        {
+         "text": "Sport als Ausgleich",
+         "correct": null
+        },
+        {
+         "text": "Schlaf und seine Bedeutung",
+         "correct": null
+        },
+        {
+         "text": "Zeitmanagement lernen",
+         "correct": null
+        },
+        {
+         "text": "Digitale Ablenkungen reduzieren",
+         "correct": null
+        },
+        {
+         "text": "Motivation im Studium",
+         "correct": null
+        },
+        {
+         "text": "Die Rolle von Freunden",
+         "correct": null
+        },
+        {
+         "text": "Lernen in Gruppen oder allein",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A14",
+       "type": "MATCHING",
+       "text": "Viele junge Menschen schlafen zu wenig, weil sie lange am Handy oder Computer bleiben. Dabei ist Schlaf sehr wichtig, um Informationen zu verarbeiten und sich gut zu konzentrieren.",
+       "options": [
+        {
+         "text": "Vorteile von Online-Lernen",
+         "correct": null
+        },
+        {
+         "text": "Stress im Berufsleben",
+         "correct": null
+        },
+        {
+         "text": "Gesunde Ernährung im Alltag",
+         "correct": null
+        },
+        {
+         "text": "Sport als Ausgleich",
+         "correct": null
+        },
+        {
+         "text": "Schlaf und seine Bedeutung",
+         "correct": null
+        },
+        {
+         "text": "Zeitmanagement lernen",
+         "correct": null
+        },
+        {
+         "text": "Digitale Ablenkungen reduzieren",
+         "correct": null
+        },
+        {
+         "text": "Motivation im Studium",
+         "correct": null
+        },
+        {
+         "text": "Die Rolle von Freunden",
+         "correct": null
+        },
+        {
+         "text": "Lernen in Gruppen oder allein",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A15",
+       "type": "MATCHING",
+       "text": "Nach einem langen Tag kann Sport helfen, Stress abzubauen. Bewegung verbessert nicht nur die körperliche Gesundheit, sondern auch die Stimmung und Motivation.",
+       "options": [
+        {
+         "text": "Vorteile von Online-Lernen",
+         "correct": null
+        },
+        {
+         "text": "Stress im Berufsleben",
+         "correct": null
+        },
+        {
+         "text": "Gesunde Ernährung im Alltag",
+         "correct": null
+        },
+        {
+         "text": "Sport als Ausgleich",
+         "correct": null
+        },
+        {
+         "text": "Schlaf und seine Bedeutung",
+         "correct": null
+        },
+        {
+         "text": "Zeitmanagement lernen",
+         "correct": null
+        },
+        {
+         "text": "Digitale Ablenkungen reduzieren",
+         "correct": null
+        },
+        {
+         "text": "Motivation im Studium",
+         "correct": null
+        },
+        {
+         "text": "Die Rolle von Freunden",
+         "correct": null
+        },
+        {
+         "text": "Lernen in Gruppen oder allein",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A16",
+       "type": "MATCHING",
+       "text": "Freunde spielen eine wichtige Rolle im Leben von Studierenden. Sie können motivieren, unterstützen und beim Lernen helfen. Gleichzeitig ist es wichtig, sich nicht zu sehr ablenken zu lassen.",
+       "options": [
+        {
+         "text": "Vorteile von Online-Lernen",
+         "correct": null
+        },
+        {
+         "text": "Stress im Berufsleben",
+         "correct": null
+        },
+        {
+         "text": "Gesunde Ernährung im Alltag",
+         "correct": null
+        },
+        {
+         "text": "Sport als Ausgleich",
+         "correct": null
+        },
+        {
+         "text": "Schlaf und seine Bedeutung",
+         "correct": null
+        },
+        {
+         "text": "Zeitmanagement lernen",
+         "correct": null
+        },
+        {
+         "text": "Digitale Ablenkungen reduzieren",
+         "correct": null
+        },
+        {
+         "text": "Motivation im Studium",
+         "correct": null
+        },
+        {
+         "text": "Die Rolle von Freunden",
+         "correct": null
+        },
+        {
+         "text": "Lernen in Gruppen oder allein",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A17",
+       "type": "MATCHING",
+       "text": "Manche lernen lieber allein, andere in Gruppen. Gruppenarbeit kann helfen, neue Perspektiven zu bekommen. Allein zu lernen ist oft effektiver, wenn man sich besser konzentrieren möchte.",
+       "options": [
+        {
+         "text": "Vorteile von Online-Lernen",
+         "correct": null
+        },
+        {
+         "text": "Stress im Berufsleben",
+         "correct": null
+        },
+        {
+         "text": "Gesunde Ernährung im Alltag",
+         "correct": null
+        },
+        {
+         "text": "Sport als Ausgleich",
+         "correct": null
+        },
+        {
+         "text": "Schlaf und seine Bedeutung",
+         "correct": null
+        },
+        {
+         "text": "Zeitmanagement lernen",
+         "correct": null
+        },
+        {
+         "text": "Digitale Ablenkungen reduzieren",
+         "correct": null
+        },
+        {
+         "text": "Motivation im Studium",
+         "correct": null
+        },
+        {
+         "text": "Die Rolle von Freunden",
+         "correct": null
+        },
+        {
+         "text": "Lernen in Gruppen oder allein",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [
+      5,
+      6
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 47
+    },
+    {
+     "title": "Teil 4",
+     "instructions": "Lesen Sie den Text und entscheiden Sie bei den Aussagen A18–A27:\nA = Richtig | B = Falsch | C = Der Text sagt nichts dazu",
+     "text": "Antidepressiva auf dem Balkon\nGartenhandschuhe anziehen und raus auf den Balkon! Gemüse anbauen, frische Blumen und Kräuter pflanzen, auch wenn man Gartenarbeit nicht zu seinen Hobbys zählt. Denn neue Untersuchungen haben ergeben, dass die Beschäftigung mit Pflanzen das wirksamste Mittel gegen Depressionen ist – für Männer und Frauen jeden Alters.\nDie Ergebnisse einer im Februar dieses Jahres veröffentlichten Untersuchung zeigen, dass Menschen, die in Gebieten mit üppiger Vegetation leben, körperlich und geistig gesünder sind und eine höhere Lebenserwartung haben. Bemerkenswert dabei ist, dass Menschen, die in einer natürlichen Umgebung wohnen, weniger unter Depressionen leiden als diejenigen, die in städtischen Gebieten leben.\nDiese Erkenntnisse haben Forscher dazu veranlasst, nach Gründen zu suchen: Inwiefern wirkt sich Gartenarbeit positiv auf die Gesundheit aus? Professor Tim Längert vom Forschungszentrum für Ökotrophologie der Universität Münster bestätigt, dass regelmäßige Arbeit mit Pflanzen, Tieren und Natur zur Verbesserung der Gesundheit und des Wohlbefindens beiträgt.\nFür den Heilungsprozess vieler Menschen mit körperlichen und psychischen Erkrankungen kann Gartenarbeit – insbesondere das Anbauen von Lebensmitteln – hilfreich sein. Solche Tätigkeiten können Symptome lindern, eine Verschlechterung verhindern und Patienten zu einem gesünderen Lebensstil motivieren.\nIn London sind Ärzte bereits einen Schritt weiter gegangen. Dort arbeiten sie mit einer Organisation zusammen, um Patienten beizubringen, wie man Gemüsegärten anlegt. Ziel ist es, den therapeutischen Nutzen von Gartenarbeit zu fördern. Die Patienten arbeiten in Gemeinschaftsgärten, die in der Nähe ihrer Wohnungen eingerichtet wurden.\nViele der Teilnehmer leiden an chronischen Krankheiten wie Diabetes oder Arthritis. Außerdem fühlen sich viele von ihnen sozial isoliert. Durch das Projekt sollen sie nicht nur ihre Gesundheit verbessern, sondern auch soziale Kontakte knüpfen.\nDas Experiment war erfolgreich und dient als Beispiel für andere Länder. Aber auch privat kann man auf einem kleinen Balkon oder einer Terrasse mit Pflanzen arbeiten. Schon mit wenig Aufwand kann man viel für die eigene Gesundheit tun.",
+     "questions": [
+      {
+       "no": "A18",
+       "type": "TRUE_FALSE",
+       "text": "Gartenarbeit hilft nur jungen Menschen.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "Der Text sagt nichts dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A19",
+       "type": "TRUE_FALSE",
+       "text": "Menschen in grünen Gebieten sind oft gesünder.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "Der Text sagt nichts dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A20",
+       "type": "TRUE_FALSE",
+       "text": "Gartenarbeit kann bei Krankheiten helfen.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "Der Text sagt nichts dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A21",
+       "type": "TRUE_FALSE",
+       "text": "Nur Experten dürfen Gemüsegärten anlegen.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "Der Text sagt nichts dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A22",
+       "type": "TRUE_FALSE",
+       "text": "In London arbeiten Ärzte mit Organisationen zusammen.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "Der Text sagt nichts dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A23",
+       "type": "TRUE_FALSE",
+       "text": "Alle Teilnehmer sind vollkommen gesund.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "Der Text sagt nichts dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A24",
+       "type": "TRUE_FALSE",
+       "text": "Das Projekt hilft auch gegen soziale Isolation.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "Der Text sagt nichts dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A25",
+       "type": "TRUE_FALSE",
+       "text": "Gartenarbeit ist sehr teuer.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "Der Text sagt nichts dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A26",
+       "type": "TRUE_FALSE",
+       "text": "Man braucht unbedingt einen großen Garten.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "Der Text sagt nichts dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A27",
+       "type": "TRUE_FALSE",
+       "text": "Auch auf einem Balkon kann man Pflanzen anbauen.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "Der Text sagt nichts dazu",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [
+      7,
+      8
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 298
+    },
+    {
+     "title": "Teil 5",
+     "instructions": "Wählen Sie die richtige Antwort (A, B oder C).",
+     "text": "Joseph H. Pilates: Der Mann, dessen Name Programm wurde\nJoseph Hubertus Pilates wurde 1883 in der Nähe von Düsseldorf geboren. Als Kind erfreute er sich keiner guten Gesundheit. Er litt an Asthma, Rachitis und rheumatischem Fieber.\nSchon als Jugendlicher versuchte er deshalb, seinen schlechten Gesundheitszustand mit sportlichen Aktivitäten zu verbessern und seinen Körper in Eigenregie zu kräftigen. Dabei testete er unterschiedliche Sportarten und befasste sich intensiv mit der Anatomie des menschlichen Körpers.\nDieses Wissen machte Pilates zur Grundlage für sein späteres Konzept. Darin entwickelte er ein funktionelles und intelligentes Ganzkörper-Training, das genau zur Anatomie des menschlichen Körpers passt.\nBereits als junger Mann hatte er sein Ziel erreicht: Er besaß einen so athletischen Körper, dass er für anatomische Lehrtafeln Modell stand. Aus dem kränklichen Kind war ein kräftiger Mann geworden.\nWährend des Ersten Weltkrieges wurde Pilates zusammen mit anderen Deutschen auf der Isle of Man interniert. Da es im Gefangenenlager keine Sportmöglichkeiten gab, entwickelte er seine klassischen Matten-Übungen, die er gemeinsam mit anderen Häftlingen praktizierte. Alle, die mit ihm trainierten, hatten einen außergewöhnlich guten Gesundheitszustand.\nSo bat man Pilates, seine Methode auch bei verletzten Soldaten anzuwenden. Doch nun musste Pilates kreativ werden. Sein Mattenprogramm war wegen der Einschränkungen der Patienten nicht ausreichend.\nDeshalb entwickelte er aus Krankenbetten, Stühlen, Boxen, Bettfedern und Seilen die ersten Trainingsgeräte. Diese unterstützten Patienten bei Dehn-, Streck- und Kräftigungsübungen.\nDie Ärzte bestätigten die Wirksamkeit seiner Methode. Dadurch wurde Pilates motiviert, seine Methode weiter zu verbessern.\nNach dem Krieg kehrte Pilates kurz nach Deutschland zurück. Später wanderte er nach New York aus. Auf der Reise lernte er seine spätere Frau Klara kennen. Gemeinsam eröffneten sie ein Studio im selben Gebäude wie das New York City Ballet.\nEr mietete eigene Räume und stattete sie mit Geräten aus. Seine Trainingsmethode half vielen Menschen, ihre Leistungen zu verbessern und Verletzungen zu vermeiden. Besonders Künstler wurden schnell auf ihn aufmerksam.\nPilates erkannte, dass das Prinzip „Gesunder Geist in gesundem Körper“ durch Industrialisierung und Bewegungsmangel verloren gegangen war. Sein Lebenswerk war es, diese Verbindung wiederherzustellen.\nJoseph Pilates starb 1967 im Alter von 84 Jahren. Bis zu seinem Lebensende trainierte er weiterhin seine Schüler und sich selbst. Heute ist Pilates ein wichtiger Bestandteil im Gesundheits- und Fitnessbereich.",
+     "questions": [
+      {
+       "no": "A28",
+       "type": "SINGLE_CHOICE",
+       "text": "Warum begann Joseph Pilates schon als junger Mensch mit intensivem Training?",
+       "options": [
+        {
+         "text": "Er wollte Sportlehrer werden",
+         "correct": null
+        },
+        {
+         "text": "Er wollte seine Gesundheit verbessern",
+         "correct": null
+        },
+        {
+         "text": "Er wollte an Wettkämpfen teilnehmen",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A29",
+       "type": "SINGLE_CHOICE",
+       "text": "Womit beschäftigte sich Pilates besonders intensiv?",
+       "options": [
+        {
+         "text": "Mit moderner Technik",
+         "correct": null
+        },
+        {
+         "text": "Mit der Anatomie des menschlichen Körpers",
+         "correct": null
+        },
+        {
+         "text": "Mit Ernährungssystemen",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A30",
+       "type": "SINGLE_CHOICE",
+       "text": "Was entwickelte Pilates aus seinem Wissen?",
+       "options": [
+        {
+         "text": "Ein Computersystem",
+         "correct": null
+        },
+        {
+         "text": "Ein Ganzkörper-Trainingskonzept",
+         "correct": null
+        },
+        {
+         "text": "Eine neue Sportart für Kinder",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A31",
+       "type": "SINGLE_CHOICE",
+       "text": "Was zeigt seinen körperlichen Erfolg als junger Mann?",
+       "options": [
+        {
+         "text": "Er gewann viele Wettbewerbe",
+         "correct": null
+        },
+        {
+         "text": "Er wurde Trainer in einem Fitnessstudio",
+         "correct": null
+        },
+        {
+         "text": "Er stand Modell für anatomische Lehrtafeln",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A32",
+       "type": "SINGLE_CHOICE",
+       "text": "Was machte Pilates während seiner Internierung im Krieg?",
+       "options": [
+        {
+         "text": "Er schrieb ein Buch",
+         "correct": null
+        },
+        {
+         "text": "Er entwickelte Mattenübungen",
+         "correct": null
+        },
+        {
+         "text": "Er arbeitete als Arzt",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A33",
+       "type": "SINGLE_CHOICE",
+       "text": "Warum musste Pilates neue Trainingsgeräte entwickeln?",
+       "options": [
+        {
+         "text": "Weil er Geld verdienen wollte",
+         "correct": null
+        },
+        {
+         "text": "Weil Patienten nicht alle Übungen machen konnten",
+         "correct": null
+        },
+        {
+         "text": "Weil er neue Sportarten ausprobieren wollte",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A34",
+       "type": "SINGLE_CHOICE",
+       "text": "Was erreichte Pilates mit seinem Studio in New York?",
+       "options": [
+        {
+         "text": "Es wurde besonders bei Künstlern beliebt",
+         "correct": null
+        },
+        {
+         "text": "Es wurde vom Staat finanziert",
+         "correct": null
+        },
+        {
+         "text": "Es wurde nur von Ärzten genutzt",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A35",
+       "type": "SINGLE_CHOICE",
+       "text": "Was war das Ziel von Pilates’ Lebenswerk?",
+       "options": [
+        {
+         "text": "Neue Maschinen zu entwickeln",
+         "correct": null
+        },
+        {
+         "text": "Die Verbindung von Körper und Geist wiederherzustellen",
+         "correct": null
+        },
+        {
+         "text": "Ein großes Fitnessunternehmen zu gründen",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [
+      9,
+      10
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 363
+    }
+   ],
+   "title": "Lesen",
+   "duration_minutes": 60,
+   "total_points": 35
+  },
+  {
+   "type": "HOEREN",
+   "teile": [
+    {
+     "title": "Teil 1",
+     "instructions": "Sie hören fünf Gespräche und Äußerungen.\nSie hören jeden Text einmal. Zu jedem Text lösen Sie zwei Aufgaben.\nWählen Sie bei jeder Aufgabe die richtige Lösung.\nLesen Sie jetzt das Beispiel. Dazu haben Sie 15 Sekunden Zeit.",
+     "text": "Beispiel\n01 Im Radio wird über Krankheiten gesprochen. (Richtig / Falsch)\n02 Wie kann man sein Gehirn trainieren? a) Durch Forschung. b) Mit schwierigen Strategiespielen. c) Durch Gymnastik.",
+     "questions": [
+      {
+       "no": "1",
+       "type": "TRUE_FALSE",
+       "text": "Zwei Personen sprechen über Hundezucht.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "2",
+       "type": "SINGLE_CHOICE",
+       "text": "Welches Problem gibt es in Südeuropa mit Hunden?",
+       "options": [
+        {
+         "text": "Die Tierheime möchten keine Hunde mehr adoptieren.",
+         "correct": null
+        },
+        {
+         "text": "Man kann die Hunde nicht mehr unterbringen.",
+         "correct": null
+        },
+        {
+         "text": "Die Hunde werden nicht über Facebook vermittelt.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "3",
+       "type": "TRUE_FALSE",
+       "text": "Im Radio wird über Osterreisen gesprochen.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "4",
+       "type": "SINGLE_CHOICE",
+       "text": "Wo muss man mit Staus rechnen?",
+       "options": [
+        {
+         "text": "Um die großen Städte.",
+         "correct": null
+        },
+        {
+         "text": "Auf den Nebenstraßen.",
+         "correct": null
+        },
+        {
+         "text": "In den Innenstädten.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "5",
+       "type": "TRUE_FALSE",
+       "text": "Zwei Frauen sprechen über eine bestimmte Ernährungsweise.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "6",
+       "type": "SINGLE_CHOICE",
+       "text": "Was hat der Frau besonders geschmeckt?",
+       "options": [
+        {
+         "text": "Obst aus exotischen Ländern.",
+         "correct": null
+        },
+        {
+         "text": "Getreideprodukte.",
+         "correct": null
+        },
+        {
+         "text": "Salat als Zwischenmahlzeit.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "7",
+       "type": "TRUE_FALSE",
+       "text": "Zwei Personen sprechen über eine Überraschung.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "8",
+       "type": "SINGLE_CHOICE",
+       "text": "Warum hat die Frau Bens Wohnungsschlüssel?",
+       "options": [
+        {
+         "text": "Weil sie eine Maklerin ist.",
+         "correct": null
+        },
+        {
+         "text": "Zur Sicherheit.",
+         "correct": null
+        },
+        {
+         "text": "Weil sie ihn gefunden hat.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "9",
+       "type": "TRUE_FALSE",
+       "text": "Das Gesprächsthema ist Musik, die bei Jugendlichen populär ist.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "10",
+       "type": "SINGLE_CHOICE",
+       "text": "Was hat das Mädchen bekommen?",
+       "options": [
+        {
+         "text": "Einen Platz in einem Orchester.",
+         "correct": null
+        },
+        {
+         "text": "Ein Stipendium.",
+         "correct": null
+        },
+        {
+         "text": "Die Chance, beim Landeswettbewerb mitzumachen.",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [
+      11
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 27
+    },
+    {
+     "title": "Teil 2",
+     "instructions": "Sie hören im Radio ein Interview mit einer Persönlichkeit aus der Wissenschaft.\nSie hören den Text zweimal. Wählen Sie bei jeder Aufgabe die richtige Lösung.\nLesen Sie jetzt die Aufgaben 11 bis 16. Dazu haben Sie 90 Sekunden Zeit.",
+     "text": "",
+     "questions": [
+      {
+       "no": "11",
+       "type": "SINGLE_CHOICE",
+       "text": "Was möchte Mark Zuckerberg nicht machen?",
+       "options": [
+        {
+         "text": "Falsche Meldungen verbreiten.",
+         "correct": null
+        },
+        {
+         "text": "Entscheiden, welche Meldungen wahr sind.",
+         "correct": null
+        },
+        {
+         "text": "Probleme lösen.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "12",
+       "type": "SINGLE_CHOICE",
+       "text": "Was ist eine Gefahr für liberale Gesellschaften?",
+       "options": [
+        {
+         "text": "Die Einrichtung einer Institution zur Wahrheitskontrolle.",
+         "correct": null
+        },
+        {
+         "text": "Die unkontrollierte Verbreitung falscher Nachrichten.",
+         "correct": null
+        },
+        {
+         "text": "Die Armut der Bevölkerung.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "13",
+       "type": "SINGLE_CHOICE",
+       "text": "Wenn man ohne nachzudenken „like“ im Internet anklickt, …",
+       "options": [
+        {
+         "text": "ist man ein ernsthafter Nutzer sozialer Netzwerke.",
+         "correct": null
+        },
+        {
+         "text": "zeigt man sein Interesse.",
+         "correct": null
+        },
+        {
+         "text": "fördert man unseriöse Nachrichten.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "14",
+       "type": "SINGLE_CHOICE",
+       "text": "Eine Sensationsmeldung wird schneller verbreitet, weil …",
+       "options": [
+        {
+         "text": "sich alle darüber freuen.",
+         "correct": null
+        },
+        {
+         "text": "sie wichtiger als andere Meldungen ist.",
+         "correct": null
+        },
+        {
+         "text": "sie die Menschen unterhält.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "15",
+       "type": "SINGLE_CHOICE",
+       "text": "Professor Hauser fordert, dass …",
+       "options": [
+        {
+         "text": "Schulen mehr Informatikunterricht geben.",
+         "correct": null
+        },
+        {
+         "text": "Schüler zu kritischen Nutzern sozialer Netzwerke erzogen werden.",
+         "correct": null
+        },
+        {
+         "text": "soziale Netzwerke in den Schulen verboten werden.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "16",
+       "type": "SINGLE_CHOICE",
+       "text": "Nachrichten auf Facebook gegenüber kritisch sein, bedeutet …",
+       "options": [
+        {
+         "text": "Kommentare zu Meldungen zu posten.",
+         "correct": null
+        },
+        {
+         "text": "darauf zu achten, von welchem Facebook-Profil die Meldung kam.",
+         "correct": null
+        },
+        {
+         "text": "sie auch an anderer Stelle nachzuprüfen.",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [
+      12
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 0
+    },
+    {
+     "title": "Teil 3",
+     "instructions": "Sie hören im Radio ein Gespräch mit mehreren Personen. Die Personen sprechen über Carsharing.\nSie hören den Text einmal. Wählen Sie bei jeder Aufgabe: Wer sagt das?\nLesen Sie jetzt die Aufgaben 17 bis 22. Dazu haben Sie 60 Sekunden Zeit.",
+     "text": "Personen: a) Moderator · b) Mann · c) Frau\nBeispiel: 0 Ein Drittel der Deutschen erwägen, beim Carsharing mitzumachen. (a)",
+     "questions": [
+      {
+       "no": "17",
+       "type": "MATCHING",
+       "text": "Innerhalb des Carsharings lassen sich verschiedene Arten differenzieren.",
+       "options": [
+        {
+         "text": "Moderator",
+         "correct": null
+        },
+        {
+         "text": "Mann",
+         "correct": null
+        },
+        {
+         "text": "Frau",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "18",
+       "type": "MATCHING",
+       "text": "Bei einem der Carsharing-Modelle findet man freie Autos über eine App.",
+       "options": [
+        {
+         "text": "Moderator",
+         "correct": null
+        },
+        {
+         "text": "Mann",
+         "correct": null
+        },
+        {
+         "text": "Frau",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "19",
+       "type": "MATCHING",
+       "text": "Beim Carsharing übernimmt der Anbieter die technische Überwachung des Wagens.",
+       "options": [
+        {
+         "text": "Moderator",
+         "correct": null
+        },
+        {
+         "text": "Mann",
+         "correct": null
+        },
+        {
+         "text": "Frau",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "20",
+       "type": "MATCHING",
+       "text": "Für regelmäßige Fahrten zur Arbeit ist Carsharing nicht die ideale Lösung.",
+       "options": [
+        {
+         "text": "Moderator",
+         "correct": null
+        },
+        {
+         "text": "Mann",
+         "correct": null
+        },
+        {
+         "text": "Frau",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "21",
+       "type": "MATCHING",
+       "text": "Es ist interessant, immer wieder mit anderen Autos zu fahren.",
+       "options": [
+        {
+         "text": "Moderator",
+         "correct": null
+        },
+        {
+         "text": "Mann",
+         "correct": null
+        },
+        {
+         "text": "Frau",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "22",
+       "type": "MATCHING",
+       "text": "Die größere Sicherheit im Verkehr ist der wichtigste Grund, Carsharing zu machen.",
+       "options": [
+        {
+         "text": "Moderator",
+         "correct": null
+        },
+        {
+         "text": "Mann",
+         "correct": null
+        },
+        {
+         "text": "Frau",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [
+      13
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 18
+    },
+    {
+     "title": "Teil 4",
+     "instructions": "Sie hören einen kurzen Vortrag. Der Redner spricht über das Thema „isolierte Völker“.\nSie hören den Text zweimal. Wählen Sie bei jeder Aufgabe die richtige Lösung.\nLesen Sie jetzt die Aufgaben 23 bis 30. Dazu haben Sie 90 Sekunden Zeit.",
+     "text": "",
+     "questions": [
+      {
+       "no": "23",
+       "type": "SINGLE_CHOICE",
+       "text": "Von welchen Dokumentarsrsendungen ist hier die Rede?",
+       "options": [
+        {
+         "text": "Von Sendungen über Besonderheiten des Regenwalds.",
+         "correct": null
+        },
+        {
+         "text": "Von Sendungen über bis heute nicht erforschte Menschengruppen.",
+         "correct": null
+        },
+        {
+         "text": "Von Sendungen über Gefahren im Dschungel.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "24",
+       "type": "SINGLE_CHOICE",
+       "text": "Es gibt ungefähr 100 Völker, die …",
+       "options": [
+        {
+         "text": "als isolierte Gruppen leben.",
+         "correct": null
+        },
+        {
+         "text": "im Amazonas-Gebiet leben.",
+         "correct": null
+        },
+        {
+         "text": "sich der Zivilisation verschließen.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "25",
+       "type": "SINGLE_CHOICE",
+       "text": "Der Begriff „unkontaktierte Stämme“ ist nicht eindeutig, weil …",
+       "options": [
+        {
+         "text": "die Betroffenen wissen, dass es woanders andere Menschen gibt.",
+         "correct": null
+        },
+        {
+         "text": "diese oft heimlich Kontakt suchen.",
+         "correct": null
+        },
+        {
+         "text": "man genau weiß, wo sie leben.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "26",
+       "type": "SINGLE_CHOICE",
+       "text": "Holzfäller stellen in den Augen der isolierten Völker …",
+       "options": [
+        {
+         "text": "eine Bedrohung dar.",
+         "correct": null
+        },
+        {
+         "text": "eine Rettung aus der Isolation dar.",
+         "correct": null
+        },
+        {
+         "text": "eine Bereicherung ihrer Welt dar.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "27",
+       "type": "SINGLE_CHOICE",
+       "text": "Warum sind die isolierten Völker vom Aussterben bedroht?",
+       "options": [
+        {
+         "text": "Weil sich auch Drogenschmuggler für sie interessieren.",
+         "correct": null
+        },
+        {
+         "text": "Weil sich Forscher für sie interessieren.",
+         "correct": null
+        },
+        {
+         "text": "Weil sie tödlich erkranken können.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "28",
+       "type": "SINGLE_CHOICE",
+       "text": "Wie setzt sich ein Kontaktteam zusammen?",
+       "options": [
+        {
+         "text": "Aus Aktivisten und Ärzten.",
+         "correct": null
+        },
+        {
+         "text": "Aus Ärzten und Krankenpflegern.",
+         "correct": null
+        },
+        {
+         "text": "Aus Ärzten und Dolmetschern.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "29",
+       "type": "SINGLE_CHOICE",
+       "text": "Warum ist die Arbeit eines Kontaktteams gefährlich?",
+       "options": [
+        {
+         "text": "Weil die Teammitglieder krank werden können.",
+         "correct": null
+        },
+        {
+         "text": "Weil die Teammitglieder durch die Hand der Kontaktierten sterben können.",
+         "correct": null
+        },
+        {
+         "text": "Weil die Arbeit im Dschungel stattfindet.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "30",
+       "type": "SINGLE_CHOICE",
+       "text": "Wenn isolierte Völker Kontakt aufgenommen haben, …",
+       "options": [
+        {
+         "text": "werden sie diesen Schritt bereuen.",
+         "correct": null
+        },
+        {
+         "text": "müssen sie ihre Lebensweise ändern.",
+         "correct": null
+        },
+        {
+         "text": "muss man damit rechnen, dass sie anders als vorher leben.",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [
+      14
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 0
+    }
+   ],
+   "title": "Hören",
+   "duration_minutes": 40,
+   "total_points": 30
+  },
+  {
+   "type": "SCHREIBEN",
+   "teile": [
+    {
+     "title": "Teil 1.1",
+     "instructions": "",
+     "text": "E-Mail:\nLiebe Kundinnen und Kunden,\nwir möchten Sie darüber informieren, dass unsere Bank in den nächsten Monaten verstärkt auf Online-Banking umstellen wird. Einige Dienstleistungen werden künftig nur noch digital angeboten, und persönliche Besuche in der Filiale werden reduziert.\nNach dieser Umstellung planen wir, neue digitale Funktionen und benutzerfreundlichere Services für unsere Kundinnen und Kunden einzuführen.\nWir würden gerne Ihre Meinung hören: Welche Dienstleistungen würden Sie sich in Zukunft wünschen? Haben Sie Ideen für neue Angebote oder Verbesserungen im Online-Banking? Wir freuen uns auf Ihre Vorschläge.\nVielen Dank für Ihre Rückmeldung.\nMit freundlichen Grüßen\nDie Bankleitung\n\nSchreiben Sie einen kurzen Brief an Ihre Freundin / Ihren Freund, der auch Kunde dieser Bank ist.\nSchreiben Sie über Ihre Gefühle und Ihre Meinung zu dieser Situation.\nSchreiben Sie ca. 50 Wörter.",
+     "questions": [],
+     "pages": [
+      15
+     ],
+     "words": 50,
+     "same_situation": false,
+     "text_words": 127
+    },
+    {
+     "title": "Teil 1.2",
+     "instructions": "",
+     "text": "Schreiben Sie eine E-Mail an die Leitung der Bank.\nBeschreiben Sie Ihre Meinung zur Umstellung auf Online-Banking.\nMachen Sie Vorschläge, welche Dienstleistungen oder Verbesserungen angeboten werden könnten.\nSchreiben Sie ca. 120–150 Wörter.",
+     "questions": [],
+     "pages": [
+      15
+     ],
+     "words": 150,
+     "same_situation": true,
+     "text_words": 33
+    },
+    {
+     "title": "Teil 2",
+     "instructions": "",
+     "text": "Sie nehmen an einer Online-Diskussion für Bürgerinnen und Bürger in Usbekistan teil.\nDie Frage lautet:\nSollte unsere Gesellschaft auf Bargeld verzichten und stattdessen Online-Zahlungen stärker unterstützen?\nPosten Sie Ihre Meinung in einem Diskussionsbeitrag.\nBegründen Sie Ihre Meinung und nennen Sie Beispiele.\nSchreiben Sie 180–200 Wörter.\nTipps\n• Geben Sie eine klare Meinung an.\n• Begründen Sie Ihre Meinung mit Beispielen.\n• Schreiben Sie strukturiert: Einleitung – Hauptteil – Schluss.",
+     "questions": [],
+     "pages": [
+      16
+     ],
+     "words": 200,
+     "same_situation": false,
+     "text_words": 65
+    }
+   ],
+   "title": "Schreiben",
+   "duration_minutes": 60,
+   "total_points": 0
+  },
+  {
+   "type": "SPRECHEN",
+   "teile": [
+    {
+     "title": "Teil 1.1",
+     "instructions": "",
+     "text": "• Sind Sie ein höflicher Mensch?\n• Wer hat Ihnen beigebracht, höflich zu sein?\n• Was tun Sie, wenn andere nicht höflich zu Ihnen sind?",
+     "questions": [],
+     "pages": [
+      17
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 22
+    },
+    {
+     "title": "Teil 1.2",
+     "instructions": "",
+     "text": "1. Vergleichen Sie die Art und Weise, wie die Leute auf den Bildern Fahrrad fahren?\n2. Welche Vorteile bietet das Fahrradfahren?\n3. Warum wollen heute viele Leute Fahrrad fahren?",
+     "questions": [],
+     "pages": [
+      17
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 29,
+     "image": "mt06-1.jpg"
+    },
+    {
+     "title": "Teil 2",
+     "instructions": "",
+     "text": "Beschreiben Sie einen Kurs, den Sie studieren oder machen möchten.\nErläutern Sie:\n• Welcher Kurs es ist oder wäre;\n• Wo würden Sie es tun;\n• Was Sie in diesem Kurs lernen würden;\n• Und erklären Sie, warum Sie diesen Kurs machen möchten.",
+     "questions": [],
+     "pages": [
+      18
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 39,
+     "image": "mt06-2.jpg"
+    },
+    {
+     "title": "Teil 3",
+     "instructions": "",
+     "text": "Ist die ehrenamtliche Arbeit essenziell?\nPro: Förderung des Gemeinwohls · Erweitert die Fähigkeiten · Stärkt den Gemeinschaftsgefühl\nContra: Erhöhung des Zeitaufwands · Fehlen einer finanziellen Entlohnung · Gefahr der Überlastung",
+     "questions": [],
+     "pages": [
+      18
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 26
+    }
+   ],
+   "title": "Sprechen",
+   "duration_minutes": 15,
+   "total_points": 0
+  }
+ ],
+ "review": [
+  {
+   "where": "allgemein",
+   "note": "Im PDF gibt es keine Lösungen: alle Antwortschlüssel fehlen und müssen im Admin-Panel eingetragen werden."
+  },
+  {
+   "where": "allgemein",
+   "note": "Zeiten (Lesen 60, Hören 40, Schreiben 60, Sprechen 15 Min.) und Bewertungskriterien stehen nicht im PDF — Standardwerte, bitte prüfen."
+  },
+  {
+   "where": "Lesen",
+   "note": "source: Variante 6 ist ein Bild-PDF (kein Textlayer) — alle Inhalte aus den Seitenbildern abgeschrieben, bitte prüfen"
+  },
+  {
+   "where": "Lesen Teil 3",
+   "note": "Lesen Teil 3 (S. 5): Die Arbeitsanweisung steht im Bild nicht; aus Variante 5 (gleiches Format) übernommen."
+  },
+  {
+   "where": "Hören",
+   "note": "source: Variante 6 ist ein Bild-PDF — Hören aus den Seitenbildern abgeschrieben, bitte prüfen"
+  },
+  {
+   "where": "Hören Teil 4",
+   "note": "Hören Teil 4 (S. 14): Aufgabe 23 im Bild „Dokumentarsrsendungen“ (Tippfehler im Original) — unverändert übernommen."
+  },
+  {
+   "where": "Schreiben",
+   "note": "source: Variante 6 ist ein Bild-PDF — Schreiben aus den Seitenbildern abgeschrieben, bitte prüfen"
+  },
+  {
+   "where": "Schreiben Teil 1.1",
+   "note": "Schreiben Teil 1 (S. 15): Im Bild steht „därüber“ (Tippfehler) — als „darüber“ übernommen. Einleitungssatz („Sie sind Kunde …“) fehlt im Original."
+  },
+  {
+   "where": "Sprechen",
+   "note": "source: Variante 6 ist ein Bild-PDF — Sprechen aus den Seitenbildern abgeschrieben, bitte prüfen"
+  },
+  {
+   "where": "Sprechen Teil 1.2",
+   "note": "Sprechen Teil 1.2 (S. 17): Die zwei Fotos sind Teil der Seitengrafik; die ganze Seite wird als Bild gezeigt — ggf. Fotos ausschneiden und hochladen."
+  },
+  {
+   "where": "Sprechen Teil 3",
+   "note": "Sprechen Teil 3 (S. 18): „Stärkt den Gemeinschaftsgefühl“ (Originalfehler, richtig: „das Gemeinschaftsgefühl“) — unverändert übernommen."
+  }
+ ]
+}

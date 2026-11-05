@@ -26,6 +26,18 @@ export async function getPublicModelTests(levelId: string): Promise<PublicModelT
   return ensureArray<PublicModelTest>(response.data);
 }
 
+// Published Modelltests of the Multilevel provider (name/code contains "multilevel" or code NATIONAL), all its levels.
+export async function getMultilevelModelTests(): Promise<PublicModelTest[]> {
+  const providers = await getPublicProviders();
+  const provider = providers.find(
+    (p) => p.code === "NATIONAL" || `${p.name} ${p.code}`.toLowerCase().includes("multilevel"),
+  );
+  if (!provider) return [];
+  const levels = await getPublicLevels(provider.id);
+  const perLevel = await Promise.all(levels.map((l) => getPublicModelTests(l.id)));
+  return perLevel.flat();
+}
+
 export async function getPublicModelTest(modelTestId: string): Promise<PublicModelTestDetail> {
   const response = await api.get<PublicModelTestDetail>(`${BASE}/model-tests/${modelTestId}`);
   return response.data;

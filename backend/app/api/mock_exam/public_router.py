@@ -13,6 +13,7 @@ from app.schemas.mock_exam import (
     PublicKompetenzSummary,
     PublicModelTestDetailResponse,
     PublicModelTestResponse,
+    PublicQuestion,
 )
 from app.services.mock_exam import public_service
 from app.services.vizu_pay.access import can_access_model_test
@@ -113,4 +114,9 @@ def get_public_kompetenz(
             detail="PREMIUM_REQUIRED",
         )
 
-    return kompetenz
+    # questions go out through the stripped PublicQuestion schema only (no answer keys)
+    detail = PublicKompetenzDetailResponse.model_validate(kompetenz, from_attributes=True)
+    for teil_out, teil in zip(detail.teile, kompetenz.teile, strict=True):
+        content = teil.reading_content or teil.listening_content
+        teil_out.questions = [PublicQuestion.model_validate(q, from_attributes=True) for q in content.questions] if content else []
+    return detail

@@ -1,6 +1,8 @@
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.responses import FileResponse
+from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy.orm import Session
 
 from app.api.dependencies.auth import require_super_admin
@@ -9,7 +11,10 @@ from app.schemas.mock_exam import (
     ListeningContentCreate,
     ListeningContentResponse,
     ListeningContentUpdate,
+    MockQuestionOptionResponse,
+    MockQuestionOptionUpdate,
     MockQuestionResponse,
+    MockQuestionUpdate,
     ReadingContentResponse,
     SpeakingTaskCreate,
     SpeakingTaskResponse,
@@ -18,7 +23,7 @@ from app.schemas.mock_exam import (
     WritingTaskResponse,
     WritingTaskUpdate,
 )
-from app.services.mock_exam import content_service
+from app.services.mock_exam import content_service, multilevel_service
 
 router = APIRouter(
     prefix="/mock-exam",
@@ -142,3 +147,60 @@ def list_questions(
     db: Session = Depends(get_db),
 ):
     return content_service.get_questions(db, reading_content_id, listening_content_id)
+
+
+# ============================================================
+# Answer keys / texts of existing questions (imported Modelltests), source PDF + check-list
+# (multilevel_service.py). No question creation or deletion here.
+# ============================================================
+
+
+class QuestionTextEdit(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    question_text: str = Field(min_length=1, max_length=20000)
+
+
+class OptionTextEdit(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    option_text: str = Field(min_length=1, max_length=1000)
+
+
+class QuestionKeyEdit(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    option_ids: list[UUID] = Field(max_length=20)
+
+
+@router.put("/questions/{question_id}/text", response_model=MockQuestionResponse)
+def edit_question_text(question_id: UUID, data: QuestionTextEdit, db: Session = Depends(get_db)):
+    question = content_service.update_question(db, question_id, MockQuestionUpdate(question_text=data.question_text))
+    if question is None:
+        raise HTTPException(status_code=404, detail="QUESTION_NOT_FOUND")
+    return question
+
+
+@router.put("/question-options/{option_id}/text", response_model=MockQuestionOptionResponse)
+def edit_option_text(option_id: UUID, data: OptionTextEdit, db: Session = Depends(get_db)):
+    option = content_service.update_option(db, option_id, MockQuestionOptionUpdate(option_text=data.option_text))
+    if option is None:
+        raise HTTPException(status_code=404, detail="OPTION_NOT_FOUND")
+    return option
+
+
+@router.put("/questions/{question_id}/key", response_model=MockQuestionResponse)
+def set_question_key(question_id: UUID, data: QuestionKeyEdit, db: Session = Depends(get_db)):
+    """Marks exactly these options as correct (an empty list clears the key)."""
+    return multilevel_service.set_question_key(db, question_id, data.option_ids)
+
+
+@router.get("/model-tests/{model_test_id}/review")
+def model_test_review(model_test_id: UUID, db: Session = Depends(get_db)):
+    """Check-list of an imported test (uncertain / OCR places), whether its source PDF exists, and readiness."""
+    return multilevel_service.source_info(db, model_test_id)
+
+
+@router.get("/model-tests/{model_test_id}/source-pdf")
+def model_test_source_pdf(model_test_id: UUID, db: Session = Depends(get_db)):
+    path = multilevel_service.source_pdf_path(db, model_test_id)
+    return FileResponse(path, media_type="application/pdf", headers={
+        "Cache-Control": "private, no-store", "Content-Disposition": f'inline; filename="modelltest-{model_test_id}.pdf"',
+        "X-Content-Type-Options": "nosniff"})

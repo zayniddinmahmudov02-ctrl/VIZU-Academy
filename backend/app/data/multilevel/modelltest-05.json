@@ -1,0 +1,1736 @@
+{
+ "number": 5,
+ "content_id": "vizu-multilevel-mt05",
+ "title": "Modelltest 5",
+ "origin": "pdf",
+ "source_pdf": "Multilevel Mock Variant 5.pdf",
+ "description": "Multilevel Modelltest 5 — aus „Multilevel Mock Variant 5.pdf“ (Der Deutschlehrer: Zayniddinkhuja Makhmudov).",
+ "kompetenzen": [
+  {
+   "type": "LESEN",
+   "teile": [
+    {
+     "title": "Teil 1",
+     "pages": [
+      2
+     ],
+     "instructions": "Lesen Sie die Textteile von A bis E und bringen Sie den Text in die richtige Reihenfolge A1–A5.\nIhre Lösung: A1: ___, A2: ___, A3: ___, A4: ___, A5: ___\nThema: Mein erster Schultag",
+     "text": "A. Ich erinnere mich noch gut an meinen ersten Schultag. Es war ein sonniger Morgen im September, als meine Mutter mich zum ersten Mal zur Schule brachte. Ich war sehr aufgeregt und trug einen kleinen Rucksack mit bunten Bildern.\n\nB. Im Klassenzimmer wartete schon die Lehrerin, Frau Schneider, mit einem freundlichen Lächeln. Sie begrüßte jedes Kind persönlich und zeigte uns unsere Sitzplätze. Alles war neu und spannend.\n\nC. Dann begann der Unterricht. Wir sangen zusammen ein Lied, stellten uns gegenseitig vor und hörten eine Geschichte über einen kleinen Bären, der ebenfalls zur Schule kam. Ich fühlte mich schnell wohler.\n\nD. Zu Hause erzählte ich meiner Familie begeistert von allem, was ich erlebt hatte. Besonders freute ich mich über die neue Schultüte, die mit Süßigkeiten und kleinen Spielsachen gefüllt war.\n\nE. In der Pause lernte ich meine ersten Freunde kennen. Wir spielten zusammen auf dem Schulhof und lachten viel. Ich hatte das Gefühl, dass die Schule ein toller Ort sein würde.",
+     "words": null,
+     "same_situation": false,
+     "questions": [
+      {
+       "no": "A1",
+       "type": "ORDERING",
+       "text": "A1",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A2",
+       "type": "ORDERING",
+       "text": "A2",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A3",
+       "type": "ORDERING",
+       "text": "A3",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A4",
+       "type": "ORDERING",
+       "text": "A4",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A5",
+       "type": "ORDERING",
+       "text": "A5",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "text_words": 160
+    },
+    {
+     "title": "Teil 2",
+     "pages": [
+      3,
+      4
+     ],
+     "instructions": "",
+     "text": "Thema: Eine deutsch-usbekische Hochzeit\n\nEs war ein besonderer Tag für Nadira und Lukas – der Tag ihrer Hochzeit. Nadira stammt aus Samarkand, Lukas aus München. Sie hatten sich während ihres Studiums in Berlin kennengelernt und beschlossen, zwei Kulturen in einer Feier zu vereinen.\n\nDie Vorbereitungen dauerten mehrere Monate. Die Familie von Lukas organisierte die standesamtliche Trauung in einem historischen Rathaus in München. Nadiras Familie kümmerte sich um die traditionelle Feier nach usbekischem Brauch, die einige Tage später in Samarkand stattfand.\n\nBei der Trauung in Deutschland trug Nadira ein klassisches weißes Brautkleid, während Lukas einen eleganten Anzug mit einer kleinen usbekischen Stickerei am Kragen trug. Nach dem offiziellen Teil wurde mit Champagner angestoßen, und es gab klassische Musik.\n\nIn Samarkand wurde alles viel bunter und lebendiger. Schon beim Empfang spielten Doira-Spieler traditionelle Melodien. Nadira trug ein atlasfarbenes Libos, geschmückt mit goldenen Mustern. Die Gäste waren zahlreich – mehr als 200 Menschen kamen, viele in nationaler Kleidung.\n\nEin besonderes Highlight war das Lag‘mon tayyorlash marosimi, bei dem die Mutter der Braut persönlich den Lag‘mon zog – ein Symbol für das lange Leben des Ehepaares. Auch Lukas nahm daran teil, was für großes Gelächter sorgte.\n\nNeben traditionellen Speisen wie Palov, Somsa und Katta Shorva gab es auch deutsche Kuchen und Brezeln – ein Zeichen der kulturellen Verbindung. Alle Gäste wurden eingeladen, zu tanzen – und sowohl usbekische Raqsi als auch bayerischer Volkstanz waren zu sehen.\n\nBeide Familien tauschten Geschenke aus. Es war nicht nur ein Bund zwischen zwei Menschen, sondern auch ein Fest der Kulturen, das viele berührte. Am Ende des Tages waren sich alle einig: Liebe kennt keine Grenzen – weder sprachlich noch kulturell.\n\nAUFGABEN A6–A10 Wählen Sie die richtige Antwort (A, B oder C).",
+     "words": null,
+     "same_situation": false,
+     "questions": [
+      {
+       "no": "A6",
+       "type": "SINGLE_CHOICE",
+       "text": "Wo fand die erste Hochzeitsfeier statt?",
+       "options": [
+        {
+         "text": "In Samarkand",
+         "correct": null
+        },
+        {
+         "text": "In Berlin",
+         "correct": null
+        },
+        {
+         "text": "In München",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A7",
+       "type": "SINGLE_CHOICE",
+       "text": "Was symbolisierte das Lag‘mon-Ziehen?",
+       "options": [
+        {
+         "text": "Fruchtbarkeit",
+         "correct": null
+        },
+        {
+         "text": "Ein langes gemeinsames Leben",
+         "correct": null
+        },
+        {
+         "text": "Reichtum",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A8",
+       "type": "SINGLE_CHOICE",
+       "text": "Wie viele Gäste waren etwa bei der Feier in Samarkand?",
+       "options": [
+        {
+         "text": "Ungefähr 50",
+         "correct": null
+        },
+        {
+         "text": "Ungefähr 200",
+         "correct": null
+        },
+        {
+         "text": "Mehr als 300",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A9",
+       "type": "SINGLE_CHOICE",
+       "text": "Was machte Lukas während des Lag‘mon-Zeremoniells?",
+       "options": [
+        {
+         "text": "Er spielte Musik",
+         "correct": null
+        },
+        {
+         "text": "Er zog den Lag‘mon mit",
+         "correct": null
+        },
+        {
+         "text": "Er verteilte Geschenke",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A10",
+       "type": "SINGLE_CHOICE",
+       "text": "Was war ein Zeichen der kulturellen Verbindung bei den Speisen?",
+       "options": [
+        {
+         "text": "Nur usbekisches Essen",
+         "correct": null
+        },
+        {
+         "text": "Es gab nur deutsches Essen",
+         "correct": null
+        },
+        {
+         "text": "Es wurden Speisen aus beiden Kulturen serviert",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "text_words": 280
+    },
+    {
+     "title": "Teil 3",
+     "pages": [
+      5,
+      6
+     ],
+     "instructions": "Lesen Sie die Texte (11–17) und ordnen Sie die Überschriften (A–J) zu. Drei Überschriften passen nicht.",
+     "text": "Überschriften\nA. Müllvermeidung beginnt im Kopf\nB. Das große Geschäft mit dem Abfall\nC. Plastikflaschen als Umweltkiller\nD. Kompostieren als nachhaltige Lösung\nE. Warum Recycling nicht ausreicht\nF. Die Rolle der Politik bei der Müllkrise\nG. Kinder als Umwelthelden\nH. Verpackungswahnsinn im Supermarkt\nI. Mülltrennung: Theorie vs. Praxis\nJ. Innovationen aus Abfallprodukten",
+     "words": null,
+     "same_situation": false,
+     "questions": [
+      {
+       "no": "A11",
+       "type": "MATCHING",
+       "text": "Immer mehr Supermärkte verpacken Obst und Gemüse einzeln in Plastik – selbst Bananen oder Gurken.\n\nUmweltorganisationen kritisieren diese Praxis seit Jahren. Der Verpackungsmüll steigt rapide, obwohl Alternativen wie lose Ware und wiederverwendbare Netze verfügbar sind.",
+       "options": [
+        {
+         "text": "Müllvermeidung beginnt im Kopf",
+         "correct": null
+        },
+        {
+         "text": "Das große Geschäft mit dem Abfall",
+         "correct": null
+        },
+        {
+         "text": "Plastikflaschen als Umweltkiller",
+         "correct": null
+        },
+        {
+         "text": "Kompostieren als nachhaltige Lösung",
+         "correct": null
+        },
+        {
+         "text": "Warum Recycling nicht ausreicht",
+         "correct": null
+        },
+        {
+         "text": "Die Rolle der Politik bei der Müllkrise",
+         "correct": null
+        },
+        {
+         "text": "Kinder als Umwelthelden",
+         "correct": null
+        },
+        {
+         "text": "Verpackungswahnsinn im Supermarkt",
+         "correct": null
+        },
+        {
+         "text": "Mülltrennung: Theorie vs. Praxis",
+         "correct": null
+        },
+        {
+         "text": "Innovationen aus Abfallprodukten",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A12",
+       "type": "MATCHING",
+       "text": "Viele Menschen glauben, dass sie ihren Müll perfekt trennen. Doch Untersuchungen zeigen: Ein erheblicher Teil des Plastikmülls landet falsch. Fehlende Informationen, unterschiedliche Systeme und Bequemlichkeit führen dazu, dass Recyclingquoten sinken.",
+       "options": [
+        {
+         "text": "Müllvermeidung beginnt im Kopf",
+         "correct": null
+        },
+        {
+         "text": "Das große Geschäft mit dem Abfall",
+         "correct": null
+        },
+        {
+         "text": "Plastikflaschen als Umweltkiller",
+         "correct": null
+        },
+        {
+         "text": "Kompostieren als nachhaltige Lösung",
+         "correct": null
+        },
+        {
+         "text": "Warum Recycling nicht ausreicht",
+         "correct": null
+        },
+        {
+         "text": "Die Rolle der Politik bei der Müllkrise",
+         "correct": null
+        },
+        {
+         "text": "Kinder als Umwelthelden",
+         "correct": null
+        },
+        {
+         "text": "Verpackungswahnsinn im Supermarkt",
+         "correct": null
+        },
+        {
+         "text": "Mülltrennung: Theorie vs. Praxis",
+         "correct": null
+        },
+        {
+         "text": "Innovationen aus Abfallprodukten",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A13",
+       "type": "MATCHING",
+       "text": "In einem Berliner Start-up werden alte Plastikflaschen geschmolzen und zu stylischen Rucksäcken verarbeitet.\n\nSolche Projekte zeigen, dass man mit Kreativität und Technik sogar aus Müll neue Produkte schaffen kann.",
+       "options": [
+        {
+         "text": "Müllvermeidung beginnt im Kopf",
+         "correct": null
+        },
+        {
+         "text": "Das große Geschäft mit dem Abfall",
+         "correct": null
+        },
+        {
+         "text": "Plastikflaschen als Umweltkiller",
+         "correct": null
+        },
+        {
+         "text": "Kompostieren als nachhaltige Lösung",
+         "correct": null
+        },
+        {
+         "text": "Warum Recycling nicht ausreicht",
+         "correct": null
+        },
+        {
+         "text": "Die Rolle der Politik bei der Müllkrise",
+         "correct": null
+        },
+        {
+         "text": "Kinder als Umwelthelden",
+         "correct": null
+        },
+        {
+         "text": "Verpackungswahnsinn im Supermarkt",
+         "correct": null
+        },
+        {
+         "text": "Mülltrennung: Theorie vs. Praxis",
+         "correct": null
+        },
+        {
+         "text": "Innovationen aus Abfallprodukten",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A14",
+       "type": "MATCHING",
+       "text": "Ein Drittel aller Lebensmittelverpackungen landet nach dem Einkauf direkt im Müll. Oft liegt es an übertriebener Verpackung oder unüberlegtem Konsum. Experten sagen, dass bewussteres Einkaufen ein großer Schritt zur Müllvermeidung ist.",
+       "options": [
+        {
+         "text": "Müllvermeidung beginnt im Kopf",
+         "correct": null
+        },
+        {
+         "text": "Das große Geschäft mit dem Abfall",
+         "correct": null
+        },
+        {
+         "text": "Plastikflaschen als Umweltkiller",
+         "correct": null
+        },
+        {
+         "text": "Kompostieren als nachhaltige Lösung",
+         "correct": null
+        },
+        {
+         "text": "Warum Recycling nicht ausreicht",
+         "correct": null
+        },
+        {
+         "text": "Die Rolle der Politik bei der Müllkrise",
+         "correct": null
+        },
+        {
+         "text": "Kinder als Umwelthelden",
+         "correct": null
+        },
+        {
+         "text": "Verpackungswahnsinn im Supermarkt",
+         "correct": null
+        },
+        {
+         "text": "Mülltrennung: Theorie vs. Praxis",
+         "correct": null
+        },
+        {
+         "text": "Innovationen aus Abfallprodukten",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A15",
+       "type": "MATCHING",
+       "text": "Die Politik hat in den letzten Jahren einige Gesetze zur Müllreduzierung eingeführt, etwa das Verbot von Plastiktüten. Dennoch sind viele Maßnahmen freiwillig, und die Industrie sucht häufig Schlupflöcher, um weiter wie bisher zu produzieren.",
+       "options": [
+        {
+         "text": "Müllvermeidung beginnt im Kopf",
+         "correct": null
+        },
+        {
+         "text": "Das große Geschäft mit dem Abfall",
+         "correct": null
+        },
+        {
+         "text": "Plastikflaschen als Umweltkiller",
+         "correct": null
+        },
+        {
+         "text": "Kompostieren als nachhaltige Lösung",
+         "correct": null
+        },
+        {
+         "text": "Warum Recycling nicht ausreicht",
+         "correct": null
+        },
+        {
+         "text": "Die Rolle der Politik bei der Müllkrise",
+         "correct": null
+        },
+        {
+         "text": "Kinder als Umwelthelden",
+         "correct": null
+        },
+        {
+         "text": "Verpackungswahnsinn im Supermarkt",
+         "correct": null
+        },
+        {
+         "text": "Mülltrennung: Theorie vs. Praxis",
+         "correct": null
+        },
+        {
+         "text": "Innovationen aus Abfallprodukten",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A16",
+       "type": "MATCHING",
+       "text": "Kompostieren ist eine der ältesten Formen der Müllverwertung. Küchenabfälle werden dabei in nährstoffreiche Erde umgewandelt. Besonders in ländlichen Regionen wird das Kompostieren wieder beliebter.",
+       "options": [
+        {
+         "text": "Müllvermeidung beginnt im Kopf",
+         "correct": null
+        },
+        {
+         "text": "Das große Geschäft mit dem Abfall",
+         "correct": null
+        },
+        {
+         "text": "Plastikflaschen als Umweltkiller",
+         "correct": null
+        },
+        {
+         "text": "Kompostieren als nachhaltige Lösung",
+         "correct": null
+        },
+        {
+         "text": "Warum Recycling nicht ausreicht",
+         "correct": null
+        },
+        {
+         "text": "Die Rolle der Politik bei der Müllkrise",
+         "correct": null
+        },
+        {
+         "text": "Kinder als Umwelthelden",
+         "correct": null
+        },
+        {
+         "text": "Verpackungswahnsinn im Supermarkt",
+         "correct": null
+        },
+        {
+         "text": "Mülltrennung: Theorie vs. Praxis",
+         "correct": null
+        },
+        {
+         "text": "Innovationen aus Abfallprodukten",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A17",
+       "type": "MATCHING",
+       "text": "Recycling wird oft als Allheilmittel dargestellt. Doch viele Materialien lassen sich nur begrenzt wiederverwenden, vor allem Mischplastik. Eine echte Lösung wäre die Reduktion von Müll bereits bei der Produktion.",
+       "options": [
+        {
+         "text": "Müllvermeidung beginnt im Kopf",
+         "correct": null
+        },
+        {
+         "text": "Das große Geschäft mit dem Abfall",
+         "correct": null
+        },
+        {
+         "text": "Plastikflaschen als Umweltkiller",
+         "correct": null
+        },
+        {
+         "text": "Kompostieren als nachhaltige Lösung",
+         "correct": null
+        },
+        {
+         "text": "Warum Recycling nicht ausreicht",
+         "correct": null
+        },
+        {
+         "text": "Die Rolle der Politik bei der Müllkrise",
+         "correct": null
+        },
+        {
+         "text": "Kinder als Umwelthelden",
+         "correct": null
+        },
+        {
+         "text": "Verpackungswahnsinn im Supermarkt",
+         "correct": null
+        },
+        {
+         "text": "Mülltrennung: Theorie vs. Praxis",
+         "correct": null
+        },
+        {
+         "text": "Innovationen aus Abfallprodukten",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "text_words": 52
+    },
+    {
+     "title": "Teil 4",
+     "pages": [
+      7,
+      8,
+      9
+     ],
+     "instructions": "Lesen Sie den Text und entscheiden Sie bei den Aussagen A18–A27:\nA = Richtig, B = Falsch, C = Der Text sagt nichts dazu",
+     "text": "Thema: Faszinierende Welt der Schlangen\n\nSchlangen gehören zu den ältesten Lebewesen der Erde. Sie existieren seit über 100 Millionen Jahren. Es gibt viele verschiedene Arten von Schlangen: giftige, ungiftige, große und sehr kleine. Mit Ausnahme der Antarktis sind sie auf allen Kontinenten zu finden.\n\nIhr Körper ist äußerst anpassungsfähig: Obwohl sie äußerlich wirbellosen Tieren ähneln, besitzen Schlangen eine große Anzahl von Wirbeln – manche Arten haben über 300 davon. Das macht sie flexibel und beweglich.\n\nDie meisten Schlangen sind wechselwarm und passen ihre Aktivität der Außentemperatur an. In warmen Regionen sind sie aktiver, in kälteren Gegenden verlangsamen sie sich oder halten Winterruhe. Viele Arten sind nachtaktiv.\n\nGiftige Schlangen produzieren ihr Gift, um Beute schneller zu erlegen. Dieses wirkt meist auf das Nervensystem oder das Kreislaufsystem. So kann das Gift der Schwarzen Mamba innerhalb weniger Minuten tödlich sein. Viele Schlangenarten jedoch sind völlig harmlos und für den Menschen ungefährlich.\n\nZur Jagd nutzen Schlangen ihre sensible Zunge und spezielle Organe, die auf Wärme reagieren. Sie können Bodenerschütterungen wahrnehmen und ihre Beute aus großer Entfernung aufspüren. Einige Arten „sehen“\n\nsogar Infrarotstrahlung.\n\nManchmal dringen Schlangen auch in von Menschen bewohnte Gebiete ein. Dies führt häufig zu Missverständnissen. Schlangen greifen meist nur zur Verteidigung an, in der Regel ziehen sie sich jedoch zurück.\n\nÖkologisch spielen Schlangen eine wichtige Rolle. Sie halten die Population von Nagetieren und schädlichen Insekten in Schach. Gleichzeitig dienen sie selbst als Nahrung für andere Raubtiere.\n\nIn vielen Regionen haben Schlangen einen schlechten Ruf. Sie gelten als gefährlich. Doch in manchen Kulturen werden sie als Symbol für Weisheit, Lebensenergie oder Erneuerung verehrt.",
+     "words": null,
+     "same_situation": false,
+     "questions": [
+      {
+       "no": "A18",
+       "type": "TRUE_FALSE",
+       "text": "Alle Schlangenarten sind giftig.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "Der Text sagt nichts dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A19",
+       "type": "TRUE_FALSE",
+       "text": "Schlangen haben keine Wirbelsäule.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "Der Text sagt nichts dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A20",
+       "type": "TRUE_FALSE",
+       "text": "Das Gift der Schwarzen Mamba kann innerhalb weniger Minuten tödlich sein.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "Der Text sagt nichts dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A21",
+       "type": "TRUE_FALSE",
+       "text": "Schlangen können ihre Beute mithilfe von Wärme wahrnehmen.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "Der Text sagt nichts dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A22",
+       "type": "TRUE_FALSE",
+       "text": "Schlangen greifen Menschen immer an, wenn sie ihnen begegnen.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "Der Text sagt nichts dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A23",
+       "type": "TRUE_FALSE",
+       "text": "Schlangen spielen eine wichtige Rolle im Ökosystem.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "Der Text sagt nichts dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A24",
+       "type": "TRUE_FALSE",
+       "text": "In allen Kulturen gelten Schlangen nur als gefährlich.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "Der Text sagt nichts dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A25",
+       "type": "TRUE_FALSE",
+       "text": "Einige Schlangenarten besitzen mehr als 300 Wirbel.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "Der Text sagt nichts dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A26",
+       "type": "TRUE_FALSE",
+       "text": "Schlangen können Geräusche in der Luft hören.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "Der Text sagt nichts dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A27",
+       "type": "TRUE_FALSE",
+       "text": "Die meisten Schlangen sind tagsüber aktiv.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "Der Text sagt nichts dazu",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "text_words": 259
+    },
+    {
+     "title": "Teil 5",
+     "pages": [
+      9,
+      10,
+      11
+     ],
+     "instructions": "Lesen Sie den Text und wählen Sie die richtige Antwort (A, B oder C).\nZu jeder Aufgabe (A28–A35) gibt es nur eine richtige Lösung.",
+     "text": "Thema: Die Macht des Zufalls – Wie das Ungeplante unser Leben beeinflusst\n\nViele Menschen glauben, dass ihr Leben das Ergebnis sorgfältiger Planung ist. Karriereziele, Familienentscheidungen, selbst Urlaubsreisen – alles scheint einer Logik zu folgen. Doch bei näherem Hinsehen erkennt man, dass Zufälle oft eine entscheidende Rolle spielen. Ein verpasster Bus, ein zufälliges Gespräch oder ein gefundenes Buch können unser Leben nachhaltig verändern.\n\nZufälle gelten oft als chaotisch oder unberechenbar, doch sie sind in vielen Lebensbereichen ein treibender Motor. In der Wissenschaft sind zahlreiche Entdeckungen durch Zufall entstanden. Das bekannteste Beispiel ist wohl Alexander Fleming, der das Penicillin entdeckte, weil er versehentlich eine Petrischale offen ließ. Auch die Entdeckung Amerikas durch Kolumbus war nicht geplant – er suchte einen Seeweg nach Indien.\n\nIn der Psychologie spricht man vom „Serendipitäts-Effekt“ – die Fähigkeit, im Ungeplanten etwas Wertvolles zu entdecken. Menschen, die offen für das Unerwartete sind, erleben Zufälle nicht als Störung, sondern als Gelegenheit. Diese Offenheit hängt oft mit Kreativität und emotionaler Intelligenz zusammen.\n\nInteressanterweise neigen wir im Nachhinein dazu, Zufälle zu rationalisieren. Wir erzählen Geschichten, in denen alles Sinn ergibt, obwohl es oft ein Produkt reiner Willkür war. Unser Gehirn liebt Ordnung – es fällt uns schwer, das Zufällige als solches zu akzeptieren.\n\nIn modernen Gesellschaften wird der Zufall oft unterschätzt oder sogar gefürchtet. Planung, Kontrolle und Sicherheit sind zentrale Werte. Doch je stärker wir versuchen, unser Leben zu kontrollieren, desto größer scheint der Einfluss des Unvorhersehbaren. So zeigt sich in Krisenzeiten besonders deutlich, wie fragil unsere Strukturen sind – und wie wichtig es ist, flexibel und spontan zu reagieren.\n\nIn der Kunst, Literatur und Philosophie wird der Zufall hingegen oft als Inspirationsquelle gefeiert. Der Dadaismus etwa machte den Zufall zum Prinzip. In vielen kreativen Prozessen spielt das Unvorhergesehene eine Schlüsselrolle. Auch das menschliche Gehirn funktioniert nicht immer linear – spontane Einfälle oder Tagträume entstehen oft durch assoziative, unbewusste Prozesse.\n\nAm Ende ist der Zufall ein unvermeidlicher Bestandteil des Lebens. Wer lernt, mit ihm zu leben – statt ihn zu bekämpfen –, gewinnt nicht nur Gelassenheit, sondern auch eine tiefere Wertschätzung für das Unerwartete.\n\nAUFGABEN A28–A35 Wählen Sie die richtige Antwort (A, B oder C).",
+     "words": null,
+     "same_situation": false,
+     "questions": [
+      {
+       "no": "A28",
+       "type": "SINGLE_CHOICE",
+       "text": "Was ist laut Text eine häufige Ursache lebensverändernder Ereignisse?",
+       "options": [
+        {
+         "text": "Genaues Planen",
+         "correct": null
+        },
+        {
+         "text": "Unerwartete Begegnungen",
+         "correct": null
+        },
+        {
+         "text": "Wissenschaftliche Methoden",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A29",
+       "type": "SINGLE_CHOICE",
+       "text": "Welche Entdeckung wird als Beispiel für den Zufall in der Wissenschaft genannt?",
+       "options": [
+        {
+         "text": "Die Erfindung des Telefons",
+         "correct": null
+        },
+        {
+         "text": "Die Entdeckung des Penicillins",
+         "correct": null
+        },
+        {
+         "text": "Die Entwicklung des Internets",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A30",
+       "type": "SINGLE_CHOICE",
+       "text": "Was meint der „Serendipitäts-Effekt“?",
+       "options": [
+        {
+         "text": "Die Angst vor unkontrollierten Ereignissen",
+         "correct": null
+        },
+        {
+         "text": "Die Kunst, bedeutungslose Zufälle zu vermeiden",
+         "correct": null
+        },
+        {
+         "text": "Die Fähigkeit, im Zufall etwas Wertvolles zu erkennen",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A31",
+       "type": "SINGLE_CHOICE",
+       "text": "Warum rationalisieren Menschen laut Text Zufälle im Nachhinein?",
+       "options": [
+        {
+         "text": "Um Geschichten spannender zu erzählen",
+         "correct": null
+        },
+        {
+         "text": "Weil unser Gehirn Ordnung liebt",
+         "correct": null
+        },
+        {
+         "text": "Um andere zu beeindrucken",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A32",
+       "type": "SINGLE_CHOICE",
+       "text": "Wie stehen moderne Gesellschaften laut Text zum Zufall?",
+       "options": [
+        {
+         "text": "Sie feiern ihn als kreative Kraft",
+         "correct": null
+        },
+        {
+         "text": "Sie sehen ihn als Zeichen von Schwäche",
+         "correct": null
+        },
+        {
+         "text": "Sie versuchen ihn zu vermeiden",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A33",
+       "type": "SINGLE_CHOICE",
+       "text": "Welche Kunstrichtung nutzte den Zufall als zentrales Prinzip?",
+       "options": [
+        {
+         "text": "Impressionismus",
+         "correct": null
+        },
+        {
+         "text": "Dadaismus",
+         "correct": null
+        },
+        {
+         "text": "Expressionismus",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A34",
+       "type": "SINGLE_CHOICE",
+       "text": "Wie entsteht laut Text oft Kreativität?",
+       "options": [
+        {
+         "text": "Durch lange Planung",
+         "correct": null
+        },
+        {
+         "text": "Durch Druck und Stress",
+         "correct": null
+        },
+        {
+         "text": "Durch spontane, unbewusste Prozesse",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A35",
+       "type": "SINGLE_CHOICE",
+       "text": "Was gewinnt man laut Text durch einen entspannten Umgang mit dem Zufall?",
+       "options": [
+        {
+         "text": "Kontrolle über das Leben",
+         "correct": null
+        },
+        {
+         "text": "Mehr Sicherheit im Alltag",
+         "correct": null
+        },
+        {
+         "text": "Gelassenheit und neue Perspektiven",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "text_words": 346
+    }
+   ],
+   "title": "Lesen",
+   "duration_minutes": 60,
+   "total_points": 35
+  },
+  {
+   "type": "HOEREN",
+   "teile": [
+    {
+     "title": "Teil 1",
+     "instructions": "Sie hören fünf Gespräche und Äußerungen.\nSie hören jeden Text einmal. Zu jedem Text lösen Sie zwei Aufgaben.\nWählen Sie bei jeder Aufgabe die richtige Lösung. Lesen Sie jetzt das Beispiel.\nDazu haben Sie 15 Sekunden Zeit.",
+     "text": "Beispiel\n01 Ein Mann bestellt Blumen. (Richtig / Falsch)\n02 Welche Angaben braucht die Frau? a) Einen Grund, warum Blumen geschickt werden. b) Ein Datum für die Lieferung. c) Den Text für die Karte.",
+     "questions": [
+      {
+       "no": "1",
+       "type": "TRUE_FALSE",
+       "text": "Man hört eine Meldung über einen Waldbrand.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "2",
+       "type": "SINGLE_CHOICE",
+       "text": "Was darf man nicht machen?",
+       "options": [
+        {
+         "text": "Den Wald betreten.",
+         "correct": null
+        },
+        {
+         "text": "Rauchen.",
+         "correct": null
+        },
+        {
+         "text": "Rauchentwicklung beobachten.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "3",
+       "type": "TRUE_FALSE",
+       "text": "Die beiden Personen sprechen über einen Wettkampf.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "4",
+       "type": "SINGLE_CHOICE",
+       "text": "Die Frau findet die Schneeskulptur schön, weil …",
+       "options": [
+        {
+         "text": "sie eine Filmszene darstellt.",
+         "correct": null
+        },
+        {
+         "text": "sie von Japanern gebaut wurde.",
+         "correct": null
+        },
+        {
+         "text": "sie eine interessante Mischung verschiedener Stile ist.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "5",
+       "type": "TRUE_FALSE",
+       "text": "Eine Frau spricht mit einem Mann über ihren Umzug.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "6",
+       "type": "SINGLE_CHOICE",
+       "text": "Wo steht das Klavier?",
+       "options": [
+        {
+         "text": "In einem Einfamilienhaus.",
+         "correct": null
+        },
+        {
+         "text": "In einem Haus mit mehreren Etagen.",
+         "correct": null
+        },
+        {
+         "text": "In einem Haus mit Aufzug.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "7",
+       "type": "TRUE_FALSE",
+       "text": "Eine Tierärztin spricht über eine Patientin.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "8",
+       "type": "SINGLE_CHOICE",
+       "text": "Was rät die Frau?",
+       "options": [
+        {
+         "text": "Rixie soll bis zum Abend nichts fressen.",
+         "correct": null
+        },
+        {
+         "text": "Rixie soll das Haus nicht verlassen.",
+         "correct": null
+        },
+        {
+         "text": "Rixie soll nicht noch einmal kommen.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "9",
+       "type": "TRUE_FALSE",
+       "text": "Ein Mann begrüßt Fernsehzuschauer.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "10",
+       "type": "SINGLE_CHOICE",
+       "text": "Wer wird vorgestellt?",
+       "options": [
+        {
+         "text": "Eine Fußballmannschaft.",
+         "correct": null
+        },
+        {
+         "text": "Fußballfans.",
+         "correct": null
+        },
+        {
+         "text": "Der Schiedsrichter.",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [
+      12
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 33
+    },
+    {
+     "title": "Teil 2",
+     "instructions": "Sie hören im Radio ein Interview mit einer Persönlichkeit aus der Welt der Kunst.\nSie hören den Text zweimal. Wählen Sie bei jeder Aufgabe die richtige Lösung.\nLesen Sie jetzt die Aufgaben 11 bis 16. Dazu haben Sie 90 Sekunden Zeit.",
+     "text": "",
+     "questions": [
+      {
+       "no": "11",
+       "type": "SINGLE_CHOICE",
+       "text": "Worin unterscheiden sich Modefotografie und Kunstfotografie?",
+       "options": [
+        {
+         "text": "Modefotografie dient der Werbung.",
+         "correct": null
+        },
+        {
+         "text": "Modefotografien werden zu höheren Preisen verkauft.",
+         "correct": null
+        },
+        {
+         "text": "Kunstfotografien sind von höherer ästhetischer Qualität.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "12",
+       "type": "SINGLE_CHOICE",
+       "text": "Daniela Wicke …",
+       "options": [
+        {
+         "text": "sucht immer noch das perfekte Model.",
+         "correct": null
+        },
+        {
+         "text": "fotografiert keine Männer.",
+         "correct": null
+        },
+        {
+         "text": "könnte mit andersartigen Fotos eventuell mehr verdienen.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "13",
+       "type": "SINGLE_CHOICE",
+       "text": "Die wachsende Kritik an der „Perfektionsindustrie“ …",
+       "options": [
+        {
+         "text": "zwingt viele Modefotografen, ihren Beruf zu wechseln.",
+         "correct": null
+        },
+        {
+         "text": "hat Daniela Wickes Karriere ermöglicht.",
+         "correct": null
+        },
+        {
+         "text": "hat auch die Supermarktwerbung beeinflusst.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "14",
+       "type": "SINGLE_CHOICE",
+       "text": "Was kritisiert Daniela Wicke am „Terror der Schönheit“?",
+       "options": [
+        {
+         "text": "Dass alle Abweichungen vom Ideal als unschön gelten.",
+         "correct": null
+        },
+        {
+         "text": "Dass die Fotos unnatürlich wirken.",
+         "correct": null
+        },
+        {
+         "text": "Dass für Frauen und Männer unterschiedliche Maßstäbe gelten.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "15",
+       "type": "SINGLE_CHOICE",
+       "text": "Es können faszinierende Fotos entstehen, wenn …",
+       "options": [
+        {
+         "text": "man die moderne Technologie auszunutzen versteht.",
+         "correct": null
+        },
+        {
+         "text": "Fotografin und Model eine gute persönliche Beziehung haben.",
+         "correct": null
+        },
+        {
+         "text": "das Model besonders interessant aussieht.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "16",
+       "type": "SINGLE_CHOICE",
+       "text": "Warum geht Daniela Wicke selten auf Modenschauen?",
+       "options": [
+        {
+         "text": "Man sieht dort nur wenige wirklich gute Models.",
+         "correct": null
+        },
+        {
+         "text": "Dort arbeiten andere Models, als sie sucht.",
+         "correct": null
+        },
+        {
+         "text": "Was sie in einem Model sucht, kann sie dort nicht sehen.",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [
+      13
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 0
+    },
+    {
+     "title": "Teil 3",
+     "instructions": "Sie hören im Radio ein Gespräch mit mehreren Personen. Die Personen sprechen über Auslandssemester für Studierende.\nSie hören den Text einmal. Wählen Sie bei jeder Aufgabe: Wer sagt das?\nLesen Sie jetzt die Aufgaben 17 bis 22. Dazu haben Sie 60 Sekunden Zeit.",
+     "text": "Personen: a) Moderatorin · b) Studentin · c) Experte\nBeispiel: 0 Im Ausland gewesen zu sein, ist für Arbeitssuchende oft ein Vorteil.",
+     "questions": [
+      {
+       "no": "17",
+       "type": "MATCHING",
+       "text": "Es gibt verschiedene Möglichkeiten, um Auslandserfahrungen zu erwerben.",
+       "options": [
+        {
+         "text": "Moderatorin",
+         "correct": null
+        },
+        {
+         "text": "Studentin",
+         "correct": null
+        },
+        {
+         "text": "Experte",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "18",
+       "type": "MATCHING",
+       "text": "Im Erasmus-Programm kann man auch Punkte für das Studium im Inland sammeln.",
+       "options": [
+        {
+         "text": "Moderatorin",
+         "correct": null
+        },
+        {
+         "text": "Studentin",
+         "correct": null
+        },
+        {
+         "text": "Experte",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "19",
+       "type": "MATCHING",
+       "text": "Erasmus-Studienkurse werden auf Englisch abgehalten.",
+       "options": [
+        {
+         "text": "Moderatorin",
+         "correct": null
+        },
+        {
+         "text": "Studentin",
+         "correct": null
+        },
+        {
+         "text": "Experte",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "20",
+       "type": "MATCHING",
+       "text": "Manchmal nehmen Studenten nur an Erasmus teil, weil es ein beliebter Trend ist.",
+       "options": [
+        {
+         "text": "Moderatorin",
+         "correct": null
+        },
+        {
+         "text": "Studentin",
+         "correct": null
+        },
+        {
+         "text": "Experte",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "21",
+       "type": "MATCHING",
+       "text": "Statt Auslandserfahrungen kann auch ein gutes Netzwerk bei der Stellensuche helfen.",
+       "options": [
+        {
+         "text": "Moderatorin",
+         "correct": null
+        },
+        {
+         "text": "Studentin",
+         "correct": null
+        },
+        {
+         "text": "Experte",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "22",
+       "type": "MATCHING",
+       "text": "Die Statistik zur Partnerwahl der Studierenden könnte falsch sein.",
+       "options": [
+        {
+         "text": "Moderatorin",
+         "correct": null
+        },
+        {
+         "text": "Studentin",
+         "correct": null
+        },
+        {
+         "text": "Experte",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [
+      14
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 20
+    },
+    {
+     "title": "Teil 4",
+     "instructions": "Sie hören einen kurzen Vortrag. Der Redner spricht über das Thema „Drohnen“.\nSie hören den Text zweimal. Wählen Sie bei jeder Aufgabe die richtige Lösung.\nLesen Sie jetzt die Aufgaben 23 bis 30. Dazu haben Sie 90 Sekunden Zeit.",
+     "text": "",
+     "questions": [
+      {
+       "no": "23",
+       "type": "SINGLE_CHOICE",
+       "text": "Der Informationsabend …",
+       "options": [
+        {
+         "text": "wird von Herrn Kessler allein bestritten.",
+         "correct": null
+        },
+        {
+         "text": "beschränkt sich auf das Thema Hobbydrohnen.",
+         "correct": null
+        },
+        {
+         "text": "bietet Informationen zu den geltenden Vorschriften.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "24",
+       "type": "SINGLE_CHOICE",
+       "text": "Was wird die Zukunft der Drohnenentwicklung bringen?",
+       "options": [
+        {
+         "text": "Die Aufnahmetechnik soll revolutioniert werden.",
+         "correct": null
+        },
+        {
+         "text": "Das lässt sich nicht voraussagen.",
+         "correct": null
+        },
+        {
+         "text": "Es werden spezielle Drohnen zur Tierbeobachtung entwickelt werden.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "25",
+       "type": "SINGLE_CHOICE",
+       "text": "Die Bilder von Drohnen in der Verkehrsüberwachung …",
+       "options": [
+        {
+         "text": "ermöglichen eine rasche Entscheidung über notwendige Maßnahmen.",
+         "correct": null
+        },
+        {
+         "text": "werden direkt an Helikopter übermittelt.",
+         "correct": null
+        },
+        {
+         "text": "sind bislang noch sehr kostenintensiv.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "26",
+       "type": "SINGLE_CHOICE",
+       "text": "Durch den Einsatz von Drohnen kann man …",
+       "options": [
+        {
+         "text": "Rettungsmaßnahmen effektiver aufeinander abstimmen.",
+         "correct": null
+        },
+        {
+         "text": "viele Notsituationen abwenden.",
+         "correct": null
+        },
+        {
+         "text": "die Rettungsmannschaften einfacher verständigen.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "27",
+       "type": "SINGLE_CHOICE",
+       "text": "Wie viele US-Landwirte interessieren sich für Drohnen?",
+       "options": [
+        {
+         "text": "Fast jeder Zweite.",
+         "correct": null
+        },
+        {
+         "text": "Ungefähr ein Drittel.",
+         "correct": null
+        },
+        {
+         "text": "Circa 60 Prozent.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "28",
+       "type": "SINGLE_CHOICE",
+       "text": "Es gibt eine Drohne, die …",
+       "options": [
+        {
+         "text": "eine Bedrohung für Bienen darstellt.",
+         "correct": null
+        },
+        {
+         "text": "wie Bienen Nektar sammelt.",
+         "correct": null
+        },
+        {
+         "text": "die Rolle von Bienen bei der Pflanzenbefruchtung übernehmen kann.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "29",
+       "type": "SINGLE_CHOICE",
+       "text": "Man benötigt einen Kenntnisnachweis, …",
+       "options": [
+        {
+         "text": "um mit der Drohne ein fremdes Wohngrundstück zu überfliegen.",
+         "correct": null
+        },
+        {
+         "text": "wenn die Drohne ein bestimmtes Gewicht überschreitet.",
+         "correct": null
+        },
+        {
+         "text": "wenn man noch nicht volljährig ist.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "30",
+       "type": "SINGLE_CHOICE",
+       "text": "Das Rätselhafte an dem Beinahe-Unfall war …",
+       "options": [
+        {
+         "text": "der plötzliche Betriebsausfall der Drohne.",
+         "correct": null
+        },
+        {
+         "text": "die erstaunliche Reaktion des Skifahrers.",
+         "correct": null
+        },
+        {
+         "text": "die Fluggeschwindigkeit der Drohne.",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [
+      15
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 0
+    }
+   ],
+   "title": "Hören",
+   "duration_minutes": 40,
+   "total_points": 30
+  },
+  {
+   "type": "SCHREIBEN",
+   "teile": [
+    {
+     "title": "Teil 1.1",
+     "instructions": "",
+     "text": "E-Mail:\nLiebe Mitglieder,\nwir möchten Sie darüber informieren, dass unser Kulturzentrum im nächsten Monat für einige Wochen renoviert wird. In dieser Zeit können keine Veranstaltungen oder Kurse stattfinden. Nach der Renovierung planen wir neue kulturelle Aktivitäten und modernere Räume für Besucherinnen und Besucher.\nWir würden gerne Ihre Meinung hören: Welche Angebote würden Sie sich in Zukunft wünschen? Haben Sie Ideen für neue Veranstaltungen oder Kurse?\nVielen Dank für Ihre Vorschläge.\nMit freundlichen Grüßen\nDie Leitung des Kulturzentrums\n\nSchreiben Sie einen kurzen Brief an Ihre Freundin / Ihren Freund, der auch Mitglied im Kulturzentrum ist.\nSchreiben Sie über Ihre Gefühle und Ihre Meinung zu dieser Situation.\nSchreiben Sie ca. 50 Wörter.",
+     "questions": [],
+     "pages": [
+      16
+     ],
+     "words": 50,
+     "same_situation": false,
+     "text_words": 109
+    },
+    {
+     "title": "Teil 1.2",
+     "instructions": "",
+     "text": "Schreiben Sie eine E-Mail an die Leitung des Kulturzentrums.\nBeschreiben Sie Ihre Meinung zur Renovierung und machen Sie Vorschläge, welche neuen Angebote oder Veranstaltungen organisiert werden könnten.\nSchreiben Sie ca. 120–150 Wörter.",
+     "questions": [],
+     "pages": [
+      16
+     ],
+     "words": 150,
+     "same_situation": true,
+     "text_words": 33
+    },
+    {
+     "title": "Teil 2",
+     "instructions": "",
+     "text": "Sie nehmen an einer Online-Diskussion für Bürgerinnen und Bürger in Usbekistan teil.\nDie Frage lautet:\n„Immer mehr Menschen verbringen ihre Freizeit am Smartphone oder Computer. Sollte die Nutzung digitaler Geräte in der Freizeit begrenzt werden?“\nPosten Sie Ihre Meinung in einem Diskussionsbeitrag.\nBegründen Sie Ihre Meinung und nennen Sie Beispiele.\nSchreiben Sie 180–200 Wörter.",
+     "questions": [],
+     "pages": [
+      17
+     ],
+     "words": 200,
+     "same_situation": false,
+     "text_words": 55
+    }
+   ],
+   "title": "Schreiben",
+   "duration_minutes": 60,
+   "total_points": 0
+  },
+  {
+   "type": "SPRECHEN",
+   "teile": [
+    {
+     "title": "Teil 1.1",
+     "instructions": "",
+     "text": "1. Mögen Sie Autos oder Busse?\n2. Haben Sie ein Auto oder benutzen Sie öffentliche Verkehrsmittel?\n3. Warum wählen viele Menschen öffentliche Verkehrsmittel?",
+     "questions": [],
+     "pages": [
+      18
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 23
+    },
+    {
+     "title": "Teil 1.2",
+     "instructions": "",
+     "text": "1. Was sehen Sie auf den Bildern?\n2. Welche Vorteile hat das Autofahren?\n3. Welche Vorteile haben öffentliche Verkehrsmittel?",
+     "questions": [],
+     "pages": [
+      18
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 19,
+     "image": "mt05-1.jpg"
+    },
+    {
+     "title": "Teil 2",
+     "instructions": "",
+     "text": "Fragen\n1. Was ist ein Vorbild und warum brauchen Menschen Vorbilder?\n2. Wer ist Ihr Vorbild und warum?\n3. Wie beeinflussen Vorbilder unser Verhalten und unsere Entscheidungen?",
+     "questions": [],
+     "pages": [
+      19
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 27,
+     "image": "mt05-2.jpg"
+    },
+    {
+     "title": "Teil 3",
+     "instructions": "",
+     "text": "Umweltschädliche Produkte\nPro: Schutz der Umwelt · Weniger Verschmutzung · Förderung nachhaltiger Produkte\nKontra: Produkte werden teurer · Einschränkung der Freiheit · Wirtschaftliche Nachteile für Unternehmen",
+     "questions": [],
+     "pages": [
+      19
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 22
+    }
+   ],
+   "title": "Sprechen",
+   "duration_minutes": 15,
+   "total_points": 0
+  }
+ ],
+ "review": [
+  {
+   "where": "allgemein",
+   "note": "Im PDF gibt es keine Lösungen: alle Antwortschlüssel fehlen und müssen im Admin-Panel eingetragen werden."
+  },
+  {
+   "where": "allgemein",
+   "note": "Zeiten (Lesen 60, Hören 40, Schreiben 60, Sprechen 15 Min.) und Bewertungskriterien stehen nicht im PDF — Standardwerte, bitte prüfen."
+  },
+  {
+   "where": "Schreiben Teil 1.1",
+   "note": "Schreiben Teil 1 (S. 16): Im Original steht die E-Mail nach den Aufgaben 1.1/1.2 und es fehlt der Einleitungssatz („Sie sind Mitglied …“); für die Anzeige vor die Aufgaben gestellt."
+  },
+  {
+   "where": "Sprechen",
+   "note": "source: Bildseiten 18–19 (Grafik, kein Textlayer) — aus Bild abgeschrieben, prüfen"
+  },
+  {
+   "where": "Sprechen Teil 1.2",
+   "note": "Sprechen Teil 1.2 (S. 18): Die Fotos sind Teil der Seitengrafik; als Bild wird die ganze Seite (inkl. 1.1-Fragen) gezeigt — ggf. nur die zwei Fotos ausschneiden und hochladen."
+  },
+  {
+   "where": "Sprechen Teil 2",
+   "note": "Sprechen Teil 2 (S. 19): Anders als in Variante 1–4 ist Teil 2 hier ein Bild mit drei Fragen (kein Monolog mit Stichpunkten) — so übernommen."
+  },
+  {
+   "where": "Hören",
+   "note": "source: Bildseiten 12–15 (Grafik, kein Textlayer) — aus Bild abgeschrieben, prüfen"
+  },
+  {
+   "where": "Hören Teil 1",
+   "note": "Teil 1: Die Grafik zeigt auch bei den Aufgaben 2, 4, 6, 8, 10 zusätzlich „Richtig / Falsch“ — vermutlich Layoutfehler; importiert als a/b/c."
+  }
+ ]
+}

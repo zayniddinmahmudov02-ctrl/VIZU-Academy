@@ -1,0 +1,1073 @@
+{
+ "number": 7,
+ "content_id": "vizu-multilevel-mt07",
+ "title": "Modelltest 7",
+ "origin": "vizu",
+ "source_pdf": null,
+ "description": "Multilevel Modelltest 7 — von VIZU erstellt (Übungstest, kein offizielles Prüfungsmaterial).",
+ "kompetenzen": [
+  {
+   "type": "LESEN",
+   "teile": [
+    {
+     "title": "Teil 1",
+     "instructions": "Aufgabe\nBringen Sie die Textteile A–E in eine sinnvolle Reihenfolge.\nIhre Lösung:\nEinleitung → Lösung → Tipps → Zusatz → Fazit.",
+     "text": "A. Hilfreich ist es, sich vorzustellen und bei Problemen immer freundlich miteinander zu sprechen.\nB. Wer offen und respektvoll mit seinen Nachbarn umgeht, fühlt sich in seinem Zuhause wirklich wohl.\nC. Gute Nachbarn sind ein Glück – doch in Städten kennen sich die Menschen im Haus kaum noch.\nD. Auch gemeinsame Feste im Hof oder ein kleines Geschenk zum Einzug können Beziehungen stärken.\nE. Mit etwas Aufmerksamkeit und Geduld lässt sich das Zusammenleben im Haus jedoch angenehmer gestalten.",
+     "questions": [
+      {
+       "no": "A1",
+       "type": "ORDERING",
+       "text": "A1",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": true
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A2",
+       "type": "ORDERING",
+       "text": "A2",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": true
+        }
+       ]
+      },
+      {
+       "no": "A3",
+       "type": "ORDERING",
+       "text": "A3",
+       "options": [
+        {
+         "text": "A",
+         "correct": true
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A4",
+       "type": "ORDERING",
+       "text": "A4",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": true
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A5",
+       "type": "ORDERING",
+       "text": "A5",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": true
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 77
+    },
+    {
+     "title": "Teil 2",
+     "instructions": "",
+     "text": "Bienen gehören zu den wichtigsten Tieren der Welt, auch wenn viele Menschen das kaum wissen. Sie produzieren nicht nur Honig, sondern bestäuben auch zahlreiche Pflanzen. Ohne diese Arbeit gäbe es viel weniger Obst, Gemüse und Nüsse. Fachleute schätzen, dass ungefähr ein Drittel unserer Nahrungsmittel direkt oder indirekt von der Bestäubung durch Insekten abhängt.\nDoch seit einigen Jahren beobachten Forscher, dass die Zahl der Bienen in vielen Regionen deutlich zurückgeht. Dafür gibt es mehrere Gründe. In der Landwirtschaft werden oft Pflanzenschutzmittel eingesetzt, die für Insekten gefährlich sind. Außerdem verschwinden blühende Wiesen und Hecken, weil immer mehr Flächen bebaut oder als große Felder mit nur einer Pflanzenart genutzt werden. So finden die Bienen nicht mehr genug Nahrung.\nAuch Krankheiten und Parasiten machen den Tieren zu schaffen. Besonders gefährlich ist eine kleine Milbe, die ganze Bienenvölker schwächen kann. Hinzu kommt der Klimawandel: Wenn Pflanzen wegen milder Winter früher blühen als sonst, passt der Rhythmus der Bienen nicht mehr zur Natur.\nWie wichtig Bienen sind, zeigt ein Beispiel aus China. In einigen Regionen gibt es so wenige Insekten, dass Arbeiterinnen die Blüten der Obstbäume mit kleinen Pinseln von Hand bestäuben müssen. Diese Arbeit ist sehr mühsam und teuer – und sie zeigt, was die Bienen jeden Tag kostenlos leisten.\nUm die Bienen zu schützen, haben viele Städte und Gemeinden neue Projekte gestartet. Auf Dächern, in Parks und auf Schulhöfen werden Blumenwiesen angelegt. Manche Unternehmen stellen sogar eigene Bienenstöcke auf ihr Firmengelände. Die Mitarbeiter können dort beobachten, wie die Tiere arbeiten, und lernen viel über ihre Bedeutung.\nJeder Einzelne kann ebenfalls etwas beitragen. Wer einen Garten oder Balkon hat, sollte heimische Blumen pflanzen, die viel Nektar bieten. Auf chemische Mittel sollte man dabei möglichst verzichten. Auch kleine „Insektenhotels“ aus Holz und Stroh helfen Wildbienen, einen Platz zum Nisten zu finden.\nIn den letzten Jahren ist außerdem das Imkern als Hobby immer beliebter geworden. In vielen Städten gibt es Kurse, in denen Anfänger lernen, wie man ein Bienenvolk pflegt. Allerdings warnen Experten davor, dass zu viele Honigbienen in einem kleinen Gebiet den Wildbienen die Nahrung wegnehmen können. Wichtig ist deshalb ein gutes Gleichgewicht.\nAm Ende zeigt das Beispiel der Bienen, wie eng Mensch und Natur miteinander verbunden sind. Wenn wir die kleinen Helfer schützen, schützen wir gleichzeitig unsere eigene Ernährung und die Vielfalt unserer Landschaft.",
+     "questions": [
+      {
+       "no": "A6",
+       "type": "SINGLE_CHOICE",
+       "text": "Warum sind Bienen laut Text so wichtig?",
+       "options": [
+        {
+         "text": "Weil sie vor allem Honig für den Export produzieren.",
+         "correct": null
+        },
+        {
+         "text": "Weil viele Lebensmittel von ihrer Bestäubung abhängen.",
+         "correct": true
+        },
+        {
+         "text": "Weil sie andere Insekten von den Feldern vertreiben.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A7",
+       "type": "SINGLE_CHOICE",
+       "text": "Warum finden Bienen immer weniger Nahrung?",
+       "options": [
+        {
+         "text": "Weil blühende Wiesen und Hecken verschwinden.",
+         "correct": true
+        },
+        {
+         "text": "Weil Bauern keine Felder mehr anlegen.",
+         "correct": null
+        },
+        {
+         "text": "Weil es in den Städten zu viele Parks gibt.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A8",
+       "type": "SINGLE_CHOICE",
+       "text": "Welche Folge hat der Klimawandel für die Bienen?",
+       "options": [
+        {
+         "text": "Die Bienenvölker werden größer.",
+         "correct": null
+        },
+        {
+         "text": "Die Bienen fliegen im Winter in den Süden.",
+         "correct": null
+        },
+        {
+         "text": "Die Blütezeit der Pflanzen passt nicht mehr zum Rhythmus der Bienen.",
+         "correct": true
+        }
+       ]
+      },
+      {
+       "no": "A9",
+       "type": "SINGLE_CHOICE",
+       "text": "Was kann man im eigenen Garten für Bienen tun?",
+       "options": [
+        {
+         "text": "Möglichst exotische Pflanzen kaufen.",
+         "correct": null
+        },
+        {
+         "text": "Heimische Blumen pflanzen und auf Chemie verzichten.",
+         "correct": true
+        },
+        {
+         "text": "Den Garten regelmäßig mit Pflanzenschutzmitteln behandeln.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A10",
+       "type": "SINGLE_CHOICE",
+       "text": "Wovor warnen Experten beim Hobby-Imkern?",
+       "options": [
+        {
+         "text": "Vor den hohen Kosten der Kurse.",
+         "correct": null
+        },
+        {
+         "text": "Vor dem gefährlichen Stich der Honigbienen.",
+         "correct": null
+        },
+        {
+         "text": "Vor zu vielen Honigbienen auf kleinem Raum.",
+         "correct": true
+        }
+       ]
+      }
+     ],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 378
+    },
+    {
+     "title": "Teil 3",
+     "instructions": "Lesen Sie die zehn Überschriften und die sieben Texte. Entscheiden Sie, welche Überschrift A–J zu welchem Text (A11–A17) passt. Pro Text passt nur eine Überschrift. Drei Überschriften passen nicht.",
+     "text": "Überschriften\nA. Großeltern übernehmen wichtige Aufgaben\nB. Paare heiraten später\nC. Väter betreuen häufiger ihre Kinder\nD. Mehrgenerationenhäuser werden beliebter\nE. Streit ums Erbe\nF. Kinder helfen weniger im Haushalt\nG. Familienessen verliert an Bedeutung\nH. Junge Erwachsene ziehen später aus\nI. Hilfe für pflegende Angehörige\nJ. Familienurlaub wird teurer",
+     "questions": [
+      {
+       "no": "A11",
+       "type": "MATCHING",
+       "text": "In vielen Familien spielen Großeltern heute eine zentrale Rolle. Sie holen die Enkel von der Schule ab, kochen am Mittag und helfen bei den Hausaufgaben. Für berufstätige Eltern ist diese Unterstützung oft unverzichtbar. Studien zeigen außerdem, dass Kinder von dem engen Kontakt zu älteren Menschen profitieren und dabei viel über frühere Zeiten lernen. Viele Großeltern fühlen sich dadurch auch selbst jünger.",
+       "options": [
+        {
+         "text": "A",
+         "correct": true
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        },
+        {
+         "text": "F",
+         "correct": null
+        },
+        {
+         "text": "G",
+         "correct": null
+        },
+        {
+         "text": "H",
+         "correct": null
+        },
+        {
+         "text": "I",
+         "correct": null
+        },
+        {
+         "text": "J",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A12",
+       "type": "MATCHING",
+       "text": "Immer mehr Männer nehmen nach der Geburt eines Kindes Elternzeit. Während es früher fast ausschließlich die Mütter waren, die zu Hause blieben, teilen sich viele Paare die Betreuung heute. Arbeitgeber reagieren darauf mit flexibleren Arbeitszeiten. Experten sehen darin einen wichtigen Schritt zu mehr Gleichberechtigung. Auch in kleinen Firmen arbeiten Väter inzwischen immer öfter Teilzeit.",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": true
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        },
+        {
+         "text": "F",
+         "correct": null
+        },
+        {
+         "text": "G",
+         "correct": null
+        },
+        {
+         "text": "H",
+         "correct": null
+        },
+        {
+         "text": "I",
+         "correct": null
+        },
+        {
+         "text": "J",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A13",
+       "type": "MATCHING",
+       "text": "In mehreren Städten entstehen Wohnprojekte, in denen junge Familien, Studierende und Senioren unter einem Dach leben. Man trifft sich in einem gemeinsamen Garten, organisiert Feste und hilft sich gegenseitig. Die Bewohner betonen, dass niemand allein ist und jeder von den anderen lernen kann. Die Wartelisten für freie Wohnungen sind lang.",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": true
+        },
+        {
+         "text": "E",
+         "correct": null
+        },
+        {
+         "text": "F",
+         "correct": null
+        },
+        {
+         "text": "G",
+         "correct": null
+        },
+        {
+         "text": "H",
+         "correct": null
+        },
+        {
+         "text": "I",
+         "correct": null
+        },
+        {
+         "text": "J",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A14",
+       "type": "MATCHING",
+       "text": "Viele junge Menschen bleiben heute bis Mitte zwanzig in ihrem Elternhaus. Gründe dafür sind lange Ausbildungszeiten und hohe Mieten in den Städten. Manche Eltern freuen sich über die Gesellschaft, andere wünschen sich mehr Ruhe. Forscher erwarten, dass sich dieser Trend in nächster Zeit fortsetzt.",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        },
+        {
+         "text": "F",
+         "correct": null
+        },
+        {
+         "text": "G",
+         "correct": null
+        },
+        {
+         "text": "H",
+         "correct": true
+        },
+        {
+         "text": "I",
+         "correct": null
+        },
+        {
+         "text": "J",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A15",
+       "type": "MATCHING",
+       "text": "Wer einen kranken oder alten Familienangehörigen zu Hause betreut, ist oft stark belastet. Deshalb bieten Krankenkassen und Gemeinden jetzt mehr Beratung, Kurse und kurzfristige Entlastung an. So können sich pflegende Angehörige auch einmal erholen. Eine Frau aus Köln, die ihre Mutter pflegt, findet die neuen Angebote sehr hilfreich.",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        },
+        {
+         "text": "F",
+         "correct": null
+        },
+        {
+         "text": "G",
+         "correct": null
+        },
+        {
+         "text": "H",
+         "correct": null
+        },
+        {
+         "text": "I",
+         "correct": true
+        },
+        {
+         "text": "J",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A16",
+       "type": "MATCHING",
+       "text": "Laut einer Umfrage essen nur noch wenige Familien regelmäßig gemeinsam zu Abend. Unterschiedliche Arbeitszeiten, Freizeittermine und Smartphones am Tisch machen das schwierig. Ernährungsexperten bedauern diese Entwicklung, weil gemeinsame Mahlzeiten Gespräche fördern. Einige Schulen haben Projekte gestartet, in denen Kinder lernen, gemeinsam mit ihrer Familie Gerichte zu kochen.",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        },
+        {
+         "text": "F",
+         "correct": null
+        },
+        {
+         "text": "G",
+         "correct": true
+        },
+        {
+         "text": "H",
+         "correct": null
+        },
+        {
+         "text": "I",
+         "correct": null
+        },
+        {
+         "text": "J",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A17",
+       "type": "MATCHING",
+       "text": "Das Durchschnittsalter bei der ersten Hochzeit steigt seit Jahren. Viele Paare möchten zuerst ihre Ausbildung beenden und beruflich sicher sein. Andere leben lange zusammen, ohne überhaupt zu heiraten. Frauen sind bei der ersten Hochzeit heute im Durchschnitt älter als dreißig.",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": true
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        },
+        {
+         "text": "F",
+         "correct": null
+        },
+        {
+         "text": "G",
+         "correct": null
+        },
+        {
+         "text": "H",
+         "correct": null
+        },
+        {
+         "text": "I",
+         "correct": null
+        },
+        {
+         "text": "J",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 50
+    },
+    {
+     "title": "Teil 4",
+     "instructions": "Lesen Sie den Text „Die Rückkehr der Wölfe“ und lösen Sie dazu die Aufgaben A18–A26.\nWelche der Aussagen sind Richtig (A), Falsch (B) oder gar nicht im Text enthalten (C)?\nEs gibt jeweils nur eine richtige Lösung.",
+     "text": "Text: Die Rückkehr der Wölfe\nMehr als hundert Jahre lang gab es in Deutschland keine wild lebenden Wölfe. Die Tiere waren gejagt und schließlich vollständig ausgerottet worden, weil man sie als Gefahr für Menschen und Nutztiere betrachtete. Erst um das Jahr 2000 wanderten wieder einzelne Wölfe aus Polen nach Ostdeutschland ein. Seitdem hat sich die Zahl der Tiere deutlich erhöht, und heute leben in mehreren Bundesländern wieder Wolfsrudel.\nFür viele Naturschützer ist diese Entwicklung ein großer Erfolg. Sie betonen, dass der Wolf ein natürlicher Teil des Ökosystems ist. Als Jäger hält er die Bestände von Rehen und Wildschweinen im Gleichgewicht und sorgt dafür, dass vor allem kranke und schwache Tiere gefressen werden. Dadurch können sich Wälder besser erholen, weil weniger junge Bäume von Wildtieren beschädigt werden.\nGleichzeitig führt die Rückkehr der Wölfe zu Konflikten. Besonders Schäfer und Landwirte machen sich Sorgen, denn Wölfe greifen immer wieder Schafe oder Ziegen an. In manchen Regionen wurden in einer einzigen Nacht mehrere Tiere getötet. Die betroffenen Tierhalter erhalten zwar eine finanzielle Entschädigung vom Staat, doch viele empfinden das nur als kleinen Trost. Sie fordern, dass auffällige Wölfe leichter abgeschossen werden dürfen.\nUm Angriffe zu verhindern, unterstützen die Bundesländer den Bau von Schutzzäunen. Elektrische Zäune, die hoch genug sind, halten die meisten Wölfe zuverlässig fern. Auch speziell ausgebildete Herdenschutzhunde haben sich bewährt. Allerdings sind solche Maßnahmen teuer und bedeuten für die Tierhalter viel zusätzliche Arbeit.\nIn Niedersachsen und Brandenburg haben einige Gemeinden außerdem vor einigen Jahren Informationszentren eröffnet. Dort erfahren Interessierte und Schulklassen, wie Wölfe leben, wie man ihre Spuren erkennt und warum die Tiere geschützt sind. Die Verantwortlichen hoffen, dass sachliche Informationen Ängste abbauen und die oft emotionale Debatte versachlichen.\nViele Menschen fragen sich außerdem, ob Wölfe für sie selbst gefährlich sind. Fachleute weisen darauf hin, dass gesunde Wölfe den Kontakt zu Menschen normalerweise meiden. Seit der Rückkehr der Tiere ist in Deutschland kein Mensch von einem Wolf angegriffen worden. Wer einem Wolf begegnet, sollte ruhig bleiben, auf sich aufmerksam machen und langsam zurückgehen.\nProblematisch wird es, wenn Wölfe ihre natürliche Scheu verlieren. Das geschieht vor allem dann, wenn sie von Menschen gefüttert werden oder in der Nähe von Dörfern leicht Futter finden. Deshalb ist es streng verboten, Wölfe zu füttern.\nDie Diskussion über den Wolf zeigt, wie schwierig es sein kann, Naturschutz und die Interessen der Menschen in Einklang zu bringen. Experten sind sich einig, dass ein Zusammenleben möglich ist – wenn alle Beteiligten bereit sind, Kompromisse zu finden und voneinander zu lernen.",
+     "questions": [
+      {
+       "no": "A18",
+       "type": "TRUE_FALSE",
+       "text": "In Deutschland haben immer wild lebende Wölfe gelebt.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": true
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A19",
+       "type": "TRUE_FALSE",
+       "text": "Die ersten Wölfe kamen um das Jahr 2000 aus Polen.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": true
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A20",
+       "type": "TRUE_FALSE",
+       "text": "Wölfe fressen vor allem gesunde und starke Tiere.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": true
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A21",
+       "type": "TRUE_FALSE",
+       "text": "Tierhalter bekommen eine Entschädigung, wenn ein Wolf ihre Tiere tötet.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": true
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A22",
+       "type": "TRUE_FALSE",
+       "text": "In Bayern leben mehr Wölfe als in allen anderen Bundesländern.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": true
+        }
+       ]
+      },
+      {
+       "no": "A23",
+       "type": "TRUE_FALSE",
+       "text": "Herdenschutzhunde sind billiger als elektrische Zäune.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": true
+        }
+       ]
+      },
+      {
+       "no": "A24",
+       "type": "TRUE_FALSE",
+       "text": "In Deutschland wurde seit der Rückkehr der Wölfe kein Mensch angegriffen.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": true
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A25",
+       "type": "TRUE_FALSE",
+       "text": "Es ist erlaubt, Wölfe in der Nähe von Dörfern zu füttern.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": true
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A26",
+       "type": "TRUE_FALSE",
+       "text": "Viele Touristen besuchen Regionen, in denen Wölfe leben.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": true
+        }
+       ]
+      }
+     ],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 410
+    },
+    {
+     "title": "Teil 5",
+     "instructions": "Lesen Sie den Text und dazu die Aufgaben A27–A35. Entscheiden Sie, welche der Antworten A, B oder C richtig ist. Zu jeder Aufgabe gibt es jeweils nur eine richtige Lösung.",
+     "text": "Schnelle Mode – teurer Preis?\nNoch nie war Kleidung so günstig und so schnell verfügbar wie heute. Große Modeketten bringen beinahe jede Woche neue Kollektionen in ihre Geschäfte und Onlineshops. Was gestern auf dem Laufsteg zu sehen war, hängt wenige Tage später als preiswerte Kopie im Laden. Dieses Geschäftsmodell wird „Fast Fashion“ genannt – und es steht zunehmend in der Kritik.\nDie Folgen für die Umwelt sind erheblich. Für die Herstellung eines einzigen Baumwoll-T-Shirts werden mehrere tausend Liter Wasser benötigt. Viele Stoffe bestehen zudem aus Kunstfasern, die aus Erdöl hergestellt werden und beim Waschen winzige Plastikteilchen ins Abwasser abgeben. Da Kleidungsstücke oft nur wenige Male getragen werden, wachsen gleichzeitig die Berge an Textilmüll.\nEin weiteres Problem ist der Transport. Viele Kleidungsstücke legen auf ihrem Weg vom Baumwollfeld bis in den Kleiderschrank Tausende Kilometer zurück, weil Anbau, Spinnerei, Färberei und Näherei in verschiedenen Ländern stattfinden. Jeder dieser Schritte verursacht zusätzliche klimaschädliche Emissionen und Kosten.\nAuch die sozialen Bedingungen in den Produktionsländern sind problematisch. Näherinnen arbeiten häufig für sehr niedrige Löhne, lange Schichten und unter mangelhaften Sicherheitsvorkehrungen. Schwere Unfälle in Textilfabriken haben in den vergangenen Jahren weltweit für Empörung gesorgt und die Branche unter Druck gesetzt.\nInzwischen reagieren manche Unternehmen und versprechen mehr Nachhaltigkeit. Sie bieten Kollektionen aus recycelten Materialien an oder nehmen alte Kleidung im Geschäft zurück. Kritiker halten diese Maßnahmen jedoch oft für reine Werbung, solange das Grundprinzip – möglichst viel, möglichst billig – unverändert bleibt.\nGleichzeitig wächst eine Gegenbewegung. Secondhand-Läden, Kleidertauschpartys und Reparaturcafés erfreuen sich besonders bei jungen Menschen großer Beliebtheit. Wer bewusst weniger kauft, auf Qualität achtet und Kleidung länger trägt, kann den eigenen ökologischen Fußabdruck spürbar verringern.\nOb sich die Modebranche grundlegend verändert, hängt letztlich auch von den Verbraucherinnen und Verbrauchern ab: Werden sie bereit sein, für fair produzierte Kleidung mehr zu bezahlen?",
+     "questions": [
+      {
+       "no": "A27",
+       "type": "SINGLE_CHOICE",
+       "text": "Was versteht man unter „Fast Fashion“?",
+       "options": [
+        {
+         "text": "Ständig neue, billige Kollektionen in kurzer Zeit.",
+         "correct": true
+        },
+        {
+         "text": "Besonders hochwertige Kleidung von Designern.",
+         "correct": null
+        },
+        {
+         "text": "Kleidung, die nur im Internet verkauft wird.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A28",
+       "type": "SINGLE_CHOICE",
+       "text": "Warum ist Kleidung aus Kunstfasern problematisch?",
+       "options": [
+        {
+         "text": "Weil sie sehr viel Wasser bei der Herstellung braucht.",
+         "correct": null
+        },
+        {
+         "text": "Weil sie beim Waschen Plastikteilchen abgibt.",
+         "correct": true
+        },
+        {
+         "text": "Weil sie nicht gefärbt werden kann.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A29",
+       "type": "SINGLE_CHOICE",
+       "text": "Warum wächst die Menge an Textilmüll?",
+       "options": [
+        {
+         "text": "Weil die Kleidung schneller kaputtgeht als früher.",
+         "correct": null
+        },
+        {
+         "text": "Weil Recycling verboten ist.",
+         "correct": null
+        },
+        {
+         "text": "Weil viele Kleidungsstücke nur wenige Male getragen werden.",
+         "correct": true
+        }
+       ]
+      },
+      {
+       "no": "A30",
+       "type": "SINGLE_CHOICE",
+       "text": "Wie werden die Arbeitsbedingungen der Näherinnen beschrieben?",
+       "options": [
+        {
+         "text": "Als schlecht bezahlt und oft unsicher.",
+         "correct": true
+        },
+        {
+         "text": "Als modern und gut organisiert.",
+         "correct": null
+        },
+        {
+         "text": "Als streng kontrolliert durch internationale Behörden.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A31",
+       "type": "SINGLE_CHOICE",
+       "text": "Was hat die Branche in den letzten Jahren unter Druck gesetzt?",
+       "options": [
+        {
+         "text": "Sinkende Verkaufszahlen in Europa.",
+         "correct": null
+        },
+        {
+         "text": "Schwere Unfälle in Textilfabriken.",
+         "correct": true
+        },
+        {
+         "text": "Neue Steuern auf Baumwolle.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A32",
+       "type": "SINGLE_CHOICE",
+       "text": "Wie reagieren manche Modeunternehmen auf die Kritik?",
+       "options": [
+        {
+         "text": "Sie schließen ihre Onlineshops.",
+         "correct": null
+        },
+        {
+         "text": "Sie produzieren nur noch in Europa.",
+         "correct": null
+        },
+        {
+         "text": "Sie bieten recycelte Kollektionen an und nehmen alte Kleidung zurück.",
+         "correct": true
+        }
+       ]
+      },
+      {
+       "no": "A33",
+       "type": "SINGLE_CHOICE",
+       "text": "Was denken Kritiker über diese Maßnahmen?",
+       "options": [
+        {
+         "text": "Sie seien oft nur Werbung.",
+         "correct": true
+        },
+        {
+         "text": "Sie würden die Branche vollständig verändern.",
+         "correct": null
+        },
+        {
+         "text": "Sie seien für Kunden zu teuer.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A34",
+       "type": "SINGLE_CHOICE",
+       "text": "Was gehört laut Text zur Gegenbewegung?",
+       "options": [
+        {
+         "text": "Der Kauf von besonders billiger Kleidung.",
+         "correct": null
+        },
+        {
+         "text": "Secondhand-Läden und Reparaturcafés.",
+         "correct": true
+        },
+        {
+         "text": "Wöchentliche neue Kollektionen.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A35",
+       "type": "SINGLE_CHOICE",
+       "text": "Welche Frage stellt der Text am Ende?",
+       "options": [
+        {
+         "text": "Ob die Mode in Zukunft noch billiger wird.",
+         "correct": null
+        },
+        {
+         "text": "Ob die Unternehmen mehr Werbung machen sollten.",
+         "correct": null
+        },
+        {
+         "text": "Ob Kunden bereit sind, für faire Kleidung mehr zu zahlen.",
+         "correct": true
+        }
+       ]
+      }
+     ],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 293
+    }
+   ],
+   "title": "Lesen",
+   "duration_minutes": 60,
+   "total_points": 35
+  },
+  {
+   "type": "HOEREN",
+   "teile": [],
+   "title": "Hören",
+   "duration_minutes": 40,
+   "total_points": 0
+  },
+  {
+   "type": "SCHREIBEN",
+   "teile": [
+    {
+     "title": "Teil 1.1",
+     "instructions": "",
+     "text": "Sie wohnen in einem Mehrfamilienhaus in Ihrer Stadt.\nSie haben eine E-Mail von der Hausverwaltung erhalten:\nLiebe Mieterinnen und Mieter,\nwir möchten Sie darüber informieren, dass der Innenhof unseres Hauses im nächsten Monat umgebaut wird. In dieser Zeit können der Spielplatz und die Fahrradständer leider nicht benutzt werden. Nach dem Umbau planen wir mehr Grünflächen und neue Sitzplätze für alle Bewohnerinnen und Bewohner.\nWir würden gerne Ihre Meinung hören: Wie sollte der neue Innenhof gestaltet werden? Haben Sie Ideen für gemeinsame Angebote?\nVielen Dank für Ihre Vorschläge.\nMit freundlichen Grüßen\nDie Hausverwaltung\n\nSchreiben Sie einen kurzen Brief an Ihre Freundin / Ihren Freund, die / der auch in diesem Haus wohnt.\nSchreiben Sie über Ihre Gefühle und Ihre Meinung zu dieser Situation.\nSchreiben Sie ca. 50 Wörter.",
+     "questions": [],
+     "pages": [],
+     "words": 50,
+     "same_situation": false,
+     "text_words": 125
+    },
+    {
+     "title": "Teil 1.2",
+     "instructions": "",
+     "text": "Schreiben Sie eine E-Mail an die Hausverwaltung.\nBeschreiben Sie Ihre Meinung zum Umbau und machen Sie Vorschläge, wie der neue Innenhof gestaltet und gemeinsam genutzt werden könnte.\nSchreiben Sie ca. 120–150 Wörter.",
+     "questions": [],
+     "pages": [],
+     "words": 150,
+     "same_situation": true,
+     "text_words": 33
+    },
+    {
+     "title": "Teil 2",
+     "instructions": "",
+     "text": "Sie nehmen an einer Online-Diskussion für Bürgerinnen und Bürger in Usbekistan teil.\nDie Frage lautet:\n„Immer mehr Schulen führen Schuluniformen ein. Sollten wirklich alle Schülerinnen und Schüler eine Uniform tragen?“\nPosten Sie Ihre Meinung in einem Diskussionsbeitrag.\nBegründen Sie Ihre Meinung und nennen Sie Beispiele.\nSchreiben Sie 180–200 Wörter.",
+     "questions": [],
+     "pages": [],
+     "words": 200,
+     "same_situation": false,
+     "text_words": 50
+    }
+   ],
+   "title": "Schreiben",
+   "duration_minutes": 60,
+   "total_points": 0
+  },
+  {
+   "type": "SPRECHEN",
+   "teile": [
+    {
+     "title": "Teil 1.1",
+     "instructions": "",
+     "text": "• Hören Sie gern Musik?\n• Welche Musik hören Sie am liebsten und wann?\n• Glauben Sie, dass Musik die Stimmung eines Menschen verändern kann?",
+     "questions": [],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 22
+    },
+    {
+     "title": "Teil 1.2",
+     "instructions": "",
+     "text": "Fragen\n1. Was ist auf den Bildern zu sehen?\n2. Warum lesen manche Menschen lieber gedruckte Bücher und andere lieber am Bildschirm?\n3. Welche Bücher lesen Sie besonders gern?",
+     "questions": [],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 29
+    },
+    {
+     "title": "Teil 2",
+     "instructions": "",
+     "text": "Beschreiben Sie ein Fest, das Sie gern feiern.\nSie sollten sagen:\n• Wie dieses Fest heißt;\n• Wann und mit wem Sie es feiern;\n• Was man an diesem Tag macht;\n• Und erklären Sie, warum es für Sie wichtig ist.",
+     "questions": [],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 37
+    },
+    {
+     "title": "Teil 3",
+     "instructions": "",
+     "text": "Sollten Kinder schon im Kindergarten eine Fremdsprache lernen?\nPro: Kinder lernen Sprachen spielerisch und leicht · Bessere Chancen in Schule und Beruf · Offenheit für andere Kulturen\nContra: Zu viel Druck für kleine Kinder · Die Muttersprache kommt zu kurz · Fehlende qualifizierte Lehrkräfte",
+     "questions": [],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 40
+    }
+   ],
+   "title": "Sprechen",
+   "duration_minutes": 15,
+   "total_points": 0
+  }
+ ],
+ "review": [
+  {
+   "where": "Sprechen Teil 1.2",
+   "note": "Sprechen Teil 1.2: Bilder fehlen noch — bitte zwei Fotos hochladen (1: Person liest ein gedrucktes Buch, 2: Person liest auf einem E-Reader/Tablet)."
+  }
+ ]
+}

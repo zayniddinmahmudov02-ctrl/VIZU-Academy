@@ -1,0 +1,1933 @@
+{
+ "number": 1,
+ "content_id": "vizu-multilevel-mt01",
+ "title": "Modelltest 1",
+ "origin": "pdf",
+ "source_pdf": "Multilevel Mock Variant 1.pdf",
+ "description": "Multilevel Modelltest 1 — aus „Multilevel Mock Variant 1.pdf“ (Der Deutschlehrer: Zayniddinkhuja Makhmudov).",
+ "kompetenzen": [
+  {
+   "type": "LESEN",
+   "teile": [
+    {
+     "title": "Teil 1",
+     "pages": [
+      2
+     ],
+     "instructions": "Aufgabe\nBringen Sie die Textteile A–E in eine sinnvolle Reihenfolge.\nIhre Lösung:\nEinleitung → Lösung → Tipps → Zusatz → Fazit.",
+     "text": "A. Wichtig ist, Prioritäten zu setzen und sich nicht zu viel auf einmal vorzunehmen.\n\nB. Wer seine Zeit bewusst plant, gewinnt mehr Freiheit für die Dinge, die wirklich wichtig sind.\n\nC. Zeit ist eine wertvolle Ressource – und viele Menschen haben das Gefühl, zu wenig davon zu haben.\n\nD. Auch kleine Pausen sind wichtig, um neue Energie zu tanken und konzentriert zu bleiben.\n\nE. Mit einem guten Zeitmanagement lässt sich der Alltag jedoch besser strukturieren und Stress vermeiden.",
+     "words": null,
+     "same_situation": false,
+     "questions": [
+      {
+       "no": "A1",
+       "type": "ORDERING",
+       "text": "A1",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A2",
+       "type": "ORDERING",
+       "text": "A2",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A3",
+       "type": "ORDERING",
+       "text": "A3",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A4",
+       "type": "ORDERING",
+       "text": "A4",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A5",
+       "type": "ORDERING",
+       "text": "A5",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "text_words": 77
+    },
+    {
+     "title": "Teil 2",
+     "pages": [
+      3,
+      4,
+      5
+     ],
+     "instructions": "",
+     "text": "In den letzten Jahren ist das Thema Umweltschutz für viele Menschen immer wichtiger geworden.\n\nWissenschaftler warnen seit langem davor, dass die Erde unter der zunehmenden Verschmutzung leidet. Luft, Wasser und Boden sind in vielen Regionen stark belastet. Gleichzeitig wächst das Bewusstsein in der Gesellschaft, dass jeder Einzelne etwas zum Schutz der Umwelt beitragen kann.\n\nViele Menschen beginnen deshalb damit, ihr Verhalten im Alltag zu verändern. Sie versuchen zum Beispiel weniger Plastik zu benutzen, Müll zu trennen oder häufiger öffentliche Verkehrsmittel zu nutzen. Auch das Fahrrad gewinnt in vielen Städten wieder an Bedeutung. Wer mit dem Fahrrad fährt, produziert keine Abgase und tut gleichzeitig etwas für die eigene Gesundheit.\n\nEin weiterer wichtiger Bereich ist der Energieverbrauch im Haushalt. Moderne Geräte verbrauchen zwar weniger Strom als früher, doch viele Menschen lassen ihre Geräte unnötig lange eingeschaltet. Computer, Fernseher oder Lampen bleiben oft an, obwohl sie gerade nicht gebraucht werden. Schon kleine Veränderungen können hier eine große Wirkung haben. Wenn man zum Beispiel das Licht ausschaltet oder energiesparende Lampen benutzt, kann man Strom und Geld sparen.\n\nAuch beim Einkaufen kann man umweltbewusst handeln. Viele Produkte werden heute in aufwendigen Verpackungen verkauft. Wer darauf achtet, möglichst unverpackte oder regional produzierte Lebensmittel zu kaufen, hilft dabei, Müll und lange Transportwege zu reduzieren. Besonders beliebt sind inzwischen Wochenmärkte, auf denen lokale Bauern ihre Produkte direkt anbieten.\n\nTrotz dieser positiven Entwicklungen gibt es noch viele Herausforderungen. Große Industriebetriebe verursachen weiterhin erhebliche Mengen an Emissionen. Auch der weltweite Verkehr wächst ständig, besonders der Flugverkehr. Deshalb fordern viele Experten strengere Umweltgesetze und internationale Zusammenarbeit.\n\nGleichzeitig spielt Bildung eine entscheidende Rolle. Kinder und Jugendliche lernen in der Schule immer häufiger, wie wichtig nachhaltiges Handeln ist. Projekte zu Recycling, Energiesparen oder Naturschutz gehören heute in vielen Schulen zum Unterricht. Dadurch entwickeln junge Menschen ein stärkeres Verantwortungsgefühl für die Natur.\n\nDoch Umweltschutz bedeutet nicht nur Verzicht. Viele neue Technologien zeigen, dass wirtschaftliche Entwicklung und Umweltbewusstsein miteinander vereinbar sein können. Erneuerbare Energien wie Windkraft, Solarenergie oder Wasserkraft werden weltweit immer stärker genutzt.\n\nAm Ende hängt der Erfolg des Umweltschutzes davon ab, wie viele Menschen bereit sind, ihr Verhalten zu ändern. Jede kleine Entscheidung im Alltag – sei es beim Einkaufen, beim Reisen oder beim Energieverbrauch – kann einen Unterschied machen. Wenn Millionen Menschen bewusst handeln, entsteht daraus eine große Wirkung für unseren Planeten.",
+     "words": null,
+     "same_situation": false,
+     "questions": [
+      {
+       "no": "A6",
+       "type": "SINGLE_CHOICE",
+       "text": "Warum wird das Thema Umweltschutz heute wichtiger?",
+       "options": [
+        {
+         "text": "Weil viele Wissenschaftler neue Technologien entwickeln.",
+         "correct": null
+        },
+        {
+         "text": "Weil Umweltverschmutzung ein großes Problem geworden ist.",
+         "correct": null
+        },
+        {
+         "text": "Weil Menschen mehr Geld sparen möchten.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A7",
+       "type": "SINGLE_CHOICE",
+       "text": "Warum fahren viele Menschen wieder häufiger Fahrrad?",
+       "options": [
+        {
+         "text": "Weil es umweltfreundlich und gesund ist.",
+         "correct": null
+        },
+        {
+         "text": "Weil Autos heute zu klein geworden sind.",
+         "correct": null
+        },
+        {
+         "text": "Weil öffentliche Verkehrsmittel zu teuer sind.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A8",
+       "type": "SINGLE_CHOICE",
+       "text": "Was kann man beim Einkaufen für die Umwelt tun?",
+       "options": [
+        {
+         "text": "Nur sehr teure Produkte kaufen.",
+         "correct": null
+        },
+        {
+         "text": "Produkte mit viel Verpackung kaufen.",
+         "correct": null
+        },
+        {
+         "text": "Regionale und möglichst unverpackte Produkte wählen.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A9",
+       "type": "SINGLE_CHOICE",
+       "text": "Warum fordern Experten strengere Umweltgesetze?",
+       "options": [
+        {
+         "text": "Weil Industriebetriebe und Verkehr weiterhin viele Emissionen verursachen.",
+         "correct": null
+        },
+        {
+         "text": "Weil Menschen keine Fahrräder benutzen möchten.",
+         "correct": null
+        },
+        {
+         "text": "Weil Schulen zu wenig über Umweltschutz sprechen.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A10",
+       "type": "SINGLE_CHOICE",
+       "text": "Wovon hängt der Erfolg des Umweltschutzes laut Text ab?",
+       "options": [
+        {
+         "text": "Von neuen Autos und Maschinen.",
+         "correct": null
+        },
+        {
+         "text": "Vom Verhalten und den Entscheidungen der Menschen.",
+         "correct": null
+        },
+        {
+         "text": "Von der Größe der Städte.",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "text_words": 378
+    },
+    {
+     "title": "Teil 3",
+     "pages": [
+      6,
+      7
+     ],
+     "instructions": "Lesen Sie die zehn Überschriften und die sieben Texte. Entscheiden Sie, welche Überschrift A–J zu welchem",
+     "text": "Überschriften\nA. Studenten fordern mehr Unterstützung\nB. Digitalisierung verändert das Studium\nC. Kritik an steigenden Wohnkosten\nD. Universitäten setzen stärker auf Praxis\nE. Neue Stipendienprogramme geplant\nF. Online-Vorlesungen bleiben beliebt\nG. Studenten protestieren gegen neue Regeln\nH. Kooperation mit Unternehmen wächst\nI. Internationale Studenten werden wichtiger\nJ. Bibliotheken werden modernisiert",
+     "words": null,
+     "same_situation": false,
+     "questions": [
+      {
+       "no": "A11",
+       "type": "MATCHING",
+       "text": "Immer mehr Universitäten versuchen, internationale Studenten für ihre Studiengänge zu gewinnen. Viele Hochschulen bieten inzwischen spezielle Programme auf Englisch an und unterstützen ausländische Studierende bei der Wohnungssuche. Experten betonen, dass internationale Studenten nicht nur zur kulturellen Vielfalt beitragen, sondern auch wichtige Impulse für Forschung und Innovation liefern. Einige Universitäten planen deshalb zusätzliche Stipendienprogramme, um besonders talentierte Bewerber aus dem Ausland anzuziehen.",
+       "options": [
+        {
+         "text": "Studenten fordern mehr Unterstützung",
+         "correct": null
+        },
+        {
+         "text": "Digitalisierung verändert das Studium",
+         "correct": null
+        },
+        {
+         "text": "Kritik an steigenden Wohnkosten",
+         "correct": null
+        },
+        {
+         "text": "Universitäten setzen stärker auf Praxis",
+         "correct": null
+        },
+        {
+         "text": "Neue Stipendienprogramme geplant",
+         "correct": null
+        },
+        {
+         "text": "Online-Vorlesungen bleiben beliebt",
+         "correct": null
+        },
+        {
+         "text": "Studenten protestieren gegen neue Regeln",
+         "correct": null
+        },
+        {
+         "text": "Kooperation mit Unternehmen wächst",
+         "correct": null
+        },
+        {
+         "text": "Internationale Studenten werden wichtiger",
+         "correct": null
+        },
+        {
+         "text": "Bibliotheken werden modernisiert",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A12",
+       "type": "MATCHING",
+       "text": "Während der Pandemie mussten viele Universitäten ihre Lehrveranstaltungen ins Internet verlegen.\n\nObwohl der Präsenzunterricht inzwischen wieder möglich ist, möchten viele Studenten auf digitale Angebote nicht mehr verzichten. Online-Vorlesungen ermöglichen es ihnen, flexibler zu lernen und Vorlesungen auch später noch einmal anzuschauen. Einige Professoren sehen darin eine Chance, den Unterricht moderner und effizienter zu gestalten.",
+       "options": [
+        {
+         "text": "Studenten fordern mehr Unterstützung",
+         "correct": null
+        },
+        {
+         "text": "Digitalisierung verändert das Studium",
+         "correct": null
+        },
+        {
+         "text": "Kritik an steigenden Wohnkosten",
+         "correct": null
+        },
+        {
+         "text": "Universitäten setzen stärker auf Praxis",
+         "correct": null
+        },
+        {
+         "text": "Neue Stipendienprogramme geplant",
+         "correct": null
+        },
+        {
+         "text": "Online-Vorlesungen bleiben beliebt",
+         "correct": null
+        },
+        {
+         "text": "Studenten protestieren gegen neue Regeln",
+         "correct": null
+        },
+        {
+         "text": "Kooperation mit Unternehmen wächst",
+         "correct": null
+        },
+        {
+         "text": "Internationale Studenten werden wichtiger",
+         "correct": null
+        },
+        {
+         "text": "Bibliotheken werden modernisiert",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A13",
+       "type": "MATCHING",
+       "text": "In vielen Universitätsstädten steigen die Mietpreise seit Jahren stark an. Besonders Studenten haben Schwierigkeiten, bezahlbaren Wohnraum zu finden. Studentenvertretungen kritisieren, dass viele junge Menschen gezwungen sind, weit außerhalb der Stadt zu wohnen oder neben dem Studium mehrere Jobs anzunehmen. Sie fordern deshalb mehr staatliche Unterstützung und den Bau zusätzlicher Studentenwohnheime.",
+       "options": [
+        {
+         "text": "Studenten fordern mehr Unterstützung",
+         "correct": null
+        },
+        {
+         "text": "Digitalisierung verändert das Studium",
+         "correct": null
+        },
+        {
+         "text": "Kritik an steigenden Wohnkosten",
+         "correct": null
+        },
+        {
+         "text": "Universitäten setzen stärker auf Praxis",
+         "correct": null
+        },
+        {
+         "text": "Neue Stipendienprogramme geplant",
+         "correct": null
+        },
+        {
+         "text": "Online-Vorlesungen bleiben beliebt",
+         "correct": null
+        },
+        {
+         "text": "Studenten protestieren gegen neue Regeln",
+         "correct": null
+        },
+        {
+         "text": "Kooperation mit Unternehmen wächst",
+         "correct": null
+        },
+        {
+         "text": "Internationale Studenten werden wichtiger",
+         "correct": null
+        },
+        {
+         "text": "Bibliotheken werden modernisiert",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A14",
+       "type": "MATCHING",
+       "text": "Viele Universitäten versuchen heute, ihre Studiengänge stärker an die Anforderungen des Arbeitsmarktes anzupassen. Praktika, Projektarbeiten und Kooperationen mit Unternehmen werden deshalb immer wichtiger. Studenten erhalten dadurch die Möglichkeit, schon während des Studiums praktische Erfahrungen zu sammeln. Unternehmen profitieren gleichzeitig davon, frühzeitig qualifizierte Nachwuchskräfte kennenzulernen.",
+       "options": [
+        {
+         "text": "Studenten fordern mehr Unterstützung",
+         "correct": null
+        },
+        {
+         "text": "Digitalisierung verändert das Studium",
+         "correct": null
+        },
+        {
+         "text": "Kritik an steigenden Wohnkosten",
+         "correct": null
+        },
+        {
+         "text": "Universitäten setzen stärker auf Praxis",
+         "correct": null
+        },
+        {
+         "text": "Neue Stipendienprogramme geplant",
+         "correct": null
+        },
+        {
+         "text": "Online-Vorlesungen bleiben beliebt",
+         "correct": null
+        },
+        {
+         "text": "Studenten protestieren gegen neue Regeln",
+         "correct": null
+        },
+        {
+         "text": "Kooperation mit Unternehmen wächst",
+         "correct": null
+        },
+        {
+         "text": "Internationale Studenten werden wichtiger",
+         "correct": null
+        },
+        {
+         "text": "Bibliotheken werden modernisiert",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A15",
+       "type": "MATCHING",
+       "text": "In mehreren Bundesländern haben Studenten gegen neue Prüfungsordnungen protestiert. Sie kritisieren vor allem, dass die Studiengänge immer stärker strukturiert werden und weniger Raum für individuelle Entscheidungen lassen. Viele Studenten befürchten, dass der Druck dadurch weiter steigt.\n\nUniversitätsleitungen verteidigen die Reformen jedoch als notwendig, um die Studienzeiten zu verkürzen.",
+       "options": [
+        {
+         "text": "Studenten fordern mehr Unterstützung",
+         "correct": null
+        },
+        {
+         "text": "Digitalisierung verändert das Studium",
+         "correct": null
+        },
+        {
+         "text": "Kritik an steigenden Wohnkosten",
+         "correct": null
+        },
+        {
+         "text": "Universitäten setzen stärker auf Praxis",
+         "correct": null
+        },
+        {
+         "text": "Neue Stipendienprogramme geplant",
+         "correct": null
+        },
+        {
+         "text": "Online-Vorlesungen bleiben beliebt",
+         "correct": null
+        },
+        {
+         "text": "Studenten protestieren gegen neue Regeln",
+         "correct": null
+        },
+        {
+         "text": "Kooperation mit Unternehmen wächst",
+         "correct": null
+        },
+        {
+         "text": "Internationale Studenten werden wichtiger",
+         "correct": null
+        },
+        {
+         "text": "Bibliotheken werden modernisiert",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A16",
+       "type": "MATCHING",
+       "text": "Viele Universitätsbibliotheken befinden sich derzeit im Wandel. Neben klassischen Büchern bieten sie inzwischen moderne Arbeitsplätze, digitale Archive und Online-Datenbanken an. Studenten können dort nicht nur lesen, sondern auch gemeinsam an Projekten arbeiten oder digitale Lernmaterialien nutzen. Ziel dieser Veränderungen ist es, Bibliotheken zu modernen Lernzentren zu entwickeln.",
+       "options": [
+        {
+         "text": "Studenten fordern mehr Unterstützung",
+         "correct": null
+        },
+        {
+         "text": "Digitalisierung verändert das Studium",
+         "correct": null
+        },
+        {
+         "text": "Kritik an steigenden Wohnkosten",
+         "correct": null
+        },
+        {
+         "text": "Universitäten setzen stärker auf Praxis",
+         "correct": null
+        },
+        {
+         "text": "Neue Stipendienprogramme geplant",
+         "correct": null
+        },
+        {
+         "text": "Online-Vorlesungen bleiben beliebt",
+         "correct": null
+        },
+        {
+         "text": "Studenten protestieren gegen neue Regeln",
+         "correct": null
+        },
+        {
+         "text": "Kooperation mit Unternehmen wächst",
+         "correct": null
+        },
+        {
+         "text": "Internationale Studenten werden wichtiger",
+         "correct": null
+        },
+        {
+         "text": "Bibliotheken werden modernisiert",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A17",
+       "type": "MATCHING",
+       "text": "Immer mehr Hochschulen arbeiten eng mit Unternehmen zusammen. Gemeinsame Forschungsprojekte, Gastvorträge aus der Wirtschaft und praxisorientierte Seminare sollen Studenten besser auf ihre spätere Karriere vorbereiten. Kritiker warnen jedoch davor, dass Universitäten dadurch zu stark von wirtschaftlichen Interessen abhängig werden könnten.",
+       "options": [
+        {
+         "text": "Studenten fordern mehr Unterstützung",
+         "correct": null
+        },
+        {
+         "text": "Digitalisierung verändert das Studium",
+         "correct": null
+        },
+        {
+         "text": "Kritik an steigenden Wohnkosten",
+         "correct": null
+        },
+        {
+         "text": "Universitäten setzen stärker auf Praxis",
+         "correct": null
+        },
+        {
+         "text": "Neue Stipendienprogramme geplant",
+         "correct": null
+        },
+        {
+         "text": "Online-Vorlesungen bleiben beliebt",
+         "correct": null
+        },
+        {
+         "text": "Studenten protestieren gegen neue Regeln",
+         "correct": null
+        },
+        {
+         "text": "Kooperation mit Unternehmen wächst",
+         "correct": null
+        },
+        {
+         "text": "Internationale Studenten werden wichtiger",
+         "correct": null
+        },
+        {
+         "text": "Bibliotheken werden modernisiert",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "text_words": 50
+    },
+    {
+     "title": "Teil 4",
+     "pages": [
+      8,
+      9,
+      10
+     ],
+     "instructions": "Lesen Sie den Text „Elektroautos und ihre Bedeutung für die Zukunft“ und lösen Sie dazu die Aufgaben\nA18–A26.\nWelche der Aussagen sind Richtig (A), Falsch (B) oder gar nicht im Text enthalten (C)?\nEs gibt jeweils nur eine richtige Lösung.",
+     "text": "Text: Elektroautos und ihre Bedeutung für die Zukunft\n\nSeit einigen Jahren beschäftigen sich Wissenschaftler, Politiker und Industrieunternehmen intensiv mit der Entwicklung von Elektroautos. Der Verkehr gehört zu den größten Verursachern von CO₂-Emissionen, weshalb viele Länder nach Alternativen zu herkömmlichen Verbrennungsmotoren suchen. Elektroautos gelten dabei als eine besonders vielversprechende Lösung. Sie werden nicht mit Benzin oder Diesel betrieben, sondern mit elektrischer Energie, die in Batterien gespeichert wird.\n\nViele Menschen verbinden mit Elektroautos vor allem den Vorteil, dass sie während der Fahrt keine direkten Abgase produzieren. Dadurch können sie dazu beitragen, die Luftqualität in Städten zu verbessern. Dennoch weisen Experten darauf hin, dass die Umweltbilanz eines Elektroautos nicht nur vom Fahrzeug selbst abhängt.\n\nEntscheidend ist auch, wie der Strom erzeugt wird, mit dem die Batterien geladen werden. Wird dieser Strom aus erneuerbaren Energiequellen wie Wind- oder Solarenergie gewonnen, ist der ökologische Vorteil deutlich größer.\n\nEin weiterer wichtiger Aspekt betrifft die technische Entwicklung der Batterien. Moderne Elektroautos können heute bereits deutlich längere Strecken zurücklegen als noch vor einigen Jahren. Gleichzeitig arbeiten Forscher daran, Batterien leichter, leistungsfähiger und langlebiger zu machen. Diese Fortschritte sind entscheidend, damit Elektroautos im Alltag für möglichst viele Menschen attraktiv werden.\n\nTrotz der technischen Fortschritte gibt es weiterhin Herausforderungen. Eine davon ist der Ausbau der Ladeinfrastruktur. Damit Elektroautos für eine große Zahl von Menschen praktikabel sind, müssen ausreichend Ladestationen vorhanden sein. Viele Städte und Unternehmen investieren deshalb in neue Ladesysteme, die das Aufladen schneller und einfacher machen sollen.\n\nAuch wirtschaftliche Faktoren spielen eine wichtige Rolle. Elektroautos sind derzeit häufig teurer als vergleichbare Fahrzeuge mit Verbrennungsmotor. Einige Regierungen versuchen deshalb, den Kauf solcher Fahrzeuge durch finanzielle Förderprogramme zu unterstützen. Ziel ist es, die Verbreitung dieser Technologie zu beschleunigen und gleichzeitig Innovationen in der Automobilindustrie zu fördern.\n\nDarüber hinaus verändert die Entwicklung von Elektroautos auch die Struktur der Automobilindustrie. Neue Unternehmen treten in den Markt ein, während traditionelle Hersteller ihre Produktionsstrategien anpassen müssen. Ingenieure und Fachkräfte arbeiten verstärkt an Software, Batterietechnik und Energiemanagement.\n\nLangfristig sehen viele Experten in Elektroautos einen wichtigen Schritt hin zu einer nachhaltigeren Mobilität.\n\nSie betonen jedoch, dass diese Technologie nur ein Teil einer umfassenderen Lösung sein kann. Neben der Elektrifizierung des Verkehrs müssen auch öffentliche Verkehrssysteme verbessert, Städte besser geplant und alternative Mobilitätskonzepte entwickelt werden.\n\nDie Diskussion über Elektroautos zeigt somit, wie eng technologische Innovation, wirtschaftliche Interessen und Umweltfragen miteinander verbunden sind. Wie erfolgreich diese Entwicklung sein wird, hängt letztlich davon ab, ob es gelingt, technische Fortschritte mit gesellschaftlichen Bedürfnissen und ökologischen Anforderungen in Einklang zu bringen.",
+     "words": null,
+     "same_situation": false,
+     "questions": [
+      {
+       "no": "A18",
+       "type": "TRUE_FALSE",
+       "text": "Elektroautos werden hauptsächlich mit Benzin betrieben.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A19",
+       "type": "TRUE_FALSE",
+       "text": "Elektroautos verursachen während der Fahrt keine direkten Abgase.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A20",
+       "type": "TRUE_FALSE",
+       "text": "Die Umweltfreundlichkeit von Elektroautos hängt auch von der Stromquelle ab.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A21",
+       "type": "TRUE_FALSE",
+       "text": "Moderne Elektroautos können heute längere Strecken fahren als frühere Modelle.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A22",
+       "type": "TRUE_FALSE",
+       "text": "In vielen Städten gibt es bereits genügend Ladestationen für Elektroautos.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A23",
+       "type": "TRUE_FALSE",
+       "text": "Einige Regierungen unterstützen den Kauf von Elektroautos finanziell.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A24",
+       "type": "TRUE_FALSE",
+       "text": "Die Entwicklung von Elektroautos hat keinen Einfluss auf die Automobilindustrie.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A25",
+       "type": "TRUE_FALSE",
+       "text": "Elektroautos sind derzeit oft günstiger als Autos mit Verbrennungsmotor.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A26",
+       "type": "TRUE_FALSE",
+       "text": "Elektroautos sind laut Text die einzige Lösung für nachhaltige Mobilität.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "text_words": 410
+    },
+    {
+     "title": "Teil 5",
+     "pages": [
+      11,
+      12,
+      13
+     ],
+     "instructions": "Lesen Sie den Text und dazu die Aufgaben A27-A35. Entscheiden Sie, welche der Antworten A, B oder C\nrichtig ist. Zu jeder Aufgabe gibt es jeweils nur eine richtige Lösung.",
+     "text": "Digitalisierung im Bildungswesen – Fortschritt oder Rückschritt?\n\nKaum ein Thema hat in den letzten Jahren die Bildungsdebatte so stark geprägt wie die Digitalisierung. Während manche den Einzug digitaler Medien in Schulen und Universitäten als überfälligen Fortschritt feiern, warnen andere vor einer digitalen Überforderung von Schülern und Lehrkräften. Die Meinungen gehen weit auseinander, doch eines ist klar: Der digitale Wandel stellt das Bildungswesen vor tiefgreifende Veränderungen.\n\nIn der Theorie sollen Tablets, Lernplattformen und interaktive Whiteboards das Lernen flexibler und individueller gestalten. In der Praxis jedoch kämpfen viele Schulen mit veralteter Technik, unzureichender IT-Infrastruktur und fehlender Schulung der Lehrkräfte. Besonders in ländlichen Regionen zeigt sich die digitale Kluft deutlich. Während einige Gymnasien in Großstädten bereits KI-gestützte Lernsoftware nutzen, kämpfen Schulen auf dem Land noch mit instabilem WLAN und fehlenden Endgeräten.\n\nEin weiteres Problem ist die Ungleichheit der digitalen Kompetenzen. Nicht alle Schüler verfügen über das gleiche Maß an Vorerfahrung mit digitalen Medien. Gerade Kinder aus sozial schwächeren Familien haben oft keinen Zugang zu den nötigen Geräten oder einem ruhigen Lernumfeld zu Hause. Die Folge ist eine Vertiefung der Bildungsschere, die durch Digitalisierung eigentlich verkleinert werden sollte.\n\nAuch die Rolle der Lehrer verändert sich. Sie müssen nicht nur unterrichten, sondern gleichzeitig technische Probleme lösen, digitale Inhalte erstellen und datenschutzrechtliche Vorgaben einhalten. Viele fühlen sich damit überfordert.\n\nKritiker befürchten, dass der eigentliche Bildungsauftrag in den Hintergrund tritt und Schulen zu Technologie-Testfeldern verkommen.\n\nDie Politik setzt große Hoffnungen in Digitalisierungsprojekte wie den „Digitalpakt Schule“. Doch obwohl Milliardenbeträge bereitgestellt wurden, verzögern sich vielerorts die Umsetzungen durch bürokratische Hürden. Hinzu kommen ethische Fragen: Soll KI künftig Lernstände bewerten? Welche Daten dürfen gespeichert werden? Und wie wird sichergestellt, dass Bildung weiterhin menschlich bleibt?\n\nEs bleibt die Frage: Dient die Digitalisierung wirklich der Verbesserung der Bildung – oder wird sie zur neuen sozialen Trennlinie?",
+     "words": null,
+     "same_situation": false,
+     "questions": [
+      {
+       "no": "A27",
+       "type": "SINGLE_CHOICE",
+       "text": "Die Digitalisierung in der Schule wird ...",
+       "options": [
+        {
+         "text": "von allen Beteiligten positiv aufgenommen.",
+         "correct": null
+        },
+        {
+         "text": "kontrovers diskutiert.",
+         "correct": null
+        },
+        {
+         "text": "nur in ländlichen Regionen abgelehnt.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A28",
+       "type": "SINGLE_CHOICE",
+       "text": "Ein Problem bei der Digitalisierung ist ...",
+       "options": [
+        {
+         "text": "dass die Schüler zu viel Freizeit haben.",
+         "correct": null
+        },
+        {
+         "text": "dass nicht alle Schulen gleich gut ausgestattet sind.",
+         "correct": null
+        },
+        {
+         "text": "dass Lehrer zu viele Freiheiten erhalten.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A29",
+       "type": "SINGLE_CHOICE",
+       "text": "Kinder aus ärmeren Familien ...",
+       "options": [
+        {
+         "text": "profitieren besonders stark von der Digitalisierung.",
+         "correct": null
+        },
+        {
+         "text": "nutzen verstärkt Lernsoftware.",
+         "correct": null
+        },
+        {
+         "text": "haben oft schlechtere Zugangsvoraussetzungen.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A30",
+       "type": "SINGLE_CHOICE",
+       "text": "Lehrkräfte müssen durch die Digitalisierung ...",
+       "options": [
+        {
+         "text": "weniger arbeiten.",
+         "correct": null
+        },
+        {
+         "text": "sich neuen Aufgaben stellen.",
+         "correct": null
+        },
+        {
+         "text": "keine rechtlichen Regeln mehr beachten.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A31",
+       "type": "SINGLE_CHOICE",
+       "text": "Der „Digitalpakt Schule“ ...",
+       "options": [
+        {
+         "text": "wurde erfolgreich in allen Bundesländern umgesetzt.",
+         "correct": null
+        },
+        {
+         "text": "wird wegen ethischer Bedenken ausgesetzt.",
+         "correct": null
+        },
+        {
+         "text": "wird durch Bürokratie behindert.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A32",
+       "type": "SINGLE_CHOICE",
+       "text": "Kritiker sehen die Gefahr, dass ...",
+       "options": [
+        {
+         "text": "Lehrer durch Maschinen ersetzt werden.",
+         "correct": null
+        },
+        {
+         "text": "Bildung zur Technikspielwiese wird.",
+         "correct": null
+        },
+        {
+         "text": "Schulen keine staatliche Finanzierung mehr erhalten.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A33",
+       "type": "SINGLE_CHOICE",
+       "text": "Digitale Bildung soll laut Theorie ...",
+       "options": [
+        {
+         "text": "das Lernen personalisieren.",
+         "correct": null
+        },
+        {
+         "text": "ausschließlich digitale Inhalte vermitteln.",
+         "correct": null
+        },
+        {
+         "text": "auf Papier verzichten.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A34",
+       "type": "SINGLE_CHOICE",
+       "text": "Die Politik hofft, dass ...",
+       "options": [
+        {
+         "text": "Lehrer durch KI ersetzt werden.",
+         "correct": null
+        },
+        {
+         "text": "digitale Bildung soziale Unterschiede verstärkt.",
+         "correct": null
+        },
+        {
+         "text": "Digitalisierung das Bildungssystem verbessert.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A35",
+       "type": "SINGLE_CHOICE",
+       "text": "Der Autor fragt am Ende, ob ...",
+       "options": [
+        {
+         "text": "Digitalisierung die Bildung menschlicher macht.",
+         "correct": null
+        },
+        {
+         "text": "Digitalisierung soziale Ungleichheit beseitigt.",
+         "correct": null
+        },
+        {
+         "text": "Digitalisierung neue Ungleichheiten schafft.",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "text_words": 293
+    }
+   ],
+   "title": "Lesen",
+   "duration_minutes": 60,
+   "total_points": 35
+  },
+  {
+   "type": "HOEREN",
+   "teile": [
+    {
+     "title": "Teil 1",
+     "instructions": "In diesem Teil hören Sie fünf Fragen. Wie können die Fragen beantwortet werden?\nMarkieren Sie die richtige Antwort A, B oder C. Sie hören die Fragen zwei Mal.\nHinweis: Sie hören nur die Fragen. Lesen Sie jetzt die Antworten von A1 bis A5.",
+     "text": "",
+     "questions": [
+      {
+       "no": "A1",
+       "type": "SINGLE_CHOICE",
+       "text": "A1",
+       "options": [
+        {
+         "text": "Ja, ich wohne in der Stadt.",
+         "correct": null
+        },
+        {
+         "text": "Ich bin 25 Jahre alt.",
+         "correct": null
+        },
+        {
+         "text": "Nein, ich habe heute frei.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A2",
+       "type": "SINGLE_CHOICE",
+       "text": "A2",
+       "options": [
+        {
+         "text": "Ich komme aus Spanien.",
+         "correct": null
+        },
+        {
+         "text": "Ja, ich gehe gern spazieren.",
+         "correct": null
+        },
+        {
+         "text": "Nein, ich habe keine Zeit.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A3",
+       "type": "SINGLE_CHOICE",
+       "text": "A3",
+       "options": [
+        {
+         "text": "Ich arbeite in einem Büro.",
+         "correct": null
+        },
+        {
+         "text": "Ja, ich habe einen Bruder.",
+         "correct": null
+        },
+        {
+         "text": "Mein Bruder heißt Alex.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A4",
+       "type": "SINGLE_CHOICE",
+       "text": "A4",
+       "options": [
+        {
+         "text": "Am Abend um acht Uhr.",
+         "correct": null
+        },
+        {
+         "text": "Ja, ich sehe gern Filme.",
+         "correct": null
+        },
+        {
+         "text": "Filme sind sehr interessant.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A5",
+       "type": "SINGLE_CHOICE",
+       "text": "A5",
+       "options": [
+        {
+         "text": "Nein, ich spiele kein Tennis.",
+         "correct": null
+        },
+        {
+         "text": "Ja, ich kann gut schwimmen.",
+         "correct": null
+        },
+        {
+         "text": "Ein Sportkurs kostet 50 Euro.",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [
+      14,
+      15
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 0
+    },
+    {
+     "title": "Teil 2",
+     "instructions": "In diesem Teil hören Sie fünf kurze Nachrichten. Entscheiden Sie bei den Aufgaben A6 bis A10, ob die Aussagen richtig oder falsch sind.\nSie hören jeden Text zweimal.\nHinweis: Wenn die Aussage richtig ist, markieren Sie A. Wenn die Aussage falsch ist, markieren Sie B.",
+     "text": "",
+     "questions": [
+      {
+       "no": "A6",
+       "type": "TRUE_FALSE",
+       "text": "Der Mann hat seine Schlüssel verloren.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A7",
+       "type": "TRUE_FALSE",
+       "text": "Das Meeting beginnt um zehn Uhr.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A8",
+       "type": "TRUE_FALSE",
+       "text": "Die Frau arbeitet in einer Apotheke.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A9",
+       "type": "TRUE_FALSE",
+       "text": "Tom möchte heute ins Kino gehen.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A10",
+       "type": "TRUE_FALSE",
+       "text": "Am Bahnhof gibt es ein Café.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [
+      15
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 0
+    },
+    {
+     "title": "Teil 3",
+     "instructions": "In diesem Teil hören Sie sechs kurze Monologe. Entscheiden Sie bei den Aufgaben A11 bis A16, wer was sagt. Zwei Aussagen bleiben übrig.\nSie hören den Text zweimal.",
+     "text": "Aussagen\nA) Ich fahre jeden Tag mit dem Fahrrad zur Arbeit. Das ist gesund und gut für die Umwelt.\nB) Ich benutze meistens den Bus, weil meine Arbeit ziemlich weit von meinem Haus ist.\nC) Ich gehe oft zu Fuß, wenn das Wetter schön ist. So mache ich auch ein bisschen Sport.\nD) Ich habe ein Auto, aber ich benutze es nur am Wochenende für längere Fahrten.\nE) Ich finde öffentliche Verkehrsmittel zu teuer.\nF) Morgens habe ich wenig Zeit, deshalb nehme ich oft ein Taxi.\nG) Meine Freunde fahren gern mit dem Zug in andere Städte.\nH) Am liebsten fahre ich mit dem Motorrad durch die Stadt.",
+     "questions": [
+      {
+       "no": "A11",
+       "type": "MATCHING",
+       "text": "Person 1",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        },
+        {
+         "text": "F",
+         "correct": null
+        },
+        {
+         "text": "G",
+         "correct": null
+        },
+        {
+         "text": "H",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A12",
+       "type": "MATCHING",
+       "text": "Person 2",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        },
+        {
+         "text": "F",
+         "correct": null
+        },
+        {
+         "text": "G",
+         "correct": null
+        },
+        {
+         "text": "H",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A13",
+       "type": "MATCHING",
+       "text": "Person 3",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        },
+        {
+         "text": "F",
+         "correct": null
+        },
+        {
+         "text": "G",
+         "correct": null
+        },
+        {
+         "text": "H",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A14",
+       "type": "MATCHING",
+       "text": "Person 4",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        },
+        {
+         "text": "F",
+         "correct": null
+        },
+        {
+         "text": "G",
+         "correct": null
+        },
+        {
+         "text": "H",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A15",
+       "type": "MATCHING",
+       "text": "Person 5",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        },
+        {
+         "text": "F",
+         "correct": null
+        },
+        {
+         "text": "G",
+         "correct": null
+        },
+        {
+         "text": "H",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A16",
+       "type": "MATCHING",
+       "text": "Person 6",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        },
+        {
+         "text": "F",
+         "correct": null
+        },
+        {
+         "text": "G",
+         "correct": null
+        },
+        {
+         "text": "H",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [
+      16
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 108
+    },
+    {
+     "title": "Teil 4",
+     "instructions": "In diesem Teil hören Sie ein Interview. Entscheiden Sie bei den Aufgaben A17 bis A23, ob die Aussagen richtig oder falsch sind.\nSie hören den Text zweimal.\nHinweis: Wenn die Aussage richtig ist, markieren Sie auf dem Antwortblatt A. Wenn die Aussage falsch ist, markieren Sie auf dem Antwortblatt B.",
+     "text": "",
+     "questions": [
+      {
+       "no": "A17",
+       "type": "TRUE_FALSE",
+       "text": "Mehrheit der Befragten finden altes Arbeitsmodell besser als Homeoffice.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A18",
+       "type": "TRUE_FALSE",
+       "text": "Die Produktivität im Homeoffice ist bis zur Hälfte gestiegen.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A19",
+       "type": "TRUE_FALSE",
+       "text": "Homeoffice ist nicht umweltfreundlich.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A20",
+       "type": "TRUE_FALSE",
+       "text": "Hauptidee vom Homeoffice ist, mehr zu Hause zu sein.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A21",
+       "type": "TRUE_FALSE",
+       "text": "Die E-Mail kann den Bedarf an Kommunikation nicht mehr völlig decken.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A22",
+       "type": "TRUE_FALSE",
+       "text": "Die Plattform Slack bietet zwar mehr Transparenz, aber hat deutlich geringe Sicherheit.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A23",
+       "type": "TRUE_FALSE",
+       "text": "Die Plattform Slack ermöglicht auch Videoanrufe.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [
+      17
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 0
+    },
+    {
+     "title": "Teil 5",
+     "instructions": "In diesem Teil hören Sie ein Gespräch zwischen mehreren Personen. Ordnen Sie die Aussagen A24 bis A29 den Sprechern A, B oder C zu.\nSie hören den Text zweimal.",
+     "text": "Sprecher: A) Staatsschulratspräsident Hr. Himmer · B) Bildungssprecher Hr. Widerkehr · C) Bundesschulsprecher Hr. Sifuss",
+     "questions": [
+      {
+       "no": "A24",
+       "type": "MATCHING",
+       "text": "Unsere Kinder können mit neun Jahren Saxophon spielen.",
+       "options": [
+        {
+         "text": "Staatsschulratspräsident Hr. Himmer",
+         "correct": null
+        },
+        {
+         "text": "Bildungssprecher Hr. Widerkehr",
+         "correct": null
+        },
+        {
+         "text": "Bundesschulsprecher Hr. Sifuss",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A25",
+       "type": "MATCHING",
+       "text": "Viel Kritik am Bildungssystem ist manchmal berechtigt.",
+       "options": [
+        {
+         "text": "Staatsschulratspräsident Hr. Himmer",
+         "correct": null
+        },
+        {
+         "text": "Bildungssprecher Hr. Widerkehr",
+         "correct": null
+        },
+        {
+         "text": "Bundesschulsprecher Hr. Sifuss",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A26",
+       "type": "MATCHING",
+       "text": "Die Schule kann die grundsätzlichen Kompetenzen nicht beibringen.",
+       "options": [
+        {
+         "text": "Staatsschulratspräsident Hr. Himmer",
+         "correct": null
+        },
+        {
+         "text": "Bildungssprecher Hr. Widerkehr",
+         "correct": null
+        },
+        {
+         "text": "Bundesschulsprecher Hr. Sifuss",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A27",
+       "type": "MATCHING",
+       "text": "Das Bildungssystem ist im vorletzten Jahrhundert steckengeblieben.",
+       "options": [
+        {
+         "text": "Staatsschulratspräsident Hr. Himmer",
+         "correct": null
+        },
+        {
+         "text": "Bildungssprecher Hr. Widerkehr",
+         "correct": null
+        },
+        {
+         "text": "Bundesschulsprecher Hr. Sifuss",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A28",
+       "type": "MATCHING",
+       "text": "Die Schüler in Österreich sind nicht dumm.",
+       "options": [
+        {
+         "text": "Staatsschulratspräsident Hr. Himmer",
+         "correct": null
+        },
+        {
+         "text": "Bildungssprecher Hr. Widerkehr",
+         "correct": null
+        },
+        {
+         "text": "Bundesschulsprecher Hr. Sifuss",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A29",
+       "type": "MATCHING",
+       "text": "Man kann viel mehr aus den Schülern rausholen.",
+       "options": [
+        {
+         "text": "Staatsschulratspräsident Hr. Himmer",
+         "correct": null
+        },
+        {
+         "text": "Bildungssprecher Hr. Widerkehr",
+         "correct": null
+        },
+        {
+         "text": "Bundesschulsprecher Hr. Sifuss",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [
+      18
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 13
+    },
+    {
+     "title": "Teil 6",
+     "instructions": "In diesem Teil hören Sie einen Vortrag. Zu diesem Text lösen Sie sechs Aufgaben.\nMarkieren Sie bei den Aufgaben A30 bis A35 die richtige Antwort A, B oder C.\nSie hören den Text zweimal.",
+     "text": "",
+     "questions": [
+      {
+       "no": "A30",
+       "type": "SINGLE_CHOICE",
+       "text": "Was versteht Herr Knoflacher unter dem Wort „Mobilität“?",
+       "options": [
+        {
+         "text": "Den Transport des Menschen.",
+         "correct": null
+        },
+        {
+         "text": "Die rein geistige Beweglichkeit.",
+         "correct": null
+        },
+        {
+         "text": "Den Transport einer Ware, einer Person oder eines Gedankens.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A31",
+       "type": "SINGLE_CHOICE",
+       "text": "Welche Rolle spielt Mobilität in einer Gesellschaft?",
+       "options": [
+        {
+         "text": "Sie ist in allen gesellschaftlichen Schichten gleich wichtig.",
+         "correct": null
+        },
+        {
+         "text": "Nur bei Mangelerscheinungen ist man zur Mobilität gezwungen.",
+         "correct": null
+        },
+        {
+         "text": "Der kulturelle Status bestimmt die Mobilität in einer Gesellschaft.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A32",
+       "type": "SINGLE_CHOICE",
+       "text": "Welche Beziehungen hatten die Menschen in der Vergangenheit zur Mobilität?",
+       "options": [
+        {
+         "text": "Mobil zu sein, war wichtig für das Leben der Nomaden.",
+         "correct": null
+        },
+        {
+         "text": "Mobilität war im Gegensatz zu heute eine große Last.",
+         "correct": null
+        },
+        {
+         "text": "Die Menschen waren früher stolz auf ihre Bewegungsfreiheit.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A33",
+       "type": "SINGLE_CHOICE",
+       "text": "Warum haben junge Menschen eine Vorliebe für schnelle Autos?",
+       "options": [
+        {
+         "text": "Weil sie als Kind durchs Auto in einer Unfreiheit und Eingeschränktheit leben mussten.",
+         "correct": null
+        },
+        {
+         "text": "Weil ihnen schnelle Autos eine gewisse Macht verleihen können.",
+         "correct": null
+        },
+        {
+         "text": "Weil sie schon als Kinder an die Motorisierung und mobile Freiheit gewohnt waren.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A34",
+       "type": "SINGLE_CHOICE",
+       "text": "Mit welchem Tricks versucht man dem Autofahrer eine gewisse Freiheit zu verschenken?",
+       "options": [
+        {
+         "text": "Der Autofahrer lässt sich letztendlich nicht von einer Autowerbung beeinflussen.",
+         "correct": null
+        },
+        {
+         "text": "Durch die Werbung werden dem Autofahrer die Gefahren im Straßenverkehr verdeutlicht.",
+         "correct": null
+        },
+        {
+         "text": "Dem Autofahrer wird in der Werbung ein Modell in schönen, ruhigen und verkehrsarmen Gebieten gezeigt.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A35",
+       "type": "SINGLE_CHOICE",
+       "text": "Woran übt der Verkehrsexperte besonders Kritik?",
+       "options": [
+        {
+         "text": "Dass die Sicherheit der Fußgänger im öffentlichen Verkehr gefährdet ist.",
+         "correct": null
+        },
+        {
+         "text": "Dass die Autofahrer im Gegensatz zum Fußgänger die Umwelt straffrei beschmutzen dürfen.",
+         "correct": null
+        },
+        {
+         "text": "Dass die Umweltbehörde keine Verbesserungen für den Straßenverkehr umsetzt.",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [
+      19,
+      20
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 0
+    }
+   ],
+   "title": "Hören",
+   "duration_minutes": 40,
+   "total_points": 35
+  },
+  {
+   "type": "SCHREIBEN",
+   "teile": [
+    {
+     "title": "Teil 1.1",
+     "instructions": "",
+     "text": "Sie sind Mitglied in einem Fitnessstudio in Ihrer Stadt.\nSie haben eine E-Mail von der Leitung des Fitnessstudios erhalten:\nLiebe Mitglieder,\nwir möchten Sie darüber informieren, dass unser Fitnessstudio im nächsten Monat für einige Wochen geschlossen wird, weil neue Geräte installiert werden. In dieser Zeit können keine Trainingskurse stattfinden. Nach der Erneuerung planen wir neue Sportprogramme und bessere Trainingsmöglichkeiten.\nWir würden gerne Ihre Meinung hören: Welche Angebote würden Sie sich in Zukunft wünschen? Haben Sie Ideen für neue Kurse oder Trainingsprogramme?\nVielen Dank für Ihre Vorschläge.\nMit freundlichen Grüßen\nDie Leitung des Fitnessstudios\n\nSchreiben Sie einen kurzen Brief an Ihre Freundin / Ihren Freund, der auch Mitglied im Fitnessstudio ist.\nSchreiben Sie über Ihre Gefühle und Ihre Meinung zu dieser Situation.\nSchreiben Sie ca. 50 Wörter.",
+     "questions": [],
+     "pages": [
+      21,
+      22
+     ],
+     "words": 50,
+     "same_situation": false,
+     "text_words": 125
+    },
+    {
+     "title": "Teil 1.2",
+     "instructions": "",
+     "text": "Schreiben Sie eine E-Mail an die Leitung des Fitnessstudios.\nBeschreiben Sie Ihre Meinung zur Schließung und machen Sie Vorschläge, welche neuen Angebote oder Trainingsprogramme organisiert werden könnten.\nSchreiben Sie ca. 120–150 Wörter.",
+     "questions": [],
+     "pages": [
+      21,
+      22
+     ],
+     "words": 150,
+     "same_situation": true,
+     "text_words": 33
+    },
+    {
+     "title": "Teil 2",
+     "instructions": "",
+     "text": "Sie nehmen an einer Online-Diskussion für Bürgerinnen und Bürger in Usbekistan teil.\nDie Frage lautet:\n„Immer mehr Menschen kaufen Produkte online statt im Geschäft. Sollte man den Online-Handel stärker begrenzen?“\nPosten Sie Ihre Meinung in einem Diskussionsbeitrag.\nBegründen Sie Ihre Meinung und nennen Sie Beispiele.\nSchreiben Sie 180–200 Wörter.",
+     "questions": [],
+     "pages": [
+      22
+     ],
+     "words": 200,
+     "same_situation": false,
+     "text_words": 50
+    }
+   ],
+   "title": "Schreiben",
+   "duration_minutes": 60,
+   "total_points": 0
+  },
+  {
+   "type": "SPRECHEN",
+   "teile": [
+    {
+     "title": "Teil 1.1",
+     "instructions": "",
+     "text": "• Nutzen Sie soziale Netzwerke?\n• Wofür benutzen Sie soziale Netzwerke meistens?\n• Glauben Sie, dass soziale Medien das Leben der Menschen stark verändert haben?",
+     "questions": [],
+     "pages": [
+      23
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 22
+    },
+    {
+     "title": "Teil 1.2",
+     "instructions": "",
+     "text": "Fragen\n1. Was ist auf den Bildern zu sehen?\n2. Warum treiben manche Menschen lieber Sport im Fitnessstudio und andere lieber im Freien?\n3. Welche Sportarten mögen Sie besonders?",
+     "questions": [],
+     "pages": [
+      23
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 29,
+     "image": "mt01-1.jpg"
+    },
+    {
+     "title": "Teil 2",
+     "instructions": "",
+     "text": "Beschreiben Sie eine Stadt, die Sie gerne besuchen möchten.\nSie sollten sagen:\n• Der Name dieser Stadt;\n• Wo sich diese Stadt befindet;\n• Was man dort sehen oder machen kann;\n• Und erklären Sie, warum Sie diese Stadt besuchen möchten.",
+     "questions": [],
+     "pages": [
+      24
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 37
+    },
+    {
+     "title": "Teil 3",
+     "instructions": "",
+     "text": "Machen Smartphones unser Leben einfacher oder komplizierter?\nPro: Schnelle Kommunikation mit Familie und Freunden · Zugang zu Informationen und Internet · Viele praktische Apps für Alltag und Arbeit\nContra: Zu viel Zeit am Handy · Weniger persönliche Kommunikation · Ablenkung bei Arbeit oder Studium",
+     "questions": [],
+     "pages": [
+      24
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 40
+    }
+   ],
+   "title": "Sprechen",
+   "duration_minutes": 15,
+   "total_points": 0
+  }
+ ],
+ "review": [
+  {
+   "where": "allgemein",
+   "note": "Im PDF gibt es keine Lösungen: alle Antwortschlüssel fehlen und müssen im Admin-Panel eingetragen werden."
+  },
+  {
+   "where": "allgemein",
+   "note": "Zeiten (Lesen 60, Hören 40, Schreiben 60, Sprechen 15 Min.) und Bewertungskriterien stehen nicht im PDF — Standardwerte, bitte prüfen."
+  },
+  {
+   "where": "Sprechen Teil 3",
+   "note": "Teil 3 (S. 24): Pro/Contra stehen im PDF als zweispaltige Tabelle; Zuordnung der Zeilen zu Pro/Contra aus dem Layout übernommen — prüfen."
+  }
+ ]
+}

@@ -1,0 +1,1073 @@
+{
+ "number": 8,
+ "content_id": "vizu-multilevel-mt08",
+ "title": "Modelltest 8",
+ "origin": "vizu",
+ "source_pdf": null,
+ "description": "Multilevel Modelltest 8 — von VIZU erstellt (Übungstest, kein offizielles Prüfungsmaterial).",
+ "kompetenzen": [
+  {
+   "type": "LESEN",
+   "teile": [
+    {
+     "title": "Teil 1",
+     "instructions": "Aufgabe\nBringen Sie die Textteile A–E in eine sinnvolle Reihenfolge.\nIhre Lösung:",
+     "text": "A. Zuerst sollte man unbedingt Ruhe bewahren, die Situation genau ansehen und darauf achten, dass man sich dabei nicht selbst in Gefahr bringt.\nB. Danach ruft man so schnell wie möglich den Notruf an und beschreibt kurz, was passiert ist und wo man sich befindet.\nC. Ein Unfall kann jederzeit passieren – im Verkehr, bei der Arbeit oder zu Hause, oft sind Laien als Erste vor Ort.\nD. Bis der Rettungsdienst kommt, bleibt man immer bei der verletzten Person, spricht beruhigend mit ihr und hält sie mit einer Decke warm.\nE. Wer regelmäßig einen Erste-Hilfe-Kurs besucht, fühlt sich im Ernstfall sicherer und kann schneller helfen.",
+     "questions": [
+      {
+       "no": "A1",
+       "type": "ORDERING",
+       "text": "A1",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": true
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A2",
+       "type": "ORDERING",
+       "text": "A2",
+       "options": [
+        {
+         "text": "A",
+         "correct": true
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A3",
+       "type": "ORDERING",
+       "text": "A3",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": true
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A4",
+       "type": "ORDERING",
+       "text": "A4",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": true
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A5",
+       "type": "ORDERING",
+       "text": "A5",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": true
+        }
+       ]
+      }
+     ],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 104
+    },
+    {
+     "title": "Teil 2",
+     "instructions": "",
+     "text": "Viele Menschen haben in ihrer Kindheit Brettspiele gespielt – an langen Winterabenden, im Urlaub oder bei Familienfesten. Lange Zeit galten solche Spiele jedoch als altmodisch, denn Computer, Spielkonsolen und Smartphones boten scheinbar viel spannendere Unterhaltung. Doch in den letzten Jahren erleben Brettspiele ein überraschendes Comeback.\nIn vielen Städten haben Spielecafés eröffnet, in denen Gäste aus hunderten Spielen auswählen können. Man bezahlt einen kleinen Eintritt, bestellt etwas zu trinken und verbringt den Abend mit Freunden am Tisch. Besonders junge Erwachsene schätzen diese Treffen, weil sie eine Abwechslung zum Alltag vor dem Bildschirm bieten.\nAuch die Zahl der neuen Spiele wächst ständig. Auf der größten Spielemesse der Welt in Essen werden jedes Jahr über tausend Neuheiten vorgestellt. Die modernen Spiele sind oft aufwendig gestaltet und erzählen ganze Geschichten. Manche dauern nur zehn Minuten, andere einen ganzen Nachmittag.\nPsychologen sehen in diesem Trend viele positive Seiten. Beim gemeinsamen Spielen lernt man, Regeln zu beachten, Strategien zu entwickeln und auch einmal zu verlieren. Außerdem fördert das Spielen die Kommunikation, denn man sitzt sich direkt gegenüber und muss miteinander sprechen.\nAuch Schulen und Seniorenheime setzen inzwischen ganz gezielt auf Brettspiele. In manchen Klassen gibt es eine feste Spielstunde pro Woche, in der Kinder Mathematik oder Sprache spielerisch üben können. Ältere Menschen trainieren beim Spielen ihr Gedächtnis, bleiben geistig fit und kommen leichter mit anderen ins Gespräch.\nInteressant ist, dass sich die digitale und die analoge Welt dabei nicht ausschließen. Viele Spieler entdecken neue Spiele über Videos im Internet, und einige Brettspiele werden sogar mit einer App kombiniert.\nFür die Hersteller ist der Boom ein gutes Geschäft. Trotzdem bleibt für viele Fans der wichtigste Grund ein ganz einfacher: Spielen macht Spaß und bringt Menschen zusammen.",
+     "questions": [
+      {
+       "no": "A6",
+       "type": "SINGLE_CHOICE",
+       "text": "Wie galten Brettspiele lange Zeit?",
+       "options": [
+        {
+         "text": "Als altmodisch.",
+         "correct": true
+        },
+        {
+         "text": "Als zu teuer.",
+         "correct": null
+        },
+        {
+         "text": "Als gefährlich für Kinder.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A7",
+       "type": "SINGLE_CHOICE",
+       "text": "Was macht man in einem Spielecafé?",
+       "options": [
+        {
+         "text": "Man kauft neue Spiele zu günstigen Preisen.",
+         "correct": null
+        },
+        {
+         "text": "Man spielt mit Freunden aus vielen verschiedenen Spielen.",
+         "correct": true
+        },
+        {
+         "text": "Man lernt, eigene Spiele zu entwickeln.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A8",
+       "type": "SINGLE_CHOICE",
+       "text": "Was erfährt man über die modernen Spiele?",
+       "options": [
+        {
+         "text": "Sie dauern immer mehrere Stunden.",
+         "correct": null
+        },
+        {
+         "text": "Sie sind nur für Kinder gedacht.",
+         "correct": null
+        },
+        {
+         "text": "Sie sind oft aufwendig gestaltet und erzählen Geschichten.",
+         "correct": true
+        }
+       ]
+      },
+      {
+       "no": "A9",
+       "type": "SINGLE_CHOICE",
+       "text": "Was lernt man laut Psychologen beim Spielen?",
+       "options": [
+        {
+         "text": "Regeln zu beachten und verlieren zu können.",
+         "correct": true
+        },
+        {
+         "text": "Schneller am Computer zu arbeiten.",
+         "correct": null
+        },
+        {
+         "text": "Allein Entscheidungen zu treffen.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A10",
+       "type": "SINGLE_CHOICE",
+       "text": "Wie stehen digitale und analoge Welt laut Text zueinander?",
+       "options": [
+        {
+         "text": "Sie sind strenge Konkurrenten.",
+         "correct": null
+        },
+        {
+         "text": "Sie schließen sich nicht aus.",
+         "correct": true
+        },
+        {
+         "text": "Die digitale Welt ersetzt die analoge.",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 279
+    },
+    {
+     "title": "Teil 3",
+     "instructions": "Aufgabe\nOrdnen Sie die Überschriften A–J den Texten A11–A17 zu.\nIhre Lösungen:",
+     "text": "Überschriften\nA. Sprachenlernen per App wird beliebter\nB. Kinder lernen früher eine zweite Sprache\nC. Kritik an zu großen Klassen in Sprachkursen\nD. Sprachreisen werden teurer\nE. Mehrsprachigkeit verbessert die Berufschancen\nF. Dialekte werden seltener gesprochen\nG. Neue Tandem-Programme an Universitäten\nH. Ältere Menschen entdecken das Sprachenlernen\nI. Deutsch wird im Ausland weniger gelernt\nJ. Übersetzungsprogramme machen Fortschritte",
+     "questions": [
+      {
+       "no": "A11",
+       "type": "MATCHING",
+       "text": "Immer mehr Menschen lernen eine Fremdsprache mit einer App. Kurze Übungen von wenigen Minuten lassen sich leicht in den Alltag einbauen, etwa im Bus oder in der Mittagspause. Laut einer Umfrage nutzt inzwischen fast jeder dritte Sprachlerner regelmäßig eine solche Anwendung. Kritiker meinen allerdings, dass man so kaum lernt, frei zu sprechen.",
+       "options": [
+        {
+         "text": "A",
+         "correct": true
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        },
+        {
+         "text": "F",
+         "correct": null
+        },
+        {
+         "text": "G",
+         "correct": null
+        },
+        {
+         "text": "H",
+         "correct": null
+        },
+        {
+         "text": "I",
+         "correct": null
+        },
+        {
+         "text": "J",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A12",
+       "type": "MATCHING",
+       "text": "In vielen Kindergärten wird heute spielerisch Englisch oder Französisch angeboten. Fachleute betonen, dass kleine Kinder Sprachen besonders leicht aufnehmen. Einige Eltern befürchten jedoch, dass ihre Kinder dadurch überfordert werden. In einer Kita in Hamburg singen die Kinder morgens Lieder auf Englisch und lernen dabei nebenbei neue Wörter.",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": true
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        },
+        {
+         "text": "F",
+         "correct": null
+        },
+        {
+         "text": "G",
+         "correct": null
+        },
+        {
+         "text": "H",
+         "correct": null
+        },
+        {
+         "text": "I",
+         "correct": null
+        },
+        {
+         "text": "J",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A13",
+       "type": "MATCHING",
+       "text": "Wer mehrere Sprachen spricht, hat auf dem Arbeitsmarkt deutliche Vorteile. Viele Unternehmen arbeiten international und suchen Mitarbeiter, die mit Kunden in deren Sprache kommunizieren können. Oft wird dafür sogar ein höheres Gehalt gezahlt. Am meisten gesucht werden derzeit Englisch, Spanisch und Chinesisch.",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": true
+        },
+        {
+         "text": "F",
+         "correct": null
+        },
+        {
+         "text": "G",
+         "correct": null
+        },
+        {
+         "text": "H",
+         "correct": null
+        },
+        {
+         "text": "I",
+         "correct": null
+        },
+        {
+         "text": "J",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A14",
+       "type": "MATCHING",
+       "text": "In vielen Regionen sprechen vor allem junge Menschen kaum noch die traditionelle Mundart ihrer Großeltern. Sprachforscher sammeln deshalb Aufnahmen älterer Sprecher, um die regionalen Besonderheiten zu dokumentieren. Manche Schulen bieten freiwillige Kurse an, in denen Kinder die Mundart ihrer Region spielerisch kennenlernen und Lieder singen.",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        },
+        {
+         "text": "F",
+         "correct": true
+        },
+        {
+         "text": "G",
+         "correct": null
+        },
+        {
+         "text": "H",
+         "correct": null
+        },
+        {
+         "text": "I",
+         "correct": null
+        },
+        {
+         "text": "J",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A15",
+       "type": "MATCHING",
+       "text": "Mehrere Hochschulen bringen jetzt Studierende aus verschiedenen Ländern zusammen, die sich gegenseitig ihre Muttersprache beibringen. Die Teilnehmer treffen sich einmal pro Woche und sprechen abwechselnd beide Sprachen. Viele Teilnehmer berichten, dass sie nicht nur ihre Sprachkenntnisse verbessern, sondern auch neue Freundschaften schließen und andere Kulturen kennenlernen.",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        },
+        {
+         "text": "F",
+         "correct": null
+        },
+        {
+         "text": "G",
+         "correct": true
+        },
+        {
+         "text": "H",
+         "correct": null
+        },
+        {
+         "text": "I",
+         "correct": null
+        },
+        {
+         "text": "J",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A16",
+       "type": "MATCHING",
+       "text": "Die Volkshochschulen melden einen Anstieg bei Teilnehmern über sechzig Jahren. Viele Rentner möchten sich auf Reisen besser verständigen oder einfach geistig aktiv bleiben. Besonders gefragt sind Italienisch und Spanisch. Die Kurse finden meist am Vormittag statt, damit auch Menschen ohne Auto sie erreichen können.",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        },
+        {
+         "text": "F",
+         "correct": null
+        },
+        {
+         "text": "G",
+         "correct": null
+        },
+        {
+         "text": "H",
+         "correct": true
+        },
+        {
+         "text": "I",
+         "correct": null
+        },
+        {
+         "text": "J",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A17",
+       "type": "MATCHING",
+       "text": "Computerprogramme übersetzen Texte heute deutlich besser als noch vor wenigen Jahren. Für einfache Nachrichten reichen sie oft völlig aus. Bei wichtigen Dokumenten empfehlen Experten aber weiterhin professionelle Übersetzer, weil Fehler teuer werden können. Auch im Urlaub nutzen viele Reisende inzwischen ihr Smartphone, um Speisekarten, Schilder oder kurze Gespräche schnell und ohne Wörterbuch zu verstehen.",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        },
+        {
+         "text": "F",
+         "correct": null
+        },
+        {
+         "text": "G",
+         "correct": null
+        },
+        {
+         "text": "H",
+         "correct": null
+        },
+        {
+         "text": "I",
+         "correct": null
+        },
+        {
+         "text": "J",
+         "correct": true
+        }
+       ]
+      }
+     ],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 58
+    },
+    {
+     "title": "Teil 4",
+     "instructions": "Lesen Sie den Text „Lachen ist gesund“ und lösen Sie dazu die Aufgaben A18–A26.\nWelche der Aussagen sind Richtig (A), Falsch (B) oder gar nicht im Text enthalten (C)?\nEs gibt jeweils nur eine richtige Lösung.",
+     "text": "Text: Lachen ist gesund\nKinder lachen bis zu dreihundert Mal am Tag, Erwachsene dagegen nur etwa fünfzehn Mal. Dabei ist Lachen viel mehr als nur ein Ausdruck von Freude. Wissenschaftler untersuchen schon seit Jahrzehnten, welche Wirkung das Lachen auf unseren Körper und unsere Psyche hat.\nBeim Lachen werden zahlreiche Muskeln im Gesicht und im Bauch aktiviert. Die Atmung wird tiefer, und das Herz schlägt kurzzeitig schneller. Gleichzeitig schüttet das Gehirn Glückshormone aus, während das Stresshormon Cortisol abnimmt. Viele Menschen fühlen sich nach einem herzhaften Lachen deshalb entspannt und zufrieden.\nEinige Studien deuten außerdem darauf hin, dass Lachen das Immunsystem stärken und Schmerzen lindern kann. Allerdings sind sich die Forscher hier noch nicht einig, denn die Ergebnisse vieler Untersuchungen sind schwer zu vergleichen.\nBesonders wichtig ist die soziale Funktion des Lachens. Wir lachen viel häufiger, wenn wir mit anderen Menschen zusammen sind, als wenn wir allein sind. Gemeinsames Lachen schafft Vertrauen und kann Konflikte entschärfen.\nInteressant ist auch, dass Lachen ansteckend wirkt. Schon wenn wir jemanden lachen hören, werden in unserem Gehirn ähnliche Bereiche aktiv wie beim eigenen Lachen. Deshalb beginnen wir oft ganz automatisch mitzulachen, selbst wenn wir den Grund gar nicht kennen.\nDiese Erkenntnisse nutzt man inzwischen auch in Krankenhäusern. Sogenannte Klinikclowns besuchen kranke Kinder und bringen sie mit kleinen Spielen und Späßen zum Lachen. Ärzte berichten, dass die jungen Patienten danach oft weniger Angst haben.\nIn den letzten Jahren ist zudem das „Lachyoga“ bekannt geworden. Dabei lachen die Teilnehmer zunächst ohne Grund, bis aus dem künstlichen Lachen ein echtes wird. Der Erfinder dieser Methode stammt aus Indien.\nMediziner warnen allerdings davor, das Lachen als Wundermittel zu betrachten. Bei ernsthaften Krankheiten ersetzt es keine ärztliche Behandlung und keine Medikamente.",
+     "questions": [
+      {
+       "no": "A18",
+       "type": "TRUE_FALSE",
+       "text": "Erwachsene lachen häufiger als Kinder.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": true
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A19",
+       "type": "TRUE_FALSE",
+       "text": "Beim Lachen nimmt das Stresshormon Cortisol ab.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": true
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A20",
+       "type": "TRUE_FALSE",
+       "text": "Alle Forscher sind sich einig, dass Lachen das Immunsystem stärkt.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": true
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A21",
+       "type": "TRUE_FALSE",
+       "text": "Menschen lachen in Gesellschaft öfter als allein.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": true
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A22",
+       "type": "TRUE_FALSE",
+       "text": "Frauen lachen insgesamt mehr als Männer.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": true
+        }
+       ]
+      },
+      {
+       "no": "A23",
+       "type": "TRUE_FALSE",
+       "text": "Klinikclowns arbeiten vor allem mit kranken Kindern.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": true
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A24",
+       "type": "TRUE_FALSE",
+       "text": "Klinikclowns werden von den Krankenkassen bezahlt.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": true
+        }
+       ]
+      },
+      {
+       "no": "A25",
+       "type": "TRUE_FALSE",
+       "text": "Beim Lachyoga lacht man von Anfang an über Witze.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": true
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A26",
+       "type": "TRUE_FALSE",
+       "text": "Lachyoga wird in Deutschland in allen Volkshochschulen angeboten.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": true
+        }
+       ]
+      }
+     ],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 280
+    },
+    {
+     "title": "Teil 5",
+     "instructions": "Lesen Sie den Text und dazu die Aufgaben A27–A35. Entscheiden Sie, welche der Antworten A, B oder C richtig ist. Zu jeder Aufgabe gibt es jeweils nur eine richtige Lösung.",
+     "text": "Die Vier-Tage-Woche – Zukunftsmodell oder Wunschtraum?\nKaum eine Idee wird in der Arbeitswelt derzeit so leidenschaftlich diskutiert wie die Vier-Tage-Woche. Das Prinzip klingt verlockend: vier Tage arbeiten, drei Tage frei – und das möglichst bei gleichem Lohn. Befürworter versprechen sich davon zufriedenere Beschäftigte, weniger Krankheitstage und eine bessere Vereinbarkeit von Beruf und Familie.\nErste Pilotprojekte in Großbritannien, Spanien und Deutschland liefern ermutigende Ergebnisse. In vielen der beteiligten Unternehmen blieb die Produktivität stabil, teilweise stieg sie sogar. Die Mitarbeiter berichteten von weniger Stress und mehr Zeit für Erholung. Ein Großteil der Firmen entschied sich nach der Testphase, das Modell beizubehalten.\nKritiker geben jedoch zu bedenken, dass sich die Ergebnisse nicht ohne Weiteres auf alle Branchen übertragen lassen. In Krankenhäusern, in der Pflege oder im Einzelhandel muss der Betrieb an sieben Tagen in der Woche laufen. Weniger Arbeitszeit pro Person bedeutet dort, dass zusätzliches Personal eingestellt werden müsste – in Zeiten des Fachkräftemangels eine kaum lösbare Aufgabe.\nBefürworter halten dem jedoch entgegen, dass gerade attraktive Arbeitszeiten helfen könnten, neue und qualifizierte Fachkräfte zu gewinnen. Unternehmen, die eine Vier-Tage-Woche anbieten, erhalten nach eigenen Angaben deutlich mehr und oft bessere Bewerbungen als zuvor.\nHinzu kommt die Frage der Arbeitsverdichtung. Wer dieselbe Leistung in kürzerer Zeit erbringen soll, steht unter Umständen sogar unter größerem Druck als zuvor. Manche Beschäftigte arbeiten an ihren vier Tagen deshalb deutlich länger, um ihr Pensum zu schaffen.\nÖkonomen betonen, dass es weniger um die Zahl der Tage als um eine sinnvolle Organisation der Arbeit gehe. Überflüssige Besprechungen, unklare Zuständigkeiten und ständige Unterbrechungen kosteten oft mehr Zeit als nötig.\nOb sich die Vier-Tage-Woche durchsetzt, wird wohl davon abhängen, wie flexibel Unternehmen und Beschäftigte sind.",
+     "questions": [
+      {
+       "no": "A27",
+       "type": "SINGLE_CHOICE",
+       "text": "Die Vier-Tage-Woche wird im Text dargestellt als …",
+       "options": [
+        {
+         "text": "ein bereits überall eingeführtes Modell.",
+         "correct": null
+        },
+        {
+         "text": "ein Thema, das leidenschaftlich diskutiert wird.",
+         "correct": true
+        },
+        {
+         "text": "eine Idee, die niemand unterstützt.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A28",
+       "type": "SINGLE_CHOICE",
+       "text": "Was erhoffen sich Befürworter von der Vier-Tage-Woche?",
+       "options": [
+        {
+         "text": "Höhere Löhne für alle Beschäftigten.",
+         "correct": null
+        },
+        {
+         "text": "Mehr Arbeitsplätze in der Industrie.",
+         "correct": null
+        },
+        {
+         "text": "Zufriedenere Beschäftigte und weniger Krankheitstage.",
+         "correct": true
+        }
+       ]
+      },
+      {
+       "no": "A29",
+       "type": "SINGLE_CHOICE",
+       "text": "Was zeigten die ersten Pilotprojekte?",
+       "options": [
+        {
+         "text": "Die Produktivität blieb meist stabil.",
+         "correct": true
+        },
+        {
+         "text": "Die meisten Firmen beendeten das Modell sofort.",
+         "correct": null
+        },
+        {
+         "text": "Die Mitarbeiter hatten mehr Stress.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A30",
+       "type": "SINGLE_CHOICE",
+       "text": "Warum ist das Modell in der Pflege schwer umzusetzen?",
+       "options": [
+        {
+         "text": "Weil die Beschäftigten dort keine Freizeit wünschen.",
+         "correct": null
+        },
+        {
+         "text": "Weil zusätzliches Personal kaum zu finden ist.",
+         "correct": true
+        },
+        {
+         "text": "Weil Krankenhäuser am Wochenende geschlossen sind.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A31",
+       "type": "SINGLE_CHOICE",
+       "text": "Was bedeutet „Arbeitsverdichtung“ im Text?",
+       "options": [
+        {
+         "text": "Die gleiche Arbeit muss in kürzerer Zeit erledigt werden.",
+         "correct": true
+        },
+        {
+         "text": "Mehrere Beschäftigte teilen sich einen Arbeitsplatz.",
+         "correct": null
+        },
+        {
+         "text": "Die Arbeit wird auf mehr Tage verteilt.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A32",
+       "type": "SINGLE_CHOICE",
+       "text": "Manche Beschäftigte arbeiten an ihren vier Tagen länger, …",
+       "options": [
+        {
+         "text": "weil sie mehr Geld verdienen möchten.",
+         "correct": null
+        },
+        {
+         "text": "um ihr Pensum zu schaffen.",
+         "correct": true
+        },
+        {
+         "text": "weil ihre Chefs es verlangen.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A33",
+       "type": "SINGLE_CHOICE",
+       "text": "Worauf kommt es laut Ökonomen vor allem an?",
+       "options": [
+        {
+         "text": "Auf die genaue Zahl der Arbeitstage.",
+         "correct": null
+        },
+        {
+         "text": "Auf möglichst viele Besprechungen.",
+         "correct": null
+        },
+        {
+         "text": "Auf eine sinnvolle Organisation der Arbeit.",
+         "correct": true
+        }
+       ]
+      },
+      {
+       "no": "A34",
+       "type": "SINGLE_CHOICE",
+       "text": "Was kostet laut Ökonomen oft unnötig Zeit?",
+       "options": [
+        {
+         "text": "Überflüssige Besprechungen und Unterbrechungen.",
+         "correct": true
+        },
+        {
+         "text": "Die Arbeit im Homeoffice.",
+         "correct": null
+        },
+        {
+         "text": "Lange Pausen am Mittag.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A35",
+       "type": "SINGLE_CHOICE",
+       "text": "Wovon hängt laut Text der Erfolg der Vier-Tage-Woche ab?",
+       "options": [
+        {
+         "text": "Von neuen Gesetzen der Regierung.",
+         "correct": null
+        },
+        {
+         "text": "Von der Zahl der Pilotprojekte.",
+         "correct": null
+        },
+        {
+         "text": "Von der Flexibilität der Unternehmen und Beschäftigten.",
+         "correct": true
+        }
+       ]
+      }
+     ],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 270
+    }
+   ],
+   "title": "Lesen",
+   "duration_minutes": 60,
+   "total_points": 35
+  },
+  {
+   "type": "HOEREN",
+   "teile": [],
+   "title": "Hören",
+   "duration_minutes": 40,
+   "total_points": 0
+  },
+  {
+   "type": "SCHREIBEN",
+   "teile": [
+    {
+     "title": "Teil 1.1",
+     "instructions": "",
+     "text": "Sie sind Mitglied der Stadtbibliothek in Ihrer Stadt.\nSie haben eine E-Mail von der Leitung der Bibliothek erhalten:\nLiebe Leserinnen und Leser,\nwir möchten Sie darüber informieren, dass unsere Bibliothek im nächsten Monat umgebaut wird. In dieser Zeit sind die Öffnungszeiten stark verkürzt, und der Lesesaal bleibt geschlossen. Nach dem Umbau planen wir mehr Arbeitsplätze, digitale Angebote und Veranstaltungen.\nWir würden gerne Ihre Meinung hören: Welche Angebote wünschen Sie sich? Haben Sie Ideen für neue Veranstaltungen?\nVielen Dank für Ihre Vorschläge.\nMit freundlichen Grüßen\nDie Leitung der Stadtbibliothek\n\nSchreiben Sie einen kurzen Brief an Ihre Freundin / Ihren Freund, die / der auch die Bibliothek nutzt.\nSchreiben Sie über Ihre Gefühle und Ihre Meinung zu dieser Situation.\nSchreiben Sie ca. 50 Wörter.",
+     "questions": [],
+     "pages": [],
+     "words": 50,
+     "same_situation": false,
+     "text_words": 120
+    },
+    {
+     "title": "Teil 1.2",
+     "instructions": "",
+     "text": "Schreiben Sie eine E-Mail an die Leitung der Bibliothek.\nBeschreiben Sie Ihre Meinung zum Umbau und schlagen Sie konkrete neue Angebote vor.\nSchreiben Sie ca. 120–150 Wörter.",
+     "questions": [],
+     "pages": [],
+     "words": 150,
+     "same_situation": true,
+     "text_words": 28
+    },
+    {
+     "title": "Teil 2",
+     "instructions": "",
+     "text": "Sie nehmen an einer Online-Diskussion für Bürgerinnen und Bürger in Usbekistan teil.\nDie Frage lautet:\n„In einigen Ländern haben Geschäfte auch am Sonntag geöffnet. Sollten Supermärkte auch sonntags geöffnet sein?“\nPosten Sie Ihre Meinung in einem Diskussionsbeitrag.\nBegründen Sie Ihre Meinung und nennen Sie Beispiele.\nSchreiben Sie 180–200 Wörter.",
+     "questions": [],
+     "pages": [],
+     "words": 200,
+     "same_situation": false,
+     "text_words": 50
+    }
+   ],
+   "title": "Schreiben",
+   "duration_minutes": 60,
+   "total_points": 0
+  },
+  {
+   "type": "SPRECHEN",
+   "teile": [
+    {
+     "title": "Teil 1.1",
+     "instructions": "",
+     "text": "• Welche Jahreszeit mögen Sie am liebsten?\n• Was machen Sie gern, wenn es draußen regnet?\n• Hat das Wetter Einfluss auf Ihre Laune?",
+     "questions": [],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 21
+    },
+    {
+     "title": "Teil 1.2",
+     "instructions": "",
+     "text": "Fragen\n1. Was sehen Sie auf diesen beiden Bildern?\n2. Was ist der Unterschied zwischen der Arbeit im Team und der Arbeit ganz allein?\n3. Arbeiten Sie selbst lieber allein oder in einem Team? Warum?",
+     "questions": [],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 35
+    },
+    {
+     "title": "Teil 2",
+     "instructions": "",
+     "text": "Erzählen Sie über einen Ort aus Ihrer Kindheit, an den Sie sich gern erinnern.\nSie sollten sagen:\n• Um welchen Ort es sich handelt\n• Was Sie dort meistens gemacht haben\n• Mit wem Sie dort oft waren\n• Und warum dieser Ort für Sie auch heute noch wichtig ist",
+     "questions": [],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 46
+    },
+    {
+     "title": "Teil 3",
+     "instructions": "",
+     "text": "Sollten Haustiere in allen Mietwohnungen erlaubt sein?\nPro: ✔ Haustiere machen Menschen glücklicher und gesünder · ✔ Kinder lernen früh, Verantwortung zu übernehmen · ✔ Ältere und alleinstehende Menschen fühlen sich weniger einsam\nContra: ✔ Lärm und Schmutz stören die Nachbarn · ✔ Mögliche Schäden in der Wohnung · ✔ Manche Nachbarn haben Allergien gegen Tierhaare",
+     "questions": [],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 46
+    }
+   ],
+   "title": "Sprechen",
+   "duration_minutes": 15,
+   "total_points": 0
+  }
+ ],
+ "review": [
+  {
+   "where": "Sprechen Teil 1.2",
+   "note": "Sprechen Teil 1.2: Bilder fehlen noch — bitte zwei Fotos hochladen (1: Gruppe arbeitet zusammen an einem Tisch, 2: eine Person arbeitet allein am Schreibtisch)."
+  }
+ ]
+}

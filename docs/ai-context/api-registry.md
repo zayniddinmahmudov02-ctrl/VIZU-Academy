@@ -27,6 +27,7 @@ Endpoint details: open the router file. Auth deps: `backend/app/api/dependencies
 | `/admin/app-releases` (list, upload, `PATCH /{id}` notes, `/{id}/publish`, `/{id}/archive`, `DELETE /{id}` draft, `/{id}/file`) | `app_releases/router.py` | `require_super_admin` (read + write) |
 | `/vizu-multilevel` (alias `/vizu-mock`) | `vizu_multilevel/router.py` | `get_current_user` |
 | `/mock-exam`, `/mock-exam/public` | `mock_exam/*_router.py` | mixed |
+| `/mock-exam` `PUT questions/{id}/key\|text`, `PUT question-options/{id}/text`, `GET model-tests/{id}/review\|source-pdf` | `mock_exam/content_router.py` | `require_super_admin`; public `kompetenzen/{id}` returns questions without keys (`PublicQuestion`) |
 | `/certificates` (only `/api/v1`), `/my-certificates` | `v1/certificate/` | public verify / own |
 | `/upload` `/media-library` | legacy upload | staff |
 | `/teacher` | `teacher/router.py` | `require_teacher_panel_access` |

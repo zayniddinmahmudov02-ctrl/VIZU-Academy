@@ -1,0 +1,1073 @@
+{
+ "number": 9,
+ "content_id": "vizu-multilevel-mt09",
+ "title": "Modelltest 9",
+ "origin": "vizu",
+ "source_pdf": null,
+ "description": "Multilevel Modelltest 9 — von VIZU erstellt (Übungstest, kein offizielles Prüfungsmaterial).",
+ "kompetenzen": [
+  {
+   "type": "LESEN",
+   "teile": [
+    {
+     "title": "Teil 1",
+     "instructions": "Aufgabe\nBringen Sie die Textteile A–E in eine sinnvolle Reihenfolge.\nIhre Lösung:\nThema: Umzug in eine neue Stadt",
+     "text": "A. Die ersten Wochen waren nicht leicht, denn ich kannte niemanden und musste mich erst an die vielen neuen Wege dort gewöhnen.\nB. Letztes Jahr habe ich ein Jobangebot in einer anderen Stadt bekommen und mich schnell für den Umzug entschieden.\nC. Heute fühle ich mich in meiner neuen Stadt richtig wohl und bin sehr froh, diesen mutigen Schritt gewagt zu haben.\nD. Nach einiger Zeit habe ich mich in einem Sportverein angemeldet und dort ganz schnell viele nette Menschen kennengelernt.\nE. Vor dem Umzug musste ich zuerst eine passende Wohnung suchen, viele Kisten packen und noch zahlreiche Formulare ausfüllen.",
+     "questions": [
+      {
+       "no": "A1",
+       "type": "ORDERING",
+       "text": "A1",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": true
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A2",
+       "type": "ORDERING",
+       "text": "A2",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": true
+        }
+       ]
+      },
+      {
+       "no": "A3",
+       "type": "ORDERING",
+       "text": "A3",
+       "options": [
+        {
+         "text": "A",
+         "correct": true
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A4",
+       "type": "ORDERING",
+       "text": "A4",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": true
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A5",
+       "type": "ORDERING",
+       "text": "A5",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": true
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 100
+    },
+    {
+     "title": "Teil 2",
+     "instructions": "",
+     "text": "Thema: Die Kunst des Zuhörens\nWir sprechen jeden Tag mit vielen Menschen – mit Kollegen, Freunden und Familienmitgliedern. Doch hören wir einander wirklich zu? Kommunikationsforscher bezweifeln das. Viele Menschen warten im Gespräch nur darauf, selbst wieder etwas sagen zu können, statt sich auf ihr Gegenüber zu konzentrieren.\nDabei ist Zuhören eine der wichtigsten Fähigkeiten im Zusammenleben. Studien zeigen, dass Missverständnisse am Arbeitsplatz häufig nicht durch falsche Informationen entstehen, sondern dadurch, dass Menschen einander nicht richtig zuhören. Die Folgen können Streit, Fehler und verlorene Zeit sein.\nGutes Zuhören bedeutet mehr, als still zu sein. Wer aktiv zuhört, schaut seinen Gesprächspartner an, stellt Rückfragen und fasst wichtige Punkte mit eigenen Worten zusammen. So zeigt man, dass man das Gesagte verstanden hat und sich wirklich dafür interessiert.\nEin großes Hindernis ist heute das Smartphone. Liegt es während eines Gesprächs auf dem Tisch, sinkt die Aufmerksamkeit deutlich, selbst wenn niemand darauf schaut. Viele Menschen sind sich dieser Wirkung gar nicht bewusst. Psychologen empfehlen deshalb, das Telefon bei wichtigen Gesprächen wegzulegen.\nZuhören kann man glücklicherweise trainieren. In manchen Firmen gibt es inzwischen spezielle Kurse für Führungskräfte, denn Mitarbeiter, die sich gehört fühlen, sind zufriedener und motivierter. Auch in der Familie zahlt sich gutes Zuhören aus: Kinder, denen man aufmerksam zuhört, entwickeln mehr Selbstvertrauen.\nAm Ende ist Zuhören ein Zeichen von Respekt. Wer anderen wirklich zuhört, zeigt ihnen, dass ihre Gedanken und Gefühle wichtig sind. Und oft lernt man dabei selbst etwas Neues – über den anderen, aber auch über sich selbst.",
+     "questions": [
+      {
+       "no": "A6",
+       "type": "SINGLE_CHOICE",
+       "text": "Was kritisieren Kommunikationsforscher?",
+       "options": [
+        {
+         "text": "Dass Menschen zu wenig miteinander sprechen.",
+         "correct": null
+        },
+        {
+         "text": "Dass viele nur darauf warten, selbst zu sprechen.",
+         "correct": true
+        },
+        {
+         "text": "Dass Gespräche immer kürzer werden.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A7",
+       "type": "SINGLE_CHOICE",
+       "text": "Was gehört zum aktiven Zuhören?",
+       "options": [
+        {
+         "text": "Möglichst lange zu schweigen.",
+         "correct": null
+        },
+        {
+         "text": "Den Gesprächspartner oft zu unterbrechen.",
+         "correct": null
+        },
+        {
+         "text": "Rückfragen zu stellen und Wichtiges zusammenzufassen.",
+         "correct": true
+        }
+       ]
+      },
+      {
+       "no": "A8",
+       "type": "SINGLE_CHOICE",
+       "text": "Welche Wirkung hat ein Smartphone auf dem Tisch?",
+       "options": [
+        {
+         "text": "Die Aufmerksamkeit sinkt.",
+         "correct": true
+        },
+        {
+         "text": "Das Gespräch wird interessanter.",
+         "correct": null
+        },
+        {
+         "text": "Man hört besser zu.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A9",
+       "type": "SINGLE_CHOICE",
+       "text": "Warum gibt es Kurse für Führungskräfte?",
+       "options": [
+        {
+         "text": "Weil Chefs zu wenig sprechen.",
+         "correct": null
+        },
+        {
+         "text": "Weil Mitarbeiter, die sich gehört fühlen, motivierter sind.",
+         "correct": true
+        },
+        {
+         "text": "Weil Führungskräfte keine Zeit für Gespräche haben.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A10",
+       "type": "SINGLE_CHOICE",
+       "text": "Wovon profitieren Kinder, denen man zuhört?",
+       "options": [
+        {
+         "text": "Von besseren Noten in der Schule.",
+         "correct": null
+        },
+        {
+         "text": "Von mehr Freizeit.",
+         "correct": null
+        },
+        {
+         "text": "Von mehr Selbstvertrauen.",
+         "correct": true
+        }
+       ]
+      }
+     ],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 244
+    },
+    {
+     "title": "Teil 3",
+     "instructions": "Aufgabe\nOrdnen Sie die Überschriften A–J den Texten A11–A17 zu.\nIhre Lösungen:",
+     "text": "Überschriften\nA. Museen öffnen sich für junge Besucher\nB. Straßenkunst wird endlich offiziell anerkannt\nC. Theater kämpfen mit leeren Plätzen\nD. Konzerte im eigenen Wohnzimmer\nE. Kunst hilft bei der Genesung\nF. Kino erlebt eine Renaissance\nG. Bücher werden wieder öfter gekauft\nH. Kulturangebote auf dem Land fehlen\nI. Musikunterricht an Schulen wird gekürzt\nJ. Digitale Ausstellungen im Internet",
+     "questions": [
+      {
+       "no": "A11",
+       "type": "MATCHING",
+       "text": "Viele Museen bieten inzwischen spezielle Programme für Jugendliche an. Statt langer Führungen gibt es Workshops, interaktive Stationen und Abende mit Musik. Die Zahl der jungen Besucher ist dadurch spürbar gestiegen, berichten die Verantwortlichen. Auch der Eintritt ist für Schüler oft kostenlos. Eine Museumsleiterin erklärt, dass Jugendliche Kunst lieber selbst ausprobieren, statt nur zuzuhören.",
+       "options": [
+        {
+         "text": "A",
+         "correct": true
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        },
+        {
+         "text": "F",
+         "correct": null
+        },
+        {
+         "text": "G",
+         "correct": null
+        },
+        {
+         "text": "H",
+         "correct": null
+        },
+        {
+         "text": "I",
+         "correct": null
+        },
+        {
+         "text": "J",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A12",
+       "type": "MATCHING",
+       "text": "Früher wurden Graffiti meist als Schmiererei betrachtet. Heute laden viele Städte Künstler ein, große Hauswände legal zu gestalten. Manche Werke sind inzwischen sogar Touristenattraktionen. Anwohner dürfen bei der Auswahl der Motive mitentscheiden, und viele sind stolz auf die bunten Fassaden.",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": true
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        },
+        {
+         "text": "F",
+         "correct": null
+        },
+        {
+         "text": "G",
+         "correct": null
+        },
+        {
+         "text": "H",
+         "correct": null
+        },
+        {
+         "text": "I",
+         "correct": null
+        },
+        {
+         "text": "J",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A13",
+       "type": "MATCHING",
+       "text": "In mehreren Kliniken malen, musizieren oder tanzen Patienten regelmäßig unter Anleitung. Ärzte berichten, dass kreative Tätigkeiten Stress reduzieren und den Heilungsprozess unterstützen können. Eine aktuelle Studie zeigte sogar, dass manche Patienten dadurch weniger Schmerzmittel brauchten und früher nach Hause gehen konnten.",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": true
+        },
+        {
+         "text": "F",
+         "correct": null
+        },
+        {
+         "text": "G",
+         "correct": null
+        },
+        {
+         "text": "H",
+         "correct": null
+        },
+        {
+         "text": "I",
+         "correct": null
+        },
+        {
+         "text": "J",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A14",
+       "type": "MATCHING",
+       "text": "Nach einigen schwierigen Jahren sind die Kinosäle wieder voll. Viele Menschen schätzen das gemeinsame Erlebnis auf der großen Leinwand. Die Betreiber investieren in bequeme Sessel und bessere Technik, um ihre Gäste zu begeistern. Auch kleine Programmkinos in den Stadtvierteln melden wieder deutlich steigende Besucherzahlen.",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        },
+        {
+         "text": "F",
+         "correct": true
+        },
+        {
+         "text": "G",
+         "correct": null
+        },
+        {
+         "text": "H",
+         "correct": null
+        },
+        {
+         "text": "I",
+         "correct": null
+        },
+        {
+         "text": "J",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A15",
+       "type": "MATCHING",
+       "text": "Wer in einem kleinen Dorf wohnt, muss für ein Konzert oder eine Theateraufführung oft weit fahren. Ein neues Förderprogramm soll deshalb Kulturprojekte in ländlichen Regionen unterstützen. Geplant sind zum Beispiel Wanderbühnen, Konzerte und Lesungen in Dorfgemeinschaftshäusern, damit alle Menschen dort teilhaben können.",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        },
+        {
+         "text": "F",
+         "correct": null
+        },
+        {
+         "text": "G",
+         "correct": null
+        },
+        {
+         "text": "H",
+         "correct": true
+        },
+        {
+         "text": "I",
+         "correct": null
+        },
+        {
+         "text": "J",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A16",
+       "type": "MATCHING",
+       "text": "Weil Lehrkräfte fehlen, fällt an vielen Schulen der Musikunterricht aus oder wird gekürzt. Musikverbände warnen, dass Kinder dadurch wichtige Erfahrungen verpassen. Sie fordern mehr Ausbildungsplätze für Musiklehrer. Einige Schulen arbeiten bereits erfolgreich mit Musikschulen zusammen, doch das ist für viele Gemeinden zu teuer.",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        },
+        {
+         "text": "F",
+         "correct": null
+        },
+        {
+         "text": "G",
+         "correct": null
+        },
+        {
+         "text": "H",
+         "correct": null
+        },
+        {
+         "text": "I",
+         "correct": true
+        },
+        {
+         "text": "J",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A17",
+       "type": "MATCHING",
+       "text": "Wer keine Zeit für einen Museumsbesuch hat, kann viele Kunstwerke heute bequem online betrachten. Zahlreiche Museen haben ihre Sammlungen digitalisiert und bieten virtuelle Rundgänge an. Besonders Menschen, die weit entfernt wohnen, nutzen dieses Angebot gern. Bei manchen Angeboten kann man Gemälde vergrößern und kleinste Details entdecken, die man im Museum kaum sehen würde.",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        },
+        {
+         "text": "F",
+         "correct": null
+        },
+        {
+         "text": "G",
+         "correct": null
+        },
+        {
+         "text": "H",
+         "correct": null
+        },
+        {
+         "text": "I",
+         "correct": null
+        },
+        {
+         "text": "J",
+         "correct": true
+        }
+       ]
+      }
+     ],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 59
+    },
+    {
+     "title": "Teil 4",
+     "instructions": "Lesen Sie den Text „Die Faszination des Weltraums“ und lösen Sie dazu die Aufgaben A18–A26.\nWelche der Aussagen sind Richtig (A), Falsch (B) oder gar nicht im Text enthalten (C)?\nEs gibt jeweils nur eine richtige Lösung.",
+     "text": "Text: Die Faszination des Weltraums\nSeit Jahrtausenden blicken Menschen in den Nachthimmel und fragen sich, was sich hinter den Sternen verbirgt. Früher dienten die Sterne vor allem zur Orientierung und zur Berechnung von Kalendern. Heute erforschen Wissenschaftler mit modernen Teleskopen und Raumsonden Planeten, Sterne und ferne Galaxien.\nSchon Kinder sind von Planeten und Sternen begeistert. In vielen Städten gibt es Planetarien, in denen Besucher den Sternenhimmel unter einer großen Kuppel beobachten können. Auch Sternwarten bieten regelmäßig Führungen an, bei denen man durch große Teleskope schauen darf.\nEin Meilenstein war die erste Mondlandung im Jahr 1969. Millionen Menschen verfolgten das Ereignis damals live im Fernsehen. Seitdem hat sich die Raumfahrt stark verändert. Auf der Internationalen Raumstation arbeiten Astronauten aus verschiedenen Ländern zusammen und führen Experimente durch, die auf der Erde nicht möglich wären.\nIn den letzten Jahren haben auch private Unternehmen die Raumfahrt für sich entdeckt. Sie entwickeln wiederverwendbare Raketen, die die Kosten für Flüge ins All deutlich senken sollen. Einige Firmen bieten sogar kurze Flüge für zahlungskräftige Touristen an. Die Preise für solche Reisen sind allerdings so hoch, dass sie sich nur sehr wenige Menschen leisten können.\nDie Weltraumforschung hat auch für unseren Alltag große Bedeutung. Wettervorhersagen, Navigationssysteme und viele Kommunikationsdienste funktionieren nur mithilfe von Satelliten. Auch Landwirte nutzen Satellitenbilder, um zum Beispiel den Zustand ihrer Felder zu überprüfen.\nKritiker weisen allerdings darauf hin, dass sich um die Erde immer mehr Weltraumschrott sammelt. Alte Satelliten und Raketenteile können mit aktiven Satelliten zusammenstoßen. Internationale Organisationen suchen nach Wegen, den Müll im All zu verringern. Eine einfache Lösung gibt es bisher jedoch nicht.",
+     "questions": [
+      {
+       "no": "A18",
+       "type": "TRUE_FALSE",
+       "text": "Früher nutzten Menschen die Sterne zur Orientierung.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": true
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A19",
+       "type": "TRUE_FALSE",
+       "text": "Die erste Mondlandung fand im Jahr 1979 statt.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": true
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A20",
+       "type": "TRUE_FALSE",
+       "text": "Auf der Raumstation arbeiten nur Astronauten aus einem Land.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": true
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A21",
+       "type": "TRUE_FALSE",
+       "text": "Private Firmen entwickeln wiederverwendbare Raketen.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": true
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A22",
+       "type": "TRUE_FALSE",
+       "text": "Ein Flug ins All kostet für Touristen etwa eine Million Euro.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": true
+        }
+       ]
+      },
+      {
+       "no": "A23",
+       "type": "TRUE_FALSE",
+       "text": "Navigationssysteme funktionieren ohne Satelliten.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": true
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A24",
+       "type": "TRUE_FALSE",
+       "text": "Weltraumschrott kann für aktive Satelliten gefährlich sein.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": true
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A25",
+       "type": "TRUE_FALSE",
+       "text": "Deutschland plant eine eigene Mission zum Mars.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": true
+        }
+       ]
+      },
+      {
+       "no": "A26",
+       "type": "TRUE_FALSE",
+       "text": "Die Mondlandung wurde damals im Fernsehen gezeigt.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": true
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 261
+    },
+    {
+     "title": "Teil 5",
+     "instructions": "Lesen Sie den Text und dazu die Aufgaben A27–A35. Entscheiden Sie, welche der Antworten A, B oder C richtig ist. Zu jeder Aufgabe gibt es jeweils nur eine richtige Lösung.",
+     "text": "Text: Die Macht der Gewohnheit\nMorgens greifen wir automatisch zur Zahnbürste, auf dem Weg zur Arbeit nehmen wir immer dieselbe Straße, und am Abend landen wir oft wie von selbst vor dem Fernseher. Ein großer Teil unseres Verhaltens besteht aus Gewohnheiten. Forscher schätzen, dass wir rund vierzig Prozent unserer täglichen Handlungen nicht bewusst entscheiden, sondern aus Routine ausführen. Im Alltag bemerken wir das nicht, weil diese Abläufe so selbstverständlich sind.\nAus Sicht des Gehirns ist das durchaus sinnvoll. Gewohnheiten sparen Energie, denn wiederkehrende Abläufe müssen nicht jedes Mal neu durchdacht werden. So bleibt mehr Kapazität für wichtige oder unerwartete Entscheidungen. Problematisch wird es jedoch, wenn sich ungesunde Muster festsetzen – etwa ständiges Naschen, zu wenig Bewegung oder der reflexhafte Blick aufs Handy.\nWie entsteht eine Gewohnheit? Psychologen beschreiben einen Kreislauf aus drei Elementen: einem Auslöser, einer Handlung und einer Belohnung. Wer beispielsweise nach dem Abendessen müde ist, greift zur Fernbedienung und wird mit Entspannung belohnt. Je häufiger sich dieser Ablauf wiederholt, desto stärker wird die Verbindung.\nWer eine schlechte Gewohnheit ändern möchte, sollte daher nicht allein auf Willenskraft setzen. Erfolgversprechender ist es, den Auslöser zu erkennen und die Handlung durch eine bessere zu ersetzen. Wer abends einen Spaziergang plant, statt den Fernseher einzuschalten, kann die gleiche Belohnung – Entspannung – auf gesündere Weise erreichen.\nHilfreich kann es auch sein, die Umgebung zu verändern. Wer weniger Süßigkeiten essen will, sollte sie gar nicht erst kaufen. Und wer morgens joggen möchte, kann seine Sportschuhe schon am Abend neben das Bett stellen. So wird die gewünschte Handlung einfacher, die unerwünschte schwieriger.\nEntscheidend ist Geduld. Untersuchungen zeigen, dass es im Durchschnitt mehrere Wochen dauert, bis eine neue Gewohnheit sich festigt. Wer in dieser Zeit einmal einen Tag auslässt, muss sich jedoch keine Sorgen machen. Kleine Rückschläge gehören dazu und gefährden den Erfolg kaum. Wichtig ist nur, am nächsten Tag wieder weiterzumachen.",
+     "questions": [
+      {
+       "no": "A27",
+       "type": "SINGLE_CHOICE",
+       "text": "Wie viele unserer täglichen Handlungen sind laut Forschern Routine?",
+       "options": [
+        {
+         "text": "Etwa vierzig Prozent.",
+         "correct": true
+        },
+        {
+         "text": "Fast alle.",
+         "correct": null
+        },
+        {
+         "text": "Nur sehr wenige.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A28",
+       "type": "SINGLE_CHOICE",
+       "text": "Warum sind Gewohnheiten für das Gehirn sinnvoll?",
+       "options": [
+        {
+         "text": "Weil sie uns glücklicher machen.",
+         "correct": null
+        },
+        {
+         "text": "Weil sie Energie sparen.",
+         "correct": true
+        },
+        {
+         "text": "Weil sie Entscheidungen verhindern.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A29",
+       "type": "SINGLE_CHOICE",
+       "text": "Wann werden Gewohnheiten problematisch?",
+       "options": [
+        {
+         "text": "Wenn sie zu viel Zeit kosten.",
+         "correct": null
+        },
+        {
+         "text": "Wenn man sie mit anderen teilt.",
+         "correct": null
+        },
+        {
+         "text": "Wenn sich ungesunde Muster festsetzen.",
+         "correct": true
+        }
+       ]
+      },
+      {
+       "no": "A30",
+       "type": "SINGLE_CHOICE",
+       "text": "Aus welchen Elementen besteht der Kreislauf einer Gewohnheit?",
+       "options": [
+        {
+         "text": "Aus Ziel, Plan und Erfolg.",
+         "correct": null
+        },
+        {
+         "text": "Aus Auslöser, Handlung und Belohnung.",
+         "correct": true
+        },
+        {
+         "text": "Aus Wille, Kraft und Geduld.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A31",
+       "type": "SINGLE_CHOICE",
+       "text": "Was passiert, wenn sich ein Ablauf häufig wiederholt?",
+       "options": [
+        {
+         "text": "Die Verbindung wird stärker.",
+         "correct": true
+        },
+        {
+         "text": "Man verliert die Lust daran.",
+         "correct": null
+        },
+        {
+         "text": "Die Belohnung wird kleiner.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A32",
+       "type": "SINGLE_CHOICE",
+       "text": "Worauf sollte man sich beim Ändern einer Gewohnheit nicht allein verlassen?",
+       "options": [
+        {
+         "text": "Auf die Hilfe von Freunden.",
+         "correct": null
+        },
+        {
+         "text": "Auf die eigene Willenskraft.",
+         "correct": true
+        },
+        {
+         "text": "Auf einen festen Zeitplan.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A33",
+       "type": "SINGLE_CHOICE",
+       "text": "Was empfehlen die Psychologen stattdessen?",
+       "options": [
+        {
+         "text": "Den Fernseher zu verkaufen.",
+         "correct": null
+        },
+        {
+         "text": "Auf jede Belohnung zu verzichten.",
+         "correct": null
+        },
+        {
+         "text": "Den Auslöser zu erkennen und die Handlung zu ersetzen.",
+         "correct": true
+        }
+       ]
+      },
+      {
+       "no": "A34",
+       "type": "SINGLE_CHOICE",
+       "text": "Welche Rolle spielt der abendliche Spaziergang im Beispiel?",
+       "options": [
+        {
+         "text": "Er ersetzt das Fernsehen und bringt ebenfalls Entspannung.",
+         "correct": true
+        },
+        {
+         "text": "Er dient als neuer Auslöser für Müdigkeit.",
+         "correct": null
+        },
+        {
+         "text": "Er ist eine Strafe für schlechtes Verhalten.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A35",
+       "type": "SINGLE_CHOICE",
+       "text": "Wie lange dauert es laut Text, bis eine neue Gewohnheit sich festigt?",
+       "options": [
+        {
+         "text": "Einen Tag.",
+         "correct": null
+        },
+        {
+         "text": "Durchschnittlich mehrere Wochen.",
+         "correct": true
+        },
+        {
+         "text": "Mehrere Jahre.",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 304
+    }
+   ],
+   "title": "Lesen",
+   "duration_minutes": 60,
+   "total_points": 35
+  },
+  {
+   "type": "HOEREN",
+   "teile": [],
+   "title": "Hören",
+   "duration_minutes": 40,
+   "total_points": 0
+  },
+  {
+   "type": "SCHREIBEN",
+   "teile": [
+    {
+     "title": "Teil 1.1",
+     "instructions": "",
+     "text": "Sie besuchen einen Deutschkurs an einer Sprachschule.\nSie haben eine E-Mail von der Schulleitung erhalten:\nLiebe Kursteilnehmerinnen und Kursteilnehmer,\nwir möchten Sie darüber informieren, dass unsere Sprachschule im nächsten Semester in ein neues Gebäude umzieht. Einige Kurse finden deshalb vorübergehend online statt. Ziel ist es, modernere Räume und bessere Lernbedingungen zu schaffen.\nWir würden gerne Ihre Meinung hören: Welche Kurse wünschen Sie sich? Haben Sie Ideen für neue Angebote?\nVielen Dank für Ihre Vorschläge.\nMit freundlichen Grüßen\nDie Schulleitung\n\nSchreiben Sie einen kurzen Brief an Ihre Freundin / Ihren Freund, die / der auch diesen Kurs besucht.\nSchreiben Sie über Ihre Gefühle und Ihre Meinung zu dieser Situation.\nSchreiben Sie ca. 50 Wörter.",
+     "questions": [],
+     "pages": [],
+     "words": 50,
+     "same_situation": false,
+     "text_words": 111
+    },
+    {
+     "title": "Teil 1.2",
+     "instructions": "",
+     "text": "Schreiben Sie eine E-Mail an die Schulleitung.\nBeschreiben Sie Ihre Meinung zum Umzug und machen Sie konkrete Vorschläge für neue Kurse oder Verbesserungen.\nSchreiben Sie ca. 120–150 Wörter.",
+     "questions": [],
+     "pages": [],
+     "words": 150,
+     "same_situation": true,
+     "text_words": 29
+    },
+    {
+     "title": "Teil 2",
+     "instructions": "",
+     "text": "Die Frage lautet:\n„Sollte das Studium an Universitäten für alle kostenlos sein?“\nPosten Sie Ihre Meinung in einem Diskussionsbeitrag.\nBegründen Sie Ihre Meinung.\nSchreiben Sie 180–200 Wörter.",
+     "questions": [],
+     "pages": [],
+     "words": 200,
+     "same_situation": false,
+     "text_words": 28
+    }
+   ],
+   "title": "Schreiben",
+   "duration_minutes": 60,
+   "total_points": 0
+  },
+  {
+   "type": "SPRECHEN",
+   "teile": [
+    {
+     "title": "Teil 1.1",
+     "instructions": "",
+     "text": "• Reisen Sie gern, und wie oft im Jahr verreisen Sie?\n• Wohin sind Sie zuletzt gereist?\n• Reisen Sie lieber allein oder mit anderen Menschen?",
+     "questions": [],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 23
+    },
+    {
+     "title": "Teil 1.2",
+     "instructions": "",
+     "text": "Fragen:\n1. Was ist auf den Bildern zu sehen?\n2. Kaufen Sie lieber im Supermarkt oder auf dem Markt ein?\n3. Welche Vorteile hat ein Markt?",
+     "questions": [],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 26
+    },
+    {
+     "title": "Teil 2",
+     "instructions": "",
+     "text": "Erzählen Sie über ein Buch oder einen Film, das / der Sie beeindruckt hat.\nSie sollten sagen:\n• Worum es geht;\n• Wann Sie es kennengelernt haben;\n• Warum es Sie beeindruckt hat.",
+     "questions": [],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 29
+    },
+    {
+     "title": "Teil 3",
+     "instructions": "",
+     "text": "Sollten Autos in Zukunft aus den Stadtzentren verbannt werden?\nPro: Saubere Luft und weniger Lärm · Mehr Platz für Fußgänger, Radfahrer und spielende Kinder · Weniger Unfälle in der Innenstadt\nContra: Schwierigkeiten für ältere und kranke Menschen · Nachteile für Geschäfte im Zentrum · Längere Wege für Lieferanten und Handwerker",
+     "questions": [],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 46
+    }
+   ],
+   "title": "Sprechen",
+   "duration_minutes": 15,
+   "total_points": 0
+  }
+ ],
+ "review": [
+  {
+   "where": "Sprechen Teil 1.2",
+   "note": "Sprechen Teil 1.2: Bilder fehlen noch — bitte zwei Fotos hochladen (1: Einkauf im Supermarkt, 2: Einkauf auf einem Wochenmarkt / Basar)."
+  }
+ ]
+}

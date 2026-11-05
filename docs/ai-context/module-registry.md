@@ -268,6 +268,7 @@ See `deployment-map.md`, skill `vizu-deploy`, `docs/deploy-frontend.md`, `docs/l
 VIZU-Multilevel level test (student UI name "Stufe Bestimmung" since 2026-11-05; code, routes, APIs and admin keep
 "VIZU-Multilevel"; `/vizu-multilevel`, legacy alias `/vizu-mock`, `be/services/vizu_multilevel/`,
 `fe/app/(dashboard)/vizu-multilevel`), Vorbereitung mock exams (`/mock-exam*`, `be/services/mock_exam/`,
-`fe/app/(dashboard)/vorbereitung`), assessment engine (`be/api/assessment_engine`), certificates
+`fe/app/(dashboard)/vorbereitung`; Multilevel Modelltest 1–10 import, keys, source PDF, publish guard:
+`be/services/mock_exam/multilevel_service.py`, `scripts/multilevel_import.py`, `docs/multilevel-modelltests.md`), assessment engine (`be/api/assessment_engine`), certificates
 (`/certificates`, `/my-certificates`), books (`/books`), homework (`/homeworks`), quizzes, exams, calendar,
 notifications, support, advertisements ("Werbung-Banner"), achievements.

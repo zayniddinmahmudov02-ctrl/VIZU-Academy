@@ -124,6 +124,14 @@ class ProtectedLmsResourceStorage(LocalStorage):
     ROOT = Path("app/protected_storage/lms-resources")
 
 
+class ProtectedMockExamSourceStorage(LocalStorage):
+    """Original source PDFs of imported Vorbereitung Modelltests plus their admin check-list
+    ("<model_test_id>.pdf" / "<model_test_id>.json"). Outside the public /uploads mount; served only by the
+    super-admin GET /mock-exam/model-tests/{id}/source-pdf endpoint."""
+
+    ROOT = Path("app/protected_storage/mock-exam-sources")
+
+
 class ProtectedAppReleaseStorage(LocalStorage):
     """Android APK release files (app_releases), random names. Outside the public /uploads mount; streamed
     only by GET /app/android/latest.apk (latest published release) or the Super Admin download endpoint."""

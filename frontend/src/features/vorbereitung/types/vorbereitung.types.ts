@@ -86,6 +86,22 @@ export interface PublicSpeakingTask {
   max_recording_duration_seconds: number;
 }
 
+// Stripped student shape (PublicQuestion): never carries is_correct / match_value / explanation.
+export interface PublicQuestionOption {
+  id: string;
+  option_text: string;
+  sort_order: number;
+}
+
+export interface PublicQuestion {
+  id: string;
+  question_type: string;
+  question_text: string;
+  points: number;
+  sort_order: number;
+  options: PublicQuestionOption[];
+}
+
 export interface PublicTeilContent {
   id: string;
   title: string;
@@ -95,6 +111,7 @@ export interface PublicTeilContent {
   listening_content: PublicListeningContent | null;
   writing_task: PublicWritingTask | null;
   speaking_task: PublicSpeakingTask | null;
+  questions?: PublicQuestion[];
 }
 
 export interface PublicKompetenzDetail {

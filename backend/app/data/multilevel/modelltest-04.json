@@ -1,0 +1,1720 @@
+{
+ "number": 4,
+ "content_id": "vizu-multilevel-mt04",
+ "title": "Modelltest 4",
+ "origin": "pdf",
+ "source_pdf": "Multilevel Mock Variant 4.pdf",
+ "description": "Multilevel Modelltest 4 — aus „Multilevel Mock Variant 4.pdf“ (Der Deutschlehrer: Zayniddinkhuja Makhmudov).",
+ "kompetenzen": [
+  {
+   "type": "LESEN",
+   "teile": [
+    {
+     "title": "Teil 1",
+     "pages": [
+      2
+     ],
+     "instructions": "Aufgabe\nBringen Sie die Textteile A–E in eine sinnvolle Reihenfolge.\nIhre Lösung:",
+     "text": "A. Viele Menschen versuchen heute, umweltfreundlicher zu leben, indem sie weniger Plastik benutzen und Energie sparen.\n\nB. Der Klimawandel ist ein großes Problem, das die ganze Welt betrifft und unser Leben in Zukunft stark beeinflussen kann.\n\nC. Einige Leute fahren lieber mit dem Fahrrad oder benutzen öffentliche Verkehrsmittel, um die Umwelt zu schützen.\n\nD. Es ist wichtig, dass jeder Mensch seinen Beitrag leistet, damit wir die Natur schützen und die Umwelt verbessern können.\n\nE. Durch kleine Veränderungen im Alltag kann man viel erreichen und die Umwelt langfristig positiv beeinflussen.",
+     "words": null,
+     "same_situation": false,
+     "questions": [
+      {
+       "no": "A1",
+       "type": "ORDERING",
+       "text": "A1",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A2",
+       "type": "ORDERING",
+       "text": "A2",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A3",
+       "type": "ORDERING",
+       "text": "A3",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A4",
+       "type": "ORDERING",
+       "text": "A4",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A5",
+       "type": "ORDERING",
+       "text": "A5",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "text_words": 89
+    },
+    {
+     "title": "Teil 2",
+     "pages": [
+      3,
+      4
+     ],
+     "instructions": "",
+     "text": "Eigentlich ist die Schweizerin Caroline Bias Landwirtin. Gleichzeitig haben Lamas mit ihrer ruhigen Art sie schon immer fasziniert. Warum also nicht Lamas in die Schweiz bringen? Also hat sie vier Lamas gekauft – als Nebenerwerb zu ihrer Landwirtschaft. Nachdem sich die Tiere in der neuen Umgebung eingewöhnt hatten, startete sie ihr Unternehmen: Lama-Trekking. Sie bietet Touren durch die Engadiner Alpen an für Geschäftsleute mit Burnout-Syndrom.\n\nDie Tiere geben das Tempo vor. Sie marschieren gemütlich und lassen sich nicht hetzen. Sie haben ihr eigenes Tempo, und wer mit ihnen wandert, muss sich dem auch anpassen. Das Ziel ist eine Berghütte in 2.000 Metern Höhe. Einen Tag lang werden die Lamas zu Begleitern und zu tierischen Stress-Therapeuten.\n\nJedes Tier hat seine Eigenarten. Ali mit dem zotteligen Fell schlägt mit einem Lauf nach hinten aus. „Er ist sehr lieb, wie die drei anderen auch“, sagt Caroline, „nur hasst er es, wenn man ihn versehentlich am Hintern berührt.“ Eine Warnung, die sich die Gäste merken. „Und nein, sie spucken nicht“, fügt Caroline schnell hinzu, um die obligatorische Frage gleich am Anfang zu klären.\n\nLamas tragen das Gepäck. Sie sind Lasttiere, die bis zu 25 Kilo tragen können. Mehr wäre schädlich für ihre Wirbelsäule, deshalb kann man auf Lamas auch nicht reiten. Beim Gehen frisst er alles, was er mit seinem langen Hals erreichen kann: Grashalme, Blätter oder Disteln am Wegesrand.\n\nDie therapeutische Wirkung von Lamas auf Burnout-Patienten bestätigt auch eine Expertin. Sie sagt, dass die Ruhephase in der Natur und die Interaktion mit den Tieren sehr hilfreich sind. Man braucht Geduld, um sich den Tieren zu nähern, denn sie sind vorsichtig und sensibel.\n\nAm Ende der Wanderung sind die Teilnehmer zwar müde, aber sie fühlen sich entspannt und zufrieden. Sie haben gelernt, langsamer zu werden und den Moment zu genießen.\n\nFragen",
+     "words": null,
+     "same_situation": false,
+     "questions": [
+      {
+       "no": "A6",
+       "type": "SINGLE_CHOICE",
+       "text": "Warum hat Caroline Bias Lamas gekauft?",
+       "options": [
+        {
+         "text": "Weil sie Fleisch produzieren wollte.",
+         "correct": null
+        },
+        {
+         "text": "Weil sie ein neues touristisches Angebot schaffen wollte.",
+         "correct": null
+        },
+        {
+         "text": "Weil Lamas billiger als Kühe sind.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A7",
+       "type": "SINGLE_CHOICE",
+       "text": "Wie verhalten sich Lamas während der Wanderung?",
+       "options": [
+        {
+         "text": "Sie laufen sehr schnell und unruhig.",
+         "correct": null
+        },
+        {
+         "text": "Sie geben das Tempo vor und bleiben ruhig.",
+         "correct": null
+        },
+        {
+         "text": "Sie hören nicht auf die Menschen.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A8",
+       "type": "SINGLE_CHOICE",
+       "text": "Was ist eine Besonderheit von Lamas laut Text?",
+       "options": [
+        {
+         "text": "Sie können sehr schwer tragen ohne Probleme.",
+         "correct": null
+        },
+        {
+         "text": "Sie spucken Menschen oft an.",
+         "correct": null
+        },
+        {
+         "text": "Sie reagieren empfindlich und zeigen ihr Verhalten deutlich.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A9",
+       "type": "SINGLE_CHOICE",
+       "text": "Warum sind Lamas gut für die Therapie geeignet?",
+       "options": [
+        {
+         "text": "Weil sie laut und aktiv sind.",
+         "correct": null
+        },
+        {
+         "text": "Weil sie Ruhe ausstrahlen und Vertrauen fördern.",
+         "correct": null
+        },
+        {
+         "text": "Weil sie schnell laufen können.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A10",
+       "type": "SINGLE_CHOICE",
+       "text": "Was erleben die Teilnehmer am Ende der Wanderung?",
+       "options": [
+        {
+         "text": "Sie sind enttäuscht und müde.",
+         "correct": null
+        },
+        {
+         "text": "Sie fühlen sich gestresst.",
+         "correct": null
+        },
+        {
+         "text": "Sie sind müde, aber zufrieden und entspannt.",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "text_words": 297
+    },
+    {
+     "title": "Teil 3",
+     "pages": [
+      5,
+      6,
+      7
+     ],
+     "instructions": "Ihre Lösungen:",
+     "text": "Überschriften\nA. Homeoffice verändert die Arbeitswelt\nB. Künstliche Intelligenz wird immer wichtiger\nC. Kritik an fehlender Work-Life-Balance\nD. Digitalisierung schafft neue Berufe\nE. Arbeitnehmer fühlen sich oft überfordert\nF. Unternehmen investieren in neue Technologien\nG. Junge Menschen bevorzugen flexible Arbeitszeiten\nH. Traditionelle Büros verlieren an Bedeutung\nI. Weiterbildung wird immer wichtiger\nJ. Stress am Arbeitsplatz nimmt zu",
+     "words": null,
+     "same_situation": false,
+     "questions": [
+      {
+       "no": "A11",
+       "type": "MATCHING",
+       "text": "In den letzten Jahren hat die künstliche Intelligenz stark an Bedeutung gewonnen. Laut einem Bericht von McKinsey nutzen bereits über 50 % der Unternehmen weltweit KI in mindestens einem Geschäftsbereich.\n\nBesonders in Bereichen wie Datenanalyse und Kundenservice wird KI immer häufiger eingesetzt. Experten erwarten, dass dieser Trend in Zukunft weiter wächst.",
+       "options": [
+        {
+         "text": "Homeoffice verändert die Arbeitswelt",
+         "correct": null
+        },
+        {
+         "text": "Künstliche Intelligenz wird immer wichtiger",
+         "correct": null
+        },
+        {
+         "text": "Kritik an fehlender Work-Life-Balance",
+         "correct": null
+        },
+        {
+         "text": "Digitalisierung schafft neue Berufe",
+         "correct": null
+        },
+        {
+         "text": "Arbeitnehmer fühlen sich oft überfordert",
+         "correct": null
+        },
+        {
+         "text": "Unternehmen investieren in neue Technologien",
+         "correct": null
+        },
+        {
+         "text": "Junge Menschen bevorzugen flexible Arbeitszeiten",
+         "correct": null
+        },
+        {
+         "text": "Traditionelle Büros verlieren an Bedeutung",
+         "correct": null
+        },
+        {
+         "text": "Weiterbildung wird immer wichtiger",
+         "correct": null
+        },
+        {
+         "text": "Stress am Arbeitsplatz nimmt zu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A12",
+       "type": "MATCHING",
+       "text": "Immer mehr Arbeitnehmer arbeiten heute im Homeoffice. Laut Eurostat arbeiteten im Jahr 2023 etwa 24 % der Beschäftigten in Europa regelmäßig von zu Hause. Viele schätzen die Flexibilität und die Zeitersparnis, da sie nicht mehr pendeln müssen. Gleichzeitig stellt diese Arbeitsform neue Anforderungen an Selbstorganisation und Disziplin.",
+       "options": [
+        {
+         "text": "Homeoffice verändert die Arbeitswelt",
+         "correct": null
+        },
+        {
+         "text": "Künstliche Intelligenz wird immer wichtiger",
+         "correct": null
+        },
+        {
+         "text": "Kritik an fehlender Work-Life-Balance",
+         "correct": null
+        },
+        {
+         "text": "Digitalisierung schafft neue Berufe",
+         "correct": null
+        },
+        {
+         "text": "Arbeitnehmer fühlen sich oft überfordert",
+         "correct": null
+        },
+        {
+         "text": "Unternehmen investieren in neue Technologien",
+         "correct": null
+        },
+        {
+         "text": "Junge Menschen bevorzugen flexible Arbeitszeiten",
+         "correct": null
+        },
+        {
+         "text": "Traditionelle Büros verlieren an Bedeutung",
+         "correct": null
+        },
+        {
+         "text": "Weiterbildung wird immer wichtiger",
+         "correct": null
+        },
+        {
+         "text": "Stress am Arbeitsplatz nimmt zu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A13",
+       "type": "MATCHING",
+       "text": "Trotz der Vorteile gibt es auch Kritik am modernen Arbeitsstil. Studien zeigen, dass etwa 40 % der Arbeitnehmer Schwierigkeiten haben, Arbeit und Privatleben zu trennen. Besonders im Homeoffice verschwimmen oft die Grenzen zwischen Beruf und Freizeit. Experten warnen, dass dies langfristig zu Stress führen kann.",
+       "options": [
+        {
+         "text": "Homeoffice verändert die Arbeitswelt",
+         "correct": null
+        },
+        {
+         "text": "Künstliche Intelligenz wird immer wichtiger",
+         "correct": null
+        },
+        {
+         "text": "Kritik an fehlender Work-Life-Balance",
+         "correct": null
+        },
+        {
+         "text": "Digitalisierung schafft neue Berufe",
+         "correct": null
+        },
+        {
+         "text": "Arbeitnehmer fühlen sich oft überfordert",
+         "correct": null
+        },
+        {
+         "text": "Unternehmen investieren in neue Technologien",
+         "correct": null
+        },
+        {
+         "text": "Junge Menschen bevorzugen flexible Arbeitszeiten",
+         "correct": null
+        },
+        {
+         "text": "Traditionelle Büros verlieren an Bedeutung",
+         "correct": null
+        },
+        {
+         "text": "Weiterbildung wird immer wichtiger",
+         "correct": null
+        },
+        {
+         "text": "Stress am Arbeitsplatz nimmt zu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A14",
+       "type": "MATCHING",
+       "text": "Die Digitalisierung führt dazu, dass viele neue Berufe entstehen. Laut Weltwirtschaftsforum könnten bis 2030 etwa 85 Millionen neue Jobs im digitalen Bereich entstehen. Gleichzeitig verschwinden jedoch auch einige traditionelle Berufe. Deshalb wird Anpassungsfähigkeit immer wichtiger.",
+       "options": [
+        {
+         "text": "Homeoffice verändert die Arbeitswelt",
+         "correct": null
+        },
+        {
+         "text": "Künstliche Intelligenz wird immer wichtiger",
+         "correct": null
+        },
+        {
+         "text": "Kritik an fehlender Work-Life-Balance",
+         "correct": null
+        },
+        {
+         "text": "Digitalisierung schafft neue Berufe",
+         "correct": null
+        },
+        {
+         "text": "Arbeitnehmer fühlen sich oft überfordert",
+         "correct": null
+        },
+        {
+         "text": "Unternehmen investieren in neue Technologien",
+         "correct": null
+        },
+        {
+         "text": "Junge Menschen bevorzugen flexible Arbeitszeiten",
+         "correct": null
+        },
+        {
+         "text": "Traditionelle Büros verlieren an Bedeutung",
+         "correct": null
+        },
+        {
+         "text": "Weiterbildung wird immer wichtiger",
+         "correct": null
+        },
+        {
+         "text": "Stress am Arbeitsplatz nimmt zu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A15",
+       "type": "MATCHING",
+       "text": "Viele Arbeitnehmer fühlen sich durch die steigenden Anforderungen überfordert. Eine Studie zeigt, dass rund 30 % der Beschäftigten regelmäßig unter starkem Arbeitsdruck stehen. Ursachen sind oft hohe Erwartungen, Zeitmangel und ständige Erreichbarkeit. Dies kann negative Auswirkungen auf die Gesundheit haben.",
+       "options": [
+        {
+         "text": "Homeoffice verändert die Arbeitswelt",
+         "correct": null
+        },
+        {
+         "text": "Künstliche Intelligenz wird immer wichtiger",
+         "correct": null
+        },
+        {
+         "text": "Kritik an fehlender Work-Life-Balance",
+         "correct": null
+        },
+        {
+         "text": "Digitalisierung schafft neue Berufe",
+         "correct": null
+        },
+        {
+         "text": "Arbeitnehmer fühlen sich oft überfordert",
+         "correct": null
+        },
+        {
+         "text": "Unternehmen investieren in neue Technologien",
+         "correct": null
+        },
+        {
+         "text": "Junge Menschen bevorzugen flexible Arbeitszeiten",
+         "correct": null
+        },
+        {
+         "text": "Traditionelle Büros verlieren an Bedeutung",
+         "correct": null
+        },
+        {
+         "text": "Weiterbildung wird immer wichtiger",
+         "correct": null
+        },
+        {
+         "text": "Stress am Arbeitsplatz nimmt zu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A16",
+       "type": "MATCHING",
+       "text": "Unternehmen investieren zunehmend in moderne Technologien. Zwischen 2020 und 2024 wurden weltweit Milliarden in Digitalisierung und Automatisierung investiert. Ziel ist es, effizienter zu arbeiten und wettbewerbsfähig zu bleiben. Besonders große Firmen treiben diese Entwicklung voran.",
+       "options": [
+        {
+         "text": "Homeoffice verändert die Arbeitswelt",
+         "correct": null
+        },
+        {
+         "text": "Künstliche Intelligenz wird immer wichtiger",
+         "correct": null
+        },
+        {
+         "text": "Kritik an fehlender Work-Life-Balance",
+         "correct": null
+        },
+        {
+         "text": "Digitalisierung schafft neue Berufe",
+         "correct": null
+        },
+        {
+         "text": "Arbeitnehmer fühlen sich oft überfordert",
+         "correct": null
+        },
+        {
+         "text": "Unternehmen investieren in neue Technologien",
+         "correct": null
+        },
+        {
+         "text": "Junge Menschen bevorzugen flexible Arbeitszeiten",
+         "correct": null
+        },
+        {
+         "text": "Traditionelle Büros verlieren an Bedeutung",
+         "correct": null
+        },
+        {
+         "text": "Weiterbildung wird immer wichtiger",
+         "correct": null
+        },
+        {
+         "text": "Stress am Arbeitsplatz nimmt zu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A17",
+       "type": "MATCHING",
+       "text": "Weiterbildung spielt heute eine immer größere Rolle. Laut OECD nehmen immer mehr Erwachsene an Fortbildungen teil, um ihre Chancen auf dem Arbeitsmarkt zu verbessern. Besonders digitale Kompetenzen sind gefragt. Experten betonen, dass lebenslanges Lernen entscheidend für den beruflichen Erfolg ist.\n\nAufgaben Ordnen Sie die Überschriften A–J den Texten A11–A17 zu.",
+       "options": [
+        {
+         "text": "Homeoffice verändert die Arbeitswelt",
+         "correct": null
+        },
+        {
+         "text": "Künstliche Intelligenz wird immer wichtiger",
+         "correct": null
+        },
+        {
+         "text": "Kritik an fehlender Work-Life-Balance",
+         "correct": null
+        },
+        {
+         "text": "Digitalisierung schafft neue Berufe",
+         "correct": null
+        },
+        {
+         "text": "Arbeitnehmer fühlen sich oft überfordert",
+         "correct": null
+        },
+        {
+         "text": "Unternehmen investieren in neue Technologien",
+         "correct": null
+        },
+        {
+         "text": "Junge Menschen bevorzugen flexible Arbeitszeiten",
+         "correct": null
+        },
+        {
+         "text": "Traditionelle Büros verlieren an Bedeutung",
+         "correct": null
+        },
+        {
+         "text": "Weiterbildung wird immer wichtiger",
+         "correct": null
+        },
+        {
+         "text": "Stress am Arbeitsplatz nimmt zu",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "text_words": 57
+    },
+    {
+     "title": "Teil 4",
+     "pages": [
+      7,
+      8,
+      9
+     ],
+     "instructions": "Lesen Sie den Text „Berliner Hauskonzerte“ und lösen Sie dazu die Aufgaben A18–A26.\nWelche der Aussagen sind Richtig (A), Falsch (B) oder gar nicht im Text enthalten (C)?\nEs gibt jeweils nur eine richtige Lösung.",
+     "text": "Berliner Hauskonzerte Ein Wochenende lang steht das Klavier im Mittelpunkt des Stadtgeschehens. In Berlin erklingt in privaten Wohnzimmern Klaviermusik unterschiedlicher Genres. In der „Langen Nacht der Klaviermusik“ spielen Profis und Laien bei sich zu Hause für fremde Gäste. Zahlreiche Veranstaltungen an weiteren Orten in Berlin ergänzen das Festival Piano City.\n\nFrüher traf man sich in deutschen Wohnzimmern in familiärer Atmosphäre zum Musizieren. Heute wird die ganze Stadt zu einer privaten Bühne. Die wenigsten der unzähligen Klavierstudenten und Pianisten der Stadt, egal ob Laien oder Profis, haben die Möglichkeit, tatsächlich einmal ein Klavierkonzert zu geben oder innerhalb eines Festivals aufzutreten. Das Berliner Musikfestival Piano City gibt ihnen diese Chance. Die Pianisten laden Unbekannte in ihre Wohnzimmer zum Hauskonzert ein und spielen ihnen etwas auf dem Klavier vor.\n\nSophia Grevesmühl gehört zu den 70 Berliner Pianisten, die ihre Wohnzimmer in Mini-Konzertsäle verwandeln. Im dritten Stock öffnet sich eine schlichte Wohnungstür und Sophia empfängt ihre Besucher. Die meisten Gäste hat sie zuvor gesehen. Zwischen Bücherregalen und Zimmerpflanzen suchen sie sich einen Sitzplatz und machen es sich gemütlich. Sophia wird Stücke von Sergej Prokofjew und Johannes Brahms spielen.\n\nDie Musikmanagerin und Klavierlehrerin Sophia Grevesmühl ist eine der Heimpianistinnen, die beim Festival dabei sein werden. Sie hat Journalisten und Organisatoren bereits eine Kostprobe gegeben, um zu zeigen, wie ihr Konzert ablaufen wird.\n\n„Klavierspielen ist manchmal eine einsame Sache“, sagt die junge Frau. Deshalb hat sie sich für das Festival beworben. Der neue Trend ist, Gäste über Internetseiten als Gäste zu sich nach Hause zu holen. Tickets gibt es ab 5,55 Euro im Internet. Erst nach dem Kauf erfährt man die genaue Adresse des Hauskonzerts.\n\nIn anderen Städten gibt es ebenfalls ähnliche Festivals. Eine Besonderheit ist manchmal der Ort: Ein Konzert findet in einem kleinen Wohnzimmer statt, ein anderes in größeren Räumen wie der Philharmonie oder sogar bei Ikea.\n\nAm Ende erleben die Gäste ein besonderes Konzert in persönlicher Atmosphäre.\n\nAussagen",
+     "words": null,
+     "same_situation": false,
+     "questions": [
+      {
+       "no": "A18",
+       "type": "TRUE_FALSE",
+       "text": "In Berlin finden Klavierkonzerte auch in privaten Wohnungen statt.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "Der Text sagt das nicht",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A19",
+       "type": "TRUE_FALSE",
+       "text": "Nur professionelle Pianisten dürfen an dem Festival teilnehmen.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "Der Text sagt das nicht",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A20",
+       "type": "TRUE_FALSE",
+       "text": "Die Pianisten spielen für bekannte Freunde und Familie.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "Der Text sagt das nicht",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A21",
+       "type": "TRUE_FALSE",
+       "text": "Die genaue Adresse des Konzerts ist sofort im Internet sichtbar.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "Der Text sagt das nicht",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A22",
+       "type": "TRUE_FALSE",
+       "text": "Sophia Grevesmühl spielt Werke bekannter Komponisten.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "Der Text sagt das nicht",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A23",
+       "type": "TRUE_FALSE",
+       "text": "Hauskonzerte finden nur in Berlin statt.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "Der Text sagt das nicht",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A24",
+       "type": "TRUE_FALSE",
+       "text": "Gäste können Tickets online kaufen.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "Der Text sagt das nicht",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A25",
+       "type": "TRUE_FALSE",
+       "text": "Alle Konzerte finden nur in großen Konzertsälen statt.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "Der Text sagt das nicht",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A26",
+       "type": "TRUE_FALSE",
+       "text": "Die Atmosphäre bei Hauskonzerten ist persönlich und besonders.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "Der Text sagt das nicht",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "text_words": 316
+    },
+    {
+     "title": "Teil 5",
+     "pages": [
+      10,
+      11,
+      12
+     ],
+     "instructions": "Lesen Sie den Text und dazu die Aufgaben A27–A35. Entscheiden Sie, welche der Antworten A, B oder C\nrichtig ist. Zu jeder Aufgabe gibt es jeweils nur eine richtige Lösung.",
+     "text": "Text: Elektroautos und ihre Rolle in der modernen Gesellschaft\n\nIn den letzten Jahren haben Elektroautos weltweit stark an Bedeutung gewonnen. Viele Länder sehen in ihnen eine umweltfreundlichere Alternative zu herkömmlichen Fahrzeugen mit Verbrennungsmotor. Regierungen fördern den Kauf von Elektroautos durch finanzielle Unterstützung und den Ausbau der Ladeinfrastruktur.\n\nDennoch bleibt die Diskussion über ihre tatsächlichen Vorteile komplex.\n\nEin großer Vorteil von Elektroautos ist, dass sie während der Fahrt keine direkten CO₂-Emissionen verursachen.\n\nDies trägt dazu bei, die Luftqualität in Städten zu verbessern. Allerdings hängt die Umweltfreundlichkeit auch davon ab, wie der Strom produziert wird. Wird er aus fossilen Energien gewonnen, relativiert sich dieser Vorteil teilweise.\n\nAuch wirtschaftlich spielen Elektroautos eine wichtige Rolle. Viele Unternehmen investieren Milliarden in die Entwicklung neuer Technologien und Batterien. Gleichzeitig entstehen neue Arbeitsplätze im Bereich der Elektromobilität. Andererseits stehen traditionelle Automobilindustrien vor großen Herausforderungen, da sie ihre Produktion umstellen müssen.\n\nEin weiteres Thema ist die Reichweite von Elektroautos. Obwohl moderne Modelle immer leistungsfähiger werden, haben viele Menschen noch Bedenken, ob sie lange Strecken problemlos zurücklegen können. Der Ausbau von Ladestationen ist daher entscheidend für die Zukunft dieser Technologie.\n\nIm Alltag zeigen sich sowohl Vorteile als auch Nachteile. Elektroautos sind oft leiser und haben geringere Betriebskosten. Gleichzeitig sind sie in der Anschaffung meist teurer als herkömmliche Fahrzeuge. Für viele Käufer spielt daher die finanzielle Situation eine wichtige Rolle.\n\nAuch ökologische Fragen werden intensiv diskutiert. Die Produktion von Batterien erfordert seltene Rohstoffe wie Lithium und Kobalt. Der Abbau dieser Materialien kann negative Auswirkungen auf die Umwelt und die lokalen Gemeinschaften haben.\n\nPolitisch wird die Elektromobilität stark unterstützt. Viele Länder planen, den Verkauf von Fahrzeugen mit Verbrennungsmotor in den kommenden Jahrzehnten zu reduzieren oder ganz zu verbieten. Ziel ist es, den Klimawandel zu bekämpfen und nachhaltige Mobilität zu fördern.\n\nAbschließend lässt sich sagen, dass Elektroautos ein wichtiger Bestandteil der Zukunft sind. Dennoch bleibt offen, ob sie alle Probleme lösen können oder ob weitere Innovationen notwendig sind.\n\nFragen",
+     "words": null,
+     "same_situation": false,
+     "questions": [
+      {
+       "no": "A27",
+       "type": "SINGLE_CHOICE",
+       "text": "Elektroautos werden im Text dargestellt als ...",
+       "options": [
+        {
+         "text": "eine perfekte Lösung ohne Nachteile",
+         "correct": null
+        },
+        {
+         "text": "ein komplexes Thema mit Vor- und Nachteilen",
+         "correct": null
+        },
+        {
+         "text": "völlig unwichtig für die Zukunft",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A28",
+       "type": "SINGLE_CHOICE",
+       "text": "Ein Vorteil von Elektroautos ist ...",
+       "options": [
+        {
+         "text": "dass sie keine Energie brauchen",
+         "correct": null
+        },
+        {
+         "text": "dass sie keine direkten CO₂-Emissionen verursachen",
+         "correct": null
+        },
+        {
+         "text": "dass sie immer billiger sind als andere Autos",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A29",
+       "type": "SINGLE_CHOICE",
+       "text": "Die Umweltfreundlichkeit von Elektroautos hängt auch davon ab ...",
+       "options": [
+        {
+         "text": "wie schnell sie fahren",
+         "correct": null
+        },
+        {
+         "text": "wie der Strom produziert wird",
+         "correct": null
+        },
+        {
+         "text": "wie teuer sie sind",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A30",
+       "type": "SINGLE_CHOICE",
+       "text": "Veränderungen in der Wirtschaft bedeuten, dass ...",
+       "options": [
+        {
+         "text": "keine neuen Jobs entstehen",
+         "correct": null
+        },
+        {
+         "text": "nur alte Firmen profitieren",
+         "correct": null
+        },
+        {
+         "text": "neue Arbeitsplätze entstehen, aber alte Strukturen sich verändern",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A31",
+       "type": "SINGLE_CHOICE",
+       "text": "Ein Problem vieler Menschen ist ...",
+       "options": [
+        {
+         "text": "die geringe Geschwindigkeit von Elektroautos",
+         "correct": null
+        },
+        {
+         "text": "die Reichweite und Ladeinfrastruktur",
+         "correct": null
+        },
+        {
+         "text": "die Farbe der Autos",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A32",
+       "type": "SINGLE_CHOICE",
+       "text": "Im Alltag sind Elektroautos oft ...",
+       "options": [
+        {
+         "text": "lauter als andere Fahrzeuge",
+         "correct": null
+        },
+        {
+         "text": "teurer im Betrieb",
+         "correct": null
+        },
+        {
+         "text": "leiser und günstiger im Betrieb",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A33",
+       "type": "SINGLE_CHOICE",
+       "text": "Ein ökologisches Problem ist ...",
+       "options": [
+        {
+         "text": "dass Autos keine Batterien haben",
+         "correct": null
+        },
+        {
+         "text": "der Abbau von Rohstoffen für Batterien",
+         "correct": null
+        },
+        {
+         "text": "dass Strom nicht genutzt wird",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A34",
+       "type": "SINGLE_CHOICE",
+       "text": "Politische Maßnahmen ...",
+       "options": [
+        {
+         "text": "ignorieren Elektroautos",
+         "correct": null
+        },
+        {
+         "text": "unterstützen die Entwicklung der Elektromobilität",
+         "correct": null
+        },
+        {
+         "text": "verbieten alle Autos sofort",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A35",
+       "type": "SINGLE_CHOICE",
+       "text": "Am Ende zeigt der Text, dass ...",
+       "options": [
+        {
+         "text": "Elektroautos alle Probleme lösen",
+         "correct": null
+        },
+        {
+         "text": "Elektroautos keine Zukunft haben",
+         "correct": null
+        },
+        {
+         "text": "weitere Entwicklungen notwendig sein könnten",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "text_words": 318
+    }
+   ],
+   "title": "Lesen",
+   "duration_minutes": 60,
+   "total_points": 35
+  },
+  {
+   "type": "HOEREN",
+   "teile": [
+    {
+     "title": "Teil 1",
+     "instructions": "Sie hören fünf Gespräche und Äußerungen. Sie hören jeden Text einmal. Zu jedem Text lösen Sie zwei Aufgaben. Wählen Sie bei jeder Aufgabe die richtige Lösung. Lesen Sie jetzt das Beispiel. Dazu haben Sie 15 Sekunden Zeit.",
+     "text": "Beispiel\n01 Eine Frau erklärt, wie man Fleisch im Ofen zubereiten kann. a) Richtig b) Falsch\n02 Zum Fleisch kann man … a) auch Nudeln essen b) Reis zubereiten c) Kartoffeln kochen",
+     "questions": [
+      {
+       "no": "1",
+       "type": "TRUE_FALSE",
+       "text": "Ein Mann macht Werbung für prämierte Filme.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "2",
+       "type": "SINGLE_CHOICE",
+       "text": "Was soll man in der Nacht machen?",
+       "options": [
+        {
+         "text": "Sterne ansehen",
+         "correct": null
+        },
+        {
+         "text": "Mit Freunden ausgehen",
+         "correct": null
+        },
+        {
+         "text": "Sich mit anderen Kinoliebhabern zusammentun",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "3",
+       "type": "TRUE_FALSE",
+       "text": "Jemand organisiert eine Fahrgelegenheit.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "4",
+       "type": "SINGLE_CHOICE",
+       "text": "Was für Fahrer machen bei „UBER“ mit?",
+       "options": [
+        {
+         "text": "Ausgebildete Taxifahrer",
+         "correct": null
+        },
+        {
+         "text": "Fahrer, die einen privat mitnehmen",
+         "correct": null
+        },
+        {
+         "text": "Junge Fahrer",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "5",
+       "type": "TRUE_FALSE",
+       "text": "Die beiden Frauen sind in einer Reinigung.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "6",
+       "type": "SINGLE_CHOICE",
+       "text": "Wie ist der Fleck wahrscheinlich entstanden?",
+       "options": [
+        {
+         "text": "Durch Schweiß",
+         "correct": null
+        },
+        {
+         "text": "Durch Parfüm",
+         "correct": null
+        },
+        {
+         "text": "Durch Kosmetika",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "7",
+       "type": "TRUE_FALSE",
+       "text": "Die Frau gibt Ratschläge für Hundehalter.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "8",
+       "type": "SINGLE_CHOICE",
+       "text": "Was brauchen die Tiere?",
+       "options": [
+        {
+         "text": "Intensives Laufen",
+         "correct": null
+        },
+        {
+         "text": "Spiele mit einem Partner",
+         "correct": null
+        },
+        {
+         "text": "Häufiges Schwimmen",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "9",
+       "type": "TRUE_FALSE",
+       "text": "Eine Person spricht über einen Ausbildungsplatz.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "10",
+       "type": "SINGLE_CHOICE",
+       "text": "Bei den Besuchern des Cafés handelt es sich um …",
+       "options": [
+        {
+         "text": "Jugendliche, die ein Freiwilliges Soziales Jahr machen",
+         "correct": null
+        },
+        {
+         "text": "gefährliche Jugendliche",
+         "correct": null
+        },
+        {
+         "text": "junge Leute aus dem Stadtteil Wedding",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [
+      13
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 31
+    },
+    {
+     "title": "Teil 2",
+     "instructions": "Sie hören im Radio ein Interview mit einer Persönlichkeit aus der Wissenschaft.\nSie hören den Text zweimal. Wählen Sie bei jeder Aufgabe die richtige Lösung.\nLesen Sie jetzt die Aufgaben 11 bis 16. Dazu haben Sie 90 Sekunden Zeit.",
+     "text": "",
+     "questions": [
+      {
+       "no": "11",
+       "type": "SINGLE_CHOICE",
+       "text": "Von „regionaler Ernährung“ spricht man, wenn eine Stadt …",
+       "options": [
+        {
+         "text": "mit Nahrungsmitteln aus der näheren Umgebung versorgt wird",
+         "correct": null
+        },
+        {
+         "text": "Nahrungsmittel für alle Einwohner selbst produzieren kann",
+         "correct": null
+        },
+        {
+         "text": "alle landwirtschaftlichen Betriebe der Region unterstützt",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "12",
+       "type": "SINGLE_CHOICE",
+       "text": "Welche Ernährungsweise erfordert eine sehr große landwirtschaftliche Anbaufläche?",
+       "options": [
+        {
+         "text": "Die Ernährungsweise mit viel Fleisch",
+         "correct": null
+        },
+        {
+         "text": "Die ökologische Ernährungsweise",
+         "correct": null
+        },
+        {
+         "text": "Die vegetarische Ernährungsweise",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "13",
+       "type": "SINGLE_CHOICE",
+       "text": "Was erlernt man in der Kindheit?",
+       "options": [
+        {
+         "text": "Unterschiedliche Ernährungsweisen",
+         "correct": null
+        },
+        {
+         "text": "Sich gesund zu ernähren",
+         "correct": null
+        },
+        {
+         "text": "Einen bestimmten Ernährungsstil",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "14",
+       "type": "SINGLE_CHOICE",
+       "text": "Durch die regionale Ernährung könnte man …",
+       "options": [
+        {
+         "text": "auch der Umwelt nützen",
+         "correct": null
+        },
+        {
+         "text": "neue Transportwege nutzen",
+         "correct": null
+        },
+        {
+         "text": "jederzeit alles essen",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "15",
+       "type": "SINGLE_CHOICE",
+       "text": "Bei einer regionalen Ernährungsweise müsste man …",
+       "options": [
+        {
+         "text": "auf die Jahreszeiten achten",
+         "correct": null
+        },
+        {
+         "text": "Lebensmittel ausschließlich von kleinen Betrieben kaufen",
+         "correct": null
+        },
+        {
+         "text": "mit höheren Preisen rechnen",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "16",
+       "type": "SINGLE_CHOICE",
+       "text": "Frau Griffel schlägt vor, dass der Staat …",
+       "options": [
+        {
+         "text": "mit Bauern der Region zusammenarbeitet",
+         "correct": null
+        },
+        {
+         "text": "Konzepte zur regionalen Ernährung prämiert",
+         "correct": null
+        },
+        {
+         "text": "kleine Händler und Bauern unterstützt",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [
+      14
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 0
+    },
+    {
+     "title": "Teil 3",
+     "instructions": "Sie hören im Radio ein Gespräch mit mehreren Personen. Die Personen sprechen über das Urheberrecht an Universitäten.\nSie hören den Text einmal. Wählen Sie bei jeder Aufgabe: Wer sagt das?\nLesen Sie jetzt die Aufgaben 17 bis 22. Dazu haben Sie 60 Sekunden Zeit.",
+     "text": "Beispiel: 0 Studenten und Professoren beachten die Autorenrechte nicht immer. a) Moderator b) Verlagsangestellte c) Studentin",
+     "questions": [
+      {
+       "no": "17",
+       "type": "MATCHING",
+       "text": "In wissenschaftlichen Arbeiten muss man immer alle Quellen angeben.",
+       "options": [
+        {
+         "text": "Moderator",
+         "correct": null
+        },
+        {
+         "text": "Verlagsangestellte",
+         "correct": null
+        },
+        {
+         "text": "Studentin",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "18",
+       "type": "MATCHING",
+       "text": "Die Universitäten bezahlen oft nicht, wenn sie Bücher digital zur Verfügung stellen.",
+       "options": [
+        {
+         "text": "Moderator",
+         "correct": null
+        },
+        {
+         "text": "Verlagsangestellte",
+         "correct": null
+        },
+        {
+         "text": "Studentin",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "19",
+       "type": "MATCHING",
+       "text": "Die Verlage wollen, dass man pro digitale Buchseite einen Beitrag zahlt.",
+       "options": [
+        {
+         "text": "Moderator",
+         "correct": null
+        },
+        {
+         "text": "Verlagsangestellte",
+         "correct": null
+        },
+        {
+         "text": "Studentin",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "20",
+       "type": "MATCHING",
+       "text": "Der von Universitäten gezahlte Betrag ist bei Weitem zu niedrig.",
+       "options": [
+        {
+         "text": "Moderator",
+         "correct": null
+        },
+        {
+         "text": "Verlagsangestellte",
+         "correct": null
+        },
+        {
+         "text": "Studentin",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "21",
+       "type": "MATCHING",
+       "text": "Kopieren ist schlecht für die Umwelt.",
+       "options": [
+        {
+         "text": "Moderator",
+         "correct": null
+        },
+        {
+         "text": "Verlagsangestellte",
+         "correct": null
+        },
+        {
+         "text": "Studentin",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "22",
+       "type": "MATCHING",
+       "text": "Es ist den Studenten finanziell nicht möglich, alle Bücher für ihr Studium zu kaufen.",
+       "options": [
+        {
+         "text": "Moderator",
+         "correct": null
+        },
+        {
+         "text": "Verlagsangestellte",
+         "correct": null
+        },
+        {
+         "text": "Studentin",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [
+      15
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 16
+    },
+    {
+     "title": "Teil 4",
+     "instructions": "Sie hören einen kurzen Vortrag. Der Redner spricht über das Thema „War früher wirklich alles besser?“.\nSie hören den Text zweimal. Wählen Sie bei jeder Aufgabe die richtige Lösung.\nLesen Sie jetzt die Aufgaben 23 bis 30. Dazu haben Sie 90 Sekunden Zeit.",
+     "text": "",
+     "questions": [
+      {
+       "no": "23",
+       "type": "SINGLE_CHOICE",
+       "text": "Die Menschheit …",
+       "options": [
+        {
+         "text": "wird dümmer",
+         "correct": null
+        },
+        {
+         "text": "wird intelligenter",
+         "correct": null
+        },
+        {
+         "text": "profitiert vom besseren Internet",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "24",
+       "type": "SINGLE_CHOICE",
+       "text": "Die Alphabetisierung …",
+       "options": [
+        {
+         "text": "dauerte im Westen länger als in vielen ärmeren Ländern",
+         "correct": null
+        },
+        {
+         "text": "trägt nur unwesentlich zu höherer Intelligenz bei",
+         "correct": null
+        },
+        {
+         "text": "ist für knapp die Hälfte der Menschheit leider noch ein Fernziel",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "25",
+       "type": "SINGLE_CHOICE",
+       "text": "Was ergibt sich bei globaler Betrachtung?",
+       "options": [
+        {
+         "text": "Das Schlagwort über immer reichere Reiche und immer ärmere Arme bewahrheitet sich nicht",
+         "correct": null
+        },
+        {
+         "text": "Die Kluft zwischen Arm und Reich verbreitert sich",
+         "correct": null
+        },
+        {
+         "text": "Der Reichtum konzentriert sich in den Händen weniger",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "26",
+       "type": "SINGLE_CHOICE",
+       "text": "Im Jahr 1970 …",
+       "options": [
+        {
+         "text": "hatte die Industrialisierung der Entwicklungsländer bereits eingesetzt",
+         "correct": null
+        },
+        {
+         "text": "erreichte die Industrialisierung des Westens ihren Höhepunkt",
+         "correct": null
+        },
+        {
+         "text": "war der Reichtum ungleicher verteilt als in der Gegenwart",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "27",
+       "type": "SINGLE_CHOICE",
+       "text": "Im Vergleich zu früher …",
+       "options": [
+        {
+         "text": "wächst nur in wenigen Ländern die Reichtumskluft",
+         "correct": null
+        },
+        {
+         "text": "gibt es weltweit mehr Armut",
+         "correct": null
+        },
+        {
+         "text": "sind weltweit die meisten Menschen weder arm noch reich",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "28",
+       "type": "SINGLE_CHOICE",
+       "text": "Würde eine heutige Spitzenmannschaft gegen die deutschen Fußballstars der 70er Jahre antreten, so …",
+       "options": [
+        {
+         "text": "würde sie unterliegen",
+         "correct": null
+        },
+        {
+         "text": "wäre sie überlegen",
+         "correct": null
+        },
+        {
+         "text": "wäre sie vermutlich gleich gut",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "29",
+       "type": "SINGLE_CHOICE",
+       "text": "Wie erklärt sich die Sehnsucht nach der Vergangenheit?",
+       "options": [
+        {
+         "text": "Früher war die Welt einfacher und verständlicher",
+         "correct": null
+        },
+        {
+         "text": "Man behält meist nur das Positive im Gedächtnis",
+         "correct": null
+        },
+        {
+         "text": "Im Gehirn verwandeln sich schlechte Erfahrungen in etwas Positives",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "30",
+       "type": "SINGLE_CHOICE",
+       "text": "Was ist das Besondere an der Zeit zwischen 15 und 25?",
+       "options": [
+        {
+         "text": "Meist hat man nur an diese Lebensphase schöne Erinnerungen bewahrt",
+         "correct": null
+        },
+        {
+         "text": "Für die meisten ist dies die schönste Zeit ihres Lebens",
+         "correct": null
+        },
+        {
+         "text": "Meist beeinflusst diese Phase das spätere Leben in entscheidendem Maße",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [
+      16
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 0
+    }
+   ],
+   "title": "Hören",
+   "duration_minutes": 40,
+   "total_points": 30
+  },
+  {
+   "type": "SCHREIBEN",
+   "teile": [
+    {
+     "title": "Teil 1.1",
+     "instructions": "",
+     "text": "Sie wohnen in einem Wohnheim.\nSie haben eine E-Mail von der Verwaltung erhalten:\nLiebe Bewohnerinnen und Bewohner,\nwir möchten Sie darüber informieren, dass neue Hausregeln eingeführt werden. Dazu gehören feste Ruhezeiten, neue Regeln für die Gemeinschaftsküche und strengere Sauberkeitskontrollen. Ziel ist es, das Zusammenleben zu verbessern.\nWir würden gerne Ihre Meinung hören: Welche Regeln finden Sie sinnvoll? Haben Sie Vorschläge für bessere Organisation im Wohnheim?\nVielen Dank für Ihre Vorschläge.\nMit freundlichen Grüßen\nDie Verwaltung\n\nSchreiben Sie einen kurzen Brief an Ihre Freundin / Ihren Freund, der auch im Wohnheim lebt.\nSchreiben Sie über Ihre Gefühle und Ihre Meinung zu dieser Situation.\nSchreiben Sie ca. 50 Wörter.",
+     "questions": [],
+     "pages": [
+      17
+     ],
+     "words": 50,
+     "same_situation": false,
+     "text_words": 106
+    },
+    {
+     "title": "Teil 1.2",
+     "instructions": "",
+     "text": "Schreiben Sie eine E-Mail an die Verwaltung.\nBeschreiben Sie Ihre Meinung zu den neuen Regeln und machen Sie Vorschläge zur Verbesserung.\nSchreiben Sie ca. 120–150 Wörter.",
+     "questions": [],
+     "pages": [
+      17
+     ],
+     "words": 150,
+     "same_situation": true,
+     "text_words": 27
+    },
+    {
+     "title": "Teil 2",
+     "instructions": "",
+     "text": "Die Frage lautet:\nWelche Auswirkungen hat der Klimawandel auf den internationalen Tourismus?\nPosten Sie Ihre Meinung in einem Diskussionsbeitrag.\nBegründen Sie Ihre Meinung und nennen Sie Beispiele.\nSchreiben Sie 180–200 Wörter.",
+     "questions": [],
+     "pages": [
+      18
+     ],
+     "words": 200,
+     "same_situation": false,
+     "text_words": 32
+    }
+   ],
+   "title": "Schreiben",
+   "duration_minutes": 60,
+   "total_points": 0
+  },
+  {
+   "type": "SPRECHEN",
+   "teile": [
+    {
+     "title": "Teil 1.1",
+     "instructions": "",
+     "text": "1. Was machen Sie oft am Wochenende?\n2. Welcher Wochentag gefällt Ihnen am besten?\n3. Finden Sie es gut, mehr Wochenenden zu haben?",
+     "questions": [],
+     "pages": [
+      19
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 23
+    },
+    {
+     "title": "Teil 1.2",
+     "instructions": "",
+     "text": "1. Vergleichen Sie das erste Bild mit dem zweiten?\n2. Wie verbringen Sie normalerweise Ihre Freizeit?\n3. Was sind Vor- und Nachteile dieser Freizeitgestaltung?",
+     "questions": [],
+     "pages": [
+      19
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 24,
+     "image": "mt04-1.jpg"
+    },
+    {
+     "title": "Teil 2",
+     "instructions": "",
+     "text": "Beschreiben Sie Ihr Lieblingsmuseum und informieren Sie sich darüber.\nSie sollten sagen:\n• Wie ist Ihr Name;\n• Wo befindet sich dieses Museum;\n• Wie oft besuchen Sie zu diesem Museum?\n• Und wann waren Sie dort letztes Mall.",
+     "questions": [],
+     "pages": [
+      20
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 35
+    },
+    {
+     "title": "Teil 3",
+     "instructions": "",
+     "text": "Keine Noten mehr in der Schule?\nPro: • Beurteilen die Leistung der Schüler • Reduzierung von Stress und Angst • Fördern das eigenverantwortliches Lernen\nContra: • Führen zu starker Konkurrenz unter den Schülern • Ermöglichen den Vergleich der Leistungen von Schülern • Druck von Noten kann Als Motivation dienen",
+     "questions": [],
+     "pages": [
+      20
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 43
+    }
+   ],
+   "title": "Sprechen",
+   "duration_minutes": 15,
+   "total_points": 0
+  }
+ ],
+ "review": [
+  {
+   "where": "allgemein",
+   "note": "Im PDF gibt es keine Lösungen: alle Antwortschlüssel fehlen und müssen im Admin-Panel eingetragen werden."
+  },
+  {
+   "where": "allgemein",
+   "note": "Zeiten (Lesen 60, Hören 40, Schreiben 60, Sprechen 15 Min.) und Bewertungskriterien stehen nicht im PDF — Standardwerte, bitte prüfen."
+  },
+  {
+   "where": "Sprechen Teil 2",
+   "note": "Sprechen Teil 2 (S. 20): Originaltext enthält Fehler („Wie ist Ihr Name“ statt „Wie heißt es“, „besuchen Sie zu“, „letztes Mall“) — unverändert übernommen, ggf. korrigieren."
+  },
+  {
+   "where": "Sprechen Teil 3",
+   "note": "Sprechen Teil 3 (S. 20): Im PDF sind zwei Contra-Punkte über Zeilenumbrüche in zusätzliche Aufzählungspunkte zerfallen („unter den • Schülern“); zusammengeführt. Pro/Contra-Zuordnung im Original teils inhaltlich vertauscht („Beurteilen die Leistung“ unter Pro) — prüfen."
+  }
+ ]
+}

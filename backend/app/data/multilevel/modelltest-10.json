@@ -1,0 +1,1073 @@
+{
+ "number": 10,
+ "content_id": "vizu-multilevel-mt10",
+ "title": "Modelltest 10",
+ "origin": "vizu",
+ "source_pdf": null,
+ "description": "Multilevel Modelltest 10 — von VIZU erstellt (Übungstest, kein offizielles Prüfungsmaterial).",
+ "kompetenzen": [
+  {
+   "type": "LESEN",
+   "teile": [
+    {
+     "title": "Teil 1",
+     "instructions": "Aufgabe\nBringen Sie die Textteile A–E in eine sinnvolle Reihenfolge.\nIhre Lösung:",
+     "text": "A. Am ersten Abend lernten wir, wie man Gemüse schneidet und daraus eine einfache Suppe kocht.\nB. Jahrelang habe ich fast nur billige Fertiggerichte gegessen, weil ich glaubte, dass ich einfach überhaupt nicht gut kochen kann.\nC. Inzwischen koche ich fast jeden Tag selbst und lade am Wochenende oft Freunde zum Essen ein.\nD. Deshalb meldete ich mich im Frühling endlich bei einem kleinen Kochkurs an der Volkshochschule an, der jeden Dienstagabend stattfand.\nE. Mit jeder Woche wurden die Rezepte etwas schwieriger, aber auch meine Fähigkeiten wurden deutlich besser.",
+     "questions": [
+      {
+       "no": "A1",
+       "type": "ORDERING",
+       "text": "A1",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": true
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A2",
+       "type": "ORDERING",
+       "text": "A2",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": true
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A3",
+       "type": "ORDERING",
+       "text": "A3",
+       "options": [
+        {
+         "text": "A",
+         "correct": true
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A4",
+       "type": "ORDERING",
+       "text": "A4",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": true
+        }
+       ]
+      },
+      {
+       "no": "A5",
+       "type": "ORDERING",
+       "text": "A5",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": true
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 89
+    },
+    {
+     "title": "Teil 2",
+     "instructions": "",
+     "text": "Eigentlich hat Jonas Weber Informatik studiert und viele Jahre in einem großen Büro gearbeitet. Doch irgendwann merkte er, dass ihm die Arbeit am Computer keine Freude mehr machte. Er wollte etwas mit seinen Händen schaffen. Schon als Kind hatte er seinem Großvater in dessen kleiner Werkstatt geholfen und dabei den Geruch von frischem Holz lieben gelernt.\nMit 35 Jahren kündigte Jonas seine Stelle und begann eine Ausbildung zum Tischler. Seine Freunde hielten ihn damals für verrückt. „Viele haben gefragt, warum ich ein sicheres Gehalt aufgebe“, erzählt er und lacht. Die Ausbildung dauerte drei Jahre und war anstrengender, als er gedacht hatte. In dieser Zeit lebte er von seinen Ersparnissen.\nHeute hat Jonas eine eigene Werkstatt am Rand der Stadt. Seine Besonderheit: Er baut Möbel ausschließlich aus altem Holz. Das Material findet er in alten Scheunen, auf Baustellen oder bei Menschen, die ihre Wohnungen ausräumen. Aus alten Balken entstehen Tische, aus Fensterrahmen werden Regale. „Jedes Stück Holz hat eine Geschichte, und die möchte ich weitererzählen“, sagt er.\nSeine Kunden schätzen vor allem, dass jedes Möbelstück ein Einzelstück ist. Außerdem achten immer mehr Menschen darauf, nachhaltig einzukaufen. Weil für Jonas’ Möbel keine neuen Bäume gefällt werden müssen, sind sie besonders umweltfreundlich. Billig sind sie allerdings nicht, denn hinter jedem Tisch stecken viele Stunden Handarbeit.\nEinmal im Monat bietet Jonas Workshops an, in denen Interessierte lernen, kleine Gegenstände wie Schneidebretter oder Vogelhäuser selbst zu bauen. Die Kurse sind meist schon Wochen vorher ausgebucht. Besonders beliebt sind sie bei Familien mit Kindern. Manche Teilnehmer kommen aus anderen Städten, um bei Jonas zu lernen, wie man mit Hobel und Säge richtig umgeht.\nBereut hat Jonas seine Entscheidung nie. „Ich verdiene weniger als früher, aber ich bin viel zufriedener“, sagt er. Für die Zukunft plant er, einen Auszubildenden einzustellen und sein Wissen weiterzugeben.",
+     "questions": [
+      {
+       "no": "A6",
+       "type": "SINGLE_CHOICE",
+       "text": "Warum hat Jonas seinen Bürojob aufgegeben?",
+       "options": [
+        {
+         "text": "Weil er mehr Geld verdienen wollte.",
+         "correct": null
+        },
+        {
+         "text": "Weil ihm die Arbeit keine Freude mehr machte.",
+         "correct": true
+        },
+        {
+         "text": "Weil seine Firma geschlossen wurde.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A7",
+       "type": "SINGLE_CHOICE",
+       "text": "Wie reagierten seine Freunde auf seine Entscheidung?",
+       "options": [
+        {
+         "text": "Sie wollten auch Tischler werden.",
+         "correct": null
+        },
+        {
+         "text": "Sie halfen ihm in der Werkstatt.",
+         "correct": null
+        },
+        {
+         "text": "Sie hielten ihn für verrückt.",
+         "correct": true
+        }
+       ]
+      },
+      {
+       "no": "A8",
+       "type": "SINGLE_CHOICE",
+       "text": "Woher bekommt Jonas sein Material?",
+       "options": [
+        {
+         "text": "Aus alten Scheunen, von Baustellen und aus Wohnungen.",
+         "correct": true
+        },
+        {
+         "text": "Aus einem Baumarkt in der Nähe.",
+         "correct": null
+        },
+        {
+         "text": "Direkt aus dem Wald.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A9",
+       "type": "SINGLE_CHOICE",
+       "text": "Warum sind seine Möbel nicht billig?",
+       "options": [
+        {
+         "text": "Weil altes Holz sehr teuer ist.",
+         "correct": null
+        },
+        {
+         "text": "Weil hinter jedem Stück viele Stunden Handarbeit stecken.",
+         "correct": true
+        },
+        {
+         "text": "Weil er nur wenige Kunden hat.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A10",
+       "type": "SINGLE_CHOICE",
+       "text": "Was plant Jonas für die Zukunft?",
+       "options": [
+        {
+         "text": "Wieder als Informatiker zu arbeiten.",
+         "correct": null
+        },
+        {
+         "text": "Eine zweite Werkstatt zu eröffnen.",
+         "correct": null
+        },
+        {
+         "text": "Einen Auszubildenden einzustellen.",
+         "correct": true
+        }
+       ]
+      }
+     ],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 297
+    },
+    {
+     "title": "Teil 3",
+     "instructions": "Ihre Lösungen:",
+     "text": "Überschriften\nA. Wohngemeinschaften nicht nur für Studenten\nB. Mieten in Großstädten steigen weiter\nC. Kleine Häuser mit großer Wirkung\nD. Großstädter ziehen aufs Land\nE. Senioren-WGs werden beliebter\nF. Smarte Technik erobert die Wohnungen\nG. Strengere Energieregeln für Hausbesitzer\nH. Grüne Dächer gegen die Sommerhitze\nI. Später Auszug aus dem Elternhaus\nJ. Leere Läden werden zu Wohnungen",
+     "questions": [
+      {
+       "no": "A11",
+       "type": "MATCHING",
+       "text": "In vielen Großstädten wird Wohnen immer teurer. In München, Hamburg und Berlin sind die Mieten in den letzten zehn Jahren stark gestiegen. Für Familien mit mittlerem Einkommen wird es schwierig, eine bezahlbare Wohnung zu finden. Experten erwarten, dass sich in den nächsten Jahren wenig ändert, solange nicht mehr gebaut wird.",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": true
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        },
+        {
+         "text": "F",
+         "correct": null
+        },
+        {
+         "text": "G",
+         "correct": null
+        },
+        {
+         "text": "H",
+         "correct": null
+        },
+        {
+         "text": "I",
+         "correct": null
+        },
+        {
+         "text": "J",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A12",
+       "type": "MATCHING",
+       "text": "Wohngemeinschaften gelten als typische Wohnform für Studenten. Doch inzwischen teilen sich auch viele Berufstätige zwischen 30 und 50 eine Wohnung. Sie schätzen die Gesellschaft und sparen Kosten. Eine Bankkauffrau aus Köln erzählt, dass sie nach der Arbeit mit ihren Mitbewohnern kocht und sich nie einsam fühlt.",
+       "options": [
+        {
+         "text": "A",
+         "correct": true
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        },
+        {
+         "text": "F",
+         "correct": null
+        },
+        {
+         "text": "G",
+         "correct": null
+        },
+        {
+         "text": "H",
+         "correct": null
+        },
+        {
+         "text": "I",
+         "correct": null
+        },
+        {
+         "text": "J",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A13",
+       "type": "MATCHING",
+       "text": "Im Sommer heizen sich Städte stark auf. Begrünte Dächer können dabei helfen, die Temperatur zu senken. Pflanzen speichern Regenwasser und kühlen die Umgebung. Einige Städte unterstützen Hausbesitzer deshalb finanziell, wenn sie ihr Dach bepflanzen lassen. Zusätzlich bieten die Dächer Lebensraum für Insekten und Vögel.",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        },
+        {
+         "text": "F",
+         "correct": null
+        },
+        {
+         "text": "G",
+         "correct": null
+        },
+        {
+         "text": "H",
+         "correct": true
+        },
+        {
+         "text": "I",
+         "correct": null
+        },
+        {
+         "text": "J",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A14",
+       "type": "MATCHING",
+       "text": "Junge Menschen in Deutschland verlassen ihr Elternhaus heute später als früher. Im Durchschnitt ziehen sie mit etwa 24 Jahren aus. Gründe sind hohe Mieten, lange Ausbildungszeiten und oft auch das gute Verhältnis zu den Eltern.",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        },
+        {
+         "text": "F",
+         "correct": null
+        },
+        {
+         "text": "G",
+         "correct": null
+        },
+        {
+         "text": "H",
+         "correct": null
+        },
+        {
+         "text": "I",
+         "correct": true
+        },
+        {
+         "text": "J",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A15",
+       "type": "MATCHING",
+       "text": "Sie sind oft nicht größer als zwanzig Quadratmeter und stehen manchmal auf Rädern: sogenannte Tiny Houses. Immer mehr Menschen entscheiden sich bewusst für ein Leben auf kleinem Raum. Sie brauchen weniger Energie, besitzen weniger Dinge und fühlen sich freier.",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": true
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        },
+        {
+         "text": "F",
+         "correct": null
+        },
+        {
+         "text": "G",
+         "correct": null
+        },
+        {
+         "text": "H",
+         "correct": null
+        },
+        {
+         "text": "I",
+         "correct": null
+        },
+        {
+         "text": "J",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A16",
+       "type": "MATCHING",
+       "text": "Lampen, die per Sprachbefehl angehen, und Heizungen, die sich per App steuern lassen: Intelligente Haustechnik wird immer beliebter. Sie soll den Alltag bequemer machen und Energie sparen. Datenschützer warnen jedoch vor Risiken für die Privatsphäre.",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        },
+        {
+         "text": "F",
+         "correct": true
+        },
+        {
+         "text": "G",
+         "correct": null
+        },
+        {
+         "text": "H",
+         "correct": null
+        },
+        {
+         "text": "I",
+         "correct": null
+        },
+        {
+         "text": "J",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A17",
+       "type": "MATCHING",
+       "text": "Während der Pandemie haben viele Menschen gemerkt, dass sie nicht ins Büro fahren müssen. Seitdem ziehen immer mehr Familien aus den Großstädten in kleinere Orte. Dort sind die Häuser günstiger, und die Kinder können in der Natur aufwachsen. Viele Dörfer, die früher Einwohner verloren haben, wachsen wieder. Allerdings fehlt oft schnelles Internet.",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": true
+        },
+        {
+         "text": "E",
+         "correct": null
+        },
+        {
+         "text": "F",
+         "correct": null
+        },
+        {
+         "text": "G",
+         "correct": null
+        },
+        {
+         "text": "H",
+         "correct": null
+        },
+        {
+         "text": "I",
+         "correct": null
+        },
+        {
+         "text": "J",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 57
+    },
+    {
+     "title": "Teil 4",
+     "instructions": "Lesen Sie den Text „Tag des offenen Denkmals“ und lösen Sie dazu die Aufgaben A18–A26.\nWelche der Aussagen sind Richtig (A), Falsch (B) oder gar nicht im Text enthalten (C)?\nEs gibt jeweils nur eine richtige Lösung.",
+     "text": "Tag des offenen Denkmals\nEinmal im Jahr, am zweiten Sonntag im September, öffnen in ganz Deutschland tausende historische Gebäude ihre Türen. Am Tag des offenen Denkmals können Besucher Orte besichtigen, die sonst für die Öffentlichkeit geschlossen sind: alte Burgen, Kirchen, Fabriken, Bahnhöfe oder private Wohnhäuser. Der Eintritt ist in den meisten Fällen kostenlos.\nDie Idee stammt ursprünglich aus Frankreich. In Deutschland findet der Aktionstag seit 1993 statt und wird von einer Stiftung für Denkmalschutz organisiert. Inzwischen nehmen jedes Jahr mehrere tausend Denkmäler teil, und Millionen Menschen nutzen die Gelegenheit zu einem Besuch.\nJedes Jahr steht der Tag unter einem anderen Motto. Mal geht es um Handwerk, mal um Wasser oder um Holz als Baumaterial. Viele Veranstalter bieten passend dazu Führungen, Vorträge und Mitmachaktionen an. Kinder können zum Beispiel ausprobieren, wie früher Ziegel hergestellt wurden, oder mit Restauratoren alte Wandmalereien untersuchen.\nBesonders beliebt sind Gebäude, die normalerweise niemand betreten darf. So stehen manche Besucher stundenlang an, um einen Blick in einen alten Wasserturm oder in die Keller eines Schlosses zu werfen. Auch Privatleute machen mit: Sie zeigen ihre renovierten Bauernhäuser und erzählen, wie viel Arbeit darin steckt.\nFür viele Städte ist der Tag inzwischen ein wichtiges Ereignis. Hotels und Restaurants freuen sich über zusätzliche Gäste, und örtliche Vereine nutzen die Gelegenheit, um sich vorzustellen. Manche Gemeinden organisieren sogar Busse, die die Besucher von einem Denkmal zum nächsten bringen. Ein Besucher aus Leipzig erzählt, dass er jedes Jahr mit seiner Familie mehrere Orte besucht.\nDie Organisatoren wollen mit dem Aktionstag zeigen, wie wichtig der Schutz historischer Gebäude ist. Viele Denkmäler sind in schlechtem Zustand, und ihre Erhaltung kostet viel Geld. Ein Teil davon wird durch Spenden finanziert, die auch am Tag des offenen Denkmals gesammelt werden.\nWer teilnehmen möchte, sollte sich vorher informieren. Auf der offiziellen Internetseite gibt es eine Karte mit allen geöffneten Orten. Für einige Führungen muss man sich anmelden, weil die Zahl der Plätze begrenzt ist.",
+     "questions": [
+      {
+       "no": "A18",
+       "type": "TRUE_FALSE",
+       "text": "Der Tag des offenen Denkmals findet im Frühling statt.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": true
+        },
+        {
+         "text": "Der Text sagt das nicht",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A19",
+       "type": "TRUE_FALSE",
+       "text": "Für die meisten Besuche muss man keinen Eintritt bezahlen.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": true
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "Der Text sagt das nicht",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A20",
+       "type": "TRUE_FALSE",
+       "text": "Die Idee für den Aktionstag kommt aus Italien.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": true
+        },
+        {
+         "text": "Der Text sagt das nicht",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A21",
+       "type": "TRUE_FALSE",
+       "text": "Das Motto des Tages ist jedes Jahr gleich.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": true
+        },
+        {
+         "text": "Der Text sagt das nicht",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A22",
+       "type": "TRUE_FALSE",
+       "text": "Kinder können bei manchen Veranstaltungen selbst etwas ausprobieren.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": true
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "Der Text sagt das nicht",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A23",
+       "type": "TRUE_FALSE",
+       "text": "Die meisten Besucher kommen aus dem Ausland.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "Der Text sagt das nicht",
+         "correct": true
+        }
+       ]
+      },
+      {
+       "no": "A24",
+       "type": "TRUE_FALSE",
+       "text": "Auch Privatpersonen öffnen an diesem Tag ihre Häuser.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": true
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "Der Text sagt das nicht",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A25",
+       "type": "TRUE_FALSE",
+       "text": "In Bayern gibt es mehr Denkmäler als in anderen Bundesländern.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "Der Text sagt das nicht",
+         "correct": true
+        }
+       ]
+      },
+      {
+       "no": "A26",
+       "type": "TRUE_FALSE",
+       "text": "Für einige Führungen ist eine Anmeldung nötig.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": true
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "Der Text sagt das nicht",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 317
+    },
+    {
+     "title": "Teil 5",
+     "instructions": "Lesen Sie den Text und dazu die Aufgaben A27–A35. Entscheiden Sie, welche der Antworten A, B oder C richtig ist. Zu jeder Aufgabe gibt es jeweils nur eine richtige Lösung.",
+     "text": "Text: Schlaf – unterschätzt und unverzichtbar\nEtwa ein Drittel unseres Lebens verbringen wir im Schlaf. Trotzdem behandeln viele Menschen ihn wie eine Nebensache. Wer viel zu tun hat, spart häufig zuerst beim Schlafen – sei es wegen der Arbeit, des Studiums oder einer spannenden Serie am Abend. Schlafforscher warnen jedoch, dass dauerhafter Schlafmangel ernste Folgen haben kann.\nWährend wir schlafen, ist unser Körper alles andere als untätig. Das Gehirn verarbeitet die Eindrücke des Tages und speichert Gelerntes im Langzeitgedächtnis. Gleichzeitig repariert der Körper Zellen, stärkt das Immunsystem und reguliert wichtige Hormone. Wer regelmäßig zu wenig schläft, ist deshalb nicht nur müde, sondern wird auch häufiger krank und kann sich schlechter konzentrieren.\nWie viel Schlaf ein Mensch braucht, ist individuell verschieden. Für Erwachsene empfehlen Fachleute im Durchschnitt sieben bis neun Stunden pro Nacht. Kinder und Jugendliche benötigen deutlich mehr. Studien zeigen allerdings, dass viele Erwachsene in Industrieländern regelmäßig weniger als sechs Stunden schlafen.\nEin Grund dafür ist das Licht von Bildschirmen. Smartphones, Tablets und Laptops strahlen blaues Licht aus, das die Produktion des Schlafhormons Melatonin hemmt. Wer bis kurz vor dem Einschlafen auf einen Bildschirm schaut, signalisiert seinem Körper also, dass es noch Tag ist. Experten raten deshalb, die Geräte mindestens eine Stunde vor dem Schlafengehen auszuschalten.\nAuch feste Gewohnheiten können helfen. Wer jeden Tag ungefähr zur gleichen Zeit ins Bett geht und aufsteht – auch am Wochenende –, schläft meist schneller ein. Das Schlafzimmer sollte ruhig, dunkel und eher kühl sein. Schwere Mahlzeiten, Alkohol und Kaffee am Abend stören dagegen die Erholung. Wer abends nicht einschlafen kann, sollte nicht stundenlang im Bett liegen bleiben. Besser ist es, kurz aufzustehen und etwas Ruhiges zu tun, zum Beispiel ein Buch zu lesen.\nEin kurzer Mittagsschlaf ist übrigens kein Zeichen von Faulheit. Zwanzig Minuten am frühen Nachmittag können die Leistungsfähigkeit spürbar steigern. Wer jedoch länger schläft, fühlt sich danach oft benommen.\nAm Ende gilt: Guter Schlaf ist kein Luxus, sondern eine Grundlage für Gesundheit und Wohlbefinden.",
+     "questions": [
+      {
+       "no": "A27",
+       "type": "SINGLE_CHOICE",
+       "text": "Viele Menschen behandeln den Schlaf ...",
+       "options": [
+        {
+         "text": "wie eine Nebensache.",
+         "correct": true
+        },
+        {
+         "text": "wie ihr wichtigstes Hobby.",
+         "correct": null
+        },
+        {
+         "text": "wie eine gefährliche Krankheit.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A28",
+       "type": "SINGLE_CHOICE",
+       "text": "Während des Schlafs ...",
+       "options": [
+        {
+         "text": "ruht das Gehirn vollständig.",
+         "correct": null
+        },
+        {
+         "text": "speichert das Gehirn Gelerntes.",
+         "correct": true
+        },
+        {
+         "text": "produziert der Körper keine Hormone.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A29",
+       "type": "SINGLE_CHOICE",
+       "text": "Wer regelmäßig zu wenig schläft, ...",
+       "options": [
+        {
+         "text": "schläft am Wochenende automatisch länger.",
+         "correct": null
+        },
+        {
+         "text": "nimmt schneller ab.",
+         "correct": null
+        },
+        {
+         "text": "wird häufiger krank.",
+         "correct": true
+        }
+       ]
+      },
+      {
+       "no": "A30",
+       "type": "SINGLE_CHOICE",
+       "text": "Erwachsene brauchen laut Fachleuten durchschnittlich ...",
+       "options": [
+        {
+         "text": "sieben bis neun Stunden Schlaf.",
+         "correct": true
+        },
+        {
+         "text": "weniger als sechs Stunden Schlaf.",
+         "correct": null
+        },
+        {
+         "text": "mehr Schlaf als Kinder.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A31",
+       "type": "SINGLE_CHOICE",
+       "text": "Viele Erwachsene in Industrieländern ...",
+       "options": [
+        {
+         "text": "schlafen mehr als neun Stunden.",
+         "correct": null
+        },
+        {
+         "text": "schlafen regelmäßig weniger als sechs Stunden.",
+         "correct": true
+        },
+        {
+         "text": "haben keine Probleme mit dem Schlaf.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A32",
+       "type": "SINGLE_CHOICE",
+       "text": "Das blaue Licht von Bildschirmen ...",
+       "options": [
+        {
+         "text": "hilft beim Einschlafen.",
+         "correct": null
+        },
+        {
+         "text": "hemmt die Produktion von Melatonin.",
+         "correct": true
+        },
+        {
+         "text": "ist nur für Kinder schädlich.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A33",
+       "type": "SINGLE_CHOICE",
+       "text": "Experten empfehlen, ...",
+       "options": [
+        {
+         "text": "die Geräte mindestens eine Stunde vor dem Schlafengehen auszuschalten.",
+         "correct": true
+        },
+        {
+         "text": "nur am Wochenende auf Bildschirme zu schauen.",
+         "correct": null
+        },
+        {
+         "text": "das Handy direkt neben das Bett zu legen.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A34",
+       "type": "SINGLE_CHOICE",
+       "text": "Das Schlafzimmer sollte ...",
+       "options": [
+        {
+         "text": "warm und hell sein.",
+         "correct": null
+        },
+        {
+         "text": "ruhig, dunkel und eher kühl sein.",
+         "correct": true
+        },
+        {
+         "text": "möglichst groß sein.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A35",
+       "type": "SINGLE_CHOICE",
+       "text": "Ein Mittagsschlaf von zwanzig Minuten ...",
+       "options": [
+        {
+         "text": "ist ein Zeichen von Faulheit.",
+         "correct": null
+        },
+        {
+         "text": "macht immer benommen.",
+         "correct": null
+        },
+        {
+         "text": "kann die Leistungsfähigkeit steigern.",
+         "correct": true
+        }
+       ]
+      }
+     ],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 319
+    }
+   ],
+   "title": "Lesen",
+   "duration_minutes": 60,
+   "total_points": 35
+  },
+  {
+   "type": "HOEREN",
+   "teile": [],
+   "title": "Hören",
+   "duration_minutes": 40,
+   "total_points": 0
+  },
+  {
+   "type": "SCHREIBEN",
+   "teile": [
+    {
+     "title": "Teil 1.1",
+     "instructions": "",
+     "text": "Sie sind Mitglied in einem Fußballverein.\nSie haben eine E-Mail vom Vereinsvorstand erhalten:\nLiebe Vereinsmitglieder,\nwir möchten Sie darüber informieren, dass sich ab nächstem Monat einiges ändert. Dazu gehören neue Trainingszeiten, höhere Mitgliedsbeiträge und neue Regeln für die Umkleideräume. Ziel ist es, den Verein zu sichern.\nWir würden gerne Ihre Meinung hören: Welche Änderungen finden Sie sinnvoll? Haben Sie Vorschläge für das Vereinsleben?\nVielen Dank für Ihre Vorschläge.\nMit freundlichen Grüßen\nDer Vorstand\n\nSchreiben Sie einen kurzen Brief an Ihre Freundin / Ihren Freund, die / der auch in diesem Verein spielt.\nSchreiben Sie über Ihre Gefühle und Ihre Meinung zu dieser Situation.\nSchreiben Sie ca. 50 Wörter.",
+     "questions": [],
+     "pages": [],
+     "words": 50,
+     "same_situation": false,
+     "text_words": 106
+    },
+    {
+     "title": "Teil 1.2",
+     "instructions": "",
+     "text": "Schreiben Sie eine E-Mail an den Vorstand.\nBeschreiben Sie Ihre Meinung zu den Änderungen und machen Sie Vorschläge zur Verbesserung.\nSchreiben Sie ca. 120–150 Wörter.",
+     "questions": [],
+     "pages": [],
+     "words": 150,
+     "same_situation": true,
+     "text_words": 26
+    },
+    {
+     "title": "Teil 2",
+     "instructions": "",
+     "text": "Die Frage lautet:\nSollten Jugendliche schon ab 16 Jahren wählen dürfen?\nPosten Sie Ihre Meinung in einem Diskussionsbeitrag.\nBegründen Sie Ihre Meinung und nennen Sie Beispiele.\nSchreiben Sie 180–200 Wörter.",
+     "questions": [],
+     "pages": [],
+     "words": 200,
+     "same_situation": false,
+     "text_words": 31
+    }
+   ],
+   "title": "Schreiben",
+   "duration_minutes": 60,
+   "total_points": 0
+  },
+  {
+   "type": "SPRECHEN",
+   "teile": [
+    {
+     "title": "Teil 1.1",
+     "instructions": "",
+     "text": "1. Treiben Sie regelmäßig Sport?\n2. Welche Sportart gefällt Ihnen am besten und warum?\n3. Sollte Sport in der Schule noch wichtiger sein?",
+     "questions": [],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 23
+    },
+    {
+     "title": "Teil 1.2",
+     "instructions": "",
+     "text": "1. Vergleichen Sie die beiden Bilder.\n2. Wohnen Sie lieber in der Stadt oder auf dem Land?\n3. Welche Vorteile hat das Landleben?",
+     "questions": [],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 23
+    },
+    {
+     "title": "Teil 2",
+     "instructions": "",
+     "text": "Beschreiben Sie ein Geschenk, über das Sie sich gefreut haben.\nSie sollten sagen:\n• Was es war;\n• Von wem Sie es bekommen haben;\n• Zu welchem Anlass Sie es bekommen haben;\n• Und warum es so besonders war.",
+     "questions": [],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 35
+    },
+    {
+     "title": "Teil 3",
+     "instructions": "",
+     "text": "Sollte die Schule morgens erst um neun Uhr beginnen?\nPro: • Schüler sind ausgeschlafener und konzentrierter • Weniger Stress am Morgen • Bessere Leistungen im Unterricht\nContra: • Der Unterricht endet später am Nachmittag • Weniger Freizeit für Hobbys und Sport • Probleme für berufstätige Eltern mit kleinen Kindern",
+     "questions": [],
+     "pages": [],
+     "words": null,
+     "same_situation": false,
+     "text_words": 43
+    }
+   ],
+   "title": "Sprechen",
+   "duration_minutes": 15,
+   "total_points": 0
+  }
+ ],
+ "review": [
+  {
+   "where": "Sprechen Teil 1.2",
+   "note": "Sprechen Teil 1.2: Bilder fehlen noch — bitte zwei Fotos hochladen (1: Wohnen in der Großstadt, 2: Wohnen auf dem Land)."
+  }
+ ]
+}

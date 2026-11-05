@@ -596,6 +596,27 @@ class TeacherMockSpeakingItem(BaseSchema):
     task_text: str
 
 
+class PublicQuestionOption(BaseSchema):
+    """Student-facing option: text only — never is_correct / match_value."""
+
+    id: UUID
+    option_text: str
+    sort_order: int
+    model_config = ConfigDict(from_attributes=True)
+
+
+class PublicQuestion(BaseSchema):
+    """Student-facing question: never is_correct, match_value, correct_text_answer or explanation."""
+
+    id: UUID
+    question_type: str
+    question_text: str
+    points: int
+    sort_order: int
+    options: list[PublicQuestionOption] = []
+    model_config = ConfigDict(from_attributes=True)
+
+
 class PublicTeilContent(BaseSchema):
     id: UUID
     title: str
@@ -605,6 +626,7 @@ class PublicTeilContent(BaseSchema):
     listening_content: ListeningContentResponse | None = None
     writing_task: WritingTaskResponse | None = None
     speaking_task: SpeakingTaskResponse | None = None
+    questions: list[PublicQuestion] = []
 
 
 class PublicKompetenzDetailResponse(BaseSchema):

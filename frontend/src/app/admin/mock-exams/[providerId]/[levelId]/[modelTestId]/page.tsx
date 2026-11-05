@@ -9,6 +9,7 @@ import { ArrowLeft, ChevronDown, ChevronRight, Plus, Trash2 } from "lucide-react
 import { AdminButton, AdminInput, AdminLabel, AdminPageHeader } from "@/components/admin/admin-ui";
 import ConfirmDialog from "@/components/admin/confirm-dialog";
 import { useCrudList, useCrudMutations } from "@/features/admin/hooks/use-crud";
+import ModelTestReviewPanel from "@/features/admin/components/mock-exam/model-test-review-panel";
 import TeilContentEditor from "@/features/admin/components/mock-exam/teil-content-editor";
 import {
   getModelTestScore,
@@ -74,6 +75,8 @@ export default function ModelTestEditorPage() {
         title={modelTest?.title ?? "Modelltest"}
         description={score ? `Gesamtpunktzahl: ${score.total_points} Punkte` : undefined}
       />
+
+      {modelTest && <ModelTestReviewPanel modelTest={modelTest} />}
 
       <div className="mb-6 flex flex-wrap gap-2">
         {KOMPETENZ_TYPES.map((type) => {
@@ -205,7 +208,7 @@ function KompetenzPanel({ kompetenz, modelTestId }: { kompetenz: Kompetenz; mode
                 <div className="border-t border-[var(--admin-border)] p-4">
                   <TeilFullFields teil={teil} />
                   <div className="mt-4">
-                    <TeilContentEditor teilId={teil.id} kompetenzType={kompetenz.type} />
+                    <TeilContentEditor teilId={teil.id} kompetenzType={kompetenz.type} modelTestId={modelTestId} />
                   </div>
                 </div>
               )}

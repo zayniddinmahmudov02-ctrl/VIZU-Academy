@@ -1,0 +1,1721 @@
+{
+ "number": 2,
+ "content_id": "vizu-multilevel-mt02",
+ "title": "Modelltest 2",
+ "origin": "pdf",
+ "source_pdf": "Multilevel Mock Variant 2.pdf",
+ "description": "Multilevel Modelltest 2 — aus „Multilevel Mock Variant 2.pdf“ (Der Deutschlehrer: Zayniddinkhuja Makhmudov).",
+ "kompetenzen": [
+  {
+   "type": "LESEN",
+   "teile": [
+    {
+     "title": "Teil 1",
+     "pages": [
+      2
+     ],
+     "instructions": "Aufgabe\nBringen Sie die Textteile A–E in eine sinnvolle Reihenfolge.\nIhre Lösung:",
+     "text": "A. Frisches Obst und Gemüse sollten täglich auf dem Speiseplan stehen, weil sie viele wichtige Vitamine und Mineralstoffe enthalten, die unser Körper braucht.\n\nB. Eine gesunde Ernährung hilft uns, fit und leistungsfähig zu bleiben, sodass wir uns im Alltag besser konzentrieren und mehr Energie haben.\n\nC. Viele Menschen essen heute zu viel Fast Food und zu wenig gesunde Lebensmittel, was langfristig zu gesundheitlichen Problemen führen kann.\n\nD. Es ist auch wichtig, genug Wasser zu trinken und regelmäßige Mahlzeiten zu haben, damit der Körper gut funktioniert und man sich wohlfühlt.\n\nE. Mit kleinen Veränderungen kann man seine Essgewohnheiten langfristig verbessern und ein gesünderes Leben führen.",
+     "words": null,
+     "same_situation": false,
+     "questions": [
+      {
+       "no": "A1",
+       "type": "ORDERING",
+       "text": "A1",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A2",
+       "type": "ORDERING",
+       "text": "A2",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A3",
+       "type": "ORDERING",
+       "text": "A3",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A4",
+       "type": "ORDERING",
+       "text": "A4",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A5",
+       "type": "ORDERING",
+       "text": "A5",
+       "options": [
+        {
+         "text": "A",
+         "correct": null
+        },
+        {
+         "text": "B",
+         "correct": null
+        },
+        {
+         "text": "C",
+         "correct": null
+        },
+        {
+         "text": "D",
+         "correct": null
+        },
+        {
+         "text": "E",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "text_words": 104
+    },
+    {
+     "title": "Teil 2",
+     "pages": [
+      3,
+      4
+     ],
+     "instructions": "",
+     "text": "In den letzten Jahren haben digitale Medien eine immer größere Rolle im Alltag der Menschen gespielt.\n\nSmartphones, Computer und das Internet sind aus unserem Leben kaum noch wegzudenken. Viele Menschen nutzen digitale Geräte täglich für Arbeit, Studium und Freizeit. Gleichzeitig gibt es aber auch Kritik, dass der Medienkonsum zu hoch ist.\n\nBesonders soziale Netzwerke sind bei jungen Menschen sehr beliebt. Sie ermöglichen es, schnell mit Freunden und Familie in Kontakt zu bleiben und Informationen auszutauschen. Allerdings verbringen viele Nutzer mehrere Stunden pro Tag online, was negative Auswirkungen auf die Konzentration und das soziale Leben haben kann.\n\nEin weiterer wichtiger Bereich ist das Lernen mit digitalen Medien. Viele Schulen und Universitäten setzen inzwischen auf Online-Plattformen und digitale Materialien. Schüler können von zu Hause aus lernen und haben Zugang zu vielen Informationen. Dennoch ist es wichtig, auch traditionelle Lernmethoden nicht zu vernachlässigen.\n\nAuch im Arbeitsleben spielen digitale Technologien eine große Rolle. Homeoffice und Online-Meetings sind heute in vielen Berufen normal geworden. Das spart Zeit und Kosten, kann aber auch dazu führen, dass die Grenzen zwischen Arbeit und Freizeit verschwimmen.\n\nTrotz der vielen Vorteile gibt es auch Herausforderungen. Datenschutz und Sicherheit im Internet sind wichtige Themen. Viele Menschen sind sich nicht bewusst, wie viele persönliche Daten sie online teilen. Deshalb ist es wichtig, vorsichtig mit eigenen Informationen umzugehen.\n\nGleichzeitig kann ein bewusster Umgang mit digitalen Medien viele Vorteile bringen. Wer seine Bildschirmzeit kontrolliert und regelmäßig Pausen macht, kann Stress reduzieren und produktiver arbeiten. Auch Aktivitäten ohne digitale Geräte, wie Sport oder Treffen mit Freunden, bleiben wichtig.\n\nAm Ende kommt es darauf an, ein Gleichgewicht zu finden. Digitale Medien können das Leben erleichtern, aber nur, wenn man sie bewusst und verantwortungsvoll nutzt.\n\nFragen",
+     "words": null,
+     "same_situation": false,
+     "questions": [
+      {
+       "no": "A6",
+       "type": "SINGLE_CHOICE",
+       "text": "Warum sind digitale Medien heute so wichtig?",
+       "options": [
+        {
+         "text": "Weil sie nur in der Freizeit genutzt werden.",
+         "correct": null
+        },
+        {
+         "text": "Weil sie in vielen Lebensbereichen genutzt werden.",
+         "correct": null
+        },
+        {
+         "text": "Weil sie sehr teuer sind.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A7",
+       "type": "SINGLE_CHOICE",
+       "text": "Warum sind soziale Netzwerke so beliebt?",
+       "options": [
+        {
+         "text": "Weil sie beim Sport helfen.",
+         "correct": null
+        },
+        {
+         "text": "Weil man dort schnell kommunizieren kann.",
+         "correct": null
+        },
+        {
+         "text": "Weil sie keine Zeit kosten.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A8",
+       "type": "SINGLE_CHOICE",
+       "text": "Was ist ein Vorteil von digitalen Medien beim Lernen?",
+       "options": [
+        {
+         "text": "Man muss keine Bücher mehr lesen.",
+         "correct": null
+        },
+        {
+         "text": "Man kann nur in der Schule lernen.",
+         "correct": null
+        },
+        {
+         "text": "Man hat Zugang zu vielen Informationen und kann von zu Hause lernen.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A9",
+       "type": "SINGLE_CHOICE",
+       "text": "Warum ist Datenschutz ein wichtiges Thema?",
+       "options": [
+        {
+         "text": "Weil viele Menschen ihre Daten online teilen.",
+         "correct": null
+        },
+        {
+         "text": "Weil Computer sehr langsam sind.",
+         "correct": null
+        },
+        {
+         "text": "Weil Schulen keine Technik haben.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A10",
+       "type": "SINGLE_CHOICE",
+       "text": "Wovon hängt ein guter Umgang mit digitalen Medien ab?",
+       "options": [
+        {
+         "text": "Von der Anzahl der Geräte.",
+         "correct": null
+        },
+        {
+         "text": "Von bewusster und verantwortungsvoller Nutzung.",
+         "correct": null
+        },
+        {
+         "text": "Von der Internetgeschwindigkeit.",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "text_words": 279
+    },
+    {
+     "title": "Teil 3",
+     "pages": [
+      5,
+      6,
+      7
+     ],
+     "instructions": "Aufgabe\nIhre Lösungen:",
+     "text": "Überschriften\nA. Immer mehr Menschen treiben regelmäßig Sport\nB. Fitnessstudios werden moderner\nC. Kritik an ungesunder Ernährung\nD. Online-Fitnesskurse werden beliebter\nE. Neue Programme für gesunde Ernährung\nF. Bewegung im Alltag nimmt ab\nG. Menschen protestieren gegen hohe Preise im Fitnessbereich\nH. Zusammenarbeit mit Trainern wächst\nI. Gesundheit bei Jugendlichen wird wichtiger\nJ. Parks und Sportplätze werden erneuert",
+     "words": null,
+     "same_situation": false,
+     "questions": [
+      {
+       "no": "A11",
+       "type": "MATCHING",
+       "text": "In den letzten Jahren achten immer mehr Menschen auf ihre Gesundheit. Laut einer Studie treiben etwa 60 % der Erwachsenen mindestens einmal pro Woche Sport. Besonders beliebt sind Joggen, Fitness und Yoga.\n\nExperten sagen, dass regelmäßige Bewegung das Risiko von Krankheiten deutlich reduzieren kann. Auch bei Jugendlichen wird das Thema Gesundheit immer wichtiger.",
+       "options": [
+        {
+         "text": "Immer mehr Menschen treiben regelmäßig Sport",
+         "correct": null
+        },
+        {
+         "text": "Fitnessstudios werden moderner",
+         "correct": null
+        },
+        {
+         "text": "Kritik an ungesunder Ernährung",
+         "correct": null
+        },
+        {
+         "text": "Online-Fitnesskurse werden beliebter",
+         "correct": null
+        },
+        {
+         "text": "Neue Programme für gesunde Ernährung",
+         "correct": null
+        },
+        {
+         "text": "Bewegung im Alltag nimmt ab",
+         "correct": null
+        },
+        {
+         "text": "Menschen protestieren gegen hohe Preise im Fitnessbereich",
+         "correct": null
+        },
+        {
+         "text": "Zusammenarbeit mit Trainern wächst",
+         "correct": null
+        },
+        {
+         "text": "Gesundheit bei Jugendlichen wird wichtiger",
+         "correct": null
+        },
+        {
+         "text": "Parks und Sportplätze werden erneuert",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A12",
+       "type": "MATCHING",
+       "text": "Während der letzten Jahre haben viele Fitnessanbieter ihre Angebote ins Internet verlagert. Heute nutzen rund 45 % der Sportler regelmäßig Online-Fitnesskurse. Diese Kurse ermöglichen es, flexibel von zu Hause aus zu trainieren. Viele Menschen schätzen diese Möglichkeit, da sie Zeit spart und unabhängig von Ort und Wetter ist.",
+       "options": [
+        {
+         "text": "Immer mehr Menschen treiben regelmäßig Sport",
+         "correct": null
+        },
+        {
+         "text": "Fitnessstudios werden moderner",
+         "correct": null
+        },
+        {
+         "text": "Kritik an ungesunder Ernährung",
+         "correct": null
+        },
+        {
+         "text": "Online-Fitnesskurse werden beliebter",
+         "correct": null
+        },
+        {
+         "text": "Neue Programme für gesunde Ernährung",
+         "correct": null
+        },
+        {
+         "text": "Bewegung im Alltag nimmt ab",
+         "correct": null
+        },
+        {
+         "text": "Menschen protestieren gegen hohe Preise im Fitnessbereich",
+         "correct": null
+        },
+        {
+         "text": "Zusammenarbeit mit Trainern wächst",
+         "correct": null
+        },
+        {
+         "text": "Gesundheit bei Jugendlichen wird wichtiger",
+         "correct": null
+        },
+        {
+         "text": "Parks und Sportplätze werden erneuert",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A13",
+       "type": "MATCHING",
+       "text": "Trotz dieser positiven Entwicklungen gibt es auch Kritik. Studien zeigen, dass etwa 30 % der Menschen sich ungesund ernähren und zu viele Fertigprodukte konsumieren. Experten warnen, dass dies langfristig zu gesundheitlichen Problemen führen kann. Deshalb fordern viele Organisationen mehr Aufklärung über gesunde Ernährung.",
+       "options": [
+        {
+         "text": "Immer mehr Menschen treiben regelmäßig Sport",
+         "correct": null
+        },
+        {
+         "text": "Fitnessstudios werden moderner",
+         "correct": null
+        },
+        {
+         "text": "Kritik an ungesunder Ernährung",
+         "correct": null
+        },
+        {
+         "text": "Online-Fitnesskurse werden beliebter",
+         "correct": null
+        },
+        {
+         "text": "Neue Programme für gesunde Ernährung",
+         "correct": null
+        },
+        {
+         "text": "Bewegung im Alltag nimmt ab",
+         "correct": null
+        },
+        {
+         "text": "Menschen protestieren gegen hohe Preise im Fitnessbereich",
+         "correct": null
+        },
+        {
+         "text": "Zusammenarbeit mit Trainern wächst",
+         "correct": null
+        },
+        {
+         "text": "Gesundheit bei Jugendlichen wird wichtiger",
+         "correct": null
+        },
+        {
+         "text": "Parks und Sportplätze werden erneuert",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A14",
+       "type": "MATCHING",
+       "text": "Moderne Fitnessstudios entwickeln sich ständig weiter. Viele Studios bieten heute digitale Geräte, persönliche Trainingspläne und sogar Apps zur Kontrolle der Fortschritte an. In großen Städten sind bereits über 70 % der Fitnessstudios mit moderner Technologie ausgestattet. Ziel ist es, das Training effektiver und motivierender zu machen.",
+       "options": [
+        {
+         "text": "Immer mehr Menschen treiben regelmäßig Sport",
+         "correct": null
+        },
+        {
+         "text": "Fitnessstudios werden moderner",
+         "correct": null
+        },
+        {
+         "text": "Kritik an ungesunder Ernährung",
+         "correct": null
+        },
+        {
+         "text": "Online-Fitnesskurse werden beliebter",
+         "correct": null
+        },
+        {
+         "text": "Neue Programme für gesunde Ernährung",
+         "correct": null
+        },
+        {
+         "text": "Bewegung im Alltag nimmt ab",
+         "correct": null
+        },
+        {
+         "text": "Menschen protestieren gegen hohe Preise im Fitnessbereich",
+         "correct": null
+        },
+        {
+         "text": "Zusammenarbeit mit Trainern wächst",
+         "correct": null
+        },
+        {
+         "text": "Gesundheit bei Jugendlichen wird wichtiger",
+         "correct": null
+        },
+        {
+         "text": "Parks und Sportplätze werden erneuert",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A15",
+       "type": "MATCHING",
+       "text": "Gleichzeitig bewegen sich viele Menschen im Alltag zu wenig. Laut Statistiken sitzen Erwachsene durchschnittlich 8 Stunden pro Tag. Besonders Büroarbeit trägt dazu bei, dass Bewegung fehlt. Experten empfehlen deshalb, mehr Aktivitäten in den Alltag zu integrieren, zum Beispiel Treppen zu benutzen oder kurze Spaziergänge zu machen.",
+       "options": [
+        {
+         "text": "Immer mehr Menschen treiben regelmäßig Sport",
+         "correct": null
+        },
+        {
+         "text": "Fitnessstudios werden moderner",
+         "correct": null
+        },
+        {
+         "text": "Kritik an ungesunder Ernährung",
+         "correct": null
+        },
+        {
+         "text": "Online-Fitnesskurse werden beliebter",
+         "correct": null
+        },
+        {
+         "text": "Neue Programme für gesunde Ernährung",
+         "correct": null
+        },
+        {
+         "text": "Bewegung im Alltag nimmt ab",
+         "correct": null
+        },
+        {
+         "text": "Menschen protestieren gegen hohe Preise im Fitnessbereich",
+         "correct": null
+        },
+        {
+         "text": "Zusammenarbeit mit Trainern wächst",
+         "correct": null
+        },
+        {
+         "text": "Gesundheit bei Jugendlichen wird wichtiger",
+         "correct": null
+        },
+        {
+         "text": "Parks und Sportplätze werden erneuert",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A16",
+       "type": "MATCHING",
+       "text": "Auch öffentliche Sportanlagen werden verbessert. In vielen Städten werden Parks und Sportplätze modernisiert, um mehr Menschen zur Bewegung zu motivieren. Allein im letzten Jahr wurden in Europa über 1.000 neue Sportanlagen gebaut oder renoviert. Diese Angebote sind oft kostenlos und für alle zugänglich.",
+       "options": [
+        {
+         "text": "Immer mehr Menschen treiben regelmäßig Sport",
+         "correct": null
+        },
+        {
+         "text": "Fitnessstudios werden moderner",
+         "correct": null
+        },
+        {
+         "text": "Kritik an ungesunder Ernährung",
+         "correct": null
+        },
+        {
+         "text": "Online-Fitnesskurse werden beliebter",
+         "correct": null
+        },
+        {
+         "text": "Neue Programme für gesunde Ernährung",
+         "correct": null
+        },
+        {
+         "text": "Bewegung im Alltag nimmt ab",
+         "correct": null
+        },
+        {
+         "text": "Menschen protestieren gegen hohe Preise im Fitnessbereich",
+         "correct": null
+        },
+        {
+         "text": "Zusammenarbeit mit Trainern wächst",
+         "correct": null
+        },
+        {
+         "text": "Gesundheit bei Jugendlichen wird wichtiger",
+         "correct": null
+        },
+        {
+         "text": "Parks und Sportplätze werden erneuert",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A17",
+       "type": "MATCHING",
+       "text": "Immer mehr Fitnessstudios arbeiten eng mit professionellen Trainern zusammen. Persönliche Betreuung wird immer wichtiger, da viele Menschen effektiver trainieren möchten. Studien zeigen, dass Personen mit Trainer ihre Ziele bis zu 40 % schneller erreichen. Gleichzeitig wird jedoch kritisiert, dass solche Angebote oft teuer sind.\n\nOrdnen Sie die Überschriften A–J den Texten A11–A17 zu.",
+       "options": [
+        {
+         "text": "Immer mehr Menschen treiben regelmäßig Sport",
+         "correct": null
+        },
+        {
+         "text": "Fitnessstudios werden moderner",
+         "correct": null
+        },
+        {
+         "text": "Kritik an ungesunder Ernährung",
+         "correct": null
+        },
+        {
+         "text": "Online-Fitnesskurse werden beliebter",
+         "correct": null
+        },
+        {
+         "text": "Neue Programme für gesunde Ernährung",
+         "correct": null
+        },
+        {
+         "text": "Bewegung im Alltag nimmt ab",
+         "correct": null
+        },
+        {
+         "text": "Menschen protestieren gegen hohe Preise im Fitnessbereich",
+         "correct": null
+        },
+        {
+         "text": "Zusammenarbeit mit Trainern wächst",
+         "correct": null
+        },
+        {
+         "text": "Gesundheit bei Jugendlichen wird wichtiger",
+         "correct": null
+        },
+        {
+         "text": "Parks und Sportplätze werden erneuert",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "text_words": 58
+    },
+    {
+     "title": "Teil 4",
+     "pages": [
+      7,
+      8,
+      9
+     ],
+     "instructions": "Lesen Sie den Text „Künstliche Intelligenz und ihre Auswirkungen auf die Arbeitswelt“ und lösen Sie\ndazu die Aufgaben A18–A26.\nWelche der Aussagen sind Richtig (A), Falsch (B) oder gar nicht im Text enthalten (C)?\nEs gibt jeweils nur eine richtige Lösung.",
+     "text": "In den letzten Jahren hat sich die Entwicklung der künstlichen Intelligenz (KI) rasant beschleunigt.\n\nUnternehmen aus verschiedenen Branchen investieren zunehmend in intelligente Systeme, um Arbeitsprozesse effizienter zu gestalten. KI wird heute bereits in Bereichen wie Medizin, Industrie, Transport und Kundenservice eingesetzt.\n\nEin großer Vorteil der künstlichen Intelligenz liegt in ihrer Fähigkeit, große Datenmengen in kurzer Zeit zu analysieren. Dadurch können Unternehmen fundierte Entscheidungen treffen und ihre Produktivität steigern.\n\nBesonders in der Industrie übernehmen Maschinen immer mehr Aufgaben, die früher von Menschen erledigt wurden.\n\nGleichzeitig führt diese Entwicklung zu Diskussionen über die Zukunft der Arbeit. Einige Experten befürchten, dass viele Arbeitsplätze durch Automatisierung verloren gehen könnten. Vor allem einfache und repetitive Tätigkeiten sind davon betroffen. Andere Fachleute argumentieren jedoch, dass KI auch neue Berufsfelder schafft, zum Beispiel im Bereich der Programmierung, Datenanalyse und Systemwartung.\n\nEin weiterer wichtiger Aspekt ist die Qualifikation der Arbeitnehmer. In einer zunehmend digitalisierten Welt werden neue Kompetenzen erforderlich. Lebenslanges Lernen wird daher immer wichtiger, damit Menschen sich an die veränderten Anforderungen des Arbeitsmarktes anpassen können.\n\nAuch ethische Fragen spielen eine bedeutende Rolle. Kritiker warnen davor, dass Entscheidungen von Maschinen nicht immer transparent oder fair sind. Deshalb fordern viele Experten klare Regeln und gesetzliche Rahmenbedingungen für den Einsatz von KI.\n\nDarüber hinaus stellt sich die Frage, wie Unternehmen KI verantwortungsvoll einsetzen können. Einige Firmen legen großen Wert darauf, ihre Mitarbeiter in den Veränderungsprozess einzubeziehen und Weiterbildungsprogramme anzubieten. Ziel ist es, die Zusammenarbeit zwischen Mensch und Maschine zu verbessern.\n\nLangfristig wird erwartet, dass künstliche Intelligenz die Arbeitswelt nachhaltig verändern wird. Sie kann Prozesse vereinfachen und Innovationen fördern, gleichzeitig aber auch neue Herausforderungen mit sich bringen. Entscheidend wird sein, wie Gesellschaft, Politik und Wirtschaft gemeinsam mit diesen Veränderungen umgehen.\n\nAussagen",
+     "words": null,
+     "same_situation": false,
+     "questions": [
+      {
+       "no": "A18",
+       "type": "TRUE_FALSE",
+       "text": "Künstliche Intelligenz wird nur in der Industrie eingesetzt.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A19",
+       "type": "TRUE_FALSE",
+       "text": "KI kann große Datenmengen schnell analysieren.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A20",
+       "type": "TRUE_FALSE",
+       "text": "Alle Experten sind sich einig, dass KI nur Arbeitsplätze zerstört.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A21",
+       "type": "TRUE_FALSE",
+       "text": "Neue Berufe können durch KI entstehen.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A22",
+       "type": "TRUE_FALSE",
+       "text": "Lebenslanges Lernen wird immer unwichtiger.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A23",
+       "type": "TRUE_FALSE",
+       "text": "Es gibt Diskussionen über ethische Probleme bei KI.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A24",
+       "type": "TRUE_FALSE",
+       "text": "Alle Unternehmen ignorieren ihre Mitarbeiter bei der Einführung von KI.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A25",
+       "type": "TRUE_FALSE",
+       "text": "KI wird die Arbeitswelt langfristig verändern.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A26",
+       "type": "TRUE_FALSE",
+       "text": "Der Text erklärt genau, welche Gesetze bereits überall gelten.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        },
+        {
+         "text": "der Text sagt nicht dazu",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "text_words": 280
+    },
+    {
+     "title": "Teil 5",
+     "pages": [
+      10,
+      11,
+      12
+     ],
+     "instructions": "Lesen Sie den Text und dazu die Aufgaben A27–A35. Entscheiden Sie, welche der Antworten A, B oder C\nrichtig ist. Zu jeder Aufgabe gibt es jeweils nur eine richtige Lösung.",
+     "text": "Kaum ein Thema hat in den letzten Jahrzehnten die wirtschaftliche Entwicklung so stark beeinflusst wie die Globalisierung. Während einige Experten darin eine große Chance für Wachstum und internationalen Austausch sehen, warnen andere vor den negativen Folgen für lokale Arbeitsmärkte. Die Diskussion darüber ist komplex und von unterschiedlichen Interessen geprägt.\n\nIn der Theorie ermöglicht die Globalisierung Unternehmen, weltweit zu agieren und neue Märkte zu erschließen. Produktionsprozesse werden effizienter gestaltet, da Unternehmen ihre Standorte strategisch wählen können. In der Praxis führt dies jedoch oft dazu, dass Arbeitsplätze in Länder mit niedrigeren Löhnen verlagert werden. Besonders in Industrieländern wächst daher die Sorge um den Verlust traditioneller Arbeitsplätze.\n\nEin weiterer Aspekt ist die zunehmende Flexibilisierung der Arbeit. Immer mehr Menschen arbeiten freiberuflich oder in befristeten Verträgen. Einerseits bietet dies mehr Freiheit und individuelle Gestaltungsmöglichkeiten, andererseits steigt die Unsicherheit für viele Arbeitnehmer. Feste Arbeitsverhältnisse werden seltener, während gleichzeitig der Leistungsdruck zunimmt.\n\nAuch soziale Unterschiede können durch die Globalisierung verstärkt werden. Hochqualifizierte Fachkräfte profitieren häufig von internationalen Karrieremöglichkeiten, während gering qualifizierte Arbeitnehmer stärker unter Konkurrenzdruck geraten. Dadurch entsteht eine wachsende Kluft innerhalb der Gesellschaft.\n\nUnternehmen stehen zudem vor der Herausforderung, ethische Standards einzuhalten. Themen wie faire Arbeitsbedingungen, Umweltschutz und nachhaltige Produktion gewinnen zunehmend an Bedeutung.\n\nVerbraucher achten heute stärker darauf, unter welchen Bedingungen Produkte hergestellt werden.\n\nPolitische Maßnahmen versuchen, die negativen Auswirkungen der Globalisierung zu begrenzen. Internationale Abkommen und nationale Gesetze sollen Mindeststandards sichern. Dennoch ist ihre Umsetzung oft schwierig, da wirtschaftliche Interessen eine große Rolle spielen.\n\nLetztlich bleibt die Frage offen, ob die Globalisierung langfristig mehr Vorteile oder Nachteile bringt. Klar ist jedoch, dass sie die Arbeitswelt nachhaltig verändert hat und weiterhin verändern wird.\n\nFragen",
+     "words": null,
+     "same_situation": false,
+     "questions": [
+      {
+       "no": "A27",
+       "type": "SINGLE_CHOICE",
+       "text": "Die Globalisierung der Arbeitswelt wird im Text dargestellt als ...",
+       "options": [
+        {
+         "text": "ausschließlich positiv bewertet",
+         "correct": null
+        },
+        {
+         "text": "einseitig kritisiert",
+         "correct": null
+        },
+        {
+         "text": "ein komplexes Thema mit unterschiedlichen Meinungen",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A28",
+       "type": "SINGLE_CHOICE",
+       "text": "Ein Problem der Globalisierung ist ...",
+       "options": [
+        {
+         "text": "dass Unternehmen weniger wachsen",
+         "correct": null
+        },
+        {
+         "text": "dass Arbeitsplätze verlagert werden können",
+         "correct": null
+        },
+        {
+         "text": "dass alle Länder gleich reich werden",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A29",
+       "type": "SINGLE_CHOICE",
+       "text": "Flexiblere Arbeitsformen bedeuten oft ...",
+       "options": [
+        {
+         "text": "mehr Sicherheit für Arbeitnehmer",
+         "correct": null
+        },
+        {
+         "text": "weniger Verantwortung für Unternehmen",
+         "correct": null
+        },
+        {
+         "text": "mehr Freiheit, aber auch mehr Unsicherheit",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A30",
+       "type": "SINGLE_CHOICE",
+       "text": "Hochqualifizierte Arbeitnehmer ...",
+       "options": [
+        {
+         "text": "profitieren häufig stärker von der Globalisierung",
+         "correct": null
+        },
+        {
+         "text": "verlieren grundsätzlich ihre Arbeitsplätze",
+         "correct": null
+        },
+        {
+         "text": "arbeiten ausschließlich im Ausland",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A31",
+       "type": "SINGLE_CHOICE",
+       "text": "Unternehmen müssen heute stärker ...",
+       "options": [
+        {
+         "text": "Maschinen abschaffen",
+         "correct": null
+        },
+        {
+         "text": "auf ethische Standards achten",
+         "correct": null
+        },
+        {
+         "text": "weniger produzieren",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A32",
+       "type": "SINGLE_CHOICE",
+       "text": "Politische Maßnahmen ...",
+       "options": [
+        {
+         "text": "sind leicht umzusetzen",
+         "correct": null
+        },
+        {
+         "text": "spielen keine Rolle",
+         "correct": null
+        },
+        {
+         "text": "sollen negative Folgen begrenzen",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A33",
+       "type": "SINGLE_CHOICE",
+       "text": "Laut Text führt die Globalisierung dazu, dass ...",
+       "options": [
+        {
+         "text": "alle Menschen gleich verdienen",
+         "correct": null
+        },
+        {
+         "text": "soziale Unterschiede größer werden können",
+         "correct": null
+        },
+        {
+         "text": "es keine Konkurrenz mehr gibt",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A34",
+       "type": "SINGLE_CHOICE",
+       "text": "In der Praxis bedeutet Globalisierung oft, dass ...",
+       "options": [
+        {
+         "text": "Unternehmen ineffizienter arbeiten",
+         "correct": null
+        },
+        {
+         "text": "Produktion nur im eigenen Land bleibt",
+         "correct": null
+        },
+        {
+         "text": "Standorte strategisch gewählt werden",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "A35",
+       "type": "SINGLE_CHOICE",
+       "text": "Am Ende stellt der Autor die Frage, ob ...",
+       "options": [
+        {
+         "text": "Globalisierung nur Vorteile bringt",
+         "correct": null
+        },
+        {
+         "text": "Globalisierung langfristig mehr Nutzen oder Schaden hat",
+         "correct": null
+        },
+        {
+         "text": "Globalisierung bald endet",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "text_words": 270
+    }
+   ],
+   "title": "Lesen",
+   "duration_minutes": 60,
+   "total_points": 35
+  },
+  {
+   "type": "HOEREN",
+   "teile": [
+    {
+     "title": "Teil 1",
+     "instructions": "Sie hören fünf Gespräche und Äußerungen. Sie hören jeden Text einmal.\nZu jedem Text lösen Sie zwei Aufgaben. Wählen Sie bei jeder Aufgabe die richtige Lösung.\nLesen Sie jetzt das Beispiel. Dazu haben Sie 15 Sekunden Zeit.",
+     "text": "Beispiel\n0 Ein Mann telefoniert mit der Autowerkstatt. (Richtig / Falsch)\n0 Was für ein Problem gibt es mit dem Wagen? a) Es gab einen Unfall auf der Autobahn b) Er hat kein Benzin mehr c) Er kann nicht mehr fahren",
+     "questions": [
+      {
+       "no": "1",
+       "type": "TRUE_FALSE",
+       "text": "Ein Jugendlicher ruft bei einem Fitness-Studio an.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "2",
+       "type": "SINGLE_CHOICE",
+       "text": "Wann findet die Ski-Gymnastik statt?",
+       "options": [
+        {
+         "text": "Wenn es genügend Teilnehmer gibt",
+         "correct": null
+        },
+        {
+         "text": "Wenn die Ski-Saison beginnt",
+         "correct": null
+        },
+        {
+         "text": "Sobald jemand sich dafür interessiert",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "3",
+       "type": "TRUE_FALSE",
+       "text": "Im Radio wird eine Sehenswürdigkeit empfohlen.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "4",
+       "type": "SINGLE_CHOICE",
+       "text": "Bei der Veranstaltung kann man …",
+       "options": [
+        {
+         "text": "das Schloss besichtigen",
+         "correct": null
+        },
+        {
+         "text": "Musik aus verschiedenen Epochen hören",
+         "correct": null
+        },
+        {
+         "text": "historische Kostüme anziehen",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "5",
+       "type": "TRUE_FALSE",
+       "text": "Die Bibliothekarin verlangt für die Ausleihe einen Bibliotheksausweis.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "6",
+       "type": "SINGLE_CHOICE",
+       "text": "Was möchte die Jugendliche?",
+       "options": [
+        {
+         "text": "Einen Bibliotheksausweis beantragen",
+         "correct": null
+        },
+        {
+         "text": "Für ihren Bruder haften",
+         "correct": null
+        },
+        {
+         "text": "Ohne eigenen Bibliotheksausweis Bücher ausleihen",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "7",
+       "type": "TRUE_FALSE",
+       "text": "Zwei Personen unterhalten sich über einen Zahnarzt.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "8",
+       "type": "SINGLE_CHOICE",
+       "text": "Die Betäubung dauert …",
+       "options": [
+        {
+         "text": "etwa drei Stunden",
+         "correct": null
+        },
+        {
+         "text": "unterschiedlich lange",
+         "correct": null
+        },
+        {
+         "text": "höchstens drei Stunden",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "9",
+       "type": "TRUE_FALSE",
+       "text": "Ein Professor hält eine Linguistik-Vorlesung.",
+       "options": [
+        {
+         "text": "Richtig",
+         "correct": null
+        },
+        {
+         "text": "Falsch",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "10",
+       "type": "SINGLE_CHOICE",
+       "text": "Die Ergebnisse erhalten die Prüflinge …",
+       "options": [
+        {
+         "text": "in wenigen Tagen",
+         "correct": null
+        },
+        {
+         "text": "so schnell wie möglich",
+         "correct": null
+        },
+        {
+         "text": "über das Internet",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [
+      13
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 40
+    },
+    {
+     "title": "Teil 2",
+     "instructions": "Sie hören im Radio ein Interview mit einer Persönlichkeit aus der Welt der Kunst. Sie hören den Text zweimal.\nWählen Sie bei jeder Aufgabe die richtige Lösung. Lesen Sie jetzt die Aufgaben 11 bis 16.\nDazu haben Sie 90 Sekunden Zeit.",
+     "text": "",
+     "questions": [
+      {
+       "no": "11",
+       "type": "SINGLE_CHOICE",
+       "text": "Leser, die gern Krimis lesen, …",
+       "options": [
+        {
+         "text": "finden regionale Krimis besonders spannend",
+         "correct": null
+        },
+        {
+         "text": "kennen wahrscheinlich Krimis von Lisa Graf-Riemann",
+         "correct": null
+        },
+        {
+         "text": "interessieren sich für ein Interview mit der Autorin",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "12",
+       "type": "SINGLE_CHOICE",
+       "text": "Woher bekommt die Autorin ihre Inspiration?",
+       "options": [
+        {
+         "text": "Von der Gegend, in der sie wohnt",
+         "correct": null
+        },
+        {
+         "text": "Von der Polizei in München",
+         "correct": null
+        },
+        {
+         "text": "Von sieben weiteren Krimis",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "13",
+       "type": "SINGLE_CHOICE",
+       "text": "Was für Figuren kommen in den Krimis vor?",
+       "options": [
+        {
+         "text": "Wirklich existierende",
+         "correct": null
+        },
+        {
+         "text": "Gut recherchierte",
+         "correct": null
+        },
+        {
+         "text": "Figuren mit ihren positiven und negativen Seiten",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "14",
+       "type": "SINGLE_CHOICE",
+       "text": "Alfred Hitchcock hatte in seinen Filmen …",
+       "options": [
+        {
+         "text": "oft einen kleinen Auftritt",
+         "correct": null
+        },
+        {
+         "text": "besondere Szenen mit Passanten",
+         "correct": null
+        },
+        {
+         "text": "oft bestimmte Hauptfiguren",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "15",
+       "type": "SINGLE_CHOICE",
+       "text": "Mit einem Co-Autor zu schreiben …",
+       "options": [
+        {
+         "text": "erschwert die Arbeit",
+         "correct": null
+        },
+        {
+         "text": "nimmt der Autorin Arbeit ab",
+         "correct": null
+        },
+        {
+         "text": "ist immer ein ziemliches Risiko",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "16",
+       "type": "SINGLE_CHOICE",
+       "text": "Warum würde die Autorin einer Krimi-Verfilmung zustimmen?",
+       "options": [
+        {
+         "text": "Weil ihr Filme gefallen",
+         "correct": null
+        },
+        {
+         "text": "Weil sie dann ihre Figuren sprechen hört",
+         "correct": null
+        },
+        {
+         "text": "Weil ihre Figuren dann berühmt werden",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [
+      14
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 0
+    },
+    {
+     "title": "Teil 3",
+     "instructions": "Sie hören im Radio ein Gespräch mit mehreren Personen. Die Personen sprechen über einen YouTube-Kanal für Schüler.\nSie hören den Text einmal. Wählen Sie bei jeder Aufgabe: Wer sagt das?\nLesen Sie jetzt die Aufgaben 17 bis 22. Dazu haben Sie 60 Sekunden Zeit.",
+     "text": "Personen: a) Moderatorin · b) YouTuberin · c) YouTuber\nBeispiel: 0 Auch wenn man kein Popstar ist, kann man bei YouTube viele Fans haben. (a)",
+     "questions": [
+      {
+       "no": "17",
+       "type": "MATCHING",
+       "text": "Das Angebot des YouTube-Kanals beschränkt sich nicht auf Mathematik.",
+       "options": [
+        {
+         "text": "Moderatorin",
+         "correct": null
+        },
+        {
+         "text": "YouTuberin",
+         "correct": null
+        },
+        {
+         "text": "YouTuber",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "18",
+       "type": "MATCHING",
+       "text": "In den Videos wird nicht die übliche Unterrichtssprache verwendet.",
+       "options": [
+        {
+         "text": "Moderatorin",
+         "correct": null
+        },
+        {
+         "text": "YouTuberin",
+         "correct": null
+        },
+        {
+         "text": "YouTuber",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "19",
+       "type": "MATCHING",
+       "text": "Der YouTube-Kanal hat nicht nur festes Personal.",
+       "options": [
+        {
+         "text": "Moderatorin",
+         "correct": null
+        },
+        {
+         "text": "YouTuberin",
+         "correct": null
+        },
+        {
+         "text": "YouTuber",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "20",
+       "type": "MATCHING",
+       "text": "Die Werbeeinnahmen sind mehr als kostendeckend.",
+       "options": [
+        {
+         "text": "Moderatorin",
+         "correct": null
+        },
+        {
+         "text": "YouTuberin",
+         "correct": null
+        },
+        {
+         "text": "YouTuber",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "21",
+       "type": "MATCHING",
+       "text": "Die Nutzer bevorzugen es, Werbung zu sehen, anstatt zu bezahlen.",
+       "options": [
+        {
+         "text": "Moderatorin",
+         "correct": null
+        },
+        {
+         "text": "YouTuberin",
+         "correct": null
+        },
+        {
+         "text": "YouTuber",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "22",
+       "type": "MATCHING",
+       "text": "Für gute Schüler gab es vorher praktisch keine Nachhilfeangebote.",
+       "options": [
+        {
+         "text": "Moderatorin",
+         "correct": null
+        },
+        {
+         "text": "YouTuberin",
+         "correct": null
+        },
+        {
+         "text": "YouTuber",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [
+      15,
+      16
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 23
+    },
+    {
+     "title": "Teil 4",
+     "instructions": "Sie hören einen kurzen Vortrag. Der Redner spricht über das Thema „Aufsicht beim Spielen“.\nSie hören den Text zweimal. Wählen Sie bei jeder Aufgabe die richtige Lösung.\nLesen Sie jetzt die Aufgaben 23 bis 30. Dazu haben Sie 90 Sekunden Zeit.",
+     "text": "",
+     "questions": [
+      {
+       "no": "23",
+       "type": "SINGLE_CHOICE",
+       "text": "Spielen ist wichtig für Kinder, weil …",
+       "options": [
+        {
+         "text": "sie sich sonst langweilen.",
+         "correct": null
+        },
+        {
+         "text": "sie viel lernen wollen.",
+         "correct": null
+        },
+        {
+         "text": "ihr Gehirn dies braucht.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "24",
+       "type": "SINGLE_CHOICE",
+       "text": "Wie sollte das Gebiet sein, in dem Kinder spielen?",
+       "options": [
+        {
+         "text": "Möglichst groß.",
+         "correct": null
+        },
+        {
+         "text": "Ohne jede Gefahr.",
+         "correct": null
+        },
+        {
+         "text": "In der Nähe.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "25",
+       "type": "SINGLE_CHOICE",
+       "text": "Woran mangelt es vielen Kindern?",
+       "options": [
+        {
+         "text": "An Gelegenheiten, mit anderen zu spielen.",
+         "correct": null
+        },
+        {
+         "text": "An der Möglichkeit, ohne Erwachsene etwas zu tun.",
+         "correct": null
+        },
+        {
+         "text": "An elterlicher Fürsorge.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "26",
+       "type": "SINGLE_CHOICE",
+       "text": "Wie sollten sich Eltern verhalten?",
+       "options": [
+        {
+         "text": "Sie sollten immer bei ihren Kindern bleiben.",
+         "correct": null
+        },
+        {
+         "text": "Sie sollten ihre Kinder bei eigenen Ideen unterstützen.",
+         "correct": null
+        },
+        {
+         "text": "Sie sollten ihren Kindern immer helfen.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "27",
+       "type": "SINGLE_CHOICE",
+       "text": "Welches Verhalten demotiviert die Kinder?",
+       "options": [
+        {
+         "text": "Ständiges Eingreifen und Helfen.",
+         "correct": null
+        },
+        {
+         "text": "Häufiges Unterbrechen.",
+         "correct": null
+        },
+        {
+         "text": "Dass man sie Dinge allein schaffen lässt.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "28",
+       "type": "SINGLE_CHOICE",
+       "text": "Warum besuchen viele Familien Museen?",
+       "options": [
+        {
+         "text": "Damit die Kinder etwas ausprobieren können.",
+         "correct": null
+        },
+        {
+         "text": "Damit die Kinder inspiriert werden.",
+         "correct": null
+        },
+        {
+         "text": "Damit die Kinder Neues lernen.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "29",
+       "type": "SINGLE_CHOICE",
+       "text": "Was erwartet die Schule von den Kindern?",
+       "options": [
+        {
+         "text": "Dass sie viel lernen.",
+         "correct": null
+        },
+        {
+         "text": "Dass sie Regeln beachten.",
+         "correct": null
+        },
+        {
+         "text": "Dass sie kreativ sind.",
+         "correct": null
+        }
+       ]
+      },
+      {
+       "no": "30",
+       "type": "SINGLE_CHOICE",
+       "text": "Jungen Erwachsenen mangelt es an …",
+       "options": [
+        {
+         "text": "dem Willen, etwas nach ihren Ideen zu formen.",
+         "correct": null
+        },
+        {
+         "text": "Wissen zu ihrem Fachgebiet.",
+         "correct": null
+        },
+        {
+         "text": "Möglichkeiten, ihr Wissen anzuwenden.",
+         "correct": null
+        }
+       ]
+      }
+     ],
+     "pages": [
+      17
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 0
+    }
+   ],
+   "title": "Hören",
+   "duration_minutes": 40,
+   "total_points": 30
+  },
+  {
+   "type": "SCHREIBEN",
+   "teile": [
+    {
+     "title": "Teil 1.1",
+     "instructions": "",
+     "text": "Sie arbeiten in einem Unternehmen in Ihrer Stadt.\nSie haben eine E-Mail von der Firmenleitung erhalten:\nLiebe Mitarbeiterinnen und Mitarbeiter,\nwir möchten Sie darüber informieren, dass unser Büro im nächsten Monat für einige Wochen renoviert wird. In dieser Zeit werden viele von Ihnen im Homeoffice arbeiten. Nach der Renovierung planen wir modernere Arbeitsplätze, neue Technologien und bessere Arbeitsbedingungen.\nWir würden gerne Ihre Meinung hören: Welche Arbeitsbedingungen wünschen Sie sich? Haben Sie Ideen zur Verbesserung des Arbeitsplatzes oder der Organisation?\nVielen Dank für Ihre Vorschläge.\nMit freundlichen Grüßen\nDie Firmenleitung\n\nSchreiben Sie einen kurzen Brief an Ihre Kollegin / Ihren Kollegen, der auch im Unternehmen arbeitet.\nSchreiben Sie über Ihre Gefühle und Ihre Meinung zu dieser Situation.\nSchreiben Sie ca. 50 Wörter.",
+     "questions": [],
+     "pages": [
+      18
+     ],
+     "words": 50,
+     "same_situation": false,
+     "text_words": 120
+    },
+    {
+     "title": "Teil 1.2",
+     "instructions": "",
+     "text": "Schreiben Sie eine E-Mail an die Firmenleitung.\nBeschreiben Sie Ihre Meinung zur Renovierung und machen Sie Vorschläge, welche Verbesserungen umgesetzt werden könnten.\nSchreiben Sie ca. 120–150 Wörter.",
+     "questions": [],
+     "pages": [
+      18
+     ],
+     "words": 150,
+     "same_situation": true,
+     "text_words": 28
+    },
+    {
+     "title": "Teil 2",
+     "instructions": "",
+     "text": "Sie nehmen an einer Online-Diskussion für Bürgerinnen und Bürger in Usbekistan teil.\nDie Frage lautet:\n„Immer mehr Menschen arbeiten von zu Hause aus. Ist Homeoffice besser als Arbeit im Büro?“\nPosten Sie Ihre Meinung in einem Diskussionsbeitrag.\nBegründen Sie Ihre Meinung und nennen Sie Beispiele.\nSchreiben Sie 180–200 Wörter.",
+     "questions": [],
+     "pages": [
+      19
+     ],
+     "words": 200,
+     "same_situation": false,
+     "text_words": 50
+    }
+   ],
+   "title": "Schreiben",
+   "duration_minutes": 60,
+   "total_points": 0
+  },
+  {
+   "type": "SPRECHEN",
+   "teile": [
+    {
+     "title": "Teil 1.1",
+     "instructions": "",
+     "text": "• Wie oft gehen Sie zum Arzt?\n• Was machen Notärzte in einem Krankenhaus?\n• Wann waren Sie das letzte Mal krank oder erkältet?",
+     "questions": [],
+     "pages": [
+      20
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 21
+    },
+    {
+     "title": "Teil 1.2",
+     "instructions": "",
+     "text": "Fragen\n1. Was sehen Sie auf diesen Bildern?\n2. Was ist der Unterschied zwischen dem Leben in der Stadt und auf dem Land?\n3. Wo wohnen Sie lieber, in der Stadt oder im Dorf? Warum?",
+     "questions": [],
+     "pages": [
+      20
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 35,
+     "image": "mt02-1.jpg"
+    },
+    {
+     "title": "Teil 2",
+     "instructions": "",
+     "text": "Erzählen Sie über eine wichtige Entscheidung, die Sie gerne rückgängig machen würden.\nSie sollten sagen:\n• Um welche Entscheidung es sich handelt\n• Warum diese Entscheidung wichtig war\n• Wie oft Sie daran denken oder sie bereuen\n• Und was sich ändern würde, wenn Sie diese Entscheidung rückgängig machen könnten",
+     "questions": [],
+     "pages": [
+      21
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 46
+    },
+    {
+     "title": "Teil 3",
+     "instructions": "",
+     "text": "Soziale Medien wirken sich negativ auf die psychische Gesundheit aus.\nPro: ✔ Erhöhen die soziale Vernetzung und das Bewusstsein · ✔ Ermöglichen den Austausch von Unterstützung und Erfahrungen · ✔ Erleichtern den Zugang zu Informationen\nContra: ✔ Können Angst, Depression und Suchverhalten verstärken · ✔ Fördern manchmal Cybermobbing · ✔ Lenken von echten zwischenmenschlichen Beziehungen ab",
+     "questions": [],
+     "pages": [
+      21
+     ],
+     "words": null,
+     "same_situation": false,
+     "text_words": 46
+    }
+   ],
+   "title": "Sprechen",
+   "duration_minutes": 15,
+   "total_points": 0
+  }
+ ],
+ "review": [
+  {
+   "where": "allgemein",
+   "note": "Im PDF gibt es keine Lösungen: alle Antwortschlüssel fehlen und müssen im Admin-Panel eingetragen werden."
+  },
+  {
+   "where": "allgemein",
+   "note": "Zeiten (Lesen 60, Hören 40, Schreiben 60, Sprechen 15 Min.) und Bewertungskriterien stehen nicht im PDF — Standardwerte, bitte prüfen."
+  },
+  {
+   "where": "Hören Teil 3",
+   "note": "Teil 3 (S. 15): Die Zeile „Berilishi / Anweisung:“ (Uzbekisch/Deutsch) im Original weggelassen."
+  },
+  {
+   "where": "Hören Teil 4",
+   "note": "Teil 4 (S. 17): Aufgaben stehen im PDF als Tabelle (Frage | a | b | c); Spalten wurden zeilenweise zusammengesetzt — prüfen."
+  }
+ ]
+}

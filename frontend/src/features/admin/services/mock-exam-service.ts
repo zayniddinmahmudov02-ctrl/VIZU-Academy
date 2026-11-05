@@ -16,6 +16,7 @@ import type {
   MockExamLevel,
   MockExamLevelCreate,
   MockExamLevelUpdate,
+  MockQuestion,
   ModelTest,
   ModelTestAnalytics,
   ModelTestCreate,
@@ -90,6 +91,62 @@ export const getWritingTaskByTeil = (teilId: string) =>
   getOrNull<WritingTask>(ADMIN_ENDPOINTS.mockExamWritingTaskByTeil(teilId));
 export const getSpeakingTaskByTeil = (teilId: string) =>
   getOrNull<SpeakingTask>(ADMIN_ENDPOINTS.mockExamSpeakingTaskByTeil(teilId));
+
+// ============================================================
+// Questions + answer keys of imported Modelltests, source PDF, check-list (Super Admin; backend multilevel_service)
+// ============================================================
+
+const MOCK = "/api/v1/mock-exam";
+
+export interface ReadingContentAdmin {
+  id: string;
+  teil_id: string;
+  content_type: string;
+  text: string | null;
+  image_url: string | null;
+}
+
+export interface ModelTestReview {
+  has_source_pdf: boolean;
+  source_pdf_name: string | null;
+  origin: "pdf" | "vizu" | null;
+  review: { where: string; note: string }[];
+  readiness: { questions: number; keys_set: number; missing_keys: string[]; missing_audio: string[]; ready: boolean };
+}
+
+export const getReadingContentByTeil = (teilId: string) =>
+  getOrNull<ReadingContentAdmin>(`${MOCK}/teile/${teilId}/reading-content`);
+
+export async function getContentQuestions(params: { reading_content_id?: string; listening_content_id?: string }) {
+  const response = await api.get<MockQuestion[]>(`${MOCK}/questions`, { params });
+  return response.data ?? [];
+}
+
+export async function setQuestionKey(questionId: string, optionIds: string[]): Promise<MockQuestion> {
+  const response = await api.put<MockQuestion>(`${MOCK}/questions/${questionId}/key`, { option_ids: optionIds });
+  return response.data;
+}
+
+export async function editQuestionText(questionId: string, questionText: string): Promise<MockQuestion> {
+  const response = await api.put<MockQuestion>(`${MOCK}/questions/${questionId}/text`, { question_text: questionText });
+  return response.data;
+}
+
+export async function editOptionText(optionId: string, optionText: string) {
+  const response = await api.put(`${MOCK}/question-options/${optionId}/text`, { option_text: optionText });
+  return response.data;
+}
+
+export async function getModelTestReview(modelTestId: string): Promise<ModelTestReview> {
+  const response = await api.get<ModelTestReview>(`${MOCK}/model-tests/${modelTestId}/review`);
+  return response.data;
+}
+
+// The PDF is private: fetched with the admin's auth, shown from a blob URL (never a public link).
+export async function getModelTestSourcePdf(modelTestId: string): Promise<Blob> {
+  const response = await api.get<Blob>(`${MOCK}/model-tests/${modelTestId}/source-pdf`, { responseType: "blob" });
+  return response.data;
+}
 
 // ============================================================
 // Analytics

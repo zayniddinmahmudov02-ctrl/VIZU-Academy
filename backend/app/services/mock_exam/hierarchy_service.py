@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 from app.models.certification_provider import CertificationProvider
 from app.models.kompetenz import Kompetenz
 from app.models.mock_exam_level import MockExamLevel
-from app.models.model_test import ModelTest
+from app.models.model_test import STATUS_PUBLISHED, ModelTest
 from app.models.teil import Teil
 from app.schemas.mock_exam import (
     CertificationProviderCreate,
@@ -21,6 +21,7 @@ from app.schemas.mock_exam import (
     TeilCreate,
     TeilUpdate,
 )
+from app.services.mock_exam.multilevel_service import assert_publishable
 
 
 # ============================================================
@@ -132,7 +133,10 @@ def update_model_test(db: Session, model_test_id: UUID, data: ModelTestUpdate):
     model_test = db.get(ModelTest, model_test_id)
     if model_test is None:
         return None
-    for key, value in data.model_dump(exclude_unset=True).items():
+    changes = data.model_dump(exclude_unset=True)
+    if changes.get("status") == STATUS_PUBLISHED and model_test.status != STATUS_PUBLISHED:
+        assert_publishable(db, model_test_id)  # no key-less question / audio-less Hören Teil reaches students
+    for key, value in changes.items():
         setattr(model_test, key, value)
     db.commit()
     db.refresh(model_test)

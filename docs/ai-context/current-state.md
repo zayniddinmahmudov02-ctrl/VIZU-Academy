@@ -6,13 +6,18 @@ Updated 2026-11-05.
 
 | Where | Revision | Note |
 | --- | --- | --- |
-| `origin/main` | `392c2a9f` (owner pushed the local work from GitHub Desktop: mobile app, dashboard pass 2, Battle audio, Wortschatz rule) | local machine still has no git |
-| Server checkout | `392c2a9f` via `git pull --ff-only` (2026-11-05) + **LF overlays** (no local git), all identical to the local files: (1) Wortschatz UI — `wortschatz-section.tsx`, `translations.ts`, `globals.css`, `lms-flashcards.tsx` deleted (originals `/var/backups/vizu/pre-wortschatz-ui-20261105-084616`); (2) Battle points — `services/battle/{config,engine,questions,home}.py`, `tests/test_battle.py`, `battle/components/{result,battle-home}.tsx`, `battle-service.ts`, `battle-translations.ts` (originals `/var/backups/vizu/pre-battle-points-20261105-085529/files`). Once the owner pushes them: `git checkout -- <these files>` (+ `git checkout -- frontend/src/components/lms/lms-flashcards.tsx`) on the server, then `git pull --ff-only` | untracked leftovers `frontend/package-lock.json` (M), `package-lock.json`, `"hlarni xavfsiz saqlash"` — pre-existing, not ours |
-| DB (production + local test) | Alembic `f2b6d8a4c1e9` (`app_releases`, empty) | |
-| Frontend production slot | `.next-b`, deployment `392c2a9f-20261105085729` (with both overlays) | `.next-a` = previous (Wortschatz overlay only, rollback) |
-| Last backup | `/var/backups/vizu/pre-mobile-dash2-20261105-081839` (144 tables, 0 differing; migration SQL inside) | before: `pre-dashboard-20261105-044137` |
+| `origin/main` | `4a7ec3cb` (owner push: Wortschatz UI + Battle points) | local machine still has no git; Multilevel work (below) is NOT pushed yet |
+| Server checkout | `4a7ec3cb` via `git pull --ff-only` (2026-11-05 17:12, the earlier overlays were identical to it) + **LF overlay "Multilevel"** (41 files: `services/mock_exam/multilevel_service.py`, `scripts/multilevel_{import,build}.py`, `app/data/multilevel/**`, `tests/test_multilevel_modelltests.py`, mock-exam routers/schemas/`hierarchy_service.py`, `protected_local.py`, admin `mock-exam` components/service/page, student `vorbereitung` pages/service/types; originals `/var/backups/vizu/pre-multilevel-20261105-170946/files`) + docs. Once the owner pushes them: `git checkout -- <modified files>`, delete the new untracked ones, `git pull --ff-only` | untracked leftovers `frontend/package-lock.json` (M), `package-lock.json`, `"hlarni xavfsiz saqlash"` — pre-existing, not ours |
+| DB (production + local test) | Alembic `f2b6d8a4c1e9` (no migration since) | |
+| Frontend production slot | `.next-a`, deployment `4a7ec3cb-20261105171608` (with the Multilevel overlay) | `.next-b` = previous (rollback) |
+| Last backup | `/var/backups/vizu/pre-multilevel-20261105-170946` (145 tables, 0 differing; import report `multilevel-import-report.json`) | before: `pre-battle-points-20261105-085529` |
 
 ## Content (production)
+
+- Vorbereitung Multilevel (2026-11-05): level "Multilevel B1–C1" (NATIONAL) with Modelltest 1–10, all **DRAFT**. 1–6: 535
+  questions in total incl. 7–10; 1–6 keys 0 (PDFs have none) + Hören audio missing (26 Teile) → admin enters keys/audio,
+  then publishes; 7–10: 35/35 keys, Hören "Noch nicht verfügbar", Sprechen 1.2 pictures missing. Check-list per test
+  (`docs/multilevel-modelltests.md`). Student player shows content + questions (no keys), no answering yet.
 
 - Battle (2026-11-05): 89 published A1 picture words + 89 published pictures, 6 published themes; all stages playable (A2+ use A1 words).
 - A2: lessons 1–13 published (14 "Wiederholung" draft); Hören 22/27 published (L6 + L13 open, see known-issues).
@@ -20,6 +25,12 @@ Updated 2026-11-05.
 - A2 Wortschatz: 216 words, 32 published test sets. A2 readiness `NEEDS_CONTENT`; sales enabled.
 
 ## Last verification (2026-11-05)
+
+- Multilevel deploy: local backend 1010 passed / 23 skipped, frontend tsc + eslint OK; server unittest 9 OK (2 DB skips);
+  no migration; health 200; 7 pages 200; new admin APIs anonymous 401; public list of the new level `[]`, draft test /
+  Kompetenz 404; strings in `.next-a`; counts vs backup only grew in mock-exam tables (+1 level, +10 tests, +535 questions,
+  +2188 options) and audit +1; importer re-plan = 10× SKIP; errors 0; bots active. Not checked: logged-in admin UI on
+  production (no test accounts there) — verified only in tsc/lint and locally by API.
 
 - Deploy `392c2a9f`: server unittest 95 OK (36 DB skips); migration preview 1 CREATE TABLE + 1 unique index, 0 drop; health
   200; 14 pages 200 (incl. `/download`, `/admin/app-management`); anonymous APIs 401, `app/releases/latest` 404 (no APK
