@@ -47,6 +47,9 @@ const nextConfig: NextConfig = {
       { source: "/profile", destination: "/settings", permanent: false },
       // Legacy A2 Audio bookmarks now open the A2 controls in Media Management.
       { source: "/admin/media-management/a2-audio", destination: "/admin/media-management?level=A2", permanent: false },
+      // Short, shareable APK link → the API stream of the latest published release (404 until one exists).
+      { source: "/downloads/android/latest.apk", destination: "/api/v1/app/android/latest.apk", permanent: false },
+      { source: "/app", destination: "/download", permanent: false },
     ];
   },
   // Baseline security headers (nothing set them before: neither nginx nor

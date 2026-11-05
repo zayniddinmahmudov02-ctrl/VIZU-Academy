@@ -35,15 +35,22 @@
 // changing the version here is what actually purges the old (possibly
 // bug-affected) caches on the next SW activation — not a rename for
 // its own sake.
-const STATIC_CACHE = "vizu-static-v2";
-const RUNTIME_CACHE = "vizu-runtime-v2";
+// v3 (2026-11-05, VIZU DEUTSCH app): new app name/icons in the manifest and
+// /api/v1/app/* (APK downloads, release metadata) added to the never-cached
+// list — bumping the names makes every installed copy drop its old caches.
+const STATIC_CACHE = "vizu-static-v3";
+const RUNTIME_CACHE = "vizu-runtime-v3";
 const OFFLINE_URL = "/offline";
 
+// /api/v1/battle: live match state must never come from a cache when offline.
+// /api/v1/app: the APK is large and must always be the current file.
 const NEVER_CACHE_PATTERNS = [
   "/api/v1/auth",
   "/api/v1/admin",
   "/api/v1/vizu-pay",
   "/api/v1/payments",
+  "/api/v1/battle",
+  "/api/v1/app/",
 ];
 
 self.addEventListener("install", (event) => {

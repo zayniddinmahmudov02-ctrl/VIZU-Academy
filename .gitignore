@@ -112,3 +112,9 @@ backend/var/
 
 # Private uploads (student recordings, protected audio) — never in git
 backend/app/protected_storage/
+
+# Android signing keys (owner-controlled, never in git)
+*.jks
+*.keystore
+keystore.properties
+

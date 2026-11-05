@@ -1,0 +1,31 @@
+{
+  "appId": "com.vizu.deutsch",
+  "appName": "VIZU DEUTSCH",
+  "webDir": "www",
+  "server": {
+    "url": "https://vizu-deutsch.com",
+    "androidScheme": "https",
+    "cleartext": false,
+    "errorPath": "offline.html"
+  },
+  "android": {
+    "allowMixedContent": false,
+    "captureInput": true,
+    "webContentsDebuggingEnabled": false,
+    "appendUserAgent": "VIZU-DEUTSCH-Android"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 1200,
+      "launchAutoHide": true,
+      "backgroundColor": "#0e1834",
+      "showSpinner": false,
+      "androidScaleType": "CENTER_CROP"
+    },
+    "StatusBar": {
+      "style": "DARK",
+      "backgroundColor": "#0e1834",
+      "overlaysWebView": false
+    }
+  }
+}

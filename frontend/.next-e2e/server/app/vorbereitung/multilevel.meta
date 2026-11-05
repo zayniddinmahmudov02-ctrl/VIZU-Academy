@@ -1,0 +1,17 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/(dashboard)/layout,_N_T_/(dashboard)/vorbereitung/layout,_N_T_/(dashboard)/vorbereitung/multilevel/layout,_N_T_/(dashboard)/vorbereitung/multilevel/page,_N_T_/vorbereitung/multilevel"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/!KGRhc2hib2FyZCk/vorbereitung/multilevel/__PAGE__",
+    "/!KGRhc2hib2FyZCk/vorbereitung/multilevel",
+    "/!KGRhc2hib2FyZCk/vorbereitung",
+    "/!KGRhc2hib2FyZCk",
+    "/_index",
+    "/_head"
+  ]
+}

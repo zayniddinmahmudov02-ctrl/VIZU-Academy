@@ -1,0 +1,23 @@
+{
+  "name": "vizu-deutsch-mobile",
+  "private": true,
+  "version": "1.0.0",
+  "description": "VIZU DEUTSCH Android shell (Capacitor). The UI is the live site https://vizu-deutsch.com; see docs/ai-context/android-capacitor.md.",
+  "scripts": {
+    "sync": "cap sync android",
+    "assets": "node scripts/generate-assets.mjs",
+    "apk:debug": "cd android && gradlew.bat assembleDebug",
+    "apk:release": "cd android && gradlew.bat assembleRelease"
+  },
+  "dependencies": {
+    "@capacitor/android": "8.5.3",
+    "@capacitor/app": "8.1.2",
+    "@capacitor/core": "8.5.3",
+    "@capacitor/splash-screen": "8.0.2",
+    "@capacitor/status-bar": "8.0.4"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "8.5.3",
+    "sharp": "0.34.5"
+  }
+}

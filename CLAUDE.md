@@ -10,6 +10,7 @@ Users and docs are mostly Uzbek; the admin UI is German.
 - **Frontend** `frontend/`: Next.js 16.2 (App Router, Turbopack), React 19.2, TanStack Query, zustand,
   Tailwind 4, axios. Read `frontend/AGENTS.md` first: this Next.js has breaking changes.
 - **E2E** `e2e/`: Playwright (Chrome, desktop + Pixel 7), against a local stack only.
+- **Mobile** `mobile/`: Capacitor 8 Android shell (`com.vizu.deutsch`) loading the live site; iOS = PWA. JDK/SDK on `D:\Android`.
 - **Production**: `217.76.62.208:/opt/vizu/VIZU-Academy`, systemd `vizu-backend` / `vizu-frontend`.
 
 ## Layout (where to look first)
@@ -44,6 +45,7 @@ Users and docs are mostly Uzbek; the admin UI is German.
 | Deploy, server, rollback | skill `vizu-deploy` + `docs/ai-context/deployment-map.md` |
 | What is open / broken | `docs/ai-context/known-issues.md`, `current-state.md` |
 | What changed lately | `docs/ai-context/recent-changes.md` |
+| Mobile app (Android APK, iOS PWA, `/download`, App Management) | `docs/ai-context/mobile-app-overview.md` |
 
 Skills (load only when the task matches): `vizu-lms` (courses, lessons, scoring, progress),
 `vizu-admin` (admin panel, CMS, permissions), `vizu-media` (audio/video, uploads, transcripts),

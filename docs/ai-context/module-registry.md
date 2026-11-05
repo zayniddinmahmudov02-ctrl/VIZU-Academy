@@ -249,6 +249,18 @@ See `deployment-map.md`, skill `vizu-deploy`, `docs/deploy-frontend.md`, `docs/l
 - **Tests:** `test_battle`, `test_battle_migration`, unit `battle-utils.test.mjs`, E2E `battle.spec.ts`, `battle-dashboard.spec.ts`.
 - **Details / decisions:** `docs/ai-context/battle-overview.md`.
 
+## 21. Mobile App (Android APK + iOS PWA)
+
+- **Overview / decisions:** `docs/ai-context/mobile-app-overview.md` (start here; links the other `mobile-*`, `android-capacitor`,
+  `ios-pwa`, `apk-release-management` docs).
+- **Android shell:** `mobile/` (Capacitor 8, `com.vizu.deutsch`, loads <https://vizu-deutsch.com>; `MainActivity.java` download
+  listener; icons from `mobile/assets/vizu-mark.svg` via `npm run assets`).
+- **Backend:** `be/api/app_releases/router.py` (`/app`, `/admin/app-releases`), `be/services/app_releases/{apk,service}.py`,
+  table `app_releases`.
+- **Frontend:** `/download` (`fe/app/download`, `fe/features/mobile-app/*`), admin `fe/app/admin/app-management`, update prompt
+  `fe/components/pwa/native-app-update.tsx`, manifest `fe/app/manifest.ts`, service worker `fe/public/sw.js`.
+- **Tests:** `test_app_releases`, `test_app_releases_migration`, unit `mobile-platform.test.mjs`, E2E `mobile-app.spec.ts`.
+
 ## Other mounted modules (not in the list above)
 
 VIZU-Multilevel level test (student UI name "Stufe Bestimmung" since 2026-11-05; code, routes, APIs and admin keep

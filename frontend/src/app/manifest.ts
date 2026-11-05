@@ -3,18 +3,23 @@ import type { MetadataRoute } from "next";
 // Next.js App Router convention — auto-served at /manifest.webmanifest
 // with the correct application/manifest+json content type, and the
 // <link rel="manifest"> tag is injected automatically; no manual wiring
-// needed in layout.tsx.
+// needed in layout.tsx. iOS "Add to Home Screen" uses the apple-touch-icon
+// and apple-mobile-web-app-* tags from layout.tsx (docs/ai-context/ios-pwa.md).
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "VIZU Academy",
+    id: "/",
+    name: "VIZU DEUTSCH",
     short_name: "VIZU",
-    description: "VIZU Academy",
+    description: "Lerne Deutsch. Überall. Jederzeit.",
+    lang: "de",
     start_url: "/",
     scope: "/",
     display: "standalone",
-    orientation: "portrait-primary",
+    // "any": iPad / tablets in landscape; every page is responsive.
+    orientation: "any",
     theme_color: "#0e1834",
     background_color: "#0e1834",
+    categories: ["education"],
     icons: [
       {
         src: "/icons/icon-192.png",

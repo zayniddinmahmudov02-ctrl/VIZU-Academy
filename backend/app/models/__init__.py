@@ -96,6 +96,7 @@ from .battle import (
     BattleTheme,
     BattleWord,
 )
+from .app_release import AppRelease
 
 # Certificate
 from .certificate import Certificate
@@ -272,4 +273,7 @@ __all__ = [
 
     # Notifications
     "Notification",
+
+    # Mobile app
+    "AppRelease",
 ]

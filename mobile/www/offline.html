@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VIZU DEUTSCH</title>
+<style>
+  :root { color-scheme: dark; }
+  html, body { margin: 0; height: 100%; background: #0e1834; color: #fff; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { min-height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px;
+         padding: max(24px, env(safe-area-inset-top)) 24px max(24px, env(safe-area-inset-bottom)); box-sizing: border-box; text-align: center; }
+  .mark { width: 88px; height: 88px; border-radius: 22px; background: linear-gradient(135deg, #0e1834, #1b2a52); box-shadow: 0 0 0 1px rgba(212,175,55,.4); display: grid; place-items: center; }
+  h1 { margin: 0; font-size: 20px; letter-spacing: .02em; }
+  h1 span { color: #d4af37; }
+  p { margin: 0; max-width: 320px; line-height: 1.5; color: rgba(255,255,255,.8); font-size: 15px; }
+  .uz { color: rgba(255,255,255,.6); font-size: 14px; }
+  button { margin-top: 6px; min-height: 48px; padding: 0 28px; border: 0; border-radius: 14px; background: #3984e8; color: #fff; font-size: 16px; font-weight: 700; }
+  button:active { transform: scale(.98); }
+  .flag { display: flex; width: 72px; height: 4px; border-radius: 2px; overflow: hidden; }
+  .flag i { flex: 1; } .flag i:nth-child(1) { background: #000; } .flag i:nth-child(2) { background: #dd0000; } .flag i:nth-child(3) { background: #ffce00; }
+</style>
+</head>
+<body>
+<main>
+  <div class="mark" aria-hidden="true">
+    <svg viewBox="0 0 100 100" width="62" height="62" fill="none">
+      <circle cx="50" cy="50" r="46" stroke="#d4af37" stroke-opacity=".35" stroke-width="1.5"/>
+      <g stroke="#d4af37" stroke-width="2"><rect x="26" y="26" width="48" height="48"/><rect x="26" y="26" width="48" height="48" transform="rotate(45 50 50)"/></g>
+      <g fill="#d4af37">
+        <ellipse cx="50" cy="24" rx="2.2" ry="6"/><ellipse cx="50" cy="24" rx="2.2" ry="6" transform="rotate(45 50 50)"/>
+        <ellipse cx="50" cy="24" rx="2.2" ry="6" transform="rotate(90 50 50)"/><ellipse cx="50" cy="24" rx="2.2" ry="6" transform="rotate(135 50 50)"/>
+        <ellipse cx="50" cy="24" rx="2.2" ry="6" transform="rotate(180 50 50)"/><ellipse cx="50" cy="24" rx="2.2" ry="6" transform="rotate(225 50 50)"/>
+        <ellipse cx="50" cy="24" rx="2.2" ry="6" transform="rotate(270 50 50)"/><ellipse cx="50" cy="24" rx="2.2" ry="6" transform="rotate(315 50 50)"/>
+      </g>
+      <circle cx="50" cy="50" r="7" fill="#0e1834" stroke="#d4af37" stroke-width="1.5"/><circle cx="50" cy="50" r="2.6" fill="#e4c877"/>
+    </svg>
+  </div>
+  <h1><span>VIZU</span> DEUTSCH</h1>
+  <div class="flag" aria-hidden="true"><i></i><i></i><i></i></div>
+  <p>Keine Internetverbindung. Bitte prüfe deine Verbindung und versuche es erneut.</p>
+  <p class="uz">Internet aloqasi yo‘q. Aloqani tekshirib, qaytadan urinib ko‘ring.</p>
+  <button type="button" id="retry">Erneut versuchen · Qayta urinish</button>
+</main>
+<script>
+  document.getElementById("retry").addEventListener("click", function () { window.location.href = "https://vizu-deutsch.com/dashboard"; });
+  window.addEventListener("online", function () { window.location.href = "https://vizu-deutsch.com/dashboard"; });
+</script>
+</body>
+</html>

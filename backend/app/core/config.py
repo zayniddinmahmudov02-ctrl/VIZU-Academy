@@ -66,6 +66,8 @@ class Settings(BaseSettings):
     # API
     # ==================================================
     API_V1_PREFIX: str = "/api/v1"
+    # Public site address used in generated links (download-page QR code).
+    PUBLIC_SITE_URL: str = "https://vizu-deutsch.com"
 
     # ==================================================
     # CORS

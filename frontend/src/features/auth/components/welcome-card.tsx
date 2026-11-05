@@ -5,6 +5,7 @@ import { ArrowRight, LogIn, UserPlus } from "lucide-react";
 
 import Logo from "@/components/common/logo";
 import LanguageSwitcher from "@/components/dashboard/languages/language-switcher";
+import AppDownloadLink from "@/features/mobile-app/components/app-download-link";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import SessionRedirect from "./session-redirect";
 
@@ -66,6 +67,10 @@ export default function WelcomeCard() {
             </Link>
           );
         })}
+      </div>
+
+      <div className="mt-6 flex justify-center">
+        <AppDownloadLink />
       </div>
     </div>
   );

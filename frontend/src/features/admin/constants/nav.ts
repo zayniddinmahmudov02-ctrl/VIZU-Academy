@@ -20,6 +20,7 @@ import {
   School,
   Settings,
   ShieldCheck,
+  Smartphone,
   Swords,
   Tag,
   TrendingUp,
@@ -76,6 +77,7 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
       { label: "Analytics", href: "/admin/analytics", icon: TrendingUp },
       { label: "Settings", href: "/admin/settings", icon: Settings },
       { label: "Page Management", href: "/admin/page-management", icon: PanelsTopLeft },
+      { label: "App Management", href: "/admin/app-management", icon: Smartphone },
     ],
   },
 ];

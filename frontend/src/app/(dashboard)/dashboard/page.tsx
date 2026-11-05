@@ -1,4 +1,5 @@
 import AdvertisementBanner from "@/components/dashboard/home/advertisement-banner";
+import AppDownloadLink from "@/features/mobile-app/components/app-download-link";
 import DashboardCourses from "@/components/dashboard/home/dashboard-courses";
 import DashboardMotion from "@/components/dashboard/home/dashboard-motion";
 import DashboardWelcome from "@/components/dashboard/home/dashboard-welcome";
@@ -38,6 +39,7 @@ export default function DashboardPage() {
 
           {/* Footer */}
           <footer className="border-t border-surface-border pt-8 pb-4 text-center">
+            <AppDownloadLink className="mb-6" />
             <p className="text-sm font-semibold text-text-secondary">
               Author des Projekts
             </p>

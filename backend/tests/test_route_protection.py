@@ -42,6 +42,11 @@ PUBLIC_ALLOWLIST = {
     # Bearer header; the URL names no word), and admin-uploaded arena backgrounds (not secret)
     ("GET", "/battle/media/{token}"),
     ("GET", "/battle/themes/assets/{name}"),
+    # Mobile app download page (public by design, no user data): latest Android release metadata,
+    # the APK itself and the QR code of /download (reviewed 2026-11-05)
+    ("GET", "/app/releases/latest"),
+    ("GET", "/app/android/latest.apk"),
+    ("GET", "/app/download-qr.svg"),
     # catalogue metadata (titles / levels / covers) — content itself is gated
     ("GET", "/courses/"),
     ("GET", "/courses/{course_id}"),

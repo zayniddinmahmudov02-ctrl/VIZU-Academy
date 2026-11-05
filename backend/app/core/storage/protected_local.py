@@ -122,3 +122,10 @@ class ProtectedLmsResourceStorage(LocalStorage):
     preview endpoint. Keys are "<lesson_id>/<uuid>.<ext>"."""
 
     ROOT = Path("app/protected_storage/lms-resources")
+
+
+class ProtectedAppReleaseStorage(LocalStorage):
+    """Android APK release files (app_releases), random names. Outside the public /uploads mount; streamed
+    only by GET /app/android/latest.apk (latest published release) or the Super Admin download endpoint."""
+
+    ROOT = Path("app/protected_storage/app-releases")

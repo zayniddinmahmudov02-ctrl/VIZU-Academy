@@ -1,0 +1,3 @@
+{
+  "/(dashboard)/vizu-multilevel/[attemptId]/hoeren/page": "app/(dashboard)/vizu-multilevel/[attemptId]/hoeren/page.js"
+}

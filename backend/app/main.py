@@ -198,6 +198,10 @@ from app.api.lms import router as lms_router
 from app.api.battle import admin_router as admin_battle_router
 from app.api.battle import router as battle_router
 
+# VIZU DEUTSCH mobile app (Android APK releases, download page data) + App Management admin
+from app.api.app_releases import admin_router as admin_app_releases_router
+from app.api.app_releases import router as app_releases_router
+
 # Health
 from app.api.health import (
     router as health_router,
@@ -341,6 +345,8 @@ _ALL_ROUTERS = [
     admin_lms_router,
     battle_router,
     admin_battle_router,
+    app_releases_router,
+    admin_app_releases_router,
     health_router,
 ]
 

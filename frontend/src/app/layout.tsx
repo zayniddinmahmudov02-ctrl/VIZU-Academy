@@ -5,6 +5,7 @@ import "./globals.css";
 
 import QueryProvider from "@/providers/query-provider";
 import LanguageProvider from "@/providers/language-provider";
+import NativeAppUpdate from "@/components/pwa/native-app-update";
 import ServiceWorkerRegistration from "@/components/pwa/service-worker-registration";
 import TelegramWebAppInit from "@/components/telegram/telegram-webapp-init";
 import TelegramWebAppScript from "@/components/telegram/telegram-webapp-script";
@@ -17,8 +18,10 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "VIZU Academy",
-  description: "German Learning Platform",
+  metadataBase: new URL("https://vizu-deutsch.com"),
+  title: "VIZU DEUTSCH",
+  description: "Lerne Deutsch. Überall. Jederzeit. — German Learning Platform",
+  applicationName: "VIZU DEUTSCH",
   // No explicit `manifest:` field here — src/app/manifest.ts (the App
   // Router file convention) already auto-injects the <link
   // rel="manifest"> tag; setting both was redundant (verified: Next
@@ -27,7 +30,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "VIZU",
+    title: "VIZU DEUTSCH",
   },
   // Next 16.2.10's `appleWebApp.capable` only emits the generic
   // <meta name="mobile-web-app-capable">, NOT the traditional
@@ -67,6 +70,8 @@ export default function RootLayout({
           <QueryProvider>
             <LanguageProvider>
               {children}
+              {/* Android app (Capacitor) only: offers a newer APK; renders nothing in browsers */}
+              <NativeAppUpdate />
             </LanguageProvider>
           </QueryProvider>
         </ThemeProvider>

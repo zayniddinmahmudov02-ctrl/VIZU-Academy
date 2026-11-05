@@ -1,4 +1,5 @@
 import { battleTranslations } from "./battle-translations";
+import { mobileAppTranslations } from "./mobile-app-translations";
 
 interface Entry {
   de: string;
@@ -2186,4 +2187,5 @@ export const translations: Record<string, Namespace> = {
     errorNetworkHint: { de: "Prüfe deine Internetverbindung und versuche es erneut.", uz: "Internet aloqasini tekshirib, qayta urinib ko'ring." },
   },
   battle: battleTranslations,
+  mobileApp: mobileAppTranslations,
 };
