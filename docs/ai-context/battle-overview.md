@@ -26,7 +26,14 @@ planned `battle-*` set (paths and decisions only).
 - **Frontend:** route group `fe/app/(battle)/battle/{page,match/[matchId],rangliste,erfolge}` (own shell + nav, no dashboard
   sidebar), `fe/features/battle/{components,hooks,lib,admin}`, CSS `fe/features/battle/battle.css`, strings
   `fe/lib/i18n/battle-translations.ts`, variant `landscape-short:` in `globals.css`. Admin `fe/app/admin/battle`.
-- **Tests:** `test_battle` (unit + DB), `test_battle_migration`, unit `battle-utils.test.mjs`, E2E `battle.spec.ts`.
+- **Audio (2026-11-05):** `fe/features/battle/audio/battle-audio.ts` = the one manager; everything is synthesised with Web Audio
+  (original loops home / search / arena / final, distinct effects per event, no audio files). Event mapping with once-per-event
+  keys: `use-battle-audio.ts` (timer sounds follow the server deadline). Started by the first gesture, paused in a hidden
+  tab, stopped on leaving Battle (`battle-shell.tsx`). Settings panel `components/audio-settings.tsx`, localStorage
+  `vizu-battle-audio`. Extra animations (timer warning, image entrance, score bump, round slide) in `battle.css`, off in
+  low-FX / reduced motion.
+- **Tests:** `test_battle` (unit + DB), `test_battle_migration`, unit `battle-utils.test.mjs`, E2E `battle.spec.ts`,
+  `battle-audio.spec.ts`.
 
 ## Rules
 

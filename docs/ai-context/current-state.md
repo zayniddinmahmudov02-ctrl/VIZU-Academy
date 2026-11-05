@@ -6,7 +6,7 @@ Updated 2026-11-05.
 
 | Where | Revision | Note |
 | --- | --- | --- |
-| Local `main` = `origin/main` | `d00a67a` (dashboard redesign) | uncommitted: dashboard-deploy docs, the whole mobile-app work, dashboard pass 2 (banner/courses frame) — no git on this machine since 2026-11-05 |
+| Local `main` = `origin/main` | `d00a67a` (dashboard redesign) | uncommitted: dashboard-deploy docs, the whole mobile-app work, dashboard pass 2 (banner/courses frame), Battle audio + Wortschatz completion — no git on this machine since 2026-11-05 |
 | Server checkout | `d00a67a` via `git pull --ff-only` (2026-11-05) | untracked leftovers `frontend/package-lock.json` (M), `package-lock.json`, `"hlarni xavfsiz saqlash"` — pre-existing, not ours |
 | DB | production Alembic `e5a9c3f1b7d2`; local test DBs `f2b6d8a4c1e9` (`app_releases`) | |
 | Frontend production slot | `.next-a`, deployment `d00a67a-20261105044618` | `.next-b` = previous (`99390cd`, rollback) |
