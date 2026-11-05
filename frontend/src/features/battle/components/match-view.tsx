@@ -13,6 +13,9 @@ import { GlassPanel, LoadingState, StageChip } from "@/features/battle/component
 import { Matchmaking, VersusCountdown } from "@/features/battle/components/lobby";
 import { MatchResult, RankUpOverlay } from "@/features/battle/components/result";
 import { useBattleHome } from "@/features/battle/hooks/use-battle-home";
+import { playSfx } from "@/features/battle/audio/battle-audio";
+import { useMatchAudio } from "@/features/battle/audio/use-battle-audio";
+import AudioSettingsButton from "@/features/battle/components/audio-settings";
 import { useMatch, useNow } from "@/features/battle/hooks/use-match";
 import { msUntil } from "@/features/battle/lib/battle-utils";
 import { createRoom, joinQueue, leaveMatch, startPractice, type MatchState } from "@/features/battle/services/battle-service";
@@ -52,8 +55,12 @@ export default function MatchView({ matchId }: { matchId: string }) {
   const totalMs = (m?.timing.round_s ?? 12) * 1000;
   const msLeft = round?.phase === "question" ? msUntil(round.deadline, offset.current, now) : 0;
 
+  const countdownMs = m?.status === "active" && !round && m.countdown_ends_at ? msUntil(m.countdown_ends_at, offset.current, now) : null;
+  useMatchAudio(m, msLeft, countdownMs);
+
   const choose = (choice: number) => {
     if (!round || round.phase !== "question" || round.my_answer || pendingChoice !== null || msLeft <= 0) return;
+    playSfx("select");
     setPending({ round: round.no, choice });
     answer.mutate({ round: round.no, choice });
   };
@@ -115,7 +122,9 @@ export default function MatchView({ matchId }: { matchId: string }) {
               </div>
               <TimerRing msLeft={msLeft} totalMs={totalMs} size={58} />
               <p className="hidden text-2xl font-black tabular-nums lg:block" data-testid="arena-score">
-                <span className="text-[var(--bt-blue)]">{m.me.score}</span><span className="mx-1 text-white/40">:</span><span className="text-[var(--bt-red)]">{m.opponent?.score ?? 0}</span>
+                {/* key = score: the number re-mounts and plays the bump animation on every change */}
+                <span key={`me-${m.me.score}`} className="bt-score-bump inline-block text-[var(--bt-blue)]">{m.me.score}</span><span className="mx-1 text-white/40">:</span>
+                <span key={`op-${m.opponent?.score ?? 0}`} className="bt-score-bump inline-block text-[var(--bt-red)]">{m.opponent?.score ?? 0}</span>
               </p>
             </div>
             <div className="lg:hidden landscape-short:invisible"><PlayerPanel player={m.opponent} side="opponent" compact answered={round.opponent_answered} /></div>
@@ -140,9 +149,13 @@ export default function MatchView({ matchId }: { matchId: string }) {
             </aside>
 
             <div className="min-w-0">
-              <QuestionCard round={round} stage={m.stage} msLeft={msLeft} totalMs={totalMs} pending={pendingChoice} onAnswer={choose} opponentChoice={round.opponent_choice} />
+              {/* key = round: each new round slides in (round transition) */}
+              <div key={round.no} className="bt-round-in">
+                <QuestionCard round={round} stage={m.stage} msLeft={msLeft} totalMs={totalMs} pending={pendingChoice} onAnswer={choose} opponentChoice={round.opponent_choice} />
+              </div>
               <div className="mt-4"><RoundDots match={m} /></div>
-              <div className="mt-3 flex justify-center lg:hidden">
+              <div className="mt-3 flex items-center justify-center gap-2 lg:hidden">
+                <AudioSettingsButton />
                 <button type="button" onClick={() => window.confirm(t("battle.surrenderConfirm")) && leave.mutate()} data-testid="arena-surrender-mobile"
                         className="inline-flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-bold text-white/70 hover:bg-white/10">
                   <Flag size={14} aria-hidden="true" /> {t("battle.surrender")}

@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { Bell, BookOpen, LayoutDashboard, Medal, Trophy } from "lucide-react";
 
 import BattleIcon from "@/components/icons/battle-icon";
+import AudioSettingsButton from "@/features/battle/components/audio-settings";
 import PlayerAvatar from "@/features/battle/components/player-avatar";
 import { PointsChip, StageChip } from "@/features/battle/components/battle-ui";
 import { useBattleHome } from "@/features/battle/hooks/use-battle-home";
@@ -63,6 +64,7 @@ export default function BattleNav() {
                 <PointsChip points={player.points} />
               </>
             )}
+            <AudioSettingsButton />
             <Link href="/notifications" prefetch={false} aria-label={t("battle.navNotifications")} className="grid h-9 w-9 place-items-center rounded-xl text-white/80 hover:bg-white/10 hover:text-white">
               <Bell size={18} aria-hidden="true" />
             </Link>

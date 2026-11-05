@@ -726,6 +726,34 @@ class TestA2ModuleSeparationDB(unittest.TestCase):
         self.assertEqual(result["question_count"], len(ex["questions"]))
         self.assertEqual(result["score"], round(100 / len(ex["questions"])))
 
+    @unittest.skipUnless(HAS_HTTPX, "HTTP part needs httpx")
+    def test_wortschatz_is_completed_by_its_tests_alone(self):
+        """All levels: doing every Wortschatz test completes Wortschatz; an open Wortschatz worksheet no longer blocks it."""
+        from app.models.lesson_skill import SkillExercise
+        from app.services.content_import.service import _add_exercise
+        from app.services.lesson_skills import admin as skill_admin
+        from app.services.lesson_skills import wortschatz_tests as wt
+        from app.services.lms import progress
+
+        lesson = self.lessons[1]
+        self._writing(lesson, "Wortschatz-Aufgabe", "WORTSCHATZ")  # never submitted
+        artikel = next(s for s in wt.build_sets(NOUNS) if s["key"] == "artikel")
+        ref = _add_exercise(self.db, lesson.id, "WORTSCHATZ", {**artikel, "questions": skill_admin.validate_questions(artikel["questions"])},
+                            f"{self.PREFIX}artikel-done")
+        self.db.get(SkillExercise, ref["id"]).is_published = True
+        self.db.commit()
+
+        def status():
+            comps = {c["kind"]: c for c in progress.compute(self.db, self.user["student"], lesson)["competencies"]}
+            return comps["WORTSCHATZ"]["progress_status"]
+
+        self.assertEqual(status(), "not_started")
+        client = self._client("student")
+        ex = client.get(f"/api/v1/lesson-skills/{lesson.id}/exercises/wortschatz").json()["exercises"][0]
+        attempt = client.post(f"/api/v1/lesson-skills/{lesson.id}/exercises/wortschatz/{ex['id']}/start").json()
+        client.post(f"/api/v1/lesson-skills/{lesson.id}/exercises/wortschatz/{ex['id']}/submit", json={"attempt_id": attempt["id"], "answers": {}})
+        self.assertEqual(status(), "completed")
+
 
 @unittest.skipUnless(os.environ.get("VIZU_MIGRATION_TEST_DB_URL"), "migration test: set VIZU_MIGRATION_TEST_DB_URL")
 class TestModuleSeparationMigration(unittest.TestCase):

@@ -49,8 +49,9 @@ export function TimerRing({ msLeft, totalMs, size = 64 }: { msLeft: number; tota
   const c = 2 * Math.PI * r;
   const frac = Math.max(0, Math.min(1, msLeft / totalMs));
   const urgent = msLeft <= 3000;
+  const warn = msLeft > 0 && msLeft <= 5000; // last 5 s: ring pulses (matches the intensifying tick)
   return (
-    <div className="relative grid place-items-center" style={{ width: size, height: size }} role="timer" aria-label={`${Math.ceil(msLeft / 1000)} s`} data-testid="arena-timer">
+    <div className={cn("relative grid place-items-center", warn && "bt-timer-warn")} style={{ width: size, height: size }} role="timer" aria-label={`${Math.ceil(msLeft / 1000)} s`} data-testid="arena-timer">
       <svg viewBox="0 0 64 64" width={size} height={size} className="-rotate-90">
         <circle cx="32" cy="32" r={r} fill="rgba(16,29,53,0.7)" stroke="rgba(255,255,255,0.15)" strokeWidth="5" />
         <circle cx="32" cy="32" r={r} fill="none" stroke={urgent ? "#D83B43" : "#F2C45B"} strokeWidth="5" strokeLinecap="round" strokeDasharray={c}
@@ -123,7 +124,7 @@ export function QuestionCard({ round, stage, msLeft, totalMs, pending, onAnswer,
         ) : (
           // eslint-disable-next-line @next/next/no-img-element -- signed, short-lived URL from the battle server
           <img key={imgKey} src={src} alt="" draggable={false} onLoad={() => setLoaded(imgKey)} onError={() => setFailed(imgKey)} data-testid="question-image"
-               className={cn("absolute inset-0 h-full w-full select-none object-contain transition-opacity duration-300", loaded === imgKey ? "opacity-100" : "opacity-0")} />
+               className={cn("absolute inset-0 h-full w-full select-none object-contain transition-opacity duration-300", loaded === imgKey ? "opacity-100 bt-img-in" : "opacity-0")} />
         )}
         {round.phase === "reveal" && round.my_answer && (
           <div className={cn("absolute inset-x-0 bottom-0 flex items-center justify-center gap-2 py-2 text-sm font-black text-white bt-pop",

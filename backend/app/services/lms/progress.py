@@ -104,6 +104,14 @@ def _skill_part(skill: dict) -> dict | None:
     return {"status": status, "score": skill.get("score"), "detail": detail}
 
 
+def _wortschatz_tests_part(db: Session, user_id, lesson_id) -> dict | None:
+    """Only the published, gradable Wortschatz test sets (same COMPLETED rule as everywhere: each set attempted).
+    None when the lesson has no such set — then the general rule applies (written tasks / legacy quiz / videos)."""
+    from app.models.lesson_skill import SKILL_WORTSCHATZ
+
+    return _skill_part(skill_results._exercise_skill(db, user_id, lesson_id, SKILL_WORTSCHATZ))
+
+
 def _frage_part(skill: dict) -> dict | None:
     if not skill.get("available"):
         return None
@@ -212,15 +220,21 @@ def compute(db: Session, user: User, lesson: Lesson) -> dict:
             frage = _frage_part(skills["frage"])
             if frage:
                 parts.append(frage)
-        if kind in SKILL_OF:
-            part = _skill_part(skills[SKILL_OF[kind]])
-            if part is None and kind in LEGACY_QUIZ_OF:
-                part = _legacy_quiz_part(db, user.id, lesson.id, LEGACY_QUIZ_OF[kind])
-            if part:
-                parts.append(part)
         kind_videos = videos.get(kind, [])
-        if kind_videos:
-            parts.append(_video_part(kind_videos, vprog))
+        wortschatz_tests = _wortschatz_tests_part(db, user.id, lesson.id) if kind == "WORTSCHATZ" else None
+        if wortschatz_tests:
+            # Wortschatz (all levels, 2026-11-05): doing every published Wortschatz test completes it — written
+            # worksheets, videos, words and the dictionary stay available but are not required. Scores unchanged.
+            parts.append(wortschatz_tests)
+        else:
+            if kind in SKILL_OF:
+                part = _skill_part(skills[SKILL_OF[kind]])
+                if part is None and kind in LEGACY_QUIZ_OF:
+                    part = _legacy_quiz_part(db, user.id, lesson.id, LEGACY_QUIZ_OF[kind])
+                if part:
+                    parts.append(part)
+            if kind_videos:
+                parts.append(_video_part(kind_videos, vprog))
 
         tracked = bool(parts)
         resources = counts["resources"].get(kind, 0)
