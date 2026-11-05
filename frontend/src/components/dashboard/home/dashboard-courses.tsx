@@ -1,7 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, BookOpen, Lock, PlayCircle } from "lucide-react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { ArrowRight, BookOpen, ChevronDown, Lock, PlayCircle } from "lucide-react";
 
 import ProgressBar from "@/components/ui/progress-bar";
 import { germanLevels } from "@/constants/levels";
@@ -32,8 +34,9 @@ function CourseCard({ level }: { level: LmsLevelSummary }) {
   const learnHref = level.continue_lesson_id ? lessonHref(level.continue_lesson_id) : null;
 
   return (
+    // A light tile inside the one shared "A1–C1 Kurse" frame: no shadow / ring of its own.
     <article
-      className={`flex h-full min-h-[190px] min-w-0 flex-col overflow-hidden rounded-card bg-surface-card shadow-[var(--shadow-card)] ring-1 ring-surface-border ${soon ? "opacity-80" : ""}`}
+      className={`flex h-full min-h-[184px] min-w-0 flex-col overflow-hidden rounded-xl bg-surface-hover/60 ${soon ? "opacity-80" : ""}`}
       data-testid="dashboard-course" data-level={level.level} data-coming-soon={soon || undefined}
     >
       {soon ? (
@@ -90,33 +93,72 @@ function CourseCard({ level }: { level: LmsLevelSummary }) {
   );
 }
 
-/** Dashboard: the five existing A1–C1 course summaries and their access-aware links. */
+/** Dashboard: ONE frame "A1–C1 Kurse" holding the five existing course summaries (access-aware links).
+ * The header toggles the list (open on every visit; closing only lasts for this page view). */
 export default function DashboardCourses() {
   const { t } = useTranslation();
+  const reduce = useReducedMotion();
+  const [open, setOpen] = useState(true);
   const { data, isLoading, isError, refetch } = useLmsLevels();
+  const count = data?.levels.length ?? 5;
 
   return (
-    <section aria-labelledby="dashboard-courses-title" data-testid="dashboard-courses">
-      <div className="mb-3 flex items-center justify-between">
-        <h2 id="dashboard-courses-title" className="text-base font-bold text-text-primary">{t("dashboard.coursesTitle")}</h2>
-        <Link href="/kurse" prefetch={false} className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent-blue hover:text-accent-blue-hover">
+    <section aria-labelledby="dashboard-courses-title" data-testid="dashboard-courses" data-open={open}
+             className="rounded-card bg-surface-card shadow-[var(--shadow-card)] ring-1 ring-surface-border">
+      <div className="flex items-start gap-2 p-3 sm:p-4">
+        <div className="min-w-0 flex-1">
+          {/* disclosure pattern: the heading holds the toggle button (a heading may not sit inside a button) */}
+          <h2 id="dashboard-courses-title" className="text-base font-bold text-text-primary">
+            <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} aria-controls="dashboard-courses-panel"
+                    title={t("dashboard.coursesToggle")} data-testid="dashboard-courses-toggle"
+                    className="flex min-h-[44px] w-full items-center gap-2 rounded-lg text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-blue">
+              <span>{t("dashboard.coursesTitle")}</span>
+              <span className="rounded-full bg-accent-blue/10 px-2 py-0.5 text-[11px] font-semibold text-accent-blue" data-testid="dashboard-courses-count">
+                {t("dashboard.coursesCount", { n: count })}
+              </span>
+              <ChevronDown size={20} aria-hidden="true"
+                           className={`ml-auto shrink-0 text-text-secondary transition-transform duration-300 motion-reduce:transition-none ${open ? "rotate-180" : ""}`} />
+            </button>
+          </h2>
+          <p className="-mt-1 text-xs text-text-muted sm:text-sm">{t("dashboard.coursesSubtitle")}</p>
+        </div>
+        <Link href="/kurse" prefetch={false}
+              className="mt-2.5 hidden shrink-0 items-center gap-1.5 text-sm font-semibold text-accent-blue hover:text-accent-blue-hover sm:inline-flex">
           {t("dashboard.allCourses")} <ArrowRight size={15} aria-hidden="true" />
         </Link>
       </div>
-      {isLoading ? (
-        <div className="grid auto-rows-fr grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-5" aria-busy="true" aria-label={t("dashboard.loading")}>
-          {[0, 1, 2, 3, 4].map((i) => <div key={i} className="min-h-[190px] animate-pulse rounded-card bg-surface-hover" />)}
-        </div>
-      ) : isError || !data ? (
-        <p className="rounded-card bg-surface-card p-5 text-sm text-text-secondary ring-1 ring-surface-border">
-          {t("dashboard.loadError")}{" "}
-          <button type="button" onClick={() => refetch()} className="font-semibold text-accent-blue hover:underline">{t("dashboard.retry")}</button>
-        </p>
-      ) : (
-        <div className="grid auto-rows-fr grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-5">
-          {data.levels.map((level) => <CourseCard key={level.level} level={level} />)}
-        </div>
-      )}
+
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div id="dashboard-courses-panel" data-testid="dashboard-courses-panel" key="panel"
+                      initial={reduce ? { opacity: 0 } : { height: 0, opacity: 0 }}
+                      animate={reduce ? { opacity: 1 } : { height: "auto", opacity: 1 }}
+                      exit={reduce ? { opacity: 0 } : { height: 0, opacity: 0 }}
+                      transition={{ duration: 0.28, ease: "easeOut" }}
+                      className="overflow-hidden">
+            <div className="border-t border-surface-border p-3 sm:p-4">
+              {isLoading ? (
+                <div className="grid auto-rows-fr grid-cols-2 gap-2.5 md:grid-cols-3 xl:grid-cols-5" aria-busy="true" aria-label={t("dashboard.loading")}>
+                  {[0, 1, 2, 3, 4].map((i) => <div key={i} className="min-h-[184px] animate-pulse rounded-xl bg-surface-hover" />)}
+                </div>
+              ) : isError || !data ? (
+                <p className="text-sm text-text-secondary">
+                  {t("dashboard.loadError")}{" "}
+                  <button type="button" onClick={() => refetch()} className="font-semibold text-accent-blue hover:underline">{t("dashboard.retry")}</button>
+                </p>
+              ) : (
+                <div className="grid auto-rows-fr grid-cols-2 gap-2.5 md:grid-cols-3 xl:grid-cols-5">
+                  {data.levels.map((level) => <CourseCard key={level.level} level={level} />)}
+                </div>
+              )}
+              <Link href="/kurse" prefetch={false}
+                    className="mt-3 inline-flex min-h-10 items-center gap-1.5 text-sm font-semibold text-accent-blue hover:text-accent-blue-hover sm:hidden">
+                {t("dashboard.allCourses")} <ArrowRight size={15} aria-hidden="true" />
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

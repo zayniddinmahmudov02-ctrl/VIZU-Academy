@@ -25,17 +25,20 @@ export default function DashboardPage() {
         <div className="space-y-6 lg:space-y-8">
           <DashboardWelcome />
 
+          {/* Werbung-Banner (admin-managed): compact, right under the welcome */}
+          <div data-testid="dashboard-ad">
+            <AdvertisementBanner />
+          </div>
+
           {/* Battle and the three core learning links are grouped together. */}
           <LearningTools />
 
+          {/* A1–C1 in one collapsible frame (open by default) */}
           <DashboardCourses />
 
           <div data-testid="dashboard-stats">
             <LearningStreakCard />
           </div>
-
-          {/* Werbung-Banner (admin-managed) */}
-          <AdvertisementBanner />
 
           {/* Footer */}
           <footer className="border-t border-surface-border pt-8 pb-4 text-center">

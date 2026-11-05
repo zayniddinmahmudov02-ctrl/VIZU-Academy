@@ -23,7 +23,7 @@ export default function AdvertisementBanner() {
   });
 
   if (isLoading) {
-    return <div className="h-[220px] animate-pulse rounded-[22px] bg-surface-card ring-1 ring-surface-border motion-reduce:animate-none" />;
+    return <div className="h-[156px] animate-pulse rounded-[22px] bg-surface-card ring-1 ring-surface-border motion-reduce:animate-none" />;
   }
 
   if (!ads || ads.length === 0) {

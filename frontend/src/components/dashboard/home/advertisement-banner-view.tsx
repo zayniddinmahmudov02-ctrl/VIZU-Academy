@@ -45,9 +45,11 @@ const AdvertisementBannerView = forwardRef<HTMLAnchorElement, Props>(function Ad
       initial={!animateIn ? false : reduce ? { opacity: 0 } : { opacity: 0, y: 14 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: "easeOut" }}
-      className="group relative flex flex-col overflow-hidden rounded-[22px] border border-orange-100 bg-gradient-to-br from-white via-[#fff8ee] to-white shadow-[0_10px_30px_-12px_rgba(15,23,42,0.18)] transition-shadow hover:shadow-[0_16px_40px_-14px_rgba(15,23,42,0.28)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-300 sm:flex-row"
+      className="group relative flex flex-row overflow-hidden rounded-[22px] border border-orange-100 bg-gradient-to-br from-white via-[#fff8ee] to-white shadow-[0_10px_30px_-12px_rgba(15,23,42,0.18)] transition-shadow hover:shadow-[0_16px_40px_-14px_rgba(15,23,42,0.28)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-300"
     >
-      <div className="relative aspect-[16/9] w-full shrink-0 overflow-hidden bg-slate-100 sm:aspect-auto sm:w-[42%] sm:min-h-[220px]">
+      {/* Compact (2026-11-05): ~29 % lower than before on desktop (220 → 156 px); horizontal on phones too
+          (image left, text + CTA right) instead of a tall stacked card. */}
+      <div className="relative w-[34%] min-h-[128px] shrink-0 overflow-hidden bg-slate-100 sm:w-[36%] sm:min-h-[156px]">
         {image ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -56,17 +58,17 @@ const AdvertisementBannerView = forwardRef<HTMLAnchorElement, Props>(function Ad
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
           />
         ) : (
-          <div className="flex h-full min-h-[180px] w-full items-center justify-center bg-gradient-to-br from-[#0f2a4a] to-blue-700">
-            <Megaphone size={48} className="text-white/80" />
+          <div className="flex h-full min-h-[110px] w-full items-center justify-center bg-gradient-to-br from-[#0f2a4a] to-blue-700">
+            <Megaphone size={36} className="text-white/80" />
           </div>
         )}
       </div>
 
-      <div className="flex flex-1 flex-col justify-center gap-3 px-6 py-6 sm:px-9 sm:py-8">
+      <div className="flex flex-1 flex-col justify-center gap-1.5 px-4 py-3.5 sm:gap-2 sm:px-7 sm:py-4">
         {badge && <div>{badge}</div>}
-        <h2 className="text-2xl font-extrabold leading-tight tracking-tight text-[#0f2a4a] sm:text-[28px]">{title}</h2>
-        {description && <p className="max-w-xl text-sm leading-relaxed text-slate-600 sm:text-base">{description}</p>}
-        <span className="mt-2 inline-flex w-fit items-center gap-2 rounded-full bg-blue-600 px-5 py-2.5 text-sm font-bold text-white shadow-md transition-all group-hover:bg-orange-500 group-active:scale-95 motion-reduce:transition-none">
+        <h2 className="text-lg font-extrabold leading-tight tracking-tight text-[#0f2a4a] sm:text-[22px]">{title}</h2>
+        {description && <p className="line-clamp-2 max-w-xl text-[13px] leading-snug text-slate-600 sm:text-sm">{description}</p>}
+        <span className="mt-1 inline-flex min-h-10 w-fit items-center gap-2 rounded-full bg-blue-600 px-4 py-2 text-sm font-bold text-white shadow-md transition-all group-hover:bg-orange-500 group-active:scale-95 motion-reduce:transition-none">
           {ctaText}
           <ArrowRight size={16} className="transition-transform group-hover:translate-x-1 motion-reduce:transition-none" />
         </span>

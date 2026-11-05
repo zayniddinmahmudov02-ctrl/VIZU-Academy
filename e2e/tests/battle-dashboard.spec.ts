@@ -93,7 +93,8 @@ test("dashboard: Battle banner on top for a new student without any course, icon
   const bannerBox = await banner.boundingBox();
   const courseBox = await page.getByTestId("dashboard-course").first().boundingBox();
   expect(bannerBox!.y).toBeLessThan(courseBox!.y);
-  if (!isMobile) expect(bannerBox!.y).toBeLessThan(400); // visible without scrolling
+  // visible without scrolling (the compact Werbung banner sits above it since 2026-11-05)
+  if (!isMobile) expect(bannerBox!.y + 60).toBeLessThan(page.viewportSize()!.height);
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
   expect(overflow).toBeLessThanOrEqual(1);
   if (!isMobile) await expect(page.locator('aside a[href="/battle"] svg[data-icon="battle"]')).toHaveCount(1);

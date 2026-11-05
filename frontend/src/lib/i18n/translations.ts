@@ -120,6 +120,9 @@ export const translations: Record<string, Namespace> = {
     retry: { de: "Erneut versuchen", uz: "Qayta urinish" },
     // course cards
     coursesTitle: { de: "A1–C1 Kurse", uz: "A1–C1 Kurslar" },
+    coursesSubtitle: { de: "Wähle dein Deutschniveau.", uz: "Nemis tili darajangizni tanlang." },
+    coursesCount: { de: "{n} Kurse", uz: "{n} ta kurs" },
+    coursesToggle: { de: "Kurse ein- oder ausklappen", uz: "Kurslarni ochish yoki yopish" },
     courseLessons: { de: "{count} Lektionen", uz: "{count} ta dars" },
     courseProgress: { de: "{done} von {total} Lektionen · {percent}%", uz: "{total} tadan {done} ta dars · {percent}%" },
     courseOwned: { de: "Freigeschaltet", uz: "Ochiq" },
@@ -141,7 +144,7 @@ export const translations: Record<string, Namespace> = {
     hours: { de: "{h} Stunden", uz: "{h} soat" },
     hoursMinutes: { de: "{h} Std. {m} Min.", uz: "{h} soat {m} daqiqa" },
     minutes: { de: "{m} Min.", uz: "{m} daqiqa" },
-    lastActivity: { de: "Zuletzt aktiv", uz: "Oxirgi faollik" },
+    lastActivity: { de: "Letzte Aktivität", uz: "Oxirgi faollik" },
     noActivity: { de: "Noch keine Aktivität", uz: "Hali faollik yo'q" },
     weekActive: { de: "{n} von 7 Tagen aktiv", uz: "7 kundan {n} kun faol" },
     weekChart: { de: "Lernzeit der letzten 7 Tage", uz: "Oxirgi 7 kunlik o'qish vaqti" },

@@ -1,0 +1,3 @@
+{
+  "/admin/mock-exams/[providerId]/[levelId]/[modelTestId]/page": "app/admin/mock-exams/[providerId]/[levelId]/[modelTestId]/page.js"
+}
