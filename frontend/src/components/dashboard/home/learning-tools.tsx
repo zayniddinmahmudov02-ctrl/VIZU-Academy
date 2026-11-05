@@ -84,7 +84,8 @@ export default function LearningTools() {
                 </div>
 
                 <div className="mt-3">
-                  <h3 className="break-words text-sm font-bold leading-snug sm:text-base">
+                  {/* hyphens-auto (html lang="de"): "Zertifikats-prüfungen", never "…prüfung / en" */}
+                  <h3 className="hyphens-auto break-words text-sm font-bold leading-snug sm:text-base">
                     {t(tool.titleKey)}
                   </h3>
                   <p className="mt-1 text-xs leading-relaxed text-white/85 sm:text-sm">
