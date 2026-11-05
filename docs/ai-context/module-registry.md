@@ -244,7 +244,8 @@ See `deployment-map.md`, skill `vizu-deploy`, `docs/deploy-frontend.md`, `docs/l
 - **Frontend:** `fe/app/(battle)/battle/*`, `fe/features/battle/*`, admin `fe/app/admin/battle` (Übersicht, Wörter & Bilder,
   Design & Themes); entry points: dashboard tile `fe/components/dashboard/home/battle-banner.tsx` (`GET /battle/summary`), first card of
   "Lernwerkzeuge" (`learning-tools.tsx`, with Stufe Bestimmung / Wortschatz / Zertifikatsprüfungen; dashboard order:
-  welcome → Lernwerkzeuge → A1–C1 Kurse → compact Lernserie → Werbung; Erfolge/Zertifikate cards not on the dashboard),
+  welcome → compact Werbung banner → Lernwerkzeuge → ONE collapsible "A1–C1 Kurse" frame (`dashboard-courses.tsx`, open by
+  default) → compact Lernserie; Erfolge/Zertifikate cards not on the dashboard; E2E `dashboard-layout.spec.ts`),
   sidebar + mobile nav with the custom icon `fe/components/icons/battle-icon.tsx` (favicon `fe/public/battle/battle-icon.svg`).
 - **Tests:** `test_battle`, `test_battle_migration`, unit `battle-utils.test.mjs`, E2E `battle.spec.ts`, `battle-dashboard.spec.ts`.
 - **Details / decisions:** `docs/ai-context/battle-overview.md`.
