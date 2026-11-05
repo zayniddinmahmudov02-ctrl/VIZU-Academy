@@ -172,7 +172,7 @@ export default function BattleHome() {
                 </div>
               ))}
             </div>
-            <p className="mt-4 text-xs text-white/55">{t("battle.rules", { rounds: data.rules.rounds, sec: data.rules.round_s, base: data.rules.base, bonus: data.rules.speed_bonus, win: data.rules.win, draw: data.rules.draw, loss: data.rules.loss })}</p>
+            <p className="mt-4 text-xs text-white/55">{t("battle.rules", { rounds: data.rules.rounds, sec: data.rules.round_s, per: data.rules.per_correct, bonus: data.rules.win_bonus })}</p>
           </GlassPanel>
         </div>
 

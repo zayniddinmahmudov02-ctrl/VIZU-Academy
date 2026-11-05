@@ -39,12 +39,12 @@ class TestConfig(unittest.TestCase):
         from app.services.battle import config
 
         self.assertEqual(config.rank_info(0)["title"], "A1-Einsteiger")
-        self.assertEqual(config.rank_info(300)["title"], "A1-Meister")
-        self.assertEqual(config.rank_info(450)["stage"], "A2")
+        self.assertEqual(config.rank_info(100)["title"], "A1-Meister")
+        self.assertEqual(config.rank_info(150)["stage"], "A2")
         top = config.rank_info(10_000)
         self.assertEqual((top["stage"], top["title"], top["next_at"]), ("C1+", "C1+-Legende", None))
-        info = config.rank_info(200)
-        self.assertEqual((info["remaining"], info["next_title"]), (100, "A1-Meister"))
+        info = config.rank_info(60)
+        self.assertEqual((info["remaining"], info["next_title"]), (40, "A1-Meister"))
 
     def test_word_levels_never_above_c1(self):
         from app.services.battle import config
@@ -60,18 +60,37 @@ class TestConfig(unittest.TestCase):
     def test_scoring(self):
         from app.services.battle import config
 
+        # +1 per correct word, speed does not matter, wrong / no answer 0
         self.assertEqual(config.round_score(False, 100), 0)
-        self.assertEqual(config.round_score(True, 0), 150)
-        self.assertEqual(config.round_score(True, config.ROUND_S * 1000), 100)
+        self.assertEqual(config.round_score(True, 0), 1)
+        self.assertEqual(config.round_score(True, config.ROUND_S * 1000), 1)
 
     def test_points(self):
+        """Owner's table: winner 7 + 3 = 10, loser 5, draw 6 (no bonus, never negative)."""
         from app.services.battle import config
 
-        self.assertEqual(config.points_delta("win", 100, 100, 1), 25)
-        self.assertEqual(config.points_delta("win", 100, 300, 3), 25 + 10 + 4)
-        self.assertEqual(config.points_delta("draw", 0, 0, 0), 5)
-        self.assertEqual(config.points_delta("loss", 300, 100, 0), -25)
-        self.assertEqual(config.points_delta("loss", 100, 400, 0), -5)
+        self.assertEqual(config.points_delta("win", 7), 10)
+        self.assertEqual(config.points_delta("loss", 5), 5)
+        self.assertEqual(config.points_delta("draw", 6), 6)
+        self.assertEqual(config.points_delta("loss", 0), 0)
+        self.assertEqual((config.win_bonus("win"), config.win_bonus("draw"), config.win_bonus("loss")), (3, 0, 0))
+
+    def test_bot_gets_stronger_per_stage_but_never_perfect(self):
+        import random
+
+        from app.services.battle import config
+
+        rng = random.Random(7)
+        prev_acc, prev_slow = 0.0, 10**9
+        for stage in ("A1", "A2", "B1", "B2", "C1", "C1+"):
+            lvl = config.BOT_LEVELS[stage]
+            self.assertGreater(lvl["accuracy"][0], prev_acc - 0.0001)
+            self.assertLess(lvl["time_ms"][1], prev_slow)  # answers faster
+            self.assertLess(lvl["accuracy"][1], 0.95)  # a good player can still win
+            prev_acc, prev_slow = lvl["accuracy"][0], lvl["time_ms"][1]
+            for _ in range(50):
+                acc, t_min, t_max = config.bot_plan(stage, rng)
+                self.assertTrue(lvl["accuracy"][0] <= acc <= lvl["accuracy"][1] and t_min < t_max <= config.ROUND_S * 1000)
 
 
 def _w(lemma, category, article="der", translation=None, word_type="Nomen"):
@@ -323,7 +342,7 @@ class TestBattleDb(unittest.TestCase):
     # tests
 
     def test_matchmaking_and_full_match(self):
-        from app.models.battle import BattlePointsLedger, BattleProfile
+        from app.models.battle import BattleMatch, BattlePointsLedger, BattleProfile
         from app.services.battle import config, engine
 
         mid = self._pair()
@@ -351,13 +370,19 @@ class TestBattleDb(unittest.TestCase):
             sb = engine.state(self.db, mid, self.user["bek"])
         self.assertEqual(s["status"], "finished")
         self.assertEqual((s["result"]["outcome"], sb["result"]["outcome"]), ("win", "loss"))
-        self.assertEqual(s["me"]["score"], config.ROUNDS * config.round_score(True, 1000))
-        self.assertEqual((s["result"]["points_delta"], sb["result"]["points_delta"]), (25, 0))
+        self.assertEqual(s["me"]["score"], config.ROUNDS)  # +1 per correct word
+        self.assertEqual((s["result"]["match_score"], s["result"]["win_bonus"], s["result"]["points_delta"]), (10, 3, 13))
+        self.assertEqual((sb["result"]["match_score"], sb["result"]["win_bonus"], sb["result"]["points_delta"]), (0, 0, 0))
+        # reload / repeated finish never adds points twice (ledger unique per user + match)
+        with self._at(t + 5):
+            engine.state(self.db, mid, self.user["anna"])
+            engine._finish(self.db, self.db.get(BattleMatch, uuid.UUID(mid)), self.clock, "normal")
+            self.db.commit()
         self.db.expire_all()
         ledger = self.db.query(BattlePointsLedger).all()
-        self.assertEqual(sorted(l.delta for l in ledger), [0, 25])
+        self.assertEqual(sorted(l.delta for l in ledger), [0, 13])
         anna = self.db.query(BattleProfile).filter_by(user_id=self.ids["anna"]).one()
-        self.assertEqual((anna.points, anna.wins, anna.streak), (25, 1, 1))
+        self.assertEqual(anna.points, 13)
 
     def test_double_answer_and_late_answer(self):
         from app.services.battle import config, engine
@@ -425,25 +450,44 @@ class TestBattleDb(unittest.TestCase):
         self.assertEqual((sa["status"], sb["status"]), ("active", "active"))
         self.assertEqual(sa["id"], sb["id"])
 
-    def test_bot_and_private_rooms_give_no_points(self):
-        from app.models.battle import BattlePointsLedger
+    def test_bot_match_gives_points_private_room_does_not(self):
+        from sqlalchemy.orm.attributes import flag_modified
+
+        from app.models.battle import BattleMatch, BattlePointsLedger, BattleProfile
         from app.services.battle import config, engine
 
         with self._at(0):
             s = engine.practice(self.db, self.user["anna"])
         self.assertEqual((s["mode"], s["opponent"]["is_bot"]), ("bot", True))
-        with self._at(config.COUNTDOWN_S + 10):
-            s = engine.state(self.db, s["id"], self.user["anna"])
-        self.assertTrue(s["round"]["opponent_answered"])
-        with self._at(200):
-            engine.leave(self.db, self.user["anna"], uuid.UUID(s["id"]))
+        mid = s["id"]
+        m = self.db.get(BattleMatch, uuid.UUID(mid))
+        for q in m.questions:  # deterministic: the bot answers fast and wrong
+            q["bot"] = {"at": 500, "choice": (q["c"] + 1) % config.OPTIONS}
+        flag_modified(m, "questions")
+        self.db.commit()
+        t = config.COUNTDOWN_S
+        for r in range(1, config.ROUNDS + 1):
+            with self._at(t + 1):
+                s = engine.state(self.db, mid, self.user["anna"])
+                self.assertTrue(s["round"]["opponent_answered"])
+                engine.answer(self.db, self.user["anna"], uuid.UUID(mid), r, self._correct(mid, r))
+            t += 1 + config.REVEAL_S
+        with self._at(t + 1):
+            s = engine.state(self.db, mid, self.user["anna"])
+        self.assertEqual((s["status"], s["result"]["outcome"]), ("finished", "win"))
+        self.assertEqual((s["result"]["match_score"], s["result"]["win_bonus"], s["result"]["points_delta"]), (10, 3, 13))
+        self.db.expire_all()
+        anna = self.db.query(BattleProfile).filter_by(user_id=self.ids["anna"]).one()
+        self.assertEqual((anna.points, anna.wins), (13, 1))  # bot results count for rating and stats
+        self.assertEqual(self.db.query(BattlePointsLedger).count(), 1)
+        with self._at(t + 60):
             room = engine.create_room(self.db, self.user["anna"])
             self.assertEqual(len(room["room_code"]), 6)
             self.assertEqual(self._status(engine.join_room, self.db, self.user["anna"], room["room_code"]), (409, "MATCH_ALREADY_OPEN"))
             joined = engine.join_room(self.db, self.user["bek"], room["room_code"].lower())
             self.assertEqual(joined["status"], "active")
             engine.leave(self.db, self.user["bek"], uuid.UUID(joined["id"]))
-        self.assertEqual(self.db.query(BattlePointsLedger).count(), 0)
+        self.assertEqual(self.db.query(BattlePointsLedger).count(), 1)  # the private room added nothing
 
     def test_not_enough_words(self):
         from sqlalchemy import update
@@ -518,7 +562,7 @@ class TestBattleDb(unittest.TestCase):
         anna = self.user["anna"]
         anna.profile_image = "/uploads/avatars/" + "a" * 32 + ".webp"
         for who in ("anna", "bek"):
-            profiles.get_profile(self.db, self.ids[who]).points = 440
+            profiles.get_profile(self.db, self.ids[who]).points = 148  # forfeit win before any answer = 0 + 3 → 151 = A2
         self.db.commit()
         mid = self._pair()
         with self._at(6):

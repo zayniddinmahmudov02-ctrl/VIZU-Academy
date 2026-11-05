@@ -22,7 +22,7 @@ Scripts: `dev`, `build`, `start`, `lint`, `test:unit` (node --test `tests/unit/*
 | `src/features/<f>/` | `services/` (API), `hooks/`, `components/`, `types/`: auth, profile, lessons, lms, courses, dashboard, vizu-pay, vizu-multilevel, vorbereitung, assessment, global-chat, groups, teacher, notifications, calendar, information, woerterbuch, books, certificates, achievements, support, pwa |
 | `src/features/admin/` | admin `components/` (certificates, dashboard, language, lesson-results, lesson-skills, lms, lms-course, loesung, managers, media-management, mock-exam, page-management, payments), `services/` (one per area), `constants/endpoints.ts` |
 | `src/components/lesson-player/` | student player per skill: common, grammar, listening, navigation, quiz, reading, results, skill-test, speaking, video, vocabulary, writing |
-| `src/components/lms/` | LMS cards, competency nav/content, audio player, flashcards, lock, purchase modal |
+| `src/components/lms/` | LMS cards, competency nav/content, audio player, lock, purchase modal |
 | `src/components/admin/` | `admin-ui` (AdminButton, AdminPageHeader, AdminInput, …), `confirm-dialog` |
 | `src/lib/i18n/` | `translations.ts`, `use-translation.ts` (uz/de) |
 | `src/providers`, `src/store`, `src/hooks`, `src/types`, `src/constants` | app-wide |

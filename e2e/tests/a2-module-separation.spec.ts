@@ -126,14 +126,18 @@ test.describe("A2: Wortschatz, Lesen and Schreiben are separate modules", () => 
     await expect(page.getByTestId("ws-word")).toHaveCount(1);
     await noHorizontalScroll(page);
 
+    // only two parts (2026-11-05): Lug'at + Testlar, no word cards / "Bilaman" anywhere
+    await expect(page.getByRole("tab")).toHaveText(["Wörterbuch", /^Tests/]);
+    await expect(page.getByTestId("lms-flashcards")).toHaveCount(0);
+    await expect(page.getByText(/Weiß ich|Bilaman|Wortkarten/)).toHaveCount(0);
     await page.getByTestId("ws-tab-tests").click();
     const sets = page.getByTestId("ws-tests").getByTestId("exercise-set");
     await expect(sets).toHaveCount(7);
     await expect(sets.first()).toContainText("Wortschatz-Test: Bedeutung");
 
-    // a lesson with a worksheet: it is under Wortschatz → Übungen
+    // a lesson with a worksheet: it is under Wortschatz → Tests now
     await page.goto(`/lektion/${ids[7]}/wortschatz`);
-    await page.getByTestId("ws-tab-exercises").click();
+    await page.getByTestId("ws-tab-tests").click();
     const ws = page.locator('[data-testid="writing-section"][data-competency="WORTSCHATZ"]');
     await expect(ws.getByTestId("writing-task")).toHaveAttribute("data-title", "Wortschatz-Aufgabe: 30 schwierige Wörter");
     await noHorizontalScroll(page);

@@ -122,7 +122,7 @@ export interface BattleHome {
   playable: boolean;
   pool: number;
   min_pool: number;
-  rules: { rounds: number; round_s: number; base: number; speed_bonus: number; win: number; draw: number; loss: number };
+  rules: { rounds: number; round_s: number; per_correct: number; win_bonus: number };
 }
 
 export type MatchMode = "ranked" | "private" | "bot";
@@ -153,6 +153,9 @@ export interface MatchResult {
   outcome: "win" | "loss" | "draw";
   reason: "normal" | "forfeit" | "afk" | null;
   ranked: boolean;
+  /** own match score (+1 per correct word) and the +3 winner bonus — points_delta = match_score + win_bonus */
+  match_score: number;
+  win_bonus: number;
   points_delta: number;
   points_after: number;
   rank_before: RankInfo;

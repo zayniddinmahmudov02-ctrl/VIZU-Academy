@@ -83,9 +83,10 @@ API prefixes are listed without `/api/v1` (every router is mounted bare and unde
   tests generator `be/services/lesson_skills/wortschatz_tests.py` (7 types → WORTSCHATZ `skill_exercises`, source `vizu`,
   content_id `vizu-a2buch-lNN-wortschatz-test-<type>`); admin CSV `be/services/lesson_skills/word_csv.py`
   (`GET /admin/lesson-skills/lessons/{id}/words.csv`, `POST …/words/import`). Data step: `be/scripts/a2_module_separation.py`.
-- **Frontend:** LMS page `fe/components/lesson-player/vocabulary/wortschatz-section.tsx` (tabs Wörterbuch / Übungen / Tests),
-  `word-dictionary.tsx`, filter `fe/features/lessons/utils/wortschatz-filter.ts`, service `wortschatz-service.ts`; legacy route
-  still `vocabulary-section.tsx`; `fe/components/lms/lms-flashcards.tsx`, `fe/app/(dashboard)/woerterbuch`, `fe/features/woerterbuch/`;
+- **Frontend:** LMS page `fe/components/lesson-player/vocabulary/wortschatz-section.tsx` — since 2026-11-05 only two tabs,
+  Lug'at/Wörterbuch and Testlar/Tests (generated tests + book Wortschatz sets + written Wortschatz tasks); word cards
+  ("Bilaman") removed. `word-dictionary.tsx`, filter `fe/features/lessons/utils/wortschatz-filter.ts`, service
+  `wortschatz-service.ts`; legacy route still `vocabulary-section.tsx`; `fe/app/(dashboard)/woerterbuch`, `fe/features/woerterbuch/`;
   admin `lesson-skills/word-manager.tsx` (fields, missing, CSV) + Wortschatz-Aufgaben via `WritingManager competency`.
 - **Tests:** `test_woerterbuch`, `test_a2_module_separation`; unit `wortschatz-filter.test.mjs`; E2E `a2-module-separation.spec.ts`.
 - **Rules:** never overwrite the book's word / article / translation; never use a `needs_review` entry; "die" + plural == word

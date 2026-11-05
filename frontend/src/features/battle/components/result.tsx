@@ -59,7 +59,15 @@ export function MatchResult({ match, onAgain, busy }: { match: MatchState; onAga
 
         {r.ranked ? (
           <div className="mx-auto mt-5 max-w-md">
-            <p className={cn("text-3xl font-black", r.points_delta >= 0 ? "text-[var(--bt-gold)]" : "text-[var(--bt-red)]")} data-testid="result-points">
+            {/* match points and win bonus shown apart (+1 per correct word, +3 for the winner) */}
+            <p className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-sm font-bold text-white/80" data-testid="result-breakdown">
+              <span data-testid="result-match-points">{t("battle.resultMatchPoints", { n: r.match_score })}</span>
+              <span className="text-white/40">+</span>
+              <span className={cn(r.win_bonus > 0 ? "text-[var(--bt-gold)]" : "text-white/50")} data-testid="result-win-bonus">
+                {t("battle.resultWinBonus", { n: r.win_bonus })}
+              </span>
+            </p>
+            <p className="mt-1 text-3xl font-black text-[var(--bt-gold)]" data-testid="result-points">
               {r.points_delta >= 0 ? "+" : "−"}{delta} BP
             </p>
             <p className="mt-1 text-xs font-semibold text-white/60">{r.rank_after.title} · {r.points_after} BP</p>

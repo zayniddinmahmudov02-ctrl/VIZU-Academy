@@ -31,6 +31,5 @@ def home(db: Session, user: User) -> dict:
         "theme": themes.for_stage(db, rank["stage"]), "themes": themes.public_list(db),
         "open_match_id": str(open_match.id) if open_match else None,
         "playable": pool >= config.MIN_POOL, "pool": pool, "min_pool": config.MIN_POOL,
-        "rules": {"rounds": config.ROUNDS, "round_s": config.ROUND_S, "base": config.BASE_SCORE, "speed_bonus": config.SPEED_BONUS,
-                  "win": config.WIN_POINTS, "draw": config.DRAW_POINTS, "loss": config.LOSS_POINTS},
+        "rules": {"rounds": config.ROUNDS, "round_s": config.ROUND_S, "per_correct": config.POINTS_PER_CORRECT, "win_bonus": config.WIN_BONUS},
     }

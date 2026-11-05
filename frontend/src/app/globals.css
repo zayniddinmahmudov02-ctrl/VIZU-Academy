@@ -610,11 +610,6 @@ html:not(.dark) .lms-theme {
   animation: lms-shimmer 1.4s ease-in-out infinite;
 }
 
-.lms-flashcard-inner { transform-style: preserve-3d; transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1); }
-.lms-flashcard-inner.is-flipped { transform: rotateY(180deg); }
-.lms-flashcard-face { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
-.lms-flashcard-back { transform: rotateY(180deg); }
-
 .lms-theme [data-testid="test-result"] { animation: lms-pop 0.25s ease-out both; }
 .lms-theme [data-testid="test-question"][data-result="correct"] { animation: lms-correct 0.6s ease-out; }
 .lms-theme [data-testid="test-question"][data-result="wrong"] { animation: lms-wrong 0.3s ease-in-out; }
@@ -628,5 +623,4 @@ html:not(.dark) .lms-theme {
   .lms-theme [data-testid="test-question"] { animation: none !important; }
   .lms-card,
   .lms-card:hover { transition: none; transform: none; }
-  .lms-flashcard-inner { transition: none; }
 }

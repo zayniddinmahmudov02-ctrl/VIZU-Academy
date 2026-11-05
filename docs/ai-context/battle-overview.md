@@ -15,8 +15,8 @@ planned `battle-*` set (paths and decisions only).
 
 ## Where things are
 
-- **Backend:** `be/api/battle/router.py` (`/battle`, `/admin/battle`), `be/services/battle/` — `config` (stages, ranks 150 BP each,
-  timing 12 s + 3 s reveal, scoring 100 + ≤50 speed, points win +25 / draw +5 / loss −15 ± strength, avatars, achievements),
+- **Backend:** `be/api/battle/router.py` (`/battle`, `/admin/battle`), `be/services/battle/` — `config` (stages, ranks 50 BP each,
+  timing 12 s + 3 s reveal, scoring / points / bot levels: see Rules, avatars, achievements),
   `engine` (matchmaking, clock `tick`, answers, AFK 20 s, forfeit, ledger), `questions` (pool + distractors), `media` (WebP
   re-encode, signed 90 s round URLs), `themes` (draft → publish), `admin`, `commons`, `profiles`, `home`, `seed`.
 - **Data:** `be/data/battle/words.json` (89 A1 words, 11 categories, conflict pairs), `images.json` + `images/*.webp`
@@ -40,7 +40,12 @@ planned `battle-*` set (paths and decisions only).
 - The client never sends score, time or correctness; the correct option leaves the server only after the round ends.
 - Stages: A1 Berlin · A2 München · B1 Hamburg · B2 Köln · C1 Frankfurt · C1+ Neuschwanstein. A stage without ≥14 playable words
   plays with the words of the stages below.
-- Ranked = same stage, points window ±10 → ±25 → any (by waiting time). Private room and bot practice give no Battle Points.
+- Ranked = same stage, points window ±10 → ±25 → any (by waiting time).
+- Scoring (owner rule 2026-11-05, `config.py`): +1 per correct word (0 wrong / no answer, no speed bonus); more correct
+  words wins. Battle Points per finished **ranked or bot** match = own score + 3 for the winner (draw / loss: own score,
+  never negative), once per user + match via `battle_points_ledger`. Private rooms: no Battle Points. Rank = 50 BP
+  (was 150; stored points unchanged). Bot strength per stage `BOT_LEVELS` (accuracy + answer time, A1 ≈ 6/10 … C1 ≈ 8.7/10,
+  always beatable); bot results count for wins / streak / rank.
 - A theme / picture is published only with author + licence; the photo credit is shown on every Battle page.
 - Open to every logged-in user (student routes depend only on `get_current_user`; no course / premium / LMS check).
 - Player picture = uploaded profile photo (`users.profile_image`), else the game avatar; ranked rank-ups create a

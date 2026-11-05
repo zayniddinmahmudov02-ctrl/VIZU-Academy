@@ -91,6 +91,7 @@ def build(db: Session, stage: str, rounds: int = config.ROUNDS, rng: random.Rand
     targets = (own + lower)[:rounds]
     rng.shuffle(targets)
     out = []
+    accuracy, t_min, t_max = config.bot_plan(stage, rng) if bot else (0.0, 0, 0)
     for target, pos in zip(targets, balanced_positions(rounds, rng)):
         wrong = _distractors(target, words, rng, config.OPTIONS - 1)
         if len(wrong) < config.OPTIONS - 1:
@@ -99,7 +100,7 @@ def build(db: Session, stage: str, rounds: int = config.ROUNDS, rng: random.Rand
         opts.insert(pos, str(target.id))
         q = {"w": str(target.id), "img": str(target.image_id), "opts": opts, "c": pos}
         if bot:
-            right = rng.random() < config.BOT_ACCURACY.get(stage, 0.65)
-            q["bot"] = {"at": rng.randint(2600, 9500), "choice": pos if right else rng.choice([i for i in range(config.OPTIONS) if i != pos])}
+            right = rng.random() < accuracy  # per-stage strength (config.BOT_LEVELS); the plan never leaves the server
+            q["bot"] = {"at": rng.randint(t_min, t_max), "choice": pos if right else rng.choice([i for i in range(config.OPTIONS) if i != pos])}
         out.append(q)
     return out

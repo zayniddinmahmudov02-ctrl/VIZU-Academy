@@ -6,11 +6,11 @@ Updated 2026-11-05.
 
 | Where | Revision | Note |
 | --- | --- | --- |
-| Local `main` = `origin/main` | `d00a67a` (dashboard redesign) | uncommitted: dashboard-deploy docs, the whole mobile-app work, dashboard pass 2 (banner/courses frame), Battle audio + Wortschatz completion — no git on this machine since 2026-11-05 |
-| Server checkout | `d00a67a` via `git pull --ff-only` (2026-11-05) | untracked leftovers `frontend/package-lock.json` (M), `package-lock.json`, `"hlarni xavfsiz saqlash"` — pre-existing, not ours |
-| DB | production Alembic `e5a9c3f1b7d2`; local test DBs `f2b6d8a4c1e9` (`app_releases`) | |
-| Frontend production slot | `.next-a`, deployment `d00a67a-20261105044618` | `.next-b` = previous (`99390cd`, rollback) |
-| Last backup | `/var/backups/vizu/pre-dashboard-20261105-044137` (144 tables, 0 differing) | before: `pre-battle-20261105-010814` |
+| `origin/main` | `392c2a9f` (owner pushed the local work from GitHub Desktop: mobile app, dashboard pass 2, Battle audio, Wortschatz rule) | local machine still has no git |
+| Server checkout | `392c2a9f` via `git pull --ff-only` (2026-11-05) + **LF overlays** (no local git), all identical to the local files: (1) Wortschatz UI — `wortschatz-section.tsx`, `translations.ts`, `globals.css`, `lms-flashcards.tsx` deleted (originals `/var/backups/vizu/pre-wortschatz-ui-20261105-084616`); (2) Battle points — `services/battle/{config,engine,questions,home}.py`, `tests/test_battle.py`, `battle/components/{result,battle-home}.tsx`, `battle-service.ts`, `battle-translations.ts` (originals `/var/backups/vizu/pre-battle-points-20261105-085529/files`). Once the owner pushes them: `git checkout -- <these files>` (+ `git checkout -- frontend/src/components/lms/lms-flashcards.tsx`) on the server, then `git pull --ff-only` | untracked leftovers `frontend/package-lock.json` (M), `package-lock.json`, `"hlarni xavfsiz saqlash"` — pre-existing, not ours |
+| DB (production + local test) | Alembic `f2b6d8a4c1e9` (`app_releases`, empty) | |
+| Frontend production slot | `.next-b`, deployment `392c2a9f-20261105085729` (with both overlays) | `.next-a` = previous (Wortschatz overlay only, rollback) |
+| Last backup | `/var/backups/vizu/pre-mobile-dash2-20261105-081839` (144 tables, 0 differing; migration SQL inside) | before: `pre-dashboard-20261105-044137` |
 
 ## Content (production)
 
@@ -21,6 +21,11 @@ Updated 2026-11-05.
 
 ## Last verification (2026-11-05)
 
+- Deploy `392c2a9f`: server unittest 95 OK (36 DB skips); migration preview 1 CREATE TABLE + 1 unique index, 0 drop; health
+  200; 14 pages 200 (incl. `/download`, `/admin/app-management`); anonymous APIs 401, `app/releases/latest` 404 (no APK
+  yet); new dashboard markers in `.next-b` (course toggle/panel, compact banner, Lernwerkzeuge, "Letzte Aktivität"), no
+  Erfolge/Zertifikate cards; counts vs backup only grew (+1 user, +2 Battle profiles = live use); errors 0; bots active.
+  Not checked: logged-in production dashboard screenshot (no test accounts on production).
 - Dashboard pass 2 (local, not deployed): tsc/eslint OK, unit 37/37; E2E `dashboard-layout` 8/8 (+ viewport sweep 1920,
   1440, 1366, 820, 390, 360: no overflow, banner on top, toggle ≥ 44 px, no clipped CTA), `student-panel`, `admin`,
   `mobile-app` all passed; `battle-dashboard` only the known leaderboard-photo data failure (`mobile-known-issues.md` #8).

@@ -9,7 +9,9 @@ STAGES = ("A1", "A2", "B1", "B2", "C1", "C1+")
 WORD_LEVELS = ("A1", "A2", "B1", "B2", "C1")
 RANK_TITLES = ("Einsteiger", "Kämpfer", "Meister")
 LEGEND_TITLES = ("Herausforderer", "Elite", "Legende")
-RANK_STEP = 150
+# 2026-11-05: points now come in +1 per correct word (+3 win bonus) ≈ 4–13 per match, so a rank is 50 BP
+# (was 150 with ±25 per match). Stored Battle Points are unchanged; ranks follow from them.
+RANK_STEP = 50
 STAGE_SUBTITLES = {
     "A1": "Der Anfang", "A2": "Der Aufstieg", "B1": "Die Freiheit", "B2": "Die Stärke", "C1": "Die Meisterschaft",
     "C1+": "Die Legende",
@@ -21,8 +23,8 @@ COUNTDOWN_S = 4
 ROUND_S = 12
 REVEAL_S = 3
 ANSWER_GRACE_MS = 300
-BASE_SCORE = 100
-SPEED_BONUS = 50
+# 2026-11-05 owner rule: +1 per correct word, 0 for wrong / no answer (no speed bonus)
+POINTS_PER_CORRECT = 1
 # a player who has not polled for this long during a match loses it (reconnection window)
 AFK_S = 20
 # a waiting ranked match whose player stopped polling is dropped
@@ -31,14 +33,21 @@ QUEUE_STALE_S = 12
 MATCH_WINDOWS = ((10, 10), (20, 25), (None, None))
 MIN_POOL = ROUNDS + OPTIONS
 
-WIN_POINTS = 25
-DRAW_POINTS = 5
-LOSS_POINTS = -15
-STRENGTH_BONUS_MAX = 10
-STREAK_BONUS = 2
-STREAK_BONUS_MAX = 10
+# Battle Points of a finished ranked or bot match = own match score + WIN_BONUS for the winner (draw / loss: own
+# score only, never negative). Private rooms give no Battle Points.
+WIN_BONUS = 3
+POINT_MODES = ("ranked", "bot")
 
-BOT_ACCURACY = {"A1": 0.6, "A2": 0.65, "B1": 0.7, "B2": 0.72, "C1": 0.75, "C1+": 0.8}
+# Bot per stage: probability of a correct answer (random inside the range) and answer time window in ms.
+# Gets faster and more accurate from A1 to C1+, but never perfect — a player who knows the words can win.
+BOT_LEVELS = {
+    "A1": {"accuracy": (0.55, 0.65), "time_ms": (5200, 10500)},
+    "A2": {"accuracy": (0.63, 0.73), "time_ms": (4400, 9500)},
+    "B1": {"accuracy": (0.70, 0.80), "time_ms": (3600, 8500)},
+    "B2": {"accuracy": (0.77, 0.86), "time_ms": (2900, 7500)},
+    "C1": {"accuracy": (0.83, 0.91), "time_ms": (2300, 6500)},
+    "C1+": {"accuracy": (0.85, 0.92), "time_ms": (2000, 6000)},
+}
 BOT_NAME = "VIZU Bot"
 
 # avatar key → (title, min rank index)
@@ -109,17 +118,21 @@ def match_window(waited_s: float) -> int | None:
 
 
 def round_score(correct: bool, time_ms: int) -> int:
-    if not correct:
-        return 0
-    left = max(0.0, 1 - time_ms / (ROUND_S * 1000))
-    return BASE_SCORE + round(SPEED_BONUS * left)
+    """+1 per correct word; wrong or no answer 0 (time_ms kept for the call sites, it no longer scores)."""
+    return POINTS_PER_CORRECT if correct else 0
 
 
-def points_delta(result: str, my_points: int, opp_points: int, streak_after: int) -> int:
-    """Ranked only. result = win | draw | loss; a stronger opponent gives more and costs less."""
-    strength = max(-STRENGTH_BONUS_MAX, min(STRENGTH_BONUS_MAX, round((opp_points - my_points) / 20)))
-    if result == "win":
-        return WIN_POINTS + strength + min(STREAK_BONUS_MAX, STREAK_BONUS * max(0, streak_after - 1))
-    if result == "draw":
-        return DRAW_POINTS
-    return min(-5, LOSS_POINTS + strength)
+def win_bonus(result: str) -> int:
+    return WIN_BONUS if result == "win" else 0
+
+
+def points_delta(result: str, match_score: int) -> int:
+    """Battle Points of one finished match: the player's own score (+1 per correct word) + 3 for the winner."""
+    return max(0, match_score) + win_bonus(result)
+
+
+def bot_plan(stage: str, rng) -> tuple[float, int, int]:
+    """(accuracy for this match, earliest answer ms, latest answer ms) — random inside the stage's limits."""
+    lvl = BOT_LEVELS.get(stage, BOT_LEVELS["A1"])
+    lo, hi = lvl["accuracy"]
+    return lo + (hi - lo) * rng.random(), lvl["time_ms"][0], lvl["time_ms"][1]

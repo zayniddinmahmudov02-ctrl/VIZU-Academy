@@ -263,9 +263,8 @@ def _finish(db: Session, m: BattleMatch, now: datetime, reason: str, winner_slot
     m.finished_at = now
     m.winner_slot = winner_slot
     m.finish_reason = reason
-    if m.mode == "bot":
-        return
-    for slot in (1, 2):
+    # 2026-11-05: bot matches count for stats and Battle Points too (only the human, slot 1)
+    for slot in ((1,) if m.mode == "bot" else (1, 2)):
         user_id = m.player1_id if slot == 1 else m.player2_id
         p = profiles.get_profile(db, user_id, lock=True)
         result = "draw" if winner_slot == 0 else ("win" if winner_slot == slot else "loss")
@@ -279,11 +278,11 @@ def _finish(db: Session, m: BattleMatch, now: datetime, reason: str, winner_slot
         else:
             p.draws += 1
         p.last_match_at = now
-        if m.mode != "ranked":
+        if m.mode not in config.POINT_MODES:
             continue
-        mine, theirs = (m.p1_points_start, m.p2_points_start) if slot == 1 else (m.p2_points_start, m.p1_points_start)
-        target = max(0, p.points + config.points_delta(result, mine, theirs, p.streak))
-        delta = target - p.points
+        # own score (+1 per correct word, computed on the server) + 3 for the winner; never negative
+        delta = config.points_delta(result, getattr(m, f"p{slot}_score"))
+        target = p.points + delta
         inserted = db.execute(
             pg_insert(BattlePointsLedger).values(user_id=user_id, match_id=m.id, delta=delta, balance_after=target, reason="match")
             .on_conflict_do_nothing(constraint="uq_battle_points_ledger_event").returning(BattlePointsLedger.id)
@@ -446,9 +445,13 @@ def _result_view(m: BattleMatch, slot: int) -> dict:
     start = m.p1_points_start if slot == 1 else m.p2_points_start
     delta = m.p1_delta if slot == 1 else m.p2_delta
     before, after = config.rank_info(start), config.rank_info(start + delta)
+    outcome = "draw" if m.winner_slot == 0 else ("win" if m.winner_slot == slot else "loss")
+    earns = m.mode in config.POINT_MODES
     return {
-        "outcome": "draw" if m.winner_slot == 0 else ("win" if m.winner_slot == slot else "loss"), "reason": m.finish_reason,
-        "ranked": m.mode == "ranked", "points_delta": delta, "points_after": start + delta,
+        "outcome": outcome, "reason": m.finish_reason,
+        "ranked": earns,  # "earns Battle Points" (ranked or bot); private rooms do not
+        "match_score": getattr(m, f"p{slot}_score"), "win_bonus": config.win_bonus(outcome) if earns else 0,
+        "points_delta": delta, "points_after": start + delta,
         "rank_before": before, "rank_after": after, "rank_up": after["index"] > before["index"], "stage_up": after["stage"] != before["stage"] and after["index"] > before["index"],
     }
 
