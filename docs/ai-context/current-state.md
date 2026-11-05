@@ -6,11 +6,11 @@ Updated 2026-11-05.
 
 | Where | Revision | Note |
 | --- | --- | --- |
-| Local `main` = `origin/main` | `99390cd` (VIZU DEUTSCH BATTLE) + docs | |
-| Server checkout | `99390cd` via `git pull --ff-only` (2026-11-05) | untracked leftovers `frontend/package-lock.json` (M), `package-lock.json`, `"hlarni xavfsiz saqlash"` — pre-existing, not ours |
+| Local `main` = `origin/main` | `d00a67a` (dashboard redesign) + docs | |
+| Server checkout | `d00a67a` via `git pull --ff-only` (2026-11-05) | untracked leftovers `frontend/package-lock.json` (M), `package-lock.json`, `"hlarni xavfsiz saqlash"` — pre-existing, not ours |
 | DB (local test + production) | Alembic `e5a9c3f1b7d2` | |
-| Frontend production slot | `.next-b`, deployment `99390cd-20261105011349` | `.next-a` = previous (rollback) |
-| Last backup | `/var/backups/vizu/pre-battle-20261105-010814` (137 tables, 0 differing; migration SQL + seed plan/apply JSON inside) | before: `pre-a2gram-20261101-045927` |
+| Frontend production slot | `.next-a`, deployment `d00a67a-20261105044618` | `.next-b` = previous (`99390cd`, rollback) |
+| Last backup | `/var/backups/vizu/pre-dashboard-20261105-044137` (144 tables, 0 differing) | before: `pre-battle-20261105-010814` |
 
 ## Content (production)
 
@@ -21,10 +21,11 @@ Updated 2026-11-05.
 
 ## Last verification (2026-11-05)
 
-- Local backend 980 passed / 17 skipped; frontend unit 28/28; E2E `battle` 8 passed (+2 skipped by design), `admin`,
-  `auth`, `student-panel` 40 passed.
-- Server unittest (battle, migration, route protection, page management) 43 OK (13 DB skips). Production smoke: pages 200,
-  Battle APIs anonymous 401, forged media token 404, other tables unchanged vs backup, backend errors 0, bots active.
+- Dashboard deploy (`d00a67a`): frontend tsc/eslint OK, unit 32/32; E2E `battle-dashboard` + `student-panel` 16/16
+  (desktop + Pixel 7). Server unittest (battle, profile_photo, route protection) 41 OK (13 DB skips). Production smoke:
+  11 pages 200, anonymous APIs 401 (battle/summary, lms/levels, learning-activity, users/me/photo), new strings in
+  `.next-a`, users/certificates/achievements/dictionary/lessons/battle counts equal to backup, errors 0, bots active.
+- Earlier (Battle deploy): local backend 980 passed / 17 skipped; E2E `battle`, `admin`, `auth`, `student-panel` passed.
 
 ## Open decisions for the owner
 

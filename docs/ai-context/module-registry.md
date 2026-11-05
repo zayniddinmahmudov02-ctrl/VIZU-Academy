@@ -242,14 +242,17 @@ See `deployment-map.md`, skill `vizu-deploy`, `docs/deploy-frontend.md`, `docs/l
   themes, admin, commons, seed). Tables `battle_profiles`, `battle_words`, `battle_images`, `battle_matches`,
   `battle_answers`, `battle_points_ledger`, `battle_themes`. Seed `be/scripts/battle_seed.py` + `be/data/battle/`.
 - **Frontend:** `fe/app/(battle)/battle/*`, `fe/features/battle/*`, admin `fe/app/admin/battle` (Übersicht, Wörter & Bilder,
-  Design & Themes); entry points: dashboard top banner `fe/components/dashboard/home/battle-banner.tsx` (`GET /battle/summary`),
+  Design & Themes); entry points: dashboard tile `fe/components/dashboard/home/battle-banner.tsx` (`GET /battle/summary`), first card of
+  "Lernwerkzeuge" (`learning-tools.tsx`, with Stufe Bestimmung / Wortschatz / Zertifikatsprüfungen; dashboard order:
+  welcome → Lernwerkzeuge → A1–C1 Kurse → compact Lernserie → Werbung; Erfolge/Zertifikate cards not on the dashboard),
   sidebar + mobile nav with the custom icon `fe/components/icons/battle-icon.tsx` (favicon `fe/public/battle/battle-icon.svg`).
 - **Tests:** `test_battle`, `test_battle_migration`, unit `battle-utils.test.mjs`, E2E `battle.spec.ts`, `battle-dashboard.spec.ts`.
 - **Details / decisions:** `docs/ai-context/battle-overview.md`.
 
 ## Other mounted modules (not in the list above)
 
-VIZU-Multilevel level test (`/vizu-multilevel`, legacy alias `/vizu-mock`, `be/services/vizu_multilevel/`,
+VIZU-Multilevel level test (student UI name "Stufe Bestimmung" since 2026-11-05; code, routes, APIs and admin keep
+"VIZU-Multilevel"; `/vizu-multilevel`, legacy alias `/vizu-mock`, `be/services/vizu_multilevel/`,
 `fe/app/(dashboard)/vizu-multilevel`), Vorbereitung mock exams (`/mock-exam*`, `be/services/mock_exam/`,
 `fe/app/(dashboard)/vorbereitung`), assessment engine (`be/api/assessment_engine`), certificates
 (`/certificates`, `/my-certificates`), books (`/books`), homework (`/homeworks`), quizzes, exams, calendar,
