@@ -112,7 +112,7 @@ export default function TeacherSchreibenPage() {
             source === "VIZU_MULTILEVEL" ? "bg-accent-blue text-white" : "text-text-secondary hover:bg-surface-card",
           )}
         >
-          VIZU-Multilevel
+          Stufe Bestimmung
         </button>
       </div>
 
@@ -735,7 +735,7 @@ function VizuMultilevelWritingListRow({
         <div>
           <p className="text-sm font-bold text-text-primary">{item.student_name}</p>
           <p className="mt-0.5 text-xs text-text-muted">
-            VIZU-Multilevel · {new Date(item.schreiben_submitted_at).toLocaleDateString("de-DE")}
+            Stufe Bestimmung · {new Date(item.schreiben_submitted_at).toLocaleDateString("de-DE")}
           </p>
         </div>
         <span className="shrink-0 rounded-full bg-accent-blue/10 px-2 py-0.5 text-[10px] font-bold text-accent-blue">
@@ -789,7 +789,7 @@ function VizuMultilevelWritingDetailCard({ attemptId }: { attemptId: string }) {
   return (
     <div className="space-y-4">
       <div className="rounded-card bg-surface-card p-6 shadow-[var(--shadow-md)] ring-1 ring-surface-border">
-        <h3 className="text-base font-bold text-text-primary">VIZU-Multilevel — Schreiben</h3>
+        <h3 className="text-base font-bold text-text-primary">Stufe Bestimmung — Schreiben</h3>
         <p className="text-xs text-text-muted">
           {detail.student_name} ({detail.email}) · {detail.username} · eingereicht am{" "}
           {new Date(detail.schreiben_submitted_at).toLocaleString("de-DE")}

@@ -33,7 +33,23 @@ Provider `NATIONAL` (National-Multilevel Zertifikat) → yangi daraja **„Multi
 
 To'liq ro'yxat har bir test sahifasida („Prüfliste").
 
+## Imtihon rejimi (2026-11-06)
+
+- Talaba `/vorbereitung/multilevel` → Modelltest → „Prüfung starten". Daraja tanlanmaydi. Bitta testga bitta ochiq urinish,
+  yakunlangandan keyin qayta topshirish; barcha urinishlar saqlanadi (tarix: shu sahifa + profil/„Einstellungen").
+- Bo'limlar (Lesen, Hören, Schreiben, Sprechen) istalgan tartibda, bir vaqtda bittasi; vaqt = `Kompetenz.duration_minutes`,
+  muddatni server qo'yadi (+30 s), muddatdan keyin javob qabul qilinmaydi va bo'lim avtomatik yopiladi. Javoblar topshirguncha
+  o'zgartiriladi. „Prüfung beenden": boshlanmagan bo'limlar 0 ball.
+- Ball faqat serverda: Lesen/Hören = to'g'ri/savollar × 75 (yaxlitlash), Schreiben/Sprechen = o'qituvchi 0–75 beradi
+  (Admin → „Multilevel (National Zertifikat)"); hech narsa yozilmagan/yozib olinmagan bo'lsa avtomatik 0. Jami /300.
+- Bo'lim darajasi: 0–38 Nicht bestanden, 39–49 B1, **50 = sozlama** (standart „Ungeklärt"), 51–64 B2, 65–75 C1.
+- Umumiy daraja: sozlama „Gesamtniveau" — standart **„Nicht bestätigt" → Ungeklärt** (rasmiy qoida yo'q); Super Admin
+  „Durchschnitt" yoki „Niedrigstes Teilniveau" ni tanlashi mumkin, saqlangan natijalar qayta hisoblanadi (audit log).
+- Natija va to'g'ri javoblar faqat 4 bo'lim yopilgandan keyin. Sprechen yozuvlari private (`protected_storage/mock-exam-speaking`).
+- Nashr qilish: barcha 4 bo'lim to'liq bo'lishi shart → 7–10 (Hören bo'sh) nashr qilinmaydi; 1–6 kalit + audio kerak.
+
 ## Ochiq
 
-- Talaba pleyeri faqat ko'rsatadi (matn, savollar kalitsiz); javob berish/baholash oqimi hali yo'q.
+- 7–10 Hören: vazifalar (savollar + audio) hali yo'q; savollarni admin panelda yaratib bo'lmaydi — import kerak.
 - Hören audio admin media-upload orqali yuklanadi (mavjud mexanizm, `/uploads` — ochiq URL).
+- Lesen/Hören uchun xom ball → 75 chiziqli konvertatsiya; rasmiy konvertatsiya jadvali bo'lsa, almashtirish kerak.

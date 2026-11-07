@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import DateTime, ForeignKey, Integer, Text, func
+from sqlalchemy import DateTime, ForeignKey, Integer, Text, UniqueConstraint, func
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -13,6 +13,7 @@ class MockSpeakingSubmission(BaseModel):
     `student_speaking` table (Lesson-based course system)."""
 
     __tablename__ = "mock_speaking_submissions"
+    __table_args__ = (UniqueConstraint("attempt_id", "speaking_task_id", name="uq_mock_speaking_submissions_attempt_task"),)
 
     attempt_id: Mapped[UUID] = mapped_column(
         UUID(as_uuid=True),

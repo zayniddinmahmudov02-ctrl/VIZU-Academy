@@ -106,6 +106,8 @@ from app.api.mock_exam.content_router import router as mock_exam_content_router
 from app.api.mock_exam.attempt_router import router as mock_exam_attempt_router
 from app.api.mock_exam.analytics_router import router as mock_exam_analytics_router
 from app.api.mock_exam.public_router import router as mock_exam_public_router
+from app.api.mock_exam.multilevel_exam_router import admin_router as multilevel_exam_admin_router
+from app.api.mock_exam.multilevel_exam_router import router as multilevel_exam_router
 
 # VIZU-Multilevel (standalone free level-check — see the model's
 # own docstring)
@@ -308,6 +310,8 @@ _ALL_ROUTERS = [
     mock_exam_attempt_router,
     mock_exam_analytics_router,
     mock_exam_public_router,
+    multilevel_exam_router,
+    multilevel_exam_admin_router,
     vizu_multilevel_router,
     vizu_mock_legacy_router,
     advertisements_router,

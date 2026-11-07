@@ -132,6 +132,13 @@ class ProtectedMockExamSourceStorage(LocalStorage):
     ROOT = Path("app/protected_storage/mock-exam-sources")
 
 
+class ProtectedMockExamSpeakingStorage(LocalStorage):
+    """Sprechen recordings of the Multilevel exam mode ("<attempt_id>/<random>.<ext>"). Outside the public /uploads
+    mount; streamed only to the attempt's owner or to teachers / admins (multilevel_exam_router)."""
+
+    ROOT = Path("app/protected_storage/mock-exam-speaking")
+
+
 class ProtectedAppReleaseStorage(LocalStorage):
     """Android APK release files (app_releases), random names. Outside the public /uploads mount; streamed
     only by GET /app/android/latest.apk (latest published release) or the Super Admin download endpoint."""

@@ -20,6 +20,7 @@ import {
   MAX_PHOTO_SIZE_BYTES,
 } from "@/features/profile/validation/profile.schema";
 import type { Crop } from "@/features/profile/utils/photo-crop";
+import MultilevelProfileResultsCard from "@/features/vorbereitung/components/multilevel/profile-results-card";
 import { useTranslation } from "@/lib/i18n/use-translation";
 
 export default function SettingsPage() {
@@ -189,6 +190,8 @@ export default function SettingsPage() {
           </div>
         </div>
       </section>
+
+      <MultilevelProfileResultsCard />
     </div>
   );
 }

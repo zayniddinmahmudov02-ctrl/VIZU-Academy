@@ -269,8 +269,14 @@ def readiness(db: Session, model_test_id: UUID) -> dict:
         select(ListeningContent, Teil, Kompetenz).join(Teil, ListeningContent.teil_id == Teil.id)
         .join(Kompetenz, Teil.kompetenz_id == Kompetenz.id).where(Kompetenz.model_test_id == model_test_id)
         .order_by(Kompetenz.sort_order, Teil.sort_order)).all() if not (lc.audio_url or "").strip()]
+    from app.services.mock_exam.multilevel_exam_service import exam_gaps, is_multilevel_test  # import cycle
+
+    test = db.get(ModelTest, model_test_id)
+    # a Multilevel test is a full exam: all four sections with content (7–10: Hören still empty → not publishable)
+    missing_sections = exam_gaps(db, model_test_id) if test is not None and is_multilevel_test(db, test) else []
     return {"questions": total, "keys_set": total - len(missing_keys), "missing_keys": missing_keys,
-            "missing_audio": missing_audio, "ready": not missing_keys and not missing_audio}
+            "missing_audio": missing_audio, "missing_sections": missing_sections,
+            "ready": not missing_keys and not missing_audio and not missing_sections}
 
 
 def assert_publishable(db: Session, model_test_id: UUID) -> None:
@@ -281,6 +287,8 @@ def assert_publishable(db: Session, model_test_id: UUID) -> None:
             parts.append(f"{len(r['missing_keys'])} Fragen ohne Lösung")
         if r["missing_audio"]:
             parts.append(f"{len(r['missing_audio'])} Hören-Teile ohne Audio")
+        if r["missing_sections"]:
+            parts.append("unvollständig: " + "; ".join(r["missing_sections"]))
         raise HTTPException(status_code=409, detail="MODEL_TEST_NOT_READY: " + ", ".join(parts))
 
 

@@ -12,7 +12,7 @@ export default function VizuMultilevelPage() {
   return (
     <div>
       <AdminPageHeader
-        title="VIZU-Multilevel"
+        title="Stufe Bestimmung"
         description="Einstufungstest A1–C1 (Lesen, Hören, Schreiben, Sprechen) — eigenständiges System, unabhängig von Kursen, Büchern, Vorbereitung und Modelltests."
       />
 

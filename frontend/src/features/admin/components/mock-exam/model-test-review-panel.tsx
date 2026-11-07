@@ -93,6 +93,12 @@ export default function ModelTestReviewPanel({ modelTest }: { modelTest: ModelTe
             {r.missing_audio.length ? <AlertTriangle size={14} className="text-[#f59e0b]" /> : <CheckCircle2 size={14} className="text-[var(--admin-accent)]" />}
             Hören-Audio fehlt: {r.missing_audio.length ? r.missing_audio.join(", ") : "—"}
           </span>
+          {r.missing_sections?.length > 0 && (
+            <span className="flex items-center gap-1.5 text-[var(--admin-text-primary)]" data-testid="missing-sections">
+              <AlertTriangle size={14} className="text-[#f59e0b]" />
+              Prüfung unvollständig: {r.missing_sections.join("; ")}
+            </span>
+          )}
         </div>
       )}
 

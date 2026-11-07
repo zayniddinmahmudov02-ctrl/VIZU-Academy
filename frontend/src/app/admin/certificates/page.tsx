@@ -21,7 +21,7 @@ import type { CertificateSource } from "@/features/admin/types/certificate.types
 const SOURCE_OPTIONS: { value: CertificateSource; label: string }[] = [
   { value: "COURSE", label: "Kursabschluss" },
   { value: "VORBEREITUNG", label: "Vorbereitung" },
-  { value: "VIZU_MULTILEVEL", label: "VIZU-Multilevel" },
+  { value: "VIZU_MULTILEVEL", label: "Stufe Bestimmung" },
 ];
 
 const EMPTY_FORM = {
@@ -66,7 +66,7 @@ export default function CertificatesPage() {
     <div>
       <AdminPageHeader
         title="Zertifikate"
-        description="Alle Zertifikate der Lernenden — Kursabschluss und VIZU-Multilevel — nach Niveau, Typ, Status und Datum."
+        description="Alle Zertifikate der Lernenden — Kursabschluss und Stufe Bestimmung — nach Niveau, Typ, Status und Datum."
         action={
           <AdminButton onClick={() => setDialogOpen(true)}>
             <Plus size={16} />

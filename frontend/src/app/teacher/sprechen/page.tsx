@@ -98,7 +98,7 @@ export default function TeacherSprechenPage() {
             source === "VIZU_MULTILEVEL" ? "bg-accent-blue text-white" : "text-text-secondary hover:bg-surface-card",
           )}
         >
-          VIZU-Multilevel
+          Stufe Bestimmung
         </button>
       </div>
 

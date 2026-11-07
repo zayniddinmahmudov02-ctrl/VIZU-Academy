@@ -13,7 +13,7 @@ import { openBlob } from "@/lib/save-blob";
 
 const card = "rounded-2xl bg-[var(--admin-card)] p-4 ring-1 ring-[var(--admin-border)]";
 const LEVELS = ["BELOW_A1", "A1", "A2", "B1", "B2", "C1"];
-const SOURCES: Record<string, string> = { COURSE: "Kursabschluss", VORBEREITUNG: "Vorbereitung", VIZU_MULTILEVEL: "VIZU-Multilevel" };
+const SOURCES: Record<string, string> = { COURSE: "Kursabschluss", VORBEREITUNG: "Vorbereitung", VIZU_MULTILEVEL: "Stufe Bestimmung" };
 const STATUS: Record<ZertifikatItem["status"], { label: string; cls: string }> = {
   valid: { label: "Gültig", cls: "bg-[var(--admin-success)]/15 text-[var(--admin-success)]" },
   issued: { label: "Ausgestellt", cls: "bg-[var(--admin-success)]/15 text-[var(--admin-success)]" },

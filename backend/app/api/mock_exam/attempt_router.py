@@ -7,6 +7,7 @@ from app.api.dependencies.auth import get_current_user, require_admin_panel_acce
 from app.core.security.roles import UserRole
 from app.db.session import get_db
 from app.models.mock_test_attempt import MockTestAttempt
+from app.models.model_test import ModelTest
 from app.models.user import User
 from app.schemas.mock_exam import (
     MockQuestionAnswerCreate,
@@ -20,7 +21,7 @@ from app.schemas.mock_exam import (
     MockWritingSubmissionResponse,
     MockWritingSubmissionTeacherUpdate,
 )
-from app.services.mock_exam import attempt_service
+from app.services.mock_exam import attempt_service, multilevel_exam_service
 from app.services.mock_exam.ai_service import AIServiceError
 
 router = APIRouter(prefix="/mock-exam", tags=["Mock Exam — Attempts & Submissions"])
@@ -33,6 +34,14 @@ def _is_staff(user: User) -> bool:
 def _ensure_owner_or_staff(attempt: MockTestAttempt, current_user: User) -> None:
     if attempt.user_id != current_user.id and not _is_staff(current_user):
         raise HTTPException(status_code=403, detail="Not authorized to access this attempt.")
+
+
+def _ensure_not_multilevel(db: Session, model_test_id: UUID) -> None:
+    """Multilevel tests run only in the timed exam mode (/multilevel-exam); these untimed generic writes would
+    bypass its deadlines and server-side scoring."""
+    test = db.get(ModelTest, model_test_id)
+    if test is not None and multilevel_exam_service.is_multilevel_test(db, test):
+        raise HTTPException(status_code=409, detail="USE_EXAM_MODE")
 
 
 # ============================================================
@@ -56,6 +65,7 @@ def create_attempt(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
+    _ensure_not_multilevel(db, data.model_test_id)
     return attempt_service.create_attempt(db, current_user, data)
 
 
@@ -83,6 +93,7 @@ def finalize_attempt(
     if attempt is None:
         raise HTTPException(status_code=404, detail="Attempt not found.")
     _ensure_owner_or_staff(attempt, current_user)
+    _ensure_not_multilevel(db, attempt.model_test_id)
     return attempt_service.finalize_attempt(db, attempt_id, time_spent_seconds)
 
 
@@ -101,6 +112,7 @@ def submit_question_answer(
     if attempt is None:
         raise HTTPException(status_code=404, detail="Attempt not found.")
     _ensure_owner_or_staff(attempt, current_user)
+    _ensure_not_multilevel(db, attempt.model_test_id)
     return attempt_service.submit_question_answer(db, data)
 
 
@@ -128,6 +140,7 @@ def create_writing_submission(
     if attempt is None:
         raise HTTPException(status_code=404, detail="Attempt not found.")
     _ensure_owner_or_staff(attempt, current_user)
+    _ensure_not_multilevel(db, attempt.model_test_id)
     return attempt_service.create_writing_submission(db, data)
 
 
@@ -183,6 +196,7 @@ def create_speaking_submission(
     if attempt is None:
         raise HTTPException(status_code=404, detail="Attempt not found.")
     _ensure_owner_or_staff(attempt, current_user)
+    _ensure_not_multilevel(db, attempt.model_test_id)
     return attempt_service.create_speaking_submission(db, data)
 
 

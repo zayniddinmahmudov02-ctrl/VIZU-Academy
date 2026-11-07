@@ -14,7 +14,7 @@ test.describe("admin panel", () => {
 
   test("sidebar has Media Management and other sections but no A2 Audio", async ({ page }) => {
     const nav = page.locator("aside nav, nav").first();
-    for (const label of ["Dashboard", "Werbung-Banner", "Media Management", "Vorbereitung", "VIZU-Multilevel", "Users", "Payments"]) {
+    for (const label of ["Dashboard", "Werbung-Banner", "Media Management", "Vorbereitung", "Stufe Bestimmung", "Users", "Payments"]) {
       await expect(nav.getByRole("link", { name: label, exact: true })).toBeVisible();
     }
     await expect(page.getByRole("link", { name: /A2 Audio/i })).toHaveCount(0);

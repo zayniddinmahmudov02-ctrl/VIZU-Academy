@@ -153,14 +153,13 @@ def submit_question_answer(db: Session, data: MockQuestionAnswerCreate) -> MockQ
         if is_correct:
             points_earned = question.points
 
-    answer = MockQuestionAnswer(
-        attempt_id=data.attempt_id,
-        question_id=data.question_id,
-        answer_data=data.answer_data,
-        is_correct=is_correct,
-        points_earned=points_earned,
-    )
-    db.add(answer)
+    # one answer per (attempt, question) — uq_mock_question_answers_attempt_question: a resend replaces it
+    answer = db.scalar(select(MockQuestionAnswer).where(MockQuestionAnswer.attempt_id == data.attempt_id,
+                                                        MockQuestionAnswer.question_id == data.question_id))
+    if answer is None:
+        answer = MockQuestionAnswer(attempt_id=data.attempt_id, question_id=data.question_id)
+        db.add(answer)
+    answer.answer_data, answer.is_correct, answer.points_earned = data.answer_data, is_correct, points_earned
     db.commit()
     db.refresh(answer)
     return answer
@@ -180,14 +179,12 @@ def get_writing_submissions(db: Session, attempt_id: UUID | None = None):
 
 def create_writing_submission(db: Session, data: MockWritingSubmissionCreate) -> MockWritingSubmission:
     word_count = len(data.answer_text.split())
-    submission = MockWritingSubmission(
-        attempt_id=data.attempt_id,
-        writing_task_id=data.writing_task_id,
-        answer_text=data.answer_text,
-        word_count=word_count,
-        time_spent_seconds=data.time_spent_seconds,
-    )
-    db.add(submission)
+    submission = db.scalar(select(MockWritingSubmission).where(MockWritingSubmission.attempt_id == data.attempt_id,
+                                                               MockWritingSubmission.writing_task_id == data.writing_task_id))
+    if submission is None:
+        submission = MockWritingSubmission(attempt_id=data.attempt_id, writing_task_id=data.writing_task_id)
+        db.add(submission)
+    submission.answer_text, submission.word_count, submission.time_spent_seconds = data.answer_text, word_count, data.time_spent_seconds
     db.commit()
     db.refresh(submission)
     return submission
@@ -249,12 +246,12 @@ def get_speaking_submissions(db: Session, attempt_id: UUID | None = None):
 
 
 def create_speaking_submission(db: Session, data: MockSpeakingSubmissionCreate) -> MockSpeakingSubmission:
-    submission = MockSpeakingSubmission(
-        attempt_id=data.attempt_id,
-        speaking_task_id=data.speaking_task_id,
-        audio_url=data.audio_url,
-    )
-    db.add(submission)
+    submission = db.scalar(select(MockSpeakingSubmission).where(MockSpeakingSubmission.attempt_id == data.attempt_id,
+                                                                MockSpeakingSubmission.speaking_task_id == data.speaking_task_id))
+    if submission is None:
+        submission = MockSpeakingSubmission(attempt_id=data.attempt_id, speaking_task_id=data.speaking_task_id, audio_url=data.audio_url)
+        db.add(submission)
+    submission.audio_url = data.audio_url
     db.commit()
     db.refresh(submission)
     return submission

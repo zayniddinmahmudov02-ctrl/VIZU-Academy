@@ -16,7 +16,7 @@ export default function DashboardVizuMultilevel({ data }: { data: VizuMultilevel
   return (
     <AdminCard>
       <div className="mb-4 flex items-center justify-between gap-2">
-        <h3 className="text-sm font-semibold text-[var(--admin-text-primary)]">VIZU-Multilevel</h3>
+        <h3 className="text-sm font-semibold text-[var(--admin-text-primary)]">Stufe Bestimmung</h3>
         <Link href="/admin/certificates?source=VIZU_MULTILEVEL" className="text-xs font-semibold text-[var(--admin-primary)] hover:underline">Zertifikate →</Link>
       </div>
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">

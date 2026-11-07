@@ -111,7 +111,14 @@ export interface ModelTestReview {
   source_pdf_name: string | null;
   origin: "pdf" | "vizu" | null;
   review: { where: string; note: string }[];
-  readiness: { questions: number; keys_set: number; missing_keys: string[]; missing_audio: string[]; ready: boolean };
+  readiness: {
+    questions: number;
+    keys_set: number;
+    missing_keys: string[];
+    missing_audio: string[];
+    missing_sections: string[];
+    ready: boolean;
+  };
 }
 
 export const getReadingContentByTeil = (teilId: string) =>

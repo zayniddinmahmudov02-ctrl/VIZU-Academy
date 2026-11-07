@@ -214,7 +214,11 @@ class TestMultilevelImport(unittest.TestCase):
                 hierarchy_service.update_model_test(db, mt1.id, ModelTestUpdate(status="PUBLISHED"))
             self.assertEqual(ctx.exception.status_code, 409)
             self.assertTrue(ctx.exception.detail.startswith("MODEL_TEST_NOT_READY"))
-            self.assertEqual(hierarchy_service.update_model_test(db, mt7.id, ModelTestUpdate(status="PUBLISHED")).status, "PUBLISHED")
+            # 7–10 have keys but no Hören yet: not a complete exam → still refused
+            with self.assertRaises(HTTPException) as ctx:
+                hierarchy_service.update_model_test(db, mt7.id, ModelTestUpdate(status="PUBLISHED"))
+            self.assertIn("HOEREN", ctx.exception.detail)
+            self.assertEqual(svc.readiness(db, mt7.id)["missing_keys"], [])
 
             q = db.scalar(select(MockQuestion).join(ReadingContent, MockQuestion.reading_content_id == ReadingContent.id)
                           .join(Teil, ReadingContent.teil_id == Teil.id).join(Kompetenz, Teil.kompetenz_id == Kompetenz.id)

@@ -48,7 +48,7 @@ function SpeakingList({ onOpen }: { onOpen: (attemptId: string) => void }) {
     return (
       <div className="rounded-card bg-surface-card p-8 text-center ring-1 ring-surface-border">
         <Mic size={28} className="mx-auto text-text-muted" />
-        <p className="mt-3 text-sm text-text-secondary">Noch keine Sprechen-Einsendungen von VIZU-Multilevel.</p>
+        <p className="mt-3 text-sm text-text-secondary">Noch keine Sprechen-Einsendungen von Stufe Bestimmung.</p>
       </div>
     );
   }
@@ -65,7 +65,7 @@ function SpeakingList({ onOpen }: { onOpen: (attemptId: string) => void }) {
           <div>
             <p className="font-semibold text-text-primary">{item.student_name}</p>
             <p className="text-xs text-text-muted">
-              VIZU-Multilevel · {new Date(item.sprechen_submitted_at).toLocaleDateString("de-DE")} · {item.email}
+              Stufe Bestimmung · {new Date(item.sprechen_submitted_at).toLocaleDateString("de-DE")} · {item.email}
             </p>
           </div>
           <div className="flex items-center gap-3 text-xs">
@@ -119,7 +119,7 @@ function SpeakingDetail({ attemptId, onBack }: { attemptId: string; onBack: () =
           <div className="rounded-card bg-surface-card p-5 ring-1 ring-surface-border">
             <p className="font-semibold text-text-primary">{detail.student_name}</p>
             <p className="text-xs text-text-muted">
-              {detail.email} · VIZU-Multilevel Sprechen · Punkte: {detail.sprechen_score ?? "—"}
+              {detail.email} · Stufe Bestimmung Sprechen · Punkte: {detail.sprechen_score ?? "—"}
               {detail.sprechen_level ? ` · Niveau ${detail.sprechen_level}` : ""}
             </p>
           </div>

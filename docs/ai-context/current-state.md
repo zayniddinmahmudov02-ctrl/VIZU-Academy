@@ -1,30 +1,39 @@
 # Current state
 
-Updated 2026-11-05.
+Updated 2026-11-06.
 
 ## Revisions
 
 | Where | Revision | Note |
 | --- | --- | --- |
-| `origin/main` | `4a7ec3cb` (owner push: Wortschatz UI + Battle points) | local machine still has no git; Multilevel work (below) is NOT pushed yet |
-| Server checkout | `4a7ec3cb` via `git pull --ff-only` (2026-11-05 17:12, the earlier overlays were identical to it) + **LF overlay "Multilevel"** (41 files: `services/mock_exam/multilevel_service.py`, `scripts/multilevel_{import,build}.py`, `app/data/multilevel/**`, `tests/test_multilevel_modelltests.py`, mock-exam routers/schemas/`hierarchy_service.py`, `protected_local.py`, admin `mock-exam` components/service/page, student `vorbereitung` pages/service/types; originals `/var/backups/vizu/pre-multilevel-20261105-170946/files`) + docs. Once the owner pushes them: `git checkout -- <modified files>`, delete the new untracked ones, `git pull --ff-only` | untracked leftovers `frontend/package-lock.json` (M), `package-lock.json`, `"hlarni xavfsiz saqlash"` — pre-existing, not ours |
-| DB (production + local test) | Alembic `f2b6d8a4c1e9` (no migration since) | |
-| Frontend production slot | `.next-a`, deployment `4a7ec3cb-20261105171608` (with the Multilevel overlay) | `.next-b` = previous (rollback) |
-| Last backup | `/var/backups/vizu/pre-multilevel-20261105-170946` (145 tables, 0 differing; import report `multilevel-import-report.json`) | before: `pre-battle-points-20261105-085529` |
+| `origin/main` | `0c5b9b45` (owner push: Multilevel import, keys editor, PDF view) | local machine still has no git; the exam mode (below) is NOT pushed yet |
+| Server checkout | `0c5b9b45` via `git pull --ff-only` (2026-11-06, the previous overlay was identical to it) + **LF overlay "Multilevel exam"** (51 files incl. docs: migration `a3c9e7b5d1f4`, `models/mock_attempt_section.py` + 4 mock models, `services/mock_exam/{multilevel_exam_service,multilevel_service,attempt_service}.py`, `api/mock_exam/{multilevel_exam_router,attempt_router}.py`, `main.py`, `page_management.py`, `protected_local.py`, tests, student `vorbereitung/multilevel/**` + components/service/types, `settings/page.tsx`, `translations.ts`, admin `mock-exams/multilevel`, preview page, nav, label rename files, E2E specs; originals `/var/backups/vizu/pre-multilevel-exam-20261105-220413/files`). Once the owner pushes: `git checkout -- <modified>`, remove the new untracked files, `git pull --ff-only` | untracked leftovers `frontend/package-lock.json` (M), `package-lock.json`, `"hlarni xavfsiz saqlash"` — pre-existing, not ours |
+| DB (production + local test) | Alembic `a3c9e7b5d1f4` (Multilevel exam mode, applied 2026-11-06) | SQL preview in the backup dir |
+| Frontend production slot | `.next-b`, deployment `0c5b9b45-20261105220723` (with the exam overlay) | `.next-a` = previous (rollback) |
+| Last backup | `/var/backups/vizu/pre-multilevel-exam-20261105-220413` (145 tables, 0 differing) | before: `pre-multilevel-20261105-170946` |
 
 ## Content (production)
 
 - Vorbereitung Multilevel (2026-11-05): level "Multilevel B1–C1" (NATIONAL) with Modelltest 1–10, all **DRAFT**. 1–6: 535
   questions in total incl. 7–10; 1–6 keys 0 (PDFs have none) + Hören audio missing (26 Teile) → admin enters keys/audio,
   then publishes; 7–10: 35/35 keys, Hören "Noch nicht verfügbar", Sprechen 1.2 pictures missing. Check-list per test
-  (`docs/multilevel-modelltests.md`). Student player shows content + questions (no keys), no answering yet.
+  (`docs/multilevel-modelltests.md`). Since 2026-11-06 a timed exam mode exists (`/vorbereitung/multilevel`), but **no test
+  is publishable yet**: 1–6 need keys + Hören audio, 7–10 need Hören tasks (guard: all four sections). Scoring settings at
+  defaults (50 = Ungeklärt, overall rule unconfirmed). 0 attempts.
 
 - Battle (2026-11-05): 89 published A1 picture words + 89 published pictures, 6 published themes; all stages playable (A2+ use A1 words).
 - A2: lessons 1–13 published (14 "Wiederholung" draft); Hören 22/27 published (L6 + L13 open, see known-issues).
 - A2 written tasks: Schreiben 25 · Grammatik 5 · Wortschatz 9 · Lesen 1 (`writings.competency`).
 - A2 Wortschatz: 216 words, 32 published test sets. A2 readiness `NEEDS_CONTENT`; sales enabled.
 
-## Last verification (2026-11-05)
+## Last verification (2026-11-06)
+
+- Multilevel exam deploy: local backend 1022 passed / 17 skipped (incl. exam flow + migration up/down/up), frontend tsc +
+  eslint OK, unit 37/37, E2E `multilevel-exam` 3 passed (student desktop + Pixel 7: no level choice, autosave + reload,
+  submit, finish, result /75 /300, history, profile; admin desktop: hub, grading, preview) on a local seed. Production:
+  server unittest 27 OK (5 DB skips), migration f2b6d8a4c1e9 → a3c9e7b5d1f4 (1 table, 2 columns, 3 unique), health 200,
+  11 pages 200, 11 new APIs anonymous 401, strings in `.next-b`, 145 tables counts unchanged vs backup, errors 0, bots
+  active. Not done on production: a real exam run (no published test; no test users allowed there).
 
 - Multilevel deploy: local backend 1010 passed / 23 skipped, frontend tsc + eslint OK; server unittest 9 OK (2 DB skips);
   no migration; health 200; 7 pages 200; new admin APIs anonymous 401; public list of the new level `[]`, draft test /

@@ -5,13 +5,16 @@ PostgreSQL; connection from settings `DATABASE_HOST/PORT/NAME/USER/PASSWORD` (na
 
 ## Migrations
 
-- Linear history, one head. **Head = `f2b6d8a4c1e9`** (see `current-state.md` for production).
+- Linear history, one head. **Head = `a3c9e7b5d1f4`** (see `current-state.md` for production).
 - Latest: `f3a8c1d5e7b2` Global Chat `reply_to_id` → `a6d2f9c4e8b1` `a2_audio_assets` → `b8e3d1a7c5f2` `listenings.task_key` →
   `c4f7a9e2d6b3` `a2_audio_transcripts` → `d7e2b4f8a1c6` A2 module separation (`writings.competency` + CHECK, vocabularies
   grammar fields + `dictionary_entry_id` + `data_sources`, `vocabulary_user_words`, `student_writing_versions`,
   `ai_evaluations.attempt_number`) → `e5a9c3f1b7d2` Battle: 7 new `battle_*` tables (additive; `battle_words.entry_id` →
   `dictionary_entries` ON DELETE SET NULL) → `f2b6d8a4c1e9` `app_releases` (Android APK releases; additive, partial unique
-  index = one `is_latest` per platform).
+  index = one `is_latest` per platform) → `a3c9e7b5d1f4` Multilevel exam mode: `mock_attempt_sections` (per-section
+  deadline, raw points, 0–75 score CHECK, level, grader), `mock_test_attempts.result_level/result_rule`, unique
+  (attempt, question/task) on `mock_question_answers` / `mock_writing_submissions` / `mock_speaking_submissions`
+  (`test_multilevel_exam_migration`).
 - Migration tests (upgrade → downgrade → upgrade): `test_global_chat_reply_migration`,
   `test_listening_task_key_migration`, `test_a2_audio_transcripts_migration`, `test_a2_module_separation`
   (`TestModuleSeparationMigration`), `test_battle_migration`, `test_app_releases_migration`. Rules: `.claude/rules/database.md`.
@@ -36,7 +39,8 @@ PostgreSQL; connection from settings `DATABASE_HOST/PORT/NAME/USER/PASSWORD` (na
   section_results, task_attempts, task_questions, task_options, task_audio, teile, writing_tasks, writing_submissions,
   writing_evaluations, writing_rubric_criteria, speaking_tasks, speaking_submissions, speaking_evaluations
 - **Vorbereitung (mock exams):** mock_exam_levels, model_tests, mock_questions, mock_question_options, mock_question_answers,
-  mock_test_attempts, mock_writing_submissions, mock_speaking_submissions
+  mock_test_attempts, mock_attempt_sections, mock_writing_submissions, mock_speaking_submissions; scoring settings in
+  `app_settings["multilevel_scoring"]`
 - **VIZU-Multilevel:** vizu_mock_attempts, vizu_mock_audios, vizu_mock_tasks, vizu_mock_questions, vizu_mock_options,
   vizu_mock_answers, vizu_mock_writing_tasks, vizu_mock_writing_rubric_criteria, vizu_mock_writing_submissions,
   vizu_mock_writing_criterion_scores, vizu_multilevel_speaking_tasks, vizu_multilevel_speaking_submissions,

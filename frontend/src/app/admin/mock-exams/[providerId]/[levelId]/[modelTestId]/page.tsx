@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, ChevronDown, ChevronRight, Plus, Trash2 } from "lucide-react";
+import { ArrowLeft, ChevronDown, ChevronRight, Eye, Plus, Trash2 } from "lucide-react";
 
 import { AdminButton, AdminInput, AdminLabel, AdminPageHeader } from "@/components/admin/admin-ui";
 import ConfirmDialog from "@/components/admin/confirm-dialog";
@@ -74,6 +74,11 @@ export default function ModelTestEditorPage() {
       <AdminPageHeader
         title={modelTest?.title ?? "Modelltest"}
         description={score ? `Gesamtpunktzahl: ${score.total_points} Punkte` : undefined}
+        action={
+          <Link href={`/admin/mock-exams/${providerId}/${levelId}/${modelTestId}/preview`} data-testid="open-preview">
+            <AdminButton variant="secondary" size="sm"><Eye size={14} /> Vorschau</AdminButton>
+          </Link>
+        }
       />
 
       {modelTest && <ModelTestReviewPanel modelTest={modelTest} />}

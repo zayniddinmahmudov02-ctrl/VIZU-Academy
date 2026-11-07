@@ -43,6 +43,9 @@ class MockTestAttempt(BaseModel):
     total_score: Mapped[int | None] = mapped_column(Integer, nullable=True)
     max_score: Mapped[int | None] = mapped_column(Integer, nullable=True)
     time_spent_seconds: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
+    # Multilevel exam mode: overall level (B1/B2/C1/NICHT_BESTANDEN/UNGEKLAERT) and the rule that produced it
+    result_level: Mapped[str | None] = mapped_column(String(20), nullable=True)
+    result_rule: Mapped[str | None] = mapped_column(String(20), nullable=True)
 
     model_test = relationship("ModelTest")
     user = relationship("User")
@@ -58,6 +61,11 @@ class MockTestAttempt(BaseModel):
     )
     speaking_submissions = relationship(
         "MockSpeakingSubmission",
+        back_populates="attempt",
+        cascade="all, delete-orphan",
+    )
+    sections = relationship(
+        "MockAttemptSection",
         back_populates="attempt",
         cascade="all, delete-orphan",
     )

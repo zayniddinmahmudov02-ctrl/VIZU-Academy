@@ -269,6 +269,9 @@ VIZU-Multilevel level test (student UI name "Stufe Bestimmung" since 2026-11-05;
 "VIZU-Multilevel"; `/vizu-multilevel`, legacy alias `/vizu-mock`, `be/services/vizu_multilevel/`,
 `fe/app/(dashboard)/vizu-multilevel`), Vorbereitung mock exams (`/mock-exam*`, `be/services/mock_exam/`,
 `fe/app/(dashboard)/vorbereitung`; Multilevel Modelltest 1–10 import, keys, source PDF, publish guard:
-`be/services/mock_exam/multilevel_service.py`, `scripts/multilevel_import.py`, `docs/multilevel-modelltests.md`), assessment engine (`be/api/assessment_engine`), certificates
+`be/services/mock_exam/multilevel_service.py`, `scripts/multilevel_import.py`, `docs/multilevel-modelltests.md`; timed
+exam mode + 0–75 scoring + B1/B2/C1 result: `be/services/mock_exam/multilevel_exam_service.py`, student
+`fe/app/(dashboard)/vorbereitung/multilevel/{pruefung,ergebnis}`, admin `fe/app/admin/mock-exams/multilevel`, tests
+`test_multilevel_exam*`, E2E `multilevel-exam.spec.ts`), assessment engine (`be/api/assessment_engine`), certificates
 (`/certificates`, `/my-certificates`), books (`/books`), homework (`/homeworks`), quizzes, exams, calendar,
 notifications, support, advertisements ("Werbung-Banner"), achievements.

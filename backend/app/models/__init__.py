@@ -139,6 +139,7 @@ from .speaking_task import SpeakingTask
 from .mock_question import MockQuestion
 from .mock_question_option import MockQuestionOption
 from .mock_test_attempt import MockTestAttempt
+from .mock_attempt_section import MockAttemptSection
 from .mock_question_answer import MockQuestionAnswer
 from .mock_writing_submission import MockWritingSubmission
 from .mock_speaking_submission import MockSpeakingSubmission
@@ -249,6 +250,7 @@ __all__ = [
     "MockQuestion",
     "MockQuestionOption",
     "MockTestAttempt",
+    "MockAttemptSection",
     "MockQuestionAnswer",
     "MockWritingSubmission",
     "MockSpeakingSubmission",
