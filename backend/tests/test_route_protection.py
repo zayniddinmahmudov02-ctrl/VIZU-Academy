@@ -38,6 +38,8 @@ PUBLIC_ALLOWLIST = {
     # VIZU LMS resource files: short-lived signed resource token issued by
     # GET /lms/lessons/{id} after the lesson access check
     ("GET", "/lms/resources/{resource_id}/file"),
+    # Multilevel exam Hören audio: short-lived signed token issued with the exam paper, bound to one slot and user
+    ("GET", "/multilevel-exam/audio/{content_id}"),
     # Battle: picture of the running round via an HMAC-signed, 90-second token (an <img> can't send a
     # Bearer header; the URL names no word), and admin-uploaded arena backgrounds (not secret)
     ("GET", "/battle/media/{token}"),

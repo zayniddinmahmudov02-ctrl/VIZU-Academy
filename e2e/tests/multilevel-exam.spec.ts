@@ -87,7 +87,7 @@ test.describe.serial("multilevel exam", () => {
     await page.getByRole("button", { name: "Bestätigen" }).click();
     await expect(page).toHaveURL(/\/admin/);
     await expect(page.getByRole("link", { name: "Stufe Bestimmung", exact: true })).toBeVisible();
-    await page.getByRole("link", { name: "Multilevel (National Zertifikat)" }).click();
+    await page.getByRole("link", { name: "Multilevel Modelltest" }).click();
     await expect(page.getByRole("heading", { name: /Multilevel B1–C1 · National Zertifikat/ })).toBeVisible();
     await expect(page.getByRole("heading", { name: "Bewertungsregeln" })).toBeVisible();
     await expect(page.getByTestId("setting-overall")).toHaveValue("UNCONFIRMED");

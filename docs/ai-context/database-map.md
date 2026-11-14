@@ -5,7 +5,10 @@ PostgreSQL; connection from settings `DATABASE_HOST/PORT/NAME/USER/PASSWORD` (na
 
 ## Migrations
 
-- Linear history, one head. **Head = `c7e1f3a9b2d5`** (see `current-state.md` for production).
+- Linear history, one head. **Head = `e8b4d2f6a1c3`** (see `current-state.md` for production).
+- `e8b4d2f6a1c3` (2026-11-15): `audio_files` (ORIGINAL / TRIMMED rows of the central audio service, private files in
+  the lesson-listening storage, `source_id` → original is kept) + nullable `listening_contents.audio_file_id`
+  (Multilevel Hören Teil → its audio; `audio_url` carries the marker `mlaudio:<id>`) (`test_multilevel_audio_migration`).
 - `c7e1f3a9b2d5` (2026-11-14): `course_packages` (seeded: A1/A2 keep the price in force, B1 100 000/60 d, A1–B1
   200 000/180 d, A1–C1 400 000/365 d, B2/C1/B2–C1 COMING_SOON), `subscription_orders.included_levels`,
   `promo_codes.requires_approval`, `promo_code_requests` (`test_course_packages_migration`).

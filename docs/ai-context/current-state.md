@@ -8,10 +8,10 @@ Updated 2026-11-14.
 | --- | --- | --- |
 | `origin/main` | `f8a2db36` (owner push = Multilevel exam overlay) | local machine still has no git; course packages / promo approval / en+ru (below) are NOT pushed yet |
 | Server checkout | `f8a2db36` (fast-forward 2026-11-14, the exam overlay was byte-identical) + **LF overlay "Course packages"** (64 files + docs, list = `overlay-replaced.txt` / `packages_overlay.tar` in the backup dir, originals `overlay-originals.tar`; migration file re-sent once: offline-renderable seed, `mig_fix.tar`). Once the owner pushes: `git checkout -- <modified>`, remove the new untracked files, `git pull --ff-only` | leftovers `frontend/package-lock.json` (M), `package-lock.json`, `"hlarni xavfsiz saqlash"` — pre-existing, not ours |
-| DB (production + local test) | Alembic `c7e1f3a9b2d5` (course packages + promo approval, applied 2026-11-14) | SQL preview `migration-c7e1f3a9b2d5.sql` in the backup dir |
-| Frontend production slot | `.next-b`, deployment `f8a2db36-20261114173636` (packages + lesson-gating overlays) | `.next-a` = previous (rollback) |
-| Last backup | `/var/backups/vizu/pre-lesson-gating-20261114-173439` (DB dump + 26 replaced files; no migration) | before: `pre-course-packages-20261114-162634` (146 tables, 0 differing) |
-| Overlay 2 "Lesson gating" (2026-11-14) | 26 files (list `overlay-replaced.txt` + `gate_overlay.tar` in that backup dir) on top of overlay 1 | not pushed either |
+| DB (production + local test) | Alembic `e8b4d2f6a1c3` (audio_files + `listening_contents.audio_file_id`, applied 2026-11-15; before: `c7e1f3a9b2d5` course packages) | SQL preview `migration-e8b4d2f6a1c3.sql` in the backup dir |
+| Frontend production slot | `.next-a`, deployment `f8a2db36-20261114220859` (packages + lesson-gating + audio overlays) | `.next-b` = previous (rollback) |
+| Last backup | `/var/backups/vizu/pre-audio-trim-20261114-220728` (DB dump + 32 replaced files) | before: `pre-lesson-gating-20261114-173439`, `pre-course-packages-20261114-162634` |
+| Overlays 2 + 3 | 2 "Lesson gating" (26 files, `gate_overlay.tar`), 3 "Audio trim + Multilevel Audio" (32 files, `audio_overlay.tar`, lists `overlay-replaced.txt`) on top of overlay 1 | none pushed |
 
 ## Packages (production, 2026-11-14)
 
@@ -34,7 +34,19 @@ bundle strike-through prices) are no longer read. 33 orders, 2 promo codes, 0 ap
 - A2 written tasks: Schreiben 25 · Grammatik 5 · Wortschatz 9 · Lesen 1 (`writings.competency`).
 - A2 Wortschatz: 216 words, 32 published test sets. A2 readiness `NEEDS_CONTENT`; sales enabled.
 
-## Last verification (2026-11-14)
+## Last verification (2026-11-15)
+
+- Audio trim + Multilevel Audio deploy: local backend 1036 passed / 17 skipped (new `test_multilevel_audio` 5 with real
+  ffmpeg WAV/MP3/M4A trims, migration up/down/up, 401/403), frontend tsc + eslint OK, unit 45/45, E2E `multilevel-audio`
+  7 passed (desktop + Pixel 7) and regression specs (multilevel-exam, a2 audio manager, a2 lesson 4, admin, purchase,
+  lesson-gating) green. Production: server unittest 55 OK (19 DB/ffmpeg skips), migration c7e1f3a9b2d5 → e8b4d2f6a1c3
+  (additive), health 200, new endpoints anonymous 401, Multilevel Audio overview 26 slots (MT1 6, MT2–6 4, MT7–10 none),
+  ffmpeg + ffprobe present (existing file probed, a 2 s cut of it made in /tmp and deleted), orders / users unchanged, bots
+  active. Not done on production: a real upload / trim (no test audio allowed there) — owner's first upload is the live test.
+  Local A2 specs (`a2-audio-manager`, `a2-lesson4-hoeren`) need their seeds + `a2_lesson4_hoeren apply --confirm <id> --backup-dir`
+  before each run (stateful); `a2-audio-manager` now expects A2 purchasable (packages).
+
+## Earlier verification (2026-11-14)
 
 - Lesson gating deploy: local backend 1029 passed / 17 skipped (new `test_lesson_purchase_gating` 8), frontend tsc + eslint
   OK, unit 40/40, E2E `lesson-gating` + `purchase` 11 passed (desktop + Pixel 7: Bepul badge, sheet text, Ortga qaytish,

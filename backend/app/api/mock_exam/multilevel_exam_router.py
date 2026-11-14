@@ -157,8 +157,8 @@ def statistics(db: Session = Depends(get_db), _: User = Depends(require_teacher_
 
 
 @admin_router.get("/model-tests/{model_test_id}/preview")
-def preview(model_test_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
-    return svc.admin_preview(db, model_test_id)
+def preview(model_test_id: UUID, db: Session = Depends(get_db), user: User = Depends(require_admin_panel_access)):
+    return svc.admin_preview(db, model_test_id, user.id)
 
 
 @admin_router.get("/settings")

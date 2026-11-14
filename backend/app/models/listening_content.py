@@ -18,10 +18,15 @@ class ListeningContent(BaseModel):
         index=True,
     )
     audio_url: Mapped[str] = mapped_column(Text, nullable=False)
+    # Multilevel Audio (admin page): the private file the exam plays; wins over a legacy `audio_url`
+    audio_file_id: Mapped[UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("audio_files.id", ondelete="SET NULL", name="fk_listening_contents_audio_file_id"), nullable=True, index=True,
+    )
     image_url: Mapped[str | None] = mapped_column(Text, nullable=True)
     transcript: Mapped[str | None] = mapped_column(Text, nullable=True)
 
     teil = relationship("Teil", back_populates="listening_content")
+    audio_file = relationship("AudioFile")
     questions = relationship(
         "MockQuestion",
         primaryjoin="ListeningContent.id == foreign(MockQuestion.listening_content_id)",

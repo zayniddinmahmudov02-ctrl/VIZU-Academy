@@ -30,6 +30,9 @@ Endpoint details: open the router file. Auth deps: `backend/app/api/dependencies
 | `/mock-exam`, `/mock-exam/public` | `mock_exam/*_router.py` | mixed |
 | `/multilevel-exam` (exams, history, attempts, sections start/paper/answers/submit, writing, speaking upload, finish, results, own recordings) | `mock_exam/multilevel_exam_router.py` | `get_current_user`, own attempts only (else 404) |
 | `/admin/multilevel-exam` (attempts, attempt detail, `PUT .../sections/{type}/grade`, recordings, statistics, `model-tests/{id}/preview`, settings) | `mock_exam/multilevel_exam_router.py` | results/grading/recordings/statistics `require_teacher_panel_access`; preview + settings read `require_admin_panel_access`; settings write `require_super_admin` |
+| `/admin/audio-files` (`POST` upload original, `POST /{id}/trim`, `GET /{id}`, `GET /{id}/file` preview) | `audio_files/router.py` | write `require_content_editor`, read `require_admin_panel_access` |
+| `/admin/multilevel-audio` (list, `GET\|PUT\|DELETE /slots/{content_id}`, `POST …/trim`, `GET …/file`) | `audio_files/router.py` | write `require_content_editor`, read `require_admin_panel_access`; slot of another provider/level → 404 |
+| `GET /multilevel-exam/audio/{content_id}?token=` | `audio_files/router.py` | public by design: signed token issued with the exam paper (slot + user bound, published tests only for non-staff) |
 | `/mock-exam` `PUT questions/{id}/key\|text`, `PUT question-options/{id}/text`, `GET model-tests/{id}/review\|source-pdf` | `mock_exam/content_router.py` | `require_super_admin`; public `kompetenzen/{id}` returns questions without keys (`PublicQuestion`) |
 | `/certificates` (only `/api/v1`), `/my-certificates` | `v1/certificate/` | public verify / own |
 | `/upload` `/media-library` | legacy upload | staff |

@@ -112,7 +112,8 @@ test.describe.serial("A2 Audio Manager", () => {
     // A2 is not for sale yet: the price shown is the backend's, the checkout refuses
     const offers = await (await fetch(`${API_URL}/api/v1/vizu-pay/offers`, { headers: auth })).json();
     const a2offer = (Array.isArray(offers) ? offers : offers.offers).find((o: { code: string }) => o.code === "A2");
-    expect(a2offer).toMatchObject({ sale_price: 99000, purchasable: false });
+    // since the 2026-11-14 course packages A2 is an ACTIVE package (99 000, purchasable); the lessons stay closed to non-buyers
+    expect(a2offer).toMatchObject({ sale_price: 99000, purchasable: true });
 
     const context = await browser.newContext();
     const studentPage = await context.newPage();

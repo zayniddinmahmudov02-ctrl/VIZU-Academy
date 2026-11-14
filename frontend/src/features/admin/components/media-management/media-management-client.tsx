@@ -3,9 +3,11 @@
 import { Fragment, useMemo, useRef, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
-import { AlertTriangle, Eye, EyeOff, FileText, Film, ListMusic, Music, Play, RefreshCw, Search, Trash2, Upload, X } from "lucide-react";
+import { AlertTriangle, Eye, EyeOff, FileText, Film, ListMusic, Music, Play, RefreshCw, Scissors, Search, Trash2, Upload, X } from "lucide-react";
 
 import AudioSlotsPanel from "./audio-slots-panel";
+import AudioTrimmerDialog from "@/features/admin/components/audio/audio-trimmer-dialog";
+import { getAudioFileBlob } from "@/features/admin/services/audio-files-service";
 import A2AudioManager from "./a2-audio-manager";
 import A2AudioProcessing from "./a2-audio-processing";
 import A2ListeningManagement from "./a2-listening-management";
@@ -133,8 +135,12 @@ export default function MediaManagementClient({ initialLevel = "" }: { initialLe
   const audioInput = useRef<HTMLInputElement>(null);
   const audioTarget = useRef<string | null>(null);
 
-  function pickAudio(listeningId: string) {
+  const audioTrim = useRef(false);
+  const [trimming, setTrimming] = useState<{ file: File; id: string } | null>(null);
+
+  function pickAudio(listeningId: string, trim = false) {
     audioTarget.current = listeningId;
+    audioTrim.current = trim;
     audioInput.current?.click();
   }
 
@@ -144,7 +150,11 @@ export default function MediaManagementClient({ initialLevel = "" }: { initialLe
     if (!file || !id) return;
     if (!/\.(mp3|wav|m4a)$/i.test(file.name)) return setMessage({ ok: false, text: "Nur MP3, WAV oder M4A." });
     if (file.size > AUDIO_MAX) return setMessage({ ok: false, text: "Die Datei ist größer als 100 MB." });
-    const duration = await readDuration(file, "audio");
+    if (audioTrim.current) return setTrimming({ file, id }); // upload + trim dialog (reusable AudioTrimmerDialog)
+    await uploadAudio(id, file, await readDuration(file, "audio"));
+  }
+
+  async function uploadAudio(id: string, file: File, duration: number | null) {
     setAudioPercent(0);
     await run(id, () => uploadListeningAudio(id, file, duration, setAudioPercent), "Audio hochgeladen.", "Audio-Upload fehlgeschlagen.");
     setAudioPercent(null);
@@ -271,6 +281,9 @@ export default function MediaManagementClient({ initialLevel = "" }: { initialLe
                   <AdminButton disabled={!audioTask || busyUpload} onClick={() => pickAudio(audioTask)} data-testid="mm-audio-upload-btn">
                     <Upload size={15} /> Audio auswählen und hochladen
                   </AdminButton>
+                  <AdminButton variant="secondary" disabled={!audioTask || busyUpload} onClick={() => pickAudio(audioTask, true)} data-testid="mm-audio-trim-btn">
+                    <Scissors size={15} /> Audio auswählen, kürzen und hochladen
+                  </AdminButton>
                 </>
               )}
               <p className="text-xs text-[var(--admin-text-muted)]">MP3, WAV, M4A · max. 100 MB · Inhalt wird serverseitig geprüft.</p>
@@ -278,6 +291,23 @@ export default function MediaManagementClient({ initialLevel = "" }: { initialLe
           </div>
         )}
         <UploadProgressPanel progress={video.progress} label="Video wird hochgeladen" onCancel={video.cancel} onRetry={video.reset} />
+        {trimming && (
+          <AudioTrimmerDialog
+            key={`${trimming.file.name}-${trimming.file.size}`}
+            file={trimming.file}
+            title="Audio hochladen und kürzen"
+            applyLabel="In Aufgabe speichern"
+            onCancel={() => setTrimming(null)}
+            onDone={async (info) => {
+              // the cut (or the original uncut) goes through the existing task upload — nothing else changes
+              const blob = await getAudioFileBlob(info.id);
+              const next = new File([blob], info.original_name ?? trimming.file.name, { type: info.content_type });
+              const id = trimming.id;
+              setTrimming(null);
+              await uploadAudio(id, next, info.duration_ms ? Math.round(info.duration_ms / 1000) : null);
+            }}
+          />
+        )}
         {audioPercent !== null && (
           <div className="space-y-1" data-testid="mm-audio-progress">
             <p className="text-xs text-[var(--admin-text-secondary)]">Audio wird hochgeladen … {audioPercent}%</p>

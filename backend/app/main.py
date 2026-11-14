@@ -108,6 +108,9 @@ from app.api.mock_exam.analytics_router import router as mock_exam_analytics_rou
 from app.api.mock_exam.public_router import router as mock_exam_public_router
 from app.api.mock_exam.multilevel_exam_router import admin_router as multilevel_exam_admin_router
 from app.api.mock_exam.multilevel_exam_router import router as multilevel_exam_router
+from app.api.audio_files.router import files_router as audio_files_router
+from app.api.audio_files.router import slots_router as multilevel_audio_router
+from app.api.audio_files.router import stream_router as multilevel_audio_stream_router
 
 # VIZU-Multilevel (standalone free level-check — see the model's
 # own docstring)
@@ -312,6 +315,9 @@ _ALL_ROUTERS = [
     mock_exam_public_router,
     multilevel_exam_router,
     multilevel_exam_admin_router,
+    audio_files_router,
+    multilevel_audio_router,
+    multilevel_audio_stream_router,
     vizu_multilevel_router,
     vizu_mock_legacy_router,
     advertisements_router,

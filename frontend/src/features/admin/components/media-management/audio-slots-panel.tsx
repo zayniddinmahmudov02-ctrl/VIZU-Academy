@@ -1,10 +1,12 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { AlertTriangle, Pencil, Play, Plus, Trash2, Upload, X } from "lucide-react";
+import { AlertTriangle, Pencil, Play, Plus, Scissors, Trash2, Upload, X } from "lucide-react";
 
 import { AdminButton, AdminInput } from "@/components/admin/admin-ui";
 import ConfirmDialog from "@/components/admin/confirm-dialog";
+import AudioTrimmerDialog from "@/features/admin/components/audio/audio-trimmer-dialog";
+import { getAudioFileBlob } from "@/features/admin/services/audio-files-service";
 import {
   addAudioTrack, apiErrorMessage, clearAudioTrackFile, deleteAudioTrack, deleteListeningAudio, getAudioTrackBlobUrl, setMainAudioLabel, updateAudioTrack,
   uploadListeningAudio, type AudioSlot,
@@ -39,7 +41,8 @@ function readDuration(file: File): Promise<number | null> {
  * extra slot can be removed with ✕. */
 export default function AudioSlotsPanel({ listeningId, slots, onChanged }: { listeningId: string; slots: AudioSlot[]; onChanged: () => void | Promise<unknown> }) {
   const input = useRef<HTMLInputElement>(null);
-  const pending = useRef<{ slot: string | null; label: string | null }>({ slot: null, label: null });
+  const pending = useRef<{ slot: string | null; label: string | null; trim: boolean }>({ slot: null, label: null, trim: false });
+  const [trimming, setTrimming] = useState<{ file: File; slot: string | null; label: string | null } | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
   const [percent, setPercent] = useState<number | null>(null);
   const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
@@ -63,18 +66,22 @@ export default function AudioSlotsPanel({ listeningId, slots, onChanged }: { lis
     }
   }
 
-  function pick(slot: string | null, label: string | null = null) {
-    pending.current = { slot, label };
+  function pick(slot: string | null, label: string | null = null, trim = false) {
+    pending.current = { slot, label, trim };
     input.current?.click();
   }
 
   async function onFile(file: File | undefined) {
     if (input.current) input.current.value = "";
-    const { slot, label } = pending.current;
+    const { slot, label, trim } = pending.current;
     if (!file) return;
     if (!/\.(mp3|wav|m4a)$/i.test(file.name)) return setMsg({ ok: false, text: "Nur MP3, WAV oder M4A." });
     if (file.size > AUDIO_MAX) return setMsg({ ok: false, text: "Die Datei ist größer als 100 MB." });
-    const duration = await readDuration(file);
+    if (trim) return setTrimming({ file, slot, label }); // upload + trim dialog (reusable AudioTrimmerDialog)
+    await upload(file, slot, label, await readDuration(file));
+  }
+
+  async function upload(file: File, slot: string | null, label: string | null, duration: number | null) {
     setPercent(0);
     if (slot === null) {
       await run("new", () => addAudioTrack(listeningId, label ?? "", file, duration, setPercent), `„${label}“ hochgeladen.`, "Upload fehlgeschlagen.");
@@ -132,6 +139,8 @@ export default function AudioSlotsPanel({ listeningId, slots, onChanged }: { lis
                 <AdminButton size="sm" variant="secondary" disabled={!ok} onClick={() => play(s)} title="Anhören" aria-label={`${s.label ?? "Audio"} anhören`}><Play size={13} /></AdminButton>
                 <AdminButton size="sm" variant="secondary" disabled={busy !== null || percent !== null} onClick={() => pick(s.id)} title={ok ? "Datei ersetzen" : "Datei hochladen"}
                              aria-label={`${s.label ?? "Audio"} ${ok ? "ersetzen" : "hochladen"}`} data-testid="audio-slot-replace"><Upload size={13} /></AdminButton>
+                <AdminButton size="sm" variant="secondary" disabled={busy !== null || percent !== null} onClick={() => pick(s.id, null, true)} title="Hochladen und kürzen"
+                             aria-label={`${s.label ?? "Audio"}: hochladen und kürzen`} data-testid="audio-slot-trim"><Scissors size={13} /></AdminButton>
                 <AdminButton size="sm" variant="secondary" disabled={busy !== null} onClick={() => setEditing({ id: s.id, label: s.label ?? "" })} title="Bezeichnung ändern"
                              aria-label="Bezeichnung ändern"><Pencil size={13} /></AdminButton>
                 <AdminButton size="sm" variant="danger" disabled={busy !== null || s.file_status === "none" || s.file_status === "external"}
@@ -151,10 +160,28 @@ export default function AudioSlotsPanel({ listeningId, slots, onChanged }: { lis
         <div className="flex flex-wrap items-center gap-2">
           <AdminInput className="h-8 w-56" value={adding} maxLength={120} placeholder="Bezeichnung, z. B. Audio von Alex" autoFocus onChange={(e) => setAdding(e.target.value)} />
           <AdminButton size="sm" disabled={!adding.trim() || percent !== null} onClick={() => pick(null, adding.trim())} data-testid="audio-slot-add-file"><Upload size={13} /> Datei wählen</AdminButton>
+          <AdminButton size="sm" variant="secondary" disabled={!adding.trim() || percent !== null} onClick={() => pick(null, adding.trim(), true)} data-testid="audio-slot-add-trim"><Scissors size={13} /> Wählen und kürzen</AdminButton>
           <AdminButton size="sm" variant="ghost" onClick={() => setAdding(null)}>Abbrechen</AdminButton>
         </div>
       ) : (
         <AdminButton size="sm" variant="ghost" onClick={() => setAdding("")} disabled={busy !== null} data-testid="audio-slot-add"><Plus size={13} /> Weitere Audiodatei (Spur) hinzufügen</AdminButton>
+      )}
+      {trimming && (
+        <AudioTrimmerDialog
+          key={`${trimming.file.name}-${trimming.file.size}`}
+          file={trimming.file}
+          title="Audio hochladen und kürzen"
+          applyLabel="In Slot speichern"
+          onCancel={() => setTrimming(null)}
+          onDone={async (info) => {
+            // the cut (or the original, uncut) goes through the existing slot upload — nothing else changes
+            const blob = await getAudioFileBlob(info.id);
+            const next = new File([blob], info.original_name ?? trimming.file.name, { type: info.content_type });
+            const { slot, label } = trimming;
+            setTrimming(null);
+            await upload(next, slot, label, info.duration_ms ? Math.round(info.duration_ms / 1000) : null);
+          }}
+        />
       )}
       {percent !== null && <p className="text-xs text-[var(--admin-text-secondary)]">Wird hochgeladen … {percent}%</p>}
       {msg && <p role="status" className={`text-xs ${msg.ok ? "text-[var(--admin-success)]" : "text-[var(--admin-danger)]"}`}>{msg.text}</p>}

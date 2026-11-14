@@ -123,6 +123,7 @@ from .promo_code import PromoCode
 from .promo_code_redemption import PromoCodeRedemption
 from .promo_code_request import PromoCodeRequest
 from .course_package import CoursePackage
+from .audio_file import AudioFile
 from .subscription_order import SubscriptionOrder
 
 # Media Library
@@ -236,6 +237,7 @@ __all__ = [
     "PromoCodeRedemption",
     "PromoCodeRequest",
     "CoursePackage",
+    "AudioFile",
     "SubscriptionOrder",
 
     # Media Library

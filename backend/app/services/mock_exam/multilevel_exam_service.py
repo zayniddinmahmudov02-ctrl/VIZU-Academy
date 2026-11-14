@@ -324,7 +324,19 @@ def _open_section(db: Session, user: User, attempt_id: UUID, section_type: str) 
 # ============================================================
 
 
-def _paper(db: Session, kompetenz: Kompetenz, with_keys: bool = False) -> list[dict]:
+def _audio_src(lc: ListeningContent | None, user_id: UUID | None) -> str | None:
+    """The player URL: a Multilevel Audio file gets a short-lived signed stream URL (private storage, rechecked per
+    request); a legacy `audio_url` is returned as before; no audio -> None (the paper says so, nothing breaks)."""
+    if lc is None:
+        return None
+    if lc.audio_file_id:
+        from app.services.mock_exam import multilevel_audio
+
+        return multilevel_audio.signed_url(lc, user_id)
+    return (lc.audio_url or None)
+
+
+def _paper(db: Session, kompetenz: Kompetenz, with_keys: bool = False, user_id: UUID | None = None) -> list[dict]:
     teile = db.scalars(select(Teil).where(Teil.kompetenz_id == kompetenz.id).order_by(Teil.sort_order))
     out = []
     for teil in teile:
@@ -338,7 +350,7 @@ def _paper(db: Session, kompetenz: Kompetenz, with_keys: bool = False) -> list[d
         kind = "reading" if rc else "listening" if lc else "writing" if wt else "speaking" if st else "empty"
         out.append({"id": teil.id, "kind": kind, "title": teil.title, "instructions": teil.instructions, "description": teil.description,
                     "text": rc.text if rc else None, "image_url": (rc.image_url if rc else None) or (lc.image_url if lc else None),
-                    "audio_url": (lc.audio_url or None) if lc else None,
+                    "audio_url": _audio_src(lc, user_id),
                     "writing_task": {"id": wt.id, "task_text": wt.task_text, "word_limit": wt.word_limit, "image_url": wt.image_url,
                                      **({"evaluation_rubric": wt.evaluation_rubric} if with_keys else {})} if wt else None,
                     "speaking_task": {"id": st.id, "task_text": st.task_text, "image_url": st.image_url,
@@ -359,19 +371,19 @@ def section_paper(db: Session, user: User, attempt_id: UUID, section_type: str) 
     recordings = {r.speaking_task_id: r.submitted_at for r in
                   db.scalars(select(MockSpeakingSubmission).where(MockSpeakingSubmission.attempt_id == attempt.id))}
     return {"attempt_id": attempt.id, "section_type": section_type, "title": k.title, "remaining_seconds": _remaining(s),
-            "deadline_at": s.deadline_at, "teile": _paper(db, k),
+            "deadline_at": s.deadline_at, "teile": _paper(db, k, user_id=user.id),
             "answers": {str(q): [str(v) for v in ids] for q, ids in answers.items()},
             "writings": {str(t): v for t, v in writings.items()},
             "recordings": {str(t): v for t, v in recordings.items()}}
 
 
-def admin_preview(db: Session, model_test_id: UUID) -> dict:
+def admin_preview(db: Session, model_test_id: UUID, user_id: UUID | None = None) -> dict:
     test = db.get(ModelTest, model_test_id)
     if test is None:
         raise _err(404, "MODEL_TEST_NOT_FOUND")
     komps = _kompetenzen(db, test.id)
     return {"model_test_id": test.id, "title": test.title, "status": test.status, "gaps": exam_gaps(db, test.id),
-            "sections": [{"type": t, "title": komps[t].title, "duration_minutes": _duration(komps[t]), "teile": _paper(db, komps[t], with_keys=True)}
+            "sections": [{"type": t, "title": komps[t].title, "duration_minutes": _duration(komps[t]), "teile": _paper(db, komps[t], with_keys=True, user_id=user_id)}
                          if t in komps else {"type": t, "title": t, "duration_minutes": 0, "teile": []} for t in SECTIONS]}
 
 

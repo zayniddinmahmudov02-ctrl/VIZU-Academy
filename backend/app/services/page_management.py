@@ -57,6 +57,7 @@ _ROUTES = (
     ("/admin/mock-exams/analytics", "Mock exam analytics", "Mock exams", "ADMIN_PAGE", "mock_exams", False, False),
     ("/admin/mock-exams/[providerId]/[levelId]/[modelTestId]/preview", "Mock exam preview", "Mock exams", "ADMIN_PAGE", "mock_exams", False, False),
     ("/admin/mock-exams/multilevel", "Multilevel Ergebnisse", "Mock exams", "ADMIN_PAGE", "mock_exams", False, False),
+    ("/admin/mock-exams/multilevel-audio", "Multilevel Audio", "Mock exams", "ADMIN_PAGE", "mock_exams", False, False),
     ("/admin/vizu-multilevel", "Stufe Bestimmung", "Exams", "ADMIN_PAGE", "exams", True, False),
     ("/admin/users", "Users", "Users", "ADMIN_PAGE", "users", True, False),
     ("/admin/team", "Team", "Users", "ADMIN_PAGE", "users", True, False),

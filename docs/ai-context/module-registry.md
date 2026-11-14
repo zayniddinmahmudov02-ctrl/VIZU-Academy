@@ -165,6 +165,10 @@ API prefixes are listed without `/api/v1` (every router is mounted bare and unde
 - **Frontend:** `fe/app/admin/media-management/{page,hoeren-a1,a2/lesson-4/hoeren}`,
   `fe/features/admin/components/media-management/` (`media-management-client`, `a2-audio-manager`,
   `a2-audio-processing`, `a2-lesson4-hoeren-client`, `audio-slots-panel`), service `media-management-service.ts` (BOM).
+- **Audio upload + trim (central, reused):** `be/services/audio_files/service.py` (store ORIGINAL, ffmpeg trim into a new
+  TRIMMED file, original kept; ffmpeg/ffprobe via `FFMPEG_BIN`/`FFPROBE_BIN` or PATH, no new dependency), `/admin/audio-files`
+  (`be/api/audio_files/router.py`); UI `fe/features/admin/components/audio/audio-trimmer-dialog.tsx` used by Media
+  Management (`mm-audio-trim-btn`, slot scissors button) and Multilevel Audio. The plain upload buttons are unchanged.
 - **Scripts:** `a2_audio_processing`, `a2_lesson4_hoeren`, `a2_audio_cleanup`, `a2_audio_manifest`, `a2_audio_inventory`.
 - **Tests:** `test_a2_audio_manager`, `test_a2_audio_management`, `test_a2_lesson4_hoeren`, `test_a2_audio_processing`,
   `test_video*`; E2E `a2-*.spec.ts`. Skill: `vizu-media`.
@@ -289,6 +293,10 @@ VIZU-Multilevel level test (student UI name "Stufe Bestimmung" since 2026-11-05;
 `be/services/mock_exam/multilevel_service.py`, `scripts/multilevel_import.py`, `docs/multilevel-modelltests.md`; timed
 exam mode + 0–75 scoring + B1/B2/C1 result: `be/services/mock_exam/multilevel_exam_service.py`, student
 `fe/app/(dashboard)/vorbereitung/multilevel/{pruefung,ergebnis}`, admin `fe/app/admin/mock-exams/multilevel`, tests
-`test_multilevel_exam*`, E2E `multilevel-exam.spec.ts`), assessment engine (`be/api/assessment_engine`), certificates
+`test_multilevel_exam*`, E2E `multilevel-exam.spec.ts`; **Multilevel Audio** (admin `/admin/mock-exams/multilevel-audio`,
+one slot per Hören Teil of every Multilevel Modelltest; upload / trim / replace / delete play in that exam task at once;
+exam paper gets a signed `/multilevel-exam/audio/{id}?token=` URL): `be/services/mock_exam/multilevel_audio.py`,
+`be/api/audio_files/router.py`, `fe/features/admin/components/mock-exam/multilevel-audio-client.tsx`, tests
+`test_multilevel_audio*`, E2E `multilevel-audio.spec.ts`), assessment engine (`be/api/assessment_engine`), certificates
 (`/certificates`, `/my-certificates`), books (`/books`), homework (`/homeworks`), quizzes, exams, calendar,
 notifications, support, advertisements ("Werbung-Banner"), achievements.
