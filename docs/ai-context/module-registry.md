@@ -300,3 +300,22 @@ exam paper gets a signed `/multilevel-exam/audio/{id}?token=` URL): `be/services
 `test_multilevel_audio*`, E2E `multilevel-audio.spec.ts`), assessment engine (`be/api/assessment_engine`), certificates
 (`/certificates`, `/my-certificates`), books (`/books`), homework (`/homeworks`), quizzes, exams, calendar,
 notifications, support, advertisements ("Werbung-Banner"), achievements.
+
+## 22. VIZU Medienwelt (Bibliothek · Musik · Filme)
+
+- **Purpose:** student media centre (`/medien`) + admin management (`/admin/medien`). Content: books (PDF), songs, films
+  with categories, FREE / PAID (+ old price, special offer, featured), Published / Draft / Hidden. Separate from the course
+  `books` and lesson `videos` (those are level-gated course material).
+- **Backend:** `be/api/medien/{router,admin_router}.py` (`/medien`, `/admin/medien`), services `be/services/medien/{common,catalog,admin}.py`,
+  models `be/models/medien.py`, storage `ProtectedMedienStorage` (`app/protected_storage/medien`: books, songs, films, covers,
+  subtitles, chunks). Duration of songs / videos via ffprobe/ffmpeg (`services/audio_files`).
+- **Security:** a student gets a file only through `POST …/open|play|watch` (access check → short-lived signed URL) and
+  `GET /medien/stream/{kind}/{id}?token=` (checks access again, HTTP Range via FileResponse). PAID = a GRANTED `media_purchases`
+  row (student request → Super Admin grants/rejects/revokes, or direct grant by e-mail; no money is handled here). Covers are the
+  only public files (`/medien/cover/…`). Uploads checked by content, size, random names; delete = row first, then files.
+- **Frontend:** student `fe/app/(dashboard)/medien/*` + `fe/features/medien/` (global player store + `GlobalAudioPlayer` in the
+  dashboard layout: one `<audio>`, queue/position/volume restored after reload, Media Session; `PdfReader` = pdf.js
+  (`pdfjs-dist@5.4.449`, page + zoom + fullscreen, last page saved); `FilmPlayer` (speed, subtitles de/uz as clickable-word
+  overlay, event `medien:subtitle-word` for a later dictionary link, progress incl. keepalive save)); admin
+  `fe/app/admin/medien/*` + `fe/features/admin/components/medien/` (bulk song upload ≤ 10 with per-file progress, chunked film video upload).
+- **Tests:** `test_medien`, `test_medien_migration`; E2E `medien.spec.ts`. Texts: namespace `medien` (uz/de in `translations.ts`, en/ru in `extra/part9.ts`).

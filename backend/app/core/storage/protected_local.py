@@ -139,6 +139,14 @@ class ProtectedMockExamSpeakingStorage(LocalStorage):
     ROOT = Path("app/protected_storage/mock-exam-speaking")
 
 
+class ProtectedMedienStorage(LocalStorage):
+    """VIZU Medienwelt files ("books/", "songs/", "films/", "covers/", "subtitles/", "chunks/" + random names). Outside the
+    public /uploads mount; content files are streamed only by the access-checked `/medien/stream/...` endpoints (signed
+    token, rechecked per request, HTTP Range), covers by the cacheable `/medien/cover/...` endpoint."""
+
+    ROOT = Path("app/protected_storage/medien")
+
+
 class ProtectedAppReleaseStorage(LocalStorage):
     """Android APK release files (app_releases), random names. Outside the public /uploads mount; streamed
     only by GET /app/android/latest.apk (latest published release) or the Super Admin download endpoint."""

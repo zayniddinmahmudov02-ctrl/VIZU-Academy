@@ -9,6 +9,7 @@ import Sidebar from "./sidebar";
 import MobileNav from "./mobile-nav";
 import PageTransition from "@/components/motion/page-transition";
 import GlobalChatWidget from "@/features/global-chat/components/global-chat-widget";
+import GlobalAudioPlayer from "@/features/medien/components/global-audio-player";
 import { cn } from "@/lib/utils";
 
 interface Props {
@@ -37,6 +38,9 @@ export default function DashboardLayout({ children }: Props) {
             <PageTransition>{children}</PageTransition>
           </section>
         </main>
+
+        {/* Medien → Musik: the one persistent player, a sticky bar under the page (the <audio> element lives here for good) */}
+        <GlobalAudioPlayer />
       </div>
 
       <GlobalChatWidget />

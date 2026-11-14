@@ -6,6 +6,7 @@ import {
   Info,
   LayoutDashboard,
   LifeBuoy,
+  Library,
   Settings,
   Tag,
   Users,
@@ -48,6 +49,11 @@ export const sidebarItems = [
     titleKey: "sidebar.battle",
     href: "/battle",
     icon: BattleIcon,
+  },
+  {
+    titleKey: "sidebar.medien",
+    href: "/medien",
+    icon: Library,
   },
   {
     titleKey: "sidebar.informationen",

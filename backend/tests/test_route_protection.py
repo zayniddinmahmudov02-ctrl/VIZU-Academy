@@ -40,6 +40,11 @@ PUBLIC_ALLOWLIST = {
     ("GET", "/lms/resources/{resource_id}/file"),
     # Multilevel exam Hören audio: short-lived signed token issued with the exam paper, bound to one slot and user
     ("GET", "/multilevel-exam/audio/{content_id}"),
+    # Medienwelt: cover / poster images (the only public files) and token-authorized streams (signed token from an
+    # access-checked call, access rechecked per request: PAID files need a purchase)
+    ("GET", "/medien/cover/{kind}/{item_id}"),
+    ("GET", "/medien/stream/{kind}/{item_id}"),
+    ("GET", "/medien/subtitles/{subtitle_id}"),
     # Battle: picture of the running round via an HMAC-signed, 90-second token (an <img> can't send a
     # Bearer header; the URL names no word), and admin-uploaded arena backgrounds (not secret)
     ("GET", "/battle/media/{token}"),

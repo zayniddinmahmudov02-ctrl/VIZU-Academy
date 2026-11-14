@@ -7,6 +7,7 @@ export const part1: Record<string, Record<string, [string, string]>> = {
     certificates: ["Certificates", "Сертификаты"],
     dictionary: ["Dictionary", "Словарь"],
     battle: ["Battle", "Battle"],
+    medien: ["Media", "Медиа"],
     groups: ["Groups", "Группы"],
     informationen: ["Information", "Информация"],
     angebote: ["Purchase", "Покупка"],

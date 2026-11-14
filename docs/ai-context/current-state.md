@@ -8,10 +8,10 @@ Updated 2026-11-14.
 | --- | --- | --- |
 | `origin/main` | `f8a2db36` (owner push = Multilevel exam overlay) | local machine still has no git; course packages / promo approval / en+ru (below) are NOT pushed yet |
 | Server checkout | `f8a2db36` (fast-forward 2026-11-14, the exam overlay was byte-identical) + **LF overlay "Course packages"** (64 files + docs, list = `overlay-replaced.txt` / `packages_overlay.tar` in the backup dir, originals `overlay-originals.tar`; migration file re-sent once: offline-renderable seed, `mig_fix.tar`). Once the owner pushes: `git checkout -- <modified>`, remove the new untracked files, `git pull --ff-only` | leftovers `frontend/package-lock.json` (M), `package-lock.json`, `"hlarni xavfsiz saqlash"` — pre-existing, not ours |
-| DB (production + local test) | Alembic `e8b4d2f6a1c3` (audio_files + `listening_contents.audio_file_id`, applied 2026-11-15; before: `c7e1f3a9b2d5` course packages) | SQL preview `migration-e8b4d2f6a1c3.sql` in the backup dir |
-| Frontend production slot | `.next-a`, deployment `f8a2db36-20261114220859` (packages + lesson-gating + audio overlays) | `.next-b` = previous (rollback) |
-| Last backup | `/var/backups/vizu/pre-audio-trim-20261114-220728` (DB dump + 32 replaced files) | before: `pre-lesson-gating-20261114-173439`, `pre-course-packages-20261114-162634` |
-| Overlays 2 + 3 | 2 "Lesson gating" (26 files, `gate_overlay.tar`), 3 "Audio trim + Multilevel Audio" (32 files, `audio_overlay.tar`, lists `overlay-replaced.txt`) on top of overlay 1 | none pushed |
+| DB (production + local test) | Alembic `f4c8a1e6b9d2` (VIZU Medienwelt, 11 tables + seeded categories, applied 2026-11-15; before: `e8b4d2f6a1c3` audio files, `c7e1f3a9b2d5` packages) | SQL preview `migration-f4c8a1e6b9d2.sql` in the backup dir |
+| Frontend production slot | `.next-b`, deployment `f8a2db36-20261114234516` (overlays 1–4; first build after `npm ci` failed once on a font-loader hiccup, the retry passed) | `.next-a` = previous (rollback) |
+| Last backup | `/var/backups/vizu/pre-medien-20261114-233902` (DB dump + 62 replaced files incl. the old `package.json` / `package-lock.json`) | before: `pre-audio-trim-20261114-220728`, `pre-lesson-gating-…`, `pre-course-packages-…` |
+| Overlays 2–4 | 2 "Lesson gating" (26 files), 3 "Audio trim + Multilevel Audio" (32), 4 "Medienwelt" (62 files incl. `pdfjs-dist` in `package.json` + lock; `medien_overlay.tar`) on top of overlay 1; frontend deployed with `deploy-frontend.sh --install` | none pushed; the server lock file now = repo lock + `pdfjs-dist` |
 
 ## Packages (production, 2026-11-14)
 
@@ -34,7 +34,21 @@ bundle strike-through prices) are no longer read. 33 orders, 2 promo codes, 0 ap
 - A2 written tasks: Schreiben 25 · Grammatik 5 · Wortschatz 9 · Lesen 1 (`writings.competency`).
 - A2 Wortschatz: 216 words, 32 published test sets. A2 readiness `NEEDS_CONTENT`; sales enabled.
 
-## Last verification (2026-11-15)
+## Last verification (2026-11-15 · Medienwelt)
+
+- Local: backend 1047 passed / 17 skipped (`test_medien` 10 over HTTP with real PDF / PNG / MP3 / MP4 + Range + chunked upload,
+  `test_medien_migration`), frontend tsc + eslint clean, unit 45/45, E2E `medien.spec.ts` 9 passed (desktop + Pixel 7: admin
+  CRUD + uploads, bulk 10 songs with one bad file, student shelves / filters / PDF reader resume / purchase grant, global player
+  keeps playing across pages + reload restore, playlists / favorites, film player speed + de/uz subtitles + continue watching,
+  security) and 69 regression E2E passed. Production: server unittest 66 OK (30 DB/ffmpeg skips), migration additive,
+  `/medien*` + `/admin/medien*` pages 200, new APIs anonymous 401, 15 + 8 seeded categories, 0 content rows, orders / users
+  unchanged, bots active. Not done on production: real uploads / playback (no test content or users allowed there).
+- Found by the tests and fixed: reader overlay hidden under the dashboard header (portal to body), film length filter sent
+  wrong query keys, film resume threshold, progress lost on page close (keepalive save), player bar covering the sidebar,
+  unreadable text on two gradients. Known, not mine: the shared `PageTransition` remounts a page once after a client-side
+  navigation (state typed in the first second is lost).
+
+## Earlier verification (2026-11-15 · audio)
 
 - Audio trim + Multilevel Audio deploy: local backend 1036 passed / 17 skipped (new `test_multilevel_audio` 5 with real
   ffmpeg WAV/MP3/M4A trims, migration up/down/up, 401/403), frontend tsc + eslint OK, unit 45/45, E2E `multilevel-audio`

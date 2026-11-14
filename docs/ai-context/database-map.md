@@ -5,7 +5,8 @@ PostgreSQL; connection from settings `DATABASE_HOST/PORT/NAME/USER/PASSWORD` (na
 
 ## Migrations
 
-- Linear history, one head. **Head = `e8b4d2f6a1c3`** (see `current-state.md` for production).
+- Linear history, one head. **Head = `f4c8a1e6b9d2`**
+- `f4c8a1e6b9d2` (2026-11-15): VIZU Medienwelt — `media_categories` (seeded 7 book + 8 film categories), `media_books`, `songs`, `playlists` (owner NULL = official), `playlist_songs`, `user_favorite_songs`, `films`, `film_subtitles`, `media_purchases` (request → GRANTED by Super Admin), `media_progress` (book page / film second), `media_play_history` (`test_medien_migration`). Separate from the course `books` / lesson `videos` tables. (see `current-state.md` for production).
 - `e8b4d2f6a1c3` (2026-11-15): `audio_files` (ORIGINAL / TRIMMED rows of the central audio service, private files in
   the lesson-listening storage, `source_id` → original is kept) + nullable `listening_contents.audio_file_id`
   (Multilevel Hören Teil → its audio; `audio_url` carries the marker `mlaudio:<id>`) (`test_multilevel_audio_migration`).
