@@ -3,15 +3,18 @@
 import { useState } from "react";
 import { AlertCircle, Check, Globe } from "lucide-react";
 
+import { languages } from "@/constants/languages";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { useLanguageStore, type Language } from "@/store/language-store";
 
 import { useUpdateLanguage } from "../hooks/use-update-language";
 
-const OPTIONS: { code: Language; label: string; flag: string; alt: string }[] = [
-  { code: "de", label: "Deutsch", flag: "/flags/de.svg", alt: "Deutschland" },
-  { code: "uz", label: "O'zbek", flag: "/flags/uz.svg", alt: "O'zbekiston" },
-];
+const OPTIONS: { code: Language; label: string; flag: string; alt: string }[] = languages.map((item) => ({
+  code: item.code,
+  label: item.name,
+  flag: item.flagSrc,
+  alt: item.name,
+}));
 
 export default function LanguageCard() {
   const { t } = useTranslation();

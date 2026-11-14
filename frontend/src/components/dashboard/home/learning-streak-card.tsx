@@ -2,6 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { Flame } from "lucide-react";
+import { localeFor } from "@/constants/languages";
 
 import { getLearningActivity } from "@/features/dashboard/services/learning-activity-service";
 import { useTranslation } from "@/lib/i18n/use-translation";
@@ -21,7 +22,7 @@ function duration(t: T, seconds: number): string {
 export default function LearningStreakCard() {
   const { t, language } = useTranslation();
   const { data, isLoading, isError, refetch } = useQuery({ queryKey: ["dashboard", "learning-activity"], queryFn: getLearningActivity, staleTime: 60_000 });
-  const locale = language === "uz" ? "uz-UZ" : "de-DE";
+  const locale = localeFor(language);
 
   return (
     <section className="rounded-card bg-surface-card p-4 shadow-[var(--shadow-card)] ring-1 ring-surface-border sm:p-5" aria-labelledby="streak-title" data-testid="dashboard-streak">

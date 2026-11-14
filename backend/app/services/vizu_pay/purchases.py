@@ -14,7 +14,7 @@ Users, Users and the Dashboard so the four never disagree.
 """
 
 from calendar import monthrange
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from uuid import UUID
 
 from sqlalchemy import exists, func, or_, select
@@ -39,14 +39,19 @@ def add_calendar_months(value: datetime, months: int) -> datetime:
 
 
 def activate_course_access(order, activated_at: datetime) -> None:
-    """Start this order's independent access window after payment approval."""
+    """Start this order's independent access window after payment approval (server time). The term is the order's
+    own `duration_days` (fixed at checkout from the package); orders from before that existed (0) keep their
+    legacy calendar-month term."""
     if activated_at.tzinfo is None:
         activated_at = activated_at.replace(tzinfo=timezone.utc)
     activated_at = activated_at.astimezone(timezone.utc)
-    months = offer_config.access_duration_months(order.plan)
     order.purchase_date = activated_at
     order.access_start_date = activated_at
-    order.access_end_date = add_calendar_months(activated_at, months)
+    days = getattr(order, "duration_days", 0) or 0
+    if days > 0:
+        order.access_end_date = activated_at + timedelta(days=days)
+    else:
+        order.access_end_date = add_calendar_months(activated_at, offer_config.access_duration_months(order.plan))
 
 
 def course_access_is_active(order, now: datetime) -> bool:
@@ -87,14 +92,14 @@ def _naive_utc(dt: datetime | None) -> datetime | None:
 def revenue_conditions() -> tuple:
     return (
         SubscriptionOrder.status == plan_config.STATUS_APPROVED,
-        SubscriptionOrder.plan.in_(list(plan_config.REVENUE_PLANS)),
+        SubscriptionOrder.plan.in_(list(plan_config.PAID_PLANS | offer_config.offer_codes())),
     )
 
 
 def course_purchase_conditions() -> tuple:
     return (
         SubscriptionOrder.status == plan_config.STATUS_APPROVED,
-        SubscriptionOrder.plan.in_(list(offer_config.OFFER_CODES)),
+        SubscriptionOrder.plan.in_(list(offer_config.offer_codes())),
     )
 
 

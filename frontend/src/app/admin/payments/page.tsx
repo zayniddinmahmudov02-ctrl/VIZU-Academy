@@ -15,9 +15,9 @@ import DataTable, { DataTableColumn } from "@/components/admin/data-table";
 import FormDialog from "@/components/admin/form-dialog";
 import BuyerCard from "@/features/admin/components/payments/buyer-card";
 import HistoryDialog from "@/features/admin/components/payments/history-dialog";
+import { DiscountStatsTab, OrdersHistoryTab, PromoRequestsTab } from "@/features/admin/components/payments/payment-tabs";
 import ReceiptViewer from "@/features/admin/components/payments/receipt-viewer";
 import RejectDialog from "@/features/admin/components/payments/reject-dialog";
-import { listPayments, type PaymentItem } from "@/features/admin/services/payment-service";
 import {
   approveOrder,
   createPromoCode,
@@ -39,13 +39,6 @@ import type {
   PromoCodeItem,
   PromoCodeOrder,
 } from "@/features/admin/types/vizu-pay.types";
-
-const STATUS_STYLE: Record<string, string> = {
-  pending: "bg-[var(--admin-warning)]/15 text-[var(--admin-warning)]",
-  approved: "bg-[var(--admin-accent)]/15 text-[var(--admin-accent)]",
-  rejected: "bg-[var(--admin-danger)]/15 text-[var(--admin-danger)]",
-  refunded: "bg-white/5 text-[var(--admin-text-muted)]",
-};
 
 interface DateFilter {
   year?: number;
@@ -323,93 +316,6 @@ function NewBuyersSection({ dateFilter }: { dateFilter: DateFilter }) {
   );
 }
 
-// The legacy/generic Payment model (course-scoped, provider field) —
-// reused as-is for the "Telegram" source view rather than building a
-// second payment system. If it currently has 0 rows on this environment,
-// that's an honest reflection of no Telegram-sourced payments existing
-// here yet, not a bug.
-function TelegramTab({ dateFilter }: { dateFilter: DateFilter }) {
-  const [status, setStatus] = useState("");
-
-  const { data, isLoading } = useQuery({
-    queryKey: ["admin-telegram-payments", status, dateFilter],
-    queryFn: () => listPayments({ status: status || undefined, page_size: 50, ...dateFilter }),
-  });
-
-  const columns: DataTableColumn<PaymentItem>[] = [
-    {
-      key: "user",
-      header: "Nutzer",
-      render: (item) => (
-        <div>
-          <p className="font-medium">{item.user_username ?? "—"}</p>
-          <p className="text-xs text-[var(--admin-text-muted)]">{item.user_email ?? "—"}</p>
-        </div>
-      ),
-    },
-    {
-      key: "date",
-      header: "Datum",
-      render: (item) => new Date(item.created_at).toLocaleDateString("de-DE"),
-    },
-    {
-      key: "time",
-      header: "Uhrzeit",
-      render: (item) => new Date(item.created_at).toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }),
-    },
-    { key: "amount", header: "Betrag", render: (item) => `${item.amount.toLocaleString()} ${item.currency}` },
-    { key: "provider", header: "Quelle", render: (item) => item.provider },
-    { key: "course", header: "Kurs", render: (item) => item.course_title ?? "—" },
-    {
-      key: "status",
-      header: "Status",
-      render: (item) => (
-        <span
-          className={`rounded-full px-2.5 py-1 text-xs font-semibold ${
-            STATUS_STYLE[item.status] ?? "bg-white/5 text-[var(--admin-text-muted)]"
-          }`}
-        >
-          {item.status}
-        </span>
-      ),
-    },
-  ];
-
-  return (
-    <div>
-      <div className="mb-4 flex flex-wrap gap-2">
-        {["", "pending", "approved", "rejected"].map((s) => (
-          <button
-            key={s}
-            onClick={() => setStatus(s)}
-            className={`rounded-full px-3.5 py-1.5 text-xs font-semibold transition ${
-              status === s
-                ? "bg-[var(--admin-primary)] text-white"
-                : "bg-[var(--admin-card)] text-[var(--admin-text-secondary)] ring-1 ring-[var(--admin-border)]"
-            }`}
-          >
-            {s || "Alle"}
-          </button>
-        ))}
-      </div>
-
-      <DataTable
-        columns={columns}
-        data={data?.items}
-        isLoading={isLoading}
-        getRowId={(item) => item.id}
-        emptyMessage="Keine Telegram-Zahlungen gefunden."
-      />
-
-      {data && data.total_pages > 1 && (
-        <p className="mt-3 text-xs text-[var(--admin-text-muted)]">
-          Seite {data.page} von {data.total_pages} ({data.total} Zahlungen)
-        </p>
-      )}
-    </div>
-  );
-}
-
 function PromoCodesTab() {
   const queryClient = useQueryClient();
   const { data, isLoading, isError, error: loadError } = useQuery({ queryKey: ["promo-codes"], queryFn: listPromoCodes });
@@ -422,8 +328,10 @@ function PromoCodesTab() {
     expires_at: string;
     max_uses: number | null;
     is_active: boolean;
+    requires_approval: boolean;
   };
   const EMPTY_FORM: PromoForm = {
+    requires_approval: false,
     code: "",
     campaign: "",
     discount_type: "PERCENT",
@@ -452,9 +360,11 @@ function PromoCodesTab() {
   const [detailPage, setDetailPage] = useState(1);
   const [deleteTarget, setDeleteTarget] = useState<PromoCodeItem | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [detailSearch, setDetailSearch] = useState("");
+  const [detailPlan, setDetailPlan] = useState("");
   const orders = useQuery({
-    queryKey: ["promo-orders", details?.id, detailPage],
-    queryFn: () => listPromoCodeOrders(details!.id, detailPage),
+    queryKey: ["promo-orders", details?.id, detailPage, detailSearch, detailPlan],
+    queryFn: () => listPromoCodeOrders(details!.id, detailPage, 20, { search: detailSearch, plan: detailPlan }),
     enabled: !!details,
   });
 
@@ -470,6 +380,7 @@ function PromoCodesTab() {
       max_uses: form.max_uses || null,
       expires_at: form.expires_at ? new Date(form.expires_at).toISOString() : null,
       is_active: form.is_active,
+      requires_approval: ["PERCENT", "FIXED", "SPECIAL_PRICE"].includes(form.discount_type) && form.requires_approval,
     };
   }
 
@@ -523,6 +434,7 @@ function PromoCodesTab() {
       max_uses_per_user: item.max_uses_per_user,
       expires_at: localDateTime(item.expires_at),
       is_active: item.is_active,
+      requires_approval: !!item.requires_approval,
     });
     setSaveError(null);
     setFieldErrors({});
@@ -676,7 +588,16 @@ function PromoCodesTab() {
         const style = item.status === "ACTIVE" ? "text-[var(--admin-success)] bg-[var(--admin-success)]/10"
           : item.status === "SCHEDULED" ? "text-[var(--admin-primary)] bg-[var(--admin-primary)]/10"
             : "text-[var(--admin-text-muted)] bg-white/5";
-        return <span className={`whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-semibold ${style}`}>{label[item.status] ?? item.status}</span>;
+        return (
+          <div className="flex flex-col items-start gap-1">
+            <span className={`whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-semibold ${style}`}>{label[item.status] ?? item.status}</span>
+            {item.requires_approval && (
+              <span className="whitespace-nowrap rounded-full bg-[var(--admin-warning)]/15 px-2 py-0.5 text-[11px] font-semibold text-[var(--admin-warning)]">
+                Tasdiq kerak{item.pending_requests ? ` · ${item.pending_requests} so‘rov` : ""}
+              </span>
+            )}
+          </div>
+        );
       },
     },
     {
@@ -813,6 +734,15 @@ function PromoCodesTab() {
               <input type="checkbox" checked={form.is_active} onChange={(event) => setForm({ ...form, is_active: event.target.checked })} />
               Saqlanganda promokod faol bo‘lsin
             </label>
+            {["PERCENT", "FIXED", "SPECIAL_PRICE"].includes(form.discount_type) && (
+              <label className="flex items-start gap-2 text-sm text-[var(--admin-text-secondary)]" data-testid="promo-requires-approval">
+                <input type="checkbox" className="mt-1" checked={form.requires_approval} onChange={(event) => setForm({ ...form, requires_approval: event.target.checked })} />
+                <span>
+                  Admin tasdig‘i talab qilinsin (requires_approval)
+                  <span className="block text-xs text-[var(--admin-text-muted)]">Talaba kodni kiritganda so‘rov yuboriladi; chegirma faqat “Promo-Freigaben” bo‘limida tasdiqlangandan keyin qo‘llanadi.</span>
+                </span>
+              </label>
+            )}
           </section>
           <section className="space-y-3">
             <h3 className="text-sm font-semibold text-[var(--admin-text-primary)]">Chegirma shartlari</h3>
@@ -998,6 +928,15 @@ function PromoCodesTab() {
                 </div>
               ))}
             </div>
+            {details.created_by_email && <p className="text-xs text-[var(--admin-text-muted)]">Yaratgan: {details.created_by_email}</p>}
+            <div className="grid gap-2 sm:grid-cols-2" data-testid="promo-history-filters">
+              <AdminInput placeholder="Foydalanuvchi (e-mail / login)" value={detailSearch} onChange={(e) => { setDetailSearch(e.target.value); setDetailPage(1); }} />
+              <AdminSelect value={detailPlan} onChange={(e) => { setDetailPlan(e.target.value); setDetailPage(1); }} aria-label="Paket">
+                <option value="">Barcha paketlar</option>
+                {["A1", "A2", "B1", "B2", "C1"].map((lv) => <option key={lv} value={lv}>{lv}</option>)}
+                {(products?.packages ?? []).map((pkg) => <option key={pkg.code} value={pkg.code}>{pkg.label}</option>)}
+              </AdminSelect>
+            </div>
             {orders.isError && <p className="text-sm text-[var(--admin-danger)]" role="alert">{actionErrorMessage(orders.error, "Buyurtmalar tarixi yuklanmadi.")}</p>}
             {orders.isLoading ? (
               <div className="flex items-center justify-center gap-2 py-8 text-sm text-[var(--admin-text-muted)]"><Loader2 size={16} className="animate-spin" />Buyurtmalar yuklanmoqda…</div>
@@ -1056,14 +995,17 @@ export default function PaymentsPage() {
 
   return (
     <div>
-      <AdminPageHeader title="Payments" description="Zahlungen prüfen, genehmigen und Promo-Codes verwalten." />
+      <AdminPageHeader title="Payments" description="Zahlungen prüfen und verwalten, Paketkäufe, Promo-Codes, Promo-Freigaben und Rabatt-Statistik." />
       <DateFilterBar filter={dateFilter} onChange={setDateFilter} />
       <AdminTabs
         defaultValue="new-buyers"
         tabs={[
-          { value: "new-buyers", label: "New Buyers", content: <NewBuyersSection dateFilter={dateFilter} /> },
-          { value: "telegram", label: "Telegram", content: <TelegramTab dateFilter={dateFilter} /> },
+          { value: "new-buyers", label: "Zahlungen verwalten", content: <NewBuyersSection dateFilter={dateFilter} /> },
+          { value: "history", label: "Zahlungshistorie", content: <OrdersHistoryTab dateFilter={dateFilter} /> },
+          { value: "packages", label: "Paketkäufe", content: <OrdersHistoryTab courseOnly dateFilter={dateFilter} /> },
           { value: "promos", label: "Promo-Codes", content: <PromoCodesTab /> },
+          { value: "promo-requests", label: "Promo-Freigaben", content: <PromoRequestsTab /> },
+          { value: "discounts", label: "Rabatt-Statistik", content: <DiscountStatsTab /> },
         ]}
       />
     </div>

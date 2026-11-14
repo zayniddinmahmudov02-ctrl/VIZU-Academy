@@ -53,6 +53,7 @@ import type {
   PaymentCard,
   PlanOption,
   PromoRedeemResult,
+  PromoRequest,
   PromoValidation,
   SubscriptionStatus,
 } from "../types";
@@ -100,6 +101,9 @@ interface OfferPayload {
   available_levels?: string[];
   sales_levels?: string[];
   duration_months: number;
+  duration_days?: number | null;
+  status?: "ACTIVE" | "COMING_SOON";
+  description?: Record<string, string> | null;
   free_lessons: number;
   currency: string;
 }
@@ -120,6 +124,9 @@ export async function getOffers(): Promise<Offer[]> {
     availableLevels: o.available_levels ?? o.levels ?? [],
     salesLevels: o.sales_levels ?? [],
     durationMonths: o.duration_months,
+    durationDays: o.duration_days ?? null,
+    status: o.status ?? (o.active ? "ACTIVE" : "COMING_SOON"),
+    description: o.description ?? {},
     freeLessons: o.free_lessons,
     currency: o.currency,
   }));
@@ -187,7 +194,41 @@ export async function validatePromo(code: string, plan: string): Promise<PromoVa
     message: data.message,
     discountAmount: data.discount_amount,
     finalAmount: data.final_amount,
+    requiresApproval: !!data.requires_approval,
+    approvalStatus: data.approval_status ?? null,
   };
+}
+
+interface PromoRequestPayload {
+  id?: string;
+  code: string;
+  plan: string;
+  plan_label?: string;
+  status: PromoRequest["status"];
+  reason?: string | null;
+  created_at?: string | null;
+}
+
+function mapPromoRequest(raw: PromoRequestPayload): PromoRequest {
+  return {
+    id: raw.id ?? "",
+    code: raw.code,
+    plan: raw.plan,
+    planLabel: raw.plan_label ?? raw.plan,
+    status: raw.status,
+    reason: raw.reason ?? null,
+    createdAt: raw.created_at ?? null,
+  };
+}
+
+/** A code that needs an admin's approval: creates (or returns) this student's request for the package. */
+export async function requestPromo(code: string, plan: string): Promise<PromoRequest> {
+  return mapPromoRequest((await api.post<PromoRequestPayload>("/api/v1/vizu-pay/promo/requests", { code, plan })).data);
+}
+
+export async function getMyPromoRequests(): Promise<PromoRequest[]> {
+  const response = await api.get<PromoRequestPayload[]>("/api/v1/vizu-pay/promo/requests");
+  return (Array.isArray(response.data) ? response.data : []).map(mapPromoRequest);
 }
 
 export async function redeemPromo(code: string): Promise<PromoRedeemResult> {

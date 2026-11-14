@@ -14,6 +14,7 @@ from app.schemas.vizu_pay import (
     PlanOption,
     PromoRedeemRequest,
     PromoRedeemResponse,
+    PromoRequestCreate,
     PromoValidateResponse,
 )
 from app.services.vizu_pay import VizuPayService
@@ -73,6 +74,23 @@ def validate_promo(
     current_user: User = Depends(get_current_user),
 ):
     return VizuPayService(db).validate_promo(code, current_user, plan)
+
+
+@router.post("/promo/requests")
+def request_promo(
+    data: PromoRequestCreate,
+    request: Request,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """A code that needs an admin's approval: creates (or returns) the student's request for this package.
+    Codes without approval answer {"status": "NOT_REQUIRED"}."""
+    return VizuPayService(db).request_promo(current_user, data.code, data.plan, _client_ip(request))
+
+
+@router.get("/promo/requests")
+def my_promo_requests(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    return VizuPayService(db).my_promo_requests(current_user)
 
 
 @router.post("/promo/redeem", response_model=PromoRedeemResponse)

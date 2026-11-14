@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Dialog } from "@base-ui/react/dialog";
 import { Gift, Medal as MedalLucide, X } from "lucide-react";
+import { localeFor } from "@/constants/languages";
 
 import MedalIcon from "@/components/achievements/medal-icon";
 import { getMyAchievements, localized, type Medal } from "@/features/achievements/achievements-service";
@@ -33,7 +34,7 @@ export default function AchievementsCard() {
   const { t, language } = useTranslation();
   const { data, isLoading, isError, refetch } = useQuery({ queryKey: ["achievements", "me"], queryFn: getMyAchievements, staleTime: 30_000 });
   const [open, setOpen] = useState<Medal | null>(null);
-  const locale = language === "uz" ? "uz-UZ" : "de-DE";
+  const locale = localeFor(language);
 
   return (
     <section className="flex h-full flex-col rounded-card bg-surface-card p-5 shadow-[var(--shadow-card)] ring-1 ring-surface-border" aria-labelledby="ach-title" data-testid="dashboard-achievements">

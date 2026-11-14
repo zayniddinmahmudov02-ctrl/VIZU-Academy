@@ -538,8 +538,11 @@ class TestA2AudioManager(unittest.TestCase):
             self.db.info.clear()
             return can_access_lesson(self.db.get(type(buyer), buyer.id), self.db.get(type(lesson2), lesson2.id))
 
-        # sales not approved for A2 (the code default): no order at all
-        with self.assertRaises(HTTPException) as ctx:
+        # A2 package not on sale (COMING_SOON): no order at all, not even through the API directly
+        closed = {code: dict(cfg) for code, cfg in offers.OFFERS.items()}
+        closed["A2"].update(status="COMING_SOON", active=False)
+        with patch.object(offers, "_read_packages", return_value=closed), self.assertRaises(HTTPException) as ctx:
+            offers.invalidate_cache()
             order()
         self.assertEqual((ctx.exception.status_code, ctx.exception.detail), (409, "OFFER_NOT_AVAILABLE"))
         with patch.object(offers, "_read_overrides", return_value={"sales": {"A2": True}}):

@@ -17,7 +17,8 @@ Endpoint details: open the router file. Auth deps: `backend/app/api/dependencies
 | `/student-progress` `/student-writings` `/student-speakings` `/student-quizzes` | learner submissions | own data only |
 | `/quizzes` `/quiz-questions` `/quiz-options` `/homeworks` `/exams` `/exam-providers` | legacy | mixed |
 | `/books` `/dictionary` `/notifications` `/support` `/achievements` `/advertisements` `/dashboard` `/enrollments` | student features | `get_current_user` |
-| `/vizu-pay` | `vizu_pay/router.py` | `get_current_user` |
+| `/vizu-pay` (+ `POST/GET /promo/requests`: approval requests of promo codes) | `vizu_pay/router.py` | `get_current_user` |
+| `/admin/vizu-pay` packages (`GET/POST /packages`, `PUT /packages/{code}`), `GET /promo-requests`, `POST /promo-requests/{id}/review`, `GET /discount-statistics`, promo history filters `search`/`plan` | `admin/vizu_pay_router.py` | `require_super_admin` |
 | `/payments` | `payment/router.py` (legacy) | — |
 | `/groups` | `study_groups/router.py` | members / teachers |
 | `/global-chat` | `global_chat/router.py` | `get_current_user` |

@@ -39,7 +39,7 @@ export async function changePassword(input: ChangePasswordInput): Promise<{ mess
   return response.data;
 }
 
-export async function updateLanguage(language: "de" | "uz"): Promise<CurrentUser> {
+export async function updateLanguage(language: "de" | "uz" | "en" | "ru"): Promise<CurrentUser> {
   const response = await api.put<CurrentUserPayload>("/api/v1/users/me/language", {
     language,
   });

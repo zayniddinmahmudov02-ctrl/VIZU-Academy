@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from sqlalchemy import DateTime, ForeignKey, Index, Integer, String, Text
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models.base import BaseModel
@@ -90,6 +91,8 @@ class SubscriptionOrder(BaseModel):
     )
 
     promo_code_snapshot: Mapped[str | None] = mapped_column(String(40), nullable=True)
+    # levels this order opens, fixed at checkout (NULL on older orders: resolved from the package, see access.py)
+    included_levels: Mapped[list | None] = mapped_column(JSONB, nullable=True)
 
     promo_discount_amount: Mapped[int] = mapped_column(
         Integer,

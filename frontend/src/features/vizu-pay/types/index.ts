@@ -24,8 +24,24 @@ export interface Offer {
   /** levels approved for sale (Admin -> Angebote); the others show "Tez orada" */
   salesLevels: string[];
   durationMonths: number;
+  /** access term in days (null while the package is not on sale) */
+  durationDays: number | null;
+  /** ACTIVE = on sale; COMING_SOON = "Tez orada" without price or buy button */
+  status: "ACTIVE" | "COMING_SOON";
+  /** per language {uz, de, en, ru}, set in Admin -> Angebote -> Pakete */
+  description: Record<string, string>;
   freeLessons: number;
   currency: string;
+}
+
+export interface PromoRequest {
+  id: string;
+  code: string;
+  plan: string;
+  planLabel: string;
+  status: "PENDING_APPROVAL" | "APPROVED" | "REJECTED" | "USED" | "EXPIRED" | "DISABLED" | "NOT_REQUIRED";
+  reason: string | null;
+  createdAt: string | null;
 }
 
 export interface SubscriptionStatus {
@@ -102,6 +118,9 @@ export interface PromoValidation {
   message: string | null;
   discountAmount?: number | null;
   finalAmount?: number | null;
+  requiresApproval?: boolean;
+  /** APPROVED or PROMO_APPROVAL_REQUIRED / PROMO_APPROVAL_PENDING / PROMO_REJECTED */
+  approvalStatus?: string | null;
 }
 
 export const PAYMENT_METHODS = ["UZCARD", "HUMO", "TELEGRAM"] as const;

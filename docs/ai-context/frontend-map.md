@@ -24,7 +24,7 @@ Scripts: `dev`, `build`, `start`, `lint`, `test:unit` (node --test `tests/unit/*
 | `src/components/lesson-player/` | student player per skill: common, grammar, listening, navigation, quiz, reading, results, skill-test, speaking, video, vocabulary, writing |
 | `src/components/lms/` | LMS cards, competency nav/content, audio player, lock, purchase modal |
 | `src/components/admin/` | `admin-ui` (AdminButton, AdminPageHeader, AdminInput, …), `confirm-dialog` |
-| `src/lib/i18n/` | `translations.ts`, `use-translation.ts` (uz/de) |
+| `src/lib/i18n/` | `translations.ts` (uz/de), `translations-extra.ts` + `extra/part1–8.ts` (en/ru as `[en, ru]` per key, German fallback), `use-translation.ts`; languages list `src/constants/languages.ts` (uz, de, en, ru) |
 | `src/providers`, `src/store`, `src/hooks`, `src/types`, `src/constants` | app-wide |
 | `tests/unit/` | `a2-audio-import`, `reply-preview`, `reply-swipe` |
 | `scripts/deploy-frontend.sh` | production slot deploy (see deployment-map) |

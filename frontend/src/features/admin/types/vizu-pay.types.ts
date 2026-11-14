@@ -69,7 +69,47 @@ export interface PromoCodeItem {
   successful_revenue_amount: number;
   expires_at: string | null;
   is_active: boolean;
+  /** an admin must approve each student's use before the discount applies */
+  requires_approval?: boolean;
+  pending_requests?: number;
+  created_by_email?: string | null;
   created_at: string;
+}
+
+export interface PromoRequestItem {
+  id: string;
+  code: string;
+  plan: string;
+  plan_label: string;
+  status: "PENDING_APPROVAL" | "APPROVED" | "REJECTED" | "USED" | "EXPIRED" | "DISABLED";
+  reason: string | null;
+  created_at: string;
+  reviewed_at: string | null;
+  order_id: string | null;
+  user_id: string;
+  user_email: string;
+  user_name: string;
+  discount_type: string | null;
+  discount_value: number | null;
+  reviewed_by_email: string | null;
+}
+
+export interface PromoRequestList {
+  items: PromoRequestItem[];
+  total: number;
+  page: number;
+  page_size: number;
+  total_pages: number;
+}
+
+export interface DiscountStatistics {
+  total_discount: number;
+  promo_discount: number;
+  reward_discount: number;
+  orders_with_promo: number;
+  requests: Record<"PENDING_APPROVAL" | "APPROVED" | "REJECTED" | "USED", number>;
+  by_code: { code: string; orders: number; discount: number; revenue: number }[];
+  by_package: { plan: string; label: string; orders: number; discount: number; revenue: number }[];
 }
 
 export interface PromoCodeOrder {
@@ -108,6 +148,7 @@ export interface PromoCodeCreateRequest {
   max_uses_per_user: number;
   expires_at?: string | null;
   is_active?: boolean;
+  requires_approval?: boolean;
 }
 
 export interface PromoCodeUpdateRequest extends Partial<PromoCodeCreateRequest> {

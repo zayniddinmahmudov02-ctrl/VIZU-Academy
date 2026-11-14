@@ -1,16 +1,23 @@
 # Current state
 
-Updated 2026-11-06.
+Updated 2026-11-14.
 
 ## Revisions
 
 | Where | Revision | Note |
 | --- | --- | --- |
-| `origin/main` | `0c5b9b45` (owner push: Multilevel import, keys editor, PDF view) | local machine still has no git; the exam mode (below) is NOT pushed yet |
-| Server checkout | `0c5b9b45` via `git pull --ff-only` (2026-11-06, the previous overlay was identical to it) + **LF overlay "Multilevel exam"** (51 files incl. docs: migration `a3c9e7b5d1f4`, `models/mock_attempt_section.py` + 4 mock models, `services/mock_exam/{multilevel_exam_service,multilevel_service,attempt_service}.py`, `api/mock_exam/{multilevel_exam_router,attempt_router}.py`, `main.py`, `page_management.py`, `protected_local.py`, tests, student `vorbereitung/multilevel/**` + components/service/types, `settings/page.tsx`, `translations.ts`, admin `mock-exams/multilevel`, preview page, nav, label rename files, E2E specs; originals `/var/backups/vizu/pre-multilevel-exam-20261105-220413/files`). Once the owner pushes: `git checkout -- <modified>`, remove the new untracked files, `git pull --ff-only` | untracked leftovers `frontend/package-lock.json` (M), `package-lock.json`, `"hlarni xavfsiz saqlash"` — pre-existing, not ours |
-| DB (production + local test) | Alembic `a3c9e7b5d1f4` (Multilevel exam mode, applied 2026-11-06) | SQL preview in the backup dir |
-| Frontend production slot | `.next-b`, deployment `0c5b9b45-20261105220723` (with the exam overlay) | `.next-a` = previous (rollback) |
-| Last backup | `/var/backups/vizu/pre-multilevel-exam-20261105-220413` (145 tables, 0 differing) | before: `pre-multilevel-20261105-170946` |
+| `origin/main` | `f8a2db36` (owner push = Multilevel exam overlay) | local machine still has no git; course packages / promo approval / en+ru (below) are NOT pushed yet |
+| Server checkout | `f8a2db36` (fast-forward 2026-11-14, the exam overlay was byte-identical) + **LF overlay "Course packages"** (64 files + docs, list = `overlay-replaced.txt` / `packages_overlay.tar` in the backup dir, originals `overlay-originals.tar`; migration file re-sent once: offline-renderable seed, `mig_fix.tar`). Once the owner pushes: `git checkout -- <modified>`, remove the new untracked files, `git pull --ff-only` | leftovers `frontend/package-lock.json` (M), `package-lock.json`, `"hlarni xavfsiz saqlash"` — pre-existing, not ours |
+| DB (production + local test) | Alembic `c7e1f3a9b2d5` (course packages + promo approval, applied 2026-11-14) | SQL preview `migration-c7e1f3a9b2d5.sql` in the backup dir |
+| Frontend production slot | `.next-a`, deployment `f8a2db36-20261114164007` (with the packages overlay) | `.next-b` = previous (rollback) |
+| Last backup | `/var/backups/vizu/pre-course-packages-20261114-162634` (146 tables, 0 differing; + `angebote-settings.json`, git dirty/untracked) | before: `pre-multilevel-exam-20261105-220413` |
+
+## Packages (production, 2026-11-14)
+
+Table `course_packages`, edited in Admin → Angebote (no prices in the frontend). A1 49 000 (was the admin override; kept) /
+A2 99 000, 30 days; B1 100 000, 60 days; A1–B1 200 000, 180 days; A1–C1 400 000, 365 days (opens B2/C1 when released);
+B2, C1, B2–C1 COMING_SOON (not buyable). The old `app_settings.angebote.offers` overrides (incl. B2/C1 149 000 and the
+bundle strike-through prices) are no longer read. 33 orders, 2 promo codes, 0 approval requests at deploy.
 
 ## Content (production)
 
@@ -26,7 +33,15 @@ Updated 2026-11-06.
 - A2 written tasks: Schreiben 25 · Grammatik 5 · Wortschatz 9 · Lesen 1 (`writings.competency`).
 - A2 Wortschatz: 216 words, 32 published test sets. A2 readiness `NEEDS_CONTENT`; sales enabled.
 
-## Last verification (2026-11-06)
+## Last verification (2026-11-14)
+
+- Course packages deploy: local backend full suite 1021 passed / 17 skipped, package + migration DB tests 31 passed after
+  the migration fix, frontend tsc OK, unit 40/40, E2E purchase + admin + multilevel-exam 11 passed (desktop + Pixel 7).
+  Production: server unittest 93 OK (21 DB skips), migration a3c9e7b5d1f4 → c7e1f3a9b2d5 (additive only), health 200,
+  `/vizu-pay/offers` as in "Packages", 6 new/changed APIs anonymous 401, 11 pages 200, strings in `.next-a`, orders /
+  promo codes / users unchanged, bots active. Not done on production: a real purchase (no test users / payments there).
+
+## Earlier verification (2026-11-06)
 
 - Multilevel exam deploy: local backend 1022 passed / 17 skipped (incl. exam flow + migration up/down/up), frontend tsc +
   eslint OK, unit 37/37, E2E `multilevel-exam` 3 passed (student desktop + Pixel 7: no level choice, autosave + reload,

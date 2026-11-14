@@ -5,7 +5,10 @@ import type {
   AdminOrderItem,
   AdminOrderListResponse,
   BlockedUserItem,
+  DiscountStatistics,
   MethodBreakdown,
+  PromoRequestItem,
+  PromoRequestList,
   PlanBreakdown,
   PromoCodeCreateRequest,
   PromoCodeItem,
@@ -86,11 +89,24 @@ export async function listPromoCodes(): Promise<PromoCodeItem[]> {
   return ensureArray<PromoCodeItem>(response.data);
 }
 
-export async function listPromoCodeOrders(id: string, page = 1, pageSize = 20): Promise<PromoCodeOrderList> {
+export async function listPromoCodeOrders(id: string, page = 1, pageSize = 20, filters: { search?: string; plan?: string } = {}): Promise<PromoCodeOrderList> {
   const response = await api.get<PromoCodeOrderList>(`${ADMIN_ENDPOINTS.adminVizuPay}/promo-codes/${id}/orders`, {
-    params: { page, page_size: pageSize },
+    params: { page, page_size: pageSize, search: filters.search || undefined, plan: filters.plan || undefined },
   });
   return response.data;
+}
+
+export async function listPromoRequests(params: { status?: string; promo_id?: string; search?: string; plan?: string; page?: number; page_size?: number } = {}): Promise<PromoRequestList> {
+  const response = await api.get<PromoRequestList>(`${ADMIN_ENDPOINTS.adminVizuPay}/promo-requests`, { params });
+  return { ...response.data, items: ensureArray<PromoRequestItem>(response.data?.items) };
+}
+
+export async function reviewPromoRequest(id: string, approve: boolean, reason?: string) {
+  return (await api.post(`${ADMIN_ENDPOINTS.adminVizuPay}/promo-requests/${id}/review`, { approve, reason: reason || null })).data;
+}
+
+export async function getDiscountStatistics(): Promise<DiscountStatistics> {
+  return (await api.get<DiscountStatistics>(`${ADMIN_ENDPOINTS.adminVizuPay}/discount-statistics`)).data;
 }
 
 export async function getPromoProducts(): Promise<PromoProductCatalog> {

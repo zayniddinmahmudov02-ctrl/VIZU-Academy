@@ -13,6 +13,7 @@ from app.core.security.roles import UserRole
 from app.core.storage.protected_local import ProtectedPaymentProofStorage
 from app.models.promo_code import PromoCode
 from app.models.promo_code_redemption import PromoCodeRedemption
+from app.models.promo_code_request import REQUEST_APPROVED, REQUEST_PENDING, REQUEST_REJECTED, REQUEST_USED, PromoCodeRequest
 from app.models.course import Course
 from app.models.subscription_order import SubscriptionOrder
 from app.models.user import User
@@ -182,7 +183,7 @@ class VizuPayService:
             .filter(
                 SubscriptionOrder.user_id == user.id,
                 SubscriptionOrder.status == plan_config.STATUS_APPROVED,
-                SubscriptionOrder.plan.in_(list(offer_config.OFFER_CODES)),
+                SubscriptionOrder.plan.in_(list(offer_config.offer_codes())),
             )
             .order_by(SubscriptionOrder.access_start_date.desc().nullslast())
             .all()
@@ -197,7 +198,7 @@ class VizuPayService:
                     "order_id": order.id,
                     "plan": order.plan,
                     "plan_label": plan_config.plan_label(order.plan),
-                    "levels": offer_config.offer_levels(order.plan),
+                    "levels": order.included_levels or offer_config.offer_levels(order.plan),
                     "purchase_date": order.purchase_date,
                     "access_start_date": order.access_start_date,
                     "access_end_date": end,
@@ -283,6 +284,11 @@ class VizuPayService:
                 "discount_value": promo.discount_value,
                 "message": "This code grants access directly — use 'Enter promo code', not checkout.",
             }
+        approval = self.approval_error(promo, user, plan)
+        if approval:
+            # needs (or waits for) an admin's approval: no discount yet
+            return {"valid": False, "discount_type": promo.discount_type, "discount_value": promo.discount_value, "message": approval,
+                    "requires_approval": True, "approval_status": approval}
         discount_amount = None
         final_amount = None
         if plan and offer_config.is_offer(plan) and offer_config.is_purchasable(plan):
@@ -296,6 +302,8 @@ class VizuPayService:
             "message": None,
             "discount_amount": discount_amount,
             "final_amount": final_amount,
+            "requires_approval": bool(getattr(promo, "requires_approval", False)),
+            "approval_status": "APPROVED" if getattr(promo, "requires_approval", False) else None,
         }
 
     def _apply_discount(self, base_amount: int, promo: PromoCode) -> int:
@@ -307,7 +315,84 @@ class VizuPayService:
             return base_amount - promo.discount_value
         return min(promo.discount_value, base_amount)
 
+    # ------------------------------------------------------------------
+    # Promo codes that need an admin's approval (promo_codes.requires_approval)
+    # ------------------------------------------------------------------
+
+    def _approval_request(self, promo: PromoCode, user: User, plan: str, lock: bool = False) -> PromoCodeRequest | None:
+        """The student's latest request for this code + package (open ones first)."""
+        query = (self.db.query(PromoCodeRequest)
+                 .filter(PromoCodeRequest.promo_code_id == promo.id, PromoCodeRequest.user_id == user.id, PromoCodeRequest.plan == plan)
+                 .order_by(PromoCodeRequest.created_at.desc()))
+        if lock:
+            query = query.with_for_update()
+        rows = query.all()
+        return next((r for r in rows if r.status in (REQUEST_PENDING, REQUEST_APPROVED)), rows[0] if rows else None)
+
+    def approval_error(self, promo: PromoCode, user: User, plan: str | None) -> str | None:
+        """None when the discount may be applied; else PROMO_APPROVAL_REQUIRED / _PENDING / PROMO_REJECTED."""
+        if not getattr(promo, "requires_approval", False):
+            return None
+        if not plan:
+            return "PROMO_APPROVAL_REQUIRED"
+        req = self._approval_request(promo, user, plan)
+        if req is None or req.status == REQUEST_USED:
+            return "PROMO_APPROVAL_REQUIRED"
+        return {REQUEST_PENDING: "PROMO_APPROVAL_PENDING", REQUEST_REJECTED: "PROMO_REJECTED"}.get(req.status)
+
+    def _serialize_request(self, req: PromoCodeRequest) -> dict:
+        promo = req.promo_code
+        now = _now()
+        status = req.status
+        if status in (REQUEST_PENDING, REQUEST_APPROVED) and promo is not None:
+            if not promo.is_active:
+                status = "DISABLED"
+            elif promo.expires_at and promo.expires_at <= now:
+                status = "EXPIRED"
+        return {"id": str(req.id), "code": promo.code if promo else "", "plan": req.plan, "plan_label": plan_config.plan_label(req.plan),
+                "status": status, "reason": req.reason, "created_at": req.created_at, "reviewed_at": req.reviewed_at,
+                "order_id": str(req.order_id) if req.order_id else None}
+
+    def request_promo(self, user: User, code: str, plan: str, ip: str | None) -> dict:
+        """Checkout: the student entered a code that needs approval -> a PENDING_APPROVAL request for this package
+        (idempotent: an open request is returned as is). Codes without approval answer NOT_REQUIRED."""
+        if not offer_config.is_offer(plan) or not offer_config.is_purchasable(plan):
+            raise HTTPException(status_code=409, detail="OFFER_NOT_AVAILABLE")
+        # serialize this student's requests (row lock until commit) — two clicks never make two requests
+        self.db.query(User.id).filter(User.id == user.id).with_for_update().first()
+        promo = self._find_promo(code)
+        error = self._check_promo(promo, user, plan)
+        if error:
+            raise VizuPayError(error)
+        if promo.discount_type in DIRECT_REDEEM_TYPES:
+            raise VizuPayError("This code grants access directly — use 'Enter promo code', not checkout.")
+        if not promo.requires_approval:
+            return {"status": "NOT_REQUIRED", "code": promo.code, "plan": plan}
+        req = self._approval_request(promo, user, plan)
+        if req is not None and req.status in (REQUEST_PENDING, REQUEST_APPROVED, REQUEST_REJECTED):
+            return self._serialize_request(req)
+        req = PromoCodeRequest(promo_code_id=promo.id, user_id=user.id, plan=plan, status=REQUEST_PENDING)
+        self.db.add(req)
+        try:
+            self.db.commit()
+        except IntegrityError:
+            self.db.rollback()
+            req = self._approval_request(promo, user, plan)
+            return self._serialize_request(req)
+        self.db.refresh(req)
+        write_audit(self.db, actor_id=user.id, action="promo_approval_requested", target_user_id=user.id,
+                    details=f"{promo.code} -> {plan}", ip_address=ip)
+        return self._serialize_request(req)
+
+    def my_promo_requests(self, user: User) -> list[dict]:
+        rows = (self.db.query(PromoCodeRequest).filter(PromoCodeRequest.user_id == user.id)
+                .order_by(PromoCodeRequest.created_at.desc()).limit(50).all())
+        return [self._serialize_request(r) for r in rows]
+
     def release_promo_reservation(self, order: SubscriptionOrder) -> None:
+        # an approved request spent on this order becomes usable again (order rejected / expired / refunded)
+        for req in self.db.query(PromoCodeRequest).filter(PromoCodeRequest.order_id == order.id, PromoCodeRequest.status == REQUEST_USED):
+            req.status, req.order_id = REQUEST_APPROVED, None
         if not order.promo_code_id:
             return
         redemption = (
@@ -407,7 +492,7 @@ class VizuPayService:
         )
         level_offer = {
             cfg["levels"][0]: code
-            for code, cfg in offer_config.OFFERS.items()
+            for code, cfg in offer_config.effective()["offers"].items()
             if cfg["kind"] == offer_config.KIND_LEVEL
         }
         covered = {lv for code in plans for lv in offer_config.offer_levels(code)}
@@ -439,7 +524,8 @@ class VizuPayService:
                 id=uuid4(),
                 user_id=user.id,
                 plan=code,
-                duration_days=0,
+                duration_days=offer_config.duration_days(code),
+                included_levels=offer_config.offer_levels(code),
                 base_amount=base,
                 discount_amount=base,
                 promo_discount_amount=base,
@@ -515,6 +601,8 @@ class VizuPayService:
             promo_error = self._check_promo(promo, user, plan)
             if promo_error is None and promo.discount_type in DIRECT_REDEEM_TYPES:
                 promo_error = "This code grants access directly — use 'Enter promo code', not checkout."
+            if promo_error is None:
+                promo_error = self.approval_error(promo, user, plan)  # not approved yet: no discount
             if promo_error is None:
                 promo_discount = self._apply_discount(base_amount, promo)
         priced = achievements.quote(self.db, user.id, plan, base_amount, promo_discount)
@@ -593,6 +681,11 @@ class VizuPayService:
                 raise VizuPayError(error)
             if promo.discount_type in DIRECT_REDEEM_TYPES:
                 raise VizuPayError("This code grants access directly — use 'Enter promo code', not checkout.")
+            needs_approval = bool(getattr(promo, "requires_approval", False))
+            if needs_approval:
+                approved_request = self._approval_request(promo, user, plan, lock=True)
+                if approved_request is None or approved_request.status != REQUEST_APPROVED:
+                    raise HTTPException(status_code=409, detail=self.approval_error(promo, user, plan) or "PROMO_APPROVAL_REQUIRED")
             discount_amount = self._apply_discount(base_amount, promo)
 
         # medal reward (e.g. Starter: -5 000 on A1) — row-locked, one per order, only for its offers
@@ -609,7 +702,9 @@ class VizuPayService:
             id=order_id,
             user_id=user.id,
             plan=plan,
-            duration_days=0,  # retained for compatibility with legacy Premium orders
+            # term and levels fixed now: later package edits never change what this order opens
+            duration_days=offer_config.duration_days(plan),
+            included_levels=offer_config.offer_levels(plan),
             base_amount=base_amount,
             discount_amount=discount_amount + reward_discount,
             promo_discount_amount=discount_amount,
@@ -631,6 +726,8 @@ class VizuPayService:
         if promo:
             promo.used_count += 1
             self.db.add(PromoCodeRedemption(promo_code_id=promo.id, user_id=user.id, order_id=order_id))
+            if needs_approval:
+                approved_request.status, approved_request.order_id = REQUEST_USED, order_id
         if reward is not None and reward_discount > 0:
             achievements.reserve(reward, order_id)
 

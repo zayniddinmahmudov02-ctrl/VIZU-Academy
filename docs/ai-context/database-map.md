@@ -5,7 +5,10 @@ PostgreSQL; connection from settings `DATABASE_HOST/PORT/NAME/USER/PASSWORD` (na
 
 ## Migrations
 
-- Linear history, one head. **Head = `a3c9e7b5d1f4`** (see `current-state.md` for production).
+- Linear history, one head. **Head = `c7e1f3a9b2d5`** (see `current-state.md` for production).
+- `c7e1f3a9b2d5` (2026-11-14): `course_packages` (seeded: A1/A2 keep the price in force, B1 100 000/60 d, A1–B1
+  200 000/180 d, A1–C1 400 000/365 d, B2/C1/B2–C1 COMING_SOON), `subscription_orders.included_levels`,
+  `promo_codes.requires_approval`, `promo_code_requests` (`test_course_packages_migration`).
 - Latest: `f3a8c1d5e7b2` Global Chat `reply_to_id` → `a6d2f9c4e8b1` `a2_audio_assets` → `b8e3d1a7c5f2` `listenings.task_key` →
   `c4f7a9e2d6b3` `a2_audio_transcripts` → `d7e2b4f8a1c6` A2 module separation (`writings.competency` + CHECK, vocabularies
   grammar fields + `dictionary_entry_id` + `data_sources`, `vocabulary_user_words`, `student_writing_versions`,

@@ -1,6 +1,5 @@
 "use client";
 
-import { Switch } from "@base-ui/react/switch";
 import { motion } from "framer-motion";
 import { Check, ChevronDown } from "lucide-react";
 
@@ -11,8 +10,8 @@ import { useTranslation } from "@/lib/i18n/use-translation";
 import { cn } from "@/lib/utils";
 
 type Props = {
-  /** "sidebar" = compact Deutsch/Uzbek toggle styled for the navy sidebar footer.
-   *  "segmented" = small DE | UZ buttons (Registration / Anmeldung pages). */
+  /** "sidebar" = compact UZ | DE | EN | RU control styled for the navy sidebar footer.
+   *  "segmented" = small language buttons (Registration / Anmeldung pages). */
   variant?: "default" | "sidebar" | "segmented";
   className?: string;
 };
@@ -51,42 +50,39 @@ export default function LanguageSwitcher({ variant = "default", className }: Pro
   }
 
   if (variant === "sidebar") {
-    const isUz = language === "uz";
-
+    // four languages: a compact segmented control in the navy sidebar footer (the active one slides)
     return (
-      <div className="flex items-center justify-center gap-3 rounded-2xl bg-white/[0.04] px-3 py-2.5">
-        <span
-          className={cn(
-            "text-xs font-semibold transition-colors",
-            isUz ? "text-sidebar-muted" : "text-white",
-          )}
-        >
-          Deutsch
-        </span>
-
-        <Switch.Root
-          checked={isUz}
-          onCheckedChange={(checked) => setLanguage(checked ? "uz" : "de")}
-          aria-label={t("sidebar.toggleLanguageAria")}
-          className="relative inline-flex h-9 w-16 shrink-0 items-center rounded-full bg-white/[0.08] p-0.5 ring-1 ring-white/10 transition-colors duration-200"
-        >
-          <motion.span
-            className="flex h-7 w-7 items-center justify-center rounded-full bg-white text-[9px] font-bold text-brand-900 shadow-md"
-            animate={{ x: isUz ? 28 : 0 }}
-            transition={{ type: "spring", stiffness: 500, damping: 32 }}
-          >
-            {isUz ? "UZ" : "DE"}
-          </motion.span>
-        </Switch.Root>
-
-        <span
-          className={cn(
-            "text-xs font-semibold transition-colors",
-            isUz ? "text-white" : "text-sidebar-muted",
-          )}
-        >
-          Uzbek
-        </span>
+      <div
+        role="group"
+        aria-label={t("sidebar.toggleLanguageAria")}
+        className="relative grid grid-cols-4 gap-0.5 rounded-2xl bg-white/[0.04] p-1 ring-1 ring-white/10"
+      >
+        {languages.map((item) => {
+          const active = language === item.code;
+          return (
+            <button
+              key={item.code}
+              type="button"
+              aria-pressed={active}
+              data-lang={item.code}
+              title={item.name}
+              onClick={() => setLanguage(item.code)}
+              className={cn(
+                "relative h-9 rounded-xl text-[11px] font-bold uppercase tracking-wide transition-colors",
+                active ? "text-brand-900" : "text-sidebar-muted hover:text-white",
+              )}
+            >
+              {active && (
+                <motion.span
+                  layoutId="sidebar-language-pill"
+                  className="absolute inset-0 rounded-xl bg-white shadow-md"
+                  transition={{ type: "spring", stiffness: 500, damping: 34 }}
+                />
+              )}
+              <span className="relative">{item.code}</span>
+            </button>
+          );
+        })}
       </div>
     );
   }

@@ -1,12 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Tag } from "lucide-react";
 
 import PageHeader from "@/components/dashboard/page-header";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { useVizuPay } from "../hooks/use-vizu-pay";
-import OfferCard from "../components/offer-card";
+import OfferCard, { laterLevels } from "../components/offer-card";
+import PackageWarningModal from "../components/package-warning-modal";
+import { getMyPromoRequests } from "../services/vizu-pay-service";
 import SubscriptionStatusCard from "../components/subscription-status-card";
 import OrderHistoryList from "../components/order-history-list";
 import CheckoutModal from "../components/checkout-modal";
@@ -22,6 +25,14 @@ export default function VizuPayPage() {
   const { offers, paymentCards, status, orders, loading, error, redeemPromo, submitOrder } = useVizuPay();
 
   const [picked, setPicked] = useState<Offer | null>(null);
+  // a package with levels not released yet (A1–C1): the warning comes first, the checkout only after "Verstanden"
+  const [warnFor, setWarnFor] = useState<Offer | null>(null);
+  const { data: promoRequests = [] } = useQuery({ queryKey: ["vizu-pay", "promo-requests"], queryFn: getMyPromoRequests });
+
+  function buy(offer: Offer) {
+    if (offer.kind === "PACKAGE" && laterLevels(offer).length > 0) setWarnFor(offer);
+    else setPicked(offer);
+  }
   // `?offer=A1` from a course card — read once, cleared when the modal closes.
   const [requestedCode, setRequestedCode] = useState<string | null>(() =>
     typeof window === "undefined" ? null : new URLSearchParams(window.location.search).get("offer"),
@@ -31,7 +42,8 @@ export default function VizuPayPage() {
   const levels = offers.filter((o) => o.kind === "LEVEL");
 
   const requested = offers.find((o) => o.code === requestedCode);
-  const selected = picked ?? (requested && offerState(requested, status) === "available" ? requested : null);
+  const requestedOk = requested && offerState(requested, status) === "available" && laterLevels(requested).length === 0;
+  const selected = picked ?? (requestedOk ? requested : null);
 
   function closeCheckout() {
     setPicked(null);
@@ -81,8 +93,8 @@ export default function VizuPayPage() {
                   key={offer.code}
                   offer={offer}
                   state={offerState(offer, status)}
-                  highlighted={offer.levels.length === Math.max(...packages.map((p) => p.levels.length))}
-                  onBuy={() => setPicked(offer)}
+                  highlighted={offer.status === "ACTIVE" && offer.levels.length === Math.max(...packages.filter((p) => p.status === "ACTIVE").map((p) => p.levels.length))}
+                  onBuy={() => buy(offer)}
                 />
               ))}
             </div>
@@ -93,10 +105,29 @@ export default function VizuPayPage() {
             <p className="mb-5 text-sm text-text-secondary">{t("angebote.levelsSubtitle")}</p>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
               {levels.map((offer) => (
-                <OfferCard key={offer.code} offer={offer} state={offerState(offer, status)} compact onBuy={() => setPicked(offer)} />
+                <OfferCard key={offer.code} offer={offer} state={offerState(offer, status)} compact onBuy={() => buy(offer)} />
               ))}
             </div>
           </section>
+
+          {promoRequests.length > 0 && (
+            <section data-testid="promo-requests">
+              <h2 className="mb-3 text-lg font-bold text-text-primary">{t("angebote.promoRequestsTitle")}</h2>
+              <ul className="space-y-2">
+                {promoRequests.map((r) => (
+                  <li key={r.id} className="flex flex-wrap items-center justify-between gap-2 rounded-xl bg-surface-card px-4 py-3 text-sm ring-1 ring-surface-border">
+                    <span className="font-semibold text-text-primary">{r.code} · {r.planLabel}</span>
+                    <span className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${
+                      r.status === "APPROVED" ? "bg-success/15 text-success" : r.status === "PENDING_APPROVAL" ? "bg-warning/15 text-warning"
+                        : r.status === "REJECTED" ? "bg-danger/15 text-danger" : "bg-surface-hover text-text-muted"}`}>
+                      {t(`angebote.requestStatus${r.status}`)}
+                    </span>
+                    {r.reason && <p className="w-full text-xs text-text-muted">{r.reason}</p>}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
 
           <section>
             <h2 className="mb-4 text-lg font-bold text-text-primary">{t("vizuPay.historyTitle")}</h2>
@@ -104,6 +135,15 @@ export default function VizuPayPage() {
           </section>
         </div>
       )}
+
+      <PackageWarningModal
+        offer={warnFor}
+        onCancel={() => setWarnFor(null)}
+        onConfirm={() => {
+          setPicked(warnFor);
+          setWarnFor(null);
+        }}
+      />
 
       <CheckoutModal
         plan={checkoutPlan}

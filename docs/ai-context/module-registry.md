@@ -168,13 +168,22 @@ API prefixes are listed without `/api/v1` (every router is mounted bare and unde
   Legacy `/payments` (`be/api/payment`, `be/services/payment/`): no other backend module imports it; the
   admin frontend still lists it in `fe/features/admin/constants/endpoints.ts` — treat as legacy, VIZU Pay is
   the live flow.
-- **Tables:** `subscription_orders`, `promo_codes`, `promo_code_redemptions`, `app_settings` (key `angebote`).
-- **Frontend:** `fe/app/(dashboard)/{vizu-pay,angebote}`, `fe/features/vizu-pay/`; admin `fe/app/admin/{angebote,payments,premium-users}`.
-- **Rules:** price source `offers.py` (+ admin overrides in `app_settings.angebote`, sale per level needs a price);
-  manual gateway: student uploads a receipt, SUPER_ADMIN approves; one PENDING order per user; access =
-  APPROVED + within `access_*_date` (`access.owned_levels`); only lesson 1 of each course is free
-  (`offers.free_lessons()`; some older docstrings still say "first 3" — outdated).
-- **Tests:** `test_angebote`, `test_promo_*`, `test_admin_purchase_analytics`, `test_course_access_terms`.
+- **Tables:** `course_packages` (price, duration_days, status ACTIVE/COMING_SOON/DISABLED, included_levels,
+  description per language), `subscription_orders` (+ `included_levels` / `duration_days` snapshot), `promo_codes`
+  (+ `requires_approval`), `promo_code_requests`, `promo_code_redemptions`, `app_settings` (key `angebote`: levels,
+  lesson-access gate "sales", free lessons).
+- **Frontend:** `fe/app/(dashboard)/{vizu-pay,angebote}` (sidebar "Xarid qilish"), `fe/features/vizu-pay/` (offer card,
+  A1–C1 warning modal, checkout with promo approval); admin `fe/app/admin/angebote` (packages + levels),
+  `fe/app/admin/payments` (management, history, package purchases, promo codes, promo approvals, discount stats — no
+  Telegram tab), `premium-users`.
+- **Rules:** packages via `offers.py` (reads `course_packages`, code defaults as fallback) + `packages.py` (admin edits,
+  audited, never deleted); sold only when ACTIVE + priced + releases something (A1–C1 opens A1–B1 now, B2/C1 for its
+  buyers once released, no new payment); order stores amount, days and levels at checkout; access = APPROVED + within
+  `access_*_date` (days from approval, server time); manual gateway, SUPER_ADMIN approves (row-locked, idempotent);
+  promo codes with `requires_approval` give no discount until an admin approved the student's request; the server
+  computes every price. Only lesson 1 of each course is free.
+- **Tests:** `test_angebote`, `test_course_packages*`, `test_promo_*`, `test_admin_purchase_analytics`,
+  `test_course_access_terms`; E2E `purchase.spec.ts`.
 
 ## 12. Admin CMS
 

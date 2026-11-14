@@ -34,6 +34,10 @@ class OfferItem(BaseSchema):
     sales_levels: list[str] = []
     free_lessons: int
     duration_months: int
+    # ACTIVE / COMING_SOON (DISABLED packages are not listed); price and duration are null unless ACTIVE
+    status: str = "ACTIVE"
+    duration_days: int | None = None
+    description: dict[str, str] = {}
     currency: str = "UZS"
 
 
@@ -182,6 +186,9 @@ class PromoCodeItem(BaseSchema):
     successful_products: list[dict]
     expires_at: datetime | None
     is_active: bool
+    requires_approval: bool = False
+    pending_requests: int = 0
+    created_by_email: str | None = None
     created_at: datetime
 
 
@@ -201,6 +208,7 @@ class PromoCodeCreateRequest(BaseSchema):
     max_uses_per_user: int = Field(default=1, ge=1, le=1000)
     expires_at: datetime | None = None
     is_active: bool = True
+    requires_approval: bool = False
 
 
 class PromoCodeUpdateRequest(BaseSchema):
@@ -215,6 +223,7 @@ class PromoCodeUpdateRequest(BaseSchema):
     max_uses_per_user: int | None = Field(default=None, ge=1, le=1000)
     is_active: bool | None = None
     expires_at: datetime | None = None
+    requires_approval: bool | None = None
 
 
 class PromoValidateResponse(BaseSchema):
@@ -224,6 +233,35 @@ class PromoValidateResponse(BaseSchema):
     message: str | None = None
     discount_amount: int | None = None
     final_amount: int | None = None
+    requires_approval: bool = False
+    # APPROVED / PROMO_APPROVAL_REQUIRED / PROMO_APPROVAL_PENDING / PROMO_REJECTED (codes that need an admin)
+    approval_status: str | None = None
+
+
+class PromoRequestCreate(BaseSchema):
+    code: str = Field(min_length=1, max_length=40)
+    plan: str = Field(min_length=1, max_length=20)
+
+
+class PromoReviewRequest(BaseSchema):
+    approve: bool
+    reason: str | None = Field(default=None, max_length=500)
+
+
+class PackageWrite(BaseSchema):
+    """Admin create / update of a course package (packages.py validates the business rules)."""
+
+    code: str | None = Field(default=None, max_length=20)
+    name: str | None = Field(default=None, max_length=120)
+    package_type: str | None = None
+    included_levels: list[str] | None = None
+    price: int | None = None
+    original_price: int | None = None
+    discount_percent: int | None = None
+    duration_days: int | None = None
+    status: str | None = None
+    description: dict[str, str] | None = None
+    sort_order: int | None = None
 
 
 class RevenueChartPoint(BaseSchema):

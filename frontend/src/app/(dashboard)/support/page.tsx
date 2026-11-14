@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import { ChevronRight, LifeBuoy, Loader2, Plus, Send } from "lucide-react";
+import { localeFor } from "@/constants/languages";
 
 import PageHeader from "@/components/dashboard/page-header";
 import SupportStatusBadge from "@/features/support/components/support-status-badge";
@@ -35,7 +36,7 @@ function SupportPageInner() {
   const [error, setError] = useState<string | null>(null);
   const [created, setCreated] = useState<SupportTicket | null>(null);
   const requestId = useRef<string>(newRequestId()); // the same id for retries of this one request
-  const locale = language === "uz" ? "uz-UZ" : "de-DE";
+  const locale = localeFor(language);
 
   const list = useInfiniteQuery({
     queryKey: ["support", "mine"],

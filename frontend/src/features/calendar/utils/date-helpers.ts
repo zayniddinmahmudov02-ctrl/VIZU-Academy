@@ -5,8 +5,10 @@ export function toDateKey(date: Date): string {
   return `${y}-${m}-${d}`;
 }
 
+const LOCALES: Record<string, string> = { uz: "uz-UZ", de: "de-DE", en: "en-GB", ru: "ru-RU" };
+
 export function localeFor(language: string): string {
-  return language === "uz" ? "uz-UZ" : "de-DE";
+  return LOCALES[language] ?? "de-DE";
 }
 
 export function buildMonthGrid(cursor: Date): (Date | null)[][] {

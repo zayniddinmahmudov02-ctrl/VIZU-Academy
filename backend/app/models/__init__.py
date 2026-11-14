@@ -121,6 +121,8 @@ from .managed_page import ManagedPage, ManagedPageAudit
 # VIZU Pay
 from .promo_code import PromoCode
 from .promo_code_redemption import PromoCodeRedemption
+from .promo_code_request import PromoCodeRequest
+from .course_package import CoursePackage
 from .subscription_order import SubscriptionOrder
 
 # Media Library
@@ -232,6 +234,8 @@ __all__ = [
     # VIZU Pay
     "PromoCode",
     "PromoCodeRedemption",
+    "PromoCodeRequest",
+    "CoursePackage",
     "SubscriptionOrder",
 
     # Media Library

@@ -10,6 +10,8 @@ from app.schemas.vizu_pay import (
     AdminOrderListResponse,
     BlockedUserItem,
     ExtendOrderAccessRequest,
+    PackageWrite,
+    PromoReviewRequest,
     PromoCodeCreateRequest,
     PromoCodeItem,
     PromoCodeUpdateRequest,
@@ -49,7 +51,6 @@ def get_angebote_config(db: Session = Depends(get_db), current_user: User = Depe
         "sales": eff["sales"],
         "free_lessons": eff["free_lessons"],
         "defaults": {
-            "offers": {c: {k: cfg[k] for k in offer_config.EDITABLE_OFFER_FIELDS} for c, cfg in offer_config.OFFERS.items()},
             "levels": offer_config.LEVEL_AVAILABLE_DEFAULT,
             "sales": offer_config.LEVEL_SALES_DEFAULT,
             "free_lessons": offer_config.FREE_LESSONS_PER_COURSE,
@@ -64,11 +65,9 @@ def put_angebote_config(
     db: Session = Depends(get_db),
     current_user: User = Depends(require_super_admin),
 ):
-    """Replaces the overrides with `payload` ({offers: {code: {sale_price,
-    original_price, discount_percent, active, levels}}, levels: {B2: true},
-    sales: {A2: true}, free_lessons: 1}). Fields left out fall back to the
-    code defaults. Orders already created keep the amount they were created
-    with; closing a level for sale never deletes orders or progress."""
+    """Replaces the level settings with `payload` ({levels: {B2: true}, sales: {A2: true}, free_lessons: 1}).
+    Prices, durations, status and contents are package fields (PUT /admin/vizu-pay/packages/{code}). Releasing a
+    level opens it at once for every buyer of a package that contains it — no new payment."""
     import json
 
     from fastapi import HTTPException
@@ -95,6 +94,65 @@ def put_angebote_config(
     write_audit(db, str(current_user.id), "angebote_config_updated",
                 details=json.dumps({"before": before, "after": clean}, ensure_ascii=False)[:4000], ip_address=_client_ip(request))
     return get_angebote_config(db, current_user)
+
+
+# ----------------------------------------------------------------------
+# Course packages (table course_packages; rules in services/vizu_pay/packages.py). No delete: set DISABLED.
+# ----------------------------------------------------------------------
+
+
+@router.get("/packages")
+def list_packages(db: Session = Depends(get_db), current_user: User = Depends(require_super_admin)):
+    from app.services.vizu_pay import packages
+
+    return packages.list_packages(db)
+
+
+@router.post("/packages")
+def create_package(data: PackageWrite, request: Request, db: Session = Depends(get_db), current_user: User = Depends(require_super_admin)):
+    from app.services.vizu_pay import packages
+
+    return packages.create_package(db, current_user, data.model_dump(exclude_unset=True), _client_ip(request))
+
+
+@router.put("/packages/{code}")
+def update_package(code: str, data: PackageWrite, request: Request, db: Session = Depends(get_db),
+                   current_user: User = Depends(require_super_admin)):
+    from app.services.vizu_pay import packages
+
+    payload = data.model_dump(exclude_unset=True)
+    payload.pop("code", None)  # the code of a package never changes (orders store it)
+    return packages.update_package(db, current_user, code, payload, _client_ip(request))
+
+
+# ----------------------------------------------------------------------
+# Promo codes that need approval, discount statistics
+# ----------------------------------------------------------------------
+
+
+@router.get("/promo-requests")
+def list_promo_requests(
+    status: str | None = Query(None, pattern="^(PENDING_APPROVAL|APPROVED|REJECTED|USED)$"),
+    promo_id: str | None = None,
+    search: str | None = None,
+    plan: str | None = None,
+    page: int = Query(default=1, ge=1),
+    page_size: int = Query(default=20, ge=1, le=100),
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_super_admin),
+):
+    return AdminVizuPayService(db).list_promo_requests(status, promo_id, search, plan, page, page_size)
+
+
+@router.post("/promo-requests/{request_id}/review")
+def review_promo_request(request_id: str, data: PromoReviewRequest, request: Request, db: Session = Depends(get_db),
+                         current_user: User = Depends(require_super_admin)):
+    return AdminVizuPayService(db).review_promo_request(request_id, data.approve, data.reason, current_user, _client_ip(request))
+
+
+@router.get("/discount-statistics")
+def discount_statistics(db: Session = Depends(get_db), current_user: User = Depends(require_super_admin)):
+    return AdminVizuPayService(db).discount_statistics()
 
 
 @router.get("/orders", response_model=AdminOrderListResponse)
@@ -196,10 +254,12 @@ def list_promo_code_orders(
     promo_id: str,
     page: int = Query(default=1, ge=1),
     page_size: int = Query(default=20, ge=1, le=100),
+    search: str | None = None,
+    plan: str | None = None,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_super_admin),
 ):
-    return AdminVizuPayService(db).list_promo_orders(promo_id, page, page_size)
+    return AdminVizuPayService(db).list_promo_orders(promo_id, page, page_size, search=search, plan=plan)
 
 
 @router.get("/promo-products")
@@ -228,6 +288,7 @@ def create_promo_code(
         max_uses_per_user=data.max_uses_per_user,
         expires_at=data.expires_at,
         is_active=data.is_active,
+        requires_approval=data.requires_approval,
         actor=current_user,
     )
 

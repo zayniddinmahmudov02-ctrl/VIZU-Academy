@@ -9,7 +9,7 @@ from app.models.module import Module
 from app.models.subscription_order import SubscriptionOrder
 from app.models.user import User
 
-from .offers import OFFER_CODES, free_lessons, level_available, level_sales_enabled, offer_levels
+from .offers import free_lessons, level_available, level_sales_enabled, offer_codes, offer_levels
 from .plans import STATUS_APPROVED
 
 
@@ -115,18 +115,19 @@ def owned_levels(user: User | None) -> set[str]:
         if session is None:
             return set()
         now = datetime.now(timezone.utc)
-        plans = session.scalars(
-            select(SubscriptionOrder.plan).where(
+        rows = session.execute(
+            select(SubscriptionOrder.plan, SubscriptionOrder.included_levels).where(
                 SubscriptionOrder.user_id == user.id,
                 SubscriptionOrder.status == STATUS_APPROVED,
-                SubscriptionOrder.plan.in_(list(OFFER_CODES)),
+                SubscriptionOrder.plan.in_(list(offer_codes())),
                 SubscriptionOrder.access_start_date <= now,
                 SubscriptionOrder.access_end_date > now,
             )
         ).all()
         levels: set[str] = set()
-        for plan in plans:
-            levels.update(offer_levels(plan))
+        for plan, included in rows:
+            # the levels fixed at checkout; older orders: the package's levels
+            levels.update(included if included else offer_levels(plan))
         cache[key] = levels
     return set(cache[key])
 

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, CheckCircle2, Download, ShieldCheck, Smartphone } from "lucide-react";
+import { localeFor } from "@/constants/languages";
 
 import Logo from "@/components/common/logo";
 import LanguageSwitcher from "@/components/dashboard/languages/language-switcher";
@@ -73,7 +74,7 @@ function Fact({ label, value, mono }: { label: string; value: string; mono?: boo
 
 function AndroidCard({ release, loading, error, primary }: { release: AppReleasePublic | null | undefined; loading: boolean; error: boolean; primary: boolean }) {
   const { t, language } = useTranslation();
-  const locale = language === "uz" ? "uz-UZ" : "de-DE";
+  const locale = localeFor(language);
 
   return (
     <section data-testid="download-android" aria-labelledby="android-title"

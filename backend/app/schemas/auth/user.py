@@ -105,4 +105,4 @@ class ChangePasswordRequest(BaseModel):
 
 
 class LanguageUpdateRequest(BaseModel):
-    language: Literal["de", "uz"]
+    language: Literal["de", "uz", "en", "ru"]

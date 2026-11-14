@@ -63,6 +63,8 @@ class PromoCode(BaseModel):
 
     applicable_package_codes: Mapped[list] = mapped_column(JSONB, default=list, server_default="[]", nullable=False)
 
+    # an admin must approve each student's use (promo_code_requests) before the discount applies
+    requires_approval: Mapped[bool] = mapped_column(Boolean, default=False, server_default="false", nullable=False)
     is_active: Mapped[bool] = mapped_column(
         Boolean,
         default=True,

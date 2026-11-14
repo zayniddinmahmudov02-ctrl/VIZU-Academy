@@ -2,14 +2,14 @@
 
 import { useState } from "react";
 import { isAxiosError } from "axios";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Dialog } from "@base-ui/react/dialog";
 import { Check, Copy, Loader2, UploadCloud, X } from "lucide-react";
 
 import { useCurrentUser } from "@/features/auth/hooks/use-current-user";
 import { updateProfile } from "@/features/profile/services/profile-service";
 import { useTranslation } from "@/lib/i18n/use-translation";
-import { getCheckoutQuote, validatePromo } from "../services/vizu-pay-service";
+import { getCheckoutQuote, requestPromo, validatePromo } from "../services/vizu-pay-service";
 import { PAYMENT_METHODS } from "../types";
 import type { PaymentCard, PlanOption } from "../types";
 
@@ -72,7 +72,10 @@ function CheckoutModalContent({ plan, paymentCards, onClose, onSubmit, user }: P
     discountType: string | null;
     discountValue: number | null;
     plan: string;
+    approvalStatus?: string | null;
   } | null>(null);
+  const [requesting, setRequesting] = useState(false);
+  const queryClient = useQueryClient();
   const [checkingPromo, setCheckingPromo] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -100,12 +103,36 @@ function CheckoutModalContent({ plan, paymentCards, onClose, onSubmit, user }: P
   const rewardName = quote?.reward_name ? (language === "uz" ? quote.reward_name.uz : quote.reward_name.de) : "";
   const finalPrice = quote?.final_amount ?? plan.price;
 
+  // codes that need an admin's approval: the server answers with a state, never with a discount before approval
+  const APPROVAL_TEXT: Record<string, string> = {
+    PROMO_APPROVAL_REQUIRED: t("angebote.promoNeedsApproval"),
+    PROMO_APPROVAL_PENDING: t("angebote.promoPending"),
+    PROMO_REJECTED: t("angebote.promoRejected"),
+  };
+  const promoMessage = (message: string | null | undefined) => (message ? APPROVAL_TEXT[message] ?? message : null);
+
+  async function handleRequestApproval() {
+    setRequesting(true);
+    try {
+      const req = await requestPromo(promoCode.trim(), plan!.plan);
+      const state = req.status === "APPROVED" ? null : req.status === "REJECTED" ? "PROMO_REJECTED" : "PROMO_APPROVAL_PENDING";
+      setPromoResult({ valid: req.status === "APPROVED", message: state, discountType: null, discountValue: null, plan: plan!.plan,
+        approvalStatus: state ?? "APPROVED" });
+      await queryClient.invalidateQueries({ queryKey: ["vizu-pay", "promo-requests"] });
+    } catch (err) {
+      const code = isAxiosError<{ message?: string; detail?: string }>(err) ? err.response?.data?.message ?? err.response?.data?.detail : undefined;
+      setPromoResult({ valid: false, message: code ?? t("vizuPay.checkoutSubmitError"), discountType: null, discountValue: null, plan: plan!.plan });
+    } finally {
+      setRequesting(false);
+    }
+  }
+
   async function handleCheckPromo() {
     if (!promoCode.trim()) return;
     setCheckingPromo(true);
     try {
       const result = await validatePromo(promoCode.trim(), plan!.plan);
-      setPromoResult({ ...result, plan: plan!.plan });
+      setPromoResult({ ...result, plan: plan!.plan, approvalStatus: result.approvalStatus });
     } catch {
       setPromoResult({
         valid: false,
@@ -149,8 +176,10 @@ function CheckoutModalContent({ plan, paymentCards, onClose, onSubmit, user }: P
         setError(t("vizuPay.checkoutBlockedError"));
       } else if (code === "PAYMENT_REQUEST_ALREADY_PENDING") {
         setError(t("vizuPay.checkoutPendingError"));
+      } else if (code === "OFFER_NOT_AVAILABLE") {
+        setError(t("angebote.notAvailable"));
       } else {
-        setError(code ?? t("vizuPay.checkoutSubmitError"));
+        setError(promoMessage(code) ?? t("vizuPay.checkoutSubmitError"));
       }
     } finally {
       setSubmitting(false);
@@ -242,7 +271,7 @@ function CheckoutModalContent({ plan, paymentCards, onClose, onSubmit, user }: P
                     type="button"
                     onClick={() => { setPromoCode(""); setPromoResult(null); }}
                     className="shrink-0 rounded-xl border border-surface-border px-3 text-xs font-semibold text-text-secondary transition-colors hover:bg-surface-hover"
-                    aria-label={language === "uz" ? "Promokodni olib tashlash" : "Gutscheincode entfernen"}
+                    aria-label={t("angebote.removePromo")}
                   >
                     <X size={14} />
                   </button>
@@ -256,14 +285,28 @@ function CheckoutModalContent({ plan, paymentCards, onClose, onSubmit, user }: P
                   {checkingPromo || quoteLoading ? <Loader2 size={14} className="animate-spin" /> : t("vizuPay.checkoutApply")}
                 </button>
               </div>
-              {quoteLoading && <p className="mt-1.5 text-xs text-text-muted" role="status">{language === "uz" ? "Narx tekshirilmoqda…" : "Preis wird geprüft…"}</p>}
-              {quoteError && <p className="mt-1.5 text-xs text-danger" role="alert">{language === "uz" ? "Server narxini olish amalga oshmadi. Qayta urinib ko‘ring." : "Serverpreis konnte nicht geladen werden. Bitte erneut versuchen."}</p>}
+              {quoteLoading && <p className="mt-1.5 text-xs text-text-muted" role="status">{t("angebote.checkingPrice")}</p>}
+              {quoteError && <p className="mt-1.5 text-xs text-danger" role="alert">{t("angebote.priceError")}</p>}
               {promoResult && promoIsForSelectedPlan && (
-                <p className={`mt-1.5 text-xs ${promoResult.valid ? "text-success" : "text-danger"}`}>
-                  {promoResult.valid && !quote?.promo_error
-                    ? t("vizuPay.checkoutPromoApplied")
-                    : quote?.promo_error ?? promoResult.message}
-                </p>
+                <div data-testid="promo-status">
+                  <p className={`mt-1.5 text-xs ${promoResult.valid ? "text-success" : promoResult.approvalStatus === "PROMO_APPROVAL_PENDING" ? "text-warning" : "text-danger"}`}>
+                    {promoResult.valid && !quote?.promo_error
+                      ? promoResult.approvalStatus === "APPROVED" ? t("angebote.promoApproved") : t("vizuPay.checkoutPromoApplied")
+                      : promoMessage(quote?.promo_error) ?? promoMessage(promoResult.message)}
+                  </p>
+                  {promoResult.approvalStatus === "PROMO_APPROVAL_REQUIRED" && (
+                    <button
+                      type="button"
+                      onClick={handleRequestApproval}
+                      disabled={requesting}
+                      data-testid="promo-request-approval"
+                      className="mt-2 inline-flex items-center gap-1.5 rounded-xl bg-warning/15 px-3 py-2 text-xs font-bold text-warning ring-1 ring-warning/30 transition-colors hover:bg-warning/25 disabled:opacity-50"
+                    >
+                      {requesting && <Loader2 size={13} className="animate-spin" />}
+                      {t("angebote.promoRequest")}
+                    </button>
+                  )}
+                </div>
               )}
             </div>
 

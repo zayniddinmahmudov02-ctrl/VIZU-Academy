@@ -52,10 +52,20 @@ class TestCourseAccessTerms(unittest.TestCase):
             "C1": 2,
             "A1_B1": 4,
             "A1_C1": 9,
-        })
+            "B2_C1": 6,
+        })  # legacy terms of orders approved before duration_days was stored per order
         self.assertEqual(access_duration_months("A1_B1"), 4)
         with self.assertRaises(ValueError):
             access_duration_months("UNKNOWN")
+
+    def test_new_orders_use_their_own_duration_days(self):
+        activated = datetime(2026, 11, 14, 9, 0, tzinfo=UTC)
+        for plan, days in (("A2", 30), ("B1", 60), ("A1_B1", 180), ("A1_C1", 365)):
+            order = SimpleNamespace(plan=plan, duration_days=days, purchase_date=None, access_start_date=None, access_end_date=None)
+            activate_course_access(order, activated)
+            with self.subTest(plan=plan):
+                self.assertEqual(order.access_end_date, activated + timedelta(days=days))
+                self.assertEqual(order.access_start_date, activated)
 
     def test_successful_activation_sets_order_specific_utc_window(self):
         activated = datetime(2024, 1, 31, 9, 15, tzinfo=UTC)
@@ -129,15 +139,16 @@ class TestCourseAccessTerms(unittest.TestCase):
         with Session() as db:
             user = User(id=uuid4())
             db.add(user)
-            rows = SimpleNamespace(all=lambda: ["A1"])
+            rows = SimpleNamespace(all=lambda: [("A1", None), ("A1_C1", ["A1", "A2", "B1", "B2", "C1"])])
             captured = []
 
-            def scalars(query):
+            def execute(query):
                 captured.append(query)
                 return rows
 
-            with mock.patch.object(db, "scalars", scalars):
-                self.assertEqual(access.owned_levels(user), {"A1"})
+            with mock.patch.object(db, "execute", execute):
+                # snapshot levels win; an old order without a snapshot resolves through its package
+                self.assertEqual(access.owned_levels(user), {"A1", "A2", "B1", "B2", "C1"})
             sql = str(captured[0].compile(dialect=postgresql.dialect()))
             self.assertIn("access_start_date <=", sql)
             self.assertIn("access_end_date >", sql)

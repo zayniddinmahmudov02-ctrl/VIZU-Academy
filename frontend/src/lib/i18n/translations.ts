@@ -18,7 +18,7 @@ export const translations: Record<string, Namespace> = {
     battle: { de: "Battle", uz: "Battle" },
     groups: { de: "Gruppen", uz: "Guruhlar" },
     informationen: { de: "Informationen", uz: "Ma'lumot" },
-    angebote: { de: "Angebote", uz: "Angebote" },
+    angebote: { de: "Angebote", uz: "Xarid qilish" },
     profile: { de: "Profil", uz: "Profil" },
     settings: { de: "Einstellungen", uz: "Sozlamalar" },
     support: { de: "Hilfe & Support", uz: "Yordam" },
@@ -1842,7 +1842,7 @@ export const translations: Record<string, Namespace> = {
   },
 
   angebote: {
-    title: { de: "Angebote", uz: "Angebote" },
+    title: { de: "Angebote", uz: "Xarid qilish" },
     subtitle: {
       de: "Kurse und Pakete zum Aktionspreis. Die 1. Lektion jedes Kurses ist kostenlos.",
       uz: "Kurslar va paketlar aksiya narxida. Har bir kursning 1-darsi bepul.",
@@ -1888,10 +1888,53 @@ export const translations: Record<string, Namespace> = {
     accessDays: { de: "{days} Tage", uz: "{days} kun" },
     accessHours: { de: "{hours} Std.", uz: "{hours} soat" },
     accessMinutes: { de: "{minutes} Min.", uz: "{minutes} daqiqa" },
+    individualCourse: { de: "Einzelkurs", uz: "Individual kurs" },
+    bundle: { de: "Komplett-Paket", uz: "Komplekt" },
+    durationMonths: { de: "{months} Monate Zugang", uz: "{months} oylik foydalanish muddati" },
+    durationMonth: { de: "1 Monat Zugang", uz: "1 oylik foydalanish muddati" },
+    durationDays: { de: "{days} Tage Zugang", uz: "{days} kunlik foydalanish muddati" },
+    comingSoon: { de: "Bald verfügbar", uz: "Tez orada" },
+    comingSoonHint: { de: "Wird später freigeschaltet", uz: "Keyinroq ochiladi" },
+    levelLater: { de: "{level} · später", uz: "{level} · keyinroq" },
+    a1c1Short: {
+      de: "A1, A2 und B1 sofort — B2 und C1 automatisch, sobald sie freigeschaltet sind.",
+      uz: "A1, A2 va B1 darhol ochiladi — B2 va C1 platformaga qo'shilishi bilan avtomatik ochiladi.",
+    },
+    a1c1WarningTitle: { de: "Wichtiger Hinweis zum Paket A1–C1", uz: "A1–C1 paketi bo'yicha muhim ogohlantirish" },
+    a1c1WarningBody: {
+      de: "Derzeit sind auf der VIZU Academy nur die Stufen A1, A2 und B1 vollständig freigeschaltet. An B2 und C1 wird gearbeitet; sie werden später schrittweise freigeschaltet. Wenn du das Paket A1–C1 kaufst, werden die verfügbaren Kurse A1, A2 und B1 sofort in deinem Profil freigeschaltet. B2 und C1 werden automatisch für dich freigeschaltet, sobald sie auf der Plattform verfügbar sind. Eine erneute Zahlung ist dafür nicht nötig.",
+      uz: "Hozirda VIZU Academy platformasida faqat A1, A2 va B1 darajalari to'liq ochilgan. B2 va C1 darajalari ustida ish olib borilmoqda va ular keyinchalik bosqichma-bosqich ochiladi. A1–C1 paketini xarid qilganingizda, hozir mavjud bo'lgan A1, A2 va B1 kurslari darhol profilingizda ochiladi. B2 va C1 kurslari platformaga qo'shilishi bilan siz uchun avtomatik ravishda ochiladi. Buning uchun qayta to'lov qilish talab etilmaydi.",
+    },
+    a1c1Confirm: { de: "Verstanden, weiter zur Zahlung", uz: "Tushundim, to'lovga o'tish" },
+    cancel: { de: "Abbrechen", uz: "Bekor qilish" },
+    promoNeedsApproval: {
+      de: "Dieser Promo-Code muss von einem Admin freigegeben werden. Der Rabatt gilt erst nach der Freigabe.",
+      uz: "Bu promokod admin tomonidan tasdiqlanishi kerak. Chegirma faqat tasdiqlangandan keyin qo'llanadi.",
+    },
+    promoRequest: { de: "Freigabe anfragen", uz: "Tasdiqlash so'rovini yuborish" },
+    promoPending: {
+      de: "Anfrage wird geprüft — noch kein Rabatt.",
+      uz: "So'rov ko'rib chiqilmoqda — chegirma hali qo'llanmadi.",
+    },
+    promoApproved: { de: "Freigegeben — Rabatt angewendet.", uz: "Tasdiqlandi — chegirma qo'llandi." },
+    promoRejected: { de: "Abgelehnt — für diesen Code gibt es keinen Rabatt.", uz: "Rad etildi — bu promokod bo'yicha chegirma berilmaydi." },
+    promoRequestsTitle: { de: "Meine Promo-Code-Anfragen", uz: "Promokod so'rovlarim" },
+    requestStatusPENDING_APPROVAL: { de: "In Prüfung", uz: "Tekshirilmoqda" },
+    requestStatusAPPROVED: { de: "Freigegeben", uz: "Tasdiqlandi" },
+    requestStatusREJECTED: { de: "Abgelehnt", uz: "Rad etildi" },
+    requestStatusUSED: { de: "Verwendet", uz: "Ishlatilgan" },
+    requestStatusEXPIRED: { de: "Abgelaufen", uz: "Muddati tugagan" },
+    requestStatusDISABLED: { de: "Deaktiviert", uz: "O'chirilgan" },
+    checkingPrice: { de: "Preis wird geprüft…", uz: "Narx tekshirilmoqda…" },
+    priceError: {
+      de: "Serverpreis konnte nicht geladen werden. Bitte erneut versuchen.",
+      uz: "Server narxini olish amalga oshmadi. Qayta urinib ko'ring.",
+    },
+    removePromo: { de: "Promo-Code entfernen", uz: "Promokodni olib tashlash" },
   },
 
   vizuPay: {
-    title: { de: "Angebote", uz: "Angebote" },
+    title: { de: "Angebote", uz: "Xarid qilish" },
     subtitle: {
       de: "Kurse freischalten und Zahlungen verwalten.",
       uz: "Kurslarni sotib oling va to'lovlaringizni boshqaring.",

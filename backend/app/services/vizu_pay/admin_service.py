@@ -10,6 +10,7 @@ from app.core.pagination import clamp_page_params, paginated_response
 from app.models.audit_log import AuditLog
 from app.models.course import Course
 from app.models.promo_code import PromoCode
+from app.models.promo_code_request import REQUEST_APPROVED, REQUEST_PENDING, REQUEST_REJECTED, REQUEST_USED, PromoCodeRequest
 from app.models.subscription_order import SubscriptionOrder
 from app.models.user import User
 from app.services import achievements
@@ -86,7 +87,7 @@ class AdminVizuPayService:
             query = query.filter(SubscriptionOrder.plan == plan)
         if kind == "course":
             # Angebote course orders only (Analytics -> course purchases)
-            query = query.filter(SubscriptionOrder.plan.in_(list(offer_config.OFFER_CODES)))
+            query = query.filter(SubscriptionOrder.plan.in_(list(offer_config.offer_codes())))
         if user_id:
             query = query.filter(SubscriptionOrder.user_id == UUID(user_id))
         if search:
@@ -305,13 +306,13 @@ class AdminVizuPayService:
                 .filter(
                     Course.is_active.is_(True),
                     Course.level.in_(
-                        [code for code, config in offer_config.OFFERS.items() if config["kind"] == offer_config.KIND_LEVEL]
+                        [code for code, config in offer_config.effective()["offers"].items() if config["kind"] == offer_config.KIND_LEVEL]
                     ),
                 )
                 .all()
             ]
             applicable_package_codes = [
-                code for code, config in offer_config.OFFERS.items()
+                code for code, config in offer_config.effective()["offers"].items()
                 if config["kind"] == offer_config.KIND_PACKAGE
             ]
         approved = (
@@ -368,6 +369,10 @@ class AdminVizuPayService:
             ],
             "expires_at": promo.expires_at,
             "is_active": promo.is_active,
+            "requires_approval": bool(getattr(promo, "requires_approval", False)),
+            "pending_requests": self.db.query(PromoCodeRequest)
+            .filter(PromoCodeRequest.promo_code_id == promo.id, PromoCodeRequest.status == REQUEST_PENDING).count(),
+            "created_by_email": getattr(getattr(promo, "created_by", None), "email", None),
             "created_at": promo.created_at,
         }
 
@@ -375,7 +380,94 @@ class AdminVizuPayService:
         rows = self.db.query(PromoCode).order_by(PromoCode.created_at.desc()).all()
         return [self._serialize_promo(p) for p in rows]
 
-    def list_promo_orders(self, promo_id: str, page: int = 1, page_size: int = 20) -> dict:
+    # ------------------------------------------------------------------
+    # Promo approval requests (codes with requires_approval)
+    # ------------------------------------------------------------------
+
+    def list_promo_requests(self, status: str | None = None, promo_id: str | None = None, search: str | None = None,
+                            plan: str | None = None, page: int = 1, page_size: int = 20) -> dict:
+        query = self.db.query(PromoCodeRequest).join(User, PromoCodeRequest.user_id == User.id)
+        if status:
+            query = query.filter(PromoCodeRequest.status == status)
+        if promo_id:
+            try:
+                query = query.filter(PromoCodeRequest.promo_code_id == UUID(promo_id))
+            except ValueError:
+                raise NotFoundError("Promo code not found") from None
+        if plan:
+            query = query.filter(PromoCodeRequest.plan == plan)
+        if search:
+            like = f"%{search.strip()}%"
+            query = query.filter(or_(User.email.ilike(like), User.username.ilike(like)))
+        total = query.count()
+        page, page_size = clamp_page_params(page, page_size)
+        rows = query.order_by(PromoCodeRequest.created_at.desc()).offset((page - 1) * page_size).limit(page_size).all()
+        items = []
+        for req in rows:
+            item = self.pay._serialize_request(req)
+            user = req.user
+            item.update({"user_id": str(req.user_id), "user_email": user.email if user else "",
+                         "user_name": (" ".join(filter(None, [user.first_name, user.last_name])) or user.username) if user else "",
+                         "discount_type": req.promo_code.discount_type if req.promo_code else None,
+                         "discount_value": req.promo_code.discount_value if req.promo_code else None,
+                         "reviewed_by_email": self.db.get(User, req.reviewed_by_id).email if req.reviewed_by_id and self.db.get(User, req.reviewed_by_id) else None})
+            items.append(item)
+        return paginated_response(items, total, page, page_size)
+
+    def review_promo_request(self, request_id: str, approve: bool, reason: str | None, actor: User, ip: str | None) -> dict:
+        try:
+            req_uuid = UUID(request_id)
+        except ValueError:
+            raise NotFoundError("Promo request not found") from None
+        req = self.db.query(PromoCodeRequest).filter(PromoCodeRequest.id == req_uuid).with_for_update().first()
+        if req is None:
+            raise NotFoundError("Promo request not found")
+        if req.status != REQUEST_PENDING:
+            raise VizuPayError(f"This request was already reviewed (current status: {req.status}).")
+        if approve and req.promo_code is not None and (not req.promo_code.is_active or (req.promo_code.expires_at and req.promo_code.expires_at <= _now())):
+            raise VizuPayError("The promo code is disabled or expired — it cannot be approved.")
+        req.status = REQUEST_APPROVED if approve else REQUEST_REJECTED
+        req.reason = (reason or "").strip() or None
+        req.reviewed_by_id = actor.id
+        req.reviewed_at = datetime.now(timezone.utc)
+        self.db.commit()
+        write_audit(self.db, actor_id=actor.id, action="promo_request_approved" if approve else "promo_request_rejected",
+                    target_user_id=req.user_id, details=f"{req.promo_code.code if req.promo_code else ''} -> {req.plan}"
+                    + (f"; {req.reason}" if req.reason else ""), ip_address=ip)
+        self.db.refresh(req)
+        return self.pay._serialize_request(req)
+
+    def discount_statistics(self) -> dict:
+        """Discount figures over APPROVED orders (the same purchase rule as revenue)."""
+        approved = purchases.revenue_conditions()
+        total_discount, promo_discount, reward_discount, orders_with_promo = (
+            self.db.query(func.coalesce(func.sum(SubscriptionOrder.discount_amount), 0),
+                          func.coalesce(func.sum(SubscriptionOrder.promo_discount_amount), 0),
+                          func.coalesce(func.sum(SubscriptionOrder.reward_discount_amount), 0),
+                          func.count(SubscriptionOrder.promo_code_id))
+            .filter(*approved).one())
+        by_code = (self.db.query(SubscriptionOrder.promo_code_snapshot, func.count(SubscriptionOrder.id),
+                                 func.coalesce(func.sum(SubscriptionOrder.promo_discount_amount), 0),
+                                 func.coalesce(func.sum(SubscriptionOrder.final_amount), 0))
+                   .filter(*approved, SubscriptionOrder.promo_code_id.isnot(None))
+                   .group_by(SubscriptionOrder.promo_code_snapshot).all())
+        by_plan = (self.db.query(SubscriptionOrder.plan, func.count(SubscriptionOrder.id),
+                                 func.coalesce(func.sum(SubscriptionOrder.discount_amount), 0),
+                                 func.coalesce(func.sum(SubscriptionOrder.final_amount), 0))
+                   .filter(*approved).group_by(SubscriptionOrder.plan).all())
+        requests = dict(self.db.query(PromoCodeRequest.status, func.count(PromoCodeRequest.id)).group_by(PromoCodeRequest.status).all())
+        return {
+            "total_discount": int(total_discount), "promo_discount": int(promo_discount), "reward_discount": int(reward_discount),
+            "orders_with_promo": int(orders_with_promo),
+            "requests": {k: int(requests.get(k, 0)) for k in (REQUEST_PENDING, REQUEST_APPROVED, REQUEST_REJECTED, REQUEST_USED)},
+            "by_code": sorted(({"code": c or "", "orders": int(n), "discount": int(d), "revenue": int(r)} for c, n, d, r in by_code),
+                              key=lambda x: -x["discount"]),
+            "by_package": sorted(({"plan": p, "label": plan_config.plan_label(p), "orders": int(n), "discount": int(d), "revenue": int(r)}
+                                  for p, n, d, r in by_plan), key=lambda x: -x["revenue"]),
+        }
+
+    def list_promo_orders(self, promo_id: str, page: int = 1, page_size: int = 20, search: str | None = None,
+                          plan: str | None = None) -> dict:
         try:
             promo_uuid = UUID(promo_id)
         except (ValueError, TypeError, AttributeError):
@@ -388,6 +480,11 @@ class AdminVizuPayService:
             .join(User, SubscriptionOrder.user_id == User.id)
             .filter(SubscriptionOrder.promo_code_id == promo_uuid)
         )
+        if plan:
+            query = query.filter(SubscriptionOrder.plan == plan)
+        if search:
+            like = f"%{search.strip()}%"
+            query = query.filter(or_(User.email.ilike(like), User.username.ilike(like)))
         total = query.count()
         page, page_size = clamp_page_params(page, page_size)
         rows = (
@@ -422,7 +519,7 @@ class AdminVizuPayService:
 
     def promo_products(self) -> dict:
         level_codes = [
-            code for code, cfg in offer_config.OFFERS.items()
+            code for code, cfg in offer_config.effective()["offers"].items()
             if cfg["kind"] == offer_config.KIND_LEVEL
         ]
         courses = (
@@ -474,7 +571,7 @@ class AdminVizuPayService:
             raise VizuPayError("Promo start date must be before its expiry date.")
 
         valid_packages = {
-            code for code, cfg in offer_config.OFFERS.items()
+            code for code, cfg in offer_config.effective()["offers"].items()
             if cfg["kind"] == offer_config.KIND_PACKAGE
         }
         if len(set(package_codes)) != len(package_codes) or any(code not in valid_packages for code in package_codes):
@@ -489,7 +586,7 @@ class AdminVizuPayService:
         selected_levels = set()
         if normalized_ids:
             allowed_levels = {
-                code for code, config in offer_config.OFFERS.items()
+                code for code, config in offer_config.effective()["offers"].items()
                 if config["kind"] == offer_config.KIND_LEVEL
             }
             selected_courses = (
@@ -532,8 +629,11 @@ class AdminVizuPayService:
         expires_at: datetime | None,
         actor: User,
         is_active: bool = True,
+        requires_approval: bool = False,
     ) -> dict:
         code = code.strip().upper()
+        if requires_approval and discount_type not in {"PERCENT", "FIXED", "SPECIAL_PRICE"}:
+            raise VizuPayError("Approval can only be required for checkout discounts (percent, fixed, special price).")
         if not code or len(code) > 40 or not all(char.isalnum() or char in "-_" for char in code):
             raise VizuPayError("Code must contain only letters, numbers, hyphens, or underscores (max 40).")
         if campaign and len(campaign) > 120:
@@ -563,6 +663,7 @@ class AdminVizuPayService:
             max_uses_per_user=max_uses_per_user,
             expires_at=expires_at,
             is_active=is_active,
+            requires_approval=requires_approval,
             created_by_id=actor.id,
         )
         self.db.add(promo)
@@ -615,7 +716,7 @@ class AdminVizuPayService:
             and "applicable_course_ids" not in changes
             and "applicable_package_codes" not in changes
             and set(changes).issubset(
-                {"code", "campaign", "starts_at", "expires_at", "max_uses", "max_uses_per_user", "is_active"}
+                {"code", "campaign", "starts_at", "expires_at", "max_uses", "max_uses_per_user", "is_active", "requires_approval"}
             )
         )
         course_ids, package_codes = self._validate_promo_fields(
@@ -649,6 +750,10 @@ class AdminVizuPayService:
         promo.max_uses_per_user = max_uses_per_user
         if "is_active" in changes:
             promo.is_active = changes["is_active"]
+        if changes.get("requires_approval") is not None:
+            if changes["requires_approval"] and updated_type not in {"PERCENT", "FIXED", "SPECIAL_PRICE"}:
+                raise VizuPayError("Approval can only be required for checkout discounts (percent, fixed, special price).")
+            promo.requires_approval = changes["requires_approval"]
 
         try:
             self.db.commit()
@@ -668,8 +773,10 @@ class AdminVizuPayService:
         promo = self.db.get(PromoCode, UUID(promo_id))
         if promo is None:
             raise NotFoundError("Promo code not found")
-        if promo.used_count > 0:
+        if promo.used_count > 0 or self.db.query(SubscriptionOrder).filter(SubscriptionOrder.promo_code_id == promo.id).count():
             raise VizuPayError("Cannot delete a promo code that has been used. Deactivate it instead.")
+        if self.db.query(PromoCodeRequest).filter(PromoCodeRequest.promo_code_id == promo.id).count():
+            raise VizuPayError("Cannot delete a promo code with approval requests. Deactivate it instead.")
 
         code = promo.code
         self.db.delete(promo)
