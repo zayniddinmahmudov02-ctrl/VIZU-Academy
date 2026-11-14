@@ -19,7 +19,11 @@ const LOCK_HINT: Record<string, string> = {
   ADMIN_LOCKED: "lms.lockAdminShort",
 };
 
-export default function LmsLessonCard({ lesson, onBuy }: { lesson: Card; onBuy?: () => void }) {
+/** A lesson of a level. A lesson that needs a purchase shows a lock and opens
+ * the purchase sheet when the card (or its button) is clicked; the server
+ * withholds its content either way. `showFree`: the "Bepul" badge on the
+ * free lesson(s) — off once the student owns the level. */
+export default function LmsLessonCard({ lesson, onBuy, showFree = true }: { lesson: Card; onBuy?: () => void; showFree?: boolean }) {
   const { t } = useTranslation();
   const locked = lesson.status === "locked";
   const premium = lesson.lock_reason === "PREMIUM_REQUIRED";
@@ -31,10 +35,16 @@ export default function LmsLessonCard({ lesson, onBuy }: { lesson: Card; onBuy?:
       className={cn(
         "flex flex-col gap-3 rounded-card bg-surface-card p-5 shadow-[var(--shadow-sm)] ring-1 ring-surface-border transition-shadow hover:shadow-[var(--shadow-md)]",
         locked && "opacity-80",
+        buyable && "cursor-pointer",
       )}
       data-testid="lms-lesson-card"
       data-number={lesson.number}
       data-status={lesson.status}
+      data-free={lesson.free ? "1" : "0"}
+      onClick={buyable ? onBuy : undefined}
+      role={buyable ? "button" : undefined}
+      tabIndex={buyable ? 0 : undefined}
+      onKeyDown={buyable ? (e) => { if (e.key === "Enter") onBuy?.(); } : undefined}
     >
       <div className="flex items-start gap-3">
         <span
@@ -46,8 +56,13 @@ export default function LmsLessonCard({ lesson, onBuy }: { lesson: Card; onBuy?:
           {locked ? <Lock size={16} /> : lesson.number}
         </span>
         <div className="min-w-0 flex-1">
-          <p className="text-xs font-semibold uppercase tracking-wide text-text-muted">
+          <p className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-wide text-text-muted">
             {t("lms.lessonNumber", { n: lesson.number })}
+            {lesson.free && showFree && (
+              <span className="rounded-full bg-success/15 px-2 py-0.5 text-[11px] font-bold normal-case tracking-normal text-success" data-testid="lms-lesson-free">
+                {t("lms.freeBadge")}
+              </span>
+            )}
           </p>
           <h3 className="font-semibold leading-snug text-text-primary">{lesson.title}</h3>
           {lesson.description && <p className="mt-1 line-clamp-2 text-sm text-text-secondary">{lesson.description}</p>}
@@ -80,9 +95,9 @@ export default function LmsLessonCard({ lesson, onBuy }: { lesson: Card; onBuy?:
       {locked && lesson.lock_reason && <p className="text-xs text-text-secondary">{t(LOCK_HINT[lesson.lock_reason] ?? "lms.lockLockedHint")}</p>}
 
       {buyable ? (
-        <button onClick={onBuy} data-testid="lms-lesson-buy"
-                className="mt-auto inline-flex items-center justify-center gap-2 rounded-xl bg-accent-blue/10 px-4 py-2.5 text-sm font-semibold text-accent-blue ring-1 ring-accent-blue/30 hover:bg-accent-blue/15">
-          <Lock size={15} /> {t("lms.buyCourse")}
+        <button onClick={(e) => { e.stopPropagation(); onBuy?.(); }} data-testid="lms-lesson-buy"
+                className="mt-auto inline-flex items-center justify-center gap-2 rounded-xl bg-accent-blue px-4 py-2.5 text-sm font-semibold text-white hover:opacity-90">
+          <Lock size={15} /> {t("lms.gateBuy")}
         </button>
       ) : (
       <Link

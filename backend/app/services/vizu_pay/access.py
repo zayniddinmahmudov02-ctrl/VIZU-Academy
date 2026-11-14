@@ -9,7 +9,7 @@ from app.models.module import Module
 from app.models.subscription_order import SubscriptionOrder
 from app.models.user import User
 
-from .offers import free_lessons, level_available, level_sales_enabled, offer_codes, offer_levels
+from .offers import free_lessons, level_available, level_purchasable, level_sales_enabled, offer_codes, offer_levels
 from .plans import STATUS_APPROVED
 
 
@@ -147,9 +147,10 @@ def is_level_coming_soon(lesson) -> bool:
 
 
 def is_level_sales_closed(lesson) -> bool:
-    """The lesson's level is available but not approved for sale yet."""
+    """The lesson's level is available but no ACTIVE package opens it (nothing to buy yet). Since 2026-11-14 the package
+    status decides this, not the old per-level "Verkauf" flag (that one only gates legacy Premium, see below)."""
     _, level = _course_of(lesson)
-    return level is not None and level_available(level) and not level_sales_enabled(level)
+    return level is not None and level_available(level) and not level_purchasable(level)
 
 
 def can_access_level_content(user: User | None, level: str | None) -> bool:

@@ -38,10 +38,18 @@ API prefixes are listed without `/api/v1` (every router is mounted bare and unde
 - **Frontend:** student `fe/app/(dashboard)/kurse/[level]`, `fe/app/(dashboard)/lektion/[lessonId]/[kompetenz]`,
   `fe/components/lms/*`, `fe/features/lms/services/lms-service.ts`; admin `fe/app/admin/{lms,kurse,levels,lessons,modules}`,
   `fe/features/admin/components/{lms,lms-course}/`.
-- **Tests:** `test_lms_unit`, `test_lms_multilevel`, `test_lms_visit_race`, `test_lesson*`, `test_section_*`.
+- **Tests:** `test_lms_unit`, `test_lms_multilevel`, `test_lms_visit_race`, `test_lesson*` (incl.
+  `test_lesson_purchase_gating`), `test_section_*`; E2E `lesson-gating.spec.ts`.
 - **Rules:** `LEVEL_LESSON_COUNTS` A1 14 · A2 14 · B1 20 · B2 30 · C1 22; `COMPETENCY_ORDER` EINFUEHRUNG,
   WORTSCHATZ, GRAMMATIK, LESEN, HOEREN, SPRECHEN, SCHREIBEN, UEBUNGEN, ABSCHLUSSTEST, ZUSAMMENFASSUNG.
   Draft lesson → 404, locked → 403 `LESSON_LOCKED`. A competency with no published content does not count.
+- **Purchase gate (one place):** `lms/access.lesson_access` → `vizu_pay/access.can_access_lesson`; every lesson-content
+  endpoint (`require_lesson_access` / `ensure_lesson_open`), video + resource stream tokens and the legacy
+  `/quiz-questions` `/quiz-options` lists (`services/quiz/student_view.py`) use it. First lesson of a released level free
+  (`free_lessons`, card `free` → "Bepul"); lesson 2+ → 403 `PREMIUM_REQUIRED` unless an APPROVED, unexpired order covers
+  the level (A1–C1 snapshot opens B2/C1 when released); `LEVEL_SALES_CLOSED` only when no ACTIVE package opens the level
+  (`offers.level_purchasable`). `is_preview` opens only videos without a lesson. UI: closed card / direct URL opens
+  `lms-purchase-modal` ("Kursni davom ettirish uchun xarid qiling!", Xarid qilish → `/angebote`, Ortga qaytish).
 - **Depends on:** Payments (access), Progress, every skill module.
 
 ## 3. A1–C1 courses (content)

@@ -30,7 +30,7 @@ export default function BuyerCard({ order, onOpenReceipt, onApprove, onReject, o
   const name = [order.user_first_name, order.user_last_name].filter(Boolean).join(" ") || order.user_username;
 
   return (
-    <div className="flex flex-col gap-3 rounded-2xl bg-[var(--admin-card)] p-4 shadow-[var(--admin-shadow-card)] ring-1 ring-[var(--admin-border)]">
+    <div className="flex flex-col gap-3 rounded-2xl bg-[var(--admin-card)] p-4 shadow-[var(--admin-shadow-card)] ring-1 ring-[var(--admin-border)]" data-testid="buyer-card">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <p className="truncate font-semibold text-[var(--admin-text-primary)]">{name}</p>

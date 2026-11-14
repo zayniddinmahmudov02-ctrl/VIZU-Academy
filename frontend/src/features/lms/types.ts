@@ -83,6 +83,8 @@ export interface LmsLessonCard {
   has_video: boolean;
   status: LessonStatus;
   lock_reason: LockReason | null;
+  /** one of the course's free lessons (the same rule as the server's access gate) */
+  free?: boolean;
   completed: boolean;
   percent: number;
   competencies_total: number | null;

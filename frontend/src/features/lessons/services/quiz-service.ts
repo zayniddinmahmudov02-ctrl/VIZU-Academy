@@ -48,29 +48,32 @@ export interface LessonQuizOption {
   order_index: number;
 }
 
-// Public — no video/lesson-access gate of its own beyond what the lesson
-// page itself already enforces; the underlying quiz/question/option GETs
-// are unauthenticated reads, same as the rest of this legacy quiz system.
+// Same lesson gate as every lesson-content endpoint (free first lesson /
+// purchase): the quiz list, its questions and options all answer 403
+// PREMIUM_REQUIRED for a lesson the student may not open.
 export async function getLessonQuizzes(lessonId: string, quizType: QuizType): Promise<LessonQuiz[]> {
   return api<LessonQuiz[]>(
     `/api/v1/quizzes/lesson/${lessonId}?quiz_type=${quizType}&published_only=true`,
   );
 }
 
-// No per-quiz filter exists server-side (legacy system) — fetch everything
-// and filter client-side, same pattern the admin question editor already uses.
+// The server returns only the items of quizzes the student may open; `quiz_id`
+// narrows it to this quiz (one request per quiz instead of every quiz's items).
 export async function getQuizQuestions(quizId: string): Promise<LessonQuizQuestion[]> {
-  const all = await api<LessonQuizQuestion[]>(`/api/v1/quiz-questions`);
+  const all = await api<LessonQuizQuestion[]>(`/api/v1/quiz-questions?quiz_id=${encodeURIComponent(quizId)}`);
   return all
     .filter((q) => q.quiz_id === quizId && q.is_published)
     .sort((a, b) => a.order_index - b.order_index);
 }
 
-export async function getQuizOptions(questionId: string): Promise<LessonQuizOption[]> {
-  const all = await api<LessonQuizOption[]>(`/api/v1/quiz-options`);
-  return all
-    .filter((o) => o.question_id === questionId)
-    .sort((a, b) => a.order_index - b.order_index);
+/** All options of one quiz, grouped by question id. */
+export async function getQuizOptionsByQuestion(quizId: string): Promise<Map<string, LessonQuizOption[]>> {
+  const all = await api<LessonQuizOption[]>(`/api/v1/quiz-options?quiz_id=${encodeURIComponent(quizId)}`);
+  const byQuestion = new Map<string, LessonQuizOption[]>();
+  for (const o of [...all].sort((a, b) => a.order_index - b.order_index)) {
+    byQuestion.set(o.question_id, [...(byQuestion.get(o.question_id) ?? []), o]);
+  }
+  return byQuestion;
 }
 
 // ============================================================

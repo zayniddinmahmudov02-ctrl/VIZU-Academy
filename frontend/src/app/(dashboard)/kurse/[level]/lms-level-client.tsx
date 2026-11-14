@@ -22,7 +22,7 @@ export default function LmsLevelClient({ level }: { level: string }) {
   const code = level.toUpperCase();
   const [buying, setBuying] = useState(false);
   const sale = data?.sale;
-  // sales_enabled: only a level the admin approved for sale can be bought
+  // sales_enabled: an ACTIVE package (the level or a bundle) opens this level
   const canBuy = !!sale && !sale.coming_soon && !!sale.sales_enabled && !sale.owned;
   const salesClosed = !!sale?.sales_closed && !sale.owned;
 
@@ -52,10 +52,10 @@ export default function LmsLevelClient({ level }: { level: string }) {
                     <PlayCircle size={16} /> {t(data.last_lesson_id ? "lms.continue" : "lms.start")}
                   </Link>
                 )}
-                {canBuy && sale?.offer?.purchasable && (
+                {canBuy && (
                   <button onClick={() => setBuying(true)} data-testid="lms-level-buy"
                           className="inline-flex items-center gap-2 rounded-xl bg-white/15 px-5 py-2.5 text-sm font-semibold text-white ring-1 ring-white/40 backdrop-blur hover:bg-white/25">
-                    <CreditCard size={16} /> {t("lms.buyCourse")} · {t("lms.som", { n: (sale.offer.sale_price ?? 0).toLocaleString("ru-RU").replace(/ /g, " ") })}
+                    <CreditCard size={16} /> {t("lms.gateBuy")}{sale?.offer?.purchasable && " · "}{sale?.offer?.purchasable && t("lms.som", { n: (sale.offer.sale_price ?? 0).toLocaleString("ru-RU").replace(/ /g, " ") })}
                   </button>
                 )}
               </div>
@@ -83,7 +83,7 @@ export default function LmsLevelClient({ level }: { level: string }) {
           ) : (
             <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3" data-testid="lms-lessons">
               {data.lessons.map((lesson) => (
-                <LmsLessonCard key={lesson.id} lesson={lesson} onBuy={canBuy ? () => setBuying(true) : undefined} />
+                <LmsLessonCard key={lesson.id} lesson={lesson} showFree={!sale?.owned} onBuy={canBuy ? () => setBuying(true) : undefined} />
               ))}
             </div>
           )}

@@ -19,7 +19,8 @@ async def require_lesson_access(
 ) -> User:
     """The single gate every lesson-content endpoint (video, grammar,
     vocabulary, readings, the assessment engine's lesson endpoints) goes
-    through: first-3-per-level free, Premium or staff otherwise. See
+    through: the course's first lesson free (`offers.free_lessons()`), else an
+    APPROVED unexpired order covering the level, legacy Premium or staff. See
     app.services.vizu_pay.access.can_access_lesson — that function is the
     actual rule; this just adapts it to FastAPI's dependency injection so
     every router applies it identically instead of reimplementing it."""

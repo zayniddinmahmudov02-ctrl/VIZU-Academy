@@ -15,7 +15,8 @@ Browser (Next.js pages, PWA) ──/api/v1/…──► nginx ──► uvicorn 
 - **Auth:** JWT access token + refresh token (`refresh_tokens`), optional "remember me", login by email/phone or
   Telegram (init-data validated); admin panel has a second factor. Roles → `UserRole`.
 - **Lesson gate:** `require_lesson_access` → `services/lms/access.ensure_lesson_open` (draft 404, lock 403) +
-  `services/vizu_pay/access.can_access_lesson` (lesson 1 free, else APPROVED order or staff).
+  `services/vizu_pay/access.can_access_lesson` (lesson 1 free, else APPROVED unexpired order or staff); also behind
+  video/resource stream tokens and the legacy quiz lists (module-registry §2 "Purchase gate").
 - **Content model:** one course per level; lessons hold existing task tables (videos, readings, listenings, writings,
   speakings, skill_exercises) + 10 competency rows. Student progress = attempts + competency progress + lesson completion.
 - **Grading:** server-side only (`lesson_skills/skill_tests.py`, `question_types.py`); keys never sent before grading;

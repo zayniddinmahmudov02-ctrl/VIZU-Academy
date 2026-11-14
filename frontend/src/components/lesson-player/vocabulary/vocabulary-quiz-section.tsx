@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Library } from "lucide-react";
 
-import { getLessonQuizzes, getQuizOptions, getQuizQuestions } from "@/features/lessons/services/quiz-service";
+import { getLessonQuizzes, getQuizOptionsByQuestion, getQuizQuestions } from "@/features/lessons/services/quiz-service";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import LessonSection from "../common/lesson-section";
 import VocabularyTestSection from "./vocabulary-test-section";
@@ -37,8 +37,8 @@ export default function VocabularyQuizSection({ lessonId }: Props) {
     queryKey: ["quiz-questions-with-options", vocabQuiz?.id],
     queryFn: async () => {
       if (!vocabQuiz) return [];
-      const qs = await getQuizQuestions(vocabQuiz.id);
-      return Promise.all(qs.map(async (q) => ({ ...q, options: await getQuizOptions(q.id) })));
+      const [qs, options] = await Promise.all([getQuizQuestions(vocabQuiz.id), getQuizOptionsByQuestion(vocabQuiz.id)]);
+      return qs.map((q) => ({ ...q, options: options.get(q.id) ?? [] }));
     },
     enabled: !!vocabQuiz,
   });

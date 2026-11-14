@@ -7,7 +7,7 @@ import { CircleHelp } from "lucide-react";
 import { useCurrentUser } from "@/features/auth/hooks/use-current-user";
 import {
   getLessonQuizzes,
-  getQuizOptions,
+  getQuizOptionsByQuestion,
   getQuizQuestions,
   submitQuizAttempt,
   type LessonQuizOption,
@@ -83,11 +83,8 @@ export default function QuizSection({ lessonId, quizType = "GRAMMAR" }: Props) {
     queryKey: ["quiz-questions-with-options", quiz?.id],
     queryFn: async (): Promise<QuestionWithOptions[]> => {
       if (!quiz) return [];
-      const qs = await getQuizQuestions(quiz.id);
-      const withOptions = await Promise.all(
-        qs.map(async (q) => ({ ...q, options: await getQuizOptions(q.id) })),
-      );
-      return withOptions;
+      const [qs, options] = await Promise.all([getQuizQuestions(quiz.id), getQuizOptionsByQuestion(quiz.id)]);
+      return qs.map((q) => ({ ...q, options: options.get(q.id) ?? [] }));
     },
     enabled: !!quiz,
   });

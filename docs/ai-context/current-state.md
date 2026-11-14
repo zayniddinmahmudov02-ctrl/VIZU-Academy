@@ -9,8 +9,9 @@ Updated 2026-11-14.
 | `origin/main` | `f8a2db36` (owner push = Multilevel exam overlay) | local machine still has no git; course packages / promo approval / en+ru (below) are NOT pushed yet |
 | Server checkout | `f8a2db36` (fast-forward 2026-11-14, the exam overlay was byte-identical) + **LF overlay "Course packages"** (64 files + docs, list = `overlay-replaced.txt` / `packages_overlay.tar` in the backup dir, originals `overlay-originals.tar`; migration file re-sent once: offline-renderable seed, `mig_fix.tar`). Once the owner pushes: `git checkout -- <modified>`, remove the new untracked files, `git pull --ff-only` | leftovers `frontend/package-lock.json` (M), `package-lock.json`, `"hlarni xavfsiz saqlash"` — pre-existing, not ours |
 | DB (production + local test) | Alembic `c7e1f3a9b2d5` (course packages + promo approval, applied 2026-11-14) | SQL preview `migration-c7e1f3a9b2d5.sql` in the backup dir |
-| Frontend production slot | `.next-a`, deployment `f8a2db36-20261114164007` (with the packages overlay) | `.next-b` = previous (rollback) |
-| Last backup | `/var/backups/vizu/pre-course-packages-20261114-162634` (146 tables, 0 differing; + `angebote-settings.json`, git dirty/untracked) | before: `pre-multilevel-exam-20261105-220413` |
+| Frontend production slot | `.next-b`, deployment `f8a2db36-20261114173636` (packages + lesson-gating overlays) | `.next-a` = previous (rollback) |
+| Last backup | `/var/backups/vizu/pre-lesson-gating-20261114-173439` (DB dump + 26 replaced files; no migration) | before: `pre-course-packages-20261114-162634` (146 tables, 0 differing) |
+| Overlay 2 "Lesson gating" (2026-11-14) | 26 files (list `overlay-replaced.txt` + `gate_overlay.tar` in that backup dir) on top of overlay 1 | not pushed either |
 
 ## Packages (production, 2026-11-14)
 
@@ -34,6 +35,12 @@ bundle strike-through prices) are no longer read. 33 orders, 2 promo codes, 0 ap
 - A2 Wortschatz: 216 words, 32 published test sets. A2 readiness `NEEDS_CONTENT`; sales enabled.
 
 ## Last verification (2026-11-14)
+
+- Lesson gating deploy: local backend 1029 passed / 17 skipped (new `test_lesson_purchase_gating` 8), frontend tsc + eslint
+  OK, unit 40/40, E2E `lesson-gating` + `purchase` 11 passed (desktop + Pixel 7: Bepul badge, sheet text, Ortga qaytish,
+  Xarid qilish → /angebote, API 403, real checkout + admin approval opens the level). Production: server unittest 85 OK,
+  health 200, A1/A2/B1 lesson 1 open / 2+ `PREMIUM_REQUIRED`, B2 `LEVEL_COMING_SOON`, anonymous quiz list 603 → 72
+  questions (one free lesson only), strings in `.next-b`, bots active.
 
 - Course packages deploy: local backend full suite 1021 passed / 17 skipped, package + migration DB tests 31 passed after
   the migration fix, frontend tsc OK, unit 40/40, E2E purchase + admin + multilevel-exam 11 passed (desktop + Pixel 7).

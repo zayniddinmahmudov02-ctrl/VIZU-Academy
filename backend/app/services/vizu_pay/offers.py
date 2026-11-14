@@ -187,6 +187,14 @@ def is_purchasable(code: str) -> bool:
     return bool(released)
 
 
+def level_purchasable(level: str | None) -> bool:
+    """A released level that at least one purchasable package (single level or bundle) opens — what decides whether a
+    closed lesson asks the student to buy (PREMIUM_REQUIRED) or says "Tez orada" (nothing to buy yet)."""
+    if not level_available(level):
+        return False
+    return any(level in cfg["levels"] and is_purchasable(code) for code, cfg in effective()["offers"].items())
+
+
 def offer_levels(code: str) -> list[str]:
     cfg = offer(code)
     return list(cfg["levels"]) if cfg else []

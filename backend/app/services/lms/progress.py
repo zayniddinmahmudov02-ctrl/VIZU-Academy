@@ -52,6 +52,7 @@ from app.models.vocabulary import Vocabulary
 from app.services.lesson_skills import results as skill_results
 from app.services.lms import structure
 from app.services.lms.access import LessonAccess, lesson_access
+from app.services.vizu_pay.access import is_free_lesson
 
 STATUS_LOCKED = "locked"
 STATUS_NOT_AVAILABLE = "not_available"
@@ -493,6 +494,8 @@ def level_overview(db: Session, user: User, level: str, *, include_drafts: bool 
                 "has_video": lesson.id in video_lessons,
                 "status": status,
                 "lock_reason": access.reason,
+                # the course's free lesson(s) ("Bepul" badge) — the same rule the access gate applies
+                "free": is_free_lesson(lesson),
                 "completed": completed,
                 "percent": percent,
                 "competencies_total": comp_total,
@@ -534,7 +537,8 @@ def level_sale(user: User, level: str) -> dict:
     from app.services.vizu_pay.access import has_premium_bypass, is_user_premium, owns_level
 
     available = offer_config.level_available(level)
-    sales = offer_config.level_sales_enabled(level)
+    sales = offer_config.level_sales_enabled(level)  # legacy-Premium gate only
+    purchasable = offer_config.level_purchasable(level)  # an ACTIVE package opens the level: the buy prompt is shown
     listed = {o["code"]: o for o in offer_config.list_offers()}
 
     def brief(o: dict) -> dict:
@@ -546,9 +550,9 @@ def level_sale(user: User, level: str) -> dict:
     return {
         "available": available,
         "coming_soon": not available,
-        # available (free lessons open) but not approved for sale yet: buying shows "Tez orada"
-        "sales_enabled": bool(available and sales),
-        "sales_closed": bool(available and not sales),
+        # available (free lessons open) but no ACTIVE package opens it: buying shows "Tez orada"
+        "sales_enabled": bool(available and purchasable),
+        "sales_closed": bool(available and not purchasable),
         "owned": bool(has_premium_bypass(user) or (available and (premium_counts or owns_level(user, level)))),
         "free_lessons": offer_config.free_lessons() if available else 0,
         "offer": brief(listed[level]) if level in listed else None,

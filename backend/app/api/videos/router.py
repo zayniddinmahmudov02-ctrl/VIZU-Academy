@@ -107,7 +107,7 @@ def stream_video(
 
     if video is None or not video.is_published or not video.storage_key:
         raise HTTPException(status_code=404, detail="Video not found")
-    if not video.is_preview:
+    if service.needs_access_check(video):
         try:
             token_user = db.get(User, UUID(token_user_id))
         except ValueError:
@@ -344,7 +344,7 @@ def stream_subtitles(video_id: UUID, token: str, db: Session = Depends(get_db)):
     video = service.get(video_id)
     if video is None or not video.is_published or not video.subtitle_key:
         raise HTTPException(status_code=404, detail="Subtitles not found")
-    if not video.is_preview:
+    if service.needs_access_check(video):
         try:
             token_user = db.get(User, UUID(token_user_id))
         except ValueError:

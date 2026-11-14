@@ -15,7 +15,7 @@ Endpoint details: open the router file. Auth deps: `backend/app/api/dependencies
 | `/vocabularies` `/grammars` `/readings` `/reading-questions` `/reading-options` `/listenings` `/speakings` | legacy content CRUD | staff for writes |
 | `/writings` | `writing/router.py`: `GET /lesson/{id}?competency=SCHREIBEN` (default; also GRAMMATIK/WORTSCHATZ/LESEN), submit, `/submissions/me`, `/submissions/me/history` (own versions + evaluations) | `require_lesson_access` / `get_current_user`; create/update/delete `require_content_editor` |
 | `/student-progress` `/student-writings` `/student-speakings` `/student-quizzes` | learner submissions | own data only |
-| `/quizzes` `/quiz-questions` `/quiz-options` `/homeworks` `/exams` `/exam-providers` | legacy | mixed |
+| `/quizzes` `/quiz-questions` `/quiz-options` `/homeworks` `/exams` `/exam-providers` | legacy; `GET /quiz-questions`, `/quiz-questions/{id}`, `/quiz-options` (optional `?quiz_id=`): staff see all, others only published items of lessons they may open (lesson gate) | mixed |
 | `/books` `/dictionary` `/notifications` `/support` `/achievements` `/advertisements` `/dashboard` `/enrollments` | student features | `get_current_user` |
 | `/vizu-pay` (+ `POST/GET /promo/requests`: approval requests of promo codes) | `vizu_pay/router.py` | `get_current_user` |
 | `/admin/vizu-pay` packages (`GET/POST /packages`, `PUT /packages/{code}`), `GET /promo-requests`, `POST /promo-requests/{id}/review`, `GET /discount-statistics`, promo history filters `search`/`plan` | `admin/vizu_pay_router.py` | `require_super_admin` |

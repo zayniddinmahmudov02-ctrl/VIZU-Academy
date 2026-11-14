@@ -431,7 +431,7 @@ class VideoService:
         if not video.storage_key:
             raise NotFoundError("Video not found")
 
-        if not video.is_preview:
+        if self.needs_access_check(video):
             self._require_access(video, user)
 
         if self.resolve_video_path(video) is None:
@@ -439,6 +439,12 @@ class VideoService:
             raise NotFoundError("Video not found")
 
         return video
+
+    @staticmethod
+    def needs_access_check(video: Video) -> bool:
+        """`is_preview` opens only a video that belongs to no lesson; a lesson's video follows the lesson's gate (free
+        first lesson / purchase / staff), so a preview flag can never open a paid lesson's video."""
+        return not video.is_preview or video.lesson_id is not None
 
     def _require_access(
         self,
