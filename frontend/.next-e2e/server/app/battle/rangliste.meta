@@ -1,0 +1,17 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/(battle)/layout,_N_T_/(battle)/battle/layout,_N_T_/(battle)/battle/rangliste/layout,_N_T_/(battle)/battle/rangliste/page,_N_T_/battle/rangliste"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/!KGJhdHRsZSk/battle/rangliste/__PAGE__",
+    "/!KGJhdHRsZSk/battle/rangliste",
+    "/!KGJhdHRsZSk/battle",
+    "/!KGJhdHRsZSk",
+    "/_index",
+    "/_head"
+  ]
+}

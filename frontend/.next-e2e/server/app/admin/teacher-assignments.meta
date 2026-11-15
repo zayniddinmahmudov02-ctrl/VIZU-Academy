@@ -1,0 +1,16 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/admin/layout,_N_T_/admin/teacher-assignments/layout,_N_T_/admin/teacher-assignments/page,_N_T_/admin/teacher-assignments"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/admin/teacher-assignments/__PAGE__",
+    "/admin/teacher-assignments",
+    "/admin",
+    "/_index",
+    "/_head"
+  ]
+}

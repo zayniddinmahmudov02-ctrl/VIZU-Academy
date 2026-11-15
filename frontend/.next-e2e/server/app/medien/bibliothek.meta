@@ -1,0 +1,17 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/(dashboard)/layout,_N_T_/(dashboard)/medien/layout,_N_T_/(dashboard)/medien/bibliothek/layout,_N_T_/(dashboard)/medien/bibliothek/page,_N_T_/medien/bibliothek"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/!KGRhc2hib2FyZCk/medien/bibliothek/__PAGE__",
+    "/!KGRhc2hib2FyZCk/medien/bibliothek",
+    "/!KGRhc2hib2FyZCk/medien",
+    "/!KGRhc2hib2FyZCk",
+    "/_index",
+    "/_head"
+  ]
+}

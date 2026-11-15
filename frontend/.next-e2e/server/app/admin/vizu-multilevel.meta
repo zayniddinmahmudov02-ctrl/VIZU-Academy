@@ -1,0 +1,16 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/admin/layout,_N_T_/admin/vizu-multilevel/layout,_N_T_/admin/vizu-multilevel/page,_N_T_/admin/vizu-multilevel"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/admin/vizu-multilevel/__PAGE__",
+    "/admin/vizu-multilevel",
+    "/admin",
+    "/_index",
+    "/_head"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/teacher/layout,_N_T_/teacher/schreiben/layout,_N_T_/teacher/schreiben/page,_N_T_/teacher/schreiben"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/teacher/schreiben/__PAGE__",
+    "/teacher/schreiben",
+    "/teacher",
+    "/_index",
+    "/_head"
+  ]
+}

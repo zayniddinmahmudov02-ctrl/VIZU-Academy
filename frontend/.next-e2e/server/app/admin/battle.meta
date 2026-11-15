@@ -1,0 +1,16 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/admin/layout,_N_T_/admin/battle/layout,_N_T_/admin/battle/page,_N_T_/admin/battle"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/admin/battle/__PAGE__",
+    "/admin/battle",
+    "/admin",
+    "/_index",
+    "/_head"
+  ]
+}
