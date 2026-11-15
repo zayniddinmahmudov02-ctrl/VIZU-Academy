@@ -9,10 +9,11 @@ from sqlalchemy import delete, func, or_, select, update
 from sqlalchemy.orm import Session
 
 from app.models.medien import (ACCESS_FREE, ACCESS_PAID, KIND_BOOK, KIND_FILM, KIND_SONG, PURCHASE_REQUESTED, STATUS_PUBLISHED, Film,
-                               FilmSubtitle, MediaBook, MediaCategory, MediaPlayHistory, MediaProgress, MediaPurchase, Playlist, PlaylistSong,
-                               Song, UserFavoriteSong)
+                               FilmRendition, FilmSubtitle, MediaBook, MediaCategory, MediaPlayHistory, MediaProgress, MediaPurchase, Playlist,
+                               PlaylistSong, Song, UserFavoriteSong)
 from app.models.user import User
 from app.services.medien import common as c
+from app.services.medien import player, subtitles
 
 MAX_PAGE_SIZE = 60
 SORTS = {"new", "popular", "title"}
@@ -221,20 +222,37 @@ def play_song(db: Session, user: User, song_id: UUID, *, count: bool = True) -> 
     return {"url": c.signed_url(f"/api/v1/medien/stream/{KIND_SONG}/{song.id}", song.id, user), "id": song.id}
 
 
+def renditions_of(db: Session, film_id: UUID) -> list[FilmRendition]:
+    rows = list(db.scalars(select(FilmRendition).where(FilmRendition.film_id == film_id)))
+    return sorted(rows, key=lambda r: (-(r.height or 0), r.label))
+
+
 def watch_film(db: Session, user: User, film_id: UUID) -> dict:
+    """Everything the player needs, in one answer: the video source (+ extra qualities), the subtitle tracks (signed URLs of the
+    cue lists), the last position and state, the student's player settings, and the previous / next film."""
     film = c.item_or_404(db, KIND_FILM, film_id, user)
     c.require_access(db, user, KIND_FILM, film)
-    subs = [{"id": s.id, "language": s.language, "label": s.label,
-             "url": c.signed_url(f"/api/v1/medien/subtitles/{s.id}", s.id, user, "subtitle")} for s in subtitles_of(db, film.id)]
+    subs = []
+    for s in subtitles_of(db, film.id):
+        base = f"/api/v1/medien/subtitles/{s.id}"
+        subs.append({"id": s.id, "language": s.language, "label": s.label, "url": c.signed_url(base, s.id, user, "subtitle"),
+                     "cues_url": c.signed_url(f"{base}/cues", s.id, user, "subtitle"), "cue_count": s.cue_count})
+    sources: list[dict] = []
     if film.video_key and film.processing_status == "READY" and c.file_path(film.video_key):
         source = {"type": "file", "url": c.signed_url(f"/api/v1/medien/stream/{KIND_FILM}/{film.id}", film.id, user)}
+        sources.append({"id": "main", "label": "Original", "height": None, "url": source["url"]})
+        for r in renditions_of(db, film.id):
+            if c.file_path(r.file_key):
+                sources.append({"id": str(r.id), "label": r.label, "height": r.height,
+                                "url": c.signed_url(f"/api/v1/medien/rendition/{r.id}", r.id, user, "rendition")})
     elif film.external_url:
         source = {"type": "external", "url": film.external_url}
     else:
         raise c.err(404, "FILE_MISSING")
     db.execute(update(Film).where(Film.id == film.id).values(view_count=Film.view_count + 1))
     db.commit()
-    return {"title": film.title, "source": source, "subtitles": subs, "progress": progress(db, user, KIND_FILM, film.id)}
+    return {"title": film.title, "source": source, "sources": sources, "subtitles": subs, "progress": progress(db, user, KIND_FILM, film.id),
+            "prefs": player.get_prefs(db, user), "neighbors": player.neighbors(db, film), "duration_ms": film.video_duration_ms}
 
 
 def stream_target(db: Session, kind: str, item_id: UUID, token: str):
@@ -262,6 +280,32 @@ def subtitle_target(db: Session, subtitle_id: UUID, token: str):
     return path
 
 
+def subtitle_cues(db: Session, subtitle_id: UUID, token: str) -> dict:
+    """The cue list of one subtitle track as plain text ([[start_ms, end_ms, text], …]) — same token / access check as the file;
+    the text always went through the sanitiser, and a damaged stored file gives an empty list instead of an error."""
+    path = subtitle_target(db, subtitle_id, token)
+    sub = db.get(FilmSubtitle, subtitle_id)
+    try:
+        cues = subtitles.read_cues(path.read_bytes())
+    except subtitles.SubtitleError:
+        cues = []
+    return {"language": sub.language, "label": sub.label, "cues": subtitles.cues_json(cues)}
+
+
+def rendition_target(db: Session, rendition_id: UUID, token: str):
+    """(path, content type) of an additional video quality: signed token, access checked again (PAID = purchased)."""
+    user = c.read_token(db, token, rendition_id, "rendition")
+    rendition = db.get(FilmRendition, rendition_id)
+    if rendition is None:
+        raise c.err(404, "NOT_FOUND")
+    film = c.item_or_404(db, KIND_FILM, rendition.film_id, user)
+    c.require_access(db, user, KIND_FILM, film)
+    path = c.file_path(rendition.file_key)
+    if path is None:
+        raise c.err(404, "FILE_MISSING")
+    return path, rendition.content_type
+
+
 def cover_target(db: Session, kind: str, item_id: UUID):
     """Covers and posters are the only public Medienwelt files (a PAID item shows its cover to everyone)."""
     model = Playlist if kind == "PLAYLIST" else c.MODELS.get(kind)
@@ -279,10 +323,12 @@ def progress(db: Session, user: User, kind: str, item_id: UUID) -> dict | None:
     row = db.scalar(select(MediaProgress).where(MediaProgress.user_id == user.id, MediaProgress.content_type == kind, MediaProgress.content_id == item_id))
     if row is None:
         return None
-    return {"position": row.position, "total": row.total, "completed": row.completed, "updated_at": row.updated_at}
+    return {"position": row.position, "total": row.total, "completed": row.completed, "updated_at": row.updated_at,
+            "state": player.clean_state(row.player_state) or None}
 
 
-def save_progress(db: Session, user: User, kind: str, item_id: UUID, position: int, total: int | None, completed: bool | None) -> dict:
+def save_progress(db: Session, user: User, kind: str, item_id: UUID, position: int, total: int | None, completed: bool | None,
+                  state: dict | None = None) -> dict:
     item = c.item_or_404(db, kind, item_id, user)
     c.require_access(db, user, kind, item)
     position = max(0, position)
@@ -293,6 +339,8 @@ def save_progress(db: Session, user: User, kind: str, item_id: UUID, position: i
         row = MediaProgress(user_id=user.id, content_type=kind, content_id=item_id)
         db.add(row)
     row.position, row.total, row.completed = position, total or row.total, done
+    if state and kind == KIND_FILM:  # subtitle language, dual subtitles, speed, quality of this film (restored on the next visit)
+        row.player_state = {**player.clean_state(row.player_state), **player.clean_state(state)}
     row.updated_at = datetime.now(timezone.utc)
     db.commit()
     return progress(db, user, kind, item_id)

@@ -1,14 +1,14 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
-import { Award, Download, ExternalLink, Eye, Loader2, ShieldCheck } from "lucide-react";
+import { Award, Download, ExternalLink, Eye, Loader2, Printer, ShieldCheck } from "lucide-react";
 
 import Badge from "@/components/ui/badge";
 import PageHeader from "@/components/dashboard/page-header";
 import { fetchMyCertificatePdf, getMyCertificates, type MyCertificate } from "@/features/certificates/services/my-certificates-service";
-import { openBlob } from "@/lib/save-blob";
+import { openBlob, printBlob } from "@/lib/save-blob";
 import { useTranslation } from "@/lib/i18n/use-translation";
 
 const LEVEL_ORDER = ["BELOW_A1", "A1", "A2", "B1", "B2", "C1"];
@@ -18,7 +18,7 @@ function byLevel(a: MyCertificate, b: MyCertificate) {
   return LEVEL_ORDER.indexOf(b.level ?? "") - LEVEL_ORDER.indexOf(a.level ?? "") || (b.issued_at ?? "").localeCompare(a.issued_at ?? "");
 }
 
-/** The student's own certificates — course certificates and VIZU-Multilevel
+/** The student's own issued certificates (revoked ones are not shown) — course certificates and VIZU-Multilevel
  * — grouped by type, highest level first. */
 export default function CertificatesPage() {
   const { t } = useTranslation();
@@ -26,11 +26,13 @@ export default function CertificatesPage() {
   const [busy, setBusy] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  async function pdf(c: MyCertificate, save: boolean) {
+  async function pdf(c: MyCertificate, mode: "view" | "save" | "print") {
     setBusy(c.id);
     setError(null);
     try {
-      openBlob(await fetchMyCertificatePdf(c.id), save ? `Zertifikat-${c.certificate_number ?? c.level ?? "VIZU"}.pdf` : undefined);
+      const blob = await fetchMyCertificatePdf(c.id);
+      if (mode === "print") printBlob(blob);
+      else openBlob(blob, mode === "save" ? `Zertifikat-${c.certificate_number ?? c.level ?? "VIZU"}.pdf` : undefined);
     } catch {
       setError(t("certificates.pdfError"));
     } finally {
@@ -38,7 +40,7 @@ export default function CertificatesPage() {
     }
   }
 
-  const groups = TYPE_ORDER.map((type) => ({ type, items: (data ?? []).filter((c) => c.source === type).sort(byLevel) })).filter((g) => g.items.length);
+  const groups = TYPE_ORDER.map((type) => ({ type, items: (data ?? []).filter((c) => c.source === type && c.status !== "revoked").sort(byLevel) })).filter((g) => g.items.length);
   const level = (c: MyCertificate) => (c.level === "BELOW_A1" ? t("certificates.belowA1") : c.level ?? "—");
 
   return (
@@ -70,9 +72,9 @@ export default function CertificatesPage() {
                 {g.items.map((c) => (
                   <article key={c.id} className="flex flex-col rounded-card bg-surface-card p-6 shadow-[var(--shadow-md)] ring-1 ring-surface-border" data-testid="certificate-card">
                     <div className="flex items-start justify-between gap-3">
-                      <div className={`flex items-center gap-2 ${c.status === "revoked" ? "text-danger" : "text-warning"}`}>
+                      <div className="flex items-center gap-2 text-warning">
                         <ShieldCheck size={18} />
-                        <span className="text-xs font-semibold uppercase tracking-wide">{c.status === "revoked" ? t("certificates.revoked") : t("certificates.verified")}</span>
+                        <span className="text-xs font-semibold uppercase tracking-wide">{t("certificates.verified")}</span>
                       </div>
                       <Badge variant="warning">{level(c)}</Badge>
                     </div>
@@ -93,14 +95,18 @@ export default function CertificatesPage() {
                           <ExternalLink size={14} /> {t("certificates.open")}
                         </Link>
                       ) : (
-                        <button disabled={!c.pdf_available || busy === c.id} onClick={() => pdf(c, false)}
+                        <button disabled={!c.pdf_available || busy === c.id} onClick={() => pdf(c, "view")}
                                 className="inline-flex items-center gap-1.5 rounded-full bg-accent-blue px-4 py-2 text-sm font-semibold text-white hover:bg-accent-blue-hover disabled:opacity-50">
                           <Eye size={14} /> {t("certificates.viewPdf")}
                         </button>
                       )}
-                      <button disabled={!c.pdf_available || busy === c.id} onClick={() => pdf(c, true)} data-testid="certificate-pdf"
+                      <button disabled={!c.pdf_available || busy === c.id} onClick={() => pdf(c, "save")} data-testid="certificate-pdf"
                               className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-semibold text-text-primary ring-1 ring-surface-border hover:bg-surface-hover disabled:opacity-50">
                         {busy === c.id ? <Loader2 size={14} className="animate-spin" /> : <Download size={14} />} {t("certificates.downloadPdf")}
+                      </button>
+                      <button disabled={!c.pdf_available || busy === c.id} onClick={() => pdf(c, "print")} data-testid="certificate-print"
+                              className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-semibold text-text-primary ring-1 ring-surface-border hover:bg-surface-hover disabled:opacity-50">
+                        <Printer size={14} /> {t("hub.certPrint")}
                       </button>
                     </div>
                     {!c.pdf_available && <p className="mt-2 text-xs text-text-muted">{t("certificates.noPdf")}</p>}

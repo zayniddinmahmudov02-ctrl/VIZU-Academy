@@ -10,8 +10,9 @@ import { part6 } from "../../src/lib/i18n/extra/part6.ts";
 import { part7 } from "../../src/lib/i18n/extra/part7.ts";
 import { part8 } from "../../src/lib/i18n/extra/part8.ts";
 import { part9 } from "../../src/lib/i18n/extra/part9.ts";
+import { part10 } from "../../src/lib/i18n/extra/part10.ts";
 
-const parts = [part1, part2, part3, part4, part5, part6, part7, part8, part9];
+const parts = [part1, part2, part3, part4, part5, part6, part7, part8, part9, part10];
 const placeholders = (s) => [...s.matchAll(/\{(\w+)\}/g)].map((m) => m[1]).sort().join(",");
 
 test("every English / Russian text is filled and both use the same {placeholders}", () => {

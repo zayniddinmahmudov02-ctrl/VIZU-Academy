@@ -108,25 +108,35 @@ function Field({ label, children, className }: { label: string; children: React.
 }
 
 /** The fields every Medienwelt content has: text, language, level, FREE / PAID with prices, special offer, featured, status. */
-export function ContentFields({ value, onChange, withDescription = true }: { value: ContentValues; onChange: (v: ContentValues) => void; withDescription?: boolean }) {
+export function ContentFields({ value, onChange, withDescription = true, part = "all" }: { value: ContentValues; onChange: (v: ContentValues) => void; withDescription?: boolean; part?: "all" | "info" | "access" }) {
   const set = <K extends keyof ContentValues>(k: K, v: ContentValues[K]) => onChange({ ...value, [k]: v });
   const paid = value.access_type === "PAID";
+  const info = part !== "access"; // title, description, language, level
+  const access = part !== "info"; // FREE / PAID, status, prices, special offer, featured
   return (
     <div className="grid gap-3 sm:grid-cols-2">
-      <Field label="Titel *" className="sm:col-span-2"><AdminInput value={value.title} onChange={(e) => set("title", e.target.value)} maxLength={255} data-testid="f-title" /></Field>
-      {withDescription && <Field label="Beschreibung" className="sm:col-span-2"><AdminTextarea rows={3} value={value.description} onChange={(e) => set("description", e.target.value)} data-testid="f-description" /></Field>}
-      <Field label="Sprache"><AdminInput value={value.language} onChange={(e) => set("language", e.target.value)} maxLength={10} placeholder="de" data-testid="f-language" /></Field>
-      <Field label="Niveau"><AdminSelect value={value.level} onChange={(e) => set("level", e.target.value)} data-testid="f-level"><option value="">—</option>{["A1", "A2", "B1", "B2", "C1"].map((l) => <option key={l} value={l}>{l}</option>)}</AdminSelect></Field>
-      <Field label="Zugang"><AdminSelect value={value.access_type} onChange={(e) => set("access_type", e.target.value as Access)} data-testid="f-access"><option value="FREE">Kostenlos (FREE)</option><option value="PAID">Kostenpflichtig (PAID)</option></AdminSelect></Field>
-      <Field label="Status"><AdminSelect value={value.status} onChange={(e) => set("status", e.target.value as Status)} data-testid="f-status">{(Object.keys(STATUS_DE) as Status[]).map((s) => <option key={s} value={s}>{STATUS_DE[s]}</option>)}</AdminSelect></Field>
-      {paid && (
+      {info && (
         <>
-          <Field label="Preis (UZS) *"><AdminInput type="number" min={1} value={value.price} onChange={(e) => set("price", e.target.value)} data-testid="f-price" /></Field>
-          <Field label="Alter Preis (durchgestrichen)"><AdminInput type="number" min={1} value={value.old_price} onChange={(e) => set("old_price", e.target.value)} data-testid="f-old-price" /></Field>
-          <label className="flex items-center gap-2 text-sm text-[var(--admin-text-primary)]"><AdminCheckbox checked={value.is_special_offer} onCheckedChange={(c) => set("is_special_offer", c)} aria-label="Sonderangebot" /> Sonderangebot (Student-Seite „Spezielles Angebot“)</label>
+          <Field label="Titel *" className="sm:col-span-2"><AdminInput value={value.title} onChange={(e) => set("title", e.target.value)} maxLength={255} data-testid="f-title" /></Field>
+          {withDescription && <Field label="Beschreibung" className="sm:col-span-2"><AdminTextarea rows={3} value={value.description} onChange={(e) => set("description", e.target.value)} data-testid="f-description" /></Field>}
+          <Field label="Sprache"><AdminInput value={value.language} onChange={(e) => set("language", e.target.value)} maxLength={10} placeholder="de" data-testid="f-language" /></Field>
+          <Field label="Niveau"><AdminSelect value={value.level} onChange={(e) => set("level", e.target.value)} data-testid="f-level"><option value="">—</option>{["A1", "A2", "B1", "B2", "C1"].map((l) => <option key={l} value={l}>{l}</option>)}</AdminSelect></Field>
         </>
       )}
-      <label className="flex items-center gap-2 text-sm text-[var(--admin-text-primary)]"><AdminCheckbox checked={value.is_featured} onCheckedChange={(c) => set("is_featured", c)} aria-label="Empfohlen" /> Empfohlen</label>
+      {access && (
+        <>
+          <Field label="Zugang"><AdminSelect value={value.access_type} onChange={(e) => set("access_type", e.target.value as Access)} data-testid="f-access"><option value="FREE">Kostenlos (FREE)</option><option value="PAID">Kostenpflichtig (PAID)</option></AdminSelect></Field>
+          <Field label="Status"><AdminSelect value={value.status} onChange={(e) => set("status", e.target.value as Status)} data-testid="f-status">{(Object.keys(STATUS_DE) as Status[]).map((s) => <option key={s} value={s}>{STATUS_DE[s]}</option>)}</AdminSelect></Field>
+          {paid && (
+            <>
+              <Field label="Preis (UZS) *"><AdminInput type="number" min={1} value={value.price} onChange={(e) => set("price", e.target.value)} data-testid="f-price" /></Field>
+              <Field label="Alter Preis (durchgestrichen)"><AdminInput type="number" min={1} value={value.old_price} onChange={(e) => set("old_price", e.target.value)} data-testid="f-old-price" /></Field>
+              <label className="flex items-center gap-2 text-sm text-[var(--admin-text-primary)]"><AdminCheckbox checked={value.is_special_offer} onCheckedChange={(c) => set("is_special_offer", c)} aria-label="Sonderangebot" /> Sonderangebot (Student-Seite „Spezielles Angebot“)</label>
+            </>
+          )}
+          <label className="flex items-center gap-2 text-sm text-[var(--admin-text-primary)]"><AdminCheckbox checked={value.is_featured} onCheckedChange={(c) => set("is_featured", c)} aria-label="Empfohlen" /> Empfohlen</label>
+        </>
+      )}
     </div>
   );
 }

@@ -8,6 +8,7 @@ import { sidebarItems } from "@/constants/sidebar";
 import { useLogout } from "@/features/auth/hooks/use-logout";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import NavItem from "../navigation/nav-item";
+import LanguageSwitcher from "./languages/language-switcher";
 
 type Props = {
   open: boolean;
@@ -21,6 +22,9 @@ export default function MobileNav({ open, onOpenChange }: Props) {
   return (
     <Drawer open={open} onOpenChange={onOpenChange} side="left">
       <div className="flex h-full flex-col">
+        <div className="border-b border-white/10 p-3" data-testid="mobile-language">
+          <LanguageSwitcher variant="drawer" />
+        </div>
         <div className="flex h-20 items-center justify-between border-b border-white/10 px-5">
           <Logo size={36} dark />
           <button

@@ -1,4 +1,4 @@
-import { execFileSync } from "node:child_process";
+﻿import { execFileSync } from "node:child_process";
 import { deflateSync } from "node:zlib";
 
 import { expect, test, type Page } from "@playwright/test";
@@ -74,9 +74,11 @@ test("dashboard: Battle banner on top for a new student without any course, icon
   await expect(tools.getByRole("heading", { name: "Lernwerkzeuge" })).toBeVisible();
   await expect(tools.getByRole("link", { name: "Stufe Bestimmung öffnen" })).toBeVisible();
   await expect(tools.getByRole("link", { name: "Wortschatz öffnen" })).toHaveAttribute("href", "/woerterbuch");
-  await expect(tools.getByRole("link", { name: "Zertifikatsprüfungen öffnen" })).toHaveAttribute("href", "/vorbereitung");
-  await expect(page.getByRole("heading", { name: "A1–C1 Kurse" })).toBeVisible();
-  await expect(page.getByTestId("dashboard-course")).toHaveCount(5);
+  // Vorbereitung and the A1–C1 courses are cards of the dashboard hub now (one navigation, no duplicates in the tools row)
+  await expect(tools.getByRole("link", { name: "Zertifikatsprüfungen öffnen" })).toHaveCount(0);
+  await expect(page.getByTestId("dashboard-hub").locator('[data-card="prep"]')).toHaveAttribute("href", "/vorbereitung");
+  await expect(page.getByTestId("dashboard-hub").getByRole("heading", { name: "A1–C1 Kurse" })).toBeVisible();
+  await expect(page.getByTestId("hub-card")).toHaveCount(5);
   await expect(page.getByTestId("dashboard-stats")).toBeVisible();
   await expect(page.getByTestId("dashboard-achievements")).toHaveCount(0);
   await expect(page.getByTestId("dashboard-certificates")).toHaveCount(0);
@@ -91,8 +93,8 @@ test("dashboard: Battle banner on top for a new student without any course, icon
   await page.goto("/dashboard");
 
   const bannerBox = await banner.boundingBox();
-  const courseBox = await page.getByTestId("dashboard-course").first().boundingBox();
-  expect(bannerBox!.y).toBeLessThan(courseBox!.y);
+  const hubBox = await page.getByTestId("dashboard-hub").boundingBox();
+  expect(hubBox!.y).toBeLessThan(bannerBox!.y); // the five main cards come first, the Battle banner follows directly below
   // visible without scrolling (the compact Werbung banner sits above it since 2026-11-05)
   if (!isMobile) expect(bannerBox!.y + 60).toBeLessThan(page.viewportSize()!.height);
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);

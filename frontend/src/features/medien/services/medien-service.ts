@@ -3,8 +3,8 @@ import { getToken } from "@/src/lib/token";
 import { api } from "@/src/services/api";
 
 import type {
-  BookCard, Category, ContinueItem, FilmCard, MediaKind, Overview, Page, Playlist, PlaylistDetail, Progress, PurchaseInfo, SongCard, WatchInfo,
-  AnyCard,
+  BookCard, Category, ContinueItem, CueList, FilmCard, LookupResult, MediaKind, Overview, Page, Playlist, PlaylistDetail, PlayerState, Progress,
+  PurchaseInfo, SongCard, SubtitlePrefs, WatchInfo, AnyCard,
 } from "../types";
 
 const BASE = "/api/v1/medien";
@@ -98,24 +98,45 @@ export async function watchFilm(id: string) {
 export async function getContinue(completed = false) {
   return (await api.get<ContinueItem[]>(`${BASE}/continue`, { params: completed ? { completed: true } : {} })).data;
 }
-export async function saveProgress(kind: Exclude<MediaKind, "SONG">, id: string, position: number, total?: number | null) {
-  return (await api.put<Progress>(`${BASE}/progress/${kind}/${id}`, { position: Math.max(0, Math.round(position)), total: total ? Math.round(total) : null })).data;
+export async function saveProgress(kind: Exclude<MediaKind, "SONG">, id: string, position: number, total?: number | null, state?: PlayerState | null) {
+  return (await api.put<Progress>(`${BASE}/progress/${kind}/${id}`, { position: Math.max(0, Math.round(position)), total: total ? Math.round(total) : null, ...(state ? { state } : {}) })).data;
 }
 
 /** Same save as `saveProgress`, as a `keepalive` fetch: it survives the page being closed or reloaded (an XHR is cancelled).
  * Fire and forget — used on pagehide / tab hidden, where nothing can wait for the answer. */
-export function saveProgressKeepalive(kind: Exclude<MediaKind, "SONG">, id: string, position: number, total?: number | null): void {
+export function saveProgressKeepalive(kind: Exclude<MediaKind, "SONG">, id: string, position: number, total?: number | null, state?: PlayerState | null): void {
   const token = getToken();
   if (!token) return;
   try {
     void fetch(`${API_URL.replace(/\/$/, "")}${BASE}/progress/${kind}/${id}`, {
       method: "PUT", keepalive: true,
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-      body: JSON.stringify({ position: Math.max(0, Math.round(position)), total: total ? Math.round(total) : null }),
+      body: JSON.stringify({ position: Math.max(0, Math.round(position)), total: total ? Math.round(total) : null, ...(state ? { state } : {}) }),
     }).catch(() => undefined);
   } catch {
     /* ignore */
   }
+}
+
+/** The student's subtitle settings (size, colour, background, position, font, on/off, dual) — kept per user on the server. */
+export async function getPlayerPrefs() {
+  return (await api.get<SubtitlePrefs>(`${BASE}/player-prefs`)).data;
+}
+export async function savePlayerPrefs(patch: Partial<SubtitlePrefs>) {
+  return (await api.put<SubtitlePrefs>(`${BASE}/player-prefs`, patch)).data;
+}
+
+/** One subtitle track as plain cues. `url` is the signed `cues_url` from the watch answer (the token is in it). */
+export async function getCues(url: string): Promise<CueList> {
+  const res = await fetch(mediaUrl(url), { cache: "no-store" });
+  if (!res.ok) throw new Error(`cues ${res.status}`);
+  const data = (await res.json()) as CueList;
+  return { ...data, cues: Array.isArray(data.cues) ? data.cues : [] };
+}
+
+/** A clicked subtitle word answered from the Wörterbuch (exact / inflected form / similar entries / nothing). */
+export async function lookupWord(word: string) {
+  return (await api.get<LookupResult>(`${BASE}/lookup`, { params: { word } })).data;
 }
 
 export async function requestPurchase(kind: MediaKind, contentId: string) {

@@ -35,6 +35,11 @@ export default function Sidebar() {
     >
       <div className="relative flex h-full flex-col p-4">
         <div className="pattern-accent-corner relative flex h-full flex-col overflow-hidden rounded-card bg-surface-sidebar shadow-[var(--shadow-card)] ring-1 ring-accent-gold/15">
+          {/* Language switcher: the very top of the sidebar, always visible (collapsed: one cycling button) */}
+          <div className={`relative z-10 border-b border-white/10 ${collapsed ? "px-2 py-3" : "p-3"}`} data-testid="sidebar-language">
+            <LanguageSwitcher variant={collapsed ? "compact" : "sidebar"} />
+          </div>
+
           {/* Logo */}
           <div
             className={`relative z-10 flex items-center border-b border-white/10 ${
@@ -80,9 +85,7 @@ export default function Sidebar() {
 
           {/* Brand card — mini replica of the header lockup, sits directly below the nav */}
           <div
-            className={`relative z-10 border-t border-white/10 px-3.5 pt-3.5 ${
-              collapsed ? "mt-auto" : "mt-5"
-            }`}
+            className="relative z-10 mt-auto border-t border-white/10 px-3.5 pb-3.5 pt-3.5"
           >
             <div
               className={`flex flex-col items-center gap-2 rounded-2xl border border-accent-gold/30 bg-gradient-to-b from-white/[0.05] to-transparent py-4 shadow-[var(--shadow-3d-soft)] ${
@@ -103,12 +106,7 @@ export default function Sidebar() {
             </div>
           </div>
 
-          {/* Language switcher — fixed to the bottom of the sidebar */}
-          {!collapsed && (
-            <div className="relative z-10 mt-auto border-t border-white/10 p-3.5">
-              <LanguageSwitcher variant="sidebar" />
-            </div>
-          )}
+
         </div>
       </div>
     </motion.aside>

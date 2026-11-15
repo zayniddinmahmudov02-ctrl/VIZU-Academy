@@ -70,6 +70,13 @@ class InitIn(BaseModel):
     model_config = ConfigDict(extra="forbid")
     filename: str = Field(max_length=255)
     size: int = Field(gt=0)
+    quality: str | None = Field(default=None, max_length=10)  # "720p": an additional quality instead of the film's own video
+
+
+class SubtitleUpdateIn(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    language: str | None = Field(default=None, max_length=10)
+    label: str | None = Field(default=None, max_length=80)
 
 
 class UrlIn(BaseModel):
@@ -273,7 +280,7 @@ async def film_video(film_id: UUID, file: UploadFile = File(...), db: Session = 
 
 @router.post("/films/{film_id}/video/init")
 def film_video_init(film_id: UUID, data: InitIn, db: Session = Depends(get_db), user: User = Depends(require_content_editor)):
-    return svc.video_init(db, user, svc.get_item(db, FILM_KIND, film_id), data.filename, data.size)
+    return svc.video_init(db, user, svc.get_item(db, FILM_KIND, film_id), data.filename, data.size, data.quality)
 
 
 @router.put("/films/{film_id}/video/{upload_id}/{index}")
@@ -312,10 +319,44 @@ async def film_subtitle(film_id: UUID, language: str = Form(...), label: str | N
     return svc.admin_card(FILM_KIND, film, db)
 
 
+@router.post("/films/{film_id}/subtitles/check")
+async def film_subtitle_check(film_id: UUID, file: UploadFile = File(...), db: Session = Depends(get_db), _: User = Depends(require_content_editor)):
+    """Dry run: checks a subtitle file (format, times, sanitising, fit to the video length) and returns the report + first cues; stores nothing."""
+    return await svc.check_subtitle(svc.get_item(db, FILM_KIND, film_id), file)
+
+
+@router.get("/films/{film_id}/subtitles/{subtitle_id}")
+def film_subtitle_preview(film_id: UUID, subtitle_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+    """The stored track as plain cues with a fresh check — the admin preview."""
+    return svc.subtitle_preview(db, svc.get_item(db, FILM_KIND, film_id), subtitle_id)
+
+
+@router.post("/films/{film_id}/subtitles/{subtitle_id}/check")
+def film_subtitle_recheck(film_id: UUID, subtitle_id: UUID, db: Session = Depends(get_db), user: User = Depends(require_content_editor)):
+    film = svc.get_item(db, FILM_KIND, film_id)
+    svc.recheck_subtitle(db, user, film, subtitle_id)
+    return svc.admin_card(FILM_KIND, film, db)
+
+
+@router.put("/films/{film_id}/subtitles/{subtitle_id}")
+def film_subtitle_update(film_id: UUID, subtitle_id: UUID, data: SubtitleUpdateIn, db: Session = Depends(get_db),
+                         user: User = Depends(require_content_editor)):
+    film = svc.get_item(db, FILM_KIND, film_id)
+    svc.update_subtitle(db, user, film, subtitle_id, data.language, data.label)
+    return svc.admin_card(FILM_KIND, film, db)
+
+
 @router.delete("/films/{film_id}/subtitles/{subtitle_id}")
 async def film_subtitle_delete(film_id: UUID, subtitle_id: UUID, db: Session = Depends(get_db), user: User = Depends(require_content_editor)):
     film = svc.get_item(db, FILM_KIND, film_id)
     await svc.delete_subtitle(db, user, film, subtitle_id)
+    return svc.admin_card(FILM_KIND, film, db)
+
+
+@router.delete("/films/{film_id}/renditions/{rendition_id}")
+async def film_rendition_delete(film_id: UUID, rendition_id: UUID, db: Session = Depends(get_db), user: User = Depends(require_content_editor)):
+    film = svc.get_item(db, FILM_KIND, film_id)
+    await svc.delete_rendition(db, user, film, rendition_id)
     return svc.admin_card(FILM_KIND, film, db)
 
 

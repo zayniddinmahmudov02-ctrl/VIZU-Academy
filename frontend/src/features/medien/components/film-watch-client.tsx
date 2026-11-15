@@ -6,6 +6,7 @@ import { ArrowLeft, Captions, Clock, Lock } from "lucide-react";
 
 import { useTranslation } from "@/lib/i18n/use-translation";
 
+import { sortByLanguage } from "../lib/subtitles";
 import { errorCode, getFilm } from "../services/medien-service";
 import FilmPlayer from "./film-player";
 import { Cover, EmptyState, PriceTag, PurchaseButton, StatusBadge } from "./media-ui";
@@ -44,7 +45,7 @@ export default function FilmWatchClient({ filmId }: { filmId: string }) {
         <div className="flex flex-wrap items-center gap-2 text-xs font-semibold text-text-secondary">
           {meta.map((m) => <span key={String(m)} className="rounded-full bg-surface-hover px-3 py-1">{m}</span>)}
           {film.duration_minutes && <span className="inline-flex items-center gap-1 rounded-full bg-surface-hover px-3 py-1"><Clock size={12} /> {t("medien.minutes", { n: film.duration_minutes })}</span>}
-          {!!film.subtitles?.length && <span className="inline-flex items-center gap-1 rounded-full bg-surface-hover px-3 py-1" data-testid="film-subtitle-langs"><Captions size={12} /> {film.subtitles.map((s) => s.label).join(" · ")}</span>}
+          {!!film.subtitles?.length && <span className="inline-flex items-center gap-1 rounded-full bg-surface-hover px-3 py-1" data-testid="film-subtitle-langs"><Captions size={12} /> {sortByLanguage(film.subtitles).map((s) => s.label).join(" · ")}</span>}
         </div>
         {film.description && <p className="whitespace-pre-line text-sm leading-relaxed text-text-secondary">{film.description}</p>}
       </article>

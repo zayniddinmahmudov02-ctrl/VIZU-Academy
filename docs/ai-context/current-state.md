@@ -1,17 +1,18 @@
-# Current state
+﻿# Current state
 
-Updated 2026-11-14.
+Updated 2026-11-15.
 
 ## Revisions
 
 | Where | Revision | Note |
 | --- | --- | --- |
-| `origin/main` | `f8a2db36` (owner push = Multilevel exam overlay) | local machine still has no git; course packages / promo approval / en+ru (below) are NOT pushed yet |
-| Server checkout | `f8a2db36` (fast-forward 2026-11-14, the exam overlay was byte-identical) + **LF overlay "Course packages"** (64 files + docs, list = `overlay-replaced.txt` / `packages_overlay.tar` in the backup dir, originals `overlay-originals.tar`; migration file re-sent once: offline-renderable seed, `mig_fix.tar`). Once the owner pushes: `git checkout -- <modified>`, remove the new untracked files, `git pull --ff-only` | leftovers `frontend/package-lock.json` (M), `package-lock.json`, `"hlarni xavfsiz saqlash"` — pre-existing, not ours |
-| DB (production + local test) | Alembic `f4c8a1e6b9d2` (VIZU Medienwelt, 11 tables + seeded categories, applied 2026-11-15; before: `e8b4d2f6a1c3` audio files, `c7e1f3a9b2d5` packages) | SQL preview `migration-f4c8a1e6b9d2.sql` in the backup dir |
-| Frontend production slot | `.next-b`, deployment `f8a2db36-20261114234516` (overlays 1–4; first build after `npm ci` failed once on a font-loader hiccup, the retry passed) | `.next-a` = previous (rollback) |
-| Last backup | `/var/backups/vizu/pre-medien-20261114-233902` (DB dump + 62 replaced files incl. the old `package.json` / `package-lock.json`) | before: `pre-audio-trim-20261114-220728`, `pre-lesson-gating-…`, `pre-course-packages-…` |
-| Overlays 2–4 | 2 "Lesson gating" (26 files), 3 "Audio trim + Multilevel Audio" (32), 4 "Medienwelt" (62 files incl. `pdfjs-dist` in `package.json` + lock; `medien_overlay.tar`) on top of overlay 1; frontend deployed with `deploy-frontend.sh --install` | none pushed; the server lock file now = repo lock + `pdfjs-dist` |
+| `origin/main` | `0cb7b165` (owner push 2026-11-15 04:08 = overlays 1–4: packages, lesson gating, audio trim / Multilevel Audio, Medienwelt) | local machine still has no git; overlays 5 "Student navigation" and 6 "Film player" (below) are NOT pushed yet |
+| Server checkout | `0cb7b165` + **LF overlay 5 "Student navigation"** (22 files, `dashboard-courses.tsx` removed) + **LF overlay 6 "Film player"** (36 files; list = `overlay-replaced.txt` / `film_overlay.tar` in the backup dir, originals `overlay-originals.tar`). Once the owner pushes: `git checkout -- <modified>`, remove the new untracked files, `git pull --ff-only` (script pattern: `px4_sync`; every dirty file must first be byte-identical to origin) | leftovers `package-lock.json` (root), `"hlarni xavfsiz saqlash"` — pre-existing, not ours |
+| DB (production + local test) | Alembic `b6e2d9f4a1c8` (film player: subtitle analysis columns, `film_renditions`, `media_player_prefs`, `media_progress.player_state`; applied 2026-11-15; before: `f4c8a1e6b9d2` Medienwelt, `e8b4d2f6a1c3`, `c7e1f3a9b2d5`) | SQL preview `migration-b6e2d9f4a1c8.sql` in the backup dir |
+| Frontend production slot | `.next-b`, deployment `0cb7b165-20261115031347` (overlay 6; build passed first time) | `.next-a` = previous (rollback: `docs/deploy-frontend.md`) |
+| Last backup | `/var/backups/vizu/pre-film-player-20261115-031221` (DB dump with restore list check, 21 originals of overlay 6) | before: `pre-nav-20261115-010539`, `pre-medien-20261114-233902`, `pre-audio-trim-…`, `pre-lesson-gating-…`, `pre-course-packages-…` |
+| Overlay 6 | "Film player + subtitles" 2026-11-15: backend (new `services/medien/{subtitles,player,lookup}.py`, routers, migration, restart) + frontend; smoke: 14 pages 200 (local + public), 13 new endpoints refuse anonymous calls (401 / 422), new strings in the build, DB at `b6e2d9f4a1c8`, services + bots active, logs clean. Production had 0 films / 0 subtitles at deploy (nothing existing touched); `ffmpeg` + `ffprobe` exist on the server | local: backend suite 1078 passed / 17 skipped, unit 55 passed, E2E `film-player.spec.ts` 9 desktop + 1 phone passed, `medien.spec.ts` desktop 8 passed (one Musik-favorite flake in one run, passed on rerun) |
+| Overlay 5 | "Student navigation" 2026-11-15, frontend only (no backend restart, no migration): dashboard hub of five cards, `/kurse` level status chips, language switcher on top of sidebar + mobile drawer, certificates Print, `hub` texts; smoke: 15 pages 200 (local + public), old URLs `/courses`, `/courses/a1`, `/lessons` redirect, new strings in the build, old frame strings 0, services + bots active | local E2E: 135 passed; 6 failures not from this work (Battle: 3 stale scoring expectations in `battle.spec.ts`, profile-photo leaderboard state in `battle-dashboard.spec.ts`) |
 
 ## Packages (production, 2026-11-14)
 

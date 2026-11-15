@@ -2,8 +2,8 @@
 export const part1: Record<string, Record<string, [string, string]>> = {
   sidebar: {
     dashboard: ["Dashboard", "Главная"],
-    courses: ["Courses", "Курсы"],
-    vorbereitung: ["Exam prep", "Подготовка"],
+    courses: ["A1–C1 Courses", "A1–C1 Курсы"],
+    vorbereitung: ["Preparation", "Подготовка"],
     certificates: ["Certificates", "Сертификаты"],
     dictionary: ["Dictionary", "Словарь"],
     battle: ["Battle", "Battle"],

@@ -5,7 +5,8 @@ PostgreSQL; connection from settings `DATABASE_HOST/PORT/NAME/USER/PASSWORD` (na
 
 ## Migrations
 
-- Linear history, one head. **Head = `f4c8a1e6b9d2`**
+- Linear history, one head. **Head = `b6e2d9f4a1c8`**
+- `b6e2d9f4a1c8` (2026-11-15): Medienwelt film player — additive: `films.video_duration_ms`, `film_subtitles.cue_count / last_ms / source_format / original_name / file_size / warnings`, `media_progress.player_state` (JSONB), new tables `film_renditions` (extra video qualities, unique film + label) and `media_player_prefs` (one row per user, subtitle settings JSONB). Downgrade drops exactly these (`test_medien_player_migration`).
 - `f4c8a1e6b9d2` (2026-11-15): VIZU Medienwelt — `media_categories` (seeded 7 book + 8 film categories), `media_books`, `songs`, `playlists` (owner NULL = official), `playlist_songs`, `user_favorite_songs`, `films`, `film_subtitles`, `media_purchases` (request → GRANTED by Super Admin), `media_progress` (book page / film second), `media_play_history` (`test_medien_migration`). Separate from the course `books` / lesson `videos` tables. (see `current-state.md` for production).
 - `e8b4d2f6a1c3` (2026-11-15): `audio_files` (ORIGINAL / TRIMMED rows of the central audio service, private files in
   the lesson-listening storage, `source_id` → original is kept) + nullable `listening_contents.audio_file_id`

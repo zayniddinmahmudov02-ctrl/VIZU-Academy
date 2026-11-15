@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, BookText, Gauge, GraduationCap } from "lucide-react";
+import { ArrowRight, BookText, Gauge } from "lucide-react";
 
 import BattleBanner from "@/components/dashboard/home/battle-banner";
 import { cardEntrance, staggerContainer } from "@/lib/motion";
@@ -27,15 +27,7 @@ const tools = [
     icon: BookText,
     gradient: "from-emerald-600 to-emerald-400",
   },
-  {
-    titleKey: "dashboard.mockExams",
-    subtitleKey: "dashboard.mockExamsSubtitle",
-    ariaKey: "dashboard.mockExamsAria",
-    ctaKey: "dashboard.mockExamsCta",
-    href: "/vorbereitung",
-    icon: GraduationCap,
-    gradient: "from-purple-600 to-accent-purple",
-  },
+
 ];
 
 export default function LearningTools() {
@@ -51,7 +43,7 @@ export default function LearningTools() {
         variants={staggerContainer}
         initial="hidden"
         animate="show"
-        className="grid auto-rows-fr grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4"
+        className="grid auto-rows-fr grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3"
       >
         <motion.div
           variants={cardEntrance}
@@ -62,7 +54,7 @@ export default function LearningTools() {
           <BattleBanner />
         </motion.div>
 
-        {tools.map((tool) => {
+        {tools.map((tool, index) => {
           const Icon = tool.icon;
 
           return (
@@ -71,7 +63,7 @@ export default function LearningTools() {
               variants={cardEntrance}
               whileHover={{ y: -3, scale: 1.01 }}
               whileTap={{ scale: 0.99 }}
-              className="h-full"
+              className={`h-full ${index === tools.length - 1 ? "col-span-2 lg:col-span-1" : ""}`}
             >
               <Link
                 href={tool.href}

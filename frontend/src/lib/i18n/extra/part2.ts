@@ -61,8 +61,8 @@ export const part2: Record<string, Record<string, [string, string]>> = {
   certificates: {
     title: ["Certificates", "Сертификаты"],
     subtitle: ["Your earned certificates and records", "Ваши полученные сертификаты и подтверждения"],
-    emptyTitle: ["No certificates yet", "Сертификатов пока нет"],
-    emptyBody: ["Complete a course fully and pass its mock test to receive your first certificate.", "Полностью пройдите курс и сдайте соответствующий пробный тест, чтобы получить первый сертификат."],
+    emptyTitle: ["You have no certificates yet.", "У вас пока нет сертификатов."],
+    emptyBody: ["Keep learning and reach new achievements!", "Продолжайте учиться и достигайте новых успехов!"],
     verified: ["Verified", "Подтверждён"],
     number: ["Certificate number", "Номер сертификата"],
     numberPending: ["assigned when first opened", "присваивается при первом открытии"],

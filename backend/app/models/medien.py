@@ -8,7 +8,7 @@ purchase, or staff). Everything a student reads about PAID content is cover, tex
 from datetime import datetime
 
 from sqlalchemy import BigInteger, Boolean, CheckConstraint, DateTime, ForeignKey, Index, Integer, String, Text, UniqueConstraint, text
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.models.base import BaseModel
@@ -137,9 +137,14 @@ class Film(_Content, BaseModel):
     external_url: Mapped[str | None] = mapped_column(String(1000), nullable=True)
     processing_status: Mapped[str] = mapped_column(String(12), nullable=False, default="NONE")
     view_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    # exact length of the uploaded video (ffprobe); `duration_minutes` stays the admin-facing, rounded value
+    video_duration_ms: Mapped[int | None] = mapped_column(Integer, nullable=True)
 
 
 class FilmSubtitle(BaseModel):
+    """One subtitle track of a film (one per language). The stored file is normalised, sanitised WebVTT; the columns below
+    are the result of the last check (`services/medien/subtitles.py`) so the admin list needs no file reads."""
+
     __tablename__ = "film_subtitles"
     __table_args__ = (UniqueConstraint("film_id", "language", name="uq_film_subtitles_film_language"),)
 
@@ -147,6 +152,40 @@ class FilmSubtitle(BaseModel):
     language: Mapped[str] = mapped_column(String(10), nullable=False)
     label: Mapped[str] = mapped_column(String(80), nullable=False)
     file_key: Mapped[str] = mapped_column(String(300), nullable=False)
+    cue_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0, server_default="0")
+    last_ms: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    source_format: Mapped[str | None] = mapped_column(String(5), nullable=True)
+    original_name: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    file_size: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    warnings: Mapped[list] = mapped_column(JSONB, nullable=False, default=list, server_default="[]")
+
+
+class FilmRendition(BaseModel):
+    """An additional video quality of a film (e.g. 720p / 480p / 360p) uploaded by the admin. The film's own file stays the
+    "Original"; the player offers the quality menu only when at least one rendition exists."""
+
+    __tablename__ = "film_renditions"
+    __table_args__ = (UniqueConstraint("film_id", "label", name="uq_film_renditions_film_label"),)
+
+    film_id: Mapped[UUID] = _uuid_fk("films", "fk_film_renditions_film_id", null=False, on_delete="CASCADE")
+    label: Mapped[str] = mapped_column(String(20), nullable=False)
+    height: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    file_key: Mapped[str] = mapped_column(String(300), nullable=False)
+    content_type: Mapped[str] = mapped_column(String(100), nullable=False)
+    size: Mapped[int] = mapped_column(BigInteger, nullable=False)
+    original_name: Mapped[str | None] = mapped_column(String(255), nullable=True)
+
+
+class MediaPlayerPrefs(BaseModel):
+    """A student's player settings (subtitle size / colour / background / position / font, on-off, dual subtitles): one row
+    per user, the "profile" part of the video player. Per-film state (position, subtitle language, speed) lives in
+    `media_progress.player_state`."""
+
+    __tablename__ = "media_player_prefs"
+    __table_args__ = (UniqueConstraint("user_id", name="uq_media_player_prefs_user"),)
+
+    user_id: Mapped[UUID] = _uuid_fk("users", "fk_media_player_prefs_user_id", null=False, on_delete="CASCADE")
+    prefs: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict, server_default="{}")
 
 
 class MediaPurchase(BaseModel):
@@ -184,6 +223,8 @@ class MediaProgress(BaseModel):
     position: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     total: Mapped[int | None] = mapped_column(Integer, nullable=True)
     completed: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    # films: subtitle language / dual subtitles / speed / quality the student used last (restored by "continue watching")
+    player_state: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
 
 
 class MediaPlayHistory(BaseModel):

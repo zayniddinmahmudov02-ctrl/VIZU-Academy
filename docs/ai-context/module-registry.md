@@ -1,4 +1,4 @@
-# Module registry
+﻿# Module registry
 
 Updated 2026-11-01 · checked against the repo (Wortschatz / Lesen / Schreiben: A2 module separation; see `current-state.md`).
 Sources: directory listings of `backend/app/{api,services,models}`, `frontend/src/{app,features,components}`,
@@ -254,6 +254,15 @@ See `database-map.md` and `.claude/rules/database.md`.
 See `frontend-map.md` and `.claude/rules/frontend.md`. PWA: `fe/features/pwa`, `fe/components/pwa`,
 `frontend/scripts/verify-pwa.mjs`; i18n `fe/lib/i18n/translations.ts`.
 
+**Student navigation (since 2026-11-15, frontend only):** the dashboard `fe/components/dashboard/home/dashboard-hub.tsx` has five cards
+(`data-card` courses → `/kurse`, media → `/medien`, prep → `/vorbereitung`, certificates → `/certificates`, purchase → `/angebote`); the level
+buttons A1–C1 live only on `/kurse` (`components/lms/lms-level-card.tsx`, `data-status` from `features/lms/level-status.ts`: ACTIVE if owned
+/ staff, COMING_SOON, LOCKED if no ACTIVE package sells it, else PURCHASE_REQUIRED — presentation only, access stays server-side).
+Language switcher: top of `sidebar.tsx` (variant `sidebar`, collapsed `compact` = one cycling button) and `mobile-nav.tsx` (variant `drawer`,
+44 px); persisted in `localStorage` key `vizu-language`. Texts: namespace `hub` (uz/de in `translations.ts`, en/ru in `extra/part10.ts`).
+Certificates page `app/(dashboard)/certificates/page.tsx`: only non-revoked rows of `GET /my-certificates`, view / download / print
+(`lib/save-blob.ts:printBlob`). E2E `dashboard-nav.spec.ts` (needs `psql` for one seeded certificate + `serviceWorkers: "block"` for stubs).
+
 ## 19. Production Deployment
 
 See `deployment-map.md`, skill `vizu-deploy`, `docs/deploy-frontend.md`, `docs/lms-deploy-runbook.md`.
@@ -265,9 +274,9 @@ See `deployment-map.md`, skill `vizu-deploy`, `docs/deploy-frontend.md`, `docs/l
   `battle_answers`, `battle_points_ledger`, `battle_themes`. Seed `be/scripts/battle_seed.py` + `be/data/battle/`.
 - **Frontend:** `fe/app/(battle)/battle/*`, `fe/features/battle/*`, admin `fe/app/admin/battle` (Übersicht, Wörter & Bilder,
   Design & Themes); entry points: dashboard tile `fe/components/dashboard/home/battle-banner.tsx` (`GET /battle/summary`), first card of
-  "Lernwerkzeuge" (`learning-tools.tsx`, with Stufe Bestimmung / Wortschatz / Zertifikatsprüfungen; dashboard order:
-  welcome → compact Werbung banner → Lernwerkzeuge → ONE collapsible "A1–C1 Kurse" frame (`dashboard-courses.tsx`, open by
-  default) → compact Lernserie; Erfolge/Zertifikate cards not on the dashboard; E2E `dashboard-layout.spec.ts`),
+  "Lernwerkzeuge" (`learning-tools.tsx`, with Stufe Bestimmung / Wortschatz; dashboard order since 2026-11-15:
+  welcome → compact Werbung banner → hub of five cards (`dashboard-hub.tsx`) → Lernwerkzeuge → compact Lernserie;
+  Erfolge/Zertifikate cards not on the dashboard; E2E `dashboard-layout.spec.ts`, `dashboard-nav.spec.ts`),
   sidebar + mobile nav with the custom icon `fe/components/icons/battle-icon.tsx` (favicon `fe/public/battle/battle-icon.svg`).
 - **Tests:** `test_battle`, `test_battle_migration`, unit `battle-utils.test.mjs`, E2E `battle.spec.ts`, `battle-dashboard.spec.ts`.
 - **Details / decisions:** `docs/ai-context/battle-overview.md`.
@@ -306,16 +315,44 @@ notifications, support, advertisements ("Werbung-Banner"), achievements.
 - **Purpose:** student media centre (`/medien`) + admin management (`/admin/medien`). Content: books (PDF), songs, films
   with categories, FREE / PAID (+ old price, special offer, featured), Published / Draft / Hidden. Separate from the course
   `books` and lesson `videos` (those are level-gated course material).
-- **Backend:** `be/api/medien/{router,admin_router}.py` (`/medien`, `/admin/medien`), services `be/services/medien/{common,catalog,admin}.py`,
+- **Backend:** `be/api/medien/{router,admin_router}.py` (`/medien`, `/admin/medien`), services `be/services/medien/{common,catalog,admin,subtitles,player,lookup}.py`,
   models `be/models/medien.py`, storage `ProtectedMedienStorage` (`app/protected_storage/medien`: books, songs, films, covers,
   subtitles, chunks). Duration of songs / videos via ffprobe/ffmpeg (`services/audio_files`).
 - **Security:** a student gets a file only through `POST …/open|play|watch` (access check → short-lived signed URL) and
   `GET /medien/stream/{kind}/{id}?token=` (checks access again, HTTP Range via FileResponse). PAID = a GRANTED `media_purchases`
   row (student request → Super Admin grants/rejects/revokes, or direct grant by e-mail; no money is handled here). Covers are the
   only public files (`/medien/cover/…`). Uploads checked by content, size, random names; delete = row first, then files.
+- **Film player + subtitles (2026-11-15, migration `b6e2d9f4a1c8`):**
+  - *Subtitle files* (`services/medien/subtitles.py`, pure + unit-tested): `.srt` / `.vtt`, UTF-8 / UTF-16 / Windows-1252, ≤ 2 MB, ≤ 20 000 cues.
+    Tolerant parser (broken blocks skipped + warned), tags / HTML / control characters removed (plain text only), stored as normalised WebVTT with
+    escaped `& < >`; refused: wrong extension, binary, empty, no valid cue. Check report (`film_subtitles.cue_count / last_ms / source_format /
+    warnings`): overlap, very short / long cues, long lines, `BEYOND_VIDEO` / `ENDS_EARLY` against `films.video_duration_ms` (else the rounded minutes).
+    Languages de / uz / en (ru accepted by the API); one track per film + language.
+  - *Student API:* `POST /medien/films/{id}/watch` also returns `sources` (Original + extra qualities), subtitle tracks with signed `cues_url`, `prefs`,
+    `progress.state`, `neighbors` (previous / next film of the category), `duration_ms`. `GET /medien/subtitles/{id}/cues?token=` = plain cue list
+    `[[start_ms, end_ms, text]]` (same token + access check as the WebVTT file; a damaged file gives an empty list). `GET /medien/rendition/{id}?token=`
+    streams an extra quality (Range). `GET|PUT /medien/player-prefs` (size, colour from a palette, background 0–100, position, font, on/off, dual,
+    second language — validated against fixed lists), progress `state` (subtitle, dual, secondary, speed from the menu values, quality / audio label;
+    merged per key). `GET /medien/lookup?word=` answers a clicked word from `dictionary_entries` (`exact` headword / inflected `form` / `similar`
+    suggestions only / `none`) — nothing is translated or invented; saving = the Wörterbuch's own `PUT /dictionary/entries/{id}/saved`.
+  - *Admin API:* `POST …/subtitles` (check + normalise + store, replaces the language), `POST …/subtitles/check` (dry run), `GET …/subtitles/{id}` (preview
+    cues + fresh report), `POST …/subtitles/{id}/check` (re-check, stored), `PUT …/subtitles/{id}` (language / label), `DELETE …`; extra qualities through
+    the chunked upload (`video/init` with `quality` "720p" …, needs the film's own video first; the film keeps playing meanwhile),
+    `DELETE …/renditions/{id}`.
+  - *Tables:* `film_renditions`, `media_player_prefs`, columns `films.video_duration_ms`, `film_subtitles.*`, `media_progress.player_state`.
 - **Frontend:** student `fe/app/(dashboard)/medien/*` + `fe/features/medien/` (global player store + `GlobalAudioPlayer` in the
   dashboard layout: one `<audio>`, queue/position/volume restored after reload, Media Session; `PdfReader` = pdf.js
-  (`pdfjs-dist@5.4.449`, page + zoom + fullscreen, last page saved); `FilmPlayer` (speed, subtitles de/uz as clickable-word
-  overlay, event `medien:subtitle-word` for a later dictionary link, progress incl. keepalive save)); admin
-  `fe/app/admin/medien/*` + `fe/features/admin/components/medien/` (bulk song upload ≤ 10 with per-file progress, chunked film video upload).
-- **Tests:** `test_medien`, `test_medien_migration`; E2E `medien.spec.ts`. Texts: namespace `medien` (uz/de in `translations.ts`, en/ru in `extra/part9.ts`).
+  (`pdfjs-dist@5.4.449`, page + zoom + fullscreen, last page saved); `FilmPlayer` = own controls around one `<video>` (play, ±10 s, previous / next film,
+  volume, speed 0.5–2×, quality menu when extra qualities exist, audio-track menu when the browser exposes tracks, subtitles, Picture-in-Picture,
+  fullscreen with a fixed-position fallback for phones without element fullscreen, keyboard shortcuts + `?` help, saved position + state incl.
+  keepalive save). Subtitles are drawn by us from the plain cue list (`lib/subtitles.ts` pure helpers, `hooks/use-film-subtitles.ts` = the video's
+  own clock per frame, so seek / pause / every speed stay in sync, `components/subtitle-overlay.tsx`): de / uz / en / off, dual view (German on top),
+  look settings (`components/subtitle-menu.tsx`, saved to the profile with a 600 ms debounce). German words / dragged phrases open
+  `components/word-popup.tsx` (Wörterbuch card: translation, article, word type, example; save = star, copy, pronounce, search; pauses the film while
+  open, switchable); event `medien:subtitle-word` is still fired. Menus are right-aligned panels on desktop and full-player sheets on phones.)
+  Admin `fe/app/admin/medien/*` + `fe/features/admin/components/medien/` (bulk song upload ≤ 10 with per-file progress, chunked film video upload;
+  film dialog = four sections Video-Informationen / Videodatei (readiness, extra qualities) / Untertitel (`subtitle-manager.tsx`: per language check,
+  upload / replace, preview with time scrubber, re-check, re-assign language, delete) / Zugang).
+- **Tests:** `test_medien`, `test_medien_migration`, `test_medien_subtitles` (23 unit), `test_medien_player` (integration), `test_medien_player_migration`;
+  unit `tests/unit/medien-subtitles.test.mjs`; E2E `medien.spec.ts`, `film-player.spec.ts` (needs ffmpeg + psql locally). Texts: namespace `medien`
+  (uz/de in `translations.ts`, en/ru in `extra/part9.ts`; keys `fp.*` player, `wp.*` word card).

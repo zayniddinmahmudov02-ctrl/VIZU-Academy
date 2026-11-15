@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 type Props = {
   /** "sidebar" = compact UZ | DE | EN | RU control styled for the navy sidebar footer.
    *  "segmented" = small language buttons (Registration / Anmeldung pages). */
-  variant?: "default" | "sidebar" | "segmented";
+  variant?: "default" | "sidebar" | "drawer" | "compact" | "segmented";
   className?: string;
 };
 
@@ -49,7 +49,20 @@ export default function LanguageSwitcher({ variant = "default", className }: Pro
     );
   }
 
-  if (variant === "sidebar") {
+  if (variant === "compact") {
+    // collapsed sidebar (80 px): one button showing the active language, each press switches to the next one
+    const index = Math.max(0, languages.findIndex((item) => item.code === language));
+    const next = languages[(index + 1) % languages.length];
+    return (
+      <button type="button" onClick={() => setLanguage(next.code)} data-testid="sidebar-language-compact" data-lang={language} title={`${t("hub.langCycle")}: ${next.name}`}
+              aria-label={`${t("hub.langCycle")}: ${next.name}`}
+              className="mx-auto flex h-10 w-12 items-center justify-center rounded-xl bg-white text-[11px] font-bold uppercase tracking-wide text-brand-900 shadow-md transition-transform hover:scale-105">
+        {language}
+      </button>
+    );
+  }
+
+  if (variant === "sidebar" || variant === "drawer") {
     // four languages: a compact segmented control in the navy sidebar footer (the active one slides)
     return (
       <div
@@ -68,13 +81,13 @@ export default function LanguageSwitcher({ variant = "default", className }: Pro
               title={item.name}
               onClick={() => setLanguage(item.code)}
               className={cn(
-                "relative h-9 rounded-xl text-[11px] font-bold uppercase tracking-wide transition-colors",
+                variant === "drawer" ? "relative h-[44px] rounded-xl text-xs font-bold uppercase tracking-wide transition-colors" : "relative h-9 rounded-xl text-[11px] font-bold uppercase tracking-wide transition-colors",
                 active ? "text-brand-900" : "text-sidebar-muted hover:text-white",
               )}
             >
               {active && (
                 <motion.span
-                  layoutId="sidebar-language-pill"
+                  layoutId={`${variant}-language-pill`}
                   className="absolute inset-0 rounded-xl bg-white shadow-md"
                   transition={{ type: "spring", stiffness: 500, damping: 34 }}
                 />

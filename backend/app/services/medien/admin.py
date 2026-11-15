@@ -1,5 +1,5 @@
-"""Admin side of Medienwelt: categories, books, songs, films (+ subtitles, chunked video upload), official playlists,
-purchase decisions and statistics. Callers (the router) have already passed the role check: `require_content_editor` for
+"""Admin side of Medienwelt: categories, books, songs, films (+ subtitles, extra video qualities, chunked video upload),
+official playlists, purchase decisions and statistics. Callers (the router) have already passed the role check: `require_content_editor` for
 writes, `require_admin_panel_access` for reads. Every write is audited. Deleting content removes the row first, then the
 files (a file that cannot be removed shows up as `file_status` / is harmless, a row without file never blocks a student)."""
 
@@ -16,11 +16,12 @@ from sqlalchemy.orm import Session
 
 from app.core.audit import write_audit
 from app.models.medien import (ACCESS_FREE, ACCESS_PAID, ACCESS_TYPES, KIND_BOOK, KIND_FILM, KIND_SONG, PURCHASE_GRANTED, PURCHASE_REJECTED,
-                               PURCHASE_REQUESTED, PURCHASE_REVOKED, STATUS_PUBLISHED, STATUSES, Film, FilmSubtitle, MediaBook, MediaCategory,
-                               MediaPlayHistory, MediaProgress, MediaPurchase, Playlist, PlaylistSong, Song, UserFavoriteSong)
+                               PURCHASE_REQUESTED, PURCHASE_REVOKED, STATUS_PUBLISHED, STATUSES, Film, FilmRendition, FilmSubtitle, MediaBook,
+                               MediaCategory, MediaPlayHistory, MediaProgress, MediaPurchase, Playlist, PlaylistSong, Song, UserFavoriteSong)
 from app.models.user import User
 from app.services.audio_files import service as audio
 from app.services.medien import common as c
+from app.services.medien import subtitles as subs
 
 CONTENT_FIELDS = {"title", "description", "language", "level", "access_type", "price", "old_price", "is_special_offer", "is_featured", "status"}
 EXTRA = {KIND_BOOK: {"author", "category_id", "year"}, KIND_SONG: {"artist", "album", "genre"},
@@ -181,12 +182,22 @@ def admin_card(kind: str, item, db: Session) -> dict:
         out.update(artist=item.artist, album=item.album, genre=item.genre, duration_ms=item.duration_ms, file_size=item.file_size,
                    original_name=item.original_name, file_status=_file_status(item.file_key), plays=item.play_count)
     else:
-        subs = db.scalars(select(FilmSubtitle).where(FilmSubtitle.film_id == item.id).order_by(FilmSubtitle.language)).all()
+        tracks = db.scalars(select(FilmSubtitle).where(FilmSubtitle.film_id == item.id).order_by(FilmSubtitle.language)).all()
+        renditions = db.scalars(select(FilmRendition).where(FilmRendition.film_id == item.id)).all()
         out.update(category_id=item.category_id, genre=item.genre, year=item.year, duration_minutes=item.duration_minutes, video_size=item.video_size,
-                   original_name=item.original_name, external_url=item.external_url, processing_status=item.processing_status,
-                   file_status=_file_status(item.video_key), views=item.view_count,
-                   subtitles=[{"id": s.id, "language": s.language, "label": s.label, "file_status": _file_status(s.file_key)} for s in subs])
+                   video_duration_ms=item.video_duration_ms, original_name=item.original_name, external_url=item.external_url,
+                   processing_status=item.processing_status, file_status=_file_status(item.video_key), views=item.view_count,
+                   video_format=Path(item.video_key).suffix.lstrip(".") if item.video_key else None,
+                   subtitles=[_subtitle_card(s) for s in tracks],
+                   renditions=[{"id": r.id, "label": r.label, "height": r.height, "size": r.size, "original_name": r.original_name,
+                                "file_status": _file_status(r.file_key)} for r in sorted(renditions, key=lambda r: -(r.height or 0))])
     return out
+
+
+def _subtitle_card(s: FilmSubtitle) -> dict:
+    return {"id": s.id, "language": s.language, "label": s.label, "file_status": _file_status(s.file_key), "cue_count": s.cue_count,
+            "last_ms": s.last_ms, "format": s.source_format, "original_name": s.original_name, "file_size": s.file_size,
+            "warnings": s.warnings or [], "updated_at": s.updated_at}
 
 
 def admin_list(db: Session, kind: str, *, q: str | None = None, status: str | None = None, access: str | None = None, page: int = 1,
@@ -245,6 +256,7 @@ async def delete_item(db: Session, user: User, kind: str, item) -> None:
     keys = [item.cover_key, getattr(item, "file_key", None), getattr(item, "video_key", None)]
     if kind == KIND_FILM:
         keys += list(db.scalars(select(FilmSubtitle.file_key).where(FilmSubtitle.film_id == item.id)))
+        keys += list(db.scalars(select(FilmRendition.file_key).where(FilmRendition.film_id == item.id)))
     item_id, title = item.id, item.title
     db.execute(delete(MediaPurchase).where(MediaPurchase.content_type == kind, MediaPurchase.content_id == item_id))
     if kind in (KIND_BOOK, KIND_FILM):
@@ -337,6 +349,7 @@ def _finish_video(db: Session, film: Film, key: str, ext: str, size: int, name: 
     old, film.video_key = film.video_key, key
     film.video_content_type, film.video_size, film.original_name, film.processing_status = c.CONTENT_TYPES[ext], size, name, "READY"
     duration = audio.probe_duration_ms(c.storage.ROOT / key)
+    film.video_duration_ms = duration or None  # never keep the length of the video that was replaced
     if duration and not film.duration_minutes:
         film.duration_minutes = max(1, round(duration / 60000))
     db.commit()
@@ -359,15 +372,36 @@ def _chunk_dir(upload_id: str) -> Path:
     return c.storage.ROOT / "chunks" / upload_id
 
 
-def video_init(db: Session, user: User, film: Film, filename: str, size: int) -> dict:
+QUALITY = re.compile(r"^(\d{3,4})p$")
+
+
+def quality_label(value: str | None) -> str | None:
+    """"720p" style label of an additional quality (240p – 4320p); None for the film's own file."""
+    if value in (None, ""):
+        return None
+    label = str(value).strip().lower()
+    m = QUALITY.match(label)
+    if not m or not 144 <= int(m.group(1)) <= 4320:
+        raise c.err(422, "INVALID_QUALITY: use a label like 360p, 480p, 720p or 1080p.")
+    return label
+
+
+def video_init(db: Session, user: User, film: Film, filename: str, size: int, quality: str | None = None) -> dict:
+    """Starts a chunked upload. Without `quality` it is the film's own video (status UPLOADING while it runs); with `quality`
+    it is an additional rendition: the film keeps playing its current file until the new one is complete."""
     if not 0 < size <= c.MAX_VIDEO:
         raise c.err(422, f"INVALID_SIZE: 1 byte – {c.MAX_VIDEO // (1024 * c.MB)} GB.")
+    label = quality_label(quality)
+    if label and not film.video_key:
+        raise c.err(409, "MAIN_VIDEO_REQUIRED: upload the film's own video first, then additional qualities.")
     upload_id = uuid4().hex
     folder = _chunk_dir(upload_id)
     folder.mkdir(parents=True, exist_ok=True)
-    (folder / "meta.json").write_text(json.dumps({"film_id": str(film.id), "user_id": str(user.id), "name": (filename or "")[:255], "size": size}))
-    film.processing_status = "UPLOADING"
-    db.commit()
+    (folder / "meta.json").write_text(json.dumps({"film_id": str(film.id), "user_id": str(user.id), "name": (filename or "")[:255], "size": size,
+                                                  "quality": label}))
+    if not label:
+        film.processing_status = "UPLOADING"
+        db.commit()
     return {"upload_id": upload_id, "chunk_size": CHUNK_SIZE, "chunks": -(-size // CHUNK_SIZE)}
 
 
@@ -417,21 +451,30 @@ async def video_complete(db: Session, user: User, film: Film, upload_id: str) ->
     missing = [i for i in range(total) if not (folder / f"part_{i:06d}").is_file()]
     if missing:
         raise c.err(409, f"MISSING_CHUNKS: {len(missing)} of {total} chunks are missing (first: {missing[0]}).")
+    label = meta.get("quality")  # None = the film's own video
     first = (folder / "part_000000").read_bytes()[:16]
     ext = c.sniff_video(first)
     if ext is None:
         shutil.rmtree(folder, ignore_errors=True)
-        film.processing_status = "FAILED"
-        db.commit()
+        if not label:
+            film.processing_status = "FAILED"
+            db.commit()
         raise c.err(400, "UNSUPPORTED_FILE: the video must be MP4, MOV or WebM.")
     key = f"films/{uuid4().hex}.{ext}"
     size = await asyncio.to_thread(_assemble, folder, total, meta["size"], key)
     shutil.rmtree(folder, ignore_errors=True)
     if size != meta["size"]:
         await c.remove_file(key)
-        film.processing_status = "FAILED"
-        db.commit()
+        if not label:
+            film.processing_status = "FAILED"
+            db.commit()
         raise c.err(422, "SIZE_MISMATCH: the assembled file does not have the announced size.")
+    if label:
+        old = _set_rendition(db, film, label, key, ext, size, meta["name"] or None)
+        await c.remove_file(old)
+        db.refresh(film)
+        _audit(db, user, "medien_film_rendition", f"{film.id} {label} {size} bytes")
+        return film
     old, _ = await asyncio.to_thread(_finish_video, db, film, key, ext, size, meta["name"] or None)
     await c.remove_file(old)
     db.refresh(film)
@@ -439,49 +482,157 @@ async def video_complete(db: Session, user: User, film: Film, upload_id: str) ->
     return film
 
 
+def _set_rendition(db: Session, film: Film, label: str, key: str, ext: str, size: int, name: str | None) -> str | None:
+    """Adds or replaces the rendition with this label; returns the replaced file's key (to be removed)."""
+    row = db.scalar(select(FilmRendition).where(FilmRendition.film_id == film.id, FilmRendition.label == label))
+    old = row.file_key if row else None
+    height = int(QUALITY.match(label).group(1))
+    if row is None:
+        db.add(FilmRendition(film_id=film.id, label=label, height=height, file_key=key, content_type=c.CONTENT_TYPES[ext], size=size, original_name=name))
+    else:
+        row.file_key, row.content_type, row.size, row.original_name = key, c.CONTENT_TYPES[ext], size, name
+    db.commit()
+    return old
+
+
+async def delete_rendition(db: Session, user: User, film: Film, rendition_id: UUID) -> None:
+    row = db.get(FilmRendition, rendition_id)
+    if row is None or row.film_id != film.id:
+        raise c.err(404, "NOT_FOUND")
+    key, label = row.file_key, row.label
+    db.delete(row)
+    db.commit()
+    await c.remove_file(key)
+    _audit(db, user, "medien_film_rendition_deleted", f"{film.id} {label}")
+
+
 def video_abort(db: Session, film: Film, upload_id: str) -> None:
-    folder, _ = _meta(upload_id, film)
+    folder, meta = _meta(upload_id, film)
     shutil.rmtree(folder, ignore_errors=True)
-    if film.processing_status == "UPLOADING":
+    if not meta.get("quality") and film.processing_status == "UPLOADING":
         film.processing_status = "READY" if film.video_key else "NONE"
         db.commit()
 
 
-def _to_vtt(raw: bytes) -> bytes:
-    """WebVTT as is; SubRip (.srt) converted (comma -> dot in the timestamps, header added)."""
-    text = raw.decode("utf-8-sig", errors="replace").replace("\r\n", "\n").replace("\r", "\n")
-    if text.lstrip().startswith("WEBVTT"):
-        return text.encode("utf-8")
-    if not re.search(r"\d\d:\d\d:\d\d[,.]\d{3}\s*-->\s*\d\d:\d\d:\d\d[,.]\d{3}", text):
-        raise c.err(400, "UNSUPPORTED_FILE: the subtitle file must be WebVTT or SRT.")
-    return ("WEBVTT\n\n" + re.sub(r"(\d\d:\d\d:\d\d),(\d{3})", r"\1.\2", text)).encode("utf-8")
+SUBTITLE_LANGUAGES = ("de", "uz", "en", "ru")
+SUBTITLE_LABELS = {"de": "Deutsch", "uz": "O'zbekcha", "en": "English", "ru": "Русский"}
+SUBTITLE_EXTENSIONS = (".srt", ".vtt")
 
 
-async def save_subtitle(db: Session, user: User, film: Film, language: str, label: str | None, file: UploadFile) -> FilmSubtitle:
-    language = (language or "").strip().lower()
-    if language not in ("de", "uz", "en", "ru"):
+def _subtitle_language(value: str | None) -> str:
+    language = (value or "").strip().lower()
+    if language not in SUBTITLE_LANGUAGES:
         raise c.err(422, "INVALID_LANGUAGE: de, uz, en or ru.")
+    return language
+
+
+def _video_ms(film: Film) -> int | None:
+    """The length the subtitle is checked against: the probed length, else the (rounded) minutes of the form."""
+    return film.video_duration_ms or (film.duration_minutes * 60_000 if film.duration_minutes else None)
+
+
+async def _read_subtitle(film: Film, file: UploadFile) -> tuple[bytes, subs.Analysis]:
+    """Reads and checks one uploaded subtitle: extension (.srt / .vtt), size, content. Raises a coded 400 when it is not usable."""
+    name = (file.filename or "").lower()
+    if name and not name.endswith(SUBTITLE_EXTENSIONS):
+        raise c.err(400, "UNSUPPORTED_FILE: subtitles must be .srt (SubRip) or .vtt (WebVTT) files.")
     raw = await file.read(c.MAX_SUBTITLE + 1)
     if len(raw) > c.MAX_SUBTITLE:
         raise c.err(400, "FILE_TOO_LARGE: subtitles are limited to 2 MB.")
-    vtt = _to_vtt(raw)
+    try:
+        return raw, subs.analyze(raw, _video_ms(film))
+    except subs.SubtitleError as exc:
+        raise c.err(400, f"{exc.code}: {exc}") from None
+
+
+async def check_subtitle(film: Film, file: UploadFile) -> dict:
+    """Dry run for "check the file": the report and the first cues, nothing is stored."""
+    _, analysis = await _read_subtitle(film, file)
+    return {"report": analysis.report(), "preview": subs.cues_json(analysis.cues[:subs.PREVIEW_CUES]), "video_ms": _video_ms(film)}
+
+
+async def save_subtitle(db: Session, user: User, film: Film, language: str, label: str | None, file: UploadFile) -> FilmSubtitle:
+    """Stores the normalised, sanitised WebVTT of the upload as the film's subtitle in that language (replaces an existing one)."""
+    language = _subtitle_language(language)
+    _, analysis = await _read_subtitle(film, file)
+    vtt = subs.to_vtt(analysis.cues)
     key = f"subtitles/{uuid4().hex}.vtt"
     path = c.storage.ROOT / key
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_bytes(vtt)
-    sub = db.scalar(select(FilmSubtitle).where(FilmSubtitle.film_id == film.id, FilmSubtitle.language == language))
-    old = sub.file_key if sub else None
-    labels = {"de": "Deutsch", "uz": "O'zbekcha", "en": "English", "ru": "Русский"}
-    if sub is None:
-        sub = FilmSubtitle(film_id=film.id, language=language, label=_text(label, "label", 80) or labels[language], file_key=key)
-        db.add(sub)
-    else:
-        sub.file_key = key
-        if label:
-            sub.label = _text(label, "label", 80) or sub.label
-    db.commit()
+    try:
+        sub = db.scalar(select(FilmSubtitle).where(FilmSubtitle.film_id == film.id, FilmSubtitle.language == language))
+        old = sub.file_key if sub else None
+        if sub is None:
+            sub = FilmSubtitle(film_id=film.id, language=language, label=_text(label, "label", 80) or SUBTITLE_LABELS[language], file_key=key)
+            db.add(sub)
+        else:
+            sub.file_key = key
+            if label:
+                sub.label = _text(label, "label", 80) or sub.label
+        sub.cue_count, sub.last_ms, sub.source_format = len(analysis.cues), analysis.last_ms, analysis.format
+        sub.original_name, sub.file_size, sub.warnings = (file.filename or "")[:255] or None, len(vtt), analysis.warnings
+        db.commit()
+    except Exception:
+        db.rollback()
+        await c.remove_file(key)
+        raise
     await c.remove_file(old)
-    _audit(db, user, "medien_film_subtitle", f"{film.id} {language}")
+    _audit(db, user, "medien_film_subtitle", f"{film.id} {language} {len(analysis.cues)} cues")
+    return sub
+
+
+def _subtitle_of(db: Session, film: Film, subtitle_id: UUID) -> FilmSubtitle:
+    sub = db.get(FilmSubtitle, subtitle_id)
+    if sub is None or sub.film_id != film.id:
+        raise c.err(404, "NOT_FOUND")
+    return sub
+
+
+def subtitle_preview(db: Session, film: Film, subtitle_id: UUID) -> dict:
+    """The whole stored track (plain text cues) and a fresh check against the film's length, for the admin preview."""
+    sub = _subtitle_of(db, film, subtitle_id)
+    path = c.file_path(sub.file_key)
+    if path is None:
+        raise c.err(404, "FILE_MISSING")
+    try:
+        analysis = subs.analyze(path.read_bytes(), _video_ms(film))
+    except subs.SubtitleError as exc:
+        raise c.err(422, f"{exc.code}: {exc}") from None
+    return {**_subtitle_card(sub), "report": analysis.report(), "cues": subs.cues_json(analysis.cues), "video_ms": _video_ms(film)}
+
+
+def recheck_subtitle(db: Session, user: User, film: Film, subtitle_id: UUID) -> FilmSubtitle:
+    """Re-reads the stored file and stores the new check result (for tracks uploaded before checks existed, or after the film's length changed)."""
+    sub = _subtitle_of(db, film, subtitle_id)
+    path = c.file_path(sub.file_key)
+    if path is None:
+        raise c.err(404, "FILE_MISSING")
+    try:
+        analysis = subs.analyze(path.read_bytes(), _video_ms(film))
+    except subs.SubtitleError as exc:
+        raise c.err(422, f"{exc.code}: {exc}") from None
+    sub.cue_count, sub.last_ms, sub.source_format, sub.warnings = len(analysis.cues), analysis.last_ms, analysis.format, analysis.warnings
+    db.commit()
+    _audit(db, user, "medien_film_subtitle_checked", f"{film.id} {sub.language}")
+    return sub
+
+
+def update_subtitle(db: Session, user: User, film: Film, subtitle_id: UUID, language: str | None, label: str | None) -> FilmSubtitle:
+    """Re-assigns the language of a track and / or renames it (no file is touched)."""
+    sub = _subtitle_of(db, film, subtitle_id)
+    if language is not None:
+        language = _subtitle_language(language)
+        if language != sub.language:
+            if db.scalar(select(FilmSubtitle.id).where(FilmSubtitle.film_id == film.id, FilmSubtitle.language == language)):
+                raise c.err(409, "SUBTITLE_EXISTS: this film already has a subtitle in that language; delete or replace it first.")
+            if (sub.label or "") == SUBTITLE_LABELS.get(sub.language):
+                sub.label = SUBTITLE_LABELS[language]
+            sub.language = language
+    if label is not None:
+        sub.label = _text(label, "label", 80, True)
+    db.commit()
+    _audit(db, user, "medien_film_subtitle_updated", f"{film.id} {sub.language}")
     return sub
 
 

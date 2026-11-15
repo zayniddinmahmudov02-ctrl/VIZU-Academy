@@ -1,3 +1,9 @@
+import type { WordBrief, WordCard } from "@/features/woerterbuch/woerterbuch-service";
+
+import type { Cue, PlayerState, SubtitlePrefs } from "./lib/subtitles";
+
+export type { Cue, PlayerState, SubtitlePrefs };
+
 export type MediaKind = "BOOK" | "SONG" | "FILM";
 export type AccessType = "FREE" | "PAID";
 export type Level = "A1" | "A2" | "B1" | "B2" | "C1";
@@ -8,6 +14,8 @@ export interface Progress {
   total: number | null;
   completed: boolean;
   updated_at?: string;
+  /** films: subtitle language, dual subtitles, speed, quality of the last visit */
+  state?: PlayerState | null;
 }
 
 export interface MediaCard {
@@ -78,11 +86,30 @@ export interface Overview {
   featured_film: FilmCard | null;
 }
 
+export interface WatchSubtitle extends FilmSubtitleInfo { url: string; cues_url: string; cue_count: number }
+/** One quality of the video: "main" = the film's own file ("Original"), the others were uploaded by the admin (720p …). */
+export interface VideoSource { id: string; label: string; height: number | null; url: string }
+export interface FilmNeighbor { id: string; title: string }
+
 export interface WatchInfo {
   title: string;
   source: { type: "file" | "external"; url: string };
-  subtitles: (FilmSubtitleInfo & { url: string })[];
+  sources: VideoSource[];
+  subtitles: WatchSubtitle[];
   progress: Progress | null;
+  prefs: SubtitlePrefs;
+  neighbors: { prev: FilmNeighbor | null; next: FilmNeighbor | null };
+  duration_ms: number | null;
+}
+
+export interface CueList { language: string; label: string; cues: Cue[] }
+
+/** Answer of `GET /medien/lookup`: exact headword / inflected form (`entries`), or only `suggestions`, or nothing. */
+export interface LookupResult {
+  word: string;
+  status: "exact" | "form" | "similar" | "none";
+  entries: WordCard[];
+  suggestions: WordBrief[];
 }
 
 export interface PurchaseInfo { id: string; kind: MediaKind; content_id: string; title: string | null; price: number | null; status: string; created_at: string }

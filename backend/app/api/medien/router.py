@@ -1,19 +1,20 @@
-"""VIZU Medienwelt — student API (`/medien`). Every route needs a logged-in user (`get_current_user`) except the three
-by-design public ones: covers/posters (`/cover/...`) and the two token-authorized file streams (`/stream/...`,
-`/subtitles/...`; the signed token is issued by an access-checked call and the access is checked again per request, so a
-PAID file is never reachable without a purchase). Business rules: app/services/medien/."""
+"""VIZU Medienwelt — student API (`/medien`). Every route needs a logged-in user (`get_current_user`) except the by-design
+public ones: covers/posters (`/cover/...`) and the token-authorized file streams (`/stream/...`, `/subtitles/...` incl.
+`/cues`, `/rendition/...`; the signed token is issued by an access-checked call and the access is checked again per
+request, so a PAID file is never reachable without a purchase). Business rules: app/services/medien/."""
 
+from typing import Literal
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, Path, Query
+from fastapi import APIRouter, Depends, Path, Query, Response
 from fastapi.responses import FileResponse
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, StrictBool
 from sqlalchemy.orm import Session
 
 from app.api.dependencies.auth import get_current_user
 from app.db.session import get_db
 from app.models.user import User
-from app.services.medien import catalog
+from app.services.medien import catalog, lookup, player
 
 router = APIRouter(prefix="/medien", tags=["Medienwelt"])
 
@@ -21,11 +22,38 @@ Kind = Path(pattern="^(BOOK|SONG|FILM)$")
 PRIVATE = {"Cache-Control": "private, no-store"}
 
 
+class PlayerStateIn(BaseModel):
+    """What the player remembers per film: restored by "continue watching" (values are validated again in the service)."""
+
+    model_config = ConfigDict(extra="forbid")
+    subtitle: str | None = Field(default=None, pattern="^(off|de|uz|en|ru)$")
+    dual: StrictBool | None = None
+    secondary: str | None = Field(default=None, pattern="^(de|uz|en|ru)$")
+    speed: float | None = Field(default=None, ge=0.25, le=4)
+    quality: str | None = Field(default=None, max_length=20)
+    audio: str | None = Field(default=None, max_length=20)
+
+
 class ProgressIn(BaseModel):
     model_config = ConfigDict(extra="forbid")
     position: int = Field(ge=0, le=10_000_000)
     total: int | None = Field(default=None, ge=0, le=10_000_000)
     completed: bool | None = None
+    state: PlayerStateIn | None = None
+
+
+class PrefsIn(BaseModel):
+    """Subtitle appearance + dual-subtitle default of the student; any subset."""
+
+    model_config = ConfigDict(extra="forbid")
+    enabled: StrictBool | None = None
+    size: Literal["small", "medium", "large"] | None = None
+    color: Literal["#ffffff", "#ffe066", "#7dd3fc", "#86efac", "#f9a8d4"] | None = None
+    bg_opacity: int | None = Field(default=None, ge=0, le=100)
+    position: Literal["bottom", "higher"] | None = None
+    font: Literal["sans", "serif", "mono"] | None = None
+    dual: StrictBool | None = None
+    secondary: Literal["de", "uz", "en", "ru"] | None = None
 
 
 class PlaylistIn(BaseModel):
@@ -71,6 +99,20 @@ def stream(item_id: UUID, token: str, kind: str = Kind, db: Session = Depends(ge
 @router.get("/subtitles/{subtitle_id}")
 def subtitle(subtitle_id: UUID, token: str, db: Session = Depends(get_db)):
     return FileResponse(catalog.subtitle_target(db, subtitle_id, token), media_type="text/vtt", headers=PRIVATE)
+
+
+@router.get("/subtitles/{subtitle_id}/cues")
+def subtitle_cues(subtitle_id: UUID, token: str, response: Response, db: Session = Depends(get_db)):
+    """The player's cue list (plain, sanitised text) for the same token and access check as the file."""
+    response.headers.update(PRIVATE)
+    return catalog.subtitle_cues(db, subtitle_id, token)
+
+
+@router.get("/rendition/{rendition_id}")
+def rendition(rendition_id: UUID, token: str, db: Session = Depends(get_db)):
+    """An additional video quality (HTTP Range supported): signed token, access checked again."""
+    path, media_type = catalog.rendition_target(db, rendition_id, token)
+    return FileResponse(path, media_type=media_type, headers=PRIVATE)
 
 
 # ---------------- catalog ----------------
@@ -176,7 +218,28 @@ def get_progress(item_id: UUID, kind: str = Path(pattern="^(BOOK|FILM)$"), db: S
 @router.put("/progress/{kind}/{item_id}")
 def put_progress(data: ProgressIn, item_id: UUID, kind: str = Path(pattern="^(BOOK|FILM)$"), db: Session = Depends(get_db),
                  user: User = Depends(get_current_user)):
-    return catalog.save_progress(db, user, kind, item_id, data.position, data.total, data.completed)
+    return catalog.save_progress(db, user, kind, item_id, data.position, data.total, data.completed,
+                                 data.state.model_dump(exclude_none=True) if data.state else None)
+
+
+# ---------------- player settings / word look-up ----------------
+
+
+@router.get("/player-prefs")
+def get_player_prefs(db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    """The student's subtitle settings (size, colour, background, position, font, on/off, dual subtitles)."""
+    return player.get_prefs(db, user)
+
+
+@router.put("/player-prefs")
+def put_player_prefs(data: PrefsIn, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    return player.save_prefs(db, user, data.model_dump(exclude_none=True))
+
+
+@router.get("/lookup")
+def lookup_word(word: str = Query(min_length=1, max_length=80), db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    """A clicked subtitle word answered from the Wörterbuch (exact / inflected form / similar entries / nothing) — no translation is made up."""
+    return lookup.lookup(db, user, word)
 
 
 # ---------------- playlists ----------------

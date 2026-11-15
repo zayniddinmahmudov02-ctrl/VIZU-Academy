@@ -493,14 +493,16 @@ test.describe.serial("Medienwelt", () => {
         await page.getByTestId("film-video-upload").click();
         await expect(page.getByTestId("film-note")).toHaveText("Video hochgeladen und bereit.", { timeout: 60_000 });
         await expect(page.getByTestId("film-video-status")).toContainText("Bereit");
-        await d.getByTestId("film-subtitle-lang").selectOption("de");
-        await d.getByTestId("film-subtitle-file").setInputFiles({ name: "de.srt", mimeType: "text/plain", buffer: Buffer.from(SRT) });
-        await page.getByTestId("film-subtitle-upload").click();
-        await expect(page.getByTestId("film-subtitle").filter({ hasText: "Deutsch" })).toBeVisible({ timeout: 20_000 });
-        await d.getByTestId("film-subtitle-lang").selectOption("uz");
-        await d.getByTestId("film-subtitle-file").setInputFiles({ name: "uz.vtt", mimeType: "text/vtt", buffer: Buffer.from(VTT_UZ) });
-        await page.getByTestId("film-subtitle-upload").click();
-        await expect(page.getByTestId("film-subtitle")).toHaveCount(2, { timeout: 20_000 });
+        await expect(page.getByTestId("section-info")).toBeVisible();
+        await expect(page.getByTestId("section-video")).toBeVisible();
+        await expect(page.getByTestId("section-subtitles")).toBeVisible();
+        await expect(page.getByTestId("section-access")).toBeVisible();
+        await d.getByTestId("sub-file-de").setInputFiles({ name: "de.srt", mimeType: "text/plain", buffer: Buffer.from(SRT) });
+        await page.getByTestId("sub-upload-de").click();
+        await expect(page.getByTestId("sub-status-de")).toContainText("Vorhanden", { timeout: 20_000 });
+        await d.getByTestId("sub-file-uz").setInputFiles({ name: "uz.vtt", mimeType: "text/vtt", buffer: Buffer.from(VTT_UZ) });
+        await page.getByTestId("sub-upload-uz").click();
+        await expect(page.locator('[data-testid="film-subtitle"][data-present="1"]')).toHaveCount(2, { timeout: 20_000 });
         // a bad link / subtitle are refused
         await d.getByTestId("film-link").fill("http://unsicher.example/video.mp4");
         await page.getByTestId("film-link-save").click();
@@ -560,6 +562,9 @@ test.describe.serial("Medienwelt", () => {
       return new Promise<string>((resolve) => { window.addEventListener("medien:subtitle-word", (e) => resolve((e as CustomEvent).detail.word), { once: true }); (el as HTMLElement).click(); });
     });
     expect(word).toBe("Guten");
+    await expect(page.getByTestId("word-popup")).toBeVisible(); // the word card opens (and the video pauses while it is open)
+    await player.getByTestId("wp-close").click();
+    await expect(page.getByTestId("word-popup")).toHaveCount(0);
     await player.getByTestId("film-subtitles").click();
     await expect(player.getByTestId("film-subtitle-option")).toHaveCount(2);
     await player.getByTestId("film-subtitle-option").filter({ hasText: "O'zbekcha" }).click();

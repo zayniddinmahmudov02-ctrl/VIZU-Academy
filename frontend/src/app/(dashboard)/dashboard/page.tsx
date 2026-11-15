@@ -1,6 +1,6 @@
 import AdvertisementBanner from "@/components/dashboard/home/advertisement-banner";
 import AppDownloadLink from "@/features/mobile-app/components/app-download-link";
-import DashboardCourses from "@/components/dashboard/home/dashboard-courses";
+import DashboardHub from "@/components/dashboard/home/dashboard-hub";
 import DashboardMotion from "@/components/dashboard/home/dashboard-motion";
 import DashboardWelcome from "@/components/dashboard/home/dashboard-welcome";
 import LearningTools from "@/components/dashboard/home/learning-tools";
@@ -30,11 +30,11 @@ export default function DashboardPage() {
             <AdvertisementBanner />
           </div>
 
-          {/* Battle and the three core learning links are grouped together. */}
-          <LearningTools />
+          {/* The five main entries: A1–C1 Kurse (one card — the levels live on /kurse), Medien, Vorbereitung, Zertifikate, Angebote */}
+          <DashboardHub />
 
-          {/* A1–C1 in one collapsible frame (open by default) */}
-          <DashboardCourses />
+          {/* Battle, Stufe Bestimmung and Wörterbuch (Vorbereitung is a main card above) */}
+          <LearningTools />
 
           <div data-testid="dashboard-stats">
             <LearningStreakCard />

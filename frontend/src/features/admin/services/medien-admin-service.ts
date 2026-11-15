@@ -9,6 +9,20 @@ export type FileStatus = "ok" | "missing" | "none";
 
 export interface AdminCategory { id: string; kind: Kind; name: string; slug: string; sort_order: number; is_active: boolean; item_count: number }
 
+export interface SubtitleWarning { code: string; count: number; detail: string }
+export interface AdminSubtitle {
+  id: string; language: string; label: string; file_status: FileStatus;
+  /** result of the last check; 0 = a track from before the checks existed ("not checked yet") */
+  cue_count: number; last_ms: number | null; format: "srt" | "vtt" | null; original_name: string | null; file_size: number | null;
+  warnings: SubtitleWarning[]; updated_at?: string;
+}
+export interface AdminRendition { id: string; label: string; height: number | null; size: number; original_name: string | null; file_status: FileStatus }
+export interface SubtitleReport { format: "srt" | "vtt"; encoding: string; cue_count: number; first_ms: number | null; last_ms: number | null; warnings: SubtitleWarning[] }
+/** Cue = [start_ms, end_ms, plain text] */
+export type PreviewCue = [number, number, string];
+export interface SubtitleCheck { report: SubtitleReport; preview: PreviewCue[]; video_ms: number | null }
+export interface SubtitlePreview extends AdminSubtitle { report: SubtitleReport; cues: PreviewCue[]; video_ms: number | null }
+
 export interface AdminItem {
   id: string;
   kind: Kind;
@@ -46,7 +60,10 @@ export interface AdminItem {
   video_size?: number | null;
   external_url?: string | null;
   processing_status?: "NONE" | "UPLOADING" | "READY" | "FAILED";
-  subtitles?: { id: string; language: string; label: string; file_status: FileStatus }[];
+  video_duration_ms?: number | null;
+  video_format?: string | null;
+  subtitles?: AdminSubtitle[];
+  renditions?: AdminRendition[];
 }
 
 export interface AdminPage { items: AdminItem[]; total: number; page: number; page_size: number }
@@ -86,6 +103,15 @@ const KNOWN: Record<string, string> = {
   CATEGORY_IN_USE: "Die Kategorie wird noch verwendet: erst Inhalte verschieben oder die Kategorie ausblenden.",
   INVALID_URL: "Nur https://-Links sind erlaubt.",
   INVALID_LANGUAGE: "Sprache: de, uz, en oder ru.",
+  SUBTITLE_EMPTY: "Die Untertitel-Datei ist leer.",
+  SUBTITLE_BINARY: "Das ist keine Textdatei: Untertitel müssen .srt oder .vtt sein.",
+  SUBTITLE_FORMAT: "Keine gültigen Zeitangaben gefunden. Erlaubt sind WebVTT (.vtt) und SubRip (.srt).",
+  SUBTITLE_NO_CUES: "Die Datei enthält keinen verwendbaren Untertitel (alle Zeiten fehlerhaft oder ohne Text).",
+  SUBTITLE_TOO_LARGE: "Zu viele Untertitel-Zeilen: das ist kein Film-Untertitel.",
+  SUBTITLE_ENCODING: "Die Datei konnte nicht gelesen werden. Bitte als UTF-8 speichern.",
+  SUBTITLE_EXISTS: "Für diese Sprache gibt es schon einen Untertitel. Erst ersetzen oder löschen.",
+  INVALID_QUALITY: "Qualität wie 360p, 480p, 720p oder 1080p angeben.",
+  MAIN_VIDEO_REQUIRED: "Erst das Hauptvideo hochladen, dann weitere Qualitäten.",
   MISSING_CHUNKS: "Beim Hochladen fehlen Teile. Bitte erneut versuchen.",
   SIZE_MISMATCH: "Die Dateigröße stimmt nach dem Hochladen nicht. Bitte erneut versuchen.",
   AUDIO_TOOL_MISSING: "Die Audioverarbeitung ist auf dem Server nicht verfügbar.",
@@ -145,9 +171,10 @@ export const replaceSongFile = async (id: string, file: File, onProgress?: Progr
 // ---- films: single (≤ 90 MB) or chunked video upload, external link, subtitles ----
 export const setExternalUrl = async (id: string, url: string | null) => (await api.put<AdminItem>(`${BASE}/films/${id}/external-url`, { url })).data;
 
-/** Streams a video in chunks of the size the server announces (never the whole file in one request or in memory). */
-export async function uploadFilmVideo(id: string, file: File, onProgress?: Progress): Promise<AdminItem> {
-  const init = (await api.post<{ upload_id: string; chunk_size: number; chunks: number }>(`${BASE}/films/${id}/video/init`, { filename: file.name, size: file.size })).data;
+/** Streams a video in chunks of the size the server announces (never the whole file in one request or in memory). With `quality` ("720p")
+ * the file becomes an additional quality of the film instead of its own video. */
+export async function uploadFilmVideo(id: string, file: File, onProgress?: Progress, quality?: string): Promise<AdminItem> {
+  const init = (await api.post<{ upload_id: string; chunk_size: number; chunks: number }>(`${BASE}/films/${id}/video/init`, { filename: file.name, size: file.size, ...(quality ? { quality } : {}) })).data;
   try {
     for (let i = 0; i < init.chunks; i += 1) {
       const slice = file.slice(i * init.chunk_size, Math.min(file.size, (i + 1) * init.chunk_size));
@@ -180,6 +207,18 @@ export const uploadSubtitle = async (id: string, language: string, file: File, l
   return (await api.post<AdminItem>(`${BASE}/films/${id}/subtitles`, form, multipart())).data;
 };
 export const deleteSubtitle = async (id: string, subtitleId: string) => (await api.delete<AdminItem>(`${BASE}/films/${id}/subtitles/${subtitleId}`)).data;
+/** Dry run: format, times, cleaning and fit to the video length of a file — nothing is stored. */
+export const checkSubtitle = async (id: string, file: File) => {
+  const form = new FormData();
+  form.append("file", file);
+  return (await api.post<SubtitleCheck>(`${BASE}/films/${id}/subtitles/check`, form, multipart())).data;
+};
+/** The stored track as plain cues with a fresh check — the admin preview. */
+export const getSubtitlePreview = async (id: string, subtitleId: string) => (await api.get<SubtitlePreview>(`${BASE}/films/${id}/subtitles/${subtitleId}`)).data;
+export const recheckSubtitle = async (id: string, subtitleId: string) => (await api.post<AdminItem>(`${BASE}/films/${id}/subtitles/${subtitleId}/check`)).data;
+/** Re-assigns the language of a track and / or renames it (no file is touched). */
+export const updateSubtitle = async (id: string, subtitleId: string, data: { language?: string; label?: string }) => (await api.put<AdminItem>(`${BASE}/films/${id}/subtitles/${subtitleId}`, data)).data;
+export const deleteRendition = async (id: string, renditionId: string) => (await api.delete<AdminItem>(`${BASE}/films/${id}/renditions/${renditionId}`)).data;
 
 /** The stored file as a Blob for the admin preview (Bearer-authenticated, never a public URL). */
 export const previewBlob = async (kind: Kind, id: string) => (await api.get(`${BASE}/${ROUTE[kind]}/${id}/file`, { responseType: "blob" })).data as Blob;

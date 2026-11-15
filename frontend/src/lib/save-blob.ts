@@ -1,4 +1,4 @@
-/** Opens a PDF / file blob in a new tab ("view"), or saves it under `filename`. */
+﻿/** Opens a PDF / file blob in a new tab ("view"), or saves it under `filename`. */
 export function openBlob(blob: Blob, filename?: string): void {
   const url = URL.createObjectURL(blob);
   if (filename) {
@@ -19,4 +19,26 @@ export function openBlob(blob: Blob, filename?: string): void {
     openBlob(blob, "zertifikat.pdf");
   }
   setTimeout(() => URL.revokeObjectURL(url), 60_000);
+}
+
+/** Prints a PDF blob through a hidden iframe (no extra tab). If the browser cannot print inline, the PDF opens in a new tab. */
+export function printBlob(blob: Blob): void {
+  const url = URL.createObjectURL(blob);
+  const frame = document.createElement("iframe");
+  frame.setAttribute("aria-hidden", "true");
+  frame.style.cssText = "position:fixed;right:0;bottom:0;width:0;height:0;border:0;visibility:hidden";
+  frame.onload = () => {
+    try {
+      frame.contentWindow?.focus();
+      frame.contentWindow?.print();
+    } catch {
+      window.open(url, "_blank");
+    }
+  };
+  frame.src = url;
+  document.body.appendChild(frame);
+  setTimeout(() => {
+    frame.remove();
+    URL.revokeObjectURL(url);
+  }, 120_000);
 }
