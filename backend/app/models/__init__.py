@@ -124,8 +124,8 @@ from .promo_code_redemption import PromoCodeRedemption
 from .promo_code_request import PromoCodeRequest
 from .course_package import CoursePackage
 from .audio_file import AudioFile
-from .medien import (Film, FilmSubtitle, MediaBook, MediaCategory, MediaPlayHistory, MediaProgress, MediaPurchase, Playlist, PlaylistSong,
-                     Song, UserFavoriteSong)
+from .medien import (BookPaymentRequest, Film, FilmRendition, FilmSubtitle, MediaBook, MediaCategory, MediaPlayerPrefs, MediaPlayHistory,
+                     MediaProgress, MediaPurchase, Playlist, PlaylistSong, Song, UserFavoriteSong)
 from .subscription_order import SubscriptionOrder
 
 # Media Library
@@ -240,8 +240,8 @@ __all__ = [
     "PromoCodeRequest",
     "CoursePackage",
     "AudioFile",
-    "Film", "FilmSubtitle", "MediaBook", "MediaCategory", "MediaPlayHistory", "MediaProgress", "MediaPurchase", "Playlist", "PlaylistSong",
-    "Song", "UserFavoriteSong",
+    "BookPaymentRequest", "Film", "FilmRendition", "FilmSubtitle", "MediaBook", "MediaCategory", "MediaPlayerPrefs", "MediaPlayHistory", "MediaProgress",
+    "MediaPurchase", "Playlist", "PlaylistSong", "Song", "UserFavoriteSong",
     "SubscriptionOrder",
 
     # Media Library

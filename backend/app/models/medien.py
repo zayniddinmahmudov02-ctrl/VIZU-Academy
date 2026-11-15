@@ -7,7 +7,9 @@ purchase, or staff). Everything a student reads about PAID content is cover, tex
 
 from datetime import datetime
 
-from sqlalchemy import BigInteger, Boolean, CheckConstraint, DateTime, ForeignKey, Index, Integer, String, Text, UniqueConstraint, text
+from datetime import date, time
+
+from sqlalchemy import BigInteger, Boolean, CheckConstraint, Date, DateTime, Float, ForeignKey, Index, Integer, String, Text, Time, UniqueConstraint, text
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -73,6 +75,9 @@ class MediaBook(_Content, BaseModel):
     file_size: Mapped[int | None] = mapped_column(BigInteger, nullable=True)
     original_name: Mapped[str | None] = mapped_column(String(255), nullable=True)
     view_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    # PAID books: the first `preview_pages_count` pages are readable without buying (0 = no preview); `page_count` is read from the PDF
+    preview_pages_count: Mapped[int] = mapped_column(Integer, nullable=False, default=10, server_default="10")
+    page_count: Mapped[int | None] = mapped_column(Integer, nullable=True)
 
 
 class Song(_Content, BaseModel):
@@ -88,6 +93,11 @@ class Song(_Content, BaseModel):
     file_size: Mapped[int | None] = mapped_column(BigInteger, nullable=True)
     original_name: Mapped[str | None] = mapped_column(String(255), nullable=True)
     play_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    # read from the file at upload (services/medien/audio_meta.py); FAILED = the original was kept without metadata (note says why)
+    audio_format: Mapped[str | None] = mapped_column(String(10), nullable=True)
+    bitrate_kbps: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    metadata_status: Mapped[str] = mapped_column(String(10), nullable=False, default="OK", server_default="OK")
+    metadata_note: Mapped[str | None] = mapped_column(String(300), nullable=True)
 
 
 class Playlist(BaseModel):
@@ -208,6 +218,45 @@ class MediaPurchase(BaseModel):
     note: Mapped[str | None] = mapped_column(String(500), nullable=True)
     decided_by_id: Mapped[UUID | None] = _uuid_fk("users", "fk_media_purchases_decided_by_id")
     decided_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    # the approved book payment that created this purchase (NULL for direct grants and older rows)
+    payment_request_id: Mapped[UUID | None] = _uuid_fk("book_payment_requests", "fk_media_purchases_payment_request_id")
+
+
+PAYMENT_PENDING, PAYMENT_APPROVED, PAYMENT_REJECTED, PAYMENT_CANCELLED = "PENDING", "APPROVED", "REJECTED", "CANCELLED"
+PAYMENT_STATUSES = (PAYMENT_PENDING, PAYMENT_APPROVED, PAYMENT_REJECTED, PAYMENT_CANCELLED)
+
+
+class BookPaymentRequest(BaseModel):
+    """A student's manual (bank card) payment for a PAID book, waiting for the Super Admin. The amount is the book's price at the moment of the
+    request — taken from the server, never from the client. The receipt is optional: without one the student gives the transfer date and time.
+    Only APPROVED opens the book (the admin creates / upgrades the `media_purchases` row); history is kept when a book is deleted
+    (`book_id` becomes NULL, `book_title` stays)."""
+
+    __tablename__ = "book_payment_requests"
+    __table_args__ = (
+        CheckConstraint("payment_status IN ('PENDING','APPROVED','REJECTED','CANCELLED')", name="ck_book_payment_requests_status"),
+        CheckConstraint("amount > 0", name="ck_book_payment_requests_amount"),
+        Index("uq_book_payment_requests_open", "user_id", "book_id", unique=True, postgresql_where=text("payment_status = 'PENDING'")),
+    )
+
+    user_id: Mapped[UUID] = _uuid_fk("users", "fk_book_payment_requests_user_id", null=False, on_delete="CASCADE")
+    book_id: Mapped[UUID | None] = _uuid_fk("media_books", "fk_book_payment_requests_book_id")
+    book_title: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    amount: Mapped[int] = mapped_column(Integer, nullable=False)
+    currency: Mapped[str] = mapped_column(String(3), nullable=False, default="UZS", server_default="UZS")
+    receipt_key: Mapped[str | None] = mapped_column(String(300), nullable=True)
+    receipt_type: Mapped[str | None] = mapped_column(String(10), nullable=True)
+    receipt_size: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    no_receipt: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default=text("false"))
+    # the transfer moment as the student gave it (Uzbekistan time)
+    transfer_date: Mapped[date | None] = mapped_column(Date, nullable=True)
+    transfer_time: Mapped[time | None] = mapped_column(Time, nullable=True)
+    note: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    card_last4: Mapped[str | None] = mapped_column(String(4), nullable=True)
+    payment_status: Mapped[str] = mapped_column(String(10), nullable=False, default=PAYMENT_PENDING, server_default=PAYMENT_PENDING, index=True)
+    admin_note: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    reviewed_by_id: Mapped[UUID | None] = _uuid_fk("users", "fk_book_payment_requests_reviewed_by_id")
+    reviewed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
 
 class MediaProgress(BaseModel):
@@ -225,6 +274,9 @@ class MediaProgress(BaseModel):
     completed: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
     # films: subtitle language / dual subtitles / speed / quality the student used last (restored by "continue watching")
     player_state: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
+    # books: how far down the page `position` the student read (0..1) and when the reader was opened last
+    scroll_position: Mapped[float | None] = mapped_column(Float, nullable=True)
+    last_opened_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
 
 class MediaPlayHistory(BaseModel):

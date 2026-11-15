@@ -11,16 +11,38 @@ import ConfirmDialog from "@/components/admin/confirm-dialog";
 import FormDialog from "@/components/admin/form-dialog";
 import { mediaUrl } from "@/features/medien/services/medien-service";
 import {
-  createItem, deleteItem, getCategories, listItems, medienError, updateItem, uploadBookFile, uploadCover, type AdminItem,
+  createItem, deleteItem, getCategories, getStats, listItems, medienError, updateItem, uploadBookFile, uploadCover, type AdminItem,
 } from "@/features/admin/services/medien-admin-service";
 
+import BookPaymentsAdmin from "./book-payments-admin";
 import { CategoryManager, ContentFields, contentFrom, contentInput, emptyContent, FILE_DE, FilePick, fileSize, MedienTabs, ProgressBar, StatusPill, type ContentValues } from "./shared";
 
 const PAGE = 25;
 
-/** Admin → Medien → Bibliothek: books (cover, PDF, text, category, level, FREE / PAID with prices, special offer, featured,
- * Published / Draft / Hidden), categories, and the usual edit / replace / hide / delete. */
+/** Admin → Medien → Bibliothek: books (cover, PDF, text, category, level, FREE / PAID with prices and the free preview pages, special offer, featured,
+ * Published / Draft / Hidden), categories, the usual edit / replace / hide / delete — and the payment requests of students for paid books (second tab). */
 export default function BooksAdmin() {
+  const [view, setView] = useState<"books" | "payments">("books");
+  const stats = useQuery({ queryKey: ["admin-medien-stats"], queryFn: getStats, staleTime: 15_000 });
+  const pendingPayments = stats.data?.pending_book_payments ?? 0;
+  return (
+    <div data-testid="books-admin">
+      <AdminPageHeader title="Medien · Bibliothek" description="Bücher hochladen und verwalten: Cover, PDF, Kategorie, Niveau, kostenlos oder kostenpflichtig, Leseprobe, Sonderangebote — und die Zahlungsanfragen der Studenten." />
+      <MedienTabs />
+      <div className="mb-5 flex flex-wrap gap-2" role="tablist" aria-label="Bibliothek">
+        <button type="button" role="tab" aria-selected={view === "books"} onClick={() => setView("books")} data-testid="books-tab-books"
+                className={`rounded-full px-4 py-1.5 text-sm font-semibold transition ${view === "books" ? "bg-[var(--admin-primary)] text-white" : "bg-[var(--admin-card)] text-[var(--admin-text-secondary)] ring-1 ring-[var(--admin-border)] hover:bg-[var(--admin-hover)]"}`}>Bücher</button>
+        <button type="button" role="tab" aria-selected={view === "payments"} onClick={() => setView("payments")} data-testid="books-tab-payments"
+                className={`rounded-full px-4 py-1.5 text-sm font-semibold transition ${view === "payments" ? "bg-[var(--admin-primary)] text-white" : "bg-[var(--admin-card)] text-[var(--admin-text-secondary)] ring-1 ring-[var(--admin-border)] hover:bg-[var(--admin-hover)]"}`}>
+          Zahlungsanfragen{pendingPayments > 0 && <span className="ml-1.5 rounded-full bg-[var(--admin-warning)] px-1.5 text-xs text-white" data-testid="payments-pending-count">{pendingPayments}</span>}
+        </button>
+      </div>
+      {view === "books" ? <BooksPanel /> : <BookPaymentsAdmin />}
+    </div>
+  );
+}
+
+function BooksPanel() {
   const queryClient = useQueryClient();
   const [q, setQ] = useState("");
   const [status, setStatus] = useState("");
@@ -45,9 +67,8 @@ export default function BooksAdmin() {
   const total = books.data?.total ?? 0;
 
   return (
-    <div data-testid="books-admin">
-      <AdminPageHeader title="Medien · Bibliothek" description="Bücher hochladen und verwalten: Cover, PDF, Kategorie, Niveau, kostenlos oder kostenpflichtig, Sonderangebote." action={<AdminButton onClick={() => setEditing("new")} data-testid="book-new"><Plus size={16} /> Neues Buch</AdminButton>} />
-      <MedienTabs />
+    <div data-testid="books-panel">
+      <div className="mb-4 flex justify-end"><AdminButton onClick={() => setEditing("new")} data-testid="book-new"><Plus size={16} /> Neues Buch</AdminButton></div>
       <AdminCard className="mb-5"><h2 className="mb-3 text-sm font-semibold text-[var(--admin-text-primary)]">Kategorien</h2><CategoryManager kind="BOOK" /></AdminCard>
 
       {message && <p role="status" className={`mb-4 rounded-xl px-4 py-2.5 text-sm ${message.ok ? "bg-[var(--admin-success)]/10 text-[var(--admin-success)]" : "bg-[var(--admin-danger)]/10 text-[var(--admin-danger)]"}`} data-testid="books-message">{message.text}</p>}
@@ -69,7 +90,7 @@ export default function BooksAdmin() {
                   <span className="min-w-0"><span className="block truncate font-semibold text-[var(--admin-text-primary)]">{b.title}</span><span className="block truncate text-xs text-[var(--admin-text-muted)]">{b.author ?? "—"}{b.is_featured ? " · ★ empfohlen" : ""}{b.is_special_offer ? " · Sonderangebot" : ""}</span></span>
                 </div></td>
                 <td>{catName(b.category_id)}</td><td>{b.level ?? "—"}</td>
-                <td>{b.access_type === "FREE" ? "Kostenlos" : `${new Intl.NumberFormat("de-DE").format(b.price ?? 0)} UZS`}</td>
+                <td>{b.access_type === "FREE" ? "Kostenlos" : <>{`${new Intl.NumberFormat("de-DE").format(b.price ?? 0)} UZS`}<span className="block text-xs text-[var(--admin-text-muted)]">{b.preview_pages_count ? `Leseprobe: ${b.preview_pages_count} Seiten` : "Keine Leseprobe"}{b.page_count ? ` · ${b.page_count} Seiten` : ""}</span></>}</td>
                 <td><StatusPill status={b.status} /></td>
                 <td className={b.file_status === "ok" ? "" : "text-[var(--admin-warning)]"}>{FILE_DE[b.file_status]}{b.file_size ? ` · ${fileSize(b.file_size)}` : ""}</td>
                 <td>{b.views ?? 0}</td>
@@ -100,6 +121,7 @@ function BookDialog({ initial, categories, onClose }: { initial: AdminItem | nul
   const [author, setAuthor] = useState(initial?.author ?? "");
   const [category, setCategory] = useState(initial?.category_id ?? "");
   const [year, setYear] = useState(initial?.year ? String(initial.year) : "");
+  const [preview, setPreview] = useState(String(initial?.preview_pages_count ?? 10));
   const [cover, setCover] = useState<File | null>(null);
   const [pdf, setPdf] = useState<File | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
@@ -110,7 +132,9 @@ function BookDialog({ initial, categories, onClose }: { initial: AdminItem | nul
     setNote(null);
     setBusy("Speichern …");
     try {
-      const data = { ...contentInput(values), author: author.trim() || null, category_id: category || null, year: year ? Number(year) : null };
+      const pages = Math.round(Number(preview));
+      if (values.access_type === "PAID" && (!Number.isFinite(pages) || pages < 0 || pages > 500)) throw new Error("PREVIEW_RANGE");
+      const data = { ...contentInput(values), author: author.trim() || null, category_id: category || null, year: year ? Number(year) : null, ...(values.access_type === "PAID" ? { preview_pages_count: pages } : {}) };
       let saved = item ? await updateItem("BOOK", item.id, data) : await createItem("BOOK", data);
       setItem(saved);
       if (cover) { setBusy("Cover wird hochgeladen …"); setPercent(0); saved = await uploadCover("BOOK", saved.id, cover, setPercent); setCover(null); }
@@ -118,7 +142,7 @@ function BookDialog({ initial, categories, onClose }: { initial: AdminItem | nul
       setItem(saved);
       setNote({ ok: true, text: "Gespeichert." });
     } catch (err) {
-      setNote({ ok: false, text: medienError(err) });
+      setNote({ ok: false, text: err instanceof Error && err.message === "PREVIEW_RANGE" ? "Die Anzahl der Leseprobe-Seiten muss zwischen 0 und 500 liegen." : medienError(err) });
     } finally {
       setBusy(null);
     }
@@ -129,6 +153,13 @@ function BookDialog({ initial, categories, onClose }: { initial: AdminItem | nul
                 footer={<><AdminButton variant="ghost" onClick={onClose} disabled={!!busy} data-testid="book-close">Schließen</AdminButton><AdminButton onClick={save} disabled={!!busy || !values.title.trim()} data-testid="book-save">{busy ?? "Speichern"}</AdminButton></>}>
       <div className="space-y-4" data-testid="book-dialog">
         <ContentFields value={values} onChange={setValues} />
+        {values.access_type === "PAID" && (
+          <div className="max-w-xs">
+            <AdminLabel htmlFor="f-preview-pages">Leseprobe: kostenlose Seiten</AdminLabel>
+            <AdminInput id="f-preview-pages" type="number" min={0} max={500} value={preview} onChange={(e) => setPreview(e.target.value)} data-testid="f-preview-pages" />
+            <p className="mt-1 text-xs text-[var(--admin-text-muted)]">Die ersten Seiten kann jeder lesen (Standard 10, 0 = keine Leseprobe). Der Rest wird erst nach dem Kauf geliefert.{item?.page_count ? ` Das PDF hat ${item.page_count} Seiten.` : ""}</p>
+          </div>
+        )}
         <div className="grid gap-3 sm:grid-cols-3">
           <div><AdminLabel>Autor</AdminLabel><AdminInput value={author} onChange={(e) => setAuthor(e.target.value)} maxLength={255} data-testid="f-author" /></div>
           <div><AdminLabel>Kategorie</AdminLabel><AdminSelect value={category} onChange={(e) => setCategory(e.target.value)} data-testid="f-category"><option value="">—</option>{categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}</AdminSelect></div>

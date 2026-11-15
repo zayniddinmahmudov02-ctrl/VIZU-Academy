@@ -47,6 +47,7 @@ PUBLIC_ALLOWLIST = {
     ("GET", "/medien/subtitles/{subtitle_id}"),
     ("GET", "/medien/subtitles/{subtitle_id}/cues"),
     ("GET", "/medien/rendition/{rendition_id}"),
+    ("GET", "/medien/download/book/{book_id}"),
     # Battle: picture of the running round via an HMAC-signed, 90-second token (an <img> can't send a
     # Bearer header; the URL names no word), and admin-uploaded arena backgrounds (not secret)
     ("GET", "/battle/media/{token}"),

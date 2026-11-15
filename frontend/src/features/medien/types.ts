@@ -16,6 +16,9 @@ export interface Progress {
   updated_at?: string;
   /** films: subtitle language, dual subtitles, speed, quality of the last visit */
   state?: PlayerState | null;
+  /** books: how far down the page `position` the student read (0..1), and when the reader was opened last */
+  scroll?: number | null;
+  opened_at?: string | null;
 }
 
 export interface MediaCard {
@@ -70,6 +73,54 @@ export interface FilmCard extends MediaCard {
   subtitles?: FilmSubtitleInfo[];
   progress?: Progress | null;
 }
+
+export type PaymentStatus = "PENDING" | "APPROVED" | "REJECTED" | "CANCELLED";
+
+/** The student's latest payment for a book (shown on its page). The reason of a rejection is only set for REJECTED. */
+export interface MyPayment { id: string; status: PaymentStatus; created_at: string; reviewed_at: string | null; admin_note: string | null }
+
+/** `GET /medien/books/{id}`: the card plus what the reader / buy / download buttons need. */
+export interface BookDetail extends BookCard {
+  preview_pages_count: number;
+  page_count: number | null;
+  /** a locked PAID book whose first pages can be read without buying */
+  preview_available: boolean;
+  can_download: boolean;
+  my_payment: MyPayment | null;
+}
+
+/** `POST /medien/books/{id}/open`: "full" = the whole PDF, "preview" = a separate PDF with only the first `preview_pages` pages. */
+export interface OpenBookInfo {
+  url: string;
+  title: string;
+  progress: Progress | null;
+  mode: "full" | "preview";
+  preview_pages: number | null;
+  total_pages: number | null;
+  can_download: boolean;
+}
+
+export interface BookPayment {
+  id: string;
+  book_id: string | null;
+  book_title: string | null;
+  amount: number;
+  currency: string;
+  status: PaymentStatus;
+  has_receipt: boolean;
+  receipt_type: string | null;
+  no_receipt: boolean;
+  transfer_date: string | null;
+  transfer_time: string | null;
+  note: string | null;
+  created_at: string;
+  reviewed_at: string | null;
+  can_cancel: boolean;
+  admin_note: string | null;
+}
+
+/** The card students pay to. */
+export interface PaymentInfo { card_number: string; card_holder: string; currency: string; configured: boolean }
 
 export type AnyCard = BookCard | FilmCard;
 export type ContinueItem = (BookCard | FilmCard) & { progress: Progress };

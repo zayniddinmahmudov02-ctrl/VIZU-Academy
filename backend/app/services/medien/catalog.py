@@ -2,19 +2,22 @@
 and watching progress, favorites, playlists, play history and purchase requests. Only PUBLISHED content is listed; a
 PAID item shows cover, text and price until the student owns it. No function here returns a storage key or path."""
 
+import logging
 from datetime import datetime, timezone
+from pathlib import Path
 from uuid import UUID
 
 from sqlalchemy import delete, func, or_, select, update
 from sqlalchemy.orm import Session
 
-from app.models.medien import (ACCESS_FREE, ACCESS_PAID, KIND_BOOK, KIND_FILM, KIND_SONG, PURCHASE_REQUESTED, STATUS_PUBLISHED, Film,
+from app.models.medien import (ACCESS_FREE, ACCESS_PAID, KIND_BOOK, KIND_FILM, KIND_SONG, PURCHASE_REQUESTED, STATUS_PUBLISHED, BookPaymentRequest, Film,
                                FilmRendition, FilmSubtitle, MediaBook, MediaCategory, MediaPlayHistory, MediaProgress, MediaPurchase, Playlist,
                                PlaylistSong, Song, UserFavoriteSong)
 from app.models.user import User
 from app.services.medien import common as c
-from app.services.medien import player, subtitles
+from app.services.medien import pdf_tools, player, subtitles
 
+log = logging.getLogger("vizu.medien.books")
 MAX_PAGE_SIZE = 60
 SORTS = {"new", "popular", "title"}
 
@@ -167,9 +170,72 @@ def list_films(db: Session, user: User | None, *, category=None, level=None, q=N
     return {"items": [film_card(db, user, f, owned, cats) for f in rows], **meta}
 
 
+def previewable(book: MediaBook) -> bool:
+    """A published PAID book with a PDF and a preview of at least one page: its first pages may be read without buying."""
+    return bool(book.status == STATUS_PUBLISHED and book.access_type == ACCESS_PAID and (book.preview_pages_count or 0) > 0 and book.file_key)
+
+
+def preview_limit(book: MediaBook) -> int:
+    """How many first pages a student without access may read: the admin's number (default 10), but never the whole book — at least the last page
+    stays closed (a 4-page paid book with the default 10 shows 3 pages, a 1-page book none). 0 = no preview, also while the page count is unknown."""
+    if not previewable(book) or not book.page_count:
+        return 0
+    return max(0, min(book.preview_pages_count, book.page_count - 1))
+
+
+def ensure_page_count(db: Session, book: MediaBook) -> int | None:
+    """Pages of the PDF; read once (older books have none stored) and kept."""
+    if book.page_count:
+        return book.page_count
+    path = c.file_path(book.file_key)
+    count = pdf_tools.page_count(path) if path else None
+    if count:
+        book.page_count = count
+        db.commit()
+    return count
+
+
+def preview_path(book: MediaBook, pages: int) -> Path:
+    """`previews/<book>-<file stem>-<N>.pdf`: a replaced PDF or another N means another name, so a stale preview is never served."""
+    return c.storage.ROOT / "previews" / f"{book.id}-{Path(book.file_key).stem}-{pages}.pdf"
+
+
+def ensure_preview(book: MediaBook) -> Path | None:
+    """The preview PDF (only the first `preview_limit` pages, built on the server and cached), or None when there is none or it cannot be made."""
+    pages = preview_limit(book)
+    if pages <= 0:
+        return None
+    dest = preview_path(book, pages)
+    if dest.is_file():
+        return dest
+    src = c.file_path(book.file_key)
+    if src is None:
+        return None
+    try:
+        pdf_tools.build_preview(src, pages, dest)
+    except (pdf_tools.PdfUnreadable, OSError) as exc:
+        log.warning("book preview could not be built (%s)", type(exc).__name__)
+        return None
+    return dest
+
+
+def _latest_payment(db: Session, user: User, book_id: UUID) -> dict | None:
+    row = db.scalar(select(BookPaymentRequest).where(BookPaymentRequest.user_id == user.id, BookPaymentRequest.book_id == book_id)
+                    .order_by(BookPaymentRequest.created_at.desc()).limit(1))
+    if row is None:
+        return None
+    return {"id": row.id, "status": row.payment_status, "created_at": row.created_at, "reviewed_at": row.reviewed_at,
+            "admin_note": row.admin_note if row.payment_status == "REJECTED" else None}
+
+
 def book_detail(db: Session, user: User, book_id: UUID) -> dict:
     book = c.item_or_404(db, KIND_BOOK, book_id, user)
-    return {**book_card(db, user, book, c.owned_ids(db, user, KIND_BOOK), {}), "progress": progress(db, user, KIND_BOOK, book.id)}
+    card = book_card(db, user, book, c.owned_ids(db, user, KIND_BOOK), {})
+    if card["locked"] and previewable(book):
+        ensure_page_count(db, book)  # books from before the preview feature have no page count yet; read once, kept
+    limit = preview_limit(book) if card["locked"] else 0
+    return {**card, "progress": progress(db, user, KIND_BOOK, book.id), "preview_pages_count": limit or book.preview_pages_count, "page_count": book.page_count,
+            "preview_available": limit > 0, "can_download": bool(book.file_key) and not card["locked"], "my_payment": _latest_payment(db, user, book.id)}
 
 
 def subtitles_of(db: Session, film_id: UUID) -> list[FilmSubtitle]:
@@ -199,15 +265,58 @@ def special_offers(db: Session, user: User | None, limit: int = 12) -> list[dict
 # ---------------- open / play / watch (signed URLs) ----------------
 
 
+def _touch_opened(db: Session, user: User, kind: str, item_id: UUID) -> None:
+    row = db.scalar(select(MediaProgress).where(MediaProgress.user_id == user.id, MediaProgress.content_type == kind, MediaProgress.content_id == item_id).with_for_update())
+    if row is None:
+        row = MediaProgress(user_id=user.id, content_type=kind, content_id=item_id, position=0)
+        db.add(row)
+    row.last_opened_at = datetime.now(timezone.utc)
+
+
 def open_book(db: Session, user: User, book_id: UUID) -> dict:
+    """The reader's PDF. Owners (free, bought, staff) get the full file; everyone else a PAID book's PREVIEW — a separate PDF that holds only its
+    first N pages (the original is never streamed to them). 403 PURCHASE_REQUIRED when there is no preview."""
+    book = c.item_or_404(db, KIND_BOOK, book_id, user)
+    full = c.can_access(db, user, KIND_BOOK, book)
+    if not full and not previewable(book):
+        raise c.err(403, "PURCHASE_REQUIRED")
+    if not c.file_path(book.file_key):
+        raise c.err(404, "FILE_MISSING")
+    total = ensure_page_count(db, book)
+    stream = f"/api/v1/medien/stream/{KIND_BOOK}/{book.id}"
+    if full:
+        url, mode, limit = c.signed_url(stream, book.id, user), "full", None
+    else:
+        if ensure_preview(book) is None:  # no preview (page count unknown / one page / the PDF cannot be read): the book simply stays locked
+            raise c.err(403, "PURCHASE_REQUIRED")
+        url, mode, limit = c.signed_url(stream, book.id, user, "preview"), "preview", preview_limit(book)
+    _touch_opened(db, user, KIND_BOOK, book.id)
+    db.execute(update(MediaBook).where(MediaBook.id == book.id).values(view_count=MediaBook.view_count + 1))
+    db.commit()
+    return {"url": url, "title": book.title, "progress": progress(db, user, KIND_BOOK, book.id), "mode": mode, "preview_pages": limit,
+            "total_pages": total, "can_download": full and bool(book.file_key)}
+
+
+def download_link(db: Session, user: User, book_id: UUID) -> dict:
+    """A short-lived download URL for the ORIGINAL PDF — only for who may read the whole book (free, bought, staff); a preview reader gets 403."""
     book = c.item_or_404(db, KIND_BOOK, book_id, user)
     c.require_access(db, user, KIND_BOOK, book)
     if not c.file_path(book.file_key):
         raise c.err(404, "FILE_MISSING")
-    db.execute(update(MediaBook).where(MediaBook.id == book.id).values(view_count=MediaBook.view_count + 1))
-    db.commit()
-    return {"url": c.signed_url(f"/api/v1/medien/stream/{KIND_BOOK}/{book.id}", book.id, user), "title": book.title,
-            "progress": progress(db, user, KIND_BOOK, book.id)}
+    filename = c.safe_filename(book.title)
+    log.info("book download link issued for book %s", book.id)
+    return {"url": c.signed_url(f"/api/v1/medien/download/book/{book.id}", book.id, user, "download"), "filename": filename}
+
+
+def download_target(db: Session, book_id: UUID, token: str):
+    """(path, download name) for a valid download token whose user still has full access right now."""
+    user = c.read_token(db, token, book_id, "download")
+    book = c.item_or_404(db, KIND_BOOK, book_id, user)
+    c.require_access(db, user, KIND_BOOK, book)
+    path = c.file_path(book.file_key)
+    if path is None:
+        raise c.err(404, "FILE_MISSING")
+    return path, c.safe_filename(book.title)
 
 
 def play_song(db: Session, user: User, song_id: UUID, *, count: bool = True) -> dict:
@@ -256,9 +365,17 @@ def watch_film(db: Session, user: User, film_id: UUID) -> dict:
 
 
 def stream_target(db: Session, kind: str, item_id: UUID, token: str):
-    """(path, content type) for a valid token: the token user must still have access to the item right now."""
-    user = c.read_token(db, token, item_id)
+    """(path, content type) for a valid token: the token user must still have access to the item right now. A book "preview" token only ever
+    reaches the preview PDF (first N pages), never the original."""
+    user, what = c.read_token_any(db, token, item_id, ("file", "preview") if kind == KIND_BOOK else ("file",))
     item = c.item_or_404(db, kind, item_id, user)
+    if what == "preview":
+        if not previewable(item):
+            raise c.err(403, "PURCHASE_REQUIRED")
+        path = ensure_preview(item)
+        if path is None:
+            raise c.err(403, "PURCHASE_REQUIRED")
+        return path, "application/pdf"
     c.require_access(db, user, kind, item)
     key = item.video_key if kind == KIND_FILM else item.file_key
     path = c.file_path(key)
@@ -324,21 +441,31 @@ def progress(db: Session, user: User, kind: str, item_id: UUID) -> dict | None:
     if row is None:
         return None
     return {"position": row.position, "total": row.total, "completed": row.completed, "updated_at": row.updated_at,
-            "state": player.clean_state(row.player_state) or None}
+            "state": player.clean_state(row.player_state) or None, "scroll": row.scroll_position, "opened_at": row.last_opened_at}
 
 
 def save_progress(db: Session, user: User, kind: str, item_id: UUID, position: int, total: int | None, completed: bool | None,
-                  state: dict | None = None) -> dict:
+                  state: dict | None = None, scroll: float | None = None) -> dict:
     item = c.item_or_404(db, kind, item_id, user)
-    c.require_access(db, user, kind, item)
+    free_pages = None
+    if not c.can_access(db, user, kind, item):
+        if kind == KIND_BOOK and preview_limit(item) > 0:  # a preview reader keeps a reading position too, but only inside the free pages
+            free_pages = preview_limit(item)
+        else:
+            raise c.err(403, "PURCHASE_REQUIRED")
     position = max(0, position)
+    if free_pages is not None:  # the preview PDF is shorter than the book: its length is never the book's total, and a preview is never "finished"
+        position, total, completed = min(position, free_pages), item.page_count, False
     total = total if total and total > 0 else None
     done = bool(completed) or (total is not None and kind == KIND_FILM and position >= 0.95 * total) or (total is not None and kind == KIND_BOOK and position >= total)
     row = db.scalar(select(MediaProgress).where(MediaProgress.user_id == user.id, MediaProgress.content_type == kind, MediaProgress.content_id == item_id).with_for_update())
     if row is None:
         row = MediaProgress(user_id=user.id, content_type=kind, content_id=item_id)
         db.add(row)
+    moved = row.position != position
     row.position, row.total, row.completed = position, total or row.total, done
+    if kind == KIND_BOOK:  # how far down the page the student is (0..1); a new page without a value starts at the top
+        row.scroll_position = min(max(float(scroll), 0.0), 1.0) if scroll is not None else (None if moved else row.scroll_position)
     if state and kind == KIND_FILM:  # subtitle language, dual subtitles, speed, quality of this film (restored on the next visit)
         row.player_state = {**player.clean_state(row.player_state), **player.clean_state(state)}
     row.updated_at = datetime.now(timezone.utc)
@@ -482,6 +609,8 @@ def request_purchase(db: Session, user: User, kind: str, item_id: UUID) -> dict:
     item = c.item_or_404(db, kind, item_id, user)
     if item.access_type != ACCESS_PAID:
         raise c.err(409, "NOT_PAID: this content is free.")
+    if kind == KIND_BOOK:  # books are paid for by card with a receipt / transfer time (services/medien/book_payments.py)
+        raise c.err(409, "BOOK_PAYMENT_REQUIRED: pay for a book through the book payment request.")
     open_row = db.scalar(select(MediaPurchase).where(MediaPurchase.user_id == user.id, MediaPurchase.content_type == kind,
                                                       MediaPurchase.content_id == item.id, MediaPurchase.status.in_(("REQUESTED", "GRANTED"))))
     if open_row is not None:

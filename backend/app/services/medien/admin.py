@@ -5,12 +5,13 @@ files (a file that cannot be removed shows up as `file_status` / is harmless, a 
 
 import asyncio
 import json
+import logging
 import re
 import shutil
 from pathlib import Path
 from uuid import UUID, uuid4
 
-from fastapi import UploadFile
+from fastapi import HTTPException, UploadFile
 from sqlalchemy import delete, func, select
 from sqlalchemy.orm import Session
 
@@ -20,11 +21,14 @@ from app.models.medien import (ACCESS_FREE, ACCESS_PAID, ACCESS_TYPES, KIND_BOOK
                                MediaCategory, MediaPlayHistory, MediaProgress, MediaPurchase, Playlist, PlaylistSong, Song, UserFavoriteSong)
 from app.models.user import User
 from app.services.audio_files import service as audio
+from app.services.medien import audio_meta, book_payments, pdf_tools
 from app.services.medien import common as c
 from app.services.medien import subtitles as subs
 
+log = logging.getLogger("vizu.medien.admin")
+
 CONTENT_FIELDS = {"title", "description", "language", "level", "access_type", "price", "old_price", "is_special_offer", "is_featured", "status"}
-EXTRA = {KIND_BOOK: {"author", "category_id", "year"}, KIND_SONG: {"artist", "album", "genre"},
+EXTRA = {KIND_BOOK: {"author", "category_id", "year", "preview_pages_count"}, KIND_SONG: {"artist", "album", "genre"},
          KIND_FILM: {"category_id", "genre", "year", "duration_minutes"}}
 CHUNK_SIZE = 8 * c.MB
 MAX_CHUNK = 16 * c.MB
@@ -87,6 +91,9 @@ def clean(db: Session, kind: str, data: dict, current=None) -> dict:
         out["year"] = _int(data["year"], "year", 1400, 2200)
     if "duration_minutes" in data:
         out["duration_minutes"] = _int(data["duration_minutes"], "duration_minutes", 1, 1000)
+    if "preview_pages_count" in data:  # PAID books: how many first pages everybody may read (0 = none, default 10)
+        pages = _int(data["preview_pages_count"], "preview_pages_count", 0, 500)
+        out["preview_pages_count"] = 10 if pages is None else pages
     if "category_id" in data:
         cid = data["category_id"] or None
         if cid is not None:
@@ -177,10 +184,12 @@ def admin_card(kind: str, item, db: Session) -> dict:
     out = {**c.base_card(kind, item, None, True), "created_at": item.created_at, "updated_at": item.updated_at, "has_cover": bool(item.cover_key)}
     if kind == KIND_BOOK:
         out.update(author=item.author, category_id=item.category_id, year=item.year, file_format=item.file_format, file_size=item.file_size,
-                   original_name=item.original_name, file_status=_file_status(item.file_key), views=item.view_count)
+                   original_name=item.original_name, file_status=_file_status(item.file_key), views=item.view_count,
+                   preview_pages_count=item.preview_pages_count, page_count=item.page_count)
     elif kind == KIND_SONG:
         out.update(artist=item.artist, album=item.album, genre=item.genre, duration_ms=item.duration_ms, file_size=item.file_size,
-                   original_name=item.original_name, file_status=_file_status(item.file_key), plays=item.play_count)
+                   original_name=item.original_name, file_status=_file_status(item.file_key), plays=item.play_count, audio_format=item.audio_format,
+                   bitrate_kbps=item.bitrate_kbps, metadata_status=item.metadata_status, metadata_note=item.metadata_note)
     else:
         tracks = db.scalars(select(FilmSubtitle).where(FilmSubtitle.film_id == item.id).order_by(FilmSubtitle.language)).all()
         renditions = db.scalars(select(FilmRendition).where(FilmRendition.film_id == item.id)).all()
@@ -233,9 +242,22 @@ def create_item(db: Session, user: User, kind: str, data: dict, **columns):
     return item
 
 
+def drop_previews(book_id: UUID) -> None:
+    """Removes the cached preview PDFs of a book (after its PDF or its preview length changed, or when it is deleted)."""
+    folder = c.storage.ROOT / "previews"
+    for path in folder.glob(f"{book_id}-*.pdf") if folder.is_dir() else ():
+        try:
+            path.unlink()
+        except OSError:
+            pass
+
+
 def update_item(db: Session, user: User, kind: str, item, data: dict):
-    for key, value in clean(db, kind, data, current=item).items():
+    values = clean(db, kind, data, current=item)
+    for key, value in values.items():
         setattr(item, key, value)
+    if kind == KIND_BOOK and "preview_pages_count" in values:
+        drop_previews(item.id)
     db.commit()
     db.refresh(item)
     _audit(db, user, f"medien_{kind.lower()}_updated", f"{item.id} {','.join(sorted(data))}")
@@ -258,6 +280,8 @@ async def delete_item(db: Session, user: User, kind: str, item) -> None:
         keys += list(db.scalars(select(FilmSubtitle.file_key).where(FilmSubtitle.film_id == item.id)))
         keys += list(db.scalars(select(FilmRendition.file_key).where(FilmRendition.film_id == item.id)))
     item_id, title = item.id, item.title
+    if kind == KIND_BOOK:
+        drop_previews(item_id)
     db.execute(delete(MediaPurchase).where(MediaPurchase.content_type == kind, MediaPurchase.content_id == item_id))
     if kind in (KIND_BOOK, KIND_FILM):
         db.execute(delete(MediaProgress).where(MediaProgress.content_type == kind, MediaProgress.content_id == item_id))
@@ -273,40 +297,64 @@ async def delete_item(db: Session, user: User, kind: str, item) -> None:
 
 async def set_book_file(db: Session, user: User, book: MediaBook, file: UploadFile) -> MediaBook:
     key, ext, size = await c.save_upload(file, "books", c.sniff_pdf, c.MAX_BOOK, "The book file (PDF)")
+    pages = await asyncio.to_thread(pdf_tools.page_count, c.storage.ROOT / key)  # None = unreadable: the file is kept, a preview is then unavailable
     old = book.file_key
-    book.file_key, book.file_format, book.file_size = key, ext, size
+    book.file_key, book.file_format, book.file_size, book.page_count = key, ext, size, pages
     book.original_name = (file.filename or "")[:255] or None
     db.commit()
+    drop_previews(book.id)
     await c.remove_file(old)
     db.refresh(book)
-    _audit(db, user, "medien_book_file", f"{book.id} {size} bytes")
+    _audit(db, user, "medien_book_file", f"{book.id} {size} bytes {pages} pages")
     return book
 
 
 # ---------------- songs ----------------
 
 
-async def _store_song_file(file: UploadFile) -> tuple[str, str, int, int | None]:
+async def _store_song_file(file: UploadFile) -> tuple[str, str, int, audio_meta.AudioInfo]:
+    """Stores the ORIGINAL (checked by content: MP3, WAV, M4A, AAC, OGG, FLAC) — nothing is converted or re-encoded — and reads its metadata. A file
+    the tool says is not audio is removed again and refused; when the metadata tool itself is unavailable or fails the original is KEPT and the song
+    is saved without metadata (status FAILED, shown to the admin) — a missing tool never blocks the upload."""
     key, ext, size = await c.save_upload(file, "songs", c.sniff_audio, c.MAX_AUDIO, "The audio file")
     path = c.storage.ROOT / key
-    duration = await asyncio.to_thread(audio.probe_duration_ms, path)
-    if duration is None:
+    log.info("song upload stored: ext=%s size=%s", ext, size)
+    try:
+        info = await asyncio.to_thread(audio_meta.read, path)
+    except audio_meta.AudioUnreadable:
         path.unlink(missing_ok=True)
-        raise c.err(400, "UNSUPPORTED_FILE: the audio file could not be read.")
-    return key, ext, size, duration
+        log.warning("song upload refused: not readable as audio (ext=%s)", ext)
+        raise c.err(400, "UNSUPPORTED_FILE: the audio file could not be read.") from None
+    except Exception:  # never lose an upload because of a metadata problem
+        log.exception("song metadata step crashed; the original is kept")
+        info = audio_meta.AudioInfo(status="FAILED", note="metadata step failed")
+    return key, ext, size, info
+
+
+def _apply_audio(song: Song, ext: str, info: audio_meta.AudioInfo) -> None:
+    song.audio_format, song.bitrate_kbps, song.duration_ms = ext, info.bitrate_kbps, info.duration_ms
+    song.metadata_status, song.metadata_note = info.status, info.note
 
 
 async def create_song(db: Session, user: User, data: dict, file: UploadFile, cover: UploadFile | None = None) -> Song:
     """One song = one request (the bulk upload sends up to 10, each with its own metadata and progress; one failure
     never stops the others). Duration is read from the file."""
     values = clean(db, KIND_SONG, data)
-    key, ext, size, duration = await _store_song_file(file)
+    key, ext, size, info = await _store_song_file(file)
+    # tags fill what the admin left empty (a title equal to the file name is the form's default, not a choice); the admin can edit everything afterwards
+    stem = " ".join(((file.filename or "").rsplit(".", 1)[0]).split())
+    if info.title and values.get("title") in (None, "", stem):
+        values["title"] = info.title
+    for field in ("artist", "album", "genre"):
+        if getattr(info, field) and not values.get(field):
+            values[field] = getattr(info, field)[:255 if field != "genre" else 80]
     cover_key = None
     try:
         if cover is not None:
             cover_key, _, _ = await c.save_upload(cover, "covers", c.sniff_image, c.MAX_COVER, "The cover image")
-        song = Song(**values, file_key=key, content_type=c.CONTENT_TYPES[ext], file_size=size, duration_ms=duration, cover_key=cover_key,
+        song = Song(**values, file_key=key, content_type=c.CONTENT_TYPES[ext], file_size=size, cover_key=cover_key,
                     original_name=(file.filename or "")[:255] or None)
+        _apply_audio(song, ext, info)
         db.add(song)
         db.commit()
     except Exception:
@@ -320,9 +368,10 @@ async def create_song(db: Session, user: User, data: dict, file: UploadFile, cov
 
 
 async def replace_song_file(db: Session, user: User, song: Song, file: UploadFile) -> Song:
-    key, ext, size, duration = await _store_song_file(file)
+    key, ext, size, info = await _store_song_file(file)
     old = song.file_key
-    song.file_key, song.content_type, song.file_size, song.duration_ms = key, c.CONTENT_TYPES[ext], size, duration
+    song.file_key, song.content_type, song.file_size = key, c.CONTENT_TYPES[ext], size
+    _apply_audio(song, ext, info)
     song.original_name = (file.filename or "")[:255] or None
     db.commit()
     await c.remove_file(old)
@@ -348,7 +397,11 @@ def set_external_url(db: Session, user: User, film: Film, url: str | None) -> Fi
 def _finish_video(db: Session, film: Film, key: str, ext: str, size: int, name: str | None) -> tuple[str | None, int | None]:
     old, film.video_key = film.video_key, key
     film.video_content_type, film.video_size, film.original_name, film.processing_status = c.CONTENT_TYPES[ext], size, name, "READY"
-    duration = audio.probe_duration_ms(c.storage.ROOT / key)
+    try:
+        duration = audio.probe_duration_ms(c.storage.ROOT / key)
+    except HTTPException:  # no ffmpeg / ffprobe found: the video is kept, its length stays unknown
+        log.warning("film video length not read: media tool unavailable")
+        duration = None
     film.video_duration_ms = duration or None  # never keep the length of the video that was replaced
     if duration and not film.duration_minutes:
         film.duration_minutes = max(1, round(duration / 60000))
@@ -797,5 +850,6 @@ def stats(db: Session) -> dict:
     published = books["published"] + songs["published"] + films["published"]
     return {"books": books, "songs": songs, "films": films, "published": published, "draft": total - published, "total": total,
             "pending_purchases": count(MediaPurchase, MediaPurchase.status == PURCHASE_REQUESTED),
+            "pending_book_payments": book_payments.counts(db)["PENDING"],
             "most_read_books": top(MediaBook, MediaBook.view_count, "views"), "most_played_songs": top(Song, Song.play_count, "plays"),
             "most_watched_films": top(Film, Film.view_count, "views"), "plays_total": db.scalar(select(func.count()).select_from(MediaPlayHistory)) or 0}

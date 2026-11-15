@@ -50,11 +50,19 @@ export interface AdminItem {
   file_format?: string | null;
   file_size?: number | null;
   original_name?: string | null;
+  /** PAID books: how many first pages everybody may read (default 10) and the pages of the PDF (empty until it was read once) */
+  preview_pages_count?: number;
+  page_count?: number | null;
   // song
   artist?: string | null;
   album?: string | null;
   genre?: string | null;
   duration_ms?: number | null;
+  /** read from the file on upload: format (mp3, wav, m4a, aac, ogg, flac), bitrate, and whether the reading worked */
+  audio_format?: string | null;
+  bitrate_kbps?: number | null;
+  metadata_status?: "OK" | "FAILED";
+  metadata_note?: string | null;
   // film
   duration_minutes?: number | null;
   video_size?: number | null;
@@ -71,14 +79,14 @@ export interface AdminPage { items: AdminItem[]; total: number; page: number; pa
 export interface ItemInput {
   title?: string; description?: string | null; language?: string; level?: string | null; access_type?: Access; price?: number | null; old_price?: number | null;
   is_special_offer?: boolean; is_featured?: boolean; status?: Status; author?: string | null; artist?: string | null; album?: string | null; genre?: string | null;
-  year?: number | null; duration_minutes?: number | null; category_id?: string | null;
+  year?: number | null; duration_minutes?: number | null; category_id?: string | null; preview_pages_count?: number;
 }
 
 export interface Stats {
   books: { total: number; free: number; paid: number; published: number };
   songs: { total: number; published: number; playlists: number; student_playlists: number };
   films: { total: number; free: number; paid: number; published: number };
-  published: number; draft: number; total: number; pending_purchases: number; plays_total: number;
+  published: number; draft: number; total: number; pending_purchases: number; pending_book_payments: number; plays_total: number;
   most_read_books: { id: string; title: string; views: number }[];
   most_played_songs: { id: string; title: string; plays: number }[];
   most_watched_films: { id: string; title: string; views: number }[];
@@ -115,6 +123,13 @@ const KNOWN: Record<string, string> = {
   MISSING_CHUNKS: "Beim Hochladen fehlen Teile. Bitte erneut versuchen.",
   SIZE_MISMATCH: "Die Dateigröße stimmt nach dem Hochladen nicht. Bitte erneut versuchen.",
   AUDIO_TOOL_MISSING: "Die Audioverarbeitung ist auf dem Server nicht verfügbar.",
+  PAYMENT_PENDING: "Für dieses Buch wartet schon eine Zahlung auf Prüfung.",
+  REASON_REQUIRED: "Bitte einen Ablehnungsgrund angeben (der Student sieht ihn).",
+  SELF_REVIEW_FORBIDDEN: "Niemand kann über seine eigene Zahlung entscheiden.",
+  BOOK_GONE: "Das Buch existiert nicht mehr — die Zahlung kann nicht freigeschaltet werden.",
+  INVALID_CARD_NUMBER: "Eine Kartennummer hat 16 bis 19 Ziffern.",
+  CARD_HOLDER_TOO_LONG: "Der Name des Karteninhabers ist zu lang (höchstens 80 Zeichen).",
+  NOTE_TOO_LONG: "Der Text ist zu lang (höchstens 500 Zeichen).",
   INVALID_TRANSITION: "Diese Entscheidung ist für den aktuellen Stand nicht möglich.",
   USER_NOT_FOUND: "Benutzer nicht gefunden.",
   NOT_PAID: "Dieser Inhalt ist kostenlos.",
@@ -240,3 +255,28 @@ export const setPlaylistSongs = async (id: string, songIds: string[]) => (await 
 export const getPurchases = async (status?: string) => (await api.get<PurchaseRow[]>(`${BASE}/purchases`, { params: status ? { status } : {} })).data;
 export const decidePurchase = async (id: string, status: "GRANTED" | "REJECTED" | "REVOKED", note?: string) => (await api.post(`${BASE}/purchases/${id}/decision`, { status, note: note || null })).data;
 export const grantAccess = async (data: { kind: Kind; content_id: string; email: string; note?: string }) => (await api.post(`${BASE}/purchases/grant`, data)).data;
+
+// ---- book payment requests (Super Admin): the student's receipt or transfer time, checked by hand, then approved / rejected ----
+export type PaymentStatus = "PENDING" | "APPROVED" | "REJECTED" | "CANCELLED";
+export interface BookPaymentRow {
+  id: string; book_id: string | null; book_title: string | null; amount: number; currency: string; status: PaymentStatus;
+  has_receipt: boolean; receipt_type: string | null; receipt_size: number | null; no_receipt: boolean; transfer_date: string | null; transfer_time: string | null;
+  note: string | null; created_at: string; reviewed_at: string | null; admin_note: string | null; card_last4: string | null;
+  user_id: string; user_name: string | null; user_email: string | null; reviewed_by_id: string | null; reviewed_by_name: string | null;
+}
+export interface BookPaymentList { items: BookPaymentRow[]; total: number; page: number; page_size: number; counts: Record<PaymentStatus, number> }
+export interface BookPaymentDetail extends BookPaymentRow {
+  book_exists: boolean; book_price: number | null; book_access: string | null; history: BookPaymentRow[];
+  purchases: { id: string; kind: Kind; title: string | null; status: string; price: number | null; decided_at: string | null; payment_request_id: string | null }[];
+}
+export interface BookPaymentSettings { card_number: string; card_holder: string; currency: string; configured: boolean }
+
+export const getBookPayments = async (params: { status?: string; q?: string; page?: number; page_size?: number }) =>
+  (await api.get<BookPaymentList>(`${BASE}/book-payments`, { params: Object.fromEntries(Object.entries(params).filter(([, v]) => v !== "" && v !== undefined)) })).data;
+export const getBookPayment = async (id: string) => (await api.get<BookPaymentDetail>(`${BASE}/book-payments/${id}`)).data;
+export const decideBookPayment = async (id: string, status: "APPROVED" | "REJECTED", note?: string) =>
+  (await api.post<BookPaymentDetail>(`${BASE}/book-payments/${id}/decision`, { status, note: note?.trim() || null })).data;
+/** The receipt as a Blob (Bearer-authenticated, never a public URL); the caller turns it into a short-lived object URL. */
+export const getBookPaymentReceipt = async (id: string) => (await api.get(`${BASE}/book-payments/${id}/receipt`, { responseType: "blob" })).data as Blob;
+export const getBookPaymentSettings = async () => (await api.get<BookPaymentSettings>(`${BASE}/book-payment-settings`)).data;
+export const saveBookPaymentSettings = async (data: { card_number?: string; card_holder?: string }) => (await api.put<BookPaymentSettings>(`${BASE}/book-payment-settings`, data)).data;

@@ -91,6 +91,9 @@ export default function MedienDashboard() {
             <Stat label="Songs gesamt" value={s.songs.total} testId="stat-songs" /><Stat label="Playlists (VIZU)" value={s.songs.playlists} testId="stat-playlists" /><Stat label="Playlists (Studenten)" value={s.songs.student_playlists} testId="stat-student-playlists" />
             <Stat label="Filme gesamt" value={s.films.total} testId="stat-films" /><Stat label="Veröffentlicht" value={s.published} testId="stat-published" /><Stat label="Entwurf / ausgeblendet" value={s.draft} testId="stat-draft" />
             <Stat label="Offene Kaufanfragen" value={s.pending_purchases} testId="stat-pending" />
+            <Link href="/admin/medien/bibliothek" className="rounded-xl bg-[var(--admin-hover)] p-4 transition hover:ring-1 hover:ring-[var(--admin-primary)]" data-testid="stat-pending-payments">
+              <p className="text-2xl font-extrabold text-[var(--admin-text-primary)]">{s.pending_book_payments}</p><p className="text-xs text-[var(--admin-text-muted)]">Offene Buch-Zahlungen (prüfen →)</p>
+            </Link>
           </div>
         </AdminCard>
       )}

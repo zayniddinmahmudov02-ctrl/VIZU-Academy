@@ -3,8 +3,8 @@ import { getToken } from "@/src/lib/token";
 import { api } from "@/src/services/api";
 
 import type {
-  BookCard, Category, ContinueItem, CueList, FilmCard, LookupResult, MediaKind, Overview, Page, Playlist, PlaylistDetail, PlayerState, Progress,
-  PurchaseInfo, SongCard, SubtitlePrefs, WatchInfo, AnyCard,
+  BookCard, BookDetail, BookPayment, Category, ContinueItem, CueList, FilmCard, LookupResult, MediaKind, OpenBookInfo, Overview, Page, PaymentInfo, Playlist,
+  PlaylistDetail, PlayerState, Progress, PurchaseInfo, SongCard, SubtitlePrefs, WatchInfo, AnyCard,
 } from "../types";
 
 const BASE = "/api/v1/medien";
@@ -38,10 +38,36 @@ export async function getBooks(query: BookQuery) {
   return (await api.get<Page<BookCard>>(`${BASE}/books`, { params: clean({ ...query }) })).data;
 }
 export async function getBook(id: string) {
-  return (await api.get<BookCard>(`${BASE}/books/${id}`)).data;
+  return (await api.get<BookDetail>(`${BASE}/books/${id}`)).data;
 }
+/** The reader's PDF: the whole book for owners, the preview PDF (first pages only) for a PAID book that is not owned. */
 export async function openBook(id: string) {
-  return (await api.post<{ url: string; title: string; progress: Progress | null }>(`${BASE}/books/${id}/open`)).data;
+  return (await api.post<OpenBookInfo>(`${BASE}/books/${id}/open`)).data;
+}
+/** A short-lived download URL of the original PDF (403 PURCHASE_REQUIRED unless the whole book is open to the student). */
+export async function getBookDownloadLink(id: string) {
+  return (await api.post<{ url: string; filename: string }>(`${BASE}/books/${id}/download-link`)).data;
+}
+
+// ---- book payments (manual card transfer, approved by the Super Admin) ----
+export async function getBookPaymentInfo() {
+  return (await api.get<PaymentInfo>(`${BASE}/book-payment-info`)).data;
+}
+/** receipt (optional image / PDF) OR no_receipt + transfer date + time; the amount is decided by the server. */
+export async function submitBookPayment(bookId: string, data: { receipt: File | null; noReceipt: boolean; transferDate: string; transferTime: string; note: string }) {
+  const form = new FormData();
+  if (data.receipt) form.append("receipt", data.receipt);
+  form.append("no_receipt", data.noReceipt ? "true" : "false");
+  if (data.transferDate) form.append("transfer_date", data.transferDate);
+  if (data.transferTime) form.append("transfer_time", data.transferTime);
+  if (data.note.trim()) form.append("note", data.note.trim());
+  return (await api.post<BookPayment>(`${BASE}/books/${bookId}/payment-requests`, form, { headers: { "Content-Type": "multipart/form-data" } })).data;
+}
+export async function getMyBookPayments() {
+  return (await api.get<BookPayment[]>(`${BASE}/book-payments/mine`)).data;
+}
+export async function cancelBookPayment(id: string) {
+  return (await api.post<BookPayment>(`${BASE}/book-payments/${id}/cancel`)).data;
 }
 
 export interface SongQuery { q?: string; sort?: string; featured?: boolean; favorites?: boolean; playlist_id?: string; genre?: string; level?: string; page?: number; page_size?: number }
@@ -98,20 +124,24 @@ export async function watchFilm(id: string) {
 export async function getContinue(completed = false) {
   return (await api.get<ContinueItem[]>(`${BASE}/continue`, { params: completed ? { completed: true } : {} })).data;
 }
-export async function saveProgress(kind: Exclude<MediaKind, "SONG">, id: string, position: number, total?: number | null, state?: PlayerState | null) {
-  return (await api.put<Progress>(`${BASE}/progress/${kind}/${id}`, { position: Math.max(0, Math.round(position)), total: total ? Math.round(total) : null, ...(state ? { state } : {}) })).data;
+export async function saveProgress(kind: Exclude<MediaKind, "SONG">, id: string, position: number, total?: number | null, state?: PlayerState | null, scroll?: number | null) {
+  return (await api.put<Progress>(`${BASE}/progress/${kind}/${id}`, {
+    position: Math.max(0, Math.round(position)), total: total ? Math.round(total) : null, ...(state ? { state } : {}), ...(scroll != null ? { scroll: Math.min(1, Math.max(0, scroll)) } : {}),
+  })).data;
 }
 
 /** Same save as `saveProgress`, as a `keepalive` fetch: it survives the page being closed or reloaded (an XHR is cancelled).
  * Fire and forget — used on pagehide / tab hidden, where nothing can wait for the answer. */
-export function saveProgressKeepalive(kind: Exclude<MediaKind, "SONG">, id: string, position: number, total?: number | null, state?: PlayerState | null): void {
+export function saveProgressKeepalive(kind: Exclude<MediaKind, "SONG">, id: string, position: number, total?: number | null, state?: PlayerState | null, scroll?: number | null): void {
   const token = getToken();
   if (!token) return;
   try {
     void fetch(`${API_URL.replace(/\/$/, "")}${BASE}/progress/${kind}/${id}`, {
       method: "PUT", keepalive: true,
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-      body: JSON.stringify({ position: Math.max(0, Math.round(position)), total: total ? Math.round(total) : null, ...(state ? { state } : {}) }),
+      body: JSON.stringify({
+        position: Math.max(0, Math.round(position)), total: total ? Math.round(total) : null, ...(state ? { state } : {}), ...(scroll != null ? { scroll: Math.min(1, Math.max(0, scroll)) } : {}),
+      }),
     }).catch(() => undefined);
   } catch {
     /* ignore */

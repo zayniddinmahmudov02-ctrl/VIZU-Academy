@@ -10,7 +10,8 @@ import { cn } from "@/lib/utils";
 
 import { getBooks, getCategories } from "../services/medien-service";
 import { LEVELS, type BookCard } from "../types";
-import { Cover, EmptyState, Pager, PriceTag, PurchaseButton, SectionTitle, StatusBadge, useDebounced } from "./media-ui";
+import { BookBuyButton, MyBookPayments } from "./book-payment";
+import { Cover, EmptyState, Pager, PriceTag, SectionTitle, StatusBadge, useDebounced } from "./media-ui";
 
 const PAGE_SIZE = 24;
 const PER_SHELF = 8;
@@ -50,7 +51,7 @@ function OfferCard({ book }: { book: BookCard }) {
         <Link href={`/medien/bibliothek/${book.id}`} className="truncate text-sm font-bold text-text-primary hover:underline">{book.title}</Link>
         <p className="truncate text-xs text-text-muted">{book.author ?? t("medien.unknownAuthor")}</p>
         <PriceTag item={book} className="mt-1" />
-        <PurchaseButton item={book} size="sm" className="mt-auto pt-2" />
+        <BookBuyButton book={book} size="sm" className="mt-auto pt-2" />
       </div>
     </div>
   );
@@ -136,6 +137,7 @@ export default function BibliothekClient() {
       )}
       {!!items.length && <ul className="sr-only">{items.map((b) => <li key={b.id}>{b.title} — {b.author}</li>)}</ul>}
       <Pager page={page} pageSize={PAGE_SIZE} total={books.data?.total ?? 0} onChange={setPage} />
+      <MyBookPayments />
     </div>
   );
 }

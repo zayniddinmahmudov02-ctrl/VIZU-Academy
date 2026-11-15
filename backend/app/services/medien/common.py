@@ -5,6 +5,8 @@ bought (a GRANTED `media_purchases` row). Everything else is cover + text + pric
 Uploads are checked by content (magic bytes), size and a random storage name; files are never returned as paths.
 Streaming: `signed_url` hands out a short-lived token URL after the access check, the stream endpoint checks again."""
 
+import re
+import unicodedata
 from pathlib import Path
 from uuid import UUID, uuid4
 
@@ -26,6 +28,7 @@ MODELS = {KIND_BOOK: MediaBook, KIND_SONG: Song, KIND_FILM: Film}
 PURPOSE = "medien_stream"
 MB = 1024 * 1024
 MAX_COVER, MAX_BOOK, MAX_AUDIO, MAX_VIDEO_SINGLE, MAX_SUBTITLE = 8 * MB, 300 * MB, 100 * MB, 90 * MB, 2 * MB
+MAX_RECEIPT = 8 * MB
 MAX_VIDEO = 8 * 1024 * MB
 LEVELS = ("A1", "A2", "B1", "B2", "C1")
 
@@ -56,15 +59,25 @@ def sniff_pdf(head: bytes) -> str | None:
 
 
 def sniff_audio(head: bytes) -> str | None:
-    if head[:3] == b"ID3" or (len(head) > 1 and head[0] == 0xFF and (head[1] & 0xE0) == 0xE0):
+    """MP3, WAV, M4A, AAC (raw ADTS), OGG, FLAC — by content, never by the file name."""
+    if head[:3] == b"ID3":
         return "mp3"
+    if head[:4] == b"fLaC":
+        return "flac"
     if head[:4] == b"RIFF" and head[8:12] == b"WAVE":
         return "wav"
     if head[4:8] == b"ftyp":
         return "m4a"
     if head[:4] == b"OggS":
         return "ogg"
+    if len(head) > 1 and head[0] == 0xFF and (head[1] & 0xE0) == 0xE0:  # an MPEG frame sync: layer bits 00 mean ADTS AAC, anything else MP3
+        return "aac" if (head[1] & 0x06) == 0 else "mp3"
     return None
+
+
+def sniff_receipt(head: bytes) -> str | None:
+    """A payment receipt: JPEG, PNG, WebP or PDF by content."""
+    return sniff_image(head) or sniff_pdf(head)
 
 
 def sniff_video(head: bytes) -> str | None:
@@ -76,8 +89,18 @@ def sniff_video(head: bytes) -> str | None:
 
 
 CONTENT_TYPES = {"jpg": "image/jpeg", "png": "image/png", "webp": "image/webp", "pdf": "application/pdf", "mp3": "audio/mpeg",
-                 "wav": "audio/wav", "m4a": "audio/mp4", "ogg": "audio/ogg", "mp4": "video/mp4", "mov": "video/quicktime", "webm": "video/webm",
-                 "vtt": "text/vtt"}
+                 "wav": "audio/wav", "m4a": "audio/mp4", "ogg": "audio/ogg", "flac": "audio/flac", "aac": "audio/aac", "mp4": "video/mp4",
+                 "mov": "video/quicktime", "webm": "video/webm", "vtt": "text/vtt"}
+# headers for private files: never cached, never sniffed into another type
+PRIVATE_HEADERS = {"Cache-Control": "private, no-store", "X-Content-Type-Options": "nosniff"}
+
+
+def safe_filename(title: str | None, ext: str = "pdf") -> str:
+    """A download name from a book title: letters / digits / spaces / dashes only, no path or header characters, at most 100 characters."""
+    text = unicodedata.normalize("NFC", str(title or "")).strip()
+    text = re.sub(r"[^\w .,'()&+-]", " ", text, flags=re.UNICODE)
+    text = " ".join(text.replace("_", " ").split())[:100].strip(" .-") or "Buch"
+    return f"{text}.{ext}"
 
 
 async def save_upload(file: UploadFile, folder: str, sniff, max_bytes: int, what: str) -> tuple[str, str, int]:
@@ -157,12 +180,14 @@ def signed_url(path: str, subject: UUID, user: User, what: str = "file") -> str:
     return f"{path}?token={token}"
 
 
-def read_token(db: Session, token: str, subject: UUID, what: str = "file") -> User:
+def read_token_any(db: Session, token: str, subject: UUID, whats: tuple[str, ...]) -> tuple[User, str]:
+    """Like `read_token` for a token that may be one of several kinds (e.g. a book's "file" or "preview" token); returns (user, kind)."""
     try:
         payload = decode_access_token(token)
     except JWTError:
         raise err(401, "Invalid or expired stream token") from None
-    if payload.get("purpose") != PURPOSE or payload.get("sub") != str(subject) or payload.get("what") != what:
+    what = payload.get("what")
+    if payload.get("purpose") != PURPOSE or payload.get("sub") != str(subject) or what not in whats:
         raise err(403, "Token does not authorize this file")
     try:
         user = db.get(User, UUID(payload.get("user_id", "")))
@@ -170,7 +195,11 @@ def read_token(db: Session, token: str, subject: UUID, what: str = "file") -> Us
         user = None
     if user is None or not user.is_active:
         raise err(401, "Stream token user no longer exists")
-    return user
+    return user, what
+
+
+def read_token(db: Session, token: str, subject: UUID, what: str = "file") -> User:
+    return read_token_any(db, token, subject, (what,))[0]
 
 
 # ---------------- public serialization (never a file key) ----------------

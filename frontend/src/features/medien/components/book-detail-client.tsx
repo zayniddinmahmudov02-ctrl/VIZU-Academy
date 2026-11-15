@@ -7,16 +7,20 @@ import { ArrowLeft, BookOpen, Lock } from "lucide-react";
 
 import { useTranslation } from "@/lib/i18n/use-translation";
 
+import { BookBuyButton } from "./book-payment";
+import DownloadPdfButton from "./download-pdf-button";
 import { errorCode, getBook } from "../services/medien-service";
-import { Cover, EmptyState, PriceTag, PurchaseButton, StatusBadge } from "./media-ui";
+import { Cover, EmptyState, PriceTag, StatusBadge } from "./media-ui";
 import PdfReader from "./pdf-reader";
 
-/** Book details: cover, text, level, category and price — and "Lesen" (opens the PDF reader, resuming on the last page)
- * or the purchase button for PAID books that are not owned. The file itself is only ever fetched by the reader. */
+/** Book details: cover, text, level, category and price — and "Lesen" (opens the PDF reader, resuming where the student stopped), "PDF herunterladen"
+ * once the whole book is theirs, or — for a PAID book that is not owned — the buy button (payment form) and the free preview. The file itself is only
+ * ever fetched by the reader / the download link, both issued after the access check. */
 export default function BookDetailClient({ bookId }: { bookId: string }) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const [reading, setReading] = useState(false);
+  const [paying, setPaying] = useState(false);
   const { data: book, isLoading, error } = useQuery({ queryKey: ["medien-book", bookId], queryFn: () => getBook(bookId), retry: false });
 
   if (isLoading) return <p className="py-16 text-center text-sm text-text-secondary">{t("medien.loading")}</p>;
@@ -43,20 +47,34 @@ export default function BookDetailClient({ bookId }: { bookId: string }) {
           <div className="flex flex-wrap items-center gap-4 pt-2">
             <PriceTag item={book} />
             {book.locked ? (
-              <PurchaseButton item={book} />
+              <>
+                <BookBuyButton book={book} open={paying} onOpenChange={setPaying} />
+                {book.preview_available && (
+                  <button type="button" onClick={() => setReading(true)} data-testid="book-preview"
+                          className="inline-flex items-center gap-2 rounded-xl bg-surface-hover px-5 py-2.5 text-sm font-semibold text-text-primary ring-1 ring-surface-border transition hover:opacity-90">
+                    <BookOpen size={16} /> {page > 1 ? t("medien.readContinue", { page }) : t("medien.readPreview", { n: book.preview_pages_count })}
+                  </button>
+                )}
+              </>
             ) : (
-              <button type="button" disabled={!book.has_file} onClick={() => setReading(true)} data-testid="book-read"
-                      className="inline-flex items-center gap-2 rounded-xl bg-accent-blue px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-50">
-                <BookOpen size={16} /> {page > 1 ? t("medien.readContinue", { page }) : t("medien.read")}
-              </button>
+              <>
+                <button type="button" disabled={!book.has_file} onClick={() => setReading(true)} data-testid="book-read"
+                        className="inline-flex items-center gap-2 rounded-xl bg-accent-blue px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-50">
+                  <BookOpen size={16} /> {page > 1 ? t("medien.readContinue", { page }) : t("medien.read")}
+                </button>
+                {book.can_download && <DownloadPdfButton bookId={book.id} />}
+              </>
             )}
           </div>
           {book.locked && (
-            <p className="flex items-center gap-2 rounded-xl bg-warning/10 p-3 text-sm text-text-secondary" data-testid="book-locked-note"><Lock size={15} className="shrink-0 text-warning" /> {t("medien.lockedNote")}</p>
+            <p className="flex items-center gap-2 rounded-xl bg-warning/10 p-3 text-sm text-text-secondary" data-testid="book-locked-note"><Lock size={15} className="shrink-0 text-warning" /> {book.my_payment?.status === "PENDING" ? t("medien.pay.pendingText") : t("medien.lockedNote")}</p>
           )}
         </div>
       </article>
-      {reading && <PdfReader bookId={book.id} title={book.title} onClose={() => { setReading(false); void queryClient.invalidateQueries({ queryKey: ["medien-book", bookId] }); void queryClient.invalidateQueries({ queryKey: ["medien-overview"] }); }} />}
+      {reading && (
+        <PdfReader bookId={book.id} title={book.title} onBuy={book.locked ? () => { setReading(false); setPaying(true); } : undefined}
+                   onClose={() => { setReading(false); void queryClient.invalidateQueries({ queryKey: ["medien-book", bookId] }); void queryClient.invalidateQueries({ queryKey: ["medien-overview"] }); }} />
+      )}
     </div>
   );
 }

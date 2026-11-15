@@ -35,8 +35,27 @@ PROCESS_TIMEOUT = 300
 _CODEC = {"mp3": ["-c:a", "libmp3lame", "-q:a", "2"], "wav": ["-c:a", "pcm_s16le"], "m4a": ["-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart"]}
 
 
+# Where the tools live when the service's own PATH does not contain them: the production systemd unit sets PATH to the virtualenv
+# only (so `shutil.which("ffmpeg")` found nothing although /usr/bin/ffmpeg exists — every audio / video upload then failed).
+_FALLBACK_DIRS = ("/usr/bin", "/usr/local/bin", "/opt/homebrew/bin", "/snap/bin", "/bin")
+
+
+def find_tool(name: str) -> str | None:
+    """Path of `ffmpeg` / `ffprobe`: the <NAME>_BIN environment variable (a full path or a name), then PATH, then the usual system folders."""
+    configured = os.environ.get(f"{name.upper()}_BIN")
+    for candidate in ([configured] if configured else []) + [name]:
+        found = shutil.which(candidate)
+        if found:
+            return found
+    for folder in _FALLBACK_DIRS:
+        path = os.path.join(folder, name)
+        if os.path.isfile(path) and os.access(path, os.X_OK):
+            return path
+    return None
+
+
 def _bin(name: str) -> str:
-    found = shutil.which(os.environ.get(f"{name.upper()}_BIN", name))
+    found = find_tool(name)
     if not found:
         raise HTTPException(status_code=503, detail="AUDIO_TOOL_MISSING: audio processing is not available on this server.")
     return found
@@ -54,7 +73,7 @@ def path_of(audio: AudioFile | None) -> Path | None:
 
 
 def _probe_seconds(path: Path) -> float | None:
-    if shutil.which(os.environ.get("FFPROBE_BIN", "ffprobe")):
+    if find_tool("ffprobe"):
         out = subprocess.run([_bin("ffprobe"), "-v", "error", "-show_entries", "format=duration", "-of", "json", str(path)],
                              capture_output=True, text=True, timeout=60, check=True).stdout
         return float(json.loads(out)["format"]["duration"])

@@ -2,6 +2,7 @@
 playlists, uploads): `require_content_editor` (SUPER_ADMIN / ADMIN / CONTENT_MANAGER). Purchase decisions and direct grants:
 `require_super_admin` (money-related, like the payment approvals). Every write is audited in the service layer."""
 
+from typing import Literal
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, File, Form, Path, Query, Request, UploadFile
@@ -14,11 +15,13 @@ from app.api.dependencies.auth import require_admin_panel_access, require_conten
 from app.db.session import get_db
 from app.models.medien import KIND_BOOK, KIND_FILM, KIND_SONG, MediaCategory
 from app.models.user import User
+from app.core.client_ip import client_ip
 from app.services.medien import admin as svc
+from app.services.medien import book_payments
 from app.services.medien import common as c
 
 router = APIRouter(prefix="/admin/medien", tags=["Medien (staff)"])
-PRIVATE = {"Cache-Control": "private, no-store"}
+PRIVATE = c.PRIVATE_HEADERS
 BOOK_KIND, SONG_KIND, FILM_KIND = KIND_BOOK, KIND_SONG, KIND_FILM
 
 
@@ -43,6 +46,19 @@ class ItemIn(BaseModel):
     year: int | None = None
     duration_minutes: int | None = None
     category_id: UUID | None = None
+    preview_pages_count: int | None = Field(default=None, ge=0, le=500)  # PAID books: free first pages (default 10)
+
+
+class PaymentDecisionIn(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    status: Literal["APPROVED", "REJECTED"]
+    note: str | None = Field(default=None, max_length=500)
+
+
+class PaymentSettingsIn(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    card_number: str | None = Field(default=None, max_length=40)
+    card_holder: str | None = Field(default=None, max_length=120)
 
 
 class CategoryIn(BaseModel):
@@ -192,6 +208,44 @@ async def book_file(book_id: UUID, file: UploadFile = File(...), db: Session = D
 @router.get("/books/{book_id}/file")
 def book_preview(book_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
     return _file_response(c.file_path(svc.get_item(db, BOOK_KIND, book_id).file_key), "application/pdf")
+
+
+# ---------------- book payments (Super Admin: money-related, like the other payment approvals) ----------------
+
+
+@router.get("/book-payments")
+def list_book_payments(status: str | None = Query(default=None, pattern="^(PENDING|APPROVED|REJECTED|CANCELLED)$"), q: str | None = Query(default=None, max_length=100),
+                       page: int = Query(1, ge=1), page_size: int = Query(30, ge=1, le=100), db: Session = Depends(get_db), _: User = Depends(require_super_admin)):
+    return book_payments.list_requests(db, status=status, q=q, page=page, page_size=page_size)
+
+
+@router.get("/book-payments/{request_id}")
+def book_payment_detail(request_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_super_admin)):
+    """One request with the student, the book (current price), earlier requests of the student for it and their purchases."""
+    return book_payments.get_request(db, request_id)
+
+
+@router.get("/book-payments/{request_id}/receipt")
+def book_payment_receipt(request_id: UUID, db: Session = Depends(get_db), user: User = Depends(require_super_admin)):
+    path, media_type = book_payments.receipt_target(db, user, request_id)
+    return FileResponse(path, media_type=media_type, headers={**PRIVATE, "Content-Security-Policy": "default-src 'none'; img-src 'self' data:; sandbox"})
+
+
+@router.post("/book-payments/{request_id}/decision")
+def decide_book_payment(request_id: UUID, data: PaymentDecisionIn, request: Request, db: Session = Depends(get_db), user: User = Depends(require_super_admin)):
+    """APPROVED opens the book for the student; REJECTED needs a reason. Works once, only on a PENDING request."""
+    return book_payments.decide(db, user, request_id, data.status, data.note, ip=client_ip(request))
+
+
+@router.get("/book-payment-settings")
+def get_book_payment_settings(db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+    return book_payments.payment_info(db)
+
+
+@router.put("/book-payment-settings")
+def put_book_payment_settings(data: PaymentSettingsIn, db: Session = Depends(get_db), user: User = Depends(require_super_admin)):
+    """The card number and the holder students see in the payment window."""
+    return book_payments.save_payment_settings(db, user, data.model_dump(exclude_unset=True))
 
 
 # ---------------- songs ----------------

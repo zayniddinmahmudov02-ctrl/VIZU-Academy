@@ -6,20 +6,22 @@ request, so a PAID file is never reachable without a purchase). Business rules: 
 from typing import Literal
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, Path, Query, Response
+from fastapi import APIRouter, Depends, File, Form, Path, Query, Request, Response, UploadFile
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, ConfigDict, Field, StrictBool
 from sqlalchemy.orm import Session
 
 from app.api.dependencies.auth import get_current_user
+from app.core.client_ip import client_ip
 from app.db.session import get_db
 from app.models.user import User
-from app.services.medien import catalog, lookup, player
+from app.services.medien import book_payments, catalog, lookup, player
+from app.services.medien import common as medien_common
 
 router = APIRouter(prefix="/medien", tags=["Medienwelt"])
 
 Kind = Path(pattern="^(BOOK|SONG|FILM)$")
-PRIVATE = {"Cache-Control": "private, no-store"}
+PRIVATE = medien_common.PRIVATE_HEADERS  # no-store + nosniff on every private file
 
 
 class PlayerStateIn(BaseModel):
@@ -40,6 +42,7 @@ class ProgressIn(BaseModel):
     total: int | None = Field(default=None, ge=0, le=10_000_000)
     completed: bool | None = None
     state: PlayerStateIn | None = None
+    scroll: float | None = Field(default=None, ge=0, le=1)  # books: how far down the page (0..1)
 
 
 class PrefsIn(BaseModel):
@@ -91,9 +94,16 @@ def cover(kind: str = Path(pattern="^(BOOK|SONG|FILM|PLAYLIST)$"), item_id: UUID
 @router.get("/stream/{kind}/{item_id}")
 def stream(item_id: UUID, token: str, kind: str = Kind, db: Session = Depends(get_db)):
     """PDF / audio / video bytes (HTTP Range supported by FileResponse: seeking works) for a valid signed token whose user
-    still has access to the item."""
+    still has access to the item. A book "preview" token reaches only the preview PDF (first N pages)."""
     path, media_type = catalog.stream_target(db, kind, item_id, token)
     return FileResponse(path, media_type=media_type, headers=PRIVATE)
+
+
+@router.get("/download/book/{book_id}")
+def download_book(book_id: UUID, token: str, db: Session = Depends(get_db)):
+    """The original PDF as a download (attachment) for a "download" token issued to someone who may read the whole book."""
+    path, filename = catalog.download_target(db, book_id, token)
+    return FileResponse(path, media_type="application/pdf", filename=filename, content_disposition_type="attachment", headers=PRIVATE)
 
 
 @router.get("/subtitles/{subtitle_id}")
@@ -148,8 +158,51 @@ def book(book_id: UUID, db: Session = Depends(get_db), user: User = Depends(get_
 
 @router.post("/books/{book_id}/open")
 def open_book(book_id: UUID, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
-    """The reader's PDF URL (signed, short-lived) — 403 PURCHASE_REQUIRED for PAID books that are not owned."""
+    """The reader's PDF URL (signed, short-lived): the whole book for owners, the PREVIEW (first N pages) for a PAID book that is not owned —
+    403 PURCHASE_REQUIRED when the book has no preview."""
     return catalog.open_book(db, user, book_id)
+
+
+@router.post("/books/{book_id}/download-link")
+def book_download_link(book_id: UUID, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    """A short-lived download URL of the original PDF; 403 PURCHASE_REQUIRED unless the student may read the whole book."""
+    return catalog.download_link(db, user, book_id)
+
+
+# ---------------- book payments (manual card transfer, checked by the Super Admin) ----------------
+
+
+@router.get("/book-payment-info")
+def book_payment_info(db: Session = Depends(get_db), _: User = Depends(get_current_user)):
+    """The card the student pays to (number, holder)."""
+    return book_payments.payment_info(db)
+
+
+@router.post("/books/{book_id}/payment-requests")
+async def request_book_payment(book_id: UUID, request: Request, receipt: UploadFile | None = File(None), no_receipt: str | None = Form(None),
+                               transfer_date: str | None = Form(None), transfer_time: str | None = Form(None), note: str | None = Form(None),
+                               db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    """A payment request for a PAID book: receipt (image / PDF) or — without one — the transfer date and time. The amount is the book's price from the
+    server. It gives no access until the Super Admin approves it."""
+    return await book_payments.create_request(db, user, book_id, receipt=receipt, no_receipt=str(no_receipt or "").lower() in ("1", "true", "on", "yes"),
+                                              transfer_date=transfer_date, transfer_time=transfer_time, note=note, ip=client_ip(request))
+
+
+@router.get("/book-payments/mine")
+def my_book_payments(db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    return book_payments.my_requests(db, user)
+
+
+@router.post("/book-payments/{request_id}/cancel")
+def cancel_book_payment(request_id: UUID, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    return book_payments.cancel_request(db, user, request_id)
+
+
+@router.get("/book-payments/{request_id}/receipt")
+def my_book_payment_receipt(request_id: UUID, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    """The student's own receipt (never a public URL)."""
+    path, media_type = book_payments.receipt_target(db, user, request_id)
+    return FileResponse(path, media_type=media_type, headers={**PRIVATE, "Content-Security-Policy": "default-src 'none'; img-src 'self' data:; sandbox"})
 
 
 @router.get("/songs")
@@ -219,7 +272,7 @@ def get_progress(item_id: UUID, kind: str = Path(pattern="^(BOOK|FILM)$"), db: S
 def put_progress(data: ProgressIn, item_id: UUID, kind: str = Path(pattern="^(BOOK|FILM)$"), db: Session = Depends(get_db),
                  user: User = Depends(get_current_user)):
     return catalog.save_progress(db, user, kind, item_id, data.position, data.total, data.completed,
-                                 data.state.model_dump(exclude_none=True) if data.state else None)
+                                 data.state.model_dump(exclude_none=True) if data.state else None, data.scroll)
 
 
 # ---------------- player settings / word look-up ----------------

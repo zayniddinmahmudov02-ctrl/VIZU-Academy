@@ -21,12 +21,16 @@ from app.models.auth_rate_limit_event import AuthRateLimitEvent
 
 ACTION_LOGIN_FAILED = "login_failed"
 ACTION_REGISTER = "register"
+ACTION_BOOK_PAYMENT = "book_payment"
 
 LOGIN_WINDOW = timedelta(minutes=15)
 MAX_FAILED_LOGINS_PER_IDENTIFIER = 10
 MAX_FAILED_LOGINS_PER_IP = 50
 REGISTER_WINDOW = timedelta(hours=1)
 MAX_REGISTRATIONS_PER_IP = 10
+BOOK_PAYMENT_WINDOW = timedelta(hours=1)
+MAX_BOOK_PAYMENTS_PER_USER = 6
+MAX_BOOK_PAYMENTS_PER_IP = 20
 EVENT_RETENTION = timedelta(days=1)
 
 
@@ -91,4 +95,15 @@ def record_failed_login(db: Session, identifier: str, ip: str | None) -> None:
 def check_and_record_registration(db: Session, ip: str | None) -> None:
     _check(db, ACTION_REGISTER, AuthRateLimitEvent.ip_hash, ip_key(ip), MAX_REGISTRATIONS_PER_IP, REGISTER_WINDOW)
     db.add(AuthRateLimitEvent(action=ACTION_REGISTER, ip_hash=ip_key(ip)))
+    db.commit()
+
+
+def check_and_record_book_payment(db: Session, user_id, ip: str | None) -> None:
+    """Every book payment submission counts (also a refused one: it uploads a file): per student and per IP per hour. The user is stored only as
+    a keyed hash, like the other events."""
+    user_key = _key("user", str(user_id))
+    _check(db, ACTION_BOOK_PAYMENT, AuthRateLimitEvent.email_hash, user_key, MAX_BOOK_PAYMENTS_PER_USER, BOOK_PAYMENT_WINDOW)
+    _check(db, ACTION_BOOK_PAYMENT, AuthRateLimitEvent.ip_hash, ip_key(ip), MAX_BOOK_PAYMENTS_PER_IP, BOOK_PAYMENT_WINDOW)
+    _prune(db)
+    db.add(AuthRateLimitEvent(action=ACTION_BOOK_PAYMENT, email_hash=user_key, ip_hash=ip_key(ip)))
     db.commit()

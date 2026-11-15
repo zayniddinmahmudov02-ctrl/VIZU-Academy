@@ -15,12 +15,15 @@ import {
 import { FILE_DE, FilePick, fileSize, MedienTabs, ProgressBar, STATUS_DE, StatusPill } from "./shared";
 
 export const BULK_MAX = 10;
-const AUDIO = ".mp3,.wav,.m4a,.ogg,audio/mpeg,audio/wav,audio/mp4,audio/ogg";
+const AUDIO = ".mp3,.wav,.m4a,.aac,.ogg,.flac,audio/mpeg,audio/wav,audio/x-wav,audio/mp4,audio/x-m4a,audio/aac,audio/ogg,audio/flac,audio/x-flac";
 const dur = (ms?: number | null) => (ms ? `${Math.floor(ms / 60000)}:${String(Math.floor((ms % 60000) / 1000)).padStart(2, "0")}` : "—");
+/** what the server read from the file: "MP3 · 3:21 · 192 kbps · 7.7 MB" (parts it could not read are left out) */
+const audioInfo = (i: AdminItem) => [i.audio_format?.toUpperCase(), i.duration_ms ? dur(i.duration_ms) : null, i.bitrate_kbps ? `${i.bitrate_kbps} kbps` : null, i.file_size ? fileSize(i.file_size) : null].filter(Boolean).join(" · ");
+const META_WARNING = "Die Datei ist gespeichert, aber Dauer / Bitrate konnten nicht gelesen werden (Audioverarbeitung nicht verfügbar oder Datei ungewöhnlich). Der Song ist abspielbar.";
 
 interface Row {
   key: string; file: File; title: string; artist: string; album: string; genre: string; language: string; level: string; access_type: "FREE" | "PAID"; price: string; status: Status;
-  cover: File | null; state: "wait" | "up" | "done" | "error"; percent: number; error?: string;
+  cover: File | null; state: "wait" | "up" | "done" | "error"; percent: number; error?: string; info?: string; warn?: string;
 }
 
 const newRow = (file: File, d: Defaults): Row => ({ key: `${file.name}-${file.size}-${Math.random().toString(36).slice(2, 7)}`, file, title: file.name.replace(/\.[^.]+$/, ""), ...d, price: "", cover: null, state: "wait", percent: 0 });
@@ -52,9 +55,9 @@ function BulkUpload({ onDone }: { onDone: () => void }) {
     for (const r of todo) {
       patch(r.key, { state: "up", percent: 0, error: undefined });
       try {
-        await uploadSong(r.file, { title: r.title.trim() || r.file.name, artist: r.artist.trim(), album: r.album.trim(), genre: r.genre.trim(), language: r.language.trim() || "de", level: r.level,
+        const saved = await uploadSong(r.file, { title: r.title.trim() || r.file.name, artist: r.artist.trim(), album: r.album.trim(), genre: r.genre.trim(), language: r.language.trim() || "de", level: r.level,
           access_type: r.access_type, price: r.access_type === "PAID" ? r.price : undefined, status: r.status }, r.cover, (percent) => patch(r.key, { percent }));
-        patch(r.key, { state: "done", percent: 100 });
+        patch(r.key, { state: "done", percent: 100, title: saved.title, artist: saved.artist ?? r.artist, info: audioInfo(saved), warn: saved.metadata_status === "FAILED" ? META_WARNING : undefined });
       } catch (err) {
         patch(r.key, { state: "error", error: medienError(err, "Upload fehlgeschlagen.") }); // the next file still goes up
       }
@@ -113,6 +116,8 @@ function BulkUpload({ onDone }: { onDone: () => void }) {
               {r.state === "error" && !running && <button className="rounded p-1 text-[var(--admin-primary)]" aria-label="Erneut versuchen" onClick={() => void run([r.key])} data-testid="bulk-retry"><RotateCw size={14} /></button>}
             </div>
             {(r.state === "up" || r.state === "done") && <div className="mt-1.5"><ProgressBar percent={r.percent} testId="bulk-progress" /></div>}
+            {r.info && <p className="mt-1.5 text-xs text-[var(--admin-text-muted)]" data-testid="bulk-info">{r.info}</p>}
+            {r.warn && <p className="mt-1 text-xs text-[var(--admin-warning)]" role="status" data-testid="bulk-warn">{r.warn}</p>}
             {r.error && <p className="mt-1.5 text-xs text-[var(--admin-danger)]" role="alert" data-testid="bulk-error">{r.error}</p>}
           </li>
         ))}
@@ -162,7 +167,8 @@ function SongDialog({ song, onClose }: { song: AdminItem; onClose: () => void })
           {v.access_type === "PAID" && <><div><AdminLabel>Preis (UZS)</AdminLabel><AdminInput type="number" min={1} value={v.price} onChange={(e) => set("price", e.target.value)} data-testid="f-price" /></div><div><AdminLabel>Alter Preis</AdminLabel><AdminInput type="number" min={1} value={v.old_price} onChange={(e) => set("old_price", e.target.value)} /></div></>}
           <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={v.is_featured} onChange={(e) => set("is_featured", e.target.checked)} data-testid="f-featured" /> Empfohlen</label>
         </div>
-        <div className="grid gap-3 sm:grid-cols-2"><FilePick label="Cover ersetzen" accept="image/jpeg,image/png,image/webp" file={cover} onFile={setCover} testId="song-cover-file" /><FilePick label="Audiodatei ersetzen" accept={AUDIO} file={file} onFile={setFile} testId="song-audio-file" hint={`Aktuell: ${FILE_DE[song.file_status]} · ${dur(song.duration_ms)}`} /></div>
+        <div className="grid gap-3 sm:grid-cols-2"><FilePick label="Cover ersetzen" accept="image/jpeg,image/png,image/webp" file={cover} onFile={setCover} testId="song-cover-file" /><FilePick label="Audiodatei ersetzen" accept={AUDIO} file={file} onFile={setFile} testId="song-audio-file" hint={`Aktuell: ${FILE_DE[song.file_status]} · ${audioInfo(song) || dur(song.duration_ms)}`} /></div>
+        {song.metadata_status === "FAILED" && <p className="text-xs text-[var(--admin-warning)]" role="status" data-testid="song-meta-warning">{META_WARNING}</p>}
         {busy && (cover || file) && <ProgressBar percent={percent} />}
         {note && <p role="status" className={`text-sm ${note.ok ? "text-[var(--admin-success)]" : "text-[var(--admin-danger)]"}`} data-testid="song-note">{note.text}</p>}
       </div>
@@ -279,7 +285,7 @@ export default function SongsAdmin() {
             {(songs.data?.items ?? []).map((s) => (
               <tr key={s.id} className="border-t border-[var(--admin-border)]" data-testid="song-admin-row" data-title={s.title}>
                 <td className="p-3"><span className="block font-semibold text-[var(--admin-text-primary)]">{s.title}</span><span className="text-xs text-[var(--admin-text-muted)]">{s.artist ?? "—"}{s.genre ? ` · ${s.genre}` : ""}{s.level ? ` · ${s.level}` : ""}{s.is_featured ? " · ★" : ""}</span></td>
-                <td>{s.album ?? "—"}</td><td>{dur(s.duration_ms)}</td><td>{s.access_type === "FREE" ? "Kostenlos" : `${new Intl.NumberFormat("de-DE").format(s.price ?? 0)} UZS`}</td>
+                <td>{s.album ?? "—"}</td><td>{dur(s.duration_ms)}{(s.audio_format || s.bitrate_kbps) && <span className="block text-xs text-[var(--admin-text-muted)]" data-testid="song-format">{[s.audio_format?.toUpperCase(), s.bitrate_kbps ? `${s.bitrate_kbps} kbps` : null].filter(Boolean).join(" · ")}</span>}{s.metadata_status === "FAILED" && <span className="block text-xs text-[var(--admin-warning)]" title={META_WARNING} data-testid="song-meta-failed">Metadaten fehlen</span>}</td><td>{s.access_type === "FREE" ? "Kostenlos" : `${new Intl.NumberFormat("de-DE").format(s.price ?? 0)} UZS`}</td>
                 <td><StatusPill status={s.status} /></td><td className={s.file_status === "ok" ? "" : "text-[var(--admin-warning)]"}>{FILE_DE[s.file_status]}</td><td>{s.plays ?? 0}</td>
                 <td className="pr-3"><div className="flex justify-end gap-1">
                   <AdminButton size="sm" variant="secondary" onClick={() => setEditing(s)} aria-label={`${s.title} bearbeiten`} data-testid="song-edit"><Pencil size={13} /></AdminButton>

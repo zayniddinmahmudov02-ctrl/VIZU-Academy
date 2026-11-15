@@ -182,7 +182,7 @@ test.describe.serial("Medienwelt", () => {
     await expect(offer).toBeVisible();
     await expect(offer).toContainText("50.000");
     await expect(offer).toContainText("80.000");
-    await expect(offer.getByTestId("purchase-button")).toBeVisible();
+    await expect(offer.getByTestId("book-buy")).toBeVisible();
 
     // category / search / level filters
     await search(page, "book-search", TAG, "book-card", 2);
@@ -237,35 +237,54 @@ test.describe.serial("Medienwelt", () => {
     const paidId = created.books.find((id) => id) as string;
     const paid = ((await call("GET", `/medien/books?q=${TAG}%20Premium`, studentToken)).json.items as { id: string; locked: boolean }[])[0];
     expect(paid.locked).toBe(true);
-    expect((await call("POST", `/medien/books/${paid.id}/open`, studentToken)).status).toBe(403);
+    // a paid book gives away its first pages only (all but the last of this 4-page book), never the original and never a download
+    const preview = await call("POST", `/medien/books/${paid.id}/open`, studentToken);
+    expect([preview.status, preview.json.mode, preview.json.preview_pages, preview.json.total_pages]).toEqual([200, "preview", 3, 4]);
+    expect((await call("POST", `/medien/books/${paid.id}/download-link`, studentToken)).status).toBe(403);
     void paidId;
   });
 
-  test("purchase request -> Super Admin grants -> the paid book opens; revoke closes it again", async ({ page, browser }) => {
+  test("payment request (no receipt) -> Super Admin approves -> the paid book opens in full; revoke closes it again", async ({ page, browser }) => {
     await studentLogin(page, student);
     const studentToken = await token(student, PASSWORD);
     const paid = ((await call("GET", `/medien/books?q=${TAG}%20Premium`, studentToken)).json.items as { id: string }[])[0];
     await page.goto(`/medien/bibliothek/${paid.id}`);
-    await page.getByTestId("purchase-button").click();
-    await expect(page.getByTestId("purchase-info")).toBeVisible();
-    await expect(page.getByTestId("purchase-button")).toBeDisabled();
-    expect((await call("POST", `/medien/books/${paid.id}/open`, studentToken)).status).toBe(403); // a request gives no access
+    await page.getByTestId("book-buy").click();
+    const modal = page.getByTestId("book-payment-modal");
+    await expect(modal.getByTestId("pay-book-price")).toContainText("50.000");
+    await modal.getByTestId("pay-variant-time").click(); // no receipt: the date and the time of the transfer
+    await modal.getByTestId("pay-date").fill(new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Tashkent" }).format(new Date(Date.now() - 36 * 3600_000)));
+    await modal.getByTestId("pay-time").fill("12:30");
+    await modal.getByTestId("pay-submit").click();
+    await expect(modal.getByTestId("pay-pending")).toBeVisible();
+    await modal.getByTestId("pay-done").click();
+    // a request gives no access: still only the preview, no download
+    expect((await call("POST", `/medien/books/${paid.id}/open`, studentToken)).json.mode).toBe("preview");
+    expect((await call("POST", `/medien/books/${paid.id}/download-link`, studentToken)).status).toBe(403);
 
     const ctx = await browser.newContext();
     const admin = await ctx.newPage();
     await adminLogin(admin);
-    await admin.goto("/admin/medien");
-    const row = admin.getByTestId("purchase-row").filter({ hasText: student });
-    await expect(row).toContainText(`${TAG} Premium`);
-    await row.getByTestId("purchase-grant").click();
-    await expect(admin.getByTestId("purchases-message")).toHaveText("Entscheidung gespeichert.");
+    await admin.goto("/admin/medien/bibliothek");
+    await admin.getByTestId("books-tab-payments").click();
+    const request = admin.getByTestId("payment-row").filter({ hasText: student });
+    await expect(request).toContainText(`${TAG} Premium`);
+    await request.getByTestId("payment-review").click();
+    await expect(admin.getByTestId("receipt-none")).toContainText("12:30");
+    await expect(admin.getByTestId("payment-approve")).toBeDisabled(); // checked first, then approved
+    await admin.getByTestId("payment-verified").click();
+    await admin.getByTestId("payment-approve").click();
+    await expect(admin.getByTestId("payment-message")).toContainText("freigeschaltet");
     await page.reload();
     await expect(page.getByTestId("book-read")).toBeVisible();
-    expect((await call("POST", `/medien/books/${paid.id}/open`, studentToken)).status).toBe(200);
+    await expect(page.getByTestId("book-download")).toBeVisible();
+    expect((await call("POST", `/medien/books/${paid.id}/open`, studentToken)).json.mode).toBe("full");
+    // the approval is a normal purchase: the old purchase list shows it and can revoke it
+    await admin.goto("/admin/medien");
     await admin.getByTestId("purchases-filter").selectOption("GRANTED");
     await admin.getByTestId("purchase-row").filter({ hasText: student }).getByTestId("purchase-revoke").click();
     await expect(admin.getByTestId("purchases-message")).toBeVisible();
-    expect((await call("POST", `/medien/books/${paid.id}/open`, studentToken)).status).toBe(403);
+    expect((await call("POST", `/medien/books/${paid.id}/open`, studentToken)).json.mode).toBe("preview");
     // the dashboard numbers are the database numbers
     await admin.goto("/admin/medien");
     const stats = (await call("GET", "/admin/medien/stats", adminToken)).json;

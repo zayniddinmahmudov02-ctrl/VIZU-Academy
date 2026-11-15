@@ -183,32 +183,38 @@ class TestMedien(unittest.TestCase):
         self.api("put", f"/admin/medien/books/{free['id']}", "admin", json={"status": "PUBLISHED"})
 
     def test_3_purchase_request_grant_revoke(self):
-        paid = self.new_book("Paid B", access_type="PAID", price=30000)
-        req = self.api("post", "/medien/purchases", "a", json={"kind": "BOOK", "content_id": paid["id"]}).json()
+        # a BOOK is paid for through the book payment request (test_medien_payments.py); the generic request is for songs and films
+        paid_book = self.new_book("Paid B", access_type="PAID", price=30000)
+        self.api("post", "/medien/purchases", "a", expect=409, json={"kind": "BOOK", "content_id": paid_book["id"]})
+        self.api("post", f"/medien/books/{paid_book['id']}/open", "a", expect=403)  # (the fixture PDF is not readable: no preview either)
+        # request -> Super Admin decision -> access, on a paid song
+        paid = self.song("Paid Req Song", access_type="PAID", price="12000").json()
+        req = self.api("post", "/medien/purchases", "a", json={"kind": "SONG", "content_id": paid["id"]}).json()
         self.assertEqual(req["status"], "REQUESTED")
-        self.assertEqual(self.api("post", "/medien/purchases", "a", json={"kind": "BOOK", "content_id": paid["id"]}).json()["id"], req["id"])  # one open request
-        self.api("post", f"/medien/books/{paid['id']}/open", "a", expect=403)  # a request gives no access
+        self.assertEqual(self.api("post", "/medien/purchases", "a", json={"kind": "SONG", "content_id": paid["id"]}).json()["id"], req["id"])  # one open request
+        self.api("post", f"/medien/songs/{paid['id']}/play", "a", expect=403)  # a request gives no access
         # students and normal admins cannot decide; Super Admin can
         for who, code in (("a", 403), ("admin", 403)):
             self.api("post", f"/admin/medien/purchases/{req['id']}/decision", who, expect=code, json={"status": "GRANTED"})
         self.api("get", "/admin/medien/purchases", "a", expect=403)
         self.api("post", f"/admin/medien/purchases/{req['id']}/decision", "super", json={"status": "GRANTED", "note": "paid"})
         self.api("post", f"/admin/medien/purchases/{req['id']}/decision", "super", expect=409, json={"status": "GRANTED"})  # not twice
-        opened = self.api("post", f"/medien/books/{paid['id']}/open", "a").json()
+        played = self.api("post", f"/medien/songs/{paid['id']}/play", "a").json()
         self.as_(None)
-        self.assertEqual(self.client.get(opened["url"]).status_code, 200)
-        self.api("post", f"/medien/books/{paid['id']}/open", "b", expect=403)  # another student: still closed
+        self.assertEqual(self.client.get(played["url"]).status_code, 200)
+        self.api("post", f"/medien/songs/{paid['id']}/play", "b", expect=403)  # another student: still closed
         mine = self.api("get", "/medien/purchases/mine", "a").json()
         self.assertEqual([m["status"] for m in mine if m["content_id"] == paid["id"]], ["GRANTED"])
         # revoked: the OLD signed URL stops working (access is rechecked per request)
         self.api("post", f"/admin/medien/purchases/{req['id']}/decision", "super", json={"status": "REVOKED"})
         self.as_(None)
-        self.assertEqual(self.client.get(opened["url"]).status_code, 403)
-        # direct grant by e-mail
-        self.api("post", "/admin/medien/purchases/grant", "super", json={"kind": "BOOK", "content_id": paid["id"], "email": self.users["b"].email})
-        self.api("post", f"/medien/books/{paid['id']}/open", "b")
+        self.assertEqual(self.client.get(played["url"]).status_code, 403)
+        # direct grant by e-mail opens a paid BOOK (the admin tool next to the payment requests)
+        self.api("post", "/admin/medien/purchases/grant", "super", json={"kind": "BOOK", "content_id": paid_book["id"], "email": self.users["b"].email})
+        self.api("post", f"/medien/books/{paid_book['id']}/open", "b")
         free = self.new_book("Free B")
         self.api("post", "/medien/purchases", "a", expect=409, json={"kind": "BOOK", "content_id": free["id"]})
+        self.api("delete", f"/admin/medien/songs/{paid['id']}", "admin", expect=204)  # the song counts in later tests of this class
 
     def test_4_filters_search_sort_pagination_progress(self):
         cat = self.api("post", "/admin/medien/categories", "admin", json={"kind": "BOOK", "name": self.title("Gram")}).json()
