@@ -345,8 +345,25 @@ def _audio_src(lc: ListeningContent | None, user_id: UUID | None) -> str | None:
     return (lc.audio_url or None)
 
 
+def _shared_hoeren(db: Session, kompetenz: Kompetenz) -> bool:
+    """The Hören section of a Modelltest in shared-audio mode (Modelltest 1): its Teile play no audio of their own, the section plays one."""
+    from app.services.mock_exam import multilevel_audio
+
+    return multilevel_audio.is_shared(db, kompetenz)
+
+
+def _section_audio(db: Session, kompetenz: Kompetenz, user_id: UUID | None) -> dict | None:
+    """The ONE audio of a shared-audio Hören section (signed URL + length), else None."""
+    if not _shared_hoeren(db, kompetenz):
+        return None
+    from app.services.mock_exam import multilevel_audio
+
+    return multilevel_audio.shared_for_paper(db, kompetenz, user_id)
+
+
 def _paper(db: Session, kompetenz: Kompetenz, with_keys: bool = False, user_id: UUID | None = None) -> list[dict]:
     teile = db.scalars(select(Teil).where(Teil.kompetenz_id == kompetenz.id).order_by(Teil.sort_order))
+    shared = _shared_hoeren(db, kompetenz)
     out = []
     for teil in teile:
         rc, lc, wt, st = teil.reading_content, teil.listening_content, teil.writing_task, teil.speaking_task
@@ -359,7 +376,7 @@ def _paper(db: Session, kompetenz: Kompetenz, with_keys: bool = False, user_id: 
         kind = "reading" if rc else "listening" if lc else "writing" if wt else "speaking" if st else "empty"
         out.append({"id": teil.id, "kind": kind, "title": teil.title, "instructions": teil.instructions, "description": teil.description,
                     "text": rc.text if rc else None, "image_url": (rc.image_url if rc else None) or (lc.image_url if lc else None),
-                    "audio_url": _audio_src(lc, user_id),
+                    "audio_url": None if shared else _audio_src(lc, user_id), "audio_shared": bool(shared and lc),
                     "writing_task": {"id": wt.id, "task_text": wt.task_text, "word_limit": wt.word_limit, "image_url": wt.image_url,
                                      **({"evaluation_rubric": wt.evaluation_rubric} if with_keys else {})} if wt else None,
                     "speaking_task": {"id": st.id, "task_text": st.task_text, "image_url": st.image_url,
@@ -380,7 +397,7 @@ def section_paper(db: Session, user: User, attempt_id: UUID, section_type: str) 
     recordings = {r.speaking_task_id: r.submitted_at for r in
                   db.scalars(select(MockSpeakingSubmission).where(MockSpeakingSubmission.attempt_id == attempt.id))}
     return {"attempt_id": attempt.id, "section_type": section_type, "title": k.title, "remaining_seconds": _remaining(s),
-            "deadline_at": s.deadline_at, "teile": _paper(db, k, user_id=user.id),
+            "deadline_at": s.deadline_at, "teile": _paper(db, k, user_id=user.id), "shared_audio": _section_audio(db, k, user.id),
             "answers": {str(q): [str(v) for v in ids] for q, ids in answers.items()},
             "writings": {str(t): v for t, v in writings.items()},
             "recordings": {str(t): v for t, v in recordings.items()}}
@@ -392,8 +409,9 @@ def admin_preview(db: Session, model_test_id: UUID, user_id: UUID | None = None)
         raise _err(404, "MODEL_TEST_NOT_FOUND")
     komps = _kompetenzen(db, test.id)
     return {"model_test_id": test.id, "title": test.title, "status": test.status, "gaps": exam_gaps(db, test.id),
-            "sections": [{"type": t, "title": komps[t].title, "duration_minutes": _duration(komps[t]), "teile": _paper(db, komps[t], with_keys=True, user_id=user_id)}
-                         if t in komps else {"type": t, "title": t, "duration_minutes": 0, "teile": []} for t in SECTIONS]}
+            "sections": [{"type": t, "title": komps[t].title, "duration_minutes": _duration(komps[t]), "teile": _paper(db, komps[t], with_keys=True, user_id=user_id),
+                          "shared_audio": _section_audio(db, komps[t], user_id)}
+                         if t in komps else {"type": t, "title": t, "duration_minutes": 0, "teile": [], "shared_audio": None} for t in SECTIONS]}
 
 
 # ============================================================

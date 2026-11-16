@@ -532,6 +532,13 @@ export const translations: Record<string, Namespace> = {
     stateNEW: { de: "Neu", uz: "Yangi" },
     stateIN_PROGRESS: { de: "Läuft", uz: "Davom etmoqda" },
     stateDONE: { de: "Abgeschlossen", uz: "Yakunlangan" },
+    sharedAudioTitle: { de: "Hören-Audio (für alle Teile)", uz: "Eshitish audiosi (barcha qismlar uchun)" },
+    sharedAudioLength: { de: "Länge {time}", uz: "Davomiyligi {time}" },
+    sharedAudioNote: {
+      de: "Dieses Audio läuft durchgehend über alle Teile und beginnt nicht neu, wenn du zum nächsten Teil gehst. Die Prüfungszeit läuft unabhängig von der Audiolänge.",
+      uz: "Bu audio barcha qismlar uchun bitta va keyingi qismga o'tganingizda qayta boshlanmaydi. Imtihon vaqti audio davomiyligiga bog'liq emas.",
+    },
+    sharedAudioTeil: { de: "Für dieses Teil gilt das gemeinsame Hören-Audio.", uz: "Bu qism uchun umumiy eshitish audiosi ishlatiladi." },
     timerNote: {
       de: "Jeder Teil hat seinen eigenen Timer. Die Zeit läuft auf dem Server weiter — auch wenn du die Seite neu lädst oder verlässt.",
       uz: "Har bir bo'limning o'z taymeri bor. Vaqt serverda davom etadi — sahifani yangilasangiz yoki tark etsangiz ham.",

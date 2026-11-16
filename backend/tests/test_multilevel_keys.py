@@ -370,7 +370,7 @@ class TestKeysAgainstDatabase(unittest.TestCase):
         with self.Session() as db:
             r = k.key_table(db, self.tid(1), "HOEREN")["readiness"]
             self.assertFalse(r["ready"])  # Lesen keys and Hören audio of this test are not there
-            self.assertEqual(len(r["missing_audio"]), 6)  # Modelltest 1 has six Hören Teile
+            self.assertEqual(r["missing_audio"], ["Hören: gemeinsames Audio"])  # Modelltest 1: ONE audio for its six Hören Teile
             self.assertEqual(len(k.key_table(db, self.tid(2), "HOEREN")["readiness"]["missing_audio"]), 4)
             self.assertTrue(r["missing_keys"])  # the Lesen questions
 

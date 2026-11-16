@@ -129,6 +129,8 @@ export interface PaperTeil {
   text: string | null;
   image_url: string | null;
   audio_url: string | null;
+  /** the Teil plays no audio of its own: its Hören section has ONE shared audio (Modelltest 1) in `SectionPaper.shared_audio` */
+  audio_shared?: boolean;
   writing_task: { id: string; task_text: string; word_limit: number | null; image_url: string | null; evaluation_rubric?: string | null } | null;
   speaking_task: {
     id: string;
@@ -141,6 +143,13 @@ export interface PaperTeil {
   questions: PaperQuestion[];
 }
 
+/** the ONE audio of a shared-audio Hören section: signed stream URL + length (independent of the exam time) */
+export interface SharedAudio {
+  url: string;
+  duration_ms: number | null;
+  kompetenz_id: string;
+}
+
 export interface SectionPaper {
   attempt_id: string;
   section_type: ExamSection;
@@ -148,6 +157,7 @@ export interface SectionPaper {
   remaining_seconds: number;
   deadline_at: string;
   teile: PaperTeil[];
+  shared_audio?: SharedAudio | null;
   answers: Record<string, string[]>;
   writings: Record<string, string>;
   recordings: Record<string, string>;
@@ -219,5 +229,5 @@ export interface ExamPreview {
   title: string;
   status: string;
   gaps: string[];
-  sections: { type: ExamSection; title: string; duration_minutes: number; teile: PaperTeil[] }[];
+  sections: { type: ExamSection; title: string; duration_minutes: number; teile: PaperTeil[]; shared_audio?: SharedAudio | null }[];
 }

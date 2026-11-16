@@ -58,6 +58,14 @@ To'liq ro'yxat har bir test sahifasida („Prüfliste").
   Skript Hören kalitlarini va barcha Modelltestlarning vaqtini (Lesen 60, Hören 60, Schreiben 60, Sprechen 15 = 195 daq.) o'rnatadi; Lesen kalitlari, audio, Schreiben va Sprechen topshiriqlariga tegmaydi.
 - **Nashr uchun hali yetishmaydi (1–6):** har bir testda Lesen kalitlari (35 / 30 ta, hozir 0) va Hören audio (1-test 6 Teil, 2–6: 4 Teildan) — Answer Key vositasi Lesen uchun ham ishlaydi; audio: „Multilevel Audio".
 
+## Modelltest 1 — bitta umumiy Hören audio (2026-11-16)
+
+- Modelltest 1 ning Hören bo'limidagi 6 ta Teil **bitta** audio fayldan foydalanadi (`kompetenzen.audio_file_id`); boshqa testlarda har Teil uchun alohida audio (o'zgarmagan).
+- Admin → Vorbereitung → Multilevel Audio → „Modelltest 1 · Gemeinsames Audio": yuklash, almashtirish, kesish, tinglash, o'chirish (o'chirilsa nashr qilingan test
+  yana Entwurf bo'ladi). Shu testning Teil-slotlari alohida audio qabul qilmaydi (409 `SHARED_AUDIO_TEST`).
+- Talaba: Hören bo'limida pastda bitta audio pleyer; Teil'lar o'z savollari bilan alohida ko'rinadi, Teil'dan Teil'ga o'tganda audio qayta boshlanmaydi,
+  sahifa yangilansa audio taxminan shu joydan davom etadi. Audio davomiyligi va bo'lim vaqti (60 daq.) bir-biriga bog'liq emas.
+
 ## Ochiq
 
 - 7–10 Hören: vazifalar (savollar + audio) hali yo'q; savollarni admin panelda yaratib bo'lmaydi — import kerak.

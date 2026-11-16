@@ -304,7 +304,11 @@ exam mode + 0–75 scoring + B1/B2/C1 result: `be/services/mock_exam/multilevel_
 `fe/app/(dashboard)/vorbereitung/multilevel/{pruefung,ergebnis}`, admin `fe/app/admin/mock-exams/multilevel`, tests
 `test_multilevel_exam*`, E2E `multilevel-exam.spec.ts`; **Multilevel Audio** (admin `/admin/mock-exams/multilevel-audio`,
 one slot per Hören Teil of every Multilevel Modelltest; upload / trim / replace / delete play in that exam task at once;
-exam paper gets a signed `/multilevel-exam/audio/{id}?token=` URL): `be/services/mock_exam/multilevel_audio.py`,
+exam paper gets a signed `/multilevel-exam/audio/{id}?token=` URL; **Modelltest 1 plays ONE shared audio** for its whole Hören section — 2026-11-16, migration
+`e6d2b9a4c8f3` `kompetenzen.audio_file_id`, `multilevel_service.SHARED_AUDIO_NUMBERS = {1}`, admin `…/multilevel-audio/shared/{model_test_id}`, per-Teil slots of that test → 409
+`SHARED_AUDIO_TEST`, readiness asks for one audio, paper `shared_audio` = one signed `/multilevel-exam/audio-shared/{kompetenz_id}?token=` URL, the Teile keep their own questions;
+student `fe/features/vorbereitung/components/multilevel/shared-audio-player.tsx` docked at the bottom (the dashboard `<main>` scrolls, so `sticky` does not hold), position kept in
+sessionStorage; audio length and exam time independent; tests `test_multilevel_shared_audio*`, E2E `multilevel-shared-audio.spec.ts`): `be/services/mock_exam/multilevel_audio.py`,
 `be/api/audio_files/router.py`, `fe/features/admin/components/mock-exam/multilevel-audio-client.tsx`, tests
 `test_multilevel_audio*`, E2E `multilevel-audio.spec.ts`; **Answer Key tool + exam times** (2026-11-16, migration `d4b9e2a7c3f1`: owner's Hören keys of Modelltest 1–6
 (35 / 30 / 30 / 30 / 30 / 30 answers, `app/data/multilevel/hoeren-keys.json`), `be/services/mock_exam/multilevel_keys.py` = numbered table / text import ("1-b, 2-R …") /

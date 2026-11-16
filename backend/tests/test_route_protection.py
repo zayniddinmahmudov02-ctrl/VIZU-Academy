@@ -40,6 +40,7 @@ PUBLIC_ALLOWLIST = {
     ("GET", "/lms/resources/{resource_id}/file"),
     # Multilevel exam Hören audio: short-lived signed token issued with the exam paper, bound to one slot and user
     ("GET", "/multilevel-exam/audio/{content_id}"),
+    ("GET", "/multilevel-exam/audio-shared/{kompetenz_id}"),
     # Medienwelt: cover / poster images (the only public files) and token-authorized streams (signed token from an
     # access-checked call, access rechecked per request: PAID files need a purchase)
     ("GET", "/medien/cover/{kind}/{item_id}"),

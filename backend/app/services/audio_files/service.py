@@ -179,13 +179,15 @@ async def trim(db: Session, source_id: UUID, start_ms: int, end_ms: int, user: U
 
 
 def references(db: Session, audio: AudioFile) -> int:
-    """Rows that still use this file: trims cut from it and Multilevel Hören Teile playing it."""
+    """Rows that still use this file: trims cut from it, Multilevel Hören Teile playing it and Hören sections playing it as their shared audio."""
     from sqlalchemy import func
 
+    from app.models.kompetenz import Kompetenz
     from app.models.listening_content import ListeningContent
 
     return int(db.scalar(select(func.count()).select_from(AudioFile).where(AudioFile.source_id == audio.id, AudioFile.deleted_at.is_(None))) or 0) \
-        + int(db.scalar(select(func.count()).select_from(ListeningContent).where(ListeningContent.audio_file_id == audio.id)) or 0)
+        + int(db.scalar(select(func.count()).select_from(ListeningContent).where(ListeningContent.audio_file_id == audio.id)) or 0) \
+        + int(db.scalar(select(func.count()).select_from(Kompetenz).where(Kompetenz.audio_file_id == audio.id)) or 0)
 
 
 async def discard(db: Session, audio: AudioFile | None) -> None:

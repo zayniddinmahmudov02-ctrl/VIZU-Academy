@@ -4,7 +4,9 @@
   write `require_content_editor`, read / preview `require_admin_panel_access`.
 `/admin/multilevel-audio`: the Hören slots of the Multilevel Modelltests (list, status, attach = upload/replace, trim,
   delete, preview). Same permissions. Students hear the audio through the signed URL of the exam paper:
-  `GET /multilevel-exam/audio/{content_id}?token=` (token issued with the paper, rechecked per request)."""
+  `GET /multilevel-exam/audio/{content_id}?token=` (token issued with the paper, rechecked per request).
+`/admin/multilevel-audio/shared/{model_test_id}`: Modelltest 1 plays ONE audio for all its Hören Teile (status, attach, trim, delete, preview);
+  students: `GET /multilevel-exam/audio-shared/{kompetenz_id}?token=` (same token rules)."""
 
 from uuid import UUID
 
@@ -103,6 +105,37 @@ async def delete_audio(content_id: UUID, db: Session = Depends(get_db), user: Us
     return await ml_audio.detach(db, content_id, user)
 
 
+@slots_router.get("/shared/{model_test_id}")
+def shared_status(model_test_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+    return ml_audio.shared_status(db, model_test_id)
+
+
+@slots_router.put("/shared/{model_test_id}")
+async def attach_shared(model_test_id: UUID, data: AttachIn, db: Session = Depends(get_db), user: User = Depends(require_content_editor)):
+    """Upload / replace: every Hören Teil of this Modelltest plays the given (already uploaded, possibly trimmed) file."""
+    return await ml_audio.attach_shared(db, model_test_id, data.audio_file_id, user)
+
+
+@slots_router.post("/shared/{model_test_id}/trim")
+async def trim_shared(model_test_id: UUID, data: TrimIn, db: Session = Depends(get_db), user: User = Depends(require_content_editor)):
+    return await ml_audio.trim_shared(db, model_test_id, data.start_ms, data.end_ms, user)
+
+
+@slots_router.delete("/shared/{model_test_id}")
+async def delete_shared(model_test_id: UUID, db: Session = Depends(get_db), user: User = Depends(require_content_editor)):
+    return await ml_audio.detach_shared(db, model_test_id, user)
+
+
+@slots_router.get("/shared/{model_test_id}/file")
+def shared_file(model_test_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+    from fastapi import HTTPException
+
+    path, content_type = ml_audio.shared_file_path(db, model_test_id)
+    if path is None:
+        raise HTTPException(status_code=404, detail="AUDIO_NOT_FOUND")
+    return FileResponse(path, media_type=content_type, headers=PRIVATE)
+
+
 @slots_router.get("/slots/{content_id}/file")
 def slot_file(content_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
     from fastapi import HTTPException
@@ -120,4 +153,11 @@ def slot_file(content_id: UUID, db: Session = Depends(get_db), _: User = Depends
 def exam_audio(content_id: UUID, token: str, db: Session = Depends(get_db)):
     """The only place Multilevel Hören bytes are served from; the signed token comes with the exam paper."""
     path, content_type = ml_audio.stream_target(db, content_id, token)
+    return FileResponse(path, media_type=content_type, headers=PRIVATE)
+
+
+@stream_router.get("/audio-shared/{kompetenz_id}")
+def exam_audio_shared(kompetenz_id: UUID, token: str, db: Session = Depends(get_db)):
+    """The one audio of a shared-audio Hören section (Modelltest 1); HTTP Range works, so seeking and a resumed position cost nothing."""
+    path, content_type = ml_audio.stream_target_shared(db, kompetenz_id, token)
     return FileResponse(path, media_type=content_type, headers=PRIVATE)

@@ -30,6 +30,22 @@ export interface MultilevelAudioSlot {
   original: AudioFileInfo | null;
   duration_ms: number | null;
   test_unpublished?: boolean;
+  /** the Teil plays the ONE shared audio of its Hören section (Modelltest 1): no audio of its own */
+  shared?: boolean;
+}
+
+/** The ONE audio of a Hören section in shared-audio mode (Modelltest 1). `exam_minutes` is the exam time — its own setting, independent of the audio length. */
+export interface SharedAudioStatus {
+  model_test_id: string;
+  kompetenz_id: string;
+  title: string;
+  status: SlotStatus;
+  audio: AudioFileInfo | null;
+  original: AudioFileInfo | null;
+  duration_ms: number | null;
+  exam_minutes: number;
+  teile: { teil_id: string; aufgabe_number: number; title: string; questions: number }[];
+  test_unpublished?: boolean;
 }
 
 export interface MultilevelAudioTest {
@@ -38,6 +54,7 @@ export interface MultilevelAudioTest {
   status: string;
   sort_order: number;
   slots: MultilevelAudioSlot[];
+  shared?: SharedAudioStatus | null;
 }
 
 export interface MultilevelAudioOverview {
@@ -58,6 +75,8 @@ const AUDIO_ERRORS: Record<string, string> = {
   AUDIO_TOOL_MISSING: "Die Audioverarbeitung ist auf dem Server nicht verfügbar.",
   AUDIO_NOT_FOUND: "Audio nicht gefunden.",
   SLOT_NOT_FOUND: "Dieser Audio-Platz gehört nicht zum Multilevel-Modelltest.",
+  SHARED_AUDIO_TEST: "Dieser Modelltest nutzt ein gemeinsames Audio für alle Hören-Teile — bitte das gemeinsame Audio verwenden.",
+  SHARED_AUDIO_NOT_AVAILABLE: "Dieser Modelltest hat kein gemeinsames Audio.",
 };
 
 /** A readable German message for an audio API error (the backend sends "CODE: text"). */
@@ -112,6 +131,25 @@ export async function trimMultilevelSlot(contentId: string, startMs: number, end
 
 export async function deleteMultilevelSlotAudio(contentId: string): Promise<MultilevelAudioSlot> {
   return (await api.delete<MultilevelAudioSlot>(`${SLOTS}/slots/${contentId}`)).data;
+}
+
+// ---- shared audio of one Modelltest (Modelltest 1): one audio for all Hören Teile ----
+
+export async function getMultilevelShared(modelTestId: string): Promise<SharedAudioStatus> {
+  return (await api.get<SharedAudioStatus>(`${SLOTS}/shared/${modelTestId}`)).data;
+}
+
+/** Upload / replace: every Hören Teil of the Modelltest plays this (already uploaded, possibly trimmed) file. */
+export async function setMultilevelSharedAudio(modelTestId: string, audioFileId: string): Promise<SharedAudioStatus> {
+  return (await api.put<SharedAudioStatus>(`${SLOTS}/shared/${modelTestId}`, { audio_file_id: audioFileId })).data;
+}
+
+export async function deleteMultilevelSharedAudio(modelTestId: string): Promise<SharedAudioStatus> {
+  return (await api.delete<SharedAudioStatus>(`${SLOTS}/shared/${modelTestId}`)).data;
+}
+
+export async function getMultilevelSharedBlob(modelTestId: string): Promise<Blob> {
+  return (await api.get(`${SLOTS}/shared/${modelTestId}/file`, { responseType: "blob" })).data as Blob;
 }
 
 export async function getMultilevelSlotBlob(contentId: string): Promise<Blob> {

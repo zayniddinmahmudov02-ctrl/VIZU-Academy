@@ -47,6 +47,15 @@ IMAGE_DIR = "images/mock-exams/multilevel"
 NOT_AVAILABLE = "Noch nicht verfügbar"
 QUESTION_TYPES = {"ORDERING": "ORDERING", "MATCHING": "MATCHING", "TRUE_FALSE": "TRUE_FALSE", "TF": "TRUE_FALSE"}
 SOURCES = ProtectedMockExamSourceStorage()
+# Modelltest numbers (ModelTest.sort_order) whose Hören section plays ONE shared audio for all its Teile (kompetenzen.audio_file_id) instead of one
+# audio per Teil. Only Modelltest 1 (owner, 2026-11-16); the audio structure of every other Modelltest stays per Teil.
+SHARED_AUDIO_NUMBERS = frozenset({1})
+SHARED_AUDIO_MISSING = "Hören: gemeinsames Audio"
+
+
+def shared_audio_test(test: ModelTest | None) -> bool:
+    """True for a Multilevel Modelltest in shared-audio mode (the caller knows it belongs to the Multilevel level)."""
+    return test is not None and test.sort_order in SHARED_AUDIO_NUMBERS
 
 
 def _src(name: str) -> Path:
@@ -265,13 +274,19 @@ def readiness(db: Session, model_test_id: UUID) -> dict:
         total += 1
         if not any(o.is_correct for o in question.options):
             missing_keys.append(f"{komp.title} {teil.title}: {question.question_text.split('.', 1)[0][:20]}")
-    missing_audio = [f"{komp.title} {teil.title}" for lc, teil, komp in db.execute(
-        select(ListeningContent, Teil, Kompetenz).join(Teil, ListeningContent.teil_id == Teil.id)
-        .join(Kompetenz, Teil.kompetenz_id == Kompetenz.id).where(Kompetenz.model_test_id == model_test_id)
-        .order_by(Kompetenz.sort_order, Teil.sort_order)).all() if not (lc.audio_url or "").strip()]
     from app.services.mock_exam.multilevel_exam_service import exam_gaps, is_multilevel_test  # import cycle
 
     test = db.get(ModelTest, model_test_id)
+    if test is not None and shared_audio_test(test) and is_multilevel_test(db, test):
+        # one audio for the whole Hören section: it is there, or exactly one thing is missing
+        komp = db.scalar(select(Kompetenz).where(Kompetenz.model_test_id == model_test_id, Kompetenz.type == "HOEREN"))
+        has = komp is not None and komp.audio_file is not None and komp.audio_file.deleted_at is None
+        missing_audio = [] if has or komp is None else [SHARED_AUDIO_MISSING]
+    else:
+        missing_audio = [f"{komp.title} {teil.title}" for lc, teil, komp in db.execute(
+            select(ListeningContent, Teil, Kompetenz).join(Teil, ListeningContent.teil_id == Teil.id)
+            .join(Kompetenz, Teil.kompetenz_id == Kompetenz.id).where(Kompetenz.model_test_id == model_test_id)
+            .order_by(Kompetenz.sort_order, Teil.sort_order)).all() if not (lc.audio_url or "").strip()]
     # a Multilevel test is a full exam: all four sections with content (7–10: Hören still empty → not publishable)
     missing_sections = exam_gaps(db, model_test_id) if test is not None and is_multilevel_test(db, test) else []
     return {"questions": total, "keys_set": total - len(missing_keys), "missing_keys": missing_keys,

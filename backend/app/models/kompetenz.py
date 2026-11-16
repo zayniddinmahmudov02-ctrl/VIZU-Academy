@@ -29,8 +29,13 @@ class Kompetenz(BaseModel):
     total_points: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     duration_minutes: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     sort_order: Mapped[int] = mapped_column(Integer, default=1, nullable=False)
+    # Hören of a Modelltest in "shared audio" mode (Modelltest 1): the ONE audio all its Teile play; independent of duration_minutes (the exam time)
+    audio_file_id: Mapped[UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("audio_files.id", ondelete="SET NULL", name="fk_kompetenzen_audio_file_id"), nullable=True, index=True,
+    )
 
     model_test = relationship("ModelTest", back_populates="kompetenzen")
+    audio_file = relationship("AudioFile")
     teile = relationship(
         "Teil",
         back_populates="kompetenz",

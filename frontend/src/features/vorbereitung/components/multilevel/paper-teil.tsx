@@ -35,7 +35,9 @@ export default function PaperTeilView({ teil, mode, answers = {}, onAnswer, disa
       {teil.description && <TaskText value={teil.description} className="mt-3 text-sm" />}
 
       {teil.kind === "listening" &&
-        (teil.audio_url ? (
+        (teil.audio_shared ? (
+          <p className="mt-4 text-xs text-text-muted" data-testid="teil-shared-audio-note">{t("multilevelExam.sharedAudioTeil")}</p>
+        ) : teil.audio_url ? (
           <audio controls preload="metadata" controlsList="nodownload noplaybackrate" src={teil.audio_url} className="mt-4 w-full">
             <track kind="captions" />
           </audio>

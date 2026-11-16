@@ -12,6 +12,7 @@ import { useTranslation } from "@/lib/i18n/use-translation";
 import { saveAnswer, saveWriting, submitSection, uploadRecording } from "../../services/multilevel-exam-service";
 import type { PaperQuestion, PaperTeil, SectionPaper } from "../../types/multilevel-exam.types";
 import PaperTeilView from "./paper-teil";
+import SharedAudioPlayer from "./shared-audio-player";
 
 type SaveState = "saving" | "saved" | "error";
 
@@ -78,7 +79,7 @@ export default function ExamSection({ paper, onClosed }: { paper: SectionPaper; 
   }, [paper.attempt_id, paper.section_type, handleClosed, t]);
 
   return (
-    <div className="space-y-5" data-testid="exam-section">
+    <div className={paper.shared_audio ? "space-y-5 pb-44 sm:pb-28" : "space-y-5"} data-testid="exam-section">
       <div className="sticky top-0 z-20 -mx-4 flex flex-wrap items-center justify-between gap-3 border-b border-surface-border bg-surface-card/95 px-4 py-3 backdrop-blur sm:mx-0 sm:rounded-2xl sm:border sm:px-5">
         <h1 className="text-lg font-bold text-text-primary sm:text-xl">{paper.title}</h1>
         <div className="flex items-center gap-2">
@@ -88,6 +89,16 @@ export default function ExamSection({ paper, onClosed }: { paper: SectionPaper; 
           </Button>
         </div>
       </div>
+      {/* Hören of a shared-audio Modelltest: ONE player for every Teil, docked at the bottom of the screen (the page's <main> scrolls, so `sticky` would not hold),
+          so it stays reachable and keeps playing while the Teile scroll by; above the chat button on phones, beside it on wider screens */}
+      {paper.shared_audio && (
+        <div className="fixed inset-x-2 bottom-20 z-40 sm:inset-x-auto sm:bottom-4 sm:right-24 sm:w-[28rem]" data-testid="shared-audio-dock">
+          <SharedAudioPlayer url={paper.shared_audio.url} durationMs={paper.shared_audio.duration_ms} storageKey={`vizu-ml-audio:${paper.attempt_id}:${paper.section_type}`} />
+        </div>
+      )}
+      {!paper.shared_audio && paper.teile.some((teil) => teil.audio_shared) && (
+        <p className="rounded-xl bg-surface-hover px-4 py-3 text-sm text-text-muted" data-testid="shared-audio-missing">{t("multilevelExam.audioMissing")}</p>
+      )}
 
       {closedMessage && <p className="rounded-xl bg-warning/10 px-4 py-3 text-sm font-semibold text-warning">{closedMessage}</p>}
 

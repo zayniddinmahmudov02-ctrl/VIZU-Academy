@@ -35,7 +35,7 @@ async function adminToken() {
 }
 
 type Slot = { content_id: string; aufgabe_number: number; status: string; duration_ms: number | null; audio: { kind: string } | null; original: { id: string } | null };
-type Overview = { total: number; tests: { model_test_id: string; title: string; status: string; slots: Slot[] }[] };
+type Overview = { total: number; tests: { model_test_id: string; title: string; status: string; slots: Slot[]; shared?: unknown }[] };
 
 async function overview(token: string): Promise<Overview> {
   const res = await fetch(`${API_URL}/api/v1/admin/multilevel-audio`, { headers: { Authorization: `Bearer ${token}` } });
@@ -97,7 +97,7 @@ test.describe.serial("Multilevel Audio + trim", () => {
     const token = await adminToken();
     const before = await overview(token);
     const all = before.tests.flatMap((t) => t.slots);
-    const draft = before.tests.find((t) => t.status === "DRAFT" && t.slots.length >= 2)!;
+    const draft = before.tests.find((t) => t.status === "DRAFT" && t.slots.length >= 2 && !t.shared)!; // Modelltest 1 plays ONE shared audio: it has no slot of its own per Teil
     expect(draft, "a draft Modelltest with at least two Hören Teile").toBeTruthy();
 
     await adminLogin(page);
@@ -199,7 +199,7 @@ test.describe.serial("Multilevel Audio + trim", () => {
     await expect(page.getByTestId("multilevel-audio")).toBeVisible();
     await expect(page.getByTestId("ml-audio-slot").first()).toBeVisible();
     await noHorizontalScroll(page);
-    const slot = page.getByTestId("ml-audio-slot").first();
+    const slot = page.locator('[data-testid="ml-audio-slot"]:not([data-shared])').first(); // the Teile of Modelltest 1 share one audio and have no button of their own
     const [chooser] = await Promise.all([page.waitForEvent("filechooser"), slot.getByTestId("ml-audio-upload").click()]);
     await chooser.setFiles(file("mobile.wav", 4));
     await expect(page.getByTestId("audio-trimmer")).toBeVisible();

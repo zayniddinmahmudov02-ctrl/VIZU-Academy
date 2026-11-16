@@ -8,6 +8,7 @@ import { AlertTriangle, ArrowLeft } from "lucide-react";
 
 import { AdminPageHeader } from "@/components/admin/admin-ui";
 import PaperTeilView from "@/features/vorbereitung/components/multilevel/paper-teil";
+import SharedAudioPlayer from "@/features/vorbereitung/components/multilevel/shared-audio-player";
 import { getExamPreview } from "@/features/vorbereitung/services/multilevel-exam-service";
 
 // Admin preview of a Modelltest exactly as the exam paper shows it (also for drafts), keys marked green.
@@ -39,6 +40,7 @@ export default function ModelTestPreviewPage() {
       </div>
       {/* the exam paper uses the student theme tokens; shown in a light frame here */}
       <div className="space-y-4 rounded-2xl bg-[var(--admin-card)] p-3 sm:p-5">
+        {section?.shared_audio && <SharedAudioPlayer url={section.shared_audio.url} durationMs={section.shared_audio.duration_ms} storageKey={`vizu-ml-audio-preview:${modelTestId}`} />}
         {section?.teile.length === 0 && <p className="text-sm text-[var(--admin-text-muted)]">Noch nicht verfügbar.</p>}
         {section?.teile.map((teil) => <PaperTeilView key={teil.id} teil={teil} mode="preview" />)}
       </div>
