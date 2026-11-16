@@ -6,6 +6,8 @@ from app.api.dependencies.auth import get_current_user
 from app.db.session import get_db
 from app.models.user import User
 from app.schemas.vizu_pay import (
+    CourseRequestCreate,
+    MultilevelRedeemRequest,
     MySubscriptionStatus,
     OfferItem,
     OrderItem,
@@ -18,6 +20,7 @@ from app.schemas.vizu_pay import (
     PromoValidateResponse,
 )
 from app.services.vizu_pay import VizuPayService
+from app.services.vizu_pay import multilevel_premium
 
 router = APIRouter(
     prefix="/vizu-pay",
@@ -91,6 +94,58 @@ def request_promo(
 @router.get("/promo/requests")
 def my_promo_requests(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     return VizuPayService(db).my_promo_requests(current_user)
+
+
+@router.post("/promo/course-requests")
+def create_course_promo_request(
+    data: CourseRequestCreate,
+    request: Request,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """"Promo so'rovi": the student asks the admin for a promo for one course / package. Only a request — it opens nothing."""
+    return VizuPayService(db).create_course_request(current_user, data.plan, data.message, _client_ip(request))
+
+
+# ----------------------------------------------------------------------
+# Multilevel Modelltest Premium (all 10 Modelltests, one purchase) — services/vizu_pay/multilevel_premium.py
+# ----------------------------------------------------------------------
+
+
+@router.get("/multilevel")
+def multilevel_status(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    """Price (the server's), card, the caller's own access / pending request / last rejection."""
+    return multilevel_premium.status(db, current_user)
+
+
+@router.get("/multilevel/quote")
+def multilevel_quote(promo_code: str | None = None, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    return multilevel_premium.quote(db, current_user, promo_code)
+
+
+@router.post("/multilevel/orders", response_model=OrderItem)
+async def multilevel_create_order(
+    request: Request,
+    promo_code: str | None = Form(None),
+    no_receipt: bool = Form(False),
+    paid_date: str | None = Form(None),
+    paid_time: str | None = Form(None),
+    note: str | None = Form(None),
+    proof: UploadFile | None = File(None),
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Manual card payment request (PENDING until the Super Admin approves). The amount is computed on the server — never sent."""
+    return await multilevel_premium.create_order(db, current_user, promo_code=promo_code or None, no_receipt=no_receipt, paid_date=paid_date,
+                                                 paid_time=paid_time, note=note, proof=proof, ip=_client_ip(request))
+
+
+@router.post("/multilevel/redeem")
+def multilevel_redeem(data: MultilevelRedeemRequest, request: Request, db: Session = Depends(get_db),
+                      current_user: User = Depends(get_current_user)):
+    """A 100 % Multilevel promo code (approved + ACTIVE): opens all Modelltests without a card payment."""
+    multilevel_premium.redeem(db, current_user, data.code, _client_ip(request))
+    return multilevel_premium.status(db, current_user)
 
 
 @router.post("/promo/redeem", response_model=PromoRedeemResponse)

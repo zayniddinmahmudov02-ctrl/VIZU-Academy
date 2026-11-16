@@ -5,7 +5,8 @@ Users, Users and the Dashboard so the four never disagree.
   PENDING, REJECTED, EXPIRED and REFUNDED orders never count (a refund flips
   the order away from APPROVED, so it drops out on its own).
 * Revenue = APPROVED orders of a real-money plan (plans.REVENUE_PLANS: the
-  Angebote course offers + the legacy time-based Premium plans).
+  Angebote course offers, the Multilevel Modelltest Premium + the legacy
+  time-based Premium plans).
 * A course purchase = APPROVED order of an Angebote offer (offers.OFFER_CODES)
   — the same orders access.owned_levels() unlocks lessons with.
 * The purchase date is `reviewed_at` (the moment the Super Admin approved it).
@@ -92,7 +93,7 @@ def _naive_utc(dt: datetime | None) -> datetime | None:
 def revenue_conditions() -> tuple:
     return (
         SubscriptionOrder.status == plan_config.STATUS_APPROVED,
-        SubscriptionOrder.plan.in_(list(plan_config.PAID_PLANS | offer_config.offer_codes())),
+        SubscriptionOrder.plan.in_(list(plan_config.PAID_PLANS | offer_config.offer_codes() | {offer_config.ML_PREMIUM_PLAN})),
     )
 
 

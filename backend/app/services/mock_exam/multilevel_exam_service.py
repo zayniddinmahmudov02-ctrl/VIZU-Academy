@@ -209,9 +209,26 @@ def _own_attempt(db: Session, user: User, attempt_id: UUID, lock: bool = False) 
     return attempt
 
 
+def _all_tests(db: Session) -> list[ModelTest]:
+    ids = _multilevel_level_ids(db)
+    if not ids:
+        return []
+    return list(db.scalars(select(ModelTest).where(ModelTest.level_id.in_(ids), ModelTest.status != "ARCHIVED").order_by(ModelTest.sort_order)))
+
+
 def list_exams(db: Session, user: User) -> list[dict]:
+    """Every Multilevel Modelltest (1–10) as a card. `is_locked` = no Multilevel Premium (all 10 are locked until the purchase / promo is
+    approved); `available` = PUBLISHED (a DRAFT test is "Tayyorlanmoqda": shown, never startable, none of its content is sent)."""
     out = []
-    for t in _published_tests(db):
+    for t in _all_tests(db):
+        if t.status != STATUS_PUBLISHED:
+            komps = _kompetenzen(db, t.id)
+            sections = [{"type": s, "title": komps[s].title, "duration_minutes": _duration(komps[s])} for s in SECTIONS if s in komps]
+            out.append({"model_test_id": t.id, "title": t.title, "number": t.sort_order, "description": t.description,
+                        "is_locked": not can_access_model_test(t, user), "available": False, "attempts": 0, "open_attempt_id": None,
+                        "sections": sections, "total_minutes": sum(s["duration_minutes"] for s in sections), "state": "PREPARING",
+                        "last_result": None})
+            continue
         attempts = list(db.scalars(select(MockTestAttempt).where(MockTestAttempt.model_test_id == t.id, MockTestAttempt.user_id == user.id)
                                    .order_by(MockTestAttempt.started_at.desc())))
         open_attempt = next((a for a in attempts if a.status == STATUS_IN_PROGRESS), None)
@@ -219,7 +236,7 @@ def list_exams(db: Session, user: User) -> list[dict]:
         komps = _kompetenzen(db, t.id)
         sections = [{"type": s, "title": komps[s].title, "duration_minutes": _duration(komps[s])} for s in SECTIONS if s in komps]
         out.append({"model_test_id": t.id, "title": t.title, "number": t.sort_order, "description": t.description,
-                    "is_locked": not can_access_model_test(t, user), "attempts": len(attempts),
+                    "is_locked": not can_access_model_test(t, user), "available": True, "attempts": len(attempts),
                     "open_attempt_id": open_attempt.id if open_attempt else None,
                     "sections": sections, "total_minutes": sum(s["duration_minutes"] for s in sections),
                     "state": "IN_PROGRESS" if open_attempt else "DONE" if attempts else "NEW",
@@ -303,6 +320,10 @@ def start_section(db: Session, user: User, attempt_id: UUID, section_type: str) 
     if any(s.status == SECTION_OPEN for s in secs.values()):
         db.commit()
         raise _err(409, "OTHER_SECTION_OPEN")
+    test = db.get(ModelTest, attempt.model_test_id)
+    if test is None or not can_access_model_test(test, user):
+        db.commit()
+        raise _err(403, "PREMIUM_REQUIRED")  # e.g. the Premium was refunded: a new section does not open any more
     k = _kompetenzen(db, attempt.model_test_id).get(section_type)
     if k is None:
         raise _err(404, "SECTION_NOT_FOUND")

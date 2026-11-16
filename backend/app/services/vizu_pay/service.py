@@ -11,9 +11,10 @@ from app.core.exceptions import DomainError
 from app.core.pagination import clamp_page_params, paginated_response
 from app.core.security.roles import UserRole
 from app.core.storage.protected_local import ProtectedPaymentProofStorage
-from app.models.promo_code import PromoCode
+from app.models.promo_code import (APPROVAL_ACTIVE, CATEGORY_COURSES, CATEGORY_MULTILEVEL, CATEGORY_PACKAGES, PromoCode)
 from app.models.promo_code_redemption import PromoCodeRedemption
-from app.models.promo_code_request import REQUEST_APPROVED, REQUEST_PENDING, REQUEST_REJECTED, REQUEST_USED, PromoCodeRequest
+from app.models.promo_code_request import (KIND_CODE_APPROVAL, KIND_COURSE_REQUEST, REQUEST_APPROVED, REQUEST_PENDING, REQUEST_REJECTED,
+                                           REQUEST_USED, PromoCodeRequest)
 from app.models.course import Course
 from app.models.subscription_order import SubscriptionOrder
 from app.models.user import User
@@ -43,6 +44,9 @@ _PROOF_CONTENT_TYPE = {
 ALLOWED_PROOF_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp", ".pdf"}
 MAX_PROOF_SIZE_BYTES = 10 * 1024 * 1024
 
+MAX_OPEN_COURSE_REQUESTS = 3
+MAX_REQUEST_MESSAGE = 1000
+
 # Extension is client-supplied and trivially spoofable (rename a .exe to
 # .png) — sniff the real file signature and cross-check it against the
 # claimed extension before trusting either.
@@ -69,6 +73,16 @@ def _sniff_file_kind(contents: bytes) -> str | None:
 
 class VizuPayError(DomainError):
     pass
+
+
+def order_category(plan: str) -> str:
+    """MULTILEVEL (Modelltest Premium), PACKAGES / COURSES (Angebote packages / single levels) or LEGACY (time-based Premium, promo days)."""
+    if plan == offer_config.ML_PREMIUM_PLAN:
+        return CATEGORY_MULTILEVEL
+    if offer_config.is_offer(plan):
+        kind = (offer_config.offer(plan) or offer_config.OFFERS.get(plan) or {}).get("kind")
+        return CATEGORY_PACKAGES if kind == offer_config.KIND_PACKAGE else CATEGORY_COURSES
+    return "LEGACY"
 
 
 def _now() -> datetime:
@@ -148,18 +162,15 @@ class VizuPayService:
         now = _now()
         is_premium = bool(user.premium_until and user.premium_until > now)
 
-        has_pending_order = (
-            self.db.query(SubscriptionOrder)
-            .filter(SubscriptionOrder.user_id == user.id, SubscriptionOrder.status == plan_config.STATUS_PENDING)
-            .first()
-            is not None
-        )
+        # course checkout state only: a Multilevel Premium request has its own status (GET /vizu-pay/multilevel)
+        has_pending_order = self._has_open_order(user)
 
         rejection_count = self.get_rejection_count(user.id)
 
         latest_rejected = (
             self.db.query(SubscriptionOrder)
-            .filter(SubscriptionOrder.user_id == user.id, SubscriptionOrder.status == plan_config.STATUS_REJECTED)
+            .filter(SubscriptionOrder.user_id == user.id, SubscriptionOrder.status == plan_config.STATUS_REJECTED,
+                    SubscriptionOrder.plan != offer_config.ML_PREMIUM_PLAN)
             .order_by(SubscriptionOrder.reviewed_at.desc())
             .first()
         )
@@ -222,11 +233,18 @@ class VizuPayService:
     def _check_promo(self, promo: PromoCode | None, user: User, plan: str | None = None) -> str | None:
         """Returns an error message if the promo can't be applied, else None.
         Shared by checkout-discount validation and direct FREE_DAYS
-        redemption."""
+        redemption. A code works only when a Super Admin approved it and it is
+        ACTIVE (creating a code never activates it), only for its product
+        category (a course code never opens the Multilevel Premium and vice
+        versa), and a personal code only for its student."""
         if promo is None:
             return "Promo code not found."
-        if not promo.is_active:
-            return "Promo code is no longer active."
+        if promo.assigned_user_id is not None and str(promo.assigned_user_id) != str(user.id):
+            return "Promo code not found."  # someone else's personal code looks like a missing one
+        if not promo.is_active or promo.approval_status != APPROVAL_ACTIVE or promo.approved_at is None:
+            return "PROMO_NOT_ACTIVE"
+        if plan and not self.promo_category_fits(promo, plan):
+            return "PROMO_WRONG_PRODUCT"
         now = _now()
         if promo.starts_at and promo.starts_at > now:
             return "Promo code is not active yet."
@@ -241,14 +259,26 @@ class VizuPayService:
         )
         if user_uses >= promo.max_uses_per_user:
             return "You have reached this promo code's per-user usage limit."
-        if plan and (promo.applicable_course_ids or promo.applicable_package_codes):
+        if plan and plan != offer_config.ML_PREMIUM_PLAN and (promo.applicable_course_ids or promo.applicable_package_codes):
             if not self._promo_applies_to_plan(promo, plan):
                 return "This promo code does not apply to the selected course or package."
-        if plan and promo.discount_type == "SPECIAL_PRICE":
+        if plan and plan != offer_config.ML_PREMIUM_PLAN and promo.discount_type == "SPECIAL_PRICE":
             sale_price = offer_config.offer(plan)["sale_price"]
             if sale_price is None or promo.discount_value > sale_price:
                 return "The promo's special price exceeds the current offer price."
         return None
+
+    @staticmethod
+    def promo_category_fits(promo: PromoCode, plan: str) -> bool:
+        """MULTILEVEL codes only for the Multilevel Premium; COURSES codes only for single course levels; PACKAGES codes only for
+        course packages."""
+        category = promo.product_category or CATEGORY_COURSES
+        if plan == offer_config.ML_PREMIUM_PLAN:
+            return category == CATEGORY_MULTILEVEL
+        if category == CATEGORY_MULTILEVEL or not offer_config.is_offer(plan):
+            return False
+        kind = (offer_config.offer(plan) or offer_config.OFFERS.get(plan) or {}).get("kind")
+        return (category == CATEGORY_PACKAGES) == (kind == offer_config.KIND_PACKAGE)
 
     def _promo_applies_to_plan(self, promo: PromoCode, plan: str) -> bool:
         if not offer_config.is_offer(plan):
@@ -291,7 +321,13 @@ class VizuPayService:
                     "requires_approval": True, "approval_status": approval}
         discount_amount = None
         final_amount = None
-        if plan and offer_config.is_offer(plan) and offer_config.is_purchasable(plan):
+        if plan == offer_config.ML_PREMIUM_PLAN:
+            from . import multilevel_premium
+
+            base_amount = multilevel_premium.product(self.db)["price"]
+            discount_amount = self._apply_discount(base_amount, promo)
+            final_amount = max(base_amount - discount_amount, 0)
+        elif plan and offer_config.is_offer(plan) and offer_config.is_purchasable(plan):
             base_amount = offer_config.offer(plan)["sale_price"]
             discount_amount = self._apply_discount(base_amount, promo)
             final_amount = max(base_amount - discount_amount, 0)
@@ -349,9 +385,16 @@ class VizuPayService:
                 status = "DISABLED"
             elif promo.expires_at and promo.expires_at <= now:
                 status = "EXPIRED"
-        return {"id": str(req.id), "code": promo.code if promo else "", "plan": req.plan, "plan_label": plan_config.plan_label(req.plan),
-                "status": status, "reason": req.reason, "created_at": req.created_at, "reviewed_at": req.reviewed_at,
-                "order_id": str(req.order_id) if req.order_id else None}
+        kind = req.kind or KIND_CODE_APPROVAL
+        # a course request shows its code only once an admin approved it (the code was made for / attached to this student)
+        code = promo.code if promo is not None and (kind == KIND_CODE_APPROVAL or req.status == REQUEST_APPROVED) else ""
+        discount = None
+        if promo is not None and kind == KIND_COURSE_REQUEST and req.status == REQUEST_APPROVED:
+            discount = {"type": promo.discount_type, "value": promo.discount_value, "expires_at": promo.expires_at,
+                        "used": promo.max_uses is not None and promo.used_count >= promo.max_uses}
+        return {"id": str(req.id), "kind": kind, "code": code, "plan": req.plan, "plan_label": plan_config.plan_label(req.plan),
+                "status": status, "reason": req.reason, "message": req.message, "discount": discount, "created_at": req.created_at,
+                "reviewed_at": req.reviewed_at, "order_id": str(req.order_id) if req.order_id else None}
 
     def request_promo(self, user: User, code: str, plan: str, ip: str | None) -> dict:
         """Checkout: the student entered a code that needs approval -> a PENDING_APPROVAL request for this package
@@ -382,6 +425,37 @@ class VizuPayService:
         self.db.refresh(req)
         write_audit(self.db, actor_id=user.id, action="promo_approval_requested", target_user_id=user.id,
                     details=f"{promo.code} -> {plan}", ip_address=ip)
+        return self._serialize_request(req)
+
+    def create_course_request(self, user: User, plan: str, message: str | None, ip: str | None) -> dict:
+        """"Promo so'rovi": the student asks for a promo for one course / package (one open request per package, at most
+        MAX_OPEN_COURSE_REQUESTS open at a time). It only goes to the admin — nothing is bought, opened or discounted by it."""
+        if not offer_config.is_offer(plan) or not offer_config.is_purchasable(plan):
+            raise HTTPException(status_code=409, detail="OFFER_NOT_AVAILABLE")
+        if set(offer_config.offer_levels(plan)) <= owned_levels(user):
+            raise HTTPException(status_code=409, detail="OFFER_ALREADY_OWNED")
+        text_ = (message or "").strip()
+        if len(text_) > MAX_REQUEST_MESSAGE:
+            raise HTTPException(status_code=422, detail="MESSAGE_TOO_LONG")
+        self.db.query(User.id).filter(User.id == user.id).with_for_update().first()  # two clicks never make two requests
+        open_rows = (self.db.query(PromoCodeRequest)
+                     .filter(PromoCodeRequest.user_id == user.id, PromoCodeRequest.kind == KIND_COURSE_REQUEST,
+                             PromoCodeRequest.status == REQUEST_PENDING).all())
+        same = next((r for r in open_rows if r.plan == plan), None)
+        if same is not None:
+            self.db.commit()
+            return self._serialize_request(same)
+        if len(open_rows) >= MAX_OPEN_COURSE_REQUESTS:
+            raise HTTPException(status_code=429, detail="PROMO_REQUEST_LIMIT")
+        req = PromoCodeRequest(user_id=user.id, plan=plan, kind=KIND_COURSE_REQUEST, status=REQUEST_PENDING, message=text_ or None)
+        self.db.add(req)
+        try:
+            self.db.commit()
+        except IntegrityError:
+            self.db.rollback()
+            raise HTTPException(status_code=409, detail="PROMO_REQUEST_ALREADY_OPEN") from None
+        self.db.refresh(req)
+        write_audit(self.db, actor_id=user.id, action="promo_course_requested", target_user_id=user.id, details=plan, ip_address=ip)
         return self._serialize_request(req)
 
     def my_promo_requests(self, user: User) -> list[dict]:
@@ -428,6 +502,13 @@ class VizuPayService:
         error = self._check_promo(promo, user)
         if error:
             raise VizuPayError(error)
+
+        if promo.product_category == CATEGORY_MULTILEVEL:
+            # a 100 % Multilevel code opens all Modelltests; a smaller discount belongs to the Multilevel checkout
+            from . import multilevel_premium
+
+            self.db.rollback()  # release the promo row lock: redeem() takes its own locks in a fixed order
+            return multilevel_premium.redeem(self.db, user, code, ip)
 
         if promo.discount_type not in DIRECT_REDEEM_TYPES:
             raise VizuPayError("This code is a checkout discount — apply it at checkout instead.")
@@ -613,9 +694,12 @@ class VizuPayService:
         }
 
     def _has_open_order(self, user: User) -> bool:
+        """An open COURSE order (one at a time). A pending Multilevel Premium request does not block a course purchase and vice
+        versa (multilevel_premium.pending_order)."""
         return (
             self.db.query(SubscriptionOrder)
-            .filter(SubscriptionOrder.user_id == user.id, SubscriptionOrder.status == plan_config.STATUS_PENDING)
+            .filter(SubscriptionOrder.user_id == user.id, SubscriptionOrder.status == plan_config.STATUS_PENDING,
+                    SubscriptionOrder.plan != offer_config.ML_PREMIUM_PLAN)
             .first()
             is not None
         )
@@ -751,6 +835,10 @@ class VizuPayService:
             "id": str(order.id),
             "plan": order.plan,
             "plan_label": plan_config.plan_label(order.plan),
+            "product_category": order_category(order.plan),
+            "paid_at": order.paid_at,
+            "no_receipt": bool(order.no_receipt),
+            "student_note": order.student_note,
             "duration_days": order.duration_days,
             "base_amount": order.base_amount,
             "discount_amount": order.discount_amount,

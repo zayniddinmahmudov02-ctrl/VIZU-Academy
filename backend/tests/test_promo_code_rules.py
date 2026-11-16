@@ -8,6 +8,9 @@ from app.models.promo_code import PromoCode
 from app.models.promo_code_redemption import PromoCodeRedemption
 from app.services.vizu_pay.service import VizuPayError, VizuPayService
 
+# every working code is approved + ACTIVE and has a product category (2026-11-16)
+APPROVED = {"approval_status": "ACTIVE", "approved_at": datetime.now(timezone.utc), "assigned_user_id": None}
+
 
 class TestPromoPricing(unittest.TestCase):
     def setUp(self):
@@ -44,6 +47,8 @@ class TestPromoPricing(unittest.TestCase):
             discount_value=20,
             applicable_course_ids=[],
             applicable_package_codes=["A1_B1"],
+            product_category="PACKAGES",
+            **APPROVED,
         )
         db = MagicMock()
         db.query.return_value.filter.return_value.count.return_value = 0
@@ -74,12 +79,15 @@ class TestPromoPricing(unittest.TestCase):
             ),
         ):
             quote = service.quote(user, "A1_B1", "SAVE20")
+            other_package = service.quote(user, "A1_C1", "SAVE20")
             mismatch = service.quote(user, "A1", "SAVE20")
         self.assertEqual(quote["base_amount"], 199_000)
         self.assertEqual(quote["promo_discount"], 39_800)
         self.assertEqual(quote["final_amount"], 159_200)
+        self.assertEqual(other_package["promo_discount"], 0)
+        self.assertIn("does not apply", other_package["promo_error"])
         self.assertEqual(mismatch["promo_discount"], 0)
-        self.assertIn("does not apply", mismatch["promo_error"])
+        self.assertEqual(mismatch["promo_error"], "PROMO_WRONG_PRODUCT")  # a package code never discounts a single course
 
 
 class TestPromoValidation(unittest.TestCase):
@@ -103,9 +111,29 @@ class TestPromoValidation(unittest.TestCase):
             "discount_value": 20,
             "applicable_course_ids": [],
             "applicable_package_codes": [],
+            "product_category": "COURSES",
+            **APPROVED,
         }
         fields.update(overrides)
         return SimpleNamespace(**fields)
+
+    def test_unapproved_or_foreign_codes_never_work(self):
+        for overrides in ({"approval_status": "PENDING", "approved_at": None, "is_active": False}, {"approval_status": "APPROVED"},
+                          {"approval_status": "REJECTED"}, {"approval_status": "DISABLED", "is_active": False},
+                          {"approval_status": "ACTIVE", "approved_at": None}):
+            self.assertEqual(self.service._check_promo(self.promo(**overrides), self.user), "PROMO_NOT_ACTIVE", overrides)
+        self.assertEqual(self.service._check_promo(self.promo(assigned_user_id="someone-else"), self.user), "Promo code not found.")
+        self.assertIsNone(self.service._check_promo(self.promo(assigned_user_id="student"), self.user))
+
+    def test_category_separates_courses_packages_and_multilevel(self):
+        course, package, multilevel = (self.promo(product_category=c) for c in ("COURSES", "PACKAGES", "MULTILEVEL"))
+        self.assertEqual(self.service._check_promo(course, self.user, "ML_PREMIUM"), "PROMO_WRONG_PRODUCT")
+        self.assertEqual(self.service._check_promo(package, self.user, "ML_PREMIUM"), "PROMO_WRONG_PRODUCT")
+        self.assertIsNone(self.service._check_promo(multilevel, self.user, "ML_PREMIUM"))
+        self.assertEqual(self.service._check_promo(multilevel, self.user, "A1"), "PROMO_WRONG_PRODUCT")
+        self.assertEqual(self.service._check_promo(multilevel, self.user, "A1_B1"), "PROMO_WRONG_PRODUCT")
+        self.assertEqual(self.service._check_promo(package, self.user, "A1"), "PROMO_WRONG_PRODUCT")
+        self.assertEqual(self.service._check_promo(course, self.user, "A1_B1"), "PROMO_WRONG_PRODUCT")
 
     def test_future_start_and_expiry_are_enforced(self):
         now = datetime.now(timezone.utc).replace(tzinfo=None)
@@ -154,16 +182,13 @@ class TestPromoValidation(unittest.TestCase):
         db.delete.assert_called_once_with(redemption)
 
     def test_package_scope_does_not_match_another_package_or_course(self):
-        promo = self.promo(applicable_package_codes=["A1_B1"])
+        promo = self.promo(applicable_package_codes=["A1_B1"], product_category="PACKAGES")
         self.assertIsNone(self.service._check_promo(promo, self.user, "A1_B1"))
         self.assertIn(
             "does not apply",
             self.service._check_promo(promo, self.user, "A1_C1"),
         )
-        self.assertIn(
-            "does not apply",
-            self.service._check_promo(promo, self.user, "A1"),
-        )
+        self.assertEqual(self.service._check_promo(promo, self.user, "A1"), "PROMO_WRONG_PRODUCT")
 
     def test_selected_course_scope_matches_only_its_level(self):
         self.db.query.return_value.filter.return_value.all.return_value = [
@@ -189,10 +214,20 @@ class TestPromoAdminValidation(unittest.TestCase):
     def test_special_price_and_multiple_package_targets_are_valid(self):
         with patch("app.services.vizu_pay.admin_service.offer_config._read_overrides", return_value={}):
             course_ids, package_codes = self.service._validate_promo_fields(
-                "SPECIAL_PRICE", 49_000, [], ["A1_B1", "A1_C1"], 25, 3, None, None
+                "SPECIAL_PRICE", 49_000, [], ["A1_B1", "A1_C1"], 25, 3, None, None, category="PACKAGES"
             )
         self.assertEqual(course_ids, [])
         self.assertEqual(package_codes, ["A1_B1", "A1_C1"])
+
+    def test_multilevel_codes_are_a_percentage_or_free_access_without_scope(self):
+        self.assertEqual(self.service._validate_promo_fields("PERCENT", 30, [], [], 10, 1, None, None, category="MULTILEVEL"), ([], []))
+        self.assertEqual(self.service._validate_promo_fields("FREE_ACCESS", 100, [], [], 10, 1, None, None, category="MULTILEVEL"), ([], []))
+        for args in (("FIXED", 5_000, [], []), ("SPECIAL_PRICE", 50_000, [], []), ("FREE_DAYS", 7, [], []), ("PERCENT", 30, [], ["A1_B1"]),
+                     ("PERCENT", 0, [], []), ("PERCENT", 101, [], [])):
+            with self.assertRaises(VizuPayError, msg=args):
+                self.service._validate_promo_fields(*args, None, 1, None, None, category="MULTILEVEL")
+        with self.assertRaises(VizuPayError):
+            self.service._validate_promo_fields("PERCENT", 30, [], [], None, 1, None, None, category="EVERYTHING")
 
     def test_free_days_cannot_target_checkout_products(self):
         with self.assertRaises(VizuPayError):
@@ -217,8 +252,12 @@ class TestPromoAdminValidation(unittest.TestCase):
             expires_at=None,
             is_active=True,
             created_at=datetime.now(timezone.utc),
+            product_category="COURSES",
+            review_note=None,
+            **APPROVED,
         )
         result = service._serialize_promo(promo)
+        self.assertEqual((result["status"], result["approval_status"], result["product_category"]), ("ACTIVE", "ACTIVE", "COURSES"))
         self.assertEqual(result["successful_uses"], 2)
         self.assertEqual(result["successful_discount_amount"], 12_000)
         self.assertEqual(result["successful_revenue_amount"], 48_000)
@@ -274,6 +313,8 @@ class TestPromoOrderReservation(unittest.IsolatedAsyncioTestCase):
             discount_value=20,
             applicable_course_ids=[],
             applicable_package_codes=[],
+            product_category="COURSES",
+            **APPROVED,
         )
         user_query = MagicMock()
         user_query.filter.return_value.with_for_update.return_value.first.return_value = ("student",)

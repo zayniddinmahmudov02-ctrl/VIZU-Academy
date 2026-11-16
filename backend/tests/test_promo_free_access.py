@@ -11,10 +11,12 @@ from app.services.vizu_pay.service import VizuPayError, VizuPayService
 
 
 def free_promo(**overrides):
+    # an approved, ACTIVE package code (since 2026-11-16 every code needs a Super Admin's approval and has a product category)
     values = dict(
         id="promo-1", code="GIFT", is_active=True, starts_at=None, expires_at=None, max_uses=None,
         used_count=0, max_uses_per_user=1, discount_type="FREE_ACCESS", discount_value=100,
         applicable_course_ids=[], applicable_package_codes=["A1_B1"],
+        approval_status="ACTIVE", approved_at=datetime.now(timezone.utc), assigned_user_id=None, product_category="PACKAGES",
     )
     values.update(overrides)
     return SimpleNamespace(**values)
@@ -73,6 +75,10 @@ class TestFreeAccessRedeem(unittest.TestCase):
         now = datetime.now(timezone.utc).replace(tzinfo=None)
         cases = [
             free_promo(is_active=False),
+            free_promo(approval_status="PENDING", approved_at=None, is_active=False),  # created, never approved
+            free_promo(approval_status="APPROVED"),  # approved but not switched on
+            free_promo(approval_status="REJECTED"),
+            free_promo(assigned_user_id="another-student"),  # someone else's personal code
             free_promo(expires_at=now - timedelta(days=1)),
             free_promo(starts_at=now + timedelta(days=1)),
             free_promo(max_uses=3, used_count=3),
@@ -124,8 +130,10 @@ class TestFreeAccessAdminValidation(unittest.TestCase):
         self.service = AdminVizuPayService(MagicMock())
 
     def test_free_access_with_package_scope_is_accepted(self):
-        ids, packages = self.service._validate_promo_fields("FREE_ACCESS", 100, [], ["A1_B1"], 5, 1, None, None)
+        ids, packages = self.service._validate_promo_fields("FREE_ACCESS", 100, [], ["A1_B1"], 5, 1, None, None, category="PACKAGES")
         self.assertEqual((ids, packages), ([], ["A1_B1"]))
+        with self.assertRaises(VizuPayError):  # a COURSES code names courses, not packages
+            self.service._validate_promo_fields("FREE_ACCESS", 100, [], ["A1_B1"], 5, 1, None, None, category="COURSES")
 
     def test_free_access_requires_a_target_even_for_legacy_unscoped_edits(self):
         with self.assertRaises(VizuPayError):
@@ -134,11 +142,11 @@ class TestFreeAccessAdminValidation(unittest.TestCase):
     def test_free_access_respects_limits_and_dates(self):
         now = datetime.now(timezone.utc)
         with self.assertRaises(VizuPayError):
-            self.service._validate_promo_fields("FREE_ACCESS", 100, [], ["A1_B1"], 0, 1, None, None)
+            self.service._validate_promo_fields("FREE_ACCESS", 100, [], ["A1_B1"], 0, 1, None, None, category="PACKAGES")
         with self.assertRaises(VizuPayError):
-            self.service._validate_promo_fields("FREE_ACCESS", 100, [], ["A1_B1"], None, 0, None, None)
+            self.service._validate_promo_fields("FREE_ACCESS", 100, [], ["A1_B1"], None, 0, None, None, category="PACKAGES")
         with self.assertRaises(VizuPayError):
-            self.service._validate_promo_fields("FREE_ACCESS", 100, [], ["A1_B1"], None, 1, now, now - timedelta(days=1))
+            self.service._validate_promo_fields("FREE_ACCESS", 100, [], ["A1_B1"], None, 1, now, now - timedelta(days=1), category="PACKAGES")
 
     def test_unknown_type_is_rejected_server_side(self):
         with self.assertRaises(VizuPayError):

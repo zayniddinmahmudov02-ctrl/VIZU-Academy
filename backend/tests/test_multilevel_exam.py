@@ -17,6 +17,18 @@ from fastapi import HTTPException
 DB_URL = os.environ.get("VIZU_WB_TEST_DB_URL")
 
 
+def grant_multilevel_premium(db, *users):
+    """Since 2026-11-16 every Multilevel Modelltest needs the Multilevel Premium (one active entitlement per student)."""
+    from datetime import datetime, timezone
+
+    from app.models.user_entitlement import PRODUCT_MULTILEVEL_PREMIUM, UserEntitlement
+
+    for u in users:
+        db.add(UserEntitlement(user_id=u.id, product=PRODUCT_MULTILEVEL_PREMIUM, source="PAYMENT", granted_at=datetime.now(timezone.utc)))
+    db.commit()
+    db.info.pop("vizu_pay_access:ml_premium", None)  # the access check is cached per session (vizu_pay/access.py)
+
+
 class TestBands(unittest.TestCase):
     def test_scale(self):
         from app.services.mock_exam.multilevel_exam_service import scale
@@ -229,8 +241,18 @@ class TestExamFlow(unittest.TestCase):
 
         with self.Session() as db:
             a, b, teacher, sadmin = self._users(db)
-            exams = svc.list_exams(db, a)
-            self.assertEqual([e["title"] for e in exams], ["Modelltest 1"])  # the incomplete draft is not listed
+            exams = {e["model_test_id"]: e for e in svc.list_exams(db, a)}
+            # every Modelltest is shown; the incomplete draft as "Tayyorlanmoqda" (not startable, no content)
+            self.assertEqual((exams[self.test_id]["available"], exams[self.incomplete_id]["available"]), (True, False))
+            self.assertEqual(exams[self.incomplete_id]["state"], "PREPARING")
+            # no Multilevel Premium yet: everything is locked, also Modelltest 1, also through the service directly
+            self.assertTrue(all(e["is_locked"] for e in exams.values()))
+            with self.assertRaises(HTTPException) as c:
+                svc.start_attempt(db, a, self.test_id)
+            self.assertEqual((c.exception.status_code, c.exception.detail), (403, "PREMIUM_REQUIRED"))
+            self.assertFalse(any(e["is_locked"] for e in svc.list_exams(db, sadmin)))  # staff review without buying
+            grant_multilevel_premium(db, a, b)
+            self.assertFalse(any(e["is_locked"] for e in svc.list_exams(db, a)))
             att = svc.start_attempt(db, a, self.test_id)
             self.assertEqual(svc.start_attempt(db, a, self.test_id).id, att.id)  # one open attempt
             with self.assertRaises(HTTPException) as c:

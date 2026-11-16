@@ -90,6 +90,11 @@ class TestSharedAudioAgainstDatabase(unittest.TestCase):
                      role=role, is_banned=False, preferred_language="uz", premium_until=datetime.now(timezone.utc) + timedelta(days=30))
             db.add(u)
             users.append(u)
+        db.flush()
+        # the student holds the Multilevel Premium (since 2026-11-16 every Multilevel Modelltest needs it)
+        from app.models.user_entitlement import PRODUCT_MULTILEVEL_PREMIUM, UserEntitlement
+
+        db.add(UserEntitlement(user_id=users[0].id, product=PRODUCT_MULTILEVEL_PREMIUM, source="PAYMENT", granted_at=datetime.now(timezone.utc)))
         # the audio slots only exist under provider NATIONAL (like production): reuse it, or create it for the run
         provider = db.scalar(select(CertificationProvider).where(CertificationProvider.code == multilevel_service.PROVIDER_CODE))
         cls.own_provider = provider is None

@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import DateTime, ForeignKey, Index, Integer, String, Text
+from sqlalchemy import Boolean, DateTime, ForeignKey, Index, Integer, String, Text, false
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -147,6 +147,13 @@ class SubscriptionOrder(BaseModel):
         DateTime,
         nullable=True,
     )
+
+    # Multilevel Premium checkout: when the student says the transfer was made (required with "Chek mavjud emas" = no_receipt)
+    paid_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    no_receipt: Mapped[bool] = mapped_column(Boolean, default=False, server_default=false(), nullable=False)
+    student_note: Mapped[str | None] = mapped_column(Text, nullable=True)
+    # the Super Admin's own note on the request (never shown to the student)
+    admin_note: Mapped[str | None] = mapped_column(Text, nullable=True)
 
     user = relationship("User", foreign_keys=[user_id])
 

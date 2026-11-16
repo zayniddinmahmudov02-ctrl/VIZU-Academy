@@ -168,6 +168,11 @@ class TestKeysAgainstDatabase(unittest.TestCase):
                      is_superuser=False, role=role, is_banned=False, preferred_language="uz", premium_until=datetime.now(timezone.utc) + timedelta(days=30))
             db.add(u)
             users.append(u)
+        db.flush()
+        # the student holds the Multilevel Premium (since 2026-11-16 every Multilevel Modelltest needs it; legacy Premium does not open them)
+        from app.models.user_entitlement import PRODUCT_MULTILEVEL_PREMIUM, UserEntitlement
+
+        db.add(UserEntitlement(user_id=users[0].id, product=PRODUCT_MULTILEVEL_PREMIUM, source="PAYMENT", granted_at=datetime.now(timezone.utc)))
         provider = CertificationProvider(name=f"MLK {tag}", code=f"MLK{tag}", is_active=True)
         db.add(provider)
         db.flush()
@@ -389,7 +394,11 @@ class TestKeysAgainstDatabase(unittest.TestCase):
                 test = db.get(ModelTest, self.tid(number))
                 test.status = "PUBLISHED"
             db.commit()
-            self.assertEqual([e["number"] for e in exam.list_exams(db, student)], [1, 2])  # only what is published is listed
+            listed = exam.list_exams(db, student)
+            # all 10 Modelltests are shown (2026-11-16); only the published ones can be started, the others are "Tayyorlanmoqda"
+            self.assertEqual([e["number"] for e in listed], list(range(1, 11)))
+            self.assertEqual([e["number"] for e in listed if e["available"]], [1, 2])
+            self.assertTrue(all(e["state"] == "PREPARING" for e in listed if not e["available"]))
             results = {}
             for number, expected_total, wrong in ((1, 35, 1), (2, 30, 1)):
                 attempt = exam.start_attempt(db, student, self.tid(number))

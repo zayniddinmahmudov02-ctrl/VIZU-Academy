@@ -31,13 +31,52 @@ def has_premium_bypass(user: User | None) -> bool:
 
 
 def is_free_model_test(model_test) -> bool:
-    """Business rule: "Modelltest 1" (the lowest sort_order in its level)
-    is free; every other model test in that level requires Premium."""
+    """Business rule (other providers): "Modelltest 1" (the lowest sort_order in its level)
+    is free; every other model test in that level requires Premium. Not for the
+    Multilevel level — there all 10 need the Multilevel Premium."""
     return model_test.sort_order == 1
 
 
+def is_multilevel_model_test(model_test) -> bool:
+    """A Modelltest of the Vorbereitung Multilevel level ("Multilevel B1–C1" — identified by its title like
+    multilevel_exam_service.is_multilevel_test, so the gate is never looser than the exam mode)."""
+    from app.services.mock_exam.multilevel_service import LEVEL_TITLE
+
+    level = getattr(model_test, "level", None)
+    return bool(level is not None and level.title == LEVEL_TITLE)
+
+
+def has_multilevel_premium(user: User | None) -> bool:
+    """An active Multilevel Modelltest Premium entitlement (paid + approved, or a 100 % approved promo) — see vizu_pay/multilevel_premium.py.
+    Legacy time-based Premium does not open it."""
+    if user is None:
+        return False
+    cache = _session_cache(user, "ml_premium")
+    key = str(user.id)
+    if key not in cache:
+        session = object_session(user)
+        if session is None:
+            return False
+        from app.models.user_entitlement import PRODUCT_MULTILEVEL_PREMIUM, UserEntitlement
+
+        now = datetime.now(timezone.utc)
+        row = session.execute(
+            select(UserEntitlement.id).where(
+                UserEntitlement.user_id == user.id, UserEntitlement.product == PRODUCT_MULTILEVEL_PREMIUM, UserEntitlement.revoked_at.is_(None),
+                (UserEntitlement.expires_at.is_(None)) | (UserEntitlement.expires_at > now),
+            ).limit(1)
+        ).first()
+        cache[key] = row is not None
+    return cache[key]
+
+
 def can_access_model_test(model_test, user: User | None) -> bool:
-    return is_free_model_test(model_test) or is_user_premium(user) or has_premium_bypass(user)
+    if has_premium_bypass(user):
+        return True
+    if is_multilevel_model_test(model_test):
+        # all 10 Multilevel Modelltests are locked until the student holds the Multilevel Premium (no free Modelltest 1 there)
+        return has_multilevel_premium(user)
+    return is_free_model_test(model_test) or is_user_premium(user)
 
 
 # ----------------------------------------------------------------------

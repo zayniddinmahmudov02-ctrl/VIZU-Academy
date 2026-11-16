@@ -127,6 +127,7 @@ from .audio_file import AudioFile
 from .medien import (BookPaymentRequest, Film, FilmRendition, FilmSubtitle, MediaBook, MediaCategory, MediaPlayerPrefs, MediaPlayHistory,
                      MediaProgress, MediaPurchase, Playlist, PlaylistSong, Song, UserFavoriteSong)
 from .subscription_order import SubscriptionOrder
+from .user_entitlement import UserEntitlement
 
 # Media Library
 from .media_asset import MediaAsset
@@ -243,6 +244,7 @@ __all__ = [
     "BookPaymentRequest", "Film", "FilmRendition", "FilmSubtitle", "MediaBook", "MediaCategory", "MediaPlayerPrefs", "MediaPlayHistory", "MediaProgress",
     "MediaPurchase", "Playlist", "PlaylistSong", "Song", "UserFavoriteSong",
     "SubscriptionOrder",
+    "UserEntitlement",
 
     # Media Library
     "MediaAsset",

@@ -169,9 +169,14 @@ class TestCoursePackages(unittest.TestCase):
         code = f"APR{uuid.uuid4().hex[:6].upper()}"
         promo = AdminVizuPayService(self.db).create_promo(code=code, campaign=None, discount_type="PERCENT", discount_value=10,
                                                           applicable_course_ids=[], applicable_package_codes=["A1_B1"], starts_at=None,
-                                                          max_uses=1, max_uses_per_user=1, expires_at=None, actor=admin, requires_approval=True)
+                                                          max_uses=1, max_uses_per_user=1, expires_at=None, actor=admin, requires_approval=True,
+                                                          product_category="PACKAGES")
         self.promo_ids.append(uuid.UUID(promo["id"]))
         pay = VizuPayService(self.db)
+        # a new code is PENDING: it does nothing until a Super Admin approves and activates it
+        self.assertEqual((promo["approval_status"], promo["is_active"]), ("PENDING", False))
+        self.assertEqual(pay.quote(s2, "A1_B1", code)["promo_error"], "PROMO_NOT_ACTIVE")
+        AdminVizuPayService(self.db).review_promo(promo["id"], "approve_activate", None, admin, None)
         self.assertEqual(pay.quote(s2, "A1_B1", code)["promo_error"], "PROMO_APPROVAL_REQUIRED")
         self.assertEqual(pay.validate_promo(code, s2, "A1_B1")["approval_status"], "PROMO_APPROVAL_REQUIRED")
         req = pay.request_promo(s2, code, "A1_B1", None)
@@ -205,8 +210,9 @@ class TestCoursePackages(unittest.TestCase):
         code2 = f"REJ{uuid.uuid4().hex[:6].upper()}"
         p2 = admin_svc.create_promo(code=code2, campaign=None, discount_type="FIXED", discount_value=5_000, applicable_course_ids=[],
                                     applicable_package_codes=["A1_B1"], starts_at=None, max_uses=None, max_uses_per_user=1,
-                                    expires_at=None, actor=admin, requires_approval=True)
+                                    expires_at=None, actor=admin, requires_approval=True, product_category="PACKAGES")
         self.promo_ids.append(uuid.UUID(p2["id"]))
+        admin_svc.review_promo(p2["id"], "approve_activate", None, admin, None)
         r2 = VizuPayService(self.db).request_promo(self.users()[2], code2, "A1_B1", None)
         AdminVizuPayService(self.db).review_promo_request(r2["id"], False, "nicht berechtigt", admin, None)
         self.assertEqual(VizuPayService(self.db).quote(self.users()[2], "A1_B1", code2)["promo_error"], "PROMO_REJECTED")

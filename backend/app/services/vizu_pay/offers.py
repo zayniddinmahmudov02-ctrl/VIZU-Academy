@@ -66,6 +66,15 @@ OFFERS: dict[str, dict] = {
 
 OFFER_CODES = set(OFFERS)  # default codes; use offer_codes() for the current set (admin-created packages included)
 
+# Multilevel Modelltest Premium (owner, 2026-11-16): ONE purchase opens all 10 Multilevel Modelltests, unlimited, 99 000 UZS. Not a course
+# offer (it opens no level and never appears in the Angebote list); stored as SubscriptionOrder.plan = ML_PREMIUM_PLAN, access through
+# user_entitlements (services/vizu_pay/multilevel_premium.py). The Super Admin may change the price / switch the sale off in
+# Admin -> Payments -> Payment Settings (app_settings["multilevel_premium"]); this is the default.
+ML_PREMIUM_PLAN = "ML_PREMIUM"
+ML_PREMIUM_PRODUCT = "MULTILEVEL_MODELLTEST_PREMIUM"
+ML_PREMIUM_LABEL = "VIZU Multilevel Modelltest Premium"
+ML_PREMIUM_PRICE = 99_000
+
 ALL_LEVELS = ("A1", "A2", "B1", "B2", "C1")
 # Levels whose lessons students can open at all. B2 / C1 are "Tez orada": visible as locked cards, no lesson (not even
 # the free first one); a package that contains them opens them for its buyers only once the admin releases them.
@@ -201,6 +210,8 @@ def offer_levels(code: str) -> list[str]:
 
 
 def offer_label(code: str) -> str | None:
+    if code == ML_PREMIUM_PLAN:
+        return ML_PREMIUM_LABEL
     cfg = offer(code) or OFFERS.get(code)
     return cfg["label"] if cfg else None
 

@@ -9,17 +9,22 @@ from app.schemas.vizu_pay import (
     AdminOrderItem,
     AdminOrderListResponse,
     BlockedUserItem,
+    CourseRequestReview,
     ExtendOrderAccessRequest,
+    OrderNoteRequest,
     PackageWrite,
+    PaymentSettingsUpdate,
     PromoReviewRequest,
     PromoCodeCreateRequest,
     PromoCodeItem,
+    PromoCodeReviewRequest,
     PromoCodeUpdateRequest,
     RefundOrderRequest,
     RejectOrderRequest,
     RevenueOverview,
 )
 from app.services.vizu_pay import AdminVizuPayService
+from app.services.vizu_pay import multilevel_premium
 
 router = APIRouter(
     prefix="/admin/vizu-pay",
@@ -136,12 +141,53 @@ def list_promo_requests(
     promo_id: str | None = None,
     search: str | None = None,
     plan: str | None = None,
+    kind: str | None = Query(None, pattern="^(CODE_APPROVAL|COURSE_REQUEST)$"),
     page: int = Query(default=1, ge=1),
     page_size: int = Query(default=20, ge=1, le=100),
     db: Session = Depends(get_db),
     current_user: User = Depends(require_super_admin),
 ):
-    return AdminVizuPayService(db).list_promo_requests(status, promo_id, search, plan, page, page_size)
+    return AdminVizuPayService(db).list_promo_requests(status, promo_id, search, plan, page, page_size, kind=kind)
+
+
+@router.post("/promo-requests/{request_id}/course-review")
+def review_course_promo_request(request_id: str, data: CourseRequestReview, request: Request, db: Session = Depends(get_db),
+                                current_user: User = Depends(require_super_admin)):
+    """"Promo so'rovi": reject, or approve with a new personal code (mode create) / an existing approved code (mode attach)."""
+    return AdminVizuPayService(db).review_course_request(
+        request_id, data.approve, data.reason, current_user, _client_ip(request), mode=data.mode, discount_type=data.discount_type,
+        discount_value=data.discount_value, expires_at=data.expires_at, promo_code_id=data.promo_code_id)
+
+
+# ----------------------------------------------------------------------
+# Overview, payment settings, Multilevel Premium holders
+# ----------------------------------------------------------------------
+
+
+@router.get("/overview")
+def payments_overview(db: Session = Depends(get_db), current_user: User = Depends(require_super_admin)):
+    return AdminVizuPayService(db).payments_overview()
+
+
+@router.get("/payment-settings")
+def get_payment_settings(db: Session = Depends(get_db), current_user: User = Depends(require_super_admin)):
+    from app.services.vizu_pay import plans as plan_config
+
+    return {"cards": plan_config.PAYMENT_CARDS, "multilevel": multilevel_premium.product(db),
+            "review_window_days": plan_config.ORDER_REVIEW_WINDOW_DAYS, "max_rejections": plan_config.MAX_REJECTIONS}
+
+
+@router.put("/payment-settings")
+def put_payment_settings(data: PaymentSettingsUpdate, request: Request, db: Session = Depends(get_db),
+                         current_user: User = Depends(require_super_admin)):
+    multilevel_premium.update_settings(db, current_user, {"price": data.multilevel_price, "status": data.multilevel_status}, _client_ip(request))
+    return get_payment_settings(db, current_user)
+
+
+@router.get("/multilevel-entitlements")
+def list_multilevel_entitlements(search: str | None = None, include_revoked: bool = False, db: Session = Depends(get_db),
+                                 current_user: User = Depends(require_super_admin)):
+    return multilevel_premium.list_entitlements(db, search, include_revoked)
 
 
 @router.post("/promo-requests/{request_id}/review")
@@ -166,7 +212,7 @@ def list_orders(
     year: int | None = None,
     month: int | None = None,
     day: int | None = None,
-    kind: str | None = Query(None, pattern="^course$"),
+    kind: str | None = Query(None, pattern="^(course|multilevel)$"),
     db: Session = Depends(get_db),
     current_user: User = Depends(require_super_admin),
 ):
@@ -228,6 +274,17 @@ def refund_order(
     return AdminVizuPayService(db).refund_order(order_id, data.reason, current_user, _client_ip(request))
 
 
+@router.patch("/orders/{order_id}/note", response_model=AdminOrderItem)
+def set_order_note(
+    order_id: str,
+    data: OrderNoteRequest,
+    request: Request,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_super_admin),
+):
+    return AdminVizuPayService(db).set_order_note(order_id, data.note, current_user, _client_ip(request))
+
+
 @router.post("/orders/{order_id}/extend", response_model=AdminOrderItem)
 def extend_order_access(
     order_id: str,
@@ -270,12 +327,26 @@ def list_promo_products(
     return AdminVizuPayService(db).promo_products()
 
 
-@router.post("/promo-codes", response_model=PromoCodeItem)
-def create_promo_code(
-    data: PromoCodeCreateRequest,
+@router.post("/promo-codes/{promo_id}/review", response_model=PromoCodeItem)
+def review_promo_code(
+    promo_id: str,
+    data: PromoCodeReviewRequest,
+    request: Request,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_super_admin),
 ):
+    """The approval step every promo code needs before it works (approve / approve_activate / activate / reject / disable)."""
+    return AdminVizuPayService(db).review_promo(promo_id, data.action, data.note, current_user, _client_ip(request))
+
+
+@router.post("/promo-codes", response_model=PromoCodeItem)
+def create_promo_code(
+    data: PromoCodeCreateRequest,
+    request: Request,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_super_admin),
+):
+    """Creates the code as PENDING — it does not work until approved and activated."""
     return AdminVizuPayService(db).create_promo(
         code=data.code,
         campaign=data.campaign,
@@ -289,7 +360,9 @@ def create_promo_code(
         expires_at=data.expires_at,
         is_active=data.is_active,
         requires_approval=data.requires_approval,
+        product_category=data.product_category,
         actor=current_user,
+        ip=_client_ip(request),
     )
 
 

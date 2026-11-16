@@ -68,6 +68,11 @@ class OrderItem(BaseSchema):
     id: UUID
     plan: str
     plan_label: str
+    # COURSES / PACKAGES / MULTILEVEL / LEGACY (service.order_category)
+    product_category: str = "COURSES"
+    paid_at: datetime | None = None
+    no_receipt: bool = False
+    student_note: str | None = None
     duration_days: int
     base_amount: int
     discount_amount: int
@@ -124,6 +129,7 @@ class AdminOrderItem(OrderItem):
     # order) — lets the admin see "this is their 2nd/3rd attempt" at a
     # glance without opening the user's full history.
     rejection_count: int
+    admin_note: str | None = None
 
 
 class AdminOrderListResponse(BaseSchema):
@@ -186,6 +192,13 @@ class PromoCodeItem(BaseSchema):
     successful_products: list[dict]
     expires_at: datetime | None
     is_active: bool
+    product_category: str = "COURSES"
+    approval_status: str = "PENDING"
+    approved_at: datetime | None = None
+    approved_by_email: str | None = None
+    review_note: str | None = None
+    assigned_user_id: str | None = None
+    assigned_user_email: str | None = None
     requires_approval: bool = False
     pending_requests: int = 0
     created_by_email: str | None = None
@@ -207,8 +220,10 @@ class PromoCodeCreateRequest(BaseSchema):
     max_uses: int | None = Field(default=None, ge=1)
     max_uses_per_user: int = Field(default=1, ge=1, le=1000)
     expires_at: datetime | None = None
+    # ignored: a new code is always PENDING until a Super Admin approves it (POST /promo-codes/{id}/review)
     is_active: bool = True
     requires_approval: bool = False
+    product_category: str = Field(default="COURSES", pattern="^(COURSES|PACKAGES|MULTILEVEL)$")
 
 
 class PromoCodeUpdateRequest(BaseSchema):
@@ -224,6 +239,45 @@ class PromoCodeUpdateRequest(BaseSchema):
     is_active: bool | None = None
     expires_at: datetime | None = None
     requires_approval: bool | None = None
+    product_category: str | None = Field(default=None, pattern="^(COURSES|PACKAGES|MULTILEVEL)$")
+
+
+class PromoCodeReviewRequest(BaseSchema):
+    """approve (-> APPROVED), approve_activate (-> ACTIVE), activate, reject, disable — see AdminVizuPayService.review_promo."""
+
+    action: str = Field(pattern="^(approve|approve_activate|activate|reject|disable)$")
+    note: str | None = Field(default=None, max_length=500)
+
+
+class OrderNoteRequest(BaseSchema):
+    note: str | None = Field(default=None, max_length=1000)
+
+
+class CourseRequestCreate(BaseSchema):
+    plan: str = Field(min_length=1, max_length=20)
+    message: str | None = Field(default=None, max_length=1000)
+
+
+class CourseRequestReview(BaseSchema):
+    approve: bool
+    reason: str | None = Field(default=None, max_length=500)
+    # approve: "create" a personal code for the student, or "attach" an existing approved ACTIVE code
+    mode: str = Field(default="create", pattern="^(create|attach)$")
+    discount_type: str | None = Field(default=None, pattern="^(PERCENT|FIXED|FREE_ACCESS)$")
+    discount_value: int | None = Field(default=None, ge=0, le=100_000_000)
+    expires_at: datetime | None = None
+    promo_code_id: str | None = Field(default=None, max_length=40)
+
+
+class MultilevelRedeemRequest(BaseSchema):
+    code: str = Field(min_length=1, max_length=40)
+
+
+class PaymentSettingsUpdate(BaseSchema):
+    """Multilevel Modelltest Premium price (UZS) and sale status. Card numbers are not editable here (plans.PAYMENT_CARDS)."""
+
+    multilevel_price: int | None = Field(default=None, ge=1_000, le=10_000_000)
+    multilevel_status: str | None = Field(default=None, pattern="^(ACTIVE|DISABLED)$")
 
 
 class PromoValidateResponse(BaseSchema):
