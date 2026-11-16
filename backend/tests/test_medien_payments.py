@@ -179,6 +179,30 @@ class TestBookPayments(MedienBase):
         self.assertEqual((r2["receipt_type"] if "receipt_type" in r2 else "pdf"), "pdf")
         stored = self.api("get", f"/medien/book-payments/{r2['id']}/receipt", "a")
         self.assertEqual((stored.headers["content-type"], stored.content), ("application/pdf", pdf))
+        # a PDF with a script, an open action or an attachment is not a receipt: refused, nothing stays on disk
+        from pypdf import PdfWriter
+
+        def active_pdf(kind: str) -> bytes:
+            writer = PdfWriter()
+            writer.add_blank_page(200, 200)
+            if kind == "js":
+                writer.add_js("app.alert('x');")
+            elif kind == "attachment":
+                writer.add_attachment("secret.txt", b"payload")
+            out = io.BytesIO()
+            writer.write(out)
+            return out.getvalue()
+
+        self.api("post", f"/medien/book-payments/{r2['id']}/cancel", "a")
+        files_before = self.disk()
+        for kind in ("js", "attachment"):
+            refused = self.pay("a", book["id"], expect=400, receipt=active_pdf(kind), name=f"{kind}.pdf")
+            self.assertTrue(refused.json()["message"].startswith("INVALID_RECEIPT"), kind)
+        self.assertEqual(self.disk(), files_before)
+        plain = self.pay("a", book["id"], receipt=active_pdf("plain"), name="plain.pdf")  # an ordinary PDF still passes
+        self.assertEqual(plain.status_code, 200)
+        self.api("post", f"/medien/book-payments/{plain.json()['id']}/cancel", "a")
+        r2 = self.pay("a", book["id"], receipt=pdf, name="beleg.pdf").json()
         # only the owner and the Super Admin see it — not another student, not a normal admin, nobody anonymous; a missing receipt looks the same
         self.api("get", f"/medien/book-payments/{r2['id']}/receipt", "b", expect=404)
         self.api("get", f"/admin/medien/book-payments/{r2['id']}/receipt", "admin", expect=403)

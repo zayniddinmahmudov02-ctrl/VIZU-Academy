@@ -144,9 +144,34 @@ def _parse_transfer(date_text: str | None, time_text: str | None) -> tuple[date 
     return day, clock
 
 
+_PDF_ACTIVE_RAW = (b"/JavaScript", b"/Launch", b"/EmbeddedFile", b"/RichMedia", b"/OpenAction", b"/XFA", b"/SubmitForm", b"/ImportData")
+_PDF_ACTIVE_ACTIONS = ("/JavaScript", "/Launch", "/SubmitForm", "/ImportData", "/GoToR", "/GoToE")
+
+
+def _pdf_has_active_content(reader, raw: bytes) -> bool:
+    """A receipt is a picture of a payment, not a program: JavaScript, launch / open actions, forms and attachments are refused. The raw bytes catch the plain
+    spelling, the document structure (catalog, name trees, page and link actions) catches what sits in compressed object streams."""
+    if any(token in raw for token in _PDF_ACTIVE_RAW):
+        return True
+    root = reader.trailer["/Root"]
+    if any(key in root for key in ("/OpenAction", "/AA", "/AcroForm")):
+        return True
+    names = root.get("/Names")
+    if names is not None and any(key in names.get_object() for key in ("/JavaScript", "/EmbeddedFiles")):
+        return True
+    for page in reader.pages:
+        if "/AA" in page:
+            return True
+        for annot in page.get("/Annots") or []:
+            action = annot.get_object().get("/A")
+            if action is not None and action.get_object().get("/S") in _PDF_ACTIVE_ACTIONS:
+                return True
+    return False
+
+
 def _sanitize_receipt(path: Path, ext: str) -> int:
     """Checks the stored receipt and removes what it must not keep. Images are decoded and re-saved (EXIF, GPS and any appended data are gone);
-    a PDF must be a readable document of a few pages. Returns the final size; raises a coded 400 for anything else."""
+    a PDF must be a readable, plain document of a few pages (no scripts, actions, forms or attachments). Returns the final size; raises a coded 400 for anything else."""
     try:
         if ext == "pdf":
             from pypdf import PdfReader
@@ -154,6 +179,8 @@ def _sanitize_receipt(path: Path, ext: str) -> int:
             reader = PdfReader(str(path), strict=False)
             if reader.is_encrypted or not 1 <= len(reader.pages) <= 20:
                 raise ValueError("pdf")
+            if _pdf_has_active_content(reader, path.read_bytes()):
+                raise ValueError("active content")
             return path.stat().st_size
         from PIL import Image, ImageOps
 

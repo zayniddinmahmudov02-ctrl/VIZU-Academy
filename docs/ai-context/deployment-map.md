@@ -9,6 +9,7 @@ Updated 2026-10-31 · verified on the server 2026-10-30 02:50 CET. Procedure: sk
 | Services | `vizu-backend` (uvicorn, `127.0.0.1:8000`, health `/api/v1/health`), `vizu-frontend` (Next.js `:3000`) |
 | Do not touch | `nano_bot.service`, `telegram-cours2026.service` and their code/DBs |
 | Backend env | `backend/.env` (never print), venv `backend/.venv` (Python 3.12) |
+| systemd PATH | `vizu-backend` has a drop-in `/etc/systemd/system/vizu-backend.service.d/10-path.conf` (2026-11-15) that adds `/usr/bin` to `PATH` (FFmpeg / ffprobe live there; the unit used to have the venv only = cause of "Audioverarbeitung nicht verfügbar"). Revert: delete the file + `systemctl daemon-reload` + restart. The code also searches the system folders itself (`audio_files.service.find_tool`) |
 | Frontend slots | `frontend/.next-a` / `.next-b`; active in `frontend/.deploy/active.env` (`NEXT_DIST_DIR`, `NEXT_DEPLOYMENT_ID`), previous in `active.env.prev` |
 | Frontend deploy | `cd frontend && bash scripts/deploy-frontend.sh` (build inactive slot → switch → restart → health) — `docs/deploy-frontend.md` |
 | Private storage | `backend/app/protected_storage/lesson-listening` (Hören audio, 50 files on 2026-10-30) |

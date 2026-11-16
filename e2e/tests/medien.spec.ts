@@ -413,8 +413,9 @@ test.describe.serial("Medienwelt", () => {
     await expect(bar.getByTestId("player-play")).toBeVisible();
 
     // favorites: heart on a row, own tab, remove
-    const row = rows.nth(1);
-    const favTitle = (await row.getByTestId("song-title").textContent())!;
+    // the list is sorted by popularity: it re-orders when a play is counted, so the song is followed by its title, not by its position
+    const favTitle = (await rows.nth(1).getByTestId("song-title").textContent())!;
+    const row = rows.filter({ hasText: favTitle });
     await row.getByTestId("song-favorite").click();
     await expect(row.getByTestId("song-favorite")).toHaveAttribute("aria-pressed", "true");
     await page.getByTestId("musik-tab-favorites").click();

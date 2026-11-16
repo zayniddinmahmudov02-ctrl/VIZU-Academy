@@ -331,7 +331,7 @@ export default function FilmPlayer({ filmId, title, onProgress }: Props) {
         </div>
       )}
 
-      <div ref={barRef} className={cn("absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent px-2 pb-1.5 pt-10 text-white transition-opacity sm:px-3 sm:pb-2", shown ? "opacity-100" : "pointer-events-none opacity-0")} data-testid="film-controls">
+      <div ref={barRef} className={cn("absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent px-2 pb-1.5 pt-10 text-white transition-opacity sm:px-3 sm:pb-2", shown ? "pointer-events-none opacity-100 [&>*]:pointer-events-auto" : "pointer-events-none opacity-0")} data-testid="film-controls">
         <input type="range" min={0} max={Math.max(1, Math.floor(duration))} step={1} value={Math.floor(time)} onChange={(e) => seek(Number(e.target.value))} aria-label={t("medien.playerSeek")} data-testid="film-progress" className="mb-1 h-2 w-full cursor-pointer accent-[var(--color-accent-blue,#2563eb)]" />
         <div className="flex flex-wrap items-center justify-between gap-x-1 gap-y-0.5">
           <div className="flex items-center gap-0.5 sm:gap-1">

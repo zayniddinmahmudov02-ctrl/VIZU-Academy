@@ -267,7 +267,7 @@ test.describe.serial("Bibliothek (desktop): preview, payment, approval, download
     await expect(modal.getByTestId("pay-error")).toContainText("kelajakda");
     expect((await call("GET", "/medien/book-payments/mine", tokenA)).json).toEqual([]); // nothing was stored
     // server side: the same rules (future, too old, no receipt and no time)
-    const post = async (fields: Record<string, string>, who = tokenA) => {
+    const post = async (fields: Record<string, string>, who = tokenB) => {
       const form = new FormData();
       for (const [k, v] of Object.entries(fields)) form.append(k, v);
       const res = await fetch(`${API_URL}/api/v1/medien/books/${paid.id}/payment-requests`, { method: "POST", headers: { Authorization: `Bearer ${who}` }, body: form });
@@ -293,7 +293,7 @@ test.describe.serial("Bibliothek (desktop): preview, payment, approval, download
     requestA = mine[0].id;
     // pending: the button says so, a second request is refused, and there is still no access
     await expect(page.getByTestId("book-buy")).toContainText("tekshirilmoqda");
-    expect((await post({ no_receipt: "true", transfer_date: tashkentDay(-24), transfer_time: "10:00" })).json.message).toContain("PAYMENT_PENDING");
+    expect((await post({ no_receipt: "true", transfer_date: tashkentDay(-24), transfer_time: "10:00" }, tokenA)).json.message).toContain("PAYMENT_PENDING");
     expect((await call("POST", `/medien/books/${paid.id}/open`, tokenA)).json.mode).toBe("preview");
     expect((await call("POST", `/medien/books/${paid.id}/download-link`, tokenA)).status).toBe(403);
     // the receipt is private: its owner and the Super Admin only

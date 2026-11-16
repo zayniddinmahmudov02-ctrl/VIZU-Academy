@@ -340,6 +340,32 @@ notifications, support, advertisements ("Werbung-Banner"), achievements.
     the chunked upload (`video/init` with `quality` "720p" …, needs the film's own video first; the film keeps playing meanwhile),
     `DELETE …/renditions/{id}`.
   - *Tables:* `film_renditions`, `media_player_prefs`, columns `films.video_duration_ms`, `film_subtitles.*`, `media_progress.player_state`.
+- **Bibliothek rework + book payments + Musik metadata (2026-11-15, migration `c2f7a9d1e4b6`):**
+  - *Musik / FFmpeg:* root cause of "Die Audioverarbeitung ist auf dem Server nicht verfügbar" = the systemd unit's `PATH` has no `/usr/bin`, so `shutil.which("ffmpeg")`
+    failed although FFmpeg is installed. `services/audio_files/service.py:find_tool` = env override (`FFMPEG_BIN` / `FFPROBE_BIN`) → `PATH` → system folders; the unit also
+    gets a PATH drop-in. `services/medien/audio_meta.py` reads format, duration, bitrate, title / artist / album / genre (ffprobe JSON, else the `ffmpeg -i` report; tags on the
+    container or the stream) and **never blocks an upload**: tool missing / crashing → song stored, `songs.metadata_status = FAILED` (+ note, logged), a file that is not audio →
+    400 `UNSUPPORTED_FILE`. Formats MP3, WAV, M4A, AAC, OGG, FLAC (sniffed by content), stored byte-identical (no transcoding). Tags fill only what the admin left empty.
+  - *PDF reader / preview:* `POST /medien/books/{id}/open` returns `mode` full | preview. A PAID book that is not owned gets a **separate preview PDF** with only the first
+    `media_books.preview_pages_count` pages (default 10, admin 0–500, `catalog.preview_limit` never lets it cover the whole book: a short book keeps its last page closed), built
+    with pypdf (`services/medien/pdf_tools.py`, annotations dropped, cached as `previews/<book>-<stem>-<n>.pdf`, removed on file / count change and delete); the original is never
+    streamed to a non-owner, a `preview` token only reaches the preview, `download` tokens need full access. `POST …/download-link` + `GET /medien/download/book/{id}?token=`
+    = original, file name from the title, only free / owned / staff. Reading position: `media_progress.position` (page) + `scroll_position` (0..1) + `last_opened_at`;
+    a preview reader's position is clamped to the free pages and never "completed".
+  - *Payments (manual card):* `book_payment_requests` (status PENDING / APPROVED / REJECTED / CANCELLED, one PENDING per student + book by a partial unique index, amount =
+    the book's price taken by the server, receipt optional — without one date + time (Uzbekistan time, not in the future, ≤ 30 days) are required),
+    `media_purchases.payment_request_id` (an approval creates / upgrades the GRANTED purchase = "BookPurchase"; the old direct grant and revoke keep working).
+    `services/medien/book_payments.py`: rate limit (6 / h per student, 20 / h per IP, every attempt counts), receipts re-encoded by Pillow (EXIF / appended data gone) or
+    plain PDFs without scripts / actions / attachments, random names in private storage, visible to the owner and the Super Admin only; student: `GET /medien/book-payment-info`,
+    `POST /medien/books/{id}/payment-requests` (multipart), `GET /medien/book-payments/mine`, `POST …/{id}/cancel`, `GET …/{id}/receipt`; Super Admin:
+    `GET /admin/medien/book-payments[/{id}[/receipt]]`, `POST …/{id}/decision` (row lock: decided once; REJECTED needs a reason the student sees; no self-review),
+    `GET|PUT /admin/medien/book-payment-settings` (card number + holder; default = the VIZU Pay card). Everything is in `audit_logs` (card only as `****last4`).
+    The legacy generic request is refused for books (`409 BOOK_PAYMENT_REQUIRED`); songs / films keep it.
+  - *Frontend:* `pdf-reader.tsx` (pdf.js, continuous scroll with lazy pages by default on phones, single page by default on desktop, fit width, zoom 50–300 %, fullscreen with
+    phone fallback, progress line, resume page + position, download button, preview badge + "Das vollständige Buch freischalten!" dialog at page 11), `book-payment.tsx`
+    (payment window, buy button with pending / rejected states, "Meine Zahlungen"), `download-pdf-button.tsx`; admin `book-payments-admin.tsx` (Bibliothek → tab
+    Zahlungsanfragen: list, receipt check, "geprüft" box, approve / reject with reason, card settings), `preview_pages_count` field in the book dialog, song format / bitrate /
+    metadata warning in `songs-admin.tsx`. Texts: `medien.pay.*`, `medien.paywall*`, `medien.reader*`, `medien.err.<payment codes>`.
 - **Frontend:** student `fe/app/(dashboard)/medien/*` + `fe/features/medien/` (global player store + `GlobalAudioPlayer` in the
   dashboard layout: one `<audio>`, queue/position/volume restored after reload, Media Session; `PdfReader` = pdf.js
   (`pdfjs-dist@5.4.449`, page + zoom + fullscreen, last page saved); `FilmPlayer` = own controls around one `<video>` (play, ±10 s, previous / next film,
@@ -354,5 +380,5 @@ notifications, support, advertisements ("Werbung-Banner"), achievements.
   film dialog = four sections Video-Informationen / Videodatei (readiness, extra qualities) / Untertitel (`subtitle-manager.tsx`: per language check,
   upload / replace, preview with time scrubber, re-check, re-assign language, delete) / Zugang).
 - **Tests:** `test_medien`, `test_medien_migration`, `test_medien_subtitles` (23 unit), `test_medien_player` (integration), `test_medien_player_migration`;
-  unit `tests/unit/medien-subtitles.test.mjs`; E2E `medien.spec.ts`, `film-player.spec.ts` (needs ffmpeg + psql locally). Texts: namespace `medien`
+  unit `tests/unit/medien-subtitles.test.mjs`; E2E `medien.spec.ts`, `film-player.spec.ts`, `medien-library-payments.spec.ts`, `medien-music-formats.spec.ts` (need ffmpeg locally); backend `test_medien_audio`, `test_medien_books_reader`, `test_medien_payments`, `test_medien_books_payments_migration`. Texts: namespace `medien`
   (uz/de in `translations.ts`, en/ru in `extra/part9.ts`; keys `fp.*` player, `wp.*` word card).

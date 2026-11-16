@@ -177,6 +177,27 @@ At least one output file must be specified
             info = audio_meta._from_ffmpeg("ffmpeg", Path("x.mp3"))
         self.assertEqual((info.duration_ms, info.bitrate_kbps, info.codec, info.title, info.artist, info.album), (185_500, 192, "mp3", "Hallo Welt", "Max Beispiel", None))
 
+    OGG_REPORT = """Input #0, ogg, from 'x.ogg':
+  Duration: 00:00:04.00, start: 0.000000, bitrate: 20 kb/s
+  Stream #0:0: Audio: vorbis, 44100 Hz, mono, fltp, 80 kb/s
+      Metadata:
+        encoder         : Lavc61.19.100 libvorbis
+        title           : Lied im Stream
+        ARTIST          : Band im Stream
+At least one output file must be specified
+"""
+
+    def test_ffmpeg_report_tags_kept_on_the_stream_ogg_opus(self):
+        import subprocess
+        from types import SimpleNamespace
+        from pathlib import Path
+
+        from app.services.medien import audio_meta
+
+        with patch.object(subprocess, "run", return_value=SimpleNamespace(returncode=1, stderr=self.OGG_REPORT, stdout="")):
+            info = audio_meta._from_ffmpeg("ffmpeg", Path("x.ogg"))
+        self.assertEqual((info.duration_ms, info.codec, info.title, info.artist), (4_000, "vorbis", "Lied im Stream", "Band im Stream"))
+
     def test_ffprobe_json_and_unreadable_file(self):
         import json
         import subprocess
@@ -186,9 +207,10 @@ At least one output file must be specified
         from app.services.medien import audio_meta
 
         data = {"format": {"duration": "12.5", "bit_rate": "256000", "tags": {"TITLE": "Lied\x00 Eins", "Artist": "Band"}}, "streams": [{"codec_type": "audio", "codec_name": "flac"}]}
-        with patch.object(subprocess, "run", return_value=SimpleNamespace(returncode=0, stdout=json.dumps(data), stderr="")):
+        with patch.object(subprocess, "run", return_value=SimpleNamespace(returncode=0, stdout=json.dumps(data), stderr="")) as run:
             info = audio_meta._from_ffprobe("ffprobe", Path("x.flac"))
         self.assertEqual((info.duration_ms, info.bitrate_kbps, info.codec, info.title, info.artist), (12_500, 256, "flac", "Lied Eins", "Band"))
+        self.assertIn("stream_tags", " ".join(run.call_args.args[0]))  # Ogg / Opus keep their comments on the stream
         with patch.object(subprocess, "run", return_value=SimpleNamespace(returncode=1, stdout="", stderr="x.mp3: Invalid data found when processing input")):
             with self.assertRaises(audio_meta.AudioUnreadable):
                 audio_meta._from_ffprobe("ffprobe", Path("x.mp3"))

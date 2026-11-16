@@ -78,7 +78,7 @@ function Receipt({ row }: { row: BookPaymentRow }) {
   const isPdf = blob.data?.type === "application/pdf" || row.receipt_type === "pdf";
   return (
     <div data-testid="receipt-view" className="space-y-2">
-      {isPdf ? <iframe src={url} title="Beleg" className="h-80 w-full rounded-lg bg-white" sandbox="" /> : <img src={url} alt="Beleg" className="max-h-96 w-full rounded-lg bg-white object-contain" data-testid="receipt-image" />}
+      {isPdf ? <p className="rounded-lg bg-[var(--admin-hover)] p-3 text-sm text-[var(--admin-text-primary)]" data-testid="receipt-pdf">PDF-Beleg — bitte im neuen Tab öffnen und prüfen.</p> : <img src={url} alt="Beleg" className="max-h-96 w-full rounded-lg bg-white object-contain" data-testid="receipt-image" />}
       <a href={url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs font-semibold text-[var(--admin-primary)] hover:underline" data-testid="receipt-open"><ExternalLink size={12} /> In neuem Tab öffnen{row.receipt_size ? ` · ${fileSize(row.receipt_size)}` : ""}</a>
     </div>
   );

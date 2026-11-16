@@ -62,7 +62,7 @@ def _failed(note: str) -> AudioInfo:
 
 
 def _from_ffprobe(tool: str, path: Path) -> AudioInfo:
-    proc = subprocess.run([tool, "-v", "error", "-show_entries", "format=duration,bit_rate:format_tags:stream=codec_name,codec_type", "-of", "json", str(path)],
+    proc = subprocess.run([tool, "-v", "error", "-show_entries", "format=duration,bit_rate:format_tags:stream=codec_name,codec_type:stream_tags", "-of", "json", str(path)],
                           capture_output=True, text=True, timeout=PROBE_TIMEOUT)
     if proc.returncode != 0:
         if _NOT_AUDIO.search(proc.stderr or ""):
@@ -96,9 +96,13 @@ def _from_ffmpeg(tool: str, path: Path) -> AudioInfo:
     if seconds is None and not codec:
         raise AudioUnreadable("no audio stream")
     tags: dict[str, str] = {}
-    head = report.split("Duration:", 1)[0]  # the file-level "Metadata:" block comes before the Duration line
+    head, _, rest = report.partition("Duration:")  # the file-level "Metadata:" block comes before the Duration line, the streams' blocks after it
     for line in head.splitlines():
         t = re.match(r"^\s{4}(title|artist|album|genre)\s*:\s*(.+)$", line, re.I)
+        if t:
+            tags.setdefault(t.group(1).lower(), t.group(2))
+    for line in rest.splitlines():  # Ogg / Opus keep their comments on the stream
+        t = re.match(r"^\s{8}(title|artist|album|genre)\s*:\s*(.+)$", line, re.I)
         if t:
             tags.setdefault(t.group(1).lower(), t.group(2))
     return AudioInfo(duration_ms=_duration_ms(seconds), bitrate_kbps=int(b.group(1)) if b else None, codec=codec.group(1) if codec else None,
