@@ -61,6 +61,9 @@ class MockQuestion(BaseModel):
     correct_text_answer: Mapped[str | None] = mapped_column(Text, nullable=True)
     points: Mapped[int] = mapped_column(Integer, default=1, nullable=False)
     sort_order: Mapped[int] = mapped_column(Integer, default=1, nullable=False)
+    # Multilevel Lesen / Hören: the answer key exactly as the admin typed it ("b", "R", "F", "H" …). Scoring uses the option flags
+    # (`options.is_correct`); this only keeps the original token and is ignored once the flags say something else.
+    answer_key: Mapped[str | None] = mapped_column(String(8), nullable=True)
 
     options = relationship(
         "MockQuestionOption",

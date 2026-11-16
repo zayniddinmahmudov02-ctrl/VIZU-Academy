@@ -2,19 +2,23 @@
 
 Student (`get_current_user`, own attempts only; someone else's attempt is a 404): /multilevel-exam/...
 Staff: results + recordings + statistics `require_teacher_panel_access` (teachers grade Schreiben / Sprechen),
-preview `require_admin_panel_access`, scoring settings read `require_admin_panel_access` / write `require_super_admin`."""
+preview `require_admin_panel_access`, scoring settings read `require_admin_panel_access` / write `require_super_admin`,
+answer keys (Lesen / Hören table, import) read `require_admin_panel_access` / write `require_content_editor`."""
 
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, File, Path, UploadFile
+from fastapi import APIRouter, Depends, File, HTTPException, Path, Query, UploadFile
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy.orm import Session
 
-from app.api.dependencies.auth import get_current_user, require_admin_panel_access, require_super_admin, require_teacher_panel_access
+from app.api.dependencies.auth import (
+    get_current_user, require_admin_panel_access, require_content_editor, require_super_admin, require_teacher_panel_access,
+)
 from app.db.session import get_db
 from app.models.user import User
 from app.services.mock_exam import multilevel_exam_service as svc
+from app.services.mock_exam import multilevel_keys as keys
 
 router = APIRouter(prefix="/multilevel-exam", tags=["Multilevel exam (student)"])
 admin_router = APIRouter(prefix="/admin/multilevel-exam", tags=["Multilevel exam (staff)"])
@@ -48,6 +52,22 @@ class SettingsIn(BaseModel):
     model_config = ConfigDict(extra="forbid")
     score_50: str = Field(pattern="^(UNGEKLAERT|B1|B2)$")
     overall_rule: str = Field(pattern="^(UNCONFIRMED|AVERAGE|LOWEST)$")
+
+
+class KeysIn(BaseModel):
+    """{"section": "HOEREN", "answers": {"1": "b", "2": "R", …}} — numbers are the running question numbers of the section."""
+
+    model_config = ConfigDict(extra="forbid")
+    section: str = Field(default="HOEREN", pattern="^(LESEN|HOEREN)$")
+    answers: dict[str, str] = Field(min_length=1, max_length=100)
+    require_complete: bool = False
+
+
+class KeysImportIn(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    section: str = Field(default="HOEREN", pattern="^(LESEN|HOEREN)$")
+    text: str = Field(max_length=keys.MAX_TEXT)
+    dry_run: bool = True
 
 
 def _private_audio(path, media_type: str) -> FileResponse:
@@ -159,6 +179,30 @@ def statistics(db: Session = Depends(get_db), _: User = Depends(require_teacher_
 @admin_router.get("/model-tests/{model_test_id}/preview")
 def preview(model_test_id: UUID, db: Session = Depends(get_db), user: User = Depends(require_admin_panel_access)):
     return svc.admin_preview(db, model_test_id, user.id)
+
+
+@admin_router.get("/model-tests/{model_test_id}/answer-keys")
+def get_answer_keys(model_test_id: UUID, section: str = Query(default="HOEREN", pattern="^(LESEN|HOEREN)$"), db: Session = Depends(get_db),
+                    _: User = Depends(require_admin_panel_access)):
+    """The numbered answer-key table of one section (Hören by default) and what still blocks publishing."""
+    return keys.key_table(db, model_test_id, section)
+
+
+@admin_router.put("/model-tests/{model_test_id}/answer-keys")
+def put_answer_keys(model_test_id: UUID, data: KeysIn, db: Session = Depends(get_db), user: User = Depends(require_content_editor)):
+    """Saves answers ({number: letter}); `require_complete` demands every question (and nothing beyond) — all or nothing."""
+    entries: dict[int, str] = {}
+    for number, token in data.answers.items():
+        if not number.isdigit() or len(number) > 3 or int(number) in entries:
+            raise HTTPException(status_code=422, detail=f"INVALID_KEYS: „{number[:10]}“ ist keine Fragennummer.")
+        entries[int(number)] = token
+    return keys.apply_keys(db, user, model_test_id, data.section, entries, require_complete=data.require_complete, source="admin")
+
+
+@admin_router.post("/model-tests/{model_test_id}/answer-keys/import")
+def import_answer_keys(model_test_id: UUID, data: KeysImportIn, db: Session = Depends(get_db), user: User = Depends(require_content_editor)):
+    """Reads "1-b, 2-b, …": a dry run checks it (count, letters per question type) and shows the result; without dry_run a fully valid list is saved."""
+    return keys.import_text(db, user, model_test_id, data.section, data.text, dry_run=data.dry_run)
 
 
 @admin_router.get("/settings")

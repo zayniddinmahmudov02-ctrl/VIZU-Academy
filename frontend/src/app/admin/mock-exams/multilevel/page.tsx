@@ -6,6 +6,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Eye, Pencil } from "lucide-react";
 
 import { AdminButton, AdminCard, AdminInput, AdminLabel, AdminPageHeader, AdminSelect, AdminTextarea } from "@/components/admin/admin-ui";
+import MultilevelAnswerKeys from "@/features/admin/components/mock-exam/multilevel-answer-keys";
 import { useCrudList } from "@/features/admin/hooks/use-crud";
 import { apiErrorMessage } from "@/features/admin/services/lesson-skills-admin-service";
 import { mockExamLevelsApi, mockExamModelTestsApi, mockExamProvidersApi } from "@/features/admin/services/mock-exam-service";
@@ -71,6 +72,8 @@ export default function MultilevelAdminPage() {
           ))}
         </div>
       </AdminCard>
+
+      {sorted.length > 0 && <MultilevelAnswerKeys tests={sorted.map((t) => ({ id: t.id, title: t.title, status: t.status }))} />}
 
       <div className="grid gap-6 lg:grid-cols-2">
         <StatisticsCard />

@@ -4,10 +4,10 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, History, Lock, PlayCircle } from "lucide-react";
+import { ArrowLeft, Clock3, History, Lock, PlayCircle } from "lucide-react";
 
 import Button from "@/components/ui/button";
-import { formatDuration, levelLabel, levelTone } from "@/features/vorbereitung/lib/multilevel-labels";
+import { formatDuration, levelLabel, levelTone, SECTION_LABEL_KEY, totalLabel } from "@/features/vorbereitung/lib/multilevel-labels";
 import { getExams, getHistory, startAttempt } from "@/features/vorbereitung/services/multilevel-exam-service";
 import type { ExamListItem } from "@/features/vorbereitung/types/multilevel-exam.types";
 import { useTranslation } from "@/lib/i18n/use-translation";
@@ -60,11 +60,27 @@ export default function MultilevelPage() {
       <div className="grid gap-4 sm:grid-cols-2">
         {exams.map((exam) => (
           <div key={exam.model_test_id} className="flex flex-col gap-3 rounded-2xl bg-surface-card p-5 shadow-[var(--shadow-sm)] ring-1 ring-surface-border"
-            data-testid={`multilevel-exam-${exam.number}`}>
-            <div className="flex items-center justify-between gap-2">
-              <p className="font-semibold text-text-primary">{exam.title}</p>
-              {exam.attempts > 0 && <span className="text-xs text-text-muted">{t("multilevelExam.attempts", { count: exam.attempts })}</span>}
+            data-testid={`multilevel-exam-${exam.number}`} data-state={exam.state}>
+            <div className="flex items-start justify-between gap-2">
+              <div className="min-w-0">
+                <p className="text-[11px] font-bold uppercase tracking-wide text-accent-blue">VIZU Multilevel</p>
+                <p className="font-semibold text-text-primary" data-testid="exam-title">{exam.title}</p>
+              </div>
+              <span className={`shrink-0 rounded-full px-2.5 py-0.5 text-xs font-bold ${exam.state === "DONE" ? "bg-success/15 text-success" : exam.state === "IN_PROGRESS" ? "bg-warning/15 text-warning" : "bg-accent-blue/15 text-accent-blue"}`}
+                data-testid="exam-state">{t(`multilevelExam.state${exam.state}`)}</span>
             </div>
+            <ul className="space-y-1.5 text-sm" data-testid="exam-sections">
+              {exam.sections.map((s) => (
+                <li key={s.type} className="flex items-center justify-between gap-2" data-testid={`exam-section-line-${s.type}`}>
+                  <span className="text-text-primary">{t(SECTION_LABEL_KEY[s.type])}</span>
+                  <span className="text-text-muted">{t("multilevelExam.minutes", { count: s.duration_minutes })}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="flex items-center gap-1.5 border-t border-surface-border pt-2 text-sm font-semibold text-text-primary" data-testid="exam-total">
+              <Clock3 size={14} className="text-text-muted" /> {totalLabel(t, exam.total_minutes)}
+            </p>
+            {exam.attempts > 0 && <p className="text-xs text-text-muted">{t("multilevelExam.attempts", { count: exam.attempts })}</p>}
             {exam.last_result && (
               <p className="text-sm text-text-secondary">
                 {t("multilevelExam.lastResult")}:{" "}

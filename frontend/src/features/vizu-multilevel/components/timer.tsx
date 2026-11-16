@@ -45,6 +45,8 @@ export default function VizuMultilevelTimer({ initialSeconds, className, onExpir
 
   return (
     <div
+      data-testid="exam-timer"
+      data-expired={expired ? "1" : "0"}
       className={cn(
         "inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-bold tabular-nums ring-1",
         expired

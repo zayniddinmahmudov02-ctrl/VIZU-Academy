@@ -306,7 +306,13 @@ exam mode + 0–75 scoring + B1/B2/C1 result: `be/services/mock_exam/multilevel_
 one slot per Hören Teil of every Multilevel Modelltest; upload / trim / replace / delete play in that exam task at once;
 exam paper gets a signed `/multilevel-exam/audio/{id}?token=` URL): `be/services/mock_exam/multilevel_audio.py`,
 `be/api/audio_files/router.py`, `fe/features/admin/components/mock-exam/multilevel-audio-client.tsx`, tests
-`test_multilevel_audio*`, E2E `multilevel-audio.spec.ts`), assessment engine (`be/api/assessment_engine`), certificates
+`test_multilevel_audio*`, E2E `multilevel-audio.spec.ts`; **Answer Key tool + exam times** (2026-11-16, migration `d4b9e2a7c3f1`: owner's Hören keys of Modelltest 1–6
+(35 / 30 / 30 / 30 / 30 / 30 answers, `app/data/multilevel/hoeren-keys.json`), `be/services/mock_exam/multilevel_keys.py` = numbered table / text import ("1-b, 2-R …") /
+single edits, letters per question type (a–c, a–h, r / f / a / b for true-false), count checked against the test, token kept as typed in `mock_questions.answer_key`, scoring
+still reads `options.is_correct`; endpoints `/admin/multilevel-exam/model-tests/{id}/answer-keys` (GET, PUT, POST `/import`); script `app/scripts/multilevel_hoeren_keys.py`
+plan / apply --confirm (also sets the exam times Lesen 60, Hören 60, Schreiben 60, Sprechen 15 = 195 min on every Modelltest; `DEFAULT_MINUTES` / `TOTAL_MINUTES`);
+`mock_attempt_sections.duration_seconds` = what the server granted; student list cards show the four sections, 195 min and the state; admin
+`fe/features/admin/components/mock-exam/multilevel-answer-keys.tsx`; tests `test_multilevel_keys`, `test_multilevel_keys_migration`, E2E `multilevel-keys.spec.ts`), assessment engine (`be/api/assessment_engine`), certificates
 (`/certificates`, `/my-certificates`), books (`/books`), homework (`/homeworks`), quizzes, exams, calendar,
 notifications, support, advertisements ("Werbung-Banner"), achievements.
 

@@ -51,7 +51,10 @@ GRADED_SECTIONS = {"SCHREIBEN", "SPRECHEN"}
 SECTION_MAX = 75
 TOTAL_MAX = SECTION_MAX * len(SECTIONS)
 GRACE_SECONDS = 30
-DEFAULT_MINUTES = {"LESEN": 60, "HOEREN": 40, "SCHREIBEN": 60, "SPRECHEN": 15}
+# the exam time of every Multilevel Modelltest (owner, 2026-11-16): Lesen 60, Hören 60, Schreiben 60, Sprechen 15 = 195 minutes.
+# Kompetenz.duration_minutes carries it per Modelltest (set by `app.scripts.multilevel_hoeren_keys`); this is the fallback for a Kompetenz without one.
+DEFAULT_MINUTES = {"LESEN": 60, "HOEREN": 60, "SCHREIBEN": 60, "SPRECHEN": 15}
+TOTAL_MINUTES = sum(DEFAULT_MINUTES.values())
 MAX_TEXT = 20000
 
 NICHT_BESTANDEN, UNGEKLAERT, PENDING = "NICHT_BESTANDEN", "UNGEKLAERT", "PENDING"
@@ -213,9 +216,13 @@ def list_exams(db: Session, user: User) -> list[dict]:
                                    .order_by(MockTestAttempt.started_at.desc())))
         open_attempt = next((a for a in attempts if a.status == STATUS_IN_PROGRESS), None)
         last = next((a for a in attempts if a.status != STATUS_IN_PROGRESS), None)
+        komps = _kompetenzen(db, t.id)
+        sections = [{"type": s, "title": komps[s].title, "duration_minutes": _duration(komps[s])} for s in SECTIONS if s in komps]
         out.append({"model_test_id": t.id, "title": t.title, "number": t.sort_order, "description": t.description,
                     "is_locked": not can_access_model_test(t, user), "attempts": len(attempts),
                     "open_attempt_id": open_attempt.id if open_attempt else None,
+                    "sections": sections, "total_minutes": sum(s["duration_minutes"] for s in sections),
+                    "state": "IN_PROGRESS" if open_attempt else "DONE" if attempts else "NEW",
                     "last_result": _summary(db, last) if last else None})
     return out
 
@@ -269,12 +276,14 @@ def attempt_view(db: Session, user: User, attempt_id: UUID) -> dict:
     sections = []
     for t in SECTIONS:
         k, s = komps.get(t), secs.get(t)
-        sections.append({"type": t, "title": k.title if k else t, "duration_minutes": _duration(k) if k else 0,
+        granted = s.duration_seconds if s and s.duration_seconds is not None else (_duration(k) * 60 if k else 0)
+        sections.append({"type": t, "title": k.title if k else t, "duration_minutes": _duration(k) if k else 0, "duration_seconds": granted,
                          "status": s.status if s else "NOT_STARTED", "remaining_seconds": _remaining(s) if s and s.status == SECTION_OPEN else None,
+                         "started_at": s.started_at if s else None, "ended_at": s.submitted_at if s and s.status != SECTION_OPEN else None,
                          "can_start": attempt.status == STATUS_IN_PROGRESS and s is None and not any_open and k is not None})
     return {"attempt_id": attempt.id, "model_test_id": attempt.model_test_id, "title": test.title if test else "",
-            "status": attempt.status, "started_at": attempt.started_at, "finished": attempt.status != STATUS_IN_PROGRESS,
-            "sections": sections}
+            "number": test.sort_order if test else None, "status": attempt.status, "started_at": attempt.started_at,
+            "finished": attempt.status != STATUS_IN_PROGRESS, "total_minutes": sum(x["duration_minutes"] for x in sections), "sections": sections}
 
 
 def start_section(db: Session, user: User, attempt_id: UUID, section_type: str) -> MockAttemptSection:
@@ -299,7 +308,7 @@ def start_section(db: Session, user: User, attempt_id: UUID, section_type: str) 
         raise _err(404, "SECTION_NOT_FOUND")
     now = _now()
     s = MockAttemptSection(attempt_id=attempt.id, kompetenz_id=k.id, section_type=section_type, status=SECTION_OPEN,
-                           started_at=now, deadline_at=now + timedelta(minutes=_duration(k)))
+                           started_at=now, deadline_at=now + timedelta(minutes=_duration(k)), duration_seconds=_duration(k) * 60)
     db.add(s)
     db.commit()
     db.refresh(s)
@@ -552,7 +561,7 @@ def finish_attempt(db: Session, user: User, attempt_id: UUID) -> dict:
         for t in SECTIONS:
             if t not in _sections(db, attempt) and t in komps:
                 s = MockAttemptSection(attempt_id=attempt.id, kompetenz_id=komps[t].id, section_type=t, status=SECTION_OPEN,
-                                       started_at=now, deadline_at=now)
+                                       started_at=now, deadline_at=now, duration_seconds=0)
                 db.add(s)
                 db.flush()
                 _close_section(db, attempt, s, SECTION_EXPIRED)

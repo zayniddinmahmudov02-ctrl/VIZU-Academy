@@ -9,7 +9,7 @@ import { ArrowLeft, CheckCircle2, Clock3, PlayCircle } from "lucide-react";
 import Button from "@/components/ui/button";
 import VizuMultilevelFinishConfirmDialog from "@/features/vizu-multilevel/components/finish-confirm-dialog";
 import ExamSection from "@/features/vorbereitung/components/multilevel/exam-section";
-import { SECTION_LABEL_KEY } from "@/features/vorbereitung/lib/multilevel-labels";
+import { SECTION_LABEL_KEY, totalLabel } from "@/features/vorbereitung/lib/multilevel-labels";
 import { finishAttempt, getAttempt, getSection, startSection } from "@/features/vorbereitung/services/multilevel-exam-service";
 import type { ExamSection as Section, SectionPaper } from "@/features/vorbereitung/types/multilevel-exam.types";
 import { useTranslation } from "@/lib/i18n/use-translation";
@@ -67,18 +67,21 @@ export default function MultilevelExamPage() {
         <ArrowLeft size={16} /> {t("multilevelExam.back")}
       </Link>
       <header>
+        <p className="text-xs font-bold uppercase tracking-wide text-accent-blue" data-testid="exam-brand">VIZU MULTILEVEL MODELLTEST{view?.number ? ` ${view.number}` : ""}</p>
         <h1 className="text-2xl font-bold text-text-primary">{view?.title ?? "…"}</h1>
+        {view?.total_minutes ? <p className="mt-1 text-sm font-semibold text-text-secondary" data-testid="exam-total">{totalLabel(t, view.total_minutes)}</p> : null}
+        <p className="mt-1 text-sm text-text-muted">{t("multilevelExam.timerNote")}</p>
         <p className="mt-1 text-sm text-text-muted">{t("multilevelExam.resultsAfterFinish")}</p>
       </header>
       {error && <p className="rounded-xl bg-danger/10 px-4 py-3 text-sm text-danger">{error}</p>}
 
       <div className="grid gap-3 sm:grid-cols-2">
-        {view?.sections.map((s) => {
+        {view?.sections.map((s, index) => {
           const done = s.status === "SUBMITTED" || s.status === "EXPIRED";
           return (
-            <div key={s.type} className="flex flex-col gap-3 rounded-2xl bg-surface-card p-5 ring-1 ring-surface-border" data-testid={`exam-section-${s.type}`}>
+            <div key={s.type} className="flex flex-col gap-3 rounded-2xl bg-surface-card p-5 ring-1 ring-surface-border" data-testid={`exam-section-${s.type}`} data-minutes={s.duration_minutes}>
               <div className="flex items-center justify-between gap-2">
-                <p className="font-semibold text-text-primary">{t(SECTION_LABEL_KEY[s.type])}</p>
+                <p className="font-semibold text-text-primary">{index + 1}. {t(SECTION_LABEL_KEY[s.type])}</p>
                 <span className="flex items-center gap-1 text-xs text-text-muted"><Clock3 size={13} /> {t("multilevelExam.minutes", { count: s.duration_minutes })}</span>
               </div>
               <p className={`flex items-center gap-1.5 text-sm ${done ? "text-success" : "text-text-secondary"}`}>

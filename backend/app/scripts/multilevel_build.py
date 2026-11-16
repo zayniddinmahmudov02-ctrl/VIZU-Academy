@@ -21,7 +21,7 @@ from pathlib import Path
 
 DATA = Path(__file__).resolve().parents[1] / "data" / "multilevel"
 TYPES = {"LESEN": "Lesen", "HOEREN": "Hören", "SCHREIBEN": "Schreiben", "SPRECHEN": "Sprechen"}
-DURATION = {"LESEN": 60, "HOEREN": 40, "SCHREIBEN": 60, "SPRECHEN": 15}
+DURATION = {"LESEN": 60, "HOEREN": 60, "SCHREIBEN": 60, "SPRECHEN": 15}
 QTYPE = {"TF": "TRUE_FALSE", "MATCHING": "MATCHING", "ORDERING": "ORDERING", "ABC": "SINGLE_CHOICE"}
 
 
@@ -168,7 +168,7 @@ def main():
             t.pop("images", None)
     if a.origin == "pdf":
         review.insert(0, {"where": "allgemein", "note": "Im PDF gibt es keine Lösungen: alle Antwortschlüssel fehlen und müssen im Admin-Panel eingetragen werden."})
-        review.insert(1, {"where": "allgemein", "note": "Zeiten (Lesen 60, Hören 40, Schreiben 60, Sprechen 15 Min.) und Bewertungskriterien stehen nicht im PDF — Standardwerte, bitte prüfen."})
+        review.insert(1, {"where": "allgemein", "note": "Zeiten (Lesen 60, Hören 60, Schreiben 60, Sprechen 15 Min.) und Bewertungskriterien stehen nicht im PDF — Standardwerte, bitte prüfen."})
         if not any(k["type"] == "HOEREN" for k in komps):
             review.append({"where": "Hören", "note": "Kein Hören-Teil im PDF."})
     doc = {

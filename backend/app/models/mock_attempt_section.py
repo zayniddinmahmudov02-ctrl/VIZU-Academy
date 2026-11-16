@@ -31,6 +31,8 @@ class MockAttemptSection(BaseModel):
     started_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
     deadline_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
     submitted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    # the section length the server granted when it was opened (Kompetenz.duration_minutes may change later); deadline_at = started_at + this
+    duration_seconds: Mapped[int | None] = mapped_column(Integer, nullable=True)
     raw_points: Mapped[int | None] = mapped_column(Integer, nullable=True)
     raw_max: Mapped[int | None] = mapped_column(Integer, nullable=True)
     score: Mapped[int | None] = mapped_column(Integer, nullable=True)

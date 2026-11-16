@@ -4,6 +4,7 @@ import { ensureArray } from "@/lib/ensure-array";
 import type {
   AdminAttemptDetail,
   AdminAttemptRow,
+  AnswerKeyTable,
   AttemptSummary,
   AttemptView,
   ExamListItem,
@@ -11,6 +12,8 @@ import type {
   ExamResult,
   ExamSection,
   ExamStatistics,
+  KeyImportResult,
+  KeySection,
   ScoringSettings,
   SectionPaper,
 } from "../types/multilevel-exam.types";
@@ -99,6 +102,20 @@ export async function getScoringSettings(): Promise<ScoringSettings> {
 
 export async function putScoringSettings(data: Pick<ScoringSettings, "score_50" | "overall_rule">): Promise<ScoringSettings> {
   return (await api.put<ScoringSettings>(`${ADMIN}/settings`, data)).data;
+}
+
+// ── answer keys (Lesen / Hören): numbered table, save, import check ──
+export async function getAnswerKeys(modelTestId: string, section: KeySection): Promise<AnswerKeyTable> {
+  return (await api.get<AnswerKeyTable>(`${ADMIN}/model-tests/${modelTestId}/answer-keys`, { params: { section } })).data;
+}
+
+export async function putAnswerKeys(modelTestId: string, section: KeySection, answers: Record<string, string>, requireComplete = false): Promise<AnswerKeyTable> {
+  return (await api.put<AnswerKeyTable>(`${ADMIN}/model-tests/${modelTestId}/answer-keys`, { section, answers, require_complete: requireComplete })).data;
+}
+
+/** dryRun: check the pasted list (count, letters per question type) without saving; otherwise a fully valid list is saved */
+export async function importAnswerKeys(modelTestId: string, section: KeySection, text: string, dryRun: boolean): Promise<KeyImportResult> {
+  return (await api.post<KeyImportResult>(`${ADMIN}/model-tests/${modelTestId}/answer-keys/import`, { section, text, dry_run: dryRun })).data;
 }
 
 export async function getExamPreview(modelTestId: string): Promise<ExamPreview> {

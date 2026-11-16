@@ -33,6 +33,10 @@ export interface ExamListItem {
   is_locked: boolean;
   attempts: number;
   open_attempt_id: string | null;
+  /** the four sections with their server-side length; their sum is `total_minutes` (195 for the standard exam) */
+  sections: { type: ExamSection; title: string; duration_minutes: number }[];
+  total_minutes: number;
+  state: "NEW" | "IN_PROGRESS" | "DONE";
   last_result: AttemptSummary | null;
 }
 
@@ -43,14 +47,63 @@ export interface AttemptView {
   status: AttemptSummary["status"];
   started_at: string;
   finished: boolean;
+  number?: number | null;
+  total_minutes?: number;
   sections: {
     type: ExamSection;
     title: string;
     duration_minutes: number;
+    /** what the server granted when the section was opened */
+    duration_seconds?: number;
     status: SectionStatus;
+    /** server clock: deadline - now, so a reload continues where the student was */
     remaining_seconds: number | null;
+    started_at?: string | null;
+    ended_at?: string | null;
     can_start: boolean;
   }[];
+}
+
+// ── answer keys (admin): the numbered table of one section, import check ──
+export type KeySection = "LESEN" | "HOEREN";
+
+export interface AnswerKeyItem {
+  number: number;
+  question_id: string;
+  label: string;
+  teil: string;
+  type: string;
+  option_count: number;
+  /** the key as the admin typed it ("b", "R" …), or the one derived from the marked option */
+  answer: string | null;
+  source: "entered" | "derived" | null;
+  option_text: string | null;
+  editable: boolean;
+}
+
+export interface AnswerKeyTable {
+  model_test_id: string;
+  title: string;
+  number: number;
+  status: string;
+  section: KeySection;
+  question_count: number;
+  keys_set: number;
+  complete: boolean;
+  attempts: number;
+  items: AnswerKeyItem[];
+  readiness: { ready: boolean; questions: number; keys_set: number; missing_keys: string[]; missing_audio: string[]; missing_sections: string[] };
+}
+
+export interface KeyImportResult {
+  section: KeySection;
+  expected: number;
+  given: number;
+  ok: boolean;
+  applied: boolean;
+  errors: { number: number | null; code: string; message: string }[];
+  preview: { number: number; answer: string; option_text: string }[];
+  table?: AnswerKeyTable;
 }
 
 export interface PaperOption {

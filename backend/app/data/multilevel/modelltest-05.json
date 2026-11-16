@@ -1593,7 +1593,7 @@
     }
    ],
    "title": "Hören",
-   "duration_minutes": 40,
+   "duration_minutes": 60,
    "total_points": 30
   },
   {
@@ -1706,7 +1706,7 @@
   },
   {
    "where": "allgemein",
-   "note": "Zeiten (Lesen 60, Hören 40, Schreiben 60, Sprechen 15 Min.) und Bewertungskriterien stehen nicht im PDF — Standardwerte, bitte prüfen."
+   "note": "Zeiten (Lesen 60, Hören 60, Schreiben 60, Sprechen 15 Min.) und Bewertungskriterien stehen nicht im PDF — Standardwerte, bitte prüfen."
   },
   {
    "where": "Schreiben Teil 1.1",

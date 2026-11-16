@@ -22,6 +22,11 @@ export function levelTone(level: ResultLevel | null | undefined): string {
   return "bg-surface-hover text-text-muted";
 }
 
+/** "195 Min. (3 Std. 15 Min.)" — the length of a whole exam in the student's language */
+export function totalLabel(t: T, minutes: number): string {
+  return t("multilevelExam.totalTime", { minutes, duration: t("multilevelExam.hoursMinutes", { h: Math.floor(minutes / 60), m: minutes % 60 }) });
+}
+
 export function formatDuration(seconds: number | null | undefined): string {
   if (!seconds) return "—";
   const h = Math.floor(seconds / 3600);

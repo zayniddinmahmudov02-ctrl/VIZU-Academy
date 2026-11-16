@@ -5,7 +5,7 @@ Provider `NATIONAL` (National-Multilevel Zertifikat) → yangi daraja **„Multi
 ## Manba va qoidalar
 
 - 1–6: `D:\Multilevel_Pdf\Multilevel Mock Variant 1–6.pdf` dan so'zma-so'z (qisqartirilmagan). PDF larda javob kaliti,
-  vaqt va baholash mezonlari **yo'q** → kalitlar bo'sh, vaqtlar standart (Lesen 60, Hören 40, Schreiben 60, Sprechen 15 daq.).
+  vaqt va baholash mezonlari **yo'q** → kalitlar bo'sh, vaqtlar (2026-11-16, egasi): Lesen 60, Hören 60, Schreiben 60, Sprechen 15 daq. = 195 daq.
 - 7–10: VIZU tomonidan yozilgan, namunalar bilan bir xil format: 7↔V1, 8↔V2, 9↔V3, 10↔V4 (Teil, savol va variant soni,
   matnlar so'z soni ±1%, `tests/test_multilevel_modelltests.py` tekshiradi). Kalitlar bor, Hören yo'q („Noch nicht verfügbar").
   Tavsif: „von VIZU erstellt (Übungstest, kein offizielles Prüfungsmaterial)".
@@ -47,6 +47,16 @@ To'liq ro'yxat har bir test sahifasida („Prüfliste").
   „Durchschnitt" yoki „Niedrigstes Teilniveau" ni tanlashi mumkin, saqlangan natijalar qayta hisoblanadi (audit log).
 - Natija va to'g'ri javoblar faqat 4 bo'lim yopilgandan keyin. Sprechen yozuvlari private (`protected_storage/mock-exam-speaking`).
 - Nashr qilish: barcha 4 bo'lim to'liq bo'lishi shart → 7–10 (Hören bo'sh) nashr qilinmaydi; 1–6 kalit + audio kerak.
+
+## Hören kalitlari 1–6 va imtihon vaqtlari (2026-11-16)
+
+- Egasi bergan Hören kalitlari: `backend/app/data/multilevel/hoeren-keys.json` (harflar aynan yozilganidek: R / F / A / B / C, katta-kichik harf tekshiruvda bir xil).
+  Soni: 1-test 35, 2–6 testlar 30 ta (jami 185). Harf → variant: a/b/c = 1/2/3-variant, A–H moslashtirishda, R/F (yoki a/b) rost-yolg'on uchun.
+- Admin → Multilevel → „Answer Key": test + bo'lim (Hören / Lesen) tanlanadi, raqamlangan jadval, bitta javobni tahrirlash, ro'yxatni joylash (`1-b, 2-b, …`) →
+  „Prüfen" (son va harflar tekshiriladi) → „Übernehmen". Hammasi yoki hech narsa; audit logga yoziladi.
+- Productionga qo'llash: `python -m app.scripts.multilevel_hoeren_keys plan` → `apply --confirm <plan id>` (mavjud boshqa kalit bo'lsa to'xtaydi, `--overwrite` kerak).
+  Skript Hören kalitlarini va barcha Modelltestlarning vaqtini (Lesen 60, Hören 60, Schreiben 60, Sprechen 15 = 195 daq.) o'rnatadi; Lesen kalitlari, audio, Schreiben va Sprechen topshiriqlariga tegmaydi.
+- **Nashr uchun hali yetishmaydi (1–6):** har bir testda Lesen kalitlari (35 / 30 ta, hozir 0) va Hören audio (1-test 6 Teil, 2–6: 4 Teildan) — Answer Key vositasi Lesen uchun ham ishlaydi; audio: „Multilevel Audio".
 
 ## Ochiq
 
