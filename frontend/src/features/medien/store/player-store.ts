@@ -1,12 +1,18 @@
 import { create } from "zustand";
 
+import { playerView } from "../lib/player-view";
 import type { SongCard } from "../types";
+import { forgetPlayer } from "./persist";
 
 export type RepeatMode = "off" | "all" | "one";
 
 /** The global music player state (one player for the whole student panel; the single <audio> element lives in
  * GlobalAudioPlayer inside the dashboard layout, so changing pages never recreates it). `playing` is the intent, the
- * component keeps the element in sync. Only `PERSISTED` keys survive a reload (see persist.ts). */
+ * component keeps the element in sync. Only `PERSISTED` keys survive a reload (see persist.ts).
+ *
+ * Names of the owner's spec → fields here: currentSong = currentSong(s), isPlaying = playing, currentPlaylist = queue,
+ * currentTrackIndex = index, isShuffle = shuffle, repeatMode = repeat, currentTime / duration / volume as named,
+ * isLargePlayerOpen, isMusicPageActive as named, isFloatingPlayerVisible = isFloatingPlayerVisible(s). */
 interface PlayerState {
   queue: SongCard[];
   index: number;
@@ -26,6 +32,12 @@ interface PlayerState {
   resumeAt: number | null;
   /** bumped for every explicit "play this" so the same song can restart */
   playNonce: number;
+  /** the large vinyl player (opens when a song is started on Medien → Musik; closed on every page change) */
+  isLargePlayerOpen: boolean;
+  /** the student is on Medien → Musik (the floating disc is hidden there; set by GlobalAudioPlayer from the route) */
+  isMusicPageActive: boolean;
+  /** the small control panel of the floating disc */
+  isFloatingPanelOpen: boolean;
 
   playQueue: (songs: SongCard[], startIndex?: number) => void;
   playIndex: (index: number) => void;
@@ -41,7 +53,14 @@ interface PlayerState {
   removeFromQueue: (index: number) => void;
   enqueue: (song: SongCard) => void;
   toggleQueue: () => void;
+  /** = stop(): kept for the queue panel's "Leeren" */
   clear: () => void;
+  /** X: the music really stops — queue, song, position and the saved copy are gone, every player view closes */
+  stop: () => void;
+  openLargePlayer: () => void;
+  closeLargePlayer: () => void;
+  setMusicPageActive: (active: boolean) => void;
+  setFloatingPanel: (open: boolean) => void;
   patchSong: (id: string, patch: Partial<SongCard>) => void;
   setProgress: (currentTime: number, duration: number) => void;
   setLoading: (v: boolean) => void;
@@ -83,6 +102,9 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   seekTo: null,
   resumeAt: null,
   playNonce: 0,
+  isLargePlayerOpen: false,
+  isMusicPageActive: false,
+  isFloatingPanelOpen: false,
 
   playQueue: (songs, startIndex = 0) => {
     const list = songs.filter(playable);
@@ -136,7 +158,16 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   enqueue: (song) =>
     set((s) => (playable(song) && !s.queue.some((q) => q.id === song.id) ? { queue: [...s.queue, song] } : s)),
   toggleQueue: () => set((s) => ({ queueOpen: !s.queueOpen })),
-  clear: () => set({ queue: [], index: 0, playing: false, currentTime: 0, duration: 0, queueOpen: false, error: null, resumeAt: null }),
+  clear: () => get().stop(),
+  stop: () => {
+    forgetPlayer(); // a reload must not bring the closed player back
+    set({ queue: [], index: 0, playing: false, currentTime: 0, duration: 0, queueOpen: false, error: null, resumeAt: null, seekTo: null, loading: false,
+      isLargePlayerOpen: false, isFloatingPanelOpen: false });
+  },
+  openLargePlayer: () => set((s) => (s.queue.length ? { isLargePlayerOpen: true, isFloatingPanelOpen: false } : s)),
+  closeLargePlayer: () => set({ isLargePlayerOpen: false }),
+  setMusicPageActive: (active) => set((s) => (s.isMusicPageActive === active ? s : { isMusicPageActive: active, isFloatingPanelOpen: active ? false : s.isFloatingPanelOpen })),
+  setFloatingPanel: (open) => set({ isFloatingPanelOpen: open }),
   patchSong: (id, patch) => set((s) => ({ queue: s.queue.map((q) => (q.id === id ? { ...q, ...patch } : q)) })),
   setProgress: (currentTime, duration) => set({ currentTime, duration }),
   setLoading: (loading) => set({ loading }),
@@ -148,3 +179,11 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
 }));
 
 export const currentSong = (s: Pick<PlayerState, "queue" | "index">): SongCard | null => s.queue[s.index] ?? null;
+
+type ViewState = Pick<PlayerState, "queue" | "index" | "isMusicPageActive" | "isLargePlayerOpen">;
+
+export const viewOf = (s: ViewState) =>
+  playerView({ hasSong: !!currentSong(s), isMusicPageActive: s.isMusicPageActive, isLargePlayerOpen: s.isLargePlayerOpen });
+
+/** the floating vinyl disc: a song is loaded, the student is not on Medien → Musik and the large player is closed */
+export const isFloatingPlayerVisible = (s: ViewState): boolean => viewOf(s).floating;

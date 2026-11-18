@@ -41,8 +41,13 @@ function SongRow({ song, list, index, playlists, inPlaylist }: { song: SongCard;
   const own = playlists.filter((p) => !p.official);
 
   function play() {
-    if (isCurrent) usePlayerStore.getState().toggle();
-    else usePlayerStore.getState().playQueue(list, index);
+    if (isCurrent) {
+      usePlayerStore.getState().toggle();
+      return;
+    }
+    // a new song: the large vinyl player opens (the music then keeps going on every other page — floating disc)
+    usePlayerStore.getState().playQueue(list, index);
+    usePlayerStore.getState().openLargePlayer();
   }
 
   return (
@@ -152,7 +157,7 @@ function PlaylistsTab({ playlists }: { playlists: Playlist[] }) {
                   <button className="rounded-xl bg-accent-blue px-3 text-sm font-semibold text-white" data-testid="playlist-rename-save">{t("medien.save")}</button>
                 </form>
               ) : <h3 className="flex-1 truncate text-xl font-bold text-text-primary" data-testid="playlist-title">{pl.name}</h3>}
-              <button disabled={!pl.songs.length} onClick={() => usePlayerStore.getState().playQueue(pl.songs)} className="flex items-center gap-2 rounded-xl bg-accent-blue px-4 py-2 text-sm font-semibold text-white disabled:opacity-50" data-testid="playlist-play"><Play size={15} /> {t("medien.playAll")}</button>
+              <button disabled={!pl.songs.length} onClick={() => { usePlayerStore.getState().playQueue(pl.songs); usePlayerStore.getState().openLargePlayer(); }} className="flex items-center gap-2 rounded-xl bg-accent-blue px-4 py-2 text-sm font-semibold text-white disabled:opacity-50" data-testid="playlist-play"><Play size={15} /> {t("medien.playAll")}</button>
               {!pl.official && rename === null && (
                 <>
                   <button onClick={() => setRename(pl.name)} className="rounded-xl px-3 py-2 text-sm font-semibold ring-1 ring-surface-border hover:bg-surface-hover" data-testid="playlist-rename">{t("medien.rename")}</button>
@@ -170,7 +175,8 @@ function PlaylistsTab({ playlists }: { playlists: Playlist[] }) {
 }
 
 /** Musik: discover (featured, new, all), search, playlists (own + official), favorites and play history. Starting a song
- * hands the visible list to the global player, which keeps playing on every other page. */
+ * hands the visible list to the global player and opens the large vinyl player; the music keeps playing on every other page
+ * (floating disc there) and coming back here shows this page again without restarting it. */
 export default function MusikClient() {
   const { t } = useTranslation();
   const [tab, setTab] = useState<Tab>("discover");

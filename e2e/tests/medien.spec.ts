@@ -357,8 +357,10 @@ test.describe.serial("Medienwelt", () => {
     await expect(rows).toHaveCount(8); // the hidden one is not listed
     await expect(page.getByTestId("player-bar")).toHaveCount(0);
 
-    // play the first one: the bottom player appears and the audio really runs
+    // play the first one: the large vinyl player opens and the audio really runs; minimised, the bottom bar of the Musik page shows
     await rows.first().getByTestId("song-play").click();
+    await expect(page.getByTestId("vinyl-player")).toBeVisible();
+    await page.getByTestId("vinyl-minimize").click();
     const bar = page.getByTestId("player-bar");
     await expect(bar).toBeVisible();
     const title = await bar.getByTestId("player-title").textContent();
@@ -374,7 +376,7 @@ test.describe.serial("Medienwelt", () => {
       expect(state.same, `audio element recreated on ${path}`).toBe(true);
       expect(state.paused, `paused on ${path}: ${JSON.stringify(state)} before=${before}`).toBe(false);
       expect(state.t).toBeGreaterThan(before);
-      await expect(page.getByTestId("player-title")).toHaveText(title!);
+      await expect(page.getByTestId("floating-vinyl")).toBeVisible(); // other pages: the floating vinyl disc (medien-vinyl-player.spec.ts)
     }
     await page.getByTestId("medien-card-music").click(); // still no reload: the same player keeps going
     await expect(page).toHaveURL(/\/medien\/musik/);
@@ -445,6 +447,8 @@ test.describe.serial("Medienwelt", () => {
     await page.getByTestId("playlist-detail").getByTestId("song-row").nth(0).getByTestId("song-remove").click();
     await expect(page.getByTestId("playlist-detail").getByTestId("song-row")).toHaveCount(2);
     await page.getByTestId("playlist-play").click();
+    await expect(page.getByTestId("vinyl-title")).toHaveText(before[2]);
+    await page.getByTestId("vinyl-minimize").click();
     await expect(bar.getByTestId("player-title")).toHaveText(before[2]);
     await page.getByTestId("playlist-rename").click();
     await page.getByTestId("playlist-rename-input").fill(`${TAG} Umbenannt`);
@@ -662,6 +666,8 @@ test.describe("Medienwelt on a phone", () => {
       await page.goto("/medien/musik");
       await page.getByTestId("song-search").fill(`${TAG}-mobile`);
       await page.getByTestId("song-play").first().click();
+      await expect(page.getByTestId("vinyl-player")).toBeVisible();
+      await page.getByTestId("vinyl-minimize").click();
       await expect(page.getByTestId("player-bar")).toBeVisible();
       await expect.poll(() => page.evaluate(() => (document.querySelector("audio") as HTMLAudioElement).currentTime), { timeout: 20_000 }).toBeGreaterThan(0.5);
       await noHorizontalScroll(page);

@@ -98,13 +98,16 @@ test.describe.serial("Musik: all audio formats", () => {
     await page.getByTestId("song-search").fill(`${TAG}-flac`);
     await expect(page.getByTestId("song-row")).toHaveCount(1);
     await page.getByTestId("song-play").first().click();
-    await expect(page.getByTestId("player-bar")).toBeVisible();
+    await expect(page.getByTestId("vinyl-player")).toBeVisible(); // Play opens the large vinyl player
     await expect.poll(() => page.evaluate(() => (document.querySelector("audio") as HTMLAudioElement).currentTime), { timeout: 20_000 }).toBeGreaterThan(0.8);
     expect(await page.evaluate(() => (document.querySelector("audio") as HTMLAudioElement).duration)).toBeGreaterThan(5.5);
+    await page.getByTestId("vinyl-minimize").click();
+    await expect(page.getByTestId("player-bar")).toBeVisible();
     await page.getByTestId("song-search").fill(`${TAG}-wav`);
     await expect(page.getByTestId("song-row").first()).toContainText(`${TAG}-wav`); // the list follows the (debounced) search
     await page.getByTestId("song-play").first().click();
-    await expect(page.getByTestId("player-title")).toContainText(`${TAG}-wav`);
+    await expect(page.getByTestId("vinyl-title")).toContainText(`${TAG}-wav`);
+    await page.getByTestId("vinyl-minimize").click();
     await expect.poll(() => page.evaluate(() => { const a = document.querySelector("audio") as HTMLAudioElement; return !a.paused && a.currentTime > 0.8; }), { timeout: 20_000 }).toBe(true);
     // background playback: client-side navigation, the same audio element keeps running
     await page.evaluate(() => { (window as unknown as { __audio: Element }).__audio = document.querySelector('[data-testid="global-audio"]')!; });

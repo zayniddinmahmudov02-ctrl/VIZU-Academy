@@ -3,16 +3,19 @@
 /* eslint-disable @next/next/no-img-element -- covers come from the API with long cache headers; next/image would proxy them again */
 
 import { useCallback, useEffect, useRef } from "react";
-import Link from "next/link";
-import { useQueryClient } from "@tanstack/react-query";
-import { Heart, ListMusic, Loader2, Pause, Play, Repeat, Repeat1, Shuffle, SkipBack, SkipForward, Volume2, VolumeX, X } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { Heart, ListMusic, Loader2, Maximize2, Pause, Play, Repeat, Repeat1, Shuffle, SkipBack, SkipForward, Volume2, VolumeX, X } from "lucide-react";
 
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { cn } from "@/lib/utils";
 
-import { errorCode, mediaUrl, playSong, setFavorite } from "../services/medien-service";
+import { isMusicPath } from "../lib/player-view";
+import { errorCode, mediaUrl, playSong } from "../services/medien-service";
 import { loadPlayer, savePlayer } from "../store/persist";
-import { currentSong, usePlayerStore } from "../store/player-store";
+import { currentSong, usePlayerStore, viewOf } from "../store/player-store";
+import FloatingVinyl from "./floating-vinyl";
+import { usePlayerFavorite } from "./player-favorite";
+import VinylPlayer from "./vinyl-player";
 
 // 44-byte silent WAV: played once inside the first user gesture so that mobile browsers allow later programmatic play()
 const SILENT = "data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YQAAAAA=";
@@ -25,10 +28,13 @@ export function formatTime(seconds: number): string {
 /** The one music player of the whole student panel. It lives in the dashboard layout, so the single <audio> element is
  * never recreated when the student changes pages: music keeps playing on Bibliothek, Vorbereitung, Dashboard … The queue,
  * the song, the position, shuffle / repeat and volume are saved and restored after a reload (paused: browsers do not allow
- * autoplay without a click). The Media Session API adds lock-screen / headset controls where the device supports them. */
+ * autoplay without a click). The Media Session API adds lock-screen / headset controls where the device supports them.
+ * Views around the element (lib/player-view.ts): the large vinyl player (VinylPlayer), the bar on Medien → Musik and the floating vinyl
+ * disc on every other page (FloatingVinyl). Only one sound at a time: a film / exam audio that starts pauses the music, and the music
+ * pauses any other playing media element when it starts. */
 export default function GlobalAudioPlayer() {
   const { t } = useTranslation();
-  const queryClient = useQueryClient();
+  const pathname = usePathname();
   const audioRef = useRef<HTMLAudioElement>(null);
   const loadedFor = useRef<string | null>(null);
   const switching = useRef(false);
@@ -48,14 +54,49 @@ export default function GlobalAudioPlayer() {
   const error = usePlayerStore((s) => s.error);
   const queueOpen = usePlayerStore((s) => s.queueOpen);
   const seekTo = usePlayerStore((s) => s.seekTo);
+  const showBar = usePlayerStore((s) => viewOf(s).bar);
   const song = currentSong({ queue, index });
   const store = usePlayerStore.getState;
+  const toggleFavorite = usePlayerFavorite();
 
   // restore queue + position after a reload (paused)
   useEffect(() => {
     const saved = loadPlayer();
     if (saved && !store().queue.length) usePlayerStore.getState().restore(saved);
   }, [store]);
+
+  // the route decides the view: on Medien → Musik the page + bar, elsewhere the floating disc; a page change closes the large player
+  useEffect(() => {
+    const s = usePlayerStore.getState();
+    s.setMusicPageActive(isMusicPath(pathname));
+    s.closeLargePlayer();
+    s.setFloatingPanel(false);
+  }, [pathname]);
+
+  // stopped (X) or the queue was emptied: the element really stops and lets go of the stream
+  useEffect(() => {
+    const el = audioRef.current;
+    if (!el || song) return;
+    el.pause();
+    if (el.getAttribute("src") && !el.src.startsWith("data:")) {
+      el.removeAttribute("src");
+      el.load();
+    }
+    loadedFor.current = null;
+    switching.current = false;
+  }, [song]);
+
+  // one sound at a time: another audio / video of the page (film, exam Hören, lesson audio) that starts pauses the music
+  useEffect(() => {
+    const onPlay = (e: Event) => {
+      const target = e.target;
+      if (target instanceof HTMLMediaElement && target !== audioRef.current && !target.muted && usePlayerStore.getState().playing) {
+        usePlayerStore.setState({ playing: false });
+      }
+    };
+    document.addEventListener("play", onPlay, true); // media events do not bubble: listen in the capture phase
+    return () => document.removeEventListener("play", onPlay, true);
+  }, []);
 
   // first user gesture: unlock the element for programmatic playback (mobile autoplay rules)
   useEffect(() => {
@@ -133,7 +174,9 @@ export default function GlobalAudioPlayer() {
   // persist (every few seconds while playing, and on every change that matters)
   const persist = useCallback(() => {
     const s = usePlayerStore.getState();
-    savePlayer({ queue: s.queue, index: s.index, position: audioRef.current?.currentTime ?? s.currentTime, shuffle: s.shuffle, repeat: s.repeat, volume: s.volume, muted: s.muted });
+    // nothing loaded yet (right after a reload): keep the restored position instead of the empty element's 0
+    const position = loadedFor.current && audioRef.current ? audioRef.current.currentTime : s.resumeAt ?? s.currentTime;
+    savePlayer({ queue: s.queue, index: s.index, position, shuffle: s.shuffle, repeat: s.repeat, volume: s.volume, muted: s.muted });
   }, []);
   useEffect(() => { persist(); }, [queue, index, shuffle, repeat, volume, muted, playing, persist]);
   useEffect(() => {
@@ -147,11 +190,13 @@ export default function GlobalAudioPlayer() {
     if (typeof navigator === "undefined" || !("mediaSession" in navigator)) return;
     const ms = navigator.mediaSession;
     if (!song) { ms.metadata = null; return; }
+    const art = song.cover_url ? mediaUrl(song.cover_url) : null;
     ms.metadata = new MediaMetadata({ title: song.title, artist: song.artist ?? "", album: song.album ?? "VIZU Medienwelt",
-      artwork: song.cover_url ? [{ src: mediaUrl(song.cover_url), sizes: "512x512" }] : [] });
+      artwork: art ? ["96x96", "192x192", "256x256", "512x512"].map((sizes) => ({ src: art, sizes })) : [] });
     const set = (action: MediaSessionAction, handler: MediaSessionActionHandler | null) => { try { ms.setActionHandler(action, handler); } catch { /* unsupported */ } };
     set("play", () => usePlayerStore.setState({ playing: true }));
     set("pause", () => usePlayerStore.setState({ playing: false }));
+    set("stop", () => usePlayerStore.getState().stop());
     set("previoustrack", () => usePlayerStore.getState().prev());
     set("nexttrack", () => usePlayerStore.getState().next());
     set("seekbackward", () => usePlayerStore.getState().seek((audioRef.current?.currentTime ?? 0) - 10));
@@ -164,7 +209,9 @@ export default function GlobalAudioPlayer() {
 
   const onTime = () => {
     const el = audioRef.current;
-    if (!el) return;
+    // only a loaded song reports progress: the silent unlock clip of the first tap (and the "emptied" events when its source is removed)
+    // must not overwrite the restored position with 0:00
+    if (!el || !loadedFor.current || el.src.startsWith("data:")) return;
     usePlayerStore.getState().setProgress(el.currentTime, Number.isFinite(el.duration) ? el.duration : 0);
     if ("mediaSession" in navigator && Number.isFinite(el.duration) && el.duration > 0) {
       try { navigator.mediaSession.setPositionState({ duration: el.duration, position: Math.min(el.currentTime, el.duration), playbackRate: el.playbackRate }); } catch { /* ignore */ }
@@ -174,6 +221,7 @@ export default function GlobalAudioPlayer() {
   const onLoadedMetadata = () => {
     const el = audioRef.current;
     const at = usePlayerStore.getState().resumeAt;
+    if (el?.src.startsWith("data:")) return;
     if (el && at !== null) {
       el.currentTime = Math.max(0, Math.min(at, Math.max(0, (el.duration || at) - 0.5)));
       usePlayerStore.getState().clearResume();
@@ -196,16 +244,11 @@ export default function GlobalAudioPlayer() {
     usePlayerStore.getState().setLoading(false);
   };
 
-  const toggleFavorite = async () => {
-    if (!song) return;
-    const on = !song.favorite;
-    usePlayerStore.getState().patchSong(song.id, { favorite: on });
-    try {
-      await setFavorite(song.id, on);
-      void queryClient.invalidateQueries({ queryKey: ["medien-songs"] });
-    } catch {
-      usePlayerStore.getState().patchSong(song.id, { favorite: !on });
-    }
+  // the music starts: any other media element of the page that is still playing is paused (never two sounds at once)
+  const pauseOthers = () => {
+    document.querySelectorAll("audio, video").forEach((m) => {
+      if (m !== audioRef.current && m instanceof HTMLMediaElement && !m.paused) m.pause();
+    });
   };
 
   return (
@@ -218,13 +261,27 @@ export default function GlobalAudioPlayer() {
         onDurationChange={onTime}
         onLoadedMetadata={onLoadedMetadata}
         onCanPlay={() => { switching.current = false; usePlayerStore.getState().setLoading(false); }}
-        onPlaying={() => { switching.current = false; usePlayerStore.getState().setLoading(false); usePlayerStore.getState().setError(null); }}
+        onPlaying={() => {
+          switching.current = false;
+          usePlayerStore.getState().setLoading(false);
+          usePlayerStore.getState().setError(null);
+          // only a real song pauses the others — never the silent unlock clip of the first tap (it would stop a film that is just starting)
+          const el = audioRef.current;
+          if (el && loadedFor.current && !el.src.startsWith("data:")) pauseOthers();
+        }}
         onPause={() => { const el = audioRef.current; if (el && !el.ended && !switching.current && usePlayerStore.getState().playing) usePlayerStore.setState({ playing: false }); }}
         onPlay={() => { if (!usePlayerStore.getState().playing && loadedFor.current) usePlayerStore.setState({ playing: true }); }}
-        onEnded={() => usePlayerStore.getState().next(true)}
+        onEnded={() => {
+          // the zero-length unlock clip of the first tap "ends" at once: that is not the song ending (it used to skip the restored song)
+          const el = audioRef.current;
+          if (!el || !loadedFor.current || el.src.startsWith("data:")) return;
+          usePlayerStore.getState().next(true);
+        }}
         onError={onError}
       />
-      {song && (
+      <VinylPlayer />
+      <FloatingVinyl />
+      {song && showBar && (
         <div className="sticky bottom-0 z-40 border-t border-surface-border bg-surface-card/95 shadow-[0_-8px_30px_rgba(0,0,0,0.18)] backdrop-blur" data-testid="player-bar">
           {queueOpen && (
             <div className="absolute inset-x-0 bottom-full max-h-[50vh] overflow-y-auto border-t border-surface-border bg-surface-card p-3 sm:left-auto sm:right-4 sm:w-96 sm:rounded-t-2xl sm:border sm:border-b-0" data-testid="player-queue">
@@ -247,7 +304,8 @@ export default function GlobalAudioPlayer() {
           )}
 
           <div className="mx-auto flex max-w-[1440px] flex-wrap items-center gap-x-4 gap-y-1 px-3 py-2 pr-20 sm:px-6 sm:pr-24 lg:flex-nowrap">
-            <Link href="/medien/musik" className="flex min-w-0 flex-1 items-center gap-3 lg:w-72 lg:flex-none" aria-label={t("medien.music")}>
+            <button type="button" onClick={() => usePlayerStore.getState().openLargePlayer()} className="flex min-w-0 flex-1 items-center gap-3 text-left lg:w-72 lg:flex-none"
+                    aria-label={`${t("medien.playerExpand")}: ${song.title}`} data-testid="player-open-large">
               <span className="relative h-11 w-11 shrink-0 overflow-hidden rounded-lg bg-gradient-to-br from-brand-600 to-accent-blue">
                 {song.cover_url && <img src={mediaUrl(song.cover_url)} alt="" className="h-full w-full object-cover" />}
               </span>
@@ -255,7 +313,7 @@ export default function GlobalAudioPlayer() {
                 <span className="block truncate text-sm font-bold text-text-primary" data-testid="player-title">{song.title}</span>
                 <span className="block truncate text-xs text-text-muted">{error ? t(`medien.err.${["PURCHASE_REQUIRED", "NOT_FOUND", "FILE_MISSING", "PLAYBACK_FAILED"].includes(error) ? error : "GENERIC"}`) : song.artist ?? ""}</span>
               </span>
-            </Link>
+            </button>
 
             <div className="flex items-center gap-1 sm:gap-2" data-testid="player-controls">
               <IconBtn label={t("medien.playerShuffle")} active={shuffle} onClick={() => usePlayerStore.getState().toggleShuffle()} testId="player-shuffle" className="hidden sm:flex"><Shuffle size={16} /></IconBtn>
@@ -285,6 +343,8 @@ export default function GlobalAudioPlayer() {
               <input type="range" min={0} max={1} step={0.05} value={muted ? 0 : volume} onChange={(e) => usePlayerStore.getState().setVolume(Number(e.target.value))}
                      aria-label={t("medien.playerVolume")} data-testid="player-volume" className="hidden h-1.5 w-20 cursor-pointer accent-[var(--color-accent-blue,#2563eb)] md:block" />
               <IconBtn label={t("medien.playerQueue")} active={queueOpen} onClick={() => usePlayerStore.getState().toggleQueue()} testId="player-queue-toggle"><ListMusic size={16} /></IconBtn>
+              <IconBtn label={t("medien.playerExpand")} onClick={() => usePlayerStore.getState().openLargePlayer()} testId="player-expand" className="hidden sm:flex"><Maximize2 size={16} /></IconBtn>
+              <IconBtn label={t("medien.playerStop")} onClick={() => usePlayerStore.getState().stop()} testId="player-stop"><X size={16} /></IconBtn>
             </div>
           </div>
         </div>

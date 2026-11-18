@@ -392,6 +392,15 @@ notifications, support, advertisements ("Werbung-Banner"), achievements.
     (payment window, buy button with pending / rejected states, "Meine Zahlungen"), `download-pdf-button.tsx`; admin `book-payments-admin.tsx` (Bibliothek → tab
     Zahlungsanfragen: list, receipt check, "geprüft" box, approve / reject with reason, card settings), `preview_pages_count` field in the book dialog, song format / bitrate /
     metadata warning in `songs-admin.tsx`. Texts: `medien.pay.*`, `medien.paywall*`, `medien.reader*`, `medien.err.<payment codes>`.
+- **Vinyl music player (2026-11-18, frontend only):** around the one `<audio>` of `GlobalAudioPlayer` (dashboard layout, never remounted):
+  `vinyl-player.tsx` = large player (base-ui Dialog: turning record `vinyl-disc.tsx` with the cover as label + tone arm, title, artist, progress, prev /
+  play / next, shuffle, repeat, volume, favourite; "Verkleinern" / Escape keeps the music, X = `stop()`); opens when a song is started on Medien → Musik,
+  closes on every page change. `floating-vinyl.tsx` = turning disc with progress ring bottom-right on every other page (above the chat button; on the
+  Multilevel exam page above the Hören dock on phones), tap → panel (title, artist, progress, prev / play / next, large player, X). The Musik page keeps
+  its bar (cover / expand button → large player, X). View rules = `lib/player-view.ts` (unit test `medien-player-view.test.mjs`); store fields
+  `isLargePlayerOpen`, `isMusicPageActive`, `isFloatingPanelOpen`, selector `isFloatingPlayerVisible`, `stop()` (pauses, removes the source, clears queue +
+  saved copy). One sound at a time: another audio / video that starts pauses the music; the music pauses other playing media. The silent unlock clip of
+  the first tap no longer resets / skips a restored song. Media Session: artwork sizes + `stop`. E2E `medien-vinyl-player.spec.ts`.
 - **Frontend:** student `fe/app/(dashboard)/medien/*` + `fe/features/medien/` (global player store + `GlobalAudioPlayer` in the
   dashboard layout: one `<audio>`, queue/position/volume restored after reload, Media Session; `PdfReader` = pdf.js
   (`pdfjs-dist@5.4.449`, page + zoom + fullscreen, last page saved); `FilmPlayer` = own controls around one `<video>` (play, ±10 s, previous / next film,
