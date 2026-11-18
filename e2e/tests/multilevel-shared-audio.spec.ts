@@ -1,6 +1,6 @@
 import { expect, test, type Page } from "@playwright/test";
 
-import { ADMIN, API_URL, PASSWORD, createStudent, loginViaForm, useLanguage } from "./helpers";
+import { ADMIN, API_URL, PASSWORD, createStudent, grantMultilevelPremium, loginViaForm, useLanguage } from "./helpers";
 
 // Multilevel Modelltest 1: ONE shared Hören audio for all Teile. Admin: one upload / replacement for the whole Hören section (Multilevel Audio page); student:
 // one player that keeps playing while the Teile are answered, six Teile with their own questions, the exam time independent of the audio length.
@@ -132,6 +132,7 @@ test.describe.serial("Modelltest 1: one shared Hören audio", () => {
     test.setTimeout(120_000);
     await useLanguage(page, "de");
     const email = await createStudent();
+    await grantMultilevelPremium(email); // every Multilevel Modelltest needs the Premium
     await loginViaForm(page, email, PASSWORD);
     await expect(page).toHaveURL(/\/dashboard/);
     await page.goto("/vorbereitung/multilevel");

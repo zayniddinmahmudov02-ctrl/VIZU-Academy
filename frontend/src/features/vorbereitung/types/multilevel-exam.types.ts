@@ -30,13 +30,16 @@ export interface ExamListItem {
   title: string;
   number: number;
   description: string | null;
+  /** no Multilevel Premium (all 10 are locked until the purchase / promo is approved) */
   is_locked: boolean;
+  /** PUBLISHED; false = "Tayyorlanmoqda" (shown, never startable) */
+  available: boolean;
   attempts: number;
   open_attempt_id: string | null;
   /** the four sections with their server-side length; their sum is `total_minutes` (195 for the standard exam) */
   sections: { type: ExamSection; title: string; duration_minutes: number }[];
   total_minutes: number;
-  state: "NEW" | "IN_PROGRESS" | "DONE";
+  state: "NEW" | "IN_PROGRESS" | "DONE" | "PREPARING";
   last_result: AttemptSummary | null;
 }
 

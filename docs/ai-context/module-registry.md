@@ -194,8 +194,23 @@ API prefixes are listed without `/api/v1` (every router is mounted bare and unde
   `access_*_date` (days from approval, server time); manual gateway, SUPER_ADMIN approves (row-locked, idempotent);
   promo codes with `requires_approval` give no discount until an admin approved the student's request; the server
   computes every price. Only lesson 1 of each course is free.
+- **Multilevel Modelltest Premium (2026-11-16, migration `a7c4e2f9b1d8`):** `be/services/vizu_pay/multilevel_premium.py` — one
+  purchase (`plan = ML_PREMIUM`, default 99 000 = `offers.ML_PREMIUM_PRICE`, admin override `app_settings["multilevel_premium"]`)
+  opens all 10 Multilevel Modelltests, unlimited; access = active `user_entitlements` row (PAYMENT on approval, PROMO for a 100 %
+  Multilevel code) or staff (`access.can_access_model_test` → `has_multilevel_premium`; legacy Premium does not open it); manual
+  card payment with receipt or "Chek mavjud emas" + date/time, no auto-expiry, one open ML order, refund revokes. Student
+  `fe/features/vizu-pay/components/multilevel-premium-modal.tsx` on `/vorbereitung/multilevel` (10 cards, LOCKED / OPEN /
+  "Tayyorlanmoqda" for DRAFT tests).
+- **Promo codes (2026-11-16):** `product_category` COURSES / PACKAGES / MULTILEVEL (never mixed: `VizuPayService.promo_category_fits`);
+  every code starts PENDING and works only when a Super Admin approved + activated it (`AdminVizuPayService.review_promo`; a changed
+  type / value / category / scope sends it back to PENDING); personal codes (`assigned_user_id`). "Promo so'rovi" = `promo_code_requests`
+  kind COURSE_REQUEST (student picks a package; admin approves with a new personal code or an existing ACTIVE one —
+  `review_course_request`; nothing is bought by it). Admin `/admin/payments`: Overview, Payment Requests, Course Payments, Multilevel
+  Modelltest Payments (+ Premium holders), Promo Codes, Promo Requests, Purchase History, Payment Settings
+  (`fe/features/admin/components/payments/{payments-sections,payment-tabs,buyer-card}.tsx`).
 - **Tests:** `test_angebote`, `test_course_packages*`, `test_promo_*`, `test_admin_purchase_analytics`,
-  `test_course_access_terms`; E2E `purchase.spec.ts`.
+  `test_course_access_terms`, `test_multilevel_premium*`; E2E `purchase.spec.ts`, `multilevel-premium.spec.ts` (E2E helper
+  `grantMultilevelPremium` in `e2e/tests/helpers.ts` for specs that start Multilevel exams).
 
 ## 12. Admin CMS
 
@@ -298,7 +313,8 @@ See `deployment-map.md`, skill `vizu-deploy`, `docs/deploy-frontend.md`, `docs/l
 VIZU-Multilevel level test (student UI name "Stufe Bestimmung" since 2026-11-05; code, routes, APIs and admin keep
 "VIZU-Multilevel"; `/vizu-multilevel`, legacy alias `/vizu-mock`, `be/services/vizu_multilevel/`,
 `fe/app/(dashboard)/vizu-multilevel`), Vorbereitung mock exams (`/mock-exam*`, `be/services/mock_exam/`,
-`fe/app/(dashboard)/vorbereitung`; Multilevel Modelltest 1–10 import, keys, source PDF, publish guard:
+`fe/app/(dashboard)/vorbereitung`; all 10 Multilevel Modelltests need the Multilevel Premium (see §11) — the student list shows every
+test, DRAFT ones as "Tayyorlanmoqda"; Multilevel Modelltest 1–10 import, keys, source PDF, publish guard:
 `be/services/mock_exam/multilevel_service.py`, `scripts/multilevel_import.py`, `docs/multilevel-modelltests.md`; timed
 exam mode + 0–75 scoring + B1/B2/C1 result: `be/services/mock_exam/multilevel_exam_service.py`, student
 `fe/app/(dashboard)/vorbereitung/multilevel/{pruefung,ergebnis}`, admin `fe/app/admin/mock-exams/multilevel`, tests

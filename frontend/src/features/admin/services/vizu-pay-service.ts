@@ -7,6 +7,10 @@ import type {
   BlockedUserItem,
   DiscountStatistics,
   MethodBreakdown,
+  MlEntitlementItem,
+  PaymentSettings,
+  PaymentsOverview,
+  PromoReviewAction,
   PromoRequestItem,
   PromoRequestList,
   PlanBreakdown,
@@ -30,8 +34,8 @@ export async function listOrders(params: {
   year?: number;
   month?: number;
   day?: number;
-  /** "course" = Angebote course orders only */
-  kind?: "course";
+  /** "course" = Angebote course orders only, "multilevel" = Multilevel Modelltest Premium */
+  kind?: "course" | "multilevel";
 }): Promise<AdminOrderListResponse> {
   const response = await api.get<AdminOrderListResponse>(`${ADMIN_ENDPOINTS.adminVizuPay}/orders`, {
     params,
@@ -96,9 +100,43 @@ export async function listPromoCodeOrders(id: string, page = 1, pageSize = 20, f
   return response.data;
 }
 
-export async function listPromoRequests(params: { status?: string; promo_id?: string; search?: string; plan?: string; page?: number; page_size?: number } = {}): Promise<PromoRequestList> {
+export async function listPromoRequests(params: { status?: string; promo_id?: string; search?: string; plan?: string; kind?: string; page?: number; page_size?: number } = {}): Promise<PromoRequestList> {
   const response = await api.get<PromoRequestList>(`${ADMIN_ENDPOINTS.adminVizuPay}/promo-requests`, { params });
   return { ...response.data, items: ensureArray<PromoRequestItem>(response.data?.items) };
+}
+
+/** "Promo so'rovi": reject, or approve with a new personal code (create) / an existing approved ACTIVE code (attach). */
+export async function reviewCourseRequest(id: string, body: {
+  approve: boolean; reason?: string | null; mode?: "create" | "attach"; discount_type?: "PERCENT" | "FIXED" | "FREE_ACCESS";
+  discount_value?: number | null; expires_at?: string | null; promo_code_id?: string | null;
+}): Promise<PromoRequestItem> {
+  return (await api.post<PromoRequestItem>(`${ADMIN_ENDPOINTS.adminVizuPay}/promo-requests/${id}/course-review`, body)).data;
+}
+
+/** The approval every promo code needs before it works. */
+export async function reviewPromoCode(id: string, action: PromoReviewAction, note?: string): Promise<PromoCodeItem> {
+  return (await api.post<PromoCodeItem>(`${ADMIN_ENDPOINTS.adminVizuPay}/promo-codes/${id}/review`, { action, note: note || null })).data;
+}
+
+export async function setOrderNote(id: string, note: string): Promise<AdminOrderItem> {
+  return (await api.patch<AdminOrderItem>(`${ADMIN_ENDPOINTS.adminVizuPay}/orders/${id}/note`, { note: note || null })).data;
+}
+
+export async function getPaymentsOverview(): Promise<PaymentsOverview> {
+  return (await api.get<PaymentsOverview>(`${ADMIN_ENDPOINTS.adminVizuPay}/overview`)).data;
+}
+
+export async function getPaymentSettings(): Promise<PaymentSettings> {
+  return (await api.get<PaymentSettings>(`${ADMIN_ENDPOINTS.adminVizuPay}/payment-settings`)).data;
+}
+
+export async function updatePaymentSettings(body: { multilevel_price?: number; multilevel_status?: "ACTIVE" | "DISABLED" }): Promise<PaymentSettings> {
+  return (await api.put<PaymentSettings>(`${ADMIN_ENDPOINTS.adminVizuPay}/payment-settings`, body)).data;
+}
+
+export async function listMlEntitlements(params: { search?: string; include_revoked?: boolean } = {}): Promise<MlEntitlementItem[]> {
+  const response = await api.get<MlEntitlementItem[]>(`${ADMIN_ENDPOINTS.adminVizuPay}/multilevel-entitlements`, { params });
+  return ensureArray<MlEntitlementItem>(response.data);
 }
 
 export async function reviewPromoRequest(id: string, approve: boolean, reason?: string) {

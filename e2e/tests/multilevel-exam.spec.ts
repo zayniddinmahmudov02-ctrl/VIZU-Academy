@@ -1,6 +1,6 @@
 import { expect, test, type Page } from "@playwright/test";
 
-import { ADMIN, PASSWORD, createStudent, loginViaForm, useLanguage } from "./helpers";
+import { ADMIN, PASSWORD, createStudent, grantMultilevelPremium, loginViaForm, useLanguage } from "./helpers";
 
 // Multilevel exam mode (local stack; needs a PUBLISHED, complete "Modelltest 1" in "Multilevel B1–C1" — local seed
 // D:\vz_tmp\work\ml_e2e_seed.py). Student: no level choice, timed section, answers saved and changeable, submit,
@@ -21,6 +21,7 @@ test.describe.serial("multilevel exam", () => {
   test("student takes the exam without choosing a level", async ({ page }, info) => {
     await useLanguage(page, "de");
     studentEmail = await createStudent();
+    await grantMultilevelPremium(studentEmail); // every Multilevel Modelltest needs the Premium (multilevel-premium.spec.ts covers buying it)
     await loginViaForm(page, studentEmail, PASSWORD);
     await expect(page).toHaveURL(/\/dashboard/);
 

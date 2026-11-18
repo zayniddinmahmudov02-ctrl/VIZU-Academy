@@ -1,9 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Clock, CreditCard, FileText, Phone, X } from "lucide-react";
+import { Check, Clock, CreditCard, FileText, MessageSquare, Phone, StickyNote, X } from "lucide-react";
 
 import type { AdminOrderItem } from "@/features/admin/types/vizu-pay.types";
+
+const CATEGORY_LABEL: Record<string, string> = {
+  MULTILEVEL: "Multilevel Modelltest Premium",
+  COURSES: "Kurs",
+  PACKAGES: "Paket",
+  LEGACY: "Premium (alt)",
+};
 
 const STATUS_STYLE: Record<string, string> = {
   PENDING: "bg-[var(--admin-warning)]/15 text-[var(--admin-warning)]",
@@ -19,18 +26,24 @@ interface Props {
   onReject: (order: AdminOrderItem) => void;
   onViewHistory: (order: AdminOrderItem) => void;
   onExtend: (order: AdminOrderItem, months: number, reason: string) => void;
+  /** the admin's own note ("Izoh yozish"); omitted = no note button */
+  onNote?: (order: AdminOrderItem, note: string) => void;
   approvePending: boolean;
   extendPending: boolean;
 }
 
-export default function BuyerCard({ order, onOpenReceipt, onApprove, onReject, onViewHistory, onExtend, approvePending, extendPending }: Props) {
+export default function BuyerCard({ order, onOpenReceipt, onApprove, onReject, onViewHistory, onExtend, onNote, approvePending, extendPending }: Props) {
   const [extendOpen, setExtendOpen] = useState(false);
   const [months, setMonths] = useState(1);
   const [reason, setReason] = useState("");
+  const [noteOpen, setNoteOpen] = useState(false);
+  const [note, setNote] = useState(order.admin_note ?? "");
   const name = [order.user_first_name, order.user_last_name].filter(Boolean).join(" ") || order.user_username;
+  const category = order.product_category ?? "";
 
   return (
-    <div className="flex flex-col gap-3 rounded-2xl bg-[var(--admin-card)] p-4 shadow-[var(--admin-shadow-card)] ring-1 ring-[var(--admin-border)]" data-testid="buyer-card">
+    <div className="flex flex-col gap-3 rounded-2xl bg-[var(--admin-card)] p-4 shadow-[var(--admin-shadow-card)] ring-1 ring-[var(--admin-border)]" data-testid="buyer-card"
+      data-category={category} data-order-id={order.id}>
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <p className="truncate font-semibold text-[var(--admin-text-primary)]">{name}</p>
@@ -47,14 +60,41 @@ export default function BuyerCard({ order, onOpenReceipt, onApprove, onReject, o
         </span>
       </div>
 
+      {category && (
+        <span className={`w-fit rounded-full px-2.5 py-0.5 text-[11px] font-bold ${category === "MULTILEVEL" ? "bg-amber-500/15 text-amber-600" : "bg-[var(--admin-primary)]/10 text-[var(--admin-primary)]"}`}
+          data-testid="buyer-category">
+          {CATEGORY_LABEL[category] ?? category}
+        </span>
+      )}
+
       <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-[var(--admin-text-secondary)]">
         <span className="flex items-center gap-1.5">
           <CreditCard size={12} />
           {order.payment_method} · {order.plan_label}
         </span>
-        <span>{order.final_amount.toLocaleString()} {order.currency}</span>
+        <span data-testid="buyer-amount">{order.final_amount.toLocaleString()} {order.currency}</span>
+        {order.discount_amount > 0 && <span>−{order.discount_amount.toLocaleString()}{order.promo_code ? ` · ${order.promo_code}` : ""}</span>}
         <span>Eingereicht: {new Date(order.created_at).toLocaleString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" })}</span>
+        {order.paid_at && (
+          <span data-testid="buyer-paid-at">Bezahlt laut Student: {new Date(order.paid_at).toLocaleString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" })}</span>
+        )}
       </div>
+
+      {order.no_receipt && (
+        <p className="rounded-lg bg-[var(--admin-warning)]/10 px-3 py-2 text-xs font-semibold text-[var(--admin-warning)]" data-testid="buyer-no-receipt">
+          Kein Beleg („Chek mavjud emas“) — Zahlung über Datum und Uhrzeit prüfen.
+        </p>
+      )}
+      {order.student_note && (
+        <p className="flex items-start gap-1.5 text-xs text-[var(--admin-text-secondary)]" data-testid="buyer-student-note">
+          <MessageSquare size={12} className="mt-0.5 shrink-0" />{order.student_note}
+        </p>
+      )}
+      {order.admin_note && !noteOpen && (
+        <p className="flex items-start gap-1.5 rounded-lg bg-[var(--admin-primary)]/10 px-3 py-2 text-xs text-[var(--admin-text-primary)]" data-testid="buyer-admin-note">
+          <StickyNote size={12} className="mt-0.5 shrink-0" />{order.admin_note}
+        </p>
+      )}
 
       {order.status === "APPROVED" && order.access_start_date && order.access_end_date && (
         <p className="text-xs text-[var(--admin-text-secondary)]">
@@ -94,6 +134,18 @@ export default function BuyerCard({ order, onOpenReceipt, onApprove, onReject, o
           Verlauf
         </button>
 
+        {onNote && (
+          <button
+            type="button"
+            onClick={() => setNoteOpen((open) => !open)}
+            data-testid="buyer-note-toggle"
+            className="flex items-center gap-1.5 rounded-lg ring-1 ring-[var(--admin-border-strong)] px-3 py-1.5 text-xs font-semibold text-[var(--admin-text-secondary)] transition hover:bg-[var(--admin-hover)]"
+          >
+            <StickyNote size={13} />
+            Notiz
+          </button>
+        )}
+
         {order.status === "PENDING" && (
           <>
             <button
@@ -113,7 +165,7 @@ export default function BuyerCard({ order, onOpenReceipt, onApprove, onReject, o
             </button>
           </>
         )}
-        {order.status === "APPROVED" && (
+        {order.status === "APPROVED" && order.product_category !== "MULTILEVEL" && (
           <button
             type="button"
             onClick={() => setExtendOpen((open) => !open)}
@@ -124,7 +176,33 @@ export default function BuyerCard({ order, onOpenReceipt, onApprove, onReject, o
         )}
       </div>
 
-      {extendOpen && order.status === "APPROVED" && (
+      {noteOpen && onNote && (
+        <form
+          className="grid gap-2 border-t border-[var(--admin-border)] pt-3"
+          onSubmit={(event) => {
+            event.preventDefault();
+            onNote(order, note);
+            setNoteOpen(false);
+          }}
+        >
+          <label className="text-xs text-[var(--admin-text-secondary)]">
+            Interne Notiz (nur für Admins, im Audit-Log vermerkt)
+            <textarea
+              value={note}
+              onChange={(event) => setNote(event.target.value)}
+              maxLength={1000}
+              rows={2}
+              data-testid="buyer-note-input"
+              className="mt-1 w-full rounded-lg bg-[var(--admin-card)] px-2 py-1.5 ring-1 ring-[var(--admin-border)]"
+            />
+          </label>
+          <button type="submit" data-testid="buyer-note-save" className="justify-self-end rounded-lg bg-[var(--admin-primary)] px-3 py-1.5 text-xs font-semibold text-white">
+            Notiz speichern
+          </button>
+        </form>
+      )}
+
+      {extendOpen && order.status === "APPROVED" && order.product_category !== "MULTILEVEL" && (
         <form
           className="grid gap-2 border-t border-[var(--admin-border)] pt-3 sm:grid-cols-[100px_1fr_auto]"
           onSubmit={(event) => {

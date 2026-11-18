@@ -66,6 +66,18 @@ To'liq ro'yxat har bir test sahifasida („Prüfliste").
 - Talaba: Hören bo'limida pastda bitta audio pleyer; Teil'lar o'z savollari bilan alohida ko'rinadi, Teil'dan Teil'ga o'tganda audio qayta boshlanmaydi,
   sahifa yangilansa audio taxminan shu joydan davom etadi. Audio davomiyligi va bo'lim vaqti (60 daq.) bir-biriga bog'liq emas.
 
+## Multilevel Modelltest Premium (2026-11-16)
+
+- Talaba panelida 10 ta Modelltest ko'rinadi, hammasi **yopiq**, toki talabada Premium bo'lmaguncha (Modelltest 1 ham endi bepul emas;
+  xodimlar uchun hammasi ochiq). Nashr qilinmagan (DRAFT) testlar «Tayyorlanmoqda» bo'lib turadi — ularni boshlab bo'lmaydi.
+- Premium: bir martalik to'lov, narxi serverda (standart 99 000 so'm, `offers.ML_PREMIUM_PRICE`; Admin → Payments → Payment Settings
+  da o'zgartirish yoki sotuvni to'xtatish mumkin, audit), muddatsiz.
+- To'lov: karta 9860 0401 1406 3742 → chek (JPG/PNG/PDF) yoki «Chek mavjud emas» + sana va vaqt → PENDING → Super Admin
+  (Admin → Payments → Multilevel Modelltest Payments) tasdiqlaydi yoki sabab bilan rad etadi. Tasdiq bir marta ishlaydi; refund
+  Premiumni bekor qiladi.
+- Promo: Multilevel kategoriyasidagi kod (foiz yoki 100 % bepul) faqat Super Admin tasdiqlab faollashtirgandan keyin ishlaydi;
+  100 % kod to'lovsiz hamma testni ochadi. Kurs kodlari bu yerda ishlamaydi.
+
 ## Ochiq
 
 - 7–10 Hören: vazifalar (savollar + audio) hali yo'q; savollarni admin panelda yaratib bo'lmaydi — import kerak.

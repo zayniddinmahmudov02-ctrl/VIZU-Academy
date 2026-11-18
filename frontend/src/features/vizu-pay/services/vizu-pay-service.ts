@@ -207,6 +207,9 @@ interface PromoRequestPayload {
   status: PromoRequest["status"];
   reason?: string | null;
   created_at?: string | null;
+  kind?: PromoRequest["kind"];
+  message?: string | null;
+  discount?: { type: string; value: number; expires_at: string | null; used: boolean } | null;
 }
 
 function mapPromoRequest(raw: PromoRequestPayload): PromoRequest {
@@ -218,7 +221,15 @@ function mapPromoRequest(raw: PromoRequestPayload): PromoRequest {
     status: raw.status,
     reason: raw.reason ?? null,
     createdAt: raw.created_at ?? null,
+    kind: raw.kind ?? "CODE_APPROVAL",
+    message: raw.message ?? null,
+    discount: raw.discount ? { type: raw.discount.type, value: raw.discount.value, expiresAt: raw.discount.expires_at, used: raw.discount.used } : null,
   };
+}
+
+/** "Promo so'rovi": ask the admin for a promo for one course / package (opens nothing by itself). */
+export async function createCourseRequest(plan: string, message?: string): Promise<PromoRequest> {
+  return mapPromoRequest((await api.post<PromoRequestPayload>("/api/v1/vizu-pay/promo/course-requests", { plan, message: message || null })).data);
 }
 
 /** A code that needs an admin's approval: creates (or returns) this student's request for the package. */

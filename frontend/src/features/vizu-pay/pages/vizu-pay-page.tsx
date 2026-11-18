@@ -13,6 +13,7 @@ import { getMyPromoRequests } from "../services/vizu-pay-service";
 import SubscriptionStatusCard from "../components/subscription-status-card";
 import OrderHistoryList from "../components/order-history-list";
 import CheckoutModal from "../components/checkout-modal";
+import CoursePromoRequest from "../components/course-promo-request";
 import { offerState } from "../offer-state";
 import type { Offer, PlanOption } from "../types";
 
@@ -110,18 +111,35 @@ export default function VizuPayPage() {
             </div>
           </section>
 
+          <CoursePromoRequest offers={offers} ownedLevels={status.ownedLevels} />
+
           {promoRequests.length > 0 && (
             <section data-testid="promo-requests">
               <h2 className="mb-3 text-lg font-bold text-text-primary">{t("angebote.promoRequestsTitle")}</h2>
               <ul className="space-y-2">
                 {promoRequests.map((r) => (
-                  <li key={r.id} className="flex flex-wrap items-center justify-between gap-2 rounded-xl bg-surface-card px-4 py-3 text-sm ring-1 ring-surface-border">
-                    <span className="font-semibold text-text-primary">{r.code} · {r.planLabel}</span>
+                  <li key={r.id} className="flex flex-wrap items-center justify-between gap-2 rounded-xl bg-surface-card px-4 py-3 text-sm ring-1 ring-surface-border"
+                    data-testid="promo-request-row" data-kind={r.kind} data-status={r.status}>
+                    <span className="font-semibold text-text-primary">
+                      {r.kind === "COURSE_REQUEST" ? t("angebote.courseRequestKind") : r.code} · {r.planLabel}
+                    </span>
                     <span className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${
                       r.status === "APPROVED" ? "bg-success/15 text-success" : r.status === "PENDING_APPROVAL" ? "bg-warning/15 text-warning"
                         : r.status === "REJECTED" ? "bg-danger/15 text-danger" : "bg-surface-hover text-text-muted"}`}>
                       {t(`angebote.requestStatus${r.status}`)}
                     </span>
+                    {r.kind === "COURSE_REQUEST" && r.code && (
+                      <div className="w-full rounded-lg bg-success/10 px-3 py-2 text-xs text-text-primary" data-testid="promo-request-code">
+                        <p className="font-mono text-sm font-bold">{t("angebote.courseRequestYourCode", { code: r.code })}</p>
+                        {r.discount && (
+                          <p className="text-text-secondary">
+                            {r.discount.type === "PERCENT" ? t("angebote.courseRequestPercent", { value: r.discount.value })
+                              : r.discount.type === "FIXED" ? t("angebote.courseRequestFixed", { value: r.discount.value })
+                                : t("angebote.courseRequestFree")} · {t("angebote.courseRequestUse")}
+                          </p>
+                        )}
+                      </div>
+                    )}
                     {r.reason && <p className="w-full text-xs text-text-muted">{r.reason}</p>}
                   </li>
                 ))}

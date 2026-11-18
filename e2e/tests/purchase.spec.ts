@@ -86,16 +86,17 @@ test.describe.serial("purchase", () => {
 
     await page.goto("/admin/payments");
     await expect(page.getByRole("tab", { name: "Telegram" })).toHaveCount(0);
-    for (const tab of ["Zahlungshistorie", "Paketkäufe", "Promo-Codes", "Promo-Freigaben", "Rabatt-Statistik"]) {
-      await expect(page.getByRole("tab", { name: tab })).toBeVisible();
+    // the eight sections of Admin -> Payments (2026-11-16)
+    for (const tab of ["Overview", "Payment Requests", "Course Payments", "Multilevel Modelltest Payments", "Promo Codes", "Promo Requests",
+      "Purchase History", "Payment Settings"]) {
+      await expect(page.getByRole("tab", { name: tab, exact: true })).toBeVisible();
     }
-    await page.getByRole("tab", { name: "Promo-Freigaben" }).click();
+    await expect(page.getByTestId("discount-stats-tab")).toBeVisible(); // the discount figures are part of the overview
+    await page.getByRole("tab", { name: "Promo Requests", exact: true }).click();
     const row = page.locator("tr", { hasText: student }).first();
     await expect(row).toContainText("E2EAPPROVE");
     await row.getByTestId("promo-request-approve").click();
     await expect(page.locator("tr", { hasText: student })).toHaveCount(0); // gone from the pending list
-    await page.getByRole("tab", { name: "Rabatt-Statistik" }).click();
-    await expect(page.getByTestId("discount-stats-tab")).toBeVisible();
     await page.screenshot({ path: "test-results/purchase-admin.png", fullPage: true });
   });
 

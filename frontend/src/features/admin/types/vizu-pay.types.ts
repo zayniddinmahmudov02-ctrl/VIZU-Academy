@@ -27,6 +27,51 @@ export interface AdminOrderItem {
   user_phone_number: string | null;
   reviewed_by_email: string | null;
   rejection_count: number;
+  /** COURSES / PACKAGES / MULTILEVEL / LEGACY */
+  product_category?: string;
+  /** Multilevel checkout: transfer date + time given by the student (required with no_receipt) */
+  paid_at?: string | null;
+  no_receipt?: boolean;
+  student_note?: string | null;
+  /** the Super Admin's own note, never shown to the student */
+  admin_note?: string | null;
+}
+
+export type ProductCategory = "COURSES" | "PACKAGES" | "MULTILEVEL";
+export type PromoApprovalStatus = "PENDING" | "APPROVED" | "ACTIVE" | "REJECTED" | "DISABLED";
+export type PromoReviewAction = "approve" | "approve_activate" | "activate" | "reject" | "disable";
+
+export interface PaymentsOverview {
+  payments: { total: number; approved: number; pending: number; rejected: number; expired: number; refunded: number };
+  pending: { course: number; multilevel: number };
+  course_purchases: number;
+  course_buyers: number;
+  multilevel_purchases: number;
+  multilevel_active: number;
+  promo_accesses: { course: number; multilevel: number; total: number };
+  revenue: { total: number; multilevel: number; course: number };
+  promo_codes: Record<PromoApprovalStatus, number>;
+  promo_requests_open: { code_approval: number; course_request: number };
+}
+
+export interface PaymentSettings {
+  cards: { label: string; number: string }[];
+  multilevel: { code: string; label: string; price: number; default_price: number; status: "ACTIVE" | "DISABLED"; currency: string };
+  review_window_days: number;
+  max_rejections: number;
+}
+
+export interface MlEntitlementItem {
+  id: string;
+  user_id: string;
+  user_email: string;
+  user_name: string;
+  source: "PAYMENT" | "PROMO";
+  granted_at: string;
+  order_id: string | null;
+  promo_code: string | null;
+  revoked_at: string | null;
+  revoke_reason: string | null;
 }
 
 export interface AdminOrderListResponse {
@@ -74,10 +119,21 @@ export interface PromoCodeItem {
   pending_requests?: number;
   created_by_email?: string | null;
   created_at: string;
+  product_category?: ProductCategory;
+  /** a code works only when ACTIVE (approved by a Super Admin and switched on) */
+  approval_status?: PromoApprovalStatus;
+  approved_at?: string | null;
+  approved_by_email?: string | null;
+  review_note?: string | null;
+  assigned_user_id?: string | null;
+  assigned_user_email?: string | null;
 }
 
 export interface PromoRequestItem {
   id: string;
+  /** CODE_APPROVAL = a code that needs approval; COURSE_REQUEST = "Promo so'rovi" (no code until approved) */
+  kind?: "CODE_APPROVAL" | "COURSE_REQUEST";
+  message?: string | null;
   code: string;
   plan: string;
   plan_label: string;
@@ -149,6 +205,7 @@ export interface PromoCodeCreateRequest {
   expires_at?: string | null;
   is_active?: boolean;
   requires_approval?: boolean;
+  product_category?: ProductCategory;
 }
 
 export interface PromoCodeUpdateRequest extends Partial<PromoCodeCreateRequest> {
@@ -158,6 +215,7 @@ export interface PromoCodeUpdateRequest extends Partial<PromoCodeCreateRequest> 
 export interface PromoProductCatalog {
   courses: { id: string; title: string; level: string }[];
   packages: { code: string; label: string }[];
+  multilevel?: { code: string; label: string; price: number };
 }
 
 export interface RevenueChartPoint {

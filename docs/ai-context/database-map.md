@@ -5,7 +5,8 @@ PostgreSQL; connection from settings `DATABASE_HOST/PORT/NAME/USER/PASSWORD` (na
 
 ## Migrations
 
-- Linear history, one head. **Head = `b6e2d9f4a1c8`**
+- Linear history, one head. **Head = `a7c4e2f9b1d8`**
+- `a7c4e2f9b1d8` (2026-11-16): Multilevel Modelltest Premium + promo approval — additive: new table `user_entitlements` (product access that is not a course level, e.g. `MULTILEVEL_MODELLTEST_PREMIUM`; source PAYMENT / PROMO, order / promo / granted_by FKs SET NULL, user FK CASCADE, `revoked_*` on refund, partial unique `uq_user_entitlements_active` = one active row per user + product); `promo_codes.product_category` (COURSES / PACKAGES / MULTILEVEL, CHECK), `approval_status` (PENDING / APPROVED / ACTIVE / REJECTED / DISABLED, CHECK, default PENDING), `approved_by_id`, `approved_at`, `review_note`, `assigned_user_id` (personal code, user FK CASCADE) — existing codes backfilled ACTIVE / DISABLED + approved by their creator (they were in use); `promo_code_requests.kind` (CODE_APPROVAL / COURSE_REQUEST) + `message`, `promo_code_id` nullable (CHECK: only a course request may have none), partial unique = one pending course request per user + package; `subscription_orders.paid_at`, `no_receipt`, `student_note`, `admin_note`. Downgrade drops exactly these and deletes course requests without a code (`test_multilevel_premium_migration`).
 - `e6d2b9a4c8f3` (2026-11-16): Multilevel shared Hören audio — additive: `kompetenzen.audio_file_id` (nullable FK `audio_files`, ON DELETE SET NULL, indexed) = the one audio of a Hören section in shared mode (Modelltest 1). Downgrade drops exactly this (`test_multilevel_shared_audio_migration`).
 - `d4b9e2a7c3f1` (2026-11-16): Multilevel answer key + section length — additive: `mock_questions.answer_key` (the key as typed, nullable), `mock_attempt_sections.duration_seconds` (granted length; existing rows filled from `deadline_at - started_at`). Downgrade drops exactly these (`test_multilevel_keys_migration`).
 - `c2f7a9d1e4b6` (2026-11-15): Bibliothek reader + book payments + song metadata — additive: `media_books.preview_pages_count` (default 10) / `page_count`, `media_progress.scroll_position` / `last_opened_at`, `songs.audio_format / bitrate_kbps / metadata_status / metadata_note`, `media_purchases.payment_request_id`, new table `book_payment_requests` (status check, amount > 0, partial unique index = one PENDING per user + book; user FK cascades, book FK sets NULL and `book_title` stays). Downgrade drops exactly these (`test_medien_books_payments_migration`).
@@ -56,7 +57,9 @@ PostgreSQL; connection from settings `DATABASE_HOST/PORT/NAME/USER/PASSWORD` (na
   vizu_mock_answers, vizu_mock_writing_tasks, vizu_mock_writing_rubric_criteria, vizu_mock_writing_submissions,
   vizu_mock_writing_criterion_scores, vizu_multilevel_speaking_tasks, vizu_multilevel_speaking_submissions,
   vizu_multilevel_discarded_attempts
-- **Payments:** subscription_orders, promo_codes, promo_code_redemptions
+- **Payments:** subscription_orders (also the Multilevel Premium: `plan = ML_PREMIUM`), promo_codes, promo_code_redemptions,
+  promo_code_requests, course_packages, user_entitlements (Multilevel Premium access); Premium price / sale in
+  `app_settings["multilevel_premium"]`
 - **Mobile app:** app_releases (APK files in `app/protected_storage/app-releases`)
 - **Community:** global_chat_messages, global_chat_message_edits, global_chat_restrictions, global_chat_moderation_actions,
   global_chat_reads, study_groups, study_group_courses, study_group_members, study_group_join_codes, study_group_messages,

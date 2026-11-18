@@ -2,7 +2,7 @@ import { execFileSync } from "node:child_process";
 
 import { expect, test, type Page } from "@playwright/test";
 
-import { ADMIN, API_URL, PASSWORD, createStudent, loginViaForm, useLanguage } from "./helpers";
+import { ADMIN, API_URL, PASSWORD, createStudent, grantMultilevelPremium, loginViaForm, useLanguage } from "./helpers";
 
 // Multilevel Modelltest 1–6: the Hören answer keys in the admin (numbered table, edit, import check), the exam times 60 / 60 / 60 / 15 = 195 and the server timer in the
 // student exam. Local stack only: the Hören keys + exam times of the local e2e database were set before by
@@ -138,6 +138,7 @@ test.describe.serial("Multilevel Modelltest: Hören answer keys and exam times",
     test.setTimeout(120_000);
     await useLanguage(page, "de");
     const email = await createStudent();
+    await grantMultilevelPremium(email); // every Multilevel Modelltest needs the Premium
     await loginViaForm(page, email, PASSWORD);
     await expect(page).toHaveURL(/\/dashboard/);
     await page.goto("/vorbereitung/multilevel");

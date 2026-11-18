@@ -4,8 +4,8 @@ import { isAxiosError } from "axios";
 import { useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
-  BarChart3, Calendar, Check, ChevronLeft, ChevronRight, CircleDollarSign, Clock3,
-  Copy, Eye, Loader2, Pencil, Plus, Search, Sparkles, Ticket, Trash2, X,
+  Ban, BarChart3, Calendar, Check, ChevronLeft, ChevronRight, CircleDollarSign, Clock3,
+  Copy, Eye, Hourglass, Loader2, Pencil, Plus, Search, ShieldCheck, Sparkles, Ticket, Trash2, X,
 } from "lucide-react";
 
 import { AdminButton, AdminInput, AdminLabel, AdminPageHeader, AdminSelect } from "@/components/admin/admin-ui";
@@ -15,7 +15,8 @@ import DataTable, { DataTableColumn } from "@/components/admin/data-table";
 import FormDialog from "@/components/admin/form-dialog";
 import BuyerCard from "@/features/admin/components/payments/buyer-card";
 import HistoryDialog from "@/features/admin/components/payments/history-dialog";
-import { DiscountStatsTab, OrdersHistoryTab, PromoRequestsTab } from "@/features/admin/components/payments/payment-tabs";
+import { OrdersHistoryTab, PromoRequestsTab } from "@/features/admin/components/payments/payment-tabs";
+import { MlEntitlementsList, PaymentSettingsTab, PaymentsOverviewTab } from "@/features/admin/components/payments/payments-sections";
 import ReceiptViewer from "@/features/admin/components/payments/receipt-viewer";
 import RejectDialog from "@/features/admin/components/payments/reject-dialog";
 import {
@@ -29,15 +30,18 @@ import {
   listPromoCodes,
   listPromoCodeOrders,
   rejectOrder,
-  togglePromoCode,
+  reviewPromoCode,
+  setOrderNote,
   updatePromoCode,
 } from "@/features/admin/services/vizu-pay-service";
 import type {
   AdminOrderItem,
   BlockedUserItem,
+  ProductCategory,
   PromoCodeCreateRequest,
   PromoCodeItem,
   PromoCodeOrder,
+  PromoReviewAction,
 } from "@/features/admin/types/vizu-pay.types";
 
 interface DateFilter {
@@ -147,7 +151,8 @@ function BlockedUserCard({ user, onViewHistory }: { user: BlockedUserItem; onVie
   );
 }
 
-function NewBuyersSection({ dateFilter }: { dateFilter: DateFilter }) {
+/** Payment requests as cards (approve / reject / note / receipt). `kind`: all products, course orders only, or the Multilevel Premium. */
+function NewBuyersSection({ dateFilter, kind }: { dateFilter: DateFilter; kind?: "course" | "multilevel" }) {
   const queryClient = useQueryClient();
   const [subTab, setSubTab] = useState<BuyerSubTab>("PENDING");
   const [receiptOrder, setReceiptOrder] = useState<AdminOrderItem | null>(null);
@@ -156,9 +161,15 @@ function NewBuyersSection({ dateFilter }: { dateFilter: DateFilter }) {
   const [actionError, setActionError] = useState<string | null>(null);
 
   const ordersQuery = useQuery({
-    queryKey: ["admin-orders", subTab, dateFilter],
-    queryFn: () => listOrders({ status: subTab, page_size: 50, ...dateFilter }),
+    queryKey: ["admin-orders", kind ?? "all", subTab, dateFilter],
+    queryFn: () => listOrders({ status: subTab, page_size: 50, kind, ...dateFilter }),
     enabled: subTab !== "BLOCKED",
+  });
+
+  const noteMutation = useMutation({
+    mutationFn: ({ id, note }: { id: string; note: string }) => setOrderNote(id, note),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["admin-orders"] }),
+    onError: (err: unknown) => setActionError(actionErrorMessage(err, "Notiz konnte nicht gespeichert werden.")),
   });
 
   const blockedQuery = useQuery({
@@ -171,6 +182,8 @@ function NewBuyersSection({ dateFilter }: { dateFilter: DateFilter }) {
     queryClient.invalidateQueries({ queryKey: ["admin-orders"] });
     queryClient.invalidateQueries({ queryKey: ["admin-blocked-users"] });
     queryClient.invalidateQueries({ queryKey: ["admin-orders-by-user"] });
+    queryClient.invalidateQueries({ queryKey: ["admin-payments-overview"] });
+    queryClient.invalidateQueries({ queryKey: ["admin-ml-entitlements"] });
   }
 
   const approveMutation = useMutation({
@@ -256,6 +269,10 @@ function NewBuyersSection({ dateFilter }: { dateFilter: DateFilter }) {
                   setActionError(null);
                   extendMutation.mutate({ order, months, reason });
                 }}
+                onNote={(o, note) => {
+                  setActionError(null);
+                  noteMutation.mutate({ id: o.id, note });
+                }}
                 approvePending={approveMutation.isPending}
                 extendPending={extendMutation.isPending}
               />
@@ -329,8 +346,10 @@ function PromoCodesTab() {
     max_uses: number | null;
     is_active: boolean;
     requires_approval: boolean;
+    product_category: ProductCategory;
   };
   const EMPTY_FORM: PromoForm = {
+    product_category: "COURSES",
     requires_approval: false,
     code: "",
     campaign: "",
@@ -342,7 +361,7 @@ function PromoCodesTab() {
     max_uses: 100,
     max_uses_per_user: 1,
     expires_at: "",
-    is_active: true,
+    is_active: false,
   };
   const [form, setForm] = useState(EMPTY_FORM);
   const [editing, setEditing] = useState<PromoCodeItem | null>(null);
@@ -373,15 +392,21 @@ function PromoCodesTab() {
   }
 
   function toPayload(): PromoCodeCreateRequest {
-    return {
+    const multilevel = form.product_category === "MULTILEVEL";
+    const payload: PromoCodeCreateRequest = {
       ...form,
       campaign: form.campaign.trim() || null,
       starts_at: form.starts_at ? new Date(form.starts_at).toISOString() : null,
       max_uses: form.max_uses || null,
       expires_at: form.expires_at ? new Date(form.expires_at).toISOString() : null,
-      is_active: form.is_active,
-      requires_approval: ["PERCENT", "FIXED", "SPECIAL_PRICE"].includes(form.discount_type) && form.requires_approval,
+      // a category names only its own products (the server checks it again)
+      applicable_course_ids: form.product_category === "COURSES" ? form.applicable_course_ids : [],
+      applicable_package_codes: form.product_category === "PACKAGES" ? form.applicable_package_codes : [],
+      requires_approval: !multilevel && ["PERCENT", "FIXED", "SPECIAL_PRICE"].includes(form.discount_type) && form.requires_approval,
     };
+    // on/off is the approval workflow (review buttons), never part of a save; a new code always starts PENDING
+    delete payload.is_active;
+    return payload;
   }
 
   const saveMutation = useMutation({
@@ -399,9 +424,19 @@ function PromoCodesTab() {
     onError: (error) => setSaveError(actionErrorMessage(error, "Promo-Code konnte nicht gespeichert werden.")),
   });
   const toggleMutation = useMutation({
-    mutationFn: ({ id, isActive }: { id: string; isActive: boolean }) => togglePromoCode(id, isActive),
-    onSuccess: invalidate,
+    mutationFn: ({ id, action, note }: { id: string; action: PromoReviewAction; note?: string }) => reviewPromoCode(id, action, note),
+    onSuccess: () => { invalidate(); queryClient.invalidateQueries({ queryKey: ["admin-payments-overview"] }); },
   });
+
+  function review(item: PromoCodeItem, action: PromoReviewAction) {
+    let note: string | undefined;
+    if (action === "reject") {
+      const answer = window.prompt(`${item.code}: rad etish sababi (ixtiyoriy)`);
+      if (answer === null) return;
+      note = answer;
+    }
+    toggleMutation.mutate({ id: item.id, action, note });
+  }
   const deleteMutation = useMutation({
     mutationFn: deletePromoCode,
     onSuccess: () => { invalidate(); setDeleteTarget(null); },
@@ -435,6 +470,7 @@ function PromoCodesTab() {
       expires_at: localDateTime(item.expires_at),
       is_active: item.is_active,
       requires_approval: !!item.requires_approval,
+      product_category: item.product_category ?? "COURSES",
     });
     setSaveError(null);
     setFieldErrors({});
@@ -451,9 +487,10 @@ function PromoCodesTab() {
     const items = data ?? [];
     return {
       active: items.filter((item) => item.status === "ACTIVE").length,
+      pending: items.filter((item) => item.status === "PENDING").length,
       scheduled: items.filter((item) => item.status === "SCHEDULED").length,
       expired: items.filter((item) => item.status === "EXPIRED").length,
-      inactive: items.filter((item) => ["INACTIVE", "EXHAUSTED"].includes(item.status)).length,
+      inactive: items.filter((item) => ["INACTIVE", "EXHAUSTED", "DISABLED", "REJECTED", "APPROVED"].includes(item.status)).length,
       uses: items.reduce((total, item) => total + item.successful_uses, 0),
       discount: items.reduce((total, item) => total + item.successful_discount_amount, 0),
       revenue: items.reduce((total, item) => total + item.successful_revenue_amount, 0),
@@ -465,6 +502,7 @@ function PromoCodesTab() {
     const matchesStatus = statusFilter === "ALL" || item.status === statusFilter;
     const matchesType = typeFilter === "ALL" || item.discount_type === typeFilter;
     const matchesProduct = productFilter === "ALL"
+      || (productFilter === "MULTILEVEL" && item.product_category === "MULTILEVEL")
       || item.applicable_course_ids.includes(productFilter)
       || item.applicable_package_codes.includes(productFilter);
     const created = new Date(item.created_at).getTime();
@@ -476,9 +514,21 @@ function PromoCodesTab() {
   const pageCount = Math.max(1, Math.ceil(filtered.length / pageSize));
   const currentPage = Math.min(page, pageCount);
   const visiblePromos = filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize);
-  const hasProducts = form.discount_type !== "FREE_DAYS";
+  const isMultilevel = form.product_category === "MULTILEVEL";
+  const hasProducts = form.discount_type !== "FREE_DAYS" && !isMultilevel;
   const isFreeAccess = form.discount_type === "FREE_ACCESS";
-  const selectedTargets = form.applicable_course_ids.length + form.applicable_package_codes.length;
+  const selectedTargets = form.product_category === "COURSES" ? form.applicable_course_ids.length : form.applicable_package_codes.length;
+  // discount types per category (the server has the same list: admin_service.CATEGORY_DISCOUNT_TYPES)
+  const TYPES_BY_CATEGORY: Record<ProductCategory, string[]> = {
+    COURSES: ["PERCENT", "SPECIAL_PRICE", "FIXED", "FREE_DAYS", "FREE_ACCESS"],
+    PACKAGES: ["PERCENT", "SPECIAL_PRICE", "FIXED", "FREE_ACCESS"],
+    MULTILEVEL: ["PERCENT", "FREE_ACCESS"],
+  };
+  const TYPE_LABEL: Record<string, string> = {
+    PERCENT: "Foizli chegirma", SPECIAL_PRICE: "Yakuniy maxsus narx", FIXED: "Belgilangan summa chegirmasi", FREE_DAYS: "Premium kunlari",
+    FREE_ACCESS: "Bepul taqdim etish (100%)",
+  };
+  const CATEGORY_LABEL: Record<ProductCategory, string> = { COURSES: "Kurslar", PACKAGES: "Paketlar", MULTILEVEL: "Multilevel Modelltest" };
 
   function validateForm(): Partial<Record<PromoFormField, string>> {
     const errors: Partial<Record<PromoFormField, string>> = {};
@@ -487,7 +537,7 @@ function PromoCodesTab() {
     if (isFreeAccess) { /* no value: the server stores a full waiver */ }
     else if (!Number.isInteger(form.discount_value) || form.discount_value <= 0) errors.discount_value = "Qiymat 0 dan katta butun son bo‘lishi kerak.";
     else if (form.discount_type === "PERCENT" && form.discount_value > 100) errors.discount_value = "Foiz 100 dan oshmasligi kerak.";
-    if (hasProducts && selectedTargets === 0) errors.scope = "Kamida bitta kurs yoki paketni aniq tanlang.";
+    if (hasProducts && selectedTargets === 0) errors.scope = form.product_category === "PACKAGES" ? "Kamida bitta paketni tanlang." : "Kamida bitta kursni tanlang.";
     if (form.max_uses !== null && (!Number.isInteger(form.max_uses) || form.max_uses < 1)) errors.max_uses = "Kamida 1 bo‘lsin yoki maydonni bo‘sh qoldiring.";
     if (!Number.isInteger(form.max_uses_per_user) || form.max_uses_per_user < 1) errors.max_uses_per_user = "Foydalanuvchi limiti kamida 1 bo‘lishi kerak.";
     if (form.starts_at && form.expires_at && form.starts_at >= form.expires_at) errors.dates = "Tugash vaqti boshlanish vaqtidan keyin bo‘lishi kerak.";
@@ -554,10 +604,20 @@ function PromoCodesTab() {
       key: "products",
       header: "Kurs / paket",
       render: (item) => {
+        const category = item.product_category ?? "COURSES";
         const selectedCourses = (products?.courses ?? []).filter((course) => item.applicable_course_ids.includes(course.id));
         const selectedPackages = (products?.packages ?? []).filter((pkg) => item.applicable_package_codes.includes(pkg.code));
-        const labels = [...selectedCourses.map((course) => course.level), ...selectedPackages.map((pkg) => pkg.label)];
-        return <span className="block max-w-48 truncate text-xs" title={labels.join(", ") || "Premium"}>{labels.join(", ") || "Premium"}</span>;
+        const labels = category === "MULTILEVEL" ? ["Modelltest 1–10"]
+          : [...new Set(selectedCourses.map((course) => course.level)), ...selectedPackages.map((pkg) => pkg.label)];
+        return (
+          <div className="max-w-48" data-testid="promo-category" data-category={category}>
+            <span className={`inline-block rounded-full px-2 py-0.5 text-[11px] font-bold ${category === "MULTILEVEL" ? "bg-amber-500/15 text-amber-600" : "bg-[var(--admin-primary)]/10 text-[var(--admin-primary)]"}`}>
+              {CATEGORY_LABEL[category]}
+            </span>
+            <span className="mt-0.5 block truncate text-xs" title={labels.join(", ") || "Premium"}>{labels.join(", ") || "Premium"}</span>
+            {item.assigned_user_email && <span className="block truncate text-[11px] text-[var(--admin-text-muted)]" title={item.assigned_user_email}>Faqat: {item.assigned_user_email}</span>}
+          </div>
+        );
       },
     },
     {
@@ -584,13 +644,21 @@ function PromoCodesTab() {
       key: "status",
       header: "Holat",
       render: (item) => {
-        const label: Record<string, string> = { ACTIVE: "Faol", SCHEDULED: "Rejalashtirilgan", EXPIRED: "Muddati tugagan", EXHAUSTED: "Limit tugagan", INACTIVE: "Nofaol" };
+        const label: Record<string, string> = {
+          ACTIVE: "Faol", SCHEDULED: "Rejalashtirilgan", EXPIRED: "Muddati tugagan", EXHAUSTED: "Limit tugagan", INACTIVE: "Nofaol",
+          PENDING: "Tasdiqlash kutilmoqda", APPROVED: "Tasdiqlangan (faol emas)", REJECTED: "Rad etilgan", DISABLED: "O‘chirilgan",
+        };
         const style = item.status === "ACTIVE" ? "text-[var(--admin-success)] bg-[var(--admin-success)]/10"
-          : item.status === "SCHEDULED" ? "text-[var(--admin-primary)] bg-[var(--admin-primary)]/10"
-            : "text-[var(--admin-text-muted)] bg-white/5";
+          : item.status === "SCHEDULED" || item.status === "APPROVED" ? "text-[var(--admin-primary)] bg-[var(--admin-primary)]/10"
+            : item.status === "PENDING" ? "text-[var(--admin-warning)] bg-[var(--admin-warning)]/15"
+              : item.status === "REJECTED" ? "text-[var(--admin-danger)] bg-[var(--admin-danger)]/10"
+                : "text-[var(--admin-text-muted)] bg-white/5";
         return (
-          <div className="flex flex-col items-start gap-1">
+          <div className="flex flex-col items-start gap-1" data-testid="promo-status" data-status={item.status} data-approval={item.approval_status ?? ""}>
             <span className={`whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-semibold ${style}`}>{label[item.status] ?? item.status}</span>
+            {item.approved_by_email && item.approval_status !== "PENDING" && (
+              <span className="whitespace-nowrap text-[11px] text-[var(--admin-text-muted)]">Tasdiqlagan: {item.approved_by_email}</span>
+            )}
             {item.requires_approval && (
               <span className="whitespace-nowrap rounded-full bg-[var(--admin-warning)]/15 px-2 py-0.5 text-[11px] font-semibold text-[var(--admin-warning)]">
                 Tasdiq kerak{item.pending_requests ? ` · ${item.pending_requests} so‘rov` : ""}
@@ -612,7 +680,22 @@ function PromoCodesTab() {
         <div className="flex items-center gap-1">
           <button type="button" title="Tafsilotlar va statistika" aria-label={`${item.code} tafsilotlari`} onClick={() => setDetails(item)} className="rounded-lg p-2 text-[var(--admin-text-secondary)] hover:bg-white/5"><Eye size={15} /></button>
           <button type="button" title="Tahrirlash" aria-label={`${item.code} tahrirlash`} onClick={() => beginEdit(item)} className="rounded-lg p-2 text-[var(--admin-text-secondary)] hover:bg-white/5"><Pencil size={15} /></button>
-          <button type="button" title={item.is_active ? "Deaktivatsiya" : "Faollashtirish"} aria-label={item.is_active ? `${item.code} deaktivatsiya` : `${item.code} faollashtirish`} disabled={toggleMutation.isPending} onClick={() => toggleMutation.mutate({ id: item.id, isActive: !item.is_active })} className="rounded-lg p-2 text-[var(--admin-text-secondary)] hover:bg-white/5">{item.is_active ? <X size={15} /> : <Check size={15} />}</button>
+          {item.approval_status === "PENDING" && (
+            <>
+              <button type="button" title="Tasdiqlash va faollashtirish" aria-label={`${item.code} tasdiqlash`} data-testid="promo-approve" disabled={toggleMutation.isPending}
+                onClick={() => review(item, "approve_activate")} className="rounded-lg p-2 text-[var(--admin-success)] hover:bg-[var(--admin-success)]/10"><ShieldCheck size={15} /></button>
+              <button type="button" title="Rad etish" aria-label={`${item.code} rad etish`} data-testid="promo-reject" disabled={toggleMutation.isPending}
+                onClick={() => review(item, "reject")} className="rounded-lg p-2 text-[var(--admin-danger)] hover:bg-[var(--admin-danger)]/10"><Ban size={15} /></button>
+            </>
+          )}
+          {(item.approval_status === "APPROVED" || item.approval_status === "DISABLED") && (
+            <button type="button" title="Faollashtirish" aria-label={`${item.code} faollashtirish`} data-testid="promo-activate" disabled={toggleMutation.isPending}
+              onClick={() => review(item, "activate")} className="rounded-lg p-2 text-[var(--admin-text-secondary)] hover:bg-white/5"><Check size={15} /></button>
+          )}
+          {(item.approval_status === "ACTIVE" || item.approval_status === "APPROVED") && (
+            <button type="button" title="O‘chirib qo‘yish" aria-label={`${item.code} deaktivatsiya`} data-testid="promo-disable" disabled={toggleMutation.isPending}
+              onClick={() => review(item, "disable")} className="rounded-lg p-2 text-[var(--admin-text-secondary)] hover:bg-white/5"><X size={15} /></button>
+          )}
           <button type="button" title="O‘chirish" aria-label={`${item.code} o‘chirish`} disabled={item.used_count > 0} onClick={() => setDeleteTarget(item)} className="rounded-lg p-2 text-[var(--admin-text-muted)] hover:bg-[var(--admin-danger)]/10 hover:text-[var(--admin-danger)] disabled:opacity-30"><Trash2 size={15} /></button>
         </div>
       ),
@@ -632,9 +715,10 @@ function PromoCodesTab() {
         </AdminButton>
       </div>
 
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 xl:grid-cols-7">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 xl:grid-cols-8">
         {[
           { label: "Faol", value: counts.active, icon: Check },
+          { label: "Tasdiqlash kutilmoqda", value: counts.pending, icon: Hourglass },
           { label: "Rejalashtirilgan", value: counts.scheduled, icon: Clock3 },
           { label: "Muddati tugagan", value: counts.expired, icon: Calendar },
           { label: "Nofaol", value: counts.inactive, icon: X },
@@ -656,13 +740,14 @@ function PromoCodesTab() {
             <AdminInput className="pl-9" value={search} onChange={(event) => { setSearch(event.target.value); setPage(1); }} placeholder="Kod yoki izoh bo‘yicha qidirish" aria-label="Promokod qidirish" />
           </label>
           <AdminSelect aria-label="Promokod holati" value={statusFilter} onChange={(event) => { setStatusFilter(event.target.value); setPage(1); }}>
-            <option value="ALL">Barcha holatlar</option><option value="ACTIVE">Faol</option><option value="SCHEDULED">Rejalashtirilgan</option><option value="EXPIRED">Muddati tugagan</option><option value="INACTIVE">Nofaol</option><option value="EXHAUSTED">Limit tugagan</option>
+            <option value="ALL">Barcha holatlar</option><option value="PENDING">Tasdiqlash kutilmoqda</option><option value="APPROVED">Tasdiqlangan (faol emas)</option><option value="ACTIVE">Faol</option><option value="SCHEDULED">Rejalashtirilgan</option><option value="EXPIRED">Muddati tugagan</option><option value="DISABLED">O‘chirilgan</option><option value="REJECTED">Rad etilgan</option><option value="EXHAUSTED">Limit tugagan</option>
           </AdminSelect>
           <AdminSelect aria-label="Chegirma turi" value={typeFilter} onChange={(event) => { setTypeFilter(event.target.value); setPage(1); }}>
             <option value="ALL">Barcha chegirmalar</option><option value="PERCENT">Foizli chegirma</option><option value="SPECIAL_PRICE">Maxsus narx</option><option value="FIXED">Belgilangan summa</option><option value="FREE_DAYS">Premium kunlari</option><option value="FREE_ACCESS">Bepul taqdim etish</option>
           </AdminSelect>
           <AdminSelect aria-label="Kurs yoki paket" value={productFilter} onChange={(event) => { setProductFilter(event.target.value); setPage(1); }}>
             <option value="ALL">Barcha mahsulotlar</option>
+            <option value="MULTILEVEL">Multilevel Modelltest Premium</option>
             {(products?.courses ?? []).map((course) => <option key={course.id} value={course.id}>{course.level} · {course.title}</option>)}
             {(products?.packages ?? []).map((product) => <option key={product.code} value={product.code}>{product.label}</option>)}
           </AdminSelect>
@@ -730,11 +815,12 @@ function PromoCodesTab() {
                 <AdminInput id="promo-campaign" maxLength={120} value={form.campaign} onChange={(e) => setForm({ ...form, campaign: e.target.value })} placeholder="Mavsumiy kampaniya" />
               </div>
             </div>
-            <label className="inline-flex items-center gap-2 text-sm text-[var(--admin-text-secondary)]">
-              <input type="checkbox" checked={form.is_active} onChange={(event) => setForm({ ...form, is_active: event.target.checked })} />
-              Saqlanganda promokod faol bo‘lsin
-            </label>
-            {["PERCENT", "FIXED", "SPECIAL_PRICE"].includes(form.discount_type) && (
+            <p className="rounded-lg bg-[var(--admin-warning)]/10 p-2.5 text-xs text-[var(--admin-text-secondary)]" data-testid="promo-approval-note">
+              {editing
+                ? "Chegirma turi, qiymati, kategoriya yoki mahsulotlar o‘zgarsa, kod yana «Tasdiqlash kutilmoqda» holatiga o‘tadi va qayta tasdiqlanmaguncha ishlamaydi."
+                : "Yangi promokod «Tasdiqlash kutilmoqda» (PENDING) holatida yaratiladi: Super Admin jadvaldagi ✓ tugmasi bilan tasdiqlab faollashtirmaguncha hech qayerda ishlamaydi."}
+            </p>
+            {!isMultilevel && ["PERCENT", "FIXED", "SPECIAL_PRICE"].includes(form.discount_type) && (
               <label className="flex items-start gap-2 text-sm text-[var(--admin-text-secondary)]" data-testid="promo-requires-approval">
                 <input type="checkbox" className="mt-1" checked={form.requires_approval} onChange={(event) => setForm({ ...form, requires_approval: event.target.checked })} />
                 <span>
@@ -746,6 +832,26 @@ function PromoCodesTab() {
           </section>
           <section className="space-y-3">
             <h3 className="text-sm font-semibold text-[var(--admin-text-primary)]">Chegirma shartlari</h3>
+          <div>
+            <AdminLabel htmlFor="promo-category">Mahsulot kategoriyasi</AdminLabel>
+            <AdminSelect
+              id="promo-category"
+              data-testid="promo-category-select"
+              value={form.product_category}
+              onChange={(e) => {
+                const category = e.target.value as ProductCategory;
+                const type = TYPES_BY_CATEGORY[category].includes(form.discount_type) ? form.discount_type : "PERCENT";
+                setFieldErrors((current) => ({ ...current, scope: undefined }));
+                setForm({ ...form, product_category: category, discount_type: type, discount_value: type === "FREE_ACCESS" ? 100 : form.discount_value,
+                  applicable_course_ids: [], applicable_package_codes: [], requires_approval: category === "MULTILEVEL" ? false : form.requires_approval });
+              }}
+            >
+              <option value="COURSES">Kurslar (A1, A2, B1 …)</option>
+              <option value="PACKAGES">Paketlar (A1 → B1 …)</option>
+              <option value="MULTILEVEL">Multilevel Modelltest (10 ta Modelltest Premium)</option>
+            </AdminSelect>
+            <p className="mt-1 text-xs text-[var(--admin-text-muted)]">Kurs kodi Multilevel uchun, Multilevel kodi kurslar uchun ishlamaydi.</p>
+          </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
               <AdminLabel htmlFor="promo-type">Chegirma turi</AdminLabel>
@@ -754,16 +860,14 @@ function PromoCodesTab() {
                 value={form.discount_type}
                 onChange={(e) => setForm({ ...form, discount_type: e.target.value, discount_value: e.target.value === "FREE_ACCESS" ? 100 : form.discount_type === "FREE_ACCESS" ? 1 : form.discount_value, applicable_course_ids: e.target.value === "FREE_DAYS" ? [] : form.applicable_course_ids, applicable_package_codes: e.target.value === "FREE_DAYS" ? [] : form.applicable_package_codes })}
               >
-                <option value="PERCENT">Foizli chegirma</option>
-                <option value="SPECIAL_PRICE">Yakuniy maxsus narx</option>
-                <option value="FIXED">Belgilangan summa chegirmasi</option>
-                <option value="FREE_DAYS">Premium kunlari</option>
-                <option value="FREE_ACCESS">Bepul taqdim etish (Free Access)</option>
+                {TYPES_BY_CATEGORY[form.product_category].map((type) => <option key={type} value={type}>{TYPE_LABEL[type]}</option>)}
               </AdminSelect>
             </div>
             {isFreeAccess ? (
               <p className="self-end rounded-lg bg-[var(--admin-primary)]/10 p-2 text-xs text-[var(--admin-text-secondary)]" data-testid="free-access-note">
-                Bu promo kod tegishli kursga bepul kirish beradi. To‘lov summasi 0 bo‘ladi; chegirma qiymati kerak emas.
+                {isMultilevel
+                  ? "Bu promo kod barcha 10 ta Multilevel Modelltestni bepul ochadi (karta orqali to‘lov talab qilinmaydi)."
+                  : "Bu promo kod tegishli kursga bepul kirish beradi. To‘lov summasi 0 bo‘ladi; chegirma qiymati kerak emas."}
               </p>
             ) : (
             <div>
@@ -802,6 +906,13 @@ function PromoCodesTab() {
             </div>
           )}
 
+          {isMultilevel && (
+            <p className="rounded-lg bg-amber-500/10 p-3 text-xs text-[var(--admin-text-secondary)]" data-testid="promo-multilevel-scope">
+              Mahsulot: <strong>{products?.multilevel?.label ?? "VIZU Multilevel Modelltest Premium"}</strong> — Modelltest 1–10, muddatsiz
+              {products?.multilevel ? ` · narx ${new Intl.NumberFormat("de-DE").format(products.multilevel.price)} so‘m` : ""}.
+            </p>
+          )}
+
           {hasProducts && (
             <div className="space-y-3">
               <div>
@@ -814,13 +925,14 @@ function PromoCodesTab() {
                                   setFieldErrors((current) => ({ ...current, scope: undefined }));
                                   setForm({
                                     ...form,
-                                    applicable_course_ids: (products?.courses ?? []).map((course) => course.id),
-                                    applicable_package_codes: (products?.packages ?? []).map((product) => product.code),
+                                    applicable_course_ids: form.product_category === "COURSES" ? (products?.courses ?? []).map((course) => course.id) : [],
+                                    applicable_package_codes: form.product_category === "PACKAGES" ? (products?.packages ?? []).map((product) => product.code) : [],
                                   });
                                 }}
                   >Barchasini tanlash</button>
                 </div>
-                <p className="text-xs text-[var(--admin-text-muted)]">Faqat belgilangan kurs va paketlarga qo‘llanadi. Bo‘sh scope barcha mahsulotlarni anglatmaydi.</p>
+                <p className="text-xs text-[var(--admin-text-muted)]">Faqat belgilangan {form.product_category === "PACKAGES" ? "paketlarga" : "kurslarga"} qo‘llanadi. Bo‘sh scope barcha mahsulotlarni anglatmaydi.</p>
+                {form.product_category === "COURSES" && (
                 <div className="mt-1 max-h-36 space-y-1 overflow-y-auto rounded-lg border border-[var(--admin-border)] p-2">
                   {(products?.courses ?? []).map((course) => (
                     <label key={course.id} className="flex items-center gap-2 text-sm">
@@ -834,7 +946,9 @@ function PromoCodesTab() {
                   ))}
                   {products?.courses.length === 0 && <p className="text-xs text-[var(--admin-text-muted)]">Mos faol kurs topilmadi.</p>}
                 </div>
+                )}
               </div>
+              {form.product_category === "PACKAGES" && (
               <div>
                 <AdminLabel>Paketlar</AdminLabel>
                 <div className="mt-1 flex flex-wrap gap-3">
@@ -850,6 +964,7 @@ function PromoCodesTab() {
                   ))}
                 </div>
               </div>
+              )}
               {fieldErrors.scope && <p className="text-xs text-[var(--admin-danger)]" role="alert">{fieldErrors.scope}</p>}
             </div>
           )}
@@ -929,10 +1044,17 @@ function PromoCodesTab() {
               ))}
             </div>
             {details.created_by_email && <p className="text-xs text-[var(--admin-text-muted)]">Yaratgan: {details.created_by_email}</p>}
+            <p className="text-xs text-[var(--admin-text-muted)]" data-testid="promo-approval-info">
+              Tasdiqlash: {details.approval_status ?? "—"}
+              {details.approved_at ? ` · ${new Date(details.approved_at).toLocaleString("uz-UZ")}` : ""}
+              {details.approved_by_email ? ` · ${details.approved_by_email}` : ""}
+              {details.review_note ? ` · ${details.review_note}` : ""}
+            </p>
             <div className="grid gap-2 sm:grid-cols-2" data-testid="promo-history-filters">
               <AdminInput placeholder="Foydalanuvchi (e-mail / login)" value={detailSearch} onChange={(e) => { setDetailSearch(e.target.value); setDetailPage(1); }} />
               <AdminSelect value={detailPlan} onChange={(e) => { setDetailPlan(e.target.value); setDetailPage(1); }} aria-label="Paket">
                 <option value="">Barcha paketlar</option>
+                <option value="ML_PREMIUM">Multilevel Modelltest Premium</option>
                 {["A1", "A2", "B1", "B2", "C1"].map((lv) => <option key={lv} value={lv}>{lv}</option>)}
                 {(products?.packages ?? []).map((pkg) => <option key={pkg.code} value={pkg.code}>{pkg.label}</option>)}
               </AdminSelect>
@@ -995,17 +1117,28 @@ export default function PaymentsPage() {
 
   return (
     <div>
-      <AdminPageHeader title="Payments" description="Zahlungen prüfen und verwalten, Paketkäufe, Promo-Codes, Promo-Freigaben und Rabatt-Statistik." />
+      <AdminPageHeader title="Payments"
+        description="Übersicht, Zahlungsanfragen, Kurs- und Multilevel-Modelltest-Zahlungen, Promo-Codes mit Freigabe, Promo-Anfragen, Kaufhistorie und Einstellungen." />
       <DateFilterBar filter={dateFilter} onChange={setDateFilter} />
       <AdminTabs
-        defaultValue="new-buyers"
+        defaultValue="overview"
         tabs={[
-          { value: "new-buyers", label: "Zahlungen verwalten", content: <NewBuyersSection dateFilter={dateFilter} /> },
-          { value: "history", label: "Zahlungshistorie", content: <OrdersHistoryTab dateFilter={dateFilter} /> },
-          { value: "packages", label: "Paketkäufe", content: <OrdersHistoryTab courseOnly dateFilter={dateFilter} /> },
-          { value: "promos", label: "Promo-Codes", content: <PromoCodesTab /> },
-          { value: "promo-requests", label: "Promo-Freigaben", content: <PromoRequestsTab /> },
-          { value: "discounts", label: "Rabatt-Statistik", content: <DiscountStatsTab /> },
+          { value: "overview", label: "Overview", content: <PaymentsOverviewTab /> },
+          { value: "new-buyers", label: "Payment Requests", content: <NewBuyersSection dateFilter={dateFilter} /> },
+          { value: "course-payments", label: "Course Payments", content: <NewBuyersSection dateFilter={dateFilter} kind="course" /> },
+          {
+            value: "multilevel-payments", label: "Multilevel Modelltest Payments",
+            content: (
+              <div className="space-y-8" data-testid="multilevel-payments-tab">
+                <NewBuyersSection dateFilter={dateFilter} kind="multilevel" />
+                <MlEntitlementsList />
+              </div>
+            ),
+          },
+          { value: "promos", label: "Promo Codes", content: <PromoCodesTab /> },
+          { value: "promo-requests", label: "Promo Requests", content: <PromoRequestsTab /> },
+          { value: "history", label: "Purchase History", content: <OrdersHistoryTab dateFilter={dateFilter} /> },
+          { value: "settings", label: "Payment Settings", content: <PaymentSettingsTab /> },
         ]}
       />
     </div>

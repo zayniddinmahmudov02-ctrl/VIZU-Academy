@@ -108,6 +108,8 @@ function CheckoutModalContent({ plan, paymentCards, onClose, onSubmit, user }: P
     PROMO_APPROVAL_REQUIRED: t("angebote.promoNeedsApproval"),
     PROMO_APPROVAL_PENDING: t("angebote.promoPending"),
     PROMO_REJECTED: t("angebote.promoRejected"),
+    PROMO_NOT_ACTIVE: t("angebote.promoNotActive"),
+    PROMO_WRONG_PRODUCT: t("angebote.promoWrongProduct"),
   };
   const promoMessage = (message: string | null | undefined) => (message ? APPROVAL_TEXT[message] ?? message : null);
 

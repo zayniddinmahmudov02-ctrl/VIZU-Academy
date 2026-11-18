@@ -42,6 +42,11 @@ export interface PromoRequest {
   status: "PENDING_APPROVAL" | "APPROVED" | "REJECTED" | "USED" | "EXPIRED" | "DISABLED" | "NOT_REQUIRED";
   reason: string | null;
   createdAt: string | null;
+  /** CODE_APPROVAL (a code that needs approval) or COURSE_REQUEST ("Promo so'rovi": the admin attaches a code on approval) */
+  kind: "CODE_APPROVAL" | "COURSE_REQUEST";
+  message: string | null;
+  /** a course request's approved personal code (shown only once approved) */
+  discount: { type: string; value: number; expiresAt: string | null; used: boolean } | null;
 }
 
 export interface SubscriptionStatus {
