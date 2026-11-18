@@ -354,11 +354,13 @@ class TestSharedAudioAgainstDatabase(unittest.TestCase):
             replaced = asyncio.run(ml_audio.attach_shared(db, self.tid(1), new.id, editor))
             self.assertEqual((replaced["audio"]["id"], replaced["duration_ms"] // 1000), (new.id, 15))
             self.assertTrue((Path(self.tmp.name) / first.storage_path).is_file())
-            # delete: the section has no audio, the published test goes back to a draft, questions / answers stay
+            # delete: the section has no audio; Modelltest 1 is one of the open tests (1–6, 2026-11-18): it STAYS published (Hören is then
+            # shown without a player) — questions / answers stay
             db.get(ModelTest, self.tid(1)).status = "PUBLISHED"
             db.commit()
             gone = asyncio.run(ml_audio.detach_shared(db, self.tid(1), editor))
-            self.assertEqual((gone["status"], gone["test_unpublished"], gone["audio"]), ("missing", True, None))
+            self.assertEqual((gone["status"], gone["test_unpublished"], gone["audio"]), ("missing", False, None))
+            self.assertEqual(db.get(ModelTest, self.tid(1)).status, "PUBLISHED")
             self.assertEqual([t["questions"] for t in gone["teile"]], TEIL_QUESTIONS)
             self.assertEqual(ml.readiness(db, self.tid(1))["missing_audio"], ["Hören: gemeinsames Audio"])
             with self.assertRaises(HTTPException) as ctx:

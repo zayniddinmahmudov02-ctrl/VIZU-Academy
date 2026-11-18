@@ -130,8 +130,8 @@ async def detach(db: Session, content_id: UUID, user: User) -> dict:
     old = lc.audio_file
     lc.audio_file_id = None
     lc.audio_url = ""
-    reopened = test.status == STATUS_PUBLISHED
-    if reopened:  # no longer takeable: the publish rule needs audio for every Hören Teil
+    reopened = test.status == STATUS_PUBLISHED and not ml.open_test(test)
+    if reopened:  # no longer takeable: the publish rule needs audio for every Hören Teil (not for the open Modelltest 1–6)
         test.status = STATUS_DRAFT
     db.commit()
     write_audit(db, actor_id=user.id, action="multilevel_audio_removed", details=f"test={test.id} teil={teil.id} unpublished={reopened}")
@@ -220,8 +220,8 @@ async def detach_shared(db: Session, model_test_id: UUID, user: User) -> dict:
         raise _err(404, "AUDIO_NOT_FOUND")
     old = komp.audio_file
     komp.audio_file_id = None
-    reopened = test.status == STATUS_PUBLISHED
-    if reopened:  # a Modelltest without its audio cannot be taken
+    reopened = test.status == STATUS_PUBLISHED and not ml.open_test(test)
+    if reopened:  # a Modelltest without its audio cannot be taken (the open Modelltest 1–6 can: Hören then has no player)
         test.status = STATUS_DRAFT
     db.commit()
     write_audit(db, actor_id=user.id, action="multilevel_audio_shared_removed", details=f"test={test.id} unpublished={reopened}")

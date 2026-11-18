@@ -157,12 +157,16 @@ def pending_order(db: Session, user_id) -> SubscriptionOrder | None:
 
 
 def tests_overview(db: Session) -> dict:
+    """All Multilevel Modelltests / published ones; `free` = Modelltest 1–6 (open to every student), `premium_*` = the ones the Premium opens."""
     from app.models.model_test import STATUS_PUBLISHED, ModelTest
     from app.services.mock_exam.multilevel_exam_service import _multilevel_level_ids
+    from app.services.mock_exam.multilevel_service import open_test
 
     ids = _multilevel_level_ids(db)
-    tests = list(db.scalars(select(ModelTest).where(ModelTest.level_id.in_(ids)))) if ids else []
-    return {"total": len(tests), "available": sum(t.status == STATUS_PUBLISHED for t in tests)}
+    tests = list(db.scalars(select(ModelTest).where(ModelTest.level_id.in_(ids), ModelTest.status != "ARCHIVED"))) if ids else []
+    premium = [t for t in tests if not open_test(t)]
+    return {"total": len(tests), "available": sum(t.status == STATUS_PUBLISHED for t in tests), "free": len(tests) - len(premium),
+            "premium_total": len(premium), "premium_available": sum(t.status == STATUS_PUBLISHED for t in premium)}
 
 
 def status(db: Session, user: User) -> dict:

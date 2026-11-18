@@ -13,9 +13,10 @@ export const part11: Record<string, Record<string, [string, string]>> = {
     buy: ["Buy", "Купить"],
     enterPromo: ["Enter promo code", "Ввести промокод"],
     testsReady: [
-      "{available} of {total} Modelltests are ready now; the others are being prepared and open automatically as soon as they are ready.",
-      "Сейчас готовы {available} из {total} Modelltest; остальные готовятся и откроются автоматически, как только будут готовы.",
+      "The Premium opens {total} Modelltests; {available} of them are ready now, the others are being prepared and open automatically as soon as they are ready.",
+      "Premium открывает {total} Modelltest; из них {available} уже готовы, остальные готовятся и откроются автоматически.",
     ],
+    freeNote: ["Modelltest 1–{free} are free for everyone. The Premium opens the other Modelltests.", "Modelltest 1–{free} бесплатны для всех. Premium открывает остальные Modelltest."],
     payTitle: ["Card payment", "Оплата картой"],
     cardLabel: ["Payment card", "Карта для оплаты"],
     copy: ["Copy", "Копировать"],
@@ -45,8 +46,8 @@ export const part11: Record<string, Record<string, [string, string]>> = {
     blocked: ["New payment requests are blocked. Please contact support.", "Новые запросы на оплату заблокированы. Обратитесь в поддержку."],
     notForSale: ["Not on sale right now.", "Сейчас не продаётся."],
     lockedBanner: [
-      "All 10 Modelltests are locked. Unlock all of them with a one-time payment of {price} so‘m.",
-      "Все 10 Modelltest закрыты. Откройте их все одной оплатой {price} сум.",
+      "{locked} Modelltests are still locked. Unlock them with a one-time payment of {price} so‘m.",
+      "{locked} Modelltest ещё закрыты. Откройте их одной оплатой {price} сум.",
     ],
     unlock: ["Unlock", "Открыть"],
     promoTitle: ["Promo code", "Промокод"],

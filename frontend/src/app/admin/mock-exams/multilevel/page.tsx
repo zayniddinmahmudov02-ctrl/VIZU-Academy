@@ -200,8 +200,8 @@ function AttemptsCard({ onSelect, selected }: { onSelect: (id: string) => void; 
                   <td className="py-2">{r.username ?? r.email}</td>
                   <td>{r.title}</td>
                   <td>{new Date(r.started_at).toLocaleDateString("de-DE")}</td>
-                  {(Object.keys(SECTION_DE) as ExamSection[]).map((k) => <td key={k}>{r.sections[k]?.score ?? "—"}</td>)}
-                  <td>{r.total_score ?? "—"} / 300</td>
+                  {(Object.keys(SECTION_DE) as ExamSection[]).map((k) => <td key={k}>{r.sections[k]?.no_key ? "ohne Lösung" : r.sections[k]?.score ?? "—"}</td>)}
+                  <td>{r.total_score ?? "—"} / {r.max_score ?? 300}</td>
                   <td>{r.status === "IN_PROGRESS" ? "läuft" : level(r.result_level)}</td>
                 </tr>
               ))}
@@ -221,7 +221,7 @@ function AttemptDetailCard({ attemptId }: { attemptId: string }) {
     <AdminCard>
       <h2 className="text-sm font-semibold text-[var(--admin-text-primary)]">{d.username ?? d.email} · {d.title}</h2>
       <p className="mb-4 text-xs text-[var(--admin-text-muted)]">
-        {new Date(d.started_at).toLocaleString("de-DE")} · Status {d.status} · Gesamt {d.total_score ?? "—"} / 300 · Niveau {level(d.result_level)}
+        {new Date(d.started_at).toLocaleString("de-DE")} · Status {d.status} · Gesamt {d.total_score ?? "—"} / {d.max_score ?? 300} · Niveau {level(d.result_level)}
       </p>
       <div className="grid gap-4 lg:grid-cols-2">
         {d.sections.map((s) => (

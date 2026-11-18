@@ -118,6 +118,10 @@ export interface ModelTestReview {
     missing_audio: string[];
     missing_sections: string[];
     ready: boolean;
+    /** Multilevel Modelltest 1–6: missing keys / audio are only warnings — publishing needs complete sections */
+    warn_only?: boolean;
+    publishable?: boolean;
+    warnings?: string[];
   };
 }
 

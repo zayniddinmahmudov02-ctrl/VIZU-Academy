@@ -58,6 +58,18 @@ def shared_audio_test(test: ModelTest | None) -> bool:
     return test is not None and test.sort_order in SHARED_AUDIO_NUMBERS
 
 
+# Modelltest numbers that are open (owner, 2026-11-18): free for every student (no Multilevel Premium needed) and publishable while answer keys
+# or Hören audio are still missing — those are warnings there, never blockers; a question without a key is left out of the score, a Hören Teil
+# without audio is shown without a player. A test that is structurally incomplete (a section without Teile / questions) is still refused.
+# Modelltest 7–10 keep the full publish rule and the Premium.
+OPEN_TEST_NUMBERS = frozenset(range(1, 7))
+
+
+def open_test(test: ModelTest | None) -> bool:
+    """True for Modelltest 1–6 (the caller knows the test belongs to the Multilevel level)."""
+    return test is not None and test.sort_order in OPEN_TEST_NUMBERS
+
+
 def _src(name: str) -> Path:
     return SOURCES._inside_root(name)
 
@@ -265,7 +277,9 @@ def _test_questions(db: Session, model_test_id: UUID):
 
 
 def readiness(db: Session, model_test_id: UUID) -> dict:
-    """What still blocks publishing: option-based questions without a marked key, Hören Teile without audio."""
+    """What is still missing: option-based questions without a marked key, Hören Teile without audio, incomplete sections. `ready` = nothing
+    missing; `publishable` = what the publish guard asks for — for an open Modelltest (1–6, OPEN_TEST_NUMBERS) only complete sections, the
+    missing keys / audio are `warnings` there; for every other test the same as `ready`."""
     missing_keys = []
     total = 0
     for question, teil, komp in _test_questions(db, model_test_id):
@@ -288,19 +302,27 @@ def readiness(db: Session, model_test_id: UUID) -> dict:
             .join(Kompetenz, Teil.kompetenz_id == Kompetenz.id).where(Kompetenz.model_test_id == model_test_id)
             .order_by(Kompetenz.sort_order, Teil.sort_order)).all() if not (lc.audio_url or "").strip()]
     # a Multilevel test is a full exam: all four sections with content (7–10: Hören still empty → not publishable)
-    missing_sections = exam_gaps(db, model_test_id) if test is not None and is_multilevel_test(db, test) else []
+    multilevel = test is not None and is_multilevel_test(db, test)
+    missing_sections = exam_gaps(db, model_test_id) if multilevel else []
+    ready = not missing_keys and not missing_audio and not missing_sections
+    warn_only = multilevel and open_test(test)
+    warnings = []
+    if warn_only and missing_keys:
+        warnings.append(f"{len(missing_keys)} Fragen ohne Lösung (werden nicht gewertet)")
+    if warn_only and missing_audio:
+        warnings.append(f"{len(missing_audio)} Hören-Teile ohne Audio (ohne Player angezeigt)")
     return {"questions": total, "keys_set": total - len(missing_keys), "missing_keys": missing_keys,
-            "missing_audio": missing_audio, "missing_sections": missing_sections,
-            "ready": not missing_keys and not missing_audio and not missing_sections}
+            "missing_audio": missing_audio, "missing_sections": missing_sections, "ready": ready,
+            "warn_only": warn_only, "publishable": (not missing_sections) if warn_only else ready, "warnings": warnings}
 
 
 def assert_publishable(db: Session, model_test_id: UUID) -> None:
     r = readiness(db, model_test_id)
-    if not r["ready"]:
+    if not r["publishable"]:
         parts = []
-        if r["missing_keys"]:
+        if r["missing_keys"] and not r["warn_only"]:  # Modelltest 1–6: missing keys / audio are only warnings
             parts.append(f"{len(r['missing_keys'])} Fragen ohne Lösung")
-        if r["missing_audio"]:
+        if r["missing_audio"] and not r["warn_only"]:
             parts.append(f"{len(r['missing_audio'])} Hören-Teile ohne Audio")
         if r["missing_sections"]:
             parts.append("unvollständig: " + "; ".join(r["missing_sections"]))

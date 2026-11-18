@@ -69,27 +69,33 @@ test.describe.serial("multilevel modelltest premium", () => {
     c = await createStudent();
   });
 
-  test("student: 10 locked Modelltests, the 99 000 so'm modal, card copy, receipt upload -> PENDING", async ({ page, context }) => {
+  test("student: Modelltest 1–6 free, 7–10 locked, the 99 000 so'm modal, card copy, receipt upload -> PENDING", async ({ page, context }) => {
     await context.grantPermissions(["clipboard-read", "clipboard-write"]);
     await studentOn(page, a);
     const cards = page.locator('[data-testid^="multilevel-exam-"]');
     await expect(cards).toHaveCount(10);
     for (let n = 1; n <= 10; n++) {
       const card = page.getByTestId(`multilevel-exam-${n}`);
-      await expect(card).toHaveAttribute("data-access", "LOCKED");
-      await expect(card.getByTestId("exam-access")).toContainText("Yopiq");
       await expect(card.getByTestId("exam-description")).toHaveText("To'liq B1–C1 imtihon: Lesen, Hören, Schreiben, Sprechen."); // no import note
-      await expect(card.getByTestId("unlock-exam")).toBeVisible();
-      await expect(card.getByTestId("start-exam")).toHaveCount(0);
+      if (n <= 6) { // free for every student since 2026-11-18
+        await expect(card).not.toHaveAttribute("data-access", "LOCKED");
+        await expect(card.getByTestId("unlock-exam")).toHaveCount(0);
+      } else {
+        await expect(card).toHaveAttribute("data-access", "LOCKED");
+        await expect(card.getByTestId("exam-access")).toContainText("Yopiq");
+        await expect(card.getByTestId("unlock-exam")).toBeVisible();
+        await expect(card.getByTestId("start-exam")).toHaveCount(0);
+      }
     }
     await expect(page.getByTestId("ml-premium-banner")).toHaveAttribute("data-status", "LOCKED");
-    // the server refuses too
+    await expect(page.getByTestId("ml-free-note")).toContainText("Modelltest 1–6 hamma uchun bepul");
+    await expect(page.getByTestId("ml-premium-banner")).toContainText("4 ta Modelltest hali yopiq");
+    // the server agrees
     const bearer = await apiToken(a, PASSWORD);
-    const exams = (await api("GET", "/multilevel-exam/exams", bearer)).json as { model_test_id: string; is_locked: boolean }[];
-    expect(exams.every((e) => e.is_locked)).toBe(true);
-    expect((await api("POST", "/multilevel-exam/attempts", bearer, { model_test_id: exams[0].model_test_id })).status).toBe(403);
+    const exams = (await api("GET", "/multilevel-exam/exams", bearer)).json as { model_test_id: string; number: number; is_locked: boolean }[];
+    expect(exams.filter((e) => e.is_locked).map((e) => e.number)).toEqual([7, 8, 9, 10]);
 
-    await page.getByTestId("multilevel-exam-3").getByTestId("unlock-exam").click();
+    await page.getByTestId("multilevel-exam-8").getByTestId("unlock-exam").click();
     const modal = page.getByTestId("ml-premium-modal");
     await expect(modal).toBeVisible();
     await expect(modal).toContainText("VIZU MULTILEVEL MODELLTEST PREMIUM");
@@ -117,7 +123,7 @@ test.describe.serial("multilevel modelltest premium", () => {
     await modal.getByRole("button", { name: "Yopish" }).last().click();
     await expect(page.getByTestId("ml-premium-banner")).toHaveAttribute("data-status", "PENDING");
     await expect(page.getByTestId("ml-status-pending")).toBeVisible();
-    await expect(page.getByTestId("multilevel-exam-1")).toHaveAttribute("data-access", "LOCKED"); // pending opens nothing
+    await expect(page.getByTestId("multilevel-exam-7")).toHaveAttribute("data-access", "LOCKED"); // pending opens nothing
     await noHorizontalScroll(page);
   });
 
@@ -183,7 +189,7 @@ test.describe.serial("multilevel modelltest premium", () => {
     await studentOn(page, b);
     await expect(page.getByTestId("ml-status-rejected")).toContainText("Zahlung konnte nicht verifiziert werden");
     await expect(page.getByTestId("ml-open-buy")).toContainText("Qayta to'lov so'rovi yuborish");
-    await expect(page.getByTestId("multilevel-exam-1")).toHaveAttribute("data-access", "LOCKED");
+    await expect(page.getByTestId("multilevel-exam-7")).toHaveAttribute("data-access", "LOCKED");
   });
 
   test("promo: a new Multilevel code is PENDING and does nothing; after the approval it opens everything; a course code never does", async ({ page }) => {

@@ -10,6 +10,8 @@ export interface SectionSummary {
   score: number | null;
   level: ResultLevel | null;
   status: SectionStatus;
+  /** Lesen / Hören without any answer key: not scored */
+  no_key?: boolean;
 }
 
 export interface AttemptSummary {
@@ -95,7 +97,11 @@ export interface AnswerKeyTable {
   complete: boolean;
   attempts: number;
   items: AnswerKeyItem[];
-  readiness: { ready: boolean; questions: number; keys_set: number; missing_keys: string[]; missing_audio: string[]; missing_sections: string[] };
+  readiness: {
+    ready: boolean; questions: number; keys_set: number; missing_keys: string[]; missing_audio: string[]; missing_sections: string[];
+    /** Modelltest 1–6: missing keys / audio are warnings, publishing only needs complete sections */
+    warn_only?: boolean; publishable?: boolean; warnings?: string[];
+  };
 }
 
 export interface KeyImportResult {
@@ -173,6 +179,8 @@ export interface ReviewItem {
   correct: string[];
   options: { id: string; option_text: string }[];
   is_correct: boolean;
+  /** false: the question has no answer key yet — not graded */
+  has_key?: boolean;
 }
 
 export interface ResultSection {
@@ -184,6 +192,8 @@ export interface ResultSection {
   status: SectionStatus;
   raw_points: number | null;
   raw_max: number | null;
+  /** Lesen / Hören without any answer key: not scored and not in the total */
+  no_key?: boolean;
   awaiting_grading: boolean;
   feedback: string | null;
   review?: ReviewItem[];

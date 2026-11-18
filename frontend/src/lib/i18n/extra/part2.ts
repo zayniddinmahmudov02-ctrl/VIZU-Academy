@@ -17,6 +17,11 @@ export const part2: Record<string, Record<string, [string, string]>> = {
     stateIN_PROGRESS: ["In progress", "Идёт"],
     stateDONE: ["Completed", "Завершён"],
     statePREPARING: ["In preparation", "Готовится"],
+    noKeySection: [
+      "There are no answer keys for this part yet — it is not scored and does not count towards the total.",
+      "Для этой части ещё нет ключей ответов — она не оценивается и не входит в общий балл.",
+    ],
+    noKeyQuestion: ["This question has no answer key yet — not scored.", "Для этого вопроса ещё нет ключа — не оценивается."],
     sharedAudioTitle: ["Listening audio (all parts)", "Аудио для Hören (все части)"],
     sharedAudioLength: ["Length {time}", "Длительность {time}"],
     sharedAudioNote: ["This audio runs through all parts and does not restart when you move to the next part. The exam time runs independently of the audio length.", "Это аудио идёт через все части и не начинается заново при переходе к следующей части. Время экзамена не зависит от длины аудио."],

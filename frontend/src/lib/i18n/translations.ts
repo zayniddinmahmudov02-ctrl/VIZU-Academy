@@ -609,6 +609,11 @@ export const translations: Record<string, Namespace> = {
     levelPENDING: { de: "Ausstehend", uz: "Kutilmoqda" },
     error: { de: "Etwas ist schiefgelaufen.", uz: "Xatolik yuz berdi." },
     premium: { de: "Premium erforderlich", uz: "Premium talab qilinadi" },
+    noKeySection: {
+      de: "Für diesen Teil gibt es noch keine Lösungen — er wird nicht bewertet und zählt nicht zur Gesamtpunktzahl.",
+      uz: "Bu bo'lim uchun hali javob kalitlari yo'q — u baholanmaydi va umumiy ballga qo'shilmaydi.",
+    },
+    noKeyQuestion: { de: "Für diese Frage gibt es noch keine Lösung — nicht bewertet.", uz: "Bu savol uchun hali javob kaliti yo'q — baholanmadi." },
   },
 
   // Multilevel Modelltest Premium: one purchase (price from GET /vizu-pay/multilevel) opens all 10 Modelltests
@@ -628,8 +633,12 @@ export const translations: Record<string, Namespace> = {
     buy: { de: "Kaufen", uz: "Sotib olish" },
     enterPromo: { de: "Promo-Code eingeben", uz: "Promo Code kiritish" },
     testsReady: {
-      de: "Derzeit sind {available} von {total} Modelltests fertig; die übrigen werden vorbereitet und öffnen sich automatisch, sobald sie fertig sind.",
-      uz: "Hozir {total} tadan {available} ta Modelltest tayyor; qolganlari tayyorlanmoqda va tayyor bo'lishi bilan avtomatik ochiladi.",
+      de: "Der Premium öffnet {total} Modelltests; davon sind {available} schon fertig, die übrigen werden vorbereitet und öffnen sich automatisch, sobald sie fertig sind.",
+      uz: "Premium {total} ta Modelltestni ochadi; hozir ulardan {available} tasi tayyor, qolganlari tayyorlanmoqda va tayyor bo'lishi bilan avtomatik ochiladi.",
+    },
+    freeNote: {
+      de: "Modelltest 1–{free} sind für alle kostenlos. Der Premium öffnet die übrigen Modelltests.",
+      uz: "Modelltest 1–{free} hamma uchun bepul. Premium qolgan Modelltestlarni ochadi.",
     },
     payTitle: { de: "Zahlung per Karte", uz: "Karta orqali to'lov" },
     cardLabel: { de: "Zahlungskarte", uz: "To'lov kartasi" },
@@ -669,8 +678,8 @@ export const translations: Record<string, Namespace> = {
     },
     notForSale: { de: "Derzeit nicht im Verkauf.", uz: "Hozircha sotuvda emas." },
     lockedBanner: {
-      de: "Alle 10 Modelltests sind gesperrt. Mit einer einmaligen Zahlung von {price} so‘m schaltest du alle frei.",
-      uz: "Barcha 10 ta Modelltest yopiq. Bir martalik {price} so‘m to'lov bilan hammasini oching.",
+      de: "{locked} Modelltests sind noch gesperrt. Mit einer einmaligen Zahlung von {price} so‘m schaltest du sie frei.",
+      uz: "{locked} ta Modelltest hali yopiq. Bir martalik {price} so‘m to'lov bilan ularni oching.",
     },
     unlock: { de: "Freischalten", uz: "Ochish" },
     promoTitle: { de: "Promo-Code", uz: "Promo Code" },

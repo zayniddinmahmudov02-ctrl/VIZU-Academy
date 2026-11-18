@@ -14,7 +14,8 @@ import { apiErrorMessage } from "@/features/admin/services/lesson-skills-admin-s
 import type { ModelTest } from "@/features/admin/types/mock-exam.types";
 
 // Status + publish/hide, source PDF, admin check-list and readiness (keys / audio) of one Modelltest.
-// Publishing is refused by the backend (MODEL_TEST_NOT_READY) while a key or a Hören audio is missing.
+// Publishing is refused by the backend (MODEL_TEST_NOT_READY) while a key or a Hören audio is missing — except for Multilevel
+// Modelltest 1–6 (`readiness.warn_only`): there they are warnings, only an incomplete section blocks.
 export default function ModelTestReviewPanel({ modelTest }: { modelTest: ModelTest }) {
   const queryClient = useQueryClient();
   const { data: review } = useQuery({
@@ -100,6 +101,12 @@ export default function ModelTestReviewPanel({ modelTest }: { modelTest: ModelTe
             </span>
           )}
         </div>
+      )}
+      {r?.warn_only && (r.warnings?.length ?? 0) > 0 && (
+        <p className="rounded-lg bg-[#f59e0b]/10 px-3 py-2 text-xs text-[var(--admin-text-secondary)]" data-testid="publish-warnings">
+          <span className="font-semibold text-[#f59e0b]">Nur Warnungen — Veröffentlichen ist möglich: </span>
+          {r.warnings!.join(" · ")}. Fragen ohne Lösung werden nicht gewertet; Hören-Teile ohne Audio erscheinen ohne Player.
+        </p>
       )}
 
       {review && review.review.length > 0 && (

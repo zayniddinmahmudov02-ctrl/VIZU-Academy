@@ -121,9 +121,10 @@ def section_level(score: int | None, score_50: str = UNGEKLAERT) -> str | None:
     return "C1"
 
 
-def overall_level(scores: list[int | None], settings: dict) -> str:
-    """PENDING until all four scores exist; then the configured rule (UNCONFIRMED → UNGEKLAERT)."""
-    if len(scores) != len(SECTIONS) or any(s is None for s in scores):
+def overall_level(scores: list[int | None], settings: dict, expected: int = len(SECTIONS)) -> str:
+    """PENDING until all counted scores exist (normally the four; a section without any answer key is not counted); then the configured
+    rule (UNCONFIRMED → UNGEKLAERT)."""
+    if not scores or len(scores) != expected or any(s is None for s in scores):
         return PENDING
     rule = settings.get("overall_rule", "UNCONFIRMED")
     if rule == "AVERAGE":
@@ -551,13 +552,24 @@ def recording_file(db: Session, viewer: User, submission_id: UUID, staff: bool):
 # ============================================================
 
 
+def _has_key(q: MockQuestion) -> bool:
+    return any(o.is_correct for o in q.options)
+
+
 def _grade_auto(db: Session, attempt: MockTestAttempt, s: MockAttemptSection, settings: dict) -> None:
+    """Scores only questions that have a key (a question without one — Modelltest 1–6 may be published like that — is neither right nor
+    wrong and is not in raw_max). A section without any key cannot be scored: score / level stay empty (raw_max 0) and the section is left
+    out of the total (see _recompute)."""
     questions = _questions(db, s.kompetenz_id)
     answers = {a.question_id: a for a in db.scalars(select(MockQuestionAnswer).where(MockQuestionAnswer.attempt_id == attempt.id))}
     raw = raw_max = 0
     for q in questions:
-        raw_max += q.points
         a = answers.get(q.id)
+        if not _has_key(q):
+            if a is not None:
+                a.is_correct, a.points_earned = None, 0
+            continue
+        raw_max += q.points
         if a is None:
             continue
         try:
@@ -569,8 +581,13 @@ def _grade_auto(db: Session, attempt: MockTestAttempt, s: MockAttemptSection, se
         a.points_earned = q.points if a.is_correct else 0
         raw += a.points_earned
     s.raw_points, s.raw_max = raw, raw_max
-    s.score = scale(raw, raw_max)
+    s.score = scale(raw, raw_max)  # None when nothing has a key
     s.level = section_level(s.score, settings["score_50"])
+
+
+def _unscorable(s: MockAttemptSection | None) -> bool:
+    """A closed Lesen / Hören section without any answer key (raw_max 0): it has no score and does not count."""
+    return s is not None and s.section_type in AUTO_SECTIONS and s.status != SECTION_OPEN and s.score is None and not s.raw_max
 
 
 def _has_work(db: Session, attempt: MockTestAttempt, s: MockAttemptSection) -> bool:
@@ -636,10 +653,12 @@ def _recompute(db: Session, attempt: MockTestAttempt, settings: dict, secs: dict
     for s in secs.values():
         if s.score is not None:
             s.level = section_level(s.score, settings["score_50"])
-    scores = [secs[t].score if t in secs else None for t in SECTIONS]
-    attempt.result_level = overall_level(scores, settings)
+    # a section that cannot be scored (no answer key at all) is left out: the total and the overall level use the others
+    counted = [t for t in SECTIONS if not _unscorable(secs.get(t))]
+    scores = [secs[t].score if t in secs else None for t in counted]
+    attempt.result_level = overall_level(scores, settings, expected=len(counted))
     attempt.result_rule = settings["overall_rule"]
-    attempt.max_score = TOTAL_MAX
+    attempt.max_score = SECTION_MAX * len(counted)
     if attempt.result_level == PENDING:
         attempt.total_score = None
         attempt.status = STATUS_SUBMITTED
@@ -664,8 +683,10 @@ def submit_section(db: Session, user: User, attempt_id: UUID, section_type: str)
 def _summary(db: Session, attempt: MockTestAttempt) -> dict:
     secs = _sections(db, attempt)
     return {"attempt_id": attempt.id, "status": attempt.status, "started_at": attempt.started_at, "submitted_at": attempt.submitted_at,
-            "total_score": attempt.total_score, "max_score": TOTAL_MAX, "result_level": attempt.result_level,
-            "sections": {t: ({"score": secs[t].score, "level": secs[t].level, "status": secs[t].status} if t in secs else None) for t in SECTIONS}}
+            # 300, or less when a section could not be scored (no answer key)
+            "total_score": attempt.total_score, "max_score": attempt.max_score or TOTAL_MAX, "result_level": attempt.result_level,
+            "sections": {t: ({"score": secs[t].score, "level": secs[t].level, "status": secs[t].status, "no_key": _unscorable(secs[t])}
+                             if t in secs else None) for t in SECTIONS}}
 
 
 def results(db: Session, user: User, attempt_id: UUID) -> dict:
@@ -689,12 +710,14 @@ def _result_detail(db: Session, attempt: MockTestAttempt, include_review: bool) 
         item = {"type": t, "title": komps[t].title if t in komps else t, "score": s.score if s else None, "max": SECTION_MAX,
                 "level": s.level if s else None, "status": s.status if s else "NOT_STARTED",
                 "raw_points": s.raw_points if s else None, "raw_max": s.raw_max if s else None,
+                "no_key": _unscorable(s),  # Lesen / Hören without any answer key: not scored, not in the total
                 "awaiting_grading": bool(s and t in GRADED_SECTIONS and s.score is None), "feedback": s.feedback if s else None}
         if include_review and s and t in AUTO_SECTIONS and t in komps:
             answers = {a.question_id: a for a in db.scalars(select(MockQuestionAnswer).where(MockQuestionAnswer.attempt_id == attempt.id))}
             item["review"] = [{"question_id": q.id, "question_text": q.question_text,
                                "chosen": [str(v) for v in json.loads(answers[q.id].answer_data or "[]")] if q.id in answers else [],
                                "correct": [str(o.id) for o in q.options if o.is_correct],
+                               "has_key": _has_key(q),  # False: not graded (no answer key yet)
                                "options": [{"id": o.id, "option_text": o.option_text} for o in q.options],
                                "is_correct": bool(answers[q.id].is_correct) if q.id in answers else False}
                               for q in _questions(db, komps[t].id)]

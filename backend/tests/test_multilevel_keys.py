@@ -461,7 +461,9 @@ class TestKeysAgainstDatabase(unittest.TestCase):
                     self.assertEqual(s.status, "EXPIRED")
                     self.assertIsNotNone(s.submitted_at)
                     self.assertLessEqual(s.submitted_at, s.deadline_at)
-                    self.assertEqual((s.raw_max, s.score is not None), (35, True))  # graded and stored (no Lesen key yet: nothing counts)
+                    # graded and stored; only Lesen questions WITH a key count (2026-11-18) — none / few have one here
+                    keyed = sum(1 for q, _ in k._questions(db, self.tid(1), "LESEN") if any(o.is_correct for o in q.options))
+                    self.assertEqual((s.raw_max, s.score is not None), (keyed, keyed > 0))
                     self.assertEqual(exam.attempt_view(db, student, attempt.id)["sections"][0]["ended_at"], s.submitted_at)
                 else:
                     exam.submit_section(db, student, attempt.id, section)

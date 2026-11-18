@@ -33,7 +33,7 @@ def has_premium_bypass(user: User | None) -> bool:
 def is_free_model_test(model_test) -> bool:
     """Business rule (other providers): "Modelltest 1" (the lowest sort_order in its level)
     is free; every other model test in that level requires Premium. Not for the
-    Multilevel level — there all 10 need the Multilevel Premium."""
+    Multilevel level — there Modelltest 1–6 are free and 7–10 need the Multilevel Premium."""
     return model_test.sort_order == 1
 
 
@@ -74,8 +74,10 @@ def can_access_model_test(model_test, user: User | None) -> bool:
     if has_premium_bypass(user):
         return True
     if is_multilevel_model_test(model_test):
-        # all 10 Multilevel Modelltests are locked until the student holds the Multilevel Premium (no free Modelltest 1 there)
-        return has_multilevel_premium(user)
+        from app.services.mock_exam.multilevel_service import open_test
+
+        # Modelltest 1–6 are free for every student (owner, 2026-11-18); 7–10 need the Multilevel Premium
+        return user is not None and (open_test(model_test) or has_multilevel_premium(user))
     return is_free_model_test(model_test) or is_user_premium(user)
 
 

@@ -15,8 +15,8 @@ import type { ExamListItem } from "@/features/vorbereitung/types/multilevel-exam
 import { useTranslation } from "@/lib/i18n/use-translation";
 
 // Multilevel (Zertifikatsprüfungen → Multilevel): every Modelltest (1–10) is a full B1–C1 exam, the result says B1, B2, C1 or
-// "Nicht bestanden". All 10 are locked until the student holds the Multilevel Premium (one purchase, approved by the admin, or an
-// approved 100 % promo code); a test that is not published yet shows "Tayyorlanmoqda" and cannot be started.
+// "Nicht bestanden". Modelltest 1–6 are free for every student (2026-11-18); the others are locked until the student holds the Multilevel
+// Premium (one purchase, approved by the admin, or an approved 100 % promo code); a test that is not published yet shows "Tayyorlanmoqda".
 export default function MultilevelPage() {
   const { t } = useTranslation();
   const router = useRouter();
@@ -29,7 +29,9 @@ export default function MultilevelPage() {
   const { data: premium } = useQuery({ queryKey: ["multilevel-premium"], queryFn: getMlStatus });
 
   const hasAccess = !!premium && (premium.entitled || premium.staff);
-  const canBuy = !!premium && !hasAccess && !premium.pending_order && !premium.blocked && premium.product.purchasable;
+  // Modelltest 1–6 are free for everyone; the Premium is about the locked rest
+  const locked = exams.filter((e) => e.is_locked).length;
+  const canBuy = !!premium && !hasAccess && !premium.pending_order && !premium.blocked && premium.product.purchasable && locked > 0;
 
   function refresh() {
     void queryClient.invalidateQueries({ queryKey: ["multilevel-premium"] });
@@ -72,9 +74,10 @@ export default function MultilevelPage() {
             <Crown size={18} className="text-amber-500" /> {t("mlPremium.title")}
           </p>
           <StatusNotice status={premium} />
+          {!hasAccess && !!premium.tests.free && <p className="text-sm font-semibold text-success" data-testid="ml-free-note">{t("mlPremium.freeNote", { free: premium.tests.free })}</p>}
           {canBuy && (
             <>
-              <p className="text-sm text-text-secondary">{t("mlPremium.lockedBanner", { price: som(premium.product.price) })}</p>
+              <p className="text-sm text-text-secondary">{t("mlPremium.lockedBanner", { locked, price: som(premium.product.price) })}</p>
               <div className="flex flex-col gap-2 sm:flex-row">
                 <button type="button" onClick={() => setModal("intro")} data-testid="ml-open-buy"
                   className="rounded-xl bg-accent-blue px-4 py-2.5 text-sm font-bold text-white transition hover:brightness-110">
@@ -138,7 +141,7 @@ export default function MultilevelPage() {
                   <span className={`rounded-full px-2 py-0.5 text-xs font-bold ${levelTone(exam.last_result.result_level)}`}>
                     {levelLabel(t, exam.last_result.result_level)}
                   </span>{" "}
-                  {exam.last_result.total_score !== null && `${exam.last_result.total_score} / 300`}
+                  {exam.last_result.total_score !== null && `${exam.last_result.total_score} / ${exam.last_result.max_score ?? 300}`}
                 </p>
               )}
               {exam.is_locked ? (

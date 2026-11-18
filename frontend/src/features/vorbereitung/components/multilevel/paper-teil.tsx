@@ -42,7 +42,7 @@ export default function PaperTeilView({ teil, mode, answers = {}, onAnswer, disa
             <track kind="captions" />
           </audio>
         ) : (
-          <p className="mt-4 rounded-xl bg-surface-hover px-4 py-3 text-sm text-text-muted">{t("multilevelExam.audioMissing")}</p>
+          <p className="mt-4 rounded-xl bg-surface-hover px-4 py-3 text-sm text-text-muted" data-testid="teil-audio-missing">{t("multilevelExam.audioMissing")}</p>
         ))}
 
       {teil.image_url && (

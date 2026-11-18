@@ -153,8 +153,11 @@ function PremiumDialog({ status, initialStep = "intro", onClose, onChanged }: Pr
                 <p className="text-2xl font-extrabold text-text-primary" data-testid="ml-price">{t("mlPremium.price", { price: som(price) })}</p>
                 <p className="flex items-center gap-1 text-xs font-semibold text-amber-600 dark:text-amber-400"><InfinityIcon size={14} />{t("mlPremium.unlimited")}</p>
               </div>
-              {status && status.tests.available < status.tests.total && (
-                <p className="text-xs text-text-muted" data-testid="ml-tests-ready">{t("mlPremium.testsReady", { available: status.tests.available, total: status.tests.total })}</p>
+              {!!status?.tests.free && <p className="text-xs font-semibold text-success" data-testid="ml-free-note">{t("mlPremium.freeNote", { free: status.tests.free })}</p>}
+              {status && (status.tests.premium_available ?? status.tests.available) < (status.tests.premium_total ?? status.tests.total) && (
+                <p className="text-xs text-text-muted" data-testid="ml-tests-ready">
+                  {t("mlPremium.testsReady", { available: status.tests.premium_available ?? status.tests.available, total: status.tests.premium_total ?? status.tests.total })}
+                </p>
               )}
               <StatusNotice status={status} />
               {canBuy && (

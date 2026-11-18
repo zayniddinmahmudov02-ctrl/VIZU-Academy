@@ -210,10 +210,11 @@ class TestMultilevelImport(unittest.TestCase):
                 svc.source_pdf_path(db, mt7.id)
             self.assertEqual(ctx.exception.status_code, 404)
 
-            with self.assertRaises(HTTPException) as ctx:
-                hierarchy_service.update_model_test(db, mt1.id, ModelTestUpdate(status="PUBLISHED"))
-            self.assertEqual(ctx.exception.status_code, 409)
-            self.assertTrue(ctx.exception.detail.startswith("MODEL_TEST_NOT_READY"))
+            # Modelltest 1–6 (2026-11-18): missing keys / audio are warnings only — the guard lets them through (no status change here)
+            r1 = svc.readiness(db, mt1.id)
+            self.assertEqual((r1["ready"], r1["warn_only"], r1["publishable"]), (False, True, True))
+            self.assertTrue(any("ohne Lösung" in w for w in r1["warnings"]))
+            svc.assert_publishable(db, mt1.id)  # does not raise
             # 7–10 have keys but no Hören yet: not a complete exam → still refused
             with self.assertRaises(HTTPException) as ctx:
                 hierarchy_service.update_model_test(db, mt7.id, ModelTestUpdate(status="PUBLISHED"))

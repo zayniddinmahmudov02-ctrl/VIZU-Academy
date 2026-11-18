@@ -186,10 +186,12 @@ function KeyEditor({ testId, section }: { testId: string; section: KeySection })
         )}
       </div>
 
-      <div className="text-xs" data-testid="keys-readiness" data-ready={r.ready ? "1" : "0"}>
+      <div className="text-xs" data-testid="keys-readiness" data-ready={r.ready ? "1" : "0"} data-publishable={r.publishable ?? r.ready ? "1" : "0"}>
         {r.ready ? <p className="text-[var(--admin-success)]">Bereit zur Veröffentlichung: alle Lösungen und alle Hören-Audios sind vorhanden.</p> : (
           <div className="space-y-0.5 text-[var(--admin-text-muted)]">
-            <p className="font-semibold text-[var(--admin-warning)]">Noch nicht veröffentlichbar:</p>
+            <p className="font-semibold text-[var(--admin-warning)]">
+              {r.warn_only && r.publishable ? "Veröffentlichbar mit Warnungen (Fragen ohne Lösung werden nicht gewertet):" : "Noch nicht veröffentlichbar:"}
+            </p>
             {r.missing_keys.length > 0 && <p>{r.missing_keys.length} Fragen ohne Lösung (z. B. {r.missing_keys.slice(0, 3).join(", ")}).</p>}
             {r.missing_audio.length > 0 && <p>{r.missing_audio.length} Hören-Teile ohne Audio ({r.missing_audio.slice(0, 3).join(", ")}{r.missing_audio.length > 3 ? " …" : ""}).</p>}
             {r.missing_sections.length > 0 && <p>Unvollständig: {r.missing_sections.join("; ")}.</p>}

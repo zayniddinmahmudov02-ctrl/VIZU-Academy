@@ -3,15 +3,16 @@
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, Check, X } from "lucide-react";
+import { ArrowLeft, Check, Minus, X } from "lucide-react";
 
 import { formatDuration, levelLabel, levelTone, SECTION_LABEL_KEY } from "@/features/vorbereitung/lib/multilevel-labels";
 import { getResult } from "@/features/vorbereitung/services/multilevel-exam-service";
 import type { ResultSection } from "@/features/vorbereitung/types/multilevel-exam.types";
 import { useTranslation } from "@/lib/i18n/use-translation";
 
-// Result of a finished Multilevel attempt: every section x / 75 with its level, total / 300, overall level (or
-// "Ungeklärt" while no overall rule is confirmed), date, duration and — only now — the Lesen / Hören answers.
+// Result of a finished Multilevel attempt: every section x / 75 with its level, total / max (300, less when a section has no answer key
+// and is not scored), overall level (or "Ungeklärt" while no overall rule is confirmed), date, duration and — only now — the Lesen / Hören
+// answers (a question without a key is shown as "not graded").
 export default function MultilevelResultPage() {
   const { attemptId } = useParams<{ attemptId: string }>();
   const { t } = useTranslation();
@@ -64,13 +65,15 @@ export default function MultilevelResultPage() {
                     return i >= 0 ? `${"ABCDEFGHIJ"[i] ?? i + 1}) ${r.options[i].option_text}` : "";
                   }).join(", ");
                   return (
-                    <li key={r.question_id} className="rounded-xl bg-surface-hover/50 p-3 text-sm">
+                    <li key={r.question_id} className="rounded-xl bg-surface-hover/50 p-3 text-sm" data-testid="review-item" data-has-key={r.has_key === false ? "0" : "1"}>
                       <p className="flex items-start gap-2 font-medium text-text-primary">
-                        {r.is_correct ? <Check size={15} className="mt-0.5 shrink-0 text-success" /> : <X size={15} className="mt-0.5 shrink-0 text-danger" />}
+                        {r.has_key === false ? <Minus size={15} className="mt-0.5 shrink-0 text-text-muted" />
+                          : r.is_correct ? <Check size={15} className="mt-0.5 shrink-0 text-success" /> : <X size={15} className="mt-0.5 shrink-0 text-danger" />}
                         <span className="line-clamp-3 break-words">{r.question_text}</span>
                       </p>
                       <p className="mt-1 text-xs text-text-secondary">{t("multilevelExam.yourAnswer")}: {r.chosen.length ? text(r.chosen) : t("multilevelExam.noAnswer")}</p>
-                      {!r.is_correct && <p className="text-xs text-success">{t("multilevelExam.correctAnswer")}: {text(r.correct)}</p>}
+                      {r.has_key === false ? <p className="text-xs text-text-muted">{t("multilevelExam.noKeyQuestion")}</p>
+                        : !r.is_correct && <p className="text-xs text-success">{t("multilevelExam.correctAnswer")}: {text(r.correct)}</p>}
                     </li>
                   );
                 })}
@@ -88,7 +91,9 @@ function SectionCard({ s }: { s: ResultSection }) {
   return (
     <div className="rounded-2xl bg-surface-card p-5 ring-1 ring-surface-border" data-testid={`result-${s.type}`}>
       <p className="text-sm font-semibold text-text-primary">{t(SECTION_LABEL_KEY[s.type])}</p>
-      {s.awaiting_grading ? (
+      {s.no_key ? (
+        <p className="mt-2 text-sm text-text-muted" data-testid="section-no-key">{t("multilevelExam.noKeySection")}</p>
+      ) : s.awaiting_grading ? (
         <p className="mt-2 text-sm text-text-muted">{t("multilevelExam.awaiting")}</p>
       ) : (
         <div className="mt-2 flex items-center gap-3">
@@ -96,7 +101,7 @@ function SectionCard({ s }: { s: ResultSection }) {
           <span className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${levelTone(s.level)}`}>{levelLabel(t, s.level)}</span>
         </div>
       )}
-      {s.raw_max !== null && s.raw_points !== null && <p className="mt-1 text-xs text-text-muted">{s.raw_points} / {s.raw_max}</p>}
+      {!s.no_key && s.raw_max !== null && s.raw_points !== null && <p className="mt-1 text-xs text-text-muted">{s.raw_points} / {s.raw_max}</p>}
       {s.feedback && <p className="mt-2 whitespace-pre-line text-xs text-text-secondary">{t("multilevelExam.feedback")}: {s.feedback}</p>}
     </div>
   );
