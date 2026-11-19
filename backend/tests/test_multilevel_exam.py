@@ -8,7 +8,7 @@ import os
 import tempfile
 import unittest
 import uuid
-from datetime import timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from unittest.mock import patch
 
@@ -131,6 +131,12 @@ class TestExamFlow(unittest.TestCase):
                      premium_until=None)
             db.add(u)
             users.append(u)
+        db.flush()
+        # every Multilevel Modelltest needs the Premium (2026-11-19): both students have it (the rows go with the users, FK CASCADE)
+        from app.models.user_entitlement import PRODUCT_MULTILEVEL_PREMIUM, UserEntitlement
+
+        for u in users[:2]:
+            db.add(UserEntitlement(user_id=u.id, product=PRODUCT_MULTILEVEL_PREMIUM, source="PAYMENT", granted_at=datetime.now(timezone.utc)))
         provider = CertificationProvider(name=f"MLX {tag}", code=f"MLX{tag}", is_active=True)
         db.add(provider)
         db.flush()
@@ -233,7 +239,7 @@ class TestExamFlow(unittest.TestCase):
             # every Modelltest is shown; the incomplete draft as "Tayyorlanmoqda" (not startable, no content)
             self.assertEqual((exams[self.test_id]["available"], exams[self.incomplete_id]["available"]), (True, False))
             self.assertEqual(exams[self.incomplete_id]["state"], "PREPARING")
-            # Modelltest 1–6 are free for every student (2026-11-18): open without any Premium (7–10: test_multilevel_premium)
+            # every Modelltest needs the Multilevel Premium (2026-11-19; the fixture grants it to "a" — the locks are tested in test_multilevel_premium)
             self.assertFalse(any(e["is_locked"] for e in exams.values()))
             self.assertFalse(any(e["is_locked"] for e in svc.list_exams(db, sadmin)))  # staff review without buying
             att = svc.start_attempt(db, a, self.test_id)

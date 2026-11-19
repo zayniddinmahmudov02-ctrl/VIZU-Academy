@@ -58,16 +58,25 @@ def shared_audio_test(test: ModelTest | None) -> bool:
     return test is not None and test.sort_order in SHARED_AUDIO_NUMBERS
 
 
-# Modelltest numbers that are open (owner, 2026-11-18): free for every student (no Multilevel Premium needed) and publishable while answer keys
-# or Hören audio are still missing — those are warnings there, never blockers; a question without a key is left out of the score, a Hören Teil
-# without audio is shown without a player. A test that is structurally incomplete (a section without Teile / questions) is still refused.
-# Modelltest 7–10 keep the full publish rule and the Premium.
+# Modelltest numbers with the lenient PUBLISH rule (owner, 2026-11-18): publishable while answer keys or Hören audio are still missing — those are
+# warnings there, never blockers; a question without a key is left out of the score, a Hören Teil without audio is shown without a player. A test
+# that is structurally incomplete (a section without Teile / questions) is still refused. Modelltest 7–10 keep the full publish rule.
+# This says nothing about access: see FREE_TEST_NUMBERS.
 OPEN_TEST_NUMBERS = frozenset(range(1, 7))
+
+# Modelltest numbers a student may take WITHOUT the Multilevel Premium. Empty since 2026-11-19 (owner): every Modelltest 1–10 needs the Premium
+# (1–6 were free from 2026-11-18 to 2026-11-19). Staff always get through (vizu_pay.access.has_premium_bypass).
+FREE_TEST_NUMBERS: frozenset[int] = frozenset()
 
 
 def open_test(test: ModelTest | None) -> bool:
-    """True for Modelltest 1–6 (the caller knows the test belongs to the Multilevel level)."""
+    """True for Modelltest 1–6: the lenient publish rule (the caller knows the test belongs to the Multilevel level)."""
     return test is not None and test.sort_order in OPEN_TEST_NUMBERS
+
+
+def free_test(test: ModelTest | None) -> bool:
+    """True for a Multilevel Modelltest a student may take without the Premium (none since 2026-11-19)."""
+    return test is not None and test.sort_order in FREE_TEST_NUMBERS
 
 
 def _src(name: str) -> Path:

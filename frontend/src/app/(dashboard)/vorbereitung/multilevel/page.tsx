@@ -15,8 +15,9 @@ import type { ExamListItem } from "@/features/vorbereitung/types/multilevel-exam
 import { useTranslation } from "@/lib/i18n/use-translation";
 
 // Multilevel (Zertifikatsprüfungen → Multilevel): every Modelltest (1–10) is a full B1–C1 exam, the result says B1, B2, C1 or
-// "Nicht bestanden". Modelltest 1–6 are free for every student (2026-11-18); the others are locked until the student holds the Multilevel
-// Premium (one purchase, approved by the admin, or an approved 100 % promo code); a test that is not published yet shows "Tayyorlanmoqda".
+// "Nicht bestanden". Every Modelltest is locked until the student holds the Multilevel Premium (2026-11-19; one purchase, approved by the
+// admin, or an approved 100 % promo code); a test that is not published yet shows "Tayyorlanmoqda". Which tests are free comes from the
+// server (`tests.free`, 0 now): the free note hides itself.
 export default function MultilevelPage() {
   const { t } = useTranslation();
   const router = useRouter();
@@ -29,7 +30,7 @@ export default function MultilevelPage() {
   const { data: premium } = useQuery({ queryKey: ["multilevel-premium"], queryFn: getMlStatus });
 
   const hasAccess = !!premium && (premium.entitled || premium.staff);
-  // Modelltest 1–6 are free for everyone; the Premium is about the locked rest
+  // the Premium is about the locked tests (all of them without it)
   const locked = exams.filter((e) => e.is_locked).length;
   const canBuy = !!premium && !hasAccess && !premium.pending_order && !premium.blocked && premium.product.purchasable && locked > 0;
 

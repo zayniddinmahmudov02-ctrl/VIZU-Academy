@@ -1,7 +1,8 @@
 """Multilevel Modelltest 1–6 open for every student (2026-11-18), against PostgreSQL (VIZU_WB_TEST_DB_URL):
 * publish guard: missing answer keys / Hören audio are warnings for 1–6 (publishable), a structurally incomplete test is still refused, 7–10
   keep the full rule;
-* access: 1–6 free without the Multilevel Premium (logged in), 7–10 locked, nobody anonymous;
+* access (since 2026-11-19): every Modelltest 1–10 needs the Multilevel Premium (staff always), nobody anonymous — the lenient publish rule
+  of 1–6 does not open them;
 * the script app/scripts/multilevel_open_tests.py: read-only plan, wrong id refused, apply links the unused "Variant 1 Hören" upload as
   Modelltest 1's shared audio, reports a per-Teil test's whole-section file as MANUAL (not linked), publishes the complete tests, leaves the
   incomplete one, writes audit entries, a second plan is KEEP only;
@@ -162,11 +163,26 @@ class TestOpenModelltests(unittest.TestCase):
             self.assertIn("ohne Lösung", ctx.exception.detail)
             self.assertFalse(ml.readiness(db, self.tid[7])["warn_only"])
 
-            student, _ = self.users(db)
-            for n in range(1, 7):
-                self.assertTrue(can_access_model_test(db.get(ModelTest, self.tid[n]), student), n)
-            self.assertFalse(can_access_model_test(db.get(ModelTest, self.tid[7]), student))
+            # access (owner, 2026-11-19): every Modelltest 1–10 needs the Multilevel Premium — the lenient publish rule does not open a test
+            student, staff = self.users(db)
+            for n in range(1, 8):
+                self.assertFalse(can_access_model_test(db.get(ModelTest, self.tid[n]), student), n)
+                self.assertTrue(can_access_model_test(db.get(ModelTest, self.tid[n]), staff), n)
             self.assertFalse(can_access_model_test(db.get(ModelTest, self.tid[1]), None))
+            self.assertEqual(ml.FREE_TEST_NUMBERS, frozenset())
+
+            from app.models.user_entitlement import PRODUCT_MULTILEVEL_PREMIUM, UserEntitlement
+            from app.services.vizu_pay import multilevel_premium
+
+            db.add(UserEntitlement(user_id=student.id, product=PRODUCT_MULTILEVEL_PREMIUM, source="PAYMENT", granted_at=datetime.now(timezone.utc)))
+            db.flush()
+            student, _ = self.users(db)  # fresh access cache
+            for n in range(1, 8):
+                self.assertTrue(can_access_model_test(db.get(ModelTest, self.tid[n]), student), n)
+            overview = multilevel_premium.tests_overview(db)
+            self.assertEqual(overview["free"], 0)
+            self.assertEqual(overview["premium_total"], overview["total"])
+            db.rollback()
 
     def test_2_script_plan_and_apply(self):
         from sqlalchemy import select
@@ -213,7 +229,12 @@ class TestOpenModelltests(unittest.TestCase):
         from app.services.mock_exam import multilevel_exam_service as exam
         from app.services.mock_exam import multilevel_keys as keys
 
+        from app.models.user_entitlement import PRODUCT_MULTILEVEL_PREMIUM, UserEntitlement
+
         with self.Session() as db:
+            # the student holds the Premium (needed for every Modelltest since 2026-11-19; the row goes with the user, FK CASCADE)
+            db.add(UserEntitlement(user_id=self.user_ids[0], product=PRODUCT_MULTILEVEL_PREMIUM, source="PAYMENT", granted_at=datetime.now(timezone.utc)))
+            db.commit()
             student, editor = self.users(db)
             listed = {e["number"]: e for e in exam.list_exams(db, student) if e["model_test_id"] in self.tid.values()}
             self.assertEqual({n: (e["available"], e["is_locked"]) for n, e in listed.items() if n <= 2}, {1: (True, False), 2: (True, False)})

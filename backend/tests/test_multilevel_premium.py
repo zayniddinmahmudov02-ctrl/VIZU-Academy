@@ -21,6 +21,7 @@ from unittest.mock import patch
 from fastapi import HTTPException
 
 DB_URL = os.environ.get("VIZU_WB_TEST_DB_URL")
+ALL = list(range(1, 11))  # since 2026-11-19 every Multilevel Modelltest needs the Premium
 PNG = b"\x89PNG\r\n\x1a\n" + b"\x00" * 64
 TASHKENT = timezone(timedelta(hours=5))
 
@@ -201,21 +202,19 @@ class TestMultilevelPremiumAgainstDatabase(unittest.TestCase):
             a, b, c, d, admin = self.users(db)
             cards = self.mine(db, a)
             self.assertEqual([e["number"] for e in cards], list(range(1, 11)))
-            # Modelltest 1–6 are free for every student (2026-11-18); 7–10 need the Premium
-            self.assertEqual([e["number"] for e in cards if e["is_locked"]], [7, 8, 9, 10])
+            # every Modelltest 1–10 needs the Premium (owner, 2026-11-19; 1–6 were free 2026-11-18 … 19)
+            self.assertEqual([e["number"] for e in cards if e["is_locked"]], ALL)
             self.assertEqual([e["number"] for e in cards if e["available"]], [1, 7])  # the others: "Tayyorlanmoqda", no fake content
-            with self.assertRaises(HTTPException) as ctx:
-                exam.start_attempt(db, a, self.test_ids[6])
-            self.assertEqual((ctx.exception.status_code, ctx.exception.detail), (403, "PREMIUM_REQUIRED"))
-            with self.assertRaises(HTTPException) as ctx:  # a free test passes the gate (this fixture test has no content)
-                exam.start_attempt(db, a, self.test_ids[0])
-            self.assertEqual(ctx.exception.detail, "EXAM_NOT_READY")
+            for i in (0, 6):  # Modelltest 1 (lenient publish rule) and 7: both behind the Premium
+                with self.assertRaises(HTTPException) as ctx:
+                    exam.start_attempt(db, a, self.test_ids[i])
+                self.assertEqual((ctx.exception.status_code, ctx.exception.detail), (403, "PREMIUM_REQUIRED"))
 
             status = ml.status(db, a)
             self.assertEqual((status["product"]["price"], status["product"]["currency"], status["entitled"]), (99_000, "UZS", False))
             mine = {k: status["tests"][k] for k in ("free", "premium_total", "premium_available")}
-            self.assertEqual(mine["free"], 6)
-            self.assertGreaterEqual(mine["premium_total"], 4)
+            self.assertEqual(mine["free"], 0)
+            self.assertGreaterEqual(mine["premium_total"], 10)
             self.assertEqual(status["cards"][0]["number"], "9860040114063742")
             self.assertEqual(ml.quote(db, a, None)["final_amount"], 99_000)
 
@@ -234,7 +233,7 @@ class TestMultilevelPremiumAgainstDatabase(unittest.TestCase):
             with self.assertRaises(HTTPException) as ctx:  # one open request at a time
                 self.order(db, a)
             self.assertEqual(ctx.exception.detail, "PAYMENT_REQUEST_ALREADY_PENDING")
-            self.assertEqual([e["number"] for e in self.mine(db, self.users(db)[0]) if e["is_locked"]], [7, 8, 9, 10])  # pending opens nothing
+            self.assertEqual([e["number"] for e in self.mine(db, self.users(db)[0]) if e["is_locked"]], ALL)  # pending opens nothing
             self.assertEqual(ml.status(db, a)["pending_order"]["id"], out["id"])
             self.assertIsNone(ml.status(db, b)["pending_order"])  # never someone else's request
 
@@ -265,14 +264,14 @@ class TestMultilevelPremiumAgainstDatabase(unittest.TestCase):
             b = self.users(db)[1]
             st = ml.status(db, b)
             self.assertEqual((st["entitled"], st["last_rejected"]["reason"]), (False, "To'lov topilmadi"))
-            self.assertEqual([e["number"] for e in self.mine(db, b) if e["is_locked"]], [7, 8, 9, 10])
+            self.assertEqual([e["number"] for e in self.mine(db, b) if e["is_locked"]], ALL)
             self.assertEqual(self.order(db, b)["status"], "PENDING")
 
             # refund revokes the access (the row stays as history)
             admin_svc.refund_order(out["id"], "test refund", admin, None)
             a = self.users(db)[0]
             self.assertFalse(ml.status(db, a)["entitled"])
-            self.assertEqual([e["number"] for e in self.mine(db, a) if e["is_locked"]], [7, 8, 9, 10])
+            self.assertEqual([e["number"] for e in self.mine(db, a) if e["is_locked"]], ALL)
             holders = ml.list_entitlements(db, include_revoked=True)
             self.assertTrue(any(h["user_id"] == str(a.id) and h["revoked_at"] is not None for h in holders))
 

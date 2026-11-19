@@ -1,11 +1,12 @@
 import { expect, test, type Page } from "@playwright/test";
 
-import { ADMIN, API_URL, PASSWORD, apiToken, createStudent, loginViaForm } from "./helpers";
+import { ADMIN, API_URL, PASSWORD, apiToken, createStudent, grantMultilevelPremium, loginViaForm } from "./helpers";
 
-// Multilevel Modelltest 1–6 open for every student (2026-11-18), local stack only. Admin: a Modelltest of 1–6 without Lesen keys / Hören
-// audio shows only warnings and "Veröffentlichen" works; Modelltest 7 keeps the full rule. Student without any Premium: 1–6 are open, a test
-// without audio starts, the Hören Teile show "audio not available" and can be answered, the exam finishes, the Lesen part without keys is
-// "not scored" and the total is out of 225. The chosen Modelltest (2–6, no audio, no Lesen keys) is put back to its old status afterwards.
+// Multilevel Modelltest 1–6 with the lenient publish rule (2026-11-18), local stack only. Admin: a Modelltest of 1–6 without Lesen keys / Hören
+// audio shows only warnings and "Veröffentlichen" works; Modelltest 7 keeps the full rule. Access (owner, 2026-11-19): a student WITHOUT the
+// Premium finds all 10 locked (also 1–6); WITH the Premium a test without audio starts, the Hören Teile show "audio not available" and can be
+// answered, the exam finishes, the Lesen part without keys is "not scored" and the total is out of 225. The chosen Modelltest (2–6, no audio,
+// no Lesen keys) is put back to its old status afterwards.
 
 async function api(method: string, path: string, bearer: string, body?: unknown) {
   const res = await fetch(`${API_URL}/api/v1${path}`, {
@@ -78,22 +79,27 @@ test.describe.serial("Multilevel Modelltest 1–6 open", () => {
     expect(await statusOf(ids.seven.id)).toBe("DRAFT");
   });
 
-  test("student without Premium: Modelltest 1–6 open; a test without audio starts, Hören works, Lesen without keys is not scored", async ({ page }) => {
+  test("student: without Premium all 10 locked (also 1–6); with it a test without audio starts, Hören works, Lesen without keys is not scored", async ({ page }) => {
     test.setTimeout(120_000);
     const student = await createStudent();
     await loginViaForm(page, student, PASSWORD);
     await expect(page).toHaveURL(/\/dashboard/);
     await page.goto("/vorbereitung/multilevel");
+    for (let n = 1; n <= 10; n++) await expect(page.getByTestId(`multilevel-exam-${n}`)).toHaveAttribute("data-access", "LOCKED");
+    await expect(page.getByTestId(`multilevel-exam-${number}`).getByTestId("start-exam")).toHaveCount(0);
+    await expect(page.getByTestId("ml-free-note")).toHaveCount(0);
+    const bearer = await apiToken(student, PASSWORD);
+    expect(((await api("GET", "/vizu-pay/multilevel", bearer)).json).entitled).toBe(false);
+    const exams = (await api("GET", "/multilevel-exam/exams", bearer)).json as { model_test_id: string; number: number }[];
+    expect((await api("POST", "/multilevel-exam/attempts", bearer, { model_test_id: exams.find((e) => e.number === number)!.model_test_id })).status).toBe(403);
+
+    await grantMultilevelPremium(student);
+    await page.reload();
     for (const n of [1, number]) {
       const card = page.getByTestId(`multilevel-exam-${n}`);
       await expect(card).toHaveAttribute("data-access", "OPEN");
       await expect(card.getByTestId("start-exam")).toBeVisible();
     }
-    for (const n of [2, 3, 4, 5, 6]) await expect(page.getByTestId(`multilevel-exam-${n}`)).not.toHaveAttribute("data-access", "LOCKED");
-    await expect(page.getByTestId("multilevel-exam-7")).toHaveAttribute("data-access", "LOCKED");
-    const bearer = await apiToken(student, PASSWORD);
-    expect(((await api("GET", "/vizu-pay/multilevel", bearer)).json).entitled).toBe(false); // no Premium involved
-
     await page.getByTestId(`multilevel-exam-${number}`).getByTestId("start-exam").click();
     await expect(page.getByTestId("exam-overview")).toBeVisible();
     // Lesen: answer the first question, hand in
@@ -125,13 +131,13 @@ test.describe.serial("Multilevel Modelltest 1–6 open", () => {
   });
 });
 
-test("phone: Modelltest 1–6 open for a student without Premium, no horizontal scroll", async ({ page, isMobile }) => {
+test("phone: without Premium Modelltest 1 and 7 are locked, the unlock button fits, no horizontal scroll", async ({ page, isMobile }) => {
   test.skip(!isMobile, "phone");
   const student = await createStudent();
   await loginViaForm(page, student, PASSWORD);
   await expect(page).toHaveURL(/\/dashboard/);
   await page.goto("/vorbereitung/multilevel");
-  await expect(page.getByTestId("multilevel-exam-1")).toHaveAttribute("data-access", "OPEN");
-  await expect(page.getByTestId("multilevel-exam-7")).toHaveAttribute("data-access", "LOCKED");
+  for (const n of [1, 7]) await expect(page.getByTestId(`multilevel-exam-${n}`)).toHaveAttribute("data-access", "LOCKED");
+  await expect(page.getByTestId("multilevel-exam-1").getByTestId("unlock-exam")).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)).toBeLessThanOrEqual(1);
 });

@@ -196,9 +196,9 @@ API prefixes are listed without `/api/v1` (every router is mounted bare and unde
   computes every price. Only lesson 1 of each course is free.
 - **Multilevel Modelltest Premium (2026-11-16, migration `a7c4e2f9b1d8`):** `be/services/vizu_pay/multilevel_premium.py` — one
   purchase (`plan = ML_PREMIUM`, default 99 000 = `offers.ML_PREMIUM_PRICE`, admin override `app_settings["multilevel_premium"]`)
-  opens Multilevel Modelltest 7–10, unlimited (1–6 are free for every logged-in user since 2026-11-19, `multilevel_service.OPEN_TEST_NUMBERS`);
-  access = active `user_entitlements` row (PAYMENT on approval, PROMO for a 100 %
-  Multilevel code) or staff (`access.can_access_model_test` → `open_test` or `has_multilevel_premium`; legacy Premium does not open it); manual
+  opens **every** Multilevel Modelltest 1–10, unlimited (owner 2026-11-19: nothing is free; `multilevel_service.FREE_TEST_NUMBERS` is empty —
+  `OPEN_TEST_NUMBERS` 1–6 is only the lenient publish rule); access = active `user_entitlements` row (PAYMENT on approval, PROMO for a 100 %
+  Multilevel code) or staff (`access.can_access_model_test` → `free_test` or `has_multilevel_premium`; legacy Premium does not open it); manual
   card payment with receipt or "Chek mavjud emas" + date/time, no auto-expiry, one open ML order, refund revokes. Student
   `fe/features/vizu-pay/components/multilevel-premium-modal.tsx` on `/vorbereitung/multilevel` (10 cards, LOCKED / OPEN /
   "Tayyorlanmoqda" for DRAFT tests).
@@ -314,7 +314,7 @@ See `deployment-map.md`, skill `vizu-deploy`, `docs/deploy-frontend.md`, `docs/l
 VIZU-Multilevel level test (student UI name "Stufe Bestimmung" since 2026-11-05; code, routes, APIs and admin keep
 "VIZU-Multilevel"; `/vizu-multilevel`, legacy alias `/vizu-mock`, `be/services/vizu_multilevel/`,
 `fe/app/(dashboard)/vizu-multilevel`), Vorbereitung mock exams (`/mock-exam*`, `be/services/mock_exam/`,
-`fe/app/(dashboard)/vorbereitung`; **Multilevel Modelltest 1–6 are free and open** for every logged-in student, 7–10 need the Multilevel Premium (see §11) — the student list shows every
+`fe/app/(dashboard)/vorbereitung`; **every Multilevel Modelltest 1–10 needs the Multilevel Premium** (2026-11-19, see §11; 1–6 keep the lenient publish rule) — the student list shows every
 test, DRAFT ones as "Tayyorlanmoqda"; Multilevel Modelltest 1–10 import, keys, source PDF, publish guard:
 `be/services/mock_exam/multilevel_service.py`, `scripts/multilevel_import.py`, `docs/multilevel-modelltests.md`; **open tests 1–6** (2026-11-19, no migration):
 `readiness()` gives `warn_only` / `publishable` / `warnings` — missing keys and audio are warnings, only a missing section blocks; 7–10 keep the full rule

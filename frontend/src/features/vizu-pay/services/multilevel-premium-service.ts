@@ -36,7 +36,7 @@ export interface MlStatus {
   pending_order: MlOrder | null;
   last_rejected: { reason: string | null; reviewed_at: string | null } | null;
   blocked: boolean;
-  /** free = Modelltest 1–6 (open to everyone); premium_* = what the Premium opens */
+  /** free = Modelltests open without the Premium (0 since 2026-11-19); premium_* = what the Premium opens */
   tests: { total: number; available: number; free?: number; premium_total?: number; premium_available?: number };
 }
 

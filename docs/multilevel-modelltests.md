@@ -80,9 +80,11 @@ To'liq ro'yxat har bir test sahifasida („Prüfliste").
 - Promo: Multilevel kategoriyasidagi kod (foiz yoki 100 % bepul) faqat Super Admin tasdiqlab faollashtirgandan keyin ishlaydi;
   100 % kod to'lovsiz hamma testni ochadi. Kurs kodlari bu yerda ishlamaydi.
 
-## Modelltest 1–6 ochiq (2026-11-19)
+## Modelltest 1–6: yumshoq nashr qoidasi (2026-11-19)
 
-- 1–6 (`multilevel_service.OPEN_TEST_NUMBERS`) barcha tizimga kirgan talabalar uchun bepul va ochiq; 7–10 Premium bilan (o'zgarmagan).
+- Kirish: **1 dan 10 gacha barcha Modelltest Multilevel Premium talab qiladi** (egasi, 2026-11-19 kech; 2026-11-18…19 kunlari 1–6 bepul edi).
+  Bepul raqamlar `multilevel_service.FREE_TEST_NUMBERS` (hozir bo'sh); xodimlar (admin / kontent) har doim kiradi.
+- `OPEN_TEST_NUMBERS` (1–6) endi faqat nashr qoidasini bildiradi, kirishni emas.
 - Nashr: 1–6 da kalitsiz savollar va audiosiz Hören Teil'lar **ogohlantirish** („Nur Warnungen — Veröffentlichen ist möglich"); faqat bo'lim yo'q bo'lsa
   `MODEL_TEST_NOT_READY`. 7–10 eski qoida bilan. Audio o'chirilsa 1–6 nashrdan tushmaydi.
 - Ball: kaliti yo'q savol hisoblanmaydi (maksimumga ham kirmaydi). Bo'limda birorta kalit bo'lmasa (hozir Lesen 1–6) — „baholanmaydi",
