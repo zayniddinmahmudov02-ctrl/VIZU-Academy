@@ -1,3 +1,5 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -215,7 +217,17 @@ from app.api.health import (
 )
 
 
+@asynccontextmanager
+async def _lifespan(_app):
+    # AI subtitle jobs of Medienwelt films that were running when the backend stopped continue (never blocks the start)
+    from app.services.medien import subtitle_jobs
+
+    subtitle_jobs.on_startup()
+    yield
+
+
 app = FastAPI(
+    lifespan=_lifespan,
     title=settings.APP_NAME,
     version=settings.APP_VERSION,
     # off in production unless API_DOCS_ENABLED=true (see Settings.API_DOCS)

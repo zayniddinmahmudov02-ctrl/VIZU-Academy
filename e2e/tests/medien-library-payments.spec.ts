@@ -5,7 +5,7 @@ import { expect, test, type Page } from "@playwright/test";
 
 import { ADMIN, API_URL, PASSWORD, createStudent, loginViaForm } from "./helpers";
 
-// VIZU MEDIENWELT · Bibliothek: the PDF reader (continuous scroll / single page, zoom, fullscreen, resume), the free preview of a paid book (the server
+// VIZU MEDIENWELT · Bibliothek: the PDF reader (continuous scroll / book mode, zoom, fullscreen, resume), the free preview of a paid book (the server
 // delivers only the free pages), the manual card payment (receipt or transfer time), the Super Admin's approval, the full book and the PDF download.
 // Real backend, real database, real files — local stack only. Everything created here is removed again through the admin API.
 const TAG = `L${Date.now().toString(36)}${Math.random().toString(36).slice(2, 5)}`;
@@ -190,7 +190,7 @@ test.describe.serial("Bibliothek (desktop): preview, payment, approval, download
     await page.getByTestId("book-preview").click();
     const reader = page.getByTestId("pdf-reader");
     await expect(reader.getByTestId("reader-canvas").first()).toBeVisible({ timeout: 30_000 });
-    await expect(reader).toHaveAttribute("data-mode", "single"); // desktop default
+    await expect(reader).toHaveAttribute("data-mode", "book"); // the default everywhere: one page at a time, turned like a book
     await expect(reader.getByTestId("reader-preview-badge")).toContainText("10");
     await expect(reader.getByTestId("reader-total")).toHaveText("/ 15");
     await expect(reader.getByTestId("book-download")).toHaveCount(0);
@@ -467,9 +467,9 @@ test.describe.serial("Bibliothek (desktop): preview, payment, approval, download
     await page.getByTestId("book-read").click();
     await expect(page.getByTestId("pdf-reader")).toHaveAttribute("data-mode", "scroll");
     await expect(page.getByTestId("reader-page")).toHaveValue(String(saved.position), { timeout: 30_000 });
-    // single page mode: previous / next, fullscreen toggle, the page is remembered too
+    // book mode: previous / next, fullscreen toggle, the page is remembered too
     await page.getByTestId("reader-mode").click();
-    await expect(page.getByTestId("pdf-reader")).toHaveAttribute("data-mode", "single");
+    await expect(page.getByTestId("pdf-reader")).toHaveAttribute("data-mode", "book");
     await expect(page.getByTestId("reader-page-view")).toHaveCount(1);
     await page.getByTestId("reader-next").click();
     await expect(page.getByTestId("reader-page")).toHaveValue(String(saved.position + 1));
@@ -504,7 +504,9 @@ test.describe("Bibliothek on a phone: continuous scroll, fit width, resume, payw
       await page.getByTestId("book-read").click();
       const reader = page.getByTestId("pdf-reader");
       await expect(reader.getByTestId("reader-canvas").first()).toBeVisible({ timeout: 30_000 });
-      await expect(reader).toHaveAttribute("data-mode", "scroll"); // the phone default: one long scroll
+      await expect(reader).toHaveAttribute("data-mode", "book"); // the default (swipe / pinch: medien-reader-shelf.spec.ts); this test is about the scroll mode
+      await reader.getByTestId("reader-mode").click();
+      await expect(reader).toHaveAttribute("data-mode", "scroll");
       await expect(reader.getByTestId("reader-page-view")).toHaveCount(15);
       const width = page.viewportSize()!.width;
       const sizes = await reader.getByTestId("reader-scroll").evaluate((el) => ({ scrollW: el.scrollWidth, clientW: el.clientWidth, page: (el.querySelector("[data-page]") as HTMLElement).getBoundingClientRect().width, gap: (el.querySelectorAll("[data-page]")[1] as HTMLElement).getBoundingClientRect().top - (el.querySelectorAll("[data-page]")[0] as HTMLElement).getBoundingClientRect().bottom }));

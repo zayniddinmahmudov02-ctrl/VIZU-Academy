@@ -91,12 +91,13 @@ export function tokenize(line: string): Token[] {
   });
 }
 
-/** The subtitle language that starts: the one used last on this film, else the student's default ("de" if the film has it). */
-export function initialSubtitle(available: readonly string[], state: PlayerState | null | undefined, prefs: SubtitlePrefs): string {
+/** The subtitle language that starts: the one used last on this film, else the student's default (the film's original language — German by
+ * default — if the film has it). */
+export function initialSubtitle(available: readonly string[], state: PlayerState | null | undefined, prefs: SubtitlePrefs, original = "de"): string {
   if (state?.subtitle === "off") return "off";
   if (state?.subtitle && available.includes(state.subtitle)) return state.subtitle;
   if (!prefs.enabled || !available.length) return "off";
-  return available.includes("de") ? "de" : available[0];
+  return available.includes(original) ? original : available.includes("de") ? "de" : available[0];
 }
 
 /** The second language of the dual view: the wanted one when it exists and differs from the first, else a sensible other one. */
@@ -107,14 +108,15 @@ export function pickSecondary(available: readonly string[], primary: string, wan
   return null;
 }
 
-/** The lines shown, top to bottom: German always on top when it is one of the two; a single line when dual is off or impossible. */
-export function subtitleLines(available: readonly string[], primary: string, dual: boolean, secondary: string | undefined): string[] {
+/** The lines shown, top to bottom: the film's original language (the one spoken; German by default) on top when it is one of the two, the
+ * translation below; a single line when dual is off or impossible. */
+export function subtitleLines(available: readonly string[], primary: string, dual: boolean, secondary: string | undefined, original = "de"): string[] {
   if (primary === "off" || !available.includes(primary)) return [];
   if (!dual) return [primary];
   const second = pickSecondary(available, primary, secondary);
   if (!second) return [primary];
   const pair = [primary, second];
-  return pair.includes("de") ? ["de", pair.find((l) => l !== "de")!] : pair;
+  return pair.includes(original) ? [original, pair.find((l) => l !== original)!] : pair;
 }
 
 const FONT_FAMILY: Record<SubtitleFont, string> = {
@@ -145,4 +147,49 @@ export function stateOf(v: { subtitle: string; dual: boolean; secondary: string 
 
 export function clamp(n: number, low: number, high: number): number {
   return Math.min(Math.max(n, low), high);
+}
+
+/** A cue time for the editor: "m:ss.mmm" (or "h:mm:ss.mmm" from one hour on). */
+export function formatCueTime(ms: number): string {
+  const total = Math.max(0, Math.round(ms));
+  const h = Math.floor(total / 3_600_000);
+  const m = Math.floor(total / 60_000) % 60;
+  const s = Math.floor(total / 1000) % 60;
+  const frac = String(total % 1000).padStart(3, "0");
+  return h ? `${h}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}.${frac}` : `${m}:${String(s).padStart(2, "0")}.${frac}`;
+}
+
+/** What an admin typed into a time box → ms, or null: "12.5", "1:02", "1:02.250", "01:02:03,004". */
+export function parseCueTime(text: string): number | null {
+  const t = text.trim().replace(",", ".");
+  const m = /^(?:(\d+):)?(?:(\d+):)?(\d+(?:\.\d{1,3})?)$/.exec(t);
+  if (!m) return null;
+  const parts = [m[1], m[2]].filter((x) => x !== undefined).map(Number);
+  const seconds = Number(m[3]);
+  if ((parts.length && seconds >= 60) || (parts.length === 2 && parts[1] >= 60)) return null;
+  const [h, min] = parts.length === 2 ? parts : [0, parts[0] ?? 0];
+  return Math.round(((h * 60 + min) * 60 + seconds) * 1000);
+}
+
+export interface SubtitleSwitches { showOriginal: boolean; showTranslation: boolean; translation: string | null }
+
+/** The two switches of the menu ("Original" = the language spoken in the film, "Translation" + its language) read from the player state
+ * (subtitle language or "off", dual on/off, second language). */
+export function switchesOf(available: readonly string[], original: string, subtitle: string, dual: boolean, secondary: string | null): SubtitleSwitches {
+  const others = available.filter((l) => l !== original);
+  const pick = (wanted: string | null | undefined) => (wanted && others.includes(wanted) ? wanted : (["uz", "en", "ru", "de"].find((l) => others.includes(l)) ?? null));
+  if (subtitle === "off" || !available.includes(subtitle)) return { showOriginal: false, showTranslation: false, translation: pick(secondary) };
+  if (subtitle !== original) return { showOriginal: dual && available.includes(original) && secondary === original, showTranslation: true, translation: subtitle };
+  const second = dual ? pick(secondary) : null;
+  return { showOriginal: true, showTranslation: !!second, translation: second ?? pick(secondary) };
+}
+
+/** The player state for a choice made with the two switches (the inverse of `switchesOf`). */
+export function stateFromSwitches(available: readonly string[], original: string, s: SubtitleSwitches): { subtitle: string; dual: boolean; secondary: string | null } {
+  const hasOriginal = available.includes(original);
+  const translation = s.translation && s.translation !== original && available.includes(s.translation) ? s.translation : null;
+  if (s.showOriginal && hasOriginal && s.showTranslation && translation) return { subtitle: original, dual: true, secondary: translation };
+  if (s.showOriginal && hasOriginal) return { subtitle: original, dual: false, secondary: translation };
+  if (s.showTranslation && translation) return { subtitle: translation, dual: false, secondary: translation };
+  return { subtitle: "off", dual: false, secondary: translation };
 }

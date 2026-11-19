@@ -133,6 +133,19 @@ class Settings(BaseSettings):
     SPEECH_TO_TEXT_PROVIDER: str = "gemini"
     SPEECH_TO_TEXT_MODEL: str = ""
 
+    # AI subtitles of Medienwelt films (app/services/medien/subtitle_ai.py, background jobs in subtitle_jobs.py).
+    # Speech-to-text: "gemini" (GEMINI_API_KEY) or "openai" (Whisper, OPENAI_API_KEY); translation: "gemini" or "google"
+    # (Cloud Translation v2, GOOGLE_TRANSLATE_API_KEY). SUBTITLE_AI_MODEL empty = GEMINI_MODEL, then GEMINI_FALLBACK_MODEL.
+    # A provider without its key is reported as "not configured" — nothing is ever faked. Keys never reach the browser.
+    SUBTITLE_STT_PROVIDER: str = "gemini"
+    SUBTITLE_TRANSLATE_PROVIDER: str = "gemini"
+    SUBTITLE_AI_MODEL: str = ""
+    GOOGLE_TRANSLATE_API_KEY: str = ""
+    # length of one audio piece sent to the speech-to-text service (cut at a pause near this length)
+    SUBTITLE_CHUNK_SECONDS: int = 180
+    # the in-process worker that runs the jobs (off in tests: they run jobs directly)
+    SUBTITLE_WORKER_ENABLED: bool = True
+
     # Optional: server-side generation of lesson content drafts with Claude
     # (admin content import, app/services/content_import/claude_client.py).
     # Empty key = feature reported as "not configured"; JSON import and

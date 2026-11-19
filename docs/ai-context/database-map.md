@@ -1,11 +1,12 @@
 # Database map
 
-Updated 2026-11-01 · source: `backend/app/models/*.py` (`__tablename__`), `backend/alembic/versions/` (107 files).
+Updated 2026-11-19 · source: `backend/app/models/*.py` (`__tablename__`), `backend/alembic/versions/` (107 files).
 PostgreSQL; connection from settings `DATABASE_HOST/PORT/NAME/USER/PASSWORD` (names only).
 
 ## Migrations
 
-- Linear history, one head. **Head = `a7c4e2f9b1d8`**
+- Linear history, one head. **Head = `d5f1b8e3a9c7`**
+- `d5f1b8e3a9c7` (2026-11-19): Film AI subtitles — additive: `film_subtitles.status` (DRAFT / APPROVED, default APPROVED → existing tracks stay visible), `source` (UPLOAD / AI / TRANSLATION, default UPLOAD), `source_language`, `ai_model`, `approved_at`, `approved_by_id` (users SET NULL), `edited_at`; new table `film_subtitle_jobs` (kind TRANSCRIBE / TRANSLATE, status PENDING / PROCESSING / COMPLETED / FAILED, language, detected_language, source / result subtitle FKs SET NULL, film FK CASCADE, translate_to / partial / stats JSONB, progress, attempts, error, heartbeat; partial unique `uq_film_subtitle_jobs_active` = one active job per film + kind + language). Downgrade drops exactly these (`test_medien_subtitle_ai_migration`).
 - `a7c4e2f9b1d8` (2026-11-16): Multilevel Modelltest Premium + promo approval — additive: new table `user_entitlements` (product access that is not a course level, e.g. `MULTILEVEL_MODELLTEST_PREMIUM`; source PAYMENT / PROMO, order / promo / granted_by FKs SET NULL, user FK CASCADE, `revoked_*` on refund, partial unique `uq_user_entitlements_active` = one active row per user + product); `promo_codes.product_category` (COURSES / PACKAGES / MULTILEVEL, CHECK), `approval_status` (PENDING / APPROVED / ACTIVE / REJECTED / DISABLED, CHECK, default PENDING), `approved_by_id`, `approved_at`, `review_note`, `assigned_user_id` (personal code, user FK CASCADE) — existing codes backfilled ACTIVE / DISABLED + approved by their creator (they were in use); `promo_code_requests.kind` (CODE_APPROVAL / COURSE_REQUEST) + `message`, `promo_code_id` nullable (CHECK: only a course request may have none), partial unique = one pending course request per user + package; `subscription_orders.paid_at`, `no_receipt`, `student_note`, `admin_note`. Downgrade drops exactly these and deletes course requests without a code (`test_multilevel_premium_migration`).
 - `e6d2b9a4c8f3` (2026-11-16): Multilevel shared Hören audio — additive: `kompetenzen.audio_file_id` (nullable FK `audio_files`, ON DELETE SET NULL, indexed) = the one audio of a Hören section in shared mode (Modelltest 1). Downgrade drops exactly this (`test_multilevel_shared_audio_migration`).
 - `d4b9e2a7c3f1` (2026-11-16): Multilevel answer key + section length — additive: `mock_questions.answer_key` (the key as typed, nullable), `mock_attempt_sections.duration_seconds` (granted length; existing rows filled from `deadline_at - started_at`). Downgrade drops exactly these (`test_multilevel_keys_migration`).

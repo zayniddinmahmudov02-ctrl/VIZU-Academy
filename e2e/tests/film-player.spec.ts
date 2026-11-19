@@ -223,10 +223,10 @@ test.describe.serial("Film player (desktop)", () => {
       // assign another language to a track, then delete it
       await page.getByTestId("sub-lang-uz").selectOption({ label: "Русский" });
       await expect(page.getByTestId("film-note")).toContainText("Sprache geändert");
-      await expect(page.locator('[data-testid="film-subtitle"][data-language="ru"]')).toBeVisible();
+      await expect(page.locator('[data-testid="film-subtitle"][data-language="ru"]')).toHaveAttribute("data-present", "1"); // Russian has its own card (2026-11-19)
       await expect(page.getByTestId("sub-status-uz")).toHaveText("Nicht vorhanden");
-      await page.locator('[data-testid="film-subtitle"][data-language="ru"]').getByRole("button", { name: /löschen/ }).click();
-      await expect(page.locator('[data-testid="film-subtitle"][data-language="ru"]')).toHaveCount(0);
+      await page.getByTestId("sub-delete-ru").click();
+      await expect(page.locator('[data-testid="film-subtitle"][data-language="ru"]')).toHaveAttribute("data-present", "0");
       await page.getByTestId("sub-delete-en").click();
       await expect(page.getByTestId("sub-status-en")).toHaveText("Nicht vorhanden");
       // an additional quality: upload, listed, deleted

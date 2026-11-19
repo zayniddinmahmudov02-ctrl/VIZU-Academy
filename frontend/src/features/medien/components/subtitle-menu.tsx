@@ -5,7 +5,7 @@ import { Check } from "lucide-react";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { cn } from "@/lib/utils";
 
-import { COLORS, FONTS, LANGUAGE_NAMES, SIZES, subtitleStyle, type SubtitlePrefs } from "../lib/subtitles";
+import { COLORS, FONTS, LANGUAGE_NAMES, SIZES, stateFromSwitches, subtitleStyle, switchesOf, type SubtitlePrefs } from "../lib/subtitles";
 import type { WatchSubtitle } from "../types";
 
 interface Props {
@@ -15,18 +15,56 @@ interface Props {
   secondary: string | null;
   prefs: SubtitlePrefs;
   pauseOnWord: boolean;
+  /** the language spoken in the film (its track is the "original" line, shown on top) */
+  original?: string;
   onSubtitle: (language: string) => void;
   onDual: (on: boolean) => void;
   onSecondary: (language: string) => void;
+  onSwitches?: (next: { subtitle: string; dual: boolean; secondary: string | null }) => void;
   onPrefs: (patch: Partial<SubtitlePrefs>) => void;
   onPauseOnWord: (on: boolean) => void;
+}
+
+const switchCls = "mt-0.5 h-5 w-9 shrink-0 cursor-pointer accent-[var(--color-accent-blue,#2563eb)]";
+
+/** "Original" and "Translation" on / off separately (+ the translation language): the quick way to the same state as the list below. */
+function Switches({ subtitles, subtitle, dual, secondary, original, onSwitches }: Pick<Props, "subtitles" | "subtitle" | "dual" | "secondary"> & { original: string; onSwitches: NonNullable<Props["onSwitches"]> }) {
+  const { t } = useTranslation();
+  const available = subtitles.map((s) => s.language);
+  const translations = subtitles.filter((s) => s.language !== original);
+  const hasOriginal = available.includes(original);
+  if (!hasOriginal && !translations.length) return null;
+  const sw = switchesOf(available, original, subtitle, dual, secondary);
+  const apply = (patch: Partial<typeof sw>) => onSwitches(stateFromSwitches(available, original, { ...sw, translation: sw.translation ?? translations[0]?.language ?? null, ...patch }));
+  return (
+    <div className="mb-2 space-y-2.5 border-b border-white/10 px-1 pb-3" data-testid="sub-switches">
+      {hasOriginal && (
+        <label className="flex items-start justify-between gap-3">
+          <span><span className="block font-semibold">{t("medien.fp.original")}</span><span className="block text-xs text-white/60">{LANGUAGE_NAMES[original] ?? original}</span></span>
+          <input type="checkbox" role="switch" checked={sw.showOriginal} onChange={(e) => apply({ showOriginal: e.target.checked })} data-testid="sub-original" className={switchCls} />
+        </label>
+      )}
+      {translations.length > 0 && (
+        <label className="flex items-start justify-between gap-3">
+          <span><span className="block font-semibold">{t("medien.fp.translation")}</span><span className="block text-xs text-white/60">{t("medien.fp.translationHint")}</span></span>
+          <input type="checkbox" role="switch" checked={sw.showTranslation} onChange={(e) => apply({ showTranslation: e.target.checked })} data-testid="sub-translation" className={switchCls} />
+        </label>
+      )}
+      {translations.length > 1 && (
+        <select value={sw.translation ?? ""} onChange={(e) => apply({ translation: e.target.value, showTranslation: true })} aria-label={t("medien.fp.translationLanguage")} data-testid="sub-translation-language"
+                className="h-9 w-full rounded-lg bg-white/10 px-2 text-sm text-white outline-none ring-1 ring-white/15">
+          {translations.map((s) => <option key={s.language} value={s.language} className="text-black">{LANGUAGE_NAMES[s.language] ?? s.label}</option>)}
+        </select>
+      )}
+    </div>
+  );
 }
 
 const row = "flex min-h-[44px] w-full items-center justify-between gap-2 rounded-lg px-3 py-1.5 text-left text-sm hover:bg-white/15 sm:min-h-10";
 
 /** The subtitle panel of the player: language (only the tracks the film has) or off, dual subtitles, and the student's look settings with a
  * live preview. Choosing a language closes the panel; the look settings stay open so the effect can be seen. */
-export default function SubtitleMenu({ subtitles, subtitle, dual, secondary, prefs, pauseOnWord, onSubtitle, onDual, onSecondary, onPrefs, onPauseOnWord }: Props) {
+export default function SubtitleMenu({ subtitles, subtitle, dual, secondary, prefs, pauseOnWord, original = "de", onSubtitle, onDual, onSecondary, onSwitches, onPrefs, onPauseOnWord }: Props) {
   const { t } = useTranslation();
   const canDual = subtitles.length >= 2;
   const style = subtitleStyle(prefs, 0);
@@ -35,11 +73,13 @@ export default function SubtitleMenu({ subtitles, subtitle, dual, secondary, pre
 
   return (
     <div>
+      {onSwitches && <Switches subtitles={subtitles} subtitle={subtitle} dual={dual} secondary={secondary} original={original} onSwitches={onSwitches} />}
       <ul>
         <li><button type="button" className={cn(row, subtitle === "off" && "font-bold text-accent-blue")} onClick={() => onSubtitle("off")} data-testid="film-subtitle-off">{t("medien.subtitlesOff")}{subtitle === "off" && <Check size={15} />}</button></li>
         {subtitles.map((s) => (
           <li key={s.id}><button type="button" className={cn(row, subtitle === s.language && "font-bold text-accent-blue")} onClick={() => onSubtitle(s.language)} data-testid="film-subtitle-option" data-language={s.language}>
-            {s.label}{subtitle === s.language && <Check size={15} />}</button></li>
+            <span>{s.label}{s.language === original && <span className="ml-1.5 rounded bg-white/15 px-1.5 py-px text-[10px] font-semibold uppercase tracking-wide text-white/80">{t("medien.fp.original")}</span>}</span>
+            {subtitle === s.language && <Check size={15} />}</button></li>
         ))}
         {!subtitles.length && <li className="px-3 py-2 text-xs text-white/60" data-testid="film-no-subtitles">{t("medien.noSubtitles")}</li>}
       </ul>

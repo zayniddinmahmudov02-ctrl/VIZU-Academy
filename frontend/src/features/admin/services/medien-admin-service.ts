@@ -15,7 +15,20 @@ export interface AdminSubtitle {
   /** result of the last check; 0 = a track from before the checks existed ("not checked yet") */
   cue_count: number; last_ms: number | null; format: "srt" | "vtt" | null; original_name: string | null; file_size: number | null;
   warnings: SubtitleWarning[]; updated_at?: string;
+  /** students see APPROVED tracks only; an AI transcript / translation starts as DRAFT */
+  status?: "DRAFT" | "APPROVED"; source?: "UPLOAD" | "AI" | "TRANSLATION"; source_language?: string | null; ai_model?: string | null;
+  approved_at?: string | null; edited_at?: string | null;
 }
+export type JobStatus = "PENDING" | "PROCESSING" | "COMPLETED" | "FAILED";
+export interface SubtitleJob {
+  id: string; kind: "TRANSCRIBE" | "TRANSLATE"; status: JobStatus; language: string; detected_language: string | null; translate_to: string[];
+  replace: boolean; provider: string | null; model: string | null; progress_done: number; progress_total: number; attempts: number;
+  error_code: string | null; error_message: string | null; result_subtitle_id: string | null; source_subtitle_id: string | null;
+  stats: { cues?: number; pieces?: number; batches?: number; speakers_max_per_piece?: number; warnings?: number; from?: string };
+  created_at: string; started_at: string | null; finished_at: string | null;
+}
+export interface AiServiceState { provider: string; configured: boolean; model: string | null; message: string | null }
+export interface SubtitleAiStatus { speech_to_text: AiServiceState; translation: AiServiceState; ffmpeg: boolean; languages: string[]; chunk_seconds: number }
 export interface AdminRendition { id: string; label: string; height: number | null; size: number; original_name: string | null; file_status: FileStatus }
 export interface SubtitleReport { format: "srt" | "vtt"; encoding: string; cue_count: number; first_ms: number | null; last_ms: number | null; warnings: SubtitleWarning[] }
 /** Cue = [start_ms, end_ms, plain text] */
@@ -117,7 +130,7 @@ const KNOWN: Record<string, string> = {
   SUBTITLE_NO_CUES: "Die Datei enthält keinen verwendbaren Untertitel (alle Zeiten fehlerhaft oder ohne Text).",
   SUBTITLE_TOO_LARGE: "Zu viele Untertitel-Zeilen: das ist kein Film-Untertitel.",
   SUBTITLE_ENCODING: "Die Datei konnte nicht gelesen werden. Bitte als UTF-8 speichern.",
-  SUBTITLE_EXISTS: "Für diese Sprache gibt es schon einen Untertitel. Erst ersetzen oder löschen.",
+  SUBTITLE_EXISTS: "Für diese Sprache gibt es schon einen Untertitel. Erst ersetzen oder löschen (bei KI-Untertiteln: „Vorhandene ersetzen“ ankreuzen).",
   INVALID_QUALITY: "Qualität wie 360p, 480p, 720p oder 1080p angeben.",
   MAIN_VIDEO_REQUIRED: "Erst das Hauptvideo hochladen, dann weitere Qualitäten.",
   MISSING_CHUNKS: "Beim Hochladen fehlen Teile. Bitte erneut versuchen.",
@@ -133,6 +146,15 @@ const KNOWN: Record<string, string> = {
   INVALID_TRANSITION: "Diese Entscheidung ist für den aktuellen Stand nicht möglich.",
   USER_NOT_FOUND: "Benutzer nicht gefunden.",
   NOT_PAID: "Dieser Inhalt ist kostenlos.",
+  AI_NOT_CONFIGURED: "Der KI-Dienst ist auf dem Server nicht eingerichtet (API-Schlüssel fehlt). Ohne ihn werden keine Untertitel erzeugt.",
+  VIDEO_MISSING: "Der Film hat keine hochgeladene Videodatei (ein externer Link kann nicht transkribiert werden).",
+  FFMPEG_MISSING: "FFmpeg ist auf dem Server nicht verfügbar.",
+  JOB_RUNNING: "Für diesen Film läuft bereits ein solcher Auftrag.",
+  JOB_NOT_FAILED: "Nur ein fehlgeschlagener Auftrag kann wiederholt werden.",
+  JOB_NOT_ACTIVE: "Der Auftrag läuft nicht mehr.",
+  SAME_LANGUAGE: "Bitte eine andere Sprache als die der Vorlage wählen.",
+  INVALID_CUE_TIME: "Eine Zeile hat ungültige Zeiten (das Ende muss nach dem Anfang liegen).",
+  INVALID_CUE: "Eine Zeile ist ungültig.",
 };
 
 export function medienError(err: unknown, fallback = "Aktion fehlgeschlagen."): string {
@@ -234,6 +256,27 @@ export const recheckSubtitle = async (id: string, subtitleId: string) => (await 
 /** Re-assigns the language of a track and / or renames it (no file is touched). */
 export const updateSubtitle = async (id: string, subtitleId: string, data: { language?: string; label?: string }) => (await api.put<AdminItem>(`${BASE}/films/${id}/subtitles/${subtitleId}`, data)).data;
 export const deleteRendition = async (id: string, renditionId: string) => (await api.delete<AdminItem>(`${BASE}/films/${id}/renditions/${renditionId}`)).data;
+/** approved=true: students see the track; false: back to draft. */
+export const approveSubtitle = async (id: string, subtitleId: string, approved: boolean) => (await api.post<AdminItem>(`${BASE}/films/${id}/subtitles/${subtitleId}/approve`, { approved })).data;
+/** The corrected lines become the track (cleaned like an upload; the status stays). */
+export const saveSubtitleCues = async (id: string, subtitleId: string, cues: PreviewCue[]) => (await api.put<SubtitlePreview>(`${BASE}/films/${id}/subtitles/${subtitleId}/cues`, { cues })).data;
+/** The track as a .srt / .vtt file (Bearer-authenticated download). */
+export const downloadSubtitle = async (id: string, subtitleId: string, format: "srt" | "vtt") => {
+  const res = await api.get(`${BASE}/films/${id}/subtitles/${subtitleId}/download`, { params: { format }, responseType: "blob" });
+  const name = /filename="([^"]+)"/.exec(String(res.headers["content-disposition"] ?? ""))?.[1] ?? `subtitle.${format}`;
+  return { blob: res.data as Blob, name };
+};
+
+// ---- AI subtitles (background jobs) ----
+export const getFilm = async (id: string) => (await api.get<AdminItem>(`${BASE}/films/${id}`)).data;
+export const getSubtitleAiStatus = async () => (await api.get<SubtitleAiStatus>(`${BASE}/subtitle-ai/status`)).data;
+export const startAiSubtitles = async (id: string, data: { language: string; translate_to: string[]; replace: boolean }) =>
+  (await api.post<SubtitleJob>(`${BASE}/films/${id}/subtitles/ai`, data)).data;
+export const translateSubtitle = async (id: string, subtitleId: string, target: string, replace: boolean) =>
+  (await api.post<SubtitleJob>(`${BASE}/films/${id}/subtitles/${subtitleId}/translate`, { target, replace })).data;
+export const getSubtitleJobs = async (id: string) => (await api.get<SubtitleJob[]>(`${BASE}/films/${id}/subtitle-jobs`)).data;
+export const retrySubtitleJob = async (id: string, jobId: string) => (await api.post<SubtitleJob>(`${BASE}/films/${id}/subtitle-jobs/${jobId}/retry`)).data;
+export const cancelSubtitleJob = async (id: string, jobId: string) => (await api.post<SubtitleJob>(`${BASE}/films/${id}/subtitle-jobs/${jobId}/cancel`)).data;
 
 /** The stored file as a Blob for the admin preview (Bearer-authenticated, never a public URL). */
 export const previewBlob = async (kind: Kind, id: string) => (await api.get(`${BASE}/${ROUTE[kind]}/${id}/file`, { responseType: "blob" })).data as Blob;

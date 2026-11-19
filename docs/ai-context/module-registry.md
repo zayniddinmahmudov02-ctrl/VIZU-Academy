@@ -393,7 +393,7 @@ notifications, support, advertisements ("Werbung-Banner"), achievements.
     `GET /admin/medien/book-payments[/{id}[/receipt]]`, `POST …/{id}/decision` (row lock: decided once; REJECTED needs a reason the student sees; no self-review),
     `GET|PUT /admin/medien/book-payment-settings` (card number + holder; default = the VIZU Pay card). Everything is in `audit_logs` (card only as `****last4`).
     The legacy generic request is refused for books (`409 BOOK_PAYMENT_REQUIRED`); songs / films keep it.
-  - *Frontend:* `pdf-reader.tsx` (pdf.js, continuous scroll with lazy pages by default on phones, single page by default on desktop, fit width, zoom 50–300 %, fullscreen with
+  - *Frontend:* `pdf-reader.tsx` (pdf.js; since 2026-11-19 **book mode** by default everywhere = `book-view.tsx`, else continuous scroll with lazy pages; zoom, fullscreen with
     phone fallback, progress line, resume page + position, download button, preview badge + "Das vollständige Buch freischalten!" dialog at page 11), `book-payment.tsx`
     (payment window, buy button with pending / rejected states, "Meine Zahlungen"), `download-pdf-button.tsx`; admin `book-payments-admin.tsx` (Bibliothek → tab
     Zahlungsanfragen: list, receipt check, "geprüft" box, approve / reject with reason, card settings), `preview_pages_count` field in the book dialog, song format / bitrate /
@@ -407,6 +407,29 @@ notifications, support, advertisements ("Werbung-Banner"), achievements.
   `isLargePlayerOpen`, `isMusicPageActive`, `isFloatingPanelOpen`, selector `isFloatingPlayerVisible`, `stop()` (pauses, removes the source, clears queue +
   saved copy). One sound at a time: another audio / video that starts pauses the music; the music pauses other playing media. The silent unlock clip of
   the first tap no longer resets / skips a restored song. Media Session: artwork sizes + `stop`. E2E `medien-vinyl-player.spec.ts`.
+- **Film AI subtitles (2026-11-19, migration `d5f1b8e3a9c7`):** `be/services/medien/subtitle_ai.py` (pure timing helpers + providers) and `subtitle_jobs.py` (background jobs).
+  - *Flow:* admin → film → Untertitel → "KI-Untertitel": audio language auto / de / en / uz / ru + translation languages → TRANSCRIBE job: ffmpeg `silencedetect` once, audio cut
+    into pieces of `SUBTITLE_CHUNK_SECONDS` (180) at pauses (16 kHz mono MP3, AAC fallback, `nice`), each piece → speech-to-text with timed segments (new segment per speaker),
+    segments shifted onto the film clock, `build_cues` (order, no overlap, ≥ 0.7 s, wrap at 42 chars, piece-border duplicates merged) + `snap_to_speech` (edges onto pauses),
+    checked like an upload → **DRAFT** track (`source` AI); then a TRANSLATE job per language (batches of 60 lines, a batch with the wrong count is split) → DRAFT `source`
+    TRANSLATION. Students only get **APPROVED** tracks (`catalog.subtitles_of`, also the cue endpoint with an old token); uploads are APPROVED at once. Admin: approve /
+    withdraw, edit lines (`edit_cues`: times + text, cleaned like an upload, status kept), translate any track, SRT / VTT download, live job list (Wartet / Läuft x/y /
+    Fertig / Fehlgeschlagen + Wiederholen / Abbrechen); a retry continues with the missing pieces (`partial`).
+  - *Worker:* a thread in the backend process (`kick()`), jobs claimed with `FOR UPDATE SKIP LOCKED`, heartbeat; `lifespan` in `main.py` puts a job that was running at a
+    restart back to PENDING; a job list request also wakes the worker. `SUBTITLE_WORKER_ENABLED` (off in tests).
+  - *Providers (settings, names only):* `SUBTITLE_STT_PROVIDER` gemini (`GEMINI_API_KEY`, default) / openai (Whisper, `OPENAI_API_KEY`); `SUBTITLE_TRANSLATE_PROVIDER` gemini /
+    google (`GOOGLE_TRANSLATE_API_KEY`); `SUBTITLE_AI_MODEL` (empty = `GEMINI_MODEL` then fallback). Keys only in a request header. No key → `AI_NOT_CONFIGURED` shown
+    in the panel, nothing invented. `fake` provider = local test stack only (`APP_ENV=test`).
+  - *Player:* `watch` returns `original_language` (the AI transcript's language, else `films.language`); the dual view puts it on top; the subtitle menu has "Original" /
+    "Übersetzung" switches (+ translation language) besides the language list (`lib/subtitles.ts` `switchesOf` / `stateFromSwitches`); Russian card in the admin.
+  - *Tests:* `test_medien_subtitle_ai` (16 unit), `test_medien_subtitle_jobs` (5 integration, real ffmpeg), `test_medien_subtitle_ai_migration`; unit `medien-reader-shelf.test.mjs`;
+    E2E `medien-ai-subtitles-reader.spec.ts`.
+- **Bibliothek bookshelf + book reader (2026-11-19, frontend only):** `bibliothek-client.tsx` = one shelf per category (admin order; books without one → "Weitere Bücher"),
+  boards stacked vertically, books per board from the width (`lib/shelf.ts` `shelfColumns`: ≥ 96 px covers on phones, 2–8), covers 2:3 with title + author below the board,
+  free / bought / price + lock sign; page size 60. Reader book mode (`book-view.tsx`, maths in `lib/reader-gestures.ts`): page fitted to the screen, previous / current / next
+  drawn, 3D turn over the spine; swipe (right-to-left = next), click on the left / right third, ← → / PageUp / PageDown, buttons (big bar at the bottom on phones); pinch zoom
+  around the fingers + one-finger pan when zoomed (never a page turn), double tap = 2× / whole page, ctrl + wheel; quick clicks during a turn are queued. "Kitobdan chiqish"
+  button → `/medien/bibliothek` (position saved); the X still closes to the book page. The preview paywall and the server-side page limit are unchanged.
 - **Frontend:** student `fe/app/(dashboard)/medien/*` + `fe/features/medien/` (global player store + `GlobalAudioPlayer` in the
   dashboard layout: one `<audio>`, queue/position/volume restored after reload, Media Session; `PdfReader` = pdf.js
   (`pdfjs-dist@5.4.449`, page + zoom + fullscreen, last page saved); `FilmPlayer` = own controls around one `<video>` (play, ±10 s, previous / next film,

@@ -137,7 +137,8 @@ export interface Overview {
   featured_film: FilmCard | null;
 }
 
-export interface WatchSubtitle extends FilmSubtitleInfo { url: string; cues_url: string; cue_count: number }
+/** `source`: UPLOAD (a file the admin chose), AI (transcribed from the film's audio), TRANSLATION (from `source_language`); students only get approved tracks. */
+export interface WatchSubtitle extends FilmSubtitleInfo { url: string; cues_url: string; cue_count: number; source?: "UPLOAD" | "AI" | "TRANSLATION"; source_language?: string | null }
 /** One quality of the video: "main" = the film's own file ("Original"), the others were uploaded by the admin (720p …). */
 export interface VideoSource { id: string; label: string; height: number | null; url: string }
 export interface FilmNeighbor { id: string; title: string }
@@ -151,6 +152,8 @@ export interface WatchInfo {
   prefs: SubtitlePrefs;
   neighbors: { prev: FilmNeighbor | null; next: FilmNeighbor | null };
   duration_ms: number | null;
+  /** the language spoken in the film: shown on top in the dual view */
+  original_language?: string;
 }
 
 export interface CueList { language: string; label: string; cues: Cue[] }

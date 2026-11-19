@@ -8,6 +8,7 @@ import json
 import logging
 import re
 import shutil
+from datetime import datetime, timezone
 from pathlib import Path
 from uuid import UUID, uuid4
 
@@ -17,7 +18,8 @@ from sqlalchemy.orm import Session
 
 from app.core.audit import write_audit
 from app.models.medien import (ACCESS_FREE, ACCESS_PAID, ACCESS_TYPES, KIND_BOOK, KIND_FILM, KIND_SONG, PURCHASE_GRANTED, PURCHASE_REJECTED,
-                               PURCHASE_REQUESTED, PURCHASE_REVOKED, STATUS_PUBLISHED, STATUSES, Film, FilmRendition, FilmSubtitle, MediaBook,
+                               PURCHASE_REQUESTED, PURCHASE_REVOKED, SOURCE_UPLOAD, STATUS_PUBLISHED, STATUSES, SUBTITLE_APPROVED, SUBTITLE_DRAFT,
+                               Film, FilmRendition, FilmSubtitle, MediaBook,
                                MediaCategory, MediaPlayHistory, MediaProgress, MediaPurchase, Playlist, PlaylistSong, Song, UserFavoriteSong)
 from app.models.user import User
 from app.services.audio_files import service as audio
@@ -206,7 +208,8 @@ def admin_card(kind: str, item, db: Session) -> dict:
 def _subtitle_card(s: FilmSubtitle) -> dict:
     return {"id": s.id, "language": s.language, "label": s.label, "file_status": _file_status(s.file_key), "cue_count": s.cue_count,
             "last_ms": s.last_ms, "format": s.source_format, "original_name": s.original_name, "file_size": s.file_size,
-            "warnings": s.warnings or [], "updated_at": s.updated_at}
+            "warnings": s.warnings or [], "updated_at": s.updated_at, "status": s.status, "source": s.source,
+            "source_language": s.source_language, "ai_model": s.ai_model, "approved_at": s.approved_at, "edited_at": s.edited_at}
 
 
 def admin_list(db: Session, kind: str, *, q: str | None = None, status: str | None = None, access: str | None = None, page: int = 1,
@@ -625,6 +628,9 @@ async def save_subtitle(db: Session, user: User, film: Film, language: str, labe
                 sub.label = _text(label, "label", 80) or sub.label
         sub.cue_count, sub.last_ms, sub.source_format = len(analysis.cues), analysis.last_ms, analysis.format
         sub.original_name, sub.file_size, sub.warnings = (file.filename or "")[:255] or None, len(vtt), analysis.warnings
+        # a file the admin uploads is visible at once (the admin chose it); it replaces an AI draft of that language completely
+        sub.status, sub.source, sub.source_language, sub.ai_model = SUBTITLE_APPROVED, SOURCE_UPLOAD, None, None
+        sub.approved_at, sub.approved_by_id, sub.edited_at = datetime.now(timezone.utc), user.id, None
         db.commit()
     except Exception:
         db.rollback()
@@ -687,6 +693,80 @@ def update_subtitle(db: Session, user: User, film: Film, subtitle_id: UUID, lang
     db.commit()
     _audit(db, user, "medien_film_subtitle_updated", f"{film.id} {sub.language}")
     return sub
+
+
+def approve_subtitle(db: Session, user: User, film: Film, subtitle_id: UUID, approved: bool) -> FilmSubtitle:
+    """APPROVED = students see the track; DRAFT = only the admin panel does (an AI track starts as DRAFT)."""
+    sub = _subtitle_of(db, film, subtitle_id)
+    if approved and c.file_path(sub.file_key) is None:
+        raise c.err(409, "FILE_MISSING: the subtitle file is missing; upload or generate it again.")
+    sub.status = SUBTITLE_APPROVED if approved else SUBTITLE_DRAFT
+    sub.approved_at, sub.approved_by_id = (datetime.now(timezone.utc), user.id) if approved else (None, None)
+    db.commit()
+    _audit(db, user, "medien_film_subtitle_approved" if approved else "medien_film_subtitle_withdrawn", f"{film.id} {sub.language} {sub.source}")
+    return sub
+
+
+MAX_EDIT_CUES = subs.MAX_CUES
+
+
+def edit_cues(db: Session, user: User, film: Film, subtitle_id: UUID, rows: list) -> FilmSubtitle:
+    """The admin's corrected cue list ([[start_ms, end_ms, text], …]) becomes the track: every text goes through the same cleaning as an
+    upload, rows without text are dropped, times must be valid; the track keeps its status (an approved track stays visible with the fix)."""
+    sub = _subtitle_of(db, film, subtitle_id)
+    if not isinstance(rows, list) or not rows:
+        raise c.err(422, "SUBTITLE_NO_CUES: at least one line is needed.")
+    if len(rows) > MAX_EDIT_CUES:
+        raise c.err(422, f"SUBTITLE_TOO_LARGE: at most {MAX_EDIT_CUES} lines.")
+    cues: list[subs.Cue] = []
+    for n, row in enumerate(rows, start=1):
+        if not isinstance(row, (list, tuple)) or len(row) != 3:
+            raise c.err(422, f"INVALID_CUE: line {n}.")
+        start, end, text = row
+        if not all(isinstance(v, int) and not isinstance(v, bool) for v in (start, end)) or not 0 <= start < end <= subs.MAX_DAY_MS:
+            raise c.err(422, f"INVALID_CUE_TIME: line {n} (the end must be after the start).")
+        clean = subs.clean_text(str(text or ""))[:subs.MAX_CUE_TEXT]
+        if clean:
+            cues.append(subs.Cue(start, end, clean))
+    if not cues:
+        raise c.err(422, "SUBTITLE_NO_CUES: every line was empty.")
+    cues.sort(key=lambda cue: (cue.start, cue.end))
+    warnings: list[dict] = []
+    subs.check(cues, _video_ms(film), warnings)
+    vtt = subs.to_vtt(cues)
+    key = f"subtitles/{uuid4().hex}.vtt"
+    path = c.storage.ROOT / key
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(vtt)
+    old = sub.file_key
+    try:
+        sub.file_key, sub.cue_count, sub.last_ms, sub.file_size, sub.warnings = key, len(cues), max(cue.end for cue in cues), len(vtt), warnings
+        sub.edited_at = datetime.now(timezone.utc)
+        db.commit()
+    except Exception:
+        db.rollback()
+        path.unlink(missing_ok=True)
+        raise
+    old_path = c.file_path(old)
+    if old_path:
+        old_path.unlink(missing_ok=True)
+    _audit(db, user, "medien_film_subtitle_edited", f"{film.id} {sub.language} {len(cues)} cues")
+    return sub
+
+
+def export_subtitle(db: Session, film: Film, subtitle_id: UUID, fmt: str) -> tuple[bytes, str, str]:
+    """The stored track as a file to download: (bytes, file name, media type) — WebVTT as stored, or SubRip."""
+    from app.services.medien import subtitle_ai
+
+    sub = _subtitle_of(db, film, subtitle_id)
+    path = c.file_path(sub.file_key)
+    if path is None:
+        raise c.err(404, "FILE_MISSING")
+    cues = subs.read_cues(path.read_bytes())
+    name = c.safe_filename(f"{film.title} {sub.language}", fmt)
+    if fmt == "srt":
+        return subtitle_ai.to_srt(cues), name, "application/x-subrip"
+    return subs.to_vtt(cues), name, "text/vtt"
 
 
 async def delete_subtitle(db: Session, user: User, film: Film, subtitle_id: UUID) -> None:

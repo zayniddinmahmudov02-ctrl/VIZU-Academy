@@ -124,7 +124,7 @@ from .promo_code_redemption import PromoCodeRedemption
 from .promo_code_request import PromoCodeRequest
 from .course_package import CoursePackage
 from .audio_file import AudioFile
-from .medien import (BookPaymentRequest, Film, FilmRendition, FilmSubtitle, MediaBook, MediaCategory, MediaPlayerPrefs, MediaPlayHistory,
+from .medien import (BookPaymentRequest, Film, FilmRendition, FilmSubtitle, FilmSubtitleJob, MediaBook, MediaCategory, MediaPlayerPrefs, MediaPlayHistory,
                      MediaProgress, MediaPurchase, Playlist, PlaylistSong, Song, UserFavoriteSong)
 from .subscription_order import SubscriptionOrder
 from .user_entitlement import UserEntitlement

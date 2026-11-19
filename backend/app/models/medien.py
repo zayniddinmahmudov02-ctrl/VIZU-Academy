@@ -151,12 +151,21 @@ class Film(_Content, BaseModel):
     video_duration_ms: Mapped[int | None] = mapped_column(Integer, nullable=True)
 
 
+SUBTITLE_DRAFT, SUBTITLE_APPROVED = "DRAFT", "APPROVED"
+SOURCE_UPLOAD, SOURCE_AI, SOURCE_TRANSLATION = "UPLOAD", "AI", "TRANSLATION"
+
+
 class FilmSubtitle(BaseModel):
     """One subtitle track of a film (one per language). The stored file is normalised, sanitised WebVTT; the columns below
-    are the result of the last check (`services/medien/subtitles.py`) so the admin list needs no file reads."""
+    are the result of the last check (`services/medien/subtitles.py`) so the admin list needs no file reads.
+
+    `status`: students only ever see APPROVED tracks. An uploaded file is APPROVED at once (the admin chose it); a track made by the AI
+    (`source` AI = transcribed from the film's audio, TRANSLATION = translated from `source_language`) starts as DRAFT until an admin approved it."""
 
     __tablename__ = "film_subtitles"
-    __table_args__ = (UniqueConstraint("film_id", "language", name="uq_film_subtitles_film_language"),)
+    __table_args__ = (UniqueConstraint("film_id", "language", name="uq_film_subtitles_film_language"),
+                      CheckConstraint("status IN ('DRAFT','APPROVED')", name="ck_film_subtitles_status"),
+                      CheckConstraint("source IN ('UPLOAD','AI','TRANSLATION')", name="ck_film_subtitles_source"))
 
     film_id: Mapped[UUID] = _uuid_fk("films", "fk_film_subtitles_film_id", null=False, on_delete="CASCADE")
     language: Mapped[str] = mapped_column(String(10), nullable=False)
@@ -168,6 +177,57 @@ class FilmSubtitle(BaseModel):
     original_name: Mapped[str | None] = mapped_column(String(255), nullable=True)
     file_size: Mapped[int | None] = mapped_column(Integer, nullable=True)
     warnings: Mapped[list] = mapped_column(JSONB, nullable=False, default=list, server_default="[]")
+    status: Mapped[str] = mapped_column(String(10), nullable=False, default=SUBTITLE_APPROVED, server_default=SUBTITLE_APPROVED)
+    source: Mapped[str] = mapped_column(String(12), nullable=False, default=SOURCE_UPLOAD, server_default=SOURCE_UPLOAD)
+    source_language: Mapped[str | None] = mapped_column(String(10), nullable=True)
+    ai_model: Mapped[str | None] = mapped_column(String(80), nullable=True)
+    approved_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    approved_by_id: Mapped[UUID | None] = _uuid_fk("users", "fk_film_subtitles_approved_by_id")
+    edited_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+
+JOB_TRANSCRIBE, JOB_TRANSLATE = "TRANSCRIBE", "TRANSLATE"
+JOB_PENDING, JOB_PROCESSING, JOB_COMPLETED, JOB_FAILED = "PENDING", "PROCESSING", "COMPLETED", "FAILED"
+
+
+class FilmSubtitleJob(BaseModel):
+    """One AI subtitle job of a film, processed in the background (`services/medien/subtitle_jobs.py`).
+
+    TRANSCRIBE: the film's audio → timed text in the spoken language (`language` = "auto" or the language the admin chose; `detected_language`
+    = what came out), then a TRANSLATE job per entry of `translate_to`. TRANSLATE: the cues of `source_subtitle_id` → `language`.
+    `partial` keeps the finished chunks / batches, so a retry after an error or a restart continues where it stopped. The result is a DRAFT
+    track (`result_subtitle_id`); nothing reaches a student before an admin approved it."""
+
+    __tablename__ = "film_subtitle_jobs"
+    __table_args__ = (
+        CheckConstraint("kind IN ('TRANSCRIBE','TRANSLATE')", name="ck_film_subtitle_jobs_kind"),
+        CheckConstraint("status IN ('PENDING','PROCESSING','COMPLETED','FAILED')", name="ck_film_subtitle_jobs_status"),
+        Index("uq_film_subtitle_jobs_active", "film_id", "kind", "language", unique=True, postgresql_where=text("status IN ('PENDING','PROCESSING')")),
+        Index("ix_film_subtitle_jobs_status_created", "status", "created_at"),
+    )
+
+    film_id: Mapped[UUID] = _uuid_fk("films", "fk_film_subtitle_jobs_film_id", null=False, on_delete="CASCADE")
+    kind: Mapped[str] = mapped_column(String(12), nullable=False)
+    status: Mapped[str] = mapped_column(String(12), nullable=False, default=JOB_PENDING, server_default=JOB_PENDING)
+    language: Mapped[str] = mapped_column(String(10), nullable=False)
+    detected_language: Mapped[str | None] = mapped_column(String(10), nullable=True)
+    source_subtitle_id: Mapped[UUID | None] = _uuid_fk("film_subtitles", "fk_film_subtitle_jobs_source_subtitle_id")
+    result_subtitle_id: Mapped[UUID | None] = _uuid_fk("film_subtitles", "fk_film_subtitle_jobs_result_subtitle_id")
+    translate_to: Mapped[list] = mapped_column(JSONB, nullable=False, default=list, server_default="[]")
+    replace_existing: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default=text("false"))
+    provider: Mapped[str | None] = mapped_column(String(40), nullable=True)
+    model: Mapped[str | None] = mapped_column(String(80), nullable=True)
+    progress_done: Mapped[int] = mapped_column(Integer, nullable=False, default=0, server_default="0")
+    progress_total: Mapped[int] = mapped_column(Integer, nullable=False, default=0, server_default="0")
+    attempts: Mapped[int] = mapped_column(Integer, nullable=False, default=0, server_default="0")
+    error_code: Mapped[str | None] = mapped_column(String(60), nullable=True)
+    error_message: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    partial: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict, server_default="{}")
+    stats: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict, server_default="{}")
+    created_by_id: Mapped[UUID | None] = _uuid_fk("users", "fk_film_subtitle_jobs_created_by_id")
+    started_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    finished_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    heartbeat_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
 
 class FilmRendition(BaseModel):

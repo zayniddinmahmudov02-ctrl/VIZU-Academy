@@ -100,6 +100,37 @@ class UrlIn(BaseModel):
     url: str | None = Field(default=None, max_length=1000)
 
 
+SubLang = Literal["de", "en", "uz", "ru"]
+
+
+class AiSubtitleIn(BaseModel):
+    """Start the AI subtitles of a film: the audio language ("auto" = detect), the languages to translate into, and whether existing tracks of
+    those languages may be replaced (they become a DRAFT until approved again)."""
+
+    model_config = ConfigDict(extra="forbid")
+    language: Literal["auto", "de", "en", "uz", "ru"] = "auto"
+    translate_to: list[SubLang] = Field(default_factory=list, max_length=4)
+    replace: bool = False
+
+
+class TranslateIn(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    target: SubLang
+    replace: bool = False
+
+
+class ApproveIn(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    approved: bool
+
+
+class CuesIn(BaseModel):
+    """The corrected track: [[start_ms, end_ms, text], …] (validated and cleaned in the service)."""
+
+    model_config = ConfigDict(extra="forbid")
+    cues: list[list[int | str]] = Field(max_length=20_000)
+
+
 class DecisionIn(BaseModel):
     model_config = ConfigDict(extra="forbid")
     status: str = Field(pattern="^(GRANTED|REJECTED|REVOKED)$")
@@ -359,6 +390,12 @@ def film_external_url(film_id: UUID, data: UrlIn, db: Session = Depends(get_db),
     return svc.admin_card(FILM_KIND, svc.set_external_url(db, user, svc.get_item(db, FILM_KIND, film_id), data.url), db)
 
 
+@router.get("/films/{film_id}")
+def film_card(film_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+    """One film as the admin list shows it (subtitle tracks with status / source) — the AI panel reloads it when a job is done."""
+    return svc.admin_card(FILM_KIND, svc.get_item(db, FILM_KIND, film_id), db)
+
+
 @router.get("/films/{film_id}/file")
 def film_preview(film_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
     film = svc.get_item(db, FILM_KIND, film_id)
@@ -405,6 +442,84 @@ async def film_subtitle_delete(film_id: UUID, subtitle_id: UUID, db: Session = D
     film = svc.get_item(db, FILM_KIND, film_id)
     await svc.delete_subtitle(db, user, film, subtitle_id)
     return svc.admin_card(FILM_KIND, film, db)
+
+
+@router.post("/films/{film_id}/subtitles/{subtitle_id}/approve")
+def film_subtitle_approve(film_id: UUID, subtitle_id: UUID, data: ApproveIn, db: Session = Depends(get_db), user: User = Depends(require_content_editor)):
+    """approved=true: students see the track; false: back to DRAFT (only the admin panel shows it)."""
+    film = svc.get_item(db, FILM_KIND, film_id)
+    svc.approve_subtitle(db, user, film, subtitle_id, data.approved)
+    return svc.admin_card(FILM_KIND, film, db)
+
+
+@router.put("/films/{film_id}/subtitles/{subtitle_id}/cues")
+def film_subtitle_edit(film_id: UUID, subtitle_id: UUID, data: CuesIn, db: Session = Depends(get_db), user: User = Depends(require_content_editor)):
+    """Saves the admin's corrected lines (times + text) as the track; the status stays as it is."""
+    film = svc.get_item(db, FILM_KIND, film_id)
+    svc.edit_cues(db, user, film, subtitle_id, data.cues)
+    return svc.subtitle_preview(db, film, subtitle_id)
+
+
+@router.get("/films/{film_id}/subtitles/{subtitle_id}/download")
+def film_subtitle_download(film_id: UUID, subtitle_id: UUID, format: Literal["srt", "vtt"] = Query("vtt"), db: Session = Depends(get_db),
+                           _: User = Depends(require_admin_panel_access)):
+    from fastapi.responses import Response
+
+    data, name, media_type = svc.export_subtitle(db, svc.get_item(db, FILM_KIND, film_id), subtitle_id, format)
+    return Response(content=data, media_type=f"{media_type}; charset=utf-8",
+                    headers={**PRIVATE, "Content-Disposition": f'attachment; filename="{name}"'})
+
+
+# ---------------- AI subtitles ----------------
+
+
+@router.get("/subtitle-ai/status")
+def subtitle_ai_status(_: User = Depends(require_admin_panel_access)):
+    """Which speech-to-text / translation service is set up (never a key), whether ffmpeg exists, the languages."""
+    from app.services.medien import subtitle_ai
+
+    return subtitle_ai.status()
+
+
+@router.post("/films/{film_id}/subtitles/ai", status_code=202)
+def film_subtitle_ai(film_id: UUID, data: AiSubtitleIn, db: Session = Depends(get_db), user: User = Depends(require_content_editor)):
+    """Starts the background job: the film's audio → timed text (→ translations). The result is a DRAFT track."""
+    from app.services.medien import subtitle_jobs
+
+    film = svc.get_item(db, FILM_KIND, film_id)
+    job = subtitle_jobs.start_transcription(db, user, film, data.language, list(data.translate_to), data.replace)
+    return subtitle_jobs.serialize(job)
+
+
+@router.post("/films/{film_id}/subtitles/{subtitle_id}/translate", status_code=202)
+def film_subtitle_translate(film_id: UUID, subtitle_id: UUID, data: TranslateIn, db: Session = Depends(get_db), user: User = Depends(require_content_editor)):
+    from app.services.medien import subtitle_jobs
+
+    film = svc.get_item(db, FILM_KIND, film_id)
+    source = svc._subtitle_of(db, film, subtitle_id)
+    return subtitle_jobs.serialize(subtitle_jobs.start_translation(db, user, film, source, data.target, data.replace))
+
+
+@router.get("/films/{film_id}/subtitle-jobs")
+def film_subtitle_jobs(film_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+    from app.services.medien import subtitle_jobs
+
+    svc.get_item(db, FILM_KIND, film_id)
+    return subtitle_jobs.jobs_of(db, film_id)
+
+
+@router.post("/films/{film_id}/subtitle-jobs/{job_id}/retry")
+def film_subtitle_job_retry(film_id: UUID, job_id: UUID, db: Session = Depends(get_db), user: User = Depends(require_content_editor)):
+    from app.services.medien import subtitle_jobs
+
+    return subtitle_jobs.serialize(subtitle_jobs.retry(db, user, job_id, film_id))
+
+
+@router.post("/films/{film_id}/subtitle-jobs/{job_id}/cancel")
+def film_subtitle_job_cancel(film_id: UUID, job_id: UUID, db: Session = Depends(get_db), user: User = Depends(require_content_editor)):
+    from app.services.medien import subtitle_jobs
+
+    return subtitle_jobs.serialize(subtitle_jobs.cancel(db, user, job_id, film_id))
 
 
 @router.delete("/films/{film_id}/renditions/{rendition_id}")

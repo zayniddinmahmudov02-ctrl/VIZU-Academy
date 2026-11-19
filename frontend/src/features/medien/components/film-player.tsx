@@ -82,7 +82,8 @@ export default function FilmPlayer({ filmId, title, onProgress }: Props) {
   const available = useMemo(() => (info?.subtitles ?? EMPTY_SUBS).map((s) => s.language), [info]);
   const secondaryEff = pickSecondary(available, subtitle, secondary ?? undefined);
   const dualOn = dual && available.length > 1;
-  const lines = useMemo(() => subtitleLines(available, subtitle, dualOn, secondary ?? undefined), [available, subtitle, dualOn, secondary]);
+  const original = info?.original_language ?? "de";
+  const lines = useMemo(() => subtitleLines(available, subtitle, dualOn, secondary ?? undefined, original), [available, subtitle, dualOn, secondary, original]);
   const sources: VideoSource[] = useMemo(() => (info?.sources?.length ? info.sources : info ? [{ id: "main", label: "Original", height: null, url: info.source.url }] : []), [info]);
   const source = sources.find((s) => s.id === sourceId) ?? sources[0];
   const canPip = typeof document !== "undefined" && !!document.pictureInPictureEnabled;
@@ -100,7 +101,7 @@ export default function FilmPlayer({ filmId, title, onProgress }: Props) {
       const st = w.progress?.state ?? null;
       const langs = w.subtitles.map((s) => s.language);
       setPrefs(p);
-      setSubtitle(initialSubtitle(langs, st, p));
+      setSubtitle(initialSubtitle(langs, st, p, w.original_language ?? "de"));
       setDual(typeof st?.dual === "boolean" ? st.dual : p.dual);
       setSecondary(st?.secondary ?? p.secondary);
       if (st?.speed && SPEEDS.includes(st.speed)) setSpeed(st.speed);
@@ -200,9 +201,16 @@ export default function FilmPlayer({ filmId, title, onProgress }: Props) {
   const prevFilm = info?.neighbors.prev ?? null;
 
   const chooseSubtitle = (language: string) => { setSubtitle(language); setMenu(null); updatePrefs({ enabled: language !== "off" }); };
-  const toggleSubtitles = () => chooseSubtitle(subtitle === "off" ? initialSubtitle(available, null, { ...prefs, enabled: true }) : "off");
+  const toggleSubtitles = () => chooseSubtitle(subtitle === "off" ? initialSubtitle(available, null, { ...prefs, enabled: true }, original) : "off");
   const changeDual = (on: boolean) => { setDual(on); updatePrefs({ dual: on }); };
   const changeSecondary = (language: string) => { setSecondary(language); updatePrefs({ secondary: language }); };
+  /** the "Original" / "Translation" switches: both on = dual view (original on top), one of them = that line alone, none = off */
+  const changeSwitches = (next: { subtitle: string; dual: boolean; secondary: string | null }) => {
+    setSubtitle(next.subtitle);
+    setDual(next.dual);
+    if (next.secondary) setSecondary(next.secondary);
+    updatePrefs({ enabled: next.subtitle !== "off", dual: next.dual, ...(next.secondary ? { secondary: next.secondary } : {}) });
+  };
   const setPauseOnWord = (on: boolean) => { setPauseOnWordState(on); try { localStorage.setItem(PAUSE_KEY, on ? "1" : "0"); } catch { /* ignore */ } };
   const chooseSpeed = (s: number) => { setSpeed(s); setMenu(null); };
   const chooseQuality = (id: string) => {
@@ -367,8 +375,8 @@ export default function FilmPlayer({ filmId, title, onProgress }: Props) {
       )}
       {menu === "subs" && (
         <MenuSheet testId="film-subtitle-menu" width="sm:w-[19rem]" label={t("medien.wp.close")} onClose={() => setMenu(null)}>
-          <SubtitleMenu subtitles={info.subtitles} subtitle={subtitle} dual={dualOn} secondary={secondaryEff} prefs={prefs} pauseOnWord={pauseOnWord}
-                        onSubtitle={chooseSubtitle} onDual={changeDual} onSecondary={changeSecondary} onPrefs={updatePrefs} onPauseOnWord={setPauseOnWord} />
+          <SubtitleMenu subtitles={info.subtitles} subtitle={subtitle} dual={dualOn} secondary={secondaryEff} prefs={prefs} pauseOnWord={pauseOnWord} original={original}
+                        onSubtitle={chooseSubtitle} onDual={changeDual} onSecondary={changeSecondary} onSwitches={changeSwitches} onPrefs={updatePrefs} onPauseOnWord={setPauseOnWord} />
         </MenuSheet>
       )}
       {menu === "quality" && (

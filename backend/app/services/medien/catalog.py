@@ -10,7 +10,8 @@ from uuid import UUID
 from sqlalchemy import delete, func, or_, select, update
 from sqlalchemy.orm import Session
 
-from app.models.medien import (ACCESS_FREE, ACCESS_PAID, KIND_BOOK, KIND_FILM, KIND_SONG, PURCHASE_REQUESTED, STATUS_PUBLISHED, BookPaymentRequest, Film,
+from app.models.medien import (ACCESS_FREE, ACCESS_PAID, KIND_BOOK, KIND_FILM, KIND_SONG, PURCHASE_REQUESTED, SOURCE_AI, STATUS_PUBLISHED,
+                               SUBTITLE_APPROVED, BookPaymentRequest, Film,
                                FilmRendition, FilmSubtitle, MediaBook, MediaCategory, MediaPlayHistory, MediaProgress, MediaPurchase, Playlist,
                                PlaylistSong, Song, UserFavoriteSong)
 from app.models.user import User
@@ -239,7 +240,18 @@ def book_detail(db: Session, user: User, book_id: UUID) -> dict:
 
 
 def subtitles_of(db: Session, film_id: UUID) -> list[FilmSubtitle]:
-    return list(db.scalars(select(FilmSubtitle).where(FilmSubtitle.film_id == film_id).order_by(FilmSubtitle.language)))
+    """The tracks students get: APPROVED only (an AI draft waits for the admin)."""
+    return list(db.scalars(select(FilmSubtitle).where(FilmSubtitle.film_id == film_id, FilmSubtitle.status == SUBTITLE_APPROVED)
+                           .order_by(FilmSubtitle.language)))
+
+
+def original_language(film: Film, tracks: list[FilmSubtitle]) -> str:
+    """The language spoken in the film (shown on top in the dual view): the track transcribed from the audio when there is one, else the
+    film's language field."""
+    for s in tracks:
+        if s.source == SOURCE_AI:
+            return s.language
+    return film.language or "de"
 
 
 def film_detail(db: Session, user: User, film_id: UUID) -> dict:
@@ -342,10 +354,12 @@ def watch_film(db: Session, user: User, film_id: UUID) -> dict:
     film = c.item_or_404(db, KIND_FILM, film_id, user)
     c.require_access(db, user, KIND_FILM, film)
     subs = []
-    for s in subtitles_of(db, film.id):
+    tracks = subtitles_of(db, film.id)
+    for s in tracks:
         base = f"/api/v1/medien/subtitles/{s.id}"
         subs.append({"id": s.id, "language": s.language, "label": s.label, "url": c.signed_url(base, s.id, user, "subtitle"),
-                     "cues_url": c.signed_url(f"{base}/cues", s.id, user, "subtitle"), "cue_count": s.cue_count})
+                     "cues_url": c.signed_url(f"{base}/cues", s.id, user, "subtitle"), "cue_count": s.cue_count,
+                     "source": s.source, "source_language": s.source_language})
     sources: list[dict] = []
     if film.video_key and film.processing_status == "READY" and c.file_path(film.video_key):
         source = {"type": "file", "url": c.signed_url(f"/api/v1/medien/stream/{KIND_FILM}/{film.id}", film.id, user)}
@@ -361,7 +375,8 @@ def watch_film(db: Session, user: User, film_id: UUID) -> dict:
     db.execute(update(Film).where(Film.id == film.id).values(view_count=Film.view_count + 1))
     db.commit()
     return {"title": film.title, "source": source, "sources": sources, "subtitles": subs, "progress": progress(db, user, KIND_FILM, film.id),
-            "prefs": player.get_prefs(db, user), "neighbors": player.neighbors(db, film), "duration_ms": film.video_duration_ms}
+            "prefs": player.get_prefs(db, user), "neighbors": player.neighbors(db, film), "duration_ms": film.video_duration_ms,
+            "original_language": original_language(film, tracks)}
 
 
 def stream_target(db: Session, kind: str, item_id: UUID, token: str):
@@ -387,7 +402,7 @@ def stream_target(db: Session, kind: str, item_id: UUID, token: str):
 def subtitle_target(db: Session, subtitle_id: UUID, token: str):
     user = c.read_token(db, token, subtitle_id, "subtitle")
     sub = db.get(FilmSubtitle, subtitle_id)
-    if sub is None:
+    if sub is None or (sub.status != SUBTITLE_APPROVED and not c.is_staff(user)):  # a draft (also with an old token) is never served to a student
         raise c.err(404, "NOT_FOUND")
     film = c.item_or_404(db, KIND_FILM, sub.film_id, user)
     c.require_access(db, user, KIND_FILM, film)

@@ -643,7 +643,7 @@ test.describe.serial("Medienwelt", () => {
 
 test.describe("Medienwelt on a phone", () => {
   test.skip(({ isMobile }) => !isMobile, "phone layout");
-  test("pages fit the screen, shelves scroll sideways, the player bar fits and plays", async ({ page }) => {
+  test("pages fit the screen, the bookshelf only scrolls down, the player bar fits and plays", async ({ page }) => {
     const phoneDir = mkdtempSync(join(tmpdir(), "medien-phone-")); // its own folder: the desktop run removes `work` when it is done
     const admin = await token(ADMIN.email, ADMIN.password);
     const form = new FormData();

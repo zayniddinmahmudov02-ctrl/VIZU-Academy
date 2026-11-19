@@ -183,8 +183,8 @@ function FilmDialog({ initial, categories, onClose }: { initial: AdminItem | nul
               </div>
             </Section>
 
-            <Section id="subtitles" title="Untertitel" icon={<Captions size={15} />} hint="Pro Sprache eine Datei (.srt oder .vtt, bis 2 MB). Vor dem Speichern prüfen: Format, Zeitangaben, Bereinigung (kein HTML/Skript) und Passung zur Videolänge. Fehlerhafte Zeilen werden übersprungen, der Player bleibt stabil.">
-              <SubtitleManager film={item} busy={busy} run={run} />
+            <Section id="subtitles" title="Untertitel" icon={<Captions size={15} />} hint="KI-Untertitel aus der Tonspur (mit Übersetzung) oder pro Sprache eine Datei (.srt oder .vtt, bis 2 MB). Hochgeladene Dateien sind sofort sichtbar; KI-Ergebnisse erst nach „Freigeben“. Fehlerhafte Zeilen werden übersprungen, der Player bleibt stabil.">
+              <SubtitleManager film={item} busy={busy} run={run} onFilm={setItem} />
             </Section>
           </>
         )}
