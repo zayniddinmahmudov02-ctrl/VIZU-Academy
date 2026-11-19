@@ -4,6 +4,7 @@ writes, `require_admin_panel_access` for reads. Every write is audited. Deleting
 files (a file that cannot be removed shows up as `file_status` / is harmless, a row without file never blocks a student)."""
 
 import asyncio
+import hashlib
 import json
 import logging
 import re
@@ -13,7 +14,7 @@ from pathlib import Path
 from uuid import UUID, uuid4
 
 from fastapi import HTTPException, UploadFile
-from sqlalchemy import delete, func, select
+from sqlalchemy import delete, func, select, text
 from sqlalchemy.orm import Session
 
 from app.core.audit import write_audit
@@ -23,7 +24,7 @@ from app.models.medien import (ACCESS_FREE, ACCESS_PAID, ACCESS_TYPES, KIND_BOOK
                                MediaCategory, MediaPlayHistory, MediaProgress, MediaPurchase, Playlist, PlaylistSong, Song, UserFavoriteSong)
 from app.models.user import User
 from app.services.audio_files import service as audio
-from app.services.medien import audio_meta, book_payments, pdf_tools
+from app.services.medien import audio_meta, book_payments, pdf_tools, song_processing
 from app.services.medien import common as c
 from app.services.medien import subtitles as subs
 
@@ -315,13 +316,25 @@ async def set_book_file(db: Session, user: User, book: MediaBook, file: UploadFi
 # ---------------- songs ----------------
 
 
-async def _store_song_file(file: UploadFile) -> tuple[str, str, int, audio_meta.AudioInfo]:
-    """Stores the ORIGINAL (checked by content: MP3, WAV, M4A, AAC, OGG, FLAC) — nothing is converted or re-encoded — and reads its metadata. A file
-    the tool says is not audio is removed again and refused; when the metadata tool itself is unavailable or fails the original is KEPT and the song
-    is saved without metadata (status FAILED, shown to the admin) — a missing tool never blocks the upload."""
+def _sha256_of(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for block in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+async def _store_song_file(file: UploadFile, read_meta: bool = True) -> tuple[str, str, int, audio_meta.AudioInfo | None, str]:
+    """Stores the ORIGINAL (checked by content: MP3, WAV, M4A, AAC, OGG, FLAC) — nothing is converted or re-encoded — with its SHA-256 and, unless the
+    bulk upload asks to queue it (`read_meta=False` → song_processing), reads its metadata. A file the tool says is not audio is removed again and
+    refused; when the metadata tool itself is unavailable or fails the original is KEPT and the song is saved without metadata (status FAILED,
+    shown to the admin) — a missing tool never blocks the upload."""
     key, ext, size = await c.save_upload(file, "songs", c.sniff_audio, c.MAX_AUDIO, "The audio file")
     path = c.storage.ROOT / key
+    sha = await asyncio.to_thread(_sha256_of, path)
     log.info("song upload stored: ext=%s size=%s", ext, size)
+    if not read_meta:
+        return key, ext, size, None, sha
     try:
         info = await asyncio.to_thread(audio_meta.read, path)
     except audio_meta.AudioUnreadable:
@@ -331,33 +344,62 @@ async def _store_song_file(file: UploadFile) -> tuple[str, str, int, audio_meta.
     except Exception:  # never lose an upload because of a metadata problem
         log.exception("song metadata step crashed; the original is kept")
         info = audio_meta.AudioInfo(status="FAILED", note="metadata step failed")
-    return key, ext, size, info
+    return key, ext, size, info, sha
 
 
-def _apply_audio(song: Song, ext: str, info: audio_meta.AudioInfo) -> None:
-    song.audio_format, song.bitrate_kbps, song.duration_ms = ext, info.bitrate_kbps, info.duration_ms
-    song.metadata_status, song.metadata_note = info.status, info.note
+SHA256 = re.compile(r"^[0-9a-f]{64}$")
 
 
-async def create_song(db: Session, user: User, data: dict, file: UploadFile, cover: UploadFile | None = None) -> Song:
-    """One song = one request (the bulk upload sends up to 10, each with its own metadata and progress; one failure
-    never stops the others). Duration is read from the file."""
+def song_duplicates(db: Session, hashes: list[str]) -> dict[str, dict]:
+    """Which of these file hashes are already stored as a song (the oldest one per hash) — the bulk upload asks before it sends a file."""
+    wanted = {h.lower() for h in hashes if isinstance(h, str) and SHA256.match(h.lower())}
+    if not wanted:
+        return {}
+    out: dict[str, dict] = {}
+    for s in db.scalars(select(Song).where(Song.sha256.in_(wanted)).order_by(Song.created_at)):
+        out.setdefault(s.sha256, {"id": s.id, "title": s.title, "artist": s.artist, "status": s.status})
+    return out
+
+
+def song_states(db: Session, ids: list[UUID]) -> list[dict]:
+    """The bulk upload's view of songs it sent: processing state and what the queue read (format, duration, bitrate, title / artist)."""
+    rows = db.scalars(select(Song).where(Song.id.in_(ids))).all() if ids else []
+    return [{"id": s.id, "title": s.title, "artist": s.artist, "audio_format": s.audio_format, "duration_ms": s.duration_ms, "bitrate_kbps": s.bitrate_kbps,
+             "file_size": s.file_size, "metadata_status": s.metadata_status, "metadata_note": s.metadata_note, "status": s.status} for s in rows]
+
+
+async def create_song(db: Session, user: User, data: dict, file: UploadFile, cover: UploadFile | None = None, *, client_sha256: str | None = None,
+                      defer_metadata: bool = False, allow_duplicate: bool = False) -> Song:
+    """One song = one request (the bulk upload sends up to 500 this way, a few at a time, each with its own metadata, progress and result; one failure
+    never stops the others).
+    * The stored file's SHA-256 must equal the browser's (`client_sha256`), else the file did not arrive complete: removed, 400 CHECKSUM_MISMATCH —
+      a song is only reported as uploaded when the whole file is on the disk.
+    * The same file (same SHA-256) as an existing song: removed, 409 SONG_DUPLICATE (+ the existing id) — unless `allow_duplicate`. Checked under
+      an advisory lock on the hash, so two parallel uploads of one file cannot both pass. The same NAME with other content is not a duplicate.
+    * `defer_metadata`: the metadata is read by the background queue (song_processing) instead of in this request."""
     values = clean(db, KIND_SONG, data)
-    key, ext, size, info = await _store_song_file(file)
-    # tags fill what the admin left empty (a title equal to the file name is the form's default, not a choice); the admin can edit everything afterwards
-    stem = " ".join(((file.filename or "").rsplit(".", 1)[0]).split())
-    if info.title and values.get("title") in (None, "", stem):
-        values["title"] = info.title
-    for field in ("artist", "album", "genre"):
-        if getattr(info, field) and not values.get(field):
-            values[field] = getattr(info, field)[:255 if field != "genre" else 80]
+    key, ext, size, info, sha = await _store_song_file(file, read_meta=not defer_metadata)
+    if client_sha256 and client_sha256.strip().lower() != sha:
+        await c.remove_file(key)
+        log.warning("song upload refused: checksum mismatch (size=%s)", size)
+        raise c.err(400, "CHECKSUM_MISMATCH: the file did not arrive complete; upload it again.")
+    stem = song_processing.stem_of(file.filename)
     cover_key = None
     try:
+        db.execute(text("SELECT pg_advisory_xact_lock(hashtext(:h))"), {"h": sha})
+        if not allow_duplicate:
+            dup = db.scalars(select(Song).where(Song.sha256 == sha).order_by(Song.created_at).limit(1)).first()
+            if dup is not None:
+                raise c.err(409, f"SONG_DUPLICATE: {dup.id} {dup.title}"[:300])
         if cover is not None:
             cover_key, _, _ = await c.save_upload(cover, "covers", c.sniff_image, c.MAX_COVER, "The cover image")
         song = Song(**values, file_key=key, content_type=c.CONTENT_TYPES[ext], file_size=size, cover_key=cover_key,
-                    original_name=(file.filename or "")[:255] or None)
-        _apply_audio(song, ext, info)
+                    original_name=(file.filename or "")[:255] or None, sha256=sha)
+        if info is None:
+            song.audio_format, song.metadata_status, song.metadata_note = ext, song_processing.PENDING, None
+        else:
+            song_processing.fill_from_tags(song, info, stem)
+            song_processing.apply_audio(song, ext, info)
         db.add(song)
         db.commit()
     except Exception:
@@ -367,14 +409,16 @@ async def create_song(db: Session, user: User, data: dict, file: UploadFile, cov
         raise
     db.refresh(song)
     _audit(db, user, "medien_song_created", f"{song.id} {song.title}")
+    if info is None:
+        song_processing.kick()
     return song
 
 
 async def replace_song_file(db: Session, user: User, song: Song, file: UploadFile) -> Song:
-    key, ext, size, info = await _store_song_file(file)
+    key, ext, size, info, sha = await _store_song_file(file)
     old = song.file_key
-    song.file_key, song.content_type, song.file_size = key, c.CONTENT_TYPES[ext], size
-    _apply_audio(song, ext, info)
+    song.file_key, song.content_type, song.file_size, song.sha256 = key, c.CONTENT_TYPES[ext], size, sha
+    song_processing.apply_audio(song, ext, info)
     song.original_name = (file.filename or "")[:255] or None
     db.commit()
     await c.remove_file(old)

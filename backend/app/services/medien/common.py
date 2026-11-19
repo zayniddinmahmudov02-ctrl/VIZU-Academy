@@ -18,6 +18,7 @@ from sqlalchemy.orm import Session
 from app.core.config import settings
 from app.core.security.jwt import create_access_token, decode_access_token
 from app.core.security.roles import UserRole
+from app.core.storage.local import UploadTooLarge
 from app.core.storage.protected_local import ProtectedMedienStorage
 from app.models.medien import (ACCESS_PAID, KIND_BOOK, KIND_FILM, KIND_SONG, PURCHASE_GRANTED, STATUS_PUBLISHED, Film, MediaBook,
                                MediaPurchase, Song)
@@ -113,7 +114,7 @@ async def save_upload(file: UploadFile, folder: str, sniff, max_bytes: int, what
     key = f"{folder}/{uuid4().hex}.{ext}"
     try:
         await storage.upload(file, key, max_bytes=max_bytes)
-    except ValueError:
+    except UploadTooLarge:
         raise err(400, f"FILE_TOO_LARGE: {what} is larger than {max_bytes // MB} MB.") from None
     return key, ext, (storage.ROOT / key).stat().st_size
 

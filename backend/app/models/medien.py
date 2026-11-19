@@ -93,11 +93,14 @@ class Song(_Content, BaseModel):
     file_size: Mapped[int | None] = mapped_column(BigInteger, nullable=True)
     original_name: Mapped[str | None] = mapped_column(String(255), nullable=True)
     play_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
-    # read from the file at upload (services/medien/audio_meta.py); FAILED = the original was kept without metadata (note says why)
+    # read from the file (services/medien/audio_meta.py): at upload, or by the processing queue for a bulk upload (song_processing.py).
+    # OK | FAILED (the original was kept without metadata, note says why) | PENDING / PROCESSING (queued) | INVALID (not readable as audio: set to DRAFT)
     audio_format: Mapped[str | None] = mapped_column(String(10), nullable=True)
     bitrate_kbps: Mapped[int | None] = mapped_column(Integer, nullable=True)
     metadata_status: Mapped[str] = mapped_column(String(10), nullable=False, default="OK", server_default="OK")
     metadata_note: Mapped[str | None] = mapped_column(String(300), nullable=True)
+    # SHA-256 of the stored original: the same file is found again (duplicate check of the bulk upload); not unique — an admin may upload a copy on purpose
+    sha256: Mapped[str | None] = mapped_column(String(64), nullable=True, index=True)
 
 
 class Playlist(BaseModel):

@@ -145,6 +145,8 @@ class Settings(BaseSettings):
     SUBTITLE_CHUNK_SECONDS: int = 180
     # the in-process worker that runs the jobs (off in tests: they run jobs directly)
     SUBTITLE_WORKER_ENABLED: bool = True
+    # Musik bulk upload (up to 500 songs): metadata (ffprobe) of uploaded songs runs in this background queue, one file at a time
+    SONG_PROCESSING_WORKER_ENABLED: bool = True
 
     # Optional: server-side generation of lesson content drafts with Claude
     # (admin content import, app/services/content_import/claude_client.py).

@@ -292,14 +292,48 @@ def list_songs(q: str | None = None, status: str | None = None, access: str | No
 async def create_song(file: UploadFile = File(...), cover: UploadFile | None = File(None), title: str | None = Form(None), artist: str | None = Form(None),
                       album: str | None = Form(None), genre: str | None = Form(None), language: str | None = Form(None), level: str | None = Form(None),
                       access_type: str | None = Form(None), price: str | None = Form(None), old_price: str | None = Form(None),
-                      is_featured: str | None = Form(None), status: str | None = Form(None), db: Session = Depends(get_db),
-                      user: User = Depends(require_content_editor)):
-    """One song with its metadata (the bulk upload calls this once per file, so each has its own progress and error)."""
+                      is_featured: str | None = Form(None), status: str | None = Form(None),
+                      sha256: str | None = Form(None, pattern="^[0-9a-fA-F]{64}$"), defer_metadata: bool = Form(False), allow_duplicate: bool = Form(False),
+                      db: Session = Depends(get_db), user: User = Depends(require_content_editor)):
+    """One song with its metadata (the bulk upload calls this once per file — up to 500, a few at a time — so each has its own progress and error).
+    `sha256` = the browser's hash of the file (the stored file must match it), `defer_metadata` = read the metadata in the background queue,
+    `allow_duplicate` = store it although the same file already exists (409 SONG_DUPLICATE otherwise)."""
     data = _form(title=title, artist=artist, album=album, genre=genre, language=language, level=level, access_type=access_type, price=price,
                  old_price=old_price, is_featured=is_featured, status=status)
     if "title" not in data:
         data["title"] = (file.filename or "").rsplit(".", 1)[0]
-    return svc.admin_card(SONG_KIND, await svc.create_song(db, user, data, file, cover), db)
+    song = await svc.create_song(db, user, data, file, cover, client_sha256=sha256, defer_metadata=defer_metadata, allow_duplicate=allow_duplicate)
+    return svc.admin_card(SONG_KIND, song, db)
+
+
+class HashesIn(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    sha256: list[str] = Field(max_length=500)
+
+
+class SongIdsIn(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    ids: list[UUID] = Field(max_length=200)
+
+
+@router.post("/songs/duplicates")
+def song_duplicates(data: HashesIn, db: Session = Depends(get_db), _: User = Depends(require_content_editor)):
+    """Bulk upload, before sending: which of these file hashes (SHA-256, up to 500) are already stored → {hash: {id, title, artist, status}}."""
+    return {"existing": svc.song_duplicates(db, data.sha256)}
+
+
+@router.post("/songs/states")
+def song_states(data: SongIdsIn, db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+    """Bulk upload, after sending: the processing state and the metadata the queue read for these songs."""
+    return svc.song_states(db, data.ids)
+
+
+@router.get("/songs/processing")
+def song_processing_queue(db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
+    """How many uploaded songs wait for their metadata (the background queue)."""
+    from app.services.medien import song_processing
+
+    return song_processing.counts(db)
 
 
 @router.put("/songs/{song_id}")

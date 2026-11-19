@@ -155,6 +155,8 @@ const KNOWN: Record<string, string> = {
   SAME_LANGUAGE: "Bitte eine andere Sprache als die der Vorlage wählen.",
   INVALID_CUE_TIME: "Eine Zeile hat ungültige Zeiten (das Ende muss nach dem Anfang liegen).",
   INVALID_CUE: "Eine Zeile ist ungültig.",
+  CHECKSUM_MISMATCH: "Die Datei ist nicht vollständig angekommen — bitte erneut versuchen.",
+  SONG_DUPLICATE: "Diese Datei ist schon als Song gespeichert.",
 };
 
 export function medienError(err: unknown, fallback = "Aktion fehlgeschlagen."): string {
@@ -199,6 +201,13 @@ export const uploadSong = async (file: File, meta: Record<string, string | numbe
   Object.entries(meta).forEach(([k, v]) => { if (v !== undefined && v !== "") form.append(k, String(v)); });
   return (await api.post<AdminItem>(`${BASE}/songs`, form, multipart(onProgress))).data;
 };
+/** Bulk upload, before sending: which of these SHA-256 hashes are already stored as songs. */
+export const checkSongDuplicates = async (sha256: string[]) =>
+  (await api.post<{ existing: Record<string, { id: string; title: string; artist: string | null; status: Status }> }>(`${BASE}/songs/duplicates`, { sha256 })).data.existing;
+export interface SongState { id: string; title: string; artist: string | null; audio_format: string | null; duration_ms: number | null; bitrate_kbps: number | null; file_size: number | null; metadata_status: string; metadata_note: string | null; status: Status }
+/** Bulk upload, after sending: what the metadata queue read for these songs. */
+export const getSongStates = async (ids: string[]) => (await api.post<SongState[]>(`${BASE}/songs/states`, { ids })).data;
+export const getSongProcessing = async () => (await api.get<{ pending: number; processing: number }>(`${BASE}/songs/processing`)).data;
 export const replaceSongFile = async (id: string, file: File, onProgress?: Progress) => {
   const form = new FormData();
   form.append("file", file);

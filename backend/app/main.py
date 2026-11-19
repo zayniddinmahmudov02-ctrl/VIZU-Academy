@@ -219,10 +219,11 @@ from app.api.health import (
 
 @asynccontextmanager
 async def _lifespan(_app):
-    # AI subtitle jobs of Medienwelt films that were running when the backend stopped continue (never blocks the start)
-    from app.services.medien import subtitle_jobs
+    # AI subtitle jobs of Medienwelt films and the song metadata queue continue after a restart (never blocks the start)
+    from app.services.medien import song_processing, subtitle_jobs
 
     subtitle_jobs.on_startup()
+    song_processing.on_startup()
     yield
 
 
