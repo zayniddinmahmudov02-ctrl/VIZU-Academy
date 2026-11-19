@@ -140,6 +140,11 @@ class Settings(BaseSettings):
     SUBTITLE_STT_PROVIDER: str = "gemini"
     SUBTITLE_TRANSLATE_PROVIDER: str = "gemini"
     SUBTITLE_AI_MODEL: str = ""
+    # the subtitle agents (subtitle_agents.py): the listener / proofreader / translator try this fast model first (measured 2026-11-19: a 2-minute
+    # German piece in ~5 s, clean timed lines); SUBTITLE_AI_MODEL / GEMINI_MODEL is the "strong" model the checker falls back to
+    SUBTITLE_FAST_MODEL: str = "gemini-flash-lite-latest"
+    # the proofreader agent: a text-only pass over every piece (German spelling, umlauts, punctuation; same lines, same times)
+    SUBTITLE_PROOFREAD: bool = True
     GOOGLE_TRANSLATE_API_KEY: str = ""
     # length of one audio piece sent to the speech-to-text service (cut at a pause near this length)
     SUBTITLE_CHUNK_SECONDS: int = 180

@@ -218,6 +218,8 @@ class FilmSubtitleJob(BaseModel):
     result_subtitle_id: Mapped[UUID | None] = _uuid_fk("film_subtitles", "fk_film_subtitle_jobs_result_subtitle_id")
     translate_to: Mapped[list] = mapped_column(JSONB, nullable=False, default=list, server_default="[]")
     replace_existing: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default=text("false"))
+    # "approve when done": the result (and its follow-up translations) is shown to students at once, without the admin's "Freigeben"
+    auto_approve: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default=text("false"))
     provider: Mapped[str | None] = mapped_column(String(40), nullable=True)
     model: Mapped[str | None] = mapped_column(String(80), nullable=True)
     progress_done: Mapped[int] = mapped_column(Integer, nullable=False, default=0, server_default="0")

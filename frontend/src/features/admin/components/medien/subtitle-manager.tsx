@@ -11,7 +11,7 @@ import { AdminButton, AdminSelect } from "@/components/admin/admin-ui";
 import {
   approveSubtitle, cancelSubtitleJob, checkSubtitle, deleteSubtitle, downloadSubtitle, getFilm, getSubtitleAiStatus, getSubtitleJobs, getSubtitlePreview,
   medienError, recheckSubtitle, retrySubtitleJob, saveSubtitleCues, startAiSubtitles, translateSubtitle, updateSubtitle, uploadSubtitle,
-  type AdminItem, type AdminSubtitle, type PreviewCue, type SubtitleAiStatus, type SubtitleCheck, type SubtitleJob, type SubtitlePreview,
+  type AdminItem, type AdminSubtitle, type AgentStats, type PreviewCue, type SubtitleAiStatus, type SubtitleCheck, type SubtitleJob, type SubtitlePreview,
   type SubtitleReport, type SubtitleWarning,
 } from "@/features/admin/services/medien-admin-service";
 import { activeCues, formatCueTime, parseCueTime, type Cue } from "@/features/medien/lib/subtitles";
@@ -27,6 +27,8 @@ const JOB_ERROR_DE: Record<string, string> = {
   AI_KEY_REJECTED: "Der KI-Dienst hat den API-Schlüssel abgelehnt.",
   AI_NETWORK: "Der KI-Dienst war nicht erreichbar.",
   AI_HTTP_429: "Der KI-Dienst ist ausgelastet (Kontingent) — später wiederholen.",
+  AI_QUOTA: "Das Kontingent des Gemini-Schlüssels ist aufgebraucht (Plan / Tageslimit). Später „Wiederholen“ — fertige Abschnitte bleiben erhalten; oder die Abrechnung im Google AI Studio erweitern.",
+  GAPS: "Einzelne Abschnitte konnten die Agenten nicht sicher erkennen — sie sind ohne Text. „Lücken nachholen“ versucht nur diese noch einmal.",
   AI_BAD_ANSWER: "Die KI-Antwort war unbrauchbar.",
   AI_EMPTY_ANSWER: "Die KI hat keinen Text geliefert.",
   AI_ANSWER_TOO_LONG: "Die KI-Antwort wurde abgeschnitten.",
@@ -150,10 +152,22 @@ function jobTitle(job: SubtitleJob): string {
   return `Übersetzung ${ALL_LANGS[job.detected_language ?? ""] ?? "Original"} → ${ALL_LANGS[job.language] ?? job.language}`;
 }
 
+const mmss = (seconds: number) => `${Math.floor(seconds / 60)}:${String(Math.floor(seconds % 60)).padStart(2, "0")}`;
+
+/** One line about what the agents did in a finished transcription. */
+function agentSummary(a: AgentStats): string {
+  const parts = [`Hörer: ${a.listened} Abschnitte`];
+  if (a.repaired || a.split) parts.push(`Prüfer: ${a.repaired} repariert${a.split ? `, ${a.split} geteilt` : ""}`);
+  parts.push(`Korrektor: ${a.corrected_lines} Zeilen verbessert`);
+  if (a.gaps.length) parts.push(`${a.gaps.length} Lücke${a.gaps.length > 1 ? "n" : ""}`);
+  return parts.join(" · ");
+}
+
 function AiPanel({ film, busy, onFilm }: { film: AdminItem; busy: string | null; onFilm?: (item: AdminItem) => void }) {
-  const [language, setLanguage] = useState("auto");
+  const [language, setLanguage] = useState("de"); // the films are German
   const [targets, setTargets] = useState<string[]>(["uz"]);
   const [replace, setReplace] = useState(false);
+  const [autoApprove, setAutoApprove] = useState(false);
   const [working, setWorking] = useState(false);
   const [message, setMessage] = useState<{ ok: boolean; text: string } | null>(null);
   const status = useQuery<SubtitleAiStatus>({ queryKey: ["admin-subtitle-ai-status"], queryFn: getSubtitleAiStatus, staleTime: 60_000 });
@@ -204,14 +218,21 @@ function AiPanel({ film, busy, onFilm }: { film: AdminItem; busy: string | null;
       <div className="space-y-1">
         {service("Spracherkennung", stt, "sub-ai-stt")}
         {service("Übersetzung", tr, "sub-ai-translation")}
+        {status.data?.agents && (
+          <p className="flex items-start gap-1.5 text-xs text-[var(--admin-text-secondary)]" data-testid="sub-ai-agents">
+            <Bot size={13} className="mt-0.5 shrink-0" />
+            <span>Agenten: <b>Hörer</b> ({status.data.agents.fast_model}, bei Problemen {status.data.agents.strong_model}) → <b>Prüfer</b> (prüft, wiederholt, teilt Abschnitte) →
+              {" "}<b>Korrektor</b> ({status.data.agents.proofread ? "Rechtschreibung, Umlaute, Satzzeichen" : "aus"}) → <b>Taktgeber</b> → <b>Übersetzer</b></span>
+          </p>
+        )}
         {status.data && !status.data.ffmpeg && <p className="text-xs text-[var(--admin-danger)]">FFmpeg fehlt auf dem Server — die Tonspur kann nicht gelesen werden.</p>}
         {!hasVideo && <p className="text-xs text-[var(--admin-warning)]" data-testid="sub-ai-no-video">Zuerst eine Videodatei hochladen (ein externer Link kann nicht transkribiert werden).</p>}
       </div>
       <div className="grid gap-3 sm:grid-cols-[minmax(10rem,14rem)_1fr]">
         <label className="block text-xs text-[var(--admin-text-secondary)]">Sprache im Film
           <AdminSelect className="mt-1 h-9 text-sm" value={language} onChange={(e) => setLanguage(e.target.value)} data-testid="sub-ai-language" aria-label="Sprache im Film">
-            <option value="auto">Automatisch erkennen</option>
             {LANGS.map(([c, n]) => <option key={c} value={c}>{n}</option>)}
+            <option value="auto">Automatisch erkennen</option>
           </AdminSelect>
         </label>
         <fieldset className="text-xs text-[var(--admin-text-secondary)]">
@@ -229,12 +250,16 @@ function AiPanel({ film, busy, onFilm }: { film: AdminItem; busy: string | null;
         <input type="checkbox" checked={replace} onChange={(e) => setReplace(e.target.checked)} data-testid="sub-ai-replace" className="h-4 w-4 accent-[var(--admin-primary)]" />
         Vorhandene Untertitel dieser Sprachen ersetzen (sie werden dann wieder zum Entwurf)
       </label>
+      <label className="flex items-center gap-2 text-xs text-[var(--admin-text-secondary)]">
+        <input type="checkbox" checked={autoApprove} onChange={(e) => setAutoApprove(e.target.checked)} data-testid="sub-ai-auto-approve" className="h-4 w-4 accent-[var(--admin-primary)]" />
+        Sofort für Studierende freigeben, wenn fertig (sonst Entwurf bis „Freigeben“)
+      </label>
       <div className="flex flex-wrap items-center gap-2">
         <AdminButton size="sm" disabled={!canStart} data-testid="sub-ai-start"
-                     onClick={() => void act(() => startAiSubtitles(film.id, { language, translate_to: targets.filter((t) => t !== language), replace }), "KI-Auftrag gestartet.")}>
+                     onClick={() => void act(() => startAiSubtitles(film.id, { language, translate_to: targets.filter((t) => t !== language), replace, auto_approve: autoApprove }), "KI-Auftrag gestartet.")}>
           {working ? <Loader2 size={14} className="animate-spin" /> : <Bot size={14} />} KI-Untertitel erzeugen
         </AdminButton>
-        <span className="text-xs text-[var(--admin-text-muted)]">Ergebnis = Entwurf: Studierende sehen ihn erst nach Prüfung und „Freigeben“. Ein Spielfilm braucht einige Minuten.</span>
+        <span className="text-xs text-[var(--admin-text-muted)]">{autoApprove ? "Ergebnis wird sofort im Film-Player gezeigt." : "Ergebnis = Entwurf: Studierende sehen ihn erst nach Prüfung und „Freigeben“."} Ein Spielfilm braucht etwa 5–15 Minuten.</span>
       </div>
       {message && <p role="status" className={`text-xs ${message.ok ? "text-[var(--admin-success)]" : "text-[var(--admin-danger)]"}`} data-testid="sub-ai-message">{message.text}</p>}
 
@@ -243,19 +268,29 @@ function AiPanel({ film, busy, onFilm }: { film: AdminItem; busy: string | null;
           {list.map((j) => {
             const pct = j.progress_total ? Math.round((j.progress_done / j.progress_total) * 100) : 0;
             const running = j.status === "PENDING" || j.status === "PROCESSING";
+            const gaps = j.stats.agents?.gaps ?? [];
+            const result = (film.subtitles ?? []).find((s) => s.id === j.result_subtitle_id);
             return (
-              <li key={j.id} className="space-y-1 rounded-lg bg-[var(--admin-card)] p-2.5 text-xs ring-1 ring-[var(--admin-border)]" data-testid="sub-job" data-kind={j.kind} data-status={j.status} data-language={j.language}>
+              <li key={j.id} className="space-y-1 rounded-lg bg-[var(--admin-card)] p-2.5 text-xs ring-1 ring-[var(--admin-border)]" data-testid="sub-job" data-kind={j.kind} data-status={j.status} data-language={j.language} data-gaps={gaps.length}>
                 <div className="flex flex-wrap items-center gap-2">
-                  {running ? <Loader2 size={13} className="animate-spin text-[var(--admin-primary)]" /> : j.status === "COMPLETED" ? <CheckCircle2 size={13} className="text-[var(--admin-success)]" /> : <AlertTriangle size={13} className="text-[var(--admin-danger)]" />}
+                  {running ? <Loader2 size={13} className="animate-spin text-[var(--admin-primary)]" /> : j.status === "COMPLETED" ? <CheckCircle2 size={13} className={gaps.length ? "text-[var(--admin-warning)]" : "text-[var(--admin-success)]"} /> : <AlertTriangle size={13} className="text-[var(--admin-danger)]" />}
                   <span className="flex-1 font-semibold text-[var(--admin-text-primary)]">{jobTitle(j)}</span>
                   <span className="rounded-full bg-[var(--admin-hover)] px-2 py-0.5 font-semibold" data-testid="sub-job-status">
-                    {JOB_STATUS_DE[j.status]}{j.status === "PROCESSING" && j.progress_total ? ` · ${j.progress_done} / ${j.progress_total}` : ""}
+                    {j.status === "COMPLETED" && gaps.length ? "Fertig mit Lücken" : JOB_STATUS_DE[j.status]}{j.status === "PROCESSING" && j.progress_total ? ` · Abschnitt ${j.progress_done} / ${j.progress_total}` : ""}
                   </span>
                   {j.status === "FAILED" && <AdminButton size="sm" variant="secondary" disabled={working} onClick={() => void act(() => retrySubtitleJob(film.id, j.id), "Auftrag läuft wieder (fertige Abschnitte bleiben).")} data-testid="sub-job-retry"><RotateCcw size={12} /> Wiederholen</AdminButton>}
+                  {j.status === "COMPLETED" && gaps.length > 0 && <AdminButton size="sm" variant="secondary" disabled={working || transcribing} onClick={() => void act(() => retrySubtitleJob(film.id, j.id), "Die Lücken werden noch einmal versucht.")} data-testid="sub-job-fill-gaps"><RotateCcw size={12} /> Lücken nachholen</AdminButton>}
+                  {j.status === "COMPLETED" && result?.status === "DRAFT" && (
+                    <AdminButton size="sm" disabled={working} data-testid="sub-job-approve"
+                                 onClick={() => void act(async () => { const out = await approveSubtitle(film.id, result.id, true); onFilm?.(out); }, `${ALL_LANGS[result.language] ?? result.language}: freigegeben — im Film-Player sichtbar.`)}>
+                      <BadgeCheck size={12} /> Freigeben</AdminButton>
+                  )}
                   {running && <AdminButton size="sm" variant="ghost" disabled={working} onClick={() => void act(() => cancelSubtitleJob(film.id, j.id), "Auftrag abgebrochen.")} data-testid="sub-job-cancel"><Square size={12} /> Abbrechen</AdminButton>}
                 </div>
                 {running && j.progress_total > 0 && <div className="h-1.5 overflow-hidden rounded-full bg-[var(--admin-hover)]"><div className="h-full bg-[var(--admin-primary)] transition-[width]" style={{ width: `${pct}%` }} /></div>}
-                {j.status === "COMPLETED" && <p className="text-[var(--admin-text-muted)]">{j.stats.cues ?? 0} Zeilen{j.stats.speakers_max_per_piece ? ` · bis zu ${j.stats.speakers_max_per_piece} Sprecher je Abschnitt` : ""}{j.model ? ` · ${j.provider}: ${j.model}` : ""} — als Entwurf gespeichert, bitte prüfen und freigeben.</p>}
+                {j.status === "COMPLETED" && <p className="text-[var(--admin-text-muted)]">{j.stats.cues ?? 0} Zeilen{j.stats.speakers_max_per_piece ? ` · bis zu ${j.stats.speakers_max_per_piece} Sprecher je Abschnitt` : ""}{j.model ? ` · ${j.provider}: ${j.model}` : ""} — {result?.status === "APPROVED" ? "freigegeben, im Film-Player sichtbar." : "als Entwurf gespeichert, bitte prüfen und freigeben."}</p>}
+                {j.status === "COMPLETED" && j.stats.agents && <p className="text-[var(--admin-text-secondary)]" data-testid="sub-job-agents">{agentSummary(j.stats.agents)}</p>}
+                {j.status === "COMPLETED" && gaps.length > 0 && <p className="text-[var(--admin-warning)]" data-testid="sub-job-gaps">Ohne Text: {gaps.map((g) => `${mmss(g.start)}–${mmss(g.end)}`).join(", ")}. {JOB_ERROR_DE.GAPS}</p>}
                 {j.status === "FAILED" && <p className="text-[var(--admin-danger)]" data-testid="sub-job-error">{JOB_ERROR_DE[j.error_code ?? ""] ?? j.error_message ?? j.error_code}{j.error_message && JOB_ERROR_DE[j.error_code ?? ""] && j.error_code !== "CANCELLED" ? <span className="text-[var(--admin-text-muted)]"> ({j.error_message})</span> : null}</p>}
               </li>
             );

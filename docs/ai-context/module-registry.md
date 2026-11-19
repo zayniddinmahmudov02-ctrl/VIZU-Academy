@@ -422,8 +422,19 @@ notifications, support, advertisements ("Werbung-Banner"), achievements.
     in the panel, nothing invented. `fake` provider = local test stack only (`APP_ENV=test`).
   - *Player:* `watch` returns `original_language` (the AI transcript's language, else `films.language`); the dual view puts it on top; the subtitle menu has "Original" /
     "Übersetzung" switches (+ translation language) besides the language list (`lib/subtitles.ts` `switchesOf` / `stateFromSwitches`); Russian card in the admin.
-  - *Tests:* `test_medien_subtitle_ai` (16 unit), `test_medien_subtitle_jobs` (5 integration, real ffmpeg), `test_medien_subtitle_ai_migration`; unit `medien-reader-shelf.test.mjs`;
-    E2E `medien-ai-subtitles-reader.spec.ts`.
+  - *Agents (2026-11-19, migration `f3b9d1a6c4e8` `film_subtitle_jobs.auto_approve`, `services/medien/subtitle_agents.py`):* per piece **Hörer** (fast model
+    `SUBTITLE_FAST_MODEL` = flash-lite first, JSON `responseSchema`; bare JSON arrays are accepted) → **Prüfer** (`check_segments`: too dense / loop / no timing → retry
+    with the strong models (1 try each), then split at a pause (≥ 40 s, depth 2); what still fails becomes a **gap**, the job goes on; an empty answer gets a second
+    fast listen, then it is believed = credits / music, never the slow model) → **Korrektor** (`SUBTITLE_PROOFREAD`, German
+    spelling / umlauts / punctuation, same line count or the text stays) → **Taktgeber** (`build_cues` / `snap_to_speech`; drops lines without a letter
+    such as "..." / "[…]", a line stays ≤ `MAX_CUE_MS` 8 s) → **Übersetzer**. Gaps: job COMPLETED with
+    `error_code` GAPS + `stats.agents.gaps`; retry ("Lücken nachholen") only redoes the gap pieces and renews the same track. A 429 with a DAILY quota
+    (`quota_kind`: QuotaFailure id / message) = `AI_QUOTA`, not retried; a per-minute limit is an ordinary retried 429. Translation jobs are claimed
+    before other transcriptions. Hörer + Korrektor use ONLY the fast model (`fast_only`, 5 / 4 quick tries); a busy service (5xx / 429 / network, `is_transient`) is never sent to
+    the slow strong model: the job waits 30 s / 1 / 2 / 4 min with heartbeat (`_patiently`, also per translation batch), then FAILED with that code.
+    `auto_approve` (checkbox "Sofort freigeben") stores tracks APPROVED; job cards have a one-click "Freigeben". Default audio language **de**.
+  - *Tests:* `test_medien_subtitle_ai` (16 unit), `test_medien_subtitle_agents`, `test_medien_subtitle_jobs` (6 integration, real ffmpeg), `test_medien_subtitle_ai_migration`,
+    `test_medien_subtitle_auto_approve_migration`; unit `medien-reader-shelf.test.mjs`; E2E `medien-ai-subtitles-reader.spec.ts`.
 - **Musik bulk upload of up to 500 songs (2026-11-19, migration `e8a3c5f1b7d2` `songs.sha256`):** the 10-file limit is gone (it was in the frontend only).
   - *Frontend:* `fe/features/admin/store/song-upload-store.ts` (zustand, lives outside the page: switching admin pages does not stop it) + pure helpers
     `fe/features/admin/lib/song-upload.ts` (unit `song-upload.test.mjs`); `songs-admin.tsx` BulkUpload = drag & drop / multi-select, per file: SHA-256 in the

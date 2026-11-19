@@ -20,15 +20,21 @@ export interface AdminSubtitle {
   approved_at?: string | null; edited_at?: string | null;
 }
 export type JobStatus = "PENDING" | "PROCESSING" | "COMPLETED" | "FAILED";
+export interface SubtitleGap { start: number; end: number; reason: string }
+/** what the subtitle agents did: pieces listened to, repaired (strong model / split), lines the proofreader corrected, pieces left as gaps */
+export interface AgentStats { listened: number; repaired: number; split: number; corrected_lines: number; gaps: SubtitleGap[] }
 export interface SubtitleJob {
   id: string; kind: "TRANSCRIBE" | "TRANSLATE"; status: JobStatus; language: string; detected_language: string | null; translate_to: string[];
-  replace: boolean; provider: string | null; model: string | null; progress_done: number; progress_total: number; attempts: number;
+  replace: boolean; auto_approve?: boolean; provider: string | null; model: string | null; progress_done: number; progress_total: number; attempts: number;
   error_code: string | null; error_message: string | null; result_subtitle_id: string | null; source_subtitle_id: string | null;
-  stats: { cues?: number; pieces?: number; batches?: number; speakers_max_per_piece?: number; warnings?: number; from?: string };
+  stats: { cues?: number; pieces?: number; batches?: number; speakers_max_per_piece?: number; warnings?: number; from?: string; agents?: AgentStats };
   created_at: string; started_at: string | null; finished_at: string | null;
 }
 export interface AiServiceState { provider: string; configured: boolean; model: string | null; message: string | null }
-export interface SubtitleAiStatus { speech_to_text: AiServiceState; translation: AiServiceState; ffmpeg: boolean; languages: string[]; chunk_seconds: number }
+export interface SubtitleAiStatus {
+  speech_to_text: AiServiceState; translation: AiServiceState; ffmpeg: boolean; languages: string[]; chunk_seconds: number;
+  agents?: { fast_model: string | null; strong_model: string | null; proofread: boolean; proofread_model: string | null };
+}
 export interface AdminRendition { id: string; label: string; height: number | null; size: number; original_name: string | null; file_status: FileStatus }
 export interface SubtitleReport { format: "srt" | "vtt"; encoding: string; cue_count: number; first_ms: number | null; last_ms: number | null; warnings: SubtitleWarning[] }
 /** Cue = [start_ms, end_ms, plain text] */
@@ -280,7 +286,7 @@ export const downloadSubtitle = async (id: string, subtitleId: string, format: "
 // ---- AI subtitles (background jobs) ----
 export const getFilm = async (id: string) => (await api.get<AdminItem>(`${BASE}/films/${id}`)).data;
 export const getSubtitleAiStatus = async () => (await api.get<SubtitleAiStatus>(`${BASE}/subtitle-ai/status`)).data;
-export const startAiSubtitles = async (id: string, data: { language: string; translate_to: string[]; replace: boolean }) =>
+export const startAiSubtitles = async (id: string, data: { language: string; translate_to: string[]; replace: boolean; auto_approve?: boolean }) =>
   (await api.post<SubtitleJob>(`${BASE}/films/${id}/subtitles/ai`, data)).data;
 export const translateSubtitle = async (id: string, subtitleId: string, target: string, replace: boolean) =>
   (await api.post<SubtitleJob>(`${BASE}/films/${id}/subtitles/${subtitleId}/translate`, { target, replace })).data;

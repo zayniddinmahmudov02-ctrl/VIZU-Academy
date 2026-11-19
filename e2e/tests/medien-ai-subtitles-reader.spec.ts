@@ -118,7 +118,9 @@ test.describe.serial("AI subtitles: admin generates, reviews, approves — stude
     await expect(ai).toBeVisible();
     await expect(ai.getByTestId("sub-ai-stt")).toHaveAttribute("data-configured", "1");
     await expect(ai.getByTestId("sub-ai-translation")).toHaveAttribute("data-configured", "1");
-    await ai.getByTestId("sub-ai-language").selectOption("auto");
+    await expect(ai.getByTestId("sub-ai-language")).toHaveValue("de"); // the films are German: Deutsch is the default
+    await expect(ai.getByTestId("sub-ai-agents")).toContainText("Korrektor");
+    await expect(ai.getByTestId("sub-ai-auto-approve")).not.toBeChecked(); // drafts by default
     await expect(ai.getByTestId("sub-ai-target-uz")).toBeChecked(); // Uzbek is pre-selected
     await ai.getByTestId("sub-ai-target-en").check();
     await ai.getByTestId("sub-ai-start").click();
@@ -127,6 +129,8 @@ test.describe.serial("AI subtitles: admin generates, reviews, approves — stude
     await expect(transcribe).toBeVisible();
     await expect(transcribe).toHaveAttribute("data-status", "COMPLETED", { timeout: 60_000 });
     await expect(transcribe).toContainText("Deutsch");
+    await expect(transcribe).toHaveAttribute("data-gaps", "0");
+    await expect(transcribe.getByTestId("sub-job-agents")).toContainText(/Hörer: \d+ Abschnitte · Korrektor: \d+ Zeilen verbessert/); // the proofreader fixed "testsatz"
     for (const l of ["uz", "en"]) await expect(ai.locator(`[data-testid="sub-job"][data-kind="TRANSLATE"][data-language="${l}"]`)).toHaveAttribute("data-status", "COMPLETED", { timeout: 60_000 });
     await page.screenshot({ path: "test-results/ai-subtitles-admin.png", fullPage: true });
 
@@ -146,9 +150,11 @@ test.describe.serial("AI subtitles: admin generates, reviews, approves — stude
     await expect(page.getByTestId("film-note")).toHaveText("Änderungen gespeichert.");
     await expect(editor).toHaveCount(0);
 
-    // approve German and Uzbek (English stays a draft)
-    await page.getByTestId("sub-approve-de").click();
+    // approve German (one click on the job card) and Uzbek (on the track card); English stays a draft
+    await transcribe.getByTestId("sub-job-approve").click();
     await expect(page.getByTestId("sub-state-de")).toHaveText("Freigegeben");
+    await expect(transcribe.getByTestId("sub-job-approve")).toHaveCount(0);
+    await expect(transcribe).toContainText("freigegeben, im Film-Player sichtbar");
     await page.getByTestId("sub-approve-uz").click();
     await expect(page.getByTestId("sub-state-uz")).toHaveText("Freigegeben");
     await expect(page.getByTestId("sub-state-en")).toContainText("Entwurf");
@@ -205,6 +211,34 @@ test.describe.serial("AI subtitles: admin generates, reviews, approves — stude
     }
     await seek(de[de.length - 1][1] - 100);
     await expect.poll(shown).toEqual([de[de.length - 1][2], `[uz] ${de[de.length - 1][2]}`]);
+  });
+
+  test("admin: 'sofort freigeben' + replace → the new German text and its translation go straight to the player", async ({ page }) => {
+    test.setTimeout(120_000);
+    await adminLogin(page);
+    await page.goto("/admin/medien/filme");
+    await page.getByTestId("films-search").fill(`${TAG} Sprechfilm`);
+    await page.getByTestId("film-edit").first().click();
+    const ai = page.getByTestId("sub-ai");
+    await expect(ai.getByTestId("sub-ai-language")).toHaveValue("de");
+    await ai.getByTestId("sub-ai-replace").check();
+    await ai.getByTestId("sub-ai-auto-approve").check();
+    await ai.getByTestId("sub-ai-start").click();
+    await expect(ai.getByTestId("sub-ai-message")).toContainText("gestartet");
+    const transcribe = ai.locator('[data-testid="sub-job"][data-kind="TRANSCRIBE"]').first(); // newest first
+    await expect(transcribe).toHaveAttribute("data-status", "COMPLETED", { timeout: 60_000 });
+    await expect(ai.locator('[data-testid="sub-job"][data-kind="TRANSLATE"][data-language="uz"]').first()).toHaveAttribute("data-status", "COMPLETED", { timeout: 60_000 });
+    await expect(transcribe).toContainText("freigegeben, im Film-Player sichtbar", { timeout: 15_000 });
+    await expect(transcribe.getByTestId("sub-job-approve")).toHaveCount(0);
+    for (const l of ["de", "uz"]) await expect(page.locator(`[data-testid="film-subtitle"][data-language="${l}"]`)).toHaveAttribute("data-status", "APPROVED", { timeout: 15_000 });
+    await expect(page.getByTestId("sub-state-en")).toContainText("Entwurf"); // not part of this job
+
+    const tracks = (await call("GET", `/admin/medien/films/${film}`, admin)).json.subtitles as { id: string; language: string }[];
+    const cues = async (l: string) => (await call("GET", `/admin/medien/films/${film}/subtitles/${tracks.find((t) => t.language === l)!.id}`, admin)).json.cues as [number, number, string][];
+    expect((await cues("de"))[0][2]).toBe("Testsatz 1"); // replaced (the hand edit was overwritten on purpose), proofread
+    expect((await cues("uz"))[0][2]).toBe("[uz] Testsatz 1");
+    const watch = (await call("POST", `/medien/films/${film}/watch`, await token(student, PASSWORD))).json;
+    expect(watch.subtitles.map((s: { language: string }) => s.language).sort()).toEqual(["de", "uz"]);
   });
 });
 

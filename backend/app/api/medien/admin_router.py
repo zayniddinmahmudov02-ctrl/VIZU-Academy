@@ -108,15 +108,17 @@ class AiSubtitleIn(BaseModel):
     those languages may be replaced (they become a DRAFT until approved again)."""
 
     model_config = ConfigDict(extra="forbid")
-    language: Literal["auto", "de", "en", "uz", "ru"] = "auto"
+    language: Literal["auto", "de", "en", "uz", "ru"] = "de"  # the films are German; "auto" detects
     translate_to: list[SubLang] = Field(default_factory=list, max_length=4)
     replace: bool = False
+    auto_approve: bool = False  # show the result (and its translations) to students when done, without "Freigeben"
 
 
 class TranslateIn(BaseModel):
     model_config = ConfigDict(extra="forbid")
     target: SubLang
     replace: bool = False
+    auto_approve: bool = False
 
 
 class ApproveIn(BaseModel):
@@ -522,7 +524,7 @@ def film_subtitle_ai(film_id: UUID, data: AiSubtitleIn, db: Session = Depends(ge
     from app.services.medien import subtitle_jobs
 
     film = svc.get_item(db, FILM_KIND, film_id)
-    job = subtitle_jobs.start_transcription(db, user, film, data.language, list(data.translate_to), data.replace)
+    job = subtitle_jobs.start_transcription(db, user, film, data.language, list(data.translate_to), data.replace, data.auto_approve)
     return subtitle_jobs.serialize(job)
 
 
@@ -532,7 +534,7 @@ def film_subtitle_translate(film_id: UUID, subtitle_id: UUID, data: TranslateIn,
 
     film = svc.get_item(db, FILM_KIND, film_id)
     source = svc._subtitle_of(db, film, subtitle_id)
-    return subtitle_jobs.serialize(subtitle_jobs.start_translation(db, user, film, source, data.target, data.replace))
+    return subtitle_jobs.serialize(subtitle_jobs.start_translation(db, user, film, source, data.target, data.replace, auto_approve=data.auto_approve))
 
 
 @router.get("/films/{film_id}/subtitle-jobs")

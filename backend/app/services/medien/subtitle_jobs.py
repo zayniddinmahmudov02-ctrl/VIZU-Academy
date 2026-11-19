@@ -19,6 +19,7 @@ import logging
 import os
 import subprocess
 import threading
+import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from uuid import UUID, uuid4
@@ -30,10 +31,11 @@ from sqlalchemy.orm.attributes import flag_modified
 from app.core.audit import write_audit
 from app.core.config import settings
 from app.models.medien import (JOB_COMPLETED, JOB_FAILED, JOB_PENDING, JOB_PROCESSING, JOB_TRANSCRIBE, JOB_TRANSLATE, SOURCE_AI,
-                               SOURCE_TRANSLATION, SUBTITLE_DRAFT, Film, FilmSubtitle, FilmSubtitleJob)
+                               SOURCE_TRANSLATION, SUBTITLE_APPROVED, SUBTITLE_DRAFT, Film, FilmSubtitle, FilmSubtitleJob)
 from app.models.user import User
 from app.services.audio_files.service import find_tool, probe_duration_ms
 from app.services.medien import common as c
+from app.services.medien import subtitle_agents as agents
 from app.services.medien import subtitle_ai as ai
 from app.services.medien import subtitles as subs
 
@@ -79,7 +81,8 @@ def _check_targets(db: Session, film: Film, targets: list[str], replace: bool, e
     return out
 
 
-def start_transcription(db: Session, user: User, film: Film, language: str, translate_to: list[str], replace: bool) -> FilmSubtitleJob:
+def start_transcription(db: Session, user: User, film: Film, language: str, translate_to: list[str], replace: bool,
+                        auto_approve: bool = False) -> FilmSubtitleJob:
     """Checks everything that can be known now (service set up, ffmpeg, video file, language, existing tracks, no second running job) and
     queues the job. A conflict with the detected language ("auto") is found after the first piece and stops the job early."""
     language = (language or "auto").strip().lower()
@@ -102,7 +105,7 @@ def start_transcription(db: Session, user: User, film: Film, language: str, tran
                                                   FilmSubtitleJob.status.in_(ACTIVE))):
         raise _fail("JOB_RUNNING", "a transcription of this film is already running.")
     job = FilmSubtitleJob(film_id=film.id, kind=JOB_TRANSCRIBE, language=language, translate_to=targets, replace_existing=replace,
-                          created_by_id=user.id, status=JOB_PENDING)
+                          created_by_id=user.id, status=JOB_PENDING, auto_approve=auto_approve)
     db.add(job)
     db.commit()
     write_audit(db, actor_id=user.id, action="medien_subtitle_ai_started", details=f"{film.id} transcribe {language} → {','.join(targets) or '-'}")
@@ -111,7 +114,7 @@ def start_transcription(db: Session, user: User, film: Film, language: str, tran
 
 
 def start_translation(db: Session, user: User | None, film: Film, source: FilmSubtitle, target: str, replace: bool, *, audit: bool = True,
-                      wake: bool = True) -> FilmSubtitleJob:
+                      wake: bool = True, auto_approve: bool = False) -> FilmSubtitleJob:
     target = (target or "").strip().lower()
     if source.film_id != film.id:
         raise c.err(404, "NOT_FOUND")
@@ -125,7 +128,7 @@ def start_translation(db: Session, user: User | None, film: Film, source: FilmSu
     if _active_job(db, film.id, JOB_TRANSLATE, target):
         raise _fail("JOB_RUNNING", f"a {LABELS[target]} translation of this film is already running.")
     job = FilmSubtitleJob(film_id=film.id, kind=JOB_TRANSLATE, language=target, source_subtitle_id=source.id, replace_existing=replace,
-                          created_by_id=user.id if user else None, status=JOB_PENDING)
+                          created_by_id=user.id if user else None, status=JOB_PENDING, auto_approve=auto_approve)
     db.add(job)
     db.commit()
     if audit and user:
@@ -143,12 +146,19 @@ def _job_of(db: Session, job_id: UUID, film_id: UUID | None = None) -> FilmSubti
 
 
 def retry(db: Session, user: User, job_id: UUID, film_id: UUID | None = None) -> FilmSubtitleJob:
-    """A FAILED job runs again and continues with the pieces / batches that are not done yet."""
+    """A FAILED job runs again and continues with the pieces / batches that are not done yet. A finished transcription with GAPS runs again for
+    exactly the pieces that have a gap; its track is renewed (an approved one stays approved)."""
     job = _job_of(db, job_id, film_id)
-    if job.status != JOB_FAILED:
-        raise _fail("JOB_NOT_FAILED", "only a failed job can be tried again.")
+    gaps = ((job.stats or {}).get("agents") or {}).get("gaps") or []
+    if not (job.status == JOB_FAILED or (job.status == JOB_COMPLETED and job.kind == JOB_TRANSCRIBE and gaps)):
+        raise _fail("JOB_NOT_FAILED", "only a failed job or one with gaps can be tried again.")
     if _active_job(db, job.film_id, job.kind, job.language):
         raise _fail("JOB_RUNNING", "the same job is already running.")
+    if job.status == JOB_COMPLETED:
+        partial = dict(job.partial or {})
+        partial["pieces"] = {k: v for k, v in (partial.get("pieces") or {}).items() if not v.get("gaps")}
+        job.partial = partial
+        flag_modified(job, "partial")
     job.status, job.error_code, job.error_message, job.finished_at = JOB_PENDING, None, None, None
     db.commit()
     write_audit(db, actor_id=user.id, action="medien_subtitle_ai_retry", details=f"{job.film_id} {job.kind} {job.language} {job.id}")
@@ -169,7 +179,7 @@ def cancel(db: Session, user: User, job_id: UUID, film_id: UUID | None = None) -
 
 def serialize(job: FilmSubtitleJob) -> dict:
     return {"id": job.id, "kind": job.kind, "status": job.status, "language": job.language, "detected_language": job.detected_language,
-            "translate_to": job.translate_to or [], "replace": job.replace_existing, "provider": job.provider, "model": job.model,
+            "translate_to": job.translate_to or [], "replace": job.replace_existing, "auto_approve": job.auto_approve, "provider": job.provider, "model": job.model,
             "progress_done": job.progress_done, "progress_total": job.progress_total, "attempts": job.attempts, "error_code": job.error_code,
             "error_message": job.error_message, "result_subtitle_id": job.result_subtitle_id, "source_subtitle_id": job.source_subtitle_id,
             "stats": job.stats or {}, "created_at": job.created_at, "started_at": job.started_at, "finished_at": job.finished_at}
@@ -247,7 +257,9 @@ def claim(db: Session) -> FilmSubtitleJob | None:
     job = db.scalars(select(FilmSubtitleJob)
                      .where(or_(FilmSubtitleJob.status == JOB_PENDING,
                                 and_(FilmSubtitleJob.status == JOB_PROCESSING, FilmSubtitleJob.heartbeat_at < stale)))
-                     .order_by(FilmSubtitleJob.created_at).limit(1).with_for_update(skip_locked=True)).first()
+                     # a translation (a few minutes) first: a film's Uzbek track should not wait behind other films' whole transcriptions
+                     .order_by((FilmSubtitleJob.kind == JOB_TRANSLATE).desc(), FilmSubtitleJob.created_at).limit(1)
+                     .with_for_update(skip_locked=True)).first()
     if job is None:
         db.rollback()
         return None
@@ -296,6 +308,30 @@ def _finish_failed(db: Session, job_id: UUID, code: str, message: str) -> None:
 
 class _Cancelled(Exception):
     pass
+
+
+# the AI service is only busy (5xx / 429 / network, after the provider's own quick retries): wait and ask again before the job fails
+SERVICE_WAITS = (30, 60, 120, 240)
+sleep = time.sleep  # tests replace it
+
+
+def _patiently(db: Session, job: FilmSubtitleJob, partial: dict, call):
+    """Runs one step (a piece / a batch); a busy service is asked again after 30 s / 1 / 2 / 4 min. The heartbeat goes on while waiting (the job
+    is not taken for dead, a cancel stops it). Other errors and a still busy service after the last wait go up (job FAILED, "retry" continues)."""
+    for wait in (*SERVICE_WAITS, None):
+        try:
+            return call()
+        except ai.SubtitleAIError as exc:
+            if wait is None or not ai.is_transient(exc):
+                raise
+            log.warning("subtitle job %s: AI service busy (%s), next try in %s s", job.id, exc.code, wait)
+        left = wait
+        while left > 0:
+            step = min(left, 30)
+            sleep(step)
+            left -= step
+            _heartbeat(db, job, partial)
+    raise AssertionError("unreachable")
 
 
 def _heartbeat(db: Session, job: FilmSubtitleJob, partial: dict) -> None:
@@ -390,8 +426,10 @@ def _store_track(db: Session, job: FilmSubtitleJob, film: Film, language: str, c
     old_key = None
     try:
         sub = _existing(db, film.id, language)
-        if sub is not None and not job.replace_existing:
+        own = sub is not None and sub.id == job.result_subtitle_id  # this job's own earlier result (gaps filled): renewed in place
+        if sub is not None and not job.replace_existing and not own:
             raise ai.SubtitleAIError("SUBTITLE_EXISTS", f"The film already has a {LABELS[language]} subtitle; start again with 'replace'.")
+        keep_approved = own and sub.status == SUBTITLE_APPROVED
         if sub is None:
             sub = FilmSubtitle(film_id=film.id, language=language, label=LABELS[language], file_key=key)
             db.add(sub)
@@ -399,8 +437,14 @@ def _store_track(db: Session, job: FilmSubtitleJob, film: Film, language: str, c
             old_key, sub.file_key = sub.file_key, key
         sub.cue_count, sub.last_ms, sub.source_format = len(cues), max(cue.end for cue in cues), "vtt"
         sub.original_name, sub.file_size, sub.warnings = None, len(vtt), warnings
-        sub.status, sub.source, sub.source_language, sub.ai_model = SUBTITLE_DRAFT, source, source_language, (model or "")[:80] or None
-        sub.approved_at = sub.approved_by_id = sub.edited_at = None
+        sub.source, sub.source_language, sub.ai_model = source, source_language, (model or "")[:80] or None
+        sub.edited_at = None
+        if job.auto_approve or keep_approved:  # "approve when done" (or an approved track whose gaps were filled) stays visible
+            sub.status = SUBTITLE_APPROVED
+            if not keep_approved:
+                sub.approved_at, sub.approved_by_id = _now(), job.created_by_id
+        else:
+            sub.status, sub.approved_at, sub.approved_by_id = SUBTITLE_DRAFT, None, None
         db.flush()
     except Exception:
         db.rollback()
@@ -436,17 +480,30 @@ def _transcribe(db: Session, job: FilmSubtitleJob) -> None:
     _heartbeat(db, job, partial)
     hint = job.language if job.language in ai.LANGUAGES else None
     folder = _work_dir(job.id)
+    silences = [(s, e) for s, e in partial.get("silences", [])]
+    proof = ai.proofreader()
+
+    def cut(start: float, length: float):
+        return cut_piece(video, start, length, folder)
+
     for i, (start, end) in enumerate(parts):
-        if str(i) in partial["pieces"]:
+        done = partial["pieces"].get(str(i))
+        if done is not None:
+            # a piece from an earlier run that the proofreader has not seen yet (it did not exist then)
+            if proof is not None and done.get("segments") and not any(str(s).startswith("proofread") for s in done.get("steps", [])):
+                checked = agents.proofread(agents.PieceResult(segments=done["segments"], steps=list(done.get("steps", []))), proof)
+                partial["pieces"][str(i)] = {**done, "segments": checked.segments, "steps": checked.steps, "corrected": checked.corrected}
+                _heartbeat(db, job, partial)
             continue
-        data, mime = cut_piece(video, start, end - start, folder)
-        result = provider.transcribe(data, mime, hint, end - start)
-        partial["pieces"][str(i)] = {"language": result.language, "model": result.model,
-                                     "segments": [{**s, "start": round(s["start"] + start, 3), "end": round(s["end"] + start, 3)} for s in result.segments]}
-        job.model = result.model
+        heard = _patiently(db, job, partial, lambda a=start, b=end: agents.listen_and_check(provider, cut, a, b, hint, silences))
+        piece = agents.proofread(heard, proof)
+        partial["pieces"][str(i)] = {"language": piece.language, "model": piece.model, "segments": piece.segments, "steps": piece.steps,
+                                     "gaps": piece.gaps, "corrected": piece.corrected}
+        if piece.model:
+            job.model = piece.model
         job.progress_done = len(partial["pieces"])
-        if job.language == "auto" and not job.detected_language and result.segments:
-            _detected(db, job, film, result.language)
+        if job.language == "auto" and not job.detected_language and piece.segments:
+            _detected(db, job, film, piece.language)
         _heartbeat(db, job, partial)
 
     language = job.language if job.language in ai.LANGUAGES else ai.majority_language([p.get("language") for p in partial["pieces"].values() if p.get("segments")])
@@ -455,22 +512,32 @@ def _transcribe(db: Session, job: FilmSubtitleJob) -> None:
     if language not in ai.LANGUAGES:
         raise ai.SubtitleAIError("LANGUAGE_NOT_SUPPORTED", f"The spoken language is '{language}'; supported: de, en, uz, ru.")
     segments = [s for p in partial["pieces"].values() for s in p.get("segments", [])]
-    silences = [(s, e) for s, e in partial.get("silences", [])]
     cues = ai.snap_to_speech(ai.build_cues(segments, partial.get("duration_ms")), silences)
     if not cues:
         raise ai.SubtitleAIError("NO_SPEECH", "No speech was found in the film's audio.")
     sub = _store_track(db, job, film, language, cues, SOURCE_AI, None, job.model)
-    speakers = max((len({s.get("speaker") for s in p.get("segments", []) if s.get("speaker")}) for p in partial["pieces"].values()), default=0)
+    pieces = list(partial["pieces"].values())
+    speakers = max((len({s.get("speaker") for s in p.get("segments", []) if s.get("speaker")}) for p in pieces), default=0)
+    gaps = sorted((g for p in pieces for g in p.get("gaps") or []), key=lambda g: g["start"])
     job.detected_language, job.result_subtitle_id = language, sub.id
-    job.stats = {"cues": len(cues), "pieces": len(parts), "speakers_max_per_piece": speakers, "language": language, "warnings": len(sub.warnings or [])}
+    job.stats = {"cues": len(cues), "pieces": len(parts), "speakers_max_per_piece": speakers, "language": language, "warnings": len(sub.warnings or []),
+                 "agents": {"listened": len(parts),
+                            "repaired": sum(1 for p in pieces if any(str(s) in ("strong:ok", "split") for s in p.get("steps", []))),
+                            "split": sum(1 for p in pieces if "split" in p.get("steps", [])),
+                            "corrected_lines": sum(int(p.get("corrected") or 0) for p in pieces), "gaps": gaps}}
+    job.error_code, job.error_message = (("GAPS", f"{len(gaps)} part(s) without text — 'retry' tries them again.") if gaps else (None, None))
     job.status, job.finished_at, job.heartbeat_at = JOB_COMPLETED, _now(), _now()
     db.commit()
-    write_audit(db, actor_id=None, action="medien_subtitle_ai_completed", details=f"{film.id} transcribe {language} {len(cues)} cues (draft)")
+    write_audit(db, actor_id=None, action="medien_subtitle_ai_completed",
+                details=f"{film.id} transcribe {language} {len(cues)} cues ({'approved' if job.auto_approve else 'draft'}, {len(gaps)} gaps)")
     for target in job.translate_to or []:
         if target == language:
             continue
+        existing = _existing(db, film.id, target)
+        # a translation this pipeline made earlier (before the gaps were filled) is renewed
+        replace = job.replace_existing or (existing is not None and existing.source == SOURCE_TRANSLATION and existing.source_language == language)
         try:
-            start_translation(db, None, film, sub, target, job.replace_existing, audit=False, wake=False)
+            start_translation(db, None, film, sub, target, replace, audit=False, wake=False, auto_approve=job.auto_approve)
         except Exception as exc:  # e.g. the translation service is not set up: the transcript stays, the admin sees no translation job
             db.rollback()
             log.warning("follow-up translation %s of film %s not queued: %s", target, film.id, getattr(exc, "detail", exc))
@@ -520,7 +587,8 @@ def _translate(db: Session, job: FilmSubtitleJob) -> None:
     for i, batch in enumerate(batches):
         if str(i) in partial["batches"]:
             continue
-        partial["batches"][str(i)] = translate_lines(translator, [cue.text for cue in batch], source.language, job.language)
+        lines = [cue.text for cue in batch]
+        partial["batches"][str(i)] = _patiently(db, job, partial, lambda lines=lines: translate_lines(translator, lines, source.language, job.language))
         job.progress_done = len(partial["batches"])
         _heartbeat(db, job, partial)
     texts = [t for i in range(len(batches)) for t in partial["batches"][str(i)]]

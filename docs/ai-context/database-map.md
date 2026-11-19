@@ -1,11 +1,12 @@
 # Database map
 
-Updated 2026-11-19 · source: `backend/app/models/*.py` (`__tablename__`), `backend/alembic/versions/` (107 files).
+Updated 2026-11-19 · source: `backend/app/models/*.py` (`__tablename__`), `backend/alembic/versions/` (108 files).
 PostgreSQL; connection from settings `DATABASE_HOST/PORT/NAME/USER/PASSWORD` (names only).
 
 ## Migrations
 
-- Linear history, one head. **Head = `e8a3c5f1b7d2`**
+- Linear history, one head. **Head = `f3b9d1a6c4e8`**
+- `f3b9d1a6c4e8` (2026-11-19): Subtitle agents — additive: `film_subtitle_jobs.auto_approve` (boolean, NOT NULL, server default false → old jobs keep making drafts). Downgrade drops exactly this (`test_medien_subtitle_auto_approve_migration`).
 - `e8a3c5f1b7d2` (2026-11-19): Musik bulk upload — additive: `songs.sha256` (nullable, index `ix_songs_sha256`, not unique: a deliberate copy stays possible). Older songs get it from `app/scripts/medien_song_hashes.py`. Downgrade drops exactly these (`test_medien_song_hash_migration`).
 - `d5f1b8e3a9c7` (2026-11-19): Film AI subtitles — additive: `film_subtitles.status` (DRAFT / APPROVED, default APPROVED → existing tracks stay visible), `source` (UPLOAD / AI / TRANSLATION, default UPLOAD), `source_language`, `ai_model`, `approved_at`, `approved_by_id` (users SET NULL), `edited_at`; new table `film_subtitle_jobs` (kind TRANSCRIBE / TRANSLATE, status PENDING / PROCESSING / COMPLETED / FAILED, language, detected_language, source / result subtitle FKs SET NULL, film FK CASCADE, translate_to / partial / stats JSONB, progress, attempts, error, heartbeat; partial unique `uq_film_subtitle_jobs_active` = one active job per film + kind + language). Downgrade drops exactly these (`test_medien_subtitle_ai_migration`).
 - `a7c4e2f9b1d8` (2026-11-16): Multilevel Modelltest Premium + promo approval — additive: new table `user_entitlements` (product access that is not a course level, e.g. `MULTILEVEL_MODELLTEST_PREMIUM`; source PAYMENT / PROMO, order / promo / granted_by FKs SET NULL, user FK CASCADE, `revoked_*` on refund, partial unique `uq_user_entitlements_active` = one active row per user + product); `promo_codes.product_category` (COURSES / PACKAGES / MULTILEVEL, CHECK), `approval_status` (PENDING / APPROVED / ACTIVE / REJECTED / DISABLED, CHECK, default PENDING), `approved_by_id`, `approved_at`, `review_note`, `assigned_user_id` (personal code, user FK CASCADE) — existing codes backfilled ACTIVE / DISABLED + approved by their creator (they were in use); `promo_code_requests.kind` (CODE_APPROVAL / COURSE_REQUEST) + `message`, `promo_code_id` nullable (CHECK: only a course request may have none), partial unique = one pending course request per user + package; `subscription_orders.paid_at`, `no_receipt`, `student_note`, `admin_note`. Downgrade drops exactly these and deletes course requests without a code (`test_multilevel_premium_migration`).

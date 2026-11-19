@@ -38,6 +38,8 @@ OPENAI_TRANSCRIBE_ENDPOINT = "https://api.openai.com/v1/audio/transcriptions"
 MAX_INLINE_BYTES = 18 * 1024 * 1024
 
 MIN_CUE_MS = 700  # a shorter subtitle cannot be read
+MAX_CUE_MS = 8000  # longer than any two subtitle lines need
+SPOKEN = re.compile(r"\w")  # a line must contain a letter or digit
 GAP_MS = 40  # between two cues that would otherwise touch / overlap
 LINE_WIDTH = 42
 SNAP_MS = 600  # how far an edge may move onto a detected pause
@@ -168,8 +170,9 @@ def build_cues(segments: list[dict], video_ms: int | None = None) -> list[subs.C
         if video_ms:
             end = min(end, video_ms)
         text = wrap_text(subs.clean_text(s["text"]))[:subs.MAX_CUE_TEXT]
-        if not text or end <= start:
+        if not text or end <= start or not SPOKEN.search(text):  # "...", "[…]", "-": a placeholder for unclear sound, not a line (seen live: 176 s of "...")
             continue
+        end = min(end, start + MAX_CUE_MS)  # a wrong end from the model never leaves a line on the screen for minutes
         if cues and cues[-1].text == text and start - cues[-1].end < 1500:  # the same words twice at a piece border
             cues[-1].end = max(cues[-1].end, end)
             continue
@@ -236,18 +239,47 @@ def to_srt(cues: list[subs.Cue]) -> bytes:
     return "\n".join(out).encode("utf-8")
 
 
-def extract_json(text: str) -> dict:
-    """The first {...} block of a model answer (models sometimes wrap JSON in a ``` fence or prose)."""
-    m = re.search(r"\{.*\}", text or "", re.DOTALL)
-    if not m:
+def extract_json(text: str) -> dict | list:
+    """The JSON of a model answer: the whole text, else the outermost {...} or [...] block (models sometimes wrap JSON in a ``` fence or prose).
+    A top-level ARRAY is a valid answer too (seen live: the fast model answered the segment list without the object around it). Control
+    characters inside strings (a real line break in a two-line subtitle) are accepted."""
+    raw = (text or "").strip()
+    candidates = [raw]
+    for pattern in (r"\{.*\}", r"\[.*\]"):
+        m = re.search(pattern, raw, re.DOTALL)
+        if m:
+            candidates.append(m.group(0))
+    if not any(candidates):
         raise SubtitleAIError("AI_BAD_ANSWER", "The AI answer contained no JSON.", retryable=True)
-    try:
-        return json.loads(m.group(0))
-    except json.JSONDecodeError:
-        raise SubtitleAIError("AI_BAD_ANSWER", "The AI answer was not valid JSON (cut off?).", retryable=True) from None
+    for candidate in sorted(set(c for c in candidates if c), key=lambda c: -len(c)):
+        try:
+            return json.loads(candidate, strict=False)
+        except json.JSONDecodeError:
+            continue
+    raise SubtitleAIError("AI_BAD_ANSWER", "The AI answer was not valid JSON (cut off?).", retryable=True)
+
+
+def as_object(answer: dict | list, key: str) -> dict:
+    """{key: [...]} from an answer that may be the bare list."""
+    if isinstance(answer, list):
+        return {key: answer}
+    return answer if isinstance(answer, dict) else {}
 
 
 # ---------------- HTTP ----------------
+
+
+def quota_kind(detail: dict) -> str:
+    """For a Gemini 429: "day" = a daily quota is used up (asking again today does not help), "minute" = a per-minute rate limit (passes by
+    itself; Google's text also says "exceeded your current quota"), "" = not said. Read from the QuotaFailure ids / RetryInfo / the message."""
+    details = [d for d in detail.get("details") or [] if isinstance(d, dict)]
+    ids = " ".join(str(v.get("quotaId", "")) for d in details for v in d.get("violations") or [] if isinstance(v, dict))
+    text = f"{ids} {detail.get('message', '')}".lower()
+    if "perday" in text or "per day" in text or "daily" in text:
+        return "day"
+    if "perminute" in text or "per minute" in text or "retry in" in text or any("RetryInfo" in str(d.get("@type", "")) for d in details):
+        return "minute"
+    return ""
 
 
 def _post(url: str, body: bytes, headers: dict, timeout: int = 300) -> dict:
@@ -258,12 +290,18 @@ def _post(url: str, body: bytes, headers: dict, timeout: int = 300) -> dict:
     except urllib.error.HTTPError as exc:
         try:
             detail = json.loads(exc.read().decode("utf-8", "replace")).get("error", {})
-            message = str(detail.get("message") if isinstance(detail, dict) else detail)[:200]
+            detail = detail if isinstance(detail, dict) else {"message": str(detail)}
         except Exception:
-            message = ""
+            detail = {}
+        message = str(detail.get("message") or "")[:200]
         code = exc.code
         if code in (401, 403):
             raise SubtitleAIError("AI_KEY_REJECTED", f"The AI service refused the key (HTTP {code}). {message}".strip()) from None
+        kind = quota_kind(detail) if code == 429 else ""
+        if code == 429 and (kind == "day" or (not kind and "quota" in message.lower())):
+            # the key's daily quota for this model is used up: asking again in a few seconds does not help (the next model may still work).
+            # A per-minute limit (seen live 2026-11-19 on a burst of proofreading) is an ordinary, retried 429 instead.
+            raise SubtitleAIError("AI_QUOTA", f"The quota of the AI key is used up for this model. {message[:120]}".strip()) from None
         raise SubtitleAIError(f"AI_HTTP_{code}", f"The AI service answered HTTP {code}. {message}".strip(), retryable=code == 429 or code >= 500) from None
     except (urllib.error.URLError, TimeoutError, OSError) as exc:
         raise SubtitleAIError("AI_NETWORK", f"The AI service could not be reached ({type(exc).__name__}).", retryable=True) from None
@@ -288,21 +326,51 @@ def _with_retries(call, tries: int = 3):
     raise AssertionError("unreachable")
 
 
+def is_transient(exc: SubtitleAIError) -> bool:
+    """A busy / unreachable service (HTTP 5xx, a rate limit that is not the used-up quota, network): asking again a bit later helps."""
+    return exc.code in ("AI_NETWORK", "AI_HTTP_429") or exc.code.startswith("AI_HTTP_5")
+
+
 def _gemini_models() -> list[str]:
-    return [m for m in dict.fromkeys([settings.SUBTITLE_AI_MODEL, settings.GEMINI_MODEL, settings.GEMINI_FALLBACK_MODEL]) if m]
+    """The "strong" order: the configured subtitle model, then the general one, then the fast and the fallback model."""
+    return [m for m in dict.fromkeys([settings.SUBTITLE_AI_MODEL, settings.GEMINI_MODEL, settings.SUBTITLE_FAST_MODEL, settings.GEMINI_FALLBACK_MODEL]) if m]
 
 
-def _gemini(parts: list[dict], max_tokens: int = 16384) -> tuple[dict, str]:
-    """One Gemini call (JSON answer) with retries, falling back to the next model on a lasting error. → (answer, model)."""
+def fast_models() -> list[str]:
+    """The fast model first, then the strong order (the translator: text only, a slower model is acceptable)."""
+    return [m for m in dict.fromkeys([settings.SUBTITLE_FAST_MODEL, *_gemini_models()]) if m]
+
+
+def fast_only() -> list[str]:
+    """The listener's and the proofreader's normal path: ONLY the fast model. A busy fast model must not fall through to the slow strong model
+    (minutes per piece, seen live 2026-11-19); the job waits and asks the fast model again instead. Empty SUBTITLE_FAST_MODEL = the strong order."""
+    return [settings.SUBTITLE_FAST_MODEL] if settings.SUBTITLE_FAST_MODEL else _gemini_models()
+
+
+# structured output: Gemini has to answer exactly this shape (no prose, no bare list, strings escaped)
+SEGMENT_SCHEMA = {"type": "OBJECT", "properties": {
+    "language": {"type": "STRING"},
+    "segments": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {
+        "start": {"type": "NUMBER"}, "end": {"type": "NUMBER"}, "speaker": {"type": "STRING"}, "text": {"type": "STRING"}},
+        "required": ["start", "end", "text"]}}},
+    "required": ["segments"]}
+LINES_SCHEMA = {"type": "OBJECT", "properties": {"t": {"type": "ARRAY", "items": {"type": "STRING"}}}, "required": ["t"]}
+
+
+def _gemini(parts: list[dict], max_tokens: int = 16384, schema: dict | None = None, models: list[str] | None = None,
+            tries: int = 3) -> tuple[dict | list, str]:
+    """One Gemini call (JSON answer, shape forced by `schema`) with retries, falling back to the next model on a lasting error. → (answer, model)."""
     if not settings.GEMINI_API_KEY:
         raise SubtitleAIError("AI_NOT_CONFIGURED", "GEMINI_API_KEY is not set on the server.")
-    body = json.dumps({"contents": [{"parts": parts}],
-                       "generationConfig": {"temperature": 0, "responseMimeType": "application/json", "maxOutputTokens": max_tokens}}).encode("utf-8")
+    config = {"temperature": 0, "responseMimeType": "application/json", "maxOutputTokens": max_tokens}
+    if schema:
+        config["responseSchema"] = schema
+    body = json.dumps({"contents": [{"parts": parts}], "generationConfig": config}).encode("utf-8")
     headers = {"Content-Type": "application/json", "x-goog-api-key": settings.GEMINI_API_KEY}
     last: SubtitleAIError | None = None
-    for model in _gemini_models():
+    for model in models or _gemini_models():
         try:
-            answer = _with_retries(lambda: transport(GEMINI_ENDPOINT.format(model=model), body, headers))
+            answer = _with_retries(lambda: transport(GEMINI_ENDPOINT.format(model=model), body, headers), tries)
             candidate = (answer.get("candidates") or [{}])[0]
             if candidate.get("finishReason") == "MAX_TOKENS":
                 raise SubtitleAIError("AI_ANSWER_TOO_LONG", "The AI answer was cut off (too long).", retryable=False)
@@ -348,9 +416,10 @@ class GeminiSTT:
 
     @property
     def model(self) -> str:
-        return _gemini_models()[0]
+        return fast_models()[0]
 
-    def transcribe(self, data: bytes, mime: str, language: str | None, seconds: float) -> Transcript:
+    def transcribe(self, data: bytes, mime: str, language: str | None, seconds: float, strong: bool = False) -> Transcript:
+        """`strong`: the checker agent asks again with the strong model first (the normal path starts with the fast one)."""
         if len(data) > MAX_INLINE_BYTES:
             raise SubtitleAIError("AUDIO_PIECE_TOO_LARGE", "An audio piece is larger than the AI service accepts.")
         import base64
@@ -359,7 +428,9 @@ class GeminiSTT:
                 else "Detect the spoken language (expected: German, English, Uzbek or Russian) and transcribe in it.")
         parts = [{"inline_data": {"mime_type": mime, "data": base64.b64encode(data).decode("ascii")}},
                  {"text": TRANSCRIBE_PROMPT.format(seconds=seconds, language_rule=rule)}]
-        raw, model = _gemini(parts)
+        # fast: only the fast model, asked patiently (a busy moment is common); strong: the strong order, one try per model (minutes per answer)
+        raw, model = _gemini(parts, schema=SEGMENT_SCHEMA, models=_gemini_models() if strong else fast_only(), tries=1 if strong else 5)
+        raw = as_object(raw, "segments")
         return Transcript(normalize_language(raw.get("language")) or language, parse_segments(raw, seconds), model)
 
 
@@ -372,7 +443,7 @@ class OpenAISTT:
 
     model = "whisper-1"
 
-    def transcribe(self, data: bytes, mime: str, language: str | None, seconds: float) -> Transcript:
+    def transcribe(self, data: bytes, mime: str, language: str | None, seconds: float, strong: bool = False) -> Transcript:
         boundary = "----vizu" + uuid.uuid4().hex
         fields = {"model": self.model, "response_format": "verbose_json", "temperature": "0", "timestamp_granularities[]": "segment"}
         if language in LANGUAGES:
@@ -395,9 +466,9 @@ class FakeSTT:
         if settings.APP_ENV != "test":
             raise SubtitleAIError("AI_NOT_CONFIGURED", "The test provider is only available in the local test environment.")
 
-    def transcribe(self, data: bytes, mime: str, language: str | None, seconds: float) -> Transcript:
+    def transcribe(self, data: bytes, mime: str, language: str | None, seconds: float, strong: bool = False) -> Transcript:
         lang = language if language in LANGUAGES else "de"
-        words = {"de": "Testsatz", "en": "Test sentence", "uz": "Sinov gapi", "ru": "Тестовая фраза"}[lang]
+        words = {"de": "testsatz", "en": "Test sentence", "uz": "Sinov gapi", "ru": "Тестовая фраза"}[lang]  # "testsatz": the test proofreader capitalises it
         segments = [{"start": t + 0.2, "end": min(t + 2.6, seconds), "text": f"{words} {int(t // 3) + 1}", "speaker": "A" if int(t // 3) % 2 == 0 else "B"}
                     for t in range(0, max(0, int(seconds) - 1), 3)]
         return Transcript(lang, [s for s in segments if s["end"] > s["start"]], self.model)
@@ -432,13 +503,13 @@ class GeminiTranslator:
 
     @property
     def model(self) -> str:
-        return _gemini_models()[0]
+        return fast_models()[0]
 
     def translate(self, lines: list[str], source: str, target: str) -> list[str]:
         prompt = TRANSLATE_PROMPT.format(source=PROMPT_NAMES.get(source, source), target=PROMPT_NAMES.get(target, target), count=len(lines),
                                          lines=json.dumps(lines, ensure_ascii=False))
-        raw, _ = _gemini([{"text": prompt}])
-        out = raw.get("t")
+        raw, _ = _gemini([{"text": prompt}], schema=LINES_SCHEMA, models=fast_models())
+        out = as_object(raw, "t").get("t")
         if not isinstance(out, list) or len(out) != len(lines):
             raise SubtitleAIError("AI_TRANSLATION_COUNT", f"The translation had {len(out) if isinstance(out, list) else 0} entries for {len(lines)}.", retryable=True)
         return [subs.clean_text(str(x)) for x in out]
@@ -486,6 +557,52 @@ def translator():
     return TRANSLATORS[name]()
 
 
+# ---------------- proofreading (the "Korrektor" agent) ----------------
+
+PROOFREAD_PROMPT = """You proofread German film subtitles that a speech recogniser wrote. Correct ONLY clear mistakes:
+spelling, capital letters (German nouns!), umlauts and ß (e.g. "fur" -> "für", "dass"/"das"), punctuation, and a word that is obviously misheard
+in its context. Do not rewrite style, do not shorten, do not translate, keep colloquial speech as it is.
+Exactly one output entry per input entry, same order: {count} entries in, {count} entries out. Keep "\\n" line breaks.
+Input (JSON array): {lines}
+Answer ONLY with JSON: {{"t": ["...", "..."]}}"""
+
+
+class GeminiProofreader:
+    name = "gemini"
+
+    @property
+    def model(self) -> str:
+        return fast_only()[0]
+
+    def proofread(self, lines: list[str]) -> list[str]:
+        prompt = PROOFREAD_PROMPT.format(count=len(lines), lines=json.dumps(lines, ensure_ascii=False))
+        raw, _ = _gemini([{"text": prompt}], schema=LINES_SCHEMA, models=fast_only(), tries=4)
+        out = as_object(raw, "t").get("t")
+        if not isinstance(out, list) or len(out) != len(lines):
+            raise SubtitleAIError("AI_TRANSLATION_COUNT", "The proofreading did not keep the number of lines.", retryable=True)
+        return [subs.clean_text(str(x)) or original for x, original in zip(out, lines)]
+
+
+class FakeProofreader:
+    """Local test stack only: puts the German noun of the test text in its proper form ("testsatz" → "Testsatz") — a visible, harmless change."""
+
+    name = "fake"
+    model = "test-fake"
+
+    def proofread(self, lines: list[str]) -> list[str]:
+        return [line.replace("testsatz", "Testsatz") for line in lines]
+
+
+def proofreader():
+    """The proofreader agent, or None when it is switched off or no AI is set up (the subtitles are then used as heard)."""
+    if not settings.SUBTITLE_PROOFREAD:
+        return None
+    name = (settings.SUBTITLE_STT_PROVIDER or "gemini").strip().lower()
+    if name == "fake":
+        return FakeProofreader() if settings.APP_ENV == "test" else None
+    return GeminiProofreader() if settings.GEMINI_API_KEY else None
+
+
 def status() -> dict:
     """What the admin panel shows before a job is started: which services are set up (never a key), and whether ffmpeg exists."""
     from app.services.audio_files.service import find_tool
@@ -498,5 +615,8 @@ def status() -> dict:
         except SubtitleAIError as exc:
             return {"provider": name, "configured": False, "model": None, "message": str(exc)}
 
+    proof = proofreader()
     return {"speech_to_text": probe(stt_provider, "SUBTITLE_STT_PROVIDER"), "translation": probe(translator, "SUBTITLE_TRANSLATE_PROVIDER"),
-            "ffmpeg": bool(find_tool("ffmpeg")), "languages": list(LANGUAGES), "chunk_seconds": settings.SUBTITLE_CHUNK_SECONDS}
+            "ffmpeg": bool(find_tool("ffmpeg")), "languages": list(LANGUAGES), "chunk_seconds": settings.SUBTITLE_CHUNK_SECONDS,
+            "agents": {"fast_model": settings.SUBTITLE_FAST_MODEL, "strong_model": _gemini_models()[0] if _gemini_models() else None,
+                       "proofread": proof is not None, "proofread_model": getattr(proof, "model", None)}}

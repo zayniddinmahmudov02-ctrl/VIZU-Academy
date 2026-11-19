@@ -180,6 +180,8 @@ class TestSubtitleJobs(unittest.TestCase):
         t = jobs["TRANSCRIBEauto"]
         self.assertEqual((t["status"], t["detected_language"], t["progress_done"], t["progress_total"]), ("COMPLETED", "de", 3, 3))
         self.assertEqual(t["stats"]["speakers_max_per_piece"], 2)
+        self.assertEqual((t["stats"]["agents"]["listened"], t["stats"]["agents"]["gaps"]), (3, []))
+        self.assertGreaterEqual(t["stats"]["agents"]["corrected_lines"], 5)  # the proofreader agent ran on every piece
         self.assertEqual({jobs["TRANSLATEuz"]["status"], jobs["TRANSLATEen"]["status"]}, {"COMPLETED"})
 
         tracks = self.tracks(fid)
@@ -248,16 +250,16 @@ class TestSubtitleJobs(unittest.TestCase):
         real = ai.FakeSTT.transcribe
         calls = []
 
-        def flaky(self_, data, mime, language, seconds):
+        def flaky(self_, data, mime, language, seconds, strong=False):
             calls.append(seconds)
-            if len(calls) == 2:
-                raise ai.SubtitleAIError("AI_HTTP_503", "The AI service answered HTTP 503.", retryable=True)
-            return real(self_, data, mime, language, seconds)
+            if len(calls) == 2:  # the key's quota is used up: a service problem stops the job (a piece problem would be repaired / a gap)
+                raise ai.SubtitleAIError("AI_QUOTA", "The quota of the AI key is used up for this model.")
+            return real(self_, data, mime, language, seconds, strong)
 
         with patch.object(ai.FakeSTT, "transcribe", flaky):
             self.run_jobs()
             job = self.jobs(fid)[0]
-            self.assertEqual((job["status"], job["error_code"], job["progress_done"]), ("FAILED", "AI_HTTP_503", 1))
+            self.assertEqual((job["status"], job["error_code"], job["progress_done"]), ("FAILED", "AI_QUOTA", 1))
             self.api("post", f"/admin/medien/films/{fid}/subtitle-jobs/{job['id']}/retry", "admin")
             self.api("post", f"/admin/medien/films/{fid}/subtitle-jobs/{job['id']}/retry", "admin", expect=409)  # already waiting
             self.run_jobs()
@@ -298,10 +300,145 @@ class TestSubtitleJobs(unittest.TestCase):
         fid2 = self.film("french")["id"]
         real = ai.FakeSTT.transcribe
         self.api("post", f"/admin/medien/films/{fid2}/subtitles/ai", "admin", expect=202, json={"language": "auto"})
-        with patch.object(ai.FakeSTT, "transcribe", lambda s, d, m, l, sec: ai.Transcript("fr", real(s, d, m, l, sec).segments, "test-fake")):
+        with patch.object(ai.FakeSTT, "transcribe", lambda s, d, m, l, sec, strong=False: ai.Transcript("fr", real(s, d, m, l, sec).segments, "test-fake")):
             self.run_jobs()
         job = self.jobs(fid2)[0]
         self.assertEqual((job["status"], job["error_code"]), ("FAILED", "LANGUAGE_NOT_SUPPORTED"))
+
+    def test_6_agents_gaps_filled_later_and_approve_when_done(self):
+        """A piece the agents cannot fix (looping text from both models, too short to split) becomes a GAP: the film still gets its subtitle from
+        the other pieces, the job is COMPLETED with the gap listed; "retry" redoes only that piece and renews the same track. With "approve when
+        done" the transcript and its translation are visible to students at once. The proofreader corrected every test line."""
+        from app.services.medien import subtitle_ai as ai
+
+        fid = self.film("agents")["id"]
+        real = ai.FakeSTT.transcribe
+        calls = []
+
+        def looping_second_piece(self_, data, mime, language, seconds, strong=False):
+            calls.append(strong)
+            if len(calls) in (2, 3):  # piece 2: fast and strong answer the same looping line
+                return ai.Transcript("de", [{"start": i, "end": i + 0.8, "text": "Ja.", "speaker": "A"} for i in range(6)], "test-fake")
+            return real(self_, data, mime, language, seconds, strong)
+
+        self.api("post", f"/admin/medien/films/{fid}/subtitles/ai", "admin", expect=202,
+                 json={"language": "de", "translate_to": ["uz"], "auto_approve": True})
+        with patch.object(ai.FakeSTT, "transcribe", looping_second_piece):
+            self.run_jobs()
+        jobs = {j["kind"]: j for j in self.jobs(fid)}
+        t = jobs["TRANSCRIBE"]
+        self.assertEqual((t["status"], t["error_code"], t["auto_approve"]), ("COMPLETED", "GAPS", True))
+        agent_stats = t["stats"]["agents"]
+        self.assertEqual(len(agent_stats["gaps"]), 1)
+        self.assertEqual(agent_stats["gaps"][0]["reason"], "LOOP")
+        self.assertGreaterEqual(agent_stats["corrected_lines"], 3)  # "testsatz" → "Testsatz"
+        self.assertEqual(calls, [False, False, True, False])  # piece 2: fast + strong (too short to split), pieces 1 / 3: fast only
+        tracks = self.tracks(fid)
+        self.assertEqual((tracks["de"]["status"], tracks["uz"]["status"]), ("APPROVED", "APPROVED"))  # approve when done
+        first_count, de_id = tracks["de"]["cue_count"], tracks["de"]["id"]
+        watch = self.watch(fid)
+        self.assertEqual({s["language"] for s in watch["subtitles"]}, {"de", "uz"})
+        gap = agent_stats["gaps"][0]
+        cues = self.api("get", f"/admin/medien/films/{fid}/subtitles/{de_id}", "admin").json()["cues"]
+        self.assertFalse(any(gap["start"] * 1000 <= c[0] < gap["end"] * 1000 for c in cues))  # nothing invented in the gap
+        self.assertTrue(all(c[2].startswith("Testsatz") for c in cues))
+
+        # retry: only the gap piece again, the same track renewed (still approved), the translation renewed
+        self.api("post", f"/admin/medien/films/{fid}/subtitle-jobs/{t['id']}/retry", "admin")
+        calls.clear()
+        with patch.object(ai.FakeSTT, "transcribe", lambda s, d, m, l, sec, strong=False: (calls.append(strong), real(s, d, m, l, sec, strong))[1]):
+            self.run_jobs()
+        self.assertEqual(calls, [False])
+        t = {j["kind"]: j for j in self.jobs(fid)}["TRANSCRIBE"]
+        self.assertEqual((t["status"], t["error_code"], t["stats"]["agents"]["gaps"]), ("COMPLETED", None, []))
+        tracks = self.tracks(fid)
+        self.assertEqual((tracks["de"]["id"], tracks["de"]["status"]), (de_id, "APPROVED"))
+        self.assertGreater(tracks["de"]["cue_count"], first_count)
+        uz_cues = self.api("get", f"/admin/medien/films/{fid}/subtitles/{tracks['uz']['id']}", "admin").json()["cues"]
+        self.assertEqual(len(uz_cues), tracks["de"]["cue_count"])  # the translation follows the filled transcript
+
+    def test_7_busy_service_waits_instead_of_failing(self):
+        """Seen live 2026-11-19: the fast model answered 503 and the piece went to the slow strong model for minutes. Now a busy service (5xx /
+        429 / network) makes the job wait (heartbeat on) and ask the FAST model again; the strong model is never asked for it. Still busy after
+        the last wait → FAILED with that code, the finished pieces kept; a cancel during a wait stops the job."""
+        from app.models.medien import FilmSubtitleJob
+        from app.services.medien import subtitle_ai as ai
+        from app.services.medien import subtitle_jobs
+
+        real = ai.FakeSTT.transcribe
+        calls, waits = [], []
+        busy = ai.SubtitleAIError("AI_HTTP_503", "The AI service answered HTTP 503.", retryable=True)
+
+        def busy_twice(self_, data, mime, language, seconds, strong=False):
+            calls.append(strong)
+            if len(calls) in (2, 3):
+                raise busy
+            return real(self_, data, mime, language, seconds, strong)
+
+        fid = self.film("busy")["id"]
+        self.api("post", f"/admin/medien/films/{fid}/subtitles/ai", "admin", expect=202, json={"language": "de", "translate_to": ["uz"]})
+        with patch.object(ai.FakeSTT, "transcribe", busy_twice), patch.object(subtitle_jobs, "sleep", waits.append):
+            self.run_jobs()
+        jobs = {j["kind"]: j for j in self.jobs(fid)}
+        self.assertEqual((jobs["TRANSCRIBE"]["status"], jobs["TRANSCRIBE"]["error_code"], jobs["TRANSLATE"]["status"]), ("COMPLETED", None, "COMPLETED"))
+        self.assertEqual(calls, [False] * 5)  # piece 2 asked three times, always the fast model
+        self.assertEqual(waits, [30, 30, 30])  # 30 s, then 60 s in two heartbeat steps
+        self.assertEqual(jobs["TRANSCRIBE"]["stats"]["agents"]["gaps"], [])
+
+        # still busy after every wait: FAILED with the service's code, piece 1 kept for the retry
+        calls.clear()
+        waits.clear()
+        fid2 = self.film("busy2")["id"]
+        self.api("post", f"/admin/medien/films/{fid2}/subtitles/ai", "admin", expect=202, json={"language": "de"})
+
+        def busy_after_first(self_, data, mime, language, seconds, strong=False):
+            calls.append(strong)
+            if len(calls) > 1:
+                raise busy
+            return real(self_, data, mime, language, seconds, strong)
+
+        with patch.object(ai.FakeSTT, "transcribe", busy_after_first), patch.object(subtitle_jobs, "sleep", waits.append):
+            self.run_jobs()
+        job = self.jobs(fid2)[0]
+        self.assertEqual((job["status"], job["error_code"], job["progress_done"]), ("FAILED", "AI_HTTP_503", 1))
+        self.assertEqual(sum(waits), sum(subtitle_jobs.SERVICE_WAITS))
+        self.assertNotIn(True, calls)
+
+        # a cancel while waiting stops the job at the next heartbeat
+        fid3 = self.film("busy3")["id"]
+        job = self.api("post", f"/admin/medien/films/{fid3}/subtitles/ai", "admin", expect=202, json={"language": "de"}).json()
+
+        def cancel_while_waiting(seconds):
+            with self.Session() as other:
+                other.get(FilmSubtitleJob, uuid.UUID(job["id"])).status = "FAILED"
+                other.commit()
+
+        def always_busy(*args, **kwargs):
+            raise busy
+
+        with patch.object(ai.FakeSTT, "transcribe", always_busy), patch.object(subtitle_jobs, "sleep", cancel_while_waiting):
+            self.run_jobs()
+        self.assertNotIn("de", self.tracks(fid3))
+
+    def test_8_a_translation_does_not_wait_behind_other_films(self):
+        from app.services.medien import subtitle_jobs
+
+        a, b = self.film("queue-a")["id"], self.film("queue-b")["id"]
+        self.api("post", f"/admin/medien/films/{a}/subtitles/ai", "admin", expect=202, json={"language": "de", "translate_to": ["uz"]})
+        self.api("post", f"/admin/medien/films/{b}/subtitles/ai", "admin", expect=202, json={"language": "de"})
+        order = []
+        real_claim = subtitle_jobs.claim
+
+        def claim(db):
+            job = real_claim(db)
+            if job is not None:
+                order.append((str(job.film_id), job.kind))
+            return job
+
+        with patch.object(subtitle_jobs, "claim", claim):
+            self.run_jobs()
+        mine = [o for o in order if o[0] in (a, b)]
+        self.assertEqual(mine, [(a, "TRANSCRIBE"), (a, "TRANSLATE"), (b, "TRANSCRIBE")])
 
 
 if __name__ == "__main__":

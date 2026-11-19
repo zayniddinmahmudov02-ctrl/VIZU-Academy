@@ -91,6 +91,14 @@ class TestPureHelpers(unittest.TestCase):
         self.assertGreaterEqual(cues[2].end - cues[2].start, ai.MIN_CUE_MS)  # readable minimum
         self.assertLessEqual(cues[-1].end, 12_000)
 
+    def test_build_cues_drops_placeholders_and_caps_the_length(self):
+        # seen live 2026-11-19: "..." for 176 s and "[…]" for unclear passages
+        segs = [{"start": 1.0, "end": 2.5, "text": "Kommen Sie!"}, {"start": 3.0, "end": 179.0, "text": "..."}, {"start": 180.0, "end": 182.0, "text": "[…]"},
+                {"start": 190.0, "end": 290.0, "text": "Maul, komm!"}, {"start": 300.0, "end": 301.0, "text": "- 42"}]
+        cues = ai.build_cues(segs)
+        self.assertEqual([c.text for c in cues], ["Kommen Sie!", "Maul, komm!", "- 42"])
+        self.assertEqual((cues[1].start, cues[1].end), (190_000, 190_000 + ai.MAX_CUE_MS))
+
     def test_snap_to_speech(self):
         cues = [Cue(1000, 3000, "a"), Cue(3600, 8000, "b"), Cue(9000, 9300, "c")]
         snapped = ai.snap_to_speech(cues, [(0.8, 1.4), (2.6, 3.7)])
@@ -116,7 +124,9 @@ class TestPureHelpers(unittest.TestCase):
 
 class TestProviders(unittest.TestCase):
     def setUp(self):
+        # no fast model: these tests are about the strong order (model-a, then model-b); the fast-first order is in test_medien_subtitle_agents
         self.patches = [patch.object(settings, "GEMINI_API_KEY", "test-key-123"), patch.object(settings, "SUBTITLE_AI_MODEL", ""),
+                        patch.object(settings, "SUBTITLE_FAST_MODEL", ""),
                         patch.object(settings, "GEMINI_MODEL", "model-a"), patch.object(settings, "GEMINI_FALLBACK_MODEL", "model-b"),
                         patch.object(ai, "RETRY_PAUSE", 0)]
         for p in self.patches:
@@ -141,11 +151,17 @@ class TestProviders(unittest.TestCase):
 
     def test_gemini_retries_then_falls_back_to_the_next_model(self):
         busy = ai.SubtitleAIError("AI_HTTP_503", "busy", retryable=True)
-        rec = Recorder(busy, busy, busy, gemini_answer({"language": "en", "segments": []}))
+        models = lambda rec: [c["url"].split("/models/")[1].split(":")[0] for c in rec.calls]  # noqa: E731
+        # the strong path (minutes per answer): one try per model, then the next one
+        rec = Recorder(busy, gemini_answer({"language": "en", "segments": []}))
+        with patch.object(ai, "transport", rec):
+            out = ai.GeminiSTT().transcribe(b"x", "audio/mp3", "en", 10, strong=True)
+        self.assertEqual((out.model, models(rec)), ("model-b", ["model-a", "model-b"]))
+        # the normal path without a fast model set: the same order, asked more patiently (5 tries)
+        rec = Recorder(busy, busy, busy, busy, busy, gemini_answer({"language": "en", "segments": []}))
         with patch.object(ai, "transport", rec):
             out = ai.GeminiSTT().transcribe(b"x", "audio/mp3", "en", 10)
-        self.assertEqual(out.model, "model-b")
-        self.assertEqual([c["url"].split("/models/")[1].split(":")[0] for c in rec.calls], ["model-a"] * 3 + ["model-b"])
+        self.assertEqual((out.model, models(rec)), ("model-b", ["model-a"] * 5 + ["model-b"]))
 
     def test_rate_limit_waits_longer_than_a_busy_service(self):
         waits = []
@@ -154,8 +170,8 @@ class TestProviders(unittest.TestCase):
         with patch.object(ai, "RETRY_PAUSE", 1), patch.object(ai.time, "sleep", waits.append), \
                 patch.object(ai, "transport", Recorder(limited, limited, busy, busy, gemini_answer({"language": "de", "segments": []}))):
             out = ai.GeminiSTT().transcribe(b"x", "audio/mp3", "de", 10)
-        self.assertEqual(out.model, "model-b")  # model-a: 429, 429, 503 → model-b: 503, ok
-        self.assertEqual(waits, [4, 8, 1])
+        self.assertEqual(out.model, "model-a")  # model-a: 429, 429, 503, 503, ok
+        self.assertEqual(waits, [4, 8, 3, 4])
 
     def test_gemini_refused_key_and_cut_off_answer_stop_at_once(self):
         with patch.object(ai, "transport", Recorder(ai.SubtitleAIError("AI_KEY_REJECTED", "no"))):
