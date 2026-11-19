@@ -9,7 +9,7 @@ import ConfirmDialog from "@/components/admin/confirm-dialog";
 import FormDialog from "@/components/admin/form-dialog";
 import {
   deletePlaylist, deleteItem, getPlaylistSongs, getPlaylists, listItems, medienError, replaceSongFile, savePlaylist, setPlaylistSongs, updateItem, uploadCover, uploadPlaylistCover,
-  uploadSong, type AdminItem, type AdminPlaylist, type Status,
+  type AdminItem, type AdminPlaylist, type Status,
 } from "@/features/admin/services/medien-admin-service";
 
 import { MAX_FILES, sameNames, summarize } from "@/features/admin/lib/song-upload";

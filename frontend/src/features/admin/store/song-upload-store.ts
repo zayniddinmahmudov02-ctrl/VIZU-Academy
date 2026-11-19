@@ -217,7 +217,7 @@ async function uploadOne(r: UploadRow) {
     const savedSong = await uploadSong(r.file!, {
       title: r.title.trim() || r.name, artist: r.artist.trim(), album: r.album.trim(), genre: r.genre.trim(), language: r.language.trim() || "de", level: r.level,
       access_type: r.access_type, price: r.access_type === "PAID" ? r.price : undefined, status: r.status,
-      sha256: r.sha ?? undefined, defer_metadata: true, allow_duplicate: r.allowDup ? true : undefined,
+      sha256: r.sha ?? undefined, defer_metadata: true, check_duplicate: r.allowDup ? undefined : true,
     }, r.cover, (percent) => { if (percent - last >= 5 || percent === 100) { last = percent; useSongUpload.getState().patch(r.key, { percent: Math.min(99, percent) }); } });
     useSongUpload.getState().patch(r.key, { state: "done", percent: 100, songId: savedSong.id, title: savedSong.title, artist: savedSong.artist ?? r.artist,
       processing: savedSong.metadata_status ?? null, info: infoLine({ audio_format: savedSong.audio_format ?? null, duration_ms: savedSong.duration_ms ?? null,
@@ -258,17 +258,19 @@ async function pollProcessing() {
 
 if (typeof window !== "undefined") {
   window.setInterval(() => { void pollProcessing(); }, POLL_MS);
+  // saved at most once a second, but always (a debounce would never fire while 500 files keep the list changing)
   let timer: number | undefined;
-  useSongUpload.subscribe((s) => {
-    window.clearTimeout(timer);
-    timer = window.setTimeout(() => {
-      try {
-        if (!s.rows.length) { window.localStorage.removeItem(STORAGE_KEY); return; }
-        const rows = s.rows.map((r) => ({ ...r, file: undefined, cover: undefined }));
-        window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ v: 1, defaults: s.defaults, rows }));
-      } catch { /* storage full / blocked: the upload itself goes on */ }
-    }, 800);
-  });
+  const save = () => {
+    timer = undefined;
+    const s = useSongUpload.getState();
+    try {
+      if (!s.rows.length) { window.localStorage.removeItem(STORAGE_KEY); return; }
+      const rows = s.rows.map((r) => ({ ...r, file: undefined, cover: undefined }));
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ v: 1, defaults: s.defaults, rows }));
+    } catch { /* storage full / blocked: the upload itself goes on */ }
+  };
+  useSongUpload.subscribe(() => { if (timer === undefined) timer = window.setTimeout(save, 1000); });
+  window.addEventListener("pagehide", save);
   window.addEventListener("beforeunload", (e) => {
     const s = useSongUpload.getState();
     if (s.running && s.rows.some((r) => r.state === "up" || r.state === "wait" || r.state === "hashing")) { e.preventDefault(); e.returnValue = ""; }

@@ -1,7 +1,7 @@
 """Musik bulk upload (up to 500 songs) — backend, against PostgreSQL (VIZU_WB_TEST_DB_URL) with ffmpeg (FFMPEG_BIN):
 * permissions of the new routes (401 / 403);
 * a song is only stored when the file arrived complete (browser SHA-256 = stored SHA-256, else 400 and nothing is left behind);
-* duplicates: the same content → 409 SONG_DUPLICATE with the existing id (no second file on disk) unless allow_duplicate; the same NAME with other
+* duplicates (`check_duplicate`, sent by the bulk upload): the same content → 409 SONG_DUPLICATE with the existing id (no second file on disk); without the\n  flag (other callers, "upload anyway") a copy is stored; the same NAME with other
   content is not a duplicate; two parallel uploads of one file → exactly one is stored; the pre-check endpoint;
 * the metadata queue: a deferred upload is PENDING, the worker reads duration / format / tags one by one, a file that is not audio becomes INVALID
   and DRAFT, one bad file does not stop the queue;
@@ -110,6 +110,7 @@ class TestSongBulkUpload(unittest.TestCase):
         return r
 
     def upload(self, data: bytes, name: str, title: str | None = None, expect=200, **fields):
+        fields.setdefault("check_duplicate", True)  # what the bulk upload sends
         form = {"title": title or f"T{self.tag} {name}", "status": "PUBLISHED", **{k: str(v).lower() if isinstance(v, bool) else v for k, v in fields.items()}}
         r = self.api("post", "/admin/medien/songs", "admin", expect=expect, data=form, files={"file": (name, data, "audio/mpeg")})
         if r.status_code == 200:
@@ -154,8 +155,8 @@ class TestSongBulkUpload(unittest.TestCase):
         r = self.upload(data, "lied-kopie.mp3", expect=409, sha256=sha(data))
         self.assertIn(f"SONG_DUPLICATE: {first['id']}", r.json()["message"])
         self.assertEqual(self.stored_files(), before + 1)
-        # … unless the admin wants a copy
-        self.upload(data, "lied-kopie.mp3", sha256=sha(data), allow_duplicate=True)
+        # … unless the admin wants a copy (the check is not asked for)
+        self.upload(data, "lied-kopie.mp3", sha256=sha(data), check_duplicate=False)
         self.assertEqual(self.stored_files(), before + 2)
         # the same NAME with other content is not a duplicate
         other = self.base + self.tag.encode() + b"\x00unique-2b"
@@ -169,7 +170,7 @@ class TestSongBulkUpload(unittest.TestCase):
         data = self.base + self.tag.encode() + b"\x00unique-3"
 
         def send(i):
-            return self.client.post("/api/v1/admin/medien/songs", data={"title": f"T{self.tag} parallel {i}", "sha256": sha(data)},
+            return self.client.post("/api/v1/admin/medien/songs", data={"title": f"T{self.tag} parallel {i}", "sha256": sha(data), "check_duplicate": "true"},
                                     files={"file": (f"p{i}.mp3", data, "audio/mpeg")}).status_code
 
         from app.api.dependencies.auth import get_current_user
@@ -229,7 +230,7 @@ class TestSongBulkUpload(unittest.TestCase):
         before = self.stored_files()
 
         def send(i):
-            r = self.client.post("/api/v1/admin/medien/songs", data={"title": f"T{self.tag} stress {i:03d}", "sha256": sha(files[i]), "defer_metadata": "true"},
+            r = self.client.post("/api/v1/admin/medien/songs", data={"title": f"T{self.tag} stress {i:03d}", "sha256": sha(files[i]), "defer_metadata": "true", "check_duplicate": "true"},
                                  files={"file": (f"stress-{i:03d}.mp3", files[i], "audio/mpeg")})
             return r.status_code, r.text[:200]
 

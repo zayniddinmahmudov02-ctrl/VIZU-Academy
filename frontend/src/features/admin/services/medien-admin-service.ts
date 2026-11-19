@@ -74,7 +74,8 @@ export interface AdminItem {
   /** read from the file on upload: format (mp3, wav, m4a, aac, ogg, flac), bitrate, and whether the reading worked */
   audio_format?: string | null;
   bitrate_kbps?: number | null;
-  metadata_status?: "OK" | "FAILED";
+  /** PENDING / PROCESSING = waiting in the server's metadata queue (bulk upload); INVALID = not readable as audio (set to draft) */
+  metadata_status?: "OK" | "FAILED" | "PENDING" | "PROCESSING" | "INVALID";
   metadata_note?: string | null;
   // film
   duration_minutes?: number | null;

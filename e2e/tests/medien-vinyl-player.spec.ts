@@ -90,7 +90,8 @@ test.beforeAll(async () => {
   ffmpeg(["-f", "lavfi", "-i", "testsrc=size=400x400:rate=1", "-frames:v", "1", join(work, "cover.png")]);
   for (const [i, name] of ["a", "b", "c"].entries()) {
     const path = join(work, `${TAG}-${name}.mp3`);
-    ffmpeg(["-f", "lavfi", "-i", `sine=frequency=${330 + i * 110}:duration=40`, "-c:a", "libmp3lame", path]);
+    // own bytes per run (comment tag): the server refuses the same file twice since 2026-11-19 (an earlier run that did not clean up)
+    ffmpeg(["-f", "lavfi", "-i", `sine=frequency=${330 + i * 110}:duration=40`, "-c:a", "libmp3lame", "-metadata", `comment=${TAG}-${name}`, path]);
     const form = new FormData();
     form.append("file", new Blob([readFileSync(path)], { type: "audio/mpeg" }), `${TAG}-${name}.mp3`);
     if (i < 2) form.append("cover", new Blob([readFileSync(join(work, "cover.png"))], { type: "image/png" }), "cover.png");

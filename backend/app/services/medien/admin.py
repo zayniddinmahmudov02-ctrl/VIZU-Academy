@@ -369,13 +369,14 @@ def song_states(db: Session, ids: list[UUID]) -> list[dict]:
 
 
 async def create_song(db: Session, user: User, data: dict, file: UploadFile, cover: UploadFile | None = None, *, client_sha256: str | None = None,
-                      defer_metadata: bool = False, allow_duplicate: bool = False) -> Song:
+                      defer_metadata: bool = False, check_duplicate: bool = False) -> Song:
     """One song = one request (the bulk upload sends up to 500 this way, a few at a time, each with its own metadata, progress and result; one failure
-    never stops the others).
+    never stops the others). Every stored song gets the SHA-256 of its file.
     * The stored file's SHA-256 must equal the browser's (`client_sha256`), else the file did not arrive complete: removed, 400 CHECKSUM_MISMATCH —
       a song is only reported as uploaded when the whole file is on the disk.
-    * The same file (same SHA-256) as an existing song: removed, 409 SONG_DUPLICATE (+ the existing id) — unless `allow_duplicate`. Checked under
-      an advisory lock on the hash, so two parallel uploads of one file cannot both pass. The same NAME with other content is not a duplicate.
+    * `check_duplicate` (the bulk upload): the same file (same SHA-256) as an existing song is removed again, 409 SONG_DUPLICATE (+ the existing id).
+      Checked under an advisory lock on the hash, so two parallel uploads of one file cannot both pass. The same NAME with other content is not a
+      duplicate.
     * `defer_metadata`: the metadata is read by the background queue (song_processing) instead of in this request."""
     values = clean(db, KIND_SONG, data)
     key, ext, size, info, sha = await _store_song_file(file, read_meta=not defer_metadata)
@@ -387,7 +388,7 @@ async def create_song(db: Session, user: User, data: dict, file: UploadFile, cov
     cover_key = None
     try:
         db.execute(text("SELECT pg_advisory_xact_lock(hashtext(:h))"), {"h": sha})
-        if not allow_duplicate:
+        if check_duplicate:
             dup = db.scalars(select(Song).where(Song.sha256 == sha).order_by(Song.created_at).limit(1)).first()
             if dup is not None:
                 raise c.err(409, f"SONG_DUPLICATE: {dup.id} {dup.title}"[:300])

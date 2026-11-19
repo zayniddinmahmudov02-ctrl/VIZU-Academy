@@ -424,6 +424,23 @@ notifications, support, advertisements ("Werbung-Banner"), achievements.
     "Übersetzung" switches (+ translation language) besides the language list (`lib/subtitles.ts` `switchesOf` / `stateFromSwitches`); Russian card in the admin.
   - *Tests:* `test_medien_subtitle_ai` (16 unit), `test_medien_subtitle_jobs` (5 integration, real ffmpeg), `test_medien_subtitle_ai_migration`; unit `medien-reader-shelf.test.mjs`;
     E2E `medien-ai-subtitles-reader.spec.ts`.
+- **Musik bulk upload of up to 500 songs (2026-11-19, migration `e8a3c5f1b7d2` `songs.sha256`):** the 10-file limit is gone (it was in the frontend only).
+  - *Frontend:* `fe/features/admin/store/song-upload-store.ts` (zustand, lives outside the page: switching admin pages does not stop it) + pure helpers
+    `fe/features/admin/lib/song-upload.ts` (unit `song-upload.test.mjs`); `songs-admin.tsx` BulkUpload = drag & drop / multi-select, per file: SHA-256 in the
+    browser → duplicate check (same file twice in the list; already on the server via `POST /admin/medien/songs/duplicates`, batches of 25) → upload
+    `CONCURRENCY` = 3 at a time, one request per file, progress per file; panel Gesamt / Hochgeladen / Verbleibend / Fehler / Doppelt / Metadaten in
+    Arbeit + percent of bytes; filter tabs, 50 rows a page, pause / continue, retry one / all failed, "Trotzdem hochladen" for a duplicate. The list
+    (without files) is saved in localStorage at most once a second: after a reload the same files are chosen again (matched by name + size + date) and
+    only the missing ones go up; a warning before leaving while uploading.
+  - *Backend:* `POST /admin/medien/songs` takes `sha256` (the stored file must match, else 400 `CHECKSUM_MISMATCH` and nothing stays), `check_duplicate`
+    (409 `SONG_DUPLICATE: <id> <title>`, under `pg_advisory_xact_lock(hashtext(sha))` so parallel copies cannot both pass; without it the endpoint
+    behaves as before), `defer_metadata` (status PENDING → `services/medien/song_processing.py` queue: one ffprobe at a time in a worker thread,
+    claim `FOR UPDATE SKIP LOCKED`, OK / FAILED / INVALID = not audio → DRAFT; `main.py` lifespan resumes it; `SONG_PROCESSING_WORKER_ENABLED`).
+    `POST /admin/medien/songs/states` (what the queue read), `GET /admin/medien/songs/processing` (queue size). Originals are stored unchanged.
+    `LocalStorage` size errors are `UploadTooLarge` now (a path race under parallel uploads was misreported as "too large"; the path check retries).
+  - *Script:* `app/scripts/medien_song_hashes.py` plan / apply --confirm (hash of older songs). *Tests:* `test_medien_bulk_upload` (incl. parallel
+    copies; `VIZU_STRESS_500=1` = 500 files, 6 parallel), `test_medien_song_hash_migration`; E2E `medien-bulk-500.spec.ts` (500 files, reload + resume,
+    duplicates, lost connection + retry, other admin page meanwhile).
 - **Bibliothek bookshelf + book reader (2026-11-19, frontend only):** `bibliothek-client.tsx` = one shelf per category (admin order; books without one → "Weitere Bücher"),
   boards stacked vertically, books per board from the width (`lib/shelf.ts` `shelfColumns`: ≥ 96 px covers on phones, 2–8), covers 2:3 with title + author below the board,
   free / bought / price + lock sign; page size 60. Reader book mode (`book-view.tsx`, maths in `lib/reader-gestures.ts`): page fitted to the screen, previous / current / next

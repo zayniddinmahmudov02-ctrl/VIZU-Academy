@@ -31,7 +31,8 @@ function pdf(pages: number): Buffer {
 }
 
 function ffmpeg(args: string[]) { execFileSync(FFMPEG, ["-nostdin", "-v", "error", "-y", ...args], { stdio: "pipe" }); }
-const mp3 = (name: string, seconds = 12, dir = work) => { const p = join(dir, name); ffmpeg(["-f", "lavfi", "-i", `sine=frequency=${300 + (name.length % 7) * 40}:duration=${seconds}`, "-c:a", "libmp3lame", p]); return p; };
+// every file has its own bytes (a comment tag with its name): the bulk upload refuses the same file twice since 2026-11-19
+const mp3 = (name: string, seconds = 12, dir = work) => { const p = join(dir, name); ffmpeg(["-f", "lavfi", "-i", `sine=frequency=${300 + (name.length % 7) * 40}:duration=${seconds}`, "-c:a", "libmp3lame", "-metadata", `comment=${name}`, p]); return p; };
 const mp4Path = () => { const p = join(work, "film.mp4"); ffmpeg(["-f", "lavfi", "-i", "testsrc=duration=20:size=320x180:rate=15", "-f", "lavfi", "-i", "sine=frequency=440:duration=20", "-c:v", "libx264", "-pix_fmt", "yuv420p", "-c:a", "aac", "-shortest", p]); return p; };
 
 const SRT = "1\n00:00:00,500 --> 00:00:03,000\nGuten Tag Welt\n\n2\n00:00:03,500 --> 00:00:05,500\nAuf Wiedersehen\n";
@@ -295,7 +296,7 @@ test.describe.serial("Medienwelt", () => {
     await ctx.close();
   });
 
-  test("admin: bulk upload of 10 songs (one is not audio), per-file progress, edit, hide", async ({ page }) => {
+  test("admin: bulk upload of 10 songs (one is not audio) + the same file again, per-file progress, edit, hide", async ({ page }) => {
     await adminLogin(page);
     await page.goto("/admin/medien/musik");
     const files = Array.from({ length: 9 }, (_, i) => ({ name: `${TAG}-song${i + 1}.mp3`, mimeType: "audio/mpeg", buffer: readFileSync(mp3(`${TAG}-song${i + 1}.mp3`)) }));
@@ -304,15 +305,16 @@ test.describe.serial("Medienwelt", () => {
     await page.getByTestId("bulk-defaults").getByLabel("Genre (Vorgabe)").fill("Pop");
     await page.getByTestId("bulk-file").setInputFiles(files);
     await expect(page.getByTestId("bulk-row")).toHaveCount(10);
-    // an eleventh file is not taken
+    // an eleventh file is taken (the limit is 500 since 2026-11-19) — it is the same file as the first one, so it is marked as a duplicate and not sent
     await page.getByTestId("bulk-file").setInputFiles([{ name: "elf.mp3", mimeType: "audio/mpeg", buffer: files[0].buffer }]);
-    await expect(page.getByTestId("bulk-row")).toHaveCount(10);
-    await expect(page.getByTestId("bulk-note")).toContainText("10");
+    await expect(page.getByTestId("bulk-row")).toHaveCount(11);
+    await expect(page.locator('[data-testid="bulk-row"][data-file="elf.mp3"]')).toHaveAttribute("data-state", "dup");
     await page.getByTestId("bulk-row").nth(0).getByLabel("Album").fill("Testalbum");
     await page.getByTestId("bulk-row").nth(1).getByLabel("Niveau").selectOption("B1");
     await page.getByTestId("bulk-start").click();
     await expect(page.getByTestId("bulk-summary")).toContainText("9 hochgeladen", { timeout: 120_000 });
     await expect(page.getByTestId("bulk-summary")).toContainText("1 mit Fehler");
+    await expect(page.getByTestId("bulk-summary")).toContainText("1 doppelt");
     await expect(page.locator('[data-testid="bulk-row"][data-state="error"]')).toHaveCount(1);
     await expect(page.locator('[data-testid="bulk-row"][data-state="error"]').getByTestId("bulk-error")).toContainText("nicht");
     await expect(page.locator('[data-testid="bulk-row"][data-state="done"]')).toHaveCount(9); // the failure did not stop the others

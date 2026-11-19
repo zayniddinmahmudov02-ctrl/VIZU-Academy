@@ -293,16 +293,17 @@ async def create_song(file: UploadFile = File(...), cover: UploadFile | None = F
                       album: str | None = Form(None), genre: str | None = Form(None), language: str | None = Form(None), level: str | None = Form(None),
                       access_type: str | None = Form(None), price: str | None = Form(None), old_price: str | None = Form(None),
                       is_featured: str | None = Form(None), status: str | None = Form(None),
-                      sha256: str | None = Form(None, pattern="^[0-9a-fA-F]{64}$"), defer_metadata: bool = Form(False), allow_duplicate: bool = Form(False),
+                      sha256: str | None = Form(None, pattern="^[0-9a-fA-F]{64}$"), defer_metadata: bool = Form(False), check_duplicate: bool = Form(False),
                       db: Session = Depends(get_db), user: User = Depends(require_content_editor)):
     """One song with its metadata (the bulk upload calls this once per file — up to 500, a few at a time — so each has its own progress and error).
     `sha256` = the browser's hash of the file (the stored file must match it), `defer_metadata` = read the metadata in the background queue,
-    `allow_duplicate` = store it although the same file already exists (409 SONG_DUPLICATE otherwise)."""
+    `check_duplicate` = refuse the same file as an existing song (409 SONG_DUPLICATE) — the bulk upload sends it unless the admin chose
+    "upload anyway"; without it the endpoint behaves as before."""
     data = _form(title=title, artist=artist, album=album, genre=genre, language=language, level=level, access_type=access_type, price=price,
                  old_price=old_price, is_featured=is_featured, status=status)
     if "title" not in data:
         data["title"] = (file.filename or "").rsplit(".", 1)[0]
-    song = await svc.create_song(db, user, data, file, cover, client_sha256=sha256, defer_metadata=defer_metadata, allow_duplicate=allow_duplicate)
+    song = await svc.create_song(db, user, data, file, cover, client_sha256=sha256, defer_metadata=defer_metadata, check_duplicate=check_duplicate)
     return svc.admin_card(SONG_KIND, song, db)
 
 
