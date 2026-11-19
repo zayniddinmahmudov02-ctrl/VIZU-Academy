@@ -196,8 +196,9 @@ API prefixes are listed without `/api/v1` (every router is mounted bare and unde
   computes every price. Only lesson 1 of each course is free.
 - **Multilevel Modelltest Premium (2026-11-16, migration `a7c4e2f9b1d8`):** `be/services/vizu_pay/multilevel_premium.py` — one
   purchase (`plan = ML_PREMIUM`, default 99 000 = `offers.ML_PREMIUM_PRICE`, admin override `app_settings["multilevel_premium"]`)
-  opens all 10 Multilevel Modelltests, unlimited; access = active `user_entitlements` row (PAYMENT on approval, PROMO for a 100 %
-  Multilevel code) or staff (`access.can_access_model_test` → `has_multilevel_premium`; legacy Premium does not open it); manual
+  opens Multilevel Modelltest 7–10, unlimited (1–6 are free for every logged-in user since 2026-11-19, `multilevel_service.OPEN_TEST_NUMBERS`);
+  access = active `user_entitlements` row (PAYMENT on approval, PROMO for a 100 %
+  Multilevel code) or staff (`access.can_access_model_test` → `open_test` or `has_multilevel_premium`; legacy Premium does not open it); manual
   card payment with receipt or "Chek mavjud emas" + date/time, no auto-expiry, one open ML order, refund revokes. Student
   `fe/features/vizu-pay/components/multilevel-premium-modal.tsx` on `/vorbereitung/multilevel` (10 cards, LOCKED / OPEN /
   "Tayyorlanmoqda" for DRAFT tests).
@@ -210,7 +211,7 @@ API prefixes are listed without `/api/v1` (every router is mounted bare and unde
   (`fe/features/admin/components/payments/{payments-sections,payment-tabs,buyer-card}.tsx`).
 - **Tests:** `test_angebote`, `test_course_packages*`, `test_promo_*`, `test_admin_purchase_analytics`,
   `test_course_access_terms`, `test_multilevel_premium*`; E2E `purchase.spec.ts`, `multilevel-premium.spec.ts` (E2E helper
-  `grantMultilevelPremium` in `e2e/tests/helpers.ts` for specs that start Multilevel exams).
+  `grantMultilevelPremium` in `e2e/tests/helpers.ts`; Modelltest 1–6 no longer need it).
 
 ## 12. Admin CMS
 
@@ -313,9 +314,14 @@ See `deployment-map.md`, skill `vizu-deploy`, `docs/deploy-frontend.md`, `docs/l
 VIZU-Multilevel level test (student UI name "Stufe Bestimmung" since 2026-11-05; code, routes, APIs and admin keep
 "VIZU-Multilevel"; `/vizu-multilevel`, legacy alias `/vizu-mock`, `be/services/vizu_multilevel/`,
 `fe/app/(dashboard)/vizu-multilevel`), Vorbereitung mock exams (`/mock-exam*`, `be/services/mock_exam/`,
-`fe/app/(dashboard)/vorbereitung`; all 10 Multilevel Modelltests need the Multilevel Premium (see §11) — the student list shows every
+`fe/app/(dashboard)/vorbereitung`; **Multilevel Modelltest 1–6 are free and open** for every logged-in student, 7–10 need the Multilevel Premium (see §11) — the student list shows every
 test, DRAFT ones as "Tayyorlanmoqda"; Multilevel Modelltest 1–10 import, keys, source PDF, publish guard:
-`be/services/mock_exam/multilevel_service.py`, `scripts/multilevel_import.py`, `docs/multilevel-modelltests.md`; timed
+`be/services/mock_exam/multilevel_service.py`, `scripts/multilevel_import.py`, `docs/multilevel-modelltests.md`; **open tests 1–6** (2026-11-19, no migration):
+`readiness()` gives `warn_only` / `publishable` / `warnings` — missing keys and audio are warnings, only a missing section blocks; 7–10 keep the full rule
+(`MODEL_TEST_NOT_READY`); a question without a key is not scored (`multilevel_exam_service._has_key`, not in `raw_max`), a closed Lesen / Hören without any key
+is "not scored" (`no_key`) and leaves the total (max 225 instead of 300, `attempt.max_score`); a Hören Teil without audio shows "Audio noch nicht verfügbar";
+detaching audio keeps 1–6 published; script `app/scripts/multilevel_open_tests.py` plan / apply --confirm (links the unused "Variant 1 Hören" original as the
+shared audio of Modelltest 1, publishes 1–6, audit `multilevel_open_publish`); tests `test_multilevel_open_tests`, E2E `multilevel-open-tests.spec.ts`; timed
 exam mode + 0–75 scoring + B1/B2/C1 result: `be/services/mock_exam/multilevel_exam_service.py`, student
 `fe/app/(dashboard)/vorbereitung/multilevel/{pruefung,ergebnis}`, admin `fe/app/admin/mock-exams/multilevel`, tests
 `test_multilevel_exam*`, E2E `multilevel-exam.spec.ts`; **Multilevel Audio** (admin `/admin/mock-exams/multilevel-audio`,

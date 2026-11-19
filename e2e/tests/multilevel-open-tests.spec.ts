@@ -5,7 +5,7 @@ import { ADMIN, API_URL, PASSWORD, apiToken, createStudent, loginViaForm } from 
 // Multilevel Modelltest 1–6 open for every student (2026-11-18), local stack only. Admin: a Modelltest of 1–6 without Lesen keys / Hören
 // audio shows only warnings and "Veröffentlichen" works; Modelltest 7 keeps the full rule. Student without any Premium: 1–6 are open, a test
 // without audio starts, the Hören Teile show "audio not available" and can be answered, the exam finishes, the Lesen part without keys is
-// "not scored" and the total is out of 225. Modelltest 2 is put back to its old status afterwards.
+// "not scored" and the total is out of 225. The chosen Modelltest (2–6, no audio, no Lesen keys) is put back to its old status afterwards.
 
 async function api(method: string, path: string, bearer: string, body?: unknown) {
   const res = await fetch(`${API_URL}/api/v1${path}`, {
@@ -28,27 +28,37 @@ async function confirmDialog(page: Page, label: string) {
 test.describe.serial("Multilevel Modelltest 1–6 open", () => {
   test.skip(({ isMobile }) => isMobile, "desktop");
   let admin = "";
-  const ids: Record<number, { id: string; url: string; status: string }> = {};
+  let number = 0; // a Modelltest of 2–6 without any Hören audio and without Lesen keys (other specs may have given 2 an audio / keys)
+  const ids: Record<string, { id: string; url: string; status: string }> = {};
 
   test.beforeAll(async () => {
     admin = await apiToken(ADMIN.email, ADMIN.password);
-    const exams = (await api("GET", "/multilevel-exam/exams", admin)).json as { model_test_id: string; number: number }[];
-    for (const n of [2, 7]) {
-      const id = exams.find((e) => e.number === n)!.model_test_id;
-      const mt = (await api("GET", `/mock-exam/model-tests/${id}`, admin)).json as { level_id: string; status: string };
-      const level = (await api("GET", `/mock-exam/levels/${mt.level_id}`, admin)).json as { provider_id: string };
-      ids[n] = { id, url: `/admin/mock-exams/${level.provider_id}/${mt.level_id}/${id}`, status: mt.status };
+    const all = (await api("GET", "/mock-exam/model-tests", admin)).json as { id: string; level_id: string; status: string }[];
+    const levels = (await api("GET", "/mock-exam/levels", admin)).json as { id: string; provider_id: string }[];
+    const overview = (await api("GET", "/admin/multilevel-audio", admin)).json as { tests: { model_test_id: string; sort_order: number; slots: { status: string }[] }[] };
+    const entry = (id: string) => {
+      const mt = all.find((t) => t.id === id)!;
+      const level = levels.find((l) => l.id === mt.level_id)!;
+      return { id, url: `/admin/mock-exams/${level.provider_id}/${mt.level_id}/${id}`, status: mt.status };
+    };
+    for (const t of overview.tests.filter((x) => x.sort_order >= 2 && x.sort_order <= 6)) {
+      if (t.slots.some((s) => s.status !== "missing")) continue;
+      const lesen = (await api("GET", `/admin/multilevel-exam/model-tests/${t.model_test_id}/answer-keys?section=LESEN`, admin)).json as { keys_set: number };
+      if (lesen.keys_set === 0) { number = t.sort_order; ids.open = entry(t.model_test_id); break; }
     }
+    expect(number, "no Modelltest 2–6 without audio and Lesen keys in the local DB").toBeGreaterThan(0);
+    ids.seven = entry(overview.tests.find((x) => x.sort_order === 7)!.model_test_id);
   });
 
   test.afterAll(async () => {
-    if (ids[2] && ids[2].status !== "PUBLISHED") await api("PUT", `/mock-exam/model-tests/${ids[2].id}`, admin, { status: ids[2].status });
+    // the local DB gets its old status back (DRAFT is always allowed)
+    if (ids.open && ids.open.status !== "PUBLISHED") await api("PUT", `/mock-exam/model-tests/${ids.open.id}`, admin, { status: ids.open.status });
   });
 
-  test("admin: Modelltest 2 without Lesen keys / Hören audio — warnings only, Veröffentlichen works; Modelltest 7 keeps the full rule", async ({ page }) => {
-    if (ids[2].status === "PUBLISHED") await api("PUT", `/mock-exam/model-tests/${ids[2].id}`, admin, { status: "DRAFT" });
+  test("admin: a Modelltest of 1–6 without Lesen keys / Hören audio — warnings only, Veröffentlichen works; Modelltest 7 keeps the full rule", async ({ page }) => {
+    if (ids.open.status === "PUBLISHED") await api("PUT", `/mock-exam/model-tests/${ids.open.id}`, admin, { status: "DRAFT" });
     await adminLogin(page);
-    await page.goto(ids[2].url);
+    await page.goto(ids.open.url);
     const panel = page.getByTestId("model-test-review");
     await expect(panel).toBeVisible();
     await expect(panel.getByTestId("publish-warnings")).toContainText("Nur Warnungen — Veröffentlichen ist möglich");
@@ -57,14 +67,15 @@ test.describe.serial("Multilevel Modelltest 1–6 open", () => {
     await expect(panel).toContainText("Veröffentlicht");
     await expect(panel.getByTestId("toggle-publish")).toContainText("Verbergen");
     await page.screenshot({ path: "test-results/ml-open-admin.png" });
-    expect((await api("GET", `/mock-exam/model-tests/${ids[2].id}`, admin)).json.status).toBe("PUBLISHED");
+    const statusOf = async (id: string) => ((await api("GET", "/mock-exam/model-tests", admin)).json as { id: string; status: string }[]).find((t) => t.id === id)!.status;
+    expect(await statusOf(ids.open.id)).toBe("PUBLISHED");
 
-    await page.goto(ids[7].url);
+    await page.goto(ids.seven.url);
     const p7 = page.getByTestId("model-test-review");
     await expect(p7).toBeVisible();
     await p7.getByTestId("toggle-publish").click();
     await expect(p7).toContainText("MODEL_TEST_NOT_READY");
-    expect((await api("GET", `/mock-exam/model-tests/${ids[7].id}`, admin)).json.status).toBe("DRAFT");
+    expect(await statusOf(ids.seven.id)).toBe("DRAFT");
   });
 
   test("student without Premium: Modelltest 1–6 open; a test without audio starts, Hören works, Lesen without keys is not scored", async ({ page }) => {
@@ -73,17 +84,17 @@ test.describe.serial("Multilevel Modelltest 1–6 open", () => {
     await loginViaForm(page, student, PASSWORD);
     await expect(page).toHaveURL(/\/dashboard/);
     await page.goto("/vorbereitung/multilevel");
-    for (const n of [1, 2]) {
+    for (const n of [1, number]) {
       const card = page.getByTestId(`multilevel-exam-${n}`);
       await expect(card).toHaveAttribute("data-access", "OPEN");
       await expect(card.getByTestId("start-exam")).toBeVisible();
     }
-    for (const n of [3, 4, 5, 6]) await expect(page.getByTestId(`multilevel-exam-${n}`)).not.toHaveAttribute("data-access", "LOCKED");
+    for (const n of [2, 3, 4, 5, 6]) await expect(page.getByTestId(`multilevel-exam-${n}`)).not.toHaveAttribute("data-access", "LOCKED");
     await expect(page.getByTestId("multilevel-exam-7")).toHaveAttribute("data-access", "LOCKED");
     const bearer = await apiToken(student, PASSWORD);
     expect(((await api("GET", "/vizu-pay/multilevel", bearer)).json).entitled).toBe(false); // no Premium involved
 
-    await page.getByTestId("multilevel-exam-2").getByTestId("start-exam").click();
+    await page.getByTestId(`multilevel-exam-${number}`).getByTestId("start-exam").click();
     await expect(page.getByTestId("exam-overview")).toBeVisible();
     // Lesen: answer the first question, hand in
     await page.getByTestId("exam-section-LESEN").getByRole("button", { name: "Teil starten" }).click();

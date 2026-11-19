@@ -1,16 +1,17 @@
 ﻿# Current state
 
-Updated 2026-11-18.
+Updated 2026-11-19.
 
 ## Revisions
 
 | Where | Revision | Note |
 | --- | --- | --- |
 | `origin/main` | `b1999043` (owner pushes 2026-11-15 07:23 / 08:10 = overlays 5 + 6 and the unfinished work of overlay 7) | **the pushes also contain `frontend/.next-e2e/` (3 458 build files, 95 MB)**: `.next-e2e` is now in `frontend/.gitignore`; the owner should `git rm -r --cached frontend/.next-e2e` and commit BEFORE the server pulls (otherwise `git merge` writes them onto the server). Local machine still has no git |
-| Server checkout | `0cb7b165` + LF overlays 5, 6, **7 "Musik fix + Bibliothek + book payments"** (44 files, `books_overlay.tar` in `pre-books-pay-…`) + `set_admin_verification` script (7b) and **8 "Multilevel Hören keys + exam times"** (38 files; list = `overlay-replaced.txt` / `ml_overlay.tar`, originals `overlay-originals.tar` in `pre-ml-keys-…`) and **9 "Modelltest 1 shared Hören audio"** (28 files, `ml_shared_overlay.tar` + originals in `pre-ml-shared-audio-…`) and **11 "Musik vinyl player"** (17 files, frontend only, `vinyl_overlay.tar` + originals in `pre-vinyl-…`) and **10 "Multilevel Premium + promo approval"** (58 files, `ml_premium_overlay.tar` + originals in `pre-ml-premium-…`; `translations-extra.ts` there was the overlay-5 / `origin/main` blob `b0c98744`, accepted). `origin/main` is at `020cc329` (owner push after 2026-11-16); not synced with origin on purpose (see above); once the owner has pushed the final files and removed `.next-e2e`: dirty files identical to `origin/main` → `git checkout` them → `git merge --ff-only` |
+| Server checkout | `0cb7b165` + LF overlays 5, 6, **7 "Musik fix + Bibliothek + book payments"** (44 files, `books_overlay.tar` in `pre-books-pay-…`) + `set_admin_verification` script (7b) and **8 "Multilevel Hören keys + exam times"** (38 files; list = `overlay-replaced.txt` / `ml_overlay.tar`, originals `overlay-originals.tar` in `pre-ml-keys-…`) and **9 "Modelltest 1 shared Hören audio"** (28 files, `ml_shared_overlay.tar` + originals in `pre-ml-shared-audio-…`) and **11 "Musik vinyl player"** (17 files, frontend only, `vinyl_overlay.tar` + originals in `pre-vinyl-…`) and **10 "Multilevel Premium + promo approval"** (58 files, `ml_premium_overlay.tar` + originals in `pre-ml-premium-…`; `translations-extra.ts` there was the overlay-5 / `origin/main` blob `b0c98744`, accepted) and **12 "Multilevel Modelltest 1–6 open"** (35 files `mlopen_overlay.tar` + 2-file fix `mlopen_overlay2.tar`, originals `overlay-originals.tar` / `overlay2-originals.tar` in `pre-ml-open-…`). `origin/main` is at `020cc329` (owner push after 2026-11-16); not synced with origin on purpose (see above); once the owner has pushed the final files and removed `.next-e2e`: dirty files identical to `origin/main` → `git checkout` them → `git merge --ff-only` |
 | DB (production + local test) | Alembic `a7c4e2f9b1d8` (Multilevel Premium: `user_entitlements`, promo approval / category / personal codes, course promo requests, order `paid_at` / `no_receipt` / notes; applied 2026-11-18; before: `e6d2b9a4c8f3` shared Hören audio, `d4b9e2a7c3f1` Multilevel keys) | SQL preview `migration-a7c4e2f9b1d8.sql` in the backup dir (CREATE TABLE / ADD COLUMN / CHECK / index + the promo backfill: the 2 live codes → ACTIVE + approved by their creator) |
-| Frontend production slot | `.next-a`, deployment `0cb7b165-20261118155245` (overlay 11) | `.next-b` = previous (rollback: `docs/deploy-frontend.md`) |
-| Last backup | `/var/backups/vizu/pre-vinyl-20261118-155102` (DB dump + scratch-DB restore check: 164 tables, 0 differing; SHA256SUMS; 10 originals of overlay 11) | before: `pre-ml-premium-20261118-145207` (overlay 10), `pre-ml-shared-audio-20261116-161216` |
+| Frontend production slot | `.next-b`, deployment `0cb7b165-20261119021359` (overlay 12) | `.next-a` = previous (rollback: `docs/deploy-frontend.md`) |
+| Last backup | `/var/backups/vizu/pre-ml-open-20261119-020756` (DB dump + scratch-DB restore check: 164 tables, 0 differing; SHA256SUMS; originals of overlay 12; script plans / apply output; Multilevel status before) | before: `pre-vinyl-20261118-155102` (overlay 11), `pre-ml-premium-20261118-145207` (overlay 10) |
+| Overlay 12 | "Multilevel Modelltest 1–6 open" 2026-11-19: backend (`services/mock_exam/{multilevel_service,multilevel_exam_service,multilevel_audio}.py`, `services/vizu_pay/{access,multilevel_premium}.py`, new `scripts/multilevel_open_tests.py`, restart, no migration) + frontend slot switch. 12b: the script matched no "Hören" in the stored file name (decomposed "o" + U+0308) → NFC before matching. Data change through the script: `plan` → `apply --confirm 7f3bafd226f2`: "Variant 1 Hören..m4a" (35:30, private storage) linked as Modelltest 1's shared audio, Modelltest 1–6 DRAFT → PUBLISHED; second plan KEEP only; audit 1 + 6. Smoke: 11 pages 200 (local + public), endpoints anonymous 401, new strings in the build, 1–6 PUBLISHED / warn_only / publishable, 7–10 DRAFT, overview free 6 / premium 4 (0 available), MT1 audio ok (file on disk, ffprobe 2130.8 s), 0 attempts, all 5 services active (bots untouched), no new errors |
 | Overlay 11 | "Musik vinyl player" 2026-11-18, frontend only (no migration, no backend restart): large vinyl player, floating disc + panel, X stops for good, one sound at a time, restored song no longer skipped on the first tap. Smoke: 12 pages 200 (local + public), new strings in the build, media endpoints unchanged (anonymous 401 / 422), all 5 services active (bots untouched), logs clean. Android check on a real phone: known-issues #20 |
 | Overlay 10 | "Multilevel Modelltest Premium + promo approval + Promo so'rovi" 2026-11-18: backend (`services/vizu_pay/{multilevel_premium,service,admin_service,access,offers,plans,purchases}.py`, routers, schemas, models, `multilevel_exam_service.py`, migration `a7c4e2f9b1d8`, restart) + frontend slot switch; no data change besides the migration backfill. Smoke: 11 pages 200 (local + public), 12 new / changed endpoints anonymous 401, new strings in the build, product ML_PREMIUM 99 000 ACTIVE, 10 Multilevel tests listed (0 published), nobody without the Premium opens one, the 2 live course codes still work (26 / 14 uses) and are refused for the Multilevel Premium, 0 entitlements / 0 ML orders, all 5 services active (bots untouched), logs clean. **Owner:** known-issues #19 (Premium on sale while all 10 tests are DRAFT) |
 | Overlay 9 | "Modelltest 1 shared Hören audio" 2026-11-16: backend (`services/mock_exam/{multilevel_audio,multilevel_service,multilevel_exam_service}.py`, `audio_files/{router,service}.py`, `models/kompetenz.py`, migration `e6d2b9a4c8f3`, restart) + frontend slot switch; no data change. Smoke: 10 pages 200 (local + public), 6 new admin calls anonymous 401, student stream 422 without / 401 with a bad token, new strings in the build, MT1 = one shared slot (status missing, 6 Teile, 35 questions, 60 min), MT2–6 unchanged per Teil (4 each), 0 audio files / 0 attempts, all 5 services active (bots untouched), logs clean. **Owner action:** upload the Modelltest 1 audio in Admin → Vorbereitung → Multilevel Audio (no audio was created on production) |
@@ -28,19 +29,25 @@ bundle strike-through prices) are no longer read. 33 orders, 2 promo codes, 0 ap
 
 ## Content (production)
 
-- Vorbereitung Multilevel (2026-11-05): level "Multilevel B1–C1" (NATIONAL) with Modelltest 1–10, all **DRAFT**. 1–6: 535
-  questions in total incl. 7–10; 1–6: Hören keys set 2026-11-16 (overlay 8), Lesen keys 0 (PDFs have none) + Hören audio missing (Modelltest 1: ONE shared audio, 2–6: 4 Teile each) → admin enters keys/audio,
-  then publishes; 7–10: 35/35 keys, Hören "Noch nicht verfügbar", Sprechen 1.2 pictures missing. Check-list per test
-  (`docs/multilevel-modelltests.md`). Since 2026-11-06 a timed exam mode exists (`/vorbereitung/multilevel`), but **no test
-  is publishable yet**: 1–6 need keys + Hören audio, 7–10 need Hören tasks (guard: all four sections). Scoring settings at
-  defaults (50 = Ungeklärt, overall rule unconfirmed). 0 attempts.
+- Vorbereitung Multilevel: level "Multilevel B1–C1" (NATIONAL) with Modelltest 1–10, 535 questions in total. **1–6 PUBLISHED and free
+  for every logged-in student since 2026-11-19**: Hören keys 35 / 30 (overlay 8), Lesen keys 0 (PDFs have none → Lesen "not scored", total /225),
+  Modelltest 1 plays the shared "Variant 1 Hören" audio (35:30), 2–6 have no Hören audio (4 Teile each, "Audio noch nicht verfügbar").
+  7–10 **DRAFT** (Premium only): 35/35 keys, Hören tasks missing, Sprechen 1.2 pictures missing. Check-list per test
+  (`docs/multilevel-modelltests.md`). Scoring settings at defaults (50 = Ungeklärt, overall rule unconfirmed). 0 attempts at deploy.
 
 - Battle (2026-11-05): 89 published A1 picture words + 89 published pictures, 6 published themes; all stages playable (A2+ use A1 words).
 - A2: lessons 1–13 published (14 "Wiederholung" draft); Hören 22/27 published (L6 + L13 open, see known-issues).
 - A2 written tasks: Schreiben 25 · Grammatik 5 · Wortschatz 9 · Lesen 1 (`writings.competency`).
 - A2 Wortschatz: 216 words, 32 published test sets. A2 readiness `NEEDS_CONTENT`; sales enabled.
 
-## Last verification (2026-11-16 · Multilevel Hören keys + exam times)
+## Last verification (2026-11-19 · Multilevel Modelltest 1–6 open)
+
+- Local: backend full suite 1161 passed / 17 skipped (new `test_multilevel_open_tests`: guard warn-only for 1–6 / full for 7, access 1–6 free + 7–10 locked + anonymous
+  refused, script plan / apply / wrong id / LINK_SHARED incl. a decomposed file name / MANUAL / BLOCKED / KEEP, scoring 38 / 225 with Lesen not scored, detach keeps
+  1–6 published); frontend eslint clean, unit 59/59, build OK; E2E `multilevel-open-tests` (desktop 2 + phone 1), `multilevel-premium` (desktop 6 + phone 1),
+  `multilevel-exam`, `-keys`, `-shared-audio`, `-audio` (desktop 14 + phone 10) all green.
+
+## Earlier verification (2026-11-16 · Multilevel Hören keys + exam times)
 
 - Local: backend 1137 passed / 17 skipped (new: `test_multilevel_keys` 14 incl. the real ten Modelltests built in a throwaway DB, the script plan / apply / conflict / idempotence, editing + import rules,
   35- and 30-question scoring, exam times 60 / 60 / 60 / 15, a timer that survives a refresh and the automatic close at the deadline; `test_multilevel_keys_migration`), frontend tsc + eslint clean,
@@ -132,4 +139,4 @@ bundle strike-through prices) are no longer read. 33 orders, 2 promo codes, 0 ap
 
 ## Open decisions for the owner
 
-See `known-issues.md` #1–#8, #13, #15–#17.
+See `known-issues.md` #1–#8, #13, #15–#20.

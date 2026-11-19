@@ -1,6 +1,6 @@
 # Known issues
 
-Updated 2026-11-05. Remove an entry when it is fixed (and note it in `recent-changes.md`).
+Updated 2026-11-19. Remove an entry when it is fixed (and note it in `recent-changes.md`).
 
 | # | Area | Issue | Since | Next step |
 |---|---|---|---|---|
@@ -20,6 +20,6 @@ Updated 2026-11-05. Remove an entry when it is fixed (and note it in `recent-cha
 | 15 | Battle content | only A1 has picture words (89); A2…C1 stages play with A1 words until their own words + checked pictures are published; C1+ has no word source | 2026-11-05 | add words via /admin/battle (Wörterbuch ID + Commons / upload) or a new words.json batch |
 | 16 | Battle admin | game avatars, rank badges and achievement icons are code-defined (SVG / config), not admin-uploadable; players can upload a profile photo, admins manage themes, backgrounds, overlay, accent, word pictures | 2026-11-05 | owner decision whether uploads are needed |
 | 17 | Battle prod check | no authenticated match was played on production (no test users there by rule); verified locally (E2E) + anonymous / read-only on production | 2026-11-05 | owner plays one ranked or bot match |
-| 18 | Multilevel | Modelltest 1–6 cannot be published: Lesen keys are missing (0 of 35 / 30 per test) and no Hören audio is uploaded (Modelltest 1: ONE shared audio, 2–6: 4 Teile each); the Hören keys are in since 2026-11-16 | 2026-11-16 | owner: Lesen keys (Admin → Multilevel → Answer Key → Lesen, text import) + audio (Multilevel Audio), then „Veröffentlichen" |
-| 19 | Multilevel Premium | the Premium (99 000 so'm) is on sale while all 10 Modelltests on production are still DRAFT: a buyer sees "0 of 10 ready" in the purchase window and gets the tests as soon as they are published; nothing usable until then | 2026-11-16 | owner: publish the tests, or stop the sale meanwhile (Admin → Payments → Payment Settings → Verkauf „Gestoppt") |
+| 18 | Multilevel | Modelltest 1–6 are published and free since 2026-11-19, but Lesen keys are missing (0 of 35 / 30 per test, not in the PDFs) → Lesen is "not scored" and the total is out of 225; Modelltest 2–6 have no Hören audio (4 Teile each, shown as "Audio noch nicht verfügbar"). Old attempts are not regraded when keys arrive | 2026-11-16 | owner: Lesen keys (Admin → Multilevel → Answer Key → Lesen, text import) + per-Teil audio for 2–6 (Multilevel Audio) |
+| 19 | Multilevel Premium | the Premium (99 000 so'm) now opens only Modelltest 7–10, which are all still DRAFT (Hören tasks missing): a buyer gets nothing usable beyond the free 1–6 until they are published | 2026-11-16 | owner: import 7–10 Hören + publish, or stop the sale meanwhile (Admin → Payments → Payment Settings → Verkauf „Gestoppt") |
 | 20 | Musik on Android | background playback checked in desktop Chromium + Pixel 7 emulation only. Chrome / PWA on Android: plays on with the lock-screen controls (Media Session). The Capacitor app keeps its WebView running in the background (`KeepRunning` default true), so the music goes on there too, but the Android WebView shows no Media Session notification / lock-screen buttons — that would need a native media plugin + a new APK | 2026-11-18 | owner: listen once on a real phone (PWA and APK) with the screen locked |

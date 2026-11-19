@@ -20,6 +20,7 @@ import hashlib
 import json
 import re
 import sys
+import unicodedata
 from uuid import UUID
 
 from sqlalchemy import select
@@ -57,7 +58,7 @@ def _unused_hoeren_audio(db: Session) -> list[tuple[AudioFile, int]]:
     used |= set(db.scalars(select(Kompetenz.audio_file_id).where(Kompetenz.audio_file_id.is_not(None))))
     out = []
     for a in db.scalars(select(AudioFile).where(AudioFile.kind == KIND_ORIGINAL, AudioFile.deleted_at.is_(None)).order_by(AudioFile.created_at)):
-        name = a.original_name or ""
+        name = unicodedata.normalize("NFC", a.original_name or "")  # uploads may carry "ö" decomposed (o + U+0308)
         m = VARIANT.search(name)
         if a.id in used or not m or not HOEREN.search(name):
             continue

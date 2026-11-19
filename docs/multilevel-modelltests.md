@@ -14,8 +14,9 @@ Provider `NATIONAL` (National-Multilevel Zertifikat) → yangi daraja **„Multi
 - Import: `python -m app.scripts.multilevel_import plan --pdf-dir DIR` → `apply --confirm <plan id> --pdf-dir DIR`.
   Idempotent: bor test o'zgartirilmaydi/o'chirilmaydi, yangilari DRAFT. PDF + tekshiruv ro'yxati
   `app/protected_storage/mock-exam-sources/<model_test_id>.pdf|.json` (faqat Super Admin).
-- Nashr: Admin → Prüfungsvorbereitung → Multilevel → Modelltest → „Veröffentlichen". Backend rad etadi
-  (`MODEL_TEST_NOT_READY`), agar biror savolda kalit yo'q yoki Hören Teil audiosiz bo'lsa. Talaba sahifasi
+- Nashr: Admin → Prüfungsvorbereitung → Multilevel → Modelltest → „Veröffentlichen". 7–10: backend rad etadi
+  (`MODEL_TEST_NOT_READY`), agar biror savolda kalit yo'q yoki Hören Teil audiosiz bo'lsa. 1–6 (2026-11-19 dan): kalit / audio
+  yo'qligi faqat ogohlantirish, faqat bo'lim yo'q bo'lsa rad etadi (pastda „Modelltest 1–6 ochiq"). Talaba sahifasi
   `/vorbereitung/multilevel` faqat PUBLISHED testlarni ochadi.
 
 ## Admin tekshiruv ro'yxati (qisqa)
@@ -46,7 +47,7 @@ To'liq ro'yxat har bir test sahifasida („Prüfliste").
 - Umumiy daraja: sozlama „Gesamtniveau" — standart **„Nicht bestätigt" → Ungeklärt** (rasmiy qoida yo'q); Super Admin
   „Durchschnitt" yoki „Niedrigstes Teilniveau" ni tanlashi mumkin, saqlangan natijalar qayta hisoblanadi (audit log).
 - Natija va to'g'ri javoblar faqat 4 bo'lim yopilgandan keyin. Sprechen yozuvlari private (`protected_storage/mock-exam-speaking`).
-- Nashr qilish: barcha 4 bo'lim to'liq bo'lishi shart → 7–10 (Hören bo'sh) nashr qilinmaydi; 1–6 kalit + audio kerak.
+- Nashr qilish: barcha 4 bo'lim to'liq bo'lishi shart → 7–10 (Hören bo'sh) nashr qilinmaydi; 1–6 — kalit / audio yo'qligi ogohlantirish (2026-11-19).
 
 ## Hören kalitlari 1–6 va imtihon vaqtlari (2026-11-16)
 
@@ -56,7 +57,8 @@ To'liq ro'yxat har bir test sahifasida („Prüfliste").
   „Prüfen" (son va harflar tekshiriladi) → „Übernehmen". Hammasi yoki hech narsa; audit logga yoziladi.
 - Productionga qo'llash: `python -m app.scripts.multilevel_hoeren_keys plan` → `apply --confirm <plan id>` (mavjud boshqa kalit bo'lsa to'xtaydi, `--overwrite` kerak).
   Skript Hören kalitlarini va barcha Modelltestlarning vaqtini (Lesen 60, Hören 60, Schreiben 60, Sprechen 15 = 195 daq.) o'rnatadi; Lesen kalitlari, audio, Schreiben va Sprechen topshiriqlariga tegmaydi.
-- **Nashr uchun hali yetishmaydi (1–6):** har bir testda Lesen kalitlari (35 / 30 ta, hozir 0) va Hören audio (1-test 6 Teil, 2–6: 4 Teildan) — Answer Key vositasi Lesen uchun ham ishlaydi; audio: „Multilevel Audio".
+- **Hali yetishmaydi (1–6):** har bir testda Lesen kalitlari (35 / 30 ta, hozir 0) va 2–6 ning Hören audiosi (4 Teildan) — Answer Key vositasi Lesen uchun ham ishlaydi; audio: „Multilevel Audio".
+  2026-11-19 dan bular nashrni to'xtatmaydi (pastga qarang).
 
 ## Modelltest 1 — bitta umumiy Hören audio (2026-11-16)
 
@@ -68,8 +70,8 @@ To'liq ro'yxat har bir test sahifasida („Prüfliste").
 
 ## Multilevel Modelltest Premium (2026-11-16)
 
-- Talaba panelida 10 ta Modelltest ko'rinadi, hammasi **yopiq**, toki talabada Premium bo'lmaguncha (Modelltest 1 ham endi bepul emas;
-  xodimlar uchun hammasi ochiq). Nashr qilinmagan (DRAFT) testlar «Tayyorlanmoqda» bo'lib turadi — ularni boshlab bo'lmaydi.
+- Talaba panelida 10 ta Modelltest ko'rinadi. 2026-11-19 dan **1–6 hamma uchun bepul**, Premium faqat **7–10** ni ochadi
+  (xodimlar uchun hammasi ochiq). Nashr qilinmagan (DRAFT) testlar «Tayyorlanmoqda» bo'lib turadi — ularni boshlab bo'lmaydi.
 - Premium: bir martalik to'lov, narxi serverda (standart 99 000 so'm, `offers.ML_PREMIUM_PRICE`; Admin → Payments → Payment Settings
   da o'zgartirish yoki sotuvni to'xtatish mumkin, audit), muddatsiz.
 - To'lov: karta 9860 0401 1406 3742 → chek (JPG/PNG/PDF) yoki «Chek mavjud emas» + sana va vaqt → PENDING → Super Admin
@@ -78,8 +80,21 @@ To'liq ro'yxat har bir test sahifasida („Prüfliste").
 - Promo: Multilevel kategoriyasidagi kod (foiz yoki 100 % bepul) faqat Super Admin tasdiqlab faollashtirgandan keyin ishlaydi;
   100 % kod to'lovsiz hamma testni ochadi. Kurs kodlari bu yerda ishlamaydi.
 
+## Modelltest 1–6 ochiq (2026-11-19)
+
+- 1–6 (`multilevel_service.OPEN_TEST_NUMBERS`) barcha tizimga kirgan talabalar uchun bepul va ochiq; 7–10 Premium bilan (o'zgarmagan).
+- Nashr: 1–6 da kalitsiz savollar va audiosiz Hören Teil'lar **ogohlantirish** („Nur Warnungen — Veröffentlichen ist möglich"); faqat bo'lim yo'q bo'lsa
+  `MODEL_TEST_NOT_READY`. 7–10 eski qoida bilan. Audio o'chirilsa 1–6 nashrdan tushmaydi.
+- Ball: kaliti yo'q savol hisoblanmaydi (maksimumga ham kirmaydi). Bo'limda birorta kalit bo'lmasa (hozir Lesen 1–6) — „baholanmaydi",
+  jami maksimum 225 (300 o'rniga), natija sahifasida „Für diesen Teil gibt es noch keine Lösungen", savollar „nicht bewertet". Kalit kiritilgandan keyin
+  yangi urinishlar avtomatik to'liq hisoblanadi (eski urinishlar o'zgarmaydi).
+- Audiosiz Hören Teil: „Audio noch nicht verfügbar" yozuvi, savollarga javob berish mumkin.
+- Productionga: `python -m app.scripts.multilevel_open_tests plan` (faqat o'qiydi) → `apply --confirm <plan id>`. Skript: ishlatilmagan „Variant 1 Hören"
+  ORIGINAL faylini Modelltest 1 umumiy audiosi qilib bog'laydi (bir ma'noli bo'lsa; 2–6 Teil-audio talab qiladi → MANUAL), 1–6 ni nashr qiladi, audit
+  `multilevel_audio_shared_set` / `multilevel_open_publish`. Bekor qilish: Multilevel Audio → Modelltest 1 → audio o'chirish (fayl Media'da qoladi) / „Verbergen".
+
 ## Ochiq
 
 - 7–10 Hören: vazifalar (savollar + audio) hali yo'q; savollarni admin panelda yaratib bo'lmaydi — import kerak.
-- Hören audio admin media-upload orqali yuklanadi (mavjud mexanizm, `/uploads` — ochiq URL).
+- 1–6 Lesen kalitlari (PDF da yo'q) va 2–6 Hören audio — egasi kiritadi / yuklaydi.
 - Lesen/Hören uchun xom ball → 75 chiziqli konvertatsiya; rasmiy konvertatsiya jadvali bo'lsa, almashtirish kerak.

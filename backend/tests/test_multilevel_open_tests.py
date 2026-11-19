@@ -10,6 +10,7 @@
 
 import asyncio
 import os
+import unicodedata
 import unittest
 import uuid
 from datetime import datetime, timezone
@@ -99,7 +100,9 @@ class TestOpenModelltests(unittest.TestCase):
         # 1–6: no Lesen keys (like the PDFs), Hören keys, no audio; 3 is incomplete (no Hören Teil); 7: the same content, but not open
         tests = {n: build(n, lesen_keys=False, hoeren=n != 3) for n in range(1, 8)}
         now = datetime.now(timezone.utc)
-        audio = [AudioFile(storage_path=f"mlo-{tag}-{v}.m4a", kind="ORIGINAL", original_name=f"Variant {v} Hören..m4a", content_type="audio/mp4",
+        # Variant 1 is stored decomposed ("o" + U+0308), as the production upload from 2026-11-18 is
+        names = {1: unicodedata.normalize("NFD", "Variant 1 Hören..m4a"), 2: "Variant 2 Hören..m4a"}
+        audio = [AudioFile(storage_path=f"mlo-{tag}-{v}.m4a", kind="ORIGINAL", original_name=names[v], content_type="audio/mp4",
                            size_bytes=1000, duration_ms=2_130_000, sha256="0" * 64, created_at=now) for v in (1, 2)]
         db.add_all(audio)
         db.commit()

@@ -132,7 +132,7 @@ test.describe.serial("Modelltest 1: one shared Hören audio", () => {
     test.setTimeout(120_000);
     await useLanguage(page, "de");
     const email = await createStudent();
-    await grantMultilevelPremium(email); // every Multilevel Modelltest needs the Premium
+    await grantMultilevelPremium(email); // not needed for Modelltest 1–6 since 2026-11-19; keeps the spec independent of the free range
     await loginViaForm(page, email, PASSWORD);
     await expect(page).toHaveURL(/\/dashboard/);
     await page.goto("/vorbereitung/multilevel");

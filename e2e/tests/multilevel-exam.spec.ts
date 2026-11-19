@@ -21,7 +21,7 @@ test.describe.serial("multilevel exam", () => {
   test("student takes the exam without choosing a level", async ({ page }, info) => {
     await useLanguage(page, "de");
     studentEmail = await createStudent();
-    await grantMultilevelPremium(studentEmail); // every Multilevel Modelltest needs the Premium (multilevel-premium.spec.ts covers buying it)
+    await grantMultilevelPremium(studentEmail); // not needed for Modelltest 1–6 since 2026-11-19 (multilevel-open-tests.spec.ts); keeps the spec independent of the free range
     await loginViaForm(page, studentEmail, PASSWORD);
     await expect(page).toHaveURL(/\/dashboard/);
 
