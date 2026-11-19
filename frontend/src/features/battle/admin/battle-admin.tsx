@@ -6,12 +6,14 @@ import { CheckCircle2, CircleAlert } from "lucide-react";
 
 import { AdminCard, AdminPageHeader } from "@/components/admin/admin-ui";
 import { getBattleOverview } from "@/features/admin/services/battle-admin-service";
+import QuestionsPanel from "@/features/battle/admin/questions-panel";
 import ThemesPanel from "@/features/battle/admin/themes-panel";
 import WordsPanel from "@/features/battle/admin/words-panel";
 import { cn } from "@/lib/utils";
 
 const TABS = [
   { key: "overview", label: "Übersicht" },
+  { key: "questions", label: "Fragen (Wortschatz & Grammatik)" },
   { key: "words", label: "Wörter & Bilder" },
   { key: "themes", label: "Design & Themes" },
 ] as const;
@@ -31,6 +33,7 @@ export default function BattleAdmin() {
         ))}
       </div>
       {tab === "overview" && <Overview />}
+      {tab === "questions" && <QuestionsPanel />}
       {tab === "words" && <WordsPanel />}
       {tab === "themes" && <ThemesPanel />}
     </div>
@@ -44,18 +47,18 @@ function Overview() {
   return (
     <div className="space-y-5" data-testid="admin-battle-overview">
       <AdminCard>
-        <h2 className="mb-3 text-sm font-bold text-[var(--admin-text-primary)]">Spielbereit je Stufe (mind. {data.min_pool} veröffentlichte Bildwörter)</h2>
+        <h2 className="mb-3 text-sm font-bold text-[var(--admin-text-primary)]">Spielbereit je Stufe (Textfragen des eigenen Levels; Bildwörter: mind. {data.min_pool})</h2>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
           {Object.entries(data.stages).map(([stage, s]) => (
-            <div key={stage} className="rounded-xl p-3 ring-1 ring-[var(--admin-border)]">
+            <div key={stage} className="rounded-xl p-3 ring-1 ring-[var(--admin-border)]" data-testid={`admin-battle-stage-${stage}`}>
               <p className="flex items-center gap-1.5 text-lg font-bold text-[var(--admin-text-primary)]">
                 {s.ready ? <CheckCircle2 size={16} className="text-emerald-400" /> : <CircleAlert size={16} className="text-amber-400" />} {stage}
               </p>
-              <p className="text-xs text-[var(--admin-text-secondary)]">{s.pool} Wörter im Pool</p>
+              <p className="text-xs text-[var(--admin-text-secondary)]">{s.text ?? 0} Fragen · {s.pictures ?? s.pool} Bildwörter</p>
             </div>
           ))}
         </div>
-        <p className="mt-3 text-xs text-[var(--admin-text-muted)]">Höhere Stufen spielen mit den Wörtern der Stufen darunter, bis eigene Wörter veröffentlicht sind. C1+ hat keine eigene Wortquelle.</p>
+        <p className="mt-3 text-xs text-[var(--admin-text-muted)]">Ein Kampf spielt die Wortschatz- und Grammatikfragen des eigenen Levels; hat das Level eigene Bildwörter (A1), kommen Bildrunden dazu. Ohne Textfragen spielt eine Stufe wie bisher nur Bildrunden (auch von den Stufen darunter). C1+ spielt die C1-Fragen.</p>
       </AdminCard>
       <div className="grid gap-5 lg:grid-cols-3">
         <AdminCard>

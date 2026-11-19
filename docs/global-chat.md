@@ -1,6 +1,9 @@
 # Global Chat
 
-Barcha login qilgan foydalanuvchilar (student, teacher, admin) uchun bitta umumiy chat. Dashboardning pastki o‘ng burchagidagi ikonka orqali ochiladi. Guruh chatlaridan (`study_group_messages`) to‘liq alohida: o‘z jadvallari, o‘z API’si bor, umumiy kodi yo‘q.
+Barcha login qilgan foydalanuvchilar (student, teacher, admin) uchun bitta umumiy chat. Dashboardning pastki o‘ng burchagidagi ikonka orqali ochiladi.
+Ikonka **faqat dashboard bosh sahifalarida** ko‘rinadi: `/dashboard` (talaba), `/teacher`, `/admin` (egasi, 2026-11-19); boshqa bo‘limlarda (kurslar,
+Medienwelt, Vorbereitung, admin/teacher ichki sahifalari …) yo‘q, dashboarddan chiqilganda ochiq chat yopiladi
+(`frontend/src/features/global-chat/chat-visibility.ts`, unit test `tests/unit/chat-visibility.test.mjs`). Guruh chatlaridan (`study_group_messages`) to‘liq alohida: o‘z jadvallari, o‘z API’si bor, umumiy kodi yo‘q.
 
 ## Qayerda
 

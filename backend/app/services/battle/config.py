@@ -32,6 +32,10 @@ QUEUE_STALE_S = 12
 # point windows for ranked matchmaking by waiting time (seconds → max points difference)
 MATCH_WINDOWS = ((10, 10), (20, 25), (None, None))
 MIN_POOL = ROUNDS + OPTIONS
+# 2026-11-19 (text questions): a match of a level with its own picture words plays this many picture rounds among the text rounds;
+# an A2+ match carries at least MIN_GRAMMAR grammar questions (the rest vocabulary, chosen at random)
+PICTURE_ROUNDS = 4
+MIN_GRAMMAR = 3
 
 # Battle Points of a finished ranked or bot match = own match score + WIN_BONUS for the winner (draw / loss: own
 # score only, never negative). Private rooms give no Battle Points.

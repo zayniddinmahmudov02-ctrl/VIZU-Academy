@@ -244,8 +244,9 @@ API prefixes are listed without `/api/v1` (every router is mounted bare and unde
 - **Backend:** `be/api/global_chat/router.py` (`/global-chat`, `/admin/global-chat`), `be/services/global_chat/
   {messages,access,restrictions,word_filter}.py`. Tables: `global_chat_messages` (+`reply_to_id`),
   `global_chat_message_edits`, `global_chat_restrictions`, `global_chat_moderation_actions`, `global_chat_reads`.
-- **Frontend:** `fe/features/global-chat/`, admin `fe/app/admin/global-chat`.
-- **Docs/tests:** `docs/global-chat.md`, `docs/audit/global-chat-reply.md`; `test_global_chat*`, E2E `global-chat*.spec.ts`.
+- **Frontend:** `fe/features/global-chat/`, admin `fe/app/admin/global-chat`. The floating button (`global-chat-widget.tsx`, mounted in the
+  student / teacher / admin shells) shows ONLY on `/dashboard`, `/teacher`, `/admin` (`chat-visibility.ts`, owner 2026-11-19); a page change closes it.
+- **Docs/tests:** `docs/global-chat.md`, `docs/audit/global-chat-reply.md`; `test_global_chat*`, unit `chat-visibility.test.mjs`, E2E `global-chat*.spec.ts`.
   Skill: `vizu-chat`.
 
 ## 16. Progress & Scoring
@@ -286,16 +287,19 @@ See `deployment-map.md`, skill `vizu-deploy`, `docs/deploy-frontend.md`, `docs/l
 ## 20. VIZU DEUTSCH BATTLE
 
 - **Backend:** `be/api/battle/router.py` (`/battle`, `/admin/battle`), `be/services/battle/*` (engine, questions, media,
-  themes, admin, commons, seed). Tables `battle_profiles`, `battle_words`, `battle_images`, `battle_matches`,
-  `battle_answers`, `battle_points_ledger`, `battle_themes`. Seed `be/scripts/battle_seed.py` + `be/data/battle/`.
+  themes, admin, commons, seed, question_bank, question_seed). Tables `battle_profiles`, `battle_words`, `battle_images`, `battle_matches`,
+  `battle_answers`, `battle_points_ledger`, `battle_themes`, `battle_questions` (2026-11-19: ≥ 500 vocabulary + grammar text questions per
+  level A1–C1, seed `be/scripts/battle_questions_seed.py` + `be/data/battle/questions/`; details `docs/battle-questions.md`).
+  Seed `be/scripts/battle_seed.py` + `be/data/battle/`.
 - **Frontend:** `fe/app/(battle)/battle/*`, `fe/features/battle/*`, admin `fe/app/admin/battle` (Übersicht, Wörter & Bilder,
   Design & Themes); entry points: dashboard tile `fe/components/dashboard/home/battle-banner.tsx` (`GET /battle/summary`), first card of
   "Lernwerkzeuge" (`learning-tools.tsx`, with Stufe Bestimmung / Wortschatz; dashboard order since 2026-11-15:
   welcome → compact Werbung banner → hub of five cards (`dashboard-hub.tsx`) → Lernwerkzeuge → compact Lernserie;
   Erfolge/Zertifikate cards not on the dashboard; E2E `dashboard-layout.spec.ts`, `dashboard-nav.spec.ts`),
   sidebar + mobile nav with the custom icon `fe/components/icons/battle-icon.tsx` (favicon `fe/public/battle/battle-icon.svg`).
-- **Tests:** `test_battle`, `test_battle_migration`, unit `battle-utils.test.mjs`, E2E `battle.spec.ts`, `battle-dashboard.spec.ts`.
-- **Details / decisions:** `docs/ai-context/battle-overview.md`.
+- **Tests:** `test_battle`, `test_battle_migration`, `test_battle_questions` (data files, validator, choice, round view, seed, admin),
+  `test_battle_questions_migration`, unit `battle-utils.test.mjs`, E2E `battle.spec.ts`, `battle-dashboard.spec.ts`, `battle-questions.spec.ts`.
+- **Details / decisions:** `docs/ai-context/battle-overview.md`, `docs/battle-questions.md`.
 
 ## 21. Mobile App (Android APK + iOS PWA)
 
@@ -401,7 +405,7 @@ notifications, support, advertisements ("Werbung-Banner"), achievements.
 - **Vinyl music player (2026-11-18, frontend only):** around the one `<audio>` of `GlobalAudioPlayer` (dashboard layout, never remounted):
   `vinyl-player.tsx` = large player (base-ui Dialog: turning record `vinyl-disc.tsx` with the cover as label + tone arm, title, artist, progress, prev /
   play / next, shuffle, repeat, volume, favourite; "Verkleinern" / Escape keeps the music, X = `stop()`); opens when a song is started on Medien → Musik,
-  closes on every page change. `floating-vinyl.tsx` = turning disc with progress ring bottom-right on every other page (above the chat button; on the
+  closes on every page change. `floating-vinyl.tsx` = turning disc with progress ring bottom-right on every other page (above the chat button's place — the button itself is on /dashboard only; on the
   Multilevel exam page above the Hören dock on phones), tap → panel (title, artist, progress, prev / play / next, large player, X). The Musik page keeps
   its bar (cover / expand button → large player, X). View rules = `lib/player-view.ts` (unit test `medien-player-view.test.mjs`); store fields
   `isLargePlayerOpen`, `isMusicPageActive`, `isFloatingPanelOpen`, selector `isFloatingPlayerVisible`, `stop()` (pauses, removes the source, clears queue +

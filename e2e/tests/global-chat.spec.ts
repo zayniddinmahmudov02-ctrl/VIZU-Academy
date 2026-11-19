@@ -305,4 +305,57 @@ test.describe("Global Chat", () => {
     await page.keyboard.press("Escape");
     await expect(page.getByTestId("global-chat-panel")).toHaveCount(0);
   });
+
+  test("the chat button is only on the dashboard pages (owner, 2026-11-19)", async ({ page, browser }) => {
+    test.setTimeout(90_000);
+    const clientNav = async (p: Page, href: string) => { // a client-side navigation, like a click in the menu
+      const found = await p.evaluate((h) => { const a = Array.from(document.querySelectorAll("a")).find((x) => x.getAttribute("href") === h); a?.click(); return !!a; }, href);
+      expect(found, `no link to ${href}`).toBe(true);
+      await expect(p).toHaveURL(new RegExp(`${href.replace(/\//g, "\\/")}$`));
+      await p.waitForTimeout(1200); // PageTransition settles
+    };
+    await useLanguage(page, "de");
+    await loginViaForm(page, STUDENT2, PASSWORD);
+    await expect(page).toHaveURL(/\/dashboard/);
+    await openChat(page);
+    await clientNav(page, "/kurse"); // leaving the dashboard closes the chat and hides the button
+    await expect(page.getByTestId("global-chat-panel")).toHaveCount(0);
+    await expect(page.getByTestId("global-chat-button")).toHaveCount(0);
+    for (const path of ["/medien", "/vorbereitung"]) {
+      await page.goto(path);
+      await expect(page).toHaveURL(new RegExp(path));
+      await expect(page.getByTestId("global-chat-button")).toHaveCount(0);
+    }
+    await clientNav(page, "/dashboard"); // back on the dashboard: the button again, the chat stays closed
+    await expect(page.getByTestId("global-chat-button")).toBeVisible();
+    await expect(page.getByTestId("global-chat-panel")).toHaveCount(0);
+
+    const teacher = await browser.newContext();
+    const tp = await teacher.newPage();
+    await useLanguage(tp, "de");
+    await loginViaForm(tp, TEACHER, PASSWORD);
+    await expect(tp).not.toHaveURL(/\/login/);
+    await tp.goto("/teacher");
+    await expect(tp.getByTestId("global-chat-button")).toBeVisible();
+    await tp.goto("/teacher/groups");
+    await expect(tp).toHaveURL(/\/teacher\/groups/);
+    await expect(tp.getByTestId("global-chat-button")).toHaveCount(0);
+    await teacher.close();
+
+    const admin = await browser.newContext();
+    const ap = await admin.newPage();
+    await useLanguage(ap, "de");
+    await loginViaForm(ap, ADMIN.email, ADMIN.password);
+    await ap.getByPlaceholder("Admin-Passwort").fill(ADMIN.verify);
+    await ap.getByRole("button", { name: "Bestätigen" }).click();
+    await expect(ap).toHaveURL(/\/admin/);
+    await ap.goto("/admin");
+    await expect(ap.getByTestId("global-chat-button")).toBeVisible();
+    for (const path of ["/admin/global-chat", "/admin/users"]) {
+      await ap.goto(path);
+      await expect(ap).toHaveURL(new RegExp(path));
+      await expect(ap.getByTestId("global-chat-button")).toHaveCount(0);
+    }
+    await admin.close();
+  });
 });

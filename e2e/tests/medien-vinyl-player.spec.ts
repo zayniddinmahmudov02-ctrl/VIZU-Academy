@@ -284,11 +284,15 @@ test("phone: large player fills the screen, floating disc sits above the chat bu
   expect((await spin(page, '[data-testid="vinyl-disc"]')).state).toBe("running");
   await page.screenshot({ path: "test-results/vinyl-large-phone.png" });
   await page.getByTestId("vinyl-minimize").click();
-  await go(page, "/medien");
-  const disc = (await page.getByTestId("floating-disc").boundingBox())!;
+  await go(page, "/dashboard"); // the Global Chat button exists only on the dashboard (2026-11-19): the disc must sit above it there
   const chat = (await page.getByTestId("global-chat-button").boundingBox())!;
+  const discOnDashboard = (await page.getByTestId("floating-disc").boundingBox())!;
+  expect(discOnDashboard.y + discOnDashboard.height).toBeLessThanOrEqual(chat.y - 4); // above the chat button, no overlap
+  await go(page, "/medien");
+  await expect(page.getByTestId("global-chat-button")).toHaveCount(0); // no chat button outside the dashboard
+  const disc = (await page.getByTestId("floating-disc").boundingBox())!;
   expect(disc.x + disc.width).toBeLessThanOrEqual(vp.width - 8); // a margin to the edge
-  expect(disc.y + disc.height).toBeLessThanOrEqual(chat.y - 4); // above the chat button, no overlap
+  expect(disc.y + disc.height).toBeLessThanOrEqual(vp.height); // on the screen
   expect(disc.width).toBeGreaterThanOrEqual(44);
   await page.getByTestId("floating-disc").click();
   const panel = (await page.getByTestId("floating-panel").boundingBox())!;

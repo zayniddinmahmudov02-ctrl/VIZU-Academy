@@ -21,7 +21,7 @@ def home(db: Session, user: User) -> dict:
     rank = config.rank_info(p.points)
     open_match = engine.open_match(db, user.id)
     board = profiles.leaderboard(db, user, page=1, size=5)
-    pool = questions.pool_size(db, rank["stage"])
+    ready = questions.readiness(db, rank["stage"])  # picture words + text questions of the stage
     return {
         "player": profiles.player_card(user, p), "rank": rank, "stats": profiles.stats(p), "achievements": profiles.achievements(p),
         "avatars": profiles.avatars(p), "recent": profiles.recent_matches(db, user, 6),
@@ -30,6 +30,6 @@ def home(db: Session, user: User) -> dict:
                    for i in range(len(config.STAGES) * 3)],
         "theme": themes.for_stage(db, rank["stage"]), "themes": themes.public_list(db),
         "open_match_id": str(open_match.id) if open_match else None,
-        "playable": pool >= config.MIN_POOL, "pool": pool, "min_pool": config.MIN_POOL,
+        "playable": ready["ready"], "pool": ready["pool"], "min_pool": config.MIN_POOL,
         "rules": {"rounds": config.ROUNDS, "round_s": config.ROUND_S, "per_correct": config.POINTS_PER_CORRECT, "win_bonus": config.WIN_BONUS},
     }

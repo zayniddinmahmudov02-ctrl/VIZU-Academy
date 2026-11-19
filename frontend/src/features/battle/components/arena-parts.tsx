@@ -99,14 +99,26 @@ export function QuestionCard({ round, stage, msLeft, totalMs, pending, onAnswer,
   const { t, language } = useTranslation();
   const [loaded, setLoaded] = useState<string | null>(null);
   const [failed, setFailed] = useState<string | null>(null);
-  const src = apiAsset(round.image_url, API_URL);
+  const isText = round.kind === "text";
+  const src = round.image_url ? apiAsset(round.image_url, API_URL) : "";
   const imgKey = `${round.no}`;
   const myChoice = round.my_answer?.choice ?? pending;
   const answered = round.my_answer !== null || pending !== null;
   const timedOut = round.phase === "reveal" && round.my_answer?.choice === null;
+  const longOptions = round.options.some((o) => o.length > 26); // sentences / phrases: one column
+  const feedback = round.phase === "reveal" && round.my_answer && (
+    <div className={cn("absolute inset-x-0 bottom-0 flex items-center justify-center gap-2 py-2 text-sm font-black text-white bt-pop",
+      round.my_answer.correct ? "bg-[#1fae6b]/90" : "bg-[var(--bt-red)]/90")} data-testid="question-feedback">
+      {timedOut ? <><Clock3 size={16} />{t("battle.timeUp")}</> : round.my_answer.correct ? <><Check size={16} />{t("battle.correct")} +{round.my_answer.score}</> : <><X size={16} />{t("battle.wrong")}</>}
+    </div>
+  );
+  const scoreBadge = round.phase === "question" && round.my_answer?.correct && (
+    <span className="bt-float-up absolute right-3 top-3 rounded-full bg-[#1fae6b] px-3 py-1 text-sm font-black text-white">+{round.my_answer.score}</span>
+  );
 
   return (
-    <article className="bt-card-light relative mx-auto w-full max-w-[640px] overflow-hidden rounded-[28px] p-3 sm:p-5 landscape-short:max-w-none landscape-short:p-2.5" data-testid="question-card" aria-live="polite">
+    <article className="bt-card-light relative mx-auto w-full max-w-[640px] overflow-hidden rounded-[28px] p-3 sm:p-5 landscape-short:max-w-none landscape-short:p-2.5" data-testid="question-card"
+             data-kind={isText ? "text" : "picture"} aria-live="polite">
       <div className="mb-3 flex items-center justify-between gap-2 landscape-short:mb-2">
         <span className="rounded-full bg-[var(--bt-navy)] px-3 py-1 text-[11px] font-extrabold uppercase tracking-wider text-white">
           {round.category ? (language === "uz" ? round.category.uz : round.category.de) : "Wortschatz"}
@@ -115,6 +127,19 @@ export function QuestionCard({ round, stage, msLeft, totalMs, pending, onAnswer,
       </div>
 
       <div className="landscape-short:grid landscape-short:grid-cols-2 landscape-short:items-center landscape-short:gap-3">
+      {isText ? (
+        <div className="relative flex min-h-[150px] w-full flex-col items-center justify-center gap-2 overflow-hidden rounded-2xl bg-[#eef3fb] px-4 pb-10 pt-6 text-center ring-1 ring-[#dfe5f0] sm:min-h-[190px]"
+             data-testid="question-text">
+          <p className="max-w-full break-words text-xl font-black leading-snug text-[var(--bt-navy)] sm:text-2xl" data-testid="question-prompt">
+            {(round.prompt ?? "").split("___").map((part, i, all) => (
+              <span key={i}>{part}{i < all.length - 1 && <span className="mx-1 inline-block min-w-[3.5rem] border-b-[3px] border-[var(--bt-blue)] align-baseline" aria-label="…" />}</span>
+            ))}
+          </p>
+          {round.hint && <p className="max-w-full break-words text-sm font-semibold italic text-[var(--bt-navy)]/60" data-testid="question-hint">{round.hint}</p>}
+          {feedback}
+          {scoreBadge}
+        </div>
+      ) : (
       <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-[#e9eef6] ring-1 ring-[#dfe5f0] max-sm:aspect-[5/4]">
         {loaded !== imgKey && failed !== imgKey && <div className="bt-skeleton absolute inset-0" />}
         {failed === imgKey ? (
@@ -126,24 +151,18 @@ export function QuestionCard({ round, stage, msLeft, totalMs, pending, onAnswer,
           <img key={imgKey} src={src} alt="" draggable={false} onLoad={() => setLoaded(imgKey)} onError={() => setFailed(imgKey)} data-testid="question-image"
                className={cn("absolute inset-0 h-full w-full select-none object-contain transition-opacity duration-300", loaded === imgKey ? "opacity-100 bt-img-in" : "opacity-0")} />
         )}
-        {round.phase === "reveal" && round.my_answer && (
-          <div className={cn("absolute inset-x-0 bottom-0 flex items-center justify-center gap-2 py-2 text-sm font-black text-white bt-pop",
-            round.my_answer.correct ? "bg-[#1fae6b]/90" : "bg-[var(--bt-red)]/90")} data-testid="question-feedback">
-            {timedOut ? <><Clock3 size={16} />{t("battle.timeUp")}</> : round.my_answer.correct ? <><Check size={16} />{t("battle.correct")} +{round.my_answer.score}</> : <><X size={16} />{t("battle.wrong")}</>}
-          </div>
-        )}
-        {round.phase === "question" && round.my_answer?.correct && (
-          <span className="bt-float-up absolute right-3 top-3 rounded-full bg-[#1fae6b] px-3 py-1 text-sm font-black text-white">+{round.my_answer.score}</span>
-        )}
+        {feedback}
+        {scoreBadge}
       </div>
+      )}
 
       <div>
       <div className="my-3 text-center sm:my-4 landscape-short:mt-0 landscape-short:mb-2">
-        <h2 className="text-xl font-black tracking-tight sm:text-2xl">{t("battle.question")}</h2>
-        {language === "uz" && <p className="text-xs font-semibold text-[var(--bt-navy)]/55">{t("battle.questionUz")}</p>}
+        <h2 className="text-xl font-black tracking-tight sm:text-2xl" data-testid="question-instruction">{isText && round.instruction ? round.instruction.de : t("battle.question")}</h2>
+        {language === "uz" && <p className="text-xs font-semibold text-[var(--bt-navy)]/55">{isText && round.instruction ? round.instruction.uz : t("battle.questionUz")}</p>}
       </div>
 
-      <div className="grid grid-cols-2 gap-2 sm:gap-3">
+      <div className={cn("grid gap-2 sm:gap-3", longOptions ? "grid-cols-1" : "grid-cols-2")}>
         {round.options.map((label, i) => {
           const state = optionState(i, round.phase, myChoice, round.correct);
           return (
@@ -164,6 +183,11 @@ export function QuestionCard({ round, stage, msLeft, totalMs, pending, onAnswer,
       {round.phase === "reveal" && round.translation && (
         <p className="mt-3 text-center text-sm font-semibold text-[var(--bt-navy)]/70" data-testid="question-translation">
           {t("battle.meaning")}: <b className="text-[var(--bt-navy)]">{round.translation}</b>
+        </p>
+      )}
+      {round.phase === "reveal" && isText && round.explanation && (
+        <p className="mt-3 break-words text-center text-sm font-semibold text-[var(--bt-navy)]/70" data-testid="question-explanation">
+          {t("battle.explanation")}: <b className="text-[var(--bt-navy)]">{round.explanation}</b>
         </p>
       )}
       </div>

@@ -1,28 +1,40 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { MessagesSquare } from "lucide-react";
 
 import { useCurrentUser } from "@/features/auth/hooks/use-current-user";
 import { useTranslation } from "@/lib/i18n/use-translation";
+import { chatVisibleOn } from "../chat-visibility";
 import { getUnreadCount } from "../global-chat-service";
 import ChatPanel from "./chat-panel";
 
 const UNREAD_POLL_MS = 30_000;
 
-/** Floating Global Chat button (bottom right) for every logged-in user on
- *  the student, teacher and admin dashboards. While closed it only polls the
- *  unread count (twice a minute, visible tabs only); the chat itself is
- *  mounted when opened. */
+/** Floating Global Chat button (bottom right) for every logged-in user — only
+ *  on the dashboard home pages (/dashboard, /teacher, /admin; see
+ *  chat-visibility.ts), nowhere else. While closed it only polls the unread
+ *  count (twice a minute, visible tabs only); the chat itself is mounted when
+ *  opened and closes when the user leaves the dashboard. */
 export default function GlobalChatWidget() {
   const { t } = useTranslation();
   const { user } = useCurrentUser();
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [unread, setUnread] = useState(0);
+  const [lastPath, setLastPath] = useState(pathname);
   const loggedIn = !!user;
+  const visible = chatVisibleOn(pathname);
+
+  // another page: the chat closes (it would otherwise pop up again on the way back to the dashboard)
+  if (pathname !== lastPath) {
+    setLastPath(pathname);
+    if (open) setOpen(false);
+  }
 
   useEffect(() => {
-    if (!loggedIn || open) return;
+    if (!loggedIn || !visible || open) return;
     let alive = true;
     const load = () => {
       if (document.visibilityState !== "visible") return;
@@ -36,12 +48,12 @@ export default function GlobalChatWidget() {
       clearInterval(timer);
       document.removeEventListener("visibilitychange", load);
     };
-  }, [loggedIn, open]);
+  }, [loggedIn, visible, open]);
 
   const close = useCallback(() => setOpen(false), []);
   const onUnread = useCallback((n: number) => setUnread(n), []);
 
-  if (!user) return null;
+  if (!user || !visible) return null;
 
   const label = unread > 0 ? `${t("globalChat.open")} – ${t("globalChat.unread", { n: unread })}` : t("globalChat.open");
 

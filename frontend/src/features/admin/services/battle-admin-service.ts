@@ -37,7 +37,8 @@ export interface AdminWord {
 export interface BattleOverview {
   levels: Record<string, { words: number; published: number; playable: number; without_image: number }>;
   images: Record<ImageStatus, number>;
-  stages: Record<Stage, { pool: number; ready: boolean }>;
+  /** pictures = picture words the stage can play, text = published text questions of its level (2026-11-19) */
+  stages: Record<Stage, { pool: number; ready: boolean; pictures?: number; text?: number }>;
   matches_7d: { mode: string; status: string; count: number }[];
   players: number;
   categories: Record<string, { de: string; uz: string }>;
@@ -90,6 +91,66 @@ export async function fetchImageBlobUrl(id: string) {
   const blob = (await api.get<Blob>(`${BASE}/images/${id}/file`, { responseType: "blob" })).data;
   return URL.createObjectURL(blob);
 }
+
+// ── text questions (vocabulary + grammar, 2026-11-19) ────────────────────────
+export type QuestionLevel = "A1" | "A2" | "B1" | "B2" | "C1";
+export type QuestionKind = "vocab" | "grammar";
+export type QuestionStatus = "draft" | "published" | "disabled";
+
+export interface BattleQuestion {
+  id: string;
+  seed_id: string | null;
+  level: QuestionLevel;
+  kind: QuestionKind;
+  format: string;
+  topic: string;
+  prompt: string;
+  hint: string | null;
+  answer: string;
+  wrong: string[];
+  explanation: string | null;
+  status: QuestionStatus;
+  source: "seed" | "admin" | "import";
+  ref: string | null;
+  /** validator codes (empty = fine) */
+  problems: string[];
+  updated_at: string | null;
+}
+
+export interface QuestionLevelStats {
+  total: number; vocab: number; grammar: number; published: number; draft: number; disabled: number;
+  duplicates: number; problems: number; active_vocab: number; active_grammar: number;
+}
+
+export interface QuestionStats {
+  levels: Record<QuestionLevel, QuestionLevelStats>;
+  topics: { level: QuestionLevel; topic: string; label: string; kind: QuestionKind; total: number; published: number }[];
+  formats: { format: string; total: number }[];
+  min_per_level: number;
+  topic_labels: Record<string, { kind: QuestionKind; de: string; uz: string }>;
+  format_labels: Record<string, { de: string; uz: string; options: number }>;
+}
+
+export type QuestionInput = Pick<BattleQuestion, "level" | "format" | "topic" | "prompt" | "answer" | "wrong" | "status"> &
+  Partial<Pick<BattleQuestion, "kind" | "hint" | "explanation" | "ref">>;
+
+export interface QuestionImportReport {
+  total: number; valid: number; duplicates: number; invalid: number; added: number;
+  errors: { row: number; problems: string[]; prompt?: string }[];
+}
+
+export const getQuestionStats = async () => (await api.get<QuestionStats>(`${BASE}/questions/stats`)).data;
+
+export const getQuestions = async (params: { level?: string; kind?: string; topic?: string; status?: string; format?: string; q?: string; problems?: boolean; page?: number }) => {
+  const clean = Object.fromEntries(Object.entries(params).filter(([, v]) => v !== undefined && v !== "" && v !== false));
+  return (await api.get<{ items: BattleQuestion[]; total: number; page: number; page_size: number }>(`${BASE}/questions`, { params: clean })).data;
+};
+
+export const createQuestion = async (data: QuestionInput) => (await api.post<BattleQuestion>(`${BASE}/questions`, data)).data;
+export const updateQuestion = async (id: string, data: Partial<QuestionInput>) => (await api.patch<BattleQuestion>(`${BASE}/questions/${id}`, data)).data;
+export const deleteQuestion = async (id: string) => (await api.delete<{ deleted: string }>(`${BASE}/questions/${id}`)).data;
+export const importQuestions = async (items: unknown[], apply: boolean, publish: boolean) =>
+  (await api.post<QuestionImportReport>(`${BASE}/questions/import`, { items, apply, publish })).data;
 
 export const getAdminThemes = async () => (await api.get<{ items: AdminTheme[] }>(`${BASE}/themes`)).data.items;
 export const saveThemeDraft = async (stage: Stage, draft: ThemeDraft) => (await api.put<AdminTheme>(`${BASE}/themes/${encodeURIComponent(stage)}/draft`, draft)).data;

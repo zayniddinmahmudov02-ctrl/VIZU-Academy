@@ -1,11 +1,12 @@
 # Database map
 
-Updated 2026-11-19 · source: `backend/app/models/*.py` (`__tablename__`), `backend/alembic/versions/` (108 files).
+Updated 2026-11-19 · source: `backend/app/models/*.py` (`__tablename__`), `backend/alembic/versions/` (109 files).
 PostgreSQL; connection from settings `DATABASE_HOST/PORT/NAME/USER/PASSWORD` (names only).
 
 ## Migrations
 
-- Linear history, one head. **Head = `f3b9d1a6c4e8`**
+- Linear history, one head. **Head = `a6c2e8f4b9d1`**
+- `a6c2e8f4b9d1` (2026-11-19): VIZU Battle text questions — additive: new table `battle_questions` (level, kind vocab / grammar, format, topic, prompt, hint, answer, `wrong` JSONB, explanation, `norm_key` unique per level `uq_battle_questions_level_norm_key`, `seed_id` unique, `ref` = asked lemma, status draft / published / disabled, source seed / admin / import, `entry_id` → dictionary_entries SET NULL, created_by / updated_by → users SET NULL, index `ix_battle_questions_pool` (level, status, kind)). Picture tables untouched. Downgrade drops exactly this table (`test_battle_questions_migration`).
 - `f3b9d1a6c4e8` (2026-11-19): Subtitle agents — additive: `film_subtitle_jobs.auto_approve` (boolean, NOT NULL, server default false → old jobs keep making drafts). Downgrade drops exactly this (`test_medien_subtitle_auto_approve_migration`).
 - `e8a3c5f1b7d2` (2026-11-19): Musik bulk upload — additive: `songs.sha256` (nullable, index `ix_songs_sha256`, not unique: a deliberate copy stays possible). Older songs get it from `app/scripts/medien_song_hashes.py`. Downgrade drops exactly these (`test_medien_song_hash_migration`).
 - `d5f1b8e3a9c7` (2026-11-19): Film AI subtitles — additive: `film_subtitles.status` (DRAFT / APPROVED, default APPROVED → existing tracks stay visible), `source` (UPLOAD / AI / TRANSLATION, default UPLOAD), `source_language`, `ai_model`, `approved_at`, `approved_by_id` (users SET NULL), `edited_at`; new table `film_subtitle_jobs` (kind TRANSCRIBE / TRANSLATE, status PENDING / PROCESSING / COMPLETED / FAILED, language, detected_language, source / result subtitle FKs SET NULL, film FK CASCADE, translate_to / partial / stats JSONB, progress, attempts, error, heartbeat; partial unique `uq_film_subtitle_jobs_active` = one active job per film + kind + language). Downgrade drops exactly these (`test_medien_subtitle_ai_migration`).

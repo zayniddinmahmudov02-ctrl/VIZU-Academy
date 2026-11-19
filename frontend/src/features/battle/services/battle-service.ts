@@ -139,13 +139,23 @@ export interface RoundView {
   started_at: string;
   deadline: string;
   reveal_ends_at: string | null;
-  image_url: string;
+  /** picture round (image + word) or text round (vocabulary / grammar question, 2026-11-19) */
+  kind?: "picture" | "text";
+  image_url: string | null;
   category: { de: string; uz: string } | null;
+  /** text rounds: the question, an optional help line (e.g. the Uzbek sentence of a gap), the format's instruction */
+  prompt?: string | null;
+  hint?: string | null;
+  instruction?: { de: string; uz: string } | null;
+  format?: string | null;
+  /** 3 options (article) or 4 */
   options: string[];
   my_answer: { choice: number | null; correct: boolean; score: number; time_ms: number } | null;
   opponent_answered: boolean;
   correct: number | null;
   translation: string | null;
+  /** text rounds, after the round: meaning / rule */
+  explanation?: string | null;
   opponent_choice: number | null;
 }
 

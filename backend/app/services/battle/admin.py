@@ -1,4 +1,4 @@
-"""Game Management → Battle: picture words, image library, overview.
+"""Game Management → Battle: picture words, image library, overview (text questions: question_bank.py).
 
 Rules: a word comes only from a VERIFIED, published Wörterbuch row; a word is `published` only with a
 `published` image; an image is published only with author + licence (Wikimedia imports carry them, an
@@ -61,7 +61,7 @@ def overview(db: Session) -> dict:
                          .group_by(BattleMatch.mode, BattleMatch.status)).all()
     return {
         "levels": levels, "images": {s: images.get(s, 0) for s in IMAGE_STATUSES},
-        "stages": {s: {"pool": questions.pool_size(db, s), "ready": questions.pool_size(db, s) >= config.MIN_POOL} for s in config.STAGES},
+        "stages": {s: questions.readiness(db, s) for s in config.STAGES},  # {pictures, text, pool, ready}
         "matches_7d": [{"mode": m, "status": s, "count": n} for m, s, n in matches],
         "players": db.execute(select(func.count()).select_from(BattleProfile).where(BattleProfile.wins + BattleProfile.losses + BattleProfile.draws > 0)).scalar_one(),
         "categories": questions.categories(), "min_pool": config.MIN_POOL,

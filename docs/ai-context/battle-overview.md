@@ -50,3 +50,16 @@ planned `battle-*` set (paths and decisions only).
 - Open to every logged-in user (student routes depend only on `get_current_user`; no course / premium / LMS check).
 - Player picture = uploaded profile photo (`users.profile_image`), else the game avatar; ranked rank-ups create a
   notification (type `battle`, link `/battle`). Dashboard: top banner; icon: `fe/components/icons/battle-icon.tsx`.
+
+## Text questions (owner, 2026-11-19) — details: `docs/battle-questions.md`
+
+- Table `battle_questions` (migration `a6c2e8f4b9d1`), service `be/services/battle/question_bank.py` (10 formats with de + uz
+  instruction, topics, validator, `pick`, `round_entry`, stats, admin CRUD / import), seed `be/services/battle/question_seed.py` +
+  `python -m app.scripts.battle_questions_seed plan|apply --confirm <id>` from `be/data/battle/questions/<level>.json` (2961: A1 664,
+  A2 632, B1 528, B2 568, C1 569; vocabulary from VERIFIED Wörterbuch rows, one question per word, grammar written per level).
+- Match: own level's published text questions (C1+ → C1); a level with own picture words (A1) plays `PICTURE_ROUNDS` = 4 picture rounds,
+  A2+ at least `MIN_GRAMMAR` = 3 grammar rounds; no question / word twice in a match; recent questions avoided. A match stores its own copy
+  of each question (`{"t": "q", …}` in `battle_matches.questions`); answer key + explanation only after the round; the picture endpoint
+  answers 404 for a text round; an article round has 3 options (choice 3 → 422). Without text questions: picture rounds as before.
+- Frontend: `QuestionCard` (`arena-parts.tsx`) text variant (`data-kind="text"`, prompt with gap, hint, instruction de + uz, 1 column for
+  long options, explanation after the round); admin tab „Fragen“ `fe/features/battle/admin/questions-panel.tsx`.

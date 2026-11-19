@@ -7,7 +7,10 @@
 * battle_matches / battle_answers: server-authoritative state. `questions` (word, options, correct index,
   bot plan) never leaves the server; the client only gets the running round.
 * battle_points_ledger: every Battle Points change, unique per (user, match, reason) = idempotent.
-* battle_themes: the arena look per CEFR stage (A1 … C1, C1+); admins edit `draft` and publish it."""
+* battle_themes: the arena look per CEFR stage (A1 … C1, C1+); admins edit `draft` and publish it.
+* battle_questions (2026-11-19): text rounds next to the picture rounds — vocabulary (from VERIFIED Wörterbuch rows) and grammar
+  questions per CEFR level, one correct `answer` + 2–3 `wrong` options; `norm_key` (normalised prompt + format) is unique per level,
+  so an import never adds the same question twice. Only `published` questions reach a match; a match keeps its own copy."""
 
 from datetime import datetime
 
@@ -78,6 +81,41 @@ class BattleWord(BaseModel):
         return f"{self.article} {self.lemma}" if self.article else self.lemma
 
 
+class BattleQuestion(BaseModel):
+    __tablename__ = "battle_questions"
+    __table_args__ = (
+        UniqueConstraint("level", "norm_key", name="uq_battle_questions_level_norm_key"),
+        UniqueConstraint("seed_id", name="uq_battle_questions_seed_id"),
+        Index("ix_battle_questions_pool", "level", "status", "kind"),
+    )
+
+    # stable id of a shipped question (app/data/battle/questions/<level>.json); NULL for admin-made / imported ones
+    seed_id: Mapped[str | None] = mapped_column(String(40), nullable=True)
+    level: Mapped[str] = mapped_column(String(2), nullable=False)
+    # vocab | grammar
+    kind: Mapped[str] = mapped_column(String(10), nullable=False)
+    # de_uz | uz_de | word_choice | gap | grammar | article | verb_form | synonym | antonym | collocation (question_bank.FORMATS)
+    format: Mapped[str] = mapped_column(String(20), nullable=False)
+    topic: Mapped[str] = mapped_column(String(40), nullable=False)
+    prompt: Mapped[str] = mapped_column(Text, nullable=False)
+    # optional help shown with the prompt (e.g. the Uzbek sentence of a gap, the meaning of the word for an article question)
+    hint: Mapped[str | None] = mapped_column(Text, nullable=True)
+    answer: Mapped[str] = mapped_column(Text, nullable=False)
+    wrong: Mapped[list] = mapped_column(JSONB, nullable=False, default=list, server_default="[]")
+    # shown after the round (meaning, rule)
+    explanation: Mapped[str | None] = mapped_column(Text, nullable=True)
+    norm_key: Mapped[str] = mapped_column(String(400), nullable=False)
+    # lemma of the word asked about (keeps a picture round and a text round of the same word out of one match)
+    ref: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    # draft | published | disabled
+    status: Mapped[str] = mapped_column(String(12), nullable=False, default="draft", server_default="draft")
+    # seed | admin | import
+    source: Mapped[str] = mapped_column(String(12), nullable=False, default="admin", server_default="admin")
+    entry_id: Mapped[UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("dictionary_entries.id", ondelete="SET NULL"), nullable=True)
+    created_by: Mapped[UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
+    updated_by: Mapped[UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
+
+
 class BattleMatch(BaseModel):
     __tablename__ = "battle_matches"
     __table_args__ = (
@@ -98,7 +136,8 @@ class BattleMatch(BaseModel):
     p1_points_start: Mapped[int] = mapped_column(Integer, nullable=False, default=0, server_default="0")
     p2_points_start: Mapped[int] = mapped_column(Integer, nullable=False, default=0, server_default="0")
     rounds: Mapped[int] = mapped_column(Integer, nullable=False, default=10, server_default="10")
-    # server only: [{"w": word id, "img": image id, "opts": [4 word ids], "c": correct index, "bot": {...}}]
+    # server only: picture round {"w": word id, "img": image id, "opts": [4 word ids], "c": correct index, "bot": {...}} or text round
+    # {"t": "q", "q": question id, "fmt", "kind", "topic", "p": prompt, "h": hint, "opts": [3–4 texts], "c", "x": explanation, "bot"}
     questions: Mapped[list] = mapped_column(JSONB, nullable=False, default=list, server_default="[]")
     current_round: Mapped[int] = mapped_column(Integer, nullable=False, default=0, server_default="0")
     starts_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)

@@ -33,7 +33,7 @@ export default function DashboardLayout({ children }: Props) {
         <main className="relative flex-1 overflow-x-hidden overflow-y-auto">
           {!lms && <div className="pointer-events-none absolute -right-40 -top-40 h-[480px] w-[480px] rounded-full bg-accent-gold/[0.08] blur-3xl dark:bg-accent-blue/[0.08]" />}
 
-          {/* pb-24: the end of every page can scroll clear of the Global Chat button */}
+          {/* pb-24: the end of every page can scroll clear of the floating buttons (Global Chat on /dashboard only, the music disc) */}
           <section className="relative z-10 mx-auto w-full max-w-[1440px] px-4 pb-24 pt-6 sm:px-6 lg:px-8 lg:pb-24 lg:pt-8">
             <PageTransition>{children}</PageTransition>
           </section>

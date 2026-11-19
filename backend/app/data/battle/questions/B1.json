@@ -1,0 +1,7796 @@
+{
+ "level": "B1",
+ "source": "VIZU Battle question bank, 2026-11-19: vocabulary from VERIFIED Wörterbuch rows, grammar written per level",
+ "questions": [
+  {
+   "id": "b1-deuz-d32933cfcc",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "adjektive",
+   "prompt": "entspannt",
+   "answer": "xotirjam",
+   "wrong": [
+    "ishonarli",
+    "tanqidni qabul qila oladigan",
+    "qat’iyatli"
+   ],
+   "explanation": "entspannt — xotirjam",
+   "ref": "entspannt",
+   "entry": {
+    "lemma": "entspannt",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-gap-2fad7de55d",
+   "kind": "vocab",
+   "format": "gap",
+   "topic": "nomen",
+   "prompt": "Danke für deine ___!",
+   "answer": "Unterstützung",
+   "wrong": [
+    "Gelegenheit",
+    "Wirkung",
+    "Auswahl"
+   ],
+   "hint": "Ko‘magingiz uchun rahmat!",
+   "explanation": "die Unterstützung — yordam",
+   "ref": "Unterstützung",
+   "entry": {
+    "lemma": "Unterstützung",
+    "article": "die"
+   }
+  },
+  {
+   "id": "b1-uzde-3e3bf12ab2",
+   "kind": "vocab",
+   "format": "uz_de",
+   "topic": "wendungen",
+   "prompt": "mas’uliyatni o‘z zimmasiga olmoq",
+   "answer": "Verantwortung übernehmen",
+   "wrong": [
+    "eine Rolle spielen",
+    "einen Eindruck machen",
+    "in Kontakt bleiben"
+   ],
+   "explanation": "mas’uliyatni o‘z zimmasiga olmoq — Verantwortung übernehmen",
+   "ref": "Verantwortung übernehmen",
+   "entry": {
+    "lemma": "Verantwortung übernehmen",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-deuz-8e99dd6aaf",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "wendungen",
+   "prompt": "unter Druck stehen",
+   "answer": "bosim ostida bo‘lmoq",
+   "wrong": [
+    "qaror qabul qilmoq",
+    "muhim rol o‘ynamoq",
+    "pozitsiya bildirmoq"
+   ],
+   "explanation": "unter Druck stehen — bosim ostida bo‘lmoq",
+   "ref": "unter Druck stehen",
+   "entry": {
+    "lemma": "unter Druck stehen",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-deuz-178102912f",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "wendungen",
+   "prompt": "Kritik üben",
+   "answer": "tanqid bildirmoq",
+   "wrong": [
+    "mas’uliyatni o‘z zimmasiga olmoq",
+    "ma’lumot sifatida qabul qilmoq",
+    "tajriba orttirmoq"
+   ],
+   "explanation": "Kritik üben — tanqid bildirmoq",
+   "ref": "Kritik üben",
+   "entry": {
+    "lemma": "Kritik üben",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-deuz-fc16c52420",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "verben",
+   "prompt": "sich einigen",
+   "answer": "kelishmoq",
+   "wrong": [
+    "qiziqmoq",
+    "rivojlantirmoq",
+    "ko‘rib chiqmoq"
+   ],
+   "explanation": "sich einigen — kelishmoq",
+   "ref": "sich einigen",
+   "entry": {
+    "lemma": "sich einigen",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-uzde-bd3d99d995",
+   "kind": "vocab",
+   "format": "uz_de",
+   "topic": "verben",
+   "prompt": "uchratmoq",
+   "answer": "begegnen",
+   "wrong": [
+    "informieren",
+    "beitragen",
+    "sich einigen"
+   ],
+   "explanation": "uchratmoq — begegnen",
+   "ref": "begegnen",
+   "entry": {
+    "lemma": "begegnen",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-article-02ceb2b4bb",
+   "kind": "grammar",
+   "format": "article",
+   "topic": "artikel",
+   "prompt": "___ Gelegenheit",
+   "answer": "die",
+   "wrong": [
+    "der",
+    "das"
+   ],
+   "hint": "imkoniyat",
+   "explanation": "die Gelegenheit — imkoniyat (Pl. Gelegenheiten)",
+   "ref": "Gelegenheit",
+   "entry": {
+    "lemma": "Gelegenheit",
+    "article": "die"
+   }
+  },
+  {
+   "id": "b1-deuz-4a0c2eda38",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "verben",
+   "prompt": "vermitteln",
+   "answer": "vositachilik qilmoq",
+   "wrong": [
+    "shug‘ullanmoq",
+    "asoslamoq",
+    "qiziqmoq"
+   ],
+   "explanation": "vermitteln — vositachilik qilmoq",
+   "ref": "vermitteln",
+   "entry": {
+    "lemma": "vermitteln",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-gap-2846a41e9a",
+   "kind": "vocab",
+   "format": "gap",
+   "topic": "nomen",
+   "prompt": "Was ist der ___ zwischen den beiden Wörtern?",
+   "answer": "Unterschied",
+   "wrong": [
+    "Vergleich",
+    "Fortschritt",
+    "Eindruck"
+   ],
+   "hint": "Bu ikki so‘z o‘rtasida qanday farq bor?",
+   "explanation": "der Unterschied — farq",
+   "ref": "Unterschied",
+   "entry": {
+    "lemma": "Unterschied",
+    "article": "der"
+   }
+  },
+  {
+   "id": "b1-uzde-9c267a953c",
+   "kind": "vocab",
+   "format": "uz_de",
+   "topic": "verben",
+   "prompt": "faol qatnashmoq",
+   "answer": "sich engagieren",
+   "wrong": [
+    "berücksichtigen",
+    "sich weiterentwickeln",
+    "anbieten"
+   ],
+   "explanation": "faol qatnashmoq — sich engagieren",
+   "ref": "sich engagieren",
+   "entry": {
+    "lemma": "sich engagieren",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-deuz-ef1fc264e3",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "verben",
+   "prompt": "verzichten",
+   "answer": "voz kechmoq",
+   "wrong": [
+    "eslatmoq",
+    "rivojlantirmoq",
+    "o‘z fikrini o‘tkazmoq"
+   ],
+   "explanation": "verzichten — voz kechmoq",
+   "ref": "verzichten",
+   "entry": {
+    "lemma": "verzichten",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-deuz-18c1417e27",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "verben",
+   "prompt": "informieren",
+   "answer": "ma’lumot bermoq",
+   "wrong": [
+    "qaror qilmoq",
+    "to‘xtatib qo‘ymoq",
+    "o‘zini tutmoq"
+   ],
+   "explanation": "informieren — ma’lumot bermoq",
+   "ref": "informieren",
+   "entry": {
+    "lemma": "informieren",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-deuz-5e2c677adb",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "verben",
+   "prompt": "vereinbaren",
+   "answer": "kelishib olmoq",
+   "wrong": [
+    "vositachilik qilmoq",
+    "to‘xtatib qo‘ymoq",
+    "ko‘rib chiqmoq"
+   ],
+   "explanation": "vereinbaren — kelishib olmoq",
+   "ref": "vereinbaren",
+   "entry": {
+    "lemma": "vereinbaren",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-uzde-7c503b9aa0",
+   "kind": "vocab",
+   "format": "uz_de",
+   "topic": "wendungen",
+   "prompt": "aloqada qolmoq",
+   "answer": "in Kontakt bleiben",
+   "wrong": [
+    "eine Entscheidung treffen",
+    "Kritik üben",
+    "Verantwortung übernehmen"
+   ],
+   "explanation": "aloqada qolmoq — in Kontakt bleiben",
+   "ref": "in Kontakt bleiben",
+   "entry": {
+    "lemma": "in Kontakt bleiben",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-deuz-9e8cafa0ea",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "verben",
+   "prompt": "in Betracht ziehen",
+   "answer": "ko‘rib chiqmoq",
+   "wrong": [
+    "qaror qilmoq",
+    "o‘z fikrini o‘tkazmoq",
+    "rivojlantirmoq"
+   ],
+   "explanation": "in Betracht ziehen — ko‘rib chiqmoq",
+   "ref": "in Betracht ziehen",
+   "entry": {
+    "lemma": "in Betracht ziehen",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-deuz-a82b197417",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "verben",
+   "prompt": "entwickeln",
+   "answer": "rivojlantirmoq",
+   "wrong": [
+    "hissa qo‘shmoq",
+    "o‘z fikrini o‘tkazmoq",
+    "qaror qilmoq"
+   ],
+   "explanation": "entwickeln — rivojlantirmoq",
+   "ref": "entwickeln",
+   "entry": {
+    "lemma": "entwickeln",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-article-1497b02d63",
+   "kind": "grammar",
+   "format": "article",
+   "topic": "artikel",
+   "prompt": "___ Umgebung",
+   "answer": "die",
+   "wrong": [
+    "der",
+    "das"
+   ],
+   "hint": "atrof",
+   "explanation": "die Umgebung — atrof (Pl. Umgebungen)",
+   "ref": "Umgebung",
+   "entry": {
+    "lemma": "Umgebung",
+    "article": "die"
+   }
+  },
+  {
+   "id": "b1-deuz-8bf2d9c377",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "verben",
+   "prompt": "unterbrechen",
+   "answer": "to‘xtatib qo‘ymoq",
+   "wrong": [
+    "kutmoq",
+    "hissa qo‘shmoq",
+    "faol qatnashmoq"
+   ],
+   "explanation": "unterbrechen — to‘xtatib qo‘ymoq",
+   "ref": "unterbrechen",
+   "entry": {
+    "lemma": "unterbrechen",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-uzde-d7d3b20171",
+   "kind": "vocab",
+   "format": "uz_de",
+   "topic": "wendungen",
+   "prompt": "pozitsiya bildirmoq",
+   "answer": "Stellung nehmen",
+   "wrong": [
+    "zur Verfügung stehen",
+    "einen Beitrag leisten",
+    "Erfahrungen austauschen"
+   ],
+   "explanation": "pozitsiya bildirmoq — Stellung nehmen",
+   "ref": "Stellung nehmen",
+   "entry": {
+    "lemma": "Stellung nehmen",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-gap-1b0ff6e0a9",
+   "kind": "vocab",
+   "format": "gap",
+   "topic": "adjektive",
+   "prompt": "Ich war ___, wie gut er Deutsch spricht.",
+   "answer": "überrascht",
+   "wrong": [
+    "kritikfähig",
+    "verlässlich",
+    "zuvorkommend"
+   ],
+   "hint": "Uning nemis tilida qanchalik yaxshi gapirishidan hayratlandim.",
+   "explanation": "überrascht — hayratlangan",
+   "ref": "überrascht",
+   "entry": {
+    "lemma": "überrascht",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-deuz-263f2ef687",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "verben",
+   "prompt": "sich durchsetzen",
+   "answer": "o‘z fikrini o‘tkazmoq",
+   "wrong": [
+    "tan olmoq",
+    "voz kechmoq",
+    "faol qatnashmoq"
+   ],
+   "explanation": "sich durchsetzen — o‘z fikrini o‘tkazmoq",
+   "ref": "sich durchsetzen",
+   "entry": {
+    "lemma": "sich durchsetzen",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-gap-dc849a9d82",
+   "kind": "vocab",
+   "format": "gap",
+   "topic": "adjektive",
+   "prompt": "Ich habe mich ___ gefreut.",
+   "answer": "wahnsinnig",
+   "wrong": [
+    "überzeugend",
+    "selbstverständlich",
+    "erfolgreich"
+   ],
+   "hint": "Men juda-juda xursand bo‘ldim.",
+   "explanation": "wahnsinnig — juda kuchli",
+   "ref": "wahnsinnig",
+   "entry": {
+    "lemma": "wahnsinnig",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-deuz-ba324ecd9d",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "verben",
+   "prompt": "sich konzentrieren",
+   "answer": "diqqatni jamlamoq",
+   "wrong": [
+    "yaxshilanmoq",
+    "uchratmoq",
+    "voz kechmoq"
+   ],
+   "explanation": "sich konzentrieren — diqqatni jamlamoq",
+   "ref": "sich konzentrieren",
+   "entry": {
+    "lemma": "sich konzentrieren",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-uzde-206aa342aa",
+   "kind": "vocab",
+   "format": "uz_de",
+   "topic": "verben",
+   "prompt": "o‘zini tutmoq",
+   "answer": "sich verhalten",
+   "wrong": [
+    "sich äußern",
+    "begründen",
+    "sich interessieren"
+   ],
+   "explanation": "o‘zini tutmoq — sich verhalten",
+   "ref": "sich verhalten",
+   "entry": {
+    "lemma": "sich verhalten",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-article-4aca1819c1",
+   "kind": "grammar",
+   "format": "article",
+   "topic": "artikel",
+   "prompt": "___ Entscheidung",
+   "answer": "die",
+   "wrong": [
+    "der",
+    "das"
+   ],
+   "hint": "qaror",
+   "explanation": "die Entscheidung — qaror (Pl. Entscheidungen)",
+   "ref": "Entscheidung",
+   "entry": {
+    "lemma": "Entscheidung",
+    "article": "die"
+   }
+  },
+  {
+   "id": "b1-gap-b89633a3e1",
+   "kind": "vocab",
+   "format": "gap",
+   "topic": "verben",
+   "prompt": "Darf ich Ihnen etwas zu trinken ___?",
+   "answer": "anbieten",
+   "wrong": [
+    "anerkennen",
+    "verzichten",
+    "begegnen"
+   ],
+   "hint": "Sizga ichishga biror narsa taklif qilsam maylimi?",
+   "explanation": "anbieten — taklif qilmoq",
+   "ref": "anbieten",
+   "entry": {
+    "lemma": "anbieten",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-deuz-1703638863",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "nomen",
+   "prompt": "der Bereich",
+   "answer": "soha",
+   "wrong": [
+    "ta’sir",
+    "holat",
+    "imkoniyat"
+   ],
+   "explanation": "der Bereich — soha",
+   "ref": "Bereich",
+   "entry": {
+    "lemma": "Bereich",
+    "article": "der"
+   }
+  },
+  {
+   "id": "b1-deuz-3bde21174a",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "adjektive",
+   "prompt": "erfolgreich",
+   "answer": "muvaffaqiyatli",
+   "wrong": [
+    "ishonarli",
+    "xotirjam",
+    "xushmuomala"
+   ],
+   "explanation": "erfolgreich — muvaffaqiyatli",
+   "ref": "erfolgreich",
+   "entry": {
+    "lemma": "erfolgreich",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-deuz-3549888dfa",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "adjektive",
+   "prompt": "entschlossen",
+   "answer": "qat’iyatli",
+   "wrong": [
+    "juda kuchli",
+    "xotirjam",
+    "tanqidni qabul qila oladigan"
+   ],
+   "explanation": "entschlossen — qat’iyatli",
+   "ref": "entschlossen",
+   "entry": {
+    "lemma": "entschlossen",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-gap-379aec7b0b",
+   "kind": "vocab",
+   "format": "gap",
+   "topic": "verben",
+   "prompt": "Wir müssen den Plan an die neue Situation ___.",
+   "answer": "anpassen",
+   "wrong": [
+    "verändern",
+    "überprüfen",
+    "anerkennen"
+   ],
+   "hint": "Biz rejani yangi vaziyatga moslashtirishimiz kerak.",
+   "explanation": "anpassen — moslashmoq",
+   "ref": "anpassen",
+   "entry": {
+    "lemma": "anpassen",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-article-64f0ef3d2a",
+   "kind": "grammar",
+   "format": "article",
+   "topic": "artikel",
+   "prompt": "___ Veränderung",
+   "answer": "die",
+   "wrong": [
+    "der",
+    "das"
+   ],
+   "hint": "o‘zgarish",
+   "explanation": "die Veränderung — o‘zgarish (Pl. Veränderungen)",
+   "ref": "Veränderung",
+   "entry": {
+    "lemma": "Veränderung",
+    "article": "die"
+   }
+  },
+  {
+   "id": "b1-deuz-cd630d9bb9",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "wendungen",
+   "prompt": "eine Entscheidung treffen",
+   "answer": "qaror qabul qilmoq",
+   "wrong": [
+    "bosim ostida bo‘lmoq",
+    "hissa qo‘shmoq",
+    "tanqid bildirmoq"
+   ],
+   "explanation": "eine Entscheidung treffen — qaror qabul qilmoq",
+   "ref": "eine Entscheidung treffen",
+   "entry": {
+    "lemma": "eine Entscheidung treffen",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-uzde-0ced43185f",
+   "kind": "vocab",
+   "format": "uz_de",
+   "topic": "nomen",
+   "prompt": "holat",
+   "answer": "der Zustand",
+   "wrong": [
+    "die Auswahl",
+    "der Fortschritt",
+    "der Unterschied"
+   ],
+   "explanation": "holat — der Zustand",
+   "ref": "Zustand",
+   "entry": {
+    "lemma": "Zustand",
+    "article": "der"
+   }
+  },
+  {
+   "id": "b1-uzde-93e5c42453",
+   "kind": "vocab",
+   "format": "uz_de",
+   "topic": "verben",
+   "prompt": "qiziqmoq",
+   "answer": "sich interessieren",
+   "wrong": [
+    "sich konzentrieren",
+    "sich einigen",
+    "in Betracht ziehen"
+   ],
+   "explanation": "qiziqmoq — sich interessieren",
+   "ref": "sich interessieren",
+   "entry": {
+    "lemma": "sich interessieren",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-deuz-4358708bf1",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "wendungen",
+   "prompt": "einen Beitrag leisten",
+   "answer": "hissa qo‘shmoq",
+   "wrong": [
+    "qaror qabul qilmoq",
+    "muhim rol o‘ynamoq",
+    "taassurot qoldirmoq"
+   ],
+   "explanation": "einen Beitrag leisten — hissa qo‘shmoq",
+   "ref": "einen Beitrag leisten",
+   "entry": {
+    "lemma": "einen Beitrag leisten",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-uzde-e0a6cf92a1",
+   "kind": "vocab",
+   "format": "uz_de",
+   "topic": "wendungen",
+   "prompt": "ixtiyorda bo‘lmoq",
+   "answer": "zur Verfügung stehen",
+   "wrong": [
+    "Verantwortung übernehmen",
+    "einen Beitrag leisten",
+    "zur Kenntnis nehmen"
+   ],
+   "explanation": "ixtiyorda bo‘lmoq — zur Verfügung stehen",
+   "ref": "zur Verfügung stehen",
+   "entry": {
+    "lemma": "zur Verfügung stehen",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-deuz-463074ab8c",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "adjektive",
+   "prompt": "selbstverständlich",
+   "answer": "tabiiyki",
+   "wrong": [
+    "xotirjam",
+    "ishonarli",
+    "juda kuchli"
+   ],
+   "explanation": "selbstverständlich — tabiiyki",
+   "ref": "selbstverständlich",
+   "entry": {
+    "lemma": "selbstverständlich",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-article-0282cb8123",
+   "kind": "grammar",
+   "format": "article",
+   "topic": "artikel",
+   "prompt": "___ Nachweis",
+   "answer": "der",
+   "wrong": [
+    "die",
+    "das"
+   ],
+   "hint": "isbot",
+   "explanation": "der Nachweis — isbot (Pl. Nachweise)",
+   "ref": "Nachweis",
+   "entry": {
+    "lemma": "Nachweis",
+    "article": "der"
+   }
+  },
+  {
+   "id": "b1-deuz-7793d437c5",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "adjektive",
+   "prompt": "verlässlich",
+   "answer": "ishonchli",
+   "wrong": [
+    "xotirjam",
+    "tabiiyki",
+    "qat’iyatli"
+   ],
+   "explanation": "verlässlich — ishonchli",
+   "ref": "verlässlich",
+   "entry": {
+    "lemma": "verlässlich",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-uzde-2d32f9adb4",
+   "kind": "vocab",
+   "format": "uz_de",
+   "topic": "verben",
+   "prompt": "uchrashishga kelishmoq",
+   "answer": "sich verabreden",
+   "wrong": [
+    "erinnern",
+    "anerkennen",
+    "verändern"
+   ],
+   "explanation": "uchrashishga kelishmoq — sich verabreden",
+   "ref": "sich verabreden",
+   "entry": {
+    "lemma": "sich verabreden",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-gap-427c597779",
+   "kind": "vocab",
+   "format": "gap",
+   "topic": "nomen",
+   "prompt": "Die ___ der Kinder ist sehr wichtig.",
+   "answer": "Entwicklung",
+   "wrong": [
+    "Auswahl",
+    "Veränderung",
+    "Gelegenheit"
+   ],
+   "hint": "Bolalarning rivojlanishi juda muhim.",
+   "explanation": "die Entwicklung — rivojlanish",
+   "ref": "Entwicklung",
+   "entry": {
+    "lemma": "Entwicklung",
+    "article": "die"
+   }
+  },
+  {
+   "id": "b1-deuz-6cb0eef8ac",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "nomen",
+   "prompt": "der Vorteil",
+   "answer": "afzallik",
+   "wrong": [
+    "rivojlanish",
+    "kamchilik",
+    "yordam"
+   ],
+   "explanation": "der Vorteil — afzallik",
+   "ref": "Vorteil",
+   "entry": {
+    "lemma": "Vorteil",
+    "article": "der"
+   }
+  },
+  {
+   "id": "b1-deuz-6b1529a242",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "nomen",
+   "prompt": "die Auswahl",
+   "answer": "tanlov",
+   "wrong": [
+    "taqqoslash",
+    "yordam",
+    "rivojlanish"
+   ],
+   "explanation": "die Auswahl — tanlov",
+   "ref": "Auswahl",
+   "entry": {
+    "lemma": "Auswahl",
+    "article": "die"
+   }
+  },
+  {
+   "id": "b1-deuz-5c9f459d90",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "verben",
+   "prompt": "sich äußern",
+   "answer": "fikr bildirmoq",
+   "wrong": [
+    "to‘xtatib qo‘ymoq",
+    "hisobga olmoq",
+    "tekshirmoq"
+   ],
+   "explanation": "sich äußern — fikr bildirmoq",
+   "ref": "sich äußern",
+   "entry": {
+    "lemma": "sich äußern",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-deuz-21a6fd6c94",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "wendungen",
+   "prompt": "eine Rolle spielen",
+   "answer": "muhim rol o‘ynamoq",
+   "wrong": [
+    "ma’lumot sifatida qabul qilmoq",
+    "hissa qo‘shmoq",
+    "tajriba almashmoq"
+   ],
+   "explanation": "eine Rolle spielen — muhim rol o‘ynamoq",
+   "ref": "eine Rolle spielen",
+   "entry": {
+    "lemma": "eine Rolle spielen",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-gap-346e2ddaed",
+   "kind": "vocab",
+   "format": "gap",
+   "topic": "nomen",
+   "prompt": "Ich rufe den ___ an.",
+   "answer": "Kundenservice",
+   "wrong": [
+    "Bereich",
+    "Anlass",
+    "Eindruck"
+   ],
+   "hint": "Men mijozlarga xizmat ko‘rsatish bo‘limiga qo‘ng‘iroq qilaman.",
+   "explanation": "der Kundenservice — mijozlar xizmati",
+   "ref": "Kundenservice",
+   "entry": {
+    "lemma": "Kundenservice",
+    "article": "der"
+   }
+  },
+  {
+   "id": "b1-deuz-e6709305bf",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "wendungen",
+   "prompt": "Erfahrung sammeln",
+   "answer": "tajriba orttirmoq",
+   "wrong": [
+    "muhim rol o‘ynamoq",
+    "taassurot qoldirmoq",
+    "qaror qabul qilmoq"
+   ],
+   "explanation": "Erfahrung sammeln — tajriba orttirmoq",
+   "ref": "Erfahrung sammeln",
+   "entry": {
+    "lemma": "Erfahrung sammeln",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-uzde-4d0d7bb857",
+   "kind": "vocab",
+   "format": "uz_de",
+   "topic": "wendungen",
+   "prompt": "muhokamada bo‘lmoq",
+   "answer": "zur Diskussion stehen",
+   "wrong": [
+    "zur Kenntnis nehmen",
+    "einen Eindruck machen",
+    "Verantwortung übernehmen"
+   ],
+   "explanation": "muhokamada bo‘lmoq — zur Diskussion stehen",
+   "ref": "zur Diskussion stehen",
+   "entry": {
+    "lemma": "zur Diskussion stehen",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-gap-8ff473e109",
+   "kind": "vocab",
+   "format": "gap",
+   "topic": "verben",
+   "prompt": "Bitte ___ Sie Ihre Meinung.",
+   "answer": "begründen",
+   "wrong": [
+    "informieren",
+    "unterbrechen",
+    "anpassen"
+   ],
+   "hint": "Iltimos, fikringizni asoslang.",
+   "explanation": "begründen — asoslamoq",
+   "ref": "begründen",
+   "entry": {
+    "lemma": "begründen",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-uzde-248561532a",
+   "kind": "vocab",
+   "format": "uz_de",
+   "topic": "wendungen",
+   "prompt": "ma’lumot sifatida qabul qilmoq",
+   "answer": "zur Kenntnis nehmen",
+   "wrong": [
+    "Erfahrung sammeln",
+    "Kritik üben",
+    "einen Eindruck machen"
+   ],
+   "explanation": "ma’lumot sifatida qabul qilmoq — zur Kenntnis nehmen",
+   "ref": "zur Kenntnis nehmen",
+   "entry": {
+    "lemma": "zur Kenntnis nehmen",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-deuz-aee37cde04",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "adjektive",
+   "prompt": "kritikfähig",
+   "answer": "tanqidni qabul qila oladigan",
+   "wrong": [
+    "ishonarli",
+    "tabiiyki",
+    "muvaffaqiyatli"
+   ],
+   "explanation": "kritikfähig — tanqidni qabul qila oladigan",
+   "ref": "kritikfähig",
+   "entry": {
+    "lemma": "kritikfähig",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-article-c3512e735f",
+   "kind": "grammar",
+   "format": "article",
+   "topic": "artikel",
+   "prompt": "___ Möglichkeit",
+   "answer": "die",
+   "wrong": [
+    "der",
+    "das"
+   ],
+   "hint": "imkoniyat",
+   "explanation": "die Möglichkeit — imkoniyat (Pl. Möglichkeiten)",
+   "ref": "Möglichkeit",
+   "entry": {
+    "lemma": "Möglichkeit",
+    "article": "die"
+   }
+  },
+  {
+   "id": "b1-deuz-0fe9117023",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "verben",
+   "prompt": "verändern",
+   "answer": "o‘zgartirmoq",
+   "wrong": [
+    "fikr bildirmoq",
+    "kelishmoq",
+    "vositachilik qilmoq"
+   ],
+   "explanation": "verändern — o‘zgartirmoq",
+   "ref": "verändern",
+   "entry": {
+    "lemma": "verändern",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-deuz-2d5e938465",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "verben",
+   "prompt": "sich entscheiden",
+   "answer": "qaror qilmoq",
+   "wrong": [
+    "moslashmoq",
+    "diqqatni jamlamoq",
+    "hisobga olmoq"
+   ],
+   "explanation": "sich entscheiden — qaror qilmoq",
+   "ref": "sich entscheiden",
+   "entry": {
+    "lemma": "sich entscheiden",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-uzde-4f5acabbb1",
+   "kind": "vocab",
+   "format": "uz_de",
+   "topic": "verben",
+   "prompt": "eslatmoq",
+   "answer": "erinnern",
+   "wrong": [
+    "verzichten",
+    "sich verhalten",
+    "anpassen"
+   ],
+   "explanation": "eslatmoq — erinnern",
+   "ref": "erinnern",
+   "entry": {
+    "lemma": "erinnern",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-gap-fc9ed31b59",
+   "kind": "vocab",
+   "format": "gap",
+   "topic": "verben",
+   "prompt": "Wir ___ heute Abend Gäste.",
+   "answer": "erwarten",
+   "wrong": [
+    "informieren",
+    "begründen",
+    "anerkennen"
+   ],
+   "hint": "Bugun kechqurun biz mehmon kutyapmiz.",
+   "explanation": "erwarten — kutmoq",
+   "ref": "erwarten",
+   "entry": {
+    "lemma": "erwarten",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-uzde-bc6357f420",
+   "kind": "vocab",
+   "format": "uz_de",
+   "topic": "verben",
+   "prompt": "tan olmoq",
+   "answer": "anerkennen",
+   "wrong": [
+    "sich konzentrieren",
+    "sich einigen",
+    "anbieten"
+   ],
+   "explanation": "tan olmoq — anerkennen",
+   "ref": "anerkennen",
+   "entry": {
+    "lemma": "anerkennen",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-deuz-0ae9081a16",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "adjektive",
+   "prompt": "überzeugend",
+   "answer": "ishonarli",
+   "wrong": [
+    "hayratlangan",
+    "juda kuchli",
+    "tabiiyki"
+   ],
+   "explanation": "überzeugend — ishonarli",
+   "ref": "überzeugend",
+   "entry": {
+    "lemma": "überzeugend",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-deuz-802362f425",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "verben",
+   "prompt": "sich beschäftigen",
+   "answer": "shug‘ullanmoq",
+   "wrong": [
+    "to‘xtatib qo‘ymoq",
+    "qaror qilmoq",
+    "yaxshilanmoq"
+   ],
+   "explanation": "sich beschäftigen — shug‘ullanmoq",
+   "ref": "sich beschäftigen",
+   "entry": {
+    "lemma": "sich beschäftigen",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-deuz-700dc91da3",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "wendungen",
+   "prompt": "Erfahrungen austauschen",
+   "answer": "tajriba almashmoq",
+   "wrong": [
+    "aloqada qolmoq",
+    "bosim ostida bo‘lmoq",
+    "tanqid bildirmoq"
+   ],
+   "explanation": "Erfahrungen austauschen — tajriba almashmoq",
+   "ref": "Erfahrungen austauschen",
+   "entry": {
+    "lemma": "Erfahrungen austauschen",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-deuz-fce1b7489e",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "verben",
+   "prompt": "zur Verfügung stellen",
+   "answer": "taqdim etmoq",
+   "wrong": [
+    "eslatmoq",
+    "to‘xtatib qo‘ymoq",
+    "shug‘ullanmoq"
+   ],
+   "explanation": "zur Verfügung stellen — taqdim etmoq",
+   "ref": "zur Verfügung stellen",
+   "entry": {
+    "lemma": "zur Verfügung stellen",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-article-2ac1b97337",
+   "kind": "grammar",
+   "format": "article",
+   "topic": "artikel",
+   "prompt": "___ Eindruck",
+   "answer": "der",
+   "wrong": [
+    "die",
+    "das"
+   ],
+   "hint": "taassurot",
+   "explanation": "der Eindruck — taassurot (Pl. Eindrücke)",
+   "ref": "Eindruck",
+   "entry": {
+    "lemma": "Eindruck",
+    "article": "der"
+   }
+  },
+  {
+   "id": "b1-gap-335f505da7",
+   "kind": "vocab",
+   "format": "gap",
+   "topic": "nomen",
+   "prompt": "Das Medikament zeigt schnell ___.",
+   "answer": "Wirkung",
+   "wrong": [
+    "Veränderung",
+    "Umgebung",
+    "Auswahl"
+   ],
+   "hint": "Dori tez ta’sir qiladi.",
+   "explanation": "die Wirkung — ta’sir",
+   "ref": "Wirkung",
+   "entry": {
+    "lemma": "Wirkung",
+    "article": "die"
+   }
+  },
+  {
+   "id": "b1-deuz-8a4a7ee07a",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "verben",
+   "prompt": "überprüfen",
+   "answer": "tekshirmoq",
+   "wrong": [
+    "o‘zini rivojlantirmoq",
+    "hissa qo‘shmoq",
+    "uchratmoq"
+   ],
+   "explanation": "überprüfen — tekshirmoq",
+   "ref": "überprüfen",
+   "entry": {
+    "lemma": "überprüfen",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-deuz-8199b8c795",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "verben",
+   "prompt": "berücksichtigen",
+   "answer": "hisobga olmoq",
+   "wrong": [
+    "shug‘ullanmoq",
+    "asoslamoq",
+    "rivojlantirmoq"
+   ],
+   "explanation": "berücksichtigen — hisobga olmoq",
+   "ref": "berücksichtigen",
+   "entry": {
+    "lemma": "berücksichtigen",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-deuz-b254fec1a4",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "verben",
+   "prompt": "sich verbessern",
+   "answer": "yaxshilanmoq",
+   "wrong": [
+    "qiziqmoq",
+    "o‘z fikrini o‘tkazmoq",
+    "hisobga olmoq"
+   ],
+   "explanation": "sich verbessern — yaxshilanmoq",
+   "ref": "sich verbessern",
+   "entry": {
+    "lemma": "sich verbessern",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-gap-d2e0c68f7a",
+   "kind": "vocab",
+   "format": "gap",
+   "topic": "verben",
+   "prompt": "Jeder kann zum Umweltschutz ___.",
+   "answer": "beitragen",
+   "wrong": [
+    "unterbrechen",
+    "vereinbaren",
+    "informieren"
+   ],
+   "hint": "Har kim atrof-muhitni himoya qilishga hissa qo‘sha oladi.",
+   "explanation": "beitragen — hissa qo‘shmoq",
+   "ref": "beitragen",
+   "entry": {
+    "lemma": "beitragen",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-deuz-6faea50845",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "verben",
+   "prompt": "sich weiterentwickeln",
+   "answer": "o‘zini rivojlantirmoq",
+   "wrong": [
+    "moslashmoq",
+    "kelishmoq",
+    "vositachilik qilmoq"
+   ],
+   "explanation": "sich weiterentwickeln — o‘zini rivojlantirmoq",
+   "ref": "sich weiterentwickeln",
+   "entry": {
+    "lemma": "sich weiterentwickeln",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-article-f045ab8f30",
+   "kind": "grammar",
+   "format": "article",
+   "topic": "artikel",
+   "prompt": "___ Vorschlag",
+   "answer": "der",
+   "wrong": [
+    "die",
+    "das"
+   ],
+   "hint": "taklif",
+   "explanation": "der Vorschlag — taklif (Pl. Vorschläge)",
+   "ref": "Vorschlag",
+   "entry": {
+    "lemma": "Vorschlag",
+    "article": "der"
+   }
+  },
+  {
+   "id": "b1-deuz-62f9574707",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "adjektive",
+   "prompt": "zuvorkommend",
+   "answer": "xushmuomala",
+   "wrong": [
+    "ishonchli",
+    "tabiiyki",
+    "juda kuchli"
+   ],
+   "explanation": "zuvorkommend — xushmuomala",
+   "ref": "zuvorkommend",
+   "entry": {
+    "lemma": "zuvorkommend",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-article-e319f682b3",
+   "kind": "grammar",
+   "format": "article",
+   "topic": "artikel",
+   "prompt": "___ Gedanke",
+   "answer": "der",
+   "wrong": [
+    "die",
+    "das"
+   ],
+   "hint": "fikr",
+   "explanation": "der Gedanke — fikr (Pl. Gedanken)",
+   "ref": "Gedanke",
+   "entry": {
+    "lemma": "Gedanke",
+    "article": "der"
+   }
+  },
+  {
+   "id": "b1-gap-9bc1ed31d1",
+   "kind": "vocab",
+   "format": "gap",
+   "topic": "nomen",
+   "prompt": "Im ___ zu Berlin ist München teurer.",
+   "answer": "Vergleich",
+   "wrong": [
+    "Nachweis",
+    "Vorteil",
+    "Kundenservice"
+   ],
+   "hint": "Berlinga nisbatan Myunxen qimmatroq.",
+   "explanation": "der Vergleich — taqqoslash",
+   "ref": "Vergleich",
+   "entry": {
+    "lemma": "Vergleich",
+    "article": "der"
+   }
+  },
+  {
+   "id": "b1-uzde-c604ad0ed5",
+   "kind": "vocab",
+   "format": "uz_de",
+   "topic": "wendungen",
+   "prompt": "taassurot qoldirmoq",
+   "answer": "einen Eindruck machen",
+   "wrong": [
+    "zur Verfügung stehen",
+    "Erfahrungen austauschen",
+    "zur Kenntnis nehmen"
+   ],
+   "explanation": "taassurot qoldirmoq — einen Eindruck machen",
+   "ref": "einen Eindruck machen",
+   "entry": {
+    "lemma": "einen Eindruck machen",
+    "article": ""
+   }
+  },
+  {
+   "id": "b1-deuz-9194c26c54",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "nomen",
+   "prompt": "der Nachteil",
+   "answer": "kamchilik",
+   "wrong": [
+    "taqqoslash",
+    "o‘zgarish",
+    "taassurot"
+   ],
+   "explanation": "der Nachteil — kamchilik",
+   "ref": "Nachteil",
+   "entry": {
+    "lemma": "Nachteil",
+    "article": "der"
+   }
+  },
+  {
+   "id": "b1-deuz-832c78ec50",
+   "kind": "vocab",
+   "format": "de_uz",
+   "topic": "nomen",
+   "prompt": "der Anlass",
+   "answer": "sabab",
+   "wrong": [
+    "rivojlanish",
+    "mijozlar xizmati",
+    "qaror"
+   ],
+   "explanation": "der Anlass — sabab",
+   "ref": "Anlass",
+   "entry": {
+    "lemma": "Anlass",
+    "article": "der"
+   }
+  },
+  {
+   "id": "b1-article-4df47714d6",
+   "kind": "grammar",
+   "format": "article",
+   "topic": "artikel",
+   "prompt": "___ Fortschritt",
+   "answer": "der",
+   "wrong": [
+    "die",
+    "das"
+   ],
+   "hint": "rivojlanish",
+   "explanation": "der Fortschritt — rivojlanish (Pl. Fortschritte)",
+   "ref": "Fortschritt",
+   "entry": {
+    "lemma": "Fortschritt",
+    "article": "der"
+   }
+  },
+  {
+   "id": "b1-g-b9dbaa4c9d",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "Ich bin müde. ___ gehe ich früh ins Bett.",
+   "answer": "Deshalb",
+   "wrong": [
+    "Trotzdem",
+    "Obwohl",
+    "Weil"
+   ],
+   "explanation": "deshalb = Folge; danach Verb an Position 2"
+  },
+  {
+   "id": "b1-g-432b202453",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "Er ist krank. ___ geht er zur Arbeit.",
+   "answer": "Trotzdem",
+   "wrong": [
+    "Deshalb",
+    "Obwohl",
+    "Weil"
+   ],
+   "explanation": "trotzdem = Gegensatz; Verb an Position 2"
+  },
+  {
+   "id": "b1-g-5da18e408a",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "___ es kalt war, sind wir schwimmen gegangen.",
+   "answer": "Obwohl",
+   "wrong": [
+    "Weil",
+    "Trotzdem",
+    "Deshalb"
+   ],
+   "explanation": "obwohl + Nebensatz (Gegensatz)"
+  },
+  {
+   "id": "b1-g-32a9787e0a",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "Ich lerne viel, ___ ich die Prüfung bestehe.",
+   "answer": "damit",
+   "wrong": [
+    "obwohl",
+    "trotzdem",
+    "deshalb"
+   ],
+   "explanation": "damit = Ziel"
+  },
+  {
+   "id": "b1-g-7a481cbcc3",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "Sie spart Geld, ___ sich ein Auto zu kaufen.",
+   "answer": "um",
+   "wrong": [
+    "damit",
+    "weil",
+    "dass"
+   ],
+   "explanation": "um … zu + Infinitiv (Ziel)"
+  },
+  {
+   "id": "b1-g-a9d74bd465",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "Wir können ins Kino gehen ___ zu Hause bleiben.",
+   "answer": "oder",
+   "wrong": [
+    "aber",
+    "sondern",
+    "denn"
+   ],
+   "explanation": "oder = Alternative"
+  },
+  {
+   "id": "b1-g-ad61ded8a3",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "Das ist nicht mein Buch, ___ deins.",
+   "answer": "sondern",
+   "wrong": [
+    "oder",
+    "denn",
+    "deshalb"
+   ],
+   "explanation": "nicht …, sondern … (Korrektur)"
+  },
+  {
+   "id": "b1-g-db5da578fb",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "___ er Zeit hat, hilft er seinen Nachbarn.",
+   "answer": "Wenn",
+   "wrong": [
+    "Dass",
+    "Ob",
+    "Trotzdem"
+   ],
+   "explanation": "wenn = Bedingung"
+  },
+  {
+   "id": "b1-g-2bcec3258b",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "Ich weiß nicht, ___ er heute kommt.",
+   "answer": "ob",
+   "wrong": [
+    "weil",
+    "denn",
+    "damit"
+   ],
+   "explanation": "indirekte Ja/Nein-Frage → ob"
+  },
+  {
+   "id": "b1-g-c17b1513bf",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "Je mehr du übst, ___ besser sprichst du.",
+   "answer": "desto",
+   "wrong": [
+    "als",
+    "wie",
+    "dann"
+   ],
+   "explanation": "je … desto (umso)"
+  },
+  {
+   "id": "b1-g-b4a1848049",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "Sowohl mein Bruder ___ meine Schwester studieren Medizin.",
+   "answer": "als auch",
+   "wrong": [
+    "noch",
+    "oder",
+    "sondern auch"
+   ],
+   "explanation": "sowohl … als auch"
+  },
+  {
+   "id": "b1-g-061159681b",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "Weder Ali ___ Laylo hat heute Zeit.",
+   "answer": "noch",
+   "wrong": [
+    "oder",
+    "und",
+    "als auch"
+   ],
+   "explanation": "weder … noch"
+  },
+  {
+   "id": "b1-g-459b232563",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "Entweder wir fahren mit dem Zug, ___ wir nehmen das Auto.",
+   "answer": "oder",
+   "wrong": [
+    "noch",
+    "und",
+    "aber"
+   ],
+   "explanation": "entweder … oder"
+  },
+  {
+   "id": "b1-g-af0deb07d5",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "___ ich gegessen hatte, ging ich spazieren.",
+   "answer": "Nachdem",
+   "wrong": [
+    "Während",
+    "Damit",
+    "Sodass"
+   ],
+   "explanation": "nachdem + Plusquamperfekt"
+  },
+  {
+   "id": "b1-g-2fa8cb4a8a",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "___ du schläfst, lese ich ein Buch.",
+   "answer": "Während",
+   "wrong": [
+    "Nachdem",
+    "Damit",
+    "Sodass"
+   ],
+   "explanation": "während = gleichzeitig"
+  },
+  {
+   "id": "b1-g-acca27e22d",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "Ich putze die Wohnung, ___ die Gäste kommen.",
+   "answer": "bevor",
+   "wrong": [
+    "nachdem",
+    "sodass",
+    "denn"
+   ],
+   "explanation": "bevor = vorher"
+  },
+  {
+   "id": "b1-g-ce319c730b",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "Er hat keine Zeit, ___ er viel arbeiten muss.",
+   "answer": "da",
+   "wrong": [
+    "obwohl",
+    "sodass",
+    "damit"
+   ],
+   "explanation": "da = Grund (wie weil)"
+  },
+  {
+   "id": "b1-g-cee0e64fa1",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "Es war sehr laut, ___ ich nicht schlafen konnte.",
+   "answer": "sodass",
+   "wrong": [
+    "damit",
+    "obwohl",
+    "bevor"
+   ],
+   "explanation": "sodass = Folge"
+  },
+  {
+   "id": "b1-g-3882e60d16",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "Seit ich in Berlin wohne, ___ jeden Tag Deutsch.",
+   "answer": "spreche ich",
+   "wrong": [
+    "ich spreche",
+    "sprechen ich",
+    "ich sprechen"
+   ],
+   "explanation": "Nach dem Nebensatz: zuerst das Verb, dann das Subjekt."
+  },
+  {
+   "id": "b1-g-5e29215f92",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "Ich gehe heute nicht aus, ___ ich muss lernen.",
+   "answer": "denn",
+   "wrong": [
+    "weil",
+    "obwohl",
+    "deshalb"
+   ],
+   "explanation": "denn: Verb an Position 2 (weil: Verb am Ende)"
+  },
+  {
+   "id": "b1-g-2c326c500a",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "Du kannst mitkommen, ___ du willst.",
+   "answer": "wenn",
+   "wrong": [
+    "dass",
+    "ob",
+    "denn"
+   ],
+   "explanation": "wenn = Bedingung"
+  },
+  {
+   "id": "b1-g-4a029d4757",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "Statt zu lernen, ___ den ganzen Tag Videospiele.",
+   "answer": "spielt er",
+   "wrong": [
+    "er spielt",
+    "spielen er",
+    "zu spielen"
+   ],
+   "explanation": "Infinitivgruppe vorn → Verb, dann Subjekt"
+  },
+  {
+   "id": "b1-g-05b1330021",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "Er ging nach Hause, ohne sich ___ verabschieden.",
+   "answer": "zu",
+   "wrong": [
+    "um",
+    "zum",
+    "für"
+   ],
+   "explanation": "ohne … zu + Infinitiv"
+  },
+  {
+   "id": "b1-g-9551a6a531",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "Ich bin zu spät gekommen, ___ der Bus Verspätung hatte.",
+   "answer": "weil",
+   "wrong": [
+    "obwohl",
+    "damit",
+    "sodass"
+   ],
+   "explanation": "weil = Grund"
+  },
+  {
+   "id": "b1-g-71c2bade19",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "Wir bleiben zu Hause, ___ das Wetter so schlecht ist.",
+   "answer": "solange",
+   "wrong": [
+    "damit",
+    "ob",
+    "nachdem"
+   ],
+   "explanation": "solange = für die Zeit, in der …"
+  },
+  {
+   "id": "b1-g-f158277a64",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Das ist der Mann, ___ mir geholfen hat.",
+   "answer": "der",
+   "wrong": [
+    "den",
+    "dem",
+    "dessen"
+   ],
+   "explanation": "Subjekt, maskulin → der"
+  },
+  {
+   "id": "b1-g-d08e6092c2",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Das ist die Frau, ___ ich gestern getroffen habe.",
+   "answer": "die",
+   "wrong": [
+    "der",
+    "deren",
+    "den"
+   ],
+   "explanation": "treffen + Akkusativ, feminin → die"
+  },
+  {
+   "id": "b1-g-78c99ddd04",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Das Kind, ___ dort spielt, ist mein Sohn.",
+   "answer": "das",
+   "wrong": [
+    "dem",
+    "den",
+    "dessen"
+   ],
+   "explanation": "Subjekt, neutral → das"
+  },
+  {
+   "id": "b1-g-4dc7da96e3",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Der Freund, ___ ich das Buch gegeben habe, wohnt in Bonn.",
+   "answer": "dem",
+   "wrong": [
+    "den",
+    "der",
+    "dessen"
+   ],
+   "explanation": "geben: wem? → Dativ maskulin: dem"
+  },
+  {
+   "id": "b1-g-509e53843f",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Die Leute, ___ wir eingeladen haben, kommen um acht.",
+   "answer": "die",
+   "wrong": [
+    "denen",
+    "deren",
+    "den"
+   ],
+   "explanation": "einladen + Akkusativ Plural → die"
+  },
+  {
+   "id": "b1-g-7a683bc00b",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Die Kollegen, mit ___ ich arbeite, sind sehr nett.",
+   "answer": "denen",
+   "wrong": [
+    "die",
+    "den",
+    "deren"
+   ],
+   "explanation": "mit + Dativ Plural → denen"
+  },
+  {
+   "id": "b1-g-a5a5db4d82",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Das ist die Stadt, in ___ ich geboren bin.",
+   "answer": "der",
+   "wrong": [
+    "die",
+    "dem",
+    "deren"
+   ],
+   "explanation": "in (wo?) + Dativ feminin → der"
+  },
+  {
+   "id": "b1-g-717f439121",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Der Mann, ___ Auto kaputt ist, wartet auf den Mechaniker.",
+   "answer": "dessen",
+   "wrong": [
+    "deren",
+    "dem",
+    "den"
+   ],
+   "explanation": "Besitz, maskulin → dessen"
+  },
+  {
+   "id": "b1-g-9f1fb61d85",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Die Frau, ___ Sohn in meiner Klasse ist, ist Ärztin.",
+   "answer": "deren",
+   "wrong": [
+    "dessen",
+    "der",
+    "die"
+   ],
+   "explanation": "Besitz, feminin → deren"
+  },
+  {
+   "id": "b1-g-307e246772",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Das Haus, ___ wir gekauft haben, ist sehr alt.",
+   "answer": "das",
+   "wrong": [
+    "dem",
+    "den",
+    "dessen"
+   ],
+   "explanation": "kaufen + Akkusativ neutral → das"
+  },
+  {
+   "id": "b1-g-f1a1a76a27",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Ist das der Film, über ___ du gesprochen hast?",
+   "answer": "den",
+   "wrong": [
+    "dem",
+    "der",
+    "dessen"
+   ],
+   "explanation": "sprechen über + Akkusativ → den"
+  },
+  {
+   "id": "b1-g-8683ef17bb",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Wie heißt der Lehrer, bei ___ du Deutsch lernst?",
+   "answer": "dem",
+   "wrong": [
+    "den",
+    "der",
+    "dessen"
+   ],
+   "explanation": "bei + Dativ → dem"
+  },
+  {
+   "id": "b1-g-24dada9c53",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Die Wohnung, ___ ich suche, soll drei Zimmer haben.",
+   "answer": "die",
+   "wrong": [
+    "der",
+    "den",
+    "deren"
+   ],
+   "explanation": "suchen + Akkusativ feminin → die"
+  },
+  {
+   "id": "b1-g-2545d34084",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Das ist alles, ___ ich weiß.",
+   "answer": "was",
+   "wrong": [
+    "dass",
+    "wo",
+    "wer"
+   ],
+   "explanation": "nach alles, nichts, etwas → was"
+  },
+  {
+   "id": "b1-g-68fb287e69",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Berlin ist die Stadt, ___ ich am liebsten wohne.",
+   "answer": "in der",
+   "wrong": [
+    "in die",
+    "der",
+    "die"
+   ],
+   "explanation": "wohnen in (wo?) → in der (oder: wo)"
+  },
+  {
+   "id": "b1-g-779e108b45",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Das Beste, ___ du tun kannst, ist schlafen.",
+   "answer": "was",
+   "wrong": [
+    "dass",
+    "wo",
+    "wer"
+   ],
+   "explanation": "nach einem Superlativ als Nomen → was"
+  },
+  {
+   "id": "b1-g-50ca7e7104",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Der Kollege, ___ Namen ich vergessen habe, ruft an.",
+   "answer": "dessen",
+   "wrong": [
+    "deren",
+    "dem",
+    "den"
+   ],
+   "explanation": "Besitz, maskulin → dessen Namen"
+  },
+  {
+   "id": "b1-g-9dee2fdec1",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Die Schüler, ___ Eltern heute kommen, sind aufgeregt.",
+   "answer": "deren",
+   "wrong": [
+    "dessen",
+    "denen",
+    "die"
+   ],
+   "explanation": "Besitz, Plural → deren"
+  },
+  {
+   "id": "b1-g-b7c90fdbc8",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Kennst du das Restaurant, ___ Ali arbeitet?",
+   "answer": "in dem",
+   "wrong": [
+    "in das",
+    "dem",
+    "das"
+   ],
+   "explanation": "arbeiten in (wo?) → in dem (oder: wo)"
+  },
+  {
+   "id": "b1-g-17c89267a5",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Das sind die Bücher, ___ ich dir erzählt habe.",
+   "answer": "von denen",
+   "wrong": [
+    "von die",
+    "denen",
+    "die"
+   ],
+   "explanation": "erzählen von + Dativ Plural → von denen"
+  },
+  {
+   "id": "b1-g-519f82b146",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Die Frau, ___ ich geholfen habe, war sehr dankbar.",
+   "answer": "der",
+   "wrong": [
+    "die",
+    "den",
+    "deren"
+   ],
+   "explanation": "helfen + Dativ feminin → der"
+  },
+  {
+   "id": "b1-g-195765698a",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Der Zug, mit ___ wir fahren, hat Verspätung.",
+   "answer": "dem",
+   "wrong": [
+    "den",
+    "der",
+    "das"
+   ],
+   "explanation": "mit + Dativ maskulin → dem"
+  },
+  {
+   "id": "b1-g-939c7004e6",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Das ist ein Problem, ___ wir sofort lösen müssen.",
+   "answer": "das",
+   "wrong": [
+    "dem",
+    "den",
+    "dessen"
+   ],
+   "explanation": "lösen + Akkusativ neutral → das"
+  },
+  {
+   "id": "b1-g-f8771b2d18",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Ich habe etwas gefunden, ___ dir gefallen wird.",
+   "answer": "was",
+   "wrong": [
+    "dass",
+    "wo",
+    "der"
+   ],
+   "explanation": "nach etwas → was"
+  },
+  {
+   "id": "b1-g-3ce0edcdea",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Der Mann, ___ du siehst, ist mein Nachbar.",
+   "answer": "den",
+   "wrong": [
+    "der",
+    "dem",
+    "dessen"
+   ],
+   "explanation": "sehen + Akkusativ maskulin → den"
+  },
+  {
+   "id": "b1-g-11939a2753",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Das Haus ___ 1990 gebaut.",
+   "answer": "wurde",
+   "wrong": [
+    "hatte",
+    "wird",
+    "würde"
+   ],
+   "explanation": "Passiv Präteritum: wurde + Partizip II"
+  },
+  {
+   "id": "b1-g-4627528ee4",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Hier ___ Deutsch gesprochen.",
+   "answer": "wird",
+   "wrong": [
+    "ist",
+    "hat",
+    "werden"
+   ],
+   "explanation": "Passiv Präsens: wird + Partizip II"
+  },
+  {
+   "id": "b1-g-03ccb25b42",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Die Briefe ___ morgen verschickt.",
+   "answer": "werden",
+   "wrong": [
+    "wird",
+    "haben",
+    "wurden"
+   ],
+   "explanation": "Plural, Zukunft → werden … verschickt"
+  },
+  {
+   "id": "b1-g-39ffa05f9c",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Das Auto wird von meinem Vater ___.",
+   "answer": "repariert",
+   "wrong": [
+    "reparieren",
+    "repariere",
+    "reparierte"
+   ],
+   "explanation": "werden + Partizip II"
+  },
+  {
+   "id": "b1-g-fb87085d00",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Die Tür ___ um 22 Uhr geschlossen.",
+   "answer": "wird",
+   "wrong": [
+    "hat",
+    "werden",
+    "habe"
+   ],
+   "explanation": "Vorgangspassiv: wird geschlossen"
+  },
+  {
+   "id": "b1-g-df5856120f",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Der Dieb ___ gestern von der Polizei verhaftet.",
+   "answer": "wurde",
+   "wrong": [
+    "wird",
+    "hat",
+    "ist"
+   ],
+   "explanation": "gestern → Präteritum: wurde verhaftet"
+  },
+  {
+   "id": "b1-g-924de94eba",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Das Essen ist schon ___ worden.",
+   "answer": "gekocht",
+   "wrong": [
+    "kochen",
+    "gekochen",
+    "kocht"
+   ],
+   "explanation": "Passiv Perfekt: ist … gekocht worden"
+  },
+  {
+   "id": "b1-g-23b77e3816",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Die Hausaufgaben müssen heute ___ werden.",
+   "answer": "gemacht",
+   "wrong": [
+    "machen",
+    "gemachen",
+    "macht"
+   ],
+   "explanation": "Modalverb + Partizip II + werden"
+  },
+  {
+   "id": "b1-g-daacb0f8bd",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Von wem ___ das Buch geschrieben?",
+   "answer": "wurde",
+   "wrong": [
+    "hat",
+    "hatte",
+    "würde"
+   ],
+   "explanation": "Passiv Präteritum: Von wem wurde …?"
+  },
+  {
+   "id": "b1-g-a67013ec29",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Man repariert das Fahrrad. → Das Fahrrad ___ repariert.",
+   "answer": "wird",
+   "wrong": [
+    "wurde",
+    "werden",
+    "hat"
+   ],
+   "explanation": "Aktiv Präsens → Passiv Präsens"
+  },
+  {
+   "id": "b1-g-81063a63d5",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Man hat die Wohnung renoviert. → Die Wohnung ist renoviert ___.",
+   "answer": "worden",
+   "wrong": [
+    "geworden",
+    "werden",
+    "wurde"
+   ],
+   "explanation": "Passiv Perfekt: ist … worden"
+  },
+  {
+   "id": "b1-g-ec96bf9856",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Die Kinder ___ vom Vater abgeholt.",
+   "answer": "werden",
+   "wrong": [
+    "wird",
+    "haben",
+    "hat"
+   ],
+   "explanation": "Plural → werden … abgeholt"
+  },
+  {
+   "id": "b1-g-d037a7fb7f",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "In Deutschland ___ viel Kaffee getrunken.",
+   "answer": "wird",
+   "wrong": [
+    "werden",
+    "ist",
+    "hat"
+   ],
+   "explanation": "der Kaffee (Singular) → wird"
+  },
+  {
+   "id": "b1-g-7f968e83c0",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Das Paket ___ gestern abgeschickt.",
+   "answer": "wurde",
+   "wrong": [
+    "wird",
+    "hat",
+    "würde"
+   ],
+   "explanation": "gestern → wurde"
+  },
+  {
+   "id": "b1-g-8a252a6d41",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Die Prüfung muss bis Freitag korrigiert ___.",
+   "answer": "werden",
+   "wrong": [
+    "worden",
+    "wird",
+    "geworden"
+   ],
+   "explanation": "Modalverb + Partizip II + werden"
+  },
+  {
+   "id": "b1-g-362df45d22",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Das neue Museum ___ nächste Woche eröffnet.",
+   "answer": "wird",
+   "wrong": [
+    "wurde",
+    "hat",
+    "werden"
+   ],
+   "explanation": "Zukunft mit Zeitangabe → wird eröffnet"
+  },
+  {
+   "id": "b1-g-8fff5908e8",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Der Brief ist vom Chef unterschrieben ___.",
+   "answer": "worden",
+   "wrong": [
+    "geworden",
+    "werden",
+    "wird"
+   ],
+   "explanation": "Passiv Perfekt: … worden"
+  },
+  {
+   "id": "b1-g-af8451d686",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Die Fenster ___ jeden Freitag geputzt.",
+   "answer": "werden",
+   "wrong": [
+    "wird",
+    "haben",
+    "hat"
+   ],
+   "explanation": "Plural → werden geputzt"
+  },
+  {
+   "id": "b1-g-1f2fd96c8a",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Mein Fahrrad ___ gestern gestohlen.",
+   "answer": "wurde",
+   "wrong": [
+    "wird",
+    "hat",
+    "habe"
+   ],
+   "explanation": "gestern → wurde gestohlen"
+  },
+  {
+   "id": "b1-g-e5b8f8e792",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Das Problem kann leicht ___ werden.",
+   "answer": "gelöst",
+   "wrong": [
+    "lösen",
+    "gelöset",
+    "löst"
+   ],
+   "explanation": "können + Partizip II + werden"
+  },
+  {
+   "id": "b1-g-1c2a39b317",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Das Gebäude wird gerade ___.",
+   "answer": "renoviert",
+   "wrong": [
+    "renovieren",
+    "renovierte",
+    "renoviere"
+   ],
+   "explanation": "wird + Partizip II"
+  },
+  {
+   "id": "b1-g-9f4aab0b5e",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Die Stadt ___ im Krieg zerstört.",
+   "answer": "wurde",
+   "wrong": [
+    "wird",
+    "hat",
+    "habe"
+   ],
+   "explanation": "Vergangenheit → wurde zerstört"
+  },
+  {
+   "id": "b1-g-bc73320bb1",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Wann ___ das Rathaus gebaut?",
+   "answer": "wurde",
+   "wrong": [
+    "hat",
+    "würde",
+    "habe"
+   ],
+   "explanation": "Passiv Präteritum: Wann wurde … gebaut?"
+  },
+  {
+   "id": "b1-g-970472fa04",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Der Patient ___ sofort operiert. (Präteritum)",
+   "answer": "wurde",
+   "wrong": [
+    "wird",
+    "hat",
+    "habe"
+   ],
+   "explanation": "Präteritum Passiv: wurde operiert"
+  },
+  {
+   "id": "b1-g-a3158d8207",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Das Fenster ___ nicht geöffnet werden.",
+   "answer": "darf",
+   "wrong": [
+    "dürfen",
+    "wird",
+    "hat"
+   ],
+   "explanation": "Modalverb + Passivinfinitiv: darf … geöffnet werden"
+  },
+  {
+   "id": "b1-g-ad1b0a0b95",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Ich habe keine Lust, heute ___.",
+   "answer": "zu kochen",
+   "wrong": [
+    "kochen",
+    "zum kochen",
+    "um kochen"
+   ],
+   "explanation": "keine Lust haben + zu + Infinitiv"
+  },
+  {
+   "id": "b1-g-77e9d2e9fe",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Es ist wichtig, jeden Tag Deutsch ___.",
+   "answer": "zu lernen",
+   "wrong": [
+    "lernen",
+    "zu lernt",
+    "gelernt"
+   ],
+   "explanation": "Es ist wichtig, … zu + Infinitiv"
+  },
+  {
+   "id": "b1-g-35d3eb9f76",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Er hat vergessen, die Tür ___.",
+   "answer": "abzuschließen",
+   "wrong": [
+    "zu abschließen",
+    "abschließen",
+    "abzuschließt"
+   ],
+   "explanation": "trennbar: ab-zu-schließen"
+  },
+  {
+   "id": "b1-g-2d8832889b",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Ich versuche, pünktlich ___.",
+   "answer": "zu sein",
+   "wrong": [
+    "sein",
+    "zu bin",
+    "um sein"
+   ],
+   "explanation": "versuchen + zu + Infinitiv"
+  },
+  {
+   "id": "b1-g-348f90879f",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Wir haben vor, nach Spanien ___.",
+   "answer": "zu fliegen",
+   "wrong": [
+    "fliegen",
+    "um fliegen",
+    "zu fliegt"
+   ],
+   "explanation": "vorhaben + zu + Infinitiv"
+  },
+  {
+   "id": "b1-g-7aec0d302e",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Hast du Zeit, mir ___?",
+   "answer": "zu helfen",
+   "wrong": [
+    "helfen",
+    "zu hilfst",
+    "geholfen"
+   ],
+   "explanation": "Zeit haben + zu + Infinitiv"
+  },
+  {
+   "id": "b1-g-d4d128145e",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Ich gehe in die Bibliothek, um ___.",
+   "answer": "zu lernen",
+   "wrong": [
+    "lernen",
+    "zu lerne",
+    "gelernt"
+   ],
+   "explanation": "um … zu + Infinitiv"
+  },
+  {
+   "id": "b1-g-808b5ac393",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Sie hat angefangen, Gitarre ___.",
+   "answer": "zu spielen",
+   "wrong": [
+    "spielen",
+    "zu spielt",
+    "gespielt"
+   ],
+   "explanation": "anfangen + zu + Infinitiv"
+  },
+  {
+   "id": "b1-g-6a1ee2e436",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Er hofft, die Prüfung ___.",
+   "answer": "zu bestehen",
+   "wrong": [
+    "bestehen",
+    "zu bestanden",
+    "besteht"
+   ],
+   "explanation": "hoffen + zu + Infinitiv"
+  },
+  {
+   "id": "b1-g-d6677d11c4",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Vergiss nicht, mich ___!",
+   "answer": "anzurufen",
+   "wrong": [
+    "zu anrufen",
+    "anrufen",
+    "anzurufst"
+   ],
+   "explanation": "trennbar: an-zu-rufen"
+  },
+  {
+   "id": "b1-g-c91b0a84aa",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Ich muss heute lange ___.",
+   "answer": "arbeiten",
+   "wrong": [
+    "zu arbeiten",
+    "arbeite",
+    "gearbeitet"
+   ],
+   "explanation": "nach Modalverben ohne zu"
+  },
+  {
+   "id": "b1-g-a9d7f5c985",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Es macht Spaß, mit Freunden ___.",
+   "answer": "zu tanzen",
+   "wrong": [
+    "tanzen",
+    "zu tanzt",
+    "getanzt"
+   ],
+   "explanation": "Es macht Spaß, … zu + Infinitiv"
+  },
+  {
+   "id": "b1-g-31e028e4cc",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Er spart Geld, ___ ein Auto zu kaufen.",
+   "answer": "um",
+   "wrong": [
+    "damit",
+    "für",
+    "zu"
+   ],
+   "explanation": "um … zu (Ziel)"
+  },
+  {
+   "id": "b1-g-d984716143",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Wir gehen früh los, ___ den Zug nicht zu verpassen.",
+   "answer": "um",
+   "wrong": [
+    "damit",
+    "dass",
+    "für"
+   ],
+   "explanation": "um … zu (Ziel)"
+  },
+  {
+   "id": "b1-g-aa770751c0",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Er ging, ___ ein Wort zu sagen.",
+   "answer": "ohne",
+   "wrong": [
+    "um",
+    "damit",
+    "für"
+   ],
+   "explanation": "ohne … zu"
+  },
+  {
+   "id": "b1-g-0ebecb5e15",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "___ zu arbeiten, schläft er den ganzen Tag.",
+   "answer": "Statt",
+   "wrong": [
+    "Um",
+    "Damit",
+    "Für"
+   ],
+   "explanation": "statt … zu (anstatt)"
+  },
+  {
+   "id": "b1-g-18fbc1acfd",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Ich empfehle dir, mehr Wasser ___.",
+   "answer": "zu trinken",
+   "wrong": [
+    "trinken",
+    "zu trinkst",
+    "getrunken"
+   ],
+   "explanation": "empfehlen + zu + Infinitiv"
+  },
+  {
+   "id": "b1-g-51adefea15",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Hör auf, so laut ___!",
+   "answer": "zu sein",
+   "wrong": [
+    "sein",
+    "zu bist",
+    "gewesen"
+   ],
+   "explanation": "aufhören + zu + Infinitiv"
+  },
+  {
+   "id": "b1-g-832da8f2df",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Ich freue mich darauf, dich bald ___.",
+   "answer": "wiederzusehen",
+   "wrong": [
+    "zu wiedersehen",
+    "wiedersehen",
+    "wiederzusiehst"
+   ],
+   "explanation": "trennbar: wieder-zu-sehen"
+  },
+  {
+   "id": "b1-g-68e12e885f",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Es ist verboten, hier ___.",
+   "answer": "zu parken",
+   "wrong": [
+    "parken",
+    "zu parkt",
+    "geparkt"
+   ],
+   "explanation": "Es ist verboten, … zu + Infinitiv"
+  },
+  {
+   "id": "b1-g-f208881744",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Du brauchst morgen nicht ___ kommen.",
+   "answer": "zu",
+   "wrong": [
+    "um",
+    "für",
+    "zum"
+   ],
+   "explanation": "nicht brauchen + zu = nicht müssen"
+  },
+  {
+   "id": "b1-g-451fb5ee2a",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Sie bittet mich, das Fenster ___.",
+   "answer": "zu öffnen",
+   "wrong": [
+    "öffnen",
+    "zu öffnet",
+    "geöffnet"
+   ],
+   "explanation": "bitten + zu + Infinitiv"
+  },
+  {
+   "id": "b1-g-1030a46a6d",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Wir beschließen, morgen früher ___.",
+   "answer": "aufzustehen",
+   "wrong": [
+    "zu aufstehen",
+    "aufstehen",
+    "aufzustehst"
+   ],
+   "explanation": "trennbar: auf-zu-stehen"
+  },
+  {
+   "id": "b1-g-1baeac1dc3",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Er lernt Deutsch, ___ er in Deutschland arbeiten kann.",
+   "answer": "damit",
+   "wrong": [
+    "um",
+    "zu",
+    "für"
+   ],
+   "explanation": "damit + Nebensatz (mit Subjekt und Verb)"
+  },
+  {
+   "id": "b1-g-50edab1e28",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Es ist schwer, eine günstige Wohnung ___.",
+   "answer": "zu finden",
+   "wrong": [
+    "finden",
+    "zu findet",
+    "gefunden"
+   ],
+   "explanation": "Es ist schwer, … zu + Infinitiv"
+  },
+  {
+   "id": "b1-g-4efe3a0660",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "Wenn ich Zeit ___, würde ich dich besuchen.",
+   "answer": "hätte",
+   "wrong": [
+    "habe",
+    "hatte",
+    "hat"
+   ],
+   "explanation": "irreale Bedingung: wenn … hätte"
+  },
+  {
+   "id": "b1-g-d288be5d4e",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "Wenn ich reich ___, würde ich um die Welt reisen.",
+   "answer": "wäre",
+   "wrong": [
+    "bin",
+    "war",
+    "sei"
+   ],
+   "explanation": "irreale Bedingung: wenn … wäre"
+  },
+  {
+   "id": "b1-g-bb142d7091",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "Konjunktiv II: ___ du mir bitte helfen? (können)",
+   "answer": "Könntest",
+   "wrong": [
+    "Konntest",
+    "Kannst",
+    "Könnest"
+   ],
+   "explanation": "höfliche Bitte: Könntest du …?"
+  },
+  {
+   "id": "b1-g-3e3c61c846",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "Ich ___ gern einen Kaffee. (höflich bestellen)",
+   "answer": "hätte",
+   "wrong": [
+    "habe",
+    "hatte",
+    "hat"
+   ],
+   "explanation": "Ich hätte gern … (höflich)"
+  },
+  {
+   "id": "b1-g-7ef62f14a2",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "An deiner Stelle ___ ich zum Arzt gehen.",
+   "answer": "würde",
+   "wrong": [
+    "werde",
+    "wurde",
+    "wäre"
+   ],
+   "explanation": "Ratschlag: An deiner Stelle würde ich …"
+  },
+  {
+   "id": "b1-g-7c34e1d58e",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "Wenn das Wetter schön wäre, ___ wir an den See fahren.",
+   "answer": "könnten",
+   "wrong": [
+    "können",
+    "konnten",
+    "könnt"
+   ],
+   "explanation": "Konjunktiv II in beiden Teilen"
+  },
+  {
+   "id": "b1-g-f318f26f58",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "Ich wünschte, ich ___ mehr Zeit.",
+   "answer": "hätte",
+   "wrong": [
+    "habe",
+    "hatte",
+    "hat"
+   ],
+   "explanation": "irrealer Wunsch → Konjunktiv II"
+  },
+  {
+   "id": "b1-g-f29f57a066",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "Er tut so, als ___ er krank.",
+   "answer": "wäre",
+   "wrong": [
+    "ist",
+    "war",
+    "würde"
+   ],
+   "explanation": "als + Konjunktiv II (irrealer Vergleich)"
+  },
+  {
+   "id": "b1-g-1f6cc2a085",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "Wenn ich du ___, würde ich das nicht machen.",
+   "answer": "wäre",
+   "wrong": [
+    "bin",
+    "war",
+    "sei"
+   ],
+   "explanation": "Wenn ich du wäre, …"
+  },
+  {
+   "id": "b1-g-9100b74148",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "Es ___ schön, wenn du kommen könntest.",
+   "answer": "wäre",
+   "wrong": [
+    "war",
+    "würde",
+    "hätte"
+   ],
+   "explanation": "Es wäre schön, wenn …"
+  },
+  {
+   "id": "b1-g-62e412485e",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "Wenn ich mehr Geld hätte, ___ ich ein Haus kaufen.",
+   "answer": "würde",
+   "wrong": [
+    "werde",
+    "wurde",
+    "wäre"
+   ],
+   "explanation": "würde + Infinitiv"
+  },
+  {
+   "id": "b1-g-7036670204",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "Konjunktiv II: ___ Sie mir sagen, wie spät es ist? (können)",
+   "answer": "Könnten",
+   "wrong": [
+    "Konnten",
+    "Können",
+    "Könnet"
+   ],
+   "explanation": "höfliche Frage: Könnten Sie …?"
+  },
+  {
+   "id": "b1-g-1d9d226874",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "Konjunktiv II: Du ___ mehr Sport machen. (sollen)",
+   "answer": "solltest",
+   "wrong": [
+    "solltet",
+    "sollest",
+    "sollst"
+   ],
+   "explanation": "Ratschlag: Du solltest …"
+  },
+  {
+   "id": "b1-g-ecabb2f768",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "Wenn ich früher aufgestanden ___, hätte ich den Bus nicht verpasst.",
+   "answer": "wäre",
+   "wrong": [
+    "hätte",
+    "würde",
+    "bin"
+   ],
+   "explanation": "Vergangenheit irreal: wäre + Partizip (aufstehen → sein)"
+  },
+  {
+   "id": "b1-g-5cedac6e94",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "Ich hätte das gern früher ___. (wissen)",
+   "answer": "gewusst",
+   "wrong": [
+    "wissen",
+    "gewisst",
+    "wusste"
+   ],
+   "explanation": "hätte + Partizip II"
+  },
+  {
+   "id": "b1-g-2e621989d7",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "Wenn es nicht regnen ___, gingen wir spazieren.",
+   "answer": "würde",
+   "wrong": [
+    "wird",
+    "wurde",
+    "werde"
+   ],
+   "explanation": "würde + Infinitiv"
+  },
+  {
+   "id": "b1-g-5a29321bcf",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "___ du Lust, mit ins Kino zu kommen? (haben, Konjunktiv II)",
+   "answer": "Hättest",
+   "wrong": [
+    "Hattest",
+    "Hast",
+    "Habest"
+   ],
+   "explanation": "Hättest du Lust …?"
+  },
+  {
+   "id": "b1-g-fb901d13ca",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "Wenn er doch nur hier ___!",
+   "answer": "wäre",
+   "wrong": [
+    "ist",
+    "war",
+    "sei"
+   ],
+   "explanation": "irrealer Wunsch: Wenn … doch nur …"
+  },
+  {
+   "id": "b1-g-2252f129d3",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "Ohne deine Hilfe ___ ich das nicht geschafft.",
+   "answer": "hätte",
+   "wrong": [
+    "habe",
+    "wäre",
+    "würde"
+   ],
+   "explanation": "Vergangenheit irreal: hätte + Partizip II"
+  },
+  {
+   "id": "b1-g-c0225cd035",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "Wir ___ gern mitgekommen, aber wir hatten keine Zeit.",
+   "answer": "wären",
+   "wrong": [
+    "hätten",
+    "würden",
+    "sind"
+   ],
+   "explanation": "mitkommen → sein: wären mitgekommen"
+  },
+  {
+   "id": "b1-g-adad24fdbb",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "Wenn ich ein Vogel ___, könnte ich fliegen.",
+   "answer": "wäre",
+   "wrong": [
+    "bin",
+    "war",
+    "hätte"
+   ],
+   "explanation": "irreal: wäre"
+  },
+  {
+   "id": "b1-g-64d2fce34b",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "Ich würde gern nach Japan ___.",
+   "answer": "reisen",
+   "wrong": [
+    "zu reisen",
+    "gereist",
+    "reiste"
+   ],
+   "explanation": "würde + Infinitiv ohne zu"
+  },
+  {
+   "id": "b1-g-29309b6ac1",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "Was ___ du an meiner Stelle machen?",
+   "answer": "würdest",
+   "wrong": [
+    "wirst",
+    "wurdest",
+    "würde"
+   ],
+   "explanation": "du würdest"
+  },
+  {
+   "id": "b1-g-3b7e160a2a",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "Es wäre besser, wenn du früher ___.",
+   "answer": "kommen würdest",
+   "wrong": [
+    "kommen wirst",
+    "kamst",
+    "gekommen bist"
+   ],
+   "explanation": "wenn … kommen würdest (Konjunktiv II)"
+  },
+  {
+   "id": "b1-g-cba330c730",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "Wenn wir mehr Zeit gehabt ___, wären wir länger geblieben.",
+   "answer": "hätten",
+   "wrong": [
+    "wären",
+    "würden",
+    "haben"
+   ],
+   "explanation": "Plusquamperfekt Konjunktiv: hätten gehabt"
+  },
+  {
+   "id": "b1-g-ad2e872408",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "plusquamperfekt",
+   "prompt": "Nachdem ich gegessen ___, ging ich spazieren.",
+   "answer": "hatte",
+   "wrong": [
+    "habe",
+    "war",
+    "bin"
+   ],
+   "explanation": "nachdem + Plusquamperfekt: hatte gegessen"
+  },
+  {
+   "id": "b1-g-b28af615cb",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "plusquamperfekt",
+   "prompt": "Als wir am Bahnhof ankamen, ___ der Zug schon abgefahren.",
+   "answer": "war",
+   "wrong": [
+    "hatte",
+    "ist",
+    "wurde"
+   ],
+   "explanation": "abfahren → sein: war abgefahren"
+  },
+  {
+   "id": "b1-g-b549512ff1",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "plusquamperfekt",
+   "prompt": "Er war müde, weil er schlecht geschlafen ___.",
+   "answer": "hatte",
+   "wrong": [
+    "war",
+    "habe",
+    "wurde"
+   ],
+   "explanation": "schlafen → haben: hatte geschlafen"
+  },
+  {
+   "id": "b1-g-e35f7ea262",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "plusquamperfekt",
+   "prompt": "Nachdem sie nach Hause gekommen ___, kochte sie.",
+   "answer": "war",
+   "wrong": [
+    "hatte",
+    "ist",
+    "wurde"
+   ],
+   "explanation": "kommen → sein: war gekommen"
+  },
+  {
+   "id": "b1-g-2251b09637",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "plusquamperfekt",
+   "prompt": "Ich ___ das Buch schon gelesen, bevor der Film kam.",
+   "answer": "hatte",
+   "wrong": [
+    "war",
+    "wurde",
+    "würde"
+   ],
+   "explanation": "Vorvergangenheit: hatte gelesen"
+  },
+  {
+   "id": "b1-g-6fb93b3baf",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "plusquamperfekt",
+   "prompt": "Bevor er nach Deutschland zog, ___ er Deutsch gelernt.",
+   "answer": "hatte",
+   "wrong": [
+    "war",
+    "wurde",
+    "würde"
+   ],
+   "explanation": "lernen → haben: hatte gelernt"
+  },
+  {
+   "id": "b1-g-ae45ad90be",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "plusquamperfekt",
+   "prompt": "Sie ___ vorher noch nie im Ausland gewesen.",
+   "answer": "war",
+   "wrong": [
+    "hatte",
+    "wurde",
+    "würde"
+   ],
+   "explanation": "sein → sein: war gewesen"
+  },
+  {
+   "id": "b1-g-f35d9ace47",
+   "kind": "grammar",
+   "format": "verb_form",
+   "topic": "plusquamperfekt",
+   "prompt": "Plusquamperfekt von „Ich gehe.“",
+   "answer": "Ich war gegangen.",
+   "wrong": [
+    "Ich hatte gegangen.",
+    "Ich bin gegangen.",
+    "Ich ging."
+   ],
+   "explanation": "war/hatte (Präteritum) + Partizip II"
+  },
+  {
+   "id": "b1-g-45f555b1b0",
+   "kind": "grammar",
+   "format": "verb_form",
+   "topic": "plusquamperfekt",
+   "prompt": "Plusquamperfekt von „Wir kaufen ein.“",
+   "answer": "Wir hatten eingekauft.",
+   "wrong": [
+    "Wir waren eingekauft.",
+    "Wir haben eingekauft.",
+    "Wir kauften ein."
+   ],
+   "explanation": "hatten + eingekauft"
+  },
+  {
+   "id": "b1-g-52c9aad6f4",
+   "kind": "grammar",
+   "format": "verb_form",
+   "topic": "plusquamperfekt",
+   "prompt": "Plusquamperfekt von „Du schläfst.“",
+   "answer": "Du hattest geschlafen.",
+   "wrong": [
+    "Du warst geschlafen.",
+    "Du hast geschlafen.",
+    "Du schliefst."
+   ],
+   "explanation": "hattest + geschlafen"
+  },
+  {
+   "id": "b1-g-a47044fb58",
+   "kind": "grammar",
+   "format": "verb_form",
+   "topic": "plusquamperfekt",
+   "prompt": "Plusquamperfekt von „Er kommt an.“",
+   "answer": "Er war angekommen.",
+   "wrong": [
+    "Er hatte angekommen.",
+    "Er ist angekommen.",
+    "Er kam an."
+   ],
+   "explanation": "ankommen → sein: war angekommen"
+  },
+  {
+   "id": "b1-g-c02c4ef067",
+   "kind": "grammar",
+   "format": "verb_form",
+   "topic": "plusquamperfekt",
+   "prompt": "Plusquamperfekt von „Ihr esst.“",
+   "answer": "Ihr hattet gegessen.",
+   "wrong": [
+    "Ihr wart gegessen.",
+    "Ihr habt gegessen.",
+    "Ihr aßt."
+   ],
+   "explanation": "hattet + gegessen"
+  },
+  {
+   "id": "b1-g-3ad1f2997a",
+   "kind": "grammar",
+   "format": "verb_form",
+   "topic": "plusquamperfekt",
+   "prompt": "Plusquamperfekt von „Sie bleibt zu Hause.“",
+   "answer": "Sie war zu Hause geblieben.",
+   "wrong": [
+    "Sie hatte zu Hause geblieben.",
+    "Sie ist zu Hause geblieben.",
+    "Sie blieb zu Hause."
+   ],
+   "explanation": "bleiben → sein: war geblieben"
+  },
+  {
+   "id": "b1-g-a2c541ebd9",
+   "kind": "grammar",
+   "format": "verb_form",
+   "topic": "plusquamperfekt",
+   "prompt": "Plusquamperfekt von „Ich schreibe einen Brief.“",
+   "answer": "Ich hatte einen Brief geschrieben.",
+   "wrong": [
+    "Ich war einen Brief geschrieben.",
+    "Ich habe einen Brief geschrieben.",
+    "Ich schrieb einen Brief."
+   ],
+   "explanation": "hatte + geschrieben"
+  },
+  {
+   "id": "b1-g-70cdce3007",
+   "kind": "grammar",
+   "format": "verb_form",
+   "topic": "plusquamperfekt",
+   "prompt": "Plusquamperfekt von „Wir fliegen nach Rom.“",
+   "answer": "Wir waren nach Rom geflogen.",
+   "wrong": [
+    "Wir hatten nach Rom geflogen.",
+    "Wir sind nach Rom geflogen.",
+    "Wir flogen nach Rom."
+   ],
+   "explanation": "fliegen (Ziel) → sein: waren geflogen"
+  },
+  {
+   "id": "b1-g-3c7e6b080a",
+   "kind": "grammar",
+   "format": "verb_form",
+   "topic": "plusquamperfekt",
+   "prompt": "Plusquamperfekt von „Es passiert.“",
+   "answer": "Es war passiert.",
+   "wrong": [
+    "Es hatte passiert.",
+    "Es ist passiert.",
+    "Es passierte."
+   ],
+   "explanation": "passieren → sein: war passiert"
+  },
+  {
+   "id": "b1-g-fbcaa98df1",
+   "kind": "grammar",
+   "format": "verb_form",
+   "topic": "plusquamperfekt",
+   "prompt": "Plusquamperfekt von „Sie arbeiten viel.“",
+   "answer": "Sie hatten viel gearbeitet.",
+   "wrong": [
+    "Sie waren viel gearbeitet.",
+    "Sie haben viel gearbeitet.",
+    "Sie arbeiteten viel."
+   ],
+   "explanation": "hatten + gearbeitet"
+  },
+  {
+   "id": "b1-g-daad6ac006",
+   "kind": "grammar",
+   "format": "verb_form",
+   "topic": "plusquamperfekt",
+   "prompt": "Nachdem der Film ___ hatte, gingen wir nach Hause.",
+   "answer": "geendet",
+   "wrong": [
+    "endet",
+    "endete",
+    "geendeten"
+   ],
+   "explanation": "hatte + Partizip II: geendet"
+  },
+  {
+   "id": "b1-g-e9e65db7ea",
+   "kind": "grammar",
+   "format": "verb_form",
+   "topic": "plusquamperfekt",
+   "prompt": "Als ich ankam, hatten die anderen schon ___.",
+   "answer": "gegessen",
+   "wrong": [
+    "essen",
+    "aßen",
+    "gegesst"
+   ],
+   "explanation": "hatten + gegessen"
+  },
+  {
+   "id": "b1-g-d4b28b0cac",
+   "kind": "grammar",
+   "format": "verb_form",
+   "topic": "plusquamperfekt",
+   "prompt": "Er hatte den Schlüssel ___, deshalb konnte er nicht ins Haus.",
+   "answer": "verloren",
+   "wrong": [
+    "verlieren",
+    "verlor",
+    "verlort"
+   ],
+   "explanation": "hatte + verloren"
+  },
+  {
+   "id": "b1-g-a7a05f2211",
+   "kind": "grammar",
+   "format": "verb_form",
+   "topic": "plusquamperfekt",
+   "prompt": "Wir waren schon ___, als es zu regnen begann.",
+   "answer": "losgegangen",
+   "wrong": [
+    "losgehen",
+    "gingen los",
+    "gelosgangen"
+   ],
+   "explanation": "waren + losgegangen"
+  },
+  {
+   "id": "b1-g-1ae813423b",
+   "kind": "grammar",
+   "format": "verb_form",
+   "topic": "plusquamperfekt",
+   "prompt": "Nachdem sie das Studium ___ hatte, fand sie eine Stelle.",
+   "answer": "beendet",
+   "wrong": [
+    "beenden",
+    "beendete",
+    "gebeendet"
+   ],
+   "explanation": "hatte + beendet (ohne ge-)"
+  },
+  {
+   "id": "b1-g-bdb9e16a52",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "plusquamperfekt",
+   "prompt": "Ich war sehr glücklich, weil ich die Prüfung bestanden ___.",
+   "answer": "hatte",
+   "wrong": [
+    "war",
+    "wurde",
+    "habe"
+   ],
+   "explanation": "bestehen → haben: hatte bestanden"
+  },
+  {
+   "id": "b1-g-eb91673dc0",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "plusquamperfekt",
+   "prompt": "Bevor wir losfuhren, ___ wir alles eingepackt.",
+   "answer": "hatten",
+   "wrong": [
+    "waren",
+    "wurden",
+    "würden"
+   ],
+   "explanation": "einpacken → haben: hatten eingepackt"
+  },
+  {
+   "id": "b1-g-f4d5d0dc94",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "plusquamperfekt",
+   "prompt": "Die Gäste ___ schon gegangen, als ich ankam.",
+   "answer": "waren",
+   "wrong": [
+    "hatten",
+    "wurden",
+    "würden"
+   ],
+   "explanation": "gehen → sein: waren gegangen"
+  },
+  {
+   "id": "b1-g-902520be2f",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "___ des schlechten Wetters bleiben wir zu Hause.",
+   "answer": "Wegen",
+   "wrong": [
+    "Trotz",
+    "Ohne",
+    "Gegen"
+   ],
+   "explanation": "wegen + Genitiv (Grund)"
+  },
+  {
+   "id": "b1-g-f1793d4a5e",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "___ des Regens sind wir spazieren gegangen.",
+   "answer": "Trotz",
+   "wrong": [
+    "Wegen",
+    "Ohne",
+    "Gegen"
+   ],
+   "explanation": "trotz + Genitiv (Gegensatz)"
+  },
+  {
+   "id": "b1-g-ee7bbdd67e",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "___ des Unterrichts darf man nicht telefonieren.",
+   "answer": "Während",
+   "wrong": [
+    "Wegen",
+    "Trotz",
+    "Gegen"
+   ],
+   "explanation": "während + Genitiv (Zeit)"
+  },
+  {
+   "id": "b1-g-940d945332",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "Wir treffen uns ___ dem Kino.",
+   "answer": "vor",
+   "wrong": [
+    "um",
+    "gegen",
+    "durch"
+   ],
+   "explanation": "vor + Dativ (wo?)"
+  },
+  {
+   "id": "b1-g-a441eba8ec",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "Ich wohne noch ___ meinen Eltern.",
+   "answer": "bei",
+   "wrong": [
+    "zu",
+    "von",
+    "aus"
+   ],
+   "explanation": "wohnen bei + Dativ"
+  },
+  {
+   "id": "b1-g-c3f4d19fac",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "Er geht morgen ___ Arzt.",
+   "answer": "zum",
+   "wrong": [
+    "beim",
+    "im",
+    "am"
+   ],
+   "explanation": "gehen zu + Dativ: zum Arzt"
+  },
+  {
+   "id": "b1-g-547eee6157",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "Ich komme gerade ___ der Arbeit.",
+   "answer": "von",
+   "wrong": [
+    "bei",
+    "zu",
+    "nach"
+   ],
+   "explanation": "kommen von + Dativ"
+  },
+  {
+   "id": "b1-g-c94cd00359",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "Wir fahren im Sommer ___ Italien.",
+   "answer": "nach",
+   "wrong": [
+    "in",
+    "zu",
+    "an"
+   ],
+   "explanation": "Länder ohne Artikel → nach"
+  },
+  {
+   "id": "b1-g-596aa8a555",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "Wir fahren im Sommer ___ die Schweiz.",
+   "answer": "in",
+   "wrong": [
+    "nach",
+    "zu",
+    "an"
+   ],
+   "explanation": "Länder mit Artikel → in die"
+  },
+  {
+   "id": "b1-g-0aeb55b1b5",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "Das Geschäft ist ___ 9 bis 18 Uhr geöffnet.",
+   "answer": "von",
+   "wrong": [
+    "ab",
+    "seit",
+    "um"
+   ],
+   "explanation": "von … bis"
+  },
+  {
+   "id": "b1-g-d0c5ff1ca5",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "Ich lerne ___ drei Jahren Deutsch.",
+   "answer": "seit",
+   "wrong": [
+    "vor",
+    "ab",
+    "für"
+   ],
+   "explanation": "seit + Dativ (bis jetzt)"
+  },
+  {
+   "id": "b1-g-cc672b5042",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "___ zwei Jahren war ich in Deutschland.",
+   "answer": "Vor",
+   "wrong": [
+    "In",
+    "Für",
+    "Ab"
+   ],
+   "explanation": "vor + Dativ (Vergangenheit)"
+  },
+  {
+   "id": "b1-g-a4e3d01f0b",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "Der Supermarkt ist gleich ___ die Ecke.",
+   "answer": "um",
+   "wrong": [
+    "an",
+    "in",
+    "auf"
+   ],
+   "explanation": "um die Ecke"
+  },
+  {
+   "id": "b1-g-ade2ba7086",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "Das Geschenk ist ___ meine Mutter.",
+   "answer": "für",
+   "wrong": [
+    "zu",
+    "an",
+    "von"
+   ],
+   "explanation": "für + Akkusativ"
+  },
+  {
+   "id": "b1-g-cfa5e1c9b1",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "Wir gehen ___ den Park spazieren.",
+   "answer": "durch",
+   "wrong": [
+    "über",
+    "gegen",
+    "ohne"
+   ],
+   "explanation": "durch + Akkusativ"
+  },
+  {
+   "id": "b1-g-174d81c563",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "Er stellt das Fahrrad ___ das Haus.",
+   "answer": "hinter",
+   "wrong": [
+    "hinten",
+    "nach",
+    "bei"
+   ],
+   "explanation": "hinter + Akkusativ (wohin?)"
+  },
+  {
+   "id": "b1-g-a29d1bb009",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "___ dem Essen putze ich mir die Zähne.",
+   "answer": "Nach",
+   "wrong": [
+    "Seit",
+    "Ab",
+    "Bis"
+   ],
+   "explanation": "nach + Dativ"
+  },
+  {
+   "id": "b1-g-8c03cec90e",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "Das Hotel liegt direkt ___ Meer.",
+   "answer": "am",
+   "wrong": [
+    "im",
+    "zum",
+    "ins"
+   ],
+   "explanation": "an dem → am Meer"
+  },
+  {
+   "id": "b1-g-d56c6d9da5",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "Der Bus fährt ___ Hauptbahnhof.",
+   "answer": "zum",
+   "wrong": [
+    "nach",
+    "in",
+    "an"
+   ],
+   "explanation": "fahren zu + Dativ: zum Hauptbahnhof"
+  },
+  {
+   "id": "b1-g-1a755e73a5",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "___ Montag beginnt der neue Kurs.",
+   "answer": "Ab",
+   "wrong": [
+    "Seit",
+    "Von",
+    "Bis"
+   ],
+   "explanation": "ab = Beginn in der Zukunft"
+  },
+  {
+   "id": "b1-g-786e0b083f",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "Sie arbeitet ___ einer großen Firma.",
+   "answer": "bei",
+   "wrong": [
+    "mit",
+    "zu",
+    "von"
+   ],
+   "explanation": "arbeiten bei + Dativ"
+  },
+  {
+   "id": "b1-g-12064f5672",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "Wir sind am Abend ___ Hause.",
+   "answer": "zu",
+   "wrong": [
+    "nach",
+    "bei",
+    "in"
+   ],
+   "explanation": "zu Hause (wo?)"
+  },
+  {
+   "id": "b1-g-a2b1742fc2",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "Wir gehen jetzt ___ Hause.",
+   "answer": "nach",
+   "wrong": [
+    "zu",
+    "bei",
+    "in"
+   ],
+   "explanation": "nach Hause (wohin?)"
+  },
+  {
+   "id": "b1-g-75ddeb3e28",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "Das Konzert findet ___ freiem Himmel statt.",
+   "answer": "unter",
+   "wrong": [
+    "über",
+    "auf",
+    "an"
+   ],
+   "explanation": "unter freiem Himmel"
+  },
+  {
+   "id": "b1-g-c52157525b",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "Er kommt ___ Österreich.",
+   "answer": "aus",
+   "wrong": [
+    "von",
+    "nach",
+    "vom"
+   ],
+   "explanation": "Herkunft (Land) → aus"
+  },
+  {
+   "id": "b1-g-eb34a7a64a",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Wir warten schon lange ___ eine Antwort.",
+   "answer": "auf",
+   "wrong": [
+    "für",
+    "an",
+    "über"
+   ],
+   "explanation": "warten auf + Akkusativ"
+  },
+  {
+   "id": "b1-g-e7de02f8e8",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Ich denke oft ___ meine Kindheit.",
+   "answer": "an",
+   "wrong": [
+    "auf",
+    "von",
+    "mit"
+   ],
+   "explanation": "denken an + Akkusativ"
+  },
+  {
+   "id": "b1-g-7fce9f321f",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Er träumt ___ einem großen Haus.",
+   "answer": "von",
+   "wrong": [
+    "über",
+    "an",
+    "auf"
+   ],
+   "explanation": "träumen von + Dativ"
+  },
+  {
+   "id": "b1-g-bfa6c2be94",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Sie ärgert sich ___ den Lärm.",
+   "answer": "über",
+   "wrong": [
+    "auf",
+    "an",
+    "für"
+   ],
+   "explanation": "sich ärgern über + Akkusativ"
+  },
+  {
+   "id": "b1-g-ee63dfed05",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Ich freue mich schon ___ die Ferien. (die Ferien kommen erst)",
+   "answer": "auf",
+   "wrong": [
+    "über",
+    "an",
+    "für"
+   ],
+   "explanation": "sich freuen auf = Zukunft (über = jetzt / Vergangenheit)"
+  },
+  {
+   "id": "b1-g-9fc922e5ac",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Wir sprechen morgen ___ das Problem.",
+   "answer": "über",
+   "wrong": [
+    "an",
+    "auf",
+    "mit"
+   ],
+   "explanation": "sprechen über + Akkusativ"
+  },
+  {
+   "id": "b1-g-1c34477b1c",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Er interessiert sich nicht ___ Politik.",
+   "answer": "für",
+   "wrong": [
+    "an",
+    "über",
+    "auf"
+   ],
+   "explanation": "sich interessieren für"
+  },
+  {
+   "id": "b1-g-6763856dbf",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Ich habe Angst ___ Hunden.",
+   "answer": "vor",
+   "wrong": [
+    "von",
+    "für",
+    "mit"
+   ],
+   "explanation": "Angst haben vor + Dativ"
+  },
+  {
+   "id": "b1-g-786c3074b8",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Kannst du mir ___ der Hausaufgabe helfen?",
+   "answer": "bei",
+   "wrong": [
+    "an",
+    "für",
+    "zu"
+   ],
+   "explanation": "helfen bei + Dativ"
+  },
+  {
+   "id": "b1-g-0e44ff8329",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Sie bewirbt sich ___ eine Stelle als Krankenschwester.",
+   "answer": "um",
+   "wrong": [
+    "an",
+    "auf",
+    "über"
+   ],
+   "explanation": "sich bewerben um + Akkusativ"
+  },
+  {
+   "id": "b1-g-d00300a93f",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Ich nehme ___ dem Kurs teil.",
+   "answer": "an",
+   "wrong": [
+    "bei",
+    "in",
+    "mit"
+   ],
+   "explanation": "teilnehmen an + Dativ"
+  },
+  {
+   "id": "b1-g-52ed3cb4c3",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Er erinnert sich gern ___ seinen Urlaub.",
+   "answer": "an",
+   "wrong": [
+    "auf",
+    "von",
+    "über"
+   ],
+   "explanation": "sich erinnern an + Akkusativ"
+  },
+  {
+   "id": "b1-g-bc570d5fce",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Wir müssen uns ___ die Kinder kümmern.",
+   "answer": "um",
+   "wrong": [
+    "für",
+    "an",
+    "über"
+   ],
+   "explanation": "sich kümmern um"
+  },
+  {
+   "id": "b1-g-f64594c94c",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Ich bedanke mich ___ das Geschenk.",
+   "answer": "für",
+   "wrong": [
+    "über",
+    "an",
+    "um"
+   ],
+   "explanation": "sich bedanken für"
+  },
+  {
+   "id": "b1-g-69a47b492e",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Sie beschwert sich ___ das Essen.",
+   "answer": "über",
+   "wrong": [
+    "auf",
+    "an",
+    "gegen"
+   ],
+   "explanation": "sich beschweren über"
+  },
+  {
+   "id": "b1-g-5c3c90c304",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Das hängt ___ dem Wetter ab.",
+   "answer": "von",
+   "wrong": [
+    "an",
+    "mit",
+    "bei"
+   ],
+   "explanation": "abhängen von + Dativ"
+  },
+  {
+   "id": "b1-g-b99b70b11b",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Ich gratuliere dir ___ Geburtstag.",
+   "answer": "zum",
+   "wrong": [
+    "für",
+    "an",
+    "am"
+   ],
+   "explanation": "gratulieren zu + Dativ"
+  },
+  {
+   "id": "b1-g-c66271ce96",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Ich halte nicht viel ___ dieser Idee.",
+   "answer": "von",
+   "wrong": [
+    "an",
+    "über",
+    "für"
+   ],
+   "explanation": "halten von + Dativ (Meinung)"
+  },
+  {
+   "id": "b1-g-d2cccc9cb7",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Wir diskutieren ___ das neue Gesetz.",
+   "answer": "über",
+   "wrong": [
+    "an",
+    "von",
+    "für"
+   ],
+   "explanation": "diskutieren über + Akkusativ"
+  },
+  {
+   "id": "b1-g-61718f2028",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Er bittet seinen Freund ___ Hilfe.",
+   "answer": "um",
+   "wrong": [
+    "für",
+    "nach",
+    "zu"
+   ],
+   "explanation": "bitten um + Akkusativ"
+  },
+  {
+   "id": "b1-g-53c1887aec",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Ich achte ___ meine Gesundheit.",
+   "answer": "auf",
+   "wrong": [
+    "an",
+    "für",
+    "über"
+   ],
+   "explanation": "achten auf + Akkusativ"
+  },
+  {
+   "id": "b1-g-6d273ba6ea",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Sie verabschiedet sich ___ ihren Freunden.",
+   "answer": "von",
+   "wrong": [
+    "bei",
+    "an",
+    "mit"
+   ],
+   "explanation": "sich verabschieden von + Dativ"
+  },
+  {
+   "id": "b1-g-720ffa1e97",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Er besteht ___ seiner Meinung.",
+   "answer": "auf",
+   "wrong": [
+    "an",
+    "bei",
+    "mit"
+   ],
+   "explanation": "bestehen auf + Dativ"
+  },
+  {
+   "id": "b1-g-2eaaf0517b",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Ich gewöhne mich langsam ___ das Klima.",
+   "answer": "an",
+   "wrong": [
+    "auf",
+    "zu",
+    "mit"
+   ],
+   "explanation": "sich gewöhnen an + Akkusativ"
+  },
+  {
+   "id": "b1-g-bca7f91d8f",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "___ denkst du? – An meine Familie.",
+   "answer": "Woran",
+   "wrong": [
+    "Worauf",
+    "Wovon",
+    "Worüber"
+   ],
+   "explanation": "denken an → Woran?"
+  },
+  {
+   "id": "b1-g-1ec5b7fcc4",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Ich trinke gern ___ Tee. (heiß)",
+   "answer": "heißen",
+   "wrong": [
+    "heißer",
+    "heiße",
+    "heißes"
+   ],
+   "explanation": "ohne Artikel, Akkusativ maskulin: heißen Tee"
+  },
+  {
+   "id": "b1-g-28a7b5a103",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Das ist der Mantel des ___ Mannes. (alt)",
+   "answer": "alten",
+   "wrong": [
+    "alter",
+    "altes",
+    "alte"
+   ],
+   "explanation": "Genitiv nach des: alten"
+  },
+  {
+   "id": "b1-g-522e0a929d",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Sie wohnt in einem ___ Haus. (groß)",
+   "answer": "großen",
+   "wrong": [
+    "großes",
+    "großem",
+    "großer"
+   ],
+   "explanation": "Dativ nach einem: großen"
+  },
+  {
+   "id": "b1-g-deb94d7ef3",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Mit ___ Grüßen (freundlich)",
+   "answer": "freundlichen",
+   "wrong": [
+    "freundliche",
+    "freundlicher",
+    "freundlichem"
+   ],
+   "explanation": "Dativ Plural ohne Artikel: freundlichen Grüßen"
+  },
+  {
+   "id": "b1-g-003c31a54a",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Ich suche eine ___ Wohnung. (günstig)",
+   "answer": "günstige",
+   "wrong": [
+    "günstigen",
+    "günstiger",
+    "günstiges"
+   ],
+   "explanation": "Akkusativ feminin nach eine: günstige"
+  },
+  {
+   "id": "b1-g-ec5fbc24b6",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Wir haben heute ___ Wetter. (schön)",
+   "answer": "schönes",
+   "wrong": [
+    "schöne",
+    "schönen",
+    "schöner"
+   ],
+   "explanation": "ohne Artikel, neutral: schönes Wetter"
+  },
+  {
+   "id": "b1-g-0a6f6b2da1",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Der ___ Film war spannend. (neu)",
+   "answer": "neue",
+   "wrong": [
+    "neuer",
+    "neuen",
+    "neues"
+   ],
+   "explanation": "Nominativ nach der: neue"
+  },
+  {
+   "id": "b1-g-4433838a6d",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Ich gebe dem ___ Kind ein Eis. (klein)",
+   "answer": "kleinen",
+   "wrong": [
+    "kleine",
+    "kleines",
+    "kleiner"
+   ],
+   "explanation": "Dativ nach dem: kleinen"
+  },
+  {
+   "id": "b1-g-49c2644153",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Das sind meine ___ Freunde. (gut, Superlativ)",
+   "answer": "besten",
+   "wrong": [
+    "beste",
+    "bester",
+    "bestes"
+   ],
+   "explanation": "Plural nach meine: besten"
+  },
+  {
+   "id": "b1-g-ba68beecd3",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Er hat einen ___ Bruder. (älter)",
+   "answer": "älteren",
+   "wrong": [
+    "älterer",
+    "ältere",
+    "älteres"
+   ],
+   "explanation": "Akkusativ maskulin nach einen: älteren"
+  },
+  {
+   "id": "b1-g-1bdc988e7e",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Bei ___ Wetter gehen wir schwimmen. (gut)",
+   "answer": "gutem",
+   "wrong": [
+    "guten",
+    "gutes",
+    "guter"
+   ],
+   "explanation": "Dativ neutral ohne Artikel: gutem"
+  },
+  {
+   "id": "b1-g-096b38bd19",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Ich esse gern ___ Brot. (frisch)",
+   "answer": "frisches",
+   "wrong": [
+    "frische",
+    "frischen",
+    "frischer"
+   ],
+   "explanation": "Akkusativ neutral ohne Artikel: frisches"
+  },
+  {
+   "id": "b1-g-803dda2aa1",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Die Farbe des ___ Autos gefällt mir. (neu)",
+   "answer": "neuen",
+   "wrong": [
+    "neue",
+    "neues",
+    "neuer"
+   ],
+   "explanation": "Genitiv: des neuen Autos"
+  },
+  {
+   "id": "b1-g-e9d76fae26",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Wir wohnen in der ___ Straße. (dritt-)",
+   "answer": "dritten",
+   "wrong": [
+    "dritte",
+    "dritter",
+    "drittes"
+   ],
+   "explanation": "Dativ nach der: dritten"
+  },
+  {
+   "id": "b1-g-bd102e0b4c",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Sie trägt heute ein ___ Kleid. (blau)",
+   "answer": "blaues",
+   "wrong": [
+    "blaue",
+    "blauen",
+    "blauer"
+   ],
+   "explanation": "Akkusativ neutral nach ein: blaues"
+  },
+  {
+   "id": "b1-g-e7410a54c9",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Ich habe ___ Hunger. (groß)",
+   "answer": "großen",
+   "wrong": [
+    "großer",
+    "große",
+    "großes"
+   ],
+   "explanation": "ohne Artikel, Akkusativ maskulin: großen Hunger"
+  },
+  {
+   "id": "b1-g-9975f47c8a",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Er kauft ___ Schuhe. (bequem, ohne Artikel)",
+   "answer": "bequeme",
+   "wrong": [
+    "bequemen",
+    "bequemer",
+    "bequemes"
+   ],
+   "explanation": "Plural ohne Artikel, Akkusativ: bequeme"
+  },
+  {
+   "id": "b1-g-98e9114f6c",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Das ist eine sehr ___ Frage. (interessant)",
+   "answer": "interessante",
+   "wrong": [
+    "interessanten",
+    "interessanter",
+    "interessantes"
+   ],
+   "explanation": "Nominativ feminin nach eine"
+  },
+  {
+   "id": "b1-g-693004c97f",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Ich wünsche dir einen ___ Tag! (schön)",
+   "answer": "schönen",
+   "wrong": [
+    "schöner",
+    "schöne",
+    "schönes"
+   ],
+   "explanation": "Akkusativ maskulin: einen schönen Tag"
+  },
+  {
+   "id": "b1-g-c29624aab9",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Hast du die ___ Nachrichten gehört? (neu)",
+   "answer": "neuen",
+   "wrong": [
+    "neue",
+    "neuer",
+    "neues"
+   ],
+   "explanation": "Plural nach die: neuen"
+  },
+  {
+   "id": "b1-g-8f25e4f9f6",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Er kommt aus einer ___ Stadt. (klein)",
+   "answer": "kleinen",
+   "wrong": [
+    "kleine",
+    "kleiner",
+    "kleines"
+   ],
+   "explanation": "Dativ nach einer: kleinen"
+  },
+  {
+   "id": "b1-g-18128839ce",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Wir trinken ___ Wasser. (kalt)",
+   "answer": "kaltes",
+   "wrong": [
+    "kalte",
+    "kalten",
+    "kalter"
+   ],
+   "explanation": "Akkusativ neutral ohne Artikel: kaltes"
+  },
+  {
+   "id": "b1-g-7244900bca",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Mit dem ___ Zug fahren wir nach Hamburg. (nächst-)",
+   "answer": "nächsten",
+   "wrong": [
+    "nächste",
+    "nächster",
+    "nächstes"
+   ],
+   "explanation": "Dativ nach dem: nächsten"
+  },
+  {
+   "id": "b1-g-bb3d2d1203",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Das ___ Mädchen heißt Lena. (klein)",
+   "answer": "kleine",
+   "wrong": [
+    "kleines",
+    "kleinen",
+    "kleiner"
+   ],
+   "explanation": "Nominativ nach das: kleine"
+  },
+  {
+   "id": "b1-g-eda4fac180",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Ein ___ Mann hat mir geholfen. (freundlich)",
+   "answer": "freundlicher",
+   "wrong": [
+    "freundliche",
+    "freundlichen",
+    "freundliches"
+   ],
+   "explanation": "Nominativ maskulin nach ein: freundlicher"
+  },
+  {
+   "id": "b1-g-3e9aa66435",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "eine Entscheidung ___",
+   "answer": "treffen",
+   "wrong": [
+    "machen",
+    "geben",
+    "stellen"
+   ],
+   "explanation": "eine Entscheidung treffen"
+  },
+  {
+   "id": "b1-g-0c8667aec0",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "eine Frage ___",
+   "answer": "stellen",
+   "wrong": [
+    "machen",
+    "legen",
+    "geben"
+   ],
+   "explanation": "eine Frage stellen"
+  },
+  {
+   "id": "b1-g-fa7d99b9a4",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "Rücksicht auf andere ___",
+   "answer": "nehmen",
+   "wrong": [
+    "geben",
+    "machen",
+    "halten"
+   ],
+   "explanation": "Rücksicht nehmen"
+  },
+  {
+   "id": "b1-g-47e3bf75f8",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "einen Vorschlag ___",
+   "answer": "machen",
+   "wrong": [
+    "stellen",
+    "nehmen",
+    "treffen"
+   ],
+   "explanation": "einen Vorschlag machen"
+  },
+  {
+   "id": "b1-g-b433801334",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "jemandem Bescheid ___",
+   "answer": "sagen",
+   "wrong": [
+    "machen",
+    "stellen",
+    "nehmen"
+   ],
+   "explanation": "Bescheid sagen (auch: Bescheid geben)"
+  },
+  {
+   "id": "b1-g-92026c209e",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "Abschied ___",
+   "answer": "nehmen",
+   "wrong": [
+    "machen",
+    "geben",
+    "stellen"
+   ],
+   "explanation": "Abschied nehmen"
+  },
+  {
+   "id": "b1-g-a48e12b2b4",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "eine wichtige Rolle ___",
+   "answer": "spielen",
+   "wrong": [
+    "machen",
+    "geben",
+    "nehmen"
+   ],
+   "explanation": "eine Rolle spielen"
+  },
+  {
+   "id": "b1-g-49658b0f1f",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "regelmäßig Sport ___",
+   "answer": "treiben",
+   "wrong": [
+    "geben",
+    "nehmen",
+    "stellen"
+   ],
+   "explanation": "Sport treiben (auch: Sport machen)"
+  },
+  {
+   "id": "b1-g-17e7d3f360",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "einen Fehler ___",
+   "answer": "machen",
+   "wrong": [
+    "geben",
+    "stellen",
+    "treiben"
+   ],
+   "explanation": "einen Fehler machen"
+  },
+  {
+   "id": "b1-g-5b3486ef0f",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "Erste Hilfe ___",
+   "answer": "leisten",
+   "wrong": [
+    "machen",
+    "stellen",
+    "treffen"
+   ],
+   "explanation": "Erste Hilfe leisten"
+  },
+  {
+   "id": "b1-g-77b960572d",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "Kritik an etwas ___",
+   "answer": "üben",
+   "wrong": [
+    "machen",
+    "stellen",
+    "treiben"
+   ],
+   "explanation": "Kritik üben"
+  },
+  {
+   "id": "b1-g-d0e933cf52",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "eine Prüfung ___",
+   "answer": "ablegen",
+   "wrong": [
+    "stellen",
+    "treffen",
+    "leisten"
+   ],
+   "explanation": "eine Prüfung ablegen (auch: machen)"
+  },
+  {
+   "id": "b1-g-5105e89a7d",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "Interesse für etwas ___",
+   "answer": "zeigen",
+   "wrong": [
+    "machen",
+    "treffen",
+    "leisten"
+   ],
+   "explanation": "Interesse zeigen"
+  },
+  {
+   "id": "b1-g-e67e4d205e",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "einen Antrag ___",
+   "answer": "stellen",
+   "wrong": [
+    "machen",
+    "treffen",
+    "legen"
+   ],
+   "explanation": "einen Antrag stellen"
+  },
+  {
+   "id": "b1-g-1c7d3f186b",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "Bitte ___ Sie Platz!",
+   "answer": "nehmen",
+   "wrong": [
+    "stellen",
+    "treffen",
+    "leisten"
+   ],
+   "explanation": "Platz nehmen = sich setzen"
+  },
+  {
+   "id": "b1-g-9e7a23af85",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "Mein Traum ist in Erfüllung ___.",
+   "answer": "gegangen",
+   "wrong": [
+    "gekommen",
+    "getreten",
+    "gestellt"
+   ],
+   "explanation": "in Erfüllung gehen"
+  },
+  {
+   "id": "b1-g-9a2b6641a8",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "die Verantwortung ___",
+   "answer": "übernehmen",
+   "wrong": [
+    "machen",
+    "stellen",
+    "treffen"
+   ],
+   "explanation": "Verantwortung übernehmen"
+  },
+  {
+   "id": "b1-g-e07d3af402",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "einen Termin ___",
+   "answer": "vereinbaren",
+   "wrong": [
+    "treffen",
+    "stellen",
+    "leisten"
+   ],
+   "explanation": "einen Termin vereinbaren"
+  },
+  {
+   "id": "b1-g-eec6855e77",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "mit jemandem Kontakt ___",
+   "answer": "aufnehmen",
+   "wrong": [
+    "machen",
+    "stellen",
+    "leisten"
+   ],
+   "explanation": "Kontakt aufnehmen"
+  },
+  {
+   "id": "b1-g-655d04dda6",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "jemandem einen Rat ___",
+   "answer": "geben",
+   "wrong": [
+    "stellen",
+    "treffen",
+    "leisten"
+   ],
+   "explanation": "einen Rat geben"
+  },
+  {
+   "id": "b1-g-178a22d7d4",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "von einem Angebot Gebrauch ___",
+   "answer": "machen",
+   "wrong": [
+    "nehmen",
+    "stellen",
+    "geben"
+   ],
+   "explanation": "Gebrauch machen von"
+  },
+  {
+   "id": "b1-g-6eb3327922",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "Der Raum ___ allen Gästen zur Verfügung.",
+   "answer": "steht",
+   "wrong": [
+    "liegt",
+    "sitzt",
+    "geht"
+   ],
+   "explanation": "zur Verfügung stehen"
+  },
+  {
+   "id": "b1-g-8192b2fee5",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "eine Lösung ___",
+   "answer": "finden",
+   "wrong": [
+    "treffen",
+    "leisten",
+    "stellen"
+   ],
+   "explanation": "eine Lösung finden"
+  },
+  {
+   "id": "b1-g-e5d482ced5",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "einen guten Eindruck ___",
+   "answer": "machen",
+   "wrong": [
+    "stellen",
+    "treiben",
+    "leisten"
+   ],
+   "explanation": "einen Eindruck machen"
+  },
+  {
+   "id": "b1-g-f34936f112",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "Wert auf etwas ___",
+   "answer": "legen",
+   "wrong": [
+    "stellen",
+    "machen",
+    "treffen"
+   ],
+   "explanation": "Wert legen auf"
+  },
+  {
+   "id": "b1-g-b0f9e348a3",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Das Nomen zu „entscheiden“: die ___",
+   "answer": "Entscheidung",
+   "wrong": [
+    "Entscheidnis",
+    "Entscheidschaft",
+    "Entscheidheit"
+   ],
+   "explanation": "-ung: entscheiden → die Entscheidung"
+  },
+  {
+   "id": "b1-g-a2d89c97b2",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Das Nomen zu „frei“: die ___",
+   "answer": "Freiheit",
+   "wrong": [
+    "Freiung",
+    "Freikeit",
+    "Freischaft"
+   ],
+   "explanation": "-heit: frei → die Freiheit"
+  },
+  {
+   "id": "b1-g-7decb651b6",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Das Nomen zu „möglich“: die ___",
+   "answer": "Möglichkeit",
+   "wrong": [
+    "Möglichheit",
+    "Möglichung",
+    "Möglichschaft"
+   ],
+   "explanation": "-keit nach -lich: die Möglichkeit"
+  },
+  {
+   "id": "b1-g-eac1c49d61",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Das Gegenteil von „glücklich“ (mit Präfix)",
+   "answer": "unglücklich",
+   "wrong": [
+    "missglücklich",
+    "abglücklich",
+    "nichtglücklich"
+   ],
+   "explanation": "un- = Gegenteil"
+  },
+  {
+   "id": "b1-g-48183727c2",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Das Adjektiv zu „die Gefahr“",
+   "answer": "gefährlich",
+   "wrong": [
+    "gefahrig",
+    "gefährisch",
+    "gefahrbar"
+   ],
+   "explanation": "-lich: gefährlich"
+  },
+  {
+   "id": "b1-g-51da872cae",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Das Adjektiv zu „der Sturm“",
+   "answer": "stürmisch",
+   "wrong": [
+    "stürmlich",
+    "sturmig",
+    "stürmbar"
+   ],
+   "explanation": "-isch: stürmisch"
+  },
+  {
+   "id": "b1-g-009457ee31",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Etwas, das man essen kann, ist ___.",
+   "answer": "essbar",
+   "wrong": [
+    "esslich",
+    "essig",
+    "essisch"
+   ],
+   "explanation": "-bar = man kann es …"
+  },
+  {
+   "id": "b1-g-c0ed4bec3a",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Ein Mensch ohne Arbeit ist ___.",
+   "answer": "arbeitslos",
+   "wrong": [
+    "arbeitsfrei",
+    "unarbeitlich",
+    "arbeitlich"
+   ],
+   "explanation": "-los = ohne"
+  },
+  {
+   "id": "b1-g-6178a57dc8",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Die Person, die lehrt, ist der ___.",
+   "answer": "Lehrer",
+   "wrong": [
+    "Lehrung",
+    "Lehrheit",
+    "Lehrschaft"
+   ],
+   "explanation": "-er = Person"
+  },
+  {
+   "id": "b1-g-a7781653b4",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Das Nomen zu „wohnen“: die ___",
+   "answer": "Wohnung",
+   "wrong": [
+    "Wohnheit",
+    "Wohnkeit",
+    "Wohnschaft"
+   ],
+   "explanation": "-ung: die Wohnung"
+  },
+  {
+   "id": "b1-g-2816b36f6b",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Das Nomen zu „freundlich“: die ___",
+   "answer": "Freundlichkeit",
+   "wrong": [
+    "Freundlichheit",
+    "Freundlichung",
+    "Freundlichnis"
+   ],
+   "explanation": "-keit: die Freundlichkeit"
+  },
+  {
+   "id": "b1-g-9d8ed468d2",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "der Tisch + die Lampe = die ___",
+   "answer": "Tischlampe",
+   "wrong": [
+    "Lampetisch",
+    "Tischelampe",
+    "Tischenlampe"
+   ],
+   "explanation": "Das letzte Wort bestimmt den Artikel: die Lampe → die Tischlampe"
+  },
+  {
+   "id": "b1-g-dd3755e59a",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "das Wort (Pl. Wörter) + das Buch = das ___",
+   "answer": "Wörterbuch",
+   "wrong": [
+    "Wortbuch",
+    "Buchwort",
+    "Wörtebuch"
+   ],
+   "explanation": "das Wörterbuch"
+  },
+  {
+   "id": "b1-g-757b46adf8",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Das Verb zu „die Bewerbung“",
+   "answer": "sich bewerben",
+   "wrong": [
+    "bewerbungieren",
+    "sich bewerbieren",
+    "bewerbieren"
+   ],
+   "explanation": "die Bewerbung ← sich bewerben"
+  },
+  {
+   "id": "b1-g-388c05287b",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Das Adjektiv zu „der Erfolg“ (positiv)",
+   "answer": "erfolgreich",
+   "wrong": [
+    "erfolglich",
+    "erfolgig",
+    "erfolgisch"
+   ],
+   "explanation": "-reich: erfolgreich"
+  },
+  {
+   "id": "b1-g-4376ecec1f",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Das Gegenteil von „möglich“ (mit Präfix)",
+   "answer": "unmöglich",
+   "wrong": [
+    "ummöglich",
+    "nichtmöglich",
+    "abmöglich"
+   ],
+   "explanation": "un- + möglich"
+  },
+  {
+   "id": "b1-g-0dfb59a92c",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Das Gegenteil von „die Ordnung“ (mit Präfix)",
+   "answer": "Unordnung",
+   "wrong": [
+    "Missordnung",
+    "Nichtordnung",
+    "Entordnung"
+   ],
+   "explanation": "un- + Ordnung"
+  },
+  {
+   "id": "b1-g-ab4b15a292",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Jemand, der Fußball spielt, ist ein ___.",
+   "answer": "Fußballspieler",
+   "wrong": [
+    "Fußballspielerung",
+    "Fußballspielheit",
+    "Fußballspielling"
+   ],
+   "explanation": "-er = Person"
+  },
+  {
+   "id": "b1-g-d909fdbf33",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Das Nomen zu „schwach“: die ___",
+   "answer": "Schwäche",
+   "wrong": [
+    "Schwachnis",
+    "Schwachung",
+    "Schwachkeit"
+   ],
+   "explanation": "schwach → die Schwäche"
+  },
+  {
+   "id": "b1-g-f5ad9c27fe",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Das Nomen zu „gesund“: die ___",
+   "answer": "Gesundheit",
+   "wrong": [
+    "Gesundkeit",
+    "Gesundnis",
+    "Gesundschaft"
+   ],
+   "explanation": "-heit: die Gesundheit"
+  },
+  {
+   "id": "b1-g-297cfbba38",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Ein Gerät, das Kaffee kocht, ist eine ___.",
+   "answer": "Kaffeemaschine",
+   "wrong": [
+    "Kaffeekochung",
+    "Maschinekaffee",
+    "Kaffeegerätung"
+   ],
+   "explanation": "die Maschine → die Kaffeemaschine"
+  },
+  {
+   "id": "b1-g-8afa731362",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Das Adjektiv zu „die Sonne“",
+   "answer": "sonnig",
+   "wrong": [
+    "sonnlich",
+    "sonnisch",
+    "sonnbar"
+   ],
+   "explanation": "-ig: sonnig"
+  },
+  {
+   "id": "b1-g-57cbfbb343",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Etwas, das man trinken kann, ist ___.",
+   "answer": "trinkbar",
+   "wrong": [
+    "trinklich",
+    "trinkig",
+    "trinkisch"
+   ],
+   "explanation": "-bar = man kann es trinken"
+  },
+  {
+   "id": "b1-g-e1e71cf764",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Das Nomen zu „schön“: die ___",
+   "answer": "Schönheit",
+   "wrong": [
+    "Schönkeit",
+    "Schönung",
+    "Schönnis"
+   ],
+   "explanation": "-heit: die Schönheit"
+  },
+  {
+   "id": "b1-g-5aff0caec6",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Das Nomen zu „ankommen“: die ___",
+   "answer": "Ankunft",
+   "wrong": [
+    "Ankommung",
+    "Ankommheit",
+    "Ankommnis"
+   ],
+   "explanation": "ankommen → die Ankunft"
+  },
+  {
+   "id": "b1-g-e98dedf41f",
+   "kind": "vocab",
+   "format": "synonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "beginnen",
+   "answer": "anfangen",
+   "wrong": [
+    "aufhören",
+    "beenden",
+    "abschließen"
+   ],
+   "explanation": "beginnen = anfangen"
+  },
+  {
+   "id": "b1-g-a983c9bea1",
+   "kind": "vocab",
+   "format": "synonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "schnell",
+   "answer": "rasch",
+   "wrong": [
+    "langsam",
+    "ruhig",
+    "vorsichtig"
+   ],
+   "explanation": "schnell = rasch"
+  },
+  {
+   "id": "b1-g-a73ab604c5",
+   "kind": "vocab",
+   "format": "synonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "der Fehler",
+   "answer": "der Irrtum",
+   "wrong": [
+    "die Lösung",
+    "der Erfolg",
+    "die Antwort"
+   ],
+   "explanation": "der Fehler ≈ der Irrtum"
+  },
+  {
+   "id": "b1-g-115428826a",
+   "kind": "vocab",
+   "format": "synonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "kaufen",
+   "answer": "erwerben",
+   "wrong": [
+    "verkaufen",
+    "leihen",
+    "mieten"
+   ],
+   "explanation": "kaufen = erwerben"
+  },
+  {
+   "id": "b1-g-d7fc01b02c",
+   "kind": "vocab",
+   "format": "synonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "bekommen",
+   "answer": "erhalten",
+   "wrong": [
+    "geben",
+    "schicken",
+    "verlieren"
+   ],
+   "explanation": "bekommen = erhalten"
+  },
+  {
+   "id": "b1-g-fc5c5864fb",
+   "kind": "vocab",
+   "format": "synonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "die Arbeitsstelle",
+   "answer": "der Job",
+   "wrong": [
+    "die Freizeit",
+    "der Urlaub",
+    "die Pause"
+   ],
+   "explanation": "die Arbeitsstelle = der Job"
+  },
+  {
+   "id": "b1-g-b1bd27204d",
+   "kind": "vocab",
+   "format": "synonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "sofort",
+   "answer": "gleich",
+   "wrong": [
+    "später",
+    "nie",
+    "selten"
+   ],
+   "explanation": "sofort = gleich"
+  },
+  {
+   "id": "b1-g-370ca31bb9",
+   "kind": "vocab",
+   "format": "synonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "eventuell",
+   "answer": "vielleicht",
+   "wrong": [
+    "sicher",
+    "bestimmt",
+    "immer"
+   ],
+   "explanation": "eventuell = vielleicht"
+  },
+  {
+   "id": "b1-g-bc6c55454c",
+   "kind": "vocab",
+   "format": "synonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "ungefähr",
+   "answer": "etwa",
+   "wrong": [
+    "genau",
+    "ganz",
+    "kaum"
+   ],
+   "explanation": "ungefähr = etwa"
+  },
+  {
+   "id": "b1-g-661b8e82a2",
+   "kind": "vocab",
+   "format": "synonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "helfen",
+   "answer": "unterstützen",
+   "wrong": [
+    "stören",
+    "hindern",
+    "behindern"
+   ],
+   "explanation": "helfen = unterstützen"
+  },
+  {
+   "id": "b1-g-156c71358a",
+   "kind": "vocab",
+   "format": "synonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "berühmt",
+   "answer": "bekannt",
+   "wrong": [
+    "unbekannt",
+    "neu",
+    "selten"
+   ],
+   "explanation": "berühmt = (sehr) bekannt"
+  },
+  {
+   "id": "b1-g-dcab616c9d",
+   "kind": "vocab",
+   "format": "synonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "die Möglichkeit",
+   "answer": "die Chance",
+   "wrong": [
+    "das Problem",
+    "die Pflicht",
+    "der Grund"
+   ],
+   "explanation": "die Möglichkeit = die Chance"
+  },
+  {
+   "id": "b1-g-b92d661b1f",
+   "kind": "vocab",
+   "format": "synonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "das Gespräch",
+   "answer": "die Unterhaltung",
+   "wrong": [
+    "die Stille",
+    "der Brief",
+    "die Prüfung"
+   ],
+   "explanation": "das Gespräch = die Unterhaltung"
+  },
+  {
+   "id": "b1-g-a372f4736c",
+   "kind": "vocab",
+   "format": "antonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "erlauben",
+   "answer": "verbieten",
+   "wrong": [
+    "gestatten",
+    "empfehlen",
+    "versuchen"
+   ],
+   "explanation": "erlauben ↔ verbieten (gestatten = erlauben)"
+  },
+  {
+   "id": "b1-g-fb685d3296",
+   "kind": "vocab",
+   "format": "antonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "der Anfang",
+   "answer": "das Ende",
+   "wrong": [
+    "der Beginn",
+    "die Mitte",
+    "der Start"
+   ],
+   "explanation": "der Anfang ↔ das Ende"
+  },
+  {
+   "id": "b1-g-e16dfef382",
+   "kind": "vocab",
+   "format": "antonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "zunehmen (Gewicht)",
+   "answer": "abnehmen",
+   "wrong": [
+    "zulegen",
+    "wachsen",
+    "steigen"
+   ],
+   "explanation": "zunehmen ↔ abnehmen"
+  },
+  {
+   "id": "b1-g-23fa609818",
+   "kind": "vocab",
+   "format": "antonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "die Wahrheit",
+   "answer": "die Lüge",
+   "wrong": [
+    "die Tatsache",
+    "die Meinung",
+    "die Frage"
+   ],
+   "explanation": "die Wahrheit ↔ die Lüge"
+  },
+  {
+   "id": "b1-g-ea53f5fd78",
+   "kind": "vocab",
+   "format": "antonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "billig",
+   "answer": "teuer",
+   "wrong": [
+    "günstig",
+    "preiswert",
+    "einfach"
+   ],
+   "explanation": "billig ↔ teuer"
+  },
+  {
+   "id": "b1-g-5480cca446",
+   "kind": "vocab",
+   "format": "antonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "fleißig",
+   "answer": "faul",
+   "wrong": [
+    "müde",
+    "ruhig",
+    "klug"
+   ],
+   "explanation": "fleißig ↔ faul"
+  },
+  {
+   "id": "b1-g-2740f59ef3",
+   "kind": "vocab",
+   "format": "antonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "gewinnen",
+   "answer": "verlieren",
+   "wrong": [
+    "siegen",
+    "spielen",
+    "kämpfen"
+   ],
+   "explanation": "gewinnen ↔ verlieren"
+  },
+  {
+   "id": "b1-g-8fac6fac34",
+   "kind": "vocab",
+   "format": "antonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "die Ankunft",
+   "answer": "die Abfahrt",
+   "wrong": [
+    "die Reise",
+    "die Rückkehr",
+    "der Ausflug"
+   ],
+   "explanation": "die Ankunft ↔ die Abfahrt"
+  },
+  {
+   "id": "b1-g-c7e632dcd5",
+   "kind": "vocab",
+   "format": "antonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "einschalten",
+   "answer": "ausschalten",
+   "wrong": [
+    "anmachen",
+    "umschalten",
+    "aufmachen"
+   ],
+   "explanation": "einschalten ↔ ausschalten"
+  },
+  {
+   "id": "b1-g-0351ca96d4",
+   "kind": "vocab",
+   "format": "antonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "freiwillig",
+   "answer": "verpflichtend",
+   "wrong": [
+    "gern",
+    "frei",
+    "selbstständig"
+   ],
+   "explanation": "freiwillig ↔ verpflichtend (obligatorisch)"
+  },
+  {
+   "id": "b1-g-2bd7875e15",
+   "kind": "vocab",
+   "format": "antonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "die Mehrheit",
+   "answer": "die Minderheit",
+   "wrong": [
+    "die Masse",
+    "die Hälfte",
+    "die Gruppe"
+   ],
+   "explanation": "die Mehrheit ↔ die Minderheit"
+  },
+  {
+   "id": "b1-g-0acd3d4673",
+   "kind": "vocab",
+   "format": "antonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "schwierig",
+   "answer": "leicht",
+   "wrong": [
+    "kompliziert",
+    "schwer",
+    "anstrengend"
+   ],
+   "explanation": "schwierig ↔ leicht"
+  },
+  {
+   "id": "b1-g-d09393dbfa",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "Er hat viel gelernt. ___ hat er die Prüfung nicht bestanden.",
+   "answer": "Trotzdem",
+   "wrong": [
+    "Deshalb",
+    "Obwohl",
+    "Damit"
+   ],
+   "explanation": "trotzdem = Gegensatz"
+  },
+  {
+   "id": "b1-g-65fdae38e4",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "Ich nehme den Regenschirm mit, ___ es regnen könnte.",
+   "answer": "falls",
+   "wrong": [
+    "obwohl",
+    "damit",
+    "sodass"
+   ],
+   "explanation": "falls = für den Fall, dass"
+  },
+  {
+   "id": "b1-g-87aa9ebb16",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "Wir haben den Bus verpasst, ___ sind wir zu spät gekommen.",
+   "answer": "deshalb",
+   "wrong": [
+    "trotzdem",
+    "obwohl",
+    "weil"
+   ],
+   "explanation": "deshalb = Folge"
+  },
+  {
+   "id": "b1-g-d5c7ff26f7",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "Er ist nicht nur intelligent, ___ auch sehr fleißig.",
+   "answer": "sondern",
+   "wrong": [
+    "aber",
+    "oder",
+    "denn"
+   ],
+   "explanation": "nicht nur …, sondern auch"
+  },
+  {
+   "id": "b1-g-98491e5184",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "Ich weiß nicht genau, ___ ich das Paket abholen kann.",
+   "answer": "wann",
+   "wrong": [
+    "dass",
+    "weil",
+    "damit"
+   ],
+   "explanation": "indirekte W-Frage: wann + Verb am Ende"
+  },
+  {
+   "id": "b1-g-ad80d7ad7b",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "___ du Fragen hast, ruf mich an.",
+   "answer": "Falls",
+   "wrong": [
+    "Obwohl",
+    "Damit",
+    "Dass"
+   ],
+   "explanation": "falls = wenn (Bedingung)"
+  },
+  {
+   "id": "b1-g-93052670d9",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "Sie hat lange gesucht, ___ hat sie keine Wohnung gefunden.",
+   "answer": "trotzdem",
+   "wrong": [
+    "deshalb",
+    "sondern",
+    "denn"
+   ],
+   "explanation": "trotzdem: Verb an Position 2"
+  },
+  {
+   "id": "b1-g-f0dbc6453f",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "Er trainiert jeden Tag, ___ er beim Marathon gewinnt.",
+   "answer": "damit",
+   "wrong": [
+    "obwohl",
+    "trotzdem",
+    "deshalb"
+   ],
+   "explanation": "damit = Ziel"
+  },
+  {
+   "id": "b1-g-450f3effce",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "Ich habe keinen Hunger, ___ ich schon gegessen habe.",
+   "answer": "da",
+   "wrong": [
+    "obwohl",
+    "damit",
+    "sodass"
+   ],
+   "explanation": "da = Grund"
+  },
+  {
+   "id": "b1-g-f9adb0ba73",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "Ich rufe dich an, ___ ich in Berlin angekommen bin.",
+   "answer": "sobald",
+   "wrong": [
+    "obwohl",
+    "damit",
+    "sodass"
+   ],
+   "explanation": "sobald = gleich wenn"
+  },
+  {
+   "id": "b1-g-2213142a60",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "Wir warten hier, ___ der Regen aufhört.",
+   "answer": "bis",
+   "wrong": [
+    "damit",
+    "obwohl",
+    "sodass"
+   ],
+   "explanation": "bis = bis zu dem Zeitpunkt"
+  },
+  {
+   "id": "b1-g-55c80f4ede",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konnektoren",
+   "prompt": "Es ist schon spät. ___ bleibe ich noch ein bisschen.",
+   "answer": "Trotzdem",
+   "wrong": [
+    "Deshalb",
+    "Weil",
+    "Obwohl"
+   ],
+   "explanation": "trotzdem = Gegensatz"
+  },
+  {
+   "id": "b1-g-6c136fe8f3",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Der Laptop, ___ ich gestern gekauft habe, ist kaputt.",
+   "answer": "den",
+   "wrong": [
+    "der",
+    "dem",
+    "dessen"
+   ],
+   "explanation": "kaufen + Akkusativ maskulin → den"
+  },
+  {
+   "id": "b1-g-7d0e59f256",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Die Nachbarin, ___ Hund immer bellt, ist sehr nett.",
+   "answer": "deren",
+   "wrong": [
+    "dessen",
+    "der",
+    "die"
+   ],
+   "explanation": "Besitz, feminin → deren"
+  },
+  {
+   "id": "b1-g-7ec572d06d",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Das Mädchen, mit ___ ich tanze, heißt Mia.",
+   "answer": "dem",
+   "wrong": [
+    "der",
+    "das",
+    "den"
+   ],
+   "explanation": "mit + Dativ neutral → dem"
+  },
+  {
+   "id": "b1-g-0852d25e02",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Die Stadt, aus ___ er kommt, liegt im Süden.",
+   "answer": "der",
+   "wrong": [
+    "die",
+    "dem",
+    "denen"
+   ],
+   "explanation": "aus + Dativ feminin → der"
+  },
+  {
+   "id": "b1-g-bf3586d50b",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Die Freunde, ___ ich vertraue, helfen mir immer.",
+   "answer": "denen",
+   "wrong": [
+    "die",
+    "deren",
+    "den"
+   ],
+   "explanation": "vertrauen + Dativ Plural → denen"
+  },
+  {
+   "id": "b1-g-70e8ac9ed9",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Das Buch, ___ Autor sehr bekannt ist, lese ich gerade.",
+   "answer": "dessen",
+   "wrong": [
+    "deren",
+    "dem",
+    "das"
+   ],
+   "explanation": "Besitz, neutral → dessen"
+  },
+  {
+   "id": "b1-g-fb5a50df09",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Ich erinnere mich an den Tag, an ___ wir uns kennengelernt haben.",
+   "answer": "dem",
+   "wrong": [
+    "den",
+    "der",
+    "das"
+   ],
+   "explanation": "an (wann?) + Dativ → an dem"
+  },
+  {
+   "id": "b1-g-9a9e31e5a8",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Er hat alles verkauft, ___ er hatte.",
+   "answer": "was",
+   "wrong": [
+    "dass",
+    "wo",
+    "wer"
+   ],
+   "explanation": "nach alles → was"
+  },
+  {
+   "id": "b1-g-ab370a7aff",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Die Firma, für ___ sie arbeitet, ist international.",
+   "answer": "die",
+   "wrong": [
+    "der",
+    "dem",
+    "deren"
+   ],
+   "explanation": "für + Akkusativ feminin → die"
+  },
+  {
+   "id": "b1-g-b44f0f63a5",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Der Arzt, zu ___ ich gehe, ist sehr gut.",
+   "answer": "dem",
+   "wrong": [
+    "den",
+    "der",
+    "dessen"
+   ],
+   "explanation": "zu + Dativ maskulin → dem"
+  },
+  {
+   "id": "b1-g-32672ecfa0",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Die Kinder, ___ im Garten spielen, sind laut.",
+   "answer": "die",
+   "wrong": [
+    "denen",
+    "deren",
+    "der"
+   ],
+   "explanation": "Subjekt, Plural → die"
+  },
+  {
+   "id": "b1-g-b0b18f5138",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "relativsaetze",
+   "prompt": "Kennst du jemanden, ___ Spanisch spricht?",
+   "answer": "der",
+   "wrong": [
+    "den",
+    "dem",
+    "was"
+   ],
+   "explanation": "jemand → der (Subjekt)"
+  },
+  {
+   "id": "b1-g-cf250f5c10",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Im Restaurant ___ das Essen sofort serviert.",
+   "answer": "wird",
+   "wrong": [
+    "ist",
+    "hat",
+    "werden"
+   ],
+   "explanation": "Passiv Präsens: wird serviert"
+  },
+  {
+   "id": "b1-g-4064fa2a8b",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Die Brücke ___ letztes Jahr renoviert.",
+   "answer": "wurde",
+   "wrong": [
+    "wird",
+    "hat",
+    "habe"
+   ],
+   "explanation": "letztes Jahr → wurde renoviert"
+  },
+  {
+   "id": "b1-g-e2b99b74fd",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Die Gäste werden am Bahnhof ___.",
+   "answer": "abgeholt",
+   "wrong": [
+    "abholen",
+    "abholt",
+    "abgeholen"
+   ],
+   "explanation": "werden + Partizip II"
+  },
+  {
+   "id": "b1-g-54de6889d1",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Das Geld ist von der Bank ___ worden.",
+   "answer": "überwiesen",
+   "wrong": [
+    "überweisen",
+    "überwies",
+    "geüberwiesen"
+   ],
+   "explanation": "Passiv Perfekt: ist überwiesen worden"
+  },
+  {
+   "id": "b1-g-334502c56d",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Die Wohnung ___ jede Woche geputzt.",
+   "answer": "wird",
+   "wrong": [
+    "ist",
+    "hat",
+    "werden"
+   ],
+   "explanation": "Passiv Präsens: wird geputzt"
+  },
+  {
+   "id": "b1-g-21abfb7209",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Morgen ___ die neuen Schüler begrüßt.",
+   "answer": "werden",
+   "wrong": [
+    "wird",
+    "sind",
+    "haben"
+   ],
+   "explanation": "Plural → werden begrüßt"
+  },
+  {
+   "id": "b1-g-7fc1f8bc9d",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Das Formular muss bis Freitag ___ werden.",
+   "answer": "abgegeben",
+   "wrong": [
+    "abgeben",
+    "abgibt",
+    "abgegebt"
+   ],
+   "explanation": "Modalverb + Partizip II + werden"
+  },
+  {
+   "id": "b1-g-d9dea0c3ad",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Wann ___ die Post heute gebracht?",
+   "answer": "wird",
+   "wrong": [
+    "hat",
+    "ist",
+    "werden"
+   ],
+   "explanation": "Passiv Präsens: Wann wird … gebracht?"
+  },
+  {
+   "id": "b1-g-8debaba364",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Der Film ___ in vielen Ländern gezeigt. (Präteritum)",
+   "answer": "wurde",
+   "wrong": [
+    "hat",
+    "habe",
+    "worden"
+   ],
+   "explanation": "Passiv Präteritum: wurde gezeigt"
+  },
+  {
+   "id": "b1-g-642e11f9e4",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Die Rechnung ist schon ___ worden.",
+   "answer": "bezahlt",
+   "wrong": [
+    "bezahlen",
+    "bezahlte",
+    "gebezahlt"
+   ],
+   "explanation": "ist … bezahlt worden"
+  },
+  {
+   "id": "b1-g-94fac38228",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Die Kinder dürfen nicht allein gelassen ___.",
+   "answer": "werden",
+   "wrong": [
+    "worden",
+    "wird",
+    "geworden"
+   ],
+   "explanation": "Modalverb + Partizip II + werden"
+  },
+  {
+   "id": "b1-g-dc46e7e19f",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "passiv",
+   "prompt": "Der Lehrer korrigiert die Tests. → Die Tests ___ vom Lehrer korrigiert.",
+   "answer": "werden",
+   "wrong": [
+    "wird",
+    "wurden",
+    "sind"
+   ],
+   "explanation": "Aktiv Präsens → Passiv Präsens, Plural"
+  },
+  {
+   "id": "b1-g-bd28af0c7e",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Ich habe beschlossen, mehr Sport ___.",
+   "answer": "zu treiben",
+   "wrong": [
+    "treiben",
+    "zu treibt",
+    "getrieben"
+   ],
+   "explanation": "beschließen + zu + Infinitiv"
+  },
+  {
+   "id": "b1-g-853fe7d500",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Er hat mir versprochen, pünktlich ___.",
+   "answer": "zu kommen",
+   "wrong": [
+    "kommen",
+    "zu kommt",
+    "gekommen"
+   ],
+   "explanation": "versprechen + zu + Infinitiv"
+  },
+  {
+   "id": "b1-g-4be46655b4",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Sie hat keine Zeit, die Küche ___.",
+   "answer": "aufzuräumen",
+   "wrong": [
+    "zu aufräumen",
+    "aufräumen",
+    "aufzuräumt"
+   ],
+   "explanation": "trennbar: auf-zu-räumen"
+  },
+  {
+   "id": "b1-g-59c529f499",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Wir planen, im Sommer ans Meer ___.",
+   "answer": "zu fahren",
+   "wrong": [
+    "fahren",
+    "zu fährt",
+    "gefahren"
+   ],
+   "explanation": "planen + zu + Infinitiv"
+  },
+  {
+   "id": "b1-g-e6f18d8d1f",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Es ist gesund, viel Obst ___.",
+   "answer": "zu essen",
+   "wrong": [
+    "essen",
+    "zu isst",
+    "gegessen"
+   ],
+   "explanation": "Es ist gesund, … zu + Infinitiv"
+  },
+  {
+   "id": "b1-g-212493e74f",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Ich habe vergessen, dir ___.",
+   "answer": "zu antworten",
+   "wrong": [
+    "antworten",
+    "zu antwortest",
+    "geantwortet"
+   ],
+   "explanation": "vergessen + zu + Infinitiv"
+  },
+  {
+   "id": "b1-g-50ca7f1fce",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Er hat versucht, das Problem ___.",
+   "answer": "zu lösen",
+   "wrong": [
+    "lösen",
+    "zu löst",
+    "gelöst"
+   ],
+   "explanation": "versuchen + zu + Infinitiv"
+  },
+  {
+   "id": "b1-g-2e79364fdd",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Es ist unmöglich, alles an einem Tag ___.",
+   "answer": "zu schaffen",
+   "wrong": [
+    "schaffen",
+    "zu schafft",
+    "geschafft"
+   ],
+   "explanation": "Es ist unmöglich, … zu + Infinitiv"
+  },
+  {
+   "id": "b1-g-8b66daf208",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Ich kann heute leider nicht ___.",
+   "answer": "kommen",
+   "wrong": [
+    "zu kommen",
+    "komme",
+    "gekommen"
+   ],
+   "explanation": "nach können ohne zu"
+  },
+  {
+   "id": "b1-g-61ad7bbfdc",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Sie geht zur Bank, ___ Geld abzuheben.",
+   "answer": "um",
+   "wrong": [
+    "damit",
+    "für",
+    "zum"
+   ],
+   "explanation": "um … zu (Ziel)"
+  },
+  {
+   "id": "b1-g-e26b7a35f9",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Er lernt jeden Tag, ___ die Prüfung zu bestehen.",
+   "answer": "um",
+   "wrong": [
+    "damit",
+    "dass",
+    "für"
+   ],
+   "explanation": "um … zu (Ziel)"
+  },
+  {
+   "id": "b1-g-7c4cdb61e4",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "infinitiv_zu",
+   "prompt": "Es ist höflich, sich ___ bedanken.",
+   "answer": "zu",
+   "wrong": [
+    "um",
+    "für",
+    "zum"
+   ],
+   "explanation": "sich zu bedanken"
+  },
+  {
+   "id": "b1-g-2e79da9707",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "Wenn ich ein Auto ___, würde ich öfter ans Meer fahren.",
+   "answer": "hätte",
+   "wrong": [
+    "habe",
+    "hatte",
+    "hat"
+   ],
+   "explanation": "irreal: hätte"
+  },
+  {
+   "id": "b1-g-734c54d63d",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "Wenn er mehr ___, wäre er nicht so müde.",
+   "answer": "schlafen würde",
+   "wrong": [
+    "schlafen wird",
+    "schläft hat",
+    "geschlafen"
+   ],
+   "explanation": "wenn … schlafen würde (Konjunktiv II)"
+  },
+  {
+   "id": "b1-g-c1c5ccb348",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "Ich ___ dir gern helfen, aber ich habe keine Zeit.",
+   "answer": "würde",
+   "wrong": [
+    "werde",
+    "wurde",
+    "wäre"
+   ],
+   "explanation": "würde + Infinitiv"
+  },
+  {
+   "id": "b1-g-92454bc057",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "Wenn es nicht so teuer wäre, ___ wir das Haus kaufen.",
+   "answer": "könnten",
+   "wrong": [
+    "können",
+    "konnten",
+    "könnt"
+   ],
+   "explanation": "könnten (Konjunktiv II)"
+  },
+  {
+   "id": "b1-g-498a680fdc",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "___ ich Sie kurz stören? (dürfen, Konjunktiv II)",
+   "answer": "Dürfte",
+   "wrong": [
+    "Durfte",
+    "Darf",
+    "Dürft"
+   ],
+   "explanation": "höflich: Dürfte ich …?"
+  },
+  {
+   "id": "b1-g-6a8afe9107",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "Ich ___ fast den Bus verpasst.",
+   "answer": "hätte",
+   "wrong": [
+    "habe",
+    "wäre",
+    "würde"
+   ],
+   "explanation": "fast + Konjunktiv II Vergangenheit: hätte … verpasst"
+  },
+  {
+   "id": "b1-g-38da78b152",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "Wenn wir doch nur mehr Geld ___!",
+   "answer": "hätten",
+   "wrong": [
+    "haben",
+    "hatten",
+    "hättet"
+   ],
+   "explanation": "irrealer Wunsch: hätten"
+  },
+  {
+   "id": "b1-g-52f5006ba8",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "Er sieht aus, als ___ er die ganze Nacht nicht geschlafen.",
+   "answer": "hätte",
+   "wrong": [
+    "hat",
+    "habe",
+    "wäre"
+   ],
+   "explanation": "als + Konjunktiv II: hätte geschlafen"
+  },
+  {
+   "id": "b1-g-a6f897b096",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "Ich wünschte, du ___ hier.",
+   "answer": "wärst",
+   "wrong": [
+    "bist",
+    "warst",
+    "wäre"
+   ],
+   "explanation": "irrealer Wunsch: du wärst"
+  },
+  {
+   "id": "b1-g-030a1c701c",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "Wenn ich mehr geübt ___, hätte ich gewonnen.",
+   "answer": "hätte",
+   "wrong": [
+    "wäre",
+    "würde",
+    "habe"
+   ],
+   "explanation": "üben → haben: hätte geübt"
+  },
+  {
+   "id": "b1-g-fdef31795d",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "Wir ___ jetzt eigentlich gehen. (müssen, Konjunktiv II)",
+   "answer": "müssten",
+   "wrong": [
+    "mussten",
+    "müssen",
+    "müsste"
+   ],
+   "explanation": "wir müssten"
+  },
+  {
+   "id": "b1-g-f464521fe1",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "konjunktiv2",
+   "prompt": "Ich ___ gern mehr Zeit für meine Familie. (haben, Konjunktiv II)",
+   "answer": "hätte",
+   "wrong": [
+    "habe",
+    "hatte",
+    "hätten"
+   ],
+   "explanation": "ich hätte gern …"
+  },
+  {
+   "id": "b1-g-4d4f61e0de",
+   "kind": "grammar",
+   "format": "verb_form",
+   "topic": "plusquamperfekt",
+   "prompt": "Nachdem wir die Wohnung ___ hatten, zogen wir ein.",
+   "answer": "renoviert",
+   "wrong": [
+    "renovieren",
+    "renovierten",
+    "gerenoviert"
+   ],
+   "explanation": "-ieren ohne ge-: renoviert"
+  },
+  {
+   "id": "b1-g-a9b301c608",
+   "kind": "grammar",
+   "format": "verb_form",
+   "topic": "plusquamperfekt",
+   "prompt": "Sie war traurig, weil ihr Freund nicht ___ war.",
+   "answer": "gekommen",
+   "wrong": [
+    "kommen",
+    "kam",
+    "gekommt"
+   ],
+   "explanation": "war + gekommen"
+  },
+  {
+   "id": "b1-g-411bd9fe54",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "plusquamperfekt",
+   "prompt": "Bevor ich nach Deutschland kam, ___ ich nie Schnee gesehen.",
+   "answer": "hatte",
+   "wrong": [
+    "war",
+    "habe",
+    "wurde"
+   ],
+   "explanation": "sehen → haben: hatte gesehen"
+  },
+  {
+   "id": "b1-g-5066eed4b0",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "plusquamperfekt",
+   "prompt": "Er ___ schon gegangen, als ich anrief.",
+   "answer": "war",
+   "wrong": [
+    "hatte",
+    "ist",
+    "wurde"
+   ],
+   "explanation": "gehen → sein: war gegangen"
+  },
+  {
+   "id": "b1-g-7308cc2e5d",
+   "kind": "grammar",
+   "format": "verb_form",
+   "topic": "plusquamperfekt",
+   "prompt": "Nachdem es aufgehört hatte zu regnen, ___ wir spazieren.",
+   "answer": "gingen",
+   "wrong": [
+    "gehen",
+    "gegangen",
+    "gehe"
+   ],
+   "explanation": "Hauptsatz im Präteritum: gingen"
+  },
+  {
+   "id": "b1-g-80e063181e",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "plusquamperfekt",
+   "prompt": "Wir ___ den Film schon gesehen, deshalb gingen wir nicht ins Kino.",
+   "answer": "hatten",
+   "wrong": [
+    "waren",
+    "wurden",
+    "würden"
+   ],
+   "explanation": "sehen → haben: hatten gesehen"
+  },
+  {
+   "id": "b1-g-ac7c015608",
+   "kind": "grammar",
+   "format": "verb_form",
+   "topic": "plusquamperfekt",
+   "prompt": "Plusquamperfekt von „Er vergisst den Termin.“",
+   "answer": "Er hatte den Termin vergessen.",
+   "wrong": [
+    "Er war den Termin vergessen.",
+    "Er hat den Termin vergessen.",
+    "Er vergaß den Termin."
+   ],
+   "explanation": "hatte + vergessen"
+  },
+  {
+   "id": "b1-g-12d83b30be",
+   "kind": "grammar",
+   "format": "verb_form",
+   "topic": "plusquamperfekt",
+   "prompt": "Plusquamperfekt von „Wir steigen aus.“",
+   "answer": "Wir waren ausgestiegen.",
+   "wrong": [
+    "Wir hatten ausgestiegen.",
+    "Wir sind ausgestiegen.",
+    "Wir stiegen aus."
+   ],
+   "explanation": "aussteigen → sein: waren ausgestiegen"
+  },
+  {
+   "id": "b1-g-11ee0d220e",
+   "kind": "grammar",
+   "format": "verb_form",
+   "topic": "plusquamperfekt",
+   "prompt": "Plusquamperfekt von „Du verlierst das Spiel.“",
+   "answer": "Du hattest das Spiel verloren.",
+   "wrong": [
+    "Du warst das Spiel verloren.",
+    "Du hast das Spiel verloren.",
+    "Du verlorst das Spiel."
+   ],
+   "explanation": "hattest + verloren"
+  },
+  {
+   "id": "b1-g-d954ddec0c",
+   "kind": "grammar",
+   "format": "verb_form",
+   "topic": "plusquamperfekt",
+   "prompt": "Plusquamperfekt von „Es wird kalt.“",
+   "answer": "Es war kalt geworden.",
+   "wrong": [
+    "Es hatte kalt geworden.",
+    "Es ist kalt geworden.",
+    "Es wurde kalt."
+   ],
+   "explanation": "werden → sein: war geworden"
+  },
+  {
+   "id": "b1-g-806272a8b0",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "Ich fahre ___ dem Fahrrad zur Arbeit.",
+   "answer": "mit",
+   "wrong": [
+    "bei",
+    "von",
+    "zu"
+   ],
+   "explanation": "mit + Dativ (Verkehrsmittel)"
+  },
+  {
+   "id": "b1-g-e09f221a62",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "Wir wohnen ___ Erdgeschoss.",
+   "answer": "im",
+   "wrong": [
+    "am",
+    "zum",
+    "ins"
+   ],
+   "explanation": "in dem → im Erdgeschoss"
+  },
+  {
+   "id": "b1-g-799345c353",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "Ich warte schon ___ einer Stunde auf dich.",
+   "answer": "seit",
+   "wrong": [
+    "vor",
+    "ab",
+    "für"
+   ],
+   "explanation": "seit + Dativ (bis jetzt)"
+  },
+  {
+   "id": "b1-g-bc9c753512",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "Ich habe das Geschenk ___ meiner Schwester bekommen.",
+   "answer": "von",
+   "wrong": [
+    "aus",
+    "bei",
+    "mit"
+   ],
+   "explanation": "von + Dativ (Person)"
+  },
+  {
+   "id": "b1-g-a83ce57e8a",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "Der Termin ist ___ Ende des Monats.",
+   "answer": "am",
+   "wrong": [
+    "im",
+    "um",
+    "zu"
+   ],
+   "explanation": "am Ende + Genitiv"
+  },
+  {
+   "id": "b1-g-854da0d54e",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "Sie geht jeden Tag ___ Fuß zur Schule.",
+   "answer": "zu",
+   "wrong": [
+    "mit",
+    "auf",
+    "per"
+   ],
+   "explanation": "zu Fuß"
+  },
+  {
+   "id": "b1-g-b8bcaccfec",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "Wir sehen uns später ___ Abendessen.",
+   "answer": "beim",
+   "wrong": [
+    "im",
+    "am",
+    "auf"
+   ],
+   "explanation": "bei dem → beim Abendessen"
+  },
+  {
+   "id": "b1-g-3586cda37e",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "Wir spazieren den Fluss ___.",
+   "answer": "entlang",
+   "wrong": [
+    "vorbei",
+    "durch",
+    "über"
+   ],
+   "explanation": "den Fluss entlang (Akkusativ, nachgestellt)"
+  },
+  {
+   "id": "b1-g-4d68e8baf1",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "Er ist ___ seinen Freunden ins Kino gegangen.",
+   "answer": "mit",
+   "wrong": [
+    "bei",
+    "von",
+    "zu"
+   ],
+   "explanation": "mit + Dativ"
+  },
+  {
+   "id": "b1-g-28895a7b7b",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "Ich bin ___ dem Bahnhof vorbeigegangen.",
+   "answer": "an",
+   "wrong": [
+    "bei",
+    "zu",
+    "nach"
+   ],
+   "explanation": "an … vorbei"
+  },
+  {
+   "id": "b1-g-656fbac9b3",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "Die Apotheke ist direkt ___ der Bank.",
+   "answer": "neben",
+   "wrong": [
+    "zwischen",
+    "ohne",
+    "durch"
+   ],
+   "explanation": "neben + Dativ (wo?)"
+  },
+  {
+   "id": "b1-g-eb7e2a82d8",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "praepositionen",
+   "prompt": "Wir fahren nächste Woche ___ Urlaub.",
+   "answer": "in den",
+   "wrong": [
+    "im",
+    "am",
+    "zum"
+   ],
+   "explanation": "in den Urlaub fahren"
+  },
+  {
+   "id": "b1-g-714abb5c8f",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Ich suche ___ meinem Schlüssel.",
+   "answer": "nach",
+   "wrong": [
+    "um",
+    "für",
+    "auf"
+   ],
+   "explanation": "suchen nach + Dativ"
+  },
+  {
+   "id": "b1-g-269e1fd3d3",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Er glaubt nicht ___ Geister.",
+   "answer": "an",
+   "wrong": [
+    "auf",
+    "in",
+    "über"
+   ],
+   "explanation": "glauben an + Akkusativ"
+  },
+  {
+   "id": "b1-g-b92064bc58",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Sie sorgt ___ ihre Familie.",
+   "answer": "für",
+   "wrong": [
+    "um",
+    "an",
+    "über"
+   ],
+   "explanation": "sorgen für + Akkusativ"
+  },
+  {
+   "id": "b1-g-9474b5f64d",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Ich habe mich sehr ___ dein Geschenk gefreut. (Ich habe es schon bekommen.)",
+   "answer": "über",
+   "wrong": [
+    "auf",
+    "an",
+    "für"
+   ],
+   "explanation": "sich freuen über = etwas ist schon da"
+  },
+  {
+   "id": "b1-g-fccb73fbbc",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Er hat sich ___ seinen Fehler entschuldigt.",
+   "answer": "für",
+   "wrong": [
+    "über",
+    "um",
+    "an"
+   ],
+   "explanation": "sich entschuldigen für"
+  },
+  {
+   "id": "b1-g-20c7b81de7",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Ich beschäftige mich gern ___ Geschichte.",
+   "answer": "mit",
+   "wrong": [
+    "an",
+    "für",
+    "über"
+   ],
+   "explanation": "sich beschäftigen mit"
+  },
+  {
+   "id": "b1-g-e2d2371ed2",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Sie fragt den Lehrer ___ der Bedeutung des Wortes.",
+   "answer": "nach",
+   "wrong": [
+    "um",
+    "über",
+    "für"
+   ],
+   "explanation": "fragen nach + Dativ"
+  },
+  {
+   "id": "b1-g-40bee6b7c9",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Wir verlassen uns ___ dich.",
+   "answer": "auf",
+   "wrong": [
+    "an",
+    "für",
+    "über"
+   ],
+   "explanation": "sich verlassen auf + Akkusativ"
+  },
+  {
+   "id": "b1-g-9c4203c31f",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Ich beginne jetzt ___ der Arbeit.",
+   "answer": "mit",
+   "wrong": [
+    "an",
+    "bei",
+    "zu"
+   ],
+   "explanation": "beginnen mit + Dativ"
+  },
+  {
+   "id": "b1-g-bf51caf2db",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Ich vertraue ___ meine Freunde.",
+   "answer": "auf",
+   "wrong": [
+    "an",
+    "für",
+    "über"
+   ],
+   "explanation": "vertrauen auf + Akkusativ (oder: + Dativ ohne Präposition)"
+  },
+  {
+   "id": "b1-g-16dcc09447",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Wir müssen gründlich ___ das Problem nachdenken.",
+   "answer": "über",
+   "wrong": [
+    "an",
+    "von",
+    "mit"
+   ],
+   "explanation": "nachdenken über + Akkusativ"
+  },
+  {
+   "id": "b1-g-9d1ea69882",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Das Buch handelt ___ einer Familie in Berlin.",
+   "answer": "von",
+   "wrong": [
+    "über",
+    "mit",
+    "an"
+   ],
+   "explanation": "handeln von + Dativ"
+  },
+  {
+   "id": "b1-g-2867ed6147",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Ich habe mich ___ dem Kurs angemeldet.",
+   "answer": "zu",
+   "wrong": [
+    "an",
+    "über",
+    "mit"
+   ],
+   "explanation": "sich anmelden zu + Dativ"
+  },
+  {
+   "id": "b1-g-47e1f72a9b",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Sie schreibt einen Brief ___ ihre Oma.",
+   "answer": "an",
+   "wrong": [
+    "zu",
+    "bei",
+    "nach"
+   ],
+   "explanation": "schreiben an + Akkusativ"
+  },
+  {
+   "id": "b1-g-c3db1e1242",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "verben_praep",
+   "prompt": "Woran erkennst du ihn? – ___ seiner Stimme.",
+   "answer": "An",
+   "wrong": [
+    "Auf",
+    "Mit",
+    "Bei"
+   ],
+   "explanation": "erkennen an + Dativ"
+  },
+  {
+   "id": "b1-g-2efa78d159",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Ich habe ein ___ Problem. (klein)",
+   "answer": "kleines",
+   "wrong": [
+    "kleine",
+    "kleinen",
+    "kleiner"
+   ],
+   "explanation": "Akkusativ neutral nach ein: kleines"
+  },
+  {
+   "id": "b1-g-608ce5ed3a",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Wir wohnen in einem ___ Dorf. (ruhig)",
+   "answer": "ruhigen",
+   "wrong": [
+    "ruhiges",
+    "ruhigem",
+    "ruhiger"
+   ],
+   "explanation": "Dativ nach einem: ruhigen"
+  },
+  {
+   "id": "b1-g-216bf13d26",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Das ist die ___ Lehrerin. (neu)",
+   "answer": "neue",
+   "wrong": [
+    "neuen",
+    "neuer",
+    "neues"
+   ],
+   "explanation": "Nominativ nach die: neue"
+  },
+  {
+   "id": "b1-g-3a4ab79065",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Er trinkt gern ___ Kaffee. (stark, ohne Artikel)",
+   "answer": "starken",
+   "wrong": [
+    "starker",
+    "starke",
+    "starkes"
+   ],
+   "explanation": "Akkusativ maskulin ohne Artikel: starken"
+  },
+  {
+   "id": "b1-g-e2e5623a88",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Ich danke dir für den ___ Abend. (schön)",
+   "answer": "schönen",
+   "wrong": [
+    "schöner",
+    "schöne",
+    "schönes"
+   ],
+   "explanation": "Akkusativ nach den: schönen"
+  },
+  {
+   "id": "b1-g-eb96b1844f",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Sie hat ___ Augen. (blau, ohne Artikel)",
+   "answer": "blaue",
+   "wrong": [
+    "blauen",
+    "blauer",
+    "blaues"
+   ],
+   "explanation": "Plural ohne Artikel, Akkusativ: blaue"
+  },
+  {
+   "id": "b1-g-9ada7958b9",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Wo ist mein ___ Handy? (neu)",
+   "answer": "neues",
+   "wrong": [
+    "neue",
+    "neuen",
+    "neuer"
+   ],
+   "explanation": "Nominativ neutral nach mein: neues"
+  },
+  {
+   "id": "b1-g-86348ab0b1",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Mit einem ___ Lächeln begrüßte sie uns. (freundlich)",
+   "answer": "freundlichen",
+   "wrong": [
+    "freundliches",
+    "freundlicher",
+    "freundlichem"
+   ],
+   "explanation": "Dativ nach einem: freundlichen"
+  },
+  {
+   "id": "b1-g-837849307d",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Das ist ein Geschenk für meinen ___ Freund. (gut, Superlativ)",
+   "answer": "besten",
+   "wrong": [
+    "bester",
+    "beste",
+    "bestes"
+   ],
+   "explanation": "Akkusativ nach meinen: besten"
+  },
+  {
+   "id": "b1-g-fcabfd9d4f",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Die Kinder spielen auf der ___ Wiese. (grün)",
+   "answer": "grünen",
+   "wrong": [
+    "grüne",
+    "grüner",
+    "grünes"
+   ],
+   "explanation": "Dativ nach der: grünen"
+  },
+  {
+   "id": "b1-g-e4cf023bc5",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Ich brauche ___ Hilfe. (schnell, ohne Artikel)",
+   "answer": "schnelle",
+   "wrong": [
+    "schnellen",
+    "schneller",
+    "schnelles"
+   ],
+   "explanation": "Akkusativ feminin ohne Artikel: schnelle"
+  },
+  {
+   "id": "b1-g-cf2969faac",
+   "kind": "grammar",
+   "format": "grammar",
+   "topic": "adjektivdeklination",
+   "prompt": "Das Auto meines ___ Bruders ist rot. (älter)",
+   "answer": "älteren",
+   "wrong": [
+    "älterer",
+    "ältere",
+    "älteres"
+   ],
+   "explanation": "Genitiv nach meines: älteren"
+  },
+  {
+   "id": "b1-g-a2c8c8a3f2",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "nach zwei Stunden eine Pause ___",
+   "answer": "machen",
+   "wrong": [
+    "geben",
+    "stellen",
+    "treffen"
+   ],
+   "explanation": "eine Pause machen"
+  },
+  {
+   "id": "b1-g-50dfcefdd4",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "einen Wunsch ___",
+   "answer": "äußern",
+   "wrong": [
+    "stellen",
+    "legen",
+    "treiben"
+   ],
+   "explanation": "einen Wunsch äußern"
+  },
+  {
+   "id": "b1-g-8f590684f6",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "auf der Feier eine Rede ___",
+   "answer": "halten",
+   "wrong": [
+    "machen",
+    "stellen",
+    "treiben"
+   ],
+   "explanation": "eine Rede halten"
+  },
+  {
+   "id": "b1-g-2e6b9c4cf1",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "mit dem Chef ein Gespräch ___",
+   "answer": "führen",
+   "wrong": [
+    "machen",
+    "stellen",
+    "treiben"
+   ],
+   "explanation": "ein Gespräch führen"
+  },
+  {
+   "id": "b1-g-432c1792f3",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "heute eine Ausnahme ___",
+   "answer": "machen",
+   "wrong": [
+    "stellen",
+    "treffen",
+    "legen"
+   ],
+   "explanation": "eine Ausnahme machen"
+  },
+  {
+   "id": "b1-g-7739fb9549",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "jemandem Angst ___",
+   "answer": "machen",
+   "wrong": [
+    "geben",
+    "stellen",
+    "treiben"
+   ],
+   "explanation": "jemandem Angst machen"
+  },
+  {
+   "id": "b1-g-59d60dc9eb",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "einen Kompromiss ___",
+   "answer": "schließen",
+   "wrong": [
+    "stellen",
+    "treiben",
+    "legen"
+   ],
+   "explanation": "einen Kompromiss schließen"
+  },
+  {
+   "id": "b1-g-591e4eea83",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "auf jemanden Druck ___",
+   "answer": "ausüben",
+   "wrong": [
+    "stellen",
+    "treffen",
+    "legen"
+   ],
+   "explanation": "Druck ausüben"
+  },
+  {
+   "id": "b1-g-776268a605",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "einen neuen Versuch ___",
+   "answer": "unternehmen",
+   "wrong": [
+    "stellen",
+    "treiben",
+    "legen"
+   ],
+   "explanation": "einen Versuch unternehmen"
+  },
+  {
+   "id": "b1-g-f7f64545d6",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "die Initiative ___",
+   "answer": "ergreifen",
+   "wrong": [
+    "stellen",
+    "treiben",
+    "legen"
+   ],
+   "explanation": "die Initiative ergreifen"
+  },
+  {
+   "id": "b1-g-95e16d098e",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "für die Reise Vorbereitungen ___",
+   "answer": "treffen",
+   "wrong": [
+    "stellen",
+    "leisten",
+    "legen"
+   ],
+   "explanation": "Vorbereitungen treffen"
+  },
+  {
+   "id": "b1-g-b6e30d7f15",
+   "kind": "vocab",
+   "format": "collocation",
+   "topic": "nomen_verb",
+   "prompt": "bei der Polizei Anzeige ___",
+   "answer": "erstatten",
+   "wrong": [
+    "stellen",
+    "leisten",
+    "legen"
+   ],
+   "explanation": "Anzeige erstatten"
+  },
+  {
+   "id": "b1-g-a0ce3ac52f",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Das Nomen zu „schnell“: die ___",
+   "answer": "Schnelligkeit",
+   "wrong": [
+    "Schnellheit",
+    "Schnellung",
+    "Schnellnis"
+   ],
+   "explanation": "-igkeit: die Schnelligkeit"
+  },
+  {
+   "id": "b1-g-486379b3ee",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Das Nomen zu „sauber“: die ___",
+   "answer": "Sauberkeit",
+   "wrong": [
+    "Sauberheit",
+    "Sauberung",
+    "Saubernis"
+   ],
+   "explanation": "-keit: die Sauberkeit"
+  },
+  {
+   "id": "b1-g-089502fd86",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Das Nomen zu „krank“: die ___",
+   "answer": "Krankheit",
+   "wrong": [
+    "Krankkeit",
+    "Krankung",
+    "Kranknis"
+   ],
+   "explanation": "-heit: die Krankheit"
+  },
+  {
+   "id": "b1-g-12743edc93",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Das Nomen zu „erfahren“: die ___",
+   "answer": "Erfahrung",
+   "wrong": [
+    "Erfahrheit",
+    "Erfahrkeit",
+    "Erfahrnis"
+   ],
+   "explanation": "-ung: die Erfahrung"
+  },
+  {
+   "id": "b1-g-e122b98339",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Das Nomen zu „sich erholen“: die ___",
+   "answer": "Erholung",
+   "wrong": [
+    "Erholheit",
+    "Erholkeit",
+    "Erholnis"
+   ],
+   "explanation": "-ung: die Erholung"
+  },
+  {
+   "id": "b1-g-9c106be0d9",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Das Adjektiv zu „der Sport“",
+   "answer": "sportlich",
+   "wrong": [
+    "sportig",
+    "sportbar",
+    "sportisch"
+   ],
+   "explanation": "-lich: sportlich"
+  },
+  {
+   "id": "b1-g-f7a2d73cd1",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Das Adjektiv zu „die Kraft“ (mit viel Kraft)",
+   "answer": "kräftig",
+   "wrong": [
+    "kraftlich",
+    "kraftbar",
+    "kräftisch"
+   ],
+   "explanation": "-ig: kräftig"
+  },
+  {
+   "id": "b1-g-9a4881360a",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Das Adjektiv zu „die Technik“",
+   "answer": "technisch",
+   "wrong": [
+    "techniklich",
+    "technikig",
+    "technikbar"
+   ],
+   "explanation": "-isch: technisch"
+  },
+  {
+   "id": "b1-g-282dc4a59b",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Etwas, das man waschen kann, ist ___.",
+   "answer": "waschbar",
+   "wrong": [
+    "waschlich",
+    "waschig",
+    "waschisch"
+   ],
+   "explanation": "-bar"
+  },
+  {
+   "id": "b1-g-3d69101b15",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Ohne Hoffnung ist ___.",
+   "answer": "hoffnungslos",
+   "wrong": [
+    "hoffnunglos",
+    "unhoffnung",
+    "hoffnungsfrei"
+   ],
+   "explanation": "-los = ohne"
+  },
+  {
+   "id": "b1-g-e684963b60",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Das Gegenteil von „pünktlich“ (mit Präfix)",
+   "answer": "unpünktlich",
+   "wrong": [
+    "mispünktlich",
+    "entpünktlich",
+    "nichtpünktlich"
+   ],
+   "explanation": "un- + pünktlich"
+  },
+  {
+   "id": "b1-g-fe4bf90d25",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Die Person, die verkauft, ist der ___.",
+   "answer": "Verkäufer",
+   "wrong": [
+    "Verkaufer",
+    "Verkaufung",
+    "Verkaufsmann"
+   ],
+   "explanation": "verkaufen → der Verkäufer"
+  },
+  {
+   "id": "b1-g-9555783ace",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "die Kinder + der Garten = der ___",
+   "answer": "Kindergarten",
+   "wrong": [
+    "Kindgarten",
+    "Gartenkind",
+    "Kindersgarten"
+   ],
+   "explanation": "der Kindergarten"
+  },
+  {
+   "id": "b1-g-99de8072c4",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Das Verb zu „die Erklärung“",
+   "answer": "erklären",
+   "wrong": [
+    "erklärieren",
+    "erklärungen",
+    "erkläreln"
+   ],
+   "explanation": "die Erklärung ← erklären"
+  },
+  {
+   "id": "b1-g-c7be4fbcbd",
+   "kind": "grammar",
+   "format": "word_choice",
+   "topic": "wortbildung",
+   "prompt": "Das Nomen zu „ehrlich“: die ___",
+   "answer": "Ehrlichkeit",
+   "wrong": [
+    "Ehrlichheit",
+    "Ehrlichung",
+    "Ehrlichnis"
+   ],
+   "explanation": "-keit: die Ehrlichkeit"
+  },
+  {
+   "id": "b1-g-8036843fdb",
+   "kind": "vocab",
+   "format": "synonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "reparieren",
+   "answer": "in Ordnung bringen",
+   "wrong": [
+    "kaputt machen",
+    "wegwerfen",
+    "verkaufen"
+   ],
+   "explanation": "reparieren = in Ordnung bringen"
+  },
+  {
+   "id": "b1-g-fe94dbe68b",
+   "kind": "vocab",
+   "format": "synonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "die Ferien",
+   "answer": "der Urlaub",
+   "wrong": [
+    "die Arbeit",
+    "die Schule",
+    "das Wochenende"
+   ],
+   "explanation": "die Ferien ≈ der Urlaub"
+  },
+  {
+   "id": "b1-g-ea6bf24f83",
+   "kind": "vocab",
+   "format": "synonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "erschöpft",
+   "answer": "sehr müde",
+   "wrong": [
+    "hungrig",
+    "krank",
+    "wach"
+   ],
+   "explanation": "erschöpft = sehr müde"
+  },
+  {
+   "id": "b1-g-988e4b74a4",
+   "kind": "vocab",
+   "format": "synonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "der Arzt",
+   "answer": "der Doktor",
+   "wrong": [
+    "der Patient",
+    "der Kranke",
+    "die Apotheke"
+   ],
+   "explanation": "der Arzt = der Doktor"
+  },
+  {
+   "id": "b1-g-3a3b7bc9c6",
+   "kind": "vocab",
+   "format": "synonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "zornig",
+   "answer": "wütend",
+   "wrong": [
+    "ruhig",
+    "fröhlich",
+    "müde"
+   ],
+   "explanation": "zornig = wütend"
+  },
+  {
+   "id": "b1-g-fb0614c9e6",
+   "kind": "vocab",
+   "format": "synonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "das Auto",
+   "answer": "der Wagen",
+   "wrong": [
+    "das Fahrrad",
+    "der Zug",
+    "das Flugzeug"
+   ],
+   "explanation": "das Auto = der Wagen"
+  },
+  {
+   "id": "b1-g-27f848a9f6",
+   "kind": "vocab",
+   "format": "synonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "verstehen",
+   "answer": "begreifen",
+   "wrong": [
+    "vergessen",
+    "verlieren",
+    "verbieten"
+   ],
+   "explanation": "verstehen = begreifen"
+  },
+  {
+   "id": "b1-g-c37e502228",
+   "kind": "vocab",
+   "format": "antonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "das Interesse",
+   "answer": "das Desinteresse",
+   "wrong": [
+    "die Neugier",
+    "die Lust",
+    "die Freude"
+   ],
+   "explanation": "das Interesse ↔ das Desinteresse"
+  },
+  {
+   "id": "b1-g-4ec4fbde43",
+   "kind": "vocab",
+   "format": "antonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "kaufen",
+   "answer": "verkaufen",
+   "wrong": [
+    "bezahlen",
+    "einkaufen",
+    "mieten"
+   ],
+   "explanation": "kaufen ↔ verkaufen"
+  },
+  {
+   "id": "b1-g-2582108b6f",
+   "kind": "vocab",
+   "format": "antonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "öffnen",
+   "answer": "schließen",
+   "wrong": [
+    "aufmachen",
+    "reparieren",
+    "putzen"
+   ],
+   "explanation": "öffnen ↔ schließen (aufmachen = öffnen)"
+  },
+  {
+   "id": "b1-g-cf74321c74",
+   "kind": "vocab",
+   "format": "antonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "die Erlaubnis",
+   "answer": "das Verbot",
+   "wrong": [
+    "die Genehmigung",
+    "die Regel",
+    "das Gesetz"
+   ],
+   "explanation": "die Erlaubnis ↔ das Verbot"
+  },
+  {
+   "id": "b1-g-1e5f1b80ea",
+   "kind": "vocab",
+   "format": "antonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "der Frieden",
+   "answer": "der Krieg",
+   "wrong": [
+    "die Ruhe",
+    "die Freiheit",
+    "die Sicherheit"
+   ],
+   "explanation": "der Frieden ↔ der Krieg"
+  },
+  {
+   "id": "b1-g-9ab65a94f8",
+   "kind": "vocab",
+   "format": "antonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "geben",
+   "answer": "nehmen",
+   "wrong": [
+    "schenken",
+    "reichen",
+    "bringen"
+   ],
+   "explanation": "geben ↔ nehmen"
+  },
+  {
+   "id": "b1-g-2e9cc382de",
+   "kind": "vocab",
+   "format": "antonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "die Frage",
+   "answer": "die Antwort",
+   "wrong": [
+    "das Problem",
+    "die Aufgabe",
+    "der Satz"
+   ],
+   "explanation": "die Frage ↔ die Antwort"
+  },
+  {
+   "id": "b1-g-246f5597b4",
+   "kind": "vocab",
+   "format": "antonym",
+   "topic": "synonyme_antonyme",
+   "prompt": "vergessen",
+   "answer": "sich erinnern",
+   "wrong": [
+    "verlieren",
+    "verstehen",
+    "vermissen"
+   ],
+   "explanation": "vergessen ↔ sich erinnern"
+  }
+ ]
+}

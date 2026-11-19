@@ -17,7 +17,7 @@ from sqlalchemy.orm import Session
 from app.api.dependencies.auth import get_current_user, require_admin_panel_access, require_content_editor
 from app.db.session import get_db
 from app.models.user import User
-from app.services.battle import admin, commons, config, engine, home, profiles, themes
+from app.services.battle import admin, commons, config, engine, home, profiles, question_bank, themes
 
 router = APIRouter(prefix="/battle", tags=["Battle"])
 admin_router = APIRouter(prefix="/admin/battle", tags=["Admin Battle"])
@@ -168,9 +168,82 @@ class ThemeDraftIn(_In):
     is_active: bool | None = None
 
 
+Level = Literal["A1", "A2", "B1", "B2", "C1"]
+QuestionFormat = Literal["de_uz", "uz_de", "word_choice", "gap", "grammar", "article", "verb_form", "synonym", "antonym", "collocation"]
+
+
+class QuestionIn(_In):
+    level: Level
+    format: QuestionFormat
+    topic: str = Field(min_length=2, max_length=40)
+    kind: Literal["vocab", "grammar"] | None = None
+    prompt: str = Field(min_length=1, max_length=300)
+    answer: str = Field(min_length=1, max_length=160)
+    wrong: list[str] = Field(min_length=2, max_length=3)
+    hint: str | None = Field(None, max_length=300)
+    explanation: str | None = Field(None, max_length=500)
+    status: Literal["draft", "published", "disabled"] = "draft"
+    ref: str | None = Field(None, max_length=255)
+
+
+class QuestionPatchIn(_In):
+    level: Level | None = None
+    format: QuestionFormat | None = None
+    topic: str | None = Field(None, min_length=2, max_length=40)
+    kind: Literal["vocab", "grammar"] | None = None
+    prompt: str | None = Field(None, min_length=1, max_length=300)
+    answer: str | None = Field(None, min_length=1, max_length=160)
+    wrong: list[str] | None = Field(None, min_length=2, max_length=3)
+    hint: str | None = Field(None, max_length=300)
+    explanation: str | None = Field(None, max_length=500)
+    status: Literal["draft", "published", "disabled"] | None = None
+    ref: str | None = Field(None, max_length=255)
+
+
+class QuestionImportIn(_In):
+    items: list[dict] = Field(min_length=1, max_length=question_bank.MAX_IMPORT)
+    apply: bool = False  # False = check only (nothing is written)
+    publish: bool = False
+
+
 @admin_router.get("/overview")
 def admin_overview(db: Session = Depends(get_db), user: User = Depends(require_admin_panel_access)):
     return admin.overview(db)
+
+
+@admin_router.get("/questions/stats")
+def admin_question_stats(db: Session = Depends(get_db), user: User = Depends(require_admin_panel_access)):
+    """Per level: total, vocabulary / grammar, active / inactive, possible duplicates, questions with problems."""
+    return question_bank.stats(db)
+
+
+@admin_router.get("/questions")
+def admin_questions(level: Level | None = None, kind: Literal["vocab", "grammar"] | None = None, topic: str | None = Query(None, max_length=40),
+                    status: Literal["draft", "published", "disabled"] | None = None, format: QuestionFormat | None = None,
+                    q: str = Query("", max_length=80), problems: bool = False, page: int = Query(1, ge=1, le=1000),
+                    db: Session = Depends(get_db), user: User = Depends(require_admin_panel_access)):
+    return question_bank.list_questions(db, level, kind, topic, status, format, q, problems, page)
+
+
+@admin_router.post("/questions", status_code=201)
+def admin_create_question(data: QuestionIn, db: Session = Depends(get_db), user: User = Depends(require_content_editor)):
+    return question_bank.create(db, user, data.model_dump())
+
+
+@admin_router.patch("/questions/{question_id}")
+def admin_patch_question(question_id: UUID, data: QuestionPatchIn, db: Session = Depends(get_db), user: User = Depends(require_content_editor)):
+    return question_bank.update(db, user, question_id, data.model_dump(exclude_unset=True))
+
+
+@admin_router.delete("/questions/{question_id}")
+def admin_delete_question(question_id: UUID, db: Session = Depends(get_db), user: User = Depends(require_content_editor)):
+    return question_bank.delete(db, user, question_id)
+
+
+@admin_router.post("/questions/import")
+def admin_import_questions(data: QuestionImportIn, db: Session = Depends(get_db), user: User = Depends(require_content_editor)):
+    """JSON list of questions: checked first (`apply` false), added with `apply` true — duplicates and invalid rows are skipped."""
+    return question_bank.import_questions(db, user, data.items, data.apply, data.publish)
 
 
 @admin_router.get("/words")

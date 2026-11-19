@@ -25,7 +25,7 @@ from sqlalchemy.orm import Session
 from app.models.battle import BattleAnswer, BattleMatch, BattlePointsLedger, BattleWord
 from app.models.notification import TYPE_BATTLE, Notification
 from app.models.user import User
-from app.services.battle import config, media, profiles, questions
+from app.services.battle import config, media, profiles, question_bank, questions
 
 ROOM_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
 OPEN = ("waiting", "active")
@@ -66,8 +66,8 @@ def open_match(db: Session, user_id) -> BattleMatch | None:
 
 
 def _ensure_pool(db: Session, stage: str) -> None:
-    if questions.pool_size(db, stage) < config.MIN_POOL:
-        raise HTTPException(409, "BATTLE_NOT_ENOUGH_WORDS: Bu bosqich uchun hali yetarli rasmli so‘z yo‘q")
+    if not questions.readiness(db, stage)["ready"]:
+        raise HTTPException(409, "BATTLE_NOT_ENOUGH_WORDS: Bu bosqich uchun hali yetarli savol yo‘q")
 
 
 def _seen(m: BattleMatch, slot: int, now: datetime) -> None:
@@ -78,7 +78,8 @@ def _seen(m: BattleMatch, slot: int, now: datetime) -> None:
 
 
 def _activate(db: Session, m: BattleMatch, now: datetime) -> None:
-    m.questions = questions.build(db, m.level, m.rounds, bot=m.mode == "bot")
+    recent = question_bank.recent_ids(db, [m.player1_id, m.player2_id])  # text questions the players saw in their last matches
+    m.questions = questions.build(db, m.level, m.rounds, bot=m.mode == "bot", avoid=recent)
     m.status = "active"
     m.starts_at = now + timedelta(seconds=config.COUNTDOWN_S)
     m.current_round = 0
@@ -321,6 +322,9 @@ def answer(db: Session, user: User, match_id, round_no: int, choice: int) -> dic
     if slot in _answers(db, m, round_no):
         db.commit()
         raise HTTPException(409, "ALREADY_ANSWERED")
+    if choice >= len(m.questions[round_no - 1].get("opts") or []):  # an article round has 3 options
+        db.commit()
+        raise HTTPException(422, "CHOICE_INVALID")
     elapsed = _ms(now - m.round_started_at)
     _record(db, m, round_no, slot, choice, max(0, min(elapsed, config.ROUND_S * 1000)))
     tick(db, m, now)
@@ -417,6 +421,8 @@ def _view(db: Session, m: BattleMatch, slot: int, user: User, now: datetime) -> 
 def _round_view(db: Session, m: BattleMatch, slot: int, other: int, answers: dict[int, BattleAnswer], now: datetime) -> dict:
     r = m.current_round
     q = m.questions[r - 1]
+    if q.get("t") == "q":
+        return _text_round_view(m, q, r, slot, other, answers)
     ids = [q["w"], *q["opts"]]
     words = {str(w.id): w for w in db.execute(select(BattleWord).where(BattleWord.id.in_(ids))).scalars()}
     target = words.get(q["w"])
@@ -426,12 +432,13 @@ def _round_view(db: Session, m: BattleMatch, slot: int, other: int, answers: dic
         "no": r, "total": m.rounds, "phase": "reveal" if revealed else "question",
         "started_at": _iso(m.round_started_at), "deadline": _iso(m.round_started_at + timedelta(seconds=config.ROUND_S)),
         "reveal_ends_at": _iso(m.round_ended_at + timedelta(seconds=config.REVEAL_S)) if revealed else None,
-        "image_url": f"/api/v1/battle/media/{media.round_token(m.id, r, now.timestamp())}",
+        "kind": "picture", "image_url": f"/api/v1/battle/media/{media.round_token(m.id, r, now.timestamp())}",
         "category": (questions.categories().get(target.category) if target else None),
         "options": [words[i].display if i in words else "—" for i in q["opts"]],
         "my_answer": {"choice": mine.choice, "correct": mine.correct, "score": mine.score, "time_ms": mine.time_ms} if mine else None,
         "opponent_answered": other in answers,
         "correct": None, "translation": None, "opponent_choice": None,
+        "prompt": None, "hint": None, "instruction": None, "format": None, "explanation": None,
     }
     if revealed:
         view["correct"] = q["c"]
@@ -439,6 +446,26 @@ def _round_view(db: Session, m: BattleMatch, slot: int, other: int, answers: dic
         theirs = answers.get(other)
         view["opponent_choice"] = theirs.choice if theirs else None
     return view
+
+
+def _text_round_view(m: BattleMatch, q: dict, r: int, slot: int, other: int, answers: dict[int, BattleAnswer]) -> dict:
+    """A vocabulary / grammar round from the match's own copy: prompt, options, instruction; the correct index and the explanation
+    only after the round."""
+    revealed = m.round_ended_at is not None
+    mine = answers.get(slot)
+    theirs = answers.get(other)
+    return {
+        "no": r, "total": m.rounds, "phase": "reveal" if revealed else "question",
+        "started_at": _iso(m.round_started_at), "deadline": _iso(m.round_started_at + timedelta(seconds=config.ROUND_S)),
+        "reveal_ends_at": _iso(m.round_ended_at + timedelta(seconds=config.REVEAL_S)) if revealed else None,
+        "kind": "text", "image_url": None, "format": q.get("fmt"), "question_kind": q.get("kind"),
+        "category": question_bank.topic_label(q.get("topic")), "instruction": question_bank.instruction(q.get("fmt")),
+        "prompt": q.get("p"), "hint": q.get("h"), "options": list(q.get("opts") or []),
+        "my_answer": {"choice": mine.choice, "correct": mine.correct, "score": mine.score, "time_ms": mine.time_ms} if mine else None,
+        "opponent_answered": other in answers,
+        "correct": q["c"] if revealed else None, "translation": None, "explanation": q.get("x") if revealed else None,
+        "opponent_choice": (theirs.choice if theirs else None) if revealed else None,
+    }
 
 
 def _result_view(m: BattleMatch, slot: int) -> dict:
@@ -463,7 +490,8 @@ def media_for(db: Session, token: str):
         raise HTTPException(404, "NOT_FOUND")
     from app.models.battle import BattleImage
 
-    img = db.get(BattleImage, m.questions[round_no - 1]["img"])
+    image_id = m.questions[round_no - 1].get("img")  # a text round has no picture
+    img = db.get(BattleImage, image_id) if image_id else None
     if img is None:
         raise HTTPException(404, "NOT_FOUND")
     return media.serve(media.safe_path(media.IMAGE_ROOT, img.storage_name))

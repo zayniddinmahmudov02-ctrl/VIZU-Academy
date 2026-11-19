@@ -93,6 +93,7 @@ from .battle import (
     BattleMatch,
     BattlePointsLedger,
     BattleProfile,
+    BattleQuestion,
     BattleTheme,
     BattleWord,
 )

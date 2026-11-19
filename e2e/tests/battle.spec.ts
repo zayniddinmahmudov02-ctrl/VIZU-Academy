@@ -45,7 +45,7 @@ test.describe("Battle — student", () => {
     await expect(page.getByTestId("avatar-picker")).toHaveCount(0);
   });
 
-  test("practice against the bot: picture, four options, server feedback, surrender", async ({ page }) => {
+  test("practice against the bot: picture or text round, options, server feedback, surrender", async ({ page }) => {
     test.setTimeout(90_000);
     await student(page);
     await page.goto("/battle");
@@ -55,14 +55,21 @@ test.describe("Battle — student", () => {
     const arena = page.getByTestId("battle-arena");
     await expect(arena).toBeVisible({ timeout: 15_000 });
     await expect(arena).toHaveAttribute("data-round", "1");
-    await expect(page.getByTestId("question-image")).toBeVisible();
-    await expect(page.locator('[data-testid^="answer-"]')).toHaveCount(4);
+    // since 2026-11-19 an A1 match mixes picture rounds and text rounds (vocabulary / grammar) when the text questions are seeded
+    const kind = await page.getByTestId("question-card").getAttribute("data-kind");
+    if (kind === "picture") {
+      await expect(page.getByTestId("question-image")).toBeVisible();
+      await expect(page.locator('[data-testid^="answer-"]')).toHaveCount(4);
+    } else {
+      await expect(page.getByTestId("question-prompt")).toBeVisible();
+      expect(await page.locator('[data-testid^="answer-"]').count()).toBeGreaterThanOrEqual(3);
+    }
     await noHorizontalScroll(page);
 
     await page.getByTestId("answer-0").click();
     await expect(arena).toHaveAttribute("data-phase", "reveal", { timeout: 15_000 });
     await expect(page.getByTestId("question-feedback")).toBeVisible();
-    await expect(page.getByTestId("question-translation")).toBeVisible();
+    await expect(page.getByTestId(kind === "picture" ? "question-translation" : "question-explanation")).toBeVisible();
     const states = await page.locator('[data-testid^="answer-"]').evaluateAll((els) => els.map((e) => e.getAttribute("data-state")));
     expect(states.filter((s) => s === "correct" || s === "missed")).toHaveLength(1);
 

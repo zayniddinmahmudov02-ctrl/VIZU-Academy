@@ -90,6 +90,7 @@ export const battleTranslations: Record<string, { de: string; uz: string }> = {
   opponentAnswered: { de: "Gegner hat geantwortet", uz: "Raqib javob berdi" },
   opponentThinking: { de: "Gegner überlegt…", uz: "Raqib o‘ylamoqda…" },
   meaning: { de: "Bedeutung", uz: "Ma’nosi" },
+  explanation: { de: "Erklärung", uz: "Izoh" },
   surrender: { de: "Aufgeben", uz: "Taslim bo‘lish" },
   surrenderConfirm: { de: "Wirklich aufgeben? Das zählt als Niederlage.", uz: "Rostdan taslim bo‘lasizmi? Bu mag‘lubiyat hisoblanadi." },
   matchProgress: { de: "Spielverlauf", uz: "O‘yin borishi" },

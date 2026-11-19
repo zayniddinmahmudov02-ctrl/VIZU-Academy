@@ -8,6 +8,8 @@ import unittest
 DB_URL = os.environ.get("VIZU_MIGRATION_TEST_DB_URL")
 REV, PREVIOUS_REV = "e5a9c3f1b7d2", "d7e2b4f8a1c6"
 TABLES = {"battle_profiles", "battle_images", "battle_words", "battle_matches", "battle_answers", "battle_points_ledger", "battle_themes"}
+# head also has the text questions (a6c2e8f4b9d1, 2026-11-19; own test: test_battle_questions_migration)
+TABLES_AT_HEAD = TABLES | {"battle_questions"}
 
 
 @unittest.skipUnless(DB_URL, "migration test: set VIZU_MIGRATION_TEST_DB_URL to a dedicated database at head")
@@ -54,7 +56,7 @@ class TestBattleMigration(unittest.TestCase):
 
     def test_upgrade_downgrade_upgrade(self):
         self._alembic("upgrade", "head")
-        self.assertEqual(self._tables(), TABLES)
+        self.assertEqual(self._tables(), TABLES_AT_HEAD)
         before = self._q("SELECT count(*) FROM dictionary_entries")[0][0]
         rule = self._q("SELECT confdeltype FROM pg_constraint WHERE conname = 'battle_words_entry_id_fkey'")
         self.assertEqual(rule[0][0], "n")  # ON DELETE SET NULL: a Wörterbuch re-import is never blocked

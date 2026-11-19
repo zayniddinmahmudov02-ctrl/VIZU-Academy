@@ -258,7 +258,7 @@ class TestBattleDb(unittest.TestCase):
     def _wipe(cls, db):
         from sqlalchemy import text
 
-        db.execute(text("TRUNCATE battle_answers, battle_points_ledger, battle_matches, battle_profiles, battle_words, battle_images, battle_themes"))
+        db.execute(text("TRUNCATE battle_answers, battle_points_ledger, battle_matches, battle_profiles, battle_words, battle_images, battle_themes, battle_questions"))
         db.execute(text("DELETE FROM dictionary_entries WHERE source_id >= 900000"))
         db.commit()
 
