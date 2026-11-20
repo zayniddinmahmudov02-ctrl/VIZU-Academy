@@ -1286,6 +1286,7 @@ export const translations: Record<string, Namespace> = {
     err_generic: { de: "Etwas ist schiefgelaufen.", uz: "Xatolik yuz berdi." },
 
     tabOverview: { de: "Überblick", uz: "Umumiy" },
+    tabVideoChat: { de: "Videochat", uz: "Videochat" },
     tabChat: { de: "Chat", uz: "Chat" },
     tabAnnouncements: { de: "Ankündigungen", uz: "E'lonlar" },
     tabTasks: { de: "Aufgaben", uz: "Vazifalar" },

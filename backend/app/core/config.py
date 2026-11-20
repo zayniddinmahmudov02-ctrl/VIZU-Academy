@@ -78,6 +78,15 @@ class Settings(BaseSettings):
     # allow_origin_regex in main.py, so they don't need to be listed here.
     CORS_ALLOWED_ORIGINS: str = ""
 
+    # ==================================================
+    # Group video chat (LiveKit SFU)
+    # ==================================================
+    LIVEKIT_URL: str = ""
+    LIVEKIT_API_KEY: str = ""
+    LIVEKIT_API_SECRET: str = ""
+    LIVEKIT_TOKEN_TTL_MINUTES: int = 120
+    LIVEKIT_PARTICIPANT_LIMIT: int = 50
+
     @property
     def cors_origins(self) -> list[str]:
         return [

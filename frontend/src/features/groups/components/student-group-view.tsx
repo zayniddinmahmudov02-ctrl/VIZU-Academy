@@ -12,11 +12,12 @@ import { getGroup, getMembers, getMyProgress, leaveGroup } from "../groups-servi
 import Announcements from "./announcements";
 import GroupChat from "./group-chat";
 import ProgressDetail from "./progress-detail";
+import GroupVideoChat from "./group-video-chat";
 import { card, ErrorBox, fmtDate, LevelPill, Loading, Tabs, TaskBadge } from "./ui";
 
-type Tab = "overview" | "chat" | "announcements" | "tasks" | "progress" | "members";
-const TABS: Tab[] = ["overview", "chat", "announcements", "tasks", "progress", "members"];
-const LABEL: Record<Tab, string> = { overview: "tabOverview", chat: "tabChat", announcements: "tabAnnouncements", tasks: "tabTasks", progress: "tabProgress", members: "tabMembers" };
+type Tab = "overview" | "video" | "chat" | "announcements" | "tasks" | "progress" | "members";
+const TABS: Tab[] = ["overview", "video", "chat", "announcements", "tasks", "progress", "members"];
+const LABEL: Record<Tab, string> = { overview: "tabOverview", video: "tabVideoChat", chat: "tabChat", announcements: "tabAnnouncements", tasks: "tabTasks", progress: "tabProgress", members: "tabMembers" };
 
 /** A student's view of one group. Everything is loaded through
  *  membership-checked endpoints; a non-member gets "not found". */
@@ -76,6 +77,7 @@ export default function StudentGroupView({ groupId }: { groupId: string }) {
         </div>
       )}
       {tab === "chat" && <GroupChat groupId={groupId} onRead={() => qc.invalidateQueries({ queryKey: ["groups", "my"] })} />}
+      {tab === "video" && <GroupVideoChat groupId={groupId} manager={false} />}
       {tab === "announcements" && <Announcements groupId={groupId} manager={false} />}
       {(tab === "tasks" || tab === "progress") && (
         progress.isLoading ? <Loading /> : progress.isError ? <ErrorBox error={progress.error} onRetry={() => progress.refetch()} /> : progress.data ? (

@@ -19,7 +19,7 @@ from app.core.client_ip import client_ip
 from app.db.session import get_db
 from app.models.study_group import CHAT_MODES, MODES
 from app.models.user import User
-from app.services.study_groups import chat, groups, progress
+from app.services.study_groups import chat, groups, progress, video_chat
 from app.services.study_groups.access import is_manager, require_manage, require_student_member, require_view
 
 router = APIRouter(prefix="/groups", tags=["Groups & Classroom"])
@@ -112,6 +112,21 @@ class TaskIn(_In):
     title: str | None = Field(None, max_length=200)
     note: str | None = Field(None, max_length=2000)
     due_at: datetime | None = None
+
+
+class VideoScheduleIn(_In):
+    scheduled_at: datetime | None = None
+    max_participants: int | None = Field(None, ge=1, le=1000)
+
+
+class VideoEventIn(_In):
+    kind: str = Field(pattern="^(join|leave|raise_hand|lower_hand|camera_on|camera_off|mic_on|mic_off|screen_share_start|screen_share_stop)$")
+    meta: dict | None = None
+
+
+class VideoControlIn(_In):
+    action: str = Field(pattern="^(mute_all|kick|mute|allow_mic|deny_mic|allow_screen|deny_screen|close_chat)$")
+    target_user_id: UUID | None = None
 
 
 def _ip(request: Request) -> str | None:
@@ -324,3 +339,40 @@ def my_progress(group_id: UUID, db: Session = Depends(get_db), user: User = Depe
 def audit_log(group_id: UUID, page: int = Query(1, ge=1), page_size: int = Query(50, ge=1, le=100),
               db: Session = Depends(get_db), user: User = Depends(get_current_user)):
     return groups.audit_log(db, user, group_id, page, page_size)
+
+
+# video chat
+
+@router.get("/{group_id}/video")
+def video_status(group_id: UUID, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    return video_chat.status_for(db, user, group_id)
+
+
+@router.put("/{group_id}/video/schedule")
+def video_schedule(group_id: UUID, data: VideoScheduleIn, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    return video_chat.schedule(db, user, group_id, data.scheduled_at, data.max_participants)
+
+
+@router.post("/{group_id}/video/start")
+def video_start(group_id: UUID, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    return video_chat.start(db, user, group_id)
+
+
+@router.post("/{group_id}/video/end")
+def video_end(group_id: UUID, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    return video_chat.end(db, user, group_id)
+
+
+@router.post("/{group_id}/video/join")
+def video_join(group_id: UUID, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    return video_chat.join(db, user, group_id)
+
+
+@router.post("/{group_id}/video/events")
+def video_event(group_id: UUID, data: VideoEventIn, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    return video_chat.event(db, user, group_id, data.kind, data.meta)
+
+
+@router.post("/{group_id}/video/control")
+def video_control(group_id: UUID, data: VideoControlIn, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    return video_chat.control(db, user, group_id, data.action, data.target_user_id)

@@ -15,11 +15,12 @@ import {
 import Announcements from "./announcements";
 import GroupChat from "./group-chat";
 import GroupForm, { CodeReveal } from "./group-form";
+import GroupVideoChat from "./group-video-chat";
 import { card, ErrorBox, fmtDate, input, LevelPill, Loading, primaryBtn, secondaryBtn, Stat, StatusPill, Tabs, TaskBadge, textarea, useErrorText } from "./ui";
 
-type Tab = "overview" | "chat" | "announcements" | "tasks" | "students" | "settings" | "audit";
-const TABS: Tab[] = ["overview", "chat", "announcements", "tasks", "students", "settings", "audit"];
-const LABEL: Record<Tab, string> = { overview: "tabOverview", chat: "tabChat", announcements: "tabAnnouncements", tasks: "tabTasks", students: "tabStudents", settings: "tabSettings", audit: "tabAudit" };
+type Tab = "overview" | "video" | "chat" | "announcements" | "tasks" | "students" | "settings" | "audit";
+const TABS: Tab[] = ["overview", "video", "chat", "announcements", "tasks", "students", "settings", "audit"];
+const LABEL: Record<Tab, string> = { overview: "tabOverview", video: "tabVideoChat", chat: "tabChat", announcements: "tabAnnouncements", tasks: "tabTasks", students: "tabStudents", settings: "tabSettings", audit: "tabAudit" };
 
 function Overview({ groupId }: { groupId: string }) {
   const { t } = useTranslation();
@@ -357,6 +358,7 @@ export default function TeacherGroupView({ groupId }: { groupId: string }) {
       <Tabs tabs={TABS.map((id) => ({ id, label: t(`groups.${LABEL[id]}`), badge: id === "chat" ? g.viewer.unread : undefined }))} active={tab} onChange={setTab} />
 
       {tab === "overview" && <Overview groupId={groupId} />}
+      {tab === "video" && <GroupVideoChat groupId={groupId} manager={canEdit} />}
       {tab === "chat" && <GroupChat groupId={groupId} onRead={() => qc.invalidateQueries({ queryKey: ["groups", groupId] })} />}
       {tab === "announcements" && <Announcements groupId={groupId} manager={canEdit} />}
       {tab === "tasks" && <TasksTab groupId={groupId} canEdit={canEdit} />}

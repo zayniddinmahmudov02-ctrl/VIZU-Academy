@@ -5,7 +5,8 @@ PostgreSQL; connection from settings `DATABASE_HOST/PORT/NAME/USER/PASSWORD` (na
 
 ## Migrations
 
-- Linear history, one head. **Head = `a6c2e8f4b9d1`**
+- Linear history, one head. **Head = `c1v7d3e9a5b2`**
+- `c1v7d3e9a5b2` (2026-11-20): Group video chat — additive: `study_group_video_rooms` (one LiveKit room per group, schedule/status/livekit name/participant limit/recording flag), `study_group_video_sessions` (start/end/peak participants), `study_group_video_events` (join/leave/device/share/raise-hand/control audit). Downgrade drops exactly these tables.
 - `a6c2e8f4b9d1` (2026-11-19): VIZU Battle text questions — additive: new table `battle_questions` (level, kind vocab / grammar, format, topic, prompt, hint, answer, `wrong` JSONB, explanation, `norm_key` unique per level `uq_battle_questions_level_norm_key`, `seed_id` unique, `ref` = asked lemma, status draft / published / disabled, source seed / admin / import, `entry_id` → dictionary_entries SET NULL, created_by / updated_by → users SET NULL, index `ix_battle_questions_pool` (level, status, kind)). Picture tables untouched. Downgrade drops exactly this table (`test_battle_questions_migration`).
 - `f3b9d1a6c4e8` (2026-11-19): Subtitle agents — additive: `film_subtitle_jobs.auto_approve` (boolean, NOT NULL, server default false → old jobs keep making drafts). Downgrade drops exactly this (`test_medien_subtitle_auto_approve_migration`).
 - `e8a3c5f1b7d2` (2026-11-19): Musik bulk upload — additive: `songs.sha256` (nullable, index `ix_songs_sha256`, not unique: a deliberate copy stays possible). Older songs get it from `app/scripts/medien_song_hashes.py`. Downgrade drops exactly these (`test_medien_song_hash_migration`).
@@ -67,7 +68,8 @@ PostgreSQL; connection from settings `DATABASE_HOST/PORT/NAME/USER/PASSWORD` (na
 - **Mobile app:** app_releases (APK files in `app/protected_storage/app-releases`)
 - **Community:** global_chat_messages, global_chat_message_edits, global_chat_restrictions, global_chat_moderation_actions,
   global_chat_reads, study_groups, study_group_courses, study_group_members, study_group_join_codes, study_group_messages,
-  study_group_announcements, study_group_tasks, study_group_audit_logs, teacher_assignments
+  study_group_announcements, study_group_tasks, study_group_audit_logs,
+  study_group_video_rooms, study_group_video_sessions, study_group_video_events, teacher_assignments
 - **Engagement/ops:** notifications, broadcast_notifications, broadcast_notification_reads, support_tickets, support_messages,
   advertisements, advertisement_events, achievement_categories, achievements, user_achievements, dictionary_entries,
   dictionary_user_words

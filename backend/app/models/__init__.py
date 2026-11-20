@@ -79,6 +79,9 @@ from .study_group import (
     StudyGroupMember,
     StudyGroupMessage,
     StudyGroupTask,
+    StudyGroupVideoEvent,
+    StudyGroupVideoRoom,
+    StudyGroupVideoSession,
 )
 from .global_chat import (
     GlobalChatMessage,

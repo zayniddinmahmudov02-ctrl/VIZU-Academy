@@ -50,6 +50,7 @@ export const part7: Record<string, Record<string, [string, string]>> = {
     err_lesson_not_in_group_courses: ["This lesson doesn't belong to any of the group's courses.", "Этот урок не входит ни в один курс группы."],
     err_generic: ["Something went wrong.", "Что-то пошло не так."],
     tabOverview: ["Overview", "Обзор"],
+    tabVideoChat: ["Video chat", "Видеочат"],
     tabChat: ["Chat", "Чат"],
     tabAnnouncements: ["Announcements", "Объявления"],
     tabTasks: ["Tasks", "Задания"],
