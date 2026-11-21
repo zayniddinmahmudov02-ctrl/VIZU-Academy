@@ -1,6 +1,6 @@
 # Groups & Classroom — arxitektura va hisobot
 
-Sana: 2026-10-28 · Holat: **lokal, test bazada ishlaydi; staging va production'ga chiqarilmagan.** Production uchun alohida tasdiq kerak.
+Sana: 2026-11-21 · Holat: **Groups va LiveKit integratsiyasi lokal test bazada tekshirilgan; LiveKit production'ga o‘rnatilmagan.**
 
 ## 1. Audit natijasi — nima qayta ishlatildi
 
@@ -33,6 +33,11 @@ Faqat guruhga oid ma’lumotlar saqlanadi; mavjud jadvallar o‘zgarmaydi.
 | `study_group_announcements` | sarlavha, matn, pin, arxiv |
 | `study_group_tasks` | guruh uchun dars-vazifa + `due_at`. Bajarilgan-bajarilmagani LMS'dan o‘qiladi |
 | `study_group_audit_logs` | kim, nima, qachon. Kod, token yoki parol yozilmaydi |
+| `study_group_video_rooms` | har bir mavjud guruhga bittadan rejalashtirilgan LiveKit room |
+| `study_group_video_sessions` | dars boshlanishi/yakunlanishi va davomiyligi |
+| `study_group_video_events` | qo‘shilish, boshqaruv va client yuborgan aloqa hodisalari; tokenlar saqlanmaydi |
+
+Videochat jadvallari `c1v7d3e9a5b2` migratsiyasida qo‘shilgan; mavjud guruhlar uchun room qatori backfill qilinadi. Downgrade faqat videochat jadvallarini o‘chiradi, guruhlar va a’zoliklar qoladi.
 
 Indekslar: o‘qituvchi+holat, a’zo+holat, xabarlar (group_id, created_at), e’lonlar, audit.
 
@@ -86,6 +91,8 @@ Ma’lumot bo‘lmasa, qiymat `null` (UI'da „—“) bo‘ladi; sun’iy foiz 
 | A’zo / boshqaruvchi | `GET /{id}`, `GET /{id}/members`, `GET,POST /{id}/messages`, `POST /{id}/read`, `GET /{id}/announcements`, `GET /{id}/lessons` |
 | O‘qituvchi | `GET /options`, `GET /teaching`, `POST /`, `PATCH /{id}`, `POST,PATCH /{id}/code`, `PATCH /{id}/members/{uid}`, `PATCH /{id}/messages/{mid}`, `PUT /{id}/chat`, `POST,PATCH /{id}/announcements…`, `PUT /{id}/tasks`, `DELETE /{id}/tasks/{tid}`, `GET /{id}/tasks`, `GET /{id}/dashboard`, `GET /{id}/students`, `GET /{id}/students/{sid}`, `GET /{id}/audit` |
 | SUPER_ADMIN | `GET /admin/all` (filtrlar: o‘qituvchi, daraja, holat, kurs, sana, qidiruv), `GET /admin/stats`, `PATCH /{id}` bilan block/unblock |
+| Videochat a’zosi / boshqaruvchisi | `GET /{id}/video`, `PUT /{id}/video/schedule`, `POST /{id}/video/{start,end,join,events,control}`. Tokenni faqat backend beradi; guruh a’zoligi va manager huquqi serverda tekshiriladi |
+| Admin panel / SUPER_ADMIN | `GET /admin/video/rooms` (admin-panel ruxsati), `POST /admin/video/rooms/{id}/end` (faqat SUPER_ADMIN) |
 
 Baholash uchun alohida endpoint yo‘q: mavjud `/teacher/{writing,speaking,homework}/{id}/grade` ishlatiladi.
 
@@ -111,11 +118,12 @@ Bildirishnoma yaratishdagi xato topshirish yoki baholashni hech qachon bekor qil
   - `/teacher/groups` — ro‘yxat, filtrlar, guruh yaratish, kod bir marta ko‘rsatiladi;
   - `/teacher/groups/[id]` — Umumiy (dashboard), Chat, E’lonlar, Vazifalar (dars + muddat, talabalar kesimidagi jadval), O‘quvchilar (filtr va saralash), Sozlamalar (tahrir, kod, chat rejimi, a’zolar), Audit;
   - `/teacher/groups/[id]/students/[sid]` — darslar, vazifalar, topshiriqlar (matn, audio, baholash), yo‘nalishlar, faollik.
-- **Admin:** `/admin/groups` — statistika, filtrlar, bloklash/arxivlash.
+- **Admin:** `/admin/groups` — statistika, filtrlar, bloklash/arxivlash va 15 soniyada yangilanadigan LiveKit room/participant monitoringi. Monitoringda room holati, ishtirokchilar, davomiylik hamda client yuborgan disconnect/reconnect hodisalari bor; server CPU/RAM ko‘rsatkichi hozircha mavjud emas.
+- **Videochat:** student va teacher guruh sahifasidagi Videochat tabidan foydalanadi. Browser orqali LiveKit SFU'ga ulanadi; token qisqa muddatli va room-scoped. Teacher server orqali mute/kick/mikrofon va screen-share ruxsatlarini boshqaradi. Room tugaganda backend LiveKit room'ni o‘chiradi.
 
-## 9. Testlar (lokal, 2026-10-28)
+## 9. Testlar (lokal, 2026-11-21)
 
-- **`tests/test_study_groups.py` — 12 test OK.** Tekshiriladi:
+- **`tests/test_study_groups.py` — videochat bilan 14 test OK.** Tekshiriladi:
   - API kontrakti: hamma route login talab qiladi, so‘rov tanasida user/role yuborib bo‘lmaydi;
   - kod formati va hash saqlanishi;
   - rollar: student guruh yarata olmaydi, teacher boshqa teacher tayinlay olmaydi, begona guruhni boshqara olmaydi;
@@ -125,6 +133,8 @@ Bildirishnoma yaratishdagi xato topshirish yoki baholashni hech qachon bekor qil
   - LMS ma’lumotidan hisoblangan dashboard va jadval;
   - guruh orqali baholash; talaba guruhdan chiqqach ruxsat yo‘qoladi;
   - blocked/archived holatlar; admin ro‘yxati va statistika.
+- **`tests/test_study_group_video_chat_migration.py` — 1 test OK:** mavjud group qatori saqlanadi, migration room qo‘shadi va downgrade guruhni o‘chirmaydi.
+- LiveKit test double bilan room create/delete, takroriy start, non-member 404, token identity/room/role/TTL, teacher kick/mic/screen boshqaruvi, join rate limit va admin monitoring tekshirildi.
 - **Butun backend:** 810 test OK (17 skipped). Mavjud baholash servislari regressiyasiz ishlaydi.
 - **HTTP end-to-end:** lokal uvicorn, haqiqiy login, 38 ta tekshiruv, hammasi PASS.
 - **Frontend:** `tsc` OK, `eslint` OK, `next build` OK.
@@ -137,5 +147,7 @@ Bildirishnoma yaratishdagi xato topshirish yoki baholashni hech qachon bekor qil
 - **Kodni qayta ko‘rib bo‘lmaydi.** Bu xavfsizlik tanlovi: kod faqat hash ko‘rinishida saqlanadi, kerak bo‘lsa yangisi yaratiladi.
 - **Mavjud „Meine Schüler“ va Schreiben/Sprechen navbatlari** hamon faqat `TeacherAssignment` kurslarini ko‘rsatadi. Guruh talabalari ishlari guruh sahifasida ko‘rinadi.
 - **Deadline'lar:** LMS'ning o‘zida deadline yo‘q, shuning uchun muddat guruh vazifasi (`study_group_tasks.due_at`) va `writings.closes_at` dan olinadi.
-- **Brauzerda qo‘lda UI sinovi** (desktop/mobil) qilinmagan; tekshiruv avtomatik testlar, HTTP sinovi va build bilan cheklangan.
-- **Staging muhit yo‘q.** Production'dan oldin: baza backup'i, migratsiya `b7e3d9a2c5f1`, backend restart, frontend slot deploy — hammasi alohida tasdiq bilan.
+- **Production infra yo‘q:** `meet.vizu-deutsch.com` DNS yozuvi topilmadi; LiveKit, TURN/STUN, TLS/WSS va UDP portlar sozlanmadi. Docker, firewall yoki Nginx production'da o‘zgartirilmadi.
+- **Haqiqiy brauzer va ikki qurilmali sinov qilinmadi.** Chrome/Edge/Firefox/Safari, Android/iPhone, media, TURN va reconnect tekshiruvlari production LiveKit talab qiladi.
+- **Admin telemetry cheklangan:** participant count LiveKit'dan, disconnect/reconnect hodisalari client eventlaridan olinadi; CPU/RAM va LiveKit server metrics endpointi yo‘q.
+- Production deploy qilinmadi. Avval DNS, valid TLS, LiveKit/TURN + UDP firewall, maxfiy konfiguratsiya va backup/restore check talab qilinadi; keyin migration preview va amaldagi deploy tartibi bajariladi.

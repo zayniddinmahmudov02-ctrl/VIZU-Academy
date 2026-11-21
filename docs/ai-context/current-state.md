@@ -1,6 +1,6 @@
 ﻿# Current state
 
-Updated 2026-11-20.
+Updated 2026-11-21.
 
 ## Revisions
 
@@ -56,6 +56,37 @@ bundle strike-through prices) are no longer read. 33 orders, 2 promo codes, 0 ap
   failures unchanged: `battle.spec` result text "keine Battle Points" and "+25 BP" (scoring of 2026-11-05), profile-photo test.
 - Production: alembic `a6c2e8f4b9d1`, 2961 questions published, smoke above. Picture rounds now only at A1 (own picture words); A2–C1 / C1+
   play their own text questions (before: A1 pictures for every stage).
+
+## Group Video Chat audit (2026-11-21 · local only)
+
+- Production remains at Alembic `a6c2e8f4b9d1`; the dedicated local test and migration databases are at `c1v7d3e9a5b2`. The migration test
+  inserted a pre-existing group, verified the room backfill, and verified downgrade preserves the group. No production migration was run.
+- Targeted local tests: `test_study_groups.py` + `test_study_group_video_chat_migration.py` — 15 passed. Covered member/non-member token access,
+  token identity/room/TTL and no `roomAdmin`, join rate limit, idempotent start, remote room create/delete, teacher kick/mic/screen permissions,
+  admin monitoring counts, role guards and migration preservation.
+- Frontend `tsc` and targeted ESLint passed; unit tests 76/76. Changed backend modules compiled and `app.main` imported successfully.
+- Frontend admin Groups now polls LiveKit room status and participant count every 15 seconds and shows duration plus client-reported disconnect /
+  reconnect counts. Backend `livekit-api==2.0.1` contains `livekit.api`; `livekit-client` is present in the frontend manifest.
+- **Local build:** `next build --webpack` passed with `NEXT_PUBLIC_API_URL` set to the public site URL. Default Turbopack `next build` failed with
+  28 unresolved `@vercel/turbopack-next/internal/font/google/font` modules; the standard deployment script build was not validated.
+- No real-browser or two-device call was possible. Admin monitoring does not expose LiveKit CPU/RAM.
+
+## Production deployment preflight (2026-11-21 · application deploy blocked)
+
+- Read-only VPS audit: Ubuntu 24.04.4, 2 vCPU, 3.8 GiB RAM, 212 GiB free disk; Docker absent, Nginx 1.24 active, UFW inactive. Existing VIZU,
+  `nano_bot`, and `telegram-cours2026` services remained active after checks.
+- Public DNS has no A/AAAA/CNAME for `meet.vizu-deutsch.com`. Existing TLS certificate covers only `vizu-deutsch.com` and `www`, valid to
+  2027-02-18. No LiveKit/coturn service, LiveKit API credentials/settings, or LiveKit UDP listeners exist; no ports were opened.
+- Server checkout is `0cb7b165`, 18 commits behind `origin/main`, with 251 dirty paths. The deployed backend lacks `video_chat.py`, migration
+  `c1v7d3e9a5b2`, and `livekit-api`; pulling/overlaying or restarting it would risk unrelated production work, so no code or migration was deployed.
+- **Backup DONE:** `/var/backups/vizu/pre-group-video-chat-20261121-001608`; `pg_dump` restore-tested against a scratch DB, all 166 table row counts
+  matched the consistent dump snapshot; 51 private lesson audio files and metadata were archived; SHA256 checks passed. Scratch DB and temporary
+  dump copy were removed. All monitored services remained active.
+- Local offline migration preview contains only video-room/session/event table/index creation and the room backfill; migration test passed. No
+  production migration, `.env`, Nginx, firewall, Docker, LiveKit, TURN, or service changes were made (backup only).
+- **BLOCKED:** DNS must first point `meet.vizu-deutsch.com` to `217.76.62.208`; then obtain a certificate for that hostname and configure LiveKit +
+  authenticated TURN, bounded media/relay UDP ranges and firewall rules. Reconcile the dirty/stale server checkout before controlled code deploy.
+  External UDP/TURN and real-device E2E remain NOT TESTED.
 
 ## Earlier verification (2026-11-19 · Global Chat button only on the dashboards)
 

@@ -15,6 +15,7 @@ from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy.orm import Session
 
 from app.api.dependencies.auth import get_current_user
+from app.api.dependencies.auth import require_admin_panel_access, require_super_admin
 from app.core.client_ip import client_ip
 from app.db.session import get_db
 from app.models.study_group import CHAT_MODES, MODES
@@ -120,12 +121,11 @@ class VideoScheduleIn(_In):
 
 
 class VideoEventIn(_In):
-    kind: str = Field(pattern="^(join|leave|raise_hand|lower_hand|camera_on|camera_off|mic_on|mic_off|screen_share_start|screen_share_stop)$")
-    meta: dict | None = None
+    kind: str = Field(pattern="^(join|leave|raise_hand|lower_hand|camera_on|camera_off|mic_on|mic_off|screen_share_start|screen_share_stop|connection_reconnecting|connection_reconnected|connection_disconnected|connection_quality|track_published|track_unpublished|participant_metadata_changed)$")
 
 
 class VideoControlIn(_In):
-    action: str = Field(pattern="^(mute_all|kick|mute|allow_mic|deny_mic|allow_screen|deny_screen|close_chat)$")
+    action: str = Field(pattern="^(mute_all|kick|mute|allow_mic|deny_mic|allow_screen|deny_screen)$")
     target_user_id: UUID | None = None
 
 
@@ -354,25 +354,46 @@ def video_schedule(group_id: UUID, data: VideoScheduleIn, db: Session = Depends(
 
 
 @router.post("/{group_id}/video/start")
-def video_start(group_id: UUID, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
-    return video_chat.start(db, user, group_id)
+async def video_start(group_id: UUID, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    return await video_chat.start(db, user, group_id)
 
 
 @router.post("/{group_id}/video/end")
-def video_end(group_id: UUID, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
-    return video_chat.end(db, user, group_id)
+async def video_end(group_id: UUID, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    return await video_chat.end(db, user, group_id)
 
 
 @router.post("/{group_id}/video/join")
-def video_join(group_id: UUID, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
-    return video_chat.join(db, user, group_id)
+def video_join(group_id: UUID, request: Request, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    return video_chat.join(db, user, group_id, _ip(request))
 
 
 @router.post("/{group_id}/video/events")
-def video_event(group_id: UUID, data: VideoEventIn, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
-    return video_chat.event(db, user, group_id, data.kind, data.meta)
+def video_event(group_id: UUID, data: VideoEventIn, request: Request, db: Session = Depends(get_db),
+                user: User = Depends(get_current_user)):
+    return video_chat.event(db, user, group_id, data.kind, _ip(request))
 
 
 @router.post("/{group_id}/video/control")
-def video_control(group_id: UUID, data: VideoControlIn, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
-    return video_chat.control(db, user, group_id, data.action, data.target_user_id)
+async def video_control(group_id: UUID, data: VideoControlIn, request: Request, db: Session = Depends(get_db),
+                        user: User = Depends(get_current_user)):
+    return await video_chat.control(db, user, group_id, data.action, data.target_user_id, _ip(request))
+
+
+@router.get("/admin/video/rooms")
+async def admin_video_rooms(
+    db: Session = Depends(get_db),
+    user: User = Depends(get_current_user),
+    _staff: User = Depends(require_admin_panel_access),
+):
+    return await video_chat.admin_status(db)
+
+
+@router.post("/admin/video/rooms/{group_id}/end")
+async def admin_end_video_room(
+    group_id: UUID,
+    db: Session = Depends(get_db),
+    user: User = Depends(get_current_user),
+    _super_admin: User = Depends(require_super_admin),
+):
+    return await video_chat.end(db, user, group_id)

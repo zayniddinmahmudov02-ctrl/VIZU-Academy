@@ -8,6 +8,7 @@ from fastapi import HTTPException, status
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
+from app.core.config import settings
 from app.models.course import Course
 from app.models.lesson import Lesson
 from app.models.module import Module
@@ -30,6 +31,7 @@ from app.models.study_group import (
     StudyGroupMember,
     StudyGroupMessage,
     StudyGroupTask,
+    StudyGroupVideoRoom,
 )
 from app.models.user import User
 from app.services.study_groups import codes, notify
@@ -146,6 +148,11 @@ def create(db: Session, actor: User, data: dict) -> tuple[dict, str]:
     group = StudyGroup(**data, teacher_id=teacher_id, created_by=actor.id, last_activity_at=now())
     db.add(group)
     db.flush()
+    db.add(StudyGroupVideoRoom(
+        group_id=group.id,
+        livekit_room_name=f"group-{group.id}",
+        max_participants=settings.LIVEKIT_PARTICIPANT_LIMIT,
+    ))
     for cid in course_ids:
         db.add(StudyGroupCourse(group_id=group.id, course_id=cid))
     _set_teacher_member(db, group)

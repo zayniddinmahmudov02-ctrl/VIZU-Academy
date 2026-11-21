@@ -1,7 +1,10 @@
-"""Study group video chat rooms, sessions and participant events.
+"""Add group video chat rooms, sessions and participant events.
 
 Revision ID: c1v7d3e9a5b2
 Revises: a6c2e8f4b9d1
+
+Existing groups receive one scheduled room. Downgrade drops the video-chat
+tables and their data, leaving groups and memberships untouched.
 """
 from typing import Sequence, Union
 
@@ -67,6 +70,15 @@ def upgrade() -> None:
     )
     op.create_index("ix_study_group_video_events_session_id", "study_group_video_events", ["session_id"])
     op.create_index("ix_study_group_video_events_session_created", "study_group_video_events", ["session_id", "created_at"])
+
+    op.execute(
+        """
+        INSERT INTO study_group_video_rooms
+            (id, created_at, updated_at, group_id, livekit_room_name, status, max_participants, recording_enabled)
+        SELECT gen_random_uuid(), now(), now(), id, 'group-' || id::text, 'scheduled', 20, false
+        FROM study_groups
+        """
+    )
 
 
 def downgrade() -> None:

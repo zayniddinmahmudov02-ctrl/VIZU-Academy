@@ -1,3 +1,4 @@
+from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -84,8 +85,8 @@ class Settings(BaseSettings):
     LIVEKIT_URL: str = ""
     LIVEKIT_API_KEY: str = ""
     LIVEKIT_API_SECRET: str = ""
-    LIVEKIT_TOKEN_TTL_MINUTES: int = 120
-    LIVEKIT_PARTICIPANT_LIMIT: int = 50
+    LIVEKIT_TOKEN_TTL_MINUTES: int = Field(default=30, ge=1, le=120)
+    LIVEKIT_PARTICIPANT_LIMIT: int = Field(default=20, ge=2, le=500)
 
     @property
     def cors_origins(self) -> list[str]:

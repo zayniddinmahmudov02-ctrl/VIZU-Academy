@@ -7,10 +7,12 @@ import { Loader2 } from "lucide-react";
 
 import { AdminButton, AdminCard, AdminInput, AdminLabel, AdminPageHeader, AdminSelect } from "@/components/admin/admin-ui";
 import { apiErrorMessage } from "@/features/admin/services/lesson-skills-admin-service";
-import { getAdminStats, getAllGroups, getGroupOptions, LEVELS, updateGroup, type GroupStatus } from "@/features/groups/groups-service";
+import { getAdminStats, getAdminVideoRooms, getAllGroups, getGroupOptions, LEVELS, updateGroup, type GroupStatus } from "@/features/groups/groups-service";
 
 const STATUS_LABEL: Record<string, string> = { active: "Aktiv", paused: "Pausiert", archived: "Archiviert", blocked: "Gesperrt" };
+const LIVEKIT_LABEL = { available: "Erreichbar", unconfigured: "Nicht konfiguriert", unavailable: "Nicht erreichbar" } as const;
 const fmt = (iso: string | null) => (iso ? new Date(iso).toLocaleString("de-DE", { dateStyle: "short", timeStyle: "short" }) : "—");
+const fmtDuration = (seconds: number | null) => seconds === null ? "—" : `${Math.floor(seconds / 60)} Min.`;
 
 type Filters = { search?: string; level?: string; status?: string; teacher_id?: string; course_id?: string; created_from?: string; created_to?: string; page: number };
 
@@ -23,6 +25,7 @@ export default function AdminGroupsPage() {
   const set = (p: Partial<Filters>) => setF((cur) => ({ ...cur, ...p, page: p.page ?? 1 }));
   const list = useQuery({ queryKey: ["admin", "groups", f], queryFn: () => getAllGroups(f), placeholderData: keepPreviousData });
   const stats = useQuery({ queryKey: ["admin", "groups", "stats"], queryFn: getAdminStats });
+  const video = useQuery({ queryKey: ["admin", "groups", "video"], queryFn: getAdminVideoRooms, refetchInterval: 15_000 });
   const options = useQuery({ queryKey: ["groups", "options"], queryFn: getGroupOptions });
   const [busy, setBusy] = useState<string | null>(null);
   const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
@@ -51,6 +54,63 @@ export default function AdminGroupsPage() {
           <AdminCard key={label as string}><p className="text-xs text-[var(--admin-text-muted)]">{label}</p><p className="text-2xl font-bold text-[var(--admin-text-primary)]">{value ?? "—"}</p></AdminCard>
         ))}
       </div>
+
+      <AdminCard>
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h2 className="font-semibold text-[var(--admin-text-primary)]">Videochat-Monitoring</h2>
+            <p className="text-xs text-[var(--admin-text-muted)]">Raum- und Teilnehmerstatus aus Datenbank und LiveKit; Aktualisierung alle 15 Sekunden.</p>
+          </div>
+          <AdminButton size="sm" variant="secondary" disabled={video.isFetching} onClick={() => void video.refetch()}>
+            {video.isFetching ? "Aktualisiere …" : "Jetzt aktualisieren"}
+          </AdminButton>
+        </div>
+        {video.isLoading ? <Loader2 className="animate-spin text-[var(--admin-text-muted)]" /> : video.isError ? (
+          <p role="alert" className="text-sm text-[var(--admin-danger)]">{apiErrorMessage(video.error, "Videochat-Status konnte nicht geladen werden.")}</p>
+        ) : (
+          <>
+            <div className="mb-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+              <div><p className="text-xs text-[var(--admin-text-muted)]">LiveKit</p><p className="font-semibold text-[var(--admin-text-primary)]">{LIVEKIT_LABEL[video.data?.livekit_status ?? "unconfigured"]}</p></div>
+              <div><p className="text-xs text-[var(--admin-text-muted)]">Aktive Räume</p><p className="font-semibold text-[var(--admin-text-primary)]">{video.data?.rooms.filter((room) => room.status === "live").length ?? 0}</p></div>
+              <div><p className="text-xs text-[var(--admin-text-muted)]">Aktive Teilnehmende</p><p className="font-semibold text-[var(--admin-text-primary)]">
+                {video.data?.rooms.some((room) => room.status === "live" && room.participant_count === null)
+                  ? "—"
+                  : video.data?.rooms.reduce((sum, room) => sum + (room.status === "live" ? room.participant_count ?? 0 : 0), 0) ?? 0}
+              </p></div>
+              <div><p className="text-xs text-[var(--admin-text-muted)]">Geplante Räume</p><p className="font-semibold text-[var(--admin-text-primary)]">{video.data?.rooms.filter((room) => room.status === "scheduled").length ?? 0}</p></div>
+            </div>
+            {video.data?.livekit_status !== "available" && (
+              <p className="mb-3 text-sm text-[var(--admin-danger)]">
+                LiveKit ist {LIVEKIT_LABEL[video.data?.livekit_status ?? "unconfigured"].toLowerCase()}; Teilnehmerzahlen sind nicht aktuell verfügbar.
+              </p>
+            )}
+            {video.data?.rooms.length ? (
+              <div className="overflow-x-auto">
+                <table className="w-full min-w-[900px] text-left text-sm">
+                  <thead className="text-[11px] uppercase tracking-wide text-[var(--admin-text-muted)]">
+                    <tr className="border-b border-[var(--admin-border)]">{["Gruppe", "Lehrkraft", "Status", "Teilnehmende", "Beginn / geplant", "Dauer", "Verbindung (Abbruch / Reconnect)"].map((heading) => <th key={heading} className="px-3 py-2">{heading}</th>)}</tr>
+                  </thead>
+                  <tbody>
+                    {video.data.rooms.map((room) => (
+                      <tr key={room.room_id} className="border-b border-[var(--admin-border)] last:border-0">
+                        <td className="px-3 py-2 font-medium text-[var(--admin-text-primary)]">{room.group_name}</td>
+                        <td className="px-3 py-2 text-[var(--admin-text-secondary)]">{room.teacher}</td>
+                        <td className="px-3 py-2 text-[var(--admin-text-secondary)]">
+                          {room.status === "live" ? (room.server_room_active === false ? "LiveKit-Raum fehlt" : "Live") : "Geplant"}
+                        </td>
+                        <td className="px-3 py-2 text-[var(--admin-text-secondary)]">{room.participant_count === null ? "—" : `${room.participant_count} / ${room.participant_limit}`}</td>
+                        <td className="px-3 py-2 text-[var(--admin-text-secondary)]">{fmt(room.started_at ?? room.scheduled_at)}</td>
+                        <td className="px-3 py-2 text-[var(--admin-text-secondary)]">{fmtDuration(room.duration_seconds)}</td>
+                        <td className="px-3 py-2 text-[var(--admin-text-secondary)]">{room.connection_disconnects} / {room.reconnect_attempts} ({room.reconnect_successes} erfolgreich)</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : <p className="text-sm text-[var(--admin-text-muted)]">Keine geplanten oder aktiven Videochat-Räume.</p>}
+          </>
+        )}
+      </AdminCard>
 
       <AdminCard>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">

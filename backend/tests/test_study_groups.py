@@ -27,7 +27,7 @@ class TestApiContract(unittest.TestCase):
                 self.assertIn(get_current_user, [d.call for d in route.dependant.dependencies])
 
     def test_bodies_cannot_smuggle_user_or_role(self):
-        from app.api.study_groups.router import JoinIn, MessageIn, TaskIn
+        from app.api.study_groups.router import JoinIn, MessageIn, TaskIn, VideoControlIn, VideoEventIn
 
         with self.assertRaises(ValidationError):
             MessageIn(body="hi", user_id=str(uuid.uuid4()))
@@ -35,6 +35,18 @@ class TestApiContract(unittest.TestCase):
             JoinIn(code="ABCD-EFGH", role="TEACHER")
         with self.assertRaises(ValidationError):
             TaskIn(lesson_id=uuid.uuid4(), teacher_id=uuid.uuid4())
+        with self.assertRaises(ValidationError):
+            VideoEventIn(kind="join", role="SUPER_ADMIN")
+        with self.assertRaises(ValidationError):
+            VideoControlIn(action="kick", room_name="another-group")
+
+    def test_video_admin_routes_have_server_side_role_guards(self):
+        from app.api.dependencies.auth import require_admin_panel_access, require_super_admin
+        from app.api.study_groups.router import router
+
+        routes = {route.path: route for route in router.routes}
+        self.assertIn(require_admin_panel_access, [dep.call for dep in routes["/groups/admin/video/rooms"].dependant.dependencies])
+        self.assertIn(require_super_admin, [dep.call for dep in routes["/groups/admin/video/rooms/{group_id}/end"].dependant.dependencies])
 
     def test_codes_are_random_readable_and_only_hashed(self):
         from app.services.study_groups import codes
@@ -355,6 +367,101 @@ class TestGroups(unittest.TestCase):
         stats = groups.admin_stats(self.db, self.user["admin"])
         self.assertGreaterEqual(stats["groups"], 1)
         self.assertEqual(self._status(groups.admin_stats, self.db, self.user["teacher"])[0], 403)
+
+    def test_video_room_token_controls_and_membership(self):
+        import asyncio
+        import time
+        from types import SimpleNamespace
+        from unittest.mock import patch
+
+        from jose import jwt
+        from livekit.protocol.models import TrackSource
+
+        from app.core.config import settings
+        from app.services.study_groups import video_chat
+
+        g, code = self._group()
+        student = self._fresh("video_student")
+        self._join("video_student", code)
+        fake_state = {"active": False, "created": [], "removed": [], "permissions": []}
+
+        class FakeRoomService:
+            async def list_rooms(self, request):
+                return SimpleNamespace(rooms=[SimpleNamespace(name=f"group-{g['id']}", num_participants=1)] if fake_state["active"] else [])
+
+            async def list_participants(self, _request):
+                return SimpleNamespace(participants=[])
+
+            async def create_room(self, request):
+                fake_state["created"].append(request)
+                fake_state["active"] = True
+
+            async def delete_room(self, _request):
+                fake_state["active"] = False
+
+            async def remove_participant(self, request):
+                fake_state["removed"].append(request)
+
+            async def get_participant(self, _request):
+                return SimpleNamespace(permission=SimpleNamespace(
+                    can_publish=True,
+                    can_subscribe=True,
+                    can_publish_data=True,
+                    can_publish_sources=[TrackSource.CAMERA, TrackSource.MICROPHONE, TrackSource.SCREEN_SHARE, TrackSource.SCREEN_SHARE_AUDIO],
+                    hidden=False,
+                    recorder=False,
+                ))
+
+            async def update_participant(self, request):
+                fake_state["permissions"].append(request)
+
+        class FakeLiveKitAPI:
+            def __init__(self, *_args, **_kwargs):
+                self.room = FakeRoomService()
+
+            async def aclose(self):
+                return None
+
+        async def exercise():
+            with patch.object(video_chat, "LiveKitAPI", FakeLiveKitAPI), \
+                 patch.object(settings, "LIVEKIT_URL", "wss://meet.example.test"), \
+                 patch.object(settings, "LIVEKIT_API_KEY", "test-key"), \
+                 patch.object(settings, "LIVEKIT_API_SECRET", "test-secret-with-more-than-thirty-two-bytes"):
+                await video_chat.start(self.db, self.user["teacher"], g["id"])
+                await video_chat.start(self.db, self.user["teacher"], g["id"])
+                self.assertEqual(self._status(video_chat.join, self.db, self.user["outsider"], g["id"])[0], 404)
+                token_issued_at = int(time.time())
+                token_data = video_chat.join(self.db, student, g["id"])
+                claims = jwt.get_unverified_claims(token_data["token"])
+                self.assertEqual(claims["sub"], str(student.id))
+                self.assertEqual(claims["video"]["room"], f"group-{g['id']}")
+                self.assertFalse(claims["video"]["roomAdmin"])
+                self.assertGreater(claims["exp"], token_issued_at)
+                self.assertLessEqual(claims["exp"] - token_issued_at, 30 * 60)
+                self.assertEqual(len(fake_state["created"]), 1)
+                await video_chat.control(self.db, self.user["teacher"], g["id"], "kick", student.id)
+                self.assertEqual(fake_state["removed"][0].identity, str(student.id))
+                await video_chat.control(self.db, self.user["teacher"], g["id"], "deny_mic", student.id)
+                await video_chat.control(self.db, self.user["teacher"], g["id"], "deny_screen", student.id)
+                mic_sources = fake_state["permissions"][0].permission.can_publish_sources
+                screen_sources = fake_state["permissions"][1].permission.can_publish_sources
+                self.assertNotIn(TrackSource.MICROPHONE, mic_sources)
+                self.assertNotIn(TrackSource.SCREEN_SHARE_AUDIO, mic_sources)
+                self.assertNotIn(TrackSource.SCREEN_SHARE, screen_sources)
+                self.assertNotIn(TrackSource.SCREEN_SHARE_AUDIO, screen_sources)
+                video_chat.event(self.db, student, g["id"], "connection_reconnecting")
+                video_chat.event(self.db, student, g["id"], "connection_disconnected")
+                monitoring = await video_chat.admin_status(self.db)
+                room_status = next(room for room in monitoring["rooms"] if room["group_id"] == str(g["id"]))
+                self.assertEqual(room_status["participant_count"], 1)
+                self.assertEqual((room_status["reconnect_attempts"], room_status["connection_disconnects"]), (1, 1))
+                for _ in range(video_chat.MAX_VIDEO_JOINS - 1):
+                    video_chat.join(self.db, student, g["id"])
+                self.assertEqual(self._status(video_chat.join, self.db, student, g["id"])[0], 429)
+                await video_chat.end(self.db, self.user["teacher"], g["id"])
+                self.assertFalse(fake_state["active"])
+
+        asyncio.run(exercise())
 
 
 if __name__ == "__main__":

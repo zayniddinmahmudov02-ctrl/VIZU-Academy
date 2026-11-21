@@ -232,13 +232,14 @@ API prefixes are listed without `/api/v1` (every router is mounted bare and unde
 
 ## 14. Groups & Classroom
 
-- **Backend:** `be/api/study_groups/router.py` (`/groups`), `be/services/study_groups/{access,chat,codes,groups,notify,progress,scope,video_chat}.py`. LiveKit SFU: schedule/start/end/join/token and room controls; no P2P mesh fallback.
+- **Backend:** `be/api/study_groups/router.py` (`/groups`), `be/services/study_groups/{access,chat,codes,groups,notify,progress,scope,video_chat}.py`. LiveKit SFU: group-scoped short-lived join tokens, room lifecycle, participant controls, join/event rate limits, admin room status. Group membership and teacher/SUPER_ADMIN checks are server-side; no P2P mesh fallback.
 - **Tables:** `study_groups`, `study_group_courses`, `study_group_members`, `study_group_join_codes`,
   `study_group_messages`, `study_group_announcements`, `study_group_tasks`, `study_group_audit_logs`,
   `study_group_video_rooms`, `study_group_video_sessions`, `study_group_video_events`.
-- **Frontend:** `fe/app/(dashboard)/groups`, `fe/app/teacher/groups`, `fe/app/admin/groups`, `fe/features/groups/components/`.
-- **Doc:** `docs/groups-classroom.md` (2026-10-28 said "not on production"; production state (?)).
-- **Tests:** `test_study_groups`.
+- **Frontend:** `fe/app/(dashboard)/groups`, `fe/app/teacher/groups`, `fe/app/admin/groups` (includes LiveKit room monitoring), `fe/features/groups/components/`.
+- **Videochat migration:** `c1v7d3e9a5b2` adds room/session/event tables and backfills existing groups; its migration test uses `VIZU_MIGRATION_TEST_DB_URL`.
+- **Production status:** LiveKit was not provisioned as of 2026-11-21; DNS/TLS/TURN/firewall and real-device validation are pending. Admin monitoring has room/participant/duration and client-reported disconnect/reconnect counts, but not server CPU/RAM.
+- **Doc/tests:** `docs/groups-classroom.md`; `test_study_groups`, `test_study_group_video_chat_migration`.
 
 ## 15. Global Chat
 
