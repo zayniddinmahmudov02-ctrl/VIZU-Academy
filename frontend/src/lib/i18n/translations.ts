@@ -1,5 +1,6 @@
 import { battleTranslations } from "./battle-translations";
 import { mobileAppTranslations } from "./mobile-app-translations";
+import { videoRoomTranslations } from "./video-room-translations";
 
 interface Entry {
   de: string;
@@ -1286,7 +1287,6 @@ export const translations: Record<string, Namespace> = {
     err_generic: { de: "Etwas ist schiefgelaufen.", uz: "Xatolik yuz berdi." },
 
     tabOverview: { de: "Überblick", uz: "Umumiy" },
-    tabVideoChat: { de: "Videochat", uz: "Videochat" },
     tabChat: { de: "Chat", uz: "Chat" },
     tabAnnouncements: { de: "Ankündigungen", uz: "E'lonlar" },
     tabTasks: { de: "Aufgaben", uz: "Vazifalar" },
@@ -2759,4 +2759,5 @@ export const translations: Record<string, Namespace> = {
   },
   battle: battleTranslations,
   mobileApp: mobileAppTranslations,
+  videoRoom: videoRoomTranslations,
 };

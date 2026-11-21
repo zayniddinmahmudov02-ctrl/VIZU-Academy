@@ -79,15 +79,6 @@ class Settings(BaseSettings):
     # allow_origin_regex in main.py, so they don't need to be listed here.
     CORS_ALLOWED_ORIGINS: str = ""
 
-    # ==================================================
-    # Group video chat (LiveKit SFU)
-    # ==================================================
-    LIVEKIT_URL: str = ""
-    LIVEKIT_API_KEY: str = ""
-    LIVEKIT_API_SECRET: str = ""
-    LIVEKIT_TOKEN_TTL_MINUTES: int = Field(default=30, ge=1, le=120)
-    LIVEKIT_PARTICIPANT_LIMIT: int = Field(default=20, ge=2, le=500)
-
     @property
     def cors_origins(self) -> list[str]:
         return [
@@ -211,6 +202,22 @@ class Settings(BaseSettings):
     # frontend; set only in the backend's own environment once the
     # Telegram BOT project issues a token.
     TELEGRAM_BOT_TOKEN: str = ""
+
+    # ==================================================
+    # GROUP VIDEO LESSONS (LiveKit SFU)
+    # ==================================================
+    # LIVEKIT_URL: the wss:// address browsers connect to (sent with a join
+    # token). LIVEKIT_API_URL: where the backend reaches the LiveKit server API
+    # (empty = LIVEKIT_URL with ws→http). Key and secret sign join tokens and
+    # verify webhooks; they never leave the backend. Any of URL/key/secret
+    # empty = video lessons report "not configured" (rooms can still be
+    # scheduled, nobody can join).
+    LIVEKIT_URL: str = ""
+    LIVEKIT_API_URL: str = ""
+    LIVEKIT_API_KEY: str = ""
+    LIVEKIT_API_SECRET: str = ""
+    VIDEO_ROOM_TOKEN_TTL_SECONDS: int = Field(default=300, ge=60, le=3600)
+    VIDEO_ROOM_MAX_PARTICIPANTS: int = Field(default=25, ge=2, le=500)
 
     # ==================================================
     # DATABASE

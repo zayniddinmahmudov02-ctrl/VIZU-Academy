@@ -12,12 +12,13 @@ import { getGroup, getMembers, getMyProgress, leaveGroup } from "../groups-servi
 import Announcements from "./announcements";
 import GroupChat from "./group-chat";
 import ProgressDetail from "./progress-detail";
-import GroupVideoChat from "./group-video-chat";
 import { card, ErrorBox, fmtDate, LevelPill, Loading, Tabs, TaskBadge } from "./ui";
+import VideoLessonsTab, { LiveBanner } from "@/features/video-rooms/components/video-lessons-tab";
 
 type Tab = "overview" | "video" | "chat" | "announcements" | "tasks" | "progress" | "members";
 const TABS: Tab[] = ["overview", "video", "chat", "announcements", "tasks", "progress", "members"];
-const LABEL: Record<Tab, string> = { overview: "tabOverview", video: "tabVideoChat", chat: "tabChat", announcements: "tabAnnouncements", tasks: "tabTasks", progress: "tabProgress", members: "tabMembers" };
+const LABEL: Record<Tab, string> = { overview: "groups.tabOverview", video: "videoRoom.tabStudent", chat: "groups.tabChat", announcements: "groups.tabAnnouncements",
+  tasks: "groups.tabTasks", progress: "groups.tabProgress", members: "groups.tabMembers" };
 
 /** A student's view of one group. Everything is loaded through
  *  membership-checked endpoints; a non-member gets "not found". */
@@ -55,7 +56,9 @@ export default function StudentGroupView({ groupId }: { groupId: string }) {
         <LevelPill level={g.level} />
       </div>
 
-      <Tabs tabs={TABS.map((id) => ({ id, label: t(`groups.${LABEL[id]}`), badge: id === "chat" ? g.viewer.unread : undefined }))} active={tab} onChange={setTab} />
+      {tab !== "video" && <LiveBanner groupId={groupId} />}
+
+      <Tabs tabs={TABS.map((id) => ({ id, label: t(LABEL[id]), badge: id === "chat" ? g.viewer.unread : undefined }))} active={tab} onChange={setTab} />
 
       {tab === "overview" && (
         <div className="grid gap-4 md:grid-cols-2">
@@ -76,8 +79,8 @@ export default function StudentGroupView({ groupId }: { groupId: string }) {
           </div>
         </div>
       )}
+      {tab === "video" && <VideoLessonsTab groupId={groupId} manager={false} />}
       {tab === "chat" && <GroupChat groupId={groupId} onRead={() => qc.invalidateQueries({ queryKey: ["groups", "my"] })} />}
-      {tab === "video" && <GroupVideoChat groupId={groupId} manager={false} />}
       {tab === "announcements" && <Announcements groupId={groupId} manager={false} />}
       {(tab === "tasks" || tab === "progress") && (
         progress.isLoading ? <Loading /> : progress.isError ? <ErrorBox error={progress.error} onRetry={() => progress.refetch()} /> : progress.data ? (

@@ -14,6 +14,7 @@ Scripts: `dev`, `build`, `start`, `lint`, `test:unit` (node --test `tests/unit/*
   notifications, page-management, payments, premium-users, settings, speaking, support, teacher-assignments, team,
   users, vizu-multilevel, werbung-banner, writing
 - `teacher/`: groups, schreiben, sprechen, students · `api/admin` (route handlers) · `offline/` (PWA)
+- `(meeting)/video-room/[roomId]`: full-screen group video lesson (client only, own login guard `MeetingGuard`); admin `video-rooms`
 
 ## Code
 | Path | Contents |
@@ -25,6 +26,7 @@ Scripts: `dev`, `build`, `start`, `lint`, `test:unit` (node --test `tests/unit/*
 | `src/components/lms/` | LMS cards, competency nav/content, audio player, lock, purchase modal |
 | `src/components/dashboard/` | student shell: `sidebar.tsx` (language switcher on top), `mobile-nav.tsx` (drawer, switcher on top), `languages/language-switcher.tsx` (variants default / sidebar / drawer / compact / segmented), `home/dashboard-hub.tsx` (five main cards), `home/learning-tools.tsx` |
 | `src/features/medien/` | Medienwelt student side: `components/` (film-player, subtitle-overlay, subtitle-menu, word-popup, global-audio-player, pdf-reader (scroll / single page, preview paywall), book-payment (payment window, buy button), download-pdf-button …), `hooks/use-film-subtitles.ts`, `lib/subtitles.ts` (pure helpers, `tests/unit/medien-subtitles.test.mjs`), `services/medien-service.ts`, `store/` |
+| `src/features/video-rooms/` | group video lessons on LiveKit (`livekit-client` 2.25.0 + `@livekit/components-react` 2.9.25, pinned): `video-rooms-service.ts`, pure `video-room-utils.ts` (`tests/unit/video-rooms.test.mjs`), `components/` (video-room-page, meeting-view, video-grid, video-tile, meeting-controls, participant-list, meeting-chat, raise-hand-panel, teacher-controls, device-settings, connection-status, video-lessons-tab + LiveBanner used by the group views) — `docs/group-video-lessons.md` |
 | `src/components/admin/` | `admin-ui` (AdminButton, AdminPageHeader, AdminInput, …), `confirm-dialog` |
 | `src/lib/i18n/` | `translations.ts` (uz/de), `translations-extra.ts` + `extra/part1–10.ts` (en/ru as `[en, ru]` per key, German fallback), `use-translation.ts`; languages list `src/constants/languages.ts` (uz, de, en, ru) |
 | `src/providers`, `src/store`, `src/hooks`, `src/types`, `src/constants` | app-wide |

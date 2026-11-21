@@ -46,11 +46,6 @@ CODE_REVOKED = "revoked"
 MESSAGE_TEXT = "text"
 MESSAGE_SYSTEM = "system"
 
-VIDEO_ROOM_SCHEDULED = "scheduled"
-VIDEO_ROOM_LIVE = "live"
-VIDEO_ROOM_ENDED = "ended"
-VIDEO_ROOM_STATUSES = (VIDEO_ROOM_SCHEDULED, VIDEO_ROOM_LIVE, VIDEO_ROOM_ENDED)
-
 
 def _ids(*values: str) -> str:
     return ", ".join(f"'{v}'" for v in values)
@@ -187,52 +182,3 @@ class StudyGroupAuditLog(BaseModel):
     target_type: Mapped[str | None] = mapped_column(String(30), nullable=True)
     target_id: Mapped[str | None] = mapped_column(String(64), nullable=True)
     meta: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
-
-
-class StudyGroupVideoRoom(BaseModel):
-    """One LiveKit-backed video room per study group."""
-
-    __tablename__ = "study_group_video_rooms"
-    __table_args__ = (
-        CheckConstraint(f"status IN ({_ids(*VIDEO_ROOM_STATUSES)})", name="ck_study_group_video_rooms_status"),
-        CheckConstraint("max_participants IS NULL OR max_participants > 0", name="ck_study_group_video_rooms_limit"),
-    )
-
-    group_id: Mapped[UUID] = mapped_column(PGUUID(as_uuid=True), ForeignKey("study_groups.id", ondelete="CASCADE"), nullable=False, unique=True, index=True)
-    livekit_room_name: Mapped[str] = mapped_column(String(128), nullable=False, unique=True)
-    status: Mapped[str] = mapped_column(String(12), nullable=False, default=VIDEO_ROOM_SCHEDULED, server_default=VIDEO_ROOM_SCHEDULED)
-    scheduled_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
-    started_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
-    ended_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
-    max_participants: Mapped[int | None] = mapped_column(Integer, nullable=True)
-    recording_enabled: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default="false")
-
-    sessions = relationship("StudyGroupVideoSession", back_populates="room", cascade="all, delete-orphan")
-
-
-class StudyGroupVideoSession(BaseModel):
-    __tablename__ = "study_group_video_sessions"
-    __table_args__ = (Index("ix_study_group_video_sessions_room_started", "room_id", "started_at"),)
-
-    room_id: Mapped[UUID] = mapped_column(PGUUID(as_uuid=True), ForeignKey("study_group_video_rooms.id", ondelete="CASCADE"), nullable=False, index=True)
-    started_by_id: Mapped[UUID | None] = mapped_column(PGUUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
-    ended_by_id: Mapped[UUID | None] = mapped_column(PGUUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
-    started_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
-    ended_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
-    peak_participants: Mapped[int] = mapped_column(Integer, nullable=False, default=0, server_default="0")
-
-    room = relationship("StudyGroupVideoRoom", back_populates="sessions")
-    events = relationship("StudyGroupVideoEvent", back_populates="session", cascade="all, delete-orphan")
-
-
-class StudyGroupVideoEvent(BaseModel):
-    __tablename__ = "study_group_video_events"
-    __table_args__ = (Index("ix_study_group_video_events_session_created", "session_id", "created_at"),)
-
-    session_id: Mapped[UUID | None] = mapped_column(PGUUID(as_uuid=True), ForeignKey("study_group_video_sessions.id", ondelete="CASCADE"), nullable=True, index=True)
-    room_id: Mapped[UUID] = mapped_column(PGUUID(as_uuid=True), ForeignKey("study_group_video_rooms.id", ondelete="CASCADE"), nullable=False)
-    user_id: Mapped[UUID | None] = mapped_column(PGUUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
-    kind: Mapped[str] = mapped_column(String(30), nullable=False)
-    meta: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
-
-    session = relationship("StudyGroupVideoSession", back_populates="events")

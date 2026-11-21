@@ -8,7 +8,7 @@ Updated 2026-10-31 · source: directory listing of `backend/`. Module details: `
 | `app/core/` | `config.py` (Settings), `security/roles.py` (UserRole), `audit.py` (`write_audit`), `exceptions.py`, `cors.py`, `request_id.py`, `logging/`, `storage/protected_local.py` |
 | `app/api/<module>/` | routers; `dependencies/` = auth, db, pagination, progress (`require_lesson_access`), section_gate |
 | `app/api/admin/` | admin routers (users, media_management, hoeren_a1, loesung, vizu_pay, videos, books, zertifikate, notifications, page_management, teacher_assignments, vizu_multilevel) |
-| `app/services/<module>/` | business logic; biggest: `lesson_skills/` (admin, skill_tests, results, loesung, exercises, question_types, ai_evaluation, hoeren_pdf_import, levels), `lms/`, `a2_audio/`, `vizu_pay/`, `vizu_multilevel/`, `mock_exam/`, `assessment_engine/`, `global_chat/`, `study_groups/` |
+| `app/services/<module>/` | business logic; biggest: `lesson_skills/` (admin, skill_tests, results, loesung, exercises, question_types, ai_evaluation, hoeren_pdf_import, levels), `lms/`, `a2_audio/`, `vizu_pay/`, `vizu_multilevel/`, `mock_exam/`, `assessment_engine/`, `global_chat/`, `study_groups/`, `video_rooms/` (group video lessons: `permissions`, `service`, `moderation`, `livekit_service` = the only LiveKit client) |
 | `app/services/ai/` | AI clients (chat, client, feedback, speaking, translation, writing); providers by setting `AI_PROVIDER`, `GEMINI_*`, `OPENAI_*`, `ANTHROPIC_*` |
 | `app/models/` | SQLAlchemy models, all imported in `models/__init__.py` |
 | `app/schemas/` | Pydantic schemas (mostly the older CRUD modules; newer modules define inputs in the router) |

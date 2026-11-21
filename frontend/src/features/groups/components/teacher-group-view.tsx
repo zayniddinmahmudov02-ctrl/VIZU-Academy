@@ -15,12 +15,14 @@ import {
 import Announcements from "./announcements";
 import GroupChat from "./group-chat";
 import GroupForm, { CodeReveal } from "./group-form";
-import GroupVideoChat from "./group-video-chat";
 import { card, ErrorBox, fmtDate, input, LevelPill, Loading, primaryBtn, secondaryBtn, Stat, StatusPill, Tabs, TaskBadge, textarea, useErrorText } from "./ui";
+
+import VideoLessonsTab, { LiveBanner } from "@/features/video-rooms/components/video-lessons-tab";
 
 type Tab = "overview" | "video" | "chat" | "announcements" | "tasks" | "students" | "settings" | "audit";
 const TABS: Tab[] = ["overview", "video", "chat", "announcements", "tasks", "students", "settings", "audit"];
-const LABEL: Record<Tab, string> = { overview: "tabOverview", video: "tabVideoChat", chat: "tabChat", announcements: "tabAnnouncements", tasks: "tabTasks", students: "tabStudents", settings: "tabSettings", audit: "tabAudit" };
+const LABEL: Record<Tab, string> = { overview: "groups.tabOverview", video: "videoRoom.tabTeacher", chat: "groups.tabChat", announcements: "groups.tabAnnouncements",
+  tasks: "groups.tabTasks", students: "groups.tabStudents", settings: "groups.tabSettings", audit: "groups.tabAudit" };
 
 function Overview({ groupId }: { groupId: string }) {
   const { t } = useTranslation();
@@ -355,10 +357,12 @@ export default function TeacherGroupView({ groupId }: { groupId: string }) {
         <div className="flex gap-2"><StatusPill status={g.status} /><LevelPill level={g.level} /></div>
       </div>
 
-      <Tabs tabs={TABS.map((id) => ({ id, label: t(`groups.${LABEL[id]}`), badge: id === "chat" ? g.viewer.unread : undefined }))} active={tab} onChange={setTab} />
+      {tab !== "video" && <LiveBanner groupId={groupId} />}
+
+      <Tabs tabs={TABS.map((id) => ({ id, label: t(LABEL[id]), badge: id === "chat" ? g.viewer.unread : undefined }))} active={tab} onChange={setTab} />
 
       {tab === "overview" && <Overview groupId={groupId} />}
-      {tab === "video" && <GroupVideoChat groupId={groupId} manager={canEdit} />}
+      {tab === "video" && <VideoLessonsTab groupId={groupId} manager={canEdit} />}
       {tab === "chat" && <GroupChat groupId={groupId} onRead={() => qc.invalidateQueries({ queryKey: ["groups", groupId] })} />}
       {tab === "announcements" && <Announcements groupId={groupId} manager={canEdit} />}
       {tab === "tasks" && <TasksTab groupId={groupId} canEdit={canEdit} />}

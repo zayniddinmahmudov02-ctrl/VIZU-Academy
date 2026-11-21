@@ -84,6 +84,7 @@ _ROUTES = (
     ("/admin/notifications", "Notifications", "Notifications", "ADMIN_PAGE", "notifications", True, False),
     ("/admin/global-chat", "Global Chat", "Community", "ADMIN_PAGE", "global_chat", True, False),
     ("/admin/groups", "Gruppen / Guruhlar", "Community", "ADMIN_PAGE", "groups", True, False),
+    ("/admin/video-rooms", "Videounterricht", "Community", "ADMIN_PAGE", "video_rooms", True, False),
     ("/admin/battle", "Battle (Game Management)", "Games", "ADMIN_PAGE", "battle", True, False),
     ("/admin/app-management", "App Management", "Mobile App", "SYSTEM_PAGE", "app", True, True),
 )
@@ -103,6 +104,9 @@ _DOMAIN_TABLES: dict[str, tuple[tuple[str, str], ...]] = {
     "groups": (
         ("Study groups", "study_groups"), ("Group members", "study_group_members"),
         ("Group messages", "study_group_messages"), ("Group audit log", "study_group_audit_logs"),
+    ),
+    "video_rooms": (
+        ("Video rooms", "video_rooms"), ("Video room participants", "video_room_participants"), ("Video room events", "video_room_events"),
     ),
     "languages": (("Languages", "languages"), ("User language enrollments", "user_languages"), ("Language settings", "language_settings")),
     "lms": (

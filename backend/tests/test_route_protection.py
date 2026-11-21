@@ -58,6 +58,9 @@ PUBLIC_ALLOWLIST = {
     ("GET", "/app/releases/latest"),
     ("GET", "/app/android/latest.apk"),
     ("GET", "/app/download-qr.svg"),
+    # LiveKit server -> backend webhook: no user, accepted only with a valid LiveKit signature (body sha256 in a JWT signed with
+    # LIVEKIT_API_SECRET), otherwise 401 (tests/test_video_rooms.py)
+    ("POST", "/video-rooms/webhooks/livekit"),
     # catalogue metadata (titles / levels / covers) — content itself is gated
     ("GET", "/courses/"),
     ("GET", "/courses/{course_id}"),

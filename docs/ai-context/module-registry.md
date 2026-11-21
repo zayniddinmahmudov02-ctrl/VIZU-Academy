@@ -232,14 +232,24 @@ API prefixes are listed without `/api/v1` (every router is mounted bare and unde
 
 ## 14. Groups & Classroom
 
-- **Backend:** `be/api/study_groups/router.py` (`/groups`), `be/services/study_groups/{access,chat,codes,groups,notify,progress,scope,video_chat}.py`. LiveKit SFU: group-scoped short-lived join tokens, room lifecycle, participant controls, join/event rate limits, admin room status. Group membership and teacher/SUPER_ADMIN checks are server-side; no P2P mesh fallback.
+- **Backend:** `be/api/study_groups/router.py` (`/groups`), `be/services/study_groups/{access,chat,codes,groups,notify,progress,scope}.py`.
 - **Tables:** `study_groups`, `study_group_courses`, `study_group_members`, `study_group_join_codes`,
-  `study_group_messages`, `study_group_announcements`, `study_group_tasks`, `study_group_audit_logs`,
-  `study_group_video_rooms`, `study_group_video_sessions`, `study_group_video_events`.
-- **Frontend:** `fe/app/(dashboard)/groups`, `fe/app/teacher/groups`, `fe/app/admin/groups` (includes LiveKit room monitoring), `fe/features/groups/components/`.
-- **Videochat migration:** `c1v7d3e9a5b2` adds room/session/event tables and backfills existing groups; its migration test uses `VIZU_MIGRATION_TEST_DB_URL`.
-- **Production status:** LiveKit was not provisioned as of 2026-11-21; DNS/TLS/TURN/firewall and real-device validation are pending. Admin monitoring has room/participant/duration and client-reported disconnect/reconnect counts, but not server CPU/RAM.
-- **Doc/tests:** `docs/groups-classroom.md`; `test_study_groups`, `test_study_group_video_chat_migration`.
+  `study_group_messages`, `study_group_announcements`, `study_group_tasks`, `study_group_audit_logs`.
+- **Frontend:** `fe/app/(dashboard)/groups`, `fe/app/teacher/groups`, `fe/app/admin/groups`, `fe/features/groups/components/`.
+- **Doc/tests:** `docs/groups-classroom.md`; `test_study_groups`.
+- **Group video lessons (LiveKit SFU, 2026-11-21, production):** own module on top of the groups (permissions reuse `study_groups.access`).
+  - *Backend:* `be/api/video_rooms/router.py` (no prefix: `/groups/{gid}/video-rooms*`, `/video-rooms/*`, `/admin/video-rooms*`, signed webhook
+    `/video-rooms/webhooks/livekit`), `be/services/video_rooms/{permissions,service,moderation,livekit_service}.py`, model `be/models/video_room.py`.
+  - *Rules:* view / join = group managers + active members (else 404); moderate = this group's teacher / SUPER_ADMIN (member 403); one live room per
+    group; tokens room-bound, identity = user id, 300 s, no self-metadata; moderation = stored state → LiveKit permissions + next token; webhook throws
+    out anyone who may not stay; rate limits per user / IP; room ends by host, admin, LiveKit `room_finished` (empty 5 min) or after 6 h.
+  - *Tables:* `video_rooms`, `video_room_participants`, `video_room_events` (migration `b7e4c2a9d6f1`).
+  - *Frontend:* `fe/features/video-rooms/` (service, `video-room-utils.ts`, components VideoRoomPage, MeetingView, VideoGrid, VideoTile, MeetingControls,
+    ParticipantList, MeetingChat, RaiseHandPanel, TeacherControls, DeviceSettings, ConnectionStatus, MeetingGuard, VideoLessonsTab + LiveBanner),
+    route `fe/app/(meeting)/video-room/[roomId]` (client only, own login guard), group tabs "Video dars" / "Video darsni boshqarish", admin `/admin/video-rooms`.
+    Packages pinned: `livekit-client` 2.25.0, `@livekit/components-react` 2.9.25. i18n namespace `videoRoom` (`video-room-translations.ts`, `extra/part12.ts`).
+  - *Tests:* `test_video_rooms`, `test_video_rooms_migration`, `tests/unit/video-rooms.test.mjs`, E2E `video-rooms.spec.ts` (real local LiveKit).
+  - *Doc:* `docs/group-video-lessons.md` (server, ports, nginx, env names, rollback, BLOCKED TURN/TLS).
 
 ## 15. Global Chat
 

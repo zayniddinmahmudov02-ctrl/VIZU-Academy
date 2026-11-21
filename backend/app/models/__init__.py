@@ -79,10 +79,8 @@ from .study_group import (
     StudyGroupMember,
     StudyGroupMessage,
     StudyGroupTask,
-    StudyGroupVideoEvent,
-    StudyGroupVideoRoom,
-    StudyGroupVideoSession,
 )
+from .video_room import VideoRoom, VideoRoomEvent, VideoRoomParticipant
 from .global_chat import (
     GlobalChatMessage,
     GlobalChatMessageEdit,

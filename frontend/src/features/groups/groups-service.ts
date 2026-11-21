@@ -55,52 +55,6 @@ export interface GroupDetail extends GroupSummary {
 
 export interface Paged<T> { items: T[]; total: number; page: number; page_size: number }
 
-export interface VideoRoomStatus {
-  room_id: string;
-  livekit_room_name: string;
-  status: "scheduled" | "live" | "ended";
-  scheduled_at: string | null;
-  started_at: string | null;
-  ended_at: string | null;
-  max_participants: number;
-  recording_enabled: boolean;
-  active: boolean;
-  is_manager: boolean;
-  livekit_configured: boolean;
-}
-
-export interface VideoJoin {
-  url: string;
-  token: string;
-  room_name: string;
-  identity: string;
-  is_manager: boolean;
-  participant_limit: number;
-}
-
-export interface AdminVideoRoom {
-  room_id: string;
-  group_id: string;
-  group_name: string;
-  teacher: string;
-  status: "scheduled" | "live";
-  scheduled_at: string | null;
-  started_at: string | null;
-  duration_seconds: number | null;
-  participant_count: number | null;
-  participant_limit: number;
-  server_room_active: boolean | null;
-  connection_disconnects: number;
-  reconnect_attempts: number;
-  reconnect_successes: number;
-}
-
-export interface AdminVideoRooms {
-  checked_at: string;
-  livekit_status: "available" | "unconfigured" | "unavailable";
-  rooms: AdminVideoRoom[];
-}
-
 export interface Member {
   user_id: string;
   name: string;
@@ -347,21 +301,3 @@ export const getAuditLog = async (id: string, page = 1) =>
 // grading goes through the existing teacher endpoints (the backend lets a group's teacher reach their students' work)
 export const gradeSubmission = async (kind: Submission["kind"], submissionId: string, data: { score: number; feedback: string; status: "GRADED" | "NEEDS_REVISION" }) =>
   (await api.patch(`/api/v1/teacher/${kind}/${submissionId}/grade`, data)).data;
-
-// video chat
-export const getVideoStatus = async (id: string) =>
-  (await api.get<VideoRoomStatus>(`${BASE}/${id}/video`)).data;
-export const scheduleVideo = async (id: string, data: { scheduled_at?: string | null; max_participants?: number | null }) =>
-  (await api.put<VideoRoomStatus>(`${BASE}/${id}/video/schedule`, data)).data;
-export const startVideo = async (id: string) =>
-  (await api.post<VideoRoomStatus>(`${BASE}/${id}/video/start`)).data;
-export const endVideo = async (id: string) =>
-  (await api.post<VideoRoomStatus>(`${BASE}/${id}/video/end`)).data;
-export const joinVideo = async (id: string) =>
-  (await api.post<VideoJoin>(`${BASE}/${id}/video/join`)).data;
-export const sendVideoEvent = async (id: string, kind: string) =>
-  (await api.post(`${BASE}/${id}/video/events`, { kind })).data;
-export const controlVideo = async (id: string, action: "mute_all" | "kick" | "mute" | "allow_mic" | "deny_mic" | "allow_screen" | "deny_screen", target_user_id?: string) =>
-  (await api.post(`${BASE}/${id}/video/control`, { action, target_user_id })).data;
-export const getAdminVideoRooms = async () =>
-  (await api.get<AdminVideoRooms>(`${BASE}/admin/video/rooms`)).data;

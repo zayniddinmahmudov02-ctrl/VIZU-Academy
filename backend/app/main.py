@@ -135,6 +135,7 @@ from app.api.support.router import admin_router as admin_support_router
 from app.api.support.router import router as support_router
 from app.api.dictionary import router as dictionary_router
 from app.api.study_groups import router as study_groups_router
+from app.api.video_rooms import router as video_rooms_router
 from app.api.global_chat import admin_router as admin_global_chat_router
 from app.api.global_chat import router as global_chat_router
 
@@ -346,6 +347,7 @@ _ALL_ROUTERS = [
     admin_support_router,
     dictionary_router,
     study_groups_router,
+    video_rooms_router,
     global_chat_router,
     admin_global_chat_router,
     upload_router,
