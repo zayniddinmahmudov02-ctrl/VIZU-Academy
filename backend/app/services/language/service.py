@@ -1,11 +1,10 @@
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from uuid import UUID
 
 from fastapi import HTTPException
-from sqlalchemy import func, or_, select, update
+from sqlalchemy import func, select, update
 from sqlalchemy.orm import Session
 
-from app.core.pagination import clamp_page_params, paginated_response
 from app.models.certificate import Certificate
 from app.models.course import Course
 from app.models.grammar import Grammar
@@ -19,14 +18,13 @@ from app.models.module import Module
 from app.models.quiz import Quiz
 from app.models.reading import Reading
 from app.models.speaking import Speaking
-from app.models.user import User
-from app.models.user_language import UserLanguage
 from app.models.video import Video
 from app.models.vocabulary import Vocabulary
 from app.models.writing import Writing
 from app.schemas.language import LanguageCreate, LanguageSettingsUpdate, LanguageUpdate
+from app.services.admin import student_stats
 
-ACTIVE_WINDOW_DAYS = 30
+# learners / active learners (30 days) follow the shared student rule: services/admin/student_stats.py
 
 # Content models scoped to a language via lesson -> module -> course, all
 # sharing the identical lesson_id FK shape — one join helper covers all of
@@ -49,11 +47,9 @@ def _not_deleted(query):
 
 
 def _learners_count(db: Session, language_id: UUID) -> int:
-    return db.scalar(
-        select(func.count(func.distinct(UserLanguage.user_id))).where(
-            UserLanguage.language_id == language_id
-        )
-    ) or 0
+    """Students of this language under the shared student rule (services/admin/student_stats.py): a user_languages row
+    OR lesson progress in the language's courses. user_languages alone is never written by the app (always 0)."""
+    return student_stats.language_learner_counts(db, language_id)[0]
 
 
 def _levels_count(db: Session, language_id: UUID) -> int:
@@ -230,17 +226,7 @@ def get_language_statistics(db: Session, language_id: UUID) -> dict | None:
     if language is None:
         return None
 
-    active_since = datetime.now(timezone.utc) - timedelta(days=ACTIVE_WINDOW_DAYS)
-    active_learners = (
-        db.scalar(
-            select(func.count(func.distinct(UserLanguage.user_id))).where(
-                UserLanguage.language_id == language_id,
-                UserLanguage.last_activity.isnot(None),
-                UserLanguage.last_activity >= active_since,
-            )
-        )
-        or 0
-    )
+    learners, active_learners = student_stats.language_learner_counts(db, language_id)
 
     certificates = (
         db.scalar(
@@ -261,7 +247,7 @@ def get_language_statistics(db: Session, language_id: UUID) -> dict | None:
 
     stats = {
         "language_id": language_id,
-        "learners": _learners_count(db, language_id),
+        "learners": learners,
         "active_learners": active_learners,
         "levels": _levels_count(db, language_id),
         "modules": _modules_count(db, language_id),
@@ -291,36 +277,8 @@ def get_language_learners(
     if language is None:
         return None
 
-    page, page_size = clamp_page_params(page, page_size)
-
-    query = (
-        select(UserLanguage, User)
-        .join(User, UserLanguage.user_id == User.id)
-        .where(UserLanguage.language_id == language_id)
-    )
-    if search:
-        like = f"%{search}%"
-        query = query.where(or_(User.username.ilike(like), User.email.ilike(like)))
-
-    total = db.scalar(select(func.count()).select_from(query.subquery())) or 0
-
-    rows = db.execute(
-        query.order_by(UserLanguage.joined_at.desc()).offset((page - 1) * page_size).limit(page_size)
-    ).all()
-
-    items = [
-        {
-            "id": user.id,
-            "username": user.username,
-            "email": user.email,
-            "is_primary": user_language.is_primary,
-            "joined_at": user_language.joined_at,
-            "last_activity": user_language.last_activity,
-        }
-        for user_language, user in rows
-    ]
-
-    return paginated_response(items, total, page, page_size)
+    # same student rule as the counts above (user_languages row OR lesson progress in this language)
+    return student_stats.language_learners_page(db, language_id, search, page, page_size)
 
 
 # ============================================================

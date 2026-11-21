@@ -131,6 +131,7 @@ from app.api.achievements.router import router as achievements_router
 
 # Admin notifications (broadcasts) + Hilfe benötigt / Support
 from app.api.admin.notifications_router import router as admin_notifications_router
+from app.api.admin.stats_router import router as admin_stats_router
 from app.api.support.router import admin_router as admin_support_router
 from app.api.support.router import router as support_router
 from app.api.dictionary import router as dictionary_router
@@ -353,6 +354,7 @@ _ALL_ROUTERS = [
     upload_router,
     admin_router,
     admin_users_router,
+    admin_stats_router,
     admin_vizu_pay_router,
     admin_videos_router,
     admin_media_management_router,

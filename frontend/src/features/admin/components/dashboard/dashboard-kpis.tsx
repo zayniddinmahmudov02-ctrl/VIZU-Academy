@@ -28,15 +28,16 @@ interface KpiDef {
 }
 
 const KPI_DEFS: KpiDef[] = [
-  { key: "total_users", label: "Total Users", icon: Users },
-  { key: "active_users_30d", label: "Active Users (30d)", icon: UserCheck },
+  // accounts of every role (students, staff, test accounts); the student numbers are in the "Schüler" block above
+  { key: "total_users", label: "Konten gesamt (alle Rollen)", icon: Users },
+  { key: "active_users_30d", label: "Konten mit Login (30 T.)", icon: UserCheck },
   { key: "premium_members", label: "Premium Members", icon: Crown },
   { key: "course_buyers", label: "Kurskäufer (bestätigt)", icon: ShoppingBag },
   { key: "total_revenue", label: "Total Revenue", icon: Wallet, format: formatCurrency },
   { key: "active_courses", label: "Active Courses", icon: BookOpen },
   { key: "total_model_tests", label: "Model Tests", icon: ClipboardCheck },
   { key: "certificates_issued", label: "Certificates Issued", icon: Award },
-  { key: "todays_registrations", label: "Today's Registrations", icon: Calendar },
+  { key: "todays_registrations", label: "Neue Konten heute", icon: Calendar },
 ];
 
 export function KpiCardsSkeleton() {

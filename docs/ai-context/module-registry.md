@@ -219,6 +219,15 @@ API prefixes are listed without `/api/v1` (every router is mounted bare and unde
   + `be/services/page_management.py`, notifications `/admin/notifications`, support `/admin/support`,
   advertisements `/admin/advertisements`, achievements `/admin/achievements`, books `/admin/books`,
   certificates `/admin/zertifikate`, dashboard `be/services/admin/enterprise_dashboard_service.py`.
+- **Student statistics (2026-11-21):** ONE rule for every student number — `be/services/admin/student_stats.py` (docstring = the business
+  rules: student = role STUDENT minus test accounts on reserved domains `example.com|net|org`, `*.test`, `*.invalid`, `*.localhost`, `*.example`;
+  registered never drops on logout / ban; active = not blocked + login or lesson progress in 30 days; test-takers / lesson participants /
+  students in groups separate; today / month by the Tashkent day). API `be/api/admin/stats_router.py`: `GET /admin/stats/overview`
+  (`require_admin_panel_access`, numbers only, no-store) and `GET /admin/stats/students` (`require_super_admin`, paginated list with filters).
+  Also used by the Languages pages (learners = students with a user_languages row OR lesson progress in that language — user_languages
+  itself is never written). UI: `fe/features/admin/components/dashboard/dashboard-student-stats.tsx` (top of `/admin`, refresh every
+  minute + on focus, list for SUPER_ADMIN), `student-stats-format.ts` (`1 250`). Tests `test_student_stats`, unit `student-stats.test.mjs`,
+  E2E `student-stats.spec.ts`.
 - **Frontend:** `fe/app/admin/*` (see frontend-map), `fe/features/admin/{components,services}`, `fe/components/admin/`.
 - **Rules/tests:** see skill `vizu-admin`; `test_page_management`, `test_notifications_support`, `test_advertisement`.
 

@@ -53,6 +53,7 @@ from app.models.video_progress import VideoProgress
 from app.models.vocabulary import Vocabulary
 from app.models.writing import Writing
 from app.models.writing_task import WritingTask
+from app.services.admin import student_stats
 from app.services.certificate import registry as certificate_registry
 from app.services.vizu_pay import plans as plan_config
 from app.services.vizu_pay import purchases
@@ -183,7 +184,6 @@ class EnterpriseDashboardService:
 
     def _kpis(self) -> dict:
         now = datetime.now(timezone.utc)
-        today_start = now.replace(hour=0, minute=0, second=0, microsecond=0)
         thirty_days_ago = now - timedelta(days=30)
         _, course_buyers = purchases.course_purchase_totals(self.db)
 
@@ -204,7 +204,8 @@ class EnterpriseDashboardService:
             "total_model_tests": self.db.query(ModelTest).count(),
             # certificate rows + final VIZU-Multilevel results (their certificate is derived from the attempt)
             "certificates_issued": certificate_registry.count_all(self.db),
-            "todays_registrations": self.db.query(User).filter(User.created_at >= today_start).count(),
+            # all accounts (any role) since midnight in Tashkent; the student numbers are in /admin/stats/overview
+            "todays_registrations": self.db.query(User).filter(User.created_at >= student_stats.tashkent_day_start(now)).count(),
         }
 
     # ============================================================

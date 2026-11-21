@@ -17,6 +17,7 @@ import DashboardMockTestAnalytics, {
 } from "@/features/admin/components/dashboard/dashboard-mock-test-analytics";
 import DashboardOperations, { OperationsSkeleton } from "@/features/admin/components/dashboard/dashboard-operations";
 import DashboardQuickActions from "@/features/admin/components/dashboard/dashboard-quick-actions";
+import DashboardStudentStats from "@/features/admin/components/dashboard/dashboard-student-stats";
 import DashboardVizuMultilevel from "@/features/admin/components/dashboard/dashboard-vizu-multilevel";
 import { getEnterpriseDashboard } from "@/features/admin/services/enterprise-dashboard-service";
 
@@ -43,6 +44,8 @@ export default function AdminDashboardPage() {
             onClick={() => {
               refetch();
               queryClient.invalidateQueries({ queryKey: ["admin-dashboard-trends"] });
+              queryClient.invalidateQueries({ queryKey: ["admin-student-stats"] });
+              queryClient.invalidateQueries({ queryKey: ["admin-student-list"] });
             }}
             disabled={isFetching}
           >
@@ -51,6 +54,8 @@ export default function AdminDashboardPage() {
           </AdminButton>
         }
       />
+
+      <DashboardStudentStats />
 
       {isError && (
         <AdminCard className="mb-6">

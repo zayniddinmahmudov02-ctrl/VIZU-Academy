@@ -42,6 +42,7 @@ Endpoint details: open the router file. Auth deps: `backend/app/api/dependencies
 | `/teacher` | `teacher/router.py` | `require_teacher_panel_access` |
 | `/health` | `health/router.py` | public |
 | `/admin` | `admin/router.py` | `require_admin_panel_access` |
+| `/admin/stats` (`GET /overview` student / staff / group / registration counts, `GET /students` paginated list: status all / active / inactive / blocked / test_takers / test_accounts, search, sort) | `admin/stats_router.py` (rules: `services/admin/student_stats.py`) | overview `require_admin_panel_access`; students `require_super_admin`; both no-store |
 | `/admin/users` `/admin/vizu-pay` `/admin/videos` `/admin/books` `/admin/zertifikate` `/admin/notifications` `/admin/page-management` `/admin/teacher-assignments` `/admin/vizu-multilevel` | `admin/*_router.py` | staff read / role-specific writes |
 | `/admin/media-management` | `admin/media_management_router.py` (tree, items, videos preview, `a2-audio/*`, `a2-audio/processing`, `a2/lesson-4/hoeren/*`, `a2-readiness*`) | read `require_admin_panel_access`, write `require_content_editor`, readiness confirm `require_super_admin` |
 | `/admin/hoeren-a1` `/admin/loesung` | `admin/hoeren_a1_router.py`, `admin/loesung_router.py` | staff |
