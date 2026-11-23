@@ -218,8 +218,10 @@ export default function PdfReader({ bookId, title, onClose, onBuy, exitHref = "/
     (async () => {
       try {
         const info = await openBook(bookId);
-        const pdfjs = await import("pdfjs-dist");
-        pdfjs.GlobalWorkerOptions.workerSrc = new URL("pdfjs-dist/build/pdf.worker.min.mjs", import.meta.url).toString();
+        // the "legacy" build of the same pdf.js version: it carries the polyfills (Uint8Array toHex / fromBase64 …) that older
+        // Android WebViews and phone browsers lack — the modern build fails there with an unreadable error
+        const pdfjs = await import("pdfjs-dist/legacy/build/pdf.mjs");
+        pdfjs.GlobalWorkerOptions.workerSrc = new URL("pdfjs-dist/legacy/build/pdf.worker.min.mjs", import.meta.url).toString();
         const loaded = await pdfjs.getDocument({ url: mediaUrl(info.url), withCredentials: false }).promise;
         if (cancelled) { void loaded.destroy(); return; }
         docRef.current = loaded;

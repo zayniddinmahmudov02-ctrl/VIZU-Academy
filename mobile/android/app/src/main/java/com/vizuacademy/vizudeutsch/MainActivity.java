@@ -1,4 +1,4 @@
-package com.vizu.deutsch;
+package com.vizuacademy.vizudeutsch;
 
 import android.app.DownloadManager;
 import android.content.Context;
@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.getcapacitor.BridgeActivity;
 
 /**
- * VIZU DEUTSCH Android shell. The UI is the live site (capacitor.config.json server.url); Capacitor keeps
+ * VIZU-DEUTSCH Android shell (package com.vizuacademy.vizudeutsch). The UI is the live site (capacitor.config.json server.url); Capacitor keeps
  * vizu-deutsch.com inside the app and opens other hosts in the system browser, and handles the back button,
  * the file chooser (gallery / camera) and the microphone permission for getUserMedia.
  *
@@ -26,6 +26,10 @@ import com.getcapacitor.BridgeActivity;
 public class MainActivity extends BridgeActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        // app plugins (before super.onCreate, which creates the bridge and loads the site):
+        // VizuSession = login session in Keystore-encrypted storage, VizuMedia = lock-screen music controls
+        registerPlugin(SecureSessionPlugin.class);
+        registerPlugin(MediaSessionPlugin.class);
         super.onCreate(savedInstanceState);
         WebView webView = getBridge().getWebView();
         webView.setDownloadListener((url, userAgent, contentDisposition, mimeType, contentLength) -> {

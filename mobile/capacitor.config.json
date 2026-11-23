@@ -1,6 +1,6 @@
 {
-  "appId": "com.vizu.deutsch",
-  "appName": "VIZU DEUTSCH",
+  "appId": "com.vizuacademy.vizudeutsch",
+  "appName": "VIZU-DEUTSCH",
   "webDir": "www",
   "server": {
     "url": "https://vizu-deutsch.com",

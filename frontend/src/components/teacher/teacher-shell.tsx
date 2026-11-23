@@ -132,7 +132,8 @@ export default function TeacherShell({ children }: { children: React.ReactNode }
         </aside>
 
         {drawer && (
-          <div className="fixed inset-0 z-40 lg:hidden" role="dialog" aria-modal="true" aria-label={t("tpanel.menu")}>
+          <div className="fixed inset-0 z-40 lg:hidden" role="dialog" aria-modal="true" aria-label={t("tpanel.menu")}
+               onKeyDown={(e) => { if (e.key === "Escape") setDrawer(false); }}>
             <div className="absolute inset-0 bg-black/40" onClick={() => setDrawer(false)} />
             <div className="absolute inset-y-0 left-0 flex w-72 max-w-[85vw] flex-col bg-surface-card shadow-[var(--shadow-lg)]">
               <div className="flex items-center justify-between border-b border-surface-border px-4 py-4">

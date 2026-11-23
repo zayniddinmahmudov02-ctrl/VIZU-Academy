@@ -27,7 +27,7 @@ const ERRORS: Record<string, string> = {
   APK_INVALID_MANIFEST: "Das AndroidManifest der APK ist nicht lesbar.",
   APK_NOT_SIGNED: "Die APK ist nicht signiert. Bitte einen signierten Release-Build hochladen.",
   APK_DEBUG_SIGNED: "Debug-Build erkannt. Nur mit dem Release-Keystore signierte APKs sind erlaubt.",
-  APK_WRONG_PACKAGE: "Falsche App: die Package-ID muss com.vizu.deutsch sein.",
+  APK_WRONG_PACKAGE: "Falsche App: die Package-ID muss com.vizuacademy.vizudeutsch sein.",
   APK_SIGNER_MISMATCH: "Anderer Signaturschlüssel als bei früheren Releases — Updates würden bei allen Nutzern scheitern.",
   APK_VERSION_EXISTS: "Diese versionCode gibt es schon. Bitte versionCode im Build erhöhen.",
   VERSION_CODE_NOT_NEWER: "Die versionCode muss höher sein als die des aktuellen Releases.",
@@ -178,7 +178,7 @@ export default function AppManagementClient() {
           <Stat label="Downloads gesamt" value={isLoading ? "…" : String(overview?.total_downloads ?? 0)} hint={latest ? `aktuell: ${latest.download_count}` : undefined} />
           <Stat label="Releases" value={isLoading ? "…" : String((overview?.published ?? 0) + (overview?.drafts ?? 0) + (overview?.archived ?? 0))}
                 hint={overview ? `${overview.published} veröffentlicht · ${overview.drafts} Entwurf · ${overview.archived} archiviert` : undefined} />
-          <Stat label="Package-ID" value={overview?.package ?? "com.vizu.deutsch"} hint="Nie ändern (sonst keine Updates)" />
+          <Stat label="Package-ID" value={overview?.package ?? "com.vizuacademy.vizudeutsch"} hint="Nie ändern (sonst keine Updates)" />
         </div>
       </section>
 
@@ -187,7 +187,7 @@ export default function AppManagementClient() {
         <SectionTitle icon={FileUp}>APK hochladen</SectionTitle>
         <p className="mb-3 text-sm text-[var(--admin-text-secondary)]">
           Version, versionCode, Mindest-Android und Signatur werden aus der APK gelesen. Erlaubt: signierter Release-Build von
-          <span className="font-mono"> com.vizu.deutsch</span>, gleicher Signaturschlüssel wie bisher, max. 150 MB. Ein Upload ist zuerst ein Entwurf.
+          <span className="font-mono"> com.vizuacademy.vizudeutsch</span>, gleicher Signaturschlüssel wie bisher, max. 150 MB. Ein Upload ist zuerst ein Entwurf.
         </p>
         <form className="space-y-3" onSubmit={(e) => { e.preventDefault(); if (file) { setMessage(null); upload.mutate(); } }}>
           <div>

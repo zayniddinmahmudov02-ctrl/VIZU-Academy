@@ -1,0 +1,10 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.vizuacademy.vizudeutsch",
+      "sha256_cert_fingerprints": ["EF:1E:4A:05:0C:50:1C:BC:E2:F4:DF:6F:24:48:D9:F3:44:64:FF:36:8B:52:FF:96:68:CE:DC:0B:E5:4E:00:0C"]
+    }
+  }
+]

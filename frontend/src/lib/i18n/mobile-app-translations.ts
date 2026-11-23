@@ -9,7 +9,7 @@ export const mobileAppTranslations: Record<string, { de: string; uz: string }> =
   backHome: { de: "Zur Startseite", uz: "Bosh sahifaga" },
   openDashboard: { de: "Zum Dashboard", uz: "Dashboardga o‘tish" },
   // Android
-  androidTitle: { de: "VIZU DEUTSCH für Android", uz: "Android uchun VIZU DEUTSCH" },
+  androidTitle: { de: "VIZU-DEUTSCH für Android", uz: "Android uchun VIZU-DEUTSCH" },
   androidBody: { de: "Installiere unsere Android-App direkt auf deinem Smartphone.", uz: "Android ilovamizni to‘g‘ridan-to‘g‘ri smartfoningizga o‘rnating." },
   androidCta: { de: "APK HERUNTERLADEN", uz: "APK YUKLAB OLISH" },
   androidSoon: { de: "Die Android-App erscheint in Kürze.", uz: "Android ilovasi tez orada chiqadi." },
@@ -22,13 +22,35 @@ export const mobileAppTranslations: Record<string, { de: string; uz: string }> =
   checksum: { de: "SHA-256-Prüfsumme", uz: "SHA-256 nazorat summasi" },
   whatsNew: { de: "Neu in dieser Version", uz: "Bu versiyada yangi" },
   androidStepsTitle: { de: "So installierst du die APK", uz: "APK’ni qanday o‘rnatish kerak" },
-  androidStep1: { de: "Tippe auf „APK herunterladen“.", uz: "«APK yuklab olish» tugmasini bosing." },
+  androidStep1: { de: "Lade die APK-Datei herunter.", uz: "APK faylni yuklab oling." },
   androidStep2: { de: "Öffne die heruntergeladene Datei.", uz: "Yuklab olingan faylni oching." },
   androidStep3: {
-    de: "Erlaube bei Nachfrage die Installation aus dieser Quelle (einmalig).",
-    uz: "So‘ralsa, ushbu manbadan o‘rnatishga ruxsat bering (bir marta).",
+    de: "Erlaube die Installation aus dieser Quelle, falls Android danach fragt.",
+    uz: "Android talab qilsa, ushbu manbadan o‘rnatishga ruxsat bering.",
   },
-  androidStep4: { de: "Tippe auf „Installieren“ und öffne VIZU DEUTSCH.", uz: "«O‘rnatish»ni bosing va VIZU DEUTSCH’ni oching." },
+  androidStep4: { de: "Tippe auf „Installieren“.", uz: "Install (O‘rnatish) tugmasini bosing." },
+  androidStep5: { de: "Öffne die App VIZU-DEUTSCH.", uz: "VIZU-DEUTSCH ilovasini oching." },
+  androidStep6: { de: "Melde dich mit deinem Login und Passwort an.", uz: "Login va parolingiz bilan tizimga kiring." },
+  // /download/android
+  androidPageTitle: { de: "VIZU-DEUTSCH Android App", uz: "VIZU-DEUTSCH Android ilovasi" },
+  androidPageIntro: {
+    de: "Kurse, Lektionen, Wortschatz, Medien, Bibliothek und Multilevel-Modelltests als App auf deinem Android-Smartphone – mit deinem bestehenden Konto.",
+    uz: "Kurslar, darslar, lug‘at, Medien, Bibliothek va Multilevel modeltestlari Android smartfoningizda ilova sifatida — mavjud akkauntingiz bilan.",
+  },
+  androidPageOnline: {
+    de: "Die App braucht eine Internetverbindung; ohne Netz zeigt sie einen Hinweis und lädt neu, sobald du wieder online bist.",
+    uz: "Ilova internet aloqasini talab qiladi; aloqa bo‘lmasa, ogohlantirish ko‘rsatadi va aloqa tiklanganda qayta yuklaydi.",
+  },
+  compatibility: { de: "Kompatibilität", uz: "Moslik" },
+  guideDe: { de: "Installationsanleitung (Deutsch)", uz: "O‘rnatish yo‘riqnomasi (nemischa)" },
+  guideUz: { de: "Installationsanleitung (Usbekisch)", uz: "O‘rnatish yo‘riqnomasi (o‘zbekcha)" },
+  iphoneHint: { de: "iPhone? Hier geht es zur Web-App für iPhone und iPad.", uz: "iPhone? iPhone va iPad uchun veb-ilova shu yerda." },
+  backAgainToExit: { de: "Zum Beenden erneut „Zurück“ drücken", uz: "Chiqish uchun «Orqaga»ni yana bir marta bosing" },
+  offlineBanner: {
+    de: "Keine Internetverbindung. Deine Anmeldung bleibt erhalten – wir laden neu, sobald du wieder online bist.",
+    uz: "Internet aloqasi yo‘q. Hisobingiz saqlanib qoladi — aloqa tiklanishi bilan qayta yuklaymiz.",
+  },
+  onlineAgain: { de: "Wieder online", uz: "Aloqa tiklandi" },
   androidSafety: {
     de: "Lade die APK nur von vizu-deutsch.com herunter. Updates installierst du genauso – deine Daten bleiben erhalten.",
     uz: "APK’ni faqat vizu-deutsch.com saytidan yuklab oling. Yangilanishlar ham xuddi shunday o‘rnatiladi — ma’lumotlaringiz saqlanadi.",
@@ -66,7 +88,7 @@ export const mobileAppTranslations: Record<string, { de: string; uz: string }> =
   qrAlt: { de: "QR-Code zu vizu-deutsch.com/download", uz: "vizu-deutsch.com/download uchun QR-kod" },
   alreadyInstalled: { de: "Du nutzt VIZU DEUTSCH bereits als App.", uz: "Siz VIZU DEUTSCH’dan allaqachon ilova sifatida foydalanyapsiz." },
   // Android update prompt (inside the installed app)
-  updateTitle: { de: "Update verfügbar", uz: "Yangilanish mavjud" },
+  updateTitle: { de: "Eine neue Version von VIZU-DEUTSCH ist verfügbar.", uz: "VIZU-DEUTSCH ilovasining yangi versiyasi mavjud." },
   updateBody: { de: "Version {latest} ist da (installiert: {current}).", uz: "{latest} versiyasi chiqdi (o‘rnatilgan: {current})." },
   updateCta: { de: "Update herunterladen", uz: "Yangilanishni yuklab olish" },
   updateLater: { de: "Später", uz: "Keyinroq" },

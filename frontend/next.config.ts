@@ -49,6 +49,8 @@ const nextConfig: NextConfig = {
       { source: "/admin/media-management/a2-audio", destination: "/admin/media-management?level=A2", permanent: false },
       // Short, shareable APK link → the API stream of the latest published release (404 until one exists).
       { source: "/downloads/android/latest.apk", destination: "/api/v1/app/android/latest.apk", permanent: false },
+      // the stable public APK address (always the latest published release; the file itself comes from the API)
+      { source: "/downloads/vizu-deutsch.apk", destination: "/api/v1/app/android/latest.apk", permanent: false },
       { source: "/app", destination: "/download", permanent: false },
     ];
   },

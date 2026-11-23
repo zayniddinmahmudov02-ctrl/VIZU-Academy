@@ -22,7 +22,9 @@ function AppleGlyph({ className }: { className?: string }) {
   );
 }
 
-function AndroidGlyph({ className }: { className?: string }) {
+export const ANDROID_STEPS = ["androidStep1", "androidStep2", "androidStep3", "androidStep4", "androidStep5", "androidStep6"] as const;
+
+export function AndroidGlyph({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" className={className} fill="currentColor">
       <path d="M17.6 9.48l1.84-3.18a.38.38 0 00-.65-.38l-1.86 3.22a11.4 11.4 0 00-9.86 0L5.21 5.92a.38.38 0 10-.65.38L6.4 9.48A10.8 10.8 0 001 18h22a10.8 10.8 0 00-5.4-8.52zM7 15.25a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5zm10 0a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5z" />
@@ -72,7 +74,7 @@ function Fact({ label, value, mono }: { label: string; value: string; mono?: boo
   );
 }
 
-function AndroidCard({ release, loading, error, primary }: { release: AppReleasePublic | null | undefined; loading: boolean; error: boolean; primary: boolean }) {
+export function AndroidCard({ release, loading, error, primary }: { release: AppReleasePublic | null | undefined; loading: boolean; error: boolean; primary: boolean }) {
   const { t, language } = useTranslation();
   const locale = localeFor(language);
 
@@ -124,10 +126,7 @@ function AndroidCard({ release, loading, error, primary }: { release: AppRelease
       <div className="rounded-2xl bg-black/20 p-4 ring-1 ring-white/10">
         <p className="mb-2 text-sm font-semibold">{t("mobileApp.androidStepsTitle")}</p>
         <ol className="list-decimal space-y-1 pl-5 text-sm text-white/75">
-          <li>{t("mobileApp.androidStep1")}</li>
-          <li>{t("mobileApp.androidStep2")}</li>
-          <li>{t("mobileApp.androidStep3")}</li>
-          <li>{t("mobileApp.androidStep4")}</li>
+          {ANDROID_STEPS.map((k) => <li key={k}>{t(`mobileApp.${k}`)}</li>)}
         </ol>
         <p className="mt-3 flex gap-2 text-xs leading-relaxed text-white/60">
           <ShieldCheck size={16} aria-hidden="true" className="shrink-0 text-[#3ddc84]" /> {t("mobileApp.androidSafety")}

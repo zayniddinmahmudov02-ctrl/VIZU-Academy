@@ -28,7 +28,9 @@ from app.models.app_release import AppRelease
 from app.models.user import User
 from app.services.app_releases.apk import ANDROID_VERSIONS, ApkError, inspect_apk
 
-ANDROID_PACKAGE = "com.vizu.deutsch"
+# Chosen before the first published release (2026-11-23, owner's spec): never change it again — Android treats another
+# package as another app (no update, two icons).
+ANDROID_PACKAGE = "com.vizuacademy.vizudeutsch"
 MAX_APK_BYTES = 150 * 1024 * 1024
 ALLOWED_MIME = {"application/vnd.android.package-archive", "application/octet-stream", "application/zip",
                 "application/x-zip-compressed", ""}
@@ -53,7 +55,7 @@ def public_view(r: AppRelease) -> dict:
         "platform": r.platform, "version_name": r.version_name, "version_code": r.version_code,
         "min_android_version": r.min_android_version, "release_notes": r.release_notes, "size_bytes": r.size_bytes,
         "sha256": r.sha256, "published_at": r.published_at,
-        "download_url": f"{settings.API_V1_PREFIX}/app/android/latest.apk", "page_url": "/download",
+        "download_url": f"{settings.API_V1_PREFIX}/app/android/latest.apk", "page_url": "/download/android",
     }
 
 
@@ -130,35 +132,48 @@ async def upload(db: Session, actor: User, file: UploadFile, release_notes: str)
         raise HTTPException(status_code=413, detail=f"APK_TOO_LARGE: max {MAX_APK_BYTES // (1024 * 1024)} MB")
     path = storage._inside_root(storage_name)
     try:
-        info = inspect_apk(path)
-        if info.package != ANDROID_PACKAGE:
-            raise ApkError("APK_WRONG_PACKAGE")
-        if info.debug_signed:
-            raise ApkError("APK_DEBUG_SIGNED")
-        signers = set(db.scalars(select(AppRelease.signer_sha256).where(AppRelease.signer_sha256.is_not(None),
-                                                                       AppRelease.status != "draft")).all())
-        if signers and info.signer_sha256 not in signers:
-            raise ApkError("APK_SIGNER_MISMATCH")
-        if db.scalar(select(AppRelease.id).where(AppRelease.platform == "android", AppRelease.version_code == info.version_code)):
-            raise ApkError("APK_VERSION_EXISTS")
+        info = check_apk(db, path)
     except ApkError as e:
         path.unlink(missing_ok=True)
         raise HTTPException(status_code=400, detail=e.code)
     except Exception:
         path.unlink(missing_ok=True)
         raise
+    return admin_view(register(db, actor.id, info, storage_name, name, release_notes))
+
+
+def check_apk(db: Session, path: Path):
+    """The upload rules on a stored file (also used by app/scripts/app_release_publish.py): the right package, not debug-signed,
+    the same certificate as every earlier non-draft release, a new versionCode. Raises ApkError(code)."""
+    info = inspect_apk(path)
+    if info.package != ANDROID_PACKAGE:
+        raise ApkError("APK_WRONG_PACKAGE")
+    if info.debug_signed:
+        raise ApkError("APK_DEBUG_SIGNED")
+    signers = set(db.scalars(select(AppRelease.signer_sha256).where(AppRelease.signer_sha256.is_not(None),
+                                                                   AppRelease.status != "draft")).all())
+    if signers and info.signer_sha256 not in signers:
+        raise ApkError("APK_SIGNER_MISMATCH")
+    if db.scalar(select(AppRelease.id).where(AppRelease.platform == "android", AppRelease.version_code == info.version_code)):
+        raise ApkError("APK_VERSION_EXISTS")
+    return info
+
+
+def register(db: Session, actor_id: UUID | None, info, storage_name: str, original_name: str, release_notes: str) -> AppRelease:
+    """A checked APK already in storage -> a draft release row (+ audit). `actor_id` None = the release script."""
     release = AppRelease(
         platform="android", version_name=info.version_name, version_code=info.version_code,
         min_android_version=android_version(info.min_sdk), release_notes=(release_notes or "").strip()[:5000],
-        status="draft", is_latest=False, storage_name=storage_name, original_name=name[:255], size_bytes=info.size_bytes,
-        sha256=info.sha256, signer_sha256=info.signer_sha256, created_by=actor.id,
+        status="draft", is_latest=False, storage_name=storage_name, original_name=original_name[:255], size_bytes=info.size_bytes,
+        sha256=info.sha256, signer_sha256=info.signer_sha256, created_by=actor_id,
     )
     db.add(release)
     db.flush()
-    write_audit(db, str(actor.id), "APP_RELEASE_UPLOAD", details=f"android {info.version_name} ({info.version_code}) sha256={info.sha256}")
+    write_audit(db, str(actor_id) if actor_id else None, "APP_RELEASE_UPLOAD",
+                details=f"android {info.version_name} ({info.version_code}) sha256={info.sha256}")
     db.commit()
     db.refresh(release)
-    return admin_view(release)
+    return release
 
 
 def update_notes(db: Session, actor: User, release_id: UUID, release_notes: str) -> dict:
@@ -170,7 +185,8 @@ def update_notes(db: Session, actor: User, release_id: UUID, release_notes: str)
     return admin_view(release)
 
 
-def publish(db: Session, actor: User, release_id: UUID) -> dict:
+def publish(db: Session, actor: User | None, release_id: UUID) -> dict:
+    """`actor` None = the release script (audit without a user)."""
     release = _get(db, release_id)
     if release.status == "archived":
         raise HTTPException(status_code=409, detail="APP_RELEASE_ARCHIVED")
@@ -184,7 +200,7 @@ def publish(db: Session, actor: User, release_id: UUID) -> dict:
         db.flush()
     release.status, release.is_latest = "published", True
     release.published_at = release.published_at or _now()
-    write_audit(db, str(actor.id), "APP_RELEASE_PUBLISH", details=f"android {release.version_name} ({release.version_code})")
+    write_audit(db, str(actor.id) if actor else None, "APP_RELEASE_PUBLISH", details=f"android {release.version_name} ({release.version_code})")
     db.commit()
     db.refresh(release)
     return admin_view(release)

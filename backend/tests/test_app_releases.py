@@ -71,7 +71,7 @@ def _cert_pkcs7(common_name: str) -> bytes:
 _SIGNERS: dict[str, bytes] = {}
 
 
-def _apk(version_code=2, version_name="1.1.0", package="com.vizu.deutsch", signer="VIZU Release", signed=True) -> bytes:
+def _apk(version_code=2, version_name="1.1.0", package="com.vizuacademy.vizudeutsch", signer="VIZU Release", signed=True) -> bytes:
     if signed and signer not in _SIGNERS:
         _SIGNERS[signer] = _cert_pkcs7(signer)
     out = io.BytesIO()
@@ -107,7 +107,7 @@ class TestApkInspection(unittest.TestCase):
 
     def test_reads_manifest_and_signer(self):
         info = self._inspect(_apk(version_code=7, version_name="1.4.2"))
-        self.assertEqual((info.package, info.version_code, info.version_name, info.min_sdk), ("com.vizu.deutsch", 7, "1.4.2", 24))
+        self.assertEqual((info.package, info.version_code, info.version_name, info.min_sdk), ("com.vizuacademy.vizudeutsch", 7, "1.4.2", 24))
         self.assertEqual(len(info.signer_sha256), 64)
         self.assertFalse(info.debug_signed)
         self.assertEqual(len(info.sha256), 64)
@@ -318,6 +318,37 @@ class TestReleaseRules(unittest.TestCase):
         d = self._upload(_apk(version_code=4))
         self.service.delete_draft(self.db, self.admin, uuid.UUID(d["id"]))
         self.assertEqual({x["version_code"] for x in self.service.list_releases(self.db)["releases"]}, {2})
+
+    def test_release_script_plan_apply(self):
+        from app.scripts import app_release_publish as script
+
+        apk = _write(_apk(version_code=3, version_name="1.0.2"))
+        backup = Path(self.tmp.name) / "backup"
+        try:
+            plan = script.build_plan(self.db, apk, "Erste Version\n")
+            self.assertEqual((plan["package"], plan["version_code"], plan["version_name"], plan["min_android"]),
+                             (self.service.ANDROID_PACKAGE, 3, "1.0.2", "7.0"))
+            self.assertIsNone(plan["current_latest"])
+            with self.assertRaises(RuntimeError):
+                script.apply_plan(self.db, "000000000000", apk, "Erste Version\n", backup)
+            out = script.apply_plan(self.db, plan["plan_id"], apk, "Erste Version\n", backup)
+            self.assertEqual((out["status"], out["is_latest"], out["version_code"]), ("published", True, 3))
+            latest = self.service.latest_or_404(self.db)
+            self.assertEqual((latest.version_code, latest.release_notes, latest.created_by), (3, "Erste Version", None))
+            self.assertTrue(self.service.register_download(self.db, latest).is_file())
+            self.assertTrue(any(backup.glob("app-releases-before-*.json")))
+            with self.assertRaises(RuntimeError):  # the same versionCode again
+                script.build_plan(self.db, apk, "x")
+            for bad in (_apk(version_code=9, signer="Android Debug"), _apk(version_code=9, package="com.vizu.deutsch"),
+                        _apk(version_code=9, signer="Other Key"), _apk(version_code=2, version_name="0.9")):
+                p = _write(bad)
+                try:
+                    with self.assertRaises(RuntimeError):
+                        script.build_plan(self.db, p, "x")
+                finally:
+                    p.unlink(missing_ok=True)
+        finally:
+            apk.unlink(missing_ok=True)
 
 
 if __name__ == "__main__":

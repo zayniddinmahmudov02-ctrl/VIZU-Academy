@@ -7,6 +7,8 @@ import QueryProvider from "@/providers/query-provider";
 import LanguageProvider from "@/providers/language-provider";
 import NativeAppUpdate from "@/components/pwa/native-app-update";
 import ServiceWorkerRegistration from "@/components/pwa/service-worker-registration";
+import NativeBackButton from "@/components/pwa/native-back-button";
+import NetworkStatus from "@/components/pwa/network-status";
 import TelegramWebAppInit from "@/components/telegram/telegram-webapp-init";
 import TelegramWebAppScript from "@/components/telegram/telegram-webapp-script";
 
@@ -72,6 +74,10 @@ export default function RootLayout({
               {children}
               {/* Android app (Capacitor) only: offers a newer APK; renders nothing in browsers */}
               <NativeAppUpdate />
+              {/* Android app only: back button (dialog first, start page = press twice to close) */}
+              <NativeBackButton />
+              {/* every platform: a connection that drops while a page is open */}
+              <NetworkStatus />
             </LanguageProvider>
           </QueryProvider>
         </ThemeProvider>

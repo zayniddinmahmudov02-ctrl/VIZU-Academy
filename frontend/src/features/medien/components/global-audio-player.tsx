@@ -9,6 +9,7 @@ import { Heart, ListMusic, Loader2, Maximize2, Pause, Play, Repeat, Repeat1, Shu
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { cn } from "@/lib/utils";
 
+import { useNativeMediaControls } from "../hooks/use-native-media";
 import { isMusicPath } from "../lib/player-view";
 import { errorCode, mediaUrl, playSong } from "../services/medien-service";
 import { loadPlayer, savePlayer } from "../store/persist";
@@ -206,6 +207,8 @@ export default function GlobalAudioPlayer() {
   useEffect(() => {
     if (typeof navigator !== "undefined" && "mediaSession" in navigator) navigator.mediaSession.playbackState = !song ? "none" : playing ? "playing" : "paused";
   }, [playing, song]);
+  // Android app: the same controls on the lock screen / in the notification (native MediaSession)
+  useNativeMediaControls(song, playing, audioRef);
 
   const onTime = () => {
     const el = audioRef.current;
