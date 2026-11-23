@@ -6,9 +6,11 @@ translates between that and what the owner writes — a letter per question — 
 points at the marked option, the table shows the key derived from the flags instead (source "derived") — the token is never trusted over the flags.
 
 Letter → option, per question (the question numbers are the running numbers of the section: 1 … N over all Teile, in Teil / question order):
-- SINGLE_CHOICE / MATCHING / DROPDOWN: a, b, c … = the 1st, 2nd, 3rd … option (a–c for three answers, a–h for the eight matching letters A–H);
-- TRUE_FALSE: r = Richtig, f = Falsch (the option whose text starts with that letter); a / b = the 1st / 2nd option (the owner's Variante 1 writes a / b);
-- anything else (multiple choice, ordering, free text) is refused: this tool sets exactly one correct option.
+- SINGLE_CHOICE / MATCHING / DROPDOWN: a, b, c … = the 1st, 2nd, 3rd … option (a–c for three answers, a–h / a–j for the matching letters A–H / A–J);
+- ORDERING (Lesen Teil 1, "A1 … A5": each position picks ONE of the text parts A–E): a–e = the 1st … 5th option, one correct option per position;
+- TRUE_FALSE: r = Richtig, f = Falsch (the option whose text starts with that letter); otherwise a, b, c = the 1st, 2nd, 3rd option — Hören has two
+  options (Richtig / Falsch: a / b), Lesen Teil 4 three (A = Richtig, B = Falsch, C = Der Text sagt nichts dazu);
+- anything else (multiple choice, free text) is refused: this tool sets exactly one correct option.
 
 Rules: a whole key set must cover every question and nothing beyond (`require_complete`), so a wrong count can never be saved by accident; a single
 edit may change one question. Everything is all-or-nothing in one transaction and goes to the audit log (no personal data). Only Multilevel tests.
@@ -26,7 +28,7 @@ from sqlalchemy.orm import Session
 from app.core.audit import write_audit
 from app.models.kompetenz import Kompetenz
 from app.models.listening_content import ListeningContent
-from app.models.mock_question import TYPE_DROPDOWN, TYPE_MATCHING, TYPE_SINGLE_CHOICE, TYPE_TRUE_FALSE, MockQuestion
+from app.models.mock_question import TYPE_DROPDOWN, TYPE_MATCHING, TYPE_ORDERING, TYPE_SINGLE_CHOICE, TYPE_TRUE_FALSE, MockQuestion
 from app.models.mock_test_attempt import MockTestAttempt
 from app.models.model_test import ModelTest
 from app.models.reading_content import ReadingContent
@@ -36,7 +38,7 @@ from app.services.mock_exam import multilevel_service
 from app.services.mock_exam.multilevel_exam_service import is_multilevel_test
 
 SECTIONS = ("LESEN", "HOEREN")
-LETTER_TYPES = {TYPE_SINGLE_CHOICE, TYPE_MATCHING, TYPE_DROPDOWN, TYPE_TRUE_FALSE}
+LETTER_TYPES = {TYPE_SINGLE_CHOICE, TYPE_MATCHING, TYPE_DROPDOWN, TYPE_TRUE_FALSE, TYPE_ORDERING}
 MAX_TEXT = 4000
 # "12-b", "12 - B", "12:b", "12) c", "12=r" — one letter, not part of a longer word
 _ENTRY = re.compile(r"(?<![\dA-Za-z])(\d{1,3})\s*[-–—:.)=]\s*([A-Za-z])(?![A-Za-z0-9])")
@@ -77,9 +79,9 @@ def _option_index(q: MockQuestion, token: str) -> int:
         for i, o in enumerate(q.options):
             if letter in ("r", "f") and (o.option_text or "").strip().lower()[:1] == letter:
                 return i
-        if letter in ("a", "b") and ord(letter) - 97 < len(q.options):
-            return ord(letter) - 97
-        raise KeyError(token)
+        if letter in ("r", "f"):
+            raise KeyError(token)
+        # a / b (/ c): by position — two options in Hören, three in Lesen Teil 4 (C = "Der Text sagt nichts dazu")
     index = ord(letter) - 97
     if 0 <= index < len(q.options):
         return index

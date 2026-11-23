@@ -363,7 +363,13 @@ single edits, letters per question type (a–c, a–h, r / f / a / b for true-fa
 still reads `options.is_correct`; endpoints `/admin/multilevel-exam/model-tests/{id}/answer-keys` (GET, PUT, POST `/import`); script `app/scripts/multilevel_hoeren_keys.py`
 plan / apply --confirm (also sets the exam times Lesen 60, Hören 60, Schreiben 60, Sprechen 15 = 195 min on every Modelltest; `DEFAULT_MINUTES` / `TOTAL_MINUTES`);
 `mock_attempt_sections.duration_seconds` = what the server granted; student list cards show the four sections, 195 min and the state; admin
-`fe/features/admin/components/mock-exam/multilevel-answer-keys.tsx`; tests `test_multilevel_keys`, `test_multilevel_keys_migration`, E2E `multilevel-keys.spec.ts`), assessment engine (`be/api/assessment_engine`), certificates
+`fe/features/admin/components/mock-exam/multilevel-answer-keys.tsx`; tests `test_multilevel_keys`, `test_multilevel_keys_migration`, E2E `multilevel-keys.spec.ts`);
+**Lesen keys of Modelltest 1–6** (2026-11-23, production): from the owner's `Antworten.pdf` (pages 1–5 tables, page 6 infographic = Variant 6;
+Variant N = Modelltest N) in `app/data/multilevel/lesen-keys.json` (6 × 35; the PDF wins where the owner's typed list differed: V1 Nr. 28–33,
+V6 Nr. 16–17 and Teil 4–5), script `app/scripts/multilevel_lesen_keys.py` (plan / apply --confirm; Teil 1 a permutation of a–e, Teil 3 seven
+different letters, conflicts refused). The key tool now also takes ORDERING (Teil 1, A1–A5 → a–e) and a third true / false option
+(Lesen Teil 4: a Richtig, b Falsch, c Der Text sagt nichts dazu; Hören true / false has two options and stays a / b / r / f). Scoring unchanged
+(`options.is_correct`); old closed Lesen sections stay unscored (not regraded). Tests `test_multilevel_lesen_keys`, E2E `multilevel-lesen-keys.spec.ts`), assessment engine (`be/api/assessment_engine`), certificates
 (`/certificates`, `/my-certificates`), books (`/books`), homework (`/homeworks`), quizzes, exams, calendar,
 notifications, support, advertisements ("Werbung-Banner"), achievements.
 

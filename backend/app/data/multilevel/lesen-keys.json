@@ -1,0 +1,50 @@
+{
+ "source": "Owner's PDF 'Antworten.pdf' (sha256 ad96cbbafcec6af3175901671d809ad772fa9d1dd5c1ebed6630790ce8287840), tables 'Variant N Lesen Antworten' on pages 1-5 and the LESEN half of the infographic on page 6 (Variant 6), read 2026-11-23 and checked letter by letter; the page-6 image was zoomed cell by cell (no unclear cell). Variant N = Modelltest N (the same PDF's Hören tables equal hoeren-keys.json).",
+ "differences_from_owner_message": "The owner's typed lists of 2026-11-23 differ from the PDF in Variant 1 (Nr. 28-33: typed c b c b a c, PDF b c b c b a) and Variant 6 (Nr. 16-17 and Teil 4-5). The PDF values are used.",
+ "section": "LESEN",
+ "letters": "Teil 1 (1-5, order A-E): a-e; Teil 2 (6-10): a-c; Teil 3 (11-17, headings A-J): a-j; Teil 4 (true / false): a = Richtig, b = Falsch, c = Der Text sagt nichts dazu; Teil 5: a-c",
+ "tests": {
+  "1": [
+   "1-c, 2-e, 3-a, 4-d, 5-b",
+   "6-b, 7-a, 8-c, 9-a, 10-b",
+   "11-i, 12-f, 13-c, 14-d, 15-g, 16-j, 17-h",
+   "18-b, 19-a, 20-a, 21-a, 22-b, 23-a, 24-b, 25-b, 26-b",
+   "27-b, 28-b, 29-c, 30-b, 31-c, 32-b, 33-a, 34-c, 35-c"
+  ],
+  "2": [
+   "1-b, 2-c, 3-a, 4-d, 5-e",
+   "6-b, 7-b, 8-c, 9-a, 10-b",
+   "11-a, 12-d, 13-c, 14-b, 15-f, 16-j, 17-h",
+   "18-b, 19-a, 20-b, 21-a, 22-b, 23-a, 24-b, 25-a, 26-c",
+   "27-c, 28-b, 29-c, 30-a, 31-b, 32-c, 33-b, 34-c, 35-b"
+  ],
+  "3": [
+   "1-b, 2-c, 3-a, 4-d, 5-e",
+   "6-b, 7-b, 8-b, 9-b, 10-c",
+   "11-i, 12-a, 13-c, 14-b, 15-f, 16-j, 17-e",
+   "18-a, 19-b, 20-a, 21-b, 22-a, 23-b, 24-a, 25-a, 26-c",
+   "27-c, 28-b, 29-c, 30-c, 31-b, 32-b, 33-b, 34-b, 35-c"
+  ],
+  "4": [
+   "1-b, 2-a, 3-c, 4-e, 5-d",
+   "6-b, 7-b, 8-c, 9-b, 10-c",
+   "11-b, 12-a, 13-c, 14-d, 15-e, 16-f, 17-i",
+   "18-a, 19-b, 20-b, 21-b, 22-a, 23-b, 24-a, 25-b, 26-a",
+   "27-b, 28-b, 29-b, 30-c, 31-b, 32-c, 33-b, 34-b, 35-c"
+  ],
+  "5": [
+   "1-a, 2-b, 3-c, 4-e, 5-d",
+   "6-c, 7-b, 8-b, 9-b, 10-c",
+   "11-h, 12-i, 13-j, 14-a, 15-f, 16-d, 17-e",
+   "18-b, 19-b, 20-a, 21-a, 22-b, 23-a, 24-b, 25-a, 26-c, 27-b",
+   "28-b, 29-b, 30-c, 31-b, 32-c, 33-b, 34-c, 35-c"
+  ],
+  "6": [
+   "1-a, 2-b, 3-c, 4-d, 5-e",
+   "6-b, 7-b, 8-b, 9-c, 10-c",
+   "11-f, 12-a, 13-c, 14-e, 15-d, 16-i, 17-j",
+   "18-b, 19-a, 20-a, 21-b, 22-a, 23-b, 24-a, 25-b, 26-b, 27-a",
+   "28-b, 29-b, 30-b, 31-c, 32-b, 33-b, 34-c, 35-b"
+  ]
+ }
+}

@@ -12,11 +12,14 @@ import type { AnswerKeyItem, AnswerKeyTable, KeyImportResult, KeySection } from 
 interface TestOption { id: string; title: string; status: string }
 
 const SECTION_DE: Record<KeySection, string> = { HOEREN: "Hören", LESEN: "Lesen" };
-const TYPE_DE: Record<string, string> = { SINGLE_CHOICE: "a/b/c", TRUE_FALSE: "Richtig / Falsch", MATCHING: "Zuordnung", DROPDOWN: "Auswahl" };
+const TYPE_DE: Record<string, string> = { SINGLE_CHOICE: "a/b/c", TRUE_FALSE: "Richtig / Falsch", MATCHING: "Zuordnung", DROPDOWN: "Auswahl", ORDERING: "Reihenfolge A–E" };
 const SOURCE_DE: Record<string, string> = { entered: "gespeichert", derived: "aus Markierung" };
 
-/** letters a question accepts: r / f / a / b for true-false, a … (a + options − 1) otherwise (the server checks the same rules) */
-const allowed = (item: AnswerKeyItem): string[] => (item.type === "TRUE_FALSE" ? ["r", "f", "a", "b"] : Array.from({ length: item.option_count }, (_, i) => String.fromCharCode(97 + i)));
+/** letters a question accepts: a … (a + options − 1) by position, plus r / f for true-false (Hören a / b, Lesen Teil 4 a / b / c) — the server checks the same rules */
+const allowed = (item: AnswerKeyItem): string[] => {
+  const byPosition = Array.from({ length: item.option_count }, (_, i) => String.fromCharCode(97 + i));
+  return item.type === "TRUE_FALSE" ? ["r", "f", ...byPosition] : byPosition;
+};
 const isValid = (item: AnswerKeyItem, value: string) => value === "" || allowed(item).includes(value.toLowerCase());
 
 /** Admin → Multilevel → Answer Key: one numbered table per Modelltest and section (Hören first; Lesen uses the same tool). The letters are saved exactly as typed
