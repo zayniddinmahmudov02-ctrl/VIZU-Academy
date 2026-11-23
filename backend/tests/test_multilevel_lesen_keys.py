@@ -5,7 +5,9 @@ question in the real Modelltest data files (ORDERING a-e, matching a-j, Lesen tr
 each other and from Hören, the letter rules (ORDERING, three-option true / false; Hören true / false still a / b / r / f only).
 Against PostgreSQL (VIZU_WB_TEST_DB_URL): the real ten Modelltests are built, plan / apply sets exactly the 6 x 35 Lesen keys (Hören, other tests, option
 texts untouched; idempotent; a conflict is refused), and the server scores each variant: 35 / 35 = full score, all wrong = 0, a mixed sheet exactly,
-and one variant's letters on another variant score only where the two keys agree (no key mixing)."""
+and one variant's letters on another variant score only where the two keys agree (no key mixing). Regrade (script multilevel_lesen_regrade): Lesen
+sections closed before the keys existed get scored exactly like a new attempt (10 right = 10 / 35, nothing answered = 0 / 35), the attempt total now
+includes Lesen, other sections / open sections / answers' choices untouched, a row copy is written first, a second run finds nothing."""
 
 import json
 import os
@@ -172,6 +174,34 @@ class TestLesenKeysAgainstDatabase(unittest.TestCase):
 
         return k.key_table(db, self.test_ids[number], section)
 
+    def test_0_attempts_closed_before_the_keys_exist(self):
+        """Two Lesen sections handed in while the test had no Lesen keys (they stay "not scored" until the regrade, test_4)."""
+        from sqlalchemy import select
+
+        from app.models.mock_attempt_section import MockAttemptSection
+        from app.models.user import User
+        from app.services.mock_exam import multilevel_exam_service as exam
+        from app.services.mock_exam import multilevel_keys as k
+
+        data = {int(n): _letters(lines) for n, lines in _keys_file()["tests"].items()}
+        with self.Session() as db:
+            student = db.get(User, self.student_id)
+            a = exam.start_attempt(db, student, self.test_ids[1])  # MT1: 10 right (by the PDF), 5 wrong, 20 not answered
+            exam.start_section(db, student, a.id, "LESEN")
+            for i, (q, _) in enumerate(k._questions(db, self.test_ids[1], "LESEN")[:15]):
+                index = k._option_index(q, data[1][i])
+                exam.save_answer(db, student, a.id, "LESEN", q.id, [q.options[index if i < 10 else (index + 1) % len(q.options)].id])
+            exam.submit_section(db, student, a.id, "LESEN")
+            exam.finish_attempt(db, student, a.id)
+            b = exam.start_attempt(db, student, self.test_ids[2])  # MT2: finished without touching Lesen
+            exam.finish_attempt(db, student, b.id)
+            type(self).before_keys = {}
+            for number, attempt in ((1, a), (2, b)):
+                s = db.scalar(select(MockAttemptSection).where(MockAttemptSection.attempt_id == attempt.id, MockAttemptSection.section_type == "LESEN"))
+                db.refresh(attempt)
+                self.assertTrue(exam._unscorable(s), number)  # no key at that time: not scored, left out of the total
+                type(self).before_keys[number] = (attempt.id, attempt.max_score)
+
     def test_1_plan_apply_sets_exactly_the_pdf_keys(self):
         from app.scripts import multilevel_lesen_keys as script
         from app.services.mock_exam import multilevel_keys as k
@@ -254,6 +284,53 @@ class TestLesenKeysAgainstDatabase(unittest.TestCase):
             same = sum(a == b for a, b in zip(data[1], data[2]))
             self.assertLess(same, 35)
             self.assertEqual(self._sheet(db, 2, data[1])[:2], (same, 35))
+
+    def test_4_old_lesen_sections_are_scored_by_the_regrade(self):
+        from sqlalchemy import func, select
+
+        from app.models.mock_attempt_section import MockAttemptSection
+        from app.models.mock_question_answer import MockQuestionAnswer
+        from app.models.mock_test_attempt import MockTestAttempt
+        from app.models.user import User
+        from app.scripts import multilevel_lesen_regrade as regrade
+        from app.services.mock_exam import multilevel_exam_service as exam
+
+        def lesen(db, attempt_id):
+            return db.scalar(select(MockAttemptSection).where(MockAttemptSection.attempt_id == attempt_id, MockAttemptSection.section_type == "LESEN"))
+
+        with self.Session() as db:
+            student = db.get(User, self.student_id)
+            open_attempt = exam.start_attempt(db, student, self.test_ids[4])  # an OPEN Lesen section must not be touched
+            exam.start_section(db, student, open_attempt.id, "LESEN")
+            others = {s.id: (s.status, s.raw_points, s.raw_max, s.score) for s in db.scalars(select(MockAttemptSection).where(
+                MockAttemptSection.attempt_id.in_([self.before_keys[1][0], self.before_keys[2][0]]), MockAttemptSection.section_type != "LESEN"))}
+            plan = regrade.build_plan(db)
+            self.assertEqual(sorted((i["number"], i["answered_anything"]) for i in plan["items"]), [(1, True), (2, False)])
+            db.expire_all()
+            self.assertEqual((lesen(db, self.before_keys[1][0]).raw_max, lesen(db, self.before_keys[1][0]).score), (0, None))  # the plan changed nothing
+            with tempfile.TemporaryDirectory() as tmp:
+                with self.assertRaises(RuntimeError):
+                    regrade.apply_plan(db, "wrongplanid0", Path(tmp))
+                done = regrade.apply_plan(db, plan["plan_id"], Path(tmp))
+                self.assertEqual(done["regraded"], 2)
+                snap = json.loads(Path(done["backup"]).read_text(encoding="utf-8"))
+                self.assertEqual(len(snap["attempts"]), 2)  # a row copy of everything it changed
+            db.expire_all()
+            s1, s2 = lesen(db, self.before_keys[1][0]), lesen(db, self.before_keys[2][0])
+            self.assertEqual((s1.raw_points, s1.raw_max, s1.score), (10, 35, exam.scale(10, 35)))  # 10 right of 35 with the PDF key
+            self.assertEqual((s2.raw_points, s2.raw_max, s2.score), (0, 35, 0))  # nothing answered: 0, like a new attempt
+            for number in (1, 2):  # Lesen now counts in the attempt: its maximum grows by one section
+                attempt = db.get(MockTestAttempt, self.before_keys[number][0])
+                self.assertEqual(attempt.max_score, self.before_keys[number][1] + exam.SECTION_MAX, number)
+            marked = dict(db.execute(select(MockQuestionAnswer.is_correct, func.count()).where(MockQuestionAnswer.attempt_id == self.before_keys[1][0])
+                                     .group_by(MockQuestionAnswer.is_correct)).all())
+            self.assertEqual(marked, {True: 10, False: 5})
+            after_others = {s.id: (s.status, s.raw_points, s.raw_max, s.score) for s in db.scalars(select(MockAttemptSection).where(
+                MockAttemptSection.id.in_(list(others))))}
+            self.assertEqual(after_others, others)  # Hören / Schreiben / Sprechen untouched
+            self.assertEqual((lesen(db, open_attempt.id).status, lesen(db, open_attempt.id).raw_max), ("OPEN", None))
+            self.assertEqual(regrade.build_plan(db)["items"], [])  # idempotent
+            exam.finish_attempt(db, student, open_attempt.id)
 
 
 if __name__ == "__main__":
