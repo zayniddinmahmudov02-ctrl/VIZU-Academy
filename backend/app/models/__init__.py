@@ -81,6 +81,8 @@ from .study_group import (
     StudyGroupTask,
 )
 from .video_room import VideoRoom, VideoRoomEvent, VideoRoomParticipant
+from .teacher_profile import TeacherProfile
+from .student_activity import StudentActivityEvent, StudentSession
 from .global_chat import (
     GlobalChatMessage,
     GlobalChatMessageEdit,

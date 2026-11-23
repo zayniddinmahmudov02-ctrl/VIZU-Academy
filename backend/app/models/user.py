@@ -153,6 +153,15 @@ class User(BaseModel):
         index=True,
     )
 
+    # An admin-created teacher account (Team) must set its own password at the
+    # first login; cleared by PUT /users/me/password.
+    must_change_password: Mapped[bool] = mapped_column(
+        Boolean,
+        default=False,
+        server_default="false",
+        nullable=False,
+    )
+
     # Access tokens issued before this moment are rejected (checked in
     # get_current_user). NULL = no restriction.
     tokens_valid_after: Mapped[datetime | None] = mapped_column(

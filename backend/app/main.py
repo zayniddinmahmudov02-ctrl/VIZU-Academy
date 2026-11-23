@@ -188,6 +188,10 @@ from app.api.admin.page_management_router import (
 
 # Teacher Panel
 from app.api.teacher import router as teacher_router
+from app.api.teacher.panel_router import kontroll_router as teacher_kontroll_router
+from app.api.teacher.panel_router import router as teacher_panel_router
+from app.api.admin.team_router import router as admin_team_router
+from app.api.activity import router as activity_router
 
 # VIZU Pay
 from app.api.vizu_pay import (
@@ -367,6 +371,10 @@ _ALL_ROUTERS = [
     admin_teacher_assignments_router,
     admin_page_management_router,
     teacher_router,
+    teacher_panel_router,
+    teacher_kontroll_router,
+    admin_team_router,
+    activity_router,
     vizu_pay_router,
     assessment_engine_router,
     lesson_skills_router,

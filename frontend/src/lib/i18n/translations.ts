@@ -1,3 +1,4 @@
+import { medienStatsTranslations, passwordGateTranslations, teacherPanelTranslations } from "./activity-translations";
 import { battleTranslations } from "./battle-translations";
 import { mobileAppTranslations } from "./mobile-app-translations";
 import { videoRoomTranslations } from "./video-room-translations";
@@ -2760,4 +2761,7 @@ export const translations: Record<string, Namespace> = {
   battle: battleTranslations,
   mobileApp: mobileAppTranslations,
   videoRoom: videoRoomTranslations,
+  mstats: medienStatsTranslations,
+  tpanel: teacherPanelTranslations,
+  pwgate: passwordGateTranslations,
 };

@@ -17,8 +17,10 @@ from app.core.security import (
 )
 
 from app.models.user import User
+from app.core.security.roles import UserRole
 from app.services.auth.identifier import (
     KIND_EMAIL,
+    TEACHER_USERNAME,
     InvalidIdentifier,
     LoginIdentifier,
     is_reserved_email,
@@ -124,12 +126,22 @@ def display_name(user: User) -> str:
 
 
 def get_user_by_identifier(db: Session, identifier: str) -> User | None:
-    """E-mail (case-insensitive) or phone number (normalised) -> account."""
+    """E-mail (case-insensitive) or phone number (normalised) -> account. Anything else that looks like a username finds
+    only a TEACHER account (the login an administrator made in Admin → Team); students keep e-mail / phone login."""
     try:
         ident = parse_identifier(identifier)
     except InvalidIdentifier:
-        return None
-    return _find_by_identifier(db, ident)
+        name = (identifier or "").strip().lower()
+        if not TEACHER_USERNAME.match(name):
+            return None
+        return db.scalar(select(User).where(func.lower(User.username) == name, User.role == UserRole.TEACHER))
+    user = _find_by_identifier(db, ident)
+    if user is None and ident.kind != KIND_EMAIL:
+        # all-digit usernames ("teacher" numbers) parse as a phone number first
+        name = (identifier or "").strip().lower()
+        if TEACHER_USERNAME.match(name):
+            user = db.scalar(select(User).where(func.lower(User.username) == name, User.role == UserRole.TEACHER))
+    return user
 
 
 def authenticate_user(
@@ -384,6 +396,7 @@ def change_password(
         return False
 
     user.password_hash = hash_password(new_password)
+    user.must_change_password = False
     db.commit()
 
     RefreshTokenRepository(db).delete_all_for_user(str(user.id))

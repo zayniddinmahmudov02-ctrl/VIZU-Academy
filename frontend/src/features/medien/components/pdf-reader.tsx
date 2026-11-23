@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, BookOpen, ChevronLeft, ChevronRight, Hand, Loader2, Lock, Maximize2, Minimize2, ScrollText, X, ZoomIn, ZoomOut } from "lucide-react";
 
+import { useActivityStore } from "@/features/activity/store/activity-store";
 import { useTranslation } from "@/lib/i18n/use-translation";
 
 import { errorCode, mediaUrl, openBook, saveProgress, saveProgressKeepalive } from "../services/medien-service";
@@ -186,6 +187,13 @@ export default function PdfReader({ bookId, title, onClose, onBuy, exitHref = "/
   useEffect(() => {
     pageRef.current = page;
   }, [page]);
+
+  // activity heartbeat: reading time counts only while this reader is open (and the student is active — see ActivityTracker)
+  useEffect(() => {
+    if (status !== "ready") return;
+    useActivityStore.getState().setMedia({ area: "BOOK", refId: bookId });
+    return () => useActivityStore.getState().clearMedia(bookId);
+  }, [bookId, status]);
 
   const persist = useCallback((keepalive = false) => {
     if (saveTimer.current) window.clearTimeout(saveTimer.current);

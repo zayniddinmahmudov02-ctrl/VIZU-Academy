@@ -85,6 +85,8 @@ class UserResponse(BaseModel):
     suspended_until: datetime | None = None
     role: str
     created_at: datetime
+    # admin-created teacher accounts: a new own password is required first (Team)
+    must_change_password: bool = False
 
 class Token(BaseModel):
     access_token: str

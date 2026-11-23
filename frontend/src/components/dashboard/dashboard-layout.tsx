@@ -8,6 +8,7 @@ import Header from "./header";
 import Sidebar from "./sidebar";
 import MobileNav from "./mobile-nav";
 import PageTransition from "@/components/motion/page-transition";
+import ActivityTracker from "@/features/activity/components/activity-tracker";
 import GlobalChatWidget from "@/features/global-chat/components/global-chat-widget";
 import GlobalAudioPlayer from "@/features/medien/components/global-audio-player";
 import { cn } from "@/lib/utils";
@@ -44,6 +45,7 @@ export default function DashboardLayout({ children }: Props) {
       </div>
 
       <GlobalChatWidget />
+      <ActivityTracker />
     </div>
   );
 }

@@ -232,10 +232,41 @@ async def require_teacher_panel_access(
     convenience only, never the source of truth.
     """
 
+    _check_teacher_panel(current_user)
+    return current_user
+
+
+def _check_teacher_panel(current_user: User) -> None:
     if current_user.role not in (UserRole.TEACHER, UserRole.SUPER_ADMIN):
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Teacher panel access required",
+        )
+
+    # an admin-created teacher works only after setting an own password (Team)
+    if current_user.must_change_password is True:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="PASSWORD_CHANGE_REQUIRED",
+        )
+
+
+def require_student_control(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+) -> User:
+    """Gate for the read-only Kontroll area (/teacher/kontroll/*: every student's activity). The Teacher Panel rule first
+    (TEACHER or SUPER_ADMIN, own password set), then SUPER_ADMIN or a TEACHER whose teacher_profiles.can_access_student_control
+    is true (set only by a SUPER_ADMIN in Admin → Team). Everyone else: 403. A sync dependency on purpose (runs in the
+    threadpool, not on the event loop)."""
+
+    from app.services.teacher.team import can_access_control
+
+    _check_teacher_panel(current_user)
+    if not can_access_control(db, current_user):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="KONTROLL_ACCESS_REQUIRED",
         )
 
     return current_user

@@ -58,8 +58,9 @@ class TestMedienMigration(unittest.TestCase):
         counts = dict(self._q("SELECT kind, count(*) FROM media_categories WHERE name LIKE '%' GROUP BY kind"))
         self.assertGreaterEqual(counts["BOOK"], 7)
         self.assertGreaterEqual(counts["FILM"], 8)
-        books = {r[0] for r in self._q("SELECT name FROM media_categories WHERE kind='BOOK'")}
-        self.assertTrue({"Literatur", "Grammatik", "Zertifikatsbücher", "Wortschatz", "Lektüren", "Prüfungsvorbereitung", "Sonstige Bücher"} <= books)
+        # by slug: at head migration c8d3f5a1e7b2 renames "Sonstige Bücher" -> "Sonstige" and sets three of them inactive (rows and ids stay)
+        books = {r[0] for r in self._q("SELECT slug FROM media_categories WHERE kind='BOOK'")}
+        self.assertTrue({"literatur", "grammatik", "zertifikatsbuecher", "wortschatz", "lektueren", "pruefungsvorbereitung", "sonstige-buecher"} <= books)
         films = {r[0] for r in self._q("SELECT name FROM media_categories WHERE kind='FILM'")}
         self.assertTrue({"Deutsche Filme", "Kurzfilme", "Dokumentationen", "Lernvideos", "Serien", "Prüfungsvorbereitung", "Kinderfilme", "VIZU Originals"} <= films)
         users, books_old = self._q("SELECT count(*) FROM users")[0][0], self._q("SELECT count(*) FROM books")[0][0]

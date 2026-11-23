@@ -63,6 +63,9 @@ async def change_my_password(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
+    if current_user.must_change_password and data.new_password == data.current_password:
+        raise HTTPException(status_code=400, detail="NEW_PASSWORD_SAME")
+
     success = change_password_service(
         db,
         current_user,

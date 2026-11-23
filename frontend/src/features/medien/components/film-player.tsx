@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Captions, Gauge, Keyboard, Languages, Loader2, Maximize2, Minimize2, Pause, PictureInPicture2, Play, RotateCcw, RotateCw, SkipBack, SkipForward, Volume2, VolumeX, X } from "lucide-react";
 
+import { useActivityStore } from "@/features/activity/store/activity-store";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { cn } from "@/lib/utils";
 
@@ -49,6 +50,17 @@ export default function FilmPlayer({ filmId, title, onProgress }: Props) {
   const wasPlaying = useRef(false);
   const prefTimer = useRef<number | null>(null);
   const pendingPrefs = useRef<Partial<SubtitlePrefs>>({});
+
+  // activity heartbeat: watching time = the real playback of this <video> (its own clock; paused = nothing)
+  useEffect(() => {
+    useActivityStore.getState().setMedia({
+      area: "FILM",
+      refId: filmId,
+      getPosition: () => (videoRef.current ? videoRef.current.currentTime : null),
+      isPlaying: () => !!videoRef.current && !videoRef.current.paused && !videoRef.current.ended,
+    });
+    return () => useActivityStore.getState().clearMedia(filmId);
+  }, [filmId]);
 
   const [info, setInfo] = useState<WatchInfo | null>(null);
   const [error, setError] = useState<string | null>(null);

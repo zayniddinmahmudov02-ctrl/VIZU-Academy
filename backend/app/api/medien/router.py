@@ -234,6 +234,15 @@ def play_history(db: Session = Depends(get_db), user: User = Depends(get_current
     return catalog.history(db, user)
 
 
+@router.get("/stats")
+def my_media_stats(response: Response, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    """The caller's own music / book / film statistics (never another user's; rules: app.services.activity.stats)."""
+    from app.services.activity import stats as activity_stats
+
+    response.headers["Cache-Control"] = "private, no-store"
+    return activity_stats.media_overview(db, user)
+
+
 @router.get("/films")
 def films(category: str | None = None, level: str | None = None, q: str | None = Query(default=None, max_length=100), genre: str | None = None,
           access: str | None = None, min_minutes: int | None = Query(default=None, ge=0), max_minutes: int | None = Query(default=None, ge=0),

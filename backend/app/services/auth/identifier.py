@@ -18,8 +18,12 @@ from dataclasses import dataclass
 from email_validator import EmailNotValidError, validate_email
 
 PHONE_EMAIL_DOMAIN = "phone.vizu-deutsch.com"
+# Teacher accounts made in Admin → Team without an e-mail (they log in with the username).
+TEAM_EMAIL_DOMAIN = "team.vizu-deutsch.com"
 # Placeholder domains that can never be registered or typed as a real e-mail.
-RESERVED_EMAIL_DOMAINS = (PHONE_EMAIL_DOMAIN, "telegram.local")
+RESERVED_EMAIL_DOMAINS = (PHONE_EMAIL_DOMAIN, "telegram.local", TEAM_EMAIL_DOMAIN)
+# A teacher username (Admin → Team) — only ever looked up for TEACHER accounts.
+TEACHER_USERNAME = re.compile(r"^[a-z0-9_.-]{3,50}$")
 
 KIND_EMAIL = "email"
 KIND_PHONE = "phone"
