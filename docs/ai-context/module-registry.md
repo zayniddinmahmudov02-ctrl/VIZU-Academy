@@ -369,7 +369,9 @@ Variant N = Modelltest N) in `app/data/multilevel/lesen-keys.json` (6 × 35; the
 V6 Nr. 16–17 and Teil 4–5), script `app/scripts/multilevel_lesen_keys.py` (plan / apply --confirm; Teil 1 a permutation of a–e, Teil 3 seven
 different letters, conflicts refused). The key tool now also takes ORDERING (Teil 1, A1–A5 → a–e) and a third true / false option
 (Lesen Teil 4: a Richtig, b Falsch, c Der Text sagt nichts dazu; Hören true / false has two options and stays a / b / r / f). Scoring unchanged
-(`options.is_correct`); old closed Lesen sections stay unscored (not regraded). Tests `test_multilevel_lesen_keys`, E2E `multilevel-lesen-keys.spec.ts`), assessment engine (`be/api/assessment_engine`), certificates
+(`options.is_correct`). Lesen sections closed before the keys: `app/scripts/multilevel_lesen_regrade.py` (plan runs the real `_grade_auto` +
+`_recompute` and rolls back; apply --confirm --backup-dir writes a JSON row copy first; open sections untouched; idempotent) — run on production
+2026-11-23 for 13 sections of Modelltest 1. Tests `test_multilevel_lesen_keys`, E2E `multilevel-lesen-keys.spec.ts`), assessment engine (`be/api/assessment_engine`), certificates
 (`/certificates`, `/my-certificates`), books (`/books`), homework (`/homeworks`), quizzes, exams, calendar,
 notifications, support, advertisements ("Werbung-Banner"), achievements.
 
