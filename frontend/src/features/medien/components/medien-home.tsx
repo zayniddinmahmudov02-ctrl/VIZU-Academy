@@ -8,6 +8,7 @@ import { useTranslation } from "@/lib/i18n/use-translation";
 
 import { getOverview } from "../services/medien-service";
 import { Cover, PriceTag, SectionTitle, StatusBadge } from "./media-ui";
+import { MedienStatsOverview } from "./medien-stats";
 
 const CARDS = [
   { href: "/medien/bibliothek", key: "library", icon: BookOpen, tone: "from-amber-600/90 via-amber-800 to-stone-950", count: "books" as const, testId: "medien-card-library" },
@@ -29,6 +30,8 @@ export default function MedienHome() {
         <h1 className="mt-2 text-3xl font-extrabold tracking-tight sm:text-5xl" data-testid="medien-title">VIZU MEDIENWELT</h1>
         <p className="mt-3 max-w-xl text-base text-white/80 sm:text-lg">{t("medien.bannerSub")}</p>
       </header>
+
+      <MedienStatsOverview />
 
       <section className="grid gap-4 md:grid-cols-3" aria-label="Medienwelt">
         {CARDS.map(({ href, key, icon: Icon, tone, count, testId }) => (

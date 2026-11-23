@@ -15,14 +15,15 @@ import { useCurrentUser } from "../hooks/use-current-user";
 export default function SessionRedirect() {
   const router = useRouter();
   const { user, loading } = useCurrentUser();
+  const home = user?.role === "SUPER_ADMIN" ? "/admin" : user?.role === "TEACHER" ? "/teacher" : "/dashboard";
   // back/forward to an old /login page while logged in: continue, no stale form
-  useBfcacheAuthRecheck("login", user?.role === "SUPER_ADMIN" ? "/admin" : "/dashboard");
+  useBfcacheAuthRecheck("login", home);
 
   useEffect(() => {
     if (!loading && user) {
-      router.replace(readNextParam() ?? (user.role === "SUPER_ADMIN" ? "/admin" : "/dashboard"));
+      router.replace(readNextParam() ?? home);
     }
-  }, [loading, user, router]);
+  }, [loading, user, router, home]);
 
   return null;
 }

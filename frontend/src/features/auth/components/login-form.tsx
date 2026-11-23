@@ -66,8 +66,8 @@ export default function LoginForm() {
         return;
       }
 
-      // back to the page that sent the visitor to /login (?next=), if any
-      router.replace(readNextParam() ?? "/dashboard");
+      // back to the page that sent the visitor to /login (?next=), if any; a teacher starts in the Teacher Panel
+      router.replace(readNextParam() ?? (payload?.role === "TEACHER" ? "/teacher" : "/dashboard"));
     } catch (error) {
       setFormError(getAuthErrorKey(error, "auth.errInvalidCredentials"));
     }

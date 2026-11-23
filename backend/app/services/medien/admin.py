@@ -214,12 +214,14 @@ def _subtitle_card(s: FilmSubtitle) -> dict:
 
 
 def admin_list(db: Session, kind: str, *, q: str | None = None, status: str | None = None, access: str | None = None, page: int = 1,
-               page_size: int = 30) -> dict:
+               page_size: int = 30, category=None) -> dict:
     model = c.MODELS[kind]
     stmt = select(model)
     if q and q.strip():
         like = f"%{q.strip()}%"
-        stmt = stmt.where(model.title.ilike(like))
+        stmt = stmt.where(model.title.ilike(like) | model.author.ilike(like)) if kind == KIND_BOOK else stmt.where(model.title.ilike(like))
+    if category is not None and hasattr(model, "category_id"):
+        stmt = stmt.where(model.category_id.is_(None) if category == "none" else model.category_id == category)
     if status in STATUSES:
         stmt = stmt.where(model.status == status)
     if access in ACCESS_TYPES:

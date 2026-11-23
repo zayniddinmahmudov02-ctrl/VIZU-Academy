@@ -110,7 +110,8 @@ test.describe.serial("Medienwelt", () => {
     await page.goto("/admin/medien/bibliothek");
     await expect(page.getByTestId("books-admin")).toBeVisible();
     // the starting categories exist; a new one can be created, renamed, hidden
-    for (const name of ["Literatur", "Grammatik", "Zertifikatsbücher", "Wortschatz", "Lektüren", "Prüfungsvorbereitung", "Sonstige Bücher"]) await expect(page.getByTestId("category-chip").filter({ hasText: name }).first()).toBeVisible();
+    // the six Bibliothek categories (migration c8d3f5a1e7b2)
+    for (const name of ["Literatur", "Historisch", "Beruflich", "Sonstige", "Prüfungsvorbereitung", "Wortschatz"]) await expect(page.getByTestId("category-chip").filter({ hasText: name }).first()).toBeVisible();
     await page.getByTestId("category-new-input").fill(`${TAG} Krimi`);
     await page.getByTestId("category-add").click();
     const chip = page.locator(`[data-testid="category-chip"][data-name="${TAG} Krimi"]`);

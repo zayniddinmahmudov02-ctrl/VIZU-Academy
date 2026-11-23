@@ -263,7 +263,7 @@ export const teacherPanelTranslations: T = {
   kActiveDays: { de: "Aktive Tage", uz: "Faol kunlar" },
   kLastLogin: { de: "Letzte Anmeldung", uz: "Oxirgi kirish" },
   kLastActivity: { de: "Letzte Aktivität", uz: "Oxirgi faollik" },
-  kSince: { de: "Zeitmessung seit {date}", uz: "Vaqt {date} dan beri o'lchanadi" },
+  kTrackingSince: { de: "Zeitmessung seit", uz: "Vaqt o'lchash boshlangan sana" },
   kNotYet: { de: "Für diesen Schüler wurde noch keine Zeit gemessen.", uz: "Bu o'quvchi uchun hali vaqt o'lchanmagan." },
   kCourses: { de: "Kurse und Lektionen", uz: "Kurslar va darslar" },
   kStarted: { de: "Begonnen {date}", uz: "{date} da boshlagan" },

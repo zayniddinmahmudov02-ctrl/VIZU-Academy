@@ -13,14 +13,15 @@ Scripts: `dev`, `build`, `start`, `lint`, `test:unit` (node --test `tests/unit/*
   levels, listening, lms, media, media-management (`hoeren-a1`, `a2/lesson-4/hoeren`), mock-exams, modules,
   notifications, page-management, payments, premium-users, settings, speaking, support, teacher-assignments, team,
   users, vizu-multilevel, werbung-banner, writing
-- `teacher/`: groups, schreiben, sprechen, students · `api/admin` (route handlers) · `offline/` (PWA)
+- `teacher/`: dashboard, students (+ `[studentId]`), groups, kurse, unterricht, aufgaben, hausaufgaben, pruefungen (→ schreiben, sprechen), materialien,
+  nachrichten, kontroll (+ `[studentId]`), einstellungen — sidebar shell `components/teacher/teacher-shell.tsx` · `api/admin` (route handlers) · `offline/` (PWA)
 - `(meeting)/video-room/[roomId]`: full-screen group video lesson (client only, own login guard `MeetingGuard`); admin `video-rooms`
 
 ## Code
 | Path | Contents |
 |---|---|
 | `src/services/api.ts` | axios instance (auth header, refresh) |
-| `src/features/<f>/` | `services/` (API), `hooks/`, `components/`, `types/`: auth, profile, lessons, lms, courses, dashboard, vizu-pay, vizu-multilevel, vorbereitung, assessment, global-chat, groups, teacher, notifications, calendar, information, woerterbuch, books, certificates, achievements, support, pwa |
+| `src/features/<f>/` | `services/` (API), `hooks/`, `components/`, `types/`: auth, profile, lessons, lms, courses, dashboard, vizu-pay, vizu-multilevel, vorbereitung, assessment, global-chat, groups, teacher, activity (heartbeat tracker, time formats, stacked day bars), notifications, calendar, information, woerterbuch, books, certificates, achievements, support, pwa |
 | `src/features/admin/` | admin `components/` (certificates, dashboard, language, lesson-results, lesson-skills, lms, lms-course, loesung, managers, media-management, mock-exam, page-management, payments), `services/` (one per area), `constants/endpoints.ts` |
 | `src/components/lesson-player/` | student player per skill: common, grammar, listening, navigation, quiz, reading, results, skill-test, speaking, video, vocabulary, writing |
 | `src/components/lms/` | LMS cards, competency nav/content, audio player, lock, purchase modal |

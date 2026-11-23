@@ -18,6 +18,7 @@ export interface CurrentUserPayload {
   suspended_until: string | null;
   role: string;
   created_at: string;
+  must_change_password?: boolean;
 }
 
 export function mapCurrentUser(data: CurrentUserPayload): CurrentUser {
@@ -37,6 +38,7 @@ export function mapCurrentUser(data: CurrentUserPayload): CurrentUser {
     suspendedUntil: data.suspended_until,
     role: data.role,
     createdAt: data.created_at,
+    mustChangePassword: data.must_change_password === true,
   };
 }
 

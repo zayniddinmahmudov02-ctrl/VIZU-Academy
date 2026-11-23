@@ -1,11 +1,19 @@
 # Database map
 
-Updated 2026-11-21 · source: `backend/app/models/*.py` (`__tablename__`), `backend/alembic/versions/` (109 files).
+Updated 2026-11-23 · source: `backend/app/models/*.py` (`__tablename__`), `backend/alembic/versions/` (110 files).
 PostgreSQL; connection from settings `DATABASE_HOST/PORT/NAME/USER/PASSWORD` (names only).
 
 ## Migrations
 
-- Linear history, one head. **Head = `b7e4c2a9d6f1`** (production too, since 2026-11-21)
+- Linear history, one head. **Head = `c8d3f5a1e7b2`** (production: see `current-state.md`)
+- `c8d3f5a1e7b2` (2026-11-23): Team / Kontroll / activity / Bibliothek categories — additive: `users.must_change_password` (bool, default false);
+  `teacher_profiles` (unique user_id CASCADE, `can_access_student_control` default false, control_changed_at / _by, created_by SET NULL);
+  `student_sessions` (server-credited active time, `day` = Tashkent date, partial unique `uq_student_sessions_open` = one open session per user,
+  `tabs` JSONB); `student_activity_events` (area CHECK COURSE / WORTSCHATZ / MUSIC / FILM / BOOK / EXAM, `ref_id`, seconds, last media `position`,
+  session FK SET NULL). Data: BOOK categories Literatur, Historisch, Beruflich, Sonstige (was "Sonstige Bücher", same slug / id),
+  Prüfungsvorbereitung, Wortschatz in this order; books of Lektüren / Zertifikatsbücher / Grammatik move to Literatur / Prüfungsvorbereitung /
+  Sonstige and those three become inactive (no row deleted). Downgrade drops the tables / column, restores names / order, sets Historisch /
+  Beruflich inactive (`test_team_kontroll_migration`). Rules: `services/activity/tracker.py`, `services/teacher/team.py`.
 - `b7e4c2a9d6f1` (2026-11-21): Group video lessons (LiveKit) — additive: `video_rooms` (group FK CASCADE, `room_name` unique, status CHECK scheduled/live/ended/cancelled, partial unique index `uq_video_rooms_one_live_per_group`, room-wide chat / screen / mic switches), `video_room_participants` (unique room + user, role / connection CHECKs, per-participant mic / screen / chat, hand, removed / blocked), `video_room_events` (column `metadata` JSONB). Downgrade drops exactly these (`test_video_rooms_migration`). The earlier attempt `c1v7d3e9a5b2` was never applied anywhere but locally and its file is deleted (`docs/group-video-lessons.md` §1).
 - `a6c2e8f4b9d1` (2026-11-19): VIZU Battle text questions — additive: new table `battle_questions` (level, kind vocab / grammar, format, topic, prompt, hint, answer, `wrong` JSONB, explanation, `norm_key` unique per level `uq_battle_questions_level_norm_key`, `seed_id` unique, `ref` = asked lemma, status draft / published / disabled, source seed / admin / import, `entry_id` → dictionary_entries SET NULL, created_by / updated_by → users SET NULL, index `ix_battle_questions_pool` (level, status, kind)). Picture tables untouched. Downgrade drops exactly this table (`test_battle_questions_migration`).
 - `f3b9d1a6c4e8` (2026-11-19): Subtitle agents — additive: `film_subtitle_jobs.auto_approve` (boolean, NOT NULL, server default false → old jobs keep making drafts). Downgrade drops exactly this (`test_medien_subtitle_auto_approve_migration`).
@@ -47,7 +55,8 @@ PostgreSQL; connection from settings `DATABASE_HOST/PORT/NAME/USER/PASSWORD` (na
   writings, speakings, media_assets, a2_audio_assets, a2_audio_transcripts, books
 - **Learner activity:** lesson_skill_attempts, ai_evaluations, answer_key_reviews, student_progress, student_writings,
   student_writing_versions (student_writing), vocabulary_user_words (vocabulary), student_speakings, student_quizzes,
-  learning_activity, homeworks, homework_submissions, enrollments, certificates
+  learning_activity, homeworks, homework_submissions, enrollments, certificates, student_sessions + student_activity_events (student_activity:
+  usage time for Medien statistics / Kontroll — never feeds the Lernserie or lesson progress)
 - **Competency of a written task:** `writings.competency` NULL/SCHREIBEN · GRAMMATIK · WORTSCHATZ · LESEN
   (`models/writing.py:writing_competency_filter`).
 - **Quiz/legacy exams:** quizzes, quiz_questions, quiz_options, answers, exams, exam_parts, exam_providers, exam_sessions,
@@ -69,7 +78,7 @@ PostgreSQL; connection from settings `DATABASE_HOST/PORT/NAME/USER/PASSWORD` (na
 - **Community:** global_chat_messages, global_chat_message_edits, global_chat_restrictions, global_chat_moderation_actions,
   global_chat_reads, study_groups, study_group_courses, study_group_members, study_group_join_codes, study_group_messages,
   study_group_announcements, study_group_tasks, study_group_audit_logs,
-  video_rooms, video_room_participants, video_room_events, teacher_assignments
+  video_rooms, video_room_participants, video_room_events, teacher_assignments, teacher_profiles (Kontroll permission)
 - **Engagement/ops:** notifications, broadcast_notifications, broadcast_notification_reads, support_tickets, support_messages,
   advertisements, advertisement_events, achievement_categories, achievements, user_achievements, dictionary_entries,
   dictionary_user_words

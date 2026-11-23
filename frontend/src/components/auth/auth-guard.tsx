@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Loading from "@/components/common/loading";
 import { useBfcacheAuthRecheck } from "@/features/auth/hooks/use-bfcache-auth-recheck";
 import { useCurrentUser } from "@/features/auth/hooks/use-current-user";
+import PasswordChangeGate from "@/features/auth/components/password-change-gate";
 import { getActivePanel } from "@/lib/active-panel";
 import { loginUrl } from "@/lib/auth-redirect";
 
@@ -50,6 +51,8 @@ export default function AuthGuard({ children, requiredRole }: Props) {
       </div>
     );
   }
+
+  if (user?.mustChangePassword) return <PasswordChangeGate />;
 
   return <>{children}</>;
 }

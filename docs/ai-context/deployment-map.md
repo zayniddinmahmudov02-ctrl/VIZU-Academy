@@ -15,8 +15,8 @@ Updated 2026-11-21 · verified on the server 2026-11-21. Procedure: skill `vizu-
 | Frontend slots | `frontend/.next-a` / `.next-b`; active in `frontend/.deploy/active.env` (`NEXT_DIST_DIR`, `NEXT_DEPLOYMENT_ID`), previous in `active.env.prev` |
 | Frontend deploy | `cd frontend && bash scripts/deploy-frontend.sh` (build inactive slot → switch → restart → health) — `docs/deploy-frontend.md` |
 | Private storage | `backend/app/protected_storage/lesson-listening` (Hören audio, 50 files on 2026-10-30) |
-| Backups | `/var/backups/vizu/<name>-<stamp>/` (700): `db.dump`, `db.toc`, `lesson-listening.tar`, `lesson-listening.sha256`, CSV metadata, `SHA256SUMS`, script reports. Latest verified: `/var/backups/vizu/pre-lesen-regrade-20261123-051421` (169-table restore check, 0 differing; JSON row copy of the regraded Lesen attempts, apply report); before: `pre-lesen-keys-20261123-040549` (checksums OK; Lesen key plan / apply report), `pre-student-stats-20261121-154113` |
-| DB | PostgreSQL 16, 169 tables; production Alembic `b7e4c2a9d6f1` (2026-11-21) |
+| Backups | `/var/backups/vizu/<name>-<stamp>/` (700): `db.dump`, `db.toc`, `lesson-listening.tar`, `lesson-listening.sha256`, CSV metadata, `SHA256SUMS`, script reports. Latest verified: `/var/backups/vizu/pre-team-kontroll-20261123-183235` (169-table restore check, 0 differing, SHA256SUMS OK; overlay 22 originals, migration preview, library categories plan / row copy); before: `pre-lesen-regrade-20261123-051421` (JSON row copy of the regraded Lesen attempts), `pre-lesen-keys-20261123-040549`, `pre-student-stats-20261121-154113` |
+| DB | PostgreSQL 16, 172 tables; production Alembic `c8d3f5a1e7b2` (2026-11-23) |
 | Book audio for scripts | `/root/a2-book-audio/` (A2 7. Unterricht Text 2) |
 | Logs | `journalctl -u vizu-backend` / `-u vizu-frontend` / `-u livekit`; known line `SUPER_ADMIN_VERIFICATION_PASSWORD is not set` |
 | Runbooks | `docs/lms-deploy-runbook.md`, `docs/deploy-frontend.md`, reports `docs/a2-production-deployment.md`, `docs/audit/production-deploy-2026-10-29.md` |

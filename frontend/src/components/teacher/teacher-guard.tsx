@@ -7,6 +7,7 @@ import { loginUrl } from "@/lib/auth-redirect";
 
 import { useBfcacheAuthRecheck } from "@/features/auth/hooks/use-bfcache-auth-recheck";
 import { useCurrentUser } from "@/features/auth/hooks/use-current-user";
+import PasswordChangeGate from "@/features/auth/components/password-change-gate";
 
 /** Gate for the entire /teacher route tree — TEACHER or SUPER_ADMIN only
  * (mirrors components/admin/admin-guard.tsx's independent-guard pattern:
@@ -37,6 +38,8 @@ export default function TeacherGuard({ children }: { children: React.ReactNode }
       </div>
     );
   }
+
+  if (user?.mustChangePassword) return <PasswordChangeGate />;
 
   return <>{children}</>;
 }

@@ -19,7 +19,7 @@ export default function ActivityTracker() {
   const { user } = useCurrentUser();
   const pathname = usePathname() ?? "";
   const pathRef = useRef(pathname);
-  const lastInput = useRef(Date.now());
+  const lastInput = useRef(0);
   const tabId = useRef<string>("");
 
   useEffect(() => {
@@ -32,6 +32,7 @@ export default function ActivityTracker() {
   useEffect(() => {
     if (!enabled) return;
     if (!tabId.current) tabId.current = newTabId();
+    lastInput.current = Date.now();
     let lastMove = 0;
     const onInput = (event: Event) => {
       const now = Date.now();

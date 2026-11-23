@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 import { getCategories, getContinue, getFilms, getOverview } from "../services/medien-service";
 import { LEVELS, type FilmCard } from "../types";
 import { Cover, EmptyState, Pager, PriceTag, SectionTitle, StatusBadge, useDebounced } from "./media-ui";
+import { MedienStatsSection } from "./medien-stats";
 
 const PAGE_SIZE = 24;
 const DURATIONS: Record<string, { min_minutes?: number; max_minutes?: number }> = { short: { max_minutes: 30 }, medium: { min_minutes: 30, max_minutes: 90 }, long: { min_minutes: 90 } };
@@ -102,6 +103,8 @@ export default function FilmeClient() {
           <p className="mt-1 text-white/75">{t("medien.filmsDesc")}</p>
         </header>
       )}
+
+      <MedienStatsSection kind="FILM" />
 
       <div className="flex flex-wrap gap-2">
         <label className="relative min-w-[14rem] flex-1"><Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />

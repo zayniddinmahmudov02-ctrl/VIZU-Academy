@@ -228,16 +228,48 @@ API prefixes are listed without `/api/v1` (every router is mounted bare and unde
   itself is never written). UI: `fe/features/admin/components/dashboard/dashboard-student-stats.tsx` (top of `/admin`, refresh every
   minute + on focus, list for SUPER_ADMIN), `student-stats-format.ts` (`1 250`). Tests `test_student_stats`, unit `student-stats.test.mjs`,
   E2E `student-stats.spec.ts`.
+- **Team (2026-11-23, overlay 22):** `/admin/team` = `fe/app/admin/team/page.tsx` + `fe/features/admin/components/team/teacher-dialogs.tsx`,
+  `fe/features/admin/services/team-service.ts`; backend `be/api/admin/team_router.py` (`require_super_admin`) + `be/services/teacher/team.py` (docstring =
+  rules: username 3–50 a–z 0–9 _ . -, unique; optional e-mail else placeholder on `TEAM_EMAIL_DOMAIN` (reserved); password typed (≥ 10, letters +
+  digits) or generated (14, `secrets`), hash only, shown once, must be changed at the first login; Kontroll Ja / Nein default Nein; status /
+  reset end the sessions; group "remove" hands it to the acting admin; every change audit `team_*` = the history). Promoting an existing student
+  (role change) stays on the page.
 - **Frontend:** `fe/app/admin/*` (see frontend-map), `fe/features/admin/{components,services}`, `fe/components/admin/`.
-- **Rules/tests:** see skill `vizu-admin`; `test_page_management`, `test_notifications_support`, `test_advertisement`.
+- **Rules/tests:** see skill `vizu-admin`; `test_page_management`, `test_notifications_support`, `test_advertisement`, `test_team_kontroll_activity`.
 
 ## 13. Teacher Dashboard
 
-- **Backend:** `be/api/teacher/router.py` (`/teacher`, `require_teacher_panel_access` = TEACHER or SUPER_ADMIN),
-  `be/services/teacher/{scope,service,vizu_multilevel_*_review_service}.py`; assignments
+- **Backend:** `be/api/teacher/router.py` (`/teacher`, `require_teacher_panel_access` = TEACHER or SUPER_ADMIN, 403 `PASSWORD_CHANGE_REQUIRED` while
+  `users.must_change_password`), `be/services/teacher/{scope,service,vizu_multilevel_*_review_service}.py`; assignments
   `/admin/teacher-assignments` (`teacher_assignments`).
-- **Frontend:** `fe/app/teacher/{groups,schreiben,sprechen,students}`, `fe/features/teacher/`.
-- **Tests:** `test_teacher_panel_rbac`, `test_teacher_scope`.
+- **Teacher Panel sections (2026-11-23, overlay 22):** `be/api/teacher/panel_router.py` + `be/services/teacher/panel.py` (docstring = the scope rule:
+  groups with `study_groups.teacher_id` = the teacher + assigned courses; students = active members of those groups + active enrollments of the
+  assigned courses, each once; outside → 404): dashboard (Meine Schüler, Meine Gruppen, Aktive Kurse, Unterrichtsstunden = held video lessons,
+  Hausaufgaben = group tasks, Neue Abgaben = new homework of assigned courses; upcoming lessons, group status, recent progress, quick actions),
+  roster + learning profile (groups, courses, lesson progress, homework, exams, results; NO usage / media — that is Kontroll), courses, video
+  lessons, group tasks, materials, group chats, own username. Frontend: sidebar shell `fe/components/teacher/teacher-shell.tsx` (12 sections,
+  phone drawer; Kontroll only with the permission), `teacher-ui.tsx`, pages `fe/app/teacher/{page,students,students/[studentId],kurse,unterricht,aufgaben,
+  hausaufgaben,pruefungen,materialien,nachrichten,kontroll,kontroll/[studentId],einstellungen}`, `fe/features/teacher/{panel-types.ts,services/teacher-panel.service.ts,
+  hooks/use-teacher-me.ts}`, texts namespace `tpanel` (`fe/lib/i18n/activity-translations.ts`). First login of an admin-made teacher:
+  `fe/features/auth/components/password-change-gate.tsx` (in TeacherGuard + AuthGuard); login by username works for TEACHER accounts only
+  (`services/auth/service.get_user_by_identifier`); a teacher lands on `/teacher`.
+- **Kontroll (read only):** `/teacher/kontroll/*` (GET only) behind `require_student_control` (SUPER_ADMIN or `teacher_profiles.can_access_student_control`);
+  list / detail / timeline from `be/services/activity/stats.py` (§ Activity tracking); every opened detail = audit `kontroll_student_viewed`.
+- **Tests:** `test_teacher_panel_rbac`, `test_teacher_scope`, `test_team_kontroll_activity`, E2E `team-kontroll.spec.ts`.
+
+## 13b. Activity tracking (Medien statistics, Kontroll)
+
+- **Rules:** `be/services/activity/tracker.py` docstring — heartbeats every ~30 s only while active (visible + input in the last 2 min) or while a
+  song / film plays; the server credits min(time since the previous heartbeat, 45 s) on its own clock, 0 for the first one and after a pause > 150 s;
+  one open session per user shared by all tabs (no double count), a session never crosses a Tashkent day; contexts COURSE / WORTSCHATZ / EXAM / BOOK
+  (page / reader) and MUSIC / FILM (playing: the reported position must move; item must exist, be published and accessible); only STUDENT accounts;
+  advisory lock per user; `final` on pagehide. Tables `student_sessions`, `student_activity_events` (migration `c8d3f5a1e7b2`). Separate from the
+  Lernserie (`learning_activity`) and lesson progress.
+- **Read side:** `be/services/activity/stats.py` (sources per number in the docstring; plays and opened books also count from before the tracking).
+  `GET /medien/stats` (own), Kontroll list / detail / timeline.
+- **Frontend:** `fe/features/activity/{lib/activity-context.ts,lib/format.ts,components/activity-tracker.tsx,components/activity-bars.tsx,store/activity-store.ts,
+  services/activity-service.ts,types.ts}`; tracker mounted in `components/dashboard/dashboard-layout.tsx`; film player + PDF reader register their item.
+  Unit test `tests/unit/activity-tracking.test.mjs`.
 
 ## 14. Groups & Classroom
 
@@ -485,6 +517,12 @@ notifications, support, advertisements ("Werbung-Banner"), achievements.
   - *Script:* `app/scripts/medien_song_hashes.py` plan / apply --confirm (hash of older songs). *Tests:* `test_medien_bulk_upload` (incl. parallel
     copies; `VIZU_STRESS_500=1` = 500 files, 6 parallel), `test_medien_song_hash_migration`; E2E `medien-bulk-500.spec.ts` (500 files, reload + resume,
     duplicates, lost connection + retry, other admin page meanwhile).
+- **Medien statistics + six Bibliothek categories (2026-11-23, overlay 22):** student `fe/features/medien/components/medien-stats.tsx` — top of `/medien`:
+  Musik gehört / Bücher angesehen / Filme angesehen / Medien-Nutzungszeit, 14 days by area (`ActivityBars`, legend + hover + table), latest items,
+  "Was wird gemessen?" note; each of Musik / Bibliothek / Filme a folded history (songs: plays, time, last; books: page / finished, time; films: progress,
+  continue). Data `GET /medien/stats` (§13b). Categories (migration `c8d3f5a1e7b2`): Literatur, Historisch, Beruflich, Sonstige, Prüfungsvorbereitung,
+  Wortschatz; the books were placed by reading them: `app/scripts/medien_library_categories.py` plan / apply --confirm --backup-dir (ASSIGNMENTS by
+  title + reason; unlisted books keep a fitting category, else Sonstige). Admin book list: category filter (`?category=<id>|none`), search title or author.
 - **Bibliothek bookshelf + book reader (2026-11-19, frontend only):** `bibliothek-client.tsx` = one shelf per category (admin order; books without one → "Weitere Bücher"),
   boards stacked vertically, books per board from the width (`lib/shelf.ts` `shelfColumns`: ≥ 96 px covers on phones, 2–8), covers 2:3 with title + author below the board,
   free / bought / price + lock sign; page size 60. Reader book mode (`book-view.tsx`, maths in `lib/reader-gestures.ts`): page fitted to the screen, previous / current / next

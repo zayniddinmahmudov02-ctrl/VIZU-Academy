@@ -14,4 +14,6 @@ export interface CurrentUser {
   suspendedUntil: string | null;
   role: string;
   createdAt: string;
+  /** admin-created teacher account: an own password must be set first (Admin → Team) */
+  mustChangePassword: boolean;
 }

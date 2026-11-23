@@ -1,6 +1,7 @@
 import { API_URL } from "@/constants/api";
 import { getToken } from "@/src/lib/token";
 import { api } from "@/src/services/api";
+import type { MediaStats } from "@/features/activity/types";
 
 import type {
   BookCard, BookDetail, BookPayment, Category, ContinueItem, CueList, FilmCard, LookupResult, MediaKind, OpenBookInfo, Overview, Page, PaymentInfo, Playlist,
@@ -83,6 +84,11 @@ export async function setFavorite(id: string, on: boolean) {
 }
 export async function getHistory() {
   return (await api.get<SongCard[]>(`${BASE}/history`)).data;
+}
+
+/** The student's own music / book / film statistics (server-measured times). */
+export async function getMediaStats() {
+  return (await api.get<MediaStats>(`${BASE}/stats`)).data;
 }
 
 export async function getPlaylists() {

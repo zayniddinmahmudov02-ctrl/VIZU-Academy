@@ -47,11 +47,12 @@ function BooksPanel() {
   const [q, setQ] = useState("");
   const [status, setStatus] = useState("");
   const [access, setAccess] = useState("");
+  const [category, setCategory] = useState("");
   const [page, setPage] = useState(1);
   const [editing, setEditing] = useState<AdminItem | "new" | null>(null);
   const [deleting, setDeleting] = useState<AdminItem | null>(null);
   const [message, setMessage] = useState<{ ok: boolean; text: string } | null>(null);
-  const books = useQuery({ queryKey: ["admin-medien-books", q, status, access, page], queryFn: () => listItems("BOOK", { q, status, access, page, page_size: PAGE }), placeholderData: (p) => p });
+  const books = useQuery({ queryKey: ["admin-medien-books", q, status, access, category, page], queryFn: () => listItems("BOOK", { q, status, access, category, page, page_size: PAGE }), placeholderData: (p) => p });
   const categories = useQuery({ queryKey: ["admin-medien-categories", "BOOK"], queryFn: () => getCategories("BOOK") });
   const refresh = () => void queryClient.invalidateQueries({ queryKey: ["admin-medien-books"] });
   const patch = useMutation({
@@ -74,7 +75,12 @@ function BooksPanel() {
       {message && <p role="status" className={`mb-4 rounded-xl px-4 py-2.5 text-sm ${message.ok ? "bg-[var(--admin-success)]/10 text-[var(--admin-success)]" : "bg-[var(--admin-danger)]/10 text-[var(--admin-danger)]"}`} data-testid="books-message">{message.text}</p>}
 
       <div className="mb-4 flex flex-wrap gap-2">
-        <AdminInput className="w-64" placeholder="Titel suchen …" value={q} onChange={(e) => { setQ(e.target.value); setPage(1); }} aria-label="Suchen" data-testid="books-search" />
+        <AdminSelect className="w-52" value={category} onChange={(e) => { setCategory(e.target.value); setPage(1); }} aria-label="Kategorie" data-testid="books-filter-category">
+          <option value="">Alle Kategorien</option>
+          {(categories.data ?? []).map((c) => <option key={c.id} value={c.id}>{c.name}{c.is_active === false ? " (inaktiv)" : ""}</option>)}
+          <option value="none">Ohne Kategorie</option>
+        </AdminSelect>
+        <AdminInput className="w-64" placeholder="Titel oder Autor suchen …" value={q} onChange={(e) => { setQ(e.target.value); setPage(1); }} aria-label="Suchen" data-testid="books-search" />
         <AdminSelect className="w-44" value={status} onChange={(e) => { setStatus(e.target.value); setPage(1); }} aria-label="Status" data-testid="books-filter-status"><option value="">Alle Status</option><option value="PUBLISHED">Veröffentlicht</option><option value="DRAFT">Entwurf</option><option value="HIDDEN">Ausgeblendet</option></AdminSelect>
         <AdminSelect className="w-44" value={access} onChange={(e) => { setAccess(e.target.value); setPage(1); }} aria-label="Zugang"><option value="">Kostenlos & kostenpflichtig</option><option value="FREE">Kostenlos</option><option value="PAID">Kostenpflichtig</option></AdminSelect>
       </div>

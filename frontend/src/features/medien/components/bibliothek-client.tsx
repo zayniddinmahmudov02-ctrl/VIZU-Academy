@@ -13,6 +13,7 @@ import { getBooks, getCategories } from "../services/medien-service";
 import { LEVELS, type BookCard } from "../types";
 import { BookBuyButton, MyBookPayments } from "./book-payment";
 import { Cover, EmptyState, formatPrice, Pager, PriceTag, SectionTitle, useDebounced } from "./media-ui";
+import { MedienStatsSection } from "./medien-stats";
 
 const PAGE_SIZE = 60;
 
@@ -151,6 +152,8 @@ export default function BibliothekClient() {
         <h1 className="text-2xl font-extrabold sm:text-4xl">{t("medien.library")}</h1>
         <p className="mt-1 text-white/75">{t("medien.libraryDesc")}</p>
       </header>
+
+      <MedienStatsSection kind="BOOK" />
 
       {!!offers.data?.items.length && (
         <section data-testid="bibliothek-offers">

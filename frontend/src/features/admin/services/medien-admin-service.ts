@@ -183,7 +183,7 @@ export const createCategory = async (kind: "BOOK" | "FILM", name: string) => (aw
 export const updateCategory = async (id: string, data: { name?: string; sort_order?: number; is_active?: boolean }) => (await api.put<AdminCategory>(`${BASE}/categories/${id}`, data)).data;
 export const deleteCategory = async (id: string) => { await api.delete(`${BASE}/categories/${id}`); };
 
-export interface ListQuery { q?: string; status?: string; access?: string; page?: number; page_size?: number }
+export interface ListQuery { q?: string; status?: string; access?: string; page?: number; page_size?: number; category?: string }
 export const listItems = async (kind: Kind, query: ListQuery) =>
   (await api.get<AdminPage>(`${BASE}/${ROUTE[kind]}`, { params: Object.fromEntries(Object.entries(query).filter(([, v]) => v !== "" && v !== undefined)) })).data;
 export const createItem = async (kind: "BOOK" | "FILM", data: ItemInput) => (await api.post<AdminItem>(`${BASE}/${ROUTE[kind]}`, data)).data;

@@ -209,8 +209,11 @@ def delete_category(category_id: UUID, db: Session = Depends(get_db), user: User
 
 @router.get("/books")
 def list_books(q: str | None = None, status: str | None = None, access: str | None = None, page: int = Query(1, ge=1), page_size: int = Query(30, ge=1, le=100),
+               category: str | None = Query(None, pattern=r"^(none|[0-9a-fA-F-]{36})$"),
                db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
-    return svc.admin_list(db, BOOK_KIND, q=q, status=status, access=access, page=page, page_size=page_size)
+    """`category` = a category id, or "none" for books without one (admin filter)."""
+    cat = None if category is None else ("none" if category == "none" else UUID(category))
+    return svc.admin_list(db, BOOK_KIND, q=q, status=status, access=access, page=page, page_size=page_size, category=cat)
 
 
 @router.post("/books")
