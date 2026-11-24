@@ -10,7 +10,8 @@ Users and docs are mostly Uzbek; the admin UI is German.
 - **Frontend** `frontend/`: Next.js 16.2 (App Router, Turbopack), React 19.2, TanStack Query, zustand,
   Tailwind 4, axios. Read `frontend/AGENTS.md` first: this Next.js has breaking changes.
 - **E2E** `e2e/`: Playwright (Chrome, desktop + Pixel 7), against a local stack only.
-- **Mobile** `mobile/`: Capacitor 8 Android shell (`com.vizu.deutsch`) loading the live site; iOS = PWA. JDK/SDK on `D:\Android`.
+- **Mobile** `mobile/`: Capacitor 8 Android shell (`com.vizuacademy.vizudeutsch`, release key `D:\vz_keys`) loading the live site; iOS = PWA.
+  JDK/SDK on `D:\Android`.
 - **Production**: `217.76.62.208:/opt/vizu/VIZU-Academy`, systemd `vizu-backend` / `vizu-frontend`.
 
 ## Layout (where to look first)

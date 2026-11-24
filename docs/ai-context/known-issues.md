@@ -1,6 +1,6 @@
 # Known issues
 
-Updated 2026-11-23. Remove an entry when it is fixed (and note it in `recent-changes.md`).
+Updated 2026-11-24. Remove an entry when it is fixed (and note it in `recent-changes.md`).
 
 | # | Area | Issue | Since | Next step |
 |---|---|---|---|---|
@@ -35,4 +35,5 @@ Updated 2026-11-23. Remove an entry when it is fixed (and note it in `recent-cha
 | 31 | Bibliothek: borderline books | placed by reading them (`medien_library_categories` ASSIGNMENTS): VIZU-Deutsch A1 / A2 / B1 are course books → "Sonstige" (no course-book category among the six); "Ein Hund namens Money" is a story about money (kept in Literatur, Beruflich would also fit) | 2026-11-23 | owner: move a book in Admin → Medien → Bibliothek (category select) if wanted |
 | 32 | Kontroll "wiederholte Wörter" | counts Wörterbuch words seen at least twice in "Random 5" (`dictionary_user_words.seen_count`); repeating a lesson word list is not recorded anywhere, so it is not counted | 2026-11-23 | only if a stricter definition is needed: record lesson-word reviews |
 | 33 | Test DB state | `test_a2_audio_manager::test_readiness_moves_from_configuration_to_ready` fails on the long-lived local `vizu_gcr_test` (an A2 course description + audio files of other runs exist), not related to overlay 22 | 2026-11-23 | run it on a fresh test DB |
-| 20 | Musik on Android | background playback checked in desktop Chromium + Pixel 7 emulation only. Chrome / PWA on Android: plays on with the lock-screen controls (Media Session). The Capacitor app keeps its WebView running in the background (`KeepRunning` default true), so the music goes on there too, but the Android WebView shows no Media Session notification / lock-screen buttons — that would need a native media plugin + a new APK | 2026-11-18 | owner: listen once on a real phone (PWA and APK) with the screen locked |
+| 34 | APK short link and Cloudflare | Cloudflare rewrites the browser cache of `.apk` responses to 4 h (`max-age=14400`, origin sends no-cache). The download button and the update prompt use a versioned URL (`?v=<versionCode>`, overlay 23b), but the stable short link `/downloads/vizu-deutsch.apk` has no version: a browser that downloaded through it shortly before a new release may get the old file from its own cache for up to 4 h | 2026-11-24 | owner: Cloudflare → Caching → Browser Cache TTL "Respect existing headers" (or a cache rule for `/api/v1/app/*`) |
+| 20 | Musik on Android | since app 1.0.0 (2026-11-23) the APK has native lock-screen / notification controls (`MediaSessionPlugin`, media-playback foreground service); on the Android 15 emulator the song plays on in the background and PLAY / PAUSE from the system reach the player. Chrome / PWA on Android use the browser Media Session. Not yet heard on a real phone | 2026-11-18 | owner: listen once on a real phone (APK and PWA) with the screen locked |

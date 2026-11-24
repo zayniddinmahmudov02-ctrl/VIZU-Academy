@@ -358,13 +358,18 @@ See `deployment-map.md`, skill `vizu-deploy`, `docs/deploy-frontend.md`, `docs/l
 
 - **Overview / decisions:** `docs/ai-context/mobile-app-overview.md` (start here; links the other `mobile-*`, `android-capacitor`,
   `ios-pwa`, `apk-release-management` docs).
-- **Android shell:** `mobile/` (Capacitor 8, `com.vizu.deutsch`, loads <https://vizu-deutsch.com>; `MainActivity.java` download
-  listener; icons from `mobile/assets/vizu-mark.svg` via `npm run assets`).
-- **Backend:** `be/api/app_releases/router.py` (`/app`, `/admin/app-releases`), `be/services/app_releases/{apk,service}.py`,
-  table `app_releases`.
-- **Frontend:** `/download` (`fe/app/download`, `fe/features/mobile-app/*`), admin `fe/app/admin/app-management`, update prompt
-  `fe/components/pwa/native-app-update.tsx`, manifest `fe/app/manifest.ts`, service worker `fe/public/sw.js`.
-- **Tests:** `test_app_releases`, `test_app_releases_migration`, unit `mobile-platform.test.mjs`, E2E `mobile-app.spec.ts`.
+- **Android shell:** `mobile/` (Capacitor 8, `com.vizuacademy.vizudeutsch` "VIZU-DEUTSCH" since 2026-11-23, loads <https://vizu-deutsch.com>;
+  `MainActivity.java` download listener + plugins `SecureSessionPlugin` (Keystore-encrypted session, `window.__VIZU_SESSION__`) and
+  `MediaSessionPlugin` / `MediaPlaybackService` (lock-screen music controls); icons from `mobile/assets/vizu-mark.svg` via `npm run assets`).
+  Details `android-capacitor.md`; release key `D:\vz_keys` (owner backup).
+- **Backend:** `be/api/app_releases/router.py` (`/app`, `/admin/app-releases`), `be/services/app_releases/{apk,service}.py` (`check_apk`,
+  `register`), release script `app/scripts/app_release_publish.py` (plan / apply --confirm), table `app_releases`.
+- **Frontend:** `/download` + `/download/android` (`fe/app/download`, `fe/features/mobile-app/*`), `/downloads/vizu-deutsch.apk` redirect,
+  admin `fe/app/admin/app-management`, update prompt `fe/components/pwa/native-app-update.tsx`, back button
+  `fe/components/pwa/native-back-button.tsx`, network banner `network-status.tsx`, session `fe/lib/token.ts`, music bridge
+  `fe/features/medien/hooks/use-native-media.ts`, App Links `fe/public/.well-known/assetlinks.json`, manifest `fe/app/manifest.ts`, SW `fe/public/sw.js`.
+- **Tests:** `test_app_releases`, `test_app_releases_migration`, unit `mobile-platform.test.mjs`, `native-back-button.test.mjs`,
+  E2E `mobile-app.spec.ts`, emulator run `D:\vz_tmp\work\device\device_test.cjs` (`mobile-testing.md`).
 
 ## Other mounted modules (not in the list above)
 

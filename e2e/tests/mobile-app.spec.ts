@@ -42,11 +42,17 @@ test("download page: Android card (coming soon until a release exists), iPhone g
   await expect(page.getByRole("heading", { level: 1 })).toContainText("VIZU DEUTSCH APP");
   await expect(page.getByTestId("download-slogan")).toHaveText("Lerne Deutsch. Überall. Jederzeit.");
   const android = page.getByTestId("download-android");
-  await expect(android).toContainText("VIZU DEUTSCH für Android");
+  await expect(android).toContainText("VIZU-DEUTSCH für Android");
   await expect(android).toContainText("Installiere unsere Android-App direkt auf deinem Smartphone.");
   if (hasRelease) {
     await expect(page.getByTestId("download-apk")).toBeVisible();
   } else {
+    // never a dead button: /download/android says "Bald verfügbar" too
+    const androidPage = await page.context().newPage();
+    await androidPage.goto("/download/android");
+    await expect(androidPage.getByTestId("download-android-soon")).toBeVisible();
+    await expect(androidPage.getByTestId("download-apk")).toHaveCount(0);
+    await androidPage.close();
     await expect(page.getByTestId("download-android-soon")).toBeVisible();
     await expect(page.getByTestId("download-apk")).toHaveCount(0);
     expect((await page.request.get(`${API_URL}/api/v1/app/android/latest.apk`)).status()).toBe(404);
@@ -161,6 +167,40 @@ test("App Management: refuses a debug build, publishes signed releases, version 
   expect(short.headers()["location"]).toContain("/api/v1/app/android/latest.apk");
 });
 
+test("/download/android: icon, version, size, date, compatibility, real APK button, guide in German and Uzbek", async ({ page, isMobile }) => {
+  const latest = await page.request.get(`${API_URL}/api/v1/app/releases/latest`);
+  test.skip(latest.status() !== 200, "needs the published release from the App Management test");
+  const release = await latest.json();
+  await useLanguage(page, "de");
+  await page.goto("/download/android");
+  await expect(page.getByTestId("android-page-title")).toHaveText("VIZU-DEUTSCH Android App");
+  await expect(page.getByTestId("android-app-icon")).toBeVisible();
+  const facts = page.getByTestId("download-android-facts");
+  await expect(facts).toContainText(release.version_name);
+  await expect(facts).toContainText("Android 7.0 oder neuer");
+  await expect(facts).toContainText(/MB|KB/);
+  await expect(facts).toContainText("Veröffentlicht");
+  const href = await page.getByTestId("download-apk").getAttribute("href");
+  const file = await page.request.get(href!);
+  expect(file.status()).toBe(200);
+  expect(file.headers()["content-type"]).toBe("application/vnd.android.package-archive");
+  expect(createHash("sha256").update(await file.body()).digest("hex")).toBe(release.sha256);
+  const de = page.getByTestId("android-guide-de");
+  const uz = page.getByTestId("android-guide-uz");
+  await expect(de.locator("li")).toHaveCount(6);
+  await expect(uz.locator("li")).toHaveCount(6);
+  await expect(de).toContainText("Melde dich mit deinem Login und Passwort an.");
+  await expect(uz).toContainText("APK faylni yuklab oling.");
+  await expect(uz).toContainText("Android talab qilsa, ushbu manbadan o‘rnatishga ruxsat bering.");
+  await expect(uz).toContainText("Login va parolingiz bilan tizimga kiring.");
+  await expect(uz).toContainText("vizu-deutsch.com");
+  // the stable public address of the latest APK
+  const short = await page.request.get("/downloads/vizu-deutsch.apk", { maxRedirects: 0 });
+  expect([307, 308]).toContain(short.status());
+  expect(short.headers()["location"]).toContain("/api/v1/app/android/latest.apk");
+  if (isMobile) await noHorizontalScroll(page);
+});
+
 test("installed Android app 1.0.0 is offered the 1.0.1 update; browsers are not", async ({ page, isMobile }) => {
   test.skip(!isMobile, "runs once, on the phone project");
   const latest = await page.request.get(`${API_URL}/api/v1/app/releases/latest`);
@@ -174,15 +214,16 @@ test("installed Android app 1.0.0 is offered the 1.0.1 update; browsers are not"
     (window as unknown as { Capacitor: unknown }).Capacitor = {
       isNativePlatform: () => true,
       getPlatform: () => "android",
-      Plugins: { App: { getInfo: async () => ({ name: "VIZU DEUTSCH", id: "com.vizu.deutsch", build: "1", version: "1.0.0" }) } },
+      Plugins: { App: { getInfo: async () => ({ name: "VIZU-DEUTSCH", id: "com.vizuacademy.vizudeutsch", build: "1", version: "1.0.0" }) } },
     };
   });
   await page.goto("/");
   const prompt = page.getByTestId("app-update-prompt");
   await expect(prompt).toBeVisible({ timeout: 15_000 });
+  await expect(prompt).toContainText("Eine neue Version von VIZU-DEUTSCH ist verfügbar.");
   await expect(prompt).toContainText("Version 1.0.1 ist da (installiert: 1.0.0)");
   await expect(prompt).toContainText("Neue Battle-Arena");
-  await expect(prompt.getByRole("link", { name: /Update herunterladen/ })).toHaveAttribute("href", /\/api\/v1\/app\/android\/latest\.apk$/);
+  await expect(prompt.getByRole("link", { name: /Update herunterladen/ })).toHaveAttribute("href", /\/api\/v1\/app\/android\/latest\.apk\?v=\d+$/);
   await expect(page.getByTestId("app-download-link")).toHaveCount(0); // already the app: no "download the app" link
   await prompt.getByRole("button", { name: "Später" }).click();
   await expect(prompt).toBeHidden();

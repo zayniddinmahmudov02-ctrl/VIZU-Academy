@@ -277,7 +277,7 @@ class TestReleaseRules(unittest.TestCase):
         self.assertTrue(path.is_file())
         self.db.refresh(latest)
         self.assertEqual(latest.download_count, 1)
-        self.assertEqual(self.service.public_view(latest)["download_url"], "/api/v1/app/android/latest.apk")
+        self.assertEqual(self.service.public_view(latest)["download_url"], f"/api/v1/app/android/latest.apk?v={latest.version_code}")
         self.assertNotIn("storage_name", self.service.public_view(latest))
 
     def test_newer_release_takes_over_and_version_must_grow(self):

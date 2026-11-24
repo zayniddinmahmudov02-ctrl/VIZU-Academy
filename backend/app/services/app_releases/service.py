@@ -55,7 +55,9 @@ def public_view(r: AppRelease) -> dict:
         "platform": r.platform, "version_name": r.version_name, "version_code": r.version_code,
         "min_android_version": r.min_android_version, "release_notes": r.release_notes, "size_bytes": r.size_bytes,
         "sha256": r.sha256, "published_at": r.published_at,
-        "download_url": f"{settings.API_V1_PREFIX}/app/android/latest.apk", "page_url": "/download/android",
+        # ?v= gives every release its own URL: Cloudflare rewrites the browser cache time of .apk responses (4 h), so a plain
+        # latest.apk could come back from a browser cache as the previous version after an update; the endpoint ignores v.
+        "download_url": f"{settings.API_V1_PREFIX}/app/android/latest.apk?v={r.version_code}", "page_url": "/download/android",
     }
 
 
