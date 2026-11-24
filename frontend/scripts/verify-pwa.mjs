@@ -36,33 +36,45 @@ console.log("Manifest");
       assert.ok(src.includes(field), `manifest.ts missing "${field}"`);
     }
   });
-  await check('name is "VIZU Academy", short_name is "VIZU"', () => {
-    assert.ok(/name:\s*"VIZU Academy"/.test(src));
+  await check('name is "VIZU DEUTSCH", short_name is "VIZU"', () => {
+    assert.ok(/name:\s*"VIZU DEUTSCH"/.test(src));
     assert.ok(/short_name:\s*"VIZU"/.test(src));
   });
   await check("display is standalone", () => assert.ok(/display:\s*"standalone"/.test(src)));
   await check("declares a maskable icon purpose", () => assert.ok(src.includes('purpose: "maskable"')));
-  await check("references the generated icon files", () => {
-    for (const f of ["icon-192.png", "icon-512.png", "icon-maskable-512.png"]) {
-      assert.ok(src.includes(f), `manifest.ts doesn't reference ${f}`);
+  await check("references the official logo icons (constants/brand.ts)", () => {
+    for (const k of ["BRAND_ICONS.icon192", "BRAND_ICONS.icon512", "BRAND_ICONS.maskable512"]) {
+      assert.ok(src.includes(k), `manifest.ts doesn't reference ${k}`);
     }
   });
 }
 
-console.log("\nIcons on disk");
+console.log("\nIcons on disk (official logo, made by scripts/generate-brand-assets.py)");
 {
+  const brand = read("src/constants/brand.ts");
   const icons = [
-    ["public/icons/icon-192.png", 192, 192],
-    ["public/icons/icon-512.png", 512, 512],
-    ["public/icons/icon-maskable-512.png", 512, 512],
-    ["public/icons/apple-touch-icon.png", 180, 180],
+    ["public/branding/vizu-logo-original.jpg", 640, 640],
+    ["public/branding/icon-192.png", 192, 192],
+    ["public/branding/icon-512.png", 512, 512],
+    ["public/branding/icon-maskable-192.png", 192, 192],
+    ["public/branding/icon-maskable-512.png", 512, 512],
+    ["public/branding/apple-touch-icon.png", 180, 180],
+    ["public/branding/favicon-32.png", 32, 32],
+    ["public/branding/vizu-logo-64.png", 64, 64],
+    ["public/branding/vizu-logo-128.png", 128, 128],
+    ["public/branding/vizu-logo-256.png", 256, 256],
   ];
+  await check("no old logo files are left (public/icons, src/app/icon.svg)", () => {
+    assert.ok(!existsSync(path.join(root, "public/icons")), "public/icons still exists");
+    assert.ok(!existsSync(path.join(root, "src/app/icon.svg")), "src/app/icon.svg still exists");
+  });
   for (const [rel, w, h] of icons) {
     await check(`${rel} exists at ${w}x${h}`, async () => {
       assert.ok(existsSync(path.join(root, rel)), `${rel} missing`);
       const meta = await sharp(path.join(root, rel)).metadata();
       assert.equal(meta.width, w, `${rel} width`);
       assert.equal(meta.height, h, `${rel} height`);
+      assert.ok(brand.includes(rel.replace("public", "")), `${rel} is not referenced in src/constants/brand.ts`);
     });
   }
 }
@@ -77,7 +89,7 @@ console.log("\nApple / iOS metadata (layout.tsx)");
   await check("manifest is declared exactly once (file convention only, no redundant metadata.manifest)", () => {
     assert.ok(!/manifest:\s*"\/manifest\.webmanifest"/.test(src), "redundant explicit metadata.manifest field found");
   });
-  await check("apple-touch-icon referenced", () => assert.ok(src.includes("apple-touch-icon.png")));
+  await check("apple-touch-icon referenced", () => assert.ok(src.includes("BRAND_ICONS.appleTouch")));
   await check("viewportFit cover (safe-area support)", () => assert.ok(src.includes('viewportFit: "cover"')));
   await check("themeColor set", () => assert.ok(src.includes("themeColor")));
   await check("service worker registration mounted", () => assert.ok(src.includes("ServiceWorkerRegistration")));

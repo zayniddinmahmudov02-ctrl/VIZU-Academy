@@ -1,10 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
 import { LayoutGrid, LogOut, Menu } from "lucide-react";
 
+import { LogoMark } from "@/components/common/logo";
+import { BRAND_NAME } from "@/constants/brand";
 import Avatar from "@/components/ui/avatar";
 import { logoutService } from "@/features/auth/services/auth.service";
 import { CURRENT_USER_QUERY_KEY, useCurrentUser } from "@/features/auth/hooks/use-current-user";
@@ -42,13 +45,20 @@ export default function AdminHeader({ onMenuClick }: Props) {
 
   return (
     <header className="sticky top-0 z-20 flex h-16 items-center justify-between gap-3 border-b border-[var(--admin-border)] bg-[var(--admin-bg)]/95 px-4 backdrop-blur-md sm:px-6">
-      <button
-        onClick={onMenuClick}
-        aria-label="Menü öffnen"
-        className="flex h-9 w-9 items-center justify-center rounded-lg text-[var(--admin-text-secondary)] hover:bg-[var(--admin-hover)] lg:hidden"
-      >
-        <Menu size={18} />
-      </button>
+      <div className="flex items-center gap-2 lg:hidden">
+        <button
+          onClick={onMenuClick}
+          aria-label="Menü öffnen"
+          data-testid="admin-menu-button"
+          className="flex h-9 w-9 items-center justify-center rounded-lg text-[var(--admin-text-secondary)] hover:bg-[var(--admin-hover)]"
+        >
+          <Menu size={18} />
+        </button>
+        {/* official logo in the header where there is no sidebar (phones / tablets) */}
+        <Link href="/admin" aria-label={BRAND_NAME} className="shrink-0" data-testid="admin-header-logo">
+          <LogoMark size={34} decorative />
+        </Link>
+      </div>
 
       <div className="hidden lg:block" />
 

@@ -189,7 +189,7 @@ export default function DownloadView() {
 
         <section className="flex flex-col items-center gap-8 text-center md:flex-row md:items-center md:text-left">
           <div className="flex min-w-0 flex-1 flex-col items-center gap-4 md:items-start">
-            <Logo size={64} showText={false} />
+            <Logo size={72} showText={false} />
             <h1 className="text-3xl font-black tracking-tight sm:text-5xl">
               VIZU <span className="text-[#3984e8]">DEUTSCH</span> <span className="text-[#d4af37]">APP</span>
             </h1>

@@ -1,5 +1,7 @@
 import type { MetadataRoute } from "next";
 
+import { BRAND_ICONS } from "@/constants/brand";
+
 // Next.js App Router convention — auto-served at /manifest.webmanifest
 // with the correct application/manifest+json content type, and the
 // <link rel="manifest"> tag is injected automatically; no manual wiring
@@ -20,25 +22,12 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: "#0e1834",
     background_color: "#0e1834",
     categories: ["education"],
+    // Official logo (constants/brand.ts): "any" = the tile on transparent, "maskable" = the tile inside the safe zone on navy.
     icons: [
-      {
-        src: "/icons/icon-192.png",
-        sizes: "192x192",
-        type: "image/png",
-        purpose: "any",
-      },
-      {
-        src: "/icons/icon-512.png",
-        sizes: "512x512",
-        type: "image/png",
-        purpose: "any",
-      },
-      {
-        src: "/icons/icon-maskable-512.png",
-        sizes: "512x512",
-        type: "image/png",
-        purpose: "maskable",
-      },
+      { src: BRAND_ICONS.icon192, sizes: "192x192", type: "image/png", purpose: "any" },
+      { src: BRAND_ICONS.icon512, sizes: "512x512", type: "image/png", purpose: "any" },
+      { src: BRAND_ICONS.maskable192, sizes: "192x192", type: "image/png", purpose: "maskable" },
+      { src: BRAND_ICONS.maskable512, sizes: "512x512", type: "image/png", purpose: "maskable" },
     ],
   };
 }

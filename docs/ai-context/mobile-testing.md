@@ -19,6 +19,12 @@
   Also checked: PDF reader (needed the pdf.js legacy build on WebView 124) and video playback.
   2026-11-24: the release APK downloaded from `https://vizu-deutsch.com/downloads/vizu-deutsch.apk` (SHA-256 = the built file) installs
   on the emulator (1.0.0 / code 1), opens the live site, and Back on the start page shows the exit hint (no login: no test users on production).
+  After 1.0.1 was published: the installed 1.0.0 showed "Eine neue Version von VIZU-DEUTSCH ist verfügbar." (1.0.1, notes), "Update
+  herunterladen" saved exactly the 1.0.1 file to Downloads (SHA-256 equal), and 1.0.1 installed over 1.0.0 keeps the data (same key);
+  launcher icon + splash show the official logo. The final tap on "Installieren" in the system installer was not automated.
+- Logo E2E `e2e/tests/brand-logo.spec.ts`: public pages, student, teacher, admin at 1440 / 1280 / 820 / 412 / 390 px (desktop project) and Pixel 7:
+  the `/branding` image, square, object-contain, not cut by a container, file ≥ rendered device pixels, no old mark, no side scroll; favicon /
+  apple-touch / manifest icons from `/branding`, old files 404.
   Emulator: `ANDROID_AVD_HOME=D:\Android\.android\avd emulator -avd vizu35 -no-window -gpu swiftshader_indirect`.
 - Not yet checked on real hardware: mic recording + upload in the APK, camera/gallery picker, APK update install over an
   older version, weak devices; iOS Home-Screen install on a real iPhone/iPad (no Apple device here).

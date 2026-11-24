@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, CheckCircle2, Smartphone, Wifi } from "lucide-react";
 
-import Logo from "@/components/common/logo";
+import { LogoMark } from "@/components/common/logo";
 import LanguageSwitcher from "@/components/dashboard/languages/language-switcher";
 import { useRunsAsApp } from "@/features/mobile-app/hooks/use-device";
 import { getLatestRelease } from "@/features/mobile-app/services/app-release-service";
@@ -44,9 +44,9 @@ export default function AndroidDownloadView() {
         </header>
 
         <section className="flex flex-col items-center gap-4 text-center sm:flex-row sm:items-center sm:text-left">
-          {/* the official VIZU mark = the launcher icon of the app */}
-          <span className="grid h-24 w-24 shrink-0 place-items-center rounded-[28px] bg-[#0e1834] shadow-[0_20px_40px_-18px_rgba(0,0,0,0.9)] ring-1 ring-[#d4af37]/40" data-testid="android-app-icon">
-            <Logo size={64} showText={false} />
+          {/* the official logo = the launcher icon of the app (the image is already the icon tile, no extra frame) */}
+          <span className="shrink-0" data-testid="android-app-icon">
+            <LogoMark size={96} />
           </span>
           <div className="min-w-0">
             <h1 className="text-3xl font-black tracking-tight sm:text-4xl" data-testid="android-page-title">{t("mobileApp.androidPageTitle")}</h1>

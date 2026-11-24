@@ -9,7 +9,8 @@ Updated 2026-10-31 · source: directory listing of `backend/`. Module details: `
 | `app/api/<module>/` | routers; `dependencies/` = auth, db, pagination, progress (`require_lesson_access`), section_gate |
 | `app/api/admin/` | admin routers (users, media_management, hoeren_a1, loesung, vizu_pay, videos, books, zertifikate, notifications, page_management, teacher_assignments, team, stats, vizu_multilevel) |
 | `app/api/teacher/panel_router.py`, `app/api/activity/` | Teacher Panel sections + Kontroll (GET only); activity heartbeat |
-| `app/services/activity/` | `tracker.py` (heartbeat crediting rules), `stats.py` (Medien statistics, Kontroll list / detail / timeline) |
+| `app/services/activity/` | `tracker.py` (heartbeat crediting rules), `stats.py` (Kontroll list / detail / timeline; the student's own `/medien/stats` is no longer shown in the UI) |
+| `app/data/branding/vizu-logo.png` | the official logo for the Multilevel certificate PDF (made by `frontend/scripts/generate-brand-assets.py`) |
 | `app/services/teacher/{team,panel}.py` | Team (teacher accounts, Kontroll permission, audit) · Teacher Panel scope and sections |
 | `app/services/<module>/` | business logic; biggest: `lesson_skills/` (admin, skill_tests, results, loesung, exercises, question_types, ai_evaluation, hoeren_pdf_import, levels), `lms/`, `a2_audio/`, `vizu_pay/`, `vizu_multilevel/`, `mock_exam/`, `assessment_engine/`, `global_chat/`, `study_groups/`, `video_rooms/` (group video lessons: `permissions`, `service`, `moderation`, `livekit_service` = the only LiveKit client), `admin/student_stats.py` (the one rule for every student count) |
 | `app/services/ai/` | AI clients (chat, client, feedback, speaking, translation, writing); providers by setting `AI_PROVIDER`, `GEMINI_*`, `OPENAI_*`, `ANTHROPIC_*` |

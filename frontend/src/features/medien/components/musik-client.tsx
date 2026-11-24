@@ -15,7 +15,6 @@ import { currentSong, usePlayerStore } from "../store/player-store";
 import type { Playlist, SongCard } from "../types";
 import { formatTime } from "./global-audio-player";
 import { Cover, EmptyState, Pager, PriceTag, PurchaseButton, SectionTitle, useDebounced } from "./media-ui";
-import { MedienStatsSection } from "./medien-stats";
 
 type Tab = "discover" | "playlists" | "favorites" | "history";
 const PAGE_SIZE = 30;
@@ -200,8 +199,6 @@ export default function MusikClient() {
         <h1 className="flex items-center gap-3 text-2xl font-extrabold sm:text-4xl"><ListMusic /> {t("medien.music")}</h1>
         <p className="mt-1 text-white/75">{t("medien.musicDesc")}</p>
       </header>
-
-      <MedienStatsSection kind="MUSIC" />
 
       <div className="flex flex-wrap items-center gap-2" role="tablist">
         {tabs.map(([id, label]) => (

@@ -18,14 +18,15 @@ Started 2026-11-05. Start here; details live in the linked docs (one fact, one p
 - Same accounts, login, roles, courses, Battle, Wörterbuch, payments, progress. No second backend, DB or auth system.
   In the Android app the session is kept in Keystore-encrypted storage, not in the WebView storage (`mobile-authentication.md`).
 
-## Status (2026-11-23)
+## Status (2026-11-24)
 
 | Part | State | Doc |
 |---|---|---|
 | Android shell `com.vizuacademy.vizudeutsch` "VIZU-DEUTSCH": icons, splash, theme, permissions, downloads | built; 28 / 28 checks on the Android 15 emulator | `android-capacitor.md`, `mobile-testing.md` |
 | Secure session, lock-screen music controls, back button (dialog first, press twice to close), offline banner | built + emulator-tested | `android-capacitor.md` |
-| Release signing | release key created 2026-11-23 (`D:\vz_keys`, owner must back it up); 1.0.0 signed APK + AAB built | `android-capacitor.md` |
-| APK release management (admin upload, release script, download, update prompt) | built + tested; 1.0.0 published on production (see `current-state.md`) | `apk-release-management.md` |
+| Release signing | release key created 2026-11-23 (`mobile/keys/`, gitignored; copy in `D:\vz_keys`; owner must back it up offline); 1.0.0 + 1.0.1 signed APK + AAB built | `android-capacitor.md` |
+| APK release management (admin upload, release script, download, update prompt) | built + tested; 1.0.0 then 1.0.1 (official logo as icon + splash) published on production (see `current-state.md`) | `apk-release-management.md` |
+| Logo / icons | the owner's official logo everywhere (web, favicon, PWA, Android launcher / splash / status bar) since 2026-11-24 | `ios-pwa.md`, `android-capacitor.md` |
 | `/download` + `/download/android` pages, `/downloads/vizu-deutsch.apk` | built + tested | `apk-release-management.md`, `ios-pwa.md` |
 | iOS PWA (manifest, icons, meta, offline) | existing PWA renamed / tuned | `ios-pwa.md` |
 | Push notifications | not built (needs Firebase + Web Push keys) | `mobile-notifications.md` |

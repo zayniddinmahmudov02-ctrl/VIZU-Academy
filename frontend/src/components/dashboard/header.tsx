@@ -1,8 +1,11 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Crown, LogOut, Menu, Search, Settings } from "lucide-react";
 
+import { LogoMark } from "@/components/common/logo";
+import { BRAND_NAME } from "@/constants/brand";
 import Avatar from "@/components/ui/avatar";
 import DropdownMenu from "@/components/ui/dropdown-menu";
 import ThemeToggle from "@/components/ui/theme-toggle";
@@ -35,10 +38,16 @@ export default function Header({ onMenuClick }: Props) {
         <button
           onClick={onMenuClick}
           aria-label={t("header.menuOpen")}
+          data-testid="header-menu"
           className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-surface-card text-text-secondary shadow-[var(--shadow-3d-soft)] ring-1 ring-surface-border transition-all duration-200 hover:-translate-y-px hover:text-accent-blue active:translate-y-0 lg:hidden"
         >
           <Menu size={16} />
         </button>
+
+        {/* Official logo in the header where there is no sidebar (phones / tablets) */}
+        <Link href="/dashboard" aria-label={BRAND_NAME} className="shrink-0 lg:hidden" data-testid="header-logo">
+          <LogoMark size={36} decorative />
+        </Link>
 
         {/* Search */}
         <div className="flex h-11 w-full max-w-sm items-center gap-2.5 rounded-full bg-surface-card px-4 shadow-[var(--shadow-3d-soft)] ring-1 ring-surface-border">

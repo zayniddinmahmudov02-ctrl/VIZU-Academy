@@ -10,17 +10,22 @@ kept exactly as "Director of VIZU-Academy" by design).
 
 Fonts: the PDF standard fonts Times / Helvetica — built into every PDF reader,
 no font files or licences needed, and they render ä ö ü Ä Ö Ü ß. The logo is
-the official VIZU mark (frontend components/common/logo.tsx) redrawn as
-vectors. No QR code, no images, no external calls.
+the official VIZU-DEUTSCH logo image (app/data/branding/vizu-logo.png, made from
+the owner's file by frontend/scripts/generate-brand-assets.py, never redrawn);
+it is the only raster image. Everything else is vectors. No QR code, no external calls.
 """
 
 import io
 import math
 from dataclasses import dataclass
+from functools import lru_cache
+from pathlib import Path
 
 from fastapi.responses import Response
+from PIL import Image
 from reportlab.lib.colors import Color, HexColor, white
 from reportlab.lib.pagesizes import A4, landscape
+from reportlab.lib.utils import ImageReader
 from reportlab.pdfbase.pdfmetrics import stringWidth
 from reportlab.pdfgen.canvas import Canvas
 
@@ -110,46 +115,22 @@ def _fit_size(text: str, font: str, max_width: float, start: float, minimum: flo
     return size
 
 
-def _with_alpha(color: Color, alpha: float) -> Color:
-    # reportlab takes the transparency from the colour object itself, so a
-    # faint drawing needs colours that carry their alpha.
-    return Color(color.red, color.green, color.blue, alpha=alpha)
+LOGO_FILE = Path(__file__).resolve().parents[2] / "data" / "branding" / "vizu-logo.png"
 
 
-def draw_logo(c: Canvas, cx: float, cy: float, size: float, alpha: float = 1.0, background: bool = True) -> None:
-    """The official VIZU mark (logo.tsx, viewBox 0..100) as vectors."""
-    gold, navy, light = (_with_alpha(x, alpha) for x in (GOLD, NAVY, GOLD_LIGHT))
-    c.saveState()
-    if background:
-        c.setFillColor(navy)
-        c.roundRect(cx - size / 2, cy - size / 2, size, size, size * 0.22, stroke=0, fill=1)
-    s = size * 0.7 / 100
-    c.translate(cx - 50 * s, cy + 50 * s)
-    c.scale(s, -s)
-    c.setStrokeColor(_with_alpha(GOLD, 0.35 * alpha))
-    c.setLineWidth(1.5)
-    c.circle(50, 50, 46, stroke=1, fill=0)
-    c.setStrokeColor(gold)
-    c.setLineWidth(2)
-    c.rect(26, 26, 48, 48, stroke=1, fill=0)
-    c.saveState()
-    c.translate(50, 50)
-    c.rotate(45)
-    c.rect(-24, -24, 48, 48, stroke=1, fill=0)
-    c.restoreState()
-    c.setFillColor(gold)
-    for deg in range(0, 360, 45):
-        c.saveState()
-        c.translate(50, 50)
-        c.rotate(deg)
-        c.ellipse(-2.2, -32, 2.2, -20, stroke=0, fill=1)
-        c.restoreState()
-    c.setFillColor(navy if background else _with_alpha(white, alpha))
-    c.setLineWidth(1.5)
-    c.circle(50, 50, 7, stroke=1, fill=1)
-    c.setFillColor(light)
-    c.circle(50, 50, 2.6, stroke=0, fill=1)
-    c.restoreState()
+@lru_cache(maxsize=4)
+def _logo_pixels(alpha_permille: int) -> Image.Image:
+    """The logo (RGBA); below 1000 ‰ its own transparency is scaled down (faint watermark). Cached, never mutated."""
+    img = Image.open(LOGO_FILE).convert("RGBA")
+    if alpha_permille < 1000:
+        img.putalpha(img.getchannel("A").point(lambda v: v * alpha_permille // 1000))
+    return img
+
+
+def draw_logo(c: Canvas, cx: float, cy: float, size: float, alpha: float = 1.0) -> None:
+    """The official VIZU-DEUTSCH logo image, size × size pt, centred on (cx, cy); proportions and colours unchanged."""
+    reader = ImageReader(_logo_pixels(max(1, min(1000, round(alpha * 1000)))))
+    c.drawImage(reader, cx - size / 2, cy - size / 2, width=size, height=size, mask="auto", preserveAspectRatio=True, anchor="c")
 
 
 # ============================================================
@@ -255,7 +236,7 @@ def _corners(c: Canvas, theme: CertificateTheme) -> None:
             c.line(cx, cy + dy * 14, cx, cy + dy * 40)
     elif theme.corners == "rosettes":
         for x, y, dx, dy in _corner_points(30):
-            draw_logo(c, x + dx * 4, y + dy * 4, 30, background=False)
+            draw_logo(c, x + dx * 4, y + dy * 4, 30)
             c.setStrokeColor(GOLD)
             c.setLineWidth(0.6)
             c.line(x + dx * 24, y + dy * 4, x + dx * 90, y + dy * 4)
@@ -314,7 +295,7 @@ def _seal(c: Canvas, theme: CertificateTheme, cx: float, cy: float) -> None:
 
 
 def _watermark(c: Canvas) -> None:
-    draw_logo(c, PAGE_W / 2, PAGE_H / 2 - 10, 300, alpha=0.035, background=False)
+    draw_logo(c, PAGE_W / 2, PAGE_H / 2 - 10, 300, alpha=0.035)
 
 
 # ============================================================

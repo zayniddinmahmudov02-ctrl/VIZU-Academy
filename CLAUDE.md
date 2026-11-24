@@ -10,7 +10,10 @@ Users and docs are mostly Uzbek; the admin UI is German.
 - **Frontend** `frontend/`: Next.js 16.2 (App Router, Turbopack), React 19.2, TanStack Query, zustand,
   Tailwind 4, axios. Read `frontend/AGENTS.md` first: this Next.js has breaking changes.
 - **E2E** `e2e/`: Playwright (Chrome, desktop + Pixel 7), against a local stack only.
-- **Mobile** `mobile/`: Capacitor 8 Android shell (`com.vizuacademy.vizudeutsch`, release key `D:\vz_keys`) loading the live site; iOS = PWA.
+- **Mobile** `mobile/`: Capacitor 8 Android shell (`com.vizuacademy.vizudeutsch`, release key in `mobile/keys/` — gitignored, local only,
+  second copy `D:\vz_keys`) loading the live site; iOS = PWA.
+- **Brand**: the official logo is the owner's file `frontend/public/branding/vizu-logo-original.jpg`; every logo / favicon / app icon is made
+  from it by `frontend/scripts/generate-brand-assets.py` (`fe/constants/brand.ts`, `LogoMark` in `components/common/logo.tsx`). Never draw a logo.
   JDK/SDK on `D:\Android`.
 - **Production**: `217.76.62.208:/opt/vizu/VIZU-Academy`, systemd `vizu-backend` / `vizu-frontend`.
 
@@ -55,7 +58,7 @@ Skills (load only when the task matches): `vizu-lms` (courses, lessons, scoring,
 ## Token rules
 
 1. No full-repo scans. Start from the module entry; search inside named folders only.
-2. Never search `node_modules`, `.next*`, `.venv`, `venv`, `__pycache__`, `protected_storage`, `uploads`, logs.
+2. Never search `node_modules`, `.next*`, `.venv`, `venv`, `__pycache__`, `protected_storage`, `uploads`, logs, `mobile/keys`.
 3. Read large files in ranges (`offset`/`limit`) or grep first; don't re-read a file without a reason.
 4. Show only failures and the final summary of test runs and long commands.
 5. Small task, small context; split big tasks by module.

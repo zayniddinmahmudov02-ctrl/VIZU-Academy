@@ -1,3 +1,6 @@
+/* eslint-disable @next/next/no-img-element -- static brand files in /public/branding with a srcset; next/image would only proxy them again */
+import { BRAND_LOGO, BRAND_NAME } from "@/constants/brand";
+
 type LogoProps = {
   size?: number;
   showText?: boolean;
@@ -8,6 +11,25 @@ type LogoProps = {
   /** Show institute tagline under the logo. */
   tagline?: boolean;
 };
+
+/** The official VIZU-DEUTSCH logo image (constants/brand.ts) at `size` px; never stretched or cropped (square, object-contain). */
+export function LogoMark({ size = 52, className = "", decorative = false }: { size?: number; className?: string; decorative?: boolean }) {
+  return (
+    <img
+      src={BRAND_LOGO.src}
+      srcSet={BRAND_LOGO.srcSet}
+      sizes={`${size}px`}
+      width={size}
+      height={size}
+      alt={decorative ? "" : BRAND_NAME}
+      draggable={false}
+      decoding="async"
+      className={`shrink-0 select-none object-contain drop-shadow-[0_6px_14px_rgba(5,12,30,0.28)] ${className}`}
+      style={{ width: size, height: size }}
+      data-testid="brand-logo"
+    />
+  );
+}
 
 /**
  * VIZU Academy logo
@@ -21,40 +43,11 @@ export default function Logo({
   tagline = false,
 }: LogoProps) {
   const isStack = orientation === "stack";
-  const petals = Array.from({ length: 8 }, (_, i) => i * 45);
 
   return (
     <div className={isStack ? "flex flex-col items-center gap-3" : "flex items-center gap-3"}>
-      {/* Logo */}
-      <div
-        className="relative flex shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-navy-900 via-navy-800 to-navy-700 shadow-lg ring-1 ring-accent-gold/40"
-        style={{ width: size, height: size }}
-      >
-        <svg viewBox="0 0 100 100" className="h-[70%] w-[70%]" fill="none">
-          <circle cx="50" cy="50" r="46" stroke="#d4af37" strokeOpacity=".35" strokeWidth="1.5" />
-
-          <g stroke="#d4af37" strokeWidth="2">
-            <rect x="26" y="26" width="48" height="48" />
-            <rect x="26" y="26" width="48" height="48" transform="rotate(45 50 50)" />
-          </g>
-
-          <g fill="#d4af37">
-            {petals.map((deg) => (
-              <ellipse
-                key={deg}
-                cx="50"
-                cy="24"
-                rx="2.2"
-                ry="6"
-                transform={`rotate(${deg} 50 50)`}
-              />
-            ))}
-          </g>
-
-          <circle cx="50" cy="50" r="7" fill="#0e1834" stroke="#d4af37" strokeWidth="1.5" />
-          <circle cx="50" cy="50" r="2.6" fill="#e4c877" />
-        </svg>
-      </div>
+      {/* Logo: the wordmark below names the brand, so the image is decorative when it is shown */}
+      <LogoMark size={size} decorative={showText} />
 
       {/* Wordmark */}
       {showText && (

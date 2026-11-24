@@ -5,7 +5,7 @@
   "description": "VIZU DEUTSCH Android shell (Capacitor). The UI is the live site https://vizu-deutsch.com; see docs/ai-context/android-capacitor.md.",
   "scripts": {
     "sync": "cap sync android",
-    "assets": "node scripts/generate-assets.mjs",
+    "assets": "python ../frontend/scripts/generate-brand-assets.py",
     "apk:debug": "cd android && gradlew.bat assembleDebug",
     "apk:release": "cd android && gradlew.bat assembleRelease"
   },

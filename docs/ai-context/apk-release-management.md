@@ -35,4 +35,5 @@
 3. Check `/download/android` shows the version and the SHA-256 of `/downloads/vizu-deutsch.apk` matches the file.
 
 Production: 1.0.0 (versionCode 1, 3 289 594 bytes, SHA-256 `96939a72…58574`, signer `EF:1E:4A:05…`) published 2026-11-24 through the
-script (plan `16fb3e19b202`). Public address: `https://vizu-deutsch.com/downloads/vizu-deutsch.apk`.
+script (plan `16fb3e19b202`); **1.0.1** (versionCode 2, 4 378 784 bytes, SHA-256 `0d5ee536…09c5b`, same signer; new launcher icon + splash =
+the official logo) published the same day (plan `14d86c2ac48a`), 1.0.0 kept as history. Public address: `https://vizu-deutsch.com/downloads/vizu-deutsch.apk`.

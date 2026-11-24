@@ -17,7 +17,7 @@
         <item name="android:windowLightStatusBar">false</item>
     </style>
 
-    <!-- Launch: Android 12+ system splash (navy + VIZU mark); older devices show @drawable/splash. -->
+    <!-- Launch: Android 12+ system splash (navy + the official VIZU-DEUTSCH logo); older devices show @drawable/splash. -->
     <style name="AppTheme.NoActionBarLaunch" parent="Theme.SplashScreen">
         <item name="android:background">@drawable/splash</item>
         <item name="windowSplashScreenBackground">@color/vizu_navy</item>

@@ -38,8 +38,11 @@
 // v3 (2026-11-05, VIZU DEUTSCH app): new app name/icons in the manifest and
 // /api/v1/app/* (APK downloads, release metadata) added to the never-cached
 // list — bumping the names makes every installed copy drop its old caches.
-const STATIC_CACHE = "vizu-static-v3";
-const RUNTIME_CACHE = "vizu-runtime-v3";
+// v4 (2026-11-24, official VIZU-DEUTSCH logo): icons moved from /icons/ and
+// /icon.svg to /branding/ and favicon.ico / the manifest changed. The brand
+// files keep their names, so bump again whenever the logo files change.
+const STATIC_CACHE = "vizu-static-v4";
+const RUNTIME_CACHE = "vizu-runtime-v4";
 const OFFLINE_URL = "/offline";
 
 // /api/v1/battle: live match state must never come from a cache when offline.
@@ -93,11 +96,11 @@ function isStaticAsset(url) {
   return (
     url.origin === self.location.origin &&
     (url.pathname.startsWith("/_next/static/") ||
-      url.pathname.startsWith("/icons/") ||
+      url.pathname.startsWith("/branding/") ||
       url.pathname.startsWith("/fonts/") ||
       url.pathname === "/manifest.webmanifest" ||
       url.pathname === "/favicon.ico" ||
-      url.pathname === "/icon.svg")
+      url.pathname === "/favicon.png")
   );
 }
 

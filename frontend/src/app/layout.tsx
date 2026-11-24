@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 
+import { BRAND_ICONS } from "@/constants/brand";
 import QueryProvider from "@/providers/query-provider";
 import LanguageProvider from "@/providers/language-provider";
 import NativeAppUpdate from "@/components/pwa/native-app-update";
@@ -44,9 +45,13 @@ export const metadata: Metadata = {
   other: {
     "apple-mobile-web-app-capable": "yes",
   },
+  // Official logo (constants/brand.ts); /favicon.ico comes from the src/app/favicon.ico file convention.
   icons: {
-    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
-    apple: [{ url: "/icons/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+    icon: [
+      { url: BRAND_ICONS.favicon32, sizes: "32x32", type: "image/png" },
+      { url: BRAND_ICONS.icon192, sizes: "192x192", type: "image/png" },
+    ],
+    apple: [{ url: BRAND_ICONS.appleTouch, sizes: "180x180", type: "image/png" }],
   },
 };
 

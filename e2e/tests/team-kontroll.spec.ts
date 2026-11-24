@@ -176,23 +176,36 @@ test("admin assigns the group and Kontroll; the teacher sees the student once an
   await teacherPage.context().close();
 });
 
-test("the student sees the own Medien statistics with the privacy note", async ({ page, isMobile }) => {
+test("the student sees no Medien statistics (only the note what is measured); Musik, Bibliothek, Filme work", async ({ page, isMobile }) => {
   test.skip(isMobile, "desktop flow");
   await useLanguage(page, "de");
   await loginViaForm(page, STUDENT.email, STUDENT.password);
   await expect(page).toHaveURL(/\/dashboard/, { timeout: 20_000 });
   await page.goto("/medien");
-  await expect(page.getByTestId("medien-stats")).toBeVisible({ timeout: 20_000 });
-  for (const id of ["stat-music", "stat-books", "stat-films", "stat-usage"]) await expect(page.getByTestId(id)).toBeVisible();
-  await expect(page.getByTestId("stat-music")).toContainText("Musik gehört");
-  await expect(page.getByTestId("stat-books")).toContainText("Bücher angesehen");
-  await expect(page.getByTestId("stat-films")).toContainText("Filme angesehen");
-  await page.getByTestId("medien-stats-privacy").locator("summary").click();
-  await expect(page.getByTestId("medien-stats-privacy")).toContainText("Kontroll");
-  await page.goto("/medien/musik");
-  await page.waitForTimeout(1200);
-  await page.getByTestId("medien-section-stats-music-toggle").click();
-  await expect(page.getByTestId("medien-section-stats-music")).toContainText("Du hast noch keine Lieder gehört.");
+  await expect(page.getByTestId("medien-home")).toBeVisible({ timeout: 20_000 });
+  for (const id of ["medien-card-library", "medien-card-music", "medien-card-films"]) await expect(page.getByTestId(id)).toBeVisible();
+  for (const id of ["medien-stats", "medien-stats-chart", "medien-stats-recent", "stat-music", "stat-books", "stat-films", "stat-usage"]) {
+    await expect(page.getByTestId(id)).toHaveCount(0);
+  }
+  for (const text of ["Meine Medien-Statistik", "Musik gehört", "Bücher angesehen", "Filme angesehen", "Medien-Nutzungszeit", "Nutzung der letzten 14 Tage"]) {
+    await expect(page.getByText(text)).toHaveCount(0);
+  }
+  const note = page.getByTestId("medien-tracking-note");
+  await note.locator("summary").click();
+  await expect(note).toContainText("Kontroll");
+  await expect(note).not.toContainText("Statistik siehst du");
+  for (const [path, ready, section] of [["/medien/musik", "musik", "music"], ["/medien/bibliothek", "bibliothek", "book"], ["/medien/filme", "filme", "film"]]) {
+    await page.goto(path);
+    await page.waitForTimeout(1200);
+    await expect(page.getByTestId(ready).first()).toBeVisible({ timeout: 20_000 });
+    await expect(page.getByTestId(`medien-section-stats-${section}`)).toHaveCount(0);
+    await expect(page.getByTestId(`medien-section-stats-${section}-toggle`)).toHaveCount(0);
+  }
+  // the server still measures for Teacher Kontroll: the student's Wortschatz beats of the previous test are there
+  const admin = await apiToken(ADMIN.email, ADMIN.password);
+  const k = await api("GET", `/teacher/kontroll/students?search=${encodeURIComponent(STUDENT.email)}`, admin);
+  expect(k.status).toBe(200);
+  expect(k.json.items[0].usage_seconds).toBeGreaterThanOrEqual(11);
 });
 
 test.describe("Teacher Panel on a phone", () => {

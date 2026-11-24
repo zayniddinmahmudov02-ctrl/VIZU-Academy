@@ -8,7 +8,7 @@ import { useTranslation } from "@/lib/i18n/use-translation";
 
 import { getOverview } from "../services/medien-service";
 import { Cover, PriceTag, SectionTitle, StatusBadge } from "./media-ui";
-import { MedienStatsOverview } from "./medien-stats";
+import { MedienTrackingNote } from "./tracking-note";
 
 const CARDS = [
   { href: "/medien/bibliothek", key: "library", icon: BookOpen, tone: "from-amber-600/90 via-amber-800 to-stone-950", count: "books" as const, testId: "medien-card-library" },
@@ -16,7 +16,8 @@ const CARDS = [
   { href: "/medien/filme", key: "films", icon: Clapperboard, tone: "from-sky-600/90 via-blue-900 to-slate-950", count: "films" as const, testId: "medien-card-films" },
 ];
 
-/** VIZU MEDIENWELT start page: banner, the three worlds, continue reading / watching and the special offers. */
+/** VIZU MEDIENWELT start page: banner, the three worlds, continue reading / watching and the special offers. Students do not see
+ * their own usage statistics (owner, 2026-11-24): the server still measures them for Teacher Kontroll; a folded note says what is measured. */
 export default function MedienHome() {
   const { t } = useTranslation();
   const { data } = useQuery({ queryKey: ["medien-overview"], queryFn: getOverview });
@@ -30,8 +31,6 @@ export default function MedienHome() {
         <h1 className="mt-2 text-3xl font-extrabold tracking-tight sm:text-5xl" data-testid="medien-title">VIZU MEDIENWELT</h1>
         <p className="mt-3 max-w-xl text-base text-white/80 sm:text-lg">{t("medien.bannerSub")}</p>
       </header>
-
-      <MedienStatsOverview />
 
       <section className="grid gap-4 md:grid-cols-3" aria-label="Medienwelt">
         {CARDS.map(({ href, key, icon: Icon, tone, count, testId }) => (
@@ -89,6 +88,8 @@ export default function MedienHome() {
           </div>
         </section>
       )}
+
+      <MedienTrackingNote />
     </div>
   );
 }

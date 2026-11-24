@@ -42,8 +42,8 @@ export const medienStatsTranslations: T = {
   oldPlays: { de: "Wiedergaben und geöffnete Bücher zählen auch von früher.", uz: "Ijrolar va ochilgan kitoblar avvalgi vaqtdan ham hisoblanadi." },
   privacyTitle: { de: "Was wird gemessen?", uz: "Nima hisoblanadi?" },
   privacyText: {
-    de: "Gezählt wird nur die Zeit, in der du wirklich lernst, liest, hörst oder einen Film abspielst – nicht, wenn eine Seite nur offen ist. Deine Statistik siehst du selbst; Administratoren und Lehrkräfte mit der Berechtigung „Kontroll“ können sie zur Lernbegleitung einsehen, aber nicht ändern.",
-    uz: "Faqat haqiqatan o'qiyotgan, kitob o'qiyotgan, musiqa tinglayotgan yoki film ko'rayotgan vaqtingiz hisoblanadi — sahifa shunchaki ochiq turganda emas. Statistikangizni o'zingiz ko'rasiz; administratorlar va «Kontroll» ruxsatiga ega o'qituvchilar uni o'qishingizni kuzatish uchun ko'ra oladi, lekin o'zgartira olmaydi.",
+    de: "Gezählt wird nur die Zeit, in der du wirklich lernst, liest, hörst oder einen Film abspielst – nicht, wenn eine Seite nur offen ist. Administratoren und Lehrkräfte mit der Berechtigung „Kontroll“ können diese Zeiten zur Lernbegleitung einsehen, aber nicht ändern.",
+    uz: "Faqat haqiqatan o'qiyotgan, kitob o'qiyotgan, musiqa tinglayotgan yoki film ko'rayotgan vaqtingiz hisoblanadi — sahifa shunchaki ochiq turganda emas. Administratorlar va «Kontroll» ruxsatiga ega o'qituvchilar bu vaqtlarni o'qishingizni kuzatish uchun ko'ra oladi, lekin o'zgartira olmaydi.",
   },
   show: { de: "Statistik anzeigen", uz: "Statistikani ko'rsatish" },
   hide: { de: "Statistik ausblenden", uz: "Statistikani yashirish" },

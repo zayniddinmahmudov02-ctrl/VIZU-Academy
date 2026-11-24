@@ -113,8 +113,10 @@ backend/var/
 # Private uploads (student recordings, protected audio) — never in git
 backend/app/protected_storage/
 
-# Android signing keys (owner-controlled, never in git)
+# Android signing keys (owner-controlled, never in git): the release key lives in mobile/keys/ (local only)
+mobile/keys/
 *.jks
 *.keystore
+*.dpapi
 keystore.properties
 

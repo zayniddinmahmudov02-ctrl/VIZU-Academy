@@ -81,9 +81,14 @@ test("download page: Android card (coming soon until a release exists), iPhone g
   await noHorizontalScroll(page);
   const manifest = await (await page.request.get("/manifest.webmanifest")).json();
   expect(manifest).toMatchObject({ name: "VIZU DEUTSCH", short_name: "VIZU", start_url: "/", scope: "/", display: "standalone" });
-  expect(manifest.icons.map((i: { sizes: string; purpose: string }) => `${i.sizes}/${i.purpose}`)).toEqual(["192x192/any", "512x512/any", "512x512/maskable"]);
+  expect(manifest.icons.map((i: { sizes: string; purpose: string }) => `${i.sizes}/${i.purpose}`))
+    .toEqual(["192x192/any", "512x512/any", "192x192/maskable", "512x512/maskable"]);
+  for (const icon of manifest.icons as { src: string }[]) {
+    expect(icon.src).toMatch(/^\/branding\//);
+    expect((await page.request.get(icon.src)).status()).toBe(200);
+  }
   const apple = await page.locator('link[rel="apple-touch-icon"]').getAttribute("href");
-  expect(apple).toBe("/icons/apple-touch-icon.png");
+  expect(apple).toBe("/branding/apple-touch-icon.png");
   await expect(page.locator('meta[name="apple-mobile-web-app-capable"]')).toHaveAttribute("content", "yes");
   await expect(page.locator('meta[name="apple-mobile-web-app-title"]')).toHaveAttribute("content", "VIZU DEUTSCH");
   expect(await page.locator('meta[name="viewport"]').getAttribute("content")).toContain("viewport-fit=cover");

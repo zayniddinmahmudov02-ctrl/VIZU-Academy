@@ -85,9 +85,13 @@ class TestPdfAllThemes(unittest.TestCase):
                 self.assertNotIn("Level ", text)
                 # clickable website link
                 self.assertIn(b"/URI (https://vizu-deutsch.com)", raw)
-                # no QR code / no raster images at all
-                self.assertNotIn(b"/Subtype /Image", raw)
-                self.assertNotIn(b"/XObject", raw)
+                # no QR code; the only raster image is the official logo (192 px, + its alpha mask; C1 also the faint watermark)
+                images = re.findall(rb"/Subtype /Image", raw)
+                self.assertTrue(images, "the official logo image is missing")
+                self.assertLessEqual(len(images), 4 if level == "C1" else 2)
+                self.assertEqual(set(re.findall(rb"/Width (\d+)", raw)), {b"192"})
+                self.assertLess(len(raw), 250_000)  # small enough for phones
+                self.assertIn(b"/SMask", raw)  # transparent corners kept
                 self.assertNotIn("QR", text.upper())
 
     def test_umlauts_are_real_winansi_characters(self):

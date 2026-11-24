@@ -240,8 +240,8 @@ export default function AppManagementClient() {
           <dl className="space-y-1 text-sm text-[var(--admin-text-secondary)]">
             <div><dt className="inline text-[var(--admin-text-muted)]">Name: </dt><dd className="inline">VIZU DEUTSCH (Kurzname VIZU)</dd></div>
             <div><dt className="inline text-[var(--admin-text-muted)]">Anzeige: </dt><dd className="inline">standalone, Start /, Farbe #0e1834</dd></div>
-            <div><dt className="inline text-[var(--admin-text-muted)]">Icons: </dt><dd className="inline">192, 512, maskable 512, apple-touch-icon 180</dd></div>
-            <div><dt className="inline text-[var(--admin-text-muted)]">Offline: </dt><dd className="inline">Service Worker v3, Offline-Seite; Login, Zahlungen, Admin, Battle nie aus dem Cache</dd></div>
+            <div><dt className="inline text-[var(--admin-text-muted)]">Icons: </dt><dd className="inline">offizielles Logo (/branding): 192, 512, maskable 192 + 512, apple-touch-icon 180, favicon 16/32/48</dd></div>
+            <div><dt className="inline text-[var(--admin-text-muted)]">Offline: </dt><dd className="inline">Service Worker v4, Offline-Seite; Login, Zahlungen, Admin, Battle nie aus dem Cache</dd></div>
           </dl>
           <p className="mt-3 text-xs text-[var(--admin-text-muted)]">Diese Werte stehen im Code (manifest.ts, sw.js); Änderungen gehen per Deploy.</p>
           <div className="mt-3 flex flex-wrap gap-2">

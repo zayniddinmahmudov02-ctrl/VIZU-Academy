@@ -266,7 +266,8 @@ API prefixes are listed without `/api/v1` (every router is mounted bare and unde
   advisory lock per user; `final` on pagehide. Tables `student_sessions`, `student_activity_events` (migration `c8d3f5a1e7b2`). Separate from the
   Lernserie (`learning_activity`) and lesson progress.
 - **Read side:** `be/services/activity/stats.py` (sources per number in the docstring; plays and opened books also count from before the tracking).
-  `GET /medien/stats` (own), Kontroll list / detail / timeline.
+  Kontroll list / detail / timeline. `GET /medien/stats` (own) still exists but the student UI no longer shows it (owner 2026-11-24:
+  students do not see their media statistics; only Kontroll does).
 - **Frontend:** `fe/features/activity/{lib/activity-context.ts,lib/format.ts,components/activity-tracker.tsx,components/activity-bars.tsx,store/activity-store.ts,
   services/activity-service.ts,types.ts}`; tracker mounted in `components/dashboard/dashboard-layout.tsx`; film player + PDF reader register their item.
   Unit test `tests/unit/activity-tracking.test.mjs`.
@@ -360,8 +361,14 @@ See `deployment-map.md`, skill `vizu-deploy`, `docs/deploy-frontend.md`, `docs/l
   `ios-pwa`, `apk-release-management` docs).
 - **Android shell:** `mobile/` (Capacitor 8, `com.vizuacademy.vizudeutsch` "VIZU-DEUTSCH" since 2026-11-23, loads <https://vizu-deutsch.com>;
   `MainActivity.java` download listener + plugins `SecureSessionPlugin` (Keystore-encrypted session, `window.__VIZU_SESSION__`) and
-  `MediaSessionPlugin` / `MediaPlaybackService` (lock-screen music controls); icons from `mobile/assets/vizu-mark.svg` via `npm run assets`).
-  Details `android-capacitor.md`; release key `D:\vz_keys` (owner backup).
+  `MediaSessionPlugin` / `MediaPlaybackService` (lock-screen music controls); icons / splash = the official logo, written by
+  `frontend/scripts/generate-brand-assets.py`). Details `android-capacitor.md`; release key `mobile/keys/` (gitignored, local only; copy `D:\vz_keys`).
+- **Brand / logo (2026-11-24):** the owner's file `fe/public/branding/vizu-logo-original.jpg` → `frontend/scripts/generate-brand-assets.py`
+  (Pillow; only the canvas around the tile becomes transparent, sizes scaled, never redrawn) → `fe/public/branding/*` (logo 64/128/256/master,
+  favicon-32, apple-touch, PWA any + maskable), `fe/app/favicon.ico`, `fe/public/favicon.png`, `be/app/data/branding/vizu-logo.png`
+  (Multilevel certificate PDF), Android res. Paths in `fe/constants/brand.ts`; UI component `LogoMark` / `Logo` (`fe/components/common/logo.tsx`)
+  in student sidebar + header (< 1024 px) + drawer, teacher sidebar / header / drawer, admin sidebar / header (< 1024 px) / drawer, auth cards,
+  welcome, offline, download pages. E2E `brand-logo.spec.ts` (5 screen sizes + Pixel 7, not stretched / cut / blurry, no old files).
 - **Backend:** `be/api/app_releases/router.py` (`/app`, `/admin/app-releases`), `be/services/app_releases/{apk,service}.py` (`check_apk`,
   `register`), release script `app/scripts/app_release_publish.py` (plan / apply --confirm), table `app_releases`.
 - **Frontend:** `/download` + `/download/android` (`fe/app/download`, `fe/features/mobile-app/*`), `/downloads/vizu-deutsch.apk` redirect,
@@ -522,10 +529,11 @@ notifications, support, advertisements ("Werbung-Banner"), achievements.
   - *Script:* `app/scripts/medien_song_hashes.py` plan / apply --confirm (hash of older songs). *Tests:* `test_medien_bulk_upload` (incl. parallel
     copies; `VIZU_STRESS_500=1` = 500 files, 6 parallel), `test_medien_song_hash_migration`; E2E `medien-bulk-500.spec.ts` (500 files, reload + resume,
     duplicates, lost connection + retry, other admin page meanwhile).
-- **Medien statistics + six Bibliothek categories (2026-11-23, overlay 22):** student `fe/features/medien/components/medien-stats.tsx` — top of `/medien`:
-  Musik gehört / Bücher angesehen / Filme angesehen / Medien-Nutzungszeit, 14 days by area (`ActivityBars`, legend + hover + table), latest items,
-  "Was wird gemessen?" note; each of Musik / Bibliothek / Filme a folded history (songs: plays, time, last; books: page / finished, time; films: progress,
-  continue). Data `GET /medien/stats` (§13b). Categories (migration `c8d3f5a1e7b2`): Literatur, Historisch, Beruflich, Sonstige, Prüfungsvorbereitung,
+- **Medien statistics — removed from the Student Panel (2026-11-24, overlay 24, owner):** the student cards / chart / history of overlay 22
+  (`medien-stats.tsx`) are deleted; Medien shows only Musik, Filme, Bibliothek (+ continue / offers) and at the bottom a folded note
+  "Was wird gemessen?" (`fe/features/medien/components/tracking-note.tsx`, no numbers: time is measured, Kontroll may see it). Measuring and
+  Teacher Kontroll are unchanged (§13b). E2E `team-kontroll.spec.ts` checks both.
+- **Six Bibliothek categories (2026-11-23, overlay 22):** Categories (migration `c8d3f5a1e7b2`): Literatur, Historisch, Beruflich, Sonstige, Prüfungsvorbereitung,
   Wortschatz; the books were placed by reading them: `app/scripts/medien_library_categories.py` plan / apply --confirm --backup-dir (ASSIGNMENTS by
   title + reason; unlisted books keep a fitting category, else Sonstige). Admin book list: category filter (`?category=<id>|none`), search title or author.
 - **Bibliothek bookshelf + book reader (2026-11-19, frontend only):** `bibliothek-client.tsx` = one shelf per category (admin order; books without one → "Weitere Bücher"),
