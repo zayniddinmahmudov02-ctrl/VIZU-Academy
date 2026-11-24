@@ -255,6 +255,10 @@ API prefixes are listed without `/api/v1` (every router is mounted bare and unde
   hooks/use-teacher-me.ts}`, texts namespace `tpanel` (`fe/lib/i18n/activity-translations.ts`). First login of an admin-made teacher:
   `fe/features/auth/components/password-change-gate.tsx` (in TeacherGuard + AuthGuard); login by username works for TEACHER accounts only
   (`services/auth/service.get_user_by_identifier`); a teacher lands on `/teacher`.
+- **Admin who also teaches (2026-11-25, owner):** a SUPER_ADMIN account with `teacher_profiles.teaches` is a Team row ("Admin + Lehrkraft") and a
+  My Teacher teacher; its role and rights never change. Team button "Mein Konto als Lehrkraft" / `PUT|DELETE /admin/team/admin-teachers/{id}`
+  (`team.set_admin_teaches`, audit `team_staff_teacher_added|removed`); status / password / login / Kontroll of that row → 409 `STAFF_ACCOUNT`.
+  Rule in one place: `teacher_market.common.is_teacher` / `teaching_clause`. Production data step: script `team_admin_teaches` (plan / apply).
 - **Kontroll (read only):** `/teacher/kontroll/*` (GET only) behind `require_student_control` (SUPER_ADMIN or `teacher_profiles.can_access_student_control`);
   list / detail / timeline from `be/services/activity/stats.py` (§ Activity tracking); every opened detail = audit `kontroll_student_viewed`.
 - **Tests:** `test_teacher_panel_rbac`, `test_teacher_scope`, `test_team_kontroll_activity`, E2E `team-kontroll.spec.ts`.

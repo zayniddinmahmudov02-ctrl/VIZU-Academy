@@ -11,6 +11,8 @@ export interface TeamOverview {
   without_control: number;
   new: number;
   new_days: number;
+  /** the acting Super Admin's own account is a teacher as well (Team + My Teacher) */
+  self_teaches?: boolean;
 }
 
 export interface TeamTeacher {
@@ -27,6 +29,8 @@ export interface TeamTeacher {
   created_at: string;
   last_login_at: string | null;
   must_change_password: boolean;
+  /** a SUPER_ADMIN account that also teaches: status / password / login / Kontroll are not managed in Team */
+  admin_account?: boolean;
 }
 
 export interface TeamTeacherDetail extends TeamTeacher {
@@ -91,6 +95,12 @@ export async function setTeamStatus(id: string, active: boolean) {
 
 export async function resetTeamPassword(id: string, password?: string) {
   return (await api.post<{ teacher: TeamTeacherDetail; temporary_password: string }>(`${BASE}/teachers/${id}/reset-password`, { password: password || null })).data;
+}
+
+/** A SUPER_ADMIN account also teaches (on) or not any more (off); its role and rights never change. */
+export async function setAdminTeaches(userId: string, on: boolean) {
+  const url = `${BASE}/admin-teachers/${userId}`;
+  return (on ? await api.put(url) : await api.delete(url)).data;
 }
 
 export async function assignTeamGroup(id: string, groupId: string) {

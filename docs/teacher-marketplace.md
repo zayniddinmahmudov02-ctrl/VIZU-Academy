@@ -70,6 +70,17 @@ Video dars, guruh chat, to‘lov, bildirishnoma, audit — mavjud tizimlar qayta
 - LiveKit: mavjud `LIVEKIT_URL`, `LIVEKIT_API_URL`, `LIVEKIT_API_KEY`, `LIVEKIT_API_SECRET` (guruh video darslari bilan bir xil).
 - Admin sozlamasi `app_settings["teacher_market"].course_auto_publish`.
 
+## 5b. Admin ham o‘qituvchi (2026-11-25)
+
+- `SUPER_ADMIN` hisobi rolini o‘zgartirmasdan o‘qituvchi bo‘la oladi: `teacher_profiles.teaches = true` (migratsiya `e2a7c4f9b1d3`).
+  Shunda u Team ro‘yxatida ("Admin + Lehrkraft"), My Teacher katalogida, o‘z kurslari / maxsus darslari bilan chiqadi; admin huquqlari o‘zgarmaydi.
+- Yoqish / o‘chirish: Admin → Team → "Mein Konto als Lehrkraft" (yoki tafsilotda "Nicht mehr als Lehrkraft führen"); production'da birinchi marta
+  `python -m app.scripts.team_admin_teaches plan` → `apply --confirm <id> --backup-dir <dir>`. Har o‘zgarish auditda.
+- Team bu qatorda holat, parol, login va Kontroll'ni o‘zgartirmaydi (409 `STAFF_ACCOUNT`): admin hisobini Team'dan bloklab bo‘lmaydi.
+- O‘qituvchi ma'lumotlari: profil menyusidagi panel almashtirgich → Lehrer-Panel → Mein Profil (`/teacher/profil`). O‘quvchilar soniga admin
+  boshqaradigan guruhlarning o‘quvchilari ham kiradi (u o‘sha guruhlarning o‘qituvchisi).
+- O‘chirilganda hech narsa o‘chmaydi: kurslar / darslar shunchaki taklif qilinmaydi.
+
 ## 6. Onlayn to‘lov (qurilmagan — kerakli ma'lumotlar)
 
 Click / Payme / Uzum ulash uchun egasidan kerak: merchant / service ID, maxfiy kalit, callback (webhook) URL'ini provayder kabinetida ro‘yxatdan

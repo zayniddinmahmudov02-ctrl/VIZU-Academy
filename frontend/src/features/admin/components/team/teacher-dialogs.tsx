@@ -9,7 +9,7 @@ import ConfirmDialog from "@/components/admin/confirm-dialog";
 import FormDialog from "@/components/admin/form-dialog";
 import {
   assignTeamCourse, assignTeamGroup, createTeamTeacher, getTeamChoices, getTeamTeacher, removeTeamCourse, removeTeamGroup, resetTeamPassword,
-  setTeamControl, setTeamStatus, updateTeamTeacher, type TeamTeacherDetail,
+  setAdminTeaches, setTeamControl, setTeamStatus, updateTeamTeacher, type TeamTeacherDetail,
 } from "@/features/admin/services/team-service";
 import { cn } from "@/lib/utils";
 
@@ -23,6 +23,8 @@ const ERRORS: Record<string, string> = {
   GROUP_NOT_FOUND: "Gruppe nicht gefunden.",
   COURSE_NOT_FOUND: "Kurs nicht gefunden.",
   TEACHER_NOT_FOUND: "Lehrkraft nicht gefunden.",
+  STAFF_ACCOUNT: "Admin-Konto: Status, Passwort, Login und Kontroll werden nicht in Team geändert.",
+  ADMIN_ACCOUNT_NOT_FOUND: "Nur ein Super-Admin-Konto kann zusätzlich als Lehrkraft geführt werden.",
 };
 
 export function teamError(err: unknown, fallback = "Die Aktion ist fehlgeschlagen."): string {
@@ -194,6 +196,27 @@ export function TeacherDetailDialog({ teacherId, onClose }: { teacherId: string;
             {error && <p className="rounded-lg bg-[var(--admin-danger)]/10 px-3 py-2 text-sm text-[var(--admin-danger)]" role="alert">{error}</p>}
             {notice && <p className="rounded-lg bg-[var(--admin-accent)]/10 px-3 py-2 text-sm text-[var(--admin-accent)]" role="status" data-testid="team-notice">{notice}</p>}
             <div className="grid gap-4 lg:grid-cols-2">
+              {d.admin_account ? (
+                <>
+                  <Section title="Admin-Konto + Lehrkraft" icon={ShieldCheck}>
+                    <div className="space-y-3 text-sm text-[var(--admin-text-secondary)]" data-testid="detail-admin-account">
+                      <p>Dieses Super-Admin-Konto wird zusätzlich als Lehrkraft geführt (Team, My Teacher). Rolle und Admin-Rechte bleiben;
+                        Status, Passwort, Login und Kontroll werden hier nicht geändert. Kontroll: immer (Super Admin).</p>
+                      <p>Lehrerprofil (Foto 9:16, Erfahrung, Sprachen, Zertifikate), eigene Kurse und Spezialstunden: Lehrer-Panel → Mein Profil.</p>
+                      <div className="flex flex-wrap gap-2">
+                        <a href="/teacher/profil" className="inline-flex h-8 items-center rounded-lg bg-[var(--admin-primary)] px-3 text-xs font-semibold text-white" data-testid="detail-open-profile">
+                          Lehrerprofil öffnen</a>
+                        <AdminButton size="sm" variant="danger" disabled={apply.isPending} data-testid="detail-stop-teaching"
+                                     onClick={() => setConfirm({ title: "Nicht mehr als Lehrkraft führen?", danger: true,
+                                                                 text: "Das Konto verschwindet aus Team und My Teacher; Kurse und Spezialstunden werden nicht mehr angeboten (nichts wird gelöscht). Admin-Rechte bleiben.",
+                                                                 run: async () => { await setAdminTeaches(teacherId, false); onClose(); } })}>
+                          Nicht mehr als Lehrkraft führen</AdminButton>
+                      </div>
+                    </div>
+                  </Section>
+                </>
+              ) : (
+              <>
               <Section title="Profil">
                 {form && (
                   <div className="space-y-2">
@@ -238,6 +261,8 @@ export function TeacherDetailDialog({ teacherId, onClose }: { teacherId: string;
                                                            run: () => resetTeamPassword(teacherId, ownPassword || undefined) })}>Zurücksetzen</AdminButton>
                 </div>
               </Section>
+              </>
+              )}
               <Section title={`Gruppen (${d.groups.length})`}>
                 <ul className="mb-3 space-y-1">
                   {d.groups.length === 0 && <li className="text-sm text-[var(--admin-text-muted)]">Noch keine Gruppen zugewiesen.</li>}

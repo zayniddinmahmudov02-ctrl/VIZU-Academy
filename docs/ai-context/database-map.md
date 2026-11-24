@@ -1,11 +1,13 @@
 # Database map
 
-Updated 2026-11-24 · source: `backend/app/models/*.py` (`__tablename__`), `backend/alembic/versions/` (111 files).
+Updated 2026-11-24 · source: `backend/app/models/*.py` (`__tablename__`), `backend/alembic/versions/` (112 files).
 PostgreSQL; connection from settings `DATABASE_HOST/PORT/NAME/USER/PASSWORD` (names only).
 
 ## Migrations
 
-- Linear history, one head. **Head = `d9e4a1c7b3f5`** (production: see `current-state.md`)
+- Linear history, one head. **Head = `e2a7c4f9b1d3`** (production: see `current-state.md`)
+- `e2a7c4f9b1d3` (2026-11-25): Admin who also teaches — additive: `teacher_profiles.teaches` (bool NOT NULL, server default false; only
+  meaningful for a SUPER_ADMIN account, TEACHER accounts always teach). Downgrade drops the column (`test_admin_teaches_migration`).
 - `d9e4a1c7b3f5` (2026-11-24): My Teacher / Teacher Marketplace — additive: `teacher_profiles` public columns (photo_path, headline, bio,
   experience_years CHECK 0–70, teaching_since, specialization, methodology, exam_prep / languages / levels JSONB, profile_updated_at) + admin flags
   (catalog_hidden, profile_disabled, verified, `verified_at`, `verified_by`) + stored rating (rating_avg Numeric(3,2), rating_count CHECK ≥ 0); new tables

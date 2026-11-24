@@ -1,7 +1,7 @@
 """Shared rules of the My Teacher marketplace.
 
-* A teacher is listed / has a profile only while the account is role TEACHER, active, not banned and the profile is not
-  disabled by a SUPER_ADMIN; `catalog_hidden` keeps the teacher out of the catalog AND the public profile (students get 404).
+* A teacher is listed / has a profile only while the account is role TEACHER (or a SUPER_ADMIN with `teacher_profiles.teaches`,
+  `is_teacher`), active, not banned and the profile is not disabled by a SUPER_ADMIN; `catalog_hidden` keeps the teacher out of the catalog AND the public profile (students get 404).
 * Text fields are trimmed, whitespace-normalised where they are one line, and length-capped; list fields only take values
   from the fixed choices below. Errors are UPPER_SNAKE codes (HTTPException detail).
 * Notifications are rows of the existing notifications table, written in the caller's transaction (`notify`)."""
@@ -10,7 +10,7 @@ from datetime import datetime, timedelta, timezone
 from uuid import UUID, uuid4
 
 from fastapi import HTTPException
-from sqlalchemy import select
+from sqlalchemy import and_, or_, select
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.orm import Session
 
@@ -63,8 +63,21 @@ def require_student(user: User) -> None:
         raise err(403, "STUDENT_ONLY")
 
 
-def teacher_account_ok(user: User | None) -> bool:
-    return user is not None and user.role == UserRole.TEACHER and bool(user.is_active) and not user.is_banned
+def is_teacher(user: User | None, profile: TeacherProfile | None) -> bool:
+    """A teacher by role (TEACHER) or a SUPER_ADMIN who also teaches (`teacher_profiles.teaches`, set in Admin → Team) — whether or
+    not the account is active right now."""
+    if user is None:
+        return False
+    return user.role == UserRole.TEACHER or (user.role == UserRole.SUPER_ADMIN and profile is not None and bool(profile.teaches))
+
+
+def teaching_clause():
+    """SQL form of `is_teacher` for a select of User outer-joined with TeacherProfile."""
+    return or_(User.role == UserRole.TEACHER, and_(User.role == UserRole.SUPER_ADMIN, TeacherProfile.teaches.is_(True)))
+
+
+def teacher_account_ok(user: User | None, profile: TeacherProfile | None = None) -> bool:
+    return is_teacher(user, profile) and bool(user.is_active) and not user.is_banned
 
 
 def profile_of(db: Session, teacher_id, create: bool = False) -> TeacherProfile | None:
@@ -81,12 +94,12 @@ def profile_of(db: Session, teacher_id, create: bool = False) -> TeacherProfile 
 
 def listed(user: User | None, profile: TeacherProfile | None) -> bool:
     """Visible to students: an active teacher account whose profile is neither disabled nor hidden."""
-    return teacher_account_ok(user) and not (profile is not None and (profile.profile_disabled or profile.catalog_hidden))
+    return teacher_account_ok(user, profile) and not (profile is not None and (profile.profile_disabled or profile.catalog_hidden))
 
 
 def bookable(user: User | None, profile: TeacherProfile | None) -> bool:
     """New enrollments / special lessons need an active account and a profile that is not disabled (hidden still teaches)."""
-    return teacher_account_ok(user) and not (profile is not None and profile.profile_disabled)
+    return teacher_account_ok(user, profile) and not (profile is not None and profile.profile_disabled)
 
 
 def one_line(value, field: str, max_len: int, min_len: int = 0, required: bool = False) -> str | None:

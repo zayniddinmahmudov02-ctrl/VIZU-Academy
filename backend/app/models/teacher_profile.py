@@ -7,7 +7,11 @@ SUPER_ADMIN changes it (app.services.teacher.team), every change is written to a
 Public profile (2026-11-24, migration d9e4a1c7b3f5; rules in app.services.teacher_market): the teacher edits photo (9:16 WebP
 made by the server), headline, bio, experience, methodology, exam preparation, languages and levels. Only a SUPER_ADMIN sets
 `catalog_hidden` (not listed in My Teacher), `profile_disabled` (profile and courses closed) and `verified` (Verified Teacher).
-`rating_avg` / `rating_count` are computed by the server from visible reviews (teacher_reviews) and never written by a request."""
+`rating_avg` / `rating_count` are computed by the server from visible reviews (teacher_reviews) and never written by a request.
+
+Admin who also teaches (2026-11-25, migration e2a7c4f9b1d3): `teaches` = True makes a SUPER_ADMIN account a teacher as well (Team list,
+My Teacher catalog, own courses / special lessons) without changing its role; set only through Admin → Team or
+app.scripts.team_staff_teacher (audited)."""
 
 from datetime import datetime
 from decimal import Decimal
@@ -54,6 +58,8 @@ class TeacherProfile(BaseModel):
     verified: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default="false")
     verified_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     verified_by: Mapped[UUID | None] = mapped_column(PGUUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
+    # a SUPER_ADMIN account that also teaches (Team + My Teacher) keeps its role; TEACHER accounts always teach (flag ignored)
+    teaches: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default="false")
 
     # ---- computed by the server from visible reviews ----
     rating_avg: Mapped[Decimal] = mapped_column(Numeric(3, 2), nullable=False, default=0, server_default="0")

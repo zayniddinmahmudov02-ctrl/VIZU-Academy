@@ -21,6 +21,12 @@ from unittest.mock import patch
 from fastapi import HTTPException
 
 DB_URL = os.environ.get("VIZU_WB_TEST_DB_URL")
+
+
+def json_dumps(value) -> str:
+    import json
+
+    return json.dumps(value, default=str)
 HAS_HTTPX = importlib.util.find_spec("httpx") is not None
 LK = {"LIVEKIT_URL": "ws://127.0.0.1:7880", "LIVEKIT_API_URL": "", "LIVEKIT_API_KEY": "vizutestkey",
       "LIVEKIT_API_SECRET": "vizu-test-secret-not-real-0123456789abcdef"}
@@ -254,6 +260,69 @@ class TestIntegration(unittest.TestCase):
         self.assertNotIn("error", result)
         self.assertEqual(result["id"], first_id)
         self.assertEqual(self.db.scalar(select(func.count()).select_from(TeacherProfile).where(TeacherProfile.user_id == teacher.id)), 1)
+
+    def test_admin_who_also_teaches(self):
+        # owner request 2026-11-25: the Super Admin account is admin AND teacher (Team row + My Teacher) without changing its role
+        from app.models.user import User
+        from app.services.teacher import team
+        from app.services.teacher_market import courses, enrollments, profiles
+
+        owner, other = self._user("SUPER_ADMIN", first=f"Owner{self.tag}", last="Admin"), self._user("SUPER_ADMIN")
+        student = self._user()
+        in_catalog = lambda: [i["id"] for i in profiles.catalog(self.db, f"Owner{self.tag}", None, None, None, None, 1, 48)["items"]]  # noqa: E731
+        in_team = lambda: [i["id"] for i in team.list_teachers(self.db, search=f"owner{self.tag}")["items"]]  # noqa: E731
+        self.assertEqual((in_catalog(), in_team()), ([], []))
+        self.assertFalse(team.overview(self.db, viewer=owner)["self_teaches"])
+        draft = courses.create(self.db, owner, {"title": f"Kurs {self.tag}", "level": "A2", "course_type": "FREE", "status": "ANMELDUNG",
+                                                "max_students": 5, "start_date": date.today().isoformat()})
+        self.assertEqual(self._err(courses.submit, self.db, owner, draft["id"]).detail, "NOT_A_TEACHER")
+
+        row = team.set_admin_teaches(self.db, other, owner.id, True, None)
+        self.assertTrue(row["admin_account"] and row["can_access_student_control"])
+        self.assertEqual((in_team(), in_catalog()), ([owner.id], [owner.id]))
+        self.assertTrue(team.overview(self.db, viewer=owner)["self_teaches"])
+        self.db.expire_all()
+        self.assertEqual(self.db.get(User, owner.id).role, "SUPER_ADMIN")  # the role and every admin right stay
+        # Team never locks out or re-keys the admin account
+        for call in (lambda: team.set_status(self.db, other, owner.id, False, None), lambda: team.reset_password(self.db, other, owner.id, None, None),
+                     lambda: team.set_control(self.db, other, owner.id, False, None),
+                     lambda: team.update(self.db, other, owner.id, {"username": f"x{self.tag}"}, None)):
+            with self.assertRaises(HTTPException) as e:
+                call()
+            self.assertEqual(e.exception.status_code, 409)
+            self.db.rollback()
+        self.assertTrue(self.db.get(User, owner.id).is_active)
+        # teaches like any teacher: course approved, a student enrolls, the profile counts the student
+        courses.submit(self.db, owner, draft["id"])
+        courses.admin_review(self.db, other, draft["id"], "approve", None, None)
+        enrollments.enroll_free(self.db, student, draft["id"])
+        self.assertEqual(profiles.public_profile(self.db, student, owner.id)["stats"]["current_students"], 1)
+        self.assertIn(owner.id, [t["id"] for t in profiles.admin_teachers(self.db, f"Owner{self.tag}", None, 1, 50)["items"]])
+        # leaving: no longer listed / bookable, nothing deleted
+        team.set_admin_teaches(self.db, other, owner.id, False, None)
+        self.assertEqual((in_catalog(), in_team()), ([], []))
+        self.assertEqual(self._err(profiles.public_profile, self.db, student, owner.id).detail, "TEACHER_NOT_FOUND")
+        self.assertEqual(len(courses.teacher_list(self.db, owner)), 1)
+        # only a Super Admin account can be flagged
+        self.assertEqual(self._err(team.set_admin_teaches, self.db, other, student.id, True, None).status_code, 404)
+
+    def test_admin_teaches_script_plan_apply(self):
+        import tempfile
+        from pathlib import Path
+
+        from app.scripts import team_admin_teaches as script
+
+        owner = self._user("SUPER_ADMIN")
+        plan = script.build_plan(self.db, str(owner.id))
+        self.assertEqual((plan["teaches"], plan["action"]), (False, "CREATE profile row + SET teaches=true"))
+        self.assertNotIn("@", json_dumps(plan))  # no e-mail in the plan
+        with tempfile.TemporaryDirectory() as tmp:
+            with self.assertRaises(RuntimeError):
+                script.apply_plan(self.db, "wrong", Path(tmp), str(owner.id))
+            out = script.apply_plan(self.db, plan["plan_id"], Path(tmp), str(owner.id))
+            self.assertTrue(out["changed"] and Path(out["backup"]).exists())
+        again = script.build_plan(self.db, str(owner.id))
+        self.assertEqual((again["teaches"], again["action"]), (True, "nothing to do"))
 
     def test_profile_validation_and_rating_is_not_writable(self):
         from app.services.teacher_market import profiles

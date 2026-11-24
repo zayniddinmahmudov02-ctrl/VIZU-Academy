@@ -10,6 +10,9 @@
 * Kontroll permission, status (active / inactive), password reset, groups and courses: SUPER_ADMIN only (the router), every
   change is one audit_logs row (action `team_*`, never a password) and the permission history is read back from there.
   Deactivating or resetting ends the teacher's sessions at once.
+* Admin who also teaches (2026-11-25): a SUPER_ADMIN account with `teacher_profiles.teaches` is a Team row too (badge
+  "Admin + Lehrkraft"): groups and courses as for any teacher; status, password, login and Kontroll are refused (409
+  STAFF_ACCOUNT) — an admin account is never locked out or re-keyed from here. `set_admin_teaches` adds / removes it.
 * Groups: a group always has exactly one teacher (study_groups.teacher_id, changed through the groups service so the
   teacher's member row and the group audit stay right); "remove" hands the group to the acting administrator.
   Courses: teacher_assignments (the existing table, scoping of homework / Schreiben / Sprechen).
@@ -23,7 +26,7 @@ from uuid import UUID
 
 from email_validator import EmailNotValidError, validate_email
 from fastapi import HTTPException
-from sqlalchemy import func, or_, select
+from sqlalchemy import and_, func, or_, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
@@ -45,7 +48,15 @@ GENERATED_LENGTH = 14
 ALPHABET = "".join(c for c in string.ascii_letters + string.digits if c not in "0OIl1")
 NEW_DAYS = 30
 HISTORY_ACTIONS = ("team_teacher_created", "team_teacher_updated", "team_control_changed", "team_status_changed", "team_password_reset",
-                   "team_group_assigned", "team_group_removed", "team_course_assigned", "team_course_removed")
+                   "team_group_assigned", "team_group_removed", "team_course_assigned", "team_course_removed",
+                   "team_staff_teacher_added", "team_staff_teacher_removed")
+# an admin account in Team is managed as an account on the Users page / its own profile, never from Team
+STAFF_ACCOUNT = "STAFF_ACCOUNT: Admin-Konto — Status, Passwort, Login und Kontroll werden hier nicht geändert"
+
+
+def _teaching():
+    """Team rows: TEACHER accounts and SUPER_ADMIN accounts that also teach (`teacher_profiles.teaches`)."""
+    return or_(User.role == UserRole.TEACHER, and_(User.role == UserRole.SUPER_ADMIN, TeacherProfile.teaches.is_(True)))
 
 
 def _now() -> datetime:
@@ -139,8 +150,16 @@ def can_access_control(db: Session, user: User) -> bool:
     return bool(db.scalar(select(TeacherProfile.can_access_student_control).where(TeacherProfile.user_id == user.id)))
 
 
-def _teacher_or_404(db: Session, teacher_id: UUID) -> User:
+def _teacher_or_404(db: Session, teacher_id: UUID, *, account_change: bool = False) -> User:
+    """A Team row: a TEACHER account, or a SUPER_ADMIN that also teaches. `account_change` (status, password, login, Kontroll) is
+    refused for the admin account (409): an admin account must never be locked out or re-keyed from Team."""
     user = db.get(User, teacher_id)
+    if user is not None and user.role == UserRole.SUPER_ADMIN:
+        if not db.scalar(select(TeacherProfile.teaches).where(TeacherProfile.user_id == user.id)):
+            raise _bad("TEACHER_NOT_FOUND", 404)
+        if account_change:
+            raise _bad(STAFF_ACCOUNT, 409)
+        return user
     if user is None or user.role != UserRole.TEACHER:
         raise _bad("TEACHER_NOT_FOUND", 404)
     return user
@@ -163,27 +182,31 @@ def _counts(db: Session, ids: list) -> tuple[dict, dict]:
 
 
 def _item(user: User, prof: TeacherProfile | None, groups: int, courses: int) -> dict:
+    admin = user.role == UserRole.SUPER_ADMIN
     return {"id": user.id, "name": display_name(user), "first_name": user.first_name, "last_name": user.last_name, "username": user.username,
-            "email": None if user.email.endswith("@" + TEAM_EMAIL_DOMAIN) else user.email, "status": _status(user),
-            "can_access_student_control": bool(prof and prof.can_access_student_control), "group_count": groups, "course_count": courses,
+            "email": None if user.email.endswith("@" + TEAM_EMAIL_DOMAIN) else user.email, "status": _status(user), "admin_account": admin,
+            "can_access_student_control": admin or bool(prof and prof.can_access_student_control), "group_count": groups, "course_count": courses,
             "created_at": _aware(user.created_at), "last_login_at": _aware(user.last_login), "must_change_password": user.must_change_password}
 
 
-def overview(db: Session, now: datetime | None = None) -> dict:
+def overview(db: Session, now: datetime | None = None, viewer: User | None = None) -> dict:
     now = now or _now()
-    teacher = User.role == UserRole.TEACHER
-    total, active, new = db.execute(select(func.count(), func.count().filter(User.is_active.is_(True), User.is_banned.is_(False)),
-                                           func.count().filter(User.created_at >= now - timedelta(days=NEW_DAYS))).where(teacher)).one()
-    control = db.scalar(select(func.count()).select_from(User).join(TeacherProfile, TeacherProfile.user_id == User.id)
-                        .where(teacher, TeacherProfile.can_access_student_control.is_(True))) or 0
-    return {"total": total, "active": active, "inactive": total - active, "with_control": control, "without_control": total - control,
-            "new": new, "new_days": NEW_DAYS}
+    base = select(User).outerjoin(TeacherProfile, TeacherProfile.user_id == User.id).where(_teaching()).subquery()
+    total, active, new = db.execute(select(func.count(), func.count().filter(base.c.is_active.is_(True), base.c.is_banned.is_(False)),
+                                           func.count().filter(base.c.created_at >= now - timedelta(days=NEW_DAYS))).select_from(base)).one()
+    control = db.scalar(select(func.count()).select_from(User).join(TeacherProfile, TeacherProfile.user_id == User.id).where(
+        _teaching(), or_(User.role == UserRole.SUPER_ADMIN, TeacherProfile.can_access_student_control.is_(True)))) or 0
+    out = {"total": total, "active": active, "inactive": total - active, "with_control": control, "without_control": total - control,
+           "new": new, "new_days": NEW_DAYS}
+    if viewer is not None:  # the acting Super Admin: is the own account a teacher as well? (the Team page offers to add it)
+        out["self_teaches"] = bool(db.scalar(select(TeacherProfile.teaches).where(TeacherProfile.user_id == viewer.id)))
+    return out
 
 
 def list_teachers(db: Session, *, search: str | None = None, status: str | None = None, control: str | None = None,
                   page: int = 1, page_size: int = 25) -> dict:
     page, page_size = max(1, page), max(1, min(page_size, 100))
-    stmt = select(User, TeacherProfile).outerjoin(TeacherProfile, TeacherProfile.user_id == User.id).where(User.role == UserRole.TEACHER)
+    stmt = select(User, TeacherProfile).outerjoin(TeacherProfile, TeacherProfile.user_id == User.id).where(_teaching())
     if search and search.strip():
         q = "%" + search.strip().lower().replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_") + "%"
         stmt = stmt.where(or_(func.lower(User.username).like(q, escape="\\"), func.lower(User.email).like(q, escape="\\"),
@@ -193,9 +216,9 @@ def list_teachers(db: Session, *, search: str | None = None, status: str | None 
     elif status == "inactive":
         stmt = stmt.where(or_(User.is_active.is_(False), User.is_banned.is_(True)))
     if control == "yes":
-        stmt = stmt.where(TeacherProfile.can_access_student_control.is_(True))
+        stmt = stmt.where(or_(User.role == UserRole.SUPER_ADMIN, TeacherProfile.can_access_student_control.is_(True)))
     elif control == "no":
-        stmt = stmt.where(or_(TeacherProfile.id.is_(None), TeacherProfile.can_access_student_control.is_(False)))
+        stmt = stmt.where(User.role != UserRole.SUPER_ADMIN, or_(TeacherProfile.id.is_(None), TeacherProfile.can_access_student_control.is_(False)))
     total = db.scalar(select(func.count()).select_from(stmt.order_by(None).subquery())) or 0
     rows = db.execute(stmt.order_by(User.created_at.desc()).limit(page_size).offset((page - 1) * page_size)).all()
     groups, courses = _counts(db, [u.id for u, _p in rows])
@@ -246,7 +269,7 @@ def create(db: Session, actor: User, data: dict, ip: str | None) -> tuple[dict, 
 
 
 def update(db: Session, actor: User, teacher_id: UUID, data: dict, ip: str | None) -> dict:
-    user = _teacher_or_404(db, teacher_id)
+    user = _teacher_or_404(db, teacher_id, account_change=True)
     changed = []
     if data.get("full_name") is not None:
         first, last = _split_name(data["full_name"])
@@ -273,7 +296,7 @@ def update(db: Session, actor: User, teacher_id: UUID, data: dict, ip: str | Non
 
 
 def set_control(db: Session, actor: User, teacher_id: UUID, enabled: bool, ip: str | None) -> dict:
-    user = _teacher_or_404(db, teacher_id)
+    user = _teacher_or_404(db, teacher_id, account_change=True)
     prof = profile(db, user)
     if prof.can_access_student_control != enabled:
         prof.can_access_student_control = enabled
@@ -289,7 +312,7 @@ def _end_sessions(db: Session, user: User) -> None:
 
 
 def set_status(db: Session, actor: User, teacher_id: UUID, active: bool, ip: str | None) -> dict:
-    user = _teacher_or_404(db, teacher_id)
+    user = _teacher_or_404(db, teacher_id, account_change=True)
     if user.is_active != active:
         user.is_active = active
         if not active:
@@ -300,7 +323,7 @@ def set_status(db: Session, actor: User, teacher_id: UUID, active: bool, ip: str
 
 
 def reset_password(db: Session, actor: User, teacher_id: UUID, password: str | None, ip: str | None) -> tuple[dict, str]:
-    user = _teacher_or_404(db, teacher_id)
+    user = _teacher_or_404(db, teacher_id, account_change=True)
     value = check_password(password) if password else generate_password()
     user.password_hash = hash_password(value)
     user.must_change_password = True
@@ -359,6 +382,25 @@ def remove_course(db: Session, actor: User, teacher_id: UUID, course_id: UUID, i
     _audit(db, actor, "team_course_removed", user, f"course={course_id} ({course.level} {course.title})" if course else f"course={course_id}", ip)
     db.commit()
     return detail(db, user.id)
+
+
+def set_admin_teaches(db: Session, actor: User, user_id: UUID, teaches: bool, ip: str | None) -> dict:
+    """Admin who also teaches: a SUPER_ADMIN account joins Team / My Teacher (its role and rights stay) or leaves again. Leaving
+    deletes nothing: its courses and lessons simply stop being offered (not listed, not bookable); its groups stay its groups."""
+    user = db.get(User, user_id)
+    if user is None or user.role != UserRole.SUPER_ADMIN:
+        raise _bad("ADMIN_ACCOUNT_NOT_FOUND", 404)
+    row = db.scalar(select(TeacherProfile).where(TeacherProfile.user_id == user.id).with_for_update())
+    if row is None:
+        row = TeacherProfile(user_id=user.id, can_access_student_control=False, created_by=actor.id, teaches=False)
+        db.add(row)
+        db.flush()
+    if row.teaches != teaches:
+        row.teaches = teaches
+        _audit(db, actor, "team_staff_teacher_added" if teaches else "team_staff_teacher_removed", user,
+               "admin account " + ("also teaches (Team + My Teacher)" if teaches else "no longer listed as a teacher"), ip)
+    db.commit()
+    return detail(db, user.id) if teaches else {"id": user.id, "teaches": False}
 
 
 def choices(db: Session) -> dict:

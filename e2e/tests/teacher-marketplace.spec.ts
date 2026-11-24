@@ -354,6 +354,46 @@ test.describe("teacher marketplace", () => {
   });
 });
 
+test("admin + teacher: the Super Admin adds the own account to Team, appears in My Teacher, keeps the admin rights, leaves again", async ({ page, browser }, info) => {
+  test.skip(info.project.name !== "desktop", "desktop only");
+  test.setTimeout(90_000);
+  page.on("dialog", (d) => void d.accept());
+  await adminLogin(page);
+  await page.goto("/admin/team");
+  await page.getByTestId("team-self-teach").click();
+  const detail = page.getByTestId("detail-admin-account");
+  await expect(detail).toBeVisible({ timeout: 15_000 });
+  // an admin account is never locked out or re-keyed from Team
+  await expect(page.getByTestId("toggle-status")).toHaveCount(0);
+  await expect(page.getByTestId("toggle-kontroll")).toHaveCount(0);
+  await expect(page.getByTestId("detail-open-profile")).toHaveAttribute("href", "/teacher/profil");
+  await page.keyboard.press("Escape");
+  await expect(page.getByTestId("team-admin-badge")).toHaveCount(1);
+  await expect(page.getByTestId("team-self-teach")).toHaveCount(0);
+  await page.goto("/admin/lehrer-marktplatz?tab=lehrer");
+  await expect(page.getByTestId("admin-teacher-row").filter({ hasText: "Admin + Lehrkraft" })).toHaveCount(1);
+  await page.goto("/teacher/profil"); // the admin reaches the teacher panel (panel switcher) to fill the teacher data
+  await expect(page.getByTestId("teacher-profile-editor")).toBeVisible({ timeout: 20_000 });
+
+  const sctx = await browser.newContext();
+  const s = await sctx.newPage();
+  await login(s, STUDENT);
+  await s.goto("/my-teacher");
+  await s.getByTestId("catalog-search").fill("Super Admin");
+  await expect(s.getByTestId("teacher-card").filter({ hasText: "Super Admin" })).toHaveCount(1, { timeout: 15_000 });
+
+  await page.goto("/admin/team");
+  await page.getByTestId("team-admin-badge").locator("xpath=..").getByTestId("team-open").click();
+  await page.getByTestId("detail-stop-teaching").click();
+  await page.getByTestId("confirm-dialog-confirm").click();
+  await expect(page.getByTestId("team-admin-badge")).toHaveCount(0, { timeout: 15_000 });
+  await expect(page.getByTestId("team-self-teach")).toBeVisible();
+  await s.reload();
+  await s.getByTestId("catalog-search").fill("Super Admin");
+  await expect(s.getByTestId("teacher-card").filter({ hasText: "Super Admin" })).toHaveCount(0, { timeout: 15_000 });
+  await sctx.close();
+});
+
 test("phone: catalog and profile fit the screen", async ({ page }, info) => {
   test.skip(info.project.name !== "mobile", "phone layout only");
   await login(page, STUDENT);

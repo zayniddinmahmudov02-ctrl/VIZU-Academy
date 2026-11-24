@@ -280,6 +280,7 @@ export const marketTranslations: T = {
   err_NOT_FOUND: { de: "Nicht gefunden.", uz: "Topilmadi." },
   err_TEACHER_NOT_FOUND: { de: "Diese Lehrkraft gibt es nicht (mehr) im Katalog.", uz: "Bu o'qituvchi katalogda topilmadi." },
   err_PROFILE_DISABLED: { de: "Dieses Profil wurde von der Verwaltung deaktiviert.", uz: "Bu profil ma'muriyat tomonidan o'chirilgan." },
+  err_NOT_A_TEACHER: { de: "Dieses Konto ist noch nicht als Lehrkraft eingetragen (Admin → Team → „Mein Konto als Lehrkraft“).", uz: "Bu hisob hali o'qituvchi sifatida qo'shilmagan (Admin → Team → «Mein Konto als Lehrkraft»)." },
   err_LANGUAGE_INVALID: { de: "Unbekannte Sprache.", uz: "Noma'lum til." },
   err_LEVEL_INVALID: { de: "Unbekanntes Niveau.", uz: "Noma'lum daraja." },
   err_EXPERIENCE_INVALID: { de: "Berufserfahrung: 0 bis 70 Jahre.", uz: "Ish tajribasi: 0 dan 70 yilgacha." },

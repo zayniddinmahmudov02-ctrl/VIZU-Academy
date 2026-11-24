@@ -299,7 +299,10 @@ def submit(db: Session, teacher: User, course_id) -> dict:
     course = _own(db, teacher, course_id, lock=True)
     if course.approval_status not in (APPROVAL_DRAFT, APPROVAL_REJECTED, APPROVAL_UNPUBLISHED):
         raise c.err(409, "COURSE_NOT_SUBMITTABLE")
-    if not c.bookable(teacher, c.profile_of(db, teacher.id)):
+    profile = c.profile_of(db, teacher.id)
+    if not c.is_teacher(teacher, profile):  # a Super Admin who is not (yet) listed as a teacher in Admin → Team
+        raise c.err(409, "NOT_A_TEACHER")
+    if not c.bookable(teacher, profile):
         raise c.err(409, "PROFILE_DISABLED")
     course.submitted_at, course.reject_reason = c.now(), None
     if c.get_settings(db)["course_auto_publish"]:

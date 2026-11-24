@@ -78,7 +78,7 @@ def catalog(db: Session, q: str | None, language: str | None, level: str | None,
             page: int, page_size: int) -> dict:
     page, page_size = max(1, page), max(1, min(MAX_PAGE, page_size))
     stmt = (select(User, TeacherProfile).outerjoin(TeacherProfile, TeacherProfile.user_id == User.id)
-            .where(User.role == UserRole.TEACHER, User.is_active.is_(True), User.is_banned.is_(False),
+            .where(c.teaching_clause(), User.is_active.is_(True), User.is_banned.is_(False),
                    func.coalesce(TeacherProfile.profile_disabled, False).is_(False), func.coalesce(TeacherProfile.catalog_hidden, False).is_(False)))
     if q and q.strip():
         like = "%" + q.strip().replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_") + "%"
@@ -144,7 +144,8 @@ def public_profile(db: Session, viewer: User, teacher_id) -> dict:
     teacher = db.get(User, c.parse_uuid(teacher_id))
     profile = c.profile_of(db, teacher.id) if teacher is not None else None
     staff = viewer.role in (UserRole.SUPER_ADMIN, UserRole.ADMIN)
-    if teacher is None or not (c.listed(teacher, profile) or (staff and c.teacher_account_ok(teacher)) or viewer.id == teacher.id):
+    if teacher is None or not (c.listed(teacher, profile) or (staff and c.teacher_account_ok(teacher, profile))
+                               or (viewer.id == teacher.id and c.is_teacher(teacher, profile))):
         raise c.err(404, "TEACHER_NOT_FOUND")
     return _profile_body(db, teacher, profile, viewer, own=False)
 
@@ -218,7 +219,7 @@ def remove_photo(db: Session, teacher: User) -> dict:
 
 def admin_teachers(db: Session, q: str | None, flag: str | None, page: int, page_size: int) -> dict:
     page, page_size = max(1, page), max(1, min(100, page_size))
-    stmt = select(User, TeacherProfile).outerjoin(TeacherProfile, TeacherProfile.user_id == User.id).where(User.role == UserRole.TEACHER)
+    stmt = select(User, TeacherProfile).outerjoin(TeacherProfile, TeacherProfile.user_id == User.id).where(c.teaching_clause())
     if q and q.strip():
         like = "%" + q.strip().replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_") + "%"
         stmt = stmt.where(or_(User.first_name.ilike(like), User.last_name.ilike(like), User.username.ilike(like)))
@@ -242,6 +243,7 @@ def admin_teachers(db: Session, q: str | None, flag: str | None, page: int, page
     for u, p in rows:
         items.append({
             "id": u.id, "name": c.display_name(u), "username": u.username, "photo_url": p.photo_path if p else None,
+            "admin_account": u.role == UserRole.SUPER_ADMIN,
             "account_active": bool(u.is_active) and not u.is_banned, "catalog_hidden": bool(p and p.catalog_hidden),
             "profile_disabled": bool(p and p.profile_disabled), "verified": bool(p and p.verified),
             "listed": c.listed(u, p), "rating_avg": float(p.rating_avg) if p else 0.0, "rating_count": p.rating_count if p else 0,
@@ -254,7 +256,7 @@ def admin_teachers(db: Session, q: str | None, flag: str | None, page: int, page
 
 def admin_update_teacher(db: Session, admin: User, teacher_id, data: dict, ip: str | None) -> dict:
     teacher = db.get(User, c.parse_uuid(teacher_id))
-    if teacher is None or teacher.role != UserRole.TEACHER:
+    if teacher is None or not c.is_teacher(teacher, c.profile_of(db, teacher.id)):
         raise c.err(404, "TEACHER_NOT_FOUND")
     p = c.profile_of(db, teacher.id, create=True)
     changes = []
@@ -277,10 +279,10 @@ def admin_update_teacher(db: Session, admin: User, teacher_id, data: dict, ip: s
 
 
 def admin_counts(db: Session) -> dict:
-    teachers = select(User.id).where(User.role == UserRole.TEACHER)
+    teachers = select(User.id).outerjoin(TeacherProfile, TeacherProfile.user_id == User.id).where(c.teaching_clause())
     hidden = db.scalar(select(func.count()).select_from(TeacherProfile).where(TeacherProfile.user_id.in_(teachers), or_(
         TeacherProfile.catalog_hidden.is_(True), TeacherProfile.profile_disabled.is_(True)))) or 0
-    total = db.scalar(select(func.count()).select_from(User).where(User.role == UserRole.TEACHER)) or 0
+    total = db.scalar(select(func.count()).select_from(teachers.subquery())) or 0
     verified = db.scalar(select(func.count()).select_from(TeacherProfile).where(TeacherProfile.user_id.in_(teachers),
                                                                                   TeacherProfile.verified.is_(True))) or 0
     pending_certs = db.scalar(select(func.count()).select_from(TeacherCertificate).where(TeacherCertificate.status == CERT_PENDING)) or 0

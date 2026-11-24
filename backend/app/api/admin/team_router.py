@@ -1,4 +1,5 @@
-"""Admin → Team: teacher accounts, Kontroll permission, status, password reset, group / course assignment.
+"""Admin → Team: teacher accounts, Kontroll permission, status, password reset, group / course assignment, a SUPER_ADMIN account
+that also teaches (`/admin-teachers/{user_id}` PUT / DELETE).
 Every route: require_super_admin. Rules: app.services.teacher.team. Answers carrying a temporary password are no-store."""
 
 from typing import Literal
@@ -55,7 +56,22 @@ class PasswordIn(BaseModel):
 @router.get("/overview")
 def overview(response: Response, db: Session = Depends(get_db), current_user: User = Depends(require_super_admin)):
     _private(response)
-    return team.overview(db)
+    return team.overview(db, viewer=current_user)
+
+
+@router.put("/admin-teachers/{user_id}")
+def add_admin_teacher(user_id: UUID, request: Request, response: Response, db: Session = Depends(get_db),
+                      current_user: User = Depends(require_super_admin)):
+    """A SUPER_ADMIN account also teaches (Team + My Teacher); its role and rights stay. Audited."""
+    _private(response)
+    return team.set_admin_teaches(db, current_user, user_id, True, client_ip(request))
+
+
+@router.delete("/admin-teachers/{user_id}")
+def remove_admin_teacher(user_id: UUID, request: Request, response: Response, db: Session = Depends(get_db),
+                         current_user: User = Depends(require_super_admin)):
+    _private(response)
+    return team.set_admin_teaches(db, current_user, user_id, False, client_ip(request))
 
 
 @router.get("/teachers")

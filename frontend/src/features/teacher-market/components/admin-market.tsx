@@ -119,7 +119,7 @@ function Teachers() {
                 <td className="py-2 pr-3">
                   <div className="flex items-center gap-2">
                     {x.photo_url ? <img src={resolveMediaUrl(x.photo_url)!} alt="" className="h-12 w-[27px] rounded object-cover" /> : <span className="h-12 w-[27px] rounded bg-white/5" />}
-                    <div><p className="font-semibold">{x.name}</p><p className="text-xs text-[var(--admin-text-muted)]">{x.username}{!x.account_active ? " · Konto inaktiv" : ""}</p></div>
+                    <div><p className="font-semibold">{x.name}</p><p className="text-xs text-[var(--admin-text-muted)]">{x.username}{x.admin_account ? " · Admin + Lehrkraft" : ""}{!x.account_active ? " · Konto inaktiv" : ""}</p></div>
                   </div>
                 </td>
                 <td className="py-2 pr-3">{x.profile_complete ? <Badge tone="ok">vollständig</Badge> : <Badge tone="muted">unvollständig</Badge>}</td>

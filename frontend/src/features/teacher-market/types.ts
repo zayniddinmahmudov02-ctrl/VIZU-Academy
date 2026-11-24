@@ -225,6 +225,8 @@ export interface AdminTeacher {
   name: string;
   username: string;
   photo_url: string | null;
+  /** a Super Admin account that also teaches (Admin → Team) */
+  admin_account?: boolean;
   account_active: boolean;
   catalog_hidden: boolean;
   profile_disabled: boolean;

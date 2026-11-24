@@ -2,15 +2,17 @@
 
 import { useEffect, useState } from "react";
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Search, ShieldCheck, ShieldOff, UserCheck, UserMinus, UserPlus, Users, UserRoundPlus } from "lucide-react";
+import { GraduationCap, Search, ShieldCheck, ShieldOff, UserCheck, UserMinus, UserPlus, Users, UserRoundPlus } from "lucide-react";
 
 import { AdminButton, AdminCard, AdminInput, AdminPageHeader, AdminSelect } from "@/components/admin/admin-ui";
 import DataTable, { DataTableColumn } from "@/components/admin/data-table";
 import FormDialog from "@/components/admin/form-dialog";
 import Avatar from "@/components/ui/avatar";
 import { CreateTeacherDialog, formatDe, TeacherDetailDialog } from "@/features/admin/components/team/teacher-dialogs";
-import { getTeamOverview, listTeamTeachers, type TeamTeacher } from "@/features/admin/services/team-service";
+import { getTeamOverview, listTeamTeachers, setAdminTeaches, type TeamTeacher } from "@/features/admin/services/team-service";
 import { changeUserRole, listUsers } from "@/features/admin/services/users-service";
+import { useCurrentUser } from "@/features/auth/hooks/use-current-user";
+import { teamError } from "@/features/admin/components/team/teacher-dialogs";
 import type { UserListItem } from "@/features/admin/types/user.types";
 
 function displayName(item: UserListItem): string {
@@ -63,6 +65,14 @@ export default function TeamPage() {
     queryFn: () => listUsers({ role: "STUDENT", search: trimmedSearch, page_size: 20 }),
     enabled: trimmedSearch.length >= 2,
   });
+  // the Super Admin's own account can teach as well (Team row + My Teacher); role and admin rights stay
+  const { user: me } = useCurrentUser();
+  const selfTeach = useMutation({
+    mutationFn: () => setAdminTeaches(me!.id, true),
+    onSuccess: () => { queryClient.invalidateQueries({ queryKey: ["admin-team"] }); setError(null); if (me) setOpenId(me.id); },
+    onError: (err) => setError(teamError(err)),
+  });
+
   const promoteMutation = useMutation({
     mutationFn: () => changeUserRole(promoting!.id, "TEACHER"),
     onSuccess: () => {
@@ -76,7 +86,12 @@ export default function TeamPage() {
 
   const columns: DataTableColumn<TeamTeacher>[] = [
     { key: "id", header: "ID", render: (t) => <span className="font-mono text-xs" title={t.id}>{t.id.slice(0, 8)}</span> },
-    { key: "name", header: "Name", render: (t) => <button type="button" className="font-medium text-[var(--admin-text-primary)] hover:text-[var(--admin-primary)]" onClick={() => setOpenId(t.id)} data-testid="team-open">{t.name}</button> },
+    { key: "name", header: "Name", render: (t) => (
+      <span className="flex flex-wrap items-center gap-1.5">
+        <button type="button" className="font-medium text-[var(--admin-text-primary)] hover:text-[var(--admin-primary)]" onClick={() => setOpenId(t.id)} data-testid="team-open">{t.name}</button>
+        {t.admin_account && <span className="rounded-full bg-[var(--admin-primary)]/15 px-2 py-0.5 text-[11px] font-semibold text-[var(--admin-primary)]" data-testid="team-admin-badge">Admin + Lehrkraft</span>}
+      </span>
+    ) },
     { key: "username", header: "Benutzername", render: (t) => <span className="font-mono text-xs">{t.username}</span> },
     { key: "email", header: "E-Mail", render: (t) => t.email ?? <span className="text-[var(--admin-text-muted)]">—</span> },
     { key: "groups", header: "Gruppen", render: (t) => t.group_count },
@@ -107,7 +122,18 @@ export default function TeamPage() {
   return (
     <div data-testid="admin-team">
       <AdminPageHeader title="Team" description="Alle Lehrkräfte zentral verwalten: Konten, Kontroll-Berechtigung, Gruppen und Kurse."
-                       action={<AdminButton onClick={() => setCreating(true)} data-testid="team-add"><UserRoundPlus size={16} /> Lehrer hinzufügen</AdminButton>} />
+                       action={
+                         <div className="flex flex-wrap gap-2">
+                           {o && o.self_teaches === false && me && (
+                             <AdminButton variant="secondary" onClick={() => selfTeach.mutate()} disabled={selfTeach.isPending} data-testid="team-self-teach"
+                                          title="Ihr Admin-Konto wird zusätzlich als Lehrkraft geführt (Team + My Teacher). Rolle und Admin-Rechte bleiben.">
+                               <GraduationCap size={16} /> Mein Konto als Lehrkraft
+                             </AdminButton>
+                           )}
+                           <AdminButton onClick={() => setCreating(true)} data-testid="team-add"><UserRoundPlus size={16} /> Lehrer hinzufügen</AdminButton>
+                         </div>
+                       } />
+      {error && !promoting && <p className="mb-4 rounded-lg bg-[var(--admin-danger)]/10 px-3 py-2 text-sm text-[var(--admin-danger)]" role="alert">{error}</p>}
 
       <div className="mb-6 grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-6">
         <Stat icon={Users} label="Lehrkräfte gesamt" value={o?.total ?? "…"} testId="team-total" />
