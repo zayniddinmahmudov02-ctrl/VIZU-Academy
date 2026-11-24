@@ -65,6 +65,7 @@ _ROUTES = (
     ("/admin/vizu-multilevel", "Stufe Bestimmung", "Exams", "ADMIN_PAGE", "exams", True, False),
     ("/admin/users", "Users", "Users", "ADMIN_PAGE", "users", True, False),
     ("/admin/team", "Team", "Users", "ADMIN_PAGE", "users", True, False),
+    ("/admin/lehrer-marktplatz", "Lehrer-Marktplatz", "Teachers", "ADMIN_PAGE", "teacher_market", True, False),
     ("/admin/teacher-assignments", "Lehrer-Zuweisungen", "Teachers", "ADMIN_PAGE", "users", True, False),
     ("/admin/premium-users", "Premium-Users", "Payments", "ADMIN_PAGE", "payments", True, False),
     ("/admin/certificates", "Zertifikate", "Certificates", "ADMIN_PAGE", "certificates", True, False),
@@ -144,6 +145,10 @@ _DOMAIN_TABLES: dict[str, tuple[tuple[str, str], ...]] = {
         ("Battle profiles", "battle_profiles"), ("Battle themes", "battle_themes"),
     ),
     "app": (("App releases", "app_releases"),),
+    "teacher_market": (
+        ("Teacher profiles", "teacher_profiles"), ("Teacher certificates", "teacher_certificates"), ("Teacher courses", "teacher_courses"),
+        ("Course enrollments", "teacher_course_enrollments"), ("Teacher reviews", "teacher_reviews"), ("Special lessons", "special_lessons"),
+    ),
 }
 
 PAGE_CATALOG = tuple(

@@ -3,7 +3,7 @@
 * Every moderation action is for hosts of THIS room's group only (permissions.moderate_room), works on a live room,
   is rate limited, changes the stored state first and then pushes it to LiveKit:
   - mute = server-mute the microphone track (the student may unmute again);
-  - mic / screen share / chat permission = LiveKit publish permissions (a revoked source is muted first, then the
+  - camera / mic / screen share / chat permission = LiveKit publish permissions (a revoked source is muted first, then the
     permission is taken away; a new join token is built from the stored state, so a reload does not undo it);
   - room-wide switches also set the room default for students who join later and the room metadata the clients read.
 * A host is never moderated (CANNOT_MODERATE_HOST).
@@ -35,7 +35,7 @@ from app.models.video_room import (
 )
 from app.services.study_groups.access import audit, now, require_view
 from app.services.video_rooms import livekit_service as lk
-from app.services.video_rooms.permissions import can_chat, moderate_room, sources, view_room
+from app.services.video_rooms.permissions import can_chat, lesson_manager, moderate_room, sources, view_room
 from app.services.video_rooms.service import error, event, finish, limit, participant, room_metadata
 
 PRESENT = (*ONLINE, CONN_JOINING)
@@ -137,6 +137,23 @@ def mute_all(db: Session, user: User, room_id: UUID, lock: bool) -> dict:
     return {"muted_tracks": muted, "locked": lock, "live_applied": applied}
 
 
+def camera_permission(db: Session, user: User, room_id: UUID, allowed: bool, target_id: UUID | None = None) -> dict:
+    """Separate from the microphone: a revoked camera is muted first, then the publish permission is taken away."""
+    room = _setup(db, user, room_id)
+    people = [_target(db, room, target_id)] if target_id else _students(db, room)
+    if target_id is None:
+        room.students_camera_allowed = allowed
+    for p in people:
+        p.can_video = allowed
+    muted = 0 if allowed else _mute(room, people, (lk.CAMERA,))
+    applied = _push(room, people)
+    if target_id is None:
+        _room_meta(room)
+    event(db, room, user.id, "camera_permission", {"target": str(target_id) if target_id else "all", "allowed": allowed})
+    db.commit()
+    return {"allowed": allowed, "muted_tracks": muted, "live_applied": applied}
+
+
 def screen_share_permission(db: Session, user: User, room_id: UUID, allowed: bool, target_id: UUID | None = None) -> dict:
     room = _setup(db, user, room_id)
     people = [_target(db, room, target_id)] if target_id else _students(db, room)
@@ -181,7 +198,8 @@ def remove_participant(db: Session, user: User, room_id: UUID, target_id: UUID, 
     except lk.LiveKitUnavailable:
         applied = False
     event(db, room, user.id, "participant_removed", {"target": str(p.user_id), "block": block})
-    audit(db, room.group_id, user.id, "video_participant_removed", "user", p.user_id, {"room_id": str(room.id), "block": block})
+    if room.group_id is not None:
+        audit(db, room.group_id, user.id, "video_participant_removed", "user", p.user_id, {"room_id": str(room.id), "block": block})
     db.commit()
     return {"removed": True, "blocked": block, "live_applied": applied}
 
@@ -254,7 +272,10 @@ def _may_stay(db: Session, room: VideoRoom, p: VideoRoomParticipant | None) -> b
     if user is None or user.is_banned or not user.is_active:
         return False
     try:
-        require_view(db, user, room.group_id)
+        if room.special_lesson_id is not None:
+            lesson_manager(db, user, room)
+        else:
+            require_view(db, user, room.group_id)
     except HTTPException:
         return False
     return True

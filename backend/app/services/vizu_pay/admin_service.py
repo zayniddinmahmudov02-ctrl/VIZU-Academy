@@ -205,6 +205,10 @@ class AdminVizuPayService:
             from . import multilevel_premium
 
             multilevel_premium.grant_for_order(self.db, order, actor)  # all 10 Multilevel Modelltests, unlimited
+        elif order.plan == offer_config.TEACHER_COURSE_PLAN:
+            from app.services.teacher_market import enrollments
+
+            enrollments.activate_for_order(self.db, order)  # the enrollment becomes ACTIVE, the student joins the course group
         elif offer_config.is_offer(order.plan):
             purchases.activate_course_access(order, now.replace(tzinfo=timezone.utc))
         else:
@@ -226,6 +230,8 @@ class AdminVizuPayService:
             details=(
                 f"{order.plan} Multilevel Modelltest 1-10 (unlimited), {order.final_amount} {order.currency}"
                 if order.plan == offer_config.ML_PREMIUM_PLAN
+                else f"{order.plan} course={order.teacher_course_id}, {order.final_amount} {order.currency}"
+                if order.plan == offer_config.TEACHER_COURSE_PLAN
                 else f"{order.plan} levels={','.join(offer_config.offer_levels(order.plan))}, {order.final_amount} {order.currency}"
                 if offer_config.is_offer(order.plan)
                 else f"{order.plan} +{order.duration_days}d, {order.final_amount} {order.currency}"
@@ -271,6 +277,10 @@ class AdminVizuPayService:
         order.reviewed_by_id = actor.id
         order.reviewed_at = _now()
         achievements.on_order_status(self.db, order)  # the medal reward becomes usable again
+        if order.plan == offer_config.TEACHER_COURSE_PLAN:
+            from app.services.teacher_market import enrollments
+
+            enrollments.release_for_order(self.db, order, reason)  # the reserved place is free again
 
         if order.promo_code_id:
             self.pay.release_promo_reservation(order)
@@ -303,6 +313,10 @@ class AdminVizuPayService:
             from . import multilevel_premium
 
             multilevel_premium.revoke_for_order(self.db, order, actor, reason)
+        elif order.plan == offer_config.TEACHER_COURSE_PLAN:
+            from app.services.teacher_market import enrollments
+
+            enrollments.revoke_for_order(self.db, order)  # enrollment REFUNDED, the student leaves the course group
         elif user.premium_until and not offer_config.is_offer(order.plan):
             user.premium_until = max(_now(), user.premium_until - timedelta(days=order.duration_days))
 

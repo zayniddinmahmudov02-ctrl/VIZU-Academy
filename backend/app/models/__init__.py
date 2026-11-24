@@ -82,6 +82,16 @@ from .study_group import (
 )
 from .video_room import VideoRoom, VideoRoomEvent, VideoRoomParticipant
 from .teacher_profile import TeacherProfile
+from .teacher_market import (
+    SpecialLesson,
+    SpecialLessonSignup,
+    TeacherCertificate,
+    TeacherCourse,
+    TeacherCourseEnrollment,
+    TeacherCourseInterest,
+    TeacherReview,
+    TeacherReviewReport,
+)
 from .student_activity import StudentActivityEvent, StudentSession
 from .global_chat import (
     GlobalChatMessage,

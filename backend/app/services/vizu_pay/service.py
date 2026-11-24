@@ -79,6 +79,8 @@ def order_category(plan: str) -> str:
     """MULTILEVEL (Modelltest Premium), PACKAGES / COURSES (Angebote packages / single levels) or LEGACY (time-based Premium, promo days)."""
     if plan == offer_config.ML_PREMIUM_PLAN:
         return CATEGORY_MULTILEVEL
+    if plan == offer_config.TEACHER_COURSE_PLAN:
+        return "TEACHER_COURSES"
     if offer_config.is_offer(plan):
         kind = (offer_config.offer(plan) or offer_config.OFFERS.get(plan) or {}).get("kind")
         return CATEGORY_PACKAGES if kind == offer_config.KIND_PACKAGE else CATEGORY_COURSES
@@ -831,10 +833,18 @@ class VizuPayService:
         return self.serialize_order(order)
 
     def serialize_order(self, order: SubscriptionOrder) -> dict:
+        course = None
+        if order.teacher_course_id:
+            from app.models.teacher_market import TeacherCourse
+
+            row = self.db.get(TeacherCourse, order.teacher_course_id)
+            if row is not None:
+                course = {"id": str(row.id), "title": row.title, "teacher_id": str(row.teacher_id)}
         return {
             "id": str(order.id),
             "plan": order.plan,
-            "plan_label": plan_config.plan_label(order.plan),
+            "plan_label": plan_config.plan_label(order.plan) if course is None else f"{plan_config.plan_label(order.plan)}: {course['title']}",
+            "teacher_course": course,
             "product_category": order_category(order.plan),
             "paid_at": order.paid_at,
             "no_receipt": bool(order.no_receipt),

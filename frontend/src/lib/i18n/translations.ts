@@ -1,4 +1,5 @@
 import { medienStatsTranslations, passwordGateTranslations, teacherPanelTranslations } from "./activity-translations";
+import { marketTranslations } from "./market-translations";
 import { battleTranslations } from "./battle-translations";
 import { mobileAppTranslations } from "./mobile-app-translations";
 import { videoRoomTranslations } from "./video-room-translations";
@@ -312,6 +313,7 @@ export const translations: Record<string, Namespace> = {
     profile: { de: "Profil", uz: "Profil" },
     settings: { de: "Einstellungen", uz: "Sozlamalar" },
     support: { de: "Hilfe & Support", uz: "Yordam" },
+    myTeacher: { de: "My Teacher", uz: "My Teacher" },
     expand: { de: "Sidebar erweitern", uz: "Yon panelni kengaytirish" },
     collapse: { de: "Sidebar einklappen", uz: "Yon panelni yig'ish" },
     closeMenu: { de: "Menü schließen", uz: "Menyuni yopish" },
@@ -2764,4 +2766,5 @@ export const translations: Record<string, Namespace> = {
   mstats: medienStatsTranslations,
   tpanel: teacherPanelTranslations,
   pwgate: passwordGateTranslations,
+  market: marketTranslations,
 };

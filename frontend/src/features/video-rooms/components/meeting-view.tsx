@@ -19,7 +19,7 @@ import { Users, X } from "lucide-react";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { cn } from "@/lib/utils";
 import { raiseHand, reportConnection, type JoinInfo } from "../video-rooms-service";
-import { ATTR_HAND, errorKey, formatDuration, handsInOrder, parseRoomMeta, SOURCE } from "../video-room-utils";
+import { ATTR_HAND, clockOffset, errorKey, FIVE_MINUTES_MS, formatDuration, handsInOrder, parseRoomMeta, remainingMs, SOURCE } from "../video-room-utils";
 import ConnectionStatus, { QualityBars } from "./connection-status";
 import DeviceSettings from "./device-settings";
 import MeetingChat from "./meeting-chat";
@@ -51,6 +51,32 @@ function Duration({ startedAt }: { startedAt: string | null }) {
   return <>{formatDuration(now && start ? now - start : 0)}</>;
 }
 
+/** Special lessons: time until the backend closes the room (server clock). The 5-minute warning fires once; at zero the
+ *  backend ends the room and LiveKit disconnects everyone — the UI only shows it. */
+function TimeLeft({ endsAt, offset, onFiveMinutes }: { endsAt: string; offset: number; onFiveMinutes: () => void }) {
+  const { t } = useTranslation();
+  const [now, setNow] = useState<number | null>(null);
+  const warned = useRef(false);
+  useEffect(() => {
+    const id = window.setInterval(() => setNow(Date.now()), 1000);
+    return () => window.clearInterval(id);
+  }, []);
+  const left = now === null ? null : remainingMs(endsAt, now, offset);
+  useEffect(() => {
+    if (left !== null && left > 0 && left <= FIVE_MINUTES_MS && !warned.current) {
+      warned.current = true;
+      onFiveMinutes();
+    }
+  }, [left, onFiveMinutes]);
+  const soon = left !== null && left <= FIVE_MINUTES_MS;
+  return (
+    <span data-testid="meeting-time-left" data-soon={soon ? "1" : undefined}
+          className={cn("shrink-0 rounded-md px-1.5 py-0.5 text-xs font-semibold tabular-nums", soon ? "bg-amber-500 text-neutral-950" : "bg-white/10 text-neutral-200")}>
+      {t("videoRoom.timeLeft", { time: formatDuration(left ?? 0) })}
+    </span>
+  );
+}
+
 /** Everything inside the LiveKit room: top bar, video stage, side panels, controls, toasts. */
 export default function MeetingView({ join, onLeave, onEnd }: { join: JoinInfo; onLeave: () => void; onEnd: () => void }) {
   const { t } = useTranslation();
@@ -64,7 +90,13 @@ export default function MeetingView({ join, onLeave, onEnd }: { join: JoinInfo; 
     { onlySubscribed: false });
   const { metadata } = useRoomInfo();
   const meta = parseRoomMeta(metadata ?? JSON.stringify({ title: join.room.title, chat: join.room.chat_enabled,
-    screen_share: join.room.students_can_share_screen, mic: join.room.students_mic_allowed }));
+    screen_share: join.room.students_can_share_screen, mic: join.room.students_mic_allowed, camera: join.room.students_camera_allowed ?? true,
+    ends_at: join.room.hard_end_at ?? null }));
+  const endsAt = meta.endsAt ?? join.room.hard_end_at ?? null;
+  // server time − local time, measured once when the join answer arrived (the backend decides when the room closes)
+  const [offset] = useState(() => clockOffset(join.server_time, Date.now()));
+  const subtitle = join.group ? `${join.group.name} · ${join.group.level}`
+    : join.lesson ? `${t("videoRoom.specialLesson")} · ${join.lesson.teacher} · ${join.lesson.level}` : "";
   const localHand = useParticipantAttribute(ATTR_HAND, { participant: localParticipant });
   const chat = useChat();
   const [panel, setPanelState] = useState<Panel>(null);
@@ -107,6 +139,8 @@ export default function MeetingView({ join, onLeave, onEnd }: { join: JoinInfo; 
     if (window.confirm(t("videoRoom.endConfirm"))) onEnd();
   }
 
+  const fiveMinutes = useCallback(() => push("videoRoom.toastFiveMinutes"), [push]);
+
   // tell the backend about our connection (also where no LiveKit webhook is configured)
   useEffect(() => {
     const report = (state: "connected" | "reconnecting") => void reportConnection(roomId, state).catch(() => undefined);
@@ -130,6 +164,9 @@ export default function MeetingView({ join, onLeave, onEnd }: { join: JoinInfo; 
       const screenBefore = allows(prev, SOURCE.screenShare), screenNow = allows(now, SOURCE.screenShare);
       if (!screenBefore && screenNow) push("videoRoom.toastScreenAllowed");
       if (screenBefore && !screenNow) push("videoRoom.toastScreenBlocked");
+      const camBefore = allows(prev, SOURCE.camera), camNow = allows(now, SOURCE.camera);
+      if (camBefore && !camNow) push("videoRoom.toastCamBlocked");
+      if (!camBefore && camNow) push("videoRoom.toastCamAllowed");
       if (prev.canPublishData && !now.canPublishData) push("videoRoom.toastChatOff");
       if (!prev.canPublishData && now.canPublishData) push("videoRoom.toastChatOn");
     };
@@ -162,9 +199,10 @@ export default function MeetingView({ join, onLeave, onEnd }: { join: JoinInfo; 
         <span className="shrink-0 rounded-lg bg-sky-600 px-2 py-1 text-xs font-black tracking-wider">VIZU</span>
         <div className="min-w-0 flex-1">
           <p data-testid="meeting-title" className="truncate text-sm font-semibold">{meta.title || join.room.title}</p>
-          <p className="truncate text-[11px] text-neutral-400">{join.group.name} · {join.group.level}{join.room.description ? ` · ${join.room.description}` : ""}</p>
+          <p className="truncate text-[11px] text-neutral-400">{subtitle}{join.room.description ? ` · ${join.room.description}` : ""}</p>
         </div>
-        <span data-testid="meeting-duration" className="shrink-0 text-xs tabular-nums text-neutral-300"><Duration startedAt={join.room.started_at} /></span>
+        {endsAt ? <TimeLeft endsAt={endsAt} offset={offset} onFiveMinutes={fiveMinutes} />
+          : <span data-testid="meeting-duration" className="shrink-0 text-xs tabular-nums text-neutral-300"><Duration startedAt={join.room.started_at} /></span>}
         <span data-testid="meeting-count" className="flex shrink-0 items-center gap-1 text-xs text-neutral-300"><Users size={14} /> {participants.length}</span>
         <QualityBars participant={localParticipant} className="shrink-0" />
       </header>

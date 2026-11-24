@@ -63,8 +63,14 @@ export default function VideoRoomPage({ roomId }: { roomId: string }) {
   }), []);
 
   const g = detail.data?.group;
+  const lesson = detail.data?.lesson;
   const manager = !!detail.data?.viewer.is_manager;
-  const back = g ? (manager ? `/teacher/groups/${g.id}?tab=video` : `/groups/${g.id}?tab=video`) : "/groups";
+  // special lessons (no group): back to the teacher's lesson list or the students' live board
+  const back = g ? (manager ? `/teacher/groups/${g.id}?tab=video` : `/groups/${g.id}?tab=video`)
+    : lesson ? (manager ? "/teacher/spezialstunden" : "/my-teacher/live") : "/groups";
+  const backLabel = g || !lesson ? t("videoRoom.backToGroup") : t("videoRoom.backToLessons");
+  const camAllowed = detail.data?.viewer.permissions.camera ?? true;
+  const endsAt = detail.data?.room.hard_end_at;
 
   async function join() {
     setError(null);
@@ -95,10 +101,11 @@ export default function VideoRoomPage({ roomId }: { roomId: string }) {
   if (phase.kind === "in") {
     const j = phase.join;
     const micAllowed = j.permissions.microphone;
+    const videoAllowed = j.permissions.camera;
     return (
       <LiveKitRoom serverUrl={j.server_url} token={j.token} connect options={options} data-testid="livekit-room"
                    audio={choices.audioEnabled && micAllowed ? { deviceId: choices.audioDeviceId || undefined } : false}
-                   video={choices.videoEnabled ? { deviceId: choices.videoDeviceId || undefined, resolution: VideoPresets.h720.resolution } : false}
+                   video={choices.videoEnabled && videoAllowed ? { deviceId: choices.videoDeviceId || undefined, resolution: VideoPresets.h720.resolution } : false}
                    onDisconnected={(reason) => setPhase((p) => (p.kind === "in" ? { kind: "over", why: overFor(reason) } : p))}
                    onError={() => undefined}>
         <MeetingView join={j} onLeave={leave} onEnd={() => void endForAll()} />
@@ -116,7 +123,7 @@ export default function VideoRoomPage({ roomId }: { roomId: string }) {
           {error && <p role="alert" className="text-sm text-red-300">{error}</p>}
           <div className="flex flex-col gap-2 sm:flex-row sm:justify-center">
             {canRejoin && <button type="button" onClick={() => void join()} data-testid="video-rejoin" className="h-11 rounded-xl bg-sky-600 px-4 text-sm font-semibold">{t("videoRoom.rejoin")}</button>}
-            <Link href={back} className="inline-flex h-11 items-center justify-center rounded-xl bg-white/10 px-4 text-sm font-semibold">{t("videoRoom.backToGroup")}</Link>
+            <Link href={back} className="inline-flex h-11 items-center justify-center rounded-xl bg-white/10 px-4 text-sm font-semibold">{backLabel}</Link>
           </div>
         </div>
       </Shell>
@@ -127,7 +134,7 @@ export default function VideoRoomPage({ roomId }: { roomId: string }) {
   const notJoinable = room && room.status !== "live";
   return (
     <Shell>
-      <Link href={back} className="mb-4 inline-flex items-center gap-1 text-sm font-semibold text-neutral-300 hover:text-white"><ArrowLeft size={14} /> {t("videoRoom.backToGroup")}</Link>
+      <Link href={back} className="mb-4 inline-flex items-center gap-1 text-sm font-semibold text-neutral-300 hover:text-white"><ArrowLeft size={14} /> {backLabel}</Link>
       {detail.isLoading ? (
         <p className="flex items-center gap-2 text-sm text-neutral-400"><Loader2 size={16} className="animate-spin" /> {t("videoRoom.joining")}</p>
       ) : detail.isError || !detail.data ? (
@@ -135,16 +142,23 @@ export default function VideoRoomPage({ roomId }: { roomId: string }) {
       ) : (
         <div data-testid="prejoin" className="space-y-5">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-sky-400">{detail.data.group.name} · {detail.data.group.level}</p>
+            <p className="text-xs font-semibold uppercase tracking-wide text-sky-400">
+              {g ? `${g.name} · ${g.level}` : lesson ? `${t("videoRoom.specialLesson")} · ${lesson.teacher} · ${lesson.level} · ${lesson.language}` : ""}
+            </p>
             <h1 className="text-xl font-bold">{room?.title}</h1>
             {room?.description && <p className="mt-1 whitespace-pre-wrap text-sm text-neutral-300">{room.description}</p>}
+            {endsAt && room?.status === "live" && (
+              <p data-testid="prejoin-ends-at" className="mt-2 text-sm text-amber-200">
+                {t("videoRoom.endsAt", { time: new Date(endsAt).toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit", timeZone: "Asia/Tashkent" }) })}
+              </p>
+            )}
           </div>
           {!supported ? (
             <p role="alert" className="rounded-xl bg-red-500/10 p-4 text-sm text-red-300">{t("videoRoom.browserUnsupported")}</p>
           ) : (
             <>
               <h2 className="text-sm font-semibold text-neutral-200">{t("videoRoom.prejoinTitle")} <span className="font-normal text-neutral-400">{t("videoRoom.prejoinHint")}</span></h2>
-              <PrejoinDevices choices={choices} onChange={patch} micAllowed={detail.data.viewer.permissions.microphone} />
+              <PrejoinDevices choices={choices} onChange={patch} micAllowed={detail.data.viewer.permissions.microphone} camAllowed={camAllowed} />
             </>
           )}
           {error && <p role="alert" data-testid="video-join-error" className="rounded-xl bg-red-500/10 p-3 text-sm text-red-300 ring-1 ring-red-500/30">{error}</p>}

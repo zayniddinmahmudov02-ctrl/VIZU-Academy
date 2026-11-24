@@ -76,10 +76,12 @@ function listDevices(): Promise<MediaDeviceInfo[]> {
 
 /** Before joining: camera preview, microphone level, device choice and clear permission errors. Preview tracks are
  *  stopped when the choice changes or the page leaves pre-join; LiveKit opens its own tracks on join. */
-export function PrejoinDevices({ choices, onChange, micAllowed }: {
+export function PrejoinDevices({ choices, onChange, micAllowed, camAllowed = true }: {
   choices: DeviceChoices;
   onChange: (patch: Partial<DeviceChoices>) => void;
   micAllowed: boolean;
+  /** false in special lessons until the teacher allows cameras: no preview, joins without camera */
+  camAllowed?: boolean;
 }) {
   const { t } = useTranslation();
   const [video, setVideo] = useState<{ track: LocalVideoTrack; key: string } | null>(null);
@@ -88,7 +90,7 @@ export function PrejoinDevices({ choices, onChange, micAllowed }: {
   const [devices, setDevices] = useState<MediaDeviceInfo[]>([]);
   const videoEl = useRef<HTMLVideoElement>(null);
   const { videoDeviceId, audioDeviceId } = choices;
-  const videoKey = choices.videoEnabled ? `v:${videoDeviceId}` : "";
+  const videoKey = choices.videoEnabled && camAllowed ? `v:${videoDeviceId}` : "";
   const audioKey = choices.audioEnabled && micAllowed ? `a:${audioDeviceId}` : "";
   const shownVideo = video && video.key === videoKey ? video.track : null;
   const shownAudio = audio && audio.key === audioKey ? audio.track : undefined;
@@ -169,17 +171,18 @@ export function PrejoinDevices({ choices, onChange, micAllowed }: {
                   className={cn(toggle, choices.audioEnabled && micAllowed ? "bg-neutral-700/90" : "bg-red-600", !micAllowed && "opacity-60")}>
             {choices.audioEnabled && micAllowed ? <Mic size={20} /> : <MicOff size={20} />}
           </button>
-          <button type="button" data-testid="prejoin-camera" aria-pressed={choices.videoEnabled}
+          <button type="button" data-testid="prejoin-camera" aria-pressed={choices.videoEnabled && camAllowed} disabled={!camAllowed}
                   aria-label={choices.videoEnabled ? t("videoRoom.camOn") : t("videoRoom.camOff")}
                   onClick={() => onChange({ videoEnabled: !choices.videoEnabled })}
-                  className={cn(toggle, choices.videoEnabled ? "bg-neutral-700/90" : "bg-red-600")}>
-            {choices.videoEnabled ? <Video size={20} /> : <VideoOff size={20} />}
+                  className={cn(toggle, choices.videoEnabled && camAllowed ? "bg-neutral-700/90" : "bg-red-600", !camAllowed && "opacity-60")}>
+            {choices.videoEnabled && camAllowed ? <Video size={20} /> : <VideoOff size={20} />}
           </button>
         </div>
       </div>
       <div className="space-y-3">
         {error && <p role="alert" data-testid="prejoin-error" className="rounded-xl bg-red-500/10 p-3 text-xs text-red-300 ring-1 ring-red-500/30">{t(error.key)}</p>}
         {!micAllowed && <p className="rounded-xl bg-amber-500/10 p-3 text-xs text-amber-200 ring-1 ring-amber-500/30">{t("videoRoom.micLockedHint")}</p>}
+        {!camAllowed && <p data-testid="prejoin-cam-locked" className="rounded-xl bg-amber-500/10 p-3 text-xs text-amber-200 ring-1 ring-amber-500/30">{t("videoRoom.camLockedHint")}</p>}
         <DeviceSelect label={t("videoRoom.camera")} devices={cams} value={videoDeviceId} testId="prejoin-camera-select"
                       onChange={(id) => onChange({ videoDeviceId: id })} />
         <DeviceSelect label={t("videoRoom.microphone")} devices={mics} value={audioDeviceId} testId="prejoin-mic-select"

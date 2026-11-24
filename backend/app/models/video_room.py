@@ -1,8 +1,12 @@
-"""Group video lessons (LiveKit SFU): rooms, who took part, and what happened.
+"""Group video lessons and free special lessons (LiveKit SFU): rooms, who took part, and what happened.
 
-* A room belongs to one study group (study_groups.id). Its LiveKit room name is
-  made by the backend ("vizu-<room id>") and never chosen by a client.
-* At most one room per group is live at a time (partial unique index).
+* A room belongs to one study group (study_groups.id) OR to one approved special lesson (special_lessons.id; since
+  2026-11-24, ck_video_rooms_owner: exactly one of the two). Its LiveKit room name is made by the backend
+  ("vizu-<room id>") and never chosen by a client.
+* At most one room per group is live at a time, at most one room per special lesson (partial unique indexes).
+* `hard_end_at`: the server closes the room at this time at the latest (special lessons: start + duration, ≤ 90 min).
+* Camera, microphone and screen share are separate permissions (`can_video`, `can_speak`, `can_share_screen`); a special
+  lesson starts with students muted and without camera until the teacher allows it.
 * One participant row per user per room (a rejoin updates it). Moderation state
   (mic / screen share / chat allowed, removed, blocked) lives here and is pushed
   to LiveKit as participant permissions; a new join token is built from it.
@@ -51,12 +55,18 @@ class VideoRoom(BaseModel):
         CheckConstraint(f"status IN ({_ids(*ROOM_STATUSES)})", name="ck_video_rooms_status"),
         CheckConstraint("max_participants BETWEEN 2 AND 500", name="ck_video_rooms_max_participants"),
         UniqueConstraint("room_name", name="uq_video_rooms_room_name"),
+        CheckConstraint("(group_id IS NULL) <> (special_lesson_id IS NULL)", name="ck_video_rooms_owner"),
         Index("ix_video_rooms_group_status", "group_id", "status"),
         Index("ix_video_rooms_status_scheduled", "status", "scheduled_at"),
         Index("uq_video_rooms_one_live_per_group", "group_id", unique=True, postgresql_where=text("status = 'live'")),
+        Index("uq_video_rooms_special_lesson", "special_lesson_id", unique=True, postgresql_where=text("special_lesson_id IS NOT NULL")),
+        Index("ix_video_rooms_hard_end", "hard_end_at", postgresql_where=text("status = 'live' AND hard_end_at IS NOT NULL")),
     )
 
-    group_id: Mapped[UUID] = mapped_column(PGUUID(as_uuid=True), ForeignKey("study_groups.id", ondelete="CASCADE"), nullable=False)
+    group_id: Mapped[UUID | None] = mapped_column(PGUUID(as_uuid=True), ForeignKey("study_groups.id", ondelete="CASCADE"), nullable=True)
+    special_lesson_id: Mapped[UUID | None] = mapped_column(PGUUID(as_uuid=True), ForeignKey("special_lessons.id", ondelete="CASCADE"),
+                                                           nullable=True)
+    hard_end_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     created_by: Mapped[UUID | None] = mapped_column(PGUUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
     room_name: Mapped[str] = mapped_column(String(64), nullable=False)
     title: Mapped[str] = mapped_column(String(200), nullable=False)
@@ -72,6 +82,7 @@ class VideoRoom(BaseModel):
     chat_enabled: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True, server_default="true")
     students_can_share_screen: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default="false")
     students_mic_allowed: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True, server_default="true")
+    students_camera_allowed: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True, server_default="true")
 
     creator = relationship("User", foreign_keys=[created_by], lazy="joined")
 
@@ -95,6 +106,7 @@ class VideoRoomParticipant(BaseModel):
     join_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0, server_default="0")
     last_token_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     can_speak: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True, server_default="true")
+    can_video: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True, server_default="true")
     can_share_screen: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default="false")
     can_chat: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True, server_default="true")
     hand_raised_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)

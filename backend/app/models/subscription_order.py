@@ -154,6 +154,8 @@ class SubscriptionOrder(BaseModel):
     student_note: Mapped[str | None] = mapped_column(Text, nullable=True)
     # the Super Admin's own note on the request (never shown to the student)
     admin_note: Mapped[str | None] = mapped_column(Text, nullable=True)
+    # plan TEACHER_COURSE: the My Teacher course this payment is for (approval activates the enrollment)
+    teacher_course_id: Mapped[str | None] = mapped_column(ForeignKey("teacher_courses.id", ondelete="SET NULL"), nullable=True, index=True)
 
     user = relationship("User", foreign_keys=[user_id])
 

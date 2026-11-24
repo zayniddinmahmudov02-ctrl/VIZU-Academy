@@ -218,6 +218,10 @@ class Settings(BaseSettings):
     LIVEKIT_API_SECRET: str = ""
     VIDEO_ROOM_TOKEN_TTL_SECONDS: int = Field(default=300, ge=60, le=3600)
     VIDEO_ROOM_MAX_PARTICIPANTS: int = Field(default=25, ge=2, le=500)
+    # free special lessons (My Teacher): upper limit of one lesson's audience (students join muted, without camera)
+    SPECIAL_LESSON_MAX_PARTICIPANTS: int = Field(default=100, ge=2, le=500)
+    # background round that closes special-lesson rooms at their time limit and sends the reminders
+    TEACHER_MARKET_SCHEDULER_ENABLED: bool = True
 
     # ==================================================
     # DATABASE

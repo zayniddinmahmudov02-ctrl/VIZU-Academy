@@ -88,6 +88,7 @@ export default function MeetingControls({ fallback, isHost, panel, setPanel, lay
   const [fullscreen, setFullscreen] = useState(false);
   const canMic = allows(perm, SOURCE.microphone, fallback.microphone);
   const canScreen = allows(perm, SOURCE.screenShare, fallback.screen_share);
+  const canCam = allows(perm, SOURCE.camera, fallback.camera);
   const screenSupported = typeof navigator !== "undefined" && !!navigator.mediaDevices && "getDisplayMedia" in navigator.mediaDevices;
   const fullscreenSupported = typeof document !== "undefined" && document.fullscreenEnabled;
 
@@ -172,9 +173,10 @@ export default function MeetingControls({ fallback, isHost, panel, setPanel, lay
              off={!isMicrophoneEnabled} disabled={!canMic} onClick={() => void toggleMic()} testId="ctl-mic">
           {!canMic ? <Lock size={18} /> : isMicrophoneEnabled ? <Mic size={20} /> : <MicOff size={20} />}
         </Btn>
-        <Btn label={isCameraEnabled ? t("videoRoom.camOn") : t("videoRoom.camOff")} off={!isCameraEnabled} testId="ctl-camera"
+        <Btn label={canCam ? (isCameraEnabled ? t("videoRoom.camOn") : t("videoRoom.camOff")) : t("videoRoom.camLockedHint")} off={!isCameraEnabled}
+             disabled={!canCam && !isCameraEnabled} testId="ctl-camera"
              onClick={() => void run(() => localParticipant.setCameraEnabled(!isCameraEnabled))}>
-          {isCameraEnabled ? <Video size={20} /> : <VideoOff size={20} />}
+          {!canCam && !isCameraEnabled ? <Lock size={18} /> : isCameraEnabled ? <Video size={20} /> : <VideoOff size={20} />}
         </Btn>
         {!isHost && (
           <Btn label={handRaised ? t("videoRoom.lowerHand") : t("videoRoom.raiseHand")} active={handRaised} onClick={onToggleHand} testId="ctl-hand"

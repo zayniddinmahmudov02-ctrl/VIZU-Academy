@@ -75,6 +75,12 @@ ML_PREMIUM_PRODUCT = "MULTILEVEL_MODELLTEST_PREMIUM"
 ML_PREMIUM_LABEL = "VIZU Multilevel Modelltest Premium"
 ML_PREMIUM_PRICE = 99_000
 
+# My Teacher courses (2026-11-24): the price is the one the teacher set and a SUPER_ADMIN approved (teacher_courses.price), stored on the
+# order at checkout (services/teacher_market/enrollments.py); the same manual card transfer + receipt + Super Admin approval as every
+# order. SubscriptionOrder.plan = TEACHER_COURSE_PLAN, teacher_course_id = the course; approval activates the enrollment.
+TEACHER_COURSE_PLAN = "TEACHER_COURSE"
+TEACHER_COURSE_LABEL = "My Teacher Kurs"
+
 ALL_LEVELS = ("A1", "A2", "B1", "B2", "C1")
 # Levels whose lessons students can open at all. B2 / C1 are "Tez orada": visible as locked cards, no lesson (not even
 # the free first one); a package that contains them opens them for its buyers only once the admin releases them.
@@ -212,6 +218,8 @@ def offer_levels(code: str) -> list[str]:
 def offer_label(code: str) -> str | None:
     if code == ML_PREMIUM_PLAN:
         return ML_PREMIUM_LABEL
+    if code == TEACHER_COURSE_PLAN:
+        return TEACHER_COURSE_LABEL
     cfg = offer(code) or OFFERS.get(code)
     return cfg["label"] if cfg else None
 

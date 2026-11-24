@@ -9,11 +9,11 @@ export const ATTR_HAND = "vizu.hand";
 
 export const CHAT_MAX = 500;
 
-export interface RoomMeta { title: string; chat: boolean; screenShare: boolean; mic: boolean }
+export interface RoomMeta { title: string; chat: boolean; screenShare: boolean; mic: boolean; camera: boolean; endsAt: string | null }
 
-/** Room-wide switches the backend writes to the LiveKit room metadata. */
+/** Room-wide switches the backend writes to the LiveKit room metadata (`ends_at`: special lessons close then). */
 export function parseRoomMeta(metadata: string | undefined | null): RoomMeta {
-  const out: RoomMeta = { title: "", chat: true, screenShare: false, mic: true };
+  const out: RoomMeta = { title: "", chat: true, screenShare: false, mic: true, camera: true, endsAt: null };
   if (!metadata) return out;
   try {
     const m = JSON.parse(metadata) as Record<string, unknown>;
@@ -21,11 +21,28 @@ export function parseRoomMeta(metadata: string | undefined | null): RoomMeta {
     if (typeof m.chat === "boolean") out.chat = m.chat;
     if (typeof m.screen_share === "boolean") out.screenShare = m.screen_share;
     if (typeof m.mic === "boolean") out.mic = m.mic;
+    if (typeof m.camera === "boolean") out.camera = m.camera;
+    if (typeof m.ends_at === "string" && !Number.isNaN(Date.parse(m.ends_at))) out.endsAt = m.ends_at;
   } catch {
     // not ours: keep the defaults
   }
   return out;
 }
+
+/** Milliseconds until the backend closes the room, on the server clock (`offsetMs` = server time − local time). */
+export function remainingMs(endsAt: string | null | undefined, nowMs: number, offsetMs = 0): number | null {
+  if (!endsAt) return null;
+  const end = Date.parse(endsAt);
+  return Number.isNaN(end) ? null : Math.max(0, end - (nowMs + offsetMs));
+}
+
+/** Server time − local time from a server timestamp received at `receivedAtMs` (0 when unknown). */
+export function clockOffset(serverTime: string | null | undefined, receivedAtMs: number): number {
+  const s = serverTime ? Date.parse(serverTime) : Number.NaN;
+  return Number.isNaN(s) ? 0 : s - receivedAtMs;
+}
+
+export const FIVE_MINUTES_MS = 5 * 60 * 1000;
 
 export function roleOf(metadata: string | undefined | null, attributes?: Readonly<Record<string, string>>): "host" | "student" {
   if (attributes?.[ATTR_ROLE] === "host") return "host";
@@ -82,7 +99,7 @@ export const KNOWN_ERRORS = [
   "VIDEO_ROOM_NOT_FOUND", "VIDEO_ROOM_NOT_STARTED", "VIDEO_ROOM_NOT_LIVE", "VIDEO_ROOM_FULL", "VIDEO_ROOM_REMOVED", "VIDEO_ROOM_ALREADY_LIVE",
   "VIDEO_ROOM_NOT_SCHEDULED", "VIDEO_SERVICE_NOT_CONFIGURED", "VIDEO_SERVICE_UNAVAILABLE", "VIDEO_TOO_MANY_REQUESTS", "VIDEO_MODERATOR_REQUIRED",
   "VIDEO_JOIN_IN_PROGRESS", "GROUP_NOT_ACTIVE", "SCHEDULE_REQUIRED", "SCHEDULE_IN_PAST", "SCHEDULE_TOO_FAR", "TOO_MANY_SCHEDULED", "TITLE_REQUIRED",
-  "CANNOT_MODERATE_HOST", "PARTICIPANT_NOT_FOUND", "NOT_IN_ROOM",
+  "CANNOT_MODERATE_HOST", "PARTICIPANT_NOT_FOUND", "NOT_IN_ROOM", "SPECIAL_LESSON_ROOM",
 ] as const;
 
 /** Backend error code of an axios error ({"message": "CODE"} or {"detail": "CODE"}), or null. */

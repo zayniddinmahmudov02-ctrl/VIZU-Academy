@@ -32,7 +32,7 @@ function RoomTable({ rooms, onEnd, busy, kind }: { rooms: AdminRoom[]; onEnd?: (
           {rooms.map((r) => (
             <tr key={r.id} data-testid="admin-video-room">
               <td className="py-2 pr-3 font-medium text-[var(--admin-text-primary)]">
-                <Link href={`/teacher/groups/${r.group.id}?tab=video`} className="hover:underline">{r.group.name}</Link> <span className="text-xs text-[var(--admin-text-muted)]">{r.group.level}</span>
+                <Link href={r.group.id ? `/teacher/groups/${r.group.id}?tab=video` : "/admin/lehrer-marktplatz?tab=spezialstunden"} className="hover:underline">{r.group.name}</Link> <span className="text-xs text-[var(--admin-text-muted)]">{r.group.level}</span>
               </td>
               <td className="py-2 pr-3 text-[var(--admin-text-secondary)]">{r.group.teacher}</td>
               <td className="py-2 pr-3 text-[var(--admin-text-secondary)]">{r.title}</td>

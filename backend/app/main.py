@@ -137,6 +137,12 @@ from app.api.support.router import router as support_router
 from app.api.dictionary import router as dictionary_router
 from app.api.study_groups import router as study_groups_router
 from app.api.video_rooms import router as video_rooms_router
+
+# My Teacher marketplace: catalog, profiles, courses + enrollment, reviews, free special lessons
+from app.api.teacher_market import admin_router as admin_teacher_market_router
+from app.api.teacher_market import router as my_teacher_router
+from app.api.teacher_market import special_router as special_lessons_router
+from app.api.teacher_market import teacher_router as teacher_market_router
 from app.api.global_chat import admin_router as admin_global_chat_router
 from app.api.global_chat import router as global_chat_router
 
@@ -227,9 +233,12 @@ from app.api.health import (
 async def _lifespan(_app):
     # AI subtitle jobs of Medienwelt films and the song metadata queue continue after a restart (never blocks the start)
     from app.services.medien import song_processing, subtitle_jobs
+    from app.services.teacher_market import scheduler as special_lesson_scheduler
 
     subtitle_jobs.on_startup()
     song_processing.on_startup()
+    # free special lessons: close rooms at their 90-minute limit, open-window / reminder notifications
+    special_lesson_scheduler.on_startup()
     yield
 
 
@@ -386,6 +395,10 @@ _ALL_ROUTERS = [
     admin_battle_router,
     app_releases_router,
     admin_app_releases_router,
+    my_teacher_router,
+    special_lessons_router,
+    teacher_market_router,
+    admin_teacher_market_router,
     health_router,
 ]
 

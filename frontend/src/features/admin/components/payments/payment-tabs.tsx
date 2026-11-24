@@ -13,7 +13,7 @@ import {
 } from "@/features/admin/services/vizu-pay-service";
 import type { AdminOrderItem, PromoRequestItem } from "@/features/admin/types/vizu-pay.types";
 
-const CATEGORY_LABEL: Record<string, string> = { MULTILEVEL: "Multilevel Premium", COURSES: "Kurs", PACKAGES: "Paket", LEGACY: "Premium (alt)" };
+const CATEGORY_LABEL: Record<string, string> = { MULTILEVEL: "Multilevel Premium", COURSES: "Kurs", PACKAGES: "Paket", LEGACY: "Premium (alt)", TEACHER_COURSES: "My Teacher Kurs" };
 
 const money = (v: number) => `${new Intl.NumberFormat("de-DE").format(v)} UZS`;
 const date = (v: string | null) => (v ? new Date(v).toLocaleString("de-DE", { dateStyle: "short", timeStyle: "short" }) : "—");

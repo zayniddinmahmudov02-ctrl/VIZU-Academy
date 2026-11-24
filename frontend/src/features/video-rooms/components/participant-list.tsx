@@ -9,6 +9,7 @@ import { Ban, Hand, Mic, MicOff, MoreVertical, MonitorUp, Video, VideoOff } from
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { cn } from "@/lib/utils";
 import {
+  cameraPermission,
   chatPermission,
   getParticipants,
   micPermission,
@@ -41,6 +42,7 @@ function HostActions({ roomId, p, row, onError, onChanged }: {
   const name = p.name || p.identity;
   const canMic = row ? row.can_speak : allows(p.permissions, SOURCE.microphone);
   const canScreen = row ? row.can_share_screen : allows(p.permissions, SOURCE.screenShare);
+  const canCam = row?.can_video ?? allows(p.permissions, SOURCE.camera);
   const canChat = row ? row.can_chat : p.permissions?.canPublishData !== false;
   const hand = p.attributes?.[ATTR_HAND];
 
@@ -74,6 +76,10 @@ function HostActions({ roomId, p, row, onError, onChanged }: {
           <button type="button" role="menuitem" disabled={busy} className={item} data-testid="action-mic"
                   onClick={() => run(() => micPermission(roomId, !canMic, p.identity))}>
             {canMic ? <MicOff size={15} /> : <Mic size={15} />} {canMic ? t("videoRoom.blockMic") : t("videoRoom.allowMic")}
+          </button>
+          <button type="button" role="menuitem" disabled={busy} className={item} data-testid="action-camera"
+                  onClick={() => run(() => cameraPermission(roomId, !canCam, p.identity))}>
+            {canCam ? <VideoOff size={15} /> : <Video size={15} />} {canCam ? t("videoRoom.blockCam") : t("videoRoom.allowCam")}
           </button>
           <button type="button" role="menuitem" disabled={busy} className={item} data-testid="action-screen"
                   onClick={() => run(() => screenSharePermission(roomId, !canScreen, p.identity))}>

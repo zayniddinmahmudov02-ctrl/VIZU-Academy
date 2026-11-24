@@ -6,7 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
 import {
   BookMarked, BookOpen, ClipboardCheck, ClipboardList, FileCheck2, GraduationCap, LayoutDashboard, LogOut, Menu, MessagesSquare, MonitorPlay,
-  Settings, ShieldCheck, UsersRound, Users, X,
+  Presentation, Radio, Settings, ShieldCheck, Star, UserRound, UsersRound, Users, X,
 } from "lucide-react";
 
 import Logo from "@/components/common/logo";
@@ -30,9 +30,14 @@ interface NavItem {
   kontroll?: boolean;
 }
 
-/** The twelve sections; existing pages (Gruppen, Schreiben / Sprechen) stay where they were and are reached from here. */
+/** The sections; existing pages (Gruppen, Schreiben / Sprechen) stay where they were and are reached from here. */
 export const TEACHER_NAV: NavItem[] = [
   { href: "/teacher", labelKey: "tpanel.navDashboard", icon: LayoutDashboard },
+  // My Teacher marketplace (2026-11-24): the public profile, own courses, free special lessons, reviews (read only)
+  { href: "/teacher/profil", labelKey: "market.navProfile", icon: UserRound },
+  { href: "/teacher/meine-kurse", labelKey: "market.navMyCourses", icon: Presentation },
+  { href: "/teacher/spezialstunden", labelKey: "market.navSpecial", icon: Radio },
+  { href: "/teacher/bewertungen", labelKey: "market.navReviews", icon: Star },
   { href: "/teacher/students", labelKey: "tpanel.navStudents", icon: Users },
   { href: "/teacher/groups", labelKey: "tpanel.navGroups", icon: UsersRound },
   { href: "/teacher/kurse", labelKey: "tpanel.navCourses", icon: BookOpen },

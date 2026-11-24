@@ -10,7 +10,12 @@ export type ConnectionStatus = "joining" | "connected" | "reconnecting" | "disco
 
 export interface VideoRoom {
   id: string;
-  group_id: string;
+  /** null for a free special lesson (My Teacher): then special_lesson_id is set */
+  group_id: string | null;
+  special_lesson_id?: string | null;
+  /** special lessons: the backend closes the room at this moment (90-minute limit) */
+  hard_end_at?: string | null;
+  students_camera_allowed?: boolean;
   title: string;
   description: string | null;
   status: RoomStatus;
@@ -39,15 +44,24 @@ export interface RoomPermissions {
 export interface GroupRooms { live: VideoRoom | null; upcoming: VideoRoom[]; past: VideoRoom[]; is_manager: boolean; configured: boolean }
 export interface ActiveRoom { room: VideoRoom | null; is_manager: boolean; configured: boolean }
 export interface GroupRef { id: string; name: string; level: string }
+export interface LessonRef {
+  id: string; title: string; topic: string; level: string; language: string; teacher: string; starts_at: string; duration_minutes: number; status: string;
+}
 
 export interface RoomDetail {
   room: VideoRoom;
-  group: GroupRef;
+  /** null for a special-lesson room (see `lesson`) */
+  group: GroupRef | null;
+  lesson?: LessonRef | null;
+  server_time?: string;
   viewer: { is_manager: boolean; permissions: RoomPermissions; connection_status: ConnectionStatus | null; blocked: boolean; hand_raised_at: string | null };
   configured: boolean;
 }
 
-export interface JoinInfo { server_url: string; token: string; expires_in: number; identity: string; room: VideoRoom; group: GroupRef; permissions: RoomPermissions }
+export interface JoinInfo {
+  server_url: string; token: string; expires_in: number; identity: string; room: VideoRoom; group: GroupRef | null; lesson?: LessonRef | null;
+  server_time?: string; permissions: RoomPermissions;
+}
 
 export interface ParticipantRow {
   user_id: string;
@@ -57,6 +71,7 @@ export interface ParticipantRow {
   joined_at: string | null;
   hand_raised_at: string | null;
   can_speak: boolean;
+  can_video?: boolean;
   can_share_screen: boolean;
   can_chat: boolean;
   mic_on: boolean;
@@ -80,7 +95,8 @@ export interface RoomCreate {
 }
 
 export interface AdminRoom extends VideoRoom {
-  group: { id: string; name: string; level: string | null; teacher: string };
+  group: { id: string | null; name: string; level: string | null; teacher: string };
+  lesson?: LessonRef | null;
   server_participants: number | null;
   server_room_active: boolean | null;
 }
@@ -115,9 +131,10 @@ export const raiseHand = (roomId: string, raised: boolean, userId?: string) =>
 // teacher moderation (the backend checks that the caller manages this room's group)
 export const muteParticipant = (roomId: string, userId: string) => api.post(`${ROOMS}/${roomId}/mute-participant`, { user_id: userId }).then((r) => r.data);
 export const muteAll = (roomId: string, lock = false) => api.post(`${ROOMS}/${roomId}/mute-all`, { lock }).then((r) => r.data);
-const permission = (what: "mic" | "screen-share" | "chat") => (roomId: string, allowed: boolean, userId?: string) =>
+const permission = (what: "mic" | "camera" | "screen-share" | "chat") => (roomId: string, allowed: boolean, userId?: string) =>
   api.post(`${ROOMS}/${roomId}/${what}-permission`, userId ? { allowed, user_id: userId } : { allowed }).then((r) => r.data);
 export const micPermission = permission("mic");
+export const cameraPermission = permission("camera");
 export const screenSharePermission = permission("screen-share");
 export const chatPermission = permission("chat");
 export const removeParticipant = (roomId: string, userId: string, block = false) =>

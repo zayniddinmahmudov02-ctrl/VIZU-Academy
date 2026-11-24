@@ -5,10 +5,10 @@ import {
   GraduationCap,
   Info,
   LayoutDashboard,
-  LifeBuoy,
   Library,
   Settings,
   Tag,
+  UserRoundSearch,
   Users,
 } from "lucide-react";
 
@@ -65,10 +65,12 @@ export const sidebarItems = [
     href: "/angebote",
     icon: Tag,
   },
+  // "Hilfe Anfragen" (/support) left the menu on 2026-11-24 (owner): My Teacher takes its place. The /support pages and every
+  // existing ticket stay reachable by their links (notifications) — nothing was deleted.
   {
-    titleKey: "sidebar.support",
-    href: "/support",
-    icon: LifeBuoy,
+    titleKey: "sidebar.myTeacher",
+    href: "/my-teacher",
+    icon: UserRoundSearch,
   },
   {
     titleKey: "sidebar.settings",

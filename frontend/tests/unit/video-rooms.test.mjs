@@ -6,6 +6,9 @@ import { part12 } from "../../src/lib/i18n/extra/part12.ts";
 import { videoRoomTranslations } from "../../src/lib/i18n/video-room-translations.ts";
 import {
   cleanChat,
+  clockOffset,
+  FIVE_MINUTES_MS,
+  remainingMs,
   errorCodeOf,
   errorKey,
   formatDuration,
@@ -37,11 +40,25 @@ test("every video lesson text exists in uz, de, en and ru with the same placehol
 });
 
 test("room metadata from the backend, with safe defaults", () => {
-  assert.deepEqual(parseRoomMeta(undefined), { title: "", chat: true, screenShare: false, mic: true });
-  assert.deepEqual(parseRoomMeta("not json"), { title: "", chat: true, screenShare: false, mic: true });
-  assert.deepEqual(parseRoomMeta(JSON.stringify({ title: "Dars", chat: false, screen_share: true, mic: false })),
-    { title: "Dars", chat: false, screenShare: true, mic: false });
+  const defaults = { title: "", chat: true, screenShare: false, mic: true, camera: true, endsAt: null };
+  assert.deepEqual(parseRoomMeta(undefined), defaults);
+  assert.deepEqual(parseRoomMeta("not json"), defaults);
+  assert.deepEqual(parseRoomMeta(JSON.stringify({ title: "Dars", chat: false, screen_share: true, mic: false, camera: false, ends_at: "2026-11-24T10:30:00+00:00" })),
+    { title: "Dars", chat: false, screenShare: true, mic: false, camera: false, endsAt: "2026-11-24T10:30:00+00:00" });
   assert.equal(parseRoomMeta(JSON.stringify({ chat: "no" })).chat, true); // wrong types are ignored
+  assert.equal(parseRoomMeta(JSON.stringify({ ends_at: "soon" })).endsAt, null);
+});
+
+test("special lesson countdown uses the server clock", () => {
+  const end = "2026-11-24T10:30:00.000Z";
+  const now = Date.parse("2026-11-24T10:20:00.000Z");
+  assert.equal(remainingMs(end, now), 10 * 60 * 1000);
+  // the local clock is 2 minutes behind the server: 2 minutes less remain
+  assert.equal(remainingMs(end, now, clockOffset("2026-11-24T10:22:00.000Z", now)), 8 * 60 * 1000);
+  assert.equal(remainingMs(end, now + 3_600_000), 0); // never negative
+  assert.equal(remainingMs(null, now), null);
+  assert.equal(clockOffset(undefined, now), 0);
+  assert.ok(FIVE_MINUTES_MS === 300_000);
 });
 
 test("role comes from backend attributes or token metadata only", () => {

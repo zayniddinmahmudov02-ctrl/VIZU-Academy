@@ -93,7 +93,8 @@ def _naive_utc(dt: datetime | None) -> datetime | None:
 def revenue_conditions() -> tuple:
     return (
         SubscriptionOrder.status == plan_config.STATUS_APPROVED,
-        SubscriptionOrder.plan.in_(list(plan_config.PAID_PLANS | offer_config.offer_codes() | {offer_config.ML_PREMIUM_PLAN})),
+        SubscriptionOrder.plan.in_(list(plan_config.PAID_PLANS | offer_config.offer_codes()
+                                        | {offer_config.ML_PREMIUM_PLAN, offer_config.TEACHER_COURSE_PLAN})),
     )
 
 

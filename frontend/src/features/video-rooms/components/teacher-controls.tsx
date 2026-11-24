@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { MessageSquareOff, MessageSquare, MicOff, MonitorUp, PhoneOff, VolumeX } from "lucide-react";
+import { MessageSquareOff, MessageSquare, MicOff, MonitorUp, PhoneOff, VideoOff, VolumeX } from "lucide-react";
 
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { cn } from "@/lib/utils";
-import { chatPermission, micPermission, muteAll, screenSharePermission } from "../video-rooms-service";
+import { cameraPermission, chatPermission, micPermission, muteAll, screenSharePermission } from "../video-rooms-service";
 import { errorKey, type RoomMeta } from "../video-room-utils";
 
 function Switch({ on, label, onClick, busy, testId, icon }: { on: boolean; label: string; onClick: () => void; busy: boolean; testId: string; icon: React.ReactNode }) {
@@ -54,6 +54,8 @@ export default function TeacherControls({ roomId, meta, onEnd, onError, onDone }
       </button>
       <Switch on={!meta.mic} busy={busy} testId="teacher-lock-mics" icon={<MicOff size={18} />} label={t("videoRoom.lockMics")}
               onClick={() => run(() => micPermission(roomId, !meta.mic))} />
+      <Switch on={!meta.camera} busy={busy} testId="teacher-lock-cams" icon={<VideoOff size={18} />} label={t("videoRoom.lockCams")}
+              onClick={() => run(() => cameraPermission(roomId, !meta.camera))} />
       <Switch on={meta.screenShare} busy={busy} testId="teacher-screen-all" icon={<MonitorUp size={18} />} label={t("videoRoom.allowScreenAll")}
               onClick={() => run(() => screenSharePermission(roomId, !meta.screenShare))} />
       <Switch on={meta.chat} busy={busy} testId="teacher-chat-all" icon={meta.chat ? <MessageSquare size={18} /> : <MessageSquareOff size={18} />}

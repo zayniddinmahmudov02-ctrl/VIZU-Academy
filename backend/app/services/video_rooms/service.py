@@ -98,7 +98,25 @@ def event(db: Session, room: VideoRoom, user_id, event_type: str, meta: dict | N
 
 def room_metadata(room: VideoRoom) -> dict:
     """Room-wide state every client reads live from LiveKit room metadata."""
-    return {"title": room.title, "chat": room.chat_enabled, "screen_share": room.students_can_share_screen, "mic": room.students_mic_allowed}
+    return {"title": room.title, "chat": room.chat_enabled, "screen_share": room.students_can_share_screen, "mic": room.students_mic_allowed,
+            "camera": room.students_camera_allowed, "ends_at": room.hard_end_at.isoformat() if room.hard_end_at else None}
+
+
+def _lesson_info(db: Session, room: VideoRoom) -> dict | None:
+    if room.special_lesson_id is None:
+        return None
+    from app.models.teacher_market import SpecialLesson
+
+    lesson = db.get(SpecialLesson, room.special_lesson_id)
+    if lesson is None:
+        return None
+    return {"id": lesson.id, "title": lesson.title, "topic": lesson.topic, "level": lesson.level, "language": lesson.language,
+            "teacher": display_name(lesson.teacher), "starts_at": lesson.starts_at, "duration_minutes": lesson.duration_minutes,
+            "status": lesson.status}
+
+
+def _group_info(group: StudyGroup | None) -> dict | None:
+    return {"id": group.id, "name": group.name, "level": group.level} if group is not None else None
 
 
 def participant(db: Session, room_id, user_id) -> VideoRoomParticipant | None:
@@ -115,10 +133,12 @@ def online_counts(db: Session, room_ids: list) -> dict:
 
 def room_out(room: VideoRoom, online: int = 0) -> dict:
     return {
-        "id": room.id, "group_id": room.group_id, "title": room.title, "description": room.description, "status": room.status,
+        "id": room.id, "group_id": room.group_id, "special_lesson_id": room.special_lesson_id, "title": room.title,
+        "description": room.description, "status": room.status, "hard_end_at": room.hard_end_at,
         "scheduled_at": room.scheduled_at, "started_at": room.started_at, "ended_at": room.ended_at, "end_reason": room.end_reason,
         "max_participants": room.max_participants, "chat_enabled": room.chat_enabled,
         "students_can_share_screen": room.students_can_share_screen, "students_mic_allowed": room.students_mic_allowed,
+        "students_camera_allowed": room.students_camera_allowed,
         "created_by": {"id": room.creator.id, "name": display_name(room.creator)} if room.creator else None,
         "online_count": online, "created_at": room.created_at,
     }
@@ -160,6 +180,10 @@ def finish(db: Session, room: VideoRoom, actor_id, reason: str, close_livekit: b
     for p in db.scalars(select(VideoRoomParticipant).where(VideoRoomParticipant.room_id == room.id,
                                                            VideoRoomParticipant.connection_status.in_((*ONLINE, CONN_JOINING)))):
         p.connection_status, p.left_at, p.hand_raised_at = CONN_LEFT, t, None
+    if room.special_lesson_id is not None:
+        from app.services.teacher_market.special_lessons import on_room_finished
+
+        on_room_finished(db, room)
     if not close_livekit or not lk.configured():
         return False
     try:
@@ -171,6 +195,10 @@ def finish(db: Session, room: VideoRoom, actor_id, reason: str, close_livekit: b
 
 def expire(db: Session, room: VideoRoom) -> bool:
     t = now()
+    if room.status == ROOM_LIVE and room.hard_end_at is not None and t >= room.hard_end_at:
+        finish(db, room, None, "time_limit")
+        event(db, room, None, "ended", {"reason": "time_limit"})
+        return True
     if room.status == ROOM_LIVE and room.started_at and t - room.started_at > MAX_LIVE:
         finish(db, room, None, "expired")
         event(db, room, None, "ended", {"reason": "expired"})
@@ -283,15 +311,22 @@ def get_room(db: Session, user: User, room_id: UUID) -> dict:
     p = participant(db, room.id, user.id)
     return {
         "room": room_out(room, online_counts(db, [room.id]).get(room.id, 0)),
-        "group": {"id": group.id, "name": group.name, "level": group.level},
+        "group": _group_info(group), "lesson": _lesson_info(db, room), "server_time": now(),
         "viewer": {"is_manager": manager, "permissions": described(room, p, manager), "connection_status": p.connection_status if p else None,
                    "blocked": bool(p and p.blocked and not manager), "hand_raised_at": p.hand_raised_at if p else None},
         "configured": lk.configured(),
     }
 
 
+def _not_for_lessons(room: VideoRoom) -> None:
+    """Special-lesson rooms are opened / scheduled through the lesson (teacher_market.special_lessons), not here."""
+    if room.special_lesson_id is not None:
+        raise error(409, "SPECIAL_LESSON_ROOM")
+
+
 def update(db: Session, user: User, room_id: UUID, data: dict) -> dict:
     room, group = moderate_room(db, user, room_id)
+    _not_for_lessons(room)
     if room.status not in (ROOM_SCHEDULED, ROOM_LIVE):
         raise error(409, "VIDEO_ROOM_CLOSED")
     if "title" in data and data["title"] is not None:
@@ -315,6 +350,7 @@ def update(db: Session, user: User, room_id: UUID, data: dict) -> dict:
 
 def start(db: Session, user: User, room_id: UUID) -> dict:
     room, group = moderate_room(db, user, room_id)
+    _not_for_lessons(room)
     limit(db, user, "moderate")
     if expire(db, room):
         db.commit()
@@ -323,6 +359,7 @@ def start(db: Session, user: User, room_id: UUID) -> dict:
 
 def cancel(db: Session, user: User, room_id: UUID) -> dict:
     room, group = moderate_room(db, user, room_id)
+    _not_for_lessons(room)
     if room.status != ROOM_SCHEDULED:
         raise error(409, "VIDEO_ROOM_NOT_SCHEDULED")
     room.status, room.ended_at, room.ended_by, room.end_reason = ROOM_CANCELLED, now(), user.id, "cancelled"
@@ -340,7 +377,8 @@ def end(db: Session, user: User, room_id: UUID) -> dict:
         raise error(409, "VIDEO_ROOM_NOT_LIVE")
     closed = finish(db, room, user.id, "host")
     event(db, room, user.id, "ended", {"reason": "host", "livekit_closed": closed})
-    audit(db, group.id, user.id, "video_room_ended", "video_room", room.id)
+    if group is not None:
+        audit(db, group.id, user.id, "video_room_ended", "video_room", room.id)
     db.commit()
     db.refresh(room)
     return {"room": room_out(room), "livekit_closed": closed}
@@ -370,7 +408,7 @@ def join(db: Session, user: User, room_id: UUID, ip: str | None) -> dict:
             raise error(409, "VIDEO_ROOM_FULL")
     if p is None:
         p = VideoRoomParticipant(room_id=room.id, user_id=user.id, role=role_for(manager), can_speak=room.students_mic_allowed,
-                                 can_share_screen=room.students_can_share_screen, can_chat=True)
+                                 can_video=room.students_camera_allowed, can_share_screen=room.students_can_share_screen, can_chat=True)
         db.add(p)
     p.role = role_for(manager)
     if p.connection_status not in ONLINE:
@@ -394,7 +432,7 @@ def join(db: Session, user: User, room_id: UUID, ip: str | None) -> dict:
     db.commit()
     db.refresh(room)
     return {"server_url": lk.public_url(), "token": token, "expires_in": ttl, "identity": str(user.id), "room": room_out(room),
-            "group": {"id": group.id, "name": group.name, "level": group.level}, "permissions": described(room, p, manager)}
+            "group": _group_info(group), "lesson": _lesson_info(db, room), "server_time": t, "permissions": described(room, p, manager)}
 
 
 def leave(db: Session, user: User, room_id: UUID) -> dict:
@@ -436,13 +474,14 @@ def participants(db: Session, user: User, room_id: UUID) -> dict:
             continue
         item = {"user_id": p.user_id, "name": display_name(p.user), "role": p.role, "connection_status": conn,
                 "joined_at": p.joined_at, "hand_raised_at": p.hand_raised_at, "can_speak": p.role == ROLE_HOST or p.can_speak,
+                "can_video": p.role == ROLE_HOST or p.can_video,
                 "can_share_screen": p.role == ROLE_HOST or p.can_share_screen, "can_chat": can_chat(room, p),
                 **(lk.track_state(info) if info is not None else {"mic_on": False, "camera_on": False, "screen_sharing": False})}
         if manager:
             item.update({"left_at": p.left_at, "join_count": p.join_count, "blocked": p.blocked, "removed_at": p.removed_at})
         items.append(item)
     out = {"items": items, "online_count": sum(1 for i in items if i["connection_status"] in ONLINE), "livekit": livekit}
-    if manager:
+    if manager and group is not None:
         seen = {p.user_id for p in rows if p.connection_status in ONLINE or str(p.user_id) in live}
         members = db.scalars(select(StudyGroupMember).where(StudyGroupMember.group_id == group.id, StudyGroupMember.status == MEMBER_ACTIVE,
                                                             StudyGroupMember.role == MEMBER_STUDENT))
@@ -474,8 +513,11 @@ def admin_overview(db: Session) -> dict:
     def row(r: VideoRoom) -> dict:
         g = groups.get(r.group_id)
         out = room_out(r, counts.get(r.id, 0))
-        out["group"] = {"id": r.group_id, "name": g.name if g else "—", "level": g.level if g else None,
-                        "teacher": display_name(g.teacher) if g else "—"}
+        lesson = _lesson_info(db, r)
+        out["lesson"] = lesson
+        out["group"] = {"id": r.group_id, "name": g.name if g else (f"Spezialstunde: {lesson['title']}" if lesson else "—"),
+                        "level": g.level if g else (lesson["level"] if lesson else None),
+                        "teacher": display_name(g.teacher) if g else (lesson["teacher"] if lesson else "—")}
         out["server_participants"] = server.get(r.room_name) if r.status == ROOM_LIVE and status_ == "available" else None
         out["server_room_active"] = (r.room_name in server) if r.status == ROOM_LIVE and status_ == "available" else None
         return out
@@ -498,7 +540,8 @@ def admin_end(db: Session, admin: User, room_id: UUID) -> dict:
         raise error(409, "VIDEO_ROOM_NOT_LIVE")
     closed = finish(db, room, admin.id, "admin")
     event(db, room, admin.id, "ended", {"reason": "admin", "livekit_closed": closed})
-    audit(db, room.group_id, admin.id, "video_room_force_ended", "video_room", room.id)
+    if room.group_id is not None:
+        audit(db, room.group_id, admin.id, "video_room_force_ended", "video_room", room.id)
     db.commit()
     db.refresh(room)
     return {"room": room_out(room), "livekit_closed": closed}

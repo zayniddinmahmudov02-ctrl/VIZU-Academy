@@ -28,6 +28,7 @@ import { resolveReply } from "../reply-preview";
 import { ConfirmDeleteDialog, EditMessageForm, OwnMessageMenu } from "./own-message-actions";
 import { ReplyComposerPreview, ReplyQuote, SwipeToReply } from "./reply-ui";
 import RestrictDialog from "./restrict-dialog";
+import { LiveLessonsStrip } from "@/features/teacher-market/components/student-pages";
 
 const POLL_MS = 4000;
 const NEAR_BOTTOM_PX = 80;
@@ -421,6 +422,9 @@ export default function ChatPanel({ onClose, onUnread, isSuperAdmin }: { onClose
           </ul>
         </div>
       )}
+
+      {/* My Teacher: approved free special lessons (live now / next), with Join — the backend decides who may enter */}
+      <LiveLessonsStrip />
 
       {!online ? (
         <p role="status" className="flex items-center gap-2 bg-amber-500/10 px-4 py-2 text-xs text-amber-700 dark:text-amber-300"><WifiOff size={14} /> {t("globalChat.offline")}</p>

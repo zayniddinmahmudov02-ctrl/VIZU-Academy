@@ -8,8 +8,12 @@
 * A room id only ever resolves inside its own group, so sending another
   group's id gains nothing.
 
+Special-lesson rooms (no group, special_lessons.id): view / join = any active
+logged-in user while the lesson is APPROVED (or ENDED, for the history); host =
+the lesson's teacher or a SUPER_ADMIN; anything else 404.
+
 The LiveKit grants of a participant are derived from the stored moderation
-state, never from the request."""
+state, never from the request. Camera, microphone and screen share are separate."""
 
 from uuid import UUID
 
@@ -19,7 +23,7 @@ from sqlalchemy.orm import Session
 from app.models.study_group import GROUP_ACTIVE, StudyGroup
 from app.models.user import User
 from app.models.video_room import ROLE_HOST, ROLE_STUDENT, VideoRoom, VideoRoomParticipant
-from app.services.study_groups.access import is_manager, require_manage, require_view
+from app.services.study_groups.access import is_manager, is_super_admin, require_manage, require_view
 from app.services.video_rooms import livekit_service as lk
 
 
@@ -55,19 +59,33 @@ def require_group_active(group: StudyGroup) -> None:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="GROUP_NOT_ACTIVE")
 
 
-def view_room(db: Session, user: User, room_id: UUID) -> tuple[VideoRoom, StudyGroup, bool]:
+def lesson_manager(db: Session, user: User, room: VideoRoom) -> bool:
+    """Special-lesson room: 404 unless the lesson is approved / ended and the account active; True = host."""
+    from app.models.teacher_market import SL_APPROVED, SL_ENDED, SpecialLesson
+
+    lesson = db.get(SpecialLesson, room.special_lesson_id)
+    if lesson is None or lesson.status not in (SL_APPROVED, SL_ENDED) or not user.is_active or user.is_banned:
+        raise room_not_found()
+    return is_super_admin(user) or lesson.teacher_id == user.id
+
+
+def view_room(db: Session, user: User, room_id: UUID) -> tuple[VideoRoom, StudyGroup | None, bool]:
+    """(room, group or None for a special lesson, viewer is host)."""
     room = db.get(VideoRoom, room_id)
     if room is None:
         raise room_not_found()
+    if room.special_lesson_id is not None:
+        return room, None, lesson_manager(db, user, room)
     group, manager = _group_or_404(view_group, db, user, room.group_id)
     return room, group, manager
 
 
-def moderate_room(db: Session, user: User, room_id: UUID) -> tuple[VideoRoom, StudyGroup]:
+def moderate_room(db: Session, user: User, room_id: UUID) -> tuple[VideoRoom, StudyGroup | None]:
     room, group, manager = view_room(db, user, room_id)
     if not manager:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="VIDEO_MODERATOR_REQUIRED")
-    require_manage(db, user, group.id, write=True)
+    if group is not None:
+        require_manage(db, user, group.id, write=True)
     return room, group
 
 
@@ -78,7 +96,9 @@ def role_for(manager: bool) -> str:
 def sources(p: VideoRoomParticipant) -> list[str]:
     if p.role == ROLE_HOST:
         return [lk.CAMERA, lk.MICROPHONE, lk.SCREEN_SHARE, lk.SCREEN_SHARE_AUDIO]
-    out = [lk.CAMERA]
+    out = []
+    if p.can_video is not False:  # None = a row not flushed yet = the column default (allowed)
+        out.append(lk.CAMERA)
     if p.can_speak:
         out.append(lk.MICROPHONE)
     if p.can_share_screen:
@@ -94,7 +114,7 @@ def described(room: VideoRoom, p: VideoRoomParticipant | None, manager: bool) ->
     """What the viewer may do — the UI shows it; LiveKit and the API enforce it."""
     if p is None:
         host = manager
-        return {"role": role_for(manager), "camera": True, "microphone": host or room.students_mic_allowed,
+        return {"role": role_for(manager), "camera": host or room.students_camera_allowed, "microphone": host or room.students_mic_allowed,
                 "screen_share": host or room.students_can_share_screen, "chat": host or room.chat_enabled, "moderate": manager}
     src = sources(p)
     return {"role": p.role, "camera": lk.CAMERA in src, "microphone": lk.MICROPHONE in src, "screen_share": lk.SCREEN_SHARE in src,

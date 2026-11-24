@@ -10,7 +10,11 @@ const CATEGORY_LABEL: Record<string, string> = {
   COURSES: "Kurs",
   PACKAGES: "Paket",
   LEGACY: "Premium (alt)",
+  TEACHER_COURSES: "My Teacher Kurs",
 };
+
+/** Only LMS course / package orders have an access period that can be extended (the backend refuses the rest). */
+const extendable = (category: string) => category !== "MULTILEVEL" && category !== "TEACHER_COURSES";
 
 const STATUS_STYLE: Record<string, string> = {
   PENDING: "bg-[var(--admin-warning)]/15 text-[var(--admin-warning)]",
@@ -165,7 +169,7 @@ export default function BuyerCard({ order, onOpenReceipt, onApprove, onReject, o
             </button>
           </>
         )}
-        {order.status === "APPROVED" && order.product_category !== "MULTILEVEL" && (
+        {order.status === "APPROVED" && extendable(category) && (
           <button
             type="button"
             onClick={() => setExtendOpen((open) => !open)}
@@ -202,7 +206,7 @@ export default function BuyerCard({ order, onOpenReceipt, onApprove, onReject, o
         </form>
       )}
 
-      {extendOpen && order.status === "APPROVED" && order.product_category !== "MULTILEVEL" && (
+      {extendOpen && order.status === "APPROVED" && extendable(category) && (
         <form
           className="grid gap-2 border-t border-[var(--admin-border)] pt-3 sm:grid-cols-[100px_1fr_auto]"
           onSubmit={(event) => {

@@ -127,6 +127,18 @@ export const videoRoomTranslations: Record<string, { de: string; uz: string }> =
   toastChatOff: { de: "Der Chat wurde ausgeschaltet.", uz: "Chat o'chirildi." },
   toastChatOn: { de: "Der Chat ist wieder an.", uz: "Chat yana yoqildi." },
   toastHandLowered: { de: "Deine Meldung wurde gesenkt.", uz: "Qo'lingiz tushirildi." },
+  toastCamBlocked: { de: "Die Lehrkraft hat deine Kamera gesperrt.", uz: "O'qituvchi kamerangizni blokladi." },
+  toastCamAllowed: { de: "Du darfst jetzt deine Kamera einschalten.", uz: "Endi kamerangizni yoqishingiz mumkin." },
+  toastFiveMinutes: { de: "Noch 5 Minuten: Der Raum schließt danach automatisch.", uz: "5 daqiqa qoldi: shundan keyin xona avtomatik yopiladi." },
+
+  specialLesson: { de: "Kostenlose Spezialstunde", uz: "Bepul maxsus dars" },
+  timeLeft: { de: "noch {time}", uz: "{time} qoldi" },
+  endsAt: { de: "Der Raum schließt automatisch um {time} (höchstens 90 Minuten).", uz: "Xona soat {time} da avtomatik yopiladi (ko'pi bilan 90 daqiqa)." },
+  camLockedHint: { de: "Kameras der Teilnehmenden sind aus. Die Lehrkraft kann deine Kamera freigeben.", uz: "Ishtirokchilar kamerasi o'chirilgan. O'qituvchi kamerangizga ruxsat berishi mumkin." },
+  lockCams: { de: "Kameras der Teilnehmenden sperren", uz: "Ishtirokchilar kamerasini bloklash" },
+  allowCam: { de: "Kamera erlauben", uz: "Kameraga ruxsat berish" },
+  blockCam: { de: "Kamera sperren", uz: "Kamerani bloklash" },
+  backToLessons: { de: "Zurück zu den Live-Stunden", uz: "Jonli darslarga qaytish" },
 
   endedTitle: { de: "Die Stunde ist beendet.", uz: "Dars yakunlandi." },
   leftTitle: { de: "Du hast den Raum verlassen.", uz: "Siz xonadan chiqdingiz." },
@@ -158,4 +170,5 @@ export const videoRoomTranslations: Record<string, { de: string; uz: string }> =
   err_CANNOT_MODERATE_HOST: { de: "Die Lehrkraft kann nicht moderiert werden.", uz: "O'qituvchiga bu amalni qo'llab bo'lmaydi." },
   err_PARTICIPANT_NOT_FOUND: { de: "Diese Person ist nicht im Raum.", uz: "Bu ishtirokchi xonada emas." },
   err_NOT_IN_ROOM: { de: "Du bist nicht im Raum.", uz: "Siz xonada emassiz." },
+  err_SPECIAL_LESSON_ROOM: { de: "Dieser Raum gehört zu einer Spezialstunde und wird dort gesteuert.", uz: "Bu xona maxsus darsga tegishli va o'sha yerdan boshqariladi." },
 };

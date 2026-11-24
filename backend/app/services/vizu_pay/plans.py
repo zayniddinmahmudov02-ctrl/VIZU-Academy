@@ -16,16 +16,16 @@ PLAN_MONTH_3 = "MONTH_3"
 PLAN_MONTH_6 = "MONTH_6"
 PLAN_MONTH_12 = "MONTH_12"
 
-from .offers import ML_PREMIUM_PLAN, OFFER_CODES, offer_label  # noqa: E402
+from .offers import ML_PREMIUM_PLAN, OFFER_CODES, TEACHER_COURSE_PLAN, offer_label  # noqa: E402
 
 # Time-based Premium plans. No longer sold (replaced by the Angebote course
 # offers in offers.py) but kept so historical orders, revenue and labels
 # still resolve, and existing Premium users keep their access.
 PAID_PLANS = {PLAN_MONTH_1, PLAN_MONTH_3, PLAN_MONTH_6, PLAN_MONTH_12}
-ALL_PLANS = PAID_PLANS | {PLAN_TRIAL, PLAN_PROMO, ML_PREMIUM_PLAN} | OFFER_CODES
+ALL_PLANS = PAID_PLANS | {PLAN_TRIAL, PLAN_PROMO, ML_PREMIUM_PLAN, TEACHER_COURSE_PLAN} | OFFER_CODES
 
 # Every plan that represents real money — used by the admin revenue figures.
-REVENUE_PLANS = PAID_PLANS | OFFER_CODES | {ML_PREMIUM_PLAN}
+REVENUE_PLANS = PAID_PLANS | OFFER_CODES | {ML_PREMIUM_PLAN, TEACHER_COURSE_PLAN}
 
 PLAN_CONFIG = {
     PLAN_TRIAL: {"days": 7, "price": 0, "label": "7-Day Trial (discontinued)"},

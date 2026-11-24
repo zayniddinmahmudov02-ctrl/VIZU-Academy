@@ -184,6 +184,11 @@ def mic_permission(room_id: UUID, data: PermissionIn, db: Session = Depends(get_
     return moderation.mic_permission(db, user, room_id, data.allowed, data.user_id)
 
 
+@router.post("/video-rooms/{room_id}/camera-permission")
+def camera_permission(room_id: UUID, data: PermissionIn, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    return moderation.camera_permission(db, user, room_id, data.allowed, data.user_id)
+
+
 @router.post("/video-rooms/{room_id}/screen-share-permission")
 def screen_share_permission(room_id: UUID, data: PermissionIn, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
     return moderation.screen_share_permission(db, user, room_id, data.allowed, data.user_id)
