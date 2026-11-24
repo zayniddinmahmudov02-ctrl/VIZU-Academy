@@ -1,6 +1,6 @@
 ﻿# Module registry
 
-Updated 2026-11-01 · checked against the repo (Wortschatz / Lesen / Schreiben: A2 module separation; see `current-state.md`).
+Updated 2026-11-24 (§ 13c My Teacher) · checked against the repo (Wortschatz / Lesen / Schreiben: A2 module separation; see `current-state.md`).
 Sources: directory listings of `backend/app/{api,services,models}`, `frontend/src/{app,features,components}`,
 `backend/tests`, `app/main.py`, `core/security/roles.py`, and the files named below.
 `(?)` = not checked in code yet — verify before relying on it. Paths: `be/` = `backend/app/`, `fe/` = `frontend/src/`.
@@ -209,6 +209,8 @@ API prefixes are listed without `/api/v1` (every router is mounted bare and unde
   `review_course_request`; nothing is bought by it). Admin `/admin/payments`: Overview, Payment Requests, Course Payments, Multilevel
   Modelltest Payments (+ Premium holders), Promo Codes, Promo Requests, Purchase History, Payment Settings
   (`fe/features/admin/components/payments/{payments-sections,payment-tabs,buyer-card}.tsx`).
+- **My Teacher courses (2026-11-24):** plan `TEACHER_COURSE` + `subscription_orders.teacher_course_id`, category `TEACHER_COURSES` (label `My Teacher Kurs: {title}`
+  in Payment Requests; no "Zugang verlängern"); approve / reject / refund drive the enrollment (§ 13c). Counted in revenue.
 - **Tests:** `test_angebote`, `test_course_packages*`, `test_promo_*`, `test_admin_purchase_analytics`,
   `test_course_access_terms`, `test_multilevel_premium*`; E2E `purchase.spec.ts`, `multilevel-premium.spec.ts` (E2E helper
   `grantMultilevelPremium` in `e2e/tests/helpers.ts`; Modelltest 1–6 no longer need it).
@@ -272,6 +274,27 @@ API prefixes are listed without `/api/v1` (every router is mounted bare and unde
   services/activity-service.ts,types.ts}`; tracker mounted in `components/dashboard/dashboard-layout.tsx`; film player + PDF reader register their item.
   Unit test `tests/unit/activity-tracking.test.mjs`.
 
+## 13c. My Teacher / Teacher Marketplace (2026-11-24)
+
+- **What:** student catalog of teachers (9:16 cards), public teacher profile (experience, real student numbers, verified certificates,
+  server-computed rating + reviews), teachers' own courses (PAID / FREE / UPCOMING, Super Admin approval), enrollment (free at once; paid = VIZU Pay
+  card transfer approved by the Super Admin), reviews, free special lessons (≤ 90 min) in a VIZU video room announced in the Global Chat.
+  Replaces the student menu item "Hilfe Anfragen" (support stays at `/support`). Runbook + rules: `docs/teacher-marketplace.md`.
+- **Backend:** `be/api/teacher_market/router.py` (`/my-teacher`, `/special-lessons`, `/teacher/market`, `/admin/teacher-market`),
+  `be/services/teacher_market/{common,media,profiles,certificates,courses,enrollments,reviews,special_lessons,scheduler}.py` (each docstring = its
+  rules), model `be/models/teacher_market.py` + columns in `teacher_profile.py`, `video_room.py`, `subscription_order.py`; migration `d9e4a1c7b3f5`.
+  Settings `SPECIAL_LESSON_MAX_PARTICIPANTS`, `TEACHER_MARKET_SCHEDULER_ENABLED`; admin setting `app_settings["teacher_market"]`.
+- **Hooks into other modules:** VIZU Pay plan `TEACHER_COURSE` (`offers.py`, `plans.py`, `purchases.revenue_conditions`, `service.serialize_order`
+  category `TEACHER_COURSES`, `admin_service` approve / reject / refund → `enrollments.{activate,release,revoke}_for_order`); approved course →
+  study group (classroom = group chat + group video lessons, attendance from `video_room_participants`); special lessons → `video_rooms`
+  (`special_lesson_id`, `hard_end_at`, camera permission) + `special_lessons.on_room_finished`; scheduler thread started in `main.py` lifespan.
+- **Frontend:** `fe/features/teacher-market/` (`types.ts`, `services/market-service.ts`, components `teacher-catalog`, `teacher-profile-view`,
+  `course-dialog`, `student-pages` (+ `LiveLessonsStrip` in the Global Chat panel), `teacher-profile-editor`, `ratio-cropper`, `teacher-manage`,
+  `admin-market`, `ui`); pages `fe/app/(dashboard)/my-teacher/{page,[teacherId],meine-kurse,live}`, `fe/app/teacher/{profil,meine-kurse,
+  spezialstunden,bewertungen}`, `fe/app/admin/lehrer-marktplatz`; texts namespace `market` (`fe/lib/i18n/market-translations.ts`, uz / de).
+- **Tests:** `test_teacher_market`, `test_teacher_market_migration`, unit `teacher-market.test.mjs` (texts, error codes, multipart uploads),
+  E2E `teacher-marketplace.spec.ts` (seed `D:\vz_tmp\work\tm_e2e_seed.py`).
+
 ## 14. Groups & Classroom
 
 - **Backend:** `be/api/study_groups/router.py` (`/groups`), `be/services/study_groups/{access,chat,codes,groups,notify,progress,scope}.py`.
@@ -285,6 +308,9 @@ API prefixes are listed without `/api/v1` (every router is mounted bare and unde
   - *Rules:* view / join = group managers + active members (else 404); moderate = this group's teacher / SUPER_ADMIN (member 403); one live room per
     group; tokens room-bound, identity = user id, 300 s, no self-metadata; moderation = stored state → LiveKit permissions + next token; webhook throws
     out anyone who may not stay; rate limits per user / IP; room ends by host, admin, LiveKit `room_finished` (empty 5 min) or after 6 h.
+    Special-lesson rooms (My Teacher, § 13c): no group, opened by `teacher_market.special_lessons.open_room`, closed at `hard_end_at` by the
+    scheduler / `expire()`; camera is a separate permission (`can_video`, `POST /video-rooms/{id}/camera-permission`); UI shows a server-clock
+    countdown with a 5-minute warning.
   - *Tables:* `video_rooms`, `video_room_participants`, `video_room_events` (migration `b7e4c2a9d6f1`).
   - *Frontend:* `fe/features/video-rooms/` (service, `video-room-utils.ts`, components VideoRoomPage, MeetingView, VideoGrid, VideoTile, MeetingControls,
     ParticipantList, MeetingChat, RaiseHandPanel, TeacherControls, DeviceSettings, ConnectionStatus, MeetingGuard, VideoLessonsTab + LiveBanner),
@@ -300,6 +326,8 @@ API prefixes are listed without `/api/v1` (every router is mounted bare and unde
   `global_chat_message_edits`, `global_chat_restrictions`, `global_chat_moderation_actions`, `global_chat_reads`.
 - **Frontend:** `fe/features/global-chat/`, admin `fe/app/admin/global-chat`. The floating button (`global-chat-widget.tsx`, mounted in the
   student / teacher / admin shells) shows ONLY on `/dashboard`, `/teacher`, `/admin` (`chat-visibility.ts`, owner 2026-11-19); a page change closes it.
+  The panel shows approved free special lessons (live / next, Join) above the messages (`LiveLessonsStrip`, § 13c); an approval also posts the
+  announcement as a message of the teacher (pinned while fewer than 5 pins).
 - **Docs/tests:** `docs/global-chat.md`, `docs/audit/global-chat-reply.md`; `test_global_chat*`, unit `chat-visibility.test.mjs`, E2E `global-chat*.spec.ts`.
   Skill: `vizu-chat`.
 

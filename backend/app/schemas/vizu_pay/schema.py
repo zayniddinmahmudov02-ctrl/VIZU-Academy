@@ -64,12 +64,20 @@ class MySubscriptionStatus(BaseSchema):
     course_accesses: list[CourseAccessItem] = []
 
 
+class OrderTeacherCourse(BaseSchema):
+    """The My Teacher course of a TEACHER_COURSE order (null for every other order)."""
+    id: UUID
+    title: str
+    teacher_id: UUID
+
+
 class OrderItem(BaseSchema):
     id: UUID
     plan: str
     plan_label: str
-    # COURSES / PACKAGES / MULTILEVEL / LEGACY (service.order_category)
+    # COURSES / PACKAGES / MULTILEVEL / LEGACY / TEACHER_COURSES (service.order_category)
     product_category: str = "COURSES"
+    teacher_course: OrderTeacherCourse | None = None
     paid_at: datetime | None = None
     no_receipt: bool = False
     student_note: str | None = None

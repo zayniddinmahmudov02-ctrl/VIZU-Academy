@@ -7,10 +7,11 @@
 * Notifications are rows of the existing notifications table, written in the caller's transaction (`notify`)."""
 
 from datetime import datetime, timedelta, timezone
-from uuid import UUID
+from uuid import UUID, uuid4
 
 from fastapi import HTTPException
 from sqlalchemy import select
+from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.orm import Session
 
 from app.core.security.roles import UserRole
@@ -69,9 +70,12 @@ def teacher_account_ok(user: User | None) -> bool:
 def profile_of(db: Session, teacher_id, create: bool = False) -> TeacherProfile | None:
     p = db.scalar(select(TeacherProfile).where(TeacherProfile.user_id == teacher_id))
     if p is None and create:
-        p = TeacherProfile(user_id=teacher_id)
-        db.add(p)
-        db.flush()
+        # The first visit often fires two requests at once (profile + another panel): INSERT … ON CONFLICT DO NOTHING keeps it
+        # to one row without a unique-violation 500; the loser of the race then reads the winner's row.
+        db.execute(pg_insert(TeacherProfile).values(
+            id=uuid4(), user_id=teacher_id, can_access_student_control=False, catalog_hidden=False, profile_disabled=False, verified=False,
+            rating_avg=0, rating_count=0).on_conflict_do_nothing(index_elements=["user_id"]))
+        p = db.scalar(select(TeacherProfile).where(TeacherProfile.user_id == teacher_id).execution_options(populate_existing=True))
     return p
 
 

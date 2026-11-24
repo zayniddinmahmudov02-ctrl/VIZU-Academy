@@ -10,6 +10,7 @@ Auth per router:
 * `/admin/teacher-market/*`: reads `require_admin_panel_access`, every change `require_super_admin` (audited).
 Bodies never carry the caller's id, role, a price paid or a rating total."""
 
+import math
 from datetime import date, datetime
 from typing import Literal
 from uuid import UUID
@@ -122,10 +123,15 @@ class InterestIn(_In):
 
 
 def _crop(x: float | None, y: float | None, w: float | None):
+    """Fractions of the image; browser float noise (-1e-16, 1.0000000000000002) is clamped, anything really outside is refused."""
+    out = []
     for v in (x, y, w):
-        if v is not None and not 0 <= v <= 1:
-            raise common.err(422, "CROP_INVALID")
-    return x, y, w
+        if v is not None:
+            if not math.isfinite(v) or not -1e-6 <= v <= 1 + 1e-6:
+                raise common.err(422, "CROP_INVALID")
+            v = min(1.0, max(0.0, v))
+        out.append(v)
+    return tuple(out)
 
 
 # ================= student / everyone =================

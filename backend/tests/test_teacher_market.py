@@ -69,6 +69,17 @@ class TestContract(unittest.TestCase):
         left, top, right, bottom = crop_box(2000, 2000, 16 / 9, 0.9, 0.9, 0.5)
         self.assertTrue(right <= 2000 and bottom <= 2000)
 
+    def test_crop_fractions_tolerate_float_noise_only(self):
+        # a 1000 x 1500 image at 9:16 gives h = 1.0000000000000002 in the browser, so y = (1 - h) / 2 is a tiny negative number
+        from app.api.teacher_market.router import _crop
+
+        self.assertEqual(_crop(0.078125, -1.1102230246251565e-16, 0.84375), (0.078125, 0.0, 0.84375))
+        self.assertEqual(_crop(1.0000000000000002, 0.5, None), (1.0, 0.5, None))
+        for bad in (-0.1, 1.2, float("nan"), float("inf")):
+            with self.assertRaises(HTTPException) as e:
+                _crop(bad, 0.0, 0.5)
+            self.assertEqual(e.exception.detail, "CROP_INVALID")
+
     def test_certificate_pdf_must_be_a_pdf(self):
         from app.services.teacher_market.media import save_certificate
 
@@ -207,6 +218,43 @@ class TestIntegration(unittest.TestCase):
         self.assertEqual(self._err(profiles.public_profile, self.db, student, t2.id).status_code, 404)
         self.assertEqual(profiles.public_profile(self.db, student, t1.id)["headline"], "DaF")
 
+    def test_first_profile_requests_at_the_same_moment_create_one_row(self):
+        # regression: two parallel GETs /teacher/market/profile both inserted the row → unique violation → 500
+        import threading
+
+        from sqlalchemy import func, select
+
+        from app.models.teacher_profile import TeacherProfile
+        from app.services.teacher_market.common import profile_of
+
+        teacher = self._teacher()
+        first = self.Session()
+        first_id = profile_of(first, teacher.id, create=True).id  # inserted, not committed: the second insert has to wait
+        result = {}
+
+        def second():
+            s = self.Session()
+            try:
+                result["row"] = profile_of(s, teacher.id, create=True)
+                result["id"] = result["row"].id
+                s.commit()
+            except Exception as exc:  # noqa: BLE001 - the test reports it
+                result["error"] = exc
+                s.rollback()
+            finally:
+                s.close()
+
+        thread = threading.Thread(target=second)
+        thread.start()
+        thread.join(1.0)
+        self.assertTrue(thread.is_alive(), "the second insert waits for the first transaction")
+        first.commit()
+        thread.join(10)
+        first.close()
+        self.assertNotIn("error", result)
+        self.assertEqual(result["id"], first_id)
+        self.assertEqual(self.db.scalar(select(func.count()).select_from(TeacherProfile).where(TeacherProfile.user_id == teacher.id)), 1)
+
     def test_profile_validation_and_rating_is_not_writable(self):
         from app.services.teacher_market import profiles
 
@@ -280,6 +328,15 @@ class TestIntegration(unittest.TestCase):
                                                    paid_time=paid.strftime("%H:%M"), note=None, proof=None, ip=None))
         order = self.db.get(SubscriptionOrder, uuid.UUID(out["order"]["id"]))
         self.assertEqual((order.plan, order.final_amount, order.status), ("TEACHER_COURSE", 250_000, "PENDING"))
+        # regression: the order lists (student + admin) have extra="forbid" response models; the teacher_course key broke them (500)
+        from app.schemas.vizu_pay import AdminOrderItem, OrderItem, OrderListResponse
+
+        self.assertEqual(str(OrderItem.model_validate(out["order"]).teacher_course.id), str(course["id"]))
+        admin_list = AdminVizuPayService(self.db).list_orders(status="PENDING", user_id=str(s1.id), page_size=50)
+        self.assertEqual([AdminOrderItem.model_validate(i).plan for i in admin_list["items"]], ["TEACHER_COURSE"])
+        from app.services.vizu_pay.service import VizuPayService
+
+        OrderListResponse.model_validate(VizuPayService(self.db).get_my_orders(s1))
         self.assertEqual(self._err(enrollments.enroll_free, self.db, s2, course["id"]).detail, "COURSE_TYPE_MISMATCH")
         with self.assertRaises(HTTPException) as e:  # the pending order holds the only place
             asyncio.run(enrollments.create_order(self.db, s2, course["id"], no_receipt=True, paid_date=paid.date().isoformat(),

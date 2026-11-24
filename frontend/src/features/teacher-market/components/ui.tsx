@@ -45,7 +45,7 @@ export function TeacherPhoto({ url, name, className }: { url: string | null; nam
   return (
     <div className={cn("relative aspect-[9/16] w-full overflow-hidden rounded-2xl bg-gradient-to-b from-brand-700/20 to-brand-900/40", className)}>
       {src ? (
-        <img src={src} alt={name} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover" />
+        <img src={src} alt={name} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover" data-testid="teacher-photo" />
       ) : (
         <div className="absolute inset-0 flex items-center justify-center text-text-muted" data-testid="teacher-photo-placeholder">
           <UserRound size={56} strokeWidth={1.4} aria-hidden />

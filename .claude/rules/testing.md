@@ -19,7 +19,9 @@ previous run before reporting.
   `VIZU_MIGRATION_TEST_DB_URL`), `vizu_gcr_e2e` (E2E stack). Migrate with `python -m alembic upgrade head`.
 - Run: `cd backend; New-Item -ItemType Directory uploads -Force; python -m pytest -q -p no:cacheprovider tests`
   then remove the empty `uploads/`. Integration tests skip without the DB URL; HTTP tests skip without httpx.
-- Last full run 2026-10-30: 917 passed, 17 skipped.
+- `DATABASE_NAME` must name the same DB as `VIZU_WB_TEST_DB_URL` (`vizu_gcr_test`): tests create users through the URL while the app writes
+  through `DATABASE_*` — a mismatch gives ~57 FK failures (audit_logs actor not in users). Migration tests need `VIZU_MIGRATION_TEST_DB_URL` (`vizu_gcr_mig`).
+- Last full run 2026-11-24: 1316 passed, 18 skipped, 1 known failure (known-issues #33).
 
 ## Frontend
 `npx tsc --noEmit -p tsconfig.json`, `npx eslint <changed files>`, `npm run test:unit`.

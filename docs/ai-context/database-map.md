@@ -1,11 +1,21 @@
 # Database map
 
-Updated 2026-11-23 · source: `backend/app/models/*.py` (`__tablename__`), `backend/alembic/versions/` (110 files).
+Updated 2026-11-24 · source: `backend/app/models/*.py` (`__tablename__`), `backend/alembic/versions/` (111 files).
 PostgreSQL; connection from settings `DATABASE_HOST/PORT/NAME/USER/PASSWORD` (names only).
 
 ## Migrations
 
-- Linear history, one head. **Head = `c8d3f5a1e7b2`** (production: see `current-state.md`)
+- Linear history, one head. **Head = `d9e4a1c7b3f5`** (production: see `current-state.md`)
+- `d9e4a1c7b3f5` (2026-11-24): My Teacher / Teacher Marketplace — additive: `teacher_profiles` public columns (photo_path, headline, bio,
+  experience_years CHECK 0–70, teaching_since, specialization, methodology, exam_prep / languages / levels JSONB, profile_updated_at) + admin flags
+  (catalog_hidden, profile_disabled, verified, `verified_at`, `verified_by`) + stored rating (rating_avg Numeric(3,2), rating_count CHECK ≥ 0); new tables
+  `teacher_certificates`, `teacher_courses` (group_id → study_groups SET NULL), `teacher_course_enrollments` (partial unique
+  `uq_teacher_course_enrollments_live` = one PENDING_PAYMENT / ACTIVE row per course + student), `teacher_course_interests`, `teacher_reviews`
+  (unique student + course, rating 1–5), `teacher_review_reports`, `special_lessons` (duration 15–90, max 2–500, `announcement_message_id` plain UUID
+  without FK), `special_lesson_signups`; `video_rooms.group_id` nullable + `special_lesson_id` (FK CASCADE, unique) + `hard_end_at` +
+  `students_camera_allowed`, CHECK `ck_video_rooms_owner` (exactly one of group / lesson); `video_room_participants.can_video`;
+  `subscription_orders.teacher_course_id` (SET NULL). Downgrade deletes the special-lesson rooms, restores `group_id NOT NULL` and drops exactly
+  these (`test_teacher_market_migration`). Rules: `services/teacher_market/`, `docs/teacher-marketplace.md`.
 - `c8d3f5a1e7b2` (2026-11-23): Team / Kontroll / activity / Bibliothek categories — additive: `users.must_change_password` (bool, default false);
   `teacher_profiles` (unique user_id CASCADE, `can_access_student_control` default false, control_changed_at / _by, created_by SET NULL);
   `student_sessions` (server-credited active time, `day` = Tashkent date, partial unique `uq_student_sessions_open` = one open session per user,
@@ -78,7 +88,11 @@ PostgreSQL; connection from settings `DATABASE_HOST/PORT/NAME/USER/PASSWORD` (na
 - **Community:** global_chat_messages, global_chat_message_edits, global_chat_restrictions, global_chat_moderation_actions,
   global_chat_reads, study_groups, study_group_courses, study_group_members, study_group_join_codes, study_group_messages,
   study_group_announcements, study_group_tasks, study_group_audit_logs,
-  video_rooms, video_room_participants, video_room_events, teacher_assignments, teacher_profiles (Kontroll permission)
+  video_rooms (group lesson or special lesson), video_room_participants, video_room_events, teacher_assignments,
+  teacher_profiles (Kontroll permission + public My Teacher profile + stored rating)
+- **My Teacher (teacher_market):** teacher_certificates, teacher_courses, teacher_course_enrollments, teacher_course_interests, teacher_reviews,
+  teacher_review_reports, special_lessons, special_lesson_signups; paid course orders = subscription_orders `plan = TEACHER_COURSE` +
+  `teacher_course_id`; admin setting `app_settings["teacher_market"]`
 - **Engagement/ops:** notifications, broadcast_notifications, broadcast_notification_reads, support_tickets, support_messages,
   advertisements, advertisement_events, achievement_categories, achievements, user_achievements, dictionary_entries,
   dictionary_user_words
@@ -87,5 +101,7 @@ PostgreSQL; connection from settings `DATABASE_HOST/PORT/NAME/USER/PASSWORD` (na
 
 - `listenings` → questions, options, tracks, **`lesson_skill_attempts` (CASCADE)**; `listening_audio_archives` is RESTRICT.
 - `a2_audio_assets.listening_id` SET NULL. `global_chat_messages.reply_to_id` SET NULL.
+- `teacher_courses` → enrollments, interests, reviews (→ reports) CASCADE; `special_lessons` → signups and its `video_rooms` (→ participants, events)
+  CASCADE; deleting a TEACHER user cascades all of them (accounts are deactivated, never deleted, in normal operation).
 - `student_writing_versions` CASCADE from `student_writings` / `writings`; `vocabulary_user_words` CASCADE from
   `vocabularies`; `vocabularies.dictionary_entry_id` SET NULL.

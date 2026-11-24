@@ -108,7 +108,7 @@ test.describe("teacher marketplace", () => {
     await page.getByTestId("photo-cropper-input").setInputFiles({ name: "foto.png", mimeType: "image/png", buffer: await picture(page, 1000, 1500) });
     await expect(page.getByTestId("crop-box")).toBeVisible();
     await page.getByTestId("photo-cropper-save").click();
-    const photo = page.getByTestId("photo-panel").locator("img").first();
+    const photo = page.getByTestId("photo-panel").getByTestId("teacher-photo");
     await expect(photo).toHaveAttribute("src", /teacher-market\/photos\/.+\.webp/, { timeout: 15_000 });
     await expect.poll(() => photo.evaluate((i: HTMLImageElement) => `${i.naturalWidth}x${i.naturalHeight}`)).toBe("720x1280");
     expect(await ratioOf(photo)).toBeCloseTo(16 / 9, 1);
@@ -201,7 +201,7 @@ test.describe("teacher marketplace", () => {
     const card = page.getByTestId("teacher-card").filter({ hasText: "Malika Karimova" });
     await expect(card).toHaveCount(1, { timeout: 15_000 });
     await expect(page.getByTestId("teacher-card")).toHaveCount(1);
-    expect(await ratioOf(card.locator("img").first())).toBeCloseTo(16 / 9, 1); // 9:16 portrait, photo + name only
+    expect(await ratioOf(card.getByTestId("teacher-photo"))).toBeCloseTo(16 / 9, 1); // 9:16 portrait, photo + name only
     await page.getByTestId("catalog-search").fill("Bekzod");
     await expect(page.getByTestId("teacher-card").filter({ hasText: "Bekzod Aliyev" }).getByTestId("teacher-photo-placeholder")).toBeVisible();
     await page.getByTestId("catalog-search").fill("Malika");

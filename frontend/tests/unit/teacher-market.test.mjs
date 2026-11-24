@@ -16,6 +16,13 @@ test("every My Teacher text exists in de and uz with the same placeholders", () 
   }
 });
 
+test("every upload of the marketplace is sent as multipart (the shared axios instance defaults to JSON)", () => {
+  const source = readFileSync(join(import.meta.dirname, "..", "..", "src", "features", "teacher-market", "services", "market-service.ts"), "utf8");
+  const posts = [...source.matchAll(/api\.post(?:<[^>]*>)?\(([^;]*?\bform\b[^;]*?)\)\)\.data/g)].map((m) => m[1]);
+  assert.equal(posts.length, (source.match(/new FormData\(\)/g) ?? []).length, "one post per FormData");
+  for (const args of posts) assert.match(args, /MULTIPART/, args);
+});
+
 test("every error code of the marketplace backend has a text for students and teachers", (t) => {
   const backend = join(import.meta.dirname, "..", "..", "..", "backend", "app");
   const sources = [join(backend, "services", "teacher_market"), join(backend, "api", "teacher_market")];

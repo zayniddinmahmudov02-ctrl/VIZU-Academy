@@ -11,6 +11,8 @@ const SL = "/api/v1/special-lessons";
 // Teacher panel: require_teacher_panel_access. Admin: reads require_admin_panel_access, changes require_super_admin.
 const TM = "/api/v1/teacher/market";
 const AD = "/api/v1/admin/teacher-market";
+// the shared axios instance defaults to JSON: uploads must say multipart (axios then adds the boundary)
+const MULTIPART = { headers: { "Content-Type": "multipart/form-data" } };
 
 export interface CatalogFilters {
   q?: string;
@@ -63,7 +65,7 @@ export async function payCourse(id: string, input: { noReceipt: boolean; paidDat
   if (input.paidTime) form.append("paid_time", input.paidTime);
   if (input.note) form.append("note", input.note);
   if (input.proof) form.append("proof", input.proof);
-  return (await api.post(`${MT}/courses/${id}/order`, form)).data;
+  return (await api.post(`${MT}/courses/${id}/order`, form, MULTIPART)).data;
 }
 
 export async function getMyCourses() {
@@ -117,7 +119,7 @@ export async function uploadPhoto(file: Blob, crop: { x: number; y: number; w: n
     form.append("y", String(crop.y));
     form.append("w", String(crop.w));
   }
-  return (await api.post<{ photo_url: string }>(`${TM}/profile/photo`, form)).data;
+  return (await api.post<{ photo_url: string }>(`${TM}/profile/photo`, form, MULTIPART)).data;
 }
 
 export async function deletePhoto() {
@@ -131,7 +133,7 @@ export async function uploadCertificate(input: { title: string; issuer: string; 
   if (input.issued_on) form.append("issued_on", input.issued_on);
   if (input.level) form.append("level", input.level);
   form.append("file", input.file);
-  return (await api.post(`${TM}/certificates`, form)).data;
+  return (await api.post(`${TM}/certificates`, form, MULTIPART)).data;
 }
 
 export async function deleteCertificate(id: string) {
@@ -164,7 +166,7 @@ export async function uploadCourseImage(id: string, file: Blob, crop: { x: numbe
     form.append("y", String(crop.y));
     form.append("w", String(crop.w));
   }
-  return (await api.post<{ image_url: string }>(`${TM}/courses/${id}/image`, form)).data;
+  return (await api.post<{ image_url: string }>(`${TM}/courses/${id}/image`, form, MULTIPART)).data;
 }
 
 export async function getCourseStudents(id: string) {

@@ -49,8 +49,15 @@ export default function RatioCropper({ ratio, onSave, busy, testId }: {
     setSize(s);
     const w = Math.min(1, (s.h * ratio) / s.w);
     const h = (w * s.w) / ratio / s.h;
-    setCrop({ w, x: (1 - w) / 2, y: (1 - h) / 2 });
+    // float noise (h = 1.0000000000000002) must not give a negative offset
+    setCrop({ w, x: Math.max(0, (1 - w) / 2), y: Math.max(0, (1 - h) / 2) });
   }
+
+  /** What goes to the server: fractions inside 0…1, 6 decimals. */
+  const toSend = (c: Crop): Crop => {
+    const f = (v: number) => Math.round(Math.min(1, Math.max(0, v)) * 1e6) / 1e6;
+    return { x: f(c.x), y: f(c.y), w: f(c.w) };
+  };
 
   function onPointerDown(e: React.PointerEvent) {
     drag.current = { px: e.clientX, py: e.clientY, x: crop.x, y: crop.y };
@@ -95,7 +102,7 @@ export default function RatioCropper({ ratio, onSave, busy, testId }: {
                          return clamp({ w, x: c.x + (c.w - w) / 2, y: c.y + (hFrac - (size ? (w * size.w) / ratio / size.h : 1)) / 2 });
                        })} />
               </label>
-              <button type="button" className={buttonPrimary} disabled={!file || busy} onClick={() => file && onSave(file, crop)}
+              <button type="button" className={buttonPrimary} disabled={!file || busy} onClick={() => file && onSave(file, toSend(crop))}
                       data-testid={testId ? `${testId}-save` : undefined}>{t("market.save")}</button>
             </div>
           )}

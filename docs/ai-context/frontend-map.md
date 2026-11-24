@@ -1,6 +1,6 @@
 ﻿# Frontend map
 
-Updated 2026-11-15 · source: listing of `frontend/src/`, `frontend/package.json`. Rules: `.claude/rules/frontend.md`.
+Updated 2026-11-24 · source: listing of `frontend/src/`, `frontend/package.json`. Rules: `.claude/rules/frontend.md`.
 Next.js 16.2.10 App Router, React 19.2.4, TanStack Query 5, zustand 5, axios, Tailwind 4, zod, tiptap.
 Scripts: `dev`, `build`, `start`, `lint`, `test:unit` (node --test `tests/unit/*.test.mjs`), `verify:pwa`.
 
@@ -8,20 +8,21 @@ Scripts: `dev`, `build`, `start`, `lint`, `test:unit` (node --test `tests/unit/*
 - `(auth)/`: login, register, forgot-password, reset-password
 - `(dashboard)/` (student): dashboard, kurse (`/kurse/[level]`), lektion (`/lektion/[lessonId]/[kompetenz]`),
   courses/lessons (old player), angebote, vizu-pay, vizu-multilevel, vorbereitung, woerterbuch, groups,
-  calendar, certificates, notifications, informationen, support, settings
-- `admin/`: achievements, analytics, angebote, books, certificates, global-chat, groups, kurse, languages, lessons,
+  calendar, certificates, notifications, informationen, support (no longer in the menu, still reachable), settings,
+  my-teacher (catalog, `[teacherId]` profile, `meine-kurse`, `live` special lessons)
+- `admin/`: achievements, analytics, angebote, books, certificates, global-chat, groups, kurse, languages, lehrer-marktplatz, lessons,
   levels, listening, lms, media, media-management (`hoeren-a1`, `a2/lesson-4/hoeren`), mock-exams, modules,
   notifications, page-management, payments, premium-users, settings, speaking, support, teacher-assignments, team,
   users, vizu-multilevel, werbung-banner, writing
-- `teacher/`: dashboard, students (+ `[studentId]`), groups, kurse, unterricht, aufgaben, hausaufgaben, pruefungen (→ schreiben, sprechen), materialien,
+- `teacher/`: dashboard, profil, meine-kurse, spezialstunden, bewertungen (My Teacher), students (+ `[studentId]`), groups, kurse, unterricht, aufgaben, hausaufgaben, pruefungen (→ schreiben, sprechen), materialien,
   nachrichten, kontroll (+ `[studentId]`), einstellungen — sidebar shell `components/teacher/teacher-shell.tsx` · `api/admin` (route handlers) · `offline/` (PWA)
-- `(meeting)/video-room/[roomId]`: full-screen group video lesson (client only, own login guard `MeetingGuard`); admin `video-rooms`
+- `(meeting)/video-room/[roomId]`: full-screen group video lesson or free special lesson (client only, own login guard `MeetingGuard`); admin `video-rooms`
 
 ## Code
 | Path | Contents |
 |---|---|
 | `src/services/api.ts` | axios instance (auth header, refresh) |
-| `src/features/<f>/` | `services/` (API), `hooks/`, `components/`, `types/`: auth, profile, lessons, lms, courses, dashboard, vizu-pay, vizu-multilevel, vorbereitung, assessment, global-chat, groups, teacher, activity (heartbeat tracker, time formats, stacked day bars), notifications, calendar, information, woerterbuch, books, certificates, achievements, support, pwa |
+| `src/features/<f>/` | `services/` (API), `hooks/`, `components/`, `types/`: auth, profile, lessons, lms, courses, dashboard, vizu-pay, vizu-multilevel, vorbereitung, assessment, global-chat, groups, teacher, teacher-market (My Teacher: catalog, profile, courses, special lessons, admin page), video-rooms, activity (heartbeat tracker, time formats, stacked day bars), notifications, calendar, information, woerterbuch, books, certificates, achievements, support, pwa |
 | `src/features/admin/` | admin `components/` (certificates, dashboard, language, lesson-results, lesson-skills, lms, lms-course, loesung, managers, media-management, mock-exam, page-management, payments), `services/` (one per area), `constants/endpoints.ts` |
 | `src/components/lesson-player/` | student player per skill: common, grammar, listening, navigation, quiz, reading, results, skill-test, speaking, video, vocabulary, writing |
 | `src/components/lms/` | LMS cards, competency nav/content, audio player, lock, purchase modal |
