@@ -99,10 +99,14 @@ test.describe("teacher marketplace", () => {
     await page.getByTestId("pf-years").fill("8");
     await page.getByTestId("pf-since").fill("2017");
     await page.getByTestId("pf-spec").fill("Grammatik, Sprechen");
+    await page.getByTestId("pf-students-total").fill("500"); // own career figure (before VIZU too)
     for (const l of ["Deutsch", "Usbekisch"]) await page.getByTestId("pf-languages").getByRole("button", { name: l, exact: true }).click();
     for (const l of ["A1", "A2", "B1"]) await page.getByTestId("pf-levels").getByRole("button", { name: l, exact: true }).click();
     await page.getByTestId("pf-save").click();
     await expect(page.getByTestId("pf-saved")).toBeVisible();
+    // the teacher's own page shows both: the career figure and the VIZU numbers
+    await expect(page.getByTestId("own-students").getByTestId("stat-career")).toHaveText("500");
+    await expect(page.getByTestId("own-students").getByTestId("stat-total")).toHaveText("0");
 
     // 9:16 photo: pick, crop box, save → re-encoded 720 × 1280 WebP
     await page.getByTestId("photo-cropper-input").setInputFiles({ name: "foto.png", mimeType: "image/png", buffer: await picture(page, 1000, 1500) });
@@ -211,6 +215,8 @@ test.describe("teacher marketplace", () => {
     await expect(page.getByTestId("verified-badge")).toBeVisible();
     await expect(page.getByTestId("profile-rating")).not.toContainText("/5");
     await expect(page.getByTestId("stat-current")).toHaveText("0");
+    await expect(page.getByTestId("stat-career")).toHaveText("500"); // the teacher's figure, marked as such
+    await expect(page.getByTestId("stat-career-source")).toContainText("O'qituvchi ma'lumoti");
 
     // free course: enrolled at once
     await row(page, "course-card", FREE).getByTestId("course-open").click();

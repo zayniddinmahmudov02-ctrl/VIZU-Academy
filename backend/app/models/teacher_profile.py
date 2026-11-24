@@ -31,6 +31,7 @@ class TeacherProfile(BaseModel):
         UniqueConstraint("user_id", name="uq_teacher_profiles_user_id"),
         CheckConstraint("rating_count >= 0", name="ck_teacher_profiles_rating_count"),
         CheckConstraint("experience_years IS NULL OR experience_years BETWEEN 0 AND 70", name="ck_teacher_profiles_experience"),
+        CheckConstraint("students_taught_total IS NULL OR students_taught_total BETWEEN 0 AND 1000000", name="ck_teacher_profiles_students_taught"),
     )
 
     user_id: Mapped[UUID] = mapped_column(PGUUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
@@ -44,6 +45,9 @@ class TeacherProfile(BaseModel):
     headline: Mapped[str | None] = mapped_column(String(160), nullable=True)
     bio: Mapped[str | None] = mapped_column(Text, nullable=True)
     experience_years: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    # the teacher's own figure: students taught in the whole career (before VIZU too); shown as teacher-reported, never below
+    # the students counted on VIZU (profiles.student_stats)
+    students_taught_total: Mapped[int | None] = mapped_column(Integer, nullable=True)
     teaching_since: Mapped[int | None] = mapped_column(Integer, nullable=True)
     specialization: Mapped[str | None] = mapped_column(String(300), nullable=True)
     methodology: Mapped[str | None] = mapped_column(Text, nullable=True)

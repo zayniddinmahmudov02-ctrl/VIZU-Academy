@@ -284,6 +284,9 @@ API prefixes are listed without `/api/v1` (every router is mounted bare and unde
   server-computed rating + reviews), teachers' own courses (PAID / FREE / UPCOMING, Super Admin approval), enrollment (free at once; paid = VIZU Pay
   card transfer approved by the Super Admin), reviews, free special lessons (≤ 90 min) in a VIZU video room announced in the Global Chat.
   Replaces the student menu item "Hilfe Anfragen" (support stays at `/support`). Runbook + rules: `docs/teacher-marketplace.md`.
+  Student numbers on the profile (2026-11-25): "Hozirga qadar jami o'quvchilari" = the teacher's own `students_taught_total` (career, labelled as
+  teacher-reported, never below the VIZU total; VIZU total when not entered) + "Loyihadagi (VIZU) o'quvchilari" (computed, with "hozir faol");
+  the same panel on the teacher's own Mein Profil page (`StudentStats`).
 - **Backend:** `be/api/teacher_market/router.py` (`/my-teacher`, `/special-lessons`, `/teacher/market`, `/admin/teacher-market`),
   `be/services/teacher_market/{common,media,profiles,certificates,courses,enrollments,reviews,special_lessons,scheduler}.py` (each docstring = its
   rules), model `be/models/teacher_market.py` + columns in `teacher_profile.py`, `video_room.py`, `subscription_order.py`; migration `d9e4a1c7b3f5`.

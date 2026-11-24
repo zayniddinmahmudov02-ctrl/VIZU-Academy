@@ -46,6 +46,7 @@ class ProfileIn(_In):
     methodology: str | None = Field(None, max_length=5000)
     experience_years: int | None = None
     teaching_since: int | None = None
+    students_taught_total: int | None = None  # the teacher's own career figure (checked in the service: 0 … 1 000 000)
     exam_prep: list[str] | None = None
     languages: list[str] | None = None
     levels: list[str] | None = None

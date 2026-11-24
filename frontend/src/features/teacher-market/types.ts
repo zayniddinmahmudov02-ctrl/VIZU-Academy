@@ -102,12 +102,15 @@ export interface TeacherProfileView {
   experience: {
     years: number | null;
     teaching_since: number | null;
+    /** the teacher's own career figure (before VIZU too); null = not entered */
+    students_taught_total: number | null;
     specialization: string | null;
     methodology: string | null;
     exam_prep: string[];
     bio: string | null;
   };
-  stats: { current_students: number; total_students: number };
+  /** VIZU numbers are computed by the server; career_students = the teacher's figure (never below total_students) or the VIZU total */
+  stats: { current_students: number; total_students: number; career_students: number; career_reported: boolean };
   certificates: Certificate[];
   rating: RatingSummary;
   courses: CourseItem[];

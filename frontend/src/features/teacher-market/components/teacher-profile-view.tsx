@@ -105,6 +105,29 @@ function ReviewForm({ profile }: { profile: TeacherProfileView }) {
   );
 }
 
+const count = (n: number) => new Intl.NumberFormat("ru-RU").format(n);
+
+/** Students: the career figure (the teacher's own number incl. before VIZU — labelled so — never below the VIZU total) and the
+ *  VIZU numbers computed by the server (all students ever on VIZU, of them active now). */
+export function StudentStats({ stats }: { stats: TeacherProfileView["stats"] }) {
+  const { t } = useTranslation();
+  return (
+    <div className="grid grid-cols-2 gap-3" data-testid="profile-stats">
+      <div className="rounded-2xl bg-surface-bg p-4 ring-1 ring-surface-border">
+        <p className="text-2xl font-extrabold text-text-primary" data-testid="stat-career">{count(stats.career_students)}</p>
+        <p className="text-xs font-medium text-text-secondary">{t("market.careerStudents")}</p>
+        <p className="mt-1 text-[11px] text-text-muted" data-testid="stat-career-source">
+          {stats.career_reported ? t("market.careerReported") : t("market.careerFromVizu")}</p>
+      </div>
+      <div className="rounded-2xl bg-surface-bg p-4 ring-1 ring-surface-border">
+        <p className="text-2xl font-extrabold text-text-primary" data-testid="stat-total">{count(stats.total_students)}</p>
+        <p className="text-xs font-medium text-text-secondary">{t("market.vizuStudents")}</p>
+        <p className="mt-1 text-[11px] text-text-muted">{t("market.activeNow")}: <span data-testid="stat-current">{count(stats.current_students)}</span></p>
+      </div>
+    </div>
+  );
+}
+
 /** The public mini profile; `preview` = the teacher looks at the own profile (no actions). */
 export default function TeacherProfileView({ profile, preview = false }: { profile: TeacherProfileView; preview?: boolean }) {
   const { t, language } = useTranslation();
@@ -160,16 +183,7 @@ export default function TeacherProfileView({ profile, preview = false }: { profi
             <Fact icon={Languages} label={t("market.languages")} value={profile.languages.join(", ")} />
             <Fact icon={GraduationCap} label={t("market.levels")} value={profile.levels.join(", ")} />
           </div>
-          <div className="grid grid-cols-2 gap-3" data-testid="profile-stats">
-            <div className="rounded-2xl bg-surface-bg p-4 ring-1 ring-surface-border">
-              <p className="text-2xl font-extrabold text-text-primary" data-testid="stat-current">{profile.stats.current_students}</p>
-              <p className="text-xs text-text-secondary">{t("market.currentStudents")}</p>
-            </div>
-            <div className="rounded-2xl bg-surface-bg p-4 ring-1 ring-surface-border">
-              <p className="text-2xl font-extrabold text-text-primary" data-testid="stat-total">{profile.stats.total_students}</p>
-              <p className="text-xs text-text-secondary">{t("market.totalStudents")}</p>
-            </div>
-          </div>
+          <StudentStats stats={profile.stats} />
         </div>
       </section>
 

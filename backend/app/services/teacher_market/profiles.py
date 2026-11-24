@@ -10,6 +10,9 @@ Student numbers on the profile (real data only, every student counted once even 
 * total = students ever enrolled (ACTIVE / COMPLETED; not cancelled, rejected or refunded) ∪ every student who was ever a
   member of one of the teacher's groups. Only accounts with role STUDENT count.
 
+Career figure (2026-11-25, owner): the teacher may enter `students_taught_total` (whole career, before VIZU too, 0 … 1 000 000);
+the profile shows it as teacher-reported "students so far" — never below the VIZU total — next to the computed VIZU numbers.
+
 Own profile: the teacher edits photo, name, headline, bio, experience, methodology, exam preparation, languages, levels.
 Verification, catalog visibility, disabling and the rating are never editable by the teacher (admin / server only)."""
 
@@ -61,6 +64,14 @@ def student_stats(db: Session, teacher_id) -> dict:
         select(StudyGroupMember.user_id.label("uid")).where(StudyGroupMember.group_id.in_(groups_all), StudyGroupMember.role == MEMBER_STUDENT),
     )
     return {"current_students": current, "total_students": total}
+
+
+def _stats_with_career(stats: dict, profile: TeacherProfile | None) -> dict:
+    """+ the career figure: the teacher's own `students_taught_total` (before VIZU too), never shown below the VIZU total;
+    `career_reported` tells the UI whether the figure comes from the teacher (labelled so) or only from VIZU."""
+    reported = profile.students_taught_total if profile is not None else None
+    career = max(reported, stats["total_students"]) if reported is not None else stats["total_students"]
+    return {**stats, "career_students": career, "career_reported": reported is not None}
 
 
 def card(user: User, profile: TeacherProfile | None) -> dict:
@@ -129,10 +140,11 @@ def _profile_body(db: Session, user: User, profile: TeacherProfile | None, viewe
         "languages": (p.languages or []) if p else [], "levels": (p.levels or []) if p else [], "verified": bool(p and p.verified),
         "experience": {
             "years": p.experience_years if p else None, "teaching_since": p.teaching_since if p else None,
+            "students_taught_total": p.students_taught_total if p else None,
             "specialization": p.specialization if p else None, "methodology": p.methodology if p else None,
             "exam_prep": (p.exam_prep or []) if p else [], "bio": p.bio if p else None,
         },
-        "stats": student_stats(db, user.id),
+        "stats": _stats_with_career(student_stats(db, user.id), p),
         "certificates": _certificates(db, user.id, include_all=own),
         "rating": reviews_svc.summary(db, user.id, p),
         "courses": courses_svc.public_courses(db, user.id, viewer),
@@ -186,6 +198,11 @@ def update_own(db: Session, teacher: User, data: dict) -> dict:
         if v is not None and (not isinstance(v, int) or isinstance(v, bool) or not 1950 <= v <= c.now().year):
             raise c.err(422, "TEACHING_SINCE_INVALID")
         p.teaching_since = v
+    if "students_taught_total" in data:
+        v = data["students_taught_total"]
+        if v is not None and (not isinstance(v, int) or isinstance(v, bool) or not 0 <= v <= 1_000_000):
+            raise c.err(422, "STUDENTS_TAUGHT_INVALID")
+        p.students_taught_total = v
     if "exam_prep" in data:
         p.exam_prep = c.choices(data["exam_prep"], c.EXAMS, "exam_prep")
     if "languages" in data:

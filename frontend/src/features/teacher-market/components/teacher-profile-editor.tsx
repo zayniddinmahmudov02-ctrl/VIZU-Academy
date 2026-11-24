@@ -10,7 +10,7 @@ import { useTranslation } from "@/lib/i18n/use-translation";
 import { deleteCertificate, deletePhoto, getOwnProfile, updateOwnProfile, uploadCertificate, uploadPhoto } from "../services/market-service";
 import type { OwnProfile } from "../types";
 import RatioCropper from "./ratio-cropper";
-import TeacherProfileView from "./teacher-profile-view";
+import TeacherProfileView, { StudentStats } from "./teacher-profile-view";
 import { Pill, Stars, TeacherPhoto, buttonPrimary, buttonSecondary, formatDate, inputClass, useErrorText } from "./ui";
 
 function Checks({ values, options, onChange, testId }: { values: string[]; options: string[]; onChange: (v: string[]) => void; testId: string }) {
@@ -37,6 +37,7 @@ function ProfileForm({ profile }: { profile: OwnProfile }) {
     first_name: profile.first_name ?? "", last_name: profile.last_name ?? "", headline: profile.headline ?? "", bio: profile.experience.bio ?? "",
     specialization: profile.experience.specialization ?? "", methodology: profile.experience.methodology ?? "",
     experience_years: profile.experience.years?.toString() ?? "", teaching_since: profile.experience.teaching_since?.toString() ?? "",
+    students_taught_total: profile.experience.students_taught_total?.toString() ?? "",
     languages: profile.languages, levels: profile.levels, exam_prep: profile.experience.exam_prep,
   });
   const [saved, setSaved] = useState(false);
@@ -44,6 +45,7 @@ function ProfileForm({ profile }: { profile: OwnProfile }) {
     mutationFn: () => updateOwnProfile({
       ...form, experience_years: form.experience_years ? Number(form.experience_years) : null,
       teaching_since: form.teaching_since ? Number(form.teaching_since) : null,
+      students_taught_total: form.students_taught_total.trim() === "" ? null : Number(form.students_taught_total),
     }),
     onSuccess: (data) => { qc.setQueryData(["teacher-own-profile"], data); setSaved(true); },
   });
@@ -60,6 +62,11 @@ function ProfileForm({ profile }: { profile: OwnProfile }) {
         <label className="text-xs text-text-secondary">{t("market.experienceYears")}<input type="number" min={0} max={70} className={inputClass} value={form.experience_years} onChange={set("experience_years")} data-testid="pf-years" /></label>
         <label className="text-xs text-text-secondary">{t("market.teachingSince")}<input type="number" min={1950} max={2100} className={inputClass} value={form.teaching_since} onChange={set("teaching_since")} data-testid="pf-since" /></label>
       </div>
+      <label className="block text-xs text-text-secondary">{t("market.studentsTaughtTotal")}
+        <input type="number" min={0} max={1000000} step={1} inputMode="numeric" className={inputClass} value={form.students_taught_total}
+               onChange={set("students_taught_total")} data-testid="pf-students-total" />
+        <span className="mt-1 block text-[11px] text-text-muted">{t("market.studentsTaughtHint")}</span>
+      </label>
       <label className="block text-xs text-text-secondary">{t("market.specialization")}<input className={inputClass} value={form.specialization} onChange={set("specialization")} maxLength={300} data-testid="pf-spec" /></label>
       <label className="block text-xs text-text-secondary">{t("market.methodology")}<textarea className={inputClass} rows={3} value={form.methodology} onChange={set("methodology")} maxLength={4000} data-testid="pf-method" /></label>
       <div className="space-y-1"><p className="text-xs text-text-secondary">{t("market.languages")}</p>
@@ -162,6 +169,7 @@ export default function TeacherProfileEditor() {
                 </div>
               </div>
             </Panel>
+            <Panel title={t("market.ownStudentsTitle")} testId="own-students"><StudentStats stats={p.stats} /></Panel>
             <Panel title={t("market.ratingTitle")} testId="own-rating">
               <div className="flex items-center gap-3">
                 <Stars value={p.rating.avg} size={20} />

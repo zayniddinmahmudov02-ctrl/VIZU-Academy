@@ -10,7 +10,6 @@ Updated 2026-11-24. Remove an entry when it is fixed (and note it in `recent-cha
 | 4 | A2 transcripts | 7 spots marked `[unverständlich]` (`docs/a2-transcription-report.md`) | 2026-10-30 | listen and correct |
 | 5 | A2 archive | old `[Archiv]` audio cleanup waiting: plan id `552c5c27371e` (5 files), quarantine not run | 2026-10-29 | separate approval |
 | 6 | A2 sales | sales enabled on production while readiness = NEEDS_CONTENT | 2026-10-28 | owner decision |
-| 7 | Config | `SUPER_ADMIN_VERIFICATION_PASSWORD` not set on production (logged at every start) | ≤ 2026-10-20 | owner runs `.venv/bin/python -m app.scripts.set_admin_verification --apply` on the server (hidden prompt, the value never goes through chat or logs), then `systemctl restart vizu-backend`; until then the Super Admin cannot confirm (503 `ADMIN_VERIFICATION_NOT_CONFIGURED`) and no book payment can be approved (2026-11-15: script added, value not set) |
 | 8 | Deps | `openpyxl` not installed on production → `/admin/users/export.xlsx` fails | ≤ 2026-10-29 | add to requirements + install (approval) |
 | 9 | Frontend lint | full `npx eslint .`: 9 errors / 10 warnings in untouched files | — | separate cleanup |
 | 11 | Docs | some docstrings say "first 3 lessons free"; code: only lesson 1 (`offers.free_lessons()`) | — | fix when touching those files |

@@ -70,6 +70,14 @@ Video dars, guruh chat, to‘lov, bildirishnoma, audit — mavjud tizimlar qayta
 - LiveKit: mavjud `LIVEKIT_URL`, `LIVEKIT_API_URL`, `LIVEKIT_API_KEY`, `LIVEKIT_API_SECRET` (guruh video darslari bilan bir xil).
 - Admin sozlamasi `app_settings["teacher_market"].course_auto_publish`.
 
+## 5a. O‘quvchilar soni profilda (2026-11-25)
+
+- **Hozirga qadar jami o‘quvchilari:** o‘qituvchi Mein Profil'da o‘zi kiritadi (`students_taught_total`, butun faoliyati, VIZU'dan oldingilar
+  bilan, 0 … 1 000 000; migratsiya `f3b8d2a6c9e1`). Profilda "O‘qituvchi ma'lumoti" deb belgilanadi va VIZU'dagi jami sondan kam ko‘rsatilmaydi;
+  kiritilmagan bo‘lsa VIZU soni ko‘rinadi ("VIZU ma'lumoti").
+- **Loyihadagi (VIZU) o‘quvchilari:** bazadan hisoblanadi (yozilishlar + guruh a'zolari, har o‘quvchi bir marta), ostida "hozir faol" soni.
+- Ikkalasi ommaviy profilda ham, o‘qituvchining o‘z Mein Profil sahifasida ham ko‘rinadi.
+
 ## 5b. Admin ham o‘qituvchi (2026-11-25)
 
 - `SUPER_ADMIN` hisobi rolini o‘zgartirmasdan o‘qituvchi bo‘la oladi: `teacher_profiles.teaches = true` (migratsiya `e2a7c4f9b1d3`).

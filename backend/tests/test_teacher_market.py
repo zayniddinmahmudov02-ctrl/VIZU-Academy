@@ -306,6 +306,25 @@ class TestIntegration(unittest.TestCase):
         # only a Super Admin account can be flagged
         self.assertEqual(self._err(team.set_admin_teaches, self.db, other, student.id, True, None).status_code, 404)
 
+    def test_career_students_figure_next_to_the_vizu_numbers(self):
+        # owner 2026-11-25: "students so far" (the teacher's own figure, before VIZU too) + the computed VIZU numbers
+        from app.services.teacher_market import enrollments, profiles
+
+        admin, t, s = self._user("SUPER_ADMIN"), self._teacher(), self._user()
+        course = self._course(t, admin, start_date=date.today().isoformat())
+        enrollments.enroll_free(self.db, s, course["id"])
+        stats = lambda: profiles.public_profile(self.db, s, t.id)["stats"]  # noqa: E731
+        self.assertEqual(stats(), {"current_students": 1, "total_students": 1, "career_students": 1, "career_reported": False})
+        profiles.update_own(self.db, t, {"students_taught_total": 500})
+        self.assertEqual((stats()["career_students"], stats()["career_reported"]), (500, True))
+        self.assertEqual(profiles.own_profile(self.db, t)["experience"]["students_taught_total"], 500)
+        profiles.update_own(self.db, t, {"students_taught_total": 0})  # never shown below the VIZU total
+        self.assertEqual((stats()["career_students"], stats()["career_reported"]), (1, True))
+        for bad in (-1, 1_000_001, True, "500", 2.5):
+            self.assertEqual(self._err(profiles.update_own, self.db, t, {"students_taught_total": bad}).detail, "STUDENTS_TAUGHT_INVALID")
+        profiles.update_own(self.db, t, {"students_taught_total": None})
+        self.assertEqual(stats()["career_reported"], False)
+
     def test_admin_teaches_script_plan_apply(self):
         import tempfile
         from pathlib import Path

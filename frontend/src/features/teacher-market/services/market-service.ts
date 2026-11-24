@@ -106,7 +106,8 @@ export async function getOwnProfile() {
 
 export async function updateOwnProfile(input: Partial<{
   first_name: string; last_name: string; headline: string; bio: string; specialization: string; methodology: string;
-  experience_years: number | null; teaching_since: number | null; exam_prep: string[]; languages: string[]; levels: string[];
+  experience_years: number | null; teaching_since: number | null; students_taught_total: number | null; exam_prep: string[]; languages: string[];
+  levels: string[];
 }>) {
   return (await api.put<OwnProfile>(`${TM}/profile`, input)).data;
 }
