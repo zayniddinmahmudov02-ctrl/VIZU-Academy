@@ -361,7 +361,9 @@ See `frontend-map.md` and `.claude/rules/frontend.md`. PWA: `fe/features/pwa`, `
 `frontend/scripts/verify-pwa.mjs`; i18n `fe/lib/i18n/translations.ts`.
 
 **Student navigation (since 2026-11-15, frontend only):** the dashboard `fe/components/dashboard/home/dashboard-hub.tsx` has five cards
-(`data-card` courses → `/kurse`, media → `/medien`, prep → `/vorbereitung`, certificates → `/certificates`, purchase → `/angebote`); the level
+(`data-card` courses → `/kurse`, media → `/medien`, prep → `/vorbereitung`, certificates → `/certificates`, purchase → `/angebote`); quick buttons
+in the welcome header (`dashboard-welcome.tsx`, 2026-11-25, `data-testid="quick-link"`): my-teacher → `/my-teacher` "Mein Lehrer/in", dictionary →
+`/woerterbuch` "Lug'at / Wörterbuch" (beside the greeting on wide screens so the Battle banner stays above the fold); the level
 buttons A1–C1 live only on `/kurse` (`components/lms/lms-level-card.tsx`, `data-status` from `features/lms/level-status.ts`: ACTIVE if owned
 / staff, COMING_SOON, LOCKED if no ACTIVE package sells it, else PURCHASE_REQUIRED — presentation only, access stays server-side).
 Language switcher: top of `sidebar.tsx` (variant `sidebar`, collapsed `compact` = one cycling button) and `mobile-nav.tsx` (variant `drawer`,
@@ -382,8 +384,8 @@ See `deployment-map.md`, skill `vizu-deploy`, `docs/deploy-frontend.md`, `docs/l
   Seed `be/scripts/battle_seed.py` + `be/data/battle/`.
 - **Frontend:** `fe/app/(battle)/battle/*`, `fe/features/battle/*`, admin `fe/app/admin/battle` (Übersicht, Wörter & Bilder,
   Design & Themes); entry points: dashboard tile `fe/components/dashboard/home/battle-banner.tsx` (`GET /battle/summary`), first card of
-  "Lernwerkzeuge" (`learning-tools.tsx`, with Stufe Bestimmung / Wortschatz; dashboard order since 2026-11-15:
-  welcome → compact Werbung banner → hub of five cards (`dashboard-hub.tsx`) → Lernwerkzeuge → compact Lernserie;
+  "Lernwerkzeuge" (`learning-tools.tsx`, with Stufe Bestimmung; the Wörterbuch became a header quick button 2026-11-25; dashboard order since 2026-11-15:
+  welcome (+ quick buttons) → compact Werbung banner → hub of five cards (`dashboard-hub.tsx`) → Lernwerkzeuge → compact Lernserie;
   Erfolge/Zertifikate cards not on the dashboard; E2E `dashboard-layout.spec.ts`, `dashboard-nav.spec.ts`),
   sidebar + mobile nav with the custom icon `fe/components/icons/battle-icon.tsx` (favicon `fe/public/battle/battle-icon.svg`).
 - **Tests:** `test_battle`, `test_battle_migration`, `test_battle_questions` (data files, validator, choice, round view, seed, admin),

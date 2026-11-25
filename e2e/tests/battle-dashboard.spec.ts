@@ -73,7 +73,9 @@ test("dashboard: Battle banner on top for a new student without any course, icon
   await expect(banner.locator('svg[data-icon="battle"]')).toHaveCount(1);
   await expect(tools.getByRole("heading", { name: "Lernwerkzeuge" })).toBeVisible();
   await expect(tools.getByRole("link", { name: "Stufe Bestimmung öffnen" })).toBeVisible();
-  await expect(tools.getByRole("link", { name: "Wortschatz öffnen" })).toHaveAttribute("href", "/woerterbuch");
+  // the Wörterbuch is a quick button in the welcome header since 2026-11-25 (no second link in the tools row)
+  await expect(tools.locator('a[href="/woerterbuch"]')).toHaveCount(0);
+  await expect(page.locator('[data-testid="quick-link"][data-link="dictionary"]')).toHaveAttribute("href", "/woerterbuch");
   // Vorbereitung and the A1–C1 courses are cards of the dashboard hub now (one navigation, no duplicates in the tools row)
   await expect(tools.getByRole("link", { name: "Zertifikatsprüfungen öffnen" })).toHaveCount(0);
   await expect(page.getByTestId("dashboard-hub").locator('[data-card="prep"]')).toHaveAttribute("href", "/vorbereitung");
@@ -88,7 +90,7 @@ test("dashboard: Battle banner on top for a new student without any course, icon
   await expect(page.getByRole("heading", { name: "Stufe Bestimmung" })).toBeVisible();
   await expect(page.getByText("Bestimme dein aktuelles Deutschniveau.")).toBeVisible();
   await page.goto("/dashboard");
-  await page.getByTestId("dashboard-learning-tools").getByRole("link", { name: "Wortschatz öffnen" }).click();
+  await page.locator('[data-testid="quick-link"][data-link="dictionary"]').click();
   await expect(page).toHaveURL(/\/woerterbuch$/);
   await page.goto("/dashboard");
 

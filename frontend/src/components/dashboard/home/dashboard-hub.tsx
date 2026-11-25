@@ -10,7 +10,8 @@ import { cardEntrance, staggerContainer } from "@/lib/motion";
 import { useTranslation } from "@/lib/i18n/use-translation";
 
 // The five main entries of the student panel. One card each — the A1–C1 levels are no longer five separate buttons here:
-// "A1–C1 Kurse" opens the course overview (/kurse) where every level has its own card and status.
+// "A1–C1 Kurse" opens the course overview (/kurse) where every level has its own card and status. Mein Lehrer/in and Lug'at are quick
+// buttons in the welcome header (dashboard-welcome.tsx): one row of five here keeps the Battle banner above the fold.
 const CARDS = [
   { id: "courses", href: "/kurse", icon: Layers, title: "hub.coursesTitle", desc: "hub.coursesDesc", gradient: "from-accent-blue to-brand-600" },
   { id: "media", href: "/medien", icon: Library, title: "hub.mediaTitle", desc: "hub.mediaDesc", gradient: "from-fuchsia-600 to-violet-800" },

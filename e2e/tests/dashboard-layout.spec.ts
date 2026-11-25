@@ -2,8 +2,10 @@
 
 import { createStudent, loginViaForm, PASSWORD, useLanguage } from "./helpers";
 
-// Dashboard order (2026-11-15): welcome → compact Werbung banner → hub with the five main cards → Lernwerkzeuge → compact Lernserie;
+// Dashboard order (2026-11-15): welcome → compact Werbung banner → hub with the main cards → Lernwerkzeuge → compact Lernserie;
 // the A1–C1 levels are no longer separate buttons here (they live behind "A1–C1 Kurse"); no Erfolge / Zertifikate cards.
+// 2026-11-25 (owner): quick buttons "Mein Lehrer/in" (My Teacher) and "Wörterbuch / Lug'at" in the welcome header (right on wide screens,
+// no extra height: the hub stays one row of five on xl); the Wörterbuch is no longer a card of the Lernwerkzeuge row.
 // Checked at the brief's viewports. Local stack only.
 
 async function login(page: Page) {
@@ -16,10 +18,10 @@ async function login(page: Page) {
 const top = async (page: Page, id: string) => (await page.getByTestId(id).first().boundingBox())!.y;
 const CARDS = ["courses", "media", "prep", "certificates", "purchase"];
 
-test("order, compact banner, five hub cards (no level buttons), links, stats", async ({ page, isMobile }) => {
+test("order, compact banner, five hub cards (no level buttons), quick buttons, links, stats", async ({ page, isMobile }) => {
   await login(page);
   const hub = page.getByTestId("dashboard-hub");
-  await expect(hub.getByTestId("hub-card")).toHaveCount(5);
+  await expect(hub.getByTestId("hub-card")).toHaveCount(CARDS.length);
   expect(await hub.getByTestId("hub-card").evaluateAll((els) => els.map((e) => e.getAttribute("data-card")))).toEqual(CARDS);
 
   const order = ["dashboard-welcome", "dashboard-ad", "dashboard-hub", "dashboard-learning-tools", "dashboard-stats"];
@@ -58,6 +60,24 @@ test("order, compact banner, five hub cards (no level buttons), links, stats", a
     // xl: one row of five — polled, the cards slide in with a staggered entrance animation first
     await expect.poll(async () => new Set(await hub.getByTestId("hub-card").evaluateAll((els) => els.map((e) => Math.round(e.getBoundingClientRect().top)))).size, { timeout: 5_000 }).toBe(1);
   }
+  // quick buttons in the welcome header: Mein Lehrer/in + Wörterbuch (Lug'at); the Wörterbuch is no second link in the tools row
+  const quick = (id: string) => page.getByTestId("dashboard-welcome").locator(`[data-testid="quick-link"][data-link="${id}"]`);
+  await expect(quick("my-teacher")).toHaveText("Mein Lehrer/in");
+  await expect(quick("my-teacher")).toHaveAttribute("href", "/my-teacher");
+  await expect(quick("dictionary")).toHaveText("Wörterbuch");
+  await expect(quick("dictionary")).toHaveAttribute("href", "/woerterbuch");
+  await expect(page.getByTestId("dashboard-learning-tools").locator('a[href="/woerterbuch"]')).toHaveCount(0);
+  if (!isMobile) {
+    // on wide screens they sit beside the greeting: the welcome header is not taller than the buttons + text
+    const welcome = (await page.getByTestId("dashboard-welcome").boundingBox())!;
+    expect(welcome.height).toBeLessThan(90);
+  }
+  await quick("my-teacher").click();
+  await expect(page).toHaveURL(/\/my-teacher$/);
+  await page.goto("/dashboard");
+  await quick("dictionary").click();
+  await expect(page).toHaveURL(/\/woerterbuch$/);
+  await page.goto("/dashboard");
 
   // old course links keep working
   await page.goto("/kurse/a1");
@@ -81,7 +101,7 @@ for (const vp of [
     test.skip(isMobile, "viewport sweep runs once (desktop project)");
     await page.setViewportSize(vp);
     await login(page);
-    await expect(page.getByTestId("hub-card")).toHaveCount(5);
+    await expect(page.getByTestId("hub-card")).toHaveCount(CARDS.length);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
     expect(overflow).toBeLessThanOrEqual(1);
     expect(await top(page, "dashboard-ad")).toBeLessThan(vp.height); // banner visible on arrival

@@ -30,10 +30,11 @@ export default function DashboardPage() {
             <AdvertisementBanner />
           </div>
 
-          {/* The five main entries: A1–C1 Kurse (one card — the levels live on /kurse), Medien, Vorbereitung, Zertifikate, Angebote */}
+          {/* The five main entries: A1–C1 Kurse (one card — the levels live on /kurse), Medien, Vorbereitung, Zertifikate, Angebote
+              (Mein Lehrer/in and Lug'at are quick buttons in the welcome header) */}
           <DashboardHub />
 
-          {/* Battle, Stufe Bestimmung and Wörterbuch (Vorbereitung is a main card above) */}
+          {/* Battle and Stufe Bestimmung (Vorbereitung is a main card above, the Wörterbuch a quick button) */}
           <LearningTools />
 
           <div data-testid="dashboard-stats">

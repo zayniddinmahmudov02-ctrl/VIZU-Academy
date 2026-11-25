@@ -54,6 +54,13 @@ test.describe("hub and course overview", () => {
       await expect(page).toHaveURL(url, { timeout: 15_000 });
       await expect(page.locator("main").first()).toBeVisible();
     }
+    // quick buttons of the welcome header (2026-11-25)
+    for (const [id, url] of [["my-teacher", /\/my-teacher$/], ["dictionary", /\/woerterbuch$/]] as const) {
+      await page.goto("/dashboard");
+      await page.locator(`[data-testid="quick-link"][data-link="${id}"]`).click();
+      await expect(page).toHaveURL(url, { timeout: 15_000 });
+      await expect(page.locator("main").first()).toBeVisible();
+    }
   });
 
   test("/kurse: five level cards with their access status (real data)", async ({ page }) => {
@@ -147,8 +154,8 @@ test.describe("language switcher — desktop sidebar", () => {
     // one entry for all levels, no A1/A2/B1/B2/C1 entries
     await expect(aside.locator('a[href="/kurse"]')).toHaveCount(1);
     for (const level of ["a1", "a2", "b1", "b2", "c1"]) await expect(aside.locator(`a[href^="/kurse/${level}"]`)).toHaveCount(0);
-    // the other sections are still there
-    for (const href of ["/dashboard", "/vorbereitung", "/medien", "/angebote", "/certificates", "/settings", "/support", "/groups", "/woerterbuch", "/battle", "/informationen"]) {
+    // the other sections are still there ("Hilfe Anfragen" became My Teacher in 2026-11-24; /support stays reachable through the help card)
+    for (const href of ["/dashboard", "/vorbereitung", "/medien", "/angebote", "/certificates", "/settings", "/my-teacher", "/groups", "/woerterbuch", "/battle", "/informationen"]) {
       await expect(aside.locator(`a[href="${href}"]`)).toHaveCount(1);
     }
     // active language is marked
