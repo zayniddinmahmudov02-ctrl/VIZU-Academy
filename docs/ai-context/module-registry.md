@@ -446,7 +446,8 @@ detaching audio keeps 1–6 published; script `app/scripts/multilevel_open_tests
 shared audio of Modelltest 1, publishes 1–6, audit `multilevel_open_publish`); tests `test_multilevel_open_tests`, E2E `multilevel-open-tests.spec.ts`; timed
 exam mode + 0–75 scoring + B1/B2/C1 result: `be/services/mock_exam/multilevel_exam_service.py`, student
 `fe/app/(dashboard)/vorbereitung/multilevel/{pruefung,ergebnis}`, admin `fe/app/admin/mock-exams/multilevel`, tests
-`test_multilevel_exam*`, E2E `multilevel-exam.spec.ts`; **Multilevel Audio** (admin `/admin/mock-exams/multilevel-audio`,
+`test_multilevel_exam*`, E2E `multilevel-exam.spec.ts`; the student result page reads the result and history APIs, displays per-Teil AI
+explanations / criteria / feedback and links finished attempts, polling while AI grading is pending; **Multilevel Audio** (admin `/admin/mock-exams/multilevel-audio`,
 one slot per Hören Teil of every Multilevel Modelltest; upload / trim / replace / delete play in that exam task at once;
 exam paper gets a signed `/multilevel-exam/audio/{id}?token=` URL; **Modelltest 1 plays ONE shared audio** for its whole Hören section — 2026-11-16, migration
 `e6d2b9a4c8f3` `kompetenzen.audio_file_id`, `multilevel_service.SHARED_AUDIO_NUMBERS = {1}`, admin `…/multilevel-audio/shared/{model_test_id}`, per-Teil slots of that test → 409
