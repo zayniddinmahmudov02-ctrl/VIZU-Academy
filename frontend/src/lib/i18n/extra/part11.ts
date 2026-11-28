@@ -40,6 +40,8 @@ export const part11: Record<string, Record<string, [string, string]>> = {
     activeTitle: ["Premium active", "Premium активен"],
     activeBody: ["All 10 Modelltests are unlocked for you without a time limit.", "Все 10 Modelltest открыты для вас без срока."],
     staffBody: ["As staff, all Modelltests are open for you.", "Как сотруднику, вам открыты все Modelltest."],
+    groupTitle: ["Unlocked through your group", "Открыто через вашу группу"],
+    groupBody: ["As a member of {groups} you can take every Multilevel Modelltest without Premium.", "Как участник {groups} вы сдаёте все Modelltest Multilevel без Premium."],
     rejectedTitle: ["Payment rejected", "Оплата отклонена"],
     rejectedReason: ["Reason: {reason}", "Причина: {reason}"],
     retry: ["Submit again", "Отправить снова"],

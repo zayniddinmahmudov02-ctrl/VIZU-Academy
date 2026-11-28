@@ -70,14 +70,36 @@ def has_multilevel_premium(user: User | None) -> bool:
     return cache[key]
 
 
+def multilevel_group_levels(user: User | None) -> set:
+    """Vorbereitung levels (mock_exam_levels.id) opened by the user's groups: an ACTIVE student membership in an ACTIVE group linked to the level
+    (study_groups.mock_exam_level_id, set by a SUPER_ADMIN). Owner 2026-11-28: a Multilevel group opens all its Modelltests without the Premium;
+    leaving / removal / pausing, archiving or blocking the group closes them again. Cached per session."""
+    if user is None:
+        return set()
+    cache = _session_cache(user, "ml_group_levels")
+    key = str(user.id)
+    if key not in cache:
+        session = object_session(user)
+        if session is None:
+            return set()
+        from app.models.study_group import GROUP_ACTIVE, MEMBER_ACTIVE, MEMBER_STUDENT, StudyGroup, StudyGroupMember
+
+        cache[key] = set(session.scalars(
+            select(StudyGroup.mock_exam_level_id).join(StudyGroupMember, StudyGroupMember.group_id == StudyGroup.id).where(
+                StudyGroupMember.user_id == user.id, StudyGroupMember.role == MEMBER_STUDENT, StudyGroupMember.status == MEMBER_ACTIVE,
+                StudyGroup.status == GROUP_ACTIVE, StudyGroup.mock_exam_level_id.is_not(None)).distinct()))
+    return set(cache[key])
+
+
 def can_access_model_test(model_test, user: User | None) -> bool:
     if has_premium_bypass(user):
         return True
     if is_multilevel_model_test(model_test):
         from app.services.mock_exam.multilevel_service import free_test
 
-        # every Modelltest 1–10 needs the Multilevel Premium (owner, 2026-11-19; FREE_TEST_NUMBERS is empty)
-        return user is not None and (free_test(model_test) or has_multilevel_premium(user))
+        # every Modelltest 1–10 needs the Multilevel Premium (owner, 2026-11-19; FREE_TEST_NUMBERS is empty) — or a Multilevel group (2026-11-28)
+        return user is not None and (free_test(model_test) or has_multilevel_premium(user)
+                                     or model_test.level_id in multilevel_group_levels(user))
     return is_free_model_test(model_test) or is_user_premium(user)
 
 
@@ -175,6 +197,49 @@ def owned_levels(user: User | None) -> set[str]:
 
 def owns_level(user: User | None, level: str | None) -> bool:
     return bool(level) and level in owned_levels(user)
+
+
+def _course_order_windows(user: User) -> list[tuple[set[str], datetime | None, datetime | None]]:
+    """(levels, access_start, access_end) of every APPROVED course / package order of the user (active or not), cached per session."""
+    cache = _session_cache(user, "order_windows")
+    key = str(user.id)
+    if key not in cache:
+        session = object_session(user)
+        if session is None:
+            return []
+        rows = session.execute(
+            select(SubscriptionOrder.plan, SubscriptionOrder.included_levels, SubscriptionOrder.access_start_date, SubscriptionOrder.access_end_date)
+            .where(SubscriptionOrder.user_id == user.id, SubscriptionOrder.status == STATUS_APPROVED,
+                   SubscriptionOrder.plan.in_(list(offer_codes())))
+        ).all()
+        cache[key] = [(set(included if included else offer_levels(plan)), start, end) for plan, included, start, end in rows]
+    return cache[key]
+
+
+def level_access_window(user: User | None, level: str | None) -> dict:
+    """When the student's own purchase of a level ends — what the course card shows (owner 2026-11-25: access stays time-limited,
+    but the student must see why a bought course is closed):
+      * access_until — the latest end of an ACTIVE approved order covering the level (None: no active order);
+      * expired_at   — only when no order is active: the end of the latest expired order covering the level (the "bought, but the
+        access period is over" case, shown with a renew button instead of the plain purchase prompt).
+    Presentation only: can_access_lesson stays the one rule."""
+    out = {"access_until": None, "expired_at": None}
+    if user is None or not level:
+        return out
+    now = datetime.now(timezone.utc)
+    active_ends, expired_ends = [], []
+    for levels, start, end in _course_order_windows(user):
+        if level not in levels or start is None or end is None:
+            continue
+        if start <= now < end:
+            active_ends.append(end)
+        elif end <= now:
+            expired_ends.append(end)
+    if active_ends:
+        out["access_until"] = max(active_ends)
+    elif expired_ends:
+        out["expired_at"] = max(expired_ends)
+    return out
 
 
 def lesson_level(lesson) -> str | None:

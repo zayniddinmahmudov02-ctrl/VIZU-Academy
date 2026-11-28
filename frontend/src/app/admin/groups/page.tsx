@@ -91,7 +91,10 @@ export default function AdminGroupsPage() {
               {list.data!.items.map((g) => (
                 <tr key={g.id} className="border-b border-[var(--admin-border)] last:border-0">
                   <td className="max-w-[220px] px-3 py-2.5"><Link href={`/teacher/groups/${g.id}`} className="font-semibold text-[var(--admin-text-primary)] hover:underline">{g.name}</Link>
-                    <p className="truncate text-xs text-[var(--admin-text-muted)]">{g.courses.map((c) => c.title).join(", ") || "kein Kurs"}</p></td>
+                    <p className="truncate text-xs text-[var(--admin-text-muted)]">
+                      {g.multilevel ? <span className="font-semibold text-[var(--admin-primary)]" data-testid="admin-group-ml">Multilevel-Modelltests · </span> : null}
+                      {g.courses.map((c) => c.title).join(", ") || (g.multilevel ? "" : "kein Kurs")}
+                    </p></td>
                   <td className="px-3 py-2.5 text-xs text-[var(--admin-text-secondary)]">{g.teacher.name}</td>
                   <td className="px-3 py-2.5 text-xs text-[var(--admin-text-secondary)]">{g.level}</td>
                   <td className="px-3 py-2.5 text-xs text-[var(--admin-text-secondary)]">{g.student_count}{g.capacity ? `/${g.capacity}` : ""}</td>

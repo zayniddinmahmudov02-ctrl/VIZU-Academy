@@ -23,6 +23,7 @@ export const part10: Record<string, Record<string, [string, string]>> = {
     "status.LOCKED": ["Locked", "Закрыт"],
     "status.COMING_SOON": ["Coming soon", "Скоро"],
     "status.PURCHASE_REQUIRED": ["Purchase required", "Нужна покупка"],
+    "status.EXPIRED": ["Expired", "Срок истёк"],
     "levelDesc.A1": ["First steps in German", "Первые шаги в немецком"],
     "levelDesc.A2": ["Everyday life and simple conversations", "Повседневная жизнь и простые разговоры"],
     "levelDesc.B1": ["Independent language use", "Самостоятельное владение языком"],

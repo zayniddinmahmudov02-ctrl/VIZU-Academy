@@ -15,14 +15,15 @@ import {
 import Announcements from "./announcements";
 import GroupChat from "./group-chat";
 import GroupForm, { CodeReveal } from "./group-form";
+import { TeacherMultilevelTab } from "./multilevel-results";
 import { card, ErrorBox, fmtDate, input, LevelPill, Loading, primaryBtn, secondaryBtn, Stat, StatusPill, Tabs, TaskBadge, textarea, useErrorText } from "./ui";
 
 import VideoLessonsTab, { LiveBanner } from "@/features/video-rooms/components/video-lessons-tab";
 
-type Tab = "overview" | "video" | "chat" | "announcements" | "tasks" | "students" | "settings" | "audit";
-const TABS: Tab[] = ["overview", "video", "chat", "announcements", "tasks", "students", "settings", "audit"];
-const LABEL: Record<Tab, string> = { overview: "groups.tabOverview", video: "videoRoom.tabTeacher", chat: "groups.tabChat", announcements: "groups.tabAnnouncements",
-  tasks: "groups.tabTasks", students: "groups.tabStudents", settings: "groups.tabSettings", audit: "groups.tabAudit" };
+type Tab = "overview" | "multilevel" | "video" | "chat" | "announcements" | "tasks" | "students" | "settings" | "audit";
+const TABS: Tab[] = ["overview", "multilevel", "video", "chat", "announcements", "tasks", "students", "settings", "audit"];
+const LABEL: Record<Tab, string> = { overview: "groups.tabOverview", multilevel: "groups.tabMultilevel", video: "videoRoom.tabTeacher", chat: "groups.tabChat",
+  announcements: "groups.tabAnnouncements", tasks: "groups.tabTasks", students: "groups.tabStudents", settings: "groups.tabSettings", audit: "groups.tabAudit" };
 
 function Overview({ groupId }: { groupId: string }) {
   const { t } = useTranslation();
@@ -338,13 +339,16 @@ export default function TeacherGroupView({ groupId }: { groupId: string }) {
   const qc = useQueryClient();
   const params = useSearchParams();
   const initial = params.get("tab") as Tab | null;
-  const [tab, setTab] = useState<Tab>(initial && TABS.includes(initial) ? initial : "overview");
+  const [picked, setTab] = useState<Tab | null>(initial && TABS.includes(initial) ? initial : null);
   const group = useQuery({ queryKey: ["groups", groupId], queryFn: () => getGroup(groupId), retry: false });
 
   if (group.isLoading) return <Loading />;
   if (group.isError || !group.data) return <ErrorBox error={group.error} />;
   const g = group.data;
   const canEdit = g.status !== "blocked";
+  // a Multilevel group opens on its Modelltest results; course groups have no such tab
+  const tabs = TABS.filter((id) => id !== "multilevel" || !!g.multilevel);
+  const tab: Tab = picked && tabs.includes(picked) ? picked : g.multilevel ? "multilevel" : "overview";
 
   return (
     <div className="space-y-5">
@@ -352,16 +356,17 @@ export default function TeacherGroupView({ groupId }: { groupId: string }) {
       <div className={cn(card, "flex flex-col gap-2 p-5 sm:flex-row sm:items-start sm:justify-between")}>
         <div className="min-w-0">
           <h1 className="text-xl font-bold text-text-primary">{g.name}</h1>
-          <p className="text-sm text-text-secondary">{t("groups.teacher")}: {g.teacher.name} · {g.student_count}{g.capacity ? `/${g.capacity}` : ""} {t("groups.students")} · {g.courses.map((c) => c.title).join(", ") || t("groups.noCourses")}</p>
+          <p className="text-sm text-text-secondary">{t("groups.teacher")}: {g.teacher.name} · {g.student_count}{g.capacity ? `/${g.capacity}` : ""} {t("groups.students")} · {g.multilevel ? <span data-testid="group-ml-badge">{t("groups.ml_linked", { title: g.multilevel.title })}</span> : g.courses.map((c) => c.title).join(", ") || t("groups.noCourses")}{g.multilevel && g.courses.length > 0 ? ` · ${g.courses.map((c) => c.title).join(", ")}` : ""}</p>
         </div>
         <div className="flex gap-2"><StatusPill status={g.status} /><LevelPill level={g.level} /></div>
       </div>
 
       {tab !== "video" && <LiveBanner groupId={groupId} />}
 
-      <Tabs tabs={TABS.map((id) => ({ id, label: t(LABEL[id]), badge: id === "chat" ? g.viewer.unread : undefined }))} active={tab} onChange={setTab} />
+      <Tabs tabs={tabs.map((id) => ({ id, label: t(LABEL[id]), badge: id === "chat" ? g.viewer.unread : undefined }))} active={tab} onChange={setTab} />
 
       {tab === "overview" && <Overview groupId={groupId} />}
+      {tab === "multilevel" && <TeacherMultilevelTab groupId={groupId} />}
       {tab === "video" && <VideoLessonsTab groupId={groupId} manager={canEdit} />}
       {tab === "chat" && <GroupChat groupId={groupId} onRead={() => qc.invalidateQueries({ queryKey: ["groups", groupId] })} />}
       {tab === "announcements" && <Announcements groupId={groupId} manager={canEdit} />}

@@ -15,6 +15,7 @@ import type {
   KeyImportResult,
   KeySection,
   ScoringSettings,
+  ScoringSettingsUpdate,
   SectionPaper,
 } from "../types/multilevel-exam.types";
 
@@ -84,8 +85,14 @@ export async function getAdminAttempt(attemptId: string): Promise<AdminAttemptDe
   return (await api.get<AdminAttemptDetail>(`${ADMIN}/attempts/${attemptId}`)).data;
 }
 
-export async function gradeSection(attemptId: string, section: ExamSection, score: number, feedback: string | null) {
-  return (await api.put<AdminAttemptDetail>(`${ADMIN}/attempts/${attemptId}/sections/${section}/grade`, { score, feedback })).data;
+/** Super Admin override of a section score (any of the four); `score` null clears it. The reason is required and kept in the history. */
+export async function gradeSection(attemptId: string, section: ExamSection, score: number | null, reason: string, feedback: string | null = null) {
+  return (await api.put<AdminAttemptDetail>(`${ADMIN}/attempts/${attemptId}/sections/${section}/grade`, { score, reason, feedback })).data;
+}
+
+/** Super Admin: run the AI again (Schreiben / Sprechen); an override stays in force. */
+export async function reevaluateSection(attemptId: string, section: ExamSection) {
+  return (await api.post<AdminAttemptDetail>(`${ADMIN}/attempts/${attemptId}/sections/${section}/reevaluate`)).data;
 }
 
 export async function getStaffRecording(submissionId: string): Promise<Blob> {
@@ -100,7 +107,7 @@ export async function getScoringSettings(): Promise<ScoringSettings> {
   return (await api.get<ScoringSettings>(`${ADMIN}/settings`)).data;
 }
 
-export async function putScoringSettings(data: Pick<ScoringSettings, "score_50" | "overall_rule">): Promise<ScoringSettings> {
+export async function putScoringSettings(data: ScoringSettingsUpdate): Promise<ScoringSettings> {
   return (await api.put<ScoringSettings>(`${ADMIN}/settings`, data)).data;
 }
 

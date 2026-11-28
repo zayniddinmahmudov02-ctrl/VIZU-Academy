@@ -310,6 +310,9 @@ export function StatusNotice({ status }: { status: MlStatus | undefined }) {
   if (!status) return null;
   if (status.staff) return <Notice tone="success" testId="ml-status-staff" title={t("mlPremium.activeTitle")} body={t("mlPremium.staffBody")} />;
   if (status.entitled) return <Notice tone="success" testId="ml-status-active" title={t("mlPremium.activeTitle")} body={t("mlPremium.activeBody")} />;
+  if (status.group_access) {
+    return <Notice tone="success" testId="ml-status-group" title={t("mlPremium.groupTitle")} body={t("mlPremium.groupBody", { groups: (status.groups ?? []).join(", ") })} />;
+  }
   if (status.pending_order) return <Notice tone="warning" testId="ml-status-pending" title={t("mlPremium.pendingTitle")} body={t("mlPremium.pendingBody")} />;
   if (status.blocked) return <Notice tone="danger" testId="ml-status-blocked" title={t("mlPremium.blocked")} />;
   if (!status.product.purchasable) return <Notice tone="muted" testId="ml-status-closed" title={t("mlPremium.notForSale")} />;

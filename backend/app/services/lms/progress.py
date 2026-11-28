@@ -534,7 +534,7 @@ def level_sale(user: User, level: str) -> dict:
     and the packages that contain the level — all from the Angebote
     configuration (Admin -> Angebote), never from the client."""
     from app.services.vizu_pay import offers as offer_config
-    from app.services.vizu_pay.access import has_premium_bypass, is_user_premium, owns_level
+    from app.services.vizu_pay.access import has_premium_bypass, is_user_premium, level_access_window, owns_level
 
     available = offer_config.level_available(level)
     sales = offer_config.level_sales_enabled(level)  # legacy-Premium gate only
@@ -547,13 +547,18 @@ def level_sale(user: User, level: str) -> dict:
 
     # legacy Premium opens a level only once it is approved for sale (see access.can_access_lesson)
     premium_counts = sales and is_user_premium(user)
+    owned = bool(has_premium_bypass(user) or (available and (premium_counts or owns_level(user, level))))
+    window = level_access_window(user, level)
     return {
         "available": available,
         "coming_soon": not available,
         # available (free lessons open) but no ACTIVE package opens it: buying shows "Tez orada"
         "sales_enabled": bool(available and purchasable),
         "sales_closed": bool(available and not purchasable),
-        "owned": bool(has_premium_bypass(user) or (available and (premium_counts or owns_level(user, level)))),
+        "owned": owned,
+        # the student's own purchase: until when it runs, or when it ran out (then the card says so and offers to renew)
+        "access_until": window["access_until"],
+        "expired_at": window["expired_at"] if not owned else None,
         "free_lessons": offer_config.free_lessons() if available else 0,
         "offer": brief(listed[level]) if level in listed else None,
         "packages": [brief(o) for o in listed.values() if o["kind"] == offer_config.KIND_PACKAGE and level in o["levels"] and o["purchasable"]],

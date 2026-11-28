@@ -156,6 +156,8 @@ class SubscriptionOrder(BaseModel):
     admin_note: Mapped[str | None] = mapped_column(Text, nullable=True)
     # plan TEACHER_COURSE: the My Teacher course this payment is for (approval activates the enrollment)
     teacher_course_id: Mapped[str | None] = mapped_column(ForeignKey("teacher_courses.id", ondelete="SET NULL"), nullable=True, index=True)
+    # course access: when the "access ends in 3 days" notification went out (once per order; vizu_pay/expiry_reminders.py)
+    expiry_reminder_sent_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
     user = relationship("User", foreign_keys=[user_id])
 

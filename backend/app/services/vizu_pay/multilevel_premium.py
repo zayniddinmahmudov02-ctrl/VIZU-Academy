@@ -170,12 +170,32 @@ def tests_overview(db: Session) -> dict:
             "premium_total": len(premium), "premium_available": sum(t.status == STATUS_PUBLISHED for t in premium)}
 
 
+def group_names(db: Session, user: User) -> list[str]:
+    """Names of the active Multilevel groups that open the tests for this student (access.multilevel_group_levels), for the student page."""
+    from app.models.mock_exam_level import MockExamLevel
+    from app.models.study_group import StudyGroup
+    from app.services.mock_exam.multilevel_service import LEVEL_TITLE
+
+    from .access import multilevel_group_levels
+
+    levels = multilevel_group_levels(user) & set(db.scalars(select(MockExamLevel.id).where(MockExamLevel.title == LEVEL_TITLE)))
+    if not levels:
+        return []
+    from app.models.study_group import GROUP_ACTIVE, MEMBER_ACTIVE, MEMBER_STUDENT, StudyGroupMember
+
+    return [n.strip() for n in db.scalars(
+        select(StudyGroup.name).join(StudyGroupMember, StudyGroupMember.group_id == StudyGroup.id).where(
+            StudyGroupMember.user_id == user.id, StudyGroupMember.role == MEMBER_STUDENT, StudyGroupMember.status == MEMBER_ACTIVE,
+            StudyGroup.status == GROUP_ACTIVE, StudyGroup.mock_exam_level_id.in_(levels)).order_by(StudyGroup.name))]
+
+
 def status(db: Session, user: User) -> dict:
     from .access import has_premium_bypass
     from .service import VizuPayService
 
     pay = VizuPayService(db)
     ent = active_entitlement(db, user.id)
+    groups = group_names(db, user)
     pending = pending_order(db, user.id)
     last = db.scalar(_ml_orders(db, user.id).order_by(SubscriptionOrder.created_at.desc()))
     rejected = last if last is not None and last.status == plan_config.STATUS_REJECTED and ent is None and pending is None else None
@@ -184,6 +204,9 @@ def status(db: Session, user: User) -> dict:
         "cards": plan_config.PAYMENT_CARDS,
         "entitled": ent is not None,
         "staff": has_premium_bypass(user),
+        # open through a Multilevel group (owner 2026-11-28) — no purchase needed while the membership is active
+        "group_access": bool(groups),
+        "groups": groups,
         "entitlement": entitlement_view(ent),
         "pending_order": pay.serialize_order(pending) if pending is not None else None,
         "last_rejected": {"reason": rejected.rejection_reason, "reviewed_at": rejected.reviewed_at} if rejected is not None else None,

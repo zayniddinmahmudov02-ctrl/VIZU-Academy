@@ -222,6 +222,8 @@ class Settings(BaseSettings):
     SPECIAL_LESSON_MAX_PARTICIPANTS: int = Field(default=100, ge=2, le=500)
     # background round that closes special-lesson rooms at their time limit and sends the reminders
     TEACHER_MARKET_SCHEDULER_ENABLED: bool = True
+    # Multilevel Modelltest: AI grading of Schreiben / Sprechen in a background thread (mock_exam/multilevel_ai.py; off in APP_ENV=test)
+    MULTILEVEL_AI_ENABLED: bool = True
 
     # ==================================================
     # DATABASE

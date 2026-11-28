@@ -10,7 +10,7 @@ SUPER_ADMIN assigning a group."""
 from datetime import date, datetime
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, Query, Request
+from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy.orm import Session
 
@@ -19,7 +19,7 @@ from app.core.client_ip import client_ip
 from app.db.session import get_db
 from app.models.study_group import CHAT_MODES, MODES
 from app.models.user import User
-from app.services.study_groups import chat, groups, progress
+from app.services.study_groups import chat, groups, multilevel, progress
 from app.services.study_groups.access import is_manager, require_manage, require_student_member, require_view
 
 router = APIRouter(prefix="/groups", tags=["Groups & Classroom"])
@@ -41,6 +41,7 @@ class GroupCreate(_In):
     chat_mode: str = Field("open", pattern=f"^({'|'.join(CHAT_MODES)})$")
     course_ids: list[UUID] = Field(default_factory=list, max_length=10)
     teacher_id: UUID | None = None  # SUPER_ADMIN only
+    mock_exam_level_id: UUID | None = None  # SUPER_ADMIN only: Multilevel group (opens the level's Modelltests for the members)
     code_expires_at: datetime | None = None
     code_max_uses: int | None = Field(None, ge=1, le=10000)
 
@@ -56,6 +57,7 @@ class GroupUpdate(_In):
     capacity: int | None = Field(None, ge=1, le=1000)
     course_ids: list[UUID] | None = Field(None, max_length=10)
     teacher_id: UUID | None = None  # SUPER_ADMIN only
+    mock_exam_level_id: UUID | None = None  # SUPER_ADMIN only; null unlinks
 
 
 class CodeCreate(_In):
@@ -318,6 +320,40 @@ def my_progress(group_id: UUID, db: Session = Depends(get_db), user: User = Depe
     if member is None or member.role != "student":
         return None
     return progress.student_detail(db, group, user.id)
+
+
+# Multilevel groups (2026-11-28): Modelltest results, read only (services/study_groups/multilevel.py)
+
+@router.get("/{group_id}/multilevel")
+def multilevel_overview(group_id: UUID, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    """Group managers (the group's teacher / SUPER_ADMIN): every active student's Multilevel results. 404 for anyone else."""
+    return multilevel.overview(db, require_manage(db, user, group_id, write=False))
+
+
+@router.get("/{group_id}/multilevel/students/{student_id}")
+def multilevel_student(group_id: UUID, student_id: UUID, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    group = require_manage(db, user, group_id, write=False)
+    require_student_member(db, group, student_id)
+    return multilevel.student_detail(db, group, student_id)
+
+
+@router.get("/{group_id}/multilevel/recordings/{submission_id}")
+def multilevel_recording(group_id: UUID, submission_id: UUID, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    """Group managers: a member's Sprechen recording (private, no-store). Students use /multilevel-exam/recordings/{id} for their own."""
+    from fastapi.responses import FileResponse
+
+    group = require_manage(db, user, group_id, write=False)
+    path, media_type = multilevel.recording(db, user, group, submission_id)
+    return FileResponse(path, media_type=media_type, headers={"Cache-Control": "private, no-store", "X-Content-Type-Options": "nosniff"})
+
+
+@router.get("/{group_id}/multilevel/me")
+def multilevel_mine(group_id: UUID, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    """An active student member: the level's Modelltests with the student's own attempts."""
+    group, member = require_view(db, user, group_id)
+    if member is None or member.role != "student":
+        raise HTTPException(status_code=404, detail="Group not found")
+    return multilevel.mine(db, group, user)
 
 
 @router.get("/{group_id}/audit")

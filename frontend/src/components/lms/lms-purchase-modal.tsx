@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft, BookOpen, Check, CreditCard, Lock, Package, X } from "lucide-react";
+import { ArrowLeft, BookOpen, Check, CreditCard, Lock, Package, RotateCw, X } from "lucide-react";
 
 import { useLmsLevel } from "@/features/lms/hooks/use-lms";
+import { accessDate } from "@/features/lms/level-status";
 import type { LmsSaleOffer } from "@/features/lms/types";
 import { useTranslation } from "@/lib/i18n/use-translation";
 
@@ -30,6 +31,8 @@ export default function LmsPurchaseModal({ level, open, onClose, onBack }: {
   const total = data?.lessons_target ?? 0;
   const buyable = !!data && !sale?.coming_soon && !sale?.owned && !!sale?.sales_enabled;
   const options: LmsSaleOffer[] = [...(offer?.purchasable ? [offer] : []), ...(sale?.packages ?? [])];
+  // bought before, but the access period is over: say so (owner 2026-11-25) — renewing is the same purchase
+  const expired = !!data && !sale?.owned && !sale?.coming_soon && !!sale?.expired_at;
 
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/60 p-0 sm:items-center sm:p-4" role="dialog" aria-modal="true" onClick={onClose}>
@@ -39,7 +42,7 @@ export default function LmsPurchaseModal({ level, open, onClose, onBack }: {
           <div>
             <p className="text-xs font-semibold uppercase tracking-wide text-text-muted">{t("lms.level")} {level}</p>
             <h2 className="text-xl font-bold text-text-primary" data-testid="lms-purchase-title">
-              {buyable || !data ? t("lms.gateTitle") : t("lms.buyTitle", { level })}
+              {expired ? t("lms.accessExpiredTitle") : buyable || !data ? t("lms.gateTitle") : t("lms.buyTitle", { level })}
             </h2>
           </div>
           <button onClick={onClose} aria-label="Close" className="rounded-lg p-1.5 text-text-muted hover:bg-surface-hover"><X size={18} /></button>
@@ -57,10 +60,16 @@ export default function LmsPurchaseModal({ level, open, onClose, onBack }: {
           </p>
         ) : (
           <div className="space-y-5">
-            <div className="space-y-2 text-sm text-text-secondary" data-testid="lms-purchase-text">
-              <p>{t("lms.gateBody")}</p>
-              <p className="font-semibold text-text-primary">{t("lms.gateOutro")}</p>
-            </div>
+            {expired ? (
+              <p className="rounded-xl bg-amber-500/10 p-4 text-sm text-amber-800 ring-1 ring-amber-500/30 dark:text-amber-200" data-testid="lms-purchase-expired">
+                {t("lms.accessExpiredBody", { date: accessDate(sale?.expired_at) })}
+              </p>
+            ) : (
+              <div className="space-y-2 text-sm text-text-secondary" data-testid="lms-purchase-text">
+                <p>{t("lms.gateBody")}</p>
+                <p className="font-semibold text-text-primary">{t("lms.gateOutro")}</p>
+              </div>
+            )}
 
             <ul className="space-y-2 text-sm text-text-secondary">
               <li className="flex items-center gap-2"><BookOpen size={15} className="text-accent-blue" /> {t("lms.buyLessons", { n: total })}</li>
@@ -110,7 +119,7 @@ export default function LmsPurchaseModal({ level, open, onClose, onBack }: {
           {buyable && (
             <Link href={buyHref(offer?.purchasable ? offer.code : undefined)} data-testid="lms-purchase-buy"
                   className="inline-flex items-center justify-center gap-2 rounded-xl bg-accent-blue px-5 py-3 text-sm font-semibold text-white hover:opacity-90">
-              <CreditCard size={16} /> {t("lms.gateBuy")}
+              {expired ? <RotateCw size={16} /> : <CreditCard size={16} />} {t(expired ? "lms.renew" : "lms.gateBuy")}
             </Link>
           )}
         </div>

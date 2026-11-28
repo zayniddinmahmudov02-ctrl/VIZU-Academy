@@ -209,10 +209,17 @@ API prefixes are listed without `/api/v1` (every router is mounted bare and unde
   `review_course_request`; nothing is bought by it). Admin `/admin/payments`: Overview, Payment Requests, Course Payments, Multilevel
   Modelltest Payments (+ Premium holders), Promo Codes, Promo Requests, Purchase History, Payment Settings
   (`fe/features/admin/components/payments/{payments-sections,payment-tabs,buyer-card}.tsx`).
+- **Course access expiry (2026-11-28, owner: "Muddat qoladi + tushuntirish", migration `a4c9e1f7b2d6`):** access stays time-limited and an
+  expired order is never reopened. `access.level_access_window` → `lms.progress.level_sale` adds `access_until` (end of the active order) and
+  `expired_at` (only when nothing is active: end of the latest expired order) — the course card / level page / buy sheet show "Kirish muddati
+  tugadi (date)" + "Uzaytirish" (`fe/features/lms/level-status.ts` status EXPIRED, `renewHref`). `vizu_pay/expiry_reminders.tick` (run by the
+  `teacher_market/scheduler.py` round) sends ONE notification per order 3 days before the end (`subscription_orders.expiry_reminder_sent_at`),
+  none when a newer approved order continues the levels. Scheduler lock is held on its own connection (fixed 2026-11-28).
 - **My Teacher courses (2026-11-24):** plan `TEACHER_COURSE` + `subscription_orders.teacher_course_id`, category `TEACHER_COURSES` (label `My Teacher Kurs: {title}`
   in Payment Requests; no "Zugang verlängern"); approve / reject / refund drive the enrollment (§ 13c). Counted in revenue.
 - **Tests:** `test_angebote`, `test_course_packages*`, `test_promo_*`, `test_admin_purchase_analytics`,
-  `test_course_access_terms`, `test_multilevel_premium*`; E2E `purchase.spec.ts`, `multilevel-premium.spec.ts` (E2E helper
+  `test_course_access_terms`, `test_course_access_expiry`, `test_order_expiry_reminder_migration`, `test_multilevel_premium*`; unit
+  `lms-level-status.test.mjs`; E2E `purchase.spec.ts`, `multilevel-premium.spec.ts` (E2E helper
   `grantMultilevelPremium` in `e2e/tests/helpers.ts`; Modelltest 1–6 no longer need it).
 
 ## 12. Admin CMS
@@ -309,6 +316,15 @@ API prefixes are listed without `/api/v1` (every router is mounted bare and unde
   `study_group_messages`, `study_group_announcements`, `study_group_tasks`, `study_group_audit_logs`.
 - **Frontend:** `fe/app/(dashboard)/groups`, `fe/app/teacher/groups`, `fe/app/admin/groups`, `fe/features/groups/components/`.
 - **Doc/tests:** `docs/groups-classroom.md`; `test_study_groups`.
+- **Multilevel groups (2026-11-28, owner; migration `b6e3d9a2c5f8`):** `study_groups.mock_exam_level_id` links a group to the Vorbereitung level
+  "Multilevel B1–C1" (SUPER_ADMIN only — group form select `group-multilevel`, options `multilevel_levels`). Active student members of an ACTIVE linked
+  group open every Modelltest of the level without the Premium (`vizu_pay.access.multilevel_group_levels` in `can_access_model_test`; Premium status
+  `group_access` / `groups`). Results, read only: `be/services/study_groups/multilevel.py` (overview per student: tests taken, attempts, last attempt,
+  latest four section scores + total, best total, estimated level = `multilevel_exam_service.estimated_level`; drill-down per Modelltest; the student's
+  own view); frontend `fe/features/groups/components/multilevel-results.tsx`, tab "Multilevel" (default for linked groups) in the teacher + student
+  group views. Production data: script `app/scripts/multilevel_groups_link.py` (plan / apply: link "Multilevel …" groups, drop their C1 course link
+  with a JSON row copy). Tests `test_multilevel_groups`, `test_group_multilevel_migration`, E2E `multilevel-groups.spec.ts` (seed
+  `D:\vz_tmp\work\mlg_e2e_seed.py`).
 - **Group video lessons (LiveKit SFU, 2026-11-21, production):** own module on top of the groups (permissions reuse `study_groups.access`).
   - *Backend:* `be/api/video_rooms/router.py` (no prefix: `/groups/{gid}/video-rooms*`, `/video-rooms/*`, `/admin/video-rooms*`, signed webhook
     `/video-rooms/webhooks/livekit`), `be/services/video_rooms/{permissions,service,moderation,livekit_service}.py`, model `be/models/video_room.py`.

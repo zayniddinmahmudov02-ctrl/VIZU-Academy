@@ -33,6 +33,7 @@ export default function GroupForm({ group, onSubmit, onCancel }: {
     capacity: group?.capacity ?? null,
     course_ids: group?.courses.map((c) => c.id) ?? [],
     teacher_id: group?.teacher.id ?? "",
+    mock_exam_level_id: group?.multilevel?.id ?? "",
     chat_mode: group?.chat_mode ?? "open",
     code_expires_at: "",
     code_max_uses: null,
@@ -42,6 +43,8 @@ export default function GroupForm({ group, onSubmit, onCancel }: {
   const set = (p: Partial<GroupInput>) => setForm((f) => ({ ...f, ...p }));
   const courses = (options.data?.courses ?? []).filter((c) => c.level?.toUpperCase() === form.level);
   const teachers = options.data?.teachers ?? [];
+  // SUPER_ADMIN only (the list is empty for teachers): linking opens the paid Multilevel Modelltests for the members
+  const mlLevels = options.data?.multilevel_levels ?? [];
 
   async function submit() {
     setBusy(true);
@@ -53,9 +56,11 @@ export default function GroupForm({ group, onSubmit, onCancel }: {
       end_date: form.end_date || null,
       capacity: form.capacity || null,
       teacher_id: form.teacher_id || null,
+      mock_exam_level_id: form.mock_exam_level_id || null,
       course_ids: form.course_ids.filter((id) => courses.some((c) => c.id === id)),
       code_expires_at: form.code_expires_at ? new Date(form.code_expires_at).toISOString() : null,
     };
+    if (!mlLevels.length) delete data.mock_exam_level_id;
     if (group) {
       delete data.chat_mode;
       delete data.code_expires_at;
@@ -112,6 +117,15 @@ export default function GroupForm({ group, onSubmit, onCancel }: {
             })}
           </div>
         </div>
+        {mlLevels.length > 0 && (
+          <div className="sm:col-span-2"><label className={label} htmlFor="group-multilevel">{t("groups.ml_link")}</label>
+            <select id="group-multilevel" className={input} value={form.mock_exam_level_id ?? ""} data-testid="group-multilevel"
+                    onChange={(e) => set({ mock_exam_level_id: e.target.value })}>
+              <option value="">{t("groups.ml_linkNone")}</option>
+              {mlLevels.map((lv) => <option key={lv.id} value={lv.id}>{lv.title}</option>)}
+            </select>
+            <p className="mt-1 text-xs text-text-muted">{t("groups.ml_linkHint")}</p></div>
+        )}
         <div><label className={label}>{t("groups.startDate")}</label>
           <input type="date" className={input} value={form.start_date ?? ""} onChange={(e) => set({ start_date: e.target.value })} /></div>
         <div><label className={label}>{t("groups.endDate")}</label>

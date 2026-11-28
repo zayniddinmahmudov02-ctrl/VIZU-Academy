@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, BookOpen, Lock, PlayCircle } from "lucide-react";
+import { ArrowRight, BookOpen, Lock, PlayCircle, RotateCw } from "lucide-react";
 
 import ProgressBar from "@/components/ui/progress-bar";
 import { lessonHref, levelHref } from "@/features/lms/competencies";
-import { levelStatus, STATUS_TONE } from "@/features/lms/level-status";
+import { accessDate, levelStatus, renewHref, STATUS_TONE } from "@/features/lms/level-status";
 import type { LmsLevelSummary } from "@/features/lms/types";
 import { useTranslation } from "@/lib/i18n/use-translation";
 
@@ -72,9 +72,20 @@ export default function LmsLevelCard({ level }: { level: LmsLevelSummary }) {
           </div>
           <p className="mt-1 text-sm text-text-secondary">{t(`hub.levelDesc.${level.level}`)}</p>
         </div>
-        <div className="flex items-start justify-between gap-2">
+        <div className="flex flex-wrap items-center justify-between gap-2">
           {sale?.owned ? (
-            <span className="shrink-0 rounded-full bg-success/15 px-2.5 py-1 text-xs font-semibold text-success">{t("lms.owned")}</span>
+            <span className="flex flex-wrap items-center gap-2">
+              <span className="shrink-0 rounded-full bg-success/15 px-2.5 py-1 text-xs font-semibold text-success">{t("lms.owned")}</span>
+              {sale.access_until && <span className="text-xs text-text-muted" data-testid="lms-level-access-until">{t("lms.accessUntil", { date: accessDate(sale.access_until) })}</span>}
+            </span>
+          ) : status === "EXPIRED" ? (
+            <span className="flex w-full flex-wrap items-center justify-between gap-2" data-testid="lms-level-expired">
+              <span className="text-xs font-medium text-amber-700 dark:text-amber-300">{t("lms.accessExpired", { date: accessDate(sale?.expired_at) })}</span>
+              <Link href={renewHref(sale)} data-testid="lms-level-renew"
+                    className="inline-flex items-center gap-1 rounded-full bg-amber-500 px-3 py-1 text-xs font-bold text-white hover:opacity-90">
+                <RotateCw size={12} /> {t("lms.renew")}
+              </Link>
+            </span>
           ) : sale?.offer?.purchasable && sale.offer.sale_price ? (
             <span className="shrink-0 rounded-full bg-accent-blue/10 px-2.5 py-1 text-xs font-bold text-accent-blue" data-testid="lms-level-price">
               {t("lms.som", { n: sale.offer.sale_price.toLocaleString("ru-RU").replace(/ /g, " ") })}

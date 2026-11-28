@@ -1,22 +1,22 @@
 """Multilevel exam mode — rules in app/services/mock_exam/multilevel_exam_service.py.
 
 Student (`get_current_user`, own attempts only; someone else's attempt is a 404): /multilevel-exam/...
-Staff: results + recordings + statistics `require_teacher_panel_access` (teachers grade Schreiben / Sprechen),
+Staff (2026-11-28, owner: teachers only look, the Super Admin changes scores): results + recordings + statistics `require_content_editor`
+(teachers see their groups' results under /groups/{id}/multilevel), score override / clear + AI re-evaluation `require_super_admin`,
 preview `require_admin_panel_access`, scoring settings read `require_admin_panel_access` / write `require_super_admin`,
 answer keys (Lesen / Hören table, import) read `require_admin_panel_access` / write `require_content_editor`."""
 
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, File, HTTPException, Path, Query, UploadFile
+from fastapi import APIRouter, BackgroundTasks, Depends, File, HTTPException, Path, Query, UploadFile
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy.orm import Session
 
-from app.api.dependencies.auth import (
-    get_current_user, require_admin_panel_access, require_content_editor, require_super_admin, require_teacher_panel_access,
-)
+from app.api.dependencies.auth import get_current_user, require_admin_panel_access, require_content_editor, require_super_admin
 from app.db.session import get_db
 from app.models.user import User
+from app.services.mock_exam import multilevel_ai
 from app.services.mock_exam import multilevel_exam_service as svc
 from app.services.mock_exam import multilevel_keys as keys
 
@@ -43,15 +43,23 @@ class WritingIn(BaseModel):
 
 
 class GradeIn(BaseModel):
+    """Super Admin override of one section score; `score` null clears the override (the rule / AI score counts again)."""
+
     model_config = ConfigDict(extra="forbid")
-    score: int = Field(ge=0, le=svc.SECTION_MAX)
+    score: int | None = Field(ge=0, le=svc.SECTION_MAX)
+    reason: str = Field(min_length=3, max_length=1000)
     feedback: str | None = Field(default=None, max_length=5000)
 
 
 class SettingsIn(BaseModel):
+    """Every field optional — what is not sent stays. Tables: lesen_table = 36 scores (0–35 correct), schreiben_table = [from, to, score] rows."""
+
     model_config = ConfigDict(extra="forbid")
-    score_50: str = Field(pattern="^(UNGEKLAERT|B1|B2)$")
-    overall_rule: str = Field(pattern="^(UNCONFIRMED|AVERAGE|LOWEST)$")
+    score_50: str | None = Field(default=None, pattern="^(UNGEKLAERT|B1|B2)$")
+    overall_rule: str | None = Field(default=None, pattern="^(UNCONFIRMED|AVERAGE|LOWEST)$")
+    bands: dict[str, int] | None = None
+    lesen_table: list[int] | None = Field(default=None, min_length=36, max_length=36)
+    schreiben_table: list[list[float]] | None = Field(default=None, min_length=1, max_length=200)
 
 
 class KeysIn(BaseModel):
@@ -151,28 +159,40 @@ def own_recording(submission_id: UUID, db: Session = Depends(get_db), user: User
 
 @admin_router.get("/attempts")
 def admin_attempts(model_test_id: UUID | None = None, status: str | None = None, db: Session = Depends(get_db),
-                   _: User = Depends(require_teacher_panel_access)):
+                   _: User = Depends(require_content_editor)):
     return svc.admin_attempts(db, model_test_id, status)
 
 
 @admin_router.get("/attempts/{attempt_id}")
-def admin_attempt(attempt_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_teacher_panel_access)):
+def admin_attempt(attempt_id: UUID, db: Session = Depends(get_db), _: User = Depends(require_content_editor)):
     return svc.admin_attempt_detail(db, attempt_id)
 
 
 @admin_router.put("/attempts/{attempt_id}/sections/{section_type}/grade")
 def grade_section(attempt_id: UUID, data: GradeIn, section_type: str = SectionType, db: Session = Depends(get_db),
-                  user: User = Depends(require_teacher_panel_access)):
-    return svc.grade_section(db, user, attempt_id, section_type, data.score, data.feedback)
+                  user: User = Depends(require_super_admin)):
+    """Override (or clear) any section score — Lesen, Hören, Schreiben, Sprechen. History: ai_evaluations + audit log."""
+    return svc.override_section(db, user, attempt_id, section_type, data.score, data.reason, data.feedback)
+
+
+@admin_router.post("/attempts/{attempt_id}/sections/{section_type}/reevaluate")
+def reevaluate_section(attempt_id: UUID, background_tasks: BackgroundTasks, section_type: str = SectionType, db: Session = Depends(get_db),
+                       user: User = Depends(require_super_admin)):
+    """Run the AI again for Schreiben / Sprechen; an override stays in force."""
+    detail = svc.request_reevaluation(db, user, attempt_id, section_type)
+    section_id = next((s.get("section_id") for s in detail["sections"] if s["type"] == section_type), None)
+    if section_id:
+        background_tasks.add_task(multilevel_ai.run_section, section_id)
+    return detail
 
 
 @admin_router.get("/recordings/{submission_id}")
-def staff_recording(submission_id: UUID, db: Session = Depends(get_db), user: User = Depends(require_teacher_panel_access)):
+def staff_recording(submission_id: UUID, db: Session = Depends(get_db), user: User = Depends(require_content_editor)):
     return _private_audio(*svc.recording_file(db, user, submission_id, staff=True))
 
 
 @admin_router.get("/statistics")
-def statistics(db: Session = Depends(get_db), _: User = Depends(require_teacher_panel_access)):
+def statistics(db: Session = Depends(get_db), _: User = Depends(require_content_editor)):
     return svc.statistics(db)
 
 
@@ -207,9 +227,10 @@ def import_answer_keys(model_test_id: UUID, data: KeysImportIn, db: Session = De
 
 @admin_router.get("/settings")
 def get_settings(db: Session = Depends(get_db), _: User = Depends(require_admin_panel_access)):
-    return svc.get_settings(db) | {"score_50_choices": list(svc.SCORE_50_CHOICES), "overall_rules": list(svc.OVERALL_RULES)}
+    return svc.settings_view(svc.get_settings(db)) | {"score_50_choices": list(svc.SCORE_50_CHOICES), "overall_rules": list(svc.OVERALL_RULES)}
 
 
 @admin_router.put("/settings")
 def put_settings(data: SettingsIn, db: Session = Depends(get_db), user: User = Depends(require_super_admin)):
-    return svc.update_settings(db, user, data.score_50, data.overall_rule)
+    return svc.update_settings(db, user, data.score_50, data.overall_rule, bands=data.bands, lesen_table=data.lesen_table,
+                               schreiben_table=data.schreiben_table)

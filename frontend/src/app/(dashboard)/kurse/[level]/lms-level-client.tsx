@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, CreditCard, Lock, PlayCircle } from "lucide-react";
+import { ArrowLeft, CreditCard, Lock, PlayCircle, RotateCw } from "lucide-react";
 
 import LmsPurchaseModal from "@/components/lms/lms-purchase-modal";
 import LmsSkeleton from "@/components/lms/lms-skeleton";
@@ -11,6 +11,7 @@ import LmsLessonCard from "@/components/lms/lms-lesson-card";
 import { LEVEL_GRADIENT } from "@/components/lms/lms-level-card";
 import ProgressBar from "@/components/ui/progress-bar";
 import { lessonHref } from "@/features/lms/competencies";
+import { accessDate } from "@/features/lms/level-status";
 import { useLmsLevel } from "@/features/lms/hooks/use-lms";
 import { useTranslation } from "@/lib/i18n/use-translation";
 
@@ -25,6 +26,8 @@ export default function LmsLevelClient({ level }: { level: string }) {
   // sales_enabled: an ACTIVE package (the level or a bundle) opens this level
   const canBuy = !!sale && !sale.coming_soon && !!sale.sales_enabled && !sale.owned;
   const salesClosed = !!sale?.sales_closed && !sale.owned;
+  // bought before, the access period is over (owner 2026-11-25: say so, offer to renew — the lessons stay closed)
+  const expired = !!sale && !sale.owned && !sale.coming_soon && !!sale.expired_at;
 
   return (
     <div className="space-y-6">
@@ -55,11 +58,21 @@ export default function LmsLevelClient({ level }: { level: string }) {
                 {canBuy && (
                   <button onClick={() => setBuying(true)} data-testid="lms-level-buy"
                           className="inline-flex items-center gap-2 rounded-xl bg-white/15 px-5 py-2.5 text-sm font-semibold text-white ring-1 ring-white/40 backdrop-blur hover:bg-white/25">
-                    <CreditCard size={16} /> {t("lms.gateBuy")}{sale?.offer?.purchasable && " · "}{sale?.offer?.purchasable && t("lms.som", { n: (sale.offer.sale_price ?? 0).toLocaleString("ru-RU").replace(/ /g, " ") })}
+                    {expired ? <RotateCw size={16} /> : <CreditCard size={16} />} {t(expired ? "lms.renew" : "lms.gateBuy")}{sale?.offer?.purchasable && " · "}{sale?.offer?.purchasable && t("lms.som", { n: (sale.offer.sale_price ?? 0).toLocaleString("ru-RU").replace(/ /g, " ") })}
                   </button>
                 )}
               </div>
             </div>
+            {sale?.owned && sale.access_until && (
+              <p className="mt-4 inline-flex items-center gap-2 rounded-xl bg-white/15 px-4 py-2 text-sm font-semibold" data-testid="lms-level-access-until">
+                {t("lms.accessUntil", { date: accessDate(sale.access_until) })}
+              </p>
+            )}
+            {expired && (
+              <p className="mt-4 inline-flex items-center gap-2 rounded-xl bg-amber-400/25 px-4 py-2 text-sm font-semibold" data-testid="lms-level-expired">
+                <Lock size={15} /> {t("lms.accessExpired", { date: accessDate(sale?.expired_at) })}
+              </p>
+            )}
             {sale?.coming_soon && (
               <p className="mt-4 inline-flex items-center gap-2 rounded-xl bg-white/15 px-4 py-2 text-sm font-semibold" data-testid="lms-level-coming-soon">
                 <Lock size={15} /> {t("lms.comingSoonHint")}

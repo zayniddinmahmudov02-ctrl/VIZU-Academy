@@ -10,6 +10,7 @@ from sqlalchemy.orm import Session
 
 from app.models.course import Course
 from app.models.lesson import Lesson
+from app.models.mock_exam_level import MockExamLevel
 from app.models.module import Module
 from app.models.study_group import (
     CODE_ACTIVE,
@@ -74,14 +75,23 @@ def _student_counts(db: Session, group_ids: list) -> dict:
         .group_by(StudyGroupMember.group_id)).all())
 
 
+def _mock_levels(db: Session, groups: list[StudyGroup]) -> dict:
+    ids = {g.mock_exam_level_id for g in groups if g.mock_exam_level_id}
+    if not ids:
+        return {}
+    return {lv.id: {"id": lv.id, "title": lv.title} for lv in db.scalars(select(MockExamLevel).where(MockExamLevel.id.in_(ids)))}
+
+
 def summaries(db: Session, groups: list[StudyGroup]) -> list[dict]:
     ids = [g.id for g in groups]
-    courses, counts = _courses_by_group(db, ids), _student_counts(db, ids)
+    courses, counts, mock = _courses_by_group(db, ids), _student_counts(db, ids), _mock_levels(db, groups)
     return [{
         "id": g.id, "name": g.name, "description": g.description, "level": g.level, "mode": g.mode, "status": g.status,
         "start_date": g.start_date, "end_date": g.end_date, "capacity": g.capacity, "chat_mode": g.chat_mode,
         "teacher": {"id": g.teacher_id, "name": display_name(g.teacher)},
         "courses": courses.get(g.id, []), "student_count": counts.get(g.id, 0),
+        # Multilevel group: the Vorbereitung level whose Modelltests it works with (None: a course group)
+        "multilevel": mock.get(g.mock_exam_level_id) if g.mock_exam_level_id else None,
         "last_activity_at": g.last_activity_at, "created_at": g.created_at,
     } for g in groups]
 
@@ -99,6 +109,25 @@ def _validate_courses(db: Session, course_ids: list[UUID], level: str) -> list[C
     if any((c.level or "").upper() != level for c in courses):
         raise _bad("course_level_mismatch")
     return courses
+
+
+def _multilevel_link(db: Session, actor: User, data: dict, current: StudyGroup | None = None) -> None:
+    """`mock_exam_level_id` opens paid Modelltests for the members (owner 2026-11-28), so only a SUPER_ADMIN sets or changes it, and only to the
+    Multilevel level. Leaves data["mock_exam_level_id"] as the value to store (key removed when it does not change)."""
+    if "mock_exam_level_id" not in data:
+        return
+    value = data["mock_exam_level_id"]
+    if value == (current.mock_exam_level_id if current else None):
+        data.pop("mock_exam_level_id")
+        return
+    if not is_super_admin(actor):
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="multilevel_link_admin_only")
+    if value is not None:
+        from app.services.mock_exam.multilevel_service import LEVEL_TITLE
+
+        level = db.get(MockExamLevel, value)
+        if level is None or level.title != LEVEL_TITLE:
+            raise _bad("unknown_multilevel_level")
 
 
 def _validate_fields(data: dict, current: StudyGroup | None = None) -> None:
@@ -138,6 +167,7 @@ def _set_teacher_member(db: Session, group: StudyGroup) -> None:
 def create(db: Session, actor: User, data: dict) -> tuple[dict, str]:
     teacher_id = _teacher_for(db, actor, data.pop("teacher_id", None))
     course_ids = data.pop("course_ids", []) or []
+    _multilevel_link(db, actor, data)
     _validate_fields(data)
     _validate_courses(db, course_ids, data["level"])
     if data.get("status") not in (None, *TEACHER_SETTABLE):
@@ -171,6 +201,7 @@ def update(db: Session, actor: User, group_id: UUID, data: dict) -> dict:
             group.teacher_id = _teacher_for(db, actor, teacher_id)
             _set_teacher_member(db, group)
     course_ids = data.pop("course_ids", None)
+    _multilevel_link(db, actor, data, group)
     _validate_fields(data, group)
     level = data.get("level", group.level)
     if course_ids is not None:
@@ -191,7 +222,8 @@ def update(db: Session, actor: User, group_id: UUID, data: dict) -> dict:
         if getattr(group, key) != value:
             changed[key] = str(value)
             setattr(group, key, value)
-    audit(db, group.id, actor.id, "group.update", "group", group.id, {"changed": sorted(changed), **({"status": changed["status"]} if "status" in changed else {})})
+    extra = {k: changed[k] for k in ("status", "mock_exam_level_id") if k in changed}
+    audit(db, group.id, actor.id, "group.update", "group", group.id, {"changed": sorted(changed), **extra})
     db.commit()
     db.refresh(group)
     return summary(db, group)
@@ -273,11 +305,15 @@ def options(db: Session, actor: User) -> dict:
     require_teacher_role(actor)
     courses = [{"id": c.id, "title": c.title, "level": c.level} for c in db.scalars(select(Course).where(Course.is_active.is_(True))
                                                                                      .order_by(Course.order_index))]
-    teachers = []
+    teachers, multilevel = [], []
     if is_super_admin(actor):
+        from app.services.mock_exam.multilevel_service import LEVEL_TITLE
+
         teachers = [{"id": u.id, "name": display_name(u), "email": u.email}
                     for u in db.scalars(select(User).where(User.role.in_(TEACHER_ROLES)).order_by(User.email))]
-    return {"levels": list(LEVELS), "courses": courses, "teachers": teachers}
+        # the Vorbereitung level a Multilevel group can be linked to (SUPER_ADMIN only: it opens paid Modelltests)
+        multilevel = [{"id": lv.id, "title": lv.title} for lv in db.scalars(select(MockExamLevel).where(MockExamLevel.title == LEVEL_TITLE))]
+    return {"levels": list(LEVELS), "courses": courses, "teachers": teachers, "multilevel_levels": multilevel}
 
 
 # ---------- join codes ----------

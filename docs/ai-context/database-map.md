@@ -5,7 +5,12 @@ PostgreSQL; connection from settings `DATABASE_HOST/PORT/NAME/USER/PASSWORD` (na
 
 ## Migrations
 
-- Linear history, one head. **Head = `f3b8d2a6c9e1`** (production: see `current-state.md`)
+- Linear history, one head. **Head = `b6e3d9a2c5f8`** (production: see `current-state.md`)
+- `b6e3d9a2c5f8` (2026-11-28): Multilevel groups — additive: `study_groups.mock_exam_level_id` (nullable uuid, FK `fk_study_groups_mock_exam_level_id`
+  → `mock_exam_levels.id` ON DELETE SET NULL, index `ix_study_groups_mock_exam_level_id`). Downgrade drops index, FK, column
+  (`test_group_multilevel_migration`).
+- `a4c9e1f7b2d6` (2026-11-28): course access reminder — additive: `subscription_orders.expiry_reminder_sent_at` (nullable timestamptz, set once
+  per order by `vizu_pay/expiry_reminders.py`). Downgrade drops the column (`test_order_expiry_reminder_migration`).
 - `f3b8d2a6c9e1` (2026-11-25): teacher's own career figure — additive: `teacher_profiles.students_taught_total` (nullable int, CHECK
   `ck_teacher_profiles_students_taught` 0 … 1 000 000). Downgrade drops check + column (`test_students_taught_migration`).
 - `e2a7c4f9b1d3` (2026-11-25): Admin who also teaches — additive: `teacher_profiles.teaches` (bool NOT NULL, server default false; only

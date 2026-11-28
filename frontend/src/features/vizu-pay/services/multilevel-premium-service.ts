@@ -32,6 +32,9 @@ export interface MlStatus {
   cards: { label: string; number: string }[];
   entitled: boolean;
   staff: boolean;
+  /** open through an active Multilevel group (owner 2026-11-28) — no purchase needed while the membership lasts */
+  group_access?: boolean;
+  groups?: string[];
   entitlement: { source: "PAYMENT" | "PROMO"; granted_at: string } | null;
   pending_order: MlOrder | null;
   last_rejected: { reason: string | null; reviewed_at: string | null } | null;

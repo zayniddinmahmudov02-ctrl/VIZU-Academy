@@ -5,34 +5,25 @@ import Link from "next/link";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Eye, Pencil } from "lucide-react";
 
-import { AdminButton, AdminCard, AdminInput, AdminLabel, AdminPageHeader, AdminSelect, AdminTextarea } from "@/components/admin/admin-ui";
+import { AdminButton, AdminCard, AdminPageHeader, AdminSelect } from "@/components/admin/admin-ui";
 import MultilevelAnswerKeys from "@/features/admin/components/mock-exam/multilevel-answer-keys";
+import { ScoringSettingsCard, SectionScoring } from "@/features/admin/components/mock-exam/multilevel-scoring-admin";
 import { useCrudList } from "@/features/admin/hooks/use-crud";
-import { apiErrorMessage } from "@/features/admin/services/lesson-skills-admin-service";
 import { mockExamLevelsApi, mockExamModelTestsApi, mockExamProvidersApi } from "@/features/admin/services/mock-exam-service";
 import {
   getAdminAttempt,
   getAdminAttempts,
-  getScoringSettings,
   getStaffRecording,
   getStatistics,
-  gradeSection,
-  putScoringSettings,
 } from "@/features/vorbereitung/services/multilevel-exam-service";
-import type { AdminAttemptDetail, ExamSection, ScoringSettings } from "@/features/vorbereitung/types/multilevel-exam.types";
+import type { ExamSection } from "@/features/vorbereitung/types/multilevel-exam.types";
 
 const SECTION_DE: Record<ExamSection, string> = { LESEN: "Lesen", HOEREN: "Hören", SCHREIBEN: "Schreiben", SPRECHEN: "Sprechen" };
 const LEVEL_DE: Record<string, string> = { NICHT_BESTANDEN: "Nicht bestanden", UNGEKLAERT: "Ungeklärt", PENDING: "Bewertung ausstehend" };
 const level = (v: string | null | undefined) => (v ? LEVEL_DE[v] ?? v : "—");
-const RULES: Record<string, string> = {
-  UNCONFIRMED: "Nicht bestätigt — Gesamtniveau bleibt „Ungeklärt“ (Standard)",
-  AVERAGE: "Durchschnitt der vier Teile (gleiche Punktbereiche)",
-  LOWEST: "Niedrigstes Teilniveau",
-};
-const SCORE_50: Record<string, string> = { UNGEKLAERT: "Ungeklärt (Standard)", B1: "B1", B2: "B2" };
 
-// Admin → Vorbereitung → National Zertifikat → Multilevel B1–C1: Modelltests, statistics, scoring settings (50-point
-// rule, overall rule — Super Admin), all attempts and the Schreiben / Sprechen grading (0–75, teachers + admins).
+// Admin → Vorbereitung → National Zertifikat → Multilevel B1–C1: Modelltests, statistics, scoring settings (tables, bands, overall rule —
+// Super Admin), all attempts with the AI grading of Schreiben / Sprechen and the Super Admin override of any section (reason + history).
 export default function MultilevelAdminPage() {
   const { data: providers } = useCrudList("mock-exam-providers", mockExamProvidersApi);
   const provider = providers?.find((p) => p.code === "NATIONAL");
@@ -77,7 +68,7 @@ export default function MultilevelAdminPage() {
 
       <div className="grid gap-6 lg:grid-cols-2">
         <StatisticsCard />
-        <SettingsCard />
+        <ScoringSettingsCard />
       </div>
 
       <AttemptsCard onSelect={setSelected} selected={selected} />
@@ -111,55 +102,6 @@ function StatisticsCard() {
               {s.tests.map((t) => <li key={t.model_test_id}>{t.title}: {t.attempts} Versuche, Ø {t.average_total ?? "—"} / 300</li>)}
             </ul>
           )}
-        </div>
-      )}
-    </AdminCard>
-  );
-}
-
-function SettingsCard() {
-  const queryClient = useQueryClient();
-  const { data } = useQuery({ queryKey: ["multilevel-settings"], queryFn: getScoringSettings });
-  const [edited, setForm] = useState<Pick<ScoringSettings, "score_50" | "overall_rule"> | null>(null);
-  const [message, setMessage] = useState<string | null>(null);
-  const form = edited ?? (data ? { score_50: data.score_50, overall_rule: data.overall_rule } : null);
-
-  async function save() {
-    if (!form) return;
-    setMessage(null);
-    try {
-      const out = await putScoringSettings(form);
-      setMessage(`Gespeichert. ${out.results_changed ?? 0} gespeicherte Ergebnisse neu berechnet.`);
-      await queryClient.invalidateQueries({ queryKey: ["multilevel-settings"] });
-      await queryClient.invalidateQueries({ queryKey: ["multilevel-admin-attempts"] });
-    } catch (err) {
-      setMessage(apiErrorMessage(err, "Speichern fehlgeschlagen (nur Super Admin)."));
-    }
-  }
-
-  return (
-    <AdminCard>
-      <h2 className="mb-1 text-sm font-semibold text-[var(--admin-text-primary)]">Bewertungsregeln</h2>
-      <p className="mb-3 text-xs text-[var(--admin-text-muted)]">
-        Je Teil 0–75 Punkte: 0–38 Nicht bestanden · 39–49 B1 · 50 = Einstellung · 51–64 B2 · 65–75 C1. Gesamt 0–300.
-        Lesen/Hören: richtige / alle Fragen × 75 (gerundet). Ohne offizielle Regel bleibt das Gesamtniveau „Ungeklärt“.
-      </p>
-      {form && (
-        <div className="space-y-3">
-          <div>
-            <AdminLabel>50 Punkte</AdminLabel>
-            <AdminSelect value={form.score_50} onChange={(e) => setForm({ ...form, score_50: e.target.value as ScoringSettings["score_50"] })} data-testid="setting-score-50">
-              {Object.entries(SCORE_50).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
-            </AdminSelect>
-          </div>
-          <div>
-            <AdminLabel>Gesamtniveau</AdminLabel>
-            <AdminSelect value={form.overall_rule} onChange={(e) => setForm({ ...form, overall_rule: e.target.value as ScoringSettings["overall_rule"] })} data-testid="setting-overall">
-              {Object.entries(RULES).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
-            </AdminSelect>
-          </div>
-          <AdminButton onClick={() => void save()} size="sm">Speichern</AdminButton>
-          {message && <p className="text-xs text-[var(--admin-text-muted)]">{message}</p>}
         </div>
       )}
     </AdminCard>
@@ -236,14 +178,12 @@ function AttemptDetailCard({ attemptId }: { attemptId: string }) {
               </div>
             ))}
             {s.type === "SPRECHEN" && d.recordings.map((r) => <RecordingRow key={r.submission_id} id={r.submission_id} label={r.teil} />)}
-            {(s.type === "SCHREIBEN" || s.type === "SPRECHEN") && s.status !== "OPEN" && s.status !== "NOT_STARTED" && (
-              <GradeForm d={d} section={s.type} current={s.score} feedback={s.feedback}
-                onDone={async () => {
-                  await queryClient.invalidateQueries({ queryKey: ["multilevel-admin-attempt", attemptId] });
-                  await queryClient.invalidateQueries({ queryKey: ["multilevel-admin-attempts"] });
-                  await queryClient.invalidateQueries({ queryKey: ["multilevel-statistics"] });
-                }} />
-            )}
+            <SectionScoring key={`${s.type}-${s.score}-${s.override_score}-${s.ai_status}`} attemptId={d.attempt_id} s={s}
+              onChanged={async () => {
+                await queryClient.invalidateQueries({ queryKey: ["multilevel-admin-attempt", attemptId] });
+                await queryClient.invalidateQueries({ queryKey: ["multilevel-admin-attempts"] });
+                await queryClient.invalidateQueries({ queryKey: ["multilevel-statistics"] });
+              }} />
           </div>
         ))}
       </div>
@@ -263,41 +203,6 @@ function RecordingRow({ id, label }: { id: string; label: string }) {
         <AdminButton size="sm" variant="secondary" className="mt-1"
           onClick={async () => setUrl(URL.createObjectURL(await getStaffRecording(id)))}>Aufnahme laden</AdminButton>
       )}
-    </div>
-  );
-}
-
-function GradeForm({ d, section, current, feedback, onDone }: {
-  d: AdminAttemptDetail; section: ExamSection; current: number | null; feedback: string | null; onDone: () => Promise<void>;
-}) {
-  const [score, setScore] = useState(current?.toString() ?? "");
-  const [text, setText] = useState(feedback ?? "");
-  const [msg, setMsg] = useState<string | null>(null);
-  async function save() {
-    const value = Number(score);
-    if (!Number.isInteger(value) || value < 0 || value > 75) {
-      setMsg("Punkte: ganze Zahl 0–75.");
-      return;
-    }
-    try {
-      await gradeSection(d.attempt_id, section, value, text || null);
-      setMsg("Gespeichert.");
-      await onDone();
-    } catch (err) {
-      setMsg(apiErrorMessage(err, "Speichern fehlgeschlagen."));
-    }
-  }
-  return (
-    <div className="mt-3 space-y-2 border-t border-[var(--admin-border)] pt-3" data-testid={`grade-${section}`}>
-      <div className="flex items-end gap-2">
-        <div className="w-28">
-          <AdminLabel>Punkte (0–75)</AdminLabel>
-          <AdminInput type="number" min={0} max={75} value={score} onChange={(e) => setScore(e.target.value)} />
-        </div>
-        <AdminButton size="sm" onClick={() => void save()}>Bewerten</AdminButton>
-      </div>
-      <AdminTextarea rows={2} placeholder="Rückmeldung (optional)" value={text} onChange={(e) => setText(e.target.value)} />
-      {msg && <p className="text-xs text-[var(--admin-text-muted)]">{msg}</p>}
     </div>
   );
 }

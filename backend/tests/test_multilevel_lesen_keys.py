@@ -317,7 +317,8 @@ class TestLesenKeysAgainstDatabase(unittest.TestCase):
                 self.assertEqual(len(snap["attempts"]), 2)  # a row copy of everything it changed
             db.expire_all()
             s1, s2 = lesen(db, self.before_keys[1][0]), lesen(db, self.before_keys[2][0])
-            self.assertEqual((s1.raw_points, s1.raw_max, s1.score), (10, 35, exam.scale(10, 35)))  # 10 right of 35 with the PDF key
+            # 10 right of 35 with the PDF key → the Lesen table (owner 2026-11-28: B1 band starts at 10 → 38)
+            self.assertEqual((s1.raw_points, s1.raw_max, s1.score), (10, 35, 38))
             self.assertEqual((s2.raw_points, s2.raw_max, s2.score), (0, 35, 0))  # nothing answered: 0, like a new attempt
             for number in (1, 2):  # Lesen now counts in the attempt: its maximum grows by one section
                 attempt = db.get(MockTestAttempt, self.before_keys[number][0])

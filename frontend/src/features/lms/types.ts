@@ -49,6 +49,10 @@ export interface LmsLevelSale {
   sales_enabled?: boolean;
   sales_closed?: boolean;
   owned: boolean;
+  /** end of the student's own active purchase of this level (ISO), null: none / staff / legacy Premium */
+  access_until?: string | null;
+  /** not owned, but a purchase of this level ran out on this date (ISO): "access ended" + renew instead of "buy" */
+  expired_at?: string | null;
   free_lessons: number;
   offer: LmsSaleOffer | null;
   packages: LmsSaleOffer[];

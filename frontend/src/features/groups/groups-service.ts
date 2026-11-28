@@ -38,6 +38,8 @@ export interface GroupSummary {
   teacher: { id: string; name: string };
   courses: CourseRef[];
   student_count: number;
+  /** Multilevel group (2026-11-28): the Vorbereitung level whose Modelltests it works with; null = a course group */
+  multilevel?: { id: string; title: string } | null;
   last_activity_at: string | null;
   created_at: string;
   code?: CodeInfo | null;
@@ -200,6 +202,53 @@ export interface GroupOptions {
   levels: Level[];
   courses: CourseRef[];
   teachers: { id: string; name: string; email: string }[];
+  /** SUPER_ADMIN only (empty for teachers): the level a Multilevel group can be linked to */
+  multilevel_levels?: { id: string; title: string }[];
+}
+
+export type MlSection = "LESEN" | "HOEREN" | "SCHREIBEN" | "SPRECHEN";
+export const ML_SECTIONS: MlSection[] = ["LESEN", "HOEREN", "SCHREIBEN", "SPRECHEN"];
+
+/** One Modelltest attempt as the group's Multilevel views show it (read only; no score while IN_PROGRESS). */
+export interface MlAttempt {
+  attempt_id: string;
+  model_test_id: string;
+  title: string;
+  status: "IN_PROGRESS" | "SUBMITTED" | "GRADED";
+  started_at: string;
+  submitted_at: string | null;
+  duration_seconds: number | null;
+  total_score: number | null;
+  max_score: number | null;
+  result_level: string | null;
+  estimated_level: string | null;
+  sections: Record<MlSection, {
+    status: string; score?: number | null; max?: number; level?: string | null; raw_points?: number | null; raw_max?: number | null;
+    no_key?: boolean; feedback?: string | null; awaiting_grading?: boolean;
+  } | null>;
+}
+
+export interface MlTestRef { id: string; title: string; number: number; status: string; available: boolean }
+
+export interface MlOverview {
+  level: { id: string; title: string };
+  section_max: number;
+  total_max: number;
+  tests: (MlTestRef & { attempts: number })[];
+  students: {
+    user_id: string; name: string; email: string; attempts: number; tests_taken: number; in_progress: number;
+    last_attempt_at: string | null; latest: MlAttempt | null; best_total: number | null;
+  }[];
+}
+
+export interface MlTestAttempts extends MlTestRef { attempts: MlAttempt[]; best_total: number | null }
+
+export interface MlStudentDetail {
+  level: { id: string; title: string };
+  student?: { user_id: string; name: string; email: string };
+  section_max: number;
+  total_max: number;
+  tests: MlTestAttempts[];
 }
 
 export interface GroupInput {
@@ -213,6 +262,8 @@ export interface GroupInput {
   capacity?: number | null;
   course_ids: string[];
   teacher_id?: string | null;
+  /** SUPER_ADMIN only; null unlinks */
+  mock_exam_level_id?: string | null;
   chat_mode?: ChatMode;
   code_expires_at?: string | null;
   code_max_uses?: number | null;
@@ -295,6 +346,11 @@ export const getStudents = async (id: string, params: { filter?: string; sort?: 
   (await api.get<Paged<StudentRow> & { courses: CourseRef[] }>(`${BASE}/${id}/students`, { params: clean(params) })).data;
 export const getStudentDetail = async (id: string, studentId: string) => (await api.get<StudentDetail>(`${BASE}/${id}/students/${studentId}`)).data;
 export const getMyProgress = async (id: string) => (await api.get<StudentDetail | null>(`${BASE}/${id}/me`)).data;
+// Multilevel groups — read only
+export const getGroupMultilevel = async (id: string) => (await api.get<MlOverview>(`${BASE}/${id}/multilevel`)).data;
+export const getGroupMultilevelStudent = async (id: string, studentId: string) =>
+  (await api.get<MlStudentDetail>(`${BASE}/${id}/multilevel/students/${studentId}`)).data;
+export const getMyGroupMultilevel = async (id: string) => (await api.get<MlStudentDetail>(`${BASE}/${id}/multilevel/me`)).data;
 export const getAuditLog = async (id: string, page = 1) =>
   (await api.get<Paged<{ id: string; action: string; actor: string | null; target_type: string | null; meta: Record<string, unknown> | null; created_at: string }>>(`${BASE}/${id}/audit`, { params: { page } })).data;
 

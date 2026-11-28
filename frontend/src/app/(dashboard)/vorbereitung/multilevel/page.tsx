@@ -29,7 +29,8 @@ export default function MultilevelPage() {
   const { data: history = [] } = useQuery({ queryKey: ["multilevel-history"], queryFn: getHistory });
   const { data: premium } = useQuery({ queryKey: ["multilevel-premium"], queryFn: getMlStatus });
 
-  const hasAccess = !!premium && (premium.entitled || premium.staff);
+  // a Multilevel group opens every Modelltest too (owner 2026-11-28; the server decides per test: `is_locked`)
+  const hasAccess = !!premium && (premium.entitled || premium.staff || !!premium.group_access);
   // the Premium is about the locked tests (all of them without it)
   const locked = exams.filter((e) => e.is_locked).length;
   const canBuy = !!premium && !hasAccess && !premium.pending_order && !premium.blocked && premium.product.purchasable && locked > 0;
@@ -70,7 +71,7 @@ export default function MultilevelPage() {
 
       {premium && (
         <section className="space-y-3 rounded-2xl bg-surface-card p-4 shadow-[var(--shadow-sm)] ring-1 ring-amber-500/30 sm:p-5"
-          data-testid="ml-premium-banner" data-status={hasAccess ? "ACTIVE" : premium.pending_order ? "PENDING" : "LOCKED"}>
+          data-testid="ml-premium-banner" data-status={premium.group_access && !premium.entitled && !premium.staff ? "GROUP" : hasAccess ? "ACTIVE" : premium.pending_order ? "PENDING" : "LOCKED"}>
           <p className="flex items-center gap-2 text-sm font-extrabold tracking-tight text-text-primary">
             <Crown size={18} className="text-amber-500" /> {t("mlPremium.title")}
           </p>

@@ -197,6 +197,70 @@ export interface ResultSection {
   awaiting_grading: boolean;
   feedback: string | null;
   review?: ReviewItem[];
+  section_id?: string | null;
+  /** where the score comes from (2026-11-28): the Lesen / Hören table, the AI or a Super Admin */
+  score_source?: "AUTO" | "AI" | "MANUAL" | null;
+  /** AI grading of Schreiben / Sprechen */
+  ai_status?: "PENDING" | "RUNNING" | "DONE" | "FAILED" | "NEEDS_ADMIN" | null;
+  ai_raw?: number | null;
+  ai_raw_max?: number | null;
+  evaluation?: AiEvaluationView | null;
+}
+
+/** One AI-graded Teil (Schreiben: score 0–max in 0.5 steps; Sprechen: six criteria 0–5). */
+export interface AiTeil {
+  teil: string;
+  title: string;
+  score: number;
+  max: number;
+  explanation?: string;
+  criteria?: { key?: string; name: string; score?: number | null; max?: number; status?: string; comment: string }[];
+  strengths?: string[];
+  mistakes?: { original: string; correction: string; explanation?: string }[];
+  recommendations?: string[];
+  transcript?: string;
+  answered?: boolean;
+}
+
+/** What the student / teacher see of the AI result (never the prompt or the model). */
+export interface AiEvaluationView {
+  raw: number;
+  raw_max: number;
+  converted: number | null;
+  conversion_missing?: boolean;
+  teile: AiTeil[];
+  summary?: string;
+  strengths?: string[];
+  mistakes?: string[];
+  recommendations?: string[];
+  limitations?: string[];
+  evaluated_at?: string;
+}
+
+export interface ScoreHistoryEntry {
+  id: string;
+  source: "AI" | "MANUAL_OVERRIDE";
+  status: "SUCCEEDED" | "FAILED";
+  score: number | null;
+  created_at: string;
+  actor: string | null;
+  model: string | null;
+  error: string | null;
+  old_score: number | null;
+  new_score: number | null;
+  reason: string | null;
+  raw: number | null;
+  raw_max: number | null;
+  cleared: boolean;
+}
+
+export interface AdminResultSection extends ResultSection {
+  auto_score?: number | null;
+  override_score?: number | null;
+  ai_runs?: number;
+  history?: ScoreHistoryEntry[];
+  evaluation_full?: AiEvaluationView | null;
+  conversion_missing?: boolean;
 }
 
 export interface ExamResult extends Omit<AttemptSummary, "sections"> {
@@ -206,7 +270,8 @@ export interface ExamResult extends Omit<AttemptSummary, "sections"> {
   sections: ResultSection[];
 }
 
-export interface AdminAttemptDetail extends ExamResult {
+export interface AdminAttemptDetail extends Omit<ExamResult, "sections"> {
+  sections: AdminResultSection[];
   username: string | null;
   email: string | null;
   writings: { teil: string; task_text: string; word_limit: number | null; rubric: string | null; answer_text: string; word_count: number }[];
@@ -229,13 +294,28 @@ export interface ExamStatistics {
   tests: { model_test_id: string; title: string; attempts: number; average_total: number | null }[];
 }
 
+export interface ScoringBands { B1: number; B2: number; C1: number }
+
 export interface ScoringSettings {
   score_50: "UNGEKLAERT" | "B1" | "B2";
   overall_rule: "UNCONFIRMED" | "AVERAGE" | "LOWEST";
+  /** level bands (lower bounds), owner's default B1 38 · B2 51 · C1 65 */
+  bands: ScoringBands;
+  /** 36 scores for 0–35 correct (Hören 30 is put on this 35 scale first) */
+  lesen_table: number[];
+  /** official Schreiben 36 → 75 rows [from, to, score]; raw scores outside every row wait for the Super Admin */
+  schreiben_table: [number, number, number][];
+  schreiben_missing?: [number, number][];
+  defaults?: { bands: ScoringBands; lesen_table: number[]; schreiben_table: [number, number, number][] };
+  schreiben_teil_max?: Record<string, number>;
+  sprechen_criteria?: string[];
+  sprechen_criterion_max?: number;
   score_50_choices?: string[];
   overall_rules?: string[];
   results_changed?: number;
 }
+
+export type ScoringSettingsUpdate = Partial<Pick<ScoringSettings, "overall_rule" | "bands" | "lesen_table" | "schreiben_table">>;
 
 export interface ExamPreview {
   model_test_id: string;

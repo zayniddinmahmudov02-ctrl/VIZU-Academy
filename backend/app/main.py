@@ -233,12 +233,15 @@ from app.api.health import (
 async def _lifespan(_app):
     # AI subtitle jobs of Medienwelt films and the song metadata queue continue after a restart (never blocks the start)
     from app.services.medien import song_processing, subtitle_jobs
+    from app.services.mock_exam import multilevel_ai
     from app.services.teacher_market import scheduler as special_lesson_scheduler
 
     subtitle_jobs.on_startup()
     song_processing.on_startup()
     # free special lessons: close rooms at their 90-minute limit, open-window / reminder notifications
     special_lesson_scheduler.on_startup()
+    # Multilevel Modelltest: AI grading of Schreiben / Sprechen (one worker over all processes, advisory lock)
+    multilevel_ai.on_startup()
     yield
 
 

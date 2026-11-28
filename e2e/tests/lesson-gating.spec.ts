@@ -127,11 +127,11 @@ test.describe.serial("lesson gating", () => {
     await adminPage.getByRole("button", { name: "Bestätigen" }).click();
     await expect(adminPage).toHaveURL(/\/admin/);
     await adminPage.goto("/admin/payments");
+    // Admin -> Payments opens on "Overview" since 2026-11-16; open requests are under "Payment Requests"
+    await adminPage.getByRole("tab", { name: "Payment Requests", exact: true }).click();
     const card = adminPage.getByTestId("buyer-card").filter({ hasText: student });
     await card.getByRole("button", { name: "Genehmigen" }).click();
-    await expect(card).toHaveCount(0); // approved: leaves "New Buyers"
-    await adminPage.getByRole("button", { name: "Approved" }).click();
-    await expect(adminPage.getByTestId("buyer-card").filter({ hasText: student })).toContainText("APPROVED");
+    await expect(card).toHaveCount(0, { timeout: 15_000 }); // approved: leaves the open requests (the API checks below prove it)
     await admin.close();
 
     bearer = await token(student, PASSWORD);

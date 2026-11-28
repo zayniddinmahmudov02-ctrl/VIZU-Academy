@@ -73,6 +73,10 @@ class StudyGroup(BaseModel):
     chat_mode: Mapped[str] = mapped_column(String(15), nullable=False, default=CHAT_OPEN, server_default=CHAT_OPEN)
     last_activity_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     created_by: Mapped[UUID | None] = mapped_column(PGUUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
+    # Multilevel group (2026-11-28, migration b6e3d9a2c5f8): the Vorbereitung level whose Modelltests this group works with. Active student
+    # members may take them without the Multilevel Premium (owner decision); set by a SUPER_ADMIN only (services/study_groups/multilevel.py).
+    mock_exam_level_id: Mapped[UUID | None] = mapped_column(PGUUID(as_uuid=True), ForeignKey("mock_exam_levels.id", ondelete="SET NULL"),
+                                                            nullable=True, index=True)
 
     teacher = relationship("User", foreign_keys=[teacher_id], lazy="joined")
 

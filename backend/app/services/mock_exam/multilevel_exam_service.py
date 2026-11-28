@@ -8,11 +8,17 @@ passes → closing a section grades it on the server (Lesen / Hören: from the s
 sends points). Schreiben / Sprechen get their 0–75 score from a teacher. Results and keys are shown only after all four
 sections are closed.
 
-Scoring (fixed by the owner): every section 0–75 (Lesen / Hören: correct / questions × 75, rounded half up), total
-0–300. Section level: 0–38 NICHT_BESTANDEN, 39–49 B1, 50 = admin setting `score_50` (default UNGEKLAERT), 51–64 B2,
-65–75 C1. Overall level: admin setting `overall_rule` — UNCONFIRMED (default: no official rule known, result
-UNGEKLAERT), AVERAGE (average of the four scores, same bands) or LOWEST (lowest section level). Settings live in
-app_settings["multilevel_scoring"]; changing them recomputes the stored results (audit log)."""
+Scoring (owner, 2026-11-28 — tables in multilevel_scoring.py): every section 0–75, total 0–300.
+* Lesen / Hören: correct answers on the 35-question scale (Hören 30 → × 35 / 30, rounded half up) → the Lesen table (bands C1 28–35 → 65–75,
+  B2 18–27 → 51–64, B1 10–17 → 38–50, below 0–9 → 0–37; admin-configurable).
+* Schreiben / Sprechen: graded by the AI after the section is closed (multilevel_ai.py: Schreiben Teil 1.1 / 1.2 / 2 = 5 + 7 + 24 → the official
+  36 → 75 table; Sprechen six criteria per Teil, linear to 75). A raw score the Schreiben table does not cover waits for the Super Admin.
+* The Super Admin may override any of the four section scores (reason required; old / new / reason / admin / time kept in ai_evaluations,
+  kind ML_SECTION). An override wins and survives an AI re-run; it can be cleared again.
+* Section level: admin-configurable bands (default below B1 0–37, B1 38–50, B2 51–64, C1 65–75). Overall level: admin setting `overall_rule` —
+  UNCONFIRMED (default, result UNGEKLAERT), AVERAGE or LOWEST; teachers also see the estimated level (average in the bands).
+Settings live in app_settings["multilevel_scoring"]; changing them recomputes the stored results (audit log). `score_50` is no longer used
+(the bands decide 50)."""
 
 import json
 import re
@@ -29,7 +35,18 @@ from app.core.storage.protected_local import ProtectedMockExamSpeakingStorage
 from app.models.app_setting import AppSetting
 from app.models.kompetenz import Kompetenz
 from app.models.listening_content import ListeningContent
-from app.models.mock_attempt_section import SECTION_EXPIRED, SECTION_OPEN, SECTION_SUBMITTED, MockAttemptSection
+from app.models.mock_attempt_section import (
+    AI_DONE,
+    AI_NEEDS_ADMIN,
+    AI_PENDING,
+    SECTION_EXPIRED,
+    SECTION_OPEN,
+    SECTION_SUBMITTED,
+    SOURCE_AI,
+    SOURCE_AUTO,
+    SOURCE_MANUAL,
+    MockAttemptSection,
+)
 from app.models.mock_exam_level import MockExamLevel
 from app.models.mock_question import TYPE_MULTIPLE_CHOICE, MockQuestion
 from app.models.mock_question_answer import MockQuestionAnswer
@@ -42,6 +59,7 @@ from app.models.speaking_task import SpeakingTask
 from app.models.teil import Teil
 from app.models.user import User
 from app.models.writing_task import WritingTask
+from app.services.mock_exam import multilevel_scoring as scoring
 from app.services.mock_exam.multilevel_service import LEVEL_TITLE
 from app.services.vizu_pay.access import can_access_model_test
 
@@ -61,7 +79,9 @@ NICHT_BESTANDEN, UNGEKLAERT, PENDING = "NICHT_BESTANDEN", "UNGEKLAERT", "PENDING
 SCORE_50_CHOICES = (UNGEKLAERT, "B1", "B2")
 OVERALL_RULES = ("UNCONFIRMED", "AVERAGE", "LOWEST")
 SETTINGS_KEY = "multilevel_scoring"
-DEFAULT_SETTINGS = {"score_50": UNGEKLAERT, "overall_rule": "UNCONFIRMED"}
+DEFAULT_SETTINGS = {"score_50": UNGEKLAERT, "overall_rule": "UNCONFIRMED", "bands": dict(scoring.DEFAULT_BANDS),
+                    "lesen_table": scoring.default_lesen_table(), "schreiben_table": [list(r) for r in scoring.DEFAULT_SCHREIBEN_TABLE]}
+ML_SECTION_KIND = "ML_SECTION"  # ai_evaluations.kind of a Multilevel attempt section (AI runs + Super Admin overrides)
 RANK = {NICHT_BESTANDEN: 0, "B1": 1, UNGEKLAERT: 1.5, "B2": 2, "C1": 3}
 
 AUDIO_MAX_BYTES = 25 * 1024 * 1024
@@ -86,39 +106,38 @@ def _err(code: int, detail: str) -> HTTPException:
 
 
 def get_settings(db: Session) -> dict:
+    """The stored settings over the defaults; a stored table / band set that no longer validates falls back to the default."""
     row = db.scalar(select(AppSetting).where(AppSetting.key == SETTINGS_KEY))
-    value = dict(DEFAULT_SETTINGS)
+    value = {k: (v.copy() if isinstance(v, (dict, list)) else v) for k, v in DEFAULT_SETTINGS.items()}
     if row is not None:
         value.update({k: v for k, v in (row.value or {}).items() if k in DEFAULT_SETTINGS})
     if value["score_50"] not in SCORE_50_CHOICES:
         value["score_50"] = UNGEKLAERT
     if value["overall_rule"] not in OVERALL_RULES:
         value["overall_rule"] = "UNCONFIRMED"
+    for key, check in (("bands", scoring.validate_bands), ("lesen_table", scoring.validate_lesen_table),
+                       ("schreiben_table", scoring.validate_schreiben_table)):
+        try:
+            value[key] = check(value[key])
+        except ValueError:
+            value[key] = check(DEFAULT_SETTINGS[key])
     return value
 
 
 def scale(raw: int, raw_max: int) -> int | None:
-    """Raw points → 0–75, rounded half up; never above 75."""
+    """Legacy linear rule (correct / questions × 75) — no longer used for grading (the Lesen table is, see multilevel_scoring); kept for the
+    old regrade script and its tests."""
     if raw_max <= 0:
         return None
     raw = max(0, min(raw, raw_max))
     return min(SECTION_MAX, (raw * SECTION_MAX * 2 + raw_max) // (2 * raw_max))
 
 
-def section_level(score: int | None, score_50: str = UNGEKLAERT) -> str | None:
-    if score is None:
-        return None
-    if not 0 <= score <= SECTION_MAX:
-        raise ValueError("score must be 0–75")
-    if score <= 38:
-        return NICHT_BESTANDEN
-    if score <= 49:
-        return "B1"
-    if score == 50:
-        return score_50 if score_50 in SCORE_50_CHOICES else UNGEKLAERT
-    if score <= 64:
-        return "B2"
-    return "C1"
+def section_level(score: int | None, settings: dict | str | None = None) -> str | None:
+    """Level of a 0–75 score in the configured bands (default below B1 0–37, B1 38–50, B2 51–64, C1 65–75). A plain string (the old
+    `score_50` argument) means the default bands."""
+    bands = settings["bands"] if isinstance(settings, dict) and "bands" in settings else scoring.DEFAULT_BANDS
+    return scoring.band_level(score, bands)
 
 
 def overall_level(scores: list[int | None], settings: dict, expected: int = len(SECTIONS)) -> str:
@@ -129,10 +148,18 @@ def overall_level(scores: list[int | None], settings: dict, expected: int = len(
     rule = settings.get("overall_rule", "UNCONFIRMED")
     if rule == "AVERAGE":
         total = sum(scores)
-        return section_level((total * 2 + len(scores)) // (2 * len(scores)), settings["score_50"])
+        return section_level((total * 2 + len(scores)) // (2 * len(scores)), settings)
     if rule == "LOWEST":
-        return min((section_level(s, settings["score_50"]) for s in scores), key=lambda lv: RANK[lv])
+        return min((section_level(s, settings) for s in scores), key=lambda lv: RANK[lv])
     return UNGEKLAERT
+
+
+def estimated_level(scores: list[int | None], settings: dict) -> str | None:
+    """"Taxminiy daraja" for teachers (Multilevel groups, 2026-11-28): the average of the counted section scores in the section bands (the AVERAGE
+    rule), also while the official overall rule is UNCONFIRMED. None until every counted section has a score."""
+    if not scores or any(s is None for s in scores):
+        return None
+    return section_level((sum(scores) * 2 + len(scores)) // (2 * len(scores)), settings)
 
 
 # ============================================================
@@ -581,8 +608,27 @@ def _grade_auto(db: Session, attempt: MockTestAttempt, s: MockAttemptSection, se
         a.points_earned = q.points if a.is_correct else 0
         raw += a.points_earned
     s.raw_points, s.raw_max = raw, raw_max
-    s.score = scale(raw, raw_max)  # None when nothing has a key
-    s.level = section_level(s.score, settings["score_50"])
+    _apply_auto(s, settings)
+
+
+def _apply_auto(s: MockAttemptSection, settings: dict) -> None:
+    """Lesen / Hören: raw → the Lesen table (35 scale; Hören 30 → × 35 / 30). None when nothing has a key. A Super Admin override wins."""
+    s.auto_score = scoring.auto_score(s.raw_points or 0, s.raw_max or 0, settings["lesen_table"])
+    _settle(s, scoring_source(s))
+    s.level = section_level(s.score, settings)
+
+
+def scoring_source(s: MockAttemptSection) -> str:
+    return SOURCE_AUTO if s.section_type in AUTO_SECTIONS else SOURCE_AI
+
+
+def _settle(s: MockAttemptSection, auto_source: str) -> None:
+    """score = the override if a Super Admin set one, else the rule / AI score."""
+    if s.override_score is not None:
+        s.score, s.score_source = s.override_score, SOURCE_MANUAL
+    else:
+        s.score = s.auto_score
+        s.score_source = auto_source if s.auto_score is not None else None
 
 
 def _unscorable(s: MockAttemptSection | None) -> bool:
@@ -634,9 +680,13 @@ def _close_section(db: Session, attempt: MockTestAttempt, s: MockAttemptSection,
     if s.section_type in AUTO_SECTIONS:
         _grade_auto(db, attempt, s, settings)
     elif not _has_work(db, attempt, s):
-        # nothing written / recorded: there is nothing to grade — 0 points, no teacher needed
-        s.raw_points, s.raw_max, s.score = 0, None, 0
-        s.level = section_level(0, settings["score_50"])
+        # nothing written / recorded: there is nothing to grade — 0 points, no AI, no teacher needed
+        s.raw_points, s.raw_max, s.auto_score = 0, None, 0
+        _settle(s, SOURCE_AUTO)
+        s.level = section_level(s.score, settings)
+    else:
+        # Schreiben / Sprechen: the AI grades it in the background (multilevel_ai); until then "baholanmoqda"
+        s.ai_status, s.ai_claimed_at = AI_PENDING, None
     db.flush()
     secs = _sections(db, attempt)
     if all(t in secs and secs[t].status != SECTION_OPEN for t in SECTIONS) and attempt.status == STATUS_IN_PROGRESS:
@@ -651,8 +701,7 @@ def _recompute(db: Session, attempt: MockTestAttempt, settings: dict, secs: dict
     if attempt.status == STATUS_IN_PROGRESS:
         return
     for s in secs.values():
-        if s.score is not None:
-            s.level = section_level(s.score, settings["score_50"])
+        s.level = section_level(s.score, settings) if s.score is not None else None
     # a section that cannot be scored (no answer key at all) is left out: the total and the overall level use the others
     counted = [t for t in SECTIONS if not _unscorable(secs.get(t))]
     scores = [secs[t].score if t in secs else None for t in counted]
@@ -707,11 +756,16 @@ def _result_detail(db: Session, attempt: MockTestAttempt, include_review: bool) 
     sections = []
     for t in SECTIONS:
         s = secs.get(t)
-        item = {"type": t, "title": komps[t].title if t in komps else t, "score": s.score if s else None, "max": SECTION_MAX,
+        item = {"type": t, "section_id": s.id if s else None, "title": komps[t].title if t in komps else t, "score": s.score if s else None,
+                "max": SECTION_MAX,
                 "level": s.level if s else None, "status": s.status if s else "NOT_STARTED",
                 "raw_points": s.raw_points if s else None, "raw_max": s.raw_max if s else None,
                 "no_key": _unscorable(s),  # Lesen / Hören without any answer key: not scored, not in the total
-                "awaiting_grading": bool(s and t in GRADED_SECTIONS and s.score is None), "feedback": s.feedback if s else None}
+                "awaiting_grading": bool(s and t in GRADED_SECTIONS and s.score is None), "feedback": s.feedback if s else None,
+                # where the score comes from (AUTO table / AI / MANUAL Super Admin) and the AI's state + its explanation (Schreiben / Sprechen)
+                "score_source": s.score_source if s else None, "ai_status": s.ai_status if s else None,
+                "ai_raw": s.ai_raw if s else None, "ai_raw_max": s.ai_raw_max if s else None,
+                "evaluation": public_evaluation(_latest_ai(db, s.id)) if s and t in GRADED_SECTIONS else None}
         if include_review and s and t in AUTO_SECTIONS and t in komps:
             answers = {a.question_id: a for a in db.scalars(select(MockQuestionAnswer).where(MockQuestionAnswer.attempt_id == attempt.id))}
             item["review"] = [{"question_id": q.id, "question_text": q.question_text,
@@ -779,30 +833,163 @@ def admin_attempt_detail(db: Session, attempt_id: UUID) -> dict:
                                                    "task_text": task.task_text if task else "", "submitted_at": r.submitted_at})
     detail["writings"] = sorted(tasks.get("writings", []), key=lambda x: x["teil"])
     detail["recordings"] = sorted(tasks.get("recordings", []), key=lambda x: x["teil"])
+    # the scoring trail per section for the Super Admin: rule / AI score, override, every AI run and every override (old → new, reason, who, when)
+    settings = get_settings(db)
+    secs = _sections(db, attempt)
+    for item in detail["sections"]:
+        s = secs.get(item["type"])
+        item["auto_score"] = s.auto_score if s else None
+        item["override_score"] = s.override_score if s else None
+        item["ai_runs"] = s.ai_runs if s else 0
+        item["history"] = _history(db, s.id) if s else []
+        item["evaluation_full"] = (_latest_ai(db, s.id) or {}).get("result") if s and item["type"] in GRADED_SECTIONS else None
+        item["conversion_missing"] = bool(s and item["type"] == "SCHREIBEN" and s.ai_raw is not None
+                                          and scoring.schreiben_score(s.ai_raw, settings["schreiben_table"]) is None)
     return detail
 
 
-def grade_section(db: Session, grader: User, attempt_id: UUID, section_type: str, score: int, feedback: str | None) -> dict:
-    if section_type not in GRADED_SECTIONS:
-        raise _err(422, "SECTION_AUTO_GRADED")
-    if not 0 <= score <= SECTION_MAX:
-        raise _err(422, "SCORE_OUT_OF_RANGE")
+# ============================================================
+# AI evaluations + Super Admin overrides (rows in ai_evaluations, kind ML_SECTION)
+# ============================================================
+
+
+def _latest_ai(db: Session, section_id: UUID) -> dict | None:
+    from app.models.lesson_skill import EVAL_SOURCE_AI, EVAL_SUCCEEDED, AiEvaluation
+
+    row = db.scalar(select(AiEvaluation).where(AiEvaluation.kind == ML_SECTION_KIND, AiEvaluation.submission_id == section_id,
+                                               AiEvaluation.source == EVAL_SOURCE_AI, AiEvaluation.status == EVAL_SUCCEEDED)
+                    .order_by(AiEvaluation.created_at.desc()).limit(1))
+    return {"result": row.result, "score": row.score, "model": row.model, "created_at": row.created_at} if row else None
+
+
+def public_evaluation(latest: dict | None) -> dict | None:
+    """What the student and the teacher see of the AI result: per Teil score + explanation, criteria, strengths / mistakes / recommendations,
+    the transcript of a recording. Never the prompt, the model's raw answer or anything about other students."""
+    if not latest or not isinstance(latest.get("result"), dict):
+        return None
+    r = latest["result"]
+    keep = ("raw", "raw_max", "converted", "teile", "summary", "strengths", "mistakes", "recommendations", "limitations", "conversion_missing")
+    return {k: r.get(k) for k in keep} | {"evaluated_at": latest.get("created_at")}
+
+
+def _history(db: Session, section_id: UUID) -> list[dict]:
+    from app.models.lesson_skill import AiEvaluation
+
+    rows = db.execute(select(AiEvaluation, User.username).outerjoin(User, AiEvaluation.actor_id == User.id)
+                      .where(AiEvaluation.kind == ML_SECTION_KIND, AiEvaluation.submission_id == section_id)
+                      .order_by(AiEvaluation.created_at.desc())).all()
+    out = []
+    for ev, actor in rows:
+        r = ev.result if isinstance(ev.result, dict) else {}
+        out.append({"id": ev.id, "source": ev.source, "status": ev.status, "score": ev.score, "created_at": ev.created_at, "actor": actor,
+                    "model": ev.model, "error": ev.error, "old_score": r.get("old_score"), "new_score": r.get("new_score"),
+                    "reason": r.get("reason"), "raw": r.get("raw"), "raw_max": r.get("raw_max"), "cleared": bool(r.get("cleared"))})
+    return out
+
+
+def _locked_section(db: Session, attempt_id: UUID, section_type: str) -> tuple[MockTestAttempt, MockAttemptSection]:
     attempt = db.scalar(select(MockTestAttempt).where(MockTestAttempt.id == attempt_id).with_for_update())
-    if attempt is None:
+    test = db.get(ModelTest, attempt.model_test_id) if attempt else None
+    if attempt is None or test is None or test.level_id not in _multilevel_level_ids(db):
         raise _err(404, "ATTEMPT_NOT_FOUND")
     _expire_overdue(db, attempt)
     s = _sections(db, attempt).get(section_type)
     if s is None or s.status == SECTION_OPEN:
         db.commit()
         raise _err(409, "SECTION_NOT_CLOSED")
+    return attempt, s
+
+
+def override_section(db: Session, admin: User, attempt_id: UUID, section_type: str, score: int | None, reason: str,
+                     feedback: str | None = None) -> dict:
+    """Super Admin sets (or with score None clears) the score of any of the four sections. Old / new score, reason, admin and time go to
+    ai_evaluations (MANUAL_OVERRIDE) + the audit log; the rule / AI score stays in auto_score and counts again once the override is cleared."""
+    from app.models.lesson_skill import EVAL_SOURCE_OVERRIDE, EVAL_SUCCEEDED, AiEvaluation
+
+    if section_type not in SECTIONS:
+        raise _err(422, "UNKNOWN_SECTION")
+    if score is not None and not 0 <= score <= SECTION_MAX:
+        raise _err(422, "SCORE_OUT_OF_RANGE")
+    reason = (reason or "").strip()
+    if len(reason) < 3:
+        raise _err(422, "REASON_REQUIRED")
+    attempt, s = _locked_section(db, attempt_id, section_type)
     settings = get_settings(db)
-    s.score, s.feedback, s.graded_by, s.graded_at = score, (feedback or None), grader.id, _now()
-    s.level = section_level(score, settings["score_50"])
+    old = s.score
+    s.override_score = score
+    if score is not None:
+        s.graded_by, s.graded_at = admin.id, _now()
+    _settle(s, scoring_source(s))
+    if feedback is not None:
+        s.feedback = feedback.strip() or None
+    s.level = section_level(s.score, settings) if s.score is not None else None
+    db.add(AiEvaluation(kind=ML_SECTION_KIND, submission_id=s.id, user_id=attempt.user_id, source=EVAL_SOURCE_OVERRIDE, status=EVAL_SUCCEEDED,
+                        score=score, actor_id=admin.id,
+                        result={"old_score": old, "new_score": s.score, "reason": reason[:1000], "auto_score": s.auto_score, "cleared": score is None,
+                                "section_type": section_type, "attempt_id": str(attempt.id)}))
     _recompute(db, attempt, settings)
     db.commit()
-    write_audit(db, actor_id=str(grader.id), action="multilevel_section_graded", target_user_id=str(attempt.user_id),
-                details=f"attempt={attempt.id}; section={section_type}; score={score}")
+    write_audit(db, actor_id=str(admin.id), action="multilevel_section_override", target_user_id=str(attempt.user_id),
+                details=f"attempt={attempt.id}; section={section_type}; old={old}; new={s.score}; cleared={score is None}")
     return admin_attempt_detail(db, attempt.id)
+
+
+def grade_section(db: Session, grader: User, attempt_id: UUID, section_type: str, score: int, feedback: str | None, reason: str | None = None) -> dict:
+    """Old name of the Super Admin override (kept for the existing endpoint / callers)."""
+    return override_section(db, grader, attempt_id, section_type, score, reason or "Bewertung durch den Super Admin", feedback)
+
+
+def request_reevaluation(db: Session, admin: User, attempt_id: UUID, section_type: str) -> dict:
+    """Super Admin: run the AI again for a closed Schreiben / Sprechen section. A manual override is never touched by the new result."""
+    if section_type not in GRADED_SECTIONS:
+        raise _err(422, "SECTION_AUTO_GRADED")
+    attempt, s = _locked_section(db, attempt_id, section_type)
+    if not _has_work(db, attempt, s):
+        db.commit()
+        raise _err(409, "NOTHING_TO_EVALUATE")
+    s.ai_status, s.ai_claimed_at = AI_PENDING, None
+    db.commit()
+    write_audit(db, actor_id=str(admin.id), action="multilevel_ai_reevaluate", target_user_id=str(attempt.user_id),
+                details=f"attempt={attempt.id}; section={section_type}")
+    return admin_attempt_detail(db, attempt.id)
+
+
+def apply_ai_result(db: Session, s: MockAttemptSection, raw: float, raw_max: float, settings: dict) -> None:
+    """Store the AI's raw score on the section and settle the score (the caller holds the attempt lock and commits)."""
+    s.ai_raw, s.ai_raw_max = raw, raw_max
+    if s.section_type == "SCHREIBEN":
+        s.auto_score = scoring.schreiben_score(raw, settings["schreiben_table"])
+    else:
+        s.auto_score = scoring.sprechen_score(raw, raw_max)
+    s.ai_status = AI_DONE if s.auto_score is not None else AI_NEEDS_ADMIN
+    _settle(s, SOURCE_AI)
+    s.level = section_level(s.score, settings) if s.score is not None else None
+
+
+def rescore_attempt(db: Session, attempt: MockTestAttempt, settings: dict) -> bool:
+    """Recompute one finished attempt under the current tables (overrides stay). Older rows without a scoring trail: a Schreiben / Sprechen
+    score given by a teacher / admin becomes a manual score, one that was never graded is queued for the AI. True when anything changed."""
+    secs = _sections(db, attempt)
+    before = (attempt.total_score, attempt.result_level, tuple((t, secs[t].score, secs[t].level) for t in sorted(secs)))
+    for s in secs.values():
+        if s.status == SECTION_OPEN:
+            continue
+        if s.section_type in AUTO_SECTIONS:
+            if s.raw_max:
+                _apply_auto(s, settings)
+            continue
+        if s.score_source is None and s.override_score is None:
+            if s.score is not None and s.graded_by is not None:
+                s.override_score, s.score_source = s.score, SOURCE_MANUAL  # graded by a person before the AI existed
+            elif s.score is not None and s.raw_points == 0 and s.raw_max is None:
+                s.auto_score, s.score_source = s.score, SOURCE_AUTO  # nothing written / recorded
+            elif s.score is None and s.ai_status is None and _has_work(db, attempt, s):
+                s.ai_status = AI_PENDING
+        if s.section_type == "SCHREIBEN" and s.ai_raw is not None and s.ai_status in (AI_DONE, AI_NEEDS_ADMIN):
+            apply_ai_result(db, s, s.ai_raw, s.ai_raw_max or scoring.SCHREIBEN_RAW_MAX, settings)  # the table may have changed
+    _recompute(db, attempt, settings, secs)
+    after = (attempt.total_score, attempt.result_level, tuple((t, secs[t].score, secs[t].level) for t in sorted(secs)))
+    return before != after
 
 
 def statistics(db: Session) -> dict:
@@ -834,11 +1021,30 @@ def statistics(db: Session) -> dict:
                             key=lambda x: x["title"])}
 
 
-def update_settings(db: Session, actor: User, score_50: str, overall_rule: str) -> dict:
-    if score_50 not in SCORE_50_CHOICES or overall_rule not in OVERALL_RULES:
-        raise _err(422, "INVALID_SETTING")
+def update_settings(db: Session, actor: User, score_50: str | None = None, overall_rule: str | None = None, *, bands: dict | None = None,
+                    lesen_table: list | None = None, schreiben_table: list | None = None) -> dict:
+    """Super Admin: overall rule, level bands, Lesen / Hören table, Schreiben table (each optional — what is not sent stays). Every finished
+    attempt is recomputed under the new settings (overrides stay); audited with what changed."""
+    current = get_settings(db)
+    value = {k: current[k] for k in DEFAULT_SETTINGS}
+    try:
+        if score_50 is not None:
+            if score_50 not in SCORE_50_CHOICES:
+                raise ValueError("score_50")
+            value["score_50"] = score_50
+        if overall_rule is not None:
+            if overall_rule not in OVERALL_RULES:
+                raise ValueError("overall_rule")
+            value["overall_rule"] = overall_rule
+        if bands is not None:
+            value["bands"] = scoring.validate_bands(bands)
+        if lesen_table is not None:
+            value["lesen_table"] = scoring.validate_lesen_table(lesen_table)
+        if schreiben_table is not None:
+            value["schreiben_table"] = scoring.validate_schreiben_table(schreiben_table)
+    except ValueError as exc:
+        raise _err(422, f"INVALID_SETTING: {exc}") from None
     row = db.scalar(select(AppSetting).where(AppSetting.key == SETTINGS_KEY).with_for_update())
-    value = {"score_50": score_50, "overall_rule": overall_rule}
     if row is None:
         db.add(AppSetting(key=SETTINGS_KEY, value=value, updated_by=actor.id))
     else:
@@ -850,10 +1056,18 @@ def update_settings(db: Session, actor: User, score_50: str, overall_rule: str) 
     if ids:
         for a in db.scalars(select(MockTestAttempt).join(ModelTest, MockTestAttempt.model_test_id == ModelTest.id)
                             .where(ModelTest.level_id.in_(ids), MockTestAttempt.status != STATUS_IN_PROGRESS).with_for_update(of=MockTestAttempt)):
-            before = a.result_level
-            _recompute(db, a, settings)
-            changed += int(before != a.result_level)
+            changed += int(rescore_attempt(db, a, settings))
     db.commit()
+    what = [k for k in DEFAULT_SETTINGS if value[k] != current[k]]
     write_audit(db, actor_id=str(actor.id), action="multilevel_scoring_settings",
-                details=f"score_50={score_50}; overall_rule={overall_rule}; results_changed={changed}")
-    return settings | {"results_changed": changed}
+                details=f"changed={','.join(what) or 'nothing'}; overall_rule={settings['overall_rule']}; bands={settings['bands']}; results_changed={changed}")
+    return settings_view(settings) | {"results_changed": changed}
+
+
+def settings_view(settings: dict) -> dict:
+    """Settings + what the admin needs to read them: the Schreiben raw ranges the table does not convert, the owner's defaults."""
+    return settings | {"schreiben_missing": scoring.missing_schreiben_ranges(settings["schreiben_table"]),
+                       "defaults": {"bands": scoring.DEFAULT_BANDS, "lesen_table": scoring.default_lesen_table(),
+                                    "schreiben_table": scoring.DEFAULT_SCHREIBEN_TABLE},
+                       "schreiben_teil_max": scoring.SCHREIBEN_TEIL_MAX, "sprechen_criteria": [n for _, n in scoring.SPRECHEN_CRITERIA],
+                       "sprechen_criterion_max": scoring.SPRECHEN_CRITERION_MAX}

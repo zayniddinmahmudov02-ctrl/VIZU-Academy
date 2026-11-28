@@ -11,14 +11,15 @@ import { cn } from "@/lib/utils";
 import { getGroup, getMembers, getMyProgress, leaveGroup } from "../groups-service";
 import Announcements from "./announcements";
 import GroupChat from "./group-chat";
+import { StudentMultilevelTab } from "./multilevel-results";
 import ProgressDetail from "./progress-detail";
 import { card, ErrorBox, fmtDate, LevelPill, Loading, Tabs, TaskBadge } from "./ui";
 import VideoLessonsTab, { LiveBanner } from "@/features/video-rooms/components/video-lessons-tab";
 
-type Tab = "overview" | "video" | "chat" | "announcements" | "tasks" | "progress" | "members";
-const TABS: Tab[] = ["overview", "video", "chat", "announcements", "tasks", "progress", "members"];
-const LABEL: Record<Tab, string> = { overview: "groups.tabOverview", video: "videoRoom.tabStudent", chat: "groups.tabChat", announcements: "groups.tabAnnouncements",
-  tasks: "groups.tabTasks", progress: "groups.tabProgress", members: "groups.tabMembers" };
+type Tab = "overview" | "multilevel" | "video" | "chat" | "announcements" | "tasks" | "progress" | "members";
+const TABS: Tab[] = ["overview", "multilevel", "video", "chat", "announcements", "tasks", "progress", "members"];
+const LABEL: Record<Tab, string> = { overview: "groups.tabOverview", multilevel: "groups.tabMultilevel", video: "videoRoom.tabStudent", chat: "groups.tabChat",
+  announcements: "groups.tabAnnouncements", tasks: "groups.tabTasks", progress: "groups.tabProgress", members: "groups.tabMembers" };
 
 /** A student's view of one group. Everything is loaded through
  *  membership-checked endpoints; a non-member gets "not found". */
@@ -28,8 +29,11 @@ export default function StudentGroupView({ groupId }: { groupId: string }) {
   const qc = useQueryClient();
   const params = useSearchParams();
   const initial = params.get("tab") as Tab | null;
-  const [tab, setTab] = useState<Tab>(initial && TABS.includes(initial) ? initial : "overview");
+  const [picked, setTab] = useState<Tab | null>(initial && TABS.includes(initial) ? initial : null);
   const group = useQuery({ queryKey: ["groups", groupId], queryFn: () => getGroup(groupId), retry: false });
+  // a Multilevel group opens on its Modelltests; course groups have no such tab
+  const tabs = TABS.filter((id) => id !== "multilevel" || !!group.data?.multilevel);
+  const tab: Tab = picked && tabs.includes(picked) ? picked : group.data?.multilevel ? "multilevel" : "overview";
   const progress = useQuery({ queryKey: ["groups", groupId, "me"], queryFn: () => getMyProgress(groupId), enabled: group.isSuccess && (tab === "tasks" || tab === "progress" || tab === "overview") });
   const members = useQuery({ queryKey: ["groups", groupId, "members"], queryFn: () => getMembers(groupId), enabled: group.isSuccess && tab === "members" });
 
@@ -58,15 +62,25 @@ export default function StudentGroupView({ groupId }: { groupId: string }) {
 
       {tab !== "video" && <LiveBanner groupId={groupId} />}
 
-      <Tabs tabs={TABS.map((id) => ({ id, label: t(LABEL[id]), badge: id === "chat" ? g.viewer.unread : undefined }))} active={tab} onChange={setTab} />
+      <Tabs tabs={tabs.map((id) => ({ id, label: t(LABEL[id]), badge: id === "chat" ? g.viewer.unread : undefined }))} active={tab} onChange={setTab} />
+
+      {tab === "multilevel" && <StudentMultilevelTab groupId={groupId} />}
 
       {tab === "overview" && (
         <div className="grid gap-4 md:grid-cols-2">
-          <div className={cn(card, "space-y-1 p-5 text-sm")}>
-            <p className="font-bold text-text-primary">{t("groups.courses")}</p>
-            {g.courses.length ? g.courses.map((c) => <p key={c.id} className="text-text-secondary">{c.title} ({c.level})</p>) : <p className="text-text-muted">{t("groups.noCourses")}</p>}
-            <Link href="/kurse" className="inline-block pt-2 text-sm font-semibold text-accent-blue">{t("sidebar.courses")} →</Link>
-          </div>
+          {g.multilevel ? (
+            <div className={cn(card, "space-y-1 p-5 text-sm")}>
+              <p className="font-bold text-text-primary">{t("groups.ml_link")}</p>
+              <p className="text-text-secondary">{g.multilevel.title}</p>
+              <Link href="/vorbereitung/multilevel" className="inline-block pt-2 text-sm font-semibold text-accent-blue">{t("groups.ml_start")} →</Link>
+            </div>
+          ) : (
+            <div className={cn(card, "space-y-1 p-5 text-sm")}>
+              <p className="font-bold text-text-primary">{t("groups.courses")}</p>
+              {g.courses.length ? g.courses.map((c) => <p key={c.id} className="text-text-secondary">{c.title} ({c.level})</p>) : <p className="text-text-muted">{t("groups.noCourses")}</p>}
+              <Link href="/kurse" className="inline-block pt-2 text-sm font-semibold text-accent-blue">{t("sidebar.courses")} →</Link>
+            </div>
+          )}
           <div className={cn(card, "space-y-2 p-5")}>
             <p className="text-sm font-bold text-text-primary">{t("groups.tabTasks")}</p>
             {progress.data?.tasks.filter((x) => !["completed", "completed_late"].includes(x.status)).slice(0, 5).map((x) => (
